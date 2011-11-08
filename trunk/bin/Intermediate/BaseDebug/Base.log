@@ -1,0 +1,25 @@
+﻿Compilación iniciada a las 03/11/2011 21:30:29.
+     1>Proyecto "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\Code\Base\Base.vcxproj" en el nodo 3 (rebuild destinos).
+     1>_PrepareForClean:
+         Se eliminará el archivo "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Intermediate\BaseDebug\Base.lastbuildstate".
+       InitializeBuildStatus:
+         Se creará "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Intermediate\BaseDebug\Base.unsuccessfulbuild" porque se especificó "AlwaysCreate".
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\Code\Base" /I"C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\\Include" /I"C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\Code\3dParty\libxml2-2.7.2.win32\include" /I"C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\Code\3dParty\iconv-1.9.2.win32\include" /ZI /nologo /W3 /WX /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Intermediate\BaseDebug\\" /Fd"C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Intermediate\BaseDebug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Math\MathConstants.cpp XML\XMLTreeNode.cpp
+         XMLTreeNode.cpp
+         MathConstants.cpp
+         Generando código...
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(1151,5): warning MSB8012: TargetPath(C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Base.lib) no coincide con el valor de la propiedad OutputFile de Library (C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\bin\Lib\Base_d.lib). Esto puede hacer que el proyecto no se compile correctamente. Para solucionar este problema, asegúrese de que los valores de propiedad $(OutDir), $(TargetName) y $(TargetExt) coinciden con el valor especificado en %(Lib.OutputFile).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(1153,5): warning MSB8012: TargetName(Base) no coincide con el valor de la propiedad OutputFile de Library (Base_d). Esto puede hacer que el proyecto no se compile correctamente. Para solucionar este problema, asegúrese de que los valores de propiedad $(OutDir), $(TargetName) y $(TargetExt) coinciden con el valor especificado en %(Lib.OutputFile).
+       Lib:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\\Lib\Base_d.lib" /NOLOGO "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Intermediate\BaseDebug\MathConstants.obj"
+         "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Intermediate\BaseDebug\XMLTreeNode.obj"
+         Base.vcxproj -> C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Base.lib
+       FinalizeBuildStatus:
+         Se eliminará el archivo "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Intermediate\BaseDebug\Base.unsuccessfulbuild".
+         Aplicando tarea Touch a "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Intermediate\BaseDebug\Base.lastbuildstate".
+     1>Compilación del proyecto terminada "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\Code\Base\Base.vcxproj" (rebuild destinos).
+
+Compilación correcta.
+
+Tiempo transcurrido 00:00:04.04
