@@ -1,0 +1,19 @@
+﻿Compilación iniciada a las 03/11/2011 19:42:04.
+     1>Proyecto "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\Code\Graphics\Graphics.vcxproj" en el nodo 3 (rebuild destinos).
+     1>InitializeBuildStatus:
+         Se creará "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Intermediate\GraphicsRelease\Graphics.unsuccessfulbuild" porque se especificó "AlwaysCreate".
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _LIB /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Intermediate\GraphicsRelease\\" /Fd"C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Intermediate\GraphicsRelease\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt dummy.cpp
+         dummy.cpp
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(1151,5): warning MSB8012: TargetPath(C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Graphics.lib) no coincide con el valor de la propiedad OutputFile de Library (C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\bin\Lib\Graphics.lib). Esto puede hacer que el proyecto no se compile correctamente. Para solucionar este problema, asegúrese de que los valores de propiedad $(OutDir), $(TargetName) y $(TargetExt) coinciden con el valor especificado en %(Lib.OutputFile).
+       Lib:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\\Lib\Graphics.lib" /NOLOGO /LTCG "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Intermediate\GraphicsRelease\dummy.obj"
+         Graphics.vcxproj -> C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Graphics.lib
+       FinalizeBuildStatus:
+         Se eliminará el archivo "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Intermediate\GraphicsRelease\Graphics.unsuccessfulbuild".
+         Aplicando tarea Touch a "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Intermediate\GraphicsRelease\Graphics.lastbuildstate".
+     1>Compilación del proyecto terminada "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\Code\Graphics\Graphics.vcxproj" (rebuild destinos).
+
+Compilación correcta.
+
+Tiempo transcurrido 00:00:00.34

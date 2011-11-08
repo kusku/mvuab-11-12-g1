@@ -1,0 +1,10 @@
+﻿Compilación iniciada a las 03/11/2011 20:42:37.
+     1>Proyecto "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\Code\Base\Base.vcxproj" en el nodo 2 (ClCompile destinos).
+     1>ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\Code\Base" /I"C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\\Include" /I"C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\Code\3dParty\libxml2-2.7.2.win32\include" /I"C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\Code\3dParty\iconv-1.9.2.win32\include" /Zi /nologo /W3 /WX /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Intermediate\BaseRelease\\" /Fd"C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Intermediate\BaseRelease\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt XML\XMLTreeNode.cpp
+         XMLTreeNode.cpp
+     1>Compilación del proyecto terminada "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\Code\Base\Base.vcxproj" (ClCompile destinos).
+
+Compilación correcta.
+
+Tiempo transcurrido 00:00:00.68
