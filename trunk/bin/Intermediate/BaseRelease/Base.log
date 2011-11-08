@@ -1,10 +1,21 @@
-﻿Compilación iniciada a las 03/11/2011 20:42:37.
-     1>Proyecto "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\Code\Base\Base.vcxproj" en el nodo 2 (ClCompile destinos).
-     1>ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\Code\Base" /I"C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\\Include" /I"C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\Code\3dParty\libxml2-2.7.2.win32\include" /I"C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\Code\3dParty\iconv-1.9.2.win32\include" /Zi /nologo /W3 /WX /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Intermediate\BaseRelease\\" /Fd"C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Intermediate\BaseRelease\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt XML\XMLTreeNode.cpp
+﻿Compilación iniciada a las 08/11/2011 16:03:51.
+     1>Proyecto "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\Code\Base\Base.vcxproj" en el nodo 3 (build destinos).
+     1>InitializeBuildStatus:
+         Se creará "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Intermediate\BaseRelease\Base.unsuccessfulbuild" porque se especificó "AlwaysCreate".
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\Code\Base" /I"C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\\Include" /I"C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\Code\3dParty\libxml2-2.7.2.win32\include" /I"C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\Code\3dParty\iconv-1.9.2.win32\include" /Zi /nologo /W3 /WX /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Intermediate\BaseRelease\\" /Fd"C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Intermediate\BaseRelease\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Math\MathConstants.cpp XML\XMLTreeNode.cpp
+         MathConstants.cpp
          XMLTreeNode.cpp
-     1>Compilación del proyecto terminada "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\Code\Base\Base.vcxproj" (ClCompile destinos).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(1151,5): warning MSB8012: TargetPath(C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Base.lib) no coincide con el valor de la propiedad OutputFile de Library (C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\bin\Lib\Base.lib). Esto puede hacer que el proyecto no se compile correctamente. Para solucionar este problema, asegúrese de que los valores de propiedad $(OutDir), $(TargetName) y $(TargetExt) coinciden con el valor especificado en %(Lib.OutputFile).
+       Lib:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\\Lib\Base.lib" /NOLOGO /LTCG "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Intermediate\BaseRelease\MathConstants.obj"
+         "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Intermediate\BaseRelease\XMLTreeNode.obj"
+         Base.vcxproj -> C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Base.lib
+       FinalizeBuildStatus:
+         Se eliminará el archivo "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Intermediate\BaseRelease\Base.unsuccessfulbuild".
+         Aplicando tarea Touch a "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Intermediate\BaseRelease\Base.lastbuildstate".
+     1>Compilación del proyecto terminada "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\Code\Base\Base.vcxproj" (build destinos).
 
 Compilación correcta.
 
-Tiempo transcurrido 00:00:00.68
+Tiempo transcurrido 00:00:03.31

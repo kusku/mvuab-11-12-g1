@@ -1,19 +1,19 @@
-﻿Compilación iniciada a las 03/11/2011 19:42:01.
-     1>Proyecto "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\Code\Sound\Sound.vcxproj" en el nodo 2 (rebuild destinos).
+﻿Compilación iniciada a las 08/11/2011 16:03:51.
+     1>Proyecto "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\Code\Sound\Sound.vcxproj" en el nodo 4 (build destinos).
      1>InitializeBuildStatus:
-         Se creará "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Intermediate\SoundRelease\Sound.unsuccessfulbuild" porque se especificó "AlwaysCreate".
+         Se creará "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Intermediate\SoundRelease\Sound.unsuccessfulbuild" porque se especificó "AlwaysCreate".
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _LIB /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Intermediate\SoundRelease\\" /Fd"C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Intermediate\SoundRelease\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt dummy.cpp
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _LIB /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Intermediate\SoundRelease\\" /Fd"C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Intermediate\SoundRelease\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt dummy.cpp
          dummy.cpp
-     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(1151,5): warning MSB8012: TargetPath(C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Sound.lib) no coincide con el valor de la propiedad OutputFile de Library (C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\bin\Lib\Sound.lib). Esto puede hacer que el proyecto no se compile correctamente. Para solucionar este problema, asegúrese de que los valores de propiedad $(OutDir), $(TargetName) y $(TargetExt) coinciden con el valor especificado en %(Lib.OutputFile).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(1151,5): warning MSB8012: TargetPath(C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Sound.lib) no coincide con el valor de la propiedad OutputFile de Library (C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\bin\Lib\Sound.lib). Esto puede hacer que el proyecto no se compile correctamente. Para solucionar este problema, asegúrese de que los valores de propiedad $(OutDir), $(TargetName) y $(TargetExt) coinciden con el valor especificado en %(Lib.OutputFile).
        Lib:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\\Lib\Sound.lib" /NOLOGO /LTCG "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Intermediate\SoundRelease\dummy.obj"
-         Sound.vcxproj -> C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Sound.lib
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\\Lib\Sound.lib" /NOLOGO /LTCG "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Intermediate\SoundRelease\dummy.obj"
+         Sound.vcxproj -> C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Sound.lib
        FinalizeBuildStatus:
-         Se eliminará el archivo "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Intermediate\SoundRelease\Sound.unsuccessfulbuild".
-         Aplicando tarea Touch a "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Intermediate\SoundRelease\Sound.lastbuildstate".
-     1>Compilación del proyecto terminada "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\Code\Sound\Sound.vcxproj" (rebuild destinos).
+         Se eliminará el archivo "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Intermediate\SoundRelease\Sound.unsuccessfulbuild".
+         Aplicando tarea Touch a "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Intermediate\SoundRelease\Sound.lastbuildstate".
+     1>Compilación del proyecto terminada "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\Code\Sound\Sound.vcxproj" (build destinos).
 
 Compilación correcta.
 
-Tiempo transcurrido 00:00:00.31
+Tiempo transcurrido 00:00:01.00
