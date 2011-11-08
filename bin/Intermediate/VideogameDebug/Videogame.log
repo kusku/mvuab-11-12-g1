@@ -1,23 +1,29 @@
-﻿Compilación iniciada a las 07/11/2011 19:01:23.
-     1>Proyecto "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\Code\Videogame\Videogame.vcxproj" en el nodo 2 (build destinos).
+﻿Compilación iniciada a las 08/11/2011 16:04:08.
+     1>Proyecto "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\Code\Videogame\Videogame.vcxproj" en el nodo 5 (build destinos).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(299,5): warning MSB8004: El directorio Output no termina con una barra diagonal final. Esta instancia de compilación agregará la barra diagonal porque es necesaria para que se pueda evaluar correctamente el directorio Output.
      1>InitializeBuildStatus:
-         Se creará "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Intermediate\VideogameDebug\Videogame.unsuccessfulbuild" porque se especificó "AlwaysCreate".
+         Se creará "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Intermediate\VideogameDebug\Videogame.unsuccessfulbuild" porque se especificó "AlwaysCreate".
        ClCompile:
          Todas las salidas están actualizadas.
        ManifestResourceCompile:
-         Todas las salidas están actualizadas.
-     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(990,5): warning MSB8012: TargetPath(C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Videogame\Videogame.exe) no coincide con el valor de la propiedad OutputFile de Linker (C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\bin\Videogame\Videogame_d.exe). Esto puede hacer que el proyecto no se compile correctamente. Para solucionar este problema, asegúrese de que los valores de propiedad $(OutDir), $(TargetName) y $(TargetExt) coinciden con el valor especificado en %(Link.OutputFile).
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Intermediate\VideogameDebug\Videogame.exe.embed.manifest.res" "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Intermediate\VideogameDebug\Videogame_manifest.rc" 
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(990,5): warning MSB8012: TargetPath(C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Videogame\Videogame.exe) no coincide con el valor de la propiedad OutputFile de Linker (C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\bin\Videogame\Videogame_d.exe). Esto puede hacer que el proyecto no se compile correctamente. Para solucionar este problema, asegúrese de que los valores de propiedad $(OutDir), $(TargetName) y $(TargetExt) coinciden con el valor especificado en %(Link.OutputFile).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(992,5): warning MSB8012: TargetName(Videogame) no coincide con el valor de la propiedad OutputFile de Linker (Videogame_d). Esto puede hacer que el proyecto no se compile correctamente. Para solucionar este problema, asegúrese de que los valores de propiedad $(OutDir), $(TargetName) y $(TargetExt) coinciden con el valor especificado en %(Link.OutputFile).
        Link:
-         Todas las salidas están actualizadas.
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Videogame\\Videogame_d.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\Code\3dParty\libxml2-2.7.2.win32\lib" /LIBPATH:"C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\lib" libxml2.lib base_d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Intermediate\VideogameDebug\Videogame.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\bin\Videogame\Videogame_d.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Videogame\Videogame.lib" /MACHINE:X86 "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Intermediate\VideogameDebug\Videogame.exe.embed.manifest.res"
+         "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Intermediate\VideogameDebug\videogame.obj"
        Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Intermediate\VideogameDebug\Videogame.exe.embed.manifest" /manifest "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Intermediate\VideogameDebug\Videogame.exe.intermediate.manifest"
          Todas las salidas están actualizadas.
+       LinkEmbedManifest:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Videogame\\Videogame_d.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\Code\3dParty\libxml2-2.7.2.win32\lib" /LIBPATH:"C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\lib" libxml2.lib base_d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Intermediate\VideogameDebug\Videogame.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\bin\Videogame\Videogame_d.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Videogame\Videogame.lib" /MACHINE:X86 "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Intermediate\VideogameDebug\Videogame.exe.embed.manifest.res"
+         "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Intermediate\VideogameDebug\videogame.obj"
+         Videogame.vcxproj -> C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Videogame\Videogame.exe
        FinalizeBuildStatus:
-         Se eliminará el archivo "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Intermediate\VideogameDebug\Videogame.unsuccessfulbuild".
-         Aplicando tarea Touch a "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\\bin\Intermediate\VideogameDebug\Videogame.lastbuildstate".
-     1>Compilación del proyecto terminada "C:\Users\Marc\documents\visual studio 2010\Projects\EngineUAB\Code\Videogame\Videogame.vcxproj" (build destinos).
+         Se eliminará el archivo "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Intermediate\VideogameDebug\Videogame.unsuccessfulbuild".
+         Aplicando tarea Touch a "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\\bin\Intermediate\VideogameDebug\Videogame.lastbuildstate".
+     1>Compilación del proyecto terminada "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\Code\Videogame\Videogame.vcxproj" (build destinos).
 
 Compilación correcta.
 
-Tiempo transcurrido 00:00:00.08
+Tiempo transcurrido 00:00:01.71
