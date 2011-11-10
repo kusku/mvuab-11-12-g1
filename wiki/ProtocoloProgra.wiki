@@ -4,7 +4,7 @@
 
 == Global ==
 
-Cualquier nombre asignado a una variable, clase, metodo, etc. el inicio de la segunda palabra en adelante tiene que ser mayuscula.
+1. Cualquier nombre asignado a una variable, clase, método, etc. el inicio de la segunda palabra en adelante tiene que ser mayúscula.
 
 *Ejemplo*
 
@@ -20,7 +20,7 @@ class CMiClase
 }
 }}}
 
-== Nombres de Objectos ==
+== Nombres de Objetos ==
 
 1. *Nombre de Clases:* CNombreClase _(Se agrega una C al principio del nombre)_
 
@@ -58,7 +58,7 @@ enum ETipo
 
 2. *Variables Globales:* g_VariableGlobal _(Se agrega un prefijo *g_* para indicar que es una variable global)_
 
-== Estructura de Codigo ==
+== Estructura de Código ==
 
 1. Se tiene que usar *tab* para indentar _(Por Default Visual Studio tiene esta opción)_
 
