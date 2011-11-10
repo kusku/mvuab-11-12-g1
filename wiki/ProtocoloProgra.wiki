@@ -22,7 +22,7 @@ class CMiClase
 
 == Nombres de Objectos ==
 
-# *Nombre de Clases:* CNombreClase _(Se agrega una C al principio del nombre)_
+ # *Nombre de Clases:* CNombreClase _(Se agrega una C al principio del nombre)_
 
 *Ejemplo* 
 
@@ -32,7 +32,7 @@ class CProtocolo
 }
 }}}
 
-# *Nombre de Estructura:* SNombreEstructura _(Se agrega una S al principio del nombre)_
+ # *Nombre de Estructura:* SNombreEstructura _(Se agrega una S al principio del nombre)_
 
 *Ejemplo* 
 
@@ -42,7 +42,7 @@ struct SVector3
 }
 }}}
 
-# *Nombre de Enumerador:* ENombreEnumerador _(Se agrega una E al principio del nombre)_ 
+ # *Nombre de Enumerador:* ENombreEnumerador _(Se agrega una E al principio del nombre)_ 
 
 *Ejemplo* 
 
