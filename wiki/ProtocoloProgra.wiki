@@ -68,6 +68,24 @@ int x, y, z;
 int Suma(int a, int b);
 }}}
 
+*Excepciones:* 
+
+ * Constructor sin parámetros
+ * Get
+ * Set
+ * Update
+ * Render
+
+*5.* Para todas las variables que se modifican dentro de un método (Parámetros de salida) se les agrega un _ al final.
+
+*Ejemplo*
+{{{
+void SetNewTime(const CTime& oldTime, CTime& newTime_)
+{
+…
+}
+}}}
+
 == Nombres de Objetos ==
 
 *1. Nombre de Clases:* CNombreClase _(Se agrega una *C* al principio del nombre)_
