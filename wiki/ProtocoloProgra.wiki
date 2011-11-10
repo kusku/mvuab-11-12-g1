@@ -83,7 +83,7 @@ void main()
 }
 }}}
 
-*3. Variables Constantes:* MI_CONSTANTE _(Todo en mayuscula y se separan las palabras con *\_*)_
+*3. Variables Constantes:* MI_CONSTANTE _(Todo en mayuscula y se separan las palabras con guion bajo)_
 
 *Ejemplo*
 
