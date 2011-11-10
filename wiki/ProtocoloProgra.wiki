@@ -1,10 +1,10 @@
-#summary One-sentence summary of this page.
+#summary Protocolos de Programación.
 
 = Protocolo de Programación =
 
-= Detalles =
+== Detalles ==
 
-*Nombre de Clases:* CNombreClase (Se agrega una C al principio del nombre)
+#*Nombre de Clases:* CNombreClase _(Se agrega una C al principio del nombre)_
 
 *Ejemplo* 
 
@@ -14,4 +14,14 @@ class CProtocolo
 }
 }}}
 
-*Nombre de Estructura:* SNombreEstructura (Se agrega una S al principio del nombre)
+#*Nombre de Estructura:* SNombreEstructura _(Se agrega una S al principio del nombre)_
+
+*Ejemplo* 
+
+{{{
+struct SVector3
+{
+}
+}}}
+
+#*Nombre de Enumerador:* ENombreEnumerador _(Se agrega una E al principio del nombre)_ 
