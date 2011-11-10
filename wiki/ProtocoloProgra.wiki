@@ -46,6 +46,9 @@ int z;
  * *<summary> </summary>* Inicio y fin de la descripción del método o clase
  * *<param name=”x”> y </param>*  Inicio de descripción de los parámetros del método. X define el nombre del parámetro
  * *<returns> y </returns>* Inicio y fin de la descripción de que devuelve el método
+ * Se pueden conseguir más tags para Visual C++ en este link: http://msdn.microsoft.com/en-us/library/ms177227.aspx
+
+
 *Ejemplo*
 
 {{{
