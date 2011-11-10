@@ -79,12 +79,30 @@ int Suma(int a, int b);
 *5.* Para todas las variables que se modifican dentro de un método (Parámetros de salida) se les agrega un _ al final.
 
 *Ejemplo*
+
 {{{
 void SetNewTime(const CTime& oldTime, CTime& newTime_)
 {
 …
 }
 }}}
+
+*6.* Dejar un espacio después de *(* y antes de *)*
+
+*Ejemplo*
+
+{{{
+if ( i == 0 )
+{
+…
+}
+
+for ( int i = 0; i < 10; i++)
+{
+…
+}
+}}}
+
 
 == Nombres de Objetos ==
 
