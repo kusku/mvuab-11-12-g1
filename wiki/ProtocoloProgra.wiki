@@ -22,7 +22,7 @@ class CMiClase
 
 == Nombres de Objectos ==
 
- # *Nombre de Clases:* CNombreClase _(Se agrega una C al principio del nombre)_
+1. *Nombre de Clases:* CNombreClase _(Se agrega una C al principio del nombre)_
 
 *Ejemplo* 
 
@@ -32,7 +32,7 @@ class CProtocolo
 }
 }}}
 
- # *Nombre de Estructura:* SNombreEstructura _(Se agrega una S al principio del nombre)_
+2. *Nombre de Estructura:* SNombreEstructura _(Se agrega una S al principio del nombre)_
 
 *Ejemplo* 
 
@@ -42,7 +42,7 @@ struct SVector3
 }
 }}}
 
- # *Nombre de Enumerador:* ENombreEnumerador _(Se agrega una E al principio del nombre)_ 
+3. *Nombre de Enumerador:* ENombreEnumerador _(Se agrega una E al principio del nombre)_ 
 
 *Ejemplo* 
 
@@ -54,4 +54,25 @@ enum ETipo
 
 == Nombres de Variables ==
 
-# *Variable miembra de clase*: se 
+1. *Variable miembra de clase:* m_MiVariable _(Se agrega un prefijo *m_* para indicar que es miembra de la clase)_ 
+
+2. *Variables Globales:* g_VariableGlobal _(Se agrega un prefijo *g_* para indicar que es una variable global)_
+
+== Estructura de Codigo ==
+
+1. Se tiene que usar *tab* para indentar _(Por Default Visual Studio tiene esta opción)_
+
+2. Todos los if y else tiene que tener *{}* 
+
+*Ejemplo*
+
+{{{
+if
+{
+...
+}
+else
+{
+...
+}
+}}}
