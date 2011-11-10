@@ -2,9 +2,27 @@
 
 = Protocolo de Programación =
 
-== Detalles ==
+== Global ==
 
-#*Nombre de Clases:* CNombreClase _(Se agrega una C al principio del nombre)_
+Cualquier nombre asignado a una variable, clase, metodo, etc. el inicio de la segunda palabra en adelante tiene que ser mayuscula.
+
+*Ejemplo*
+
+{{{
+void SetMetodo()
+{
+}
+
+int miContador;
+
+class CMiClase
+{
+}
+}}}
+
+== Nombres de Objectos ==
+
+# *Nombre de Clases:* CNombreClase _(Se agrega una C al principio del nombre)_
 
 *Ejemplo* 
 
@@ -14,7 +32,7 @@ class CProtocolo
 }
 }}}
 
-#*Nombre de Estructura:* SNombreEstructura _(Se agrega una S al principio del nombre)_
+# *Nombre de Estructura:* SNombreEstructura _(Se agrega una S al principio del nombre)_
 
 *Ejemplo* 
 
@@ -24,4 +42,16 @@ struct SVector3
 }
 }}}
 
-#*Nombre de Enumerador:* ENombreEnumerador _(Se agrega una E al principio del nombre)_ 
+# *Nombre de Enumerador:* ENombreEnumerador _(Se agrega una E al principio del nombre)_ 
+
+*Ejemplo* 
+
+{{{
+enum ETipo
+{
+};
+}}}
+
+== Nombres de Variables ==
+
+# *Variable miembra de clase*: se 
