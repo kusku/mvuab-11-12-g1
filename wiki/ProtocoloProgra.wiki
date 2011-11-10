@@ -42,6 +42,12 @@ int y;
 int z;
 }}}
 
+*Incorrecto*
+
+{{{
+int x, y, z;
+}}}
+
 *4.* Todas las funciones deben llevar una pequeña descripción donde se definen (Normalmente en el .h) Tienen que utilizar la siguiente estructura:
  * *<summary> </summary>* Inicio y fin de la descripción del método o clase
  * *<param name=”x”> y </param>*  Inicio de descripción de los parámetros del método. X define el nombre del parámetro
@@ -60,12 +66,6 @@ int z;
  *<returns>Retorna un int con la suma de los números</returns>
  *</summary> */
 int Suma(int a, int b);
-}}}
-
-*Incorrecto*
-
-{{{
-int x, y, z;
 }}}
 
 == Nombres de Objetos ==
