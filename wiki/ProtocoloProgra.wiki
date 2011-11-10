@@ -83,6 +83,16 @@ void main()
 }
 }}}
 
+*3. Variables Constantes:* MI_CONSTANTE _(Todo en mayuscula y se separan las palabras con *_*)_
+
+*Ejemplo*
+
+{{{
+
+const float MI_PI = 3.14f;
+
+}}}
+
 == Estructura de Código ==
 
 *1.* Se tiene que usar *tab* para indentar _(Por Default Visual Studio tiene esta opción)_
