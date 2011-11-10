@@ -1,14 +1,8 @@
 #summary One-sentence summary of this page.
 
-= Introduction =
+= Protocolo de Programación =
 
-Protocolo de Programación para usar en el Proyecto
+= Detalles =
 
-= Details =
-
-*Nombre de Clases:* _C_NombreClase (Se agrega una C al principio del nombre de la clase)
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+*Nombre de Clases:* _C_NombreClase (Se agrega una C al principio del nombre)
+*Nombre de Estructura:* _S_NombreEstructura (Se agrega una S al principio del nombre)
