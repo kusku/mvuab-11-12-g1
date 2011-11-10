@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="XML">
+      <UniqueIdentifier>{d995ad35-8fe9-4bc9-a871-72b6750f6ce1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{f631688e-cb8b-4060-bee5-683c85dd3718}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{d2ff011f-a6aa-4829-bce5-1b7d16a08dfb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Math\MathConstants.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="XML\Example.cpp">
+      <Filter>XML</Filter>
+    </ClCompile>
+    <ClCompile Include="XML\XMLTreeNode.cpp">
+      <Filter>XML</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Math\MathTypes.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MathUtils.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Matrix33.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Matrix34.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Matrix44.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector2.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector4.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Types.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="XML\XMLTreeNode.h">
+      <Filter>XML</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Math\MathUtils.inl">
+      <Filter>Math</Filter>
+    </None>
+    <None Include="Math\Matrix33.inl">
+      <Filter>Math</Filter>
+    </None>
+    <None Include="Math\Matrix34.inl">
+      <Filter>Math</Filter>
+    </None>
+    <None Include="Math\Matrix44.inl">
+      <Filter>Math</Filter>
+    </None>
+    <None Include="Math\Vector2.inl">
+      <Filter>Math</Filter>
+    </None>
+    <None Include="Math\Vector3.inl">
+      <Filter>Math</Filter>
+    </None>
+    <None Include="Math\Vector4.inl">
+      <Filter>Math</Filter>
+    </None>
+  </ItemGroup>
+</Project>
