@@ -54,9 +54,9 @@ enum ETipo
 
 == Nombres de Variables ==
 
-1. *Variable miembra de clase:* m\_MiVariable _(Se agrega un prefijo *m_* para indicar que es miembra de la clase)_ 
+1. *Variable miembra de clase:* m_MiVariable _(Se agrega un prefijo *m_* para indicar que es miembra de la clase)_ 
 
-2. *Variables Globales:* g\_VariableGlobal _(Se agrega un prefijo *g_* para indicar que es una variable global)_
+2. *Variables Globales:* g_VariableGlobal _(Se agrega un prefijo *g_* para indicar que es una variable global)_
 
 == Estructura de Codigo ==
 
@@ -64,10 +64,10 @@ enum ETipo
 
 2. Todos los if y else tiene que tener *{}* 
 
-*Ejemplo*
+*Ejemplo Correcto*
 
 {{{
-if
+if(1)
 {
 ...
 }
@@ -75,4 +75,11 @@ else
 {
 ...
 }
+}}}
+
+*Incorrecto*
+{{{
+~~if(1)
+ x++
+~~
 }}}
