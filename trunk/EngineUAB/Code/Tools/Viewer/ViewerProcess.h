@@ -10,6 +10,10 @@ class CViewerProcess : public CProcess
 public:
 	CViewerProcess();
 	~CViewerProcess();
+
+	void Init();
+	void Update(float ElapsedTime);
+	void Render();
 };
 
 #endif

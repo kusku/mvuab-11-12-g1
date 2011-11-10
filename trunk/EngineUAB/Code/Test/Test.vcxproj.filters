@@ -6,7 +6,7 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="Enemies">
-      <UniqueIdentifier>{db9dd8bb-cb24-4e9c-95fe-86bfb6e1dea1}</UniqueIdentifier>
+      <UniqueIdentifier>{2e362e4b-6e40-455b-a125-1d7cbfc0062b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -22,10 +22,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Enemies\EnemyManager.h">
+    <ClInclude Include="Enemies\Enemy.h">
       <Filter>Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="Enemies\Enemy.h">
+    <ClInclude Include="Enemies\EnemyManager.h">
       <Filter>Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Enemies\PatrolEnemy.h">

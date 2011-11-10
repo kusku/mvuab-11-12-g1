@@ -4,7 +4,6 @@
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Process.cpp" />
-    <ClCompile Include="defines.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
