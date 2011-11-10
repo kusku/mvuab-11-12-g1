@@ -30,6 +30,22 @@ float pi = 3.14f;
 CVector3* vect3 = new CVector3(10.0f, 0.0f, 1.5f);
 }}}
 
+*3.* Declarar las variables en lineas individuales. (Es mas facil para leer y encontrar)
+
+*Ejemplo Correcto*
+
+{{{
+int x;
+int y;
+int z;
+}}}
+
+*Incorrecto*
+
+{{{
+int x, y, z;
+}}}
+
 == Nombres de Objetos ==
 
 *1. Nombre de Clases:* CNombreClase _(Se agrega una *C* al principio del nombre)_
