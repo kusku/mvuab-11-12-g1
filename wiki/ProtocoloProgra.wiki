@@ -20,7 +20,7 @@ class CMiClase
 }
 }}}
 
-*2.* Si se esta asignando un numero *float* o se va a pasar por parametro, siempre poner *f* al final del numero.
+*2.* Si se está asignando un numero *float* o se va a pasar por parámetro, siempre poner *f* al final del número.
 
 *Ejemplo*
 
@@ -30,7 +30,7 @@ float pi = 3.14f;
 CVector3* vect3 = new CVector3(10.0f, 0.0f, 1.5f);
 }}}
 
-*3.* Declarar las variables en lineas individuales. (Es mas facil para leer y encontrar)
+*3.* Declarar las variables en líneas individuales. (Es mas facil para leer y encontrar)
 
 *Ejemplo Correcto*
 
@@ -109,7 +109,7 @@ void main()
 }
 }}}
 
-*3. Variables Constantes:* MI_CONSTANTE _(Todo en mayuscula y se separan las palabras con guion bajo)_
+*3. Variables Constantes:* MI_CONSTANTE _(Todo en mayúscula y se separan las palabras con guion bajo)_
 
 *Ejemplo*
 
