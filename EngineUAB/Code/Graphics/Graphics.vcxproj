@@ -11,7 +11,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dummy.cpp" />
+    <ClInclude Include="RenderManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="RenderManager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5638D0EE-CE82-44F6-8C71-F0B569947BE6}</ProjectGuid>

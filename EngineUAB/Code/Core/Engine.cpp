@@ -1,5 +1,5 @@
 #include "Engine.h"
-#include "defines.h"
+#include "Base.h"
 #include <stdio.h>
 
 CEngine::CEngine()
@@ -11,7 +11,7 @@ CEngine::CEngine()
 CEngine::~CEngine()
 {
 	CHECKED_DELETE(m_Core);
-	CHECKED_DELETE(m_Process);
+	//CHECKED_DELETE(m_Process);
 }
 
 void CEngine::Init()
