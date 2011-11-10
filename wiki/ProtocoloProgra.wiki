@@ -4,7 +4,7 @@
 
 == Global ==
 
-1. Cualquier nombre asignado a una variable, clase, método, etc. el inicio de la segunda palabra en adelante tiene que ser mayúscula.
+=== 1. Cualquier nombre asignado a una variable, clase, método, etc. el inicio de la segunda palabra en adelante tiene que ser mayúscula. ===
 
 *Ejemplo*
 
