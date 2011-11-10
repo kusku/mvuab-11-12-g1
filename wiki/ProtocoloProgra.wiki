@@ -11,13 +11,15 @@
 {{{
 void SetMetodo()
 {
+...
 }
 
 int miContador;
 
 class CMiClase
 {
-}
+...
+};
 }}}
 
 *2.* Si se está asignando un numero *float* o se va a pasar por parámetro, siempre poner *f* al final del número.
