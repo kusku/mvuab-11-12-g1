@@ -4,12 +4,14 @@
 
 = Detalles =
 
-*Nombre de Clases:* _C_NombreClase (Se agrega una C al principio del nombre)
+*Nombre de Clases:* CNombreClase (Se agrega una C al principio del nombre)
 
 *Ejemplo* 
 
-`class CProtocolo
+{{{
+class CProtocolo
 {
-}`
+}
+}}}
 
-*Nombre de Estructura:* _S_NombreEstructura (Se agrega una S al principio del nombre)
+*Nombre de Estructura:* SNombreEstructura (Se agrega una S al principio del nombre)
