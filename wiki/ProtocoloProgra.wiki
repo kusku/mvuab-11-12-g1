@@ -78,7 +78,37 @@ else
 }}}
 
 *Incorrecto*
-~~{{{
+{{{
 if(1)
  x++
-}}}~~
+else
+ y--
+}}}
+
+3. Todos los corchetes *{* tienen que ir abajo de la declaración
+
+*Ejemplo Correcto*
+
+{{{
+if(1)
+{
+}
+
+void MiFuncion()
+{
+}
+
+class CMiClase
+{
+};
+}}}
+
+*Incorrecto*
+
+{{{
+if(1) {
+}
+
+void MiFuncion(){
+}
+}}}
