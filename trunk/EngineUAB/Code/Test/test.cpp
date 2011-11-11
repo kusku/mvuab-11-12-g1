@@ -18,11 +18,17 @@ void LoadEnemies(const std::string &filename)
 		int count = l_EnemiesNode.GetNumChildren();
 		for(int i=0; i < count; ++i)
 		{
-			const char *l_Name = l_EnemiesNode(i).GetName();
-			const char *l_Type = l_EnemiesNode(i).GetPszProperty("type","");
-			const char *l_Pos = l_EnemiesNode(i).GetPszProperty("pos","");
-			float l_Yaw = l_EnemiesNode(i).GetFloatProperty("yaw",0.0f);
-			float l_Pitch = l_EnemiesNode(i).GetFloatProperty("pitch",0.0f);
+			std::string l_Name = l_EnemiesNode(i).GetName();
+
+			if( l_Name == "enemy" )
+			{
+				std::string l_Type = l_EnemiesNode(i).GetPszProperty("type","");
+				std::string l_Pos = l_EnemiesNode(i).GetPszProperty("pos","");
+				float l_Yaw = l_EnemiesNode(i).GetFloatProperty("yaw",0.0f);
+				float l_Pitch = l_EnemiesNode(i).GetFloatProperty("pitch",0.0f);
+
+
+			}
 		}
 	}
 

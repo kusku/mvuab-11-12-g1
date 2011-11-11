@@ -3,6 +3,8 @@
 #ifndef _PROCESS_H
 #define _PROCESS_H
 
+#include "RenderManager.h"
+
 class CProcess
 {
 protected:
@@ -14,6 +16,7 @@ public:
 	virtual void Init();
 	virtual void Update(float ElapsedTime);
 	virtual void Render();
+	virtual void RenderScene();
 };
 
 #endif

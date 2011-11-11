@@ -16,9 +16,10 @@ public:
 	CEngine();
 	virtual ~CEngine();
 
-	void Init();
+	void Init(HWND hWnd);
 	void Update(float ElapsedTime);
 	void Render();
+	void RenderScene(CRenderManager* renderManager);
 
 	void SetProcess(CProcess *process);
 };
