@@ -54,6 +54,9 @@
       <Filter>XML</Filter>
     </ClInclude>
     <ClInclude Include="Base.h" />
+    <ClInclude Include="Math\Color.h">
+      <Filter>Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Math\MathUtils.inl">
@@ -75,6 +78,9 @@
       <Filter>Math</Filter>
     </None>
     <None Include="Math\Vector4.inl">
+      <Filter>Math</Filter>
+    </None>
+    <None Include="Math\Color.inl">
       <Filter>Math</Filter>
     </None>
   </ItemGroup>

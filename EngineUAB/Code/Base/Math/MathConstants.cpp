@@ -1,6 +1,7 @@
 #include "Math/Matrix33.h"
 #include "Math/Matrix34.h"
 #include "Math/Matrix44.h"
+#include "Math\Color.h"
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -269,3 +270,15 @@ const OBox  obBIG  (v3fZERO, v3fX, v3fY, v3fZ, v3fMAX);
 const OBox  obUNIT (v3fZERO, v3fX, v3fY, v3fZ, v3fUNIT);
 
 */
+
+//---------
+// CColor
+//---------------------------------------------------------------------------------------------------------------------
+const CColor colBLACK   (0.0f, 0.0f, 0.0f);
+const CColor colWHITE   (1.0f, 1.0f, 1.0f);
+const CColor colRED     (1.0f, 0.0f, 0.0f);
+const CColor colGREEN   (0.0f, 1.0f, 0.0f);
+const CColor colBLUE    (0.0f, 0.0f, 1.0f);
+const CColor colMAGENTA (1.0f, 0.0f, 1.0f);
+const CColor colYELLOW  (1.0f, 1.0f, 0.0f);
+const CColor colCYAN    (0.0f, 1.0f, 1.0f);

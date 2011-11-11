@@ -1,6 +1,5 @@
 #include "Engine.h"
 #include "Base.h"
-#include <stdio.h>
 
 CEngine::CEngine()
 	: m_Core(NULL)
@@ -11,13 +10,12 @@ CEngine::CEngine()
 CEngine::~CEngine()
 {
 	CHECKED_DELETE(m_Core);
-	//CHECKED_DELETE(m_Process);
 }
 
-void CEngine::Init()
+void CEngine::Init(HWND hWnd)
 {
 	m_Core = new CCore();
-	m_Core->Init();
+	m_Core->Init(hWnd);
 	m_Process->Init();
 }
 
@@ -29,8 +27,19 @@ void CEngine::Update(float ElapsedTime)
 
 void CEngine::Render()
 {
-	m_Core->Render();
-	m_Process->Render();
+	CRenderManager* l_RenderManager = m_Core->GetRenderManager();
+
+	l_RenderManager->BeginRendering();
+	l_RenderManager->SetupMatrices();
+	{
+		RenderScene(l_RenderManager);		
+	}
+	l_RenderManager->EndRendering();
+}
+
+void CEngine::RenderScene(CRenderManager *renderManager)
+{
+	m_Process->RenderScene();
 }
 
 void CEngine::SetProcess(CProcess *process)
