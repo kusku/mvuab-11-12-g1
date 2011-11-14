@@ -34,7 +34,11 @@ public:
 	void SetupMatrices(/*CCamera* camera*/);
 
 	void SetPaintSolid ( bool paintSolid );
-	bool GetPaintSolid ( ) const;
+	bool GetPaintSolid () const;
+
+	HWND				GetHWND () const;
+	LPDIRECT3D9			GetD3D () const;
+	LPDIRECT3DDEVICE9	GetDevice () const;
 };
 
 #endif

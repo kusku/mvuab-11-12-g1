@@ -2,8 +2,10 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="RenderManager.h" />
+    <ClInclude Include="FontManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="FontManager.cpp" />
   </ItemGroup>
 </Project>
