@@ -202,3 +202,18 @@ bool CRenderManager::GetPaintSolid() const
 {
 	return m_bPaintSolid;
 }
+
+HWND CRenderManager::GetHWND() const
+{
+	return m_hWnd;
+}
+
+LPDIRECT3D9 CRenderManager::GetD3D() const
+{
+	return m_pD3D;
+}
+
+LPDIRECT3DDEVICE9 CRenderManager::GetDevice() const
+{
+	return m_pD3DDevice;
+}

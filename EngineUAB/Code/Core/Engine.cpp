@@ -2,32 +2,32 @@
 #include "Base.h"
 
 CEngine::CEngine()
-	: m_Core(NULL)
-	, m_Process(NULL)
+	: m_pCore(NULL)
+	, m_pProcess(NULL)
 {
 }
 
 CEngine::~CEngine()
 {
-	CHECKED_DELETE(m_Core);
+	CHECKED_DELETE(m_pCore);
 }
 
 void CEngine::Init(HWND hWnd)
 {
-	m_Core = new CCore();
-	m_Core->Init(hWnd);
-	m_Process->Init();
+	m_pCore = new CCore();
+	m_pCore->Init(hWnd);
+	m_pProcess->Init();
 }
 
 void CEngine::Update(float ElapsedTime)
 {
-	m_Core->Update(ElapsedTime);
-	m_Process->Update(ElapsedTime);
+	m_pCore->Update(ElapsedTime);
+	m_pProcess->Update(ElapsedTime);
 }
 
 void CEngine::Render()
 {
-	CRenderManager* l_RenderManager = m_Core->GetRenderManager();
+	CRenderManager* l_RenderManager = m_pCore->GetRenderManager();
 
 	l_RenderManager->BeginRendering();
 	l_RenderManager->SetupMatrices();
@@ -39,10 +39,10 @@ void CEngine::Render()
 
 void CEngine::RenderScene(CRenderManager *renderManager)
 {
-	m_Process->RenderScene();
+	m_pProcess->Render();
 }
 
 void CEngine::SetProcess(CProcess *process)
 {
-	m_Process = process;
+	m_pProcess = process;
 }

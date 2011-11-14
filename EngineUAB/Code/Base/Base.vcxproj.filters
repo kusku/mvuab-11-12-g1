@@ -10,6 +10,9 @@
     <Filter Include="Math">
       <UniqueIdentifier>{d2ff011f-a6aa-4829-bce5-1b7d16a08dfb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Location">
+      <UniqueIdentifier>{d69f803a-248e-4360-84c5-646ffd0a4462}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Math\MathConstants.cpp">
@@ -20,6 +23,21 @@
     </ClCompile>
     <ClCompile Include="XML\XMLTreeNode.cpp">
       <Filter>XML</Filter>
+    </ClCompile>
+    <ClCompile Include="Location\LanguageManager.cpp">
+      <Filter>Location</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\CountDownTimer.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\LerpAnimator1D.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\LerpAnimator2D.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\LerpAnimator3D.cpp">
+      <Filter>Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -56,6 +74,30 @@
     <ClInclude Include="Base.h" />
     <ClInclude Include="Math\Color.h">
       <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Location\LanguageManager.h">
+      <Filter>Location</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Singleton.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\BaseUtils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\CountDownTimer.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\LerpAnimator1D.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\LerpAnimator2D.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\LerpAnimator3D.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\MapManager.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

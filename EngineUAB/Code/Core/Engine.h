@@ -9,8 +9,8 @@
 class CEngine
 {
 protected:
-	CCore *m_Core;
-	CProcess *m_Process;
+	CCore *m_pCore;
+	CProcess *m_pProcess;
 
 public:
 	CEngine();

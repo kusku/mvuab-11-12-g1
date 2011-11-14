@@ -90,7 +90,12 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Location\LanguageManager.cpp" />
     <ClCompile Include="Math\MathConstants.cpp" />
+    <ClCompile Include="Utils\CountDownTimer.cpp" />
+    <ClCompile Include="Utils\LerpAnimator1D.cpp" />
+    <ClCompile Include="Utils\LerpAnimator2D.cpp" />
+    <ClCompile Include="Utils\LerpAnimator3D.cpp" />
     <ClCompile Include="XML\Example.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -99,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base.h" />
+    <ClInclude Include="Location\LanguageManager.h" />
     <ClInclude Include="Math\Color.h" />
     <ClInclude Include="Math\MathTypes.h" />
     <ClInclude Include="Math\MathUtils.h" />
@@ -108,6 +114,13 @@
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="Math\Vector4.h" />
+    <ClInclude Include="Utils\BaseUtils.h" />
+    <ClInclude Include="Utils\CountDownTimer.h" />
+    <ClInclude Include="Utils\LerpAnimator1D.h" />
+    <ClInclude Include="Utils\LerpAnimator2D.h" />
+    <ClInclude Include="Utils\LerpAnimator3D.h" />
+    <ClInclude Include="Utils\MapManager.h" />
+    <ClInclude Include="Utils\Singleton.h" />
     <ClInclude Include="Utils\Types.h" />
     <ClInclude Include="XML\XMLTreeNode.h" />
   </ItemGroup>
