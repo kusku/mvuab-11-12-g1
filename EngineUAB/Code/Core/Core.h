@@ -37,9 +37,9 @@ public:
 	void Update( float ElapsedTime );
 	void Render();
 
-	CRenderManager*		GetRenderManager() const;
-	CFontManager*		GetFontManager() const;
-	CLanguageManager*	GetLanguageManager() const;
+	CRenderManager*		GetRenderManager() const	{ return m_pRenderManager; }
+	CFontManager*		GetFontManager() const		{ return m_pFontManager; }
+	CLanguageManager*	GetLanguageManager() const	{ return m_pLanguageManager; }
 };
 
 #endif
