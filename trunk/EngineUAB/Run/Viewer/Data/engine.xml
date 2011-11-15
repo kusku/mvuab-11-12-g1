@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<Engine>
+	<screen fullscreen="false" position="100 100" resolution="800 600" color_debug="colBLUE" color_release="colBLACK" />
+	<languages default="catalan" >
+		<fonts path="./Data/Fonts/fonts.xml" />
+		<catalan path="./Data/Language/catalan.xml" />
+		<spanish path="./Data/Language/spanish.xml" />
+		<english path="./Data/Language/english.xml" />
+	</languages>
+</Engine>
