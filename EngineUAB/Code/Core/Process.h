@@ -16,7 +16,6 @@ public:
 	virtual void Init();
 	virtual void Update(float ElapsedTime);
 	virtual void Render();
-	virtual void RenderScene();
 };
 
 #endif
