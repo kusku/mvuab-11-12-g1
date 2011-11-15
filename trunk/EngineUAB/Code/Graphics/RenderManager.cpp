@@ -6,7 +6,9 @@
 CRenderManager::CRenderManager()
 	: m_uWidth(0)
 	, m_uHeight(0)
+	, m_Size(Vect2i(800,600))
 	, m_bPaintSolid(true)
+	, m_bFullscreen(true)
 	, m_hWnd(NULL)
 	, m_pD3D(NULL)
 	, m_pD3DDevice(NULL)
@@ -35,20 +37,18 @@ bool CRenderManager::Init(HWND hWnd)
        D3DPRESENT_PARAMETERS d3dpp;
        ZeroMemory( &d3dpp, sizeof(d3dpp) );
 
-       //if(fullscreenMode)
-       //{
-       //    d3dpp.Windowed          = FALSE;
-       //    d3dpp.BackBufferWidth   = widthScreen;
-       //    d3dpp.BackBufferHeight  = heightScreen;
-       //    d3dpp.BackBufferFormat = D3DFMT_R5G6B5;
-       //}
-       //else
-       //{
-       //    d3dpp.Windowed          = TRUE;
-       //    d3dpp.BackBufferFormat    = D3DFMT_UNKNOWN;
-       //}
-	   d3dpp.Windowed =TRUE;
-	   d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;
+       if(m_bFullscreen)
+       {
+           d3dpp.Windowed          = FALSE;
+           d3dpp.BackBufferWidth   = m_Size.x;
+           d3dpp.BackBufferHeight  = m_Size.y;
+           d3dpp.BackBufferFormat = D3DFMT_R5G6B5;
+       }
+       else
+       {
+           d3dpp.Windowed          = TRUE;
+           d3dpp.BackBufferFormat    = D3DFMT_UNKNOWN;
+       }
 
        d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
        d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
@@ -101,17 +101,16 @@ bool CRenderManager::Init(HWND hWnd)
            // Turn off D3D lighting, since we are providing our own vertex colors
            m_pD3DDevice->SetRenderState( D3DRS_LIGHTING, FALSE );
 
-          /* if (fullscreenMode)
-           {
-               m_uWidth    = widthScreen;
-               m_uHeight    = heightScreen;
+			if (m_bFullscreen)
+			{
+               m_uWidth    = m_Size.x;
+               m_uHeight    = m_Size.y;
            }
            else
            {
                GetWindowRect(hWnd);
            }
-           LOGGER->AddNewLog(ELL_INFORMATION, "RenderManager:: La resolucion de pantalla es (%dx%d)",m_uWidth,m_uHeight);*/
-		   GetWindowRect(hWnd);
+           //LOGGER->AddNewLog(ELL_INFORMATION, "RenderManager:: La resolucion de pantalla es (%dx%d)",m_uWidth,m_uHeight);
        }   
     }
 
@@ -198,9 +197,29 @@ void CRenderManager::SetPaintSolid( bool paintSolid )
 	m_bPaintSolid = paintSolid;
 }
 
+void CRenderManager::SetFullscreen( bool fullscreen )
+{
+	m_bFullscreen = fullscreen;
+}
+
+void CRenderManager::SetColorDebug( CColor color )
+{
+	m_BackbufferColor_debug = color;
+}
+
+void CRenderManager::SetColorRelease( CColor color )
+{
+	m_BackbufferColor_release = color;
+}
+
 bool CRenderManager::GetPaintSolid() const
 {
 	return m_bPaintSolid;
+}
+
+void CRenderManager::SetScreenSize( Vect2i size )
+{
+	m_Size = size;
 }
 
 HWND CRenderManager::GetHWND() const

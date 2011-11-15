@@ -45,16 +45,22 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 	WNDCLASSEX wc = {	sizeof(WNDCLASSEX), CS_CLASSDC, MsgProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, APPLICATION_NAME, NULL };
 
 	RegisterClassEx( &wc );
-
-	// Create the application's window
-	HWND hWnd = CreateWindow(	APPLICATION_NAME, APPLICATION_NAME, WS_OVERLAPPEDWINDOW, 100, 100, 800, 600, NULL, NULL, wc.hInstance, NULL );
-
-
-	// Añadir aquí el Init de la applicacioón
+	
+	//Crear el Engine y leer la configuración
 	CEngine l_Engine;
 	CViewerProcess l_Viewer;
+	SConfig l_Config;
 	l_Engine.SetProcess(&l_Viewer);
-	l_Engine.Init( hWnd );
+	l_Engine.LoadConfigXML( "./Data/engine.xml", l_Config );
+
+
+	// Create the application's window
+	HWND hWnd = CreateWindow(	APPLICATION_NAME, APPLICATION_NAME, WS_OVERLAPPEDWINDOW, l_Config.position.x, l_Config.position.y,
+		l_Config.resolution.x, l_Config.resolution.y, NULL, NULL, wc.hInstance, NULL );
+
+
+	// Init de la applicacioón
+	l_Engine.Init( hWnd, l_Config );
 
 
 	ShowWindow( hWnd, SW_SHOWDEFAULT );
@@ -62,7 +68,7 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 	MSG msg;
 	ZeroMemory( &msg, sizeof(msg) );
 
-	// Añadir en el while la condición de salida del programa de la aplicación
+	// While la condición de salida del programa de la aplicación
 
 	while( msg.message != WM_QUIT )
 	{
@@ -73,7 +79,7 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 		}
 		else
 		{
-			// Main loop: Añadir aquí el Update y Render de la aplicación principal
+			// Main loop: Update y Render de la aplicación principal
 			l_Engine.Update(0.0f);
 			l_Engine.Render();
 		}

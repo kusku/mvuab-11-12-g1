@@ -16,6 +16,8 @@ protected:
 
 	uint32 m_uWidth;
 	uint32 m_uHeight;
+	Vect2i m_Size;
+	bool m_bFullscreen;
 	bool m_bPaintSolid;
 
 	CColor m_BackbufferColor_debug;
@@ -33,7 +35,12 @@ public:
 	void EndRendering();
 	void SetupMatrices(/*CCamera* camera*/);
 
-	void SetPaintSolid ( bool paintSolid );
+	void SetPaintSolid		( bool paintSolid );
+	void SetColorDebug		( CColor color );
+	void SetColorRelease	( CColor color );	
+	void SetFullscreen		( bool fullscreen );
+	void SetScreenSize		( Vect2i size );
+
 	bool GetPaintSolid () const;
 
 	HWND				GetHWND () const;

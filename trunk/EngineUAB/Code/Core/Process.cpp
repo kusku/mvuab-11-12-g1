@@ -16,10 +16,6 @@ void CProcess::Render()
 {
 }
 
-void CProcess::RenderScene()
-{
-}
-
 void CProcess::Update(float ElapsedTime)
 {
 }
