@@ -45,25 +45,8 @@ void CCore::Release()
 
 void CCore::Update(float ElapsedTime)
 {
-	int a=1;
 }
 
 void CCore::Render()
 {
-	int a=1;
-}
-
-CRenderManager* CCore::GetRenderManager() const
-{
-	return m_pRenderManager;
-}
-
-CFontManager* CCore::GetFontManager() const
-{
-	return m_pFontManager;
-}
-
-CLanguageManager* CCore::GetLanguageManager() const
-{
-	return m_pLanguageManager;
 }
