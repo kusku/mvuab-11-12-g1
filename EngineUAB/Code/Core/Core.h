@@ -7,19 +7,7 @@
 #include "FontManager.h"
 #include "Location\LanguageManager.h"
 #include "Utils\Singleton.h"
-
-struct SConfig
-{
-	bool fullscreen;
-	Vect2i position;
-	Vect2i resolution;
-	CColor color_debug;
-	CColor color_release;
-
-	std::string default_language;
-	std::string fonts_path;
-	std::vector<std::string> languages_path;
-};
+#include "definesEngine.h"
 
 class CCore : public CSingleton<CCore>
 {

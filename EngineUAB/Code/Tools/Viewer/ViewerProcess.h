@@ -7,12 +7,14 @@
 
 class CViewerProcess : public CProcess
 {
+protected:
+	float time;
 public:
 	CViewerProcess();
 	~CViewerProcess();
 
 	void Init();
-	void Update(float ElapsedTime);
+	void Update(float elapsedTime);
 	void Render();
 };
 

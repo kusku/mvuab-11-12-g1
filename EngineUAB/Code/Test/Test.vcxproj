@@ -62,7 +62,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\lib;$(SolutionDir)\bin\lib;$(DXSDK_DIR)\lib\x86</AdditionalLibraryDirectories>
       <OutputFile>$(OutDir)\$(ProjectName)_d.exe</OutputFile>
-      <AdditionalDependencies>libxml2.lib;base_d.lib;core_d.lib;d3dx9d.lib;d3d9.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libxml2.lib;base_d.lib;core_d.lib;d3dx9d.lib;d3d9.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -84,7 +84,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\lib;$(SolutionDir)\bin\lib;$(DXSDK_DIR)\lib\x86</AdditionalLibraryDirectories>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
-      <AdditionalDependencies>libxml2.lib;base.lib;core.lib;d3dx9d.lib;d3d9.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libxml2.lib;base.lib;core.lib;d3dx9d.lib;d3d9.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

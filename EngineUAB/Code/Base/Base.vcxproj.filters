@@ -39,6 +39,9 @@
     <ClCompile Include="Utils\LerpAnimator3D.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\Timer.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\MathTypes.h">
@@ -97,6 +100,9 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Utils\MapManager.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Timer.h">
       <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>

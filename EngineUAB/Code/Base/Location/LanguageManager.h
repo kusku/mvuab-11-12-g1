@@ -27,7 +27,7 @@ public:
 	CLanguageManager();
 	virtual ~CLanguageManager(void) {/*Nothing*/;}
 
-	void						LoadXMLs						();																//se puede hacer un reload
+	void						LoadXMLs					();					//se puede hacer un reload
 	void						SetXmlFile					(const std::string& pathFile);
 	bool						GetLiteral					(const std::string& id, SLiteral& sliteral) const;
 	void						SetCurrentLanguage	(const std::string& id);
@@ -38,9 +38,9 @@ private:
 private:
 	typedef std::map<std::string,SLiteral>      TLanguage;
 
-	std::vector<std::string>					m_vXML_Files;
+	std::vector<std::string>			m_vXML_Files;
 	std::map<std::string, TLanguage>	m_Languages;
-	std::string												m_sCurrentLanguage;
+	std::string							m_sCurrentLanguage;
 
 
 };
