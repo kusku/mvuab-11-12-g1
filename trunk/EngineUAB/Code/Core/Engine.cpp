@@ -4,26 +4,31 @@
 
 CEngine::CEngine()
 	: m_pCore(NULL)
-	, m_pProcess(NULL)
+	, m_pProcess(NULL)	
+	, m_pTimer(30)
 {
 }
 
 CEngine::~CEngine()
 {
 	CHECKED_DELETE(m_pCore);
+	CHECKED_DELETE(m_pProcess);
 }
 
-void CEngine::Init(HWND hWnd, const SConfig &config)
+void CEngine::Init(HWND hWnd)
 {
 	m_pCore = new CCore();
-	m_pCore->Init(hWnd, config);
+	m_pCore->Init(hWnd, m_Config);
 	m_pProcess->Init();
 }
 
-void CEngine::Update(float ElapsedTime)
+void CEngine::Update()
 {
-	m_pCore->Update(ElapsedTime);
-	m_pProcess->Update(ElapsedTime);
+	m_pTimer.Update();
+	float elapsedTime = m_pTimer.GetElapsedTime();
+
+	m_pCore->Update(elapsedTime);
+	m_pProcess->Update(elapsedTime);
 }
 
 void CEngine::Render()
@@ -40,6 +45,9 @@ void CEngine::Render()
 
 void CEngine::RenderScene(CRenderManager *renderManager)
 {
+	float l_FPS = m_pTimer.GetFPS();
+	CORE->GetFontManager()->DrawDefaultText( 1, 1, colWHITE, "FPS: %f", l_FPS );
+
 	m_pProcess->Render();
 }
 
@@ -48,7 +56,20 @@ void CEngine::SetProcess(CProcess *process)
 	m_pProcess = process;
 }
 
-void CEngine::LoadConfigXML(const std::string &configFile, SConfig &configStruct_)
+void CEngine::Reload()
+{
+	m_pCore->GetFontManager()->ReloadTTFs();
+	m_pCore->GetLanguageManager()->LoadXMLs();
+}
+
+
+/*
+*<summary>
+* Lee un fichero xml de configuración del Engine
+*</summary>
+*<param name="configFile">Path del fichero de configuración</param>
+*/
+void CEngine::LoadConfigXML(const std::string &configFile)
 {
 	CXMLTreeNode newFile;
 	if (!newFile.LoadFile(configFile.c_str()))
@@ -69,22 +90,22 @@ void CEngine::LoadConfigXML(const std::string &configFile, SConfig &configStruct
 			//Parsea el nodo <screen>
 			if( l_Name == "screen" )
 			{
-				configStruct_.fullscreen = l_EngineNode(i).GetBoolProperty( "fullscreen", false );
+				m_Config.fullscreen = l_EngineNode(i).GetBoolProperty( "fullscreen", false );
 
 				std::string color = l_EngineNode(i).GetPszProperty( "color_debug", "" );
-				configStruct_.color_debug = string2Color( color );
+				m_Config.color_debug = string2Color( color );
 
 				color = l_EngineNode(i).GetPszProperty( "color_release", "" );
-				configStruct_.color_release = string2Color( color );
+				m_Config.color_release = string2Color( color );
 
-				configStruct_.position = l_EngineNode(i).GetVect2iProperty( "position", Vect2i(100, 100) );
-				configStruct_.resolution = l_EngineNode(i).GetVect2iProperty( "resolution", Vect2i(800, 600) );
+				m_Config.position = l_EngineNode(i).GetVect2iProperty( "position", Vect2i(100, 100) );
+				m_Config.resolution = l_EngineNode(i).GetVect2iProperty( "resolution", Vect2i(800, 600) );
 			}
 
 			//Parsea el nodo <languages>
 			if( l_Name == "languages" )
 			{
-				configStruct_.default_language = l_EngineNode(i).GetPszProperty( "default", "english" );
+				m_Config.default_language = l_EngineNode(i).GetPszProperty( "default", "english" );
 
 				int countLanguages = l_EngineNode(i).GetNumChildren();
 				for(int j=0; j<countLanguages; ++j)
@@ -93,14 +114,14 @@ void CEngine::LoadConfigXML(const std::string &configFile, SConfig &configStruct
 
 					if( l_Name == "fonts" )
 					{
-						configStruct_.fonts_path = l_EngineNode(i)(j).GetPszProperty( "path", "" );
+						m_Config.fonts_path = l_EngineNode(i)(j).GetPszProperty( "path", "" );
 					}
 					else //Parsea las direcciones de los lenguajes
 					{
 						std::string path = l_EngineNode(i)(j).GetPszProperty( "path", "" );
 						if( path != "" )
 						{
-							configStruct_.languages_path.push_back( path );
+							m_Config.languages_path.push_back( path );
 						}
 					}
 				}
@@ -145,7 +166,7 @@ const CColor CEngine::string2Color(const std::string &color)
 	}
 	else
 	{
-		return CColor(0.f, 0.f, 0.f);
+		return colBLACK;
 	}
 
 }

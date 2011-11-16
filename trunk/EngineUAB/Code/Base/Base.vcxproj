@@ -96,6 +96,7 @@
     <ClCompile Include="Utils\LerpAnimator1D.cpp" />
     <ClCompile Include="Utils\LerpAnimator2D.cpp" />
     <ClCompile Include="Utils\LerpAnimator3D.cpp" />
+    <ClCompile Include="Utils\Timer.cpp" />
     <ClCompile Include="XML\Example.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -121,6 +122,7 @@
     <ClInclude Include="Utils\LerpAnimator3D.h" />
     <ClInclude Include="Utils\MapManager.h" />
     <ClInclude Include="Utils\Singleton.h" />
+    <ClInclude Include="Utils\Timer.h" />
     <ClInclude Include="Utils\Types.h" />
     <ClInclude Include="XML\XMLTreeNode.h" />
   </ItemGroup>

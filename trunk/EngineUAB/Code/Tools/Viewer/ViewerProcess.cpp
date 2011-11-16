@@ -15,17 +15,16 @@ CViewerProcess::~CViewerProcess()
 
 void CViewerProcess::Init()
 {
-	return;
 }
 
-void CViewerProcess::Update(float ElapsedTime)
+void CViewerProcess::Update(float elapsedTime)
 {
-	return;
+	
 }
 
 void CViewerProcess::Render()
 {
-	uint32 dx = 0;
-	dx += CORE->GetFontManager()->DrawLiteral(10, dx, "HiWorld" );
-	dx += CORE->GetFontManager()->DrawTextA(10, dx, colMAGENTA, 0, "Adéu");
+	uint32 dx = 10;
+	dx += CORE->GetFontManager()->DrawLiteral( 10, dx, "HiWorld" );
+	//dx += CORE->GetFontManager()->DrawDefaultText( 10, dx, colYELLOW, "%f", posX );
 }

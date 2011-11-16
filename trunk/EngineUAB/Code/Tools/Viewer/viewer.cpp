@@ -1,8 +1,11 @@
 #include <Windows.h>
 #include "Engine.h"
 #include "ViewerProcess.h"
+#include "Base.h"
 
 #define APPLICATION_NAME	"VIEWER"
+
+CEngine *g_Engine = NULL;
 
 //-----------------------------------------------------------------------------
 // Name: MsgProc()
@@ -28,7 +31,14 @@ LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
         PostQuitMessage( 0 );
         return 0;
         break;
+	  case VK_F1:
+		  {
+			  g_Engine->Reload();
+			  return 0;
+			  break;
+		  }
       }
+
     }
     break;
   }//end switch( msg )
@@ -47,20 +57,21 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 	RegisterClassEx( &wc );
 	
 	//Crear el Engine y leer la configuración
-	CEngine l_Engine;
-	CViewerProcess l_Viewer;
-	SConfig l_Config;
-	l_Engine.SetProcess(&l_Viewer);
-	l_Engine.LoadConfigXML( "./Data/engine.xml", l_Config );
-
+	g_Engine = new CEngine();
+	CViewerProcess *l_Viewer;
+	l_Viewer = new CViewerProcess();
+	g_Engine->SetProcess(l_Viewer);
+	g_Engine->LoadConfigXML( "./Data/engine.xml" );
+	Vect2i position = g_Engine->GetPosition();
+	Vect2i resolution = g_Engine->GetResolution();
 
 	// Create the application's window
-	HWND hWnd = CreateWindow(	APPLICATION_NAME, APPLICATION_NAME, WS_OVERLAPPEDWINDOW, l_Config.position.x, l_Config.position.y,
-		l_Config.resolution.x, l_Config.resolution.y, NULL, NULL, wc.hInstance, NULL );
+	HWND hWnd = CreateWindow(	APPLICATION_NAME, APPLICATION_NAME, WS_OVERLAPPEDWINDOW, position.x, position.y,
+		resolution.x, resolution.y, NULL, NULL, wc.hInstance, NULL );
 
-
+	
 	// Init de la applicacioón
-	l_Engine.Init( hWnd, l_Config );
+	g_Engine->Init( hWnd );
 
 
 	ShowWindow( hWnd, SW_SHOWDEFAULT );
@@ -80,13 +91,15 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 		else
 		{
 			// Main loop: Update y Render de la aplicación principal
-			l_Engine.Update(0.0f);
-			l_Engine.Render();
+			g_Engine->Update();
+			g_Engine->Render();
 		}
 	}
 	UnregisterClass( APPLICATION_NAME, wc.hInstance );
 
 	// Añadir una llamada a la alicación para finalizar/liberar memoria de todos sus datos
+	CHECKED_DELETE(g_Engine);
+
 
 	return 0;
 }

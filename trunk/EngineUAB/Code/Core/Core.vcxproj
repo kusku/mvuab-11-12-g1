@@ -17,6 +17,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
+    <ClInclude Include="definesEngine.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Process.h" />
   </ItemGroup>
