@@ -20,6 +20,13 @@ CRenderManager::CRenderManager()
 
 CRenderManager::~CRenderManager()
 {
+	Release();
+}
+
+void CRenderManager::Release()
+{
+	CHECKED_RELEASE(m_pD3D);
+	CHECKED_RELEASE(m_pD3DDevice);
 }
 
 bool CRenderManager::Init(HWND hWnd)
