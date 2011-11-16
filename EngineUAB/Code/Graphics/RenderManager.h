@@ -30,6 +30,7 @@ public:
 	virtual ~CRenderManager();
 
 	bool Init( HWND hWnd );
+	void Release ();
 	
 	void BeginRendering();
 	void EndRendering();
