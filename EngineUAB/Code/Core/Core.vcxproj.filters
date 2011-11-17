@@ -9,6 +9,6 @@
     <ClInclude Include="Core.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Process.h" />
-    <ClInclude Include="definesEngine.h" />
+    <ClInclude Include="CoreDefs.h" />
   </ItemGroup>
 </Project>

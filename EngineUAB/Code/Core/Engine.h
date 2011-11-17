@@ -7,7 +7,7 @@
 #include "Process.h"
 #include "Math\Color.h"
 #include "Utils\Timer.h"
-#include "definesEngine.h"
+#include "CoreDefs.h"
 
 class CEngine
 {

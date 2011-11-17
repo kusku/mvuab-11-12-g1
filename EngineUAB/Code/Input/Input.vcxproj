@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Action2Input.cpp" />
+    <ClCompile Include="ActionToInput.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Periphericals\GamePad.cpp" />
     <ClCompile Include="Periphericals\InputDevice.cpp" />
@@ -19,7 +19,7 @@
     <ClCompile Include="Periphericals\Mouse.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Action2Input.h" />
+    <ClInclude Include="ActionToInput.h" />
     <ClInclude Include="InputDefs.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Periphericals\GamePad.h" />
