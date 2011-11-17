@@ -1,10 +1,14 @@
 #include "Core.h"
 #include "Base.h"
+#include "InputManager.h"
+#include "FontManager.h"
+#include "Location\LanguageManager.h"
 
 CCore::CCore()
 	: m_pRenderManager(NULL)
 	, m_pLanguageManager(NULL)
 	, m_pFontManager(NULL)
+	, m_pInputManager(NULL)
 {
 }
 
@@ -13,8 +17,9 @@ CCore::~CCore()
 	Release();
 }
 
-void CCore::Init(HWND hWnd, const SConfig &config)
+void CCore::Init( HWND hWnd, const SConfig &config )
 {
+	//Inicializa el Render
 	m_pRenderManager = new CRenderManager();
 	m_pRenderManager->SetColorDebug( config.color_debug );
 	m_pRenderManager->SetColorRelease( config.color_release );
@@ -22,10 +27,12 @@ void CCore::Init(HWND hWnd, const SConfig &config)
 	m_pRenderManager->SetScreenSize( config.resolution );
 	m_pRenderManager->Init(hWnd);
 
+	//Inicializa las fuentes
 	m_pFontManager = new CFontManager();
 	m_pFontManager->Init( m_pRenderManager );
 	m_pFontManager->LoadTTFs( config.fonts_path );
 
+	//Inicializa los lenguajes
 	m_pLanguageManager = new CLanguageManager();
 	int count = config.languages_path.size();
 	for(int i=0; i<count; ++i)
@@ -34,6 +41,10 @@ void CCore::Init(HWND hWnd, const SConfig &config)
 	}
 	m_pLanguageManager->LoadXMLs();
 	m_pLanguageManager->SetCurrentLanguage( config.default_language );
+
+	//Inicializa los inputs
+	m_pInputManager = new CInputManager();
+	m_pInputManager->Init( hWnd, config.resolution, true );
 }
 
 void CCore::Release()
@@ -41,10 +52,12 @@ void CCore::Release()
 	CHECKED_DELETE(m_pRenderManager);
 	CHECKED_DELETE(m_pLanguageManager);
 	CHECKED_DELETE(m_pFontManager);
+	CHECKED_DELETE(m_pInputManager);
 }
 
 void CCore::Update(float ElapsedTime)
 {
+	m_pInputManager->Update();
 }
 
 void CCore::Render()

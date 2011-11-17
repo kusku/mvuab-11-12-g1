@@ -42,7 +42,8 @@ public:
 	void SetFullscreen		( bool fullscreen );
 	void SetScreenSize		( Vect2i size );
 
-	bool GetPaintSolid () const;
+	bool	GetPaintSolid () const;
+	Vect2i	GetScreenSize	() const { return m_Size; }
 
 	HWND				GetHWND () const;
 	LPDIRECT3D9			GetD3D () const;

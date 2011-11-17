@@ -4,11 +4,14 @@
 #define _VIEWERPROCESS_H
 
 #include "Process.h"
+#include "Math\Vector2.h"
 
 class CViewerProcess : public CProcess
 {
 protected:
-	float time;
+	Vect2i pos;
+	Vect2i screen;
+
 public:
 	CViewerProcess();
 	~CViewerProcess();

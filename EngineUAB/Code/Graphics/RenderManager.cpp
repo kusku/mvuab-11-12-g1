@@ -17,7 +17,6 @@ CRenderManager::CRenderManager()
 {
 }
 
-
 CRenderManager::~CRenderManager()
 {
 	Release();
@@ -25,8 +24,8 @@ CRenderManager::~CRenderManager()
 
 void CRenderManager::Release()
 {
-	CHECKED_RELEASE(m_pD3D);
-	CHECKED_RELEASE(m_pD3DDevice);
+	CHECKED_RELEASE( m_pD3D );
+	CHECKED_RELEASE( m_pD3DDevice );
 }
 
 bool CRenderManager::Init(HWND hWnd)
@@ -38,7 +37,7 @@ bool CRenderManager::Init(HWND hWnd)
    assert(m_pD3D);
 
    m_bIsOk = m_pD3D != NULL;
-   if (m_bIsOk)
+   if ( m_bIsOk )
    {
        // Set up the structure used to create the D3DDevice
        D3DPRESENT_PARAMETERS d3dpp;
