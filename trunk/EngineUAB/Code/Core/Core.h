@@ -6,10 +6,12 @@
 class CInputManager;
 class CFontManager;
 class CLanguageManager;
+class CActionToInput;
+class CRenderManager;
 
-#include "RenderManager.h"
+#include <Windows.h>
 #include "Utils\Singleton.h"
-#include "definesEngine.h"
+#include "CoreDefs.h"
 
 class CCore : public CSingleton<CCore>
 {
@@ -18,6 +20,7 @@ private:
 	CFontManager		*m_pFontManager;
 	CLanguageManager	*m_pLanguageManager;
 	CInputManager		*m_pInputManager;
+	CActionToInput		*m_pActionToInput;
 
 public:
 	CCore();

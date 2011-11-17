@@ -14,7 +14,7 @@
     <ClCompile Include="Periphericals\InputDevice.cpp">
       <Filter>Periphericals</Filter>
     </ClCompile>
-    <ClCompile Include="Action2Input.cpp" />
+    <ClCompile Include="ActionToInput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Periphericals">
@@ -36,6 +36,6 @@
     <ClInclude Include="Periphericals\InputDevice.h">
       <Filter>Periphericals</Filter>
     </ClInclude>
-    <ClInclude Include="Action2Input.h" />
+    <ClInclude Include="ActionToInput.h" />
   </ItemGroup>
 </Project>

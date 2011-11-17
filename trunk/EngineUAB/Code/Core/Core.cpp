@@ -1,6 +1,8 @@
 #include "Core.h"
 #include "Base.h"
+#include "RenderManager.h"
 #include "InputManager.h"
+#include "ActionToInput.h"
 #include "FontManager.h"
 #include "Location\LanguageManager.h"
 
@@ -9,6 +11,7 @@ CCore::CCore()
 	, m_pLanguageManager(NULL)
 	, m_pFontManager(NULL)
 	, m_pInputManager(NULL)
+	, m_pActionToInput(NULL)
 {
 }
 
@@ -23,7 +26,7 @@ void CCore::Init( HWND hWnd, const SConfig &config )
 	m_pRenderManager = new CRenderManager();
 	m_pRenderManager->SetColorDebug( config.color_debug );
 	m_pRenderManager->SetColorRelease( config.color_release );
-	m_pRenderManager->SetFullscreen( config.fullscreen );
+	m_pRenderManager->SetFullscreen( config.bFullscreen );
 	m_pRenderManager->SetScreenSize( config.resolution );
 	m_pRenderManager->Init(hWnd);
 
@@ -44,7 +47,8 @@ void CCore::Init( HWND hWnd, const SConfig &config )
 
 	//Inicializa los inputs
 	m_pInputManager = new CInputManager();
-	m_pInputManager->Init( hWnd, config.resolution, true );
+	m_pInputManager->Init( hWnd, config.resolution, config.bExclusiveModeInMouse );
+	m_pActionToInput = new CActionToInput();
 }
 
 void CCore::Release()
@@ -53,6 +57,7 @@ void CCore::Release()
 	CHECKED_DELETE(m_pLanguageManager);
 	CHECKED_DELETE(m_pFontManager);
 	CHECKED_DELETE(m_pInputManager);
+	CHECKED_DELETE(m_pActionToInput);
 }
 
 void CCore::Update(float ElapsedTime)
