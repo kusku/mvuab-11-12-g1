@@ -1,5 +1,8 @@
 #include "Engine.h"
 #include "Base.h"
+#include "RenderManager.h"
+#include "FontManager.h"
+#include "Location\LanguageManager.h"
 #include "XML\XMLTreeNode.h"
 
 CEngine::CEngine()

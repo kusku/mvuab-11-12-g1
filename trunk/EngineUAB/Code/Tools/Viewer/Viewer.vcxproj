@@ -55,14 +55,14 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Graphics\;$(DXSDK_DIR)\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\Input\;$(DXSDK_DIR)\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <OutputFile>$(OutDir)\$(ProjectName)_d.exe</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\lib;$(SolutionDir)\bin\lib;$(DXSDK_DIR)\lib\x86</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libxml2.lib;base_d.lib;core_d.lib;graphics_d.lib;d3dx9d.lib;winmm.lib;d3d9.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libxml2.lib;base_d.lib;core_d.lib;graphics_d.lib;input_d.lib;d3dx9d.lib;d3d9.lib;d3dxof.lib;dxguid.lib;dinput8.lib;xinput.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -75,7 +75,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Graphics\;$(DXSDK_DIR)\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(DXSDK_DIR)\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -84,7 +84,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\lib;$(SolutionDir)\bin\lib;$(DXSDK_DIR)\lib\x86</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libxml2.lib;base.lib;core.lib;graphics.lib;d3dx9d.lib;d3d9.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libxml2.lib;base.lib;core.lib;graphics.lib;input.lib;d3dx9d.lib;d3d9.lib;d3dxof.lib;dxguid.lib;dinput8.lib;xinput.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
