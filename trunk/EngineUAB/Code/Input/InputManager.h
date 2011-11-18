@@ -33,22 +33,22 @@ public:
 	CInputManager(): m_bIsOk(false), m_pDI( NULL ), m_pKB( NULL ), m_pMouse( NULL ), m_pGamePad(NULL) {}
 	virtual ~CInputManager() { Done(); }  
 
-	bool		      	Init		              					(HWND, const Vect2i& screenRes, bool exclusiveModeinMouse);
-	void		      	Done                  					();
-	bool		      	IsOk                  					() const { return m_bIsOk; }
+	bool		      	Init			(HWND, const Vect2i& screenRes, bool exclusiveModeinMouse);
+	void		      	Done			();
+	bool		      	IsOk			() const { return m_bIsOk; }
 
 	// Poll input devices
-	HRESULT		      Update		            					();		
+	HRESULT		      Update			();		
 
 
 	//--Query Input Data and States--------
-	HRESULT	        GetPosition											(INPUT_DEVICE_TYPE, Vect2i&);		// will work for mouse and joystick only
+	HRESULT	        GetPosition									(INPUT_DEVICE_TYPE, Vect2i&);		// will work for mouse and joystick only
 	const Vect3i&   GetMouseDelta		      					();							                // get change in mouse position
-	bool	        IsDown													(INPUT_DEVICE_TYPE, uint32);	  // will work for keyboard, mouse and joystick
-	bool	        IsDownUp				      					(INPUT_DEVICE_TYPE, uint32);	  // will work for keyboard, mouse and joystick
-	bool			IsUpDown				      					(INPUT_DEVICE_TYPE, uint32);	  // will work for keyboard, mouse and joystick
-	bool	        HasGamePad											(INPUT_DEVICE_TYPE device = IDV_GAMEPAD1) const;	// GamePad available?
-	int32			Scan2ascii											(uint32 scancode, uint16* result);
+	bool	        IsDown										(INPUT_DEVICE_TYPE, uint32);	  // will work for keyboard, mouse and joystick
+	bool	        IsDownUp				      				(INPUT_DEVICE_TYPE, uint32);	  // will work for keyboard, mouse and joystick
+	bool			IsUpDown				      				(INPUT_DEVICE_TYPE, uint32);	  // will work for keyboard, mouse and joystick
+	bool	        HasGamePad									(INPUT_DEVICE_TYPE device = IDV_GAMEPAD1) const;	// GamePad available?
+	int32			Scan2ascii									(uint32 scancode, uint16* result);
 	
 	//GamePad functions:
 	bool						GetGamePadLeftThumbDeflection	(float *pfX, float *pfY, INPUT_DEVICE_TYPE device = IDV_GAMEPAD1);

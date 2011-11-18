@@ -6,14 +6,22 @@
 class CInputManager;
 
 #include "InputDefs.h"
-#include "Base.h"
 #include "Math\Vector2.h"
 #include <Windows.h>
 #include <string>
+#include <vector>
+#include <map>
 
 class CActionToInput
 {
 protected:
+	CInputManager	*m_pInputManager;
+
+	std::map< std::string, std::vector< SInputInfo > > m_ActionsMap;
+
+	INPUT_DEVICE_TYPE		string2Device	( const std::string &deviceType );
+	INPUT_EVENT_TYPE		string2Event	( const std::string &eventType );
+	INPUT_AXIS_TYPE			string2Axis		( const std::string &axisType );
 
 public:
 	CActionToInput();

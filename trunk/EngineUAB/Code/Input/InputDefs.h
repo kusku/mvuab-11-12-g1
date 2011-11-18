@@ -8,6 +8,8 @@
 #ifndef INC_INPUT_DEFINES_H
 #define INC_INPUT_DEFINES_H
 
+#include <string>
+#include "Math\MathTypes.h"
 
 typedef enum INPUT_DEVICE_TYPE 
 {
@@ -51,13 +53,20 @@ typedef enum MOUSE_BUTTON
 	MOUSE_BUTTON_NOTHING
 };
 
+struct SInputInfo
+{
+	std::string			keyName;
+	uint32				key;
+	INPUT_DEVICE_TYPE	deviceType;
+	INPUT_EVENT_TYPE	eventType;
+};
 
 //------------------------------------------
 //----- Gamepad codes from XInput.h --------
-#define PAD_DPAD_UP          				0x0001
-#define PAD_DPAD_DOWN        				0x0002
-#define PAD_DPAD_LEFT        				0x0004
-#define PAD_DPAD_RIGHT       				0x0008
+#define PAD_DPAD_UP  				0x0001
+#define PAD_DPAD_DOWN 				0x0002
+#define PAD_DPAD_LEFT       		0x0004
+#define PAD_DPAD_RIGHT       		0x0008
 #define PAD_DPAD_START            	0x0010
 #define PAD_DPAD_BACK             	0x0020
 #define PAD_BUTTON_LEFT_THUMB     	0x0040

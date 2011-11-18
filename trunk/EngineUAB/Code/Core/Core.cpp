@@ -48,7 +48,8 @@ void CCore::Init( HWND hWnd, const SConfig &config )
 	//Inicializa los inputs
 	m_pInputManager = new CInputManager();
 	m_pInputManager->Init( hWnd, config.resolution, config.bExclusiveModeInMouse );
-	m_pActionToInput = new CActionToInput();
+	/*m_pActionToInput = new CActionToInput();
+	m_pActionToInput->Init(hWnd, config.resolution, config.bExclusiveModeInMouse);*/
 }
 
 void CCore::Release()
