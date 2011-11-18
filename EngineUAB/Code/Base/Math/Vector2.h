@@ -86,6 +86,8 @@ public:
   inline Vector2<T>  GetNormalized () const;
   inline T           Length        () const;
   inline T           SquaredLength () const;
+  inline T           Distance      (const Vector2<T>& rhs) const;
+  inline T           SqDistance    (const Vector2<T>& rhs) const;
 
 
   // Rotaciones
