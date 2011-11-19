@@ -10,6 +10,7 @@
 
 #include <string>
 #include "Math\MathTypes.h"
+#include <map>
 
 typedef enum INPUT_DEVICE_TYPE 
 {
@@ -20,7 +21,6 @@ typedef enum INPUT_DEVICE_TYPE
 	IDV_GAMEPAD4,
 	IDV_MOUSE,
 	IDV_NOTHING
-
 };
 
 typedef enum INPUT_AXIS_TYPE
@@ -56,9 +56,11 @@ typedef enum MOUSE_BUTTON
 struct SInputInfo
 {
 	std::string			keyName;
+	float				delta;
 	uint32				key;
 	INPUT_DEVICE_TYPE	deviceType;
 	INPUT_EVENT_TYPE	eventType;
+	INPUT_AXIS_TYPE		axisType;
 };
 
 //------------------------------------------

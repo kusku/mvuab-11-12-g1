@@ -1,10 +1,13 @@
-//#include "__PCH_Base.h"
 #include "LanguageManager.h"
 #include "xml/XMLTreeNode.h"
-//#include "Exceptions/Exception.h"
-//#include "Logger/Logger.h"
+#include "Exceptions/Exception.h"
+#include "Logger/Logger.h"
+#include "Base.h"
 #include <assert.h>
 
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
 
 CLanguageManager::CLanguageManager()
 :m_sCurrentLanguage("")
@@ -39,8 +42,8 @@ void CLanguageManager::LoadXML (const std::string& pathFile)
 	if (!parser.LoadFile(pathFile.c_str()))
 	{
 		std::string msg_error = "LanguageManager::LoadXML->Error al intentar leer el archivo de lenguaje: " + pathFile;
-		/*LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
-		throw CException(__FILE__, __LINE__, msg_error);*/
+		LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
+		throw CException(__FILE__, __LINE__, msg_error);
 		assert(0);
 	}
 
@@ -49,7 +52,7 @@ void CLanguageManager::LoadXML (const std::string& pathFile)
 		<literal id="xfiles"  font="X-Files"  color="0.1 0.1 0.1 0.8" value="Exit"/>  
 	</Language>*/
 
-	//LOGGER->AddNewLog(ELL_INFORMATION, "LanguageManager::LoadXML-> Parseando fichero de lenguaje: %s", pathFile.c_str());
+	LOGGER->AddNewLog(ELL_INFORMATION, "LanguageManager::LoadXML-> Parseando fichero de lenguaje: %s", pathFile.c_str());
 	
 	CXMLTreeNode  m = parser["Language"];
 	std::string id_language	= m.GetPszProperty("id");
@@ -68,14 +71,14 @@ void CLanguageManager::LoadXML (const std::string& pathFile)
 			l_literal.m_value		= m(i).GetPszISOProperty("value", "nothing");	
 			l_literal.m_cColor	= CColor(vecColor.x, vecColor.y, vecColor.z, vecColor.w);
 			language.insert(std::pair<std::string,SLiteral>(id, l_literal));
-		/*	LOGGER->AddNewLog(ELL_INFORMATION, "LanguageManager::LoadXML-> Añadido literal(%s,%s,[%f,%f,%f,%f],%s)", 
-																	id.c_str(), l_literal.m_sFontId.c_str(),vecColor.x,vecColor.y,vecColor.z,vecColor.w, l_literal.m_value.c_str());	*/
+			LOGGER->AddNewLog(ELL_INFORMATION, "LanguageManager::LoadXML-> Añadido literal(%s,%s,[%f,%f,%f,%f],%s)", 
+																	id.c_str(), l_literal.m_sFontId.c_str(),vecColor.x,vecColor.y,vecColor.z,vecColor.w, l_literal.m_value.c_str());	
 		}
 	}
 	if (m_Languages.find(id_language) != m_Languages.end())
 	{
 		//Ya está registrado el identificador id_language
-		//LOGGER->AddNewLog(ELL_WARNING, "LanguageManager::LoadXML-> EYa se ha registrado un language con identificador %s", id_language.c_str());
+		LOGGER->AddNewLog(ELL_WARNING, "LanguageManager::LoadXML-> EYa se ha registrado un language con identificador %s", id_language.c_str());
 	}
 	else
 	{
@@ -103,7 +106,7 @@ void CLanguageManager::SetXmlFile (const std::string& pathFile)
 	if (!exist)
 	{
 		m_vXML_Files.push_back(pathFile);
-		//LOGGER->AddNewLog(ELL_INFORMATION, "LanguageManager::SetXmlFile-> Se ha añadido el xml: %s", pathFile.c_str());
+		LOGGER->AddNewLog(ELL_INFORMATION, "LanguageManager::SetXmlFile-> Se ha añadido el xml: %s", pathFile.c_str());
 	}
 	
 }
@@ -132,10 +135,10 @@ void CLanguageManager::SetCurrentLanguage (const std::string& id)
 	if (it != m_Languages.end())
 	{
 		m_sCurrentLanguage = id;
-		//LOGGER->AddNewLog(ELL_INFORMATION, "LanguageManager::SetCurrentLanguage-> Se ha seteado como current el language %s", id.c_str());
+		LOGGER->AddNewLog(ELL_INFORMATION, "LanguageManager::SetCurrentLanguage-> Se ha seteado como current el language %s", id.c_str());
 	}
 	else
 	{
-		//LOGGER->AddNewLog(ELL_WARNING, "LanguageManager::SetCurrentLanguage-> El language %s no esta registrado", id.c_str());
+		LOGGER->AddNewLog(ELL_WARNING, "LanguageManager::SetCurrentLanguage-> El language %s no esta registrado", id.c_str());
 	}
 }

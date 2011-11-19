@@ -1,10 +1,17 @@
 #include "ViewerProcess.h"
 #include "FontManager.h"
 #include "InputManager.h"
+#include "ActionToInput.h"
 #include "Periphericals\Mouse.h"
 #include "Base.h"
 #include "Core.h"
 #include "Math\Color.h"
+#include "Logger\Logger.h"
+#include "Exceptions\Exception.h"
+
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
 
 CViewerProcess::CViewerProcess()
 	: pos(0,0)
@@ -49,6 +56,14 @@ void CViewerProcess::Update(float elapsedTime)
 	{
 		pos.y = screen.y;
 	}	
+
+	float dx;
+	if( CORE->GetActionToInput()->DoAction("MoveXViewerCam", dx) )
+	{
+		std::vector<std::string> names;
+		CORE->GetActionToInput()->GetActionKeys("MoveXViewerCam", names);
+		int a=1;
+	}
 }
 
 void CViewerProcess::Render()

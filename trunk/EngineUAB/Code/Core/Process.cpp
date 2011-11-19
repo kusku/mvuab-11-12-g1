@@ -1,5 +1,9 @@
 #include "Process.h"
 
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
+
 CProcess::CProcess()
 {
 }

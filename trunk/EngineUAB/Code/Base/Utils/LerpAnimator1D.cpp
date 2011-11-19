@@ -2,6 +2,10 @@
 #include "Math\MathUtils.h"
 #include <assert.h>
 
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
+
 void CLerpAnimator1D::SetValues (float initValue, float endValue, float totalTime, ETypeFunction type)
 {
 	assert( totalTime > 0);

@@ -10,5 +10,6 @@
 #define CHECKED_DELETE_ARRAY(x) if(x){ delete [] x; x=NULL; }
 
 #define CORE CCore::GetSingletonPtr()
+#define LOGGER CLogger::GetSingletonPtr()
 
 #endif

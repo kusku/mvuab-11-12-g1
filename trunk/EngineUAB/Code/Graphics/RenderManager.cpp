@@ -1,7 +1,13 @@
 #include "RenderManager.h"
+#include "Logger\Logger.h"
+#include "Exceptions\Exception.h"
 #include "Base.h"
 #include "Math\Vector3.h"
 #include <string>
+
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
 
 CRenderManager::CRenderManager()
 	: m_uWidth(0)
@@ -116,16 +122,16 @@ bool CRenderManager::Init(HWND hWnd)
            {
                GetWindowRect(hWnd);
            }
-           //LOGGER->AddNewLog(ELL_INFORMATION, "RenderManager:: La resolucion de pantalla es (%dx%d)",m_uWidth,m_uHeight);
+           LOGGER->AddNewLog(ELL_INFORMATION, "RenderManager:: La resolucion de pantalla es (%dx%d)",m_uWidth,m_uHeight);
        }   
     }
 
    if (!m_bIsOk)
    {
        std::string msg_error = "Rendermanager::Init-> Error al inicializar Direct3D";
-       //LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
-       //Release();
-       //throw CException(__FILE__, __LINE__, msg_error);
+       LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
+       Release();
+       throw CException(__FILE__, __LINE__, msg_error);
    }
 
    return m_bIsOk;

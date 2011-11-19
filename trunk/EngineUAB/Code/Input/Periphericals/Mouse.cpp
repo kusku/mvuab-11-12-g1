@@ -1,6 +1,6 @@
 #include "Mouse.h"
-//#include "Logger/Logger.h"
-
+#include "Logger/Logger.h"
+#include "Base.h"
 
 
 #define BUFFER_SIZE 16
@@ -10,7 +10,7 @@
 //----------------------------------------------------------------------------
 void CMouse::Done ()
 {
-	/*LOGGER->AddNewLog(ELL_INFORMATION, "Mouse:: releasing mouse");*/
+	LOGGER->AddNewLog(ELL_INFORMATION, "Mouse:: releasing mouse");
 	if (IsOk())
 	{
 		Release();
@@ -37,7 +37,7 @@ bool CMouse::Init(LPDIRECTINPUT8 pDI, HWND hWnd, const Vect2i& screenRes, bool e
 
 
 
-		/*LOGGER->AddNewLog(ELL_INFORMATION, "Mouse:: crancking up mouse");*/
+		LOGGER->AddNewLog(ELL_INFORMATION, "Mouse:: crancking up mouse");
 		bIsOk = !FAILED(CrankUp(GUID_SysMouse, &c_dfDIMouse, exclusiveMode));
 
 		if (bIsOk)
@@ -66,7 +66,7 @@ bool CMouse::Init(LPDIRECTINPUT8 pDI, HWND hWnd, const Vect2i& screenRes, bool e
 					{
 						// acquire the device to make it work
 						m_pDevice->Acquire();
-			/*			LOGGER->AddNewLog(ELL_INFORMATION, "Mouse:: mouse online");*/
+						LOGGER->AddNewLog(ELL_INFORMATION, "Mouse:: mouse online");
 					}
 				}
 			}

@@ -8,6 +8,7 @@
 #include "Math\Color.h"
 #include "Utils\Timer.h"
 #include "CoreDefs.h"
+#include "Logger\Logger.h"
 
 class CEngine
 {
@@ -15,6 +16,7 @@ protected:
 	CCore		*m_pCore;
 	CProcess	*m_pProcess;
 	CTimer		m_pTimer;
+	CLogger		*m_pLogger;
 
 	SConfig		m_Config;
 

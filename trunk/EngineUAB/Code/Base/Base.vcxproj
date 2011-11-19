@@ -90,8 +90,11 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Exceptions\Exception.cpp" />
     <ClCompile Include="Location\LanguageManager.cpp" />
+    <ClCompile Include="Logger\Logger.cpp" />
     <ClCompile Include="Math\MathConstants.cpp" />
+    <ClCompile Include="Memory\MemLeaks.cpp" />
     <ClCompile Include="Utils\CountDownTimer.cpp" />
     <ClCompile Include="Utils\LerpAnimator1D.cpp" />
     <ClCompile Include="Utils\LerpAnimator2D.cpp" />
@@ -105,7 +108,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base.h" />
+    <ClInclude Include="Exceptions\Exception.h" />
     <ClInclude Include="Location\LanguageManager.h" />
+    <ClInclude Include="Logger\Logger.h" />
     <ClInclude Include="Math\Color.h" />
     <ClInclude Include="Math\MathTypes.h" />
     <ClInclude Include="Math\MathUtils.h" />
@@ -115,6 +120,7 @@
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="Math\Vector4.h" />
+    <ClInclude Include="Memory\MemLeaks.h" />
     <ClInclude Include="Utils\BaseUtils.h" />
     <ClInclude Include="Utils\CountDownTimer.h" />
     <ClInclude Include="Utils\LerpAnimator1D.h" />

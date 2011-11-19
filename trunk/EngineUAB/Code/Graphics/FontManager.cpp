@@ -1,13 +1,17 @@
 #include "FontManager.h"
 #include "Core.h"
 #include "Location\LanguageManager.h"
-//#include "Logger/Logger.h"
-//#include "Exceptions/Exception.h"
+#include "Logger/Logger.h"
+#include "Exceptions/Exception.h"
 #include "RenderManager.h"
 #include "xml/XMLTreeNode.h"
 //#include "Script/ScriptManager.h"
 //#include "luabind/luabind.hpp"
 #include "Base.h"
+
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
 
 void CFontManager::Done ()
 {
@@ -20,7 +24,7 @@ void CFontManager::Done ()
 
 bool CFontManager::Init(CRenderManager* rm)
 {
-	//LOGGER->AddNewLog(ELL_INFORMATION, "CFontManager:: Inicializando FontManager");
+	LOGGER->AddNewLog(ELL_INFORMATION, "CFontManager:: Inicializando FontManager");
 	m_pD3DDevice = rm->GetDevice();
 	m_bIsOk = (m_pD3DDevice!=NULL);
 	if (m_bIsOk)
@@ -68,8 +72,8 @@ bool CFontManager::LoadTTFs (const std::string& pathFile)
 	if (!parser.LoadFile(pathFile.c_str()))
 	{
 		std::string msg_error = "CRenderManager::LoadFonts->Error al intentar leer el archivo de configuracion: " + pathFile;
-		/*LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
-		throw CException(__FILE__, __LINE__, msg_error);*/
+		LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
+		throw CException(__FILE__, __LINE__, msg_error);
 	}
 	m_sPathFile = pathFile;
 	CXMLTreeNode  m = parser["Fonts"];
@@ -110,11 +114,11 @@ bool CFontManager::LoadTTFs (const std::string& pathFile)
 				{
 					m_vTTFsFiles.push_back(file);
 					m_TTFs[fontId] = CreateFont(size, bold, italica, name, _default);
-					//LOGGER->AddNewLog(ELL_INFORMATION, "LoadFonts:: Add font %s (file:%s,size:%d,bold:%d,italica:%d,default:%d),",fontId.c_str(), file.c_str(), size, bold, italica, _default); 
+					LOGGER->AddNewLog(ELL_INFORMATION, "LoadFonts:: Add font %s (file:%s,size:%d,bold:%d,italica:%d,default:%d),",fontId.c_str(), file.c_str(), size, bold, italica, _default); 
 				}
 				else
 				{
-					//LOGGER->AddNewLog(ELL_ERROR, "LoadFonts:: no se ha podido añadir el ttf file: %s", file.c_str()); 
+					LOGGER->AddNewLog(ELL_ERROR, "LoadFonts:: no se ha podido añadir el ttf file: %s", file.c_str()); 
 					//CORE->SetAssetError(ASSET_ERROR_TTF);
 				}
 			}			
