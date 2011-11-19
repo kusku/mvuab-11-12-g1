@@ -1,6 +1,8 @@
 #include "ActionToInput.h"
 #include "InputManager.h"
 #include "XML\XMLTreeNode.h"
+#include "Logger\Logger.h"
+#include "Exceptions\Exception.h"
 #include "Base.h"
 
 #if defined(_DEBUG)
@@ -38,6 +40,8 @@ void CActionToInput::Release()
 
 void CActionToInput::Init(HWND hWnd, const Vect2i& screenRes, bool exclusiveModeinMouse)
 {
+	LOGGER->AddNewLog(ELL_INFORMATION, "CActionToInput:: Inicializando ActionToInput");
+
 	m_pInputManager = new CInputManager();
 	m_pInputManager->Init( hWnd, screenRes, exclusiveModeinMouse );
 
@@ -378,8 +382,9 @@ void CActionToInput::LoadXML(const std::string &filename)
 	CXMLTreeNode newFile;
 	if (!newFile.LoadFile(filename.c_str()))
 	{
-		assert(0);
-		return;
+		std::string msg_error = "CActionToInput::LoadXML->Error al intentar leer el archivo de acciones: " + filename;
+		LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
+		throw CException(__FILE__, __LINE__, msg_error);
 	}
 
 	CXMLTreeNode l_InputNode = newFile["Actions"];

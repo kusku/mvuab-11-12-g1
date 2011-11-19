@@ -5,6 +5,7 @@
 #include "ActionToInput.h"
 #include "FontManager.h"
 #include "Location\LanguageManager.h"
+#include "Logger\Logger.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -26,6 +27,8 @@ CCore::~CCore()
 
 void CCore::Init( HWND hWnd, const SConfig &config )
 {
+	LOGGER->AddNewLog(ELL_INFORMATION, "CCore:: Inicializando Core");
+
 	//Inicializa el Render
 	m_pRenderManager = new CRenderManager();
 	m_pRenderManager->SetColorDebug( config.color_debug );

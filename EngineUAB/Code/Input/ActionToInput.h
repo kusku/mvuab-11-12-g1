@@ -36,7 +36,7 @@ public:
 	bool	DoAction	( const std::string &action );
 	bool	DoAction	( const std::string &action, float &delta_ );
 
-	void		GetActionKeys	( const std::string &action, std::vector<std::string> &names_ );
+	void	GetActionKeys	( const std::string &action, std::vector<std::string> &names_ );
 
 	void	LoadXML		( const std::string &filename );
 	CInputManager* GetInputManager() const { return m_pInputManager; }
