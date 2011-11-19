@@ -5,6 +5,7 @@
 #include "Location\LanguageManager.h"
 #include "XML\XMLTreeNode.h"
 #include "Logger\Logger.h"
+#include "Exceptions\Exception.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -31,6 +32,8 @@ CEngine::~CEngine()
 void CEngine::Init(HWND hWnd)
 {
 	m_pLogger = new CLogger();
+
+	LOGGER->AddNewLog(ELL_INFORMATION, "CEngine:: Inicializando Engine");
 
 	m_pCore = new CCore();
 	m_pCore->Init(hWnd, m_Config);
@@ -89,8 +92,9 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 	CXMLTreeNode newFile;
 	if (!newFile.LoadFile(configFile.c_str()))
 	{
-		assert(0);
-		return;
+		std::string msg_error = "CEngine::LoadConfigXML->Error al intentar leer el archivo de configuración: " + configFile;
+		LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
+		throw CException(__FILE__, __LINE__, msg_error);
 	}
 
 	CXMLTreeNode l_ConfigNode = newFile["Config"];
