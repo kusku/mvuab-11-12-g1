@@ -35,6 +35,7 @@ public:
 	CFontManager*		GetFontManager() const		{ return m_pFontManager; }
 	CLanguageManager*	GetLanguageManager() const	{ return m_pLanguageManager; }
 	CInputManager*		GetInputManager() const		{ return m_pInputManager; }
+	CActionToInput*		GetActionToInput() const	{ return m_pActionToInput; }
 };
 
 #endif

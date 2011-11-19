@@ -2,13 +2,16 @@
 #include "Periphericals\GamePad.h"
 #include "Periphericals\Keyboard.h"
 #include "Periphericals\Mouse.h"
-//#include "Logger/Logger.h"
-//#include "Exceptions/Exception.h"
+#include "Logger/Logger.h"
+#include "Exceptions/Exception.h"
 //#include "Script/ScriptManager.h"
 //#include "luabind/luabind.hpp"
 #include "Base.h"
 #include <string>
 
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
 
 //----------------------------------------------------------------------------
 // Finalize data
@@ -27,14 +30,14 @@ void CInputManager::Done ()
 //----------------------------------------------------------------------------
 void CInputManager::Release () 
 {
-	//LOGGER->AddNewLog(ELL_INFORMATION, "InputManager:: shutting down DirectInput");
+	LOGGER->AddNewLog(ELL_INFORMATION, "InputManager:: shutting down DirectInput");
 
 	CHECKED_DELETE(m_pKB);
 	CHECKED_DELETE(m_pMouse);
 	CHECKED_DELETE(m_pGamePad);
 	CHECKED_RELEASE(m_pDI);
 
-	//LOGGER->AddNewLog(ELL_INFORMATION, "InputManager:: offline (ok)");
+	LOGGER->AddNewLog(ELL_INFORMATION, "InputManager:: offline (ok)");
 }
 
 
@@ -48,8 +51,7 @@ bool CInputManager::Init (HWND hWnd, const Vect2i& screenRes, bool exclusiveMode
 	HRESULT hr;
 	m_hWndMain = hWnd;
 
-	/*LOGGER->AddNewLog(ELL_INFORMATION, "InputManager:: calling initialization");*/
-
+	LOGGER->AddNewLog(ELL_INFORMATION, "InputManager:: calling initialization");
 
 	// create main DirectInput object
 	m_bIsOk = !FAILED (hr = DirectInput8Create(	GetModuleHandle(NULL), DIRECTINPUT_VERSION, 
@@ -57,8 +59,8 @@ bool CInputManager::Init (HWND hWnd, const Vect2i& screenRes, bool exclusiveMode
 	if (m_bIsOk)
 	{
 		// create all input device objects
-		m_pKB				= new CKeyboard;
-		m_pMouse		= new CMouse;
+		m_pKB		= new CKeyboard;
+		m_pMouse	= new CMouse;
 		m_pGamePad	= new CGamePad;
 
 		// initialize all input device objects
@@ -69,16 +71,15 @@ bool CInputManager::Init (HWND hWnd, const Vect2i& screenRes, bool exclusiveMode
 
 			if (m_bIsOk)
 			{
-				m_pGamePad = new CGamePad();
-        m_bIsOk = m_pGamePad->Init(screenRes);
+				m_bIsOk = m_pGamePad->Init(screenRes);
 				m_pGamePad->Update();
 				if (m_pGamePad->IsConnected() )
 				{
-					/*LOGGER->AddNewLog(ELL_INFORMATION, "InputManager:: GamePad is connected");*/
+					LOGGER->AddNewLog(ELL_INFORMATION, "InputManager:: GamePad is connected");
 				}
 				else
 				{
-					/*LOGGER->AddNewLog(ELL_INFORMATION, "InputManager:: GamePad is not connected");*/
+					LOGGER->AddNewLog(ELL_INFORMATION, "InputManager:: GamePad is not connected");
 				}
 			}
 
@@ -89,7 +90,7 @@ bool CInputManager::Init (HWND hWnd, const Vect2i& screenRes, bool exclusiveMode
 	{
 		Release();
 		std::string msg_error = "Error al inicializar directinput";
-		/*throw CException(__FILE__, __LINE__, msg_error);*/
+		throw CException(__FILE__, __LINE__, msg_error);
 	}
 
 	return m_bIsOk;

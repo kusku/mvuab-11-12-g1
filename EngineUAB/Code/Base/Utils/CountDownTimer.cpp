@@ -1,6 +1,10 @@
 #include "CountDownTimer.h"
 #include <assert.h>
 
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
+
 void CCountDownTimer::SetTime (float TotalTime, bool automaticReset) 
 {
 	m_fTotalTime		= TotalTime;

@@ -2,6 +2,10 @@
 #include <cmath>
 #include <assert.h>
 
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
+
 void CLerpAnimator3D::SetValues (Vect3f initValue, Vect3f endValue, float totalTime, ETypeFunction type)
 {
 	assert( totalTime > 0);

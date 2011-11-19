@@ -4,10 +4,16 @@
 #include "FontManager.h"
 #include "Location\LanguageManager.h"
 #include "XML\XMLTreeNode.h"
+#include "Logger\Logger.h"
+
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
 
 CEngine::CEngine()
 	: m_pCore(NULL)
 	, m_pProcess(NULL)	
+	, m_pLogger(NULL)
 	, m_pTimer(30)
 {
 }
@@ -18,10 +24,14 @@ CEngine::~CEngine()
 
 	CHECKED_DELETE(m_pCore);
 	CHECKED_DELETE(m_pProcess);
+
+	CHECKED_DELETE(m_pLogger);
 }
 
 void CEngine::Init(HWND hWnd)
 {
+	m_pLogger = new CLogger();
+
 	m_pCore = new CCore();
 	m_pCore->Init(hWnd, m_Config);
 	m_pProcess->Init();

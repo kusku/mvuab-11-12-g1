@@ -6,6 +6,10 @@
 #include "FontManager.h"
 #include "Location\LanguageManager.h"
 
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
+
 CCore::CCore()
 	: m_pRenderManager(NULL)
 	, m_pLanguageManager(NULL)
@@ -46,10 +50,12 @@ void CCore::Init( HWND hWnd, const SConfig &config )
 	m_pLanguageManager->SetCurrentLanguage( config.default_language );
 
 	//Inicializa los inputs
-	m_pInputManager = new CInputManager();
-	m_pInputManager->Init( hWnd, config.resolution, config.bExclusiveModeInMouse );
-	/*m_pActionToInput = new CActionToInput();
-	m_pActionToInput->Init(hWnd, config.resolution, config.bExclusiveModeInMouse);*/
+	/*m_pInputManager = new CInputManager();
+	m_pInputManager->Init( hWnd, config.resolution, config.bExclusiveModeInMouse );*/
+	m_pActionToInput = new CActionToInput();
+	m_pActionToInput->Init(hWnd, config.resolution, config.bExclusiveModeInMouse);
+	m_pActionToInput->LoadXML( config.input_path );
+	m_pInputManager = m_pActionToInput->GetInputManager();
 }
 
 void CCore::Release()
@@ -57,13 +63,14 @@ void CCore::Release()
 	CHECKED_DELETE(m_pRenderManager);
 	CHECKED_DELETE(m_pLanguageManager);
 	CHECKED_DELETE(m_pFontManager);
-	CHECKED_DELETE(m_pInputManager);
+	//CHECKED_DELETE(m_pInputManager);
 	CHECKED_DELETE(m_pActionToInput);
 }
 
 void CCore::Update(float ElapsedTime)
 {
-	m_pInputManager->Update();
+	//m_pInputManager->Update();
+	m_pActionToInput->Update();
 }
 
 void CCore::Render()

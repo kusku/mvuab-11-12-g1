@@ -15,22 +15,31 @@ class CInputManager;
 class CActionToInput
 {
 protected:
+
 	CInputManager	*m_pInputManager;
 
-	std::map< std::string, std::vector< SInputInfo > > m_ActionsMap;
+	std::map< std::string, std::vector< SInputInfo* > > m_ActionsMap;
+	std::map<std::string, uint32>						m_String2Code;
+	std::map<std::string, std::string>					m_String2Name;
 
-	INPUT_DEVICE_TYPE		string2Device	( const std::string &deviceType );
-	INPUT_EVENT_TYPE		string2Event	( const std::string &eventType );
-	INPUT_AXIS_TYPE			string2Axis		( const std::string &axisType );
+	void InitString2Input	();
+	void InitString2Name	();
 
 public:
 	CActionToInput();
 	virtual ~CActionToInput();
 
 	void	Init		( HWND hWnd, const Vect2i& screenRes, bool exclusiveModeinMouse );
+	void	Update		();
 	void	Release		();
+	
+	bool	DoAction	( const std::string &action );
+	bool	DoAction	( const std::string &action, float &delta_ );
+
+	void		GetActionKeys	( const std::string &action, std::vector<std::string> &names_ );
 
 	void	LoadXML		( const std::string &filename );
+	CInputManager* GetInputManager() const { return m_pInputManager; }
 };
 
 #endif

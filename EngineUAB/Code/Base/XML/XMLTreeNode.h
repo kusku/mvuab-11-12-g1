@@ -17,6 +17,10 @@
 #include <string>
 #include "Math/Vector4.h"
 
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
+
 //Class
 class CXMLTreeNode
 {

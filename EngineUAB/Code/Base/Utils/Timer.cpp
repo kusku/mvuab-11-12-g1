@@ -2,6 +2,10 @@
 #include <assert.h>
 #include "Timer.h"
 
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
+
 //Inicializamos todas las variables
 CTimer::CTimer (uint32 avgSamples)
 : m_uSamples(avgSamples)
