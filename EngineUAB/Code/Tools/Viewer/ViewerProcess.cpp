@@ -57,12 +57,16 @@ void CViewerProcess::Update(float elapsedTime)
 		pos.y = screen.y;
 	}	
 
-	float dx;
-	if( CORE->GetActionToInput()->DoAction("MoveXViewerCam", dx) )
+	if( CORE->GetActionToInput()->DoAction("Logger") )
 	{
 		std::vector<std::string> names;
-		CORE->GetActionToInput()->GetActionKeys("MoveXViewerCam", names);
+		CORE->GetActionToInput()->GetActionKeys("Logger", names);
 		int a=1;
+	}
+
+	if( CORE->GetActionToInput()->DoAction("ReloadActions") )
+	{
+		CORE->GetActionToInput()->Reload();
 	}
 }
 

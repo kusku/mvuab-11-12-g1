@@ -377,6 +377,25 @@ void CActionToInput::GetActionKeys( const std::string &action, std::vector<std::
 	}
 }
 
+void CActionToInput::Reload()
+{
+	//Limpia todo el map con la información de las acciones
+	std::map< std::string, std::vector< SInputInfo* > >::iterator it;
+	for( it = m_ActionsMap.begin(); it != m_ActionsMap.end(); ++it )
+	{
+		std::vector< SInputInfo*>::iterator itVector;
+		for(itVector = it->second.begin(); itVector != it->second.end(); ++itVector)
+		{
+			CHECKED_DELETE((*itVector));
+		}
+		
+		it->second.clear();
+	}
+
+	//Vuelve a leer el fichero con el mismo path
+	LoadXML(m_FilePath);
+}
+
 void CActionToInput::LoadXML(const std::string &filename)
 {
 	CXMLTreeNode newFile;
@@ -386,6 +405,8 @@ void CActionToInput::LoadXML(const std::string &filename)
 		LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
 		throw CException(__FILE__, __LINE__, msg_error);
 	}
+
+	m_FilePath = filename;
 
 	CXMLTreeNode l_InputNode = newFile["Actions"];
 	if( l_InputNode.Exists() )

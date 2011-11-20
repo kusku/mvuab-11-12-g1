@@ -21,6 +21,7 @@ protected:
 	std::map< std::string, std::vector< SInputInfo* > > m_ActionsMap;
 	std::map<std::string, uint32>						m_String2Code;
 	std::map<std::string, std::string>					m_String2Name;
+	std::string											m_FilePath;
 
 	void InitString2Input	();
 	void InitString2Name	();
@@ -39,6 +40,7 @@ public:
 	void	GetActionKeys	( const std::string &action, std::vector<std::string> &names_ );
 
 	void	LoadXML		( const std::string &filename );
+	void	Reload		();
 	CInputManager* GetInputManager() const { return m_pInputManager; }
 };
 
