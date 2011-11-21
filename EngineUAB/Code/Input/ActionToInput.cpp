@@ -10,13 +10,15 @@
 #endif
 
 CActionToInput::CActionToInput()
+	: m_bIsOk(false)
+	, m_pInputManager(NULL)
 {
 }
 
 
 CActionToInput::~CActionToInput()
 {
-	Release();
+	Done();
 }
 
 void CActionToInput::Release()
@@ -38,15 +40,34 @@ void CActionToInput::Release()
 	CHECKED_DELETE(m_pInputManager);
 }
 
-void CActionToInput::Init(HWND hWnd, const Vect2i& screenRes, bool exclusiveModeinMouse)
+void CActionToInput::Done ()
+{
+	if (IsOk())
+	{
+		Release();
+		m_bIsOk = false;
+	}
+}
+
+bool CActionToInput::Init(HWND hWnd, const Vect2i& screenRes, bool exclusiveModeinMouse)
 {
 	LOGGER->AddNewLog(ELL_INFORMATION, "CActionToInput:: Inicializando ActionToInput");
 
 	m_pInputManager = new CInputManager();
-	m_pInputManager->Init( hWnd, screenRes, exclusiveModeinMouse );
+	m_bIsOk = m_pInputManager->Init( hWnd, screenRes, exclusiveModeinMouse );
 
 	InitString2Input();
 	InitString2Name();
+
+	if ( !m_bIsOk )
+	{
+		Release();
+		std::string msg_error = "Error al inicializar CActionToInput";
+		LOGGER->AddNewLog(ELL_ERROR, "CActionToInput:: Error al inicializar ActionToInput");
+		throw CException(__FILE__, __LINE__, msg_error);
+	}
+
+	return m_bIsOk;
 }
 
 void CActionToInput::Update()

@@ -14,7 +14,37 @@ class CInputManager;
 
 class CActionToInput
 {
-protected:
+public:
+	// Init and End protocols
+	CActionToInput();
+	virtual ~CActionToInput();
+
+	bool	Init		( HWND hWnd, const Vect2i& screenRes, bool exclusiveModeinMouse );
+	void	Done		();
+	bool	IsOk		() const { return m_bIsOk; }
+
+	// Read Data
+	void	LoadXML		( const std::string &filename );
+	void	Reload		();
+
+	// Poll input devices
+	void	Update		();
+	
+	bool	DoAction	( const std::string &action );
+	bool	DoAction	( const std::string &action, float &delta_ );
+
+	//-----Get Methods-------
+	void			GetActionKeys	( const std::string &action, std::vector<std::string> &names_ );
+	CInputManager*	GetInputManager() const { return m_pInputManager; }
+
+private:
+	void	Release				();
+
+	void	InitString2Input	();
+	void	InitString2Name		();
+
+private:
+	bool	m_bIsOk;
 
 	CInputManager	*m_pInputManager;
 
@@ -22,26 +52,6 @@ protected:
 	std::map<std::string, uint32>						m_String2Code;
 	std::map<std::string, std::string>					m_String2Name;
 	std::string											m_FilePath;
-
-	void InitString2Input	();
-	void InitString2Name	();
-
-public:
-	CActionToInput();
-	virtual ~CActionToInput();
-
-	void	Init		( HWND hWnd, const Vect2i& screenRes, bool exclusiveModeinMouse );
-	void	Update		();
-	void	Release		();
-	
-	bool	DoAction	( const std::string &action );
-	bool	DoAction	( const std::string &action, float &delta_ );
-
-	void	GetActionKeys	( const std::string &action, std::vector<std::string> &names_ );
-
-	void	LoadXML		( const std::string &filename );
-	void	Reload		();
-	CInputManager* GetInputManager() const { return m_pInputManager; }
 };
 
 #endif
