@@ -3,6 +3,8 @@
 #include "Exceptions\Exception.h"
 #include "Base.h"
 #include "Math\Vector3.h"
+#include "Math\MathUtils.h"
+#include <assert.h>
 #include <string>
 
 #if defined(_DEBUG)
@@ -12,6 +14,7 @@
 CRenderManager::CRenderManager()
 	: m_uWidth(0)
 	, m_uHeight(0)
+	, m_bIsOk(false)
 	, m_Size(Vect2i(800,600))
 	, m_bPaintSolid(true)
 	, m_bFullscreen(true)
@@ -34,9 +37,18 @@ void CRenderManager::Release()
 	CHECKED_RELEASE( m_pD3DDevice );
 }
 
+void CRenderManager::Done ()
+{
+	if ( IsOk() )
+	{
+		Release();
+		m_bIsOk = false;
+	}
+}
+
 bool CRenderManager::Init(HWND hWnd)
 {
-	bool m_bIsOk = false;
+	m_bIsOk = false;
 
    // Create the D3D object.
    m_pD3D = Direct3DCreate9( D3D_SDK_VERSION );
@@ -194,7 +206,8 @@ void CRenderManager::SetupMatrices(/*CCamera* camera*/)
 	D3DXMATRIX m_matProject;
 
 	//Setup Matrix view
-	D3DXVECTOR3 l_Eye(0.0f,5.0f,-5.0f), l_LookAt(0.0f,0.0f,0.0f), l_VUP(0.0f,1.0f,0.0f);
+	//D3DXVECTOR3 l_Eye(0.0f,5.0f,-5.0f), l_LookAt(0.0f,0.0f,0.0f), l_VUP(0.0f,1.0f,0.0f);
+	D3DXVECTOR3 l_Eye(5.0f,5.0f,5.0f), l_LookAt(0.0f,0.0f,0.0f), l_VUP(0.0f,1.0f,0.0f);
 	D3DXMatrixLookAtLH( &m_matView, &l_Eye, &l_LookAt, &l_VUP);
 
 	//Setup Matrix projection
@@ -204,47 +217,93 @@ void CRenderManager::SetupMatrices(/*CCamera* camera*/)
 	m_pD3DDevice->SetTransform( D3DTS_PROJECTION, &m_matProject );
 }
 
-void CRenderManager::SetPaintSolid( bool paintSolid )
+void CRenderManager::DrawLine( const Vect3f &PosA, const Vect3f &PosB, CColor Color)
 {
-	m_bPaintSolid = paintSolid;
+   DWORD color_aux = Color.GetUint32Argb();
+
+   CUSTOMVERTEX v[2] =
+   {
+       {PosA.x, PosA.y, PosA.z, color_aux},
+       {PosB.x, PosB.y, PosB.z, color_aux},
+   };
+
+   m_pD3DDevice->SetTexture(0,NULL);
+   m_pD3DDevice->SetFVF(CUSTOMVERTEX::getFlags());
+   m_pD3DDevice->DrawPrimitiveUP( D3DPT_LINELIST,1, v,sizeof(CUSTOMVERTEX));
 }
 
-void CRenderManager::SetFullscreen( bool fullscreen )
+void CRenderManager::DrawAxis( float size )
 {
-	m_bFullscreen = fullscreen;
+	Vect3f center = Vect3f(0.0f, 0.0f, 0.0f);
+	DrawLine( center, Vect3f(size, 0.0f, 0.0f), colRED );
+	DrawLine( center, Vect3f(0.0f, size, 0.0f), colGREEN );
+	DrawLine( center, Vect3f(0.0f, 0.0f, size), colBLUE );
 }
 
-void CRenderManager::SetColorDebug( CColor color )
+void CRenderManager::DrawGrid(float sizeW, float sizeH, uint16 lines, CColor color )
 {
-	m_BackbufferColor_debug = color;
+	assert(lines > 0);
+	assert(sizeW > 0);
+	assert(sizeH > 0);
+
+	float x = -sizeW / 2;
+	float y = -sizeH / 2;
+
+	--lines;
+	for(int i=0; i<=lines; ++i)
+	{
+		DrawLine( Vect3f(x + ((i*sizeW)/lines), 0.0f, -sizeH/2), Vect3f(x + ((i*sizeW)/lines), 0.0f, sizeH/2), color);
+		DrawLine( Vect3f(-sizeW/2, 0.0f, y + ((i*sizeH)/lines)), Vect3f(sizeW/2, 0.0f, y+ ((i*sizeH)/lines)), color);
+	}
 }
 
-void CRenderManager::SetColorRelease( CColor color )
+void CRenderManager::DrawCube(const Vect3f &dimensions, CColor color)
 {
-	m_BackbufferColor_release = color;
+	//Draw a square
+	DrawLine( Vect3f(-dimensions.x, -dimensions.y, -dimensions.z), Vect3f(dimensions.x, -dimensions.y, -dimensions.z), color );
+	DrawLine( Vect3f(-dimensions.x, -dimensions.y, -dimensions.z), Vect3f(-dimensions.x, dimensions.y, -dimensions.z), color );
+	DrawLine( Vect3f(-dimensions.x, dimensions.y, -dimensions.z), Vect3f(dimensions.x, dimensions.y, -dimensions.z), color );
+	DrawLine( Vect3f(dimensions.x, -dimensions.y, -dimensions.z), Vect3f(dimensions.x, dimensions.y, -dimensions.z), color );
+
+	//Draw another square
+	DrawLine( Vect3f(-dimensions.x, -dimensions.y, dimensions.z), Vect3f(dimensions.x, -dimensions.y, dimensions.z), color );
+	DrawLine( Vect3f(-dimensions.x, -dimensions.y, dimensions.z), Vect3f(-dimensions.x, dimensions.y, dimensions.z), color );
+	DrawLine( Vect3f(-dimensions.x, dimensions.y, dimensions.z), Vect3f(dimensions.x, dimensions.y, dimensions.z), color );
+	DrawLine( Vect3f(dimensions.x, -dimensions.y, dimensions.z), Vect3f(dimensions.x, dimensions.y, dimensions.z), color );
+	
+	//Draw the conectors linking the squares
+	DrawLine ( Vect3f(-dimensions.x, -dimensions.y, -dimensions.z), Vect3f(-dimensions.x, -dimensions.y, dimensions.z), color );
+	DrawLine ( Vect3f(dimensions.x, -dimensions.y, -dimensions.z), Vect3f(dimensions.x, -dimensions.y, dimensions.z), color );
+	DrawLine ( Vect3f(-dimensions.x, dimensions.y, -dimensions.z), Vect3f(-dimensions.x, dimensions.y, dimensions.z), color );
+	DrawLine ( Vect3f(dimensions.x, dimensions.y, -dimensions.z), Vect3f(dimensions.x, dimensions.y, dimensions.z), color );
 }
 
-bool CRenderManager::GetPaintSolid() const
+void CRenderManager::DrawSphere(float radius, uint32 edges, CColor color )
 {
-	return m_bPaintSolid;
+	for(int t=0;t<static_cast<int>(edges);++t)
+   {
+       float l_radiusRing=radius*sin(mathUtils::Deg2Rad<float>(180.0f*((float)t))/((float)edges));
+       for(int b=0;b<static_cast<int>(edges);++b)
+       {		   
+           Vect3f l_PosA(l_radiusRing*cos(mathUtils::Deg2Rad<float>((float)(360.0f*(float)b)/((float)edges))),radius*cos(mathUtils::Deg2Rad<float>(180.0f*((float)t))/((float)edges)),l_radiusRing*sin(mathUtils::Deg2Rad<float>((float)(360.0f*(float)b)/((float)edges))));
+           Vect3f l_PosB(l_radiusRing*cos(mathUtils::Deg2Rad<float>((float)(360.0f*(float)(b+1))/((float)edges))),radius*cos(mathUtils::Deg2Rad<float>(180.0f*((float)t))/((float)edges)),l_radiusRing*sin(mathUtils::Deg2Rad<float>((float)(360.0f*(float)(b+1))/((float)edges))));
+           DrawLine(l_PosA,l_PosB,color);
+           
+           float l_radiusNextRing=radius*sin(mathUtils::Deg2Rad<float>(180.0f*((float)(t+1)))/((float)edges));
+           
+           Vect3f l_PosC(l_radiusRing*cos(mathUtils::Deg2Rad<float>((float)(360.0f*(float)b)/((float)edges))),radius*cos(mathUtils::Deg2Rad<float>(180.0f*((float)t))/((float)edges)),l_radiusRing*sin(mathUtils::Deg2Rad<float>((float)(360.0f*(float)b)/((float)edges))));
+           Vect3f l_PosD(l_radiusNextRing*cos(mathUtils::Deg2Rad<float>((float)(360.0f*(float)b)/((float)edges))),radius*cos(mathUtils::Deg2Rad<float>(180.0f*((float)(t+1)))/((float)edges)),l_radiusNextRing*sin(mathUtils::Deg2Rad<float>((float)(360.0f*(float)b)/((float)edges))));
+           DrawLine(l_PosC,l_PosD,color);
+       }
+   }
 }
 
-void CRenderManager::SetScreenSize( Vect2i size )
+void CRenderManager::SetTransform( const Mat44f &mat)
 {
-	m_Size = size;
-}
+	D3DXMATRIX aux( mat.m00, mat.m10, mat.m20, mat.m30,
+					mat.m01, mat.m11, mat.m21, mat.m31,
+					mat.m02, mat.m12, mat.m22, mat.m32,
+					mat.m03, mat.m13, mat.m23, mat.m33 );
 
-HWND CRenderManager::GetHWND() const
-{
-	return m_hWnd;
-}
-
-LPDIRECT3D9 CRenderManager::GetD3D() const
-{
-	return m_pD3D;
-}
-
-LPDIRECT3DDEVICE9 CRenderManager::GetDevice() const
-{
-	return m_pD3DDevice;
+	m_pD3DDevice->SetTransform(D3DTS_WORLD, &aux);
 }

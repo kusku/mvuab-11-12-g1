@@ -8,6 +8,7 @@
 #include "Math\Color.h"
 #include "Logger\Logger.h"
 #include "Exceptions\Exception.h"
+#include "Math\Matrix44.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -33,45 +34,21 @@ void CViewerProcess::Init()
 
 void CViewerProcess::Update(float elapsedTime)
 {
-	Vect3i delta = CORE->GetInputManager()->GetMouseDelta();
-	pos.x += delta.x;
-	pos.y += delta.y;
-
-	if(pos.x < 0)
-	{
-		pos.x = 0;
-	}
-
-	if(pos.x > screen.x)
-	{
-		pos.x = screen.x;
-	}
-
-	if(pos.y < 0)
-	{
-		pos.y = 0;
-	}
-
-	if(pos.y > screen.y)
-	{
-		pos.y = screen.y;
-	}	
-
-	if( CORE->GetActionToInput()->DoAction("Logger") )
-	{
-		std::vector<std::string> names;
-		CORE->GetActionToInput()->GetActionKeys("Logger", names);
-		int a=1;
-	}
-
-	if( CORE->GetActionToInput()->DoAction("ReloadActions") )
-	{
-		CORE->GetActionToInput()->Reload();
-	}
 }
 
 void CViewerProcess::Render()
 {
-	CORE->GetFontManager()->DrawDefaultText( pos.x, pos.y, colWHITE, "X" );
-	//dx += CORE->GetFontManager()->DrawDefaultText( 10, dx, colYELLOW, "%f", posX );
+	Mat44f mat;
+	mat.SetIdentity();
+	CORE->GetRenderManager()->SetTransform(mat);
+
+	CORE->GetRenderManager()->DrawAxis(2.0f);
+	//CORE->GetRenderManager()->DrawSphere(2, 50);
+	//CORE->GetRenderManager()->DrawGrid(3,3,4);
+
+	mat.SetIdentity();
+	mat.Translate(Vect3f(0.f, 0.f, 3.f));
+	CORE->GetRenderManager()->SetTransform(mat);
+
+	CORE->GetRenderManager()->DrawCube(Vect3f(2.f, 1.f, 2.f));
 }
