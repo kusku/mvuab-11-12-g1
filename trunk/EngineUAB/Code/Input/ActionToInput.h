@@ -1,3 +1,12 @@
+//----------------------------------------------------------------------------------
+// CActionToInput class
+// Author: Marc Cuscullola
+//
+// Description:
+// Esta clase abstrae el control de los periféricos de entrada. Asocia una acción
+// de un input con un nombre de acción.
+// Internamente utiliza la clase CInputManager
+//----------------------------------------------------------------------------------
 #pragma once
 
 #ifndef _ACTIONTOINPUT_H
