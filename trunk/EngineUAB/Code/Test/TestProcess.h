@@ -9,6 +9,7 @@ class CItemManager;
 
 #include "Process.h"
 #include "defines.h"
+#include "Math\Vector2.h"
 
 class CTestProcess : public CProcess
 {
@@ -34,7 +35,7 @@ public:
 
 	void Init ();
 	void Update (float elapsedTime);
-	void Render ();
+	void Render (CRenderManager *RM);
 };
 
 #endif

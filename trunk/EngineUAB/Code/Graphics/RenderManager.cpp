@@ -1,4 +1,5 @@
 #include "RenderManager.h"
+#include "Cameras\Camera.h"
 #include "Logger\Logger.h"
 #include "Exceptions\Exception.h"
 #include "Base.h"
@@ -16,6 +17,7 @@ CRenderManager::CRenderManager()
 	, m_uHeight(0)
 	, m_bIsOk(false)
 	, m_Size(Vect2i(800,600))
+	, m_AspectRatio(0.0f)
 	, m_bPaintSolid(true)
 	, m_bFullscreen(true)
 	, m_hWnd(NULL)
@@ -135,6 +137,8 @@ bool CRenderManager::Init(HWND hWnd)
                GetWindowRect(hWnd);
            }
            LOGGER->AddNewLog(ELL_INFORMATION, "RenderManager:: La resolucion de pantalla es (%dx%d)",m_uWidth,m_uHeight);
+
+		   m_AspectRatio = static_cast<float>(m_uWidth) / static_cast<float>(m_uHeight);
        }   
     }
 
@@ -200,21 +204,42 @@ void CRenderManager::EndRendering()
 	m_pD3DDevice->Present( NULL, NULL, NULL, NULL );
 }
 
-void CRenderManager::SetupMatrices(/*CCamera* camera*/)
+void CRenderManager::SetupMatrices(CCamera* camera)
 {
 	D3DXMATRIX m_matView;
 	D3DXMATRIX m_matProject;
 
-	//Setup Matrix view
-	//D3DXVECTOR3 l_Eye(0.0f,5.0f,-5.0f), l_LookAt(0.0f,0.0f,0.0f), l_VUP(0.0f,1.0f,0.0f);
-	D3DXVECTOR3 l_Eye(5.0f,5.0f,5.0f), l_LookAt(0.0f,0.0f,0.0f), l_VUP(0.0f,1.0f,0.0f);
-	D3DXMatrixLookAtLH( &m_matView, &l_Eye, &l_LookAt, &l_VUP);
+	if(!camera)
+    {
+        //Set default view and projection matrix
+        //Setup Matrix view
+        D3DXVECTOR3 l_Eye(5.0f,5.0f,-5.0f), l_LookAt(0.0f,0.0f,0.0f), l_VUP(0.0f,1.0f,0.0f);
+        D3DXMatrixLookAtLH( &m_matView, &l_Eye, &l_LookAt, &l_VUP);
 
-	//Setup Matrix projection
-	D3DXMatrixPerspectiveFovLH( &m_matProject, 45.0f * D3DX_PI / 180.0f, 1.0f, 1.0f, 100.0f );
+        //Setup Matrix projection
+        D3DXMatrixPerspectiveFovLH( &m_matProject, 45.0f * D3DX_PI / 180.0f, m_AspectRatio, 1.0f, 100.0f );
+    }
+    else
+    {
+        Vect3f eye = camera->GetEye();
+        D3DXVECTOR3 l_Eye(eye.x, eye.y, eye.z);
 
-	m_pD3DDevice->SetTransform( D3DTS_VIEW, &m_matView );
-	m_pD3DDevice->SetTransform( D3DTS_PROJECTION, &m_matProject );
+        Vect3f lookat = camera->GetLookAt();
+        D3DXVECTOR3 l_LookAt(lookat.x, lookat.y, lookat.z);
+
+        Vect3f vup = camera->GetVecUp();
+        D3DXVECTOR3 l_VUP(vup.x, vup.y, vup.z);
+
+        //Setup Matrix view
+        D3DXMatrixLookAtLH( &m_matView, &l_Eye, &l_LookAt, &l_VUP);
+
+        //Setup Matrix projection
+        D3DXMatrixPerspectiveFovLH(&m_matProject, camera->GetFov(), camera->GetAspectRatio(), camera->GetZn(), camera->GetZf());
+    }
+
+    m_Frustum.Update( m_matView * m_matProject );
+    m_pD3DDevice->SetTransform( D3DTS_VIEW, &m_matView );
+    m_pD3DDevice->SetTransform( D3DTS_PROJECTION, &m_matProject );
 }
 
 void CRenderManager::DrawLine( const Vect3f &PosA, const Vect3f &PosB, CColor Color)
@@ -237,7 +262,7 @@ void CRenderManager::DrawAxis( float size )
 	Vect3f center = Vect3f(0.0f, 0.0f, 0.0f);
 	DrawLine( center, Vect3f(size, 0.0f, 0.0f), colRED );
 	DrawLine( center, Vect3f(0.0f, size, 0.0f), colGREEN );
-	DrawLine( center, Vect3f(0.0f, 0.0f, size), colBLUE );
+	DrawLine( center, Vect3f(0.0f, 0.0f, size), colCYAN );
 }
 
 void CRenderManager::DrawGrid(float sizeW, float sizeH, uint16 lines, CColor color )

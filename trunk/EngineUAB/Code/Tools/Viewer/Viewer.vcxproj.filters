@@ -9,8 +9,10 @@
   <ItemGroup>
     <ClCompile Include="viewer.cpp" />
     <ClCompile Include="ViewerProcess.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ViewerProcess.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
 </Project>

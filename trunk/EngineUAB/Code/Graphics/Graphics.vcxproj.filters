@@ -2,11 +2,52 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="RenderManager.h" />
-    <ClInclude Include="FontManager.h" />
     <ClInclude Include="GraphicsDefs.h" />
+    <ClInclude Include="Cameras\Camera.h">
+      <Filter>Cameras</Filter>
+    </ClInclude>
+    <ClInclude Include="Cameras\Frustum.h">
+      <Filter>Cameras</Filter>
+    </ClInclude>
+    <ClInclude Include="Object3D.h" />
+    <ClInclude Include="Fonts\FontManager.h">
+      <Filter>Fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="Cameras\FPSCamera.h">
+      <Filter>Cameras\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Cameras\ThPSCamera.h">
+      <Filter>Cameras\Types</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
-    <ClCompile Include="FontManager.cpp" />
+    <ClCompile Include="Cameras\Camera.cpp">
+      <Filter>Cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="Cameras\Frustum.cpp">
+      <Filter>Cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="Object3D.cpp" />
+    <ClCompile Include="Fonts\FontManager.cpp">
+      <Filter>Fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="Cameras\FPSCamera.cpp">
+      <Filter>Cameras\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Cameras\ThPSCamera.cpp">
+      <Filter>Cameras\Types</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Cameras">
+      <UniqueIdentifier>{d60faf9e-3848-4f3a-b161-4ae75b7e1bc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cameras\Types">
+      <UniqueIdentifier>{a5a87731-ebb6-4614-9e24-aef248149da0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fonts">
+      <UniqueIdentifier>{744246ba-69c5-4306-92cd-dcdb78ce6fcf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

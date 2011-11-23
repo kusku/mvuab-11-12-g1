@@ -1,9 +1,11 @@
 #include "Engine.h"
 #include "Base.h"
 #include "RenderManager.h"
-#include "FontManager.h"
+#include "Cameras\Camera.h"
+#include "Fonts\FontManager.h"
 #include "Location\LanguageManager.h"
 #include "XML\XMLTreeNode.h"
+#include "ActionToInput.h"
 #include "Logger\Logger.h"
 #include "Exceptions\Exception.h"
 
@@ -52,21 +54,22 @@ void CEngine::Update()
 void CEngine::Render()
 {
 	CRenderManager* l_RenderManager = m_pCore->GetRenderManager();
+	CCamera *l_Camera = m_pProcess->GetCamera();
 
 	l_RenderManager->BeginRendering();
-	l_RenderManager->SetupMatrices();
+	l_RenderManager->SetupMatrices( l_Camera );
 	{
-		RenderScene(l_RenderManager);		
+		RenderScene( l_RenderManager );		
 	}
 	l_RenderManager->EndRendering();
 }
 
 void CEngine::RenderScene(CRenderManager *renderManager)
 {
+	m_pProcess->Render( renderManager );
+
 	float l_FPS = m_pTimer.GetFPS();
 	CORE->GetFontManager()->DrawDefaultText( 1, 1, colWHITE, "FPS: %f", l_FPS );
-
-	m_pProcess->Render();
 }
 
 void CEngine::SetProcess(CProcess *process)
@@ -78,6 +81,7 @@ void CEngine::Reload()
 {
 	m_pCore->GetFontManager()->ReloadTTFs();
 	m_pCore->GetLanguageManager()->LoadXMLs();
+	m_pCore->GetActionToInput()->Reload();
 }
 
 

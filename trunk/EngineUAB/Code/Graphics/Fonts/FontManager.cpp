@@ -3,7 +3,7 @@
 #include "Location\LanguageManager.h"
 #include "Logger/Logger.h"
 #include "Exceptions/Exception.h"
-#include "RenderManager.h"
+#include "..\RenderManager.h"
 #include "xml/XMLTreeNode.h"
 //#include "Script/ScriptManager.h"
 //#include "luabind/luabind.hpp"
