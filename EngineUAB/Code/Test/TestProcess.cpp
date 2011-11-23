@@ -2,8 +2,9 @@
 #include "Player\Player.h"
 #include "Base.h"
 #include "Core.h"
-#include "FontManager.h"
+#include "Fonts\FontManager.h"
 #include "Physics\CollisionManager.h"
+#include "RenderManager.h"
 #include "Items\ItemManager.h"
 #include "Items\Item.h"
 #include "InputManager.h"
@@ -99,7 +100,7 @@ void CTestProcess::Update(float elapsedTime)
 	}
 }
 
-void CTestProcess::Render()
+void CTestProcess::Render(CRenderManager *RM)
 {
 	if( m_State == PLAYING )
 	{

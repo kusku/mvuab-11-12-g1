@@ -15,6 +15,9 @@
 #include "Math\Color.h"
 #include "Math\Matrix44.h"
 #include "GraphicsDefs.h"
+#include "Cameras\Frustum.h"
+
+class CCamera;
 
 class CRenderManager
 {
@@ -29,7 +32,7 @@ public:
 
 	void	BeginRendering();
 	void	EndRendering();
-	void	SetupMatrices(/*CCamera* camera*/);
+	void	SetupMatrices(CCamera* camera);
 
 	void	SetTransform	( const D3DXMATRIX &mat );
 	void	SetTransform	( const Mat44f &mat );
@@ -59,8 +62,9 @@ protected:
 	void GetWindowRect( HWND hWnd );
 	void Release ();
 
-
 	bool	m_bIsOk;
+
+	CFrustum			m_Frustum;
 
 	HWND				m_hWnd;         // 3D render window handle
 	LPDIRECT3D9			m_pD3D;			// direct3d interface
@@ -68,6 +72,7 @@ protected:
 
 	uint32 m_uWidth;
 	uint32 m_uHeight;
+	float	m_AspectRatio;
 	Vect2i m_Size;
 	bool m_bFullscreen;
 	bool m_bPaintSolid;

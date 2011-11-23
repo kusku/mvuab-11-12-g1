@@ -11,12 +11,22 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FontManager.h" />
+    <ClInclude Include="Cameras\Camera.h" />
+    <ClInclude Include="Cameras\FPSCamera.h" />
+    <ClInclude Include="Cameras\Frustum.h" />
+    <ClInclude Include="Cameras\ThPSCamera.h" />
+    <ClInclude Include="Fonts\FontManager.h" />
     <ClInclude Include="GraphicsDefs.h" />
+    <ClInclude Include="Object3D.h" />
     <ClInclude Include="RenderManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FontManager.cpp" />
+    <ClCompile Include="Cameras\Camera.cpp" />
+    <ClCompile Include="Cameras\FPSCamera.cpp" />
+    <ClCompile Include="Cameras\Frustum.cpp" />
+    <ClCompile Include="Cameras\ThPSCamera.cpp" />
+    <ClCompile Include="Fonts\FontManager.cpp" />
+    <ClCompile Include="Object3D.cpp" />
     <ClCompile Include="RenderManager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
