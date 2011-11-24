@@ -14,7 +14,6 @@ CProcess::CProcess()
 
 CProcess::~CProcess()
 {
-	CHECKED_DELETE( m_Camera );
 }
 
 void CProcess::Init()

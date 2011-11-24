@@ -49,10 +49,11 @@ public:
 	void	SetColorDebug		( CColor color )		{ m_BackbufferColor_debug = color; }
 	void	SetColorRelease		( CColor color )		{ m_BackbufferColor_release = color; }
 	void	SetFullscreen		( bool fullscreen )		{ m_bFullscreen = fullscreen; }
-	void	SetScreenSize		( Vect2i size )			{ m_Size = size; }
+	void	SetScreenSize		( Vect2i size )			{ m_SizeScreen = size; }
 
 	bool				GetPaintSolid		() const	{ return m_bPaintSolid; }
-	Vect2i				GetScreenSize		() const	{ return m_Size; }
+	Vect2i				GetScreenSize		() const	{ return Vect2i(m_uWidth, m_uHeight); }
+	float				GetAspectRatio		() const	{ return m_AspectRatio; }
 
 	HWND				GetHWND				() const	{ return m_hWnd; }
 	LPDIRECT3D9			GetD3D				() const	{ return m_pD3D; }
@@ -72,8 +73,8 @@ protected:
 
 	uint32 m_uWidth;
 	uint32 m_uHeight;
+	Vect2i m_SizeScreen;
 	float	m_AspectRatio;
-	Vect2i m_Size;
 	bool m_bFullscreen;
 	bool m_bPaintSolid;
 
