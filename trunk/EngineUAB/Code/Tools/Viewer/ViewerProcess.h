@@ -4,10 +4,12 @@
 #define _VIEWERPROCESS_H
 
 class CCamera;
-class CPlayer;
 
+#include "Player.h"
 #include "Process.h"
 #include "Math\Vector2.h"
+#include "Cameras\ThPSCamera.h"
+#include "Cameras\FPSCamera.h"
 
 class CViewerProcess : public CProcess
 {
@@ -21,7 +23,10 @@ protected:
 
 
 	float yaw;
-	CPlayer *m_Player;
+	CPlayer m_Player;
+
+	CThPSCamera *m_pThPSCamera;
+	CFPSCamera	*m_pFPSCamera;
 
 public:
 	CViewerProcess();

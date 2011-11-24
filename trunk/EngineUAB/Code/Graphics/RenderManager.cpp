@@ -15,8 +15,8 @@
 CRenderManager::CRenderManager()
 	: m_uWidth(0)
 	, m_uHeight(0)
+	, m_SizeScreen(800, 600)
 	, m_bIsOk(false)
-	, m_Size(Vect2i(800,600))
 	, m_AspectRatio(0.0f)
 	, m_bPaintSolid(true)
 	, m_bFullscreen(true)
@@ -66,8 +66,8 @@ bool CRenderManager::Init(HWND hWnd)
        if(m_bFullscreen)
        {
            d3dpp.Windowed          = FALSE;
-           d3dpp.BackBufferWidth   = m_Size.x;
-           d3dpp.BackBufferHeight  = m_Size.y;
+           d3dpp.BackBufferWidth   = m_SizeScreen.x;
+           d3dpp.BackBufferHeight  = m_SizeScreen.y;
            d3dpp.BackBufferFormat = D3DFMT_R5G6B5;
        }
        else
@@ -129,13 +129,14 @@ bool CRenderManager::Init(HWND hWnd)
 
 			if (m_bFullscreen)
 			{
-               m_uWidth    = m_Size.x;
-               m_uHeight    = m_Size.y;
+               m_uWidth    = m_SizeScreen.x;
+               m_uHeight    = m_SizeScreen.y;
            }
            else
            {
                GetWindowRect(hWnd);
            }
+
            LOGGER->AddNewLog(ELL_INFORMATION, "RenderManager:: La resolucion de pantalla es (%dx%d)",m_uWidth,m_uHeight);
 
 		   m_AspectRatio = static_cast<float>(m_uWidth) / static_cast<float>(m_uHeight);
