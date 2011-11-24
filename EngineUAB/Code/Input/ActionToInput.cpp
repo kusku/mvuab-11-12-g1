@@ -383,17 +383,24 @@ bool CActionToInput::DoAction(const std::string &action, float &delta_)
 	return false;
 }
 
-void CActionToInput::GetActionKeys( const std::string &action, std::vector<std::string> &names_ )
+void CActionToInput::GetActionInfo( const std::string &action, std::string &keys_ )
 {
 	std::vector<SInputInfo*> l_Actions = m_ActionsMap[ action ];
 	std::vector<SInputInfo*>::iterator it;
-
+	
 	for( it = l_Actions.begin(); it != l_Actions.end(); ++it)
 	{
 		std::string key = (*it)->keyName;
 		if( key != "" )
 		{
-			names_.push_back( key );
+			if( keys_ == "" )
+			{
+				keys_ += key;
+			}
+			else
+			{
+				keys_ += " + " + key;
+			}
 		}
 	}
 }

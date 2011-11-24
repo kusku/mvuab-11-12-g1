@@ -7,6 +7,7 @@
 #include "XML\XMLTreeNode.h"
 #include "ActionToInput.h"
 #include "Logger\Logger.h"
+#include "LogRender\LogRender.h"
 #include "Exceptions\Exception.h"
 
 #if defined(_DEBUG)
@@ -17,6 +18,7 @@ CEngine::CEngine()
 	: m_pCore(NULL)
 	, m_pProcess(NULL)	
 	, m_pLogger(NULL)
+	, m_pLogRender(NULL)
 	, m_pTimer(30)
 {
 }
@@ -28,6 +30,7 @@ CEngine::~CEngine()
 	CHECKED_DELETE(m_pCore);
 	CHECKED_DELETE(m_pProcess);
 
+	CHECKED_DELETE(m_pLogRender);
 	CHECKED_DELETE(m_pLogger);
 }
 
@@ -40,6 +43,8 @@ void CEngine::Init(HWND hWnd)
 	m_pCore = new CCore();
 	m_pCore->Init(hWnd, m_Config);
 	m_pProcess->Init();
+
+	m_pLogRender = new CLogRender();
 }
 
 void CEngine::Update()
@@ -49,6 +54,7 @@ void CEngine::Update()
 
 	m_pCore->Update(elapsedTime);
 	m_pProcess->Update(elapsedTime);
+	m_pLogRender->Update(elapsedTime);
 }
 
 void CEngine::Render()
@@ -68,8 +74,10 @@ void CEngine::RenderScene(CRenderManager *renderManager)
 {
 	m_pProcess->Render( renderManager );
 
-	float l_FPS = m_pTimer.GetFPS();
-	CORE->GetFontManager()->DrawDefaultText( 1, 1, colWHITE, "FPS: %f", l_FPS );
+	m_pLogRender->Render( renderManager, CORE->GetFontManager() );
+
+	/*float l_FPS = m_pTimer.GetFPS();
+	CORE->GetFontManager()->DrawDefaultText( 1, 1, colWHITE, "FPS: %f", l_FPS );*/
 }
 
 void CEngine::SetProcess(CProcess *process)

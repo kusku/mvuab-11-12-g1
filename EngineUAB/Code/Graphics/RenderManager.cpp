@@ -324,6 +324,102 @@ void CRenderManager::DrawSphere(float radius, uint32 edges, CColor color )
    }
 }
 
+void CRenderManager::DrawQuad2D(const Vect2i& pos, uint32 w, uint32 h, ETypeAlignment alignment, CColor color)
+{
+	Vect2i finalPos = pos;
+    CalculateAlignment(w, h, alignment, finalPos);
+
+    // finalPos = [0]
+    //
+    //  [0]------[2]
+    //   |		  |
+    //   |        |
+    //   |		  |
+    //  [1]------[3]
+
+    unsigned short indices[6]={0,2,1,1,2,3};
+    SCREEN_COLOR_VERTEX v[4] =
+    {
+        { (float)finalPos.x, (float)finalPos.y, 0,1, D3DCOLOR_COLORVALUE(color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha())} //(x,y) sup_esq.
+
+       ,{ (float)finalPos.x, (float)finalPos.y+h, 0,1, D3DCOLOR_COLORVALUE(color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha())} //(x,y) inf_esq.
+
+       ,{ (float)finalPos.x+w, (float)finalPos.y, 0,1, D3DCOLOR_COLORVALUE(color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha())} //(x,y) sup_dr.
+
+       ,{ (float)finalPos.x+w, (float)finalPos.y+h, 0,1, D3DCOLOR_COLORVALUE(color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha())} //(x,y) inf_dr.
+
+    };
+
+	m_pD3DDevice->SetFVF( SCREEN_COLOR_VERTEX::getFlags() );
+	m_pD3DDevice->SetTexture(0, NULL);
+	m_pD3DDevice->DrawIndexedPrimitiveUP(D3DPT_TRIANGLELIST,0,4,2,indices,D3DFMT_INDEX16,v,sizeof( SCREEN_COLOR_VERTEX ) );
+}
+
+void CRenderManager::CalculateAlignment (uint32 w, uint32 h, ETypeAlignment alignment, Vect2i & finalPos)
+{
+	switch (alignment)
+	{
+	case CENTER:
+		{
+			finalPos.x -= (uint32)(w*0.5f);
+			finalPos.y -= (uint32)(h*0.5f);
+		}
+		break;
+	case UPPER_LEFT:
+		{
+        //Por defecto ya est alienado de esta manera :)
+		}
+		break;
+	case UPPER_RIGHT:
+		{
+			finalPos.x -= w;
+		}
+		break;
+	case LOWER_RIGHT:
+		{
+			finalPos.x -= w;
+			finalPos.y -= h;
+		}
+		break;
+	case LOWER_LEFT:
+		{
+			finalPos.y -= h;
+		}
+		break;
+	default:
+		{
+			LOGGER->AddNewLog(ELL_ERROR, "RenderManager:: Se está intentado renderizar un quad2d con una alineacion desconocida");
+		}
+		break;
+	}   
+}
+
+void CRenderManager::DrawRectangle2D ( const Vect2i& pos, uint32 w, uint32 h, CColor& backGroundColor, uint32 edge_w, uint32 edge_h, CColor& edgeColor )
+{
+    //Draw background quad2D:
+    DrawQuad2D(pos, w, h, UPPER_LEFT, backGroundColor);
+
+    //Draw the four edges:
+    //2 Horizontal:
+    Vect2i pos_aux = pos;
+    pos_aux.y -= edge_h;
+    DrawQuad2D(pos_aux, w, edge_h, UPPER_LEFT, edgeColor);
+
+    pos_aux = pos;
+    pos_aux.y += h;
+    DrawQuad2D(pos_aux, w, edge_h, UPPER_LEFT, edgeColor);
+
+    //2 Vertical:
+    pos_aux = pos;
+    pos_aux.x -= edge_w;
+    pos_aux.y -= edge_h;
+    DrawQuad2D(pos_aux, edge_w, h + (2*edge_w), UPPER_LEFT, edgeColor);
+
+    pos_aux.x = pos.x + w;
+    DrawQuad2D(pos_aux, edge_w, h + (2*edge_w), UPPER_LEFT, edgeColor);   
+
+}
+
 void CRenderManager::SetTransform( const Mat44f &mat)
 {
 	D3DXMATRIX aux( mat.m00, mat.m10, mat.m20, mat.m30,

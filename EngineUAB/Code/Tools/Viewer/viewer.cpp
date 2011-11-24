@@ -2,6 +2,7 @@
 #include "Engine.h"
 #include "Base.h"
 #include "Exceptions\Exception.h"
+#include "Logger\Logger.h"
 #include "ViewerProcess.h"
 
 #if defined(_DEBUG)

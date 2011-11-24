@@ -17,6 +17,7 @@
     <ClInclude Include="Cameras\ThPSCamera.h" />
     <ClInclude Include="Fonts\FontManager.h" />
     <ClInclude Include="GraphicsDefs.h" />
+    <ClInclude Include="LogRender\LogRender.h" />
     <ClInclude Include="Object3D.h" />
     <ClInclude Include="RenderManager.h" />
   </ItemGroup>
@@ -26,6 +27,7 @@
     <ClCompile Include="Cameras\Frustum.cpp" />
     <ClCompile Include="Cameras\ThPSCamera.cpp" />
     <ClCompile Include="Fonts\FontManager.cpp" />
+    <ClCompile Include="LogRender\LogRender.cpp" />
     <ClCompile Include="Object3D.cpp" />
     <ClCompile Include="RenderManager.cpp" />
   </ItemGroup>
@@ -72,7 +74,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\Input\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -92,7 +94,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(DXSDK_DIR)\Include;$(SolutionDIr)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(DXSDK_DIR)\Include;$(SolutionDIr)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\Input\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
