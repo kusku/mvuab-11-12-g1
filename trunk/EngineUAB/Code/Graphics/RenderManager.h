@@ -38,11 +38,13 @@ public:
 	void	SetTransform	( const Mat44f &mat );
 
 	//Draw primitives
-	void	DrawLine	( const Vect3f &PosA, const Vect3f &PosB, CColor Color = colWHITE );
-	void	DrawAxis	( float size );
-	void	DrawGrid	(float sizeW, float sizeH, uint16 lines, CColor color = colWHITE  );
-	void	DrawCube	( const Vect3f &dimensions, CColor color = colWHITE );
-	void	DrawSphere	( float radius, uint32 edges, CColor color = colWHITE );
+	void	DrawLine		( const Vect3f &PosA, const Vect3f &PosB, CColor Color = colWHITE );
+	void	DrawAxis		( float size );
+	void	DrawGrid		( float sizeW, float sizeH, uint16 lines, CColor color = colWHITE  );
+	void	DrawCube		( const Vect3f &dimensions, CColor color = colWHITE );
+	void	DrawSphere		( float radius, uint32 edges, CColor color = colWHITE );
+	void	DrawQuad2D		( const Vect2i& pos, uint32 w, uint32 h, ETypeAlignment alignment, CColor color = colBLUE);
+	void	DrawRectangle2D ( const Vect2i& pos, uint32 w, uint32 h, CColor& backGroundColor, uint32 edge_w, uint32 edge_h, CColor& edgeColor );
 
 	// Set & Get Methods
 	void	SetPaintSolid		( bool paintSolid )		{ m_bPaintSolid = paintSolid; }
@@ -60,8 +62,9 @@ public:
 	LPDIRECT3DDEVICE9	GetDevice			() const	{ return m_pD3DDevice; }
 
 protected:
-	void GetWindowRect( HWND hWnd );
 	void Release ();
+	void GetWindowRect( HWND hWnd );
+	void CalculateAlignment (uint32 w, uint32 h, ETypeAlignment alignment, Vect2i & finalPos);
 
 	bool	m_bIsOk;
 

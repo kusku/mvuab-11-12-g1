@@ -43,7 +43,7 @@ public:
 	bool	DoAction	( const std::string &action, float &delta_ );
 
 	//-----Get Methods-------
-	void			GetActionKeys	( const std::string &action, std::vector<std::string> &names_ );
+	void			GetActionInfo	( const std::string &action, std::string &keys_ );
 	CInputManager*	GetInputManager() const { return m_pInputManager; }
 
 private:

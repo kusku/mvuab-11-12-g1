@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 
+#define ACTION_LOGGER "Logger"
+
 struct SConfig
 {
 	//Screen params
