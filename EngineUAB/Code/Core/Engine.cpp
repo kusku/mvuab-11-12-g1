@@ -7,6 +7,8 @@
 #include "Location\LanguageManager.h"
 #include "XML\XMLTreeNode.h"
 #include "ActionToInput.h"
+#include "Math\Color.h"
+#include "Utils/BaseUtils.h"
 #include "Logger\Logger.h"
 #include "Exceptions\Exception.h"
 
@@ -43,6 +45,10 @@ void CEngine::Init(HWND hWnd)
 	m_pProcess->Init();
 
 	m_LogRender.SetLinePerPage(20);
+
+#if defined(DEBUG_MODE)
+	m_DebugRender.Init(&m_Timer);
+#endif
 }
 
 void CEngine::Update()
@@ -87,6 +93,11 @@ void CEngine::UpdateDebugInputs()
 	{
 		m_LogRender.NextLine();
 	}
+
+	if( action2Input->DoAction("DebugInfo") )
+	{
+		m_DebugRender.SetVisible( !m_DebugRender.GetVisible() );
+	}
 }
 
 void CEngine::Render()
@@ -106,15 +117,11 @@ void CEngine::RenderScene(CRenderManager *renderManager)
 {
 	m_pProcess->Render( renderManager );
 
-	m_LogRender.Render( renderManager, CORE->GetFontManager() );
-
-	/*float l_FPS = m_Timer.GetFPS();
-	CORE->GetFontManager()->DrawDefaultText( 1, 1, colWHITE, "FPS: %f", l_FPS );*/
-}
-
-void CEngine::SetProcess(CProcess *process)
-{
-	m_pProcess = process;
+#if defined(DEBUG_MODE)
+	CFontManager *fontManager = CORE->GetFontManager();
+	m_DebugRender.Render( renderManager, fontManager, &m_Timer );
+	m_LogRender.Render( renderManager, fontManager );
+#endif
 }
 
 void CEngine::Reload()
@@ -252,5 +259,4 @@ const CColor CEngine::string2Color(const std::string &color)
 	{
 		return colBLACK;
 	}
-
 }
