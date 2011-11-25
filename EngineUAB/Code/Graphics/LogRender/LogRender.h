@@ -29,24 +29,24 @@ public:
 	CLogRender();
 	~CLogRender();
 
-	void					Render							(CRenderManager* renderManager, CFontManager* fm, CColor color = colWHITE);
-	void					Update							(float deltaTime);
-	uint32					GetNumOfLines				() const								{return m_uLinesPerPage;}
-	void					PageUp							();
-	void					PageDown						();
-	void					NextLine						();
-	void					PrevLine						();
+	void					Render						(CRenderManager* renderManager, CFontManager* fm, CColor color = colWHITE);
+	void					Update						(float deltaTime);
+	uint32					GetNumOfLines				() const					{return m_uLinesPerPage;}
+	void					PageUp						();
+	void					PageDown					();
+	void					NextLine					();
+	void					PrevLine					();
 	void					SetWindowsPos				(const Vect2i& pos )		{m_WindowsPos = pos;}
-	const Vect2i&			GetWindowsPos				() const								{return m_WindowsPos;}
-	bool					GetVisible					() const								{return m_bIsVisible;}
+	const Vect2i&			GetWindowsPos				() const					{return m_WindowsPos;}
+	bool					GetVisible					() const					{return m_bIsVisible;}
 	void					SetVisible					(bool flag);
-	void					SetLinePerPage			(uint32 lines);
+	void					SetLinePerPage				(uint32 lines);
 
 private:
 	void					RenderLines					(	CRenderManager* renderManager, CFontManager* fm, const std::vector<SLog>& vecLogs,
 																			uint32 beginIndex, uint32 endIndex, bool errors, bool warnings,CColor color);
 	void					RenderQuad					();
-	void					ComputeBeginAndEnd	(const std::vector<SLog>& vecLogs,uint32& beginIndex, uint32& endIndex);
+	void					ComputeBeginAndEnd			(const std::vector<SLog>& vecLogs,uint32& beginIndex, uint32& endIndex);
 
 
 private:

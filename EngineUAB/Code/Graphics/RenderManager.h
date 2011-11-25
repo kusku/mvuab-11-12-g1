@@ -43,7 +43,6 @@ public:
 	void	DrawGrid		( float sizeW, float sizeH, uint16 lines, CColor color = colWHITE  );
 	void	DrawCube		( const Vect3f &dimensions, CColor color = colWHITE );
 	void	DrawSphere		( float radius, uint32 edges, CColor color = colWHITE );
-	void	DrawQuad2D		( const Vect2i& pos, uint32 w, uint32 h, ETypeAlignment alignment, CColor color = colBLUE);
 	void	DrawRectangle2D ( const Vect2i& pos, uint32 w, uint32 h, CColor& backGroundColor, uint32 edge_w, uint32 edge_h, CColor& edgeColor );
 
 	// Set & Get Methods
@@ -65,6 +64,7 @@ protected:
 	void Release ();
 	void GetWindowRect( HWND hWnd );
 	void CalculateAlignment (uint32 w, uint32 h, ETypeAlignment alignment, Vect2i & finalPos);
+	void DrawQuad2D ( const Vect2i& pos, uint32 w, uint32 h, ETypeAlignment alignment, CColor color = colBLUE);
 
 	bool	m_bIsOk;
 
@@ -74,12 +74,12 @@ protected:
 	LPDIRECT3D9			m_pD3D;			// direct3d interface
 	LPDIRECT3DDEVICE9	m_pD3DDevice;   // direct3d device
 
-	uint32 m_uWidth;
-	uint32 m_uHeight;
-	Vect2i m_SizeScreen;
-	float	m_AspectRatio;
-	bool m_bFullscreen;
-	bool m_bPaintSolid;
+	uint32		m_uWidth;
+	uint32		m_uHeight;
+	Vect2i		m_SizeScreen;
+	float		m_AspectRatio;
+	bool		m_bFullscreen;
+	bool		m_bPaintSolid;
 
 	CColor m_BackbufferColor_debug;
 	CColor m_BackbufferColor_release;

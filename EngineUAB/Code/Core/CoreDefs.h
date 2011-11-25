@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#define ACTION_LOGGER "Logger"
+#define DEBUG_MODE true
 
 struct SConfig
 {
