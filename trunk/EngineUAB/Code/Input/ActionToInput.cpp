@@ -775,3 +775,8 @@ void CActionToInput::InitString2Input ()
 	m_String2Code.insert( PairString2Code("KEY_PAUSE",                           KEY_PAUSE) );
 	m_String2Code.insert( PairString2Code("KEY_SCROLL",                          KEY_SCROLL) );  
 }
+
+bool CActionToInput::GetGamepadState() const
+{
+	return m_pInputManager->HasGamePad();
+}

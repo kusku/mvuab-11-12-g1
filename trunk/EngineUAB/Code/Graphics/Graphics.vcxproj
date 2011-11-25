@@ -17,7 +17,8 @@
     <ClInclude Include="Cameras\ThPSCamera.h" />
     <ClInclude Include="Fonts\FontManager.h" />
     <ClInclude Include="GraphicsDefs.h" />
-    <ClInclude Include="LogRender\LogRender.h" />
+    <ClInclude Include="InfoRender\DebugRender.h" />
+    <ClInclude Include="InfoRender\LogRender.h" />
     <ClInclude Include="Object3D.h" />
     <ClInclude Include="RenderManager.h" />
   </ItemGroup>
@@ -27,7 +28,8 @@
     <ClCompile Include="Cameras\Frustum.cpp" />
     <ClCompile Include="Cameras\ThPSCamera.cpp" />
     <ClCompile Include="Fonts\FontManager.cpp" />
-    <ClCompile Include="LogRender\LogRender.cpp" />
+    <ClCompile Include="InfoRender\DebugRender.cpp" />
+    <ClCompile Include="InfoRender\LogRender.cpp" />
     <ClCompile Include="Object3D.cpp" />
     <ClCompile Include="RenderManager.cpp" />
   </ItemGroup>

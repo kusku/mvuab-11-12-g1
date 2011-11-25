@@ -326,10 +326,6 @@ void CRenderManager::DrawSphere(float radius, uint32 edges, CColor color )
 
 void CRenderManager::DrawQuad2D(const Vect2i& pos, uint32 w, uint32 h, ETypeAlignment alignment, CColor color)
 {
-	m_pD3DDevice->SetRenderState( D3DRS_ALPHABLENDENABLE, TRUE );
-	m_pD3DDevice->SetRenderState( D3DRS_SRCBLEND, D3DBLEND_SRCALPHA );
-	m_pD3DDevice->SetRenderState( D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA );
-
 	Vect2i finalPos = pos;
     CalculateAlignment(w, h, alignment, finalPos);
 
@@ -357,8 +353,6 @@ void CRenderManager::DrawQuad2D(const Vect2i& pos, uint32 w, uint32 h, ETypeAlig
 	m_pD3DDevice->SetFVF( SCREEN_COLOR_VERTEX::getFlags() );
 	m_pD3DDevice->SetTexture(0, NULL);
 	m_pD3DDevice->DrawIndexedPrimitiveUP(D3DPT_TRIANGLELIST,0,4,2,indices,D3DFMT_INDEX16,v,sizeof( SCREEN_COLOR_VERTEX ) );
-
-	m_pD3DDevice->SetRenderState( D3DRS_ALPHABLENDENABLE, FALSE );
 }
 
 void CRenderManager::CalculateAlignment (uint32 w, uint32 h, ETypeAlignment alignment, Vect2i & finalPos)
@@ -402,6 +396,10 @@ void CRenderManager::CalculateAlignment (uint32 w, uint32 h, ETypeAlignment alig
 
 void CRenderManager::DrawRectangle2D ( const Vect2i& pos, uint32 w, uint32 h, CColor& backGroundColor, uint32 edge_w, uint32 edge_h, CColor& edgeColor )
 {
+	m_pD3DDevice->SetRenderState( D3DRS_ALPHABLENDENABLE, TRUE );
+	m_pD3DDevice->SetRenderState( D3DRS_SRCBLEND, D3DBLEND_SRCALPHA );
+	m_pD3DDevice->SetRenderState( D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA );
+
     //Draw background quad2D:
     DrawQuad2D(pos, w, h, UPPER_LEFT, backGroundColor);
 
@@ -423,6 +421,8 @@ void CRenderManager::DrawRectangle2D ( const Vect2i& pos, uint32 w, uint32 h, CC
 
     pos_aux.x = pos.x + w;
     DrawQuad2D(pos_aux, edge_w, h + (2*edge_w), UPPER_LEFT, edgeColor);   
+
+	m_pD3DDevice->SetRenderState( D3DRS_ALPHABLENDENABLE, FALSE );
 }
 
 void CRenderManager::SetTransform( const Mat44f &mat)

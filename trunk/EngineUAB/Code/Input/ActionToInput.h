@@ -44,7 +44,9 @@ public:
 
 	//-----Get Methods-------
 	void			GetActionInfo	( const std::string &action, std::string &keys_ );
+	bool			GetGamepadState () const;
 	CInputManager*	GetInputManager() const { return m_pInputManager; }
+	
 
 private:
 	void	Release				();

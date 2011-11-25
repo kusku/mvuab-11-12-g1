@@ -8,7 +8,8 @@
 #include "Math\Color.h"
 #include "Utils\Timer.h"
 #include "CoreDefs.h"
-#include "LogRender\LogRender.h"
+#include "InfoRender\LogRender.h"
+#include "InfoRender\DebugRender.h"
 class CLogger;
 class CCore;
 
@@ -22,28 +23,27 @@ public:
 	void Update();
 	void Render();
 	void RenderScene( CRenderManager* renderManager );
-	uint32 RenderFPS	();
 
 	void LoadConfigXML	( const std::string &configFile );
 	void Reload			();
 
-	void SetProcess( CProcess *process );
+	void SetProcess( CProcess *process ) { m_pProcess = process; }
 
 	Vect2i		GetResolution	() const { return m_Config.resolution; }
 	Vect2i		GetPosition		() const { return m_Config.position; }
 
 protected:
-	CCore		*m_pCore;
-	CProcess	*m_pProcess;
-	CLogger		*m_pLogger;
-	CTimer		m_Timer;
-	CLogRender	m_LogRender;
+	CCore			*m_pCore;
+	CProcess		*m_pProcess;
+	CLogger			*m_pLogger;
+	CTimer			m_Timer;
+	CLogRender		m_LogRender;
+	CDebugRender	m_DebugRender;
 
 	SConfig		m_Config;
 
 	const CColor	string2Color	( const std::string &color );
 	void			UpdateDebugInputs	();	
-
 };
 
 #endif
