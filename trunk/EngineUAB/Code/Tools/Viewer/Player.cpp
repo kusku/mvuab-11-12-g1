@@ -37,17 +37,17 @@ void CPlayer::UpdateInputActions(float elapsedTime)
 	{
 		if( CORE->GetActionToInput()->DoAction("MovePlayerLeft") )
 		{
-			m_Dir = Vect3f(cosf(m_fYaw + D3DX_PI/4.f), m_fPitch, sinf(m_fYaw + D3DX_PI/4.f));
+			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw + D3DX_PI/4.f), m_fPitch, mathUtils::Sin<float>(m_fYaw + D3DX_PI/4.f));
 			m_Position += m_Dir * 5.f * elapsedTime;
 		}
 		else if( CORE->GetActionToInput()->DoAction("MovePlayerRight") )
 		{
-			m_Dir = Vect3f(cosf(m_fYaw - D3DX_PI/4.f), m_fPitch, sinf(m_fYaw - D3DX_PI/4.f));
+			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw - D3DX_PI/4.f), m_fPitch, mathUtils::Sin<float>(m_fYaw - D3DX_PI/4.f));
 			m_Position += m_Dir * 5.f * elapsedTime;
 		}
 		else
 		{
-			m_Dir = Vect3f(cosf(m_fYaw), m_fPitch, sinf(m_fYaw));
+			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw), m_fPitch, mathUtils::Sin<float>(m_fYaw));
 			m_Position += m_Dir * 5.f * elapsedTime;
 		}
 	}
@@ -55,17 +55,17 @@ void CPlayer::UpdateInputActions(float elapsedTime)
 	{
 		if( CORE->GetActionToInput()->DoAction("MovePlayerLeft") )
 		{
-			m_Dir = Vect3f(cosf(m_fYaw - D3DX_PI/4.f), m_fPitch, sinf(m_fYaw - D3DX_PI/4.f));
+			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw - D3DX_PI/4.f), m_fPitch, mathUtils::Sin<float>(m_fYaw - D3DX_PI/4.f));
 			m_Position -= m_Dir * 5.f * elapsedTime;
 		}
 		else if( CORE->GetActionToInput()->DoAction("MovePlayerRight") )
 		{
-			m_Dir = Vect3f(cosf(m_fYaw + D3DX_PI/4.f), m_fPitch, sinf(m_fYaw + D3DX_PI/4.f));
+			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw + D3DX_PI/4.f), m_fPitch, mathUtils::Sin<float>(m_fYaw + D3DX_PI/4.f));
 			m_Position -= m_Dir * 5.f * elapsedTime;
 		}
 		else
 		{
-			m_Dir = Vect3f(cosf(m_fYaw), m_fPitch, sinf(m_fYaw));
+			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw), m_fPitch, mathUtils::Sin<float>(m_fYaw));
 			m_Position -= m_Dir * 5.f * elapsedTime;
 		}
 	}

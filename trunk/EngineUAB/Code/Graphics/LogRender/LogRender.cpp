@@ -28,7 +28,6 @@ CLogRender::CLogRender()
 
 CLogRender::~CLogRender()
 {
-
 }
 
 
@@ -203,12 +202,10 @@ void CLogRender::Render (CRenderManager* renderManager, CFontManager* fm, CColor
 		edgeColor.SetAlpha(0.7f);
 		renderManager->DrawRectangle2D(Vect2i(m_WindowsPos.x, (uint32)(m_WindowsPos.y - h*0.5)), w, h, m_Quad2dColor, 1, 1, edgeColor);
 
-
 		//Draw Info Text
 		if	(LOGGER->Warnings())	color = colGREEN;
 		if	(LOGGER->Errors())		color = colRED;
 		
-
 		fm->DrawDefaultText(m_WindowsPos.x,m_WindowsPos.y-10,color, l_sInfo.c_str());
 	}
 
@@ -365,7 +362,10 @@ void CLogRender::RenderLines (	CRenderManager* renderManager, CFontManager* fm, 
 	dy = m_WindowsPos.y;
 
 	//Dibujamos la cabecera:
-	std::string header = "	LINE   |         LEVEL         |                       MESSAGE                                          (Press F1 to hide the Logger)";
+	std::string info, header;
+	//std::string header = "	LINE   |         LEVEL         |                       MESSAGE                                          (Press F1 to hide the Logger)";
+	CORE->GetActionToInput()->GetActionInfo(ACTION_LOGGER, info);
+	baseUtils::FormatSrting(header, "	LINE   |         LEVEL         |                       MESSAGE                                          (Press %s to hide the Logger)", info.c_str());
 	incY += fm->DrawDefaultText(m_WindowsPos.x, dy, colWHITE, header.c_str());
 	header = "______________________________________________________________________________________________________________________________________";
 	dy +=fm->DrawDefaultText(m_WindowsPos.x, dy, colWHITE, header.c_str());
@@ -475,7 +475,15 @@ void CLogRender::RenderLines (	CRenderManager* renderManager, CFontManager* fm, 
 	
 	color = colWHITE;
 
-	fm->DrawDefaultText(	m_WindowsPos.x+500,dy,color, "|      (Press PgDown, PgUp, Ctrl+Up or Ctrl+Down to view more logs)");
+	std::string pgDown, pgUp, lineUp, lineDown;
+	CActionToInput* action2Input = CORE->GetActionToInput();
+	action2Input->GetActionInfo("LogRender_PageDown", pgDown);
+	action2Input->GetActionInfo("LogRender_PageUp", pgUp);
+	action2Input->GetActionInfo("LogRender_PrevLine", lineUp);
+	action2Input->GetActionInfo("LogRender_NextLine", lineDown);
+		
+	/*fm->DrawDefaultText(	m_WindowsPos.x+500,dy,color, "|      (Press PgDown, PgUp, Ctrl+Up or Ctrl+Down to view more logs)");*/
+	fm->DrawDefaultText(	m_WindowsPos.x+500,dy,color, "| (Press %s, %s, %s or %s to view more logs)", pgDown.c_str(), pgUp.c_str(), lineUp.c_str(), lineDown.c_str());
 	header = "______________________________________________________________________________________________________________________________________";
 	fm->DrawDefaultText(m_WindowsPos.x,dy,color, header.c_str());
 }
@@ -484,4 +492,5 @@ void CLogRender::RenderQuad()
 {
 	//TODO.. cuando tengamos quad2d.. dibujaremos un rectangulo con cierta transparencia y cierto color. Para
 	//distinguir los margenes del logrender.
+
 }

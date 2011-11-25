@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include "Core.h"
 #include "Base.h"
 #include "RenderManager.h"
 #include "Cameras\Camera.h"
@@ -7,7 +8,6 @@
 #include "XML\XMLTreeNode.h"
 #include "ActionToInput.h"
 #include "Logger\Logger.h"
-#include "LogRender\LogRender.h"
 #include "Exceptions\Exception.h"
 
 #if defined(_DEBUG)
@@ -18,8 +18,7 @@ CEngine::CEngine()
 	: m_pCore(NULL)
 	, m_pProcess(NULL)	
 	, m_pLogger(NULL)
-	, m_pLogRender(NULL)
-	, m_pTimer(30)
+	, m_Timer(30)
 {
 }
 
@@ -30,7 +29,6 @@ CEngine::~CEngine()
 	CHECKED_DELETE(m_pCore);
 	CHECKED_DELETE(m_pProcess);
 
-	CHECKED_DELETE(m_pLogRender);
 	CHECKED_DELETE(m_pLogger);
 }
 
@@ -44,17 +42,51 @@ void CEngine::Init(HWND hWnd)
 	m_pCore->Init(hWnd, m_Config);
 	m_pProcess->Init();
 
-	m_pLogRender = new CLogRender();
+	m_LogRender.SetLinePerPage(20);
 }
 
 void CEngine::Update()
 {
-	m_pTimer.Update();
-	float elapsedTime = m_pTimer.GetElapsedTime();
+	m_Timer.Update();
+	float elapsedTime = m_Timer.GetElapsedTime();
 
 	m_pCore->Update(elapsedTime);
 	m_pProcess->Update(elapsedTime);
-	m_pLogRender->Update(elapsedTime);
+	m_LogRender.Update(elapsedTime);
+
+#if defined(DEBUG_MODE)
+	UpdateDebugInputs();
+#endif
+}
+
+void CEngine::UpdateDebugInputs()
+{
+	CActionToInput* action2Input = CORE->GetActionToInput();
+	if( action2Input->DoAction("Logger") )
+	{
+		bool visible = m_LogRender.GetVisible();
+		m_LogRender.SetVisible(!visible);
+	}
+
+	if( action2Input->DoAction("LogRender_PageDown") )
+	{
+		m_LogRender.PageDown();
+	}
+
+	if( action2Input->DoAction("LogRender_PageUp") )
+	{
+		m_LogRender.PageUp();
+	}
+
+	if( action2Input->DoAction("LogRender_PrevLine") )
+	{
+		m_LogRender.PrevLine();
+	}
+
+	if( action2Input->DoAction("LogRender_NextLine") )
+	{
+		m_LogRender.NextLine();
+	}
 }
 
 void CEngine::Render()
@@ -74,9 +106,9 @@ void CEngine::RenderScene(CRenderManager *renderManager)
 {
 	m_pProcess->Render( renderManager );
 
-	m_pLogRender->Render( renderManager, CORE->GetFontManager() );
+	m_LogRender.Render( renderManager, CORE->GetFontManager() );
 
-	/*float l_FPS = m_pTimer.GetFPS();
+	/*float l_FPS = m_Timer.GetFPS();
 	CORE->GetFontManager()->DrawDefaultText( 1, 1, colWHITE, "FPS: %f", l_FPS );*/
 }
 

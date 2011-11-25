@@ -3,28 +3,17 @@
 #ifndef _ENGINE_H
 #define _ENGINE_H
 
-#include "Core.h"
+#include <Windows.h>
 #include "Process.h"
 #include "Math\Color.h"
 #include "Utils\Timer.h"
 #include "CoreDefs.h"
-
+#include "LogRender\LogRender.h"
 class CLogger;
-class CLogRender;
+class CCore;
 
 class CEngine
 {
-protected:
-	CCore		*m_pCore;
-	CProcess	*m_pProcess;
-	CTimer		m_pTimer;
-	CLogger		*m_pLogger;
-	CLogRender	*m_pLogRender;
-
-	SConfig		m_Config;
-
-	const CColor string2Color( const std::string &color );
-
 public:
 	CEngine();
 	virtual ~CEngine();
@@ -42,6 +31,19 @@ public:
 
 	Vect2i		GetResolution	() const { return m_Config.resolution; }
 	Vect2i		GetPosition		() const { return m_Config.position; }
+
+protected:
+	CCore		*m_pCore;
+	CProcess	*m_pProcess;
+	CLogger		*m_pLogger;
+	CTimer		m_Timer;
+	CLogRender	m_LogRender;
+
+	SConfig		m_Config;
+
+	const CColor	string2Color	( const std::string &color );
+	void			UpdateDebugInputs	();	
+
 };
 
 #endif
