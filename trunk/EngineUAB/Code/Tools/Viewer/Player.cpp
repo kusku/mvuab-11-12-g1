@@ -1,6 +1,8 @@
 #include "Player.h"
 #include "ActionToInput.h"
 #include "RenderManager.h"
+#include "Cameras\Camera.h"
+#include "Cameras\ThPSCamera.h"
 #include "Math\Matrix44.h"
 #include "Base.h"
 #include "Core.h"
@@ -15,25 +17,52 @@ CPlayer::~CPlayer()
 {
 }
 
-void CPlayer::Update(float elapsedTime)
+void CPlayer::Update(float elapsedTime, CCamera *camera)
 {
-	UpdateInputActions(elapsedTime);	
+	UpdateInputActions(elapsedTime, camera);	
 }
 
-void CPlayer::UpdateInputActions(float elapsedTime)
+void CPlayer::UpdateInputActions(float elapsedTime, CCamera *camera)
 {
 	float d = 0.0f;
-	if( CORE->GetActionToInput()->DoAction("MoveXCam", d) )
+	CActionToInput *action2Input = CORE->GetActionToInput();
+	CThPSCamera* l_ThPSCamera = static_cast<CThPSCamera*>(camera);
+	if( action2Input->DoAction("YawViewerCam", d) )
 	{
 		m_fYaw += d;
 	}
 
-	if( CORE->GetActionToInput()->DoAction("MoveYCam", d) )
+	if( action2Input->DoAction("PitchViewerCam", d) )
 	{
 		m_fPitch += d;
 	}
 
-	if( CORE->GetActionToInput()->DoAction("MovePlayerUp") )
+	if( action2Input->DoAction("MoveZViewerCam", d) )
+	{
+		m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw), m_fPitch, mathUtils::Sin<float>(m_fYaw));
+		if( d > 0 )
+		{
+			m_Position -= m_Dir * 50.f * elapsedTime;
+		}
+		else
+		{
+			m_Position += m_Dir * 50.f * elapsedTime;
+		}
+	}
+
+	if( action2Input->DoAction("SlowZoomViewerCam", d) )
+	{
+		float zoom = l_ThPSCamera->GetZoom() + d;
+		l_ThPSCamera->SetZoom(zoom);
+	}
+	else if( action2Input->DoAction("ZoomViewerCam", d) )
+	{
+		float zoom = l_ThPSCamera->GetZoom() + d;
+		l_ThPSCamera->SetZoom(zoom);
+	}
+
+
+	/*if( CORE->GetActionToInput()->DoAction("MovePlayerUp") )
 	{
 		if( CORE->GetActionToInput()->DoAction("MovePlayerLeft") )
 		{
@@ -82,7 +111,7 @@ void CPlayer::UpdateInputActions(float elapsedTime)
 			m_Dir = Vect3f(cosf(m_fYaw + D3DX_PI/2.f), 0.0f, sinf(m_fYaw + D3DX_PI/2.f));
 			m_Position -= m_Dir * 5.f * elapsedTime;
 		}
-	}
+	}*/
 }
 
 void CPlayer::Render(CRenderManager *RM)
@@ -99,5 +128,6 @@ void CPlayer::Render(CRenderManager *RM)
 	mat = trans * rot * rotPitch;
 	RM->SetTransform(mat);
 
-	RM->DrawCube( Vect3f(0.5f, 0.5f, 0.5f) );
+	/*RM->DrawCube( Vect3f(0.5f, 0.5f, 0.5f) );*/
+	RM->DrawSphere(0.5f, 7, colWHITE);
 }

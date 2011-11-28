@@ -1,9 +1,7 @@
 #include "ViewerProcess.h"
 #include "RenderManager.h"
-#include "Fonts\FontManager.h"
-#include "InputManager.h"
 #include "ActionToInput.h"
-#include "Periphericals\Mouse.h"
+#include "Cameras\ThPSCamera.h"
 #include "Base.h"
 #include "Core.h"
 #include "Math\Color.h"
@@ -19,19 +17,14 @@
 CViewerProcess::CViewerProcess()
 	: pos(0,0)
 	, screen(800,600)
-	, m_RotTerra(0.0f)
-	, m_RotTMateixa(0.0f)
-	, m_RotLluna(0.0f)
 	, yaw(0.0f)
-	, m_pThPSCamera(NULL)
-	, m_pFPSCamera(NULL)
+	, m_pThPSCamera(NULL)	
 {
 }
 
 CViewerProcess::~CViewerProcess()
 {
 	CHECKED_DELETE( m_pThPSCamera );
-	CHECKED_DELETE( m_pFPSCamera );
 	m_Camera = NULL;
 }
 
@@ -48,26 +41,31 @@ void CViewerProcess::Init()
 
 	float aspect = CORE->GetRenderManager()->GetAspectRatio();
 	m_pThPSCamera = new CThPSCamera(1.0f, 100.f, 45.f * D3DX_PI / 180.f, aspect, &m_Player, 10.0f);
-	m_pFPSCamera = new CFPSCamera(1.0f, 100.f, 45.f * D3DX_PI / 180.f, aspect, &m_Player);
-	m_Camera = m_pThPSCamera;
-
+	m_Camera = static_cast<CCamera*>(m_pThPSCamera);
 }
 
 void CViewerProcess::Update(float elapsedTime)
 {
-	//m_RotTMateixa = m_RotTMateixa + 1.5f * elapsedTime;
-	//m_RotTerra = m_RotTerra + 0.2f * elapsedTime;
-	//m_RotLluna = m_RotLluna + 3.5f * elapsedTime;
-	if( CORE->GetActionToInput()->DoAction("AssignFPSCamera") )
+	m_Player.Update(elapsedTime, m_Camera);
+}
+
+void CViewerProcess::UpdateInputs(float elapsedTime)
+{
+	CActionToInput *action2Input = CORE->GetActionToInput();
+	if( action2Input->DoAction("ReloadTTFs") )
 	{
-		m_Camera = m_pFPSCamera;
-	}
-	else if( CORE->GetActionToInput()->DoAction("AssignThPSCamera") )
-	{
-		m_Camera = m_pThPSCamera;
+		CORE->ReloadTTFs();
 	}
 
-	m_Player.Update(elapsedTime);
+	if( action2Input->DoAction("ReloadLanguageXMLs") )
+	{
+		CORE->ReloadLanguages();
+	}
+
+	if( action2Input->DoAction("ReloadActions") )
+	{
+		CORE->ReloadInputs();
+	}
 }
 
 void CViewerProcess::Render(CRenderManager *RM)
@@ -77,32 +75,6 @@ void CViewerProcess::Render(CRenderManager *RM)
 	RM->SetTransform(mat);
 	RM->DrawAxis(1.0f);
 	RM->DrawGrid(100.0f, 100.0f, 30, colBLACK);
+
 	m_Player.Render(RM);
-	/*Mat44f trans, trans2, rot, rot2;
-	Mat44f matMovement;
-
-	RM->DrawAxis(2.0f);
-	RM->DrawSphere(1.f, 15, colYELLOW);
-
-	mat.SetIdentity();
-	matMovement .SetIdentity();
-	rot.SetIdentity();
-	rot2.SetIdentity();
-	trans.SetIdentity();
-	rot2.RotByAngleY(m_RotTMateixa);
-	rot.RotByAngleY(m_RotTerra);
-	trans.Translate(Vect3f(3.5f, 0.0f, 0.0f));
-	matMovement = rot * trans;
-	mat = matMovement * rot2;
-	RM->SetTransform(mat);
-	RM->DrawSphere(1.f, 15, colCYAN);
-
-	mat.SetIdentity();
-	rot2.SetIdentity();
-	trans2.SetIdentity();
-	trans2.Translate(Vect3f(2.0f, 0.0f, 0.0f));
-	rot2.RotByAngleY(m_RotLluna);
-	matMovement = matMovement * rot2 * trans2;
-	RM->SetTransform(matMovement);
-	RM->DrawSphere(0.2f, 10, colBLACK);*/
 }

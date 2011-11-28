@@ -12,7 +12,6 @@
 
 #include "Math\Color.h"
 #include "Math\Vector2.h"
-#include "Utils\LerpAnimator1D.h"
 
 //---Forward Declarations---
 class CRenderManager;
@@ -27,7 +26,6 @@ public:
 	~CDebugRender();
 
 	void					Init						( CTimer *timer );
-	void					Update						( float deltaTime );
 	void					Render						( CRenderManager *rm, CFontManager *fm, CTimer *timer, CColor color = colWHITE );
 
 	void					SetVisible					( bool flag ) { m_bIsVisible = flag; }
@@ -38,8 +36,6 @@ private:
 
 	bool					m_bIsVisible;
 	Vect2i					m_SizeRectangle;
-
-	CLerpAnimator1D			m_LerpAnimator1D;
 };
 
 #endif

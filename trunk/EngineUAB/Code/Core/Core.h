@@ -26,6 +26,10 @@ public:
 	void Update		( float ElapsedTime );
 	void Render		();
 
+	void	ReloadTTFs			();	
+	void	ReloadLanguages		();	
+	void	ReloadInputs		();
+
 	CRenderManager*		GetRenderManager() const	{ return m_pRenderManager; }
 	CFontManager*		GetFontManager() const		{ return m_pFontManager; }
 	CLanguageManager*	GetLanguageManager() const	{ return m_pLanguageManager; }

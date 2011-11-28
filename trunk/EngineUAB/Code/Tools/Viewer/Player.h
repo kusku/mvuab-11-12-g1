@@ -4,6 +4,7 @@
 #define _PLAYER_H
 
 class CRenderManager;
+class CCamera;
 
 #include "Object3D.h"
 #include "Math\Vector3.h"
@@ -14,11 +15,11 @@ public:
 	CPlayer();
 	~CPlayer();
 
-	void Update(float elapsedTime);
+	void Update(float elapsedTime, CCamera* camera);
 	void Render(CRenderManager *RM);
 
 private:
-	void UpdateInputActions(float elapsedTime);
+	void UpdateInputActions(float elapsedTime, CCamera* camera);
 
 	Vect3f	m_Dir;
 };

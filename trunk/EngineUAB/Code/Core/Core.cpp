@@ -105,3 +105,18 @@ void CCore::Update(float ElapsedTime)
 void CCore::Render()
 {
 }
+
+void CCore::ReloadTTFs()
+{
+	m_pFontManager->ReloadTTFs();
+}
+
+void CCore::ReloadLanguages()
+{
+	m_pLanguageManager->LoadXMLs();
+}
+
+void CCore::ReloadInputs()
+{
+	m_pActionToInput->Reload();
+}
