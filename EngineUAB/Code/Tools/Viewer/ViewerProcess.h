@@ -4,30 +4,14 @@
 #define _VIEWERPROCESS_H
 
 class CCamera;
+class CThPSCamera;
 
 #include "Player.h"
 #include "Process.h"
 #include "Math\Vector2.h"
-#include "Cameras\ThPSCamera.h"
-#include "Cameras\FPSCamera.h"
 
 class CViewerProcess : public CProcess
 {
-protected:
-	Vect2i pos;
-	Vect2i screen;
-
-	float m_RotTerra;
-	float m_RotTMateixa;
-	float m_RotLluna;
-
-
-	float yaw;
-	CPlayer m_Player;
-
-	CThPSCamera *m_pThPSCamera;
-	CFPSCamera	*m_pFPSCamera;
-
 public:
 	CViewerProcess();
 	~CViewerProcess();
@@ -37,6 +21,17 @@ public:
 	void Render(CRenderManager *RM);
 
 	CCamera* GetCamera () const { return m_Camera; }
+
+protected:
+	void UpdateInputs( float elapsedTime );
+
+	Vect2i pos;
+	Vect2i screen;
+
+	float yaw;
+	CPlayer m_Player;
+
+	CThPSCamera *m_pThPSCamera;
 };
 
 #endif

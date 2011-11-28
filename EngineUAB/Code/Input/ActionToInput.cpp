@@ -407,6 +407,7 @@ void CActionToInput::GetActionInfo( const std::string &action, std::string &keys
 
 void CActionToInput::Reload()
 {
+	LOGGER->AddNewLog(ELL_INFORMATION, "CActionToInput: Reload de los inputs.");
 	//Limpia todo el map con la información de las acciones
 	std::map< std::string, std::vector< SInputInfo* > >::iterator it;
 	for( it = m_ActionsMap.begin(); it != m_ActionsMap.end(); ++it )

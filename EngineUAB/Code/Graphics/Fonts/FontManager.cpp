@@ -60,7 +60,12 @@ bool CFontManager::ReloadTTFs ()
 {
 	if (m_sPathFile != "")
 	{
+		LOGGER->AddNewLog(ELL_INFORMATION, "CFontManager: Reload de las fuentes.");
 		return LoadTTFs (m_sPathFile);
+	}
+	else
+	{
+		LOGGER->AddNewLog(ELL_WARNING, "CFontManager: No se han podido recargar las fuentes.");
 	}
 
 	return false;
