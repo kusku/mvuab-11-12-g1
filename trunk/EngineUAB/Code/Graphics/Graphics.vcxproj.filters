@@ -25,6 +25,18 @@
     <ClInclude Include="InfoRender\DebugRender.h">
       <Filter>InfoRender</Filter>
     </ClInclude>
+    <ClInclude Include="Textures\Texture.h">
+      <Filter>Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="Textures\TextureManager.h">
+      <Filter>Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertexs\RenderableVertexs.h">
+      <Filter>Vertexs</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertexs\IndexedVertexs.h">
+      <Filter>Vertexs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
@@ -50,6 +62,12 @@
     <ClCompile Include="InfoRender\DebugRender.cpp">
       <Filter>InfoRender</Filter>
     </ClCompile>
+    <ClCompile Include="Textures\Texture.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="Textures\TextureManager.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Cameras">
@@ -63,6 +81,12 @@
     </Filter>
     <Filter Include="InfoRender">
       <UniqueIdentifier>{ab385e7e-69f1-40e5-ab49-f7a6cdfa077d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Textures">
+      <UniqueIdentifier>{047fc636-231e-4a75-a5c7-2bca4450060f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vertexs">
+      <UniqueIdentifier>{1ff20183-1817-4d21-a0e9-87584933f86c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

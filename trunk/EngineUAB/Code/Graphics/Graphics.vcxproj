@@ -21,6 +21,10 @@
     <ClInclude Include="InfoRender\LogRender.h" />
     <ClInclude Include="Object3D.h" />
     <ClInclude Include="RenderManager.h" />
+    <ClInclude Include="Textures\Texture.h" />
+    <ClInclude Include="Textures\TextureManager.h" />
+    <ClInclude Include="Vertexs\IndexedVertexs.h" />
+    <ClInclude Include="Vertexs\RenderableVertexs.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cameras\Camera.cpp" />
@@ -32,6 +36,8 @@
     <ClCompile Include="InfoRender\LogRender.cpp" />
     <ClCompile Include="Object3D.cpp" />
     <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="Textures\Texture.cpp" />
+    <ClCompile Include="Textures\TextureManager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5638D0EE-CE82-44F6-8C71-F0B569947BE6}</ProjectGuid>

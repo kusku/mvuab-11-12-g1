@@ -117,9 +117,6 @@
     <ClInclude Include="Utils\LerpAnimator3D.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\MapManager.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
     <ClInclude Include="Utils\Timer.h">
       <Filter>Utils</Filter>
     </ClInclude>
@@ -131,6 +128,9 @@
     </ClInclude>
     <ClInclude Include="Memory\MemLeaks.h">
       <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\MapManager.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
