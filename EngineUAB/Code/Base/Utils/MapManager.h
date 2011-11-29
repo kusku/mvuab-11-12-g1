@@ -1,6 +1,6 @@
 //----------------------------------------------------------------------------------
 // CMapManager class
-// Author: Enric Vergara
+// Author: Marc Cuscullola
 //
 // Description:
 // Template class for creating Map Managers
@@ -18,33 +18,26 @@ template<class T>
 class CMapManager
 {
   public:
-		CMapManager(const std::string & MapManagerName): m_sMapManagerName(MapManagerName) {}
-		
-
     virtual T * GetResource(const std::string & Name)
     {
       std::map<std::string, T*>::iterator it = m_Resources.find(Name);
-      if (it == m_Resources.end())
-      {
-        return NULL;
-      }
-      else
+      if (it != m_Resources.end())
       {
         return it->second;
       }
-
+      
+	  return NULL;
     }
 
-    virtual void AddResource(const std::string & Name, T * Resource)
+    virtual bool AddResource(const std::string & Name, T * Resource)
     {
-      if (m_Resources.find(Name)==m_Resources.end())
-			{
-				LOGGER->AddNewLog(ELL_WARNING, "%s::AddResource -> El resource %s ya existe en el mapa",m_sMapManagerName.c_str(), Name.c_str());
-			}
-			else
-			{
-				m_Resources[Name]=Resource;
-			}
+		if (m_Resources.find(Name)==m_Resources.end())
+		{
+			m_Resources[Name]=Resource;
+			return true;
+		}
+
+		return false;
     }
 
     void Destroy()
@@ -60,10 +53,9 @@ class CMapManager
       m_Resources.clear();
     }
 
-  protected:
-    typedef std::map<std::string, T*> TMapResource;
-    TMapResource											m_Resources;
-		std::string												m_sMapManagerName;
+protected:
+	typedef std::map<std::string, T*> TMapResource;
+    TMapResource						m_Resources;
 };
 
 #endif //INC_MAP_MANAGER_H_
