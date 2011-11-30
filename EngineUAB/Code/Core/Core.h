@@ -8,6 +8,7 @@ class CFontManager;
 class CLanguageManager;
 class CActionToInput;
 class CRenderManager;
+class CTextureManager;
 
 #include <Windows.h>
 #include "Utils\Singleton.h"
@@ -35,7 +36,7 @@ public:
 	CLanguageManager*	GetLanguageManager() const	{ return m_pLanguageManager; }
 	CInputManager*		GetInputManager() const		{ return m_pInputManager; }
 	CActionToInput*		GetActionToInput() const	{ return m_pActionToInput; }
-
+	CTextureManager*	GetTextureManager() const	{ return m_pTextureManager; }
 private:
 	void Release();
 
@@ -46,6 +47,7 @@ private:
 	CLanguageManager	*m_pLanguageManager;
 	CInputManager		*m_pInputManager;
 	CActionToInput		*m_pActionToInput;
+	CTextureManager		*m_pTextureManager;
 
 };
 
