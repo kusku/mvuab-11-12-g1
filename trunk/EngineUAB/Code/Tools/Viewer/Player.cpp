@@ -128,6 +128,5 @@ void CPlayer::Render(CRenderManager *RM)
 	mat = trans * rot * rotPitch;
 	RM->SetTransform(mat);
 
-	/*RM->DrawCube( Vect3f(0.5f, 0.5f, 0.5f) );*/
 	RM->DrawSphere(0.5f, 7, colWHITE);
 }

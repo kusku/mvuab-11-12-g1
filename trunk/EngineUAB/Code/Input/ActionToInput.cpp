@@ -23,16 +23,18 @@ CActionToInput::~CActionToInput()
 
 void CActionToInput::Release()
 {
-	std::map< std::string, std::vector< SInputInfo* > >::iterator it;
-	for( it = m_ActionsMap.begin(); it != m_ActionsMap.end(); ++it )
+	TMapActions::iterator l_It = m_ActionsMap.begin();
+	TMapActions::iterator l_End = m_ActionsMap.end();
+	for(; l_It != l_End; ++l_It )
 	{
-		std::vector< SInputInfo*>::iterator itVector;
-		for(itVector = it->second.begin(); itVector != it->second.end(); ++itVector)
+		std::vector<SInputInfo*>::iterator l_ItVector = l_It->second.begin();
+		std::vector<SInputInfo*>::iterator l_ItVectorEnd = l_It->second.end();
+		for(; l_ItVector != l_ItVectorEnd; ++l_ItVector)
 		{
-			CHECKED_DELETE((*itVector));
+			CHECKED_DELETE((*l_ItVector));
 		}
 		
-		it->second.clear();
+		l_It->second.clear();
 	}
 	m_ActionsMap.clear();
 	m_String2Code.clear();
@@ -78,15 +80,17 @@ void CActionToInput::Update()
 bool CActionToInput::DoAction(const std::string &action)
 {
 	std::vector<SInputInfo*> l_Actions = m_ActionsMap[ action ];
-	std::vector<SInputInfo*>::iterator it;
 
 	if( l_Actions.size() > 0 )
 	{
-		for(it = l_Actions.begin(); it != l_Actions.end(); ++it)
+		std::vector<SInputInfo*>::iterator l_It = l_Actions.begin();
+		std::vector<SInputInfo*>::iterator l_End = l_Actions.end();
+
+		for(; l_It != l_End; ++l_It)
 		{
-			INPUT_EVENT_TYPE l_Event = (*it)->eventType;
-			INPUT_AXIS_TYPE l_Axis = (*it)->axisType;
-			INPUT_DEVICE_TYPE l_Device = (*it)->deviceType;
+			INPUT_EVENT_TYPE l_Event = (*l_It)->eventType;
+			INPUT_AXIS_TYPE l_Axis = (*l_It)->axisType;
+			INPUT_DEVICE_TYPE l_Device = (*l_It)->deviceType;
 
 			if( l_Event != EVENT_NOTHING )
 			{
@@ -94,7 +98,7 @@ bool CActionToInput::DoAction(const std::string &action)
 				{
 				case EVENT_DOWN:
 					{
-						if( !m_pInputManager->IsDown( l_Device, (*it)->key ) )
+						if( !m_pInputManager->IsDown( l_Device, (*l_It)->key ) )
 						{
 							return false;
 						}
@@ -102,7 +106,7 @@ bool CActionToInput::DoAction(const std::string &action)
 					}
 				case EVENT_DOWN_UP:
 					{
-						if( !m_pInputManager->IsDownUp( l_Device, (*it)->key ) )
+						if( !m_pInputManager->IsDownUp( l_Device, (*l_It)->key ) )
 						{
 							return false;
 						}
@@ -110,7 +114,7 @@ bool CActionToInput::DoAction(const std::string &action)
 					}
 				case EVENT_UP_DOWN:
 					{
-						if( !m_pInputManager->IsUpDown( l_Device, (*it)->key ) )
+						if( !m_pInputManager->IsUpDown( l_Device, (*l_It)->key ) )
 						{
 							return false;
 						}
@@ -220,16 +224,18 @@ bool CActionToInput::DoAction(const std::string &action)
 bool CActionToInput::DoAction(const std::string &action, float &delta_)
 {
 	std::vector<SInputInfo*> l_Actions = m_ActionsMap[ action ];
-	std::vector<SInputInfo*>::iterator it;
 	delta_ = 0.0f;
 
 	if( l_Actions.size() > 0 )
 	{
-		for(it = l_Actions.begin(); it != l_Actions.end(); ++it)
+		std::vector<SInputInfo*>::iterator l_It = l_Actions.begin();
+		std::vector<SInputInfo*>::iterator l_End = l_Actions.end();
+
+		for(; l_It != l_End; ++l_It)
 		{
-			INPUT_EVENT_TYPE l_Event = (*it)->eventType;
-			INPUT_AXIS_TYPE l_Axis = (*it)->axisType;
-			INPUT_DEVICE_TYPE l_Device = (*it)->deviceType;
+			INPUT_EVENT_TYPE l_Event = (*l_It)->eventType;
+			INPUT_AXIS_TYPE l_Axis = (*l_It)->axisType;
+			INPUT_DEVICE_TYPE l_Device = (*l_It)->deviceType;
 
 			if( l_Event != EVENT_NOTHING )
 			{
@@ -237,7 +243,7 @@ bool CActionToInput::DoAction(const std::string &action, float &delta_)
 				{
 				case EVENT_DOWN:
 					{
-						if( !m_pInputManager->IsDown( l_Device, (*it)->key ) )
+						if( !m_pInputManager->IsDown( l_Device, (*l_It)->key ) )
 						{
 							return false;
 						}
@@ -245,7 +251,7 @@ bool CActionToInput::DoAction(const std::string &action, float &delta_)
 					}
 				case EVENT_DOWN_UP:
 					{
-						if( !m_pInputManager->IsDownUp( l_Device, (*it)->key ) )
+						if( !m_pInputManager->IsDownUp( l_Device, (*l_It)->key ) )
 						{
 							return false;
 						}
@@ -253,7 +259,7 @@ bool CActionToInput::DoAction(const std::string &action, float &delta_)
 					}
 				case EVENT_UP_DOWN:
 					{
-						if( !m_pInputManager->IsUpDown( l_Device, (*it)->key ) )
+						if( !m_pInputManager->IsUpDown( l_Device, (*l_It)->key ) )
 						{
 							return false;
 						}
@@ -263,7 +269,7 @@ bool CActionToInput::DoAction(const std::string &action, float &delta_)
 			}
 			else
 			{
-				float l_Delta = (*it)->delta;
+				float l_Delta = (*l_It)->delta;
 
 				switch(l_Axis)
 				{
@@ -386,11 +392,12 @@ bool CActionToInput::DoAction(const std::string &action, float &delta_)
 void CActionToInput::GetActionInfo( const std::string &action, std::string &keys_ )
 {
 	std::vector<SInputInfo*> l_Actions = m_ActionsMap[ action ];
-	std::vector<SInputInfo*>::iterator it;
+	std::vector<SInputInfo*>::iterator l_It = l_Actions.begin();
+	std::vector<SInputInfo*>::iterator l_End = l_Actions.end();
 	
-	for( it = l_Actions.begin(); it != l_Actions.end(); ++it)
+	for(; l_It != l_End; ++l_It)
 	{
-		std::string key = (*it)->keyName;
+		std::string key = (*l_It)->keyName;
 		if( key != "" )
 		{
 			if( keys_ == "" )
@@ -409,16 +416,18 @@ void CActionToInput::Reload()
 {
 	LOGGER->AddNewLog(ELL_INFORMATION, "CActionToInput: Reload de los inputs.");
 	//Limpia todo el map con la información de las acciones
-	std::map< std::string, std::vector< SInputInfo* > >::iterator it;
-	for( it = m_ActionsMap.begin(); it != m_ActionsMap.end(); ++it )
+	TMapActions::iterator l_It = m_ActionsMap.begin();
+	TMapActions::iterator l_End = m_ActionsMap.end();
+	for(; l_It != l_End; ++l_It )
 	{
-		std::vector< SInputInfo*>::iterator itVector;
-		for(itVector = it->second.begin(); itVector != it->second.end(); ++itVector)
+		std::vector<SInputInfo*>::iterator l_ItVector = l_It->second.begin();
+		std::vector<SInputInfo*>::iterator l_ItVectorEnd = l_It->second.end();
+		for(; l_ItVector != l_ItVectorEnd; ++l_ItVector)
 		{
-			CHECKED_DELETE((*itVector));
+			CHECKED_DELETE((*l_ItVector));
 		}
 		
-		it->second.clear();
+		l_It->second.clear();
 	}
 
 	//Vuelve a leer el fichero con el mismo path

@@ -59,7 +59,8 @@ private:
 
 	CInputManager	*m_pInputManager;
 
-	std::map< std::string, std::vector< SInputInfo* > > m_ActionsMap;
+	typedef std::map< std::string, std::vector< SInputInfo* > > TMapActions;
+	TMapActions											m_ActionsMap;
 	std::map<std::string, uint32>						m_String2Code;
 	std::map<std::string, std::string>					m_String2Name;
 	std::string											m_FilePath;
