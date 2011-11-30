@@ -31,7 +31,7 @@ class CMapManager
 
     virtual bool AddResource(const std::string & Name, T * Resource)
     {
-		if (m_Resources.find(Name)==m_Resources.end())
+		if (m_Resources.find(Name) == m_Resources.end())
 		{
 			m_Resources[Name]=Resource;
 			return true;

@@ -15,8 +15,8 @@ CItemManager::~CItemManager(void)
 
 void CItemManager::Release()
 {
-	std::vector<CItem*>::iterator it;
-	for(it = m_ItemVector.begin(); it != m_ItemVector.end(); ++it)
+	std::vector<CItem*>::iterator it = m_ItemVector.begin();
+	for(; it != m_ItemVector.end(); ++it)
 	{
 		CHECKED_DELETE( (*it) );
 	}
