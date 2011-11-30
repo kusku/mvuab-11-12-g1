@@ -25,6 +25,7 @@
     <ClInclude Include="Textures\TextureManager.h" />
     <ClInclude Include="Vertexs\IndexedVertexs.h" />
     <ClInclude Include="Vertexs\RenderableVertexs.h" />
+    <ClInclude Include="Vertexs\VertexType.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cameras\Camera.cpp" />

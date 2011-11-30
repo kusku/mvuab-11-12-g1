@@ -37,6 +37,9 @@
     <ClInclude Include="Vertexs\IndexedVertexs.h">
       <Filter>Vertexs</Filter>
     </ClInclude>
+    <ClInclude Include="Vertexs\VertexType.h">
+      <Filter>Vertexs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
