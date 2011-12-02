@@ -20,6 +20,8 @@ public:
 	virtual ~CTextureManager();
 
 	void Reload();
+
+	CTexture* GetTexture ( const std::string &fileName);
 };
 
 #endif
