@@ -116,8 +116,25 @@ function CreateFileMesh Obj FileName=
 	WriteShort file 0xCACA #unsigned --header
 	WriteShort file 1 #unsigned --1
 	
-	local mat = (openBitMap Obj.material.diffuseMap.bitmap.filename).fileName
-	WriteString file mat
+	local matType = classof(Obj.material)
+	if matType == Multimaterial then
+	(
+		local numMaterials = Obj.material.numsubs
+		WriteShort file numMaterials --Num. Materials
+		WriteString file "Multimaterial"
+		for i = 1 to numMaterials do
+		(
+			local mat = (openBitMap Obj.material[i].diffuseMap.bitmap.filename).fileName
+			WriteString file mat
+		)
+	)
+	else
+	(
+		WriteShort file 1 #unsigned --Num. Materials
+		WriteString file "Standardmaterial"
+		local mat = (openBitMap Obj.material.diffuseMap.bitmap.filename).fileName
+		WriteString file mat
+	)
 	
 	WriteShort file VB.count #unsigned --#Vertexs
 	for i = 1 to VB.count do
