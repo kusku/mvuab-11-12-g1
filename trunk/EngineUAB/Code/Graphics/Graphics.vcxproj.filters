@@ -40,6 +40,9 @@
     <ClInclude Include="Vertexs\VertexType.h">
       <Filter>Vertexs</Filter>
     </ClInclude>
+    <ClInclude Include="RenderableObjects\StaticMesh.h">
+      <Filter>RenderableObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
@@ -71,6 +74,9 @@
     <ClCompile Include="Textures\TextureManager.cpp">
       <Filter>Textures</Filter>
     </ClCompile>
+    <ClCompile Include="RenderableObjects\StaticMesh.cpp">
+      <Filter>RenderableObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Cameras">
@@ -90,6 +96,9 @@
     </Filter>
     <Filter Include="Vertexs">
       <UniqueIdentifier>{1ff20183-1817-4d21-a0e9-87584933f86c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderableObjects">
+      <UniqueIdentifier>{9f4cd44f-9df5-411a-b68e-efb8f1554c9b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -21,7 +21,7 @@ public:
 
 	void Reload();
 
-	CTexture* GetTexture ( const std::string &fileName);
+	CTexture* GetTexture ( const std::string &fileName );
 };
 
 #endif

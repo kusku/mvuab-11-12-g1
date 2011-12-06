@@ -3,6 +3,10 @@
 #include "Core.h"
 #include "..\RenderManager.h"
 
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
+
 CTexture::CTexture()
 	: m_Texture(NULL)
 	, m_FileName("")
