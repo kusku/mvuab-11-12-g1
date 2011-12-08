@@ -86,6 +86,7 @@ function AddVtx Vtxs Vtx =
 		Pos = Vtxs.count
 	)
 	
+	Pos = Pos - 1 --Se resta porqué en Max los indices empiezan en 1, en C++ en 0.
 	return Pos
 )
 

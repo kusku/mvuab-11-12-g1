@@ -14,12 +14,13 @@
 #include "Vertexs\IndexedVertexs.h"
 #include "Textures\TextureManager.h"
 #include "Textures\Texture.h"
+#include "RenderableObjects\StaticMesh.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
 #endif
 
-CRenderableVertexs *g_RV = NULL;
+CRenderableVertexs	*g_RV = NULL;
 CTexture			*g_Tex = NULL;
 
 CViewerProcess::CViewerProcess()
@@ -27,6 +28,7 @@ CViewerProcess::CViewerProcess()
 	, screen(800,600)
 	, yaw(0.0f)
 	, m_pThPSCamera(NULL)	
+	, m_StaticMesh(NULL)
 {
 }
 
@@ -35,6 +37,7 @@ CViewerProcess::~CViewerProcess()
 	CHECKED_DELETE(g_RV);
 	CHECKED_DELETE(g_Tex);
 	CHECKED_DELETE( m_pThPSCamera );
+	CHECKED_DELETE(m_StaticMesh);
 	m_Camera = NULL;
 }
 
@@ -65,6 +68,9 @@ void CViewerProcess::Init()
 	unsigned short l_Indices[6] = {0,1,2,0,2,3};
 
 	g_RV = new CIndexedVertexs<TTEXTURE1_VERTEX>(CORE->GetRenderManager(), l_Vertexs, l_Indices, 4, 6);
+
+	m_StaticMesh = new CStaticMesh();
+	m_StaticMesh->Load("./Data/box.m3d");
 }
 
 void CViewerProcess::Update(float elapsedTime)
@@ -101,8 +107,12 @@ void CViewerProcess::Render(CRenderManager *RM)
 
 	m_Player.Render(RM);
 
+	//mat.SetIdentity();
+	//RM->SetTransform(mat);
+	//g_Tex->Activate(0);
+	//g_RV->Render(RM);
+
 	mat.SetIdentity();
 	RM->SetTransform(mat);
-	g_Tex->Activate(0);
-	g_RV->Render(RM);
+	m_StaticMesh->Render(RM);
 }
