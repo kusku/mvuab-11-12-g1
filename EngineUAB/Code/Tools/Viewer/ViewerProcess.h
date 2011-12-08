@@ -5,6 +5,7 @@
 
 class CCamera;
 class CThPSCamera;
+class CStaticMesh;
 
 #include "Player.h"
 #include "Process.h"
@@ -32,6 +33,7 @@ protected:
 	CPlayer m_Player;
 
 	CThPSCamera *m_pThPSCamera;
+	CStaticMesh *m_StaticMesh;
 };
 
 #endif
