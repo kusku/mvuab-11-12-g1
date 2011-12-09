@@ -79,17 +79,17 @@ bool CStaticMesh::LoadFile()
 		{
 			fread( &l_Type, sizeof(uint16), 1, l_File ); //Leer tipo de vértice
 
-			fread( &l_Data, sizeof(uint16), 1, l_File ); //Material Path Length
-
-			char *l_Path = new char[l_Data+2];
-			fgets(l_Path, l_Data+2, l_File); //Material Path
-			l_TexturePath = l_Path;
-			CHECKED_DELETE_ARRAY(l_Path);
-
 			if(  l_Type == TNORMALTEXTURE1_VERTEX::GetVertexType() )
 			{
 				TNORMALTEXTURE1_VERTEX *l_Vertexs = NULL;
 				uint16 *l_Indices = NULL;
+
+				fread( &l_Data, sizeof(uint16), 1, l_File ); //Material Path Length
+
+				char *l_Path = new char[l_Data+2];
+				fgets(l_Path, l_Data+2, l_File); //Material Path
+				l_TexturePath = l_Path;
+				CHECKED_DELETE_ARRAY(l_Path);
 
 				fread( &l_VCount, sizeof(uint16), 1, l_File ); //Vertex Count
 
