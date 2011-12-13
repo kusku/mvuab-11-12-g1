@@ -65,7 +65,7 @@ void CStaticMesh::Unload()
 bool CStaticMesh::LoadFile()
 {
 	FILE *l_File = NULL;
-	uint16 l_Type;
+	uint16 l_Type = 0;
 	uint16 l_ICount;
 	uint16 l_VCount;
 	std::string l_TexturePath;
@@ -77,60 +77,83 @@ bool CStaticMesh::LoadFile()
 		fread( &l_Data, sizeof(uint16), 1, l_File );
 		if( l_Data == 0xCACA ) //Header correcto
 		{
-			fread( &l_Type, sizeof(uint16), 1, l_File ); //Leer tipo de vértice
+			fread( &l_Data, sizeof(uint16), 1, l_File); //Lee el valor 1
 
-			if(  l_Type == TNORMALTEXTURE1_VERTEX::GetVertexType() )
+			uint16 l_NumMats = 0;
+			fread( &l_NumMats, sizeof(uint16), 1, l_File ); //Leer el número de materiales
+			for(uint16 i = 0; i < l_NumMats; ++i) //Leer los materiales
 			{
-				TNORMALTEXTURE1_VERTEX *l_Vertexs = NULL;
-				uint16 *l_Indices = NULL;
-
-				fread( &l_Data, sizeof(uint16), 1, l_File ); //Material Path Length
-
+				fread( &l_Data, sizeof(uint16), 1, l_File );
 				char *l_Path = new char[l_Data+2];
 				fgets(l_Path, l_Data+2, l_File); //Material Path
 				l_TexturePath = l_Path;
 				CHECKED_DELETE_ARRAY(l_Path);
 
-				fread( &l_VCount, sizeof(uint16), 1, l_File ); //Vertex Count
+				CTexture *l_Texture = new CTexture(); //Crea una textura
+				l_Texture->Load(l_TexturePath);
 
-				l_Vertexs = new TNORMALTEXTURE1_VERTEX[l_VCount]; //Read Vertexs
-				fread( l_Vertexs, sizeof(TNORMALTEXTURE1_VERTEX), l_VCount, l_File );
+				std::vector<CTexture*> l_Texs; //Crea un vector con el material
+				l_Texs.push_back(l_Texture);
+				l_Texture = NULL;
 
-				fread( &l_ICount, sizeof(uint16), 1, l_File ); //Index Count
-
-				l_Indices = new uint16[l_ICount]; //Read Indices
-				fread( l_Indices, sizeof(uint16), l_ICount, l_File);
-
-				CRenderableVertexs *l_RV = new CIndexedVertexs<TNORMALTEXTURE1_VERTEX>(CORE->GetRenderManager(), l_Vertexs, l_Indices, l_VCount, l_ICount);
-				m_RVs.push_back(l_RV);
-
-				l_RV = NULL;
-				CHECKED_DELETE_ARRAY(l_Indices);
-				CHECKED_DELETE_ARRAY(l_Vertexs);
+				m_Textures.push_back(l_Texs); //Añade el material al vector de materiales
 			}
-			else if( l_Type == TCOLORED_VERTEX::GetVertexType() )
+
+			if( l_NumMats > 0)
 			{
-				TCOLORED_VERTEX *l_Vertexs = NULL;
-				uint16 *l_Indices = NULL;
+				for(uint16 i = 0; i <l_NumMats; ++i)
+				{
+					fread( &l_Type, sizeof(uint16), 1, l_File ); //Leer el tipo de vértice
+					if( l_Type == TNORMALTEXTURE1_VERTEX::GetVertexType() )
+					{
+						TNORMALTEXTURE1_VERTEX *l_Vertexs = NULL;
+						uint16 *l_Indices = NULL;
 
-				fread( &l_VCount, sizeof(uint16), 1, l_File ); //Vertex Count
+						fread( &l_VCount, sizeof(uint16), 1, l_File ); //Vertex Count
 
-				l_Vertexs = new TCOLORED_VERTEX[l_VCount]; //Read Vertexs
-				fread( l_Vertexs, sizeof(TCOLORED_VERTEX), l_VCount, l_File );
+						l_Vertexs = new TNORMALTEXTURE1_VERTEX[l_VCount]; //Read Vertexs
+						fread( l_Vertexs, sizeof(TNORMALTEXTURE1_VERTEX), l_VCount, l_File );
 
-				fread( &l_ICount, sizeof(uint16), 1, l_File ); //Index Count
+						fread( &l_ICount, sizeof(uint16), 1, l_File ); //Index Count
 
-				l_Indices = new uint16[l_ICount]; //Read Indices
-				fread( l_Indices, sizeof(uint16), l_ICount, l_File);
+						l_Indices = new uint16[l_ICount]; //Read Indices
+						fread( l_Indices, sizeof(uint16), l_ICount, l_File);
 
-				CRenderableVertexs *l_RV = new CIndexedVertexs<TCOLORED_VERTEX>(CORE->GetRenderManager(), l_Vertexs, l_Indices, l_VCount, l_ICount);
-				m_RVs.push_back(l_RV);
+						CRenderableVertexs *l_RV = new CIndexedVertexs<TNORMALTEXTURE1_VERTEX>(CORE->GetRenderManager(), l_Vertexs, l_Indices, l_VCount, l_ICount);
+						m_RVs.push_back(l_RV);
 
-				l_RV = NULL;
-				CHECKED_DELETE_ARRAY(l_Indices);
-				CHECKED_DELETE_ARRAY(l_Vertexs);
+						l_RV = NULL;
+						CHECKED_DELETE_ARRAY(l_Indices);
+						CHECKED_DELETE_ARRAY(l_Vertexs);
+					}
+				}
 			}
+			else
+			{
+				fread( &l_Type, sizeof(uint16), 1, l_File ); //Leer el tipo de vértice
+				if( l_Type == TCOLORED_VERTEX::GetVertexType() )
+				{
+					TCOLORED_VERTEX *l_Vertexs = NULL;
+					uint16 *l_Indices = NULL;
 
+					fread( &l_VCount, sizeof(uint16), 1, l_File ); //Vertex Count
+
+					l_Vertexs = new TCOLORED_VERTEX[l_VCount]; //Read Vertexs
+					fread( l_Vertexs, sizeof(TCOLORED_VERTEX), l_VCount, l_File );
+
+					fread( &l_ICount, sizeof(uint16), 1, l_File ); //Index Count
+
+					l_Indices = new uint16[l_ICount]; //Read Indices
+					fread( l_Indices, sizeof(uint16), l_ICount, l_File);
+
+					CRenderableVertexs *l_RV = new CIndexedVertexs<TCOLORED_VERTEX>(CORE->GetRenderManager(), l_Vertexs, l_Indices, l_VCount, l_ICount);
+					m_RVs.push_back(l_RV);
+
+					l_RV = NULL;
+					CHECKED_DELETE_ARRAY(l_Indices);
+					CHECKED_DELETE_ARRAY(l_Vertexs);
+				}
+			}
 
 			fread( &l_Data, sizeof(uint16), 1, l_File );
 			if( l_Data != 0xACAC ) //Footer
@@ -147,13 +170,6 @@ bool CStaticMesh::LoadFile()
 
 		fclose(l_File);
 
-		CTexture *l_Texture = new CTexture();
-		l_Texture->Load(l_TexturePath);
-		std::vector<CTexture*> l_Texs;
-		l_Texs.push_back(l_Texture);
-		m_Textures.push_back(l_Texs);
-
-		l_Texture = NULL;
 		return true;
 	}
 

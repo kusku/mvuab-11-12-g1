@@ -31,7 +31,7 @@ function CreateMesh Obj Vtxs Idxs=
 		local l_Normal2 = getNormal Obj IdxsFace.y
 		local l_Normal3 = getNormal Obj IdxsFace.z
 		
-		local l_Diffuse0 = 0
+		local l_Diffuse = 0
 		
 		local l_TUV11 = point3 0 0 0
 		local l_TUV12 = point3 0 0 0
@@ -40,59 +40,91 @@ function CreateMesh Obj Vtxs Idxs=
 		local l_TUV21 = point3 0 0 0
 		local l_TUV22 = point3 0 0 0
 		local l_TUV23 = point3 0 0 0
-
-		local l_VtxType = GetVertexType Obj.material
+		
+		local l_Material = undefined
+		local l_MaterialID = 1
+		if classof(Obj.material) == Multimaterial then
+		(
+			l_MaterialID = getFaceMatID Obj i
+			l_Material = Obj.material[l_MaterialID]
+		)
+		else
+		(
+			l_MaterialID = 1
+			l_Material = Obj.material
+		)
+		local l_VtxType = GetVertexType l_Material
+		
 		if(bit.and l_VtxType VERTEX_TYPE_TEXTURE1)==VERTEX_TYPE_TEXTURE1 then
 		(
 			local l_TUV11= meshop.getMapVert Obj 1 IdxsMap.x
 			local l_TUV12= meshop.getMapVert Obj 1 IdxsMap.y
 			local l_TUV13= meshop.getMapVert Obj 1 IdxsMap.z
 			
+			l_TUV11.y = 1 - l_TUV11.y
+			l_TUV12.y = 1 - l_TUV12.y
+			l_TUV13.y = 1 - l_TUV13.y
+			
 			if(bit.and l_VtxType VERTEX_TYPE_TEXTURE2)==VERTEX_TYPE_TEXTURE2 then
 			(
 				local l_TUV21= meshop.getMapVert Obj 1 IdxsMap.x
 				local l_TUV22= meshop.getMapVert Obj 1 IdxsMap.y
 				local l_TUV23= meshop.getMapVert Obj 1 IdxsMap.z
+				
+				l_TUV21.y = 1 - l_TUV21.y
+				l_TUV22.y = 1 - l_TUV22.y
+				l_TUV23.y = 1 - l_TUV23.y
 			)
 		)
 		else
 		(
 			l_Diffuse = integer(Obj.material.diffuse.r * 0x01000000 + Obj.material.diffuse.g * 0x00010000 + Obj.material.diffuse.b * 0x00000100 + 0xff)
 		)
+	
+		local l_V1 = CreateVtx l_Vtx1 l_Normal1 l_TUV11 l_TUV21 l_Diffuse l_VtxType 
+		local l_V2 = CreateVtx l_Vtx2 l_Normal2 l_TUV12 l_TUV22 l_Diffuse l_VtxType 
+		local l_V3 = CreateVtx l_Vtx3 l_Normal3 l_TUV13 l_TUV23 l_Diffuse l_VtxType 
 		
-		local l_V1 = CreateVtx l_Vtx1 l_Normal1 l_TUV11 l_TUV21 l_Diffuse l_VtxType
-		local l_V2 = CreateVtx l_Vtx2 l_Normal2 l_TUV12 l_TUV22 l_Diffuse l_VtxType
-		local l_V3 = CreateVtx l_Vtx3 l_Normal3 l_TUV13 l_TUV23 l_Diffuse l_VtxType
+		local l_Idx = AddVtx Vtxs l_V1 l_MaterialID
+		AddIdx Idxs l_Idx l_MaterialID
 		
+		l_Idx = AddVtx Vtxs l_V3 l_MaterialID
+		AddIdx Idxs l_Idx l_MaterialID
 		
-		local l_Idx = AddVtx Vtxs l_V1
-		AddIdx Idxs l_Idx
-		
-		l_Idx = AddVtx Vtxs l_V2
-		AddIdx Idxs l_Idx
-		
-		l_Idx = AddVtx Vtxs l_V3
-		AddIdx Idxs l_Idx
+		l_Idx = AddVtx Vtxs l_V2 l_MaterialID
+		AddIdx Idxs l_Idx l_MaterialID
 	)
 )
 
-function AddVtx Vtxs Vtx =
+function AddVtx Vtxs Vtx MatID =
 (
-	local Pos = FindVtx Vtxs Vtx
+	while Vtxs.count < MatID do
+	(
+		local l_Vtx = #()
+		append Vtxs l_Vtx
+	)
 	
+	local Pos = FindVtx Vtxs[MatID] Vtx
+		
 	if Pos == -1 then
 	(
-		append Vtxs Vtx
-		Pos = Vtxs.count
+		append Vtxs[MatID] Vtx
+		Pos = Vtxs[MatID].count
 	)
 	
 	Pos = Pos - 1 --Se resta porqué en Max los indices empiezan en 1, en C++ en 0.
 	return Pos
 )
 
-function AddIdx Idxs Idx =
-(
-	append Idxs Idx
+function AddIdx Idxs Idx MatID =
+(	
+	while Idxs.count < MatID do
+	(
+		local l_Idx = #()
+		append Idxs l_Idx
+	)
+	
+	append Idxs[MatID] Idx
 )
 
 function FindVtx Vtxs Vtx =
@@ -164,20 +196,20 @@ function RHTranslationToLH translation =
 	return point3 translation.x translation.z translation.y
 )
 
-function GetVertexType material = 
+function GetVertexType mat = 
 (
 	local l_VertexType = bit.or VERTEX_TYPE_GEOMETRY VERTEX_TYPE_NORMAL
 	
-	if material.diffuseMapEnable and (classof material.diffuseMap)==Bitmaptexture then
+	if mat.diffuseMapEnable and (classof mat.diffuseMap)==Bitmaptexture then
 	(
 		l_VertexType = bit.or l_VertexType VERTEX_TYPE_TEXTURE1
 		
-		if material.selfIllumMapEnable and (classof material.selfIllumMap)==Bitmaptexture then
+		if mat.selfIllumMapEnable and (classof mat.selfIllumMap)==Bitmaptexture then
 		(
 			l_VertexType = bit.or l_VertexType VERTEX_TYPE_TEXTURE2
 		)
 		
-		if material.bumpMapEnable and (classof material.bumpMap)==Bitmaptexture  then
+		if mat.bumpMapEnable and (classof mat.bumpMap)==Bitmaptexture  then
 		(
 			l_VertexType = bit.or l_VertexType VERTEX_TYPE_TANGENT
 			l_VertexType = bit.or l_VertexType VERTEX_TYPE_BINORMAL
@@ -237,27 +269,43 @@ function WriteVertexToFile File Vtx VertexType =
 	)
 )
 
-function WriteToFile Filename Vtxs Idxs VertexType Material = 
+function WriteToFile Filename Vtxs Idxs VertexType Mat = 
 (	
 	local file = fopen Filename "wb"
 	if file != undefined then
 	(
 		WriteShort file 0xCACA #unsigned --header
 		
-		WriteShort file VertexType #unsigned 				--Vertexs Type
+		WriteShort file 1 #unsigned
+		--WriteShort file VertexType #unsigned 				--Vertexs Type
 		
-		WriteMaterialToFile file  Material VertexType
-
-		WriteShort file Vtxs.count #unsigned --#Vertexs
-		for i = 1 to Vtxs.count do
-		(	
-			WriteVertexToFile file Vtxs[i] VertexType
-		)
-		
-		WriteShort file Idxs.count #unsigned --#Indexs
-		for i = 1 to Idxs.count do
+		WriteShort file Mat.numsubs #unsigned
+		for m = 1 to Mat.numsubs do
 		(
-			WriteShort file Idxs[i] #unsigned 
+			local VtxType = GetVertexType Mat[m]			
+			WriteMaterialToFile file Mat[m] VtxType
+		)
+		--WriteMaterialToFile file  Mat VertexType
+		
+		--local VtxType = GetVertexType Obj.material[1]
+		
+		for m = 1 to Mat.numsubs do
+		(
+			local VtxType = GetVertexType Mat[m]
+			WriteShort file VtxType #unsigned
+			
+			WriteShort file Vtxs[m].count #unsigned --#Vertexs
+			for i = 1 to Vtxs[m].count do
+			(	
+				WriteVertexToFile file Vtxs[m][i] VtxType
+			)
+			
+			WriteShort file Idxs[m].count #unsigned --#Indexs
+			for i = 1 to Idxs[m].count do
+			(
+				format "% " Idxs[m][i]
+				WriteShort file Idxs[m][i] #unsigned 
+			)
 		)
 		
 		WriteShort file 0xACAC #unsigned --footer
@@ -269,12 +317,11 @@ function WriteToFile Filename Vtxs Idxs VertexType Material =
 
 function main Obj =
 (
-	local VB = #()
-	local IB = #()
-	
+	local VB = #(#())
+	local IB = #(#())
+		
 	CreateMesh Obj VB IB --read mesh
 	
-	local VtxType = GetVertexType Obj.material
 	WriteToFile "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\Run\Viewer\Data\box.m3d" VB IB VtxType Obj.material
 	
 	format "%\n %\n %\n %\n" VB VB.count IB IB.count
