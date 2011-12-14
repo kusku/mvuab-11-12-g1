@@ -14,7 +14,7 @@
 #include "Vertexs\IndexedVertexs.h"
 #include "Textures\TextureManager.h"
 #include "Textures\Texture.h"
-#include "RenderableObjects\StaticMesh.h"
+#include "RenderableObjects\StaticMeshManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -28,7 +28,7 @@ CViewerProcess::CViewerProcess()
 	, screen(800,600)
 	, yaw(0.0f)
 	, m_pThPSCamera(NULL)	
-	, m_StaticMesh(NULL)
+	, m_SMManager(NULL)
 {
 }
 
@@ -37,7 +37,7 @@ CViewerProcess::~CViewerProcess()
 	CHECKED_DELETE(g_RV);
 	CHECKED_DELETE(g_Tex);
 	CHECKED_DELETE( m_pThPSCamera );
-	CHECKED_DELETE(m_StaticMesh);
+	CHECKED_DELETE(m_SMManager);
 	m_Camera = NULL;
 }
 
@@ -69,8 +69,8 @@ void CViewerProcess::Init()
 
 	g_RV = new CIndexedVertexs<TTEXTURE1_VERTEX>(CORE->GetRenderManager(), l_Vertexs, l_Indices, 4, 6);
 
-	m_StaticMesh = new CStaticMesh();
-	m_StaticMesh->Load("./Data/box.m3d");
+	m_SMManager = new CStaticMeshManager();
+	m_SMManager->Load("./Data/Meshes/static_meshes.xml");
 }
 
 void CViewerProcess::Update(float elapsedTime)
@@ -114,5 +114,5 @@ void CViewerProcess::Render(CRenderManager *RM)
 
 	mat.SetIdentity();
 	RM->SetTransform(mat);
-	m_StaticMesh->Render(RM);
+	m_SMManager->Render(RM, "Box001");
 }

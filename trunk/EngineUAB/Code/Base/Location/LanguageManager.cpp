@@ -17,7 +17,7 @@ CLanguageManager::CLanguageManager()
 void CLanguageManager::LoadXMLs ()
 {
 	//Tener en cuenta que se puede hacer un reload!
-	std::map<std::string, TLanguage>::iterator it_1			= m_Languages.begin();
+	std::map<std::string, TLanguage>::iterator it_1		= m_Languages.begin();
 	std::map<std::string, TLanguage>::iterator itEnd_1	= m_Languages.end();
 	while (it_1 != itEnd_1)
 	{

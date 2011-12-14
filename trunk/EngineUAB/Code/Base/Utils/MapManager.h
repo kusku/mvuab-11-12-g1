@@ -54,7 +54,7 @@ class CMapManager
     }
 
 protected:
-	typedef std::map<std::string, T*> TMapResource;
+	typedef std::map<std::string, T*>	TMapResource;
     TMapResource						m_Resources;
 };
 

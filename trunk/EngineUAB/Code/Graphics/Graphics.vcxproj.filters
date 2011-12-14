@@ -43,6 +43,15 @@
     <ClInclude Include="RenderableObjects\StaticMesh.h">
       <Filter>RenderableObjects</Filter>
     </ClInclude>
+    <ClInclude Include="RenderableObjects\StaticMeshManager.h">
+      <Filter>RenderableObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderableObjects\RenderableObjectsManager.h">
+      <Filter>RenderableObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderableObjects\RenderableObject.h">
+      <Filter>RenderableObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
@@ -77,6 +86,15 @@
     <ClCompile Include="RenderableObjects\StaticMesh.cpp">
       <Filter>RenderableObjects</Filter>
     </ClCompile>
+    <ClCompile Include="RenderableObjects\StaticMeshManager.cpp">
+      <Filter>RenderableObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderableObjects\RenderableObjectsManager.cpp">
+      <Filter>RenderableObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderableObjects\RenderableObject.cpp">
+      <Filter>RenderableObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Cameras">
@@ -98,7 +116,7 @@
       <UniqueIdentifier>{1ff20183-1817-4d21-a0e9-87584933f86c}</UniqueIdentifier>
     </Filter>
     <Filter Include="RenderableObjects">
-      <UniqueIdentifier>{9f4cd44f-9df5-411a-b68e-efb8f1554c9b}</UniqueIdentifier>
+      <UniqueIdentifier>{953ac630-bb8e-4c0a-a250-4a496d1c7c90}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
