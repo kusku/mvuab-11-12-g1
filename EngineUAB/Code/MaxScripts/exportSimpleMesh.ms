@@ -6,7 +6,7 @@ global VERTEX_TYPE_TEXTURE1 = 0x0010
 global VERTEX_TYPE_TEXTURE2 = 0x0020
 global VERTEX_TYPE_DIFFUSE = 0x0040
 
-function CreateMesh Obj Vtxs Idxs=
+function CreateMesh Obj Vtxs Idxs MinBox MaxBox=
 (	
 	local numFaces = getNumFaces Obj
 	for i = 1 to numFaces do
@@ -93,6 +93,14 @@ function CreateMesh Obj Vtxs Idxs=
 		
 		l_Idx = AddVtx Vtxs l_V2 l_MaterialID
 		AddIdx Idxs l_Idx l_MaterialID
+		
+		SearchMinBox l_V1 MinBox
+		SearchMinBox l_V2 MinBox
+		SearchMinBox l_V3 MinBox
+		
+		SearchMaxBox l_V1 MaxBox
+		SearchMaxBox l_V2 MaxBox
+		SearchMaxBox l_V3 MaxBox
 	)
 )
 
@@ -191,6 +199,42 @@ function Compare Vtx1 Vtx2 =
 	return false
 )
 
+function SearchMinBox VtxModel VtxBox =
+(
+	if VtxModel[1] < VtxBox.x then
+	(
+		VtxBox.x = VtxModel[1]
+	)
+	
+	if VtxModel[2] < VtxBox.y then
+	(
+		VtxBox.y = VtxModel[2]
+	)
+	
+	if VtxModel[3] < VtxBox.z then
+	(
+		VtxBox.z = VtxModel[3]
+	)
+)
+
+function SearchMaxBox VtxModel VtxBox =
+(
+	if VtxModel[1] > VtxBox.x then
+	(
+		VtxBox.x = VtxModel[1]
+	)
+	
+	if VtxModel[2] > VtxBox.y then
+	(
+		VtxBox.y = VtxModel[2]
+	)
+	
+	if VtxModel[3] > VtxBox.z then
+	(
+		VtxBox.z = VtxModel[3]
+	)
+)
+
 function RHTranslationToLH translation =
 (
 	return point3 translation.x translation.z translation.y
@@ -269,7 +313,7 @@ function WriteVertexToFile File Vtx VertexType =
 	)
 )
 
-function WriteToFile Filename Vtxs Idxs VertexType Mat = 
+function WriteToFile Filename Vtxs Idxs VertexType Mat MinBox MaxBox Center Radius= 
 (	
 	local file = fopen Filename "wb"
 	if file != undefined then
@@ -308,6 +352,23 @@ function WriteToFile Filename Vtxs Idxs VertexType Mat =
 			)
 		)
 		
+		for i = 1 to 3 do
+		(
+			WriteFloat file MinBox[i]
+		)
+		
+		for i = 1 to 3 do
+		(
+			WriteFloat file MaxBox[i]
+		)
+		
+		for i = 1 to 3 do
+		(
+			WriteFloat file Center[i]
+		)
+		
+		WriteFloat file Radius
+		
 		WriteShort file 0xACAC #unsigned --footer
 		
 		fflush file
@@ -315,16 +376,55 @@ function WriteToFile Filename Vtxs Idxs VertexType Mat =
 	)
 )
 
+function CalculateRadiusSphere Vtxs Center =
+(
+	local Radius = 0
+
+	for i = 1 to Vtxs.count do
+	(
+		for j = 1 to Vtxs[i].count do
+		(
+			local Ax = pow (Vtxs[i][j][1] - Center.x) 2
+			local Ay = pow (Vtxs[i][j][2] - Center.y) 2
+			local Az = pow (Vtxs[i][j][3] - Center.z) 2
+			local disRadius = sqrt (Ax + Ay + Az)
+
+			if disRadius > Radius then
+			(
+				Radius = disRadius
+			)
+		)
+	)
+	
+	return Radius
+)
+
+function CalculateCenterSphere MinBox MaxBox =
+(
+	local center = point3 0 0 0
+	center.x = (MaxBox.x + MinBox.x) / 2
+	center.y = (MaxBox.y + MinBox.y) / 2
+	center.z = (MaxBox.z + MinBox.z) / 2
+	
+	return center
+)
+
 function main Obj =
 (
 	local VB = #(#())
 	local IB = #(#())
+	local MinBox = point3 0 0 0
+	local MaxBox = point3 0 0 0
+	local Center = point3 0 0 0
+	local Radius
+	CreateMesh Obj VB IB MinBox MaxBox --read mesh
+	
+	Center = CalculateCenterSphere MinBox MaxBox
+	Radius = CalculateRadiusSphere VB Center
 		
-	CreateMesh Obj VB IB --read mesh
+	WriteToFile "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\Run\Viewer\Data\Meshes\box.m3d" VB IB VtxType Obj.material MinBox MaxBox Center Radius
 	
-	WriteToFile "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\Run\Viewer\Data\box.m3d" VB IB VtxType Obj.material
-	
-	format "%\n %\n %\n %\n" VB VB.count IB IB.count
+	format "%\n %\n %\n %\n %\n %\n %\n %\n" VB VB.count IB IB.count MinBox MaxBox Center Radius
 )
 
 main $

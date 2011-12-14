@@ -6,6 +6,7 @@
 #include "..\Vertexs\VertexType.h"
 #include "Base.h"
 #include "Core.h"
+#include "Math\Matrix44.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -15,6 +16,10 @@ CStaticMesh::CStaticMesh()
 	: m_NumVertexs(0)
 	, m_NumFaces(0)
 	, m_FileName("")
+	, m_MinBB(Vect3f(0.0f, 0.0f, 0.0f))
+	, m_MaxBB(Vect3f(0.0f, 0.0f, 0.0f))
+	, m_Center(Vect3f(0.0f, 0.0f, 0.0f))
+	, m_Radius(0.0f)
 {
 }
 
@@ -68,6 +73,8 @@ bool CStaticMesh::LoadFile()
 	uint16 l_Type = 0;
 	uint16 l_ICount;
 	uint16 l_VCount;
+	void *l_Vertexs = NULL;
+	uint16 *l_Indices = NULL;
 	std::string l_TexturePath;
 
 	fopen_s( &l_File, m_FileName.c_str(), "rb" );
@@ -106,26 +113,20 @@ bool CStaticMesh::LoadFile()
 					fread( &l_Type, sizeof(uint16), 1, l_File ); //Leer el tipo de vértice
 					if( l_Type == TNORMALTEXTURE1_VERTEX::GetVertexType() )
 					{
-						TNORMALTEXTURE1_VERTEX *l_Vertexs = NULL;
-						uint16 *l_Indices = NULL;
-
-						fread( &l_VCount, sizeof(uint16), 1, l_File ); //Vertex Count
-
-						l_Vertexs = new TNORMALTEXTURE1_VERTEX[l_VCount]; //Read Vertexs
-						fread( l_Vertexs, sizeof(TNORMALTEXTURE1_VERTEX), l_VCount, l_File );
-
-						fread( &l_ICount, sizeof(uint16), 1, l_File ); //Index Count
-
-						l_Indices = new uint16[l_ICount]; //Read Indices
-						fread( l_Indices, sizeof(uint16), l_ICount, l_File);
-
-						CRenderableVertexs *l_RV = new CIndexedVertexs<TNORMALTEXTURE1_VERTEX>(CORE->GetRenderManager(), l_Vertexs, l_Indices, l_VCount, l_ICount);
-						m_RVs.push_back(l_RV);
-
-						l_RV = NULL;
-						CHECKED_DELETE_ARRAY(l_Indices);
-						CHECKED_DELETE_ARRAY(l_Vertexs);
+						l_Vertexs = LoadVtxs<TNORMALTEXTURE1_VERTEX>(l_File, l_VCount);
 					}
+
+					fread( &l_ICount, sizeof(uint16), 1, l_File ); //Index Count
+					l_Indices = new uint16[l_ICount]; //Read Indices
+					fread( l_Indices, sizeof(uint16), l_ICount, l_File);
+
+					
+					CRenderableVertexs *l_RV = new CIndexedVertexs<TNORMALTEXTURE1_VERTEX>(CORE->GetRenderManager(), l_Vertexs, l_Indices, l_VCount, l_ICount);
+					m_RVs.push_back(l_RV);
+
+					l_RV = NULL;
+					CHECKED_DELETE_ARRAY(l_Indices);
+					CHECKED_DELETE_ARRAY(l_Vertexs);
 				}
 			}
 			else
@@ -133,13 +134,7 @@ bool CStaticMesh::LoadFile()
 				fread( &l_Type, sizeof(uint16), 1, l_File ); //Leer el tipo de vértice
 				if( l_Type == TCOLORED_VERTEX::GetVertexType() )
 				{
-					TCOLORED_VERTEX *l_Vertexs = NULL;
-					uint16 *l_Indices = NULL;
-
-					fread( &l_VCount, sizeof(uint16), 1, l_File ); //Vertex Count
-
-					l_Vertexs = new TCOLORED_VERTEX[l_VCount]; //Read Vertexs
-					fread( l_Vertexs, sizeof(TCOLORED_VERTEX), l_VCount, l_File );
+					l_Vertexs = LoadVtxs<TCOLORED_VERTEX>(l_File, l_VCount);
 
 					fread( &l_ICount, sizeof(uint16), 1, l_File ); //Index Count
 
@@ -154,6 +149,11 @@ bool CStaticMesh::LoadFile()
 					CHECKED_DELETE_ARRAY(l_Vertexs);
 				}
 			}
+
+			fread( &m_MinBB, sizeof(Vect3f), 1, l_File );
+			fread( &m_MaxBB, sizeof(Vect3f), 1, l_File );
+			fread( &m_Center, sizeof(Vect3f), 1, l_File );
+			fread( &m_Radius, sizeof(float), 1, l_File );
 
 			fread( &l_Data, sizeof(uint16), 1, l_File );
 			if( l_Data != 0xACAC ) //Footer
@@ -176,8 +176,23 @@ bool CStaticMesh::LoadFile()
 	return false;
 }
 
+template<class T>
+void* CStaticMesh::LoadVtxs(FILE *_file, uint16 &VCount_)
+{
+	fread( &VCount_, sizeof(uint16), 1, _file );
+
+	void *l_Vtxs = new T[VCount_];
+	fread( l_Vtxs, sizeof(T), VCount_, _file );
+
+	return l_Vtxs;
+}
+
 void CStaticMesh::Render(CRenderManager *RM) const
 {
+	Mat44f mat;
+	mat.SetIdentity();
+	RM->SetTransform(mat);
+
 	uint16 l_Size = static_cast<uint16>(m_RVs.size());
 	for(uint16 i=0; i<l_Size; ++i)
 	{
@@ -188,4 +203,32 @@ void CStaticMesh::Render(CRenderManager *RM) const
 		}
 		m_RVs[i]->Render(RM);
 	}
+
+	RenderBoundingBox(RM, colMAGENTA);
+	RenderBoundingSphere(RM, colYELLOW);
+}
+
+void CStaticMesh::RenderBoundingBox(CRenderManager *RM, CColor color) const
+{
+	Mat44f mat;
+	mat.SetIdentity();
+	mat.Translate(m_Center);
+	RM->SetTransform(mat);
+
+	Vect3f dim;
+	dim.x = abs(m_MaxBB.x - m_MinBB.x) / 2;
+	dim.y = abs(m_MaxBB.y - m_MinBB.y) / 2;
+	dim.z = abs(m_MaxBB.z - m_MinBB.z) / 2;
+
+	RM->DrawCube(dim ,color);
+}
+
+void CStaticMesh::RenderBoundingSphere(CRenderManager *RM, CColor color) const
+{
+	Mat44f mat;
+	mat.SetIdentity();
+	mat.Translate(m_Center);
+	RM->SetTransform(mat);
+
+	RM->DrawSphere(m_Radius, 10, color );
 }

@@ -127,6 +127,7 @@
     <ClInclude Include="Utils\LerpAnimator2D.h" />
     <ClInclude Include="Utils\LerpAnimator3D.h" />
     <ClInclude Include="Utils\MapManager.h" />
+    <ClInclude Include="Utils\Named.h" />
     <ClInclude Include="Utils\Singleton.h" />
     <ClInclude Include="Utils\Timer.h" />
     <ClInclude Include="Utils\Types.h" />
