@@ -240,6 +240,39 @@ function RHTranslationToLH translation =
 	return point3 translation.x translation.z translation.y
 )
 
+function CalculateRadiusSphere Vtxs Center =
+(
+	local Radius = 0
+
+	for i = 1 to Vtxs.count do
+	(
+		for j = 1 to Vtxs[i].count do
+		(
+			local Ax = pow (Vtxs[i][j][1] - Center.x) 2
+			local Ay = pow (Vtxs[i][j][2] - Center.y) 2
+			local Az = pow (Vtxs[i][j][3] - Center.z) 2
+			local disRadius = sqrt (Ax + Ay + Az)
+
+			if disRadius > Radius then
+			(
+				Radius = disRadius
+			)
+		)
+	)
+	
+	return Radius
+)
+
+function CalculateCenterSphere MinBox MaxBox =
+(
+	local center = point3 0 0 0
+	center.x = (MaxBox.x + MinBox.x) / 2
+	center.y = (MaxBox.y + MinBox.y) / 2
+	center.z = (MaxBox.z + MinBox.z) / 2
+	
+	return center
+)
+
 function GetVertexType mat = 
 (
 	local l_VertexType = bit.or VERTEX_TYPE_GEOMETRY VERTEX_TYPE_NORMAL
@@ -324,11 +357,10 @@ function WriteToFile Filename Vtxs Idxs VertexType Mat MinBox MaxBox Center Radi
 		--WriteShort file VertexType #unsigned 				--Vertexs Type
 		
 		WriteShort file Mat.numsubs #unsigned
-		for m = 1 to Mat.numsubs do
+		/*for m = 1 to Mat.numsubs do
 		(
 			local VtxType = GetVertexType Mat[m]			
-			WriteMaterialToFile file Mat[m] VtxType
-		)
+		)*/
 		--WriteMaterialToFile file  Mat VertexType
 		
 		--local VtxType = GetVertexType Obj.material[1]
@@ -336,6 +368,8 @@ function WriteToFile Filename Vtxs Idxs VertexType Mat MinBox MaxBox Center Radi
 		for m = 1 to Mat.numsubs do
 		(
 			local VtxType = GetVertexType Mat[m]
+			WriteMaterialToFile file Mat[m] VtxType
+			
 			WriteShort file VtxType #unsigned
 			
 			WriteShort file Vtxs[m].count #unsigned --#Vertexs
@@ -374,39 +408,6 @@ function WriteToFile Filename Vtxs Idxs VertexType Mat MinBox MaxBox Center Radi
 		fflush file
 		fclose file
 	)
-)
-
-function CalculateRadiusSphere Vtxs Center =
-(
-	local Radius = 0
-
-	for i = 1 to Vtxs.count do
-	(
-		for j = 1 to Vtxs[i].count do
-		(
-			local Ax = pow (Vtxs[i][j][1] - Center.x) 2
-			local Ay = pow (Vtxs[i][j][2] - Center.y) 2
-			local Az = pow (Vtxs[i][j][3] - Center.z) 2
-			local disRadius = sqrt (Ax + Ay + Az)
-
-			if disRadius > Radius then
-			(
-				Radius = disRadius
-			)
-		)
-	)
-	
-	return Radius
-)
-
-function CalculateCenterSphere MinBox MaxBox =
-(
-	local center = point3 0 0 0
-	center.x = (MaxBox.x + MinBox.x) / 2
-	center.y = (MaxBox.y + MinBox.y) / 2
-	center.z = (MaxBox.z + MinBox.z) / 2
-	
-	return center
 )
 
 function main Obj =

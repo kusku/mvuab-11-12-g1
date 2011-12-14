@@ -3,6 +3,7 @@
 #include "..\Vertexs\RenderableVertexs.h"
 #include "..\Vertexs\IndexedVertexs.h"
 #include "..\Textures\Texture.h"
+#include "..\Textures\TextureManager.h"
 #include "..\Vertexs\VertexType.h"
 #include "Base.h"
 #include "Core.h"
@@ -88,28 +89,24 @@ bool CStaticMesh::LoadFile()
 
 			uint16 l_NumMats = 0;
 			fread( &l_NumMats, sizeof(uint16), 1, l_File ); //Leer el número de materiales
-			for(uint16 i = 0; i < l_NumMats; ++i) //Leer los materiales
+			if( l_NumMats > 0 )
 			{
-				fread( &l_Data, sizeof(uint16), 1, l_File );
-				char *l_Path = new char[l_Data+2];
-				fgets(l_Path, l_Data+2, l_File); //Material Path
-				l_TexturePath = l_Path;
-				CHECKED_DELETE_ARRAY(l_Path);
-
-				CTexture *l_Texture = new CTexture(); //Crea una textura
-				l_Texture->Load(l_TexturePath);
-
-				std::vector<CTexture*> l_Texs; //Crea un vector con el material
-				l_Texs.push_back(l_Texture);
-				l_Texture = NULL;
-
-				m_Textures.push_back(l_Texs); //Añade el material al vector de materiales
-			}
-
-			if( l_NumMats > 0)
-			{
-				for(uint16 i = 0; i <l_NumMats; ++i)
+				for(uint16 i = 0; i < l_NumMats; ++i) //Leer los materiales
 				{
+					fread( &l_Data, sizeof(uint16), 1, l_File );
+					char *l_Path = new char[l_Data+2];
+					fgets(l_Path, l_Data+2, l_File); //Material Path
+					l_TexturePath = l_Path;
+					CHECKED_DELETE_ARRAY(l_Path);
+
+					CTexture *l_Texture = CORE->GetTextureManager()->GetTexture(l_TexturePath); //Crea la textura
+
+					std::vector<CTexture*> l_Texs; //Crea un vector con el material
+					l_Texs.push_back(l_Texture);
+					l_Texture = NULL;
+
+					m_Textures.push_back(l_Texs); //Añade el material al vector de materiales
+
 					fread( &l_Type, sizeof(uint16), 1, l_File ); //Leer el tipo de vértice
 					if( l_Type == TNORMALTEXTURE1_VERTEX::GetVertexType() )
 					{
@@ -149,7 +146,7 @@ bool CStaticMesh::LoadFile()
 					CHECKED_DELETE_ARRAY(l_Vertexs);
 				}
 			}
-
+			
 			fread( &m_MinBB, sizeof(Vect3f), 1, l_File );
 			fread( &m_MaxBB, sizeof(Vect3f), 1, l_File );
 			fread( &m_Center, sizeof(Vect3f), 1, l_File );

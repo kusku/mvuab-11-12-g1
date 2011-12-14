@@ -40,12 +40,6 @@ LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
         PostQuitMessage( 0 );
         return 0;
         break;
-	  case VK_F1:
-		  {
-			  g_Engine->Reload();
-			  return 0;
-			  break;
-		  }
       }
 
     }

@@ -9,35 +9,23 @@
 #include "Exceptions\Exception.h"
 #include "Math\Matrix44.h"
 #include "Cameras\Camera.h"
-#include "Vertexs\VertexType.h"
-#include "Vertexs\RenderableVertexs.h"
-#include "Vertexs\IndexedVertexs.h"
-#include "Textures\TextureManager.h"
-#include "Textures\Texture.h"
 #include "RenderableObjects\StaticMeshManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
 #endif
 
-CRenderableVertexs	*g_RV = NULL;
-CTexture			*g_Tex = NULL;
-
 CViewerProcess::CViewerProcess()
 	: pos(0,0)
 	, screen(800,600)
 	, yaw(0.0f)
 	, m_pThPSCamera(NULL)	
-	, m_SMManager(NULL)
 {
 }
 
 CViewerProcess::~CViewerProcess()
 {
-	CHECKED_DELETE(g_RV);
-	CHECKED_DELETE(g_Tex);
 	CHECKED_DELETE( m_pThPSCamera );
-	CHECKED_DELETE(m_SMManager);
 	m_Camera = NULL;
 }
 
@@ -55,27 +43,12 @@ void CViewerProcess::Init()
 	float aspect = CORE->GetRenderManager()->GetAspectRatio();
 	m_pThPSCamera = new CThPSCamera(1.0f, 100.f, 45.f * D3DX_PI / 180.f, aspect, &m_Player, 10.0f);
 	m_Camera = static_cast<CCamera*>(m_pThPSCamera);
-
-
-	g_Tex = new CTexture();
-	g_Tex->Load(".\\data\\5marc.jpg");
-	CORE->GetTextureManager()->AddResource("Marc", g_Tex);
-	TTEXTURE1_VERTEX l_Vertexs[4] = {{-1.f, 0.f, 0.f, 0.f, 1.f},
-								{-1.f, 2.f, 0.f, 0.f, 0.f},
-								{1.f, 2.f, 0.f, 1.f, 0.f},
-								{1.f, 0.f, 0.f, 1.f, 1.f}};
-	
-	unsigned short l_Indices[6] = {0,1,2,0,2,3};
-
-	g_RV = new CIndexedVertexs<TTEXTURE1_VERTEX>(CORE->GetRenderManager(), l_Vertexs, l_Indices, 4, 6);
-
-	m_SMManager = new CStaticMeshManager();
-	m_SMManager->Load("./Data/Meshes/static_meshes.xml");
 }
 
 void CViewerProcess::Update(float elapsedTime)
 {
 	m_Player.Update(elapsedTime, m_Camera);
+	UpdateInputs(elapsedTime);
 }
 
 void CViewerProcess::UpdateInputs(float elapsedTime)
@@ -107,12 +80,7 @@ void CViewerProcess::Render(CRenderManager *RM)
 
 	m_Player.Render(RM);
 
-	//mat.SetIdentity();
-	//RM->SetTransform(mat);
-	//g_Tex->Activate(0);
-	//g_RV->Render(RM);
-
 	mat.SetIdentity();
 	RM->SetTransform(mat);
-	m_SMManager->Render(RM, "Box001");
+	CORE->GetStaticMeshManager()->Render(RM, "Box001");
 }

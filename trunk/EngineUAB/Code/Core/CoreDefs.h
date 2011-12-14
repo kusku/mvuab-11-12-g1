@@ -26,6 +26,10 @@ struct SConfig
 	std::string input_path;
 	bool bExclusiveModeInMouse;
 	bool bDrawPointerMouse;
+
+	//Meshes & Objects params
+	std::string static_meshes_path;
+	std::string renderable_objects_path;
 };
 
 #endif

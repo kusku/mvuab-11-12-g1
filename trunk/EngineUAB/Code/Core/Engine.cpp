@@ -98,6 +98,11 @@ void CEngine::UpdateDebugInputs()
 	{
 		m_DebugRender.SetVisible( !m_DebugRender.GetVisible() );
 	}
+
+	if( action2Input->DoAction("ReloadAll") )
+	{
+		Reload();
+	}
 }
 
 void CEngine::Render()
@@ -116,7 +121,7 @@ void CEngine::Render()
 void CEngine::RenderScene(CRenderManager *renderManager)
 {
 	m_pProcess->Render( renderManager );
-
+	
 #if defined(DEBUG_MODE)
 	CFontManager *fontManager = CORE->GetFontManager();
 	m_DebugRender.Render( renderManager, fontManager, &m_Timer );
@@ -126,11 +131,9 @@ void CEngine::RenderScene(CRenderManager *renderManager)
 
 void CEngine::Reload()
 {
-	m_pCore->GetFontManager()->ReloadTTFs();
-	m_pCore->GetLanguageManager()->LoadXMLs();
-	m_pCore->GetActionToInput()->Reload();
+	LOGGER->AddNewLog(ELL_INFORMATION, "CEngine: Reload de todo el juego");
+	m_pCore->Reload();
 }
-
 
 /*
 *<summary>
@@ -215,6 +218,16 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 						}
 					}
 				}
+			}
+
+			if( l_Name == "Meshes" )
+			{
+				m_Config.static_meshes_path = l_ConfigNode(i).GetPszProperty( "meshesXML", "" );
+			}
+
+			if( l_Name == "RenderableObjects" )
+			{
+				m_Config.renderable_objects_path = l_ConfigNode(i).GetPszProperty( "objectsXML", "" );
 			}
 		}
 	}
