@@ -52,6 +52,9 @@
     <ClInclude Include="RenderableObjects\RenderableObject.h">
       <Filter>RenderableObjects</Filter>
     </ClInclude>
+    <ClInclude Include="RenderableObjects\InstanceMesh.h">
+      <Filter>RenderableObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
@@ -93,6 +96,9 @@
       <Filter>RenderableObjects</Filter>
     </ClCompile>
     <ClCompile Include="RenderableObjects\RenderableObject.cpp">
+      <Filter>RenderableObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderableObjects\InstanceMesh.cpp">
       <Filter>RenderableObjects</Filter>
     </ClCompile>
   </ItemGroup>

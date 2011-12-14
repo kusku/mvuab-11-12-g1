@@ -20,6 +20,7 @@
     <ClInclude Include="InfoRender\DebugRender.h" />
     <ClInclude Include="InfoRender\LogRender.h" />
     <ClInclude Include="Object3D.h" />
+    <ClInclude Include="RenderableObjects\InstanceMesh.h" />
     <ClInclude Include="RenderableObjects\RenderableObject.h" />
     <ClInclude Include="RenderableObjects\RenderableObjectsManager.h" />
     <ClInclude Include="RenderableObjects\StaticMesh.h" />
@@ -40,6 +41,7 @@
     <ClCompile Include="InfoRender\DebugRender.cpp" />
     <ClCompile Include="InfoRender\LogRender.cpp" />
     <ClCompile Include="Object3D.cpp" />
+    <ClCompile Include="RenderableObjects\InstanceMesh.cpp" />
     <ClCompile Include="RenderableObjects\RenderableObject.cpp" />
     <ClCompile Include="RenderableObjects\RenderableObjectsManager.cpp" />
     <ClCompile Include="RenderableObjects\StaticMesh.cpp" />

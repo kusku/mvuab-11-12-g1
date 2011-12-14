@@ -9,7 +9,7 @@
 #include "Exceptions\Exception.h"
 #include "Math\Matrix44.h"
 #include "Cameras\Camera.h"
-#include "RenderableObjects\StaticMeshManager.h"
+#include "RenderableObjects\RenderableObjectsManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -68,6 +68,11 @@ void CViewerProcess::UpdateInputs(float elapsedTime)
 	{
 		CORE->ReloadInputs();
 	}
+
+	if( action2Input->DoAction("ReloadRenderableObjects") )
+	{
+		CORE->ReloadRenderableObjects();
+	}
 }
 
 void CViewerProcess::Render(CRenderManager *RM)
@@ -80,7 +85,5 @@ void CViewerProcess::Render(CRenderManager *RM)
 
 	m_Player.Render(RM);
 
-	mat.SetIdentity();
-	RM->SetTransform(mat);
-	CORE->GetStaticMeshManager()->Render(RM, "Box001");
+	CORE->GetRenderableObjectsManager()->Render(RM);
 }

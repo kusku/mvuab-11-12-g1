@@ -1,6 +1,7 @@
 #include "RenderableObjectsManager.h"
 #include "RenderableObject.h"
 #include "../RenderManager.h"
+#include "InstanceMesh.h"
 #include "XML\XMLTreeNode.h"
 
 #if defined(_DEBUG)
@@ -8,6 +9,7 @@
 #endif
 
 CRenderableObjectsManager::CRenderableObjectsManager()
+	: m_FileName("")
 {
 }
 
@@ -44,13 +46,22 @@ void CRenderableObjectsManager::Render(CRenderManager *RM)
 
 CRenderableObject* CRenderableObjectsManager::AddMeshInstance(const std::string &CoreMeshName, const std::string &InstanceName, const Vect3f &Position)
 {
-	//Falta crear el Renderable Object
-	return NULL;
+	CInstanceMesh *l_InstanceMesh = new CInstanceMesh(InstanceName, CoreMeshName);
+	l_InstanceMesh->SetPosition( Position );
+
+	AddResource( InstanceName, static_cast<CRenderableObject*>(l_InstanceMesh) );
+
+	return static_cast<CRenderableObject*>(l_InstanceMesh);
 }
 
 bool CRenderableObjectsManager::AddResource(const std::string &Name, CRenderableObject *RenderableObject)
 {
-	return AddResource(Name, RenderableObject);
+	if( CMapManager<CRenderableObject>::AddResource(Name, RenderableObject) )
+	{
+		m_RenderableObjects.push_back(RenderableObject);
+		return true;
+	}
+	return false;
 }
 
 CRenderableObject* CRenderableObjectsManager::GetInstance(const std::string &Name)
@@ -66,10 +77,23 @@ void CRenderableObjectsManager::CleanUp()
 
 void CRenderableObjectsManager::Load(const std::string &FileName)
 {
+	m_FileName = FileName;
+	LoadFile();
+}
+
+void CRenderableObjectsManager::Reload()
+{
+	LOGGER->AddNewLog(ELL_INFORMATION, "CRenderableObjectsManager::Reload -> Reload de los Renderable Objects.");
+	CleanUp();
+	LoadFile();
+}
+
+void CRenderableObjectsManager::LoadFile()
+{
 	CXMLTreeNode newFile;
-	if (!newFile.LoadFile(FileName.c_str()))
+	if (!newFile.LoadFile(m_FileName.c_str()))
 	{
-		std::string msg_error = "CRenderableObjectsManager::Load->Error al intentar leer el archivo de renderable objects: " + FileName;
+		std::string msg_error = "CRenderableObjectsManager::Load->Error al intentar leer el archivo de renderable objects: " + m_FileName;
 		LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
 		//throw CException(__FILE__, __LINE__, msg_error);
 	}
@@ -90,7 +114,13 @@ void CRenderableObjectsManager::Load(const std::string &FileName)
 				float l_Pitch = l_RObjects(i).GetFloatProperty("pitch", 0.0f);
 				float l_Roll = l_RObjects(i).GetFloatProperty("roll", 0.0f);
 
-				//TODO: Falta crear el RenderableObject
+				CInstanceMesh *l_InstanceMesh = new CInstanceMesh(l_Name, l_Core);
+				l_InstanceMesh->SetPosition(l_Position);
+				l_InstanceMesh->SetYaw(l_Yaw);
+				l_InstanceMesh->SetPitch(l_Pitch);
+				l_InstanceMesh->SetRoll(l_Roll);
+
+				AddResource( l_Name, static_cast<CRenderableObject*>(l_InstanceMesh) );
 			}
 		}
 	}
