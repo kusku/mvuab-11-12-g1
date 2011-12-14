@@ -79,12 +79,3 @@ bool CStaticMeshManager::Reload()
 	Destroy();
 	return LoadXML();
 }
-
-void CStaticMeshManager::Render(CRenderManager *RM, const std::string &name)
-{
-	CStaticMesh* l_Mesh = GetResource(name);
-	if( l_Mesh != NULL )
-	{
-		l_Mesh->Render(RM);
-	}
-}

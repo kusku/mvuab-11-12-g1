@@ -10,7 +10,6 @@ class CTexture;
 #include <vector>
 #include <string>
 #include "Utils\Types.h"
-#include "Math\Color.h"
 #include "Math\Vector3.h"
 
 class CStaticMesh
@@ -24,8 +23,6 @@ public:
 	void		Unload		();
 
 	void		Render					( CRenderManager *RM ) const;
-	void		RenderBoundingBox		( CRenderManager *RM, CColor color = colWHITE ) const;
-	void		RenderBoundingSphere	( CRenderManager *RM, CColor color = colWHITE ) const;
 
 protected:
 	std::vector<CRenderableVertexs*>		m_RVs;

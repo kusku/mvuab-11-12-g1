@@ -186,10 +186,6 @@ void* CStaticMesh::LoadVtxs(FILE *_file, uint16 &VCount_)
 
 void CStaticMesh::Render(CRenderManager *RM) const
 {
-	Mat44f mat;
-	mat.SetIdentity();
-	RM->SetTransform(mat);
-
 	uint16 l_Size = static_cast<uint16>(m_RVs.size());
 	for(uint16 i=0; i<l_Size; ++i)
 	{
@@ -200,32 +196,4 @@ void CStaticMesh::Render(CRenderManager *RM) const
 		}
 		m_RVs[i]->Render(RM);
 	}
-
-	RenderBoundingBox(RM, colMAGENTA);
-	RenderBoundingSphere(RM, colYELLOW);
-}
-
-void CStaticMesh::RenderBoundingBox(CRenderManager *RM, CColor color) const
-{
-	Mat44f mat;
-	mat.SetIdentity();
-	mat.Translate(m_Center);
-	RM->SetTransform(mat);
-
-	Vect3f dim;
-	dim.x = abs(m_MaxBB.x - m_MinBB.x) / 2;
-	dim.y = abs(m_MaxBB.y - m_MinBB.y) / 2;
-	dim.z = abs(m_MaxBB.z - m_MinBB.z) / 2;
-
-	RM->DrawCube(dim ,color);
-}
-
-void CStaticMesh::RenderBoundingSphere(CRenderManager *RM, CColor color) const
-{
-	Mat44f mat;
-	mat.SetIdentity();
-	mat.Translate(m_Center);
-	RM->SetTransform(mat);
-
-	RM->DrawSphere(m_Radius, 10, color );
 }

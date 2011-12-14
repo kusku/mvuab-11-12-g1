@@ -17,8 +17,6 @@ public:
 	bool		Load		( const std::string &FileName );
 	bool		Reload		();
 
-	void		Render		(CRenderManager *RM, const std::string &name);
-
 protected:
 	std::string			m_FileName;
 

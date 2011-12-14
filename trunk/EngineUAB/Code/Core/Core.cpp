@@ -9,6 +9,7 @@
 #include "Logger\Logger.h"
 #include "Exceptions\Exception.h"
 #include "RenderableObjects\StaticMeshManager.h"
+#include "RenderableObjects\RenderableObjectsManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -22,6 +23,7 @@ CCore::CCore()
 	, m_pActionToInput(NULL)
 	, m_pTextureManager(NULL)
 	, m_pStaticMeshManager(NULL)
+	, m_pRenderableObjectsManager(NULL)
 	, m_bIsOk(false)
 {
 }
@@ -40,6 +42,7 @@ void CCore::Release()
 	CHECKED_DELETE(m_pActionToInput);
 	CHECKED_DELETE(m_pTextureManager);
 	CHECKED_DELETE(m_pStaticMeshManager);
+	CHECKED_DELETE(m_pRenderableObjectsManager);
 }
 
 void CCore::Done()
@@ -94,6 +97,9 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 			//Inicia los meshes
 			m_pStaticMeshManager = new CStaticMeshManager();
 			m_bIsOk = m_pStaticMeshManager->Load( config.static_meshes_path );
+
+			m_pRenderableObjectsManager = new CRenderableObjectsManager();
+			m_pRenderableObjectsManager->Load( config.renderable_objects_path );
 		}
 	}
 
@@ -141,4 +147,9 @@ void CCore::ReloadLanguages()
 void CCore::ReloadInputs()
 {
 	m_pActionToInput->Reload();
+}
+
+void CCore::ReloadRenderableObjects()
+{
+	m_pRenderableObjectsManager->Reload();
 }
