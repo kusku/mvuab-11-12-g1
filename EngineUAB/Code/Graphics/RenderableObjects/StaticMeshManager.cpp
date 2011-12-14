@@ -1,5 +1,6 @@
 #include "StaticMeshManager.h"
 #include "xml/XMLTreeNode.h"
+#include "Logger\Logger.h"
 #include "StaticMesh.h"
 
 #if defined(_DEBUG)
@@ -74,6 +75,7 @@ bool CStaticMeshManager::LoadXML()
 
 bool CStaticMeshManager::Reload()
 {
+	LOGGER->AddNewLog(ELL_INFORMATION, "CStaticMeshManager: Reload de las Static Meshes.");
 	Destroy();
 	return LoadXML();
 }

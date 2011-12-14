@@ -8,6 +8,7 @@
 #include "Textures\TextureManager.h"
 #include "Logger\Logger.h"
 #include "Exceptions\Exception.h"
+#include "RenderableObjects\StaticMeshManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -20,6 +21,7 @@ CCore::CCore()
 	, m_pInputManager(NULL)
 	, m_pActionToInput(NULL)
 	, m_pTextureManager(NULL)
+	, m_pStaticMeshManager(NULL)
 	, m_bIsOk(false)
 {
 }
@@ -27,6 +29,17 @@ CCore::CCore()
 CCore::~CCore()
 {
 	Release();
+}
+
+void CCore::Release()
+{
+	CHECKED_DELETE(m_pRenderManager);
+	CHECKED_DELETE(m_pLanguageManager);
+	CHECKED_DELETE(m_pFontManager);
+	//CHECKED_DELETE(m_pInputManager);
+	CHECKED_DELETE(m_pActionToInput);
+	CHECKED_DELETE(m_pTextureManager);
+	CHECKED_DELETE(m_pStaticMeshManager);
 }
 
 void CCore::Done()
@@ -77,6 +90,10 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 			m_pInputManager = m_pActionToInput->GetInputManager();
 
 			m_pTextureManager = new CTextureManager();
+
+			//Inicia los meshes
+			m_pStaticMeshManager = new CStaticMeshManager();
+			m_bIsOk = m_pStaticMeshManager->Load( config.static_meshes_path );
 		}
 	}
 
@@ -91,16 +108,6 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 	return m_bIsOk;
 }
 
-void CCore::Release()
-{
-	CHECKED_DELETE(m_pRenderManager);
-	CHECKED_DELETE(m_pLanguageManager);
-	CHECKED_DELETE(m_pFontManager);
-	//CHECKED_DELETE(m_pInputManager);
-	CHECKED_DELETE(m_pActionToInput);
-	CHECKED_DELETE(m_pTextureManager);
-}
-
 void CCore::Update(float ElapsedTime)
 {
 	//m_pInputManager->Update();
@@ -109,6 +116,16 @@ void CCore::Update(float ElapsedTime)
 
 void CCore::Render()
 {
+}
+
+void CCore::Reload()
+{
+	m_pFontManager->ReloadTTFs();
+	m_pLanguageManager->LoadXMLs();
+	m_pActionToInput->Reload();
+	CHECKED_DELETE(m_pTextureManager);
+	m_pTextureManager = new CTextureManager();
+	m_pStaticMeshManager->Reload();
 }
 
 void CCore::ReloadTTFs()

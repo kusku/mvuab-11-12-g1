@@ -9,6 +9,7 @@ class CLanguageManager;
 class CActionToInput;
 class CRenderManager;
 class CTextureManager;
+class CStaticMeshManager;
 
 #include <Windows.h>
 #include "Utils\Singleton.h"
@@ -27,6 +28,7 @@ public:
 	void Update		( float ElapsedTime );
 	void Render		();
 
+	void	Reload				();
 	void	ReloadTTFs			();	
 	void	ReloadLanguages		();	
 	void	ReloadInputs		();
@@ -37,6 +39,8 @@ public:
 	CInputManager*		GetInputManager() const		{ return m_pInputManager; }
 	CActionToInput*		GetActionToInput() const	{ return m_pActionToInput; }
 	CTextureManager*	GetTextureManager() const	{ return m_pTextureManager; }
+	CStaticMeshManager*	GetStaticMeshManager() const{ return m_pStaticMeshManager; }
+
 private:
 	void Release();
 
@@ -48,6 +52,7 @@ private:
 	CInputManager		*m_pInputManager;
 	CActionToInput		*m_pActionToInput;
 	CTextureManager		*m_pTextureManager;
+	CStaticMeshManager*	m_pStaticMeshManager;
 
 };
 

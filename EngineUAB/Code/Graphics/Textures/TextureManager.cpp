@@ -15,6 +15,8 @@ CTextureManager::~CTextureManager()
 
 void CTextureManager::Reload()
 {
+	LOGGER->AddNewLog(ELL_INFORMATION, "CTextureManager: Reload de las texturas.");
+
 	TMapResource::iterator l_It = m_Resources.begin();
 	TMapResource::iterator l_End = m_Resources.end();
 	for(; l_It != l_End; ++l_It)
