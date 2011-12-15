@@ -1,0 +1,133 @@
+<Actions>
+ 
+	<action name="Logger">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN"  Code="KEY_LCTRL"/>
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN_UP"  Code="KEY_F1"/>
+	</action>
+
+	<action name="DebugInfo">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN"  Code="KEY_LCTRL"/>
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN_UP"  Code="KEY_F2"/>
+	</action>
+  
+	<action name="Console">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN_UP"  Code="KEY_F2"/>
+	</action>
+
+	<action name="ProcessInfo">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN"  Code="KEY_LCTRL"/>
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN_UP"  Code="KEY_F10"/>
+	</action>
+
+	<action name="Screenshot">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN_UP"  Code="KEY_F4"/>
+	</action>
+
+	<action name="SaveLogsInFile">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN_UP"  Code="KEY_F5"/>
+	</action>
+
+	<action name="ReloadAll">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_LCTRL" />
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN_UP"  Code="KEY_F3"/>
+	</action>
+  
+	<action name="ReloadTTFs">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN_UP"  Code="KEY_F6"/>
+	</action>
+
+	<action name="ReloadLanguageXMLs">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN_UP"  Code="KEY_F7"/>
+	</action>
+
+	<action name="ReloadActions">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN_UP"  Code="KEY_F8"/>
+	</action>
+
+	<action name="ReloadRenderableObjects">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN_UP" Code="KEY_F9" />
+	</action>
+	
+	<action name="LogRender_PageDown">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_UP_DOWN"  Code="KEY_PGDOWN"/>
+	</action>
+
+	<action name="LogRender_PageUp">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_UP_DOWN"  Code="KEY_PGUP"/>
+	</action>
+
+	<action name="LogRender_PrevLine">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN"     Code="KEY_LCTRL"/>
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_UP_DOWN"  Code="KEY_UP"/>
+	</action>
+
+	<action name="LogRender_NextLine">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN"     Code="KEY_LCTRL"/>
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_UP_DOWN"  Code="KEY_DOWN"/>
+	</action>
+  
+
+  <!--.......VIEWER CAMERA CONTROL: MOUSE AND KEYBOARD............-->
+  
+	<action name="MoveXViewerCam">
+		<input deviceType="IDV_MOUSE" EventType="EVENT_DOWN"      Code="MOUSE_BUTTON_MIDDLE"/>
+		<input deviceType="IDV_MOUSE" AxisType="AXIS_MOUSE_X"     Delta="1.f"/>
+	</action>
+
+	<action name="MoveZViewerCam">
+		<input deviceType="IDV_MOUSE" EventType="EVENT_DOWN"      Code="MOUSE_BUTTON_MIDDLE"/>
+		<input deviceType="IDV_MOUSE" AxisType="AXIS_MOUSE_Y"     Delta="1.f"/>
+	</action>
+
+	<action name="YawViewerCam">
+		<input deviceType="IDV_MOUSE" EventType="EVENT_DOWN"      Code="MOUSE_BUTTON_RIGHT"/>
+		<input deviceType="IDV_MOUSE" AxisType="AXIS_MOUSE_X"     Delta="0.01f"/>
+	</action>
+
+	<action name="PitchViewerCam">
+		<input deviceType="IDV_MOUSE" EventType="EVENT_DOWN"      Code="MOUSE_BUTTON_RIGHT"/>
+		<input deviceType="IDV_MOUSE" AxisType="AXIS_MOUSE_Y"     Delta="0.01f"/>
+	</action>
+
+	<action name="ZoomViewerCam">
+		<input deviceType="IDV_MOUSE"   AxisType="AXIS_MOUSE_Z"     Delta="0.05f"/>
+	</action>
+
+	<action name="SlowZoomViewerCam">
+		<input deviceType="IDV_KEYBOARD"  EventType="EVENT_DOWN"    Code="KEY_LCTRL"/>
+		<input deviceType="IDV_MOUSE"     AxisType="AXIS_MOUSE_Z"   Delta="0.005f"/>
+	</action>
+  
+
+  <!--.......VIEWER CAMERA CONTROL: GAMEPAD.......................
+  <action name="MoveXViewerCam">
+    <input deviceType="IDV_GAMEPAD1" EventType="EVENT_DOWN"         Code="PAD_BUTTON_RIGHT_THUMB"/>
+    <input deviceType="IDV_GAMEPAD1" AxisType="AXIS_RIGHT_THUMB_X"  Delta="1.f"/>
+  </action>
+
+  <action name="MoveZViewerCam">
+    <input deviceType="IDV_GAMEPAD1" EventType="EVENT_DOWN"           Code="PAD_BUTTON_RIGHT_THUMB"/>
+    <input deviceType="IDV_GAMEPAD1" AxisType="AXIS_RIGHT_THUMB_Y"    Delta="1.f"/>
+  </action>
+
+  <action name="YawViewerCam">
+    <input deviceType="IDV_GAMEPAD1" EventType="EVENT_DOWN"         Code="PAD_BUTTON_LEFT_SHOULDER"/>
+    <input deviceType="IDV_GAMEPAD1" AxisType="AXIS_RIGHT_THUMB_X"  Delta="1.f"/>
+  </action>
+
+  <action name="PitchViewerCam">
+    <input deviceType="IDV_GAMEPAD1" EventType="EVENT_DOWN"         Code="PAD_BUTTON_LEFT_SHOULDER"/>
+    <input deviceType="IDV_GAMEPAD1" AxisType="AXIS_RIGHT_THUMB_Y"  Delta="1.f"/>
+  </action>
+
+  <action name="ZoomViewerCam">
+    <input deviceType="IDV_GAMEPAD1" AxisType="AXIS_LEFT_THUMB_Y"   Delta="1.f"/>
+  </action>
+
+  <action name="SlowZoomViewerCam">
+    <input deviceType="IDV_GAMEPAD1" EventType="EVENT_DOWN"         Code="PAD_BUTTON_RIGHT_THUMB"/>
+    <input deviceType="IDV_GAMEPAD1" AxisType="AXIS_LEFT_THUMB_Y"   Delta="1.f"/>
+  </action>
+  -->
+  
+</Actions>

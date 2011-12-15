@@ -381,7 +381,6 @@ function WriteToFile Filename Vtxs Idxs VertexType Mat MinBox MaxBox Center Radi
 			WriteShort file Idxs[m].count #unsigned --#Indexs
 			for i = 1 to Idxs[m].count do
 			(
-				format "% " Idxs[m][i]
 				WriteShort file Idxs[m][i] #unsigned 
 			)
 		)
@@ -410,7 +409,7 @@ function WriteToFile Filename Vtxs Idxs VertexType Mat MinBox MaxBox Center Radi
 	)
 )
 
-function main Obj =
+function ExportMesh Obj Path=
 (
 	local VB = #(#())
 	local IB = #(#())
@@ -423,9 +422,5 @@ function main Obj =
 	Center = CalculateCenterSphere MinBox MaxBox
 	Radius = CalculateRadiusSphere VB Center
 		
-	WriteToFile "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\Run\Viewer\Data\Meshes\box.m3d" VB IB VtxType Obj.material MinBox MaxBox Center Radius
-	
-	format "%\n %\n %\n %\n %\n %\n %\n %\n" VB VB.count IB IB.count MinBox MaxBox Center Radius
+	WriteToFile Path VB IB VtxType Obj.material MinBox MaxBox Center Radius
 )
-
-main $
