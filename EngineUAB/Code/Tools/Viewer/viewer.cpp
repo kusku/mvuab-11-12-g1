@@ -70,7 +70,7 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 		l_Viewer = new CViewerProcess();
 		g_Engine->SetProcess(l_Viewer);
 
-		g_Engine->LoadConfigXML( "./Data/engine.xml" );
+		g_Engine->LoadConfigXML( "./Data/XML/engine.xml" );
 		Vect2i position = g_Engine->GetPosition();
 		Vect2i resolution = g_Engine->GetResolution();
 
