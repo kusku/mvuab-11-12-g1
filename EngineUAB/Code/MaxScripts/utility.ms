@@ -53,11 +53,13 @@ utility UABUtility "UABUtility" width:160 height:296
 		
 		if ExportMeshesCheckBox.checked then
 		(
+			makeDir MeshesPath all:true
 			ExportStaticMeshes MeshesPath		--Export the meshes
 		)
 		
 		if ExportTexturesCheckBox.checked then
 		(
+			makeDir TexturesPath all:true
 			ExportTexturesMesh TexturesPath	--Export the textures
 		)
 		
