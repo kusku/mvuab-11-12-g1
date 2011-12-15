@@ -16,9 +16,7 @@ function ExportStaticMeshXML Path =
 )
 
 function ExportStaticMeshes Path =
-(
-	makeDir MeshesPath all:true
-	
+(	
 	for i = 1 to $selection.count do
 	(
 		local out_path = (Path + $selection[i].name + ".m3d")
@@ -27,9 +25,7 @@ function ExportStaticMeshes Path =
 )
 
 function ExportTexturesMesh Path =
-(
-	makeDir TexturesPath all:true
-	
+(	
 	for i = 1 to $selection.count do
 	(
 		local Material = $selection[i].Material

@@ -1,3 +1,5 @@
+fileIn "dotNetFunctions.ms"
+
 global VERTEX_TYPE_GEOMETRY = 0x0001
 global VERTEX_TYPE_NORMAL = 0x0002
 global VERTEX_TYPE_TANGENT = 0x0004
@@ -85,13 +87,15 @@ function CreateMesh Obj Vtxs Idxs MinBox MaxBox=
 		local l_V2 = CreateVtx l_Vtx2 l_Normal2 l_TUV12 l_TUV22 l_Diffuse l_VtxType 
 		local l_V3 = CreateVtx l_Vtx3 l_Normal3 l_TUV13 l_TUV23 l_Diffuse l_VtxType 
 		
-		local l_Idx = AddVtx Vtxs l_V1 l_MaterialID
+		local VtxsDotNet = dotnetobject "System.Collections.Generic.Dictionary`2[System.String,System.Int16]"
+		
+		local l_Idx = AddVtx Vtxs VtxsDotNet l_V1 l_MaterialID
 		AddIdx Idxs l_Idx l_MaterialID
 		
-		l_Idx = AddVtx Vtxs l_V3 l_MaterialID
+		l_Idx = AddVtx Vtxs VtxsDotNet l_V3 l_MaterialID
 		AddIdx Idxs l_Idx l_MaterialID
 		
-		l_Idx = AddVtx Vtxs l_V2 l_MaterialID
+		l_Idx = AddVtx Vtxs VtxsDotNet l_V2 l_MaterialID
 		AddIdx Idxs l_Idx l_MaterialID
 		
 		SearchMinBox l_V1 MinBox
@@ -104,7 +108,7 @@ function CreateMesh Obj Vtxs Idxs MinBox MaxBox=
 	)
 )
 
-function AddVtx Vtxs Vtx MatID =
+function AddVtx Vtxs VtxsDotNet Vtx MatID =
 (
 	while Vtxs.count < MatID do
 	(
@@ -112,15 +116,9 @@ function AddVtx Vtxs Vtx MatID =
 		append Vtxs l_Vtx
 	)
 	
-	local Pos = FindVtx Vtxs[MatID] Vtx
-		
-	if Pos == -1 then
-	(
-		append Vtxs[MatID] Vtx
-		Pos = Vtxs[MatID].count
-	)
-	
-	Pos = Pos - 1 --Se resta porqué en Max los indices empiezan en 1, en C++ en 0.
+	--local Pos = FindVtx Vtxs[MatID] Vtx
+	local Pos = DotNetAddVtx Vtxs[MatID] VtxsDotNet Vtx
+	format "%\n" Pos
 	return Pos
 )
 
