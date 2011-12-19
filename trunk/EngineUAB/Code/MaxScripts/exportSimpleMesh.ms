@@ -118,7 +118,7 @@ function AddVtx Vtxs VtxsDotNet Vtx MatID =
 	
 	--local Pos = FindVtx Vtxs[MatID] Vtx
 	local Pos = DotNetAddVtx Vtxs[MatID] VtxsDotNet Vtx
-	format "%\n" Pos
+	
 	return Pos
 )
 
@@ -298,27 +298,30 @@ function GetVertexType mat =
 	return l_VertexType
 )
 
-function WriteBitmapName File Filename =
+function WriteBitmapName File Level Filename =
 (
-	WriteShort file Filename.count #unsigned --Material Path Length
-	WriteString file Filename--Material Path
+	local l_Name = filenameFromPath Filename
+	local l_Path = ".\\Data\\" + Level + "\\Textures\\" + l_Name
+	
+	WriteShort File l_Path.count #unsigned --Material Path Length
+	WriteString File l_Path--Material Path
 )
 
-function WriteMaterialToFile File Material VertexType=
+function WriteMaterialToFile File Level Material VertexType=
 (	
 	if (bit.and VertexType VERTEX_TYPE_TEXTURE1)==VERTEX_TYPE_TEXTURE1 then
 	(
-		WriteBitmapName File (openBitMap Material.diffuseMap.bitmap.filename).fileName 
+		WriteBitmapName File Level (openBitMap Material.diffuseMap.bitmap.filename).fileName 
 	)
 	
 	if (bit.and VertexType VERTEX_TYPE_TEXTURE2)==VERTEX_TYPE_TEXTURE2 then
 	(
-		WriteBitmapName File  (openBitMap Material.selfIllumMap.bitmap.filename).fileName 
+		WriteBitmapName File Level (openBitMap Material.selfIllumMap.bitmap.filename).fileName 
 	)
 	
 	if (bit.and VertexType VERTEX_TYPE_TANGENT)==VERTEX_TYPE_TANGENT then
 	(
-		WriteBitmapName File  (openBitMap Material.bumpMap.bitmap.filename).fileName 
+		WriteBitmapName File Level (openBitMap Material.bumpMap.bitmap.filename).fileName 
 	)
 )
 
@@ -344,7 +347,7 @@ function WriteVertexToFile File Vtx VertexType =
 	)
 )
 
-function WriteToFile Filename Vtxs Idxs VertexType Mat MinBox MaxBox Center Radius= 
+function WriteToFile Filename Level Vtxs Idxs VertexType Mat MinBox MaxBox Center Radius= 
 (	
 	local file = fopen Filename "wb"
 	if file != undefined then
@@ -366,7 +369,7 @@ function WriteToFile Filename Vtxs Idxs VertexType Mat MinBox MaxBox Center Radi
 		for m = 1 to Mat.numsubs do
 		(
 			local VtxType = GetVertexType Mat[m]
-			WriteMaterialToFile file Mat[m] VtxType
+			WriteMaterialToFile file Level Mat[m] VtxType
 			
 			WriteShort file VtxType #unsigned
 			
@@ -407,7 +410,7 @@ function WriteToFile Filename Vtxs Idxs VertexType Mat MinBox MaxBox Center Radi
 	)
 )
 
-function ExportMesh Obj Path=
+function ExportMesh Obj Path Level=
 (
 	local VB = #(#())
 	local IB = #(#())
@@ -420,5 +423,5 @@ function ExportMesh Obj Path=
 	Center = CalculateCenterSphere MinBox MaxBox
 	Radius = CalculateRadiusSphere VB Center
 		
-	WriteToFile Path VB IB VtxType Obj.material MinBox MaxBox Center Radius
+	WriteToFile Path Level VB IB VtxType Obj.material MinBox MaxBox Center Radius
 )
