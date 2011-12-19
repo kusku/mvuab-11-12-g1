@@ -12,6 +12,6 @@
 		<Language languageXML="./Data/XML/Language/spanish.xml" />
 		<Language languageXML="./Data/XML/Language/english.xml" />
 	</Languages>
-	<Meshes meshesXML="./Data/Meshes/static_meshes.xml" />
-	<RenderableObjects objectsXML="./Data/Meshes/renderable_objects.xml" />
+	<Meshes meshesXML="./Data/XML/Static_Meshes/static_meshes.xml" />
+	<RenderableObjects objectsXML="./Data/XML/Static_Meshes/renderable_objects.xml" />
 </Config>

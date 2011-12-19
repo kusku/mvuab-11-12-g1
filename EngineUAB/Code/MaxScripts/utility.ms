@@ -7,7 +7,7 @@ utility UABUtility "UABUtility" width:160 height:296
 	
 	button PathButton "Set Path" pos:[8,8] width:144 height:16
 	checkbox ExportMeshesCheckBox "Export Meshes" pos:[8,104] width:104 height:16
-	label PathLabel "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\Run\Viewer\Data" pos:[9,32] width:141 height:64
+	label PathLabel "C:\Users\Marc\Documents\UAB\Màster de Creació de Videojocs\EngineUAB\Run\Viewer" pos:[9,32] width:141 height:64
 	checkbox ExportTexturesCheckBox "Export Textures" pos:[8,120] width:96 height:16
 	dropdownList LevelComboBox "" pos:[8,144] width:144 height:21 items:#("General", "Level1", "Level2")
 	GroupBox ExportBox "Export" pos:[8,176] width:144 height:112
@@ -22,6 +22,9 @@ utility UABUtility "UABUtility" width:160 height:296
 		return PathLabel.text + "\\"
 	)
 	
+	
+	
+	
 	on PathButton pressed do
 	(
 		local data_path = getSavePath caption:"Data Path" initialDir:PathLabel.text
@@ -30,7 +33,6 @@ utility UABUtility "UABUtility" width:160 height:296
 			PathLabel.text = data_path
 		)
 	)
-	
 	on MeshButton pressed do
 	(
 		local out_name=GetSaveFileName filename:(GetMeshesPathExport()+$.name+".m3d") caption:"Select output file to export file" types:" m3d(*.m3d)|*.m3d|All Files(*.*)|*.*|"
@@ -40,29 +42,68 @@ utility UABUtility "UABUtility" width:160 height:296
 			messageBox "Mesh exported correctly." title:"INFORMATION"
 		)
 	)
-	
 	on StaticMeshButton pressed do
 	(
-		local XMLPath = (GetMeshesPathExport() + "XML\\Static_Meshes\\")
-		local MeshesPath = (GetMeshesPathExport() + "Static_Meshes\\")
-		local TexturesPath = (GetMeshesPathExport() + "Textures\\")
+		local XMLPath = (GetMeshesPathExport() + "Data\\XML\\Static_Meshes\\")
+		local MeshesPath = (GetMeshesPathExport() + "Data\\" + LevelComboBox.items[LevelComboBox.selection] + "\\Static_Meshes\\" )
+		local TexturesPath = (GetMeshesPathExport() + "Data\\" + LevelComboBox.items[LevelComboBox.selection] + "\\Textures\\")
 		
-		makeDir XMLPath all:true
-		
-		ExportStaticMeshXML (XMLPath + "static_meshes.xml")	--Export the XML file
-		
-		if ExportMeshesCheckBox.checked then
+		if (makeDir XMLPath all:true) then
 		(
-			makeDir MeshesPath all:true
-			ExportStaticMeshes MeshesPath		--Export the meshes
-		)
+			
+			ExportStaticMeshXML (XMLPath + "static_meshes.xml") LevelComboBox	--Export the XML file
+			
+			if ExportMeshesCheckBox.checked then
+			(
+				makeDir MeshesPath all:true
+				
+				ExportStaticMeshes MeshesPath	LevelComboBox.items[LevelComboBox.selection]	--Export the meshes
+			)
+			
+			if ExportTexturesCheckBox.checked then
+			(
+				makeDir TexturesPath all:true
+				
+				ExportTexturesMesh TexturesPath	--Export the textures
+			)
 		
-		if ExportTexturesCheckBox.checked then
+			messageBox "Static Meshes exported correctly." title:"INFORMATION"
+		)
+		else
 		(
-			makeDir TexturesPath all:true
-			ExportTexturesMesh TexturesPath	--Export the textures
+			messageBox "The folder " + XMLPath + "can't been created." title:"ERROR"
 		)
+	)
+	on SceneButton pressed do
+	(
+		local XMLPath = (GetMeshesPathExport() + "Data\\XML\\Static_Meshes\\")
+		local MeshesPath = (GetMeshesPathExport() + "Data\\" + LevelComboBox.items[LevelComboBox.selection] + "\\Static_Meshes\\" )
+		local TexturesPath = (GetMeshesPathExport() + "Data\\" + LevelComboBox.items[LevelComboBox.selection] + "\\Textures\\")
 		
-		messageBox "Static Meshes exported correctly." title:"INFORMATION"
+		if (makeDir XMLPath all:true) then
+		(
+			
+			ExportStaticMeshXML (XMLPath + "static_meshes.xml") LevelComboBox	--Export the XML file
+			
+			if ExportMeshesCheckBox.checked then
+			(
+				makeDir MeshesPath all:true
+				
+				ExportStaticMeshes MeshesPath	LevelComboBox.items[LevelComboBox.selection]	--Export the meshes
+			)
+			
+			if ExportTexturesCheckBox.checked then
+			(
+				makeDir TexturesPath all:true
+				
+				ExportTexturesMesh TexturesPath	--Export the textures
+			)
+		
+			messageBox "Scene exported correctly." title:"INFORMATION"
+		)
+		else
+		(
+			messageBox "The folder " + XMLPath + "can't been created." title:"ERROR"
+		)
 	)
 )
