@@ -55,6 +55,15 @@
     <ClInclude Include="RenderableObjects\InstanceMesh.h">
       <Filter>RenderableObjects</Filter>
     </ClInclude>
+    <ClInclude Include="Animation\AnimatedCoreModel.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\AnimatedInstanceModel.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\AnimatedModelManager.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
@@ -101,6 +110,15 @@
     <ClCompile Include="RenderableObjects\InstanceMesh.cpp">
       <Filter>RenderableObjects</Filter>
     </ClCompile>
+    <ClCompile Include="Animation\AnimatedCoreModel.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation\AnimatedInstanceModel.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation\AnimatedModelManager.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Cameras">
@@ -123,6 +141,9 @@
     </Filter>
     <Filter Include="RenderableObjects">
       <UniqueIdentifier>{953ac630-bb8e-4c0a-a250-4a496d1c7c90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation">
+      <UniqueIdentifier>{581215be-73ea-4cd9-8138-add612b68e8c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
