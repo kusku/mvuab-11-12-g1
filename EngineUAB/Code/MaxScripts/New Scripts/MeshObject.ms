@@ -43,6 +43,13 @@ struct MaterialObject
 		fileString = (RelativePath + TEXTURE_SUBDIR + fileString)
 	),
 	
+	function GetRelativeFileNameWithParentDir filename =
+	(
+		local fileString = (GetRelativeFileName filename)
+		
+		fileString = ("."  + PARENT_SUBDIR + fileString)
+	),
+	
 	function GetCompleteFileName filename =
 	(
 		local fileString = (filenameFromPath filename)
@@ -56,18 +63,18 @@ struct MaterialObject
 		
 		if (bit.and VertexType VERTEX_TYPE_TEXTURE1) == VERTEX_TYPE_TEXTURE1 then
 		(
-			finalName = (GetRelativeFileName Texture1)
+			finalName = (GetRelativeFileNameWithParentDir Texture1)
 			WriteStringToFile finalName file
 		
 			if (bit.and VertexType VERTEX_TYPE_TEXTURE2) == VERTEX_TYPE_TEXTURE2 then
 			(
-				finalName = (GetRelativeFileName Texture2)
+				finalName = (GetRelativeFileNameWithParentDir Texture2)
 				WriteStringToFile finalName file
 			)
 		
 			if (bit.and VertexType VERTEX_TYPE_TANGENT) == VERTEX_TYPE_TANGENT then
 			(
-				finalName = (GetRelativeFileName Bump)
+				finalName = (GetRelativeFileNameWithParentDir Bump)
 				WriteStringToFile finalName file
 			)
 		)
@@ -574,7 +581,7 @@ struct MeshObj
 		MeshFileName = (FileName + MESH_EXTENSION)
 		
 		--Set Relative FileName
-		RelativeMeshFileName = (RelativeFilePath + MeshFileName)
+		RelativeMeshFileName = (RelativeFilePath + MESH_SUBDIR + MeshFileName)
 	),
 	
 	function WriteToFile =
