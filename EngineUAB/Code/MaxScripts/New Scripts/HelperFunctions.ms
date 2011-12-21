@@ -32,17 +32,17 @@ function RHTranslationToLH translation =
 
 function GetYaw transform =
 (
-	return (transform as eulerangles).z
+	return (-1 * (transform as eulerangles).z)
 )
 
 function GetPitch transform =
 (
-	return (transform as eulerangles).x
+	return (-1 * (transform as eulerangles).x)
 )
 
 function GetRoll transform =
 (
-	return (transform as eulerangles).y
+	return (-1 * (transform as eulerangles).y)
 )
 
 function ResetVertexToOriginal Obj Vtx=
