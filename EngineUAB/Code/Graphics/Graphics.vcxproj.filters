@@ -64,6 +64,7 @@
     <ClInclude Include="Animation\AnimatedModelManager.h">
       <Filter>Animation</Filter>
     </ClInclude>
+    <ClInclude Include="BoundingObjects.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
