@@ -11,6 +11,7 @@ class CTexture;
 #include <string>
 #include "Utils\Types.h"
 #include "Math\Vector3.h"
+#include "../BoundingObjects.h"
 
 class CStaticMesh
 {
@@ -18,24 +19,35 @@ public:
 	CStaticMesh();
 	virtual ~CStaticMesh();
 
-	bool		Load		( const std::string &FileName );
-	bool		Reload		();
-	void		Unload		();
+	bool			Load				( const std::string &FileName );
+	bool			Reload				();
+	void			Unload				();
 
-	void		Render					( CRenderManager *RM ) const;
+	void			Render				( CRenderManager *RM ) const;
+
+	void			SetBoundingBox		(const TBoundingBox& boundingBox) { m_BoundingBox = boundingBox; }
+	void			SetBoundingSphere	(const TBoundingSphere& boundingSphere) { m_BoundingSphere = boundingSphere; }
+
+	TBoundingBox	GetBoundingBox		() const { return m_BoundingBox; }
+	TBoundingSphere GetBoundingSphere	() const { return m_BoundingSphere; }
 
 protected:
 	std::vector<CRenderableVertexs*>		m_RVs;
 	std::vector<std::vector<CTexture*>>		m_Textures;
 	std::string								m_FileName;
 	uint32									m_NumVertexs, m_NumFaces;
-	Vect3f									m_MinBB, m_MaxBB;
-	Vect3f									m_Center;
-	float									m_Radius;
+	TBoundingBox							m_BoundingBox;
+	TBoundingSphere							m_BoundingSphere;
 
-	bool		LoadFile		();
 	template<class T>
-	void*		LoadVtxs		(FILE *file, uint16 &VCount_);
+	void*				LoadCreateVertexBuffer	(FILE* modelFile, uint16 numVertex);
+	void				ClearRenderableVertex	();
+	void				ClearTextures			();
+	bool				ExtractTexture			(FILE* modelFile, std::vector<CTexture*>& textVector);
+	void				ClearTextureVector		(std::vector<CTexture*>& textVector);
+	CRenderableVertexs*	ReadCreateVertexBuffer	(FILE* modelFile, uint16 vertexType);
+	bool				ExtractMesh				(FILE* modelFile);
+	bool				GetBoundingBoxAndSphere	(FILE* modelFile);
 };
 
 #endif

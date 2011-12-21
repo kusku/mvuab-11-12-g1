@@ -14,6 +14,7 @@
     <ClInclude Include="Animation\AnimatedCoreModel.h" />
     <ClInclude Include="Animation\AnimatedInstanceModel.h" />
     <ClInclude Include="Animation\AnimatedModelManager.h" />
+    <ClInclude Include="BoundingObjects.h" />
     <ClInclude Include="Cameras\Camera.h" />
     <ClInclude Include="Cameras\FPSCamera.h" />
     <ClInclude Include="Cameras\Frustum.h" />
@@ -99,7 +100,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Input\;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Input\;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src;$(SolutionDir)\Code\3dParty\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
