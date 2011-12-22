@@ -3,7 +3,7 @@
 #ifndef _STATICMESHMANAGER_H
 #define _STATICMESHMANAGER_H
 
-#include "../RenderManager.h"
+#include "RenderManager.h"
 #include "Utils\MapManager.h"
 #include "StaticMesh.h"
 #include <string>

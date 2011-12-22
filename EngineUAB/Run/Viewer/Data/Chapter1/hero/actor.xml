@@ -1,0 +1,7 @@
+<animated_model name="hero">
+	<skeleton filename="hero.csf"/>
+	<mesh filename="hero.cmf"/>
+	<animation name="idle" filename="hero_idle.caf"/>
+	<texture filename="hero_body.tga"/>
+	<texture filename="hero_head2.tga"/>
+</animated_model>

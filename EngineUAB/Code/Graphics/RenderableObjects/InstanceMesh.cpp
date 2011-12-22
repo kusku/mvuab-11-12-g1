@@ -1,7 +1,7 @@
 #include "InstanceMesh.h"
 #include "StaticMesh.h"
 #include "StaticMeshManager.h"
-#include "..\RenderManager.h"
+#include "RenderManager.h"
 #include "Base.h"
 #include "Core.h"
 #include "Logger\Logger.h"

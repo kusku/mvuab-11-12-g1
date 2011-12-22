@@ -30,6 +30,7 @@ struct SConfig
 	//Meshes & Objects params
 	std::string static_meshes_path;
 	std::string renderable_objects_path;
+	std::string animated_models_path;
 };
 
 #endif

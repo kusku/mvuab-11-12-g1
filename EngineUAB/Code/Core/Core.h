@@ -11,6 +11,7 @@ class CRenderManager;
 class CTextureManager;
 class CStaticMeshManager;
 class CRenderableObjectsManager;
+class CAnimatedModelManager;
 
 #include <Windows.h>
 #include "Utils\Singleton.h"
@@ -43,7 +44,7 @@ public:
 	CTextureManager*				GetTextureManager() const			{ return m_pTextureManager; }
 	CStaticMeshManager*				GetStaticMeshManager() const		{ return m_pStaticMeshManager; }
 	CRenderableObjectsManager*		GetRenderableObjectsManager() const	{ return m_pRenderableObjectsManager; }
-
+	CAnimatedModelManager*			GetAnimatedModelManager() const		{ return m_pAnimatedModelManager; }
 private:
 	void Release();
 
@@ -57,7 +58,7 @@ private:
 	CTextureManager				*m_pTextureManager;
 	CStaticMeshManager			*m_pStaticMeshManager;
 	CRenderableObjectsManager	*m_pRenderableObjectsManager;
-
+	CAnimatedModelManager		*m_pAnimatedModelManager;
 };
 
 #endif

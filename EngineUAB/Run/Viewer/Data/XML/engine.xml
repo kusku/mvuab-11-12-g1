@@ -13,5 +13,6 @@
 		<Language languageXML="./Data/XML/Language/english.xml" />
 	</Languages>
 	<Meshes meshesXML="./Data/XML/Static_Meshes/static_meshes.xml" />
-	<RenderableObjects objectsXML="./Data/XML/Static_Meshes/renderable_objects.xml" />
+	<RenderableObjects objectsXML="./Data/XML/Renderable_Objects/renderable_objects.xml" />
+	<AnimatedModels animatedXML="./Data/XML/Animated_Models/animated_models.xml" />
 </Config>

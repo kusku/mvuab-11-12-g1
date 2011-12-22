@@ -23,7 +23,9 @@ public:
 	CAnimatedModelManager();
 	virtual ~CAnimatedModelManager();
 
-	CAnimatedCoreModel*			GetCore			( const std::string &Name, const std::string &Path );
+	void		Load		( const std::string &Filename );
+
+	CAnimatedCoreModel*			GetCore			( const std::string &Name, const std::string &Path, const std::string &XMLFilename );
 	CAnimatedInstanceModel*		GetInstance		( const std::string &Name );
 };
 

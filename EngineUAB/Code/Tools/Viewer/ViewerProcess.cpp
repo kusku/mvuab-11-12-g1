@@ -49,6 +49,8 @@ void CViewerProcess::Update(float elapsedTime)
 {
 	m_Player.Update(elapsedTime, m_Camera);
 	UpdateInputs(elapsedTime);
+
+	CORE->GetRenderableObjectsManager()->Update(elapsedTime);
 }
 
 void CViewerProcess::UpdateInputs(float elapsedTime)

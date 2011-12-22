@@ -1,0 +1,9 @@
+<animated_model name="paladin">
+	<skeleton filename="paladin.csf"/>
+	<mesh filename="paladin_body.cmf"/>
+	<mesh filename="paladin_cape.cmf"/>
+	<mesh filename="paladin_loincloth.cmf"/>
+	<animation name="idle" filename="paladin_walk.caf"/>
+	<texture filename="paladin_cape.xrf"/>
+	<texture filename="paladin_head.xrf"/>
+</animated_model>

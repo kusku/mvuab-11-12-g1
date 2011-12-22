@@ -1,3 +1,10 @@
+//----------------------------------------------------------------------------------
+// CRenderableObjectsManager class
+// Author: Marc Cuscullola
+//
+// Description:
+// Gestiona todos los Renderable Objects
+//----------------------------------------------------------------------------------
 #pragma once
 
 #ifndef _RENDERABLEOBJECTSMANAGER_H
@@ -21,6 +28,7 @@ public:
 	void		Render		( CRenderManager *RM );
 
 	CRenderableObject*	AddMeshInstance			( const std::string &CoreMeshName, const std::string &InstanceName, const Vect3f &Position );
+	CRenderableObject*	AddAnimatedMeshInstance	( const std::string &Name, const Vect3f &Position );
 	bool				AddResource				( const std::string &Name, CRenderableObject *RenderableObject );
 	
 	CRenderableObject*	GetInstance				( const std::string &Name );

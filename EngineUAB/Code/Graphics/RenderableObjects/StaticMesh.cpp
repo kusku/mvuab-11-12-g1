@@ -1,10 +1,10 @@
 #include "StaticMesh.h"
-#include "..\RenderManager.h"
-#include "..\Vertexs\RenderableVertexs.h"
-#include "..\Vertexs\IndexedVertexs.h"
-#include "..\Textures\Texture.h"
-#include "..\Textures\TextureManager.h"
-#include "..\Vertexs\VertexType.h"
+#include "RenderManager.h"
+#include "Vertexs\RenderableVertexs.h"
+#include "Vertexs\IndexedVertexs.h"
+#include "Textures\Texture.h"
+#include "Textures\TextureManager.h"
+#include "Vertexs\VertexType.h"
 #include "Base.h"
 #include "Core.h"
 #include "Math\Matrix44.h"
@@ -305,7 +305,7 @@ bool CStaticMesh::ExtractTexture(FILE* modelFile, std::vector<CTexture*>& textVe
 
 void CStaticMesh::ClearRenderableVertex()
 {
-	for(uint32 i = 0; i < m_RVs.size(); i++)
+	for(uint32 i = 0; i < m_RVs.size(); ++i)
 	{
 		CRenderableVertexs* rndVtx = m_RVs[i];
 
@@ -317,7 +317,7 @@ void CStaticMesh::ClearRenderableVertex()
 
 void CStaticMesh::ClearTextures()
 {
-	for(uint32 i = 0; i < m_Textures.size(); i++)
+	for(uint32 i = 0; i < m_Textures.size(); ++i)
 	{
 		std::vector<CTexture*> vec = m_Textures[i];
 
@@ -329,7 +329,7 @@ void CStaticMesh::ClearTextures()
 
 void CStaticMesh::ClearTextureVector(std::vector<CTexture*>& textVector)
 {
-	for(uint32 i = 0; i < textVector.size(); i++)
+	for(uint32 i = 0; i < textVector.size(); ++i)
 	{
 		CTexture* texture = textVector[i];
 

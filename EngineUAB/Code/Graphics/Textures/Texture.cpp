@@ -1,7 +1,7 @@
 #include "Texture.h"
 #include "Base.h"
 #include "Core.h"
-#include "..\RenderManager.h"
+#include "RenderManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
