@@ -5,8 +5,8 @@
 #include <vector>
 #include "Utils/BaseUtils.h"
 #include "ActionToInput.h"
-#include "..\RenderManager.h"
-#include "..\Fonts\FontManager.h"
+#include "RenderManager.h"
+#include "Fonts\FontManager.h"
 #include "Base.h"
 
 #if defined(_DEBUG)

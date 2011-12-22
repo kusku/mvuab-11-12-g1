@@ -17,10 +17,11 @@ class CAnimatedCoreModel;
 
 #include "cal3d\cal3d.h"
 #include "Utils\BaseUtils.h"
+#include "RenderableObjects/RenderableObject.h"
 #include <vector>
 #include <d3dx9.h>
 
-class CAnimatedInstanceModel
+class CAnimatedInstanceModel : public CRenderableObject
 {
 public:
 	CAnimatedInstanceModel();
@@ -39,22 +40,15 @@ public:
 	void		ExecuteAction		( uint32 Id, float Time );
 	void		BlendCycle			( uint32 Id, float Time );
 	void		ClearCycle			( float Time );
-
-	uint32		GetCurrentCycle		() const	{ return m_CurrentCycle; }
-	uint32		GetCurrentAction	() const	{ return m_CurrentAnimationId; }
 	
 private:
 	bool			LoadVertexBuffer		( CRenderManager *RM );
 	void			LoadTextures			();
 
 
-	CalModel*					m_CalModel;
-	CAnimatedCoreModel*			m_AnimatedCoreModel;
-	std::vector<CTexture*>		m_TextureVector;
-
-	uint32						m_CurrentCycle;
-	uint32						m_CurrentAnimationId;
-	float						m_CurrentAnimationTime;
+	CalModel*								m_CalModel;
+	CAnimatedCoreModel*						m_AnimatedCoreModel;
+	std::vector<CTexture*>					m_TextureVector;
 
 	LPDIRECT3DVERTEXBUFFER9		m_pVB;
 	LPDIRECT3DINDEXBUFFER9		m_pIB;

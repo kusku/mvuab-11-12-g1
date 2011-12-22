@@ -10,7 +10,7 @@
 #ifndef INC_CAMERA_H_
 #define INC_CAMERA_H_
 
-#include "..\Object3D.h"
+#include "Object3D.h"
 #include <Windows.h>
 
 class CCamera

@@ -4,7 +4,7 @@
 #define _INDEXEDVERTEXS_H
 
 #include "RenderableVertexs.h"
-#include "..\RenderManager.h"
+#include "RenderManager.h"
 #include "VertexType.h"
 
 template<class T>

@@ -5,7 +5,7 @@
 
 class CRenderManager;
 
-#include "..\Object3D.h"
+#include "Object3D.h"
 #include "Utils\Named.h"
 
 class CRenderableObject : public CObject3D, public CNamed

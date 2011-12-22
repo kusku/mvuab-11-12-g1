@@ -10,6 +10,7 @@
 #include "Exceptions\Exception.h"
 #include "RenderableObjects\StaticMeshManager.h"
 #include "RenderableObjects\RenderableObjectsManager.h"
+#include "Animation\AnimatedModelManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -24,6 +25,7 @@ CCore::CCore()
 	, m_pTextureManager(NULL)
 	, m_pStaticMeshManager(NULL)
 	, m_pRenderableObjectsManager(NULL)
+	, m_pAnimatedModelManager(NULL)
 	, m_bIsOk(false)
 {
 }
@@ -43,6 +45,7 @@ void CCore::Release()
 	CHECKED_DELETE(m_pTextureManager);
 	CHECKED_DELETE(m_pStaticMeshManager);
 	CHECKED_DELETE(m_pRenderableObjectsManager);
+	CHECKED_DELETE(m_pAnimatedModelManager);
 }
 
 void CCore::Done()
@@ -97,6 +100,9 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 			//Inicia los meshes
 			m_pStaticMeshManager = new CStaticMeshManager();
 			m_bIsOk = m_pStaticMeshManager->Load( config.static_meshes_path );
+
+			m_pAnimatedModelManager = new CAnimatedModelManager();
+			m_pAnimatedModelManager->Load( config.animated_models_path );
 
 			m_pRenderableObjectsManager = new CRenderableObjectsManager();
 			m_pRenderableObjectsManager->Load( config.renderable_objects_path );

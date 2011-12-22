@@ -165,18 +165,15 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 				m_Config.resolution.x = l_ConfigNode(i).GetIntProperty( "width", 800 );
 				m_Config.resolution.y = l_ConfigNode(i).GetIntProperty( "height", 600 );
 			}
-
-			if( l_Name == "WindowsPosition" )
+			else if( l_Name == "WindowsPosition" )
 			{
 				m_Config.position = l_ConfigNode(i).GetVect2iProperty( "position", Vect2i(100, 100) );
 			}
-
-			if( l_Name == "RenderMode" )
+			else if( l_Name == "RenderMode" )
 			{
 				m_Config.bFullscreen = l_ConfigNode(i).GetBoolProperty( "fullscreenMode", false );
 			}
-
-			if( l_Name == "RenderColor" )
+			else if( l_Name == "RenderColor" )
 			{
 				std::string color = l_ConfigNode(i).GetPszProperty( "colorDebug", "blue" );
 				m_Config.color_debug = string2Color( color );
@@ -184,24 +181,20 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 				color = l_ConfigNode(i).GetPszProperty( "colorRelease", "black" );
 				m_Config.color_release = string2Color( color );
 			}
-
-			if( l_Name == "ActionToInput" )
+			else if( l_Name == "ActionToInput" )
 			{
 				m_Config.input_path = l_ConfigNode(i).GetPszProperty( "inputXML", "" ); 
 			}
-
-			if( l_Name == "Mouse" )
+			else if( l_Name == "Mouse" )
 			{
 				m_Config.bExclusiveModeInMouse = l_ConfigNode(i).GetBoolProperty( "exclusiveModeInMouse", true );
 				m_Config.bDrawPointerMouse = l_ConfigNode(i).GetBoolProperty( "drawPointerMouse", true );
 			}
-
-			if( l_Name == "Fonts" )
+			else if( l_Name == "Fonts" )
 			{
 				m_Config.fonts_path = l_ConfigNode(i).GetPszProperty( "fontsXML", "" );
 			}
-
-			if( l_Name == "Languages" )
+			else if( l_Name == "Languages" )
 			{
 				m_Config.default_language = l_ConfigNode(i).GetPszProperty( "default", "catalan" );
 
@@ -219,15 +212,17 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 					}
 				}
 			}
-
-			if( l_Name == "Meshes" )
+			else if( l_Name == "Meshes" )
 			{
 				m_Config.static_meshes_path = l_ConfigNode(i).GetPszProperty( "meshesXML", "" );
 			}
-
-			if( l_Name == "RenderableObjects" )
+			else if( l_Name == "RenderableObjects" )
 			{
 				m_Config.renderable_objects_path = l_ConfigNode(i).GetPszProperty( "objectsXML", "" );
+			}
+			else if( l_Name == "AnimatedModels" )
+			{
+				m_Config.animated_models_path = l_ConfigNode(i).GetPszProperty( "animatedXML", "" );
 			}
 		}
 	}

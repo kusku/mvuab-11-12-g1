@@ -11,7 +11,7 @@ class CTexture;
 #include <string>
 #include "Utils\Types.h"
 #include "Math\Vector3.h"
-#include "../BoundingObjects.h"
+#include "BoundingObjects.h"
 
 class CStaticMesh
 {

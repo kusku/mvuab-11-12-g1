@@ -1,6 +1,6 @@
 #include "DebugRender.h"
-#include "..\Fonts\FontManager.h"
-#include "..\RenderManager.h"
+#include "Fonts\FontManager.h"
+#include "RenderManager.h"
 #include "Utils\Timer.h"
 #include "ActionToInput.h"
 #include "Utils\BaseUtils.h"

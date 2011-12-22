@@ -1,8 +1,12 @@
 #include "RenderableObjectsManager.h"
 #include "RenderableObject.h"
-#include "../RenderManager.h"
+#include "RenderManager.h"
 #include "InstanceMesh.h"
+#include "Animation/AnimatedModelManager.h"
+#include "Animation/AnimatedInstanceModel.h"
 #include "XML\XMLTreeNode.h"
+#include "Base.h"
+#include "Core.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -52,6 +56,16 @@ CRenderableObject* CRenderableObjectsManager::AddMeshInstance(const std::string 
 	AddResource( InstanceName, static_cast<CRenderableObject*>(l_InstanceMesh) );
 
 	return static_cast<CRenderableObject*>(l_InstanceMesh);
+}
+
+CRenderableObject* CRenderableObjectsManager::AddAnimatedMeshInstance (const std::string &Name, const Vect3f &Position)
+{
+	CAnimatedInstanceModel* l_AnimatedInstanceModel = new CAnimatedInstanceModel();
+	l_AnimatedInstanceModel->SetPosition( Position );
+	
+	AddResource( Name, static_cast<CRenderableObject*>(l_AnimatedInstanceModel) );
+
+	return static_cast<CRenderableObject*>( l_AnimatedInstanceModel );
 }
 
 bool CRenderableObjectsManager::AddResource(const std::string &Name, CRenderableObject *RenderableObject)
@@ -121,6 +135,26 @@ void CRenderableObjectsManager::LoadFile()
 				l_InstanceMesh->SetRoll(l_Roll);
 
 				AddResource( l_Name, static_cast<CRenderableObject*>(l_InstanceMesh) );
+			}
+			else if( l_Type == "animated_model_instance" )
+			{
+				std::string l_Name = l_RObjects(i).GetPszProperty("name", "");
+				std::string l_Core = l_RObjects(i).GetPszProperty("core", "");
+				Vect3f l_Position = l_RObjects(i).GetVect3fProperty("position", Vect3f(0.0, 0.0, 0.0));
+				float l_Yaw = l_RObjects(i).GetFloatProperty("yaw", 0.0f);
+				float l_Pitch = l_RObjects(i).GetFloatProperty("pitch", 0.0f);
+				float l_Roll = l_RObjects(i).GetFloatProperty("roll", 0.0f);
+
+				CAnimatedInstanceModel* l_AnimatedInstance = CORE->GetAnimatedModelManager()->GetInstance(l_Core);
+				assert(l_AnimatedInstance!=NULL);
+
+				l_AnimatedInstance->SetName(l_Name);
+				l_AnimatedInstance->SetPosition(l_Position);
+				l_AnimatedInstance->SetYaw(l_Yaw);
+				l_AnimatedInstance->SetPitch(l_Pitch);
+				l_AnimatedInstance->SetRoll(l_Roll);
+
+				AddResource( l_Name, static_cast<CRenderableObject*>(l_AnimatedInstance) );
 			}
 		}
 	}

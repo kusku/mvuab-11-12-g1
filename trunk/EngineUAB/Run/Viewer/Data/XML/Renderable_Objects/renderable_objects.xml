@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<renderable_objects>
+	<mesh_instance name="Box" core="Box001" position="2.0 0.0 2.0" yaw="0.0" pitch="0.0" roll="0.0" />
+	<mesh_instance name="Box1" core="Box001" position="5.0 0.0 0.0" yaw="45.0" pitch="0.0" roll="0.0" />
+	<animated_model_instance name="heroine" core="heroine" position="0.0 0.0 0.0" yaw="-90.0" pitch="-90.0" roll="0.0" />
+</renderable_objects>
