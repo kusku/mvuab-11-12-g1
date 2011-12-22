@@ -8,9 +8,9 @@
 #include "Textures\TextureManager.h"
 #include "Logger\Logger.h"
 #include "Exceptions\Exception.h"
-#include "RenderableObjects\StaticMeshManager.h"
+#include "RenderableObjects\StaticMesh\StaticMeshManager.h"
 #include "RenderableObjects\RenderableObjectsManager.h"
-#include "Animation\AnimatedModelManager.h"
+#include "RenderableObjects\AnimatedModel\AnimatedModelManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"

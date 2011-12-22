@@ -11,9 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Animation\AnimatedCoreModel.h" />
-    <ClInclude Include="Animation\AnimatedInstanceModel.h" />
-    <ClInclude Include="Animation\AnimatedModelManager.h" />
     <ClInclude Include="Cameras\Camera.h" />
     <ClInclude Include="Cameras\FPSCamera.h" />
     <ClInclude Include="Cameras\Frustum.h" />
@@ -22,12 +19,20 @@
     <ClInclude Include="GraphicsDefs.h" />
     <ClInclude Include="InfoRender\DebugRender.h" />
     <ClInclude Include="InfoRender\LogRender.h" />
+    <ClInclude Include="Lights\DirectionalLight.h" />
+    <ClInclude Include="Lights\Light.h" />
+    <ClInclude Include="Lights\LightManager.h" />
+    <ClInclude Include="Lights\OmniLight.h" />
+    <ClInclude Include="Lights\SpotLight.h" />
     <ClInclude Include="Object3D.h" />
-    <ClInclude Include="RenderableObjects\InstanceMesh.h" />
+    <ClInclude Include="RenderableObjects\AnimatedModel\AnimatedCoreModel.h" />
+    <ClInclude Include="RenderableObjects\AnimatedModel\AnimatedInstanceModel.h" />
+    <ClInclude Include="RenderableObjects\AnimatedModel\AnimatedModelManager.h" />
     <ClInclude Include="RenderableObjects\RenderableObject.h" />
     <ClInclude Include="RenderableObjects\RenderableObjectsManager.h" />
-    <ClInclude Include="RenderableObjects\StaticMesh.h" />
-    <ClInclude Include="RenderableObjects\StaticMeshManager.h" />
+    <ClInclude Include="RenderableObjects\StaticMesh\InstanceMesh.h" />
+    <ClInclude Include="RenderableObjects\StaticMesh\StaticMesh.h" />
+    <ClInclude Include="RenderableObjects\StaticMesh\StaticMeshManager.h" />
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="Textures\Texture.h" />
     <ClInclude Include="Textures\TextureManager.h" />
@@ -36,9 +41,6 @@
     <ClInclude Include="Vertexs\VertexType.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Animation\AnimatedCoreModel.cpp" />
-    <ClCompile Include="Animation\AnimatedInstanceModel.cpp" />
-    <ClCompile Include="Animation\AnimatedModelManager.cpp" />
     <ClCompile Include="Cameras\Camera.cpp" />
     <ClCompile Include="Cameras\FPSCamera.cpp" />
     <ClCompile Include="Cameras\Frustum.cpp" />
@@ -46,12 +48,20 @@
     <ClCompile Include="Fonts\FontManager.cpp" />
     <ClCompile Include="InfoRender\DebugRender.cpp" />
     <ClCompile Include="InfoRender\LogRender.cpp" />
+    <ClCompile Include="Lights\DirectionalLight.cpp" />
+    <ClCompile Include="Lights\Light.cpp" />
+    <ClCompile Include="Lights\LightManager.cpp" />
+    <ClCompile Include="Lights\OmniLight.cpp" />
+    <ClCompile Include="Lights\SpotLight.cpp" />
     <ClCompile Include="Object3D.cpp" />
-    <ClCompile Include="RenderableObjects\InstanceMesh.cpp" />
+    <ClCompile Include="RenderableObjects\AnimatedModel\AnimatedCoreModel.cpp" />
+    <ClCompile Include="RenderableObjects\AnimatedModel\AnimatedInstanceModel.cpp" />
+    <ClCompile Include="RenderableObjects\AnimatedModel\AnimatedModelManager.cpp" />
     <ClCompile Include="RenderableObjects\RenderableObject.cpp" />
     <ClCompile Include="RenderableObjects\RenderableObjectsManager.cpp" />
-    <ClCompile Include="RenderableObjects\StaticMesh.cpp" />
-    <ClCompile Include="RenderableObjects\StaticMeshManager.cpp" />
+    <ClCompile Include="RenderableObjects\StaticMesh\InstanceMesh.cpp" />
+    <ClCompile Include="RenderableObjects\StaticMesh\StaticMesh.cpp" />
+    <ClCompile Include="RenderableObjects\StaticMesh\StaticMeshManager.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="Textures\Texture.cpp" />
     <ClCompile Include="Textures\TextureManager.cpp" />
