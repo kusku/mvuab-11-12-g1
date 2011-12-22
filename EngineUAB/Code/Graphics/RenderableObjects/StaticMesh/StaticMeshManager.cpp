@@ -1,5 +1,5 @@
 #include "StaticMeshManager.h"
-#include "xml/XMLTreeNode.h"
+#include "xml\XMLTreeNode.h"
 #include "Logger\Logger.h"
 #include "StaticMesh.h"
 

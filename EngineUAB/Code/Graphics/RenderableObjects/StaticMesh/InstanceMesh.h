@@ -1,3 +1,11 @@
+//----------------------------------------------------------------------------------
+// CInstanceMesh class
+// Author: Marc Cuscullola
+//
+// Description:
+// Crea una instancia de una core de un Static Mesh
+//----------------------------------------------------------------------------------
+
 #pragma once
 
 #ifndef _INSTANCEMESH_H
@@ -6,7 +14,7 @@
 class CStaticMesh;
 class CRenderManager;
 
-#include "RenderableObject.h"
+#include "RenderableObjects\RenderableObject.h"
 #include <string>
 
 class CInstanceMesh : public CRenderableObject

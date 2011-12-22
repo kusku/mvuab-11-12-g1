@@ -40,29 +40,44 @@
     <ClInclude Include="Vertexs\VertexType.h">
       <Filter>Vertexs</Filter>
     </ClInclude>
-    <ClInclude Include="RenderableObjects\StaticMesh.h">
-      <Filter>RenderableObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderableObjects\StaticMeshManager.h">
-      <Filter>RenderableObjects</Filter>
-    </ClInclude>
     <ClInclude Include="RenderableObjects\RenderableObjectsManager.h">
       <Filter>RenderableObjects</Filter>
     </ClInclude>
     <ClInclude Include="RenderableObjects\RenderableObject.h">
       <Filter>RenderableObjects</Filter>
     </ClInclude>
-    <ClInclude Include="RenderableObjects\InstanceMesh.h">
-      <Filter>RenderableObjects</Filter>
+    <ClInclude Include="RenderableObjects\StaticMesh\InstanceMesh.h">
+      <Filter>RenderableObjects\StaticMesh</Filter>
     </ClInclude>
-    <ClInclude Include="Animation\AnimatedCoreModel.h">
-      <Filter>Animation</Filter>
+    <ClInclude Include="RenderableObjects\StaticMesh\StaticMesh.h">
+      <Filter>RenderableObjects\StaticMesh</Filter>
     </ClInclude>
-    <ClInclude Include="Animation\AnimatedInstanceModel.h">
-      <Filter>Animation</Filter>
+    <ClInclude Include="RenderableObjects\StaticMesh\StaticMeshManager.h">
+      <Filter>RenderableObjects\StaticMesh</Filter>
     </ClInclude>
-    <ClInclude Include="Animation\AnimatedModelManager.h">
-      <Filter>Animation</Filter>
+    <ClInclude Include="RenderableObjects\AnimatedModel\AnimatedCoreModel.h">
+      <Filter>RenderableObjects\AnimatedModel</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderableObjects\AnimatedModel\AnimatedInstanceModel.h">
+      <Filter>RenderableObjects\AnimatedModel</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderableObjects\AnimatedModel\AnimatedModelManager.h">
+      <Filter>RenderableObjects\AnimatedModel</Filter>
+    </ClInclude>
+    <ClInclude Include="Lights\Light.h">
+      <Filter>Lights</Filter>
+    </ClInclude>
+    <ClInclude Include="Lights\LightManager.h">
+      <Filter>Lights</Filter>
+    </ClInclude>
+    <ClInclude Include="Lights\DirectionalLight.h">
+      <Filter>Lights\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Lights\SpotLight.h">
+      <Filter>Lights\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Lights\OmniLight.h">
+      <Filter>Lights\Types</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -95,29 +110,44 @@
     <ClCompile Include="Textures\TextureManager.cpp">
       <Filter>Textures</Filter>
     </ClCompile>
-    <ClCompile Include="RenderableObjects\StaticMesh.cpp">
-      <Filter>RenderableObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderableObjects\StaticMeshManager.cpp">
-      <Filter>RenderableObjects</Filter>
-    </ClCompile>
     <ClCompile Include="RenderableObjects\RenderableObjectsManager.cpp">
       <Filter>RenderableObjects</Filter>
     </ClCompile>
     <ClCompile Include="RenderableObjects\RenderableObject.cpp">
       <Filter>RenderableObjects</Filter>
     </ClCompile>
-    <ClCompile Include="RenderableObjects\InstanceMesh.cpp">
-      <Filter>RenderableObjects</Filter>
+    <ClCompile Include="RenderableObjects\StaticMesh\InstanceMesh.cpp">
+      <Filter>RenderableObjects\StaticMesh</Filter>
     </ClCompile>
-    <ClCompile Include="Animation\AnimatedCoreModel.cpp">
-      <Filter>Animation</Filter>
+    <ClCompile Include="RenderableObjects\StaticMesh\StaticMesh.cpp">
+      <Filter>RenderableObjects\StaticMesh</Filter>
     </ClCompile>
-    <ClCompile Include="Animation\AnimatedInstanceModel.cpp">
-      <Filter>Animation</Filter>
+    <ClCompile Include="RenderableObjects\StaticMesh\StaticMeshManager.cpp">
+      <Filter>RenderableObjects\StaticMesh</Filter>
     </ClCompile>
-    <ClCompile Include="Animation\AnimatedModelManager.cpp">
-      <Filter>Animation</Filter>
+    <ClCompile Include="RenderableObjects\AnimatedModel\AnimatedCoreModel.cpp">
+      <Filter>RenderableObjects\AnimatedModel</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderableObjects\AnimatedModel\AnimatedInstanceModel.cpp">
+      <Filter>RenderableObjects\AnimatedModel</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderableObjects\AnimatedModel\AnimatedModelManager.cpp">
+      <Filter>RenderableObjects\AnimatedModel</Filter>
+    </ClCompile>
+    <ClCompile Include="Lights\Light.cpp">
+      <Filter>Lights</Filter>
+    </ClCompile>
+    <ClCompile Include="Lights\LightManager.cpp">
+      <Filter>Lights</Filter>
+    </ClCompile>
+    <ClCompile Include="Lights\DirectionalLight.cpp">
+      <Filter>Lights\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Lights\OmniLight.cpp">
+      <Filter>Lights\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Lights\SpotLight.cpp">
+      <Filter>Lights\Types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -142,8 +172,17 @@
     <Filter Include="RenderableObjects">
       <UniqueIdentifier>{953ac630-bb8e-4c0a-a250-4a496d1c7c90}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Animation">
-      <UniqueIdentifier>{581215be-73ea-4cd9-8138-add612b68e8c}</UniqueIdentifier>
+    <Filter Include="RenderableObjects\StaticMesh">
+      <UniqueIdentifier>{8eda9e3a-9ca8-4add-9563-43ff6f60fcd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderableObjects\AnimatedModel">
+      <UniqueIdentifier>{ab9d2a38-24d8-4f9b-abff-e719982500af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lights">
+      <UniqueIdentifier>{535c7c38-e52b-40eb-be54-ccf3ea37e30c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lights\Types">
+      <UniqueIdentifier>{afca042c-6e36-4408-b1ef-a80bb32ce8e2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

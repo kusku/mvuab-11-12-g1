@@ -4,8 +4,8 @@
 #include "RenderManager.h"
 #include "Vertexs\RenderableVertexs.h"
 #include "Vertexs\IndexedVertexs.h"
-#include "Vertexs/VertexType.h"
-#include "Textures/Texture.h"
+#include "Vertexs\VertexType.h"
+#include "Textures\Texture.h"
 #include "Textures\TextureManager.h"
 #include "Math\Matrix44.h"
 #include "Base.h"
@@ -18,8 +18,6 @@
 CAnimatedInstanceModel::CAnimatedInstanceModel()
 	: m_CalModel(NULL)
 	, m_AnimatedCoreModel(NULL)
-	, m_pVB(NULL)
-	, m_pIB(NULL)
 	, m_NumVtxs(0)
 	, m_NumFaces(0)
 {
@@ -42,9 +40,6 @@ void CAnimatedInstanceModel::Destroy()
 
 	CHECKED_DELETE(m_AnimatedCoreModel);
 	CHECKED_DELETE(m_CalModel);
-
-	CHECKED_RELEASE(m_pVB);
-	CHECKED_RELEASE(m_pIB);
 }
 
 void CAnimatedInstanceModel::Initialize(CAnimatedCoreModel *AnimatedCoreModel)
@@ -68,12 +63,7 @@ void CAnimatedInstanceModel::Initialize(CAnimatedCoreModel *AnimatedCoreModel)
 		BlendCycle(0, 0.0f);
 	}
 
-	InitD3D(CORE->GetRenderManager());
-}
-
-void CAnimatedInstanceModel::InitD3D(CRenderManager *RM)
-{
-	LoadVertexBuffer(RM);
+	CalculateNumVtxsIdxs();
 	LoadTextures();
 }
 
@@ -107,18 +97,11 @@ void CAnimatedInstanceModel::Render(CRenderManager *RM)
 
 void CAnimatedInstanceModel::RenderModelBySoftware(CRenderManager *RM)
 {
-	uint32 l_VBCursor = 0;
-	uint32 l_IBCursor = 0;
-
 	LPDIRECT3DDEVICE9 Device = RM->GetDevice();
 	CalRenderer *l_CalRenderer;
 	l_CalRenderer = m_CalModel->getRenderer();
 
 	if(!l_CalRenderer->beginRendering()) return;
-
-	Device->SetStreamSource( 0, m_pVB, 0,  sizeof(TNORMALTEXTURE1_VERTEX) );
-	Device->SetFVF(TNORMALTEXTURE1_VERTEX::GetFVF());
-	Device->SetIndices(m_pIB);
 
 	uint16 meshCount = l_CalRenderer->getMeshCount();
 
@@ -148,31 +131,6 @@ void CAnimatedInstanceModel::RenderModelBySoftware(CRenderManager *RM)
 				CHECKED_DELETE(l_RV);
 				CHECKED_DELETE_ARRAY(l_Vtxs);
 				CHECKED_DELETE_ARRAY(l_Idxs);
-				/*TNORMALTEXTURE1_VERTEX *l_Vtxs;
-
-				m_pVB->Lock(l_VBCursor*sizeof(TNORMALTEXTURE1_VERTEX), l_CalRenderer->getVertexCount()*sizeof(TNORMALTEXTURE1_VERTEX), (void**)&l_Vtxs, D3DLOCK_NOOVERWRITE);
-				uint16 l_VtxCount = l_CalRenderer->getVerticesNormalsAndTexCoords(&l_Vtxs->x);
-				m_pVB->Unlock();
-
-				CalIndex *l_Idxs;
-
-				m_pIB->Lock(l_IBCursor*3*sizeof(CalIndex), l_CalRenderer->getFaceCount()*3* sizeof(CalIndex), (void**)&l_Idxs, D3DLOCK_NOOVERWRITE);
-				uint16 l_IdxCount = (uint16)l_CalRenderer->getFaces(l_Idxs);
-				m_pIB->Unlock();
-
-				Device->SetRenderState(D3DRS_CULLMODE,D3DCULL_NONE);
-
-				Device->DrawIndexedPrimitive(
-					D3DPT_TRIANGLELIST,
-					l_VBCursor,
-					0,
-					l_VtxCount,
-					l_IBCursor*3,
-					l_IdxCount
-				);
-
-				l_VBCursor+=l_VtxCount;
-				l_IBCursor+=l_IdxCount;*/
 			}
 		}
 	}
@@ -195,10 +153,8 @@ void CAnimatedInstanceModel::ClearCycle(float Time)
 	m_CalModel->getMixer()->clearCycle(0, Time);
 }
 
-bool CAnimatedInstanceModel::LoadVertexBuffer(CRenderManager *RM)
-{
-	LPDIRECT3DDEVICE9 Device = RM->GetDevice();
-	
+void CAnimatedInstanceModel::CalculateNumVtxsIdxs()
+{	
 	m_NumVtxs = 0;
 	m_NumFaces = 0;
 
@@ -220,29 +176,6 @@ bool CAnimatedInstanceModel::LoadVertexBuffer(CRenderManager *RM)
 	}
 
 	assert(m_NumVtxs > 0 && m_NumFaces > 0);
-	////Crea el Vertex Buffer e Index Buffer
-	//if(FAILED(Device->CreateVertexBuffer(m_NumVtxs*sizeof(TNORMALTEXTURE1_VERTEX), D3DUSAGE_WRITEONLY|D3DUSAGE_DYNAMIC, TNORMALTEXTURE1_VERTEX::GetFVF(), D3DPOOL_DEFAULT , &m_pVB, NULL )))
-	//{
-	//	return false;
-	//}
-
-	//// Create index buffer
-	//if(sizeof(CalIndex)==2)
-	//{
-	//	if(FAILED(Device->CreateIndexBuffer(m_NumFaces*3*sizeof(CalIndex), D3DUSAGE_WRITEONLY|D3DUSAGE_DYNAMIC,D3DFMT_INDEX16, D3DPOOL_DEFAULT ,&m_pIB, NULL)))
-	//	{
-	//		return false;
-	//	}
-	//}
-	//else
-	//{
-	//	if( FAILED(Device->CreateIndexBuffer(m_NumFaces*3*sizeof(CalIndex), D3DUSAGE_WRITEONLY|D3DUSAGE_DYNAMIC,D3DFMT_INDEX32, D3DPOOL_DEFAULT ,&m_pIB, NULL)))
-	//	{
-	//		return false;
-	//	}
-	//}
-
-	return true;
 }
 
 void CAnimatedInstanceModel::LoadTextures()

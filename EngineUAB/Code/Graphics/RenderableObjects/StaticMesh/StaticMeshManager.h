@@ -1,3 +1,10 @@
+//----------------------------------------------------------------------------------
+// CStaticMeshManager class
+// Author: Marc Cuscullola
+//
+// Description:
+// Gestiona y carga todos los Static Meshes
+//----------------------------------------------------------------------------------
 #pragma once
 
 #ifndef _STATICMESHMANAGER_H
