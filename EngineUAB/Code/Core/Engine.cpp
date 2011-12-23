@@ -224,6 +224,10 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 			{
 				m_Config.animated_models_path = l_ConfigNode(i).GetPszProperty( "animatedXML", "" );
 			}
+			else if( l_Name == "Lights" )
+			{
+				m_Config.lights_path = l_ConfigNode(i).GetPszProperty( "lightXML", "" );
+			}
 		}
 	}
 

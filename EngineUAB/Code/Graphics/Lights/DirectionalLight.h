@@ -24,6 +24,8 @@ public:
 	void				SetDirection		( const Vect3f &Direction ) { m_Direction = Direction; }
 	const Vect3f&		GetDirection		() const					{ return m_Direction; }
 
+	void			CalculateOrientationDebugRender		();
+
 protected:
 	Vect3f			m_Direction;
 };

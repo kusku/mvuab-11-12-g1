@@ -324,6 +324,58 @@ void CRenderManager::DrawSphere(float radius, uint32 edges, CColor color )
    }
 }
 
+void CRenderManager::DrawCone(float size, uint16 edges, CColor color)
+{
+	uint16 t = static_cast<uint16>(edges/2);
+	float radius = size/2;
+	float l_radiusRing=radius*sin(mathUtils::Deg2Rad<float>(180.0f*((float)t))/((float)edges));
+	for(int b=0;b<static_cast<int>(edges);++b)
+    {		   
+           Vect3f l_PosA(l_radiusRing*cos(mathUtils::Deg2Rad<float>((float)(360.0f*(float)b)/((float)edges))),radius*cos(mathUtils::Deg2Rad<float>(180.0f*((float)t))/((float)edges)),l_radiusRing*sin(mathUtils::Deg2Rad<float>((float)(360.0f*(float)b)/((float)edges))));
+           Vect3f l_PosB(l_radiusRing*cos(mathUtils::Deg2Rad<float>((float)(360.0f*(float)(b+1))/((float)edges))),radius*cos(mathUtils::Deg2Rad<float>(180.0f*((float)t))/((float)edges)),l_radiusRing*sin(mathUtils::Deg2Rad<float>((float)(360.0f*(float)(b+1))/((float)edges))));
+
+		   l_PosA.y += size;
+		   l_PosB.y += size;
+
+           DrawLine(l_PosA,l_PosB,color);
+	}
+
+	DrawLine( Vect3f(0.f, 0.f, 0.f), Vect3f(size/2.f, size, 0.f), color );
+	DrawLine( Vect3f(0.f, 0.f, 0.f), Vect3f(0.f, size, -size/2.f), color );
+	DrawLine( Vect3f(0.f, 0.f, 0.f), Vect3f(0.f, size, size/2.f), color );
+	DrawLine( Vect3f(0.f, 0.f, 0.f), Vect3f(-size/2.f, size, 0.f), color );
+}
+
+void CRenderManager::DrawTower(float size, CColor color)
+{
+	float l_Size = size/2.f;
+	DrawLine( Vect3f(l_Size, 0.f, l_Size), Vect3f(l_Size, 0.f, -l_Size), color );
+	DrawLine( Vect3f(l_Size, 0.f, -l_Size), Vect3f(-l_Size, 0.f, -l_Size), color );
+	DrawLine( Vect3f(-l_Size, 0.f, -l_Size), Vect3f(-l_Size, 0.f, l_Size), color );
+	DrawLine( Vect3f(-l_Size, 0.f, l_Size), Vect3f(l_Size, 0.f, l_Size), color );
+
+	float height = size*2.f;
+	DrawLine( Vect3f(l_Size, height, l_Size), Vect3f(l_Size, height, -l_Size), color );
+	DrawLine( Vect3f(l_Size, height, -l_Size), Vect3f(-l_Size, height, -l_Size), color );
+	DrawLine( Vect3f(-l_Size, height, -l_Size), Vect3f(-l_Size, height, l_Size), color );
+	DrawLine( Vect3f(-l_Size, height, l_Size), Vect3f(l_Size, height, l_Size), color );
+
+	DrawLine( Vect3f(l_Size, 0.f, l_Size), Vect3f(l_Size, height, l_Size), color );
+	DrawLine( Vect3f(l_Size, 0.f, -l_Size), Vect3f(l_Size, height, -l_Size), color );
+	DrawLine( Vect3f(-l_Size, 0.f, -l_Size), Vect3f(-l_Size, height, -l_Size), color );
+	DrawLine( Vect3f(-l_Size, 0.f, l_Size), Vect3f(-l_Size, height, l_Size), color );
+	
+	DrawLine( Vect3f(size, height, size), Vect3f(size, height, -size), color );
+	DrawLine( Vect3f(size, height, -size), Vect3f(-size, height, -size), color );
+	DrawLine( Vect3f(-size, height, -size), Vect3f(-size, height, size), color );
+	DrawLine( Vect3f(-size, height, size), Vect3f(size, height, size), color );
+
+	DrawLine( Vect3f(l_Size, height, l_Size), Vect3f(size, height, size), color );
+	DrawLine( Vect3f(l_Size, height, -l_Size), Vect3f(size, height, -size), color );
+	DrawLine( Vect3f(-l_Size, height, -l_Size), Vect3f(-size, height, -size), color );
+	DrawLine( Vect3f(-l_Size, height, l_Size), Vect3f(-size, height, size), color );
+}
+
 void CRenderManager::DrawQuad2D(const Vect2i& pos, uint32 w, uint32 h, ETypeAlignment alignment, CColor color)
 {
 	Vect2i finalPos = pos;

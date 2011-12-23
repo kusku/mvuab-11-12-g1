@@ -19,7 +19,7 @@ CInstanceMesh::CInstanceMesh(const std::string &Name, const std::string &CoreNam
 #if defined(_DEBUG)
 	if( m_StaticMesh == NULL )
 	{
-		LOGGER->AddNewLog(ELL_WARNING, "No se ha encontrado la instancia a la static mesh: %", CoreName.c_str() );
+		LOGGER->AddNewLog(ELL_WARNING, "No se ha encontrado la instancia a la static mesh: %s", CoreName.c_str() );
 	}
 #endif
 }

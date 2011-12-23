@@ -358,7 +358,7 @@ function ExportSelection selectedObjs outputDir subOutPutDir counterClockwise ex
 	
 		--Set Relative Path to Materials
 		t_mesh.SetCompleteAndRelativePathToMaterials sceneObjects.FilePath sceneObjects.RelativeFilePath
-
+		
 		if extractMesh == true then
 		(
 			--Extract Object information

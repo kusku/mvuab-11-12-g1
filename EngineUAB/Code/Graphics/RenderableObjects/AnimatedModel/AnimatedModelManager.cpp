@@ -10,11 +10,13 @@
 
 CAnimatedModelManager::CAnimatedModelManager()
 {
+	CalLoader::setLoadingMode(LOADER_ROTATE_X_AXIS);
 }
 
 
 CAnimatedModelManager::~CAnimatedModelManager()
 {
+	Destroy();
 }
 
 void CAnimatedModelManager::Load(const std::string &Filename)

@@ -11,6 +11,7 @@
 #include "RenderableObjects\StaticMesh\StaticMeshManager.h"
 #include "RenderableObjects\RenderableObjectsManager.h"
 #include "RenderableObjects\AnimatedModel\AnimatedModelManager.h"
+#include "Lights\LightManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -26,6 +27,7 @@ CCore::CCore()
 	, m_pStaticMeshManager(NULL)
 	, m_pRenderableObjectsManager(NULL)
 	, m_pAnimatedModelManager(NULL)
+	, m_pLightManager(NULL)
 	, m_bIsOk(false)
 {
 }
@@ -46,6 +48,7 @@ void CCore::Release()
 	CHECKED_DELETE(m_pStaticMeshManager);
 	CHECKED_DELETE(m_pRenderableObjectsManager);
 	CHECKED_DELETE(m_pAnimatedModelManager);
+	CHECKED_DELETE(m_pLightManager);
 }
 
 void CCore::Done()
@@ -106,6 +109,9 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 
 			m_pRenderableObjectsManager = new CRenderableObjectsManager();
 			m_pRenderableObjectsManager->Load( config.renderable_objects_path );
+
+			m_pLightManager = new CLightManager();
+			m_pLightManager->Load( config.lights_path );
 		}
 	}
 

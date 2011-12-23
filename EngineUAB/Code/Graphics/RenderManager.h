@@ -43,6 +43,8 @@ public:
 	void	DrawGrid		( float sizeW, float sizeH, uint16 lines, CColor color = colWHITE  );
 	void	DrawCube		( const Vect3f &dimensions, CColor color = colWHITE );
 	void	DrawSphere		( float radius, uint32 edges, CColor color = colWHITE );
+	void	DrawCone		( float size, uint16 edges, CColor color = colWHITE );
+	void	DrawTower		( float size, CColor color = colWHITE );
 	void	DrawRectangle2D ( const Vect2i& pos, uint32 w, uint32 h, CColor& backGroundColor, uint32 edge_w, uint32 edge_h, CColor& edgeColor );
 
 	// Set & Get Methods

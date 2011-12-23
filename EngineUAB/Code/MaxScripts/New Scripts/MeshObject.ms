@@ -280,28 +280,31 @@ struct VIBuffers
 		--Initialize Vertex with default options
 		VertexType = (bit.or VERTEX_TYPE_GEOMETRY VERTEX_TYPE_NORMAL)
 		
-		if objMaterial.diffuseMapEnable == true AND classOf(objMaterial.diffuseMap) == BitmapTexture then
+		if obkMaterial != undefined then
 		(
-			MeshMaterial = CreateMaterialObjectStruct()
-			
-			VertexType = (bit.or VertexType VERTEX_TYPE_TEXTURE1)
-			MeshMaterial.Texture1 = (openBitMap objMaterial.diffuseMap.bitmap.filename).fileName
-		
-			if objMaterial.selfIllumMapEnable == true AND classOf(objMaterial.selfIllumMap) == BitmapTexture then
-			(		
-				VertexType = (bit.or VertexType VERTEX_TYPE_TEXTURE2)
-				MeshMaterial.Texture2 = (openBitMap objMaterial.selfIllumMap.bitmap.filename).fileName
-			)
-			
-			if objMaterial.bumpMapEnable == true AND classOf(objMaterial.bumpMap) == BitmapTexture then
+			if objMaterial.diffuseMapEnable == true AND classOf(objMaterial.diffuseMap) == BitmapTexture then
 			(
-				VertexType = (bit.or VertexType (bit.or VERTEX_TYPE_BINORMAL VERTEX_TYPE_TANGENT) )
-				MeshMaterial.Bump = (openBitMap objMaterial.bumpMap.bitmap.filename).fileName
+				MeshMaterial = CreateMaterialObjectStruct()
+				
+				VertexType = (bit.or VertexType VERTEX_TYPE_TEXTURE1)
+				MeshMaterial.Texture1 = (openBitMap objMaterial.diffuseMap.bitmap.filename).fileName
+			
+				if objMaterial.selfIllumMapEnable == true AND classOf(objMaterial.selfIllumMap) == BitmapTexture then
+				(		
+					VertexType = (bit.or VertexType VERTEX_TYPE_TEXTURE2)
+					MeshMaterial.Texture2 = (openBitMap objMaterial.selfIllumMap.bitmap.filename).fileName
+				)
+				
+				if objMaterial.bumpMapEnable == true AND classOf(objMaterial.bumpMap) == BitmapTexture then
+				(
+					VertexType = (bit.or VertexType (bit.or VERTEX_TYPE_BINORMAL VERTEX_TYPE_TANGENT) )
+					MeshMaterial.Bump = (openBitMap objMaterial.bumpMap.bitmap.filename).fileName
+				)
 			)
-		)
-		else
-		(
-			VertexType = (bit.or VertexType VERTEX_TYPE_DIFFUSE)
+			else
+			(
+				VertexType = (bit.or VertexType VERTEX_TYPE_DIFFUSE)
+			)
 		)
 	),
 	
@@ -709,6 +712,8 @@ struct SceneObj
 	function SetFilePaths =
 	(
 		FilePath = (OutPutDir + SubLevelPath)
+		makeDir FilePath
+		
 		RelativeFilePath = (".\\" + SubLevelPath)
 	),
 	
@@ -750,7 +755,6 @@ struct SceneObj
 	function CreateRenderObjectXML =
 	(
 		local stFile = FilePath + "\\renderable_objects.xml"
-		
 		local file = createfile stFile
 
 		format "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n" to:file

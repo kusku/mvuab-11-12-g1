@@ -31,6 +31,8 @@ struct SConfig
 	std::string static_meshes_path;
 	std::string renderable_objects_path;
 	std::string animated_models_path;
+
+	std::string lights_path;
 };
 
 #endif
