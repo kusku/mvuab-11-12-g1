@@ -36,7 +36,7 @@ utility UABUtility "UABUtility" width:160 height:296
 		local out_name=GetSaveFileName filename:(GetMeshesPathExport()+$.name+".m3d") caption:"Select output file to export file" types:" m3d(*.m3d)|*.m3d|All Files(*.*)|*.*|"
 		if out_name != undefined then
 		(
-			ExportMesh $ out_name
+			ExportMesh $ out_name LevelComboBox.items[LevelComboBox.selection]
 			messageBox "Mesh exported correctly." title:"INFORMATION"
 		)
 	)

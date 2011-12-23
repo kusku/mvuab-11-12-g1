@@ -357,7 +357,7 @@ void CStaticMesh::Render(CRenderManager *RM) const
 		uint16 l_NumTexs = static_cast<uint16>(m_Textures[i].size());
 		for( uint16 j=0; j < l_NumTexs; ++j)
 		{
-			m_Textures[i][j]->Activate(0);
+			m_Textures[i][j]->Activate(j);
 		}
 		m_RVs[i]->Render(RM);
 	}
