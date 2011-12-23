@@ -29,3 +29,8 @@ function DotNetAddVtx Vtxs VtxsDotNet Vtx =
 	
 	return l_Idx
 )
+
+function RHTranslationToLH translation =
+(
+	return point3 translation.x translation.z translation.y
+)

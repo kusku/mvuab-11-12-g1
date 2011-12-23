@@ -233,11 +233,6 @@ function SearchMaxBox VtxModel VtxBox =
 	)
 )
 
-function RHTranslationToLH translation =
-(
-	return point3 translation.x translation.z translation.y
-)
-
 function CalculateRadiusSphere Vtxs Center =
 (
 	local Radius = 0

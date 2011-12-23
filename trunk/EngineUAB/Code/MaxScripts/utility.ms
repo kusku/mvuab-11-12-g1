@@ -1,5 +1,6 @@
 fileIn "exportSimpleMesh.ms"
 fileIn "exportStaticMeshManager.ms"
+fileIn "ExportLights.ms"
 
 utility UABUtility "UABUtility" width:160 height:296
 (
@@ -22,9 +23,6 @@ utility UABUtility "UABUtility" width:160 height:296
 		return PathLabel.text + "\\"
 	)
 	
-	
-	
-	
 	on PathButton pressed do
 	(
 		local data_path = getSavePath caption:"Data Path" initialDir:PathLabel.text
@@ -42,6 +40,17 @@ utility UABUtility "UABUtility" width:160 height:296
 			messageBox "Mesh exported correctly." title:"INFORMATION"
 		)
 	)
+	
+	on LightsButton pressed do
+	(
+		local out_name=GetSaveFileName filename:(GetMeshesPathExport()+"lights.xml") caption:"Select output file to export file" types:" xml(*.xml)|*.xml|All Files(*.*)|*.*|"
+		if out_name != undefined then
+		(
+			ExportLights $* out_name true
+			messageBox "Lights exported correctly." title:"INFORMATION"
+		)
+	)
+	
 	on StaticMeshButton pressed do
 	(
 		local XMLPath = (GetMeshesPathExport() + "Data\\XML\\Static_Meshes\\")
