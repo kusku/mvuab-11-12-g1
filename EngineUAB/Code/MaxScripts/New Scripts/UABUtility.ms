@@ -1,18 +1,19 @@
 fileIn "ExportMesh.ms"
+fileIn "ExportLights.ms"
 
-utility UABUtility "UAB Utility" width:178 height:385
+utility UABUtility "UAB Utility" width:165 height:364
 (
-	label lPath "C:\Users\Marc\Desktop\Proves" pos:[1,40] width:193 height:56
-	button bSetPath "Set Path" pos:[69,11] width:60 height:25
-	checkbox cbExportMesh "Export Mesh" pos:[9,265] width:80 height:15 checked:true
-	checkbox cbCopyTextures "CopyTextures" pos:[9,282] width:100 height:15 checked:true
-	dropdownList ddLocation "Sub Level:" pos:[6,113] width:159 height:40 items:#("General", "Chapter1", "Chapter2", "Chapter3") selection:1
-	GroupBox gbExportmesh "Export Mesh Options" pos:[3,220] width:160 height:145
-	button bMeshExport "Export" pos:[78,334] width:50 height:25
-	checkbox cbCounterClockwise "Counter Clockwise" pos:[10,248] width:125 height:15 checked:true
-	radiobuttons rdoExport "Export Objects" pos:[5,157] width:67 height:62 labels:#("Selection", "Scene", "Lights") default:1 columns:1
-	checkbox cbCreateStaticMesh "Create Static Mesh" pos:[11,299] width:126 height:15 checked:true
-	checkbox cbPrintDebugInfo "Print Debug Info" pos:[9,316] width:126 height:15 checked:false
+	label lPath "C:\Users\Marc\Desktop\Proves" pos:[3,36] width:157 height:69
+	button bSetPath "Set Path" pos:[6,6] width:148 height:25
+	checkbox cbExportMesh "Export Mesh" pos:[10,254] width:80 height:15 checked:true
+	checkbox cbCopyTextures "CopyTextures" pos:[10,271] width:100 height:15 checked:true
+	dropdownList ddLocation "" pos:[6,113] width:152 height:21 items:#("General", "Chapter1", "Chapter2", "Chapter3") selection:1
+	GroupBox gbExportmesh "Export Mesh Options" pos:[4,218] width:151 height:136
+	button bMeshExport "Export" pos:[9,323] width:137 height:25
+	checkbox cbCounterClockwise "Counter Clockwise" pos:[11,237] width:125 height:15 checked:true
+	radiobuttons rdoExport "Export Objects" pos:[10,141] width:67 height:62 labels:#("Selection", "Scene", "Lights") default:1 columns:1
+	checkbox cbCreateStaticMesh "Create Static Mesh" pos:[12,288] width:126 height:15 checked:true
+	checkbox cbPrintDebugInfo "Print Debug Info" pos:[10,305] width:126 height:15 checked:false
 
 	----------------------------------------------------------------------------------------
 	
@@ -31,6 +32,7 @@ utility UABUtility "UAB Utility" width:178 height:385
 	)
 	
 	
+	
 	on bSetPath pressed do
 	(
 		local data_path = getSavePath caption:"Data Path" initialDir=lPath.text
@@ -40,17 +42,30 @@ utility UABUtility "UAB Utility" width:178 height:385
 			lPath.text = data_path
 		)
 	)
-	
 	on bMeshExport pressed do
 	(
 		local filepath = GetPathDirectory()
 		local subOutPutDir = GetSubPathDirectory()
-		format "%\n" rdoExport.state
-		if rdoExport.state == 2 then 
-		(
-			select $*
-		)
 		
-		ExportSelection $ filepath subOutPutDir cbCounterClockwise.checked cbExportMesh.checked cbCopyTextures.checked cbCreateStaticMesh.checked cbPrintDebugInfo.checked
+		if rdoExport.state == 3 then
+		(
+			--Export Lights
+			local l_Path = filepath + "XML\\" + subOutPutDir + "Lights\\"
+			makeDir l_Path
+			
+			ExportLights $* l_Path false
+			messageBox "Lights exported correctly."
+		)
+		else
+		(
+			if rdoExport.state == 2 then 
+			(
+				--Select all the objects to export all the scene
+				select $*
+			)
+			
+			--Export the selected objects
+			ExportSelection $ filepath subOutPutDir cbCounterClockwise.checked cbExportMesh.checked cbCopyTextures.checked cbCreateStaticMesh.checked cbPrintDebugInfo.checked
+		)
 	)
 )

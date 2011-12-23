@@ -280,7 +280,7 @@ struct VIBuffers
 		--Initialize Vertex with default options
 		VertexType = (bit.or VERTEX_TYPE_GEOMETRY VERTEX_TYPE_NORMAL)
 		
-		if obkMaterial != undefined then
+		if objMaterial != undefined then
 		(
 			if objMaterial.diffuseMapEnable == true AND classOf(objMaterial.diffuseMap) == BitmapTexture then
 			(

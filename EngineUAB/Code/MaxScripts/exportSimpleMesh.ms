@@ -55,6 +55,7 @@ function CreateMesh Obj Vtxs Idxs MinBox MaxBox=
 			l_MaterialID = 1
 			l_Material = Obj.material
 		)
+		
 		local l_VtxType = GetVertexType l_Material
 		
 		if(bit.and l_VtxType VERTEX_TYPE_TEXTURE1)==VERTEX_TYPE_TEXTURE1 then
@@ -270,24 +271,27 @@ function GetVertexType mat =
 (
 	local l_VertexType = bit.or VERTEX_TYPE_GEOMETRY VERTEX_TYPE_NORMAL
 	
-	if mat.diffuseMapEnable and (classof mat.diffuseMap)==Bitmaptexture then
+	if mat != undefined then
 	(
-		l_VertexType = bit.or l_VertexType VERTEX_TYPE_TEXTURE1
-		
-		if mat.selfIllumMapEnable and (classof mat.selfIllumMap)==Bitmaptexture then
+		if mat.diffuseMapEnable and (classof mat.diffuseMap)==Bitmaptexture then
 		(
-			l_VertexType = bit.or l_VertexType VERTEX_TYPE_TEXTURE2
+			l_VertexType = bit.or l_VertexType VERTEX_TYPE_TEXTURE1
+			
+			if mat.selfIllumMapEnable and (classof mat.selfIllumMap)==Bitmaptexture then
+			(
+				l_VertexType = bit.or l_VertexType VERTEX_TYPE_TEXTURE2
+			)
+			
+			if mat.bumpMapEnable and (classof mat.bumpMap)==Bitmaptexture  then
+			(
+				l_VertexType = bit.or l_VertexType VERTEX_TYPE_TANGENT
+				l_VertexType = bit.or l_VertexType VERTEX_TYPE_BINORMAL
+			)
 		)
-		
-		if mat.bumpMapEnable and (classof mat.bumpMap)==Bitmaptexture  then
-		(
-			l_VertexType = bit.or l_VertexType VERTEX_TYPE_TANGENT
-			l_VertexType = bit.or l_VertexType VERTEX_TYPE_BINORMAL
+		else
+		(	
+			l_VertexType = bit.or l_VertexType VERTEX_TYPE_DIFFUSE
 		)
-	)
-	else
-	(	
-		l_VertexType = bit.or l_VertexType VERTEX_TYPE_DIFFUSE
 	)
 	
 	return l_VertexType
@@ -363,6 +367,7 @@ function WriteToFile Filename Level Vtxs Idxs VertexType Mat MinBox MaxBox Cente
 		
 		for m = 1 to Mat.numsubs do
 		(
+			format "it: % mat: % diffuse: %\n" i Mat Mat.diffuseMapEnable
 			local VtxType = GetVertexType Mat[m]
 			WriteMaterialToFile file Level Mat[m] VtxType
 			
