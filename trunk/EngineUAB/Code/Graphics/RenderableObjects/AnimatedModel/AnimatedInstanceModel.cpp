@@ -38,7 +38,6 @@ void CAnimatedInstanceModel::Destroy()
 	}
 	m_TextureVector.clear();
 
-	CHECKED_DELETE(m_AnimatedCoreModel);
 	CHECKED_DELETE(m_CalModel);
 }
 

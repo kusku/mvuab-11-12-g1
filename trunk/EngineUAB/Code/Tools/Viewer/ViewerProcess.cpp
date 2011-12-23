@@ -10,6 +10,7 @@
 #include "Math\Matrix44.h"
 #include "Cameras\Camera.h"
 #include "RenderableObjects\RenderableObjectsManager.h"
+#include "Lights\LightManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -87,5 +88,7 @@ void CViewerProcess::Render(CRenderManager *RM)
 
 	m_Player.Render(RM);
 
+
 	CORE->GetRenderableObjectsManager()->Render(RM);
+	CORE->GetLightManager()->Render(RM);
 }

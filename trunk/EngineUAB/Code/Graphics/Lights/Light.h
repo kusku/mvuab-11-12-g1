@@ -17,7 +17,7 @@ class CRenderManager;
 #include "Math\Color.h"
 #include <string>
 
-class CLight : public CObject3D, CNamed
+class CLight : public CObject3D, public CNamed
 {
 public:
 	enum TLightType
@@ -31,17 +31,19 @@ public:
 	CLight();
 	virtual ~CLight();
 
-	virtual void	Render				( CRenderManager *RM );
+	virtual void	Render				( CRenderManager *RM ) = 0;
 	bool			RenderShadows		() const;
 
 	void				SetColor						( const CColor &color )					{ m_Color = color; }
 	void				SetStartRangeAttenuation		( const float StartRangeAttenuation )	{ m_StartRangeAttenuation = StartRangeAttenuation; }
 	void				SetEndRangeAttenuation			( const float EndRangeAttenuation )		{ m_EndRangeAttenuation = EndRangeAttenuation; }
+	void				SetRenderShadows				( const bool shadows )					{ m_RenderShadows = shadows; }
 	void				SetType							( const TLightType Type )				{ m_Type = Type; }
 
 	const CColor&		GetColor					() const		{ return m_Color; }
 	float				GetStartRangeAttenuation	() const		{ return m_StartRangeAttenuation; }
 	float				GetEndRangeAttenuation		() const		{ return m_EndRangeAttenuation; }
+	bool				GetRenderShadows			() const		{ return m_RenderShadows; }
 	TLightType			GetType						() const		{ return m_Type; }
 
 protected:

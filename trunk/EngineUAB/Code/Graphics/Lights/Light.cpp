@@ -1,5 +1,8 @@
 #include "Light.h"
 
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
 
 CLight::CLight()
 	: m_Color(colWHITE)

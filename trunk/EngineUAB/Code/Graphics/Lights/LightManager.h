@@ -15,6 +15,7 @@ class CRenderManager;
 #include "Utils\MapManager.h"
 #include "Light.h"
 #include <string>
+#include <vector>
 
 class CLightManager : public CMapManager<CLight>
 {
@@ -24,6 +25,9 @@ public:
 
 	bool		Load		( const std::string &Filename );
 	void		Render		( CRenderManager *RM );
+
+protected:
+	std::vector<std::string>		m_LightsNameVector;
 };
 
 #endif
