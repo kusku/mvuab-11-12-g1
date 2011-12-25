@@ -19,6 +19,8 @@ rollout UABSetProperties "UABSetProperties" width:262 height:323
 	button GetButton "Get" pos:[11,292] width:83 height:24
 	button SetButton "Set" pos:[170,292] width:83 height:24
 	
+	local m_ObjSelected = undefined
+	
 	function ResetProps =
 	(
 		ExportRenderCB.checked = false
@@ -101,6 +103,8 @@ rollout UABSetProperties "UABSetProperties" width:262 height:323
 		)
 		else
 		(
+			m_ObjSelected = $
+			
 			local l_ExportRender = getUserProp $ "render_export"
 			local l_VisibleRender = getUserProp $ "render_visible"
 			local l_LayerRender = getUserProp $ "render_layer"
@@ -211,7 +215,18 @@ rollout UABSetProperties "UABSetProperties" width:262 height:323
 		)
 		else
 		(
-			SaveObjectProps $
+			if m_ObjSelected == $ then
+			(
+				SaveObjectProps $
+			)
+			else 
+			(
+				local l_Option  = queryBox "El objeto seleccionado no es el mismo del que se obtenieron las propiedades.\n ¿Asignar las propiedades al objeto?"
+				if l_Option then
+				(
+					SaveObjectProps $
+				)
+			)
 		)
 	)
 )
