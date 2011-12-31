@@ -201,4 +201,22 @@ struct TNORMALTEXTURE2_VERTEX
 	}
 };
 
+struct TNORMALBINORMAL_VERTEX
+{
+	float x, y, z;
+	float nx, ny, nz;
+	float tu, tv;
+	//float 
+		
+	static inline unsigned short GetVertexType()
+	{
+		return VERTEX_TYPE_GEOMETRY|VERTEX_TYPE_NORMAL|VERTEX_TYPE_TEXTURE1;
+	}
+
+	static inline unsigned int GetFVF()
+	{
+		return D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX1;
+	}
+
+};
 #endif

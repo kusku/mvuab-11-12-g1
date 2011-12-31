@@ -207,6 +207,18 @@ CRenderableVertexs* CStaticMesh::ReadCreateVertexBuffer(FILE* modelFile, uint16 
 
 		ret = idxVtx;
 	}
+	else if(vertexType == (VERTEX_TYPE_GEOMETRY|VERTEX_TYPE_NORMAL|VERTEX_TYPE_TANGENT|VERTEX_TYPE_BINORMAL|VERTEX_TYPE_TEXTURE1) )
+	{
+		//Create Vertex Buffer
+		vtxBuffer = LoadCreateVertexBuffer<TNORMALBINORMAL_VERTEX>(modelFile, numVertex);
+		
+		//Create CIndexVertexs
+		CIndexedVertexs<TNORMALBINORMAL_VERTEX>* idxVtx = 
+			new CIndexedVertexs<TNORMALBINORMAL_VERTEX>(CORE->GetRenderManager(), vtxBuffer, idxBuffer, numVertex, numIndex);
+
+		ret = idxVtx;
+	}
+	//TODO: Falta más casos para que lea binormales
 	
 	CHECKED_DELETE(idxBuffer);
 	CHECKED_DELETE(vtxBuffer);
