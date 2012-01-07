@@ -752,7 +752,7 @@ struct SceneObj
 		close file
 	),
 	
-	function CreateRenderObjectXML =
+	function CreateRenderObjectXML selectedObjs =
 	(
 		local stFile = FilePath + "\\renderable_objects.xml"
 		local file = createfile stFile
@@ -762,17 +762,40 @@ struct SceneObj
 		
 		for i = 1 to MeshObjs.count do
 		(
-			local pos =  stringstream ""
-			format "% % %" MeshObjs[i].Translation.x MeshObjs[i].Translation.y MeshObjs[i].Translation.z to:pos
-			
-			local coreName = MeshObjs[i].InstanceName
-			
-			if MeshObjs[i].IsInstance == false then
+			if selectedObjs != $selection then
 			(
-				coreName = MeshObjs[i].MeshName
+				local l_ExportRender = getUserProp selectedObjs "render_export"
+				local l_Visible = getUserProp selectedObjs "render_visible"
+				local l_AnimCoreModel = getUserProp selectedObjs "anim_model_core"
 			)
-		
-			format "\t<mesh_instance name=\"%\" core=\"%\" position=\"%\" yaw=\"%\" pitch=\"%\" roll=\"%\" />\n" MeshObjs[i].MeshName coreName (pos as string) MeshObjs[i].YawAngle MeshObjs[i].PitchAngle MeshObjs[i].RollAngle to:file
+			else
+			(
+				local l_ExportRender = getUserProp selectedObjs[i] "render_export"
+				local l_Visible = getUserProp selectedObjs[i] "render_visible"
+				local l_AnimCoreModel = getUserProp selectecObjs[i] "anim_model_core"
+			)
+			
+			if l_ExportRender != undefined and l_Visible == true then
+			(
+				local pos =  stringstream ""
+				format "% % %" MeshObjs[i].Translation.x MeshObjs[i].Translation.y MeshObjs[i].Translation.z to:pos
+				
+				local coreName = MeshObjs[i].InstanceName
+				
+				if MeshObjs[i].IsInstance == false then
+				(
+					coreName = MeshObjs[i].MeshName
+				)
+				
+				if l_ExportRender == "static_mesh" then
+				(
+					format "\t<mesh_instance name=\"%\" core=\"%\" position=\"%\" yaw=\"%\" pitch=\"%\" roll=\"%\" />\n" MeshObjs[i].MeshName coreName (pos as string) MeshObjs[i].YawAngle MeshObjs[i].PitchAngle MeshObjs[i].RollAngle to:file
+				)
+				else
+				(
+					format "\t<animated_model name=\"%\" core=\"%\" position=\"%\" yaw=\"%\" pitch=\"%\" roll=\"%\" />\n" MeshObjs[i].MeshName l_AnimCoreModel (pos as string) MeshObjs[i].YawAngle MeshObjs[i].PitchAngle MeshObjs[i].RollAngle to:file
+				)
+			)
 		)
 		
 		format "</renderable_objects>\n" to:file
