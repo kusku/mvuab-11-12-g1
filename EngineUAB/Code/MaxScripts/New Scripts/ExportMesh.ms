@@ -405,7 +405,7 @@ function ExportSelection selectedObjs outputDir subOutPutDir counterClockwise ex
 	if extractMesh == true then 
 	(
 		sceneObjects.WriteToFile()
-		sceneObjects.CreateRenderObjectXML()
+		sceneObjects.CreateRenderObjectXML selectedObjs
 	)
 	
 	if copyTexture == true then 

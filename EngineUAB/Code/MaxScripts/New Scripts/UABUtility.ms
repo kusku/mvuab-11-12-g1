@@ -1,5 +1,6 @@
 fileIn "ExportMesh.ms"
 fileIn "ExportLights.ms"
+fileIn "UABRolloutProperties.ms"
 
 utility UABUtility "UAB Utility" width:165 height:364
 (
@@ -14,6 +15,7 @@ utility UABUtility "UAB Utility" width:165 height:364
 	radiobuttons rdoExport "Export Objects" pos:[10,141] width:67 height:62 labels:#("Selection", "Scene", "Lights") default:1 columns:1
 	checkbox cbCreateStaticMesh "Create Static Mesh" pos:[12,288] width:126 height:15 checked:true
 	checkbox cbPrintDebugInfo "Print Debug Info" pos:[10,305] width:126 height:15 checked:false
+	button bProperties "Properties" pos:[86,169] width:72 height:20
 
 	----------------------------------------------------------------------------------------
 	
@@ -32,6 +34,10 @@ utility UABUtility "UAB Utility" width:165 height:364
 	)
 	
 	
+	on bProperties pressed do
+	(
+		createDialog UABSetProperties
+	)
 	
 	on bSetPath pressed do
 	(
