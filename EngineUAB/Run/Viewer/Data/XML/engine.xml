@@ -15,5 +15,5 @@
 	<Meshes meshesXML="./Data/XML/Static_Meshes/static_meshes.xml" />
 	<RenderableObjects objectsXML="./Data/XML/Renderable_Objects/renderable_objects.xml" />
 	<AnimatedModels animatedXML="./Data/XML/Animated_Models/animated_models.xml" />
-	<Lights lightXML="./Data/XML/Lights/lights2.xml" />
+	<Lights lightXML="./Data/XML/Lights/lights.xml" />
 </Config>
