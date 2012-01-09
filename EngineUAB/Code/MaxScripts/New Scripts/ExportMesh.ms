@@ -327,6 +327,11 @@ function ExportSelection selectedObjs outputDir subOutPutDir counterClockwise ex
 		--Add Boc Attributes 
 		t_mesh.BocMeshAttributes = obj.baseobject.custAttributes["BocAttribute"]
 		
+		--Add User Define Properties
+		t_mesh.RenderExport = getUserProp obj "render_export"
+		t_mesh.RenderVisible = getUserProp obj "render_visible"
+		t_mesh.AnimModelCore = getUserProp obj "anim_model_core"
+		
 		--Set Filename
 		t_mesh.SetFileNameMesh sceneObjects.FilePath sceneObjects.RelativeFilePath
 		
@@ -405,7 +410,7 @@ function ExportSelection selectedObjs outputDir subOutPutDir counterClockwise ex
 	if extractMesh == true then 
 	(
 		sceneObjects.WriteToFile()
-		sceneObjects.CreateRenderObjectXML selectedObjs
+		sceneObjects.CreateRenderObjectXML()
 	)
 	
 	if copyTexture == true then 

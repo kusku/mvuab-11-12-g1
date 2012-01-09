@@ -525,6 +525,9 @@ struct MeshObj
 	IsInstance,
 	InstanceName,
 	RelativeMeshFileName,
+	RenderExport,
+	RenderVisible,
+	AnimModelCore,
 	
 	function GetMeshBuffer MatID =
 	(
@@ -667,6 +670,10 @@ struct MeshObj
 				format "Boc Attributes: User File Name: % \n" BocMeshAttributes.UserFileName
 			)
 			
+			format "User Property RenderExport: % \n" RenderExport
+			format "User Property RenderVisible: % \n" RenderVisible
+			format "User Property AnimModelCore: % \n" AnimModelCore
+			
 			format "Mesh Target Directory: % \n" MeshPath
 			format "Mesh Relative Filename: % \n" RelativeMeshFileName
 			format "Mesh output Filename: % \n"  MeshFileName
@@ -752,7 +759,7 @@ struct SceneObj
 		close file
 	),
 	
-	function CreateRenderObjectXML selectedObjs =
+	function CreateRenderObjectXML =
 	(
 		local stFile = FilePath + "\\renderable_objects.xml"
 		local file = createfile stFile
@@ -761,21 +768,8 @@ struct SceneObj
 		format "<renderable_objects>\n" to:file
 		
 		for i = 1 to MeshObjs.count do
-		(
-			if selectedObjs != $selection then
-			(
-				local l_ExportRender = getUserProp selectedObjs "render_export"
-				local l_Visible = getUserProp selectedObjs "render_visible"
-				local l_AnimCoreModel = getUserProp selectedObjs "anim_model_core"
-			)
-			else
-			(
-				local l_ExportRender = getUserProp selectedObjs[i] "render_export"
-				local l_Visible = getUserProp selectedObjs[i] "render_visible"
-				local l_AnimCoreModel = getUserProp selectecObjs[i] "anim_model_core"
-			)
-			
-			if l_ExportRender != undefined and l_Visible == true then
+		(			
+			if MeshObjs[i].RenderExport != undefined and MeshObjs[i].RenderVisible == true then
 			(
 				local pos =  stringstream ""
 				format "% % %" MeshObjs[i].Translation.x MeshObjs[i].Translation.y MeshObjs[i].Translation.z to:pos
@@ -787,13 +781,13 @@ struct SceneObj
 					coreName = MeshObjs[i].MeshName
 				)
 				
-				if l_ExportRender == "static_mesh" then
+				if MeshObjs[i].RenderExport == "static_mesh" then
 				(
 					format "\t<mesh_instance name=\"%\" core=\"%\" position=\"%\" yaw=\"%\" pitch=\"%\" roll=\"%\" />\n" MeshObjs[i].MeshName coreName (pos as string) MeshObjs[i].YawAngle MeshObjs[i].PitchAngle MeshObjs[i].RollAngle to:file
 				)
 				else
 				(
-					format "\t<animated_model name=\"%\" core=\"%\" position=\"%\" yaw=\"%\" pitch=\"%\" roll=\"%\" />\n" MeshObjs[i].MeshName l_AnimCoreModel (pos as string) MeshObjs[i].YawAngle MeshObjs[i].PitchAngle MeshObjs[i].RollAngle to:file
+					format "\t<animated_model name=\"%\" core=\"%\" position=\"%\" yaw=\"%\" pitch=\"%\" roll=\"%\" />\n" MeshObjs[i].MeshName MeshObjs[i].AnimCoreModel (pos as string) MeshObjs[i].YawAngle MeshObjs[i].PitchAngle MeshObjs[i].RollAngle to:file
 				)
 			)
 		)
@@ -865,7 +859,7 @@ function CreateVertex pos nrm tex tex2 diffCol VertexType =
 
 function CreateMeshStruct =
 (
-	local meshObject = MeshObj  MeshPath:"" MeshName:"" MeshBuffers:#() BBox:0 BSphere:0 BocMeshAttributes:0 MeshFileName:"" YawAngle:0 PitchAngle:0 RollAngle:0 Translation:0 IsInstance:False InstanceName:"" RelativeMeshFileName:""
+	local meshObject = MeshObj  MeshPath:"" MeshName:"" MeshBuffers:#() BBox:0 BSphere:0 BocMeshAttributes:0 MeshFileName:"" YawAngle:0 PitchAngle:0 RollAngle:0 Translation:0 IsInstance:False InstanceName:"" RelativeMeshFileName:"" RenderExport:"" RenderVisible:"" AnimModelCore:""
 
 	return meshObject
 )
