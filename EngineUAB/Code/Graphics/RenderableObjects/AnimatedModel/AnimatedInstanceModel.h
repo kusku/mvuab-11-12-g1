@@ -17,9 +17,11 @@ class CAnimatedCoreModel;
 
 #include "cal3d\cal3d.h"
 #include "Utils\BaseUtils.h"
-#include "RenderableObjects/RenderableObject.h"
-#include <vector>
 
+#include "RenderableObjects/RenderableObject.h"
+
+#include <vector>
+#include <d3dx9.h>
 class CAnimatedInstanceModel : public CRenderableObject
 {
 public:
@@ -40,13 +42,16 @@ public:
 	void		ClearCycle			( float Time );
 	
 private:
-	void			CalculateNumVtxsIdxs	();
+	bool			CalculateNumVtxsIdxs	( CRenderManager *RM );
 	void			LoadTextures			();
 
 
 	CalModel*								m_CalModel;
 	CAnimatedCoreModel*						m_AnimatedCoreModel;
 	std::vector<CTexture*>					m_TextureVector;
+
+	LPDIRECT3DVERTEXBUFFER9				m_pVB;
+	LPDIRECT3DINDEXBUFFER9				m_pIB;
 
 	uint32						m_NumVtxs;
 	uint32						m_NumFaces;

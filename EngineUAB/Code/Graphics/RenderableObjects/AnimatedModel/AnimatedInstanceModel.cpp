@@ -20,6 +20,9 @@ CAnimatedInstanceModel::CAnimatedInstanceModel()
 	, m_AnimatedCoreModel(NULL)
 	, m_NumVtxs(0)
 	, m_NumFaces(0)
+	, m_pVB(NULL)
+    , m_pIB(NULL)
+
 {
 }
 
@@ -39,6 +42,10 @@ void CAnimatedInstanceModel::Destroy()
 	m_TextureVector.clear();
 
 	CHECKED_DELETE(m_CalModel);
+	
+    CHECKED_RELEASE(m_pVB);
+    CHECKED_RELEASE(m_pIB);
+
 }
 
 void CAnimatedInstanceModel::Initialize(CAnimatedCoreModel *AnimatedCoreModel)
@@ -62,7 +69,7 @@ void CAnimatedInstanceModel::Initialize(CAnimatedCoreModel *AnimatedCoreModel)
 		BlendCycle(0, 0.0f);
 	}
 
-	CalculateNumVtxsIdxs();
+	CalculateNumVtxsIdxs(CORE->GetRenderManager());
 	LoadTextures();
 }
 
@@ -77,7 +84,7 @@ void CAnimatedInstanceModel::Render(CRenderManager *RM)
 	Mat44f mat, rotYaw, rotPitch, rotRoll;
 
 	mat.SetIdentity();
-	rotYaw.SetIdentity();
+	/*rotYaw.SetIdentity();
 	rotPitch.SetIdentity();
 	rotRoll.SetIdentity();
 
@@ -87,7 +94,7 @@ void CAnimatedInstanceModel::Render(CRenderManager *RM)
 	rotYaw.SetRotByAngleY( mathUtils::Deg2Rad<float>(GetYaw()) );
 	rotRoll.SetRotByAngleZ( mathUtils::Deg2Rad<float>(GetRoll()) );
 		
-	mat = mat * rotYaw * rotPitch * rotRoll;
+	mat = mat * rotYaw * rotPitch * rotRoll;*/
 		
 	RM->SetTransform(mat);
 
@@ -96,45 +103,87 @@ void CAnimatedInstanceModel::Render(CRenderManager *RM)
 
 void CAnimatedInstanceModel::RenderModelBySoftware(CRenderManager *RM)
 {
+	// get the renderer of the model
+	uint32	l_VBCursor;
+	uint32	l_IBCursor;
+	CalRenderer *l_pCalRenderer;
+	l_pCalRenderer = m_CalModel->getRenderer();
+
 	LPDIRECT3DDEVICE9 Device = RM->GetDevice();
-	CalRenderer *l_CalRenderer;
-	l_CalRenderer = m_CalModel->getRenderer();
 
-	if(!l_CalRenderer->beginRendering()) return;
+	// begin the rendering loop
+	if(!l_pCalRenderer->beginRendering()) return;
 
-	uint16 meshCount = l_CalRenderer->getMeshCount();
+	l_VBCursor=0;
+	l_IBCursor=0;
 
-	for(uint16 meshId = 0; meshId < meshCount; ++meshId)
+	DWORD l_dwVBLockFlags=D3DLOCK_NOOVERWRITE;
+	DWORD l_dwIBLockFlags=D3DLOCK_NOOVERWRITE;
+	
+	Device->SetStreamSource( 0, m_pVB, 0,  sizeof(TNORMALTEXTURE1_VERTEX) );
+	Device->SetFVF(TNORMALTEXTURE1_VERTEX::GetFVF());
+	Device->SetIndices(m_pIB);
+	      
+	// get the number of meshes
+	uint32 l_MeshCount;
+	l_MeshCount=l_pCalRenderer->getMeshCount();
+
+	// render all meshes of the model
+	uint32 l_MeshId;
+	for(l_MeshId=0;l_MeshId<l_MeshCount; ++l_MeshId)
 	{
+		// get the number of submeshes
+		uint32 l_SubmeshCount;
+		l_SubmeshCount=l_pCalRenderer->getSubmeshCount(l_MeshId);
+
+		m_TextureVector[l_MeshId]->Activate(0);
+
 		// render all submeshes of the mesh
-		uint16 submeshCount = l_CalRenderer->getSubmeshCount(meshId);
-		for(uint16 submeshId = 0; submeshId < submeshCount; ++submeshId)
+		uint32 l_SubmeshId;
+		for(l_SubmeshId = 0; l_SubmeshId < l_SubmeshCount; ++l_SubmeshId)
 		{
-			m_TextureVector[meshId]->Activate(0);
-
-			 // select mesh and submesh for further data access
-			if(l_CalRenderer->selectMeshSubmesh(meshId, submeshId))
+			// select mesh and submesh for further data access
+			if(l_pCalRenderer->selectMeshSubmesh(l_MeshId, l_SubmeshId))
 			{
-				uint16 l_VtxCount = l_CalRenderer->getVertexCount();
-				uint16 l_IdxCount = l_CalRenderer->getFaceCount()*3;
+				// Get vertexbuffer from the model
+				TNORMALTEXTURE1_VERTEX *l_pVertices;
 
-				TNORMALTEXTURE1_VERTEX* l_Vtxs = new TNORMALTEXTURE1_VERTEX[l_VtxCount];
-				CalIndex *l_Idxs = new CalIndex[l_IdxCount];
+				m_pVB->Lock(l_VBCursor*sizeof(TNORMALTEXTURE1_VERTEX), l_pCalRenderer->getVertexCount()*sizeof(TNORMALTEXTURE1_VERTEX), (void**)&l_pVertices, l_dwVBLockFlags);
 
-				l_CalRenderer->getVerticesNormalsAndTexCoords(&l_Vtxs->x);
-				l_CalRenderer->getFaces(l_Idxs);
+				uint32 l_VertexCount = l_pCalRenderer->getVerticesNormalsAndTexCoords(&l_pVertices->x);
+				m_pVB->Unlock();
+			  
+				CalIndex *l_MeshFaces;
+				uint32 l_FaceCount;
 
-				CRenderableVertexs* l_RV = new CIndexedVertexs<TNORMALTEXTURE1_VERTEX>(RM, l_Vtxs, l_Idxs, l_VtxCount, l_IdxCount);
-				l_RV->Render(RM);
+				m_pIB->Lock(l_IBCursor* 3*sizeof(CalIndex), l_pCalRenderer->getFaceCount()*3* sizeof(CalIndex), (void**)&l_MeshFaces,l_dwIBLockFlags);
 
-				CHECKED_DELETE(l_RV);
-				CHECKED_DELETE_ARRAY(l_Vtxs);
-				CHECKED_DELETE_ARRAY(l_Idxs);
+				l_FaceCount = l_pCalRenderer->getFaces(l_MeshFaces);
+				m_pIB->Unlock();
+
+
+				Device->SetRenderState(D3DRS_CULLMODE,D3DCULL_NONE);
+	          
+				Device->DrawIndexedPrimitive(
+					D3DPT_TRIANGLELIST,
+					l_VBCursor,
+					0,
+					l_VertexCount,
+					l_IBCursor*3,
+					l_FaceCount
+					);
+
+				l_VBCursor+=l_VertexCount;
+				l_IBCursor+=l_FaceCount;
+
+				l_dwIBLockFlags=D3DLOCK_NOOVERWRITE;
+				l_dwVBLockFlags=D3DLOCK_NOOVERWRITE;
+
 			}
 		}
 	}
-
-	l_CalRenderer->endRendering();
+	// end the rendering
+	l_pCalRenderer->endRendering();
 }
 
 void CAnimatedInstanceModel::ExecuteAction(uint32 Id, float Time)
@@ -152,7 +201,7 @@ void CAnimatedInstanceModel::ClearCycle(float Time)
 	m_CalModel->getMixer()->clearCycle(0, Time);
 }
 
-void CAnimatedInstanceModel::CalculateNumVtxsIdxs()
+bool CAnimatedInstanceModel::CalculateNumVtxsIdxs(CRenderManager *RM)
 {	
 	m_NumVtxs = 0;
 	m_NumFaces = 0;
@@ -175,6 +224,33 @@ void CAnimatedInstanceModel::CalculateNumVtxsIdxs()
 	}
 
 	assert(m_NumVtxs > 0 && m_NumFaces > 0);
+
+	LPDIRECT3DDEVICE9 Device = RM->GetDevice();
+
+	// Create vertex buffer
+	if(FAILED(Device->CreateVertexBuffer(m_NumVtxs*sizeof(TNORMALTEXTURE1_VERTEX),
+		D3DUSAGE_WRITEONLY|D3DUSAGE_DYNAMIC, TNORMALTEXTURE1_VERTEX::GetFVF(), 
+		D3DPOOL_DEFAULT , &m_pVB, NULL
+		)))
+		return false;
+
+	// Create index buffer
+	if(sizeof(CalIndex)==2)
+	{
+		if(FAILED(Device->CreateIndexBuffer(m_NumFaces*3*sizeof(CalIndex),
+				D3DUSAGE_WRITEONLY|D3DUSAGE_DYNAMIC,D3DFMT_INDEX16,
+				D3DPOOL_DEFAULT ,&m_pIB, NULL)))
+				return false;
+	}
+	else
+	{
+		if(FAILED(Device->CreateIndexBuffer(m_NumFaces*3*sizeof(CalIndex),
+				D3DUSAGE_WRITEONLY|D3DUSAGE_DYNAMIC,D3DFMT_INDEX32,
+				D3DPOOL_DEFAULT ,&m_pIB, NULL)))
+				return false;
+	}
+
+	return true;
 }
 
 void CAnimatedInstanceModel::LoadTextures()
