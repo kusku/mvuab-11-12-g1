@@ -79,6 +79,18 @@
     <ClInclude Include="Lights\OmniLight.h">
       <Filter>Lights\Types</Filter>
     </ClInclude>
+    <ClInclude Include="Effects\Effect.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects\EffectManager.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects\EffectTechnique.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects\EffectDefs.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
@@ -149,6 +161,15 @@
     <ClCompile Include="Lights\SpotLight.cpp">
       <Filter>Lights\Types</Filter>
     </ClCompile>
+    <ClCompile Include="Effects\Effect.cpp">
+      <Filter>Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Effects\EffectManager.cpp">
+      <Filter>Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Effects\EffectTechnique.cpp">
+      <Filter>Effects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Cameras">
@@ -183,6 +204,9 @@
     </Filter>
     <Filter Include="Lights\Types">
       <UniqueIdentifier>{afca042c-6e36-4408-b1ef-a80bb32ce8e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effects">
+      <UniqueIdentifier>{1b6390e5-2790-4393-81e7-f66928b76d7b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
