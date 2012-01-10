@@ -15,6 +15,10 @@
     <ClInclude Include="Cameras\FPSCamera.h" />
     <ClInclude Include="Cameras\Frustum.h" />
     <ClInclude Include="Cameras\ThPSCamera.h" />
+    <ClInclude Include="Effects\Effect.h" />
+    <ClInclude Include="Effects\EffectDefs.h" />
+    <ClInclude Include="Effects\EffectManager.h" />
+    <ClInclude Include="Effects\EffectTechnique.h" />
     <ClInclude Include="Fonts\FontManager.h" />
     <ClInclude Include="GraphicsDefs.h" />
     <ClInclude Include="InfoRender\DebugRender.h" />
@@ -45,6 +49,9 @@
     <ClCompile Include="Cameras\FPSCamera.cpp" />
     <ClCompile Include="Cameras\Frustum.cpp" />
     <ClCompile Include="Cameras\ThPSCamera.cpp" />
+    <ClCompile Include="Effects\Effect.cpp" />
+    <ClCompile Include="Effects\EffectManager.cpp" />
+    <ClCompile Include="Effects\EffectTechnique.cpp" />
     <ClCompile Include="Fonts\FontManager.cpp" />
     <ClCompile Include="InfoRender\DebugRender.cpp" />
     <ClCompile Include="InfoRender\LogRender.cpp" />
