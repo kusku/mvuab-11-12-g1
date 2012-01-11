@@ -17,7 +17,7 @@ function RoundDownFloat num =
 	
 	return floor(((pow 10 decimalPlaces) *  num))/(pow 10 decimalPlaces)
 )
-
+/**/
 function RoundUpFloat num =
 (
 	local decimalPlaces = 4
