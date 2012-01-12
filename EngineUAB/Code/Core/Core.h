@@ -13,6 +13,7 @@ class CStaticMeshManager;
 class CRenderableObjectsManager;
 class CAnimatedModelManager;
 class CLightManager;
+class CEffectManager;
 
 #include <Windows.h>
 #include "Utils\Singleton.h"
@@ -47,6 +48,7 @@ public:
 	CRenderableObjectsManager*		GetRenderableObjectsManager() const	{ return m_pRenderableObjectsManager; }
 	CAnimatedModelManager*			GetAnimatedModelManager() const		{ return m_pAnimatedModelManager; }
 	CLightManager*					GetLightManager() const				{ return m_pLightManager; }
+	CEffectManager*					GetEffectManager() const			{ return m_pEffectManager; }
 
 private:
 	void Release();
@@ -63,6 +65,7 @@ private:
 	CRenderableObjectsManager	*m_pRenderableObjectsManager;
 	CAnimatedModelManager		*m_pAnimatedModelManager;
 	CLightManager				*m_pLightManager;
+	CEffectManager				*m_pEffectManager;
 };
 
 #endif

@@ -12,6 +12,7 @@
 #include "RenderableObjects\RenderableObjectsManager.h"
 #include "RenderableObjects\AnimatedModel\AnimatedModelManager.h"
 #include "Lights\LightManager.h"
+#include "Effects\EffectManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -49,6 +50,7 @@ void CCore::Release()
 	CHECKED_DELETE(m_pRenderableObjectsManager);
 	CHECKED_DELETE(m_pAnimatedModelManager);
 	CHECKED_DELETE(m_pLightManager);
+	CHECKED_DELETE(m_pEffectManager);
 }
 
 void CCore::Done()
@@ -112,6 +114,9 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 
 			m_pLightManager = new CLightManager();
 			m_pLightManager->Load( config.lights_path );
+
+			m_pEffectManager = new CEffectManager();
+			m_pEffectManager->Load( config.effects_path );
 		}
 	}
 

@@ -53,8 +53,10 @@ public:
 	void			SetCameraEye					( const Vect3f &Eye )		{ m_CameraEye = Eye; }
 
 private:
-	typedef std::map<int, std::string>		TDefaultTechniqueEffectMap;
+	typedef std::map<uint16, std::string>		TDefaultTechniqueEffectMap;
 	TDefaultTechniqueEffectMap				m_DefaultTechniqueEffectMap;
+
+	std::string								m_Filename;
 
 	Mat44f									m_WorldMatrix, m_ProjectionMatrix, m_ViewMatrix, m_ViewProjectionMatrix;
 	Mat44f									m_LightViewMatrix, m_ShadowProjectionMatrix;

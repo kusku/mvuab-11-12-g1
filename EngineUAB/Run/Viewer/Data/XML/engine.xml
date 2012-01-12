@@ -16,4 +16,5 @@
 	<RenderableObjects objectsXML="./Data/XML/Renderable_Objects/renderable_objects.xml" />
 	<AnimatedModels animatedXML="./Data/XML/Animated_Models/animated_models.xml" />
 	<Lights lightXML="./Data/XML/Lights/lights.xml" />
+	<Effects effectsXML="./Data/XML/Effects/effects.xml" />
 </Config>
