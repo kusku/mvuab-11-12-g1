@@ -137,3 +137,8 @@ void CLightManager::Render(CRenderManager *RM)
 		l_Light->Render(RM);
 	}
 }
+
+const std::string& CLightManager::GetLightNameByIndex(uint16 index)
+{
+	return m_LightsNameVector[index];
+}

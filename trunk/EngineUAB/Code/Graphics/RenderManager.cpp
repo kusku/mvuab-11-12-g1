@@ -1,8 +1,10 @@
 #include "RenderManager.h"
 #include "Cameras\Camera.h"
+#include "Effects\EffectManager.h"
 #include "Logger\Logger.h"
 #include "Exceptions\Exception.h"
 #include "Base.h"
+#include "Core.h"
 #include "Math\Vector3.h"
 #include "Math\MathUtils.h"
 #include <assert.h>
@@ -241,6 +243,9 @@ void CRenderManager::SetupMatrices(CCamera* camera)
     m_Frustum.Update( m_matView * m_matProject );
     m_pD3DDevice->SetTransform( D3DTS_VIEW, &m_matView );
     m_pD3DDevice->SetTransform( D3DTS_PROJECTION, &m_matProject );
+
+	CORE->GetEffectManager()->SetViewMatrix(m_matView);
+	CORE->GetEffectManager()->SetProjectionMatrix(m_matProject);
 }
 
 void CRenderManager::DrawLine( const Vect3f &PosA, const Vect3f &PosB, CColor Color)
@@ -484,5 +489,6 @@ void CRenderManager::SetTransform( const Mat44f &mat)
 					mat.m02, mat.m12, mat.m22, mat.m32,
 					mat.m03, mat.m13, mat.m23, mat.m33 );
 
+	CORE->GetEffectManager()->SetWorldMatrix(aux);
 	m_pD3DDevice->SetTransform(D3DTS_WORLD, &aux);
 }

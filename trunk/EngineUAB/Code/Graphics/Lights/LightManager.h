@@ -26,6 +26,7 @@ public:
 	bool		Load		( const std::string &Filename );
 	void		Render		( CRenderManager *RM );
 
+	const std::string&		GetLightNameByIndex		( uint16 index );
 protected:
 	std::vector<std::string>		m_LightsNameVector;
 };

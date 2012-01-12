@@ -3,6 +3,8 @@
 #ifndef _EFFECT_H
 #define _EFFECT_H
 
+class CXMLTreeNode;
+
 #include "EffectDefs.h"
 #include "Math\Vector3.h"
 #include <string>
@@ -11,10 +13,11 @@
 class CEffect
 {
 public:
-	CEffect();
+	CEffect( CXMLTreeNode *XMLNode );
 	virtual ~CEffect();
 
 	bool		SetLights		( size_t NumOfLights );
+	bool		Load			();
 	bool		Load			( const std::string &Filename );
 	bool		Reload			();
 
@@ -22,12 +25,36 @@ public:
 	LPD3DXEFFECT	GetD3DEffect			() const		{ return m_Effect; }
 	D3DXHANDLE		GetTechniqueByName		( const std::string &TechniqueName );
 
+	//Get Methods
+	const std::string&	GetEffectName		() const		{ return m_EffectName; }
+
+	D3DXHANDLE		GetWorldMatrix						() const		{ return m_WorldMatrixParameter; }
+	D3DXHANDLE		GetViewMatrix						() const		{ return m_ViewMatrixParameter; }
+	D3DXHANDLE		GetProjectionMatrix					() const		{ return m_ProjectionMatrixParameter; }
+	D3DXHANDLE		GetWorldViewMatrix					() const		{ return m_WorldViewMatrixParameter; }
+	D3DXHANDLE		GetViewProjectionMatrix				() const		{ return m_ViewProjectionMatrixParameter; }
+	D3DXHANDLE		GetWorldViewProjectionMatrix		() const		{ return m_WorldViewProjectionMatrixParameter; }
+	D3DXHANDLE		GetViewToLightProjectionMatrix		() const		{ return m_ViewToLightProjectionMatrixParameter; }
+	D3DXHANDLE		GetLightEnabledMatrix				() const		{ return m_LightEnabledParameter; }
+	D3DXHANDLE		GetLightsTypeMatrix					() const		{ return m_LightsTypeParameter; }
+	D3DXHANDLE		GetLightsPositionMatrix				() const		{ return m_LightsPositionParameter; }
+	D3DXHANDLE		GetLightsDirectionMatrix			() const		{ return m_LightsDirectionParameter; }
+	D3DXHANDLE		GetLightsAngleMatrix				() const		{ return m_LightsAngleParameter; }
+	D3DXHANDLE		GetLightsColorMatrix				() const		{ return m_LightsColorParameter; }
+	D3DXHANDLE		GetLightsFallOffMatrix				() const		{ return m_LightsFallOffParameter; }
+	D3DXHANDLE		GetLightStartRangeMatrix			() const		{ return m_LightsStartRangeAttenuationParameter; }
+	D3DXHANDLE		GetLightEndRangeMatrix				() const		{ return m_LightsEndRangeAttenuationParameter; }
+	D3DXHANDLE		GetCameraPositionMatrix				() const		{ return m_CameraPositionParameter; }
+	D3DXHANDLE		GetBonesMatrix						() const		{ return m_BonesParameter; }
+	D3DXHANDLE		GetTimeMatrix						() const		{ return m_TimeParameter; }
+
 private:
 	void		SetNullParameters			();
 	void		GetParameterBySemantic		( const std::string &SemanticName, D3DXHANDLE &l_Handle );
 	bool		LoadEffect					();
 	void		Unload						();
 
+	std::string		m_EffectName;
 	std::string		m_FileName;
 	LPD3DXEFFECT	m_Effect;
 

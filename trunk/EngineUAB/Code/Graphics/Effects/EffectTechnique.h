@@ -4,6 +4,7 @@
 #define _EFFECTTECHNIQUE_H
 
 class CEffect;
+class CXMLTreeNode;
 
 #include "Utils\Types.h"
 #include <string>
@@ -12,35 +13,17 @@ class CEffect;
 class CEffectTechnique
 {
 public:
-	CEffectTechnique();
+	CEffectTechnique( CXMLTreeNode *XMLNode );
 	virtual ~CEffectTechnique();
 
 	bool	BeginRender();
 	bool	Refresh();
 
 	inline CEffect*		GetEffect() const		{ return m_Effect; }
+	const std::string&		GetTechniqueName		() const		{ return m_TechniqueName; }
 	
 	//DirectX Methods Interface
 	D3DXHANDLE		GetD3DTechnique() const		{ return m_D3DTechnique; }
-
-	//Set & Get Methods
-	void		SetUseCameraPosition				( bool cameraPosition )			{ m_UseCameraPosition = cameraPosition; }
-	void		SetUseInversProjMatrix				( bool useMatrix )				{ m_UseInverseProjMatrix = useMatrix; }
-	void		SetUseInversViewMatrix				( bool useMatrix )				{ m_UseInverseViewMatrix = useMatrix; }
-	void		SetUseInversWorldMatrix				( bool useMatrix )				{ m_UseInverseWorldMatrix = useMatrix; }
-	void		SetUseProjMatrix					( bool useMatrix )				{ m_UseProjMatrix = useMatrix; }
-	void		SetUseViewMatrix					( bool useMatrix )				{ m_UseViewMatrix = useMatrix; }
-	void		SetUseWorldMatrix					( bool useMatrix )				{ m_UseWorldMatrix = useMatrix; }
-	void		SetUseWorldViewMatrix				( bool useMatrix )				{ m_UseWorldViewMatrix = useMatrix; }
-	void		SetUseWorldViewProjectionMatrix		( bool useMatrix )				{ m_UseWorldViewProjectionMatrix = useMatrix; }
-	void		SetUseViewProjectionMatrix			( bool useMatrix )				{ m_UseViewProjectionMatrix = useMatrix; }
-	void		SetUseViewToLightProjectionMatrix	( bool useMatrix )				{ m_UseViewToLightProjectionMatrix = useMatrix; }
-	void		SetUseLights						( bool useLights )				{ m_UseLights = useLights; }
-	void		SetUseLightAmbientColor				( bool useLight )				{ m_UseLightAmbientColor = useLight; }
-	void		SetNumOfLights						( uint32 numOfLights )			{ m_NumOfLights = numOfLights; }
-	void		SetTechniqueName					( const std::string &Name )		{ m_TechniqueName = Name; }
-	void		SetEffect							( CEffect *effect )				{ m_Effect = effect; }
-	void		SetD3DTechnique						( D3DXHANDLE d3dTechnique )		{ m_D3DTechnique = d3dTechnique; }
 
 private:
 	bool	m_UseCameraPosition;

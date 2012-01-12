@@ -228,6 +228,10 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 			{
 				m_Config.lights_path = l_ConfigNode(i).GetPszProperty( "lightXML", "" );
 			}
+			else if( l_Name == "Effects" )
+			{
+				m_Config.effects_path = l_ConfigNode(i).GetPszProperty( "effectsXML", "" );
+			}
 		}
 	}
 

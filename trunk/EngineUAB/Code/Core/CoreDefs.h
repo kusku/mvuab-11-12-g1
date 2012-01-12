@@ -33,6 +33,7 @@ struct SConfig
 	std::string animated_models_path;
 
 	std::string lights_path;
+	std::string effects_path;
 };
 
 #endif
