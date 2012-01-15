@@ -43,17 +43,80 @@ CEffectTechnique::~CEffectTechnique()
 bool CEffectTechnique::BeginRender()
 {
 	LPD3DXEFFECT l_Effect = m_Effect->GetD3DEffect();
-	l_Effect->SetBool( m_Effect->GetWorldMatrix(), m_UseWorldMatrix );
-	l_Effect->SetBool( m_Effect->GetViewMatrix(), m_UseViewMatrix );
-	l_Effect->SetBool( m_Effect->GetProjectionMatrix(), m_UseProjMatrix );
-	l_Effect->SetBool( m_Effect->GetWorldViewMatrix(), m_UseWorldViewMatrix );
-	l_Effect->SetBool( m_Effect->GetViewProjectionMatrix(), m_UseViewProjectionMatrix );
-	l_Effect->SetBool( m_Effect->GetWorldViewProjectionMatrix(), m_UseWorldViewProjectionMatrix );
-	l_Effect->SetBool( m_Effect->GetViewToLightProjectionMatrix(), m_UseViewToLightProjectionMatrix );
-	l_Effect->SetBool( m_Effect->GetCameraPositionMatrix(), m_UseCameraPosition );
-	l_Effect->SetBool( m_Effect->GetLightEnabledMatrix(), m_UseLights );
-	l_Effect->SetBool( m_Effect->GetLightsColorMatrix(), m_UseLightAmbientColor );
-	l_Effect->SetBool( m_Effect->GetTimeMatrix(), m_UseTime );
+	CEffectManager *l_EffectManager = CORE->GetEffectManager();
+	if( m_UseWorldMatrix )
+	{
+		l_Effect->SetMatrix( m_Effect->GetWorldMatrix(), &l_EffectManager->GetWorldMatrix().GetD3DXMatrix() );
+	}
+
+	if( m_UseViewMatrix )
+	{
+		l_Effect->SetMatrix( m_Effect->GetViewMatrix(), &l_EffectManager->GetViewMatrix().GetD3DXMatrix() );
+	}
+
+	if( m_UseProjMatrix )
+	{
+		l_Effect->SetMatrix( m_Effect->GetProjectionMatrix(), &l_EffectManager->GetProjectionMatrix().GetD3DXMatrix() );
+	}
+
+	if( m_UseWorldViewMatrix )
+	{
+		Mat44f l_WorldMatrix = l_EffectManager->GetWorldMatrix();
+		Mat44f l_ViewMatrix = l_EffectManager->GetViewMatrix();
+		l_WorldMatrix = l_WorldMatrix * l_ViewMatrix;
+
+		l_Effect->SetMatrix( m_Effect->GetWorldViewMatrix(), &l_WorldMatrix.GetD3DXMatrix() );
+
+	}
+
+	if( m_UseViewProjectionMatrix )
+	{
+		l_Effect->SetMatrix( m_Effect->GetViewProjectionMatrix(), &l_EffectManager->GetViewProjectionMatrix().GetD3DXMatrix() );
+	}
+
+	if( m_UseWorldViewProjectionMatrix )
+	{
+		Mat44f l_ViewProjMatrix = l_EffectManager->GetViewProjectionMatrix();
+		Mat44f l_WorldMatrix = l_EffectManager->GetWorldMatrix();
+		l_WorldMatrix = l_WorldMatrix * l_ViewProjMatrix;
+
+		l_Effect->SetMatrix( m_Effect->GetWorldViewProjectionMatrix(), &l_WorldMatrix.GetD3DXMatrix() );
+	}
+
+	if( m_UseViewToLightProjectionMatrix )
+	{
+		Mat44f l_LightViewMatrix = l_EffectManager->GetLightViewMatrix();
+		Mat44f l_ProjMatrix = l_EffectManager->GetProjectionMatrix();
+		l_LightViewMatrix = l_LightViewMatrix * l_ProjMatrix;
+
+		l_Effect->SetMatrix( m_Effect->GetViewToLightProjectionMatrix(), &l_LightViewMatrix.GetD3DXMatrix() );
+	}
+
+	if( m_UseCameraPosition )
+	{
+		Vect3f l_CameraEye = l_EffectManager->GetCameraEye();
+		float l_Camera[3];
+		l_Camera[0] = l_CameraEye.x;
+		l_Camera[1] = l_CameraEye.y;
+		l_Camera[2] = l_CameraEye.z;
+
+		l_Effect->SetFloatArray( m_Effect->GetCameraPositionMatrix(), l_Camera, 3);
+	}
+
+	if( m_UseLights )
+	{
+		//TODO: ¿Que se la pasa aquí?
+	}
+
+	if( m_UseLightAmbientColor )
+	{
+		//TODO: ¿Que se la pasa aquí?
+	}
+
+	if( m_UseTime )
+	{
+		//TODO: ¿Que se la pasa aquí?
+	}
 
 	return true;
 }

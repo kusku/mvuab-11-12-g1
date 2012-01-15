@@ -10,6 +10,8 @@
 #ifndef _DIRECTIONALLIGHT_H
 #define _DIRECTIONALLIGHT_H
 
+class CXMLTreeNode;
+
 #include "Light.h"
 #include "Math\Vector3.h"
 
@@ -17,6 +19,7 @@ class CDirectionalLight : public CLight
 {
 public:
 	CDirectionalLight();
+	CDirectionalLight( CXMLTreeNode *XMLNode );
 	virtual ~CDirectionalLight();
 
 	virtual void		Render				( CRenderManager* RM );
