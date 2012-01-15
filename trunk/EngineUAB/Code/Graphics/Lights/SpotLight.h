@@ -3,12 +3,15 @@
 #ifndef _SPOTLIGHT_H
 #define _SPOTLIGHT_H
 
+class CXMLTreeNode;
+
 #include "DirectionalLight.h"
 
 class CSpotLight : public CDirectionalLight
 {
 public:
 	CSpotLight();
+	CSpotLight( CXMLTreeNode *XMLNode );
 	virtual ~CSpotLight();
 
 	virtual void		Render				( CRenderManager* RM );

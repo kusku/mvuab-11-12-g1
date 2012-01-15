@@ -39,48 +39,20 @@ bool CLightManager::Load(const std::string &Filename)
 			std::string l_TypeLight = l_Lights(i).GetName();
 			if( l_TypeLight == "omni" )
 			{
-				std::string l_Name = l_Lights(i).GetPszProperty("name", "");
-				Vect3f l_Pos = l_Lights(i).GetVect3fProperty("pos", Vect3f(0.0f, 0.0f, 0.0f));
-				Vect3f l_Color = l_Lights(i).GetVect3fProperty("color", Vect3f(0.0f, 0.0f, 0.0f));
-				float l_StartRangeAtt = l_Lights(i).GetFloatProperty("att_start_range", 0.0f);
-				float l_EndRangeAtt = l_Lights(i).GetFloatProperty("att_end_range", 0.0f);
-				bool l_Shadows = l_Lights(i).GetBoolProperty("render_shadows", false);
-
-				COmniLight *l_Light = new COmniLight();
-
-				l_Light->SetType(CLight::OMNI);
-				l_Light->SetName(l_Name);
-				l_Light->SetPosition(l_Pos);
-				l_Light->SetColor( CColor( l_Color.x, l_Color.y, l_Color.z) );
-				l_Light->SetStartRangeAttenuation(l_StartRangeAtt);
-				l_Light->SetEndRangeAttenuation(l_EndRangeAtt);
-				l_Light->SetRenderShadows(l_Shadows);
+				COmniLight *l_Light = new COmniLight( &l_Lights(i) );
 				
+				std::string l_Name = l_Light->GetName();
+
 				AddResource(l_Name, l_Light);
 				m_LightsNameVector.push_back(l_Name);
 				l_Light = NULL;
 			}
 			else if( l_TypeLight == "directional" )
 			{
-				std::string l_Name = l_Lights(i).GetPszProperty("name", "");
-				Vect3f l_Pos = l_Lights(i).GetVect3fProperty("pos", Vect3f(0.0f, 0.0f, 0.0f));
-				Vect3f l_Dir = l_Lights(i).GetVect3fProperty("dir", Vect3f(0.0f, 0.0f, 0.0f));
-				Vect3f l_Color = l_Lights(i).GetVect3fProperty("color", Vect3f(0.0f, 0.0f, 0.0f));
-				float l_StartRangeAtt = l_Lights(i).GetFloatProperty("att_start_range", 0.0f);
-				float l_EndRangeAtt = l_Lights(i).GetFloatProperty("att_end_range", 0.0f);
-				bool l_Shadows = l_Lights(i).GetBoolProperty("render_shadows", false);
+				CDirectionalLight *l_Light = new CDirectionalLight( &l_Lights(i) );
 
-				CDirectionalLight *l_Light = new CDirectionalLight();
-
-				l_Light->SetType(CLight::DIRECTIONAL);
-				l_Light->SetName(l_Name);
-				l_Light->SetPosition(l_Pos);
-				l_Light->SetDirection(l_Dir);
-				l_Light->SetColor( CColor( l_Color.x, l_Color.y, l_Color.z) );
-				l_Light->SetStartRangeAttenuation(l_StartRangeAtt);
-				l_Light->SetEndRangeAttenuation(l_EndRangeAtt);
-				l_Light->SetRenderShadows(l_Shadows);
 				l_Light->CalculateOrientationDebugRender();
+				std::string l_Name = l_Light->GetName();
 
 				AddResource(l_Name, l_Light);
 				m_LightsNameVector.push_back(l_Name);
@@ -89,29 +61,10 @@ bool CLightManager::Load(const std::string &Filename)
 			}
 			else if( l_TypeLight == "spot" )
 			{
-				std::string l_Name = l_Lights(i).GetPszProperty("name", "");
-				Vect3f l_Pos = l_Lights(i).GetVect3fProperty("pos", Vect3f(0.0f, 0.0f, 0.0f));
-				Vect3f l_Dir = l_Lights(i).GetVect3fProperty("dir", Vect3f(0.0f, 0.0f, 0.0f));
-				Vect3f l_Color = l_Lights(i).GetVect3fProperty("color", Vect3f(0.0f, 0.0f, 0.0f));
-				float l_Angle = l_Lights(i).GetFloatProperty("angle", 0.0f);
-				float l_FallOff = l_Lights(i).GetFloatProperty("fall_off", 0.0f);
-				float l_StartRangeAtt = l_Lights(i).GetFloatProperty("att_start_range", 0.0f);
-				float l_EndRangeAtt = l_Lights(i).GetFloatProperty("att_end_range", 0.0f);
-				bool l_Shadows = l_Lights(i).GetBoolProperty("render_shadows", false);
+				CSpotLight *l_Light = new CSpotLight( &l_Lights(i) );
 
-				CSpotLight *l_Light = new CSpotLight();
-
-				l_Light->SetType(CLight::SPOT);
-				l_Light->SetName(l_Name);
-				l_Light->SetPosition(l_Pos);
-				l_Light->SetDirection(l_Dir);
-				l_Light->SetAngle(l_Angle);
-				l_Light->SetFallOff(l_FallOff);
-				l_Light->SetColor( CColor( l_Color.x, l_Color.y, l_Color.z) );
-				l_Light->SetStartRangeAttenuation(l_StartRangeAtt);
-				l_Light->SetEndRangeAttenuation(l_EndRangeAtt);
-				l_Light->SetRenderShadows(l_Shadows);
 				l_Light->CalculateOrientationDebugRender();
+				std::string l_Name = l_Light->GetName();
 
 				AddResource(l_Name, l_Light);
 				m_LightsNameVector.push_back(l_Name);
