@@ -4,9 +4,6 @@
 #define _VERTEXTYPE_H
 
 #include <d3dx9.h>
-#include "Base.h"
-#include "Core.h"
-#include "RenderManager.h"
 
 #define VERTEX_TYPE_GEOMETRY 0x0001
 #define VERTEX_TYPE_NORMAL 0x0002
@@ -15,6 +12,7 @@
 #define VERTEX_TYPE_TEXTURE1 0x0010
 #define VERTEX_TYPE_TEXTURE2 0x0020
 #define VERTEX_TYPE_DIFFUSE 0x0040
+
 
 struct TGEOMETRY_VERTEX
 {
@@ -29,26 +27,14 @@ struct TGEOMETRY_VERTEX
 	{
 		return D3DFVF_XYZ;
 	}
-	
-	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
-	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration()
+
+	static void ReleaseVertexDeclaration()
 	{
-		if(s_VertexDeclaration==NULL)
-		{
-			D3DVERTEXELEMENT9 l_VertexDeclaration[] =
-			{
-				{ 0, 0 , D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,
-					D3DDECLUSAGE_POSITION, 0 },
-
-				D3DDECL_END()
-			};
-
-			CORE->GetRenderManager()->GetDevice()->CreateVertexDeclaration(l_VertexDeclaration,
-																			&s_VertexDeclaration);
-		}
-
-		return s_VertexDeclaration;
+		CHECKED_RELEASE(s_VertexDeclaration);
 	}
+
+	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
+	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration();
 };
 
 struct TCOLORED_VERTEX
@@ -65,29 +51,14 @@ struct TCOLORED_VERTEX
 	{
 		return D3DFVF_XYZ|D3DFVF_DIFFUSE;
 	}
+
+	static void ReleaseVertexDeclaration()
+	{
+		CHECKED_RELEASE(s_VertexDeclaration);
+	}
 	
 	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
-	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration()
-	{
-		if(s_VertexDeclaration==NULL)
-		{
-			D3DVERTEXELEMENT9 l_VertexDeclaration[] =
-			{
-				{ 0, 0 , D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,
-					D3DDECLUSAGE_POSITION, 0 },
-			
-				{ 0, 12, D3DDECLTYPE_D3DCOLOR, D3DDECLMETHOD_DEFAULT,
-					D3DDECLUSAGE_COLOR, 0 },
-
-				D3DDECL_END()
-			};
-
-			CORE->GetRenderManager()->GetDevice()->CreateVertexDeclaration(l_VertexDeclaration,
-																			&s_VertexDeclaration);
-		}
-
-		return s_VertexDeclaration;
-	}
+	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration();
 };
 
 struct TNORMALCOLORED_VERTEX
@@ -105,32 +76,14 @@ struct TNORMALCOLORED_VERTEX
 	{
 		return D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_DIFFUSE;
 	}
+
+	static void ReleaseVertexDeclaration()
+	{
+		CHECKED_RELEASE(s_VertexDeclaration);
+	}
 	
 	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
-	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration()
-	{
-		if(s_VertexDeclaration==NULL)
-		{
-			D3DVERTEXELEMENT9 l_VertexDeclaration[] =
-			{
-				{ 0, 0 , D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,
-					D3DDECLUSAGE_POSITION, 0 },
-				
-				{ 0, 12, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT,
-					D3DDECLUSAGE_TEXCOORD, 0 },
-			
-				{ 0, 20, D3DDECLTYPE_D3DCOLOR, D3DDECLMETHOD_DEFAULT,
-					D3DDECLUSAGE_COLOR, 0 },
-
-				D3DDECL_END()
-			};
-
-			CORE->GetRenderManager()->GetDevice()->CreateVertexDeclaration(l_VertexDeclaration,
-																			&s_VertexDeclaration);
-		}
-
-		return s_VertexDeclaration;
-	}
+	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration();
 };
 
 struct TTEXTURE1_VERTEX
@@ -147,29 +100,14 @@ struct TTEXTURE1_VERTEX
 	{
 		return D3DFVF_XYZ|D3DFVF_TEX1;
 	}
+
+	static void ReleaseVertexDeclaration()
+	{
+		CHECKED_RELEASE(s_VertexDeclaration);
+	}
 	
 	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
-	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration()
-	{
-		if(s_VertexDeclaration==NULL)
-		{
-			D3DVERTEXELEMENT9 l_VertexDeclaration[] =
-			{
-				{ 0, 0 , D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,
-					D3DDECLUSAGE_POSITION, 0 },
-				
-				{ 0, 12, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT,
-					D3DDECLUSAGE_TEXCOORD, 0 },
-
-				D3DDECL_END()
-			};
-
-			CORE->GetRenderManager()->GetDevice()->CreateVertexDeclaration(l_VertexDeclaration,
-																			&s_VertexDeclaration);
-		}
-
-		return s_VertexDeclaration;
-	}
+	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration();
 };
 
 struct TTEXTURE2_VERTEX
@@ -187,32 +125,14 @@ struct TTEXTURE2_VERTEX
 	{
 		return D3DFVF_XYZ|D3DFVF_TEX1|D3DFVF_TEX2;
 	}
+
+	static void ReleaseVertexDeclaration()
+	{
+		CHECKED_RELEASE(s_VertexDeclaration);
+	}
 	
 	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
-	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration()
-	{
-		if(s_VertexDeclaration==NULL)
-		{
-			D3DVERTEXELEMENT9 l_VertexDeclaration[] =
-			{
-				{ 0, 0 , D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,
-					D3DDECLUSAGE_POSITION, 0 },
-				
-				{ 0, 12, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT,
-					D3DDECLUSAGE_TEXCOORD, 0 },
-				
-				{ 0, 20, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT,
-					D3DDECLUSAGE_TEXCOORD, 1 },
-
-				D3DDECL_END()
-			};
-
-			CORE->GetRenderManager()->GetDevice()->CreateVertexDeclaration(l_VertexDeclaration,
-																			&s_VertexDeclaration);
-		}
-
-		return s_VertexDeclaration;
-	}
+	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration();
 };
 
 struct TCOLOREDTEXTURE1_VERTEX
@@ -230,32 +150,14 @@ struct TCOLOREDTEXTURE1_VERTEX
 	{
 		return D3DFVF_XYZ|D3DFVF_DIFFUSE|D3DFVF_TEX1;
 	}
+
+	static void ReleaseVertexDeclaration()
+	{
+		CHECKED_RELEASE(s_VertexDeclaration);
+	}
 	
 	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
-	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration()
-	{
-		if(s_VertexDeclaration==NULL)
-		{
-			D3DVERTEXELEMENT9 l_VertexDeclaration[] =
-			{
-				{ 0, 0 , D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,
-					D3DDECLUSAGE_POSITION, 0 },
-				
-				{ 0, 12, D3DDECLTYPE_D3DCOLOR, D3DDECLMETHOD_DEFAULT,
-					D3DDECLUSAGE_COLOR, 0 },
-				
-				{ 0, 16, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT,
-					D3DDECLUSAGE_TEXCOORD, 0 },
-
-				D3DDECL_END()
-			};
-
-			CORE->GetRenderManager()->GetDevice()->CreateVertexDeclaration(l_VertexDeclaration,
-																			&s_VertexDeclaration);
-		}
-
-		return s_VertexDeclaration;
-	}
+	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration();
 };
 
 struct TCOLOREDTEXTURE2_VERTEX
@@ -274,35 +176,14 @@ struct TCOLOREDTEXTURE2_VERTEX
 	{
 		return D3DFVF_XYZ|D3DFVF_DIFFUSE|D3DFVF_TEX1|D3DFVF_TEX2;
 	}
+
+	static void ReleaseVertexDeclaration()
+	{
+		CHECKED_RELEASE(s_VertexDeclaration);
+	}
 	
 	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
-	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration()
-	{
-		if(s_VertexDeclaration==NULL)
-		{
-			D3DVERTEXELEMENT9 l_VertexDeclaration[] =
-			{
-				{ 0, 0 , D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,
-					D3DDECLUSAGE_POSITION, 0 },
-				
-				{ 0, 12, D3DDECLTYPE_D3DCOLOR, D3DDECLMETHOD_DEFAULT,
-					D3DDECLUSAGE_COLOR, 0 },
-				
-				{ 0, 16, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT,
-					D3DDECLUSAGE_TEXCOORD, 0 },
-				
-				{ 0, 24, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT,
-					D3DDECLUSAGE_TEXCOORD, 1 },
-
-				D3DDECL_END()
-			};
-
-			CORE->GetRenderManager()->GetDevice()->CreateVertexDeclaration(l_VertexDeclaration,
-																			&s_VertexDeclaration);
-		}
-
-		return s_VertexDeclaration;
-	}
+	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration();
 };
 
 struct TNORMALCOLOREDTEXTURE1_VERTEX
@@ -321,35 +202,14 @@ struct TNORMALCOLOREDTEXTURE1_VERTEX
 	{
 		return D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_DIFFUSE|D3DFVF_TEX1;
 	}
+
+	static void ReleaseVertexDeclaration()
+	{
+		CHECKED_RELEASE(s_VertexDeclaration);
+	}
 	
 	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
-	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration()
-	{
-		if(s_VertexDeclaration==NULL)
-		{
-			D3DVERTEXELEMENT9 l_VertexDeclaration[] =
-			{
-				{ 0, 0 , D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,
-					D3DDECLUSAGE_POSITION, 0 },
-				
-				{ 0, 12, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,
-					D3DDECLUSAGE_NORMAL, 0 },
-				
-				{ 0, 24, D3DDECLTYPE_D3DCOLOR, D3DDECLMETHOD_DEFAULT,
-					D3DDECLUSAGE_COLOR, 0 },
-				
-				{ 0, 40, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT,
-					D3DDECLUSAGE_TEXCOORD, 1 },
-
-				D3DDECL_END()
-			};
-
-			CORE->GetRenderManager()->GetDevice()->CreateVertexDeclaration(l_VertexDeclaration,
-																			&s_VertexDeclaration);
-		}
-
-		return s_VertexDeclaration;
-	}
+	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration();
 };
 
 struct TNORMALCOLOREDTEXTURE2_VERTEX
@@ -369,6 +229,14 @@ struct TNORMALCOLOREDTEXTURE2_VERTEX
 	{
 		return D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_DIFFUSE|D3DFVF_TEX1|D3DFVF_TEX2;
 	}
+
+	static void ReleaseVertexDeclaration()
+	{
+		CHECKED_RELEASE(s_VertexDeclaration);
+	}
+	
+	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
+	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration();
 };
 
 struct TNORMALTEXTURE1_VERTEX
@@ -393,33 +261,7 @@ struct TNORMALTEXTURE1_VERTEX
 	}
 	
 	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
-	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration()
-	{
-		if(s_VertexDeclaration==NULL)
-		{
-			D3DVERTEXELEMENT9 l_VertexDeclaration[] =
-			{
-				{ 0, 0 , D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,
-					D3DDECLUSAGE_POSITION, 0 },
-			
-				{ 0, 12, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,
-					D3DDECLUSAGE_NORMAL, 0 },
-				
-				{ 0, 24, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT,
-					D3DDECLUSAGE_TEXCOORD, 0 },
-			
-				{ 0, 32, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT,
-					D3DDECLUSAGE_TEXCOORD, 1 },
-			
-				D3DDECL_END()
-			};
-
-			CORE->GetRenderManager()->GetDevice()->CreateVertexDeclaration(l_VertexDeclaration,
-																			&s_VertexDeclaration);
-		}
-
-		return s_VertexDeclaration;
-	}
+	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration();
 };
 
 struct TNORMALTEXTURE2_VERTEX
@@ -438,6 +280,14 @@ struct TNORMALTEXTURE2_VERTEX
 	{
 		return D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX1|D3DFVF_TEX2;
 	}
+
+	static void ReleaseVertexDeclaration()
+	{
+		CHECKED_RELEASE(s_VertexDeclaration);
+	}
+	
+	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
+	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration();
 };
 
 struct TNORMALBINORMAL_VERTEX
@@ -457,5 +307,14 @@ struct TNORMALBINORMAL_VERTEX
 		return D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX1;
 	}
 
+	static void ReleaseVertexDeclaration()
+	{
+		CHECKED_RELEASE(s_VertexDeclaration);
+	}
+	
+	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
+	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration();
 };
+
+
 #endif
