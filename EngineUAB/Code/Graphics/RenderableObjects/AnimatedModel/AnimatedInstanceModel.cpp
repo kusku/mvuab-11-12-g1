@@ -10,6 +10,7 @@
 #include "Math\Matrix44.h"
 #include "Base.h"
 #include "Core.h"
+#include "Effects\EffectTechnique.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -80,6 +81,28 @@ void CAnimatedInstanceModel::Update(float elapsedTime)
 
 
 void CAnimatedInstanceModel::Render(CRenderManager *RM)
+{
+	Mat44f mat, rotYaw, rotPitch, rotRoll;
+
+	mat.SetIdentity();
+	/*rotYaw.SetIdentity();
+	rotPitch.SetIdentity();
+	rotRoll.SetIdentity();
+
+	mat.Translate( GetPosition() );
+		
+	rotPitch.SetRotByAngleX( mathUtils::Deg2Rad<float>(GetPitch()) );
+	rotYaw.SetRotByAngleY( mathUtils::Deg2Rad<float>(GetYaw()) );
+	rotRoll.SetRotByAngleZ( mathUtils::Deg2Rad<float>(GetRoll()) );
+		
+	mat = mat * rotYaw * rotPitch * rotRoll;*/
+		
+	RM->SetTransform(mat);
+
+	RenderModelBySoftware(RM);
+}
+
+void CAnimatedInstanceModel::Render(CRenderManager *RM, CEffectTechnique* technique)
 {
 	Mat44f mat, rotYaw, rotPitch, rotRoll;
 

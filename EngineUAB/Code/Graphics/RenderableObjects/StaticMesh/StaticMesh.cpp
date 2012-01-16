@@ -8,6 +8,7 @@
 #include "Base.h"
 #include "Core.h"
 #include "Math\Matrix44.h"
+#include "Effects\EffectTechnique.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -372,5 +373,20 @@ void CStaticMesh::Render(CRenderManager *RM) const
 			m_Textures[i][j]->Activate(j);
 		}
 		m_RVs[i]->Render(RM);
+	}
+}
+
+void CStaticMesh::Render(CRenderManager *RM, CEffectTechnique* technique) const
+{
+	uint16 l_Size = static_cast<uint16>(m_RVs.size());
+	for(uint16 i=0; i<l_Size; ++i)
+	{
+		uint16 l_NumTexs = static_cast<uint16>(m_Textures[i].size());
+		for( uint16 j=0; j < l_NumTexs; ++j)
+		{
+			technique->SetDiffuseTexture(m_Textures[i][j]->GetDXTexture());
+		}
+
+		m_RVs[i]->Render(RM, technique);
 	}
 }

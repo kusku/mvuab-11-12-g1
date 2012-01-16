@@ -13,6 +13,7 @@
 
 class CStaticMesh;
 class CRenderManager;
+class CEffectTechnique;
 
 #include "RenderableObjects\RenderableObject.h"
 #include <string>
@@ -24,6 +25,7 @@ public:
 	virtual ~CInstanceMesh();
 
 	void Render ( CRenderManager *RM );
+	virtual void Render (CRenderManager *RM, CEffectTechnique* technique);
 
 private:
 	CStaticMesh		*m_StaticMesh;

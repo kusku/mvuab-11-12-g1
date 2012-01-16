@@ -13,6 +13,8 @@ class CTexture;
 #include "Math\Vector3.h"
 #include "BoundingObjects.h"
 
+class CEffectTechnique;
+
 class CStaticMesh
 {
 public:
@@ -24,6 +26,7 @@ public:
 	void			Unload				();
 
 	void			Render				( CRenderManager *RM ) const;
+	void			Render				( CRenderManager *RM, CEffectTechnique* technique ) const;
 
 	void			SetBoundingBox		(const TBoundingBox& boundingBox) { m_BoundingBox = boundingBox; }
 	void			SetBoundingSphere	(const TBoundingSphere& boundingSphere) { m_BoundingSphere = boundingSphere; }
