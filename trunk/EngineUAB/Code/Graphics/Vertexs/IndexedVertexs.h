@@ -6,6 +6,8 @@
 #include "RenderableVertexs.h"
 #include "RenderManager.h"
 #include "VertexType.h"
+#include "Effects\EffectTechnique.h"
+#include "Effects\Effect.h"
 
 template<class T>
 class CIndexedVertexs : public CRenderableVertexs
@@ -47,6 +49,33 @@ public:
 		Device->SetFVF( static_cast<DWORD>(T::GetFVF()) );
 		Device->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, 0, 0, static_cast<UINT>(m_VertexCount), 0, static_cast<UINT>(m_IndexCount/3) );
 
+		return true;
+	}
+
+	bool Render(CRenderManager *RM, CEffectTechnique *EffectTechnique) const
+	{
+		LPDIRECT3DDEVICE9 l_Device=RM->GetDevice();
+		UINT l_NumPasses;
+		LPD3DXEFFECT l_Effect=EffectTechnique->GetEffect()->GetD3DEffect();
+		l_Effect->SetTechnique(EffectTechnique->GetD3DTechnique());
+		
+		if(SUCCEEDED(l_Effect->Begin(&l_NumPasses,0)))
+		{
+			l_Device->SetVertexDeclaration(T::GetVertexDeclaration());
+			//l_Device->SetFVF( static_cast<DWORD>(T::GetFVF()) );
+			l_Device->SetStreamSource(0,m_VB,0,sizeof(T));
+			l_Device->SetIndices(m_IB);
+
+			for (UINT b=0;b<l_NumPasses;++b)
+			{
+				l_Effect->BeginPass(b);
+				l_Device->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, 0, 0,
+				static_cast<UINT>(m_VertexCount), 0, static_cast<UINT>( m_IndexCount/3));
+				l_Effect->EndPass();
+			}
+
+			l_Effect->End();
+		}
 		return true;
 	}
 

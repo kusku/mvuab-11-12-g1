@@ -14,6 +14,7 @@
 class CTexture;
 class CRenderManager;
 class CAnimatedCoreModel;
+class CEffectTechnique;
 
 #include "cal3d\cal3d.h"
 #include "Utils\BaseUtils.h"
@@ -33,6 +34,7 @@ public:
 	void		Update				( float elapsedTime );
 
 	void		Render						( CRenderManager *RM );
+	void		Render						( CRenderManager *RM, CEffectTechnique* technique );
 	void		RenderModelBySoftware		( CRenderManager *RM );
 
 	void		Destroy		();
@@ -42,7 +44,7 @@ public:
 	void		ClearCycle			( float Time );
 	
 private:
-	bool			CalculateNumVtxsIdxs	( CRenderManager *RM );
+	bool			CalculateNumVtxsIdxs	( CRenderManager *RM);
 	void			LoadTextures			();
 
 

@@ -31,6 +31,7 @@ public:
 	void		Activate	(size_t StageId);
 	
 	const std::string &		GetFileName		() const		{ return m_FileName; }
+	LPDIRECT3DTEXTURE9		GetDXTexture	() const		{ return m_Texture; }
 };
 
 #endif

@@ -6,6 +6,8 @@
 #include "Core.h"
 #include "Logger\Logger.h"
 #include "Math\Matrix44.h"
+#include "Effects\EffectTechnique.h"
+#include "Effects\EffectManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -52,5 +54,30 @@ void CInstanceMesh::Render(CRenderManager *RM)
 		RM->SetTransform(mat);
 
 		m_StaticMesh->Render(RM);
+	}
+}
+
+void CInstanceMesh::Render(CRenderManager *RM, CEffectTechnique* technique)
+{
+	if( m_StaticMesh != NULL )
+	{
+		Mat44f mat, rotYaw, rotPitch, rotRoll;
+		
+		mat.SetIdentity();
+		rotYaw.SetIdentity();
+		rotPitch.SetIdentity();
+		rotRoll.SetIdentity();
+
+		mat.Translate( GetPosition() );
+		
+		rotPitch.SetRotByAngleX( mathUtils::Deg2Rad<float>(GetPitch()) );
+		rotYaw.SetRotByAngleY( mathUtils::Deg2Rad<float>(GetYaw()) );
+		rotRoll.SetRotByAngleZ( mathUtils::Deg2Rad<float>(GetRoll()) );
+		
+		mat = mat * rotYaw * rotPitch * rotRoll;
+		
+		CORE->GetEffectManager()->SetWorldMatrix(mat);
+
+		m_StaticMesh->Render(RM, technique);
 	}
 }

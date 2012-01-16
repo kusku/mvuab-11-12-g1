@@ -4,6 +4,9 @@
 #define _VERTEXTYPE_H
 
 #include <d3dx9.h>
+#include "Base.h"
+#include "Core.h"
+#include "RenderManager.h"
 
 #define VERTEX_TYPE_GEOMETRY 0x0001
 #define VERTEX_TYPE_NORMAL 0x0002
@@ -26,6 +29,26 @@ struct TGEOMETRY_VERTEX
 	{
 		return D3DFVF_XYZ;
 	}
+	
+	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
+	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration()
+	{
+		if(s_VertexDeclaration==NULL)
+		{
+			D3DVERTEXELEMENT9 l_VertexDeclaration[] =
+			{
+				{ 0, 0 , D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,
+					D3DDECLUSAGE_POSITION, 0 },
+
+				D3DDECL_END()
+			};
+
+			CORE->GetRenderManager()->GetDevice()->CreateVertexDeclaration(l_VertexDeclaration,
+																			&s_VertexDeclaration);
+		}
+
+		return s_VertexDeclaration;
+	}
 };
 
 struct TCOLORED_VERTEX
@@ -41,6 +64,29 @@ struct TCOLORED_VERTEX
 	static inline unsigned int GetFVF()
 	{
 		return D3DFVF_XYZ|D3DFVF_DIFFUSE;
+	}
+	
+	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
+	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration()
+	{
+		if(s_VertexDeclaration==NULL)
+		{
+			D3DVERTEXELEMENT9 l_VertexDeclaration[] =
+			{
+				{ 0, 0 , D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,
+					D3DDECLUSAGE_POSITION, 0 },
+			
+				{ 0, 12, D3DDECLTYPE_D3DCOLOR, D3DDECLMETHOD_DEFAULT,
+					D3DDECLUSAGE_COLOR, 0 },
+
+				D3DDECL_END()
+			};
+
+			CORE->GetRenderManager()->GetDevice()->CreateVertexDeclaration(l_VertexDeclaration,
+																			&s_VertexDeclaration);
+		}
+
+		return s_VertexDeclaration;
 	}
 };
 
@@ -59,6 +105,32 @@ struct TNORMALCOLORED_VERTEX
 	{
 		return D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_DIFFUSE;
 	}
+	
+	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
+	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration()
+	{
+		if(s_VertexDeclaration==NULL)
+		{
+			D3DVERTEXELEMENT9 l_VertexDeclaration[] =
+			{
+				{ 0, 0 , D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,
+					D3DDECLUSAGE_POSITION, 0 },
+				
+				{ 0, 12, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT,
+					D3DDECLUSAGE_TEXCOORD, 0 },
+			
+				{ 0, 20, D3DDECLTYPE_D3DCOLOR, D3DDECLMETHOD_DEFAULT,
+					D3DDECLUSAGE_COLOR, 0 },
+
+				D3DDECL_END()
+			};
+
+			CORE->GetRenderManager()->GetDevice()->CreateVertexDeclaration(l_VertexDeclaration,
+																			&s_VertexDeclaration);
+		}
+
+		return s_VertexDeclaration;
+	}
 };
 
 struct TTEXTURE1_VERTEX
@@ -74,6 +146,29 @@ struct TTEXTURE1_VERTEX
 	static inline unsigned int GetFVF()
 	{
 		return D3DFVF_XYZ|D3DFVF_TEX1;
+	}
+	
+	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
+	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration()
+	{
+		if(s_VertexDeclaration==NULL)
+		{
+			D3DVERTEXELEMENT9 l_VertexDeclaration[] =
+			{
+				{ 0, 0 , D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,
+					D3DDECLUSAGE_POSITION, 0 },
+				
+				{ 0, 12, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT,
+					D3DDECLUSAGE_TEXCOORD, 0 },
+
+				D3DDECL_END()
+			};
+
+			CORE->GetRenderManager()->GetDevice()->CreateVertexDeclaration(l_VertexDeclaration,
+																			&s_VertexDeclaration);
+		}
+
+		return s_VertexDeclaration;
 	}
 };
 
@@ -92,6 +187,32 @@ struct TTEXTURE2_VERTEX
 	{
 		return D3DFVF_XYZ|D3DFVF_TEX1|D3DFVF_TEX2;
 	}
+	
+	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
+	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration()
+	{
+		if(s_VertexDeclaration==NULL)
+		{
+			D3DVERTEXELEMENT9 l_VertexDeclaration[] =
+			{
+				{ 0, 0 , D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,
+					D3DDECLUSAGE_POSITION, 0 },
+				
+				{ 0, 12, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT,
+					D3DDECLUSAGE_TEXCOORD, 0 },
+				
+				{ 0, 20, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT,
+					D3DDECLUSAGE_TEXCOORD, 1 },
+
+				D3DDECL_END()
+			};
+
+			CORE->GetRenderManager()->GetDevice()->CreateVertexDeclaration(l_VertexDeclaration,
+																			&s_VertexDeclaration);
+		}
+
+		return s_VertexDeclaration;
+	}
 };
 
 struct TCOLOREDTEXTURE1_VERTEX
@@ -108,6 +229,32 @@ struct TCOLOREDTEXTURE1_VERTEX
 	static inline unsigned int GetFVF()
 	{
 		return D3DFVF_XYZ|D3DFVF_DIFFUSE|D3DFVF_TEX1;
+	}
+	
+	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
+	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration()
+	{
+		if(s_VertexDeclaration==NULL)
+		{
+			D3DVERTEXELEMENT9 l_VertexDeclaration[] =
+			{
+				{ 0, 0 , D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,
+					D3DDECLUSAGE_POSITION, 0 },
+				
+				{ 0, 12, D3DDECLTYPE_D3DCOLOR, D3DDECLMETHOD_DEFAULT,
+					D3DDECLUSAGE_COLOR, 0 },
+				
+				{ 0, 16, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT,
+					D3DDECLUSAGE_TEXCOORD, 0 },
+
+				D3DDECL_END()
+			};
+
+			CORE->GetRenderManager()->GetDevice()->CreateVertexDeclaration(l_VertexDeclaration,
+																			&s_VertexDeclaration);
+		}
+
+		return s_VertexDeclaration;
 	}
 };
 
@@ -127,6 +274,35 @@ struct TCOLOREDTEXTURE2_VERTEX
 	{
 		return D3DFVF_XYZ|D3DFVF_DIFFUSE|D3DFVF_TEX1|D3DFVF_TEX2;
 	}
+	
+	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
+	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration()
+	{
+		if(s_VertexDeclaration==NULL)
+		{
+			D3DVERTEXELEMENT9 l_VertexDeclaration[] =
+			{
+				{ 0, 0 , D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,
+					D3DDECLUSAGE_POSITION, 0 },
+				
+				{ 0, 12, D3DDECLTYPE_D3DCOLOR, D3DDECLMETHOD_DEFAULT,
+					D3DDECLUSAGE_COLOR, 0 },
+				
+				{ 0, 16, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT,
+					D3DDECLUSAGE_TEXCOORD, 0 },
+				
+				{ 0, 24, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT,
+					D3DDECLUSAGE_TEXCOORD, 1 },
+
+				D3DDECL_END()
+			};
+
+			CORE->GetRenderManager()->GetDevice()->CreateVertexDeclaration(l_VertexDeclaration,
+																			&s_VertexDeclaration);
+		}
+
+		return s_VertexDeclaration;
+	}
 };
 
 struct TNORMALCOLOREDTEXTURE1_VERTEX
@@ -144,6 +320,35 @@ struct TNORMALCOLOREDTEXTURE1_VERTEX
 	static inline unsigned int GetFVF()
 	{
 		return D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_DIFFUSE|D3DFVF_TEX1;
+	}
+	
+	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
+	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration()
+	{
+		if(s_VertexDeclaration==NULL)
+		{
+			D3DVERTEXELEMENT9 l_VertexDeclaration[] =
+			{
+				{ 0, 0 , D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,
+					D3DDECLUSAGE_POSITION, 0 },
+				
+				{ 0, 12, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,
+					D3DDECLUSAGE_NORMAL, 0 },
+				
+				{ 0, 24, D3DDECLTYPE_D3DCOLOR, D3DDECLMETHOD_DEFAULT,
+					D3DDECLUSAGE_COLOR, 0 },
+				
+				{ 0, 40, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT,
+					D3DDECLUSAGE_TEXCOORD, 1 },
+
+				D3DDECL_END()
+			};
+
+			CORE->GetRenderManager()->GetDevice()->CreateVertexDeclaration(l_VertexDeclaration,
+																			&s_VertexDeclaration);
+		}
+
+		return s_VertexDeclaration;
 	}
 };
 
@@ -180,6 +385,40 @@ struct TNORMALTEXTURE1_VERTEX
 	static inline unsigned int GetFVF()
 	{
 		return D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX1;
+	}
+
+	static void ReleaseVertexDeclaration()
+	{
+		CHECKED_RELEASE(s_VertexDeclaration);
+	}
+	
+	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
+	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration()
+	{
+		if(s_VertexDeclaration==NULL)
+		{
+			D3DVERTEXELEMENT9 l_VertexDeclaration[] =
+			{
+				{ 0, 0 , D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,
+					D3DDECLUSAGE_POSITION, 0 },
+			
+				{ 0, 12, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,
+					D3DDECLUSAGE_NORMAL, 0 },
+				
+				{ 0, 24, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT,
+					D3DDECLUSAGE_TEXCOORD, 0 },
+			
+				{ 0, 32, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT,
+					D3DDECLUSAGE_TEXCOORD, 1 },
+			
+				D3DDECL_END()
+			};
+
+			CORE->GetRenderManager()->GetDevice()->CreateVertexDeclaration(l_VertexDeclaration,
+																			&s_VertexDeclaration);
+		}
+
+		return s_VertexDeclaration;
 	}
 };
 

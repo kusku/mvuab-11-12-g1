@@ -7,6 +7,7 @@
 #include "XML\XMLTreeNode.h"
 #include "Base.h"
 #include "Core.h"
+#include "Effects\EffectTechnique.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -44,6 +45,20 @@ void CRenderableObjectsManager::Render(CRenderManager *RM)
 		if( (*l_It)->GetVisible() )
 		{
 			(*l_It)->Render(RM);
+		}
+	}
+}
+
+void CRenderableObjectsManager::Render(CRenderManager *RM, CEffectTechnique* technique)
+{
+	std::vector<CRenderableObject*>::iterator l_It = m_RenderableObjects.begin();
+	std::vector<CRenderableObject*>::iterator l_End = m_RenderableObjects.end();
+
+	for(; l_It != l_End; ++l_It)
+	{
+		if( (*l_It)->GetVisible() )
+		{
+			(*l_It)->Render(RM, technique);
 		}
 	}
 }
