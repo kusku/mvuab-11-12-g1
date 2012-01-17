@@ -75,9 +75,8 @@ void CInstanceMesh::Render(CRenderManager *RM, CEffectTechnique* technique)
 		rotRoll.SetRotByAngleZ( mathUtils::Deg2Rad<float>(GetRoll()) );
 		
 		mat = mat * rotYaw * rotPitch * rotRoll;
-		
-		CORE->GetEffectManager()->SetWorldMatrix(mat);
 
+		CORE->GetEffectManager()->SetWorldMatrix(mat);
 		m_StaticMesh->Render(RM, technique);
 	}
 }

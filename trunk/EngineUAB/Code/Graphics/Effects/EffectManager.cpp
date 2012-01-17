@@ -82,7 +82,7 @@ void CEffectManager::ActivateCamera(const Mat44f &ViewMatrix, const Mat44f &Proj
 	m_ProjectionMatrix = ProjectionMatrix;
 	m_CameraEye = CameraEye;
 
-	m_ViewProjectionMatrix = m_ViewMatrix * m_ProjectionMatrix;
+	m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
 }
 
 std::string CEffectManager::GetTechniqueEffectNameByVertexDefault(uint16 VertexType)

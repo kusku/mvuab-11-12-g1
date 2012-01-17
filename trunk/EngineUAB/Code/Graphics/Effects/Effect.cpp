@@ -80,8 +80,9 @@ bool CEffect::LoadEffect()
 	GetParameterBySemantic("PROJECTION", m_ProjectionMatrixParameter);
 	GetParameterBySemantic("VIEW", m_ViewMatrixParameter);
 	GetParameterBySemantic("WORLD", m_WorldMatrixParameter);
+	GetParameterBySemantic("WORLDVIEWPROJECTION", m_WorldViewProjectionMatrixParameter);
 
-	return true;
+ 	return true;
 }
 
 void CEffect::Unload()

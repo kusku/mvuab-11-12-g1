@@ -22,7 +22,8 @@ CEffectTechnique::CEffectTechnique(	CXMLTreeNode *XMLNode )
 {
 	m_TechniqueName = XMLNode->GetPszProperty("name", "");
 	m_UseWorldMatrix = XMLNode->GetBoolProperty("use_world_matrix", false, false);
-	m_UseViewProjectionMatrix = XMLNode->GetBoolProperty("use_world_view_projection_matrix", false, false);
+	m_UseViewProjectionMatrix = XMLNode->GetBoolProperty("use_view_projection_matrix", false, false);
+	m_UseWorldViewProjectionMatrix= XMLNode->GetBoolProperty("use_world_view_projection_matrix", false, false);
 	m_UseProjMatrix = XMLNode->GetBoolProperty("use_projection_matrix", false, false);
 	m_UseWorldViewMatrix = XMLNode->GetBoolProperty("use_world_view_matrix", false, false);
 	m_UseViewToLightProjectionMatrix = XMLNode->GetBoolProperty("use_view_to_light_projection_matrix", false, false);
@@ -80,7 +81,7 @@ bool CEffectTechnique::BeginRender()
 	{
 		Mat44f l_ViewProjMatrix = l_EffectManager->GetViewProjectionMatrix();
 		Mat44f l_WorldMatrix = l_EffectManager->GetWorldMatrix();
-		l_WorldMatrix = l_WorldMatrix * l_ViewProjMatrix;
+		l_WorldMatrix =  l_ViewProjMatrix*l_WorldMatrix;
 
 		l_Effect->SetMatrix( m_Effect->GetWorldViewProjectionMatrix(), &l_WorldMatrix.GetD3DXMatrix() );
 	}
