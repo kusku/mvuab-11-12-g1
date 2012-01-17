@@ -63,6 +63,7 @@ private:
 	Vect3f									m_CameraEye;
 
 	CMapManager<CEffect>					m_Effects;
+	std::vector<std::string>				m_EffectsNames;
 
 	CEffectTechnique						*m_StaticMeshTechnique;
 	CEffectTechnique						*m_AnimatedModelTechnique;

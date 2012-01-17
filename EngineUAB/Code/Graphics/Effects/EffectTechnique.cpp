@@ -18,7 +18,6 @@ CEffectTechnique::CEffectTechnique(	CXMLTreeNode *XMLNode )
 	, m_UseViewMatrix(false)
 	, m_UseViewProjectionMatrix(false)
 	, m_UseTime(false)
-	, m_DiffuseTextureParameter("")
 {
 	m_TechniqueName = XMLNode->GetPszProperty("name", "");
 	m_UseWorldMatrix = XMLNode->GetBoolProperty("use_world_matrix", false, false);
@@ -30,7 +29,6 @@ CEffectTechnique::CEffectTechnique(	CXMLTreeNode *XMLNode )
 	m_UseCameraPosition = XMLNode->GetBoolProperty("use_camera_position", false, false);
 	m_UseLights = XMLNode->GetBoolProperty("use_lights", false, false);
 	m_NumOfLights = static_cast<uint32>( XMLNode->GetIntProperty("num_of_lights", 0) );
-	m_DiffuseTextureParameter = XMLNode->GetPszProperty("DiffuseTextureParameter", "");
 
 	std::string l_EffectName = XMLNode->GetPszProperty("effect", "");
 	m_Effect = CORE->GetEffectManager()->GetEffect(l_EffectName);
@@ -120,15 +118,6 @@ bool CEffectTechnique::BeginRender()
 	{
 		//TODO: ¿Que se la pasa aquí?
 	}
-
-	return true;
-}
-
-bool CEffectTechnique::SetDiffuseTexture(LPDIRECT3DTEXTURE9 texture)
-{
-	LPD3DXEFFECT l_Effect = m_Effect->GetD3DEffect();
-	
-	l_Effect->SetTexture(l_Effect->GetParameterByName(NULL, m_DiffuseTextureParameter.c_str()), texture);
 
 	return true;
 }

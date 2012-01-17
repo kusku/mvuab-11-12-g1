@@ -11,6 +11,7 @@
 #include "Utils/BaseUtils.h"
 #include "Logger\Logger.h"
 #include "Exceptions\Exception.h"
+#include "Effects\EffectManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -102,6 +103,11 @@ void CEngine::UpdateDebugInputs()
 	if( action2Input->DoAction("ReloadAll") )
 	{
 		Reload();
+	}
+
+	if( action2Input->DoAction("ReloadShaders") )
+	{
+		CORE->GetEffectManager()->Reload();
 	}
 }
 

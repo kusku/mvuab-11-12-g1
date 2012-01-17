@@ -4,6 +4,7 @@
 #include "StaticMesh\InstanceMesh.h"
 #include "AnimatedModel\AnimatedModelManager.h"
 #include "AnimatedModel\AnimatedInstanceModel.h"
+#include "Effects\EffectManager.h"
 #include "XML\XMLTreeNode.h"
 #include "Base.h"
 #include "Core.h"
@@ -44,7 +45,7 @@ void CRenderableObjectsManager::Render(CRenderManager *RM)
 	{
 		if( (*l_It)->GetVisible() )
 		{
-			(*l_It)->Render(RM);
+			(*l_It)->Render(RM, CORE->GetEffectManager()->GetEffectTechnique("NormalTexture"));
 		}
 	}
 }

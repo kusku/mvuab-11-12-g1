@@ -18,7 +18,6 @@ public:
 
 	bool	BeginRender();
 	bool	Refresh();
-	bool	SetDiffuseTexture(LPDIRECT3DTEXTURE9 texture);
 
 	inline CEffect*		GetEffect() const		{ return m_Effect; }
 	const std::string&		GetTechniqueName		() const		{ return m_TechniqueName; }
@@ -46,8 +45,6 @@ private:
 	CEffect *	m_Effect;
 	D3DXHANDLE	m_D3DTechnique;
 	std::string m_TechniqueName;
-
-	std::string m_DiffuseTextureParameter;
 };
 
 #endif
