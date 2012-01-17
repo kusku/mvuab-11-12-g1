@@ -181,9 +181,20 @@ function ExtractMeshGeometry obj counterClockwise t_mesh =
 			local Vtx2 = getVert obj IdxsFace.y
 			local Vtx3 = getVert obj IdxsFace.z
 			
+			/*
 			local Normal1 = getNormal obj IdxsFace.x
 			local Normal2 = getNormal obj IdxsFace.y
 			local Normal3 = getNormal obj IdxsFace.z
+			*/
+			UABCalcVertexsNormals obj
+			local FaceNormal=getFaceNormal obj i
+			local SmoothValue=getFaceSmoothGroup obj i
+			local Normal1 = UABGetVertexNormal obj IdxsFace.x SmoothValue FaceNormal
+			local Normal2 = UABGetVertexNormal obj IdxsFace.y SmoothValue FaceNormal
+			local Normal3 = UABGetVertexNormal obj IdxsFace.z SmoothValue FaceNormal
+			Normal1 = RHTranslationToLH Normal1
+			Normal2 = RHTranslationToLH Normal2
+			Normal3 = RHTranslationToLH Normal3
 			
 			local IdxsMap = meshop.getMapFace obj 1 i
 			
