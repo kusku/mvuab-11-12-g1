@@ -50,8 +50,11 @@ void CEffectManager::Load(const std::string &Filename)
 				CEffect* l_Effect = new CEffect( &l_Effects(i) );
 				l_Effect->Load();
 
+				std::string l_Name = l_Effect->GetEffectName();
 				m_Effects.AddResource( l_Effect->GetEffectName(), l_Effect );
 				l_Effect = NULL;
+
+				m_EffectsNames.push_back( l_Name );
 			}
 			else if ( l_Type == "technique" )
 			{
@@ -72,8 +75,20 @@ void CEffectManager::Load(const std::string &Filename)
 
 void CEffectManager::Reload()
 {
-	CleanUp();
-	Load(m_Filename);
+	//Effects
+	for(uint16 i=0; i<m_EffectsNames.size(); ++i)
+	{
+		CEffect *l_Effect = m_Effects.GetResource(m_EffectsNames[i]);
+		l_Effect->Reload();
+	}
+
+	//Techniques
+	std::map<std::string, CEffectTechnique*>::iterator l_It = m_Resources.begin();
+	std::map<std::string, CEffectTechnique*>::iterator l_End = m_Resources.end();
+	for(; l_It != l_End; ++l_It)
+	{
+		l_It->second->Refresh();
+	}
 }
 
 void CEffectManager::ActivateCamera(const Mat44f &ViewMatrix, const Mat44f &ProjectionMatrix, const Vect3f &CameraEye)

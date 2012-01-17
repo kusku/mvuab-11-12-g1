@@ -1,5 +1,3 @@
-
-
 #include "Base.h"
 #include "Core.h"
 #include "RenderManager.h"

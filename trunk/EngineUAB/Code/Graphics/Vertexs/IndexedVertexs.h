@@ -14,8 +14,6 @@ class CIndexedVertexs : public CRenderableVertexs
 {
 public:
 	CIndexedVertexs(CRenderManager *RM, void *VertexAddress, void *IndexAddress, size_t VertexCount, size_t IndexCount)
-		/*: m_VertexCount(VertexCount)
-		, m_IndexCount(IndexCount)*/
 	{
 		m_VertexCount = VertexCount;
 		m_IndexCount = IndexCount;
@@ -63,7 +61,6 @@ public:
 		if(SUCCEEDED(l_Effect->Begin(&l_NumPasses,0)))
 		{
 			l_Device->SetVertexDeclaration(T::GetVertexDeclaration());
-			//l_Device->SetFVF( static_cast<DWORD>(T::GetFVF()) );
 			l_Device->SetStreamSource(0,m_VB,0,sizeof(T));
 			l_Device->SetIndices(m_IB);
 

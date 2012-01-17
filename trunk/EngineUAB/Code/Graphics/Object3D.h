@@ -15,7 +15,7 @@
 class CObject3D
 {
 public:
-	CObject3D(const Vect3f& pos, float yaw, float pitch, float roll = 0);
+	CObject3D(const Vect3f& pos, const Vect3f& scale, float yaw, float pitch, float roll = 0);
 	CObject3D();
 	virtual ~CObject3D(void) {/*Nothing*/;}
 
@@ -34,6 +34,7 @@ public:
 	void		SetVisible		( bool visible )				{ m_Visible = visible; }
 protected:
 	Vect3f		m_Position;
+	Vect3f		m_Scale;
 	float		m_fYaw;
 	float		m_fPitch;
 	float		m_fRoll;
