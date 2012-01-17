@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="RenderManager.h" />
+    <ClInclude Include="GraphicsDefs.h" />
+    <ClInclude Include="Cameras\Camera.h">
+      <Filter>Cameras</Filter>
+    </ClInclude>
+    <ClInclude Include="Cameras\Frustum.h">
+      <Filter>Cameras</Filter>
+    </ClInclude>
+    <ClInclude Include="Object3D.h" />
+    <ClInclude Include="Fonts\FontManager.h">
+      <Filter>Fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="Cameras\FPSCamera.h">
+      <Filter>Cameras\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Cameras\ThPSCamera.h">
+      <Filter>Cameras\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="InfoRender\LogRender.h">
+      <Filter>InfoRender</Filter>
+    </ClInclude>
+    <ClInclude Include="InfoRender\DebugRender.h">
+      <Filter>InfoRender</Filter>
+    </ClInclude>
+    <ClInclude Include="Textures\Texture.h">
+      <Filter>Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="Textures\TextureManager.h">
+      <Filter>Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertexs\RenderableVertexs.h">
+      <Filter>Vertexs</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertexs\IndexedVertexs.h">
+      <Filter>Vertexs</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertexs\VertexType.h">
+      <Filter>Vertexs</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderableObjects\RenderableObjectsManager.h">
+      <Filter>RenderableObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderableObjects\RenderableObject.h">
+      <Filter>RenderableObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderableObjects\StaticMesh\InstanceMesh.h">
+      <Filter>RenderableObjects\StaticMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderableObjects\StaticMesh\StaticMesh.h">
+      <Filter>RenderableObjects\StaticMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderableObjects\StaticMesh\StaticMeshManager.h">
+      <Filter>RenderableObjects\StaticMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderableObjects\AnimatedModel\AnimatedCoreModel.h">
+      <Filter>RenderableObjects\AnimatedModel</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderableObjects\AnimatedModel\AnimatedInstanceModel.h">
+      <Filter>RenderableObjects\AnimatedModel</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderableObjects\AnimatedModel\AnimatedModelManager.h">
+      <Filter>RenderableObjects\AnimatedModel</Filter>
+    </ClInclude>
+    <ClInclude Include="Lights\Light.h">
+      <Filter>Lights</Filter>
+    </ClInclude>
+    <ClInclude Include="Lights\LightManager.h">
+      <Filter>Lights</Filter>
+    </ClInclude>
+    <ClInclude Include="Lights\DirectionalLight.h">
+      <Filter>Lights\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Lights\SpotLight.h">
+      <Filter>Lights\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Lights\OmniLight.h">
+      <Filter>Lights\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects\Effect.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects\EffectManager.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects\EffectTechnique.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects\EffectDefs.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="Cameras\Camera.cpp">
+      <Filter>Cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="Cameras\Frustum.cpp">
+      <Filter>Cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="Object3D.cpp" />
+    <ClCompile Include="Fonts\FontManager.cpp">
+      <Filter>Fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="Cameras\FPSCamera.cpp">
+      <Filter>Cameras\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Cameras\ThPSCamera.cpp">
+      <Filter>Cameras\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="InfoRender\LogRender.cpp">
+      <Filter>InfoRender</Filter>
+    </ClCompile>
+    <ClCompile Include="InfoRender\DebugRender.cpp">
+      <Filter>InfoRender</Filter>
+    </ClCompile>
+    <ClCompile Include="Textures\Texture.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="Textures\TextureManager.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderableObjects\RenderableObjectsManager.cpp">
+      <Filter>RenderableObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderableObjects\RenderableObject.cpp">
+      <Filter>RenderableObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderableObjects\StaticMesh\InstanceMesh.cpp">
+      <Filter>RenderableObjects\StaticMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderableObjects\StaticMesh\StaticMesh.cpp">
+      <Filter>RenderableObjects\StaticMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderableObjects\StaticMesh\StaticMeshManager.cpp">
+      <Filter>RenderableObjects\StaticMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderableObjects\AnimatedModel\AnimatedCoreModel.cpp">
+      <Filter>RenderableObjects\AnimatedModel</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderableObjects\AnimatedModel\AnimatedInstanceModel.cpp">
+      <Filter>RenderableObjects\AnimatedModel</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderableObjects\AnimatedModel\AnimatedModelManager.cpp">
+      <Filter>RenderableObjects\AnimatedModel</Filter>
+    </ClCompile>
+    <ClCompile Include="Lights\Light.cpp">
+      <Filter>Lights</Filter>
+    </ClCompile>
+    <ClCompile Include="Lights\LightManager.cpp">
+      <Filter>Lights</Filter>
+    </ClCompile>
+    <ClCompile Include="Lights\DirectionalLight.cpp">
+      <Filter>Lights\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Lights\OmniLight.cpp">
+      <Filter>Lights\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Lights\SpotLight.cpp">
+      <Filter>Lights\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Effects\Effect.cpp">
+      <Filter>Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Effects\EffectManager.cpp">
+      <Filter>Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Effects\EffectTechnique.cpp">
+      <Filter>Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Vertexs\VertexType.cpp">
+      <Filter>Vertexs</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Cameras">
+      <UniqueIdentifier>{d60faf9e-3848-4f3a-b161-4ae75b7e1bc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cameras\Types">
+      <UniqueIdentifier>{a5a87731-ebb6-4614-9e24-aef248149da0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fonts">
+      <UniqueIdentifier>{744246ba-69c5-4306-92cd-dcdb78ce6fcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="InfoRender">
+      <UniqueIdentifier>{ab385e7e-69f1-40e5-ab49-f7a6cdfa077d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Textures">
+      <UniqueIdentifier>{047fc636-231e-4a75-a5c7-2bca4450060f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vertexs">
+      <UniqueIdentifier>{1ff20183-1817-4d21-a0e9-87584933f86c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderableObjects">
+      <UniqueIdentifier>{953ac630-bb8e-4c0a-a250-4a496d1c7c90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderableObjects\StaticMesh">
+      <UniqueIdentifier>{8eda9e3a-9ca8-4add-9563-43ff6f60fcd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderableObjects\AnimatedModel">
+      <UniqueIdentifier>{ab9d2a38-24d8-4f9b-abff-e719982500af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lights">
+      <UniqueIdentifier>{535c7c38-e52b-40eb-be54-ccf3ea37e30c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lights\Types">
+      <UniqueIdentifier>{afca042c-6e36-4408-b1ef-a80bb32ce8e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effects">
+      <UniqueIdentifier>{1b6390e5-2790-4393-81e7-f66928b76d7b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

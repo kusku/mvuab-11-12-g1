@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Cameras\Camera.h" />
+    <ClInclude Include="Cameras\FPSCamera.h" />
+    <ClInclude Include="Cameras\Frustum.h" />
+    <ClInclude Include="Cameras\ThPSCamera.h" />
+    <ClInclude Include="Effects\Effect.h" />
+    <ClInclude Include="Effects\EffectDefs.h" />
+    <ClInclude Include="Effects\EffectManager.h" />
+    <ClInclude Include="Effects\EffectTechnique.h" />
+    <ClInclude Include="Fonts\FontManager.h" />
+    <ClInclude Include="GraphicsDefs.h" />
+    <ClInclude Include="InfoRender\DebugRender.h" />
+    <ClInclude Include="InfoRender\LogRender.h" />
+    <ClInclude Include="Lights\DirectionalLight.h" />
+    <ClInclude Include="Lights\Light.h" />
+    <ClInclude Include="Lights\LightManager.h" />
+    <ClInclude Include="Lights\OmniLight.h" />
+    <ClInclude Include="Lights\SpotLight.h" />
+    <ClInclude Include="Object3D.h" />
+    <ClInclude Include="RenderableObjects\AnimatedModel\AnimatedCoreModel.h" />
+    <ClInclude Include="RenderableObjects\AnimatedModel\AnimatedInstanceModel.h" />
+    <ClInclude Include="RenderableObjects\AnimatedModel\AnimatedModelManager.h" />
+    <ClInclude Include="RenderableObjects\RenderableObject.h" />
+    <ClInclude Include="RenderableObjects\RenderableObjectsManager.h" />
+    <ClInclude Include="RenderableObjects\StaticMesh\InstanceMesh.h" />
+    <ClInclude Include="RenderableObjects\StaticMesh\StaticMesh.h" />
+    <ClInclude Include="RenderableObjects\StaticMesh\StaticMeshManager.h" />
+    <ClInclude Include="RenderManager.h" />
+    <ClInclude Include="Textures\Texture.h" />
+    <ClInclude Include="Textures\TextureManager.h" />
+    <ClInclude Include="Vertexs\IndexedVertexs.h" />
+    <ClInclude Include="Vertexs\RenderableVertexs.h" />
+    <ClInclude Include="Vertexs\VertexType.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Cameras\Camera.cpp" />
+    <ClCompile Include="Cameras\FPSCamera.cpp" />
+    <ClCompile Include="Cameras\Frustum.cpp" />
+    <ClCompile Include="Cameras\ThPSCamera.cpp" />
+    <ClCompile Include="Effects\Effect.cpp" />
+    <ClCompile Include="Effects\EffectManager.cpp" />
+    <ClCompile Include="Effects\EffectTechnique.cpp" />
+    <ClCompile Include="Fonts\FontManager.cpp" />
+    <ClCompile Include="InfoRender\DebugRender.cpp" />
+    <ClCompile Include="InfoRender\LogRender.cpp" />
+    <ClCompile Include="Lights\DirectionalLight.cpp" />
+    <ClCompile Include="Lights\Light.cpp" />
+    <ClCompile Include="Lights\LightManager.cpp" />
+    <ClCompile Include="Lights\OmniLight.cpp" />
+    <ClCompile Include="Lights\SpotLight.cpp" />
+    <ClCompile Include="Object3D.cpp" />
+    <ClCompile Include="RenderableObjects\AnimatedModel\AnimatedCoreModel.cpp" />
+    <ClCompile Include="RenderableObjects\AnimatedModel\AnimatedInstanceModel.cpp" />
+    <ClCompile Include="RenderableObjects\AnimatedModel\AnimatedModelManager.cpp" />
+    <ClCompile Include="RenderableObjects\RenderableObject.cpp" />
+    <ClCompile Include="RenderableObjects\RenderableObjectsManager.cpp" />
+    <ClCompile Include="RenderableObjects\StaticMesh\InstanceMesh.cpp" />
+    <ClCompile Include="RenderableObjects\StaticMesh\StaticMesh.cpp" />
+    <ClCompile Include="RenderableObjects\StaticMesh\StaticMeshManager.cpp" />
+    <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="Textures\Texture.cpp" />
+    <ClCompile Include="Textures\TextureManager.cpp" />
+    <ClCompile Include="Vertexs\VertexType.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{5638D0EE-CE82-44F6-8C71-F0B569947BE6}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Graphics</RootNamespace>
+    <SccProjectName>Svn</SccProjectName>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccProvider>SubversionScc</SccProvider>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)\bin\</OutDir>
+    <IntDir>$(SolutionDir)\bin\Intermediate\$(ProjectName)$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)\bin\</OutDir>
+    <IntDir>$(SolutionDir)\bin\Intermediate\$(ProjectName)$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\Graphics\;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src;$(SolutionDir)\Code\3dParty\</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <OutputFile>$(OutDir)\Lib\$(ProjectName)_d.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Input\;$(DXSDK_DIR)\Include;$(SolutionDIr)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Lib>
+      <OutputFile>$(OutDir)\Lib\$(ProjectName).lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
