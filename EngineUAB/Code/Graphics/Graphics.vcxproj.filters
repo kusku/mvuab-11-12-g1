@@ -170,6 +170,9 @@
     <ClCompile Include="Effects\EffectTechnique.cpp">
       <Filter>Effects</Filter>
     </ClCompile>
+    <ClCompile Include="Vertexs\VertexType.cpp">
+      <Filter>Vertexs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Cameras">
