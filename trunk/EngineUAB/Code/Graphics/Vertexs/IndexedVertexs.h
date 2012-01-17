@@ -56,6 +56,7 @@ public:
 	{
 		LPDIRECT3DDEVICE9 l_Device=RM->GetDevice();
 		UINT l_NumPasses;
+		EffectTechnique->BeginRender();
 		LPD3DXEFFECT l_Effect=EffectTechnique->GetEffect()->GetD3DEffect();
 		l_Effect->SetTechnique(EffectTechnique->GetD3DTechnique());
 		
