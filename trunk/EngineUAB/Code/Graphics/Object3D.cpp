@@ -12,7 +12,7 @@ CObject3D::CObject3D(const Vect3f& pos, const Vect3f& scale, float yaw, float pi
 	, m_fRoll(roll)
 	, m_Visible(true)
 {
-
+	m_WorldMatrix.SetZero();
 }
 
 CObject3D::CObject3D()
@@ -22,4 +22,5 @@ CObject3D::CObject3D()
 	, m_fPitch(0.f)
 	, m_fRoll(0.f)
 {
+	m_WorldMatrix.SetZero();
 }
