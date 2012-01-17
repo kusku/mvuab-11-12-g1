@@ -1,0 +1,10 @@
+<animated_model name="heroine">
+	<skeleton filename="heroine.csf"/>
+	<mesh filename="heroine_body.cmf"/>
+	<mesh filename="heroine_hair.cmf"/>
+	<mesh filename="heroine_head.cmf"/>
+	<animation name="idle" filename="heroine_idle.caf"/>
+	<texture filename="heroine_body.tga"/>
+	<texture filename="heroine_hair.tga"/>
+	<texture filename="heroine_head.tga"/>
+</animated_model>
