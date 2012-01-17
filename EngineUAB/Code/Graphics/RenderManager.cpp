@@ -211,12 +211,14 @@ void CRenderManager::SetupMatrices(CCamera* camera)
 {
 	D3DXMATRIX m_matView;
 	D3DXMATRIX m_matProject;
+	D3DXVECTOR3 l_Eye;
 
 	if(!camera)
     {
         //Set default view and projection matrix
         //Setup Matrix view
-        D3DXVECTOR3 l_Eye(5.0f,5.0f,-5.0f), l_LookAt(0.0f,0.0f,0.0f), l_VUP(0.0f,1.0f,0.0f);
+        l_Eye=D3DXVECTOR3(5.0f,5.0f,-5.0f);
+		D3DXVECTOR3 l_LookAt(0.0f,0.0f,0.0f), l_VUP(0.0f,1.0f,0.0f);
         D3DXMatrixLookAtLH( &m_matView, &l_Eye, &l_LookAt, &l_VUP);
 
         //Setup Matrix projection
@@ -225,7 +227,7 @@ void CRenderManager::SetupMatrices(CCamera* camera)
     else
     {
         Vect3f eye = camera->GetEye();
-        D3DXVECTOR3 l_Eye(eye.x, eye.y, eye.z);
+        l_Eye=D3DXVECTOR3(eye.x, eye.y, eye.z);
 
         Vect3f lookat = camera->GetLookAt();
         D3DXVECTOR3 l_LookAt(lookat.x, lookat.y, lookat.z);
@@ -244,8 +246,7 @@ void CRenderManager::SetupMatrices(CCamera* camera)
     m_pD3DDevice->SetTransform( D3DTS_VIEW, &m_matView );
     m_pD3DDevice->SetTransform( D3DTS_PROJECTION, &m_matProject );
 
-	CORE->GetEffectManager()->SetViewMatrix(m_matView);
-	CORE->GetEffectManager()->SetProjectionMatrix(m_matProject);
+	CORE->GetEffectManager()->ActivateCamera(m_matView , m_matProject, Vect3f(l_Eye.x, l_Eye.y, l_Eye.z));
 }
 
 void CRenderManager::DrawLine( const Vect3f &PosA, const Vect3f &PosB, CColor Color)
