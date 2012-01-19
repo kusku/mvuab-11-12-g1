@@ -10,6 +10,8 @@
 #include "RenderManager.h"
 #include "XML\XMLTreeNode.h"
 #include "Logger\Logger.h"
+#include "EffectParameter.h"
+#include "EffectTechnique.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -17,25 +19,7 @@
 
 CEffect::CEffect(CXMLTreeNode *XMLNode)
 	: m_Effect(NULL)
-	, m_WorldMatrixParameter(NULL)
-	, m_ViewMatrixParameter(NULL)
-	, m_ProjectionMatrixParameter(NULL)
-	, m_WorldViewMatrixParameter(NULL)
-	, m_ViewProjectionMatrixParameter(NULL)
-	, m_WorldViewProjectionMatrixParameter(NULL)
-	, m_ViewToLightProjectionMatrixParameter(NULL)
-	, m_LightEnabledParameter(NULL)
-	, m_LightsTypeParameter(NULL)
-	, m_LightsPositionParameter(NULL)
-	, m_LightsDirectionParameter(NULL)
-	, m_LightsAngleParameter(NULL)
-	, m_LightsColorParameter(NULL)
-	, m_LightsFallOffParameter(NULL)
-	, m_LightsStartRangeAttenuationParameter(NULL)
-	, m_LightsEndRangeAttenuationParameter(NULL)
-	, m_CameraPositionParameter(NULL)
-	, m_BonesParameter(NULL)
-	, m_TimeParameter(NULL)
+	, m_CurrentTechnique(NULL)
 {
 	m_EffectName = XMLNode->GetPszProperty("name", "");
 	m_FileName = XMLNode->GetPszProperty("file", "");
@@ -44,11 +28,6 @@ CEffect::CEffect(CXMLTreeNode *XMLNode)
 CEffect::~CEffect()
 {
 	Unload();
-}
-
-bool CEffect::Load()
-{
-	return LoadEffect();
 }
 
 bool CEffect::Load(const std::string &Filename)
@@ -66,8 +45,11 @@ bool CEffect::Reload()
 bool CEffect::LoadEffect()
 {
 	LPD3DXBUFFER l_ErrorBuffer=NULL;
-	HRESULT l_HR=D3DXCreateEffectFromFile(CORE->GetRenderManager()->GetDevice(), m_FileName.c_str(), NULL,
-		NULL, D3DXSHADER_USE_LEGACY_D3DX9_31_DLL, NULL, &m_Effect, &l_ErrorBuffer);
+
+	HRESULT l_HR;
+	
+	HRDX(D3DXCreateEffectFromFile(CORE->GetRenderManager()->GetDevice(), m_FileName.c_str(), NULL,	
+			NULL, D3DXSHADER_USE_LEGACY_D3DX9_31_DLL, NULL, &m_Effect, &l_ErrorBuffer), l_HR);
 	
 	if(FAILED(l_HR) || l_ErrorBuffer)
 	{
@@ -77,92 +59,189 @@ bool CEffect::LoadEffect()
 		return false;
 	}
 
-	GetParameterBySemantic("PROJECTION", m_ProjectionMatrixParameter);
-	GetParameterBySemantic("VIEW", m_ViewMatrixParameter);
-	GetParameterBySemantic("WORLD", m_WorldMatrixParameter);
-	GetParameterBySemantic("WORLDVIEWPROJECTION", m_WorldViewProjectionMatrixParameter);
+	if(!LoadTechniquesToMemory())
+	{
+		std::string msg_error = "CEffect::LoadEffect-> Error al cargar las techniques a memoria " + m_FileName;
+		LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
+		return false;
+	}
+
+	if(!LoadParametersToMemory())
+	{
+		std::string msg_error = "CEffect::LoadEffect-> Error al cargar los parametros a memoria " + m_FileName;
+		LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
+		return false;
+	}
+
+	//Set Current Technique
+	D3DXHANDLE currentTechnique = m_Effect->GetCurrentTechnique();
+	D3DXTECHNIQUE_DESC desc;
+	HRDX(m_Effect->GetTechniqueDesc(currentTechnique, &desc), l_HR);
+	m_CurrentTechnique = m_TechniquesCollection[desc.Name];
 
  	return true;
 }
 
-void CEffect::Unload()
+bool CEffect::LoadTechniquesToMemory()
 {
-	SetNullParameters();
-	CHECKED_RELEASE( m_Effect );		
-}
-
-D3DXHANDLE CEffect::GetTechniqueByName(const std::string &TechniqueName)
-{
-	D3DXHANDLE l_EffectTechnique = m_Effect->GetTechniqueByName(TechniqueName.c_str());
-	return l_EffectTechnique;
-}
-
-void CEffect::SetNullParameters()
-{
-	m_WorldMatrixParameter = NULL;
-	m_ViewMatrixParameter = NULL;
-	m_ProjectionMatrixParameter = NULL;
-	m_WorldViewMatrixParameter = NULL;
-	m_ViewProjectionMatrixParameter = NULL;
-	m_WorldViewProjectionMatrixParameter = NULL;
-	m_ViewToLightProjectionMatrixParameter = NULL;
-	m_LightEnabledParameter = NULL;
-	m_LightsTypeParameter = NULL;
-	m_LightsPositionParameter = NULL;
-	m_LightsDirectionParameter = NULL;
-	m_LightsAngleParameter = NULL;
-	m_LightsColorParameter = NULL;
-	m_LightsFallOffParameter = NULL;
-	m_LightsStartRangeAttenuationParameter = NULL;
-	m_LightsEndRangeAttenuationParameter = NULL;
-	m_CameraPositionParameter = NULL;
-	m_BonesParameter = NULL;
-	m_TimeParameter = NULL;
-}
-
-void CEffect::GetParameterBySemantic(const std::string &SemanticName, D3DXHANDLE &l_Handle)
-{
-	l_Handle=m_Effect->GetParameterBySemantic(NULL,SemanticName.c_str());
-	if(l_Handle==NULL)
+	if(m_Effect == NULL)
 	{
-		std::string msg_error = "CEffect::GetParameterBySemantic->Parámetro por semática " + SemanticName + " no ha encontrado el efecto " + m_FileName;
-		LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		return false;
 	}
-}
 
-bool CEffect::SetLights(size_t NumOfLights)
-{
-	CLightManager *l_Lights = CORE->GetLightManager();
-	for(size_t i=0; i<NumOfLights; ++i)
+	//Reset collection to zero
+	m_TechniquesCollection.Destroy();
+
+	D3DXTECHNIQUE_DESC desc;
+	D3DXHANDLE handle;
+	HRESULT hr = D3D_OK;
+
+	CEffectTechnique* technique = NULL;
+	std::string name = "";
+
+	for(int i = 0; i < EFFECT_MAX_NUM_TECHNIQUES; i++)
 	{
-		std::string l_Name = l_Lights->GetLightNameByIndex(static_cast<uint16>(i));
-		CLight* l_Light = l_Lights->GetResource(l_Name);
+		handle = m_Effect->GetTechnique(i);
 
-		m_LightsEnabled[i] = l_Light->GetVisible();
-
-		CLight::TLightType l_LightType = l_Light->GetType();
-		m_LightsType[i] = static_cast<int>(l_LightType);
-
-		m_LightsStartRangeAttenuation[i] = l_Light->GetStartRangeAttenuation();
-		m_LightsEndRangeAttenuation[i] = l_Light->GetEndRangeAttenuation();
-		m_LightsPosition[i] = l_Light->GetPosition();
-
-		CColor l_Color = l_Light->GetColor();
-		m_LightsColor[i] = Vect3f(l_Color.GetRed(), l_Color.GetGreen(), l_Color.GetBlue());
-
-		if( l_LightType == CLight::DIRECTIONAL )
+		if(handle == NULL) //Are there any more techniques?
 		{
-			CDirectionalLight* l_DirLight = static_cast<CDirectionalLight*>(l_Light);
-			m_LightsDirection[i] = l_DirLight->GetDirection();
+			break;
 		}
-		else if( l_LightType == CLight::SPOT )
+
+		HRDX(m_Effect->GetTechniqueDesc(handle, &desc), hr);
+
+		if(FAILED(hr))
 		{
-			CSpotLight* l_SpotLight = static_cast<CSpotLight*>(l_Light);
-			m_LightsDirection[i] = l_SpotLight->GetDirection();
-			m_LightsAngle[i] = l_SpotLight->GetAngle();
-			m_LightsFallOff[i] = l_SpotLight->GetFallOff();
+			std::string msg_error = "CEffect::LoadTechniquesToMemory-> Error al cargar techniques a memoria";
+			LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
+			continue;
 		}
+
+		technique = new CEffectTechnique(this, handle, desc.Name);
+
+		m_TechniquesCollection.AddResource(technique->GetTechniqueName(), technique);
 	}
 
 	return true;
+}
+
+bool CEffect::LoadParametersToMemory()
+{
+	if(m_Effect == NULL)
+	{
+		return false;
+	}
+
+	//Reset collection to zero
+	m_ParametersCollection.Destroy();
+
+	D3DXPARAMETER_DESC desc;
+	D3DXHANDLE handle;
+	HRESULT hr = D3D_OK;
+
+	CEffectParameter* parameter = NULL;
+	std::string name = "";
+	std::string semantic = "";
+
+	for(int i = 0; i < EFFECT_MAX_NUM_PARAMETERS; i++)
+	{
+		handle = m_Effect->GetParameter(NULL, i);
+
+		if(handle == NULL) //Are there any more parametes?
+		{
+			break;
+		}
+
+		HRDX(m_Effect->GetParameterDesc(handle, &desc), hr);
+
+		if(FAILED(hr))
+		{
+			std::string msg_error = "CEffect::LoadParametersToMemory-> Error al cargar parametros a memoria";
+			LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
+			continue;
+		}
+
+		parameter = new CEffectParameter(this, handle, desc.Name, desc.Semantic);
+
+		m_ParametersCollection.AddResource(parameter->GetName(), parameter);
+	}
+
+	return true;
+}
+
+void CEffect::Unload()
+{
+	CHECKED_RELEASE( m_Effect );		
+}
+
+bool CEffect::Begin(uint32& passes, EFFECT_FLAGS flags)
+{
+	HRESULT l_hr;
+
+	HRDX(m_Effect->Begin(&passes,  flags), l_hr);
+
+	return (SUCCEEDED(l_hr));
+}
+
+bool CEffect::End()
+{
+	HRESULT l_hr;
+
+	HRDX(m_Effect->End(), l_hr);
+
+	return (SUCCEEDED(l_hr));
+}
+
+bool CEffect::BeginPass(uint32 pass)
+{
+	HRESULT l_hr;
+
+	HRDX(m_Effect->BeginPass(pass), l_hr);
+
+	return (SUCCEEDED(l_hr));
+}
+
+bool CEffect::EndPass()
+{
+	HRESULT l_hr;
+
+	HRDX(m_Effect->EndPass(), l_hr);
+
+	return (SUCCEEDED(l_hr));
+}
+
+bool CEffect::SetCurrentTechnique (CEffectTechnique* effectTechnique)
+{
+	if(m_Effect == NULL)
+	{
+		return false;
+	}
+
+	HRESULT hr = D3D_OK;
+	D3DXHANDLE handle = effectTechnique->GetD3DXTechnique();
+
+	HRDX(m_Effect->SetTechnique(handle), hr);
+
+	if(SUCCEEDED(hr))
+	{
+		m_CurrentTechnique = effectTechnique;
+		return true;
+	}
+
+	return false;
+}
+
+CEffectTechnique* CEffect::GetTechnique( const std::string& TechniqueName )
+{
+	return m_TechniquesCollection.GetResource(TechniqueName);
+}
+
+CEffectParameter* CEffect::GetParameter( const std::string& ParameterName )
+{
+	return m_ParametersCollection.GetResource(ParameterName);
+}
+
+CEffectParameter* CEffect::GetParameterBySemantic( const std::string& SemanticName )
+{
+	return m_ParametersCollection.GetParameterBySemantic(SemanticName);
 }

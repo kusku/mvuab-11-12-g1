@@ -91,6 +91,18 @@
     <ClInclude Include="Effects\EffectDefs.h">
       <Filter>Effects</Filter>
     </ClInclude>
+    <ClInclude Include="Effects\Materials\AmbientLightMaterial.h">
+      <Filter>Effects\Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects\EffectParameter.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects\EffectParameterCollection.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects\EffectTechniqueCollection.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
@@ -173,6 +185,18 @@
     <ClCompile Include="Vertexs\VertexType.cpp">
       <Filter>Vertexs</Filter>
     </ClCompile>
+    <ClCompile Include="Effects\Materials\AmbientLightMaterial.cpp">
+      <Filter>Effects\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="Effects\EffectParameter.cpp">
+      <Filter>Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Effects\EffectParameterCollection.cpp">
+      <Filter>Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Effects\EffectTechniqueCollection.cpp">
+      <Filter>Effects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Cameras">
@@ -210,6 +234,9 @@
     </Filter>
     <Filter Include="Effects">
       <UniqueIdentifier>{1b6390e5-2790-4393-81e7-f66928b76d7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effects\Materials">
+      <UniqueIdentifier>{17d1491c-345d-4986-8f00-e3940013ff75}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

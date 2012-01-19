@@ -3,90 +3,66 @@
 #ifndef _EFFECT_H
 #define _EFFECT_H
 
-class CXMLTreeNode;
+#include <string>
+#include <d3dx9.h>
 
 #include "EffectDefs.h"
 #include "Math\Vector3.h"
-#include <string>
-#include <d3dx9.h>
+#include "EffectParameterCollection.h"
+#include "EffectTechniqueCollection.h"
+
+class CXMLTreeNode;
+class CEffectTechnique;
+class CEffectParameter;
 
 class CEffect
 {
 public:
+	
+	//Declare Friend Class so Effect Parameter can access special private methods
+	friend class CEffectParameter;
+	
 	CEffect( CXMLTreeNode *XMLNode );
 	virtual ~CEffect();
 
-	bool		SetLights		( size_t NumOfLights );
-	bool		Load			();
-	bool		Load			( const std::string &Filename );
-	bool		Reload			();
+	bool					Load				( const std::string &Filename );
+	bool					Reload				();
 
-	//DirectX Methods Interface
-	LPD3DXEFFECT	GetD3DEffect			() const		{ return m_Effect; }
-	D3DXHANDLE		GetTechniqueByName		( const std::string &TechniqueName );
+	CEffectTechnique*		GetCurrentTechnique	() const	{return m_CurrentTechnique; }
+
+	bool					SetCurrentTechnique	( CEffectTechnique* effectTechnique );
+	CEffectTechnique*		GetTechnique		( const std::string& TechniqueName );
+
+	CEffectParameter*		GetParameter			( const std::string& ParameterName );
+	CEffectParameter*		GetParameterBySemantic	( const std::string& SemanticName );
 
 	//Get Methods
 	const std::string&	GetEffectName		() const		{ return m_EffectName; }
 
-	D3DXHANDLE		GetWorldMatrix						() const		{ return m_WorldMatrixParameter; }
-	D3DXHANDLE		GetViewMatrix						() const		{ return m_ViewMatrixParameter; }
-	D3DXHANDLE		GetProjectionMatrix					() const		{ return m_ProjectionMatrixParameter; }
-	D3DXHANDLE		GetWorldViewMatrix					() const		{ return m_WorldViewMatrixParameter; }
-	D3DXHANDLE		GetViewProjectionMatrix				() const		{ return m_ViewProjectionMatrixParameter; }
-	D3DXHANDLE		GetWorldViewProjectionMatrix		() const		{ return m_WorldViewProjectionMatrixParameter; }
-	D3DXHANDLE		GetViewToLightProjectionMatrix		() const		{ return m_ViewToLightProjectionMatrixParameter; }
-	D3DXHANDLE		GetLightEnabledMatrix				() const		{ return m_LightEnabledParameter; }
-	D3DXHANDLE		GetLightsTypeMatrix					() const		{ return m_LightsTypeParameter; }
-	D3DXHANDLE		GetLightsPositionMatrix				() const		{ return m_LightsPositionParameter; }
-	D3DXHANDLE		GetLightsDirectionMatrix			() const		{ return m_LightsDirectionParameter; }
-	D3DXHANDLE		GetLightsAngleMatrix				() const		{ return m_LightsAngleParameter; }
-	D3DXHANDLE		GetLightsColorMatrix				() const		{ return m_LightsColorParameter; }
-	D3DXHANDLE		GetLightsFallOffMatrix				() const		{ return m_LightsFallOffParameter; }
-	D3DXHANDLE		GetLightStartRangeMatrix			() const		{ return m_LightsStartRangeAttenuationParameter; }
-	D3DXHANDLE		GetLightEndRangeMatrix				() const		{ return m_LightsEndRangeAttenuationParameter; }
-	D3DXHANDLE		GetCameraPositionMatrix				() const		{ return m_CameraPositionParameter; }
-	D3DXHANDLE		GetBonesMatrix						() const		{ return m_BonesParameter; }
-	D3DXHANDLE		GetTimeMatrix						() const		{ return m_TimeParameter; }
+	//Wrap Methods
+	bool Begin(uint32& passes, EFFECT_FLAGS flags);
+	bool End();
+	bool BeginPass(uint32 pass);
+	bool EndPass();
 
-private:
-	void		SetNullParameters			();
-	void		GetParameterBySemantic		( const std::string &SemanticName, D3DXHANDLE &l_Handle );
-	bool		LoadEffect					();
-	void		Unload						();
+protected:	
+	virtual bool	LoadEffect	();
+	virtual void	Unload		();
 
-	std::string		m_EffectName;
-	std::string		m_FileName;
-	LPD3DXEFFECT	m_Effect;
+	bool	LoadTechniquesToMemory	();
+	bool	LoadParametersToMemory	();
 
-	BOOL			m_LightsEnabled[MAX_LIGHTS_BY_SHADER];
-	int				m_LightsType[MAX_LIGHTS_BY_SHADER];
-	float			m_LightsAngle[MAX_LIGHTS_BY_SHADER];
-	float			m_LightsFallOff[MAX_LIGHTS_BY_SHADER];
-	float			m_LightsStartRangeAttenuation[MAX_LIGHTS_BY_SHADER];
-	float			m_LightsEndRangeAttenuation[MAX_LIGHTS_BY_SHADER];
-	Vect3f			m_LightsPosition[MAX_LIGHTS_BY_SHADER];
-	Vect3f			m_LightsDirection[MAX_LIGHTS_BY_SHADER];
-	Vect3f			m_LightsColor[MAX_LIGHTS_BY_SHADER];
+protected:
+	CEffectTechniqueCollection m_TechniquesCollection;
+	CEffectParameterCollection m_ParametersCollection;
 
-	D3DXHANDLE		m_WorldMatrixParameter, 
-					m_ViewMatrixParameter,
-					m_ProjectionMatrixParameter;
-	D3DXHANDLE		m_WorldViewMatrixParameter,
-					m_ViewProjectionMatrixParameter,
-					m_WorldViewProjectionMatrixParameter;
-	D3DXHANDLE		m_ViewToLightProjectionMatrixParameter;
-	D3DXHANDLE		m_LightEnabledParameter, 
-					m_LightsTypeParameter, 
-					m_LightsPositionParameter, 
-					m_LightsDirectionParameter, 
-					m_LightsAngleParameter, 
-					m_LightsColorParameter;
-	D3DXHANDLE		m_LightsFallOffParameter, 
-					m_LightsStartRangeAttenuationParameter, 
-					m_LightsEndRangeAttenuationParameter;
-	D3DXHANDLE		m_CameraPositionParameter;
-	D3DXHANDLE		m_BonesParameter;
-	D3DXHANDLE		m_TimeParameter;
+	std::string				m_EffectName;
+	std::string				m_FileName;
+	LPD3DXEFFECT			m_Effect;
+	CEffectTechnique*		m_CurrentTechnique;
+
+public:
+	static const uint32 m_MaterialID=NO_ID;
 };
 
 #endif

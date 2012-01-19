@@ -17,7 +17,7 @@
 template<class T>
 class CMapManager
 {
-  public:
+public:
     virtual T * GetResource(const std::string & Name)
     {
       std::map<std::string, T*>::iterator it = m_Resources.find(Name);
@@ -52,6 +52,11 @@ class CMapManager
 
       m_Resources.clear();
     }
+
+	T* operator[] (const std::string& Name)
+	{
+		return GetResource(Name);
+	}
 
 protected:
 	typedef std::map<std::string, T*>	TMapResource;

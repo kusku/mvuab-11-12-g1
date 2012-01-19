@@ -10,6 +10,7 @@
 CTexture::CTexture()
 	: m_Texture(NULL)
 	, m_FileName("")
+	, m_LockFromFile(false)
 {
 }
 
@@ -21,6 +22,8 @@ CTexture::~CTexture()
 
 bool CTexture::LoadFile()
 {
+	m_LockFromFile = true;
+
 	LPDIRECT3DDEVICE9 Device = CORE->GetRenderManager()->GetDevice();
 	HRESULT l_HR = D3DXCreateTextureFromFile(Device, m_FileName.c_str(), &m_Texture);
 	return l_HR == S_OK ;
