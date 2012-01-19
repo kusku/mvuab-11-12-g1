@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <static_meshes>
+	<static_mesh name="Box001" filename="./Data/Chapter1/Static_Meshes/BoxWithNormals.m3d" />
+	<static_mesh name="Sword" filename="./Data/General/Static_Meshes/Sword.m3d" />
 	<static_mesh name="Box001" filename="./Data/Chapter1/Static_Meshes/Box001.m3d" />
-	<!--<static_mesh name="BOX_Lightmap" filename="./Data/General/Static_Meshes/BOX_Lightmap.m3d" />
-	<static_mesh name="Parteno" filename="./Data/General/Static_Meshes/Parteno.m3d" />-->
+	<static_mesh name="BOX_Lightmap" filename="./Data/General/Static_Meshes/BOX_Lightmap.m3d" />
+	<static_mesh name="Parteno" filename="./Data/General/Static_Meshes/Parteno.m3d" />
 </static_meshes>

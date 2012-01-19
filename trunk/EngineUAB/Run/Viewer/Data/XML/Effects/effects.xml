@@ -2,13 +2,12 @@
 <effects>
 	<default_technique vertex_type="19" technique="NormalTextureVertexTechnique" />
 	
-	<!--<effect name="DefaultEffect" file="data/effects/ DefaultEffect.fx" />
-	<effect name="Cal3DEffect" file="data/effects/cal3d.fx" />-->
-	<effect name="DiffuseEffect" file="data/effects/diffuseeffect.fx" />
+	<!--<effect name="DiffuseEffect" file="./data/effects/DiffuseEffect.fx" />-->
+	<effect name="DiffuseEffect" file="./data/effects/Lights.fx" />
 	
 	<technique name="NormalTexture" effect="DiffuseEffect"
-		use_world_matrix="false" use_world_view_projection_matrix="true"
-		use_camera_position="true" num_of_lights="0" />
+		use_world_matrix="true" use_world_view_projection_matrix="true" use_view_inverse_matrix="false"
+		use_camera_position="true" use_lights="true" num_of_lights="2" />
 	
 	<!--<technique name="NormalTextureVertexTechnique" effect="DefaultEffect"
 		use_world_matrix="true" use_world_view_projection_matrix="true" use_lights="true"
