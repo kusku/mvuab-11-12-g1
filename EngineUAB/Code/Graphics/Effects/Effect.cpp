@@ -24,6 +24,9 @@ CEffect::CEffect(CXMLTreeNode *XMLNode)
 	, m_ViewProjectionMatrixParameter(NULL)
 	, m_WorldViewProjectionMatrixParameter(NULL)
 	, m_ViewToLightProjectionMatrixParameter(NULL)
+	, m_ViewInverseMatrixParameter(NULL)
+	, m_WorldInverseMatrixParameter(NULL)
+	, m_ProjInverseMatrixParameter(NULL)
 	, m_LightEnabledParameter(NULL)
 	, m_LightsTypeParameter(NULL)
 	, m_LightsPositionParameter(NULL)
@@ -36,9 +39,12 @@ CEffect::CEffect(CXMLTreeNode *XMLNode)
 	, m_CameraPositionParameter(NULL)
 	, m_BonesParameter(NULL)
 	, m_TimeParameter(NULL)
+	, m_NumLightsParameter(NULL)
 {
 	m_EffectName = XMLNode->GetPszProperty("name", "");
 	m_FileName = XMLNode->GetPszProperty("file", "");
+
+	SetLights(MAX_LIGHTS);
 }
 
 CEffect::~CEffect()
@@ -71,16 +77,36 @@ bool CEffect::LoadEffect()
 	
 	if(FAILED(l_HR) || l_ErrorBuffer)
 	{
-		std::string msg_error = "CEffect::LoadEffect-> Error al cargar el efecto " + m_FileName;
+		LPVOID l_ErrPointer = l_ErrorBuffer->GetBufferPointer();
+		std::string l_Err = static_cast<char*>( l_ErrPointer );
+		std::string msg_error = "CEffect::LoadEffect->" + l_Err;
 		LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
 		CHECKED_RELEASE(l_ErrorBuffer);
+
 		return false;
 	}
 
+	//Matrices
 	GetParameterBySemantic("PROJECTION", m_ProjectionMatrixParameter);
 	GetParameterBySemantic("VIEW", m_ViewMatrixParameter);
 	GetParameterBySemantic("WORLD", m_WorldMatrixParameter);
 	GetParameterBySemantic("WORLDVIEWPROJECTION", m_WorldViewProjectionMatrixParameter);
+	GetParameterBySemantic("VIEWINVERSE", m_ViewInverseMatrixParameter);
+
+	//Camera
+	GetParameterBySemantic("CAMERA_POSITION", m_CameraPositionParameter);
+
+	//Lights
+	GetParameterBySemantic("Num_Lights", m_NumLightsParameter);
+	GetParameterBySemantic("Lights_Enabled", m_LightEnabledParameter);
+	GetParameterBySemantic("Lights_Type", m_LightsTypeParameter);
+	GetParameterBySemantic("Lights_Position", m_LightsPositionParameter);
+	GetParameterBySemantic("Lights_Direction", m_LightsDirectionParameter);
+	GetParameterBySemantic("Lights_Color", m_LightsColorParameter);
+	GetParameterBySemantic("Lights_StartAtt", m_LightsStartRangeAttenuationParameter);
+	GetParameterBySemantic("Lights_EndAtt", m_LightsEndRangeAttenuationParameter);
+	GetParameterBySemantic("Lights_Angle", m_LightsAngleParameter);
+	GetParameterBySemantic("Lights_FallOff", m_LightsFallOffParameter);
 
  	return true;
 }
@@ -93,8 +119,13 @@ void CEffect::Unload()
 
 D3DXHANDLE CEffect::GetTechniqueByName(const std::string &TechniqueName)
 {
-	D3DXHANDLE l_EffectTechnique = m_Effect->GetTechniqueByName(TechniqueName.c_str());
-	return l_EffectTechnique;
+	if( m_Effect != NULL )
+	{
+		D3DXHANDLE l_EffectTechnique = m_Effect->GetTechniqueByName(TechniqueName.c_str());
+		return l_EffectTechnique;
+	}
+
+	return NULL;
 }
 
 void CEffect::SetNullParameters()
@@ -106,6 +137,9 @@ void CEffect::SetNullParameters()
 	m_ViewProjectionMatrixParameter = NULL;
 	m_WorldViewProjectionMatrixParameter = NULL;
 	m_ViewToLightProjectionMatrixParameter = NULL;
+	m_ViewInverseMatrixParameter = NULL;
+	m_WorldInverseMatrixParameter = NULL;
+	m_ProjInverseMatrixParameter = NULL;
 	m_LightEnabledParameter = NULL;
 	m_LightsTypeParameter = NULL;
 	m_LightsPositionParameter = NULL;
@@ -118,6 +152,7 @@ void CEffect::SetNullParameters()
 	m_CameraPositionParameter = NULL;
 	m_BonesParameter = NULL;
 	m_TimeParameter = NULL;
+	m_NumLightsParameter = NULL;
 }
 
 void CEffect::GetParameterBySemantic(const std::string &SemanticName, D3DXHANDLE &l_Handle)

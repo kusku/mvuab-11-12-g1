@@ -97,6 +97,8 @@ void CEffectManager::ActivateCamera(const Mat44f &ViewMatrix, const Mat44f &Proj
 	m_ProjectionMatrix = ProjectionMatrix;
 	m_CameraEye = CameraEye;
 
+	m_ViewInverseMatrix = m_ViewMatrix.GetInverted();
+
 	m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
 }
 

@@ -54,27 +54,33 @@ public:
 	{
 		LPDIRECT3DDEVICE9 l_Device=RM->GetDevice();
 		UINT l_NumPasses;
-		EffectTechnique->BeginRender();
-		LPD3DXEFFECT l_Effect=EffectTechnique->GetEffect()->GetD3DEffect();
-		l_Effect->SetTechnique(EffectTechnique->GetD3DTechnique());
-		
-		if(SUCCEEDED(l_Effect->Begin(&l_NumPasses,0)))
+		if( EffectTechnique->BeginRender() )
 		{
-			l_Device->SetVertexDeclaration(T::GetVertexDeclaration());
-			l_Device->SetStreamSource(0,m_VB,0,sizeof(T));
-			l_Device->SetIndices(m_IB);
-
-			for (UINT b=0;b<l_NumPasses;++b)
+			LPD3DXEFFECT l_Effect=EffectTechnique->GetEffect()->GetD3DEffect();
+			l_Effect->SetTechnique(EffectTechnique->GetD3DTechnique());
+		
+			if(SUCCEEDED(l_Effect->Begin(&l_NumPasses,0)))
 			{
-				l_Effect->BeginPass(b);
-				l_Device->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, 0, 0,
-				static_cast<UINT>(m_VertexCount), 0, static_cast<UINT>( m_IndexCount/3));
-				l_Effect->EndPass();
-			}
+				l_Device->SetVertexDeclaration(T::GetVertexDeclaration());
+				l_Device->SetStreamSource(0,m_VB,0,sizeof(T));
+				l_Device->SetIndices(m_IB);
 
-			l_Effect->End();
+				for (UINT b=0;b<l_NumPasses;++b)
+				{
+					l_Effect->BeginPass(b);
+					l_Device->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, 0, 0,
+					static_cast<UINT>(m_VertexCount), 0, static_cast<UINT>( m_IndexCount/3));
+					l_Effect->EndPass();
+				}
+
+				l_Effect->End();
+			}
+			return true;
 		}
-		return true;
+		else
+		{
+			return false;
+		}
 	}
 
 	virtual inline unsigned short GetVertexType() const { return T::GetVertexType(); }

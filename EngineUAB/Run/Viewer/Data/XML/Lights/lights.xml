@@ -8,10 +8,10 @@
 	<spot name="Light04" pos="-20.0064 20.3447 29.1889" dir="-0.573021 -0.490473 0.656569" color="1.0 1.0 1.0" angle="0.436332"
 		fall_off="1.0472" att_start_range="8.0" att_end_range="10.0"/>-->
 		
-	<omni name=" Light03" pos="-1.0 3.0 1.0" color="1.0 1.0 1.0"
+	<omni name=" Light03" pos="0.0 3.0 10.0" color="1.0 0.0 0.0"
 		att_start_range="80.0" att_end_range="200.0" render_shadows="false" />
+	<directional name="Light02" pos="2.0 2.0 -2.0" dir="0.0 0.0 1.0" color="0.0 1.0 0.0" render_shadows="true"
+		att_start_range="8000.0" att_end_range="20000.0"/>
 	<spot name="Light01" pos="2.0 2.0 -4.0"  dir="0.0 0.0 -1.0"  color="0.223529 0.788235 1.0" angle="0.226893"
 		fall_off="0.977384" att_start_range="28.0" att_end_range="40.0" render_shadows="false" />
-	<directional name="Light02" pos="2.0 2.0 -2.0" dir="1.0 0.0 0.0" color="1.0 1.0 1.0" render_shadows="true"
-		att_start_range="8000.0" att_end_range="20000.0"/>
 </lights>

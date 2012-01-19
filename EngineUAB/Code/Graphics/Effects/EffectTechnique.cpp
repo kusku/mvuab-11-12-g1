@@ -1,6 +1,7 @@
 #include "EffectTechnique.h"
 #include "EffectManager.h"
 #include "Effect.h"
+#include "Lights\Light.h"
 #include "XML\XMLTreeNode.h"
 #include "Core.h"
 #include "Base.h"
@@ -26,6 +27,9 @@ CEffectTechnique::CEffectTechnique(	CXMLTreeNode *XMLNode )
 	m_UseProjMatrix = XMLNode->GetBoolProperty("use_projection_matrix", false, false);
 	m_UseWorldViewMatrix = XMLNode->GetBoolProperty("use_world_view_matrix", false, false);
 	m_UseViewToLightProjectionMatrix = XMLNode->GetBoolProperty("use_view_to_light_projection_matrix", false, false);
+	m_UseInverseViewMatrix = XMLNode->GetBoolProperty("use_view_inverse_matrix", false, false);
+	m_UseInverseWorldMatrix = XMLNode->GetBoolProperty("use_world_inverse_matrix", false, false);
+	m_UseInverseProjMatrix = XMLNode->GetBoolProperty("use_proj_inverse_matrix", false, false);
 	m_UseCameraPosition = XMLNode->GetBoolProperty("use_camera_position", false, false);
 	m_UseLights = XMLNode->GetBoolProperty("use_lights", false, false);
 	m_NumOfLights = static_cast<uint32>( XMLNode->GetIntProperty("num_of_lights", 0) );
@@ -44,6 +48,11 @@ CEffectTechnique::~CEffectTechnique()
 bool CEffectTechnique::BeginRender()
 {
 	LPD3DXEFFECT l_Effect = m_Effect->GetD3DEffect();
+	if( l_Effect == NULL )
+	{
+		return false;
+	}
+
 	CEffectManager *l_EffectManager = CORE->GetEffectManager();
 	if( m_UseWorldMatrix )
 	{
@@ -93,6 +102,13 @@ bool CEffectTechnique::BeginRender()
 		l_Effect->SetMatrix( m_Effect->GetViewToLightProjectionMatrix(), &l_LightViewMatrix.GetD3DXMatrix() );
 	}
 
+	if( m_UseInverseViewMatrix )
+	{
+		Mat44f l_ViewInverseMatrix = l_EffectManager->GetViewInverseMatrix();
+
+		l_Effect->SetMatrix( m_Effect->GetViewInverseMatrix(), &l_ViewInverseMatrix.GetD3DXMatrix() );
+	}
+
 	if( m_UseCameraPosition )
 	{
 		Vect3f l_CameraEye = l_EffectManager->GetCameraEye();
@@ -106,7 +122,27 @@ bool CEffectTechnique::BeginRender()
 
 	if( m_UseLights )
 	{
-		//TODO: ¿Que se la pasa aquí?
+		const BOOL *l_Enabled = m_Effect->GetLightEnabled();
+		const int *l_Type = m_Effect->GetLightType();
+		const float *l_Angle = m_Effect->GetLightAngle();
+		const float *l_FallOff = m_Effect->GetLightFallOff();
+		const float *l_StartAtt = m_Effect->GetLightStartAtt();
+		const float *l_EndAtt = m_Effect->GetLightEndAtt();
+		const Vect3f *l_Pos = m_Effect->GetLightPosition();
+		const Vect3f *l_Dir = m_Effect->GetLightDirection();
+		const Vect3f *l_Color = m_Effect->GetLightColor();
+
+		l_Effect->SetInt( m_Effect->GetNumLights(), m_NumOfLights );
+
+		l_Effect->SetBoolArray( m_Effect->GetLightEnabledMatrix(), l_Enabled, m_NumOfLights);
+		l_Effect->SetIntArray( m_Effect->GetLightsTypeMatrix(), l_Type, m_NumOfLights);
+		l_Effect->SetFloatArray( m_Effect->GetLightsAngleMatrix(), l_Angle, m_NumOfLights);
+		l_Effect->SetFloatArray( m_Effect->GetLightsFallOffMatrix(), l_FallOff, m_NumOfLights);
+		l_Effect->SetFloatArray( m_Effect->GetLightsStartRangeMatrix(), l_StartAtt, m_NumOfLights);
+		l_Effect->SetFloatArray( m_Effect->GetLightsEndRangeMatrix(), l_EndAtt, m_NumOfLights);
+		l_Effect->SetFloatArray( m_Effect->GetLightsPositionMatrix(), &l_Pos[0].x, 3*m_NumOfLights);
+		l_Effect->SetFloatArray( m_Effect->GetLightsDirectionMatrix(), &l_Dir[0].x, 3*m_NumOfLights);
+		l_Effect->SetFloatArray( m_Effect->GetLightsColorMatrix(), &l_Color[0].x, 3*m_NumOfLights);
 	}
 
 	if( m_UseLightAmbientColor )
