@@ -4,10 +4,14 @@
 	
 	<!--<effect name="DiffuseEffect" file="./data/effects/DiffuseEffect.fx" />-->
 	<effect name="DiffuseEffect" file="./data/effects/Lights.fx" />
+	<effect name="LightMapping" file="./data/effects/lightmap.fx" />
 	
 	<technique name="NormalTexture" effect="DiffuseEffect"
 		use_world_matrix="true" use_world_view_projection_matrix="true" use_view_inverse_matrix="false"
 		use_camera_position="true" use_lights="true" num_of_lights="2" />
+	
+	<technique name="LightMapping" effect="LightMapping"
+		use_world_matrix="true" use_world_view_projection_matrix="true" />
 	
 	<!--<technique name="NormalTextureVertexTechnique" effect="DefaultEffect"
 		use_world_matrix="true" use_world_view_projection_matrix="true" use_lights="true"
