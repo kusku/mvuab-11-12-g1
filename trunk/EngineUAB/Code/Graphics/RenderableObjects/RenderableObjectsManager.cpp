@@ -45,7 +45,7 @@ void CRenderableObjectsManager::Render(CRenderManager *RM)
 	{
 		if( (*l_It)->GetVisible() )
 		{
-			(*l_It)->Render(RM, CORE->GetEffectManager()->GetEffectTechnique("NormalTexture"));
+			(*l_It)->Render(RM, CORE->GetEffectManager()->GetEffectTechnique("LightMapping"));
 		}
 	}
 }
