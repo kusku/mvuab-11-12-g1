@@ -375,6 +375,7 @@ struct VIBuffers
 			format "position = new Vector3(%f, %f, %f);\n" VertexBuffer[i].Pos.x VertexBuffer[i].Pos.y VertexBuffer[i].Pos.z
 			format "normal = new Vector3(%f, %f, %f);\n" VertexBuffer[i].Nrm.x VertexBuffer[i].Nrm.y VertexBuffer[i].Nrm.z
 			format "textureCoordinates = new Vector2(%f, %f);\n" VertexBuffer[i].Tex1.x VertexBuffer[i].Tex1.y
+			format "textureCoordinates2 = new Vector2(%f, %f);\n" VertexBuffer[i].Tex2.x VertexBuffer[i].Tex2.y
 			format "vertices[ % ] = new VertexPositionNormalTexture(position, normal, textureCoordinates);\n\n" (i - 1)
 		)
 	),
