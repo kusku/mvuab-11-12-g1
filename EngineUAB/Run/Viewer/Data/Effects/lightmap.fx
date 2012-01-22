@@ -23,12 +23,14 @@ struct TVertexIn
 	float3 Pos : POSITION;
 	float3 Normal : NORMAL;
 	float2 UV : TEXCOORD0;
+	float2 UV2 : TEXCOORD1;
 };
 
 struct TVertexOut
 {
 	float4 HPos : POSITION;
 	float2 UV : TEXCOORD0;
+	float2 UV2 : TEXCOORD1;
 };
 
 float4x4 g_WorldViewProj : WorldViewProjection;
@@ -39,6 +41,7 @@ TVertexOut mainVS(TVertexIn IN)
 	TVertexOut l_OUT = (TVertexOut)0;
 	l_OUT.HPos = mul(float4(IN.Pos.xyz, 1.0), g_WorldViewProj);
 	l_OUT.UV = IN.UV;
+	l_OUT.UV2 = IN.UV2;
 	
 	return l_OUT;
 }
@@ -46,7 +49,7 @@ TVertexOut mainVS(TVertexIn IN)
 float4 mainPS(TVertexOut IN) : COLOR 
 {
 	float4 l_AlbedoDiffuse = tex2D(g_DiffuseSampler, IN.UV);
-	float4 l_AlbedoLightMap = tex2D(g_LightMapSampler, IN.UV);
+	float4 l_AlbedoLightMap = tex2D(g_LightMapSampler, IN.UV2);
 	
 	float4 l_Color = l_AlbedoDiffuse * l_AlbedoLightMap;
 	
