@@ -31,8 +31,6 @@ struct TVertexOut
 	float4 HPos : POSITION;
 	float2 UV : TEXCOORD0;
 	float2 UV2 : TEXCOORD1;
-	float3 Normal : TEXCOORD2;
-	float4 Pos : TEXCOORD3;
 };
 
 float4x4 g_WorldViewProj : WorldViewProjection;
@@ -44,22 +42,18 @@ TVertexOut mainVS(TVertexIn IN)
 	l_OUT.HPos = mul(float4(IN.Pos.xyz, 1.0), g_WorldViewProj);
 	l_OUT.UV = IN.UV;
 	l_OUT.UV2 = IN.UV2;
-	l_OUT.Normal = normalize(mul(IN.Normal, g_WorldMatrix));
-	l_OUT.Pos = mul(float4(IN.Pos.xyz,1.0), g_WorldMatrix);
 	
 	return l_OUT;
 }
 
 float4 mainPS(TVertexOut IN) : COLOR 
 {
-	float3 Nn = normalize(IN.Normal);
 	float4 l_AlbedoDiffuse = tex2D(g_DiffuseSampler, IN.UV);
-	float4 l_AlbedoLightMap = tex2D(g_LightMapSampler, IN.UV2);
+	float4 l_AlbedoLightMap = tex2D(g_LightMapSampler, IN.UV);
 	
 	float4 l_Color = l_AlbedoDiffuse * l_AlbedoLightMap;
 	
 	return l_Color;
-	
 }
 
 technique LightMapping
@@ -75,6 +69,7 @@ technique LightMapping
 		
 		//Tipo de culling que queremos utilizar
 		CullMode = CCW;
+		
 		VertexShader = compile vs_3_0 mainVS();
 		PixelShader = compile ps_3_0 mainPS();
 	}
