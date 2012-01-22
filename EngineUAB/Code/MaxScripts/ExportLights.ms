@@ -1,4 +1,4 @@
-fileIn "dotNetFunctions.ms"
+fileIn "HelperFunctions.ms"
 
 function ExportLights Objs FilePath IsPathCompleted=
 (
