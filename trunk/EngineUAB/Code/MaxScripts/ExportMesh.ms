@@ -222,8 +222,11 @@ function ExtractMeshGeometry obj counterClockwise t_mesh =
 				if (bit.and MeshBuffer.VertexType VERTEX_TYPE_TEXTURE2) == VERTEX_TYPE_TEXTURE2 then
 				(
 					TUV2Map1 = meshop.getMapVert obj 2 (IdxsMap.x as integer)
+					TUV2Map1.y = 1 - TUV2Map1.y
 					TUV2Map2 = meshop.getMapVert obj 2 (IdxsMap.y as integer)
+					TUV2Map2.y = 1 - TUV2Map2.y
 					TUV2Map3 = meshop.getMapVert obj 2 (IdxsMap.z as integer)
+					TUV2Map3.y = 1 - TUV2Map3.y
 				)
 			)
 			else
