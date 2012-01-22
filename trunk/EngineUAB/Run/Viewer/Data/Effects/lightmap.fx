@@ -49,7 +49,7 @@ TVertexOut mainVS(TVertexIn IN)
 float4 mainPS(TVertexOut IN) : COLOR 
 {
 	float4 l_AlbedoDiffuse = tex2D(g_DiffuseSampler, IN.UV);
-	float4 l_AlbedoLightMap = tex2D(g_LightMapSampler, IN.UV);
+	float4 l_AlbedoLightMap = tex2D(g_LightMapSampler, IN.UV2);
 	
 	float4 l_Color = l_AlbedoDiffuse * l_AlbedoLightMap;
 	
