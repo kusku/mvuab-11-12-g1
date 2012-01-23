@@ -3,6 +3,10 @@
 #include "RenderManager.h"
 #include "VertexType.h"
 
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
+
 LPDIRECT3DVERTEXDECLARATION9 TGEOMETRY_VERTEX::s_VertexDeclaration=NULL;
 
 LPDIRECT3DVERTEXDECLARATION9& TGEOMETRY_VERTEX::GetVertexDeclaration()
