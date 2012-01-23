@@ -41,11 +41,21 @@ void CRenderableObjectsManager::Render(CRenderManager *RM)
 	std::vector<CRenderableObject*>::iterator l_It = m_RenderableObjects.begin();
 	std::vector<CRenderableObject*>::iterator l_End = m_RenderableObjects.end();
 
+	std::string l_TechniqueName = "";
+
 	for(; l_It != l_End; ++l_It)
 	{
 		if( (*l_It)->GetVisible() )
 		{
-			(*l_It)->Render(RM, CORE->GetEffectManager()->GetEffectTechnique("LightMapping"));
+			l_TechniqueName = (*l_It)->GetTechniqueName();
+			if( l_TechniqueName != "" )
+			{
+				(*l_It)->Render(RM, CORE->GetEffectManager()->GetEffectTechnique( l_TechniqueName ));
+			}
+			else
+			{
+				(*l_It)->Render(RM, CORE->GetEffectManager()->GetEffectTechnique("NormalTexture"));
+			}
 		}
 	}
 }
@@ -143,12 +153,14 @@ void CRenderableObjectsManager::LoadFile()
 				float l_Yaw = l_RObjects(i).GetFloatProperty("yaw", 0.0f);
 				float l_Pitch = l_RObjects(i).GetFloatProperty("pitch", 0.0f);
 				float l_Roll = l_RObjects(i).GetFloatProperty("roll", 0.0f);
+				std::string l_Technique = l_RObjects(i).GetPszProperty("technique", "");
 
 				CInstanceMesh *l_InstanceMesh = new CInstanceMesh(l_Name, l_Core);
 				l_InstanceMesh->SetPosition(l_Position);
 				l_InstanceMesh->SetYaw(l_Yaw);
 				l_InstanceMesh->SetPitch(l_Pitch);
 				l_InstanceMesh->SetRoll(l_Roll);
+				l_InstanceMesh->SetTechniqueName(l_Technique);
 
 				AddResource( l_Name, static_cast<CRenderableObject*>(l_InstanceMesh) );
 			}
