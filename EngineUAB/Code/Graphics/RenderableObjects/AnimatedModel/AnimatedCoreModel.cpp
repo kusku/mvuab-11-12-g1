@@ -3,6 +3,11 @@
 #include "XML\XMLTreeNode.h"
 #include "Logger\Logger.h"
 #include "Base.h"
+#include "Vertexs\VertexType.h"
+#include "GraphicsDefs.h"
+#include "Vertexs\IndexedVertexs.h"
+#include "Vertexs\RenderableVertexs.h"
+#include "Core.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -12,6 +17,8 @@ CAnimatedCoreModel::CAnimatedCoreModel()
 	: m_CalCoreModel(NULL)
 	, m_Name("")
 	, m_Path("")
+	, m_RenderableVertexs(NULL)
+	, m_CalHardwareModel(NULL)
 {
 }
 
@@ -70,6 +77,57 @@ void CAnimatedCoreModel::Load(const std::string &Path, const std::string &XMLFil
 			}
 		}
 	}
+}
+
+bool CAnimatedCoreModel::LoadVertexBuffer(CalModel *Model)
+{
+	m_NumVtxs = 0;
+	m_NumFaces = 0;
+
+	//Calcula el nombre de vértices y caras que tiene el modelo animado
+	CalRenderer *l_Renderer = Model->getRenderer();
+	uint16 l_MeshCount = l_Renderer->getMeshCount();
+	for(uint16 i=0; i < l_MeshCount; ++i)
+	{
+		CalMesh *l_Mesh = Model->getMesh(i);
+
+		uint16 l_SubmeshCount = l_Mesh->getSubmeshCount();
+		for(uint16 j=0; j < l_SubmeshCount; ++j)
+		{
+			CalSubmesh *l_SubMesh = l_Mesh->getSubmesh(j);
+
+			m_NumVtxs += l_SubMesh->getVertexCount();
+			m_NumFaces += l_SubMesh->getFaceCount();
+		}
+	}
+
+	assert(m_NumVtxs > 0 && m_NumFaces > 0);
+
+	CAL3D_HW_VERTEX* pVertex;
+
+	m_CalHardwareModel = new CalHardwareModel(m_CalCoreModel);
+
+	CAL3D_HW_VERTEX_BT* l_Vtxs = new CAL3D_HW_VERTEX_BT[m_NumVtxs*2]; //Cogemos el doble de vértices necesarios porque al crear el model de hardware puede necesitar más vértices que el modelo por software
+	
+	unsigned short* l_Idxs=new unsigned short[m_NumFaces*3];
+	
+	m_CalHardwareModel->setVertexBuffer((char*) l_Vtxs, sizeof(CAL3D_HW_VERTEX_BT));
+	m_CalHardwareModel->setWeightBuffer(((char*)l_Vtxs) + 12, sizeof(CAL3D_HW_VERTEX_BT));
+	m_CalHardwareModel->setMatrixIndexBuffer(((char*)l_Vtxs) + 28, sizeof(CAL3D_HW_VERTEX_BT));
+	m_CalHardwareModel->setNormalBuffer(((char*)l_Vtxs)+44, sizeof(CAL3D_HW_VERTEX_BT));
+	m_CalHardwareModel->setTextureCoordNum(1);
+	m_CalHardwareModel->setTextureCoordBuffer(0,((char*)l_Vtxs)+92,	sizeof(CAL3D_HW_VERTEX_BT));
+	m_CalHardwareModel->setIndexBuffer(l_Idxs);
+	m_CalHardwareModel->load( 0, 0, MAXBONES);
+
+	m_NumVtxs = m_CalHardwareModel->getTotalVertexCount();
+	
+	CalcTangentsAndBinormals(l_Vtxs, l_Idxs, m_NumVtxs, m_NumFaces*3, sizeof(CAL3D_HW_VERTEX_BT),0, 44, 60, 76, 92);
+	
+	m_RenderableVertexs = new CIndexedVertexs<CAL3D_HW_VERTEX_BT>(CORE->GetRenderManager(), l_Vtxs, l_Idxs, m_NumVtxs, m_NumFaces*3);
+	
+	delete []l_Vtxs;
+	delete []l_Idxs;
 }
 
 bool CAnimatedCoreModel::LoadMesh(const std::string &Filename)

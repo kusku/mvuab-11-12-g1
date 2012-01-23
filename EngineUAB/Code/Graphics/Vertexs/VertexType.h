@@ -343,5 +343,37 @@ struct CAL3D_HW_VERTEX
 	static LPDIRECT3DVERTEXDECLARATION9 & GetVertexDeclaration();
 };
 
+struct CAL3D_HW_VERTEX_BT
+{
+	float x, y, z;
+	float weights[4];
+	float indices[4];
+	float nx, ny, nz, nw;
+	float tangentx, tangenty, tangentz, tangentw;
+	float binormalx, binormaly, binormalz, binormalw;
+	float tu,tv;
+	
+	static inline unsigned short GetVertexType()
+	{
+		return 0;
+	}
+
+	static inline unsigned int GetFVF()
+	{
+		return 0;
+	}
+
+	static void ReleaseVertexDeclaration()
+	{
+		CHECKED_RELEASE(s_VertexDeclaration);
+	}
+	
+	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
+	static LPDIRECT3DVERTEXDECLARATION9 & GetVertexDeclaration();
+};
+
+extern void CalcTangentsAndBinormals(void *VtxsData, unsigned short *IdxsData, size_t VtxCount, 
+										size_t IdxCount, size_t VertexStride, size_t GeometryStride, size_t NormalStride,
+										size_t TangentStride, size_t BiNormalStride, size_t TextureCoordsStride);
 
 #endif
