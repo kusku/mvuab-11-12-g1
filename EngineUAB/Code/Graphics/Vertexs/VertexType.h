@@ -316,5 +316,32 @@ struct TNORMALBINORMAL_VERTEX
 	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration();
 };
 
+struct CAL3D_HW_VERTEX
+{
+	float x, y, z;
+	float weights[4];
+	float indices[4];
+	float nx, ny, nz;
+	float tu,tv;
+	
+	static inline unsigned short GetVertexType()
+	{
+		return 0;
+	}
+
+	static inline unsigned int GetFVF()
+	{
+		return 0;
+	}
+
+	static void ReleaseVertexDeclaration()
+	{
+		CHECKED_RELEASE(s_VertexDeclaration);
+	}
+	
+	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
+	static LPDIRECT3DVERTEXDECLARATION9 & GetVertexDeclaration();
+};
+
 
 #endif
