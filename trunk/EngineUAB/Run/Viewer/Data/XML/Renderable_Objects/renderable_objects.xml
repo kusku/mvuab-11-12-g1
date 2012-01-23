@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <renderable_objects>
-	<!--<mesh_instance name="Sword" core="Sword" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" />-->
+	<mesh_instance name="Sword" core="Sword" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" technique="NormalTexture" />
 	<!--<mesh_instance name="Box" core="Box001" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" />-->
 	<!--<mesh_instance name="Box1" core="Box001" position="5.0 0.0 0.0" yaw="45.0" pitch="0.0" roll="0.0" />-->
-	<mesh_instance name="BOX_Lightmap" core="BOX_Lightmap" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" />
+	<mesh_instance name="BOX_Lightmap" core="BOX_Lightmap" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" technique="LightMapping" />
 	<!--<animated_model_instance name="heroine" core="heroine" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" />
 	<mesh_instance name="Parteno" core="Parteno" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" />-->
 </renderable_objects>

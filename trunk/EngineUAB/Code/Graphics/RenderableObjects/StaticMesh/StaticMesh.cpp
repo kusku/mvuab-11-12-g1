@@ -330,7 +330,7 @@ void CStaticMesh::ClearRenderableVertex()
 
 void CStaticMesh::ClearTextures()
 {
-	for(uint32 i = 0; i < m_Textures.size(); ++i)
+	for(uint16 i = 0; i < m_Textures.size(); ++i)
 	{
 		std::vector<CTexture*> vec = m_Textures[i];
 
@@ -342,7 +342,7 @@ void CStaticMesh::ClearTextures()
 
 void CStaticMesh::ClearTextureVector(std::vector<CTexture*>& textVector)
 {
-	for(uint32 i = 0; i < textVector.size(); ++i)
+	for(uint16 i = 0; i < textVector.size(); ++i)
 	{
 		CTexture* texture = textVector[i];
 
