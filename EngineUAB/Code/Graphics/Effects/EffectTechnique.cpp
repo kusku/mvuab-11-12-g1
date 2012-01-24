@@ -32,7 +32,7 @@ CEffectTechnique::CEffectTechnique(	CXMLTreeNode *XMLNode )
 	m_UseInverseProjMatrix = XMLNode->GetBoolProperty("use_proj_inverse_matrix", false, false);
 	m_UseCameraPosition = XMLNode->GetBoolProperty("use_camera_position", false, false);
 	m_UseLights = XMLNode->GetBoolProperty("use_lights", false, false);
-	m_NumOfLights = static_cast<uint32>( XMLNode->GetIntProperty("num_of_lights", 0) );
+	m_NumOfLights = static_cast<uint32>( XMLNode->GetIntProperty("num_of_lights", 0, false) );
 
 	std::string l_EffectName = XMLNode->GetPszProperty("effect", "");
 	m_Effect = CORE->GetEffectManager()->GetEffect(l_EffectName);

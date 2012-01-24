@@ -1,3 +1,6 @@
+
+#include <assert.h>
+
 #include "AnimatedCoreModel.h"
 #include "cal3d\cal3d.h"
 #include "XML\XMLTreeNode.h"
@@ -26,6 +29,16 @@ CAnimatedCoreModel::~CAnimatedCoreModel()
 {
 	m_TextureFilenameVector.clear();
 	CHECKED_DELETE(m_CalCoreModel);
+}
+
+CalHardwareModel* CAnimatedCoreModel::GetCalHardwareModel() const
+{
+	return m_CalHardwareModel;
+}
+
+CRenderableVertexs* CAnimatedCoreModel::GetRenderableVertexs() const
+{
+	return m_RenderableVertexs;
 }
 
 void CAnimatedCoreModel::Load(const std::string &Path, const std::string &XMLFilename)
@@ -103,13 +116,13 @@ bool CAnimatedCoreModel::LoadVertexBuffer(CalModel *Model)
 
 	assert(m_NumVtxs > 0 && m_NumFaces > 0);
 
-	CAL3D_HW_VERTEX* pVertex;
+	//CAL3D_HW_VERTEX_BT* pVertex;
 
 	m_CalHardwareModel = new CalHardwareModel(m_CalCoreModel);
 
 	CAL3D_HW_VERTEX_BT* l_Vtxs = new CAL3D_HW_VERTEX_BT[m_NumVtxs*2]; //Cogemos el doble de vértices necesarios porque al crear el model de hardware puede necesitar más vértices que el modelo por software
 	
-	unsigned short* l_Idxs=new unsigned short[m_NumFaces*3];
+	unsigned short* l_Idxs = new unsigned short[m_NumFaces*3];
 	
 	m_CalHardwareModel->setVertexBuffer((char*) l_Vtxs, sizeof(CAL3D_HW_VERTEX_BT));
 	m_CalHardwareModel->setWeightBuffer(((char*)l_Vtxs) + 12, sizeof(CAL3D_HW_VERTEX_BT));
@@ -126,8 +139,10 @@ bool CAnimatedCoreModel::LoadVertexBuffer(CalModel *Model)
 	
 	m_RenderableVertexs = new CIndexedVertexs<CAL3D_HW_VERTEX_BT>(CORE->GetRenderManager(), l_Vtxs, l_Idxs, m_NumVtxs, m_NumFaces*3);
 	
-	delete []l_Vtxs;
-	delete []l_Idxs;
+	CHECKED_DELETE_ARRAY(l_Vtxs);
+	CHECKED_DELETE_ARRAY(l_Idxs);
+
+	return true;
 }
 
 bool CAnimatedCoreModel::LoadMesh(const std::string &Filename)

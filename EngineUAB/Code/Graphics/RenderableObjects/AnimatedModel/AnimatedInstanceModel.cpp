@@ -11,6 +11,7 @@
 #include "Base.h"
 #include "Core.h"
 #include "Effects\EffectTechnique.h"
+#include "Effects\EffectManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -19,8 +20,6 @@
 CAnimatedInstanceModel::CAnimatedInstanceModel()
 	: m_CalModel(NULL)
 	, m_AnimatedCoreModel(NULL)
-	, m_NumVtxs(0)
-	, m_NumFaces(0)
 	, m_pVB(NULL)
     , m_pIB(NULL)
 
@@ -70,7 +69,7 @@ void CAnimatedInstanceModel::Initialize(CAnimatedCoreModel *AnimatedCoreModel)
 		BlendCycle(0, 0.0f);
 	}
 
-	CalculateNumVtxsIdxs(CORE->GetRenderManager());
+	m_AnimatedCoreModel->LoadVertexBuffer(m_CalModel);
 	LoadTextures();
 }
 
@@ -78,7 +77,6 @@ void CAnimatedInstanceModel::Update(float elapsedTime)
 {
 	m_CalModel->update(elapsedTime);
 }
-
 
 void CAnimatedInstanceModel::Render(CRenderManager *RM)
 {
@@ -104,24 +102,63 @@ void CAnimatedInstanceModel::Render(CRenderManager *RM)
 
 void CAnimatedInstanceModel::Render(CRenderManager *RM, CEffectTechnique* technique)
 {
-	Mat44f mat, rotYaw, rotPitch, rotRoll;
+	RenderModelByHardware(RM, technique);
+}
 
-	mat.SetIdentity();
-	/*rotYaw.SetIdentity();
-	rotPitch.SetIdentity();
-	rotRoll.SetIdentity();
+void CAnimatedInstanceModel::RenderModelByHardware(CRenderManager* RM, CEffectTechnique* technique)
+{
+	CEffectManager* l_EffectManager = CORE->GetEffectManager();
+	CEffectTechnique* l_EffectTechnique = technique;
 
-	mat.Translate( GetPosition() );
-		
-	rotPitch.SetRotByAngleX( mathUtils::Deg2Rad<float>(GetPitch()) );
-	rotYaw.SetRotByAngleY( mathUtils::Deg2Rad<float>(GetYaw()) );
-	rotRoll.SetRotByAngleZ( mathUtils::Deg2Rad<float>(GetRoll()) );
-		
-	mat = mat * rotYaw * rotPitch * rotRoll;*/
-		
-	RM->SetTransform(mat);
+	if(l_EffectTechnique==NULL)
+	{
+		return;
+	}
 
-	RenderModelBySoftware(RM);
+	l_EffectManager->SetWorldMatrix(GetTransform());
+
+	CEffect* m_Effect= l_EffectTechnique->GetEffect();
+	
+	if(m_Effect==NULL)
+	{
+		return;
+	}
+	
+	LPD3DXEFFECT l_Effect=m_Effect->GetD3DEffect();
+	
+	if(l_Effect)
+	{
+		l_EffectTechnique->BeginRender();
+		CalHardwareModel *l_CalHardwareModel=m_AnimatedCoreModel->GetCalHardwareModel();
+		D3DXMATRIX transformation[MAXBONES];
+
+		for(int hardwareMeshId=0;hardwareMeshId<l_CalHardwareModel->getHardwareMeshCount(); hardwareMeshId++)
+		{
+			l_CalHardwareModel->selectHardwareMesh(hardwareMeshId);
+
+			for(int boneId = 0; boneId < l_CalHardwareModel->getBoneCount(); boneId++)
+			{
+				D3DXMatrixRotationQuaternion(&transformation[boneId],(CONST D3DXQUATERNION*)&l_CalHardwareModel->getRotationBoneSpace(boneId, m_CalModel->getSkeleton()));
+				CalVector translationBoneSpace = l_CalHardwareModel->getTranslationBoneSpace(boneId,m_CalModel->getSkeleton());
+				transformation[boneId]._14 = translationBoneSpace.x;
+				transformation[boneId]._24 = translationBoneSpace.y;
+				transformation[boneId]._34 = translationBoneSpace.z;
+			}
+		
+			float l_Matrix[MAXBONES*3*4];
+
+			for(int b=0;b<l_CalHardwareModel->getBoneCount();++b)
+			{
+				memcpy(&l_Matrix[b*3*4], &transformation[b], sizeof(float)*3*4);
+			}
+
+			l_Effect->SetFloatArray(m_Effect->GetBonesMatrix(), (float *)l_Matrix,(l_CalHardwareModel->getBoneCount())*3*4);
+			m_TextureVector[0]->Activate(0);
+			//m_NormalTextureList[0]->Activate(1);
+	
+			m_AnimatedCoreModel->GetRenderableVertexs()->Render(RM, l_EffectTechnique, l_CalHardwareModel->getBaseVertexIndex(), 0, l_CalHardwareModel->getVertexCount(), l_CalHardwareModel->getStartIndex(),l_CalHardwareModel->getFaceCount());
+		}
+	}
 }
 
 void CAnimatedInstanceModel::RenderModelBySoftware(CRenderManager *RM)
@@ -222,58 +259,6 @@ void CAnimatedInstanceModel::BlendCycle(uint32 Id, float Time)
 void CAnimatedInstanceModel::ClearCycle(float Time)
 {
 	m_CalModel->getMixer()->clearCycle(0, Time);
-}
-
-bool CAnimatedInstanceModel::CalculateNumVtxsIdxs(CRenderManager *RM)
-{	
-	m_NumVtxs = 0;
-	m_NumFaces = 0;
-
-	//Calcula el nombre de vértices y caras que tiene el modelo animado
-	CalRenderer *l_Renderer = m_CalModel->getRenderer();
-	uint16 l_MeshCount = l_Renderer->getMeshCount();
-	for(uint16 i=0; i < l_MeshCount; ++i)
-	{
-		CalMesh *l_Mesh = m_CalModel->getMesh(i);
-
-		uint16 l_SubmeshCount = l_Mesh->getSubmeshCount();
-		for(uint16 j=0; j < l_SubmeshCount; ++j)
-		{
-			CalSubmesh *l_SubMesh = l_Mesh->getSubmesh(j);
-
-			m_NumVtxs += l_SubMesh->getVertexCount();
-			m_NumFaces += l_SubMesh->getFaceCount();
-		}
-	}
-
-	assert(m_NumVtxs > 0 && m_NumFaces > 0);
-
-	LPDIRECT3DDEVICE9 Device = RM->GetDevice();
-
-	// Create vertex buffer
-	if(FAILED(Device->CreateVertexBuffer(m_NumVtxs*sizeof(TNORMALTEXTURE1_VERTEX),
-		D3DUSAGE_WRITEONLY|D3DUSAGE_DYNAMIC, TNORMALTEXTURE1_VERTEX::GetFVF(), 
-		D3DPOOL_DEFAULT , &m_pVB, NULL
-		)))
-		return false;
-
-	// Create index buffer
-	if(sizeof(CalIndex)==2)
-	{
-		if(FAILED(Device->CreateIndexBuffer(m_NumFaces*3*sizeof(CalIndex),
-				D3DUSAGE_WRITEONLY|D3DUSAGE_DYNAMIC,D3DFMT_INDEX16,
-				D3DPOOL_DEFAULT ,&m_pIB, NULL)))
-				return false;
-	}
-	else
-	{
-		if(FAILED(Device->CreateIndexBuffer(m_NumFaces*3*sizeof(CalIndex),
-				D3DUSAGE_WRITEONLY|D3DUSAGE_DYNAMIC,D3DFMT_INDEX32,
-				D3DPOOL_DEFAULT ,&m_pIB, NULL)))
-				return false;
-	}
-
-	return true;
 }
 
 void CAnimatedInstanceModel::LoadTextures()

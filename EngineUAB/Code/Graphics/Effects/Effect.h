@@ -64,7 +64,7 @@ public:
 
 private:
 	void		SetNullParameters			();
-	void		GetParameterBySemantic		( const std::string &SemanticName, D3DXHANDLE &l_Handle );
+	void		GetParameterBySemantic		( const std::string &SemanticName, D3DXHANDLE &l_Handle, bool Warning = true );
 	bool		LoadEffect					();
 	void		Unload						();
 

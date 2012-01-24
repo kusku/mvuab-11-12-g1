@@ -11,12 +11,17 @@
 #ifndef _ANIMATED_CORE_MODEL_H
 #define _ANIMATED_CORE_MODEL_H
 
-class CalCoreModel;
-
 #include <string>
 #include <vector>
+#include "Utils\Named.h"
+#include "Utils\Types.h"
 
-class CAnimatedCoreModel
+class CRenderableVertexs;
+class CalHardwareModel;
+class CalModel;
+class CalCoreModel;
+
+class CAnimatedCoreModel : public CNamed
 {
 public:
 	CAnimatedCoreModel();
@@ -27,6 +32,11 @@ public:
 	CalCoreModel*			GetCoreModel		() const		{ return m_CalCoreModel; }
 	size_t					GetNumTextures		() const		{ return m_TextureFilenameVector.size(); }
 	const std::string&		GetTextureName		( size_t id )	{ return m_TextureFilenameVector[id]; }
+
+	CalHardwareModel*		GetCalHardwareModel		() const;
+	CRenderableVertexs*		GetRenderableVertexs	() const;
+	
+	bool					LoadVertexBuffer		(CalModel* Model);
 
 private:
 	bool			LoadMesh		( const std::string &Filename );
@@ -39,6 +49,12 @@ private:
 	std::string					m_Name;
 	std::vector<std::string>	m_TextureFilenameVector;
 	std::string					m_Path;
+	
+	CalHardwareModel* m_CalHardwareModel;
+	CRenderableVertexs* m_RenderableVertexs;
+
+	uint32						m_NumVtxs;
+	uint32						m_NumFaces;
 };
 
 #endif

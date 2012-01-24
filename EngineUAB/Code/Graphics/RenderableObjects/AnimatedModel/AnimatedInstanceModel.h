@@ -36,6 +36,7 @@ public:
 	void		Render						( CRenderManager *RM );
 	void		Render						( CRenderManager *RM, CEffectTechnique* technique );
 	void		RenderModelBySoftware		( CRenderManager *RM );
+	void		RenderModelByHardware		(CRenderManager* RM, CEffectTechnique* technique);
 
 	void		Destroy		();
 
@@ -44,7 +45,6 @@ public:
 	void		ClearCycle			( float Time );
 	
 private:
-	bool			CalculateNumVtxsIdxs	( CRenderManager *RM);
 	void			LoadTextures			();
 
 
@@ -54,9 +54,6 @@ private:
 
 	LPDIRECT3DVERTEXBUFFER9				m_pVB;
 	LPDIRECT3DINDEXBUFFER9				m_pIB;
-
-	uint32						m_NumVtxs;
-	uint32						m_NumFaces;
 };
 
 #endif

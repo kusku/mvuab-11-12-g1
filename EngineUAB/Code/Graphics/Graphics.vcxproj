@@ -137,7 +137,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Input\;$(DXSDK_DIR)\Include;$(SolutionDIr)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Input\;$(DXSDK_DIR)\Include;$(SolutionDIr)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src;$(SolutionDir)\Code\Graphics\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
