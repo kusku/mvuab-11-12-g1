@@ -28,8 +28,9 @@ public:
 	const Vect3f&				GetPosition			() const { return m_Position; }
 	const Vect3f&				GetScale			() const { return m_Scale; }
 	bool						GetVisible			() const { return m_Visible; }
-	const Mat44f&				GetTransform		() const { return m_WorldMatrix; }
 	const std::string&			GetTechniqueName	() const { return m_TechniqueName; }
+
+	const Mat44f				GetTransform		() const;
 
 	//---Set Functions
 	void		SetPosition			( const Vect3f& pos )			{ m_Position = pos; }
@@ -48,8 +49,6 @@ protected:
 	float		m_fRoll;
 
 	bool		m_Visible;
-
-	Mat44f		m_WorldMatrix;
 
 	std::string m_TechniqueName;
 };

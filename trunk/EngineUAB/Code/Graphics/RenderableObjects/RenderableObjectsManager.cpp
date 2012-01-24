@@ -154,6 +154,7 @@ void CRenderableObjectsManager::LoadFile()
 				float l_Pitch = l_RObjects(i).GetFloatProperty("pitch", 0.0f);
 				float l_Roll = l_RObjects(i).GetFloatProperty("roll", 0.0f);
 				std::string l_Technique = l_RObjects(i).GetPszProperty("technique", "");
+				Vect3f l_Scale = l_RObjects(i).GetVect3fProperty("scale", Vect3f(1.0f, 1.0f, 1.0f));
 
 				CInstanceMesh *l_InstanceMesh = new CInstanceMesh(l_Name, l_Core);
 				l_InstanceMesh->SetPosition(l_Position);
@@ -161,6 +162,7 @@ void CRenderableObjectsManager::LoadFile()
 				l_InstanceMesh->SetPitch(l_Pitch);
 				l_InstanceMesh->SetRoll(l_Roll);
 				l_InstanceMesh->SetTechniqueName(l_Technique);
+				l_InstanceMesh->SetScale(l_Scale);
 
 				AddResource( l_Name, static_cast<CRenderableObject*>(l_InstanceMesh) );
 			}
@@ -173,6 +175,7 @@ void CRenderableObjectsManager::LoadFile()
 				float l_Pitch = l_RObjects(i).GetFloatProperty("pitch", 0.0f);
 				float l_Roll = l_RObjects(i).GetFloatProperty("roll", 0.0f);
 				std::string l_Technique = l_RObjects(i).GetPszProperty("technique", "");
+				Vect3f l_Scale = l_RObjects(i).GetVect3fProperty("scale", Vect3f(1.0f, 1.0f, 1.0f));
 
 				CAnimatedInstanceModel* l_AnimatedInstance = CORE->GetAnimatedModelManager()->GetInstance(l_Core);
 				assert(l_AnimatedInstance!=NULL);
@@ -183,6 +186,7 @@ void CRenderableObjectsManager::LoadFile()
 				l_AnimatedInstance->SetPitch(l_Pitch);
 				l_AnimatedInstance->SetRoll(l_Roll);
 				l_AnimatedInstance->SetTechniqueName(l_Technique);
+				l_AnimatedInstance->SetScale(l_Scale);
 
 				AddResource( l_Name, static_cast<CRenderableObject*>(l_AnimatedInstance) );
 			}

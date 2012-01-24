@@ -98,7 +98,17 @@ bool CAnimatedCoreModel::LoadVertexBuffer(CalModel *Model)
 	m_NumFaces = 0;
 
 	//Calcula el nombre de vértices y caras que tiene el modelo animado
-	CalRenderer *l_Renderer = Model->getRenderer();
+
+	for(int i=0;i<m_CalCoreModel->getCoreMeshCount();++i)
+	{
+		CalCoreMesh *l_CoreMesh=m_CalCoreModel->getCoreMesh(i);
+		for(int j=0;j<l_CoreMesh->getCoreSubmeshCount();++j)
+		{
+			m_NumVtxs+=l_CoreMesh->getCoreSubmesh(j)->getVertexCount();
+			m_NumFaces+=l_CoreMesh->getCoreSubmesh(j)->getFaceCount();
+		}
+	}
+	/*CalRenderer *l_Renderer = Model->getRenderer();
 	uint16 l_MeshCount = l_Renderer->getMeshCount();
 	for(uint16 i=0; i < l_MeshCount; ++i)
 	{
@@ -112,7 +122,7 @@ bool CAnimatedCoreModel::LoadVertexBuffer(CalModel *Model)
 			m_NumVtxs += l_SubMesh->getVertexCount();
 			m_NumFaces += l_SubMesh->getFaceCount();
 		}
-	}
+	}*/
 
 	assert(m_NumVtxs > 0 && m_NumFaces > 0);
 
@@ -134,6 +144,7 @@ bool CAnimatedCoreModel::LoadVertexBuffer(CalModel *Model)
 	m_CalHardwareModel->load( 0, 0, MAXBONES);
 
 	m_NumVtxs = m_CalHardwareModel->getTotalVertexCount();
+	m_NumFaces = m_CalHardwareModel->getTotalFaceCount();
 	
 	CalcTangentsAndBinormals(l_Vtxs, l_Idxs, m_NumVtxs, m_NumFaces*3, sizeof(CAL3D_HW_VERTEX_BT),0, 44, 60, 76, 92);
 	
