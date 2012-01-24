@@ -27,9 +27,9 @@ sampler DiffuseTextureSampler : register( s0 ) = sampler_state
 	MagFilter = LINEAR;
 };
 
-float4x4 g_WorldViewProjMatrix;
-float4x4 g_WorldMatrix;
-float3x4 g_Bones[MAXBONES];
+float4x4 g_WorldViewProjMatrix : WORLDVIEWPROJECTION;
+float4x4 g_WorldMatrix : WORLD;
+float3x4 g_Bones[MAXBONES] : BONES;
 
 float3 CalcAnimtedPos(float4 Position, float4 Indices, float4 Weight)
 {
@@ -97,18 +97,18 @@ CAL3D_HW_VERTEX_PS RenderCal3DHWVS(CAL3D_HW_VERTEX_VS IN)
 	OUT.WorldTangent=normalize(mul(l_Tangent,g_WorldMatrix));
 	OUT.WorldBinormal=mul(cross(l_Tangent,l_Normal),(float3x3)g_WorldMatrix);
 	OUT.UV = IN.TexCoord.xy;
-	OUT.HPosition = mul(WorldPosition, g_WorldViewProjectionMatrix );
+	OUT.HPosition = mul(l_WorldPosition, g_WorldViewProjMatrix );
 	
 	return OUT;
 }
 
 float4 RenderCal3DHWPS(CAL3D_HW_VERTEX_PS IN) : COLOR
 {
-	float3 Nn=CalcBumpMap(IN.WorldPosition, IN.WorldNormal, IN.WorldTangent,
-	IN.WorldBinormal, IN.UV);
-	float4 l_SpecularColor = 1.0;
-	float4 l_DiffuseColor=tex2D(DiffuseTextureSampler, IN.UV);
-	return CalcLighting (IN.WorldPosition, Nn, l_DiffuseColor, l_SpecularColor);
+	//float3 Nn=CalcBumpMap(IN.WorldPosition, IN.WorldNormal, IN.WorldTangent,IN.WorldBinormal, IN.UV);
+	//float4 l_SpecularColor = 1.0;
+	//float4 l_DiffuseColor=tex2D(DiffuseTextureSampler, IN.UV);
+	//return CalcLighting (IN.WorldPosition, Nn, l_DiffuseColor, l_SpecularColor);
+	return float4 (1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 technique Cal3DTechnique
