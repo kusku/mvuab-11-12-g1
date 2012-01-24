@@ -156,7 +156,8 @@ void CAnimatedInstanceModel::RenderModelByHardware(CRenderManager* RM, CEffectTe
 			m_TextureVector[0]->Activate(0);
 			//m_NormalTextureList[0]->Activate(1);
 	
-			m_AnimatedCoreModel->GetRenderableVertexs()->Render(RM, l_EffectTechnique, l_CalHardwareModel->getBaseVertexIndex(), 0, l_CalHardwareModel->getVertexCount(), l_CalHardwareModel->getStartIndex(),l_CalHardwareModel->getFaceCount());
+			m_AnimatedCoreModel->GetRenderableVertexs()->Render(RM, l_EffectTechnique, l_CalHardwareModel->getBaseVertexIndex(), 
+				0, l_CalHardwareModel->getVertexCount(), l_CalHardwareModel->getStartIndex(),l_CalHardwareModel->getFaceCount());
 		}
 	}
 }
