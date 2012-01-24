@@ -50,6 +50,39 @@ public:
 		return true;
 	}
 
+	bool Render(CRenderManager *RM, CEffectTechnique *EffectTechnique, int baseVertexIndex, uint32 minVertexIndex, uint32 vertexCount, uint32 startIndex, uint32 faceCount) const
+	{
+		LPDIRECT3DDEVICE9 l_Device=RM->GetDevice();
+		UINT l_NumPasses;
+		if( EffectTechnique->BeginRender() )
+		{
+			LPD3DXEFFECT l_Effect=EffectTechnique->GetEffect()->GetD3DEffect();
+			l_Effect->SetTechnique(EffectTechnique->GetD3DTechnique());
+		
+			if(SUCCEEDED(l_Effect->Begin(&l_NumPasses,0)))
+			{
+				l_Device->SetVertexDeclaration(T::GetVertexDeclaration());
+				l_Device->SetStreamSource(0,m_VB,0,sizeof(T));
+				l_Device->SetIndices(m_IB);
+
+				for (UINT b=0;b<l_NumPasses;++b)
+				{
+					l_Effect->BeginPass(b);
+					l_Device->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, baseVertexIndex, minVertexIndex,
+						vertexCount, startIndex, faceCount);
+					l_Effect->EndPass();
+				}
+
+				l_Effect->End();
+			}
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 	bool Render(CRenderManager *RM, CEffectTechnique *EffectTechnique) const
 	{
 		LPDIRECT3DDEVICE9 l_Device=RM->GetDevice();
@@ -69,7 +102,7 @@ public:
 				{
 					l_Effect->BeginPass(b);
 					l_Device->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, 0, 0,
-					static_cast<UINT>(m_VertexCount), 0, static_cast<UINT>( m_IndexCount/3));
+						static_cast<UINT>(m_VertexCount), 0, static_cast<UINT>( m_IndexCount/3));
 					l_Effect->EndPass();
 				}
 

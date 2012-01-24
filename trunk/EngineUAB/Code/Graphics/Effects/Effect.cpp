@@ -87,26 +87,29 @@ bool CEffect::LoadEffect()
 	}
 
 	//Matrices
-	GetParameterBySemantic("PROJECTION", m_ProjectionMatrixParameter);
-	GetParameterBySemantic("VIEW", m_ViewMatrixParameter);
-	GetParameterBySemantic("WORLD", m_WorldMatrixParameter);
-	GetParameterBySemantic("WORLDVIEWPROJECTION", m_WorldViewProjectionMatrixParameter);
-	GetParameterBySemantic("VIEWINVERSE", m_ViewInverseMatrixParameter);
+	GetParameterBySemantic("PROJECTION", m_ProjectionMatrixParameter, false);
+	GetParameterBySemantic("VIEW", m_ViewMatrixParameter, false);
+	GetParameterBySemantic("WORLD", m_WorldMatrixParameter, false);
+	GetParameterBySemantic("WORLDVIEWPROJECTION", m_WorldViewProjectionMatrixParameter, false);
+	GetParameterBySemantic("VIEWINVERSE", m_ViewInverseMatrixParameter, false);
 
 	//Camera
-	GetParameterBySemantic("CAMERA_POSITION", m_CameraPositionParameter);
+	GetParameterBySemantic("CAMERA_POSITION", m_CameraPositionParameter, false);
 
 	//Lights
-	GetParameterBySemantic("Num_Lights", m_NumLightsParameter);
-	GetParameterBySemantic("Lights_Enabled", m_LightEnabledParameter);
-	GetParameterBySemantic("Lights_Type", m_LightsTypeParameter);
-	GetParameterBySemantic("Lights_Position", m_LightsPositionParameter);
-	GetParameterBySemantic("Lights_Direction", m_LightsDirectionParameter);
-	GetParameterBySemantic("Lights_Color", m_LightsColorParameter);
-	GetParameterBySemantic("Lights_StartAtt", m_LightsStartRangeAttenuationParameter);
-	GetParameterBySemantic("Lights_EndAtt", m_LightsEndRangeAttenuationParameter);
-	GetParameterBySemantic("Lights_Angle", m_LightsAngleParameter);
-	GetParameterBySemantic("Lights_FallOff", m_LightsFallOffParameter);
+	GetParameterBySemantic("Num_Lights", m_NumLightsParameter, false);
+	GetParameterBySemantic("Lights_Enabled", m_LightEnabledParameter, false);
+	GetParameterBySemantic("Lights_Type", m_LightsTypeParameter, false);
+	GetParameterBySemantic("Lights_Position", m_LightsPositionParameter, false);
+	GetParameterBySemantic("Lights_Direction", m_LightsDirectionParameter, false);
+	GetParameterBySemantic("Lights_Color", m_LightsColorParameter, false);
+	GetParameterBySemantic("Lights_StartAtt", m_LightsStartRangeAttenuationParameter, false);
+	GetParameterBySemantic("Lights_EndAtt", m_LightsEndRangeAttenuationParameter, false);
+	GetParameterBySemantic("Lights_Angle", m_LightsAngleParameter, false);
+	GetParameterBySemantic("Lights_FallOff", m_LightsFallOffParameter, false);
+
+	//Bones
+	GetParameterBySemantic("BONES", m_BonesParameter, false);
 
  	return true;
 }
@@ -155,10 +158,10 @@ void CEffect::SetNullParameters()
 	m_NumLightsParameter = NULL;
 }
 
-void CEffect::GetParameterBySemantic(const std::string &SemanticName, D3DXHANDLE &l_Handle)
+void CEffect::GetParameterBySemantic(const std::string &SemanticName, D3DXHANDLE &l_Handle, bool Warning)
 {
 	l_Handle=m_Effect->GetParameterBySemantic(NULL,SemanticName.c_str());
-	if(l_Handle==NULL)
+	if(l_Handle==NULL && Warning)
 	{
 		std::string msg_error = "CEffect::GetParameterBySemantic->Parámetro por semática " + SemanticName + " no ha encontrado el efecto " + m_FileName;
 		LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());

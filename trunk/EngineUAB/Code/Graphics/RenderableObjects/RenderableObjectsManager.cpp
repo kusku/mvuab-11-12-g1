@@ -172,6 +172,7 @@ void CRenderableObjectsManager::LoadFile()
 				float l_Yaw = l_RObjects(i).GetFloatProperty("yaw", 0.0f);
 				float l_Pitch = l_RObjects(i).GetFloatProperty("pitch", 0.0f);
 				float l_Roll = l_RObjects(i).GetFloatProperty("roll", 0.0f);
+				std::string l_Technique = l_RObjects(i).GetPszProperty("technique", "");
 
 				CAnimatedInstanceModel* l_AnimatedInstance = CORE->GetAnimatedModelManager()->GetInstance(l_Core);
 				assert(l_AnimatedInstance!=NULL);
@@ -181,6 +182,7 @@ void CRenderableObjectsManager::LoadFile()
 				l_AnimatedInstance->SetYaw(l_Yaw);
 				l_AnimatedInstance->SetPitch(l_Pitch);
 				l_AnimatedInstance->SetRoll(l_Roll);
+				l_AnimatedInstance->SetTechniqueName(l_Technique);
 
 				AddResource( l_Name, static_cast<CRenderableObject*>(l_AnimatedInstance) );
 			}
