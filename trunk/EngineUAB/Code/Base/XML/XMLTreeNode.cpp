@@ -353,7 +353,7 @@ std::string CXMLTreeNode::GetPszISOProperty (const char* _pszKey, const char* _p
 Vect2f CXMLTreeNode::GetVect2fProperty  (const char* _pszKey, const Vect2f& _Default, bool warningDefault) const
 {
   xmlChar* value = GetProperty(_pszKey);
-  Vect2f l_V2f(0.0f, 0.0f);
+  Vect2f l_V2f = _Default;
 
   if (value)
   {
@@ -375,7 +375,7 @@ Vect2f CXMLTreeNode::GetVect2fProperty  (const char* _pszKey, const Vect2f& _Def
 Vect3f CXMLTreeNode::GetVect3fProperty  (const char* _pszKey, const Vect3f& _Default, bool warningDefault) const
 {
   xmlChar* value = GetProperty(_pszKey);
-  Vect3f l_V3f(0.0f, 0.0f, 0.0f);
+  Vect3f l_V3f = _Default;
 
   if (value)
   {
@@ -397,7 +397,7 @@ Vect3f CXMLTreeNode::GetVect3fProperty  (const char* _pszKey, const Vect3f& _Def
 Vect4f CXMLTreeNode::GetVect4fProperty  (const char* _pszKey, const Vect4f& _Default, bool warningDefault) const
 {
   xmlChar* value = GetProperty(_pszKey);
-  Vect4f l_V4f(0.0f, 0.0f, 0.0f, 0.0f);
+  Vect4f l_V4f = _Default;
 
   if (value)
   {
@@ -419,7 +419,7 @@ Vect4f CXMLTreeNode::GetVect4fProperty  (const char* _pszKey, const Vect4f& _Def
 Vect2i CXMLTreeNode::GetVect2iProperty  (const char* _pszKey, const Vect2i& _Default, bool warningDefault) const
 {
   xmlChar* value = GetProperty(_pszKey);
-  Vect2i l_V2i(0, 0);
+  Vect2i l_V2i = _Default;
 
   if (value)
   {
@@ -441,7 +441,7 @@ Vect2i CXMLTreeNode::GetVect2iProperty  (const char* _pszKey, const Vect2i& _Def
 Vect3i CXMLTreeNode::GetVect3iProperty  (const char* _pszKey, const Vect3i& _Default, bool warningDefault) const
 {
   xmlChar* value = GetProperty(_pszKey);
-  Vect3i l_V3i(0, 0, 0);
+  Vect3i l_V3i = _Default;
 
   if (value)
   {
@@ -463,7 +463,7 @@ Vect3i CXMLTreeNode::GetVect3iProperty  (const char* _pszKey, const Vect3i& _Def
 Vect4i CXMLTreeNode::GetVect4iProperty  (const char* _pszKey, const Vect4i& _Default, bool warningDefault) const
 {
   xmlChar* value = GetProperty(_pszKey);
-  Vect4i l_V4i(0, 0, 0, 0);
+  Vect4i l_V4i = _Default;
 
   if (value)
   {
