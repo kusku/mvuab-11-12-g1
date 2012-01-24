@@ -90,7 +90,7 @@ CAL3D_HW_VERTEX_PS RenderCal3DHWVS(CAL3D_HW_VERTEX_VS IN)
 	CalcAnimatedNormalTangent(IN.Normal.xyz, IN.Tangent.xyz, IN.Indices, IN.Weight, l_Normal, l_Tangent);
 	
 	float3 l_Position=CalcAnimtedPos(float4(IN.Position.xyz,1.0), IN.Indices, IN.Weight);
-	float4 l_WorldPosition=float4(l_Position, 1.0);
+	float4 l_WorldPosition=float4(l_Position.xyz, 1.0);
 	
 	OUT.WorldPosition=mul(l_WorldPosition,g_WorldMatrix);
 	OUT.WorldNormal=normalize(mul(l_Normal,g_WorldMatrix));
@@ -108,7 +108,7 @@ float4 RenderCal3DHWPS(CAL3D_HW_VERTEX_PS IN) : COLOR
 	//float4 l_SpecularColor = 1.0;
 	//float4 l_DiffuseColor=tex2D(DiffuseTextureSampler, IN.UV);
 	//return CalcLighting (IN.WorldPosition, Nn, l_DiffuseColor, l_SpecularColor);
-	return float4 (1.0f, 1.0f, 1.0f, 1.0f);
+	return tex2D(DiffuseTextureSampler, IN.UV);
 }
 
 technique Cal3DTechnique
