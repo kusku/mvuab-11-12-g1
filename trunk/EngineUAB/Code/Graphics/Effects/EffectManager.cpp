@@ -60,6 +60,12 @@ void CEffectManager::Load(const std::string &Filename)
 			{
 				CEffectTechnique* l_Technique = new CEffectTechnique(&l_Effects(i));
 				AddResource( l_Technique->GetTechniqueName(), l_Technique );
+
+				if( l_Technique->GetTechniqueName() == "Cal3DTechnique" )
+				{
+					SetAnimatedModelTechnique( l_Technique );
+				}
+
 				l_Technique = NULL;
 			}
 			else if( l_Type == "default_technique" )

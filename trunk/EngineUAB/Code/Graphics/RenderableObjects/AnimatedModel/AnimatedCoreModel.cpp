@@ -10,6 +10,8 @@
 #include "GraphicsDefs.h"
 #include "Vertexs\IndexedVertexs.h"
 #include "Vertexs\RenderableVertexs.h"
+#include "Textures\Texture.h"
+#include "Textures\TextureManager.h"
 #include "Core.h"
 
 #if defined(_DEBUG)
@@ -27,8 +29,18 @@ CAnimatedCoreModel::CAnimatedCoreModel()
 
 CAnimatedCoreModel::~CAnimatedCoreModel()
 {
+	std::vector<CTexture*>::iterator l_It = m_TextureVector.begin();
+	std::vector<CTexture*>::iterator l_End = m_TextureVector.end();
+	for(; l_It != l_End; ++l_It)
+	{
+		CHECKED_DELETE( (*l_It) );
+	}
+	m_TextureVector.clear();
+
 	m_TextureFilenameVector.clear();
 	CHECKED_DELETE(m_CalCoreModel);
+	CHECKED_DELETE(m_CalHardwareModel);
+	CHECKED_DELETE(m_RenderableVertexs);
 }
 
 CalHardwareModel* CAnimatedCoreModel::GetCalHardwareModel() const
@@ -49,6 +61,7 @@ void CAnimatedCoreModel::Load(const std::string &Path, const std::string &XMLFil
 	{
 		std::string msg_error = "CAnimatedCoreModel::Load->Error al intentar leer el archivo xml de animación de un core: " + filename;
 		LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
+		return;
 	}
 	m_Path = Path;
 
@@ -89,6 +102,8 @@ void CAnimatedCoreModel::Load(const std::string &Path, const std::string &XMLFil
 				m_TextureFilenameVector.push_back(l_Texture); //Load texture string
 			}
 		}
+
+		LoadTextures();
 	}
 }
 
@@ -98,35 +113,22 @@ bool CAnimatedCoreModel::LoadVertexBuffer(CalModel *Model)
 	m_NumFaces = 0;
 
 	//Calcula el nombre de vértices y caras que tiene el modelo animado
-
-	for(int i=0;i<m_CalCoreModel->getCoreMeshCount();++i)
+	uint16 l_MeshCount = m_CalCoreModel->getCoreMeshCount();
+	for(uint16 i=0;i < l_MeshCount; ++i)
 	{
 		CalCoreMesh *l_CoreMesh=m_CalCoreModel->getCoreMesh(i);
-		for(int j=0;j<l_CoreMesh->getCoreSubmeshCount();++j)
+		uint16 l_SubMeshCount = l_CoreMesh->getCoreSubmeshCount();
+		for(uint16 j=0;j < l_SubMeshCount; ++j)
 		{
 			m_NumVtxs+=l_CoreMesh->getCoreSubmesh(j)->getVertexCount();
 			m_NumFaces+=l_CoreMesh->getCoreSubmesh(j)->getFaceCount();
 		}
 	}
-	/*CalRenderer *l_Renderer = Model->getRenderer();
-	uint16 l_MeshCount = l_Renderer->getMeshCount();
-	for(uint16 i=0; i < l_MeshCount; ++i)
-	{
-		CalMesh *l_Mesh = Model->getMesh(i);
-
-		uint16 l_SubmeshCount = l_Mesh->getSubmeshCount();
-		for(uint16 j=0; j < l_SubmeshCount; ++j)
-		{
-			CalSubmesh *l_SubMesh = l_Mesh->getSubmesh(j);
-
-			m_NumVtxs += l_SubMesh->getVertexCount();
-			m_NumFaces += l_SubMesh->getFaceCount();
-		}
-	}*/
-
 	assert(m_NumVtxs > 0 && m_NumFaces > 0);
 
 	//CAL3D_HW_VERTEX_BT* pVertex;
+	CHECKED_DELETE(m_CalHardwareModel);
+	CHECKED_DELETE(m_RenderableVertexs);
 
 	m_CalHardwareModel = new CalHardwareModel(m_CalCoreModel);
 
@@ -186,4 +188,18 @@ bool CAnimatedCoreModel::LoadAnimation(const std::string &Name, const std::strin
 	}
 
 	return true;
+}
+
+void CAnimatedCoreModel::LoadTextures()
+{
+	size_t l_TexCount = m_TextureFilenameVector.size();
+	for(size_t i = 0; i < l_TexCount; ++i)
+	{
+		std::string l_Path = m_TextureFilenameVector[i];
+
+		CTexture* l_Texture = CORE->GetTextureManager()->GetTexture(l_Path);
+		m_TextureVector.push_back(l_Texture);
+
+		l_Texture = NULL;
+	}
 }

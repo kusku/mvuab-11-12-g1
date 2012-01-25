@@ -54,7 +54,7 @@ void CRenderableObjectsManager::Render(CRenderManager *RM)
 			}
 			else
 			{
-				(*l_It)->Render(RM, CORE->GetEffectManager()->GetEffectTechnique("NormalTexture"));
+				(*l_It)->Render(RM, NULL);
 			}
 		}
 	}
