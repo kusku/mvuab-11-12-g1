@@ -308,7 +308,10 @@ bool CStaticMesh::ExtractTexture(FILE* modelFile, std::vector<CTexture*>& textVe
 	if(!texture->Load(sPath))
 	{
 		CHECKED_DELETE(texture);
-		return false;
+		texture = CORE->GetTextureManager()->GetTexture("NoTexture");
+
+		std::string err = "CStaticMesh::ExtractTexture->No se ha podido crear la textura: " + sPath;
+		LOGGER->AddNewLog(ELL_WARNING, err.c_str() );
 	}
 
 	textVector.push_back(texture);

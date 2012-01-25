@@ -238,6 +238,10 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 			{
 				m_Config.effects_path = l_ConfigNode(i).GetPszProperty( "effectsXML", "" );
 			}
+			else if( l_Name == "Textures" )
+			{
+				m_Config.no_texture_path = l_ConfigNode(i).GetPszProperty( "no_texture", "" );
+			}
 		}
 	}
 

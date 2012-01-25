@@ -100,7 +100,12 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 			m_pActionToInput->LoadXML( config.input_path );
 			m_pInputManager = m_pActionToInput->GetInputManager();
 
+			//Crea el TextureManager y añade una textura por sí al renderizar algun modelo no encuentra una textura
 			m_pTextureManager = new CTextureManager();
+			CTexture* l_Tex = new CTexture();
+			l_Tex->Load( config.no_texture_path );
+			m_pTextureManager->AddResource( "NoTexture", l_Tex );
+			l_Tex = NULL;
 
 			//Inicia los meshes
 			m_pStaticMeshManager = new CStaticMeshManager();
