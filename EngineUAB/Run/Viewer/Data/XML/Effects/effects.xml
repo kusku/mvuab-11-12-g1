@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <effects>
-	<default_technique vertex_type="19" technique="NormalTextureVertexTechnique" />
+	<default_technique vertex_type="19" technique="NormalTexture" />
+	<default_technique vertex_type="31" technique="Cal3DTechnique" />
 	
 	<!--<effect name="DiffuseEffect" file="./data/effects/DiffuseEffect.fx" />-->
 	<effect name="DiffuseEffect" file="./data/effects/Lights.fx" />

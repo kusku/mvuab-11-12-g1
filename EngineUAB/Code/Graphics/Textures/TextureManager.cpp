@@ -31,9 +31,14 @@ CTexture* CTextureManager::GetTexture(const std::string &fileName)
 	if( l_Tex == NULL )
 	{
 		l_Tex = new CTexture();
-		l_Tex->Load(fileName);
-
-		AddResource(fileName, l_Tex);
+		if( l_Tex->Load(fileName) )
+		{
+			AddResource(fileName, l_Tex);
+		}
+		else
+		{
+			return NULL;
+		}
 	}
 
 	return l_Tex;

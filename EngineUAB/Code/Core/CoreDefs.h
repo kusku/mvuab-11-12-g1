@@ -34,6 +34,8 @@ struct SConfig
 
 	std::string lights_path;
 	std::string effects_path;
+
+	std::string no_texture_path;
 };
 
 #endif

@@ -198,8 +198,15 @@ void CAnimatedCoreModel::LoadTextures()
 		std::string l_Path = m_TextureFilenameVector[i];
 
 		CTexture* l_Texture = CORE->GetTextureManager()->GetTexture(l_Path);
-		m_TextureVector.push_back(l_Texture);
+		if( l_Texture == NULL )
+		{
+			l_Texture = CORE->GetTextureManager()->GetTexture("NoTexture");
 
+			std::string err = "CAnimatedCoreModel::LoadTextures->No se ha podido crear la textura: " + l_Path;
+			LOGGER->AddNewLog(ELL_WARNING, err.c_str() );
+		}
+		
+		m_TextureVector.push_back(l_Texture);
 		l_Texture = NULL;
 	}
 }
