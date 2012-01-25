@@ -45,12 +45,8 @@ public:
 	void		ClearCycle			( float Time );
 	
 private:
-	void			LoadTextures			();
-
-
 	CalModel*								m_CalModel;
 	CAnimatedCoreModel*						m_AnimatedCoreModel;
-	std::vector<CTexture*>					m_TextureVector;
 
 	LPDIRECT3DVERTEXBUFFER9				m_pVB;
 	LPDIRECT3DINDEXBUFFER9				m_pIB;

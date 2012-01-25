@@ -5,13 +5,12 @@
 #include "Vertexs\RenderableVertexs.h"
 #include "Vertexs\IndexedVertexs.h"
 #include "Vertexs\VertexType.h"
-#include "Textures\Texture.h"
-#include "Textures\TextureManager.h"
 #include "Math\Matrix44.h"
 #include "Base.h"
 #include "Core.h"
 #include "Effects\EffectTechnique.h"
 #include "Effects\EffectManager.h"
+#include "Textures\Texture.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -33,14 +32,6 @@ CAnimatedInstanceModel::~CAnimatedInstanceModel()
 
 void CAnimatedInstanceModel::Destroy()
 {
-	std::vector<CTexture*>::iterator l_It = m_TextureVector.begin();
-	std::vector<CTexture*>::iterator l_End = m_TextureVector.end();
-	for(; l_It != l_End; ++l_It)
-	{
-		CHECKED_DELETE( (*l_It) );
-	}
-	m_TextureVector.clear();
-
 	CHECKED_DELETE(m_CalModel);
 	
     CHECKED_RELEASE(m_pVB);
@@ -70,7 +61,6 @@ void CAnimatedInstanceModel::Initialize(CAnimatedCoreModel *AnimatedCoreModel)
 	}
 
 	m_AnimatedCoreModel->LoadVertexBuffer(m_CalModel);
-	LoadTextures();
 }
 
 void CAnimatedInstanceModel::Update(float elapsedTime)
@@ -153,7 +143,7 @@ void CAnimatedInstanceModel::RenderModelByHardware(CRenderManager* RM, CEffectTe
 			}
 
 			l_Effect->SetFloatArray(m_Effect->GetBonesMatrix(), (float *)l_Matrix,(l_CalHardwareModel->getBoneCount())*3*4);
-			m_TextureVector[0]->Activate(0);
+			m_AnimatedCoreModel->GetTextureById(0)->Activate(0);
 			//m_NormalTextureList[0]->Activate(1);
 	
 			m_AnimatedCoreModel->GetRenderableVertexs()->Render(RM, l_EffectTechnique, l_CalHardwareModel->getBaseVertexIndex(), 
@@ -197,7 +187,7 @@ void CAnimatedInstanceModel::RenderModelBySoftware(CRenderManager *RM)
 		uint32 l_SubmeshCount;
 		l_SubmeshCount=l_pCalRenderer->getSubmeshCount(l_MeshId);
 
-		m_TextureVector[l_MeshId]->Activate(0);
+		m_AnimatedCoreModel->GetTextureById(l_MeshId)->Activate(0);
 
 		// render all submeshes of the mesh
 		uint32 l_SubmeshId;
@@ -260,18 +250,4 @@ void CAnimatedInstanceModel::BlendCycle(uint32 Id, float Time)
 void CAnimatedInstanceModel::ClearCycle(float Time)
 {
 	m_CalModel->getMixer()->clearCycle(0, Time);
-}
-
-void CAnimatedInstanceModel::LoadTextures()
-{
-	size_t l_TexCount = m_AnimatedCoreModel->GetNumTextures();
-	for(size_t i = 0; i < l_TexCount; ++i)
-	{
-		std::string l_Path = m_AnimatedCoreModel->GetTextureName(i);
-
-		CTexture* l_Texture = CORE->GetTextureManager()->GetTexture(l_Path);
-		m_TextureVector.push_back(l_Texture);
-
-		l_Texture = NULL;
-	}
 }

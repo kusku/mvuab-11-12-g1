@@ -8,6 +8,9 @@
 #include "VertexType.h"
 #include "Effects\EffectTechnique.h"
 #include "Effects\Effect.h"
+#include "Effects\EffectManager.h"
+#include "Base.h"
+#include "Core.h"
 
 template<class T>
 class CIndexedVertexs : public CRenderableVertexs
@@ -54,6 +57,13 @@ public:
 	{
 		LPDIRECT3DDEVICE9 l_Device=RM->GetDevice();
 		UINT l_NumPasses;
+		if( EffectTechnique == NULL )
+		{
+			//Coger una technique por defecto
+			std::string l_TechName = CORE->GetEffectManager()->GetTechniqueEffectNameByVertexDefault( T::GetVertexType() );
+			EffectTechnique = CORE->GetEffectManager()->GetEffectTechnique(l_TechName);
+		}
+
 		if( EffectTechnique->BeginRender() )
 		{
 			LPD3DXEFFECT l_Effect=EffectTechnique->GetEffect()->GetD3DEffect();
@@ -87,6 +97,14 @@ public:
 	{
 		LPDIRECT3DDEVICE9 l_Device=RM->GetDevice();
 		UINT l_NumPasses;
+
+		if( EffectTechnique == NULL )
+		{
+			//Coger una technique por defecto
+			std::string l_TechName = CORE->GetEffectManager()->GetTechniqueEffectNameByVertexDefault( T::GetVertexType() );
+			EffectTechnique = CORE->GetEffectManager()->GetEffectTechnique(l_TechName);
+		}
+
 		if( EffectTechnique->BeginRender() )
 		{
 			LPD3DXEFFECT l_Effect=EffectTechnique->GetEffect()->GetD3DEffect();
