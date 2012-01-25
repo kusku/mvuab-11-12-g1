@@ -384,10 +384,13 @@ void CStaticMesh::Render(CRenderManager *RM, CEffectTechnique* technique) const
 	uint16 l_Size = static_cast<uint16>(m_RVs.size());
 	for(uint16 i=0; i<l_Size; ++i)
 	{
-		uint16 l_NumTexs = static_cast<uint16>(m_Textures[i].size());
-		for( uint16 j=0; j < l_NumTexs; ++j)
+		if(m_Textures.size() > 0)
 		{
-			m_Textures[i][j]->Activate(j);
+			uint16 l_NumTexs = static_cast<uint16>(m_Textures[i].size());
+			for( uint16 j=0; j < l_NumTexs; ++j)
+			{
+				m_Textures[i][j]->Activate(j);
+			}
 		}
 
 		m_RVs[i]->Render(RM, technique);

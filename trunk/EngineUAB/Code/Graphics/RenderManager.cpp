@@ -222,7 +222,7 @@ void CRenderManager::SetupMatrices(CCamera* camera)
         D3DXMatrixLookAtLH( &m_matView, &l_Eye, &l_LookAt, &l_VUP);
 
         //Setup Matrix projection
-        D3DXMatrixPerspectiveFovLH( &m_matProject, 45.0f * D3DX_PI / 180.0f, m_AspectRatio, 1.0f, 100.0f );
+        D3DXMatrixPerspectiveFovLH( &m_matProject, 45.0f * D3DX_PI / 180.0f, m_AspectRatio, 1.0f, 10000.0f );
     }
     else
     {
