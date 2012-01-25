@@ -40,6 +40,10 @@ function ExtractMaterialProperties obj t_mesh =
 	
 	-----------------------------------------------------------------
 	
+	format "Extracting Material Properties from object % \n" t_mesh.MeshName
+	
+	-----------------------------------------------------------------
+	
 	--Verify that a material exists on the object
 	if obj.material != null then
 	(
@@ -53,7 +57,7 @@ function ExtractMaterialProperties obj t_mesh =
 			(
 				local id = matIDs[i]
 				
-				if obj.material[id] != undefined AND ( classOf(obj.material[id]) ) == Standardmaterial then
+				if ( (obj.material[id] != undefined) AND ( classOf(obj.material[id]) ) == Standardmaterial ) then
 				(
 					
 					local meshBuffer = CreateMeshBuffer()
@@ -99,6 +103,12 @@ function ExtractMaterialProperties obj t_mesh =
 		return -3
 	)
 	
+	-----------------------------------------------------------------
+	
+	format "Finish extracting Material Properties from object % \n" t_mesh.MeshName
+	
+	-----------------------------------------------------------------
+	
 	return 1
 )
 
@@ -134,6 +144,10 @@ function ExtractMeshGeometry obj counterClockwise t_mesh =
 	(
 		return -2
 	)
+	
+	-----------------------------------------------------------------
+	
+	format "Extracting Geometry from object % \n" t_mesh.MeshName
 
 	-----------------------------------------------------------------
 
@@ -150,6 +164,14 @@ function ExtractMeshGeometry obj counterClockwise t_mesh =
 	--Extract Geometry information if t_mesh is not an instance
 	if t_mesh.IsInstance == false then
 	(
+		
+		-----------------------------------------------------------------
+		
+		--Create VtxNormalMap
+		t_mesh.CalcVtxNormals obj
+		
+		-----------------------------------------------------------------
+		
 		local numFaces = getNumFaces obj
 
 		for i=1 to numFaces do
@@ -181,23 +203,20 @@ function ExtractMeshGeometry obj counterClockwise t_mesh =
 			local Vtx2 = getVert obj IdxsFace.y
 			local Vtx3 = getVert obj IdxsFace.z
 			
-			/*
+			
 			local Normal1 = getNormal obj IdxsFace.x
 			local Normal2 = getNormal obj IdxsFace.y
 			local Normal3 = getNormal obj IdxsFace.z
-			*/
-			UABCalcVertexsNormals obj
+						
 			local FaceNormal=getFaceNormal obj i
 			local SmoothValue=getFaceSmoothGroup obj i
-			local Normal1 = UABGetVertexNormal obj IdxsFace.x SmoothValue FaceNormal
-			local Normal2 = UABGetVertexNormal obj IdxsFace.y SmoothValue FaceNormal
-			local Normal3 = UABGetVertexNormal obj IdxsFace.z SmoothValue FaceNormal
+			local Normal1 = t_mesh.GetVertexNormal IdxsFace.x SmoothValue FaceNormal
+			local Normal2 = t_mesh.GetVertexNormal IdxsFace.y SmoothValue FaceNormal
+			local Normal3 = t_mesh.GetVertexNormal IdxsFace.z SmoothValue FaceNormal
 			Normal1 = RHTranslationToLH Normal1
 			Normal2 = RHTranslationToLH Normal2
 			Normal3 = RHTranslationToLH Normal3
-			
-			local IdxsMap = meshop.getMapFace obj 1 i
-			
+						
 			local Diffuse1 = 0
 			local Diffuse2 = 0
 			local Diffuse3 = 0
@@ -212,6 +231,8 @@ function ExtractMeshGeometry obj counterClockwise t_mesh =
 			
 			if (bit.and MeshBuffer.VertexType VERTEX_TYPE_TEXTURE1) == VERTEX_TYPE_TEXTURE1 then
 			(
+				local IdxsMap = meshop.getMapFace obj 1 i
+				
 				TUVMap1 = meshop.getMapVert obj 1 (IdxsMap.x as integer)
 				TUVMap1.y = 1 - TUVMap1.y
 				TUVMap2 = meshop.getMapVert obj 1 (IdxsMap.y as integer)
@@ -250,6 +271,12 @@ function ExtractMeshGeometry obj counterClockwise t_mesh =
 			MeshBuffer.AddVertexAndIndex Vertex1 Vertex2 Vertex3 counterClockwise
 		)
 	)
+	
+	-----------------------------------------------------------------
+	
+	format "Finish extracting Geometry from object % \n" t_mesh.MeshName
+
+	-----------------------------------------------------------------
 	
 	return 1
 )
@@ -327,6 +354,18 @@ function ExportSelection selectedObjs outputDir subOutPutDir counterClockwise ex
 	
 		--Name of the mesh
 		t_mesh.MeshName = objPM.name
+		
+		--------------------------------------
+		
+		format "Starting export of object: % \n" t_mesh.MeshName 
+		
+		--------------------------------------
+		
+		--------------------------------------
+		
+		format "Verifying Instance of object. Current number in array % \n" processedObjects.count
+		
+		--------------------------------------
 		
 		--Verify if it is an instance
 		for i = 1 to processedObjects.count do

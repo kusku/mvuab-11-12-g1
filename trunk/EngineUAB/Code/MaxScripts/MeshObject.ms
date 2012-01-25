@@ -227,7 +227,7 @@ struct VIBuffers
 	VertexMap,
 	IndexBuffer,
 	MeshMaterial,
-	
+
 	function AddVertexToBuffer vtx =
 	(
 		local stVtx = vtx.ToString()
@@ -303,6 +303,8 @@ struct VIBuffers
 			)
 			else
 			(
+				MeshMaterial = CreateMaterialObjectStruct()
+				
 				VertexType = (bit.or VertexType VERTEX_TYPE_DIFFUSE)
 			)
 		)
@@ -529,6 +531,79 @@ struct MeshObj
 	RenderExport,
 	RenderVisible,
 	AnimModelCore,
+	VtxNormalBuffer,
+	
+	function CalcVtxNormals obj =
+	(
+		------------------------------------------------
+		
+		--Make sure map is clear Map
+		VtxNormalBuffer = #()
+		
+		------------------------------------------------
+		
+		local NumVtxs=getNumVerts obj
+
+		--Initialize Map for future use
+		for b=1 to NumVtxs do
+		(
+			VtxNormalBuffer[b] = #()
+			
+			--From 1 to Max Smoothing groups (32)
+			for t=1 to 32 do
+			(
+				VtxNormalBuffer[b][t] = point3 0 0 0
+			)
+		)
+
+		local NumFaces = getNumFaces obj
+		local InvTransform = inverse obj.transform
+		
+		for IdFace = 1 to NumFaces do
+		(
+			local IdxsFace = getFace obj IdFace
+			
+			local Vtx1 = (getVert obj IdxsFace.x) * InvTransform
+			local Vtx2 = (getVert obj IdxsFace.y) * InvTransform
+			local Vtx3 = (getVert obj IdxsFace.z) * InvTransform
+			
+			local FaceNormal = getFaceNormal obj IdFace
+			local SmoothValue = getFaceSmoothGroup obj IdFace
+			
+			for b=1 to 32 do
+			(
+				if((IsSmoothingGroupEnabled b SmoothValue)==true) then
+				(
+					VtxNormalBuffer[IdxsFace.x][b] = VtxNormalBuffer[IdxsFace.x][b] + FaceNormal
+					VtxNormalBuffer[IdxsFace.y][b] = VtxNormalBuffer[IdxsFace.y][b] + FaceNormal
+					VtxNormalBuffer[IdxsFace.z][b] = VtxNormalBuffer[IdxsFace.z][b] + FaceNormal
+				)
+			)
+		)
+	),
+	
+	function GetVertexNormal IdVertex SmoothValue FaceNormal =
+	(
+		local HasNormal = false
+		local Normal = point3 0 0 0
+		
+		--From 1 to Max Smoothing Group (32)
+		for b=1 to 32 do
+		(
+			if((IsSmoothingGroupEnabled b SmoothValue) == true) then
+			(
+				Normal = Normal + VtxNormalBuffer[IdVertex][b]
+				HasNormal = true
+			)
+		)
+		
+		if HasNormal == false then
+		(
+			Normal = FaceNormal
+		)
+		
+		return Normal
+	),
 	
 	function GetMeshBuffer MatID =
 	(
@@ -757,7 +832,9 @@ struct SceneObj
 		
 		format "</static_meshes>\n" to:file
 		
+		flush file
 		close file
+		free file
 	),
 	
 	function CreateRenderObjectXML =
@@ -770,19 +847,19 @@ struct SceneObj
 		
 		for i = 1 to MeshObjs.count do
 		(			
-			if MeshObjs[i].RenderExport != undefined and MeshObjs[i].RenderVisible == true then
+			if ( (MeshObjs[i].RenderExport != undefined) AND (MeshObjs[i].RenderVisible == true) ) then
 			(
 				local pos =  stringstream ""
 				format "% % %" MeshObjs[i].Translation.x MeshObjs[i].Translation.y MeshObjs[i].Translation.z to:pos
 				
 				local coreName = MeshObjs[i].InstanceName
 				
-				if MeshObjs[i].IsInstance == false then
+				if ( MeshObjs[i].IsInstance == false ) then
 				(
 					coreName = MeshObjs[i].MeshName
 				)
 				
-				if MeshObjs[i].RenderExport == "static_mesh" then
+				if ( MeshObjs[i].RenderExport == "static_mesh" ) then
 				(
 					format "\t<mesh_instance name=\"%\" core=\"%\" position=\"%\" yaw=\"%\" pitch=\"%\" roll=\"%\" />\n" MeshObjs[i].MeshName coreName (pos as string) MeshObjs[i].YawAngle MeshObjs[i].PitchAngle MeshObjs[i].RollAngle to:file
 				)
@@ -795,7 +872,9 @@ struct SceneObj
 		
 		format "</renderable_objects>\n" to:file
 		
+		flush file
 		close file
+		free file
 	),
 	
 	function CopyTexturesToOutput = 
@@ -860,8 +939,8 @@ function CreateVertex pos nrm tex tex2 diffCol VertexType =
 
 function CreateMeshStruct =
 (
-	local meshObject = MeshObj  MeshPath:"" MeshName:"" MeshBuffers:#() BBox:0 BSphere:0 BocMeshAttributes:0 MeshFileName:"" YawAngle:0 PitchAngle:0 RollAngle:0 Translation:0 IsInstance:False InstanceName:"" RelativeMeshFileName:"" RenderExport:"" RenderVisible:"" AnimModelCore:""
-
+	local meshObject = MeshObj  MeshPath:"" MeshName:"" MeshBuffers:#() BBox:0 BSphere:0 BocMeshAttributes:0 MeshFileName:"" YawAngle:0 PitchAngle:0 RollAngle:0 Translation:0 IsInstance:False InstanceName:"" RelativeMeshFileName:"" RenderExport:"" RenderVisible:"" AnimModelCore:""  VtxNormalBuffer:#()
+	
 	return meshObject
 )
 
