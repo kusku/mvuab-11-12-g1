@@ -61,22 +61,7 @@ void CInstanceMesh::Render(CRenderManager *RM, CEffectTechnique* technique)
 {
 	if( m_StaticMesh != NULL )
 	{
-		Mat44f mat, rotYaw, rotPitch, rotRoll;
-		
-		mat.SetIdentity();
-		rotYaw.SetIdentity();
-		rotPitch.SetIdentity();
-		rotRoll.SetIdentity();
-
-		mat.Translate( GetPosition() );
-		
-		rotPitch.SetRotByAngleX( mathUtils::Deg2Rad<float>(GetPitch()) );
-		rotYaw.SetRotByAngleY( mathUtils::Deg2Rad<float>(GetYaw()) );
-		rotRoll.SetRotByAngleZ( mathUtils::Deg2Rad<float>(GetRoll()) );
-		
-		mat = mat * rotYaw * rotPitch * rotRoll;
-
-		CORE->GetEffectManager()->SetWorldMatrix(mat);
+		CORE->GetEffectManager()->SetWorldMatrix(GetTransform());
 		m_StaticMesh->Render(RM, technique);
 	}
 }
