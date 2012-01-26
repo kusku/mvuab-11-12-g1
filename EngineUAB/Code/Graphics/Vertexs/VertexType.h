@@ -12,6 +12,8 @@
 #define VERTEX_TYPE_TEXTURE1 0x0010
 #define VERTEX_TYPE_TEXTURE2 0x0020
 #define VERTEX_TYPE_DIFFUSE 0x0040
+#define VERTEX_TYPE_WEIGHTS 0x0080
+#define VERTEX_TYPE_INDICES 0x0100
 
 
 struct TGEOMETRY_VERTEX
@@ -355,7 +357,8 @@ struct CAL3D_HW_VERTEX_BT
 	
 	static inline unsigned short GetVertexType()
 	{
-		return 0;
+		return VERTEX_TYPE_GEOMETRY|VERTEX_TYPE_WEIGHTS|VERTEX_TYPE_INDICES|VERTEX_TYPE_NORMAL|
+				VERTEX_TYPE_TANGENT|VERTEX_TYPE_BINORMAL|VERTEX_TYPE_TEXTURE1;
 	}
 
 	static inline unsigned int GetFVF()
@@ -368,6 +371,32 @@ struct CAL3D_HW_VERTEX_BT
 		CHECKED_RELEASE(s_VertexDeclaration);
 	}
 	
+	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
+	static LPDIRECT3DVERTEXDECLARATION9 & GetVertexDeclaration();
+};
+
+struct TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX
+{
+	float x, y, z;
+	float nx, ny, nz, nw;
+	float tangentx, tangenty, tangentz, tangentw;
+	float binormalx, binormaly, binormalz, binormalw;
+	float tu,tv;
+
+	static inline unsigned short GetVertexType()
+	{
+		return VERTEX_TYPE_GEOMETRY|VERTEX_TYPE_NORMAL|VERTEX_TYPE_TANGENT|VERTEX_TYPE_BINORMAL|VERTEX_TYPE_TEXTURE1;
+	}
+	static inline unsigned int GetFVF()
+	{
+		return 0;
+	}
+
+	static void ReleaseVertexDeclaration()
+	{
+		CHECKED_RELEASE(s_VertexDeclaration);
+	}
+
 	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
 	static LPDIRECT3DVERTEXDECLARATION9 & GetVertexDeclaration();
 };

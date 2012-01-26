@@ -188,6 +188,22 @@ struct Vertex
 		WriteFloat file Nrm.y
 		WriteFloat file Nrm.z
 		
+		if(bit.and VertexType VERTEX_TYPE_TANGENT) == VERTEX_TYPE_TANGENT and
+			(bit.and VertexType VERTEX_TYPE_BINORMAL) == VERTEX_TYPE_BINORMAL then
+		(
+			WriteFloat file 0.0 --Normal.w
+			
+			WriteFloat file 0.0  --Tangent
+			WriteFloat file 0.0 
+			WriteFloat file 0.0 
+			WriteFloat file 0.0 
+			
+			WriteFloat file 0.0  --Binormal
+			WriteFloat file 0.0 
+			WriteFloat file 0.0 
+			WriteFloat file 0.0 
+		)
+		
 		if (bit.and VertexType VERTEX_TYPE_DIFFUSE) == VERTEX_TYPE_DIFFUSE then
 		(
 			--Write Diffuse Color Vertex to file

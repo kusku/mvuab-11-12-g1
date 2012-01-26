@@ -200,7 +200,7 @@ void CAnimatedCoreModel::LoadTextures()
 		CTexture* l_Texture = CORE->GetTextureManager()->GetTexture(l_Path);
 		if( l_Texture == NULL )
 		{
-			l_Texture = CORE->GetTextureManager()->GetTexture("NoTexture");
+			l_Texture = CORE->GetTextureManager()->GetNoTexture();
 
 			std::string err = "CAnimatedCoreModel::LoadTextures->No se ha podido crear la textura: " + l_Path;
 			LOGGER->AddNewLog(ELL_WARNING, err.c_str() );

@@ -105,6 +105,7 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 			CTexture* l_Tex = new CTexture();
 			l_Tex->Load( config.no_texture_path );
 			m_pTextureManager->AddResource( "NoTexture", l_Tex );
+			m_pTextureManager->SetNoTextureName("NoTexture");
 			l_Tex = NULL;
 
 			//Inicia los meshes
