@@ -1,5 +1,6 @@
 #include "EffectManager.h"
 #include "XML\XMLTreeNode.h"
+#include "Vertexs\VertexType.h"
 #include "Base.h"
 #include "Core.h"
 
@@ -77,6 +78,8 @@ void CEffectManager::Load(const std::string &Filename)
 			}
 		}
 	}
+
+	AssignDefaultTechniques();
 }
 
 void CEffectManager::Reload()
@@ -121,4 +124,22 @@ std::string CEffectManager::GetTechniqueEffectNameByVertexDefault(uint16 VertexT
 size_t CEffectManager::GetMaxLights() const
 {
 	return MAX_LIGHTS_BY_SHADER;
+}
+
+void CEffectManager::AssignDefaultTechniques()
+{
+	TDefaultTechniqueEffectMap::iterator l_End = m_DefaultTechniqueEffectMap.end();
+
+	for(TDefaultTechniqueEffectMap::iterator l_It = m_DefaultTechniqueEffectMap.begin(); l_It != l_End; ++l_It)
+	{
+		if( CAL3D_HW_VERTEX_BT::GetVertexType() == l_It->first ) //Modelo animado
+		{
+			m_AnimatedModelTechnique = GetResource(l_It->second);
+		}
+		else if( TNORMALTEXTURE1_VERTEX::GetVertexType() == l_It->first ) //Malla estática
+		{
+			m_StaticMeshTechnique = GetResource(l_It->second);
+		}
+
+	}
 }

@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <effects>
 	<default_technique vertex_type="19" technique="NormalTexture" />
-	<default_technique vertex_type="31" technique="Cal3DTechnique" />
+	<default_technique vertex_type="31" technique="NormalMapping" />
+	<default_technique vertex_type="415" technique="Cal3DTechnique" />
 	
 	<!--<effect name="DiffuseEffect" file="./data/effects/DiffuseEffect.fx" />-->
 	<effect name="DiffuseEffect" file="./data/effects/Lights.fx" />
 	<effect name="LightMapping" file="./data/effects/lightmap.fx" />
 	<effect name="Cal3DEffect" file="./data/effects/Cal3DEffect.fx" />
+	<effect name="NormalMap" file="./data/effects/normalmap.fx" />
 	
 	<technique name="NormalTexture" effect="DiffuseEffect"
 		use_world_matrix="true" use_world_view_projection_matrix="true" use_view_inverse_matrix="false"
 		use_camera_position="true" use_lights="true" num_of_lights="2" />
 	
 	<technique name="LightMapping" effect="LightMapping"
+		use_world_matrix="true" use_world_view_projection_matrix="true" />
+	
+	<technique name="NormalMapping" effect="NormalMap" 
 		use_world_matrix="true" use_world_view_projection_matrix="true" />
 	
 	<technique name="Cal3DTechnique" effect="Cal3DEffect"

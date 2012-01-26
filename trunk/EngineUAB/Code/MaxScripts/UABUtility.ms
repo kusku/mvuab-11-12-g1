@@ -68,6 +68,8 @@ utility UABUtility "UAB Utility" width:165 height:364
 			
 			--Export the selected objects
 			ExportSelection $ filepath subOutPutDir cbCounterClockwise.checked cbExportMesh.checked cbCopyTextures.checked cbCreateStaticMesh.checked cbPrintDebugInfo.checked
+			
+			format "Export finished.\n"
 		)
 	)
 	on bProperties pressed do

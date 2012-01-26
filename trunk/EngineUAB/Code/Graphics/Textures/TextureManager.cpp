@@ -5,6 +5,7 @@
 #endif
 
 CTextureManager::CTextureManager()
+	: m_NoTextureName("")
 {
 }
 
@@ -42,4 +43,9 @@ CTexture* CTextureManager::GetTexture(const std::string &fileName)
 	}
 
 	return l_Tex;
+}
+
+CTexture* CTextureManager::GetNoTexture()
+{
+	return GetResource(m_NoTextureName);
 }

@@ -208,18 +208,20 @@ CRenderableVertexs* CStaticMesh::ReadCreateVertexBuffer(FILE* modelFile, uint16 
 
 		ret = idxVtx;
 	}
-	else if(vertexType == (VERTEX_TYPE_GEOMETRY|VERTEX_TYPE_NORMAL|VERTEX_TYPE_TANGENT|VERTEX_TYPE_BINORMAL|VERTEX_TYPE_TEXTURE1) )
+	else if(vertexType == TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX::GetVertexType() )
 	{
 		//Create Vertex Buffer
-		vtxBuffer = LoadCreateVertexBuffer<TNORMALBINORMAL_VERTEX>(modelFile, numVertex);
+		vtxBuffer = LoadCreateVertexBuffer<TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX>(modelFile, numVertex);
 		
+		CalcTangentsAndBinormals(vtxBuffer, idxBuffer, numVertex, numIndex, sizeof(TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX),
+				0, 12, 28, 44, 60);
+
 		//Create CIndexVertexs
-		CIndexedVertexs<TNORMALBINORMAL_VERTEX>* idxVtx = 
-			new CIndexedVertexs<TNORMALBINORMAL_VERTEX>(CORE->GetRenderManager(), vtxBuffer, idxBuffer, numVertex, numIndex);
+		CIndexedVertexs<TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX>* idxVtx = 
+			new CIndexedVertexs<TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX>(CORE->GetRenderManager(), vtxBuffer, idxBuffer, numVertex, numIndex);
 
 		ret = idxVtx;
 	}
-	//TODO: Falta más casos para que lea binormales
 	
 	CHECKED_DELETE(idxBuffer);
 	CHECKED_DELETE(vtxBuffer);
@@ -308,7 +310,7 @@ bool CStaticMesh::ExtractTexture(FILE* modelFile, std::vector<CTexture*>& textVe
 	if(!texture->Load(sPath))
 	{
 		CHECKED_DELETE(texture);
-		texture = CORE->GetTextureManager()->GetTexture("NoTexture");
+		texture = CORE->GetTextureManager()->GetNoTexture();
 
 		std::string err = "CStaticMesh::ExtractTexture->No se ha podido crear la textura: " + sPath;
 		LOGGER->AddNewLog(ELL_WARNING, err.c_str() );

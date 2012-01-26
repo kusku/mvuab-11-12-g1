@@ -102,7 +102,8 @@ void CAnimatedInstanceModel::RenderModelByHardware(CRenderManager* RM, CEffectTe
 
 	if(l_EffectTechnique==NULL)
 	{
-		return;
+		l_EffectTechnique = CORE->GetEffectManager()->GetAnimatedModelTechnique();
+		if( l_EffectTechnique == NULL) return;
 	}
 
 	l_EffectManager->SetWorldMatrix(GetTransform());
@@ -122,7 +123,8 @@ void CAnimatedInstanceModel::RenderModelByHardware(CRenderManager* RM, CEffectTe
 		CalHardwareModel *l_CalHardwareModel=m_AnimatedCoreModel->GetCalHardwareModel();
 		D3DXMATRIX transformation[MAXBONES];
 
-		for(int hardwareMeshId=0;hardwareMeshId<l_CalHardwareModel->getHardwareMeshCount(); hardwareMeshId++)
+		int l_MeshCount = l_CalHardwareModel->getHardwareMeshCount();
+		for(int hardwareMeshId=0;hardwareMeshId<l_MeshCount; ++hardwareMeshId)
 		{
 			l_CalHardwareModel->selectHardwareMesh(hardwareMeshId);
 
