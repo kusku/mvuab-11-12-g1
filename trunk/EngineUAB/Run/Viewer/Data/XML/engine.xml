@@ -4,18 +4,18 @@
 	<WindowsPosition position="0 0" />
 	<RenderMode fullscreenMode="false" />
 	<RenderColor colorDebug="blue" colorRelease="black" />
-	<ActionToInput inputXML="./Data/XML/Input/actions.xml" />
+	<ActionToInput inputXML="./Data/XML/input.xml" />
 	<Mouse exclusiveModeInMouse="true" drawPointerMouse="true" />
-	<Fonts fontsXML="./Data/XML/Fonts/fonts.xml" />
+	<Fonts fontsXML="./Data/XML/fonts.xml" />
 	<Languages default="catalan">
 		<Language languageXML="./Data/XML/Language/catalan.xml" />
 		<Language languageXML="./Data/XML/Language/spanish.xml" />
 		<Language languageXML="./Data/XML/Language/english.xml" />
 	</Languages>
 	<Textures no_texture="./Data/General/Textures/notexture.png" />
-	<Meshes meshesXML="./Data/XML/Static_Meshes/static_meshes.xml" />
-	<RenderableObjects objectsXML="./Data/XML/Renderable_Objects/renderable_objects.xml" />
-	<AnimatedModels animatedXML="./Data/XML/Animated_Models/animated_models.xml" />
-	<Lights lightXML="./Data/XML/Lights/lights.xml" />
-	<Effects effectsXML="./Data/XML/Effects/effects.xml" />
+	<Meshes meshesXML="./Data/XML/static_meshes.xml" />
+	<RenderableObjects objectsXML="./Data/XML/renderable_objects.xml" />
+	<AnimatedModels animatedXML="./Data/XML/animated_models.xml" />
+	<Lights lightXML="./Data/XML/lights.xml" />
+	<Effects effectsXML="./Data/XML/effects.xml" />
 </Config>
