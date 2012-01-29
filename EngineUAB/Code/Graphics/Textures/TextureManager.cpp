@@ -1,4 +1,6 @@
 #include "TextureManager.h"
+#include "Logger\Logger.h"
+#include "Base.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"

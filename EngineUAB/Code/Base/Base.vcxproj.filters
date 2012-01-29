@@ -135,6 +135,12 @@
     <ClInclude Include="Utils\Named.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\TemplatedVectorMapManager.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Active.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Math\MathUtils.inl">

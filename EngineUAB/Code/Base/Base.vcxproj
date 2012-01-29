@@ -121,6 +121,7 @@
     <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="Math\Vector4.h" />
     <ClInclude Include="Memory\MemLeaks.h" />
+    <ClInclude Include="Utils\Active.h" />
     <ClInclude Include="Utils\BaseUtils.h" />
     <ClInclude Include="Utils\CountDownTimer.h" />
     <ClInclude Include="Utils\LerpAnimator1D.h" />
@@ -129,6 +130,7 @@
     <ClInclude Include="Utils\MapManager.h" />
     <ClInclude Include="Utils\Named.h" />
     <ClInclude Include="Utils\Singleton.h" />
+    <ClInclude Include="Utils\TemplatedVectorMapManager.h" />
     <ClInclude Include="Utils\Timer.h" />
     <ClInclude Include="Utils\Types.h" />
     <ClInclude Include="XML\XMLTreeNode.h" />

@@ -10,6 +10,7 @@
 #include "Math\Matrix44.h"
 #include "Math\Vector3.h"
 #include <string>
+#include <vector>
 #include <map>
 
 class CEffectManager : public CMapManager<CEffectTechnique>

@@ -9,6 +9,9 @@
 #include "Core.h"
 #include "Math\Matrix44.h"
 #include "Effects\EffectTechnique.h"
+#include "RenderableObjects\RenderableObjectTechniqueManager.h"
+#include "RenderableObjects\RenderableObjectTechnique.h"
+#include "Logger\Logger.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -18,6 +21,7 @@ CStaticMesh::CStaticMesh()
 	: m_NumVertexs(0)
 	, m_NumFaces(0)
 	, m_FileName("")
+	, m_RenderableObjecTechniqueName("")
 {
 }
 
@@ -397,4 +401,13 @@ void CStaticMesh::Render(CRenderManager *RM, CEffectTechnique* technique) const
 
 		m_RVs[i]->Render(RM, technique);
 	}
+}
+
+bool CStaticMesh::GetRenderableObjectTechnique()
+{
+	//TODO: Falta implementación
+	bool l_Ok = true;
+	CRenderableObjectTechniqueManager *l_ROTM = CORE->GetROTManager();
+	
+	return true;
 }

@@ -9,6 +9,7 @@
 #include "Base.h"
 #include "Core.h"
 #include "Effects\EffectTechnique.h"
+#include "Logger\Logger.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"

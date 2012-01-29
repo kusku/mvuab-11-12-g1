@@ -10,7 +10,6 @@
 #define INC_MAP_MANAGER_H_
 
 #include "Base.h"
-#include "Logger/Logger.h"
 #include <string>
 #include <map>
 
