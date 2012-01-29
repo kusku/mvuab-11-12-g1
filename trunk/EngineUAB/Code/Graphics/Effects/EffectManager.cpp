@@ -1,6 +1,7 @@
 #include "EffectManager.h"
 #include "XML\XMLTreeNode.h"
 #include "Vertexs\VertexType.h"
+#include "Logger\Logger.h"
 #include "Base.h"
 #include "Core.h"
 
@@ -98,6 +99,8 @@ void CEffectManager::Reload()
 	{
 		l_It->second->Refresh();
 	}
+
+	LOGGER->AddNewLog(ELL_INFORMATION, "CEffectManager::Reload->Effects and techniques reloaded.\n");
 }
 
 void CEffectManager::ActivateCamera(const Mat44f &ViewMatrix, const Mat44f &ProjectionMatrix, const Vect3f &CameraEye)

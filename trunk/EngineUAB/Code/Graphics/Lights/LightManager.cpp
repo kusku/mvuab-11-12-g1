@@ -5,6 +5,7 @@
 #include "SpotLight.h"
 #include "XML\XMLTreeNode.h"
 #include "Math\Vector3.h"
+#include "Logger\Logger.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
