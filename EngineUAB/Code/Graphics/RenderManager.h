@@ -57,6 +57,8 @@ public:
 	bool				GetPaintSolid		() const	{ return m_bPaintSolid; }
 	Vect2i				GetScreenSize		() const	{ return Vect2i(m_uWidth, m_uHeight); }
 	float				GetAspectRatio		() const	{ return m_AspectRatio; }
+	CColor				GetColorDebug		() const	{ return m_BackbufferColor_debug; }
+	CColor				GetColorRelease		() const	{ return m_BackbufferColor_release; }
 
 	HWND				GetHWND				() const	{ return m_hWnd; }
 	LPDIRECT3D9			GetD3D				() const	{ return m_pD3D; }

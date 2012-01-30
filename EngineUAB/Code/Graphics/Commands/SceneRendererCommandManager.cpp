@@ -6,6 +6,7 @@
 #endif
 
 CSceneRendererCommandManager::CSceneRendererCommandManager()
+	: m_Filename("")
 {
 }
 
@@ -20,6 +21,12 @@ void CSceneRendererCommandManager::CleanUp()
 }
 
 void CSceneRendererCommandManager::Load(const std::string &FileName)
+{
+	m_Filename = FileName;
+	Reload();
+}
+
+void CSceneRendererCommandManager::Reload()
 {
 }
 

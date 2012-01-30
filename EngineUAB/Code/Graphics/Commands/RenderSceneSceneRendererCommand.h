@@ -13,6 +13,8 @@ class CRenderSceneSceneRendererCommand : public CSceneRendererCommand
 {
 public:
 	CRenderSceneSceneRendererCommand(CXMLTreeNode &Node);
+	virtual ~CRenderSceneSceneRendererCommand();
+
 	virtual void	Execute		( CRenderManager &RM );
 
 private:
