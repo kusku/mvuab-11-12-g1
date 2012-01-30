@@ -9,7 +9,7 @@
 class CRenderManager;
 class CXMLTreeNode;
 
-class CSceneRendererCommand : public CNamed, CActive
+class CSceneRendererCommand : public CNamed, public CActive
 {
 public:
 	CSceneRendererCommand();

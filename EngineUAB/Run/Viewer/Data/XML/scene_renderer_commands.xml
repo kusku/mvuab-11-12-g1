@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<scene_renderer_commands>
+	<!--pre_render-->
+	<begin_scene />
+	<clear_scene color="true" depth="true" stencil="false" />
+	<enable_z_write />
+	<enable_z_test />
+	<render_debug_lights active="true" />
+	<end_scene />
+</scene_renderer_commands>

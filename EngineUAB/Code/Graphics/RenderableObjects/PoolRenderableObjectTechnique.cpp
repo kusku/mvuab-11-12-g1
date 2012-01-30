@@ -1,6 +1,7 @@
 #include "PoolRenderableObjectTechnique.h"
 #include "Effects\EffectTechnique.h"
 #include "Effects\EffectManager.h"
+#include "XML\XMLTreeNode.h"
 #include "Base.h"
 #include "Core.h"
 
@@ -10,6 +11,7 @@
 
 CPoolRenderableObjectTechnique::CPoolRenderableObjectTechnique(CXMLTreeNode &Node)
 {
+
 }
 
 

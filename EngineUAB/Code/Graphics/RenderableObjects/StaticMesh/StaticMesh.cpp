@@ -78,7 +78,9 @@ bool CStaticMesh::Reload()
 	}
 
 	fclose(modelFile);
+
 	return true;
+	return GetRenderableObjectTechnique();
 }
 
 bool CStaticMesh::ExtractMesh(FILE* modelFile)
@@ -137,6 +139,9 @@ bool CStaticMesh::ExtractMesh(FILE* modelFile)
 
 			m_Textures.push_back(textVector);
 		}
+
+		//Pone el tipo de vértice en un vector.
+		m_VertexTypes.push_back(vertexType);
 
 		CRenderableVertexs* rndVtx = ReadCreateVertexBuffer(modelFile, vertexType);
 
@@ -365,6 +370,8 @@ void CStaticMesh::Unload()
 {
 	ClearTextures();
 	ClearRenderableVertex();
+	m_VertexTypes.clear();
+	m_RenderableObjectsTechniques.clear();
 	m_NumVertexs = 0;
 	m_NumFaces = 0;
 	m_BoundingBox = TBoundingBox();
@@ -409,5 +416,25 @@ bool CStaticMesh::GetRenderableObjectTechnique()
 	bool l_Ok = true;
 	CRenderableObjectTechniqueManager *l_ROTM = CORE->GetROTManager();
 	
-	return true;
+	for(size_t i=0; i<m_VertexTypes.size(); ++i)
+	{
+		if( m_RenderableObjecTechniqueName == "" )
+		{
+			m_RenderableObjecTechniqueName = l_ROTM->GetRenderableObjectTechniqueNameByVertexType(m_VertexTypes[i]);
+		}
+
+		CRenderableObjectTechnique *l_ROT = l_ROTM->GetResource(m_RenderableObjecTechniqueName);
+		m_RenderableObjectsTechniques.push_back(l_ROT);
+
+		if( l_ROT == NULL)
+		{
+			std::string warn = "CStaticMesh::GetRenderableObjectTechnique->Error intentando obtener el Renderable Object Technique: " +
+				m_RenderableObjecTechniqueName;
+			LOGGER->AddNewLog( ELL_WARNING, warn.c_str() );
+		}
+		
+		l_Ok = l_Ok && l_ROT!=NULL;
+	}
+
+	return l_Ok;
 }

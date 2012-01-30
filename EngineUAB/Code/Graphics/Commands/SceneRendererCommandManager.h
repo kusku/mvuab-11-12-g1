@@ -20,11 +20,12 @@ public:
 	void		Reload		();
 
 private:
+	void			LoadXML			();
 	void			CleanUp			();
 	std::string		GetNextName		();
 
 	CTemplatedVectorMapManager<CSceneRendererCommand>	m_SceneRendererCommands;
-	std::string											m_Filename;
+	std::string											m_FileName;
 };
 
 #endif

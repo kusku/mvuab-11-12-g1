@@ -71,7 +71,16 @@ void CRenderableObjectsLayersManager::LoadFile()
 			else if( l_Type == "mesh_instance" )
 			{
 				std::string l_Layer = l_RObjects(i).GetPszProperty("layer", "");
-				CRenderableObjectsManager *l_ROManager = GetResource(l_Layer);
+				CRenderableObjectsManager *l_ROManager = NULL;
+				if( l_Layer == "" )
+				{
+					l_ROManager = m_pDefaultRenderableObjectManager;
+				}
+				else
+				{
+					l_ROManager = GetResource(l_Layer);
+				}
+
 				if( l_ROManager != NULL )
 				{
 					l_ROManager->AddMeshInstance(l_RObjects(i));
@@ -87,7 +96,16 @@ void CRenderableObjectsLayersManager::LoadFile()
 			else if( l_Type == "animated_model_instance" )
 			{
 				std::string l_Layer = l_RObjects(i).GetPszProperty("layer", "");
-				CRenderableObjectsManager *l_ROManager = GetResource(l_Layer);
+				CRenderableObjectsManager *l_ROManager = NULL;
+				if( l_Layer == "" )
+				{
+					l_ROManager = m_pDefaultRenderableObjectManager;
+				}
+				else
+				{
+					l_ROManager = GetResource(l_Layer);
+				}
+
 				if( l_ROManager != NULL )
 				{
 					l_ROManager->AddAnimatedMeshInstance(l_RObjects(i));

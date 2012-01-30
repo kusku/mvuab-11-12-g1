@@ -5,6 +5,7 @@
 
 class CRenderManager;
 class CRenderableVertexs;
+class CRenderableObjectTechnique;
 class CTexture;
 
 #include <vector>
@@ -37,13 +38,15 @@ public:
 	bool			GetRenderableObjectTechnique		();
 
 protected:	
-	std::vector<CRenderableVertexs*>		m_RVs;
-	std::vector<std::vector<CTexture*>>		m_Textures;
-	std::string								m_FileName;
-	std::string								m_RenderableObjecTechniqueName;
-	uint32									m_NumVertexs, m_NumFaces;
-	TBoundingBox							m_BoundingBox;
-	TBoundingSphere							m_BoundingSphere;
+	std::vector<CRenderableVertexs*>			m_RVs;
+	std::vector<std::vector<CTexture*>>			m_Textures;
+	std::vector<int>							m_VertexTypes;
+	std::vector<CRenderableObjectTechnique*>	m_RenderableObjectsTechniques;
+	std::string									m_FileName;
+	std::string									m_RenderableObjecTechniqueName;
+	uint32										m_NumVertexs, m_NumFaces;
+	TBoundingBox								m_BoundingBox;
+	TBoundingSphere								m_BoundingSphere;
 
 	template<class T>
 	void*				LoadCreateVertexBuffer	(FILE* modelFile, uint16 numVertex);

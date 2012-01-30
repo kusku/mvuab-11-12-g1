@@ -10,6 +10,7 @@
 #include "Math\Matrix44.h"
 #include "Cameras\Camera.h"
 #include "RenderableObjects\RenderableObjectsManager.h"
+#include "Commands\SceneRendererCommandManager.h"
 #include "Lights\LightManager.h"
 
 #if defined(_DEBUG)
@@ -80,7 +81,8 @@ void CViewerProcess::UpdateInputs(float elapsedTime)
 
 void CViewerProcess::Render(CRenderManager *RM)
 {
-	Mat44f mat;
+	CORE->GetSceneRendererCommandManager()->Execute(*RM);
+	/*Mat44f mat;
 	mat.SetIdentity();
 	RM->SetTransform(mat);
 	RM->DrawAxis(1.0f);
@@ -90,5 +92,5 @@ void CViewerProcess::Render(CRenderManager *RM)
 
 
 	CORE->GetRenderableObjectsManager()->Render(RM);
-	CORE->GetLightManager()->Render(RM);
+	CORE->GetLightManager()->Render(RM);*/
 }

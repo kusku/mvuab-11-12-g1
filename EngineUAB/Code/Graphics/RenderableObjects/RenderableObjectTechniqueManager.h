@@ -27,7 +27,7 @@ public:
 private:
 	CTemplatedVectorMapManager<CPoolRenderableObjectTechnique>		m_PoolRenderableObjectTechniques;
 
-	void InsertRendrableObjectTechnique (const std::string &ROTName, const std::string &TechniqueName);
+	void InsertRenderableObjectTechnique (const std::string &ROTName, const std::string &TechniqueName);
 };
 
 #endif
