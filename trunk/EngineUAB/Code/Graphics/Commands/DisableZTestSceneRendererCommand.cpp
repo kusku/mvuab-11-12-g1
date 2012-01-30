@@ -8,5 +8,5 @@ CDisableZTestSceneRendererCommand::CDisableZTestSceneRendererCommand(CXMLTreeNod
 
 void CDisableZTestSceneRendererCommand::Execute(CRenderManager &RM)
 {
-	
+	RM.GetDevice()->SetRenderState( D3DRS_ZENABLE, FALSE );	
 }

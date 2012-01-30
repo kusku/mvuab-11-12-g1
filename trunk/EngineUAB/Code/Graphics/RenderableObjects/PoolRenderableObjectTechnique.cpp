@@ -50,8 +50,7 @@ void CPoolRenderableObjectTechnique::Apply()
 	TPoolROTechinqueElement::iterator l_End = m_RenderableObjectTechniqueElementsVector.end();
 	for(; l_It != l_End; ++l_It)
 	{
-		 l_EffectTechnique = (*l_It)->m_RenderableObjectTechnique.GetEffectTechnique();
-		 (*l_It)->m_pOnRenderableObjectTechniqueManager->SetEffectTechnique(l_EffectTechnique);
+		(*l_It)->m_pOnRenderableObjectTechniqueManager->SetEffectTechnique( (*l_It)->m_RenderableObjectTechnique.GetEffectTechnique() );
 	}
 }
 
