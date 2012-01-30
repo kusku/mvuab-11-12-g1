@@ -14,6 +14,7 @@
 class CStaticMesh;
 class CRenderManager;
 class CEffectTechnique;
+class CXMLTreeNode;
 
 #include "RenderableObjects\RenderableObject.h"
 #include <string>
@@ -22,6 +23,7 @@ class CInstanceMesh : public CRenderableObject
 {
 public:
 	CInstanceMesh( const std::string &Name, const std::string &CoreName );
+	CInstanceMesh( CXMLTreeNode &Node );
 	virtual ~CInstanceMesh();
 
 	void Render ( CRenderManager *RM );

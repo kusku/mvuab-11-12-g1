@@ -15,6 +15,7 @@ class CTexture;
 class CRenderManager;
 class CAnimatedCoreModel;
 class CEffectTechnique;
+class CXMLTreeNode;
 
 #include "cal3d\cal3d.h"
 #include "Utils\BaseUtils.h"
@@ -29,6 +30,7 @@ public:
 	CAnimatedInstanceModel();
 	virtual ~CAnimatedInstanceModel();
 
+	void		ReadDataXML			( CXMLTreeNode &Node );
 	void		Initialize			( CAnimatedCoreModel *AnimatedCoreModel );
 
 	void		Update				( float elapsedTime );
