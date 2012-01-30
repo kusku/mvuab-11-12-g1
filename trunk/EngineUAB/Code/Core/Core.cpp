@@ -14,6 +14,8 @@
 #include "Lights\LightManager.h"
 #include "Effects\EffectManager.h"
 #include "RenderableObjects\RenderableObjectTechniqueManager.h"
+#include "Commands\SceneRendererCommandManager.h"
+#include "RenderableObjects\RenderableObjectsLayersManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -31,6 +33,8 @@ CCore::CCore()
 	, m_pAnimatedModelManager(NULL)
 	, m_pLightManager(NULL)
 	, m_pROTManager(NULL)
+	, m_SceneRendererCommandManager(NULL)
+	, m_RenderableObjectsLayersManager(NULL)
 	, m_bIsOk(false)
 {
 }
@@ -54,6 +58,8 @@ void CCore::Release()
 	CHECKED_DELETE(m_pLightManager);
 	CHECKED_DELETE(m_pEffectManager);
 	CHECKED_DELETE(m_pROTManager);
+	CHECKED_DELETE(m_SceneRendererCommandManager);
+	CHECKED_DELETE(m_RenderableObjectsLayersManager);
 }
 
 void CCore::Done()
@@ -126,6 +132,14 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 
 			m_pEffectManager = new CEffectManager();
 			m_pEffectManager->Load( config.effects_path );
+
+			//Inicia el Scene Renderer Command Manager
+			m_SceneRendererCommandManager = new CSceneRendererCommandManager();
+			m_SceneRendererCommandManager->Load(config.scene_renderer_command_manager_path);
+
+			//Inicia m_RenderableObjectsLayersManager
+			m_RenderableObjectsLayersManager = new CRenderableObjectsLayersManager();
+			m_RenderableObjectsLayersManager->Load(config.renderable_objects_layers_manager);
 		}
 	}
 
@@ -178,4 +192,14 @@ void CCore::ReloadInputs()
 void CCore::ReloadRenderableObjects()
 {
 	m_pRenderableObjectsManager->Reload();
+}
+
+void CCore::ReloadSceneRendererCommandManager()
+{
+	m_SceneRendererCommandManager->Reload();
+}
+
+void CCore::ReloadRenderableObjectsLayersManager()
+{
+	m_RenderableObjectsLayersManager->Reload();
 }
