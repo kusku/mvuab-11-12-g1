@@ -169,6 +169,9 @@
     <ClInclude Include="Commands\RenderDebugShadowMapsSceneRendererCommand.h">
       <Filter>Commands\Command</Filter>
     </ClInclude>
+    <ClInclude Include="Commands\CommandsIncludes.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />

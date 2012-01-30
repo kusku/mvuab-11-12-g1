@@ -138,8 +138,8 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 			m_SceneRendererCommandManager->Load(config.scene_renderer_command_manager_path);
 
 			//Inicia m_RenderableObjectsLayersManager
-			m_RenderableObjectsLayersManager = new CRenderableObjectsLayersManager();
-			m_RenderableObjectsLayersManager->Load(config.renderable_objects_layers_manager);
+			//m_RenderableObjectsLayersManager = new CRenderableObjectsLayersManager();
+			//m_RenderableObjectsLayersManager->Load(config.renderable_objects_layers_manager);
 		}
 	}
 

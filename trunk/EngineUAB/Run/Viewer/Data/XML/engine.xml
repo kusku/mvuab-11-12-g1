@@ -18,4 +18,5 @@
 	<AnimatedModels animatedXML="./Data/XML/animated_models.xml" />
 	<Lights lightXML="./Data/XML/lights.xml" />
 	<Effects effectsXML="./Data/XML/effects.xml" />
+	<SceneRendererCommands commandsXML="./Data/XML/scene_renderer_commands.xml" />
 </Config>

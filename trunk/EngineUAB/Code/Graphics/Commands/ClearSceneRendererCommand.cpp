@@ -4,18 +4,10 @@
 
 CClearSceneRendererCommand::CClearSceneRendererCommand(CXMLTreeNode &Node)
 {
-	uint16 l_Count = Node.GetNumChildren();
-	for(uint16 i=0; i<l_Count; ++i)
-	{
-		std::string l_Type = Node(i).GetName();
-		if( l_Type == "clear_scene" )
-		{
-			//<clear_scene color="true" depth="true" stencil="true"/>
-			m_Color = Node(i).GetBoolProperty("color", true);
-			m_Stencil = Node(i).GetBoolProperty("depth", true);
-			m_Depth = Node(i).GetBoolProperty("stencil", true);
-		}
-	}
+	//<clear_scene color="true" depth="true" stencil="true"/>
+	m_Color = Node.GetBoolProperty("color", true);
+	m_Stencil = Node.GetBoolProperty("depth", true);
+	m_Depth = Node.GetBoolProperty("stencil", true);
 }
 
 void CClearSceneRendererCommand::Execute(CRenderManager &RM)

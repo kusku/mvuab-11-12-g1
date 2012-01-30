@@ -18,6 +18,7 @@
     <ClInclude Include="Commands\BeginRenderSceneRendererCommand.h" />
     <ClInclude Include="Commands\CaptureFrameBufferSceneRendererCommand.h" />
     <ClInclude Include="Commands\ClearSceneRendererCommand.h" />
+    <ClInclude Include="Commands\CommandsIncludes.h" />
     <ClInclude Include="Commands\DeferredShadingSceneRendererCommand.h" />
     <ClInclude Include="Commands\DisableZTestSceneRendererCommand.h" />
     <ClInclude Include="Commands\DisableZWriteSceneRendererCommand.h" />
