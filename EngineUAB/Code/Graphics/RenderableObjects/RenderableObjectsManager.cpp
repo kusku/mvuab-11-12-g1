@@ -95,6 +95,26 @@ CRenderableObject* CRenderableObjectsManager::AddAnimatedMeshInstance (const std
 	return static_cast<CRenderableObject*>( l_AnimatedInstanceModel );
 }
 
+CRenderableObject* CRenderableObjectsManager::AddMeshInstance(CXMLTreeNode &Node)
+{
+	CRenderableObject *l_InstanceMesh = new CInstanceMesh(Node);
+
+	AddResource( l_InstanceMesh->GetName(), l_InstanceMesh );
+
+	return l_InstanceMesh;
+}
+
+CRenderableObject* CRenderableObjectsManager::AddAnimatedMeshInstance(CXMLTreeNode &Node)
+{
+	std::string l_Core = Node.GetPszProperty("core", "");
+	CAnimatedInstanceModel* l_AnimatedInstanceModel = CORE->GetAnimatedModelManager()->GetInstance(l_Core);
+	l_AnimatedInstanceModel->ReadDataXML(Node);
+
+	AddResource( l_AnimatedInstanceModel->GetName(), static_cast<CRenderableObject*>(l_AnimatedInstanceModel) );
+
+	return static_cast<CRenderableObject*>(l_AnimatedInstanceModel);
+}
+
 bool CRenderableObjectsManager::AddResource(const std::string &Name, CRenderableObject *RenderableObject)
 {
 	if( CMapManager<CRenderableObject>::AddResource(Name, RenderableObject) )

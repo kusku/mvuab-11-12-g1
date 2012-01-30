@@ -2,6 +2,7 @@
 #include "RenderableObjectsManager.h"
 #include "RenderManager.h"
 #include "Base.h"
+#include "Logger\Logger.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -37,6 +38,71 @@ void CRenderableObjectsLayersManager::Reload()
 
 void CRenderableObjectsLayersManager::LoadFile()
 {
+	CXMLTreeNode newFile;
+	if (!newFile.LoadFile(m_FileName.c_str()))
+	{
+		std::string msg_error = "CRenderableObjectsLayersManager::LoadFile->Error al intentar leer el archivo de renderable objects: " + m_FileName;
+		LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
+	}
+
+	CXMLTreeNode l_RObjects = newFile["renderable_objects"];
+	if( l_RObjects.Exists() )
+	{
+		uint16 l_Count = l_RObjects.GetNumChildren();
+		for( uint16 i=0; i < l_Count; ++i)
+		{
+			std::string l_Type = l_RObjects(i).GetName();
+			if( l_Type == "layer" )
+			{
+				std::string l_Name = l_RObjects(i).GetPszProperty("name", "");
+				bool l_Default = l_RObjects(i).GetBoolProperty("default", false, false);
+
+				if( GetResource(l_Name) == NULL )
+				{
+					CRenderableObjectsManager *l_ROManager = new CRenderableObjectsManager();
+					AddResource(l_Name, l_ROManager);
+
+					if( l_Default )
+					{
+						m_pDefaultRenderableObjectManager = l_ROManager;
+					}
+				}	
+			}
+			else if( l_Type == "mesh_instance" )
+			{
+				std::string l_Layer = l_RObjects(i).GetPszProperty("layer", "");
+				CRenderableObjectsManager *l_ROManager = GetResource(l_Layer);
+				if( l_ROManager != NULL )
+				{
+					l_ROManager->AddMeshInstance(l_RObjects(i));
+				}
+				else
+				{
+					std::string l_Name = l_RObjects(i).GetPszProperty("name", "");
+					std::string err = "CRenderableObjectsLayersManager::LoadFile->No se ha podido encontrar la layer: " + l_Layer +
+						" del mesh instance: " + l_Name;
+					LOGGER->AddNewLog( ELL_WARNING, err.c_str() );
+				}
+			}
+			else if( l_Type == "animated_model_instance" )
+			{
+				std::string l_Layer = l_RObjects(i).GetPszProperty("layer", "");
+				CRenderableObjectsManager *l_ROManager = GetResource(l_Layer);
+				if( l_ROManager != NULL )
+				{
+					l_ROManager->AddAnimatedMeshInstance(l_RObjects(i));
+				}
+				else
+				{
+					std::string l_Name = l_RObjects(i).GetPszProperty("name", "");
+					std::string err = "CRenderableObjectsLayersManager::LoadFile->No se ha podido encontrar la layer: " + l_Layer +
+						" del animated model instance: " + l_Name;
+					LOGGER->AddNewLog( ELL_WARNING, err.c_str() );
+				}
+				
+			}
+		}
+	}
 }
 
 void CRenderableObjectsLayersManager::Update(float ElapsedTime)
@@ -66,6 +132,12 @@ void CRenderableObjectsLayersManager::Render(CRenderManager *RM)
 
 void CRenderableObjectsLayersManager::Render(CRenderManager *RM, const std::string &LayerName)
 {
+	CRenderableObjectsManager *l_ROManager = GetResource(LayerName);
+	if( l_ROManager != NULL )
+	{
+		//TODO: Mirar lo de la technique
+		l_ROManager->Render(RM, NULL);
+	}
 }
 
 CRenderableObjectsManager* CRenderableObjectsLayersManager::GetRenderableObjectManager(CXMLTreeNode &Node)

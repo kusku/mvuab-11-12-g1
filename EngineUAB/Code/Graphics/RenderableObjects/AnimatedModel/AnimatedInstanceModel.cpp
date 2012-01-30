@@ -11,6 +11,7 @@
 #include "Effects\EffectTechnique.h"
 #include "Effects\EffectManager.h"
 #include "Textures\Texture.h"
+#include "XML\XMLTreeNode.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -21,7 +22,6 @@ CAnimatedInstanceModel::CAnimatedInstanceModel()
 	, m_AnimatedCoreModel(NULL)
 	, m_pVB(NULL)
     , m_pIB(NULL)
-
 {
 }
 
@@ -37,6 +37,18 @@ void CAnimatedInstanceModel::Destroy()
     CHECKED_RELEASE(m_pVB);
     CHECKED_RELEASE(m_pIB);
 
+}
+
+void CAnimatedInstanceModel::ReadDataXML(CXMLTreeNode &Node)
+{
+	m_Name = Node.GetPszProperty("name", "");
+	m_Position = Node.GetVect3fProperty("position", Vect3f(0.0f, 0.0f, 0.0f));
+	m_fYaw = Node.GetFloatProperty("yaw", 0.0f);
+	m_fPitch = Node.GetFloatProperty("pitch", 0.0f);
+	m_fRoll = Node.GetFloatProperty("roll", 0.0f);
+	m_Scale = Node.GetVect3fProperty("scale", Vect3f(1.0f, 1.0f, 1.0f));
+
+	//TODO: Faltar leer create_physics y physics_type
 }
 
 void CAnimatedInstanceModel::Initialize(CAnimatedCoreModel *AnimatedCoreModel)

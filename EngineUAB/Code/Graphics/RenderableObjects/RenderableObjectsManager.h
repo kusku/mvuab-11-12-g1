@@ -13,6 +13,7 @@
 class CRenderManager;
 class CRenderableObject;
 class CEffectTechnique;
+class CXMLTreeNode;
 
 #include "Utils\MapManager.h"
 #include "Math\Vector3.h"
@@ -30,7 +31,9 @@ public:
 	void		Render		( CRenderManager *RM, CEffectTechnique* technique );
 
 	CRenderableObject*	AddMeshInstance			( const std::string &CoreMeshName, const std::string &InstanceName, const Vect3f &Position );
+	CRenderableObject*	AddMeshInstance			( CXMLTreeNode &Node );
 	CRenderableObject*	AddAnimatedMeshInstance	( const std::string &Name, const Vect3f &Position );
+	CRenderableObject*	AddAnimatedMeshInstance ( CXMLTreeNode &Node );
 	bool				AddResource				( const std::string &Name, CRenderableObject *RenderableObject );
 	
 	CRenderableObject*	GetInstance				( const std::string &Name );

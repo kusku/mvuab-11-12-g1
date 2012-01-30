@@ -8,6 +8,7 @@
 #include "Math\Matrix44.h"
 #include "Effects\EffectTechnique.h"
 #include "Effects\EffectManager.h"
+#include "XML\XMLTreeNode.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -26,6 +27,20 @@ CInstanceMesh::CInstanceMesh(const std::string &Name, const std::string &CoreNam
 #endif
 }
 
+CInstanceMesh::CInstanceMesh(CXMLTreeNode &Node)
+{
+	m_Name = Node.GetPszProperty("name", "");
+	std::string l_Core = Node.GetPszProperty("core", "");
+	m_StaticMesh = CORE->GetStaticMeshManager()->GetResource(l_Core);
+
+	m_Position = Node.GetVect3fProperty("position", Vect3f(0.0f, 0.0f, 0.0f));
+	m_fYaw = Node.GetFloatProperty("yaw", 0.0f);
+	m_fPitch = Node.GetFloatProperty("pitch", 0.0f);
+	m_fRoll = Node.GetFloatProperty("roll", 0.0f);
+	m_Scale = Node.GetVect3fProperty("scale", Vect3f(1.0f, 1.0f, 1.0f));
+	m_Visible = Node.GetBoolProperty("visible", true);
+	//TODO: Faltar leer create_physics y physics_type
+}
 
 CInstanceMesh::~CInstanceMesh()
 {
