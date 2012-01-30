@@ -17,12 +17,14 @@ public:
 
 	void		Load		( const std::string &FileName );
 	void		Execute		( CRenderManager &RM );
+	void		Reload		();
 
 private:
 	void			CleanUp			();
 	std::string		GetNextName		();
 
 	CTemplatedVectorMapManager<CSceneRendererCommand>	m_SceneRendererCommands;
+	std::string											m_Filename;
 };
 
 #endif

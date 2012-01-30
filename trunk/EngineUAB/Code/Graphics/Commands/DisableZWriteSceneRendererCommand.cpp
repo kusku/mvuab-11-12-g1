@@ -8,5 +8,5 @@ CDisableZWriteSceneRendererCommand::CDisableZWriteSceneRendererCommand(CXMLTreeN
 
 void CDisableZWriteSceneRendererCommand::Execute(CRenderManager &RM)
 {
-	RM.GetDevice()->SetRenderState( D3DRS_ZWRITEENABLE, FALSE );
+	RM.GetDevice()->SetRenderState( D3DRS_ZWRITEENABLE, FALSE ); 
 }
