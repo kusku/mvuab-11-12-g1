@@ -17,11 +17,6 @@ void CRenderDebugLightsSceneRendererCommand::Execute(CRenderManager &RM)
 {
 	if( GetActive() )
 	{
-		Mat44f mat;
-		mat.SetIdentity();
-		CORE->GetRenderManager()->SetTransform(mat);
-		CORE->GetRenderManager()->DrawAxis(1.0f);
-
 		CORE->GetLightManager()->Render(&RM);
 	}
 }

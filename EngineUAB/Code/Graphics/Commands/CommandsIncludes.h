@@ -9,3 +9,4 @@
 #include "Commands\RenderSceneSceneRendererCommand.h"
 #include "Commands\SetupMatricesSceneRendererCommand.h"
 #include "Commands\SetPoolRenderableObjectsTechniqueCommand.h"
+#include "Commands\RenderDebugSceneSceneRendererCommand.h"
