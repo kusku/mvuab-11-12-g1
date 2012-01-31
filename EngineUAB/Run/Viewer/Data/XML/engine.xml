@@ -19,5 +19,6 @@
 	<Lights lightXML="./Data/XML/lights.xml" />
 	<Effects effectsXML="./Data/XML/effects.xml" />
 	<SceneRendererCommands commandsXML="./Data/XML/scene_renderer_commands.xml" />
+	<RenderableObjectsManager renderableObjectsManagerXML="./Data/XML/renderable_objects_2.xml" />
 	<RenderableObjectTechniques poolsXML="./Data/XML/renderable_object_techniques.xml" />
 </Config>
