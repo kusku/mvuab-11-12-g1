@@ -140,10 +140,10 @@ void CSceneRendererCommandManager::LoadXML()
 				 l_Command = new CSetPoolRenderableObjectsTechniqueCommand( l_SRC(i) );
 				 m_SceneRendererCommands.AddResource("set_pool_renderable_objects_technique_" + l_NumCommand, l_Command);
 			 }
-			 else if( l_Type == "render_debug_scene" )
+			 else if( l_Type == "render_debug_info" )
 			 {
-				 l_Command = new CRenderDebugSceneSceneRendererCommand( l_SRC(i) );
-				 m_SceneRendererCommands.AddResource("render_debug_scene_" + l_NumCommand, l_Command);
+				 l_Command = new CRenderDebugInfoSceneRendererCommand( l_SRC(i) );
+				 m_SceneRendererCommands.AddResource("render_debug_info_" + l_NumCommand, l_Command);
 			 }
 
 			 //Add the command into the map

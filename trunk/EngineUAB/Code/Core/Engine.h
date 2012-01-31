@@ -36,6 +36,7 @@ protected:
 	CCore			*m_pCore;
 	CProcess		*m_pProcess;
 	CLogger			*m_pLogger;
+
 	CTimer			m_Timer;
 	CLogRender		m_LogRender;
 	CDebugRender	m_DebugRender;

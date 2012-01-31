@@ -10,3 +10,4 @@
 #include "Commands\SetupMatricesSceneRendererCommand.h"
 #include "Commands\SetPoolRenderableObjectsTechniqueCommand.h"
 #include "Commands\RenderDebugSceneSceneRendererCommand.h"
+#include "Commands\RenderDebugInfoSceneRendererCommand.h"

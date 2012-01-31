@@ -33,9 +33,12 @@ CCore::CCore()
 	, m_pAnimatedModelManager(NULL)
 	, m_pLightManager(NULL)
 	, m_pROTManager(NULL)
-	, m_SceneRendererCommandManager(NULL)
-	, m_RenderableObjectsLayersManager(NULL)
+	, m_pSceneRendererCommandManager(NULL)
+	, m_pRenderableObjectsLayersManager(NULL)
 	, m_pCamera(NULL)
+	, m_pTimer(NULL)
+	, m_pDebugRender(NULL)
+	, m_pLogRender(NULL)
 	, m_bIsOk(false)
 {
 }
@@ -59,9 +62,12 @@ void CCore::Release()
 	CHECKED_DELETE(m_pLightManager);
 	CHECKED_DELETE(m_pEffectManager);
 	CHECKED_DELETE(m_pROTManager);
-	CHECKED_DELETE(m_SceneRendererCommandManager);
-	CHECKED_DELETE(m_RenderableObjectsLayersManager);
+	CHECKED_DELETE(m_pSceneRendererCommandManager);
+	CHECKED_DELETE(m_pRenderableObjectsLayersManager);
 	m_pCamera = NULL; //La cámara la elimina el proceso
+	m_pLogRender = NULL;
+	m_pDebugRender = NULL;
+	m_pTimer = NULL;
 }
 
 void CCore::Done()
@@ -141,17 +147,13 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 			//m_pRenderableObjectsManager = new CRenderableObjectsManager();
 			//m_pRenderableObjectsManager->Load( config.renderable_objects_path );
 
-			//Inicia m_RenderableObjectsLayersManager
-			m_RenderableObjectsLayersManager = new CRenderableObjectsLayersManager();
-			m_RenderableObjectsLayersManager->Load(config.renderable_objects_path);
+			//Inicia el Renderable Objects Layers Manager
+			m_pRenderableObjectsLayersManager = new CRenderableObjectsLayersManager();
+			m_pRenderableObjectsLayersManager->Load(config.renderable_objects_path);
 
 			//Inicia el Scene Renderer Command Manager
-			m_SceneRendererCommandManager = new CSceneRendererCommandManager();
-			m_SceneRendererCommandManager->Load(config.scene_renderer_command_manager_path);
-			
-			//Inicia m_RenderableObjectsLayersManager
-			m_RenderableObjectsLayersManager = new CRenderableObjectsLayersManager();
-			m_RenderableObjectsLayersManager->Load(config.renderable_objects_layers_manager_path);
+			m_pSceneRendererCommandManager = new CSceneRendererCommandManager();
+			m_pSceneRendererCommandManager->Load(config.scene_renderer_command_manager_path);
 		}
 	}
 
@@ -208,10 +210,10 @@ void CCore::ReloadRenderableObjects()
 
 void CCore::ReloadSceneRendererCommandManager()
 {
-	m_SceneRendererCommandManager->Reload();
+	m_pSceneRendererCommandManager->Reload();
 }
 
 void CCore::ReloadRenderableObjectsLayersManager()
 {
-	m_RenderableObjectsLayersManager->Reload();
+	m_pRenderableObjectsLayersManager->Reload();
 }
