@@ -129,7 +129,11 @@ void CSceneRendererCommandManager::LoadXML()
 			 {
 				 l_Command = new CRenderSceneSceneRendererCommand( l_SRC(i) );
 				 m_SceneRendererCommands.AddResource("render_scene_" + l_NumCommand, l_Command);
-
+			 }
+			 else if( l_Type == "setup_matrices" )
+			 {
+				 l_Command = new CSetupMatricesSceneRendererCommand( l_SRC(i) );
+				 m_SceneRendererCommands.AddResource("setup_matrices_" + l_NumCommand, l_Command);
 			 }
 
 			 //Add the command into the map

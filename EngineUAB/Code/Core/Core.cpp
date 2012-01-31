@@ -35,6 +35,7 @@ CCore::CCore()
 	, m_pROTManager(NULL)
 	, m_SceneRendererCommandManager(NULL)
 	, m_RenderableObjectsLayersManager(NULL)
+	, m_pCamera(NULL)
 	, m_bIsOk(false)
 {
 }
@@ -60,6 +61,7 @@ void CCore::Release()
 	CHECKED_DELETE(m_pROTManager);
 	CHECKED_DELETE(m_SceneRendererCommandManager);
 	CHECKED_DELETE(m_RenderableObjectsLayersManager);
+	m_pCamera = NULL; //La cámara la elimina el proceso
 }
 
 void CCore::Done()

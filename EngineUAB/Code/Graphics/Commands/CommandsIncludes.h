@@ -7,3 +7,4 @@
 #include "Commands\EnableZWriteSceneRendererCommand.h"
 #include "Commands\RenderDebugLightsSceneRendererCommand.h"
 #include "Commands\RenderSceneSceneRendererCommand.h"
+#include "Commands\SetupMatricesSceneRendererCommand.h"
