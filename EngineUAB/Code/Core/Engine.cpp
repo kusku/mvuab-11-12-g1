@@ -257,6 +257,10 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 			{
 				m_Config.renderable_object_techniques_path = l_ConfigNode(i).GetPszProperty("poolsXML", "");
 			}
+			else if( l_Name == "RenderableObjectsManager" )
+			{
+				m_Config.renderable_objects_layers_manager_path = l_ConfigNode(i).GetPszProperty("renderableObjectsManagerXML", "");
+			}
 		}
 	}
 
