@@ -135,6 +135,11 @@ void CSceneRendererCommandManager::LoadXML()
 				 l_Command = new CSetupMatricesSceneRendererCommand( l_SRC(i) );
 				 m_SceneRendererCommands.AddResource("setup_matrices_" + l_NumCommand, l_Command);
 			 }
+			 else if( l_Type == "set_pool_renderable_objects_technique" )
+			 {
+				 l_Command = new CSetPoolRenderableObjectsTechniqueCommand( l_SRC(i) );
+				 m_SceneRendererCommands.AddResource("set_pool_renderable_objects_technique_" + l_NumCommand, l_Command);
+			 }
 
 			 //Add the command into the map
 			 if( l_Command != NULL )
