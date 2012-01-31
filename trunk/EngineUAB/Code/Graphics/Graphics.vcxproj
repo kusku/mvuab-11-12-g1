@@ -36,6 +36,7 @@
     <ClInclude Include="Commands\SceneRendererCommand.h" />
     <ClInclude Include="Commands\SceneRendererCommandManager.h" />
     <ClInclude Include="Commands\SetRenderTargetSceneRendererCommand.h" />
+    <ClInclude Include="Commands\SetupMatricesSceneRendererCommand.h" />
     <ClInclude Include="Commands\StagedTexturedRendererCommand.h" />
     <ClInclude Include="Commands\UnsetRenderTargetSceneRendererCommand.h" />
     <ClInclude Include="Effects\Effect.h" />
@@ -96,6 +97,7 @@
     <ClCompile Include="Commands\SceneRendererCommand.cpp" />
     <ClCompile Include="Commands\SceneRendererCommandManager.cpp" />
     <ClCompile Include="Commands\SetRenderTargetSceneRendererCommand.cpp" />
+    <ClCompile Include="Commands\SetupMatricesSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\StagedTexturedRendererCommand.cpp" />
     <ClCompile Include="Commands\UnsetRenderTargetSceneRendererCommand.cpp" />
     <ClCompile Include="Effects\Effect.cpp" />

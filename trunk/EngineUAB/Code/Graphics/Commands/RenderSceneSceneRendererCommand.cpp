@@ -12,6 +12,9 @@ CRenderSceneSceneRendererCommand::CRenderSceneSceneRendererCommand(CXMLTreeNode 
 	//<render_scene layer="solid" active="true"/>
 	std::string layer = Node.GetPszProperty("layer", "");
 	m_pRenderableObjectsManager = CORE->GetRenderableObjectsLayersManager()->GetResource(layer);
+
+	bool active = Node.GetBoolProperty("active", false);
+	SetActive(active);
 }
 
 CRenderSceneSceneRendererCommand::~CRenderSceneSceneRendererCommand()
@@ -20,5 +23,8 @@ CRenderSceneSceneRendererCommand::~CRenderSceneSceneRendererCommand()
 
 void CRenderSceneSceneRendererCommand::Execute(CRenderManager &RM)
 {
-	m_pRenderableObjectsManager->Render(&RM);
+	if( GetActive() )
+	{
+		m_pRenderableObjectsManager->Render(&RM);
+	}
 }

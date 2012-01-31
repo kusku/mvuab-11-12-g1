@@ -15,8 +15,6 @@ CRenderDebugLightsSceneRendererCommand::CRenderDebugLightsSceneRendererCommand(C
 
 void CRenderDebugLightsSceneRendererCommand::Execute(CRenderManager &RM)
 {
-	RM.SetupMatrices(NULL);
-
 	if( GetActive() )
 	{
 		Mat44f mat;

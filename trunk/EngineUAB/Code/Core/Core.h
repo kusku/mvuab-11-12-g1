@@ -21,6 +21,7 @@ class CEffectManager;
 class CRenderableObjectTechniqueManager;
 class CSceneRendererCommandManager;
 class CRenderableObjectsLayersManager;
+class CCamera;
 
 class CCore : public CSingleton<CCore>
 {
@@ -43,6 +44,9 @@ public:
 	void	ReloadSceneRendererCommandManager		();
 	void	ReloadRenderableObjectsLayersManager	();
 
+	void			SetCamera		( CCamera *camera )			{ m_pCamera = camera; }
+	CCamera*		GetCamera		() const					{ return m_pCamera; }
+
 	CRenderManager*							GetRenderManager() const					{ return m_pRenderManager; }
 	CFontManager*							GetFontManager() const						{ return m_pFontManager; }
 	CLanguageManager*						GetLanguageManager() const					{ return m_pLanguageManager; }
@@ -62,6 +66,8 @@ private:
 	void Release();
 
 	bool	m_bIsOk;
+
+	CCamera								*m_pCamera;
 
 	CRenderManager						*m_pRenderManager;
 	CFontManager						*m_pFontManager;
