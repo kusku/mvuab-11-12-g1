@@ -6,6 +6,7 @@
 #include "Base.h"
 #include "RenderableObjects\RenderableObjectTechniqueManager.h"
 #include "Utils\TemplatedVectorMapManager.h"
+#include "RenderableObjects\PoolRenderableObjectTechnique.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -27,7 +28,9 @@ CSetPoolRenderableObjectsTechniqueCommand::CSetPoolRenderableObjectsTechniqueCom
 	//<set_pool_renderable_objects_technique pool="generate_deferred_shading_pool_renderable_object_technique"/>
 	std::string poolName = Node.GetPszProperty("pool", "");
 
-	m_PoolRenderableObjectTechnique = CORE->GetROTManager()->GetPoolRenderableObjectTechniques().GetResource(poolName);
+	CTemplatedVectorMapManager<CPoolRenderableObjectTechnique> &l_pools = CORE->GetROTManager()->GetPoolRenderableObjectTechniques();
+
+	m_PoolRenderableObjectTechnique = l_pools.GetResource(poolName);
 }
 
 void CSetPoolRenderableObjectsTechniqueCommand::Execute(CRenderManager &RM)

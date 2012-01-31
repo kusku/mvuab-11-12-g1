@@ -19,7 +19,7 @@ public:
 	void			Load			( const std::string &FileName );
 
 	std::string		GetRenderableObjectTechniqueNameByVertexType		( uint32 VertexType );
-	CTemplatedVectorMapManager<CPoolRenderableObjectTechnique> GetPoolRenderableObjectTechniques () const
+	CTemplatedVectorMapManager<CPoolRenderableObjectTechnique> & GetPoolRenderableObjectTechniques ()
 	{
 		return m_PoolRenderableObjectTechniques; 
 	}

@@ -19,7 +19,7 @@ public:
 	CSetPoolRenderableObjectsTechniqueCommand(CXMLTreeNode &Node);
 	virtual ~CSetPoolRenderableObjectsTechniqueCommand();
 
-	virtual void	Execute		( CRenderManager &RM );
+	void	Execute		( CRenderManager &RM );
 
 
 };
