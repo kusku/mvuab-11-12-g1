@@ -35,6 +35,7 @@
     <ClInclude Include="Commands\RenderSceneSceneRendererCommand.h" />
     <ClInclude Include="Commands\SceneRendererCommand.h" />
     <ClInclude Include="Commands\SceneRendererCommandManager.h" />
+    <ClInclude Include="Commands\SetPoolRenderableObjectsTechniqueCommand.h" />
     <ClInclude Include="Commands\SetRenderTargetSceneRendererCommand.h" />
     <ClInclude Include="Commands\SetupMatricesSceneRendererCommand.h" />
     <ClInclude Include="Commands\StagedTexturedRendererCommand.h" />
@@ -96,6 +97,7 @@
     <ClCompile Include="Commands\RenderSceneSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\SceneRendererCommand.cpp" />
     <ClCompile Include="Commands\SceneRendererCommandManager.cpp" />
+    <ClCompile Include="Commands\SetPoolRenderableObjectsTechniqueCommand.cpp" />
     <ClCompile Include="Commands\SetRenderTargetSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\SetupMatricesSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\StagedTexturedRendererCommand.cpp" />
