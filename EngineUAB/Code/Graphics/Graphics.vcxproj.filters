@@ -178,6 +178,9 @@
     <ClInclude Include="Commands\SetPoolRenderableObjectsTechniqueCommand.h">
       <Filter>Commands\Command</Filter>
     </ClInclude>
+    <ClInclude Include="Commands\RenderDebugInfoSceneRendererCommand.h">
+      <Filter>Commands\Command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
@@ -342,6 +345,9 @@
       <Filter>Commands\Command</Filter>
     </ClCompile>
     <ClCompile Include="Commands\SetPoolRenderableObjectsTechniqueCommand.cpp">
+      <Filter>Commands\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\RenderDebugInfoSceneRendererCommand.cpp">
       <Filter>Commands\Command</Filter>
     </ClCompile>
   </ItemGroup>

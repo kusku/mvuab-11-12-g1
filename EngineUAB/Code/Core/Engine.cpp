@@ -61,6 +61,10 @@ void CEngine::Update()
 	m_pProcess->Update(elapsedTime);
 	m_LogRender.Update(elapsedTime);
 
+	m_pCore->SetDebugRender(&m_DebugRender);
+	m_pCore->SetLogRender(&m_LogRender);
+	m_pCore->SetTimer(&m_Timer);
+
 #if defined(DEBUG_MODE)
 	UpdateDebugInputs();
 #endif
@@ -136,9 +140,9 @@ void CEngine::RenderScene(CRenderManager *renderManager)
 	m_pProcess->Render( renderManager );
 	
 #if defined(DEBUG_MODE)
-	CFontManager *fontManager = CORE->GetFontManager();
+	/*CFontManager *fontManager = CORE->GetFontManager();
 	m_DebugRender.Render( renderManager, fontManager, &m_Timer );
-	m_LogRender.Render( renderManager, fontManager );
+	m_LogRender.Render( renderManager, fontManager );*/
 #endif
 }
 
@@ -256,10 +260,6 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 			else if( l_Name == "RenderableObjectTechniques" )
 			{
 				m_Config.renderable_object_techniques_path = l_ConfigNode(i).GetPszProperty("poolsXML", "");
-			}
-			else if( l_Name == "RenderableObjectsManager" )
-			{
-				m_Config.renderable_objects_layers_manager_path = l_ConfigNode(i).GetPszProperty("renderableObjectsManagerXML", "");
 			}
 		}
 	}

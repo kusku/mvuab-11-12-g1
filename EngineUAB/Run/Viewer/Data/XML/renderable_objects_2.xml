@@ -4,5 +4,6 @@
 	<layer name="alpha_objects" />
 	<layer name="alpha_blend_objects" />
 	<layer name="particles" />
-	<mesh_instance name="Box001" core="Box001" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" />
+	<mesh_instance name="Sword" core="Sword" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" />
+	<mesh_instance name="BoxNormalMap" core="BoxNormalMap" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" layer="particles" />
 </renderable_objects>
