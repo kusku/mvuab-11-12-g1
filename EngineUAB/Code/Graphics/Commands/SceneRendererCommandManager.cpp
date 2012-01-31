@@ -5,6 +5,7 @@
 #include "Logger\Logger.h"
 #include "Core.h"
 #include "Base.h"
+#include <sstream>
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -41,12 +42,11 @@ void CSceneRendererCommandManager::Reload()
 void CSceneRendererCommandManager::Execute(CRenderManager &RM)
 {
 	std::vector<CSceneRendererCommand*> l_VectorResources = m_SceneRendererCommands.GetResourcesVector();
-	std::vector<CSceneRendererCommand*>::iterator l_It = l_VectorResources.begin();
-	std::vector<CSceneRendererCommand*>::iterator l_End = l_VectorResources.end();
 
-	for(; l_It != l_End; ++l_It)
+	uint16 l_Count = l_VectorResources.size();
+	for(uint16 i=0; i < l_Count; ++i)
 	{
-		(*l_It)->Execute(RM);
+		l_VectorResources[i]->Execute(RM);
 	}
 }
 
@@ -68,49 +68,74 @@ void CSceneRendererCommandManager::LoadXML()
 	if( l_SRC.Exists() )
 	{
 		std::string l_Type;
+		std::stringstream out;
+		std::string l_NumCommand;
+		std::string l_CommandName;
+		CSceneRendererCommand *l_Command = NULL;
+
 		uint16 l_Count = l_SRC.GetNumChildren();
 		for(uint16 i=0; i<l_Count; ++i)
 		{
+			l_Command = NULL;
+
+			//Converts the iteration number to string
+			out << i;
+			l_NumCommand = out.str();
+
+			//Read de commands
 			 l_Type = l_SRC(i).GetName();
 			 if( l_Type == "begin_scene" )
 			 {
-				 CSceneRendererCommand *l_Command = new CBeginSceneRendererCommand( l_SRC(i) );
-				 m_SceneRendererCommands.AddResource("begin_scene", l_Command);
+				 l_Command = new CBeginSceneRendererCommand( l_SRC(i) );
+				 l_CommandName = "begin_scene_" + l_NumCommand;
 			 }
 			 else if( l_Type == "end_scene" )
 			 {
-				 CSceneRendererCommand *l_Command = new CEndSceneRendererCommand( l_SRC(i) );
-				 m_SceneRendererCommands.AddResource("end_scene", l_Command);
+				 l_Command = new CEndSceneRendererCommand( l_SRC(i) );
+				 l_CommandName = "end_scene_" + l_NumCommand;
 			 }
 			 else if( l_Type == "clear_scene" )
 			 {
-				 CSceneRendererCommand *l_Command = new CClearSceneRendererCommand( l_SRC(i) );
-				 m_SceneRendererCommands.AddResource("clear_scene", l_Command);
+				 l_Command = new CClearSceneRendererCommand( l_SRC(i) );
+				 l_CommandName = "clear_scene_" + l_NumCommand;
 			 }
 			 else if( l_Type == "enable_z_write" )
 			 {
-				 CSceneRendererCommand *l_Command = new CEnableZWriteSceneRendererCommand( l_SRC(i) );
-				 m_SceneRendererCommands.AddResource("enable_z_write", l_Command);
+				 l_Command = new CEnableZWriteSceneRendererCommand( l_SRC(i) );
+				 l_CommandName = "enable_z_write_" + l_NumCommand;
 			 }
 			 else if( l_Type == "disable_z_write" )
 			 {
-				 CSceneRendererCommand *l_Command = new CDisableZWriteSceneRendererCommand( l_SRC(i) );
-				 m_SceneRendererCommands.AddResource("disable_z_write", l_Command);
+				 l_Command = new CDisableZWriteSceneRendererCommand( l_SRC(i) );
+				 l_CommandName = "disable_z_write_" + l_NumCommand;
 			 }
 			 else if( l_Type == "enable_z_test" )
 			 {
-				 CSceneRendererCommand *l_Command = new CEnableZTestSceneRendererCommand( l_SRC(i) );
-				 m_SceneRendererCommands.AddResource("enable_z_test", l_Command);
+				 l_Command = new CEnableZTestSceneRendererCommand( l_SRC(i) );
+				 l_CommandName = "enable_z_test_" + l_NumCommand;
 			 }
 			 else if( l_Type == "disable_z_test" )
 			 {
-				 CSceneRendererCommand *l_Command = new CDisableZTestSceneRendererCommand( l_SRC(i) );
-				 m_SceneRendererCommands.AddResource("disable_z_test", l_Command);
+				 l_Command = new CDisableZTestSceneRendererCommand( l_SRC(i) );
+				 l_CommandName = "disable_z_test_" + l_NumCommand;
 			 }
 			 else if( l_Type == "render_debug_lights" )
 			 {
-				 CSceneRendererCommand *l_Command = new CRenderDebugLightsSceneRendererCommand( l_SRC(i) );
-				 m_SceneRendererCommands.AddResource("render_debug_lights", l_Command);
+				 l_Command = new CRenderDebugLightsSceneRendererCommand( l_SRC(i) );
+				 m_SceneRendererCommands.AddResource("render_debug_lights_" + l_NumCommand, l_Command);
+
+			 }
+			 else if( l_Type == "render_scene" )
+			 {
+				 l_Command = new CRenderSceneSceneRendererCommand( l_SRC(i) );
+				 m_SceneRendererCommands.AddResource("render_scene_" + l_NumCommand, l_Command);
+
+			 }
+
+			 //Add the command into the map
+			 if( l_Command != NULL )
+			 {
+				 m_SceneRendererCommands.AddResource(l_CommandName, l_Command);
 			 }
 		}
 	}

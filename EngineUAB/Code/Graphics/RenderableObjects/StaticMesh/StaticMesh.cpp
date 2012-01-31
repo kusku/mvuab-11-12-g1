@@ -79,7 +79,6 @@ bool CStaticMesh::Reload()
 
 	fclose(modelFile);
 
-	return true;
 	return GetRenderableObjectTechnique();
 }
 
@@ -388,7 +387,7 @@ void CStaticMesh::Render(CRenderManager *RM) const
 		{
 			m_Textures[i][j]->Activate(j);
 		}
-		m_RVs[i]->Render(RM);
+		m_RVs[i]->Render( RM, m_RenderableObjectsTechniques[i]->GetEffectTechnique() );
 	}
 }
 
@@ -411,8 +410,7 @@ void CStaticMesh::Render(CRenderManager *RM, CEffectTechnique* technique) const
 }
 
 bool CStaticMesh::GetRenderableObjectTechnique()
-{
-	//TODO: Falta implementación
+{	
 	bool l_Ok = true;
 	CRenderableObjectTechniqueManager *l_ROTM = CORE->GetROTManager();
 	

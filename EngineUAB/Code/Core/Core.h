@@ -57,7 +57,7 @@ public:
 	CRenderableObjectTechniqueManager*		GetROTManager() const						{ return m_pROTManager; }	
 	CSceneRendererCommandManager*			GetSceneRendererCommandManager() const		{ return m_SceneRendererCommandManager; }
 	CRenderableObjectsLayersManager*		GetRenderableObjectsLayersManager() const	{ return m_RenderableObjectsLayersManager; }
-
+	
 private:
 	void Release();
 

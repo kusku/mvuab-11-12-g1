@@ -26,8 +26,8 @@ public:
 	CInstanceMesh( CXMLTreeNode &Node );
 	virtual ~CInstanceMesh();
 
+	//void Render ( CRenderManager *RM );
 	void Render ( CRenderManager *RM );
-	virtual void Render (CRenderManager *RM, CEffectTechnique* technique);
 
 private:
 	CStaticMesh		*m_StaticMesh;

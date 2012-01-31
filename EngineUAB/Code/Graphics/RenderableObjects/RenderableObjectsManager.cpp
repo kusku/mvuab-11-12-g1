@@ -37,40 +37,41 @@ void CRenderableObjectsManager::Update(float elapsedTime)
 	}
 }
 
+//void CRenderableObjectsManager::Render(CRenderManager *RM)
+//{
+//	std::vector<CRenderableObject*>::iterator l_It = m_RenderableObjects.begin();
+//	std::vector<CRenderableObject*>::iterator l_End = m_RenderableObjects.end();
+//
+//	std::string l_TechniqueName = "";
+//
+//	for(; l_It != l_End; ++l_It)
+//	{
+//		if( (*l_It)->GetVisible() )
+//		{
+//			/*l_TechniqueName = (*l_It)->GetTechniqueName();
+//			if( l_TechniqueName != "" )
+//			{
+//				(*l_It)->Render(RM, CORE->GetEffectManager()->GetEffectTechnique( l_TechniqueName ));
+//			}
+//			else
+//			{
+//				(*l_It)->Render(RM, NULL);
+//			}*/
+//			(*l_It)->Render(RM);
+//		}
+//	}
+//}
+
 void CRenderableObjectsManager::Render(CRenderManager *RM)
 {
 	std::vector<CRenderableObject*>::iterator l_It = m_RenderableObjects.begin();
 	std::vector<CRenderableObject*>::iterator l_End = m_RenderableObjects.end();
 
-	std::string l_TechniqueName = "";
-
 	for(; l_It != l_End; ++l_It)
 	{
 		if( (*l_It)->GetVisible() )
 		{
-			l_TechniqueName = (*l_It)->GetTechniqueName();
-			if( l_TechniqueName != "" )
-			{
-				(*l_It)->Render(RM, CORE->GetEffectManager()->GetEffectTechnique( l_TechniqueName ));
-			}
-			else
-			{
-				(*l_It)->Render(RM, NULL);
-			}
-		}
-	}
-}
-
-void CRenderableObjectsManager::Render(CRenderManager *RM, CEffectTechnique* technique)
-{
-	std::vector<CRenderableObject*>::iterator l_It = m_RenderableObjects.begin();
-	std::vector<CRenderableObject*>::iterator l_End = m_RenderableObjects.end();
-
-	for(; l_It != l_End; ++l_It)
-	{
-		if( (*l_It)->GetVisible() )
-		{
-			(*l_It)->Render(RM, technique);
+			(*l_It)->Render(RM);
 		}
 	}
 }

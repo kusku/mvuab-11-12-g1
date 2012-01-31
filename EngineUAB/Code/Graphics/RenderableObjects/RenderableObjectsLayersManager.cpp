@@ -21,7 +21,7 @@ CRenderableObjectsLayersManager::~CRenderableObjectsLayersManager()
 void CRenderableObjectsLayersManager::Destroy()
 {
 	CTemplatedVectorMapManager::Destroy();
-	CHECKED_DELETE(m_pDefaultRenderableObjectManager);
+	m_pDefaultRenderableObjectManager = NULL;
 }
 
 void CRenderableObjectsLayersManager::Load(const std::string &FileName)
@@ -143,8 +143,7 @@ void CRenderableObjectsLayersManager::Render(CRenderManager *RM)
 	TVectorResources::iterator l_End = l_VectorResources.end();
 	for(; l_It != l_End; ++l_It)
 	{
-		//TODO: Mirar lo de la technique
-		(*l_It)->Render(RM, NULL);
+		(*l_It)->Render(RM);
 	}
 }
 
@@ -153,8 +152,7 @@ void CRenderableObjectsLayersManager::Render(CRenderManager *RM, const std::stri
 	CRenderableObjectsManager *l_ROManager = GetResource(LayerName);
 	if( l_ROManager != NULL )
 	{
-		//TODO: Mirar lo de la technique
-		l_ROManager->Render(RM, NULL);
+		l_ROManager->Render(RM);
 	}
 }
 

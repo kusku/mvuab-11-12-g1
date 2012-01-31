@@ -3,6 +3,7 @@
 #include "RenderManager.h"
 #include "Lights\LightManager.h"
 #include "Utils\Active.h"
+#include "Math\Matrix44.h"
 #include "Base.h"
 #include "Core.h"
 
@@ -14,8 +15,15 @@ CRenderDebugLightsSceneRendererCommand::CRenderDebugLightsSceneRendererCommand(C
 
 void CRenderDebugLightsSceneRendererCommand::Execute(CRenderManager &RM)
 {
+	RM.SetupMatrices(NULL);
+
 	if( GetActive() )
 	{
+		Mat44f mat;
+		mat.SetIdentity();
+		CORE->GetRenderManager()->SetTransform(mat);
+		CORE->GetRenderManager()->DrawAxis(1.0f);
+
 		CORE->GetLightManager()->Render(&RM);
 	}
 }

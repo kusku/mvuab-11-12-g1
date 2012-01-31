@@ -5,6 +5,7 @@
 #endif
 
 CRenderableObject::CRenderableObject()
+	: m_pROTechnique(NULL)
 {
 }
 

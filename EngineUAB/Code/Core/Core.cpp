@@ -117,6 +117,18 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 			m_pTextureManager->SetNoTextureName("NoTexture");
 			l_Tex = NULL;
 
+			//Inicia las luces
+			m_pLightManager = new CLightManager();
+			m_pLightManager->Load( config.lights_path );
+
+			//Inicia los efectos
+			m_pEffectManager = new CEffectManager();
+			m_pEffectManager->Load( config.effects_path );
+
+			//Inicia los Renderable Object Techniques
+			m_pROTManager = new CRenderableObjectTechniqueManager();
+			m_pROTManager->Load(config.renderable_object_techniques_path);
+
 			//Inicia los meshes
 			m_pStaticMeshManager = new CStaticMeshManager();
 			m_bIsOk = m_pStaticMeshManager->Load( config.static_meshes_path );
@@ -124,22 +136,16 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 			m_pAnimatedModelManager = new CAnimatedModelManager();
 			m_pAnimatedModelManager->Load( config.animated_models_path );
 
-			m_pRenderableObjectsManager = new CRenderableObjectsManager();
-			m_pRenderableObjectsManager->Load( config.renderable_objects_path );
+			//m_pRenderableObjectsManager = new CRenderableObjectsManager();
+			//m_pRenderableObjectsManager->Load( config.renderable_objects_path );
 
-			m_pLightManager = new CLightManager();
-			m_pLightManager->Load( config.lights_path );
-
-			m_pEffectManager = new CEffectManager();
-			m_pEffectManager->Load( config.effects_path );
+			//Inicia m_RenderableObjectsLayersManager
+			m_RenderableObjectsLayersManager = new CRenderableObjectsLayersManager();
+			m_RenderableObjectsLayersManager->Load(config.renderable_objects_path);
 
 			//Inicia el Scene Renderer Command Manager
 			m_SceneRendererCommandManager = new CSceneRendererCommandManager();
 			m_SceneRendererCommandManager->Load(config.scene_renderer_command_manager_path);
-
-			//Inicia m_RenderableObjectsLayersManager
-			//m_RenderableObjectsLayersManager = new CRenderableObjectsLayersManager();
-			//m_RenderableObjectsLayersManager->Load(config.renderable_objects_layers_manager);
 		}
 	}
 

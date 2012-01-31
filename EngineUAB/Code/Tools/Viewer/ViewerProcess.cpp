@@ -10,6 +10,7 @@
 #include "Math\Matrix44.h"
 #include "Cameras\Camera.h"
 #include "RenderableObjects\RenderableObjectsManager.h"
+#include "RenderableObjects\RenderableObjectsLayersManager.h"
 #include "Commands\SceneRendererCommandManager.h"
 #include "Lights\LightManager.h"
 
@@ -52,7 +53,8 @@ void CViewerProcess::Update(float elapsedTime)
 	m_Player.Update(elapsedTime, m_Camera);
 	UpdateInputs(elapsedTime);
 
-	CORE->GetRenderableObjectsManager()->Update(elapsedTime);
+	//CORE->GetRenderableObjectsManager()->Update(elapsedTime);
+	CORE->GetRenderableObjectsLayersManager()->Update(elapsedTime);
 }
 
 void CViewerProcess::UpdateInputs(float elapsedTime)

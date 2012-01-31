@@ -5,6 +5,7 @@
 
 class CRenderManager;
 class CEffectTechnique;
+class CRenderableObjectTechnique;
 
 #include "Object3D.h"
 #include "Utils\Named.h"
@@ -17,7 +18,13 @@ public:
 
 	virtual void Update (float elapsedTime);
 	virtual void Render (CRenderManager *RM) = 0;
-	virtual void Render (CRenderManager *RM, CEffectTechnique* technique) = 0;
+	//virtual void Render (CRenderManager *RM, CEffectTechnique* technique) = 0;
+
+	void		SetRenderableObjectTechnique	( CRenderableObjectTechnique *ROT )		{ m_pROTechnique = ROT; }
+	CRenderableObjectTechnique*		GetRenderableObjectTechnique		() const		{ return m_pROTechnique; }
+
+private:
+	CRenderableObjectTechnique		*m_pROTechnique;
 };
 
 #endif
