@@ -6,6 +6,10 @@
 #include "RenderableObjects\RenderableObjectsManager.h"
 #include "RenderableObjects\RenderableObjectsLayersManager.h"
 
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
+
 CRenderSceneSceneRendererCommand::CRenderSceneSceneRendererCommand(CXMLTreeNode &Node)
 	: m_pRenderableObjectsManager(NULL)
 {
