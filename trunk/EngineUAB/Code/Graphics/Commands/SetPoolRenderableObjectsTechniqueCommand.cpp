@@ -17,6 +17,11 @@ CSetPoolRenderableObjectsTechniqueCommand::CSetPoolRenderableObjectsTechniqueCom
 
 }
 
+CSetPoolRenderableObjectsTechniqueCommand::~CSetPoolRenderableObjectsTechniqueCommand()
+{
+
+}
+
 CSetPoolRenderableObjectsTechniqueCommand::CSetPoolRenderableObjectsTechniqueCommand(CXMLTreeNode &Node)
 {
 	//<set_pool_renderable_objects_technique pool="generate_deferred_shading_pool_renderable_object_technique"/>
