@@ -11,7 +11,6 @@
 
 CPoolRenderableObjectTechnique::CPoolRenderableObjectTechnique(CXMLTreeNode &Node)
 {
-
 }
 
 

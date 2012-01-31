@@ -75,6 +75,7 @@ void CRenderableObjectTechniqueManager::Load(const std::string &FileName)
 						l_PoolROT->AddElement(l_Name, l_Technique, GetResource(l_Name) );
 					}
 				}
+				
 			}
 		}
 	}
