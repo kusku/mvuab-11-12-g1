@@ -8,3 +8,4 @@
 #include "Commands\RenderDebugLightsSceneRendererCommand.h"
 #include "Commands\RenderSceneSceneRendererCommand.h"
 #include "Commands\SetupMatricesSceneRendererCommand.h"
+#include "Commands\SetPoolRenderableObjectsTechniqueCommand.h"
