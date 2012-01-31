@@ -2,9 +2,10 @@
 <scene_renderer_commands>
 	<!--pre_render-->
 	<begin_scene />
-	<clear_scene color="true" depth="true" stencil="false" />
+	<clear_scene color="true" depth="true" stencil="true" />
 	<enable_z_write />
 	<enable_z_test />
 	<render_debug_lights active="true" />
+	<render_scene layer="solid" active="true" />
 	<end_scene />
 </scene_renderer_commands>

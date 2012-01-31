@@ -42,6 +42,9 @@ struct SConfig
 
 	//Renderable Object Layers Manager
 	std::string renderable_objects_layers_manager;
+
+	//Renderable Object Techniques
+	std::string renderable_object_techniques_path;
 };
 
 #endif

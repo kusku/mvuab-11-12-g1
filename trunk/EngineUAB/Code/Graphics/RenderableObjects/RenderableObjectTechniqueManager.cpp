@@ -6,6 +6,7 @@
 #include "Logger\Logger.h"
 #include "Base.h"
 #include "Core.h"
+#include <sstream>
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -36,7 +37,7 @@ void CRenderableObjectTechniqueManager::Load(const std::string &FileName)
 		LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
 	}
 
-	CXMLTreeNode l_ROTs = newFile["renderable_objects_techniques"];
+	CXMLTreeNode l_ROTs = newFile["renderable_object_techniques"];
 	if( l_ROTs.Exists() )
 	{
 		uint16 l_Count = l_ROTs.GetNumChildren();
@@ -74,7 +75,6 @@ void CRenderableObjectTechniqueManager::Load(const std::string &FileName)
 						l_PoolROT->AddElement(l_Name, l_Technique, GetResource(l_Name) );
 					}
 				}
-				
 			}
 		}
 	}
@@ -82,7 +82,9 @@ void CRenderableObjectTechniqueManager::Load(const std::string &FileName)
 
 std::string CRenderableObjectTechniqueManager::GetRenderableObjectTechniqueNameByVertexType(uint32 VertexType)
 {
-	std::string l_Name = "DefaultROTTechnique_" + VertexType;
+	std::stringstream out;
+	out << VertexType;
+	std::string l_Name = "DefaultROTTechnique_" + out.str();
 	return l_Name;
 }
 

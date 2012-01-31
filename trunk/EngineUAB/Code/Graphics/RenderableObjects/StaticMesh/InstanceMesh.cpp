@@ -9,6 +9,7 @@
 #include "Effects\EffectTechnique.h"
 #include "Effects\EffectManager.h"
 #include "XML\XMLTreeNode.h"
+#include "RenderableObjects\RenderableObjectTechnique.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -47,36 +48,40 @@ CInstanceMesh::~CInstanceMesh()
 	m_StaticMesh = NULL;
 }
 
+//void CInstanceMesh::Render(CRenderManager *RM)
+//{
+//	if( m_StaticMesh != NULL )
+//	{
+//		Mat44f mat, rotYaw, rotPitch, rotRoll;
+//		
+//		mat.SetIdentity();
+//		rotYaw.SetIdentity();
+//		rotPitch.SetIdentity();
+//		rotRoll.SetIdentity();
+//
+//		mat.Translate( GetPosition() );
+//		
+//		rotPitch.SetRotByAngleX( mathUtils::Deg2Rad<float>(GetPitch()) );
+//		rotYaw.SetRotByAngleY( mathUtils::Deg2Rad<float>(GetYaw()) );
+//		rotRoll.SetRotByAngleZ( mathUtils::Deg2Rad<float>(GetRoll()) );
+//		
+//		mat = mat * rotYaw * rotPitch * rotRoll;
+//		
+//		RM->SetTransform(mat);
+//
+//		m_StaticMesh->Render(RM);
+//	}
+//}
+
 void CInstanceMesh::Render(CRenderManager *RM)
 {
 	if( m_StaticMesh != NULL )
 	{
-		Mat44f mat, rotYaw, rotPitch, rotRoll;
-		
-		mat.SetIdentity();
-		rotYaw.SetIdentity();
-		rotPitch.SetIdentity();
-		rotRoll.SetIdentity();
-
-		mat.Translate( GetPosition() );
-		
-		rotPitch.SetRotByAngleX( mathUtils::Deg2Rad<float>(GetPitch()) );
-		rotYaw.SetRotByAngleY( mathUtils::Deg2Rad<float>(GetYaw()) );
-		rotRoll.SetRotByAngleZ( mathUtils::Deg2Rad<float>(GetRoll()) );
-		
-		mat = mat * rotYaw * rotPitch * rotRoll;
-		
-		RM->SetTransform(mat);
-
-		m_StaticMesh->Render(RM);
-	}
-}
-
-void CInstanceMesh::Render(CRenderManager *RM, CEffectTechnique* technique)
-{
-	if( m_StaticMesh != NULL )
-	{
+		//TODO: Al establecer una pool con el Command <set_renderable_objects_technique>, él buscará la technique
+		//necessaria en esa pool siempre y cuando no este definida una technique en el fichero renderable_objects.xml
 		CORE->GetEffectManager()->SetWorldMatrix(GetTransform());
-		m_StaticMesh->Render(RM, technique);
+//		CEffectTechnique *l_pTechnique = GetRenderableObjectTechnique()->GetEffectTechnique();
+		//m_StaticMesh->Render(RM, l_pTechnique);
+		m_StaticMesh->Render(RM);
 	}
 }

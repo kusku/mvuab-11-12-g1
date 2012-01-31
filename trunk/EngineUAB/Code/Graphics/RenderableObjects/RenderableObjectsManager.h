@@ -28,7 +28,6 @@ public:
 
 	void		Update		( float elapsedTime );
 	void		Render		( CRenderManager *RM );
-	void		Render		( CRenderManager *RM, CEffectTechnique* technique );
 
 	CRenderableObject*	AddMeshInstance			( const std::string &CoreMeshName, const std::string &InstanceName, const Vect3f &Position );
 	CRenderableObject*	AddMeshInstance			( CXMLTreeNode &Node );

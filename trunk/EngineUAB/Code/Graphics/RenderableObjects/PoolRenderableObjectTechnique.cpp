@@ -69,5 +69,5 @@ CPoolRenderableObjectTechnique::CPoolRenderableObjectTechniqueElement::CPoolRend
 
 CPoolRenderableObjectTechnique::CPoolRenderableObjectTechniqueElement::~CPoolRenderableObjectTechniqueElement()
 {
-	CHECKED_DELETE(m_pOnRenderableObjectTechniqueManager);
+	m_pOnRenderableObjectTechniqueManager = NULL;
 }

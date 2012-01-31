@@ -114,9 +114,10 @@ void CEngine::UpdateDebugInputs()
 void CEngine::Render()
 {
 	CRenderManager* l_RenderManager = m_pCore->GetRenderManager();
-	CCamera *l_Camera = m_pProcess->GetCamera();
-	l_RenderManager->SetupMatrices( l_Camera );
+	//CCamera *l_Camera = m_pProcess->GetCamera();
+	//l_RenderManager->SetupMatrices( NULL );
 	RenderScene( l_RenderManager );		
+
 	//TODO: MOdificando el Render de CEngine
 
 	/*CRenderManager* l_RenderManager = m_pCore->GetRenderManager();
@@ -135,9 +136,9 @@ void CEngine::RenderScene(CRenderManager *renderManager)
 	m_pProcess->Render( renderManager );
 	
 #if defined(DEBUG_MODE)
-	/*CFontManager *fontManager = CORE->GetFontManager();
+	CFontManager *fontManager = CORE->GetFontManager();
 	m_DebugRender.Render( renderManager, fontManager, &m_Timer );
-	m_LogRender.Render( renderManager, fontManager );*/
+	m_LogRender.Render( renderManager, fontManager );
 #endif
 }
 
@@ -251,6 +252,10 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 			else if( l_Name == "SceneRendererCommands" )
 			{
 				m_Config.scene_renderer_command_manager_path = l_ConfigNode(i).GetPszProperty("commandsXML", "");
+			}
+			else if( l_Name == "RenderableObjectTechniques" )
+			{
+				m_Config.renderable_object_techniques_path = l_ConfigNode(i).GetPszProperty("poolsXML", "");
 			}
 		}
 	}

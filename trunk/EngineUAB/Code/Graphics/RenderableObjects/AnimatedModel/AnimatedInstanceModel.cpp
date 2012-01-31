@@ -10,6 +10,7 @@
 #include "Core.h"
 #include "Effects\EffectTechnique.h"
 #include "Effects\EffectManager.h"
+#include "RenderableObjects\RenderableObjectTechnique.h"
 #include "Textures\Texture.h"
 #include "XML\XMLTreeNode.h"
 
@@ -99,18 +100,13 @@ void CAnimatedInstanceModel::Render(CRenderManager *RM)
 		
 	RM->SetTransform(mat);
 
-	RenderModelBySoftware(RM);
+	RenderModelByHardware(RM);
 }
 
-void CAnimatedInstanceModel::Render(CRenderManager *RM, CEffectTechnique* technique)
-{
-	RenderModelByHardware(RM, technique);
-}
-
-void CAnimatedInstanceModel::RenderModelByHardware(CRenderManager* RM, CEffectTechnique* technique)
+void CAnimatedInstanceModel::RenderModelByHardware(CRenderManager* RM)
 {
 	CEffectManager* l_EffectManager = CORE->GetEffectManager();
-	CEffectTechnique* l_EffectTechnique = technique;
+	CEffectTechnique* l_EffectTechnique = GetRenderableObjectTechnique()->GetEffectTechnique();;
 
 	if(l_EffectTechnique==NULL)
 	{

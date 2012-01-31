@@ -36,9 +36,8 @@ public:
 	void		Update				( float elapsedTime );
 
 	void		Render						( CRenderManager *RM );
-	void		Render						( CRenderManager *RM, CEffectTechnique* technique );
 	void		RenderModelBySoftware		( CRenderManager *RM );
-	void		RenderModelByHardware		(CRenderManager* RM, CEffectTechnique* technique);
+	void		RenderModelByHardware		( CRenderManager* RM );
 
 	void		Destroy		();
 
