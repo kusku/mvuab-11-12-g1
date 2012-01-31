@@ -41,7 +41,7 @@ struct SConfig
 	std::string scene_renderer_command_manager_path;
 
 	//Renderable Object Layers Manager
-	std::string renderable_objects_layers_manager;
+	std::string renderable_objects_layers_manager_path;
 
 	//Renderable Object Techniques
 	std::string renderable_object_techniques_path;
