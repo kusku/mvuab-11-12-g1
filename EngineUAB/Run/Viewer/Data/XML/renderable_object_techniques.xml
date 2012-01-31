@@ -2,5 +2,6 @@
 <renderable_object_techniques>
 	<pool_renderable_object_technique name="dummy_manager">
 		<default_technique vertex_type="19" technique="NormalTexture" />
+		<default_technique vertex_type="51" technique="LightMapping" />
 	</pool_renderable_object_technique>
 </renderable_object_techniques>
