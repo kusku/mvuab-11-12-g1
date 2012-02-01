@@ -13,6 +13,10 @@ class CRenderDebugInfoSceneRendererCommand : public CSceneRendererCommand
 public:
 	CRenderDebugInfoSceneRendererCommand (CXMLTreeNode &Node);
 	virtual void	Execute		( CRenderManager &RM );
+
+private:
+	bool		m_Grid;
+	bool		m_Axis;
 };
 
 #endif

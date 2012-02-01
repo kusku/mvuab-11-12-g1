@@ -10,6 +10,8 @@
 
 CRenderDebugInfoSceneRendererCommand::CRenderDebugInfoSceneRendererCommand(CXMLTreeNode &Node)
 {
+	m_Grid = Node.GetBoolProperty("grid", false);
+	m_Axis = Node.GetBoolProperty("axis", false);
 }
 
 void CRenderDebugInfoSceneRendererCommand ::Execute(CRenderManager &RM)
@@ -17,4 +19,10 @@ void CRenderDebugInfoSceneRendererCommand ::Execute(CRenderManager &RM)
 	CFontManager *fontManager = CORE->GetFontManager();
 	CORE->GetDebugRender()->Render( &RM, fontManager, CORE->GetTimer() );
 	CORE->GetLogRender()->Render( &RM, fontManager );
+
+	if( m_Grid )
+		RM.DrawGrid(100.f, 100.f, 30, colBLACK);
+
+	if( m_Axis )
+		RM.DrawAxis(1.0f);
 }

@@ -91,10 +91,13 @@ std::string CRenderableObjectTechniqueManager::GetRenderableObjectTechniqueNameB
 
 void CRenderableObjectTechniqueManager::InsertRenderableObjectTechnique(const std::string &ROTName, const std::string &TechniqueName)
 {
-	CEffectTechnique *l_EffectTechnique = CORE->GetEffectManager()->GetEffectTechnique(TechniqueName);
-	CRenderableObjectTechnique *l_ROT = new CRenderableObjectTechnique(ROTName, l_EffectTechnique);
+	if( !GetResource(ROTName) ) //Si no está el ROT en el mapa, se crea y se inserta
+	{
+		CEffectTechnique *l_EffectTechnique = CORE->GetEffectManager()->GetEffectTechnique(TechniqueName);
+		CRenderableObjectTechnique *l_ROT = new CRenderableObjectTechnique(ROTName, l_EffectTechnique);
 
-	AddResource(ROTName, l_ROT);
+		AddResource(ROTName, l_ROT);
 
-	l_ROT = NULL;
+		l_ROT = NULL;
+	}
 }

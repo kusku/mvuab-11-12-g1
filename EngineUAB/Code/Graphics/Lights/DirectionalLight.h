@@ -13,6 +13,7 @@
 class CXMLTreeNode;
 
 #include "Light.h"
+#include "Math\Vector2.h"
 #include "Math\Vector3.h"
 
 class CDirectionalLight : public CLight
@@ -23,6 +24,7 @@ public:
 	virtual ~CDirectionalLight();
 
 	virtual void		Render				( CRenderManager* RM );
+	virtual void		SetShadowMap		( CRenderManager *RM );
 
 	void				SetDirection		( const Vect3f &Direction ) { m_Direction = Direction; }
 	const Vect3f&		GetDirection		() const					{ return m_Direction; }
@@ -31,6 +33,7 @@ public:
 
 protected:
 	Vect3f			m_Direction;
+	Vect2f			m_OrthoShadowMapSize;
 };
 
 #endif

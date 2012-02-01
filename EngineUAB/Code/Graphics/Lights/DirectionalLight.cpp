@@ -56,6 +56,10 @@ void CDirectionalLight::Render(CRenderManager *RM)
 
 }
 
+void CDirectionalLight::SetShadowMap(CRenderManager *RM)
+{
+}
+
 void CDirectionalLight::CalculateOrientationDebugRender()
 {
 	Vect2f l_XYCam = Vect2f(0.0f, 1.0f);

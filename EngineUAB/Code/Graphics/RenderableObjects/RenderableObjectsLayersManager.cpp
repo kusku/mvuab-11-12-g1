@@ -32,6 +32,7 @@ void CRenderableObjectsLayersManager::Load(const std::string &FileName)
 
 void CRenderableObjectsLayersManager::Reload()
 {
+	LOGGER->AddNewLog(ELL_INFORMATION, "CRenderableObjectsLayersManager::Reload->Reload de los Renderable Objects Layers Manager.");
 	Destroy();
 	LoadFile();
 }
