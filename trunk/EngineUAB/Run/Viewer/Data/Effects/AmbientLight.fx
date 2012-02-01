@@ -75,7 +75,7 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR
 	return PixColor;
 }
 
-technique technique0 
+technique AmbientLight 
 {
 	pass p0 
 	{
