@@ -145,9 +145,6 @@
     <ClInclude Include="Commands\DrawQuadRendererCommand.h">
       <Filter>Commands\Command</Filter>
     </ClInclude>
-    <ClInclude Include="Commands\RenderableObjectTechniquesSceneRendererCommand.h">
-      <Filter>Commands\Command</Filter>
-    </ClInclude>
     <ClInclude Include="Commands\StagedTexturedRendererCommand.h">
       <Filter>Commands\Command</Filter>
     </ClInclude>
@@ -315,9 +312,6 @@
       <Filter>Commands\Command</Filter>
     </ClCompile>
     <ClCompile Include="Commands\DrawQuadRendererCommand.cpp">
-      <Filter>Commands\Command</Filter>
-    </ClCompile>
-    <ClCompile Include="Commands\RenderableObjectTechniquesSceneRendererCommand.cpp">
       <Filter>Commands\Command</Filter>
     </ClCompile>
     <ClCompile Include="Commands\StagedTexturedRendererCommand.cpp">
