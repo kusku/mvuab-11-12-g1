@@ -393,7 +393,11 @@ function ExportSelection selectedObjs outputDir subOutPutDir counterClockwise ex
 		
 		if ret != 1 then 
 		(
-			if ret == -3 then
+			if ret == -1 then
+			(
+				warningMeshes = warningMeshes + (obj.name + " is not an editable mesh. Object will not be exported.\n")
+			)
+			else if ret == -3 then
 			(
 				warningMeshes = warningMeshes + (obj.name + " has not materials assigned to it. Object will not be exported.\n")
 			)
@@ -407,7 +411,7 @@ function ExportSelection selectedObjs outputDir subOutPutDir counterClockwise ex
 			)
 			else
 			(
-				warningMeshes = warningMeshes + (obj.name + " unexpected error in \"ExtractMaterialProperties\" ret: " + ret + "\n")
+				warningMeshes = warningMeshes + (obj.name + " unexpected error in \"ExtractMaterialProperties\" ret: " + (ret as string) + "\n")
 			)
 			
 			--Do not continue with this object and discard it
