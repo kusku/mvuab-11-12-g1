@@ -205,7 +205,7 @@ void CCore::ReloadInputs()
 
 void CCore::ReloadRenderableObjects()
 {
-	m_pRenderableObjectsManager->Reload();
+	m_pRenderableObjectsLayersManager->Reload();
 }
 
 void CCore::ReloadSceneRendererCommandManager()

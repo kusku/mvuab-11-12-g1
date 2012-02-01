@@ -7,7 +7,6 @@
 
 class CRenderManager;
 class CXMLTreeNode;
-class CRenderableObjectsManager;
 
 class CRenderSceneSceneRendererCommand : public CSceneRendererCommand
 {
@@ -18,7 +17,7 @@ public:
 	virtual void	Execute		( CRenderManager &RM );
 
 private:
-	CRenderableObjectsManager		*m_pRenderableObjectsManager;
+	std::string			m_Layer;
 };
 
 #endif

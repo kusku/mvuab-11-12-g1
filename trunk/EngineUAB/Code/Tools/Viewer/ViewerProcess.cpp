@@ -80,6 +80,11 @@ void CViewerProcess::UpdateInputs(float elapsedTime)
 	{
 		CORE->ReloadRenderableObjects();
 	}
+	
+	if( action2Input->DoAction("ReloadCommands") )
+	{
+		CORE->ReloadSceneRendererCommandManager();
+	}
 }
 
 void CViewerProcess::Render(CRenderManager *RM)

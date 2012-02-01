@@ -38,3 +38,7 @@ void COmniLight::Render(CRenderManager *RM)
 	RM->SetTransform(mat);
 	RM->DrawSphere( 0.3f, 5, colYELLOW );
 }
+
+void COmniLight::SetShadowMap(CRenderManager *RM)
+{
+}
