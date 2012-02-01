@@ -39,7 +39,7 @@ CInstanceMesh::CInstanceMesh(CXMLTreeNode &Node)
 	m_fPitch = Node.GetFloatProperty("pitch", 0.0f);
 	m_fRoll = Node.GetFloatProperty("roll", 0.0f);
 	m_Scale = Node.GetVect3fProperty("scale", Vect3f(1.0f, 1.0f, 1.0f));
-	m_Visible = Node.GetBoolProperty("visible", true);
+	m_Visible = Node.GetBoolProperty("visible", true, false);
 	//TODO: Faltar leer create_physics y physics_type
 }
 

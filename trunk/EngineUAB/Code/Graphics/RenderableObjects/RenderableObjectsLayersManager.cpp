@@ -71,7 +71,7 @@ void CRenderableObjectsLayersManager::LoadFile()
 			}
 			else if( l_Type == "mesh_instance" )
 			{
-				std::string l_Layer = l_RObjects(i).GetPszProperty("layer", "");
+				std::string l_Layer = l_RObjects(i).GetPszProperty("layer", "", false);
 				CRenderableObjectsManager *l_ROManager = NULL;
 				if( l_Layer == "" )
 				{
