@@ -13,17 +13,17 @@ class CTexture;
 class CStagedTexturedRendererCommand : public CSceneRendererCommand
 {
 protected:	
-	class CKGStageTexture
+	class CStageTexture
 	{
 	public:
 		int				m_StageId;
 		CTexture		*m_pTexture;
 
-		CKGStageTexture()
+		CStageTexture()
 		{
 		}
 
-		CKGStageTexture(int StageId, CTexture *Texture)
+		CStageTexture(int StageId, CTexture *Texture)
 			: m_StageId(StageId)
 			, m_pTexture(Texture)
 		{
@@ -32,7 +32,7 @@ protected:
 		void Activate();
 	};
 
-	std::vector<CKGStageTexture>			m_StageTexturesVector;
+	std::vector<CStageTexture>			m_StageTexturesVector;
 
 public:
 	CStagedTexturedRendererCommand();
