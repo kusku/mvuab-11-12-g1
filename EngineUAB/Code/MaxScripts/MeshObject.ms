@@ -928,7 +928,7 @@ function CreateMaterialObjectStruct =
 
 function CreateVertex pos nrm tex tex2 diffCol VertexType =
 (
-	local vtx = Vertex Pos:0 Nrm:0 Tex1:0 Tex2:0 Diff:0
+	local vtx = Vertex Pos:0 Nrm:0 Tex1:(point3 0 0 0) Tex2:(point3 0 0 0) Diff:0
 	
 	--Add Vertex
 	vtx.Pos = (pos as point3)
