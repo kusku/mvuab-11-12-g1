@@ -60,9 +60,9 @@ public:
 	CColor				GetColorDebug		() const	{ return m_BackbufferColor_debug; }
 	CColor				GetColorRelease		() const	{ return m_BackbufferColor_release; }
 
-	HWND				GetHWND				() const	{ return m_hWnd; }
-	LPDIRECT3D9			GetD3D				() const	{ return m_pD3D; }
-	LPDIRECT3DDEVICE9	GetDevice			() const	{ return m_pD3DDevice; }
+	HWND						GetHWND				() const	{ return m_hWnd; }
+	LPDIRECT3D9					GetD3D				() const	{ return m_pD3D; }
+	inline LPDIRECT3DDEVICE9	GetDevice			() const	{ return m_pD3DDevice; }
 
 protected:
 	void Release ();

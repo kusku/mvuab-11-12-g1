@@ -25,9 +25,6 @@ void CRenderDebugSceneSceneRendererCommand::Execute(CRenderManager &RM)
 		mat.SetIdentity();
 		RM.SetTransform(mat);
 
-		RM.DrawAxis(1.0f);
-		RM.DrawGrid(100.0f, 100.0f, 30, colBLACK);
-
 		//TODO: Falta hacer la llamada de renderizar la información de debug de los objetos
 	}
 }

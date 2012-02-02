@@ -20,12 +20,12 @@ public:
 	{
 	}
 
-	void SetName ( const std::string &Name )
+	inline void SetName ( const std::string &Name )
 	{
 		m_Name = Name;
 	}
 
-	const std::string& GetName () const
+	inline const std::string& GetName () const
 	{
 		return m_Name;
 	}

@@ -7,6 +7,7 @@
 #include "Utils\Timer.h"
 #include "InfoRender\DebugRender.h"
 #include "InfoRender\LogRender.h"
+#include "Math\Matrix44.h"
 
 CRenderDebugInfoSceneRendererCommand::CRenderDebugInfoSceneRendererCommand(CXMLTreeNode &Node)
 {
@@ -19,6 +20,10 @@ void CRenderDebugInfoSceneRendererCommand ::Execute(CRenderManager &RM)
 	CFontManager *fontManager = CORE->GetFontManager();
 	CORE->GetDebugRender()->Render( &RM, fontManager, CORE->GetTimer() );
 	CORE->GetLogRender()->Render( &RM, fontManager );
+
+	Mat44f mat;
+	mat.SetIdentity();
+	RM.SetTransform(mat);
 
 	if( m_Grid )
 		RM.DrawGrid(100.f, 100.f, 30, colBLACK);

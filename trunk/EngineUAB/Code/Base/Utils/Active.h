@@ -20,12 +20,12 @@ public:
 	{
 	}
 
-	void SetActive ( bool IsActive )
+	inline void SetActive ( bool IsActive )
 	{
 		m_Active = IsActive;
 	}
 
-	bool GetActive () const
+	inline bool GetActive () const
 	{
 		return m_Active;
 	}

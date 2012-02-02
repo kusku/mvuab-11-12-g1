@@ -77,11 +77,7 @@ void CInstanceMesh::Render(CRenderManager *RM)
 {
 	if( m_StaticMesh != NULL )
 	{
-		//TODO: Al establecer una pool con el Command <set_renderable_objects_technique>, él buscará la technique
-		//necessaria en esa pool siempre y cuando no este definida una technique en el fichero renderable_objects.xml
 		CORE->GetEffectManager()->SetWorldMatrix(GetTransform());
-//		CEffectTechnique *l_pTechnique = GetRenderableObjectTechnique()->GetEffectTechnique();
-		//m_StaticMesh->Render(RM, l_pTechnique);
 		m_StaticMesh->Render(RM);
 	}
 }

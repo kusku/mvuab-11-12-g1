@@ -6,8 +6,9 @@
 	<enable_z_write />
 	<enable_z_test />
 	<setup_matrices />
+	<set_pool_renderable_objects_technique pool="dummy_manager" />
 	<render_scene layer="solid" active="true" />
-	<render_debug_info/>
+	<render_debug_info grid="true" axis="true" />
 	<render_debug_lights active="true" />
 	<end_scene />
 </scene_renderer_commands>
