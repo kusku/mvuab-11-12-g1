@@ -28,16 +28,16 @@ function ExportLights Objs FilePath IsPathCompleted=
 			
 			format "name=\"%\" pos=\"% % %\" color=\"% % %\" att_start_range=\"%\" att_end_range=\"%\"" l_Name l_Pos[1] l_Pos[2] l_Pos[3] l_Color.r l_Color.g l_Color.b l_StartAtt l_EndAtt to:l_XML_Line
 			
-			local l_GenShadowMap = getUserProp $ "generate_shadow_map"
-			local l_GenStaticShadowMap = getUserProp $ "generate_static_shadow_map"
+			local l_GenShadowMap = getUserProp Objs[i] "generate_shadow_map"
+			local l_GenStaticShadowMap = getUserProp Objs[i] "generate_static_shadow_map"
 			
 			if (l_GenShadowMap == true) then
 			(
 				local l_XML_Shadow_Params = stringstream ""
 				
-				local l_ShMapFormat = getUserProp $ "shadow_map_format_type"				
-				local l_ShMapWidth = getUserProp $ "shadow_map_width"				
-				local l_ShMapHeigth = getUserProp $ "shadow_map_height"
+				local l_ShMapFormat = getUserProp Objs[i] "shadow_map_format_type"				
+				local l_ShMapWidth = getUserProp Objs[i] "shadow_map_width"				
+				local l_ShMapHeigth = getUserProp Objs[i] "shadow_map_height"
 				
 				format "generate_shadow_map=\"true\" shadow_map_format_type=\"%\" shadow_map_width=\"%\" shadow_map_height=\"%\"" l_ShMapFormat l_ShMapWidth l_ShMapHeigth to:l_XML_Shadow_Params
 				
@@ -45,9 +45,9 @@ function ExportLights Objs FilePath IsPathCompleted=
 				(
 					local l_XML_Static_Shadow_Params = stringstream ""
 					
-					local l_SShMapFormat = getUserProp $ "static_shadow_map_format_type"
-					local l_SShMapWidth = getUserProp $ "static_shadow_map_width"					
-					local l_SShMapHeigth = getUserProp $ "static_shadow_map_height"
+					local l_SShMapFormat = getUserProp Objs[i] "static_shadow_map_format_type"
+					local l_SShMapWidth = getUserProp Objs[i] "static_shadow_map_width"					
+					local l_SShMapHeigth = getUserProp Objs[i] "static_shadow_map_height"
 				
 					format "generate_static_shadow_map=\"true\" static_shadow_map_format_type=\"%\" static_shadow_map_width=\"%\" static_shadow_map_height=\"%\"" l_SShMapFormat l_SShMapWidth l_SShMapHeigth to:l_XML_Static_Shadow_Params
 					

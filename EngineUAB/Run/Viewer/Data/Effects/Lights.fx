@@ -180,7 +180,7 @@ float4 mainPSNormalMap (TVertexOutNM IN) : COLOR
 		}
 	}
 	
-	//return float4(Tn, 1.0)
+	//return float4(Nn, 1.0);
 	return float4((g_AmbientColorLight + l_DiffuseContrib ) * ( l_SpecularContrib + l_Amount.rgb ), l_Amount.a);
 }
 

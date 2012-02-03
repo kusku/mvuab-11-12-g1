@@ -19,7 +19,7 @@ class COmniLight : public CLight
 {
 public:
 	COmniLight();
-	COmniLight( CXMLTreeNode *XMLNode );
+	COmniLight( CXMLTreeNode &XMLNode );
 	virtual ~COmniLight();
 
 	virtual void		Render				( CRenderManager* RM );

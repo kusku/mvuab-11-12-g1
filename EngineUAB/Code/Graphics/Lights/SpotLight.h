@@ -11,7 +11,7 @@ class CSpotLight : public CDirectionalLight
 {
 public:
 	CSpotLight();
-	CSpotLight( CXMLTreeNode *XMLNode );
+	CSpotLight( CXMLTreeNode &XMLNode );
 	virtual ~CSpotLight();
 
 	virtual void		Render				( CRenderManager* RM );
