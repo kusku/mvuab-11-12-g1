@@ -381,9 +381,9 @@ function ExportSelection selectedObjs outputDir subOutPutDir counterClockwise ex
 		t_mesh.BocMeshAttributes = obj.baseobject.custAttributes["BocAttribute"]
 		
 		--Add User Define Properties
-		t_mesh.RenderExport = getUserProp obj "render_export"
-		t_mesh.RenderVisible = getUserProp obj "render_visible"
-		t_mesh.AnimModelCore = getUserProp obj "anim_model_core"
+		t_mesh.RenderExport = getUserProp objPM "render_export"
+		t_mesh.RenderVisible = getUserProp objPM "render_visible"
+		t_mesh.AnimModelCore = getUserProp objPM "anim_model_core"
 		
 		--Set Filename
 		t_mesh.SetFileNameMesh sceneObjects.FilePath sceneObjects.RelativeFilePath
