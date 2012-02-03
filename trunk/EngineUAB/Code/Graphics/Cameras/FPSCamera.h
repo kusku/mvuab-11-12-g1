@@ -12,7 +12,7 @@
 
 #include "Camera.h"
 
-class CFPSCamera: public CCamera
+class CFPSCamera : public CCamera
 {
 
 public:

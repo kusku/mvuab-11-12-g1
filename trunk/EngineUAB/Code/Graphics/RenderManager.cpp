@@ -226,20 +226,11 @@ void CRenderManager::SetupMatrices(CCamera* camera)
     }
     else
     {
-        Vect3f eye = camera->GetEye();
-        l_Eye=D3DXVECTOR3(eye.x, eye.y, eye.z);
+		camera->UpdateMatrices();
 
-        Vect3f lookat = camera->GetLookAt();
-        D3DXVECTOR3 l_LookAt(lookat.x, lookat.y, lookat.z);
+		m_matView = camera->GetViewMatrixDX();
 
-        Vect3f vup = camera->GetVecUp();
-        D3DXVECTOR3 l_VUP(vup.x, vup.y, vup.z);
-
-        //Setup Matrix view
-        D3DXMatrixLookAtLH( &m_matView, &l_Eye, &l_LookAt, &l_VUP);
-
-        //Setup Matrix projection
-        D3DXMatrixPerspectiveFovLH(&m_matProject, camera->GetFov(), camera->GetAspectRatio(), camera->GetZn(), camera->GetZf());
+		m_matProject = camera->GetProjectionMatrixDX();
     }
 
     m_Frustum.Update( m_matView * m_matProject );

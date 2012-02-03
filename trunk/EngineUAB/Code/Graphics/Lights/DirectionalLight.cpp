@@ -2,6 +2,10 @@
 #include "RenderManager.h"
 #include "Math\Matrix44.h"
 #include "XML\XMLTreeNode.h"
+#include "Effects\EffectManager.h"
+#include "Base.h"
+#include "Core.h"
+#include "Cameras\OrthoFixedCameraController.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -58,6 +62,14 @@ void CDirectionalLight::Render(CRenderManager *RM)
 
 void CDirectionalLight::SetShadowMap(CRenderManager *RM)
 {
+	COrthoFixedCameraController l_OrthoFixedCameraController(m_Position - m_Direction, m_Position, m_OrthoShadowMapSize.x, m_OrthoShadowMapSize.y, 1.0f, m_EndRangeAttenuation);
+	
+	CEffectManager* l_EffectManager = CORE->GetEffectManager();
+	
+	m_ViewShadowMap = l_OrthoFixedCameraController.GetViewMatrix();
+	m_ProjectionShadowMap= l_OrthoFixedCameraController.GetProjectionMatrix();
+
+	l_EffectManager->ActivateCamera(m_ViewShadowMap, m_ProjectionShadowMap, l_OrthoFixedCameraController.GetPosition());
 }
 
 void CDirectionalLight::CalculateOrientationDebugRender()

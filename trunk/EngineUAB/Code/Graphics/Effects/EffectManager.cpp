@@ -37,6 +37,7 @@ void CEffectManager::Load(const std::string &Filename)
 	{
 		std::string msg_error = "CEffectManager::Load->Error al intentar leer el archivo de efectos: " + Filename;
 		LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
+		return;
 	}
 
 	CXMLTreeNode l_Effects = newFile["effects"];
