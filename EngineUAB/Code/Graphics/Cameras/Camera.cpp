@@ -32,6 +32,12 @@ CCamera::CCamera()
 
 void CCamera::UpdateMatrices()
 {	
+	CreateView();
+	Createprojection();
+}
+
+void CCamera::CreateView()
+{
     Vect3f eye = this->GetEye();
     D3DXVECTOR3 l_Eye = D3DXVECTOR3(eye.x, eye.y, eye.z);
 
@@ -43,7 +49,10 @@ void CCamera::UpdateMatrices()
 
     //Setup Matrix view
 	D3DXMatrixLookAtLH( &m_View, &l_Eye, &l_LookAt, &l_VUP);
+}
 
+void CCamera::Createprojection()
+{
     //Setup Matrix projection
     D3DXMatrixPerspectiveFovLH( &m_Projection, this->GetFov(), this->GetAspectRatio(), this->GetZn(), this->GetZf());
 }

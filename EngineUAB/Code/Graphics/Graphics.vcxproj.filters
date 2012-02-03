@@ -178,9 +178,6 @@
     <ClInclude Include="Commands\RenderDebugInfoSceneRendererCommand.h">
       <Filter>Commands\Command</Filter>
     </ClInclude>
-    <ClInclude Include="Cameras\OrthoFixedCameraController.h">
-      <Filter>Cameras\Types</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
@@ -346,9 +343,6 @@
     </ClCompile>
     <ClCompile Include="Commands\RenderDebugInfoSceneRendererCommand.cpp">
       <Filter>Commands\Command</Filter>
-    </ClCompile>
-    <ClCompile Include="Cameras\OrthoFixedCameraController.cpp">
-      <Filter>Cameras\Types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

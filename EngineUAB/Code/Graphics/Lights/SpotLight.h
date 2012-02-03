@@ -15,6 +15,7 @@ public:
 	virtual ~CSpotLight();
 
 	virtual void		Render				( CRenderManager* RM );
+	void				SetShadowMap		(CRenderManager *RM);
 
 	void			SetAngle		( const float Angle )		{ m_Angle = Angle; }
 	void			SetFallOff		( const float FallOff )		{ m_FallOff = FallOff; }

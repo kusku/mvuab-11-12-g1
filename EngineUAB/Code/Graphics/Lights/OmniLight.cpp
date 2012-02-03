@@ -1,3 +1,6 @@
+
+#include <assert.h>
+
 #include "OmniLight.h"
 #include "RenderManager.h"
 #include "Textures\Texture.h"
@@ -70,4 +73,5 @@ void COmniLight::Render(CRenderManager *RM)
 
 void COmniLight::SetShadowMap(CRenderManager *RM)
 {
+	assert(!"Not implemented");
 }

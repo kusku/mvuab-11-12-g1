@@ -59,6 +59,9 @@ public:
 
 protected:
 
+	virtual void					CreateView				();
+	virtual void					Createprojection		();
+
 	CObject3D*			m_pObject3D;
 	float				m_fView_d;					// variable de debug utilizada para pintar el objeto de la camara.	
 	float				m_fFOV;
