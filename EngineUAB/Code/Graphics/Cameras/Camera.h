@@ -11,6 +11,7 @@
 #define INC_CAMERA_H_
 
 #include "Object3D.h"
+#include "Math\Matrix44.h"
 #include <Windows.h>
 
 class CCamera
@@ -36,6 +37,11 @@ public:
 	float							GetViewD				() const { return m_fView_d;}
 	float							GetAspectRatio			() const { return m_fAspectRatio;}
 	ETypeCamera						GetTypeCamera			() const { return m_eTypeCamera;}
+	Mat44f							GetViewMatrix			() const { return Mat44f(m_View); }
+	Mat44f							GetProjectionMatrix		() const { return Mat44f(m_Projection); }
+	D3DXMATRIX						GetViewMatrixDX			() const { return m_View; }
+	D3DXMATRIX						GetProjectionMatrixDX	() const { return m_Projection; }
+	Vect3f							GetPosition				() const { return m_pObject3D->GetPosition(); }
 
 	//--- SET FUNCTIONS ---
 	void							SetZn					(float amount )			{ m_fZNear = amount; }
@@ -48,15 +54,20 @@ public:
 	void							AddFov					(float delta_fov )		{ m_fFOV += delta_fov; }
 	void							AddViewD				(float amount )			{ if( m_fView_d + amount > 1) m_fView_d += amount; }
 
+	//Other
+	virtual void					UpdateMatrices			();
+
 protected:
 
-	CObject3D*	m_pObject3D;
+	CObject3D*			m_pObject3D;
 	float				m_fView_d;					// variable de debug utilizada para pintar el objeto de la camara.	
 	float				m_fFOV;
 	float				m_fAspectRatio;
 	float				m_fZNear;						// valor del z near (a partir de que vemos)
 	float				m_fZFar;						// valor del z far (hasta donde podemos ver)
-	ETypeCamera	m_eTypeCamera;		
+	ETypeCamera			m_eTypeCamera;
+	D3DXMATRIX			m_View;
+	D3DXMATRIX			m_Projection;
 };
 
 #endif // INC_CAMERA_H_
