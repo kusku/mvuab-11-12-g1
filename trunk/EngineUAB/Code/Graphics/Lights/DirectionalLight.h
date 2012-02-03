@@ -20,7 +20,7 @@ class CDirectionalLight : public CLight
 {
 public:
 	CDirectionalLight();
-	CDirectionalLight( CXMLTreeNode *XMLNode );
+	CDirectionalLight( CXMLTreeNode &XMLNode );
 	virtual ~CDirectionalLight();
 
 	virtual void		Render				( CRenderManager* RM );

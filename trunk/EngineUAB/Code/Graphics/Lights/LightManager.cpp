@@ -40,7 +40,7 @@ bool CLightManager::Load(const std::string &Filename)
 			std::string l_TypeLight = l_Lights(i).GetName();
 			if( l_TypeLight == "omni" )
 			{
-				COmniLight *l_Light = new COmniLight( &l_Lights(i) );
+				COmniLight *l_Light = new COmniLight( l_Lights(i) );
 				
 				std::string l_Name = l_Light->GetName();
 
@@ -50,7 +50,7 @@ bool CLightManager::Load(const std::string &Filename)
 			}
 			else if( l_TypeLight == "directional" )
 			{
-				CDirectionalLight *l_Light = new CDirectionalLight( &l_Lights(i) );
+				CDirectionalLight *l_Light = new CDirectionalLight( l_Lights(i) );
 
 				l_Light->CalculateOrientationDebugRender();
 				std::string l_Name = l_Light->GetName();
@@ -62,7 +62,7 @@ bool CLightManager::Load(const std::string &Filename)
 			}
 			else if( l_TypeLight == "spot" )
 			{
-				CSpotLight *l_Light = new CSpotLight( &l_Lights(i) );
+				CSpotLight *l_Light = new CSpotLight( l_Lights(i) );
 
 				l_Light->CalculateOrientationDebugRender();
 				std::string l_Name = l_Light->GetName();

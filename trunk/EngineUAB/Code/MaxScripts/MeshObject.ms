@@ -546,7 +546,9 @@ struct MeshObj
 	RelativeMeshFileName,
 	RenderExport,
 	RenderVisible,
+	RenderLayer,
 	AnimModelCore,
+	PhysicsType,
 	VtxNormalBuffer,
 	
 	function CalcVtxNormals obj =
@@ -861,9 +863,14 @@ struct SceneObj
 		format "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n" to:file
 		format "<renderable_objects>\n" to:file
 		
+		format "\t<layer name=\"solid\" default=\"true\" />\n" to:file
+		format "\t<layer name=\"alpha_objects\" />\n" to:file
+		format "\t<layer name=\"alpha_blend_objects\" />\n" to:file
+		format "\t<layer name=\"particles\" />\n" to:file
+		
 		for i = 1 to MeshObjs.count do
-		(			
-			if ( (MeshObjs[i].RenderExport != undefined) AND (MeshObjs[i].RenderVisible == true) ) then
+		(	
+			if ( (MeshObjs[i].RenderExport != undefined) ) then
 			(
 				local pos =  stringstream ""
 				format "% % %" MeshObjs[i].Translation.x MeshObjs[i].Translation.y MeshObjs[i].Translation.z to:pos
@@ -877,7 +884,23 @@ struct SceneObj
 				
 				if ( MeshObjs[i].RenderExport == "static_mesh" ) then
 				(
-					format "\t<mesh_instance name=\"%\" core=\"%\" position=\"%\" yaw=\"%\" pitch=\"%\" roll=\"%\" />\n" MeshObjs[i].MeshName coreName (pos as string) MeshObjs[i].YawAngle MeshObjs[i].PitchAngle MeshObjs[i].RollAngle to:file
+					format "\t<mesh_instance name=\"%\" core=\"%\" position=\"%\" yaw=\"%\" pitch=\"%\" roll=\"%\" " MeshObjs[i].MeshName coreName (pos as string) MeshObjs[i].YawAngle MeshObjs[i].PitchAngle MeshObjs[i].RollAngle to:file
+					format "visible=\"%\" " MeshObjs[i].RenderVisible to:file
+					if MeshObjs[i].RenderLayer != "undefined" then
+					(
+						format "layer=\"%\" " MeshObjs[i].RenderLayer to:file
+					)
+					
+					if MeshObjs[i].PhysicsType == "undefined" then
+					(
+						format "create_physics=\"%\" " false to:file
+					)
+					else
+					(
+						format "create_physics=\"%\" physics_type=\"%\" " true MeshObjs[i].PhysicsType to:file
+					)
+					
+					format "/>\n" to:file
 				)
 				else
 				(

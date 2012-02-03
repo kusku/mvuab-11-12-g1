@@ -384,6 +384,8 @@ function ExportSelection selectedObjs outputDir subOutPutDir counterClockwise ex
 		t_mesh.RenderExport = getUserProp objPM "render_export"
 		t_mesh.RenderVisible = getUserProp objPM "render_visible"
 		t_mesh.AnimModelCore = getUserProp objPM "anim_model_core"
+		t_mesh.RenderLayer = getUserProp objPM "render_layer"
+		t_mesh.PhysicsType = getUserProp objPM "physics_generate"
 		
 		--Set Filename
 		t_mesh.SetFileNameMesh sceneObjects.FilePath sceneObjects.RelativeFilePath
