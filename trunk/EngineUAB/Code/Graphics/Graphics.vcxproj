@@ -14,7 +14,6 @@
     <ClInclude Include="Cameras\Camera.h" />
     <ClInclude Include="Cameras\FPSCamera.h" />
     <ClInclude Include="Cameras\Frustum.h" />
-    <ClInclude Include="Cameras\OrthoFixedCameraController.h" />
     <ClInclude Include="Cameras\ThPSCamera.h" />
     <ClInclude Include="Commands\BeginRenderSceneRendererCommand.h" />
     <ClInclude Include="Commands\CaptureFrameBufferSceneRendererCommand.h" />
@@ -78,7 +77,6 @@
     <ClCompile Include="Cameras\Camera.cpp" />
     <ClCompile Include="Cameras\FPSCamera.cpp" />
     <ClCompile Include="Cameras\Frustum.cpp" />
-    <ClCompile Include="Cameras\OrthoFixedCameraController.cpp" />
     <ClCompile Include="Cameras\ThPSCamera.cpp" />
     <ClCompile Include="Commands\BeginRenderSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\CaptureFrameBufferSceneRendererCommand.cpp" />

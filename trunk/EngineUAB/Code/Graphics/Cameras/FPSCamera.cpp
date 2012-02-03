@@ -35,7 +35,7 @@ Vect3f CFPSCamera::GetLookAt () const
 		sin(pitch),
 		sin(yaw) * cos(pitch) );
 
-	return (pos + vEyePt); 
+	return (pos + vEyePt);
 }
 
 Vect3f CFPSCamera::GetEye () const
@@ -43,8 +43,6 @@ Vect3f CFPSCamera::GetEye () const
 	assert(m_pObject3D);
 
 	return m_pObject3D->GetPosition();
-
-
 }
 
 Vect3f CFPSCamera::GetVecUp () const

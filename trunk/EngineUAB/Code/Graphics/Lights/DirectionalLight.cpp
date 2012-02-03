@@ -6,7 +6,6 @@
 #include "Effects\EffectManager.h"
 #include "Base.h"
 #include "Core.h"
-#include "Cameras\OrthoFixedCameraController.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -91,14 +90,29 @@ void CDirectionalLight::Render(CRenderManager *RM)
 
 void CDirectionalLight::SetShadowMap(CRenderManager *RM)
 {
-	COrthoFixedCameraController l_OrthoFixedCameraController(m_Position - m_Direction, m_Position, m_OrthoShadowMapSize.x, m_OrthoShadowMapSize.y, 1.0f, m_EndRangeAttenuation);
-	
-	CEffectManager* l_EffectManager = CORE->GetEffectManager();
-	
-	m_ViewShadowMap = l_OrthoFixedCameraController.GetViewMatrix();
-	m_ProjectionShadowMap= l_OrthoFixedCameraController.GetProjectionMatrix();
+	D3DXMATRIX l_View;
+	D3DXMATRIX l_Projection;
 
-	l_EffectManager->ActivateCamera(m_ViewShadowMap, m_ProjectionShadowMap, l_OrthoFixedCameraController.GetPosition());
+	CEffectManager* l_EffectManager = CORE->GetEffectManager();
+
+    D3DXVECTOR3 l_Eye = D3DXVECTOR3(m_Position.x, m_Position.y, m_Position.z);
+
+    Vect3f lookat = m_Direction;
+    D3DXVECTOR3 l_LookAt(lookat.x, lookat.y, lookat.z);
+
+    Vect3f vup(0.0f, 1.0f, 0.0f);
+    D3DXVECTOR3 l_VUP(vup.x, vup.y, vup.z);
+
+    //Setup Matrix view
+	D3DXMatrixLookAtLH( &l_View, &l_Eye, &l_LookAt, &l_VUP);
+	
+    //Setup Matrix projection
+	D3DXMatrixOrthoLH( &l_Projection, m_OrthoShadowMapSize.x, m_OrthoShadowMapSize.y, 1.0f, m_EndRangeAttenuation);
+
+	m_ViewShadowMap = Mat44f(l_View);
+	m_ProjectionShadowMap= Mat44f(l_Projection);
+
+	l_EffectManager->ActivateCamera(m_ViewShadowMap, m_ProjectionShadowMap, m_Position);
 }
 
 void CDirectionalLight::CalculateOrientationDebugRender()
