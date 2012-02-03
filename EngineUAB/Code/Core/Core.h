@@ -52,25 +52,25 @@ public:
 	void			SetLogRender	( CLogRender *logRender )		{ m_pLogRender = logRender; }
 	void			SetDebugRender	( CDebugRender *DebugRender)	{ m_pDebugRender = DebugRender; }
 
-	CCamera*		GetCamera		() const				{ return m_pCamera; }
-	CTimer*			GetTimer		() const				{ return m_pTimer; }
-	CLogRender*		GetLogRender	() const				{ return m_pLogRender; }
-	CDebugRender*	GetDebugRender	() const				{ return m_pDebugRender; }
+	inline CCamera*			GetCamera		() const				{ return m_pCamera; }
+	inline CTimer*			GetTimer		() const				{ return m_pTimer; }
+	inline CLogRender*		GetLogRender	() const				{ return m_pLogRender; }
+	inline CDebugRender*	GetDebugRender	() const				{ return m_pDebugRender; }
 
-	CRenderManager*							GetRenderManager() const					{ return m_pRenderManager; }
-	CFontManager*							GetFontManager() const						{ return m_pFontManager; }
-	CLanguageManager*						GetLanguageManager() const					{ return m_pLanguageManager; }
-	CInputManager*							GetInputManager() const						{ return m_pInputManager; }
-	CActionToInput*							GetActionToInput() const					{ return m_pActionToInput; }
-	CTextureManager*						GetTextureManager() const					{ return m_pTextureManager; }
-	CStaticMeshManager*						GetStaticMeshManager() const				{ return m_pStaticMeshManager; }
-	CRenderableObjectsManager*				GetRenderableObjectsManager() const			{ return m_pRenderableObjectsManager; }
-	CAnimatedModelManager*					GetAnimatedModelManager() const				{ return m_pAnimatedModelManager; }
-	CLightManager*							GetLightManager() const						{ return m_pLightManager; }
-	CEffectManager*							GetEffectManager() const					{ return m_pEffectManager; }
-	CRenderableObjectTechniqueManager*		GetROTManager() const						{ return m_pROTManager; }	
-	CSceneRendererCommandManager*			GetSceneRendererCommandManager() const		{ return m_pSceneRendererCommandManager; }
-	CRenderableObjectsLayersManager*		GetRenderableObjectsLayersManager() const	{ return m_pRenderableObjectsLayersManager; }
+	inline CRenderManager*						GetRenderManager() const					{ return m_pRenderManager; }
+	inline CFontManager*						GetFontManager() const						{ return m_pFontManager; }
+	inline CLanguageManager*					GetLanguageManager() const					{ return m_pLanguageManager; }
+	inline CInputManager*						GetInputManager() const						{ return m_pInputManager; }
+	inline CActionToInput*						GetActionToInput() const					{ return m_pActionToInput; }
+	inline CTextureManager*						GetTextureManager() const					{ return m_pTextureManager; }
+	inline CStaticMeshManager*					GetStaticMeshManager() const				{ return m_pStaticMeshManager; }
+	inline CRenderableObjectsManager*			GetRenderableObjectsManager() const			{ return m_pRenderableObjectsManager; }
+	inline CAnimatedModelManager*				GetAnimatedModelManager() const				{ return m_pAnimatedModelManager; }
+	inline CLightManager*						GetLightManager() const						{ return m_pLightManager; }
+	inline CEffectManager*						GetEffectManager() const					{ return m_pEffectManager; }
+	inline CRenderableObjectTechniqueManager*	GetROTManager() const						{ return m_pROTManager; }	
+	inline CSceneRendererCommandManager*		GetSceneRendererCommandManager() const		{ return m_pSceneRendererCommandManager; }
+	inline CRenderableObjectsLayersManager*		GetRenderableObjectsLayersManager() const	{ return m_pRenderableObjectsLayersManager; }
 	
 private:
 	void Release();

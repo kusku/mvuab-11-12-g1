@@ -33,9 +33,10 @@ struct TVertexOut
 	float2 UV : TEXCOORD0;
 	float3 Normal : TEXCOORD1;
 	float4 Pos : TEXCOORD2;
+	float3 EyePosition : TEXCOORD3;
 };
 
-struct TVertexNormalMapIn
+struct TVertexInNM
 {
 	float3 Pos : POSITION;
 	float4 Normal : NORMAL;
@@ -44,14 +45,15 @@ struct TVertexNormalMapIn
 	float2 UV : TEXCOORD0;
 };
 
-struct TVertexNormalMapOut
+struct TVertexOutNM
 {
 	float4 HPos : POSITION;
 	float2 UV : TEXCOORD0;
 	float3 Normal : TEXCOORD1;
-	float3 Tangent : TEXCOORD2;
-	float3 Binormal : TEXCOORD3;
-	float4 Pos : TEXCOORD4;
+	float4 Pos : TEXCOORD2;
+	float3 EyePosition : TEXCOORD3;
+	float3 Tangent : TEXCOORD4;
+	float3 Binormal : TEXCOORD5;
 };
 
 int		g_NumLights : Num_Lights;
@@ -66,128 +68,120 @@ float 	g_AngleLights[MAX_LIGHTS] : Lights_Angle;
 float  	g_FallOffLights[MAX_LIGHTS] : Lights_FallOff;
 
 float3	g_AmbientColorLight = float3(0.389, 0.763, 0.465);
-//float3	 g_AmbientColorLight = float3(1.0, 1.0, 1.0);
 float4x4 g_WorldViewProj : WorldViewProjection;
 float4x4 g_WorldMatrix : World;
 float3	 g_CameraPosition : Camera_Position;
 float	g_Bump = 2.4;
 
-float3 GetDiffuseContrib(int _Light, float3 _Pos, float3 _Nn, float3 _PosLight, float3 _Direction, float _Angle, float3 _Color)
-{
-	if( _Light == 0 ) //Omni
-	{
-		float3 Ln = normalize(_Pos - _PosLight);
-		return (dot(-Ln, _Nn) > 0 ? 1.0 : 0.0) * _Color;
-	}
-	else if( _Light == 1 ) //Directional
-	{
-		return saturate(dot(-_Direction, _Nn)) * _Color;
-	}
-	else if( _Light == 2 ) //Spot
-	{
-		float3 Ln = normalize(_Pos - _PosLight);
-		if( dot(-_Direction, Ln) <= cos(_Angle/2) )
-		{
-			return (dot(Ln, _Nn) < 0 ? 1.0 : 0.0) * _Color;	
-		}
-		else
-		{
-			return float3(0.0, 0.0, 0.0);
-		}
-
-		return float3(0.0, 0.0, 0.0);
-	}
-	else
-	{
-		return float3(1.0, 1.0, 1.0);
-	}
-	
-	return float3(1.0, 1.0, 1.0);
-}
-
-float3 GetSpecularContrib(float3 _Nn, float3 _Pos, float3 _LightPos, float3 _Color, float3 _SpecularFactor)
-{	
-	float3 NDotL = saturate(dot(_Nn, -(_LightPos - _Pos)));
-	float3 Reflect = normalize(2.0f * NDotL * _Nn + (_LightPos - _Pos));
-	float SpecularShine = pow(saturate(dot(Reflect, normalize(g_CameraPosition - _Pos))), _SpecularFactor); 
-	
-	return SpecularShine * _Color;
-}
-
-TVertexOut mainVS(TVertexIn IN)
+TVertexOut mainVS (TVertexIn IN)
 {
 	TVertexOut l_OUT = (TVertexOut)0;
+	
+	float3 WorldSpacePosition = mul(IN.Pos.xyz, g_WorldMatrix);
+	
 	l_OUT.HPos = mul(float4(IN.Pos.xyz, 1.0), g_WorldViewProj);
 	l_OUT.UV = IN.UV;
 	l_OUT.Normal = normalize(mul(IN.Normal, g_WorldMatrix));
 	l_OUT.Pos = mul(float4(IN.Pos.xyz,1.0), g_WorldMatrix);
-	
+	l_OUT.EyePosition = g_CameraPosition - WorldSpacePosition;
 	return l_OUT;
 }
 
-float4 mainPS(TVertexOut IN) : COLOR 
+float4 mainPS (TVertexOut IN) : COLOR
 {
 	float3 Nn = normalize(IN.Normal);
-	float4 l_Albedo = tex2D(g_DiffuseSampler, IN.UV);
-	
+	IN.EyePosition = normalize(IN.EyePosition);
+
 	float3 l_DiffuseContrib = (float3)0;
-	float3 l_SpecularContrib = (float3)0;
+	float l_SpecularContrib = (float)0;
+	float4 l_Amount = tex2D(g_DiffuseSampler, IN.UV);
 	
 	for(int i=0; i < g_NumLights; ++i)
 	{
 		if( g_EnabledLights[i] )
-		{		
-			l_DiffuseContrib += GetDiffuseContrib(g_TypeLights[i], IN.Pos, Nn, g_PositionLights[i], 
-					g_DirectionLights[i], g_AngleLights[i], g_ColorLights[i] );
-					
-			l_SpecularContrib += GetSpecularContrib(Nn, IN.Pos, g_PositionLights[i], g_ColorLights[i], 50);	
+		{
+			if( g_TypeLights[i] == 0 ) //OMNI
+			{
+				float DistanceToLight = distance(g_PositionLights[i], IN.Pos);
+				float Attenuation = 1 - saturate( (DistanceToLight - g_StartAttLights[i]) / (g_EndAttLights[i] - g_StartAttLights[i]) );
+				float NDotL = saturate(dot( g_PositionLights[i] - (float3)IN.Pos.xyz, Nn));
+				l_DiffuseContrib += (g_ColorLights[i] * NDotL) * Attenuation;
+				
+				float3 Reflect = normalize(2.0f * NDotL * Nn - (g_PositionLights[i] - IN.Pos.xyz));
+				l_SpecularContrib += pow(saturate(dot(Reflect, IN.EyePosition)), 20);
+			}
+			else if( g_TypeLights[i] == 1) //DIRECTIONAL
+			{
+				float PixelDirectionalLight = saturate(dot(-g_DirectionLights[i], Nn));
+				l_DiffuseContrib += g_ColorLights[i] * PixelDirectionalLight;
+				
+				float3 Reflect = normalize(2.0f * PixelDirectionalLight * Nn - -g_DirectionLights[i]);
+				l_SpecularContrib += pow(saturate(dot(Reflect, IN.EyePosition)), 20);
+			}
 		}
 	}
 	
-	//return float4(l_SpecularContrib, l_Albedo.a);
-	return float4((g_AmbientColorLight + l_DiffuseContrib) * ( l_SpecularContrib + l_Albedo.rgb ), l_Albedo.a);
-	return float4((g_AmbientColorLight + l_DiffuseContrib) * l_Albedo.rgb + l_SpecularContrib, l_Albedo.a);
+	return float4((g_AmbientColorLight + l_DiffuseContrib ) * ( l_SpecularContrib + l_Amount.rgb ), l_Amount.a);
 }
 
-TVertexNormalMapOut mainVSNormalMap(TVertexNormalMapIn IN)
+TVertexOutNM mainVSNormalMap (TVertexInNM IN)
 {
-	TVertexNormalMapOut l_OUT = (TVertexNormalMapOut)0;
+	TVertexOutNM l_OUT = (TVertexOutNM)0;
+	
+	float3 WorldSpacePosition = mul(IN.Pos.xyz, g_WorldMatrix);
+	
 	l_OUT.HPos = mul(float4(IN.Pos.xyz, 1.0), g_WorldViewProj);
 	l_OUT.UV = IN.UV;
-	l_OUT.Normal = normalize(mul(IN.Normal,(float3x3)g_WorldMatrix));
+	l_OUT.Normal = normalize(mul(IN.Normal, g_WorldMatrix));
 	l_OUT.Tangent =mul(IN.Tangent.xyz, (float3x3)g_WorldMatrix);
 	l_OUT.Binormal = mul(IN.Binormal.xyz, (float3x3)g_WorldMatrix);
 	l_OUT.Pos = mul(float4(IN.Pos.xyz,1.0), g_WorldMatrix);
-	
+	l_OUT.EyePosition = g_CameraPosition - WorldSpacePosition;
 	return l_OUT;
 }
 
-float4 mainPSNormalMap(TVertexNormalMapOut IN) : COLOR
+float4 mainPSNormalMap (TVertexOutNM IN) : COLOR
 {
 	float3 Nn = normalize(IN.Normal);
-	float3 Tn=normalize(IN.Tangent);
-	float3 Bn=normalize(IN.Binormal);
-	float4 l_Albedo = tex2D(g_DiffuseSampler, IN.UV);
-	
-	/*float3 bump=g_Bump*(tex2D(g_NormalMapTextureSampler,IN.UV).rgb - float3(0.5,0.5,0.5));
-	Nn = Nn + bump.x*Tn + bump.y*Bn;
-	Nn = normalize(Nn);*/
+	float3 Tn = normalize(IN.Tangent);
+	float3 Bn = normalize(IN.Binormal);
+	IN.EyePosition = normalize(IN.EyePosition);
 
 	float3 l_DiffuseContrib = (float3)0;
-	float3 l_SpecularContrib = (float3)0;
+	float l_SpecularContrib = (float)0;
+	float4 l_Amount = tex2D(g_DiffuseSampler, IN.UV);
+	
+	float3 bump=g_Bump*(tex2D(g_NormalMapTextureSampler,IN.UV).rgb - float3(0.5,0.5,0.5));
+	Nn = Nn + bump.x*Tn + bump.y*Bn;
+	Nn = normalize(Nn);
 	
 	for(int i=0; i < g_NumLights; ++i)
 	{
 		if( g_EnabledLights[i] )
-		{		
-			l_DiffuseContrib += GetDiffuseContrib(g_TypeLights[i], IN.Pos, Nn, g_PositionLights[i], 
-					g_DirectionLights[i], g_AngleLights[i], g_ColorLights[i] );
-					
-			l_SpecularContrib += GetSpecularContrib(Nn, IN.Pos, g_PositionLights[i], g_ColorLights[i], 50);	
+		{
+			if( g_TypeLights[i] == 0 ) //OMNI
+			{
+				float DistanceToLight = distance(g_PositionLights[i], IN.Pos);
+				float Attenuation = 1 - saturate( (DistanceToLight - g_StartAttLights[i]) / (g_EndAttLights[i] - g_StartAttLights[i]) );
+				float NDotL = saturate(dot( g_PositionLights[i] - (float3)IN.Pos.xyz, Nn));
+				l_DiffuseContrib += (g_ColorLights[i] * NDotL) * Attenuation;
+				
+				float3 Reflect = normalize(2.0f * NDotL * Nn - (g_PositionLights[i] - IN.Pos.xyz));
+				l_SpecularContrib += pow(saturate(dot(Reflect, IN.EyePosition)), 20);
+			}
+			else if( g_TypeLights[i] == 1) //DIRECTIONAL
+			{
+				float PixelDirectionalLight = saturate(dot(-g_DirectionLights[i], Nn));
+				l_DiffuseContrib += g_ColorLights[i] * PixelDirectionalLight;
+				
+				float3 Reflect = normalize(2.0f * PixelDirectionalLight * Nn - g_DirectionLights[i]);
+				l_SpecularContrib += pow(saturate(dot(Reflect, IN.EyePosition)), 20);
+			}
 		}
 	}
 	
-	return float4((g_AmbientColorLight + l_DiffuseContrib) * ( l_SpecularContrib + l_Albedo.rgb ), l_Albedo.a);
+	//return float4(Tn, 1.0)
+	return float4((g_AmbientColorLight + l_DiffuseContrib ) * ( l_SpecularContrib + l_Amount.rgb ), l_Amount.a);
 }
 
 technique NormalTexture
@@ -210,7 +204,7 @@ technique NormalTexture
 
 technique NormalMapping
 {
-pass p0 
+	pass p0 
 	{
 		ZEnable = true;
 		ZWriteEnable = true;
@@ -221,6 +215,7 @@ pass p0
 		
 		//Tipo de culling que queremos utilizar
 		CullMode = CCW;
+		
 		VertexShader = compile vs_3_0 mainVSNormalMap();
 		PixelShader = compile ps_3_0 mainPSNormalMap();
 	}
