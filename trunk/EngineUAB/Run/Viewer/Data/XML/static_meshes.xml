@@ -4,7 +4,8 @@
 	<static_mesh name="BoxNormalMap" filename="./Data/General/Static_Meshes/BoxNormalMap.m3d" />
 	<static_mesh name="Sword" filename="./Data/General/Static_Meshes/Sword.m3d" />
 	<static_mesh name="Box001" filename="./Data/Chapter1/Static_Meshes/Box001.m3d" />
+	<static_mesh name="Earth" filename="./Data/General/Static_Meshes/Earth.m3d" />
 	<!--<static_mesh name="Box002" filename="./Data/Chapter1/Static_Meshes/Box001.m3d" />-->
-	<!--<static_mesh name="Parteno" filename="./Data/General/Static_Meshes/Parteno.m3d" />
+	<static_mesh name="Parteno" filename="./Data/General/Static_Meshes/Parteno.m3d" />
 	<static_mesh name="psp" filename="./Data/Chapter1/Static_Meshes/PSP.m3d" />-->
 </static_meshes>
