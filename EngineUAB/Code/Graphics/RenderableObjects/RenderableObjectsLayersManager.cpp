@@ -44,6 +44,7 @@ void CRenderableObjectsLayersManager::LoadFile()
 	{
 		std::string msg_error = "CRenderableObjectsLayersManager::LoadFile->Error al intentar leer el archivo de renderable objects: " + m_FileName;
 		LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
+		return;
 	}
 
 	CXMLTreeNode l_RObjects = newFile["renderable_objects"];

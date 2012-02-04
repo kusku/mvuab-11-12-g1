@@ -23,7 +23,8 @@ CEffect::CEffect(CXMLTreeNode *XMLNode)
 	, m_WorldViewMatrixParameter(NULL)
 	, m_ViewProjectionMatrixParameter(NULL)
 	, m_WorldViewProjectionMatrixParameter(NULL)
-	, m_ViewToLightProjectionMatrixParameter(NULL)
+	, m_ShadowViewProjectionMatrixParameter(NULL)
+	, m_ShadowCameraPositionParameter(NULL)
 	, m_ViewInverseMatrixParameter(NULL)
 	, m_WorldInverseMatrixParameter(NULL)
 	, m_ProjInverseMatrixParameter(NULL)
@@ -111,6 +112,10 @@ bool CEffect::LoadEffect()
 	//Bones
 	GetParameterBySemantic("BONES", m_BonesParameter, false);
 
+	//Shadows
+	GetParameterBySemantic("SHADOW_VIEWPROJECTION", m_ShadowViewProjectionMatrixParameter, false);
+	GetParameterBySemantic("SHADOW_CAMERA_POSITION", m_ShadowCameraPositionParameter, false);
+
  	return true;
 }
 
@@ -139,7 +144,8 @@ void CEffect::SetNullParameters()
 	m_WorldViewMatrixParameter = NULL;
 	m_ViewProjectionMatrixParameter = NULL;
 	m_WorldViewProjectionMatrixParameter = NULL;
-	m_ViewToLightProjectionMatrixParameter = NULL;
+	m_ShadowViewProjectionMatrixParameter = NULL;
+	m_ShadowCameraPositionParameter = NULL;
 	m_ViewInverseMatrixParameter = NULL;
 	m_WorldInverseMatrixParameter = NULL;
 	m_ProjInverseMatrixParameter = NULL;
@@ -170,7 +176,7 @@ void CEffect::GetParameterBySemantic(const std::string &SemanticName, D3DXHANDLE
 
 bool CEffect::SetLights(size_t NumOfLights)
 {
-	CLightManager *l_Lights = CORE->GetLightManager();
+/*	CLightManager *l_Lights = CORE->GetLightManager();
 	for(size_t i=0; i<NumOfLights; ++i)
 	{
 		std::string l_Name = l_Lights->GetLightNameByIndex(static_cast<uint16>(i));
@@ -200,7 +206,7 @@ bool CEffect::SetLights(size_t NumOfLights)
 			m_LightsAngle[i] = l_SpotLight->GetAngle();
 			m_LightsFallOff[i] = l_SpotLight->GetFallOff();
 		}
-	}
+	}*/
 
 	return true;
 }

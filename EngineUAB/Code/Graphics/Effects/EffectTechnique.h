@@ -39,7 +39,8 @@ private:
 	bool	m_UseWorldViewMatrix;
 	bool	m_UseWorldViewProjectionMatrix;
 	bool	m_UseViewProjectionMatrix;
-	bool	m_UseViewToLightProjectionMatrix;
+	bool	m_UseShadowViewProjectionMatrix;
+	bool	m_UseShadowCameraPosition;
 	bool	m_UseTime;
 
 	CEffect *	m_Effect;

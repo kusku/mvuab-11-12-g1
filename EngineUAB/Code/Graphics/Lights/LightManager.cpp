@@ -18,7 +18,6 @@ CLightManager::CLightManager()
 CLightManager::~CLightManager()
 {
 	Destroy();
-	m_LightsNameVector.clear();
 }
 
 bool CLightManager::Load(const std::string &Filename)
@@ -45,7 +44,6 @@ bool CLightManager::Load(const std::string &Filename)
 				std::string l_Name = l_Light->GetName();
 
 				AddResource(l_Name, l_Light);
-				m_LightsNameVector.push_back(l_Name);
 				l_Light = NULL;
 			}
 			else if( l_TypeLight == "directional" )
@@ -56,7 +54,6 @@ bool CLightManager::Load(const std::string &Filename)
 				std::string l_Name = l_Light->GetName();
 
 				AddResource(l_Name, l_Light);
-				m_LightsNameVector.push_back(l_Name);
 				l_Light = NULL;
 
 			}
@@ -68,7 +65,6 @@ bool CLightManager::Load(const std::string &Filename)
 				std::string l_Name = l_Light->GetName();
 
 				AddResource(l_Name, l_Light);
-				m_LightsNameVector.push_back(l_Name);
 				l_Light = NULL;
 			}
 
@@ -84,15 +80,10 @@ bool CLightManager::Load(const std::string &Filename)
 
 void CLightManager::Render(CRenderManager *RM)
 {
-	uint16 l_NumLights = m_LightsNameVector.size();
+	uint16 l_NumLights = m_ResourcesVector.size();
+
 	for(uint16 i=0; i<l_NumLights; ++i)
 	{
-		CLight* l_Light = GetResource(m_LightsNameVector[i]);
-		l_Light->Render(RM);
+		m_ResourcesVector[i]->Render(RM);
 	}
-}
-
-const std::string& CLightManager::GetLightNameByIndex(uint16 index)
-{
-	return m_LightsNameVector[index];
 }
