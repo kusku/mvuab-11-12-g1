@@ -12,6 +12,8 @@ class CGenerateShadowMapsSceneRendererCommand : public CStagedTexturedRendererCo
 {
 public:
 	CGenerateShadowMapsSceneRendererCommand(CXMLTreeNode &Node);
+	virtual ~CGenerateShadowMapsSceneRendererCommand();
+
 	void	Execute				( CRenderManager &RM );
 };
 

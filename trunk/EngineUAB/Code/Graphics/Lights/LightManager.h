@@ -12,12 +12,13 @@
 
 class CRenderManager;
 
-#include "Utils\MapManager.h"
+#include "Utils\TemplatedVectorMapManager.h"
 #include "Light.h"
+#include "Utils\Types.h"
 #include <string>
 #include <vector>
 
-class CLightManager : public CMapManager<CLight>
+class CLightManager : public CTemplatedVectorMapManager<CLight>
 {
 public:
 	CLightManager();
@@ -26,9 +27,8 @@ public:
 	bool		Load		( const std::string &Filename );
 	void		Render		( CRenderManager *RM );
 
-	const std::string&		GetLightNameByIndex		( uint16 index );
 protected:
-	std::vector<std::string>		m_LightsNameVector;
+
 };
 
 #endif

@@ -34,7 +34,8 @@ public:
 	D3DXHANDLE		GetWorldViewMatrix					() const		{ return m_WorldViewMatrixParameter; }
 	D3DXHANDLE		GetViewProjectionMatrix				() const		{ return m_ViewProjectionMatrixParameter; }
 	D3DXHANDLE		GetWorldViewProjectionMatrix		() const		{ return m_WorldViewProjectionMatrixParameter; }
-	D3DXHANDLE		GetViewToLightProjectionMatrix		() const		{ return m_ViewToLightProjectionMatrixParameter; }
+	D3DXHANDLE		GetShadowViewProjectionMatrix		() const		{ return m_ShadowViewProjectionMatrixParameter; }
+	D3DXHANDLE		GetShadowCameraPositionMatrix		() const		{ return m_ShadowCameraPositionParameter; }
 	D3DXHANDLE		GetViewInverseMatrix				() const		{ return m_ViewInverseMatrixParameter; }
 	D3DXHANDLE		GetWorldInverseMatrix				() const		{ return m_WorldInverseMatrixParameter; }
 	D3DXHANDLE		GetProjInverseMatrix				() const		{ return m_ProjInverseMatrixParameter; }
@@ -91,7 +92,8 @@ private:
 	D3DXHANDLE		m_ViewInverseMatrixParameter,
 					m_WorldInverseMatrixParameter,
 					m_ProjInverseMatrixParameter;
-	D3DXHANDLE		m_ViewToLightProjectionMatrixParameter;
+	D3DXHANDLE		m_ShadowViewProjectionMatrixParameter,
+					m_ShadowCameraPositionParameter;
 	D3DXHANDLE		m_LightEnabledParameter, 
 					m_LightsTypeParameter, 
 					m_LightsPositionParameter, 

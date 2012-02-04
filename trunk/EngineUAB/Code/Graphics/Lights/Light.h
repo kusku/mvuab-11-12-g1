@@ -10,17 +10,19 @@
 #ifndef _LIGHT_H
 #define _LIGHT_H
 
-class CRenderManager;
-class CTexture;
-class CRenderableObjectsManager;
-class CEffect;
+#include <string>
+#include <vector>
 
 #include "Object3D.h"
 #include "Utils\Named.h"
 #include "Math\Color.h"
 #include "Math\Matrix44.h"
-#include <string>
-#include <vector>
+
+class CXMLTreeNode;
+class CRenderManager;
+class CTexture;
+class CRenderableObjectsManager;
+class CEffect;
 
 class CLight : public CObject3D, public CNamed
 {
@@ -36,17 +38,16 @@ public:
 	CLight();
 	virtual ~CLight();
 
-	virtual void	Render				( CRenderManager *RM ) = 0;
-	bool			RenderShadows		() const		{ return m_RenderShadows; }
+	virtual void		Render							( CRenderManager *RM ) = 0;
+	bool				RenderShadows					() const		{ return m_GenerateDynamicShadowMap || m_GenerateStaticShadowMap; }
 
-	void			BeginRenderEffectManagerShadowMap	( CEffect *Effect );
-	void			GenerateShadowMap					( CRenderManager *RM );
+	void				BeginRenderEffectManagerShadowMap	( CEffect *Effect );
+	void				GenerateShadowMap					( CRenderManager *RM );
 
 	virtual void		SetShadowMap					( CRenderManager *RM ) = 0;
 	void				SetColor						( const CColor &color )					{ m_Color = color; }
 	void				SetStartRangeAttenuation		( const float StartRangeAttenuation )	{ m_StartRangeAttenuation = StartRangeAttenuation; }
 	void				SetEndRangeAttenuation			( const float EndRangeAttenuation )		{ m_EndRangeAttenuation = EndRangeAttenuation; }
-	void				SetRenderShadows				( const bool shadows )					{ m_RenderShadows = shadows; }
 	void				SetType							( const TLightType Type )				{ m_Type = Type; }
 	void				SetGenerateDynamicShadowMap		( bool GenerateDynamicShadowMap )		{ m_GenerateDynamicShadowMap = GenerateDynamicShadowMap; }
 	void				SetGenerateStaticShadowMap		( bool GenerateStaticShadowMap )		{ m_GenerateStaticShadowMap = GenerateStaticShadowMap; }
@@ -55,7 +56,6 @@ public:
 	const CColor &		GetColor						() const		{ return m_Color; }
 	float				GetStartRangeAttenuation		() const		{ return m_StartRangeAttenuation; }
 	float				GetEndRangeAttenuation			() const		{ return m_EndRangeAttenuation; }
-	bool				GetRenderShadows				() const		{ return m_RenderShadows; }
 	TLightType			GetType							() const		{ return m_Type; }
 	bool				GetGenerateDynamicShadowMap		() const		{ return m_GenerateDynamicShadowMap; }
 	bool				GetGenerateStaticShadowMap		() const		{ return m_GenerateStaticShadowMap; }
@@ -70,11 +70,12 @@ public:
 	std::vector<CRenderableObjectsManager*> &	GetDynamicShadowMapRenderableObjectsManagers()	{ return m_DynamicShadowMapRenderableObjectsManagers; }
 
 protected:
-	static TLightType		GetLightTypeByName		( const std::string &StrLightType );
+	void				ExtractCommonLightInfo	(CXMLTreeNode &XMLNode);
+
+	static TLightType	GetLightTypeByName		( const std::string &StrLightType );
 
 	CColor				m_Color;
-	TLightType			m_Type;	
-	bool				m_RenderShadows;
+	TLightType			m_Type;
 	float				m_StartRangeAttenuation;
 	float				m_EndRangeAttenuation;
 

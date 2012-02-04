@@ -20,6 +20,8 @@ protected:
 		CTexture		*m_pTexture;
 
 		CStageTexture()
+			: m_StageId(-1)
+			, m_pTexture(NULL)
 		{
 		}
 

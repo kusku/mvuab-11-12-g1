@@ -26,7 +26,8 @@ CEffectTechnique::CEffectTechnique(	CXMLTreeNode *XMLNode )
 	m_UseWorldViewProjectionMatrix= XMLNode->GetBoolProperty("use_world_view_projection_matrix", false, false);
 	m_UseProjMatrix = XMLNode->GetBoolProperty("use_projection_matrix", false, false);
 	m_UseWorldViewMatrix = XMLNode->GetBoolProperty("use_world_view_matrix", false, false);
-	m_UseViewToLightProjectionMatrix = XMLNode->GetBoolProperty("use_view_to_light_projection_matrix", false, false);
+	m_UseShadowViewProjectionMatrix = XMLNode->GetBoolProperty("use_shadow_view_projection_matrix", false, false);
+	m_UseShadowCameraPosition = XMLNode->GetBoolProperty("use_shadow_camera_position", false, false);
 	m_UseInverseViewMatrix = XMLNode->GetBoolProperty("use_view_inverse_matrix", false, false);
 	m_UseInverseWorldMatrix = XMLNode->GetBoolProperty("use_world_inverse_matrix", false, false);
 	m_UseInverseProjMatrix = XMLNode->GetBoolProperty("use_proj_inverse_matrix", false, false);
@@ -93,13 +94,24 @@ bool CEffectTechnique::BeginRender()
 		l_Effect->SetMatrix( m_Effect->GetWorldViewProjectionMatrix(), &l_WorldMatrix.GetD3DXMatrix() );
 	}
 
-	if( m_UseViewToLightProjectionMatrix )
+	if( m_UseShadowViewProjectionMatrix )
 	{
-		Mat44f l_LightViewMatrix = l_EffectManager->GetLightViewMatrix();
+		Mat44f l_LightViewMatrix = l_EffectManager->GetShadowViewMatrix();
 		Mat44f l_ProjMatrix = l_EffectManager->GetProjectionMatrix();
 		l_LightViewMatrix = l_LightViewMatrix * l_ProjMatrix;
 
-		l_Effect->SetMatrix( m_Effect->GetViewToLightProjectionMatrix(), &l_LightViewMatrix.GetD3DXMatrix() );
+		l_Effect->SetMatrix( m_Effect->GetShadowViewProjectionMatrix(), &l_LightViewMatrix.GetD3DXMatrix() );
+	}
+
+	if( m_UseShadowCameraPosition )
+	{
+		Vect3f l_CameraEye = l_EffectManager->GetShadowCameraEye();
+		float l_Camera[3];
+		l_Camera[0] = l_CameraEye.x;
+		l_Camera[1] = l_CameraEye.y;
+		l_Camera[2] = l_CameraEye.z;
+
+		l_Effect->SetFloatArray( m_Effect->GetShadowCameraPositionMatrix(), l_Camera, 3);
 	}
 
 	if( m_UseInverseViewMatrix )

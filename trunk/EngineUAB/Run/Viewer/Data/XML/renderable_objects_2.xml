@@ -4,8 +4,7 @@
 	<layer name="alpha_objects" />
 	<layer name="alpha_blend_objects" />
 	<layer name="particles" />
-	<mesh_instance name="Parteno" core="Parteno" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" layer="particles"/>
-	<mesh_instance name="Sword" core="Sword" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" layer="particles"/>
-	<mesh_instance name="Earth" core="Earth" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="0.5 0.5 0.5" layer="solid"/>
-	<mesh_instance name="BoxNormalMap" core="BoxNormalMap" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" layer="particles" />
+	<!--<mesh_instance name="Sword" core="Sword" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" />
+	<mesh_instance name="BoxNormalMap" core="BoxNormalMap" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" layer="particles" />-->
+	<mesh_instance name="WorldSphere" core="Sphere01" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="0.25 0.25 0.25" />
 </renderable_objects>
