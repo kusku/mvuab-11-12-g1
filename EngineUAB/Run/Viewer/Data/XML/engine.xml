@@ -13,10 +13,10 @@
 		<Language languageXML="./Data/XML/Language/english.xml" />
 	</Languages>
 	<Textures no_texture="./Data/General/Textures/notexture.png" />
-	<Meshes meshesXML="./Data/XML/static_meshes.xml" />
-	<RenderableObjects objectsXML="./Data/XML/renderable_objects_2.xml" />
+	<Meshes meshesXML="./Data/XML/static_meshes_ch2.xml" />
+	<RenderableObjects objectsXML="./Data/XML/renderable_objects_ch2.xml" />
 	<AnimatedModels animatedXML="./Data/XML/animated_models.xml" />
-	<Lights lightXML="./Data/XML/lights.xml" />
+	<Lights lightXML="./Data/XML/lights_ch2.xml" />
 	<Effects effectsXML="./Data/XML/effects.xml" />
 	<SceneRendererCommands commandsXML="./Data/XML/scene_renderer_commands.xml" />
 	<RenderableObjectTechniques poolsXML="./Data/XML/renderable_object_techniques.xml" />
