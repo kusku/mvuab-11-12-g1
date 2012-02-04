@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<renderable_objects>
+	<layer name="solid" default="true" />
+	<layer name="alpha_objects" />
+	<layer name="alpha_blend_objects" />
+	<layer name="particles" />
+	<mesh_instance name="Plane001" core="Plane001" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" />
+	<mesh_instance name="Torus001" core="Torus001" position="1.46577e-006 10.1961 33.5329" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" />
+	<mesh_instance name="Box001" core="Box001" position="40.6478 6.20919 0.914264" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" />
+	<mesh_instance name="Sphere001" core="Sphere001" position="-23.1847 16.2381 -0.387497" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" />
+</renderable_objects>
