@@ -53,9 +53,10 @@ utility UABUtility "UAB Utility" width:165 height:364
 		(
 			--Export Lights
 			local l_Path = filepath + "XML\\" + subOutPutDir + "Lights\\"
+			local l_ShadowMaskPath = filepath + "General\\Textures\\"
 			makeDir l_Path
 			
-			ExportLights $* l_Path false
+			ExportLights $* l_Path false l_ShadowMaskPath
 			messageBox "Lights exported correctly."
 		)
 		else
