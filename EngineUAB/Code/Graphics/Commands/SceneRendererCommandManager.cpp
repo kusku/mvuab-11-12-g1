@@ -145,6 +145,21 @@ void CSceneRendererCommandManager::LoadXML()
 				 l_Command = new CRenderDebugInfoSceneRendererCommand( l_SRC(i) );
 				 m_SceneRendererCommands.AddResource("render_debug_info_" + l_NumCommand, l_Command);
 			 }
+			 else if( l_Type == "set_render_target" )
+			 {
+				 l_Command = new CSetRenderTargetSceneRendererCommand( l_SRC(i) );
+				 m_SceneRendererCommands.AddResource(l_Command->GetName(), l_Command);
+			 }
+			 else if( l_Type == "unset_render_target" )
+			 {
+				 std::string l_RenderTarget = l_SRC(i).GetPszProperty("render_target", "");
+
+				 CSetRenderTargetSceneRendererCommand* l_SRT = static_cast<CSetRenderTargetSceneRendererCommand*>(m_SceneRendererCommands.GetResource(l_RenderTarget));
+
+				 l_Command = new CUnsetRenderTargetSceneRendererCommand(l_SRT, l_SRC(i));
+
+				 m_SceneRendererCommands.AddResource("unset_render_target_" + l_NumCommand, l_Command);
+			 }
 
 			 //Add the command into the map
 			 if( l_Command != NULL )

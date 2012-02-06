@@ -15,6 +15,7 @@
 #include <d3dx9.h>
 #include <string>
 
+
 class CTexture : public CNamed
 {
 public:
@@ -40,7 +41,6 @@ public:
 		X8R8G8B8,
 		R32F
 	};
-
 public:
 	CTexture();
 	virtual ~CTexture();
@@ -56,7 +56,7 @@ public:
 	bool		SetAsRenderTarget		( size_t IdStage = 0);
 	void		UnsetAsRenderTarget		( size_t IdStage = 0);
 
-	CTexture::TFormatType	GetFormatTypeFromString			( const std::string &FormatType );
+	TFormatType	GetFormatTypeFromString			( const std::string &FormatType );
 
 	const std::string &		GetFileName		() const		{ return m_FileName; }
 	LPDIRECT3DTEXTURE9		GetDXTexture	() const		{ return m_Texture; }
