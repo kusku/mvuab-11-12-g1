@@ -32,6 +32,9 @@ protected:
 		}
 
 		void Activate();
+		void Deactivate();
+		void ActivateRenderTarget();
+		void DeactivateRenderTarget();
 	};
 
 	std::vector<CStageTexture>			m_StageTexturesVector;
@@ -41,10 +44,13 @@ public:
 	CStagedTexturedRendererCommand(CXMLTreeNode &Node);
 	virtual ~CStagedTexturedRendererCommand();
 
-	void	ActivateTextures	();
-	void	AddStageTexture		(int StageId, CTexture *Texture);
+	void	ActivateTextures				();
+	void	DeactivateTextures				();
+	void	ActivateTexturesRenderTarget	();
+	void	DeactivateTexturesRenderTarget	();
+	void	AddStageTexture					(int StageId, CTexture *Texture);
 
-	virtual void	Execute		( CRenderManager &RM ) = 0;
+	virtual void	Execute					( CRenderManager &RM ) = 0;
 
 
 };

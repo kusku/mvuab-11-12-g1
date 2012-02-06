@@ -11,3 +11,5 @@
 #include "Commands\SetPoolRenderableObjectsTechniqueCommand.h"
 #include "Commands\RenderDebugSceneSceneRendererCommand.h"
 #include "Commands\RenderDebugInfoSceneRendererCommand.h"
+#include "Commands\SetRenderTargetSceneRendererCommand.h"
+#include "Commands\UnsetRenderTargetSceneRendererCommand.h"
