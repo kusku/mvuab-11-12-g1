@@ -9,6 +9,7 @@
 	<effect name="LightMapping" file="./data/effects/lightmap.fx" />
 	<effect name="Cal3DEffect" file="./data/effects/Cal3DEffect.fx" />
 	<effect name="AmbientLightEffect" file="./data/effects/AmbientLight.fx" />
+	<effect name="BasicQuadEffect" file="./data/effects/BasicQuadEffect.fx" />
 	<!--<effect name="Colors" file="./Data/effects/colors.fx" />-->
 	<!--<effect name="NormalMap" file="./data/effects/normalmap.fx" />-->
 	
@@ -31,6 +32,8 @@
 	
 	<technique name="AmbientLight" effect="AmbientLightEffect"
 		use_world_view_projection_matrix="true" />
+	
+	<technique name="BasicQuadEffect" effect="BasicQuadEffect" />
 	
 	<!--<technique name="NormalTextureVertexTechnique" effect="DefaultEffect"
 		use_world_matrix="true" use_world_view_projection_matrix="true" use_lights="true"
