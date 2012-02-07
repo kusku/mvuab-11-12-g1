@@ -439,10 +439,10 @@ void CRenderManager::DrawColoredQuad2DTexturedInPixels(RECT rect, CColor& color,
 	rectangle.y = static_cast<float>(rect.left);
 	rectangle.z = static_cast<float>(rect.bottom);
 	rectangle.w = static_cast<float>(rect.right);
-	D3DCOLOR d3dColor = D3DCOLOR_COLORVALUE(static_cast<uint32>(color.GetRed()), 
-											static_cast<uint32>(color.GetGreen()),
-											static_cast<uint32>(color.GetBlue()),
-											static_cast<uint32>(color.GetAlpha()));
+	D3DCOLOR d3dColor = D3DCOLOR_COLORVALUE((color.GetRed()), 
+											(color.GetGreen()),
+											(color.GetBlue()),
+											(color.GetAlpha()));
 	uint16 indices[6] = {0,2,1,1,2,3};
 	TCOLOREDTEXTURE1_VERTEX v[4] =
 	{
