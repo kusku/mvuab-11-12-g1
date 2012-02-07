@@ -3,13 +3,13 @@
 #ifndef _DRAW_QUAD_RENDERER_COMMAND_H
 #define _DRAW_QUAD_RENDERER_COMMAND_H
 
-#include "SceneRendererCommand.h"
+#include "StagedTexturedRendererCommand.h"
 #include "Math\Color.h"
 
 class CRenderManager;
 class CXMLTreeNode;
 
-class CDrawQuadRendererCommand : public CSceneRendererCommand
+class CDrawQuadRendererCommand : public CStagedTexturedRendererCommand
 {
 public:
 	CDrawQuadRendererCommand(CXMLTreeNode &Node);
