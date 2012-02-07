@@ -41,10 +41,11 @@ public:
 	bool					LoadVertexBuffer		(CalModel* Model);
 
 private:
-	bool			LoadMesh		( const std::string &Filename );
-	bool			LoadSkeleton	( const std::string &Filename );
-	bool			LoadAnimation	( const std::string &Name, const std::string &Filename );
-	void			LoadTextures	();
+	bool			LoadMesh				( const std::string &Filename );
+	bool			LoadSkeleton			( const std::string &Filename );
+	bool			LoadAnimation			( const std::string &Name, const std::string &Filename );
+	void			LoadTextures			();
+	void			ClearTextureVector		();
 
 	CalCoreModel*				m_CalCoreModel;
 	CalHardwareModel*			m_CalHardwareModel;

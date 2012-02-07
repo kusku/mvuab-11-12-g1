@@ -53,6 +53,7 @@ protected:
 	void				ClearRenderableVertex	();
 	void				ClearTextures			();
 	bool				ExtractTexture			(FILE* modelFile, std::vector<CTexture*>& textVector);
+	void				AddTexVecToTexManager	(std::vector<CTexture*>& textVector);
 	void				ClearTextureVector		(std::vector<CTexture*>& textVector);
 	CRenderableVertexs*	ReadCreateVertexBuffer	(FILE* modelFile, uint16 vertexType);
 	bool				ExtractMesh				(FILE* modelFile);

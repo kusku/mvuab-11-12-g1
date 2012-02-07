@@ -16,20 +16,33 @@
 template<class T>
 class CMapManager
 {
-  public:
-    virtual T * GetResource(const std::string & Name)
-    {
-      std::map<std::string, T*>::iterator it = m_Resources.find(Name);
-      if (it != m_Resources.end())
-      {
-        return it->second;
-      }
-      
-	  return NULL;
-    }
+public:
+	virtual T * GetResource(const std::string & Name)
+	{
+		std::map<std::string, T*>::iterator it = m_Resources.find(Name);
+		if (it != m_Resources.end())
+		{
+			return it->second;
+		}
 
-    virtual bool AddResource(const std::string & Name, T * Resource)
-    {
+		return NULL;
+	}
+
+	virtual bool RemoveResource(const std::string& Name)
+	{
+		std::map<std::string, T*>::iterator it = m_Resources.find(Name);
+		if (it != m_Resources.end())
+		{
+			CHECKED_DELETE(it->second);
+			m_Resources.erase(it);
+			return true;
+		}
+
+		return false;
+	}
+
+	virtual bool AddResource(const std::string & Name, T * Resource)
+	{
 		if (m_Resources.find(Name) == m_Resources.end())
 		{
 			m_Resources[Name]=Resource;
@@ -37,24 +50,24 @@ class CMapManager
 		}
 
 		return false;
-    }
+	}
 
-    void Destroy()
-    {
-      std::map<std::string, T*>::iterator it = m_Resources.begin();
-      std::map<std::string, T*>::iterator itEnd = m_Resources.end();
+	void Destroy()
+	{
+		std::map<std::string, T*>::iterator it = m_Resources.begin();
+		std::map<std::string, T*>::iterator itEnd = m_Resources.end();
 
-      for(; it != itEnd; ++it)
-      { 
-        CHECKED_DELETE(it->second);
-      }
+		for(; it != itEnd; ++it)
+		{
+			CHECKED_DELETE(it->second);
+		}
 
-      m_Resources.clear();
-    }
+		m_Resources.clear();
+	}
 
 protected:
 	typedef std::map<std::string, T*>	TMapResource;
-    TMapResource						m_Resources;
+	TMapResource						m_Resources;
 };
 
 #endif //INC_MAP_MANAGER_H_

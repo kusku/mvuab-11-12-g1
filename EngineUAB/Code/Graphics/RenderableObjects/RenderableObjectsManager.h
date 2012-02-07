@@ -10,15 +10,16 @@
 #ifndef _RENDERABLEOBJECTSMANAGER_H
 #define _RENDERABLEOBJECTSMANAGER_H
 
-class CRenderManager;
-class CRenderableObject;
-class CEffectTechnique;
-class CXMLTreeNode;
+#include <vector>
+#include <string>
 
 #include "Utils\MapManager.h"
 #include "Math\Vector3.h"
-#include <vector>
-#include <string>
+#include "RenderableObject.h"
+
+class CRenderManager;
+class CEffectTechnique;
+class CXMLTreeNode;
 
 class CRenderableObjectsManager : public CMapManager<CRenderableObject>
 {
