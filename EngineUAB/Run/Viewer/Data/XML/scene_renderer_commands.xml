@@ -7,13 +7,13 @@
 	<enable_z_test />
 	<setup_matrices />
 	
-	<set_pool_renderable_objects_technique pool="dummy_manager" />
+	<set_pool_renderable_objects_technique pool="Deferred_Shading" />
 	
 	<set_render_target name="deferred_multiple_render_target">
 		<dynamic_texture stage_id="0" name="DiffuseMapTexture" texture_width_as_frame_buffer="true" format_type="A8R8G8B8"/>
-		<!--<dynamic_texture stage_id="1" name="LightMapTexture" texture_width_as_frame_buffer="true" format_type="A8R8G8B8"/>
-		<dynamic_texture stage_id="2" name="NormalMapTexture" texture_width_as_frame_buffer="true" format_type="A8R8G8B8"/>
-		<dynamic_texture stage_id="3" name="DepthMapTexture" texture_width_as_frame_buffer="true" format_type="R32F"/> -->
+		<dynamic_texture stage_id="1" name="NormalMapTexture" texture_width_as_frame_buffer="true" format_type="A8R8G8B8"/>
+		<dynamic_texture stage_id="2" name="DepthMapTexture" texture_width_as_frame_buffer="true" format_type="R32F"/>
+		<dynamic_texture stage_id="3" name="LightMapTexture" texture_width_as_frame_buffer="true" format_type="A8R8G8B8"/>
 	</set_render_target>
 	
 	<clear_scene color="true" depth="true" stencil="true" />
@@ -22,13 +22,18 @@
 	
 	<unset_render_target render_target="deferred_multiple_render_target"/>
 	
-	<disable_z_write/>
+	<!--<render_deferred_shading>
+		<texture stage_id="0" file="DiffuseMapTexture"/>
+		<texture stage_id="1" file="LightMapTexture"/>
+		<texture stage_id="2" file="NormalMapTexture"/>
+		<texture stage_id="3" file="DepthMapTexture"/>
+	</render_deferred_shading>-->
 	
-	<render_draw_quad>
-		<texture stage_id="0" file="DiffuseMapTexture" />
+	<!-- TEST ONLY-->
+	<render_draw_quad name="TEST">
+		<texture stage_id="0" file="DiffuseMapTexture"/>
 	</render_draw_quad>
 	
-	<enable_z_test />
 	<!--Debug-->
 	<render_debug_info grid="true" axis="true" />
 	<render_debug_lights active="true" />
