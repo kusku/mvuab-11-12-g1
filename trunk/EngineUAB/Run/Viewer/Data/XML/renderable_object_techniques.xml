@@ -8,9 +8,8 @@
 	</pool_renderable_object_technique>
 	
 	<!-- Pool of Effects for Deferred Shading -->
-	<pool_renderable_object_technique name="Deferred_Lighting_Pool">
-		<default_technique vertex_type="19" technique="NormalTexture" />
-		<default_technique vertex_type="51" technique="LightMapping" />
+	<pool_renderable_object_technique name="Deferred_Shading">
+		<default_technique vertex_type="19" technique="BasicDeferredModelDraw" />
 	</pool_renderable_object_technique>
 	
 </renderable_object_techniques>
