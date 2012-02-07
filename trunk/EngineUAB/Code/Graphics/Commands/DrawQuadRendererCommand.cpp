@@ -28,7 +28,7 @@ CDrawQuadRendererCommand::CDrawQuadRendererCommand(CXMLTreeNode &Node)
 		if( l_Type == "texture" )
 		{
 			int			l_Stage			= Node(i).GetIntProperty("stage_id", 0);
-			std::string l_File			= Node(i).GetPszProperty("file", "", false);
+			std::string l_File			= Node(i).GetPszProperty("file", "");
 			bool		l_LoadFromFile	= Node(i).GetBoolProperty("load_file", false, false);
 			CTexture*	l_Texture		= NULL;
 
@@ -77,6 +77,5 @@ void CDrawQuadRendererCommand::Execute(CRenderManager &RM)
 
 	std::string technique = CORE->GetROTManager()->GetRenderableObjectTechniqueNameByVertexType(TCOLOREDTEXTURE1_VERTEX::GetVertexType());
 
-	RM.DrawColoredQuad2DTexturedInPixelsByEffectTechnique( CORE->GetROTManager()->GetResource(technique)->GetEffectTechnique(), colRED);
-															
+	RM.DrawColoredQuad2DTexturedInPixelsByEffectTechnique( CORE->GetROTManager()->GetResource(technique)->GetEffectTechnique(), colRED);													
 }

@@ -14,3 +14,4 @@
 #include "Commands\SetRenderTargetSceneRendererCommand.h"
 #include "Commands\UnsetRenderTargetSceneRendererCommand.h"
 #include "Commands\DrawQuadRendererCommand.h"
+#include "Commands\DeferredShadingSceneRendererCommand.h"

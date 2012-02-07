@@ -41,6 +41,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)\bin\$(ProjectName)</OutDir>
     <IntDir>$(SolutionDir)\bin\Intermediate\$(ProjectName)$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -60,7 +61,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <OutputFile>$(OutDir)\$(ProjectName)_d.exe</OutputFile>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\lib;$(SolutionDir)\bin\lib;$(DXSDK_DIR)\lib\x86</AdditionalLibraryDirectories>
       <AdditionalDependencies>libxml2.lib;base_d.lib;core_d.lib;graphics_d.lib;input_d.lib;d3dx9d.lib;d3d9.lib;d3dxof.lib;dxguid.lib;dinput8.lib;xinput.lib;winmm.lib;cal3d_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
@@ -82,7 +83,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\lib;$(SolutionDir)\bin\lib;$(DXSDK_DIR)\lib\x86</AdditionalLibraryDirectories>
       <AdditionalDependencies>libxml2.lib;base.lib;core.lib;graphics.lib;input.lib;d3dx9d.lib;d3d9.lib;d3dxof.lib;dxguid.lib;dinput8.lib;xinput.lib;winmm.lib;cal3d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
