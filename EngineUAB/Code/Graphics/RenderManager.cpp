@@ -439,13 +439,17 @@ void CRenderManager::DrawColoredQuad2DTexturedInPixels(RECT rect, CColor& color,
 	rectangle.y = static_cast<float>(rect.left);
 	rectangle.z = static_cast<float>(rect.bottom);
 	rectangle.w = static_cast<float>(rect.right);
+	D3DCOLOR d3dColor = D3DCOLOR_COLORVALUE(static_cast<uint32>(color.GetRed()), 
+											static_cast<uint32>(color.GetGreen()),
+											static_cast<uint32>(color.GetBlue()),
+											static_cast<uint32>(color.GetAlpha()));
 	uint16 indices[6] = {0,2,1,1,2,3};
 	TCOLOREDTEXTURE1_VERTEX v[4] =
 	{
-		 { rectangle.x, rectangle.y, D3DCOLOR_COLORVALUE(color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha()), U0, V0 }
-		,{ rectangle.z, rectangle.y, D3DCOLOR_COLORVALUE(color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha()), U1, V0 }
-		,{ rectangle.z, rectangle.w, D3DCOLOR_COLORVALUE(color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha()), U1, V1 }
-		,{ rectangle.z, rectangle.w, D3DCOLOR_COLORVALUE(color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha()), U0, V1}
+		 { rectangle.x, rectangle.y, 0.0f, d3dColor, U0, V0 }
+		,{ rectangle.z, rectangle.y, 0.0f, d3dColor, U1, V0 }
+		,{ rectangle.z, rectangle.w, 0.0f, d3dColor, U1, V1 }
+		,{ rectangle.z, rectangle.w, 0.0f, d3dColor, U0, V1}
 	};
 
 	m_pD3DDevice->SetVertexDeclaration(TCOLOREDTEXTURE1_VERTEX::GetVertexDeclaration());
