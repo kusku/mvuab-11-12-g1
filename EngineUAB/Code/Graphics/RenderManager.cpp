@@ -407,7 +407,7 @@ void CRenderManager::DrawQuad2D(const Vect2i& pos, uint32 w, uint32 h, ETypeAlig
 	m_pD3DDevice->DrawIndexedPrimitiveUP(D3DPT_TRIANGLELIST,0,4,2,indices,D3DFMT_INDEX16,v,sizeof( SCREEN_COLOR_VERTEX ) );
 }
 
-void CRenderManager::DrawColoredQuad2DTexturedInPixelsByEffectTechnique(CEffectTechnique* EffectTechnique, RECT rect, CColor &color, CTexture *texture, 
+void CRenderManager::DrawColoredQuad2DTexturedInPixelsByEffectTechnique(CEffectTechnique* EffectTechnique, const CColor &color, Vect2f vec1, Vect2f vec2,
 								float U0, float V0, float U1, float V1)
 {
 	EffectTechnique->BeginRender();
@@ -420,40 +420,35 @@ void CRenderManager::DrawColoredQuad2DTexturedInPixelsByEffectTechnique(CEffectT
 		for( UINT iPass = 0; iPass < l_NumPasses; ++iPass )
 		{
 			l_Effect->BeginPass( iPass );
-			DrawColoredQuad2DTexturedInPixels( rect, color, texture, U0, V0, U1, V1 );
+			DrawColoredQuad2DTexturedInPixels( vec1, vec2, color, U0, V0, U1, V1 );
 			l_Effect->EndPass();
 		}
 		l_Effect->End();
 	}
 }
 
-void CRenderManager::DrawColoredQuad2DTexturedInPixels(RECT rect, CColor& color, CTexture *texture, float U0, float V0, float U1, float V1)
+void CRenderManager::DrawColoredQuad2DTexturedInPixels(Vect2f vec1, Vect2f vec2, const CColor& color, float U0, float V0, float U1, float V1)
 {
 	//  [0]------[2]
     //   |		  |
     //   |        |
     //   |		  |
     //  [1]------[3]
-	Vect4f rectangle;
-	rectangle.x = static_cast<float>(rect.top);
-	rectangle.y = static_cast<float>(rect.left);
-	rectangle.z = static_cast<float>(rect.bottom);
-	rectangle.w = static_cast<float>(rect.right);
 	D3DCOLOR d3dColor = D3DCOLOR_COLORVALUE((color.GetRed()), 
 											(color.GetGreen()),
 											(color.GetBlue()),
 											(color.GetAlpha()));
-	uint16 indices[6] = {0,2,1,1,2,3};
+
+	uint16 indices[6] = {0,1,2,2,3,0};
 	TCOLOREDTEXTURE1_VERTEX v[4] =
 	{
-		 { rectangle.x, rectangle.y, 0.0f, d3dColor, U0, V0 }
-		,{ rectangle.z, rectangle.y, 0.0f, d3dColor, U1, V0 }
-		,{ rectangle.z, rectangle.w, 0.0f, d3dColor, U1, V1 }
-		,{ rectangle.z, rectangle.w, 0.0f, d3dColor, U0, V1}
+		 { vec2.x, vec1.y, 0.0f, d3dColor, U1, V1 }
+		,{ vec1.x, vec1.y, 0.0f, d3dColor, U0, V1 }
+		,{ vec1.x, vec2.y, 0.0f, d3dColor, U0, V0 }
+		,{ vec2.x, vec2.y, 0.0f, d3dColor, U1, V0 }
 	};
 
 	m_pD3DDevice->SetVertexDeclaration(TCOLOREDTEXTURE1_VERTEX::GetVertexDeclaration());
-	m_pD3DDevice->SetTexture(0, texture->GetDXTexture());
 	m_pD3DDevice->DrawIndexedPrimitiveUP(D3DPT_TRIANGLELIST,0,4,2,indices,D3DFMT_INDEX16,v,sizeof( TCOLOREDTEXTURE1_VERTEX ) );
 }
 

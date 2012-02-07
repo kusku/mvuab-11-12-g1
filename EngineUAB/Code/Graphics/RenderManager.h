@@ -16,6 +16,7 @@
 #include "Math\Matrix44.h"
 #include "GraphicsDefs.h"
 #include "Cameras\Frustum.h"
+#include "Math\Vector2.h"
 
 class CCamera;
 class CTexture;
@@ -48,8 +49,8 @@ public:
 	void	DrawCone		( float size, uint16 edges, CColor color = colWHITE );
 	void	DrawTower		( float size, CColor color = colWHITE );
 	void	DrawRectangle2D ( const Vect2i& pos, uint32 w, uint32 h, CColor& backGroundColor, uint32 edge_w, uint32 edge_h, CColor& edgeColor );
-	void	DrawColoredQuad2DTexturedInPixelsByEffectTechnique( CEffectTechnique* EffectTechnique, RECT rect, CColor &color, CTexture *texture, 
-												float U0 = 0.0f, float V0 = 0.0f, float U1 = 1.0f, float V1 = 1.0f);
+	void	DrawColoredQuad2DTexturedInPixelsByEffectTechnique( CEffectTechnique* EffectTechnique,const CColor &color, Vect2f vec1 = Vect2f(-1.0f, -1.0f), Vect2f vec2 = Vect2f(1.0f, 1.0f), 
+																float U0 = 0.0f, float V0 = 0.0f, float U1 = 1.0f, float V1 = 1.0f);
 
 	// Set & Get Methods
 	void	SetPaintSolid		( bool paintSolid )		{ m_bPaintSolid = paintSolid; }
@@ -73,7 +74,7 @@ protected:
 	void GetWindowRect( HWND hWnd );
 	void CalculateAlignment (uint32 w, uint32 h, ETypeAlignment alignment, Vect2i & finalPos);
 	void DrawQuad2D ( const Vect2i& pos, uint32 w, uint32 h, ETypeAlignment alignment, CColor color = colBLUE);
-	void DrawColoredQuad2DTexturedInPixels(RECT rect, CColor& color, CTexture *texture, float U0, float V0, float U1, float V1);
+	void DrawColoredQuad2DTexturedInPixels(Vect2f vec1, Vect2f vec2, const CColor& color, float U0, float V0, float U1, float V1);
 
 	bool	m_bIsOk;
 

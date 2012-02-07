@@ -142,6 +142,7 @@ bool CTexture::SetAsRenderTarget(size_t IdStage)
 
 	l_Device->SetRenderTarget( (DWORD)IdStage, m_RenderTargetTexture );
 	CHECKED_RELEASE(m_RenderTargetTexture);
+
 	if( FAILED( l_Device->GetDepthStencilSurface( &m_OldDepthStencilRenderTarget ) ) )
 	{
 		return false; 
