@@ -165,6 +165,11 @@ void CSceneRendererCommandManager::LoadXML()
 				 l_Command = new CDrawQuadRendererCommand( l_SRC(i) );
 				 m_SceneRendererCommands.AddResource(l_Command->GetName(), l_Command);
 			 }
+			 else if( l_Type == "render_deferred_shading" )
+			 {
+				 l_Command = new CDeferredShadingSceneRendererCommand( l_SRC(i) );
+				 m_SceneRendererCommands.AddResource("render_deferred_shading" + l_NumCommand, l_Command);
+			 }
 
 			 //Add the command into the map
 			 if( l_Command != NULL )

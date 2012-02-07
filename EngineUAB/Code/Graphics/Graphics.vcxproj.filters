@@ -388,5 +388,8 @@
     <Filter Include="Commands\Command">
       <UniqueIdentifier>{e9a9bb5f-32a3-4428-982b-34e045c6356a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Effects\Materials">
+      <UniqueIdentifier>{91935067-035d-4949-9e24-d80ac4ad87e1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
