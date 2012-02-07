@@ -26,7 +26,7 @@ CSetRenderTargetSceneRendererCommand::CSetRenderTargetSceneRendererCommand(CXMLT
 			std::string name = Node(i).GetPszProperty("name", "");
 			bool frameBuffer = Node(i).GetBoolProperty("texture_width_as_frame_buffer", false);
 			std::string format_type = Node(i).GetPszProperty("format_type", "A8R8G8B8");
-			uint32 mipmaps = Node(i).GetIntProperty("mipmaps", 2);
+			uint32 mipmaps = Node(i).GetIntProperty("mipmaps", 1);
 
 			CTexture* texture = new CTexture();
 			
@@ -38,6 +38,10 @@ CSetRenderTargetSceneRendererCommand::CSetRenderTargetSceneRendererCommand(CXMLT
 			CORE->GetTextureManager()->AddResource(texture->GetName(), texture);
 
 			this->AddStageTexture(stage_id, texture);
+		}
+		else if( l_Type == "comment" )
+		{
+			/*Ignore*/
 		}
 		else
 		{
