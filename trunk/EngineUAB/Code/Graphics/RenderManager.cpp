@@ -1,12 +1,15 @@
 #include "RenderManager.h"
 #include "Cameras\Camera.h"
 #include "Effects\EffectManager.h"
+#include "Effects\EffectTechnique.h"
 #include "Logger\Logger.h"
 #include "Exceptions\Exception.h"
+#include "Textures\Texture.h"
 #include "Base.h"
 #include "Core.h"
 #include "Math\Vector3.h"
 #include "Math\MathUtils.h"
+#include "Vertexs\VertexType.h"
 #include <assert.h>
 #include <string>
 
@@ -402,6 +405,52 @@ void CRenderManager::DrawQuad2D(const Vect2i& pos, uint32 w, uint32 h, ETypeAlig
 	m_pD3DDevice->SetFVF( SCREEN_COLOR_VERTEX::getFlags() );
 	m_pD3DDevice->SetTexture(0, NULL);
 	m_pD3DDevice->DrawIndexedPrimitiveUP(D3DPT_TRIANGLELIST,0,4,2,indices,D3DFMT_INDEX16,v,sizeof( SCREEN_COLOR_VERTEX ) );
+}
+
+void CRenderManager::DrawColoredQuad2DTexturedInPixelsByEffectTechnique(CEffectTechnique* EffectTechnique, RECT rect, CColor &color, CTexture *texture, 
+								float U0, float V0, float U1, float V1)
+{
+	EffectTechnique->BeginRender();
+	LPD3DXEFFECT l_Effect = EffectTechnique->GetEffect()->GetD3DEffect();
+	if( l_Effect != NULL )
+	{
+		l_Effect->SetTechnique( EffectTechnique->GetD3DTechnique() );
+		UINT l_NumPasses = 0;
+		l_Effect->Begin(&l_NumPasses, 0);
+		for( UINT iPass = 0; iPass < l_NumPasses; ++iPass )
+		{
+			l_Effect->BeginPass( iPass );
+			DrawColoredQuad2DTexturedInPixels( rect, color, texture, U0, V0, U1, V1 );
+			l_Effect->EndPass();
+		}
+		l_Effect->End();
+	}
+}
+
+void CRenderManager::DrawColoredQuad2DTexturedInPixels(RECT rect, CColor& color, CTexture *texture, float U0, float V0, float U1, float V1)
+{
+	//  [0]------[2]
+    //   |		  |
+    //   |        |
+    //   |		  |
+    //  [1]------[3]
+	Vect4f rectangle;
+	rectangle.x = static_cast<float>(rect.top);
+	rectangle.y = static_cast<float>(rect.left);
+	rectangle.z = static_cast<float>(rect.bottom);
+	rectangle.w = static_cast<float>(rect.right);
+	uint16 indices[6] = {0,2,1,1,2,3};
+	TCOLOREDTEXTURE1_VERTEX v[4] =
+	{
+		 { rectangle.x, rectangle.y, D3DCOLOR_COLORVALUE(color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha()), U0, V0 }
+		,{ rectangle.z, rectangle.y, D3DCOLOR_COLORVALUE(color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha()), U1, V0 }
+		,{ rectangle.z, rectangle.w, D3DCOLOR_COLORVALUE(color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha()), U1, V1 }
+		,{ rectangle.z, rectangle.w, D3DCOLOR_COLORVALUE(color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha()), U0, V1}
+	};
+
+	m_pD3DDevice->SetVertexDeclaration(TCOLOREDTEXTURE1_VERTEX::GetVertexDeclaration());
+	m_pD3DDevice->SetTexture(0, texture->GetDXTexture());
+	m_pD3DDevice->DrawIndexedPrimitiveUP(D3DPT_TRIANGLELIST,0,4,2,indices,D3DFMT_INDEX16,v,sizeof( TCOLOREDTEXTURE1_VERTEX ) );
 }
 
 void CRenderManager::CalculateAlignment (uint32 w, uint32 h, ETypeAlignment alignment, Vect2i & finalPos)

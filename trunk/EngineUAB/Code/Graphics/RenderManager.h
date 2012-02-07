@@ -18,6 +18,8 @@
 #include "Cameras\Frustum.h"
 
 class CCamera;
+class CTexture;
+class CEffectTechnique;
 
 class CRenderManager
 {
@@ -46,6 +48,8 @@ public:
 	void	DrawCone		( float size, uint16 edges, CColor color = colWHITE );
 	void	DrawTower		( float size, CColor color = colWHITE );
 	void	DrawRectangle2D ( const Vect2i& pos, uint32 w, uint32 h, CColor& backGroundColor, uint32 edge_w, uint32 edge_h, CColor& edgeColor );
+	void	DrawColoredQuad2DTexturedInPixelsByEffectTechnique( CEffectTechnique* EffectTechnique, RECT rect, CColor &color, CTexture *texture, 
+												float U0 = 0.0f, float V0 = 0.0f, float U1 = 1.0f, float V1 = 1.0f);
 
 	// Set & Get Methods
 	void	SetPaintSolid		( bool paintSolid )		{ m_bPaintSolid = paintSolid; }
@@ -69,6 +73,7 @@ protected:
 	void GetWindowRect( HWND hWnd );
 	void CalculateAlignment (uint32 w, uint32 h, ETypeAlignment alignment, Vect2i & finalPos);
 	void DrawQuad2D ( const Vect2i& pos, uint32 w, uint32 h, ETypeAlignment alignment, CColor color = colBLUE);
+	void DrawColoredQuad2DTexturedInPixels(RECT rect, CColor& color, CTexture *texture, float U0, float V0, float U1, float V1);
 
 	bool	m_bIsOk;
 
