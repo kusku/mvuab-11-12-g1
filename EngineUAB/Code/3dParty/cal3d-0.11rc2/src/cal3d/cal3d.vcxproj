@@ -38,12 +38,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)\Bin\Lib</OutDir>
+    <OutDir>$(SolutionDir)\Bin\Lib\</OutDir>
     <IntDir>$(SolutionDir)\bin\Intermediate\$(ProjectName)\$(Configuration)</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)\Bin\Lib</OutDir>
+    <OutDir>$(SolutionDir)\Bin\Lib\</OutDir>
     <IntDir>$(SolutionDir)\bin\Intermediate\$(ProjectName)\$(Configuration)</IntDir>
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
