@@ -4,6 +4,9 @@
 #include "Textures\Texture.h"
 #include "RenderableObjects\RenderableObjectsManager.h"
 #include "XML\XMLTreeNode.h"
+#include "Core.h"
+#include "Base.h"
+#include "Textures\TextureManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -91,8 +94,10 @@ void CLight::ExtractCommonLightInfo(CXMLTreeNode &XMLNode)
 
 		m_pDynamicShadowMap = new CTexture();
 		CTexture::TFormatType l_Format = m_pDynamicShadowMap->GetFormatTypeFromString(l_DynamicType);
-		m_pDynamicShadowMap->Create(m_Name, l_WidthDynamicShadowMap, l_HeightDynamicShadowMap, 3, 
+		m_pDynamicShadowMap->Create(m_Name + "_dynamic", l_WidthDynamicShadowMap, l_HeightDynamicShadowMap, 3, 
 			CTexture::DYNAMIC, CTexture::DEFAULT, l_Format);
+
+		CORE->GetTextureManager()->AddResource(m_pDynamicShadowMap->GetName(), m_pDynamicShadowMap);
 	}
 
 	if( m_GenerateStaticShadowMap )
@@ -103,7 +108,9 @@ void CLight::ExtractCommonLightInfo(CXMLTreeNode &XMLNode)
 
 		m_pStaticShadowMap = new CTexture();
 		CTexture::TFormatType l_Format = m_pStaticShadowMap->GetFormatTypeFromString(l_StaticType);
-		m_pStaticShadowMap->Create(m_Name, l_WidthStaticShadowMap, l_HeightStaticShadowMap, 3, 
+		m_pStaticShadowMap->Create(m_Name + "_static", l_WidthStaticShadowMap, l_HeightStaticShadowMap, 3, 
 			CTexture::DYNAMIC, CTexture::DEFAULT, l_Format);
+
+		CORE->GetTextureManager()->AddResource(m_pStaticShadowMap->GetName(), m_pStaticShadowMap);
 	}
 }

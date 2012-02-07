@@ -38,6 +38,7 @@ bool CStaticMesh::Load(const std::string &FileName)
 
 bool CStaticMesh::Reload()
 {
+	ClearTextures();
 	Unload();
 	
 	FILE* modelFile = NULL;
@@ -64,6 +65,7 @@ bool CStaticMesh::Reload()
 	//Extract Mesh from File
 	if(!ExtractMesh(modelFile))
 	{
+		ClearTextures();
 		Unload();
 		fclose(modelFile);
 		return false;
@@ -72,6 +74,7 @@ bool CStaticMesh::Reload()
 	//Extract Bounding Box and Sphere from File
 	if(!GetBoundingBoxAndSphere(modelFile))
 	{
+		ClearTextures();
 		Unload();
 		fclose(modelFile);
 		return false;
@@ -79,7 +82,14 @@ bool CStaticMesh::Reload()
 
 	fclose(modelFile);
 
-	return GetRenderableObjectTechnique();
+	if(!GetRenderableObjectTechnique())
+	{
+		ClearTextures();
+		Unload();
+		return false;
+	}
+
+	return true;
 }
 
 bool CStaticMesh::ExtractMesh(FILE* modelFile)
@@ -137,6 +147,7 @@ bool CStaticMesh::ExtractMesh(FILE* modelFile)
 			}
 
 			m_Textures.push_back(textVector);
+			AddTexVecToTexManager(textVector);
 		}
 
 		//Pone el tipo de vértice en un vector.
@@ -314,6 +325,7 @@ bool CStaticMesh::ExtractTexture(FILE* modelFile, std::vector<CTexture*>& textVe
 	CHECKED_DELETE(path);
 
 	CTexture* texture = new CTexture();
+	texture->SetName(sPath);
 			
 	if(!texture->Load(sPath))
 	{
@@ -327,6 +339,14 @@ bool CStaticMesh::ExtractTexture(FILE* modelFile, std::vector<CTexture*>& textVe
 	textVector.push_back(texture);
 
 	return true;
+}
+
+void CStaticMesh::AddTexVecToTexManager(std::vector<CTexture*>& textVector)
+{
+	for(uint32 i = 0; i < textVector.size(); ++i)
+	{
+		assert(CORE->GetTextureManager()->AddResource(textVector[i]->GetName(), textVector[i]));
+	}
 }
 
 void CStaticMesh::ClearRenderableVertex()
@@ -359,7 +379,10 @@ void CStaticMesh::ClearTextureVector(std::vector<CTexture*>& textVector)
 	{
 		CTexture* texture = textVector[i];
 
-		CHECKED_DELETE(texture);
+		if(!CORE->GetTextureManager()->RemoveResource(texture->GetName()))
+		{
+			CHECKED_DELETE(texture);
+		}
 	}
 
 	textVector.clear();
@@ -367,7 +390,6 @@ void CStaticMesh::ClearTextureVector(std::vector<CTexture*>& textVector)
 
 void CStaticMesh::Unload()
 {
-	ClearTextures();
 	ClearRenderableVertex();
 	m_VertexTypes.clear();
 	m_RenderableObjectsTechniques.clear();

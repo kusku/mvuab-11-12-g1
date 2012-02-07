@@ -14,8 +14,7 @@ CTextureManager::CTextureManager()
 
 CTextureManager::~CTextureManager()
 {
-	CTexture *l_Tex = GetResource(m_NoTextureName);
-	CHECKED_DELETE( l_Tex );
+	this->Destroy();
 }
 
 void CTextureManager::Reload()

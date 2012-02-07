@@ -5,6 +5,7 @@
 #include "XML\XMLTreeNode.h"
 #include "RenderManager.h"
 #include "Textures\Texture.h"
+#include "Textures\TextureManager.h"
 #include "Core.h"
 #include "Base.h"
 
@@ -33,6 +34,8 @@ CSetRenderTargetSceneRendererCommand::CSetRenderTargetSceneRendererCommand(CXMLT
 			uint32 height = CORE->GetRenderManager()->GetScreenSize().y;
 
 			texture->Create(name, width, height, mipmaps, CTexture::RENDERTARGET, CTexture::DEFAULT, texture->GetFormatTypeFromString(format_type));
+
+			CORE->GetTextureManager()->AddResource(texture->GetName(), texture);
 
 			this->AddStageTexture(stage_id, texture);
 		}

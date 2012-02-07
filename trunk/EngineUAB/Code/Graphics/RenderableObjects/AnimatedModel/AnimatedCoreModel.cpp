@@ -29,18 +29,26 @@ CAnimatedCoreModel::CAnimatedCoreModel()
 
 CAnimatedCoreModel::~CAnimatedCoreModel()
 {
-	std::vector<CTexture*>::iterator l_It = m_TextureVector.begin();
-	std::vector<CTexture*>::iterator l_End = m_TextureVector.end();
-	for(; l_It != l_End; ++l_It)
-	{
-		CHECKED_DELETE( (*l_It) );
-	}
-	m_TextureVector.clear();
-
 	m_TextureFilenameVector.clear();
 	CHECKED_DELETE(m_CalCoreModel);
 	CHECKED_DELETE(m_CalHardwareModel);
 	CHECKED_DELETE(m_RenderableVertexs);
+}
+
+void CAnimatedCoreModel::ClearTextureVector()
+{
+	std::vector<CTexture*>::iterator l_It = m_TextureVector.begin();
+	std::vector<CTexture*>::iterator l_End = m_TextureVector.end();
+	for(uint32 i = 0; i < m_TextureVector.size(); ++i)
+	{
+		CTexture* texture = m_TextureVector[i];
+
+		if(!CORE->GetTextureManager()->RemoveResource(texture->GetName()))
+		{
+			CHECKED_DELETE(texture);
+		}
+	}
+	m_TextureVector.clear();
 }
 
 CalHardwareModel* CAnimatedCoreModel::GetCalHardwareModel() const
