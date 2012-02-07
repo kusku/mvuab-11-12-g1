@@ -64,7 +64,7 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 	return output;
 }
 
-float4 PixelShaderFunction(VertexShaderOutput input) : COLOR 
+float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 {
 	float4 AmbientColor = AmbientLightColor * AmbientLightIntensity;
 	float4 PixColor = (tex2D(ColorTextureSampler, input.TexCoord) * AmbientColor);
@@ -78,13 +78,13 @@ technique AmbientLight
 	pass p0 
 	{
 		//Activamos el Zbuffer, el Zwrite y la función de Z’s que queremos utilizar
-		ZEnable = true;
-		ZWriteEnable = true;
-		ZFunc = LessEqual;
+		//ZEnable = true;
+		//ZWriteEnable = true;
+		//ZFunc = LessEqual;
 		//Deshabilitamos el alphablend
-		AlphaBlendEnable = false;
+		//AlphaBlendEnable = false;
 		//Tipo de culling que queremos utilizar
-		CullMode = CCW;
+		//CullMode = CCW;
 		VertexShader = compile vs_3_0 VertexShaderFunction();
 		PixelShader = compile ps_3_0 PixelShaderFunction();
 	}
