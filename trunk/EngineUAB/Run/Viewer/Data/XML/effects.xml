@@ -5,19 +5,21 @@
 	<default_technique vertex_type="415" technique="Cal3DTechnique" />
 	
 	<!--<effect name="DiffuseEffect" file="./data/effects/DiffuseEffect.fx" />-->
-	<effect name="DiffuseEffect" file="./data/effects/Lights.fx" />
+	<!--<effect name="DiffuseEffect" file="./data/effects/Lights.fx" />
 	<effect name="LightMapping" file="./data/effects/lightmap.fx" />
 	<effect name="Cal3DEffect" file="./data/effects/Cal3DEffect.fx" />
-	<effect name="AmbientLightEffect" file="./data/effects/AmbientLight.fx" />
+	<effect name="AmbientLightEffect" file="./data/effects/AmbientLight.fx" />-->
 	<effect name="BasicQuadEffect" file="./data/effects/BasicQuadEffect.fx" />
 	<effect name="BasicDeferredModelDraw" file="./data/effects/BasicDeferredModelDraw.fx" />
+	<effect name="BasicDeferredLighting" file="./data/effects/BasicDeferredLighting.fx" />
+	<effect name="BasicDeferredLightingCombine" file="./data/effects/BasicDeferredLightingCombine.fx" />
 	<!--<effect name="Colors" file="./Data/effects/colors.fx" />-->
 	<!--<effect name="NormalMap" file="./data/effects/normalmap.fx" />-->
 	
 	<!--<technique name="RedColor" effect="Colors"
 		use_world_matrix="true" use_world_view_projection_matrix="true" use_view_inverse_matrix="false"
-		use_camera_position="true" use_lights="true" num_of_lights="2" />-->
-	<technique name="NormalTexture" effect="DiffuseEffect"
+		use_camera_position="true" use_lights_fs="true" num_of_lights_fs="2" />-->
+	<!--<technique name="NormalTexture" effect="DiffuseEffect"
 		use_world_matrix="true" use_world_view_projection_matrix="true" use_view_inverse_matrix="false"
 		use_camera_position="true" use_lights="true" num_of_lights="2" />
 	
@@ -32,15 +34,21 @@
 		use_world_matrix="true" use_world_view_projection_matrix="true" />
 	
 	<technique name="AmbientLight" effect="AmbientLightEffect"
-		use_world_view_projection_matrix="true" />
+		use_world_view_projection_matrix="true" />-->
 	
 	<technique name="BasicQuadEffect" effect="BasicQuadEffect" />
 	
 	<technique name="BasicDeferredModelDraw" effect="BasicDeferredModelDraw"
 		use_world_view_projection_matrix="true" use_world_matrix="true"/>
 	
+	<technique name="BasicDeferredLighting" effect="BasicDeferredLighting"
+		use_lights="true" num_of_lights="1" use_view_projection_inverse_matrix="true"
+		use_proj_inverse_matrix="true" use_view_inverse_matrix="true" />
+	
+	<technique name="BasicDeferredLightingCombine" effect="BasicDeferredLightingCombine" />
+	
 	<!--<technique name="NormalTextureVertexTechnique" effect="DefaultEffect"
-		use_world_matrix="true" use_world_view_projection_matrix="true" use_lights="true"
-		num_of_lights="4" use_camera_position="true" use_projection_matrix="true"
+		use_world_matrix="true" use_world_view_projection_matrix="true" use_lights_fs="true"
+		num_of_lights_fs="4" use_camera_position="true" use_projection_matrix="true"
 		use_world_view_matrix="true" use_shadow_view_projection_matrix="true" use_shadow_camera_position="true" />-->
 </effects>
