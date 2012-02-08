@@ -27,6 +27,22 @@
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN_UP"  Code="KEY_F5"/>
 	</action>
 
+	<action name="MovePlayerUp">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_W"/>
+	</action>
+	
+	<action name="MovePlayerDown">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_S"/>
+	</action>
+	
+	<action name="MovePlayerLeft">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_A"/>
+	</action>
+	
+	<action name="MovePlayerRight">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_D"/>
+	</action>
+	
 	<action name="ReloadAll">
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_LCTRL" />
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN_UP"  Code="KEY_F3"/>
