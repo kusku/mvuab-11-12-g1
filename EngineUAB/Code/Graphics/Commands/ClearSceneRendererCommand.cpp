@@ -2,6 +2,10 @@
 #include "XML\XMLTreeNode.h"
 #include "RenderManager.h"
 
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
+
 CClearSceneRendererCommand::CClearSceneRendererCommand(CXMLTreeNode &Node)
 {
 	//<clear_scene color="true" depth="true" stencil="true"/>

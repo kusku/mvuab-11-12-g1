@@ -30,14 +30,24 @@ void CPlayer::UpdateInputActions(float elapsedTime, CCamera *camera)
 	if( action2Input->DoAction("YawViewerCam", d) )
 	{
 		m_fYaw += d;
+		if( m_fYaw > e2PIf )
+		{
+			m_fYaw -= e2PIf;
+		}
+		else if( m_fYaw < -e2PIf )
+		{
+			m_fYaw += e2PIf;
+		}
 	}
 
 	if( action2Input->DoAction("PitchViewerCam", d) )
 	{
-		m_fPitch += d;
+		float l_Pitch = m_fPitch + d;
+		if( abs(l_Pitch) < ePIf/2 )
+			m_fPitch = l_Pitch;
 	}
 
-	if( action2Input->DoAction("MoveZViewerCam", d) )
+	/*if( action2Input->DoAction("MoveZViewerCam", d) )
 	{
 		m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw), m_fPitch, mathUtils::Sin<float>(m_fYaw));
 		if( d > 0 )
@@ -59,19 +69,19 @@ void CPlayer::UpdateInputActions(float elapsedTime, CCamera *camera)
 	{
 		float zoom = l_ThPSCamera->GetZoom() + d;
 		l_ThPSCamera->SetZoom(zoom);
-	}
+	}*/
 
 
-	/*if( CORE->GetActionToInput()->DoAction("MovePlayerUp") )
+	if( action2Input->DoAction("MovePlayerUp") )
 	{
-		if( CORE->GetActionToInput()->DoAction("MovePlayerLeft") )
+		if( action2Input->DoAction("MovePlayerLeft") )
 		{
-			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw + D3DX_PI/4.f), m_fPitch, mathUtils::Sin<float>(m_fYaw + D3DX_PI/4.f));
+			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw + ePIf/4.f), m_fPitch, mathUtils::Sin<float>(m_fYaw + ePIf/4.f));
 			m_Position += m_Dir * 5.f * elapsedTime;
 		}
-		else if( CORE->GetActionToInput()->DoAction("MovePlayerRight") )
+		else if( action2Input->DoAction("MovePlayerRight") )
 		{
-			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw - D3DX_PI/4.f), m_fPitch, mathUtils::Sin<float>(m_fYaw - D3DX_PI/4.f));
+			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw - ePIf/4.f), m_fPitch, mathUtils::Sin<float>(m_fYaw - ePIf/4.f));
 			m_Position += m_Dir * 5.f * elapsedTime;
 		}
 		else
@@ -80,16 +90,16 @@ void CPlayer::UpdateInputActions(float elapsedTime, CCamera *camera)
 			m_Position += m_Dir * 5.f * elapsedTime;
 		}
 	}
-	else if( CORE->GetActionToInput()->DoAction("MovePlayerDown") )
+	else if( action2Input->DoAction("MovePlayerDown") )
 	{
-		if( CORE->GetActionToInput()->DoAction("MovePlayerLeft") )
+		if( action2Input->DoAction("MovePlayerLeft") )
 		{
-			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw - D3DX_PI/4.f), m_fPitch, mathUtils::Sin<float>(m_fYaw - D3DX_PI/4.f));
+			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw - ePIf/4.f), m_fPitch, mathUtils::Sin<float>(m_fYaw - ePIf/4.f));
 			m_Position -= m_Dir * 5.f * elapsedTime;
 		}
-		else if( CORE->GetActionToInput()->DoAction("MovePlayerRight") )
+		else if( action2Input->DoAction("MovePlayerRight") )
 		{
-			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw + D3DX_PI/4.f), m_fPitch, mathUtils::Sin<float>(m_fYaw + D3DX_PI/4.f));
+			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw + ePIf/4.f), m_fPitch, mathUtils::Sin<float>(m_fYaw + ePIf/4.f));
 			m_Position -= m_Dir * 5.f * elapsedTime;
 		}
 		else
@@ -100,18 +110,18 @@ void CPlayer::UpdateInputActions(float elapsedTime, CCamera *camera)
 	}
 	else
 	{
-		if( CORE->GetActionToInput()->DoAction("MovePlayerLeft") )
+		if( action2Input->DoAction("MovePlayerLeft") )
 		{
-			m_Dir = Vect3f(cosf(m_fYaw + D3DX_PI/2.f), 0.0f, sinf(m_fYaw + D3DX_PI/2.f));
+			m_Dir = Vect3f(cosf(m_fYaw + ePIf/2.f), 0.0f, sinf(m_fYaw + ePIf/2.f));
 			m_Position += m_Dir * 5.f * elapsedTime;
 		}
 
-		if( CORE->GetActionToInput()->DoAction("MovePlayerRight") )
+		if( action2Input->DoAction("MovePlayerRight") )
 		{
-			m_Dir = Vect3f(cosf(m_fYaw + D3DX_PI/2.f), 0.0f, sinf(m_fYaw + D3DX_PI/2.f));
+			m_Dir = Vect3f(cosf(m_fYaw + ePIf/2.f), 0.0f, sinf(m_fYaw + ePIf/2.f));
 			m_Position -= m_Dir * 5.f * elapsedTime;
 		}
-	}*/
+	}
 }
 
 void CPlayer::Render(CRenderManager *RM)

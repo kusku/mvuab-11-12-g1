@@ -1,4 +1,3 @@
-
 #include <assert.h>
 #include <string>
 
@@ -73,7 +72,7 @@ CDrawQuadRendererCommand::CDrawQuadRendererCommand(CXMLTreeNode &Node)
 
 void CDrawQuadRendererCommand::Execute(CRenderManager &RM)
 {
-	this->ActivateTextures();
+	ActivateTextures();
 
 	std::string technique = CORE->GetROTManager()->GetRenderableObjectTechniqueNameByVertexType(TCOLOREDTEXTURE1_VERTEX::GetVertexType());
 

@@ -54,7 +54,6 @@ void CViewerProcess::Update(float elapsedTime)
 	m_Player.Update(elapsedTime, m_Camera);
 	UpdateInputs(elapsedTime);
 
-	//CORE->GetRenderableObjectsManager()->Update(elapsedTime);
 	CORE->GetRenderableObjectsLayersManager()->Update(elapsedTime);
 }
 
@@ -90,15 +89,4 @@ void CViewerProcess::UpdateInputs(float elapsedTime)
 void CViewerProcess::Render(CRenderManager *RM)
 {
 	CORE->GetSceneRendererCommandManager()->Execute(*RM);
-	/*Mat44f mat;
-	mat.SetIdentity();
-	RM->SetTransform(mat);
-	RM->DrawAxis(1.0f);
-	RM->DrawGrid(100.0f, 100.0f, 30, colBLACK);
-
-	m_Player.Render(RM);
-
-
-	CORE->GetRenderableObjectsManager()->Render(RM);
-	CORE->GetLightManager()->Render(RM);*/
 }

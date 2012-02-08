@@ -4,6 +4,10 @@
 #include "XML\XMLTreeNode.h"
 #include "RenderManager.h"
 
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
+
 CBeginSceneRendererCommand::CBeginSceneRendererCommand(CXMLTreeNode &Node)
 
 {

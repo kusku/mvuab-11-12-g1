@@ -45,7 +45,7 @@ void CDirectionalLight::Render(CRenderManager *RM)
 	mat = mat * matRotYaw * matRotPitch;
 
 	RM->SetTransform( mat );
-	RM->DrawTower(0.3f, colYELLOW);
+	RM->DrawTower(0.4f, colYELLOW);
 
 	mat.SetIdentity();
 	RM->SetTransform(mat);

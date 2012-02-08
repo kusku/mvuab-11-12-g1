@@ -50,7 +50,7 @@ void CSpotLight::Render(CRenderManager *RM)
 	mat = mat * matRotYaw * matRotPitch;
 
 	RM->SetTransform( mat );
-	RM->DrawCone(0.5f, 10, colYELLOW);
+	RM->DrawCone(0.6f, 10, colYELLOW);
 
 	mat.SetIdentity();
 	RM->SetTransform(mat);

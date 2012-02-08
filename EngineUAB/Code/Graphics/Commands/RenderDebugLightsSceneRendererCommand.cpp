@@ -7,6 +7,10 @@
 #include "Base.h"
 #include "Core.h"
 
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
+
 CRenderDebugLightsSceneRendererCommand::CRenderDebugLightsSceneRendererCommand(CXMLTreeNode &Node)
 {
 	bool active = Node.GetBoolProperty("active", false);

@@ -122,33 +122,39 @@ void CSceneRendererCommandManager::LoadXML()
 			 else if( l_Type == "render_debug_lights" )
 			 {
 				 l_Command = new CRenderDebugLightsSceneRendererCommand( l_SRC(i) );
-				 m_SceneRendererCommands.AddResource("render_debug_lights_" + l_NumCommand, l_Command);
+				 l_CommandName = "render_debug_lights_" + l_NumCommand;
+				 //m_SceneRendererCommands.AddResource("render_debug_lights_" + l_NumCommand, l_Command);
 
 			 }
 			 else if( l_Type == "render_scene" )
 			 {
 				 l_Command = new CRenderSceneSceneRendererCommand( l_SRC(i) );
-				 m_SceneRendererCommands.AddResource("render_scene_" + l_NumCommand, l_Command);
+				 l_CommandName = "render_scene_" + l_NumCommand;
+				 //m_SceneRendererCommands.AddResource("render_scene_" + l_NumCommand, l_Command);
 			 }
 			 else if( l_Type == "setup_matrices" )
 			 {
 				 l_Command = new CSetupMatricesSceneRendererCommand( l_SRC(i) );
-				 m_SceneRendererCommands.AddResource("setup_matrices_" + l_NumCommand, l_Command);
+				 l_CommandName = "setup_matrices_" + l_NumCommand;
+				 //m_SceneRendererCommands.AddResource("setup_matrices_" + l_NumCommand, l_Command);
 			 }
 			 else if( l_Type == "set_pool_renderable_objects_technique" )
 			 {
 				 l_Command = new CSetPoolRenderableObjectsTechniqueCommand( l_SRC(i) );
-				 m_SceneRendererCommands.AddResource("set_pool_renderable_objects_technique_" + l_NumCommand, l_Command);
+				 l_CommandName = "set_pool_renderable_objects_technique_" + l_NumCommand;
+				 //m_SceneRendererCommands.AddResource("set_pool_renderable_objects_technique_" + l_NumCommand, l_Command);
 			 }
 			 else if( l_Type == "render_debug_info" )
 			 {
 				 l_Command = new CRenderDebugInfoSceneRendererCommand( l_SRC(i) );
-				 m_SceneRendererCommands.AddResource("render_debug_info_" + l_NumCommand, l_Command);
+				 l_CommandName = "render_debug_info_" + l_NumCommand;
+				 //m_SceneRendererCommands.AddResource("render_debug_info_" + l_NumCommand, l_Command);
 			 }
 			 else if( l_Type == "set_render_target" )
 			 {
 				 l_Command = new CSetRenderTargetSceneRendererCommand( l_SRC(i) );
-				 m_SceneRendererCommands.AddResource(l_Command->GetName(), l_Command);
+				 l_CommandName = l_Command->GetName();
+				 //m_SceneRendererCommands.AddResource(l_Command->GetName(), l_Command);
 			 }
 			 else if( l_Type == "unset_render_target" )
 			 {
@@ -157,18 +163,25 @@ void CSceneRendererCommandManager::LoadXML()
 				 CSetRenderTargetSceneRendererCommand* l_SRT = static_cast<CSetRenderTargetSceneRendererCommand*>(m_SceneRendererCommands.GetResource(l_RenderTarget));
 
 				 l_Command = new CUnsetRenderTargetSceneRendererCommand(l_SRT, l_SRC(i));
-
-				 m_SceneRendererCommands.AddResource("unset_render_target_" + l_NumCommand, l_Command);
+				 l_CommandName = "unset_render_target_" + l_NumCommand;
+				 //m_SceneRendererCommands.AddResource("unset_render_target_" + l_NumCommand, l_Command);
 			 }
 			 else if( l_Type == "render_draw_quad" )
 			 {
 				 l_Command = new CDrawQuadRendererCommand( l_SRC(i) );
-				 m_SceneRendererCommands.AddResource(l_Command->GetName(), l_Command);
+				 l_CommandName = l_Command->GetName() + "_" + l_NumCommand;
+				 //m_SceneRendererCommands.AddResource(l_Command->GetName(), l_Command);
 			 }
 			 else if( l_Type == "render_deferred_shading" )
 			 {
 				 l_Command = new CDeferredShadingSceneRendererCommand( l_SRC(i) );
-				 m_SceneRendererCommands.AddResource("render_deferred_shading" + l_NumCommand, l_Command);
+				 l_CommandName = "render_deferred_shading_" + l_NumCommand;
+				 //m_SceneRendererCommands.AddResource("render_deferred_shading" + l_NumCommand, l_Command);
+			 }
+			 else if( l_Type == "present" )
+			 {
+				 l_Command = new CPresentSceneRendererCommand( l_SRC(i) );
+				 l_CommandName = "present_" + l_NumCommand;
 			 }
 
 			 //Add the command into the map

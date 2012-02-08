@@ -2,6 +2,10 @@
 #include "XML\XMLTreeNode.h"
 #include "RenderManager.h"
 
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
+
 CEndSceneRendererCommand::CEndSceneRendererCommand(CXMLTreeNode &Node)
 {
 }
@@ -9,7 +13,4 @@ CEndSceneRendererCommand::CEndSceneRendererCommand(CXMLTreeNode &Node)
 void CEndSceneRendererCommand::Execute(CRenderManager &RM)
 {
 	RM.GetDevice()->EndScene();
-
-	// Present the backbuffer contents to the display
-	RM.GetDevice()->Present( NULL, NULL, NULL, NULL );
 }

@@ -4,6 +4,10 @@
 #include "Base.h"
 #include "Core.h"
 
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
+
 CSetupMatricesSceneRendererCommand::CSetupMatricesSceneRendererCommand(CXMLTreeNode &Node)
 {
 }

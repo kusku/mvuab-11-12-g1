@@ -17,6 +17,8 @@ CRenderSceneSceneRendererCommand::CRenderSceneSceneRendererCommand(CXMLTreeNode 
 
 	bool active = Node.GetBoolProperty("active", false);
 	SetActive(active);
+
+	m_pROManager = CORE->GetRenderableObjectsLayersManager()->GetResource(m_Layer);
 }
 
 CRenderSceneSceneRendererCommand::~CRenderSceneSceneRendererCommand()
@@ -27,7 +29,6 @@ void CRenderSceneSceneRendererCommand::Execute(CRenderManager &RM)
 {
 	if( GetActive() )
 	{
-		CRenderableObjectsManager *l_ROManager = CORE->GetRenderableObjectsLayersManager()->GetResource(m_Layer);
-		l_ROManager->Render(&RM);
+		m_pROManager->Render(&RM);
 	}
 }
