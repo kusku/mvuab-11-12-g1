@@ -41,6 +41,7 @@ CEffect::CEffect(CXMLTreeNode *XMLNode)
 	, m_BonesParameter(NULL)
 	, m_TimeParameter(NULL)
 	, m_NumLightsParameter(NULL)
+	, m_ViewProjectionInverseMatrixParameter(NULL)
 {
 	m_EffectName = XMLNode->GetPszProperty("name", "");
 	m_FileName = XMLNode->GetPszProperty("file", "");
@@ -93,6 +94,8 @@ bool CEffect::LoadEffect()
 	GetParameterBySemantic("WORLD", m_WorldMatrixParameter, false);
 	GetParameterBySemantic("WORLDVIEWPROJECTION", m_WorldViewProjectionMatrixParameter, false);
 	GetParameterBySemantic("VIEWINVERSE", m_ViewInverseMatrixParameter, false);
+	GetParameterBySemantic("PROJECTIONINVERSE", m_ProjInverseMatrixParameter, false);
+	GetParameterBySemantic("VIEWPROJECTIONINVERSE", m_ViewProjectionInverseMatrixParameter, false);
 
 	//Camera
 	GetParameterBySemantic("CAMERA_POSITION", m_CameraPositionParameter, false);
@@ -162,6 +165,7 @@ void CEffect::SetNullParameters()
 	m_BonesParameter = NULL;
 	m_TimeParameter = NULL;
 	m_NumLightsParameter = NULL;
+	m_ViewProjectionInverseMatrixParameter = NULL;
 }
 
 void CEffect::GetParameterBySemantic(const std::string &SemanticName, D3DXHANDLE &l_Handle, bool Warning)
@@ -176,7 +180,7 @@ void CEffect::GetParameterBySemantic(const std::string &SemanticName, D3DXHANDLE
 
 bool CEffect::SetLights(size_t NumOfLights)
 {
-/*	CLightManager *l_Lights = CORE->GetLightManager();
+	/*CLightManager *l_Lights = CORE->GetLightManager();
 	for(size_t i=0; i<NumOfLights; ++i)
 	{
 		std::string l_Name = l_Lights->GetLightNameByIndex(static_cast<uint16>(i));
@@ -207,6 +211,43 @@ bool CEffect::SetLights(size_t NumOfLights)
 			m_LightsFallOff[i] = l_SpotLight->GetFallOff();
 		}
 	}*/
+
+	return true;
+}
+
+bool CEffect::SetLight(CLight* light)
+{
+	if(!light->GetVisible())
+	{
+		return false;
+	}
+
+	m_LightsEnabled[0] = light->GetVisible();
+
+	//CLight::TLightType l_LightType = CLight::OMNI;
+	CLight::TLightType l_LightType = light->GetType();
+
+	m_LightsType[0] = static_cast<int>(l_LightType);
+
+	m_LightsStartRangeAttenuation[0] = light->GetStartRangeAttenuation();
+	m_LightsEndRangeAttenuation[0] = light->GetEndRangeAttenuation();
+	m_LightsPosition[0] = light->GetPosition();
+
+	CColor l_Color = light->GetColor();
+	m_LightsColor[0] = Vect3f(l_Color.GetRed(), l_Color.GetGreen(), l_Color.GetBlue());
+
+	if( l_LightType == CLight::DIRECTIONAL )
+	{
+		CDirectionalLight* l_DirLight = static_cast<CDirectionalLight*>(light);
+		m_LightsDirection[0] = l_DirLight->GetDirection();
+	}
+	else if( l_LightType == CLight::SPOT )
+	{
+		CSpotLight* l_SpotLight = static_cast<CSpotLight*>(light);
+		m_LightsDirection[0] = l_SpotLight->GetDirection();
+		m_LightsAngle[0] = l_SpotLight->GetAngle();
+		m_LightsFallOff[0] = l_SpotLight->GetFallOff();
+	}
 
 	return true;
 }

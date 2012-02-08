@@ -3,12 +3,14 @@
 #ifndef _EFFECT_H
 #define _EFFECT_H
 
-class CXMLTreeNode;
+#include <string>
+#include <d3dx9.h>
 
 #include "EffectDefs.h"
 #include "Math\Vector3.h"
-#include <string>
-#include <d3dx9.h>
+
+class CXMLTreeNode;
+class CLight;
 
 class CEffect
 {
@@ -20,6 +22,7 @@ public:
 	bool		Load			();
 	bool		Load			( const std::string &Filename );
 	bool		Reload			();
+	bool		SetLight		(CLight* light);
 
 	//DirectX Methods Interface
 	LPD3DXEFFECT	GetD3DEffect			() const		{ return m_Effect; }
@@ -39,6 +42,7 @@ public:
 	D3DXHANDLE		GetViewInverseMatrix				() const		{ return m_ViewInverseMatrixParameter; }
 	D3DXHANDLE		GetWorldInverseMatrix				() const		{ return m_WorldInverseMatrixParameter; }
 	D3DXHANDLE		GetProjInverseMatrix				() const		{ return m_ProjInverseMatrixParameter; }
+	D3DXHANDLE		GetViewProjectionInverseMatrix		() const		{ return m_ViewProjectionInverseMatrixParameter; }
 	D3DXHANDLE		GetLightEnabledMatrix				() const		{ return m_LightEnabledParameter; }
 	D3DXHANDLE		GetLightsTypeMatrix					() const		{ return m_LightsTypeParameter; }
 	D3DXHANDLE		GetLightsPositionMatrix				() const		{ return m_LightsPositionParameter; }
@@ -92,6 +96,7 @@ private:
 	D3DXHANDLE		m_ViewInverseMatrixParameter,
 					m_WorldInverseMatrixParameter,
 					m_ProjInverseMatrixParameter;
+	D3DXHANDLE		m_ViewProjectionInverseMatrixParameter;
 	D3DXHANDLE		m_ShadowViewProjectionMatrixParameter,
 					m_ShadowCameraPositionParameter;
 	D3DXHANDLE		m_LightEnabledParameter, 

@@ -5,6 +5,7 @@
 #include "XML\XMLTreeNode.h"
 #include "Core.h"
 #include "Base.h"
+#include "Logger\Logger.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -23,6 +24,7 @@ CEffectTechnique::CEffectTechnique(	CXMLTreeNode *XMLNode )
 	m_TechniqueName = XMLNode->GetPszProperty("name", "");
 	m_UseWorldMatrix = XMLNode->GetBoolProperty("use_world_matrix", false, false);
 	m_UseViewProjectionMatrix = XMLNode->GetBoolProperty("use_view_projection_matrix", false, false);
+	m_UseInverseViewProjMatrix = XMLNode->GetBoolProperty("use_view_projection_inverse_matrix", false, false);
 	m_UseWorldViewProjectionMatrix= XMLNode->GetBoolProperty("use_world_view_projection_matrix", false, false);
 	m_UseProjMatrix = XMLNode->GetBoolProperty("use_projection_matrix", false, false);
 	m_UseWorldViewMatrix = XMLNode->GetBoolProperty("use_world_view_matrix", false, false);
@@ -55,6 +57,9 @@ bool CEffectTechnique::BeginRender()
 	}
 
 	CEffectManager *l_EffectManager = CORE->GetEffectManager();
+	
+	std::string msg_error = "";
+
 	if( m_UseWorldMatrix )
 	{
 		l_Effect->SetMatrix( m_Effect->GetWorldMatrix(), &l_EffectManager->GetWorldMatrix().GetD3DXMatrix() );
@@ -121,6 +126,14 @@ bool CEffectTechnique::BeginRender()
 		l_Effect->SetMatrix( m_Effect->GetViewInverseMatrix(), &l_ViewInverseMatrix.GetD3DXMatrix() );
 	}
 
+	if( m_UseInverseViewProjMatrix )
+	{
+		//Mat44f InverseViewProj  = (l_EffectManager->GetViewMatrix() * l_EffectManager->GetProjectionMatrix()).GetInverted();
+		Mat44f InverseViewProj = l_EffectManager->GetViewProjectionMatrix().GetInverted();
+
+		l_Effect->SetMatrix(m_Effect->GetViewProjectionInverseMatrix(), &InverseViewProj.GetD3DXMatrix());
+	}
+
 	if( m_UseCameraPosition )
 	{
 		Vect3f l_CameraEye = l_EffectManager->GetCameraEye();
@@ -129,7 +142,11 @@ bool CEffectTechnique::BeginRender()
 		l_Camera[1] = l_CameraEye.y;
 		l_Camera[2] = l_CameraEye.z;
 
-		l_Effect->SetFloatArray( m_Effect->GetCameraPositionMatrix(), l_Camera, 3);
+		if( FAILED( l_Effect->SetFloatArray( m_Effect->GetCameraPositionMatrix(), l_Camera, 3) ) )
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetCameraPositionMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
 	}
 
 	if( m_UseLights )
@@ -144,17 +161,64 @@ bool CEffectTechnique::BeginRender()
 		const Vect3f *l_Dir = m_Effect->GetLightDirection();
 		const Vect3f *l_Color = m_Effect->GetLightColor();
 
+
 		l_Effect->SetInt( m_Effect->GetNumLights(), m_NumOfLights );
 
-		l_Effect->SetBoolArray( m_Effect->GetLightEnabledMatrix(), l_Enabled, m_NumOfLights);
-		l_Effect->SetIntArray( m_Effect->GetLightsTypeMatrix(), l_Type, m_NumOfLights);
-		l_Effect->SetFloatArray( m_Effect->GetLightsAngleMatrix(), l_Angle, m_NumOfLights);
-		l_Effect->SetFloatArray( m_Effect->GetLightsFallOffMatrix(), l_FallOff, m_NumOfLights);
-		l_Effect->SetFloatArray( m_Effect->GetLightsStartRangeMatrix(), l_StartAtt, m_NumOfLights);
-		l_Effect->SetFloatArray( m_Effect->GetLightsEndRangeMatrix(), l_EndAtt, m_NumOfLights);
-		l_Effect->SetFloatArray( m_Effect->GetLightsPositionMatrix(), &l_Pos[0].x, 3*m_NumOfLights);
-		l_Effect->SetFloatArray( m_Effect->GetLightsDirectionMatrix(), &l_Dir[0].x, 3*m_NumOfLights);
-		l_Effect->SetFloatArray( m_Effect->GetLightsColorMatrix(), &l_Color[0].x, 3*m_NumOfLights);
+
+		if( FAILED( l_Effect->SetBoolArray( m_Effect->GetLightEnabledMatrix(), l_Enabled, m_NumOfLights) ) )
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetLightEnabledMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
+
+		if( FAILED( l_Effect->SetIntArray( m_Effect->GetLightsTypeMatrix(), l_Type, m_NumOfLights) ) )
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetLightsTypeMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
+
+		if( FAILED( l_Effect->SetFloatArray( m_Effect->GetLightsAngleMatrix(), l_Angle, m_NumOfLights) ) )
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetLightsAngleMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
+
+		if( FAILED( l_Effect->SetFloatArray( m_Effect->GetLightsFallOffMatrix(), l_FallOff, m_NumOfLights) ) )
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetLightsFallOffMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
+
+		if( FAILED( l_Effect->SetFloatArray( m_Effect->GetLightsStartRangeMatrix(), l_StartAtt, m_NumOfLights) ) )
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetLightsStartRangeMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
+
+		if( FAILED( l_Effect->SetFloatArray( m_Effect->GetLightsEndRangeMatrix(), l_EndAtt, m_NumOfLights) ) )
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetLightsEndRangeMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
+
+		if( FAILED( l_Effect->SetFloatArray( m_Effect->GetLightsPositionMatrix(), (float*)l_Pos, 3*m_NumOfLights) ) )
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetLightsPositionMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
+
+		if( FAILED( l_Effect->SetFloatArray( m_Effect->GetLightsDirectionMatrix(), (float*)l_Dir, 3*m_NumOfLights) ) )
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetLightsDirectionMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
+
+		if( FAILED( l_Effect->SetFloatArray( m_Effect->GetLightsColorMatrix(), (float*)l_Color, 3*m_NumOfLights) ) )
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetLightsColorMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
+
 	}
 
 	if( m_UseLightAmbientColor )
