@@ -17,5 +17,9 @@
 		<default_technique vertex_type="81" technique="BasicDeferredLightingCombine" />
 	</pool_renderable_object_technique>
 	
+	<pool_renderable_object_technique name="Clear_G_Buffer_Pool">
+		<default_technique vertex_type="81" technique="ClearGBuffer" />
+	</pool_renderable_object_technique>
+	
 	
 </renderable_object_techniques>

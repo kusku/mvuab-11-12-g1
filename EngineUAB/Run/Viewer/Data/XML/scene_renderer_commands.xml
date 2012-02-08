@@ -7,7 +7,6 @@
 	<enable_z_test />
 	<setup_matrices />
 	
-	<set_pool_renderable_objects_technique pool="Deferred_Shading" />
 	
 	<set_render_target name="deferred_multiple_render_target">
 		<dynamic_texture stage_id="0" name="DiffuseMapTexture" texture_width_as_frame_buffer="true" format_type="A8R8G8B8"/>
@@ -17,6 +16,15 @@
 	</set_render_target>
 	
 	<clear_scene color="true" depth="true" stencil="true" />
+	
+	<!--<disable_z_write />
+	<disable_z_test />
+	<set_pool_renderable_objects_technique pool="Clear_G_Buffer_Pool" />
+	<render_draw_quad name="Clear_G_Buffer" />
+	<enable_z_write />
+	<enable_z_test />-->
+	
+	<set_pool_renderable_objects_technique pool="Deferred_Shading" />
 	
 	<render_scene layer="solid" active="true" />
 	
@@ -34,12 +42,12 @@
 	
 	<unset_render_target render_target="deferred_lights"/>
 	
-	<set_pool_renderable_objects_technique pool="Deferred_Shading_Combine" />
+	 <set_pool_renderable_objects_technique pool="Deferred_Shading_Combine" />
 	
 	<render_draw_quad name="Deferred_Lighting_Combine">
 		<texture stage_id="0" file="DiffuseMapTexture"/>
 		<texture stage_id="1" file="LightMapTexture"/>
-	</render_draw_quad>
+	</render_draw_quad><!---->
 	
 	<!-- TEST ONLY 
 	<set_pool_renderable_objects_technique pool="dummy_manager" />

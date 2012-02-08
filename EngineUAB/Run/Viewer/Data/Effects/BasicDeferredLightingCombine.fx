@@ -1,4 +1,20 @@
 
+
+float AmbientLightIntensity <
+    string UIName =  "Ambient Light Intensity";
+    string UIWidget = "slider";
+    float UIMin = 0.0;
+    float UIMax = 1.0;
+    float UIStep = 0.1;
+> = 0.10;
+
+float4 AmbientLightColor <
+    string UIName =  "Ambient Light Color";
+    string UIWidget = "Color";
+> = {1.0f, 1.0f, 1.0f, 1.0f};
+
+/////////////////////////////////////////////////////
+
 sampler DiffuseTextureSampler : register( s0 ) = sampler_state
 {
     AddressU = CLAMP;
@@ -47,18 +63,19 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR
 	float4 diffuseColor = tex2D(DiffuseTextureSampler, input.TexCoord);
     float4 light = tex2D(LightTextureSampler,input.TexCoord);
 	
-	float4 PixColor = diffuseColor * light;
+	float4 PixColor = diffuseColor * ( light + (AmbientLightIntensity * AmbientLightColor) );
 
 	//return float4 (1.0f, 1.0f, 1.0f, 1.0f);
 	PixColor.a = 1.0f;
 	return PixColor;
+	//return light;
 }
 
 technique BasicDeferredLightingCombine
 {
 	pass p0
 	{
-		AlphaBlendEnable = false;		
+		AlphaBlendEnable = false;
 		CullMode = CCW;
 		VertexShader = compile vs_3_0 VertexShaderFunction();
 		PixelShader = compile ps_3_0 PixelShaderFunction();
