@@ -43,5 +43,6 @@ void CClearSceneRendererCommand::Execute(CRenderManager &RM)
 	uint32 blue		= (uint32) (RM.GetColorRelease().GetBlue()* 255);
 #endif
 	
-	RM.GetDevice()->Clear( 0, NULL, clearBuffersOpts, D3DCOLOR_XRGB(red, green, blue), 1.0f, 0 );
+	RM.GetDevice()->Clear( 0, NULL, clearBuffersOpts, D3DCOLOR_RGBA(0, 0, 0, 0), 1.0f, 0 );
+	//RM.GetDevice()->Clear( 0, NULL, clearBuffersOpts, D3DCOLOR_RGBA(red, green, blue, 0), 1.0f, 0 );
 }
