@@ -10,6 +10,12 @@
 	<!-- Pool of Effects for Deferred Shading -->
 	<pool_renderable_object_technique name="Deferred_Shading">
 		<default_technique vertex_type="19" technique="BasicDeferredModelDraw" />
+		<default_technique vertex_type="81" technique="BasicDeferredLighting" />
 	</pool_renderable_object_technique>
+	
+	<pool_renderable_object_technique name="Deferred_Shading_Combine">
+		<default_technique vertex_type="81" technique="BasicDeferredLightingCombine" />
+	</pool_renderable_object_technique>
+	
 	
 </renderable_object_techniques>

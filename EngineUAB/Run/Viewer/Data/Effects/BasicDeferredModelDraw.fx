@@ -44,7 +44,8 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 	output.Position = mul(float4(input.Position, 1), WorldViewProjection);
 	output.Normal	= normalize(mul(input.Normal, World));
 	output.TexCoord	= input.TexCoord;
-	output.Depth.xy	= output.Position.zw; 
+	output.Depth.x	= output.Position.z; 
+	output.Depth.y	= output.Position.w; 
 	
 	return output;
 }
