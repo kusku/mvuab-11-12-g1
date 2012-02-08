@@ -9,6 +9,10 @@
 #include "InfoRender\LogRender.h"
 #include "Math\Matrix44.h"
 
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
+
 CRenderDebugInfoSceneRendererCommand::CRenderDebugInfoSceneRendererCommand(CXMLTreeNode &Node)
 {
 	m_Grid = Node.GetBoolProperty("grid", false);

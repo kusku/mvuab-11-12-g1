@@ -1,4 +1,3 @@
-
 #include <assert.h>
 
 #include "SetRenderTargetSceneRendererCommand.h"
@@ -8,6 +7,10 @@
 #include "Textures\TextureManager.h"
 #include "Core.h"
 #include "Base.h"
+
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
 
 CSetRenderTargetSceneRendererCommand::CSetRenderTargetSceneRendererCommand(CXMLTreeNode &Node)
 {

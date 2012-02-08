@@ -5,6 +5,10 @@
 #include "RenderManager.h"
 #include "Commands\SetRenderTargetSceneRendererCommand.h"
 
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
+
 CUnsetRenderTargetSceneRendererCommand::CUnsetRenderTargetSceneRendererCommand(CSetRenderTargetSceneRendererCommand *SetRenderTargetRendererCommand, 
 	CXMLTreeNode &Node)
 	: m_pSetRenderTargetRendererCommand(SetRenderTargetRendererCommand)

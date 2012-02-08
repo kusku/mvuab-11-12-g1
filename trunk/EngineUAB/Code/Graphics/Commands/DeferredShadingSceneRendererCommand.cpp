@@ -1,4 +1,3 @@
-
 #include <assert.h>
 #include <vector>
 
@@ -14,6 +13,10 @@
 #include "Vertexs\VertexType.h"
 #include "Lights\LightManager.h"
 #include "Lights\Light.h"
+
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
 
 CDeferredShadingSceneRendererCommand::CDeferredShadingSceneRendererCommand(CXMLTreeNode &Node)
 {

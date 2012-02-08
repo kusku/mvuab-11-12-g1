@@ -35,7 +35,7 @@ void COmniLight::Render(CRenderManager *RM)
 	mat.Translate( GetPosition() );
 
 	RM->SetTransform(mat);
-	RM->DrawSphere( 0.3f, 5, colYELLOW );
+	RM->DrawSphere( 0.4f, 6, colYELLOW );
 }
 
 void COmniLight::SetShadowMap(CRenderManager *RM)
