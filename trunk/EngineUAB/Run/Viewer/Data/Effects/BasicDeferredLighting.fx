@@ -172,16 +172,14 @@ float4 CalculateDirectionLight(float4 diffuseColor, float3 normal, float4 positi
 	
 	float LdN = saturate(dot(lightVector, normal));
 	
-	float4 FinalColor = float4(lightColor, 1) * LdN;
+	float4 DirColor = float4(lightColor, 1) * LdN;
 	
-	FinalColor = (FinalColor * diffuseColor);
-	
-	return FinalColor;
+	return (DirColor * diffuseColor);
 }
 
 float4 CalculateSpotLight(float4 diffuseColor, float3 normal, float4 position)
 {	
-	float4 SpotColorFinal = float4(0.1f, 0.1f, 0.1f, 0.0f);
+	float4 SpotColorFinal = float4(0.0f, 0.0f, 0.0f, 0.0f);
 	
 	//Get Light Vector
 	float3 lightVector = normalize(lightPosition - position);
@@ -207,11 +205,7 @@ float4 CalculateSpotLight(float4 diffuseColor, float3 normal, float4 position)
 		SpotColorFinal = (SpotColor * NDotL);
 	}
 	
-	float4 PixEndColor = ( SpotColorFinal ) * ( diffuseColor );
-	
-	PixEndColor = saturate(PixEndColor);
-    
-	return PixEndColor;
+	return ( SpotColorFinal ) * ( diffuseColor );
 }
 
 //////////////////////////////////////
@@ -262,6 +256,8 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	{
 		FinalPixelColor = CalculateSpotLight(diffuseColor, normal, position);
 	}
+	
+	FinalPixelColor = saturate(FinalPixelColor);
 	
 	return FinalPixelColor;
 	//return diffuseColor;
