@@ -13,6 +13,9 @@
 #include "Vertexs\VertexType.h"
 #include "Lights\LightManager.h"
 #include "Lights\Light.h"
+#include "Effects\Effect.h"
+#include "Effects\EffectTechnique.h"
+#include "Effects\EffectManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -49,6 +52,10 @@ CDeferredShadingSceneRendererCommand::CDeferredShadingSceneRendererCommand(CXMLT
 			LOGGER->AddNewLog(ELL_WARNING, errmsg.c_str());
 		}
 	}
+	
+	std::string technique = CORE->GetROTManager()->GetRenderableObjectTechniqueNameByVertexType(TCOLOREDTEXTURE1_VERTEX::GetVertexType());
+
+	m_pRenderableObjectTechnique = CORE->GetROTManager()->GetResource(technique);
 }
 
 void CDeferredShadingSceneRendererCommand::Execute(CRenderManager &RM)
@@ -56,19 +63,22 @@ void CDeferredShadingSceneRendererCommand::Execute(CRenderManager &RM)
 	this->ActivateTextures();
 
 	this->SetLightsData(RM);
-
-	std::string technique = CORE->GetROTManager()->GetRenderableObjectTechniqueNameByVertexType(TCOLOREDTEXTURE1_VERTEX::GetVertexType());
-
-	RM.DrawColoredQuad2DTexturedInPixelsByEffectTechnique( CORE->GetROTManager()->GetResource(technique)->GetEffectTechnique(), colRED);
 }
 
 void CDeferredShadingSceneRendererCommand::SetLightsData(CRenderManager &RM)
-{/*
+{
 	std::vector<CLight*> lights = CORE->GetLightManager()->GetResourcesVector();
 	uint32 numLights = lights.size();
 
 	for(uint32 i = 0; i < numLights; i++)
 	{
-		lights[i]
-	}*/
+		CEffectTechnique* technique = m_pRenderableObjectTechnique->GetEffectTechnique();
+		CEffect* effect = technique->GetEffect();
+		
+		if(effect->SetLight(lights[i]))
+		{
+			CORE->GetEffectManager()->SetWorldMatrix(lights[i]->GetTransform());
+			RM.DrawColoredQuad2DTexturedInPixelsByEffectTechnique(m_pRenderableObjectTechnique->GetEffectTechnique(), colRED);
+		}
+	}
 }

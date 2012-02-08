@@ -29,6 +29,7 @@ private:
 	bool	m_UseCameraPosition;
 	bool	m_UseInverseProjMatrix;
 	bool	m_UseInverseViewMatrix;
+	bool	m_UseInverseViewProjMatrix;
 	bool	m_UseInverseWorldMatrix;
 	bool	m_UseLights;
 	uint32	m_NumOfLights;

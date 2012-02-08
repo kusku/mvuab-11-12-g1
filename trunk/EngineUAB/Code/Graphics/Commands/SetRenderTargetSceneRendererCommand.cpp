@@ -25,20 +25,27 @@ CSetRenderTargetSceneRendererCommand::CSetRenderTargetSceneRendererCommand(CXMLT
 		//<dynamic_texture stage_id="0" name="DiffuseMapTexture" texture_width_as_frame_buffer="true" format_type="A8R8G8B8"/>
 		if( l_Type == "dynamic_texture" )
 		{
+			CTexture* texture = NULL;
 			uint32 stage_id = Node(i).GetIntProperty("stage_id", 0);
 			std::string name = Node(i).GetPszProperty("name", "");
-			bool frameBuffer = Node(i).GetBoolProperty("texture_width_as_frame_buffer", false);
-			std::string format_type = Node(i).GetPszProperty("format_type", "A8R8G8B8");
-			uint32 mipmaps = Node(i).GetIntProperty("mipmaps", 1);
 
-			CTexture* texture = new CTexture();
+			texture = CORE->GetTextureManager()->GetResource(name);
+
+			if(texture == NULL)
+			{
+				bool frameBuffer = Node(i).GetBoolProperty("texture_width_as_frame_buffer", false);
+				std::string format_type = Node(i).GetPszProperty("format_type", "A8R8G8B8");
+				uint32 mipmaps = Node(i).GetIntProperty("mipmaps", 1);
+
+					texture = new CTexture();
 			
-			uint32 width = CORE->GetRenderManager()->GetScreenSize().x;
-			uint32 height = CORE->GetRenderManager()->GetScreenSize().y;
+				uint32 width = CORE->GetRenderManager()->GetScreenSize().x;
+				uint32 height = CORE->GetRenderManager()->GetScreenSize().y;
 
-			texture->Create(name, width, height, mipmaps, CTexture::RENDERTARGET, CTexture::DEFAULT, texture->GetFormatTypeFromString(format_type));
+				texture->Create(name, width, height, mipmaps, CTexture::RENDERTARGET, CTexture::DEFAULT, texture->GetFormatTypeFromString(format_type));
 
-			CORE->GetTextureManager()->AddResource(texture->GetName(), texture);
+				CORE->GetTextureManager()->AddResource(texture->GetName(), texture);
+			}
 
 			this->AddStageTexture(stage_id, texture);
 		}
