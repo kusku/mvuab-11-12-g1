@@ -103,16 +103,6 @@ void CEngine::UpdateDebugInputs()
 	{
 		m_DebugRender.SetVisible( !m_DebugRender.GetVisible() );
 	}
-
-	if( action2Input->DoAction("ReloadAll") )
-	{
-		Reload();
-	}
-
-	if( action2Input->DoAction("ReloadShaders") )
-	{
-		CORE->GetEffectManager()->Reload();
-	}
 }
 
 void CEngine::Render()

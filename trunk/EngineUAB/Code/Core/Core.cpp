@@ -203,11 +203,6 @@ void CCore::ReloadInputs()
 	m_pActionToInput->Reload();
 }
 
-void CCore::ReloadRenderableObjects()
-{
-	m_pRenderableObjectsLayersManager->Reload();
-}
-
 void CCore::ReloadSceneRendererCommandManager()
 {
 	m_pSceneRendererCommandManager->Reload();
@@ -215,5 +210,17 @@ void CCore::ReloadSceneRendererCommandManager()
 
 void CCore::ReloadRenderableObjectsLayersManager()
 {
+	m_pRenderableObjectsLayersManager->Reload();
+}
+
+void CCore::ReloadEffects()
+{
+	m_pEffectManager->Reload();
+}
+
+void CCore::ReloadMeshes()
+{
+	m_pStaticMeshManager->Reload();
+	//m_pAnimatedModelManager->Reload();
 	m_pRenderableObjectsLayersManager->Reload();
 }

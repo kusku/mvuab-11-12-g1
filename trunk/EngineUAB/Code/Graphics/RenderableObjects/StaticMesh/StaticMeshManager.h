@@ -11,11 +11,11 @@
 #define _STATICMESHMANAGER_H
 
 #include "RenderManager.h"
-#include "Utils\MapManager.h"
+#include "Utils\TemplatedVectorMapManager.h"
 #include "StaticMesh.h"
 #include <string>
 
-class CStaticMeshManager : public CMapManager<CStaticMesh>
+class CStaticMeshManager : public CTemplatedVectorMapManager<CStaticMesh>
 {
 public:
 	CStaticMeshManager();

@@ -5,7 +5,7 @@
 
 #include "SceneRendererCommand.h"
 
-class CRenderableObjectsManager;
+class CRenderableObjectsLayersManager;
 class CRenderManager;
 class CXMLTreeNode;
 
@@ -18,8 +18,8 @@ public:
 	virtual void	Execute		( CRenderManager &RM );
 
 private:
-	std::string						m_Layer;
-	CRenderableObjectsManager*		m_pROManager;
+	std::string								m_Layer;
+	CRenderableObjectsLayersManager*		m_pROLManager;
 };
 
 #endif

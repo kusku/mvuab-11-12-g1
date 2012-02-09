@@ -77,13 +77,32 @@ void CViewerProcess::UpdateInputs(float elapsedTime)
 
 	if( action2Input->DoAction("ReloadRenderableObjects") )
 	{
-		CORE->ReloadRenderableObjects();
+		CORE->ReloadRenderableObjectsLayersManager();
 	}
 	
+	if( action2Input->DoAction("ReloadMeshes") )
+	{
+		CORE->ReloadMeshes();
+	}
+
+	if( action2Input->DoAction("ReloadShaders") )
+	{
+		CORE->ReloadEffects();
+	}
+
+	if( action2Input->DoAction("ReloadPools") )
+	{
+	}
+
 	if( action2Input->DoAction("ReloadCommands") )
 	{
 		CORE->ReloadSceneRendererCommandManager();
 	}
+
+	/*if( action2Input->DoAction("ReloadAll") )
+	{
+		Reload();
+	}*/
 }
 
 void CViewerProcess::Render(CRenderManager *RM)

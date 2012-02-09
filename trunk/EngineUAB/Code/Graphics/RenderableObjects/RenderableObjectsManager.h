@@ -39,12 +39,8 @@ public:
 	CRenderableObject*	GetInstance				( const std::string &Name );
 
 	void		CleanUp		();
-	void		Load		( const std::string &FileName );		
-	void		Reload		();
 
 protected:
-	void		LoadFile		();
-
 	std::vector<CRenderableObject*>			m_RenderableObjects;
 	std::string								m_FileName;
 };
