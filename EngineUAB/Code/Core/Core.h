@@ -43,9 +43,10 @@ public:
 	void	ReloadTTFs								();	
 	void	ReloadLanguages							();	
 	void	ReloadInputs							();
-	void	ReloadRenderableObjects					();
 	void	ReloadSceneRendererCommandManager		();
 	void	ReloadRenderableObjectsLayersManager	();
+	void	ReloadEffects							();
+	void	ReloadMeshes							();
 
 	void			SetCamera		( CCamera *camera )				{ m_pCamera = camera; }
 	void			SetTimer		( CTimer *timer )				{ m_pTimer = timer; }

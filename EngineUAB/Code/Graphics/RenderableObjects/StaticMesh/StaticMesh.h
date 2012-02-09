@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef _STATICMESH_H
-#define _STATICMESH_H
+#ifndef _STATIC_MESH_H
+#define _STATIC_MESH_H
 
 class CRenderManager;
 class CRenderableVertexs;
@@ -37,6 +37,8 @@ public:
 
 	bool			GetRenderableObjectTechnique		();
 
+	void			ClearTextures			();
+
 protected:	
 	std::vector<CRenderableVertexs*>			m_RVs;
 	std::vector<std::vector<CTexture*>>			m_Textures;
@@ -51,7 +53,6 @@ protected:
 	template<class T>
 	void*				LoadCreateVertexBuffer	(FILE* modelFile, uint16 numVertex);
 	void				ClearRenderableVertex	();
-	void				ClearTextures			();
 	bool				ExtractTexture			(FILE* modelFile, std::vector<CTexture*>& textVector);
 	void				AddTexVecToTexManager	(std::vector<CTexture*>& textVector);
 	void				ClearTextureVector		(std::vector<CTexture*>& textVector);
