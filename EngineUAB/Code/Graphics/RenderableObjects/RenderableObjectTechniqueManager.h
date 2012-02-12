@@ -16,7 +16,8 @@ public:
 	virtual ~CRenderableObjectTechniqueManager();
 
 	void			Destroy			();
-	void			Load			( const std::string &FileName );
+	bool			Load			( const std::string &FileName );
+	bool			Reload			();
 
 	std::string		GetRenderableObjectTechniqueNameByVertexType		( uint32 VertexType );
 	CTemplatedVectorMapManager<CPoolRenderableObjectTechnique> & GetPoolRenderableObjectTechniques ()
@@ -26,8 +27,10 @@ public:
 
 private:
 	CTemplatedVectorMapManager<CPoolRenderableObjectTechnique>		m_PoolRenderableObjectTechniques;
+	std::string														m_FileName;
 
 	void InsertRenderableObjectTechnique (const std::string &ROTName, const std::string &TechniqueName);
+	bool LoadFile ();
 };
 
 #endif

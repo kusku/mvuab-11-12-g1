@@ -8,9 +8,18 @@
 
 CTextureManager::CTextureManager()
 	: m_NoTextureName("")
+	, m_NoTexturePath("")
 {
 }
 
+CTextureManager::CTextureManager(const std::string &NoTextureName, const std::string &NoTexturePath)
+	: m_NoTextureName(NoTextureName)
+	, m_NoTexturePath(NoTexturePath)
+{
+	CTexture *l_Tex = new CTexture();
+	l_Tex->Load( NoTexturePath );
+	AddResource( NoTextureName, l_Tex );
+}
 
 CTextureManager::~CTextureManager()
 {

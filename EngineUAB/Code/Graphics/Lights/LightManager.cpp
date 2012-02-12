@@ -17,15 +17,33 @@ CLightManager::CLightManager()
 
 CLightManager::~CLightManager()
 {
+	CleanUp();
+}
+
+void CLightManager::CleanUp()
+{
 	Destroy();
 }
 
 bool CLightManager::Load(const std::string &Filename)
 {
+	m_FileName = Filename;
+	return LoadFile();
+}
+
+bool CLightManager::Reload()
+{
+	LOGGER->AddNewLog(ELL_INFORMATION, "CLightManager::Reload->Reload de las luces.");
+	CleanUp();
+	return LoadFile();
+}
+
+bool CLightManager::LoadFile()
+{
 	CXMLTreeNode newFile;
-	if (!newFile.LoadFile(Filename.c_str()))
+	if (!newFile.LoadFile(m_FileName.c_str()))
 	{
-		std::string msg_error = "CLightManager::Load->Error al intentar leer el archivo xml de luces: " + Filename;
+		std::string msg_error = "CLightManager::Load->Error al intentar leer el archivo xml de luces: " + m_FileName;
 		LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
 		return false;
 	}	

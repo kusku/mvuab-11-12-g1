@@ -18,6 +18,7 @@ class CTextureManager : public CMapManager<CTexture>
 {
 public:
 	CTextureManager();
+	CTextureManager( const std::string &NoTextureName, const std::string &NoTexturePath );
 	virtual ~CTextureManager();
 
 	void Reload();
@@ -26,9 +27,14 @@ public:
 	CTexture*	GetNoTexture	();
 		
 	void		SetNoTextureName	( const std::string &Name )		{ m_NoTextureName = Name; }	
+	void		SetNoTexturePath	( const std::string &Path )		{ m_NoTexturePath = Path; }
+
+	const std::string&		GetNoTextureName	() const			{ return m_NoTextureName; }
+	const std::string&		GetNoTexturePath	() const			{ return m_NoTexturePath; }
 
 private:
 	std::string		m_NoTextureName;
+	std::string		m_NoTexturePath;
 };
 
 #endif

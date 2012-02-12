@@ -25,10 +25,14 @@ public:
 	virtual ~CLightManager();
 
 	bool		Load		( const std::string &Filename );
+	bool		Reload		();
+	void		CleanUp		();
 	void		Render		( CRenderManager *RM );
 
 protected:
+	bool		LoadFile	();
 
+	std::string		m_FileName;
 };
 
 #endif

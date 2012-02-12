@@ -47,6 +47,7 @@ public:
 	void	ReloadRenderableObjectsLayersManager	();
 	void	ReloadEffects							();
 	void	ReloadMeshes							();
+	void	ReloadPools								();
 
 	void			SetCamera		( CCamera *camera )				{ m_pCamera = camera; }
 	void			SetTimer		( CTimer *timer )				{ m_pTimer = timer; }

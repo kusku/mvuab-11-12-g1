@@ -434,6 +434,7 @@ void CStaticMesh::Render(CRenderManager *RM, CEffectTechnique* technique) const
 bool CStaticMesh::GetRenderableObjectTechnique()
 {	
 	bool l_Ok = true;
+	m_RenderableObjectsTechniques.clear();
 	CRenderableObjectTechniqueManager *l_ROTM = CORE->GetROTManager();
 	
 	for(size_t i=0; i<m_VertexTypes.size(); ++i)
