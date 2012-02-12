@@ -114,12 +114,14 @@ function ExportLights Objs FilePath IsPathCompleted RelativeShadowMaskPath =
 				l_XML_Line = (l_XML_Line as string) + " " + (l_SpotS as string)
 			)
 
-			l_XML_Line = "\t<" + l_LightType + " " + (l_XML_Line as string) + " />\n"
+			l_XML_Line = "\t<" + l_LightType + " " + (l_XML_Line as string) + " >\n";
 			
 			if( l_Print_Layers ) then
 			(
 				l_XML_Line = (l_XML_Line as string) + (l_XML_Layers as string)
 			)
+			
+			l_XML_Line = (l_XML_Line as string) + "\t</" + l_LightType +  ">\n";
 			
 			format "%" l_XML_Line to:file
 		)
