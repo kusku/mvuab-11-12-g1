@@ -6,6 +6,7 @@
 #include "Core.h"
 #include "Base.h"
 #include "Logger\Logger.h"
+#include "Textures\Texture.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -21,21 +22,23 @@ CEffectTechnique::CEffectTechnique(	CXMLTreeNode *XMLNode )
 	, m_UseViewProjectionMatrix(false)
 	, m_UseTime(false)
 {
-	m_TechniqueName = XMLNode->GetPszProperty("name", "");
-	m_UseWorldMatrix = XMLNode->GetBoolProperty("use_world_matrix", false, false);
-	m_UseViewProjectionMatrix = XMLNode->GetBoolProperty("use_view_projection_matrix", false, false);
-	m_UseInverseViewProjMatrix = XMLNode->GetBoolProperty("use_view_projection_inverse_matrix", false, false);
-	m_UseWorldViewProjectionMatrix= XMLNode->GetBoolProperty("use_world_view_projection_matrix", false, false);
-	m_UseProjMatrix = XMLNode->GetBoolProperty("use_projection_matrix", false, false);
-	m_UseWorldViewMatrix = XMLNode->GetBoolProperty("use_world_view_matrix", false, false);
+	m_TechniqueName					= XMLNode->GetPszProperty("name", "");
+	m_UseWorldMatrix				= XMLNode->GetBoolProperty("use_world_matrix", false, false);
+	m_UseViewProjectionMatrix		= XMLNode->GetBoolProperty("use_view_projection_matrix", false, false);
+	m_UseInverseViewProjMatrix		= XMLNode->GetBoolProperty("use_view_projection_inverse_matrix", false, false);
+	m_UseWorldViewProjectionMatrix	= XMLNode->GetBoolProperty("use_world_view_projection_matrix", false, false);
+	m_UseProjMatrix					= XMLNode->GetBoolProperty("use_projection_matrix", false, false);
+	m_UseWorldViewMatrix			= XMLNode->GetBoolProperty("use_world_view_matrix", false, false);
 	m_UseShadowViewProjectionMatrix = XMLNode->GetBoolProperty("use_shadow_view_projection_matrix", false, false);
-	m_UseShadowCameraPosition = XMLNode->GetBoolProperty("use_shadow_camera_position", false, false);
-	m_UseInverseViewMatrix = XMLNode->GetBoolProperty("use_view_inverse_matrix", false, false);
-	m_UseInverseWorldMatrix = XMLNode->GetBoolProperty("use_world_inverse_matrix", false, false);
-	m_UseInverseProjMatrix = XMLNode->GetBoolProperty("use_proj_inverse_matrix", false, false);
-	m_UseCameraPosition = XMLNode->GetBoolProperty("use_camera_position", false, false);
-	m_UseLights = XMLNode->GetBoolProperty("use_lights", false, false);
-	m_NumOfLights = static_cast<uint32>( XMLNode->GetIntProperty("num_of_lights", 0, false) );
+	m_UseShadowWorldViewProjMatrix	= XMLNode->GetBoolProperty("use_shadow_world_view_projection_matrix", false, false);
+	m_UseShadowCameraPosition		= XMLNode->GetBoolProperty("use_shadow_camera_position", false, false);
+	m_UseShadowMaps					= XMLNode->GetBoolProperty("use_shadow_maps", false, false);
+	m_UseInverseViewMatrix			= XMLNode->GetBoolProperty("use_view_inverse_matrix", false, false);
+	m_UseInverseWorldMatrix			= XMLNode->GetBoolProperty("use_world_inverse_matrix", false, false);
+	m_UseInverseProjMatrix			= XMLNode->GetBoolProperty("use_proj_inverse_matrix", false, false);
+	m_UseCameraPosition				= XMLNode->GetBoolProperty("use_camera_position", false, false);
+	m_UseLights						= XMLNode->GetBoolProperty("use_lights", false, false);
+	m_NumOfLights					= static_cast<uint32>( XMLNode->GetIntProperty("num_of_lights", 0, false) );
 
 	std::string l_EffectName = XMLNode->GetPszProperty("effect", "");
 	m_Effect = CORE->GetEffectManager()->GetEffect(l_EffectName);
@@ -101,11 +104,24 @@ bool CEffectTechnique::BeginRender()
 
 	if( m_UseShadowViewProjectionMatrix )
 	{
-		Mat44f l_LightViewMatrix = l_EffectManager->GetShadowViewMatrix();
-		Mat44f l_ProjMatrix = l_EffectManager->GetProjectionMatrix();
-		l_LightViewMatrix = l_LightViewMatrix * l_ProjMatrix;
+		Mat44f l_ShadowViewProjMatrix = l_EffectManager->GetShadowViewProjMatrix();
 
-		l_Effect->SetMatrix( m_Effect->GetShadowViewProjectionMatrix(), &l_LightViewMatrix.GetD3DXMatrix() );
+		if( FAILED( l_Effect->SetMatrix( m_Effect->GetShadowViewProjectionMatrix(), &l_ShadowViewProjMatrix.GetD3DXMatrix() ) ) )
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->l_ShadowViewProjMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
+	}
+
+	if(m_UseShadowWorldViewProjMatrix)
+	{
+		Mat44f l_ShadowWorldViewProjMatrix = l_EffectManager->GetShadowWorldViewProjMatrix();
+
+		if( FAILED( l_Effect->SetMatrix( m_Effect->GetShadowWorldViewProjectionMatrix(), &l_ShadowWorldViewProjMatrix.GetD3DXMatrix() ) ) )
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetShadowWorldViewProjectionMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
 	}
 
 	if( m_UseShadowCameraPosition )
@@ -128,7 +144,6 @@ bool CEffectTechnique::BeginRender()
 
 	if( m_UseInverseViewProjMatrix )
 	{
-		//Mat44f InverseViewProj  = (l_EffectManager->GetViewMatrix() * l_EffectManager->GetProjectionMatrix()).GetInverted();
 		Mat44f InverseViewProj = l_EffectManager->GetViewProjectionMatrix().GetInverted();
 
 		l_Effect->SetMatrix(m_Effect->GetViewProjectionInverseMatrix(), &InverseViewProj.GetD3DXMatrix());
@@ -219,6 +234,24 @@ bool CEffectTechnique::BeginRender()
 			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
 		}
 
+	}
+
+	if(m_UseShadowMaps)
+	{
+		CTexture* dynamicMap = m_Effect->GetLightsDynamicShadowMap();
+		CTexture* staticMap = m_Effect->GetLightsStaticShadowMap();
+		
+		if( FAILED( l_Effect->SetTexture( m_Effect->GetLightsDynamicShadowMapParameter(), dynamicMap->GetDXTexture()) ) )
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetLightsDynamicShadowMapParameter()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
+
+		if( FAILED( l_Effect->SetTexture( m_Effect->GetLightsStaticShadowMapParameter(), staticMap->GetDXTexture()) ) )
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetLightsStaticShadowMap()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
 	}
 
 	if( m_UseLightAmbientColor )
