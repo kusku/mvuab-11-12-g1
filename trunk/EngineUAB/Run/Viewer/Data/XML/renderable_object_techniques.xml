@@ -7,10 +7,17 @@
 		<default_technique vertex_type="81" technique="BasicQuadEffect" />
 	</pool_renderable_object_technique>
 	
+	<!-- Poll of Effects for Building Basic Shadow Maps -->
+	<pool_renderable_object_technique name="Basic_Build_Shadow_Map">
+		<default_technique vertex_type="19" technique="BasicBuildShadowMap" />
+	</pool_renderable_object_technique>
+	
+	
 	<!-- Pool of Effects for Deferred Shading -->
 	<pool_renderable_object_technique name="Deferred_Shading">
 		<default_technique vertex_type="19" technique="BasicDeferredModelDraw" />
-		<default_technique vertex_type="81" technique="BasicDeferredLighting" />
+		<!--<default_technique vertex_type="81" technique="BasicDeferredLighting" />-->
+		<default_technique vertex_type="81" technique="BasicDeferredLightingAndShadow" />
 	</pool_renderable_object_technique>
 	
 	<pool_renderable_object_technique name="Deferred_Shading_Combine">
