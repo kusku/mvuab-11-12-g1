@@ -78,7 +78,9 @@ void CDirectionalLight::SetShadowMap(CRenderManager *RM)
 	m_ViewShadowMap = Mat44f(l_View);
 	m_ProjectionShadowMap= Mat44f(l_Projection);
 
-	l_EffectManager->ActivateCamera(m_ViewShadowMap, m_ProjectionShadowMap, m_Position);
+	l_EffectManager->SetShadowCameraEye(m_Position);
+	l_EffectManager->SetShadowProjectionMatrix(m_ProjectionShadowMap);
+	l_EffectManager->SetShadowViewMatrix(m_ViewShadowMap);
 }
 
 void CDirectionalLight::CalculateOrientationDebugRender()

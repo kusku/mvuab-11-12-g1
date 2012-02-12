@@ -7,6 +7,8 @@
 #include "Core.h"
 #include "Base.h"
 #include "Textures\TextureManager.h"
+#include "RenderableObjects\RenderableObjectsLayersManager.h"
+#include "Logger\Logger.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -41,27 +43,31 @@ void CLight::GenerateShadowMap(CRenderManager *RM)
 	if( m_GenerateStaticShadowMap && m_MustUpdateStaticShadowMap )
 	{
 		m_pStaticShadowMap->SetAsRenderTarget(0);
-		RM->BeginRendering();
+
+		RM->ClearTarget(colTRANSPARENT);
+
 		for(size_t i=0; i<m_StaticShadowMapRenderableObjectsManagers.size(); ++i)
 		{
 			m_StaticShadowMapRenderableObjectsManagers[i]->Render(RM);
 		}
 
 		m_MustUpdateStaticShadowMap = false;
-		RM->EndRendering();
+		
 		m_pStaticShadowMap->UnsetAsRenderTarget(0);
 	}
 
 	if( m_DynamicShadowMapRenderableObjectsManagers.size() > 0)
 	{
+
 		m_pDynamicShadowMap->SetAsRenderTarget(0);
-		RM->BeginRendering();
+		
+		RM->ClearTarget(colTRANSPARENT);
+
 		for(size_t i=0; i<m_DynamicShadowMapRenderableObjectsManagers.size(); ++i)
 		{
 			m_DynamicShadowMapRenderableObjectsManagers[i]->Render(RM);
 		}
 
-		RM->EndRendering();
 		m_pDynamicShadowMap->UnsetAsRenderTarget(0);
 	}
 }
@@ -95,7 +101,7 @@ void CLight::ExtractCommonLightInfo(CXMLTreeNode &XMLNode)
 		m_pDynamicShadowMap = new CTexture();
 		CTexture::TFormatType l_Format = m_pDynamicShadowMap->GetFormatTypeFromString(l_DynamicType);
 		m_pDynamicShadowMap->Create(m_Name + "_dynamic", l_WidthDynamicShadowMap, l_HeightDynamicShadowMap, 3, 
-			CTexture::DYNAMIC, CTexture::DEFAULT, l_Format);
+			CTexture::RENDERTARGET, CTexture::DEFAULT, l_Format);
 
 		CORE->GetTextureManager()->AddResource(m_pDynamicShadowMap->GetName(), m_pDynamicShadowMap);
 	}
@@ -109,8 +115,74 @@ void CLight::ExtractCommonLightInfo(CXMLTreeNode &XMLNode)
 		m_pStaticShadowMap = new CTexture();
 		CTexture::TFormatType l_Format = m_pStaticShadowMap->GetFormatTypeFromString(l_StaticType);
 		m_pStaticShadowMap->Create(m_Name + "_static", l_WidthStaticShadowMap, l_HeightStaticShadowMap, 3, 
-			CTexture::DYNAMIC, CTexture::DEFAULT, l_Format);
+			CTexture::RENDERTARGET, CTexture::DEFAULT, l_Format);
 
 		CORE->GetTextureManager()->AddResource(m_pStaticShadowMap->GetName(), m_pStaticShadowMap);
+
+		m_MustUpdateStaticShadowMap = true;
+	}
+
+	if(m_GenerateDynamicShadowMap || m_GenerateStaticShadowMap)
+	{
+		uint32 numChild = XMLNode.GetNumChildren();
+
+		for(uint32 i = 0; i < numChild; ++i)
+		{
+			std::string type = XMLNode(i).GetName();
+
+			if(type == "dynamic")
+			{
+				std::string layer = XMLNode(i).GetPszProperty("renderable_objects_layer", "");
+
+				if(layer != "")
+				{
+					CRenderableObjectsLayersManager* roml = CORE->GetRenderableObjectsLayersManager();
+					CRenderableObjectsManager* rom = CORE->GetRenderableObjectsLayersManager()->GetResource(layer);
+
+					if(rom != NULL)
+					{
+						m_DynamicShadowMapRenderableObjectsManagers.push_back(rom);
+					}
+					else
+					{
+						std::string msgerr = "CLight::ExtractCommonLightInfo No se encontro Layer de ROM: " + layer;
+						LOGGER->AddNewLog(ELL_WARNING, msgerr.c_str());
+					}
+				}
+				else
+				{
+					std::string msgerr = "CLight::ExtractCommonLightInfo opcion renderable_objects_layer no encontrada";
+					LOGGER->AddNewLog(ELL_WARNING, msgerr.c_str());
+				}
+			}
+			else if(type == "static")
+			{
+				std::string layer = XMLNode(i).GetPszProperty("renderable_objects_layer", "");
+
+				if(layer != "")
+				{
+					CRenderableObjectsManager* rom = CORE->GetRenderableObjectsLayersManager()->GetResource(layer);
+
+					if(rom != NULL)
+					{
+						m_StaticShadowMapRenderableObjectsManagers.push_back(rom);
+					}
+					else
+					{
+						std::string msgerr = "CLight::ExtractCommonLightInfo No se encontro Layer de ROM: " + layer;
+						LOGGER->AddNewLog(ELL_WARNING, msgerr.c_str());
+					}
+				}
+				else
+				{
+					std::string msgerr = "CLight::ExtractCommonLightInfo opcion renderable_objects_layer no encontrada";
+					LOGGER->AddNewLog(ELL_WARNING, msgerr.c_str());
+				}
+			}
+			else if(type != "comment") //If it is anything else than comment
+			{
+				assert(!"Not a valid suboption CLight::ExtractCommonLightInfo");
+			}
+		}
 	}
 }

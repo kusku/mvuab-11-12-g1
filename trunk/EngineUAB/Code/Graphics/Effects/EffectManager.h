@@ -43,11 +43,13 @@ public:
 	const Mat44f&			GetViewProjectionMatrix		() const	{ return m_ViewProjectionMatrix; }
 	const Mat44f&			GetShadowViewMatrix			() const	{ return m_ShadowViewMatrix; }
 	const Mat44f&			GetShadowProjectionMatrix	() const	{ return m_ShadowProjectionMatrix; }
+	const Mat44f			GetShadowViewProjMatrix		() const	{ return m_ShadowProjectionMatrix * m_ShadowViewMatrix; };
+	const Mat44f			GetShadowWorldViewProjMatrix() const	{ return m_ShadowProjectionMatrix * m_ShadowViewMatrix * m_WorldMatrix; };
+	const Vect3f&			GetShadowCameraEye			() const	{ return m_ShadowCameraEye; }
 	const Mat44f&			GetWorldInverseMatrix		() const	{ return m_WorldInverseMatrix; }
 	const Mat44f&			GetViewInverseMatrix		() const	{ return m_ViewInverseMatrix; }
 	const Mat44f&			GetProjInverseMatrix		() const	{ return m_ProjInverseMatrix; }
 	const Vect3f&			GetCameraEye				() const	{ return m_CameraEye; }
-	const Vect3f&			GetShadowCameraEye			() const	{ return m_ShadowCameraEye; }
 
 	void			SetWorldMatrix					( const Mat44f &Matrix )	{ m_WorldMatrix = Matrix; }
 	void			SetProjectionMatrix				( const Mat44f &Matrix )	{ m_ProjectionMatrix = Matrix; }
@@ -55,6 +57,7 @@ public:
 	void			SetViewProjectionMatrix			( const Mat44f &Matrix )	{ m_ViewProjectionMatrix = Matrix; }
 	void			SetLightViewMatrix				( const Mat44f &Matrix )	{ m_ShadowViewMatrix = Matrix; }
 	void			SetShadowProjectionMatrix		( const Mat44f &Matrix )	{ m_ShadowProjectionMatrix = Matrix; }
+	void			SetShadowViewMatrix				( const Mat44f &Matrix )	{ m_ShadowViewMatrix = Matrix; }
 	void			SetWorldInverseMatrix			( const Mat44f &Matrix )	{ m_WorldInverseMatrix = Matrix; }
 	void			SetViewInverseMatrix			( const Mat44f &Matrix )	{ m_ViewInverseMatrix = Matrix; }
 	void			SetProjInverseMatrix			( const Mat44f &Matrix )	{ m_ProjInverseMatrix = Matrix; }
