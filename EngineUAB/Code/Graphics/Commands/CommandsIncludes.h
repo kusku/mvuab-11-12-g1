@@ -16,3 +16,4 @@
 #include "Commands\DrawQuadRendererCommand.h"
 #include "Commands\DeferredShadingSceneRendererCommand.h"
 #include "Commands\PresentRenderSceneRendererCommand.h"
+#include "Commands\GenerateShadowMapsSceneRendererCommand.h"
