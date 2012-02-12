@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <lights>
-	<spot name="Spot001" pos="-55.8146 75.9597 75.728" color="255.0 255.0 255.0" att_start_range="98.4252" att_end_range="198.819" generate_shadow_map="true" shadow_map_format_type="R32F" shadow_map_width="1024" shadow_map_height="1024" generate_static_shadow_map="true" static_shadow_map_format_type="R32F" static_shadow_map_width="1024" static_shadow_map_height="1024" dir="53.3398 -89.3872 -88.3149" angle="40.0" fall_off="60.0" />
+	<spot name="Spot001" pos="-55.8146 75.9597 75.728" color="255.0 255.0 255.0" att_start_range="98.4252" att_end_range="198.819" generate_shadow_map="true" shadow_map_format_type="R32F" shadow_map_width="512" shadow_map_height="512" generate_static_shadow_map="true" static_shadow_map_format_type="R32F" static_shadow_map_width="512" static_shadow_map_height="512" dir="53.3398 -89.3872 -88.3149" angle="30.0" fall_off="50.0" >
+		<dynamic renderable_objects_layer="solid" />
+		<static renderable_objects_layer="solid" />
+	</spot>
 </lights>
