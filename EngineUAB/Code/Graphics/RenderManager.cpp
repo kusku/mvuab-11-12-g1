@@ -169,6 +169,18 @@ void CRenderManager::GetWindowRect( HWND hwnd )
 	m_uHeight = rec_window.bottom - rec_window.top;
 }
 
+void CRenderManager::ClearTarget(CColor color)
+{
+	D3DCOLOR col = D3DCOLOR_ARGB(
+									(uint32) (color.GetAlpha() * 255),
+									(uint32) (color.GetRed() * 255),
+									(uint32) (color.GetGreen() * 255),
+									(uint32) (color.GetBlue()* 255)
+								 );
+
+	m_pD3DDevice->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, col, 1.0f, 0 );
+}
+
 void CRenderManager::BeginRendering()
 {
 #ifdef _DEBUG // Clear the backbuffer to a blue color in a Debug mode

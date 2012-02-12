@@ -11,6 +11,7 @@
 
 class CXMLTreeNode;
 class CLight;
+class CTexture;
 
 class CEffect
 {
@@ -38,6 +39,7 @@ public:
 	D3DXHANDLE		GetViewProjectionMatrix				() const		{ return m_ViewProjectionMatrixParameter; }
 	D3DXHANDLE		GetWorldViewProjectionMatrix		() const		{ return m_WorldViewProjectionMatrixParameter; }
 	D3DXHANDLE		GetShadowViewProjectionMatrix		() const		{ return m_ShadowViewProjectionMatrixParameter; }
+	D3DXHANDLE		GetShadowWorldViewProjectionMatrix	() const		{ return m_ShadowWorldViewProjectionMatrixParameter; }
 	D3DXHANDLE		GetShadowCameraPositionMatrix		() const		{ return m_ShadowCameraPositionParameter; }
 	D3DXHANDLE		GetViewInverseMatrix				() const		{ return m_ViewInverseMatrixParameter; }
 	D3DXHANDLE		GetWorldInverseMatrix				() const		{ return m_WorldInverseMatrixParameter; }
@@ -52,6 +54,8 @@ public:
 	D3DXHANDLE		GetLightsFallOffMatrix				() const		{ return m_LightsFallOffParameter; }
 	D3DXHANDLE		GetLightsStartRangeMatrix			() const		{ return m_LightsStartRangeAttenuationParameter; }
 	D3DXHANDLE		GetLightsEndRangeMatrix				() const		{ return m_LightsEndRangeAttenuationParameter; }
+	D3DXHANDLE		GetLightsDynamicShadowMapParameter	() const		{ return m_LightsDynamicShadowMapParameter; }
+	D3DXHANDLE		GetLightsStaticShadowMapParameter	() const		{ return m_LightsStaticShadowMapParameter; }
 	D3DXHANDLE		GetCameraPositionMatrix				() const		{ return m_CameraPositionParameter; }
 	D3DXHANDLE		GetBonesMatrix						() const		{ return m_BonesParameter; }
 	D3DXHANDLE		GetTimeMatrix						() const		{ return m_TimeParameter; }
@@ -66,6 +70,8 @@ public:
 	const Vect3f*	GetLightPosition					() const		{ return m_LightsPosition; }
 	const Vect3f*	GetLightDirection					() const		{ return m_LightsDirection; }
 	const Vect3f*	GetLightColor						() const		{ return m_LightsColor; }
+	CTexture*		GetLightsDynamicShadowMap			() const		{ return m_LightsDynamicShadowMap; }
+	CTexture*		GetLightsStaticShadowMap			() const		{ return m_LightsStaticShadowMap; }
 
 private:
 	void		SetNullParameters			();
@@ -86,6 +92,8 @@ private:
 	Vect3f			m_LightsPosition[MAX_LIGHTS_BY_SHADER];
 	Vect3f			m_LightsDirection[MAX_LIGHTS_BY_SHADER];
 	Vect3f			m_LightsColor[MAX_LIGHTS_BY_SHADER];
+	CTexture*		m_LightsDynamicShadowMap;
+	CTexture*		m_LightsStaticShadowMap;
 
 	D3DXHANDLE		m_WorldMatrixParameter, 
 					m_ViewMatrixParameter,
@@ -98,7 +106,8 @@ private:
 					m_ProjInverseMatrixParameter;
 	D3DXHANDLE		m_ViewProjectionInverseMatrixParameter;
 	D3DXHANDLE		m_ShadowViewProjectionMatrixParameter,
-					m_ShadowCameraPositionParameter;
+					m_ShadowCameraPositionParameter,
+					m_ShadowWorldViewProjectionMatrixParameter;
 	D3DXHANDLE		m_LightEnabledParameter, 
 					m_LightsTypeParameter, 
 					m_LightsPositionParameter, 
@@ -108,6 +117,8 @@ private:
 	D3DXHANDLE		m_LightsFallOffParameter, 
 					m_LightsStartRangeAttenuationParameter, 
 					m_LightsEndRangeAttenuationParameter;
+	D3DXHANDLE		m_LightsDynamicShadowMapParameter,
+					m_LightsStaticShadowMapParameter;
 	D3DXHANDLE		m_NumLightsParameter;
 	D3DXHANDLE		m_CameraPositionParameter;
 	D3DXHANDLE		m_BonesParameter;

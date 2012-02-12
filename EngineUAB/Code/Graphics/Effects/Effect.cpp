@@ -24,6 +24,7 @@ CEffect::CEffect(CXMLTreeNode *XMLNode)
 	, m_ViewProjectionMatrixParameter(NULL)
 	, m_WorldViewProjectionMatrixParameter(NULL)
 	, m_ShadowViewProjectionMatrixParameter(NULL)
+	, m_ShadowWorldViewProjectionMatrixParameter(NULL)
 	, m_ShadowCameraPositionParameter(NULL)
 	, m_ViewInverseMatrixParameter(NULL)
 	, m_WorldInverseMatrixParameter(NULL)
@@ -37,11 +38,15 @@ CEffect::CEffect(CXMLTreeNode *XMLNode)
 	, m_LightsFallOffParameter(NULL)
 	, m_LightsStartRangeAttenuationParameter(NULL)
 	, m_LightsEndRangeAttenuationParameter(NULL)
+	, m_LightsDynamicShadowMapParameter(NULL)
+	, m_LightsStaticShadowMapParameter(NULL)
 	, m_CameraPositionParameter(NULL)
 	, m_BonesParameter(NULL)
 	, m_TimeParameter(NULL)
 	, m_NumLightsParameter(NULL)
 	, m_ViewProjectionInverseMatrixParameter(NULL)
+	, m_LightsDynamicShadowMap(NULL)
+	, m_LightsStaticShadowMap(NULL)
 {
 	m_EffectName = XMLNode->GetPszProperty("name", "");
 	m_FileName = XMLNode->GetPszProperty("file", "");
@@ -111,6 +116,8 @@ bool CEffect::LoadEffect()
 	GetParameterBySemantic("Lights_EndAtt", m_LightsEndRangeAttenuationParameter, false);
 	GetParameterBySemantic("Lights_Angle", m_LightsAngleParameter, false);
 	GetParameterBySemantic("Lights_FallOff", m_LightsFallOffParameter, false);
+	GetParameterBySemantic("LIGHT_DYNAMIC_SHADOW_MAP", m_LightsDynamicShadowMapParameter, false);
+	GetParameterBySemantic("LIGHT_STATIC_SHADOW_MAP", m_LightsStaticShadowMapParameter, false);
 
 	//Bones
 	GetParameterBySemantic("BONES", m_BonesParameter, false);
@@ -118,6 +125,7 @@ bool CEffect::LoadEffect()
 	//Shadows
 	GetParameterBySemantic("SHADOW_VIEWPROJECTION", m_ShadowViewProjectionMatrixParameter, false);
 	GetParameterBySemantic("SHADOW_CAMERA_POSITION", m_ShadowCameraPositionParameter, false);
+	GetParameterBySemantic("SHADOW_WORLDVIEWPROJECTION", m_ShadowWorldViewProjectionMatrixParameter, false);
 
  	return true;
 }
@@ -149,6 +157,7 @@ void CEffect::SetNullParameters()
 	m_WorldViewProjectionMatrixParameter = NULL;
 	m_ShadowViewProjectionMatrixParameter = NULL;
 	m_ShadowCameraPositionParameter = NULL;
+	m_ShadowWorldViewProjectionMatrixParameter = NULL;
 	m_ViewInverseMatrixParameter = NULL;
 	m_WorldInverseMatrixParameter = NULL;
 	m_ProjInverseMatrixParameter = NULL;
@@ -161,11 +170,16 @@ void CEffect::SetNullParameters()
 	m_LightsFallOffParameter = NULL;
 	m_LightsStartRangeAttenuationParameter = NULL;
 	m_LightsEndRangeAttenuationParameter = NULL;
+	m_LightsDynamicShadowMapParameter = NULL;
+	m_LightsStaticShadowMapParameter = NULL;
 	m_CameraPositionParameter = NULL;
 	m_BonesParameter = NULL;
 	m_TimeParameter = NULL;
 	m_NumLightsParameter = NULL;
 	m_ViewProjectionInverseMatrixParameter = NULL;
+	m_LightsDynamicShadowMap = NULL;
+	m_LightsStaticShadowMap = NULL;
+
 }
 
 void CEffect::GetParameterBySemantic(const std::string &SemanticName, D3DXHANDLE &l_Handle, bool Warning)
@@ -247,6 +261,24 @@ bool CEffect::SetLight(CLight* light)
 		m_LightsDirection[0] = l_SpotLight->GetDirection();
 		m_LightsAngle[0] = l_SpotLight->GetAngle();
 		m_LightsFallOff[0] = l_SpotLight->GetFallOff();
+	}
+
+	if(light->GetGenerateDynamicShadowMap()) 
+	{
+		m_LightsDynamicShadowMap = light->GetDynamicShadowMap();
+	}
+	else
+	{
+		m_LightsDynamicShadowMap = NULL;
+	}
+
+	if(light->GetGenerateStaticShadowMap())
+	{
+		m_LightsStaticShadowMap = light->GetStaticShadowMap();
+	}
+	else
+	{
+		m_LightsStaticShadowMap = NULL;
 	}
 
 	return true;

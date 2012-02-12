@@ -36,6 +36,7 @@ public:
 	void	BeginRendering();
 	void	EndRendering();
 	void	SetupMatrices(CCamera* camera);
+	void	ClearTarget(CColor color);
 
 	void	SetTransform	( const D3DXMATRIX &mat );
 	void	SetTransform	( const Mat44f &mat );
