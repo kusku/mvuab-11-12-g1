@@ -51,6 +51,7 @@ void CViewerProcess::Init()
 
 void CViewerProcess::Update(float elapsedTime)
 {
+	CORE->SetCamera(m_Camera);
 	m_Player.Update(elapsedTime, m_Camera);
 	UpdateInputs(elapsedTime);
 
@@ -92,17 +93,13 @@ void CViewerProcess::UpdateInputs(float elapsedTime)
 
 	if( action2Input->DoAction("ReloadPools") )
 	{
+		CORE->ReloadPools();
 	}
 
 	if( action2Input->DoAction("ReloadCommands") )
 	{
 		CORE->ReloadSceneRendererCommandManager();
 	}
-
-	/*if( action2Input->DoAction("ReloadAll") )
-	{
-		Reload();
-	}*/
 }
 
 void CViewerProcess::Render(CRenderManager *RM)

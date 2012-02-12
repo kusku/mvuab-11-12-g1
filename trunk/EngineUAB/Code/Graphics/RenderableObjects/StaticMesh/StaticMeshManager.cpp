@@ -88,3 +88,13 @@ bool CStaticMeshManager::Reload()
 	Destroy();
 	return LoadXML();
 }
+
+void CStaticMeshManager::CreateRenderableObjectsTechniques()
+{
+	TVectorResources &l_StaticMeshes = GetResourcesVector();
+	uint16 l_Count = l_StaticMeshes.size();
+	for(uint16 i=0; i<l_Count; ++i)
+	{
+		l_StaticMeshes[i]->GetRenderableObjectTechnique();
+	}
+}

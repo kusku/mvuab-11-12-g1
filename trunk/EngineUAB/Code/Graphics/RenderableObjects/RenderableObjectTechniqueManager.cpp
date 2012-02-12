@@ -28,13 +28,27 @@ void CRenderableObjectTechniqueManager::Destroy()
 	m_PoolRenderableObjectTechniques.Destroy();
 }
 
-void CRenderableObjectTechniqueManager::Load(const std::string &FileName)
+bool CRenderableObjectTechniqueManager::Load(const std::string &FileName)
+{
+	m_FileName = FileName;
+	return LoadFile();
+}
+
+bool CRenderableObjectTechniqueManager::Reload()
+{
+	LOGGER->AddNewLog(ELL_INFORMATION, "CRenderableObjectTechniqueManager::Reload->Reload de todas las pools.");
+	Destroy();
+	return LoadFile();
+}
+
+bool CRenderableObjectTechniqueManager::LoadFile()
 {
 	CXMLTreeNode newFile;
-	if (!newFile.LoadFile(FileName.c_str()))
+	if (!newFile.LoadFile(m_FileName.c_str()))
 	{
-		std::string msg_error = "CRenderableObjectTechniqueManager::Load->Error al intentar leer el archivo de renderable objects techniques: " + FileName;
+		std::string msg_error = "CRenderableObjectTechniqueManager::Load->Error al intentar leer el archivo de renderable objects techniques: " + m_FileName;
 		LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
+		return false;
 	}
 
 	CXMLTreeNode l_ROTs = newFile["renderable_object_techniques"];
@@ -79,6 +93,12 @@ void CRenderableObjectTechniqueManager::Load(const std::string &FileName)
 			}
 		}
 	}
+	else
+	{
+		return false;
+	}
+	
+	return true;
 }
 
 std::string CRenderableObjectTechniqueManager::GetRenderableObjectTechniqueNameByVertexType(uint32 VertexType)

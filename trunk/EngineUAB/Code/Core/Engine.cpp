@@ -39,7 +39,7 @@ void CEngine::Init(HWND hWnd)
 {
 	m_pLogger = new CLogger();
 
-	LOGGER->AddNewLog(ELL_INFORMATION, "CEngine:: Inicializando Engine");
+	LOGGER->AddNewLog(ELL_INFORMATION, "CEngine::Init-> Inicializando Engine");
 
 	m_pCore = new CCore();
 	m_pCore->Init(hWnd, m_Config);
@@ -47,7 +47,7 @@ void CEngine::Init(HWND hWnd)
 
 	m_LogRender.SetLinePerPage(20);
 
-#if defined(DEBUG_MODE)
+#if defined(_DEBUG)
 	m_DebugRender.Init(&m_Timer);
 #endif
 }
@@ -65,7 +65,7 @@ void CEngine::Update()
 	m_pCore->SetLogRender(&m_LogRender);
 	m_pCore->SetTimer(&m_Timer);
 
-#if defined(DEBUG_MODE)
+#if defined(_DEBUG)
 	UpdateDebugInputs();
 #endif
 }
@@ -103,6 +103,22 @@ void CEngine::UpdateDebugInputs()
 	{
 		m_DebugRender.SetVisible( !m_DebugRender.GetVisible() );
 	}
+
+	if( action2Input->DoAction("ReloadAll") )
+	{
+		LOGGER->AddNewLog(ELL_INFORMATION, "CEngine->Iniciando reload de todo el Core.");
+
+		HWND hWnd = m_pCore->GetRenderManager()->GetHWND();
+		CHECKED_DELETE(m_pCore);
+		m_pCore = new CCore();
+		m_pCore->Init(hWnd, m_Config);
+
+		m_pCore->SetDebugRender(&m_DebugRender);
+		m_pCore->SetLogRender(&m_LogRender);
+		m_pCore->SetTimer(&m_Timer);
+
+		LOGGER->AddNewLog(ELL_INFORMATION, "CEngine->Reload hecho de todo el Core.");
+	}
 }
 
 void CEngine::Render()
@@ -129,7 +145,7 @@ void CEngine::RenderScene(CRenderManager *renderManager)
 {
 	m_pProcess->Render( renderManager );
 	
-#if defined(DEBUG_MODE)
+#if defined(_DEBUG)
 	/*CFontManager *fontManager = CORE->GetFontManager();
 	m_DebugRender.Render( renderManager, fontManager, &m_Timer );
 	m_LogRender.Render( renderManager, fontManager );*/

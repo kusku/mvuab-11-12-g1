@@ -118,12 +118,7 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 			m_pInputManager = m_pActionToInput->GetInputManager();
 
 			//Crea el TextureManager y añade una textura por sí al renderizar algun modelo no encuentra una textura
-			m_pTextureManager = new CTextureManager();
-			CTexture* l_Tex = new CTexture();
-			l_Tex->Load( config.no_texture_path );
-			m_pTextureManager->AddResource( "NoTexture", l_Tex );
-			m_pTextureManager->SetNoTextureName("NoTexture");
-			l_Tex = NULL;
+			m_pTextureManager = new CTextureManager("NoTexture", config.no_texture_path);
 
 			//Inicia las luces
 			m_pLightManager = new CLightManager();
@@ -180,12 +175,25 @@ void CCore::Render()
 
 void CCore::Reload()
 {
+	LOGGER->AddNewLog(ELL_INFORMATION, "CCore::Reload->Reload de todo el motor.");
+
 	m_pFontManager->ReloadTTFs();
 	m_pLanguageManager->LoadXMLs();
 	m_pActionToInput->Reload();
+
+	//Obtenemos los valores de la textura NoTexture
+	std::string l_noTexName = m_pTextureManager->GetNoTextureName();
+	std::string l_noTexPath = m_pTextureManager->GetNoTexturePath();
 	CHECKED_DELETE(m_pTextureManager);
-	m_pTextureManager = new CTextureManager();
+	m_pTextureManager = new CTextureManager(l_noTexName, l_noTexPath);
+	
+	m_pLightManager->Reload();
+	m_pEffectManager->Reload();
+	m_pROTManager->Reload();
 	m_pStaticMeshManager->Reload();
+	//m_pAnimatedModelManager->Reload();
+	m_pRenderableObjectsLayersManager->Reload();
+	m_pSceneRendererCommandManager->Reload();
 }
 
 void CCore::ReloadTTFs()
@@ -223,4 +231,12 @@ void CCore::ReloadMeshes()
 	m_pStaticMeshManager->Reload();
 	//m_pAnimatedModelManager->Reload();
 	m_pRenderableObjectsLayersManager->Reload();
+}
+
+void CCore::ReloadPools()
+{
+	m_pROTManager->Reload();
+	m_pEffectManager->Reload();
+	m_pStaticMeshManager->CreateRenderableObjectsTechniques();
+	m_pSceneRendererCommandManager->Reload();
 }

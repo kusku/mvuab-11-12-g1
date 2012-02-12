@@ -156,6 +156,8 @@ bool CRenderManager::Init(HWND hWnd)
        throw CException(__FILE__, __LINE__, msg_error);
    }
 
+   m_hWnd = hWnd;
+
    return m_bIsOk;
 }
 

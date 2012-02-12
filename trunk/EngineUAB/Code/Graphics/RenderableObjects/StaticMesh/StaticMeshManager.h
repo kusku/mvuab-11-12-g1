@@ -24,6 +24,8 @@ public:
 	bool		Load		( const std::string &FileName );
 	bool		Reload		();
 
+	void		CreateRenderableObjectsTechniques	();
+
 protected:
 	std::string			m_FileName;
 
