@@ -5,21 +5,29 @@
 #define OMNI 0
 #define DIRECTIONAL 1
 #define SPOT 2
+#define SHADOW_EPSILON 0.00005f
 
-int			numLights				: Num_Lights;
-bool		lightEnable				: Lights_Enabled;
-int 		lightType				: Lights_Type;
-float3		lightPosition			: Lights_Position;
-float3		lightDirection			: Lights_Direction;
-float3		lightColor				: Lights_Color;
-float		lightStartAtt			: Lights_StartAtt;
-float		lightEndAtt				: Lights_EndAtt;
-float		lightAngle				: Lights_Angle;
-float		lightFalloff			: Lights_FallOff;
+uniform int			numLights				: Num_Lights;
+uniform bool		lightEnable				: Lights_Enabled;
+uniform int 		lightType				: Lights_Type;
+uniform float3		lightPosition			: Lights_Position;
+uniform float3		lightDirection			: Lights_Direction;
+uniform float3		lightColor				: Lights_Color;
+uniform float		lightStartAtt			: Lights_StartAtt;
+uniform float		lightEndAtt				: Lights_EndAtt;
+uniform float		lightAngle				: Lights_Angle;
+uniform float		lightFalloff			: Lights_FallOff;
 
-float4x4	InvertViewProjection	: VIEWPROJECTIONINVERSE;
-float4x4	InvertView				: VIEWINVERSE;
-float4x4	InvertProjection		: PROJECTIONINVERSE;
+uniform float4x4	InvertViewProjection	: VIEWPROJECTIONINVERSE;
+uniform float4x4	InvertView				: VIEWINVERSE;
+uniform float4x4	View					: VIEW;
+uniform float4x4	InvertProjection		: PROJECTIONINVERSE;
+
+uniform int			SMap_Size				: SHADOW_MAP_SIZE				=	512;
+uniform float3		LightPosition			: SHADOW_CAMERA_POSITION;
+uniform float4x4	ShadowViewProjection	: SHADOW_VIEWPROJECTION;
+uniform texture		DynamicShadowMap		: LIGHT_DYNAMIC_SHADOW_MAP;
+uniform texture		StaticShadowMap			: LIGHT_STATIC_SHADOW_MAP;
 
 //////////////////////////////////////
 
@@ -27,6 +35,26 @@ float4x4	InvertProjection		: PROJECTIONINVERSE;
 //////////////////////////////////////
 //Textures						   //
 /////////////////////////////////////
+
+sampler2D DynamicShadowMapSampler = sampler_state
+{
+   Texture		= < DynamicShadowMap >;
+   MinFilter	= Point;
+   MagFilter	= Point;
+   MipFilter	= Point;
+   AddressU		= Clamp;
+   AddressV		= Clamp;
+};
+
+sampler2D StaticShadowMapSampler = sampler_state
+{
+   Texture		= < StaticShadowMap >;
+   MinFilter	= Point;
+   MagFilter	= Point;
+   MipFilter	= Point;
+   AddressU		= Clamp;
+   AddressV		= Clamp;
+};
 
 sampler2D NormalTextureMap : register( s0 ) = sampler_state
 {
@@ -56,13 +84,13 @@ sampler2D DepthTextureMap : register( s1 ) = sampler_state
 struct VertexShaderInput
 {
 	float3 Position : POSITION0;
-	float2 TexCoord	: TexCoord0;
+	float2 TexCoord	: TEXCOORD0;
 };
 
 struct VertexShaderOutput
 {
 	float4 Position : POSITION0;
-	float2 TexCoord	: TexCoord0;
+	float2 TexCoord	: TEXCOORD0;
 };
 //////////////////////////////////////
 
@@ -75,25 +103,6 @@ float3 UnpackNormal(float3 normal)
     float3 unpackNormal = 2.0f * normal - 1.0f;
 	
 	return unpackNormal;
-}
-
-float3 GetPositionFromZDepthViewInViewCoordinates(float ZDepthView, float2 UV)
-{
-	// Get the depth value for this pixel
-	// Get x/w and y/w from the viewport position
-	float x = UV.x * 2 - 1;
-	float y = (1 - UV.y) * 2 - 1;
-	float4 l_ProjectedPos = float4(x, y, ZDepthView, 1.0);
-	// Transform by the inverse projection matrix
-	float4 l_PositionVS = mul(l_ProjectedPos, InvertProjection);
-	// Divide by w to get the view-space position
-	return l_PositionVS.xyz / l_PositionVS.w;
-}
-
-float3 GetPositionFromZDepthView(float ZDepthView, float2 UV)
-{
-	float3 l_PositionView=GetPositionFromZDepthViewInViewCoordinates(ZDepthView, UV);
-	return mul(float4(l_PositionView,1.0), InvertView).xyz;
 }
 
 float4 GetPosition(float2 TexCoord, float depthVal)
@@ -189,6 +198,43 @@ float4 CalculateSpotLight(float3 normal, float4 position)
 
 
 //////////////////////////////////////
+//Shadow Functions				   //
+/////////////////////////////////////
+
+float CalculateShadowCoeff(float4 position)
+{
+	float4 LightPos = mul(position, ShadowViewProjection);
+	
+	float2 ShadowTexC = 0.5 * LightPos.xy / LightPos.w + float2( 0.5, 0.5 );
+	ShadowTexC.y = 1.0f - ShadowTexC.y;
+	
+	// Compute pixel depth for shadowing.
+	float depth = LightPos.z / LightPos.w;
+	
+	// Transform to texel space
+    float2 texelpos = SMap_Size * ShadowTexC.xy;
+        
+    // Determine the lerp amounts.
+    float2 lerps = frac( texelpos );
+    
+    // 2x2 percentage closest filter.
+    float dx = 1.0f / SMap_Size;
+	float s0 = (tex2D(DynamicShadowMapSampler, ShadowTexC.xy).r + SHADOW_EPSILON < depth) ? 0.0f : 1.0f;
+	float s1 = (tex2D(DynamicShadowMapSampler, ShadowTexC.xy + float2(dx, 0.0f)).r + SHADOW_EPSILON < depth) ? 0.0f : 1.0f;
+	float s2 = (tex2D(DynamicShadowMapSampler, ShadowTexC.xy + float2(0.0f, dx)).r + SHADOW_EPSILON < depth) ? 0.0f : 1.0f;
+	float s3 = (tex2D(DynamicShadowMapSampler, ShadowTexC.xy + float2(dx, dx)).r   + SHADOW_EPSILON < depth) ? 0.0f : 1.0f;
+	
+	float shadowCoeff = lerp( lerp( s0, s1, lerps.x ),
+                              lerp( s2, s3, lerps.x ),
+                              lerps.y );
+							  
+	return shadowCoeff;
+}
+
+//////////////////////////////////////
+
+
+//////////////////////////////////////
 //VS & PS Functions				   //
 /////////////////////////////////////
 
@@ -197,7 +243,7 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 	VertexShaderOutput output = (VertexShaderOutput)0;
 	
 	//Basic Info
-	output.Position = float4(input.Position, 1);
+	output.Position = float4(input.Position, 1.0f);
 	output.TexCoord = input.TexCoord;
 	
 	return output;
@@ -205,18 +251,17 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 
 float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 {
+	float4 FinalPixelColor = (float4)0;
+	
+	//Get Depth from Map
+	float depthVal = tex2D(DepthTextureMap, input.TexCoord).r;
+		
+	//compute screen-space position
+	float4 position = GetPosition(input.TexCoord, depthVal);
+	
 	//Get Normal From Map and unpack
 	float3 normal = tex2D(NormalTextureMap, input.TexCoord).xyz;
 	normal = normalize(UnpackNormal(normal));
-
-    //Get Depth from Map
-    float depthVal = tex2D(DepthTextureMap, input.TexCoord).r;
-
-    //compute screen-space position
-    //float4 position = float4(GetPositionFromZDepthView(depthVal, input.TexCoord), 1);
-	float4 position = GetPosition(input.TexCoord, depthVal);
-	
-	float4 FinalPixelColor = (float4)0;
 	
 	if(lightType == OMNI)
 	{
@@ -231,8 +276,10 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 		FinalPixelColor = CalculateSpotLight(normal, position);
 	}
 	
-	FinalPixelColor = saturate(FinalPixelColor);
+	float shadowCoeff = CalculateShadowCoeff(position);
 	
+	FinalPixelColor = saturate(FinalPixelColor * shadowCoeff);
+
 	return FinalPixelColor;
 }
 
@@ -245,7 +292,7 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 
 
 
-technique BasicDeferredLighting
+technique BasicDeferredLightingAndShadow
 {
 	pass p0
 	{

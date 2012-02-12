@@ -6,7 +6,7 @@ float AmbientLightIntensity <
     float UIMin = 0.0;
     float UIMax = 1.0;
     float UIStep = 0.1;
-> = 0.10;
+> = 0.20;
 
 float4 AmbientLightColor <
     string UIName =  "Ambient Light Color";
