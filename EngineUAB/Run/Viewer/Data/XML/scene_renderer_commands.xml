@@ -7,6 +7,9 @@
 	<enable_z_test />
 	<setup_matrices />
 	
+	<!-- Generate Shadow Maps -->
+	<set_pool_renderable_objects_technique pool="Basic_Build_Shadow_Map" />
+	<generate_shadow_maps />
 	
 	<set_render_target name="deferred_multiple_render_target">
 		<dynamic_texture stage_id="0" name="DiffuseMapTexture" texture_width_as_frame_buffer="true" format_type="A8R8G8B8"/>
@@ -16,13 +19,6 @@
 	</set_render_target>
 	
 	<clear_scene color="true" depth="true" stencil="true" />
-	
-	<!--<disable_z_write />
-	<disable_z_test />
-	<set_pool_renderable_objects_technique pool="Clear_G_Buffer_Pool" />
-	<render_draw_quad name="Clear_G_Buffer" />
-	<enable_z_write />
-	<enable_z_test />-->
 	
 	<set_pool_renderable_objects_technique pool="Deferred_Shading" />
 	
@@ -34,26 +30,25 @@
 		<dynamic_texture stage_id="0" name="LightMapTexture" texture_width_as_frame_buffer="true" format_type="A8R8G8B8"/>
 	</set_render_target>
 	
-	 <render_deferred_shading>
-		<texture stage_id="0" file="DiffuseMapTexture"/>
-		<texture stage_id="1" file="NormalMapTexture"/>
-		<texture stage_id="2" file="DepthMapTexture"/>
-	</render_deferred_shading><!-- -->
+	<render_deferred_shading>
+		<texture stage_id="0" file="NormalMapTexture"/>
+		<texture stage_id="1" file="DepthMapTexture"/>
+	</render_deferred_shading>
 	
 	<unset_render_target render_target="deferred_lights"/>
 	
-	<set_pool_renderable_objects_technique pool="Deferred_Shading_Combine" />
 	
+	<set_pool_renderable_objects_technique pool="Deferred_Shading_Combine" />
 	<render_draw_quad name="Deferred_Lighting_Combine">
 		<texture stage_id="0" file="DiffuseMapTexture"/>
 		<texture stage_id="1" file="LightMapTexture"/>
-	</render_draw_quad>
+	</render_draw_quad><!-- -->
 	
 	<!-- TEST ONLY
 	<set_pool_renderable_objects_technique pool="dummy_manager" />
 	<render_draw_quad name="TEST">
-		<texture stage_id="0" file="DiffuseMapTexture"/>
-	</render_draw_quad>-->
+		<texture stage_id="0" file="Spot001_dynamic"/>
+	</render_draw_quad> -->
 	
 	<!--Debug-->
 	<render_debug_info grid="true" axis="true" />
