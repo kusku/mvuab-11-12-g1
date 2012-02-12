@@ -86,6 +86,7 @@ extern const CColor colBLUE;
 extern const CColor colMAGENTA;
 extern const CColor colYELLOW;
 extern const CColor colCYAN;
+extern const CColor colTRANSPARENT;
 
 
 #endif

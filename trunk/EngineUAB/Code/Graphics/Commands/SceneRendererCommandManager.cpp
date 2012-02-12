@@ -123,38 +123,31 @@ void CSceneRendererCommandManager::LoadXML()
 			 {
 				 l_Command = new CRenderDebugLightsSceneRendererCommand( l_SRC(i) );
 				 l_CommandName = "render_debug_lights_" + l_NumCommand;
-				 //m_SceneRendererCommands.AddResource("render_debug_lights_" + l_NumCommand, l_Command);
-
 			 }
 			 else if( l_Type == "render_scene" )
 			 {
 				 l_Command = new CRenderSceneSceneRendererCommand( l_SRC(i) );
 				 l_CommandName = "render_scene_" + l_NumCommand;
-				 //m_SceneRendererCommands.AddResource("render_scene_" + l_NumCommand, l_Command);
 			 }
 			 else if( l_Type == "setup_matrices" )
 			 {
 				 l_Command = new CSetupMatricesSceneRendererCommand( l_SRC(i) );
 				 l_CommandName = "setup_matrices_" + l_NumCommand;
-				 //m_SceneRendererCommands.AddResource("setup_matrices_" + l_NumCommand, l_Command);
 			 }
 			 else if( l_Type == "set_pool_renderable_objects_technique" )
 			 {
 				 l_Command = new CSetPoolRenderableObjectsTechniqueCommand( l_SRC(i) );
 				 l_CommandName = "set_pool_renderable_objects_technique_" + l_NumCommand;
-				 //m_SceneRendererCommands.AddResource("set_pool_renderable_objects_technique_" + l_NumCommand, l_Command);
 			 }
 			 else if( l_Type == "render_debug_info" )
 			 {
 				 l_Command = new CRenderDebugInfoSceneRendererCommand( l_SRC(i) );
 				 l_CommandName = "render_debug_info_" + l_NumCommand;
-				 //m_SceneRendererCommands.AddResource("render_debug_info_" + l_NumCommand, l_Command);
 			 }
 			 else if( l_Type == "set_render_target" )
 			 {
 				 l_Command = new CSetRenderTargetSceneRendererCommand( l_SRC(i) );
 				 l_CommandName = l_Command->GetName();
-				 //m_SceneRendererCommands.AddResource(l_Command->GetName(), l_Command);
 			 }
 			 else if( l_Type == "unset_render_target" )
 			 {
@@ -164,24 +157,26 @@ void CSceneRendererCommandManager::LoadXML()
 
 				 l_Command = new CUnsetRenderTargetSceneRendererCommand(l_SRT, l_SRC(i));
 				 l_CommandName = "unset_render_target_" + l_NumCommand;
-				 //m_SceneRendererCommands.AddResource("unset_render_target_" + l_NumCommand, l_Command);
 			 }
 			 else if( l_Type == "render_draw_quad" )
 			 {
 				 l_Command = new CDrawQuadRendererCommand( l_SRC(i) );
 				 l_CommandName = l_Command->GetName() + "_" + l_NumCommand;
-				 //m_SceneRendererCommands.AddResource(l_Command->GetName(), l_Command);
 			 }
 			 else if( l_Type == "render_deferred_shading" )
 			 {
 				 l_Command = new CDeferredShadingSceneRendererCommand( l_SRC(i) );
 				 l_CommandName = "render_deferred_shading_" + l_NumCommand;
-				 //m_SceneRendererCommands.AddResource("render_deferred_shading" + l_NumCommand, l_Command);
 			 }
 			 else if( l_Type == "present" )
 			 {
 				 l_Command = new CPresentSceneRendererCommand( l_SRC(i) );
 				 l_CommandName = "present_" + l_NumCommand;
+			 }
+			 else if( l_Type == "generate_shadow_maps" )
+			 {
+				 l_Command = new CGenerateShadowMapsSceneRendererCommand( l_SRC(i) );
+				 l_CommandName = "generate_shadow_maps_" + l_NumCommand;
 			 }
 
 			 //Add the command into the map

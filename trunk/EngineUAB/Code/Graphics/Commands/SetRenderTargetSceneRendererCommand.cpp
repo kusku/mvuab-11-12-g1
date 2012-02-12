@@ -49,13 +49,9 @@ CSetRenderTargetSceneRendererCommand::CSetRenderTargetSceneRendererCommand(CXMLT
 
 			this->AddStageTexture(stage_id, texture);
 		}
-		else if( l_Type == "comment" )
+		else if( l_Type != "comment" ) //If not a complement than not yet supported
 		{
-			/*Ignore*/
-		}
-		else
-		{
-			assert(!"Not implemented");
+			assert(!"Not implemented => CSetRenderTargetSceneRendererCommand");
 		}
 	}
 }

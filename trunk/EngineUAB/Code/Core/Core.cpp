@@ -120,10 +120,6 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 			//Crea el TextureManager y añade una textura por sí al renderizar algun modelo no encuentra una textura
 			m_pTextureManager = new CTextureManager("NoTexture", config.no_texture_path);
 
-			//Inicia las luces
-			m_pLightManager = new CLightManager();
-			m_pLightManager->Load( config.lights_path );
-
 			//Inicia los efectos
 			m_pEffectManager = new CEffectManager();
 			m_pEffectManager->Load( config.effects_path );
@@ -139,12 +135,13 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 			m_pAnimatedModelManager = new CAnimatedModelManager();
 			m_pAnimatedModelManager->Load( config.animated_models_path );
 
-			//m_pRenderableObjectsManager = new CRenderableObjectsManager();
-			//m_pRenderableObjectsManager->Load( config.renderable_objects_path );
-
 			//Inicia el Renderable Objects Layers Manager
 			m_pRenderableObjectsLayersManager = new CRenderableObjectsLayersManager();
 			m_pRenderableObjectsLayersManager->Load(config.renderable_objects_path);
+
+			//Inicia las luces
+			m_pLightManager = new CLightManager();
+			m_pLightManager->Load( config.lights_path );
 
 			//Inicia el Scene Renderer Command Manager
 			m_pSceneRendererCommandManager = new CSceneRendererCommandManager();
