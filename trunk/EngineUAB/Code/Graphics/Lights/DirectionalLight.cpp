@@ -54,7 +54,7 @@ void CDirectionalLight::Render(CRenderManager *RM)
 
 }
 
-void CDirectionalLight::SetShadowMap(CRenderManager *RM)
+void CDirectionalLight::SetShadowMap()
 {
 	D3DXMATRIX l_View;
 	D3DXMATRIX l_Projection;

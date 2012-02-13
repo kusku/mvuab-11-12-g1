@@ -23,7 +23,7 @@ public:
 	virtual ~COmniLight();
 
 	virtual void		Render				( CRenderManager* RM );
-	void				SetShadowMap		( CRenderManager *RM );
+	void				SetShadowMap		(  );
 };
 
 #endif

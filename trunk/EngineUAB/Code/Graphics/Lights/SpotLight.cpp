@@ -58,7 +58,7 @@ void CSpotLight::Render(CRenderManager *RM)
 	RM->DrawLine( l_Pos , l_Dir );
 }
 
-void CSpotLight::SetShadowMap(CRenderManager *RM)
+void CSpotLight::SetShadowMap()
 {
 	D3DXMATRIX l_View;
 	D3DXMATRIX l_Projection;
@@ -77,7 +77,7 @@ void CSpotLight::SetShadowMap(CRenderManager *RM)
 	D3DXMatrixLookAtLH( &l_View, &l_Eye, &l_LookAt, &l_VUP);
 	
     //Setup Matrix projection
-	D3DXMatrixPerspectiveFovLH(&l_Projection, D3DX_PI * 0.25f, 1, 1.0f, m_EndRangeAttenuation);
+	D3DXMatrixPerspectiveFovLH(&l_Projection, /*m_FallOff * D3DX_PI / 180.f*/D3DX_PI * 0.5f, 1, 1.0f, m_EndRangeAttenuation);
 
 	m_ViewShadowMap = Mat44f(l_View);
 	m_ProjectionShadowMap= Mat44f(l_Projection);

@@ -65,6 +65,7 @@ public:
 	float				GetAspectRatio		() const	{ return m_AspectRatio; }
 	CColor				GetColorDebug		() const	{ return m_BackbufferColor_debug; }
 	CColor				GetColorRelease		() const	{ return m_BackbufferColor_release; }
+	Vect2f				GetHalfPixel		() const	{ return m_HalfPixel; }
 
 	HWND						GetHWND				() const	{ return m_hWnd; }
 	LPDIRECT3D9					GetD3D				() const	{ return m_pD3D; }
@@ -91,6 +92,7 @@ protected:
 	float		m_AspectRatio;
 	bool		m_bFullscreen;
 	bool		m_bPaintSolid;
+	Vect2f		m_HalfPixel;
 
 	CColor m_BackbufferColor_debug;
 	CColor m_BackbufferColor_release;

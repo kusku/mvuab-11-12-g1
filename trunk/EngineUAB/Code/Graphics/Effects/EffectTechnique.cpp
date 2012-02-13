@@ -7,6 +7,7 @@
 #include "Base.h"
 #include "Logger\Logger.h"
 #include "Textures\Texture.h"
+#include "RenderManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -39,6 +40,7 @@ CEffectTechnique::CEffectTechnique(	CXMLTreeNode *XMLNode )
 	m_UseCameraPosition				= XMLNode->GetBoolProperty("use_camera_position", false, false);
 	m_UseLights						= XMLNode->GetBoolProperty("use_lights", false, false);
 	m_NumOfLights					= static_cast<uint32>( XMLNode->GetIntProperty("num_of_lights", 0, false) );
+	m_UseHalfPixel					= XMLNode->GetBoolProperty("use_half_pixel", false, false);
 
 	std::string l_EffectName = XMLNode->GetPszProperty("effect", "");
 	m_Effect = CORE->GetEffectManager()->GetEffect(l_EffectName);
@@ -250,6 +252,18 @@ bool CEffectTechnique::BeginRender()
 		if( FAILED( l_Effect->SetTexture( m_Effect->GetLightsStaticShadowMapParameter(), staticMap->GetDXTexture()) ) )
 		{
 			msg_error = "Error al hacer el Set del parametro: m_Effect->GetLightsStaticShadowMap()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
+	}
+
+	if(m_UseHalfPixel)
+	{
+		Vect2f hp = CORE->GetRenderManager()->GetHalfPixel();
+		float hpA[2] = {hp.x, hp.y};
+
+		if( FAILED( l_Effect->SetFloatArray( m_Effect->GetHalfPixel(), hpA, 2) ) )
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetHalfPixel()";
 			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
 		}
 	}

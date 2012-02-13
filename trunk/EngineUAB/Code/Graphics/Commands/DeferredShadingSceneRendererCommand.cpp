@@ -77,6 +77,7 @@ void CDeferredShadingSceneRendererCommand::SetLightsData(CRenderManager &RM)
 		
 		if(effect->SetLight(lights[i]))
 		{
+			lights[i]->SetShadowMap();
 			RM.DrawColoredQuad2DTexturedInPixelsByEffectTechnique(m_pRenderableObjectTechnique->GetEffectTechnique(), colRED);
 		}
 	}
