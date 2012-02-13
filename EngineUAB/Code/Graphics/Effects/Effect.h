@@ -60,6 +60,7 @@ public:
 	D3DXHANDLE		GetBonesMatrix						() const		{ return m_BonesParameter; }
 	D3DXHANDLE		GetTimeMatrix						() const		{ return m_TimeParameter; }
 	D3DXHANDLE		GetNumLights						() const		{ return m_NumLightsParameter; }
+	D3DXHANDLE		GetHalfPixel						() const		{ return m_HalfPixelParameter; }
 
 	const BOOL*		GetLightEnabled						() const		{ return m_LightsEnabled; }
 	const int*		GetLightType						() const		{ return m_LightsType; }
@@ -123,6 +124,7 @@ private:
 	D3DXHANDLE		m_CameraPositionParameter;
 	D3DXHANDLE		m_BonesParameter;
 	D3DXHANDLE		m_TimeParameter;
+	D3DXHANDLE		m_HalfPixelParameter;
 };
 
 #endif

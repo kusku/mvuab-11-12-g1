@@ -24,7 +24,7 @@ public:
 	virtual ~CDirectionalLight();
 
 	virtual void		Render				( CRenderManager* RM );
-	virtual void		SetShadowMap		( CRenderManager *RM );
+	virtual void		SetShadowMap		(  );
 
 	void				SetDirection		( const Vect3f &Direction ) { m_Direction = Direction; }
 	const Vect3f&		GetDirection		() const					{ return m_Direction; }

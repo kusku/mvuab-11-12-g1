@@ -38,7 +38,7 @@ void COmniLight::Render(CRenderManager *RM)
 	RM->DrawSphere( 0.4f, 6, colYELLOW );
 }
 
-void COmniLight::SetShadowMap(CRenderManager *RM)
+void COmniLight::SetShadowMap()
 {
-	assert(!"Not implemented");
+	assert(!"Not implemented COmniLight::SetShadowMap");
 }

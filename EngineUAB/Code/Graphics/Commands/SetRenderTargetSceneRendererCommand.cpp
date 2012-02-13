@@ -35,10 +35,10 @@ CSetRenderTargetSceneRendererCommand::CSetRenderTargetSceneRendererCommand(CXMLT
 			{
 				bool frameBuffer = Node(i).GetBoolProperty("texture_width_as_frame_buffer", false);
 				std::string format_type = Node(i).GetPszProperty("format_type", "A8R8G8B8");
-				uint32 mipmaps = Node(i).GetIntProperty("mipmaps", 1);
+				uint32 mipmaps = Node(i).GetIntProperty("mipmaps", 3);
 
-					texture = new CTexture();
-			
+				texture = new CTexture();
+
 				uint32 width = CORE->GetRenderManager()->GetScreenSize().x;
 				uint32 height = CORE->GetRenderManager()->GetScreenSize().y;
 

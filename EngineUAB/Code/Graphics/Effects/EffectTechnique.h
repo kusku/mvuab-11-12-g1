@@ -45,6 +45,7 @@ private:
 	bool	m_UseShadowWorldViewProjMatrix;
 	bool	m_UseShadowMaps;
 	bool	m_UseTime;
+	bool	m_UseHalfPixel;
 
 	CEffect *	m_Effect;
 	D3DXHANDLE	m_D3DTechnique;

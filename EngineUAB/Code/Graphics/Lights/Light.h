@@ -44,7 +44,7 @@ public:
 	void				BeginRenderEffectManagerShadowMap	( CEffect *Effect );
 	void				GenerateShadowMap					( CRenderManager *RM );
 
-	virtual void		SetShadowMap					( CRenderManager *RM ) = 0;
+	virtual void		SetShadowMap					(  ) = 0;
 	void				SetColor						( const CColor &color )					{ m_Color = color; }
 	void				SetStartRangeAttenuation		( const float StartRangeAttenuation )	{ m_StartRangeAttenuation = StartRangeAttenuation; }
 	void				SetEndRangeAttenuation			( const float EndRangeAttenuation )		{ m_EndRangeAttenuation = EndRangeAttenuation; }

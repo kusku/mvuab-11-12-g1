@@ -38,7 +38,7 @@ void CLight::BeginRenderEffectManagerShadowMap(CEffect *Effect)
 
 void CLight::GenerateShadowMap(CRenderManager *RM)
 {
-	SetShadowMap(RM);
+	SetShadowMap();
 
 	if( m_GenerateStaticShadowMap && m_MustUpdateStaticShadowMap )
 	{
