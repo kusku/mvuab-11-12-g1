@@ -28,5 +28,8 @@
 		<default_technique vertex_type="81" technique="ClearGBuffer" />
 	</pool_renderable_object_technique>
 	
+	<pool_renderable_object_technique name="ssaa_pool">
+		<default_technique vertex_type="81" technique="SSAATechnique" />
+	</pool_renderable_object_technique>
 	
 </renderable_object_techniques>

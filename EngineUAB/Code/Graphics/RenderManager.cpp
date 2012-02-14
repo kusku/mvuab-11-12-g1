@@ -31,6 +31,7 @@ CRenderManager::CRenderManager()
 	, m_BackbufferColor_debug(colBLUE)
 	, m_BackbufferColor_release(colBLACK)
 	, m_HalfPixel(0.0f, 0.0f)
+	, m_NowTargetSize(0.0f)
 {
 }
 

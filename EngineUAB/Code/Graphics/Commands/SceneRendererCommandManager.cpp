@@ -178,6 +178,11 @@ void CSceneRendererCommandManager::LoadXML()
 				 l_Command = new CGenerateShadowMapsSceneRendererCommand( l_SRC(i) );
 				 l_CommandName = "generate_shadow_maps_" + l_NumCommand;
 			 }
+			 else if( l_Type == "capture_frame_buffer" )
+			 {
+				 l_Command = new CCaptureFrameBufferSceneRendererCommand( l_SRC(i) );
+				 l_CommandName = "capture_frame_buffer_" + l_NumCommand;
+			 }
 
 			 //Add the command into the map
 			 if( l_Command != NULL )

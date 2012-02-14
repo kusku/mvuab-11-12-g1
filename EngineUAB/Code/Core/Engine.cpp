@@ -124,32 +124,12 @@ void CEngine::UpdateDebugInputs()
 void CEngine::Render()
 {
 	CRenderManager* l_RenderManager = m_pCore->GetRenderManager();
-	//CCamera *l_Camera = m_pProcess->GetCamera();
-	//l_RenderManager->SetupMatrices( NULL );
 	RenderScene( l_RenderManager );		
-
-	//TODO: MOdificando el Render de CEngine
-
-	/*CRenderManager* l_RenderManager = m_pCore->GetRenderManager();
-	CCamera *l_Camera = m_pProcess->GetCamera();
-
-	l_RenderManager->BeginRendering();
-	l_RenderManager->SetupMatrices( l_Camera );
-	{
-		RenderScene( l_RenderManager );		
-	}
-	l_RenderManager->EndRendering();*/
 }
 
 void CEngine::RenderScene(CRenderManager *renderManager)
 {
 	m_pProcess->Render( renderManager );
-	
-#if defined(_DEBUG)
-	/*CFontManager *fontManager = CORE->GetFontManager();
-	m_DebugRender.Render( renderManager, fontManager, &m_Timer );
-	m_LogRender.Render( renderManager, fontManager );*/
-#endif
 }
 
 void CEngine::Reload()

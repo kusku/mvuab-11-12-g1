@@ -127,6 +127,17 @@ bool CTexture::Create(const std::string &Name, uint32 Width, uint32 Height, uint
 	return hr != D3D_OK;
 }
 
+void CTexture::CaptureFrameBuffer(size_t IdStage)
+{
+	LPDIRECT3DDEVICE9 l_Device=CORE->GetRenderManager()->GetDevice();
+	LPDIRECT3DSURFACE9 l_RenderTarget, l_Surface;
+
+	m_Texture->GetSurfaceLevel(0,&l_Surface);
+	l_Device->GetRenderTarget(IdStage,&l_RenderTarget);
+	l_Device->StretchRect(l_RenderTarget,NULL, l_Surface,NULL,D3DTEXF_NONE);
+	l_RenderTarget->Release();
+}
+
 bool CTexture::SetAsRenderTarget(size_t IdStage)
 {
 	LPDIRECT3DDEVICE9 l_Device = CORE->GetRenderManager()->GetDevice();

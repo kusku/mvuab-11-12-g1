@@ -35,6 +35,7 @@ protected:
 		void Deactivate();
 		void ActivateRenderTarget();
 		void DeactivateRenderTarget();
+		void CaptureFrameBuffer();
 	};
 
 	std::vector<CStageTexture>			m_StageTexturesVector;
@@ -49,6 +50,7 @@ public:
 	void	ActivateTexturesRenderTarget	();
 	void	DeactivateTexturesRenderTarget	();
 	void	AddStageTexture					(int StageId, CTexture *Texture);
+	void	CaptureFrameBuffer				();
 
 	virtual void	Execute					( CRenderManager &RM ) = 0;
 

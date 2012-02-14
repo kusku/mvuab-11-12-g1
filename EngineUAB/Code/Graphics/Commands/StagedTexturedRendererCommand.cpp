@@ -55,6 +55,14 @@ void CStagedTexturedRendererCommand::DeactivateTexturesRenderTarget()
 	}
 }
 
+void CStagedTexturedRendererCommand::CaptureFrameBuffer()
+{
+	for(uint32 i = 0; i < m_StageTexturesVector.size(); ++i)
+	{
+		m_StageTexturesVector[i].CaptureFrameBuffer();
+	}
+}
+
 void CStagedTexturedRendererCommand::AddStageTexture(int StageId, CTexture *Texture)
 {
 	CStageTexture st(StageId, Texture);
@@ -88,4 +96,9 @@ void CStagedTexturedRendererCommand::CStageTexture::DeactivateRenderTarget()
 	assert(m_pTexture);
 
 	m_pTexture->UnsetAsRenderTarget(m_StageId);
+}
+
+void CStagedTexturedRendererCommand::CStageTexture::CaptureFrameBuffer()
+{
+	m_pTexture->CaptureFrameBuffer( m_StageId );
 }

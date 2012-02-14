@@ -61,6 +61,7 @@ public:
 	D3DXHANDLE		GetTimeMatrix						() const		{ return m_TimeParameter; }
 	D3DXHANDLE		GetNumLights						() const		{ return m_NumLightsParameter; }
 	D3DXHANDLE		GetHalfPixel						() const		{ return m_HalfPixelParameter; }
+	D3DXHANDLE		GetRenderTargetSize					() const		{ return m_RenderTargetSizeParameter; }
 
 	const BOOL*		GetLightEnabled						() const		{ return m_LightsEnabled; }
 	const int*		GetLightType						() const		{ return m_LightsType; }
@@ -125,6 +126,7 @@ private:
 	D3DXHANDLE		m_BonesParameter;
 	D3DXHANDLE		m_TimeParameter;
 	D3DXHANDLE		m_HalfPixelParameter;
+	D3DXHANDLE		m_RenderTargetSizeParameter;
 };
 
 #endif

@@ -20,6 +20,8 @@
 
 CDrawQuadRendererCommand::CDrawQuadRendererCommand(CXMLTreeNode &Node)
 {
+	SetName( Node.GetPszProperty("name", "") );
+
 	uint16 l_Count = Node.GetNumChildren();
 	for(uint16 i=0; i<l_Count; ++i)
 	{

@@ -4,4 +4,5 @@
 	<static_mesh name="Torus001" filename=".\Data\.\Chapter2\\Models\Torus001.m3d" />
 	<static_mesh name="Box001" filename=".\Data\.\Chapter2\\Models\Box001.m3d" />
 	<static_mesh name="Sphere001" filename=".\Data\.\Chapter2\\Models\Sphere001.m3d" />
+	<!--<static_mesh name="Sphere001" filename=".\Data\.\Chapter2\\Models\Box001.m3d" />-->
 </static_meshes>

@@ -41,10 +41,11 @@ CSetRenderTargetSceneRendererCommand::CSetRenderTargetSceneRendererCommand(CXMLT
 
 				uint32 width = CORE->GetRenderManager()->GetScreenSize().x;
 				uint32 height = CORE->GetRenderManager()->GetScreenSize().y;
-
+				
 				texture->Create(name, width, height, mipmaps, CTexture::RENDERTARGET, CTexture::DEFAULT, texture->GetFormatTypeFromString(format_type));
 
 				CORE->GetTextureManager()->AddResource(texture->GetName(), texture);
+				CORE->GetRenderManager()->SetRenderTargetSize( static_cast<float>(width) );
 			}
 
 			this->AddStageTexture(stage_id, texture);

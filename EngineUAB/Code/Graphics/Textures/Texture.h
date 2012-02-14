@@ -53,6 +53,8 @@ public:
 	bool		Create		( const std::string &Name, uint32 Width, uint32 Height, uint32 MipMaps,
 								TUsageType UsageType, TPoolType PoolType, TFormatType FormatType );
 
+	void		CaptureFrameBuffer		( size_t IdStage );
+
 	bool		SetAsRenderTarget		( size_t IdStage = 0);
 	void		UnsetAsRenderTarget		( size_t IdStage = 0);
 
@@ -60,6 +62,8 @@ public:
 
 	const std::string &		GetFileName		() const		{ return m_FileName; }
 	LPDIRECT3DTEXTURE9		GetDXTexture	() const		{ return m_Texture; }
+	uint32					GetWidth		() const		{ return m_Width; }
+	uint32					GetHeight		() const		{ return m_Height; }
 
 protected:
 	LPDIRECT3DTEXTURE9		m_Texture;

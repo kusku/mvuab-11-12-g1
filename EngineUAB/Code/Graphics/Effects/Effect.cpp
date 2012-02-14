@@ -48,6 +48,7 @@ CEffect::CEffect(CXMLTreeNode *XMLNode)
 	, m_LightsDynamicShadowMap(NULL)
 	, m_LightsStaticShadowMap(NULL)
 	, m_HalfPixelParameter(NULL)
+	, m_RenderTargetSizeParameter(NULL)
 {
 	m_EffectName = XMLNode->GetPszProperty("name", "");
 	m_FileName = XMLNode->GetPszProperty("file", "");
@@ -130,6 +131,7 @@ bool CEffect::LoadEffect()
 
 	//Misc
 	GetParameterBySemantic("HALFPIXEL", m_HalfPixelParameter, false);
+	GetParameterBySemantic("RENDER_TARGET_SIZE", m_RenderTargetSizeParameter, false);
 
  	return true;
 }
@@ -184,6 +186,7 @@ void CEffect::SetNullParameters()
 	m_LightsDynamicShadowMap					= NULL;
 	m_LightsStaticShadowMap						= NULL;
 	m_HalfPixelParameter						= NULL;
+	m_RenderTargetSizeParameter					= NULL;
 }
 
 void CEffect::GetParameterBySemantic(const std::string &SemanticName, D3DXHANDLE &l_Handle, bool Warning)
