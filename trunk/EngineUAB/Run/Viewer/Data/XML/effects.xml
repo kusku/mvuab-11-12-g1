@@ -16,6 +16,7 @@
 	<effect name="BasicDeferredLightingCombine" file="./data/effects/BasicDeferredLightingCombine.fx" />
 	<effect name="ClearGBuffer" file="./data/effects/ClearGBuffer.fx" />
 	<effect name="BasicBuildShadowMap" file="./data/effects/BasicBuildShadowMap.fx" />
+	<effect name="SSAA" file="./data/effects/SSAA.fx" />
 	<!--<effect name="Colors" file="./Data/effects/colors.fx" />-->
 	<!--<effect name="NormalMap" file="./data/effects/normalmap.fx" />-->
 	
@@ -60,6 +61,9 @@
 	
 	<technique name="BasicDeferredLightingCombine" effect="BasicDeferredLightingCombine"
 		use_half_pixel="true" />
+	
+	<technique name="SSAATechnique" effect="SSAA" 
+		use_render_target_size="true" />
 	
 	<!--<technique name="NormalTextureVertexTechnique" effect="DefaultEffect"
 		use_world_matrix="true" use_world_view_projection_matrix="true" use_lights_fs="true"

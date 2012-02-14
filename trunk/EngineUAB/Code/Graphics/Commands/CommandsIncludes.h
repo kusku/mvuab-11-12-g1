@@ -17,3 +17,4 @@
 #include "Commands\DeferredShadingSceneRendererCommand.h"
 #include "Commands\PresentRenderSceneRendererCommand.h"
 #include "Commands\GenerateShadowMapsSceneRendererCommand.h"
+#include "Commands\CaptureFrameBufferSceneRendererCommand.h"

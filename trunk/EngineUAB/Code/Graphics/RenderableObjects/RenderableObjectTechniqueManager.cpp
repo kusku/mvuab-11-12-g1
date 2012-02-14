@@ -62,8 +62,9 @@ bool CRenderableObjectTechniqueManager::LoadFile()
 			{
 				std::string l_PROTName = l_ROTs(i).GetPszProperty("name", "");
 				CPoolRenderableObjectTechnique *l_PoolROT = new CPoolRenderableObjectTechnique(l_ROTs(i));
+				l_PoolROT->SetName(l_PROTName);
 				m_PoolRenderableObjectTechniques.AddResource(l_PROTName, l_PoolROT);
-
+				
 				uint16 l_Child = l_ROTs(i).GetNumChildren();
 				for(uint16 j=0; j < l_Child; ++j)
 				{

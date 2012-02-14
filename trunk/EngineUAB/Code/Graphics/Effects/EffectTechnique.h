@@ -13,7 +13,7 @@ class CXMLTreeNode;
 class CEffectTechnique
 {
 public:
-	CEffectTechnique( CXMLTreeNode *XMLNode );
+	CEffectTechnique( CXMLTreeNode &XMLNode );
 	virtual ~CEffectTechnique();
 
 	bool	BeginRender();
@@ -46,6 +46,7 @@ private:
 	bool	m_UseShadowMaps;
 	bool	m_UseTime;
 	bool	m_UseHalfPixel;
+	bool	m_UseRenderTargetSize;
 
 	CEffect *	m_Effect;
 	D3DXHANDLE	m_D3DTechnique;

@@ -61,7 +61,7 @@ void CEffectManager::Load(const std::string &Filename)
 			}
 			else if ( l_Type == "technique" )
 			{
-				CEffectTechnique* l_Technique = new CEffectTechnique(&l_Effects(i));
+				CEffectTechnique* l_Technique = new CEffectTechnique( l_Effects(i) );
 				AddResource( l_Technique->GetTechniqueName(), l_Technique );
 
 				if( l_Technique->GetTechniqueName() == "Cal3DTechnique" )
