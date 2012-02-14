@@ -32,4 +32,12 @@
 		<default_technique vertex_type="81" technique="SSAATechnique" />
 	</pool_renderable_object_technique>
 	
+	<pool_renderable_object_technique name="color_grading_pool">
+		<default_technique vertex_type="81" technique="ColorGradingTechnique" />
+	</pool_renderable_object_technique>
+	
+	<pool_renderable_object_technique name="zblur_pool">
+		<default_technique vertex_type="81" technique="ZBlurTechnique" />
+	</pool_renderable_object_technique>
+	
 </renderable_object_techniques>
