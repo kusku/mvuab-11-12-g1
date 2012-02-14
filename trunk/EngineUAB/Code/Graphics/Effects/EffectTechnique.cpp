@@ -141,14 +141,33 @@ bool CEffectTechnique::BeginRender()
 	{
 		Mat44f l_ViewInverseMatrix = l_EffectManager->GetViewInverseMatrix();
 
-		l_Effect->SetMatrix( m_Effect->GetViewInverseMatrix(), &l_ViewInverseMatrix.GetD3DXMatrix() );
+		if( FAILED( l_Effect->SetMatrix( m_Effect->GetViewInverseMatrix(), &l_ViewInverseMatrix.GetD3DXMatrix() ) ) )
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetViewInverseMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
+	}
+
+	if( m_UseInverseProjMatrix )
+	{
+		Mat44f l_ProjInverseMatrix = l_EffectManager->GetProjInverseMatrix();
+
+		if( FAILED( l_Effect->SetMatrix( m_Effect->GetProjInverseMatrix(), &l_ProjInverseMatrix.GetD3DXMatrix() ) ) )
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetProjInverseMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
 	}
 
 	if( m_UseInverseViewProjMatrix )
 	{
 		Mat44f InverseViewProj = l_EffectManager->GetViewProjectionMatrix().GetInverted();
 
-		l_Effect->SetMatrix(m_Effect->GetViewProjectionInverseMatrix(), &InverseViewProj.GetD3DXMatrix());
+		if( FAILED( l_Effect->SetMatrix(m_Effect->GetViewProjectionInverseMatrix(), &InverseViewProj.GetD3DXMatrix()) ) )
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetViewProjectionInverseMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
 	}
 
 	if( m_UseCameraPosition )

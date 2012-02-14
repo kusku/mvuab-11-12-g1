@@ -109,17 +109,13 @@ bool CTexture::Create(const std::string &Name, uint32 Width, uint32 Height, uint
 			break;
 	}
 
-	HRESULT hr = CORE->GetRenderManager()->GetDevice()->
-		CreateTexture(Width, Height, MipMaps, l_UsageType, l_Format, l_Pool, &m_Texture, NULL);
+	HRESULT hr = CORE->GetRenderManager()->GetDevice()->CreateTexture(Width, Height, MipMaps, l_UsageType, l_Format, l_Pool, &m_Texture, NULL);
 
 	if( l_CreateDepthStenculSurface )
 	{
-		CORE->GetRenderManager()->GetDevice()->
-			CreateDepthStencilSurface(Width, Height, D3DFMT_D24S8,
-			D3DMULTISAMPLE_NONE, 0, TRUE,
-			&m_DepthStencilRenderTargetTexture, NULL);
+		CORE->GetRenderManager()->GetDevice()->CreateDepthStencilSurface(Width, Height, D3DFMT_D24S8, D3DMULTISAMPLE_NONE, 0, TRUE, &m_DepthStencilRenderTargetTexture, NULL);
 
-		assert(m_DepthStencilRenderTargetTexture!=NULL);				
+		assert(m_DepthStencilRenderTargetTexture!=NULL);
 	}
 
 	assert(m_Texture!=NULL);
