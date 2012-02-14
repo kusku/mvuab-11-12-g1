@@ -39,7 +39,7 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR
 	float3 tex = Texture2Normal(tex2D(S1LinearClampSampler,input.UV).xyz);
 	float factor = 0.0f;
 	
-	for( int i=0;i<4;i++ )
+	for( int i=0;i<4;++i )
 	{
 		float3 t = Texture2Normal(tex2D(S1LinearClampSampler, input.UV+ delta[i] * 1/g_RenderTargetSize).xyz);
 		t -= tex;
@@ -49,12 +49,13 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR
 	
 	float4 color = float4(0.0,0.0,0.0,0.0);
 	float4 l_AlbedoColor=tex2D(S0LinearClampSampler,input.UV);
-	for( int i=0;i<8;i++ )
-	color += tex2D(S0LinearClampSampler,input.UV + delta[i]*(1/g_RenderTargetSize))*factor+(1-factor)*l_AlbedoColor;
+	for( int i=0;i<8;++i )
+	{
+		color += tex2D(S0LinearClampSampler,input.UV + delta[i]*(1/g_RenderTargetSize))*factor+(1-factor)*l_AlbedoColor;
+	}
 	color += 2.0*l_AlbedoColor;
 	color = color*(1.0/10);
-	//return float4(1.0,0.0,0.0,1.0); 	
-	return l_AlbedoColor;
+	
 	return color;
 }
 
