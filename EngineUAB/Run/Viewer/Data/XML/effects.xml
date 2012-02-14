@@ -41,8 +41,8 @@
 	
 	<technique name="BasicDeferredLightingAndShadow" effect="BasicDeferredLightingAndShadow"
 		use_lights="true" num_of_lights="1" use_view_projection_inverse_matrix="true"
-		use_proj_inverse_matrix="true" use_view_inverse_matrix="true"
-		use_shadow_camera_position="true" use_shadow_view_projection_matrix="true" use_shadow_maps="true" />
+		use_half_pixel="true"
+		use_shadow_view_projection_matrix="true" use_shadow_maps="true" />
 	
 	<technique name="BasicBuildShadowMap" effect="BasicBuildShadowMap"
 		use_shadow_world_view_projection_matrix="true" />
@@ -56,9 +56,10 @@
 	
 	<technique name="BasicDeferredLighting" effect="BasicDeferredLighting"
 		use_lights="true" num_of_lights="1" use_view_projection_inverse_matrix="true"
-		use_proj_inverse_matrix="true" use_view_inverse_matrix="true" />
+		use_proj_inverse_matrix="true" use_view_inverse_matrix="true" use_half_pixel="true" />
 	
-	<technique name="BasicDeferredLightingCombine" effect="BasicDeferredLightingCombine" />
+	<technique name="BasicDeferredLightingCombine" effect="BasicDeferredLightingCombine"
+		use_half_pixel="true" />
 	
 	<!--<technique name="NormalTextureVertexTechnique" effect="DefaultEffect"
 		use_world_matrix="true" use_world_view_projection_matrix="true" use_lights_fs="true"
