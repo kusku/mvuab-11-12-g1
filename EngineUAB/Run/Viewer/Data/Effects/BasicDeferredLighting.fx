@@ -6,20 +6,22 @@
 #define DIRECTIONAL 1
 #define SPOT 2
 
-int			numLights				: Num_Lights;
-bool		lightEnable				: Lights_Enabled;
-int 		lightType				: Lights_Type;
-float3		lightPosition			: Lights_Position;
-float3		lightDirection			: Lights_Direction;
-float3		lightColor				: Lights_Color;
-float		lightStartAtt			: Lights_StartAtt;
-float		lightEndAtt				: Lights_EndAtt;
-float		lightAngle				: Lights_Angle;
-float		lightFalloff			: Lights_FallOff;
+uniform float2		HalfPixel				: HALFPIXEL;
 
-float4x4	InvertViewProjection	: VIEWPROJECTIONINVERSE;
-float4x4	InvertView				: VIEWINVERSE;
-float4x4	InvertProjection		: PROJECTIONINVERSE;
+uniform int			numLights				: Num_Lights;
+uniform bool		lightEnable				: Lights_Enabled;
+uniform int 		lightType				: Lights_Type;
+uniform float3		lightPosition			: Lights_Position;
+uniform float3		lightDirection			: Lights_Direction;
+uniform float3		lightColor				: Lights_Color;
+uniform float		lightStartAtt			: Lights_StartAtt;
+uniform float		lightEndAtt				: Lights_EndAtt;
+uniform float		lightAngle				: Lights_Angle;
+uniform float		lightFalloff			: Lights_FallOff;
+
+uniform float4x4	InvertViewProjection	: VIEWPROJECTIONINVERSE;
+uniform float4x4	InvertView				: VIEWINVERSE;
+uniform float4x4	InvertProjection		: PROJECTIONINVERSE;
 
 //////////////////////////////////////
 
@@ -39,11 +41,11 @@ sampler2D NormalTextureMap : register( s0 ) = sampler_state
 
 sampler2D DepthTextureMap : register( s1 ) = sampler_state
 {
-   MinFilter = Linear;
-   MagFilter = Linear;
-   MipFilter = Linear;   
-   AddressU  = Wrap;
-   AddressV  = Wrap;
+	MagFilter = POINT;
+	MinFilter = POINT;
+	Mipfilter = POINT; 
+	AddressU  = CLAMP;
+	AddressV  = CLAMP;
 };
 
 //////////////////////////////////////
@@ -198,7 +200,7 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 	
 	//Basic Info
 	output.Position = float4(input.Position, 1);
-	output.TexCoord = input.TexCoord;
+	output.TexCoord = input.TexCoord - HalfPixel;
 	
 	return output;
 }
@@ -242,8 +244,6 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 //////////////////////////////////////
 //Techniques					   //
 /////////////////////////////////////
-
-
 
 technique BasicDeferredLighting
 {

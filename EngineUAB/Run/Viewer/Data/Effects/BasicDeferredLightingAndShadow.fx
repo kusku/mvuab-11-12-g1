@@ -7,6 +7,8 @@
 #define SPOT 2
 #define SHADOW_EPSILON 0.00005f
 
+uniform float2		HalfPixel				: HALFPIXEL;
+
 uniform int			numLights				: Num_Lights;
 uniform bool		lightEnable				: Lights_Enabled;
 uniform int 		lightType				: Lights_Type;
@@ -19,15 +21,11 @@ uniform float		lightAngle				: Lights_Angle;
 uniform float		lightFalloff			: Lights_FallOff;
 
 uniform float4x4	InvertViewProjection	: VIEWPROJECTIONINVERSE;
-uniform float4x4	InvertView				: VIEWINVERSE;
-uniform float4x4	View					: VIEW;
-uniform float4x4	InvertProjection		: PROJECTIONINVERSE;
 
-uniform int			SMap_Size				: SHADOW_MAP_SIZE				=	512;
-uniform float3		LightPosition			: SHADOW_CAMERA_POSITION;
+uniform int			SMap_Size				: SHADOW_MAP_SIZE				=	2048;
 uniform float4x4	ShadowViewProjection	: SHADOW_VIEWPROJECTION;
-uniform texture		DynamicShadowMap		: LIGHT_DYNAMIC_SHADOW_MAP;
-uniform texture		StaticShadowMap			: LIGHT_STATIC_SHADOW_MAP;
+uniform texture2D	DynamicShadowMap		: LIGHT_DYNAMIC_SHADOW_MAP;
+uniform texture2D	StaticShadowMap			: LIGHT_STATIC_SHADOW_MAP;
 
 //////////////////////////////////////
 
@@ -39,11 +37,11 @@ uniform texture		StaticShadowMap			: LIGHT_STATIC_SHADOW_MAP;
 sampler2D DynamicShadowMapSampler = sampler_state
 {
    Texture		= < DynamicShadowMap >;
-   MinFilter	= Point;
-   MagFilter	= Point;
-   MipFilter	= Point;
-   AddressU		= Clamp;
-   AddressV		= Clamp;
+   MinFilter	= POINT;
+   MagFilter	= POINT;
+   MipFilter	= NONE;
+   AddressU		= CLAMP;
+   AddressV		= CLAMP;
 };
 
 sampler2D StaticShadowMapSampler = sampler_state
@@ -51,9 +49,9 @@ sampler2D StaticShadowMapSampler = sampler_state
    Texture		= < StaticShadowMap >;
    MinFilter	= Point;
    MagFilter	= Point;
-   MipFilter	= Point;
-   AddressU		= Clamp;
-   AddressV		= Clamp;
+   MipFilter	= NONE;
+   AddressU		= CLAMP;
+   AddressV		= CLAMP;
 };
 
 sampler2D NormalTextureMap : register( s0 ) = sampler_state
@@ -67,11 +65,11 @@ sampler2D NormalTextureMap : register( s0 ) = sampler_state
 
 sampler2D DepthTextureMap : register( s1 ) = sampler_state
 {
-   MinFilter = Linear;
-   MagFilter = Linear;
-   MipFilter = Linear;   
-   AddressU  = Wrap;
-   AddressV  = Wrap;
+	MagFilter = POINT;
+	MinFilter = POINT;
+	Mipfilter = POINT; 
+	AddressU  = CLAMP;
+	AddressV  = CLAMP;
 };
 
 //////////////////////////////////////
@@ -105,7 +103,7 @@ float3 UnpackNormal(float3 normal)
 	return unpackNormal;
 }
 
-float4 GetPosition(float2 TexCoord, float depthVal)
+float4 GetPositionFromDepth(float2 TexCoord, float depthVal)
 {
 	float4 position;
 	
@@ -203,31 +201,36 @@ float4 CalculateSpotLight(float3 normal, float4 position)
 
 float CalculateShadowCoeff(float4 position)
 {
-	float4 LightPos = mul(position, ShadowViewProjection);
+	float4 ShadowPos = mul(position, ShadowViewProjection);
 	
-	float2 ShadowTexC = 0.5 * LightPos.xy / LightPos.w + float2( 0.5, 0.5 );
-	ShadowTexC.y = 1.0f - ShadowTexC.y;
+	// Project the texture coords and scale/offset to [0, 1].
+	ShadowPos.xy /= ShadowPos.w;
+	ShadowPos.x =  0.5f*ShadowPos.x + 0.5f; 
+	ShadowPos.y = -0.5f*ShadowPos.y + 0.5f;
+	
+	//float2 ShadowTexC = 0.5 * LightPos.xy / LightPos.w + float2( 0.5, 0.5 );
+	//ShadowTexC.y = 1.0f - ShadowTexC.y;
 	
 	// Compute pixel depth for shadowing.
-	float depth = LightPos.z / LightPos.w;
+	float depth = (ShadowPos.z / ShadowPos.w);
 	
 	// Transform to texel space
-    float2 texelpos = SMap_Size * ShadowTexC.xy;
+    float2 texelpos = SMap_Size * ShadowPos.xy;
         
     // Determine the lerp amounts.
     float2 lerps = frac( texelpos );
     
     // 2x2 percentage closest filter.
     float dx = 1.0f / SMap_Size;
-	float s0 = (tex2D(DynamicShadowMapSampler, ShadowTexC.xy).r + SHADOW_EPSILON < depth) ? 0.0f : 1.0f;
-	float s1 = (tex2D(DynamicShadowMapSampler, ShadowTexC.xy + float2(dx, 0.0f)).r + SHADOW_EPSILON < depth) ? 0.0f : 1.0f;
-	float s2 = (tex2D(DynamicShadowMapSampler, ShadowTexC.xy + float2(0.0f, dx)).r + SHADOW_EPSILON < depth) ? 0.0f : 1.0f;
-	float s3 = (tex2D(DynamicShadowMapSampler, ShadowTexC.xy + float2(dx, dx)).r   + SHADOW_EPSILON < depth) ? 0.0f : 1.0f;
+	float s0 = (tex2D(DynamicShadowMapSampler, ShadowPos.xy) + SHADOW_EPSILON < depth) ? 0.0f : 1.0f;
+	float s1 = (tex2D(DynamicShadowMapSampler, ShadowPos.xy + float2(dx, 0.0f)) + SHADOW_EPSILON < depth) ? 0.0f : 1.0f;
+	float s2 = (tex2D(DynamicShadowMapSampler, ShadowPos.xy + float2(0.0f, dx)) + SHADOW_EPSILON < depth) ? 0.0f : 1.0f;
+	float s3 = (tex2D(DynamicShadowMapSampler, ShadowPos.xy + float2(dx, dx))   + SHADOW_EPSILON < depth) ? 0.0f : 1.0f;
 	
 	float shadowCoeff = lerp( lerp( s0, s1, lerps.x ),
                               lerp( s2, s3, lerps.x ),
                               lerps.y );
-							  
+
 	return shadowCoeff;
 }
 
@@ -244,7 +247,7 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 	
 	//Basic Info
 	output.Position = float4(input.Position, 1.0f);
-	output.TexCoord = input.TexCoord;
+	output.TexCoord = input.TexCoord - HalfPixel;
 	
 	return output;
 }
@@ -254,10 +257,10 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	float4 FinalPixelColor = (float4)0;
 	
 	//Get Depth from Map
-	float depthVal = tex2D(DepthTextureMap, input.TexCoord).r;
+	float depthVal = tex2D(DepthTextureMap, input.TexCoord);
 		
 	//compute screen-space position
-	float4 position = GetPosition(input.TexCoord, depthVal);
+	float4 position = GetPositionFromDepth(input.TexCoord, depthVal);
 	
 	//Get Normal From Map and unpack
 	float3 normal = tex2D(NormalTextureMap, input.TexCoord).xyz;
@@ -281,6 +284,7 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	FinalPixelColor = saturate(FinalPixelColor * shadowCoeff);
 
 	return FinalPixelColor;
+	//return (shadowCoeff);
 }
 
 //////////////////////////////////////
