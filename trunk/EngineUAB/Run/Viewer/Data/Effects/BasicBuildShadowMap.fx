@@ -12,6 +12,11 @@ struct VertexShaderOutput
 	float2 Depth : TEXCOORD0;
 };
 
+struct PixelShaderOutput
+{
+	float4 DepthRT	: COLOR0;
+};
+
 VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 {
 	VertexShaderOutput output = (VertexShaderOutput)0;
@@ -26,15 +31,14 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 	return output;
 }
 
-float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
+PixelShaderOutput PixelShaderFunction(VertexShaderOutput input)
 {
-	// Depth is z / w
-	float4 RetPix = input.Depth.x / input.Depth.y;
+	PixelShaderOutput output = (PixelShaderOutput)0;
 	
-	return RetPix;
-	//return float4(1.0f, 1.0f, 1.0f, 1.0f);
-	//return float4(0.0f, 0.0f, 0.0f, 0.0f);
-	//return float4(0.0f, 1.0f, 0.0f, 0.0f);
+	// Depth is z / w
+	output.DepthRT = input.Depth.x / input.Depth.y;
+	
+	return output;
 }
 
 technique BasicBuildShadowMap 

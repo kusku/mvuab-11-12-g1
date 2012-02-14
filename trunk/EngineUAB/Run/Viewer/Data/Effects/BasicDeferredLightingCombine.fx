@@ -1,6 +1,11 @@
+//////////////////////////////////////
+//Global Constants				   //
+/////////////////////////////////////
 
+uniform float2		HalfPixel				: HALFPIXEL;
 
-float AmbientLightIntensity <
+uniform float		AmbientLightIntensity	: AMBIENT_LIGHT_INTENSITY
+<
     string UIName =  "Ambient Light Intensity";
     string UIWidget = "slider";
     float UIMin = 0.0;
@@ -8,7 +13,8 @@ float AmbientLightIntensity <
     float UIStep = 0.1;
 > = 0.20;
 
-float4 AmbientLightColor <
+uniform float4		AmbientLightColor		: AMBIENT_LIGHT_COLOR
+<
     string UIName =  "Ambient Light Color";
     string UIWidget = "Color";
 > = {1.0f, 1.0f, 1.0f, 1.0f};
@@ -51,7 +57,7 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 {
 	VertexShaderOutput output = (VertexShaderOutput)0;
 	
-	output.TexCoord = input.TexCoord;
+	output.TexCoord = input.TexCoord - HalfPixel;
 	
 	output.Position = float4(input.Position, 1);
 	
