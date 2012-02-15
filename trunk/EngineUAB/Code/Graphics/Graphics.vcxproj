@@ -30,6 +30,7 @@
     <ClInclude Include="Commands\PresentRenderSceneRendererCommand.h" />
     <ClInclude Include="Commands\RenderDebugInfoSceneRendererCommand.h" />
     <ClInclude Include="Commands\RenderDebugLightsSceneRendererCommand.h" />
+    <ClInclude Include="Commands\RenderDebugModifiersSceneRendererCommand.h" />
     <ClInclude Include="Commands\RenderDebugSceneSceneRendererCommand.h" />
     <ClInclude Include="Commands\RenderDebugShadowMapsSceneRendererCommand.h" />
     <ClInclude Include="Commands\RenderGUISceneRendererCommand.h" />
@@ -93,6 +94,7 @@
     <ClCompile Include="Commands\PresentRenderSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\RenderDebugInfoSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\RenderDebugLightsSceneRendererCommand.cpp" />
+    <ClCompile Include="Commands\RenderDebugModifiersSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\RenderDebugSceneSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\RenderDebugShadowMapsSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\RenderGUISceneRendererCommand.cpp" />
@@ -177,7 +179,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\Graphics\;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src;$(SolutionDir)\Code\3dParty\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\GUI\;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src;$(SolutionDir)\Code\3dParty\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -197,7 +199,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Input\;$(DXSDK_DIR)\Include;$(SolutionDIr)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src;$(SolutionDir)\Code\Graphics\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\GUI\;$(DXSDK_DIR)\Include;$(SolutionDIr)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src;$(SolutionDir)\Code\Graphics\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

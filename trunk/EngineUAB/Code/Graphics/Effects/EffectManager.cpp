@@ -50,7 +50,7 @@ void CEffectManager::Load(const std::string &Filename)
 
 			if( l_Type == "effect" )
 			{
-				CEffect* l_Effect = new CEffect( &l_Effects(i) );
+				CEffect* l_Effect = new CEffect( l_Effects(i) );
 				l_Effect->Load();
 
 				std::string l_Name = l_Effect->GetEffectName();

@@ -9,6 +9,7 @@ class CThPSCamera;
 #include "Player.h"
 #include "Process.h"
 #include "Math\Vector2.h"
+#include "Modifiers\ModifierManager.h"
 
 class CViewerProcess : public CProcess
 {

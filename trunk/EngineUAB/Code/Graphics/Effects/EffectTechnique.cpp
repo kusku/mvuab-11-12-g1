@@ -9,6 +9,7 @@
 #include "Textures\Texture.h"
 #include "Textures\TextureManager.h"
 #include "RenderManager.h"
+#include <sstream>
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -43,6 +44,30 @@ CEffectTechnique::CEffectTechnique(	CXMLTreeNode &XMLNode )
 	m_NumOfLights					= static_cast<uint32>( XMLNode.GetIntProperty("num_of_lights", 0, false) );
 	m_UseHalfPixel					= XMLNode.GetBoolProperty("use_half_pixel", false, false);
 	m_UseRenderTargetSize			= XMLNode.GetBoolProperty("use_render_target_size", false, false);
+
+	//Lectura de parámetros
+	m_UseParams						= XMLNode.GetBoolProperty("use_params", false, false);
+	if( m_UseParams )
+	{
+		m_NumOfParams					= XMLNode.GetIntProperty("num_of_params", 0, false);
+		if( m_NumOfParams > MAX_PARAMS_BY_EFFECT )
+		{
+			std::string err = "CEffectTechnique::CEffectTechnique->Demasiados parámetros definidos. Sólo se permiten como máximo " + MAX_PARAMS_BY_EFFECT;
+			LOGGER->AddNewLog(ELL_WARNING, err.c_str() );
+		}
+		else
+		{
+			for(uint16 i=0; i<m_NumOfParams; ++i)
+			{
+				std::stringstream out;
+				out << i;
+				std::string l_Name = "parameter_" + out.str();
+				float l_Value = XMLNode.GetFloatProperty(l_Name.c_str(), 0.0f);
+
+				m_Params.push_back(l_Value);
+			}
+		}
+	}
 
 	std::string l_EffectName = XMLNode.GetPszProperty("effect", "");
 	m_Effect = CORE->GetEffectManager()->GetEffect(l_EffectName);
@@ -295,6 +320,14 @@ bool CEffectTechnique::BeginRender()
 		l_Effect->SetFloat( m_Effect->GetRenderTargetSize(), l_RenderTargetSize );
 	}
 
+	if( m_UseParams )
+	{
+		for(uint16 i=0; i<m_NumOfParams; ++i)
+		{
+			l_Effect->SetFloat( m_Effect->GetParameterById(i), m_Params[i] );
+		}
+	}
+
 	if( m_UseLightAmbientColor )
 	{
 		//TODO: ¿Que se la pasa aquí?
@@ -319,4 +352,12 @@ bool CEffectTechnique::Refresh()
 	}
 
 	return false;
+}
+
+void CEffectTechnique::SetValueFromParam(uint16 id, float value)
+{
+	if( id < m_Params.size() )
+	{
+		m_Params[id] = value;
+	}
 }

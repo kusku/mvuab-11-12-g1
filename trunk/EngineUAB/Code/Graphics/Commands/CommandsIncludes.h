@@ -18,3 +18,4 @@
 #include "Commands\PresentRenderSceneRendererCommand.h"
 #include "Commands\GenerateShadowMapsSceneRendererCommand.h"
 #include "Commands\CaptureFrameBufferSceneRendererCommand.h"
+#include "Commands\RenderDebugModifiersSceneRendererCommand.h"

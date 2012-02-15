@@ -66,7 +66,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\Input\;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\GUI;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -86,7 +86,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\GUI;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

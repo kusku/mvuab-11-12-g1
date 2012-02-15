@@ -12,13 +12,21 @@ struct VertexShaderOutput
     float2 UV : TEXCOORD0;
 };
 
-float g_MonochromeColorGrading = 0.0;
+/*float g_MonochromeColorGrading = 0.0;
 float g_BrownSepiaColorGrading = 0.5;
 float g_GreenSepiaColorGrading = 0.2;
 float g_BlueSepiaColorGrading = 0.3;
 float g_ContrastColorGrading = 1.0;
 float g_BrightnessColorGrading = 0.0;
-float g_ColorColorGrading = 1.0;
+float g_ColorColorGrading = 1.0;*/
+
+float g_MonochromeColorGrading : PARAMETER0;
+float g_BrownSepiaColorGrading : PARAMETER1;
+float g_GreenSepiaColorGrading : PARAMETER2;
+float g_BlueSepiaColorGrading : PARAMETER3;
+float g_ContrastColorGrading : PARAMETER4;
+float g_BrightnessColorGrading : PARAMETER5;
+float g_ColorColorGrading : PARAMETER6;
 
 float4 ColorGrading(float4 _Color)
 {
@@ -57,6 +65,7 @@ float4 ColorGrading(float4 _Color)
 	float4 combine = (brownsepia *g_BrownSepiaColorGrading )
 		+(greensepia*g_BrownSepiaColorGrading )
 		+(bluesepia * g_BlueSepiaColorGrading )
+		+(greensepia * g_GreenSepiaColorGrading )
 		+(monochrome4* g_MonochromeColorGrading)
 		+(g_ColorColorGrading * result2);
 	

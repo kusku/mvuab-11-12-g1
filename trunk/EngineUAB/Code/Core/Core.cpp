@@ -16,6 +16,7 @@
 #include "RenderableObjects\RenderableObjectTechniqueManager.h"
 #include "Commands\SceneRendererCommandManager.h"
 #include "RenderableObjects\RenderableObjectsLayersManager.h"
+#include "Modifiers\ModifierManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -39,6 +40,7 @@ CCore::CCore()
 	, m_pTimer(NULL)
 	, m_pDebugRender(NULL)
 	, m_pLogRender(NULL)
+	, m_pModifierManager(NULL)
 	, m_bIsOk(false)
 {
 }
@@ -64,6 +66,8 @@ void CCore::Release()
 	CHECKED_DELETE(m_pROTManager);
 	CHECKED_DELETE(m_pSceneRendererCommandManager);
 	CHECKED_DELETE(m_pRenderableObjectsLayersManager);
+	CHECKED_DELETE(m_pModifierManager);
+
 	m_pCamera = NULL; //La cámara la elimina el proceso
 	m_pLogRender = NULL;
 	m_pDebugRender = NULL;
@@ -146,6 +150,11 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 			//Inicia el Scene Renderer Command Manager
 			m_pSceneRendererCommandManager = new CSceneRendererCommandManager();
 			m_pSceneRendererCommandManager->Load(config.scene_renderer_command_manager_path);
+
+#if defined (_DEBUG)
+			m_pModifierManager = new CModifierManager();
+			m_pModifierManager->Load(config.modifiers_path);
+#endif
 		}
 	}
 

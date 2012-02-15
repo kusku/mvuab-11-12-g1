@@ -4,6 +4,7 @@
 #define _EFFECT_H
 
 #include <string>
+#include <vector>
 #include <d3dx9.h>
 
 #include "EffectDefs.h"
@@ -16,7 +17,7 @@ class CTexture;
 class CEffect
 {
 public:
-	CEffect( CXMLTreeNode *XMLNode );
+	CEffect( CXMLTreeNode &XMLNode );
 	virtual ~CEffect();
 
 	bool		SetLights		( size_t NumOfLights );
@@ -62,6 +63,9 @@ public:
 	D3DXHANDLE		GetNumLights						() const		{ return m_NumLightsParameter; }
 	D3DXHANDLE		GetHalfPixel						() const		{ return m_HalfPixelParameter; }
 	D3DXHANDLE		GetRenderTargetSize					() const		{ return m_RenderTargetSizeParameter; }
+	D3DXHANDLE		GetParameterById					(uint16 id);
+
+
 
 	const BOOL*		GetLightEnabled						() const		{ return m_LightsEnabled; }
 	const int*		GetLightType						() const		{ return m_LightsType; }
@@ -127,6 +131,7 @@ private:
 	D3DXHANDLE		m_TimeParameter;
 	D3DXHANDLE		m_HalfPixelParameter;
 	D3DXHANDLE		m_RenderTargetSizeParameter;
+	std::vector<D3DXHANDLE> m_Parameters;
 };
 
 #endif
