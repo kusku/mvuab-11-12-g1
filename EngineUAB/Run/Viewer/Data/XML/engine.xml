@@ -20,4 +20,5 @@
 	<Effects effectsXML="./Data/XML/effects.xml" />
 	<SceneRendererCommands commandsXML="./Data/XML/scene_renderer_commands.xml" />
 	<RenderableObjectTechniques poolsXML="./Data/XML/renderable_object_techniques.xml" />
+	<Modifiers modifiersXML="./Data/XML/modifiers.xml" />
 </Config>

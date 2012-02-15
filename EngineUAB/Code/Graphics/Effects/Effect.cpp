@@ -10,12 +10,13 @@
 #include "RenderManager.h"
 #include "XML\XMLTreeNode.h"
 #include "Logger\Logger.h"
+#include <sstream>
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
 #endif
 
-CEffect::CEffect(CXMLTreeNode *XMLNode)
+CEffect::CEffect(CXMLTreeNode &XMLNode)
 	: m_Effect(NULL)
 	, m_WorldMatrixParameter(NULL)
 	, m_ViewMatrixParameter(NULL)
@@ -50,10 +51,15 @@ CEffect::CEffect(CXMLTreeNode *XMLNode)
 	, m_HalfPixelParameter(NULL)
 	, m_RenderTargetSizeParameter(NULL)
 {
-	m_EffectName = XMLNode->GetPszProperty("name", "");
-	m_FileName = XMLNode->GetPszProperty("file", "");
+	m_EffectName = XMLNode.GetPszProperty("name", "");
+	m_FileName = XMLNode.GetPszProperty("file", "");
 
 	SetLights(MAX_LIGHTS);
+
+	for(uint16 i=0; i<MAX_PARAMS_BY_EFFECT; ++i)
+	{
+		m_Parameters.push_back(NULL);
+	}
 }
 
 CEffect::~CEffect()
@@ -133,6 +139,17 @@ bool CEffect::LoadEffect()
 	GetParameterBySemantic("HALFPIXEL", m_HalfPixelParameter, false);
 	GetParameterBySemantic("RENDER_TARGET_SIZE", m_RenderTargetSizeParameter, false);
 
+	//Parameters
+	for(uint16 i=0; i<MAX_PARAMS_BY_EFFECT; ++i)
+	{
+		std::stringstream out;
+		out << i;
+		std::string l_Name = "PARAMETER" + out.str();
+		D3DXHANDLE l_Handle = NULL;
+		GetParameterBySemantic(l_Name, l_Handle, false);
+		m_Parameters[i] = l_Handle;
+	}
+
  	return true;
 }
 
@@ -187,6 +204,12 @@ void CEffect::SetNullParameters()
 	m_LightsStaticShadowMap						= NULL;
 	m_HalfPixelParameter						= NULL;
 	m_RenderTargetSizeParameter					= NULL;
+
+	uint16 l_Count = m_Parameters.size();
+	for(uint16 i=0; i<l_Count; ++i)
+	{
+		m_Parameters[i] = NULL;
+	}
 }
 
 void CEffect::GetParameterBySemantic(const std::string &SemanticName, D3DXHANDLE &l_Handle, bool Warning)
@@ -197,6 +220,16 @@ void CEffect::GetParameterBySemantic(const std::string &SemanticName, D3DXHANDLE
 		std::string msg_error = "CEffect::GetParameterBySemantic->Parámetro por semática " + SemanticName + " no ha encontrado el efecto " + m_FileName;
 		LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
 	}
+}
+
+D3DXHANDLE CEffect::GetParameterById(uint16 id)
+{
+	if( id < m_Parameters.size() )
+	{
+		return m_Parameters[id];
+	}
+
+	return NULL;
 }
 
 bool CEffect::SetLights(size_t NumOfLights)

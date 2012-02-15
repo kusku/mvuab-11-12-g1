@@ -106,7 +106,43 @@
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_UP_DOWN"  Code="KEY_DOWN"/>
 	</action>
   
+	<!--.........MODIFIERS...............-->
+  
+	<action name="Modifier_Previous">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_UP_DOWN"  Code="KEY_UP"/>
+	</action>
 
+	<action name="Modifier_Next">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_UP_DOWN"  Code="KEY_DOWN"/>
+	</action>
+
+	<action name="GoToModifier">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_UP_DOWN"  Code="KEY_RETURN"/>
+	</action>
+	
+	<action name="GoToRootModifier">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_UP_DOWN"  Code="KEY_BACK"/>
+	</action>
+	
+	<action name="AddValueToModifier">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_UP_DOWN"  Code="KEY_RIGHT"/>
+	</action>
+	
+	<action name="SubsValueToModifier">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_UP_DOWN"  Code="KEY_LEFT"/>
+	</action>
+	
+	<action name="AddValueToModifierByPass">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN"     Code="KEY_LCTRL"/>
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN"  Code="KEY_RIGHT"/>
+	</action>
+	
+	<action name="SubsValueToModifierByPass">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN"     Code="KEY_LCTRL"/>
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN"  Code="KEY_LEFT"/>
+	</action>
+	<!--.........MODIFIERS...............-->
+	
   <!--.......VIEWER CAMERA CONTROL: MOUSE AND KEYBOARD............-->
   
 	<action name="MoveXViewerCam">

@@ -25,6 +25,7 @@ class CCamera;
 class CLogRender;
 class CDebugRender;
 class CTimer;
+class CModifierManager;
 
 class CCore : public CSingleton<CCore>
 {
@@ -73,6 +74,7 @@ public:
 	inline CRenderableObjectTechniqueManager*	GetROTManager() const						{ return m_pROTManager; }	
 	inline CSceneRendererCommandManager*		GetSceneRendererCommandManager() const		{ return m_pSceneRendererCommandManager; }
 	inline CRenderableObjectsLayersManager*		GetRenderableObjectsLayersManager() const	{ return m_pRenderableObjectsLayersManager; }
+	inline CModifierManager*					GetModifierManager() const					{ return m_pModifierManager; }
 	
 private:
 	void Release();
@@ -98,6 +100,7 @@ private:
 	CRenderableObjectTechniqueManager	*m_pROTManager;
 	CSceneRendererCommandManager		*m_pSceneRendererCommandManager;
 	CRenderableObjectsLayersManager		*m_pRenderableObjectsLayersManager;
+	CModifierManager					*m_pModifierManager;
 };
 
 #endif

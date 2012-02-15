@@ -13,10 +13,15 @@ struct VertexShaderOutput
     float2 UV : TEXCOORD0;
 };
 
-float g_ZBlurFocalStart=50;
+/*float g_ZBlurFocalStart=50;
 float g_ZBlurFocalEnd=65;
 float g_ZBlurEnd=300;
-float g_ConstantBlur=0.4;
+float g_ConstantBlur=0.4;*/
+
+float g_ZBlurFocalStart : PARAMETER0;
+float g_ZBlurFocalEnd : PARAMETER1;
+float g_ZBlurEnd : PARAMETER2;
+float g_ConstantBlur : PARAMETER3;
 
 float4x4 g_InverseProjectionMatrix : PROJECTIONINVERSE;
 float4x4 g_InverseViewMatrix : VIEWINVERSE;

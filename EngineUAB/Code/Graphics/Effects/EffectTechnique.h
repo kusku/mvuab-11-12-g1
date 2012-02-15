@@ -8,6 +8,7 @@ class CXMLTreeNode;
 
 #include "Utils\Types.h"
 #include <string>
+#include <vector>
 #include <d3dx9.h>
 
 class CEffectTechnique
@@ -24,6 +25,9 @@ public:
 	
 	//DirectX Methods Interface
 	D3DXHANDLE		GetD3DTechnique() const		{ return m_D3DTechnique; }
+
+	void		SetValueFromParam		( uint16 id, float value );
+	float		GetValueFromParam		( uint16 id ) const				{ return m_Params[id]; }
 
 private:
 	bool	m_UseCameraPosition;
@@ -47,6 +51,10 @@ private:
 	bool	m_UseTime;
 	bool	m_UseHalfPixel;
 	bool	m_UseRenderTargetSize;
+	bool	m_UseParams;
+
+	uint16	m_NumOfParams;
+	std::vector<float>	m_Params;
 
 	CEffect *	m_Effect;
 	D3DXHANDLE	m_D3DTechnique;

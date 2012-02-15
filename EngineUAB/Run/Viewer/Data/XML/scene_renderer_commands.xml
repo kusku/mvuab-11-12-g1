@@ -89,6 +89,7 @@
 	
 	<!--Debug-->
 	<render_debug_info grid="true" axis="true" />
+	<render_modifiers />
 	<render_debug_lights active="true" />
 	<end_scene />
 	<present />

@@ -247,6 +247,12 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 			{
 				m_Config.renderable_object_techniques_path = l_ConfigNode(i).GetPszProperty("poolsXML", "");
 			}
+			else if( l_Name == "Modifiers" )
+			{
+#if defined (_DEBUG)
+				m_Config.modifiers_path = l_ConfigNode(i).GetPszProperty("modifiersXML", "");
+#endif
+			}
 		}
 	}
 

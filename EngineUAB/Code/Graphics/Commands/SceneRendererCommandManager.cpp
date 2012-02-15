@@ -62,13 +62,13 @@ void CSceneRendererCommandManager::LoadXML()
 	{
 		std::string msg_error = "CSceneRendererCommandManager::LoadXML->Error al intentar leer el archivo de scene renderer commands: " + m_FileName;
 		LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
+		return;
 	}
 
 	CXMLTreeNode l_SRC = newFile["scene_renderer_commands"];
 	if( l_SRC.Exists() )
 	{
 		std::string l_Type;
-		std::stringstream out;
 		std::string l_NumCommand;
 		std::string l_CommandName;
 		CSceneRendererCommand *l_Command = NULL;
@@ -79,6 +79,7 @@ void CSceneRendererCommandManager::LoadXML()
 			l_Command = NULL;
 
 			//Converts the iteration number to string
+			std::stringstream out;
 			out << i;
 			l_NumCommand = out.str();
 
@@ -182,6 +183,11 @@ void CSceneRendererCommandManager::LoadXML()
 			 {
 				 l_Command = new CCaptureFrameBufferSceneRendererCommand( l_SRC(i) );
 				 l_CommandName = "capture_frame_buffer_" + l_NumCommand;
+			 }
+			 else if( l_Type == "render_modifiers" )
+			 {
+				 l_Command = new CRenderDebugModifiersSceneRendererCommand( l_SRC(i) );
+				 l_CommandName = "render_modifiers_" + l_NumCommand;
 			 }
 
 			 //Add the command into the map

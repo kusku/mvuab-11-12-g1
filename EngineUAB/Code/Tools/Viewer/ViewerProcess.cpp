@@ -100,6 +100,36 @@ void CViewerProcess::UpdateInputs(float elapsedTime)
 	{
 		CORE->ReloadSceneRendererCommandManager();
 	}
+
+	if( action2Input->DoAction("Modifier_Previous") && !action2Input->DoAction("LogRender_PrevLine") )
+	{
+		CORE->GetModifierManager()->MoveToPreviousModifier();
+	}
+
+	if( action2Input->DoAction("Modifier_Next") && !action2Input->DoAction("LogRender_NextLine") )
+	{
+		CORE->GetModifierManager()->MoveToNextModifier();
+	}
+
+	if( action2Input->DoAction("GoToModifier") )
+	{
+		CORE->GetModifierManager()->GoToModifier();
+	}
+
+	if( action2Input->DoAction("GoToRootModifier") )
+	{
+		CORE->GetModifierManager()->GoToRoot();
+	}
+
+	if( action2Input->DoAction("AddValueToModifierByPass") || action2Input->DoAction("AddValueToModifier") )
+	{
+		CORE->GetModifierManager()->AddValueToModifier();
+	}
+
+	if( action2Input->DoAction("SubsValueToModifierByPass") || action2Input->DoAction("SubsValueToModifier") )
+	{
+		CORE->GetModifierManager()->SubsValueToModifier();
+	}
 }
 
 void CViewerProcess::Render(CRenderManager *RM)
