@@ -54,10 +54,13 @@ CModifier::~CModifier()
 	m_pEffectTechnique = NULL;
 }
 
-void CModifier::Render(CFontManager &FM, uint32 dx, uint32 Initial_dy, CColor Color)
+void CModifier::Render(CFontManager &FM, const std::string &Name, uint32 dx, uint32 Initial_dy, CColor Color)
 {
 	uint32 dy = Initial_dy;
 	uint16 l_Count = m_ParamsMap.size();
+	dy += FM.DrawDefaultText( dx, dy, Color, Name.c_str() );
+	dy += FM.DrawDefaultText( dx, dy, Color, "-------------------------------"  );
+
 	for(uint16 i=0; i<l_Count; ++i)
 	{
 		std::stringstream out;

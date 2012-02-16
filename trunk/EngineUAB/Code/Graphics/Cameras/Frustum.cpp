@@ -8,13 +8,13 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-void CFrustum::Update(const D3DXMATRIX &clip) 
+void CFrustum::Update(const Mat44f &clip) 
 {
  	// Extract the numbers for the RIGHT plane 
-	m_frustum[0][0] = clip._14 - clip._11;
-	m_frustum[0][1] = clip._24 - clip._21;
-	m_frustum[0][2] = clip._34 - clip._31;
-	m_frustum[0][3] = clip._44 - clip._41;
+	m_frustum[0][0] = clip.m03 - clip.m00;
+	m_frustum[0][1] = clip.m13 - clip.m10;
+	m_frustum[0][2] = clip.m23 - clip.m20;
+	m_frustum[0][3] = clip.m33 - clip.m30;
 
 	// Normalize the result 
 	float t = 1.0f / sqrtf( (m_frustum[0][0] * m_frustum[0][0]) + (m_frustum[0][1] * m_frustum[0][1]) + (m_frustum[0][2] * m_frustum[0][2]) );
@@ -24,10 +24,10 @@ void CFrustum::Update(const D3DXMATRIX &clip)
 	m_frustum[0][3] *= t;
 
 	// Extract the numbers for the LEFT plane 
-	m_frustum[1][0] = clip._14 + clip._11;
-	m_frustum[1][1] = clip._24 + clip._21;
-	m_frustum[1][2] = clip._34 + clip._31;
-	m_frustum[1][3] = clip._44 + clip._41;
+	m_frustum[1][0] = clip.m03 + clip.m00;
+	m_frustum[1][1] = clip.m13 + clip.m10;
+	m_frustum[1][2] = clip.m23 + clip.m20;
+	m_frustum[1][3] = clip.m33 + clip.m30;
 
 	// Normalize the result 
 	t = 1.0f / sqrtf( (m_frustum[1][0] * m_frustum[1][0]) + (m_frustum[1][1] * m_frustum[1][1]) + (m_frustum[1][2] * m_frustum[1][2]) );
@@ -37,10 +37,10 @@ void CFrustum::Update(const D3DXMATRIX &clip)
 	m_frustum[1][3] *= t;
 
 	// Extract the BOTTOM plane 
-	m_frustum[2][0] = clip._14 + clip._12;
-	m_frustum[2][1] = clip._24 + clip._22;
-	m_frustum[2][2] = clip._34 + clip._32;
-	m_frustum[2][3] = clip._44 + clip._42;
+	m_frustum[2][0] = clip.m03 + clip.m01;
+	m_frustum[2][1] = clip.m13 + clip.m11;
+	m_frustum[2][2] = clip.m23 + clip.m21;
+	m_frustum[2][3] = clip.m33 + clip.m31;
 
 	// Normalize the result 
 	t = 1.0f / sqrtf( (m_frustum[2][0] * m_frustum[2][0]) + (m_frustum[2][1] * m_frustum[2][1]) + (m_frustum[2][2] * m_frustum[2][2]) );
@@ -50,10 +50,10 @@ void CFrustum::Update(const D3DXMATRIX &clip)
 	m_frustum[2][3] *= t;
 
 	// Extract the TOP plane 
-	m_frustum[3][0] = clip._14 - clip._12;
-	m_frustum[3][1] = clip._24 - clip._22;
-	m_frustum[3][2] = clip._34 - clip._32;
-	m_frustum[3][3] = clip._44 - clip._42;
+	m_frustum[3][0] = clip.m03 - clip.m01;
+	m_frustum[3][1] = clip.m13 - clip.m11;
+	m_frustum[3][2] = clip.m23 - clip.m21;
+	m_frustum[3][3] = clip.m33 - clip.m31;
 
 	// Normalize the result 
 	t = 1.0f / sqrtf( (m_frustum[3][0] * m_frustum[3][0]) + (m_frustum[3][1] * m_frustum[3][1]) + (m_frustum[3][2] * m_frustum[3][2]) );
@@ -63,10 +63,10 @@ void CFrustum::Update(const D3DXMATRIX &clip)
 	m_frustum[3][3] *= t;
 
 	// Extract the FAR plane 
-	m_frustum[4][0] = clip._14 - clip._13;
-	m_frustum[4][1] = clip._24 - clip._23;
-	m_frustum[4][2] = clip._34 - clip._33;
-	m_frustum[4][3] = clip._44 - clip._43;
+	m_frustum[4][0] = clip.m03 - clip.m02;
+	m_frustum[4][1] = clip.m13 - clip.m12;
+	m_frustum[4][2] = clip.m23 - clip.m22;
+	m_frustum[4][3] = clip.m33 - clip.m32;
 
 	// Normalize the result 
 	t = 1.0f / sqrtf( (m_frustum[4][0] * m_frustum[4][0]) + (m_frustum[4][1] * m_frustum[4][1]) + (m_frustum[4][2] * m_frustum[4][2]) );
@@ -76,10 +76,10 @@ void CFrustum::Update(const D3DXMATRIX &clip)
 	m_frustum[4][3] *= t;
 
 	// Extract the NEAR plane 
-	m_frustum[5][0] = clip._14 + clip._13;
-	m_frustum[5][1] = clip._24 + clip._23;
-	m_frustum[5][2] = clip._34 + clip._33;
-	m_frustum[5][3] = clip._44 + clip._43;
+	m_frustum[5][0] = clip.m03 + clip.m02;
+	m_frustum[5][1] = clip.m13 + clip.m12;
+	m_frustum[5][2] = clip.m23 + clip.m22;
+	m_frustum[5][3] = clip.m33 + clip.m32;
 
 	// Normalize the result 
 	t = 1.0f / sqrtf( (m_frustum[5][0] * m_frustum[5][0]) + (m_frustum[5][1] * m_frustum[5][1]) + (m_frustum[5][2] * m_frustum[5][2]) );
@@ -89,7 +89,7 @@ void CFrustum::Update(const D3DXMATRIX &clip)
 	m_frustum[5][3] *= t;
 }
 
-bool CFrustum::SphereVisible(const D3DXVECTOR3 &center,float radius) const 
+bool CFrustum::SphereVisible(const Vect3f &center,float radius) const 
 {
 	for (int i=0; i < 6; ++i)	
 	{
@@ -125,7 +125,7 @@ bool CFrustum::BoxVisibleByVertexs( const Vect3f* points) const
 	return true;
 }
 
-bool CFrustum::BoxVisible( const D3DXVECTOR3 &max, const D3DXVECTOR3 &min) const 
+bool CFrustum::BoxVisible( const Vect3f &max, const Vect3f &min) const 
 {
 	float points[24];
 

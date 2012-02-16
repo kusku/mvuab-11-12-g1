@@ -446,6 +446,7 @@ void CRenderManager::DrawColoredQuad2DTexturedInPixelsByEffectTechnique(CEffectT
 
 void CRenderManager::DrawColoredQuad2DTexturedInPixels(Vect2f vec1, Vect2f vec2, const CColor& color, float U0, float V0, float U1, float V1)
 {
+	//TODO: Mejorar el DrawQuad subiéndolo a gráfica, y haciéndolo con TRIANGLEFAN.
 	//  [0]------[2]
 	//   |		  |
 	//   |        |
@@ -456,7 +457,7 @@ void CRenderManager::DrawColoredQuad2DTexturedInPixels(Vect2f vec1, Vect2f vec2,
 		(color.GetBlue()),
 		(color.GetAlpha()));
 
-	uint16 indices[6] = {0,1,2,2,3,0};
+	uint16 indices[4] = {0,1,2,3};
 	TCOLOREDTEXTURE1_VERTEX v[4] =
 	{
 		{ vec2.x, vec1.y, 0.0f, d3dColor, U1, V1 }
@@ -466,7 +467,7 @@ void CRenderManager::DrawColoredQuad2DTexturedInPixels(Vect2f vec1, Vect2f vec2,
 	};
 
 	m_pD3DDevice->SetVertexDeclaration(TCOLOREDTEXTURE1_VERTEX::GetVertexDeclaration());
-	m_pD3DDevice->DrawIndexedPrimitiveUP(D3DPT_TRIANGLELIST,0,4,2,indices,D3DFMT_INDEX16,v,sizeof( TCOLOREDTEXTURE1_VERTEX ) );
+	m_pD3DDevice->DrawIndexedPrimitiveUP(D3DPT_TRIANGLEFAN,0,4,2,indices,D3DFMT_INDEX16,v,sizeof( TCOLOREDTEXTURE1_VERTEX ) );
 }
 
 void CRenderManager::CalculateAlignment (uint32 w, uint32 h, ETypeAlignment alignment, Vect2i & finalPos)

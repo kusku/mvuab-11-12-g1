@@ -11,15 +11,16 @@
 
 #include <d3dx9math.h>
 #include "Math/Vector3.h"
+#include "Math\Matrix44.h"
 
 class CFrustum 
 {
 public:
 	
-  void	Update							( const D3DXMATRIX &viewproj );
-  bool	SphereVisible				( const D3DXVECTOR3 &p, float radius ) const;
-  bool	BoxVisible					( const D3DXVECTOR3 &max, const D3DXVECTOR3 &min ) const;
-  bool  BoxVisibleByVertexs	( const Vect3f* points) const;
+  void	Update						( const Mat44f &viewproj );
+  bool	SphereVisible				( const Vect3f &p, float radius ) const;
+  bool	BoxVisible					( const Vect3f &max, const Vect3f &min ) const;
+  bool  BoxVisibleByVertexs			( const Vect3f* points) const;
    
 private:
 
