@@ -78,5 +78,6 @@ void CDrawQuadRendererCommand::Execute(CRenderManager &RM)
 
 	std::string technique = CORE->GetROTManager()->GetRenderableObjectTechniqueNameByVertexType(TCOLOREDTEXTURE1_VERTEX::GetVertexType());
 
-	RM.DrawColoredQuad2DTexturedInPixelsByEffectTechnique( CORE->GetROTManager()->GetResource(technique)->GetEffectTechnique(), colRED);													
+	//RM.DrawColoredQuad2DTexturedInPixelsByEffectTechnique( CORE->GetROTManager()->GetResource(technique)->GetEffectTechnique(), colRED);													
+	RM.DrawQuad2DTexturedInPixelsInFullScreen( CORE->GetROTManager()->GetResource(technique)->GetEffectTechnique() );
 }

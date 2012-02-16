@@ -106,10 +106,10 @@ bool CFrustum::SphereVisible(const Vect3f &center,float radius) const
 bool CFrustum::BoxVisibleByVertexs( const Vect3f* points) const 
 {  
   int iInCount;
-	for(int p=0; p<6; p++)
+	for(int p=0; p<6; ++p)
 	{
 		iInCount = 8;
-		for(int i=0; i<8; i++)
+		for(int i=0; i<8; ++i)
 		{
 			// Probamos el punto contra todos los planos
 			if( (m_frustum[p][0]*points[i].x + m_frustum[p][1]*points[i].y + m_frustum[p][2]*points[i].z + m_frustum[p][3]) <= 0 )
@@ -163,10 +163,10 @@ bool CFrustum::BoxVisible( const Vect3f &max, const Vect3f &min) const
 	points[23] = min.z;
 
 	int iInCount;
-	for(int p=0; p<6; p++)
+	for(int p=0; p<6; ++p)
 	{
 		iInCount = 8;
-		for(int i=0; i<8; i++)
+		for(int i=0; i<8; ++i)
 		{
 			// Probamos el punto contra todos los planos
 			if( (m_frustum[p][0]*points[3*i] + m_frustum[p][1]*points[3*i+1] + m_frustum[p][2]*points[3*i+2] + m_frustum[p][3]) <= 0 )
