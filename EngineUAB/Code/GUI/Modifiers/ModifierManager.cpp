@@ -53,7 +53,7 @@ void CModifierManager::Render(CFontManager &FM, CColor Color)
 		else
 		{
 			TVectorResources l_Resources = GetResourcesVector();
-			l_Resources[m_NowIndexInVector]->Render(FM, dx, dy, Color);
+			l_Resources[m_NowIndexInVector]->Render(FM, l_Resources[m_NowIndexInVector]->GetName(), dx, dy, Color);
 		}
 	}
 }

@@ -13,7 +13,7 @@ struct VertexShaderOutput
     float2 UV : TEXCOORD0;
 };
 
-float g_SSAAWeight=0.8;
+float g_SSAAWeight : PARAMETER0;
 float g_RenderTargetSize : RENDER_TARGET_SIZE;
 
 VertexShaderOutput VertexShaderFunction(VertexShaderInput input)

@@ -68,6 +68,8 @@ public:
 	CColor				GetColorRelease		() const	{ return m_BackbufferColor_release; }
 	Vect2f				GetHalfPixel		() const	{ return m_HalfPixel; }
 	float				GetRenderTargetSize	() const	{ return m_NowTargetSize; }
+	const CFrustum*		GetFrustum			() const	{ return &m_Frustum; }
+
 
 	HWND						GetHWND				() const	{ return m_hWnd; }
 	LPDIRECT3D9					GetD3D				() const	{ return m_pD3D; }

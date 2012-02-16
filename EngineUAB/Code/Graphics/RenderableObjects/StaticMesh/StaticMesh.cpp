@@ -12,6 +12,7 @@
 #include "RenderableObjects\RenderableObjectTechniqueManager.h"
 #include "RenderableObjects\RenderableObjectTechnique.h"
 #include "Logger\Logger.h"
+#include "Cameras\Frustum.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"

@@ -65,14 +65,14 @@
 		use_half_pixel="true" />
 	
 	<technique name="SSAATechnique" effect="SSAA" 
-		use_render_target_size="true" />
+		use_render_target_size="true" use_params="true" num_of_params="1" parameter_0="0.8" />
 	
 	<technique name="ColorGradingTechnique" effect="ColorGrading" use_params="true" num_of_params="7"
-		parameter_0="0.0" parameter_1="0.5" parameter_2="0.2" parameter_3="0.3" parameter_4="1.0" parameter_5="0.0" parameter_6="1.0"/>
+		parameter_0="0.0" parameter_1="0.5" parameter_2="0.2" parameter_3="0.3" parameter_4="1.0" parameter_5="0.0" parameter_6="1.0" />
 	
 	<technique name="ZBlurTechnique" effect="ZBlur"
 		use_view_inverse_matrix="true"	use_proj_inverse_matrix="true" use_render_target_size="true" use_params="true" num_of_params="4"
-		parameter_0="50" parameter_1="65" parameter_2="300" parameter_3="0.4"/>
+		parameter_0="50" parameter_1="65" parameter_2="300" parameter_3="0.4" />
 	
 	<!--<technique name="NormalTextureVertexTechnique" effect="DefaultEffect"
 		use_world_matrix="true" use_world_view_projection_matrix="true" use_lights_fs="true"
