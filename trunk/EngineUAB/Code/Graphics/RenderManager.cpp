@@ -32,6 +32,8 @@ CRenderManager::CRenderManager()
 	, m_BackbufferColor_release(colBLACK)
 	, m_HalfPixel(0.0f, 0.0f)
 	, m_NowTargetSize(0.0f)
+	, m_VBQuad(NULL)
+	, m_IBQuad(NULL)
 {
 }
 
@@ -44,6 +46,8 @@ void CRenderManager::Release()
 {
 	CHECKED_RELEASE( m_pD3D );
 	CHECKED_RELEASE( m_pD3DDevice );
+	CHECKED_RELEASE( m_VBQuad );
+	CHECKED_RELEASE( m_IBQuad );
 }
 
 void CRenderManager::Done ()
@@ -160,6 +164,7 @@ bool CRenderManager::Init(HWND hWnd)
 	}
 
 	m_hWnd = hWnd;
+	CreateQuadBuffers();
 
 	return m_bIsOk;
 }
@@ -444,6 +449,32 @@ void CRenderManager::DrawColoredQuad2DTexturedInPixelsByEffectTechnique(CEffectT
 	}
 }
 
+void CRenderManager::DrawQuad2DTexturedInPixelsInFullScreen(CEffectTechnique* EffectTechnique)
+{
+	EffectTechnique->BeginRender();
+	LPD3DXEFFECT l_Effect = EffectTechnique->GetEffect()->GetD3DEffect();
+	if( l_Effect != NULL )
+	{
+		l_Effect->SetTechnique( EffectTechnique->GetD3DTechnique() );
+		UINT l_NumPasses = 0;
+		if( SUCCEEDED(l_Effect->Begin(&l_NumPasses, 0)) )
+		{
+			m_pD3DDevice->SetVertexDeclaration(TCOLOREDTEXTURE1_VERTEX::GetVertexDeclaration());
+			m_pD3DDevice->SetStreamSource(0,m_VBQuad,0,sizeof(TCOLOREDTEXTURE1_VERTEX));
+			m_pD3DDevice->SetIndices(m_IBQuad);
+
+			for( UINT iPass = 0; iPass < l_NumPasses; ++iPass )
+			{
+				l_Effect->BeginPass( iPass );
+				m_pD3DDevice->DrawIndexedPrimitive( D3DPT_TRIANGLEFAN, 0, 0,
+						static_cast<UINT>(4), 0, static_cast<UINT>(4));
+				l_Effect->EndPass();
+			}
+			l_Effect->End();
+		}
+	}
+}
+
 void CRenderManager::DrawColoredQuad2DTexturedInPixels(Vect2f vec1, Vect2f vec2, const CColor& color, float U0, float V0, float U1, float V1)
 {
 	//TODO: Mejorar el DrawQuad subiéndolo a gráfica, y haciéndolo con TRIANGLEFAN.
@@ -538,6 +569,36 @@ void CRenderManager::DrawRectangle2D ( const Vect2i& pos, uint32 w, uint32 h, CC
 	DrawQuad2D(pos_aux, edge_w, h + (2*edge_w), UPPER_LEFT, edgeColor);   
 
 	m_pD3DDevice->SetRenderState( D3DRS_ALPHABLENDENABLE, FALSE );
+}
+
+void CRenderManager::CreateQuadBuffers()
+{
+	D3DCOLOR d3dColor = D3DCOLOR_COLORVALUE((colWHITE.GetRed()), 
+		(colWHITE.GetGreen()),
+		(colWHITE.GetBlue()),
+		(colWHITE.GetAlpha()));
+
+	uint16 indices[4] = {0,1,2,3};
+	TCOLOREDTEXTURE1_VERTEX vertices[4] =
+	{
+		{ 1.f, -1.f, 0.0f, d3dColor, 1.f, 1.f }
+		,{ -1.f, -1.f, 0.0f, d3dColor, 0.f, 1.f }
+		,{ -1.f, 1.f, 0.0f, d3dColor, 0.f, 0.f }
+		,{ 1.f, 1.f, 0.0f, d3dColor, 1.f, 0.f }
+	};
+
+	void *l_Data = NULL;
+	UINT l_Length = sizeof(TCOLOREDTEXTURE1_VERTEX) * 4;
+	m_pD3DDevice->CreateVertexBuffer( l_Length, 0, TCOLOREDTEXTURE1_VERTEX::GetFVF(), D3DPOOL_DEFAULT, &m_VBQuad, NULL);
+	m_VBQuad->Lock(0, l_Length, &l_Data, 0);
+	memcpy(l_Data, &vertices, l_Length);
+	m_VBQuad->Unlock();
+
+	l_Length = sizeof(uint16) * 4;
+	m_pD3DDevice->CreateIndexBuffer( l_Length, 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &m_IBQuad, NULL);
+	m_IBQuad->Lock(0, l_Length, &l_Data, 0);
+	memcpy(l_Data, &indices, l_Length);
+	m_IBQuad->Unlock();
 }
 
 void CRenderManager::SetTransform( const Mat44f &mat)
