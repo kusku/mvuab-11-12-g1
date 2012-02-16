@@ -466,8 +466,8 @@ void CRenderManager::DrawQuad2DTexturedInPixelsInFullScreen(CEffectTechnique* Ef
 			for( UINT iPass = 0; iPass < l_NumPasses; ++iPass )
 			{
 				l_Effect->BeginPass( iPass );
-				m_pD3DDevice->DrawIndexedPrimitive( D3DPT_TRIANGLEFAN, 0, 0,
-						static_cast<UINT>(4), 0, static_cast<UINT>(4));
+				m_pD3DDevice->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, 0, 0,
+						static_cast<UINT>(4), 0, static_cast<UINT>(2));
 				l_Effect->EndPass();
 			}
 			l_Effect->End();
@@ -578,13 +578,13 @@ void CRenderManager::CreateQuadBuffers()
 		(colWHITE.GetBlue()),
 		(colWHITE.GetAlpha()));
 
-	uint16 indices[4] = {0,1,2,3};
+	uint16 indices[6] = { 0, 1, 2, 2, 3, 0 };
 	TCOLOREDTEXTURE1_VERTEX vertices[4] =
 	{
-		{ 1.f, -1.f, 0.0f, d3dColor, 1.f, 1.f }
+		 {  1.f, -1.f, 0.0f, d3dColor, 1.f, 1.f }
 		,{ -1.f, -1.f, 0.0f, d3dColor, 0.f, 1.f }
 		,{ -1.f, 1.f, 0.0f, d3dColor, 0.f, 0.f }
-		,{ 1.f, 1.f, 0.0f, d3dColor, 1.f, 0.f }
+		,{  1.f, 1.f, 0.0f, d3dColor, 1.f, 0.f }
 	};
 
 	void *l_Data = NULL;
@@ -594,7 +594,7 @@ void CRenderManager::CreateQuadBuffers()
 	memcpy(l_Data, &vertices, l_Length);
 	m_VBQuad->Unlock();
 
-	l_Length = sizeof(uint16) * 4;
+	l_Length = sizeof(uint16) * 6;
 	m_pD3DDevice->CreateIndexBuffer( l_Length, 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &m_IBQuad, NULL);
 	m_IBQuad->Lock(0, l_Length, &l_Data, 0);
 	memcpy(l_Data, &indices, l_Length);
