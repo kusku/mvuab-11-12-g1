@@ -27,6 +27,8 @@ void CLightManager::CleanUp()
 
 bool CLightManager::Load(const std::string &Filename)
 {
+	LOGGER->AddNewLog(ELL_INFORMATION, "CLightmanager::Load->Cargando las luces.");
+
 	m_FileName = Filename;
 	return LoadFile();
 }

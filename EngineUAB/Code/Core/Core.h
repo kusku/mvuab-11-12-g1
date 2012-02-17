@@ -75,7 +75,7 @@ public:
 	inline CSceneRendererCommandManager*		GetSceneRendererCommandManager() const		{ return m_pSceneRendererCommandManager; }
 	inline CRenderableObjectsLayersManager*		GetRenderableObjectsLayersManager() const	{ return m_pRenderableObjectsLayersManager; }
 	inline CModifierManager*					GetModifierManager() const					{ return m_pModifierManager; }
-	
+
 private:
 	void Release();
 

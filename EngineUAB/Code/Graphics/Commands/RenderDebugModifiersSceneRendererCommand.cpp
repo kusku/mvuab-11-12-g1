@@ -17,5 +17,5 @@ CRenderDebugModifiersSceneRendererCommand::CRenderDebugModifiersSceneRendererCom
 
 void CRenderDebugModifiersSceneRendererCommand ::Execute(CRenderManager &RM)
 {	
-	CORE->GetModifierManager()->Render( *CORE->GetFontManager() );	
+	CORE->GetModifierManager()->Render( RM, *CORE->GetFontManager() );	
 }

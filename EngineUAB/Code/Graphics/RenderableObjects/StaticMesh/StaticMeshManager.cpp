@@ -20,6 +20,8 @@ CStaticMeshManager::~CStaticMeshManager()
 
 bool CStaticMeshManager::Load(const std::string &FileName)
 {
+	LOGGER->AddNewLog(ELL_INFORMATION, "CStaticMeshManager::Load->Cargando los Static Meshes.");
+
 	m_FileName = FileName;
 	return LoadXML();
 }

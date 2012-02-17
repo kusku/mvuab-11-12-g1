@@ -101,6 +101,12 @@ void CViewerProcess::UpdateInputs(float elapsedTime)
 		CORE->ReloadSceneRendererCommandManager();
 	}
 
+	if( action2Input->DoAction("ModifiersShow") )
+	{
+		bool visible = CORE->GetModifierManager()->GetVisible();
+		CORE->GetModifierManager()->SetVisible( !visible );
+	}
+
 	if( action2Input->DoAction("Modifier_Previous") && !action2Input->DoAction("LogRender_PrevLine") )
 	{
 		CORE->GetModifierManager()->MoveToPreviousModifier();

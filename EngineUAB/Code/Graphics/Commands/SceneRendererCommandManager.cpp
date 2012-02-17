@@ -28,6 +28,8 @@ void CSceneRendererCommandManager::CleanUp()
 
 void CSceneRendererCommandManager::Load(const std::string &FileName)
 {
+	LOGGER->AddNewLog(ELL_INFORMATION, "CSceneRendererCommandManager::Load->Cargando los comandos de renderizado.");
+
 	m_FileName = FileName;
 	LoadXML();
 }

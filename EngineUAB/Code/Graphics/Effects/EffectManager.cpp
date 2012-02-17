@@ -31,6 +31,8 @@ void CEffectManager::CleanUp()
 void CEffectManager::Load(const std::string &Filename)
 {
 	m_Filename = Filename;
+	LOGGER->AddNewLog(ELL_INFORMATION, "CEffectManager::Load->Cargando los efectos i techniques.");
+
 
 	CXMLTreeNode newFile;
 	if (!newFile.LoadFile(Filename.c_str()))

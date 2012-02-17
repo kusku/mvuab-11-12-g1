@@ -68,14 +68,14 @@ void CDebugRender::Render(CRenderManager *rm, CFontManager *fm, CTimer *timer, C
 
 		std::string l_sInfo, l_Action;
 		CORE->GetActionToInput()->GetActionInfo("DebugInfo", l_Action);
-		baseUtils::FormatSrting (l_sInfo, "Press %s to show the Debug Info", l_Action.c_str() );
+		baseUtils::FormatSrting (l_sInfo, "Press %s to view the Debug Info", l_Action.c_str() );
 		l_SizeRectangle.x = fm->SizeX(l_sInfo.c_str());
 		l_SizeRectangle.y = fm->SizeY(l_sInfo.c_str());
 
 		uint32 dx = l_SizeRectangle.x + 20;
 		rm->DrawRectangle2D(Vect2i(l_Screen.x - dx, dy), l_SizeRectangle.x, l_SizeRectangle.y, backgroundColor, 2, 2, edgesColor);
 
-		fm->DrawDefaultText(l_Screen.x - dx, dy, colWHITE, "Press %s to show the Debug Info", l_Action.c_str());
+		fm->DrawDefaultText(l_Screen.x - dx, dy, colWHITE, "Press %s to view the Debug Info", l_Action.c_str());
 	}
 
 }

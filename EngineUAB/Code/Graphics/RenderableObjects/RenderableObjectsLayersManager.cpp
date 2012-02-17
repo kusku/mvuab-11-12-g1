@@ -26,6 +26,8 @@ void CRenderableObjectsLayersManager::Destroy()
 
 void CRenderableObjectsLayersManager::Load(const std::string &FileName)
 {
+	LOGGER->AddNewLog(ELL_INFORMATION, "CRenderableObjectsLayersManager::Load->Cargando los Renderable Objects y las layers.");
+
 	m_FileName = FileName;
 	LoadFile();
 }
