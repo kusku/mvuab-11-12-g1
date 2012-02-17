@@ -30,6 +30,7 @@ void CRenderableObjectTechniqueManager::Destroy()
 
 bool CRenderableObjectTechniqueManager::Load(const std::string &FileName)
 {
+	LOGGER->AddNewLog(ELL_INFORMATION, "CRenderableObjectTechniqueManager::Load->Cargando todas las pools.");
 	m_FileName = FileName;
 	return LoadFile();
 }

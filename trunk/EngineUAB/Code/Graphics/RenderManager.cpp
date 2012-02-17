@@ -477,7 +477,6 @@ void CRenderManager::DrawQuad2DTexturedInPixelsInFullScreen(CEffectTechnique* Ef
 
 void CRenderManager::DrawColoredQuad2DTexturedInPixels(Vect2f vec1, Vect2f vec2, const CColor& color, float U0, float V0, float U1, float V1)
 {
-	//TODO: Mejorar el DrawQuad subiéndolo a gráfica, y haciéndolo con TRIANGLEFAN.
 	//  [0]------[2]
 	//   |		  |
 	//   |        |
@@ -578,7 +577,6 @@ void CRenderManager::CreateQuadBuffers()
 		(colWHITE.GetBlue()),
 		(colWHITE.GetAlpha()));
 
-	//uint16 indices[6] = { 0, 1, 2, 2, 3, 0 };
 	uint16 indices[4] = { 0, 1, 2, 3 };
 	TCOLOREDTEXTURE1_VERTEX vertices[4] =
 	{
@@ -588,6 +586,7 @@ void CRenderManager::CreateQuadBuffers()
 		,{  1.f, 1.f, 0.0f, d3dColor, 1.f, 0.f }
 	};
 
+	//Create the Vertex Buffer and Index Buffer
 	void *l_Data = NULL;
 	UINT l_Length = sizeof(TCOLOREDTEXTURE1_VERTEX) * 4;
 	m_pD3DDevice->CreateVertexBuffer( l_Length, 0, TCOLOREDTEXTURE1_VERTEX::GetFVF(), D3DPOOL_DEFAULT, &m_VBQuad, NULL);

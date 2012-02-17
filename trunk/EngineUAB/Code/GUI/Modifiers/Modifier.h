@@ -46,13 +46,15 @@ public:
 	CModifier( CXMLTreeNode &Node );
 	~CModifier();
 
-	void		Render					( CFontManager &FM, const std::string &Name, uint32 dx, uint32 Initial_dy, CColor Color = colWHITE );
+	uint16		Render					( CFontManager &FM, const std::string &Name, uint32 dx, uint32 Initial_dy, CColor Color = colWHITE );
 
 	void		ResetToMove				()		{ m_NowIndexInMap = 0; }
 	void		MoveToNextParam			();
 	void		MoveToPreviousParam		();
 	void		AddValue				();
 	void		SubsValue				();
+
+	uint16		GetNumOfParams			() const		{ return m_ParamsMap.size(); }
 };
 
 #endif
