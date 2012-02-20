@@ -22,6 +22,9 @@
     <Filter Include="Memory">
       <UniqueIdentifier>{e3827a86-2ea6-4b00-827e-ca45d6e0aaf6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scripting">
+      <UniqueIdentifier>{00f2f717-92de-4223-b3c3-7c1ecfc7e615}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Math\MathConstants.cpp">
@@ -59,6 +62,9 @@
     </ClCompile>
     <ClCompile Include="Memory\MemLeaks.cpp">
       <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripting\ScriptManager.cpp">
+      <Filter>Scripting</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,6 +146,9 @@
     </ClInclude>
     <ClInclude Include="Utils\Active.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripting\ScriptManager.h">
+      <Filter>Scripting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

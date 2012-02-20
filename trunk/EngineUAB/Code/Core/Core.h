@@ -26,6 +26,7 @@ class CLogRender;
 class CDebugRender;
 class CTimer;
 class CModifierManager;
+class CScriptManager;
 
 class CCore : public CSingleton<CCore>
 {
@@ -75,6 +76,7 @@ public:
 	inline CSceneRendererCommandManager*		GetSceneRendererCommandManager() const		{ return m_pSceneRendererCommandManager; }
 	inline CRenderableObjectsLayersManager*		GetRenderableObjectsLayersManager() const	{ return m_pRenderableObjectsLayersManager; }
 	inline CModifierManager*					GetModifierManager() const					{ return m_pModifierManager; }
+	inline CScriptManager*						GetScriptManager() const					{ return m_pScriptManager; }
 
 private:
 	void Release();
@@ -101,6 +103,7 @@ private:
 	CSceneRendererCommandManager		*m_pSceneRendererCommandManager;
 	CRenderableObjectsLayersManager		*m_pRenderableObjectsLayersManager;
 	CModifierManager					*m_pModifierManager;
+	CScriptManager						*m_pScriptManager;
 };
 
 #endif
