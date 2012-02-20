@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{6c98768d-c7af-4aa3-a754-cc66d4f6fec9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\lapi.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\lauxlib.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\lbaselib.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\lbitlib.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\lcode.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\lcorolib.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\lctype.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ldblib.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ldebug.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ldo.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ldump.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\lfunc.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\lgc.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\linit.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\liolib.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\llex.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\lmathlib.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\lmem.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\loadlib.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\lobject.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\lopcodes.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\loslib.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\lparser.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\lstate.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\lstring.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\lstrlib.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ltable.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ltablib.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ltm.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\lua.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\luac.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\lundump.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\lvm.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\lzio.c">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\lapi.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\lauxlib.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\lcode.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\lctype.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ldebug.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ldo.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\lfunc.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\lgc.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\llex.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\llimits.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\lmem.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\lobject.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\lopcodes.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\lparser.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\lstate.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\lstring.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ltable.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ltm.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\lua.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\lua.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\luaconf.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\lualib.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\lundump.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\lvm.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\lzio.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

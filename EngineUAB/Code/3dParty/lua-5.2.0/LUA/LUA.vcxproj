@@ -10,19 +10,82 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\lapi.c" />
+    <ClCompile Include="Source\lauxlib.c" />
+    <ClCompile Include="Source\lbaselib.c" />
+    <ClCompile Include="Source\lbitlib.c" />
+    <ClCompile Include="Source\lcode.c" />
+    <ClCompile Include="Source\lcorolib.c" />
+    <ClCompile Include="Source\lctype.c" />
+    <ClCompile Include="Source\ldblib.c" />
+    <ClCompile Include="Source\ldebug.c" />
+    <ClCompile Include="Source\ldo.c" />
+    <ClCompile Include="Source\ldump.c" />
+    <ClCompile Include="Source\lfunc.c" />
+    <ClCompile Include="Source\lgc.c" />
+    <ClCompile Include="Source\linit.c" />
+    <ClCompile Include="Source\liolib.c" />
+    <ClCompile Include="Source\llex.c" />
+    <ClCompile Include="Source\lmathlib.c" />
+    <ClCompile Include="Source\lmem.c" />
+    <ClCompile Include="Source\loadlib.c" />
+    <ClCompile Include="Source\lobject.c" />
+    <ClCompile Include="Source\lopcodes.c" />
+    <ClCompile Include="Source\loslib.c" />
+    <ClCompile Include="Source\lparser.c" />
+    <ClCompile Include="Source\lstate.c" />
+    <ClCompile Include="Source\lstring.c" />
+    <ClCompile Include="Source\lstrlib.c" />
+    <ClCompile Include="Source\ltable.c" />
+    <ClCompile Include="Source\ltablib.c" />
+    <ClCompile Include="Source\ltm.c" />
+    <ClCompile Include="Source\lua.c" />
+    <ClCompile Include="Source\luac.c" />
+    <ClCompile Include="Source\lundump.c" />
+    <ClCompile Include="Source\lvm.c" />
+    <ClCompile Include="Source\lzio.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\lapi.h" />
+    <ClInclude Include="Source\lauxlib.h" />
+    <ClInclude Include="Source\lcode.h" />
+    <ClInclude Include="Source\lctype.h" />
+    <ClInclude Include="Source\ldebug.h" />
+    <ClInclude Include="Source\ldo.h" />
+    <ClInclude Include="Source\lfunc.h" />
+    <ClInclude Include="Source\lgc.h" />
+    <ClInclude Include="Source\llex.h" />
+    <ClInclude Include="Source\llimits.h" />
+    <ClInclude Include="Source\lmem.h" />
+    <ClInclude Include="Source\lobject.h" />
+    <ClInclude Include="Source\lopcodes.h" />
+    <ClInclude Include="Source\lparser.h" />
+    <ClInclude Include="Source\lstate.h" />
+    <ClInclude Include="Source\lstring.h" />
+    <ClInclude Include="Source\ltable.h" />
+    <ClInclude Include="Source\ltm.h" />
+    <ClInclude Include="Source\lua.h" />
+    <ClInclude Include="Source\lua.hpp" />
+    <ClInclude Include="Source\luaconf.h" />
+    <ClInclude Include="Source\lualib.h" />
+    <ClInclude Include="Source\lundump.h" />
+    <ClInclude Include="Source\lvm.h" />
+    <ClInclude Include="Source\lzio.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{A0B76BCB-A564-440A-A287-E9D69F1E890B}</ProjectGuid>
+    <ProjectGuid>{6EBAA214-8A3B-4D51-9514-094E025F1BFE}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Viewer</RootNamespace>
+    <RootNamespace>LUA</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
@@ -38,14 +101,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)\bin\$(ProjectName)\</OutDir>
+    <OutDir>$(SolutionDir)\bin\Lib\</OutDir>
     <IntDir>$(SolutionDir)\bin\Intermediate\$(ProjectName)$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)\bin\$(ProjectName)\</OutDir>
+    <OutDir>$(SolutionDir)\bin\Lib\</OutDir>
     <IntDir>$(SolutionDir)\bin\Intermediate\$(ProjectName)$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -54,16 +115,11 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\GUI\;$(DXSDK_DIR)\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\lib;$(SolutionDir)\bin\lib;$(DXSDK_DIR)\lib\x86</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libxml2.lib;base_d.lib;core_d.lib;graphics_d.lib;input_d.lib;gui_d.lib;LUA_d.lib;d3dx9d.lib;d3d9.lib;d3dxof.lib;dxguid.lib;dinput8.lib;xinput.lib;winmm.lib;cal3d_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -74,29 +130,15 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\GUI\;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src;$(DXSDK_DIR)\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\lib;$(SolutionDir)\bin\lib;$(DXSDK_DIR)\lib\x86</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libxml2.lib;base.lib;core.lib;graphics.lib;input.lib;gui.lib;d3dx9d.lib;d3d9.lib;d3dxof.lib;dxguid.lib;dinput8.lib;xinput.lib;winmm.lib;cal3d.lib;LUA.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="viewer.cpp" />
-    <ClCompile Include="ViewerProcess.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="ViewerProcess.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
