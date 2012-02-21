@@ -87,13 +87,18 @@ void CScriptManager::Load(const std::string &XMLFile)
 }
 
 //void SetSpeedPlayer(int Speed);
-int SetSpeedPlayer(lua_State *L)
+void SetSpeedPlayer(int Speed)
 {
-	int l_Speed = (int)lua_tointeger(L,1);
-	return 0;
+	int PlayerSpeed = Speed;
+}
+
+void PrintLogger(const std::string &Msg)
+{
+	LOGGER->AddNewLog(ELL_INFORMATION, Msg.c_str() );
 }
 
 void CScriptManager::RegisterLUAFunctions()
 {
-	lua_register(m_LS, "set_speed_player", SetSpeedPlayer);
+	REGISTER_LUA_FUNCTION("set_speed_player", SetSpeedPlayer);
+	REGISTER_LUA_FUNCTION("print_logger", PrintLogger);
 }

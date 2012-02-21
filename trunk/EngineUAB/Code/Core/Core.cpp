@@ -156,6 +156,7 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 
 			m_pScriptManager = new CScriptManager();
 			m_pScriptManager->Initialize();
+			m_pScriptManager->RunFile("./Data/script.lua");
 
 #if defined (_DEBUG)
 			m_pModifierManager = new CModifierManager();
