@@ -1,15 +1,27 @@
 #include "ScriptManager.h"
 #include "Logger\Logger.h"
 #include "Base.h"
+#include <luabind/luabind.hpp>
+#include <luabind/function.hpp>
+#include <luabind/class.hpp>
+#include <luabind/operator.hpp>
+using namespace luabind;
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
 #endif
 
+#define REGISTER_LUA_FUNCTION(FunctionName,AddrFunction) {luabind::module(m_LS) [ luabind::def(FunctionName,AddrFunction) ];}
+
 int Alert(lua_State * State);
 
 CScriptManager::CScriptManager()
+{	
+}
+
+CScriptManager::~CScriptManager()
 {
+	Destroy();
 }
 
 void CScriptManager::Initialize()
@@ -18,6 +30,8 @@ void CScriptManager::Initialize()
 	luaL_openlibs(m_LS);
 	//Sobreescribimos la función _ALERT de LUA cuando se genere algún error al ejecutar código LUA
 	lua_register(m_LS,"_ALERT",Alert);
+	luabind::open(m_LS);
+	RegisterLUAFunctions();
 }
 
 int Alert(lua_State * State)
@@ -72,6 +86,14 @@ void CScriptManager::Load(const std::string &XMLFile)
 {
 }
 
+//void SetSpeedPlayer(int Speed);
+int SetSpeedPlayer(lua_State *L)
+{
+	int l_Speed = (int)lua_tointeger(L,1);
+	return 0;
+}
+
 void CScriptManager::RegisterLUAFunctions()
 {
+	lua_register(m_LS, "set_speed_player", SetSpeedPlayer);
 }

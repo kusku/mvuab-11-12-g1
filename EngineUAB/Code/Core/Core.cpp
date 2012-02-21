@@ -155,7 +155,7 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 			m_pSceneRendererCommandManager->Load(config.scene_renderer_command_manager_path);
 
 			m_pScriptManager = new CScriptManager();
-
+			m_pScriptManager->Initialize();
 
 #if defined (_DEBUG)
 			m_pModifierManager = new CModifierManager();

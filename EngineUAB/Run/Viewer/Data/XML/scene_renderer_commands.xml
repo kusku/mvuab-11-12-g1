@@ -23,6 +23,7 @@
 	<set_pool_renderable_objects_technique pool="Deferred_Shading" />
 	
 	<render_scene layer="solid" active="true" />
+	<render_debug_lights active="true" />
 	
 	<unset_render_target render_target="deferred_multiple_render_target"/>
 	
