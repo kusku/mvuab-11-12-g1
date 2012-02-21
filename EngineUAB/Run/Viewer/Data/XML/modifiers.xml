@@ -17,4 +17,7 @@
 	<modifier name="SSAA" technique="SSAATechnique" >
 		<param id="0" name="Weight" start_range="0.0" end_range="1.0" precision="0.01" />
 	</modifier>
+	<modifier name="Noise_Vignetting" technique="NoiseAndVignettingTechnique" >
+		<param id="0" name="Time" start_range="0.0" end_range="1.0" precision="0.01" />
+	</modifier>
 </modifiers>
