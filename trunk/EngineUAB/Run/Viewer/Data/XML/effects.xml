@@ -19,6 +19,7 @@
 	<effect name="SSAA" file="./data/effects/SSAA.fx" />
 	<effect name="ColorGrading" file="./data/effects/ColorGrading.fx" />
 	<effect name="ZBlur" file="./data/effects/ZBlur.fx" />
+	<effect name="NoiseAndVignetting" file="./data/effects/NoiseAndVignetting.fx" />
 	<!--<effect name="Colors" file="./Data/effects/colors.fx" />-->
 	<!--<effect name="NormalMap" file="./data/effects/normalmap.fx" />-->
 	
@@ -73,6 +74,9 @@
 	<technique name="ZBlurTechnique" effect="ZBlur"
 		use_view_inverse_matrix="true"	use_proj_inverse_matrix="true" use_render_target_size="true" use_params="true" num_of_params="4"
 		parameter_0="50" parameter_1="65" parameter_2="300" parameter_3="0.4" />
+	
+	<technique name="NoiseAndVignettingTechnique" effect="NoiseAndVignetting" 
+		use_params="true" num_of_params="1" parameter_0="0.5" />
 	
 	<!--<technique name="NormalTextureVertexTechnique" effect="DefaultEffect"
 		use_world_matrix="true" use_world_view_projection_matrix="true" use_lights_fs="true"
