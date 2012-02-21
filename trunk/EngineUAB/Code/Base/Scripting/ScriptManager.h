@@ -17,8 +17,11 @@ class CScriptManager
 private:
 	lua_State *m_LS;
 
+	void RegisterLUAFunctions();
+
 public:
 	CScriptManager();
+	~CScriptManager();
 
 	void Initialize();
 	void Destroy();
@@ -27,7 +30,6 @@ public:
 	void RunFile(const std::string &FileName) const;
 
 	void Load(const std::string &XMLFile);
-	void RegisterLUAFunctions();
 
 	lua_State * GetLuaState() const { return m_LS; }
 };
