@@ -19,7 +19,8 @@ char* CPhysicASELoader::TrimFront(char* c)
 bool CPhysicASELoader::ReadMeshFromASE(	std::string fileName, std::vector<Vect3f>&vertices,
 																			 std::vector<uint32>& faces ) 
 {
-	FILE* f = fopen(fileName.c_str(), "rb");
+	FILE* f = NULL;
+	fopen_s(&f, fileName.c_str(), "rb");
 	if (f == NULL)
 	{
 		//TODO....printf("File not found: %s\n", filename.c_str());
@@ -87,7 +88,7 @@ void CPhysicASELoader::ReadVertices( FILE* f, std::vector<Vect3f>& vertices )
 		{
 			float a,b,c;
 			int i;
-			sscanf(l, "*MESH_VERTEX %d %f %f %f", &i, &a, &b, &c);
+			sscanf_s(l, "*MESH_VERTEX %d %f %f %f", &i, &a, &b, &c);
 			//Vect3f a2(3,3,3);
 			vertices.push_back( Vect3f(a,c,b) );
 		}
@@ -110,7 +111,7 @@ void CPhysicASELoader::ReadFaces( FILE* f, std::vector<uint32>& faces )
 		{
 			uint32 a,b,c;
 			int i;
-			sscanf(l, "*MESH_FACE %d: A: %d B: %d C: %d ", &i, &a, &b, &c);
+			sscanf_s(l, "*MESH_FACE %d: A: %d B: %d C: %d ", &i, &a, &b, &c);
 			faces.push_back(a);
 			faces.push_back(c);
 			faces.push_back(b);

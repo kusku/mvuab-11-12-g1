@@ -299,7 +299,7 @@ void CPhysicsManager::DrawActor (NxActor* actor, CRenderManager* render)
 				render->SetTransform(m);
 				NxReal radius = shapes[nShapes]->isSphere()->getRadius();
 				CColor color = physicUserData->GetColor();
-				render->DrawSphere(radius,color,MAX_ARISTAS);
+				render->DrawSphere(radius,MAX_ARISTAS,color);
 			}
 			break;
 		case NX_SHAPE_CAPSULE:
@@ -322,12 +322,12 @@ void CPhysicsManager::DrawActor (NxActor* actor, CRenderManager* render)
 				
 				total = m * translation;
 				render->SetTransform(total);
-				render->DrawSphere(radius, color,MAX_ARISTAS);
+				render->DrawSphere(radius, MAX_ARISTAS, color);
 
 				translation.Translate( Vect3f(0.f, -(height*0.5f), 0.f ));
 				total = m * translation;
 				render->SetTransform(total);
-				render->DrawSphere(radius, color,MAX_ARISTAS);
+				render->DrawSphere(radius, MAX_ARISTAS, color);
 			}
 			break;
 		case NX_SHAPE_CONVEX:

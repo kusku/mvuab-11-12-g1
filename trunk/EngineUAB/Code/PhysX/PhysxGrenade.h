@@ -3,9 +3,10 @@
 #define INC_PHYSICS_GRENADE_H_
 
 #include "base.h"
-#include "Utils\Named.h"'
+#include "Utils\Named.h"
 #include <string>
 #include "Math\Vector3.h"
+#include "Utils\BaseControl.h"
 
 class CalBone;
 class CPhysicActor;

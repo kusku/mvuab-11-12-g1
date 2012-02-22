@@ -9,7 +9,7 @@
 
 CPhysicUserStream::CPhysicUserStream(const char* filename, bool load) : fp(NULL)
 {
-	fp = fopen(filename, load ? "rb" : "wb");
+	fopen_s(&fp, filename, load ? "rb" : "wb");
 }
 
 CPhysicUserStream::~CPhysicUserStream()

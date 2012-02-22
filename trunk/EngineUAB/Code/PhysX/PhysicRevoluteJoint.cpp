@@ -3,6 +3,7 @@
 #include "NxRevoluteJointDesc.h"
 #include "NxRevoluteJoint.h"
 #include "PhysicActor.h"
+#include "Logger\Logger.h"
 
 #include "Memory\MemLeaks.h"
 
