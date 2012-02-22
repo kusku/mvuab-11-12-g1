@@ -2,6 +2,7 @@
 #include "base.h"
 
 #include "PhysicCookingMesh.h"
+#include <string>
 
 //---PhysX includes----
 #undef min
