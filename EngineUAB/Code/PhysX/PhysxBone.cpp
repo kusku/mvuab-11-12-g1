@@ -1,12 +1,12 @@
 #define __DONT_INCLUDE_MEM_LEAKS__
 #include "PhysxBone.h"
 #include <cal3d/cal3d.h>
-#include <PhysicsManager.h>
+#include "PhysicsManager.h"
 #include "PhysicActor.h"
 #include "PhysicController.h"
 #include "PhysicFixedJoint.h"
 #include "PhysicSphericalJoint.h"
-#include "AnimatedModelManager.h"
+#include "RenderableObjects\AnimatedModel\AnimatedModelManager.h"
 #include "RenderManager.h"
 #include <XML/XMLTreeNode.h>
 #include "Core.h"

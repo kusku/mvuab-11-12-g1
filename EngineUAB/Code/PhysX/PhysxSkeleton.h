@@ -5,6 +5,7 @@
 #include "base.h"
 #include "Utils\BoundingBox.h"
 #include "Utils\BaseControl.h"
+#include "Math\Matrix44.h"
 
 class CPhysxBone;
 class CalSkeleton;

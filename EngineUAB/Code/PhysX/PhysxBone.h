@@ -6,6 +6,7 @@
 #include "Utils\Named.h"
 #include "Math\Matrix44.h"
 #include <vector>
+#include "Utils\BaseControl.h"
 
 using namespace std;
 

@@ -13,6 +13,8 @@
 #include "RenderManager.h"
 #include "Core.h"
 #include "base.h"
+#include "Math\Matrix44.h"
+#include "Logger\Logger.h"
 
 //---PhysX Includes---//
 #undef min

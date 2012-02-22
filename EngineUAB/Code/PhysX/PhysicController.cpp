@@ -175,10 +175,9 @@ void CPhysicController::Move(const Vect3f& direction, float elapsedTime)
 		m_Jump.StopJump();
 	}
 	NxExtendedVec3 tmp = m_pPhXController->getPosition();
-	CObject3D::m_vPosition.x = (float)tmp.x;
-	CObject3D::m_vPosition.y = (float)tmp.y;
-	CObject3D::m_vPosition.z = (float)tmp.z;
-  CObject3D::InitMat44();
+	CObject3D::m_Position.x = (float)tmp.x;
+	CObject3D::m_Position.y = (float)tmp.y;
+	CObject3D::m_Position.z = (float)tmp.z;
 }
 
 void CPhysicController::SetCollision (bool flag)
@@ -222,13 +221,12 @@ bool CPhysicController::UpdateCharacterExtents (bool bent, float ammount)
 
 	NxExtendedVec3 position(pos.x, pos.y, pos.z);
 	m_pPhXController->setPosition(position);
-	CObject3D::m_vPosition.x = (float)pos.x;
-	CObject3D::m_vPosition.y = (float)pos.y;
-	CObject3D::m_vPosition.z = (float)pos.z;
+	CObject3D::m_Position.x = (float)pos.x;
+	CObject3D::m_Position.y = (float)pos.y;
+	CObject3D::m_Position.z = (float)pos.z;
 	NxCapsuleController* c = static_cast<NxCapsuleController*> (m_pPhXController);
 	c->setHeight(height);
 	m_fHeight_Capsule = height;
-  CObject3D::InitMat44();
 	return true;
 }
 

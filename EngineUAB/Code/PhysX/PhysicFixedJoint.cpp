@@ -2,7 +2,7 @@
 #include "PhysicFixedJoint.h"
 #include "NxFixedJointDesc.h"
 #include "PhysicActor.h"
-
+#include "Logger\Logger.h"
 #include "base.h"
 
 #include "Memory\MemLeaks.h"
