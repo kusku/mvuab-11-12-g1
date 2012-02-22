@@ -4,7 +4,7 @@
 #include "NxRevoluteJoint.h"
 #include "PhysicActor.h"
 
-#include "Utils/MemLeaks.h"
+#include "Memory\MemLeaks.h"
 
 CPhysicRevoluteJoint::CPhysicRevoluteJoint()
 : m_pJoint(NULL)
