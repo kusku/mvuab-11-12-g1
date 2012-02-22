@@ -97,6 +97,8 @@
     <ClCompile Include="Math\MathConstants.cpp" />
     <ClCompile Include="Memory\MemLeaks.cpp" />
     <ClCompile Include="Scripting\ScriptManager.cpp" />
+    <ClCompile Include="Utils\BoundingBox.cpp" />
+    <ClCompile Include="Utils\BoundingSphere.cpp" />
     <ClCompile Include="Utils\CountDownTimer.cpp" />
     <ClCompile Include="Utils\LerpAnimator1D.cpp" />
     <ClCompile Include="Utils\LerpAnimator2D.cpp" />
@@ -125,7 +127,10 @@
     <ClInclude Include="Memory\MemLeaks.h" />
     <ClInclude Include="Scripting\ScriptManager.h" />
     <ClInclude Include="Utils\Active.h" />
+    <ClInclude Include="Utils\BaseControl.h" />
     <ClInclude Include="Utils\BaseUtils.h" />
+    <ClInclude Include="Utils\BoundingBox.h" />
+    <ClInclude Include="Utils\BoundingSphere.h" />
     <ClInclude Include="Utils\CountDownTimer.h" />
     <ClInclude Include="Utils\LerpAnimator1D.h" />
     <ClInclude Include="Utils\LerpAnimator2D.h" />
