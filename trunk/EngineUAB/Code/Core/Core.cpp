@@ -18,6 +18,7 @@
 #include "RenderableObjects\RenderableObjectsLayersManager.h"
 #include "Modifiers\ModifierManager.h"
 #include "Scripting\ScriptManager.h"
+#include "PhysicsManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -43,6 +44,7 @@ CCore::CCore()
 	, m_pLogRender(NULL)
 	, m_pModifierManager(NULL)
 	, m_pScriptManager(NULL)
+	, m_pPhysicsManager(NULL)
 	, m_bIsOk(false)
 {
 }
@@ -70,6 +72,7 @@ void CCore::Release()
 	CHECKED_DELETE(m_pRenderableObjectsLayersManager);
 	CHECKED_DELETE(m_pModifierManager);
 	CHECKED_DELETE(m_pScriptManager);
+	CHECKED_DELETE(m_pPhysicsManager);
 
 	m_pCamera = NULL; //La cámara la elimina el proceso
 	m_pLogRender = NULL;
