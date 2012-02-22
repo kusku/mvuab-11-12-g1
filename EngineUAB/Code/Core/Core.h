@@ -27,6 +27,7 @@ class CDebugRender;
 class CTimer;
 class CModifierManager;
 class CScriptManager;
+class CPhysicsManager;
 
 class CCore : public CSingleton<CCore>
 {
@@ -77,6 +78,7 @@ public:
 	inline CRenderableObjectsLayersManager*		GetRenderableObjectsLayersManager() const	{ return m_pRenderableObjectsLayersManager; }
 	inline CModifierManager*					GetModifierManager() const					{ return m_pModifierManager; }
 	inline CScriptManager*						GetScriptManager() const					{ return m_pScriptManager; }
+	inline CPhysicsManager*						GetPhysicsManager() const					{ return m_pPhysicsManager; }
 
 private:
 	void Release();
@@ -104,6 +106,7 @@ private:
 	CRenderableObjectsLayersManager		*m_pRenderableObjectsLayersManager;
 	CModifierManager					*m_pModifierManager;
 	CScriptManager						*m_pScriptManager;
+	CPhysicsManager						*m_pPhysicsManager;
 };
 
 #endif
