@@ -1,5 +1,6 @@
 #include "ScriptManager.h"
 #include "Logger\Logger.h"
+#include "XML\XMLTreeNode.h"
 #include "Base.h"
 #include <luabind/luabind.hpp>
 #include <luabind/function.hpp>
@@ -11,12 +12,14 @@ using namespace luabind;
 #include "Memory\MemLeaks.h"
 #endif
 
-#define REGISTER_LUA_FUNCTION(FunctionName,AddrFunction) {luabind::module(m_LS) [ luabind::def(FunctionName,AddrFunction) ];}
+#define REGISTER_LUA_FUNCTION(FunctionName,AddrFunction) { luabind::module(m_LS) [ luabind::def(FunctionName,AddrFunction) ]; }
 
 int Alert(lua_State * State);
 
 CScriptManager::CScriptManager()
+	: m_FileName("")
 {	
+	Initialize();
 }
 
 CScriptManager::~CScriptManager()
@@ -82,8 +85,49 @@ void CScriptManager::RunFile(const std::string &FileName) const
 	}
 }
 
-void CScriptManager::Load(const std::string &XMLFile)
+bool CScriptManager::Load(const std::string &XMLFile)
 {
+	LOGGER->AddNewLog(ELL_INFORMATION, "CScriptManager::Load->Cargando los scripts.");
+	m_FileName = XMLFile;
+	return LoadFile();
+}
+
+bool CScriptManager::Reload()
+{
+	LOGGER->AddNewLog(ELL_INFORMATION, "CScriptManager::Reload->Reload de los scripts.");
+	return LoadFile();
+}
+
+bool CScriptManager::LoadFile()
+{
+	CXMLTreeNode newFile;
+	if (!newFile.LoadFile(m_FileName.c_str()))
+	{
+		std::string msg_error = "CScriptManager::LoadFile->Error al intentar leer el archivo de scripts: " + m_FileName;
+		LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
+		return false;
+	}
+
+	CXMLTreeNode l_Node = newFile["scripts"];
+	if( l_Node.Exists() )
+	{
+		uint16 l_Count = l_Node.GetNumChildren();
+		for(uint16 i=0; i<l_Count; ++i)
+		{
+			std::string l_Type = l_Node(i).GetName();
+			if( l_Type == "script" )
+			{
+				std::string l_Path = l_Node(i).GetPszProperty("filename", "");
+				RunFile(l_Path);
+			}
+		}
+	}
+	else
+	{
+		return false;
+	}
+
+	return true;
 }
 
 //void SetSpeedPlayer(int Speed);

@@ -14,11 +14,6 @@ extern "C"
 
 class CScriptManager
 {
-private:
-	lua_State *m_LS;
-
-	void RegisterLUAFunctions();
-
 public:
 	CScriptManager();
 	~CScriptManager();
@@ -26,12 +21,20 @@ public:
 	void Initialize();
 	void Destroy();
 
-	void RunCode(const std::string &Code) const;
-	void RunFile(const std::string &FileName) const;
+	void RunCode	(const std::string &Code) const;
+	void RunFile	(const std::string &FileName) const;
 
-	void Load(const std::string &XMLFile);
+	bool Load		(const std::string &XMLFile);
+	bool Reload		();
 
 	lua_State * GetLuaState() const { return m_LS; }
+
+private:
+	void RegisterLUAFunctions	();
+	bool LoadFile				();
+
+	lua_State			*m_LS;
+	std::string			m_FileName;
 };
 
 #endif

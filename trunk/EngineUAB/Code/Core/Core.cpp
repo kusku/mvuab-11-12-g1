@@ -155,8 +155,7 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 			m_pSceneRendererCommandManager->Load(config.scene_renderer_command_manager_path);
 
 			m_pScriptManager = new CScriptManager();
-			m_pScriptManager->Initialize();
-			m_pScriptManager->RunFile("./Data/script.lua");
+			m_pScriptManager->Load( config.scripts_path );
 
 #if defined (_DEBUG)
 			m_pModifierManager = new CModifierManager();
