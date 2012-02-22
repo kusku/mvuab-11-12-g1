@@ -316,8 +316,12 @@ bool CEffectTechnique::BeginRender()
 
 	if( m_UseRenderTargetSize )
 	{
-		float l_RenderTargetSize = CORE->GetRenderManager()->GetRenderTargetSize();
-		l_Effect->SetFloat( m_Effect->GetRenderTargetSize(), l_RenderTargetSize );
+		Vect2f l_RenderTargetSize = CORE->GetRenderManager()->GetRenderTargetSize();
+
+		float l_RenderTarget[2];
+		l_RenderTarget[0] = l_RenderTargetSize.x;
+		l_RenderTarget[1] = l_RenderTargetSize.y;
+		l_Effect->SetFloatArray( m_Effect->GetRenderTargetSize(), l_RenderTarget, 2);
 	}
 
 	if( m_UseParams )

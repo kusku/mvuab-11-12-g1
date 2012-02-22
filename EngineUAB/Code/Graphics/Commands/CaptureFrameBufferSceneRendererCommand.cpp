@@ -46,7 +46,7 @@ CCaptureFrameBufferSceneRendererCommand::CCaptureFrameBufferSceneRendererCommand
 				l_Tex->Create(l_Name, width, height, l_MipMaps, CTexture::RENDERTARGET, CTexture::DEFAULT, l_Tex->GetFormatTypeFromString(l_FormatType));
 
 				l_TextureManager->AddResource(l_Name, l_Tex);
-				CORE->GetRenderManager()->SetRenderTargetSize( static_cast<float>(width) );
+				CORE->GetRenderManager()->SetRenderTargetSize( Vect2f(static_cast<float>(width),static_cast<float>(height))  );
 			}
 
 			AddStageTexture(l_StageID, l_Tex);

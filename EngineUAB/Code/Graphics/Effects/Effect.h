@@ -131,6 +131,7 @@ private:
 	D3DXHANDLE		m_TimeParameter;
 	D3DXHANDLE		m_HalfPixelParameter;
 	D3DXHANDLE		m_RenderTargetSizeParameter;
+
 	std::vector<D3DXHANDLE> m_Parameters;
 };
 

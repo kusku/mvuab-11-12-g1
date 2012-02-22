@@ -25,7 +25,7 @@ float g_ConstantBlur : PARAMETER3;
 
 float4x4 g_InverseProjectionMatrix : PROJECTIONINVERSE;
 float4x4 g_InverseViewMatrix : VIEWINVERSE;
-float g_RenderTargetSize : RENDER_TARGET_SIZE;
+float2 g_RenderTargetSize : RENDER_TARGET_SIZE;
 
 VertexShaderOutput ZBlurVS(VertexShaderInput input)
 {
@@ -59,7 +59,7 @@ float4 ZBlurPS(VertexShaderOutput input) : COLOR
 		float2(-1,0),float2(1,0),float2(0,-1),float2(0,1)
 	};
 	
-	float2 l_PixelInc=4*1/g_RenderTargetSize; //4 pixeles a la redonda
+	float2 l_PixelInc=4*1/g_RenderTargetSize.x; //4 pixeles a la redonda
 	float4 l_AlbedoColor=tex2D(S0LinearClampSampler,input.UV);
 	for( int i=0;i<8;i++ )
 	{
