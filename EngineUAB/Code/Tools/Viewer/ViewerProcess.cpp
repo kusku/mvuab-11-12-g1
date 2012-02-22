@@ -13,6 +13,7 @@
 #include "RenderableObjects\RenderableObjectsLayersManager.h"
 #include "Commands\SceneRendererCommandManager.h"
 #include "Lights\LightManager.h"
+#include "Scripting\ScriptManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -94,6 +95,11 @@ void CViewerProcess::UpdateInputs(float elapsedTime)
 	if( action2Input->DoAction("ReloadPools") )
 	{
 		CORE->ReloadPools();
+	}
+
+	if( action2Input->DoAction("ReloadScripts") )
+	{
+		CORE->GetScriptManager()->Reload();
 	}
 
 	if( action2Input->DoAction("ReloadCommands") )

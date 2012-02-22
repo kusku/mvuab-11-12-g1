@@ -43,6 +43,9 @@ struct SConfig
 	//Renderable Object Techniques
 	std::string renderable_object_techniques_path;
 
+	//Script params
+	std::string scripts_path;
+
 	std::string modifiers_path;
 };
 
