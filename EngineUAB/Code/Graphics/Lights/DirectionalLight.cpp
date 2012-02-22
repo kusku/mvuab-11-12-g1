@@ -73,7 +73,7 @@ void CDirectionalLight::SetShadowMap()
 	D3DXMatrixLookAtLH( &l_View, &l_Eye, &l_LookAt, &l_VUP);
 	
     //Setup Matrix projection
-	D3DXMatrixOrthoLH( &l_Projection, m_OrthoShadowMapSize.x, m_OrthoShadowMapSize.y, 1.0f, m_EndRangeAttenuation);
+	D3DXMatrixOrthoLH( &l_Projection, 2048, 2048, 1.0f, m_EndRangeAttenuation);
 
 	m_ViewShadowMap = Mat44f(l_View);
 	m_ProjectionShadowMap= Mat44f(l_Projection);

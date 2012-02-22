@@ -66,6 +66,12 @@
     <ClCompile Include="Scripting\ScriptManager.cpp">
       <Filter>Scripting</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\BoundingSphere.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\BoundingBox.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\MathTypes.h">
@@ -149,6 +155,15 @@
     </ClInclude>
     <ClInclude Include="Scripting\ScriptManager.h">
       <Filter>Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\BaseControl.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\BoundingBox.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\BoundingSphere.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

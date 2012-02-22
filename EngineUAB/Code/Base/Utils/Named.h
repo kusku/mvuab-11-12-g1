@@ -16,6 +16,11 @@ public:
 	{
 	}
 
+	CNamed(std::string name)
+		: m_Name(name)
+	{
+	}
+
 	virtual ~CNamed()
 	{
 	}
