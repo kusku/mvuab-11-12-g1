@@ -11,7 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dummy.cpp" />
     <ClCompile Include="Jump.cpp" />
     <ClCompile Include="PhysicActor.cpp" />
     <ClCompile Include="PhysicASELoader.cpp" />
