@@ -14,7 +14,7 @@ struct VertexShaderOutput
 };
 
 float g_SSAAWeight : PARAMETER0;
-float g_RenderTargetSize : RENDER_TARGET_SIZE;
+float2 g_RenderTargetSize : RENDER_TARGET_SIZE;
 
 VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 {
@@ -37,7 +37,7 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR
 	
 	for( int i=0;i<4;++i )
 	{
-		float3 t = Texture2Normal(tex2D(S1LinearClampSampler, input.UV+ delta[i] * 1/g_RenderTargetSize).xyz);
+		float3 t = Texture2Normal(tex2D(S1LinearClampSampler, input.UV+ delta[i] * 1/g_RenderTargetSize.x).xyz);
 		t -= tex;
 		factor += dot(t,t);
 	}
@@ -47,7 +47,7 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR
 	float4 l_AlbedoColor=tex2D(S0LinearClampSampler,input.UV);
 	for( int i=0;i<8;++i )
 	{
-		color += tex2D(S0LinearClampSampler,input.UV + delta[i]*(1/g_RenderTargetSize))*factor+(1-factor)*l_AlbedoColor;
+		color += tex2D(S0LinearClampSampler,input.UV + delta[i]*(1/g_RenderTargetSize.x))*factor+(1-factor)*l_AlbedoColor;
 	}
 	color += 2.0*l_AlbedoColor;
 	color = color*(1.0/10);
