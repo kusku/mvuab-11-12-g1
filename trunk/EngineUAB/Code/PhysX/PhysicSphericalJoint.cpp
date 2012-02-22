@@ -2,10 +2,11 @@
 #include "PhysicSphericalJoint.h"
 #include "NxSphericalJointDesc.h"
 #include "PhysicActor.h"
+#include "Logger\Logger.h"
 
 #include "base.h"
 
-#include "Utils/MemLeaks.h"
+#include "Memory\MemLeaks.h"
 
 CPhysicSphericalJoint::CPhysicSphericalJoint()
 : m_pJoint(NULL)

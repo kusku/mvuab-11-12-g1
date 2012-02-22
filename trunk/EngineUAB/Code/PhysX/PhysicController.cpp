@@ -11,7 +11,7 @@
 #include "NxCapsuleController.h"
 //---------------------//
 
-#include "Utils/MemLeaks.h"
+#include "Memory\MemLeaks.h"
 
 
 class CPhysicsControllerHitReport : public NxUserControllerHitReport

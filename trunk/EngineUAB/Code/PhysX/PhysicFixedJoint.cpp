@@ -5,7 +5,7 @@
 
 #include "base.h"
 
-#include "Utils/MemLeaks.h"
+#include "Memory\MemLeaks.h"
 
 CPhysicFixedJoint::CPhysicFixedJoint()
 : m_pJoint(NULL)

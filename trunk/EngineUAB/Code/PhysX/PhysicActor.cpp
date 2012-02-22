@@ -1,6 +1,8 @@
 #define __DONT_INCLUDE_MEM_LEAKS__
 #include "PhysicActor.h"
 #include "PhysicsManager.h"
+#include "Math\Matrix44.h"
+#include "Math\Matrix33.h"
 
 //#include "Base/Math/Matrix44.h"
 
