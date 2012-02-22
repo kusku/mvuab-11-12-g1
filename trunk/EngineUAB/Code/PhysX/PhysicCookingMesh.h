@@ -22,6 +22,8 @@ class NxStream;
 class NxClothMeshDesc;
 //--------------------------
 
+using namespace std;
+
 class CPhysicCookingMesh
 {
 public:
