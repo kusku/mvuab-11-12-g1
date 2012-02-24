@@ -253,7 +253,7 @@ void CPhysicsManager::DrawActor (NxActor* actor, CRenderManager* render)
 	{
 		return;
 	}
-
+	
 	NxShape*const* shapes = actor->getShapes();
 	NxU32 nShapes = actor->getNbShapes();
 
@@ -268,7 +268,8 @@ void CPhysicsManager::DrawActor (NxActor* actor, CRenderManager* render)
 				float distance = shapes[nShapes]->isPlane()->getPlane().d;
 				NxVec3 normal =  shapes[nShapes]->isPlane()->getPlane().normal;
 				Vect3f n(normal.x,normal.y,normal.z);
-				render->DrawPlane(100.f, n, distance,color,40,40);
+				//render->DrawPlane(100.f, n, distance,color,40,40);
+				//TODO: Render Plane
 			}
 			break;
 		case NX_SHAPE_BOX:

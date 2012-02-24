@@ -3,6 +3,7 @@
 
 #include "base.h"
 #include "Utils/BaseControl.h"
+#include "Math\Vector3.h"
 
 class CBoundingBox:
   public CBaseControl

@@ -352,13 +352,13 @@ SSphericalLimitInfo CPhysxSkeleton::GetJointParameterInfo(CXMLTreeNode _XMLObjec
 {
   SSphericalLimitInfo l_sInfo;
 
-  bool l_bTwistLimitLow = _XMLObjects.ExistsProperty("TwistLimitLow");
-  bool l_bTwistLimitHigh = _XMLObjects.ExistsProperty("TwistLimitHigh");
+  bool l_bTwistLimitLow = _XMLObjects.ExistsKey("TwistLimitLow");
+  bool l_bTwistLimitHigh = _XMLObjects.ExistsKey("TwistLimitHigh");
 
-  l_sInfo.JointSpring = _XMLObjects.ExistsProperty("JointSpring");
-  l_sInfo.TwistSpring = _XMLObjects.ExistsProperty("TwistSpring");
-  l_sInfo.SwingSpring = _XMLObjects.ExistsProperty("SwingSpring");
-  l_sInfo.SwingLimit = _XMLObjects.ExistsProperty("SwingLimit");
+  l_sInfo.JointSpring = _XMLObjects.ExistsKey("JointSpring");
+  l_sInfo.TwistSpring = _XMLObjects.ExistsKey("TwistSpring");
+  l_sInfo.SwingSpring = _XMLObjects.ExistsKey("SwingSpring");
+  l_sInfo.SwingLimit = _XMLObjects.ExistsKey("SwingLimit");
 
   if (l_sInfo.JointSpring)
   {

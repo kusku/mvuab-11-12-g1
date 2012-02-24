@@ -9,6 +9,7 @@
 #include "Textures\Texture.h"
 #include "Textures\TextureManager.h"
 #include "RenderManager.h"
+#include "Utils\Timer.h"
 #include <sstream>
 
 #if defined(_DEBUG)
@@ -44,6 +45,7 @@ CEffectTechnique::CEffectTechnique(	CXMLTreeNode &XMLNode )
 	m_NumOfLights					= static_cast<uint32>( XMLNode.GetIntProperty("num_of_lights", 0, false) );
 	m_UseHalfPixel					= XMLNode.GetBoolProperty("use_half_pixel", false, false);
 	m_UseRenderTargetSize			= XMLNode.GetBoolProperty("use_render_target_size", false, false);
+	m_UseTime						= XMLNode.GetBoolProperty("use_time", false, false);
 
 	//Lectura de parámetros
 	m_UseParams						= XMLNode.GetBoolProperty("use_params", false, false);
@@ -339,7 +341,7 @@ bool CEffectTechnique::BeginRender()
 
 	if( m_UseTime )
 	{
-		//TODO: ¿Que se la pasa aquí?
+		l_Effect->SetFloat( m_Effect->GetTimeMatrix(), CORE->GetTimer()->GetElapsedTime() );
 	}
 
 	return true;

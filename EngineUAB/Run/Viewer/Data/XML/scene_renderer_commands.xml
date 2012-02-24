@@ -116,7 +116,7 @@
 	<set_pool_renderable_objects_technique pool="noise_and_vignetting_pool" />
 	<render_draw_quad name="NoiseAndVignetting_Quad">
 		<texture stage_id="0" file="./data/General/textures/TEST03.png" load_file="true" />
-		<texture stage_id="1" file="./data/General/textures/noise.tga" load_file="true" />
+		<texture stage_id="1" file="./data/General/textures/fondoNOISe.tga" load_file="true" />
 	</render_draw_quad>
 	<!-- end noise & vignetting -->
 	
