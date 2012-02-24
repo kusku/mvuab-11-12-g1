@@ -127,6 +127,9 @@ bool CEffect::LoadEffect()
 	GetParameterBySemantic("LIGHT_DYNAMIC_SHADOW_MAP", m_LightsDynamicShadowMapParameter, false);
 	GetParameterBySemantic("LIGHT_STATIC_SHADOW_MAP", m_LightsStaticShadowMapParameter, false);
 
+	//Time
+	GetParameterBySemantic("TIME", m_TimeParameter, false);
+
 	//Bones
 	GetParameterBySemantic("BONES", m_BonesParameter, false);
 
