@@ -41,7 +41,7 @@
 	</pool_renderable_object_technique>
 	
 	<pool_renderable_object_technique name="ssao_final_composition_pool_renderable_object_technique">
-		<default_technique vertex_type="81" technique="SSAOBlurTechnique" />
+		<default_technique vertex_type="81" technique="SSAOFinalCompositionTechnique" />
 	</pool_renderable_object_technique>
 	
 	<pool_renderable_object_technique name="color_grading_pool">
