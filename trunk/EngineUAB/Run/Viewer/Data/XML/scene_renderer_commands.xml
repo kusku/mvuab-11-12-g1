@@ -60,8 +60,7 @@
 	<set_pool_renderable_objects_technique pool="ssao_pool_renderable_object_technique" />
 	<render_draw_quad name="prepare_ssao" >
 		<texture stage_id="0" file="./data/general/textures/rangernormal.jpg" load_file="true"/>
-		<texture stage_id="1" file="NormalMapTexture" />
-		<texture stage_id="2" file="DepthMapTexture" />
+		<texture stage_id="1" file="DepthMapTexture" />
 	</render_draw_quad>
 	
 	<capture_frame_buffer>

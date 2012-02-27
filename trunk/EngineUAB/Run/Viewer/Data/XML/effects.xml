@@ -19,6 +19,7 @@
 	<effect name="BasicBuildShadowMap" file="./data/effects/BasicBuildShadowMap.fx" />
 	<effect name="SSAA" file="./data/effects/SSAA.fx" />
 	<effect name="SSAO" file="./data/effects/SSAO.fx" />
+	<effect name="SSAOComposition" file="./data/effects/SSAOComposition.fx" />
 	<effect name="ColorGrading" file="./data/effects/ColorGrading.fx" />
 	<effect name="ZBlur" file="./data/effects/ZBlur.fx" />
 	<effect name="NoiseAndVignetting" file="./data/effects/NoiseAndVignetting.fx" />
@@ -81,8 +82,7 @@
 	<technique name="SSAOBlurTechnique" effect="SSAO"
 		use_render_target_size="true" use_proj_inverse_matrix="true" use_projection_matrix="true" />
 	
-	<technique name="SSAOFinalCompositionTechnique" effect="SSAO"
-		use_render_target_size="true" use_proj_inverse_matrix="true" use_projection_matrix="true" />
+	<technique name="SSAOFinalCompositionTechnique" effect="SSAOComposition" />
 	
 	<technique name="ColorGradingTechnique" effect="ColorGrading" use_params="true" num_of_params="7"
 		parameter_0="0.0" parameter_1="0.5" parameter_2="0.2" parameter_3="0.3" parameter_4="1.0" parameter_5="0.0" parameter_6="1.0" />
