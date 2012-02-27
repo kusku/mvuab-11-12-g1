@@ -11,6 +11,7 @@
 #include "RenderManager.h"
 #include "Utils\Timer.h"
 #include <sstream>
+#include "Lights\LightManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -42,6 +43,7 @@ CEffectTechnique::CEffectTechnique(	CXMLTreeNode &XMLNode )
 	m_UseInverseProjMatrix			= XMLNode.GetBoolProperty("use_proj_inverse_matrix", false, false);
 	m_UseCameraPosition				= XMLNode.GetBoolProperty("use_camera_position", false, false);
 	m_UseLights						= XMLNode.GetBoolProperty("use_lights", false, false);
+	m_FowardShading					= XMLNode.GetBoolProperty("use_fs", false, false);
 	m_NumOfLights					= static_cast<uint32>( XMLNode.GetIntProperty("num_of_lights", 0, false) );
 	m_UseHalfPixel					= XMLNode.GetBoolProperty("use_half_pixel", false, false);
 	m_UseRenderTargetSize			= XMLNode.GetBoolProperty("use_render_target_size", false, false);
@@ -216,6 +218,11 @@ bool CEffectTechnique::BeginRender()
 
 	if( m_UseLights )
 	{
+		if(m_FowardShading)
+		{
+			m_Effect->SetLights(m_NumOfLights);
+		}
+
 		const BOOL *l_Enabled = m_Effect->GetLightEnabled();
 		const int *l_Type = m_Effect->GetLightType();
 		const float *l_Angle = m_Effect->GetLightAngle();
@@ -226,9 +233,7 @@ bool CEffectTechnique::BeginRender()
 		const Vect3f *l_Dir = m_Effect->GetLightDirection();
 		const Vect3f *l_Color = m_Effect->GetLightColor();
 
-
 		l_Effect->SetInt( m_Effect->GetNumLights(), m_NumOfLights );
-
 
 		if( FAILED( l_Effect->SetBoolArray( m_Effect->GetLightEnabledMatrix(), l_Enabled, m_NumOfLights) ) )
 		{

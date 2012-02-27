@@ -33,7 +33,7 @@ public:
 
 protected:
 	Vect3f			m_Direction;
-	Vect2f			m_OrthoShadowMapSize;
+	Vect2i			m_OrthoShadowMapSize;
 };
 
 #endif

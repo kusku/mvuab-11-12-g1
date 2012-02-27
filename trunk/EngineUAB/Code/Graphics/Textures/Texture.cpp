@@ -98,6 +98,12 @@ bool CTexture::Create(const std::string &Name, uint32 Width, uint32 Height, uint
 		case A8R8G8B8:
 			l_Format = D3DFMT_A8R8G8B8;
 			break;
+		case A16B16G16R16:
+			l_Format = D3DFMT_A16B16G16R16;
+			break;
+		case A16B16G16R16F:
+			l_Format = D3DFMT_A16B16G16R16F;
+			break;
 		case R8G8B8:
 			l_Format = D3DFMT_R8G8B8;
 			break;
@@ -177,6 +183,10 @@ CTexture::TFormatType CTexture::GetFormatTypeFromString(const std::string &Forma
 		return CTexture::R32F;
 	else if( FormatType == "A8R8G8B8" )
 		return CTexture::A8R8G8B8;
+	else if( FormatType == "A16B16G16R16" )
+		return CTexture::A16B16G16R16;
+	else if( FormatType == "A16B16G16R16F" )
+		return CTexture::A16B16G16R16F;
 	else if( FormatType == "R8G8B8" )
 		return CTexture::R8G8B8;
 	else if( FormatType == "X8R8G8B8" )

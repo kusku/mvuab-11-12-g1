@@ -40,5 +40,5 @@ void COmniLight::Render(CRenderManager *RM)
 
 void COmniLight::SetShadowMap()
 {
-	assert(!"Not implemented COmniLight::SetShadowMap");
+	return;
 }

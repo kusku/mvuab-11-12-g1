@@ -54,8 +54,6 @@ CEffect::CEffect(CXMLTreeNode &XMLNode)
 	m_EffectName = XMLNode.GetPszProperty("name", "");
 	m_FileName = XMLNode.GetPszProperty("file", "");
 
-	SetLights(MAX_LIGHTS);
-
 	for(uint16 i=0; i<MAX_PARAMS_BY_EFFECT; ++i)
 	{
 		m_Parameters.push_back(NULL);
@@ -237,11 +235,11 @@ D3DXHANDLE CEffect::GetParameterById(uint16 id)
 
 bool CEffect::SetLights(size_t NumOfLights)
 {
-	/*CLightManager *l_Lights = CORE->GetLightManager();
-	for(size_t i=0; i<NumOfLights; ++i)
+	CLightManager *l_Lights = CORE->GetLightManager();
+
+	for(size_t i=0; i<NumOfLights && i < MAX_LIGHTS && i < l_Lights->GetResourcesVector().size(); ++i)
 	{
-		std::string l_Name = l_Lights->GetLightNameByIndex(static_cast<uint16>(i));
-		CLight* l_Light = l_Lights->GetResource(l_Name);
+		CLight* l_Light = l_Lights->GetResourcesVector().at(i);
 
 		m_LightsEnabled[i] = l_Light->GetVisible();
 
@@ -267,7 +265,7 @@ bool CEffect::SetLights(size_t NumOfLights)
 			m_LightsAngle[i] = l_SpotLight->GetAngle();
 			m_LightsFallOff[i] = l_SpotLight->GetFallOff();
 		}
-	}*/
+	}
 
 	return true;
 }
