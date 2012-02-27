@@ -1,8 +1,10 @@
+//////////////////////////////////////
+//Includes						   //
+/////////////////////////////////////
+#include "Globals.fx"
+#include "functions.fx"
 
-//////////////////////////////////
-
-float4x4 WorldViewProjection 	: WORLDVIEWPROJECTION;
-float4x4 World					: WORLD;
+//////////////////////////////////////
 
 //////////////////////////////////
 
@@ -48,13 +50,6 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 	output.Depth.y	= output.Position.w; 
 	
 	return output;
-}
-
-float3 PackNormal(float3 normal)
-{
-	float3 packNormal = 0.5f * (normal + 1.0f);
-	
-	return packNormal;
 }
 
 PixelShaderOutput PixelShaderFunction(VertexShaderOutput input)
