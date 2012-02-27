@@ -126,20 +126,20 @@ public:
 
 	~CPhysicsManager() {Done();}
 
-	bool								Init												(const std::string& _physXConfig);
-	void								Done												();
-	bool								IsOk												() const { return m_bIsOk; }
+	bool								Init										(const std::string& _physXConfig);
+	void								Done										();
+	bool								IsOk										() const { return m_bIsOk; }
 	void								SetInitParams								(const SPhysicsInitParams& initParams) {m_InitParams = initParams;}
 
 	//----CScriptRegister interface-------------------
 	virtual void				RegisterFunctions					  (CScriptManager* scriptManager);
 
-	//--- Intersection Functions:
-	CPhysicUserData*		RaycastClosestActor					(const Vect3f posRay, const Vect3f& dirRay, uint32 impactMask, SCollisionInfo& info);
-  CPhysicUserData*		RaycastClosestActorShoot		(const Vect3f posRay, const Vect3f& dirRay, uint32 impactMask, SCollisionInfo& info, float _fPower);
-	void								OverlapSphereActor					(float radiusSphere, const Vect3f& posSphere, std::vector<CPhysicUserData*> &impactObjects, uint32 impactMask);
-  void								OverlapSphereActorGrenade		(float radiusSphere, const Vect3f& posSphere, std::vector<CPhysicUserData*> impactObjects, float _fPower);
-  void                ApplyExplosion              (NxActor* _pActor, const Vect3f& _vPosSphere, float _fEffectRadius, float _fPower);
+	//--- Intersection Functions:	
+	CPhysicUserData*		RaycastClosestActor			(const Vect3f posRay, const Vect3f& dirRay, uint32 impactMask, SCollisionInfo& info);
+	CPhysicUserData*		RaycastClosestActorShoot	(const Vect3f posRay, const Vect3f& dirRay, uint32 impactMask, SCollisionInfo& info, float _fPower);
+	void					OverlapSphereActor			(float radiusSphere, const Vect3f& posSphere, std::vector<CPhysicUserData*> &impactObjects, uint32 impactMask);
+	void					OverlapSphereActorGrenade	(float radiusSphere, const Vect3f& posSphere, std::vector<CPhysicUserData*> impactObjects, float _fPower);
+	void					ApplyExplosion              (NxActor* _pActor, const Vect3f& _vPosSphere, float _fEffectRadius, float _fPower);
 
 
 	//--- Get CookingMesh
@@ -147,36 +147,35 @@ public:
 
 
 	//--- Rendering Stuff:
-	void								DebugRender									(CRenderManager* render);
-	void								SetDebugRenderMode					(bool flag) {m_bDebugRenderMode = flag;}
-	bool								GetDebugRenderMode					() const		{return m_bDebugRenderMode ;}
+	void								DebugRender							(CRenderManager* render);
+	void								SetDebugRenderMode					(bool flag)					{ m_bDebugRenderMode = flag; }
+	bool								GetDebugRenderMode					() const					{ return m_bDebugRenderMode; }
 
 	//----Update
 	void								Update											(float elapsedTime);
-  void                WaitForSimulation           ();
+	void								WaitForSimulation           ();
 
 	//--- Add/Release Actors
-	bool								AddPhysicActor							(CPhysicActor* actor);
-	bool								ReleasePhysicActor					(CPhysicActor* actor);
+	bool								AddPhysicActor					(CPhysicActor* actor);
+	bool								ReleasePhysicActor				(CPhysicActor* actor);
 
 	//--- Add/Release CharacterControllers
-	bool								AddPhysicController					(CPhysicController* controller);
+	bool								AddPhysicController				(CPhysicController* controller);
 	bool								ReleasePhysicController			(CPhysicController* controller);
 
 	//--- Add/Release Joints
 	bool								AddPhysicSphericalJoint			(CPhysicSphericalJoint* joint);
-	bool								RelasePhysicSphericalJoint	(CPhysicSphericalJoint* joint);
+	bool								RelasePhysicSphericalJoint		(CPhysicSphericalJoint* joint);
 	bool								AddPhysicRevoluteJoint			(CPhysicRevoluteJoint* joint);
 	bool								RelasePhysicRevoluteJoint		(CPhysicRevoluteJoint* joint);
-	bool								AddPhysicFixedJoint					(CPhysicFixedJoint* joint);
+	bool								AddPhysicFixedJoint				(CPhysicFixedJoint* joint);
 	bool								RelasePhysicFixedJoint			(CPhysicFixedJoint* joint);
 
 	//--- Create CCDSkeleton
-	NxCCDSkeleton*			CreateCCDSkeleton						(float size);
+	NxCCDSkeleton*					CreateCCDSkeleton					(float size);
 
-	void								SetTriggerReport						(CPhysicTriggerReport* report);
-
-  void								SetCollisionReport					(CPhysicCollisionReport* report);
+	void							SetTriggerReport					(CPhysicTriggerReport* report);
+	void							SetCollisionReport					(CPhysicCollisionReport* report);
   
   int GetCollisionMask (ECollisionGroup _szGroup) {return m_CollisionMasks[_szGroup];};
 

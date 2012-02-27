@@ -346,7 +346,7 @@ bool CEffectTechnique::BeginRender()
 
 	if( m_UseTime )
 	{
-		l_Effect->SetFloat( m_Effect->GetTimeMatrix(), CORE->GetTimer()->GetElapsedTime() );
+		l_Effect->SetFloat( m_Effect->GetTimeMatrix(), CORE->GetTimer()->GetTotalTime() );
 	}
 
 	return true;

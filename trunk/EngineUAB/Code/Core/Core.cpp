@@ -160,6 +160,9 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 			m_pScriptManager = new CScriptManager();
 			m_pScriptManager->Load( config.scripts_path );
 
+			m_pPhysicsManager = new CPhysicsManager();
+			m_pPhysicsManager->Init("");
+
 #if defined (_DEBUG)
 			m_pModifierManager = new CModifierManager();
 			m_pModifierManager->Load(config.modifiers_path);
