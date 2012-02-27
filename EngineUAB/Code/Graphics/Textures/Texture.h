@@ -37,6 +37,8 @@ public:
 
 	enum TFormatType {
 		A8R8G8B8 = 0,
+		A16B16G16R16,
+		A16B16G16R16F,
 		R8G8B8,
 		X8R8G8B8,
 		R32F

@@ -52,6 +52,7 @@ private:
 	bool	m_UseHalfPixel;
 	bool	m_UseRenderTargetSize;
 	bool	m_UseParams;
+	bool	m_FowardShading;
 
 	uint16	m_NumOfParams;
 	std::vector<float>	m_Params;

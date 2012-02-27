@@ -18,6 +18,8 @@ CDirectionalLight::CDirectionalLight( CXMLTreeNode &XMLNode )
 
 	//Extract Common Info
 	ExtractCommonLightInfo(XMLNode);
+
+	m_OrthoShadowMapSize = CORE->GetRenderManager()->GetScreenSize();
 }
 
 CDirectionalLight::CDirectionalLight()
@@ -73,7 +75,7 @@ void CDirectionalLight::SetShadowMap()
 	D3DXMatrixLookAtLH( &l_View, &l_Eye, &l_LookAt, &l_VUP);
 	
     //Setup Matrix projection
-	D3DXMatrixOrthoLH( &l_Projection, 2048, 2048, 1.0f, m_EndRangeAttenuation);
+	D3DXMatrixOrthoLH( &l_Projection, static_cast<float>(m_OrthoShadowMapSize.x), static_cast<float>(m_OrthoShadowMapSize.y), 1.0f, m_EndRangeAttenuation);
 
 	m_ViewShadowMap = Mat44f(l_View);
 	m_ProjectionShadowMap= Mat44f(l_Projection);

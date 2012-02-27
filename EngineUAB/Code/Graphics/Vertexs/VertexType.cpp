@@ -483,28 +483,36 @@ void CalcTangentsAndBinormals(void *VtxsData, unsigned short *IdxsData, size_t V
 		unsigned short i1=IdxsData[b];
 		unsigned short i2=IdxsData[b+1];
 		unsigned short i3=IdxsData[b+2];
+		
 		D3DXVECTOR3 *v1=(D3DXVECTOR3 *)
 		&l_VtxAddress[i1*VertexStride+GeometryStride];
 		D3DXVECTOR3 *v2=(D3DXVECTOR3 *)
 		&l_VtxAddress[i2*VertexStride+GeometryStride];
 		D3DXVECTOR3 *v3=(D3DXVECTOR3 *)
 		&l_VtxAddress[i3*VertexStride+GeometryStride];
+
 		D3DXVECTOR2 *w1=(D3DXVECTOR2 *)
 		&l_VtxAddress[i1*VertexStride+TextureCoordsStride];
 		D3DXVECTOR2 *w2=(D3DXVECTOR2 *)
 		&l_VtxAddress[i2*VertexStride+TextureCoordsStride];
 		D3DXVECTOR2 *w3=(D3DXVECTOR2 *)
 		&l_VtxAddress[i3*VertexStride+TextureCoordsStride];
+
 		float x1=v2->x-v1->x;
 		float x2=v3->x-v1->x;
+
 		float y1=v2->y-v1->y;
 		float y2=v3->y-v1->y;
+		
 		float z1=v2->z-v1->z;
 		float z2=v3->z-v1->z;
+		
 		float s1=w2->x-w1->x;
 		float s2=w3->x-w1->x;
+		
 		float t1=w2->y-w1->y;
 		float t2=w3->y-w1->y;
+		
 		float r = 1.0F / (s1 * t2 - s2 * t1);
 
 		D3DXVECTOR3 sdir((t2 * x1 - t1 * x2) * r, (t2 * y1 - t1 * y2) * r, (t2 * z1 - t1 * z2) * r);
