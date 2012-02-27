@@ -41,7 +41,7 @@
 //----------------------------------------------------------------------------
 bool CPhysicsManager::Init (const string& _physXConfig)
 {
-  m_szConfigFileName = _physXConfig;
+	m_szConfigFileName = _physXConfig;
 
 	m_pMyAllocator = new CPhysicUserAllocator;
 	assert(m_pMyAllocator);
@@ -54,69 +54,73 @@ bool CPhysicsManager::Init (const string& _physXConfig)
 		NxSDKCreateError errorCode = NXCE_NO_ERROR;
 		m_pPhysicsSDK = NxCreatePhysicsSDK(NX_PHYSICS_SDK_VERSION, m_pMyAllocator, NULL, desc, &errorCode);
 
+		/*Precompilation Directives*/
+#if defined( _DEBUG )
+#define USE_DEBUGGER
+#ifdef USE_DEBUGGER
+		m_pPhysicsSDK->getFoundationSDK().getRemoteDebugger()->connect("127.0.0.1");
+#endif
+#endif
 
-     /*Precompilation Directives*/
-    #if defined( _DEBUG )
-      #define USE_DEBUGGER
-      #ifdef USE_DEBUGGER
-        m_pPhysicsSDK->getFoundationSDK().getRemoteDebugger()->connect("127.0.0.1");
-      #endif
-    #endif
-
-
+		m_InitParams.m_fSkinWidth = 0.01f; //TODO: Borrar la línea
 		m_bIsOk = (m_pPhysicsSDK != NULL);
 		if (m_bIsOk)
 		{
-			LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager:: Creado el PhysXSDK");
-			LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager:: -------PhsX Settings---");
-			LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager:: El valor del SkinWidth es: %f", 
-				m_InitParams.m_fSkinWidth);
-      
+			LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager::Init-> Creado el PhysXSDK");
+			LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager::Init-> -------PhsX Settings---");
+			LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager::Init-> El valor del SkinWidth es: %f", m_InitParams.m_fSkinWidth);
+
 
 			m_pPhysicsSDK->setParameter(NX_SKIN_WIDTH, m_InitParams.m_fSkinWidth);
 
-      //CODI PER PRINTAR INFO DELS JOINTS
-      m_pPhysicsSDK->setParameter(NX_VISUALIZE_ACTOR_AXES, 1);
-	    m_pPhysicsSDK->setParameter(NX_VISUALIZE_JOINT_LIMITS, 1);
-	    m_pPhysicsSDK->setParameter(NX_VISUALIZE_JOINT_LOCAL_AXES, 1);
-      m_pPhysicsSDK->setParameter(NX_CONTINUOUS_CD, 1);
+			//CODI PER PRINTAR INFO DELS JOINTS
+			m_pPhysicsSDK->setParameter(NX_VISUALIZE_ACTOR_AXES, 1);
+			m_pPhysicsSDK->setParameter(NX_VISUALIZE_JOINT_LIMITS, 1);
+			m_pPhysicsSDK->setParameter(NX_VISUALIZE_JOINT_LOCAL_AXES, 1);
+			m_pPhysicsSDK->setParameter(NX_CONTINUOUS_CD, 1);
 
 			// Create a scene
-			LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager:: El valor de la gravedad es: %f",
-				m_InitParams.m_fGravity);
+			LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager::Init-> El valor de la gravedad es: %f", m_InitParams.m_fGravity);
 			NxSceneDesc sceneDesc;
+			
+			m_InitParams.m_fGravity = -9.81f; //TODO: Borrar línea
 			sceneDesc.gravity = NxVec3(0.0f, m_InitParams.m_fGravity, 0.0f);
 			m_pScene = m_pPhysicsSDK->createScene(sceneDesc);
 			m_bIsOk = (m_pScene != NULL);
 			if (m_bIsOk)
 			{
-				LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager:: Solo hay un material, con los siguientes params");
-				LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager:: DefaultMaterial->Restitution %f:",
+				LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager::Init-> Solo hay un material, con los siguientes params");
+				LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager::Init-> DefaultMaterial->Restitution %f:",
 					m_InitParams.m_Restitution_DefMat);
-				LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager:: DefaultMaterial->StaticFriction %f:",
+				LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager::Init-> DefaultMaterial->StaticFriction %f:",
 					m_InitParams.m_StaticFriction_DefMat);
-				LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager:: DefaultMaterial->DynamicFriction %f:",
+				LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager::Init-> DefaultMaterial->DynamicFriction %f:",
 					m_InitParams.m_DynamicFriction_DefMat);
-				LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager:: ----END PhsX Settings---");
+				LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager::Init-> ----END PhsX Settings---");
 				// Set default material
+				//TODO: Borrar líneas
+				m_InitParams.m_Restitution_DefMat = 0.5f;
+				m_InitParams.m_StaticFriction_DefMat = 0.5f;
+				m_InitParams.m_DynamicFriction_DefMat = 0.5f;
+
 				NxMaterial* defaultMaterial = m_pScene->getMaterialFromIndex(0);
 				defaultMaterial->setRestitution(m_InitParams.m_Restitution_DefMat);
 				defaultMaterial->setStaticFriction(m_InitParams.m_StaticFriction_DefMat);
 				defaultMaterial->setDynamicFriction(m_InitParams.m_DynamicFriction_DefMat);
 
-        
+
 
 				// Create a controllerManager
 				m_pControllerManager = NxCreateControllerManager(m_pMyAllocator);
 				m_bIsOk = (m_pControllerManager != NULL);
 				if (m_bIsOk)
 				{
-					LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager:: Creado el controlador de caracteres");
+					LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager::Init-> Creado el controlador de caracteres");
 					m_pCookingMesh = new CPhysicCookingMesh();
 					assert(m_pCookingMesh);
 					m_bIsOk = m_pCookingMesh->Init(m_pPhysicsSDK, m_pMyAllocator);
 					if (m_bIsOk) {
-						LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager:: Creado el CookingMesh");
+						LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager::Init-> Creado el CookingMesh");
 					}
 
 				}// isOk m_pControllerManager?
@@ -134,53 +138,53 @@ bool CPhysicsManager::Init (const string& _physXConfig)
 		Release();
 		throw CException(__FILE__, __LINE__, msg_error);
 	}
-  else
-  {
-    CXMLTreeNode l_xmlPhysX;
-    if(!l_xmlPhysX.LoadFile(_physXConfig.c_str()))
-    {
-      LOGGER->AddNewLog(ELL_WARNING, "No s'ha pogut carregar el fitxer d'init del PhysX Manager \"%s\"", _physXConfig.c_str());
-    }
-    else
-    {
-      for(int i = 0; i < ECG_LAST_GROUP; ++i)
-      {
-        for(int j = i+1; j < ECG_LAST_GROUP; ++j)
-        {
-          m_pScene->setGroupCollisionFlag(i,j,false);
-        }
-      }
+	/*else
+	{
+		CXMLTreeNode l_xmlPhysX;
+		if(!l_xmlPhysX.LoadFile(_physXConfig.c_str()))
+		{
+			LOGGER->AddNewLog(ELL_WARNING, "PhysicsManager::Init->No se ha podido carger el fichero init de PhysX: \"%s\"", _physXConfig.c_str());
+		}
+		else
+		{
+			for(int i = 0; i < ECG_LAST_GROUP; ++i)
+			{
+				for(int j = i+1; j < ECG_LAST_GROUP; ++j)
+				{
+					m_pScene->setGroupCollisionFlag(i,j,false);
+				}
+			}
 
-      LOGGER->AddNewLog(ELL_INFORMATION, "Carregant init del PhysX Manager \"%s\"", _physXConfig.c_str());
-      int l_iNumC = l_xmlPhysX.GetNumChildren();
-      for(int i = 0; i < l_iNumC; ++i)
-      {
-        CXMLTreeNode l_xmlCollision = l_xmlPhysX(i);
-        if(strcmp(l_xmlCollision.GetName(), "collision") == 0)
-        {
-          string l_szGroup1 = l_xmlCollision.GetPszISOProperty("group1","",true);
-          string l_szGroup2 = l_xmlCollision.GetPszISOProperty("group2","",true);
-          int    l_iGroup1  = GetCollisionGroup(l_szGroup1);
-          int    l_iGroup2  = GetCollisionGroup(l_szGroup2);
-          
-          m_CollisionMasks[l_iGroup1] |= 1 << l_iGroup1;
-          m_CollisionMasks[l_iGroup1] |= 1 << l_iGroup2;
-          
-          m_CollisionMasks[l_iGroup2] |= 1 << l_iGroup1;
-          m_CollisionMasks[l_iGroup2] |= 1 << l_iGroup2;
+			LOGGER->AddNewLog(ELL_INFORMATION, "Carregant init del PhysX Manager \"%s\"", _physXConfig.c_str());
+			int l_iNumC = l_xmlPhysX.GetNumChildren();
+			for(int i = 0; i < l_iNumC; ++i)
+			{
+				CXMLTreeNode l_xmlCollision = l_xmlPhysX(i);
+				if(strcmp(l_xmlCollision.GetName(), "collision") == 0)
+				{
+					string l_szGroup1 = l_xmlCollision.GetPszISOProperty("group1","",true);
+					string l_szGroup2 = l_xmlCollision.GetPszISOProperty("group2","",true);
+					int    l_iGroup1  = GetCollisionGroup(l_szGroup1);
+					int    l_iGroup2  = GetCollisionGroup(l_szGroup2);
 
-          m_pScene->setGroupCollisionFlag(l_iGroup1,l_iGroup2,true);
-          LOGGER->AddNewLog(ELL_INFORMATION, "Colisió etre el grup %d (%s) i el grup %d (%s)", 
-                                                                    l_iGroup1, l_szGroup1.c_str(), 
-                                                                    l_iGroup2, l_szGroup2.c_str());
-        }
-        else if(!l_xmlCollision.IsComment())
-        {
-          LOGGER->AddNewLog(ELL_WARNING, "Element no reconegut \"%s\"", l_xmlCollision.GetName());
-        }
-      }
-    }
-  }
+					m_CollisionMasks[l_iGroup1] |= 1 << l_iGroup1;
+					m_CollisionMasks[l_iGroup1] |= 1 << l_iGroup2;
+
+					m_CollisionMasks[l_iGroup2] |= 1 << l_iGroup1;
+					m_CollisionMasks[l_iGroup2] |= 1 << l_iGroup2;
+
+					m_pScene->setGroupCollisionFlag(l_iGroup1,l_iGroup2,true);
+					LOGGER->AddNewLog(ELL_INFORMATION, "Colisió etre el grup %d (%s) i el grup %d (%s)", 
+						l_iGroup1, l_szGroup1.c_str(), 
+						l_iGroup2, l_szGroup2.c_str());
+				}
+				else if(!l_xmlCollision.IsComment())
+				{
+					LOGGER->AddNewLog(ELL_WARNING, "Element no reconegut \"%s\"", l_xmlCollision.GetName());
+				}
+			}
+		}
+	}*/
 
 	return m_bIsOk;
 }
@@ -253,7 +257,7 @@ void CPhysicsManager::DrawActor (NxActor* actor, CRenderManager* render)
 	{
 		return;
 	}
-	
+
 	NxShape*const* shapes = actor->getShapes();
 	NxU32 nShapes = actor->getNbShapes();
 
@@ -277,15 +281,15 @@ void CPhysicsManager::DrawActor (NxActor* actor, CRenderManager* render)
 				NxF32 m_aux[16];
 				shapes[nShapes]->getGlobalPose().getColumnMajor44(m_aux);
 				Mat44f m(	m_aux[0], m_aux[4], m_aux[8], m_aux[12], 
-									m_aux[1], m_aux[5], m_aux[9], m_aux[13], 
-									m_aux[2], m_aux[6], m_aux[10], m_aux[14], 
-									m_aux[3], m_aux[7], m_aux[11], m_aux[15]);
-				
+					m_aux[1], m_aux[5], m_aux[9], m_aux[13], 
+					m_aux[2], m_aux[6], m_aux[10], m_aux[14], 
+					m_aux[3], m_aux[7], m_aux[11], m_aux[15]);
+
 				render->SetTransform(m);
 				NxVec3 boxDim = shapes[nShapes]->isBox()->getDimensions();
 				CColor color = physicUserData->GetColor();
 				render->DrawCube(Vect3f(boxDim.x*2,boxDim.y*2,boxDim.z*2), color);
-        //render->DrawCube(boxDim.y*2,color);
+				//render->DrawCube(boxDim.y*2,color);
 			}
 			break;
 		case NX_SHAPE_SPHERE:
@@ -293,10 +297,10 @@ void CPhysicsManager::DrawActor (NxActor* actor, CRenderManager* render)
 				NxF32 m_aux[16];
 				shapes[nShapes]->getGlobalPose().getColumnMajor44(m_aux);
 				Mat44f m(	m_aux[0], m_aux[4], m_aux[8], m_aux[12], 
-									m_aux[1], m_aux[5], m_aux[9], m_aux[13], 
-									m_aux[2], m_aux[6], m_aux[10], m_aux[14], 
-									m_aux[3], m_aux[7], m_aux[11], m_aux[15]);
-				
+					m_aux[1], m_aux[5], m_aux[9], m_aux[13], 
+					m_aux[2], m_aux[6], m_aux[10], m_aux[14], 
+					m_aux[3], m_aux[7], m_aux[11], m_aux[15]);
+
 				render->SetTransform(m);
 				NxReal radius = shapes[nShapes]->isSphere()->getRadius();
 				CColor color = physicUserData->GetColor();
@@ -308,10 +312,10 @@ void CPhysicsManager::DrawActor (NxActor* actor, CRenderManager* render)
 				NxF32 m_aux[16];
 				shapes[nShapes]->getGlobalPose().getColumnMajor44(m_aux);
 				Mat44f m(	m_aux[0], m_aux[4], m_aux[8], m_aux[12], 
-									m_aux[1], m_aux[5], m_aux[9], m_aux[13], 
-									m_aux[2], m_aux[6], m_aux[10], m_aux[14], 
-									m_aux[3], m_aux[7], m_aux[11], m_aux[15]);
-				
+					m_aux[1], m_aux[5], m_aux[9], m_aux[13], 
+					m_aux[2], m_aux[6], m_aux[10], m_aux[14], 
+					m_aux[3], m_aux[7], m_aux[11], m_aux[15]);
+
 				Mat44f translation, total;
 				translation.SetIdentity();
 				render->SetTransform(m);
@@ -320,7 +324,7 @@ void CPhysicsManager::DrawActor (NxActor* actor, CRenderManager* render)
 				const NxReal & height = shapes[nShapes]->isCapsule()->getHeight();
 				CColor color = physicUserData->GetColor();
 				translation.Translate(Vect3f(0.f, (height*0.5f), 0.f));
-				
+
 				total = m * translation;
 				render->SetTransform(total);
 				render->DrawSphere(radius, MAX_ARISTAS, color);
@@ -354,12 +358,12 @@ void CPhysicsManager::DrawActor (NxActor* actor, CRenderManager* render)
 				NxF32 m_aux[16];
 				mesh->getGlobalPose().getColumnMajor44(m_aux);
 				Mat44f m(	m_aux[0], m_aux[4], m_aux[8], m_aux[12], 
-									m_aux[1], m_aux[5], m_aux[9], m_aux[13], 
-									m_aux[2], m_aux[6], m_aux[10], m_aux[14], 
-									m_aux[3], m_aux[7], m_aux[11], m_aux[15]);
-				
+					m_aux[1], m_aux[5], m_aux[9], m_aux[13], 
+					m_aux[2], m_aux[6], m_aux[10], m_aux[14], 
+					m_aux[3], m_aux[7], m_aux[11], m_aux[15]);
+
 				render->SetTransform(m);
-				
+
 				Vect3f a,b,c;
 				while(nbTriangles--)
 				{
@@ -403,25 +407,25 @@ void CPhysicsManager::Update (float elapsedTime)
 
 	// Fetch simulation results
 	m_pScene->flushStream();
-  //m_pScene->fetchResults(NX_RIGID_BODY_FINISHED,  true);
+	//m_pScene->fetchResults(NX_RIGID_BODY_FINISHED,  true);
 
-  
+
 }
 
 void CPhysicsManager::WaitForSimulation()
 {
-  m_pScene->fetchResults(NX_RIGID_BODY_FINISHED,  true);
+	m_pScene->fetchResults(NX_RIGID_BODY_FINISHED,  true);
 
-  NxReal maxTimestep;
+	NxReal maxTimestep;
 	NxTimeStepMethod method;
 	NxU32 maxIter;
 	NxU32 numSubSteps;
 
-  m_pScene->getTiming(maxTimestep, maxIter, method, &numSubSteps);
+	m_pScene->getTiming(maxTimestep, maxIter, method, &numSubSteps);
 	if(numSubSteps)
-  {
-    m_pControllerManager->updateControllers();
-  }
+	{
+		m_pControllerManager->updateControllers();
+	}
 }
 
 void CPhysicsManager::SetTriggerReport (CPhysicTriggerReport* report)
@@ -434,10 +438,10 @@ void CPhysicsManager::SetTriggerReport (CPhysicTriggerReport* report)
 
 void CPhysicsManager::SetCollisionReport(CPhysicCollisionReport* report)
 {
-  assert(m_pScene);
+	assert(m_pScene);
 	assert(report);
-  NxUserContactReport* nxContactReport = (NxUserContactReport*) report;
-  m_pScene->setUserContactReport(nxContactReport);
+	NxUserContactReport* nxContactReport = (NxUserContactReport*) report;
+	m_pScene->setUserContactReport(nxContactReport);
 }
 
 bool CPhysicsManager::AddPhysicActor (CPhysicActor* actor)
@@ -601,8 +605,8 @@ bool CPhysicsManager::AddPhysicController (CPhysicController* controller)
 	{
 		controller->CreateController(nxController, m_pScene);
 		nxController->getActor()->userData = controller->GetUserData();
-    //NxShape*const* shape = nxController->getActor()->getShapes();
-    //shape[0]->setGroup(controller->);
+		//NxShape*const* shape = nxController->getActor()->getShapes();
+		//shape[0]->setGroup(controller->);
 
 		isOK = true;
 	}
@@ -664,7 +668,7 @@ NxCCDSkeleton* CPhysicsManager::CreateCCDSkeleton (float size)
 
 CPhysicUserData* CPhysicsManager::RaycastClosestActor (const Vect3f posRay, const Vect3f& dirRay, uint32 impactMask, SCollisionInfo& info )
 {
-  //NxUserRaycastReport::ALL_SHAPES
+	//NxUserRaycastReport::ALL_SHAPES
 	assert(m_pScene != NULL);
 
 	NxRay ray; 
@@ -695,15 +699,15 @@ CPhysicUserData* CPhysicsManager::RaycastClosestActor (const Vect3f posRay, cons
 
 CPhysicUserData* CPhysicsManager::RaycastClosestActorShoot (const Vect3f posRay, const Vect3f& dirRay, uint32 impactMask, SCollisionInfo& info, float _fPower)
 {
-  
-  //NxUserRaycastReport::ALL_SHAPES
+
+	//NxUserRaycastReport::ALL_SHAPES
 	assert(m_pScene != NULL);
 
 	NxRay ray; 
 	ray.dir =  NxVec3(dirRay.x, dirRay.y, dirRay.z);
 	ray.orig = NxVec3(posRay.x, posRay.y, posRay.z);
 
-  NxRaycastHit hit;
+	NxRaycastHit hit;
 	NxShape* closestShape = NULL;
 
 	closestShape = m_pScene->raycastClosestShape(ray, NX_ALL_SHAPES, hit, impactMask);
@@ -721,12 +725,12 @@ CPhysicUserData* CPhysicsManager::RaycastClosestActorShoot (const Vect3f posRay,
 	info.m_Normal				= Vect3f(hit.worldNormal.x, hit.worldNormal.y, hit.worldNormal.z ); 
 	info.m_CollisionPoint	= Vect3f(hit.worldImpact.x, hit.worldImpact.y, hit.worldImpact.z ); 
 
-  Vect3f l_vDirection(dirRay.x-posRay.x,dirRay.y-posRay.y,dirRay.z-posRay.z);
-  l_vDirection.Normalize();
+	Vect3f l_vDirection(dirRay.x-posRay.x,dirRay.y-posRay.y,dirRay.z-posRay.z);
+	l_vDirection.Normalize();
 
-  NxVec3 l_vDirectionVec(dirRay.x,dirRay.y,dirRay.z); 
-  NxF32 coeff = actor->getMass() * _fPower;
-  actor->addForceAtLocalPos(l_vDirectionVec*coeff, NxVec3(0,0,0), NX_IMPULSE,true);
+	NxVec3 l_vDirectionVec(dirRay.x,dirRay.y,dirRay.z); 
+	NxF32 coeff = actor->getMass() * _fPower;
+	actor->addForceAtLocalPos(l_vDirectionVec*coeff, NxVec3(0,0,0), NX_IMPULSE,true);
 
 
 	return impactObject;
@@ -771,7 +775,7 @@ void CPhysicsManager::OverlapSphereActor (float radiusSphere, const Vect3f& posS
 		}
 	}
 
-  delete shapes;
+	delete shapes;
 
 }
 
@@ -787,7 +791,7 @@ void CPhysicsManager::OverlapSphereActorGrenade (float radiusSphere, const Vect3
 		shapes[i] = NULL;
 	}
 
-  //NX_DYNAMIC_SHAPES
+	//NX_DYNAMIC_SHAPES
 	m_pScene->overlapSphereShapes(worldSphere, NX_DYNAMIC_SHAPES, nbShapes, shapes, NULL);
 
 	for (NxU32 i = 0; i < nbShapes; i++) 
@@ -811,20 +815,20 @@ void CPhysicsManager::OverlapSphereActorGrenade (float radiusSphere, const Vect3
 			}
 
 			if(!find)
-      {
+			{
 				impactObjects.push_back(physicObject);
-        physicObject->SetColor(colRED);
-        ApplyExplosion(actor,posSphere,radiusSphere,_fPower);
-      }
+				physicObject->SetColor(colRED);
+				ApplyExplosion(actor,posSphere,radiusSphere,_fPower);
+			}
 		}
-    //delete &shapes[i];
+		//delete &shapes[i];
 	}
 
-  delete shapes;
-  /*for (NxU32 i = 0; i < nbShapes; i++) 
+	delete shapes;
+	/*for (NxU32 i = 0; i < nbShapes; i++) 
 	{
-    delete &shapes[i];
-  }*/
+	delete &shapes[i];
+	}*/
 }
 
 void CPhysicsManager::RegisterFunctions (CScriptManager* scriptManager)
@@ -834,125 +838,125 @@ void CPhysicsManager::RegisterFunctions (CScriptManager* scriptManager)
 	//using namespace luabind;
 	//
 	//// ahora registramos lo que querramos
- // module(l_pLUAState)
- //   [
- //     // registramos la clase CPhysicsManager
+	// module(l_pLUAState)
+	//   [
+	//     // registramos la clase CPhysicsManager
 	//		class_<CPhysicsManager>(CScriptRegister::SetClassName("CPhysicsManager"))
 
 
- //     // registramos su constructor
- //     .def(constructor<>())
+	//     // registramos su constructor
+	//     .def(constructor<>())
 
- //     // registramos sus funciones publicas
+	//     // registramos sus funciones publicas
 	//		.def(	CScriptRegister::PushFunctionName(AUTO_COMPLETE), &CScriptRegister::AutoComplete)
 
 	//		.def(	CScriptRegister::PushFunctionName(HELP,"void","void",
 	//					"Muestra todas las funciones de esta clase"),
 	//					&CScriptRegister::Help)
 
- //     .def(	CScriptRegister::PushFunctionName("setDebugRender", "void", "bool flag",
+	//     .def(	CScriptRegister::PushFunctionName("setDebugRender", "void", "bool flag",
 	//					"Setea a true/false la visibilidad de todos los objetos físicos de la escena"),
 	//					&CPhysicsManager::SetDebugRenderMode)
 
 	//		.def(	CScriptRegister::PushFunctionName("getDebugRender", "bool", "void", 
 	//					"Obtiene si se visualiza o no los objetos físicos de la escena"),	
 	//					&CPhysicsManager::GetDebugRenderMode)
- //   ];
+	//   ];
 }
 
 void CPhysicsManager::ApplyExplosion(NxActor* _pActor,const Vect3f& _vPosSphere, float _fEffectRadius, float _fPower)
 {
 
-  Vect3f l_vVelocityDirection;
-  Vect3f l_vActorPosition;
-  float l_fDistance;
-  float l_fTotalPower;
+	Vect3f l_vVelocityDirection;
+	Vect3f l_vActorPosition;
+	float l_fDistance;
+	float l_fTotalPower;
 
-  NxVec3 l_vPos = _pActor->getGlobalPosition();
-  l_vActorPosition = Vect3f(l_vPos.x,l_vPos.y,l_vPos.z);
+	NxVec3 l_vPos = _pActor->getGlobalPosition();
+	l_vActorPosition = Vect3f(l_vPos.x,l_vPos.y,l_vPos.z);
 
-  l_vVelocityDirection = l_vActorPosition-_vPosSphere;
-  l_vVelocityDirection.Normalize();
+	l_vVelocityDirection = l_vActorPosition-_vPosSphere;
+	l_vVelocityDirection.Normalize();
 
-  l_fDistance = _vPosSphere.Distance(l_vActorPosition);
-  l_fTotalPower = _fPower*((_fEffectRadius-l_fDistance)/_fEffectRadius);
+	l_fDistance = _vPosSphere.Distance(l_vActorPosition);
+	l_fTotalPower = _fPower*((_fEffectRadius-l_fDistance)/_fEffectRadius);
 
-  NxF32 coeff = _pActor->getMass() * l_fTotalPower;
-  NxVec3 l_vDirection(l_vVelocityDirection.x,l_vVelocityDirection.y,l_vVelocityDirection.z);
-  _pActor->addForceAtLocalPos(l_vDirection*coeff, NxVec3(0,0,0), NX_IMPULSE,true);
- 
+	NxF32 coeff = _pActor->getMass() * l_fTotalPower;
+	NxVec3 l_vDirection(l_vVelocityDirection.x,l_vVelocityDirection.y,l_vVelocityDirection.z);
+	_pActor->addForceAtLocalPos(l_vDirection*coeff, NxVec3(0,0,0), NX_IMPULSE,true);
+
 }
 
 
 
 int GetCollisionGroup(const string& _szGroup)
 {
-  if(_szGroup == "escenari")
-  {
-    return ECG_ESCENARI;
-  }
-  else if(_szGroup == "personatge")
-  {
-    return ECG_PERSONATGE;
-  }
-  else if(_szGroup == "enemic")
-  {
-    return ECG_ENEMICS;
-  }
-  else if(_szGroup == "trigger")
-  {
-    return ECG_TRIGGERS;
-  }
-  else if(_szGroup == "trigger mal")
-  {
-    return ECG_MALGLOBAL;
-  }
-  else if(_szGroup == "cobertura")
-  {
-    return ECG_COBERTURES;
-  }
-  else if(_szGroup == "objecte dinamic")
-  {
-    return ECG_OBJECTES_DINAMICS;
-  }
-  else if(_szGroup == "explosio")
-  {
-    return ECG_EXPLOSIONS;
-  }
-  else if(_szGroup == "ray shoot")
-  {
-    return ECG_RAY_SHOOT;
-  }
-  else if(_szGroup == "ray shoot player")
-  {
-    return ECG_RAY_SHOOT_PLAYER;
-  }
-  else if(_szGroup == "force")
-  {
-    return ECG_FORCE;
-  }
-  else if(_szGroup == "camera")
-  {
-    return ECG_CAMERA;
-  }
-  else if(_szGroup == "ragdoll")
-  {
-    return ECG_RAGDOLL;
-  }
-  else if(_szGroup == "ragdoll player")
-  {
-    return ECG_RAGDOLL_PLAYER;
-  }
-  else if(_szGroup == "ray ia graph")
-  {
-    return ECG_RAY_IA_GRAPH;
-  }
-  else if(_szGroup == "vigia")
-  {
-    return ECG_VIGIA;
-  }
-  else
-  {
-    return 0;
-  }
+	if(_szGroup == "escenari")
+	{
+		return ECG_ESCENARI;
+	}
+	else if(_szGroup == "personatge")
+	{
+		return ECG_PERSONATGE;
+	}
+	else if(_szGroup == "enemic")
+	{
+		return ECG_ENEMICS;
+	}
+	else if(_szGroup == "trigger")
+	{
+		return ECG_TRIGGERS;
+	}
+	else if(_szGroup == "trigger mal")
+	{
+		return ECG_MALGLOBAL;
+	}
+	else if(_szGroup == "cobertura")
+	{
+		return ECG_COBERTURES;
+	}
+	else if(_szGroup == "objecte dinamic")
+	{
+		return ECG_OBJECTES_DINAMICS;
+	}
+	else if(_szGroup == "explosio")
+	{
+		return ECG_EXPLOSIONS;
+	}
+	else if(_szGroup == "ray shoot")
+	{
+		return ECG_RAY_SHOOT;
+	}
+	else if(_szGroup == "ray shoot player")
+	{
+		return ECG_RAY_SHOOT_PLAYER;
+	}
+	else if(_szGroup == "force")
+	{
+		return ECG_FORCE;
+	}
+	else if(_szGroup == "camera")
+	{
+		return ECG_CAMERA;
+	}
+	else if(_szGroup == "ragdoll")
+	{
+		return ECG_RAGDOLL;
+	}
+	else if(_szGroup == "ragdoll player")
+	{
+		return ECG_RAGDOLL_PLAYER;
+	}
+	else if(_szGroup == "ray ia graph")
+	{
+		return ECG_RAY_IA_GRAPH;
+	}
+	else if(_szGroup == "vigia")
+	{
+		return ECG_VIGIA;
+	}
+	else
+	{
+		return 0;
+	}
 }

@@ -15,6 +15,7 @@ CTimer::CTimer (uint32 avgSamples)
 , m_fFPSTime(0.f)
 , m_uFPSCount(0)
 , m_fLastFps(0.f)
+, m_fTotalTime(0.f)
 , m_uIndex(0)
 {
 	m_Deltas = new float[m_uSamples];
@@ -67,5 +68,7 @@ void CTimer::Update( void )
 		m_fFPSTime = 0;
 		m_fLastFps = (float)l_dCurTime;
 	}
+
+	m_fTotalTime += m_fElpasedTime;
 	//---------------------------------------------//
 }

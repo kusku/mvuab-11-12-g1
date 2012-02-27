@@ -26,10 +26,10 @@ public:
 
 	void*	malloc			(size_t size);
 	void*	malloc			(size_t size, NxMemoryType type);
-	void*	mallocDEBUG	(size_t size, const char* file, int line);
-	void*	mallocDEBUG	(size_t size, const char* file, int line, const char* className, NxMemoryType type);
+	void*	mallocDEBUG		(size_t size, const char* file, int line);
+	void*	mallocDEBUG		(size_t size, const char* file, int line, const char* className, NxMemoryType type);
 	void*	realloc			(void* memory, size_t size);
-	void	free				(void* memory);
+	void	free			(void* memory);
 
 public:
 
@@ -47,11 +47,11 @@ public:
 #if defined(WIN32) || defined(_XBOX)
 	CRITICAL_SECTION		allocatorLock;
 	void		LockAlloc		()	{	EnterCriticalSection(&allocatorLock);	}
-	void		UnlockAlloc	()	{	LeaveCriticalSection(&allocatorLock);	}
+	void		UnlockAlloc		()	{	LeaveCriticalSection(&allocatorLock);	}
 #else
 	// TODO: other platforms should have a thread safe allocator as well.
 	void		LockAlloc		(){}
-	void		UnlockAlloc	(){}
+	void		UnlockAlloc		(){}
 #endif
 
 };

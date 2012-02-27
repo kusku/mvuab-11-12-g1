@@ -5,7 +5,6 @@
     <ClCompile Include="PhysicSphericalJoint.cpp" />
     <ClCompile Include="PhysicStream.cpp" />
     <ClCompile Include="PhysicTriggerReport.cpp" />
-    <ClCompile Include="PhysicUserAllocator.cpp" />
     <ClCompile Include="Jump.cpp" />
     <ClCompile Include="PhysicActor.cpp" />
     <ClCompile Include="PhysicASELoader.cpp" />
@@ -18,6 +17,9 @@
     <ClCompile Include="PhysxBone.cpp" />
     <ClCompile Include="PhysxGrenade.cpp" />
     <ClCompile Include="PhysxSkeleton.cpp" />
+    <ClCompile Include="PhysicUserAllocator.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PhysicRevoluteJoint.h" />
@@ -25,7 +27,6 @@
     <ClInclude Include="PhysicSphericalJoint.h" />
     <ClInclude Include="PhysicStream.h" />
     <ClInclude Include="PhysicTriggerReport.h" />
-    <ClInclude Include="PhysicUserAllocator.h" />
     <ClInclude Include="Jump.h" />
     <ClInclude Include="PhysicActor.h" />
     <ClInclude Include="PhysicASELoader.h" />
@@ -37,5 +38,13 @@
     <ClInclude Include="PhysxBone.h" />
     <ClInclude Include="PhysxGrenade.h" />
     <ClInclude Include="PhysxSkeleton.h" />
+    <ClInclude Include="PhysicUserAllocator.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{98f121ef-33f5-4280-bf93-823a6fd8be87}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

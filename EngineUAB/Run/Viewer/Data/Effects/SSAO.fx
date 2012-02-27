@@ -53,8 +53,8 @@ float4 SSAOPS(VertexOut IN) : COLOR
 	float l_WidthScreenResolutionOffset=1/g_RenderTargetSize.x;
 	float l_HeightScreenResolutionOffset=1/g_RenderTargetSize.y;
 	float depth = tex2D(S1LinearWrapSampler, IN.UV).r;
-	float3 se=GetPositionFromZDepthViewInViewCoordinates(depth, IN.UV, g_InverseProjectionMatrix);
-	float4 vPositionVS = mul(float4(IN.UV.x,IN.UV.y,depth,1.0), g_InverseProjectionMatrix);
+	float3 se = GetPositionFromZDepthViewInViewCoordinates(depth, IN.UV, g_InverseProjectionMatrix);
+	float4 vPositionVS = mul( float4 (IN.UV.x,IN.UV.y,depth,1.0 ), g_InverseProjectionMatrix );
 	depth = vPositionVS.z/vPositionVS.w;
 	float3 randNormal = tex2D( S0LinearWrapSampler, IN.UV * 200.0 ).rgb;
 	float finalColor = 0.0f;
@@ -62,19 +62,19 @@ float4 SSAOPS(VertexOut IN) : COLOR
 	for (int i = 0; i < 16; i++)
 	{
 		float3 ray = reflect(samples[i].xyz,randNormal) * g_SampleRadiusSSAO;
-		float4 sample = float4(se + ray, 1.0f);
+		float4 sample = float4 (se + ray, 1.0f);
 		float4 ss = mul(sample, g_ProjectionMatrix);
-		float2 sampleTexCoord = 0.5f * ss.xy/ss.w + float2(0.5f, 0.5f);
+		float2 sampleTexCoord = 0.5f * ss.xy/ss.w + float2 (0.5f, 0.5f);
 		sampleTexCoord.x += l_WidthScreenResolutionOffset;
 		sampleTexCoord.y += l_HeightScreenResolutionOffset;
-		sampleTexCoord.y=1.0-sampleTexCoord.y;
+		sampleTexCoord.y = 1.0 - sampleTexCoord.y;
 		float sampleDepth = tex2D(S1LinearWrapSampler, sampleTexCoord).r;
-		vPositionVS = mul(float4(sampleTexCoord.x,sampleTexCoord.y, sampleDepth,1.0), g_InverseProjectionMatrix);
-		sampleDepth=vPositionVS.z/vPositionVS.w;
+		vPositionVS = mul ( float4 (sampleTexCoord.x,sampleTexCoord.y, sampleDepth,1.0 ), g_InverseProjectionMatrix );
+		sampleDepth = vPositionVS.z/vPositionVS.w;
 		
 		if (sampleDepth == 1.0)
 		{
-			finalColor ++;
+			++finalColor;
 		}
 		else
 		{

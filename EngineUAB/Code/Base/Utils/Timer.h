@@ -24,11 +24,13 @@ public:
 	void			Update			();
 	float			GetElapsedTime	() const { return m_fElpasedTime; }
 	float			GetFPS			() const { return m_fFPS; }
+	float			GetTotalTime	() const { return m_fTotalTime; }
 
 private:
 
 	float		m_fElpasedTime;		// ElapsedTime
 	float		m_fFPS;				// FPS
+	float		m_fTotalTime;
 	float		m_fLastFps;
 	float		m_fFPSTime;
 	double		m_dLastTime;
