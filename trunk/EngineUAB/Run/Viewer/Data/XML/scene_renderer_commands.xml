@@ -27,30 +27,6 @@
 	
 	<unset_render_target render_target="deferred_multiple_render_target"/>
 	
-	<!-- ssao & blur -->
-	<!--<set_render_target name="ssao_multiple_render_target">
-		<dynamic_texture stage_id="1" name="SSAOBlurMapTexture" texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="3" />
-	</set_render_target>
-	<set_pool_renderable_objects_technique pool="ssao_pool_renderable_object_technique" />
-	<render_draw_quad name="prepare_ssao" >
-		<texture stage_id="0" file="./data/general/textures/randomnormal.dds" load_file="true"/>
-		<texture stage_id="1" file="NormalMapTexture" />
-		<texture stage_id="2" file="DepthMapTexture" />
-	</render_draw_quad>
-	
-	<capture_frame_buffer>
-		<dynamic_texture stage_id="1" name="SSAOMapTexture" texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="3" />
-	</capture_frame_buffer>
-	
-	<set_pool_renderable_objects_technique pool="ssao_blur_pool_renderable_object_technique" />
-	<render_draw_quad name="ssao_blur">
-		<texture stage_id="0" file="SSAOMapTexture" />
-		<texture stage_id="1" file="NormalMapTexture" />
-	</render_draw_quad>
-	
-	<unset_render_target render_target="ssao_multiple_render_target" />-->
-	<!-- ssao & blur -->
-	
 <!--end pre_render-->
 
 	<!-- deferred shading -->
@@ -77,18 +53,45 @@
 			texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="3" />
 	</capture_frame_buffer>
 	
-	<!-- ssao -->
-	<!--<set_pool_renderable_objects_technique pool="" />
+	<!-- ssao & blur-->
+	<set_render_target name="ssao_multiple_render_target">
+		<dynamic_texture stage_id="1" name="SSAOBlurMapTexture" texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="3" />
+	</set_render_target>
+	<set_pool_renderable_objects_technique pool="ssao_pool_renderable_object_technique" />
+	<render_draw_quad name="prepare_ssao" >
+		<texture stage_id="0" file="./data/general/textures/rangernormal.jpg" load_file="true"/>
+		<texture stage_id="1" file="NormalMapTexture" />
+		<texture stage_id="2" file="DepthMapTexture" />
+	</render_draw_quad>
+	
+	<capture_frame_buffer>
+		<dynamic_texture stage_id="1" name="SSAOMapTexture" texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="3" />
+	</capture_frame_buffer>
+	
+	<set_pool_renderable_objects_technique pool="ssao_blur_pool_renderable_object_technique" />
+	<render_draw_quad name="ssao_blur">
+		<texture stage_id="0" file="SSAOMapTexture" />
+		<texture stage_id="1" file="NormalMapTexture" />
+	</render_draw_quad>
+	
+	<unset_render_target render_target="ssao_multiple_render_target" />
+	
+	<set_pool_renderable_objects_technique pool="ssao_final_composition_pool_renderable_object_technique" />
 	<render_draw_quad name="SSAO_quad">
 		<texture stage_id="0" file="FrameBufferAfterDeferredShading" />
 		<texture stage_id="1" file="SSAOBlurMapTexture" />
-	</render_draw_quad>-->
-	<!-- end ssao -->
+	</render_draw_quad>
+	<!-- end ssao & blur -->
+	
+	<capture_frame_buffer>
+		<dynamic_texture stage_id="0" name="FrameBufferAfterSSAO"
+			texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="3" />
+	</capture_frame_buffer>
 	
 	<!-- ssaa -->
 	<set_pool_renderable_objects_technique pool="ssaa_pool" />
 	<render_draw_quad name="SSAA_Quad">
-		<texture stage_id="0" file="FrameBufferAfterDeferredShading"/>
+		<texture stage_id="0" file="FrameBufferAfterSSAO"/>
 		<texture stage_id="1" file="NormalMapTexture"/>
 	</render_draw_quad>
 	<!-- end ssaa -->
@@ -96,7 +99,7 @@
 	<!-- color correction -->
 	<set_pool_renderable_objects_technique pool="color_grading_pool" />
 	<render_draw_quad name="color_grading_quad">
-		<texture stage_id="0" file="FrameBufferAfterDeferredShading"/>
+		<texture stage_id="0" file="FrameBufferAfterSSAO"/>
 	</render_draw_quad>
 	<!-- end color correction -->
 	
@@ -126,11 +129,11 @@
 		<texture stage_id="0" file="FrameBufferAfterDeferredShading"/>
 	</render_draw_quad>-->
 	
-	<!-- TEST ONLY 
-	<set_pool_renderable_objects_technique pool="dummy_manager" />
+	<!-- TEST ONLY -->
+	<!--<set_pool_renderable_objects_technique pool="dummy_manager" />
 	<render_draw_quad name="TEST">
-		<texture stage_id="0" file="Spot001_dynamic"/>
-	</render_draw_quad> -->
+		<texture stage_id="0" file="SSAOBlurMapTexture"/>
+	</render_draw_quad>-->
 	
 	<!--Debug-->
 	<render_debug_info grid="true" axis="true" />
