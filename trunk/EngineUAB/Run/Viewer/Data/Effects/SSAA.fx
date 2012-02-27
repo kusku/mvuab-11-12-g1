@@ -32,12 +32,12 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR
 		float2(-1,1),float2(1,-1),float2(-1,1),float2(1,1),
 		float2(-1,0),float2(1,0),float2(0,-1),float2(0,1)
 	};
-	float3 tex = Texture2Normal(tex2D(S1LinearClampSampler,input.UV).xyz);
+	float3 tex = UnpackNormal(tex2D(S1LinearClampSampler,input.UV).xyz);
 	float factor = 0.0f;
 	
 	for( int i=0;i<4;++i )
 	{
-		float3 t = Texture2Normal(tex2D(S1LinearClampSampler, input.UV+ delta[i] * 1/g_RenderTargetSize.x).xyz);
+		float3 t = UnpackNormal(tex2D(S1LinearClampSampler, input.UV+ delta[i] * 1/g_RenderTargetSize.x).xyz);
 		t -= tex;
 		factor += dot(t,t);
 	}
