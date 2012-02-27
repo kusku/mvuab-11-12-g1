@@ -37,6 +37,7 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR
 	
 	//return float4 (1.0f, 1.0f, 1.0f, 1.0f);
 	//PixColor.a = 1.0f;
+	//return float4(input.TexCoord.x, input.TexCoord.y, input.TexCoord.x * input.TexCoord.y , 1.0f);
 	return PixColor;
 }
 
