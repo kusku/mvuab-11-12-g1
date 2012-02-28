@@ -2,6 +2,7 @@
 #include "Logger\Logger.h"
 #include "XML\XMLTreeNode.h"
 #include "Base.h"
+#include "ScriptingDefs.h"
 #include <luabind/luabind.hpp>
 #include <luabind/function.hpp>
 #include <luabind/class.hpp>
@@ -130,19 +131,49 @@ bool CScriptManager::LoadFile()
 	return true;
 }
 
-//void SetSpeedPlayer(int Speed);
-void SetSpeedPlayer(int Speed)
+void PrintLogger(int Level, const std::string &Msg)
 {
-	int PlayerSpeed = Speed;
-}
-
-void PrintLogger(const std::string &Msg)
-{
-	LOGGER->AddNewLog(ELL_INFORMATION, Msg.c_str() );
+	switch(Level)
+	{
+	case 0:
+		LOGGER->AddNewLog(ELL_INFORMATION, Msg.c_str() );
+		break;
+	case 1:
+		LOGGER->AddNewLog(ELL_WARNING, Msg.c_str() );
+		break;
+	case 2:
+		LOGGER->AddNewLog(ELL_ERROR, Msg.c_str() );
+		break;
+	default:
+		LOGGER->AddNewLog(ELL_INFORMATION, Msg.c_str() );
+		break;
+	}
+	
 }
 
 void CScriptManager::RegisterLUAFunctions()
 {
-	REGISTER_LUA_FUNCTION("set_speed_player", SetSpeedPlayer);
 	REGISTER_LUA_FUNCTION("print_logger", PrintLogger);
+
+	module(m_LS) [
+		class_<CSingleton<CCore>>("CSingleton_CCore")
+			.scope 
+			[
+				def("get_singleton", &CSingleton<CCore>::GetSingletonPtr)
+			]
+	];
+
+	module(m_LS) [
+		class_<CCore>("CCore")
+			.def("reload_all", &CCore::Reload)
+			.def("reload_fonts", &CCore::ReloadTTFs)
+			.def("reload_languages", &CCore::ReloadLanguages)
+			.def("reload_inputs", &CCore::ReloadInputs)
+			.def("reload_render_commands", &CCore::ReloadSceneRendererCommandManager)
+			.def("reload_renderable_objects_layers", &CCore::ReloadRenderableObjectsLayersManager)
+			.def("reload_effects", &CCore::ReloadEffects)
+			.def("reload_meshes", &CCore::ReloadMeshes)
+			.def("reload_pools", &CCore::ReloadPools)
+			.def("reload_scripts", &CCore::ReloadScripts)
+	];
 }

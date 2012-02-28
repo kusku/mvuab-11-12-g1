@@ -13,7 +13,7 @@
 #include "RenderableObjects\RenderableObjectsLayersManager.h"
 #include "Commands\SceneRendererCommandManager.h"
 #include "Lights\LightManager.h"
-#include "Scripting\ScriptManager.h"
+#include "ScriptManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -62,49 +62,60 @@ void CViewerProcess::Update(float elapsedTime)
 void CViewerProcess::UpdateInputs(float elapsedTime)
 {
 	CActionToInput *action2Input = CORE->GetActionToInput();
+	CScriptManager *SCRIPT = CORE->GetScriptManager();
+
 	if( action2Input->DoAction("ReloadTTFs") )
 	{
-		CORE->ReloadTTFs();
+		SCRIPT->RunCode("reload_fonts()");
+		//CORE->ReloadTTFs();
 	}
 
 	if( action2Input->DoAction("ReloadLanguageXMLs") )
 	{
-		CORE->ReloadLanguages();
+		SCRIPT->RunCode("reload_languages()");
+		//CORE->ReloadLanguages();
 	}
 
 	if( action2Input->DoAction("ReloadActions") )
 	{
-		CORE->ReloadInputs();
+		SCRIPT->RunCode("reload_inputs()");
+		//CORE->ReloadInputs();
 	}
 
 	if( action2Input->DoAction("ReloadRenderableObjects") )
 	{
-		CORE->ReloadRenderableObjectsLayersManager();
+		SCRIPT->RunCode("reload_renderable_objects_layers()");
+		//CORE->ReloadRenderableObjectsLayersManager();
 	}
 	
 	if( action2Input->DoAction("ReloadMeshes") )
 	{
-		CORE->ReloadMeshes();
+		SCRIPT->RunCode("reload_meshes()");
+		//CORE->ReloadMeshes();
 	}
 
 	if( action2Input->DoAction("ReloadShaders") )
 	{
-		CORE->ReloadEffects();
+		SCRIPT->RunCode("reload_effects()");
+		//CORE->ReloadEffects();
 	}
 
 	if( action2Input->DoAction("ReloadPools") )
 	{
-		CORE->ReloadPools();
+		SCRIPT->RunCode("reload_pools()");
+		//CORE->ReloadPools();
 	}
 
 	if( action2Input->DoAction("ReloadScripts") )
 	{
-		CORE->GetScriptManager()->Reload();
+		SCRIPT->RunCode("reload_scripts()");
+		//CORE->GetScriptManager()->Reload();
 	}
 
 	if( action2Input->DoAction("ReloadCommands") )
 	{
-		CORE->ReloadSceneRendererCommandManager();
+		SCRIPT->RunCode("reload_render_commands()");
+		//CORE->ReloadSceneRendererCommandManager();
 	}
 
 	if( action2Input->DoAction("ModifiersShow") )

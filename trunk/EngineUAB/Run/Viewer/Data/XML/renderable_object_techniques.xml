@@ -36,6 +36,10 @@
 		<default_technique vertex_type="81" technique="SSAOTechnique" />
 	</pool_renderable_object_technique>
 	
+	<pool_renderable_object_technique name="ssao2_pool_renderable_object_technique">
+		<default_technique vertex_type="81" technique="SSAOTechnique2" />
+	</pool_renderable_object_technique>
+	
 	<pool_renderable_object_technique name="ssao_blur_pool_renderable_object_technique">
 		<default_technique vertex_type="81" technique="SSAOBlurTechnique" />
 	</pool_renderable_object_technique>

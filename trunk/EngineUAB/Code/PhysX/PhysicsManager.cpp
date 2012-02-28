@@ -4,7 +4,7 @@
 #include "Assert.h"
 #include "PhysicsManager.h"
 //#include "Logger.h"
-#include "Scripting\ScriptManager.h"
+#include "ScriptManager.h"
 //#include "Base/Math/Matrix44.h"
 
 #include "XML\XMLTreeNode.h"
