@@ -2,10 +2,19 @@
 #include "Engine.h"
 #include "Base.h"
 #include "TestProcess.h"
+#include "Math\Vector2.h"
+#include "Exceptions\Exception.h"
+
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
 
 #define APPLICATION_NAME	"TEST"
 
 CEngine *g_Engine = NULL;
+
+//Headers
+void ShowErrorMessage (const std::string& message);
 
 //-----------------------------------------------------------------------------
 // Name: MsgProc()
@@ -48,44 +57,73 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 	WNDCLASSEX wc = {	sizeof(WNDCLASSEX), CS_CLASSDC, MsgProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, APPLICATION_NAME, NULL };
 
 	RegisterClassEx( &wc );
-
-	// Create the application's window
-	HWND hWnd = CreateWindow(	APPLICATION_NAME, APPLICATION_NAME, WS_OVERLAPPEDWINDOW, 100, 100, 800, 600, NULL, NULL, wc.hInstance, NULL );
-
-
-	// Añadir aquí el Init de la applicacioón
-	CTestProcess* l_TestProcess;
-	l_TestProcess = new CTestProcess();
-
-	g_Engine = new CEngine();
-	g_Engine->SetProcess(l_TestProcess);
-	g_Engine->LoadConfigXML("./Data/engine.xml");
-	g_Engine->Init(hWnd);
-
-	ShowWindow( hWnd, SW_SHOWDEFAULT );
-	UpdateWindow( hWnd );
-	MSG msg;
-	ZeroMemory( &msg, sizeof(msg) );
-
-	// Añadir en el while la condición de salida del programa de la aplicación
-
-	while( msg.message != WM_QUIT )
+	try
 	{
-		if( PeekMessage( &msg, NULL, 0U, 0U, PM_REMOVE ) )
+
+		// Añadir aquí el Init de la applicacioón
+		CTestProcess* l_TestProcess;
+		l_TestProcess = new CTestProcess();
+
+		g_Engine = new CEngine();
+		g_Engine->SetProcess(l_TestProcess);
+		g_Engine->LoadConfigXML("./Data/XML/engine.xml");
+		Vect2i position = g_Engine->GetPosition();
+		Vect2i resolution = g_Engine->GetResolution();
+
+		// Create the application's window
+		HWND hWnd = CreateWindow(	APPLICATION_NAME, APPLICATION_NAME, WS_OVERLAPPEDWINDOW, position.x, position.y,
+				resolution.x, resolution.y, NULL, NULL, wc.hInstance, NULL );
+
+		g_Engine->Init(hWnd);
+
+		ShowWindow( hWnd, SW_SHOWDEFAULT );
+		UpdateWindow( hWnd );
+		MSG msg;
+		ZeroMemory( &msg, sizeof(msg) );
+
+		// Añadir en el while la condición de salida del programa de la aplicación
+
+		while( msg.message != WM_QUIT )
 		{
-			TranslateMessage( &msg );
-			DispatchMessage( &msg );
+			if( PeekMessage( &msg, NULL, 0U, 0U, PM_REMOVE ) )
+			{
+				TranslateMessage( &msg );
+				DispatchMessage( &msg );
+			}
+			else
+			{
+				// Main loop: Añadir aquí el Update y Render de la aplicación principal
+				g_Engine->Update();
+				g_Engine->Render();
+			}
 		}
-		else
-		{
-			// Main loop: Añadir aquí el Update y Render de la aplicación principal
-			g_Engine->Update();
-			g_Engine->Render();
-		}
+	}
+	catch(CException &e)
+	{
+		ShowErrorMessage(e.GetDescription());
 	}
 	UnregisterClass( APPLICATION_NAME, wc.hInstance );
 
   // Añadir una llamada a la alicación para finalizar/liberar memoria de todos sus datos
 
   return 0;
+}
+
+void ShowErrorMessage (const std::string& message)
+{
+	bool logSaved = false;
+
+    logSaved = LOGGER->SaveLogsInFile();
+
+    std::string end_message = "";
+    if (logSaved)   
+	{
+		end_message += "Sorry, Application failed. Logs saved\n";
+	}
+    else
+	{ 
+		end_message += "Sorry, Application failed. Logs could not be saved\n";
+	}
+    end_message += message;
+    MessageBox(0, end_message.c_str(), "FlostiProject Report", MB_OK | MB_ICONERROR);
 }

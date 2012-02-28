@@ -3,10 +3,10 @@
 #ifndef _TESTPROCESS_H
 #define _TESTPROCESS_H
 
-class CPlayer;
-class CCollisionManager;
-class CItemManager;
+class CCamera;
+class CThPSCamera;
 
+#include "Player.h"
 #include "Process.h"
 #include "Math\Vector2.h"
 
@@ -21,6 +21,13 @@ public:
 	void Render (CRenderManager *RM);
 
 protected:
+	void UpdateInputs( float elapsedTime );
+
+	Vect2i pos;
+	Vect2i screen;
+
+	CPlayer m_Player;
+	CThPSCamera *m_pThPSCamera;
 };
 
 #endif

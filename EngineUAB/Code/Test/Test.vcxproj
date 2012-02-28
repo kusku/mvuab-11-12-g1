@@ -89,10 +89,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="TestProcess.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Player.h" />
     <ClInclude Include="TestProcess.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -67,55 +67,46 @@ void CViewerProcess::UpdateInputs(float elapsedTime)
 	if( action2Input->DoAction("ReloadTTFs") )
 	{
 		SCRIPT->RunCode("reload_fonts()");
-		//CORE->ReloadTTFs();
 	}
 
 	if( action2Input->DoAction("ReloadLanguageXMLs") )
 	{
 		SCRIPT->RunCode("reload_languages()");
-		//CORE->ReloadLanguages();
 	}
 
 	if( action2Input->DoAction("ReloadActions") )
 	{
 		SCRIPT->RunCode("reload_inputs()");
-		//CORE->ReloadInputs();
 	}
 
 	if( action2Input->DoAction("ReloadRenderableObjects") )
 	{
 		SCRIPT->RunCode("reload_renderable_objects_layers()");
-		//CORE->ReloadRenderableObjectsLayersManager();
 	}
 	
 	if( action2Input->DoAction("ReloadMeshes") )
 	{
 		SCRIPT->RunCode("reload_meshes()");
-		//CORE->ReloadMeshes();
 	}
 
 	if( action2Input->DoAction("ReloadShaders") )
 	{
 		SCRIPT->RunCode("reload_effects()");
-		//CORE->ReloadEffects();
 	}
 
 	if( action2Input->DoAction("ReloadPools") )
 	{
 		SCRIPT->RunCode("reload_pools()");
-		//CORE->ReloadPools();
 	}
 
 	if( action2Input->DoAction("ReloadScripts") )
 	{
 		SCRIPT->RunCode("reload_scripts()");
-		//CORE->GetScriptManager()->Reload();
 	}
 
 	if( action2Input->DoAction("ReloadCommands") )
 	{
 		SCRIPT->RunCode("reload_render_commands()");
-		//CORE->ReloadSceneRendererCommandManager();
 	}
 
 	if( action2Input->DoAction("ModifiersShow") )
