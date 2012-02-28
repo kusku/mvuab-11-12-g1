@@ -9,8 +9,10 @@
   <ItemGroup>
     <ClCompile Include="test.cpp" />
     <ClCompile Include="TestProcess.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestProcess.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
 </Project>
