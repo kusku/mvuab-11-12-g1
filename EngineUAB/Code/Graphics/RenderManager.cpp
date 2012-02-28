@@ -169,6 +169,73 @@ bool CRenderManager::Init(HWND hWnd)
 	return m_bIsOk;
 }
 
+void CRenderManager::DrawPlane(float size, const Vect3f& normal, float distance, CColor Color, int GridX, int GridZ )
+{
+  assert(IsOk());
+	D3DXMATRIX matrix;
+	D3DXMatrixIdentity(&matrix);
+	m_pD3DDevice->SetTransform(D3DTS_WORLD, &matrix);
+
+	//Ax + By + Cz + D = 0
+	//if (x,y) = (0,0) then z = -D/C
+	//if (x,y) = (1,1) then z = (-D-A-B)/C
+	//With two points we have a vector-->
+
+	float A,B,C,D;
+	A = normal.x; 
+	B = normal.y; 
+	C = normal.z; 
+	D = distance; 
+	//float pointAz;
+	//float pointBz;
+
+	Vect3f pointA, pointB;
+	if( C!= 0)
+	{
+		pointA = Vect3f(0.f,0.f, -D/C);
+		pointB = Vect3f(1.f,1.f, (D-A-B)/C);
+	}
+	else if( B!= 0)
+	{
+		pointA = Vect3f(0.f,-D/B, 0.f);
+		pointB = Vect3f(1.f,(-D-A-C)/B,1.f);
+	}
+	else if( A != 0)
+	{
+		pointA = Vect3f(-D/A,0.f, 0.f);
+		pointB = Vect3f((-D-B-C)/A,1.f,1.f);
+	}
+	else
+	{
+		//error.
+	}
+
+
+	Vect3f vectorA = pointB - pointA;
+  vectorA.Normalize();
+	Vect3f vectorB;
+  vectorB = normal^vectorA;
+  vectorB.Normalize();
+	Vect3f initPoint = normal*distance;
+
+	assert(GridX>0);
+	assert(GridZ>0);
+	//LINEAS EN Z
+	Vect3f initPointA = initPoint - vectorB*size*0.5;
+	for(int b=0;b<=GridX;++b)
+	{		
+		DrawLine(initPointA + vectorA*size*0.5, initPointA - vectorA*size*0.5, Color );
+
+		initPointA += vectorB*size/(float)GridX;
+	}
+	initPointA = initPoint - vectorA*size*0.5;
+	for(int b=0;b<=GridX;++b)
+	{
+		DrawLine(initPointA + vectorB*size*0.5, initPointA - vectorB*size*0.5, Color);
+		initPointA += vectorA*size/(float)GridX;
+	}
+}
+
 void CRenderManager::GetWindowRect( HWND hwnd )
 {
 	RECT rec_window;
