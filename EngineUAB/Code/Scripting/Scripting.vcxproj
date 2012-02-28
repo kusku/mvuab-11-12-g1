@@ -11,47 +11,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Jump.cpp" />
-    <ClCompile Include="PhysicActor.cpp" />
-    <ClCompile Include="PhysicASELoader.cpp" />
-    <ClCompile Include="PhysicCollisionReport.cpp" />
-    <ClCompile Include="PhysicController.cpp" />
-    <ClCompile Include="PhysicCookingMesh.cpp" />
-    <ClCompile Include="PhysicFixedJoint.cpp" />
-    <ClCompile Include="PhysicMaterial.cpp" />
-    <ClCompile Include="PhysicRevoluteJoint.cpp" />
-    <ClCompile Include="PhysicsManager.cpp" />
-    <ClCompile Include="PhysicSphericalJoint.cpp" />
-    <ClCompile Include="PhysicStream.cpp" />
-    <ClCompile Include="PhysicTriggerReport.cpp" />
-    <ClCompile Include="PhysicUserAllocator.cpp" />
-    <ClCompile Include="PhysxBone.cpp" />
-    <ClCompile Include="PhysxGrenade.cpp" />
-    <ClCompile Include="PhysxSkeleton.cpp" />
+    <ClCompile Include="ScriptManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Jump.h" />
-    <ClInclude Include="PhysicActor.h" />
-    <ClInclude Include="PhysicASELoader.h" />
-    <ClInclude Include="PhysicCollisionReport.h" />
-    <ClInclude Include="PhysicController.h" />
-    <ClInclude Include="PhysicCookingMesh.h" />
-    <ClInclude Include="PhysicFixedJoint.h" />
-    <ClInclude Include="PhysicMaterial.h" />
-    <ClInclude Include="PhysicRevoluteJoint.h" />
-    <ClInclude Include="PhysicsManager.h" />
-    <ClInclude Include="PhysicSphericalJoint.h" />
-    <ClInclude Include="PhysicStream.h" />
-    <ClInclude Include="PhysicTriggerReport.h" />
-    <ClInclude Include="PhysicUserAllocator.h" />
-    <ClInclude Include="PhysxBone.h" />
-    <ClInclude Include="PhysxGrenade.h" />
-    <ClInclude Include="PhysxSkeleton.h" />
+    <ClInclude Include="ScriptingDefs.h" />
+    <ClInclude Include="ScriptManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{385B57FD-59FD-45F1-A4D0-7D0277984561}</ProjectGuid>
+    <ProjectGuid>{C7E5C5FF-A876-42C2-86CC-D5563ECD1C75}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>PhysX</RootNamespace>
+    <RootNamespace>Scripting</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -76,16 +45,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)\bin\Lib\</OutDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IntDir>$(SolutionDir)\bin\Intermediate\$(ProjectName)$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_d</TargetName>
+    <OutDir>$(SolutionDir)\bin\Lib\</OutDir>
+    <IntDir>$(SolutionDir)\bin\Intermediate\$(ProjectName)$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)\bin\Lib\</OutDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IntDir>$(SolutionDir)\bin\Intermediate\$(ProjectName)$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -96,15 +61,12 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\Scripting\;$(SolutionDir)\Code\GUI\;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src;$(SolutionDir)\Code\3dParty\;$(_PHYSX_SDK)\Foundation\include;$(_PHYSX_SDK)\NxCharacter\include;$(_PHYSX_SDK)\Physics\include;$(_PHYSX_SDK)\PhysXLoader\include;$(_PHYSX_SDK)\Cooking\include;$(SolutionDir)\Code\3dParty\lua-5.2.0\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Scripting\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\3dParty\lua-5.2.0\src;$(SolutionDir)\Code\3dParty\boost_1_48_0;$(SolutionDir)\Code\3dParty\luabind-0.9.1;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDIr)\Code\3dParty\iconv-1.9.2.win32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <Lib>
-      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -116,7 +78,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\Scripting\;$(SolutionDir)\Code\GUI\;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src;$(SolutionDir)\Code\3dParty\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Scripting\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\3dParty\lua-5.2.0\src;$(SolutionDir)\Code\3dParty\boost_1_48_0;$(SolutionDir)\Code\3dParty\luabind-0.9.1;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDIr)\Code\3dParty\iconv-1.9.2.win32\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -124,9 +86,6 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
-    <Lib>
-      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-    </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

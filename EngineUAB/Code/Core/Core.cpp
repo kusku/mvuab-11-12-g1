@@ -17,7 +17,7 @@
 #include "Commands\SceneRendererCommandManager.h"
 #include "RenderableObjects\RenderableObjectsLayersManager.h"
 #include "Modifiers\ModifierManager.h"
-#include "Scripting\ScriptManager.h"
+#include "ScriptManager.h"
 #include "PhysicsManager.h"
 
 #if defined(_DEBUG)
@@ -257,4 +257,9 @@ void CCore::ReloadPools()
 	m_pEffectManager->Reload();
 	m_pStaticMeshManager->CreateRenderableObjectsTechniques();
 	m_pSceneRendererCommandManager->Reload();
+}
+
+void CCore::ReloadScripts()
+{
+	m_pScriptManager->Reload();
 }
