@@ -176,4 +176,23 @@ void CScriptManager::RegisterLUAFunctions()
 			.def("reload_pools", &CCore::ReloadPools)
 			.def("reload_scripts", &CCore::ReloadScripts)
 	];
+
+	RegisterMathLUAFunctions();
+}
+
+void CScriptManager::RegisterMathLUAFunctions()
+{
+	/*module(m_LS) [
+		class_< Vect3f >("Vect3f")
+			.def(constructor<float, float, float>())
+			.def(constructor<Vect3f>())
+			.def(const_self + const_self)
+			.def(const_self - const_self)
+			.def(const_self * const_self)
+			.def(const_self / const_self)
+			.def(const_self == const_self)
+			.def_readwrite("x", &Vect3f::x)
+			.def_readwrite("y", &Vect3f::y)
+			.def_readwrite("z", &Vect3f::z)
+	];*/
 }

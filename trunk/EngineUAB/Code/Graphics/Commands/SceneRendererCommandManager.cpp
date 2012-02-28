@@ -191,6 +191,11 @@ void CSceneRendererCommandManager::LoadXML()
 				 l_Command = new CRenderDebugModifiersSceneRendererCommand( l_SRC(i) );
 				 l_CommandName = "render_modifiers_" + l_NumCommand;
 			 }
+			 else if( l_Type == "render_debug_physics" )
+			 {
+				 l_Command = new CRenderDebugPhysicsSceneRendererCommand( l_SRC(i) );
+				 l_CommandName = "render_debug_physics" + l_NumCommand;
+			 }
 
 			 //Add the command into the map
 			 if( l_Command != NULL )

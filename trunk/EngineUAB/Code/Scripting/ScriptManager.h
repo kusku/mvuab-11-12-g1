@@ -30,8 +30,9 @@ public:
 	lua_State * GetLuaState() const { return m_LS; }
 
 private:
-	void RegisterLUAFunctions	();
-	bool LoadFile				();
+	void RegisterLUAFunctions		();
+	void RegisterMathLUAFunctions	();
+	bool LoadFile					();
 
 	lua_State			*m_LS;
 	std::string			m_FileName;
