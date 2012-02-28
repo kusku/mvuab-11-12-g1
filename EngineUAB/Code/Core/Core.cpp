@@ -254,6 +254,7 @@ void CCore::ReloadMeshes()
 void CCore::ReloadPools()
 {
 	m_pROTManager->Reload();
+	//TODO: Cambiar el Reload de EffectManager para uno que recargue los XML
 	m_pEffectManager->Reload();
 	m_pStaticMeshManager->CreateRenderableObjectsTechniques();
 	m_pSceneRendererCommandManager->Reload();

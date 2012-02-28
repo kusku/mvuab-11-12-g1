@@ -184,6 +184,9 @@
     <ClInclude Include="Commands\RenderDebugModifiersSceneRendererCommand.h">
       <Filter>Commands\Command</Filter>
     </ClInclude>
+    <ClInclude Include="Commands\RenderDebugPhysicsSceneRendererCommand.h">
+      <Filter>Commands\Command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
@@ -354,6 +357,9 @@
       <Filter>Commands\Command</Filter>
     </ClCompile>
     <ClCompile Include="Commands\RenderDebugModifiersSceneRendererCommand.cpp">
+      <Filter>Commands\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\RenderDebugPhysicsSceneRendererCommand.cpp">
       <Filter>Commands\Command</Filter>
     </ClCompile>
   </ItemGroup>

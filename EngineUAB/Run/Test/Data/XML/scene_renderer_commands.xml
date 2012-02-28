@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<scene_renderer_commands>
+<!--pre_render-->
+	<begin_scene />
+	<clear_scene color="true" depth="true" stencil="true" />
+	<enable_z_write />
+	<enable_z_test />
+	<setup_matrices />
+	
+	<render_scene layer="solid" active="true" />
+	
+	<render_debug_physics active="true" />
+	<render_debug_info grid="true" axis="true" />
+	<render_debug_lights active="true" />
+	
+	<end_scene />
+	<present />
+</scene_renderer_commands>

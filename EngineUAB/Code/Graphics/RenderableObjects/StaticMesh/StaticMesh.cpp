@@ -452,7 +452,7 @@ bool CStaticMesh::GetRenderableObjectTechnique()
 		{
 			std::string warn = "CStaticMesh::GetRenderableObjectTechnique->Error intentando obtener el Renderable Object Technique: " +
 				m_RenderableObjecTechniqueName;
-			LOGGER->AddNewLog( ELL_WARNING, warn.c_str() );
+			LOGGER->AddNewLog( ELL_ERROR, warn.c_str() );
 		}
 		
 		l_Ok = l_Ok && l_ROT!=NULL;

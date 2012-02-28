@@ -42,7 +42,7 @@ public:
 	void	SetTransform	( const Mat44f &mat );
 
 	//Draw primitives
-  void                  DrawPlane         (float size, const Vect3f& normal, float distance, CColor Color, int GridX, int GridZ ); 
+	void    DrawPlane       (float size, const Vect3f& normal, float distance, CColor Color, int GridX, int GridZ ); 
 	void	DrawLine		( const Vect3f &PosA, const Vect3f &PosB, CColor Color = colWHITE );
 	void	DrawAxis		( float size );
 	void	DrawGrid		( float sizeW, float sizeH, uint16 lines, CColor color = colWHITE  );
