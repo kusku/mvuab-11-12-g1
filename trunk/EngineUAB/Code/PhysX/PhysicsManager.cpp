@@ -272,8 +272,7 @@ void CPhysicsManager::DrawActor (NxActor* actor, CRenderManager* render)
 				float distance = shapes[nShapes]->isPlane()->getPlane().d;
 				NxVec3 normal =  shapes[nShapes]->isPlane()->getPlane().normal;
 				Vect3f n(normal.x,normal.y,normal.z);
-				//render->DrawPlane(100.f, n, distance,color,40,40);
-				//TODO: Render Plane
+				render->DrawPlane(100.f, n, distance,color,40,40);
 			}
 			break;
 		case NX_SHAPE_BOX:
@@ -289,7 +288,7 @@ void CPhysicsManager::DrawActor (NxActor* actor, CRenderManager* render)
 				NxVec3 boxDim = shapes[nShapes]->isBox()->getDimensions();
 				CColor color = physicUserData->GetColor();
 				render->DrawCube(Vect3f(boxDim.x*2,boxDim.y*2,boxDim.z*2), color);
-				//render->DrawCube(boxDim.y*2,color);
+				render->DrawCube(boxDim.y*2,color);
 			}
 			break;
 		case NX_SHAPE_SPHERE:
