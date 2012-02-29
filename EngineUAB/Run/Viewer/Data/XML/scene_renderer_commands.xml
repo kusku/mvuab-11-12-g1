@@ -63,7 +63,7 @@
 		<texture stage_id="2" file="DepthMapTexture" />
 	</render_draw_quad>
 	
-	<capture_frame_buffer>
+	<!--<capture_frame_buffer>
 		<dynamic_texture stage_id="0" name="SSAOMapTexture" texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="3" />
 	</capture_frame_buffer>
 	
@@ -71,7 +71,7 @@
 	<render_draw_quad name="ssao_blur">
 		<texture stage_id="1" file="SSAOMapTexture" />
 		<texture stage_id="2" file="NormalMapTexture" />
-	</render_draw_quad>
+	</render_draw_quad>-->
 	
 	<unset_render_target render_target="ssao_multiple_render_target" />
 	
@@ -132,7 +132,7 @@
 	<!--<set_pool_renderable_objects_technique pool="ssao_blur_pool_renderable_object_technique" />
 	<render_draw_quad name="TEST">
 		<texture stage_id="0" file="SSAOBlurMapTexture"/>
-	</render_draw_quad> -->
+	</render_draw_quad>-->
 	
 	<!--Debug-->
 	<render_debug_info grid="true" axis="true" />
