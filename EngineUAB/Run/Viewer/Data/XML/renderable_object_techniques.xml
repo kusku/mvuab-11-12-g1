@@ -56,8 +56,8 @@
 		<default_technique vertex_type="81" technique="ZBlurTechnique" />
 	</pool_renderable_object_technique>
 	
-	<pool_renderable_object_technique name="vignetting_pool">
-		<default_technique vertex_type="81" technique="VignettingTechnique" />
+	<pool_renderable_object_technique name="vignetting_noise_pool">
+		<default_technique vertex_type="81" technique="VignettingNoiseTechnique" />
 	</pool_renderable_object_technique>
 	
 	<pool_renderable_object_technique name="noise_pool">

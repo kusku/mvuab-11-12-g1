@@ -64,6 +64,11 @@ void CViewerProcess::UpdateInputs(float elapsedTime)
 	CActionToInput *action2Input = CORE->GetActionToInput();
 	CScriptManager *SCRIPT = CORE->GetScriptManager();
 
+	if( action2Input->DoAction("Console") )
+	{
+		SCRIPT->RunCode("toggle_console()");
+	}
+
 	if( action2Input->DoAction("ReloadTTFs") )
 	{
 		SCRIPT->RunCode("reload_fonts()");

@@ -14,7 +14,7 @@ struct VertexOut
 
 float g_Time : TIME;
 
-VertexOut NoiseVS(VertexIn IN)
+VertexOut RenderNoiseAndVignettingVS(VertexIn IN)
 {
 	VertexOut l_OUT = (VertexOut)0;
 	l_OUT.Pos = float4(IN.Pos.xyz, 1);
@@ -23,16 +23,17 @@ VertexOut NoiseVS(VertexIn IN)
 	return l_OUT;
 }
 
-float4 NoisePS(VertexOut IN) : COLOR
+float4 RenderNoiseAndVignettingPS(VertexOut IN) : COLOR
 {
 	float2 l_Offset = float2(cos(g_Time),sin(g_Time));
 	float2 l_UV = IN.UV + l_Offset;
-	float4 l_NoiseColor = tex2D(S0LinearWrapSampler, l_UV);
+	float4 l_VignettingColor = tex2D(S0LinearWrapSampler, IN.UV);
+	float4 l_NoiseColor = tex2D(S1LinearWrapSampler, l_UV);
 	
-	return float4(l_NoiseColor.xyz, (1-l_NoiseColor.r));
+	return float4(l_VignettingColor.xyz * l_NoiseColor.xyz, l_VignettingColor.a + l_NoiseColor.a);	
 }
 
-technique NoiseTechnique
+technique VignettingNoiseTechnique
 {
 	pass p0
 	{
@@ -42,7 +43,7 @@ technique NoiseTechnique
 		SRCBLEND		= SrcAlpha;
 		DESTBLEND			= InvSrcAlpha;
 		
-		VertexShader = compile vs_3_0 NoiseVS();
-		PixelShader = compile ps_3_0 NoisePS();
+		VertexShader = compile vs_3_0 RenderNoiseAndVignettingVS();
+		PixelShader = compile ps_3_0 RenderNoiseAndVignettingPS();
 	}
 }

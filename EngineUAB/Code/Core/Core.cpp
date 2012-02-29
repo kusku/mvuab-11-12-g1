@@ -173,7 +173,7 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 			//Crea la consola
 			m_pConsole = new CConsole();
 			m_bIsOk = m_pConsole->Init();
-			m_pConsole->SetActive(true);
+			m_pConsole->SetActive(false);
 #endif
 		}
 	}
