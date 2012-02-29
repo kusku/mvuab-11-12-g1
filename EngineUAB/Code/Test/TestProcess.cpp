@@ -56,33 +56,42 @@ void CTestProcess::Init()
 	NxScene *l_Scene = CORE->GetPhysicsManager()->GetScene();
 
 	//Plane
-	NxPlaneShapeDesc planeDesc;    
-	NxActorDesc actorDesc;
-	planeDesc.normal = NxVec3(0.0f,1.0f,0.0f);    
-	planeDesc.d = 1.0f;
-    actorDesc.shapes.pushBack(&planeDesc);
 	CPhysicUserData *l_DataPlane = new CPhysicUserData("name");
 	l_DataPlane->SetPaint(true);
 	l_DataPlane->SetColor(colWHITE);
-	actorDesc.userData = l_DataPlane;
-	l_Scene->createActor(actorDesc);
+
+	m_pPlane = new CPhysicActor(l_DataPlane);
+	m_pPlane->AddPlaneShape(Vect3f(0.0f,1.0f,0.0f), 1.f);
+	CORE->GetPhysicsManager()->AddPhysicActor(m_pPlane);
 
 	//Sphere
-	NxBodyDesc bodyDesc;   
-	NxActorDesc actorDescSphere;    
-	NxSphereShapeDesc sphereDesc;    
-
-	sphereDesc.radius = 1.0f;
-    actorDescSphere.shapes.pushBack(&sphereDesc);  
-	actorDescSphere.body = &bodyDesc;   
-	actorDescSphere.density = 10.0f;    
-	actorDescSphere.globalPose.t = NxVec3(0.0f,10.0f,0.0f); //Position at the origin.
 	CPhysicUserData *l_DataSphere = new CPhysicUserData("sphere");
 	l_DataSphere->SetPaint(true);
 	l_DataSphere->SetColor(colMAGENTA);
-	actorDescSphere.userData = l_DataSphere;
-    NxActor *actor=l_Scene->createActor(actorDescSphere);
+
+	m_pSphere = new CPhysicActor(l_DataSphere);
+	m_pSphere->AddSphereShape(1.f, Vect3f(0.0f,10.0f,0.0f));
+	m_pSphere->CreateBody(10.f);
+	CORE->GetPhysicsManager()->AddPhysicActor(m_pSphere);
 }
+
+void CTestProcess::CreateSphereActor()
+{
+	//Sphere
+	CPhysicUserData *l_DataSphere = new CPhysicUserData("sphere");
+	l_DataSphere->SetPaint(true);
+	l_DataSphere->SetColor(colMAGENTA);
+
+	CPhysicActor *l_Actor = new CPhysicActor(l_DataSphere);
+	l_Actor->AddSphereShape(1.f, m_pThPSCamera->GetPosition());
+	l_Actor->CreateBody(1.f);
+	
+	CORE->GetPhysicsManager()->AddPhysicActor(l_Actor);
+	l_Actor->SetLinearVelocity(m_pThPSCamera->GetDirection()*5.f);
+
+	m_Actors.push_back(l_Actor);
+}
+
 
 void CTestProcess::Update(float elapsedTime)
 {
@@ -102,6 +111,11 @@ void CTestProcess::UpdateInputs(float elapsedTime)
 {
 	CActionToInput *action2Input = CORE->GetActionToInput();
 	CScriptManager *SCRIPT = CORE->GetScriptManager();
+
+	if( action2Input->DoAction("Sphere") )
+	{
+		CreateSphereActor();
+	}
 
 	if( action2Input->DoAction("Console") )
 	{
