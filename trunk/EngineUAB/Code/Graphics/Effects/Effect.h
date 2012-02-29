@@ -57,6 +57,8 @@ public:
 	D3DXHANDLE		GetLightsEndRangeMatrix				() const		{ return m_LightsEndRangeAttenuationParameter; }
 	D3DXHANDLE		GetLightsDynamicShadowMapParameter	() const		{ return m_LightsDynamicShadowMapParameter; }
 	D3DXHANDLE		GetLightsStaticShadowMapParameter	() const		{ return m_LightsStaticShadowMapParameter; }
+	D3DXHANDLE		GetStaticShadowMapEnableParameter	() const		{ return m_StaticShadowMapEnableParameter; }
+	D3DXHANDLE		GetDynamicShadowMapEnableParameter	() const		{ return m_DynamicShadowMapEnableParameter; }
 	D3DXHANDLE		GetCameraPositionMatrix				() const		{ return m_CameraPositionParameter; }
 	D3DXHANDLE		GetBonesMatrix						() const		{ return m_BonesParameter; }
 	D3DXHANDLE		GetTimeMatrix						() const		{ return m_TimeParameter; }
@@ -113,7 +115,9 @@ private:
 	D3DXHANDLE		m_ViewProjectionInverseMatrixParameter;
 	D3DXHANDLE		m_ShadowViewProjectionMatrixParameter,
 					m_ShadowCameraPositionParameter,
-					m_ShadowWorldViewProjectionMatrixParameter;
+					m_ShadowWorldViewProjectionMatrixParameter,
+					m_DynamicShadowMapEnableParameter,
+					m_StaticShadowMapEnableParameter;
 	D3DXHANDLE		m_LightEnabledParameter, 
 					m_LightsTypeParameter, 
 					m_LightsPositionParameter, 

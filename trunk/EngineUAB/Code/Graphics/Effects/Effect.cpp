@@ -50,6 +50,8 @@ CEffect::CEffect(CXMLTreeNode &XMLNode)
 	, m_LightsStaticShadowMap(NULL)
 	, m_HalfPixelParameter(NULL)
 	, m_RenderTargetSizeParameter(NULL)
+	, m_DynamicShadowMapEnableParameter(NULL)
+	, m_StaticShadowMapEnableParameter(NULL)
 {
 	m_EffectName = XMLNode.GetPszProperty("name", "");
 	m_FileName = XMLNode.GetPszProperty("file", "");
@@ -135,6 +137,8 @@ bool CEffect::LoadEffect()
 	GetParameterBySemantic("SHADOW_VIEWPROJECTION", m_ShadowViewProjectionMatrixParameter, false);
 	GetParameterBySemantic("SHADOW_CAMERA_POSITION", m_ShadowCameraPositionParameter, false);
 	GetParameterBySemantic("SHADOW_WORLDVIEWPROJECTION", m_ShadowWorldViewProjectionMatrixParameter, false);
+	GetParameterBySemantic("STATIC_SHADOW_ENABLE", m_StaticShadowMapEnableParameter, false);
+	GetParameterBySemantic("DYNAMIC_SHADOW_ENABLE", m_DynamicShadowMapEnableParameter, false);
 
 	//Misc
 	GetParameterBySemantic("HALFPIXEL", m_HalfPixelParameter, false);
@@ -205,6 +209,8 @@ void CEffect::SetNullParameters()
 	m_LightsStaticShadowMap						= NULL;
 	m_HalfPixelParameter						= NULL;
 	m_RenderTargetSizeParameter					= NULL;
+	m_StaticShadowMapEnableParameter			= NULL;
+	m_DynamicShadowMapEnableParameter			= NULL;
 
 	uint16 l_Count = m_Parameters.size();
 	for(uint16 i=0; i<l_Count; ++i)
@@ -251,7 +257,7 @@ bool CEffect::SetLights(size_t NumOfLights)
 		m_LightsPosition[i] = l_Light->GetPosition();
 
 		CColor l_Color = l_Light->GetColor();
-		m_LightsColor[i] = Vect3f(l_Color.GetRed(), l_Color.GetGreen(), l_Color.GetBlue());
+		m_LightsColor[i] = Vect3f(l_Color.GetRed()/255.0f, l_Color.GetGreen()/255.0f, l_Color.GetBlue()/255.0f);
 
 		if( l_LightType == CLight::DIRECTIONAL )
 		{
@@ -289,7 +295,7 @@ bool CEffect::SetLight(CLight* light)
 	m_LightsPosition[0] = light->GetPosition();
 
 	CColor l_Color = light->GetColor();
-	m_LightsColor[0] = Vect3f(l_Color.GetRed(), l_Color.GetGreen(), l_Color.GetBlue());
+	m_LightsColor[0] = Vect3f(l_Color.GetRed()/255.0f, l_Color.GetGreen()/255.0f, l_Color.GetBlue()/255.0f);
 
 	if( l_LightType == CLight::DIRECTIONAL )
 	{

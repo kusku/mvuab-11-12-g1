@@ -41,7 +41,8 @@ public:
 		A16B16G16R16F,
 		R8G8B8,
 		X8R8G8B8,
-		R32F
+		R32F,
+		G32R32F
 	};
 public:
 	CTexture();

@@ -6,6 +6,7 @@
 #include "Effects\EffectManager.h"
 #include "Base.h"
 #include "Core.h"
+#include "Cameras\Camera.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -16,10 +17,11 @@ CDirectionalLight::CDirectionalLight( CXMLTreeNode &XMLNode )
 	m_Type = DIRECTIONAL;
 	m_Direction = XMLNode.GetVect3fProperty("dir", Vect3f(0.0f, 0.0f, 0.0f));
 
+	m_OrthoShadowMapSize.x = XMLNode.GetIntProperty("directional_light_camara_size_w", 256);
+	m_OrthoShadowMapSize.y = XMLNode.GetIntProperty("directional_light_camara_size_h", 256);
+
 	//Extract Common Info
 	ExtractCommonLightInfo(XMLNode);
-
-	m_OrthoShadowMapSize = CORE->GetRenderManager()->GetScreenSize();
 }
 
 CDirectionalLight::CDirectionalLight()
@@ -63,7 +65,7 @@ void CDirectionalLight::SetShadowMap()
 
 	CEffectManager* l_EffectManager = CORE->GetEffectManager();
 
-    D3DXVECTOR3 l_Eye = D3DXVECTOR3(m_Position.x, m_Position.y, m_Position.z);
+	D3DXVECTOR3 l_Eye = D3DXVECTOR3(m_Position.x, m_Position.y, m_Position.z);
 
     Vect3f lookat = m_Direction;
     D3DXVECTOR3 l_LookAt(lookat.x, lookat.y, lookat.z);
@@ -75,8 +77,7 @@ void CDirectionalLight::SetShadowMap()
 	D3DXMatrixLookAtLH( &l_View, &l_Eye, &l_LookAt, &l_VUP);
 	
     //Setup Matrix projection
-	D3DXMatrixOrthoLH( &l_Projection, static_cast<float>(m_OrthoShadowMapSize.x), static_cast<float>(m_OrthoShadowMapSize.y), 1.0f, m_EndRangeAttenuation);
-
+	D3DXMatrixOrthoLH( &l_Projection, static_cast<float>(m_OrthoShadowMapSize.x), static_cast<float>(m_OrthoShadowMapSize.y), 1.0f, 10000);
 	m_ViewShadowMap = Mat44f(l_View);
 	m_ProjectionShadowMap= Mat44f(l_Projection);
 

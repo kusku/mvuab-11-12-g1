@@ -49,6 +49,7 @@ protected:
 	uint32										m_NumVertexs, m_NumFaces;
 	TBoundingBox								m_BoundingBox;
 	TBoundingSphere								m_BoundingSphere;
+	std::string									m_MeshName;
 
 	template<class T>
 	void*				LoadCreateVertexBuffer	(FILE* modelFile, uint16 numVertex);

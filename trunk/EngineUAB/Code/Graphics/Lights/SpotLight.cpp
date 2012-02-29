@@ -77,7 +77,7 @@ void CSpotLight::SetShadowMap()
 	D3DXMatrixLookAtLH( &l_View, &l_Eye, &l_LookAt, &l_VUP);
 	
     //Setup Matrix projection
-	D3DXMatrixPerspectiveFovLH(&l_Projection, /*m_FallOff * D3DX_PI / 180.f*/D3DX_PI * 0.5f, 1.0f, 1.0f, m_EndRangeAttenuation);
+	D3DXMatrixPerspectiveFovLH(&l_Projection, D3DX_PI * .5f, 1.0f, 1.0f, 10000);
 
 	m_ViewShadowMap = Mat44f(l_View);
 	m_ProjectionShadowMap= Mat44f(l_Projection);
