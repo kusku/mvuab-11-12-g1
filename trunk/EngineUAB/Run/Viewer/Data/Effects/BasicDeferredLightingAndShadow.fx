@@ -21,8 +21,8 @@ sampler2D DynamicShadowMapSampler = sampler_state
 sampler2D StaticShadowMapSampler = sampler_state
 {
    Texture		= < StaticShadowMap >;
-   MinFilter	= Point;
-   MagFilter	= Point;
+   MinFilter	= POINT;
+   MagFilter	= POINT;
    MipFilter	= NONE;
    AddressU		= CLAMP;
    AddressV		= CLAMP;
@@ -96,13 +96,23 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	float3 normal = tex2D(NormalTextureMap, input.TexCoord).rgb;
 	normal = normalize(UnpackNormal(normal));
 	
-	float shadowCoeffStatic = 0.0f;
-	float shadowCoeffDynamic = 0.0f;
+	float shadowCoeffStatic = 1.0f;
+	float shadowCoeffDynamic = 1.0f;
 	
-	shadowCoeffStatic = CalculateShadowCoeff(position, StaticShadowMapSampler);
-	shadowCoeffDynamic = CalculateShadowCoeff(position, DynamicShadowMapSampler);
+	if(HasStaticShadowMap == true)
+	{
+		//shadowCoeffStatic = CalculateShadowCoeff(position, StaticShadowMapSampler);
+		shadowCoeffStatic = CalcShadowCoeffVSM(position, StaticShadowMapSampler);
+	}
 	
-	if(shadowCoeffDynamic != 0 && shadowCoeffStatic != 0)
+	if(HasDynamicShadowMap == true)
+	{
+		//shadowCoeffDynamic = CalculateShadowCoeff(position, DynamicShadowMapSampler);
+		shadowCoeffDynamic = CalcShadowCoeffVSM(position, DynamicShadowMapSampler);
+	}
+	
+	
+	if(shadowCoeffDynamic != 0 || shadowCoeffStatic != 0)
 	{
 		if(lightType[0] == OMNI)
 		{
@@ -118,7 +128,8 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 		}
 	}
 	
-	FinalPixelColor = saturate(FinalPixelColor * max(shadowCoeffStatic, shadowCoeffDynamic));
+	FinalPixelColor = saturate(FinalPixelColor * min(shadowCoeffStatic, shadowCoeffDynamic));
+	//FinalPixelColor = saturate(FinalPixelColor * shadowCoeffDynamic);
 
 	return FinalPixelColor;
 }

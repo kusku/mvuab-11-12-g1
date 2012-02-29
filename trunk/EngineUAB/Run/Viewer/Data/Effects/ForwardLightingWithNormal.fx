@@ -89,25 +89,25 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR
 	float3 Normal = (2.0f * tex2D(NormalTextureMap, input.TexCoord) - 1.0f);
 	Normal = mul(Normal, input.TangentToWorld);
 	Normal = normalize(Normal);
-
+	
 	float4 AmbientColor = AmbientLightIntensity * AmbientLightColor;
 	float4 DiffuseColor = (float4)0;
 	
-	for(int i = 0; i < numLights && i < MAX_LIGHTS; i++)
+	for(int i = 0; i < numLights && i < MAX_LIGHTS; ++i)
 	{
 		if(lightEnable[i])
 		{
 			if(lightType[i] == OMNI)
 			{
-				DiffuseColor += CalculateOmniLight(Normal, input.WPos, i);
+				DiffuseColor = CalculateOmniLight(Normal, input.WPos, i);
 			}
 			else if(lightType[i] == DIRECTIONAL)
 			{
-				DiffuseColor += CalculateDirectionLight(Normal, input.WPos, i);
+				DiffuseColor = CalculateDirectionLight(Normal, input.WPos, i);
 			}
 			else if(lightType[i] == SPOT)
 			{
-				DiffuseColor += CalculateSpotLight(Normal, input.WPos, i);
+				DiffuseColor = CalculateSpotLight(Normal, input.WPos, i);
 			}
 		}
 	}
@@ -117,7 +117,9 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR
 	PixEndColor = saturate(PixEndColor);
 	PixEndColor.a = 1.0f;
 
+	//return DiffuseColor;
 	return PixEndColor;
+	//return float4(0, 1, 0, 1);
 }
 
 technique ForwardLightingWithNormal

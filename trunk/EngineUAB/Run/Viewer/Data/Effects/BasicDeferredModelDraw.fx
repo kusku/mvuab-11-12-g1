@@ -56,7 +56,7 @@ PixelShaderOutput PixelShaderFunction(VertexShaderOutput input)
 	PixelShaderOutput output = (PixelShaderOutput)0;
 
 	output.DiffuseRT	= tex2D(DiffuseTextureMap, input.TexCoord);
-	output.DepthRT		= input.Depth.x / input.Depth.y;
+	output.DepthRT.r	= input.Depth.x / input.Depth.y;
 	output.NormalRT.xyz	= PackNormal(normalize(input.Normal));
 	
 	return output;
