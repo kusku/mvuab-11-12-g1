@@ -9,6 +9,23 @@
 
 #define MOMENTUM 70.f
 
+#define ACTION_LOGGER				"Logger"
+#define ACTION_DEBUG_LOGGER			"DebugInfo"
+#define ACTION_LOGGER_PAGEDOWN		"LogRender_PageDown"
+#define ACTION_LOGGER_PAGEUP		"LogRender_PageUp"
+#define ACTION_LOGGER_PREVLINE		"LogRender_PrevLine"
+#define ACTION_LOGGER_NEXTLINE		"LogRender_NextLine"
+#define ACTION_SAVE_LOG_FILE		"SaveLogsInFile"
+#define ACTION_RELOAD_ALL			"ReloadAll"
+
+#define ACTION_MOVE_PLAYER_FOWARD	"MovePlayerFoward"
+#define ACTION_MOVE_PLAYER_BACK		"MovePlayerBack"
+#define ACTION_MOVE_PLAYER_LEFT		"MovePlayerLeft"
+#define ACTION_MOVE_PLAYER_RIGHT	"MovePlayerRight"
+#define ACTION_MOVE_PLAYER_UP		"MovePlayerUp"
+#define ACTION_MOVE_PLAYER_DOWN 	"MovePlayerDown"
+
+
 CPlayer::CPlayer()
 	: m_Dir(0.0f, 0.0f, 0.0f)
 {
@@ -24,12 +41,12 @@ void CPlayer::Update(float elapsedTime, CCamera *camera)
 	UpdateInputActions(elapsedTime, camera);	
 }
 
-void CPlayer::UpdateInputActions(float elapsedTime, CCamera *camera)
+void CPlayer::UpdateInputActions(float _ElapsedTime, CCamera *camera)
 {
 	float d = 0.0f;
 	CActionToInput *action2Input = CORE->GetActionToInput();
 	CThPSCamera* l_ThPSCamera = static_cast<CThPSCamera*>(camera);
-	if( action2Input->DoAction("YawViewerCam", d) )
+	if ( action2Input->DoAction("YawViewerCam", d) )
 	{
 		m_fYaw += d;
 		if( m_fYaw > e2PIf )
@@ -73,56 +90,91 @@ void CPlayer::UpdateInputActions(float elapsedTime, CCamera *camera)
 		l_ThPSCamera->SetZoom(zoom);
 	}*/
 
+	if( action2Input->DoAction( ACTION_MOVE_PLAYER_FOWARD ) )
+	{
+		if( action2Input->DoAction( ACTION_MOVE_PLAYER_LEFT ) )
+		{
+			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw + ePIf/4.f), m_fPitch, mathUtils::Sin<float>(m_fYaw + ePIf/4.f));
+			m_Position += m_Dir * MOMENTUM * _ElapsedTime;
+		}
+		else if( action2Input->DoAction( ACTION_MOVE_PLAYER_RIGHT ) )
+		{
+			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw - ePIf/4.f), m_fPitch, mathUtils::Sin<float>(m_fYaw - ePIf/4.f));
+			m_Position += m_Dir * MOMENTUM * _ElapsedTime;
+		}
+		else
+		{
+			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw), m_fPitch, mathUtils::Sin<float>(m_fYaw));
+			m_Position += m_Dir * MOMENTUM * _ElapsedTime;
+		}
 
-	if( action2Input->DoAction("MovePlayerUp") )
-	{
-		if( action2Input->DoAction("MovePlayerLeft") )
+		if ( action2Input->DoAction( ACTION_MOVE_PLAYER_UP ) )
 		{
-			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw + ePIf/4.f), m_fPitch, mathUtils::Sin<float>(m_fYaw + ePIf/4.f));
-			m_Position += m_Dir * MOMENTUM * elapsedTime;
+			m_Dir = Vect3f ( 0 , 1, 0 );
+			m_Position -= m_Dir * MOMENTUM * _ElapsedTime;
 		}
-		else if( action2Input->DoAction("MovePlayerRight") )
+		else if( action2Input->DoAction( ACTION_MOVE_PLAYER_DOWN ) )
 		{
-			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw - ePIf/4.f), m_fPitch, mathUtils::Sin<float>(m_fYaw - ePIf/4.f));
-			m_Position += m_Dir * MOMENTUM * elapsedTime;
+			m_Dir = Vect3f ( 0, 1, 0 );
+			m_Position += m_Dir * MOMENTUM * _ElapsedTime;
 		}
-		else
-		{
-			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw), m_fPitch, mathUtils::Sin<float>(m_fYaw));
-			m_Position += m_Dir * MOMENTUM * elapsedTime;
-		}
+
 	}
-	else if( action2Input->DoAction("MovePlayerDown") )
+	else if( action2Input->DoAction( ACTION_MOVE_PLAYER_BACK ) )
 	{
-		if( action2Input->DoAction("MovePlayerLeft") )
+		if( action2Input->DoAction( ACTION_MOVE_PLAYER_LEFT ) )
 		{
 			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw - ePIf/4.f), m_fPitch, mathUtils::Sin<float>(m_fYaw - ePIf/4.f));
-			m_Position -= m_Dir * MOMENTUM * elapsedTime;
+			m_Position -= m_Dir * MOMENTUM * _ElapsedTime;
 		}
-		else if( action2Input->DoAction("MovePlayerRight") )
+		else if( action2Input->DoAction( ACTION_MOVE_PLAYER_RIGHT ) )
 		{
 			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw + ePIf/4.f), m_fPitch, mathUtils::Sin<float>(m_fYaw + ePIf/4.f));
-			m_Position -= m_Dir * MOMENTUM * elapsedTime;
+			m_Position -= m_Dir * MOMENTUM * _ElapsedTime;
 		}
 		else
 		{
 			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw), m_fPitch, mathUtils::Sin<float>(m_fYaw));
-			m_Position -= m_Dir * MOMENTUM * elapsedTime;
+			m_Position -= m_Dir * MOMENTUM * _ElapsedTime;
+		}
+
+		if ( action2Input->DoAction( ACTION_MOVE_PLAYER_UP ) )
+		{
+			m_Dir = Vect3f ( 0 , 1, 0 );
+			m_Position -= m_Dir * MOMENTUM * _ElapsedTime;
+		}
+		else if( action2Input->DoAction( ACTION_MOVE_PLAYER_DOWN ) )
+		{
+			m_Dir = Vect3f ( 0, 1, 0 );
+			m_Position += m_Dir * MOMENTUM * _ElapsedTime;
 		}
 	}
 	else
 	{
-		if( action2Input->DoAction("MovePlayerLeft") )
+		if( action2Input->DoAction( ACTION_MOVE_PLAYER_LEFT ) )
 		{
 			m_Dir = Vect3f(cosf(m_fYaw + ePIf/2.f), 0.0f, sinf(m_fYaw + ePIf/2.f));
-			m_Position += m_Dir * MOMENTUM * elapsedTime;
+			m_Position += m_Dir * MOMENTUM * _ElapsedTime;
 		}
 
-		if( action2Input->DoAction("MovePlayerRight") )
+		if( action2Input->DoAction( ACTION_MOVE_PLAYER_RIGHT ) )
 		{
 			m_Dir = Vect3f(cosf(m_fYaw + ePIf/2.f), 0.0f, sinf(m_fYaw + ePIf/2.f));
-			m_Position -= m_Dir * MOMENTUM * elapsedTime;
+			m_Position -= m_Dir * MOMENTUM * _ElapsedTime;
 		}
+		
+		if ( action2Input->DoAction( ACTION_MOVE_PLAYER_UP ) )
+		{
+			m_Dir = Vect3f ( 0 , 1, 0 );
+			m_Position -= m_Dir * MOMENTUM * _ElapsedTime;
+		}
+		
+		if( action2Input->DoAction( ACTION_MOVE_PLAYER_DOWN ) )
+		{
+			m_Dir = Vect3f ( 0, 1, 0 );
+			m_Position += m_Dir * MOMENTUM * _ElapsedTime;
+		}
+
 	}
 }
 
