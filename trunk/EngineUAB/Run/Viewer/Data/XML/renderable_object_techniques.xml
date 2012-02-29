@@ -60,8 +60,4 @@
 		<default_technique vertex_type="81" technique="VignettingNoiseTechnique" />
 	</pool_renderable_object_technique>
 	
-	<pool_renderable_object_technique name="noise_pool">
-		<default_technique vertex_type="81" technique="NoiseTechnique" />
-	</pool_renderable_object_technique>
-	
 </renderable_object_techniques>

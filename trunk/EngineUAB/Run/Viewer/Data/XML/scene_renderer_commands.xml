@@ -54,23 +54,23 @@
 	</capture_frame_buffer>
 	
 	<!-- ssao & blur-->
-	<!--<set_render_target name="ssao_multiple_render_target">
-		<dynamic_texture stage_id="1" name="SSAOBlurMapTexture" texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="3" />
+	<set_render_target name="ssao_multiple_render_target">
+		<dynamic_texture stage_id="0" name="SSAOBlurMapTexture" texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="3" />
 	</set_render_target>
 	<set_pool_renderable_objects_technique pool="ssao_pool_renderable_object_technique" />
 	<render_draw_quad name="prepare_ssao" >
-		<texture stage_id="0" file="./data/general/textures/rangernormal.jpg" load_file="true"/>
-		<texture stage_id="1" file="DepthMapTexture" />
+		<texture stage_id="1" file="./data/general/textures/rangernormal.jpg" load_file="true"/>
+		<texture stage_id="2" file="DepthMapTexture" />
 	</render_draw_quad>
 	
 	<capture_frame_buffer>
-		<dynamic_texture stage_id="1" name="SSAOMapTexture" texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="3" />
+		<dynamic_texture stage_id="0" name="SSAOMapTexture" texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="3" />
 	</capture_frame_buffer>
 	
 	<set_pool_renderable_objects_technique pool="ssao_blur_pool_renderable_object_technique" />
 	<render_draw_quad name="ssao_blur">
-		<texture stage_id="0" file="SSAOMapTexture" />
-		<texture stage_id="1" file="NormalMapTexture" />
+		<texture stage_id="1" file="SSAOMapTexture" />
+		<texture stage_id="2" file="NormalMapTexture" />
 	</render_draw_quad>
 	
 	<unset_render_target render_target="ssao_multiple_render_target" />
@@ -79,7 +79,7 @@
 	<render_draw_quad name="SSAO_quad">
 		<texture stage_id="0" file="FrameBufferAfterDeferredShading" />
 		<texture stage_id="1" file="SSAOBlurMapTexture" />
-	</render_draw_quad>-->
+	</render_draw_quad>
 	<!-- end ssao & blur -->
 	
 	<capture_frame_buffer>
@@ -114,19 +114,12 @@
 	</render_draw_quad>
 	<!-- end zblur -->
 	
-	<!-- noise & vignetting -->
-	<!--<set_pool_renderable_objects_technique pool="noise_pool" />
-	<render_draw_quad name="Nosie_Quad">
-		<texture stage_id="0" file="./data/General/textures/fondoNOISE.tga" load_file="true" />
-		<texture stage_id="0" file="./data/General/textures/noiseCarlos.tga" load_file="true" />
-	</render_draw_quad>-->
-	
-	<set_pool_renderable_objects_technique pool="vignetting_noise_pool" />
+	<!-- noise & vignetting -->	
+	<!--<set_pool_renderable_objects_technique pool="vignetting_noise_pool" />
 	<render_draw_quad name="NoiseAndVignetting_Quad">
 		<texture stage_id="0" file="./data/General/textures/vignette.tga" load_file="true" />
 		<texture stage_id="1" file="./data/General/textures/noiseCarlos.tga" load_file="true" />
-	</render_draw_quad>
-	
+	</render_draw_quad>-->
 	<!-- end noise & vignetting -->
 	
 	<!-- TEST ONLY  -->

@@ -52,11 +52,11 @@ float4 SSAOPS(VertexOut IN) : COLOR
 	
 	float l_WidthScreenResolutionOffset=1/g_RenderTargetSize.x;
 	float l_HeightScreenResolutionOffset=1/g_RenderTargetSize.y;
-	float depth = tex2D(S1LinearWrapSampler, IN.UV).r;
+	float depth = tex2D(S2LinearWrapSampler, IN.UV).r;
 	float3 se = GetPositionFromZDepthViewInViewCoordinates(depth, IN.UV, g_InverseProjectionMatrix);
 	float4 vPositionVS = mul( float4 (IN.UV.x,IN.UV.y,depth,1.0 ), g_InverseProjectionMatrix );
 	depth = vPositionVS.z/vPositionVS.w;
-	float3 randNormal = tex2D( S0LinearWrapSampler, IN.UV * 200.0 ).rgb;
+	float3 randNormal = tex2D( S1LinearWrapSampler, IN.UV * 200.0 ).rgb;
 	float finalColor = 0.0f;
 	
 	for (int i = 0; i < 16; i++)
@@ -68,7 +68,7 @@ float4 SSAOPS(VertexOut IN) : COLOR
 		sampleTexCoord.x += l_WidthScreenResolutionOffset;
 		sampleTexCoord.y += l_HeightScreenResolutionOffset;
 		sampleTexCoord.y = 1.0 - sampleTexCoord.y;
-		float sampleDepth = tex2D(S1LinearWrapSampler, sampleTexCoord).r;
+		float sampleDepth = tex2D(S2LinearWrapSampler, sampleTexCoord).r;
 		vPositionVS = mul ( float4 (sampleTexCoord.x,sampleTexCoord.y, sampleDepth,1.0 ), g_InverseProjectionMatrix );
 		sampleDepth = vPositionVS.z/vPositionVS.w;
 		
@@ -83,6 +83,8 @@ float4 SSAOPS(VertexOut IN) : COLOR
 			finalColor += 1.0f / (1.0f + occlusion * occlusion * 0.1);
 		}
 	}
+	
+	//return float4(tex2D( S0LinearWrapSampler, IN.UV).rgb, 1.0);
 	return float4(finalColor/16, finalColor/16, finalColor/16, 1.0f);
 }
 
@@ -94,16 +96,16 @@ float4 SSAOBlurPS(VertexOut IN) : COLOR
 	float2 blurDirection=float2(0.0, 1.0/l_RTHeight); //Vector Up screen
 	IN.UV.x += 1.0/l_RTWidth;
 	IN.UV.y += 1.0/l_RTHeight;
-	float3 normal = tex2D(S1LinearWrapSampler, IN.UV).rgb;
+	float3 normal = tex2D(S2LinearWrapSampler, IN.UV).rgb;
 	normal=normalize(UnpackNormal(normal));
-	float color = tex2D( S0LinearWrapSampler, IN.UV).r;
+	float color = tex2D( S1LinearWrapSampler, IN.UV).r;
 	float num = 1;
 	int blurSamples = 8;
 	for( int i = -blurSamples/2; i <= blurSamples/2; i+=1)
 	{
 		float4 newTexCoord = float4(IN.UV + i * blurDirection.xy, 0, 0);
-		float sample = tex2D(S0LinearWrapSampler, newTexCoord).r;
-		float3 samplenormal = tex2D(S1LinearWrapSampler, newTexCoord).rgb;
+		float sample = tex2D(S1LinearWrapSampler, newTexCoord).r;
+		float3 samplenormal = tex2D(S2LinearWrapSampler, newTexCoord).rgb;
 		samplenormal=normalize(UnpackNormal(samplenormal));
 		if (dot(samplenormal, normal) > 0.99 )
 		{
@@ -113,6 +115,14 @@ float4 SSAOBlurPS(VertexOut IN) : COLOR
 	}
 	
 	return color / num;
+}
+
+float4 SSAOFinalCompositionPS(VertexOut IN) : COLOR
+{
+	//return float4(tex2D(S1LinearWrapSampler,IN.UV).xyz,1.0);
+	//return float4(tex2D(S0LinearWrapSampler,IN.UV).xyz, 1.0);
+	//return float4(1.0,0.0,0.0,1.0);
+	return float4(tex2D(S0LinearWrapSampler,IN.UV).xyz *tex2D(S1LinearWrapSampler,IN.UV).r,0.0);
 }
 
 //Technique que genera la textura de SSAO
@@ -127,8 +137,6 @@ technique SSAOTechnique
 	}
 }
 
-
-
 //Technique que aplica Blur
 technique SSAOBlurTechnique
 {
@@ -141,4 +149,14 @@ technique SSAOBlurTechnique
 	}
 }
 	
-
+//Technique que renderiza el SSAO con la imagen completa
+technique SSAOFinalCompositionTechnique
+{
+	pass p0
+	{
+		AlphaBlendEnable = false;
+		CullMode = CCW;
+		VertexShader = compile vs_3_0 SSAOVS();
+		PixelShader = compile ps_3_0 SSAOFinalCompositionPS();
+	}
+}
