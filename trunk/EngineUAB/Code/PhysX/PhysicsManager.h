@@ -150,9 +150,9 @@ public:
 	void								DebugRender							(CRenderManager* render);
 	void								SetDebugRenderMode					(bool flag)					{ m_bDebugRenderMode = flag; }
 	bool								GetDebugRenderMode					() const					{ return m_bDebugRenderMode; }
-
+	NxScene*							GetScene							() const					{ return m_pScene; }	
 	//----Update
-	void								Update											(float elapsedTime);
+	void								Update						(float elapsedTime);
 	void								WaitForSimulation           ();
 
 	//--- Add/Release Actors

@@ -7,6 +7,7 @@
 #include "Utils\Timer.h"
 #include "InfoRender\DebugRender.h"
 #include "InfoRender\LogRender.h"
+#include "Console\Console.h"
 #include "Math\Matrix44.h"
 
 #if defined(_DEBUG)
@@ -24,6 +25,7 @@ void CRenderDebugInfoSceneRendererCommand ::Execute(CRenderManager &RM)
 	CFontManager *fontManager = CORE->GetFontManager();
 	CORE->GetDebugRender()->Render( &RM, fontManager, CORE->GetTimer() );
 	CORE->GetLogRender()->Render( &RM, fontManager );
+	CORE->GetConsole()->Render( &RM, fontManager ); 
 
 	Mat44f mat;
 	mat.SetIdentity();

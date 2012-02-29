@@ -24,22 +24,22 @@ public:
 	CMouse() {}
 	virtual ~CMouse() { Done(); } 
 
-	bool                Init              (LPDIRECTINPUT8, HWND, const Vect2i& screenRes, bool exclusiveMode);
-	void	              Done			        ();
+	bool                Init            (LPDIRECTINPUT8, HWND, const Vect2i& screenRes, bool exclusiveMode);
+	void	            Done			();
 
 	//----CInputDevice Interface----
-	virtual HRESULT	    Update	          ();
+	virtual HRESULT	    Update	        ();
 
 
 	//----CMouse Interface----------
 	const Vect3i&       GetMouseDelta			()		const		{ return m_Delta; }
 
-	bool	              IsDown						(uint32 nBtn)		const 	{ if (nBtn<3) return m_bIsDown[nBtn]; return false; }
-	bool	              IsUpDown					(uint32 nBtn)		const		{ if (nBtn<3) return m_bIsUpDown[nBtn]; return false; }
-	bool	              IsDownUp					(uint32 nBtn)		const		{ if (nBtn<3) return m_bIsDownUp[nBtn]; return false; }
+	bool	            IsDown					(uint32 nBtn)		const 		{ if (nBtn<3) return m_bIsDown[nBtn]; return false; }
+	bool	            IsUpDown				(uint32 nBtn)		const		{ if (nBtn<3) return m_bIsUpDown[nBtn]; return false; }
+	bool	            IsDownUp				(uint32 nBtn)		const		{ if (nBtn<3) return m_bIsDownUp[nBtn]; return false; }
 
 private:
-	void                Release           ();
+	void				Release           ();
 
 private:
 	//-- Tipos---
@@ -47,11 +47,11 @@ private:
 	//------------
 
 	HANDLE	            m_hEvent;
-	bool								m_bIsDown[3];
-	bool								m_bIsUpDown[3];
-	bool								m_bIsDownUp[3];
-	Vect3i							m_Delta;
-	Vect2i							m_ScreenResolution;
+	bool				m_bIsDown[3];
+	bool				m_bIsUpDown[3];
+	bool				m_bIsDownUp[3];
+	Vect3i				m_Delta;
+	Vect2i				m_ScreenResolution;
 };
 
 

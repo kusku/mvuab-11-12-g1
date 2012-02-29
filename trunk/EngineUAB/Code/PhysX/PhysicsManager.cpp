@@ -67,7 +67,7 @@ bool CPhysicsManager::Init (const string& _physXConfig)
 		if (m_bIsOk)
 		{
 			LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager::Init-> Creado el PhysXSDK");
-			LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager::Init-> -------PhsX Settings---");
+			LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager::Init-> -------PhysX Settings---");
 			LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager::Init-> El valor del SkinWidth es: %f", m_InitParams.m_fSkinWidth);
 
 
@@ -96,7 +96,7 @@ bool CPhysicsManager::Init (const string& _physXConfig)
 					m_InitParams.m_StaticFriction_DefMat);
 				LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager::Init-> DefaultMaterial->DynamicFriction %f:",
 					m_InitParams.m_DynamicFriction_DefMat);
-				LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager::Init-> ----END PhsX Settings---");
+				LOGGER->AddNewLog(ELL_INFORMATION, "PhysicsManager::Init-> ----END PhysX Settings---");
 				// Set default material
 				//TODO: Borrar líneas
 				m_InitParams.m_Restitution_DefMat = 0.5f;
@@ -406,7 +406,7 @@ void CPhysicsManager::Update (float elapsedTime)
 
 	// Fetch simulation results
 	m_pScene->flushStream();
-	//m_pScene->fetchResults(NX_RIGID_BODY_FINISHED,  true);
+	m_pScene->fetchResults(NX_RIGID_BODY_FINISHED,  true);
 
 
 }

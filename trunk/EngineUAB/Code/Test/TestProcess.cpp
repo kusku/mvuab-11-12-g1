@@ -10,6 +10,14 @@
 #include "ActionToInput.h"
 #include "ScriptManager.h"
 #include "Modifiers\ModifierManager.h"
+#include "PhysicsManager.h"
+#include "PhysicActor.h"
+
+#undef min
+#undef max
+#include "NxPhysics.h"
+#include "NxControllerManager.h"
+#include "NxCapsuleController.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -43,13 +51,44 @@ void CTestProcess::Init()
 	m_pThPSCamera = new CThPSCamera(1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_Player, 10.0f);
 	m_Camera = static_cast<CCamera*>(m_pThPSCamera);
 	CORE->SetCamera(m_Camera);
+
+	//-----PHYSX----------
+	NxScene *l_Scene = CORE->GetPhysicsManager()->GetScene();
+
+	//Plane
+	NxPlaneShapeDesc planeDesc;    
+	NxActorDesc actorDesc;
+	planeDesc.normal = NxVec3(0.0f,1.0f,0.0f);    
+	planeDesc.d = 1.0f;
+    actorDesc.shapes.pushBack(&planeDesc);
+	CPhysicUserData *l_DataPlane = new CPhysicUserData("name");
+	l_DataPlane->SetPaint(true);
+	l_DataPlane->SetColor(colWHITE);
+	actorDesc.userData = l_DataPlane;
+	l_Scene->createActor(actorDesc);
+
+	//Sphere
+	NxBodyDesc bodyDesc;   
+	NxActorDesc actorDescSphere;    
+	NxSphereShapeDesc sphereDesc;    
+
+	sphereDesc.radius = 1.0f;
+    actorDescSphere.shapes.pushBack(&sphereDesc);  
+	actorDescSphere.body = &bodyDesc;   
+	actorDescSphere.density = 10.0f;    
+	actorDescSphere.globalPose.t = NxVec3(0.0f,10.0f,0.0f); //Position at the origin.
+	CPhysicUserData *l_DataSphere = new CPhysicUserData("sphere");
+	l_DataSphere->SetPaint(true);
+	l_DataSphere->SetColor(colMAGENTA);
+	actorDescSphere.userData = l_DataSphere;
+    NxActor *actor=l_Scene->createActor(actorDescSphere);
 }
 
 void CTestProcess::Update(float elapsedTime)
 {
 	CORE->SetCamera(m_Camera);
 	m_Player.Update(elapsedTime, m_Camera);
-	//UpdateInputs(elapsedTime);
+	UpdateInputs(elapsedTime);
 
 	CORE->GetRenderableObjectsLayersManager()->Update(elapsedTime);
 }
@@ -63,6 +102,11 @@ void CTestProcess::UpdateInputs(float elapsedTime)
 {
 	CActionToInput *action2Input = CORE->GetActionToInput();
 	CScriptManager *SCRIPT = CORE->GetScriptManager();
+
+	if( action2Input->DoAction("Console") )
+	{
+		SCRIPT->RunCode("toggle_console()");
+	}
 
 	if( action2Input->DoAction("ReloadTTFs") )
 	{
