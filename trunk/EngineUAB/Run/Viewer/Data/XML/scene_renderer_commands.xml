@@ -115,14 +115,16 @@
 	<!-- end zblur -->
 	
 	<!-- noise & vignetting -->
-	<set_pool_renderable_objects_technique pool="noise_pool" />
+	<!--<set_pool_renderable_objects_technique pool="noise_pool" />
 	<render_draw_quad name="Nosie_Quad">
 		<texture stage_id="0" file="./data/General/textures/fondoNOISE.tga" load_file="true" />
-	</render_draw_quad>
+		<texture stage_id="0" file="./data/General/textures/noiseCarlos.tga" load_file="true" />
+	</render_draw_quad>-->
 	
-	<set_pool_renderable_objects_technique pool="vignetting_pool" />
+	<set_pool_renderable_objects_technique pool="vignetting_noise_pool" />
 	<render_draw_quad name="NoiseAndVignetting_Quad">
-		<texture stage_id="0" file="./data/General/textures/TEST03.png" load_file="true" />
+		<texture stage_id="0" file="./data/General/textures/vignette.tga" load_file="true" />
+		<texture stage_id="1" file="./data/General/textures/noiseCarlos.tga" load_file="true" />
 	</render_draw_quad>
 	
 	<!-- end noise & vignetting -->
