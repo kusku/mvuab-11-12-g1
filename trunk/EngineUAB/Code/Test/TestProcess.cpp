@@ -83,7 +83,7 @@ void CTestProcess::CreateSphereActor()
 	l_DataSphere->SetColor(colMAGENTA);
 
 	CPhysicActor *l_Actor = new CPhysicActor(l_DataSphere);
-	l_Actor->AddSphereShape(1.f, m_pThPSCamera->GetPosition());
+	l_Actor->AddSphereShape(1.f, m_pThPSCamera->GetPosition(),v3fZERO, 0, 1);
 	l_Actor->CreateBody(1.f);
 	
 	CORE->GetPhysicsManager()->AddPhysicActor(l_Actor);
@@ -98,6 +98,15 @@ void CTestProcess::Update(float elapsedTime)
 	CORE->SetCamera(m_Camera);
 	m_Player.Update(elapsedTime, m_Camera);
 	UpdateInputs(elapsedTime);
+
+	SCollisionInfo info;
+	int kk = 0;
+	kk |= 1 << 0;
+	Vect3f direction =  m_pThPSCamera->GetDirection();
+	direction.Normalize();
+	CPhysicUserData *data = CORE->GetPhysicsManager()->RaycastClosestActor(m_pThPSCamera->GetPosition(), direction, kk, info);
+	if( data != NULL)
+		data->SetColor(colCYAN);
 
 	CORE->GetRenderableObjectsLayersManager()->Update(elapsedTime);
 }

@@ -97,8 +97,8 @@ public:
 
 	void					SetPaint	(bool flag)						  {m_bPaintPhysicObject = flag;};
 	void					SetColor	(const CColor& color)   {m_ColorPhysicObject = color;};
-  void          SetEntity (CGameEntity* _pEntity) {m_pEntity = _pEntity;};
-  void          SetActor (CPhysicActor* _pActor) {m_pActor = _pActor;};
+	void					SetEntity (CGameEntity* _pEntity) {m_pEntity = _pEntity;};
+	void					SetActor (CPhysicActor* _pActor) {m_pActor = _pActor;};
 
 	bool					GetPaint	() const							{return m_bPaintPhysicObject;};
 	const CColor&	GetColor	() const							{return m_ColorPhysicObject;};

@@ -21,6 +21,7 @@ float3		CameraPosition			: CAMERA_POSITION;
 uniform float4x4	InvertViewProjection		: VIEWPROJECTIONINVERSE;
 uniform float4x4	InvertView					: VIEWINVERSE;
 uniform float4x4	InvertProjection			: PROJECTIONINVERSE;
+uniform float4x4	ProjectionMatrix			: PROJECTION;
 
 uniform int			numLights					: Num_Lights;
 uniform bool		lightEnable[MAX_LIGHTS]		: Lights_Enabled;
