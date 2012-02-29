@@ -1,0 +1,1 @@
+core = CSingleton_CCore.get_singleton()

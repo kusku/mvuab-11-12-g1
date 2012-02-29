@@ -175,6 +175,14 @@ void CScriptManager::RegisterLUAFunctions()
 			.def("reload_meshes", &CCore::ReloadMeshes)
 			.def("reload_pools", &CCore::ReloadPools)
 			.def("reload_scripts", &CCore::ReloadScripts)
+			.def("get_console", &CCore::GetConsole)
+	];
+
+	module(m_LS) [
+		class_<CConsole>("CConsole")
+			.def("toggle", &CConsole::Toggle)
+			.def("set_active", &CConsole::SetActive)
+			.def("is_active", &CConsole::IsActive)
 	];
 
 	RegisterMathLUAFunctions();
@@ -182,17 +190,15 @@ void CScriptManager::RegisterLUAFunctions()
 
 void CScriptManager::RegisterMathLUAFunctions()
 {
-	/*module(m_LS) [
-		class_< Vect3f >("Vect3f")
+	module(m_LS) [
+		class_<Vect3f>("Vect3f")
 			.def(constructor<float, float, float>())
-			.def(constructor<Vect3f>())
 			.def(const_self + const_self)
 			.def(const_self - const_self)
 			.def(const_self * const_self)
-			.def(const_self / const_self)
 			.def(const_self == const_self)
 			.def_readwrite("x", &Vect3f::x)
 			.def_readwrite("y", &Vect3f::y)
 			.def_readwrite("z", &Vect3f::z)
-	];*/
+	];
 }

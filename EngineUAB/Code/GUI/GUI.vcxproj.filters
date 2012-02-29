@@ -1,17 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="dummy.cpp" />
     <ClCompile Include="Modifiers\Modifier.cpp">
       <Filter>Modifiers</Filter>
     </ClCompile>
     <ClCompile Include="Modifiers\ModifierManager.cpp">
       <Filter>Modifiers</Filter>
     </ClCompile>
+    <ClCompile Include="Console\Console.cpp">
+      <Filter>Console</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modifiers">
       <UniqueIdentifier>{e84a561f-4ee7-4a53-be50-f68ac4e898e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Console">
+      <UniqueIdentifier>{e0f7eb7a-e908-4d9f-a514-5ff1dadc6048}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -20,6 +25,9 @@
     </ClInclude>
     <ClInclude Include="Modifiers\ModifierManager.h">
       <Filter>Modifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="Console\Console.h">
+      <Filter>Console</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

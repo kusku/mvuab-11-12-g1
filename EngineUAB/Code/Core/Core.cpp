@@ -19,6 +19,7 @@
 #include "Modifiers\ModifierManager.h"
 #include "ScriptManager.h"
 #include "PhysicsManager.h"
+#include "Console\Console.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -45,6 +46,7 @@ CCore::CCore()
 	, m_pModifierManager(NULL)
 	, m_pScriptManager(NULL)
 	, m_pPhysicsManager(NULL)
+	, m_pConsole(NULL)
 	, m_bIsOk(false)
 {
 }
@@ -73,6 +75,7 @@ void CCore::Release()
 	CHECKED_DELETE(m_pModifierManager);
 	CHECKED_DELETE(m_pScriptManager);
 	CHECKED_DELETE(m_pPhysicsManager);
+	CHECKED_DELETE(m_pConsole);
 
 	m_pCamera = NULL; //La cámara la elimina el proceso
 	m_pLogRender = NULL;
@@ -166,6 +169,11 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 #if defined (_DEBUG)
 			m_pModifierManager = new CModifierManager();
 			m_pModifierManager->Load(config.modifiers_path);
+
+			//Crea la consola
+			m_pConsole = new CConsole();
+			m_bIsOk = m_pConsole->Init();
+			m_pConsole->SetActive(true);
 #endif
 		}
 	}
@@ -185,6 +193,8 @@ void CCore::Update(float ElapsedTime)
 {
 	//m_pInputManager->Update();
 	m_pActionToInput->Update();
+	m_pPhysicsManager->Update(ElapsedTime);
+	m_pConsole->Update(ElapsedTime);
 }
 
 void CCore::Render()

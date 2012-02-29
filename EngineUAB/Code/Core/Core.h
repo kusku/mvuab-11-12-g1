@@ -28,6 +28,7 @@ class CTimer;
 class CModifierManager;
 class CScriptManager;
 class CPhysicsManager;
+class CConsole;
 
 class CCore : public CSingleton<CCore>
 {
@@ -62,6 +63,7 @@ public:
 	inline CTimer*			GetTimer		() const				{ return m_pTimer; }
 	inline CLogRender*		GetLogRender	() const				{ return m_pLogRender; }
 	inline CDebugRender*	GetDebugRender	() const				{ return m_pDebugRender; }
+	inline CConsole*		GetConsole		() const				{ return m_pConsole; }
 
 	inline CRenderManager*						GetRenderManager() const					{ return m_pRenderManager; }
 	inline CFontManager*						GetFontManager() const						{ return m_pFontManager; }
@@ -90,6 +92,7 @@ private:
 	CDebugRender						*m_pDebugRender;
 	CLogRender							*m_pLogRender;
 	CTimer								*m_pTimer;
+	CConsole							*m_pConsole;
 
 	CRenderManager						*m_pRenderManager;
 	CFontManager						*m_pFontManager;

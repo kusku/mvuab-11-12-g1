@@ -6,5 +6,6 @@
 #include "Core.h"
 #include "Utils\Singleton.h"
 #include "Math\Vector3.h"
+#include "Console\Console.h"
 
 #endif
