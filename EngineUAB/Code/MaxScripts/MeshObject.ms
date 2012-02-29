@@ -19,6 +19,7 @@ global VERTEX_TYPE_BINORMAL		= 0x0008;
 global VERTEX_TYPE_TEXTURE1	= 0x0010;
 global VERTEX_TYPE_TEXTURE2	= 0x0020;
 global VERTEX_TYPE_DIFFUSE		= 0x0040;
+global VERTEX_TYPE_PARALLAX		= 0x0200;
 
 global PARENT_SUBDIR		= "\\Data\\"
 global MESH_SUBDIR		= "\\Models\\";
@@ -61,18 +62,18 @@ struct MaterialObject
 	(
 		local finalName = ""
 		
-		if (bit.and VertexType VERTEX_TYPE_TEXTURE1) == VERTEX_TYPE_TEXTURE1 then
+		if (bit.and vertexType VERTEX_TYPE_TEXTURE1) == VERTEX_TYPE_TEXTURE1 then
 		(
 			finalName = (GetRelativeFileNameWithParentDir Texture1)
 			WriteStringToFile finalName file
 		
-			if (bit.and VertexType VERTEX_TYPE_TEXTURE2) == VERTEX_TYPE_TEXTURE2 then
+			if (bit.and vertexType VERTEX_TYPE_TEXTURE2) == VERTEX_TYPE_TEXTURE2 then
 			(
 				finalName = (GetRelativeFileNameWithParentDir Texture2)
 				WriteStringToFile finalName file
 			)
 		
-			if (bit.and VertexType VERTEX_TYPE_TANGENT) == VERTEX_TYPE_TANGENT then
+			if (bit.and vertexType VERTEX_TYPE_TANGENT) == VERTEX_TYPE_TANGENT then
 			(
 				finalName = (GetRelativeFileNameWithParentDir Bump)
 				WriteStringToFile finalName file
@@ -315,6 +316,11 @@ struct VIBuffers
 				(
 					VertexType = (bit.or VertexType (bit.or VERTEX_TYPE_BINORMAL VERTEX_TYPE_TANGENT) )
 					MeshMaterial.Bump = (openBitMap objMaterial.bumpMap.bitmap.filename).fileName
+					
+					if objMaterial.DisplacementMapEnable == true  then
+					(
+						VertexType = (bit.or VertexType VERTEX_TYPE_PARALLAX )	
+					)
 				)
 			)
 			else
@@ -978,7 +984,7 @@ function CreateVertex pos nrm tex tex2 diffCol VertexType =
 
 function CreateMeshStruct =
 (
-	local meshObject = MeshObj  MeshPath:"" MeshName:"" MeshBuffers:#() BBox:0 BSphere:0 BocMeshAttributes:0 MeshFileName:"" YawAngle:0 PitchAngle:0 RollAngle:0 Translation:0 IsInstance:False InstanceName:"" RelativeMeshFileName:"" RenderExport:"" RenderVisible:"" AnimModelCore:""  VtxNormalBuffer:#()
+	local meshObject = MeshObj  MeshPath:"" MeshName:"" MeshBuffers:#() BBox:0 BSphere:0 BocMeshAttributes:0 MeshFileName:"" YawAngle:0 PitchAngle:0 RollAngle:0 Translation:0 IsInstance:False InstanceName:"" RelativeMeshFileName:"" RenderExport:"" RenderVisible:"" RenderLayer:"" AnimModelCore:"" PhysicsType:"" VtxNormalBuffer:#()
 	
 	return meshObject
 )

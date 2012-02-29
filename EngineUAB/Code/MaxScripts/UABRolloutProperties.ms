@@ -1,43 +1,43 @@
-rollout UABSetProperties "UABSetProperties" width:262 height:599
+rollout UABSetProperties "UABSetProperties" width:262 height:652
 (
-	GroupBox grp1 "Render" pos:[8,4] width:249 height:132
+	GroupBox grp1 "Render" pos:[8,4] width:249 height:161
 	checkbox ExportRenderCB "Export" pos:[14,25] width:53 height:15
-	dropdownList ExportRenderList "" pos:[94,24] width:156 height:21 items:#("static_mesh", "animated_model")
+	dropdownList ExportRenderList "" pos:[94,24] width:156 height:24 items:#("static_mesh", "animated_model")
 	checkbox VisibleRenderCB "Visible" pos:[14,47] width:76 height:18
 	checkbox LayerRenderCB "Layer" pos:[14,70] width:71 height:17
-	dropdownList LayerRenderList "" pos:[94,68] width:156 height:21 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles")
+	dropdownList LayerRenderList "" pos:[94,68] width:156 height:24 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles")
 	label lbl1 "Anim. model" pos:[14,105] width:70 height:16
 	edittext AnimModelRenderText "" pos:[93,101] width:157 height:21
-	GroupBox grp2 "Physics" pos:[8,145] width:249 height:70
-	checkbox GeneratePhysicsCB "Generate" pos:[14,160] width:71 height:18
-	dropdownList GeneratePhysicsList "" pos:[94,157] width:156 height:21 items:#("triangle_mesh", "convex_shape", "box_shape", "sphere_shape", "plane_shape", "capsule_shape")
-	checkbox layerPhysicsCB "Layer" pos:[14,187] width:72 height:16
-	dropdownList LayerPhysicsList "" pos:[94,185] width:156 height:21
-	GroupBox grp3 "Logic" pos:[9,222] width:244 height:48
-	checkbox GenerateLogicCB "Generate" pos:[14,238] width:71 height:18
-	dropdownList GenerateLogicList "" pos:[89,236] width:156 height:21
-	button GetButton "Get" pos:[7,561] width:83 height:24
-	button SetButton "Set" pos:[167,563] width:83 height:24
-	checkbox cbGenShadowMap "Dynamic Shadow Map:" pos:[15,295] width:84 height:26 checked:false
-	dropdownList ddlShMapFormat "" pos:[111,296] width:110 height:21 items:#("R32F", "A8R8G8B8", "R8G8B8", "X8R8G8B8")
-	dropdownList ddlShMapWidth "" pos:[111,324] width:108 height:21 items:#("512", "1024", "2048")
-	label lbShMapWidth "Width:" pos:[67,327] width:35 height:18
-	dropdownList ddlShMapHeigth "" pos:[111,352] width:108 height:21 items:#("512", "1024", "2048")
-	label lbShMapHeigth "Heigth:" pos:[65,356] width:35 height:18
-	checkbox cbGenSShMap "Static Shadow Map:" pos:[17,382] width:91 height:26 checked:false
-	dropdownList ddlSShMapFormat "" pos:[111,386] width:110 height:21 items:#("R32F", "A8R8G8B8", "R8G8B8", "X8R8G8B8")
-	dropdownList ddlSShMapWidth "" pos:[111,415] width:108 height:21 items:#("512", "1024", "2048")
-	label lbSShMapWidth "Width:" pos:[72,418] width:35 height:18
-	dropdownList ddlSShMapHeigth "" pos:[111,443] width:108 height:21 items:#("512", "1024", "2048")
-	label lbSShMapHeigth "Heigth:" pos:[71,446] width:35 height:18
-	GroupBox grpLights "Lights" pos:[7,282] width:243 height:272
-	button btnShadowMask "Shadow Mask" pos:[18,477] width:77 height:20
-	label lblShadowMask "C:\\" pos:[124,477] width:119 height:19
-	checkbox cbShadowMask "" pos:[100, 475] witdh:25 height:25
-	label lblStaticLayer "Static Layer:" pos:[40,503] width:70 height:14
-	label lbl43 "Dynamic Layer:" pos:[24,528] width:77 height:14
-	dropdownList ddlStaticLayer "" pos:[112,504] width:120 height:21 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles")
-	dropdownList ddlDynamicLayer "" pos:[112,528] width:120 height:21 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles")
+	GroupBox grp2 "Physics" pos:[6,178] width:249 height:70
+	checkbox GeneratePhysicsCB "Generate" pos:[12,193] width:71 height:18
+	dropdownList GeneratePhysicsList "" pos:[92,190] width:156 height:24 items:#("triangle_mesh", "convex_shape", "box_shape", "sphere_shape", "plane_shape", "capsule_shape")
+	checkbox layerPhysicsCB "Layer" pos:[12,220] width:72 height:16
+	dropdownList LayerPhysicsList "" pos:[92,218] width:156 height:24
+	GroupBox grp3 "Logic" pos:[7,255] width:244 height:48
+	checkbox GenerateLogicCB "Generate" pos:[12,271] width:71 height:18
+	dropdownList GenerateLogicList "" pos:[87,269] width:156 height:24
+	button GetButton "Get" pos:[5,594] width:83 height:24
+	button SetButton "Set" pos:[165,596] width:83 height:24
+	checkbox cbGenShadowMap "Dynamic Shadow Map:" pos:[13,328] width:84 height:26 checked:false
+	dropdownList ddlShMapFormat "" pos:[109,329] width:110 height:24 items:#("G32R32F", "R32F")
+	dropdownList ddlShMapWidth "" pos:[109,357] width:108 height:24 items:#("512", "1024", "2048")
+	label lbShMapWidth "Width:" pos:[65,360] width:35 height:18
+	dropdownList ddlShMapHeigth "" pos:[109,385] width:108 height:24 items:#("512", "1024", "2048")
+	label lbShMapHeigth "Heigth:" pos:[63,389] width:35 height:18
+	checkbox cbGenSShMap "Static Shadow Map:" pos:[15,415] width:91 height:26 checked:false
+	dropdownList ddlSShMapFormat "" pos:[109,419] width:110 height:24 items:#("G32R32F", "R32F")
+	dropdownList ddlSShMapWidth "" pos:[109,448] width:108 height:24 items:#("512", "1024", "2048")
+	label lbSShMapWidth "Width:" pos:[70,451] width:35 height:18
+	dropdownList ddlSShMapHeigth "" pos:[109,476] width:108 height:24 items:#("512", "1024", "2048")
+	label lbSShMapHeigth "Heigth:" pos:[69,479] width:35 height:18
+	GroupBox grpLights "Lights" pos:[5,315] width:243 height:272
+	button btnShadowMask "Shadow Mask" pos:[16,510] width:77 height:20
+	label lblShadowMask "C:\\" pos:[122,510] width:119 height:19
+	checkbox cbShadowMask "" pos:[98,508] width:24 height:25 witdh:25
+	label lblStaticLayer "Static Layer:" pos:[38,536] width:70 height:14
+	label lbl43 "Dynamic Layer:" pos:[22,561] width:77 height:14
+	dropdownList ddlStaticLayer "" pos:[110,537] width:120 height:24 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles")
+	dropdownList ddlDynamicLayer "" pos:[110,561] width:120 height:24 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles")
 	
 	local m_ObjSelected = undefined
 	
@@ -163,6 +163,7 @@ rollout UABSetProperties "UABSetProperties" width:262 height:599
 				setUserProp Obj "shadow_mask_static_layer" "undefined"
 			)
 	)
+	
 	
 	on GetButton pressed do
 	(
@@ -402,7 +403,6 @@ rollout UABSetProperties "UABSetProperties" width:262 height:599
 			)
 		)
 	)
-	
 	on btnShadowMask pressed do
 	(
 		local data_path = getOpenFileName caption:"Shadow Mask Path" types:"TGA(*.tga)|*.tga|BMP(*.bmp)|*.bmp|JPG(*.jpg)|*.jpg|PNG(*.png)|*.png|DDS(*.dds)|*.dds|All|*.*|"initialDir=lblShadowMask.text
