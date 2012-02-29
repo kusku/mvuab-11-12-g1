@@ -451,7 +451,7 @@ bool CPhysicsManager::AddPhysicActor (CPhysicActor* actor)
 	bool isOk = false;
 	NxActor* nxActor;
 	NxActorDesc* actorDesc = actor->GetActorDesc();
-
+	
 	assert(actorDesc!=NULL);
 	nxActor = m_pScene->createActor( *actorDesc );
 	if (nxActor!=NULL)

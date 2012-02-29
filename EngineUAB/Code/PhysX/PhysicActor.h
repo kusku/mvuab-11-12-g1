@@ -36,18 +36,18 @@ public:
 	CPhysicActor::~CPhysicActor();
 
 	CPhysicUserData*	GetUserData				() {return m_pUserData;}
-	void							SetLinearVelocity	(const Vect3f& velocity);
-	Vect3f						GetPosition				();
-  Vect3f						GetRotation				();
-	void							CreateBody				(float density, float angularDamping = 0.5f, float linearDamping = 0.5f);
-	void							SetGlobalPosition	(const Vect3f& pos = Vect3f(0.f,0.f,0.f));
-  void              MoveGlobalPosition	(const Vect3f& pos);
-  void							SetRotation     	(const Vect3f& _vRot);
-  void							SetRotation     	(const Mat33f& _vRot);
-  Vect3f            GetLinearVelocity();
-  Vect3f            GetAngularVelocity();
-  Vect3f            GetAngularMomentum();
-  Mat33f            GetInertiaTensor();
+	void				SetLinearVelocity	(const Vect3f& velocity);
+	Vect3f				GetPosition				();
+	Vect3f				GetRotation				();
+	void				CreateBody				(float density, float angularDamping = 0.5f, float linearDamping = 0.5f);
+	void				SetGlobalPosition	(const Vect3f& pos = Vect3f(0.f,0.f,0.f));
+	void				MoveGlobalPosition	(const Vect3f& pos);
+	void				SetRotation     	(const Vect3f& _vRot);
+	void				SetRotation     	(const Mat33f& _vRot);
+	Vect3f				GetLinearVelocity();
+	Vect3f				GetAngularVelocity();
+	Vect3f				GetAngularMomentum();
+	Mat33f				GetInertiaTensor();
 
   void              AddImpulseAtPos(const Vect3f& _vDirection, const Vect3f& _vPos, float _fPower, bool _bLocal = true);
   void              AddVelocityAtPos(const Vect3f& _vDirection, const Vect3f& _vPos, float _fPower, bool _bLocal = true);
@@ -77,9 +77,9 @@ public:
   void              MoveGlobalPoseMat44 (const Mat44f& matrix);
 
 	//---Get PhsX Info---
-	void							CreateActor				(NxActor* actor);
+	void						CreateActor				(NxActor* actor);
 	NxActor*					GetPhXActor				() {return m_pPhXActor;}
-	NxActorDesc*			GetActorDesc			() {return m_pPhXActorDesc;}
+	NxActorDesc*				GetActorDesc			() {return m_pPhXActorDesc;}
 
   void              SetActorSolverIterationCount(int _iCount);
 
