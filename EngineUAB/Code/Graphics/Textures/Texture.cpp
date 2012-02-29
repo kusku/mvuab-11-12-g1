@@ -113,6 +113,9 @@ bool CTexture::Create(const std::string &Name, uint32 Width, uint32 Height, uint
 		case R32F:
 			l_Format = D3DFMT_R32F;
 			break;
+		case G32R32F:
+			l_Format = D3DFMT_G32R32F;
+			break;
 	}
 
 	HRESULT hr = CORE->GetRenderManager()->GetDevice()->CreateTexture(Width, Height, MipMaps, l_UsageType, l_Format, l_Pool, &m_Texture, NULL);
@@ -181,6 +184,8 @@ CTexture::TFormatType CTexture::GetFormatTypeFromString(const std::string &Forma
 {
 	if( FormatType == "R32F" )
 		return CTexture::R32F;
+	else if( FormatType == "G32R32F" )
+		return CTexture::G32R32F;
 	else if( FormatType == "A8R8G8B8" )
 		return CTexture::A8R8G8B8;
 	else if( FormatType == "A16B16G16R16" )

@@ -295,17 +295,51 @@ bool CEffectTechnique::BeginRender()
 	{
 		CTexture* dynamicMap = m_Effect->GetLightsDynamicShadowMap();
 		CTexture* staticMap = m_Effect->GetLightsStaticShadowMap();
-		
-		if( FAILED( l_Effect->SetTexture( m_Effect->GetLightsDynamicShadowMapParameter(), dynamicMap->GetDXTexture()) ) )
-		{
-			msg_error = "Error al hacer el Set del parametro: m_Effect->GetLightsDynamicShadowMapParameter()";
-			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
-		}
 
-		if( FAILED( l_Effect->SetTexture( m_Effect->GetLightsStaticShadowMapParameter(), staticMap->GetDXTexture()) ) )
+		if(dynamicMap == NULL)
 		{
-			msg_error = "Error al hacer el Set del parametro: m_Effect->GetLightsStaticShadowMap()";
-			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+			if( FAILED( l_Effect->SetBool( m_Effect->GetDynamicShadowMapEnableParameter(), false) ) )
+			{
+				msg_error = "Error al hacer el Set del parametro: m_Effect->GetDynamicShadowMapEnableParameter()";
+				LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+			}
+		}
+		else
+		{
+			if( FAILED( l_Effect->SetBool( m_Effect->GetDynamicShadowMapEnableParameter(), true) ) )
+			{
+				msg_error = "Error al hacer el Set del parametro: m_Effect->GetDynamicShadowMapEnableParameter()";
+				LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+			}
+
+			if( FAILED( l_Effect->SetTexture( m_Effect->GetLightsDynamicShadowMapParameter(), dynamicMap->GetDXTexture()) ) )
+			{
+				msg_error = "Error al hacer el Set del parametro: m_Effect->GetLightsDynamicShadowMapParameter()";
+				LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+			}
+		}
+		
+		if(staticMap == NULL)
+		{
+			if( FAILED( l_Effect->SetBool( m_Effect->GetStaticShadowMapEnableParameter(), false) ) )
+			{
+				msg_error = "Error al hacer el Set del parametro: m_Effect->GetStaticShadowMapEnableParameter()";
+				LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+			}
+		}
+		else
+		{
+			if( FAILED( l_Effect->SetBool( m_Effect->GetStaticShadowMapEnableParameter(), true) ) )
+			{
+				msg_error = "Error al hacer el Set del parametro: m_Effect->GetStaticShadowMapEnableParameter()";
+				LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+			}
+
+			if( FAILED( l_Effect->SetTexture( m_Effect->GetLightsStaticShadowMapParameter(), staticMap->GetDXTexture()) ) )
+			{
+				msg_error = "Error al hacer el Set del parametro: m_Effect->GetLightsStaticShadowMap()";
+				LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+			}
 		}
 	}
 

@@ -23,6 +23,7 @@ CStaticMesh::CStaticMesh()
 	, m_NumFaces(0)
 	, m_FileName("")
 	, m_RenderableObjecTechniqueName("")
+	, m_MeshName("")
 {
 }
 
@@ -107,6 +108,8 @@ bool CStaticMesh::ExtractMesh(FILE* modelFile)
 	fread(c_name, 1, tmp, modelFile);
 	name = std::string(c_name);
 	CHECKED_DELETE(c_name);
+
+	m_MeshName = name;
 	
 	//Read Amount of Sub Meshes (Multi materials)
 	fread(&tmp, sizeof(uint16), 1, modelFile);
@@ -228,7 +231,8 @@ CRenderableVertexs* CStaticMesh::ReadCreateVertexBuffer(FILE* modelFile, uint16 
 
 		ret = idxVtx;
 	}
-	else if(vertexType == TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX::GetVertexType() )
+	else if(vertexType == TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX::GetVertexType() || 
+				vertexType == (TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX::GetVertexType() | VERTEX_TYPE_PARALLAX) )
 	{
 		//Create Vertex Buffer
 		vtxBuffer = LoadCreateVertexBuffer<TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX>(modelFile, numVertex);
@@ -326,7 +330,7 @@ bool CStaticMesh::ExtractTexture(FILE* modelFile, std::vector<CTexture*>& textVe
 	CHECKED_DELETE(path);
 
 	CTexture* texture = new CTexture();
-	texture->SetName(sPath);
+	texture->SetName(m_MeshName + "_" + sPath);
 			
 	if(!texture->Load(sPath))
 	{
