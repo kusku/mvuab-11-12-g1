@@ -28,7 +28,7 @@ void CEffectManager::CleanUp()
 	Destroy();
 }
 
-void CEffectManager::Load ( const std::string &Filename)
+void CEffectManager::Load(const std::string &Filename)
 {
 	m_Filename = Filename;
 	LOGGER->AddNewLog(ELL_INFORMATION, "CEffectManager::Load->Cargando los efectos i techniques.");
@@ -87,13 +87,6 @@ void CEffectManager::Load ( const std::string &Filename)
 }
 
 void CEffectManager::Reload()
-{
-	LOGGER->AddNewLog(ELL_INFORMATION, "CEffectManager::Reload->Recargando efectos.");
-	Destroy();
-	return Load ( m_Filename );
-}
-
-void CEffectManager::ReloadShaders ( void )
 {
 	//Effects
 	for(uint16 i=0; i<m_EffectsNames.size(); ++i)
