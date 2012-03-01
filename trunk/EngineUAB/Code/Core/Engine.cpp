@@ -73,38 +73,38 @@ void CEngine::Update()
 void CEngine::UpdateDebugInputs()
 {
 	CActionToInput* action2Input = CORE->GetActionToInput();
-	if( action2Input->DoAction("Logger") )
+	if( action2Input->DoAction( ACTION_LOGGER ) )
 	{
 		bool visible = m_LogRender.GetVisible();
 		m_LogRender.SetVisible(!visible);
 	}
 
-	if( action2Input->DoAction("LogRender_PageDown") )
+	if( action2Input->DoAction( ACTION_LOGGER_PAGEDOWN ) )
 	{
 		m_LogRender.PageDown();
 	}
 
-	if( action2Input->DoAction("LogRender_PageUp") )
+	if( action2Input->DoAction( ACTION_LOGGER_PAGEUP ) )
 	{
 		m_LogRender.PageUp();
 	}
 
-	if( action2Input->DoAction("LogRender_PrevLine") )
+	if( action2Input->DoAction( ACTION_LOGGER_PREVLINE ) )
 	{
 		m_LogRender.PrevLine();
 	}
 
-	if( action2Input->DoAction("LogRender_NextLine") )
+	if( action2Input->DoAction( ACTION_LOGGER_NEXTLINE ) )
 	{
 		m_LogRender.NextLine();
 	}
 
-	if( action2Input->DoAction("DebugInfo") )
+	if( action2Input->DoAction( ACTION_DEBUG_LOGGER ) )
 	{
 		m_DebugRender.SetVisible( !m_DebugRender.GetVisible() );
 	}
 
-	if( action2Input->DoAction("ReloadAll") )
+	if( action2Input->DoAction( ACTION_RELOAD_ALL ) )
 	{
 		LOGGER->AddNewLog(ELL_INFORMATION, "CEngine->Iniciando reload de todo el Core.");
 
