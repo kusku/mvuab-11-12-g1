@@ -140,6 +140,30 @@ bool CStaticMesh::ExtractMesh(FILE* modelFile)
 					return false;
 				}
 			}
+
+			if(vertexType & VERTEX_TYPE_RNM)
+			{
+				//Extract X
+				if(!ExtractTexture(modelFile, textVector))
+				{
+					ClearTextureVector(textVector);
+					return false;
+				}
+				
+				//Extract Y
+				if(!ExtractTexture(modelFile, textVector))
+				{
+					ClearTextureVector(textVector);
+					return false;
+				}
+
+				//Extract Z
+				if(!ExtractTexture(modelFile, textVector))
+				{
+					ClearTextureVector(textVector);
+					return false;
+				}
+			}
 		
 			if(vertexType & VERTEX_TYPE_TANGENT)
 			{
@@ -232,7 +256,7 @@ CRenderableVertexs* CStaticMesh::ReadCreateVertexBuffer(FILE* modelFile, uint16 
 		ret = idxVtx;
 	}
 	else if(vertexType == TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX::GetVertexType() || 
-				vertexType == (TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX::GetVertexType() | VERTEX_TYPE_PARALLAX) )
+			vertexType == (TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX::GetVertexType() | VERTEX_TYPE_PARALLAX))
 	{
 		//Create Vertex Buffer
 		vtxBuffer = LoadCreateVertexBuffer<TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX>(modelFile, numVertex);
@@ -243,6 +267,20 @@ CRenderableVertexs* CStaticMesh::ReadCreateVertexBuffer(FILE* modelFile, uint16 
 		//Create CIndexVertexs
 		CIndexedVertexs<TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX>* idxVtx = 
 			new CIndexedVertexs<TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX>(CORE->GetRenderManager(), vtxBuffer, idxBuffer, numVertex, numIndex);
+
+		ret = idxVtx;
+	}
+	else if(vertexType == TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX::GetVertexType())
+	{
+		//Create Vertex Buffer
+		vtxBuffer = LoadCreateVertexBuffer<TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX>(modelFile, numVertex);
+		
+		CalcTangentsAndBinormals(vtxBuffer, idxBuffer, numVertex, numIndex, sizeof(TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX),
+				0, 12, 28, 44, 60);
+
+		//Create CIndexVertexs
+		CIndexedVertexs<TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX>* idxVtx = 
+			new CIndexedVertexs<TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX>(CORE->GetRenderManager(), vtxBuffer, idxBuffer, numVertex, numIndex);
 
 		ret = idxVtx;
 	}
