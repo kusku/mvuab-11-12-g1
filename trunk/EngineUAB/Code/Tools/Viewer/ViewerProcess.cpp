@@ -15,9 +15,12 @@
 #include "Lights\LightManager.h"
 #include "ScriptManager.h"
 
+#include "ViewerDefs.h"
+
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
 #endif
+
 
 CViewerProcess::CViewerProcess()
 	: pos(0,0)
@@ -39,13 +42,13 @@ void CViewerProcess::Init()
 	pos.x = screen.x / 2;
 	pos.y = screen.y / 2;
 
-	m_Player.SetPosition(Vect3f(0.f,1.f,0.f));
-	m_Player.SetPitch(0.0f);
-	m_Player.SetYaw(0.0f);
+	m_Player.SetPosition(Vect3f( 220.f,150.f,-120.f));
+	m_Player.SetPitch(-D3DX_PI/6);
+	m_Player.SetYaw(D3DX_PI);
 	m_Player.SetRoll(0.0f);
 
 	float aspect = CORE->GetRenderManager()->GetAspectRatio();
-	m_pThPSCamera = new CThPSCamera(1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_Player, 10.0f);
+	m_pThPSCamera = new CThPSCamera( 1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_Player, 10.0f);
 	m_Camera = static_cast<CCamera*>(m_pThPSCamera);
 	CORE->SetCamera(m_Camera);
 }
@@ -64,88 +67,88 @@ void CViewerProcess::UpdateInputs(float elapsedTime)
 	CActionToInput *action2Input = CORE->GetActionToInput();
 	CScriptManager *SCRIPT = CORE->GetScriptManager();
 
-	if( action2Input->DoAction("Console") )
+	if( action2Input->DoAction( ACTION_CONSOLE ) )
 	{
 		SCRIPT->RunCode("toggle_console()");
 	}
 
-	if( action2Input->DoAction("ReloadTTFs") )
+	if( action2Input->DoAction( ACTION_RELOAD_TTFS ) )
 	{
 		SCRIPT->RunCode("reload_fonts()");
 	}
 
-	if( action2Input->DoAction("ReloadLanguageXMLs") )
+	if( action2Input->DoAction( ACTION_RELOAD_LANGUAGES ) )
 	{
 		SCRIPT->RunCode("reload_languages()");
 	}
 
-	if( action2Input->DoAction("ReloadActions") )
+	if( action2Input->DoAction( ACTION_RELOAD_ACTIONS ) )
 	{
 		SCRIPT->RunCode("reload_inputs()");
 	}
-
-	if( action2Input->DoAction("ReloadRenderableObjects") )
+	
+	if( action2Input->DoAction( ACTION_RELOAD_RENDERABLE_OBJECTS ) ) 
 	{
 		SCRIPT->RunCode("reload_renderable_objects_layers()");
 	}
 	
-	if( action2Input->DoAction("ReloadMeshes") )
+	if( action2Input->DoAction( ACTION_RELOAD_MESHES ) )
 	{
 		SCRIPT->RunCode("reload_meshes()");
 	}
 
-	if( action2Input->DoAction("ReloadShaders") )
+	if( action2Input->DoAction( ACTION_RELOAD_SHADERS ) )
 	{
 		SCRIPT->RunCode("reload_effects()");
 	}
 
-	if( action2Input->DoAction("ReloadPools") )
+	if( action2Input->DoAction( ACTION_RELOAD_POOLS ) )
 	{
 		SCRIPT->RunCode("reload_pools()");
 	}
 
-	if( action2Input->DoAction("ReloadScripts") )
+	if( action2Input->DoAction( ACTION_RELOAD_SCRIPTS ) )
 	{
 		SCRIPT->RunCode("reload_scripts()");
 	}
 
-	if( action2Input->DoAction("ReloadCommands") )
+	if( action2Input->DoAction( ACTION_RELOAD_COMMANDS ) )
 	{
 		SCRIPT->RunCode("reload_render_commands()");
 	}
 
-	if( action2Input->DoAction("ModifiersShow") )
+	if( action2Input->DoAction( ACTION_SHOW_MODIFIERS ) )
 	{
 		bool visible = CORE->GetModifierManager()->GetVisible();
 		CORE->GetModifierManager()->SetVisible( !visible );
 	}
 
-	if( action2Input->DoAction("Modifier_Previous") && !action2Input->DoAction("LogRender_PrevLine") )
+	if( action2Input->DoAction( ACTION_PREVIOUS_MODIFIERS ) && !action2Input->DoAction("LogRender_PrevLine") )
 	{
 		CORE->GetModifierManager()->MoveToPreviousModifier();
 	}
 
-	if( action2Input->DoAction("Modifier_Next") && !action2Input->DoAction("LogRender_NextLine") )
+	if( action2Input->DoAction( ACTION_NEXT_MODIFIERS ) && !action2Input->DoAction("LogRender_NextLine") )
 	{
 		CORE->GetModifierManager()->MoveToNextModifier();
 	}
 
-	if( action2Input->DoAction("GoToModifier") )
+	if( action2Input->DoAction( ACTION_GOTO_MODIFIERS ) )
 	{
 		CORE->GetModifierManager()->GoToModifier();
 	}
 
-	if( action2Input->DoAction("GoToRootModifier") )
+	if( action2Input->DoAction( ACTION_GOTO_ROOT_MODIFIERS ) )
 	{
 		CORE->GetModifierManager()->GoToRoot();
 	}
 
-	if( action2Input->DoAction("AddValueToModifierByPass") || action2Input->DoAction("AddValueToModifier") )
+	if( action2Input->DoAction( ACTION_ADD_VALUE_MODIFIERS ) || action2Input->DoAction("AddValueToModifier") )
 	{
 		CORE->GetModifierManager()->AddValueToModifier();
 	}
 
-	if( action2Input->DoAction("SubsValueToModifierByPass") || action2Input->DoAction("SubsValueToModifier") )
+	if( action2Input->DoAction( ACTION_SUBS_VALUE_MODIFIERS ) || action2Input->DoAction("SubsValueToModifier") )
 	{
 		CORE->GetModifierManager()->SubsValueToModifier();
 	}
