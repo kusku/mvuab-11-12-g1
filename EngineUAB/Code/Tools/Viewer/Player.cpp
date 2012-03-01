@@ -7,24 +7,7 @@
 #include "Base.h"
 #include "Core.h"
 
-#define MOMENTUM 70.f
-
-#define ACTION_LOGGER				"Logger"
-#define ACTION_DEBUG_LOGGER			"DebugInfo"
-#define ACTION_LOGGER_PAGEDOWN		"LogRender_PageDown"
-#define ACTION_LOGGER_PAGEUP		"LogRender_PageUp"
-#define ACTION_LOGGER_PREVLINE		"LogRender_PrevLine"
-#define ACTION_LOGGER_NEXTLINE		"LogRender_NextLine"
-#define ACTION_SAVE_LOG_FILE		"SaveLogsInFile"
-#define ACTION_RELOAD_ALL			"ReloadAll"
-
-#define ACTION_MOVE_PLAYER_FOWARD	"MovePlayerFoward"
-#define ACTION_MOVE_PLAYER_BACK		"MovePlayerBack"
-#define ACTION_MOVE_PLAYER_LEFT		"MovePlayerLeft"
-#define ACTION_MOVE_PLAYER_RIGHT	"MovePlayerRight"
-#define ACTION_MOVE_PLAYER_UP		"MovePlayerUp"
-#define ACTION_MOVE_PLAYER_DOWN 	"MovePlayerDown"
-
+#include "ViewerDefs.h"
 
 CPlayer::CPlayer()
 	: m_Dir(0.0f, 0.0f, 0.0f)
@@ -174,7 +157,6 @@ void CPlayer::UpdateInputActions(float _ElapsedTime, CCamera *camera)
 			m_Dir = Vect3f ( 0, 1, 0 );
 			m_Position += m_Dir * MOMENTUM * _ElapsedTime;
 		}
-
 	}
 }
 
