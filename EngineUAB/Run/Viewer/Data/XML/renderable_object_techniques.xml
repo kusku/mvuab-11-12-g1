@@ -19,6 +19,7 @@
 		<default_technique vertex_type="19" technique="BasicBuildShadowMap" />
 		<default_technique vertex_type="31" technique="BasicBuildShadowMap" />
 		<default_technique vertex_type="543" technique="BasicBuildShadowMap" />
+		<default_technique vertex_type="1055" technique="BasicBuildShadowMap" />
 	</pool_renderable_object_technique>
 	
 	
@@ -27,6 +28,7 @@
 		<default_technique vertex_type="19" technique="BasicDeferredModelDraw" />
 		<default_technique vertex_type="31" technique="DeferredModelDrawWithNormal" />
 		<default_technique vertex_type="543" technique="DeferredModelDrawWithNormalParallax" />
+		<default_technique vertex_type="1055" technique="DeferredModelDrawRNM" />
 		<!--<default_technique vertex_type="81" technique="BasicDeferredLighting" />-->
 		<default_technique vertex_type="81" technique="BasicDeferredLightingAndShadow" /> 
 	</pool_renderable_object_technique>

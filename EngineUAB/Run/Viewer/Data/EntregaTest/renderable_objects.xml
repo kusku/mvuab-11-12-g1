@@ -12,4 +12,5 @@
 	<mesh_instance name="Cone002" core="Cone002" position="-150.33 0.0 250.496" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" />
 	<mesh_instance name="Box005" core="Box005" position="-291.024 0.0 -314.033" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" />
 	<mesh_instance name="Box006" core="Box006" position="-211.142 0.0 -263.352" yaw="-1.00179e-005" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" />
+	<mesh_instance name="Plane01" core="Plane01" position="0.0 40.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" />
 </renderable_objects>

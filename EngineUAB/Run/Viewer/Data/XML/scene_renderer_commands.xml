@@ -12,10 +12,10 @@
 	<generate_shadow_maps />
 	
 	<set_render_target name="deferred_multiple_render_target">
-		<dynamic_texture stage_id="0" name="DiffuseMapTexture" texture_width_as_frame_buffer="true" format_type="A16R16G16B16" mipmaps="3" />
-		<dynamic_texture stage_id="1" name="NormalMapTexture" texture_width_as_frame_buffer="true" format_type="A16R16G16B16F" mipmaps="3" />
+		<dynamic_texture stage_id="0" name="DiffuseMapTexture" texture_width_as_frame_buffer="true" format_type="A16B16G16R16" mipmaps="3" />
+		<dynamic_texture stage_id="1" name="NormalMapTexture" texture_width_as_frame_buffer="true" format_type="A16B16G16R16F" mipmaps="3" />
 		<dynamic_texture stage_id="2" name="DepthMapTexture" texture_width_as_frame_buffer="true" format_type="G32R32F" mipmaps="3" />
-		<dynamic_texture stage_id="3" name="LightMapTexture" texture_width_as_frame_buffer="true" format_type="A16R16G16B16" mipmaps="3" />
+		<dynamic_texture stage_id="3" name="LightMapTexture" texture_width_as_frame_buffer="true" format_type="A16B16G16R16" mipmaps="3" />
 	</set_render_target>
 	
 	<clear_scene color="true" depth="true" stencil="true" />

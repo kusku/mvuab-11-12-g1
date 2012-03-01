@@ -8,4 +8,5 @@
 	<static_mesh name="Cone002" filename=".\Data\.\EntregaTest\\Models\Cone002.m3d" />
 	<static_mesh name="Box005" filename=".\Data\.\EntregaTest\\Models\Box005.m3d" />
 	<static_mesh name="Box006" filename=".\Data\.\EntregaTest\\Models\Box006.m3d" />
+	<static_mesh name="Plane01" filename=".\Data\.\EntregaTest\\Models\Plane01.m3d" />
 </static_meshes>

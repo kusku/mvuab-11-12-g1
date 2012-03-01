@@ -328,4 +328,19 @@ float2 CalculateParallax(float2 scaleAmount, float2 texCoord, float height, floa
 	return ParallaxTexCoord;
 }
 
+float3 GetRadiosityNormalMap(float3 Nn, float2 UV, float3x3 WorldMatrix, sampler2D rnmX, sampler2D rnmY, sampler2D rnmZ)
+{
+	float3 l_LightmapX = tex2D(rnmX, UV)*2;
+	float3 l_LightmapY = tex2D(rnmY, UV)*2;
+	float3 l_LightmapZ = tex2D(rnmZ, UV)*2;
+
+	float3 l_BumpBasisX = normalize(float3(0.816496580927726, 0.5773502691896258, 0 ));
+	float3 l_BumpBasisY = normalize(float3(-0.408248290463863, 0.5773502691896258, 0.7071067811865475 ));
+	float3 l_BumpBasisZ = normalize(float3(-0.408248290463863, 0.5773502691896258, -0.7071067811865475));
+	
+	float3 diffuseLighting = saturate( dot( Nn, l_BumpBasisX ) ) * l_LightmapX + saturate( dot( Nn, l_BumpBasisY ) ) * l_LightmapY + saturate( dot( Nn, l_BumpBasisZ ) ) * l_LightmapZ;
+	
+	return diffuseLighting;
+}
+
 //////////////////////////////////////
