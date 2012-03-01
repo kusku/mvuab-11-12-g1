@@ -223,7 +223,7 @@ void CModifierManager::AnalizeSizeInfo()
 	if( l_Visible )
 	{
 		//Si se ve la información
-		baseUtils::FormatSrting (l_sInfo, "---------------------------------" );
+		baseUtils::FormatSrting (l_sInfo, "---------------------------------------" );
 	}
 	else
 	{
