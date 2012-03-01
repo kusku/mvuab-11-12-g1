@@ -1,8 +1,8 @@
 #include "Samplers.h"
 #include "functions.fx"
 
-float g_SampleRadiusSSAO=0.023;
-float g_DistanceScaleSSAO=0.405;
+float g_SampleRadiusSSAO : PARAMETER0;
+float g_DistanceScaleSSAO : PARAMETER1;
 float2 g_RenderTargetSize : RENDER_TARGET_SIZE;
 
 struct VertexIn
@@ -112,7 +112,6 @@ float4 SSAOBlurPS(VertexOut IN) : COLOR
 		}
 	}
 	
-	return float4(1.0,0.0,0.0,1.0);
 	return color / num;
 }
 

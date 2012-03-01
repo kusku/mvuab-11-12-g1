@@ -14,6 +14,10 @@
 		<param id="2" name="End" start_range="0.0" end_range="2000.0" precision="1.0" />
 		<param id="3" name="Constant_Blur" start_range="0.0" end_range="1.0" precision="0.1" />
 	</modifier>
+	<modifier name="SSAO" technique="SSAOTechnique" >
+		<param id="0" name="Radius" start_range="0.0" end_range="1.0" precision="0.01" />
+		<param id="1" name="Distance_Scale" start_range="0.0" end_range="1.0" precision="0.01" />
+	</modifier>
 	<modifier name="SSAA" technique="SSAATechnique" >
 		<param id="0" name="Weight" start_range="0.0" end_range="10.0" precision="0.1" />
 	</modifier>
