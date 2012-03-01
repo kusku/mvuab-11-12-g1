@@ -33,6 +33,12 @@
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN_UP"  Code="KEY_F5"/>
 	</action>
 
+	<!-- Bloqueo de la camara -->
+	<action name="ToggleLockFreeCamera">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN_UP"  Code="KEY_L"/>
+	</action>
+	
+	<!-- ............ ACCIONES DE MOVIMENTO DEL PLAYER ...............-->
 	<action name="MovePlayerFoward">
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_W"/>
 	</action>
@@ -57,6 +63,7 @@
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_Q"/>
 	</action>
 	
+	<!-- ............ ACCIONES DE RECARGAS ...............-->
 	<action name="ReloadAll">
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_LCTRL" />
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_LSHIFT" />
