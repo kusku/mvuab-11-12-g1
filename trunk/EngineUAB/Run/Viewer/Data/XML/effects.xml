@@ -12,6 +12,7 @@
 	<effect name="BasicQuadEffect" file="./data/effects/BasicQuadEffect.fx" />
 	<effect name="BasicDeferredModelDraw" file="./data/effects/BasicDeferredModelDraw.fx" />
 	<effect name="DeferredModelDrawWithNormal" file="./data/effects/DeferredModelDrawWithNormal.fx" />
+	<effect name="DeferredModelDrawRNM" file="./data/effects/DeferredModelDrawRNM.fx" />
 	<effect name="DeferredModelDrawWithNormalParallax" file="./data/effects/DeferredModelDrawWithNormalParallax.fx" />
 	<effect name="BasicDeferredLighting" file="./data/effects/BasicDeferredLighting.fx" />
 	<effect name="BasicDeferredLightingAndShadow" file="./data/effects/BasicDeferredLightingAndShadow.fx" />
@@ -67,6 +68,9 @@
 	<technique name="DeferredModelDrawWithNormal" effect="DeferredModelDrawWithNormal"
 		use_world_view_projection_matrix="true" use_world_matrix="true"/>
 	
+	<technique name="DeferredModelDrawRNM" effect="DeferredModelDrawRNM"
+		use_world_view_projection_matrix="true" use_world_matrix="true"/>
+		
 	<technique name="DeferredModelDrawWithNormalParallax" effect="DeferredModelDrawWithNormalParallax"
 		use_world_view_projection_matrix="true" use_world_matrix="true"/>
 	

@@ -11,7 +11,7 @@ uniform float		AmbientLightIntensity	: AMBIENT_LIGHT_INTENSITY
     float UIMin = 0.0;
     float UIMax = 1.0;
     float UIStep = 0.1;
-> = 0.0;
+> = 0.1;
 
 uniform float4		AmbientLightColor		: AMBIENT_LIGHT_COLOR
 <
