@@ -8,6 +8,16 @@
 
 #define DEBUG_MODE true
 
+#define ACTION_LOGGER				"Logger"
+#define ACTION_DEBUG_LOGGER			"DebugInfo"
+#define ACTION_LOGGER_PAGEDOWN		"LogRender_PageDown"
+#define ACTION_LOGGER_PAGEUP		"LogRender_PageUp"
+#define ACTION_LOGGER_PREVLINE		"LogRender_PrevLine"
+#define ACTION_LOGGER_NEXTLINE		"LogRender_NextLine"
+#define ACTION_SAVE_LOG_FILE		"SaveLogsInFile"
+#define ACTION_RELOAD_ALL			"ReloadAll"
+
+
 struct SConfig
 {
 	//Screen params
