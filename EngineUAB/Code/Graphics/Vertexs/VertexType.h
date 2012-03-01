@@ -15,6 +15,7 @@
 #define VERTEX_TYPE_WEIGHTS		0x0080
 #define VERTEX_TYPE_INDICES		0x0100
 #define VERTEX_TYPE_PARALLAX	0x0200
+#define VERTEX_TYPE_RNM			0x0400
 
 
 struct TGEOMETRY_VERTEX
@@ -387,6 +388,33 @@ struct TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX
 	static inline unsigned short GetVertexType()
 	{
 		return VERTEX_TYPE_GEOMETRY|VERTEX_TYPE_NORMAL|VERTEX_TYPE_TANGENT|VERTEX_TYPE_BINORMAL|VERTEX_TYPE_TEXTURE1;
+	}
+	static inline unsigned int GetFVF()
+	{
+		return 0;
+	}
+
+	static void ReleaseVertexDeclaration()
+	{
+		CHECKED_RELEASE(s_VertexDeclaration);
+	}
+
+	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
+	static LPDIRECT3DVERTEXDECLARATION9 & GetVertexDeclaration();
+};
+
+struct TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX
+{
+	float x, y, z;
+	float nx, ny, nz, nw;
+	float tangentx, tangenty, tangentz, tangentw;
+	float binormalx, binormaly, binormalz, binormalw;
+	float tu,tv;
+	float tu2,tv2;
+
+	static inline unsigned short GetVertexType()
+	{
+		return VERTEX_TYPE_GEOMETRY|VERTEX_TYPE_NORMAL|VERTEX_TYPE_TANGENT|VERTEX_TYPE_BINORMAL|VERTEX_TYPE_TEXTURE1|VERTEX_TYPE_RNM;
 	}
 	static inline unsigned int GetFVF()
 	{
