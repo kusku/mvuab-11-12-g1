@@ -19,9 +19,10 @@ public:
 	CEffectManager();
 	virtual ~CEffectManager();
 
-	void		Load		( const std::string &Filename );
-	void		Reload		();
-	void		CleanUp		();
+	void		Load				( const std::string &Filename );
+	void		Reload				( void );
+	void		ReloadShaders		( void );
+	void		CleanUp				( void );
 
 	void		ActivateCamera		( const Mat44f &ViewMatrix, const Mat44f &ProjectionMatrix, const Vect3f &CameraEye );
 
