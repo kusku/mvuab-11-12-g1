@@ -21,6 +21,7 @@ CObject3D::CObject3D()
 	, m_fYaw(0.f)
 	, m_fPitch(0.f)
 	, m_fRoll(0.f)
+	, m_Visible(true)	
 {
 	m_TechniqueName = "";
 }
