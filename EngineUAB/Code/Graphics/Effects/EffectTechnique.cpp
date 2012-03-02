@@ -98,17 +98,29 @@ bool CEffectTechnique::BeginRender()
 
 	if( m_UseWorldMatrix )
 	{
-		l_Effect->SetMatrix( m_Effect->GetWorldMatrix(), &l_EffectManager->GetWorldMatrix().GetD3DXMatrix() );
+		if( FAILED( l_Effect->SetMatrix( m_Effect->GetWorldMatrix(), &l_EffectManager->GetWorldMatrix().GetD3DXMatrix() ) ) ) 
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetWorldMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
 	}
 
 	if( m_UseViewMatrix )
 	{
-		l_Effect->SetMatrix( m_Effect->GetViewMatrix(), &l_EffectManager->GetViewMatrix().GetD3DXMatrix() );
+		if( FAILED( l_Effect->SetMatrix( m_Effect->GetViewMatrix(), &l_EffectManager->GetViewMatrix().GetD3DXMatrix() ) ) ) 
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetViewMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
 	}
 
 	if( m_UseProjMatrix )
 	{
-		l_Effect->SetMatrix( m_Effect->GetProjectionMatrix(), &l_EffectManager->GetProjectionMatrix().GetD3DXMatrix() );
+		if( FAILED( l_Effect->SetMatrix( m_Effect->GetProjectionMatrix(), &l_EffectManager->GetProjectionMatrix().GetD3DXMatrix() ) ) ) 
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetProjectionMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
 	}
 
 	if( m_UseWorldViewMatrix )
@@ -117,13 +129,21 @@ bool CEffectTechnique::BeginRender()
 		Mat44f l_ViewMatrix = l_EffectManager->GetViewMatrix();
 		l_WorldMatrix = l_WorldMatrix * l_ViewMatrix;
 
-		l_Effect->SetMatrix( m_Effect->GetWorldViewMatrix(), &l_WorldMatrix.GetD3DXMatrix() );
+		if( FAILED( l_Effect->SetMatrix( m_Effect->GetWorldViewMatrix(), &l_WorldMatrix.GetD3DXMatrix() ) ) ) 
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetWorldViewMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
 
 	}
 
 	if( m_UseViewProjectionMatrix )
 	{
-		l_Effect->SetMatrix( m_Effect->GetViewProjectionMatrix(), &l_EffectManager->GetViewProjectionMatrix().GetD3DXMatrix() );
+		if( FAILED( l_Effect->SetMatrix( m_Effect->GetViewProjectionMatrix(), &l_EffectManager->GetViewProjectionMatrix().GetD3DXMatrix() ) ) ) 
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetViewProjectionMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
 	}
 
 	if( m_UseWorldViewProjectionMatrix )
@@ -132,7 +152,11 @@ bool CEffectTechnique::BeginRender()
 		Mat44f l_WorldMatrix = l_EffectManager->GetWorldMatrix();
 		l_WorldMatrix =  l_ViewProjMatrix*l_WorldMatrix;
 
-		l_Effect->SetMatrix( m_Effect->GetWorldViewProjectionMatrix(), &l_WorldMatrix.GetD3DXMatrix() );
+		if( FAILED( l_Effect->SetMatrix( m_Effect->GetWorldViewProjectionMatrix(), &l_WorldMatrix.GetD3DXMatrix() ) ) ) 
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetWorldViewProjectionMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
 	}
 
 	if( m_UseShadowViewProjectionMatrix )
