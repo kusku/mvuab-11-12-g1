@@ -25,6 +25,8 @@ CLight::CLight()
 	, m_pStaticShadowMap(NULL)
 	, m_pDynamicShadowMap(NULL)
 	, m_pShadowMaskTexture(NULL)
+	, m_ViewShadowMap(m44fIDENTITY)
+	, m_ProjectionShadowMap(m44fIDENTITY)
 {
 }
 
