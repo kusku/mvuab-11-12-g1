@@ -14,7 +14,7 @@
 		<default_technique vertex_type="81" technique="BasicQuadEffect" />
 	</pool_renderable_object_technique>
 	
-	<!-- Poll of Effects for Building Basic Shadow Maps -->
+	<!-- Pool of Effects for Building Basic Shadow Maps -->
 	<pool_renderable_object_technique name="Basic_Build_Shadow_Map">
 		<default_technique vertex_type="19" technique="BasicBuildShadowMap" />
 		<default_technique vertex_type="31" technique="BasicBuildShadowMap" />

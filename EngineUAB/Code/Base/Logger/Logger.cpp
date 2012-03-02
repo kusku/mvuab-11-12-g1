@@ -19,6 +19,7 @@ CLogger::CLogger()
 
 void CLogger::AddNewLog( ELOG_LEVEL ll, const char* format, ... )
 {
+#if defined(_DEBUG)
 	va_list args;
 	char* buffer;
 	va_start(args,format);
@@ -50,6 +51,7 @@ void CLogger::AddNewLog( ELOG_LEVEL ll, const char* format, ... )
 		m_vLogs.push_back(newLog);
 	}
 	delete buffer;
+#endif
 }
 
 //TODO: Grabar la informacion de dia y hora

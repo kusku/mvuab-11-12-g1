@@ -57,9 +57,12 @@ void CViewerProcess::Update(float elapsedTime)
 {
 	CORE->SetCamera(m_Camera);
 	m_Player.Update(elapsedTime, m_Camera);
-	UpdateInputs(elapsedTime);
 
 	CORE->GetRenderableObjectsLayersManager()->Update(elapsedTime);
+
+#if defined(_DEBUG)
+	UpdateInputs(elapsedTime);
+#endif
 }
 
 void CViewerProcess::UpdateInputs(float elapsedTime)

@@ -116,7 +116,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\Scripting\;$(SolutionDir)\Code\GUI\;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src;$(SolutionDir)\Code\3dParty\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\Scripting\;$(SolutionDir)\Code\GUI\;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src;$(SolutionDir)\Code\3dParty\;$(_PHYSX_SDK)\Foundation\include;$(_PHYSX_SDK)\NxCharacter\include;$(_PHYSX_SDK)\Physics\include;$(_PHYSX_SDK)\PhysXLoader\include;$(_PHYSX_SDK)\Cooking\include;$(SolutionDir)\Code\3dParty\lua-5.2.0\src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

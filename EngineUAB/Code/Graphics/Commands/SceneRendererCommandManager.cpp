@@ -124,8 +124,10 @@ void CSceneRendererCommandManager::LoadXML()
 			 }
 			 else if( l_Type == "render_debug_lights" )
 			 {
+#if defined(_DEBUG)
 				 l_Command = new CRenderDebugLightsSceneRendererCommand( l_SRC(i) );
 				 l_CommandName = "render_debug_lights_" + l_NumCommand;
+#endif
 			 }
 			 else if( l_Type == "render_scene" )
 			 {
@@ -144,8 +146,10 @@ void CSceneRendererCommandManager::LoadXML()
 			 }
 			 else if( l_Type == "render_debug_info" )
 			 {
+#if defined (_DEBUG)
 				 l_Command = new CRenderDebugInfoSceneRendererCommand( l_SRC(i) );
 				 l_CommandName = "render_debug_info_" + l_NumCommand;
+#endif
 			 }
 			 else if( l_Type == "set_render_target" )
 			 {
@@ -188,13 +192,17 @@ void CSceneRendererCommandManager::LoadXML()
 			 }
 			 else if( l_Type == "render_modifiers" )
 			 {
+#if defined(_DEBUG)
 				 l_Command = new CRenderDebugModifiersSceneRendererCommand( l_SRC(i) );
 				 l_CommandName = "render_modifiers_" + l_NumCommand;
+#endif
 			 }
 			 else if( l_Type == "render_debug_physics" )
 			 {
+#if defined(_DEBUG)
 				 l_Command = new CRenderDebugPhysicsSceneRendererCommand( l_SRC(i) );
 				 l_CommandName = "render_debug_physics" + l_NumCommand;
+#endif
 			 }
 
 			 //Add the command into the map
