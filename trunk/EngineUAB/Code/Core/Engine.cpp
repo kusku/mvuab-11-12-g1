@@ -65,9 +65,7 @@ void CEngine::Update()
 	m_pCore->SetLogRender(&m_LogRender);
 	m_pCore->SetTimer(&m_Timer);
 
-#if defined(_DEBUG)
 	UpdateDebugInputs();
-#endif
 }
 
 void CEngine::UpdateDebugInputs()
