@@ -194,7 +194,10 @@ void CCore::Update(float ElapsedTime)
 	//m_pInputManager->Update();
 	m_pActionToInput->Update();
 	m_pPhysicsManager->Update(ElapsedTime);
+
+#if defined(_DEBUG)
 	m_pConsole->Update(ElapsedTime);
+#endif
 }
 
 void CCore::Render()
