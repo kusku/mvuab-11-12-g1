@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<renderable_objects>
+	<layer name="solid" default="true" />
+	<layer name="alpha_objects" />
+	<layer name="alpha_blend_objects" />
+	<layer name="particles" />
+	<mesh_instance name="Plane002" core="Plane002" position="70.5397 0.0 -76.1448" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" />
+	<mesh_instance name="lizard_geo" core="lizard_geo" position="62.1109 0.0 -77.3359" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" />
+</renderable_objects>
