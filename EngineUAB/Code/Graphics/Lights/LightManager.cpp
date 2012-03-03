@@ -12,6 +12,7 @@
 #endif
 
 CLightManager::CLightManager()
+	: m_FileName("")
 {
 }
 
@@ -60,7 +61,6 @@ bool CLightManager::LoadFile()
 			if( l_TypeLight == "omni" )
 			{
 				COmniLight *l_Light = new COmniLight( l_Lights(i) );
-				
 				std::string l_Name = l_Light->GetName();
 
 				AddResource(l_Name, l_Light);

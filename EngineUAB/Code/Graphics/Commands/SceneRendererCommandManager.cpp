@@ -146,8 +146,10 @@ void CSceneRendererCommandManager::LoadXML()
 			 }
 			 else if( l_Type == "render_debug_info" )
 			 {
+#if defined(_DEBUG)
 				 l_Command = new CRenderDebugInfoSceneRendererCommand( l_SRC(i) );
 				 l_CommandName = "render_debug_info_" + l_NumCommand;
+#endif
 			 }
 			 else if( l_Type == "set_render_target" )
 			 {

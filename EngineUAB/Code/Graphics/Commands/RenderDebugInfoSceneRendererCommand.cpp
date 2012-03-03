@@ -24,7 +24,6 @@ void CRenderDebugInfoSceneRendererCommand ::Execute(CRenderManager &RM)
 {	
 	CFontManager *fontManager = CORE->GetFontManager();
 	CORE->GetLogRender()->Render( &RM, fontManager );
-#if defined(_DEBUG)
 	CORE->GetDebugRender()->Render( &RM, fontManager, CORE->GetTimer() );
 	CORE->GetConsole()->Render( &RM, fontManager ); 
 
@@ -37,5 +36,4 @@ void CRenderDebugInfoSceneRendererCommand ::Execute(CRenderManager &RM)
 
 	if( m_Axis )
 		RM.DrawAxis(1.0f);
-#endif
 }

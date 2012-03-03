@@ -26,7 +26,9 @@ CDirectionalLight::CDirectionalLight( CXMLTreeNode &XMLNode )
 
 CDirectionalLight::CDirectionalLight()
 	: m_Direction( Vect3f(0.0f, 0.0f, 0.0f) )
+	, m_OrthoShadowMapSize(Vect2i(256, 256))
 {
+	m_Type = DIRECTIONAL;
 }
 
 CDirectionalLight::~CDirectionalLight()

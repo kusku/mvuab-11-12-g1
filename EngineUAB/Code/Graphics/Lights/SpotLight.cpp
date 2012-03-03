@@ -27,6 +27,7 @@ CSpotLight::CSpotLight()
 	: m_Angle(0.0f)
 	, m_FallOff(0.0f)
 {
+	m_Direction = Vect3f(0.f,0.f,0.f);
 	m_Type = SPOT;
 }
 
