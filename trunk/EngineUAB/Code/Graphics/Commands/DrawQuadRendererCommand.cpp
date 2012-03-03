@@ -19,6 +19,7 @@
 #endif
 
 CDrawQuadRendererCommand::CDrawQuadRendererCommand(CXMLTreeNode &Node)
+	: m_Color(colBLACK)
 {
 	SetName( Node.GetPszProperty("name", "") );
 
