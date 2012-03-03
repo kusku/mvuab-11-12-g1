@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<lights>
+	<spot name="Spot001" pos="-53.0103 46.5592 -38.7068" color="43.0 27.0 255.0" att_start_range="275.591" att_end_range="314.961" generate_shadow_map="true" shadow_map_format_type="G32R32F" shadow_map_width="1024" shadow_map_height="1024" generate_static_shadow_map="true" static_shadow_map_format_type="G32R32F" static_shadow_map_width="1024" static_shadow_map_height="1024" dir="119.953 -29.6669 -35.6888" angle="50.0" fall_off="52.0" >
+		<dynamic renderable_objects_layer="solid" />
+		<static renderable_objects_layer="solid" />
+	</spot>
+	<spot name="Spot002" pos="152.997 71.261 -164.353" color="217.0 8.0 72.0" att_start_range="255.906" att_end_range="354.331" generate_shadow_map="true" shadow_map_format_type="G32R32F" shadow_map_width="1024" shadow_map_height="1024" generate_static_shadow_map="true" static_shadow_map_format_type="G32R32F" static_shadow_map_width="1024" static_shadow_map_height="1024" dir="-86.6126 -51.4788 83.1292" angle="50.0" fall_off="52.0" >
+		<dynamic renderable_objects_layer="solid" />
+		<static renderable_objects_layer="solid" />
+	</spot>
+	<spot name="Spot003" pos="90.0518 38.4816 49.776" color="30.0 169.0 43.0" att_start_range="275.591" att_end_range="393.701" generate_shadow_map="true" shadow_map_format_type="G32R32F" shadow_map_width="1024" shadow_map_height="1024" generate_static_shadow_map="true" static_shadow_map_format_type="G32R32F" static_shadow_map_width="1024" static_shadow_map_height="1024" dir="-20.3165 -19.8834 -111.558" angle="50.0" fall_off="52.0" >
+		<dynamic renderable_objects_layer="solid" />
+		<static renderable_objects_layer="solid" />
+	</spot>
+</lights>
