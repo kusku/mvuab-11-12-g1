@@ -8,9 +8,11 @@
 	</pool_renderable_object_technique>
 	
 	<pool_renderable_object_technique name="FowardShading">
-		<default_technique vertex_type="19" technique="AmbientLight" />
+		<default_technique vertex_type="19" technique="ForwardLightingBasic" />
 		<default_technique vertex_type="31" technique="ForwardLightingWithNormal" />
-		<default_technique vertex_type="51" technique="AmbientLight" />
+		<default_technique vertex_type="51" technique="ForwardLightingBasic" />
+		<default_technique vertex_type="543" technique="ForwardLightingWithNormal" />
+		<default_technique vertex_type="1055" technique="ForwardLightingWithNormal" />
 		<default_technique vertex_type="81" technique="BasicQuadEffect" />
 	</pool_renderable_object_technique>
 	

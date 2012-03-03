@@ -26,6 +26,7 @@
 	<effect name="ZBlur" file="./data/effects/ZBlur.fx" />
 	<effect name="VignettingNoise" file="./data/effects/VignettingNoise.fx" />
 	<effect name="ForwardLightingWithNormal" file="./data/effects/ForwardLightingWithNormal.fx" />
+	<effect name="ForwardLightingBasic" file="./data/effects/ForwardLightingBasic.fx" />
 	
 	<!--<effect name="Colors" file="./Data/effects/colors.fx" />-->
 	<!--<effect name="NormalMap" file="./data/effects/normalmap.fx" />-->
@@ -103,7 +104,10 @@
 	<technique name="VignettingNoiseTechnique" effect="VignettingNoise" use_time="true" />
 	
 	<technique name="ForwardLightingWithNormal" effect="ForwardLightingWithNormal" 
-		use_lights="true" use_fs="true" num_of_lights="1" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true" />
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true" />
+	
+	<technique name="ForwardLightingBasic" effect="ForwardLightingBasic" 
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true" />
 	
 	<!--<technique name="NormalTextureVertexTechnique" effect="DefaultEffect"
 		use_world_matrix="true" use_world_view_projection_matrix="true" use_lights="true"
