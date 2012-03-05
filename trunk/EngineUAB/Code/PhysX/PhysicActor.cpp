@@ -486,7 +486,7 @@ void CPhysicActor::CreateBoxTrigger(const Vect3f& globalPos, const Vect3f& size,
 	m_vBoxDesc.push_back(boxDesc);
 	boxDesc->dimensions = NxVec3(size.x, size.y, size.z);
 	boxDesc->shapeFlags |= NX_TRIGGER_ENABLE;
-  m_pPhXActorDesc->globalPose.t = NxVec3(globalPos.x, globalPos.y, globalPos.z);
+	m_pPhXActorDesc->globalPose.t = NxVec3(globalPos.x, globalPos.y, globalPos.z);
 	m_pPhXActorDesc->shapes.pushBack(boxDesc);
 }
 

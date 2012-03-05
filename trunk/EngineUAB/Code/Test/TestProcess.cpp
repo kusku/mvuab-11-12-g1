@@ -12,6 +12,9 @@
 #include "Modifiers\ModifierManager.h"
 #include "PhysicsManager.h"
 #include "PhysicActor.h"
+#include "Trigger.h"
+#include "PhysicTriggerReport.h"
+#include "PhysicSphericalJoint.h"
 
 #undef min
 #undef max
@@ -27,11 +30,13 @@ CTestProcess::CTestProcess(void)
 	: m_pThPSCamera(NULL)
 	, pos(0,0)
 	, screen(800,600)
+	, m_pTrigger(NULL)
 {
 }
 
 CTestProcess::~CTestProcess(void)
 {
+	CHECKED_DELETE(m_pTrigger);
 	CHECKED_DELETE( m_pThPSCamera );
 	m_Camera = NULL;
 }
@@ -70,9 +75,21 @@ void CTestProcess::Init()
 	l_DataSphere->SetColor(colMAGENTA);
 
 	m_pSphere = new CPhysicActor(l_DataSphere);
-	m_pSphere->AddSphereShape(1.f, Vect3f(0.0f,10.0f,0.0f));
+	m_pSphere->AddBoxSphape(1.f, Vect3f(0.0f,10.0f,0.0f));
 	m_pSphere->CreateBody(10.f);
+	m_pSphere->CreateBoxTrigger(Vect3f(0.0f, 10.0f, 0.0f), Vect3f(1.0f, 1.0f, 1.0f));
+
 	CORE->GetPhysicsManager()->AddPhysicActor(m_pSphere);
+
+	CPhysicSphericalJoint *l_pJoint = new CPhysicSphericalJoint;
+	l_pJoint->SetInfo(Vect3f(0.0f,20.f, 0.0f), m_pSphere);
+	CORE->GetPhysicsManager()->AddPhysicSphericalJoint(l_pJoint);
+
+	NxVec3 l_Pos = l_pJoint->GetPhXJoint()->getGlobalAnchor();
+	m_PosAnchor = Vect3f(l_Pos.x, l_Pos.y, l_Pos.z);
+
+	m_pTrigger = new CTrigger;
+	CORE->GetPhysicsManager()->SetTriggerReport(m_pTrigger);
 }
 
 void CTestProcess::CreateSphereActor()
@@ -84,10 +101,10 @@ void CTestProcess::CreateSphereActor()
 
 	CPhysicActor *l_Actor = new CPhysicActor(l_DataSphere);
 	l_Actor->AddSphereShape(1.f, m_pThPSCamera->GetPosition(),v3fZERO, 0, 1);
-	l_Actor->CreateBody(1.f);
+	l_Actor->CreateBody(5.f);
 	
 	CORE->GetPhysicsManager()->AddPhysicActor(l_Actor);
-	l_Actor->SetLinearVelocity(m_pThPSCamera->GetDirection()*5.f);
+	l_Actor->SetLinearVelocity(m_pThPSCamera->GetDirection()*10.f);
 
 	m_Actors.push_back(l_Actor);
 }
@@ -108,12 +125,15 @@ void CTestProcess::Update(float elapsedTime)
 	if( data != NULL)
 		data->SetColor(colCYAN);
 
+	NxVec3 l_Pos = m_pSphere->GetPhXActor()->getGlobalPosition();
+	m_PosActor = Vect3f(l_Pos.x, l_Pos.y, l_Pos.z);
+
 	CORE->GetRenderableObjectsLayersManager()->Update(elapsedTime);
 }
 
-void CTestProcess::Render(CRenderManager *RM)
+void CTestProcess::Render(CRenderManager &RM)
 {
-	CORE->GetSceneRendererCommandManager()->Execute(*RM);
+	RM.DrawLine( m_PosAnchor, m_PosActor );
 }
 
 void CTestProcess::UpdateInputs(float elapsedTime)

@@ -19,7 +19,7 @@ public:
 
 	void Init();
 	void Update(float elapsedTime);
-	void Render(CRenderManager *RM);
+	void Render(CRenderManager &RM);
 
 	CCamera* GetCamera () const { return m_Camera; }
 

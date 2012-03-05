@@ -20,7 +20,7 @@ void CProcess::Init()
 {
 }
 
-void CProcess::Render(CRenderManager *RM)
+void CProcess::Render(CRenderManager &RM)
 {
 }
 

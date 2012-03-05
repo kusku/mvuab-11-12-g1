@@ -29,6 +29,7 @@ class CModifierManager;
 class CScriptManager;
 class CPhysicsManager;
 class CConsole;
+class CProcess;
 
 class CCore : public CSingleton<CCore>
 {
@@ -57,13 +58,15 @@ public:
 	void			SetCamera		( CCamera *camera )				{ m_pCamera = camera; }
 	void			SetTimer		( CTimer *timer )				{ m_pTimer = timer; }
 	void			SetLogRender	( CLogRender *logRender )		{ m_pLogRender = logRender; }
-	void			SetDebugRender	( CDebugRender *DebugRender)	{ m_pDebugRender = DebugRender; }
+	void			SetDebugRender	( CDebugRender *DebugRender )	{ m_pDebugRender = DebugRender; }
+	void			SetProcess		( CProcess *Process )			{ m_pProcess = Process; }
 
 	inline CCamera*			GetCamera		() const				{ return m_pCamera; }
 	inline CTimer*			GetTimer		() const				{ return m_pTimer; }
 	inline CLogRender*		GetLogRender	() const				{ return m_pLogRender; }
 	inline CDebugRender*	GetDebugRender	() const				{ return m_pDebugRender; }
 	inline CConsole*		GetConsole		() const				{ return m_pConsole; }
+	inline CProcess*		GetProcess		() const				{ return m_pProcess; }
 
 	inline CRenderManager*						GetRenderManager() const					{ return m_pRenderManager; }
 	inline CFontManager*						GetFontManager() const						{ return m_pFontManager; }
@@ -93,6 +96,7 @@ private:
 	CLogRender							*m_pLogRender;
 	CTimer								*m_pTimer;
 	CConsole							*m_pConsole;
+	CProcess							*m_pProcess;
 
 	CRenderManager						*m_pRenderManager;
 	CFontManager						*m_pFontManager;

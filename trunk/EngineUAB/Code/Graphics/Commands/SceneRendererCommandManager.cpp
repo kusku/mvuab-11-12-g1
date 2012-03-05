@@ -122,13 +122,7 @@ void CSceneRendererCommandManager::LoadXML()
 				 l_Command = new CDisableZTestSceneRendererCommand( l_SRC(i) );
 				 l_CommandName = "disable_z_test_" + l_NumCommand;
 			 }
-			 else if( l_Type == "render_debug_lights" )
-			 {
-#if defined(_DEBUG)
-				 l_Command = new CRenderDebugLightsSceneRendererCommand( l_SRC(i) );
-				 l_CommandName = "render_debug_lights_" + l_NumCommand;
-#endif
-			 }
+
 			 else if( l_Type == "render_scene" )
 			 {
 				 l_Command = new CRenderSceneSceneRendererCommand( l_SRC(i) );
@@ -143,13 +137,6 @@ void CSceneRendererCommandManager::LoadXML()
 			 {
 				 l_Command = new CSetPoolRenderableObjectsTechniqueCommand( l_SRC(i) );
 				 l_CommandName = "set_pool_renderable_objects_technique_" + l_NumCommand;
-			 }
-			 else if( l_Type == "render_debug_info" )
-			 {
-#if defined(_DEBUG)
-				 l_Command = new CRenderDebugInfoSceneRendererCommand( l_SRC(i) );
-				 l_CommandName = "render_debug_info_" + l_NumCommand;
-#endif
 			 }
 			 else if( l_Type == "set_render_target" )
 			 {
@@ -190,20 +177,33 @@ void CSceneRendererCommandManager::LoadXML()
 				 l_Command = new CCaptureFrameBufferSceneRendererCommand( l_SRC(i) );
 				 l_CommandName = "capture_frame_buffer_" + l_NumCommand;
 			 }
+#if defined(_DEBUG)
+			 else if( l_Type == "render_debug_info" )
+			 {
+				 l_Command = new CRenderDebugInfoSceneRendererCommand( l_SRC(i) );
+				 l_CommandName = "render_debug_info_" + l_NumCommand;
+			 }
+			 else if( l_Type == "render_debug_lights" )
+			 {
+				 l_Command = new CRenderDebugLightsSceneRendererCommand( l_SRC(i) );
+				 l_CommandName = "render_debug_lights_" + l_NumCommand;
+			 }
 			 else if( l_Type == "render_modifiers" )
 			 {
-#if defined(_DEBUG)
 				 l_Command = new CRenderDebugModifiersSceneRendererCommand( l_SRC(i) );
 				 l_CommandName = "render_modifiers_" + l_NumCommand;
-#endif
 			 }
 			 else if( l_Type == "render_debug_physics" )
 			 {
-#if defined(_DEBUG)
 				 l_Command = new CRenderDebugPhysicsSceneRendererCommand( l_SRC(i) );
 				 l_CommandName = "render_debug_physics" + l_NumCommand;
-#endif
 			 }
+			 else if( l_Type == "render_debug_process" )
+			 {
+				 l_Command = new CRenderDebugProcessSceneRendererCommand( l_SRC(i) );
+				 l_CommandName = "render_debug_process" + l_NumCommand;
+			 }
+#endif
 
 			 //Add the command into the map
 			 if( l_Command != NULL )
