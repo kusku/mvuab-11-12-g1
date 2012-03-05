@@ -92,10 +92,12 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="TestProcess.cpp" />
+    <ClCompile Include="Trigger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h" />
     <ClInclude Include="TestProcess.h" />
+    <ClInclude Include="Trigger.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

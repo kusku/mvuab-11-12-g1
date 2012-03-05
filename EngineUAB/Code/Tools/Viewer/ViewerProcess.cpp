@@ -157,7 +157,6 @@ void CViewerProcess::UpdateInputs(float elapsedTime)
 	}
 }
 
-void CViewerProcess::Render(CRenderManager *RM)
+void CViewerProcess::Render(CRenderManager &RM)
 {
-	CORE->GetSceneRendererCommandManager()->Execute(*RM);
 }

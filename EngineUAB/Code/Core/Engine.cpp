@@ -12,6 +12,7 @@
 #include "Logger\Logger.h"
 #include "Exceptions\Exception.h"
 #include "Effects\EffectManager.h"
+#include "Commands\SceneRendererCommandManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -44,6 +45,7 @@ void CEngine::Init(HWND hWnd)
 	m_pCore = new CCore();
 	m_pCore->Init(hWnd, m_Config);
 	m_pProcess->Init();
+	m_pCore->SetProcess(m_pProcess);
 
 	m_LogRender.SetLinePerPage(20);
 
@@ -129,7 +131,7 @@ void CEngine::Render()
 
 void CEngine::RenderScene(CRenderManager *renderManager)
 {
-	m_pProcess->Render( renderManager );
+	m_pCore->GetSceneRendererCommandManager()->Execute( *renderManager );
 }
 
 void CEngine::Reload()

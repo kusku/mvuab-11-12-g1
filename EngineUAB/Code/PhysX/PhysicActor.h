@@ -65,7 +65,7 @@ public:
 
 	//---Trigger Function---
 	void							CreateBoxTrigger	(const Vect3f& globalPos, const Vect3f& size, uint32 group = 0);
-  void              ActivateAllTriggers();
+	void							ActivateAllTriggers();
 
   //---Activate---
   void              Activate          (bool _bActivate);

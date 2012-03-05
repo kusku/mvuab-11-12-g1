@@ -36,6 +36,7 @@ private:
 
 	bool					m_bIsVisible;
 	Vect2i					m_SizeRectangle;
+	uint16					m_uNumOfElements;
 };
 
 #endif

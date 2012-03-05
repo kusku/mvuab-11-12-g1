@@ -17,7 +17,7 @@ public:
 
 	virtual void Init();
 	virtual void Update(float ElapsedTime);
-	virtual void Render( CRenderManager *RM);
+	virtual void Render( CRenderManager &RM);
 
 	virtual CCamera* GetCamera () const { return m_Camera; }
 };
