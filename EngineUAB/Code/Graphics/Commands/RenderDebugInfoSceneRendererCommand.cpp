@@ -8,6 +8,7 @@
 #include "InfoRender\DebugRender.h"
 #include "InfoRender\LogRender.h"
 #include "Console\Console.h"
+#include "DebugOptions\DebugOptions.h"
 #include "Math\Matrix44.h"
 
 #if defined(_DEBUG)
@@ -36,4 +37,6 @@ void CRenderDebugInfoSceneRendererCommand ::Execute(CRenderManager &RM)
 
 	if( m_Axis )
 		RM.DrawAxis(1.0f);
+
+	CORE->GetDebugOptions()->Render( RM, *fontManager );
 }

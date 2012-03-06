@@ -23,7 +23,7 @@
 	<set_pool_renderable_objects_technique pool="Deferred_Shading" />
 	
 	<render_scene layer="solid" active="true" />
-	<render_debug_lights active="true" />
+	<render_debug_lights active="false" />
 	
 	<unset_render_target render_target="deferred_multiple_render_target"/>
 	
@@ -140,9 +140,9 @@
 	</render_draw_quad>-->
 	
 	<!--Debug-->
-	<render_debug_info grid="true" axis="true" />
 	<render_modifiers />
-	<render_debug_lights active="true" />
+	<render_debug_info grid="false" axis="false" />
+	<render_debug_lights active="false" />
 	<end_scene />
 	<present />
 </scene_renderer_commands>

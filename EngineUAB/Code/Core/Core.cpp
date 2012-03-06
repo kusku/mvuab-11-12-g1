@@ -20,6 +20,8 @@
 #include "ScriptManager.h"
 #include "PhysicsManager.h"
 #include "Console\Console.h"
+#include "Stadistics\Stadistics.h"
+#include "DebugOptions\DebugOptions.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -47,6 +49,8 @@ CCore::CCore()
 	, m_pScriptManager(NULL)
 	, m_pPhysicsManager(NULL)
 	, m_pConsole(NULL)
+	, m_pStadistics(NULL)
+	, m_pDebugOptions(NULL)
 	, m_bIsOk(false)
 {
 }
@@ -76,6 +80,8 @@ void CCore::Release()
 	CHECKED_DELETE(m_pScriptManager);
 	CHECKED_DELETE(m_pPhysicsManager);
 	CHECKED_DELETE(m_pConsole);
+	CHECKED_DELETE(m_pStadistics);
+	CHECKED_DELETE(m_pDebugOptions)
 
 	m_pCamera = NULL; //La cámara la elimina el proceso
 	m_pLogRender = NULL;
@@ -174,6 +180,12 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 			m_pConsole = new CConsole();
 			m_bIsOk = m_pConsole->Init();
 			m_pConsole->SetActive(false);
+
+			//Inicializa las estadísticas
+			m_pStadistics = new CStadistics();
+
+			m_pDebugOptions = new CDebugOptions();
+			m_pDebugOptions->Load( config.debug_options_path );
 #endif
 		}
 	}
@@ -191,6 +203,10 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 
 void CCore::Update(float ElapsedTime)
 {
+#if defined(_DEBUG)
+	m_pStadistics->ResetAll();
+#endif
+
 	//m_pInputManager->Update();
 	m_pActionToInput->Update();
 	m_pPhysicsManager->Update(ElapsedTime);

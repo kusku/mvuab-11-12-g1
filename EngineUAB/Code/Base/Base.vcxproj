@@ -96,6 +96,7 @@
     <ClCompile Include="Logger\Logger.cpp" />
     <ClCompile Include="Math\MathConstants.cpp" />
     <ClCompile Include="Memory\MemLeaks.cpp" />
+    <ClCompile Include="Stadistics\Stadistics.cpp" />
     <ClCompile Include="Utils\BoundingBox.cpp" />
     <ClCompile Include="Utils\BoundingSphere.cpp" />
     <ClCompile Include="Utils\CountDownTimer.cpp" />
@@ -124,6 +125,7 @@
     <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="Math\Vector4.h" />
     <ClInclude Include="Memory\MemLeaks.h" />
+    <ClInclude Include="Stadistics\Stadistics.h" />
     <ClInclude Include="Utils\Active.h" />
     <ClInclude Include="Utils\BaseControl.h" />
     <ClInclude Include="Utils\BaseUtils.h" />

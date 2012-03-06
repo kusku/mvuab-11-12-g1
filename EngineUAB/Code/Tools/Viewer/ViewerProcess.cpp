@@ -14,6 +14,7 @@
 #include "Commands\SceneRendererCommandManager.h"
 #include "Lights\LightManager.h"
 #include "ScriptManager.h"
+#include "DebugOptions\DebugOptions.h"
 
 #include "ViewerDefs.h"
 
@@ -118,6 +119,11 @@ void CViewerProcess::UpdateInputs(float elapsedTime)
 	if( action2Input->DoAction( ACTION_RELOAD_COMMANDS ) )
 	{
 		SCRIPT->RunCode("reload_render_commands()");
+	}
+
+	if( action2Input->DoAction("DebugOptions") )
+	{
+		CORE->GetDebugOptions()->SetActive( !CORE->GetDebugOptions()->GetActive() );
 	}
 
 	if( action2Input->DoAction( ACTION_SHOW_MODIFIERS ) )

@@ -13,6 +13,7 @@
 #include "Exceptions\Exception.h"
 #include "Effects\EffectManager.h"
 #include "Commands\SceneRendererCommandManager.h"
+#include "Stadistics\Stadistics.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -258,6 +259,10 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 #if defined (_DEBUG)
 				m_Config.modifiers_path = l_ConfigNode(i).GetPszProperty("modifiersXML", "");
 #endif
+			}
+			else if( l_Name == "Debug_Options" )
+			{
+				m_Config.debug_options_path = l_ConfigNode(i).GetPszProperty("debug_options_xml", "");
 			}
 		}
 	}

@@ -10,6 +10,7 @@
 #include "Math\Vector3.h"
 #include "Math\MathUtils.h"
 #include "Vertexs\VertexType.h"
+#include "Stadistics\Stadistics.h"
 #include <assert.h>
 #include <string>
 
@@ -345,6 +346,15 @@ void CRenderManager::DrawLine( const Vect3f &PosA, const Vect3f &PosB, CColor Co
 	m_pD3DDevice->SetTexture(0,NULL);
 	m_pD3DDevice->SetFVF(CUSTOMVERTEX::getFlags());
 	m_pD3DDevice->DrawPrimitiveUP( D3DPT_LINELIST,1, v,sizeof(CUSTOMVERTEX));
+
+#if defined(_DEBUG)
+		//Capture Info for Stadistics
+		CStadistics *l_pStadistics = CORE->GetStadistics();
+
+		l_pStadistics->AddDrawCall();
+		l_pStadistics->AddDebugLine();
+		l_pStadistics->AddVerticesInFrustum(2);
+#endif
 }
 
 void CRenderManager::DrawAxis( float size )

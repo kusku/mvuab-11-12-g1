@@ -22,6 +22,9 @@
     <Filter Include="Memory">
       <UniqueIdentifier>{e3827a86-2ea6-4b00-827e-ca45d6e0aaf6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Stadistics">
+      <UniqueIdentifier>{9a98e2eb-262a-4e2b-8f47-4cfd593a4f68}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Math\MathConstants.cpp">
@@ -65,6 +68,9 @@
     </ClCompile>
     <ClCompile Include="Utils\BoundingBox.cpp">
       <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Stadistics\Stadistics.cpp">
+      <Filter>Stadistics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +161,9 @@
     </ClInclude>
     <ClInclude Include="Utils\BoundingSphere.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Stadistics\Stadistics.h">
+      <Filter>Stadistics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

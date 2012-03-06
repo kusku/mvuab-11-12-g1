@@ -7,6 +7,7 @@ class CCamera;
 class CThPSCamera;
 class CPhysicActor;
 class CTrigger;
+class CPhysicController;
 
 #include "Player.h"
 #include "Process.h"
@@ -40,6 +41,7 @@ protected:
 	std::vector<CPhysicActor*> m_Actors;
 
 	CTrigger	*m_pTrigger;
+	CPhysicController *m_Controller;
 };
 
 #endif

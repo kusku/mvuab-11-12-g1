@@ -30,6 +30,8 @@ class CScriptManager;
 class CPhysicsManager;
 class CConsole;
 class CProcess;
+class CStadistics;
+class CDebugOptions;
 
 class CCore : public CSingleton<CCore>
 {
@@ -67,6 +69,8 @@ public:
 	inline CDebugRender*	GetDebugRender	() const				{ return m_pDebugRender; }
 	inline CConsole*		GetConsole		() const				{ return m_pConsole; }
 	inline CProcess*		GetProcess		() const				{ return m_pProcess; }
+	inline CStadistics*		GetStadistics	() const				{ return m_pStadistics; }
+	inline CDebugOptions*	GetDebugOptions	() const				{ return m_pDebugOptions; }
 
 	inline CRenderManager*						GetRenderManager() const					{ return m_pRenderManager; }
 	inline CFontManager*						GetFontManager() const						{ return m_pFontManager; }
@@ -97,6 +101,8 @@ private:
 	CTimer								*m_pTimer;
 	CConsole							*m_pConsole;
 	CProcess							*m_pProcess;
+	CStadistics							*m_pStadistics;
+	CDebugOptions						*m_pDebugOptions;
 
 	CRenderManager						*m_pRenderManager;
 	CFontManager						*m_pFontManager;

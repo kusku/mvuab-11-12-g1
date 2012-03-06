@@ -35,35 +35,37 @@ class CPhysicController:public CObject3D
 public:
 	CPhysicController(	float radius, float height, float slope, float skinwidth, 
 		float stepOffset, uint32 collisionGroups, CPhysicUserData* userData, 
-		const Vect3f& pos = Vect3f(0.f,0.f,0.f), float gravity = -9.8f);
+		const Vect3f& pos = Vect3f(0.f,0.f,0.f), float gravity = -9.8f );
 
 	~CPhysicController();
 
-	CPhysicUserData*					GetUserData							() {return m_pUserData;}
-	void											SetCollision						(bool flag);
-	void											Move										(const Vect3f& direction, float elapsedTime);
-	void											Jump										(float ammount);
-	bool											UpdateCharacterExtents	(bool bent, float ammount);
-	Vect3f										GetPosition							();
-	void											SetPosition							(const Vect3f& pos);
-	float											GetGravity							() const {return m_fGravity;}
-	void											SetGravity							(float gravity)  {m_fGravity = gravity;}
-  void                      SetGroup                (int _iGroup);
-  void                      SetHeight               (float _fHeight);
-  void                      SetActive               (bool _bActive);
-	//---PhsX Info---
-	NxController*							GetPhXController				() {return m_pPhXController;}
-	NxCapsuleControllerDesc*	GetPhXControllerDesc		() {return m_pPhXControllerDesc;}
-	void											CreateController				(NxController* controller, NxScene* scene);
+	CPhysicUserData*			GetUserData				() const			{ return m_pUserData; }
+	void						SetCollision			(bool flag);
+	void						Move					(const Vect3f& direction, float elapsedTime);
+	void						Jump					(float ammount);
+	bool						UpdateCharacterExtents	(bool bent, float ammount);
 
-  void UseGravity(bool _bUseGravity) {m_bUseGravity = _bUseGravity;};
+	Vect3f						GetPosition				();
+	void						SetPosition				(const Vect3f& pos);
+	float						GetGravity				() const				{ return m_fGravity; }
+	void						SetGravity				(float gravity)			{ m_fGravity = gravity; }
+	void						SetGroup                (int _iGroup);
+	void						SetHeight               (float _fHeight);
+	void						SetActive               (bool _bActive);
+	//---PhsX Info---
+	NxController*				GetPhXController			() const			{ return m_pPhXController; }
+	NxCapsuleControllerDesc*	GetPhXControllerDesc		() const			{ return m_pPhXControllerDesc; }
+
+	void						CreateController				(NxController* controller, NxScene* scene);
+
+	void						UseGravity				(bool _bUseGravity)		{ m_bUseGravity = _bUseGravity; }
 
 private:
 
 	CPhysicUserData*	m_pUserData;
   //CPhysicsControllerHitReport m_Report;
-  void*             m_Report;
-	uint32						m_uCollisionGroups;
+	void*							m_Report;
+	uint32							m_uCollisionGroups;
 	CJump							m_Jump;
 	float							m_fGravity;
 	float							m_fRadius_Capsule;
