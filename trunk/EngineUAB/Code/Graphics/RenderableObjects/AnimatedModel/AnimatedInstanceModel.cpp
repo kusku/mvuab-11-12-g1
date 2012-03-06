@@ -13,6 +13,7 @@
 #include "RenderableObjects\RenderableObjectTechnique.h"
 #include "Textures\Texture.h"
 #include "XML\XMLTreeNode.h"
+#include "Stadistics\Stadistics.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -239,6 +240,14 @@ void CAnimatedInstanceModel::RenderModelBySoftware(CRenderManager *RM)
 
 				l_dwIBLockFlags=D3DLOCK_NOOVERWRITE;
 				l_dwVBLockFlags=D3DLOCK_NOOVERWRITE;
+
+#if defined(_DEBUG)
+		//Capture Info for Stadistics
+		CStadistics *l_pStadistics = CORE->GetStadistics();
+
+		l_pStadistics->AddDrawCall();
+		l_pStadistics->AddVerticesInFrustum(l_VertexCount);
+#endif
 
 			}
 		}

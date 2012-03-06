@@ -7,6 +7,7 @@
 #include <luabind/function.hpp>
 #include <luabind/class.hpp>
 #include <luabind/operator.hpp>
+#include <luabind/return_reference_to_policy.hpp>
 using namespace luabind;
 
 #if defined(_DEBUG)
@@ -176,6 +177,8 @@ void CScriptManager::RegisterLUAFunctions()
 			.def("reload_pools", &CCore::ReloadPools)
 			.def("reload_scripts", &CCore::ReloadScripts)
 			.def("get_console", &CCore::GetConsole)
+			.def("get_stadistics", &CCore::GetStadistics)
+			.def("get_debug_options", &CCore::GetDebugOptions)
 	];
 
 	module(m_LS) [
@@ -183,6 +186,21 @@ void CScriptManager::RegisterLUAFunctions()
 			.def("toggle", &CConsole::Toggle)
 			.def("set_active", &CConsole::SetActive)
 			.def("is_active", &CConsole::IsActive)
+	];
+
+	module(m_LS) [
+		class_<CStadistics>("CStadistics")
+			.def("get_draw_calls", &CStadistics::GetNumOfDrawCalls)
+			.def("get_draw_debug_lines", &CStadistics::GetNumOfDebugLines)
+			.def("get_vertices_in_scene", &CStadistics::GetNumOfVerticesInScene)
+			.def("get_vertices_in_frustum", &CStadistics::GetNumOfVerticesInFrusutm)
+	];
+
+	module(m_LS) [
+		class_<CDebugOptions>("CDebugOptions")
+			.def("set_bool", &CDebugOptions::SetBool)
+			.def("set_int", &CDebugOptions::SetInt)
+			.def("set_float", &CDebugOptions::SetFloat)
 	];
 
 	RegisterMathLUAFunctions();

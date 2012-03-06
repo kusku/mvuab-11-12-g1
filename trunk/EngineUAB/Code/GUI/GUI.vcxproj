@@ -12,11 +12,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Console\Console.cpp" />
+    <ClCompile Include="DebugOptions\DebugOptions.cpp" />
     <ClCompile Include="Modifiers\Modifier.cpp" />
     <ClCompile Include="Modifiers\ModifierManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Console\Console.h" />
+    <ClInclude Include="DebugOptions\DebugOptions.h" />
+    <ClInclude Include="DebugOptions\DebugOptionsDefs.h" />
     <ClInclude Include="Modifiers\Modifier.h" />
     <ClInclude Include="Modifiers\ModifierManager.h" />
   </ItemGroup>

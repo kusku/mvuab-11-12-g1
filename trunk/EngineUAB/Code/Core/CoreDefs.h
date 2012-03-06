@@ -57,6 +57,7 @@ struct SConfig
 	std::string scripts_path;
 
 	std::string modifiers_path;
+	std::string debug_options_path;
 };
 
 #endif

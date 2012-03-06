@@ -32,7 +32,9 @@
 #include "Logger\Logger.h"
 #include "Base.h"
 
+#if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
+#endif
 
 #define MAX_ARISTAS 10
 

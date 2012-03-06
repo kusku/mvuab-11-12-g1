@@ -46,48 +46,46 @@ class CPhysicsControllerHitReport : public NxUserControllerHitReport
 
 
 CPhysicController::CPhysicController(float radius, float height, float slope, float skinwidth, float stepOffset,
-																		 uint32 collisionGroups, CPhysicUserData* userData, const Vect3f& pos, float gravity)
-																		 : m_pPhXController(NULL)
-																		 , m_pPhXControllerDesc(NULL)
-																		 , m_pUserData(userData)
-																		 , m_fRadius_Capsule(radius)
-																		 , m_fHeight_Capsule(height)
-																		 , m_fSlopeLimit_Capsule(slope)
-																		 , m_fSkinWidth_Capsule(skinwidth)
-																		 , m_fStepOffset_Capsule(stepOffset)
-																		 , m_fGravity(gravity)
-																		 , m_uCollisionGroups(collisionGroups),
-                                     m_bUseGravity(true)
+									uint32 collisionGroups, CPhysicUserData* userData, const Vect3f& pos, float gravity)
+	: m_pPhXController(NULL)
+	, m_pPhXControllerDesc(NULL)
+	, m_pUserData(userData)
+	, m_fRadius_Capsule(radius)
+	, m_fHeight_Capsule(height)
+	, m_fSlopeLimit_Capsule(slope)
+	, m_fSkinWidth_Capsule(skinwidth)
+	, m_fStepOffset_Capsule(stepOffset)
+	, m_fGravity(gravity)
+	, m_uCollisionGroups(collisionGroups)
+	, m_bUseGravity(true)
                                     
 {
 	assert(userData);
 
 	//---- Crear un nuevo NxController----
 	m_pPhXControllerDesc = new NxCapsuleControllerDesc();
-  CPhysicsControllerHitReport* l_Report  = new CPhysicsControllerHitReport();
-  m_Report = l_Report;
+	CPhysicsControllerHitReport* l_Report  = new CPhysicsControllerHitReport();
+	m_Report = l_Report;
 
 	m_pPhXControllerDesc->position.x	    = pos.x;
 	m_pPhXControllerDesc->position.y	    = pos.y;
 	m_pPhXControllerDesc->position.z	    = pos.z;
-	m_pPhXControllerDesc->radius			    = m_fRadius_Capsule;
-	m_pPhXControllerDesc->height			    = m_fHeight_Capsule;
+	m_pPhXControllerDesc->radius			= m_fRadius_Capsule;
+	m_pPhXControllerDesc->height			= m_fHeight_Capsule;
 	m_pPhXControllerDesc->slopeLimit	    = cosf(NxMath::degToRad(m_fSlopeLimit_Capsule));
 	m_pPhXControllerDesc->skinWidth		    = m_fSkinWidth_Capsule;
 	m_pPhXControllerDesc->stepOffset	    = m_fStepOffset_Capsule;
 	m_pPhXControllerDesc->upDirection	    = NX_Y;
-  m_pPhXControllerDesc->callback        = l_Report;
-  m_pPhXControllerDesc->interactionFlag = NXIF_INTERACTION_USE_FILTER;
+	m_pPhXControllerDesc->callback			= l_Report;
+	m_pPhXControllerDesc->interactionFlag	= NXIF_INTERACTION_USE_FILTER;
 }
-
 
 CPhysicController::~CPhysicController()
 {
-  //delete m_pPhXControllerDesc->callback;
+	//delete m_pPhXControllerDesc->callback;
 	CHECKED_DELETE(m_pPhXControllerDesc);
-  CHECKED_DELETE(m_Report);
+	CHECKED_DELETE(m_Report);
 }
-
 
 void CPhysicController::CreateController (NxController* controller, NxScene* scene)
 {

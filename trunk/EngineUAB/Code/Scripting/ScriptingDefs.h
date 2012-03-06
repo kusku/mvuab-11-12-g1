@@ -7,5 +7,7 @@
 #include "Utils\Singleton.h"
 #include "Math\Vector3.h"
 #include "Console\Console.h"
+#include "Stadistics\Stadistics.h"
+#include "DebugOptions\DebugOptions.h"
 
 #endif

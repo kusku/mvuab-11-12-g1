@@ -4,6 +4,7 @@
 #include "Core.h"
 #include "Cameras\Camera.h"
 #include "Cameras\ThPSCamera.h"
+#include "DebugOptions\DebugOptions.h"
 #include "Commands\SceneRendererCommandManager.h"
 #include "RenderableObjects\RenderableObjectsManager.h"
 #include "RenderableObjects\RenderableObjectsLayersManager.h"
@@ -15,6 +16,8 @@
 #include "Trigger.h"
 #include "PhysicTriggerReport.h"
 #include "PhysicSphericalJoint.h"
+#include "PhysicRevoluteJoint.h"
+#include "PhysicController.h"
 
 #undef min
 #undef max
@@ -81,15 +84,30 @@ void CTestProcess::Init()
 
 	CORE->GetPhysicsManager()->AddPhysicActor(m_pSphere);
 
-	CPhysicSphericalJoint *l_pJoint = new CPhysicSphericalJoint;
-	l_pJoint->SetInfo(Vect3f(0.0f,20.f, 0.0f), m_pSphere);
-	CORE->GetPhysicsManager()->AddPhysicSphericalJoint(l_pJoint);
+	CPhysicRevoluteJoint *l_pJoint = new CPhysicRevoluteJoint;
+	l_pJoint->SetInfo(Vect3f(1.f, 0.f, 0.f),Vect3f(0.0f,20.f, 0.0f), m_pSphere);
+	l_pJoint->SetMotor(500.f, 10.f);
+
+	CORE->GetPhysicsManager()->AddPhysicRevoluteJoint(l_pJoint);
+	
+	l_pJoint->ActiveMotor(1000.f);
 
 	NxVec3 l_Pos = l_pJoint->GetPhXJoint()->getGlobalAnchor();
 	m_PosAnchor = Vect3f(l_Pos.x, l_Pos.y, l_Pos.z);
 
 	m_pTrigger = new CTrigger;
 	CORE->GetPhysicsManager()->SetTriggerReport(m_pTrigger);
+
+	//Controller
+	CPhysicUserData *l_Data = new CPhysicUserData("controller");
+	l_Data->SetPaint(true);
+	l_Data->SetColor(colBLACK);
+
+	m_Controller = new CPhysicController(0.5f, 2.f, 45.f, 0.5f, 1.0f, 1, l_Data);
+	m_Controller->SetPosition(Vect3f(0.f, 3.f, 0.f) );
+	m_Controller->SetVisible(true);
+
+	CORE->GetPhysicsManager()->AddPhysicController(m_Controller);
 }
 
 void CTestProcess::CreateSphereActor()
@@ -127,6 +145,8 @@ void CTestProcess::Update(float elapsedTime)
 
 	NxVec3 l_Pos = m_pSphere->GetPhXActor()->getGlobalPosition();
 	m_PosActor = Vect3f(l_Pos.x, l_Pos.y, l_Pos.z);
+
+	m_Controller->Move(Vect3f(0.001f, 0.f, 0.f), elapsedTime);
 
 	CORE->GetRenderableObjectsLayersManager()->Update(elapsedTime);
 }
@@ -194,6 +214,11 @@ void CTestProcess::UpdateInputs(float elapsedTime)
 	if( action2Input->DoAction("ReloadCommands") )
 	{
 		SCRIPT->RunCode("reload_render_commands()");
+	}
+
+	if( action2Input->DoAction("DebugOptions") )
+	{
+		CORE->GetDebugOptions()->SetActive( !CORE->GetDebugOptions()->GetActive() );
 	}
 
 	if( action2Input->DoAction("ModifiersShow") )

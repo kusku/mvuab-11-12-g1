@@ -9,6 +9,7 @@
 #include "Effects\EffectTechnique.h"
 #include "Effects\Effect.h"
 #include "Effects\EffectManager.h"
+#include "Stadistics\Stadistics.h"
 #include "Base.h"
 #include "Core.h"
 
@@ -50,91 +51,114 @@ public:
 		Device->SetFVF( static_cast<DWORD>(T::GetFVF()) );
 		Device->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, 0, 0, static_cast<UINT>(m_VertexCount), 0, static_cast<UINT>(m_IndexCount/3) );
 
+#if defined(_DEBUG)
+		//Capture Info for Stadistics
+		CStadistics *l_pStadistics = CORE->GetStadistics();
+
+		l_pStadistics->AddDrawCall();
+		l_pStadistics->AddVerticesInFrustum(m_VertexCount);
+#endif
+
 		return true;
 	}
 
-	bool Render(CRenderManager *RM, CEffectTechnique *EffectTechnique, int baseVertexIndex, uint32 minVertexIndex, uint32 vertexCount, uint32 startIndex, uint32 faceCount) const
+bool Render(CRenderManager *RM, CEffectTechnique *EffectTechnique, int baseVertexIndex, uint32 minVertexIndex, uint32 vertexCount, uint32 startIndex, uint32 faceCount) const
+{
+	LPDIRECT3DDEVICE9 l_Device=RM->GetDevice();
+	UINT l_NumPasses;
+	if( EffectTechnique == NULL )
 	{
-		LPDIRECT3DDEVICE9 l_Device=RM->GetDevice();
-		UINT l_NumPasses;
-		if( EffectTechnique == NULL )
-		{
-			//Coger una technique por defecto
-			std::string l_TechName = CORE->GetEffectManager()->GetTechniqueEffectNameByVertexDefault( T::GetVertexType() );
-			EffectTechnique = CORE->GetEffectManager()->GetEffectTechnique(l_TechName);
-		}
-
-		if( EffectTechnique->BeginRender() )
-		{
-			LPD3DXEFFECT l_Effect=EffectTechnique->GetEffect()->GetD3DEffect();
-			l_Effect->SetTechnique(EffectTechnique->GetD3DTechnique());
-		
-			if(SUCCEEDED(l_Effect->Begin(&l_NumPasses,0)))
-			{
-				l_Device->SetVertexDeclaration(T::GetVertexDeclaration());
-				l_Device->SetStreamSource(0,m_VB,0,sizeof(T));
-				l_Device->SetIndices(m_IB);
-
-				for (UINT b=0;b<l_NumPasses;++b)
-				{
-					l_Effect->BeginPass(b);
-					l_Device->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, baseVertexIndex, minVertexIndex,
-						vertexCount, startIndex, faceCount);
-					l_Effect->EndPass();
-				}
-
-				l_Effect->End();
-			}
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		//Coger una technique por defecto
+		std::string l_TechName = CORE->GetEffectManager()->GetTechniqueEffectNameByVertexDefault( T::GetVertexType() );
+		EffectTechnique = CORE->GetEffectManager()->GetEffectTechnique(l_TechName);
 	}
 
-	bool Render(CRenderManager *RM, CEffectTechnique *EffectTechnique) const
+	if( EffectTechnique->BeginRender() )
 	{
-		LPDIRECT3DDEVICE9 l_Device=RM->GetDevice();
-		UINT l_NumPasses;
-
-		if( EffectTechnique == NULL )
-		{
-			//Coger una technique por defecto
-			std::string l_TechName = CORE->GetEffectManager()->GetTechniqueEffectNameByVertexDefault( T::GetVertexType() );
-			EffectTechnique = CORE->GetEffectManager()->GetEffectTechnique(l_TechName);
-		}
-
-		if( EffectTechnique->BeginRender() )
-		{
-			LPD3DXEFFECT l_Effect=EffectTechnique->GetEffect()->GetD3DEffect();
-			l_Effect->SetTechnique(EffectTechnique->GetD3DTechnique());
+		LPD3DXEFFECT l_Effect=EffectTechnique->GetEffect()->GetD3DEffect();
+		l_Effect->SetTechnique(EffectTechnique->GetD3DTechnique());
 		
-			if(SUCCEEDED(l_Effect->Begin(&l_NumPasses,0)))
-			{
-				l_Device->SetVertexDeclaration(T::GetVertexDeclaration());
-				l_Device->SetStreamSource(0,m_VB,0,sizeof(T));
-				l_Device->SetIndices(m_IB);
-
-				for (UINT b=0;b<l_NumPasses;++b)
-				{
-					l_Effect->BeginPass(b);
-					l_Device->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, 0, 0,
-						static_cast<UINT>(m_VertexCount), 0, static_cast<UINT>( m_IndexCount/3));
-					l_Effect->EndPass();
-				}
-
-				l_Effect->End();
-			}
-			return true;
-		}
-		else
+		if(SUCCEEDED(l_Effect->Begin(&l_NumPasses,0)))
 		{
-			return false;
+			l_Device->SetVertexDeclaration(T::GetVertexDeclaration());
+			l_Device->SetStreamSource(0,m_VB,0,sizeof(T));
+			l_Device->SetIndices(m_IB);
+
+			for (UINT b=0;b<l_NumPasses;++b)
+			{
+				l_Effect->BeginPass(b);
+				l_Device->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, baseVertexIndex, minVertexIndex,
+					vertexCount, startIndex, faceCount);
+				l_Effect->EndPass();
+
+#if defined(_DEBUG)
+	//Capture Info for Stadistics
+	CStadistics *l_pStadistics = CORE->GetStadistics();
+
+	l_pStadistics->AddDrawCall();
+	l_pStadistics->AddVerticesInFrustum(vertexCount);
+#endif
+			}
+			l_Effect->End();
 		}
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool Render(CRenderManager *RM, CEffectTechnique *EffectTechnique) const
+{
+	LPDIRECT3DDEVICE9 l_Device=RM->GetDevice();
+	UINT l_NumPasses;
+
+	if( EffectTechnique == NULL )
+	{
+		//Coger una technique por defecto
+		std::string l_TechName = CORE->GetEffectManager()->GetTechniqueEffectNameByVertexDefault( T::GetVertexType() );
+		EffectTechnique = CORE->GetEffectManager()->GetEffectTechnique(l_TechName);
 	}
 
-	virtual inline unsigned short GetVertexType() const { return T::GetVertexType(); }
+	if( EffectTechnique->BeginRender() )
+	{
+		LPD3DXEFFECT l_Effect=EffectTechnique->GetEffect()->GetD3DEffect();
+		l_Effect->SetTechnique(EffectTechnique->GetD3DTechnique());
+		
+		if(SUCCEEDED(l_Effect->Begin(&l_NumPasses,0)))
+		{
+			l_Device->SetVertexDeclaration(T::GetVertexDeclaration());
+			l_Device->SetStreamSource(0,m_VB,0,sizeof(T));
+			l_Device->SetIndices(m_IB);
+
+			for (UINT b=0;b<l_NumPasses;++b)
+			{
+				l_Effect->BeginPass(b);
+				l_Device->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, 0, 0,
+					static_cast<UINT>(m_VertexCount), 0, static_cast<UINT>( m_IndexCount/3));
+				l_Effect->EndPass();
+
+#if defined(_DEBUG)
+	//Capture Info for Stadistics
+	CStadistics *l_pStadistics = CORE->GetStadistics();
+
+	l_pStadistics->AddDrawCall();
+	l_pStadistics->AddVerticesInFrustum(m_VertexCount);
+#endif
+
+			}
+			l_Effect->End();
+		}
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+virtual inline unsigned short GetVertexType() const { return T::GetVertexType(); }
 
 protected:
 	inline size_t GetVertexSize() const	{ return sizeof(T); }
