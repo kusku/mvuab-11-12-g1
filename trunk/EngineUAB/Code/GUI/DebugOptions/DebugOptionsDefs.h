@@ -23,8 +23,8 @@ typedef enum TETypeOfValues
 struct SElementOnPage
 {
 	std::string		Name;
-	std::string		Init_Script;
-	std::string		Script;
+	std::string		Show_Script;
+	std::string		Action_Script;
 	TETypeOfValues	Type;
 };
 

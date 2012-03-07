@@ -1,13 +1,13 @@
 <debug_options>
 	<page type="Options" >
-		<option name="Show FPS" init_script="show_fps_state()" script="toggle_show_fps()" type_value="bool" />
-		<option name="Show Delta Time" init_script="show_delta_time_state()" script="toggle_show_delta_time()" type_value="bool" />
-		<option name="Show Gamepad"	init_script="show_gamepad_state()" script="toggle_show_gamepad()" type_value="bool" />
+		<option name="Show FPS" show_script="show_fps_state()" action_script="toggle_show_fps()" type_value="bool" />
+		<option name="Show Delta Time" show_script="show_delta_time_state()" action_script="toggle_show_delta_time()" type_value="bool" />
+		<option name="Show Gamepad"	show_script="show_gamepad_state()" action_script="toggle_show_gamepad()" type_value="bool" />
 	</page>
 	<page type="Stadistics" >
-		<option name="Draw Calls" init_script="get_draw_calls()" script="get_draw_calls()" type_value="int" />
-		<option name="Draw Debug Lines" init_script="get_draw_debug_lines()" script="get_draw_debug_lines()" type_value="int" />
-		<option name="Vertices In Scene" init_script="get_vertices_in_scene()" script="get_vertices_in_scene()" type_value="int" />
-		<option name="Vertices In Frustum" init_script="get_vertices_in_frustum()" script="get_vertices_in_frustum()" type_value="int" />
+		<option name="Draw Calls" show_script="get_draw_calls()" action_script="get_draw_calls()" type_value="int" />
+		<option name="Draw Debug Lines" show_script="get_draw_debug_lines()" action_script="get_draw_debug_lines()" type_value="int" />
+		<option name="Vertices In Scene" show_script="get_vertices_in_scene()" action_script="get_vertices_in_scene()" type_value="int" />
+		<option name="Vertices In Frustum" show_script="get_vertices_in_frustum()" action_script="get_vertices_in_frustum()" type_value="int" />
 	</page>
 </debug_options>

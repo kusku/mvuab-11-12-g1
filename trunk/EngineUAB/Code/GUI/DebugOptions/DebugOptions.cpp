@@ -5,6 +5,7 @@
 #include "Fonts\FontManager.h"
 #include "Math\Vector2.h"
 #include "ScriptManager.h"
+#include "ActionToInput.h"
 #include "Base.h"
 #include "Core.h"
 #include <sstream>
@@ -15,10 +16,11 @@
 
 CDebugOptions::CDebugOptions()
 	: m_FileName("")
-	, m_uNowPage(1)
+	, m_uNowPage(0)
 	, m_bBoolValue(false)
 	, m_iIntValue(0)
 	, m_fFloatValue(0.f)
+	, m_uNowLine(0)
 {
 	m_Active = false;
 }
@@ -37,6 +39,13 @@ void CDebugOptions::CleanUp()
 	}
 
 	m_PagesVector.clear();
+
+	m_uNowPage = 0;
+	m_uNowLine = 0;
+
+	m_bBoolValue = false;
+	m_iIntValue = 0;
+	m_fFloatValue = 0.f;
 }
 
 bool CDebugOptions::Load(const std::string &_FileName)
@@ -86,8 +95,8 @@ bool CDebugOptions::LoadFile()
 						{
 							SElementOnPage l_Element;
 							l_Element.Name = l_Node(i)(j).GetPszProperty("name", "");
-							l_Element.Init_Script = l_Node(i)(j).GetPszProperty("init_script", "");
-							l_Element.Script = l_Node(i)(j).GetPszProperty("script", "");
+							l_Element.Show_Script = l_Node(i)(j).GetPszProperty("show_script", "");
+							l_Element.Action_Script = l_Node(i)(j).GetPszProperty("action_script", "");
 							l_Element.Type = String2TypeValue( l_Node(i)(j).GetPszProperty("type_value", "") );
 							
 							l_Page.ElementsVector.push_back(l_Element);
@@ -131,32 +140,93 @@ void CDebugOptions::Render(CRenderManager &RM, CFontManager &FM, CColor color)
 	if( GetActive() )
 	{
 		Vect2i l_ScreenSize = RM.GetScreenSize();
-		uint16 dx = 50;
-		uint16 dy = 50;
+		uint16 dx = 30;
+		uint16 dy = 30;
+		CColor l_ColorToRender = color;
 
-		RenderQuad(RM, Vect2i(dx, dy), Vect2i(l_ScreenSize.x - 100, l_ScreenSize.y - 100) );
+		RenderQuad(RM, Vect2i(dx, dy), Vect2i(l_ScreenSize.x - 70, l_ScreenSize.y - 70) );
 	
 		dx += 10;
 		dy += 10;
 
+		//Make Header
+		std::string l_sNextPage;
+		std::string l_sPrevPage;
+		std::string l_DoAction;
+		CORE->GetActionToInput()->GetActionInfo("NextPage", l_sNextPage);
+		CORE->GetActionToInput()->GetActionInfo("PrevPage", l_sPrevPage);
+		CORE->GetActionToInput()->GetActionInfo("DoAction", l_DoAction);
+
+		std::string l_sArrows;
+		if( m_uNowPage == 0 && m_PagesVector.size() > 0 )
+		{
+			l_sArrows = ">";
+		}
+		else if( m_uNowPage > 0 && m_uNowPage < m_PagesVector.size() -1 )
+		{
+			l_sArrows = "<  >";
+		}
+		else if( m_uNowPage == m_PagesVector.size() - 1)
+		{
+			l_sArrows = "<";
+		}
+
+		if( m_PagesVector[m_uNowPage].Type == OPTIONS )
+		{
+			
+			dy += FM.DrawDefaultText(dx, dy, l_ColorToRender, "OPTIONS    | Previous Page: %s  | Next Page: %s  | Change Value: %s  |   %s",
+										l_sNextPage.c_str(), l_sPrevPage.c_str(), l_DoAction.c_str(), l_sArrows.c_str() );
+				
+		}
+		else if( m_PagesVector[m_uNowPage].Type = STADISTICS )
+		{
+			dy += FM.DrawDefaultText(dx, dy, l_ColorToRender, "STADISTICS    | Previous Page: %s  | Next Page: %s  | Change Value: %s  |   %s",
+										l_sNextPage.c_str(), l_sPrevPage.c_str(), l_DoAction.c_str(), l_sArrows.c_str() );
+		}
+
+		dy += FM.DrawDefaultText(dx, dy, l_ColorToRender, "__________________________________________________________________________________________\n\n");
+
+
+		//Print the info of the page
 		for(uint16 i=0; i<m_PagesVector[m_uNowPage].ElementsVector.size(); ++i)
 		{
 			if( m_PagesVector[m_uNowPage].ElementsVector[i].Type != NONE_TYPE )
 			{
-				FM.DrawDefaultText(dx, dy, color, m_PagesVector[m_uNowPage].ElementsVector[i].Name.c_str() );
+				//Assign color to the line
+				if( m_uNowLine == i )
+				{
+					l_ColorToRender = colYELLOW;
+				}
+				else
+				{
+					l_ColorToRender = color;
+				}
 
-				CORE->GetScriptManager()->RunCode( m_PagesVector[m_uNowPage].ElementsVector[i].Script );
+				//Run the script
+				CORE->GetScriptManager()->RunCode( m_PagesVector[m_uNowPage].ElementsVector[i].Show_Script );
+
+				//Get the value from script
 				std::stringstream out;
+				std::string l_Value;
 
 				if( m_PagesVector[m_uNowPage].ElementsVector[i].Type == BOOL_TYPE )
-					out << m_bBoolValue;
+				{
+					l_Value = m_bBoolValue ? "true" : "false";
+				}
 				else if( m_PagesVector[m_uNowPage].ElementsVector[i].Type == INT_TYPE )
+				{
 					out << m_iIntValue;
+					l_Value = out.str();
+				}
 				else if( m_PagesVector[m_uNowPage].ElementsVector[i].Type == FLOAT_TYPE )
+				{
 					out << m_fFloatValue;
+					l_Value = out.str();
+				}
 				
-				std::string l_Value = out.str();
-				dy += FM.DrawDefaultText(l_ScreenSize.x - 200, dy, color, l_Value.c_str() );
+				//Render Text
+				FM.DrawDefaultText(dx, dy, l_ColorToRender, m_PagesVector[m_uNowPage].ElementsVector[i].Name.c_str() );
+				dy += FM.DrawDefaultText(l_ScreenSize.x - 100, dy, l_ColorToRender, l_Value.c_str() );
 			}
 		}
 	}
@@ -172,4 +242,43 @@ void CDebugOptions::RenderQuad(CRenderManager &RM, const Vect2i &Init, const Vec
 		
 	Vect2i screen = RM.GetScreenSize();
 	RM.DrawRectangle2D(Init, End.x, End.y, backgroundColor, 2, 2, edgesColor);
+}
+
+void CDebugOptions::MoveToNextPage()
+{
+	if( m_uNowPage < (m_PagesVector.size() - 1) )
+	{
+		++m_uNowPage;
+		m_uNowLine = 0;
+	}
+}
+
+void CDebugOptions::MoveToPrevPage()
+{
+	if( m_uNowPage > 0)
+	{
+		--m_uNowPage;
+		m_uNowLine = 0;
+	}
+}
+
+void CDebugOptions::MoveToPrevLine()
+{
+	if( m_uNowLine > 0 )
+	{
+		--m_uNowLine;
+	}
+}
+
+void CDebugOptions::MoveToNextLine()
+{
+	if( m_uNowLine <  (m_PagesVector[m_uNowPage].ElementsVector.size() - 1))
+	{
+		++m_uNowLine;
+	}
+}
+
+void CDebugOptions::DoAction()
+{
+	CORE->GetScriptManager()->RunCode( m_PagesVector[m_uNowPage].ElementsVector[m_uNowLine].Action_Script );
 }

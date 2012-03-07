@@ -21,6 +21,8 @@ public:
 	CObject3D();
 	virtual ~CObject3D(void) {/*Nothing*/;}
 
+	void						InitMat44			();
+
 	//---Get Functions
 	inline float				GetYaw				() const { return m_fYaw; }
 	inline float				GetRoll				() const { return m_fRoll; }

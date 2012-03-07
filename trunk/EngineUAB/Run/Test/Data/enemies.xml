@@ -1,4 +1,0 @@
-<enemies>
-	<enemy type="patrol" pos="0.0 2.0 0.0" yaw="0.0" pitch="0.0" />
-	<enemy type="turret" pos="2.0 -20.0 3.0" yaw="0.0" pitch="0.0" />
-</enemies>

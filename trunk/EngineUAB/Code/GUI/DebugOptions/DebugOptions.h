@@ -30,8 +30,16 @@ public:
 
 	void		Render			( CRenderManager &RM, CFontManager &FM, CColor = colWHITE );
 
+	void		MoveToNextPage	();
+	void		MoveToPrevPage	();
+	void		MoveToNextLine	();
+	void		MoveToPrevLine	();
+
+	void		DoAction		();
+
 	uint16		GetActualPage	() const		{ return m_uNowPage; }
-	
+	uint16		GetActualLine	() const		{ return m_uNowLine; }
+
 	//--- Set Methods -------
 	void		SetBool			( bool value )		{ m_bBoolValue = value; }
 	void		SetInt			( int value )		{ m_iIntValue = value; }
@@ -46,6 +54,7 @@ private:
 	std::string							m_FileName;
 	std::vector<SPage>					m_PagesVector;
 	uint16								m_uNowPage;
+	uint16								m_uNowLine;
 
 	bool								m_bBoolValue;
 	int									m_iIntValue;

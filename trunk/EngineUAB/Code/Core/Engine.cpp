@@ -51,7 +51,7 @@ void CEngine::Init(HWND hWnd)
 	m_LogRender.SetLinePerPage(20);
 
 #if defined(_DEBUG)
-	m_DebugRender.Init(&m_Timer);
+	m_DebugRender.Init();
 #endif
 }
 

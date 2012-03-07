@@ -8,6 +8,7 @@ class CThPSCamera;
 class CPhysicActor;
 class CTrigger;
 class CPhysicController;
+class CActionToInput;
 
 #include "Player.h"
 #include "Process.h"
@@ -26,6 +27,7 @@ public:
 
 protected:
 	void UpdateInputs( float elapsedTime );
+	void UpdateDebugInputs( float elapsedTime, CActionToInput &action2Input );
 	void CreateSphereActor();
 
 	Vect2i pos;

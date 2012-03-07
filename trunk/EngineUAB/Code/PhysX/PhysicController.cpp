@@ -114,9 +114,9 @@ void CPhysicController::SetPosition	(const Vect3f& pos)
 		m_pPhXControllerDesc->position.y		= pos.y;
 		m_pPhXControllerDesc->position.z		= pos.z;
 	}
-	//CObject3D::m_vPosition = pos;
-  //CObject3D::InitMat44();
-  CObject3D::SetPosition(pos);
+
+	CObject3D::InitMat44();
+	CObject3D::SetPosition(pos);
 }
 
 Vect3f CPhysicController::GetPosition ()
@@ -147,17 +147,17 @@ void CPhysicController::Move(const Vect3f& direction, float elapsedTime)
 {
 	assert (m_pPhXController!=NULL);
 
-  float l_fDirectionY = direction.y;
+	float l_fDirectionY = direction.y;
 
-  if(m_bUseGravity)
-  {
-    l_fDirectionY += (m_fGravity*elapsedTime);
-  }
+	if(m_bUseGravity)
+	{
+		l_fDirectionY += (m_fGravity*elapsedTime);
+	}
 
 	NxVec3 d(direction.x, l_fDirectionY, direction.z);
 	NxF32 sharpness = 1.0f;
 	NxU32 collisionFlags = 0;
-  //NxU32 Collision = 0;
+	//NxU32 Collision = 0;
 	float heightDelta = m_Jump.GetHeight(elapsedTime);
 	if( heightDelta != 0.f )
 	{
@@ -167,7 +167,7 @@ void CPhysicController::Move(const Vect3f& direction, float elapsedTime)
 	}
 
 	//m_pPhXController->move(d, m_uCollisionGroups, 0.000001f, collisionFlags, sharpness);
-  m_pPhXController->move(d, m_uCollisionGroups, 0.000001f, collisionFlags, sharpness);
+	m_pPhXController->move(d, m_uCollisionGroups, 0.000001f, collisionFlags, sharpness);
 	if(	(collisionFlags & NXCC_COLLISION_DOWN) || (collisionFlags & NXCC_COLLISION_UP) )
 	{
 		m_Jump.StopJump();
