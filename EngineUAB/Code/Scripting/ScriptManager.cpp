@@ -179,6 +179,7 @@ void CScriptManager::RegisterLUAFunctions()
 			.def("get_console", &CCore::GetConsole)
 			.def("get_stadistics", &CCore::GetStadistics)
 			.def("get_debug_options", &CCore::GetDebugOptions)
+			.def("get_debug_render", &CCore::GetDebugRender)
 	];
 
 	module(m_LS) [
@@ -201,6 +202,18 @@ void CScriptManager::RegisterLUAFunctions()
 			.def("set_bool", &CDebugOptions::SetBool)
 			.def("set_int", &CDebugOptions::SetInt)
 			.def("set_float", &CDebugOptions::SetFloat)
+			.def("reload", &CDebugOptions::Reload)
+	];
+
+	module(m_LS) [
+		class_<CDebugRender>("CDebugRender")
+			.def("is_fps_visible", &CDebugRender::GetFPSVisible)
+			.def("is_delta_time_visible", &CDebugRender::GetDeltaTimeVisible)
+			.def("is_gamepad_visible", &CDebugRender::GetGamePadVisible)
+			.def("toggle_fps", &CDebugRender::ToggleFPS)
+			.def("toggle_delta_time", &CDebugRender::ToggleDeltaTime)
+			.def("toggle_gamepad", &CDebugRender::ToggleGamePad)
+
 	];
 
 	RegisterMathLUAFunctions();

@@ -39,3 +39,7 @@ end
 function reload_scripts()
 	core:reload_scripts()
 end
+
+function reload_pages()
+	core:get_debug_options():reload()
+end

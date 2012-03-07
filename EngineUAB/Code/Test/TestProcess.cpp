@@ -2,6 +2,7 @@
 #include "RenderManager.h"
 #include "Base.h"
 #include "Core.h"
+#include "Console\Console.h"
 #include "Cameras\Camera.h"
 #include "Cameras\ThPSCamera.h"
 #include "DebugOptions\DebugOptions.h"
@@ -103,7 +104,7 @@ void CTestProcess::Init()
 	l_Data->SetPaint(true);
 	l_Data->SetColor(colBLACK);
 
-	m_Controller = new CPhysicController(0.5f, 2.f, 45.f, 0.5f, 1.0f, 1, l_Data);
+	m_Controller = new CPhysicController(0.5f, 2.f, 45.f, 0.5f, 1.0f, 0, l_Data);
 	m_Controller->SetPosition(Vect3f(0.f, 3.f, 0.f) );
 	m_Controller->SetVisible(true);
 
@@ -146,7 +147,7 @@ void CTestProcess::Update(float elapsedTime)
 	NxVec3 l_Pos = m_pSphere->GetPhXActor()->getGlobalPosition();
 	m_PosActor = Vect3f(l_Pos.x, l_Pos.y, l_Pos.z);
 
-	m_Controller->Move(Vect3f(0.001f, 0.f, 0.f), elapsedTime);
+	m_Controller->Move(Vect3f(0.f, 0.f, 0.01f), elapsedTime);
 
 	CORE->GetRenderableObjectsLayersManager()->Update(elapsedTime);
 }
@@ -216,44 +217,84 @@ void CTestProcess::UpdateInputs(float elapsedTime)
 		SCRIPT->RunCode("reload_render_commands()");
 	}
 
-	if( action2Input->DoAction("DebugOptions") )
+	UpdateDebugInputs(elapsedTime, *action2Input);
+}
+
+void CTestProcess::UpdateDebugInputs(float elapsedTime, CActionToInput &action2Input)
+{
+	//Show & Unshow de debuggers
+	if( action2Input.DoAction("DebugOptions") )
 	{
 		CORE->GetDebugOptions()->SetActive( !CORE->GetDebugOptions()->GetActive() );
 	}
 
-	if( action2Input->DoAction("ModifiersShow") )
+	if( action2Input.DoAction("ModifiersShow") )
 	{
 		bool visible = CORE->GetModifierManager()->GetVisible();
 		CORE->GetModifierManager()->SetVisible( !visible );
 	}
 
-	if( action2Input->DoAction("Modifier_Previous") && !action2Input->DoAction("LogRender_PrevLine") )
+	//Modifiers actions
+	if( !CORE->GetConsole()->IsActive() && !CORE->GetDebugOptions()->GetActive() )
 	{
-		CORE->GetModifierManager()->MoveToPreviousModifier();
+		if( action2Input.DoAction("Modifier_Previous") && !action2Input.DoAction("LogRender_PrevLine") )
+		{
+			CORE->GetModifierManager()->MoveToPreviousModifier();
+		}
+
+		if( action2Input.DoAction("Modifier_Next") && !action2Input.DoAction("LogRender_NextLine") )
+		{
+			CORE->GetModifierManager()->MoveToNextModifier();
+		}
+
+		if( action2Input.DoAction("GoToModifier") )
+		{
+			CORE->GetModifierManager()->GoToModifier();
+		}
+
+		if( action2Input.DoAction("GoToRootModifier") )
+		{
+			CORE->GetModifierManager()->GoToRoot();
+		}
+
+		if( action2Input.DoAction("AddValueToModifierByPass") || action2Input.DoAction("AddValueToModifier") )
+		{
+			CORE->GetModifierManager()->AddValueToModifier();
+		}
+
+		if( action2Input.DoAction("SubsValueToModifierByPass") || action2Input.DoAction("SubsValueToModifier") )
+		{
+			CORE->GetModifierManager()->SubsValueToModifier();
+		}
 	}
 
-	if( action2Input->DoAction("Modifier_Next") && !action2Input->DoAction("LogRender_NextLine") )
+	//Debug Options actions
+	if( CORE->GetDebugOptions()->GetActive() )
 	{
-		CORE->GetModifierManager()->MoveToNextModifier();
-	}
+		CDebugOptions *l_DebugOptions = CORE->GetDebugOptions();
+		if( action2Input.DoAction("NextPage") )
+		{
+			l_DebugOptions->MoveToNextPage();
+		}
 
-	if( action2Input->DoAction("GoToModifier") )
-	{
-		CORE->GetModifierManager()->GoToModifier();
-	}
+		if( action2Input.DoAction("PrevPage") )
+		{
+			l_DebugOptions->MoveToPrevPage();
+		}
 
-	if( action2Input->DoAction("GoToRootModifier") )
-	{
-		CORE->GetModifierManager()->GoToRoot();
-	}
+		if( action2Input.DoAction("NextLine") )
+		{
+			l_DebugOptions->MoveToNextLine();
+		}
 
-	if( action2Input->DoAction("AddValueToModifierByPass") || action2Input->DoAction("AddValueToModifier") )
-	{
-		CORE->GetModifierManager()->AddValueToModifier();
-	}
+		if( action2Input.DoAction("PrevLine") )
+		{
+			l_DebugOptions->MoveToPrevLine();
+		}
 
-	if( action2Input->DoAction("SubsValueToModifierByPass") || action2Input->DoAction("SubsValueToModifier") )
-	{
-		CORE->GetModifierManager()->SubsValueToModifier();
+		if( action2Input.DoAction("DoAction") )
+		{
+			l_DebugOptions->DoAction();
+		}
 	}
 }

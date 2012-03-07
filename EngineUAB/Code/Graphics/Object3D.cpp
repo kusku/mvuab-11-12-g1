@@ -46,3 +46,8 @@ const Mat44f CObject3D::GetTransform() const
 
 	return world;
 }
+
+void CObject3D::InitMat44()
+{
+
+}

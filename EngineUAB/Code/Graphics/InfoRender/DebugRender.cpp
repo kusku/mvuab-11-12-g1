@@ -15,7 +15,9 @@
 CDebugRender::CDebugRender(void)
 	: m_bIsVisible(true)
 	, m_SizeRectangle( Vect2i(0,0) )
-	, m_uNumOfElements(5)
+	, m_bFPSVisible(true)
+	, m_bDeltaTimeVisible(true)
+	, m_bGamePadVisible(true)
 {
 }
 
@@ -24,9 +26,9 @@ CDebugRender::~CDebugRender(void)
 {
 }
 
-void CDebugRender::Init(CTimer *timer)
+void CDebugRender::Init()
 {
-	AnalizeSizeInfo(timer);
+	AnalizeSizeInfo();
 }
 
 void CDebugRender::Render(CRenderManager *_RM, CFontManager *fm, CTimer *timer, CColor color )
@@ -49,9 +51,25 @@ void CDebugRender::Render(CRenderManager *_RM, CFontManager *fm, CTimer *timer, 
 		gamepad = CORE->GetActionToInput()->GetGamepadState() ? "true" : "false";
 		CORE->GetActionToInput()->GetActionInfo("DebugInfo", hideInfo);
 
-		dy += fm->DrawDefaultText(screen.x - dx, dy, color, "FPS: %f", timer->GetFPS() );
-		dy += fm->DrawDefaultText(screen.x - dx, dy, color, "Delta Time (ms): %f",  timer->GetElapsedTime() * 1000.f);
-		dy += fm->DrawDefaultText(screen.x - dx, dy, color, "Gamepad: %s", gamepad.c_str());
+		if( m_bFPSVisible )
+			dy += fm->DrawDefaultText(screen.x - dx, dy, color, "FPS: %f", timer->GetFPS() );
+
+		if( m_bDeltaTimeVisible )
+		{
+			float l_Dt = timer->GetElapsedTime() * 1000.f;
+			if( l_Dt < 16.8f )
+			{
+				dy += fm->DrawDefaultText(screen.x - dx, dy, color, "Delta Time (ms): %f",  l_Dt);
+			}
+			else
+			{
+				fm->DrawDefaultText(screen.x - dx, dy, color, "Delta Time (ms): ");
+				dy += fm->DrawDefaultText(screen.x - dx + fm->SizeX(std::string("Delta Time (ms): ").c_str()), dy, colRED, " %f", l_Dt);
+			}
+		}
+		
+		if( m_bGamePadVisible )
+			dy += fm->DrawDefaultText(screen.x - dx, dy, color, "Gamepad: %s", gamepad.c_str());
 		
 		//Info para ocultar la información
 		dy += fm->DrawDefaultText(screen.x - dx, dy, color, "_________________________");
@@ -81,12 +99,19 @@ void CDebugRender::Render(CRenderManager *_RM, CFontManager *fm, CTimer *timer, 
 	}
 
 }
-void CDebugRender::AnalizeSizeInfo(CTimer *timer)
+void CDebugRender::AnalizeSizeInfo()
 {
 	std::string l_sInfo;
 	CFontManager* fm = CORE->GetFontManager();
 
+	//Calculate the numbers of lines
+	uint16 l_NumOfElements = 2; //2 because icludes the line and the keys' information
+	if( m_bFPSVisible ) ++l_NumOfElements;
+	if( m_bDeltaTimeVisible ) ++l_NumOfElements;
+	if( m_bGamePadVisible ) ++l_NumOfElements;
+
+	//Calculate the size of the area
 	baseUtils::FormatSrting(l_sInfo,"_________________________");
 	m_SizeRectangle.x = fm->SizeX(l_sInfo.c_str());
-	m_SizeRectangle.y = fm->SizeY(l_sInfo.c_str()) * m_uNumOfElements;
+	m_SizeRectangle.y = fm->SizeY(l_sInfo.c_str()) * l_NumOfElements;
 }

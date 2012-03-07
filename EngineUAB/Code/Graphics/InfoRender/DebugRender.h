@@ -25,18 +25,35 @@ public:
 	CDebugRender();
 	~CDebugRender();
 
-	void					Init						( CTimer *timer );
+	void					Init						();
 	void					Render						( CRenderManager *rm, CFontManager *fm, CTimer *timer, CColor color = colWHITE );
 
-	void					SetVisible					( bool flag ) { m_bIsVisible = flag; }
-	bool					GetVisible					() const { return m_bIsVisible; }
+	//Set & Get Methods-------------------
+	void				SetVisible					( bool flag )		{ m_bIsVisible = flag; }
+	bool				GetVisible					() const			{ return m_bIsVisible; }
+
+	bool				GetFPSVisible				() const			{ return m_bFPSVisible; }
+	bool				GetDeltaTimeVisible			() const			{ return m_bDeltaTimeVisible; }
+	bool				GetGamePadVisible			() const			{ return m_bGamePadVisible; }
+
+	void				SetFPSVisible				( bool visible )	{ m_bFPSVisible = visible; AnalizeSizeInfo(); }
+	void				SetDeltaTimeVisible			( bool visible )	{ m_bDeltaTimeVisible = visible; AnalizeSizeInfo(); }
+	void				SetGamePadVisible			( bool visible )	{ m_bGamePadVisible = visible; AnalizeSizeInfo(); }
+
+	//Toggle Methods----------------------
+	void				ToggleFPS					()					{ m_bFPSVisible = !m_bFPSVisible; AnalizeSizeInfo(); }
+	void				ToggleDeltaTime				()					{ m_bDeltaTimeVisible = !m_bDeltaTimeVisible; AnalizeSizeInfo(); }
+	void				ToggleGamePad				()					{ m_bGamePadVisible = !m_bGamePadVisible; AnalizeSizeInfo(); }
 
 private:
-	void AnalizeSizeInfo ( CTimer *timer );
+	void AnalizeSizeInfo ();
 
 	bool					m_bIsVisible;
 	Vect2i					m_SizeRectangle;
-	uint16					m_uNumOfElements;
+
+	bool					m_bFPSVisible;
+	bool					m_bDeltaTimeVisible;
+	bool					m_bGamePadVisible;
 };
 
 #endif
