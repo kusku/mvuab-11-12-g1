@@ -247,6 +247,7 @@ void CAnimatedInstanceModel::RenderModelBySoftware(CRenderManager *RM)
 
 		l_pStadistics->AddDrawCall();
 		l_pStadistics->AddVerticesInFrustum(l_VertexCount);
+		l_pStadistics->AddTriangles( l_pCalRenderer->getFaceCount() );
 #endif
 
 			}

@@ -70,7 +70,7 @@ void CTestProcess::Init()
 	l_DataPlane->SetColor(colWHITE);
 
 	m_pPlane = new CPhysicActor(l_DataPlane);
-	m_pPlane->AddPlaneShape(Vect3f(0.0f,1.0f,0.0f), 1.f);
+	m_pPlane->AddPlaneShape(Vect3f(0.0f,1.0f,0.0f), 1.f, 1<<0);
 	CORE->GetPhysicsManager()->AddPhysicActor(m_pPlane);
 
 	//Sphere
@@ -104,7 +104,7 @@ void CTestProcess::Init()
 	l_Data->SetPaint(true);
 	l_Data->SetColor(colBLACK);
 
-	m_Controller = new CPhysicController(0.5f, 2.f, 45.f, 0.5f, 1.0f, 0, l_Data);
+	m_Controller = new CPhysicController(0.5f, 2.f, 45.f, 0.5f, 1.0f, 1<<0, l_Data);
 	m_Controller->SetPosition(Vect3f(0.f, 3.f, 0.f) );
 	m_Controller->SetVisible(true);
 

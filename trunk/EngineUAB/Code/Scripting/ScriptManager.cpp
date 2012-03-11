@@ -193,8 +193,8 @@ void CScriptManager::RegisterLUAFunctions()
 		class_<CStadistics>("CStadistics")
 			.def("get_draw_calls", &CStadistics::GetNumOfDrawCalls)
 			.def("get_draw_debug_lines", &CStadistics::GetNumOfDebugLines)
-			.def("get_vertices_in_scene", &CStadistics::GetNumOfVerticesInScene)
-			.def("get_vertices_in_frustum", &CStadistics::GetNumOfVerticesInFrusutm)
+			.def("get_vertices_in_frustum", &CStadistics::GetNumOfVerticesInFrustum)
+			.def("get_triangles_in_frustum", &CStadistics::GetNumOfTrianglesInFrustum)
 	];
 
 	module(m_LS) [
