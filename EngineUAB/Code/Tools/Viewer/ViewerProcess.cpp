@@ -15,6 +15,7 @@
 #include "Lights\LightManager.h"
 #include "ScriptManager.h"
 #include "DebugOptions\DebugOptions.h"
+#include "Console\Console.h"
 
 #include "ViewerDefs.h"
 
@@ -121,45 +122,85 @@ void CViewerProcess::UpdateInputs(float elapsedTime)
 		SCRIPT->RunCode("reload_render_commands()");
 	}
 
-	if( action2Input->DoAction("DebugOptions") )
+	UpdateDebugInputs(elapsedTime, *action2Input);
+}
+
+void CViewerProcess::UpdateDebugInputs(float elapsedTime, CActionToInput &action2Input)
+{
+	//Show & Unshow de debuggers
+	if( action2Input.DoAction("DebugOptions") )
 	{
 		CORE->GetDebugOptions()->SetActive( !CORE->GetDebugOptions()->GetActive() );
 	}
 
-	if( action2Input->DoAction( ACTION_SHOW_MODIFIERS ) )
+	if( action2Input.DoAction("ModifiersShow") )
 	{
 		bool visible = CORE->GetModifierManager()->GetVisible();
 		CORE->GetModifierManager()->SetVisible( !visible );
 	}
 
-	if( action2Input->DoAction( ACTION_PREVIOUS_MODIFIERS ) && !action2Input->DoAction("LogRender_PrevLine") )
+	//Modifiers actions
+	if( !CORE->GetConsole()->IsActive() && !CORE->GetDebugOptions()->GetActive() )
 	{
-		CORE->GetModifierManager()->MoveToPreviousModifier();
+		if( action2Input.DoAction("Modifier_Previous") && !action2Input.DoAction("LogRender_PrevLine") )
+		{
+			CORE->GetModifierManager()->MoveToPreviousModifier();
+		}
+
+		if( action2Input.DoAction("Modifier_Next") && !action2Input.DoAction("LogRender_NextLine") )
+		{
+			CORE->GetModifierManager()->MoveToNextModifier();
+		}
+
+		if( action2Input.DoAction("GoToModifier") )
+		{
+			CORE->GetModifierManager()->GoToModifier();
+		}
+
+		if( action2Input.DoAction("GoToRootModifier") )
+		{
+			CORE->GetModifierManager()->GoToRoot();
+		}
+
+		if( action2Input.DoAction("AddValueToModifierByPass") || action2Input.DoAction("AddValueToModifier") )
+		{
+			CORE->GetModifierManager()->AddValueToModifier();
+		}
+
+		if( action2Input.DoAction("SubsValueToModifierByPass") || action2Input.DoAction("SubsValueToModifier") )
+		{
+			CORE->GetModifierManager()->SubsValueToModifier();
+		}
 	}
 
-	if( action2Input->DoAction( ACTION_NEXT_MODIFIERS ) && !action2Input->DoAction("LogRender_NextLine") )
+	//Debug Options actions
+	if( CORE->GetDebugOptions()->GetActive() )
 	{
-		CORE->GetModifierManager()->MoveToNextModifier();
-	}
+		CDebugOptions *l_DebugOptions = CORE->GetDebugOptions();
+		if( action2Input.DoAction("NextPage") )
+		{
+			l_DebugOptions->MoveToNextPage();
+		}
 
-	if( action2Input->DoAction( ACTION_GOTO_MODIFIERS ) )
-	{
-		CORE->GetModifierManager()->GoToModifier();
-	}
+		if( action2Input.DoAction("PrevPage") )
+		{
+			l_DebugOptions->MoveToPrevPage();
+		}
 
-	if( action2Input->DoAction( ACTION_GOTO_ROOT_MODIFIERS ) )
-	{
-		CORE->GetModifierManager()->GoToRoot();
-	}
+		if( action2Input.DoAction("NextLine") )
+		{
+			l_DebugOptions->MoveToNextLine();
+		}
 
-	if( action2Input->DoAction( ACTION_ADD_VALUE_MODIFIERS ) || action2Input->DoAction("AddValueToModifier") )
-	{
-		CORE->GetModifierManager()->AddValueToModifier();
-	}
+		if( action2Input.DoAction("PrevLine") )
+		{
+			l_DebugOptions->MoveToPrevLine();
+		}
 
-	if( action2Input->DoAction( ACTION_SUBS_VALUE_MODIFIERS ) || action2Input->DoAction("SubsValueToModifier") )
-	{
-		CORE->GetModifierManager()->SubsValueToModifier();
+		if( action2Input.DoAction("DoAction") )
+		{
+			l_DebugOptions->DoAction();
+		}
 	}
 }
 

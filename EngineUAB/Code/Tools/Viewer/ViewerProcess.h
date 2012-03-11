@@ -5,6 +5,7 @@
 
 class CCamera;
 class CThPSCamera;
+class CActionToInput;
 
 #include "Player.h"
 #include "Process.h"
@@ -25,6 +26,7 @@ public:
 
 protected:
 	void UpdateInputs( float elapsedTime );
+	void UpdateDebugInputs( float elapsedTime, CActionToInput &action2Input );
 
 	Vect2i pos;
 	Vect2i screen;

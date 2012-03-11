@@ -11,7 +11,9 @@
 #include "NxCapsuleController.h"
 //---------------------//
 
+#if defined (_DEBUG)
 #include "Memory\MemLeaks.h"
+#endif
 
 
 class CPhysicsControllerHitReport : public NxUserControllerHitReport
@@ -166,7 +168,7 @@ void CPhysicController::Move(const Vect3f& direction, float elapsedTime)
 		d.z *= 0.3f;
 	}
 
-	//m_pPhXController->move(d, m_uCollisionGroups, 0.000001f, collisionFlags, sharpness);
+	//m_pPhXController->move(d, 0, 0.000001f, collisionFlags, sharpness);
 	m_pPhXController->move(d, m_uCollisionGroups, 0.000001f, collisionFlags, sharpness);
 	if(	(collisionFlags & NXCC_COLLISION_DOWN) || (collisionFlags & NXCC_COLLISION_UP) )
 	{

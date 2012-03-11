@@ -57,6 +57,7 @@ public:
 
 		l_pStadistics->AddDrawCall();
 		l_pStadistics->AddVerticesInFrustum(m_VertexCount);
+		l_pStadistics->AddTriangles( m_IndexCount / 3 );
 #endif
 
 		return true;
@@ -92,11 +93,12 @@ bool Render(CRenderManager *RM, CEffectTechnique *EffectTechnique, int baseVerte
 				l_Effect->EndPass();
 
 #if defined(_DEBUG)
-	//Capture Info for Stadistics
-	CStadistics *l_pStadistics = CORE->GetStadistics();
+				//Capture Info for Stadistics
+				CStadistics *l_pStadistics = CORE->GetStadistics();
 
-	l_pStadistics->AddDrawCall();
-	l_pStadistics->AddVerticesInFrustum(vertexCount);
+				l_pStadistics->AddDrawCall();
+				l_pStadistics->AddVerticesInFrustum(vertexCount);
+				l_pStadistics->AddTriangles(faceCount);
 #endif
 			}
 			l_Effect->End();
@@ -140,11 +142,12 @@ bool Render(CRenderManager *RM, CEffectTechnique *EffectTechnique) const
 				l_Effect->EndPass();
 
 #if defined(_DEBUG)
-	//Capture Info for Stadistics
-	CStadistics *l_pStadistics = CORE->GetStadistics();
+				//Capture Info for Stadistics
+				CStadistics *l_pStadistics = CORE->GetStadistics();
 
-	l_pStadistics->AddDrawCall();
-	l_pStadistics->AddVerticesInFrustum(m_VertexCount);
+				l_pStadistics->AddDrawCall();
+				l_pStadistics->AddVerticesInFrustum(m_VertexCount);
+				l_pStadistics->AddTriangles( m_IndexCount / 3 );
 #endif
 
 			}
