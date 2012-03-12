@@ -52,7 +52,7 @@ public:
 	bool	IsOk      						() const	{ return m_bIsOk; }
 	//-----------------------------
 
-	void	Render						(CRenderManager* renderManager, CFontManager* fontManager);
+	void	Render						(CRenderManager &renderManager, CFontManager &fontManager);
 	void	Update						(float elapsedTime);
 
 	void	SetActive					(bool active)										{ m_bIsActive = active; }

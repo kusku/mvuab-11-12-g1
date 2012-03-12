@@ -22,16 +22,14 @@ class CRenderableObjectTechniqueManager;
 class CSceneRendererCommandManager;
 class CRenderableObjectsLayersManager;
 class CCamera;
-class CLogRender;
-class CDebugRender;
 class CTimer;
 class CModifierManager;
 class CScriptManager;
 class CPhysicsManager;
-class CConsole;
 class CProcess;
 class CStadistics;
 class CDebugOptions;
+class CDebugGUIManager;
 
 class CCore : public CSingleton<CCore>
 {
@@ -59,18 +57,14 @@ public:
 
 	void			SetCamera		( CCamera *camera )				{ m_pCamera = camera; }
 	void			SetTimer		( CTimer *timer )				{ m_pTimer = timer; }
-	void			SetLogRender	( CLogRender *logRender )		{ m_pLogRender = logRender; }
-	void			SetDebugRender	( CDebugRender *DebugRender )	{ m_pDebugRender = DebugRender; }
 	void			SetProcess		( CProcess *Process )			{ m_pProcess = Process; }
 
-	inline CCamera*			GetCamera		() const				{ return m_pCamera; }
-	inline CTimer*			GetTimer		() const				{ return m_pTimer; }
-	inline CLogRender*		GetLogRender	() const				{ return m_pLogRender; }
-	inline CDebugRender*	GetDebugRender	() const				{ return m_pDebugRender; }
-	inline CConsole*		GetConsole		() const				{ return m_pConsole; }
-	inline CProcess*		GetProcess		() const				{ return m_pProcess; }
-	inline CStadistics*		GetStadistics	() const				{ return m_pStadistics; }
-	inline CDebugOptions*	GetDebugOptions	() const				{ return m_pDebugOptions; }
+	inline CCamera*				GetCamera			() const				{ return m_pCamera; }
+	inline CTimer*				GetTimer			() const				{ return m_pTimer; }
+	inline CProcess*			GetProcess			() const				{ return m_pProcess; }
+	inline CStadistics*			GetStadistics		() const				{ return m_pStadistics; }
+	inline CDebugOptions*		GetDebugOptions		() const				{ return m_pDebugOptions; }
+	inline CDebugGUIManager*	GetDebugGUIManager	() const				{ return m_pDebugGUIManager; }
 
 	inline CRenderManager*						GetRenderManager() const					{ return m_pRenderManager; }
 	inline CFontManager*						GetFontManager() const						{ return m_pFontManager; }
@@ -96,10 +90,8 @@ private:
 	bool	m_bIsOk;
 
 	CCamera								*m_pCamera;
-	CDebugRender						*m_pDebugRender;
-	CLogRender							*m_pLogRender;
 	CTimer								*m_pTimer;
-	CConsole							*m_pConsole;
+	CDebugGUIManager					*m_pDebugGUIManager;
 	CProcess							*m_pProcess;
 	CStadistics							*m_pStadistics;
 	CDebugOptions						*m_pDebugOptions;

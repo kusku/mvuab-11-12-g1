@@ -1,6 +1,7 @@
 #include <Windows.h>
 #include "Engine.h"
 #include "Base.h"
+#include "Logger\Logger.h"
 #include "TestProcess.h"
 #include "Math\Vector2.h"
 #include "Exceptions\Exception.h"

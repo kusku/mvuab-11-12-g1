@@ -176,10 +176,15 @@ void CScriptManager::RegisterLUAFunctions()
 			.def("reload_meshes", &CCore::ReloadMeshes)
 			.def("reload_pools", &CCore::ReloadPools)
 			.def("reload_scripts", &CCore::ReloadScripts)
-			.def("get_console", &CCore::GetConsole)
+			.def("get_debug_gui_manager", &CCore::GetDebugGUIManager)
 			.def("get_stadistics", &CCore::GetStadistics)
 			.def("get_debug_options", &CCore::GetDebugOptions)
-			.def("get_debug_render", &CCore::GetDebugRender)
+	];
+
+	module(m_LS) [
+		class_<CDebugGUIManager>("CDebugGUIManager")
+			.def("get_console",&CDebugGUIManager::GetConsole)
+			.def("get_debug_render", &CDebugGUIManager::GetDebugRender)
 	];
 
 	module(m_LS) [

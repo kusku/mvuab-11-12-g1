@@ -45,11 +45,11 @@ bool CConsole::Init()
 	return m_bIsOk;
 }
 
-void CConsole::Render (CRenderManager* renderManager, CFontManager* fm )
+void CConsole::Render (CRenderManager &renderManager, CFontManager &fm )
 {
 	uint32 w,h;
 	//renderManager->GetWidthAndHeight(w,h);
-	Vect2i size = renderManager->GetScreenSize();
+	Vect2i size = renderManager.GetScreenSize();
 	h = size.y;
 	w = size.x;
 
@@ -58,21 +58,21 @@ void CConsole::Render (CRenderManager* renderManager, CFontManager* fm )
 		CColor quad2dColor(0.f,0.f,0.5f,0.7f);
 		CColor edgeColor = colBLACK;
 		edgeColor.SetAlpha(0.7f);
-		renderManager->DrawRectangle2D(Vect2i(5,h-45),w-10, 40,quad2dColor,2,2,edgeColor);
+		renderManager.DrawRectangle2D(Vect2i(5,h-45),w-10, 40,quad2dColor,2,2,edgeColor);
 		
 
 		//Draw Info Text
 		std::string total_text = m_sBuffer.substr(0, m_uCursorPos);
 		total_text = total_text + m_sFocusObject;
 		total_text = total_text + m_sBuffer.substr(m_uCursorPos);
-		fm->DrawDefaultText(10, h-25, colWHITE, total_text.c_str());
+		fm.DrawDefaultText(10, h-25, colWHITE, total_text.c_str());
 
 		//Draw Info text:
 		std::string info = "[CONSOLE]              | AutoComplete: Tab | Reverse AutoComplete: LShift+Tab | History: Up | Reverse History: Down | Close: Type \"exit()\"";
 		uint32 dy = h-45;
-		fm->DrawDefaultText(10, dy, colWHITE, info.c_str());
+		fm.DrawDefaultText(10, dy, colWHITE, info.c_str());
 		std::string header = "______________________________________________________________________________________________________________________________________";
-		fm->DrawDefaultText(10, dy, colWHITE, header.c_str());
+		fm.DrawDefaultText(10, dy, colWHITE, header.c_str());
 	}
 	//else
 	//{

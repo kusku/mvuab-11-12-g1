@@ -14,6 +14,9 @@
 #include "Effects\EffectManager.h"
 #include "Commands\SceneRendererCommandManager.h"
 #include "Stadistics\Stadistics.h"
+#include "DebugGUIManager.h"
+#include "DebugInfo\DebugRender.h"
+#include "LogRender\LogRender.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -47,12 +50,6 @@ void CEngine::Init(HWND hWnd)
 	m_pCore->Init(hWnd, m_Config);
 	m_pProcess->Init();
 	m_pCore->SetProcess(m_pProcess);
-
-	m_LogRender.SetLinePerPage(20);
-
-#if defined(_DEBUG)
-	m_DebugRender.Init();
-#endif
 }
 
 void CEngine::Update()
@@ -62,10 +59,7 @@ void CEngine::Update()
 
 	m_pCore->Update(elapsedTime);
 	m_pProcess->Update(elapsedTime);
-	m_LogRender.Update(elapsedTime);
 
-	m_pCore->SetDebugRender(&m_DebugRender);
-	m_pCore->SetLogRender(&m_LogRender);
 	m_pCore->SetTimer(&m_Timer);
 
 #if defined(_DEBUG)
@@ -78,33 +72,34 @@ void CEngine::UpdateDebugInputs()
 	CActionToInput* action2Input = CORE->GetActionToInput();
 	if( action2Input->DoAction( ACTION_LOGGER ) )
 	{
-		bool visible = m_LogRender.GetVisible();
-		m_LogRender.SetVisible(!visible);
+		bool visible = CORE->GetDebugGUIManager()->GetLogRender()->GetVisible();
+		CORE->GetDebugGUIManager()->GetLogRender()->SetVisible(!visible);
 	}
 
 	if( action2Input->DoAction( ACTION_LOGGER_PAGEDOWN ) )
 	{
-		m_LogRender.PageDown();
+		CORE->GetDebugGUIManager()->GetLogRender()->PageDown();
 	}
 
 	if( action2Input->DoAction( ACTION_LOGGER_PAGEUP ) )
 	{
-		m_LogRender.PageUp();
+		CORE->GetDebugGUIManager()->GetLogRender()->PageUp();
 	}
 
 	if( action2Input->DoAction( ACTION_LOGGER_PREVLINE ) )
 	{
-		m_LogRender.PrevLine();
+		CORE->GetDebugGUIManager()->GetLogRender()->PrevLine();
 	}
 
 	if( action2Input->DoAction( ACTION_LOGGER_NEXTLINE ) )
 	{
-		m_LogRender.NextLine();
+		CORE->GetDebugGUIManager()->GetLogRender()->NextLine();
 	}
 
-	if( action2Input->DoAction( ACTION_DEBUG_LOGGER ) )
+	if( action2Input->DoAction(ACTION_DEBUG_INFO) )
 	{
-		m_DebugRender.SetVisible( !m_DebugRender.GetVisible() );
+		bool visible = CORE->GetDebugGUIManager()->GetDebugRender()->GetVisible();
+		CORE->GetDebugGUIManager()->GetDebugRender()->SetVisible(!visible);
 	}
 
 	if( action2Input->DoAction( ACTION_RELOAD_ALL ) )
@@ -116,8 +111,6 @@ void CEngine::UpdateDebugInputs()
 		m_pCore = new CCore();
 		m_pCore->Init(hWnd, m_Config);
 
-		m_pCore->SetDebugRender(&m_DebugRender);
-		m_pCore->SetLogRender(&m_LogRender);
 		m_pCore->SetTimer(&m_Timer);
 
 		LOGGER->AddNewLog(ELL_INFORMATION, "CEngine->Reload hecho de todo el Core.");

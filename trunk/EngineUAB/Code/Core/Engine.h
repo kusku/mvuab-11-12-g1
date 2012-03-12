@@ -8,8 +8,6 @@
 #include "Math\Color.h"
 #include "Utils\Timer.h"
 #include "CoreDefs.h"
-#include "InfoRender\LogRender.h"
-#include "InfoRender\DebugRender.h"
 class CLogger;
 class CCore;
 
@@ -38,8 +36,6 @@ protected:
 	CLogger			*m_pLogger;
 
 	CTimer			m_Timer;
-	CLogRender		m_LogRender;
-	CDebugRender	m_DebugRender;
 
 	SConfig		m_Config;
 

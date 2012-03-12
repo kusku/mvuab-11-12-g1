@@ -19,12 +19,6 @@
     <ClInclude Include="Cameras\ThPSCamera.h">
       <Filter>Cameras\Types</Filter>
     </ClInclude>
-    <ClInclude Include="InfoRender\LogRender.h">
-      <Filter>InfoRender</Filter>
-    </ClInclude>
-    <ClInclude Include="InfoRender\DebugRender.h">
-      <Filter>InfoRender</Filter>
-    </ClInclude>
     <ClInclude Include="Textures\Texture.h">
       <Filter>Textures</Filter>
     </ClInclude>
@@ -209,12 +203,6 @@
     <ClCompile Include="Cameras\ThPSCamera.cpp">
       <Filter>Cameras\Types</Filter>
     </ClCompile>
-    <ClCompile Include="InfoRender\LogRender.cpp">
-      <Filter>InfoRender</Filter>
-    </ClCompile>
-    <ClCompile Include="InfoRender\DebugRender.cpp">
-      <Filter>InfoRender</Filter>
-    </ClCompile>
     <ClCompile Include="Textures\Texture.cpp">
       <Filter>Textures</Filter>
     </ClCompile>
@@ -378,9 +366,6 @@
     </Filter>
     <Filter Include="Fonts">
       <UniqueIdentifier>{744246ba-69c5-4306-92cd-dcdb78ce6fcf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="InfoRender">
-      <UniqueIdentifier>{ab385e7e-69f1-40e5-ab49-f7a6cdfa077d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Textures">
       <UniqueIdentifier>{047fc636-231e-4a75-a5c7-2bca4450060f}</UniqueIdentifier>

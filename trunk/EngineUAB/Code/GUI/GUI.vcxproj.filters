@@ -13,6 +13,15 @@
     <ClCompile Include="DebugOptions\DebugOptions.cpp">
       <Filter>Debug_GUI\DebugOptions</Filter>
     </ClCompile>
+    <ClCompile Include="DebugGUIManager.cpp">
+      <Filter>Debug_GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugInfo\DebugRender.cpp">
+      <Filter>Debug_GUI\DebugInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="LogRender\LogRender.cpp">
+      <Filter>Debug_GUI\LogRender</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Debug_GUI">
@@ -26,6 +35,12 @@
     </Filter>
     <Filter Include="Debug_GUI\DebugOptions">
       <UniqueIdentifier>{a329f71d-d344-4df6-9605-08029ef750ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Debug_GUI\DebugInfo">
+      <UniqueIdentifier>{5a518685-143f-4e50-84ab-029fcf913b23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Debug_GUI\LogRender">
+      <UniqueIdentifier>{a501fbe8-a483-44b7-8170-86072cd7b089}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -43,6 +58,15 @@
     </ClInclude>
     <ClInclude Include="DebugOptions\DebugOptionsDefs.h">
       <Filter>Debug_GUI\DebugOptions</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugGUIManager.h">
+      <Filter>Debug_GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugInfo\DebugRender.h">
+      <Filter>Debug_GUI\DebugInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="LogRender\LogRender.h">
+      <Filter>Debug_GUI\LogRender</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

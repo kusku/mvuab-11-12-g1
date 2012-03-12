@@ -50,8 +50,6 @@
     <ClInclude Include="Effects\EffectTechnique.h" />
     <ClInclude Include="Fonts\FontManager.h" />
     <ClInclude Include="GraphicsDefs.h" />
-    <ClInclude Include="InfoRender\DebugRender.h" />
-    <ClInclude Include="InfoRender\LogRender.h" />
     <ClInclude Include="Lights\DirectionalLight.h" />
     <ClInclude Include="Lights\Light.h" />
     <ClInclude Include="Lights\LightManager.h" />
@@ -114,8 +112,6 @@
     <ClCompile Include="Effects\EffectManager.cpp" />
     <ClCompile Include="Effects\EffectTechnique.cpp" />
     <ClCompile Include="Fonts\FontManager.cpp" />
-    <ClCompile Include="InfoRender\DebugRender.cpp" />
-    <ClCompile Include="InfoRender\LogRender.cpp" />
     <ClCompile Include="Lights\DirectionalLight.cpp" />
     <ClCompile Include="Lights\Light.cpp" />
     <ClCompile Include="Lights\LightManager.cpp" />

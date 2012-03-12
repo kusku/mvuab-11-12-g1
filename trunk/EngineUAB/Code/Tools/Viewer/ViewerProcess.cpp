@@ -16,6 +16,7 @@
 #include "ScriptManager.h"
 #include "DebugOptions\DebugOptions.h"
 #include "Console\Console.h"
+#include "DebugGUIManager.h"
 
 #include "ViewerDefs.h"
 
@@ -140,7 +141,7 @@ void CViewerProcess::UpdateDebugInputs(float elapsedTime, CActionToInput &action
 	}
 
 	//Modifiers actions
-	if( !CORE->GetConsole()->IsActive() && !CORE->GetDebugOptions()->GetActive() )
+	if( !CORE->GetDebugGUIManager()->GetConsole()->IsActive() && !CORE->GetDebugOptions()->GetActive() )
 	{
 		if( action2Input.DoAction("Modifier_Previous") && !action2Input.DoAction("LogRender_PrevLine") )
 		{

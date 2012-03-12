@@ -5,9 +5,7 @@
 #include "Base.h"
 #include "Fonts\FontManager.h"
 #include "Utils\Timer.h"
-#include "InfoRender\DebugRender.h"
-#include "InfoRender\LogRender.h"
-#include "Console\Console.h"
+#include "DebugGUIManager.h"
 #include "Modifiers\ModifierManager.h"
 #include "DebugOptions\DebugOptions.h"
 #include "Math\Matrix44.h"
@@ -25,10 +23,9 @@ CRenderDebugInfoSceneRendererCommand::CRenderDebugInfoSceneRendererCommand(CXMLT
 void CRenderDebugInfoSceneRendererCommand ::Execute(CRenderManager &RM)
 {	
 	CFontManager *fontManager = CORE->GetFontManager();
-	CORE->GetDebugRender()->Render( &RM, fontManager, CORE->GetTimer() );
-	CORE->GetModifierManager()->Render( RM, *CORE->GetFontManager() );	
-	CORE->GetConsole()->Render( &RM, fontManager ); 
-	CORE->GetLogRender()->Render( &RM, fontManager );
+	CORE->GetDebugGUIManager()->Render(RM, *fontManager, CORE->GetTimer() );
+
+	CORE->GetModifierManager()->Render( RM, *fontManager );	
 
 	Mat44f mat;
 	mat.SetIdentity();

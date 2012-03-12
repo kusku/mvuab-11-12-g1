@@ -9,6 +9,7 @@
 #include "Console\Console.h"
 #include "Stadistics\Stadistics.h"
 #include "DebugOptions\DebugOptions.h"
-#include "InfoRender\DebugRender.h"
+#include "DebugInfo\DebugRender.h"
+#include "DebugGUIManager.h"
 
 #endif
