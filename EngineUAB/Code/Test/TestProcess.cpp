@@ -12,6 +12,7 @@
 #include "ActionToInput.h"
 #include "ScriptManager.h"
 #include "Modifiers\ModifierManager.h"
+#include "DebugGUIManager.h"
 #include "PhysicsManager.h"
 #include "PhysicActor.h"
 #include "Trigger.h"
@@ -235,7 +236,7 @@ void CTestProcess::UpdateDebugInputs(float elapsedTime, CActionToInput &action2I
 	}
 
 	//Modifiers actions
-	if( !CORE->GetConsole()->IsActive() && !CORE->GetDebugOptions()->GetActive() )
+	if( !CORE->GetDebugGUIManager()->GetConsole()->IsActive() && !CORE->GetDebugOptions()->GetActive() )
 	{
 		if( action2Input.DoAction("Modifier_Previous") && !action2Input.DoAction("LogRender_PrevLine") )
 		{

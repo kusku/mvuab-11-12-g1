@@ -6,7 +6,8 @@
 #include "Utils\BaseUtils.h"
 #include "Base.h"
 #include "Core.h"
-#include "InfoRender\LogRender.h"
+#include "LogRender\LogRender.h"
+#include "DebugGUIManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -33,7 +34,7 @@ void CModifierManager::CleanUp()
 
 void CModifierManager::Render(CRenderManager &RM, CFontManager &FM, CColor Color)
 {
-	if( !CORE->GetLogRender()->GetVisible() )
+	if( !CORE->GetDebugGUIManager()->GetLogRender()->GetVisible() )
 	{
 		uint32 dx = 10;
 		uint32 dy = 50;
@@ -137,7 +138,7 @@ bool CModifierManager::LoadFile()
 	
 void CModifierManager::MoveToNextModifier()
 {
-	if( !CORE->GetLogRender()->GetVisible() )
+	if( !CORE->GetDebugGUIManager()->GetLogRender()->GetVisible() )
 	{
 		if( m_IsChild )
 		{
@@ -157,7 +158,7 @@ void CModifierManager::MoveToNextModifier()
 
 void CModifierManager::MoveToPreviousModifier()
 {
-	if( !CORE->GetLogRender()->GetVisible() )
+	if( !CORE->GetDebugGUIManager()->GetLogRender()->GetVisible() )
 	{
 		if( m_IsChild )
 		{
@@ -176,7 +177,7 @@ void CModifierManager::MoveToPreviousModifier()
 
 void CModifierManager::GoToModifier()
 {
-	if( !CORE->GetLogRender()->GetVisible() )
+	if( !CORE->GetDebugGUIManager()->GetLogRender()->GetVisible() )
 	{
 		TVectorResources l_Resources = GetResourcesVector();
 		l_Resources[m_NowIndexInVector]->ResetToMove();
@@ -188,7 +189,7 @@ void CModifierManager::GoToModifier()
 
 void CModifierManager::GoToRoot()
 {
-	if( !CORE->GetLogRender()->GetVisible() )
+	if( !CORE->GetDebugGUIManager()->GetLogRender()->GetVisible() )
 	{
 		m_IsChild = false;
 		AnalizeSizeInfo();
@@ -197,7 +198,7 @@ void CModifierManager::GoToRoot()
 
 void CModifierManager::AddValueToModifier()
 {
-	if( m_IsChild && !CORE->GetLogRender()->GetVisible() )
+	if( m_IsChild && !CORE->GetDebugGUIManager()->GetLogRender()->GetVisible() )
 	{
 		TVectorResources l_Resources = GetResourcesVector();
 		l_Resources[m_NowIndexInVector]->AddValue();
@@ -206,7 +207,7 @@ void CModifierManager::AddValueToModifier()
 
 void CModifierManager::SubsValueToModifier()
 {
-	if( m_IsChild && !CORE->GetLogRender()->GetVisible() )
+	if( m_IsChild && !CORE->GetDebugGUIManager()->GetLogRender()->GetVisible() )
 	{
 		TVectorResources l_Resources = GetResourcesVector();
 		l_Resources[m_NowIndexInVector]->SubsValue();
@@ -259,7 +260,7 @@ void CModifierManager::AnalizeSizeInfo()
 
 void CModifierManager::SetVisible(bool visible)
 {
-	if( !CORE->GetLogRender()->GetVisible() )
+	if( !CORE->GetDebugGUIManager()->GetLogRender()->GetVisible() )
 	{
 		SetActive(visible);
 		AnalizeSizeInfo();
