@@ -15,8 +15,11 @@ class CRenderManager;
 class CFontManager;
 class CXMLTreeNode;
 class CDebugRender;
+class CModifierManager;
 class CLogRender;
 class CTimer;
+
+#include <string>
 
 class CDebugGUIManager
 {
@@ -24,7 +27,7 @@ public:
 	CDebugGUIManager();
 	~CDebugGUIManager();
 
-	bool			Init			( /*CXMLTreeNode &_Node*/ );
+	bool			Init			( const std::string &_modifiers_path, const std::string &_debug_options_path );
 	void			Destroy			();
 
 	void			Update			( float _ElapsedTime );
@@ -35,12 +38,14 @@ public:
 	inline CConsole*				GetConsole				() const		{ return m_pConsole; }	
 	inline CDebugRender*			GetDebugRender			() const		{ return m_pDebugRender; }
 	inline CLogRender*				GetLogRender			() const		{ return m_pLogRender; }
+	inline CModifierManager*		GetModifierManager		() const		{ return m_pModifierManager; }
 
 private:
 	CDebugOptions			*m_pDebugOptions;
 	CConsole				*m_pConsole;
 	CDebugRender			*m_pDebugRender;
 	CLogRender				*m_pLogRender;
+	CModifierManager		*m_pModifierManager;
 };
 
 #endif

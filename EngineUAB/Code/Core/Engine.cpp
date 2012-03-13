@@ -247,16 +247,16 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 			{
 				m_Config.scripts_path = l_ConfigNode(i).GetPszProperty("scriptsXML", "");
 			}
+#if defined (_DEBUG)
 			else if( l_Name == "Modifiers" )
 			{
-#if defined (_DEBUG)
 				m_Config.modifiers_path = l_ConfigNode(i).GetPszProperty("modifiersXML", "");
-#endif
 			}
 			else if( l_Name == "Debug_Options" )
 			{
 				m_Config.debug_options_path = l_ConfigNode(i).GetPszProperty("debug_options_xml", "");
 			}
+#endif
 		}
 	}
 

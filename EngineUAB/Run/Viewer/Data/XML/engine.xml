@@ -23,8 +23,4 @@
 	<Scripts scriptsXML="./Data/XML/scripts.xml" />
 	<Modifiers modifiersXML="./Data/XML/modifiers.xml" />
 	<Debug_Options debug_options_xml="./data/xml/debug_options.xml" />
-	<DebugGUI>
-		<Modifiers modifiersXML="./Data/XML/modifiers.xml" />
-		<Debug_Options debug_options_xml="./data/xml/debug_options.xml" />
-	</DebugGUI>
 </Config>

@@ -21,7 +21,6 @@
 #include "PhysicsManager.h"
 #include "DebugGUIManager.h"
 #include "Stadistics\Stadistics.h"
-#include "DebugOptions\DebugOptions.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -43,12 +42,10 @@ CCore::CCore()
 	, m_pRenderableObjectsLayersManager(NULL)
 	, m_pCamera(NULL)
 	, m_pTimer(NULL)
-	, m_pModifierManager(NULL)
 	, m_pScriptManager(NULL)
 	, m_pPhysicsManager(NULL)
 	, m_pDebugGUIManager(NULL)
 	, m_pStadistics(NULL)
-	, m_pDebugOptions(NULL)
 	, m_bIsOk(false)
 {
 }
@@ -74,12 +71,10 @@ void CCore::Release()
 	CHECKED_DELETE(m_pROTManager);
 	CHECKED_DELETE(m_pSceneRendererCommandManager);
 	CHECKED_DELETE(m_pRenderableObjectsLayersManager);
-	CHECKED_DELETE(m_pModifierManager);
 	CHECKED_DELETE(m_pScriptManager);
 	CHECKED_DELETE(m_pPhysicsManager);
 	CHECKED_DELETE(m_pDebugGUIManager);
 	CHECKED_DELETE(m_pStadistics);
-	CHECKED_DELETE(m_pDebugOptions)
 
 	m_pCamera = NULL; //La cámara la elimina el proceso
 	m_pTimer = NULL;
@@ -169,18 +164,12 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 			m_pPhysicsManager->Init("");
 
 #if defined (_DEBUG)
-			m_pModifierManager = new CModifierManager();
-			m_pModifierManager->Load(config.modifiers_path);
-
-			//Crea la consola
-			m_pDebugGUIManager = new CDebugGUIManager();
-			m_bIsOk = m_pDebugGUIManager->Init();
-
 			//Inicializa las estadísticas
 			m_pStadistics = new CStadistics();
 
-			m_pDebugOptions = new CDebugOptions();
-			m_pDebugOptions->Load( config.debug_options_path );
+			//Inicializa el manager de interfaz de debugeo
+			m_pDebugGUIManager = new CDebugGUIManager();
+			m_bIsOk = m_pDebugGUIManager->Init( config.modifiers_path, config.debug_options_path );		
 #endif
 		}
 	}

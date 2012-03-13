@@ -178,13 +178,13 @@ void CScriptManager::RegisterLUAFunctions()
 			.def("reload_scripts", &CCore::ReloadScripts)
 			.def("get_debug_gui_manager", &CCore::GetDebugGUIManager)
 			.def("get_stadistics", &CCore::GetStadistics)
-			.def("get_debug_options", &CCore::GetDebugOptions)
 	];
 
 	module(m_LS) [
 		class_<CDebugGUIManager>("CDebugGUIManager")
 			.def("get_console",&CDebugGUIManager::GetConsole)
 			.def("get_debug_render", &CDebugGUIManager::GetDebugRender)
+			.def("get_debug_options", &CDebugGUIManager::GetDebugOptions)
 	];
 
 	module(m_LS) [

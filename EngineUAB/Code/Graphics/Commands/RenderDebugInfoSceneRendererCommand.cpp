@@ -6,7 +6,6 @@
 #include "Fonts\FontManager.h"
 #include "Utils\Timer.h"
 #include "DebugGUIManager.h"
-#include "Modifiers\ModifierManager.h"
 #include "DebugOptions\DebugOptions.h"
 #include "Math\Matrix44.h"
 
@@ -25,8 +24,6 @@ void CRenderDebugInfoSceneRendererCommand ::Execute(CRenderManager &RM)
 	CFontManager *fontManager = CORE->GetFontManager();
 	CORE->GetDebugGUIManager()->Render(RM, *fontManager, CORE->GetTimer() );
 
-	CORE->GetModifierManager()->Render( RM, *fontManager );	
-
 	Mat44f mat;
 	mat.SetIdentity();
 	RM.SetTransform(mat);
@@ -36,6 +33,4 @@ void CRenderDebugInfoSceneRendererCommand ::Execute(CRenderManager &RM)
 
 	if( m_Axis )
 		RM.DrawAxis(1.0f);
-
-	CORE->GetDebugOptions()->Render( RM, *fontManager );
 }
