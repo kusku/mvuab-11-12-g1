@@ -3,6 +3,7 @@
 
 #include "Math\Color.h"
 #include "Math\Vector2.h"
+#include "XML\XMLTreeNode.h"
 #include <string>
 #include <vector>
 

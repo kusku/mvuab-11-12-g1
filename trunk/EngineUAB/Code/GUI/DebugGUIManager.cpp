@@ -6,10 +6,10 @@
 #include "LogRender\LogRender.h"
 #include "Utils\Timer.h"
 #include "Console\Console.h"
+#include "Modifiers\ModifierManager.h"
 #include "XML\XMLTreeNode.h"
 #include "Logger\Logger.h"
 #include "Base.h"
-#include <string>
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -20,6 +20,7 @@ CDebugGUIManager::CDebugGUIManager()
 	, m_pConsole(NULL)
 	, m_pDebugRender(NULL)
 	, m_pLogRender(NULL)
+	, m_pModifierManager(NULL)
 {
 }
 
@@ -35,9 +36,10 @@ void CDebugGUIManager::Destroy()
 	CHECKED_DELETE(m_pConsole);
 	CHECKED_DELETE(m_pDebugRender);
 	CHECKED_DELETE(m_pLogRender);
+	CHECKED_DELETE(m_pModifierManager);
 }
 
-bool CDebugGUIManager::Init(/*CXMLTreeNode &_Node*/)
+bool CDebugGUIManager::Init(const std::string &_modifiers_path, const std::string &_debug_options_path )
 {
 	bool l_bIsOk = false;
 
@@ -52,17 +54,12 @@ bool CDebugGUIManager::Init(/*CXMLTreeNode &_Node*/)
 	m_pLogRender = new CLogRender();
 	m_pLogRender->SetLinePerPage(20);
 
-	/*uint8 l_uCount = _Node.GetNumChildren();
-	for(uint8 i=0; i < l_uCount; ++i)
-	{
-		std::string l_Type = _Node(i).GetName();
-		if( l_Type == "Debug_Options" )
-		{
-			m_pDebugOptions = new CDebugOptions();
-			m_pDebugOptions->Load( _Node(i).GetPszProperty("debug_options_xml", "") );
-		}
-	}*/
-	
+	m_pModifierManager = new CModifierManager();
+	m_pModifierManager->Load(_modifiers_path);
+
+	m_pDebugOptions = new CDebugOptions();
+	m_pDebugOptions->Load(_debug_options_path);
+
 	return true;
 }
 
@@ -77,5 +74,6 @@ void CDebugGUIManager::Render(CRenderManager &_RM, CFontManager &_FM, CTimer *_T
 	m_pConsole->Render(_RM, _FM);
 	m_pDebugRender->Render(&_RM, &_FM, _Timer);
 	m_pLogRender->Render(&_RM, &_FM);
-	//m_pDebugOptions->Render(_RM, _FM);
+	m_pModifierManager->Render(_RM, _FM);
+	m_pDebugOptions->Render(_RM, _FM);
 }

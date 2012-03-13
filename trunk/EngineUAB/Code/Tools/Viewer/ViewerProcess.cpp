@@ -128,56 +128,59 @@ void CViewerProcess::UpdateInputs(float elapsedTime)
 
 void CViewerProcess::UpdateDebugInputs(float elapsedTime, CActionToInput &action2Input)
 {
+	CModifierManager *l_pModifierManager = CORE->GetDebugGUIManager()->GetModifierManager();
+	CDebugOptions *l_DebugOptions = CORE->GetDebugGUIManager()->GetDebugOptions();
+
 	//Show & Unshow de debuggers
 	if( action2Input.DoAction("DebugOptions") )
 	{
-		CORE->GetDebugOptions()->SetActive( !CORE->GetDebugOptions()->GetActive() );
+		l_DebugOptions->SetActive( !l_DebugOptions->GetActive() );
 	}
 
 	if( action2Input.DoAction("ModifiersShow") )
 	{
-		bool visible = CORE->GetModifierManager()->GetVisible();
-		CORE->GetModifierManager()->SetVisible( !visible );
+		bool visible = l_pModifierManager->GetVisible();
+		l_pModifierManager->SetVisible( !visible );
 	}
 
 	//Modifiers actions
-	if( !CORE->GetDebugGUIManager()->GetConsole()->IsActive() && !CORE->GetDebugOptions()->GetActive() )
+	if( !CORE->GetDebugGUIManager()->GetConsole()->IsActive() && !l_DebugOptions->GetActive() )
 	{
 		if( action2Input.DoAction("Modifier_Previous") && !action2Input.DoAction("LogRender_PrevLine") )
 		{
-			CORE->GetModifierManager()->MoveToPreviousModifier();
+			l_pModifierManager->MoveToPreviousModifier();
 		}
 
 		if( action2Input.DoAction("Modifier_Next") && !action2Input.DoAction("LogRender_NextLine") )
 		{
-			CORE->GetModifierManager()->MoveToNextModifier();
+			l_pModifierManager->MoveToNextModifier();
 		}
 
 		if( action2Input.DoAction("GoToModifier") )
 		{
-			CORE->GetModifierManager()->GoToModifier();
+			l_pModifierManager->GoToModifier();
 		}
 
 		if( action2Input.DoAction("GoToRootModifier") )
 		{
-			CORE->GetModifierManager()->GoToRoot();
+			l_pModifierManager->GoToRoot();
 		}
 
 		if( action2Input.DoAction("AddValueToModifierByPass") || action2Input.DoAction("AddValueToModifier") )
 		{
-			CORE->GetModifierManager()->AddValueToModifier();
+			l_pModifierManager->AddValueToModifier();
 		}
 
 		if( action2Input.DoAction("SubsValueToModifierByPass") || action2Input.DoAction("SubsValueToModifier") )
 		{
-			CORE->GetModifierManager()->SubsValueToModifier();
+			l_pModifierManager->SubsValueToModifier();
 		}
 	}
 
 	//Debug Options actions
-	if( CORE->GetDebugOptions()->GetActive() )
+	if( l_DebugOptions->GetActive() )
 	{
-		CDebugOptions *l_DebugOptions = CORE->GetDebugOptions();
+		
 		if( action2Input.DoAction("NextPage") )
 		{
 			l_DebugOptions->MoveToNextPage();

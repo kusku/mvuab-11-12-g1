@@ -23,12 +23,10 @@ class CSceneRendererCommandManager;
 class CRenderableObjectsLayersManager;
 class CCamera;
 class CTimer;
-class CModifierManager;
 class CScriptManager;
 class CPhysicsManager;
 class CProcess;
 class CStadistics;
-class CDebugOptions;
 class CDebugGUIManager;
 
 class CCore : public CSingleton<CCore>
@@ -63,7 +61,6 @@ public:
 	inline CTimer*				GetTimer			() const				{ return m_pTimer; }
 	inline CProcess*			GetProcess			() const				{ return m_pProcess; }
 	inline CStadistics*			GetStadistics		() const				{ return m_pStadistics; }
-	inline CDebugOptions*		GetDebugOptions		() const				{ return m_pDebugOptions; }
 	inline CDebugGUIManager*	GetDebugGUIManager	() const				{ return m_pDebugGUIManager; }
 
 	inline CRenderManager*						GetRenderManager() const					{ return m_pRenderManager; }
@@ -80,7 +77,6 @@ public:
 	inline CRenderableObjectTechniqueManager*	GetROTManager() const						{ return m_pROTManager; }	
 	inline CSceneRendererCommandManager*		GetSceneRendererCommandManager() const		{ return m_pSceneRendererCommandManager; }
 	inline CRenderableObjectsLayersManager*		GetRenderableObjectsLayersManager() const	{ return m_pRenderableObjectsLayersManager; }
-	inline CModifierManager*					GetModifierManager() const					{ return m_pModifierManager; }
 	inline CScriptManager*						GetScriptManager() const					{ return m_pScriptManager; }
 	inline CPhysicsManager*						GetPhysicsManager() const					{ return m_pPhysicsManager; }
 
@@ -94,7 +90,6 @@ private:
 	CDebugGUIManager					*m_pDebugGUIManager;
 	CProcess							*m_pProcess;
 	CStadistics							*m_pStadistics;
-	CDebugOptions						*m_pDebugOptions;
 
 	CRenderManager						*m_pRenderManager;
 	CFontManager						*m_pFontManager;
@@ -110,7 +105,6 @@ private:
 	CRenderableObjectTechniqueManager	*m_pROTManager;
 	CSceneRendererCommandManager		*m_pSceneRendererCommandManager;
 	CRenderableObjectsLayersManager		*m_pRenderableObjectsLayersManager;
-	CModifierManager					*m_pModifierManager;
 	CScriptManager						*m_pScriptManager;
 	CPhysicsManager						*m_pPhysicsManager;
 };
