@@ -7,7 +7,7 @@
 	<page type="Stadistics" >
 		<option name="Draw Calls" show_script="get_draw_calls()" action_script="get_draw_calls()" type_value="int" />
 		<option name="Draw Debug Lines" show_script="get_draw_debug_lines()" action_script="get_draw_debug_lines()" type_value="int" />
-		<option name="Vertices In Scene" show_script="get_vertices_in_scene()" action_script="get_vertices_in_scene()" type_value="int" />
-		<option name="Vertices In Frustum" show_script="get_vertices_in_frustum()" action_script="get_vertices_in_frustum()" type_value="int" />
+		<option name="Rendering Vertices" show_script="get_rendering_vertices()" action_script="get_rendering_vertices()" type_value="int" />
+		<option name="Rendering Triangles" show_script="get_rendering_triangles()" action_script="get_rendering_triangles()" type_value="int" />
 	</page>
 </debug_options>

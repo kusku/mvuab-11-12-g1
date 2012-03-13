@@ -6,6 +6,7 @@
 #include "Math\Vector2.h"
 #include "ScriptManager.h"
 #include "ActionToInput.h"
+#include "Utils/BaseUtils.h"
 #include "Base.h"
 #include "Core.h"
 #include <sstream>
@@ -229,6 +230,29 @@ void CDebugOptions::Render(CRenderManager &RM, CFontManager &FM, CColor color)
 				dy += FM.DrawDefaultText(l_ScreenSize.x - 100, dy, l_ColorToRender, l_Value.c_str() );
 			}
 		}
+	}
+	else
+	{
+		//Renderiza la información para abrir las opciones
+		CColor backgroundColor = CColor(0.35f, 0.35f, 0.35f);
+		backgroundColor.SetAlpha(0.8f);
+
+		CColor edgesColor = colBLACK;
+		edgesColor.SetAlpha(0.7f);
+
+		Vect2i l_SizeRectangle;
+		Vect2i l_Screen = RM.GetScreenSize();
+
+		std::string l_sInfo, l_Action;
+		CORE->GetActionToInput()->GetActionInfo("DebugOptions", l_Action);
+		baseUtils::FormatSrting (l_sInfo, "Press %s to view the Stadistics", l_Action.c_str() );
+		l_SizeRectangle.x = FM.SizeX(l_sInfo.c_str());
+		l_SizeRectangle.y = FM.SizeY(l_sInfo.c_str());
+
+		uint32 dx = l_Screen.x - l_SizeRectangle.x - 10;
+		RM.DrawRectangle2D(Vect2i(dx, l_Screen.y-15), l_SizeRectangle.x, l_SizeRectangle.y, backgroundColor, 2, 2, edgesColor);
+
+		FM.DrawDefaultText(dx, l_Screen.y-15, colWHITE, "Press %s to view the Stadistics", l_Action.c_str());
 	}
 }
 

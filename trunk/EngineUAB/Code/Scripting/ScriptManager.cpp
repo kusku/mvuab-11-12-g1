@@ -218,7 +218,6 @@ void CScriptManager::RegisterLUAFunctions()
 			.def("toggle_fps", &CDebugRender::ToggleFPS)
 			.def("toggle_delta_time", &CDebugRender::ToggleDeltaTime)
 			.def("toggle_gamepad", &CDebugRender::ToggleGamePad)
-
 	];
 
 	RegisterMathLUAFunctions();
