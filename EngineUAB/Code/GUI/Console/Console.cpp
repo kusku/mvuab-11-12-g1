@@ -5,6 +5,8 @@
 #include "Fonts\FontManager.h"
 #include "ScriptManager.h"
 #include "InputManager.h"
+#include "ActionToInput.h"
+#include "Base.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -53,13 +55,15 @@ void CConsole::Render (CRenderManager &renderManager, CFontManager &fm )
 	h = size.y;
 	w = size.x;
 
+	CColor quad2dColor(0.f,0.f,0.5f,0.7f);
+	CColor edgeColor = colBLACK;
+	edgeColor.SetAlpha(0.7f);
+
 	if( m_bIsActive )
-	{
-		CColor quad2dColor(0.f,0.f,0.5f,0.7f);
-		CColor edgeColor = colBLACK;
-		edgeColor.SetAlpha(0.7f);
+	{		
+		//Renderiza la consola
+
 		renderManager.DrawRectangle2D(Vect2i(5,h-45),w-10, 40,quad2dColor,2,2,edgeColor);
-		
 
 		//Draw Info Text
 		std::string total_text = m_sBuffer.substr(0, m_uCursorPos);
@@ -74,29 +78,24 @@ void CConsole::Render (CRenderManager &renderManager, CFontManager &fm )
 		std::string header = "______________________________________________________________________________________________________________________________________";
 		fm.DrawDefaultText(10, dy, colWHITE, header.c_str());
 	}
-	//else
-	//{
-	//	//Draw background quad2D
-	//	std::string info, shortInfo;
-	//	CActionToInput* action2Input = CORE->GetActionToInput();
-	//	//action2Input->GetActionInfo(ACTION_CONSOLE, info, shortInfo);
-	//	std::string l_sInfo;
-	//	baseUtils::FormatSrting(l_sInfo, "Press %s to view Console", shortInfo.c_str());
+	else
+	{
+		//Imprime la información para abrir la consola
 
-	//	uint32 width = fm->SizeX(l_sInfo.c_str());
-	//	uint32 height = fm->SizeY(l_sInfo.c_str());
+		Vect2i l_SizeRectangle;
+		Vect2i l_Screen = renderManager.GetScreenSize();
 
-	//	CColor quad2dColor(0.f,0.f,0.5f,0.7f);
-	//	CColor edgeColor = colBLACK;
-	//	edgeColor.SetAlpha(0.7f);
-	//	renderManager->DrawRectangle2D(Vect2i(6,h-25),width+5, height+4,quad2dColor,1,1,edgeColor);
+		std::string l_sInfo, l_Action;
+		CORE->GetActionToInput()->GetActionInfo("Console", l_Action);
+		baseUtils::FormatSrting (l_sInfo, "Press %s to view the Console", l_Action.c_str() );
+		l_SizeRectangle.x = fm.SizeX(l_sInfo.c_str());
+		l_SizeRectangle.y = fm.SizeY(l_sInfo.c_str());
 
-	//	
-	//	//Draw Info Text
-	//	fm->DrawDefaultText(10, h-25,colWHITE, l_sInfo.c_str());
-	//}
+		uint32 dx = 15;
+		renderManager.DrawRectangle2D(Vect2i(dx, h-15), l_SizeRectangle.x, l_SizeRectangle.y, quad2dColor, 2, 2, edgeColor);
 
-
+		fm.DrawDefaultText(dx, h-15, colWHITE, "Press %s to view the Console", l_Action.c_str());
+	}
 }
 
 void CConsole::Update(float elapsedTime)

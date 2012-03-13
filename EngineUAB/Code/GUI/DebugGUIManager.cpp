@@ -65,7 +65,9 @@ bool CDebugGUIManager::Init(const std::string &_modifiers_path, const std::strin
 
 void CDebugGUIManager::Update(float _ElapsedTime)
 {
-	m_pConsole->Update(_ElapsedTime);
+	if( !m_pDebugOptions->GetActive() )
+		m_pConsole->Update(_ElapsedTime);
+
 	m_pLogRender->Update(_ElapsedTime);
 }
 
