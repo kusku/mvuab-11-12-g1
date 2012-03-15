@@ -82,18 +82,25 @@
 	</render_draw_quad>
 	<!-- end ssao & blur -->
 	
-	<!--<capture_frame_buffer>
+	<capture_frame_buffer>
 		<dynamic_texture stage_id="0" name="FrameBufferAfterSSAO"
 			texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="3" />
-	</capture_frame_buffer>-->
+	</capture_frame_buffer>
 	
 	<!-- ssaa -->
-	<!--<set_pool_renderable_objects_technique pool="ssaa_pool" />
+	<set_pool_renderable_objects_technique pool="ssaa_pool" />
 	<render_draw_quad name="SSAA_Quad">
 		<texture stage_id="0" file="FrameBufferAfterSSAO"/>
 		<texture stage_id="1" file="NormalMapTexture"/>
-	</render_draw_quad>-->
+	</render_draw_quad><!-- -->
 	<!-- end ssaa -->
+	
+	<!-- fxaa -->
+	<!-- <set_pool_renderable_objects_technique pool="fxaa_pool" />
+	<render_draw_quad name="fxaa_quad">
+		<texture stage_id="0" file="FrameBufferAfterSSAO"/>
+	</render_draw_quad>-->
+	<!-- end fxaa -->
 	
 	<!--<capture_frame_buffer>
 		<dynamic_texture stage_id="0" name="FrameBufferAfterSSAA"
@@ -108,7 +115,7 @@
 	<!-- end color correction -->
 	
 	<!-- zblur -->
-	<capture_frame_buffer>
+	<!--<capture_frame_buffer>
 		<dynamic_texture stage_id="0" name="FrameBufferCompleteTexture"
 			texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="3" />
 	</capture_frame_buffer>
@@ -116,7 +123,7 @@
 	<render_draw_quad name="ZBlur_Quad">
 		<texture stage_id="0" file="FrameBufferCompleteTexture"/>
 		<texture stage_id="1" file="DepthMapTexture"/>
-	</render_draw_quad>
+	</render_draw_quad>-->
 	<!-- end zblur -->
 	
 	<!-- noise & vignetting -->	
@@ -124,7 +131,7 @@
 	<render_draw_quad name="NoiseAndVignetting_Quad">
 		<texture stage_id="0" file="./data/General/textures/vignette.tga" load_file="true" />
 		<texture stage_id="1" file="./data/General/textures/noiseCarlos.tga" load_file="true" />
-	</render_draw_quad>-->
+	</render_draw_quad> -->
 	<!-- end noise & vignetting -->
 	
 	<!-- TEST ONLY  -->
