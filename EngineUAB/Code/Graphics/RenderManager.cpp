@@ -125,6 +125,12 @@ bool CRenderManager::Init(HWND hWnd)
 			m_pD3DDevice->SetSamplerState(1, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
 			m_pD3DDevice->SetSamplerState(1, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR);
 
+			//FXAA
+			m_pD3DDevice->SetSamplerState(0, D3DSAMP_SRGBTEXTURE, 1);
+			m_pD3DDevice->SetSamplerState(0, D3DSAMP_SRGBTEXTURE, 0);
+			m_pD3DDevice->SetRenderState(D3DRS_SRGBWRITEENABLE,1);
+			m_pD3DDevice->SetRenderState(D3DRS_SRGBWRITEENABLE,0);
+
 			m_pD3DDevice->SetRenderState( D3DRS_CULLMODE, D3DCULL_CCW );
 			m_pD3DDevice->SetRenderState( D3DRS_ZENABLE, TRUE );
 			m_pD3DDevice->SetRenderState( D3DRS_ZWRITEENABLE, TRUE );

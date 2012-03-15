@@ -86,13 +86,13 @@ void CTestProcess::Init()
 
 	CORE->GetPhysicsManager()->AddPhysicActor(m_pSphere);
 
-	CPhysicRevoluteJoint *l_pJoint = new CPhysicRevoluteJoint;
-	l_pJoint->SetInfo(Vect3f(1.f, 0.f, 0.f),Vect3f(0.0f,20.f, 0.0f), m_pSphere);
-	l_pJoint->SetMotor(500.f, 10.f);
+	CPhysicSphericalJoint *l_pJoint = new CPhysicSphericalJoint;
+	l_pJoint->SetInfo(Vect3f(0.0f,20.f, 0.0f), m_pSphere);
+	//l_pJoint->SetMotor(500.f, 10.f);
 
-	CORE->GetPhysicsManager()->AddPhysicRevoluteJoint(l_pJoint);
+	CORE->GetPhysicsManager()->AddPhysicSphericalJoint(l_pJoint);
 	
-	l_pJoint->ActiveMotor(1000.f);
+	//l_pJoint->ActiveMotor(1000.f);
 
 	NxVec3 l_Pos = l_pJoint->GetPhXJoint()->getGlobalAnchor();
 	m_PosAnchor = Vect3f(l_Pos.x, l_Pos.y, l_Pos.z);
