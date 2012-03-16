@@ -186,13 +186,13 @@ float3 FxaaPixelShader( float2 pos, FxaaTex tex, float2 rcpFrame )
     #if FXAA_DEBUG
         float lumaO = lumaM / (1.0 + (0.587/0.299));
     #endif        
-    /*if(range < max(FXAA_EDGE_THRESHOLD_MIN, rangeMax * FXAA_EDGE_THRESHOLD)) {
+    if(range < max(FXAA_EDGE_THRESHOLD_MIN, rangeMax * FXAA_EDGE_THRESHOLD)) {
         #if FXAA_DEBUG
             return FxaaFilterReturn(FxaaToFloat3(lumaO));
         #endif
-		return FxaaFilterReturn(FxaaToFloat3(rgbM)); 
-		//return FxaaFilterReturn(FxaaToFloat3(lumaS));
-	}*/
+		//TODO: Not compile with the return
+		//return FxaaFilterReturn(rgbM); 
+	}
     #if FXAA_SUBPIX > 0
         #if FXAA_SUBPIX_FASTER
             float3 rgbL = (rgbN + rgbW + rgbE + rgbS + rgbM) * FxaaToFloat3(1.0/5.0);
@@ -350,7 +350,7 @@ float3 FxaaPixelShader( float2 pos, FxaaTex tex, float2 rcpFrame )
         pos.x + (horzSpan ? 0.0 : subPixelOffset),
         pos.y + (horzSpan ? subPixelOffset : 0.0))).xyz;
 	
-   #if FXAA_SUBPIX == 0
+	#if FXAA_SUBPIX == 0
         return FxaaFilterReturn(rgbF); 
     #else        		
        return FxaaFilterReturn(FxaaLerp3(rgbL, rgbF, blendL)); 
@@ -365,14 +365,20 @@ VertexShaderOutput mainVS(VertexShaderInput input)
 {
 	VertexShaderOutput output = (VertexShaderOutput)0;
 	output.UV = input.UV;
-	output.Position = float4(output.UV * float2(2.0f, -2.0f) + float2(-1.0f, 1.0f), 0.0f, 1.0f);
+	
+	//TODO: I don't know if it's the first or second line.
+	//output.Position = float4(output.UV * float2(2.0f, -2.0f) + float2(-1.0f, 1.0f), 0.0f, 1.0f);
+	output.Position = float4(input.Position.xyz, 1.0f);
 	return output;
 }
 
 float4 mainPS(VertexShaderOutput input) : COLOR
 {
-	//return float4( tex2D(S0LinearWrapSampler, input.UV).xyz, 1.0f);
-	return float4(FxaaPixelShader(input.UV, (FxaaTex)S0LinearWrapSampler, g_RenderTargetSize.xy), 1.0f);
+	//TODO: I don't know if it's the first or second line.
+	//float2 rcpFrame = float2(1/g_RenderTargetSize.x, 1/g_RenderTargetSize.y);
+	float2 rcpFrame = g_RenderTargetSize;
+	
+	return float4(FxaaPixelShader(input.UV, (FxaaTex)S0LinearWrapSampler, rcpFrame.xy), 1.0f);
 }
 
 /*=========================================

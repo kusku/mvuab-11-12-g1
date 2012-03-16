@@ -88,18 +88,18 @@
 	</capture_frame_buffer>
 	
 	<!-- ssaa -->
-	<set_pool_renderable_objects_technique pool="ssaa_pool" />
+	<!--<set_pool_renderable_objects_technique pool="ssaa_pool" />
 	<render_draw_quad name="SSAA_Quad">
 		<texture stage_id="0" file="FrameBufferAfterSSAO"/>
 		<texture stage_id="1" file="NormalMapTexture"/>
-	</render_draw_quad><!-- -->
+	</render_draw_quad> -->
 	<!-- end ssaa -->
 	
 	<!-- fxaa -->
-	<!-- <set_pool_renderable_objects_technique pool="fxaa_pool" />
+	<set_pool_renderable_objects_technique pool="fxaa_pool" />
 	<render_draw_quad name="fxaa_quad">
 		<texture stage_id="0" file="FrameBufferAfterSSAO"/>
-	</render_draw_quad>-->
+	</render_draw_quad><!-- -->
 	<!-- end fxaa -->
 	
 	<!--<capture_frame_buffer>
