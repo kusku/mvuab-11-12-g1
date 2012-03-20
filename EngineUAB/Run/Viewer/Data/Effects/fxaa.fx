@@ -79,32 +79,6 @@
 #endif
 /*-------------------------------------------------------------------------- */
 
-#ifndef     FXAA_DEBUG_PASSTHROUGH
-    #define FXAA_DEBUG_PASSTHROUGH 0
-#endif    
-#ifndef     FXAA_DEBUG_HORZVERT
-    #define FXAA_DEBUG_HORZVERT    0
-#endif    
-#ifndef     FXAA_DEBUG_PAIR   
-    #define FXAA_DEBUG_PAIR        0
-#endif    
-#ifndef     FXAA_DEBUG_NEGPOS
-    #define FXAA_DEBUG_NEGPOS      0
-#endif
-#ifndef     FXAA_DEBUG_OFFSET
-    #define FXAA_DEBUG_OFFSET      0
-#endif  
-
-#if FXAA_DEBUG_PASSTHROUGH || FXAA_DEBUG_HORZVERT || FXAA_DEBUG_PAIR
-    #define FXAA_DEBUG 1
-#endif    
-#if FXAA_DEBUG_NEGPOS || FXAA_DEBUG_OFFSET
-    #define FXAA_DEBUG 1
-#endif
-#ifndef FXAA_DEBUG
-    #define FXAA_DEBUG 0
-#endif
-
 #define FXAA_SUBPIX_TRIM_SCALE (1.0/(1.0 - FXAA_SUBPIX_TRIM))
 
 float2 g_RenderTargetSize : RENDER_TARGET_SIZE;
@@ -183,13 +157,7 @@ float3 FxaaPixelShader( float2 pos, FxaaTex tex, float2 rcpFrame )
     float rangeMin = min(lumaM, min(min(lumaN, lumaW), min(lumaS, lumaE)));
     float rangeMax = max(lumaM, max(max(lumaN, lumaW), max(lumaS, lumaE)));
     float range = rangeMax - rangeMin;
-    #if FXAA_DEBUG
-        float lumaO = lumaM / (1.0 + (0.587/0.299));
-    #endif        
     if(range < max(FXAA_EDGE_THRESHOLD_MIN, rangeMax * FXAA_EDGE_THRESHOLD)) {
-        #if FXAA_DEBUG
-            return FxaaFilterReturn(FxaaToFloat3(lumaO));
-        #endif
 		//TODO: Not compile with the return
 		//return FxaaFilterReturn(rgbM); 
 	}
@@ -213,13 +181,6 @@ float3 FxaaPixelShader( float2 pos, FxaaTex tex, float2 rcpFrame )
     #if FXAA_SUBPIX == 2
         float blendL = rangeL / range; 
     #endif
-    #if FXAA_DEBUG_PASSTHROUGH
-        #if FXAA_SUBPIX == 0
-            float blendL = 0.0;
-        #endif
-        return FxaaFilterReturn(
-            FxaaFloat3(1.0, blendL/FXAA_SUBPIX_CAP, 0.0));
-    #endif    
 	
 	float3 rgbNW = FxaaTexOff(tex, pos.xy, FxaaInt2(-1,-1), rcpFrame).xyz;
     float3 rgbNE = FxaaTexOff(tex, pos.xy, FxaaInt2( 1,-1), rcpFrame).xyz;
@@ -242,10 +203,7 @@ float3 FxaaPixelShader( float2 pos, FxaaTex tex, float2 rcpFrame )
         abs((0.50 * lumaN ) + (-1.0 * lumaM) + (0.50 * lumaS )) +
         abs((0.25 * lumaNE) + (-0.5 * lumaE) + (0.25 * lumaSE));
     bool horzSpan = edgeHorz >= edgeVert;
-    #if FXAA_DEBUG_HORZVERT
-        if(horzSpan) return FxaaFilterReturn(FxaaFloat3(1.0, 0.75, 0.0));
-        else         return FxaaFilterReturn(FxaaFloat3(0.0, 0.50, 1.0));
-    #endif
+   
     float lengthSign = horzSpan ? -rcpFrame.y : -rcpFrame.x;
     if(!horzSpan) lumaN = lumaW;
     if(!horzSpan) lumaS = lumaE;
@@ -255,10 +213,7 @@ float3 FxaaPixelShader( float2 pos, FxaaTex tex, float2 rcpFrame )
     lumaS = (lumaS + lumaM) * 0.5;
 	
 	bool pairN = gradientN >= gradientS;
-    #if FXAA_DEBUG_PAIR
-        if(pairN) return FxaaFilterReturn(FxaaFloat3(0.0, 0.0, 1.0));
-        else      return FxaaFilterReturn(FxaaFloat3(0.0, 1.0, 0.0));
-    #endif
+   
     if(!pairN) lumaN = lumaS;
     if(!pairN) gradientN = gradientS;
     if(!pairN) lengthSign *= -1.0;
@@ -317,10 +272,7 @@ float3 FxaaPixelShader( float2 pos, FxaaTex tex, float2 rcpFrame )
 	float dstN = horzSpan ? pos.x - posN.x : pos.y - posN.y;
     float dstP = horzSpan ? posP.x - pos.x : posP.y - pos.y;
     bool directionN = dstN < dstP;
-    #if FXAA_DEBUG_NEGPOS
-        if(directionN) return FxaaFilterReturn(FxaaFloat3(1.0, 0.0, 0.0));
-        else           return FxaaFilterReturn(FxaaFloat3(0.0, 0.0, 1.0));
-    #endif
+   
     lumaEndN = directionN ? lumaEndN : lumaEndP;
 	
 	if(((lumaM - lumaN) < 0.0) == ((lumaEndN - lumaN) < 0.0)) 
@@ -329,23 +281,7 @@ float3 FxaaPixelShader( float2 pos, FxaaTex tex, float2 rcpFrame )
 	float spanLength = (dstP + dstN);
     dstN = directionN ? dstN : dstP;
     float subPixelOffset = (0.5 + (dstN * (-1.0/spanLength))) * lengthSign;
-    #if FXAA_DEBUG_OFFSET
-        float ox = horzSpan ? 0.0 : subPixelOffset*2.0/rcpFrame.x;
-        float oy = horzSpan ? subPixelOffset*2.0/rcpFrame.y : 0.0;
-        if(ox < 0.0) return FxaaFilterReturn(
-            FxaaLerp3(FxaaToFloat3(lumaO), 
-                      FxaaFloat3(1.0, 0.0, 0.0), -ox));
-        if(ox > 0.0) return FxaaFilterReturn(
-            FxaaLerp3(FxaaToFloat3(lumaO), 
-                      FxaaFloat3(0.0, 0.0, 1.0),  ox));
-        if(oy < 0.0) return FxaaFilterReturn(
-            FxaaLerp3(FxaaToFloat3(lumaO), 
-                      FxaaFloat3(1.0, 0.6, 0.2), -oy));
-        if(oy > 0.0) return FxaaFilterReturn(
-            FxaaLerp3(FxaaToFloat3(lumaO), 
-                      FxaaFloat3(0.2, 0.6, 1.0),  oy));
-        return FxaaFilterReturn(FxaaFloat3(lumaO, lumaO, lumaO));
-    #endif
+   
     float3 rgbF = FxaaTexLod0(tex, FxaaFloat2(
         pos.x + (horzSpan ? 0.0 : subPixelOffset),
         pos.y + (horzSpan ? subPixelOffset : 0.0))).xyz;
@@ -378,7 +314,7 @@ float4 mainPS(VertexShaderOutput input) : COLOR
 	//float2 rcpFrame = float2(1/g_RenderTargetSize.x, 1/g_RenderTargetSize.y);
 	float2 rcpFrame = g_RenderTargetSize;
 	
-	return float4(FxaaPixelShader(input.UV, (FxaaTex)S0LinearWrapSampler, rcpFrame.xy), 1.0f);
+	return float4(FxaaPixelShader(input.UV, (FxaaTex)S0AnisotropicWrapSampler, rcpFrame.xy), 1.0f);
 }
 
 /*=========================================
