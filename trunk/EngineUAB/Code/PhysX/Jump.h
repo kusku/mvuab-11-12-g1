@@ -10,6 +10,7 @@
 //		y(t) = g*t^2 + v0*t + y0
 //----------------------------------------------------------------------------------
 #pragma once
+
 #ifndef INC_JUMP_H_
 #define INC_JUMP_H_
 
@@ -17,12 +18,12 @@ class CJump
 {
 
 public:
-	CJump(): m_bJump(false), m_fV0(0.0f), m_fJumpTime(0.0f), m_fG(-98.1f), m_fDefaultGravity(-9.8f){}
-	~CJump() {/*Nothing*/}
+	CJump();
+	~CJump()			{ /*Nothing*/ }
 
-	void	StartJump	(float v0);
+	void	StartJump	( float v0 );
 	void	StopJump	();
-	float	GetHeight	(float elapsedTime);
+	float	GetHeight	( float elapsedTime );
 
 private:
 

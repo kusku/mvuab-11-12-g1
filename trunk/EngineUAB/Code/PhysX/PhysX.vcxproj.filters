@@ -3,10 +3,7 @@
   <ItemGroup>
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="PhysicStream.cpp" />
-    <ClCompile Include="Jump.cpp" />
     <ClCompile Include="PhysicASELoader.cpp" />
-    <ClCompile Include="PhysicController.cpp" />
-    <ClCompile Include="PhysicCookingMesh.cpp" />
     <ClCompile Include="PhysicMaterial.cpp" />
     <ClCompile Include="PhysxBone.cpp" />
     <ClCompile Include="PhysxGrenade.cpp" />
@@ -32,14 +29,20 @@
     <ClCompile Include="PhysicCollisionReport.cpp">
       <Filter>Trigger</Filter>
     </ClCompile>
+    <ClCompile Include="PhysicCookingMesh.cpp">
+      <Filter>Cooking Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicController.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Jump.cpp">
+      <Filter>Jump</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="PhysicStream.h" />
-    <ClInclude Include="Jump.h" />
     <ClInclude Include="PhysicASELoader.h" />
-    <ClInclude Include="PhysicController.h" />
-    <ClInclude Include="PhysicCookingMesh.h" />
     <ClInclude Include="PhysicMaterial.h" />
     <ClInclude Include="PhysxBone.h" />
     <ClInclude Include="PhysxGrenade.h" />
@@ -65,6 +68,22 @@
     <ClInclude Include="PhysicCollisionReport.h">
       <Filter>Trigger</Filter>
     </ClInclude>
+    <ClInclude Include="PhysicsDefs.h" />
+    <ClInclude Include="PhysicCookingMesh.h">
+      <Filter>Cooking Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicController.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Jump.h">
+      <Filter>Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsControllerHitReport.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="JointsDefs.h">
+      <Filter>Joints</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Utils">
@@ -78,6 +97,12 @@
     </Filter>
     <Filter Include="Joints">
       <UniqueIdentifier>{a3367ee8-1d9e-4d7c-8946-2c84f98e133b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cooking Mesh">
+      <UniqueIdentifier>{f281ad94-02ae-4a64-aa8c-53475e8b9fb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Jump">
+      <UniqueIdentifier>{7f23cc2c-a256-4c9d-ae24-82d99fb617ed}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

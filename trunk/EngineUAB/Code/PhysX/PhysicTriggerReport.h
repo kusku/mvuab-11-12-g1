@@ -23,11 +23,13 @@ class CPhysicUserData;
 class CPhysicTriggerReport: public NxUserTriggerReport   
 {    
 public:
-	CPhysicTriggerReport() {;}
+	CPhysicTriggerReport() 
+	{
+	}
 	virtual ~CPhysicTriggerReport() {/*Nothing*/;}
 
 	//---NxUserTriggerReport Interface---
-	void					onTrigger	(NxShape& triggerShape, NxShape& otherShape, NxTriggerFlag status);
+	void			onTrigger	(NxShape& triggerShape, NxShape& otherShape, NxTriggerFlag status);
 	//-----------------------------------
 
 	//---CPhysicTrigger Interface---

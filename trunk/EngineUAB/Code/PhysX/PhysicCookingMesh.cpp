@@ -17,6 +17,14 @@
 //----------------------------------------------------------------------------
 // Init data
 //----------------------------------------------------------------------------
+CPhysicCookingMesh::CPhysicCookingMesh()
+	: m_bIsOk(false)
+	, m_pPhysicSDK(NULL)
+	, m_pMyAllocator(NULL)
+	, m_pCooking(NULL) 
+{
+}
+
 bool CPhysicCookingMesh::Init (NxPhysicsSDK* physicSDK, CPhysicUserAllocator* myAllocator)
 {
 

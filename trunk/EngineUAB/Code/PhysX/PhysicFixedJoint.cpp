@@ -3,9 +3,11 @@
 #include "NxFixedJointDesc.h"
 #include "PhysicActor.h"
 #include "Logger\Logger.h"
-#include "base.h"
+#include "Base.h"
 
+#if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
+#endif
 
 CPhysicFixedJoint::CPhysicFixedJoint()
 : m_pJoint(NULL)

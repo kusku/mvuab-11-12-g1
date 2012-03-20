@@ -30,6 +30,7 @@
     <ClCompile Include="PhysxSkeleton.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="JointsDefs.h" />
     <ClInclude Include="Jump.h" />
     <ClInclude Include="PhysicActor.h" />
     <ClInclude Include="PhysicASELoader.h" />
@@ -39,6 +40,8 @@
     <ClInclude Include="PhysicFixedJoint.h" />
     <ClInclude Include="PhysicMaterial.h" />
     <ClInclude Include="PhysicRevoluteJoint.h" />
+    <ClInclude Include="PhysicsControllerHitReport.h" />
+    <ClInclude Include="PhysicsDefs.h" />
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="PhysicSphericalJoint.h" />
     <ClInclude Include="PhysicStream.h" />

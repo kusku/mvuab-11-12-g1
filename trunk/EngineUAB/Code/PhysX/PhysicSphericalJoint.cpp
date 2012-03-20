@@ -3,10 +3,11 @@
 #include "NxSphericalJointDesc.h"
 #include "PhysicActor.h"
 #include "Logger\Logger.h"
-
 #include "base.h"
 
+#if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
+#endif
 
 CPhysicSphericalJoint::CPhysicSphericalJoint()
 : m_pJoint(NULL)
