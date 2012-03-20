@@ -24,18 +24,20 @@ public:
 	CPhysicRevoluteJoint();
 	~CPhysicRevoluteJoint();
 
-	void									CreateJoint			(NxJoint* joint);
-	void									SetInfo					(const Vect3f& axis, const Vect3f& anchor, CPhysicActor* actorA,  CPhysicActor* actorB = 0);
-	void									SetMotor				(float maxForce, float veltarget, bool limit=false, float limHigh=0.f, float limLow=0.f);
-	void									ActiveMotor			(float velocity);
+	void					CreateJoint			(NxJoint* joint);
+	void					SetInfo				(const Vect3f& axis, const Vect3f& anchor, CPhysicActor* actorA,  CPhysicActor* actorB = 0);
+
+	void					SetMotor			(float maxForce, float veltarget, bool limit=false, float limHigh=0.f, float limLow=0.f);
+	void					ActiveMotor			(float velocity);
+
 	//---Get PhsX Info---
-	NxJoint*							GetPhXJoint			() {return m_pJoint;}
-	NxRevoluteJointDesc*	GetPhXDescJoint	() {return m_pRevoluteDesc;}
+	NxJoint*				GetPhXJoint			() const		{ return m_pJoint; }
+	NxRevoluteJointDesc*	GetPhXDescJoint		() const		{ return m_pRevoluteDesc; }
 
 
 private:
-	NxJoint*							m_pJoint;
-	NxRevoluteJointDesc*	m_pRevoluteDesc;
+	NxJoint					*m_pJoint;
+	NxRevoluteJointDesc		*m_pRevoluteDesc;
 };
 
 #endif //INC_PHYSIC_REVOLUTE_JOINT_H_

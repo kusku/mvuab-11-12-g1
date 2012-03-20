@@ -24,7 +24,7 @@
 
 
 
-bool CPhysxSkeleton::Init(const string& _szFileName, CalModel* _pCalModel, Mat44f _vMat, int _iColisionGroup, CGameEntity *_pEntity)
+bool CPhysxSkeleton::Init(const std::string& _szFileName, CalModel* _pCalModel, Mat44f _vMat, int _iColisionGroup, CGameEntity *_pEntity)
 {
   m_pEntity = _pEntity;
   m_mTransform = _vMat;
@@ -87,7 +87,7 @@ void CPhysxSkeleton::Release()
 }
 
 
-bool CPhysxSkeleton::Load(const string& _szFileName)
+bool CPhysxSkeleton::Load(const std::string& _szFileName)
 {
   CXMLTreeNode l_XML;
   CXMLTreeNode l_XMLObjects;
@@ -145,7 +145,7 @@ bool CPhysxSkeleton::Load(const string& _szFileName)
 }
 
 
-CPhysxBone* CPhysxSkeleton::GetPhysxBoneByName(const string& _szName)
+CPhysxBone* CPhysxSkeleton::GetPhysxBoneByName(const std::string& _szName)
 {
 
   CPhysxBone* l_pBone = 0;
@@ -167,7 +167,7 @@ CPhysxBone* CPhysxSkeleton::GetPhysxBoneByName(const string& _szName)
 
 
 //Main function pels Joints.
-bool CPhysxSkeleton::InitPhysXJoints(const string& _szFileName)
+bool CPhysxSkeleton::InitPhysXJoints(const std::string& _szFileName)
 {
 
   CXMLTreeNode l_XML;
@@ -551,7 +551,7 @@ void CPhysxSkeleton::SleepPhysxBones()
   }
 };
 
-bool CPhysxSkeleton::IsRagdollPhysXActor(const string& _szName)
+bool CPhysxSkeleton::IsRagdollPhysXActor(const std::string& _szName)
 {
   for(size_t i=0;i<m_vBones.size();++i)
   {

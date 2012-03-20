@@ -9,43 +9,12 @@
 #include "NxController.h"
 #include "PhysicsManager.h"
 #include "NxCapsuleController.h"
+#include "PhysicsControllerHitReport.h"
 //---------------------//
 
 #if defined (_DEBUG)
 #include "Memory\MemLeaks.h"
 #endif
-
-
-class CPhysicsControllerHitReport : public NxUserControllerHitReport
-{
-	public:
-
-	virtual NxControllerAction onShapeHit(const NxControllerShapeHit& hit)
-	{
-		if(hit.shape)
-		{
-			NxCollisionGroup group = hit.shape->getGroup();
-			if(group==ECG_OBJECTES_DINAMICS)
-			{
-				NxActor& actor = hit.shape->getActor();
-
-					if(hit.dir.y==0.0f)
-					{
-              NxF32 coeff = actor.getMass() * hit.length * 10.0f;
-              actor.addForceAtLocalPos(hit.dir*coeff, NxVec3(0,0,0), NX_IMPULSE);
-          }
-			}
-		}
-
-		return NX_ACTION_NONE;
-	}
-
-	virtual NxControllerAction onControllerHit(const NxControllersHit& hit)
-	{
-		return NX_ACTION_NONE;
-	}
-};
-
 
 CPhysicController::CPhysicController(float radius, float height, float slope, float skinwidth, float stepOffset,
 									uint32 collisionGroups, CPhysicUserData* userData, const Vect3f& pos, float gravity)
@@ -93,15 +62,15 @@ void CPhysicController::CreateController (NxController* controller, NxScene* sce
 {
 	m_pPhXScene = scene;
 	m_pPhXController = controller;
+
 	assert(m_pPhXScene);
 	assert(m_pPhXController);
-	CHECKED_DELETE(m_pPhXControllerDesc);
 
+	CHECKED_DELETE(m_pPhXControllerDesc);
 }
 
 void CPhysicController::SetPosition	(const Vect3f& pos)
 {
-  
 	if (m_pPhXController != NULL)
 	{
 		NxExtendedVec3 position;

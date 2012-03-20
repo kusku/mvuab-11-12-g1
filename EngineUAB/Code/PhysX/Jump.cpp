@@ -1,7 +1,18 @@
 #include "base.h"
 #include "Jump.h"
 
+#if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
+#endif
+
+CJump::CJump()
+	: m_bJump(false)
+	, m_fV0(0.0f)
+	, m_fJumpTime(0.0f)
+	, m_fG(-98.1f)
+	, m_fDefaultGravity(-9.8f)
+{
+}
 
 void CJump::StartJump(float v0)
 {

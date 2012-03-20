@@ -28,9 +28,7 @@ enum CollisionGroup
 	GROUP_COLLIDABLE_PUSHABLE,
 };
 
-
-
-class CPhysicController:public CObject3D
+class CPhysicController : public CObject3D
 {
 public:
 	CPhysicController(	float radius, float height, float slope, float skinwidth, 
@@ -62,9 +60,10 @@ public:
 
 private:
 
-	CPhysicUserData*	m_pUserData;
+	CPhysicUserData					*m_pUserData;
   //CPhysicsControllerHitReport m_Report;
-	void*							m_Report;
+
+	void							*m_Report;
 	uint32							m_uCollisionGroups;
 	CJump							m_Jump;
 	float							m_fGravity;
@@ -77,9 +76,9 @@ private:
   bool m_bUseGravity;
 
 	//--- PhysX--
-	NxCapsuleControllerDesc*	m_pPhXControllerDesc;
-	NxController*							m_pPhXController;
-	NxScene*									m_pPhXScene;
+	NxCapsuleControllerDesc			*m_pPhXControllerDesc;
+	NxController*					m_pPhXController;
+	NxScene*						m_pPhXScene;
 
 };
 

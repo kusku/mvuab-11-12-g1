@@ -5,7 +5,9 @@
 #include "PhysicActor.h"
 #include "Logger\Logger.h"
 
+#if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
+#endif
 
 CPhysicRevoluteJoint::CPhysicRevoluteJoint()
 : m_pJoint(NULL)

@@ -12,6 +12,10 @@
 #include "NxPhysics.h"
 //-------------------------------
 
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
+
 CPhysicActor::CPhysicActor(CPhysicUserData* userData)
 : m_pUserData(userData)
 , m_pPhXActor(NULL)
@@ -20,7 +24,8 @@ CPhysicActor::CPhysicActor(CPhysicUserData* userData)
 {
 
 	assert(m_pUserData);
-  userData->SetActor(this);
+
+	userData->SetActor(this);
 	m_pPhXActorDesc = new NxActorDesc();
 	m_pPhXBodyDesc = new NxBodyDesc();
 }
@@ -130,7 +135,7 @@ void CPhysicActor::SetActorSolverIterationCount(int _iCount)
   }
 }
 
-void CPhysicActor::SetContactReportFlags(unsigned int _uiFlags)
+void CPhysicActor::SetContactReportFlags(uint32 _uiFlags)
 {
   if(m_pPhXActor)
   {

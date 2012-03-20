@@ -25,7 +25,7 @@ public:
 
   virtual void Release();
 
-  bool              Init(const string& _szFileName, CalModel* _pCalModel, Mat44f _vMat, int _iColisionGroup, CGameEntity *_pEntity = 0);
+  bool              Init(const std::string& _szFileName, CalModel* _pCalModel, Mat44f _vMat, int _iColisionGroup, CGameEntity *_pEntity = 0);
   const CalSkeleton* GetSkeleton()                        {return m_pCalSkeleton;};
   void              SetSkeleton(CalSkeleton* _pSkeleton)  {m_pCalSkeleton = _pSkeleton;};
   const Mat44f&     GetTransform()                 {return m_mTransform;};
@@ -40,8 +40,8 @@ public:
   void              WakeUpPhysxBones();
   void              SleepPhysxBones();
   void              SetCollisions(bool _bValue);
-  bool              IsRagdollPhysXActor(const string& _szName);
-  CPhysxBone*       GetPhysxBoneByName(const string& _szName);
+  bool              IsRagdollPhysXActor(const std::string& _szName);
+  CPhysxBone*       GetPhysxBoneByName(const std::string& _szName);
 
   void              SetContactReportFlags(unsigned int _uiFlags);
   void              SetContactReportThreshold(float _fThreshold);
@@ -51,9 +51,9 @@ public:
 
 private:
   //Funcions per inicialitzar el esquelet corresponent
-  bool              Load(const string& _szFileName);
+  bool              Load(const std::string& _szFileName);
   void              InitParents();
-  bool              InitPhysXJoints(const string& _szFileName);
+  bool              InitPhysXJoints(const std::string& _szFileName);
 
   //Funcions per afegir joints al Skeleton.
   bool				              AddSphericalJoint(CXMLTreeNode _XMLObjects);
@@ -64,14 +64,14 @@ private:
   void UpdateCal3dFromPhysx();
   void UpdatePhysxFromCal3d();
 
-  CalSkeleton*                    m_pCalSkeleton;
-  Mat44f                          m_mTransform;
-  vector<CPhysxBone*>             m_vBones;
-  vector<CPhysicFixedJoint*>      m_vFixedJoints;
-  vector<CPhysicSphericalJoint*>  m_vSphericalJoints;
-  vector<CPhysicRevoluteJoint*>   m_vRevoluteJoints;
-  bool                            m_bRagdollActive;
-  CGameEntity*                    m_pEntity;
+  CalSkeleton*							m_pCalSkeleton;
+  Mat44f								m_mTransform;
+  std::vector<CPhysxBone*>				m_vBones;
+  std::vector<CPhysicFixedJoint*>		m_vFixedJoints;
+  std::vector<CPhysicSphericalJoint*>	m_vSphericalJoints;
+  std::vector<CPhysicRevoluteJoint*>	m_vRevoluteJoints;
+  bool									m_bRagdollActive;
+  CGameEntity*							m_pEntity;
 };
 
 #endif 

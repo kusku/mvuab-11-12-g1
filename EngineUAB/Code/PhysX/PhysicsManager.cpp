@@ -41,6 +41,18 @@
 //----------------------------------------------------------------------------
 // Init data
 //----------------------------------------------------------------------------
+CPhysicsManager::CPhysicsManager()
+	: m_bIsOk(false)
+	, m_bDebugRenderMode(true)
+	, m_pPhysicsSDK(NULL)
+	, m_pScene(NULL)
+	, m_pControllerManager(NULL)
+	, m_pMyAllocator(NULL)
+	, m_pCookingMesh(NULL)
+	, m_InitParams() 
+{
+}
+
 bool CPhysicsManager::Init (const string& _physXConfig)
 {
 	m_szConfigFileName = _physXConfig;
@@ -888,9 +900,7 @@ void CPhysicsManager::ApplyExplosion(NxActor* _pActor,const Vect3f& _vPosSphere,
 
 }
 
-
-
-int GetCollisionGroup(const string& _szGroup)
+int GetCollisionGroup(const std::string& _szGroup)
 {
 	if(_szGroup == "escenari")
 	{
