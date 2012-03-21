@@ -596,7 +596,7 @@ inline Vector4<T>& Vector4<T>::Normalize (const T tk)
 #else
   //--------------------------------------------<<<
   // Sin chequeo
-  T aux = tk / Lenght(); 
+  T aux = tk / Length(); 
   x *= aux;
   y *= aux;
   z *= aux;

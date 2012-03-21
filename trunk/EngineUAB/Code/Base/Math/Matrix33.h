@@ -108,22 +108,22 @@ public:
   inline Matrix33<T>& SetScale          (const T escala_x, const T escala_y, const T escala_z);
   
 
-  // Acceso
-  inline Vector3<T>        GetRow                  (int i) const;
-  inline Vector3<T>				 GetColum                (int i) const;
-  inline Vector3<T>				 GetVectorBasis          (int i) const;
-	inline T								 GetVectorBasisLength    (int i) const;
-  inline void              GetBasis                (Vector3<T>& vBasisX,
+	// Acceso
+	inline Vector3<T>		GetRow                  (int i) const;
+	inline Vector3<T>		GetColum                (int i) const;
+	inline Vector3<T>		GetVectorBasis          (int i) const;
+	inline T				GetVectorBasisLength    (int i) const;
+	inline void				GetBasis                (Vector3<T>& vBasisX,
                                                     Vector3<T>& vBasisY,
                                                     Vector3<T>& vBasisZ) const;
-  inline Matrix33<T>       Get33RotationNormalized () const;
-  inline Matrix33<T>       Get33RotationScaled     () const;
-  inline Matrix33<T>       Get33Scale              () const;
+	inline Matrix33<T>		Get33RotationNormalized () const;
+	inline Matrix33<T>		Get33RotationScaled     () const;
+	inline Matrix33<T>		Get33Scale              () const;
 
-  inline Vector3<T>        GetScale                () const;
-  inline T                 GetScaleX               () const;
-  inline T                 GetScaleY               () const;
-  inline T                 GetScaleZ               () const;
+	inline Vector3<T>		GetScale                () const;
+	inline T				GetScaleX               () const;
+	inline T				GetScaleY               () const;
+	inline T				GetScaleZ               () const;
 
   // Angulos de Euler
   void GetAnglesYXZ (T& angleY, T& angleX, T& angleZ) const;
