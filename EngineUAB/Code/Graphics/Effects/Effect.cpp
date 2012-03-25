@@ -88,7 +88,7 @@ bool CEffect::LoadEffect()
 {
 	LPD3DXBUFFER l_ErrorBuffer=NULL;
 	HRESULT l_HR=D3DXCreateEffectFromFile(CORE->GetRenderManager()->GetDevice(), m_FileName.c_str(), NULL,
-		NULL, D3DXSHADER_USE_LEGACY_D3DX9_31_DLL, NULL, &m_Effect, &l_ErrorBuffer);
+		NULL, D3DXSHADER_DEBUG, NULL, &m_Effect, &l_ErrorBuffer);
 	
 	if(FAILED(l_HR) || l_ErrorBuffer)
 	{
