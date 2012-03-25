@@ -22,6 +22,8 @@
 	
 	<effect name="basic_build_shadow_map" 						file="./data/effects/BasicBuildShadowMap.fx" />
 	
+	<effect name="sky_sphere_effect" 							file="./data/effects/SkySphereEffect.fx" />
+	
 	<effect name="ssaa" 										file="./data/effects/SSAA.fx" />
 	<effect name="fxaa" 										file="./data/effects/fxaa.fx" />
 	<effect name="ssao" 										file="./data/effects/SSAO.fx" />
@@ -31,6 +33,8 @@
 	<!-- ......... EFFECTS ............ -->
 	
 	<!-- ................. TECHNIQUES ................. -->
+	<technique name="SkyEffect" effect="sky_sphere_effect" use_world_view_projection_matrix="true" />
+		
 	<technique name="Cal3DTechnique" effect="cal_3D_effect"
 		use_world_matrix="true" use_world_view_projection_matrix="true" />
 	
