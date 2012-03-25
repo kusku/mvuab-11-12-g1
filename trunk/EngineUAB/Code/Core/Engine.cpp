@@ -174,10 +174,10 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 			}
 			else if( l_Name == "RenderColor" )
 			{
-				std::string color = l_ConfigNode(i).GetPszProperty( "colorDebug", "blue" );
+				std::string color = l_ConfigNode(i).GetPszProperty( "colorDebug", "transparent" );
 				m_Config.color_debug = string2Color( color );
 
-				color = l_ConfigNode(i).GetPszProperty( "colorRelease", "black" );
+				color = l_ConfigNode(i).GetPszProperty( "colorRelease", "transparent" );
 				m_Config.color_release = string2Color( color );
 			}
 			else if( l_Name == "ActionToInput" )
@@ -295,6 +295,10 @@ const CColor CEngine::string2Color(const std::string &color)
 	else if( color == "cyan" )
 	{
 		return colCYAN;
+	}
+	else if( color == "transparent" )
+	{
+		return colTRANSPARENT;
 	}
 	else
 	{

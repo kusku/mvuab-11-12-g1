@@ -27,11 +27,12 @@ public:
 	bool		SetLight		(CLight* light);
 
 	//DirectX Methods Interface
-	LPD3DXEFFECT	GetD3DEffect			() const		{ return m_Effect; }
-	D3DXHANDLE		GetTechniqueByName		( const std::string &TechniqueName );
+	LPD3DXEFFECT	GetD3DEffect						() const		{ return m_Effect; }
+	D3DXHANDLE		GetTechniqueByName					( const std::string &TechniqueName );
+	void			GetParameterBySemantic				( const std::string &SemanticName, D3DXHANDLE &l_Handle, bool Warning = true );
 
 	//Get Methods
-	const std::string&	GetEffectName		() const		{ return m_EffectName; }
+	const std::string&	GetEffectName					() const		{ return m_EffectName; }
 
 	D3DXHANDLE		GetWorldMatrix						() const		{ return m_WorldMatrixParameter; }
 	D3DXHANDLE		GetViewMatrix						() const		{ return m_ViewMatrixParameter; }
@@ -83,7 +84,6 @@ public:
 
 private:
 	void		SetNullParameters			();
-	void		GetParameterBySemantic		( const std::string &SemanticName, D3DXHANDLE &l_Handle, bool Warning = true );
 	bool		LoadEffect					();
 	void		Unload						();
 

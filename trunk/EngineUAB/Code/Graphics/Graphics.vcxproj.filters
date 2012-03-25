@@ -184,6 +184,18 @@
     <ClInclude Include="Commands\RenderDebugProcessSceneRendererCommand.h">
       <Filter>Commands\Command</Filter>
     </ClInclude>
+    <ClInclude Include="RenderableObjects\Primitive Meshes\SphereMesh.h">
+      <Filter>RenderableObjects\Primitive Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Sky Covers\SkySphere.h">
+      <Filter>Sky Covers</Filter>
+    </ClInclude>
+    <ClInclude Include="Textures\TextureCube.h">
+      <Filter>Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\SkySphereCommand.h">
+      <Filter>Commands\Command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
@@ -356,6 +368,18 @@
     <ClCompile Include="Commands\RenderDebugProcessSceneRendererCommand.cpp">
       <Filter>Commands\Command</Filter>
     </ClCompile>
+    <ClCompile Include="RenderableObjects\Primitive Meshes\SphereMesh.cpp">
+      <Filter>RenderableObjects\Primitive Meshes</Filter>
+    </ClCompile>
+    <ClCompile Include="Sky Covers\SkySphere.cpp">
+      <Filter>Sky Covers</Filter>
+    </ClCompile>
+    <ClCompile Include="Textures\TextureCube.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\SkySphereCommand.cpp">
+      <Filter>Commands\Command</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Cameras">
@@ -399,6 +423,12 @@
     </Filter>
     <Filter Include="Effects\Materials">
       <UniqueIdentifier>{91935067-035d-4949-9e24-d80ac4ad87e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderableObjects\Primitive Meshes">
+      <UniqueIdentifier>{8cfd9b9e-7b8f-4b5d-ac35-51276cc85170}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sky Covers">
+      <UniqueIdentifier>{96fe2d3c-ec5a-4885-b873-aa56e06f5d08}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
