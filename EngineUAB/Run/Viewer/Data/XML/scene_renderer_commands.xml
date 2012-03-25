@@ -11,6 +11,10 @@
 	<set_pool_renderable_objects_technique pool="Basic_Build_Shadow_Map" />
 	<generate_shadow_maps />
 	
+	<!-- SkySphere -->
+	<SkySphere SkyTexture="./Data/General/Textures/SkySphereTexture.dds" SkyEffectTechnique="SkyEffect" />
+	
+	<!-- Deferred -->
 	<set_render_target name="deferred_multiple_render_target">
 		<dynamic_texture stage_id="0" name="DiffuseMapTexture" texture_width_as_frame_buffer="true" format_type="A16B16G16R16" mipmaps="3" />
 		<dynamic_texture stage_id="1" name="NormalMapTexture" texture_width_as_frame_buffer="true" format_type="A16B16G16R16F" mipmaps="3" />

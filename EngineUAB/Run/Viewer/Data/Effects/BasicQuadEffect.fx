@@ -45,7 +45,11 @@ technique BasicQuadEffect
 {
 	pass p0
 	{
-		AlphaBlendEnable = false;
+		AlphaBlendEnable 	= true;
+		SrcBlend			= SrcAlpha;
+		DestBlend			= InvSrcAlpha;
+		BlendOp				= Add;
+		
 		CullMode = CCW;
 		VertexShader = compile vs_3_0 VertexShaderFunction();
 		PixelShader = compile ps_3_0 PixelShaderFunction();
