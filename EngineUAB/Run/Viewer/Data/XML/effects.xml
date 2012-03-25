@@ -33,7 +33,8 @@
 	<!-- ......... EFFECTS ............ -->
 	
 	<!-- ................. TECHNIQUES ................. -->
-	<technique name="SkyEffect" effect="sky_sphere_effect" use_world_view_projection_matrix="true" />
+	<technique name="SkySphereEffect" effect="sky_sphere_effect" use_world_view_projection_matrix="true" />
+	<technique name="SkySphereEffectDeferred" effect="sky_sphere_effect" use_world_view_projection_matrix="true" />
 		
 	<technique name="Cal3DTechnique" effect="cal_3D_effect"
 		use_world_matrix="true" use_world_view_projection_matrix="true" />
