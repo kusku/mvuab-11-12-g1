@@ -80,7 +80,7 @@ bool CRenderManager::Init(HWND hWnd)
 			d3dpp.Windowed          = FALSE;
 			d3dpp.BackBufferWidth   = m_SizeScreen.x;
 			d3dpp.BackBufferHeight  = m_SizeScreen.y;
-			d3dpp.BackBufferFormat = D3DFMT_R5G6B5;
+			d3dpp.BackBufferFormat = D3DFMT_A8R8G8B8;
 		}
 		else
 		{

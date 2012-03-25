@@ -74,11 +74,22 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 		Vect2i position = g_Engine->GetPosition();
 		Vect2i resolution = g_Engine->GetResolution();
 
+		LONG wsOpt = 0;
+
+		if(g_Engine->GetConfig().bFullscreen)
+		{
+			wsOpt = WS_POPUP;
+		}
+		else
+		{
+			wsOpt = WS_OVERLAPPEDWINDOW;
+		}
+	
+
 		// Create the application's window
-		HWND hWnd = CreateWindow(	APPLICATION_NAME, APPLICATION_NAME, WS_OVERLAPPEDWINDOW, position.x, position.y,
+		HWND hWnd = CreateWindow(	APPLICATION_NAME, APPLICATION_NAME, wsOpt, position.x, position.y,
 			resolution.x, resolution.y, NULL, NULL, wc.hInstance, NULL );
 
-	
 		// Init de la applicacioón
 		g_Engine->Init( hWnd );
 
