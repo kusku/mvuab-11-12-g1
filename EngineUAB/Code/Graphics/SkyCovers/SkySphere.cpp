@@ -1,4 +1,3 @@
-
 #include "SkySphere.h"
 #include "Math\Color.h"
 #include "Effects\EffectTechnique.h"
@@ -8,15 +7,17 @@
 #include "Effects\EffectManager.h"
 #include "Cameras\Camera.h"
 
-CSkySphere::CSkySphere(CXMLTreeNode &XMLNode)
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
+
+CSkySphere::CSkySphere()
 	: m_SphereMesh(0, colRED)
 	, m_SkySphereTechnique(NULL)
 	, m_SkyTexture(NULL)
 	, m_SkyTextureParameter(NULL)
 	, m_World(m44fIDENTITY)
 {
-	Load(XMLNode);
-
 	m_World.Scale(1000, 900, 1000);
 }
 

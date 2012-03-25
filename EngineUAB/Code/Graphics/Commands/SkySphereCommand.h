@@ -4,15 +4,15 @@
 #define _SKY_SPHERE_COMMAND_H
 
 #include "SceneRendererCommand.h"
+#include "SkyCovers\SkySphere.h"
 
 class CRenderManager;
 class CXMLTreeNode;
-class CSkySphere;
 
 class CSkySphereCommand : public CSceneRendererCommand
 {
 protected:
-	CSkySphere*		m_SkySphere;
+	CSkySphere		m_SkySphere;
 
 public:
 	CSkySphereCommand(CXMLTreeNode &Node);

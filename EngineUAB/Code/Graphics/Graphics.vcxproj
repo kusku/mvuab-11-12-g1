@@ -71,7 +71,7 @@
     <ClInclude Include="RenderableObjects\StaticMesh\StaticMesh.h" />
     <ClInclude Include="RenderableObjects\StaticMesh\StaticMeshManager.h" />
     <ClInclude Include="RenderManager.h" />
-    <ClInclude Include="Sky Covers\SkySphere.h" />
+    <ClInclude Include="SkyCovers\SkySphere.h" />
     <ClInclude Include="Textures\Texture.h" />
     <ClInclude Include="Textures\TextureCube.h" />
     <ClInclude Include="Textures\TextureManager.h" />
@@ -137,7 +137,7 @@
     <ClCompile Include="RenderableObjects\StaticMesh\StaticMesh.cpp" />
     <ClCompile Include="RenderableObjects\StaticMesh\StaticMeshManager.cpp" />
     <ClCompile Include="RenderManager.cpp" />
-    <ClCompile Include="Sky Covers\SkySphere.cpp" />
+    <ClCompile Include="SkyCovers\SkySphere.cpp" />
     <ClCompile Include="Textures\Texture.cpp" />
     <ClCompile Include="Textures\TextureCube.cpp" />
     <ClCompile Include="Textures\TextureManager.cpp" />

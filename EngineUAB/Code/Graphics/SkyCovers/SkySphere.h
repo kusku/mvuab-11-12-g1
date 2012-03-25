@@ -21,7 +21,7 @@ class CSkySphere
 		Mat44f				m_World;
 
 	public:
-		CSkySphere(CXMLTreeNode &XMLNode);
+		CSkySphere();
 		virtual ~CSkySphere();
 
 		bool				Load						(CXMLTreeNode &XMLNode);

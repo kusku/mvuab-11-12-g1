@@ -39,3 +39,7 @@ end
 function reload_scripts()
 	core:reload_scripts()
 end
+
+function reload_lights()
+	core:reload_lights()
+end
