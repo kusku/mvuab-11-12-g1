@@ -80,7 +80,7 @@ bool CRenderManager::Init(HWND hWnd)
 			d3dpp.Windowed          = FALSE;
 			d3dpp.BackBufferWidth   = m_SizeScreen.x;
 			d3dpp.BackBufferHeight  = m_SizeScreen.y;
-			d3dpp.BackBufferFormat = D3DFMT_A8R8G8B8;
+			d3dpp.BackBufferFormat	= D3DFMT_A8R8G8B8;
 		}
 		else
 		{
@@ -94,6 +94,7 @@ bool CRenderManager::Init(HWND hWnd)
 		d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;
 		d3dpp.Flags = D3DPRESENTFLAG_DISCARD_DEPTHSTENCIL;
 		d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
+		d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
 
 		// Create the D3DDevice
 		m_bIsOk = !FAILED( m_pD3D->CreateDevice( D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
