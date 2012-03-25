@@ -30,6 +30,8 @@ public:
 	Vect2i		GetResolution	() const { return m_Config.resolution; }
 	Vect2i		GetPosition		() const { return m_Config.position; }
 
+	const SConfig&	GetConfig		() const { return m_Config; }
+
 protected:
 	CCore			*m_pCore;
 	CProcess		*m_pProcess;
