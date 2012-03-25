@@ -176,6 +176,7 @@ void CScriptManager::RegisterLUAFunctions()
 			.def("reload_meshes", &CCore::ReloadMeshes)
 			.def("reload_pools", &CCore::ReloadPools)
 			.def("reload_scripts", &CCore::ReloadScripts)
+			.def("reload_lights", &CCore::ReloadLights)
 			.def("get_debug_gui_manager", &CCore::GetDebugGUIManager)
 			.def("get_stadistics", &CCore::GetStadistics)
 	];

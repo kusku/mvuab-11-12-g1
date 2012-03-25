@@ -52,6 +52,7 @@ public:
 	void	ReloadMeshes							();
 	void	ReloadPools								();
 	void	ReloadScripts							();
+	void	ReloadLights							();
 
 	void			SetCamera		( CCamera *camera )				{ m_pCamera = camera; }
 	void			SetTimer		( CTimer *timer )				{ m_pTimer = timer; }

@@ -358,6 +358,8 @@ void CSphereMesh::CreateRV()
 	}
 
 	m_RV = new CIndexedVertexs<TCOLORED_VERTEX>(CORE->GetRenderManager(), vtxArr, idxArr, m_VtxBuffTemp.size(), m_IdxBuffTemp.size());
+	CHECKED_DELETE_ARRAY(vtxArr);
+	CHECKED_DELETE_ARRAY(idxArr);
 }
 
 void CSphereMesh::Render(CRenderManager *RM, CEffectTechnique* technique) const

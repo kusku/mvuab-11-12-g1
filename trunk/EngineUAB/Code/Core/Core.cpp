@@ -277,3 +277,8 @@ void CCore::ReloadScripts()
 {
 	m_pScriptManager->Reload();
 }
+
+void CCore::ReloadLights()
+{
+	m_pLightManager->Reload();
+}
