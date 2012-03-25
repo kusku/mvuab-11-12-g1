@@ -88,49 +88,56 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	
 	//Get Depth from Map
 	float depthVal = tex2D(DepthTextureMap, input.TexCoord);
+	
+	if(depthVal != 1)
+	{
+		//compute screen-space position
+		float4 position = GetPositionFromDepth(input.TexCoord, depthVal);
 		
-	//compute screen-space position
-	float4 position = GetPositionFromDepth(input.TexCoord, depthVal);
-	
-	//Get Normal From Map and unpack
-	float3 normal = tex2D(NormalTextureMap, input.TexCoord).rgb;
-	normal = normalize(UnpackNormal(normal));
-	
-	float shadowCoeffStatic = 1.0f;
-	float shadowCoeffDynamic = 1.0f;
-	
-	if(HasStaticShadowMap == true)
+		//Get Normal From Map and unpack
+		float3 normal = tex2D(NormalTextureMap, input.TexCoord).rgb;
+		normal = normalize(UnpackNormal(normal));
+		
+		float shadowCoeffStatic = 1.0f;
+		float shadowCoeffDynamic = 1.0f;
+		
+		if(HasStaticShadowMap == true)
+		{
+			//shadowCoeffStatic = CalculateShadowCoeff(position, StaticShadowMapSampler);
+			shadowCoeffStatic = CalcShadowCoeffVSM(position, StaticShadowMapSampler);
+		}
+		
+		if(HasDynamicShadowMap == true)
+		{
+			//shadowCoeffDynamic = CalculateShadowCoeff(position, DynamicShadowMapSampler);
+			shadowCoeffDynamic = CalcShadowCoeffVSM(position, DynamicShadowMapSampler);
+		}
+		
+		
+		if(shadowCoeffDynamic != 0 || shadowCoeffStatic != 0)
+		{
+			if(lightType[0] == OMNI)
+			{
+				FinalPixelColor = CalculateOmniLight(normal, position, 0);
+			}
+			else if(lightType[0] == DIRECTIONAL)
+			{
+				FinalPixelColor = CalculateDirectionLight(normal, position, 0);
+			}
+			else if(lightType[0] == SPOT)
+			{
+				FinalPixelColor = CalculateSpotLight(normal, position, 0);
+			}
+		}
+		
+		FinalPixelColor = saturate(FinalPixelColor * min(shadowCoeffStatic, shadowCoeffDynamic));
+		//FinalPixelColor = saturate(FinalPixelColor * shadowCoeffDynamic);
+	}
+	else
 	{
-		//shadowCoeffStatic = CalculateShadowCoeff(position, StaticShadowMapSampler);
-		shadowCoeffStatic = CalcShadowCoeffVSM(position, StaticShadowMapSampler);
+		FinalPixelColor = float4(1, 1, 1, 1);
 	}
 	
-	if(HasDynamicShadowMap == true)
-	{
-		//shadowCoeffDynamic = CalculateShadowCoeff(position, DynamicShadowMapSampler);
-		shadowCoeffDynamic = CalcShadowCoeffVSM(position, DynamicShadowMapSampler);
-	}
-	
-	
-	if(shadowCoeffDynamic != 0 || shadowCoeffStatic != 0)
-	{
-		if(lightType[0] == OMNI)
-		{
-			FinalPixelColor = CalculateOmniLight(normal, position, 0);
-		}
-		else if(lightType[0] == DIRECTIONAL)
-		{
-			FinalPixelColor = CalculateDirectionLight(normal, position, 0);
-		}
-		else if(lightType[0] == SPOT)
-		{
-			FinalPixelColor = CalculateSpotLight(normal, position, 0);
-		}
-	}
-	
-	FinalPixelColor = saturate(FinalPixelColor * min(shadowCoeffStatic, shadowCoeffDynamic));
-	//FinalPixelColor = saturate(FinalPixelColor * shadowCoeffDynamic);
-
 	return FinalPixelColor;
 }
 
