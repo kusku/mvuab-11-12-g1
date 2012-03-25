@@ -81,6 +81,8 @@ void CLight::GenerateShadowMap(CRenderManager *RM)
 
 void CLight::ExtractCommonLightInfo(CXMLTreeNode &XMLNode)
 {
+	CTextureManager *l_pTextureManager = CORE->GetTextureManager();
+
 	//Common Info por all Lights
 
 	//Name and Position
@@ -105,12 +107,16 @@ void CLight::ExtractCommonLightInfo(CXMLTreeNode &XMLNode)
 		uint32 l_WidthDynamicShadowMap = XMLNode.GetIntProperty("shadow_map_width", 512);
 		uint32 l_HeightDynamicShadowMap = XMLNode.GetIntProperty("shadow_map_height", 512);
 
+		//Elimina la textura si ya existía
+		std::string l_TextureName = m_Name + "_dynamic";
+		l_pTextureManager->RemoveResource( l_TextureName );
+
 		m_pDynamicShadowMap = new CTexture();
 		CTexture::TFormatType l_Format = m_pDynamicShadowMap->GetFormatTypeFromString(l_DynamicType);
-		m_pDynamicShadowMap->Create(m_Name + "_dynamic", l_WidthDynamicShadowMap, l_HeightDynamicShadowMap, 3, 
+		m_pDynamicShadowMap->Create(l_TextureName, l_WidthDynamicShadowMap, l_HeightDynamicShadowMap, 3, 
 			CTexture::RENDERTARGET, CTexture::DEFAULT, l_Format);
 
-		CORE->GetTextureManager()->AddResource(m_pDynamicShadowMap->GetName(), m_pDynamicShadowMap);
+		l_pTextureManager->AddResource(m_pDynamicShadowMap->GetName(), m_pDynamicShadowMap);
 	}
 
 	if( m_GenerateStaticShadowMap )
@@ -119,12 +125,16 @@ void CLight::ExtractCommonLightInfo(CXMLTreeNode &XMLNode)
 		uint32 l_WidthStaticShadowMap = XMLNode.GetIntProperty("static_shadow_map_width", 512);
 		uint32 l_HeightStaticShadowMap = XMLNode.GetIntProperty("static_shadow_map_height", 512);
 
+		//Elimina la textura si ya existía
+		std::string l_TextureName = m_Name + "_static";
+		l_pTextureManager->RemoveResource( l_TextureName );
+
 		m_pStaticShadowMap = new CTexture();
 		CTexture::TFormatType l_Format = m_pStaticShadowMap->GetFormatTypeFromString(l_StaticType);
-		m_pStaticShadowMap->Create(m_Name + "_static", l_WidthStaticShadowMap, l_HeightStaticShadowMap, 3, 
+		m_pStaticShadowMap->Create(l_TextureName, l_WidthStaticShadowMap, l_HeightStaticShadowMap, 3, 
 			CTexture::RENDERTARGET, CTexture::DEFAULT, l_Format);
 
-		CORE->GetTextureManager()->AddResource(m_pStaticShadowMap->GetName(), m_pStaticShadowMap);
+		l_pTextureManager->AddResource(m_pStaticShadowMap->GetName(), m_pStaticShadowMap);
 
 		m_MustUpdateStaticShadowMap = true;
 	}
