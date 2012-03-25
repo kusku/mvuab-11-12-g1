@@ -94,6 +94,8 @@ bool CRenderManager::Init(HWND hWnd)
 		d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;
 		d3dpp.Flags = D3DPRESENTFLAG_DISCARD_DEPTHSTENCIL;
 		d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
+		d3dpp.MultiSampleQuality = D3DMULTISAMPLE_NONE;
+		d3dpp.MultiSampleQuality = 0;
 		d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
 
 		// Create the D3DDevice
