@@ -17,6 +17,7 @@ CModifierManager::CModifierManager()
 	: m_NowIndexInVector(0)
 	, m_FileName("")
 	, m_IsChild(false)
+	, m_SizeRectangle(Vect2i(0, 0))
 {
 	SetActive(true);
 }
@@ -37,7 +38,7 @@ void CModifierManager::Render(CRenderManager &RM, CFontManager &FM, CColor Color
 	if( !CORE->GetDebugGUIManager()->GetLogRender()->GetVisible() )
 	{
 		uint32 dx = 10;
-		uint32 dy = 50;
+		uint32 dy = 35;
 
 		RenderQuad(RM, dx, dy);
 
