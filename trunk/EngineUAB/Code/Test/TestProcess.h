@@ -9,6 +9,7 @@ class CPhysicActor;
 class CTrigger;
 class CPhysicController;
 class CActionToInput;
+class CBillboard;
 
 #include "Player.h"
 #include "Process.h"
@@ -44,6 +45,8 @@ protected:
 
 	CTrigger	*m_pTrigger;
 	CPhysicController *m_Controller;
+
+	CBillboard	*m_pBillboard;
 };
 
 #endif

@@ -94,6 +94,7 @@ public:
   inline Matrix33<T>& SetFromLookAt    (const Vector3<T>& vPos, const Vector3<T>& vTarget, const Vector3<T>& vUp);
 //  inline Matrix33<T>& SetFromQuat      (const Quatn<T>& quat);
 
+  inline Matrix33<T>& FromAxisAngle		(const Vector3<T>& dir, const float angle);
 
   // Modificación de una de las partes de la matriz (rotación/escalado) dejando invariable las otras
   inline Matrix33<T>& SetRotByAngleX    (const T angleX);

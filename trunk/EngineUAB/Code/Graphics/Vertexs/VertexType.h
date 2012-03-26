@@ -3,6 +3,7 @@
 #ifndef _VERTEXTYPE_H
 #define _VERTEXTYPE_H
 
+#include "Base.h"
 #include <d3dx9.h>
 
 #define VERTEX_TYPE_GEOMETRY	0x0001

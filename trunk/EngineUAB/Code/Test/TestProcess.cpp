@@ -20,6 +20,9 @@
 #include "PhysicSphericalJoint.h"
 #include "PhysicRevoluteJoint.h"
 #include "PhysicController.h"
+#include "Billboard\Billboard.h"
+#include "Textures\TextureManager.h"
+#include "Textures\Texture.h"
 
 #undef min
 #undef max
@@ -36,6 +39,7 @@ CTestProcess::CTestProcess(void)
 	, pos(0,0)
 	, screen(800,600)
 	, m_pTrigger(NULL)
+	, m_pBillboard(NULL)
 {
 }
 
@@ -43,6 +47,7 @@ CTestProcess::~CTestProcess(void)
 {
 	CHECKED_DELETE(m_pTrigger);
 	CHECKED_DELETE( m_pThPSCamera );
+	CHECKED_DELETE(m_pBillboard);
 	m_Camera = NULL;
 }
 
@@ -61,6 +66,12 @@ void CTestProcess::Init()
 	m_pThPSCamera = new CThPSCamera(1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_Player, 10.0f);
 	m_Camera = static_cast<CCamera*>(m_pThPSCamera);
 	CORE->SetCamera(m_Camera);
+
+	//----BILLBOARD--------
+	CTexture* texture = new CTexture();
+	bool ok = texture->Load("./Data/General/Textures/n7.png");
+	ok = CORE->GetTextureManager()->AddResource("N7", texture);
+	m_pBillboard = new CBillboard(1.f, 1.f, Vect3f(0.f,0.f,0.f), 0.f, colWHITE, "N7");
 
 	//-----PHYSX----------
 	NxScene *l_Scene = CORE->GetPhysicsManager()->GetScene();
@@ -151,11 +162,18 @@ void CTestProcess::Update(float elapsedTime)
 	m_Controller->Move(Vect3f(0.f, 0.f, 0.01f), elapsedTime);
 
 	CORE->GetRenderableObjectsLayersManager()->Update(elapsedTime);
+
+	m_pBillboard->Update( *(CCamera*)m_pThPSCamera );
 }
 
 void CTestProcess::Render(CRenderManager &RM)
 {
+	Mat44f mat;
+	mat.SetIdentity();
+	RM.SetTransform(mat);
+
 	RM.DrawLine( m_PosAnchor, m_PosActor );
+	m_pBillboard->Render(RM);
 }
 
 void CTestProcess::UpdateInputs(float elapsedTime)
