@@ -286,6 +286,57 @@ void CScriptManager::RegisterMathLUAFunctions()
 	];
 
 	module(m_LS) [
+		class_<Vect2i>("Vect2i")
+			.def(constructor<int, int>())
+			.def(const_self + const_self)
+			.def(const_self - const_self)
+			.def(const_self * const_self)
+			.def(const_self + int())
+			.def(const_self - int())
+			.def(const_self * int())
+			.def(const_self / int())
+			.def(const_self == const_self)
+			.def("zero", &Vect2i::SetZero)
+			.def_readwrite("x", &Vect2i::x)
+			.def_readwrite("y", &Vect2i::y)
+	];
+
+	module(m_LS) [
+		class_<Vect3i>("Vect3i")
+			.def(constructor<int, int, int>())
+			.def(const_self + const_self)
+			.def(const_self - const_self)
+			.def(const_self * const_self)
+			.def(const_self + int())
+			.def(const_self - int())
+			.def(const_self * int())
+			.def(const_self / int())
+			.def(const_self == const_self)
+			.def("zero", &Vect3i::SetZero)
+			.def_readwrite("x", &Vect3i::x)
+			.def_readwrite("y", &Vect3i::y)
+			.def_readwrite("z", &Vect3i::z)
+	];
+
+	module(m_LS) [
+		class_<Vect4i>("Vect4i")
+			.def(constructor<int, int, int, int>())
+			.def(const_self + const_self)
+			.def(const_self - const_self)
+			.def(const_self * const_self)
+			.def(const_self + int())
+			.def(const_self - int())
+			.def(const_self * int())
+			.def(const_self / int())
+			.def(const_self == const_self)
+			.def("zero", &Vect4i::SetZero)
+			.def_readwrite("x", &Vect4i::x)
+			.def_readwrite("y", &Vect4i::y)
+			.def_readwrite("z", &Vect4i::z)
+			.def_readwrite("w", &Vect4i::w)
+	];
+
+	module(m_LS) [
 		class_<Mat33f>("Mat33f")
 			.def(constructor<float, float, float, float, float, float, float, float, float>())
 			.def(const_self + const_self)
