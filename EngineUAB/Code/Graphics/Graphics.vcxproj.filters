@@ -196,6 +196,9 @@
     <ClInclude Include="SkyCovers\SkySphere.h">
       <Filter>SkyCovers</Filter>
     </ClInclude>
+    <ClInclude Include="Billboard\Billboard.h">
+      <Filter>Billboard</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
@@ -380,6 +383,9 @@
     <ClCompile Include="SkyCovers\SkySphere.cpp">
       <Filter>SkyCovers</Filter>
     </ClCompile>
+    <ClCompile Include="Billboard\Billboard.cpp">
+      <Filter>Billboard</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Cameras">
@@ -429,6 +435,9 @@
     </Filter>
     <Filter Include="SkyCovers">
       <UniqueIdentifier>{96fe2d3c-ec5a-4885-b873-aa56e06f5d08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Billboard">
+      <UniqueIdentifier>{741e3763-6673-4d67-bd14-6ba4c9d5bb6a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

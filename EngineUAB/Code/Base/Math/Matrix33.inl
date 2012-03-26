@@ -374,6 +374,37 @@ inline Matrix33<T>& Matrix33<T>::SetFromLookAt (const Vector3<T>& vPos, const Ve
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// Establece la matriz a partir de un vector de dirección y un ángulo concreto.
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+template<typename T>
+inline Matrix33<T>& Matrix33<T>::FromAxisAngle(const Vector3<T>& dir, const float angle)
+{
+	float c = (float)cos(angle);
+	float s = (float)sin(angle);
+	float t = 1.0f - c;
+
+	m00 = c + dir.x * dir.x * t;
+	m11 = c + dir.y * dir.y * t;
+	m22 = c + dir.z * dir.z * t;
+
+	float tmp1 = dir.x * dir.y * t;
+	float tmp2 = dir.z * s;
+	m10 = tmp1 + tmp2;
+	m01 = tmp1 - tmp2;
+	tmp1 = dir.x * dir.z * t;
+
+	tmp2 = dir.y * s;
+	m20 = tmp1 - tmp2;
+	m02 = tmp1 + tmp2;
+	tmp1 = dir.y * dir.z * t;
+	tmp2 = dir.x * s;
+	m21 = tmp1 + tmp2;
+	m12 = tmp1 - tmp2;
+
+	return (*this);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// Establece la matriz de forma que el eje Y tendrá la dirección y el sentido del vector que va
 /// desde 'vPos' hasta 'vTarget', utilizando el vector 'vUp' como referencia del sentido del 'arriba' del
 /// mundo, para poder construir un sistema de referencia con 3 vectores típico de una matriz de cámara, siendo
