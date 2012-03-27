@@ -28,7 +28,7 @@ public:
 	void		SetColor		( const CColor &color )			{ m_Color = color; }
 	void		SetRotation		( float rotation )				{ m_fRotation = rotation; }
 
-private:
+protected:
 	Vect3f			m_vPosition;
 	float			m_fHeight;
 	float			m_fWidth;
