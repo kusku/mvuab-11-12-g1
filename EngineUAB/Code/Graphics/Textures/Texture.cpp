@@ -70,15 +70,13 @@ bool CTexture::Create(const std::string &Name, uint32 Width, uint32 Height, uint
 	D3DPOOL l_Pool = D3DPOOL_DEFAULT;
 	DWORD l_UsageType = D3DUSAGE_DYNAMIC;
 	D3DFORMAT l_Format = D3DFMT_A8R8G8B8;
-	bool l_CreateDepthStenculSurface = false;
-
+	
 	switch(UsageType)
 	{
 		case DYNAMIC:
 			l_UsageType = D3DUSAGE_DYNAMIC;
 			break;
 		case RENDERTARGET:
-			l_CreateDepthStenculSurface = true;
 			l_UsageType = D3DUSAGE_RENDERTARGET;
 			break;
 	}
@@ -120,20 +118,12 @@ bool CTexture::Create(const std::string &Name, uint32 Width, uint32 Height, uint
 
 	HRESULT hr = CORE->GetRenderManager()->GetDevice()->CreateTexture(Width, Height, MipMaps, l_UsageType, l_Format, l_Pool, &m_Texture, NULL);
 
-	if( l_CreateDepthStenculSurface )
-	{
-		CORE->GetRenderManager()->GetDevice()->CreateDepthStencilSurface(Width, Height, D3DFMT_D24S8, D3DMULTISAMPLE_NONE, 0, TRUE, &m_DepthStencilRenderTargetTexture, NULL);
-
-		assert(m_DepthStencilRenderTargetTexture!=NULL);
-	}
-
-	assert(m_Texture!=NULL);
 	assert(hr==D3D_OK);
 
 	m_Width = Width;
 	m_Height = Height;
 
-	return hr != D3D_OK;
+	return hr == D3D_OK;
 }
 
 void CTexture::CaptureFrameBuffer(size_t IdStage)
@@ -159,22 +149,12 @@ bool CTexture::SetAsRenderTarget(size_t IdStage)
 	l_Device->SetRenderTarget( (DWORD)IdStage, m_RenderTargetTexture );
 	CHECKED_RELEASE(m_RenderTargetTexture);
 
-	if( FAILED( l_Device->GetDepthStencilSurface( &m_OldDepthStencilRenderTarget ) ) )
-	{
-		return false; 
-	}
-
-	l_Device->SetDepthStencilSurface( m_DepthStencilRenderTargetTexture );
-
 	return true;
 }
 
 void CTexture::UnsetAsRenderTarget(size_t IdStage)
 {
 	LPDIRECT3DDEVICE9 l_Device = CORE->GetRenderManager()->GetDevice();
-
-	l_Device->SetDepthStencilSurface( m_OldDepthStencilRenderTarget );
-	CHECKED_RELEASE( m_OldDepthStencilRenderTarget );
 
 	l_Device->SetRenderTarget( IdStage, m_OldRenderTarget );
 	CHECKED_RELEASE( m_OldRenderTarget );
@@ -200,4 +180,66 @@ CTexture::TFormatType CTexture::GetFormatTypeFromString(const std::string &Forma
 		LOGGER->AddNewLog(ELL_WARNING, "CTexture::GetFormatTypeFromString->Tipo de formato %s no reconocido.", FormatType.c_str());
 
 	return CTexture::A8R8G8B8;
+}
+
+
+bool CTexture::CreateDepthStencil(uint32 Width, uint32 Height, TFormatType FormatType)
+{
+	D3DFORMAT l_Format = D3DFMT_A8R8G8B8;
+
+	switch(FormatType)
+	{
+		case A8R8G8B8:
+			l_Format = D3DFMT_A8R8G8B8;
+			break;
+		case A16B16G16R16:
+			l_Format = D3DFMT_A16B16G16R16;
+			break;
+		case A16B16G16R16F:
+			l_Format = D3DFMT_A16B16G16R16F;
+			break;
+		case R8G8B8:
+			l_Format = D3DFMT_R8G8B8;
+			break;
+		case X8R8G8B8:
+			l_Format = D3DFMT_X8R8G8B8;
+			break;
+		case R32F:
+			l_Format = D3DFMT_R32F;
+			break;
+		case G32R32F:
+			l_Format = D3DFMT_G32R32F;
+			break;
+	}
+
+	HRESULT hr = CORE->GetRenderManager()->GetDevice()->CreateDepthStencilSurface(Width, Height, l_Format, D3DMULTISAMPLE_NONE, 0, TRUE, &m_DepthStencilRenderTargetTexture, NULL);
+
+	assert(hr==D3D_OK);
+
+	m_Width = Width;
+	m_Height = Height;
+
+	return hr == D3D_OK;
+}
+
+bool CTexture::SetAsDepthStencil()
+{
+	LPDIRECT3DDEVICE9 l_Device = CORE->GetRenderManager()->GetDevice();
+	
+	if( FAILED( l_Device->GetDepthStencilSurface( &m_OldDepthStencilRenderTarget ) ) )
+	{
+		return false; 
+	}
+
+	l_Device->SetDepthStencilSurface( m_DepthStencilRenderTargetTexture );
+
+	return true;
+}
+
+void CTexture::UnsetAsDepthStencil()
+{
+	LPDIRECT3DDEVICE9 l_Device = CORE->GetRenderManager()->GetDevice();
+
+	l_Device->SetDepthStencilSurface( m_OldDepthStencilRenderTarget );
+	CHECKED_RELEASE( m_OldDepthStencilRenderTarget );
 }
