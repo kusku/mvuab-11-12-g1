@@ -199,6 +199,9 @@
     <ClInclude Include="Billboard\Billboard.h">
       <Filter>Billboard</Filter>
     </ClInclude>
+    <ClInclude Include="Billboard\BillboardAnimation.h">
+      <Filter>Billboard</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
@@ -384,6 +387,9 @@
       <Filter>SkyCovers</Filter>
     </ClCompile>
     <ClCompile Include="Billboard\Billboard.cpp">
+      <Filter>Billboard</Filter>
+    </ClCompile>
+    <ClCompile Include="Billboard\BillboardAnimation.cpp">
       <Filter>Billboard</Filter>
     </ClCompile>
   </ItemGroup>
