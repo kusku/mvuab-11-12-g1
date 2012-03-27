@@ -7,9 +7,12 @@
 	<enable_z_test />
 	<setup_matrices />
 	
+	
+	<disable_z_test />
 	<!-- shadow maps -->
 	<set_pool_renderable_objects_technique pool="Basic_Build_Shadow_Map" />
 	<generate_shadow_maps />
+	<enable_z_test />
 	
 	<!-- Deferred -->
 	<set_render_target name="deferred_multiple_render_target">
@@ -45,6 +48,8 @@
 	
 	<unset_render_target render_target="deferred_lights"/>
 		
+		
+	<disable_z_test />
 	<set_pool_renderable_objects_technique pool="Deferred_Shading_Combine" />
 	<render_draw_quad name="Deferred_Lighting_Combine">
 		<texture stage_id="0" file="DiffuseMapTexture"/>
@@ -149,6 +154,10 @@
 	<render_draw_quad name="TEST">
 		<texture stage_id="0" file="SSAOBlurMapTexture"/>
 	</render_draw_quad>-->
+	
+	<enable_z_test />
+	
+	
 	
 	<!--Debug-->
 	<render_modifiers />
