@@ -56,10 +56,15 @@ public:
 	bool		Create		( const std::string &Name, uint32 Width, uint32 Height, uint32 MipMaps,
 								TUsageType UsageType, TPoolType PoolType, TFormatType FormatType );
 
+	bool		CreateDepthStencil		(uint32 Width, uint32 Height, TFormatType FormatType);
+
 	void		CaptureFrameBuffer		( size_t IdStage );
 
 	bool		SetAsRenderTarget		( size_t IdStage = 0);
 	void		UnsetAsRenderTarget		( size_t IdStage = 0);
+
+	bool		SetAsDepthStencil		();
+	void		UnsetAsDepthStencil		();
 
 	TFormatType	GetFormatTypeFromString			( const std::string &FormatType );
 
