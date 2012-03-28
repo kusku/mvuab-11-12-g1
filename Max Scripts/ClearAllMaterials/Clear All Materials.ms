@@ -1,0 +1,1 @@
+Geometry.material = undefined
