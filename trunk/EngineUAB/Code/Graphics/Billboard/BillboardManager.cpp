@@ -126,8 +126,9 @@ bool CBillboardManager::LoadFile()
 						else
 						{
 							CBillboardAnimation *l_BillboardAnimation = new CBillboardAnimation(
-								l_Core->m_fSize, l_Core->m_fSize, l_Pos, 0.0f, l_Core->m_bLoop, l_Core->m_Color);
+									l_Core->m_fSize, l_Core->m_fSize, l_Pos, 0.0f, l_Core->m_bLoop, l_Core->m_Color);
 							l_BillboardAnimation->SetTimeToUpdate(l_Core->m_fTimePerImage);
+							l_BillboardAnimation->SetName(l_Id);
 
 							for(uint16 j=0; j<l_Core->m_TexturesVector.size(); ++j)
 							{

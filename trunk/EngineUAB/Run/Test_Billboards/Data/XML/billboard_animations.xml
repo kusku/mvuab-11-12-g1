@@ -24,7 +24,7 @@
 	</Billboard>
 	
 	<Instances>
-		<Instance id="fire" pos="0.0 0.0 0.0" />
 		<Instance id="boom" pos="3.0 0.0 0.0" />
+		<Instance id="fire" pos="0.0 0.0 0.0" />
 	</Instances>
 </BillboardAnimation>

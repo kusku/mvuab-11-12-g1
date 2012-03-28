@@ -3,6 +3,7 @@
 #ifndef _BILLBOARD_ANIMATION_H
 #define _BILLBOARD_ANIMATION_H
 
+#include "Utils\Named.h"
 #include "Billboard.h"
 #include "Utils\Types.h"
 #include <vector>
@@ -11,7 +12,7 @@ class CTexture;
 class CCamera;
 class CRenderManager;
 
-class CBillboardAnimation : public CBillboard
+class CBillboardAnimation : public CBillboard, public CNamed
 {
 public:
 	CBillboardAnimation();

@@ -460,5 +460,8 @@
     <Filter Include="Billboard">
       <UniqueIdentifier>{741e3763-6673-4d67-bd14-6ba4c9d5bb6a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Particles">
+      <UniqueIdentifier>{dbb58019-91df-4476-be86-718b8729c26f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
