@@ -247,6 +247,10 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 			{
 				m_Config.scripts_path = l_ConfigNode(i).GetPszProperty("scriptsXML", "");
 			}
+			else if( l_Name == "Billboards" )
+			{
+				m_Config.billboards_path = l_ConfigNode(i).GetPszProperty("fileXML", "");
+			}
 #if defined (_DEBUG)
 			else if( l_Name == "Modifiers" )
 			{

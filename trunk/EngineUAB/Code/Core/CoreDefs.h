@@ -59,6 +59,9 @@ struct SConfig
 
 	std::string modifiers_path;
 	std::string debug_options_path;
+
+	//Billboards & Particles
+	std::string billboards_path;
 };
 
 #endif

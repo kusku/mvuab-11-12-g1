@@ -202,6 +202,15 @@
     <ClInclude Include="Billboard\BillboardAnimation.h">
       <Filter>Billboard</Filter>
     </ClInclude>
+    <ClInclude Include="Billboard\BillboardManager.h">
+      <Filter>Billboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Billboard\BillboardDefs.h">
+      <Filter>Billboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\RenderParticlesSceneRendererCommand.h">
+      <Filter>Commands\Command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
@@ -391,6 +400,12 @@
     </ClCompile>
     <ClCompile Include="Billboard\BillboardAnimation.cpp">
       <Filter>Billboard</Filter>
+    </ClCompile>
+    <ClCompile Include="Billboard\BillboardManager.cpp">
+      <Filter>Billboard</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\RenderParticlesSceneRendererCommand.cpp">
+      <Filter>Commands\Command</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

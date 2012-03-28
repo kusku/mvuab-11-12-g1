@@ -6,7 +6,6 @@
 class CCamera;
 class CThPSCamera;
 class CActionToInput;
-class CBillboardAnimation;
 
 #include "Player.h"
 #include "Process.h"
@@ -32,8 +31,6 @@ protected:
 
 	CPlayer m_Player;
 	CThPSCamera *m_pThPSCamera;
-
-	CBillboardAnimation	*m_pBillboard;
 };
 
 #endif

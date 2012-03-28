@@ -22,3 +22,4 @@
 #include "Commands\RenderDebugPhysicsSceneRendererCommand.h"
 #include "Commands\RenderDebugProcessSceneRendererCommand.h"
 #include "Commands\SkySphereCommand.h"
+#include "Commands\RenderParticlesSceneRendererCommand.h"

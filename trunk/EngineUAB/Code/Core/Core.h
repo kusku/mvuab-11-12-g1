@@ -21,6 +21,7 @@ class CEffectManager;
 class CRenderableObjectTechniqueManager;
 class CSceneRendererCommandManager;
 class CRenderableObjectsLayersManager;
+class CBillboardManager;
 class CCamera;
 class CTimer;
 class CScriptManager;
@@ -80,6 +81,7 @@ public:
 	inline CRenderableObjectsLayersManager*		GetRenderableObjectsLayersManager() const	{ return m_pRenderableObjectsLayersManager; }
 	inline CScriptManager*						GetScriptManager() const					{ return m_pScriptManager; }
 	inline CPhysicsManager*						GetPhysicsManager() const					{ return m_pPhysicsManager; }
+	inline CBillboardManager*					GetBillboardManager() const					{ return m_pBillboardManager; }
 
 private:
 	void Release();
@@ -108,6 +110,7 @@ private:
 	CRenderableObjectsLayersManager		*m_pRenderableObjectsLayersManager;
 	CScriptManager						*m_pScriptManager;
 	CPhysicsManager						*m_pPhysicsManager;
+	CBillboardManager					*m_pBillboardManager;
 };
 
 #endif

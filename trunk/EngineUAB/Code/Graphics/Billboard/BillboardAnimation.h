@@ -14,7 +14,8 @@ class CRenderManager;
 class CBillboardAnimation : public CBillboard
 {
 public:
-	CBillboardAnimation(float height, float width, const Vect3f &position, float rotation, const CColor& color);
+	CBillboardAnimation();
+	CBillboardAnimation(float height, float width, const Vect3f &position, float rotation, bool loop, const CColor& color);
 	~CBillboardAnimation();
 
 	void		Update			( float elapsedTime, CCamera &camera );
@@ -28,6 +29,7 @@ private:
 	uint16							m_uCurrentFrame;
 	float							m_fTimeToUpdate;
 	float							m_fTimeBeforeUpdate;
+	bool							m_bLoop;
 };
 
 #endif

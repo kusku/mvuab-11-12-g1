@@ -1,15 +1,17 @@
 #include "BillboardAnimation.h"
 #include "RenderManager.h"
 #include "Cameras\Camera.h"
+#include <assert.h>
 
 #if defined (_DEBUG)
 #include "Memory\MemLeaks.h"
 #endif
 
-CBillboardAnimation::CBillboardAnimation(float height, float width, const Vect3f &position, float rotation, const CColor& color)
+CBillboardAnimation::CBillboardAnimation(float height, float width, const Vect3f &position, float rotation, bool loop, const CColor& color)
 	: m_uCurrentFrame(0)
 	, m_fTimeToUpdate(0.f)
 	, m_fTimeBeforeUpdate(0.f)
+	, m_bLoop(loop)
 {
 	m_fHeight = height;
 	m_fWidth = width;
@@ -17,6 +19,14 @@ CBillboardAnimation::CBillboardAnimation(float height, float width, const Vect3f
 	m_fRotation = rotation;
 	m_Color = color;
 	m_pTexture = NULL;
+}
+
+CBillboardAnimation::CBillboardAnimation()
+	: m_uCurrentFrame(0)
+	, m_fTimeToUpdate(0.f)
+	, m_fTimeBeforeUpdate(0.f)
+	, m_bLoop(false)
+{
 }
 
 CBillboardAnimation::~CBillboardAnimation()

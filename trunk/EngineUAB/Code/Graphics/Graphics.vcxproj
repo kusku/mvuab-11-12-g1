@@ -13,6 +13,8 @@
   <ItemGroup>
     <ClInclude Include="Billboard\Billboard.h" />
     <ClInclude Include="Billboard\BillboardAnimation.h" />
+    <ClInclude Include="Billboard\BillboardDefs.h" />
+    <ClInclude Include="Billboard\BillboardManager.h" />
     <ClInclude Include="Cameras\Camera.h" />
     <ClInclude Include="Cameras\FPSCamera.h" />
     <ClInclude Include="Cameras\Frustum.h" />
@@ -38,6 +40,7 @@
     <ClInclude Include="Commands\RenderDebugSceneSceneRendererCommand.h" />
     <ClInclude Include="Commands\RenderDebugShadowMapsSceneRendererCommand.h" />
     <ClInclude Include="Commands\RenderGUISceneRendererCommand.h" />
+    <ClInclude Include="Commands\RenderParticlesSceneRendererCommand.h" />
     <ClInclude Include="Commands\RenderSceneSceneRendererCommand.h" />
     <ClInclude Include="Commands\SceneRendererCommand.h" />
     <ClInclude Include="Commands\SceneRendererCommandManager.h" />
@@ -84,6 +87,7 @@
   <ItemGroup>
     <ClCompile Include="Billboard\Billboard.cpp" />
     <ClCompile Include="Billboard\BillboardAnimation.cpp" />
+    <ClCompile Include="Billboard\BillboardManager.cpp" />
     <ClCompile Include="Cameras\Camera.cpp" />
     <ClCompile Include="Cameras\FPSCamera.cpp" />
     <ClCompile Include="Cameras\Frustum.cpp" />
@@ -108,6 +112,7 @@
     <ClCompile Include="Commands\RenderDebugSceneSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\RenderDebugShadowMapsSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\RenderGUISceneRendererCommand.cpp" />
+    <ClCompile Include="Commands\RenderParticlesSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\RenderSceneSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\SceneRendererCommand.cpp" />
     <ClCompile Include="Commands\SceneRendererCommandManager.cpp" />

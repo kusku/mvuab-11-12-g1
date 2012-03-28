@@ -9,9 +9,10 @@
 	<render_scene layer="solid" active="true" />
 	
 	<render_debug_physics active="true" />
-	<render_debug_process active="true" />
 	<render_debug_info grid="true" axis="true" />
 	<render_debug_lights active="true" />
+	<render_debug_process active="true" />
+	<render_particles />
 	
 	<end_scene />
 	<present />

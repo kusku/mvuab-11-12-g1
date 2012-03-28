@@ -182,6 +182,11 @@ void CSceneRendererCommandManager::LoadXML()
 				 l_Command = new CSkySphereCommand( l_SRC(i) );
 				 l_CommandName = "SkySphere_" + l_NumCommand;
 			 }
+			 else if( l_Type == "render_particles" )
+			 {
+				 l_Command = new CRenderParticlesSceneRendererCommand( l_SRC(i) );
+				 l_CommandName = "render_particles_" + l_NumCommand;
+			 }
 #if defined(_DEBUG)
 			 else if( l_Type == "render_debug_info" )
 			 {

@@ -2,19 +2,17 @@
 #include "RenderManager.h"
 #include "Base.h"
 #include "Core.h"
-#include "Console\Console.h"
 #include "Cameras\Camera.h"
 #include "Cameras\ThPSCamera.h"
-#include "DebugOptions\DebugOptions.h"
 #include "Commands\SceneRendererCommandManager.h"
 #include "RenderableObjects\RenderableObjectsManager.h"
 #include "RenderableObjects\RenderableObjectsLayersManager.h"
 #include "ActionToInput.h"
 #include "ScriptManager.h"
+#include "Console\Console.h"
 #include "Modifiers\ModifierManager.h"
+#include "DebugOptions\DebugOptions.h"
 #include "DebugGUIManager.h"
-#include "Billboard\Billboard.h"
-#include "Billboard\BillboardAnimation.h"
 #include "Textures\TextureManager.h"
 #include "Textures\Texture.h"
 
@@ -26,14 +24,12 @@ CTestProcess::CTestProcess(void)
 	: m_pThPSCamera(NULL)
 	, pos(0,0)
 	, screen(800,600)
-	, m_pBillboard(NULL)
 {
 }
 
 CTestProcess::~CTestProcess(void)
 {
 	CHECKED_DELETE( m_pThPSCamera );
-	CHECKED_DELETE(m_pBillboard);
 	m_Camera = NULL;
 }
 
@@ -52,25 +48,6 @@ void CTestProcess::Init()
 	m_pThPSCamera = new CThPSCamera(1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_Player, 10.0f);
 	m_Camera = static_cast<CCamera*>(m_pThPSCamera);
 	CORE->SetCamera(m_Camera);
-
-	//----BILLBOARD--------
-	m_pBillboard = new CBillboardAnimation(1.f, 1.f, Vect3f(0.f,0.f,0.f), 0.f, colWHITE);
-	m_pBillboard->SetTimeToUpdate(2.f);
-
-	CTexture* texture = new CTexture();
-	texture->Load("./Data/General/Textures/n7.png");
-	CORE->GetTextureManager()->AddResource("N7", texture);
-	m_pBillboard->AddTexture(texture);
-
-	CTexture* texture2 = new CTexture();
-	texture2->Load("./Data/General/Textures/llop.jpg");
-	CORE->GetTextureManager()->AddResource("llop", texture2);
-	m_pBillboard->AddTexture(texture2);
-
-	CTexture* texture3 = new CTexture();
-	texture3->Load("./Data/General/Textures/caputxeta.jpg");
-	CORE->GetTextureManager()->AddResource("captuxeta", texture3);
-	m_pBillboard->AddTexture(texture3);
 }
 
 void CTestProcess::Update(float elapsedTime)
@@ -80,16 +57,10 @@ void CTestProcess::Update(float elapsedTime)
 	UpdateInputs(elapsedTime);
 
 	CORE->GetRenderableObjectsLayersManager()->Update(elapsedTime);
-	m_pBillboard->Update( elapsedTime, *(CCamera*)m_pThPSCamera );
 }
 
 void CTestProcess::Render(CRenderManager &RM)
 {
-	Mat44f mat;
-	mat.SetIdentity();
-	RM.SetTransform(mat);
-
-	m_pBillboard->Render(RM);
 }
 
 void CTestProcess::UpdateInputs(float elapsedTime)
