@@ -50,7 +50,7 @@ CTexture* CTextureManager::GetTexture(const std::string &fileName)
 		}
 		else
 		{
-			return NULL;
+			return GetResource(m_NoTextureName);
 		}
 	}
 
