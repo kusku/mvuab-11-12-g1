@@ -170,12 +170,14 @@ void CBillboardManager::Render(CRenderManager &RM)
 	Device->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 	Device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	Device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	Device->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
 
 	for(uint16 i=0; i<m_BillboardInstancesVector.size(); ++i)
 	{
 		m_BillboardInstancesVector[i]->Render(RM);
 	}
 
+	Device->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 	Device->SetRenderState(D3DRS_POINTSPRITEENABLE, FALSE);
 	Device->SetRenderState(D3DRS_POINTSCALEENABLE, FALSE);
 	Device->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);

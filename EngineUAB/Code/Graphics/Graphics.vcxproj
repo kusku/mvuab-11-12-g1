@@ -62,6 +62,8 @@
     <ClInclude Include="Lights\OmniLight.h" />
     <ClInclude Include="Lights\SpotLight.h" />
     <ClInclude Include="Object3D.h" />
+    <ClInclude Include="Particles\Particle.h" />
+    <ClInclude Include="Particles\ParticleEmitter.h" />
     <ClInclude Include="RenderableObjects\AnimatedModel\AnimatedCoreModel.h" />
     <ClInclude Include="RenderableObjects\AnimatedModel\AnimatedInstanceModel.h" />
     <ClInclude Include="RenderableObjects\AnimatedModel\AnimatedModelManager.h" />
@@ -132,6 +134,8 @@
     <ClCompile Include="Lights\OmniLight.cpp" />
     <ClCompile Include="Lights\SpotLight.cpp" />
     <ClCompile Include="Object3D.cpp" />
+    <ClCompile Include="Particles\Particle.cpp" />
+    <ClCompile Include="Particles\ParticleEmitter.cpp" />
     <ClCompile Include="RenderableObjects\AnimatedModel\AnimatedCoreModel.cpp" />
     <ClCompile Include="RenderableObjects\AnimatedModel\AnimatedInstanceModel.cpp" />
     <ClCompile Include="RenderableObjects\AnimatedModel\AnimatedModelManager.cpp" />

@@ -165,6 +165,9 @@
     <ClInclude Include="Stadistics\Stadistics.h">
       <Filter>Stadistics</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\RecyclingArray.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Math\MathUtils.inl">
