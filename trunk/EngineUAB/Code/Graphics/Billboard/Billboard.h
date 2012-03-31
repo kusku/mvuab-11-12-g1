@@ -16,7 +16,7 @@ class CBillboard
 public:
 	CBillboard();
 	CBillboard(float height, float width, const Vect3f &position, float rotation, const CColor& color, const std::string &textureName);
-	~CBillboard();
+	virtual ~CBillboard();
 
 	void		Update			( CCamera &Camera );
 	void		Render			( CRenderManager &RM );
