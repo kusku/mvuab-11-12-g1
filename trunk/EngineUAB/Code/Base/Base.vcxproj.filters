@@ -168,6 +168,9 @@
     <ClInclude Include="Utils\RecyclingArray.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\RandomNumber.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Math\MathUtils.inl">

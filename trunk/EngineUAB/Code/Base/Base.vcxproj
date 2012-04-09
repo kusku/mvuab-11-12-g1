@@ -137,6 +137,7 @@
     <ClInclude Include="Utils\LerpAnimator3D.h" />
     <ClInclude Include="Utils\MapManager.h" />
     <ClInclude Include="Utils\Named.h" />
+    <ClInclude Include="Utils\RandomNumber.h" />
     <ClInclude Include="Utils\RecyclingArray.h" />
     <ClInclude Include="Utils\Singleton.h" />
     <ClInclude Include="Utils\TemplatedVectorMapManager.h" />

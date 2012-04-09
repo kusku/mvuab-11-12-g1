@@ -56,11 +56,14 @@ void CTestProcess::Update(float elapsedTime)
 	m_Player.Update(elapsedTime, m_Camera);
 	UpdateInputs(elapsedTime);
 
+	m_ParticleEmitter.Update(elapsedTime);
+
 	CORE->GetRenderableObjectsLayersManager()->Update(elapsedTime);
 }
 
 void CTestProcess::Render(CRenderManager &RM)
 {
+	//m_ParticleEmitter.Render(RM);
 }
 
 void CTestProcess::UpdateInputs(float elapsedTime)

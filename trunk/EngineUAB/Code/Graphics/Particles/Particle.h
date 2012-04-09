@@ -13,7 +13,7 @@ public:
 	CParticle( float lifeTime, const Vect3f& direction );
 	~CParticle();
 
-	bool		Update		( float elapsedTime );
+	bool			Update				( float elapsedTime );
 
 	void			SetLifeTime			( float time )			{ m_fLifeTime = time; }
 	void			SetDirection		( const Vect3f &dir )	{ m_Direction = dir; }
