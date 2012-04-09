@@ -217,6 +217,12 @@
     <ClInclude Include="Particles\ParticleEmitter.h">
       <Filter>Particles</Filter>
     </ClInclude>
+    <ClInclude Include="PostProcess\BloomPostProcess.h">
+      <Filter>PostProcess</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\BloomPostProcessCommand.h">
+      <Filter>Commands\Command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
@@ -419,6 +425,12 @@
     <ClCompile Include="Particles\ParticleEmitter.cpp">
       <Filter>Particles</Filter>
     </ClCompile>
+    <ClCompile Include="PostProcess\BloomPostProcess.cpp">
+      <Filter>PostProcess</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\BloomPostProcessCommand.cpp">
+      <Filter>Commands\Command</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Cameras">
@@ -474,6 +486,9 @@
     </Filter>
     <Filter Include="Particles">
       <UniqueIdentifier>{dbb58019-91df-4476-be86-718b8729c26f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PostProcess">
+      <UniqueIdentifier>{67e5717c-c331-4a85-9c50-0398a438794a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
