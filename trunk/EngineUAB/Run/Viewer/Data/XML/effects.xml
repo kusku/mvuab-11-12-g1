@@ -30,9 +30,15 @@
 	<effect name="color_correction" 							file="./data/effects/ColorGrading.fx" />
 	<effect name="z_blur" 										file="./data/effects/ZBlur.fx" />
 	<effect name="vignetting_and_noise" 						file="./data/effects/VignettingNoise.fx" />
+	
+	<effect name="BloomPostProcess" 							file="./data/effects/BloomPostProcess.fx" />
 	<!-- ......... EFFECTS ............ -->
 	
 	<!-- ................. TECHNIQUES ................. -->
+	<technique name="BloomExtract" effect="BloomPostProcess" use_half_pixel="true" />
+	<technique name="GaussianBlur" effect="BloomPostProcess" use_half_pixel="true" />
+	<technique name="BloomCombine" effect="BloomPostProcess" use_half_pixel="true" />
+	
 	<technique name="SkySphereEffect" effect="sky_sphere_effect" use_world_view_projection_matrix="true" />
 	<technique name="SkySphereEffectDeferred" effect="sky_sphere_effect" use_world_view_projection_matrix="true" />
 		
