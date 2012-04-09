@@ -23,3 +23,4 @@
 #include "Commands\RenderDebugProcessSceneRendererCommand.h"
 #include "Commands\SkySphereCommand.h"
 #include "Commands\RenderParticlesSceneRendererCommand.h"
+#include "Commands\BloomPostProcessCommand.h"
