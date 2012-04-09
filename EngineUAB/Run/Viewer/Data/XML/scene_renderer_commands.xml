@@ -36,6 +36,7 @@
 	
 <!--end pre_render-->
 
+	<disable_z_test />
 	<!-- deferred shading -->
 	<set_render_target name="deferred_lights">
 		<dynamic_texture stage_id="0" name="LightMapTexture"/>
@@ -49,7 +50,6 @@
 	<unset_render_target render_target="deferred_lights"/>
 		
 		
-	<disable_z_test />
 	<set_pool_renderable_objects_technique pool="Deferred_Shading_Combine" />
 	<render_draw_quad name="Deferred_Lighting_Combine">
 		<texture stage_id="0" file="DiffuseMapTexture"/>
@@ -155,9 +155,9 @@
 		<texture stage_id="0" file="SSAOBlurMapTexture"/>
 	</render_draw_quad>-->
 	
-	<enable_z_test />
+	<bloom_post_process BloomThreshold="0.25" BlurAmount="4.0" BloomIntensity="1.25" BaseIntensity="1.0" m_BloomSaturation="1.0" BaseSaturation="1.0" />
 	
-	
+	<render_particles />
 	
 	<!--Debug-->
 	<render_modifiers />
