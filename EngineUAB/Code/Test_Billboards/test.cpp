@@ -60,7 +60,6 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 	RegisterClassEx( &wc );
 	try
 	{
-
 		// Añadir aquí el Init de la applicacioón
 		CTestProcess* l_TestProcess;
 		l_TestProcess = new CTestProcess();

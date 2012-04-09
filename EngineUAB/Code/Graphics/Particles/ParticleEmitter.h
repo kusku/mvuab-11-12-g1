@@ -3,9 +3,12 @@
 #ifndef _PARTICLE_EMITTER_H_
 #define _PARTICLE_EMITTER_H_
 
+class CRenderManager;
+
 #include "Math\Vector3.h"
 #include "Math\Color.h"
 #include "Utils\RecyclingArray.h"
+#include "Utils\RandomNumber.h"
 #include "Particle.h"
 #include <string>
 
@@ -15,8 +18,10 @@ public:
 	CParticleEmitter();
 	~CParticleEmitter();
 
-	void		Update		( float elapsedTime );
+	void				Update					( float elapsedTime );
+	void				Render					( CRenderManager &RM );
 
+	//--- Set & Get Methods --------------------
 	void				SetPosition				( const Vect3f &position )			{ m_Position = position; }
 	void				SetStartSpawnDir		( const Vect3f &spawn )				{ m_StartSpawnDir = spawn; }
 	void				SetEndSpawnDir			( const Vect3f &spawn )				{ m_EndSpawnDir = spawn; }
@@ -54,6 +59,7 @@ private:
 	float			m_fNumNewPartsExcess;
 	std::string		m_Texture;
 
+	CRandomNumber<float>		m_RandomNumber;
 	CRecyclingArray<CParticle>	m_Particles;
 };
 
