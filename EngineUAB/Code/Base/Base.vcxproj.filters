@@ -72,6 +72,9 @@
     <ClCompile Include="Stadistics\Stadistics.cpp">
       <Filter>Stadistics</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\Random.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\MathTypes.h">
@@ -169,6 +172,9 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Utils\RandomNumber.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Random.h">
       <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>

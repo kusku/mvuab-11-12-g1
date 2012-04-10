@@ -10,7 +10,6 @@ class CActionToInput;
 #include "Player.h"
 #include "Process.h"
 #include "Math\Vector2.h"
-#include "Particles\ParticleEmitter.h"
 #include <vector>
 
 class CTestProcess : public CProcess
@@ -32,8 +31,6 @@ protected:
 
 	CPlayer m_Player;
 	CThPSCamera *m_pThPSCamera;
-
-	CParticleEmitter m_ParticleEmitter;
 };
 
 #endif

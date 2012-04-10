@@ -1,39 +1,83 @@
 #include "Particle.h"
-#include "Cameras\Camera.h"
+#include "Cameras\Camera.h" 
+#include "RenderManager.h"
+#include "Textures\Texture.h"
+#include "Textures\TextureManager.h"
+#include "Effects\EffectManager.h"
+#include "Effects\EffectTechnique.h"
+#include "RenderableObjects\RenderableObjectTechniqueManager.h"
+#include "RenderableObjects\RenderableObjectTechnique.h"
 
-#if defined (_DEBUG)
+#include "Base.h"
+#include "Core.h"
+#include "Logger\Logger.h"
+#include <d3d9.h>
+#include <string>
+
+#if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
 #endif
 
-CParticle::CParticle()
-	: m_fLifeTime(1.f)
-	, m_fAge(0.f)
-	, m_Direction(Vect3f(0.f, 1.f, 0.f))
+// -----------------------------------------
+//		  CONSTRUCTORS / DESTRUCTOR
+// -----------------------------------------
+
+CParticle::CParticle(void)
+	: m_vDir				( Vect3f(0.f,0.f,0.f) )
+	, m_fAge				( 0.f )
+	, m_fLifetime			( 10.f )
+	, m_vColor				( CColor(1.f, 1.f, 1.f, 1.f ) )
+	, m_iCurrentCoreIndex	( 0 )
+	, m_bAlive				( true )
+	, m_fCurrentCoreTime	( 0.f )
+{}
+
+CParticle::~CParticle(void)
 {
+	Destroy();
 }
 
-CParticle::CParticle( float lifeTime, const Vect3f& direction)
-	: m_fLifeTime(lifeTime)
-	, m_fAge(0.f)
-	, m_Direction(direction)
+
+// -----------------------------------------
+//			   MÈTODES PRINCIPALS
+// -----------------------------------------
+void CParticle::Destroy ( void )
 {
+	CBillboard::Destroy();
 }
 
-CParticle::~CParticle()
+void CParticle::Render ( CRenderManager &_RM, const CColor &_Color )
 {
+	CBillboard::Render( _RM, _Color );
 }
 
-bool CParticle::Update(float elapsedTime, CCamera &camera)
+bool CParticle::Update ( float _ElapsedTime )
 {
-	m_fAge += elapsedTime;
-	if( m_fAge >= m_fLifeTime )
+	m_fAge += _ElapsedTime;
+	
+	// Si la vida ja li ha finalitzat diem que s'ha mort
+	if ( !IsALive() ) 
 	{
+		SetIsAlive( false );
 		return false;
 	}
 
-	m_vPosition = m_vPosition + m_Direction * elapsedTime;
-
-	CBillboard::Update(camera);
+	// En altra cas actualitzem tots els paràmetre de la partícular per la seva visualització
+	Vect3f l_Pos = GetPosition();
+	CBillboard::SetPosition( l_Pos + m_vDir * _ElapsedTime );
+	CBillboard::Update( CORE->GetCamera(), 0.f );
 
 	return true;
 }
+	
+// -----------------------------------------
+//				MÈTODES PRIVATS
+// -----------------------------------------
+
+// -----------------------------------------
+//				MÈTODES PUBLICS
+// -----------------------------------------
+
+// -----------------------------------------
+//				PROPIEDADES
+// -----------------------------------------
