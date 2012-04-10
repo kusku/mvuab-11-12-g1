@@ -375,7 +375,7 @@ bool CEffectTechnique::BeginRender()
 		if( FAILED( l_Effect->SetFloatArray( m_Effect->GetHalfPixel(), hpA, 2) ) )
 		{
 			msg_error = "Error al hacer el Set del parametro: m_Effect->GetHalfPixel()";
-			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+			//LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
 		}
 	}
 

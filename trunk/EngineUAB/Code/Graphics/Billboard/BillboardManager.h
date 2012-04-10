@@ -1,35 +1,52 @@
 #pragma once
 
-#ifndef _BILLBOARD_MANAGER_H
-#define _BILLBOARD_MANAGER_H
+#ifndef __CLASS_BILLBOARD_MANAGER_H__
+#define __CLASS_BILLBOARD_MANAGER_H__
 
-class CCamera;
-class CRenderManager;
-class CBillboardAnimation;
-
-#include "Utils\TemplatedVectorMapManager.h"
-#include "BillboardDefs.h"
 #include <string>
 #include <vector>
+#include "Utils\MapManager.h"
+#include "Math\Vector3.h"
+#include "BillboardAnimation.h"
 
-class CBillboardManager : public CTemplatedVectorMapManager<CBillboardCore>
+//---Forward Declarations---
+class CRenderManager;
+class CBillboard;
+class CParticlesEmitter;
+//--------------------------
+
+class CBillboardManager
 {
 public:
-	CBillboardManager();
-	~CBillboardManager();
+	//--- Init and End protocols------------------------------------------
+					CBillboardManager	( void );
+	virtual			~CBillboardManager	( void );
 
-	bool		Load		( const std::string &filename );
-	bool		Reload		();
-	void		CleanUp		();
+	//----Main Functions ------------------------------------------------
+	void			Destroy				( void );
+	bool			Load				( const std::string &_FileName );
+	bool			Reload				( void );
+	
+	void			Update				( float _ElapsedTime );
+	void			Render				( CRenderManager &_RM );
+	
+	//----Functions -----------------------------------------------------
+	bool			LoadXML				( void );
 
-	void		Update		( float elapsedTime, CCamera &camera );
-	void		Render		( CRenderManager &RM );
+	//----Properties ( get & Set )---------------------------------------
+	void			SetXMLFile			( const std::string &_Filename )		{ m_szFilename = _Filename; }
+	std::string		GetXMLFile			( void )	const						{ return m_szFilename; }
 
+	//inline			CBillboardAnimation operator = ( const CBillboardAnimation& _pBillboardAnimation )    const;
+
+	//----Members ---------------------------------------
 private:
-	bool		LoadFile	();
+	std::string							m_szFilename;
 
-	std::string								m_FileName;
-	std::vector<CBillboardAnimation*>		m_BillboardInstancesVector;
+	CMapManager<CBillboardAnimation>	m_vBillboardAnimationVectorCORE;
+	std::vector<CBillboardAnimation*>	m_vBillboardAnimationVectorINSTANCES;
+
+	//CParticleEmitter*					m_Emisor;
 };
 
-#endif
+#endif __CLASS_BILLBOARD_MANAGER_H__

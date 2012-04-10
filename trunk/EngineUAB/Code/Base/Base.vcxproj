@@ -103,6 +103,7 @@
     <ClCompile Include="Utils\LerpAnimator1D.cpp" />
     <ClCompile Include="Utils\LerpAnimator2D.cpp" />
     <ClCompile Include="Utils\LerpAnimator3D.cpp" />
+    <ClCompile Include="Utils\Random.cpp" />
     <ClCompile Include="Utils\Timer.cpp" />
     <ClCompile Include="XML\Example.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -137,6 +138,7 @@
     <ClInclude Include="Utils\LerpAnimator3D.h" />
     <ClInclude Include="Utils\MapManager.h" />
     <ClInclude Include="Utils\Named.h" />
+    <ClInclude Include="Utils\Random.h" />
     <ClInclude Include="Utils\RandomNumber.h" />
     <ClInclude Include="Utils\RecyclingArray.h" />
     <ClInclude Include="Utils\Singleton.h" />

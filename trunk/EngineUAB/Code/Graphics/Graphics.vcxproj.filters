@@ -205,17 +205,8 @@
     <ClInclude Include="Billboard\BillboardManager.h">
       <Filter>Billboard</Filter>
     </ClInclude>
-    <ClInclude Include="Billboard\BillboardDefs.h">
-      <Filter>Billboard</Filter>
-    </ClInclude>
     <ClInclude Include="Commands\RenderParticlesSceneRendererCommand.h">
       <Filter>Commands\Command</Filter>
-    </ClInclude>
-    <ClInclude Include="Particles\Particle.h">
-      <Filter>Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="Particles\ParticleEmitter.h">
-      <Filter>Particles</Filter>
     </ClInclude>
     <ClInclude Include="PostProcess\BloomPostProcess.h">
       <Filter>PostProcess</Filter>
@@ -223,7 +214,22 @@
     <ClInclude Include="Commands\BloomPostProcessCommand.h">
       <Filter>Commands\Command</Filter>
     </ClInclude>
-    <ClInclude Include="Particles\ParticleManager.h">
+    <ClInclude Include="Particles\Particle.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Particles\ParticleDef.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Particles\ParticlesEmitterCore.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Particles\ParticlesEmitterInstance.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Particles\ParticlesEmitterProperties.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Particles\ParticlesSystemManager.h">
       <Filter>Particles</Filter>
     </ClInclude>
   </ItemGroup>
@@ -422,19 +428,25 @@
     <ClCompile Include="Commands\RenderParticlesSceneRendererCommand.cpp">
       <Filter>Commands\Command</Filter>
     </ClCompile>
-    <ClCompile Include="Particles\Particle.cpp">
-      <Filter>Particles</Filter>
-    </ClCompile>
-    <ClCompile Include="Particles\ParticleEmitter.cpp">
-      <Filter>Particles</Filter>
-    </ClCompile>
     <ClCompile Include="PostProcess\BloomPostProcess.cpp">
       <Filter>PostProcess</Filter>
     </ClCompile>
     <ClCompile Include="Commands\BloomPostProcessCommand.cpp">
       <Filter>Commands\Command</Filter>
     </ClCompile>
-    <ClCompile Include="Particles\ParticleManager.cpp">
+    <ClCompile Include="Particles\Particle.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Particles\ParticlesEmitterCore.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Particles\ParticlesEmitterInstance.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Particles\ParticlesEmitterProperties.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Particles\ParticlesSystemManager.cpp">
       <Filter>Particles</Filter>
     </ClCompile>
   </ItemGroup>

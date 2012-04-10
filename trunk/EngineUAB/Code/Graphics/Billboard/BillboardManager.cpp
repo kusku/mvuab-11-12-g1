@@ -1,184 +1,165 @@
 #include "BillboardManager.h"
-#include "Cameras\Camera.h"
+#include "Billboard.h"
 #include "RenderManager.h"
-#include "Textures\TextureManager.h"
-#include "BillboardAnimation.h"
-#include "Textures\Texture.h"
-#include "Core.h"
 #include "XML\XMLTreeNode.h"
+#include "base.h"
+#include "core.h"
 #include "Logger\Logger.h"
-#include "Base.h"
 
-#if defined (_DEBUG)
+#if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
 #endif
 
-CBillboardManager::CBillboardManager()
-	: m_FileName("")
-{
-}
+// -----------------------------------------
+//			CONSTRUCTOR/DESTRUCTOR
+// -----------------------------------------
 
-CBillboardManager::~CBillboardManager()
-{
-	CleanUp();
-}
+CBillboardManager::CBillboardManager( void )
+	: m_szFilename	( "" )
+{}
 
-void CBillboardManager::CleanUp()
+CBillboardManager::~CBillboardManager( void )
 {
-	for(uint16 i=0; i<m_BillboardInstancesVector.size(); ++i)
-	{
-		CHECKED_DELETE(m_BillboardInstancesVector[i]);
-	}
-	m_BillboardInstancesVector.clear();
-
 	Destroy();
 }
 
-bool CBillboardManager::Load(const std::string &filename)
-{
-	m_FileName = filename;
-	return LoadFile();
-}
 
-bool CBillboardManager::Reload()
-{
-	CleanUp();
-	return LoadFile();
-}
+// -----------------------------------------
+//			 MÈTODES PRINCIPALS
+// -----------------------------------------
 
-bool CBillboardManager::LoadFile()
+void CBillboardManager::Destroy ( void )
 {
-	CXMLTreeNode newFile;
-	if (!newFile.LoadFile(m_FileName.c_str()))
+	std::vector<CBillboardAnimation*>::iterator l_It = m_vBillboardAnimationVectorINSTANCES.begin();
+	std::vector<CBillboardAnimation*>::iterator l_End = m_vBillboardAnimationVectorINSTANCES.end();
+	for ( ; l_It < l_End; ++l_It )
 	{
-		std::string msg_error = "CBillboardManager::Load->Error al intentar leer el archivo xml de billboards: " + m_FileName;
-		LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
-		return false;
+		CHECKED_DELETE(*l_It);
+	}
+	m_vBillboardAnimationVectorINSTANCES.clear();
+
+	m_vBillboardAnimationVectorCORE.Destroy();
+}
+
+bool CBillboardManager::Load ( const std::string &_Filename )
+{
+	m_szFilename = _Filename;
+	return LoadXML();
+}
+
+bool CBillboardManager::Reload ( void )
+{
+	Destroy();
+	return LoadXML();
+}
+
+void CBillboardManager::Update ( float _ElapsedTime )
+{
+	std::vector<CBillboardAnimation*>::iterator l_It = m_vBillboardAnimationVectorINSTANCES.begin();
+	std::vector<CBillboardAnimation*>::iterator l_End = m_vBillboardAnimationVectorINSTANCES.end();
+
+	for ( ; l_It < l_End; ++l_It )
+	{
+		(*l_It)->Update( _ElapsedTime );
 	}	
-	
-	CXMLTreeNode l_BillboardAnimations = newFile["BillboardAnimation"];
-	if( l_BillboardAnimations.Exists() )
+}
+
+void CBillboardManager::Render ( CRenderManager &_RM )
+{
+	std::vector<CBillboardAnimation*>::iterator l_It = m_vBillboardAnimationVectorINSTANCES.begin();
+	std::vector<CBillboardAnimation*>::iterator l_End = m_vBillboardAnimationVectorINSTANCES.end();
+
+	for ( ; l_It < l_End; ++l_It )
 	{
-		uint16 l_CountBA = l_BillboardAnimations.GetNumChildren();
-		for( uint16 i=0; i<l_CountBA; ++i)
+		(*l_It)->Render( _RM );
+	}	
+}
+
+// -----------------------------------------
+//				MÈTODES 
+// -----------------------------------------
+
+// Carreguem el fitxer de partícules
+bool CBillboardManager::LoadXML ( void )
+{
+	LOGGER->AddNewLog( ELL_INFORMATION, "CBillboardManager::LoadXML --> Loading Billboards." );
+	CXMLTreeNode newFile;
+	if ( !newFile.LoadFile ( m_szFilename.c_str ( ) ) )
+	{
+		std::string msg_error = "CBillboardManager::LoadXML->Error when trying to load the billboard objects file: " + m_szFilename;
+		LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
+		return false;
+		//throw CException(__FILE__, __LINE__, msg_error);
+	}
+
+	CXMLTreeNode l_NodePare = newFile ["BillboardAnimation"];
+	if ( l_NodePare.Exists ( ) )
+	{
+		uint16 l_TotalNodes = l_NodePare.GetNumChildren ();
+		for ( uint16 i = 0; i < l_TotalNodes; ++i )
 		{
-			std::string l_BillboardAnimationType = l_BillboardAnimations(i).GetName();
-			if( l_BillboardAnimationType == "Billboard" ) 
+			std::string l_Node = l_NodePare(i).GetName();
+			// Carreguem totes les animacions
+			if ( l_Node == "Billboard" ) 
 			{
-				//Carga los billboards
-				CXMLTreeNode l_Billboard = l_BillboardAnimations(i);
-
-				uint16 l_CountBillboard = l_Billboard.GetNumChildren();
-				for( uint16 j=0; j<l_CountBillboard; ++j)
+				CXMLTreeNode l_BillboardNode = l_NodePare(i);
+				uint16 l_TotalBillboardNodes = l_BillboardNode.GetNumChildren ();
+				for ( uint16 i = 0; i < l_TotalBillboardNodes; ++i )
 				{
-					std::string l_BillboardType = l_Billboard(j).GetName();
-					if( l_BillboardType == "Animation" )
+					// Per cada animació que trobi 
+					std::string l_AnimationNode = l_BillboardNode(i).GetName();
+					if ( l_AnimationNode == "Animation" ) 
 					{
-						CXMLTreeNode l_Animation = l_Billboard(j);
-
-						std::string l_Name = l_Animation.GetPszProperty("name", "");
-						Vect4f l_ColorVector = l_Animation.GetVect4fProperty("color", Vect4f(1.0,1.0,1.0,1.0));
-						CColor l_Color = CColor(l_ColorVector.x, l_ColorVector.y, l_ColorVector.z, l_ColorVector.w);
-						float l_Size = l_Animation.GetFloatProperty("size", 1.f);
-						float l_Time = l_Animation.GetFloatProperty("timePerImage", 1.0f);
-						bool l_Loop = l_Animation.GetBoolProperty("loop", false);
-						
-						//Crea el core del billboard
-						CBillboardCore *l_Core = new CBillboardCore(l_Size, l_Time, l_Loop, l_Color);
-
-						uint16 l_CountAnimation = l_Animation.GetNumChildren();
-						for(uint16 k=0; k<l_CountAnimation; ++k)
-						{
-							std::string l_TextureType = l_Animation(k).GetName();
-							if( l_TextureType == "Texture" )
-							{
-								std::string l_FileNameTexture = l_Animation(k).GetPszProperty("file", "");
-								CTexture *l_Texture = CORE->GetTextureManager()->GetTexture(l_FileNameTexture);
-								l_Core->AddTexture(l_Texture);
-							}
-						}
-
-						//Añade el core en el map
-						AddResource(l_Name,l_Core);
+						CBillboardAnimation * l_BillboardAnimation = new CBillboardAnimation( l_BillboardNode(i) );
+						if ( !m_vBillboardAnimationVectorCORE.AddResource( l_BillboardNode(i).GetPszProperty ( "name", "" ), l_BillboardAnimation ) )
+							CHECKED_DELETE ( l_BillboardAnimation );
+					}
+					else if ( l_AnimationNode != "comment" ) 
+					{
+						std::string msg_error = "CBillboardManager::LoadXML->Error when trying to load an unexisted Animation node from file: " + m_szFilename;
+						LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
 					}
 				}
 			}
-			else if( l_BillboardAnimationType == "Instances" )
+			// Carreguem instancies de les animacions
+			else if( l_Node == "Instances" )
 			{
-				//Carga las instancias de los billboards
-				CXMLTreeNode l_Instances = l_BillboardAnimations(i);
-
-				uint16 l_CountInstances = l_Instances.GetNumChildren();
-				for(uint16 i=0; i<l_CountInstances; ++i)
+				CXMLTreeNode l_InstancesNode = l_NodePare(i);
+				uint16 l_TotalInstancesNodes = l_InstancesNode.GetNumChildren ();
+				for ( uint16 j = 0; j < l_TotalInstancesNodes; ++j )
 				{
-					std::string l_InstancesType = l_Instances(i).GetName();
-					if( l_InstancesType == "Instance" )
+					// Per cada instancia que trobi 
+					std::string l_InstanceNode = l_InstancesNode(j).GetName();
+					if ( l_InstanceNode == "Instance" ) 
 					{
-						std::string l_Id = l_Instances(i).GetPszProperty("id", "");
-						Vect3f l_Pos = l_Instances(i).GetVect3fProperty("pos", Vect3f(0.f, 0.f, 0.f));
+						CBillboardAnimation * l_BillboardAnimation = m_vBillboardAnimationVectorCORE.GetResource ( l_InstancesNode(j).GetPszProperty ( "id", "" ) );
+						CBillboardAnimation * l_NewInstanceBillboardAnimation = new CBillboardAnimation( l_BillboardAnimation );
 
-						//Crea la instancia
-						CBillboardCore *l_Core = GetResource(l_Id);
-						if( l_Core == NULL )
-						{
-							LOGGER->AddNewLog(ELL_WARNING, "CBillboardManager::LoadFile->No se ha podido crear la instancia del billboard: %s", l_Id.c_str());
-						}
-						else
-						{
-							CBillboardAnimation *l_BillboardAnimation = new CBillboardAnimation(
-									l_Core->m_fSize, l_Core->m_fSize, l_Pos, 0.0f, l_Core->m_bLoop, l_Core->m_Color);
-							l_BillboardAnimation->SetTimeToUpdate(l_Core->m_fTimePerImage);
-							l_BillboardAnimation->SetName(l_Id);
-
-							for(uint16 j=0; j<l_Core->m_TexturesVector.size(); ++j)
-							{
-								l_BillboardAnimation->AddTexture(l_Core->m_TexturesVector[j]);
-							}
-
-							//Añade la instancia al vector
-							m_BillboardInstancesVector.push_back(l_BillboardAnimation);
-						}
+						l_NewInstanceBillboardAnimation->SetPosition( static_cast<Vect3f> (l_InstancesNode(j).GetVect3fProperty ( "pos", Vect3f(0.f,0.f,0.f) ) ) ); 
+						m_vBillboardAnimationVectorINSTANCES.push_back(l_NewInstanceBillboardAnimation);
+					}
+					else if ( l_InstanceNode != "comment" ) 
+					{
+						std::string msg_error = "CBillboardManager::LoadXML->Error when trying to load an unexisted instace node from file: " + m_szFilename;
+						LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
 					}
 				}
+			}
+			else
+			{
+				std::string msg_error = "CBillboardManager::LoadXML->Error when trying to load a node : " + l_Node + " from file: " + m_szFilename;
+				LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
 			}
 		}
 	}
-	else
-	{
-		return false;
-	}
-
 	return true;
 }
 
-void CBillboardManager::Update(float elapsedTime, CCamera &camera)
-{
-	for(uint16 i=0; i<m_BillboardInstancesVector.size(); ++i)
-	{
-		m_BillboardInstancesVector[i]->Update(elapsedTime, camera);
-	}
-}
+// -----------------------------------------
+//				 PROPIETATS 
+// -----------------------------------------
 
-void CBillboardManager::Render(CRenderManager &RM)
-{
-	Mat44f mat;
-	mat.SetIdentity();
-	RM.SetTransform(mat);
-
-	LPDIRECT3DDEVICE9 Device = RM.GetDevice();
-
-	Device->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-	Device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-	Device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-	Device->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
-
-	for(uint16 i=0; i<m_BillboardInstancesVector.size(); ++i)
-	{
-		m_BillboardInstancesVector[i]->Render(RM);
-	}
-
-	Device->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
-	Device->SetRenderState(D3DRS_POINTSPRITEENABLE, FALSE);
-	Device->SetRenderState(D3DRS_POINTSCALEENABLE, FALSE);
-	Device->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
-}
+//inline CBillboardAnimation CBillboardManager::operator = ( const CBillboardAnimation& _pBillboardAnimation ) const
+//{
+//   return NULL; //CBillboardAnimation ( _pBillboardAnimation );
+//}

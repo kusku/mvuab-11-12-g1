@@ -1,119 +1,214 @@
 #include "Billboard.h"
+#include "Cameras\Camera.h" 
 #include "RenderManager.h"
-#include "Cameras\Camera.h"
-#include "Vertexs\VertexType.h"
-#include "Utils\Types.h"
-#include "Textures\TextureManager.h"
+#include <d3d9.h>
+#include <string>
+
 #include "Textures\Texture.h"
-#include "Math\Matrix33.h"
+#include "Textures\TextureManager.h"
+#include "Effects\EffectManager.h"
+#include "Effects\EffectTechnique.h"
+#include "RenderableObjects\RenderableObjectTechniqueManager.h"
+#include "RenderableObjects\RenderableObjectTechnique.h"
+#include "Vertexs\VertexType.h"
+
 #include "Base.h"
 #include "Core.h"
+#include "Logger\Logger.h"
 
-#if defined (_DEBUG)
+#if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
 #endif
 
-CBillboard::CBillboard()
-	: m_vPosition( Vect3f(0.0f, 0.0f, 0.0f) )
-	, m_fHeight(0.f)
-	, m_fWidth(0.f)
-	, m_fRotation(0.f)
-	, m_Color(colWHITE)
-	, m_pTexture(NULL)
-	, m_APoint( Vect3f(0.f, 0.f, 0.f) )
-	, m_BPoint( Vect3f(0.f, 1.f, 0.f) )
-	, m_CPoint( Vect3f(1.f, 0.f, 0.f) )
-	, m_DPoint( Vect3f(1.f, 1.f, 0.f) )
+// -----------------------------------------
+//		  CONSTRUCTORS / DESTRUCTOR
+// -----------------------------------------
+
+CBillboard::CBillboard(void)
+	: m_vPosition	( Vect3f(0.f,0.f,0.f) )
+	, m_bIsVisible	( false )
+	, m_fWidth		( 1.f )
+	, m_fHeight		( 1.f )
+	, m_PointA		( Vect3f(0.f,0.f,0.f) )
+	, m_PointB		( Vect3f(0.f,0.f,0.f) )
+	, m_PointC		( Vect3f(0.f,0.f,0.f) )
+	, m_PointD		( Vect3f(0.f,0.f,0.f) )
+	, m_Texture		( NULL )
 {
+	m_Texture = CORE->GetTextureManager()->GetNoTexture();
 }
 
-CBillboard::CBillboard(float height, float width, const Vect3f &position, float rotation, const CColor& color, const std::string &textureName)
-	: m_vPosition(position)
-	, m_fHeight(height)
-	, m_fWidth(width)
-	, m_fRotation(rotation)
-	, m_Color(color)
-	, m_APoint( Vect3f(0.f, 0.f, 0.f) )
-	, m_BPoint( Vect3f(0.f, 1.f, 0.f) )
-	, m_CPoint( Vect3f(1.f, 0.f, 0.f) )
-	, m_DPoint( Vect3f(1.f, 1.f, 0.f) )
+
+CBillboard::~CBillboard(void)
 {
-	m_pTexture = CORE->GetTextureManager()->GetTexture(textureName);
-	assert(m_pTexture);
+	Destroy();
 }
 
-CBillboard::~CBillboard()
+
+// -----------------------------------------
+//			   MÈTODES PRINCIPALS
+// -----------------------------------------
+void CBillboard::Destroy ( void )
 {
+	m_Texture = NULL;
 }
 
-void CBillboard::Update(CCamera &Camera)
+void CBillboard::Render ( CRenderManager &_RM, const CColor &_Color )
 {
-	Vect3f l_vUp = Camera.GetVecUp();
-	Vect3f l_vDirection = -Camera.GetDirection();
-	Vect3f l_vRight = l_vUp ^ l_vDirection;
-	l_vRight.Normalize(1.f);
-	
-	//Crea una matriz de rotación
-	Mat33f l_Rotation;
-	l_Rotation.SetIdentity();
-	l_Rotation.FromAxisAngle(l_vDirection, m_fRotation);
-	l_vUp = l_Rotation * l_vUp;
-
-	m_APoint = m_vPosition + (m_fHeight / 2 * l_vUp) - (m_fWidth / 2 * l_vRight);
-	m_BPoint = m_vPosition + (m_fHeight / 2 * l_vUp) + (m_fWidth / 2 * l_vRight);
-	m_CPoint = m_vPosition - (m_fHeight / 2 * l_vUp) - (m_fWidth / 2 * l_vRight);
-	m_DPoint = m_vPosition - (m_fHeight / 2 * l_vUp) + (m_fWidth / 2 * l_vRight);
+	//RenderByHardware ( _RM, _Color );
+	RenderBySoftware ( _RM, _Color );
 }
 
-void CBillboard::Render(CRenderManager &RM)
+void CBillboard::RenderBySoftware ( CRenderManager &_RM, const CColor &_Color )
 {
 	TCOLOREDTEXTURE1_VERTEX l_Points[4];
-	uint16 l_Indexes[6] = { 0, 2, 3, 1 };
-	D3DCOLOR l_Color = D3DCOLOR_COLORVALUE( m_Color.GetRed(), m_Color.GetGreen(), m_Color.GetBlue(), m_Color.GetAlpha() );
+    unsigned short l_Indexes[6]={0,1,2,1,3,2};
+	
+	unsigned long color_aux = _Color.GetUint32Argb();
 
-	//Rellena el vector con la información del billboard
-	l_Points[0].x = m_APoint.x;
-	l_Points[0].y = m_APoint.y;
-	l_Points[0].z = m_APoint.z;
-	l_Points[0].tu = 1.f;
-	l_Points[0].tv = 0.f;
-	l_Points[0].color = l_Color;
+    l_Points[0].x		= m_PointA.x;
+    l_Points[0].y		= m_PointA.y;
+    l_Points[0].z		= m_PointA.z;
+    l_Points[0].tu		= 0.0f;
+    l_Points[0].tv		= 0.0f;
+    l_Points[0].color	= color_aux;
+        
+    l_Points[1].x		= m_PointB.x;
+    l_Points[1].y		= m_PointB.y;
+    l_Points[1].z		= m_PointB.z;
+    l_Points[1].tu		= 1.0f;
+    l_Points[1].tv		= 0.0f;
+    l_Points[1].color	= color_aux;
 
-	l_Points[1].x = m_BPoint.x;
-	l_Points[1].y = m_BPoint.y;
-	l_Points[1].z = m_BPoint.z;
-	l_Points[1].tu = 0.f;
-	l_Points[1].tv = 0.f;
-	l_Points[1].color = l_Color;
+    l_Points[2].x		= m_PointC.x;
+    l_Points[2].y		= m_PointC.y;
+    l_Points[2].z		= m_PointC.z;
+    l_Points[2].tu		= 0.0f;
+    l_Points[2].tv		= 1.0f;
+    l_Points[2].color	= color_aux;
 
-	l_Points[2].x = m_CPoint.x;
-	l_Points[2].y = m_CPoint.y;
-	l_Points[2].z = m_CPoint.z;
-	l_Points[2].tu = 1.f;
-	l_Points[2].tv = 1.f;
-	l_Points[2].color = l_Color;
-
-	l_Points[3].x = m_DPoint.x;
-	l_Points[3].y = m_DPoint.y;
-	l_Points[3].z = m_DPoint.z;
-	l_Points[3].tu = 0.f;
-	l_Points[3].tv = 1.f;
-	l_Points[3].color = l_Color;
-
-	Mat44f mat;
-	mat.SetIdentity();
-	RM.SetTransform(mat);
-
-	//Renderiza el billboard
-	assert(m_pTexture);
-	LPDIRECT3DDEVICE9 l_Device = RM.GetDevice();
-	l_Device->SetTexture(0, m_pTexture->GetDXTexture());
-	l_Device->SetFVF(TCOLOREDTEXTURE1_VERTEX::GetFVF());
-	l_Device->DrawIndexedPrimitiveUP(D3DPT_TRIANGLEFAN, 0, 4, 2, l_Indexes, D3DFMT_INDEX16, l_Points, sizeof(TCOLOREDTEXTURE1_VERTEX));
+    l_Points[3].x		= m_PointD.x;
+    l_Points[3].y		= m_PointD.y;
+    l_Points[3].z		= m_PointD.z;
+    l_Points[3].tu		= 1.0f;
+    l_Points[3].tv		= 1.0f;        
+    l_Points[3].color	= color_aux;
+	
+	LPDIRECT3DDEVICE9 Device = _RM.GetDevice();
+	Device->SetTexture( 0, m_Texture->GetDXTexture() );
+    Device->SetFVF((DWORD ) TCOLOREDTEXTURE1_VERTEX::GetFVF() );
+    Device->DrawIndexedPrimitiveUP( D3DPT_TRIANGLELIST, 0, 6,2,l_Indexes,D3DFMT_INDEX16,l_Points, sizeof(TCOLOREDTEXTURE1_VERTEX) );
 }
 
-void CBillboard::SetTexture(const std::string &name)
+void CBillboard::RenderByHardware ( CRenderManager &_RM, const CColor &_Color )
 {
-	m_pTexture = CORE->GetTextureManager()->GetTexture(name);
-	assert(m_pTexture);
+	//CORE->GetRenderableObjectsTechniqueManager()->GetPoolRenderableObjectTechniques().GetResource(
+	std::string l_TechniqueName = "DrawSingleTextureTechnique"; // CORE->GetEffectsManager()->GetTechniqueEffectNameByVertexDefault( ( int ) TGEOMETRYCOLORTEXTURA1VERTEX::GetVertexType() );
+	CEffectTechnique* l_pTechnique = CORE->GetEffectManager()->GetEffectTechnique ( l_TechniqueName );
+
+	//Mat44f 
+
+	CEffect* l_pEffect = l_pTechnique->GetEffect();
+	l_pTechnique->BeginRender();
+	LPD3DXEFFECT l_Effect = l_pTechnique->GetEffect()->GetD3DEffect();
+
+	if ( l_Effect != NULL )
+	{
+		l_Effect->SetTechnique ( l_pTechnique->GetD3DTechnique() );
+		UINT l_NumPasses;
+		if ( SUCCEEDED ( l_Effect->Begin ( &l_NumPasses, 0 ) ) )
+		{
+			
+			for ( UINT iPass = 0; iPass < l_NumPasses; iPass++ )
+			{
+				l_Effect->BeginPass(iPass);
+	
+				//_RM->DrawColoredQuad2DTexturedInPixels ( _Color, _U0, _V0, _U1, _V1 );
+
+				TCOLOREDTEXTURE1_VERTEX l_Points[4];
+				unsigned short l_Indexes[6]={0,1,2,1,3,2};
+	
+				unsigned long color_aux = _Color.GetUint32Argb();
+
+				l_Points[0].x		= m_PointA.x;
+				l_Points[0].y		= m_PointA.y;
+				l_Points[0].z		= m_PointA.z;
+				l_Points[0].tu		= 0.0f;
+				l_Points[0].tv		= 0.0f;
+				l_Points[0].color	= color_aux;
+        
+				l_Points[1].x		= m_PointB.x;
+				l_Points[1].y		= m_PointB.y;
+				l_Points[1].z		= m_PointB.z;
+				l_Points[1].tu		= 1.0f;
+				l_Points[1].tv		= 0.0f;
+				l_Points[1].color	= color_aux;
+
+				l_Points[2].x		= m_PointC.x;
+				l_Points[2].y		= m_PointC.y;
+				l_Points[2].z		= m_PointC.z;
+				l_Points[2].tu		= 0.0f;
+				l_Points[2].tv		= 1.0f;
+				l_Points[2].color	= color_aux;
+
+				l_Points[3].x		= m_PointD.x;
+				l_Points[3].y		= m_PointD.y;
+				l_Points[3].z		= m_PointD.z;
+				l_Points[3].tu		= 1.0f;
+				l_Points[3].tv		= 1.0f;        
+				l_Points[3].color	= color_aux;
+
+				Mat44f mat, rotYaw, rotPitch, rotRoll;          
+	  
+				//mat.SetIdentity ( );         
+				//rotYaw.SetIdentity ( );         
+				//rotPitch.SetIdentity ( );         
+				//rotRoll.SetIdentity ( );          
+				//mat.Translate( GetPosition ( ) );                          
+				///*rotPitch.SetRotByAngleX( mathUtils::Deg2Rad<float> ( GetPitch()) );           
+				//rotYaw.SetRotByAngleY ( mathUtils::Deg2Rad<float> ( GetYaw()) );         
+				//rotRoll.SetRotByAngleZ ( mathUtils::Deg2Rad<float> ( GetRoll()) ); */                         
+				//mat = mat * rotYaw * rotPitch * rotRoll;                          
+	  
+				//_RM->SetTransform ( mat );          
+
+
+				LPDIRECT3DDEVICE9 Device = _RM.GetDevice();
+				Device->SetTexture( 0, m_Texture->GetDXTexture() );
+				if ( SUCCEEDED ( Device->SetVertexDeclaration( TCOLOREDTEXTURE1_VERTEX::GetVertexDeclaration() ) ) )
+				{
+					Device->DrawIndexedPrimitiveUP( D3DPT_TRIANGLELIST, 0, 6 ,2 , l_Indexes, D3DFMT_INDEX16, l_Points, sizeof( TCOLOREDTEXTURE1_VERTEX ) );
+				}
+
+				l_Effect->EndPass();
+			}
+			l_Effect->End();
+		}
+	}
 }
+
+void CBillboard::Update ( CCamera * _pCamera, float _Angle )
+{
+	Mat33f l_Rotation;
+	l_Rotation.FromAxisAngle ( _pCamera->GetDirection(), _Angle );
+	Vect3f l_UpVector = l_Rotation * _pCamera->GetVecUp();
+
+	Vect3f l_Right = l_UpVector^( - _pCamera->GetDirection() );
+	l_Right.Normalize();
+	m_PointA = m_vPosition + m_fHeight/2 * _pCamera->GetVecUp() - m_fWidth/2 * l_Right;
+	m_PointB = m_vPosition + m_fHeight/2 * _pCamera->GetVecUp() + m_fWidth/2 * l_Right;
+	m_PointC = m_vPosition - m_fHeight/2 * _pCamera->GetVecUp() - m_fWidth/2 * l_Right;
+	m_PointD = m_vPosition - m_fHeight/2 * _pCamera->GetVecUp() + m_fWidth/2 * l_Right;
+}
+	
+// -----------------------------------------
+//				MÈTODES PRIVATS
+// -----------------------------------------
+
+// -----------------------------------------
+//				MÈTODES PUBLICS
+// -----------------------------------------
+
+// -----------------------------------------
+//				PROPIEDADES
+// -----------------------------------------

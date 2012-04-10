@@ -22,7 +22,7 @@
 #include "DebugGUIManager.h"
 #include "Stadistics\Stadistics.h"
 #include "Billboard\BillboardManager.h"
-#include "Particles\ParticleManager.h"
+#include "Particles\ParticlesSystemManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -173,7 +173,7 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 			m_pBillboardManager = new CBillboardManager();
 			m_pBillboardManager->Load( config.billboards_path );
 
-			m_pParticleManager = new CParticleManager();
+			m_pParticleManager = new CParticlesSystemManager();
 			m_pParticleManager->Load( config.particles_path );
 
 #if defined (_DEBUG)
@@ -207,8 +207,8 @@ void CCore::Update(float ElapsedTime)
 	//m_pInputManager->Update();
 	m_pActionToInput->Update();
 	m_pPhysicsManager->Update(ElapsedTime);
-	m_pBillboardManager->Update(ElapsedTime, *m_pCamera);
-	m_pParticleManager->Update(ElapsedTime, *m_pCamera);
+	m_pBillboardManager->Update(ElapsedTime);
+	m_pParticleManager->Update(ElapsedTime);
 
 #if defined(_DEBUG)
 	m_pDebugGUIManager->Update(ElapsedTime);

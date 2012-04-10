@@ -1,46 +1,70 @@
 #pragma once
 
-#ifndef _BILLBOARD_H
-#define _BILLBOARD_H
+#ifndef __BILLBOARD_H__
+#define __BILLBOARD_H__
 
-#include "Math\Vector3.h"
 #include "Math\Color.h"
-#include <string>
+#include "Math\Vector3.h"
 
+//---Forward Declarations---
 class CRenderManager;
-class CTexture;
 class CCamera;
+class CTexture;
+//--------------------------
+
 
 class CBillboard
 {
 public:
-	CBillboard();
-	CBillboard(float height, float width, const Vect3f &position, float rotation, const CColor& color, const std::string &textureName);
-	virtual ~CBillboard();
+	//--- Init and End protocols------------------------------------------
+				CBillboard		( void );
+				~CBillboard		( void );	
 
-	void		Update			( CCamera &Camera );
-	void		Render			( CRenderManager &RM );
-
-	void		SetTexture		( const std::string &name );
-	void		SetPosition		( const Vect3f &pos )			{ m_vPosition = pos; }
-	void		SetHeight		( float height )				{ m_fHeight = height; }
-	void		SetWidth		( float width )					{ m_fWidth = width; }
-	void		SetColor		( const CColor &color )			{ m_Color = color; }
-	void		SetRotation		( float rotation )				{ m_fRotation = rotation; }
-
-protected:
-	Vect3f			m_vPosition;
-	float			m_fHeight;
-	float			m_fWidth;
-	float			m_fRotation;
-	CColor			m_Color;
-	CTexture		*m_pTexture;
+	//----Funcions principals -------------------------------------------
+	void		Render			( CRenderManager &_RM, const CColor &_Color = colWHITE );
+	void		RenderByHardware( CRenderManager &_RM, const CColor &_Color = colWHITE );
+	void		RenderBySoftware( CRenderManager &_RM, const CColor &_Color = colWHITE );
+	void		Update			( CCamera * _pCamera, float _Angle );
 	
+	//----Funcions privades ------------------------------------------------------
+protected:
+	void		Destroy			( void );
+	
+	//----Properties ( get & Set )---------------------------------------
+public:
+	void		SetVisible		( const bool &_Value )			{ m_bIsVisible = _Value; }
+	bool		GetVisible		( void ) const					{ return m_bIsVisible; }
 
-	Vect3f			m_APoint;
-	Vect3f			m_BPoint;
-	Vect3f			m_CPoint;
-	Vect3f			m_DPoint;
+	void		SetPosition		( const Vect3f &_Position )		{ m_vPosition = _Position; }
+	Vect3f		GetPosition		( void ) const					{ return m_vPosition; }
+
+	void		SetWidth		( float _Width )				{ m_fWidth = _Width; }
+	float		GetWidth		( void ) const					{ return m_fWidth; }
+	void		SetHeight		( float _Height )				{ m_fHeight = _Height; }
+	float		GetHeight		( void ) const					{ return m_fHeight; }
+
+	void		SetPointA		( const Vect3f &_Point )		{ m_PointA = _Point; }
+	Vect3f		GetPointA		( void ) const					{ return m_PointA; }
+	void		SetPointB		( const Vect3f &_Point )		{ m_PointB = _Point; }
+	Vect3f		GetPointB		( void ) const					{ return m_PointB; }
+	void		SetPointC		( const Vect3f &_Point )		{ m_PointC = _Point; }
+	Vect3f		GetPointC		( void ) const					{ return m_PointC; }
+	void		SetPointD		( const Vect3f &_Point )		{ m_PointD = _Point; }
+	Vect3f		GetPointD		( void ) const					{ return m_PointD; }
+
+	void		SetTexture		( CTexture *_pTexture )			{ m_Texture = _pTexture; }
+	CTexture *	GetTexture		( void ) const					{ return m_Texture; }
+
+private:
+	
+	bool		m_bIsVisible;
+	Vect3f		m_vPosition;
+	
+	float		m_fWidth, m_fHeight;
+
+	CTexture*	m_Texture;
+
+	Vect3f		m_PointA, m_PointB, m_PointC, m_PointD;
 };
 
-#endif
+#endif __BILLBOARD_H__
