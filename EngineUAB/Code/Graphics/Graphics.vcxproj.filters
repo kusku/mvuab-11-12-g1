@@ -223,6 +223,9 @@
     <ClInclude Include="Commands\BloomPostProcessCommand.h">
       <Filter>Commands\Command</Filter>
     </ClInclude>
+    <ClInclude Include="Particles\ParticleManager.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
@@ -430,6 +433,9 @@
     </ClCompile>
     <ClCompile Include="Commands\BloomPostProcessCommand.cpp">
       <Filter>Commands\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Particles\ParticleManager.cpp">
+      <Filter>Particles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

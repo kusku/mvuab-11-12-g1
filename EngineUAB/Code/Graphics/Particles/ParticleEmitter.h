@@ -4,6 +4,7 @@
 #define _PARTICLE_EMITTER_H_
 
 class CRenderManager;
+class CCamera;
 
 #include "Math\Vector3.h"
 #include "Math\Color.h"
@@ -18,7 +19,7 @@ public:
 	CParticleEmitter();
 	~CParticleEmitter();
 
-	void				Update					( float elapsedTime );
+	void				Update					( float elapsedTime, CCamera &camera );
 	void				Render					( CRenderManager &RM );
 
 	//--- Set & Get Methods --------------------

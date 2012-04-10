@@ -21,9 +21,9 @@ CBillboard::CBillboard()
 	, m_Color(colWHITE)
 	, m_pTexture(NULL)
 	, m_APoint( Vect3f(0.f, 0.f, 0.f) )
-	, m_BPoint( Vect3f(0.f, 0.f, 0.f) )
-	, m_CPoint( Vect3f(0.f, 0.f, 0.f) )
-	, m_DPoint( Vect3f(0.f, 0.f, 0.f) )
+	, m_BPoint( Vect3f(0.f, 1.f, 0.f) )
+	, m_CPoint( Vect3f(1.f, 0.f, 0.f) )
+	, m_DPoint( Vect3f(1.f, 1.f, 0.f) )
 {
 }
 
@@ -68,7 +68,7 @@ void CBillboard::Update(CCamera &Camera)
 void CBillboard::Render(CRenderManager &RM)
 {
 	TCOLOREDTEXTURE1_VERTEX l_Points[4];
-	uint16 l_Indexes[6] = { 0, 2, 1, 1, 2, 3 };
+	uint16 l_Indexes[6] = { 0, 2, 3, 1 };
 	D3DCOLOR l_Color = D3DCOLOR_COLORVALUE( m_Color.GetRed(), m_Color.GetGreen(), m_Color.GetBlue(), m_Color.GetAlpha() );
 
 	//Rellena el vector con la información del billboard
@@ -109,7 +109,7 @@ void CBillboard::Render(CRenderManager &RM)
 	LPDIRECT3DDEVICE9 l_Device = RM.GetDevice();
 	l_Device->SetTexture(0, m_pTexture->GetDXTexture());
 	l_Device->SetFVF(TCOLOREDTEXTURE1_VERTEX::GetFVF());
-	l_Device->DrawIndexedPrimitiveUP(D3DPT_TRIANGLELIST, 0, 6, 2, l_Indexes, D3DFMT_INDEX16, l_Points, sizeof(TCOLOREDTEXTURE1_VERTEX));
+	l_Device->DrawIndexedPrimitiveUP(D3DPT_TRIANGLEFAN, 0, 4, 2, l_Indexes, D3DFMT_INDEX16, l_Points, sizeof(TCOLOREDTEXTURE1_VERTEX));
 }
 
 void CBillboard::SetTexture(const std::string &name)
