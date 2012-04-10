@@ -6,6 +6,8 @@
 #include "Billboard\Billboard.h"
 #include "Math\Vector3.h"
 
+class CCamera;
+
 class CParticle : public CBillboard
 {
 public:
@@ -13,7 +15,7 @@ public:
 	CParticle( float lifeTime, const Vect3f& direction );
 	~CParticle();
 
-	bool			Update				( float elapsedTime );
+	bool			Update				( float elapsedTime, CCamera &camera );
 
 	void			SetLifeTime			( float time )			{ m_fLifeTime = time; }
 	void			SetDirection		( const Vect3f &dir )	{ m_Direction = dir; }

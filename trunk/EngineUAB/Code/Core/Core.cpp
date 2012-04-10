@@ -22,6 +22,7 @@
 #include "DebugGUIManager.h"
 #include "Stadistics\Stadistics.h"
 #include "Billboard\BillboardManager.h"
+#include "Particles\ParticleManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -48,6 +49,7 @@ CCore::CCore()
 	, m_pDebugGUIManager(NULL)
 	, m_pStadistics(NULL)
 	, m_pBillboardManager(NULL)
+	, m_pParticleManager(NULL)
 	, m_bIsOk(false)
 {
 }
@@ -78,6 +80,7 @@ void CCore::Release()
 	CHECKED_DELETE(m_pDebugGUIManager);
 	CHECKED_DELETE(m_pStadistics);
 	CHECKED_DELETE(m_pBillboardManager);
+	CHECKED_DELETE(m_pParticleManager);
 
 	m_pCamera = NULL; //La cámara la elimina el proceso
 	m_pTimer = NULL;
@@ -170,6 +173,9 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 			m_pBillboardManager = new CBillboardManager();
 			m_pBillboardManager->Load( config.billboards_path );
 
+			m_pParticleManager = new CParticleManager();
+			m_pParticleManager->Load( config.particles_path );
+
 #if defined (_DEBUG)
 			//Inicializa las estadísticas
 			m_pStadistics = new CStadistics();
@@ -202,6 +208,7 @@ void CCore::Update(float ElapsedTime)
 	m_pActionToInput->Update();
 	m_pPhysicsManager->Update(ElapsedTime);
 	m_pBillboardManager->Update(ElapsedTime, *m_pCamera);
+	m_pParticleManager->Update(ElapsedTime, *m_pCamera);
 
 #if defined(_DEBUG)
 	m_pDebugGUIManager->Update(ElapsedTime);

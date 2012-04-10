@@ -1,5 +1,6 @@
 #include "ParticleEmitter.h"
 #include "RenderManager.h"
+#include "Cameras\Camera.h"
 #include "Utils\Types.h"
 #include <time.h>
 
@@ -10,15 +11,15 @@
 CParticleEmitter::CParticleEmitter()
 	: m_Particles(50)
 	, m_Position(Vect3f(0.f, 0.f, 0.f))
-	, m_StartSpawnDir(Vect3f(1.f, 0.f, 0.f))
+	, m_StartSpawnDir(Vect3f(0.f, 1.f, 0.f))
 	, m_EndSpawnDir(Vect3f(0.f, 1.f, 0.f))
 	, m_StartColor(colWHITE)
-	, m_EndColor(colBLACK)
+	, m_EndColor(colWHITE)
 	, m_fMinEmitRate(0.1f)
 	, m_fMaxEmitRate(10.f)
-	, m_fMinSize(0.1f)
+	, m_fMinSize(1.f)
 	, m_fMaxSize(1.f)
-	, m_fNumNewPartsExcess(1.f)
+	, m_fNumNewPartsExcess(10.f)
 	, m_Texture("")
 {
 	m_RandomNumber.SetSeed( static_cast<uint32>(time(NULL)) );
@@ -28,7 +29,7 @@ CParticleEmitter::~CParticleEmitter()
 {
 }
 
-void CParticleEmitter::Update(float elapsedTime)
+void CParticleEmitter::Update(float elapsedTime, CCamera &camera)
 {
 	float fEmitRateThisFrame = m_RandomNumber( m_fMaxEmitRate, m_fMinEmitRate );
 	int iNumNewParts = static_cast<int>( fEmitRateThisFrame * elapsedTime );
@@ -44,21 +45,40 @@ void CParticleEmitter::Update(float elapsedTime)
 	{
 		// Si hay espacio para una nueva partícula:
 		CParticle *l_pParticle = m_Particles.New();
+		if( l_pParticle != NULL )
+		{
+			// determine a random vector between dir1 and dir2
+			float fRandX = m_RandomNumber( m_StartSpawnDir.x, m_EndSpawnDir.x );
+			float fRandY = m_RandomNumber( m_StartSpawnDir.y, m_EndSpawnDir.y );
+			float fRandZ = m_RandomNumber( m_StartSpawnDir.z, m_EndSpawnDir.z );
 
-		// determine a random vector between dir1 and dir2
-		float fRandX = m_RandomNumber( m_StartSpawnDir.x, m_EndSpawnDir.x );
-		float fRandY = m_RandomNumber( m_StartSpawnDir.y, m_EndSpawnDir.y );
-		float fRandZ = m_RandomNumber( m_StartSpawnDir.z, m_EndSpawnDir.z );
+			l_pParticle->SetDirection( Vect3f(fRandX, fRandY, fRandZ) );
+			l_pParticle->SetPosition( m_Position );
 
-		l_pParticle->SetDirection( Vect3f(fRandX, fRandY, fRandZ) );
-		l_pParticle->SetPosition( m_Position );
+			float fRandR = m_RandomNumber( m_StartColor.GetRed(), m_EndColor.GetRed() );
+			float fRandG = m_RandomNumber( m_StartColor.GetGreen(), m_EndColor.GetGreen() );
+			float fRandB = m_RandomNumber( m_StartColor.GetBlue(), m_EndColor.GetBlue() );
+			float fRandA = m_RandomNumber( m_StartColor.GetAlpha(), m_EndColor.GetAlpha() );
 
-		float fRandR = m_RandomNumber( m_StartColor.GetRed(), m_EndColor.GetRed() );
-		float fRandG = m_RandomNumber( m_StartColor.GetGreen(), m_EndColor.GetGreen() );
-		float fRandB = m_RandomNumber( m_StartColor.GetBlue(), m_EndColor.GetBlue() );
-		float fRandA = m_RandomNumber( m_StartColor.GetAlpha(), m_EndColor.GetAlpha() );
+			l_pParticle->SetColor( CColor(fRandR, fRandG, fRandB, fRandA) );	
+			l_pParticle->SetHeight(m_fMaxSize);
+			l_pParticle->SetWidth(m_fMaxSize);
+			l_pParticle->SetTexture(m_Texture);
+		}
 
-		l_pParticle->SetColor( CColor(fRandR, fRandG, fRandB, fRandA) );	
+		//Actualiza las partículas
+		for(uint32 i=0; i<m_Particles.GetTotalElements(); ++i)
+		{
+			if( !m_Particles.IsFree(i) )
+			{
+				CParticle *l_pParticle = m_Particles.GetAt(i);
+				bool live = l_pParticle->Update(elapsedTime, camera);
+				if( !live )
+				{
+					m_Particles.Free(i);
+				}
+			}
+		}
 	}
 }
 

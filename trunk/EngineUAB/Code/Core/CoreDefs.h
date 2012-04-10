@@ -62,6 +62,7 @@ struct SConfig
 
 	//Billboards & Particles
 	std::string billboards_path;
+	std::string particles_path;
 };
 
 #endif
