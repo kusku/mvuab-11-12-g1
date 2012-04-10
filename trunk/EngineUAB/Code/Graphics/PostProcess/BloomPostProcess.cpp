@@ -62,11 +62,14 @@ void CBloomPostProcess::Init()
 	m_Scene = new CTexture();
 	m_Scene->Create("SCENE_TEXTURE", width, height, 1, CTexture::RENDERTARGET, CTexture::DEFAULT, CTexture::A8R8G8B8);
 
+	width /= 2;
+	height /= 2;
+
 	m_RT1 = new CTexture();
-	m_RT1->Create("SCENE_TEXTURE", width, height, 1, CTexture::RENDERTARGET, CTexture::DEFAULT, CTexture::A8R8G8B8);
+	m_RT1->Create("RT1", width, height, 1, CTexture::RENDERTARGET, CTexture::DEFAULT, CTexture::A8R8G8B8);
 
 	m_RT2 = new CTexture();
-	m_RT2->Create("SCENE_TEXTURE", width, height, 1, CTexture::RENDERTARGET, CTexture::DEFAULT, CTexture::A8R8G8B8);
+	m_RT2->Create("RT2", width, height, 1, CTexture::RENDERTARGET, CTexture::DEFAULT, CTexture::A8R8G8B8);
 }	 
 	 
 void CBloomPostProcess::Render()
@@ -162,7 +165,7 @@ bool CBloomPostProcess::RenderBloomGaussianBlur()
 	m_RT1->UnsetAsRenderTarget(0);
 
 	return true;
-}
+}	 
 
 bool CBloomPostProcess::RenderBloomCombine()
 {
