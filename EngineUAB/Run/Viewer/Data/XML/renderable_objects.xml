@@ -15,4 +15,8 @@
 	<mesh_instance name="Plane01" core="Plane01" position="-8000.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" scale="0.15 0.15 0.15" />-->
 	<mesh_instance name="Plane002" core="Plane002" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
 	<mesh_instance name="Llop" core="Llop" position="0.0 2.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="10.0 10.0 10.0" visible="true" layer="solid" create_physics="false" />
+	<!--<mesh_instance name="default" core="default" position="0.0 2.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="10.0 10.0 10.0" visible="true" layer="solid" create_physics="false" />
+	<mesh_instance name="caperuza" core="caperuza" position="0.0 2.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="10.0 10.0 10.0" visible="true" layer="solid" create_physics="false" />
+	<mesh_instance name="Vestido" core="Vestido" position="0.0 2.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="10.0 10.0 10.0" visible="true" layer="solid" create_physics="false" />
+	<mesh_instance name="caperuza001" core="caperuza001" position="0.0 2.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="10.0 10.0 10.0" visible="true" layer="solid" create_physics="false" />-->
 </renderable_objects>

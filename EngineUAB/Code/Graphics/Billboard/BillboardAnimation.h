@@ -54,8 +54,8 @@ public:
 	void					SetSize					( float _fSize )								{ m_fSize = _fSize; }
 	float					GetSize					( void ) const									{ return m_fSize; }
 
-	void					SetTotalTextures		( uint16 _uiNumTexturas							) { m_uiNumTexturas = _uiNumTexturas; }
-	uint16					GetTotalTextures		( void ) const									{ return m_uiNumTexturas; }
+	void					SetTotalTextures		( uint16 _uiNumTextures							) { m_uiNumTextures = _uiNumTextures; }
+	uint16					GetTotalTextures		( void ) const									{ return m_uiNumTextures; }
 
 	void					SetLoop					( bool _bLoop )									{ m_bLoop = _bLoop; }
 	bool					GetLoop					( void ) const									{ return m_bLoop; }
@@ -72,7 +72,7 @@ private:
 
 	Vect4f						m_vColor;
 	float						m_fSize;
-	uint16						m_uiNumTexturas;
+	uint16						m_uiNumTextures;
 	bool						m_bLoop;
 
 	std::vector<CTexture *>		m_vTextures;		// Vector que emmagatzema un punter de la textura enmmagatzemada en el manager

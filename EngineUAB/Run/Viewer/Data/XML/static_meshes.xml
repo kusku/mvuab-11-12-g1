@@ -10,4 +10,9 @@
 	<static_mesh name="Box006" filename=".\Data\.\EntregaTest\\Models\Box006.m3d" />
 	<static_mesh name="Plane01" filename=".\Data\.\EntregaTest\\Models\Plane01.m3d" />
 	<static_mesh name="Llop" filename=".\Data\General\Static_Meshes\Object06.m3d" />
+	
+	<static_mesh name="default" filename=".\Data\.\General\\Models\default.m3d" />
+	<static_mesh name="caperuza" filename=".\Data\.\General\\Models\caperuza.m3d" />
+	<static_mesh name="Vestido" filename=".\Data\.\General\\Models\Vestido.m3d" />
+	<static_mesh name="caperuza001" filename=".\Data\.\General\\Models\caperuza001.m3d" />
 </static_meshes>
