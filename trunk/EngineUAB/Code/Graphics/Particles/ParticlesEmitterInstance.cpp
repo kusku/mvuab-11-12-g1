@@ -65,21 +65,6 @@ void CParticlesEmitterInstance::Init ( void )
 
 void CParticlesEmitterInstance::Render ( CRenderManager &_RM, const CColor &_Color )
 {
-	
-	// Set the render states for using point sprites
-	//CORE->GetRenderManager()->GetD3DDevice()->SetRenderState( D3DRS_POINTSPRITEENABLE, TRUE );
-	//CORE->GetRenderManager()->GetD3DDevice()->SetRenderState( D3DRS_POINTSCALEENABLE,  TRUE );
-	///*CORE->GetRenderManager()->GetD3DDevice()->SetRenderState( D3DRS_POINTSIZE,     100.0f );
-	//CORE->GetRenderManager()->GetD3DDevice()->SetRenderState( D3DRS_POINTSIZE_MIN, 0.00f) );
-	//CORE->GetRenderManager()->GetD3DDevice()->SetRenderState( D3DRS_POINTSIZE_MAX, 1000.00f );
-	//CORE->GetRenderManager()->GetD3DDevice()->SetRenderState( D3DRS_POINTSCALE_A,  FtoDW(0.00f) );
-	//CORE->GetRenderManager()->GetD3DDevice()->SetRenderState( D3DRS_POINTSCALE_B,  FtoDW(0.00f) );
-	//CORE->GetRenderManager()->GetD3DDevice()->SetRenderState( D3DRS_POINTSCALE_C,  FtoDW(1.00f) );*/
-
-	//CORE->GetRenderManager()->GetD3DDevice()->SetRenderState( D3DRS_ALPHABLENDENABLE, TRUE );
-	//CORE->GetRenderManager()->GetD3DDevice()->SetRenderState( D3DRS_SRCBLEND, D3DBLEND_SRCALPHA );
-	//CORE->GetRenderManager()->GetD3DDevice()->SetRenderState( D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA );
-
 	for ( uint32 l_uiIndex = 0; l_uiIndex < m_Particles.GetTotalElements(); ++l_uiIndex )
 	{
 		if ( !m_Particles.IsFree( l_uiIndex ) )
@@ -89,16 +74,6 @@ void CParticlesEmitterInstance::Render ( CRenderManager &_RM, const CColor &_Col
 				l_Particle->Render ( _RM, _Color );
 		}
 	}
-
-	//CORE->GetRenderManager()->GetD3DDevice()->SetRenderState( D3DRS_ZWRITEENABLE, FALSE );
- //   CORE->GetRenderManager()->GetD3DDevice()->SetRenderState( D3DRS_ALPHABLENDENABLE, TRUE );
- //   CORE->GetRenderManager()->GetD3DDevice()->SetRenderState( D3DRS_SRCBLEND, D3DBLEND_ONE );
- //   CORE->GetRenderManager()->GetD3DDevice()->SetRenderState( D3DRS_DESTBLEND, D3DBLEND_ONE );
-
-
-	//// Reset render states
-	//CORE->GetRenderManager()->GetD3DDevice()->SetRenderState( D3DRS_POINTSPRITEENABLE, FALSE );
-	//CORE->GetRenderManager()->GetD3DDevice()->SetRenderState( D3DRS_POINTSCALEENABLE,  FALSE );
 }
 
 void CParticlesEmitterInstance::Update ( float _ElapsedTime )
@@ -146,7 +121,9 @@ void CParticlesEmitterInstance::Update ( float _ElapsedTime )
 			//if ( l_Particle->IsALive ( ) )
 			// A dins l'update ja mirem si és alive.
 			if ( !l_Particle->Update( _ElapsedTime ) )
+			{
 				m_Particles.Free( l_uiIndex );
+			}
 		}
 	}
 	CreateParticles( _ElapsedTime );
@@ -179,7 +156,7 @@ void CParticlesEmitterInstance::CreateParticles ( float _ElapsedTime )
 		m_fNumNewPartsExcess -= (int) m_fNumNewPartsExcess;
 	}
 
-	for ( int q = 0; q < iNumNewParts; q++ )
+	for ( int q = 0; q < iNumNewParts; ++q )
 	{
 		// Si hay espacio para una nueva partícula la creamos
 		CreateParticle();
@@ -219,6 +196,8 @@ void CParticlesEmitterInstance::AssignInitialParameters ( CParticle *l_Particle 
 	l_Particle->SetTexture  ( m_Texture );
 	l_Particle->SetWidth	( l_fCurrentSize );
 	l_Particle->SetHeight	( l_fCurrentSize );
+
+	assert( m_Texture != NULL );
 }
 
 // Calcula els nous valors i els assigna a la partícula passada
@@ -356,7 +335,7 @@ bool CParticlesEmitterInstance::UpdateValuesByTime ( float _Time )
 
 	// Carreguem la textura
 	CTextureManager *l_TextureManager = CORE->GetTextureManager();
-	m_Texture = l_TextureManager->GetResource ( m_sTexture );
+	m_Texture = l_TextureManager->GetTexture ( m_sTexture );
 	if ( m_Texture == NULL )
 	{
 		m_Texture = new CTexture();
@@ -366,7 +345,7 @@ bool CParticlesEmitterInstance::UpdateValuesByTime ( float _Time )
 		else
 		{
 			CHECKED_DELETE ( m_Texture );
-			LOGGER->AddNewLog( ELL_ERROR, "CParticlesEmitterInstance::Init-> Error loading texture file : %s", m_sTexture) ;
+			//LOGGER->AddNewLog( ELL_ERROR, "CParticlesEmitterInstance::Init-> Error loading texture file : %s", m_sTexture) ;
 		}
 	}
 
@@ -399,7 +378,7 @@ void CParticlesEmitterInstance::UpdateValuesByIndex ( size_t _Index )
 
 	// Carreguem la textura
 	CTextureManager *l_TextureManager = CORE->GetTextureManager();
-	m_Texture = l_TextureManager->GetResource ( m_sTexture );
+	m_Texture = l_TextureManager->GetTexture( m_sTexture );
 	if ( m_Texture == NULL )
 	{
 		m_Texture = new CTexture();
@@ -409,7 +388,7 @@ void CParticlesEmitterInstance::UpdateValuesByIndex ( size_t _Index )
 		else
 		{
 			CHECKED_DELETE ( m_Texture );
-			LOGGER->AddNewLog( ELL_ERROR, "CParticlesEmitterInstance::Init-> Error loading texture file : %s", m_sTexture) ;
+			//LOGGER->AddNewLog( ELL_ERROR, "CParticlesEmitterInstance::Init-> Error loading texture file : %s", m_sTexture) ;
 		}
 	}
 }

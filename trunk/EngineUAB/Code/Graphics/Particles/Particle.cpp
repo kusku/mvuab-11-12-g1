@@ -56,9 +56,9 @@ bool CParticle::Update ( float _ElapsedTime )
 	m_fAge += _ElapsedTime;
 	
 	// Si la vida ja li ha finalitzat diem que s'ha mort
-	if ( !IsALive() ) 
+	if ( m_fAge >m_fLifetime ) 
 	{
-		SetIsAlive( false );
+		m_bAlive = false;
 		return false;
 	}
 
@@ -69,15 +69,3 @@ bool CParticle::Update ( float _ElapsedTime )
 
 	return true;
 }
-	
-// -----------------------------------------
-//				MÈTODES PRIVATS
-// -----------------------------------------
-
-// -----------------------------------------
-//				MÈTODES PUBLICS
-// -----------------------------------------
-
-// -----------------------------------------
-//				PROPIEDADES
-// -----------------------------------------

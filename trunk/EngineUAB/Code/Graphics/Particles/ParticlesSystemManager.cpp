@@ -85,7 +85,7 @@ bool CParticlesSystemManager::LoadXML ( void )
 {
 	LOGGER->AddNewLog( ELL_INFORMATION, "CParticlesSystemManager::LoadXML --> Loading Particles System." );
 	CXMLTreeNode newFile;
-	if ( !newFile.LoadFile ( m_szFilename.c_str ( ) ) )
+	if ( !newFile.LoadFile ( m_szFilename.c_str() ) )
 	{
 		std::string msg_error = "CParticlesSystemManager::LoadXML->Error when trying to load the particles objects file: " + m_szFilename;
 		LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
@@ -93,9 +93,9 @@ bool CParticlesSystemManager::LoadXML ( void )
 	}
 
 	CXMLTreeNode l_NodePare = newFile ["ParticleManager"];
-	if ( l_NodePare.Exists ( ) )
+	if ( l_NodePare.Exists() )
 	{
-		uint16 l_TotalNodes = l_NodePare.GetNumChildren ();
+		uint16 l_TotalNodes = l_NodePare.GetNumChildren();
 		// Recorro els emissors i les instancies
 		for ( uint16 i = 0; i < l_TotalNodes; ++i )
 		{
@@ -104,7 +104,7 @@ bool CParticlesSystemManager::LoadXML ( void )
 			if ( l_Node == "ParticleEmitters" ) 
 			{
 				CXMLTreeNode l_ParticlesEmitterNode = l_NodePare(i);
-				uint16 l_TotalParticlesEmitterNodes = l_ParticlesEmitterNode.GetNumChildren ();
+				uint16 l_TotalParticlesEmitterNodes = l_ParticlesEmitterNode.GetNumChildren();
 				for ( uint16 j = 0; j < l_TotalParticlesEmitterNodes; ++j )
 				{
 					// Per cada emissor CORE que trobi 
@@ -115,7 +115,7 @@ bool CParticlesSystemManager::LoadXML ( void )
 						std::string l_NomCore = l_EmitterNode.GetPszProperty( "name", "" );
 
 						CParticlesEmitterCore * l_EmitterCore = new CParticlesEmitterCore( l_EmitterNode );
-						m_EmittersCores.AddResource ( l_NomCore, l_EmitterCore );
+						m_EmittersCores.AddResource( l_NomCore, l_EmitterCore );
 						l_EmitterCore = 0;
 					}
 					else 
@@ -129,7 +129,7 @@ bool CParticlesSystemManager::LoadXML ( void )
 			else if( l_Node == "Instances" )
 			{
 				CXMLTreeNode l_InstancesNode = l_NodePare(i);
-				uint16 l_TotalInstancesNodes = l_InstancesNode.GetNumChildren ();
+				uint16 l_TotalInstancesNodes = l_InstancesNode.GetNumChildren();
 				for ( uint16 j = 0; j < l_TotalInstancesNodes; ++j )
 				{
 					// Per cada instancia que trobi 
@@ -141,7 +141,7 @@ bool CParticlesSystemManager::LoadXML ( void )
 						std::string l_EmitterInstanceName = l_EmitterNode.GetPszProperty( "name", "" );
 						
 						CParticlesEmitterInstance* l_EmitterInstance = new CParticlesEmitterInstance( l_EmitterNode );
-						AddResource ( l_EmitterInstanceName, l_EmitterInstance );
+						AddResource( l_EmitterInstanceName, l_EmitterInstance );
 						l_EmitterInstance = NULL;
 					}
 					else if ( l_InstanceNode != "comment" )

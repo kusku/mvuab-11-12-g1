@@ -111,8 +111,11 @@ bool CBillboardManager::LoadXML ( void )
 					if ( l_AnimationNode == "Animation" ) 
 					{
 						CBillboardAnimation * l_BillboardAnimation = new CBillboardAnimation( l_BillboardNode(i) );
-						if ( !m_vBillboardAnimationVectorCORE.AddResource( l_BillboardNode(i).GetPszProperty ( "name", "" ), l_BillboardAnimation ) )
+						std::string l_Name = l_BillboardNode(i).GetPszProperty ( "name", "" );
+						if ( !m_vBillboardAnimationVectorCORE.AddResource( l_Name, l_BillboardAnimation ) )
+						{
 							CHECKED_DELETE ( l_BillboardAnimation );
+						}
 					}
 					else if ( l_AnimationNode != "comment" ) 
 					{

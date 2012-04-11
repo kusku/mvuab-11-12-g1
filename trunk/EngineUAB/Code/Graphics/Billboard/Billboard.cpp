@@ -62,7 +62,7 @@ void CBillboard::Render ( CRenderManager &_RM, const CColor &_Color )
 void CBillboard::RenderBySoftware ( CRenderManager &_RM, const CColor &_Color )
 {
 	TCOLOREDTEXTURE1_VERTEX l_Points[4];
-    unsigned short l_Indexes[6]={0,1,2,1,3,2};
+    unsigned short l_Indexes[6]={0,2,3,1};
 	
 	unsigned long color_aux = _Color.GetUint32Argb();
 
@@ -97,7 +97,7 @@ void CBillboard::RenderBySoftware ( CRenderManager &_RM, const CColor &_Color )
 	LPDIRECT3DDEVICE9 Device = _RM.GetDevice();
 	Device->SetTexture( 0, m_Texture->GetDXTexture() );
     Device->SetFVF((DWORD ) TCOLOREDTEXTURE1_VERTEX::GetFVF() );
-    Device->DrawIndexedPrimitiveUP( D3DPT_TRIANGLELIST, 0, 6,2,l_Indexes,D3DFMT_INDEX16,l_Points, sizeof(TCOLOREDTEXTURE1_VERTEX) );
+    Device->DrawIndexedPrimitiveUP( D3DPT_TRIANGLEFAN, 0, 4, 2, l_Indexes ,D3DFMT_INDEX16, l_Points, sizeof(TCOLOREDTEXTURE1_VERTEX) );
 }
 
 void CBillboard::RenderByHardware ( CRenderManager &_RM, const CColor &_Color )
@@ -105,8 +105,6 @@ void CBillboard::RenderByHardware ( CRenderManager &_RM, const CColor &_Color )
 	//CORE->GetRenderableObjectsTechniqueManager()->GetPoolRenderableObjectTechniques().GetResource(
 	std::string l_TechniqueName = "DrawSingleTextureTechnique"; // CORE->GetEffectsManager()->GetTechniqueEffectNameByVertexDefault( ( int ) TGEOMETRYCOLORTEXTURA1VERTEX::GetVertexType() );
 	CEffectTechnique* l_pTechnique = CORE->GetEffectManager()->GetEffectTechnique ( l_TechniqueName );
-
-	//Mat44f 
 
 	CEffect* l_pEffect = l_pTechnique->GetEffect();
 	l_pTechnique->BeginRender();
@@ -126,7 +124,7 @@ void CBillboard::RenderByHardware ( CRenderManager &_RM, const CColor &_Color )
 				//_RM->DrawColoredQuad2DTexturedInPixels ( _Color, _U0, _V0, _U1, _V1 );
 
 				TCOLOREDTEXTURE1_VERTEX l_Points[4];
-				unsigned short l_Indexes[6]={0,1,2,1,3,2};
+				unsigned short l_Indexes[6]={0, 2, 3, 1};
 	
 				unsigned long color_aux = _Color.GetUint32Argb();
 
@@ -177,7 +175,7 @@ void CBillboard::RenderByHardware ( CRenderManager &_RM, const CColor &_Color )
 				Device->SetTexture( 0, m_Texture->GetDXTexture() );
 				if ( SUCCEEDED ( Device->SetVertexDeclaration( TCOLOREDTEXTURE1_VERTEX::GetVertexDeclaration() ) ) )
 				{
-					Device->DrawIndexedPrimitiveUP( D3DPT_TRIANGLELIST, 0, 6 ,2 , l_Indexes, D3DFMT_INDEX16, l_Points, sizeof( TCOLOREDTEXTURE1_VERTEX ) );
+					Device->DrawIndexedPrimitiveUP( D3DPT_TRIANGLEFAN, 0, 4 ,2 , l_Indexes, D3DFMT_INDEX16, l_Points, sizeof( TCOLOREDTEXTURE1_VERTEX ) );
 				}
 
 				l_Effect->EndPass();
