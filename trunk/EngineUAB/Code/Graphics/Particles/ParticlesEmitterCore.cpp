@@ -158,19 +158,14 @@ void CParticlesEmitterCore::InitXMLTimeZero( const CXMLTreeNode &_MainNode )
 			l_InitialProperties->SetTextureName ( m_sTexture );
 
 			CTextureManager *l_TextureManager	= CORE->GetTextureManager();
-			CTexture		*l_Texture			= l_TextureManager->GetResource ( m_sTexture );
-			if ( l_Texture == NULL )
+			CTexture		*l_Texture			= l_TextureManager->GetTexture( m_sTexture );
+			if ( l_Texture == l_TextureManager->GetNoTexture() )
 			{
-				l_Texture = new CTexture();
-				l_Texture->SetName ( m_sTexture );
-				if ( l_Texture->Load( m_sTexture ) )
-				l_TextureManager->AddResource( m_sTexture, l_Texture );
-			}
-			else
 				m_sTexture = l_TextureManager->GetNoTextureName();
+			}	
 			
-			l_Texture = 0;
-			l_TextureManager = 0;
+			l_Texture = NULL;
+			l_TextureManager = NULL;
 		}
 	}
 }

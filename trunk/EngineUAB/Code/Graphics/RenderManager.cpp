@@ -623,6 +623,25 @@ void CRenderManager::CalculateAlignment (uint32 w, uint32 h, ETypeAlignment alig
 	}   
 }
 
+void CRenderManager::DrawTexturedQuad2D(const Vect2i &pos, uint32 w, uint32 h, ETypeAlignment alignment, ETypeFlip flip, CTexture *Texture, CColor color)
+{
+	Vect2i finalPos = pos;
+	CalculateAlignment(w, h, alignment, finalPos);
+
+	uint16 indices[6] = {0,2,1,1,2,3};
+	SCREEN_COLOR_TEXTURED_VERTEX v[4]=
+	{
+		 {(float)finalPos.x, (float)finalPos.y, 0.f, 1.f, D3DCOLOR_COLORVALUE(color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha()), 0.f, 0.f}
+		,{ (float)finalPos.x, (float)finalPos.y+h, 0.f, 1.f, D3DCOLOR_COLORVALUE(color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha()), 0.f, 1.f}
+		,{ (float)finalPos.x+w, (float)finalPos.y, 0.f, 1.f, D3DCOLOR_COLORVALUE(color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha()), 1.f, 0.f}
+		,{ (float)finalPos.x+w, (float)finalPos.y+h, 0.f, 1.f, D3DCOLOR_COLORVALUE(color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha()), 1.f, 1.f}
+	};
+
+	m_pD3DDevice->SetFVF( SCREEN_COLOR_TEXTURED_VERTEX::getFlags());
+	Texture->Activate(0);
+	m_pD3DDevice->DrawIndexedPrimitiveUP(D3DPT_TRIANGLELIST, 0, 4, 2, indices, D3DFMT_INDEX16, v, sizeof(SCREEN_COLOR_TEXTURED_VERTEX));
+}
+
 void CRenderManager::DrawRectangle2D ( const Vect2i& pos, uint32 w, uint32 h, CColor& backGroundColor, uint32 edge_w, uint32 edge_h, CColor& edgeColor )
 {
 	m_pD3DDevice->SetRenderState( D3DRS_ALPHABLENDENABLE, TRUE );
@@ -694,4 +713,20 @@ void CRenderManager::SetTransform( const Mat44f &mat)
 
 	CORE->GetEffectManager()->SetWorldMatrix(aux);
 	m_pD3DDevice->SetTransform(D3DTS_WORLD, &aux);
+}
+
+void CRenderManager::EnableAlphaBlend()
+{
+	m_pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	m_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	m_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	m_pD3DDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+}
+
+void CRenderManager::DisableAlphaBlend()
+{
+	m_pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+    m_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	m_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	m_pD3DDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 }

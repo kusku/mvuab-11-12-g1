@@ -41,6 +41,9 @@ public:
 	void	SetTransform	( const D3DXMATRIX &mat );
 	void	SetTransform	( const Mat44f &mat );
 
+	void	EnableAlphaBlend	();
+	void	DisableAlphaBlend	();
+
 	//Draw primitives
 	void    DrawPlane       (float size, const Vect3f& normal, float distance, CColor Color, int GridX, int GridZ ); 
 	void	DrawLine		( const Vect3f &PosA, const Vect3f &PosB, CColor Color = colWHITE );
@@ -50,6 +53,8 @@ public:
 	void	DrawSphere		( float radius, uint32 edges, CColor color = colWHITE );
 	void	DrawCone		( float size, uint16 edges, CColor color = colWHITE );
 	void	DrawTower		( float size, CColor color = colWHITE );
+	void	DrawQuad2D		( const Vect2i& pos, uint32 w, uint32 h, ETypeAlignment alignment, CColor color = colBLUE);
+	void	DrawTexturedQuad2D( const Vect2i &pos, uint32 w, uint32 h, ETypeAlignment alignment, ETypeFlip flip, CTexture *Texture, CColor color = colBLUE);
 	void	DrawRectangle2D ( const Vect2i& pos, uint32 w, uint32 h, CColor& backGroundColor, uint32 edge_w, uint32 edge_h, CColor& edgeColor );
 	void	DrawColoredQuad2DTexturedInPixelsByEffectTechnique( CEffectTechnique* EffectTechnique,const CColor &color, Vect2f vec1 = Vect2f(-1.0f, -1.0f), Vect2f vec2 = Vect2f(1.0f, 1.0f), 
 																float U0 = 0.0f, float V0 = 0.0f, float U1 = 1.0f, float V1 = 1.0f);
@@ -82,7 +87,6 @@ protected:
 	void GetWindowRect( HWND hWnd );
 	void CalculateAlignment (uint32 w, uint32 h, ETypeAlignment alignment, Vect2i & finalPos);
 	void CreateQuadBuffers();
-	void DrawQuad2D ( const Vect2i& pos, uint32 w, uint32 h, ETypeAlignment alignment, CColor color = colBLUE);
 	void DrawColoredQuad2DTexturedInPixels(Vect2f vec1, Vect2f vec2, const CColor& color, float U0, float V0, float U1, float V1);
 
 	bool	m_bIsOk;

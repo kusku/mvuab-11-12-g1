@@ -11,8 +11,9 @@
 	<static_mesh name="Plane01" filename=".\Data\.\EntregaTest\\Models\Plane01.m3d" />
 	<static_mesh name="Llop" filename=".\Data\General\Static_Meshes\Object06.m3d" />
 	
-	<static_mesh name="default" filename=".\Data\.\General\\Models\default.m3d" />
-	<static_mesh name="caperuza" filename=".\Data\.\General\\Models\caperuza.m3d" />
-	<static_mesh name="Vestido" filename=".\Data\.\General\\Models\Vestido.m3d" />
-	<static_mesh name="caperuza001" filename=".\Data\.\General\\Models\caperuza001.m3d" />
+	<static_mesh name="room0" filename=".\Data\.\Chapter3\\Models\room0.m3d" />
+	<!--<static_mesh name="room1" filename=".\Data\.\Chapter3\\Models\room1.m3d" />-->
+	<static_mesh name="room2" filename=".\Data\.\Chapter3\\Models\room2.m3d" />
+	<!--<static_mesh name="room3" filename=".\Data\.\Chapter3\\Models\room3.m3d" />-->
+	<!--<static_mesh name="room4" filename=".\Data\.\Chapter3\\Models\room4.m3d" />-->
 </static_meshes>

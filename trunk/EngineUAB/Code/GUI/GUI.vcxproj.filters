@@ -22,6 +22,48 @@
     <ClCompile Include="LogRender\LogRender.cpp">
       <Filter>Debug_GUI\LogRender</Filter>
     </ClCompile>
+    <ClCompile Include="GuiElement.cpp" />
+    <ClCompile Include="GUIManager.cpp" />
+    <ClCompile Include="GUIWindow.cpp" />
+    <ClCompile Include="Controls\AnimatedImage.cpp">
+      <Filter>Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\Button.cpp">
+      <Filter>Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\CheckButton.cpp">
+      <Filter>Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\DialogBox.cpp">
+      <Filter>Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\EditableTextBox.cpp">
+      <Filter>Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\Image.cpp">
+      <Filter>Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\main.cpp">
+      <Filter>Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\PointerMouse.cpp">
+      <Filter>Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\ProgressBar.cpp">
+      <Filter>Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\RadioBox.cpp">
+      <Filter>Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\Slider.cpp">
+      <Filter>Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\StaticText.cpp">
+      <Filter>Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\TextBox.cpp">
+      <Filter>Controls</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Debug_GUI">
@@ -41,6 +83,9 @@
     </Filter>
     <Filter Include="Debug_GUI\LogRender">
       <UniqueIdentifier>{a501fbe8-a483-44b7-8170-86072cd7b089}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls">
+      <UniqueIdentifier>{790f9ac2-06f9-4792-85b4-b078084a1270}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +112,45 @@
     </ClInclude>
     <ClInclude Include="LogRender\LogRender.h">
       <Filter>Debug_GUI\LogRender</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiElement.h" />
+    <ClInclude Include="GUIManager.h" />
+    <ClInclude Include="GUIWindow.h" />
+    <ClInclude Include="Controls\AnimatedImage.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls\Button.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls\CheckButton.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls\DialogBox.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls\EditableTextBox.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls\Image.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls\PointerMouse.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls\ProgressBar.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls\RadioBox.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls\Slider.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls\StaticText.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls\TextBox.h">
+      <Filter>Controls</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

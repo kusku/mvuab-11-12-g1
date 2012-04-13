@@ -5,8 +5,10 @@
 #define ACTION_LOGGER "Logger"
 #define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZ|D3DFVF_DIFFUSE)
 #define D3DFVF_SCREEN_COLOR_VERTEX (D3DFVF_XYZRHW|D3DFVF_DIFFUSE)
+#define D3DFVF_SCREEN_COLOR_TEXTURED_VERTEX (D3DFVF_XYZRHW | D3DFVF_DIFFUSE |D3DFVF_TEX0)
 
 typedef enum ETypeAlignment { CENTER, UPPER_LEFT, UPPER_RIGHT, LOWER_LEFT, LOWER_RIGHT };
+typedef enum ETypeFlip { NONE_FLIP, FLIP_X, FLIP_Y };
 
 struct CUSTOMVERTEX
 {
@@ -26,6 +28,17 @@ struct SCREEN_COLOR_VERTEX
     {
         return D3DFVF_SCREEN_COLOR_VERTEX;
     }
+};
+
+struct SCREEN_COLOR_TEXTURED_VERTEX
+{
+	float x, y, z, w;
+	DWORD color;
+	float tu, tv;
+	static unsigned int getFlags()
+	{
+		return D3DFVF_SCREEN_COLOR_TEXTURED_VERTEX;
+	}
 };
 
 
