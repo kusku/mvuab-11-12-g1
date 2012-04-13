@@ -12,19 +12,50 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Console\Console.cpp" />
+    <ClCompile Include="Controls\AnimatedImage.cpp" />
+    <ClCompile Include="Controls\Button.cpp" />
+    <ClCompile Include="Controls\CheckButton.cpp" />
+    <ClCompile Include="Controls\DialogBox.cpp" />
+    <ClCompile Include="Controls\EditableTextBox.cpp" />
+    <ClCompile Include="Controls\Image.cpp" />
+    <ClCompile Include="Controls\main.cpp" />
+    <ClCompile Include="Controls\PointerMouse.cpp" />
+    <ClCompile Include="Controls\ProgressBar.cpp" />
+    <ClCompile Include="Controls\RadioBox.cpp" />
+    <ClCompile Include="Controls\Slider.cpp" />
+    <ClCompile Include="Controls\StaticText.cpp" />
+    <ClCompile Include="Controls\TextBox.cpp" />
     <ClCompile Include="DebugGUIManager.cpp" />
     <ClCompile Include="DebugInfo\DebugRender.cpp" />
     <ClCompile Include="DebugOptions\DebugOptions.cpp" />
+    <ClCompile Include="GuiElement.cpp" />
+    <ClCompile Include="GUIManager.cpp" />
+    <ClCompile Include="GUIWindow.cpp" />
     <ClCompile Include="LogRender\LogRender.cpp" />
     <ClCompile Include="Modifiers\Modifier.cpp" />
     <ClCompile Include="Modifiers\ModifierManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Console\Console.h" />
+    <ClInclude Include="Controls\AnimatedImage.h" />
+    <ClInclude Include="Controls\Button.h" />
+    <ClInclude Include="Controls\CheckButton.h" />
+    <ClInclude Include="Controls\DialogBox.h" />
+    <ClInclude Include="Controls\EditableTextBox.h" />
+    <ClInclude Include="Controls\Image.h" />
+    <ClInclude Include="Controls\PointerMouse.h" />
+    <ClInclude Include="Controls\ProgressBar.h" />
+    <ClInclude Include="Controls\RadioBox.h" />
+    <ClInclude Include="Controls\Slider.h" />
+    <ClInclude Include="Controls\StaticText.h" />
+    <ClInclude Include="Controls\TextBox.h" />
     <ClInclude Include="DebugGUIManager.h" />
     <ClInclude Include="DebugInfo\DebugRender.h" />
     <ClInclude Include="DebugOptions\DebugOptions.h" />
     <ClInclude Include="DebugOptions\DebugOptionsDefs.h" />
+    <ClInclude Include="GuiElement.h" />
+    <ClInclude Include="GUIManager.h" />
+    <ClInclude Include="GUIWindow.h" />
     <ClInclude Include="LogRender\LogRender.h" />
     <ClInclude Include="Modifiers\Modifier.h" />
     <ClInclude Include="Modifiers\ModifierManager.h" />

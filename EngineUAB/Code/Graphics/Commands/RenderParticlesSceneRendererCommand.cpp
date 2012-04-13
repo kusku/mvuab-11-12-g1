@@ -16,17 +16,10 @@ CRenderParticlesSceneRendererCommand::CRenderParticlesSceneRendererCommand(CXMLT
 
 void CRenderParticlesSceneRendererCommand ::Execute(CRenderManager &RM)
 {	
-	LPDIRECT3DDEVICE9 Device = RM.GetDevice();
-    Device->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-	Device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-	Device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-	Device->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+	RM.EnableAlphaBlend();
 
 	CORE->GetBillboardManager()->Render(RM);
 	CORE->GetParticleManager()->Render(RM);
 
-	Device->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-    Device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-	Device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-	Device->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+	RM.DisableAlphaBlend();
 }

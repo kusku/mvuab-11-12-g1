@@ -50,6 +50,7 @@ CTexture* CTextureManager::GetTexture(const std::string &fileName)
 		}
 		else
 		{
+			CHECKED_DELETE(l_Tex);
 			return GetResource(m_NoTextureName);
 		}
 	}

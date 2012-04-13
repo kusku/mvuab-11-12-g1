@@ -12,7 +12,6 @@
 //---Forward Declarations---
 class CRenderManager;
 class CBillboard;
-class CParticlesEmitter;
 //--------------------------
 
 class CBillboardManager
