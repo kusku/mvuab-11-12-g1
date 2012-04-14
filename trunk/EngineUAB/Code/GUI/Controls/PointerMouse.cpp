@@ -33,7 +33,7 @@ void CPointerMouse::Render (CRenderManager *renderManager, CFontManager* fm)
 			{
 				h = w;
 			}
-			renderManager->DrawTexturedQuad2D(CGuiElement::m_Position, w, h, m_Alignment, NONE_FLIP, texture);
+			renderManager->DrawTexturedQuad2D(CGuiElement::m_Position, w, h, m_Alignment, texture);
 		}
 	}
 }

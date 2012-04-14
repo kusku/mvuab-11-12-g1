@@ -51,7 +51,7 @@ void CEditableTextBox::Render (CRenderManager *renderManager, CFontManager* fm)
 		
 		if (m_pBackGroundTexture)
 		{
-			renderManager->DrawTexturedQuad2D(CGuiElement::m_Position,CGuiElement::m_uWidth,CGuiElement::m_uHeight, UPPER_LEFT, NONE_FLIP, m_pBackGroundTexture);
+			renderManager->DrawTexturedQuad2D(CGuiElement::m_Position,CGuiElement::m_uWidth,CGuiElement::m_uHeight, UPPER_LEFT, m_pBackGroundTexture);
 		}
 		else
 		{

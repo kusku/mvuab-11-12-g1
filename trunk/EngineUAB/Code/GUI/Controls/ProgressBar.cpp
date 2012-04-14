@@ -32,7 +32,7 @@ void CProgressBar::Render	(CRenderManager *renderManager, CFontManager* fm)
 	{
 		if (m_pBackgroundTexture)
 		{
-			renderManager->DrawTexturedQuad2D(CGuiElement::m_Position,CGuiElement::m_uWidth,CGuiElement::m_uHeight, UPPER_LEFT, NONE_FLIP, m_pBackgroundTexture);
+			renderManager->DrawTexturedQuad2D(CGuiElement::m_Position,CGuiElement::m_uWidth,CGuiElement::m_uHeight, UPPER_LEFT, m_pBackgroundTexture);
 		}
 		else
 		{
@@ -47,7 +47,7 @@ void CProgressBar::Render	(CRenderManager *renderManager, CFontManager* fm)
 		uint32 w = (uint32)(CGuiElement::m_uWidth*0.9f*(m_fProgress*0.01f));
 		if (m_pProgressTexture)
 		{
-			renderManager->DrawTexturedQuad2D(posProgress,w,h, UPPER_LEFT, NONE_FLIP, m_pProgressTexture);
+			renderManager->DrawTexturedQuad2D(posProgress,w,h, UPPER_LEFT, m_pProgressTexture);
 		}
 		else
 		{
