@@ -53,33 +53,37 @@ void CImage::Render (CRenderManager *renderManager, CFontManager* fm)
 			if (texture)
 			{
 				if (m_iEffect == GUI_I_FADE_OUT)
-        {
-          if (m_fFadeCounter >= m_fFadeStartAfter)
-          {
-            m_fAlpha -= (m_fFadeCounter - m_fFadeStartAfter) * m_fFadePerSecond * 0.01f;
-            if (m_fAlpha <= 0.f)
-            {
-              m_fAlpha = 0.f;
-              CGuiElement::m_bIsVisible = false;
-              m_iEffect = GUI_I_NO_EFFECT;
-            }
-          }
-        }
-        else
-        {
-          m_fAlpha = 1.0f;
-        }
+				{
+					if (m_fFadeCounter >= m_fFadeStartAfter)
+					{
+						m_fAlpha -= (m_fFadeCounter - m_fFadeStartAfter) * m_fFadePerSecond * 0.01f;
+						if (m_fAlpha <= 0.f)
+						{
+							m_fAlpha = 0.f;
+							CGuiElement::m_bIsVisible = false;
+							m_iEffect = GUI_I_NO_EFFECT;
+						}
+					}
+				}
+				else
+				{
+					m_fAlpha = 1.0f;
+				}
 
-        if (m_fAlpha < 1.0f)
-        {
-          CColor color = CColor (1.0f, 1.0f, 1.0f, m_fAlpha);
-          renderManager->DrawTexturedQuad2D(CGuiElement::m_Position, w, h, UPPER_LEFT, texture, color);
-        }
-        else
-  				renderManager->DrawQuad2D(CGuiElement::m_Position,w, h,  UPPER_LEFT, texture, m_eFlip );
-      }
+				if (m_fAlpha < 1.0f)
+				{
+					CColor color = CColor (1.0f, 1.0f, 1.0f, m_fAlpha);
+					renderManager->DrawTexturedQuad2D(CGuiElement::m_Position, w, h, UPPER_LEFT, texture, color);
+				}
+				else
+				{
+	  				renderManager->DrawQuad2D(CGuiElement::m_Position,w, h,  UPPER_LEFT, texture, m_eFlip );
+				}
+			}
 			else
+			{
 				renderManager->DrawQuad2D(CGuiElement::m_Position, w, h,  UPPER_LEFT, m_Color);
+			}
 		}
 
 		//Finalmente renderizamos el texto:
