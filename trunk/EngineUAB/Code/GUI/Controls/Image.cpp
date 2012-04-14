@@ -51,7 +51,7 @@ void CImage::Render (CRenderManager *renderManager, CFontManager* fm)
 				h = CGuiElement::m_uWidth;
 
 			if (texture)
-      {
+			{
 				if (m_iEffect == GUI_I_FADE_OUT)
         {
           if (m_fFadeCounter >= m_fFadeStartAfter)

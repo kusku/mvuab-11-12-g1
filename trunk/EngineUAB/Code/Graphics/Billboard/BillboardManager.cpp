@@ -117,11 +117,6 @@ bool CBillboardManager::LoadXML ( void )
 							CHECKED_DELETE ( l_BillboardAnimation );
 						}
 					}
-					else if ( l_AnimationNode != "comment" ) 
-					{
-						std::string msg_error = "CBillboardManager::LoadXML->Error when trying to load an unexisted Animation node from file: " + m_szFilename;
-						LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
-					}
 				}
 			}
 			// Carreguem instancies de les animacions
@@ -141,17 +136,7 @@ bool CBillboardManager::LoadXML ( void )
 						l_NewInstanceBillboardAnimation->SetPosition( static_cast<Vect3f> (l_InstancesNode(j).GetVect3fProperty ( "pos", Vect3f(0.f,0.f,0.f) ) ) ); 
 						m_vBillboardAnimationVectorINSTANCES.push_back(l_NewInstanceBillboardAnimation);
 					}
-					else if ( l_InstanceNode != "comment" ) 
-					{
-						std::string msg_error = "CBillboardManager::LoadXML->Error when trying to load an unexisted instace node from file: " + m_szFilename;
-						LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
-					}
 				}
-			}
-			else
-			{
-				std::string msg_error = "CBillboardManager::LoadXML->Error when trying to load a node : " + l_Node + " from file: " + m_szFilename;
-				LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
 			}
 		}
 	}

@@ -567,10 +567,10 @@ void CRenderManager::DrawQuad2D(const Vect2i& pos, uint32 w, uint32 h, ETypeAlig
 	unsigned short indices[6]={0,2,1,1,2,3};
 	SCREEN_TEXTURE_VERTEX v[4] =
 	{
-		{ (float)finalPos.x,        (float)finalPos.y,        0.f,1.f, coord_text[0].x,    coord_text[0].y} //(x,y) sup_esq.
-		,    { (float)finalPos.x,        (float)finalPos.y+h,    0.f,1.f, coord_text[1].x,    coord_text[1].y} //(x,y) inf_esq.
-		, { (float)finalPos.x+w,    (float)finalPos.y,        0.f,1.f, coord_text[2].x,    coord_text[2].y} //(x,y) sup_dr.
-		,    { (float)finalPos.x+w,    (float)finalPos.y+h,    0.f,1.f, coord_text[3].x,    coord_text[3].y} //(x,y) inf_dr.
+		 { (float)finalPos.x,      (float)finalPos.y,       0.f,1.f, coord_text[0].x,    coord_text[0].y} //(x,y) sup_esq.
+		,{ (float)finalPos.x,      (float)finalPos.y+h,		0.f,1.f, coord_text[1].x,    coord_text[1].y} //(x,y) inf_esq.
+		,{ (float)finalPos.x+w,    (float)finalPos.y,       0.f,1.f, coord_text[2].x,    coord_text[2].y} //(x,y) sup_dr.
+		,{ (float)finalPos.x+w,    (float)finalPos.y+h,		0.f,1.f, coord_text[3].x,    coord_text[3].y} //(x,y) inf_dr.
 	};
 
 	m_pD3DDevice->SetFVF( SCREEN_TEXTURE_VERTEX::getFlags() );

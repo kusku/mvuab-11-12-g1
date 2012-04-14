@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Windows OnLoadWindows="" OnSaveWindows="" OnUpdateWindows="">
+
+	<Image name="main_wallpaper" posx="0.0" posy="0.0" height="100.0" width="100.0" heightOffset="0.0" widthOffset="0.0"
+	visible="true" active="true" default="wallpaper" OnLoadValue="" OnSaveValue="" flip="" backGround="false">
+		<texture name="wallpaper" name_texture="./Data/General/Textures/portaventura.jpg" />
+	</Image>
+	
+</Windows>
