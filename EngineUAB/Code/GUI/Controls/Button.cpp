@@ -40,7 +40,7 @@ void CButton::Render	(CRenderManager *renderManager, CFontManager* fm)
 		case BS_NORMAL:
 			if (m_pNormalTexture)
 			{
-				renderManager->DrawTexturedQuad2D(CGuiElement::m_Position,CGuiElement::m_uWidth,CGuiElement::m_uHeight, UPPER_LEFT, NONE_FLIP, m_pNormalTexture);
+				renderManager->DrawTexturedQuad2D(CGuiElement::m_Position,CGuiElement::m_uWidth,CGuiElement::m_uHeight, UPPER_LEFT, m_pNormalTexture);
 			}
 			else
 			{
@@ -50,7 +50,7 @@ void CButton::Render	(CRenderManager *renderManager, CFontManager* fm)
 		case BS_OVER:
 			if (m_pOverTexture)
 			{
-				renderManager->DrawTexturedQuad2D(CGuiElement::m_Position,CGuiElement::m_uWidth,CGuiElement::m_uHeight, UPPER_LEFT, NONE_FLIP, m_pOverTexture);
+				renderManager->DrawTexturedQuad2D(CGuiElement::m_Position,CGuiElement::m_uWidth,CGuiElement::m_uHeight, UPPER_LEFT, m_pOverTexture);
 			}
 			else
 			{
@@ -60,7 +60,7 @@ void CButton::Render	(CRenderManager *renderManager, CFontManager* fm)
 		case BS_CLICKED:
 			if (m_pClickedTexture)
 			{
-				renderManager->DrawTexturedQuad2D(CGuiElement::m_Position,CGuiElement::m_uWidth,CGuiElement::m_uHeight, UPPER_LEFT, NONE_FLIP, m_pClickedTexture);
+				renderManager->DrawTexturedQuad2D(CGuiElement::m_Position,CGuiElement::m_uWidth,CGuiElement::m_uHeight, UPPER_LEFT, m_pClickedTexture);
 			}
 			else
 			{
@@ -76,7 +76,7 @@ void CButton::Render	(CRenderManager *renderManager, CFontManager* fm)
 		{
 			if (m_pDeactivatedTexture)
 			{
-				renderManager->DrawTexturedQuad2D(CGuiElement::m_Position,CGuiElement::m_uWidth,CGuiElement::m_uHeight, UPPER_LEFT, NONE_FLIP, m_pDeactivatedTexture);
+				renderManager->DrawTexturedQuad2D(CGuiElement::m_Position,CGuiElement::m_uWidth,CGuiElement::m_uHeight, UPPER_LEFT, m_pDeactivatedTexture);
 			}
 			else
 			{

@@ -43,7 +43,7 @@ void CCheckButton::Render (CRenderManager *renderManager, CFontManager* fm)
 			{
 				if (m_pOnTexture)
 				{
-					renderManager->DrawTexturedQuad2D(CGuiElement::m_Position,CGuiElement::m_uWidth,CGuiElement::m_uHeight, UPPER_LEFT, NONE_FLIP, m_pOnTexture);
+					renderManager->DrawTexturedQuad2D(CGuiElement::m_Position,CGuiElement::m_uWidth,CGuiElement::m_uHeight, UPPER_LEFT, m_pOnTexture);
 				}
 				else
 				{
@@ -54,7 +54,7 @@ void CCheckButton::Render (CRenderManager *renderManager, CFontManager* fm)
 			{
 				if (m_pOnTexture)
 				{
-					renderManager->DrawTexturedQuad2D(CGuiElement::m_Position,CGuiElement::m_uWidth,CGuiElement::m_uHeight, UPPER_LEFT, NONE_FLIP, m_pOffTexture);
+					renderManager->DrawTexturedQuad2D(CGuiElement::m_Position,CGuiElement::m_uWidth,CGuiElement::m_uHeight, UPPER_LEFT, m_pOffTexture);
 				}
 				else
 				{
@@ -66,7 +66,7 @@ void CCheckButton::Render (CRenderManager *renderManager, CFontManager* fm)
 		{
 			if (m_pDeactivatedTexture)
 			{
-				renderManager->DrawTexturedQuad2D(CGuiElement::m_Position,CGuiElement::m_uWidth,CGuiElement::m_uHeight, UPPER_LEFT, NONE_FLIP, m_pDeactivatedTexture);
+				renderManager->DrawTexturedQuad2D(CGuiElement::m_Position,CGuiElement::m_uWidth,CGuiElement::m_uHeight, UPPER_LEFT, m_pDeactivatedTexture);
 			}
 			else
 			{

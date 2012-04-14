@@ -73,10 +73,10 @@ void CImage::Render (CRenderManager *renderManager, CFontManager* fm)
         if (m_fAlpha < 1.0f)
         {
           CColor color = CColor (1.0f, 1.0f, 1.0f, m_fAlpha);
-          renderManager->DrawTexturedQuad2D(CGuiElement::m_Position, w, h, UPPER_LEFT, NONE_FLIP, texture, color);
+          renderManager->DrawTexturedQuad2D(CGuiElement::m_Position, w, h, UPPER_LEFT, texture, color);
         }
         else
-  				renderManager->DrawTexturedQuad2D(CGuiElement::m_Position,w, h,  UPPER_LEFT, m_eFlip, texture );
+  				renderManager->DrawQuad2D(CGuiElement::m_Position,w, h,  UPPER_LEFT, texture, m_eFlip );
       }
 			else
 				renderManager->DrawQuad2D(CGuiElement::m_Position, w, h,  UPPER_LEFT, m_Color);
