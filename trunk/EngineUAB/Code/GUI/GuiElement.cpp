@@ -7,8 +7,8 @@
 #include "Fonts\FontManager.h"
 
 CGuiElement::CGuiElement(	uint32 windowsHeight, uint32 windowsWidth, float height_percent, float width_percent, 
-												 Vect2f position_percent, TypeGuiElement type, std::string lit, uint32 textHeightOffset,
-												 uint32 textWidthOffset, bool isVisible, bool isActive)
+									Vect2f position_percent, TypeGuiElement type, std::string lit, uint32 textHeightOffset,
+									uint32 textWidthOffset, bool isVisible, bool isActive)
 
 : m_uWindowsHeight( windowsHeight )
 , m_uWindowsWidth(windowsWidth )

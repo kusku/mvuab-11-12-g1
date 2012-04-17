@@ -47,7 +47,7 @@ void CEngine::Init(HWND hWnd)
 	LOGGER->AddNewLog(ELL_INFORMATION, "CEngine::Init-> Inicializando Engine");
 
 	m_pCore = new CCore();
-	m_pCore->Init(hWnd, m_Config);
+	m_pCore->Init(hWnd, m_Config);	
 	m_pProcess->Init();
 	m_pCore->SetProcess(m_pProcess);
 }

@@ -3,12 +3,12 @@
   <ItemGroup>
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="Process.cpp" />
+    <ClCompile Include="EngineProcess.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
     <ClInclude Include="Engine.h" />
-    <ClInclude Include="Process.h" />
     <ClInclude Include="CoreDefs.h" />
+    <ClInclude Include="EngineProcess.h" />
   </ItemGroup>
 </Project>

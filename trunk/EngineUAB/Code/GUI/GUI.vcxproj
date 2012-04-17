@@ -12,19 +12,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Console\Console.cpp" />
-    <ClCompile Include="Controls\AnimatedImage.cpp" />
-    <ClCompile Include="Controls\Button.cpp" />
-    <ClCompile Include="Controls\CheckButton.cpp" />
-    <ClCompile Include="Controls\DialogBox.cpp" />
-    <ClCompile Include="Controls\EditableTextBox.cpp" />
-    <ClCompile Include="Controls\Image.cpp" />
-    <ClCompile Include="Controls\main.cpp" />
-    <ClCompile Include="Controls\PointerMouse.cpp" />
-    <ClCompile Include="Controls\ProgressBar.cpp" />
-    <ClCompile Include="Controls\RadioBox.cpp" />
-    <ClCompile Include="Controls\Slider.cpp" />
-    <ClCompile Include="Controls\StaticText.cpp" />
-    <ClCompile Include="Controls\TextBox.cpp" />
+    <ClCompile Include="Controls\GUIAnimatedImage.cpp" />
+    <ClCompile Include="Controls\GUIButton.cpp" />
+    <ClCompile Include="Controls\GUICheckButton.cpp" />
+    <ClCompile Include="Controls\GUIDialogBox.cpp" />
+    <ClCompile Include="Controls\GUIEditableTextBox.cpp" />
+    <ClCompile Include="Controls\GUIImage.cpp" />
+    <ClCompile Include="Controls\GUIPointerMouse.cpp" />
+    <ClCompile Include="Controls\GUIProgressBar.cpp" />
+    <ClCompile Include="Controls\GUIRadioBox.cpp" />
+    <ClCompile Include="Controls\GUISlider.cpp" />
+    <ClCompile Include="Controls\GUIStaticText.cpp" />
+    <ClCompile Include="Controls\GUITextBox.cpp" />
     <ClCompile Include="DebugGUIManager.cpp" />
     <ClCompile Include="DebugInfo\DebugRender.cpp" />
     <ClCompile Include="DebugOptions\DebugOptions.cpp" />
@@ -37,18 +36,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Console\Console.h" />
-    <ClInclude Include="Controls\AnimatedImage.h" />
-    <ClInclude Include="Controls\Button.h" />
-    <ClInclude Include="Controls\CheckButton.h" />
-    <ClInclude Include="Controls\DialogBox.h" />
-    <ClInclude Include="Controls\EditableTextBox.h" />
-    <ClInclude Include="Controls\Image.h" />
-    <ClInclude Include="Controls\PointerMouse.h" />
-    <ClInclude Include="Controls\ProgressBar.h" />
-    <ClInclude Include="Controls\RadioBox.h" />
-    <ClInclude Include="Controls\Slider.h" />
-    <ClInclude Include="Controls\StaticText.h" />
-    <ClInclude Include="Controls\TextBox.h" />
+    <ClInclude Include="Controls\GUIAnimatedImage.h" />
+    <ClInclude Include="Controls\GUIButton.h" />
+    <ClInclude Include="Controls\GUICheckButton.h" />
+    <ClInclude Include="Controls\GUIDialogBox.h" />
+    <ClInclude Include="Controls\GUIEditableTextBox.h" />
+    <ClInclude Include="Controls\GUIImage.h" />
+    <ClInclude Include="Controls\GUIPointerMouse.h" />
+    <ClInclude Include="Controls\GUIProgressBar.h" />
+    <ClInclude Include="Controls\GUIRadioBox.h" />
+    <ClInclude Include="Controls\GUISlider.h" />
+    <ClInclude Include="Controls\GUIStaticText.h" />
+    <ClInclude Include="Controls\GUITextBox.h" />
     <ClInclude Include="DebugGUIManager.h" />
     <ClInclude Include="DebugInfo\DebugRender.h" />
     <ClInclude Include="DebugOptions\DebugOptions.h" />

@@ -13,13 +13,13 @@
   <ItemGroup>
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="Process.cpp" />
+    <ClCompile Include="EngineProcess.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
     <ClInclude Include="CoreDefs.h" />
     <ClInclude Include="Engine.h" />
-    <ClInclude Include="Process.h" />
+    <ClInclude Include="EngineProcess.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7C113882-E139-4B2D-9B91-8E2936AE8912}</ProjectGuid>

@@ -8,13 +8,13 @@ class CThPSCamera;
 class CActionToInput;
 
 #include "Player.h"
-#include "Process.h"
+#include "EngineProcess.h"
 #include "Math\Vector2.h"
 #include <vector>
 
 class CGUIManager;
 
-class CTestGUIProcess : public CProcess
+class CTestGUIProcess : public CEngineProcess
 {
 public:
 	CTestGUIProcess();

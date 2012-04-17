@@ -11,11 +11,11 @@ class CPhysicController;
 class CActionToInput;
 
 #include "Player.h"
-#include "Process.h"
+#include "EngineProcess.h"
 #include "Math\Vector2.h"
 #include <vector>
 
-class CTestProcess : public CProcess
+class CTestProcess : public CEngineProcess
 {
 public:
 	CTestProcess();
