@@ -196,9 +196,9 @@
 		<Instance name="pCeniza9" 		core="pCeniza" 		pos1="19.5 -0.5 11.0" 	pos2="19.7 -0.5 15.0"/>
 		<Instance name="pCeniza10" 		core="pCeniza" 		pos1="19.5 -1.0 11.0" 	pos2="19.7 -1.0 15.0"/>-->
 		
-		<Instance name="pFum1"  		core="pFum" 	pos1="0.0 1.0 0.0" 	pos2="0.0 1.0 0.0" total_particulas="1000" />
+		<!--<Instance name="pFum1"  		core="pFum" 	pos1="0.0 1.0 0.0" 	pos2="0.0 1.0 0.0" total_particulas="1000" />
 		<Instance name="pFoc1"  		core="pFoc" 	pos1="0.0 0.0 0.0" 	pos2="0.0 0.0 0.0" total_particulas="100" />
-		<Instance name="pExplosio1"  	core="pExplosio" pos1="0.0 0.0 0.0" pos2="0.0 0.0 0.0" total_particulas="2" />
+		<Instance name="pExplosio1"  	core="pExplosio" pos1="0.0 0.0 0.0" pos2="0.0 0.0 0.0" total_particulas="2" />-->
 
 		<!--<Instance name="pVomito1"  		core="pVomito2" 	pos1="-5.0 -1.0 0.0" 	pos2="-5.0 -1.0 0.0" total_particulas="200" />
 		<Instance name="pFuente1" 		core="pFuente" 		pos1="0.0 0.0 0.0" 		pos2="0.0 1.0 0.0" total_particulas="200" />
