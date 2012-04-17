@@ -27,7 +27,7 @@ class CCamera;
 class CTimer;
 class CScriptManager;
 class CPhysicsManager;
-class CProcess;
+class CEngineProcess;
 class CStadistics;
 class CDebugGUIManager;
 
@@ -58,11 +58,11 @@ public:
 
 	void			SetCamera		( CCamera *camera )				{ m_pCamera = camera; }
 	void			SetTimer		( CTimer *timer )				{ m_pTimer = timer; }
-	void			SetProcess		( CProcess *Process )			{ m_pProcess = Process; }
+	void			SetProcess		( CEngineProcess *Process )		{ m_pProcess = Process; }
 
 	inline CCamera*				GetCamera			() const				{ return m_pCamera; }
 	inline CTimer*				GetTimer			() const				{ return m_pTimer; }
-	inline CProcess*			GetProcess			() const				{ return m_pProcess; }
+	inline CEngineProcess*		GetProcess			() const				{ return m_pProcess; }
 	inline CStadistics*			GetStadistics		() const				{ return m_pStadistics; }
 	inline CDebugGUIManager*	GetDebugGUIManager	() const				{ return m_pDebugGUIManager; }
 
@@ -93,7 +93,7 @@ private:
 	CCamera								*m_pCamera;
 	CTimer								*m_pTimer;
 	CDebugGUIManager					*m_pDebugGUIManager;
-	CProcess							*m_pProcess;
+	CEngineProcess						*m_pProcess;
 	CStadistics							*m_pStadistics;
 
 	CRenderManager						*m_pRenderManager;

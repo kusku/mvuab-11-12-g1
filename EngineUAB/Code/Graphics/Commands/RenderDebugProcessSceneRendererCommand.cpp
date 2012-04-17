@@ -3,7 +3,7 @@
 #include "XML\XMLTreeNode.h"
 #include "Core.h"
 #include "Base.h"
-#include "Process.h"
+#include "EngineProcess.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"

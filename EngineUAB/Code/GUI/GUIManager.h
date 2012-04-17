@@ -17,10 +17,10 @@
 #include "Math/MathUtils.h"
 #include "Math/Vector2.h"
 #include "Math/Color.h"
-#include "Controls\TextBox.h"
+#include "Controls\GUITextBox.h"
 
 //---Forward Declarations---
-class CPointerMouse;
+class CGUIPointerMouse;
 class CGuiElement;
 class CGUIWindow;
 class CRenderManager;
@@ -139,8 +139,8 @@ private:
 	bool									m_bVisiblePointerMouse;
 	bool									m_bRenderError;
 	bool									m_bUpdateError;
-	CPointerMouse*							m_PointerMouse;
-	CTextBox*								m_TextBox;
+	CGUIPointerMouse*						m_PointerMouse;
+	CGUITextBox*							m_TextBox;
 	bool									m_bLoadedGuiFiles;
 	std::string								m_sLastLoadpathGUI_XML;
 	TransitionEffect						m_sTransitionEffect;

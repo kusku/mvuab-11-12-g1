@@ -12,18 +12,18 @@
 
 //--Includes GuiElements---
 #include "Exceptions/Exception.h"
-#include "Controls\TextBox.h"
-#include "Controls\PointerMouse.h"
-#include "Controls\Button.h"
-#include "Controls\CheckButton.h"
-#include "Controls\DialogBox.h"
-#include "Controls\EditableTextBox.h"
-#include "Controls\Image.h"
-#include "Controls\TextBox.h"
-#include "Controls\ProgressBar.h"
-#include "Controls\RadioBox.h"
-#include "Controls\Slider.h"
-#include "Controls\Statictext.h"
+#include "Controls\GUITextBox.h"
+#include "Controls\GUIPointerMouse.h"
+#include "Controls\GUIButton.h"
+#include "Controls\GUICheckButton.h"
+#include "Controls\GUIDialogBox.h"
+#include "Controls\GUIEditableTextBox.h"
+#include "Controls\GUIImage.h"
+#include "Controls\GUITextBox.h"
+#include "Controls\GUIProgressBar.h"
+#include "Controls\GUIRadioBox.h"
+#include "Controls\GUISlider.h"
+#include "Controls\GUIStatictext.h"
 //-------------------------
 
 //----------------------------------------------------------------------------
@@ -149,7 +149,7 @@ bool CGUIManager::Init (const std::string& initGuiXML)
 				CTexture* Move_deactivated	= textureM->GetTexture(buttonMove_deactivated);
 				CTexture* back							= textureM->GetTexture(quad);
 
-				m_TextBox =	new CTextBox(	m_ScreenResolution.x, m_ScreenResolution.y, h, w, Vect2f(posx,posy), button_w, button_h);
+				m_TextBox =	new CGUITextBox(	m_ScreenResolution.x, m_ScreenResolution.y, h, w, Vect2f(posx,posy), button_w, button_h);
 				assert(m_TextBox);
 				m_TextBox->SetName("TextBox");
 				m_TextBox->SetCloseButtonTextures(Close_normal, Close_over, Close_clicked, Close_deactivated);
@@ -176,7 +176,7 @@ bool CGUIManager::Init (const std::string& initGuiXML)
 				
 				CTexture* texture_pointer = textureM->GetTexture(texture);
 				
-				m_PointerMouse	= new CPointerMouse(m_ScreenResolution.y,m_ScreenResolution.x, h,w,Vect2f(posx,posy));
+				m_PointerMouse	= new CGUIPointerMouse(m_ScreenResolution.y,m_ScreenResolution.x, h,w,Vect2f(posx,posy));
 				assert(m_PointerMouse);
 				m_PointerMouse->SetTexture(texture_pointer,"default");
 				m_PointerMouse->SetActiveTexture("default");
@@ -689,7 +689,7 @@ bool CGUIManager::GetProgressBarValue (const std::string& inNameGuiElement, floa
 	it = m_ElementsMap.find(inNameGuiElement);
 	if( it!= m_ElementsMap.end() )
 	{
-		CProgressBar * progress = (CProgressBar*) (it->second);
+		CGUIProgressBar * progress = (CGUIProgressBar*) (it->second);
 		outValue = progress->GetProgress();
 		return true;
 	}
@@ -707,7 +707,7 @@ bool CGUIManager::SetProgressBarValue (const std::string& inNameGuiElement, floa
 	it = m_ElementsMap.find(inNameGuiElement);
 	if( it!= m_ElementsMap.end() )
 	{
-		CProgressBar * progress = (CProgressBar*) (it->second);
+		CGUIProgressBar * progress = (CGUIProgressBar*) (it->second);
 		progress->SetProgress(inValue);
 		return true;
 	}
@@ -724,7 +724,7 @@ std::string CGUIManager::GetButtonCheckInRadioBox (const std::string& inNameRadi
 	it = m_ElementsMap.find(inNameRadioBox);
 	if( it!= m_ElementsMap.end() )
 	{
-		CRadioBox * rb = (CRadioBox*) (it->second);
+		CGUIRadioBox * rb = (CGUIRadioBox*) (it->second);
 		return rb->GetDefaultCheckButton();
 	}
 	else
@@ -741,7 +741,7 @@ void CGUIManager::SetButtonCheckInRadioBox(  const std::string& inNameRadioBox, 
 	it = m_ElementsMap.find(inNameRadioBox);
 	if( it!= m_ElementsMap.end() )
 	{
-		CRadioBox * rb = (CRadioBox*) (it->second);
+		CGUIRadioBox * rb = (CGUIRadioBox*) (it->second);
 		rb->SetDefaultCheckButton(button);
 	}
 	else
@@ -756,7 +756,7 @@ void CGUIManager::SetStateCheckButton ( const std::string& inCheckButtonName, bo
 	it = m_ElementsMap.find(inCheckButtonName);
 	if( it!= m_ElementsMap.end() )
 	{
-		CCheckButton * checkButton = (CCheckButton*) (it->second);
+		CGUICheckButton * checkButton = (CGUICheckButton*) (it->second);
 		checkButton->SetOn(state);
 	}
 	else
@@ -771,7 +771,7 @@ bool CGUIManager::GetStateCheckButton( const std::string& inCheckButtonName )
 	it = m_ElementsMap.find(inCheckButtonName);
 	if( it!= m_ElementsMap.end() )
 	{
-		CCheckButton * checkButton = (CCheckButton*) (it->second);
+		CGUICheckButton * checkButton = (CGUICheckButton*) (it->second);
 		return checkButton->GetState();
 
 	}
@@ -788,7 +788,7 @@ void CGUIManager::SetEditableTextBox( const std::string& inEditableText, const s
 	it = m_ElementsMap.find(inEditableText);
 	if( it!= m_ElementsMap.end() )
 	{
-		CEditableTextBox * editableTextBox = (CEditableTextBox*) (it->second);
+		CGUIEditableTextBox * editableTextBox = (CGUIEditableTextBox*) (it->second);
 		editableTextBox->SetBuffer(text);
 	}
 	else
@@ -803,7 +803,7 @@ std::string CGUIManager::GetEditableTextBox( const std::string& inEditableText )
 	it = m_ElementsMap.find(inEditableText);
 	if( it!= m_ElementsMap.end() )
 	{
-		CEditableTextBox * editableTextBox = (CEditableTextBox*) (it->second);
+		CGUIEditableTextBox * editableTextBox = (CGUIEditableTextBox*) (it->second);
 		return editableTextBox->GetBuffer();
 	}
 	else
@@ -819,7 +819,7 @@ void CGUIManager::SetImage( const std::string& inImageName, const std::string& a
 	it = m_ElementsMap.find(inImageName);
 	if( it!= m_ElementsMap.end() )
 	{
-		CImage * image = (CImage*) (it->second);
+		CGUIImage * image = (CGUIImage*) (it->second);
 		image->SetActiveTexture(activeImage);
 	}
 	else
@@ -834,7 +834,7 @@ std::string CGUIManager::GetImage( const std::string& inImageName )
 	it = m_ElementsMap.find(inImageName);
 	if( it!= m_ElementsMap.end() )
 	{
-		CImage * image = (CImage*) (it->second);
+		CGUIImage * image = (CGUIImage*) (it->second);
 		return image->GetActiveTexture();
 
 	}
@@ -851,7 +851,7 @@ void CGUIManager::PlayImage	(const std::string& inImageName, float timePerImage,
 	it = m_ElementsMap.find(inImageName);
 	if( it!= m_ElementsMap.end() )
 	{
-		CImage * image = (CImage*) (it->second);
+		CGUIImage * image = (CGUIImage*) (it->second);
 		image->PlayAnimation(timePerImage, loop);
 	}
 	else
@@ -866,7 +866,7 @@ void CGUIManager::SetAlphaImage(const std::string& inImageName, float _Alpha)
 	it = m_ElementsMap.find(inImageName);
 	if( it!= m_ElementsMap.end() )
 	{
-		CImage * image = (CImage*) (it->second);
+		CGUIImage * image = (CGUIImage*) (it->second);
     image->SetAlpha(_Alpha);
 	}
 	else
@@ -881,7 +881,7 @@ void CGUIManager::FadeOutImage(const std::string& inImageName, float startTime, 
 	it = m_ElementsMap.find(inImageName);
 	if( it!= m_ElementsMap.end() )
 	{
-		CImage * image = (CImage*) (it->second);
+		CGUIImage * image = (CGUIImage*) (it->second);
 		image->FadeOut(startTime, fadePerSecond);
 	}
 	else
@@ -896,7 +896,7 @@ void CGUIManager::SetStateSlider( const std::string& inSliderName, float amount 
 	it = m_ElementsMap.find(inSliderName);
 	if( it!= m_ElementsMap.end() )
 	{
-		CSlider * slider= (CSlider*) (it->second);
+		CGUISlider * slider= (CGUISlider*) (it->second);
 		slider->SetValue(amount);
 	}
 	else
@@ -911,7 +911,7 @@ float CGUIManager::GetStateSlider( const std::string& inSliderName )
 	it = m_ElementsMap.find(inSliderName);
 	if( it!= m_ElementsMap.end() )
 	{
-		CSlider * slider= (CSlider*) (it->second);
+		CGUISlider * slider= (CGUISlider*) (it->second);
 		float kk=slider->GetValue();
 		return slider->GetValue();
 
@@ -930,7 +930,7 @@ void CGUIManager::SetLiteralInStaticText( const std::string& inStaticText, const
 	it = m_ElementsMap.find(inStaticText);
 	if( it!= m_ElementsMap.end() )
 	{
-		CStaticText * st = (CStaticText*) (it->second);
+		CGUIStaticText * st = (CGUIStaticText*) (it->second);
 		st->SetLiteral(lit);
 	}
 	else
@@ -946,7 +946,7 @@ bool CGUIManager::NextBlockInRadioBox(  const std::string& inNameRadioBox )
 	it = m_ElementsMap.find(inNameRadioBox);
 	if( it!= m_ElementsMap.end() )
 	{
-		CRadioBox * rb = (CRadioBox*) (it->second);
+		CGUIRadioBox * rb = (CGUIRadioBox*) (it->second);
 		rb->NextBlock();
 		return true;
 	}
@@ -963,7 +963,7 @@ bool CGUIManager::PrevBlockInRadioBox(  const std::string& inNameRadioBox )
 	it = m_ElementsMap.find(inNameRadioBox);
 	if( it!= m_ElementsMap.end() )
 	{
-		CRadioBox * rb = (CRadioBox*) (it->second);
+		CGUIRadioBox * rb = (CGUIRadioBox*) (it->second);
 		rb->PrevBlock();
 		return true;
 	}

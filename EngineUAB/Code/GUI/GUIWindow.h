@@ -19,18 +19,18 @@
 
 //---Forward Declarations---
 class CTexture;
-class CButton;
-class CCheckButton;
+class CGUIButton;
+class CGUICheckButton;
 class CXMLTreeNode;
 class CTextureManager;
-class CSlider;
-class CDialogBox;
-class CEditableTextBox;
-class CRadioBox;
-class CImage;
-class CAnimatedImage;
-class CProgressBar;
-class CStaticText;
+class CGUISlider;
+class CGUIDialogBox;
+class CGUIEditableTextBox;
+class CGUIRadioBox;
+class CGUIImage;
+class CGUIAnimatedImage;
+class CGUIProgressBar;
+class CGUIStaticText;
 //--------------------------
 
 class CGUIWindow
@@ -56,16 +56,16 @@ class CGUIWindow
 	private:
 		void	IsKeyDown					(CInputManager* intputManager);	
 
-		void	LoadButton					(CButton** button, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm);
-		void	LoadCheckButton			(CCheckButton** checkButton, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm);
-		void	LoadSlider					(CSlider** slider, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm);
-		void	LoadDialogBox				(CDialogBox** dialogBox, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm);
-		void	LoadEditableTextBox	(CEditableTextBox** editableTextBox, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm);
-		void	LoadRadioBox				(CRadioBox** radioBox, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm);
-		void	_LoadImage					(CImage** image, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm);
-    void  LoadAnimatedImage   (CAnimatedImage** image_aux, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm);
-		void	LoadProgressBar			(CProgressBar** progressBar, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm);
-		void	LoadStaticText			(CStaticText** staticText, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm);
+		void	LoadButton					(CGUIButton** button, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm);
+		void	LoadCheckButton				(CGUICheckButton** checkButton, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm);
+		void	LoadSlider					(CGUISlider** slider, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm);
+		void	LoadDialogBox				(CGUIDialogBox** dialogBox, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm);
+		void	LoadEditableTextBox			(CGUIEditableTextBox** editableTextBox, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm);
+		void	LoadRadioBox				(CGUIRadioBox** radioBox, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm);
+		void	_LoadImage					(CGUIImage** image, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm);
+    void  LoadAnimatedImage					(CGUIAnimatedImage** image_aux, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm);
+		void	LoadProgressBar				(CGUIProgressBar** progressBar, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm);
+		void	LoadStaticText				(CGUIStaticText** staticText, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm);
 
 	private:
 		std::vector<CGuiElement*>			m_GuiElementsVector;

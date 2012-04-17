@@ -8,11 +8,11 @@ class CThPSCamera;
 class CActionToInput;
 
 #include "Player.h"
-#include "Process.h"
+#include "EngineProcess.h"
 #include "Math\Vector2.h"
 #include "Modifiers\ModifierManager.h"
 
-class CViewerProcess : public CProcess
+class CViewerProcess : public CEngineProcess
 {
 public:
 	CViewerProcess();

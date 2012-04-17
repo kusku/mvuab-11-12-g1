@@ -10,16 +10,16 @@
 #include "XML\XMLTreeNode.h"
 
 //---Elementos que puede contener una Windows--
-#include "Controls\Button.h"
-#include "Controls\CheckButton.h"
-#include "Controls\Slider.h"
-#include "Controls\EditableTextBox.h"
-#include "Controls\DialogBox.h"
-#include "Controls\RadioBox.h"
-#include "Controls\Image.h"
-#include "Controls\AnimatedImage.h"
-#include "Controls\StaticText.h"
-#include "Controls\ProgressBar.h"
+#include "Controls\GUIButton.h"
+#include "Controls\GUICheckButton.h"
+#include "Controls\GUISlider.h"
+#include "Controls\GUIEditableTextBox.h"
+#include "Controls\GUIDialogBox.h"
+#include "Controls\GUIRadioBox.h"
+#include "Controls\GUIImage.h"
+#include "Controls\GUIAnimatedImage.h"
+#include "Controls\GUIStaticText.h"
+#include "Controls\GUIProgressBar.h"
 //---------------------------------------------
 
 CGUIWindow::~CGUIWindow()
@@ -263,61 +263,61 @@ bool CGUIWindow::LoadXML( const std::string &xmlGuiFile, const Vect2i& screenRes
 				std::string tagName = pNewNode.GetName();
 				if (tagName.compare("Button")==0)
 				{
-					CButton* newButton = NULL;
+					CGUIButton* newButton = NULL;
 					LoadButton(&newButton,pNewNode,screenResolution, textureM);
 					AddGuiElement(newButton);
 				}
 				else if (tagName.compare("CheckButton")==0)
 				{
-					CCheckButton* new_checkButton = NULL;
+					CGUICheckButton* new_checkButton = NULL;
 					LoadCheckButton(&new_checkButton,pNewNode,screenResolution, textureM);									
 					AddGuiElement(new_checkButton);
 				}
 				else if (tagName.compare("Slider")==0)
 				{
-					CSlider* new_slider = NULL;
+					CGUISlider* new_slider = NULL;
 					LoadSlider(&new_slider,pNewNode,screenResolution, textureM);					
 					AddGuiElement(new_slider);
 				}
 				else if (tagName.compare("DialogBox")==0)
 				{
-					CDialogBox* new_dialogBox = NULL;
+					CGUIDialogBox* new_dialogBox = NULL;
 					LoadDialogBox(&new_dialogBox,pNewNode,screenResolution, textureM);					
 					AddGuiElement(new_dialogBox);
 				}
 				else if (tagName.compare("EditableTextBox")==0)
 				{
-					CEditableTextBox* new_editableTextBox = NULL;
+					CGUIEditableTextBox* new_editableTextBox = NULL;
 					LoadEditableTextBox(&new_editableTextBox,pNewNode,screenResolution, textureM);					
 					AddGuiElement(new_editableTextBox);
 				}
 				else if (tagName.compare("RadioBox")==0)
 				{
-					CRadioBox* new_radioBox = NULL;
+					CGUIRadioBox* new_radioBox = NULL;
 					LoadRadioBox(&new_radioBox,pNewNode,screenResolution, textureM);		
 					AddGuiElement(new_radioBox);
 				}
 				else if (tagName.compare("Image")==0)
 				{
-					CImage* new_image = NULL;
+					CGUIImage* new_image = NULL;
 					_LoadImage(&new_image,pNewNode,screenResolution, textureM);		
 					AddGuiElement(new_image);
 				}
 				else if (tagName.compare("AnimatedImage")==0)
 				{
-          CAnimatedImage* new_image = NULL;
-          LoadAnimatedImage(&new_image,pNewNode,screenResolution, textureM);		
+					CGUIAnimatedImage* new_image = NULL;
+					LoadAnimatedImage(&new_image,pNewNode,screenResolution, textureM);		
 					AddGuiElement(new_image);
 				}
 				else if (tagName.compare("ProgressBar")==0)
 				{
-					CProgressBar* new_progressBar = NULL;
+					CGUIProgressBar* new_progressBar = NULL;
 					LoadProgressBar(&new_progressBar,pNewNode,screenResolution, textureM);		
 					AddGuiElement(new_progressBar);
 				} 
 				else if (tagName.compare("StaticText")==0)
 				{
-					CStaticText* new_staticText = NULL;
+					CGUIStaticText* new_staticText = NULL;
 					LoadStaticText(&new_staticText,pNewNode,screenResolution, textureM);		
 					AddGuiElement(new_staticText);
 				}
@@ -360,13 +360,13 @@ bool CGUIWindow::LoadXML( const std::string &xmlGuiFile, const Vect2i& screenRes
 }
 
 
-void CGUIWindow::LoadButton (CButton** button_aux, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm)
+void CGUIWindow::LoadButton (CGUIButton** button_aux, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm)
 {
 	//<Button	name="play"	posx="0" posy="0" height="10" width="10" visible="true" activated="true" 
 	// texture_normal="blabla" texture_over="bla" texture_clicked="bla" texture_deactivated="bla"
 	// OnClickedAction="blabla" OnOverAction="blabla" Literal="blabla" widthOffset="" heightOffset=""/>
 
-  CButton* button;
+  CGUIButton* button;
 
 	std::string name								= pNewNode.GetPszProperty("name", "defaultGuiElement");
 	float 			posx								= pNewNode.GetFloatProperty("posx", 0.f);
@@ -393,7 +393,7 @@ void CGUIWindow::LoadButton (CButton** button_aux, CXMLTreeNode& pNewNode, const
 	uint32 widthOffset	= (uint32) (screenResolution.x	* 0.01f * widthOffsetPercent );
 	uint32 heightOffset	= (uint32) (screenResolution.y	* 0.01f * heightOffsetPercent );
 
-	button	= new CButton(screenResolution.y,screenResolution.x, h, w, Vect2f(posx,posy), l_literal, heightOffset, widthOffset, visible, activated);
+	button	= new CGUIButton(screenResolution.y,screenResolution.x, h, w, Vect2f(posx,posy), l_literal, heightOffset, widthOffset, visible, activated);
 	button->SetName(name);
 	button->SetTextures(normal,over,clicked,deactivated);
 	button->SetOnClickedAction(OnClickedAction);
@@ -402,14 +402,14 @@ void CGUIWindow::LoadButton (CButton** button_aux, CXMLTreeNode& pNewNode, const
   *button_aux = button;
 }
 
-void CGUIWindow::LoadCheckButton (CCheckButton** checkButton_aux, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm)
+void CGUIWindow::LoadCheckButton (CGUICheckButton** checkButton_aux, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm)
 {
 	//<CheckButton name="debug_thps" posx="0" posy="2" height="10" width="10" visible="true" active="true" isOn="true"
 	// texture_on="blabla" texture_off="bla" texture_deactivated"bla"
 	// OnCheckOn="blabla" OnCheckOff="blabla" OnOverButton="blabla"
 	// OnSaveValue="blabl" OnLoadValue="" Literal="blabla" widthOffset="" heightOffset=""/>
 
-  CCheckButton* checkButton;
+  CGUICheckButton* checkButton;
 
 	std::string name									= pNewNode.GetPszProperty("name", "defaultGuiElement");
 	float 			posx									= pNewNode.GetFloatProperty("posx", 0.f);
@@ -439,7 +439,7 @@ void CGUIWindow::LoadCheckButton (CCheckButton** checkButton_aux, CXMLTreeNode& 
 	uint32 widthOffset	= (uint32) (screenResolution.x	* 0.01f * widthOffsetPercent );
 	uint32 heightOffset	= (uint32) (screenResolution.y	* 0.01f * heightOffsetPercent );
 
-	checkButton = new CCheckButton(screenResolution.y,screenResolution.x, h, w, Vect2f(posx,posy), isOn, l_literal, heightOffset, widthOffset, visible, activated);
+	checkButton = new CGUICheckButton(screenResolution.y,screenResolution.x, h, w, Vect2f(posx,posy), isOn, l_literal, heightOffset, widthOffset, visible, activated);
 	checkButton->SetName(name);
 	checkButton->SetTextures(on, off, deactivated);
 	checkButton->SetOnCheckOnAction(OnCheckOn);
@@ -451,13 +451,13 @@ void CGUIWindow::LoadCheckButton (CCheckButton** checkButton_aux, CXMLTreeNode& 
   *checkButton_aux = checkButton;
 }
 
-void CGUIWindow::LoadSlider (CSlider** slider_aux, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm)
+void CGUIWindow::LoadSlider (CGUISlider** slider_aux, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm)
 {
 	//<Slider	name="debug_fps" posx="0" posy="2" height="10" width="10" visible="true" active="true" value="0.5" buttonH="10" buttonW="10"
 	// button_normal="blabla" button_over="bla" button_clicked"bla" button_deactivated="bla" quad="bla"
 	// OnOverAction="" OnClickedAction="" OnChangeValue="" OnSaveValue="blabl" OnLoadValue="" Literal="blabla" widthOffset="" heightOffset=""/>
 
-  CSlider* slider;
+  CGUISlider* slider;
 
 	std::string name								= pNewNode.GetPszProperty("name", "defaultGuiElement");
 	float 			posx								= pNewNode.GetFloatProperty("posx", 0.f);
@@ -492,7 +492,7 @@ void CGUIWindow::LoadSlider (CSlider** slider_aux, CXMLTreeNode& pNewNode, const
 	uint32 widthOffset	= (uint32) (screenResolution.x	* 0.01f * widthOffsetPercent );
 	uint32 heightOffset	= (uint32) (screenResolution.y	* 0.01f * heightOffsetPercent );
 
-	slider = new CSlider(	screenResolution.y, screenResolution.x, h, w, Vect2f(posx,posy), buttonW, buttonH, value, 
+	slider = new CGUISlider(	screenResolution.y, screenResolution.x, h, w, Vect2f(posx,posy), buttonW, buttonH, value, 
 												l_literal, heightOffset, widthOffset, visible, activated);
 	slider->SetName(name);
 	slider->SetButtonTextures(normal, over, clicked, deac);
@@ -506,13 +506,13 @@ void CGUIWindow::LoadSlider (CSlider** slider_aux, CXMLTreeNode& pNewNode, const
   *slider_aux = slider;
 }
 
-void	CGUIWindow::LoadDialogBox			(CDialogBox** dialogBox_aux, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm)
+void	CGUIWindow::LoadDialogBox(CGUIDialogBox** dialogBox_aux, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm)
 {
 	//<DialogBox name="debug_fps" posx="0" posy="2" height="10" width="10" visible="true" active="true" buttonH="10" buttonW="10"
 	// buttonClose_normal="blabla" buttonClose_over="bla" buttonClose_clicked"bla"  buttonClose_deactivated"bla" buttonMove_normal="blabla" buttonMove_over="bla"
 	// buttonMove_clicked"bla" buttonMove_deactivated"bla" quad="bla" Literal="blabla" widthOffset="" heightOffset=""/>
 
-  CDialogBox* dialogBox;
+  CGUIDialogBox* dialogBox;
 
 	std::string name										= pNewNode.GetPszProperty("name", "defaultGuiElement");
 	float 			posx										= pNewNode.GetFloatProperty("posx", 0.f);
@@ -549,7 +549,7 @@ void	CGUIWindow::LoadDialogBox			(CDialogBox** dialogBox_aux, CXMLTreeNode& pNew
 	uint32 widthOffset	= (uint32) (screenResolution.x	* 0.01f * widthOffsetPercent );
 	uint32 heightOffset	= (uint32) (screenResolution.y	* 0.01f * heightOffsetPercent );
 
-	dialogBox = new CDialogBox(	screenResolution.y,screenResolution.x, h, w, Vect2f(posx,posy), buttonW, buttonH, l_literal, 
+	dialogBox = new CGUIDialogBox(	screenResolution.y,screenResolution.x, h, w, Vect2f(posx,posy), buttonW, buttonH, l_literal, 
 															heightOffset, widthOffset, visible, activated);
 	dialogBox->SetName(name);
 	dialogBox->SetCloseButtonTextures(Close_normal, Close_over, Close_clicked, Close_deactivated);
@@ -559,14 +559,14 @@ void	CGUIWindow::LoadDialogBox			(CDialogBox** dialogBox_aux, CXMLTreeNode& pNew
   *dialogBox_aux = dialogBox;
 }
 
-void	CGUIWindow::LoadEditableTextBox (CEditableTextBox** editableTextBox_aux, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm)
+void	CGUIWindow::LoadEditableTextBox (CGUIEditableTextBox** editableTextBox_aux, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm)
 {
 	//<EditableTextBox name="debug_fps" posx="0" posy="2" height="10" width="10" visible="true" active="true" 
 	// texture_quad="blabla" id_font="0" color_font_r="0" color_font_g="0" color_font_b="0"
 	// buffer="" OnSaveValue="blabla" OnLoadValue="blabla" Literal="blabla" widthOffset="" heightOffset=""
 	// Literal="blabla" widthOffset="" heightOffset=""/>
 
-  CEditableTextBox* editableTextBox;
+  CGUIEditableTextBox* editableTextBox;
 
 	std::string name								= pNewNode.GetPszProperty("name", "defaultGuiElement");
 	float 			posx								= pNewNode.GetFloatProperty("posx", 0.f);
@@ -592,7 +592,7 @@ void	CGUIWindow::LoadEditableTextBox (CEditableTextBox** editableTextBox_aux, CX
 
 	CTexture* quad_texture	= tm->GetTexture(quad);
 
-	editableTextBox = new CEditableTextBox(	screenResolution.y,screenResolution.x,h, w, Vect2f(posx,posy),
+	editableTextBox = new CGUIEditableTextBox(	screenResolution.y,screenResolution.x,h, w, Vect2f(posx,posy),
 																					CColor(color_font_r,color_font_g,color_font_b),idFont, l_literal,
 																					heightOffset, widthOffset, visible, activated);
 	editableTextBox->SetName(name);
@@ -605,7 +605,7 @@ void	CGUIWindow::LoadEditableTextBox (CEditableTextBox** editableTextBox_aux, CX
 }
 
 
-void	CGUIWindow::LoadRadioBox(CRadioBox** radioBox_aux, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm)
+void	CGUIWindow::LoadRadioBox(CGUIRadioBox** radioBox_aux, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm)
 {
 	//<RadioBox name="pepito" posx="0" posy="2" height="10" width="10" default_checkButton="bla" visible="true" active="true" texture_back=""
 	// columns="3" rows="3" OnCheckOn="blabla" OnCheckOff="blabla" OnOverButton="blabla"
@@ -615,7 +615,7 @@ void	CGUIWindow::LoadRadioBox(CRadioBox** radioBox_aux, CXMLTreeNode& pNewNode, 
 	//  ...
 	//</RadioBox>
 
-  CRadioBox* radioBox;
+  CGUIRadioBox* radioBox;
 
 	std::string name								= pNewNode.GetPszProperty("name", "defaultGuiElement");
 	float 			posx								= pNewNode.GetFloatProperty("posx", 0.f);
@@ -640,7 +640,7 @@ void	CGUIWindow::LoadRadioBox(CRadioBox** radioBox_aux, CXMLTreeNode& pNewNode, 
 	uint32 widthOffset	= (uint32) (screenResolution.x	* 0.01f * widthOffsetPercent );
 	uint32 heightOffset	= (uint32) (screenResolution.y	* 0.01f * heightOffsetPercent );
 
-	radioBox = new CRadioBox(	screenResolution.y,screenResolution.x,h, w, Vect2f(posx,posy), columns, rows, default_checkButton, 
+	radioBox = new CGUIRadioBox(	screenResolution.y,screenResolution.x,h, w, Vect2f(posx,posy), columns, rows, default_checkButton, 
 														l_literal, heightOffset, widthOffset, visible, activated);
 	if (texture_back!="")
 	{
@@ -673,7 +673,7 @@ void	CGUIWindow::LoadRadioBox(CRadioBox** radioBox_aux, CXMLTreeNode& pNewNode, 
   *radioBox_aux = radioBox;
 }
 
-void	CGUIWindow::_LoadImage(CImage** image_aux, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm)
+void CGUIWindow::_LoadImage(CGUIImage** image_aux, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm)
 {
 	//<Image	name="imageRoomSelected_gameserver2" posx="35" posy="20" height="40" width="30" visible="true" active="true" 
 	//default="q3dm1"	isAnimated="true", time="0" loop="true" OnSaveValue="blabla"  OnLoadValue="blabla"  Literal="blabla"
@@ -682,7 +682,7 @@ void	CGUIWindow::_LoadImage(CImage** image_aux, CXMLTreeNode& pNewNode, const Ve
 	//	<texture name="q3dm2" texture="gui_q3dm2_off.jpg"/>
 	//	...
 	//</Image>
-  CImage* image;
+	CGUIImage* image;
 	std::string name								= pNewNode.GetPszProperty("name", "defaultGuiElement");
 	float 			posx								= pNewNode.GetFloatProperty("posx", 0.f);
 	float 			posy								= pNewNode.GetFloatProperty("posy", 0.f);
@@ -702,7 +702,7 @@ void	CGUIWindow::_LoadImage(CImage** image_aux, CXMLTreeNode& pNewNode, const Ve
 	uint32 widthOffset	= (uint32) (screenResolution.x	* 0.01f * widthOffsetPercent );
 	uint32 heightOffset	= (uint32) (screenResolution.y	* 0.01f * heightOffsetPercent );
 
-	image = new CImage(	screenResolution.y,screenResolution.x, h, w, Vect2f(posx,posy),
+	image = new CGUIImage(	screenResolution.y,screenResolution.x, h, w, Vect2f(posx,posy),
 											l_literal, heightOffset, widthOffset, visible, activated);
 	image->SetName(name);
 	image->SetActiveTexture(default_image);
@@ -759,7 +759,7 @@ void	CGUIWindow::_LoadImage(CImage** image_aux, CXMLTreeNode& pNewNode, const Ve
 }
 
 
-void	CGUIWindow::LoadAnimatedImage(CAnimatedImage** image_aux, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm)
+void	CGUIWindow::LoadAnimatedImage(CGUIAnimatedImage** image_aux, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm)
 {
 	//<AnimatedImage	name="imageRoomSelected_gameserver2" posx="35" posy="20" height="40" width="30" visible="true" active="true" 
 	//default="q3dm1"	isAnimated="true", time="0" loop="true" OnSaveValue="blabla"  OnLoadValue="blabla"  Literal="blabla"
@@ -768,7 +768,7 @@ void	CGUIWindow::LoadAnimatedImage(CAnimatedImage** image_aux, CXMLTreeNode& pNe
 	//	<texture name="q3dm2" texture="gui_q3dm2_off.jpg"/>
 	//	...
 	//</Image>
-  CAnimatedImage* image;
+  CGUIAnimatedImage* image;
 	std::string name								= pNewNode.GetPszProperty("name", "defaultGuiElement");
 	float 			posx								= pNewNode.GetFloatProperty("posx", 0.f);
 	float 			posy								= pNewNode.GetFloatProperty("posy", 0.f);
@@ -789,7 +789,7 @@ void	CGUIWindow::LoadAnimatedImage(CAnimatedImage** image_aux, CXMLTreeNode& pNe
 	uint32 widthOffset	= (uint32) (screenResolution.x	* 0.01f * widthOffsetPercent );
 	uint32 heightOffset	= (uint32) (screenResolution.y	* 0.01f * heightOffsetPercent );
 
-  image = new CAnimatedImage(	screenResolution.y,screenResolution.x, h, w, Vect2f(posx,posy),
+  image = new CGUIAnimatedImage(	screenResolution.y,screenResolution.x, h, w, Vect2f(posx,posy),
 											l_literal, heightOffset, widthOffset, visible, activated);
 	image->SetName(name);
   
@@ -832,13 +832,13 @@ void	CGUIWindow::LoadAnimatedImage(CAnimatedImage** image_aux, CXMLTreeNode& pNe
 }
 
 
-void	CGUIWindow::LoadProgressBar(CProgressBar** progressBar_aux, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm)
+void	CGUIWindow::LoadProgressBar(CGUIProgressBar** progressBar_aux, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm)
 {
 	//<ProgressBar name="progressBar1" posx="200" posy="600" height="10" width="100" visible="true" active="true"
 	//	texture_back="hola" texture_bar="hola2"  id_font="0" color_font_r="0" color_font_g="0" color_font_b="0"
 	//	Literal="blabla" widthOffset="" heightOffset="" OnComplete="blabla"/>
 
-  CProgressBar* progressBar;
+	CGUIProgressBar* progressBar;
 	std::string name								= pNewNode.GetPszProperty("name", "defaultGuiElement");
 	float				posx								= pNewNode.GetFloatProperty("posx", 0.f);
 	float				posy								= pNewNode.GetFloatProperty("posy", 0.f);
@@ -863,7 +863,7 @@ void	CGUIWindow::LoadProgressBar(CProgressBar** progressBar_aux, CXMLTreeNode& p
 	uint32 widthOffset	= (uint32) (screenResolution.x	* 0.01f * widthOffsetPercent );
 	uint32 heightOffset	= (uint32) (screenResolution.y	* 0.01f * heightOffsetPercent );
 
-	progressBar = new CProgressBar(	screenResolution.y,screenResolution.x, h, w, Vect2f(posx, posy), 
+	progressBar = new CGUIProgressBar(	screenResolution.y,screenResolution.x, h, w, Vect2f(posx, posy), 
 																	l_literal, heightOffset, widthOffset, visible, activated);
 	progressBar->SetName(name);
 	progressBar->SetTextures(back, bar);
@@ -873,11 +873,11 @@ void	CGUIWindow::LoadProgressBar(CProgressBar** progressBar_aux, CXMLTreeNode& p
   *progressBar_aux = progressBar;
 }
 
-void	CGUIWindow::LoadStaticText(CStaticText** staticText_aux, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm)
+void	CGUIWindow::LoadStaticText(CGUIStaticText** staticText_aux, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm)
 {
 	//<StaticText name="pepito" posx="0" posy="2" literal="blabla" visible="true" active="true"/>
 	
-  CStaticText* staticText;
+	CGUIStaticText* staticText;
 
 	std::string name						= pNewNode.GetPszProperty("name", "defaultGuiElement");
 	float 			posx						= pNewNode.GetFloatProperty("posx", 0.f);
@@ -888,7 +888,7 @@ void	CGUIWindow::LoadStaticText(CStaticText** staticText_aux, CXMLTreeNode& pNew
 	bool 				activated				= pNewNode.GetBoolProperty("active", true);
 	std::string l_literal				= pNewNode.GetPszProperty("Literal", "");
 	
-	staticText = new CStaticText(screenResolution.y, screenResolution.x, h, w, Vect2f(posx,posy), l_literal, visible, activated);
+	staticText = new CGUIStaticText(screenResolution.y, screenResolution.x, h, w, Vect2f(posx,posy), l_literal, visible, activated);
 	staticText->SetName(name);
 
   *staticText_aux = staticText;

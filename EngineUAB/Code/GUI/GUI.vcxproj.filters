@@ -25,43 +25,40 @@
     <ClCompile Include="GuiElement.cpp" />
     <ClCompile Include="GUIManager.cpp" />
     <ClCompile Include="GUIWindow.cpp" />
-    <ClCompile Include="Controls\AnimatedImage.cpp">
+    <ClCompile Include="Controls\GUIAnimatedImage.cpp">
       <Filter>Controls</Filter>
     </ClCompile>
-    <ClCompile Include="Controls\Button.cpp">
+    <ClCompile Include="Controls\GUIButton.cpp">
       <Filter>Controls</Filter>
     </ClCompile>
-    <ClCompile Include="Controls\CheckButton.cpp">
+    <ClCompile Include="Controls\GUICheckButton.cpp">
       <Filter>Controls</Filter>
     </ClCompile>
-    <ClCompile Include="Controls\DialogBox.cpp">
+    <ClCompile Include="Controls\GUIDialogBox.cpp">
       <Filter>Controls</Filter>
     </ClCompile>
-    <ClCompile Include="Controls\EditableTextBox.cpp">
+    <ClCompile Include="Controls\GUIEditableTextBox.cpp">
       <Filter>Controls</Filter>
     </ClCompile>
-    <ClCompile Include="Controls\Image.cpp">
+    <ClCompile Include="Controls\GUIImage.cpp">
       <Filter>Controls</Filter>
     </ClCompile>
-    <ClCompile Include="Controls\main.cpp">
+    <ClCompile Include="Controls\GUIPointerMouse.cpp">
       <Filter>Controls</Filter>
     </ClCompile>
-    <ClCompile Include="Controls\PointerMouse.cpp">
+    <ClCompile Include="Controls\GUIProgressBar.cpp">
       <Filter>Controls</Filter>
     </ClCompile>
-    <ClCompile Include="Controls\ProgressBar.cpp">
+    <ClCompile Include="Controls\GUIRadioBox.cpp">
       <Filter>Controls</Filter>
     </ClCompile>
-    <ClCompile Include="Controls\RadioBox.cpp">
+    <ClCompile Include="Controls\GUISlider.cpp">
       <Filter>Controls</Filter>
     </ClCompile>
-    <ClCompile Include="Controls\Slider.cpp">
+    <ClCompile Include="Controls\GUIStaticText.cpp">
       <Filter>Controls</Filter>
     </ClCompile>
-    <ClCompile Include="Controls\StaticText.cpp">
-      <Filter>Controls</Filter>
-    </ClCompile>
-    <ClCompile Include="Controls\TextBox.cpp">
+    <ClCompile Include="Controls\GUITextBox.cpp">
       <Filter>Controls</Filter>
     </ClCompile>
   </ItemGroup>
@@ -116,40 +113,40 @@
     <ClInclude Include="GuiElement.h" />
     <ClInclude Include="GUIManager.h" />
     <ClInclude Include="GUIWindow.h" />
-    <ClInclude Include="Controls\AnimatedImage.h">
+    <ClInclude Include="Controls\GUIAnimatedImage.h">
       <Filter>Controls</Filter>
     </ClInclude>
-    <ClInclude Include="Controls\Button.h">
+    <ClInclude Include="Controls\GUIButton.h">
       <Filter>Controls</Filter>
     </ClInclude>
-    <ClInclude Include="Controls\CheckButton.h">
+    <ClInclude Include="Controls\GUICheckButton.h">
       <Filter>Controls</Filter>
     </ClInclude>
-    <ClInclude Include="Controls\DialogBox.h">
+    <ClInclude Include="Controls\GUIDialogBox.h">
       <Filter>Controls</Filter>
     </ClInclude>
-    <ClInclude Include="Controls\EditableTextBox.h">
+    <ClInclude Include="Controls\GUIEditableTextBox.h">
       <Filter>Controls</Filter>
     </ClInclude>
-    <ClInclude Include="Controls\Image.h">
+    <ClInclude Include="Controls\GUIImage.h">
       <Filter>Controls</Filter>
     </ClInclude>
-    <ClInclude Include="Controls\PointerMouse.h">
+    <ClInclude Include="Controls\GUIPointerMouse.h">
       <Filter>Controls</Filter>
     </ClInclude>
-    <ClInclude Include="Controls\ProgressBar.h">
+    <ClInclude Include="Controls\GUIProgressBar.h">
       <Filter>Controls</Filter>
     </ClInclude>
-    <ClInclude Include="Controls\RadioBox.h">
+    <ClInclude Include="Controls\GUIRadioBox.h">
       <Filter>Controls</Filter>
     </ClInclude>
-    <ClInclude Include="Controls\Slider.h">
+    <ClInclude Include="Controls\GUISlider.h">
       <Filter>Controls</Filter>
     </ClInclude>
-    <ClInclude Include="Controls\StaticText.h">
+    <ClInclude Include="Controls\GUIStaticText.h">
       <Filter>Controls</Filter>
     </ClInclude>
-    <ClInclude Include="Controls\TextBox.h">
+    <ClInclude Include="Controls\GUITextBox.h">
       <Filter>Controls</Filter>
     </ClInclude>
   </ItemGroup>

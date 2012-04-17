@@ -4,7 +4,7 @@
 #define _ENGINE_H
 
 #include <Windows.h>
-#include "Process.h"
+#include "EngineProcess.h"
 #include "Math\Color.h"
 #include "Utils\Timer.h"
 #include "CoreDefs.h"
@@ -25,7 +25,8 @@ public:
 	void LoadConfigXML	( const std::string &configFile );
 	void Reload			();
 
-	void SetProcess( CProcess *process ) { m_pProcess = process; }
+	void SetProcess( CEngineProcess *process ) { m_pProcess = process; }
+	CEngineProcess*	GetProcess() const	{ return m_pProcess; }
 
 	Vect2i		GetResolution	() const { return m_Config.resolution; }
 	Vect2i		GetPosition		() const { return m_Config.position; }
@@ -34,12 +35,12 @@ public:
 
 protected:
 	CCore			*m_pCore;
-	CProcess		*m_pProcess;
+	CEngineProcess	*m_pProcess;
 	CLogger			*m_pLogger;
 
 	CTimer			m_Timer;
 
-	SConfig		m_Config;
+	SConfig			m_Config;
 
 	const CColor	string2Color	( const std::string &color );
 	void			UpdateDebugInputs	();	

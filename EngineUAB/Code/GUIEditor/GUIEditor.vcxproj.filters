@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Archivos de recursos">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Window">
+      <UniqueIdentifier>{979b93a5-eae7-4701-9fa2-ad050799d5a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window\App">
+      <UniqueIdentifier>{6ae3058b-0b16-482c-9d74-7405c66148d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window\Controls">
+      <UniqueIdentifier>{3021898b-bed5-4dfa-bd6f-550f53d1a8df}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\file_view.ico">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\file_view_hc.ico">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\class_view.ico">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\class_view_hc.ico">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\fileview.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\fileview_hc.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\classview.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\classview_hc.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\explorer.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\explorer_hc.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\sort.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\sort_hc.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\menuimages.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\menuimages_hc.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\output_wnd.ico">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\output_wnd_hc.ico">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\properties_wnd.ico">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\properties_wnd_hc.ico">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\properties.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\properties_hc.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="UserImages.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\GUIEditor.rc2">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\GUIEditorDoc.ico">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\GUIEditor.ico">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\Toolbar.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\Toolbar256.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GUIEditorView.h" />
+    <ClInclude Include="Resource.h">
+      <Filter>Window\App</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Window\App</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Window\App</Filter>
+    </ClInclude>
+    <ClInclude Include="OutputWnd.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="PropertiesWnd.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="FileView.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassView.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewTree.h">
+      <Filter>Window\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="ChildFrm.h">
+      <Filter>Window\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrm.h">
+      <Filter>Window\App</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIEditorDoc.h">
+      <Filter>Window\App</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIEditor.h">
+      <Filter>Window\App</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIEditorProcess.h" />
+    <ClInclude Include="MyPicture.h">
+      <Filter>Window\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="defines.h">
+      <Filter>Window\App</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GUIEditorView.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Window\App</Filter>
+    </ClCompile>
+    <ClCompile Include="OutputWnd.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="PropertiesWnd.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="FileView.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="ClassView.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewTree.cpp">
+      <Filter>Window\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="ChildFrm.cpp">
+      <Filter>Window\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrm.cpp">
+      <Filter>Window\App</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIEditorDoc.cpp">
+      <Filter>Window\App</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIEditor.cpp">
+      <Filter>Window\App</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIEditorProcess.cpp" />
+    <ClCompile Include="MyPicture.cpp">
+      <Filter>Window\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GUIEditor.rc">
+      <Filter>Archivos de recursos</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

@@ -163,9 +163,6 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 			m_pSceneRendererCommandManager = new CSceneRendererCommandManager();
 			m_pSceneRendererCommandManager->Load(config.scene_renderer_command_manager_path);
 
-			m_pScriptManager = new CScriptManager();
-			m_pScriptManager->Load( config.scripts_path );
-
 			m_pPhysicsManager = new CPhysicsManager();
 			m_pPhysicsManager->Init("");
 
@@ -184,6 +181,9 @@ bool CCore::Init( HWND hWnd, const SConfig &config )
 			m_pDebugGUIManager = new CDebugGUIManager();
 			m_bIsOk = m_pDebugGUIManager->Init( config.modifiers_path, config.debug_options_path );		
 #endif
+
+			m_pScriptManager = new CScriptManager();
+			m_pScriptManager->Load( config.scripts_path );
 		}
 	}
 
