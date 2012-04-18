@@ -249,6 +249,15 @@ function ExtractMeshGeometry obj counterClockwise t_mesh =
 					TUV2Map3 = meshop.getMapVert obj 2 (IdxsMap.z as integer)
 					TUV2Map3.y = 1 - TUV2Map3.y
 				)
+				if (bit.and MeshBuffer.VertexType VERTEX_TYPE_RNM) == VERTEX_TYPE_RNM then
+				(
+					TUV2Map1 = meshop.getMapVert obj 2 (IdxsMap.x as integer)
+					TUV2Map1.y = 1 - TUV2Map1.y
+					TUV2Map2 = meshop.getMapVert obj 2 (IdxsMap.y as integer)
+					TUV2Map2.y = 1 - TUV2Map2.y
+					TUV2Map3 = meshop.getMapVert obj 2 (IdxsMap.z as integer)
+					TUV2Map3.y = 1 - TUV2Map3.y
+				)
 			)
 			else
 			(
@@ -438,6 +447,9 @@ function ExportSelection selectedObjs outputDir subOutPutDir counterClockwise ex
 			--Create Bounding Spheres and Bounding Boxes
 			t_mesh.BuildBoundingBox obj
 			t_mesh.BuildBoundingSphere obj
+			
+			--Remove Emty Buffers
+			t_mesh.RemoveEmptyBuffers()
 		)
 	
 		--Append new Mesh to Scene Objects
