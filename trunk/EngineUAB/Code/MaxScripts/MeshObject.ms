@@ -20,6 +20,7 @@ global VERTEX_TYPE_TEXTURE1	= 0x0010;
 global VERTEX_TYPE_TEXTURE2	= 0x0020;
 global VERTEX_TYPE_DIFFUSE		= 0x0040;
 global VERTEX_TYPE_PARALLAX		= 0x0200;
+global VERTEX_TYPE_RNM			= 0x0400;
 
 global PARENT_SUBDIR		= "\\Data\\"
 global MESH_SUBDIR		= "\\Models\\";
@@ -36,6 +37,9 @@ struct MaterialObject
 	Texture1,
 	Texture2,
 	Bump,
+	RNMTextureX,
+	RNMTextureY,
+	RNMTextureZ,
 	
 	function GetRelativeFileName filename =
 	(
@@ -70,6 +74,16 @@ struct MaterialObject
 			if (bit.and vertexType VERTEX_TYPE_TEXTURE2) == VERTEX_TYPE_TEXTURE2 then
 			(
 				finalName = (GetRelativeFileNameWithParentDir Texture2)
+				WriteStringToFile finalName file
+			)
+		
+			if (bit.and vertexType VERTEX_TYPE_RNM) == VERTEX_TYPE_RNM then
+			(
+				finalName = (GetRelativeFileNameWithParentDir RNMTextureX)
+				WriteStringToFile finalName file
+				finalName = (GetRelativeFileNameWithParentDir RNMTextureY)
+				WriteStringToFile finalName file
+				finalName = (GetRelativeFileNameWithParentDir RNMTextureZ)
 				WriteStringToFile finalName file
 			)
 		
@@ -116,6 +130,42 @@ struct MaterialObject
 			copyFile Texture2 destFile
 		)
 		
+		--Make sure RNMTextureX is set
+		if RNMTextureX != "" then
+		(
+			destFile = (GetCompleteFileName RNMTextureX)
+		
+			--Delete any file that exists
+			deleteFile destFile
+				
+			--Copy file to new location
+			copyFile RNMTextureX destFile
+		)
+		
+		--Make sure RNMTextureY is set
+		if RNMTextureY != "" then
+		(
+			destFile = (GetCompleteFileName RNMTextureY)
+		
+			--Delete any file that exists
+			deleteFile destFile
+				
+			--Copy file to new location
+			copyFile RNMTextureY destFile
+		)
+		
+		--Make sure RNMTextureZ is set
+		if RNMTextureZ != "" then
+		(
+			destFile = (GetCompleteFileName RNMTextureZ)
+		
+			--Delete any file that exists
+			deleteFile destFile
+				
+			--Copy file to new location
+			copyFile RNMTextureZ destFile
+		)
+		
 		--Make sure bump is set
 		if Bump != "" then
 		(
@@ -154,6 +204,39 @@ struct MaterialObject
 		else
 		(
 			format "Texture 2 is not set\n"
+		)
+		
+		if RNMTextureX != "" then
+		(
+			format "Original RNM Texture X: % \n" RNMTextureX
+			format "Relative RNM Texture X: % \n" (GetRelativeFileName RNMTextureX)
+			format "Target RNM Texture X: % \n" (GetCompleteFileName RNMTextureX)
+		)
+		else
+		(
+			format "RNM Texture X is not set\n"
+		)
+		
+		if RNMTextureY != "" then
+		(
+			format "Original RNM Texture Y: % \n" RNMTextureY
+			format "Relative RNM Texture Y: % \n" (GetRelativeFileName RNMTextureY)
+			format "Target RNM Texture Y: % \n" (GetCompleteFileName RNMTextureY)
+		)
+		else
+		(
+			format "RNM Texture Y is not set\n"
+		)
+		
+		if RNMTextureZ != "" then
+		(
+			format "Original RNM Texture Z: % \n" RNMTextureZ
+			format "Relative RNM Texture Z: % \n" (GetRelativeFileName RNMTextureZ)
+			format "Target RNM Texture Z: % \n" (GetCompleteFileName RNMTextureZ)
+		)
+		else
+		(
+			format "RNM Texture Z is not set\n"
 		)
 		
 		if Bump != "" then
@@ -219,6 +302,13 @@ struct Vertex
 		)
 		
 		if (bit.and VertexType VERTEX_TYPE_TEXTURE2) == VERTEX_TYPE_TEXTURE2 then
+		(
+			--Write Texture Coordinates for texture 2
+			WriteFloat file Tex2.x
+			WriteFloat file Tex2.y
+		)
+		
+		if (bit.and VertexType VERTEX_TYPE_RNM) == VERTEX_TYPE_RNM then
 		(
 			--Write Texture Coordinates for texture 2
 			WriteFloat file Tex2.x
@@ -306,10 +396,20 @@ struct VIBuffers
 				VertexType = (bit.or VertexType VERTEX_TYPE_TEXTURE1)
 				MeshMaterial.Texture1 = (openBitMap objMaterial.diffuseMap.bitmap.filename).fileName
 			
-				if objMaterial.selfIllumMapEnable == true AND classOf(objMaterial.selfIllumMap) == BitmapTexture then
-				(		
-					VertexType = (bit.or VertexType VERTEX_TYPE_TEXTURE2)
-					MeshMaterial.Texture2 = (openBitMap objMaterial.selfIllumMap.bitmap.filename).fileName
+				if objMaterial.selfIllumMapEnable == true then
+				(
+					if classOf(objMaterial.selfIllumMap) == BitmapTexture then
+					(
+						VertexType = (bit.or VertexType VERTEX_TYPE_TEXTURE2)
+						MeshMaterial.Texture2 = (openBitMap objMaterial.selfIllumMap.bitmap.filename).fileName
+					)
+					else if classOf(objMaterial.selfIllumMap) == Multi_Sub_Map then
+					(
+						VertexType = (bit.or VertexType VERTEX_TYPE_RNM)
+						MeshMaterial.RNMTextureX = (openBitMap objMaterial.selfIllumMap.id_0_color_shader.filename).fileName
+						MeshMaterial.RNMTextureY = (openBitMap objMaterial.selfIllumMap.id_1_color_shader.filename).fileName
+						MeshMaterial.RNMTextureZ = (openBitMap objMaterial.selfIllumMap.id_2_color_shader.filename).fileName
+					)
 				)
 				
 				if objMaterial.bumpMapEnable == true AND classOf(objMaterial.bumpMap) == BitmapTexture then
@@ -464,21 +564,21 @@ struct VIBuffers
 		format "Index Buffer Size: %\n" IndexBuffer.count
 		if opt == 1 then
 		(
-			PrintIndexBufferTestXNA()
+			--PrintIndexBufferTestXNA()
 		)
 		else
 		(
-			PrintIndexBufferTestDX()
+			--PrintIndexBufferTestDX()
 		)
 		
 		format "Vertex Buffer Size: %\n" VertexBuffer.count
 		if opt == 1 then
 		(
-			PrintVertexBufferTestXNA()
+			--PrintVertexBufferTestXNA()
 		)
 		else
 		(
-			PrintVertexBufferTestDX()
+			--PrintVertexBufferTestDX()
 		)
 	)
 	------------------------------------------------------------
@@ -688,6 +788,34 @@ struct MeshObj
 		
 		--Set Relative FileName
 		RelativeMeshFileName = (RelativeFilePath + MESH_SUBDIR + MeshFileName)
+	),
+	
+	function RemoveEmptyBuffers =
+	(
+		if IsInstance == true then
+		(
+			format "% is an instance, no need to remove empty buffers\n" MeshName
+		)
+		else
+		(
+			local cont = true
+			
+			while cont == true do
+			(
+				cont = false
+				
+				for i = 1 to MeshBuffers.count do
+				(
+					if ( (MeshBuffers[i].IndexBuffer.count == 0) OR  (MeshBuffers[i].VertexBuffer.count == 0) )  then
+					(
+						format "Mesh % at Sub Material % has IB count of % and VB count of % removing from array\n" MeshName MeshBuffers[i].MatID MeshBuffers[i].IndexBuffer.count MeshBuffers[i].VertexBuffer.count
+						deleteItem  MeshBuffers i
+						cont = true
+						exit
+					)
+				)
+			)
+		)
 	),
 	
 	function WriteToFile =
@@ -950,7 +1078,7 @@ struct SceneObj
 **************************************/
 function CreateMaterialObjectStruct = 
 (
-	local matObj = MaterialObject CompletePath:"" RelativePath:"" Texture1:"" Texture2:"" Bump:""
+	local matObj = MaterialObject CompletePath:"" RelativePath:"" Texture1:"" Texture2:"" Bump:"" RNMTextureX:"" RNMTextureY:"" RNMTextureZ:""
 	
 	return matObj
 )
@@ -970,6 +1098,10 @@ function CreateVertex pos nrm tex tex2 diffCol VertexType =
 		vtx.Tex1 = (tex as point3)
 		
 		if (bit.and VertexType VERTEX_TYPE_TEXTURE2) == VERTEX_TYPE_TEXTURE2 then
+		(
+			vtx.Tex2 = (tex2 as point3)
+		)
+		if (bit.and VertexType VERTEX_TYPE_RNM) == VERTEX_TYPE_RNM then
 		(
 			vtx.Tex2 = (tex2 as point3)
 		)
