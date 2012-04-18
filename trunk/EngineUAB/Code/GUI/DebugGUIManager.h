@@ -40,12 +40,24 @@ public:
 	inline CLogRender*				GetLogRender			() const		{ return m_pLogRender; }
 	inline CModifierManager*		GetModifierManager		() const		{ return m_pModifierManager; }
 
+	void		SetRenderDebugOptions		( bool render )			{ m_bRenderDebugOptions = render; }
+	void		SetRenderConsole			( bool render )			{ m_bRenderConsole = render; }
+	void		SetRenderDebugRender		( bool render )			{ m_bRenderDebugRender = render; }
+	void		SetRenderLogger				( bool render )			{ m_bRenderLogger = render; }
+	void		SetRenderModifiers			( bool render )			{ m_bRenderModifiers = render; }
+
 private:
 	CDebugOptions			*m_pDebugOptions;
 	CConsole				*m_pConsole;
 	CDebugRender			*m_pDebugRender;
 	CLogRender				*m_pLogRender;
 	CModifierManager		*m_pModifierManager;
+
+	bool		m_bRenderDebugOptions;
+	bool		m_bRenderConsole;
+	bool		m_bRenderDebugRender;
+	bool		m_bRenderLogger;
+	bool		m_bRenderModifiers;
 };
 
 #endif

@@ -2,6 +2,9 @@
 #pragma once
 
 #include "ViewTree.h"
+#include "Elements\ElementManager.h"
+#include <map>
+#include <string>
 
 class CClassToolBar : public CMFCToolBar
 {
@@ -13,26 +16,31 @@ class CClassToolBar : public CMFCToolBar
 	virtual BOOL AllowShowOnList() const { return FALSE; }
 };
 
-class CClassView : public CDockablePane
+class CElementView : public CDockablePane
 {
 public:
-	CClassView();
-	virtual ~CClassView();
+	CElementView();
+	virtual ~CElementView();
 
 	void AdjustLayout();
 	void OnChangeVisualStyle();
 
 protected:
 	CClassToolBar m_wndToolBar;
-	CViewTree m_wndClassView;
+	CViewTree m_wndElementView;
 	CImageList m_ClassViewImages;
 	UINT m_nCurrSort;
 
+	typedef std::map<std::string, HTREEITEM> TElementsMap;
+	TElementsMap		m_ElementsMap;
+
+protected:
 	void FillClassView();
 
 // Invalidaciones
 public:
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	TElement String2Element	( const std::string &element );
 
 protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);

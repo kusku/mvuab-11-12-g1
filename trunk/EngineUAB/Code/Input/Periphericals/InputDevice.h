@@ -33,6 +33,7 @@ public:
 
 	// Accessor-Methods
 	virtual const Vect2i&		GetPosition	    ()	{ return m_Pos; }
+	virtual void				SetPosition		( const Vect2i &pos ) { m_Pos = pos; }
 
 
 protected:

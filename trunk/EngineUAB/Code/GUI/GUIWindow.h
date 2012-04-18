@@ -49,7 +49,7 @@ class CGUIWindow
 
 		//--- PARSERFILE FUNCTION ---
 		bool	LoadXML						(const std::string &xmlGuiFile, const Vect2i& screenResolution);
-		void	RegisterElements		(std::map<std::string,CGuiElement*>& elements);
+		void	RegisterElements			(std::map<std::string,CGuiElement*>& elements);
 		void	LoadWindows					();
 		void	SaveWindows					();
 
@@ -63,7 +63,7 @@ class CGUIWindow
 		void	LoadEditableTextBox			(CGUIEditableTextBox** editableTextBox, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm);
 		void	LoadRadioBox				(CGUIRadioBox** radioBox, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm);
 		void	_LoadImage					(CGUIImage** image, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm);
-    void  LoadAnimatedImage					(CGUIAnimatedImage** image_aux, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm);
+		void	LoadAnimatedImage			(CGUIAnimatedImage** image_aux, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm);
 		void	LoadProgressBar				(CGUIProgressBar** progressBar, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm);
 		void	LoadStaticText				(CGUIStaticText** staticText, CXMLTreeNode& pNewNode, const Vect2i& screenResolution, CTextureManager* tm);
 

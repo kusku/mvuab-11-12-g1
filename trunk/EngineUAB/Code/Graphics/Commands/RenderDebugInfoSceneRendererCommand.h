@@ -17,6 +17,12 @@ public:
 private:
 	bool		m_Grid;
 	bool		m_Axis;
+
+	bool		m_bRenderConsole;
+	bool		m_bRenderLogger;
+	bool		m_bRenderModifiers;
+	bool		m_bRenderDebugOptions;
+	bool		m_bRenderDebugRender;
 };
 
 #endif

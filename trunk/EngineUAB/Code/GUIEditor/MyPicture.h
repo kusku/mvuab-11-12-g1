@@ -7,6 +7,8 @@
 // MyPicture.h : header file
 //
 
+#include "Elements\ElementManager.h"
+
 /////////////////////////////////////////////////////////////////////////////
 // CMyPicture window
 
@@ -33,6 +35,9 @@ public:
 
 private:
 	float m_R;
+
+private:
+	void AddElementToActiveWindow(TElement element);
 
 	// Generated message map functions
 protected:
