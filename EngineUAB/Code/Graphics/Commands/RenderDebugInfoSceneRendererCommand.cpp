@@ -17,12 +17,25 @@ CRenderDebugInfoSceneRendererCommand::CRenderDebugInfoSceneRendererCommand(CXMLT
 {
 	m_Grid = Node.GetBoolProperty("grid", false);
 	m_Axis = Node.GetBoolProperty("axis", false);
+	m_bRenderConsole = Node.GetBoolProperty("render_console", false);
+	m_bRenderDebugOptions = Node.GetBoolProperty("render_debug_options", false);
+	m_bRenderDebugRender = Node.GetBoolProperty("render_debug_render", false);
+	m_bRenderLogger = Node.GetBoolProperty("render_logger", false);
+	m_bRenderModifiers = Node.GetBoolProperty("render_modifiers", false);
 }
 
 void CRenderDebugInfoSceneRendererCommand ::Execute(CRenderManager &RM)
 {	
 	CFontManager *fontManager = CORE->GetFontManager();
-	CORE->GetDebugGUIManager()->Render(RM, *fontManager, CORE->GetTimer() );
+	CDebugGUIManager *l_pGUI = CORE->GetDebugGUIManager();
+
+	l_pGUI->SetRenderConsole( m_bRenderConsole );
+	l_pGUI->SetRenderDebugOptions( m_bRenderDebugOptions );
+	l_pGUI->SetRenderDebugRender( m_bRenderDebugRender );
+	l_pGUI->SetRenderLogger( m_bRenderLogger );
+	l_pGUI->SetRenderModifiers( m_bRenderModifiers );
+
+	l_pGUI->Render(RM, *fontManager, CORE->GetTimer() );
 
 	Mat44f mat;
 	mat.SetIdentity();

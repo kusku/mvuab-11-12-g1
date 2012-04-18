@@ -14,6 +14,9 @@
     <Filter Include="Window\Controls">
       <UniqueIdentifier>{3021898b-bed5-4dfa-bd6f-550f53d1a8df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Elements">
+      <UniqueIdentifier>{acb9d0ce-a201-4a99-8c19-b0c818f45972}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\file_view.ico">
@@ -115,9 +118,6 @@
     <ClInclude Include="FileView.h">
       <Filter>Window</Filter>
     </ClInclude>
-    <ClInclude Include="ClassView.h">
-      <Filter>Window</Filter>
-    </ClInclude>
     <ClInclude Include="ViewTree.h">
       <Filter>Window\Controls</Filter>
     </ClInclude>
@@ -141,6 +141,15 @@
       <Filter>Window\App</Filter>
     </ClInclude>
     <ClInclude Include="EngineManager.h" />
+    <ClInclude Include="ElementView.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Elements\ElementManager.h">
+      <Filter>Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Elements\ElementCreator.h">
+      <Filter>Elements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GUIEditorView.cpp" />
@@ -154,9 +163,6 @@
       <Filter>Window</Filter>
     </ClCompile>
     <ClCompile Include="FileView.cpp">
-      <Filter>Window</Filter>
-    </ClCompile>
-    <ClCompile Include="ClassView.cpp">
       <Filter>Window</Filter>
     </ClCompile>
     <ClCompile Include="ViewTree.cpp">
@@ -179,6 +185,15 @@
       <Filter>Window\Controls</Filter>
     </ClCompile>
     <ClCompile Include="EngineManager.cpp" />
+    <ClCompile Include="ElementView.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Elements\ElementManager.cpp">
+      <Filter>Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Elements\ElementCreator.cpp">
+      <Filter>Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GUIEditor.rc">

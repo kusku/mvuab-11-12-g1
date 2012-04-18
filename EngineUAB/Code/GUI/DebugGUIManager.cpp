@@ -21,6 +21,11 @@ CDebugGUIManager::CDebugGUIManager()
 	, m_pDebugRender(NULL)
 	, m_pLogRender(NULL)
 	, m_pModifierManager(NULL)
+	, m_bRenderDebugOptions(false)
+	, m_bRenderConsole(false)
+	, m_bRenderDebugRender(false)
+	, m_bRenderLogger(false)
+	, m_bRenderModifiers(false)
 {
 }
 
@@ -73,9 +78,18 @@ void CDebugGUIManager::Update(float _ElapsedTime)
 
 void CDebugGUIManager::Render(CRenderManager &_RM, CFontManager &_FM, CTimer *_Timer)
 {
-	m_pConsole->Render(_RM, _FM);
-	m_pDebugRender->Render(&_RM, &_FM, _Timer);
-	m_pLogRender->Render(&_RM, &_FM);
-	m_pModifierManager->Render(_RM, _FM);
-	m_pDebugOptions->Render(_RM, _FM);
+	if( m_bRenderConsole )
+		m_pConsole->Render(_RM, _FM);
+
+	if( m_bRenderDebugRender )
+		m_pDebugRender->Render(&_RM, &_FM, _Timer);
+
+	if( m_bRenderLogger )
+		m_pLogRender->Render(&_RM, &_FM);
+
+	if( m_bRenderModifiers )
+		m_pModifierManager->Render(_RM, _FM);
+
+	if( m_bRenderDebugOptions )
+		m_pDebugOptions->Render(_RM, _FM);
 }

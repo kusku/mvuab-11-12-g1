@@ -97,7 +97,6 @@ void CGUIEditorView::CalculateWindow()
 	m_bFirstTime = false;
 }
 
-
 // Impresión de CGUIEditorView
 void CGUIEditorView::OnFilePrintPreview()
 {

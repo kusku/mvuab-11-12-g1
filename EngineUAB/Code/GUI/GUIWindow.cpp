@@ -734,7 +734,7 @@ void CGUIWindow::_LoadImage(CGUIImage** image_aux, CXMLTreeNode& pNewNode, const
 	    {	
 		    std::string name				=  pNewNode(j).GetPszProperty("name");
 		    std::string texture			=  pNewNode(j).GetPszProperty("name_texture");
-        CTexture* texture_image		= tm->GetTexture(texture);
+			CTexture* texture_image		= tm->GetTexture(texture);
 		    image->SetTexture(texture_image, name);
       }
 	  }

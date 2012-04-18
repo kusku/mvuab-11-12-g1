@@ -7,5 +7,6 @@
 #include "Engine.h"
 
 #define WM_GETLOGGER			(WM_USER + 1)
+#define WM_LBUTTON_DOWN			(WM_USER + 2)
 
 #endif

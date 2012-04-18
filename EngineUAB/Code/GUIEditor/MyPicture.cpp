@@ -3,6 +3,16 @@
 
 #include "stdafx.h"
 #include "MyPicture.h"
+#include "EngineManager.h"
+#include "EngineProcess.h"
+#include "Elements\ElementCreator.h"
+#include "GUIEditorProcess.h"
+#include "GUIManager.h"
+#include "GUIWindow.h"
+#include "InputManager.h"
+#include "Periphericals\Mouse.h"
+#include "Base.h"
+#include "Core.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -52,6 +62,13 @@ void CMyPicture::OnLButtonDown(UINT nFlags, CPoint point)
 
 void CMyPicture::OnLButtonUp(UINT nFlags, CPoint point)
 {
+	CElementManager *l_pElementManager = CElementManager::GetInstance();
+
+	TElement element = l_pElementManager->GetElementToAdd();
+	l_pElementManager->SetElementToAdd(NONE);
+
+	AddElementToActiveWindow(element);
+
 	CStatic::OnLButtonUp(nFlags, point);
 }
 
@@ -75,37 +92,29 @@ BOOL CMyPicture::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 
 void CMyPicture::OnMouseMove(UINT nFlags, CPoint point)
 {
-	////Posa el tipus de cursor corresponent
-	//HCURSOR hCur; 
-	//switch (m_Edicio)
-	//{
-	//case 0:
-	//	{
-	//		hCur  = AfxGetApp()->LoadCursor(MAKEINTRESOURCE(IDC_POINTER)); 
-	//		break;
-	//	}
-	//case 1:
-	//	{
-	//		hCur  = AfxGetApp()->LoadCursor(MAKEINTRESOURCE(IDC_TRASLLADAR)); 
-	//		break;
-	//	}
-	//case 2:
-	//	{
-	//		hCur  = AfxGetApp()->LoadCursor(MAKEINTRESOURCE(IDC_ROTAR)); 
-	//		break;
-	//	}
-	//case 3:
-	//	{
-	//		hCur  = AfxGetApp()->LoadCursor(MAKEINTRESOURCE(IDC_ESCALAR)); 
-	//		break;
-	//	}
-	//default:
-	//	{
-	//		hCur  = AfxGetApp()->LoadCursor(MAKEINTRESOURCE(IDC_POINTER)); 
-	//		break;
-	//	}
-	//}
-	//SetClassLong(m_hWnd, GCL_HCURSOR, (LONG)hCur); 
+	CORE->GetInputManager()->GetMouse()->SetPosition( Vect2i(point.x, point.y) );
 
 	CStatic::OnMouseMove(nFlags, point);
+}
+
+void CMyPicture::AddElementToActiveWindow(TElement element)
+{
+	CGUIManager *l_pGUIManager = ( (CGUIEditorProcess*)CEngineManager::GetInstance()->GetEngine()->GetProcess() )->GetGUIManager();
+
+	std::string windowName = l_pGUIManager->GetCurrentWindow();
+	CGUIWindow *l_pWindow = l_pGUIManager->GetWindow(windowName);
+
+	switch( element )
+	{
+	case BUTTON:
+		{
+			CElementCreator::CreateButton(l_pWindow);
+			break;
+		}
+	case IMAGE:
+		{
+			CElementCreator::CreateImage(l_pWindow);
+			break;
+		}
+	}
 }

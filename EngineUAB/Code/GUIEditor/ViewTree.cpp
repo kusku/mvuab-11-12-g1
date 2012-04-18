@@ -1,6 +1,8 @@
 
 #include "stdafx.h"
 #include "ViewTree.h"
+#include "defines.h"
+#include "Elements\ElementManager.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -20,6 +22,8 @@ CViewTree::~CViewTree()
 }
 
 BEGIN_MESSAGE_MAP(CViewTree, CTreeCtrl)
+	ON_WM_LBUTTONDOWN()
+	ON_WM_LBUTTONUP()
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -38,4 +42,17 @@ BOOL CViewTree::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 	}
 
 	return bRes;
+}
+
+void CViewTree::OnLButtonDown(UINT nFlags,CPoint point)
+{
+	UINT flags = 0;
+	CPoint ptTree = point;
+	HTREEITEM hTreeItem = HitTest(ptTree, &flags);
+	LRESULT hr = PostMessage(WM_LBUTTON_DOWN,(WPARAM)hTreeItem,0);
+}
+
+void CViewTree::OnLButtonUp(UINT nFlags,CPoint point)
+{
+	CElementManager::GetInstance()->SetElementToAdd(NONE);
 }

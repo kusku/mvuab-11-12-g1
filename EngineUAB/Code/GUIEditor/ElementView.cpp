@@ -1,9 +1,10 @@
 
 #include "stdafx.h"
 #include "MainFrm.h"
-#include "ClassView.h"
+#include "ElementView.h"
 #include "Resource.h"
 #include "GUIEditor.h"
+#include "defines.h"
 
 class CClassViewMenuButton : public CMFCToolBarMenuButton
 {
@@ -36,16 +37,31 @@ IMPLEMENT_SERIAL(CClassViewMenuButton, CMFCToolBarMenuButton, 1)
 // Construcción/Destrucción
 //////////////////////////////////////////////////////////////////////
 
-CClassView::CClassView()
+CElementView::CElementView()
 {
 	m_nCurrSort = ID_SORTING_GROUPBYTYPE;
+
+	//Add Elements
+	m_ElementsMap["Animated Image"] = NULL;
+	m_ElementsMap["Button"] = NULL;
+	m_ElementsMap["Check Button"] = NULL;
+	m_ElementsMap["Dialog Box"] = NULL;
+	m_ElementsMap["Editable Text Box"] = NULL;
+	m_ElementsMap["Image"] = NULL;
+	m_ElementsMap["Pointer Mouse"] = NULL;
+	m_ElementsMap["Progress Bar"] = NULL;
+	m_ElementsMap["Radio Box"] = NULL;
+	m_ElementsMap["Slider"] = NULL;
+	m_ElementsMap["Static Text"] = NULL;
+	m_ElementsMap["Text Box"] = NULL;
 }
 
-CClassView::~CClassView()
+CElementView::~CElementView()
 {
+	m_ElementsMap.clear();
 }
 
-BEGIN_MESSAGE_MAP(CClassView, CDockablePane)
+BEGIN_MESSAGE_MAP(CElementView, CDockablePane)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
 	ON_WM_CONTEXTMENU()
@@ -63,7 +79,7 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // Controladores de mensajes de CClassView
 
-int CClassView::OnCreate(LPCREATESTRUCT lpCreateStruct)
+int CElementView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CDockablePane::OnCreate(lpCreateStruct) == -1)
 		return -1;
@@ -74,7 +90,7 @@ int CClassView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	// Crear vistas:
 	const DWORD dwViewStyle = WS_CHILD | WS_VISIBLE | TVS_HASLINES | TVS_LINESATROOT | TVS_HASBUTTONS | WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
 
-	if (!m_wndClassView.Create(dwViewStyle, rectDummy, this, 2))
+	if (!m_wndElementView.Create(dwViewStyle, rectDummy, this, 2))
 	{
 		TRACE0("No se pudo crear la Vista de clases\n");
 		return -1;      // no se pudo crear
@@ -115,53 +131,32 @@ int CClassView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	return 0;
 }
 
-void CClassView::OnSize(UINT nType, int cx, int cy)
+void CElementView::OnSize(UINT nType, int cx, int cy)
 {
 	CDockablePane::OnSize(nType, cx, cy);
 	AdjustLayout();
 }
 
-void CClassView::FillClassView()
+void CElementView::FillClassView()
 {
-	HTREEITEM hRoot = m_wndClassView.InsertItem(_T("Clases de FakeApp"), 0, 0);
-	m_wndClassView.SetItemState(hRoot, TVIS_BOLD, TVIS_BOLD);
+	HTREEITEM hRoot = m_wndElementView.InsertItem(_T("Tools"), 0, 0);
+	m_wndElementView.SetItemState(hRoot, TVIS_BOLD, TVIS_BOLD);
+	
+	std::map<std::string, HTREEITEM>::iterator l_It = m_ElementsMap.begin();
+	std::map<std::string, HTREEITEM>::iterator l_End = m_ElementsMap.end();
 
-	HTREEITEM hClass = m_wndClassView.InsertItem(_T("CFakeAboutDlg"), 1, 1, hRoot);
-	m_wndClassView.InsertItem(_T("CFakeAboutDlg()"), 3, 3, hClass);
+	for(; l_It != l_End; ++l_It)
+	{
+		HTREEITEM item = m_wndElementView.InsertItem(_T( l_It->first.c_str() ), 1, 1, hRoot);
+		l_It->second = item;
+	}
 
-	m_wndClassView.Expand(hRoot, TVE_EXPAND);
-
-	hClass = m_wndClassView.InsertItem(_T("CFakeApp"), 1, 1, hRoot);
-	m_wndClassView.InsertItem(_T("CFakeApp()"), 3, 3, hClass);
-	m_wndClassView.InsertItem(_T("InitInstance()"), 3, 3, hClass);
-	m_wndClassView.InsertItem(_T("OnAppAbout()"), 3, 3, hClass);
-
-	hClass = m_wndClassView.InsertItem(_T("CFakeAppDoc"), 1, 1, hRoot);
-	m_wndClassView.InsertItem(_T("CFakeAppDoc()"), 4, 4, hClass);
-	m_wndClassView.InsertItem(_T("~CFakeAppDoc()"), 3, 3, hClass);
-	m_wndClassView.InsertItem(_T("OnNewDocument()"), 3, 3, hClass);
-
-	hClass = m_wndClassView.InsertItem(_T("CFakeAppView"), 1, 1, hRoot);
-	m_wndClassView.InsertItem(_T("CFakeAppView()"), 4, 4, hClass);
-	m_wndClassView.InsertItem(_T("~CFakeAppView()"), 3, 3, hClass);
-	m_wndClassView.InsertItem(_T("GetDocument()"), 3, 3, hClass);
-	m_wndClassView.Expand(hClass, TVE_EXPAND);
-
-	hClass = m_wndClassView.InsertItem(_T("CFakeAppFrame"), 1, 1, hRoot);
-	m_wndClassView.InsertItem(_T("CFakeAppFrame()"), 3, 3, hClass);
-	m_wndClassView.InsertItem(_T("~CFakeAppFrame()"), 3, 3, hClass);
-	m_wndClassView.InsertItem(_T("m_wndMenuBar"), 6, 6, hClass);
-	m_wndClassView.InsertItem(_T("m_wndToolBar"), 6, 6, hClass);
-	m_wndClassView.InsertItem(_T("m_wndStatusBar"), 6, 6, hClass);
-
-	hClass = m_wndClassView.InsertItem(_T("Globals"), 2, 2, hRoot);
-	m_wndClassView.InsertItem(_T("theFakeApp"), 5, 5, hClass);
-	m_wndClassView.Expand(hClass, TVE_EXPAND);
+	m_wndElementView.Expand(hRoot, TVE_EXPAND);
 }
 
-void CClassView::OnContextMenu(CWnd* pWnd, CPoint point)
+void CElementView::OnContextMenu(CWnd* pWnd, CPoint point)
 {
-	CTreeCtrl* pWndTree = (CTreeCtrl*)&m_wndClassView;
+	CTreeCtrl* pWndTree = (CTreeCtrl*)&m_wndElementView;
 	ASSERT_VALID(pWndTree);
 
 	if (pWnd != pWndTree)
@@ -202,7 +197,7 @@ void CClassView::OnContextMenu(CWnd* pWnd, CPoint point)
 	}
 }
 
-void CClassView::AdjustLayout()
+void CElementView::AdjustLayout()
 {
 	if (GetSafeHwnd() == NULL)
 	{
@@ -215,15 +210,34 @@ void CClassView::AdjustLayout()
 	int cyTlb = m_wndToolBar.CalcFixedLayout(FALSE, TRUE).cy;
 
 	m_wndToolBar.SetWindowPos(NULL, rectClient.left, rectClient.top, rectClient.Width(), cyTlb, SWP_NOACTIVATE | SWP_NOZORDER);
-	m_wndClassView.SetWindowPos(NULL, rectClient.left + 1, rectClient.top + cyTlb + 1, rectClient.Width() - 2, rectClient.Height() - cyTlb - 2, SWP_NOACTIVATE | SWP_NOZORDER);
+	m_wndElementView.SetWindowPos(NULL, rectClient.left + 1, rectClient.top + cyTlb + 1, rectClient.Width() - 2, rectClient.Height() - cyTlb - 2, SWP_NOACTIVATE | SWP_NOZORDER);
 }
 
-BOOL CClassView::PreTranslateMessage(MSG* pMsg)
+BOOL CElementView::PreTranslateMessage(MSG* pMsg)
 {
+	CTreeCtrl* pWndTree = (CTreeCtrl*) &m_wndElementView;
+	switch(pMsg->message)
+	{
+	case WM_LBUTTON_DOWN:
+		{
+			HTREEITEM item = (HTREEITEM)pMsg->wParam;
+			pWndTree->SelectItem(item);
+
+			for (TElementsMap::iterator it = m_ElementsMap.begin(); it != m_ElementsMap.end(); ++it)
+			{
+				if (it->second == item)
+				{
+					CElementManager::GetInstance()->SetElementToAdd( String2Element(it->first) );
+				}
+			}
+			break;
+		}
+	}
+
 	return CDockablePane::PreTranslateMessage(pMsg);
 }
 
-void CClassView::OnSort(UINT id)
+void CElementView::OnSort(UINT id)
 {
 	if (m_nCurrSort == id)
 	{
@@ -242,56 +256,56 @@ void CClassView::OnSort(UINT id)
 	}
 }
 
-void CClassView::OnUpdateSort(CCmdUI* pCmdUI)
+void CElementView::OnUpdateSort(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck(pCmdUI->m_nID == m_nCurrSort);
 }
 
-void CClassView::OnClassAddMemberFunction()
+void CElementView::OnClassAddMemberFunction()
 {
 	AfxMessageBox(_T("Agregar función de miembro..."));
 }
 
-void CClassView::OnClassAddMemberVariable()
+void CElementView::OnClassAddMemberVariable()
 {
 	// TODO: Agregue aquí el código del controlador de comando
 }
 
-void CClassView::OnClassDefinition()
+void CElementView::OnClassDefinition()
 {
 	// TODO: Agregue aquí el código del controlador de comando
 }
 
-void CClassView::OnClassProperties()
+void CElementView::OnClassProperties()
 {
 	// TODO: Agregue aquí el código del controlador de comando
 }
 
-void CClassView::OnNewFolder()
+void CElementView::OnNewFolder()
 {
 	AfxMessageBox(_T("Nueva carpeta..."));
 }
 
-void CClassView::OnPaint()
+void CElementView::OnPaint()
 {
 	CPaintDC dc(this); // contexto de dispositivo para dibujar
 
 	CRect rectTree;
-	m_wndClassView.GetWindowRect(rectTree);
+	m_wndElementView.GetWindowRect(rectTree);
 	ScreenToClient(rectTree);
 
 	rectTree.InflateRect(1, 1);
 	dc.Draw3dRect(rectTree, ::GetSysColor(COLOR_3DSHADOW), ::GetSysColor(COLOR_3DSHADOW));
 }
 
-void CClassView::OnSetFocus(CWnd* pOldWnd)
+void CElementView::OnSetFocus(CWnd* pOldWnd)
 {
 	CDockablePane::OnSetFocus(pOldWnd);
 
-	m_wndClassView.SetFocus();
+	m_wndElementView.SetFocus();
 }
 
-void CClassView::OnChangeVisualStyle()
+void CElementView::OnChangeVisualStyle()
 {
 	m_ClassViewImages.DeleteImageList();
 
@@ -315,8 +329,25 @@ void CClassView::OnChangeVisualStyle()
 	m_ClassViewImages.Create(16, bmpObj.bmHeight, nFlags, 0, 0);
 	m_ClassViewImages.Add(&bmp, RGB(255, 0, 0));
 
-	m_wndClassView.SetImageList(&m_ClassViewImages, TVSIL_NORMAL);
+	m_wndElementView.SetImageList(&m_ClassViewImages, TVSIL_NORMAL);
 
 	m_wndToolBar.CleanUpLockedImages();
 	m_wndToolBar.LoadBitmap(theApp.m_bHiColorIcons ? IDB_SORT_24 : IDR_SORT, 0, 0, TRUE /* Bloqueado */);
+}
+
+TElement CElementView::String2Element( const std::string &element )
+{
+	if( element == "Animated Image" ) return ANIMATED_IMAGE;
+	else if( element == "Button" ) return BUTTON;
+	else if( element == "Check Button" ) return CHECK_BUTTON;
+	else if( element == "Dialog Box" ) return DIALOG_BOX;
+	else if( element == "Editable Text Box" ) return EDITABLE_TEXT_BOX;
+	else if( element == "Image" ) return IMAGE;
+	else if( element == "Pointer Mouse" ) return POINTER_MOUSE;
+	else if( element == "Progress Bar" ) return PROGRESS_BAR;
+	else if( element == "Radio Box" ) return RADIO_BOX;
+	else if( element == "Slider" ) return SLIDER;
+	else if( element == "Static Text" ) return STATIC_TEXT;
+	else if( element == "Text Box" ) return TEXT_BOX;
+	else return NONE;
 }

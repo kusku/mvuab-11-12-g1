@@ -86,7 +86,8 @@ public:
 	bool				IsVisibleMessage			()const			{ assert(m_TextBox); return m_TextBox->IsVisible(); }
     std::string         GetCurrentWindow            ()				{ return m_sCurrentWindows; }
 	void				SetVisiblePointerMouse		( bool flag )	{ m_bVisiblePointerMouse = flag; }
-		
+	CGUIWindow*			GetWindow					( const std::string &window ) { return m_WindowsMap[window]; }
+
 	//----CScriptRegister interface--------------------------------------------
 	//virtual void						RegisterFunctions				(CScriptManager* scriptManager);
 

@@ -57,6 +57,8 @@ public:
 	void						SetGamePadLeftMotorSpeed		(uint32 speed, INPUT_DEVICE_TYPE device = IDV_GAMEPAD1); //[0-65535]
 	void						SetGamePadRightMotorSpeed		(uint32 speed, INPUT_DEVICE_TYPE device = IDV_GAMEPAD1); //[0-65535]
 
+	CMouse*			GetMouse		() const	{ return m_pMouse; }
+
 	//----CScriptRegister interface-------------------
 	//virtual void		RegisterFunctions								(CScriptManager* scriptManager);
 
