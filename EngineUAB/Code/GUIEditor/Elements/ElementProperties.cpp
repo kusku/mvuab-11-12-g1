@@ -134,6 +134,7 @@ void CElementProperties::AddBasicAppearanceProperties(const std::string &guielem
 		pProp = new CMFCPropertyGridProperty(_T("X"), (_variant_t) pos.x, _T("Posición X del objecto"));
 		pProp->EnableSpinControl(TRUE, 1, screen.y);
 		pPosition->AddSubItem(pProp);
+		
 
 		pProp = new CMFCPropertyGridProperty( _T("Y"), (_variant_t) pos.y, _T("Posición Y del objecto"));
 		pProp->EnableSpinControl(TRUE, 1, screen.x);
@@ -175,12 +176,15 @@ void CElementProperties::AddBasicInformationProperties(const std::string &guiele
 		CMFCPropertyGridProperty* pInformation = new CMFCPropertyGridProperty(_T("Información"));
 		MFCProperty->AddProperty(pInformation);
 
+		pProp = new CMFCPropertyGridProperty(_T("(ID)"), l_pElement->GetID().c_str() );
+		pProp->Enable(FALSE);
+		pInformation->AddSubItem(pProp);
 		
 		pProp = new CMFCPropertyGridProperty(_T("(Tipo)"), TypeElement2String( l_pElement->GetType() ).c_str() );
 		pProp->Enable(FALSE);
 		pInformation->AddSubItem(pProp);
 
-		pProp = new CMFCPropertyGridProperty(_T("(Nombre)"), l_pElement->GetName().c_str());
+		pProp = new CMFCPropertyGridProperty(_T("Nombre"), l_pElement->GetName().c_str());
 		pProp->Enable(TRUE);
 		pInformation->AddSubItem(pProp);
 	}

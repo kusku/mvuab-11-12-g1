@@ -6,30 +6,30 @@
 #include "RenderManager.h"
 #include "Fonts\FontManager.h"
 
-CGuiElement::CGuiElement(	uint32 windowsHeight, uint32 windowsWidth, float height_percent, float width_percent, 
-									Vect2f position_percent, TypeGuiElement type, std::string lit, uint32 textHeightOffset,
-									uint32 textWidthOffset, bool isVisible, bool isActive)
-
-: m_uWindowsHeight( windowsHeight )
-, m_uWindowsWidth(windowsWidth )
-, m_fWidthPercent( width_percent )
-, m_fHeightPercent( height_percent )
-, m_PositionPercent( position_percent )
-, m_bIsVisible( isVisible )
-, m_bIsActive( isActive )
-, m_bIsOver( false )
-, m_bIsInside( false )
-, m_bFocus( false )
-, m_sLuaCode_OnLoadValue("")
-, m_sLuaCode_OnSaveValue("")
-, m_sName("DefaultGuiElement")
-, m_pParent(NULL)
-, m_eEditMode(DISABLE)
-, m_eType(type)
-, m_z(0)
-, m_sLiteral(lit)
-, m_uTextHeightOffset(textHeightOffset)
-, m_uTextWidthOffset(textWidthOffset)
+CGuiElement::CGuiElement( uint32 windowsHeight, uint32 windowsWidth, float height_percent, float width_percent, 
+							Vect2f position_percent, TypeGuiElement type, std::string lit, uint32 textHeightOffset,
+							uint32 textWidthOffset, bool isVisible, bool isActive)
+	: m_uWindowsHeight( windowsHeight )
+	, m_uWindowsWidth(windowsWidth )
+	, m_fWidthPercent( width_percent )
+	, m_fHeightPercent( height_percent )
+	, m_PositionPercent( position_percent )
+	, m_bIsVisible( isVisible )
+	, m_bIsActive( isActive )
+	, m_bIsOver( false )
+	, m_bIsInside( false )
+	, m_bFocus( false )
+	, m_sLuaCode_OnLoadValue("")
+	, m_sLuaCode_OnSaveValue("")
+	, m_sName("DefaultGuiElement")
+	, m_sId("")
+	, m_pParent(NULL)
+	, m_eEditMode(DISABLE)
+	, m_eType(type)
+	, m_z(0)
+	, m_sLiteral(lit)
+	, m_uTextHeightOffset(textHeightOffset)
+	, m_uTextWidthOffset(textWidthOffset)
 {
 	m_uWidth	= (uint32)(m_fWidthPercent * 0.01f * m_uWindowsWidth);
 	m_uHeight	= (uint32)(m_fHeightPercent * 0.01f * m_uWindowsHeight);
