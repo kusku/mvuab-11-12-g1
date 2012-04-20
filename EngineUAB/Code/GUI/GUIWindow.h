@@ -53,6 +53,9 @@ class CGUIWindow
 		void	LoadWindows					();
 		void	SaveWindows					();
 
+		CGuiElement*	GetElement			( const std::string &name );
+		CGuiElement*	GetElementById		( uint32 id ) const	{ return m_GuiElementsVector[id]; }
+		uint32			GetNumElements		() const	{ return m_GuiElementsVector.size(); }
 	private:
 		void	IsKeyDown					(CInputManager* intputManager);	
 

@@ -203,20 +203,20 @@ void CSceneRendererCommandManager::LoadXML()
 				 l_Command = new CRenderDebugLightsSceneRendererCommand( l_SRC(i) );
 				 l_CommandName = "render_debug_lights_" + l_NumCommand;
 			 }
-			 else if( l_Type == "render_modifiers" )
+			 else if( l_Type == "render_gui" )
 			 {
-				 l_Command = new CRenderDebugModifiersSceneRendererCommand( l_SRC(i) );
-				 l_CommandName = "render_modifiers_" + l_NumCommand;
+				 l_Command = new CRenderGUISceneRendererCommand( l_SRC(i) );
+				 l_CommandName = "render_gui_" + l_NumCommand;
 			 }
 			 else if( l_Type == "render_debug_physics" )
 			 {
 				 l_Command = new CRenderDebugPhysicsSceneRendererCommand( l_SRC(i) );
-				 l_CommandName = "render_debug_physics" + l_NumCommand;
+				 l_CommandName = "render_debug_physics_" + l_NumCommand;
 			 }
 			 else if( l_Type == "render_debug_process" )
 			 {
 				 l_Command = new CRenderDebugProcessSceneRendererCommand( l_SRC(i) );
-				 l_CommandName = "render_debug_process" + l_NumCommand;
+				 l_CommandName = "render_debug_process_" + l_NumCommand;
 			 }
 #endif
 

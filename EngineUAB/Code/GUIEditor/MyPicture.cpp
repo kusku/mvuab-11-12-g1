@@ -99,7 +99,7 @@ void CMyPicture::OnMouseMove(UINT nFlags, CPoint point)
 
 void CMyPicture::AddElementToActiveWindow(TElement element)
 {
-	CGUIManager *l_pGUIManager = ( (CGUIEditorProcess*)CEngineManager::GetInstance()->GetEngine()->GetProcess() )->GetGUIManager();
+	CGUIManager *l_pGUIManager = CORE->GetGUIManager();
 
 	std::string windowName = l_pGUIManager->GetCurrentWindow();
 	CGUIWindow *l_pWindow = l_pGUIManager->GetWindow(windowName);

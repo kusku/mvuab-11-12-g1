@@ -133,9 +133,6 @@
     <ClInclude Include="Commands\RenderDebugLightsSceneRendererCommand.h">
       <Filter>Commands\Command</Filter>
     </ClInclude>
-    <ClInclude Include="Commands\RenderGUISceneRendererCommand.h">
-      <Filter>Commands\Command</Filter>
-    </ClInclude>
     <ClInclude Include="Commands\DrawQuadRendererCommand.h">
       <Filter>Commands\Command</Filter>
     </ClInclude>
@@ -173,9 +170,6 @@
       <Filter>Commands\Command</Filter>
     </ClInclude>
     <ClInclude Include="Commands\PresentRenderSceneRendererCommand.h">
-      <Filter>Commands\Command</Filter>
-    </ClInclude>
-    <ClInclude Include="Commands\RenderDebugModifiersSceneRendererCommand.h">
       <Filter>Commands\Command</Filter>
     </ClInclude>
     <ClInclude Include="Commands\RenderDebugPhysicsSceneRendererCommand.h">
@@ -231,6 +225,12 @@
     </ClInclude>
     <ClInclude Include="Particles\ParticlesSystemManager.h">
       <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\RenderGUISceneRendererCommand.h">
+      <Filter>Commands\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\RenderGUISceneRendererCommand.h">
+      <Filter>Commands\Command</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -356,9 +356,6 @@
     <ClCompile Include="Commands\RenderDebugLightsSceneRendererCommand.cpp">
       <Filter>Commands\Command</Filter>
     </ClCompile>
-    <ClCompile Include="Commands\RenderGUISceneRendererCommand.cpp">
-      <Filter>Commands\Command</Filter>
-    </ClCompile>
     <ClCompile Include="Commands\DrawQuadRendererCommand.cpp">
       <Filter>Commands\Command</Filter>
     </ClCompile>
@@ -393,9 +390,6 @@
       <Filter>Commands\Command</Filter>
     </ClCompile>
     <ClCompile Include="Commands\PresentRenderSceneRendererCommand.cpp">
-      <Filter>Commands\Command</Filter>
-    </ClCompile>
-    <ClCompile Include="Commands\RenderDebugModifiersSceneRendererCommand.cpp">
       <Filter>Commands\Command</Filter>
     </ClCompile>
     <ClCompile Include="Commands\RenderDebugPhysicsSceneRendererCommand.cpp">
@@ -448,6 +442,12 @@
     </ClCompile>
     <ClCompile Include="Particles\ParticlesSystemManager.cpp">
       <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\RenderGUISceneRendererCommand.cpp">
+      <Filter>Commands\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\RenderGUISceneRendererCommand.cpp">
+      <Filter>Commands\Command</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

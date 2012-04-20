@@ -138,6 +138,8 @@
     <ClInclude Include="ChildFrm.h" />
     <ClInclude Include="Elements\ElementCreator.h" />
     <ClInclude Include="Elements\ElementManager.h" />
+    <ClInclude Include="Elements\ElementProperties.h" />
+    <ClInclude Include="Elements\ElementSaver.h" />
     <ClInclude Include="ElementView.h" />
     <ClInclude Include="defines.h" />
     <ClInclude Include="EngineManager.h" />
@@ -146,6 +148,7 @@
     <ClInclude Include="GUIEditorDoc.h" />
     <ClInclude Include="GUIEditorProcess.h" />
     <ClInclude Include="GUIEditorView.h" />
+    <ClInclude Include="HWNDManager.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="MyPicture.h" />
     <ClInclude Include="OutputWnd.h" />
@@ -159,6 +162,8 @@
     <ClCompile Include="ChildFrm.cpp" />
     <ClCompile Include="Elements\ElementCreator.cpp" />
     <ClCompile Include="Elements\ElementManager.cpp" />
+    <ClCompile Include="Elements\ElementProperties.cpp" />
+    <ClCompile Include="Elements\ElementSaver.cpp" />
     <ClCompile Include="ElementView.cpp" />
     <ClCompile Include="EngineManager.cpp" />
     <ClCompile Include="FileView.cpp" />
@@ -166,6 +171,7 @@
     <ClCompile Include="GUIEditorDoc.cpp" />
     <ClCompile Include="GUIEditorProcess.cpp" />
     <ClCompile Include="GUIEditorView.cpp" />
+    <ClCompile Include="HWNDManager.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="MyPicture.cpp" />
     <ClCompile Include="OutputWnd.cpp" />

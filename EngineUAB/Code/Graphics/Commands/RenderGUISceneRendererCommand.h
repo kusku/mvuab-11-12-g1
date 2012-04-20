@@ -11,11 +11,8 @@ class CXMLTreeNode;
 class CRenderGUISceneRendererCommand : public CSceneRendererCommand
 {
 public:
-	CRenderGUISceneRendererCommand(CXMLTreeNode &Node);
+	CRenderGUISceneRendererCommand (CXMLTreeNode &Node);
 	virtual void	Execute		( CRenderManager &RM );
-
-private:
-	//CGUI		*m_GUI;
 };
 
 #endif

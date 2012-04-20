@@ -30,6 +30,7 @@ class CPhysicsManager;
 class CEngineProcess;
 class CStadistics;
 class CDebugGUIManager;
+class CGUIManager;
 
 class CCore : public CSingleton<CCore>
 {
@@ -84,6 +85,7 @@ public:
 	inline CPhysicsManager*						GetPhysicsManager() const					{ return m_pPhysicsManager; }
 	inline CBillboardManager*					GetBillboardManager() const					{ return m_pBillboardManager; }
 	inline CParticlesSystemManager*				GetParticleManager() const					{ return m_pParticleManager; }
+	inline CGUIManager*							GetGUIManager() const						{ return m_pGUIManager; }
 
 private:
 	void Release();
@@ -114,6 +116,7 @@ private:
 	CPhysicsManager						*m_pPhysicsManager;
 	CBillboardManager					*m_pBillboardManager;
 	CParticlesSystemManager				*m_pParticleManager;
+	CGUIManager							*m_pGUIManager;
 };
 
 #endif

@@ -255,6 +255,10 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 			{
 				m_Config.particles_path = l_ConfigNode(i).GetPszProperty("fileXML", "");
 			}
+			else if( l_Name == "GUI" )
+			{
+				m_Config.gui_path = l_ConfigNode(i).GetPszProperty("fileXML", "");
+			}
 #if defined (_DEBUG)
 			else if( l_Name == "Modifiers" )
 			{
