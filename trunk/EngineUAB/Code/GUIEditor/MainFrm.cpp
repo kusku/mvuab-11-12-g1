@@ -4,7 +4,9 @@
 
 #include "stdafx.h"
 #include "GUIEditor.h"
-
+#include "EngineManager.h"
+#include "HWNDManager.h"
+#include "Elements\ElementProperties.h"
 #include "MainFrm.h"
 
 #ifdef _DEBUG
@@ -47,6 +49,9 @@ CMainFrame::CMainFrame()
 
 CMainFrame::~CMainFrame()
 {
+	CEngineManager::GetInstance()->CleanUp();
+	CHWNDManager::GetInstance()->CleanUp();
+	CElementProperties::GetInstance()->CleanUp();
 }
 
 int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)

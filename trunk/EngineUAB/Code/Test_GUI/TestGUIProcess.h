@@ -12,8 +12,6 @@ class CActionToInput;
 #include "Math\Vector2.h"
 #include <vector>
 
-class CGUIManager;
-
 class CTestGUIProcess : public CEngineProcess
 {
 public:
@@ -33,8 +31,6 @@ protected:
 
 	CPlayer m_Player;
 	CThPSCamera *m_pThPSCamera;
-
-	CGUIManager *m_pGUIManager;
 };
 
 #endif

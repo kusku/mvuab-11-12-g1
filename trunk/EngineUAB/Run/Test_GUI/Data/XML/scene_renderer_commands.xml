@@ -6,8 +6,8 @@
 	<enable_z_test />
 	<setup_matrices />
 	
-	<render_debug_process active="true" />
-	<render_debug_info grid="false" axis="false" />
+	<render_gui active="true" />
+	<render_debug_info grid="false" axis="false"  render_console="true" render_logger="true" render_modifiers="true" render_debug_options="true" render_debug_render="true" />
 	
 	<end_scene />
 	<present />

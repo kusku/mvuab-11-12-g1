@@ -49,7 +49,6 @@ CGUIEditorView::CGUIEditorView()
 
 CGUIEditorView::~CGUIEditorView()
 {
-	CEngineManager::GetInstance()->CleanUp();
 }
 
 BOOL CGUIEditorView::PreCreateWindow(CREATESTRUCT& cs)

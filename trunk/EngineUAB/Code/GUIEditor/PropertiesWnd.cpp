@@ -5,6 +5,8 @@
 #include "Resource.h"
 #include "MainFrm.h"
 #include "GUIEditor.h"
+#include "HWNDManager.h"
+#include "Elements\ElementProperties.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -17,6 +19,7 @@ static char THIS_FILE[]=__FILE__;
 
 CPropertiesWnd::CPropertiesWnd()
 {
+	CElementProperties::GetInstance()->SetMFCPropertyGricCtrl(&m_wndPropList);
 }
 
 CPropertiesWnd::~CPropertiesWnd()
@@ -103,6 +106,8 @@ int CPropertiesWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndToolBar.SetRouteCommandsViaFrame(FALSE);
 
 	AdjustLayout();
+
+	CHWNDManager::GetInstance()->SetHWNDProperties( m_hWnd );
 	return 0;
 }
 
@@ -160,11 +165,13 @@ void CPropertiesWnd::InitPropList()
 	m_wndPropList.SetVSDotNetLook();
 	m_wndPropList.MarkModifiedProperties();
 
+
+	CMFCPropertyGridProperty* pProp = NULL;
 	CMFCPropertyGridProperty* pGroup1 = new CMFCPropertyGridProperty(_T("Apariencia"));
 
 	pGroup1->AddSubItem(new CMFCPropertyGridProperty(_T("Aspecto 3D"), (_variant_t) false, _T("Especifica que la fuente de la ventana no será negrita y los controles tendrán un borde 3D")));
 
-	CMFCPropertyGridProperty* pProp = new CMFCPropertyGridProperty(_T("Borde"), _T("Marco de cuadro de diálogo"), _T("Uno de los siguientes: None, Thin, Resizable o Dialog Frame"));
+	pProp = new CMFCPropertyGridProperty(_T("Borde"), _T("Marco de cuadro de diálogo"), _T("Uno de los siguientes: None, Thin, Resizable o Dialog Frame"));
 	pProp->AddOption(_T("None"));
 	pProp->AddOption(_T("Thin"));
 	pProp->AddOption(_T("Resizable"));
@@ -232,6 +239,9 @@ void CPropertiesWnd::InitPropList()
 
 	pGroup4->Expand(FALSE);
 	m_wndPropList.AddProperty(pGroup4);
+
+	COleVariant variant = m_wndPropList.GetProperty(1)->GetSubItem(0)->GetValue();
+	int a=1;
 }
 
 void CPropertiesWnd::OnSetFocus(CWnd* pOldWnd)

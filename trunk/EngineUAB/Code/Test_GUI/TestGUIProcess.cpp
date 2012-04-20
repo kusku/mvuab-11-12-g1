@@ -13,7 +13,6 @@
 #include "Modifiers\ModifierManager.h"
 #include "DebugOptions\DebugOptions.h"
 #include "DebugGUIManager.h"
-#include "GUIManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -23,13 +22,11 @@ CTestGUIProcess::CTestGUIProcess(void)
 	: m_pThPSCamera(NULL)
 	, pos(0,0)
 	, screen(800,600)
-	, m_pGUIManager(NULL)
 {
 }
 
 CTestGUIProcess::~CTestGUIProcess(void)
 {
-	CHECKED_DELETE(m_pGUIManager);
 	CHECKED_DELETE( m_pThPSCamera );
 	m_Camera = NULL;
 }
@@ -49,9 +46,6 @@ void CTestGUIProcess::Init()
 	m_pThPSCamera = new CThPSCamera(1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_Player, 10.0f);
 	m_Camera = static_cast<CCamera*>(m_pThPSCamera);
 	CORE->SetCamera(m_Camera);
-
-	m_pGUIManager = new CGUIManager(Vect2i(800, 600) );
-	bool isOk = m_pGUIManager->Init("./Data/XML/gui.xml");
 }
 
 void CTestGUIProcess::Update(float elapsedTime)
@@ -61,13 +55,10 @@ void CTestGUIProcess::Update(float elapsedTime)
 	UpdateInputs(elapsedTime);
 
 	CORE->GetRenderableObjectsLayersManager()->Update(elapsedTime);
-
-	m_pGUIManager->Update(elapsedTime);
 }
 
 void CTestGUIProcess::Render(CRenderManager &RM)
 {
-	m_pGUIManager->Render(&RM, CORE->GetFontManager());
 }
 
 void CTestGUIProcess::UpdateInputs(float elapsedTime)

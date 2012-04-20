@@ -893,3 +893,19 @@ void	CGUIWindow::LoadStaticText(CGUIStaticText** staticText_aux, CXMLTreeNode& p
 
   *staticText_aux = staticText;
 }
+
+CGuiElement* CGUIWindow::GetElement( const std::string &name )
+{
+	std::vector<CGuiElement*>::iterator it = m_GuiElementsVector.begin();
+	std::vector<CGuiElement*>::iterator itEnd = m_GuiElementsVector.end();
+
+	for( ; it != itEnd; ++it )
+	{
+		if( (*it)->GetName() == name )
+		{
+			return *it;
+		}
+	}
+
+	return NULL;
+}

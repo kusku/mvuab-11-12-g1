@@ -8,9 +8,10 @@
 #include "Controls\GUIButton.h"
 #include "Textures\TextureManager.h"
 #include "Textures\Texture.h"
+#include "ElementProperties.h"
 #include "Core.h"
 #include "Base.h"
-
+#include <sstream>
 
 void CElementCreator::CreateImage(CGUIWindow *window)
 {
@@ -18,7 +19,8 @@ void CElementCreator::CreateImage(CGUIWindow *window)
 	Vect2f l_Position = GetPositionToAdd(screen);
 
 	CGUIImage *l_pImage = new CGUIImage(screen.y, screen.x, 20.f, 20.f, l_Position, "", 0, 0, true, true);
-	l_pImage->SetName("main_wallpaper");
+	std::string l_Name = "wallpaper_" + GetSufixNumber(window);
+	l_pImage->SetName(l_Name);
 	l_pImage->SetActiveTexture("wallpaper");
 
 	l_pImage->SetOnLoadValueAction("");
@@ -30,6 +32,8 @@ void CElementCreator::CreateImage(CGUIWindow *window)
 	l_pImage->SetTexture(texture_image, "wallpaper");
 
 	window->AddGuiElement( l_pImage );
+
+	CElementProperties::ImageProperties( l_pImage->GetName() );
 }
 
 void CElementCreator::CreateButton(CGUIWindow *window)
@@ -38,7 +42,8 @@ void CElementCreator::CreateButton(CGUIWindow *window)
 	Vect2f l_Position = GetPositionToAdd(screen);
 
 	CGUIButton *l_pButton = new CGUIButton(screen.y, screen.x, 10.f, 20.f, l_Position, "", 0, 0, true, true);
-	l_pButton->SetName("Button");
+	std::string l_Name = "button_" + GetSufixNumber(window);
+	l_pButton->SetName(l_Name);
 	l_pButton->SetOnClickedAction(std::string(""));
 	l_pButton->SetOnOverAction(std::string(""));
 
@@ -46,6 +51,8 @@ void CElementCreator::CreateButton(CGUIWindow *window)
 	l_pButton->SetTextures(texture,texture,texture,texture);
 	
 	window->AddGuiElement( l_pButton );
+
+	CElementProperties::ButtonProperties( l_pButton->GetName() );
 }
 
 Vect2f CElementCreator::GetPositionToAdd(Vect2i screen)
@@ -57,4 +64,13 @@ Vect2f CElementCreator::GetPositionToAdd(Vect2i screen)
 	float valueY = 100.f /(float)screen.y;
 
 	return Vect2f( valueX * pos.x, valueY * pos.y);
+}
+
+std::string CElementCreator::GetSufixNumber(CGUIWindow *window)
+{
+	uint32 size = window->GetNumElements();
+
+	std::stringstream out;
+	out << size;
+	 return out.str();
 }

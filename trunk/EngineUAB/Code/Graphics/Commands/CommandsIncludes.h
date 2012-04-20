@@ -18,7 +18,7 @@
 #include "Commands\PresentRenderSceneRendererCommand.h"
 #include "Commands\GenerateShadowMapsSceneRendererCommand.h"
 #include "Commands\CaptureFrameBufferSceneRendererCommand.h"
-#include "Commands\RenderDebugModifiersSceneRendererCommand.h"
+#include "Commands\RenderGUISceneRendererCommand.h"
 #include "Commands\RenderDebugPhysicsSceneRendererCommand.h"
 #include "Commands\RenderDebugProcessSceneRendererCommand.h"
 #include "Commands\SkySphereCommand.h"

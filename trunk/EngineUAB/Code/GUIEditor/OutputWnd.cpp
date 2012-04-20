@@ -8,6 +8,7 @@
 #include "GUIEditorProcess.h"
 #include "EngineManager.h"
 #include "Logger\Logger.h"
+#include "HWNDManager.h"
 #include "Base.h"
 #include <string>
 #include <vector>
@@ -92,7 +93,7 @@ void COutputWnd::OnSize(UINT nType, int cx, int cy)
 	// El control de ficha debe cubrir todo el área de cliente:
 	m_wndTabs.SetWindowPos (NULL, -1, -1, cx, cy, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);
 
-	( (CGUIEditorProcess*)CEngineManager::GetInstance()->GetEngine()->GetProcess() )->SetHWNDOutput( m_hWnd );
+	CHWNDManager::GetInstance()->SetHWNDOutput( m_hWnd );
 }
 
 void COutputWnd::AdjustHorzScroll(CListBox& wndListBox)

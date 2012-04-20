@@ -150,6 +150,15 @@
     <ClInclude Include="Elements\ElementCreator.h">
       <Filter>Elements</Filter>
     </ClInclude>
+    <ClInclude Include="Elements\ElementProperties.h">
+      <Filter>Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="HWNDManager.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Elements\ElementSaver.h">
+      <Filter>Elements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GUIEditorView.cpp" />
@@ -192,6 +201,15 @@
       <Filter>Elements</Filter>
     </ClCompile>
     <ClCompile Include="Elements\ElementCreator.cpp">
+      <Filter>Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Elements\ElementProperties.cpp">
+      <Filter>Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="HWNDManager.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Elements\ElementSaver.cpp">
       <Filter>Elements</Filter>
     </ClCompile>
   </ItemGroup>

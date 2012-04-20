@@ -19,6 +19,8 @@ CTextureManager::CTextureManager(const std::string &NoTextureName, const std::st
 	CTexture *l_Tex = new CTexture();
 	l_Tex->Load( NoTexturePath );
 	AddResource( NoTextureName, l_Tex );
+
+	LOGGER->AddNewLog(ELL_INFORMATION, "CTextureManager::CTextureManager->Textura de defecto cargada.");
 }
 
 CTextureManager::~CTextureManager()
@@ -46,6 +48,7 @@ CTexture* CTextureManager::GetTexture(const std::string &fileName)
 		l_Tex = new CTexture();
 		if( l_Tex->Load(fileName) )
 		{
+			LOGGER->AddNewLog(ELL_INFORMATION, "CTextureManager::GetTexture->Textura cargada: %s", fileName.c_str() );
 			AddResource(fileName, l_Tex);
 		}
 		else
