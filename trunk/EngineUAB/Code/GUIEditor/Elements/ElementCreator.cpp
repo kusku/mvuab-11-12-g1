@@ -19,9 +19,10 @@ void CElementCreator::CreateImage(CGUIWindow *window)
 	Vect2f l_Position = GetPositionToAdd(screen);
 
 	CGUIImage *l_pImage = new CGUIImage(screen.y, screen.x, 20.f, 20.f, l_Position, "", 0, 0, true, true);
-	std::string l_Name = "wallpaper_" + GetSufixNumber(window);
+	std::string l_Name = "image_" + GetSufixNumber(window);
 	l_pImage->SetName(l_Name);
-	l_pImage->SetActiveTexture("wallpaper");
+	l_pImage->SetID(l_Name);
+	l_pImage->SetActiveTexture("img1");
 
 	l_pImage->SetOnLoadValueAction("");
 	l_pImage->SetOnSaveValueAction("");
@@ -29,7 +30,7 @@ void CElementCreator::CreateImage(CGUIWindow *window)
 	l_pImage->SetFlip(NONE_FLIP);
 
 	CTexture* texture_image	= CORE->GetTextureManager()->GetTexture("./Data/General/Textures/portaventura.jpg");
-	l_pImage->SetTexture(texture_image, "wallpaper");
+	l_pImage->SetTexture(texture_image, "img1");
 
 	window->AddGuiElement( l_pImage );
 
@@ -44,6 +45,7 @@ void CElementCreator::CreateButton(CGUIWindow *window)
 	CGUIButton *l_pButton = new CGUIButton(screen.y, screen.x, 10.f, 20.f, l_Position, "", 0, 0, true, true);
 	std::string l_Name = "button_" + GetSufixNumber(window);
 	l_pButton->SetName(l_Name);
+	l_pButton->SetID(l_Name);
 	l_pButton->SetOnClickedAction(std::string(""));
 	l_pButton->SetOnOverAction(std::string(""));
 
