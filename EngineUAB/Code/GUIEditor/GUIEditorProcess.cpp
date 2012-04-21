@@ -10,6 +10,7 @@
 #include "Fonts\FontManager.h"
 #include "HWNDManager.h"
 #include "Elements\ElementSaver.h"
+#include "InputManager.h"
 
 CGUIEditorProcess::CGUIEditorProcess(void)
 	: m_pGUIManager(NULL)
@@ -34,11 +35,31 @@ void CGUIEditorProcess::Update(float elapsedTime)
 	std::string name_window = CORE->GetGUIManager()->GetCurrentWindow();
 	CGUIWindow *window = CORE->GetGUIManager()->GetWindow(name_window);
 
-	CGuiElement *element = CORE->GetGUIManager()->GetWindow( name_window )->GetCurrentSelectedElement();
-	if( element != NULL )
+	CGuiElement *element = NULL;
+
+	uint32 count = window->GetNumElements();
+	for( uint32 i=0; i<count; ++i)
 	{
-		CElementSaver::SaveProperties(element);	
+		element = window->GetElementById(i);
+		if( element != NULL )
+		{
+			if( element->GetIsSelected() )
+			{
+				CElementSaver::SaveProperties(element);	
+			}
+		}
+		
 	}
+
+	//Calcula el mouse sobre los controles
+	for( uint32 i = 0; i < count; ++i)
+	{
+		element = window->GetElementById(i);
+		Vect2i mousePosition;
+		CORE->GetInputManager()->GetPosition(IDV_MOUSE, mousePosition);
+		element->CalculatePosMouse(mousePosition);
+	}
+
 }
 
 void CGUIEditorProcess::Render(CRenderManager &RM)

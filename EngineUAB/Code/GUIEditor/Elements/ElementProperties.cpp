@@ -36,7 +36,32 @@ CElementProperties* CElementProperties::GetInstance()
 	return m_pElementProperties ;
 }
 
-void CElementProperties::ButtonProperties(const std::string &guielement)
+
+#pragma warning(push)
+#pragma warning(disable : 4482)
+
+void CElementProperties::ElementProperties(CGuiElement *element)
+{
+	CGuiElement::TypeGuiElement type = element->GetType();
+
+	switch( type )
+	{
+	case CGuiElement::TypeGuiElement::BUTTON:
+		{
+			ButtonProperties(element);
+			break;
+		}
+	case CGuiElement::TypeGuiElement::IMAGE:
+		{
+			ImageProperties(element);
+			break;
+		}
+	}
+}
+
+#pragma warning(pop)
+
+void CElementProperties::ButtonProperties(CGuiElement *element)
 {
 	CMFCPropertyGridProperty* pProp = NULL;
 	CMFCPropertyGridCtrl *MFCProperty = CElementProperties::GetInstance()->GetMFCPropertyGricCtrl();
@@ -44,10 +69,10 @@ void CElementProperties::ButtonProperties(const std::string &guielement)
 	MFCProperty->RemoveAll();
 
 	//Añadir propiedades comunes
-	AddBasicAppearanceProperties( guielement );
+	AddBasicAppearanceProperties( element );
 
 	//Añadir propiedades de información
-	AddBasicInformationProperties( guielement );
+	AddBasicInformationProperties( element );
 
 	//Texturas
 	CMFCPropertyGridProperty* pTexture = new CMFCPropertyGridProperty(_T("Texturas"));
@@ -67,7 +92,7 @@ void CElementProperties::ButtonProperties(const std::string &guielement)
 	MFCProperty->AddProperty(pScript);
 }
 
-void CElementProperties::ImageProperties(const std::string &guielement)
+void CElementProperties::ImageProperties(CGuiElement *element)
 {
 	CMFCPropertyGridProperty* pProp = NULL;
 	CMFCPropertyGridCtrl *MFCProperty = CElementProperties::GetInstance()->GetMFCPropertyGricCtrl();
@@ -75,10 +100,10 @@ void CElementProperties::ImageProperties(const std::string &guielement)
 	MFCProperty->RemoveAll();
 
 	//Añadir propiedades comunes
-	AddBasicAppearanceProperties( guielement );
+	AddBasicAppearanceProperties( element );
 
 	//Añadir propiedades de información
-	AddBasicInformationProperties( guielement );
+	AddBasicInformationProperties( element );
 
 	//Texturas
 	CMFCPropertyGridProperty* pTexture = new CMFCPropertyGridProperty(_T("Texturas"));
@@ -96,16 +121,14 @@ void CElementProperties::ImageProperties(const std::string &guielement)
 	MFCProperty->AddProperty(pScript);
 }
 
-CMFCPropertyGridProperty* CElementProperties::AddBasicAppearanceProperties(const std::string &guielement)
+CMFCPropertyGridProperty* CElementProperties::AddBasicAppearanceProperties(CGuiElement *element)
 {
 	CMFCPropertyGridProperty* pProp = NULL;
 	CMFCPropertyGridCtrl *MFCProperty = CElementProperties::GetInstance()->GetMFCPropertyGricCtrl();
 
-	std::string window = CORE->GetGUIManager()->GetCurrentWindow();
-	CGUIWindow *win = CORE->GetGUIManager()->GetWindow( window );
-	CGuiElement *l_pElement = win->GetElement( guielement );
+	CGuiElement *l_pElement = element;
 
-	if( l_pElement != NULL )
+	if( element != NULL )
 	{
 		Vect2i screen = CORE->GetRenderManager()->GetScreenSize();
 
@@ -117,7 +140,7 @@ CMFCPropertyGridProperty* CElementProperties::AddBasicAppearanceProperties(const
 		pAppearance->AddSubItem(new CMFCPropertyGridProperty(_T("Visible"), (_variant_t) true, _T("Especifica si está visible el objeto")));
 
 		//Flip
-		if( l_pElement->GetType() == CGuiElement::TypeGuiElement::IMAGE )
+		if( element->GetType() == CGuiElement::TypeGuiElement::IMAGE )
 		{
 			pProp = new CMFCPropertyGridProperty(_T("Flip"), _T("None"), _T("Especifica el flip del objeto"));
 			pProp->AddOption(_T("None"));
@@ -166,33 +189,29 @@ CMFCPropertyGridProperty* CElementProperties::AddBasicAppearanceProperties(const
 	return NULL;
 }
 
-CMFCPropertyGridProperty* CElementProperties::AddBasicInformationProperties(const std::string &guielement)
+CMFCPropertyGridProperty* CElementProperties::AddBasicInformationProperties(CGuiElement *element)
 {
 	CMFCPropertyGridProperty* pProp = NULL;
 	CMFCPropertyGridCtrl *MFCProperty = CElementProperties::GetInstance()->GetMFCPropertyGricCtrl();
 
-	std::string window = CORE->GetGUIManager()->GetCurrentWindow();
-	CGUIWindow *win = CORE->GetGUIManager()->GetWindow( window );
-	CGuiElement *l_pElement = win->GetElement( guielement );
-
-	if( l_pElement != NULL )
+	if( element != NULL )
 	{
 		CMFCPropertyGridProperty* pInformation = new CMFCPropertyGridProperty(_T("Información"));
 		MFCProperty->AddProperty(pInformation);
 
-		pProp = new CMFCPropertyGridProperty(_T("(ID)"), l_pElement->GetID().c_str() );
+		pProp = new CMFCPropertyGridProperty(_T("(ID)"), element->GetID().c_str() );
 		pProp->Enable(FALSE);
 		pInformation->AddSubItem(pProp);
 		
-		pProp = new CMFCPropertyGridProperty(_T("(Tipo)"), TypeElement2String( l_pElement->GetType() ).c_str() );
+		pProp = new CMFCPropertyGridProperty(_T("(Tipo)"), TypeElement2String( element->GetType() ).c_str() );
 		pProp->Enable(FALSE);
 		pInformation->AddSubItem(pProp);
 
-		pProp = new CMFCPropertyGridProperty(_T("Nombre"), l_pElement->GetName().c_str());
+		pProp = new CMFCPropertyGridProperty(_T("Nombre"), element->GetName().c_str());
 		pProp->Enable(TRUE);
 		pInformation->AddSubItem(pProp);
 
-		pProp = new CMFCPropertyGridProperty(_T("Literal"), l_pElement->GetLiteral().c_str());
+		pProp = new CMFCPropertyGridProperty(_T("Literal"), element->GetLiteral().c_str());
 		pProp->Enable(TRUE);
 		pInformation->AddSubItem(pProp);
 

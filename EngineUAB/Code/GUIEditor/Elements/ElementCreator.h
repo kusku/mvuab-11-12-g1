@@ -18,6 +18,7 @@ private:
 	static Vect2f GetPositionToAdd(Vect2i screen);
 	static std::string GetSufixNumber(CGUIWindow *window);
 
+	static void CleanSelections(CGUIWindow *window);
 };
 
 #endif

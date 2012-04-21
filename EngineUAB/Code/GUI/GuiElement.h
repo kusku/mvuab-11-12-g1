@@ -42,6 +42,8 @@ public:
 	virtual void			Update					(CInputManager* input, float elapsedTime);
 	virtual void			OnClickedChild			(const std::string& name) = 0;
 	
+	void					RenderGUIEditor			(CRenderManager* render);
+
 	void					OnLoadValue				();
 	void					OnSaveValue				();
 
@@ -55,6 +57,9 @@ public:
 	bool					IsInside				() const 							{return m_bIsInside;}
 	bool					IsVisible				() const 							{return m_bIsVisible;}
 	bool					IsActive				() const 							{return m_bIsActive;}
+
+	void					SetIsSelected			( bool selected )					{ m_bRenderSelected = selected; }
+	bool					GetIsSelected			() const							{ return m_bRenderSelected; }
 
 	void					SetVisible				(bool flag) 						{m_bIsVisible = flag;}
 	void					SetActive				(bool flag) 						{m_bIsActive = flag;}
@@ -81,6 +86,8 @@ public:
 	uint32					GetTextHeightOffset		()									{return m_uTextHeightOffset;}
 	uint32					GetTextWidthOffset		()									{return m_uTextWidthOffset;}
 
+	void					SetRenderForGUIEditor	( bool render )						{ m_bRenderForGUIEditor = render; }
+	bool					GetRenderForGUIEditor	() const							{ return m_bRenderForGUIEditor; }
 
 	void					SetParent				(CGuiElement* parent)				 {assert(parent); m_pParent = parent;}
 	bool					AddChild				(CGuiElement* child);
@@ -113,7 +120,9 @@ protected:
 	bool						m_bIsActive;							//Indica si el elemento está o no activado
 	bool						m_bIsOver;								//Indica si el puntero del mouse es la primera vez que ha entrado
 	bool						m_bIsInside;							//Indica si el puntero del mouse está dentro
-	bool						m_bFocus;									//Indica que es el guielement que tiene el foco dentro de la windows actual
+	bool						m_bFocus;								//Indica que es el guielement que tiene el foco dentro de la windows actual
+	bool						m_bRenderSelected;			//Indica si se tiene que renderizar un cuadro de seleccionado para el GUIEditor
+	bool						m_bRenderForGUIEditor;		//Indica si se tiene que renderizar la información para el GUIEDitor
 	std::string					m_sId;						//Identificador único
 	std::string					m_sName;									//Identificador del GuiElement
 	std::string					m_sLuaCode_OnLoadValue;		//Codigo LUA que ha de ejecutar cuando se entre por primera vez en la ventana que contiene al GuiElement
