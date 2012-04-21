@@ -35,6 +35,7 @@ public:
 
 private:
 	float m_R;
+	bool m_bIsLMouseDown;
 
 private:
 	void AddElementToActiveWindow(TElement element);

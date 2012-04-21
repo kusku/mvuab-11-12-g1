@@ -11,6 +11,7 @@
 #include "GUIWindow.h"
 #include "InputManager.h"
 #include "Periphericals\Mouse.h"
+#include "Elements\ElementProperties.h"
 #include "Base.h"
 #include "Core.h"
 
@@ -24,6 +25,7 @@ static char THIS_FILE[] = __FILE__;
 // CMyPicture
 CMyPicture::CMyPicture()
 	: m_R(15.f)
+	, m_bIsLMouseDown(false)
 {
 }
 
@@ -57,18 +59,54 @@ void CMyPicture::OnShowWindow(BOOL bShow, UINT nStatus)
 
 void CMyPicture::OnLButtonDown(UINT nFlags, CPoint point) 
 {
+	m_bIsLMouseDown = true;
 	CStatic::OnLButtonDown(nFlags, point);
 }
 
 void CMyPicture::OnLButtonUp(UINT nFlags, CPoint point)
 {
-	CElementManager *l_pElementManager = CElementManager::GetInstance();
+	if( m_bIsLMouseDown )
+	{
+		//Se selecciona un elemento
+		std::string name_window = CORE->GetGUIManager()->GetCurrentWindow();
+		CGUIWindow *window = CORE->GetGUIManager()->GetWindow(name_window);
+		CGuiElement *element = NULL;
 
-	TElement element = l_pElementManager->GetElementToAdd();
-	l_pElementManager->SetElementToAdd(NONE);
+		//hace reset de todos los controles
+		uint32 count = window->GetNumElements();
+		for( uint32 i = 0; i < count; ++i)
+		{
+			element = window->GetElementById(i);
+			element->SetIsSelected(false);
+		}
 
-	AddElementToActiveWindow(element);
+		//Mira sobre qué elemento está el mouse
+		for( uint32 i = count; i > 0; --i)
+		{
+			element = window->GetElementById(i-1);
+			Vect2i mousePosition;
+			CORE->GetInputManager()->GetPosition(IDV_MOUSE, mousePosition);
+			element->CalculatePosMouse(mousePosition);
+			if( element->IsInside() )
+			{
+				element->SetIsSelected(true);
+				CElementProperties::ElementProperties(element);
+				break;
+			}
+		}
+	}
+	else
+	{
+		//Se hace Drag & drop
+		CElementManager *l_pElementManager = CElementManager::GetInstance();
 
+		TElement element = l_pElementManager->GetElementToAdd();
+		l_pElementManager->SetElementToAdd(NONE);
+
+		AddElementToActiveWindow(element);
+	}
+
+	m_bIsLMouseDown = false;
 	CStatic::OnLButtonUp(nFlags, point);
 }
 

@@ -19,6 +19,8 @@ CGuiElement::CGuiElement( uint32 windowsHeight, uint32 windowsWidth, float heigh
 	, m_bIsOver( false )
 	, m_bIsInside( false )
 	, m_bFocus( false )
+	, m_bRenderSelected(false)
+	, m_bRenderForGUIEditor(false)
 	, m_sLuaCode_OnLoadValue("")
 	, m_sLuaCode_OnSaveValue("")
 	, m_sName("DefaultGuiElement")
@@ -223,6 +225,21 @@ void CGuiElement::Update (CInputManager* input, float elapsedTime)
 			CGuiElement* guiElement = *it;
 			guiElement->Update(input, elapsedTime);
 			it++;
+		}
+	}
+}
+
+void CGuiElement::RenderGUIEditor(CRenderManager *render)
+{
+	if( m_bRenderForGUIEditor )
+	{
+		if( m_bRenderSelected )
+		{
+			render->DrawQuad2D( m_Position, CGuiElement::m_uWidth, CGuiElement::m_uHeight, UPPER_LEFT, CColor(0.2f, 0.2f, 0.2f, 0.8f) );
+		}
+		else if( m_bIsInside )
+		{
+			render->DrawQuad2D( m_Position, CGuiElement::m_uWidth, CGuiElement::m_uHeight, UPPER_LEFT, CColor(1.0f, 1.0f, 0.0f, 0.6f) );
 		}
 	}
 }

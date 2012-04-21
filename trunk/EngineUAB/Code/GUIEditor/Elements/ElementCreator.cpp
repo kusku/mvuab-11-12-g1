@@ -15,6 +15,8 @@
 
 void CElementCreator::CreateImage(CGUIWindow *window)
 {
+	CleanSelections(window);
+
 	Vect2i screen = CORE->GetRenderManager()->GetScreenSize();
 	Vect2f l_Position = GetPositionToAdd(screen);
 
@@ -32,13 +34,18 @@ void CElementCreator::CreateImage(CGUIWindow *window)
 	CTexture* texture_image	= CORE->GetTextureManager()->GetTexture("./Data/General/Textures/portaventura.jpg");
 	l_pImage->SetTexture(texture_image, "default_normal");
 
+	l_pImage->SetRenderForGUIEditor(true);
+	l_pImage->SetIsSelected(true);
+
 	window->AddGuiElement( l_pImage );
 
-	CElementProperties::ImageProperties( l_pImage->GetName() );
+	CElementProperties::ElementProperties(l_pImage);
 }
 
 void CElementCreator::CreateButton(CGUIWindow *window)
 {
+	CleanSelections(window);
+
 	Vect2i screen = CORE->GetRenderManager()->GetScreenSize();
 	Vect2f l_Position = GetPositionToAdd(screen);
 
@@ -52,9 +59,12 @@ void CElementCreator::CreateButton(CGUIWindow *window)
 	CTexture *texture = CORE->GetTextureManager()->GetTexture("./Data/General/Textures/default/button.png");
 	l_pButton->SetTextures(texture,texture,texture,texture);
 	
+	l_pButton->SetRenderForGUIEditor(true);
+	l_pButton->SetIsSelected(true);
+
 	window->AddGuiElement( l_pButton );
 
-	CElementProperties::ButtonProperties( l_pButton->GetName() );
+	CElementProperties::ElementProperties(l_pButton);
 }
 
 Vect2f CElementCreator::GetPositionToAdd(Vect2i screen)
@@ -75,4 +85,17 @@ std::string CElementCreator::GetSufixNumber(CGUIWindow *window)
 	std::stringstream out;
 	out << size;
 	 return out.str();
+}
+
+void CElementCreator::CleanSelections(CGUIWindow *window)
+{
+	//hace reset de todos los controles
+	CGuiElement *element = NULL;
+
+	uint32 count = window->GetNumElements();
+	for( uint32 i = 0; i < count; ++i)
+	{
+		element = window->GetElementById(i);
+		element->SetIsSelected(false);
+	}
 }

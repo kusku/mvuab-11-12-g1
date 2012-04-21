@@ -12,15 +12,17 @@ public:
 	static CElementProperties* GetInstance();
 	void CleanUp();
 
-	static void ButtonProperties(const std::string &guielement);
-	static void ImageProperties(const std::string &guielement);
+	static void ElementProperties(CGuiElement *element);
 
 	void SetMFCPropertyGricCtrl(CMFCPropertyGridCtrl *MFCProperty) { m_pMFCProperty = MFCProperty; }
 	CMFCPropertyGridCtrl* GetMFCPropertyGricCtrl() const { return m_pMFCProperty; }
 
 private:
-	static CMFCPropertyGridProperty* AddBasicAppearanceProperties(const std::string &guielement);
-	static CMFCPropertyGridProperty* AddBasicInformationProperties(const std::string &guielement);
+	static void ButtonProperties(CGuiElement *element);
+	static void ImageProperties(CGuiElement *element);
+
+	static CMFCPropertyGridProperty* AddBasicAppearanceProperties(CGuiElement *element);
+	static CMFCPropertyGridProperty* AddBasicInformationProperties(CGuiElement *element);
 
 	static std::string TypeElement2String( CGuiElement::TypeGuiElement type );
 
