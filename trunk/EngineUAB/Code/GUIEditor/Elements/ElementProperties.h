@@ -19,8 +19,8 @@ public:
 	CMFCPropertyGridCtrl* GetMFCPropertyGricCtrl() const { return m_pMFCProperty; }
 
 private:
-	static void AddBasicAppearanceProperties(const std::string &guielement);
-	static void AddBasicInformationProperties(const std::string &guielement);
+	static CMFCPropertyGridProperty* AddBasicAppearanceProperties(const std::string &guielement);
+	static CMFCPropertyGridProperty* AddBasicInformationProperties(const std::string &guielement);
 
 	static std::string TypeElement2String( CGuiElement::TypeGuiElement type );
 

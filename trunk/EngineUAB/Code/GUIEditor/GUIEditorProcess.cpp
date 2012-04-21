@@ -34,11 +34,10 @@ void CGUIEditorProcess::Update(float elapsedTime)
 	std::string name_window = CORE->GetGUIManager()->GetCurrentWindow();
 	CGUIWindow *window = CORE->GetGUIManager()->GetWindow(name_window);
 
-	uint32 num_elements = window->GetNumElements();
-	for( uint32 i = 0; i < num_elements; ++i )
+	CGuiElement *element = CORE->GetGUIManager()->GetWindow( name_window )->GetCurrentSelectedElement();
+	if( element != NULL )
 	{
-		CGuiElement *element = window->GetElementById(i);
-		CElementSaver::SaveProperties(element);
+		CElementSaver::SaveProperties(element);	
 	}
 }
 
