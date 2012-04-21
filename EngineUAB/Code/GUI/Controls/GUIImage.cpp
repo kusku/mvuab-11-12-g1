@@ -143,4 +143,3 @@ void CGUIImage::FadeOut(float startTime, float fadePerSecond)
   m_fFadeStartAfter = startTime;
   m_fFadePerSecond = fadePerSecond;
 }
-

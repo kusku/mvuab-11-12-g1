@@ -30,7 +30,7 @@ void CElementCreator::CreateImage(CGUIWindow *window)
 	l_pImage->SetFlip(NONE_FLIP);
 
 	CTexture* texture_image	= CORE->GetTextureManager()->GetTexture("./Data/General/Textures/portaventura.jpg");
-	l_pImage->SetTexture(texture_image, "img1");
+	l_pImage->SetTexture(texture_image, "default_normal");
 
 	window->AddGuiElement( l_pImage );
 

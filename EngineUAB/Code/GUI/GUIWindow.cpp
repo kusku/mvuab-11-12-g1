@@ -52,6 +52,7 @@ bool CGUIWindow::AddGuiElement( CGuiElement * inGuiElement )
 
 	//Finalmente lo insertamos en el vector de GuiElements
 	m_GuiElementsVector.push_back(inGuiElement);
+	m_pCurrentSelectedElement = inGuiElement;
 	return true;
 }
 
@@ -747,9 +748,9 @@ void CGUIWindow::_LoadImage(CGUIImage** image_aux, CXMLTreeNode& pNewNode, const
 	    std::string tagName = pTexture.GetName();
 	    if (tagName.compare("texture")==0)
 	    {	
-		    std::string name				=  pNewNode(j).GetPszProperty("name");
-		    std::string texture			=  pNewNode(j).GetPszProperty("name_texture");
-        CTexture* texture_image		= tm->GetTexture(texture);
+		    std::string name		=  pNewNode(j).GetPszProperty("name");
+		    std::string texture		=  pNewNode(j).GetPszProperty("name_texture");
+			CTexture* texture_image	= tm->GetTexture(texture);
 		    image->SetTexture(texture_image, name);
 	    }
 	  }

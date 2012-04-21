@@ -3,7 +3,8 @@
 #ifndef _ELEMENT_SAVER_H
 #define _ELEMENT_SAVER_H
 
-//#include "GraphicsDefs.h"
+#include <d3dx9.h>
+#include "GraphicsDefs.h"
 #include <string>
 
 class CGuiElement;
@@ -17,7 +18,7 @@ private:
 	static void SaveButtonProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties );
 	static void SaveImageProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties );
 
-	//static ETypeFlip String2Flip(const std::string &type);
+	static ETypeFlip String2Flip(const std::string &type);
 };
 
 #endif

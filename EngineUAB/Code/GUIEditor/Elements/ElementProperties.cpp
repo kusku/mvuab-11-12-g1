@@ -96,7 +96,7 @@ void CElementProperties::ImageProperties(const std::string &guielement)
 	MFCProperty->AddProperty(pScript);
 }
 
-void CElementProperties::AddBasicAppearanceProperties(const std::string &guielement)
+CMFCPropertyGridProperty* CElementProperties::AddBasicAppearanceProperties(const std::string &guielement)
 {
 	CMFCPropertyGridProperty* pProp = NULL;
 	CMFCPropertyGridCtrl *MFCProperty = CElementProperties::GetInstance()->GetMFCPropertyGricCtrl();
@@ -155,14 +155,18 @@ void CElementProperties::AddBasicAppearanceProperties(const std::string &guielem
 
 
 		MFCProperty->AddProperty(pSize);
+
+		return pAppearance;
 	}
 	else
 	{
 		LOGGER->AddNewLog(ELL_ERROR, "CElementProperties::AddBasicAppearanceProperties->No se ha encontrado el elemento para obtener las propiedades.");
 	}
+
+	return NULL;
 }
 
-void CElementProperties::AddBasicInformationProperties(const std::string &guielement)
+CMFCPropertyGridProperty* CElementProperties::AddBasicInformationProperties(const std::string &guielement)
 {
 	CMFCPropertyGridProperty* pProp = NULL;
 	CMFCPropertyGridCtrl *MFCProperty = CElementProperties::GetInstance()->GetMFCPropertyGricCtrl();
@@ -187,11 +191,19 @@ void CElementProperties::AddBasicInformationProperties(const std::string &guiele
 		pProp = new CMFCPropertyGridProperty(_T("Nombre"), l_pElement->GetName().c_str());
 		pProp->Enable(TRUE);
 		pInformation->AddSubItem(pProp);
+
+		pProp = new CMFCPropertyGridProperty(_T("Literal"), l_pElement->GetLiteral().c_str());
+		pProp->Enable(TRUE);
+		pInformation->AddSubItem(pProp);
+
+		return pInformation;
 	}
 	else
 	{
 		LOGGER->AddNewLog(ELL_ERROR, "CElementProperties::AddBasicInformationProperties->No se ha encontrado el elemento para obtener las propiedades.");
 	}
+
+	return NULL;
 }
 
 std::string CElementProperties::TypeElement2String(CGuiElement::TypeGuiElement type)
