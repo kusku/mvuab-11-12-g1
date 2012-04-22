@@ -5,6 +5,7 @@
 #include "GuiElement.h"
 #include "Controls\GUIImage.h"
 #include "Controls\GUIButton.h"
+#include "Controls\GUICheckButton.h"
 #include "Textures\Texture.h"
 #include "RenderManager.h"
 #include "Logger\Logger.h"
@@ -54,6 +55,11 @@ void CElementProperties::ElementProperties(CGuiElement *element)
 			ButtonProperties(element);
 			break;
 		}
+	case CGuiElement::TypeGuiElement::CHECKBUTTON:
+		{
+			CheckButtonProperties(element);
+			break;
+		}
 	case CGuiElement::TypeGuiElement::IMAGE:
 		{
 			ImageProperties(element);
@@ -81,16 +87,16 @@ void CElementProperties::ButtonProperties(CGuiElement *element)
 	CMFCPropertyGridProperty* pTexture = new CMFCPropertyGridProperty(_T("Texturas"));
 	CGUIButton *l_pButton = static_cast<CGUIButton*>(element);
 	CTexture *l_pTexture = l_pButton->GetNormalTexture();
-	std::string l_NormalPath = l_pTexture != NULL ? l_pTexture->GetFileName().c_str() : "";
+	std::string l_NormalPath = l_pTexture != NULL ? l_pTexture->GetFileName() : "";
 
 	l_pTexture = l_pButton->GetOverTexture();
-	std::string l_OverPath = l_pTexture != NULL ? l_pTexture->GetFileName().c_str() : "";
+	std::string l_OverPath = l_pTexture != NULL ? l_pTexture->GetFileName() : "";
 
 	l_pTexture = l_pButton->GetClickedTexture();
-	std::string l_ClickedPath = l_pTexture != NULL ? l_pTexture->GetFileName().c_str() : "";
+	std::string l_ClickedPath = l_pTexture != NULL ? l_pTexture->GetFileName() : "";
 
 	l_pTexture = l_pButton->GetDeactivatedTexture();
-	std::string l_DeactivatedPath = l_pTexture != NULL ? l_pTexture->GetFileName().c_str() : "";
+	std::string l_DeactivatedPath = l_pTexture != NULL ? l_pTexture->GetFileName() : "";
 
 	static const TCHAR szFilter[] = _T("JPG(*.jpg)|*.jpg|PNG(*.png)|*.png|BMP(*.bmp)|*.bmp|TGA(*.tga)|*.tga|Todos los archivos(*.*)|*.*||");
 	pTexture->AddSubItem(new CMFCPropertyGridFileProperty(_T("Normal"), TRUE, _T(l_NormalPath.c_str()), _T("jpg"), 0, szFilter, _T("Especifica la textura en estado de reposo")));
@@ -105,6 +111,48 @@ void CElementProperties::ButtonProperties(CGuiElement *element)
 	pScript->AddSubItem(new CMFCPropertyGridProperty(_T("OnSave"), (_variant_t) _T(""), _T("Especifica el código de scripting al guardar el elemento")));
 	pScript->AddSubItem(new CMFCPropertyGridProperty(_T("OnClicked"), (_variant_t) _T(""), _T("Especifica el código de scripting al hacer click")));
 	pScript->AddSubItem(new CMFCPropertyGridProperty(_T("OnOver"), (_variant_t) _T(""), _T("Especifica el código de scripting cuando tiene el mouse encima")));
+
+	MFCProperty->AddProperty(pScript);
+}
+
+void CElementProperties::CheckButtonProperties(CGuiElement *element)
+{
+	CMFCPropertyGridProperty* pProp = NULL;
+	CMFCPropertyGridCtrl *MFCProperty = CElementProperties::GetInstance()->GetMFCPropertyGricCtrl();
+
+	MFCProperty->RemoveAll();
+
+	//Añadir propiedades comunes
+	AddBasicAppearanceProperties( element );
+
+	//Añadir propiedades de información
+	AddBasicInformationProperties( element );
+
+	//Texturas
+	CMFCPropertyGridProperty* pTexture = new CMFCPropertyGridProperty(_T("Texturas"));
+	CGUICheckButton *l_pCheckButton = static_cast<CGUICheckButton*>(element);
+	CTexture *l_pTexture = l_pCheckButton->GetOnTexture();
+	std::string l_OnPath = l_pTexture != NULL ? l_pTexture->GetFileName() : "";
+
+	l_pTexture = l_pCheckButton->GetOffTexture();
+	std::string l_OffPath = l_pTexture != NULL ? l_pTexture->GetFileName() : "";
+
+	l_pTexture = l_pCheckButton->GetDeactivatedTexture();
+	std::string l_DeactivatedPath = l_pTexture != NULL ? l_pTexture->GetFileName() : "";
+
+	static const TCHAR szFilter[] = _T("JPG(*.jpg)|*.jpg|PNG(*.png)|*.png|BMP(*.bmp)|*.bmp|TGA(*.tga)|*.tga|Todos los archivos(*.*)|*.*||");
+	pTexture->AddSubItem(new CMFCPropertyGridFileProperty(_T("On"), TRUE, _T(l_OnPath.c_str()), _T("jpg"), 0, szFilter, _T("Especifica la textura cuando el check button está encendido")));
+	pTexture->AddSubItem(new CMFCPropertyGridFileProperty(_T("Off"), TRUE, _T(l_OffPath.c_str()), _T("jpg"), 0, szFilter, _T("Especifica la textura cuando el check button está apagado")));
+	pTexture->AddSubItem(new CMFCPropertyGridFileProperty(_T("Deactivated"), TRUE, _T(l_DeactivatedPath.c_str()), _T("jpg"), 0, szFilter, _T("Especifica la textura cuando el elemento está desactivado")));
+	MFCProperty->AddProperty(pTexture);
+
+	//Script
+	CMFCPropertyGridProperty* pScript = new CMFCPropertyGridProperty(_T("Script"));
+	pScript->AddSubItem(new CMFCPropertyGridProperty(_T("OnLoad"), (_variant_t) _T(""), _T("Especifica el código de scripting al cargar el elemento")));
+	pScript->AddSubItem(new CMFCPropertyGridProperty(_T("OnSave"), (_variant_t) _T(""), _T("Especifica el código de scripting al guardar el elemento")));
+	pScript->AddSubItem(new CMFCPropertyGridProperty(_T("OnOver"), (_variant_t) _T(""), _T("Especifica el código de scripting cuando tiene el mouse encima")));
+	pScript->AddSubItem(new CMFCPropertyGridProperty(_T("OnCheckOn"), (_variant_t) _T(""), _T("Especifica el código de scripting al encender el check button")));
+	pScript->AddSubItem(new CMFCPropertyGridProperty(_T("OnCheckOff"), (_variant_t) _T(""), _T("Especifica el código de scripting al apagar el check button")));
 
 	MFCProperty->AddProperty(pScript);
 }
@@ -127,7 +175,7 @@ void CElementProperties::ImageProperties(CGuiElement *element)
 	
 	CTexture* texture = ( static_cast<CGUIImage*>(element) )->GetTexture( "normal" );
 	CTexture* texture_default = ( static_cast<CGUIImage*>(element) )->GetTexture( "default_normal" );
-	std::string texture_path = texture != NULL ? texture->GetFileName().c_str() : texture_default->GetFileName().c_str();
+	std::string texture_path = texture != NULL ? texture->GetFileName() : texture_default->GetFileName();
 
 	static const TCHAR szFilter[] = _T("JPG(*.jpg)|*.jpg|PNG(*.png)|*.png|BMP(*.bmp)|*.bmp|TGA(*.tga)|*.tga|Todos los archivos(*.*)|*.*||");
 	pTexture->AddSubItem(new CMFCPropertyGridFileProperty(_T("Normal"), TRUE, _T(texture_path.c_str()), _T("jpg"), 0, szFilter, _T("Especifica la textura")));

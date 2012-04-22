@@ -52,6 +52,10 @@ public:
 	void				SetOn					(bool On)					{if (On) m_eState = CBS_ON; else m_eState = CBS_OFF;}
 	bool				GetState				() const					{return m_eState == CBS_ON;}
 
+	CTexture*			GetOnTexture			() const		{ return m_pOnTexture; }
+	CTexture*			GetOffTexture			() const		{ return m_pOffTexture; }
+	CTexture*			GetDeactivatedTexture	() const		{ return m_pDeactivatedTexture; }
+
 private:
 	ECheckButtonState		m_eState;
 	CTexture*				m_pOnTexture;

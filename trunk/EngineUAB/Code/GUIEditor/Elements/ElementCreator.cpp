@@ -6,12 +6,66 @@
 #include "GUIWindow.h"
 #include "Controls\GUIImage.h"
 #include "Controls\GUIButton.h"
+#include "Controls\GUICheckButton.h"
 #include "Textures\TextureManager.h"
 #include "Textures\Texture.h"
 #include "ElementProperties.h"
 #include "Core.h"
 #include "Base.h"
 #include <sstream>
+
+void CElementCreator::CreateButton(CGUIWindow *window)
+{
+	CleanSelections(window);
+
+	Vect2i screen = CORE->GetRenderManager()->GetScreenSize();
+	Vect2f l_Position = GetPositionToAdd(screen);
+
+	CGUIButton *l_pButton = new CGUIButton(screen.y, screen.x, 10.f, 20.f, l_Position, "", 0, 0, true, true);
+	std::string l_Name = "button_" + GetSufixNumber(window);
+	l_pButton->SetName(l_Name);
+	l_pButton->SetID(l_Name);
+	l_pButton->SetOnClickedAction(std::string(""));
+	l_pButton->SetOnOverAction(std::string(""));
+
+	CTexture *texture = CORE->GetTextureManager()->GetTexture("./Data/General/Textures/GUI/button.jpg");
+	l_pButton->SetTextures(texture,texture,texture,texture);
+	
+	l_pButton->SetRenderForGUIEditor(true);
+	l_pButton->SetIsSelected(true);
+
+	window->AddGuiElement( l_pButton );
+
+	CElementProperties::ElementProperties(l_pButton);
+}
+
+void CElementCreator::CreateCheckButton(CGUIWindow *window)
+{
+	CleanSelections(window);
+
+	Vect2i screen = CORE->GetRenderManager()->GetScreenSize();
+	Vect2f l_Position = GetPositionToAdd(screen);
+
+	CGUICheckButton *l_pCheckButton = new CGUICheckButton(screen.y, screen.x, 10.f, 20.f, l_Position, true, "", 0, 0, true, true);
+	std::string l_Name = "check_button_" + GetSufixNumber(window);
+	l_pCheckButton->SetName(l_Name);
+	l_pCheckButton->SetID(l_Name);
+	l_pCheckButton->SetOnCheckOffAction("");
+	l_pCheckButton->SetOnCheckOnAction("");
+	l_pCheckButton->SetOnLoadValueAction("");
+	l_pCheckButton->SetOnOverAction("");
+	l_pCheckButton->SetOnSaveValueAction("");
+
+	CTexture *texture = CORE->GetTextureManager()->GetTexture("./Data/General/Textures/GUI/checkbutton.jpg");
+	l_pCheckButton->SetTextures(texture, texture, texture);
+
+	l_pCheckButton->SetRenderForGUIEditor(true);
+	l_pCheckButton->SetIsSelected(true);
+
+	window->AddGuiElement( l_pCheckButton );
+
+	CElementProperties::ElementProperties(l_pCheckButton);
+}
 
 void CElementCreator::CreateImage(CGUIWindow *window)
 {
@@ -31,7 +85,7 @@ void CElementCreator::CreateImage(CGUIWindow *window)
 	l_pImage->SetBackGround(false);
 	l_pImage->SetFlip(NONE_FLIP);
 
-	CTexture* texture_image	= CORE->GetTextureManager()->GetTexture("./Data/General/Textures/portaventura.jpg");
+	CTexture* texture_image	= CORE->GetTextureManager()->GetTexture("./Data/General/Textures/GUI/image.jpg");
 	l_pImage->SetTexture(texture_image, "default_normal");
 
 	l_pImage->SetRenderForGUIEditor(true);
@@ -40,31 +94,6 @@ void CElementCreator::CreateImage(CGUIWindow *window)
 	window->AddGuiElement( l_pImage );
 
 	CElementProperties::ElementProperties(l_pImage);
-}
-
-void CElementCreator::CreateButton(CGUIWindow *window)
-{
-	CleanSelections(window);
-
-	Vect2i screen = CORE->GetRenderManager()->GetScreenSize();
-	Vect2f l_Position = GetPositionToAdd(screen);
-
-	CGUIButton *l_pButton = new CGUIButton(screen.y, screen.x, 10.f, 20.f, l_Position, "", 0, 0, true, true);
-	std::string l_Name = "button_" + GetSufixNumber(window);
-	l_pButton->SetName(l_Name);
-	l_pButton->SetID(l_Name);
-	l_pButton->SetOnClickedAction(std::string(""));
-	l_pButton->SetOnOverAction(std::string(""));
-
-	CTexture *texture = CORE->GetTextureManager()->GetTexture("./Data/General/Textures/default/button.png");
-	l_pButton->SetTextures(texture,texture,texture,texture);
-	
-	l_pButton->SetRenderForGUIEditor(true);
-	l_pButton->SetIsSelected(true);
-
-	window->AddGuiElement( l_pButton );
-
-	CElementProperties::ElementProperties(l_pButton);
 }
 
 Vect2f CElementCreator::GetPositionToAdd(Vect2i screen)

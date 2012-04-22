@@ -76,6 +76,7 @@ void CGUICheckButton::Render (CRenderManager *renderManager, CFontManager* fm)
 
 		//Finalmente renderizamos el texto:
 		CGuiElement::RenderText(renderManager, fm);	
+		CGuiElement::RenderGUIEditor(renderManager);
 
 	} //END if( CGuiElement::m_bIsVisible )
 }

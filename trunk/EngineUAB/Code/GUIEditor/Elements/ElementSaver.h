@@ -16,6 +16,7 @@ public:
 
 private:
 	static void SaveButtonProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties );
+	static void SaveCheckButtonProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties );
 	static void SaveImageProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties );
 
 	static ETypeFlip String2Flip(const std::string &type);
