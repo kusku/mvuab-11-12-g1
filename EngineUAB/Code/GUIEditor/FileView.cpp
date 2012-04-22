@@ -4,6 +4,12 @@
 #include "FileView.h"
 #include "Resource.h"
 #include "GUIEditor.h"
+#include "HWNDManager.h"
+#include "defines.h"
+#include "GUIManager.h"
+#include "GUIWindow.h"
+#include "Core.h"
+#include "Base.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -20,6 +26,7 @@ CFileView::CFileView()
 
 CFileView::~CFileView()
 {
+	m_WindowsMap.clear();
 }
 
 BEGIN_MESSAGE_MAP(CFileView, CDockablePane)
@@ -86,41 +93,21 @@ void CFileView::OnSize(UINT nType, int cx, int cy)
 {
 	CDockablePane::OnSize(nType, cx, cy);
 	AdjustLayout();
+
+	CHWNDManager::GetInstance()->SetHWNDFiles( m_hWnd );
 }
 
 void CFileView::FillFileView()
 {
-	HTREEITEM hRoot = m_wndFileView.InsertItem(_T("Archivos de FakeApp"), 0, 0);
+	HTREEITEM hRoot = m_wndFileView.InsertItem(_T("Windows"), 0, 0);
 	m_wndFileView.SetItemState(hRoot, TVIS_BOLD, TVIS_BOLD);
+	m_WindowsMap[ "Windows" ] = hRoot;
 
-	HTREEITEM hSrc = m_wndFileView.InsertItem(_T("Archivos de código fuente de FakeApp"), 0, 0, hRoot);
-
-	m_wndFileView.InsertItem(_T("FakeApp.cpp"), 1, 1, hSrc);
-	m_wndFileView.InsertItem(_T("FakeApp.rc"), 1, 1, hSrc);
-	m_wndFileView.InsertItem(_T("FakeAppDoc.cpp"), 1, 1, hSrc);
-	m_wndFileView.InsertItem(_T("FakeAppView.cpp"), 1, 1, hSrc);
-	m_wndFileView.InsertItem(_T("MainFrm.cpp"), 1, 1, hSrc);
-	m_wndFileView.InsertItem(_T("StdAfx.cpp"), 1, 1, hSrc);
-
-	HTREEITEM hInc = m_wndFileView.InsertItem(_T("Archivos de encabezado de FakeApp"), 0, 0, hRoot);
-
-	m_wndFileView.InsertItem(_T("FakeApp.h"), 2, 2, hInc);
-	m_wndFileView.InsertItem(_T("FakeAppDoc.h"), 2, 2, hInc);
-	m_wndFileView.InsertItem(_T("FakeAppView.h"), 2, 2, hInc);
-	m_wndFileView.InsertItem(_T("Resource.h"), 2, 2, hInc);
-	m_wndFileView.InsertItem(_T("MainFrm.h"), 2, 2, hInc);
-	m_wndFileView.InsertItem(_T("StdAfx.h"), 2, 2, hInc);
-
-	HTREEITEM hRes = m_wndFileView.InsertItem(_T("Archivos de recursos de FakeApp"), 0, 0, hRoot);
-
-	m_wndFileView.InsertItem(_T("FakeApp.ico"), 2, 2, hRes);
-	m_wndFileView.InsertItem(_T("FakeApp.rc2"), 2, 2, hRes);
-	m_wndFileView.InsertItem(_T("FakeAppDoc.ico"), 2, 2, hRes);
-	m_wndFileView.InsertItem(_T("FakeToolbar.bmp"), 2, 2, hRes);
+	HTREEITEM hSrc = m_wndFileView.InsertItem(_T("Main"), 0, 0, hRoot);
+	m_WindowsMap[ "Main" ] = hSrc;
 
 	m_wndFileView.Expand(hRoot, TVE_EXPAND);
 	m_wndFileView.Expand(hSrc, TVE_EXPAND);
-	m_wndFileView.Expand(hInc, TVE_EXPAND);
 }
 
 void CFileView::OnContextMenu(CWnd* pWnd, CPoint point)
@@ -253,4 +240,29 @@ void CFileView::OnChangeVisualStyle()
 	m_wndFileView.SetImageList(&m_FileViewImages, TVSIL_NORMAL);
 }
 
+BOOL CFileView::PreTranslateMessage(MSG* pMsg)
+{
+	switch( pMsg->message )
+	{
+	case WM_ADD_ELEMENT_FILE:	//Añade el elemento a la lista
+		{
+			CGUIManager *l_pGUIManager = CORE->GetGUIManager();
 
+			std::string l_WindowName = l_pGUIManager->GetCurrentWindow();
+
+			//Split window name
+			size_t pos = l_WindowName.rfind(".");
+			l_WindowName = l_WindowName.substr(0, pos);
+
+			HTREEITEM l_Tree = m_WindowsMap[ l_WindowName ];
+
+			std::string l_szName = (char*)pMsg->wParam;
+
+			m_wndFileView.InsertItem(_T( l_szName.c_str() ), 1, 1, l_Tree);
+			m_wndFileView.Expand(l_Tree, TVE_EXPAND);
+			break;
+		}
+	}
+
+	return CDockablePane::PreTranslateMessage(pMsg);
+}

@@ -2,6 +2,8 @@
 #pragma once
 
 #include "ViewTree.h"
+#include <map>
+#include <string>
 
 class CFileViewToolBar : public CMFCToolBar
 {
@@ -29,6 +31,8 @@ protected:
 	CImageList m_FileViewImages;
 	CFileViewToolBar m_wndToolBar;
 
+	std::map<std::string, HTREEITEM>	m_WindowsMap;
+
 protected:
 	void FillFileView();
 
@@ -51,5 +55,7 @@ protected:
 	afx_msg void OnSetFocus(CWnd* pOldWnd);
 	
 	DECLARE_MESSAGE_MAP()
+
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 };
 
