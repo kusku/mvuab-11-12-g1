@@ -142,22 +142,5 @@ void CMyPicture::AddElementToActiveWindow(TElement element)
 	std::string windowName = l_pGUIManager->GetCurrentWindow();
 	CGUIWindow *l_pWindow = l_pGUIManager->GetWindow(windowName);
 
-	switch( element )
-	{
-	case BUTTON:
-		{
-			CElementCreator::CreateButton(l_pWindow);
-			break;
-		}
-	case CHECK_BUTTON:
-		{
-			CElementCreator::CreateCheckButton(l_pWindow);
-			break;
-		}
-	case IMAGE:
-		{
-			CElementCreator::CreateImage(l_pWindow);
-			break;
-		}
-	}
+	CElementCreator::CreateElement(element, l_pWindow);
 }

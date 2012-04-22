@@ -12,9 +12,38 @@
 #include "ElementProperties.h"
 #include "Core.h"
 #include "Base.h"
+#include "defines.h"
+#include "HWNDManager.h"
 #include <sstream>
 
-void CElementCreator::CreateButton(CGUIWindow *window)
+void CElementCreator::CreateElement(TElement type, CGUIWindow *window)
+{
+	CGuiElement *l_pElement = NULL;
+
+	switch( type )
+	{
+	case BUTTON:
+		{
+			l_pElement = CreateButton(window);
+			break;
+		}
+	case CHECK_BUTTON:
+		{
+			l_pElement = CreateCheckButton(window);
+			break;
+		}
+	case IMAGE:
+		{
+			l_pElement = CreateImage(window);
+			break;
+		}
+
+	}
+
+	PostMessage( CHWNDManager::GetInstance()->GetHWNDFiles(), WM_ADD_ELEMENT_FILE, (WPARAM)l_pElement->GetName().c_str(), 0);
+}
+
+CGuiElement* CElementCreator::CreateButton(CGUIWindow *window)
 {
 	CleanSelections(window);
 
@@ -37,9 +66,11 @@ void CElementCreator::CreateButton(CGUIWindow *window)
 	window->AddGuiElement( l_pButton );
 
 	CElementProperties::ElementProperties(l_pButton);
+
+	return l_pButton;
 }
 
-void CElementCreator::CreateCheckButton(CGUIWindow *window)
+CGuiElement* CElementCreator::CreateCheckButton(CGUIWindow *window)
 {
 	CleanSelections(window);
 
@@ -65,9 +96,11 @@ void CElementCreator::CreateCheckButton(CGUIWindow *window)
 	window->AddGuiElement( l_pCheckButton );
 
 	CElementProperties::ElementProperties(l_pCheckButton);
+
+	return l_pCheckButton;
 }
 
-void CElementCreator::CreateImage(CGUIWindow *window)
+CGuiElement* CElementCreator::CreateImage(CGUIWindow *window)
 {
 	CleanSelections(window);
 
@@ -94,6 +127,8 @@ void CElementCreator::CreateImage(CGUIWindow *window)
 	window->AddGuiElement( l_pImage );
 
 	CElementProperties::ElementProperties(l_pImage);
+
+	return l_pImage;
 }
 
 Vect2f CElementCreator::GetPositionToAdd(Vect2i screen)

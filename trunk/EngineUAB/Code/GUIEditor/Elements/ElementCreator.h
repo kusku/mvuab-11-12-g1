@@ -3,20 +3,23 @@
 #ifndef _ELEMENT_CREATOR_H_
 #define _ELEMENT_CREATOR_H_
 
+#include "ElementManager.h"
 #include "Math\Vector2.h"
 #include <string>
 
 class CGUIWindow;
+class CGuiElement;
 
 class CElementCreator
 {
 public:
-	static void CreateButton(CGUIWindow *window);
-	static void CreateCheckButton(CGUIWindow *window);
-	static void CreateImage(CGUIWindow *window);
-	
+	static void CreateElement(TElement type, CGUIWindow *window);	
 
 private:
+	static CGuiElement* CreateButton(CGUIWindow *window);
+	static CGuiElement* CreateCheckButton(CGUIWindow *window);
+	static CGuiElement* CreateImage(CGUIWindow *window);
+
 	static Vect2f GetPositionToAdd(Vect2i screen);
 	static std::string GetSufixNumber(CGUIWindow *window);
 

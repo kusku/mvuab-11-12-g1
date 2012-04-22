@@ -6,6 +6,7 @@ CHWNDManager::CHWNDManager()
 	: m_hWndElements(NULL)
 	, m_hWndProperties(NULL)
 	, m_hWndOutput(NULL)
+	, m_hWndFiles(NULL)
 {
 }
 
