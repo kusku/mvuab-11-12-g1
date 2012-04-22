@@ -24,11 +24,9 @@ class CGUIButton: public CGuiElement
 {
 
 private:
-	
 	typedef enum EButtonState { BS_NORMAL, BS_OVER, BS_CLICKED };
 
 public:
-
 	CGUIButton(	uint32 windowsHeight, uint32 windowsWidth, float height_precent, float witdh_percent,
 						const Vect2f position_percent, std::string lit="", uint32 textHeightOffset=0,
 						uint32 textWidthOffsetbool=0, bool isVisible = true, bool isActive = true);
@@ -49,6 +47,11 @@ public:
 	bool			IsClicking					() const					{ return (m_eState == BS_CLICKED); }
 	void			SetOnClickedAction			(std::string & inAction );
 	void			SetOnOverAction				(std::string & inAction );
+
+	CTexture*		GetNormalTexture			() const			{ return m_pNormalTexture; }
+	CTexture*		GetOverTexture				() const			{ return m_pOverTexture; }
+	CTexture*		GetClickedTexture			() const			{ return m_pClickedTexture; }
+	CTexture*		GetDeactivatedTexture		() const			{ return m_pDeactivatedTexture; }
 
 private:
 	EButtonState		m_eState;
