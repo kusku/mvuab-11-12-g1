@@ -3,6 +3,8 @@
 #include "GUIManager.h"
 #include "GUIWindow.h"
 #include "GuiElement.h"
+#include "Controls\GUIImage.h"
+#include "Textures\Texture.h"
 #include "RenderManager.h"
 #include "Logger\Logger.h"
 #include "Core.h"
@@ -107,9 +109,17 @@ void CElementProperties::ImageProperties(CGuiElement *element)
 
 	//Texturas
 	CMFCPropertyGridProperty* pTexture = new CMFCPropertyGridProperty(_T("Texturas"));
+	
+	CTexture* texture = ( static_cast<CGUIImage*>(element) )->GetTexture( "normal" );
+
+	std::string texture_path = "";
+	if( texture != NULL )
+	{
+		texture_path = texture->GetFileName().c_str();
+	}
 
 	static const TCHAR szFilter[] = _T("JPG(*.jpg)|*.jpg|PNG(*.png)|*.png|BMP(*.bmp)|*.bmp|TGA(*.tga)|*.tga|Todos los archivos(*.*)|*.*||");
-	pTexture->AddSubItem(new CMFCPropertyGridFileProperty(_T("Normal"), TRUE, _T(""), _T("jpg"), 0, szFilter, _T("Especifica la textura")));
+	pTexture->AddSubItem(new CMFCPropertyGridFileProperty(_T("Normal"), TRUE, _T(texture_path.c_str()), _T("jpg"), 0, szFilter, _T("Especifica la textura")));
 
 	MFCProperty->AddProperty(pTexture);
 
