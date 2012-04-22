@@ -134,7 +134,8 @@ void CGUIImage::PlayAnimation (float timePerImage, bool loop)
 
 void CGUIImage::SetTexture (CTexture* texture, std::string name )
 {
-	m_Textures.insert( std::pair<std::string,CTexture*>(name, texture) );
+	//m_Textures.insert( std::pair<std::string,CTexture*>(name, texture) );
+	m_Textures[name] = texture;
 	m_VecTextures.push_back(texture);
 }
 

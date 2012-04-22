@@ -57,10 +57,10 @@ public:
 	void				SetQuadrant				(bool flag)							{m_bIsQuadrant = flag;}
 	void				SetBackGround			(bool flag)							{m_bIsBackGround=flag;}
 
-  void                  FadeOut                 (float startTime, float fadePerSecond);
-  void                  SetAlpha                (float _Alpha)						{ m_fAlpha = _Alpha; }
+	void				FadeOut                 (float startTime, float fadePerSecond);
+	void				SetAlpha                (float _Alpha)						{ m_fAlpha = _Alpha; }
 
-
+	CTexture*			GetTexture				( const std::string &name)			{ return m_Textures[name]; }
 
 private:
 	tTexturesMap			m_Textures;

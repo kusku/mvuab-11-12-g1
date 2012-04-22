@@ -96,10 +96,14 @@ void CElementSaver::SaveImageProperties(CGuiElement *element, CMFCPropertyGridCt
 	std::string texture_path = std::string( _bstr_t( value.bstrVal ) );
 	std::string texture_name = texture_path != "" ? "normal" : "default_normal";
 
-	CTexture *texture = CORE->GetTextureManager()->GetTexture( texture_path );
-	image_element->SetTexture( texture, texture_name );
+	if( texture_name == "normal" )
+	{
+		CTexture *texture = CORE->GetTextureManager()->GetTexture( texture_path );
+		image_element->SetTexture( texture, texture_name );
+	}
+
 	image_element->SetActiveTexture( texture_name );
-	
+
 	//-----------------------------------------
 	//Propiedades de scripts
 	//-----------------------------------------
