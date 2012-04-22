@@ -149,6 +149,11 @@ void CMyPicture::AddElementToActiveWindow(TElement element)
 			CElementCreator::CreateButton(l_pWindow);
 			break;
 		}
+	case CHECK_BUTTON:
+		{
+			CElementCreator::CreateCheckButton(l_pWindow);
+			break;
+		}
 	case IMAGE:
 		{
 			CElementCreator::CreateImage(l_pWindow);

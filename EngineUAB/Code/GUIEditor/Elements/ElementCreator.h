@@ -11,8 +11,10 @@ class CGUIWindow;
 class CElementCreator
 {
 public:
-	static void CreateImage(CGUIWindow *window);
 	static void CreateButton(CGUIWindow *window);
+	static void CreateCheckButton(CGUIWindow *window);
+	static void CreateImage(CGUIWindow *window);
+	
 
 private:
 	static Vect2f GetPositionToAdd(Vect2i screen);
