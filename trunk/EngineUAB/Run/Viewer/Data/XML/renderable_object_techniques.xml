@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <renderable_object_techniques>
 	<pool_renderable_object_technique name="dummy_manager">
+		<default_technique vertex_type="415" technique="Cal3DTechnique" />
 		<default_technique vertex_type="19" technique="AmbientLight" />
 		<default_technique vertex_type="31" technique="AmbientLight" />
 		<default_technique vertex_type="51" technique="AmbientLight" />
@@ -8,6 +9,7 @@
 	</pool_renderable_object_technique>
 	
 	<pool_renderable_object_technique name="FowardShading">
+		<default_technique vertex_type="415" technique="Cal3DTechnique" />
 		<default_technique vertex_type="19" technique="ForwardLightingBasic" />
 		<default_technique vertex_type="31" technique="ForwardLightingWithNormal" />
 		<default_technique vertex_type="51" technique="ForwardLightingBasic" />
@@ -18,6 +20,7 @@
 	
 	<!-- Pool of Effects for Building Basic Shadow Maps -->
 	<pool_renderable_object_technique name="Basic_Build_Shadow_Map">
+		<default_technique vertex_type="415" technique="Cal3DTechnique" />
 		<default_technique vertex_type="19" technique="BasicBuildShadowMap" />
 		<default_technique vertex_type="31" technique="BasicBuildShadowMap" />
 		<default_technique vertex_type="543" technique="BasicBuildShadowMap" />
@@ -27,6 +30,7 @@
 	
 	<!-- Pool of Effects for Deferred Shading -->
 	<pool_renderable_object_technique name="Deferred_Shading">
+		<default_technique vertex_type="415" technique="Cal3DTechnique" />
 		<default_technique vertex_type="19" technique="BasicDeferredModelDraw" />
 		<default_technique vertex_type="31" technique="DeferredModelDrawWithNormal" />
 		<default_technique vertex_type="543" technique="DeferredModelDrawWithNormalParallax" />
