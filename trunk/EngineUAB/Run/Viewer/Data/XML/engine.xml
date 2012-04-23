@@ -23,6 +23,7 @@
 	<Scripts scriptsXML="./Data/XML/scripts.xml" />
 	<Billboards fileXML="./Data/XML/billboard_animations.xml" />
 	<Particles fileXML="./Data/XML/particles.xml" />
+	<GUI fileXML="./Data/XML/gui.xml" />
 	<Modifiers modifiersXML="./Data/XML/modifiers.xml" />
 	<Debug_Options debug_options_xml="./data/xml/debug_options.xml" />
 </Config>
