@@ -35,9 +35,9 @@
 	<!-- ......... EFFECTS ............ -->
 	
 	<!-- ................. TECHNIQUES ................. -->
-	<technique name="BloomExtract" effect="BloomPostProcess" use_half_pixel="true" />
-	<technique name="GaussianBlur" effect="BloomPostProcess" use_half_pixel="true" />
-	<technique name="BloomCombine" effect="BloomPostProcess" use_half_pixel="true" />
+	<technique name="BloomExtract" effect="BloomPostProcess" use_half_pixel="false" />
+	<technique name="GaussianBlur" effect="BloomPostProcess" use_half_pixel="false" />
+	<technique name="BloomCombine" effect="BloomPostProcess" use_half_pixel="false" />
 	
 	<technique name="SkySphereEffect" effect="sky_sphere_effect" use_world_view_projection_matrix="true" />
 	<technique name="SkySphereEffectDeferred" effect="sky_sphere_effect" use_world_view_projection_matrix="true" />
