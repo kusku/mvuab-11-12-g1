@@ -14,6 +14,9 @@
 #include "Textures\Texture.h"
 #include "XML\XMLTreeNode.h"
 #include "Stadistics\Stadistics.h"
+#include "RenderableObjects\RenderableObjectTechniqueManager.h"
+#include "Utils\TemplatedVectorMapManager.h"
+#include "Vertexs\VertexType.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -107,7 +110,10 @@ void CAnimatedInstanceModel::Render(CRenderManager *RM)
 void CAnimatedInstanceModel::RenderModelByHardware(CRenderManager* RM)
 {
 	CEffectManager* l_EffectManager = CORE->GetEffectManager();
-	CEffectTechnique* l_EffectTechnique = GetRenderableObjectTechnique()->GetEffectTechnique();;
+	std::string techName = CORE->GetROTManager()->GetRenderableObjectTechniqueNameByVertexType(CAL3D_HW_VERTEX_BT::GetVertexType());
+	CEffectTechnique* l_EffectTechnique = CORE->GetROTManager()->GetResourcesMap()[techName].m_Value->GetEffectTechnique();
+
+	//CEffectTechnique* l_EffectTechnique = GetRenderableObjectTechnique()->GetEffectTechnique();;
 
 	if(l_EffectTechnique==NULL)
 	{
