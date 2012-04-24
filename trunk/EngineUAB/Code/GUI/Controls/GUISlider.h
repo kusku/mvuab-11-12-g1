@@ -49,6 +49,19 @@ public:
 	void			SetBackGroundColor			(const CColor& background, float alpha = 1.f);
 	void			OnChangeValue				();
 	
+	const std::string&	GetOnChangeValue			() const		{ return m_sLuaCode_OnChangeValue; }
+	const std::string&	GetOnClickedAction			() const		{ return m_Button.GetOnClicked(); }
+	const std::string&	GetOnOverAction				() const		{ return m_Button.GetOnOver(); }
+	const CColor&		GetBackgroundColor			() const		{ return m_BackGroundColor; }
+	CTexture*			GetBackgroundTexture		() const		{ return m_pBackGroundTexture; }
+	CTexture*			GetNormalButtonTexture		() const		{ return m_Button.GetNormalTexture(); }
+	CTexture*			GetOverButtonTexture		() const		{ return m_Button.GetOverTexture(); }
+	CTexture*			GetClickedButtonTexture		() const		{ return m_Button.GetClickedTexture(); }
+	CTexture*			GetDeactivatedButtonTexture	() const		{ return m_Button.GetDeactivatedTexture(); }
+	float				GetButtonHeight				() const		{ return m_Button.GetHeightPercent(); }
+	float				GetButtonWidth				() const		{ return m_Button.GetWidthPercent(); }
+
+
 private:
 	std::string		m_sLuaCode_OnChangeValue;
 	CTexture*		m_pBackGroundTexture;

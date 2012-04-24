@@ -60,6 +60,8 @@ void CGUIProgressBar::Render	(CRenderManager *renderManager, CFontManager* fm)
 
 		//Finalmente renderizamos el texto:
 		CGuiElement::RenderText(renderManager, fm);	
+
+		CGuiElement::RenderGUIEditor( renderManager );
 	}
 }
 

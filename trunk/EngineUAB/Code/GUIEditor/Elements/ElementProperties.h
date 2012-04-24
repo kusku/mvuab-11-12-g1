@@ -22,6 +22,8 @@ private:
 	static void CheckButtonProperties(CGuiElement *element);
 	static void EditableTextBoxProperties(CGuiElement *element);
 	static void ImageProperties(CGuiElement *element);
+	static void ProgressBarProperties(CGuiElement *element);
+	static void SliderProperties(CGuiElement *element);
 	static void StaticTextProperties(CGuiElement *element);
 
 	static CMFCPropertyGridProperty* AddBasicAppearanceProperties(CGuiElement *element);

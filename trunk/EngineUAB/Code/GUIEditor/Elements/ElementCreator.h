@@ -20,6 +20,8 @@ private:
 	static CGuiElement* CreateCheckButton(CGUIWindow *window);
 	static CGuiElement* CreateEditableTextBox(CGUIWindow *window);
 	static CGuiElement* CreateImage(CGUIWindow *window);
+	static CGuiElement* CreateProgressBar(CGUIWindow *window);
+	static CGuiElement*	CreateSlider(CGUIWindow *window);
 	static CGuiElement* CreateStaticText(CGUIWindow *window);
 
 	static Vect2f GetPositionToAdd(Vect2i screen);

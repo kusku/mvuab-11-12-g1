@@ -50,6 +50,7 @@ public:
 	const CColor&		GetBackGroundColor			() const							{ return m_TextColor; }
 	const CColor&		GetTextColor				() const							{ return m_TextColor; }
 	CTexture*			GetBackGroundTexture		() const							{ return m_pBackGroundTexture; }
+
 private:
 	void				ProcessNewEntries			(CInputManager* inputManager);
 	void				Remove1character			();

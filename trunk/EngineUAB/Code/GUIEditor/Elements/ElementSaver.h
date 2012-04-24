@@ -8,6 +8,7 @@
 #include <string>
 
 class CGuiElement;
+class CColor;
 
 class CElementSaver
 {
@@ -19,9 +20,12 @@ private:
 	static void SaveCheckButtonProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties );
 	static void SaveEditableTextBoxProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties );
 	static void SaveImageProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties );
+	static void SaveProgressBarProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties );
 	static void SaveStaticTextProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties );
 
 	static ETypeFlip String2Flip(const std::string &type);
+
+	static CColor ConvertColor (COleVariant variant);
 };
 
 #endif
