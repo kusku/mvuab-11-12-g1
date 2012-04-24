@@ -26,12 +26,14 @@ public:
 
 // Atributos
 protected:
+	typedef std::map<std::string, std::map<std::string, HTREEITEM>> TElementsWindow;
 
 	CViewTree m_wndFileView;
 	CImageList m_FileViewImages;
 	CFileViewToolBar m_wndToolBar;
 
 	std::map<std::string, HTREEITEM>	m_WindowsMap;
+	TElementsWindow						m_ElementsWindowMap;					
 
 protected:
 	void FillFileView();
@@ -42,7 +44,6 @@ public:
 
 private:
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
-	void UpdateData();
 
 protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);

@@ -5,6 +5,7 @@
 #include "Controls\GUIImage.h"
 #include "Controls\GUIButton.h"
 #include "Controls\GUICheckButton.h"
+#include "Controls\GUIStaticText.h"
 #include "Textures\Texture.h"
 #include "Textures\TextureManager.h"
 #include "HWNDManager.h"
@@ -20,6 +21,8 @@ void CElementSaver::SaveProperties(CGuiElement *element)
 {
 	CGuiElement::TypeGuiElement type = element->GetType();
 	CMFCPropertyGridCtrl *properties = CElementProperties::GetInstance()->GetMFCPropertyGricCtrl();
+
+	std::string l_Name = element->GetName();
 
 	switch( type )
 	{
@@ -38,9 +41,21 @@ void CElementSaver::SaveProperties(CGuiElement *element)
 			SaveImageProperties( element, properties );
 			break;
 		}
+	case CGuiElement::TypeGuiElement::STATIC_TEXT:
+		{
+			SaveStaticTextProperties( element, properties );
+			break;
+		}
 	}
 
-	PostMessage( CHWNDManager::GetInstance()->GetHWNDFiles(), WM_UPDATE_FILE_DATA, 0, 0);
+	std::string l_NewName = element->GetName();
+	if( l_Name != l_NewName )
+	{
+		//Actualizamos la lista de ficheros
+		CString *original = new CString(element->GetID().c_str());
+		CString *modified = new CString(l_NewName.c_str());
+		PostMessage( CHWNDManager::GetInstance()->GetHWNDFiles(), WM_UPDATE_FILE_DATA, (WPARAM)original,(LPARAM)modified);
+	}
 }
 
 void CElementSaver::SaveButtonProperties(CGuiElement *element, CMFCPropertyGridCtrl *properties)
@@ -292,6 +307,44 @@ void CElementSaver::SaveImageProperties(CGuiElement *element, CMFCPropertyGridCt
 	value = properties->GetProperty(5)->GetSubItem(1)->GetValue();
 	script = std::string( _bstr_t( value.bstrVal ) );
 	image_element->SetOnSaveValueAction( script );
+}
+
+void CElementSaver::SaveStaticTextProperties(CGuiElement *element, CMFCPropertyGridCtrl *properties)
+{
+	CGUIStaticText *l_pStaticText = static_cast<CGUIStaticText*>(element);
+
+	//-----------------------------------------
+	//Propiedades de apariencia
+	//-----------------------------------------
+	COleVariant value = properties->GetProperty(0)->GetSubItem(0)->GetValue();
+	l_pStaticText->SetActive( (value.boolVal == VARIANT_TRUE) );
+
+	value = properties->GetProperty(0)->GetSubItem(1)->GetValue();
+	l_pStaticText->SetVisible( (value.boolVal == VARIANT_TRUE) );
+
+	Vect2f pos;
+	value = properties->GetProperty(1)->GetSubItem(0)->GetValue();
+	pos.x = static_cast<float>( value.intVal );
+	value = properties->GetProperty(1)->GetSubItem(1)->GetValue();
+	pos.y = static_cast<float>( value.intVal );
+	l_pStaticText->SetPositionPercent( pos );
+
+	Vect2f size;
+	value = properties->GetProperty(2)->GetSubItem(0)->GetValue();
+	size.x = static_cast<float>( value.intVal );
+	value = properties->GetProperty(2)->GetSubItem(1)->GetValue();
+	size.y = static_cast<float>( value.intVal );
+	l_pStaticText->SetWidthPercent( size.x );
+	l_pStaticText->SetHeightPercent( size.y );
+
+	//-----------------------------------------
+	//Propiedades de información
+	//-----------------------------------------
+	value = properties->GetProperty(3)->GetSubItem(2)->GetValue();
+	l_pStaticText->SetName( std::string( _bstr_t( value.bstrVal ) ) );
+
+	value = properties->GetProperty(3)->GetSubItem(3)->GetValue();
+	l_pStaticText->SetLiteral( std::string( _bstr_t( value.bstrVal ) ) );
 }
 
 ETypeFlip CElementSaver::String2Flip(const std::string &type)

@@ -7,6 +7,7 @@
 #include "Controls\GUIImage.h"
 #include "Controls\GUIButton.h"
 #include "Controls\GUICheckButton.h"
+#include "Controls\GUIStaticText.h"
 #include "Textures\TextureManager.h"
 #include "Textures\Texture.h"
 #include "ElementProperties.h"
@@ -35,6 +36,11 @@ void CElementCreator::CreateElement(TElement type, CGUIWindow *window)
 	case IMAGE:
 		{
 			l_pElement = CreateImage(window);
+			break;
+		}
+	case STATIC_TEXT:
+		{
+			l_pElement = CreateStaticText(window);
 			break;
 		}
 
@@ -129,6 +135,28 @@ CGuiElement* CElementCreator::CreateImage(CGUIWindow *window)
 	CElementProperties::ElementProperties(l_pImage);
 
 	return l_pImage;
+}
+
+CGuiElement* CElementCreator::CreateStaticText(CGUIWindow *window)
+{
+	CleanSelections(window);
+
+	Vect2i screen = CORE->GetRenderManager()->GetScreenSize();
+	Vect2f l_Position = GetPositionToAdd(screen);
+
+	CGUIStaticText *l_pStaticText = new CGUIStaticText( screen.y, screen.x, 20.f, 30.f, l_Position, "STATIC TEXT", true, true);
+	std::string l_Name = "static_text_" + GetSufixNumber(window);
+	l_pStaticText->SetName( l_Name );
+	l_pStaticText->SetID( l_Name );
+
+	l_pStaticText->SetRenderForGUIEditor( true );
+	l_pStaticText->SetIsSelected( true );
+
+	window->AddGuiElement( l_pStaticText );
+
+	CElementProperties::ElementProperties( l_pStaticText );
+
+	return l_pStaticText;
 }
 
 Vect2f CElementCreator::GetPositionToAdd(Vect2i screen)
