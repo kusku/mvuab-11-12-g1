@@ -8,7 +8,9 @@
 #include "Controls\GUIButton.h"
 #include "Controls\GUICheckButton.h"
 #include "Controls\GUIStaticText.h"
+#include "Controls\GUIProgressBar.h"
 #include "Controls\GUIEditableTextBox.h"
+#include "Controls\GUISlider.h"
 #include "Textures\TextureManager.h"
 #include "Textures\Texture.h"
 #include "ElementProperties.h"
@@ -42,6 +44,16 @@ void CElementCreator::CreateElement(TElement type, CGUIWindow *window)
 	case IMAGE:
 		{
 			l_pElement = CreateImage(window);
+			break;
+		}
+	case PROGRESS_BAR:
+		{
+			l_pElement = CreateProgressBar(window);
+			break;
+		}
+	case SLIDER:
+		{
+			l_pElement = CreateSlider(window);
 			break;
 		}
 	case STATIC_TEXT:
@@ -168,6 +180,73 @@ CGuiElement* CElementCreator::CreateImage(CGUIWindow *window)
 	CElementProperties::ElementProperties(l_pImage);
 
 	return l_pImage;
+}
+
+CGuiElement* CElementCreator::CreateProgressBar(CGUIWindow *window)
+{
+	CleanSelections(window);
+
+	Vect2i screen = CORE->GetRenderManager()->GetScreenSize();
+	Vect2f l_Position = GetPositionToAdd(screen);
+
+	CGUIProgressBar *l_pProgressBar = new CGUIProgressBar(screen.y, screen.x, 10.f, 30.f, l_Position, "", 0, 0, true, true);
+	std::string l_Name = "progress_bar_" + GetSufixNumber(window);
+	l_pProgressBar->SetName( l_Name );
+	l_pProgressBar->SetID( l_Name );
+
+	CTexture *texture = CORE->GetTextureManager()->GetTexture("./Data/General/Textures/GUI/progressbar.jpg");
+	l_pProgressBar->SetTextures( texture, texture );
+	l_pProgressBar->SetColors(colWHITE, colBLUE);
+	l_pProgressBar->SetFont(0, colBLACK);
+	l_pProgressBar->SetOnLoadValueAction("");
+	l_pProgressBar->SetOnSaveValueAction("");
+	l_pProgressBar->SetOnComplete("");
+
+	l_pProgressBar->SetRenderForGUIEditor( true );
+	l_pProgressBar->SetIsSelected( true );
+
+	window->AddGuiElement( l_pProgressBar );
+
+	CElementProperties::ElementProperties( l_pProgressBar );
+
+	return l_pProgressBar;
+}
+
+CGuiElement* CElementCreator::CreateSlider(CGUIWindow *window)
+{
+	CleanSelections(window);
+
+	Vect2i screen = CORE->GetRenderManager()->GetScreenSize();
+	Vect2f l_Position = GetPositionToAdd(screen);
+
+	CGUISlider *l_pSlider = new CGUISlider( screen.y, screen.x, 10.f, 30.f, l_Position, 9.f, 9.f, 0, "", 0, 0, true, true );
+	std::string l_Name = "slider_" + GetSufixNumber(window);
+	l_pSlider->SetName( l_Name );
+	l_pSlider->SetID( l_Name );
+
+	l_pSlider->SetOnLoadValueAction("");
+	l_pSlider->SetOnSaveValueAction("");
+	l_pSlider->SetOnClickedAction(std::string(""));
+	l_pSlider->SetOnOverAction(std::string(""));
+	l_pSlider->SetOnChangeValueAction(std::string(""));
+
+	CTexture *button_texture = CORE->GetTextureManager()->GetTexture("./Data/General/Textures/GUI/button.jpg");
+	l_pSlider->SetButtonTextures( button_texture, button_texture, button_texture, button_texture);
+
+	CTexture *slider_texture = CORE->GetTextureManager()->GetTexture("./Data/General/Textures/GUI/slider.jpg");
+	l_pSlider->SetBackGroundTexture( slider_texture );
+
+	l_pSlider->SetButtonColors( colBLACK, colBLACK, colBLACK, colBLACK) ;
+	l_pSlider->SetBackGroundColor( colBLACK );
+
+	l_pSlider->SetRenderForGUIEditor( true );
+	l_pSlider->SetIsSelected( true );
+
+	window->AddGuiElement( l_pSlider );
+
+	CElementProperties::ElementProperties( l_pSlider); 
+
+	return l_pSlider;
 }
 
 CGuiElement* CElementCreator::CreateStaticText(CGUIWindow *window)

@@ -7,6 +7,7 @@
 #include "Controls\GUICheckButton.h"
 #include "Controls\GUIStaticText.h"
 #include "Controls\GUIEditableTextBox.h"
+#include "Controls\GUIProgressBar.h"
 #include "Textures\Texture.h"
 #include "Textures\TextureManager.h"
 #include "HWNDManager.h"
@@ -46,6 +47,11 @@ void CElementSaver::SaveProperties(CGuiElement *element)
 	case CGuiElement::TypeGuiElement::IMAGE:
 		{
 			SaveImageProperties( element, properties );
+			break;
+		}
+	case CGuiElement::TypeGuiElement::PROGRESS_BAR:
+		{
+			SaveProgressBarProperties( element, properties );
 			break;
 		}
 	case CGuiElement::TypeGuiElement::STATIC_TEXT:
@@ -306,14 +312,15 @@ void CElementSaver::SaveEditableTextBoxProperties( CGuiElement *element, CMFCPro
 			break;
 		}
 	}
-	//TODO: Guardar los colores
+	
 	value = properties->GetProperty(4)->GetSubItem(1)->GetValue();
-	//int blue = value.intVal >> 16;
-	//int green = value.intVal >> 8;
+	CColor backgroundColor = ConvertColor(value);
 	
 	value = properties->GetProperty(4)->GetSubItem(2)->GetValue();
+	CColor textColor = ConvertColor(value);
 
-	textbox_element->SetFont( colBLACK, l_iFont);
+	textbox_element->SetFont( textColor, l_iFont);
+	textbox_element->SetBackGroundColor( backgroundColor );
 
 	//-----------------------------------------
 	//Propiedades de texturas
@@ -413,6 +420,119 @@ void CElementSaver::SaveImageProperties(CGuiElement *element, CMFCPropertyGridCt
 	image_element->SetOnSaveValueAction( script );
 }
 
+void CElementSaver::SaveProgressBarProperties(CGuiElement *element, CMFCPropertyGridCtrl *properties)
+{
+	CGUIProgressBar *progressbar_element = static_cast<CGUIProgressBar*>(element);
+
+	//-----------------------------------------
+	//Propiedades de apariencia
+	//-----------------------------------------
+	COleVariant value = properties->GetProperty(0)->GetSubItem(0)->GetValue();
+	progressbar_element->SetActive( (value.boolVal == VARIANT_TRUE) );
+
+	value = properties->GetProperty(0)->GetSubItem(1)->GetValue();
+	progressbar_element->SetVisible( (value.boolVal == VARIANT_TRUE) );
+
+	Vect2f pos;
+	value = properties->GetProperty(1)->GetSubItem(0)->GetValue();
+	pos.x = static_cast<float>( value.intVal );
+	value = properties->GetProperty(1)->GetSubItem(1)->GetValue();
+	pos.y = static_cast<float>( value.intVal );
+	progressbar_element->SetPositionPercent( pos );
+
+	Vect2f size;
+	value = properties->GetProperty(2)->GetSubItem(0)->GetValue();
+	size.x = static_cast<float>( value.intVal );
+	value = properties->GetProperty(2)->GetSubItem(1)->GetValue();
+	size.y = static_cast<float>( value.intVal );
+	progressbar_element->SetWidthPercent( size.x );
+	progressbar_element->SetHeightPercent( size.y );
+
+	//-----------------------------------------
+	//Propiedades de información
+	//-----------------------------------------
+	value = properties->GetProperty(3)->GetSubItem(2)->GetValue();
+	progressbar_element->SetName( std::string( _bstr_t( value.bstrVal ) ) );
+
+	value = properties->GetProperty(3)->GetSubItem(3)->GetValue();
+	progressbar_element->SetLiteral( std::string( _bstr_t( value.bstrVal ) ) );
+
+	//-----------------------------------------
+	//Propiedades de estilo
+	//-----------------------------------------
+	value = properties->GetProperty(4)->GetSubItem(0)->GetValue();
+
+	int l_iFont = 0;
+	CFontManager *FM = CORE->GetFontManager();
+	for(uint32 i=0; i<FM->GetNumFonts(); ++i)
+	{
+		std::string font = FM->GetTTFName(i);
+		int found = font.rfind("\\");
+		if( found == -1 ) found = font.rfind("/");
+		font = font.substr(found+1, font.size());
+
+		std::string currentfont = _bstr_t(value.bstrVal );
+		if( currentfont == font )
+		{
+			l_iFont = i;
+			break;
+		}
+	}
+
+	value = properties->GetProperty(4)->GetSubItem(1)->GetValue();
+	CColor backgroundColor = ConvertColor( value );
+
+	value = properties->GetProperty(4)->GetSubItem(2)->GetValue();
+	CColor progressColor = ConvertColor( value );
+
+	value = properties->GetProperty(4)->GetSubItem(3)->GetValue();
+	CColor textColor = ConvertColor( value );
+
+	progressbar_element->SetColors( backgroundColor, progressColor);
+	progressbar_element->SetFont( l_iFont, textColor );
+
+	//-----------------------------------------
+	//Propiedades de texturas
+	//-----------------------------------------
+	CTexture *l_pBackgroundTexture = NULL;
+	CTexture *l_pProgressTexture = NULL;
+	CTextureManager *l_pTextureManager = CORE->GetTextureManager();
+
+	//Textura On
+	value = properties->GetProperty(5)->GetSubItem(0)->GetValue();
+	std::string texture_path = std::string( _bstr_t( value.bstrVal ) );
+	l_pBackgroundTexture = l_pTextureManager->GetTexture( texture_path );
+	if( l_pBackgroundTexture == l_pTextureManager->GetNoTexture() )
+	{
+		l_pBackgroundTexture = NULL;
+	}
+
+	value = properties->GetProperty(5)->GetSubItem(1)->GetValue();
+	texture_path = std::string( _bstr_t( value.bstrVal ) );
+	l_pProgressTexture = l_pTextureManager->GetTexture( texture_path );
+	if( l_pProgressTexture == l_pTextureManager->GetNoTexture() )
+	{
+		l_pProgressTexture = NULL;
+	}
+	
+	progressbar_element->SetTextures( l_pBackgroundTexture, l_pProgressTexture );
+
+	//-----------------------------------------
+	//Propiedades de scripts
+	//-----------------------------------------
+	value = properties->GetProperty(6)->GetSubItem(0)->GetValue();
+	std::string script = std::string( _bstr_t( value.bstrVal ) );
+	progressbar_element->SetOnLoadValueAction( script );
+
+	value = properties->GetProperty(6)->GetSubItem(1)->GetValue();
+	script = std::string( _bstr_t( value.bstrVal ) );
+	progressbar_element->SetOnSaveValueAction( script );
+
+	value = properties->GetProperty(6)->GetSubItem(2)->GetValue();
+	script = std::string( _bstr_t( value.bstrVal ) );
+	progressbar_element->SetOnComplete( script );
+}
+
 void CElementSaver::SaveStaticTextProperties(CGuiElement *element, CMFCPropertyGridCtrl *properties)
 {
 	CGUIStaticText *l_pStaticText = static_cast<CGUIStaticText*>(element);
@@ -467,6 +587,12 @@ ETypeFlip CElementSaver::String2Flip(const std::string &type)
 	}
 	
 	return NONE_FLIP;
+}
+
+CColor CElementSaver::ConvertColor(COleVariant variant)
+{
+	//TODO: Convertir el color
+	return colBLACK;
 }
 
 #pragma warning(pop)

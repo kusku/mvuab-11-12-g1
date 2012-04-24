@@ -56,6 +56,10 @@ public:
 	CTexture*			GetOffTexture			() const		{ return m_pOffTexture; }
 	CTexture*			GetDeactivatedTexture	() const		{ return m_pDeactivatedTexture; }
 
+	const std::string&	GetOnOver				() const		{ return m_sLuaCode_OnOver; }
+	const std::string&	GetOnCheckOn			() const		{ return m_sLuaCode_OnCheckOn; }
+	const std::string&	GetOnCheckOff			() const		{ return m_sLuaCode_OnCheckOff; }
+
 private:
 	ECheckButtonState		m_eState;
 	CTexture*				m_pOnTexture;

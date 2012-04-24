@@ -44,6 +44,14 @@ public:
 	void				OnComplete					();
 	void				SetOnComplete				(const std::string& inAction)		{m_sLuaCode_OnComplete = inAction;}
 
+	uint32				GetFontID					() const				{ return m_uFontID; }
+	const CColor&		GetBackGroundColor			() const				{ return m_BackGroundColor; }
+	const CColor&		GetProgressColor			() const				{ return m_ProgressColor; }
+	const CColor&		GetTextColor				() const				{ return m_TextColor; }
+	CTexture*			GetBackgroundTexture		() const				{ return m_pBackgroundTexture; }
+	CTexture*			GetProgressTexture			() const				{ return m_pProgressTexture; }
+	const std::string&	GetOnComplete				() const				{ return m_sLuaCode_OnComplete; }
+
 private:
 	CTexture*			m_pBackgroundTexture;
 	CTexture*			m_pProgressTexture;
