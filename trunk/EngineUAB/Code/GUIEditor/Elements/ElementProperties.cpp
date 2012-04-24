@@ -211,7 +211,18 @@ CMFCPropertyGridProperty* CElementProperties::AddBasicAppearanceProperties(CGuiE
 		//Flip
 		if( element->GetType() == CGuiElement::TypeGuiElement::IMAGE )
 		{
-			pProp = new CMFCPropertyGridProperty(_T("Flip"), _T("None"), _T("Especifica el flip del objeto"));
+			CGUIImage *l_pImage = static_cast<CGUIImage*>(element);
+			
+			std::string l_szFlip = "None";
+			switch( l_pImage->GetFlip() )
+			{
+			case NONE_FLIP: l_szFlip = "None"; break;
+			case FLIP_X: l_szFlip = "Flip X"; break;
+			case FLIP_Y: l_szFlip = "Flip Y"; break;
+			default: l_szFlip = "None"; break;
+			}
+
+			pProp = new CMFCPropertyGridProperty(_T("Flip"), _T(l_szFlip.c_str()), _T("Especifica el flip del objeto"));
 			pProp->AddOption(_T("None"));
 			pProp->AddOption(_T("Flip X"));
 			pProp->AddOption(_T("Flip Y"));

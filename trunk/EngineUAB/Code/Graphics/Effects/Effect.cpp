@@ -92,8 +92,17 @@ bool CEffect::LoadEffect()
 	
 	if(FAILED(l_HR) || l_ErrorBuffer)
 	{
-		LPVOID l_ErrPointer = l_ErrorBuffer->GetBufferPointer();
-		std::string l_Err = static_cast<char*>( l_ErrPointer );
+		std::string l_Err = "";
+		if( l_ErrorBuffer != NULL )
+		{
+			LPVOID l_ErrPointer = l_ErrorBuffer->GetBufferPointer();
+			l_Err = static_cast<char*>( l_ErrPointer );
+		}
+		else
+		{
+			l_Err = "Error al cargar el efecto.";
+		}
+		
 		std::string msg_error = "CEffect::LoadEffect->" + l_Err;
 		LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
 		CHECKED_RELEASE(l_ErrorBuffer);

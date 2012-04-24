@@ -53,6 +53,9 @@ public:
 	CTexture*		GetClickedTexture			() const			{ return m_pClickedTexture; }
 	CTexture*		GetDeactivatedTexture		() const			{ return m_pDeactivatedTexture; }
 
+	const std::string&	GetOnClicked			() const			{ return m_sLuaCode_OnClicked; }
+	const std::string&	GetOnOver				() const			{ return m_sLuaCode_OnOver; }
+
 private:
 	EButtonState		m_eState;
 	std::string			m_sLuaCode_OnClicked;

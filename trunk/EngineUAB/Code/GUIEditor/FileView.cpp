@@ -240,6 +240,44 @@ void CFileView::OnChangeVisualStyle()
 	m_wndFileView.SetImageList(&m_FileViewImages, TVSIL_NORMAL);
 }
 
+void CFileView::UpdateData()
+{
+	m_wndFileView.DeleteAllItems();
+
+	CGUIManager *l_pGUIManager = CORE->GetGUIManager();
+
+	HTREEITEM hRoot = m_wndFileView.InsertItem(_T("Windows"), 0, 0, 0);
+	m_WindowsMap[ "Windows" ] = hRoot;
+
+	std::map<std::string, HTREEITEM>::iterator l_It = m_WindowsMap.begin();
+	std::map<std::string, HTREEITEM>::iterator l_ItEnd = m_WindowsMap.end();
+	for( ; l_It != l_ItEnd; ++l_It)
+	{
+		if( l_It->first != "Windows")
+		{
+			CGUIWindow *l_pWindow = l_pGUIManager->GetWindow( l_It->first + ".xml" );
+
+			HTREEITEM hSrc = m_wndFileView.InsertItem(_T(l_It->first.c_str()), 0, 0, hRoot);
+			l_It->second = hSrc;
+
+			if( l_pWindow != NULL )
+			{
+				uint32 count = l_pWindow->GetNumElements();
+				for( uint32 j=0; j<count; ++j)
+				{
+					CGuiElement *l_pElement = l_pWindow->GetElementById( j );
+
+					m_wndFileView.InsertItem(_T( l_pElement->GetName().c_str() ), 1, 1, hSrc);
+				}
+
+				m_wndFileView.Expand(hSrc, TVE_EXPAND);
+			}
+		}
+	}
+	
+	m_wndFileView.Expand(hRoot, TVE_EXPAND);
+}
+
 BOOL CFileView::PreTranslateMessage(MSG* pMsg)
 {
 	switch( pMsg->message )
@@ -260,6 +298,11 @@ BOOL CFileView::PreTranslateMessage(MSG* pMsg)
 
 			m_wndFileView.InsertItem(_T( l_szName.c_str() ), 1, 1, l_Tree);
 			m_wndFileView.Expand(l_Tree, TVE_EXPAND);
+			break;
+		}
+	case WM_UPDATE_FILE_DATA:
+		{
+			UpdateData();
 			break;
 		}
 	}

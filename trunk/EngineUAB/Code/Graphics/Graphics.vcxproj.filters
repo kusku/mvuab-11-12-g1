@@ -73,18 +73,6 @@
     <ClInclude Include="Lights\OmniLight.h">
       <Filter>Lights\Types</Filter>
     </ClInclude>
-    <ClInclude Include="Effects\Effect.h">
-      <Filter>Effects</Filter>
-    </ClInclude>
-    <ClInclude Include="Effects\EffectManager.h">
-      <Filter>Effects</Filter>
-    </ClInclude>
-    <ClInclude Include="Effects\EffectTechnique.h">
-      <Filter>Effects</Filter>
-    </ClInclude>
-    <ClInclude Include="Effects\EffectDefs.h">
-      <Filter>Effects</Filter>
-    </ClInclude>
     <ClInclude Include="RenderableObjects\RenderableObjectsLayersManager.h">
       <Filter>RenderableObjects</Filter>
     </ClInclude>
@@ -232,6 +220,18 @@
     <ClInclude Include="Commands\RenderGUISceneRendererCommand.h">
       <Filter>Commands\Command</Filter>
     </ClInclude>
+    <ClInclude Include="Effects\Effect.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects\EffectDefs.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects\EffectManager.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects\EffectTechnique.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
@@ -295,15 +295,6 @@
     </ClCompile>
     <ClCompile Include="Lights\SpotLight.cpp">
       <Filter>Lights\Types</Filter>
-    </ClCompile>
-    <ClCompile Include="Effects\Effect.cpp">
-      <Filter>Effects</Filter>
-    </ClCompile>
-    <ClCompile Include="Effects\EffectManager.cpp">
-      <Filter>Effects</Filter>
-    </ClCompile>
-    <ClCompile Include="Effects\EffectTechnique.cpp">
-      <Filter>Effects</Filter>
     </ClCompile>
     <ClCompile Include="Vertexs\VertexType.cpp">
       <Filter>Vertexs</Filter>
@@ -449,6 +440,15 @@
     <ClCompile Include="Commands\RenderGUISceneRendererCommand.cpp">
       <Filter>Commands\Command</Filter>
     </ClCompile>
+    <ClCompile Include="Effects\Effect.cpp">
+      <Filter>Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Effects\EffectManager.cpp">
+      <Filter>Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Effects\EffectTechnique.cpp">
+      <Filter>Effects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Cameras">
@@ -481,17 +481,11 @@
     <Filter Include="Lights\Types">
       <UniqueIdentifier>{afca042c-6e36-4408-b1ef-a80bb32ce8e2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Effects">
-      <UniqueIdentifier>{1b6390e5-2790-4393-81e7-f66928b76d7b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Commands">
       <UniqueIdentifier>{daa2c447-5daf-4177-9aa2-3ea7e2cac5c8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Commands\Command">
       <UniqueIdentifier>{e9a9bb5f-32a3-4428-982b-34e045c6356a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Effects\Materials">
-      <UniqueIdentifier>{91935067-035d-4949-9e24-d80ac4ad87e1}</UniqueIdentifier>
     </Filter>
     <Filter Include="RenderableObjects\Primitive Meshes">
       <UniqueIdentifier>{8cfd9b9e-7b8f-4b5d-ac35-51276cc85170}</UniqueIdentifier>
@@ -507,6 +501,12 @@
     </Filter>
     <Filter Include="PostProcess">
       <UniqueIdentifier>{67e5717c-c331-4a85-9c50-0398a438794a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effects">
+      <UniqueIdentifier>{64e6a36c-e4cf-41fe-b5ee-89aeead24de2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effects\Materials">
+      <UniqueIdentifier>{13c11af5-b725-4561-852c-e9d01e4e2f57}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

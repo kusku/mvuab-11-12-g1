@@ -60,6 +60,9 @@ struct TransitionEffect
 class CGUIManager
 {
 public:
+	typedef std::map<std::string, CGUIWindow*> TWindowsMap;
+
+public:
 	// Init and End protocols
 	CGUIManager(const Vect2i& resolution);
 	virtual ~CGUIManager() {Done();}  
@@ -87,6 +90,8 @@ public:
     std::string         GetCurrentWindow            ()				{ return m_sCurrentWindows; }
 	void				SetVisiblePointerMouse		( bool flag )	{ m_bVisiblePointerMouse = flag; }
 	CGUIWindow*			GetWindow					( const std::string &window ) { return m_WindowsMap[window]; }
+	
+	//TWindowsMap&		GetWindowMap				() const		{ return m_WindowsMap; }
 
 	//----CScriptRegister interface--------------------------------------------
 	//virtual void						RegisterFunctions				(CScriptManager* scriptManager);
@@ -123,7 +128,9 @@ public:
     void                FadeOutImage					(const std::string& inImageName, float startTime, float fadePerSecond);
 
     CGuiElement*        GetGUIElement					(const std::string& inNameGuiElement);
-		//-----------------------------------------------------------------------------------------------------------//
+	CGUITextBox*		GetDefaultTextBox				() const	{ return m_TextBox; }
+	CGUIPointerMouse*	GetPointerMouse					() const	{ return m_PointerMouse; }
+	//-----------------------------------------------------------------------------------------------------------//
 
 private:
 	void				Release							();
@@ -133,7 +140,7 @@ private:
 private:
 	Vect2i									m_ScreenResolution;
 	bool									m_bIsOk;
-	std::map<std::string, CGUIWindow*>		m_WindowsMap;
+	TWindowsMap								m_WindowsMap;
 	std::map<std::string, CGuiElement*>		m_ElementsMap;
 	std::string								m_sCurrentWindows;
 	std::vector<std::string>				m_PrevWindows;

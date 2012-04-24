@@ -47,6 +47,8 @@ public:
 	bool	ReleaseGuiElement			(const std::string & name);
 	void	SetName						(const std::string& name) {m_sWindowsName = name;}
 
+	const std::string& GetName			() const		{ return m_sWindowsName; }
+
 	//--- PARSERFILE FUNCTION ---
 	bool	LoadXML						(const std::string &xmlGuiFile, const Vect2i& screenResolution);
 	void	RegisterElements			(std::map<std::string,CGuiElement*>& elements);
@@ -58,6 +60,10 @@ public:
 	uint32			GetNumElements		() const	{ return m_GuiElementsVector.size(); }
 
 	CGuiElement*	GetCurrentSelectedElement () const		{ return m_pCurrentSelectedElement; }
+
+	const std::string&	GetOnLoadWindows	() const		{ return m_sLuaCode_OnLoadWindows; }
+	const std::string&	GetOnSaveWindows	() const		{ return m_sLuaCode_OnSaveWindows; }
+	const std::string&	GetOnUpdateWindows	() const		{ return m_sLuaCode_OnUpdateWindows; }
 
 private:
 	void	IsKeyDown					(CInputManager* intputManager);	

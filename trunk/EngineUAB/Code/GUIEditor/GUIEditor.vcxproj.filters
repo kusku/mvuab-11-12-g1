@@ -17,6 +17,9 @@
     <Filter Include="Elements">
       <UniqueIdentifier>{acb9d0ce-a201-4a99-8c19-b0c818f45972}</UniqueIdentifier>
     </Filter>
+    <Filter Include="InOut">
+      <UniqueIdentifier>{a5d27bf2-9ca3-44dc-b48a-b797a6461b85}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\file_view.ico">
@@ -159,6 +162,9 @@
     <ClInclude Include="Elements\ElementSaver.h">
       <Filter>Elements</Filter>
     </ClInclude>
+    <ClInclude Include="InOut\XMLManager.h">
+      <Filter>InOut</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GUIEditorView.cpp" />
@@ -211,6 +217,9 @@
     </ClCompile>
     <ClCompile Include="Elements\ElementSaver.cpp">
       <Filter>Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="InOut\XMLManager.cpp">
+      <Filter>InOut</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

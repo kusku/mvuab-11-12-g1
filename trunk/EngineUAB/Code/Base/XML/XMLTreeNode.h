@@ -79,16 +79,16 @@ public:
   bool								WriteBoolKeyword   	(const char* _pszKey, bool _bValue);
 
   // To write properties to xml file
-  bool        				WritePszProperty   	(const char* _pszKey, const char* _pszValue);
-  bool        				WriteIntProperty   	(const char* _pszKey, int _iValue);
-  bool        				WriteFloatProperty 	(const char* _pszKey, float _fValue);
-  bool        				WriteBoolProperty  	(const char* _pszKey, bool _bValue);
-	bool								WriteVect2fProperty	(const char* _pszKey, const Vect2f& _value);
-	bool								WriteVect3fProperty	(const char* _pszKey, const Vect3f& _value);
-	bool								WriteVect4fProperty	(const char* _pszKey, const Vect4f& _value);
-	bool								WriteVect2iProperty	(const char* _pszKey, const Vect2i& _value);
-	bool								WriteVect3iProperty	(const char* _pszKey, const Vect3i& _value);
-	bool								WriteVect4iProperty	(const char* _pszKey, const Vect4i& _value);
+	bool        			WritePszProperty   	(const char* _pszKey, const char* _pszValue);
+	bool        			WriteIntProperty   	(const char* _pszKey, int _iValue);
+	bool        			WriteFloatProperty 	(const char* _pszKey, float _fValue);
+	bool        			WriteBoolProperty  	(const char* _pszKey, bool _bValue);
+	bool					WriteVect2fProperty	(const char* _pszKey, const Vect2f& _value);
+	bool					WriteVect3fProperty	(const char* _pszKey, const Vect3f& _value);
+	bool					WriteVect4fProperty	(const char* _pszKey, const Vect4f& _value);
+	bool					WriteVect2iProperty	(const char* _pszKey, const Vect2i& _value);
+	bool					WriteVect3iProperty	(const char* _pszKey, const Vect3i& _value);
+	bool					WriteVect4iProperty	(const char* _pszKey, const Vect4i& _value);
 
 private:
   void        				Release   					();

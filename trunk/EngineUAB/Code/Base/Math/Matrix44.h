@@ -11,9 +11,8 @@
 #include "Vector4.h"
 #include "Matrix33.h"
 #include "Utils/Types.h"
-#include <d3dx9.h>
-
 #include <memory>
+#include <d3dx9.h>
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// @brief  Matriz de 4 filas x 4 columnas

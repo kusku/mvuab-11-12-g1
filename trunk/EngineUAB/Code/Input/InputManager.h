@@ -30,7 +30,7 @@ class CInputManager /*: public CScriptRegister*/
 {
 public:
 	// Init and End protocols
-	CInputManager(): m_bIsOk(false), m_pDI( NULL ), m_pKB( NULL ), m_pMouse( NULL ), m_pGamePad(NULL) {}
+	CInputManager(): m_bIsOk(false), m_pDI( NULL ), m_pKB( NULL ), m_pMouse( NULL ), m_pGamePad(NULL), m_bActiveMouse(true) {}
 	virtual ~CInputManager() { Done(); }  
 
 	bool		      	Init			(HWND, const Vect2i& screenRes, bool exclusiveModeinMouse);
@@ -51,13 +51,16 @@ public:
 	int32			Scan2ascii									(uint32 scancode, uint16* result);
 	
 	//GamePad functions:
-	bool						GetGamePadLeftThumbDeflection	(float *pfX, float *pfY, INPUT_DEVICE_TYPE device = IDV_GAMEPAD1);
-	bool						GetGamePadRightThumbDeflection	(float *pfX, float *pfY, INPUT_DEVICE_TYPE device = IDV_GAMEPAD1);
-	bool						GetGamePadDeltaTriggers			(float *pfLeft, float *pfRight, INPUT_DEVICE_TYPE device = IDV_GAMEPAD1);
-	void						SetGamePadLeftMotorSpeed		(uint32 speed, INPUT_DEVICE_TYPE device = IDV_GAMEPAD1); //[0-65535]
-	void						SetGamePadRightMotorSpeed		(uint32 speed, INPUT_DEVICE_TYPE device = IDV_GAMEPAD1); //[0-65535]
+	bool			GetGamePadLeftThumbDeflection				(float *pfX, float *pfY, INPUT_DEVICE_TYPE device = IDV_GAMEPAD1);
+	bool			GetGamePadRightThumbDeflection				(float *pfX, float *pfY, INPUT_DEVICE_TYPE device = IDV_GAMEPAD1);
+	bool			GetGamePadDeltaTriggers						(float *pfLeft, float *pfRight, INPUT_DEVICE_TYPE device = IDV_GAMEPAD1);
+	void			SetGamePadLeftMotorSpeed					(uint32 speed, INPUT_DEVICE_TYPE device = IDV_GAMEPAD1); //[0-65535]
+	void			SetGamePadRightMotorSpeed					(uint32 speed, INPUT_DEVICE_TYPE device = IDV_GAMEPAD1); //[0-65535]
 
 	CMouse*			GetMouse		() const	{ return m_pMouse; }
+
+	void			SetActiveMouse				( bool active )			{ m_bActiveMouse = active; }
+	bool			GetActiveMouse				() const				{ return m_bActiveMouse; }
 
 	//----CScriptRegister interface-------------------
 	//virtual void		RegisterFunctions								(CScriptManager* scriptManager);
@@ -68,6 +71,7 @@ private:
 
 private:	
 	bool		        m_bIsOk;	      // Initialization boolean control
+	bool				m_bActiveMouse;
 	LPDIRECTINPUT8		m_pDI;
 	CKeyboard*			m_pKB;		      // Pointer to the Keyboard instance
 	CMouse*				m_pMouse;	      // Pointer to the Mouse instance
