@@ -19,6 +19,7 @@ private:
 	static CGuiElement* CreateButton(CGUIWindow *window);
 	static CGuiElement* CreateCheckButton(CGUIWindow *window);
 	static CGuiElement* CreateImage(CGUIWindow *window);
+	static CGuiElement* CreateStaticText(CGUIWindow *window);
 
 	static Vect2f GetPositionToAdd(Vect2i screen);
 	static std::string GetSufixNumber(CGUIWindow *window);

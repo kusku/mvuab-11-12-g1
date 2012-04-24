@@ -65,6 +65,11 @@ void CElementProperties::ElementProperties(CGuiElement *element)
 			ImageProperties(element);
 			break;
 		}
+	case CGuiElement::TypeGuiElement::STATIC_TEXT:
+		{
+			StaticTextProperties(element);
+			break;
+		}
 	}
 }
 
@@ -188,6 +193,20 @@ void CElementProperties::ImageProperties(CGuiElement *element)
 	pScript->AddSubItem(new CMFCPropertyGridProperty(_T("OnSave"), (_variant_t) _T(""), _T("Especifica el código de scripting al guardar")));
 
 	MFCProperty->AddProperty(pScript);
+}
+
+void CElementProperties::StaticTextProperties(CGuiElement *element)
+{
+	CMFCPropertyGridProperty* pProp = NULL;
+	CMFCPropertyGridCtrl *MFCProperty = CElementProperties::GetInstance()->GetMFCPropertyGricCtrl();
+
+	MFCProperty->RemoveAll();
+
+	//Añadir propiedades comunes
+	AddBasicAppearanceProperties( element );
+
+	//Añadir propiedades de información
+	AddBasicInformationProperties( element );
 }
 
 CMFCPropertyGridProperty* CElementProperties::AddBasicAppearanceProperties(CGuiElement *element)
