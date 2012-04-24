@@ -101,9 +101,12 @@ void CMyPicture::OnLButtonUp(UINT nFlags, CPoint point)
 		CElementManager *l_pElementManager = CElementManager::GetInstance();
 
 		TElement element = l_pElementManager->GetElementToAdd();
-		l_pElementManager->SetElementToAdd(NONE);
+		if( element != NONE )
+		{
+			l_pElementManager->SetElementToAdd(NONE);
 
-		AddElementToActiveWindow(element);
+			AddElementToActiveWindow(element);
+		}
 	}
 
 	m_bIsLMouseDown = false;

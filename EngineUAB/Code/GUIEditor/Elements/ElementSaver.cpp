@@ -7,8 +7,10 @@
 #include "Controls\GUICheckButton.h"
 #include "Textures\Texture.h"
 #include "Textures\TextureManager.h"
+#include "HWNDManager.h"
 #include "Core.h"
 #include "Base.h"
+#include "defines.h"
 #include <comdef.h>
 
 #pragma warning(push)
@@ -37,6 +39,8 @@ void CElementSaver::SaveProperties(CGuiElement *element)
 			break;
 		}
 	}
+
+	PostMessage( CHWNDManager::GetInstance()->GetHWNDFiles(), WM_UPDATE_FILE_DATA, 0, 0);
 }
 
 void CElementSaver::SaveButtonProperties(CGuiElement *element, CMFCPropertyGridCtrl *properties)

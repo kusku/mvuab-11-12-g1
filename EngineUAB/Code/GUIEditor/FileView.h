@@ -40,6 +40,10 @@ protected:
 public:
 	virtual ~CFileView();
 
+private:
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	void UpdateData();
+
 protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
@@ -55,7 +59,5 @@ protected:
 	afx_msg void OnSetFocus(CWnd* pOldWnd);
 	
 	DECLARE_MESSAGE_MAP()
-
-	virtual BOOL PreTranslateMessage(MSG* pMsg);
 };
 

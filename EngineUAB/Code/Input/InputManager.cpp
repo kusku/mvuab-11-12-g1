@@ -143,8 +143,11 @@ HRESULT CInputManager::Update(void)
 
 	if (m_pMouse) 
 	{
-		if ( FAILED( hr=m_pMouse->Update() ) )
-			return hr;
+		if( m_bActiveMouse )
+		{
+			if ( FAILED( hr=m_pMouse->Update() ) )
+				return hr;
+		}
 	}
 
 	if (m_pGamePad) 

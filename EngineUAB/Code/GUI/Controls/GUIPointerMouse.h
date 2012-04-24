@@ -42,6 +42,7 @@ public:
 	void				SetTexture					(CTexture* texture, std::string name );
 	void				SetActiveTexture			(const std::string& inName)		{m_sActiveTexture = inName;}
 	std::string&		GetActiveTexture			()								{return m_sActiveTexture;}
+	CTexture*			GetTexture					(const std::string& tex)		{return m_Textures[tex]; }
 	void				SetAlignment				(ETypeAlignment alignment)		{m_Alignment=alignment;}
 	bool				IsQuadrant					() const						{return m_bIsQuadrant;}
 	void				SetQuadrant					(bool flag)						{m_bIsQuadrant = flag;}

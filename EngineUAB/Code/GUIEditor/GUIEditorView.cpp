@@ -19,6 +19,7 @@
 #include "Base.h"
 #include "defines.h"
 #include "EngineManager.h"
+#include "InOut\XMLManager.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -34,6 +35,8 @@ BEGIN_MESSAGE_MAP(CGUIEditorView, CView)
 	ON_COMMAND(ID_FILE_PRINT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CGUIEditorView::OnFilePrintPreview)
+	ON_COMMAND(ID_FILE_SAVE, &CGUIEditorView::OnSaveData)
+	ON_COMMAND(ID_FILE_SAVE_AS, &CGUIEditorView::OnSaveData)
 	ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONUP()
 END_MESSAGE_MAP()
@@ -133,6 +136,28 @@ void CGUIEditorView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 #endif
 }
 
+void CGUIEditorView::OnSaveData()
+{
+	CString nom;
+	FILE* file = NULL;
+
+	//  Obrir diàleg d'escriptura de fitxer (fitxers *.MNT)
+	CFileDialog openExportXML (FALSE, NULL, NULL,
+		OFN_FILEMUSTEXIST | OFN_HIDEREADONLY ,
+		_T("XML Files(*.xml)|*.xml|All Files (*.*)|*.*||"));;
+
+	if (openExportXML.DoModal() != IDOK)
+		return;                 // stay with old data file
+    else
+	   {nom=openExportXML.GetPathName();}
+
+	nom = nom + CString(".xml");
+	// Conversió de la variable CString nom a la variable char *nomfitx, compatible amb la funció carregar3DS
+	char * nomfitx = (char *)(LPCTSTR)nom;
+	std::string l_szName = nomfitx;
+
+	CXMLManager::SaveFiles( l_szName );
+}
 
 // Diagnósticos de CGUIEditorView
 

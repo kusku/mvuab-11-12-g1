@@ -29,6 +29,8 @@ void CGUIEditorProcess::Init()
 
 void CGUIEditorProcess::Update(float elapsedTime)
 {
+	CORE->GetInputManager()->SetActiveMouse( false );
+
 	HWND hWnd = CHWNDManager::GetInstance()->GetHWNDOutput();
 	PostMessage( hWnd, WM_GETLOGGER, 0, 0);
 

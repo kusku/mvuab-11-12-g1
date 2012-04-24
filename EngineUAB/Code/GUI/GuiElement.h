@@ -105,6 +105,8 @@ public:
 	void					SetID					( const std::string &id )			{ m_sId = id; }
 	const std::string&		GetID					() const							{ return m_sId; }
 
+	const std::string&		GetOnLoad				() const							{ return m_sLuaCode_OnLoadValue; }
+	const std::string&		GetOnSave				() const							{ return m_sLuaCode_OnSaveValue; }
 
 protected:
 

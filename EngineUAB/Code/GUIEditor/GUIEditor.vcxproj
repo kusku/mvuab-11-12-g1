@@ -149,6 +149,7 @@
     <ClInclude Include="GUIEditorProcess.h" />
     <ClInclude Include="GUIEditorView.h" />
     <ClInclude Include="HWNDManager.h" />
+    <ClInclude Include="InOut\XMLManager.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="MyPicture.h" />
     <ClInclude Include="OutputWnd.h" />
@@ -172,6 +173,7 @@
     <ClCompile Include="GUIEditorProcess.cpp" />
     <ClCompile Include="GUIEditorView.cpp" />
     <ClCompile Include="HWNDManager.cpp" />
+    <ClCompile Include="InOut\XMLManager.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="MyPicture.cpp" />
     <ClCompile Include="OutputWnd.cpp" />

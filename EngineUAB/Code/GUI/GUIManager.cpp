@@ -123,33 +123,33 @@ bool CGUIManager::Init (const std::string& initGuiXML)
 			m = parser["TextBox"];
 			if (m.Exists())
 			{
-				float posx													= m.GetFloatProperty("posx",									30.f);
-				float posy													= m.GetFloatProperty("posy",									30.f);
-				float w															= m.GetFloatProperty("width",									35.f);
-				float h															= m.GetFloatProperty("height",								35.f);
-				float button_w											= m.GetFloatProperty("button_width",					5.f);
-				float button_h											= m.GetFloatProperty("button_height",					5.f);
-				std::string buttonClose_normal			= m.GetPszProperty("buttonClose_normal",			"./Data/General/Textures/CloseDialegBox.jpg");
-				std::string buttonClose_over				= m.GetPszProperty("buttonClose_over",				"./Data/General/Textures/CloseDialegBoxO.jpg");
-				std::string buttonClose_clicked			= m.GetPszProperty("buttonClose_clicked",			"./Data/General/Textures/CloseDialegBoxC.jpg");
-				std::string buttonClose_deactivated	= m.GetPszProperty("buttonClose_deactivated", "./Data/General/Textures/CloseDialegBoxC.jpg" );
-				std::string buttonMove_normal				= m.GetPszProperty("buttonMove_normal",				"./Data/General/Textures/ButtonDialegBoxN.jpg");
-				std::string buttonMove_over					= m.GetPszProperty("buttonMove_over",					"./Data/General/Textures/ButtonDialegBoxO.jpg");
-				std::string buttonMove_clicked			= m.GetPszProperty("buttonMove_clicked",			"./Data/General/Textures/ButtonDialegBoxC.jpg");
-				std::string buttonMove_deactivated	= m.GetPszProperty("buttonMove_deactivated",	"./Data/General/Textures/ButtonDialegBoxC.jpg");
-				std::string quad										= m.GetPszProperty("quad",										"./Data/General/Textures/BaseDialegBox.jpg");
+				float posx								= m.GetFloatProperty("posx",					30.f);
+				float posy								= m.GetFloatProperty("posy",					30.f);
+				float w									= m.GetFloatProperty("width",					35.f);
+				float h									= m.GetFloatProperty("height",					35.f);
+				float button_w							= m.GetFloatProperty("button_width",			5.f);
+				float button_h							= m.GetFloatProperty("button_height",			5.f);
+				std::string buttonClose_normal			= m.GetPszProperty("buttonClose_normal",		"./Data/General/Textures/CloseDialegBox.jpg");
+				std::string buttonClose_over			= m.GetPszProperty("buttonClose_over",			"./Data/General/Textures/CloseDialegBoxO.jpg");
+				std::string buttonClose_clicked			= m.GetPszProperty("buttonClose_clicked",		"./Data/General/Textures/CloseDialegBoxC.jpg");
+				std::string buttonClose_deactivated		= m.GetPszProperty("buttonClose_deactivated",	"./Data/General/Textures/CloseDialegBoxC.jpg" );
+				std::string buttonMove_normal			= m.GetPszProperty("buttonMove_normal",			"./Data/General/Textures/ButtonDialegBoxN.jpg");
+				std::string buttonMove_over				= m.GetPszProperty("buttonMove_over",			"./Data/General/Textures/ButtonDialegBoxO.jpg");
+				std::string buttonMove_clicked			= m.GetPszProperty("buttonMove_clicked",		"./Data/General/Textures/ButtonDialegBoxC.jpg");
+				std::string buttonMove_deactivated		= m.GetPszProperty("buttonMove_deactivated",	"./Data/General/Textures/ButtonDialegBoxC.jpg");
+				std::string quad						= m.GetPszProperty("quad",						"./Data/General/Textures/BaseDialegBox.jpg");
 
-				CTexture* Close_normal			= textureM->GetTexture(buttonClose_normal);
-				CTexture* Close_over				= textureM->GetTexture(buttonClose_over);
-				CTexture* Close_clicked			= textureM->GetTexture(buttonClose_clicked);
-				CTexture* Close_deactivated	= textureM->GetTexture(buttonClose_deactivated);
-				CTexture* Move_normal				= textureM->GetTexture(buttonMove_normal);
-				CTexture* Move_over					= textureM->GetTexture(buttonMove_over);
-				CTexture* Move_clicked			= textureM->GetTexture(buttonMove_clicked);
-				CTexture* Move_deactivated	= textureM->GetTexture(buttonMove_deactivated);
+				CTexture* Close_normal					= textureM->GetTexture(buttonClose_normal);
+				CTexture* Close_over					= textureM->GetTexture(buttonClose_over);
+				CTexture* Close_clicked					= textureM->GetTexture(buttonClose_clicked);
+				CTexture* Close_deactivated				= textureM->GetTexture(buttonClose_deactivated);
+				CTexture* Move_normal					= textureM->GetTexture(buttonMove_normal);
+				CTexture* Move_over						= textureM->GetTexture(buttonMove_over);
+				CTexture* Move_clicked					= textureM->GetTexture(buttonMove_clicked);
+				CTexture* Move_deactivated				= textureM->GetTexture(buttonMove_deactivated);
 				CTexture* back							= textureM->GetTexture(quad);
 
-				m_TextBox =	new CGUITextBox(	m_ScreenResolution.x, m_ScreenResolution.y, h, w, Vect2f(posx,posy), button_w, button_h);
+				m_TextBox =	new CGUITextBox(m_ScreenResolution.x, m_ScreenResolution.y, h, w, Vect2f(posx,posy), button_w, button_h);
 				assert(m_TextBox);
 				m_TextBox->SetName("TextBox");
 				m_TextBox->SetCloseButtonTextures(Close_normal, Close_over, Close_clicked, Close_deactivated);
