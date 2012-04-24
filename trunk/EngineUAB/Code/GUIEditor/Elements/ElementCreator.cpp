@@ -8,6 +8,7 @@
 #include "Controls\GUIButton.h"
 #include "Controls\GUICheckButton.h"
 #include "Controls\GUIStaticText.h"
+#include "Controls\GUIEditableTextBox.h"
 #include "Textures\TextureManager.h"
 #include "Textures\Texture.h"
 #include "ElementProperties.h"
@@ -33,6 +34,11 @@ void CElementCreator::CreateElement(TElement type, CGUIWindow *window)
 			l_pElement = CreateCheckButton(window);
 			break;
 		}
+	case EDITABLE_TEXT_BOX:
+		{
+			l_pElement = CreateEditableTextBox(window);
+			break;
+		}
 	case IMAGE:
 		{
 			l_pElement = CreateImage(window);
@@ -43,7 +49,6 @@ void CElementCreator::CreateElement(TElement type, CGUIWindow *window)
 			l_pElement = CreateStaticText(window);
 			break;
 		}
-
 	}
 
 	PostMessage( CHWNDManager::GetInstance()->GetHWNDFiles(), WM_ADD_ELEMENT_FILE, (WPARAM)l_pElement->GetName().c_str(), 0);
@@ -104,6 +109,34 @@ CGuiElement* CElementCreator::CreateCheckButton(CGUIWindow *window)
 	CElementProperties::ElementProperties(l_pCheckButton);
 
 	return l_pCheckButton;
+}
+
+CGuiElement* CElementCreator::CreateEditableTextBox(CGUIWindow *window)
+{
+	CleanSelections(window);
+
+	Vect2i screen = CORE->GetRenderManager()->GetScreenSize();
+	Vect2f l_Position = GetPositionToAdd(screen);
+
+	CGUIEditableTextBox *l_pTextBox = new CGUIEditableTextBox(screen.y, screen.x, 10.f, 20.f, l_Position, colBLACK, 0, "", 0, 0, true, true);
+	std::string l_Name = "editable_text_box_" + GetSufixNumber(window);
+	l_pTextBox->SetName( l_Name );
+	l_pTextBox->SetID( l_Name );
+	l_pTextBox->SetBuffer("hola món");
+	l_pTextBox->SetFont( colBLACK, 0 );
+	l_pTextBox->SetBackGroundColor( colWHITE );
+	l_pTextBox->SetOnLoadValueAction("");
+	l_pTextBox->SetOnSaveValueAction("");
+	l_pTextBox->SetBackGroundTexture( NULL );
+
+	l_pTextBox->SetRenderForGUIEditor( true );
+	l_pTextBox->SetIsSelected( true );
+
+	window->AddGuiElement( l_pTextBox );
+
+	CElementProperties::ElementProperties( l_pTextBox );
+
+	return l_pTextBox;
 }
 
 CGuiElement* CElementCreator::CreateImage(CGUIWindow *window)

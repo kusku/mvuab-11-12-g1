@@ -6,8 +6,10 @@
 #include "Controls\GUIImage.h"
 #include "Controls\GUIButton.h"
 #include "Controls\GUICheckButton.h"
+#include "Controls\GUIEditableTextBox.h"
 #include "Textures\Texture.h"
 #include "RenderManager.h"
+#include "Fonts\FontManager.h"
 #include "Logger\Logger.h"
 #include "Core.h"
 #include "Base.h"
@@ -58,6 +60,11 @@ void CElementProperties::ElementProperties(CGuiElement *element)
 	case CGuiElement::TypeGuiElement::CHECKBUTTON:
 		{
 			CheckButtonProperties(element);
+			break;
+		}
+	case CGuiElement::TypeGuiElement::EDITABLE_TEXT_BOX:
+		{
+			EditableTextBoxProperties(element);
 			break;
 		}
 	case CGuiElement::TypeGuiElement::IMAGE:
@@ -158,6 +165,75 @@ void CElementProperties::CheckButtonProperties(CGuiElement *element)
 	pScript->AddSubItem(new CMFCPropertyGridProperty(_T("OnOver"), (_variant_t) _T(""), _T("Especifica el código de scripting cuando tiene el mouse encima")));
 	pScript->AddSubItem(new CMFCPropertyGridProperty(_T("OnCheckOn"), (_variant_t) _T(""), _T("Especifica el código de scripting al encender el check button")));
 	pScript->AddSubItem(new CMFCPropertyGridProperty(_T("OnCheckOff"), (_variant_t) _T(""), _T("Especifica el código de scripting al apagar el check button")));
+
+	MFCProperty->AddProperty(pScript);
+}
+
+void CElementProperties::EditableTextBoxProperties(CGuiElement *element)
+{
+	CMFCPropertyGridProperty* pProp = NULL;
+	CMFCPropertyGridCtrl *MFCProperty = CElementProperties::GetInstance()->GetMFCPropertyGricCtrl();
+
+	MFCProperty->RemoveAll();
+
+	CGUIEditableTextBox *l_pTextBox = static_cast<CGUIEditableTextBox*>(element);
+
+	//Añadir propiedades comunes
+	AddBasicAppearanceProperties( element );
+
+	//Añadir propiedades de información
+	AddBasicInformationProperties( element );
+
+	//Estilo
+	CMFCPropertyGridProperty* pStyle = new CMFCPropertyGridProperty(_T("Estilo"));
+	
+	CFontManager *FM = CORE->GetFontManager();
+	std::string font = FM->GetTTFName( l_pTextBox->GetFontID() );
+
+	int found = font.rfind("\\");
+	if( found == -1 ) found = font.rfind("/");
+	std::string default_font = font.substr(found+1, font.size() );
+
+	pProp = new CMFCPropertyGridProperty(_T("Font"), _T(default_font.c_str()), _T("Especifica la fuente"));
+	for(uint32 i=0; i<FM->GetNumFonts(); ++i)
+	{
+		int found = FM->GetTTFName(i).rfind("\\");
+		if( found == -1 ) found = FM->GetTTFName(i).rfind("/");
+		std::string font = FM->GetTTFName(i).substr(found+1, FM->GetTTFName(i).size() );
+
+		pProp->AddOption( _T(font.c_str()) );
+	}
+	pProp->AllowEdit(FALSE);
+	pStyle->AddSubItem(pProp);
+
+	CColor color = l_pTextBox->GetBackGroundColor();
+	CMFCPropertyGridColorProperty* pColorProp = new CMFCPropertyGridColorProperty(_T("Background Color"), RGB(color.GetRed(), color.GetGreen(), color.GetBlue()), NULL, _T("Especifica el color de fondo"));
+	pColorProp->EnableOtherButton(_T("Otro..."));
+	pColorProp->EnableAutomaticButton(_T("Predeterminado"), ::GetSysColor(COLOR_3DFACE));
+	pStyle->AddSubItem(pColorProp);
+
+	color = l_pTextBox->GetTextColor();
+	CMFCPropertyGridColorProperty* pColorTextProp = new CMFCPropertyGridColorProperty(_T("Text Color"), RGB(color.GetRed(), color.GetGreen(), color.GetBlue()), NULL, _T("Especifica el color del texto"));
+	pColorTextProp->EnableOtherButton(_T("Otro..."));
+	pColorTextProp->EnableAutomaticButton(_T("Predeterminado"), ::GetSysColor(COLOR_3DFACE));
+	pStyle->AddSubItem(pColorTextProp);
+
+	MFCProperty->AddProperty(pStyle);
+
+	//Texturas
+	CMFCPropertyGridProperty* pTexture = new CMFCPropertyGridProperty(_T("Texturas"));
+	CTexture *l_pTexture = l_pTextBox->GetBackGroundTexture();
+	std::string l_BackgroundPath = l_pTexture != NULL ? l_pTexture->GetFileName() : "";
+
+	static const TCHAR szFilter[] = _T("JPG(*.jpg)|*.jpg|PNG(*.png)|*.png|BMP(*.bmp)|*.bmp|TGA(*.tga)|*.tga|Todos los archivos(*.*)|*.*||");
+	pTexture->AddSubItem(new CMFCPropertyGridFileProperty(_T("Background"), TRUE, _T(l_BackgroundPath.c_str()), _T("jpg"), 0, szFilter, _T("Especifica la textura de fondo")));
+
+	MFCProperty->AddProperty(pTexture);
+
+	//Script
+	CMFCPropertyGridProperty* pScript = new CMFCPropertyGridProperty(_T("Script"));
+	pScript->AddSubItem(new CMFCPropertyGridProperty(_T("OnLoad"), (_variant_t) _T(""), _T("Especifica el código de scripting al cargar el elemento")));
+	pScript->AddSubItem(new CMFCPropertyGridProperty(_T("OnSave"), (_variant_t) _T(""), _T("Especifica el código de scripting al guardar el elemento")));
 
 	MFCProperty->AddProperty(pScript);
 }

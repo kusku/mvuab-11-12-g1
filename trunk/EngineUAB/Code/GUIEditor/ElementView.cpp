@@ -48,12 +48,10 @@ CElementView::CElementView()
 	m_ElementsMap["Dialog Box"] = NULL;
 	m_ElementsMap["Editable Text Box"] = NULL;
 	m_ElementsMap["Image"] = NULL;
-	m_ElementsMap["Pointer Mouse"] = NULL;
 	m_ElementsMap["Progress Bar"] = NULL;
 	m_ElementsMap["Radio Box"] = NULL;
 	m_ElementsMap["Slider"] = NULL;
 	m_ElementsMap["Static Text"] = NULL;
-	m_ElementsMap["Text Box"] = NULL;
 }
 
 CElementView::~CElementView()

@@ -41,6 +41,8 @@ public:
 	uint32							DrawLiteral						(uint32 x, uint32 y, const std::string & lit);
 	uint32							SizeX							(const char * format, uint32 idFont = 0);
 	uint32							SizeY							(const char * format, uint32 idFont = 0);
+	const std::string&				GetTTFName						( uint32 id ) const		{ return m_vTTFsFiles[id]; }
+	uint32							GetNumFonts						() const				{ return m_vTTFsFiles.size(); }
 
 private:
 	void							Release		();
