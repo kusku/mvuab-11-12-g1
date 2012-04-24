@@ -6,9 +6,11 @@
 #include "Controls\GUIButton.h"
 #include "Controls\GUICheckButton.h"
 #include "Controls\GUIStaticText.h"
+#include "Controls\GUIEditableTextBox.h"
 #include "Textures\Texture.h"
 #include "Textures\TextureManager.h"
 #include "HWNDManager.h"
+#include "Fonts\FontManager.h"
 #include "Core.h"
 #include "Base.h"
 #include "defines.h"
@@ -34,6 +36,11 @@ void CElementSaver::SaveProperties(CGuiElement *element)
 	case CGuiElement::TypeGuiElement::CHECKBUTTON:
 		{
 			SaveCheckButtonProperties( element, properties );
+			break;
+		}
+	case CGuiElement::TypeGuiElement::EDITABLE_TEXT_BOX:
+		{
+			SaveEditableTextBoxProperties( element, properties );
 			break;
 		}
 	case CGuiElement::TypeGuiElement::IMAGE:
@@ -239,6 +246,103 @@ void CElementSaver::SaveCheckButtonProperties( CGuiElement *element, CMFCPropert
 	value = properties->GetProperty(5)->GetSubItem(4)->GetValue();
 	script = std::string( _bstr_t( value.bstrVal ) );
 	checkbutton_element->SetOnOverAction( script );
+}
+
+void CElementSaver::SaveEditableTextBoxProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties )
+{
+	CGUIEditableTextBox *textbox_element = static_cast<CGUIEditableTextBox*>(element);
+
+	//-----------------------------------------
+	//Propiedades de apariencia
+	//-----------------------------------------
+	COleVariant value = properties->GetProperty(0)->GetSubItem(0)->GetValue();
+	textbox_element->SetActive( (value.boolVal == VARIANT_TRUE) );
+
+	value = properties->GetProperty(0)->GetSubItem(1)->GetValue();
+	textbox_element->SetVisible( (value.boolVal == VARIANT_TRUE) );
+
+	Vect2f pos;
+	value = properties->GetProperty(1)->GetSubItem(0)->GetValue();
+	pos.x = static_cast<float>( value.intVal );
+	value = properties->GetProperty(1)->GetSubItem(1)->GetValue();
+	pos.y = static_cast<float>( value.intVal );
+	textbox_element->SetPositionPercent( pos );
+
+	Vect2f size;
+	value = properties->GetProperty(2)->GetSubItem(0)->GetValue();
+	size.x = static_cast<float>( value.intVal );
+	value = properties->GetProperty(2)->GetSubItem(1)->GetValue();
+	size.y = static_cast<float>( value.intVal );
+	textbox_element->SetWidthPercent( size.x );
+	textbox_element->SetHeightPercent( size.y );
+
+	//-----------------------------------------
+	//Propiedades de información
+	//-----------------------------------------
+	value = properties->GetProperty(3)->GetSubItem(2)->GetValue();
+	textbox_element->SetName( std::string( _bstr_t( value.bstrVal ) ) );
+
+	value = properties->GetProperty(3)->GetSubItem(3)->GetValue();
+	textbox_element->SetLiteral( std::string( _bstr_t( value.bstrVal ) ) );
+
+	//-----------------------------------------
+	//Propiedades de estilo
+	//-----------------------------------------
+	value = properties->GetProperty(4)->GetSubItem(0)->GetValue();
+
+	int l_iFont = 0;
+	CFontManager *FM = CORE->GetFontManager();
+	for(uint32 i=0; i<FM->GetNumFonts(); ++i)
+	{
+		std::string font = FM->GetTTFName(i);
+		int found = font.rfind("\\");
+		if( found == -1 ) found = font.rfind("/");
+		font = font.substr(found+1, font.size());
+
+		std::string currentfont = _bstr_t(value.bstrVal );
+		if( currentfont == font )
+		{
+			l_iFont = i;
+			break;
+		}
+	}
+	//TODO: Guardar los colores
+	value = properties->GetProperty(4)->GetSubItem(1)->GetValue();
+	//int blue = value.intVal >> 16;
+	//int green = value.intVal >> 8;
+	
+	value = properties->GetProperty(4)->GetSubItem(2)->GetValue();
+
+	textbox_element->SetFont( colBLACK, l_iFont);
+
+	//-----------------------------------------
+	//Propiedades de texturas
+	//-----------------------------------------
+	CTexture *l_pBackgroundTexture = NULL;
+	CTextureManager *l_pTextureManager = CORE->GetTextureManager();
+
+	//Textura On
+	value = properties->GetProperty(5)->GetSubItem(0)->GetValue();
+	std::string texture_path = std::string( _bstr_t( value.bstrVal ) );
+	l_pBackgroundTexture = l_pTextureManager->GetTexture( texture_path );
+	if( l_pBackgroundTexture == l_pTextureManager->GetNoTexture() )
+	{
+		l_pBackgroundTexture = NULL;
+	}
+	textbox_element->SetBackGroundTexture( l_pBackgroundTexture );
+
+	//-----------------------------------------
+	//Propiedades de scripts
+	//-----------------------------------------
+	//OnLoad
+	value = properties->GetProperty(6)->GetSubItem(0)->GetValue();
+	std::string script = std::string( _bstr_t( value.bstrVal ) );
+	textbox_element->SetOnLoadValueAction( script );
+
+	//OnSave
+	value = properties->GetProperty(6)->GetSubItem(1)->GetValue();
+	script = std::string( _bstr_t( value.bstrVal ) );
+	textbox_element->SetOnSaveValueAction( script );
 }
 
 void CElementSaver::SaveImageProperties(CGuiElement *element, CMFCPropertyGridCtrl *properties)

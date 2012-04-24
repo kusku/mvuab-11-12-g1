@@ -20,6 +20,7 @@ public:
 private:
 	static void ButtonProperties(CGuiElement *element);
 	static void CheckButtonProperties(CGuiElement *element);
+	static void EditableTextBoxProperties(CGuiElement *element);
 	static void ImageProperties(CGuiElement *element);
 	static void StaticTextProperties(CGuiElement *element);
 

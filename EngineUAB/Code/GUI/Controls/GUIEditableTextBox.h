@@ -46,7 +46,10 @@ public:
 	void				SetBuffer					(const std::string& buffer)			{m_sBuffer = buffer; }
 	void				AddBuffer					(const std::string& buffer)			{m_sBuffer += buffer; }
 	bool				IsReturnPress				();
-
+	uint32				GetFontID					() const							{ return m_uFontID; }
+	const CColor&		GetBackGroundColor			() const							{ return m_TextColor; }
+	const CColor&		GetTextColor				() const							{ return m_TextColor; }
+	CTexture*			GetBackGroundTexture		() const							{ return m_pBackGroundTexture; }
 private:
 	void				ProcessNewEntries			(CInputManager* inputManager);
 	void				Remove1character			();

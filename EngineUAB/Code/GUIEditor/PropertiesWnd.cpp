@@ -240,7 +240,10 @@ void CPropertiesWnd::InitPropList()
 	pGroup4->Expand(FALSE);
 	m_wndPropList.AddProperty(pGroup4);
 
-	COleVariant variant = m_wndPropList.GetProperty(1)->GetSubItem(0)->GetValue();
+	COleVariant variant = m_wndPropList.GetProperty(3)->GetSubItem(1)->GetValue();
+	/*int blue = variant.intVal >> 16;
+	int green = variant.intVal >> 8;
+	int red = variant.intVal >> 1;*/
 	int a=1;
 }
 
