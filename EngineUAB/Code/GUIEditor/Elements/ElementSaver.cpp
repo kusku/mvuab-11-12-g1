@@ -8,6 +8,7 @@
 #include "Controls\GUIStaticText.h"
 #include "Controls\GUIEditableTextBox.h"
 #include "Controls\GUIProgressBar.h"
+#include "Controls\GUISlider.h"
 #include "Textures\Texture.h"
 #include "Textures\TextureManager.h"
 #include "HWNDManager.h"
@@ -52,6 +53,11 @@ void CElementSaver::SaveProperties(CGuiElement *element)
 	case CGuiElement::TypeGuiElement::PROGRESS_BAR:
 		{
 			SaveProgressBarProperties( element, properties );
+			break;
+		}
+	case CGuiElement::TypeGuiElement::SLIDER:
+		{
+			SaveSliderProperties( element, properties );
 			break;
 		}
 	case CGuiElement::TypeGuiElement::STATIC_TEXT:
@@ -531,6 +537,113 @@ void CElementSaver::SaveProgressBarProperties(CGuiElement *element, CMFCProperty
 	value = properties->GetProperty(6)->GetSubItem(2)->GetValue();
 	script = std::string( _bstr_t( value.bstrVal ) );
 	progressbar_element->SetOnComplete( script );
+}
+
+void CElementSaver::SaveSliderProperties(CGuiElement *element, CMFCPropertyGridCtrl *properties)
+{
+	CGUISlider *slider_element = static_cast<CGUISlider*>(element);
+
+	//-----------------------------------------
+	//Propiedades de apariencia
+	//-----------------------------------------
+	COleVariant value = properties->GetProperty(0)->GetSubItem(0)->GetValue();
+	slider_element->SetActive( (value.boolVal == VARIANT_TRUE) );
+
+	value = properties->GetProperty(0)->GetSubItem(1)->GetValue();
+	slider_element->SetVisible( (value.boolVal == VARIANT_TRUE) );
+
+	Vect2f pos;
+	value = properties->GetProperty(1)->GetSubItem(0)->GetValue();
+	pos.x = static_cast<float>( value.intVal );
+	value = properties->GetProperty(1)->GetSubItem(1)->GetValue();
+	pos.y = static_cast<float>( value.intVal );
+	slider_element->SetPositionPercent( pos );
+
+	Vect2f size;
+	value = properties->GetProperty(2)->GetSubItem(0)->GetValue();
+	size.x = static_cast<float>( value.intVal );
+	value = properties->GetProperty(2)->GetSubItem(1)->GetValue();
+	size.y = static_cast<float>( value.intVal );
+	slider_element->SetWidthPercent( size.x );
+	slider_element->SetHeightPercent( size.y );
+
+	//-----------------------------------------
+	//Propiedades de información
+	//-----------------------------------------
+	value = properties->GetProperty(3)->GetSubItem(2)->GetValue();
+	slider_element->SetName( std::string( _bstr_t( value.bstrVal ) ) );
+
+	value = properties->GetProperty(3)->GetSubItem(3)->GetValue();
+	slider_element->SetLiteral( std::string( _bstr_t( value.bstrVal ) ) );
+
+	//-----------------------------------------
+	//Propiedades del botón
+	//-----------------------------------------
+	Vect2i button_size;
+	value = properties->GetProperty(5)->GetSubItem(0)->GetValue();
+	button_size.x = value.intVal;
+	value = properties->GetProperty(5)->GetSubItem(1)->GetValue();
+	button_size.y = value.intVal;
+
+	slider_element->SetWidthButton( static_cast<float>(button_size.x) );
+	slider_element->SetHeightButton( static_cast<float>(button_size.y) );
+
+	//-----------------------------------------
+	//Propiedades de texturas
+	//-----------------------------------------
+	CTexture *l_pNormalTexture = NULL;
+	CTexture *l_pOverTexture = NULL;
+	CTexture *l_pClickedTexture = NULL;
+	CTexture *l_pDeactivatedTexture = NULL;
+	CTexture *l_pSliderTexture = NULL;
+	CTextureManager *l_pTextureManager = CORE->GetTextureManager();
+
+	//Textura On
+	value = properties->GetProperty(6)->GetSubItem(0)->GetValue();
+	std::string texture_path = std::string( _bstr_t( value.bstrVal ) );
+	l_pNormalTexture = l_pTextureManager->GetTexture( texture_path );
+
+	value = properties->GetProperty(6)->GetSubItem(1)->GetValue();
+	texture_path = std::string( _bstr_t( value.bstrVal ) );
+	l_pOverTexture = l_pTextureManager->GetTexture( texture_path );
+	
+	value = properties->GetProperty(6)->GetSubItem(2)->GetValue();
+	texture_path = std::string( _bstr_t( value.bstrVal ) );
+	l_pClickedTexture = l_pTextureManager->GetTexture( texture_path );
+
+	value = properties->GetProperty(6)->GetSubItem(3)->GetValue();
+	texture_path = std::string( _bstr_t( value.bstrVal ) );
+	l_pDeactivatedTexture = l_pTextureManager->GetTexture( texture_path );
+
+	value = properties->GetProperty(6)->GetSubItem(4)->GetValue();
+	texture_path = std::string( _bstr_t( value.bstrVal ) );
+	l_pSliderTexture = l_pTextureManager->GetTexture( texture_path );
+
+	slider_element->SetButtonTextures( l_pNormalTexture, l_pOverTexture, l_pClickedTexture, l_pDeactivatedTexture );
+	slider_element->SetBackGroundTexture( l_pSliderTexture );
+
+	//-----------------------------------------
+	//Propiedades de scripts
+	//-----------------------------------------
+	value = properties->GetProperty(7)->GetSubItem(0)->GetValue();
+	std::string script = std::string( _bstr_t( value.bstrVal ) );
+	slider_element->SetOnLoadValueAction( script );
+
+	value = properties->GetProperty(7)->GetSubItem(1)->GetValue();
+	script = std::string( _bstr_t( value.bstrVal ) );
+	slider_element->SetOnSaveValueAction( script );
+
+	value = properties->GetProperty(7)->GetSubItem(2)->GetValue();
+	script = std::string( _bstr_t( value.bstrVal ) );
+	slider_element->SetOnChangeValueAction( script );
+
+	value = properties->GetProperty(7)->GetSubItem(3)->GetValue();
+	script = std::string( _bstr_t( value.bstrVal ) );
+	slider_element->SetOnOverAction( script );
+
+	value = properties->GetProperty(7)->GetSubItem(4)->GetValue();
+	script = std::string( _bstr_t( value.bstrVal ) );
+	slider_element->SetOnClickedAction( script );
 }
 
 void CElementSaver::SaveStaticTextProperties(CGuiElement *element, CMFCPropertyGridCtrl *properties)
