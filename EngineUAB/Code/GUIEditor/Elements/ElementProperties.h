@@ -18,6 +18,7 @@ public:
 	CMFCPropertyGridCtrl* GetMFCPropertyGricCtrl() const { return m_pMFCProperty; }
 
 private:
+	static void AnimatedImageProperties(CGuiElement *element);
 	static void ButtonProperties(CGuiElement *element);
 	static void CheckButtonProperties(CGuiElement *element);
 	static void DialogBoxProperties(CGuiElement *element);

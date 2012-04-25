@@ -12,6 +12,7 @@
 #include "Controls\GUIEditableTextBox.h"
 #include "Controls\GUISlider.h"
 #include "Controls\GUIDialogBox.h"
+#include "Controls\GUIAnimatedImage.h"
 #include "Textures\TextureManager.h"
 #include "Textures\Texture.h"
 #include "ElementProperties.h"
@@ -27,6 +28,11 @@ void CElementCreator::CreateElement(TElement type, CGUIWindow *window)
 
 	switch( type )
 	{
+	case ANIMATED_IMAGE:
+		{
+			l_pElement = CreateAnimatedImage(window);
+			break;
+		}
 	case BUTTON:
 		{
 			l_pElement = CreateButton(window);
@@ -70,6 +76,35 @@ void CElementCreator::CreateElement(TElement type, CGUIWindow *window)
 	}
 
 	PostMessage( CHWNDManager::GetInstance()->GetHWNDFiles(), WM_ADD_ELEMENT_FILE, (WPARAM)l_pElement->GetName().c_str(), 0);
+}
+
+CGuiElement* CElementCreator::CreateAnimatedImage(CGUIWindow *window)
+{
+	CleanSelections(window);
+
+	Vect2i screen = CORE->GetRenderManager()->GetScreenSize();
+	Vect2f l_Position = GetPositionToAdd(screen);
+
+	CGUIAnimatedImage *l_pAnimatedImage = new CGUIAnimatedImage(screen.y, screen.x, 20.f, 20.f, l_Position, "", 0, 0, true, true);
+	std::string l_Name = "animated_image_" + GetSufixNumber(window);
+	l_pAnimatedImage->SetName( l_Name );
+	l_pAnimatedImage->SetID( l_Name );
+
+	//TODO: Faltan las texturas
+	CTexture *default_texture = CORE->GetTextureManager()->GetTexture("./Data/General/Textures/GUI/animatedimage.jpg");
+	l_pAnimatedImage->SetDefaultTexture( default_texture );
+
+	l_pAnimatedImage->SetOnLoadValueAction("");
+	l_pAnimatedImage->SetOnSaveValueAction("");
+
+	l_pAnimatedImage->SetRenderForGUIEditor(true);
+	l_pAnimatedImage->SetIsSelected(true);
+
+	window->AddGuiElement( l_pAnimatedImage );
+
+	CElementProperties::ElementProperties(l_pAnimatedImage);
+
+	return l_pAnimatedImage;
 }
 
 CGuiElement* CElementCreator::CreateButton(CGUIWindow *window)

@@ -26,6 +26,7 @@ static char THIS_FILE[] = __FILE__;
 CMyPicture::CMyPicture()
 	: m_R(15.f)
 	, m_bIsLMouseDown(false)
+	, m_LButtonPosition(Vect2i(0,0))
 {
 }
 
@@ -60,6 +61,7 @@ void CMyPicture::OnShowWindow(BOOL bShow, UINT nStatus)
 void CMyPicture::OnLButtonDown(UINT nFlags, CPoint point) 
 {
 	m_bIsLMouseDown = true;
+	m_LButtonPosition = Vect2i(point.x, point.y);
 	CStatic::OnLButtonDown(nFlags, point);
 }
 
@@ -134,6 +136,11 @@ BOOL CMyPicture::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 void CMyPicture::OnMouseMove(UINT nFlags, CPoint point)
 {
 	CORE->GetInputManager()->GetMouse()->SetPosition( Vect2i(point.x, point.y) );
+
+	if( m_bIsLMouseDown )
+	{
+		float fact_pan = 0.1f;
+	}
 
 	CStatic::OnMouseMove(nFlags, point);
 }

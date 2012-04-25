@@ -8,6 +8,7 @@
 //
 
 #include "Elements\ElementManager.h"
+#include "Math\Vector2.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // CMyPicture window
@@ -36,6 +37,8 @@ public:
 private:
 	float m_R;
 	bool m_bIsLMouseDown;
+
+	Vect2i m_LButtonPosition;
 
 private:
 	void AddElementToActiveWindow(TElement element);

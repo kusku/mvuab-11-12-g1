@@ -728,8 +728,8 @@ void CGUIWindow::_LoadImage(CGUIImage** image_aux, CXMLTreeNode& pNewNode, const
   if (count > 200)
   {
     for (int j = 0; j < count; j += 4)
-	  {
-      CXMLTreeNode pTexture = pNewNode(j);
+	{
+		CXMLTreeNode pTexture = pNewNode(j);
 	    std::string tagName = pTexture.GetName();
 	    if (tagName.compare("texture")==0)
 	    {	
@@ -737,8 +737,8 @@ void CGUIWindow::_LoadImage(CGUIImage** image_aux, CXMLTreeNode& pNewNode, const
 		    std::string texture			=  pNewNode(j).GetPszProperty("name_texture");
 			CTexture* texture_image		= tm->GetTexture(texture);
 		    image->SetTexture(texture_image, name);
-      }
-	  }
+		}
+	 }
   }
   else
   {
@@ -769,7 +769,7 @@ void	CGUIWindow::LoadAnimatedImage(CGUIAnimatedImage** image_aux, CXMLTreeNode& 
 	//	<texture name="q3dm2" texture="gui_q3dm2_off.jpg"/>
 	//	...
 	//</Image>
-  CGUIAnimatedImage* image;
+	CGUIAnimatedImage* image;
 	std::string name								= pNewNode.GetPszProperty("name", "defaultGuiElement");
 	float 			posx								= pNewNode.GetFloatProperty("posx", 0.f);
 	float 			posy								= pNewNode.GetFloatProperty("posy", 0.f);
@@ -777,8 +777,8 @@ void	CGUIWindow::LoadAnimatedImage(CGUIAnimatedImage** image_aux, CXMLTreeNode& 
 	float 			h										= pNewNode.GetFloatProperty("height", 50.f);
 	bool 				visible							= pNewNode.GetBoolProperty("visible", true);
 	bool 				activated						= pNewNode.GetBoolProperty("active", true);
-  uint16 			initFrame						= pNewNode.GetIntProperty("initFrame", true);
-  bool        playOnLoad	  			= pNewNode.GetBoolProperty("playOnLoad", true);
+	uint16 			initFrame						= pNewNode.GetIntProperty("initFrame", true);
+	bool        playOnLoad	  			= pNewNode.GetBoolProperty("playOnLoad", true);
 	std::string OnSaveValue					= pNewNode.GetPszProperty("OnSaveValue", "");
 	std::string OnLoadValue					= pNewNode.GetPszProperty("OnLoadValue", "");
 	std::string flip								= pNewNode.GetPszProperty("flip", "");
@@ -817,7 +817,7 @@ void	CGUIWindow::LoadAnimatedImage(CGUIAnimatedImage** image_aux, CXMLTreeNode& 
 		if (tagName.compare("texture")==0)
 		{	
 			std::string texture			=  pNewNode(j).GetPszProperty("name_texture");
-      CTexture* texture_image	=  tm->GetTexture(texture);
+			CTexture* texture_image	=  tm->GetTexture(texture);
 			image->AddFrame(texture_image);
 		}
 	}

@@ -10,6 +10,7 @@
 #include "Controls\GUIProgressBar.h"
 #include "Controls\GUISlider.h"
 #include "Controls\GUIDialogBox.h"
+#include "Controls\GUIAnimatedImage.h"
 #include "Textures\Texture.h"
 #include "Textures\TextureManager.h"
 #include "HWNDManager.h"
@@ -31,6 +32,11 @@ void CElementSaver::SaveProperties(CGuiElement *element)
 
 	switch( type )
 	{
+	case CGuiElement::TypeGuiElement::ANIMATED_IMAGE:
+		{
+			AnimatedImageProperties( element, properties );
+			break;
+		}
 	case CGuiElement::TypeGuiElement::BUTTON:
 		{
 			SaveButtonProperties( element, properties );
@@ -80,6 +86,109 @@ void CElementSaver::SaveProperties(CGuiElement *element)
 		CString *original = new CString(element->GetID().c_str());
 		CString *modified = new CString(l_NewName.c_str());
 		PostMessage( CHWNDManager::GetInstance()->GetHWNDFiles(), WM_UPDATE_FILE_DATA, (WPARAM)original,(LPARAM)modified);
+	}
+}
+
+void CElementSaver::AnimatedImageProperties(CGuiElement *element, CMFCPropertyGridCtrl *properties)
+{
+	CGUIAnimatedImage *animated_element = static_cast<CGUIAnimatedImage*>(element);
+
+	//-----------------------------------------
+	//Propiedades de apariencia
+	//-----------------------------------------
+	COleVariant value = properties->GetProperty(0)->GetSubItem(0)->GetValue();
+	animated_element->SetActive( (value.boolVal == VARIANT_TRUE) );
+
+	value = properties->GetProperty(0)->GetSubItem(1)->GetValue();
+	animated_element->SetVisible( (value.boolVal == VARIANT_TRUE) );
+
+	Vect2f pos;
+	value = properties->GetProperty(1)->GetSubItem(0)->GetValue();
+	pos.x = static_cast<float>( value.intVal );
+	value = properties->GetProperty(1)->GetSubItem(1)->GetValue();
+	pos.y = static_cast<float>( value.intVal );
+	animated_element->SetPositionPercent( pos );
+
+	Vect2f size;
+	value = properties->GetProperty(2)->GetSubItem(0)->GetValue();
+	size.x = static_cast<float>( value.intVal );
+	value = properties->GetProperty(2)->GetSubItem(1)->GetValue();
+	size.y = static_cast<float>( value.intVal );
+	animated_element->SetWidthPercent( size.x );
+	animated_element->SetHeightPercent( size.y );
+
+	//-----------------------------------------
+	//Propiedades de información
+	//-----------------------------------------
+	value = properties->GetProperty(3)->GetSubItem(2)->GetValue();
+	animated_element->SetName( std::string( _bstr_t( value.bstrVal ) ) );
+
+	value = properties->GetProperty(3)->GetSubItem(3)->GetValue();
+	animated_element->SetLiteral( std::string( _bstr_t( value.bstrVal ) ) );
+
+	//-----------------------------------------
+	//Propiedades de texturas
+	//-----------------------------------------
+	int l_PrevNumTextures = animated_element->NumFrames();
+	value = properties->GetProperty(4)->GetSubItem(0)->GetValue();
+	int l_CurrentNumTextures = value.intVal;
+
+	CTexture *texture = NULL;
+
+	if( l_PrevNumTextures != l_CurrentNumTextures )
+	{
+		std::vector<CTexture*> l_Textures;
+		for(uint16 i=0; i<l_PrevNumTextures; ++i)
+		{
+			l_Textures.push_back( animated_element->GetTexture(i) );
+		}
+
+		animated_element->DeleteTextures();
+		for(uint16 i=0; i<(uint16)l_CurrentNumTextures; ++i)
+		{
+			if( i < l_PrevNumTextures )
+			{
+				animated_element->AddFrame( l_Textures[i] );
+			}
+			else
+			{
+				animated_element->AddFrame(NULL);
+			}
+		}
+
+		l_Textures.clear();
+	}
+	else
+	{
+		CTextureManager *TM = CORE->GetTextureManager();
+
+		animated_element->DeleteTextures();
+		for(int i=0; i<l_CurrentNumTextures; ++i)
+		{
+			value = properties->GetProperty(4)->GetSubItem(i+1)->GetValue();
+			std::string texture_path = std::string( _bstr_t( value.bstrVal ) );
+			texture = TM->GetTexture( texture_path );
+
+			animated_element->AddFrame( texture );
+		}
+	}
+
+	//-----------------------------------------
+	//Propiedades de scripts
+	//-----------------------------------------
+	//OnLoad
+	value = properties->GetProperty(5)->GetSubItem(0)->GetValue();
+	std::string script = std::string( _bstr_t( value.bstrVal ) );
+	animated_element->SetOnLoadValueAction( script );
+
+	//OnSave
+	value = properties->GetProperty(5)->GetSubItem(1)->GetValue();
+	script = std::string( _bstr_t( value.bstrVal ) );
+	animated_element->SetOnLoadValueAction( script );
+
+	if( l_PrevNumTextures != l_CurrentNumTextures )
+	{
+		CElementProperties::ElementProperties(animated_element);
 	}
 }
 

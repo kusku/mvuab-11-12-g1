@@ -58,10 +58,14 @@ public:
 	void						FadeOut                 (float startTime, float fadePerSecond);
 	void						SetAlpha                (float _Alpha)			{ m_fAlpha = _Alpha; }
 
-
+	void						SetDefaultTexture		( CTexture* texture )	{ m_pDefaultTexture = texture; }
+	CTexture*					GetDefaultTexture		() const				{ return m_pDefaultTexture; }
+	CTexture*					GetTexture				(uint32 id) const		{ return m_VecTextures[id]; }
+	void						DeleteTextures			()						{ m_VecTextures.clear(); }
 
 private:
 	tTexturesVec		m_VecTextures;
+	CTexture*			m_pDefaultTexture;
 	CColor				m_Color;
 	bool				m_bAnimated;
 	bool				m_bLoop;
