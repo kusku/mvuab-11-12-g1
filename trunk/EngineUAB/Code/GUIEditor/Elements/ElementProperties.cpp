@@ -381,17 +381,16 @@ void CElementProperties::SliderProperties(CGuiElement *element)
 	CMFCPropertyGridProperty* pButton = new CMFCPropertyGridProperty(_T("Botón"));
 	MFCProperty->AddProperty(pButton);
 
-	//TODO: Arreglar el problema del tamaño del botón del slider
-	/*CMFCPropertyGridProperty* pSize = new CMFCPropertyGridProperty(_T("Tamaño Botón(%)"), 0, TRUE);
-	pProp = new CMFCPropertyGridProperty( _T("Ancho"), (_variant_t) l_pSlider->GetButtonWidth(), _T("Ancho del botón del slider"));
-	pProp->EnableSpinControl(TRUE, 1, 100);
+	CMFCPropertyGridProperty* pSize = new CMFCPropertyGridProperty(_T("Tamaño Botón(%)"), 0, TRUE);
+	pProp = new CMFCPropertyGridProperty( _T("Ancho"), (_variant_t) (int)l_pSlider->GetButtonWidth(), _T("Ancho del botón del slider"));
+	pProp->EnableSpinControl(TRUE, 0, 100);
 	pSize->AddSubItem(pProp);
 
-	pProp = new CMFCPropertyGridProperty(_T("Alto"), (_variant_t) l_pSlider->GetButtonHeight(), _T("Alto del botón del slider"));
-	pProp->EnableSpinControl(TRUE, 1, 100);
+	pProp = new CMFCPropertyGridProperty(_T("Alto"), (_variant_t) (int)l_pSlider->GetButtonHeight(), _T("Alto del botón del slider"));
+	pProp->EnableSpinControl(TRUE, 0, 100);
 	pSize->AddSubItem(pProp);
 
-	MFCProperty->AddProperty(pSize);*/
+	MFCProperty->AddProperty(pSize);
 
 	//texturas
 	CMFCPropertyGridProperty* pTexture = new CMFCPropertyGridProperty(_T("Texturas"));

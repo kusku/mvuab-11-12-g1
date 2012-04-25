@@ -21,6 +21,7 @@ private:
 	static void SaveEditableTextBoxProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties );
 	static void SaveImageProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties );
 	static void SaveProgressBarProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties );
+	static void SaveSliderProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties );
 	static void SaveStaticTextProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties );
 
 	static ETypeFlip String2Flip(const std::string &type);
