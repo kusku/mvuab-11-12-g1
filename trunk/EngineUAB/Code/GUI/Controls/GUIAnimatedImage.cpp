@@ -8,7 +8,7 @@
 CGUIAnimatedImage::CGUIAnimatedImage(	uint32 windowsHeight, uint32 windowsWidth, float height_precent, float witdh_percent,
 							 const Vect2f position_percent, std::string lit, uint32 textHeightOffset, uint32 textWidthOffset, 
 							 bool isVisible, bool isActive)
-: CGuiElement( windowsHeight, windowsWidth, height_precent, witdh_percent, position_percent, IMAGE, lit, textHeightOffset, textWidthOffset, isVisible,isActive)
+: CGuiElement( windowsHeight, windowsWidth, height_precent, witdh_percent, position_percent, ANIMATED_IMAGE, lit, textHeightOffset, textWidthOffset, isVisible,isActive)
 , m_bAnimated(false)
 , m_bLoop(false)
 , m_fTimePerImage(0.f)
@@ -31,8 +31,15 @@ void CGUIAnimatedImage::Render (CRenderManager *renderManager, CFontManager* fm)
 	if( CGuiElement::m_bIsVisible )
 	{
 		CTexture* texture = NULL;
-		
-    texture = m_VecTextures[m_sCurrentFrame];
+	
+		if( m_VecTextures.size() != 0 )
+		{
+			texture = m_VecTextures[m_sCurrentFrame];
+		}
+		else
+		{
+			texture = m_pDefaultTexture;
+		}
 		
 		if (texture)
 		{
@@ -61,7 +68,7 @@ void CGUIAnimatedImage::Render (CRenderManager *renderManager, CFontManager* fm)
         }
 
         CColor color = CColor (1.0f, 1.0f, 1.0f, m_fAlpha);
-
+		
         renderManager->DrawTexturedQuad2D(CGuiElement::m_Position, w, h, UPPER_LEFT, texture, color);
 				//renderManager->DrawQuad2D(CGuiElement::m_Position,w, h,  CRenderManager::UPPER_LEFT, texture, m_eFlip);
       }
@@ -71,8 +78,8 @@ void CGUIAnimatedImage::Render (CRenderManager *renderManager, CFontManager* fm)
 
 		//Finalmente renderizamos el texto:
 		CGuiElement::RenderText(renderManager, fm);	
-	}
-	
+		CGuiElement::RenderGUIEditor(renderManager);
+	}	
 }
 
 void CGUIAnimatedImage::Update (CInputManager* intputManager, float elapsedTime)

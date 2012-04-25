@@ -16,6 +16,7 @@ public:
 	static void SaveProperties( CGuiElement *element );
 
 private:
+	static void AnimatedImageProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties );
 	static void SaveButtonProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties );
 	static void SaveCheckButtonProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties );
 	static void SaveDialogBoxProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties );

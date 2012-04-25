@@ -26,7 +26,7 @@ class CGuiElement
 {
 public:
 	typedef enum {	BUTTON = 0, CHECKBUTTON, STATIC_TEXT, SLIDER, IMAGE, EDITABLE_TEXT_BOX,
-									PROGRESS_BAR, DIALOG_BOX, RADIO_BOX} TypeGuiElement;
+									PROGRESS_BAR, DIALOG_BOX, RADIO_BOX, ANIMATED_IMAGE} TypeGuiElement;
 
 	typedef enum {  EDITPOS, EDITSIZE, DISABLE } TypeEditMode;
 

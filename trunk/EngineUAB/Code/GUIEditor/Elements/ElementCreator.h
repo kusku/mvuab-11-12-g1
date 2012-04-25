@@ -16,6 +16,7 @@ public:
 	static void CreateElement(TElement type, CGUIWindow *window);	
 
 private:
+	static CGuiElement* CreateAnimatedImage(CGUIWindow *window);
 	static CGuiElement* CreateButton(CGUIWindow *window);
 	static CGuiElement* CreateCheckButton(CGUIWindow *window);
 	static CGuiElement* CreateDialogBox(CGUIWindow *window);

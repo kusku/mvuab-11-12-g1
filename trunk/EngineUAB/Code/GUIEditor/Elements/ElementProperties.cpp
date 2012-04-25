@@ -10,12 +10,14 @@
 #include "Controls\GUIProgressBar.h"
 #include "Controls\GUISlider.h"
 #include "Controls\GUIDialogBox.h"
+#include "Controls\GUIAnimatedImage.h"
 #include "Textures\Texture.h"
 #include "RenderManager.h"
 #include "Fonts\FontManager.h"
 #include "Logger\Logger.h"
 #include "Core.h"
 #include "Base.h"
+#include <sstream>
 
 #pragma warning(push)
 #pragma warning(disable : 4482)
@@ -55,6 +57,11 @@ void CElementProperties::ElementProperties(CGuiElement *element)
 
 	switch( type )
 	{
+	case CGuiElement::TypeGuiElement::ANIMATED_IMAGE:
+		{
+			AnimatedImageProperties(element);
+			break;
+		}
 	case CGuiElement::TypeGuiElement::BUTTON:
 		{
 			ButtonProperties(element);
@@ -99,6 +106,53 @@ void CElementProperties::ElementProperties(CGuiElement *element)
 }
 
 #pragma warning(pop)
+
+void CElementProperties::AnimatedImageProperties(CGuiElement *element)
+{
+	CMFCPropertyGridProperty* pProp = NULL;
+	CMFCPropertyGridCtrl *MFCProperty = CElementProperties::GetInstance()->GetMFCPropertyGricCtrl();
+
+	MFCProperty->RemoveAll();
+
+	CGUIAnimatedImage *l_pAnimatedImage = static_cast<CGUIAnimatedImage*>(element);
+
+	//Añadir propiedades comunes
+	AddBasicAppearanceProperties( element );
+
+	//Añadir propiedades de información
+	AddBasicInformationProperties( element );
+
+	//Texturas
+	CMFCPropertyGridProperty* pTexture = new CMFCPropertyGridProperty(_T("Texturas"));
+
+	int l_iNumTextures = l_pAnimatedImage->NumFrames();
+	pProp = new CMFCPropertyGridProperty(_T("Cantidad"), (_variant_t)l_iNumTextures, _T("Cantidad de texturas"));
+	pProp->EnableSpinControl(TRUE, 1, 40);
+	pTexture->AddSubItem(pProp);
+
+	static const TCHAR szFilter[] = _T("JPG(*.jpg)|*.jpg|PNG(*.png)|*.png|BMP(*.bmp)|*.bmp|TGA(*.tga)|*.tga|Todos los archivos(*.*)|*.*||");
+	
+	CTexture *texture = NULL;
+	for(int i=0; i<l_iNumTextures; ++i)
+	{
+		texture = l_pAnimatedImage->GetTexture(i);
+		std::string texture_name = texture != NULL ? texture->GetFileName() : "";
+
+		std::stringstream out;
+		out << i;
+		std::string name = "Texture " + out.str();
+
+		pTexture->AddSubItem(new CMFCPropertyGridFileProperty(_T("name"), TRUE, _T(texture_name.c_str()), _T("jpg"), 0, szFilter, _T("Especifica la textura en estado de reposo")));
+	}
+
+	MFCProperty->AddProperty(pTexture);
+
+	//Script
+	CMFCPropertyGridProperty* pScript = new CMFCPropertyGridProperty(_T("Script"));
+	pScript->AddSubItem(new CMFCPropertyGridProperty(_T("OnLoad"), (_variant_t) _T( l_pAnimatedImage->GetOnLoad().c_str() ), _T("Especifica el código de scripting al cargar el elemento")));
+	pScript->AddSubItem(new CMFCPropertyGridProperty(_T("OnSave"), (_variant_t) _T( l_pAnimatedImage->GetOnSave().c_str() ), _T("Especifica el código de scripting al guardar el elemento")));
+	MFCProperty->AddProperty(pScript);
+}
 
 void CElementProperties::ButtonProperties(CGuiElement *element)
 {
