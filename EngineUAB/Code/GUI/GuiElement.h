@@ -76,7 +76,7 @@ public:
 	void					SetWindowsHeight		(uint32	h);
 	void					SetHeightPercent		(float height_percent);
 	void					SetWidthPercent			(float width_percent);
-	void					SetPositionPercent		(const Vect2f& pos);
+	virtual void			SetPositionPercent		(const Vect2f& pos);
 	virtual void			SetPosition				(const Vect2i& pos);
 
 	void					SetLiteral				(const std::string& lit)			{m_sLiteral = lit;}

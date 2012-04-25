@@ -9,6 +9,7 @@
 #include "Controls\GUIEditableTextBox.h"
 #include "Controls\GUIProgressBar.h"
 #include "Controls\GUISlider.h"
+#include "Controls\GUIDialogBox.h"
 #include "Textures\Texture.h"
 #include "RenderManager.h"
 #include "Fonts\FontManager.h"
@@ -62,6 +63,11 @@ void CElementProperties::ElementProperties(CGuiElement *element)
 	case CGuiElement::TypeGuiElement::CHECKBUTTON:
 		{
 			CheckButtonProperties(element);
+			break;
+		}
+	case CGuiElement::TypeGuiElement::DIALOG_BOX:
+		{
+			DialogBoxProperties(element);
 			break;
 		}
 	case CGuiElement::TypeGuiElement::EDITABLE_TEXT_BOX:
@@ -177,6 +183,75 @@ void CElementProperties::CheckButtonProperties(CGuiElement *element)
 	pScript->AddSubItem(new CMFCPropertyGridProperty(_T("OnOver"), (_variant_t) _T( l_pCheckButton->GetOnOver().c_str() ), _T("Especifica el código de scripting cuando tiene el mouse encima")));
 	pScript->AddSubItem(new CMFCPropertyGridProperty(_T("OnCheckOn"), (_variant_t) _T( l_pCheckButton->GetOnCheckOn().c_str() ), _T("Especifica el código de scripting al encender el check button")));
 	pScript->AddSubItem(new CMFCPropertyGridProperty(_T("OnCheckOff"), (_variant_t) _T( l_pCheckButton->GetOnCheckOff().c_str() ), _T("Especifica el código de scripting al apagar el check button")));
+
+	MFCProperty->AddProperty(pScript);
+}
+
+void CElementProperties::DialogBoxProperties(CGuiElement *element)
+{
+	CMFCPropertyGridProperty* pProp = NULL;
+	CMFCPropertyGridCtrl *MFCProperty = CElementProperties::GetInstance()->GetMFCPropertyGricCtrl();
+
+	MFCProperty->RemoveAll();
+
+	CGUIDialogBox *l_pDialogBox = static_cast<CGUIDialogBox*>(element);
+
+	//Añadir propiedades comunes
+	AddBasicAppearanceProperties( element );
+
+	//Añadir propiedades de información
+	AddBasicInformationProperties( element );
+
+	//Texturas
+	CMFCPropertyGridProperty* pMoveButton = new CMFCPropertyGridProperty(_T("Botón de movimiento"));
+	CTexture *l_pTexture = l_pDialogBox->GetNormalButtonMove();
+	std::string l_NormalPath = l_pTexture != NULL ? l_pTexture->GetFileName() : "";
+
+	l_pTexture = l_pDialogBox->GetOverButtonMove();
+	std::string l_OverPath = l_pTexture != NULL ? l_pTexture->GetFileName() : "";
+
+	l_pTexture = l_pDialogBox->GetClickedButtonMove();
+	std::string l_ClickedPath = l_pTexture != NULL ? l_pTexture->GetFileName() : "";
+
+	l_pTexture = l_pDialogBox->GetDeactivatedButtonMove();
+	std::string l_DeactivatedPath = l_pTexture != NULL ? l_pTexture->GetFileName() : "";
+
+	static const TCHAR szFilter[] = _T("JPG(*.jpg)|*.jpg|PNG(*.png)|*.png|BMP(*.bmp)|*.bmp|TGA(*.tga)|*.tga|Todos los archivos(*.*)|*.*||");
+	pMoveButton->AddSubItem(new CMFCPropertyGridFileProperty(_T("Normal"), TRUE, _T(l_NormalPath.c_str()), _T("jpg"), 0, szFilter, _T("Especifica la textura en estado normal")));
+	pMoveButton->AddSubItem(new CMFCPropertyGridFileProperty(_T("Over"), TRUE, _T(l_OverPath.c_str()), _T("jpg"), 0, szFilter, _T("Especifica la textura cuando tiene el ratón encima")));
+	pMoveButton->AddSubItem(new CMFCPropertyGridFileProperty(_T("Clicked"), TRUE, _T(l_ClickedPath.c_str()), _T("jpg"), 0, szFilter, _T("Especifica la textura cuando se ha clickado")));
+	pMoveButton->AddSubItem(new CMFCPropertyGridFileProperty(_T("Deactivated"), TRUE, _T(l_DeactivatedPath.c_str()), _T("jpg"), 0, szFilter, _T("Especifica la textura cuando el elemento está desactivado")));
+	MFCProperty->AddProperty(pMoveButton);
+
+	CMFCPropertyGridProperty* pCloseButton = new CMFCPropertyGridProperty(_T("Botón de cerrado"));
+	l_pTexture = l_pDialogBox->GetNormalButtonClose();
+	l_NormalPath = l_pTexture != NULL ? l_pTexture->GetFileName() : "";
+
+	l_pTexture = l_pDialogBox->GetOverButtonClose();
+	l_OverPath = l_pTexture != NULL ? l_pTexture->GetFileName() : "";
+
+	l_pTexture = l_pDialogBox->GetClickedButtonClose();
+	l_ClickedPath = l_pTexture != NULL ? l_pTexture->GetFileName() : "";
+
+	l_pTexture = l_pDialogBox->GetDeactivatedButtonClose();
+	l_DeactivatedPath = l_pTexture != NULL ? l_pTexture->GetFileName() : "";
+
+	pCloseButton->AddSubItem(new CMFCPropertyGridFileProperty(_T("Normal"), TRUE, _T(l_NormalPath.c_str()), _T("jpg"), 0, szFilter, _T("Especifica la textura en estado normal")));
+	pCloseButton->AddSubItem(new CMFCPropertyGridFileProperty(_T("Over"), TRUE, _T(l_OverPath.c_str()), _T("jpg"), 0, szFilter, _T("Especifica la textura cuando tiene el ratón encima")));
+	pCloseButton->AddSubItem(new CMFCPropertyGridFileProperty(_T("Clicked"), TRUE, _T(l_ClickedPath.c_str()), _T("jpg"), 0, szFilter, _T("Especifica la textura cuando se ha clickado")));
+	pCloseButton->AddSubItem(new CMFCPropertyGridFileProperty(_T("Deactivated"), TRUE, _T(l_DeactivatedPath.c_str()), _T("jpg"), 0, szFilter, _T("Especifica la textura cuando el elemento está desactivado")));
+	MFCProperty->AddProperty(pCloseButton);
+
+	CMFCPropertyGridProperty* pTexture = new CMFCPropertyGridProperty(_T("Texturas"));
+	l_pTexture = l_pDialogBox->GetBackgroundTexture();
+	std::string l_BackgroundPath = l_pTexture != NULL ? l_pTexture->GetFileName() : "";
+	pTexture->AddSubItem(new CMFCPropertyGridFileProperty(_T("Background"), TRUE, _T(l_BackgroundPath.c_str()), _T("jpg"), 0, szFilter, _T("Especifica la textura de fondo")));
+	MFCProperty->AddProperty(pTexture);
+
+	//Script
+	CMFCPropertyGridProperty* pScript = new CMFCPropertyGridProperty(_T("Script"));
+	pScript->AddSubItem(new CMFCPropertyGridProperty(_T("OnLoad"), (_variant_t) _T( l_pDialogBox->GetOnLoad().c_str() ), _T("Especifica el código de scripting al cargar el elemento")));
+	pScript->AddSubItem(new CMFCPropertyGridProperty(_T("OnSave"), (_variant_t) _T( l_pDialogBox->GetOnSave().c_str() ), _T("Especifica el código de scripting al guardar el elemento")));
 
 	MFCProperty->AddProperty(pScript);
 }

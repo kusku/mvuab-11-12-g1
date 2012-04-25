@@ -40,6 +40,7 @@ public:
 	virtual void	Update						(CInputManager* intputManager, float elapsedTime);
 	virtual void	OnClickedChild				(const std::string& name);
 	virtual void	SetPosition					(const Vect2i& pos);
+	virtual void	SetPositionPercent			(const Vect2f& pos);
 
 	//---------------CDialogBox Interface----------------------
 	void			SetCloseButtonTextures		(CTexture* normal, CTexture* over, CTexture* clicked, CTexture* deactivated);
@@ -48,6 +49,18 @@ public:
 	void			SetCloseButtonColors		(const CColor& normal, const CColor& over, const CColor& clicked, const CColor& deactivated);
 	void			SetMoveButtonColors			(const CColor& normal, const CColor& over, const CColor& clicked, const CColor& deactivated);
 	void			SetDialogColors				(const CColor& background);	
+
+	CTexture*		GetNormalButtonMove			() const		{ return m_ButtonMove.GetNormalTexture(); }
+	CTexture*		GetOverButtonMove			() const		{ return m_ButtonMove.GetOverTexture(); }
+	CTexture*		GetClickedButtonMove		() const		{ return m_ButtonMove.GetClickedTexture(); }
+	CTexture*		GetDeactivatedButtonMove	() const		{ return m_ButtonMove.GetDeactivatedTexture(); }
+
+	CTexture*		GetNormalButtonClose		() const		{ return m_ButtonClose.GetNormalTexture(); }
+	CTexture*		GetOverButtonClose			() const		{ return m_ButtonClose.GetOverTexture(); }
+	CTexture*		GetClickedButtonClose		() const		{ return m_ButtonClose.GetClickedTexture(); }
+	CTexture*		GetDeactivatedButtonClose	() const		{ return m_ButtonClose.GetDeactivatedTexture(); }
+
+	CTexture*		GetBackgroundTexture		() const		{ return m_pBackGroundTexture; }
 
 private:
 	bool			m_bDialogClicked;

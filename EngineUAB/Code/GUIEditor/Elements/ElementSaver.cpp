@@ -9,6 +9,7 @@
 #include "Controls\GUIEditableTextBox.h"
 #include "Controls\GUIProgressBar.h"
 #include "Controls\GUISlider.h"
+#include "Controls\GUIDialogBox.h"
 #include "Textures\Texture.h"
 #include "Textures\TextureManager.h"
 #include "HWNDManager.h"
@@ -38,6 +39,11 @@ void CElementSaver::SaveProperties(CGuiElement *element)
 	case CGuiElement::TypeGuiElement::CHECKBUTTON:
 		{
 			SaveCheckButtonProperties( element, properties );
+			break;
+		}
+	case CGuiElement::TypeGuiElement::DIALOG_BOX:
+		{
+			SaveDialogBoxProperties( element, properties );
 			break;
 		}
 	case CGuiElement::TypeGuiElement::EDITABLE_TEXT_BOX:
@@ -169,7 +175,7 @@ void CElementSaver::SaveButtonProperties(CGuiElement *element, CMFCPropertyGridC
 	button_element->SetOnOverAction( script );
 }
 
-void CElementSaver::SaveCheckButtonProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties )
+void CElementSaver::SaveCheckButtonProperties(CGuiElement *element, CMFCPropertyGridCtrl *properties)
 {
 	CGUICheckButton *checkbutton_element = static_cast<CGUICheckButton*>(element);
 
@@ -258,6 +264,115 @@ void CElementSaver::SaveCheckButtonProperties( CGuiElement *element, CMFCPropert
 	value = properties->GetProperty(5)->GetSubItem(4)->GetValue();
 	script = std::string( _bstr_t( value.bstrVal ) );
 	checkbutton_element->SetOnOverAction( script );
+}
+
+void CElementSaver::SaveDialogBoxProperties(CGuiElement *element, CMFCPropertyGridCtrl *properties)
+{
+	CGUIDialogBox *dialogbox_element = static_cast<CGUIDialogBox*>(element);
+
+	//-----------------------------------------
+	//Propiedades de apariencia
+	//-----------------------------------------
+	COleVariant value = properties->GetProperty(0)->GetSubItem(0)->GetValue();
+	dialogbox_element->SetActive( (value.boolVal == VARIANT_TRUE) );
+
+	value = properties->GetProperty(0)->GetSubItem(1)->GetValue();
+	dialogbox_element->SetVisible( (value.boolVal == VARIANT_TRUE) );
+
+	Vect2f pos;
+	value = properties->GetProperty(1)->GetSubItem(0)->GetValue();
+	pos.x = static_cast<float>(value.intVal);
+	value = properties->GetProperty(1)->GetSubItem(1)->GetValue();
+	pos.y = static_cast<float>(value.intVal);
+	dialogbox_element->SetPositionPercent( pos );
+
+	Vect2f size;
+	value = properties->GetProperty(2)->GetSubItem(0)->GetValue();
+	size.x = static_cast<float>( value.intVal );
+	value = properties->GetProperty(2)->GetSubItem(1)->GetValue();
+	size.y = static_cast<float>( value.intVal );
+	dialogbox_element->SetWidthPercent( size.x );
+	dialogbox_element->SetHeightPercent( size.y );
+
+	//-----------------------------------------
+	//Propiedades de información
+	//-----------------------------------------
+	value = properties->GetProperty(3)->GetSubItem(2)->GetValue();
+	dialogbox_element->SetName( std::string( _bstr_t( value.bstrVal ) ) );
+
+	value = properties->GetProperty(3)->GetSubItem(3)->GetValue();
+	dialogbox_element->SetLiteral( std::string( _bstr_t( value.bstrVal ) ) );
+
+	//-----------------------------------------
+	//Propiedades de texturas del botón de move
+	//-----------------------------------------
+	CTexture *l_pNormalTexture = NULL;
+	CTexture *l_pOverTexture = NULL;
+	CTexture *l_pClickedTexture = NULL;
+	CTexture *l_pDeactivatedTexture = NULL;
+	CTexture *l_pBackgroundTexture = NULL;
+	CTextureManager *l_pTextureManager = CORE->GetTextureManager();
+
+	value = properties->GetProperty(4)->GetSubItem(0)->GetValue();
+	std::string texture_path = std::string( _bstr_t( value.bstrVal ) );
+	l_pNormalTexture = l_pTextureManager->GetTexture( texture_path );
+
+	value = properties->GetProperty(4)->GetSubItem(1)->GetValue();
+	texture_path = std::string( _bstr_t( value.bstrVal ) );
+	l_pOverTexture = l_pTextureManager->GetTexture( texture_path );
+
+	value = properties->GetProperty(4)->GetSubItem(2)->GetValue();
+	texture_path = std::string( _bstr_t( value.bstrVal ) );
+	l_pClickedTexture = l_pTextureManager->GetTexture( texture_path );
+
+	value = properties->GetProperty(4)->GetSubItem(3)->GetValue();
+	texture_path = std::string( _bstr_t( value.bstrVal ) );
+	l_pDeactivatedTexture = l_pTextureManager->GetTexture( texture_path );
+	
+	dialogbox_element->SetMoveButtonTextures( l_pNormalTexture, l_pOverTexture, l_pClickedTexture, l_pDeactivatedTexture );
+
+	//-----------------------------------------
+	//Propiedades de texturas del botón de close
+	//-----------------------------------------
+	value = properties->GetProperty(5)->GetSubItem(0)->GetValue();
+	texture_path = std::string( _bstr_t( value.bstrVal ) );
+	l_pNormalTexture = l_pTextureManager->GetTexture( texture_path );
+
+	value = properties->GetProperty(5)->GetSubItem(1)->GetValue();
+	texture_path = std::string( _bstr_t( value.bstrVal ) );
+	l_pOverTexture = l_pTextureManager->GetTexture( texture_path );
+
+	value = properties->GetProperty(5)->GetSubItem(2)->GetValue();
+	texture_path = std::string( _bstr_t( value.bstrVal ) );
+	l_pClickedTexture = l_pTextureManager->GetTexture( texture_path );
+
+	value = properties->GetProperty(5)->GetSubItem(3)->GetValue();
+	texture_path = std::string( _bstr_t( value.bstrVal ) );
+	l_pDeactivatedTexture = l_pTextureManager->GetTexture( texture_path );
+	
+	dialogbox_element->SetCloseButtonTextures( l_pNormalTexture, l_pOverTexture, l_pClickedTexture, l_pDeactivatedTexture );
+
+	//-----------------------------------------
+	//Propiedades de texturas de background
+	//-----------------------------------------
+	value = properties->GetProperty(6)->GetSubItem(0)->GetValue();
+	texture_path = std::string( _bstr_t( value.bstrVal ) );
+	l_pBackgroundTexture = l_pTextureManager->GetTexture( texture_path );
+
+	dialogbox_element->SetDialogTexture( l_pBackgroundTexture );
+
+	//-----------------------------------------
+	//Propiedades de scripts
+	//-----------------------------------------
+	//OnLoad
+	value = properties->GetProperty(7)->GetSubItem(0)->GetValue();
+	std::string script = std::string( _bstr_t( value.bstrVal ) );
+	dialogbox_element->SetOnLoadValueAction( script );
+
+	//OnSave
+	value = properties->GetProperty(7)->GetSubItem(1)->GetValue();
+	script = std::string( _bstr_t( value.bstrVal ) );
+	dialogbox_element->SetOnSaveValueAction( script );
 }
 
 void CElementSaver::SaveEditableTextBoxProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties )

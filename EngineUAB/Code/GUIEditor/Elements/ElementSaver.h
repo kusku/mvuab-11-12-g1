@@ -18,6 +18,7 @@ public:
 private:
 	static void SaveButtonProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties );
 	static void SaveCheckButtonProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties );
+	static void SaveDialogBoxProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties );
 	static void SaveEditableTextBoxProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties );
 	static void SaveImageProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties );
 	static void SaveProgressBarProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties );
