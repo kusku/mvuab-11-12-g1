@@ -11,6 +11,7 @@
 #include "Controls\GUIProgressBar.h"
 #include "Controls\GUIEditableTextBox.h"
 #include "Controls\GUISlider.h"
+#include "Controls\GUIDialogBox.h"
 #include "Textures\TextureManager.h"
 #include "Textures\Texture.h"
 #include "ElementProperties.h"
@@ -34,6 +35,11 @@ void CElementCreator::CreateElement(TElement type, CGUIWindow *window)
 	case CHECK_BUTTON:
 		{
 			l_pElement = CreateCheckButton(window);
+			break;
+		}
+	case DIALOG_BOX:
+		{
+			l_pElement = CreateDialogBox(window);
 			break;
 		}
 	case EDITABLE_TEXT_BOX:
@@ -121,6 +127,38 @@ CGuiElement* CElementCreator::CreateCheckButton(CGUIWindow *window)
 	CElementProperties::ElementProperties(l_pCheckButton);
 
 	return l_pCheckButton;
+}
+
+CGuiElement* CElementCreator::CreateDialogBox(CGUIWindow *window)
+{
+	CleanSelections(window);
+
+	Vect2i screen = CORE->GetRenderManager()->GetScreenSize();
+	Vect2f l_Position = GetPositionToAdd(screen);
+
+	CGUIDialogBox *l_pDialog = new CGUIDialogBox(screen.y, screen.x, 30.f, 30.f, l_Position, 10.f, 10.f, "", 0, 0, true, true);
+	std::string l_Name = "dialog_box_" + GetSufixNumber(window);
+	l_pDialog->SetName( l_Name );
+	l_pDialog->SetID( l_Name );
+	
+	CTexture *background = CORE->GetTextureManager()->GetTexture("./Data/General/Textures/GUI/dialogbox.jpg");
+	l_pDialog->SetDialogTexture(background);
+
+	CTexture *button = CORE->GetTextureManager()->GetTexture("./Data/General/Textures/GUI/button.jpg");
+	l_pDialog->SetCloseButtonTextures(button, button, button, button);
+	l_pDialog->SetMoveButtonTextures(button, button, button, button);
+
+	l_pDialog->SetOnLoadValueAction("");
+	l_pDialog->SetOnSaveValueAction("");
+
+	l_pDialog->SetRenderForGUIEditor( true );
+	l_pDialog->SetIsSelected( true );
+
+	window->AddGuiElement( l_pDialog );
+
+	CElementProperties::ElementProperties( l_pDialog );
+
+	return l_pDialog;
 }
 
 CGuiElement* CElementCreator::CreateEditableTextBox(CGUIWindow *window)

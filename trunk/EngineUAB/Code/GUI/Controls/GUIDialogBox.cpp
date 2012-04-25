@@ -46,6 +46,8 @@ void CGUIDialogBox::Render	(CRenderManager *renderManager, CFontManager* fm)
 	
 	//Finalmente renderizamos el texto:
 	CGuiElement::RenderText(renderManager, fm);	
+
+	CGuiElement::RenderGUIEditor(renderManager);
 }
 
 void CGUIDialogBox::Update (CInputManager* intputManager, float elapsedTime)
@@ -112,6 +114,13 @@ void CGUIDialogBox::SetPosition(const Vect2i& pos)
 	m_ButtonMove.SetPosition( pos );
 	m_ButtonClose.SetPosition( pos + Vect2i((uint32)(CGuiElement::m_uWidth - m_ButtonClose.GetWidth()),0) );
 	CGuiElement::SetPosition( pos );
+}
+
+void CGUIDialogBox::SetPositionPercent(const Vect2f& pos)
+{
+	m_ButtonMove.SetPositionPercent(pos);
+	m_ButtonClose.SetPositionPercent( pos + Vect2f(CGuiElement::m_fWidthPercent - m_ButtonClose.GetWidthPercent(), 0.f) );
+	CGuiElement::SetPositionPercent(pos);
 }
 
 

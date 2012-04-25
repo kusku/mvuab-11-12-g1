@@ -18,6 +18,7 @@ public:
 private:
 	static CGuiElement* CreateButton(CGUIWindow *window);
 	static CGuiElement* CreateCheckButton(CGUIWindow *window);
+	static CGuiElement* CreateDialogBox(CGUIWindow *window);
 	static CGuiElement* CreateEditableTextBox(CGUIWindow *window);
 	static CGuiElement* CreateImage(CGUIWindow *window);
 	static CGuiElement* CreateProgressBar(CGUIWindow *window);
