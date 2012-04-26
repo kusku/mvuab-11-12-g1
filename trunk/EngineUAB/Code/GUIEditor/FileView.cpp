@@ -10,6 +10,7 @@
 #include "GUIWindow.h"
 #include "Core.h"
 #include "Base.h"
+#include <sstream>
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -45,11 +46,9 @@ BEGIN_MESSAGE_MAP(CFileView, CDockablePane)
 	ON_WM_SIZE()
 	ON_WM_CONTEXTMENU()
 	ON_COMMAND(ID_PROPERTIES, OnProperties)
-	ON_COMMAND(ID_OPEN, OnFileOpen)
+	ON_COMMAND(ID_FILE_NEW, OnFileNew)
 	ON_COMMAND(ID_OPEN_WITH, OnFileOpenWith)
 	ON_COMMAND(ID_DUMMY_COMPILE, OnDummyCompile)
-	ON_COMMAND(ID_EDIT_CUT, OnEditCut)
-	ON_COMMAND(ID_EDIT_COPY, OnEditCopy)
 	ON_COMMAND(ID_EDIT_CLEAR, OnEditClear)
 	ON_WM_PAINT()
 	ON_WM_SETFOCUS()
@@ -144,7 +143,7 @@ void CFileView::OnContextMenu(CWnd* pWnd, CPoint point)
 		{
 			pWndTree->SelectItem(hTreeItem);
 
-
+			//Mira si existe el elemento seleccionado en el mapa como elemento de GUI
 			m_TreeSelected = NULL;
 			m_WindowSelected = "";
 			TElementsWindow::iterator l_ItWindow = m_ElementsWindowMap.begin();
@@ -198,9 +197,18 @@ void CFileView::OnProperties()
 
 }
 
-void CFileView::OnFileOpen()
+void CFileView::OnFileNew()
 {
-	// TODO: Agregue aquí el código del controlador de comando
+	HTREEITEM hRoot = m_WindowsMap["Windows"];
+	
+	std::stringstream os;
+	os << m_WindowsMap.size();
+	std::string name = "Window_" + os.str();
+		
+	HTREEITEM hSrc = m_wndFileView.InsertItem(_T(name.c_str()), 0, 0, hRoot);
+	m_WindowsMap[ name ] = hSrc;
+
+	m_wndFileView.Expand(hSrc, TVE_EXPAND);
 }
 
 void CFileView::OnFileOpenWith()
@@ -209,16 +217,6 @@ void CFileView::OnFileOpenWith()
 }
 
 void CFileView::OnDummyCompile()
-{
-	// TODO: Agregue aquí el código del controlador de comando
-}
-
-void CFileView::OnEditCut()
-{
-	// TODO: Agregue aquí el código del controlador de comando
-}
-
-void CFileView::OnEditCopy()
 {
 	// TODO: Agregue aquí el código del controlador de comando
 }
@@ -340,6 +338,11 @@ BOOL CFileView::PreTranslateMessage(MSG* pMsg)
 				m_wndFileView.SetItemText( l_Item, l_szNewName.c_str() );
 			}
 
+			break;
+		}
+	case WM_ADD_WINDOW:
+		{
+			OnFileNew();
 			break;
 		}
 	}

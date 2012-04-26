@@ -44,7 +44,7 @@ protected:
 	CGUIEditorProcess	*m_pProcess;
 
 	bool		m_bFirstTime;
-
+	CRect		m_PictureRect;
 private:
 	//Métodos
 	void CalculateWindow();

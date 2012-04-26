@@ -17,6 +17,9 @@
 #include "EngineManager.h"
 #include "GUIEditorProcess.h"
 
+#include "HWNDManager.h"
+#include "defines.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -27,7 +30,7 @@
 BEGIN_MESSAGE_MAP(CGUIEditorApp, CWinAppEx)
 	ON_COMMAND(ID_APP_ABOUT, &CGUIEditorApp::OnAppAbout)
 	// Comandos de documento estándar basados en archivo
-	ON_COMMAND(ID_FILE_NEW, &CWinAppEx::OnFileNew)
+	ON_COMMAND(ID_FILE_NEW, &CGUIEditorApp::OnFileNew)
 	ON_COMMAND(ID_FILE_OPEN, &CWinAppEx::OnFileOpen)
 	// Comando de configuración de impresión estándar
 	ON_COMMAND(ID_FILE_PRINT_SETUP, &CWinAppEx::OnFilePrintSetup)
@@ -37,6 +40,7 @@ END_MESSAGE_MAP()
 // Construcción de CGUIEditorApp
 
 CGUIEditorApp::CGUIEditorApp()
+	: m_bStarting(true)
 {
 	m_bHiColorIcons = TRUE;
 
@@ -44,8 +48,6 @@ CGUIEditorApp::CGUIEditorApp()
 	// recomendado para la cadena es NombreCompañía.NombreProducto.Subproducto.InformaciónDeVersión
 	SetAppID(_T("GUIEditor.AppID.NoVersion"));
 
-	// TODO: agregar aquí el código de construcción,
-	// Colocar toda la inicialización importante en InitInstance
 	CEngine *engine = new CEngine();
 	CGUIEditorProcess *process= new CGUIEditorProcess();
 	engine->SetProcess(process);
@@ -216,6 +218,20 @@ void CGUIEditorApp::LoadCustomState()
 
 void CGUIEditorApp::SaveCustomState()
 {
+}
+
+void CGUIEditorApp::OnFileNew()
+{
+	if( m_bStarting )
+	{
+		CWinAppEx::OnFileNew();
+		m_bStarting = false;
+	}
+	else
+	{
+		PostMessage(CHWNDManager::GetInstance()->GetHWNDFiles(), WM_ADD_WINDOW, 0, 0); 
+		m_bStarting = false;
+	}
 }
 
 // Controladores de mensaje de CGUIEditorApp
