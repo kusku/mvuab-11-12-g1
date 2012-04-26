@@ -21,6 +21,8 @@ static char THIS_FILE[]=__FILE__;
 // CFileView
 
 CFileView::CFileView()
+	: m_TreeSelected(NULL)
+	, m_WindowSelected("")
 {
 }
 
@@ -141,6 +143,32 @@ void CFileView::OnContextMenu(CWnd* pWnd, CPoint point)
 		if (hTreeItem != NULL)
 		{
 			pWndTree->SelectItem(hTreeItem);
+
+
+			m_TreeSelected = NULL;
+			m_WindowSelected = "";
+			TElementsWindow::iterator l_ItWindow = m_ElementsWindowMap.begin();
+			TElementsWindow::iterator l_ItEndWindow = m_ElementsWindowMap.end();
+			for(; l_ItWindow != l_ItEndWindow; ++l_ItWindow)
+			{
+				std::map<std::string, HTREEITEM>::iterator l_ItElem = l_ItWindow->second.begin();
+				std::map<std::string, HTREEITEM>::iterator l_ItEndElem = l_ItWindow->second.end();
+				for(; l_ItElem != l_ItEndElem; ++l_ItElem)
+				{
+					if( l_ItElem->second == hTreeItem )
+					{
+						m_WindowSelected = l_ItWindow->first;
+						m_TreeSelected = hTreeItem;
+						break;
+					}
+				}
+
+				if( m_TreeSelected != NULL )
+				{
+					break;
+				}
+			}
+
 		}
 	}
 
@@ -197,7 +225,19 @@ void CFileView::OnEditCopy()
 
 void CFileView::OnEditClear()
 {
-	// TODO: Agregue aquí el código del controlador de comando
+	if( m_TreeSelected != NULL )
+	{
+		CString text = m_wndFileView.GetItemText( m_TreeSelected );
+		m_wndFileView.DeleteItem( m_TreeSelected );
+
+		std::string name_element = (LPCTSTR)text;
+		CORE->GetGUIManager()->GetWindow( m_WindowSelected + ".xml" )->ReleaseGuiElement(name_element);
+
+		m_ElementsWindowMap[m_WindowSelected].erase(name_element);
+
+		m_TreeSelected = NULL;
+		m_WindowSelected = "";
+	}
 }
 
 void CFileView::OnPaint()

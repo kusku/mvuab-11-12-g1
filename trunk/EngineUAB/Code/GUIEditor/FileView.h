@@ -35,6 +35,9 @@ protected:
 	std::map<std::string, HTREEITEM>	m_WindowsMap;
 	TElementsWindow						m_ElementsWindowMap;					
 
+	HTREEITEM							m_TreeSelected;
+	std::string							m_WindowSelected;
+
 protected:
 	void FillFileView();
 

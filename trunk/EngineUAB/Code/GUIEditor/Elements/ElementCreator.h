@@ -23,6 +23,7 @@ private:
 	static CGuiElement* CreateEditableTextBox(CGUIWindow *window);
 	static CGuiElement* CreateImage(CGUIWindow *window);
 	static CGuiElement* CreateProgressBar(CGUIWindow *window);
+	static CGuiElement* CreateRadioBox(CGUIWindow *window);
 	static CGuiElement*	CreateSlider(CGUIWindow *window);
 	static CGuiElement* CreateStaticText(CGUIWindow *window);
 

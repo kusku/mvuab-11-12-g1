@@ -197,7 +197,7 @@ COutputList::~COutputList()
 BEGIN_MESSAGE_MAP(COutputList, CListBox)
 	ON_WM_CONTEXTMENU()
 	ON_COMMAND(ID_EDIT_COPY, OnEditCopy)
-	ON_COMMAND(ID_EDIT_CLEAR, OnEditClear)
+	//ON_COMMAND(ID_EDIT_CLEAR, OnEditClear)
 	ON_COMMAND(ID_VIEW_OUTPUTWND, OnViewOutput)
 	ON_WM_WINDOWPOSCHANGING()
 END_MESSAGE_MAP()
@@ -230,10 +230,10 @@ void COutputList::OnEditCopy()
 	MessageBox(_T("Copiar resultado"));
 }
 
-void COutputList::OnEditClear()
-{
-	MessageBox(_T("Borrar resultado"));
-}
+//void COutputList::OnEditClear()
+//{
+//	MessageBox(_T("Borrar resultado"));
+//}
 
 void COutputList::OnViewOutput()
 {
