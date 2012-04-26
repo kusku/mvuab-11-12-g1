@@ -13,6 +13,7 @@
 #include "Controls\GUISlider.h"
 #include "Controls\GUIDialogBox.h"
 #include "Controls\GUIAnimatedImage.h"
+#include "Controls\GUIRadioBox.h"
 #include "Textures\TextureManager.h"
 #include "Textures\Texture.h"
 #include "ElementProperties.h"
@@ -61,6 +62,11 @@ void CElementCreator::CreateElement(TElement type, CGUIWindow *window)
 	case PROGRESS_BAR:
 		{
 			l_pElement = CreateProgressBar(window);
+			break;
+		}
+	case RADIO_BOX:
+		{
+			l_pElement = CreateRadioBox(window);
 			break;
 		}
 	case SLIDER:
@@ -283,6 +289,34 @@ CGuiElement* CElementCreator::CreateProgressBar(CGUIWindow *window)
 	CElementProperties::ElementProperties( l_pProgressBar );
 
 	return l_pProgressBar;
+}
+
+CGuiElement* CElementCreator::CreateRadioBox(CGUIWindow *window)
+{
+	CleanSelections(window);
+
+	Vect2i screen = CORE->GetRenderManager()->GetScreenSize();
+	Vect2f l_Position = GetPositionToAdd(screen);
+
+	CGUIRadioBox *l_pRadioBox = new CGUIRadioBox(screen.y, screen.x, 30.f, 30.f, l_Position, 1, 1, "", "", 0, 0, true, true);
+	std::string l_Name = "radio_box_" + GetSufixNumber(window);
+	l_pRadioBox->SetName(l_Name);
+	l_pRadioBox->SetID(l_Name);
+
+	CTexture *texture = CORE->GetTextureManager()->GetTexture("./Data/General/Textures/GUI/radiobox.jpg");
+	l_pRadioBox->SetTextureBack(texture);
+
+	l_pRadioBox->SetCheckButtonActions("", "", "");
+	l_pRadioBox->SetOnCheckButton("");
+
+	l_pRadioBox->SetRenderForGUIEditor( true );
+	l_pRadioBox->SetIsSelected( true );
+
+	window->AddGuiElement( l_pRadioBox );
+
+	CElementProperties::ElementProperties( l_pRadioBox); 
+
+	return l_pRadioBox;
 }
 
 CGuiElement* CElementCreator::CreateSlider(CGUIWindow *window)

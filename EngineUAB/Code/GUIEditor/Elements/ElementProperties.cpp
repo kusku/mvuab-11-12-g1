@@ -690,6 +690,11 @@ std::string CElementProperties::TypeElement2String(CGuiElement::TypeGuiElement t
 
 	switch(type)
 	{
+	case CGuiElement::TypeGuiElement::ANIMATED_IMAGE:
+		{
+			type_string = "Animated Image";
+			break;
+		}
 	case CGuiElement::TypeGuiElement::BUTTON:
 		{
 			type_string = "Button";

@@ -65,7 +65,10 @@ bool CGUIWindow::ReleaseGuiElement( const std::string & name )
 	{
 		if( (*it)->GetName().compare(name) == 0 )
 		{
+			CGuiElement *element = (*it);
 			m_GuiElementsVector.erase(it);
+
+			CHECKED_DELETE(element);
 			return true;
 		}
 		it++;
