@@ -15,6 +15,10 @@
 #include "Base.h"
 #include "Core.h"
 
+#ifndef SHARED_HANDLERS
+#include "GUIEditor.h"
+#endif
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -27,6 +31,7 @@ CMyPicture::CMyPicture()
 	: m_R(15.f)
 	, m_bIsLMouseDown(false)
 	, m_LButtonPosition(Vect2i(0,0))
+	, m_ContextMenuPosition(Vect2i(0,0))
 {
 }
 
@@ -44,6 +49,11 @@ BEGIN_MESSAGE_MAP(CMyPicture, CStatic)
 	ON_WM_RBUTTONDOWN()
 	ON_WM_RBUTTONUP()
 	ON_WM_MOUSEWHEEL()
+	ON_WM_CONTEXTMENU()
+	ON_COMMAND(ID_TRAER_FRENTE, OnMoveToFront)
+	ON_COMMAND(ID_TRAER_ADELANTE, OnMoveForward)
+	ON_COMMAND(ID_ENVIAR_ATRAS, OnMoveBack)
+	ON_COMMAND(ID_ENVIAR_FONDO, OnMoveToBack)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -153,4 +163,106 @@ void CMyPicture::AddElementToActiveWindow(TElement element)
 	CGUIWindow *l_pWindow = l_pGUIManager->GetWindow(windowName);
 
 	CElementCreator::CreateElement(element, l_pWindow);
+}
+
+void CMyPicture::OnContextMenu(CWnd* /* pWnd */, CPoint point)
+{
+	m_ContextMenuPosition = Vect2i(point.x, point.y);
+	theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EDIT, point.x, point.y, this, TRUE);
+}
+
+void CMyPicture::OnMoveToFront()
+{
+	//Se selecciona un elemento
+	std::string name_window = CORE->GetGUIManager()->GetCurrentWindow();
+	CGUIWindow *window = CORE->GetGUIManager()->GetWindow(name_window);
+	CGuiElement *element = NULL;
+
+	//Mira sobre qué elemento está el mouse
+	uint16 count = window->GetNumElements();
+	for( uint16 i = count; i > 0; --i)
+	{
+		element = window->GetElementById(i-1);
+		Vect2i mousePosition;
+		CORE->GetInputManager()->GetPosition(IDV_MOUSE, mousePosition);
+		element->CalculatePosMouse(mousePosition);
+		if( element->IsInside() )
+		{
+			//Está adentro
+			window->MoveElementToFront(element);
+			break;
+		}
+	}
+}
+
+void CMyPicture::OnMoveForward()
+{
+	//Se selecciona un elemento
+	std::string name_window = CORE->GetGUIManager()->GetCurrentWindow();
+	CGUIWindow *window = CORE->GetGUIManager()->GetWindow(name_window);
+	CGuiElement *element = NULL;
+
+	//Mira sobre qué elemento está el mouse
+	uint16 count = window->GetNumElements();
+	for( uint16 i = count; i > 0; --i)
+	{
+		element = window->GetElementById(i-1);
+		Vect2i mousePosition;
+		CORE->GetInputManager()->GetPosition(IDV_MOUSE, mousePosition);
+		element->CalculatePosMouse(mousePosition);
+		if( element->IsInside() )
+		{
+			//Está adentro
+			window->MoveElementForward(element);
+			break;
+		}
+	}
+}
+
+void CMyPicture::OnMoveBack()
+{
+	//Se selecciona un elemento
+	std::string name_window = CORE->GetGUIManager()->GetCurrentWindow();
+	CGUIWindow *window = CORE->GetGUIManager()->GetWindow(name_window);
+	CGuiElement *element = NULL;
+
+	//Mira sobre qué elemento está el mouse
+	uint16 count = window->GetNumElements();
+	for( uint16 i = count; i > 0; --i)
+	{
+		element = window->GetElementById(i-1);
+		Vect2i mousePosition;
+		CORE->GetInputManager()->GetPosition(IDV_MOUSE, mousePosition);
+		element->CalculatePosMouse(mousePosition);
+		if( element->IsInside() )
+		{
+			//Está adentro
+			window->MoveElementBack(element);
+			break;
+		}
+	}
+}
+
+void CMyPicture::OnMoveToBack()
+{
+	//Se selecciona un elemento
+	std::string name_window = CORE->GetGUIManager()->GetCurrentWindow();
+	CGUIWindow *window = CORE->GetGUIManager()->GetWindow(name_window);
+	CGuiElement *element = NULL;
+
+	//Mira sobre qué elemento está el mouse
+	uint16 count = window->GetNumElements();
+	for( uint16 i = count; i > 0; --i)
+	{
+		element = window->GetElementById(i-1);
+		Vect2i mousePosition;
+		CORE->GetInputManager()->GetPosition(IDV_MOUSE, mousePosition);
+		element->CalculatePosMouse(mousePosition);
+		if( element->IsInside() )
+		{
+			//Está adentro
+			window->MoveElementToBack(element);
+			break;
+		}
+	}
 }

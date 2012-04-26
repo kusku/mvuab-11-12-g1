@@ -37,7 +37,7 @@ BEGIN_MESSAGE_MAP(CGUIEditorView, CView)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CGUIEditorView::OnFilePrintPreview)
 	ON_COMMAND(ID_FILE_SAVE, &CGUIEditorView::OnSaveData)
 	ON_COMMAND(ID_FILE_SAVE_AS, &CGUIEditorView::OnSaveData)
-	ON_WM_CONTEXTMENU()
+	//ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONUP()
 END_MESSAGE_MAP()
 
@@ -45,6 +45,7 @@ END_MESSAGE_MAP()
 
 CGUIEditorView::CGUIEditorView()
 	: m_bFirstTime(true)
+	, m_PictureRect(0, 0, 0, 0)
 {
 	
 	CEngineManager::GetInstance()->GetEngine()->LoadConfigXML("./Data/XML/engine.xml");
@@ -90,6 +91,8 @@ void CGUIEditorView::CalculateWindow()
 	rect.bottom = 480;
 	rect.right = 740;
 	
+	m_PictureRect = rect;
+
 	m_Picture.DestroyWindow();
 	BOOL isOk = m_Picture.Create(LPCTSTR(""), SS_BLACKFRAME | SS_NOTIFY | SS_SUNKEN | WS_BORDER, rect, this);
 	m_Picture.ShowWindow(SW_SHOW);
@@ -132,7 +135,7 @@ void CGUIEditorView::OnRButtonUp(UINT /* nFlags */, CPoint point)
 void CGUIEditorView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 {
 #ifndef SHARED_HANDLERS
-	theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EDIT, point.x, point.y, this, TRUE);
+	//theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EDIT, point.x, point.y, this, TRUE);
 #endif
 }
 

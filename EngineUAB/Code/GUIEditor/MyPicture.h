@@ -39,6 +39,7 @@ private:
 	bool m_bIsLMouseDown;
 
 	Vect2i m_LButtonPosition;
+	Vect2i m_ContextMenuPosition;
 
 private:
 	void AddElementToActiveWindow(TElement element);
@@ -53,6 +54,11 @@ protected:
 	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
+	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
+	afx_msg void OnMoveToFront();
+	afx_msg void OnMoveForward();
+	afx_msg void OnMoveBack();
+	afx_msg void OnMoveToBack();
 	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()

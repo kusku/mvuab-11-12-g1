@@ -913,3 +913,82 @@ CGuiElement* CGUIWindow::GetElement( const std::string &name )
 
 	return NULL;
 }
+
+void CGUIWindow::MoveElementToFront(CGuiElement *element)
+{
+	std::vector<CGuiElement*>::iterator it = m_GuiElementsVector.begin();
+	std::vector<CGuiElement*>::iterator itEnd = m_GuiElementsVector.end();
+
+	while( it != itEnd )
+	{
+		if( *it == element )
+		{
+			m_GuiElementsVector.erase(it);
+			m_GuiElementsVector.push_back(element);
+			break;
+		}
+
+		++it;
+	}
+}
+
+void CGUIWindow::MoveElementForward(CGuiElement *element)
+{
+	std::vector<CGuiElement*>::iterator it = m_GuiElementsVector.begin();
+	std::vector<CGuiElement*>::iterator itEnd = m_GuiElementsVector.end();
+	std::vector<CGuiElement*>::iterator l_NextIt = m_GuiElementsVector.begin() + 1;
+
+	while( it != itEnd )
+	{
+		if( *it == element )
+		{
+			if( l_NextIt != itEnd )
+			{
+				m_GuiElementsVector.erase(it);
+				m_GuiElementsVector.insert(l_NextIt, element);
+			}
+			break;
+		}
+
+		++it;
+		l_NextIt = it + 1;
+	}
+}
+
+void CGUIWindow::MoveElementBack(CGuiElement *element)
+{
+	std::vector<CGuiElement*>::iterator it = m_GuiElementsVector.begin();
+	std::vector<CGuiElement*>::iterator itEnd = m_GuiElementsVector.end();
+	std::vector<CGuiElement*>::iterator l_PrevIt = m_GuiElementsVector.begin();
+
+	while( it != itEnd )
+	{
+		if( *it == element )
+		{
+			if( l_PrevIt != it )
+			{
+				m_GuiElementsVector.erase(it);
+				m_GuiElementsVector.insert(l_PrevIt, element);
+			}
+			break;
+		}
+		l_PrevIt = it;
+		++it;
+	}
+}
+
+void CGUIWindow::MoveElementToBack(CGuiElement *element)
+{
+	std::vector<CGuiElement*>::iterator it = m_GuiElementsVector.begin();
+	std::vector<CGuiElement*>::iterator itEnd = m_GuiElementsVector.end();
+
+	for( ; it != itEnd; ++it )
+	{
+		if( *it == element )
+		{
+			m_GuiElementsVector.erase(it);
+			m_GuiElementsVector.insert( m_GuiElementsVector.begin(), element);
+			break;
+		}
+	}
+}

@@ -81,8 +81,8 @@ int CPropertiesWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		return -1;      // no se pudo crear
 	}
 
-	m_wndObjectCombo.AddString(_T("Aplicación"));
-	m_wndObjectCombo.AddString(_T("Ventana Propiedades"));
+	m_wndObjectCombo.AddString(_T("Ventana"));
+	m_wndObjectCombo.AddString(_T("Control"));
 	m_wndObjectCombo.SetCurSel(0);
 
 	if (!m_wndPropList.Create(WS_VISIBLE | WS_CHILD, rectDummy, this, 2))
