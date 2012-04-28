@@ -8,12 +8,14 @@
 #include <string>
 
 class CGuiElement;
+class CGUIWindow;
 class CColor;
 
 class CElementSaver
 {
 public:
 	static void SaveProperties( CGuiElement *element );
+	static void SaveWindowProperties( CGUIWindow *window );
 
 private:
 	static void AnimatedImageProperties( CGuiElement *element, CMFCPropertyGridCtrl *properties );

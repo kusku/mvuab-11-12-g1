@@ -209,6 +209,9 @@ void CFileView::OnFileNew()
 	m_WindowsMap[ name ] = hSrc;
 
 	m_wndFileView.Expand(hSrc, TVE_EXPAND);
+
+	std::string window_name = name;
+	CORE->GetGUIManager()->AddWindows( window_name );
 }
 
 void CFileView::OnFileOpenWith()
@@ -343,6 +346,57 @@ BOOL CFileView::PreTranslateMessage(MSG* pMsg)
 	case WM_ADD_WINDOW:
 		{
 			OnFileNew();
+			break;
+		}
+	case WM_LBUTTON_DOWN:
+		{
+			HTREEITEM item = (HTREEITEM)pMsg->wParam;
+
+			std::map<std::string, HTREEITEM>::iterator l_It = m_WindowsMap.begin();
+			std::map<std::string, HTREEITEM>::iterator l_ItEnd = m_WindowsMap.end();
+			while(l_It != l_ItEnd)
+			{
+				if( l_It->second == item )
+				{
+					CElementManager::GetInstance()->SetWindowToAdd( l_It->first );
+					break;
+				}
+				++l_It;
+			}
+			break;
+		}
+	case WM_CHANGE_WINDOW_NAME:
+		{
+			CString* name = (CString*)pMsg->wParam;
+			char nameChar[40];
+			strcpy_s(nameChar, *name);
+			std::string current_name = nameChar;
+
+			CString *newname = (CString*)pMsg->lParam;
+			strcpy_s(nameChar, *newname);
+			std::string new_name = nameChar;
+
+	/*		int find = current_name.rfind(".");
+			current_name = current_name.substr(0, find);
+
+			find = new_name.rfind(".");
+			new_name = new_name.substr(0, find);*/
+
+			if( m_WindowsMap.find(current_name) != m_WindowsMap.end() )
+			{
+				HTREEITEM item  = m_WindowsMap[current_name];
+				if( item != NULL )
+				{
+					m_wndFileView.SetItemText( item, new_name.c_str() );
+
+					m_WindowsMap.erase(current_name);
+					m_WindowsMap[new_name] = item;
+				}
+			}
+			
+
+			CHECKED_DELETE(name);
+			CHECKED_DELETE(newname);
 			break;
 		}
 	}

@@ -55,4 +55,5 @@ void CViewTree::OnLButtonDown(UINT nFlags,CPoint point)
 void CViewTree::OnLButtonUp(UINT nFlags,CPoint point)
 {
 	CElementManager::GetInstance()->SetElementToAdd(NONE);
+	CElementManager::GetInstance()->SetWindowToAdd("");
 }

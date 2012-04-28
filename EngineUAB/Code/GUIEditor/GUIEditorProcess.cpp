@@ -10,6 +10,7 @@
 #include "Fonts\FontManager.h"
 #include "HWNDManager.h"
 #include "Elements\ElementSaver.h"
+#include "Elements\ElementProperties.h"
 #include "InputManager.h"
 
 CGUIEditorProcess::CGUIEditorProcess(void)
@@ -25,10 +26,14 @@ CGUIEditorProcess::~CGUIEditorProcess(void)
 
 void CGUIEditorProcess::Init()
 {
+	std::string window = CORE->GetGUIManager()->GetCurrentWindow();
+	CElementProperties::WindowProperties( CORE->GetGUIManager()->GetWindow( window ) );
 }
 
 void CGUIEditorProcess::Update(float elapsedTime)
 {
+	bool l_bIsElementSelected = false;
+
 	CORE->GetInputManager()->SetActiveMouse( false );
 
 	HWND hWnd = CHWNDManager::GetInstance()->GetHWNDOutput();
@@ -48,9 +53,14 @@ void CGUIEditorProcess::Update(float elapsedTime)
 			if( element->GetIsSelected() )
 			{
 				CElementSaver::SaveProperties(element);	
+				l_bIsElementSelected = true;
 			}
 		}
-		
+	}
+
+	if( !l_bIsElementSelected )
+	{
+		CElementSaver::SaveWindowProperties( window );
 	}
 
 	//Calcula el mouse sobre los controles

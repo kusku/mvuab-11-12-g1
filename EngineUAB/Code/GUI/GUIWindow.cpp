@@ -992,3 +992,17 @@ void CGUIWindow::MoveElementToBack(CGuiElement *element)
 		}
 	}
 }
+
+void CGUIWindow::ClearSelectElements()
+{
+	if( m_GuiElementsVector.size() > 0)
+	{
+		std::vector<CGuiElement*>::iterator it = m_GuiElementsVector.begin();
+		std::vector<CGuiElement*>::iterator itEnd = m_GuiElementsVector.end();
+
+		for( ; it != itEnd; ++it )
+		{
+			(*it)->SetIsSelected( false );
+		}
+	}
+}
