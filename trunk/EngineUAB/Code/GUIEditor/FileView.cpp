@@ -232,7 +232,7 @@ void CFileView::OnEditClear()
 		m_wndFileView.DeleteItem( m_TreeSelected );
 
 		std::string name_element = (LPCTSTR)text;
-		CORE->GetGUIManager()->GetWindow( m_WindowSelected + ".xml" )->ReleaseGuiElement(name_element);
+		CORE->GetGUIManager()->GetWindow( m_WindowSelected )->ReleaseGuiElement(name_element);
 
 		m_ElementsWindowMap[m_WindowSelected].erase(name_element);
 

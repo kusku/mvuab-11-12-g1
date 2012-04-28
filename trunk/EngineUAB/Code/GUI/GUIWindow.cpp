@@ -593,9 +593,12 @@ void	CGUIWindow::LoadEditableTextBox (CGUIEditableTextBox** editableTextBox_aux,
 	std::string OnSaveValue					= pNewNode.GetPszProperty("OnSaveValue", "");
 	std::string OnLoadValue					= pNewNode.GetPszProperty("OnLoadValue", "");
 	uint32			idFont							= pNewNode.GetIntProperty("id_font", 0);
-	float				color_font_r				= pNewNode.GetFloatProperty("color_font_r", 0.f);
-	float				color_font_g				= pNewNode.GetFloatProperty("color_font_g", 0.f);
-	float				color_font_b				= pNewNode.GetFloatProperty("color_font_b", 0.f);
+	float color_font_r				= pNewNode.GetFloatProperty("color_font_r", 0.f);
+	float color_font_g				= pNewNode.GetFloatProperty("color_font_g", 0.f);
+	float color_font_b				= pNewNode.GetFloatProperty("color_font_b", 0.f);
+	float background_font_r			= pNewNode.GetFloatProperty("color_background_r", 0.f);
+	float background_font_g			= pNewNode.GetFloatProperty("color_background_g", 0.f);
+	float background_font_b			= pNewNode.GetFloatProperty("color_background_b", 0.f);
 	std::string buffer							= pNewNode.GetPszProperty("buffer", "");
 	std::string l_literal						= pNewNode.GetPszProperty("Literal", "");
 	float				widthOffsetPercent	= pNewNode.GetFloatProperty("widthOffset", 0.f);
@@ -614,7 +617,7 @@ void	CGUIWindow::LoadEditableTextBox (CGUIEditableTextBox** editableTextBox_aux,
 	editableTextBox->SetBuffer(buffer);
 	editableTextBox->SetOnLoadValueAction(OnSaveValue);
 	editableTextBox->SetOnSaveValueAction(OnLoadValue);
-
+	editableTextBox->SetBackGroundColor( CColor( background_font_r, background_font_g, background_font_b ) );
   *editableTextBox_aux = editableTextBox;
 }
 
@@ -744,7 +747,7 @@ void CGUIWindow::_LoadImage(CGUIImage** image_aux, CXMLTreeNode& pNewNode, const
 	{
 		CXMLTreeNode pTexture = pNewNode(j);
 	    std::string tagName = pTexture.GetName();
-	    if (tagName.compare("texture")==0)
+	    if (tagName.compare("Texture")==0)
 	    {	
 		    std::string name				=  pNewNode(j).GetPszProperty("name");
 		    std::string texture			=  pNewNode(j).GetPszProperty("name_texture");
