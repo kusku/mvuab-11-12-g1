@@ -468,29 +468,29 @@ void CGUIWindow::LoadSlider (CGUISlider** slider_aux, CXMLTreeNode& pNewNode, co
 
   CGUISlider* slider;
 
-	std::string name								= pNewNode.GetPszProperty("name", "defaultGuiElement");
-	float 			posx								= pNewNode.GetFloatProperty("posx", 0.f);
-	float 			posy								= pNewNode.GetFloatProperty("posy", 0.f);
-	float 			w										= pNewNode.GetFloatProperty("width", 50.f);
-	float 			h										= pNewNode.GetFloatProperty("height", 50.f);
-	bool 				visible							= pNewNode.GetBoolProperty("visible", true);
-	bool 				activated						= pNewNode.GetBoolProperty("active", true);
-	float 			value								= pNewNode.GetBoolProperty("value", 0.f);
-	float 			buttonH							= pNewNode.GetFloatProperty("buttonH", 10.f);
-	float 			buttonW							= pNewNode.GetFloatProperty("buttonW", 10.f);
-	std::string button_normal				= pNewNode.GetPszProperty("button_normal", "");
-	std::string button_over					= pNewNode.GetPszProperty("button_over", "");
+	std::string name					= pNewNode.GetPszProperty("name", "defaultGuiElement");
+	float posx							= pNewNode.GetFloatProperty("posx", 0.f);
+	float posy							= pNewNode.GetFloatProperty("posy", 0.f);
+	float w								= pNewNode.GetFloatProperty("width", 50.f);
+	float h								= pNewNode.GetFloatProperty("height", 50.f);
+	bool visible						= pNewNode.GetBoolProperty("visible", true);
+	bool activated						= pNewNode.GetBoolProperty("active", true);
+	float value							= pNewNode.GetBoolProperty("value", 0.f);
+	float buttonH						= pNewNode.GetFloatProperty("buttonH", 10.f);
+	float buttonW						= pNewNode.GetFloatProperty("buttonW", 10.f);
+	std::string button_normal			= pNewNode.GetPszProperty("button_normal", "");
+	std::string button_over				= pNewNode.GetPszProperty("button_over", "");
 	std::string button_clicked			= pNewNode.GetPszProperty("button_clicked", "");
-	std::string button_deactivated	= pNewNode.GetPszProperty("button_deactivated", "");
-	std::string quad								= pNewNode.GetPszProperty("quad", "");
-	std::string OnChangeValue				= pNewNode.GetPszProperty("OnChangeValue", "");
+	std::string button_deactivated		= pNewNode.GetPszProperty("button_deactivated", "");
+	std::string quad					= pNewNode.GetPszProperty("quad", "");
+	std::string OnChangeValue			= pNewNode.GetPszProperty("OnChangeValue", "");
 	std::string OnClickedAction			= pNewNode.GetPszProperty("OnClickedAction", "");
-	std::string OnOverAction				= pNewNode.GetPszProperty("OnOverAction", "");
-	std::string OnSaveValue					= pNewNode.GetPszProperty("OnSaveValue", "");
-	std::string OnLoadValue					= pNewNode.GetPszProperty("OnLoadValue", "");
-	std::string l_literal						= pNewNode.GetPszProperty("Literal", "");
-	float				widthOffsetPercent	= pNewNode.GetFloatProperty("widthOffset", 0.f);
-	float				heightOffsetPercent	= pNewNode.GetFloatProperty("heightOffset", 0.f);
+	std::string OnOverAction			= pNewNode.GetPszProperty("OnOverAction", "");
+	std::string OnSaveValue				= pNewNode.GetPszProperty("OnSaveValue", "");
+	std::string OnLoadValue				= pNewNode.GetPszProperty("OnLoadValue", "");
+	std::string l_literal				= pNewNode.GetPszProperty("Literal", "");
+	float widthOffsetPercent			= pNewNode.GetFloatProperty("widthOffset", 0.f);
+	float heightOffsetPercent			= pNewNode.GetFloatProperty("heightOffset", 0.f);
 
 	CTexture* normal	= tm->GetTexture(button_normal);
 	CTexture* over		= tm->GetTexture(button_over);
@@ -856,23 +856,29 @@ void	CGUIWindow::LoadProgressBar(CGUIProgressBar** progressBar_aux, CXMLTreeNode
 	//	Literal="blabla" widthOffset="" heightOffset="" OnComplete="blabla"/>
 
 	CGUIProgressBar* progressBar;
-	std::string name								= pNewNode.GetPszProperty("name", "defaultGuiElement");
-	float				posx								= pNewNode.GetFloatProperty("posx", 0.f);
-	float				posy								= pNewNode.GetFloatProperty("posy", 0.f);
-	float				w										= pNewNode.GetFloatProperty("width", 50.f);
-	float				h										= pNewNode.GetFloatProperty("height", 50.f);
-	bool				visible							= pNewNode.GetBoolProperty("visible", true);
-	bool				activated						= pNewNode.GetBoolProperty("active", true);
-	std::string texture_bar					= pNewNode.GetPszProperty("texture_bar", "");
-	std::string texture_back				= pNewNode.GetPszProperty("texture_back", "");
-	std::string OnComplete					= pNewNode.GetPszProperty("OnComplete", "");
-	uint32			idFont							= pNewNode.GetIntProperty("id_font", 0);
-	float				color_font_r				= pNewNode.GetFloatProperty("color_font_r", 0.f);
-	float				color_font_g				= pNewNode.GetFloatProperty("color_font_g", 0.f);
-	float				color_font_b				= pNewNode.GetFloatProperty("color_font_b", 0.f);
-	std::string l_literal						= pNewNode.GetPszProperty("Literal", "");
-	float				widthOffsetPercent	= pNewNode.GetFloatProperty("widthOffset", 0.f);
-	float				heightOffsetPercent	= pNewNode.GetFloatProperty("heightOffset", 0.f);
+	std::string name				= pNewNode.GetPszProperty("name", "defaultGuiElement");
+	float posx						= pNewNode.GetFloatProperty("posx", 0.f);
+	float posy						= pNewNode.GetFloatProperty("posy", 0.f);
+	float w							= pNewNode.GetFloatProperty("width", 50.f);
+	float h							= pNewNode.GetFloatProperty("height", 50.f);
+	bool visible					= pNewNode.GetBoolProperty("visible", true);
+	bool activated					= pNewNode.GetBoolProperty("active", true);
+	std::string texture_bar			= pNewNode.GetPszProperty("texture_bar", "");
+	std::string texture_back		= pNewNode.GetPszProperty("texture_back", "");
+	std::string OnComplete			= pNewNode.GetPszProperty("OnComplete", "");
+	uint32 idFont					= pNewNode.GetIntProperty("id_font", 0);
+	float color_font_r				= pNewNode.GetFloatProperty("color_font_r", 0.f);
+	float color_font_g				= pNewNode.GetFloatProperty("color_font_g", 0.f);
+	float color_font_b				= pNewNode.GetFloatProperty("color_font_b", 0.f);
+	float color_background_r		= pNewNode.GetFloatProperty("color_background_r", 0.f);
+	float color_background_g		= pNewNode.GetFloatProperty("color_background_g", 0.f);
+	float color_background_b		= pNewNode.GetFloatProperty("color_background_b", 0.f);
+	float color_progress_r			= pNewNode.GetFloatProperty("color_progress_r", 0.f);
+	float color_progress_g			= pNewNode.GetFloatProperty("color_progress_g", 0.f);
+	float color_progress_b			= pNewNode.GetFloatProperty("color_progress_b", 0.f);
+	std::string l_literal			= pNewNode.GetPszProperty("Literal", "");
+	float widthOffsetPercent		= pNewNode.GetFloatProperty("widthOffset", 0.f);
+	float heightOffsetPercent		= pNewNode.GetFloatProperty("heightOffset", 0.f);
 
 	CTexture* bar					= tm->GetTexture(texture_bar);
 	CTexture* back				= tm->GetTexture(texture_back);
@@ -885,6 +891,7 @@ void	CGUIWindow::LoadProgressBar(CGUIProgressBar** progressBar_aux, CXMLTreeNode
 	progressBar->SetName(name);
 	progressBar->SetTextures(back, bar);
 	progressBar->SetFont(idFont, CColor(color_font_r,color_font_g,color_font_b));
+	progressBar->SetColors( CColor(color_background_r, color_background_g, color_background_b), CColor(color_progress_r, color_progress_g, color_progress_b));
 	progressBar->SetOnComplete(OnComplete);
 
   *progressBar_aux = progressBar;
@@ -896,14 +903,14 @@ void	CGUIWindow::LoadStaticText(CGUIStaticText** staticText_aux, CXMLTreeNode& p
 	
 	CGUIStaticText* staticText;
 
-	std::string name						= pNewNode.GetPszProperty("name", "defaultGuiElement");
-	float 			posx						= pNewNode.GetFloatProperty("posx", 0.f);
-	float 			posy						= pNewNode.GetFloatProperty("posy", 0.f);
-	float 			w								= pNewNode.GetFloatProperty("width", 50.f);
-	float 			h								= pNewNode.GetFloatProperty("height", 50.f);
-	bool 				visible					= pNewNode.GetBoolProperty("visible", true);
-	bool 				activated				= pNewNode.GetBoolProperty("active", true);
-	std::string l_literal				= pNewNode.GetPszProperty("Literal", "");
+	std::string name			= pNewNode.GetPszProperty("name", "defaultGuiElement");
+	float posx					= pNewNode.GetFloatProperty("posx", 0.f);
+	float posy					= pNewNode.GetFloatProperty("posy", 0.f);
+	float w						= pNewNode.GetFloatProperty("width", 50.f);
+	float h						= pNewNode.GetFloatProperty("height", 50.f);
+	bool visible				= pNewNode.GetBoolProperty("visible", true);
+	bool activated				= pNewNode.GetBoolProperty("active", true);
+	std::string l_literal		= pNewNode.GetPszProperty("Literal", "");
 	
 	staticText = new CGUIStaticText(screenResolution.y, screenResolution.x, h, w, Vect2f(posx,posy), l_literal, visible, activated);
 	staticText->SetName(name);

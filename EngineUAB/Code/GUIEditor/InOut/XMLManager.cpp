@@ -10,7 +10,10 @@
 #include "Controls\GUIPointerMouse.h"
 #include "Controls\GUIDialogBox.h"
 #include "Controls\GUIEditableTextBox.h"
+#include "Controls\GUIProgressBar.h"
 #include "Controls\GUIImage.h"
+#include "Controls\GUISlider.h"
+#include "Controls\GUIStaticText.h"
 #include "Core.h"
 #include "Base.h"
 
@@ -105,6 +108,21 @@ void CXMLManager::SaveWindow(CXMLTreeNode &node, CGUIWindow *window, const std::
 		case CGuiElement::IMAGE:
 			{
 				SaveImage(node, element, path);
+				break;
+			}
+		case CGuiElement::PROGRESS_BAR:
+			{
+				SaveProgressBar(node, element, path);
+				break;
+			}
+		case CGuiElement::SLIDER:
+			{
+				SaveSlider(node, element, path);
+				break;
+			}
+		case CGuiElement::STATIC_TEXT:
+			{
+				SaveStaticText(node, element, path);
 				break;
 			}
 		}
@@ -306,6 +324,83 @@ void CXMLManager::SaveImage(CXMLTreeNode &node, CGuiElement *element, const std:
 	node.EndElement();
 
 	CopyTexture( texture, path );
+}
+
+void CXMLManager::SaveProgressBar(CXMLTreeNode &node, CGuiElement *element, const std::string &path)
+{
+	CGUIProgressBar *l_pProgressBar = static_cast<CGUIProgressBar*>(element);
+
+	CColor background_color = l_pProgressBar->GetBackGroundColor();
+	CColor text_color = l_pProgressBar->GetTextColor();
+	CColor progress_color = l_pProgressBar->GetProgressColor();
+
+	node.StartElement("ProgressBar");
+
+	WriteCommonProperties(node, l_pProgressBar);
+	node.WriteIntProperty("id_font", (int)l_pProgressBar->GetFontID());
+	node.WriteFloatProperty("color_font_r", text_color.GetRed());
+	node.WriteFloatProperty("color_font_g", text_color.GetGreen());
+	node.WriteFloatProperty("color_font_b", text_color.GetBlue());
+	node.WriteFloatProperty("color_background_r", background_color.GetRed());
+	node.WriteFloatProperty("color_background_g", background_color.GetGreen());
+	node.WriteFloatProperty("color_background_b", background_color.GetBlue());
+	node.WriteFloatProperty("color_progress_r", progress_color.GetRed());
+	node.WriteFloatProperty("color_progress_g", progress_color.GetGreen());
+	node.WriteFloatProperty("color_progress_b", progress_color.GetBlue());
+
+	node.WritePszProperty("texture_bar", GetNameTexture( l_pProgressBar->GetProgressTexture()->GetFileName() ).c_str() );
+	node.WritePszProperty("texture_back", GetNameTexture( l_pProgressBar->GetBackgroundTexture()->GetFileName() ).c_str() );
+
+	node.WritePszProperty("OnComplete", l_pProgressBar->GetOnComplete().c_str() );
+	node.WritePszProperty("OnLoadValue", l_pProgressBar->GetOnLoad().c_str() );
+	node.WritePszProperty("OnSaveValue", l_pProgressBar->GetOnSave().c_str() );
+
+	node.EndElement();
+
+	CopyTexture( l_pProgressBar->GetProgressTexture(), path );
+}
+
+void CXMLManager::SaveSlider(CXMLTreeNode &node, CGuiElement *element, const std::string &path)
+{
+	CGUISlider *l_pSlider = static_cast<CGUISlider*>(element);
+
+	node.StartElement("Slider");
+
+	WriteCommonProperties(node, l_pSlider);
+	node.WriteFloatProperty("buttonH", l_pSlider->GetButtonHeight());
+	node.WriteFloatProperty("buttonW", l_pSlider->GetButtonWidth());
+
+	node.WritePszProperty("button_normal", GetNameTexture( l_pSlider->GetNormalButtonTexture()->GetFileName() ).c_str() );
+	node.WritePszProperty("button_over", GetNameTexture( l_pSlider->GetOverButtonTexture()->GetFileName() ).c_str() );
+	node.WritePszProperty("button_clicked", GetNameTexture( l_pSlider->GetClickedButtonTexture()->GetFileName() ).c_str() );
+	node.WritePszProperty("button_deactivated", GetNameTexture( l_pSlider->GetDeactivatedButtonTexture()->GetFileName() ).c_str() );
+	node.WritePszProperty("quad", GetNameTexture( l_pSlider->GetBackgroundTexture()->GetFileName() ).c_str() );
+
+	
+	node.WritePszProperty("OnChangeValue", l_pSlider->GetOnChangeValue().c_str() );
+	node.WritePszProperty("OnClickedAction", l_pSlider->GetOnClickedAction().c_str() );
+	node.WritePszProperty("OnOverAction", l_pSlider->GetOnOverAction().c_str() );
+	node.WritePszProperty("OnLoadValue", l_pSlider->GetOnLoad().c_str() );
+	node.WritePszProperty("OnSaveValue", l_pSlider->GetOnSave().c_str() );
+
+	node.EndElement();
+
+	CopyTexture( l_pSlider->GetNormalButtonTexture(), path );
+	CopyTexture( l_pSlider->GetOverButtonTexture(), path );
+	CopyTexture( l_pSlider->GetClickedButtonTexture(), path );
+	CopyTexture( l_pSlider->GetDeactivatedButtonTexture(), path );
+	CopyTexture( l_pSlider->GetBackgroundTexture(), path );
+}
+
+void CXMLManager::SaveStaticText(CXMLTreeNode &node, CGuiElement *element, const std::string &path)
+{
+	CGUIStaticText *l_pStaticText = static_cast<CGUIStaticText*>(element);
+
+	node.StartElement("StaticText");
+
+	WriteCommonProperties( node, l_pStaticText );
+
+	node.EndElement();
 }
 
 std::string CXMLManager::GetNameTexture(const std::string &file)
