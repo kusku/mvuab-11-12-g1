@@ -92,6 +92,7 @@ void CMyPicture::OnLButtonUp(UINT nFlags, CPoint point)
 			element->SetIsSelected(false);
 		}
 
+		bool isElementSelected = false;
 		//Mira sobre qué elemento está el mouse
 		for( uint32 i = count; i > 0; --i)
 		{
@@ -103,8 +104,15 @@ void CMyPicture::OnLButtonUp(UINT nFlags, CPoint point)
 			{
 				element->SetIsSelected(true);
 				CElementProperties::ElementProperties(element);
+				isElementSelected = true;
 				break;
 			}
+		}
+
+		//No hay nada seleccionado y ponemos las propiedades de la window
+		if( !isElementSelected )
+		{
+			CElementProperties::WindowProperties(window);
 		}
 	}
 	else

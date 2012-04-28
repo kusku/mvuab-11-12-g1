@@ -388,6 +388,8 @@ void CGUIWindow::LoadButton (CGUIButton** button_aux, CXMLTreeNode& pNewNode, co
 	std::string l_literal						= pNewNode.GetPszProperty("Literal", "");
 	float				widthOffsetPercent	= pNewNode.GetFloatProperty("widthOffset", 0.f);
 	float				heightOffsetPercent	= pNewNode.GetFloatProperty("heightOffset", 0.f);
+	std::string OnSaveValue						= pNewNode.GetPszProperty("OnSaveValue", "");
+	std::string OnLoadValue						= pNewNode.GetPszProperty("OnLoadValue", "");
 
 	CTexture* normal			= tm->GetTexture(texture_normal);
 	CTexture* over				= tm->GetTexture(texture_over);
@@ -402,6 +404,9 @@ void CGUIWindow::LoadButton (CGUIButton** button_aux, CXMLTreeNode& pNewNode, co
 	button->SetTextures(normal,over,clicked,deactivated);
 	button->SetOnClickedAction(OnClickedAction);
 	button->SetOnOverAction(OnOverAction);
+
+	button->SetOnLoadValueAction( OnLoadValue );
+	button->SetOnSaveValueAction( OnSaveValue );
 
   *button_aux = button;
 }
@@ -539,6 +544,8 @@ void	CGUIWindow::LoadDialogBox(CGUIDialogBox** dialogBox_aux, CXMLTreeNode& pNew
 	std::string l_literal								= pNewNode.GetPszProperty("Literal", "");
 	float				widthOffsetPercent			= pNewNode.GetFloatProperty("widthOffset", 0.f);
 	float				heightOffsetPercent			= pNewNode.GetFloatProperty("heightOffset", 0.f);
+	std::string OnSaveValue					= pNewNode.GetPszProperty("OnSaveValue", "");
+	std::string OnLoadValue					= pNewNode.GetPszProperty("OnLoadValue", "");
 
 	CTexture* Close_normal			= tm->GetTexture(buttonClose_normal);
 	CTexture* Close_over				= tm->GetTexture(buttonClose_over);
@@ -559,6 +566,9 @@ void	CGUIWindow::LoadDialogBox(CGUIDialogBox** dialogBox_aux, CXMLTreeNode& pNew
 	dialogBox->SetCloseButtonTextures(Close_normal, Close_over, Close_clicked, Close_deactivated);
 	dialogBox->SetMoveButtonTextures(Move_normal, Move_over, Move_clicked, Move_deactivated);
 	dialogBox->SetDialogTexture(back);
+
+	dialogBox->SetOnLoadValueAction( OnLoadValue );
+	dialogBox->SetOnSaveValueAction( OnSaveValue );
 
   *dialogBox_aux = dialogBox;
 }
@@ -817,7 +827,7 @@ void	CGUIWindow::LoadAnimatedImage(CGUIAnimatedImage** image_aux, CXMLTreeNode& 
 	{
 		CXMLTreeNode pTexture = pNewNode(j);
 		std::string tagName = pTexture.GetName();
-		if (tagName.compare("texture")==0)
+		if (tagName.compare("Texture")==0)
 		{	
 			std::string texture			=  pNewNode(j).GetPszProperty("name_texture");
 			CTexture* texture_image	=  tm->GetTexture(texture);
@@ -829,7 +839,7 @@ void	CGUIWindow::LoadAnimatedImage(CGUIAnimatedImage** image_aux, CXMLTreeNode& 
 	
   if (playOnLoad)
   {
-    //image->PlayAnimation();
+	//image->PlayAnimation();
   }
 
   *image_aux = image;
