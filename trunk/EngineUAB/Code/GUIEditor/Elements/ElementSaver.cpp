@@ -2,6 +2,7 @@
 #include "ElementSaver.h"
 #include "ElementProperties.h"
 #include "GuiElement.h"
+#include "GUIManager.h"
 #include "Controls\GUIImage.h"
 #include "Controls\GUIButton.h"
 #include "Controls\GUICheckButton.h"
@@ -11,6 +12,7 @@
 #include "Controls\GUISlider.h"
 #include "Controls\GUIDialogBox.h"
 #include "Controls\GUIAnimatedImage.h"
+#include "GUIWindow.h"
 #include "Textures\Texture.h"
 #include "Textures\TextureManager.h"
 #include "HWNDManager.h"
@@ -930,6 +932,37 @@ CColor CElementSaver::ConvertColor(COleVariant variant)
 {
 	//TODO: Convertir el color
 	return colBLACK;
+}
+
+void CElementSaver::SaveWindowProperties(CGUIWindow *window)
+{
+	CMFCPropertyGridCtrl *properties = CElementProperties::GetInstance()->GetMFCPropertyGricCtrl();
+	
+	std::string current_window = CORE->GetGUIManager()->GetCurrentWindow();
+
+	//Information
+	COleVariant value = properties->GetProperty(0)->GetSubItem(0)->GetValue();
+	std::string window_name = std::string(_bstr_t(value.bstrVal));
+
+	if( CORE->GetGUIManager()->ChangeWindowName(current_window, window_name) )
+	{
+		window->SetName( window_name );
+		CORE->GetGUIManager()->ActiveWindows( window_name );
+
+		CString* current_string_window = new CString( current_window.c_str() );
+		CString* new_string_window = new CString( window_name.c_str()  );
+		PostMessage( CHWNDManager::GetInstance()->GetHWNDFiles(), WM_CHANGE_WINDOW_NAME, (WPARAM)current_string_window, (LPARAM)new_string_window);
+	}
+
+	//Scripts
+	value = properties->GetProperty(1)->GetSubItem(0)->GetValue();
+	window->SetOnLoadWindows( std::string(_bstr_t(value.bstrVal)) );
+
+	value = properties->GetProperty(1)->GetSubItem(1)->GetValue();
+	window->SetOnSaveWindows( std::string(_bstr_t(value.bstrVal)) );
+
+	value = properties->GetProperty(1)->GetSubItem(2)->GetValue();
+	window->SetOnUpdateWindows( std::string(_bstr_t(value.bstrVal)) );
 }
 
 #pragma warning(pop)

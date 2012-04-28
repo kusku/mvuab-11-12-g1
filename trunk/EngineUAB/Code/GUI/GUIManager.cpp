@@ -494,11 +494,11 @@ void CGUIManager::PushWindows (const std::string& inNameWindow )
   if( it != m_WindowsMap.end() )
   {
 		m_PrevWindows.push_back(m_sCurrentWindows);
-    ActiveWindows(inNameWindow);    
+		ActiveWindows(inNameWindow);    
   }
   else
   {
-    LOGGER->AddNewLog(ELL_ERROR, "CGUIManager::PushWindows Al intentar cambiar a la windows-->%s etsa no se ha encontrado registrada", inNameWindow.c_str());
+    LOGGER->AddNewLog(ELL_ERROR, "CGUIManager::PushWindows Al intentar cambiar a la windows-->%s esta no se ha encontrado registrada", inNameWindow.c_str());
   }
 }
 
@@ -516,6 +516,18 @@ void CGUIManager::PopWindows ()
   }
 }
 
+void CGUIManager::AddWindows(const std::string& inNameWindow)
+{
+	std::map<std::string, CGUIWindow*>::iterator it;
+	it = m_WindowsMap.find( inNameWindow );
+	if( it == m_WindowsMap.end() )
+	{
+		CGUIWindow *window = new CGUIWindow();
+		window->SetName(inNameWindow);
+		window->RegisterElements(m_ElementsMap);
+		m_WindowsMap[ inNameWindow ] = window;
+	}
+}
 
 void CGUIManager::SetScreenResolution(const Vect2i& resolution)
 {
@@ -548,7 +560,7 @@ bool CGUIManager::LoadGuiFiles (const std::string& pathGUI_XML)
 
 	m_WindowsMap.clear();
 	m_ElementsMap.clear();
-	m_sCurrentWindows = "Main.xml";
+	m_sCurrentWindows = "Main";
 
 	WIN32_FIND_DATA FindFileData;
 	HANDLE hFind;
@@ -576,6 +588,10 @@ bool CGUIManager::LoadGuiFiles (const std::string& pathGUI_XML)
 			return false;
 		}
 		windows->RegisterElements(m_ElementsMap);
+
+		int find = FileName.rfind(".");
+		FileName = FileName.substr(0, find);
+
 		windows->SetName(FileName);
 		m_WindowsMap.insert( std::pair<std::string,CGUIWindow*>(FileName,windows) );
 
@@ -591,6 +607,10 @@ bool CGUIManager::LoadGuiFiles (const std::string& pathGUI_XML)
 				return false;
 			}
 			windows->RegisterElements(m_ElementsMap);
+
+			find = FileName.rfind(".");
+			FileName = FileName.substr(0, find);
+
 			windows->SetName(FileName);
 			m_WindowsMap.insert( std::pair<std::string,CGUIWindow*>(FileName,windows) );
 		}
@@ -979,7 +999,7 @@ bool CGUIManager::PrevBlockInRadioBox(  const std::string& inNameRadioBox )
 
 CGuiElement* CGUIManager::GetGUIElement(const std::string& inNameGuiElement)
 {
-  std::map<std::string, CGuiElement*>::iterator it;
+	std::map<std::string, CGuiElement*>::iterator it;
 	it = m_ElementsMap.find(inNameGuiElement);
 	if( it!= m_ElementsMap.end() )
 	{
@@ -990,4 +1010,34 @@ CGuiElement* CGUIManager::GetGUIElement(const std::string& inNameGuiElement)
     LOGGER->AddNewLog(ELL_ERROR, "CGUIManager::GetGUIElement-> No se ha encontrado el guiElement %s", inNameGuiElement.c_str());
 	}
 	return NULL;
+}
+
+bool CGUIManager::ChangeWindowName(const std::string &window, const std::string &newName)
+{
+	TWindowsMap::iterator it;
+	
+	//Mira si la window no existe
+	it = m_WindowsMap.find(window);
+	if( it == m_WindowsMap.end() )
+	{
+		return false;
+	}
+
+	//Mira si el nuevo nombre existe
+	if( m_WindowsMap.find(newName) != m_WindowsMap.end() )
+	{
+		return false;
+	}
+
+	CGUIWindow *l_pWindow = it->second;
+	m_WindowsMap.erase(it);
+	m_WindowsMap[ newName ] = l_pWindow;
+	m_sCurrentWindows = newName;
+
+	return true;
+}
+
+CGUIWindow*	CGUIManager::GetWindow( const std::string &window )
+{
+	return m_WindowsMap[window];
 }

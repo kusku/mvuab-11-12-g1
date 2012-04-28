@@ -113,11 +113,25 @@ void CMyPicture::OnLButtonUp(UINT nFlags, CPoint point)
 		CElementManager *l_pElementManager = CElementManager::GetInstance();
 
 		TElement element = l_pElementManager->GetElementToAdd();
+		std::string window = l_pElementManager->GetWindowToAdd();
 		if( element != NONE )
 		{
 			l_pElementManager->SetElementToAdd(NONE);
 
 			AddElementToActiveWindow(element);
+		}
+		else if( window != "" )
+		{
+			std::string current_window = CORE->GetGUIManager()->GetCurrentWindow();
+			current_window = current_window;
+			CGUIWindow *windowcurrent = CORE->GetGUIManager()->GetWindow( current_window );
+			windowcurrent->ClearSelectElements();
+
+			window = window;
+			CORE->GetGUIManager()->ActiveWindows( window );
+
+			CORE->GetGUIManager()->GetWindow( window )->ClearSelectElements();
+			CElementProperties::WindowProperties( CORE->GetGUIManager()->GetWindow( window ) );
 		}
 	}
 

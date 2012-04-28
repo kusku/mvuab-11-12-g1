@@ -6,6 +6,8 @@
 #include <string>
 #include "GuiElement.h"
 
+class CGUIWindow;
+
 class CElementProperties
 {
 public:
@@ -13,6 +15,7 @@ public:
 	void CleanUp();
 
 	static void ElementProperties(CGuiElement *element);
+	static void WindowProperties(CGUIWindow *window);
 
 	void SetMFCPropertyGricCtrl(CMFCPropertyGridCtrl *MFCProperty) { m_pMFCProperty = MFCProperty; }
 	CMFCPropertyGridCtrl* GetMFCPropertyGricCtrl() const { return m_pMFCProperty; }

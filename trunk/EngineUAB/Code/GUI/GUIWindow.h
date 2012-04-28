@@ -65,10 +65,16 @@ public:
 	const std::string&	GetOnSaveWindows	() const		{ return m_sLuaCode_OnSaveWindows; }
 	const std::string&	GetOnUpdateWindows	() const		{ return m_sLuaCode_OnUpdateWindows; }
 
+	void				SetOnLoadWindows	( const std::string &lua )		{ m_sLuaCode_OnLoadWindows = lua; }
+	void				SetOnSaveWindows	( const std::string &lua )		{ m_sLuaCode_OnSaveWindows = lua; }
+	void				SetOnUpdateWindows	( const std::string &lua )		{ m_sLuaCode_OnUpdateWindows = lua; }
+
 	void			MoveElementToFront		(CGuiElement* element);
 	void			MoveElementForward		(CGuiElement* element);
 	void			MoveElementBack			(CGuiElement* element);
 	void			MoveElementToBack		(CGuiElement* element);
+
+	void			ClearSelectElements		();
 
 private:
 	void	IsKeyDown					(CInputManager* intputManager);	

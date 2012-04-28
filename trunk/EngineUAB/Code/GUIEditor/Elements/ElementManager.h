@@ -28,8 +28,11 @@ public:
 	static CElementManager* GetInstance();
 	void CleanUp();
 
-	void		SetElementToAdd			( TElement element )			{ m_ElementToAdd = element; }
-	TElement	GetElementToAdd			() const						{ return m_ElementToAdd; }
+	void				SetElementToAdd			( TElement element )			{ m_ElementToAdd = element; }
+	TElement			GetElementToAdd			() const						{ return m_ElementToAdd; }
+
+	void				SetWindowToAdd			( const std::string& window )	{ m_WindowToAdd = window; }
+	const std::string&	GetWindowToAdd			() const						{ return m_WindowToAdd; }
 
 private:
 	CElementManager();
@@ -39,6 +42,7 @@ private:
 	static CElementManager *m_pElementManager;
 
 	TElement		m_ElementToAdd;
+	std::string		m_WindowToAdd;
 	
 };
 

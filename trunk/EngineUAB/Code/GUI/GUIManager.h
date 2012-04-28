@@ -84,15 +84,14 @@ public:
 	void				ActiveWindows				( const std::string& inNameWindow );
 	void				PushWindows					( const std::string& inNameWindow );
 	void				PopWindows					();
+	void				AddWindows					( const std::string& inNameWindow );
 	void				ActiveWindowsWithEffect		( const std::string& inNameWindow, EtypeTransitionEffect type, float transitionTime );
 
 	bool				IsVisibleMessage			()const			{ assert(m_TextBox); return m_TextBox->IsVisible(); }
     std::string         GetCurrentWindow            ()				{ return m_sCurrentWindows; }
 	void				SetVisiblePointerMouse		( bool flag )	{ m_bVisiblePointerMouse = flag; }
-	CGUIWindow*			GetWindow					( const std::string &window ) { return m_WindowsMap[window]; }
-	
-	//TWindowsMap&		GetWindowMap				() const		{ return m_WindowsMap; }
-
+	CGUIWindow*			GetWindow					( const std::string &window );
+	bool				ChangeWindowName			( const std::string &window, const std::string &newName );
 	//----CScriptRegister interface--------------------------------------------
 	//virtual void						RegisterFunctions				(CScriptManager* scriptManager);
 

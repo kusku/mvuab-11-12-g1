@@ -107,6 +107,33 @@ void CElementProperties::ElementProperties(CGuiElement *element)
 
 #pragma warning(pop)
 
+void CElementProperties::WindowProperties(CGUIWindow *window)
+{
+	CMFCPropertyGridProperty* pProp = NULL;
+	CMFCPropertyGridCtrl *MFCProperty = CElementProperties::GetInstance()->GetMFCPropertyGricCtrl();
+
+	MFCProperty->RemoveAll();
+
+	//Información
+	CMFCPropertyGridProperty* pInformation = new CMFCPropertyGridProperty(_T("Información"));
+
+	/*std::string window_name = window->GetName();
+	int find = window_name.rfind(".");
+	window_name = window_name.substr(0, find);*/
+
+	pProp = new CMFCPropertyGridProperty(_T("Nombre"), window->GetName().c_str());
+	pProp->Enable(TRUE);
+	pInformation->AddSubItem(pProp);
+	MFCProperty->AddProperty(pInformation);
+
+	//Scripts
+	CMFCPropertyGridProperty* pScript = new CMFCPropertyGridProperty(_T("Script"));
+	pScript->AddSubItem(new CMFCPropertyGridProperty(_T("OnLoad"), (_variant_t) _T( window->GetOnLoadWindows().c_str() ), _T("Especifica el código de scripting al cargar la ventana")));
+	pScript->AddSubItem(new CMFCPropertyGridProperty(_T("OnSave"), (_variant_t) _T( window->GetOnSaveWindows().c_str() ), _T("Especifica el código de scripting al guardar la ventana")));
+	pScript->AddSubItem(new CMFCPropertyGridProperty(_T("OnUpdate"), (_variant_t) _T( window->GetOnUpdateWindows().c_str() ), _T("Especifica el código de scripting al actualizar la ventana")));
+	MFCProperty->AddProperty(pScript);
+}
+
 void CElementProperties::AnimatedImageProperties(CGuiElement *element)
 {
 	CMFCPropertyGridProperty* pProp = NULL;

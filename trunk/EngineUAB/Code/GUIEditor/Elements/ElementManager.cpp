@@ -4,6 +4,7 @@
 
 CElementManager::CElementManager()
 	: m_ElementToAdd(NONE)
+	, m_WindowToAdd("")
 {
 }
 
