@@ -128,6 +128,17 @@ void CElementSaver::AnimatedImageProperties(CGuiElement *element, CMFCPropertyGr
 	value = properties->GetProperty(3)->GetSubItem(3)->GetValue();
 	animated_element->SetLiteral( std::string( _bstr_t( value.bstrVal ) ) );
 
+	/*value = properties->GetProperty(3)->GetSubItem(4)->GetValue();
+	std::string play = std::string(_bstr_t(value.bstrVal));
+	if( play == "True" )
+	{
+		animated_element->SetPlayOnLoad(true);
+	}
+	else
+	{
+		animated_element->SetPlayOnLoad(false);
+	}*/
+
 	//-----------------------------------------
 	//Propiedades de texturas
 	//-----------------------------------------

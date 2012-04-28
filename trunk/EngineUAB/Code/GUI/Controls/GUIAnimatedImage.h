@@ -63,6 +63,9 @@ public:
 	CTexture*					GetTexture				(uint32 id) const		{ return m_VecTextures[id]; }
 	void						DeleteTextures			()						{ m_VecTextures.clear(); }
 
+	bool						GetPlayOnLoad			() const				{ return m_bPlayOnLoad; }
+	void						SetPlayOnLoad			( bool play )			{ m_bPlayOnLoad = play; }
+
 private:
 	tTexturesVec		m_VecTextures;
 	CTexture*			m_pDefaultTexture;
@@ -77,6 +80,7 @@ private:
 	bool				m_bPlayForward;
 	int16				m_sCurrentFrame;
 	int16				m_sFinalFrame;
+	bool				m_bPlayOnLoad;
 
 	int					m_iEffect;
 	float				m_fAlpha;

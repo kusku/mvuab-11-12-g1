@@ -62,6 +62,9 @@ public:
 
 	CTexture*		GetBackgroundTexture		() const		{ return m_pBackGroundTexture; }
 
+	float			GetButtonHeight				() const		{ return m_fButtonHeight; }
+	float			GetButtonWidth				() const			{ return m_fButtonWidth; }
+
 private:
 	bool			m_bDialogClicked;
 	CGUIButton		m_ButtonClose;

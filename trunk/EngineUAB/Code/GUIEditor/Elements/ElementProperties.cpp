@@ -147,7 +147,14 @@ void CElementProperties::AnimatedImageProperties(CGuiElement *element)
 	AddBasicAppearanceProperties( element );
 
 	//Añadir propiedades de información
-	AddBasicInformationProperties( element );
+	CMFCPropertyGridProperty* pInformation = AddBasicInformationProperties( element );
+
+	//std::string play = l_pAnimatedImage->GetPlayOnLoad() ? "True" : "False";
+	//pProp = new CMFCPropertyGridProperty(_T("Play on Load"), _T(play.c_str()), _T("Especifica si se animará en cargar el objeto"));
+	//pProp->AddOption(_T("True"));
+	//pProp->AddOption(_T("False"));
+
+	//pInformation->AddSubItem(pProp);
 
 	//Texturas
 	CMFCPropertyGridProperty* pTexture = new CMFCPropertyGridProperty(_T("Texturas"));
