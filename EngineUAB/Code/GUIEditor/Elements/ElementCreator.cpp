@@ -213,7 +213,7 @@ CGuiElement* CElementCreator::CreateEditableTextBox(CGUIWindow *window)
 	std::string l_Name = "editable_text_box_" + GetSufixNumber(window);
 	l_pTextBox->SetName( l_Name );
 	l_pTextBox->SetID( l_Name );
-	l_pTextBox->SetBuffer("hola món");
+	l_pTextBox->SetBuffer("Editable Text Box");
 	l_pTextBox->SetFont( colBLACK, 0 );
 	l_pTextBox->SetBackGroundColor( colWHITE );
 	l_pTextBox->SetOnLoadValueAction("");

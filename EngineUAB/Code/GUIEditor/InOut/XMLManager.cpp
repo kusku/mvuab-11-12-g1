@@ -9,6 +9,8 @@
 #include "Controls\GUICheckButton.h"
 #include "Controls\GUIPointerMouse.h"
 #include "Controls\GUIDialogBox.h"
+#include "Controls\GUIEditableTextBox.h"
+#include "Controls\GUIImage.h"
 #include "Core.h"
 #include "Base.h"
 
@@ -93,6 +95,16 @@ void CXMLManager::SaveWindow(CXMLTreeNode &node, CGUIWindow *window, const std::
 		case CGuiElement::DIALOG_BOX:
 			{
 				SaveDialogBox(node, element, path);
+				break;
+			}
+		case CGuiElement::EDITABLE_TEXT_BOX:
+			{
+				SaveEditableTextBox(node, element, path);
+				break;
+			}
+		case CGuiElement::IMAGE:
+			{
+				SaveImage(node, element, path);
 				break;
 			}
 		}
@@ -197,6 +209,7 @@ void CXMLManager::SaveDialogBox(CXMLTreeNode &node, CGuiElement *element, const 
 	node.WritePszProperty("quad", GetNameTexture( l_pDialogBox->GetBackgroundTexture()->GetFileName() ).c_str() );
 	node.WritePszProperty("OnLoadValue", l_pDialogBox->GetOnLoad().c_str() );
 	node.WritePszProperty("OnSaveValue", l_pDialogBox->GetOnSave().c_str() );
+
 	node.EndElement();
 
 	CopyTexture( l_pDialogBox->GetNormalButtonClose(), path );
@@ -208,6 +221,91 @@ void CXMLManager::SaveDialogBox(CXMLTreeNode &node, CGuiElement *element, const 
 	CopyTexture( l_pDialogBox->GetClickedButtonMove(), path );
 	CopyTexture( l_pDialogBox->GetDeactivatedButtonMove(), path );
 	CopyTexture( l_pDialogBox->GetBackgroundTexture(), path );
+}
+
+void CXMLManager::SaveEditableTextBox(CXMLTreeNode &node, CGuiElement *element, const std::string &path)
+{
+	CGUIEditableTextBox *l_pEditable = static_cast<CGUIEditableTextBox*>(element);
+
+	node.StartElement("EditableTextBox");
+
+	CColor color = l_pEditable->GetTextColor();
+	CColor backgroundColor = l_pEditable->GetBackGroundColor();
+	CTexture *texture = l_pEditable->GetBackGroundTexture();
+
+	WriteCommonProperties( node, l_pEditable );
+	node.WriteIntProperty("id_font", (int)l_pEditable->GetFontID() );
+	node.WriteFloatProperty("color_font_r", color.GetRed() );
+	node.WriteFloatProperty("color_font_g", color.GetGreen() );
+	node.WriteFloatProperty("color_font_b", color.GetBlue() );
+	node.WriteFloatProperty("color_background_r", backgroundColor.GetRed() );
+	node.WriteFloatProperty("color_background_g", backgroundColor.GetGreen() );
+	node.WriteFloatProperty("color_background_b", backgroundColor.GetBlue() );
+	node.WritePszProperty("buffer", "");
+
+	if( texture == NULL )
+	{
+		node.WritePszProperty("texture_quad", "" );
+	}
+	else
+	{
+		node.WritePszProperty("texture_quad", GetNameTexture( texture->GetFileName() ).c_str() );
+	}
+
+	node.WritePszProperty("OnLoadValue", l_pEditable->GetOnLoad().c_str() );
+	node.WritePszProperty("OnSaveValue", l_pEditable->GetOnSave().c_str() );
+	
+	node.EndElement();
+
+	if( texture != NULL )
+	{
+		CopyTexture( texture, path );
+	}
+}
+
+void CXMLManager::SaveImage(CXMLTreeNode &node, CGuiElement *element, const std::string &path)
+{
+	CGUIImage *l_pImage = static_cast<CGUIImage*>(element);
+	CTexture *texture = l_pImage->GetTexture( l_pImage->GetActiveTexture() );
+
+
+	node.StartElement("Image");
+
+	WriteCommonProperties(node, l_pImage);
+	node.WritePszProperty("default", "tex1");
+	switch( l_pImage->GetFlip() )
+	{
+	case NONE_FLIP:
+		{
+			node.WritePszProperty("flip", "NONE_FLIP");
+			break;
+		}
+	case FLIP_X:
+		{
+			node.WritePszProperty("flip", "FLIP_X");
+			break;
+		}
+	case FLIP_Y:
+		{
+			node.WritePszProperty("flip", "FLIP_Y");
+			break;
+		}
+	}	
+
+	node.WriteBoolProperty("backGround", false);
+	node.WritePszProperty("OnLoadValue", l_pImage->GetOnLoad().c_str() );
+	node.WritePszProperty("OnSaveValue", l_pImage->GetOnSave().c_str() );
+
+	node.StartElement("Texture");
+	
+	node.WritePszProperty("name", "tex1");
+	node.WritePszProperty("name_texture", GetNameTexture( texture->GetFileName() ).c_str() );
+
+	node.EndElement();
+
+	node.EndElement();
+
+	CopyTexture( texture, path );
 }
 
 std::string CXMLManager::GetNameTexture(const std::string &file)

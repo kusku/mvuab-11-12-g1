@@ -23,6 +23,8 @@ private:
 	static void SaveButton(CXMLTreeNode &node, CGuiElement *element, const std::string &path);
 	static void SaveCheckButton(CXMLTreeNode &node, CGuiElement *element, const std::string &path);
 	static void SaveDialogBox(CXMLTreeNode &node, CGuiElement *element, const std::string &path);
+	static void SaveEditableTextBox(CXMLTreeNode &node, CGuiElement *element, const std::string &path);
+	static void SaveImage(CXMLTreeNode &node, CGuiElement *element, const std::string &path);
 
 	static void WriteCommonProperties(CXMLTreeNode &node, CGuiElement *element);
 	static std::string GetNameTexture(const std::string &file);
