@@ -11,6 +11,7 @@
 #define INC_LOGGER_H_
 
 #include "Utils\Singleton.h"
+#include "Utils\Types.h"
 #include <vector>
 #include <string>
 
@@ -57,6 +58,8 @@ public:
 
 	void							AddNewLog			(ELOG_LEVEL ll, const char* format, ... );
 	const std::vector<SLog>&		GetLogs				() const					{return m_vLogs;}
+	int								GetNumLogs			() const					{ return m_vLogs.size(); }
+	const SLog&						GetLog				( uint32 id ) const			{ return m_vLogs[id]; }
 	bool							Errors				() const 					{return m_bErrors;}
 	bool							Warnings			() const 					{return m_bWarnings;}
 	bool							SaveLogsInFile		();

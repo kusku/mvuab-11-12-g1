@@ -121,14 +121,15 @@ void COutputWnd::FillBuildWindow()
 	m_wndOutputLog.AddString(_T("El resultado se mostrará en filas en una vista de lista"));
 	m_wndOutputLog.AddString(_T("pero puede cambiar el modo en que se muestra como desee..."));*/
 
-	std::vector<SLog> logs = LOGGER->GetLogs();
-	uint32 numlogs = logs.size();
+	/*std::vector<SLog> logs = LOGGER->GetLogs();
+	uint32 numlogs = logs.size();*/
+	uint32 numlogs = (uint32)LOGGER->GetNumLogs();
 
 	for(uint32 i=m_uNumOfLogs; i<numlogs; ++i)
 	{
 		std::string msg = "";
 
-		switch(logs[i].m_eLogLevel)
+		switch(LOGGER->GetLog(i).m_eLogLevel)
 		{
 		case ELL_INFORMATION:
 			msg = "[INFORMATION]";
@@ -141,7 +142,7 @@ void COutputWnd::FillBuildWindow()
 			break;
 		}
 
-		msg = msg + " " + logs[i].m_sLogText;
+		msg = msg + " " + LOGGER->GetLog(i).m_sLogText;
 		m_wndOutputLog.AddString(_T(msg.c_str()));
 	}
 
