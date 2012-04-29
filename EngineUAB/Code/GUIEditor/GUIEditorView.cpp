@@ -48,6 +48,11 @@ CGUIEditorView::CGUIEditorView()
 	, m_PictureRect(0, 0, 0, 0)
 {
 	
+	//-----------Per a detectar Memory Leaks-------------------------
+	_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
+	//_CrtSetBreakAlloc (324475);
+	//---------------------------------------------------------------//
+
 	CEngineManager::GetInstance()->GetEngine()->LoadConfigXML("./Data/XML/engine.xml");
 }
 

@@ -16,9 +16,13 @@
 #include "EngineProcess.h"
 #include "EngineManager.h"
 #include "GUIEditorProcess.h"
+#include "GUIManager.h"
+#include "Core.h"
+#include "Base.h"
 
 #include "HWNDManager.h"
 #include "defines.h"
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -31,7 +35,8 @@ BEGIN_MESSAGE_MAP(CGUIEditorApp, CWinAppEx)
 	ON_COMMAND(ID_APP_ABOUT, &CGUIEditorApp::OnAppAbout)
 	// Comandos de documento estándar basados en archivo
 	ON_COMMAND(ID_FILE_NEW, &CGUIEditorApp::OnFileNew)
-	ON_COMMAND(ID_FILE_OPEN, &CWinAppEx::OnFileOpen)
+	//ON_COMMAND(ID_FILE_OPEN, &CWinAppEx::OnFileOpen)
+	ON_COMMAND(ID_FILE_OPEN, &CGUIEditorApp::OnFileOpen)
 	// Comando de configuración de impresión estándar
 	ON_COMMAND(ID_FILE_PRINT_SETUP, &CWinAppEx::OnFilePrintSetup)
 END_MESSAGE_MAP()
@@ -232,6 +237,22 @@ void CGUIEditorApp::OnFileNew()
 		PostMessage(CHWNDManager::GetInstance()->GetHWNDFiles(), WM_ADD_WINDOW, 0, 0); 
 		m_bStarting = false;
 	}
+}
+
+void CGUIEditorApp::OnFileOpen()
+{
+	CString nom;
+	CFileDialog openOBJ (TRUE, NULL, NULL,
+			OFN_FILEMUSTEXIST | OFN_HIDEREADONLY ,
+			_T("XML Files (*.xml)|*.xml|All Files (*.*)|*.*||"));;
+
+			if (openOBJ.DoModal() != IDOK)	return;  // stay with old data file
+			else nom=openOBJ.GetPathName();
+
+	char* nomfitx = (char *)(LPCTSTR)nom;
+
+	//CORE->GetGUIManager()->Done();
+	CORE->GetGUIManager()->Init( std::string(nomfitx) );
 }
 
 // Controladores de mensaje de CGUIEditorApp

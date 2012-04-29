@@ -26,6 +26,10 @@
 #include "Controls\GUIStatictext.h"
 //-------------------------
 
+#if defined (_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
+
 //----------------------------------------------------------------------------
 // Constructor
 //----------------------------------------------------------------------------
@@ -84,7 +88,8 @@ void CGUIManager::Release ()
 //----------------------------------------------------------------------------
 bool CGUIManager::Init (const std::string& initGuiXML)
 {
-	
+	Done();
+
 	m_bIsOk = false;
 
 	LOGGER->AddNewLog(ELL_INFORMATION, "CGUIManager:: calling initialization");
@@ -201,7 +206,7 @@ bool CGUIManager::Init (const std::string& initGuiXML)
 	}
 	else
 	{
-		LOGGER->AddNewLog(ELL_INFORMATION, "CSoundManager:: online (ok)");
+		LOGGER->AddNewLog(ELL_INFORMATION, "CGUIManager:: online (ok)");
 	}
 
 	return m_bIsOk;
