@@ -172,12 +172,12 @@ bool CGUIManager::Init (const std::string& initGuiXML)
 			m = parser["PointerMouse"];
 			if (m.Exists())
 			{
-				float posx													= m.GetFloatProperty("posx",			5.f);
-				float posy													= m.GetFloatProperty("posy",			5.f);
-				float w															= m.GetFloatProperty("width",			5.f);
-				float h															= m.GetFloatProperty("height",		5.f);
-				std::string texture	= m.GetPszProperty("texture",			"./Data/General/Textures/gui_pointer_mouse.tga");
-				bool isQuadrant											= m.GetBoolProperty("isQuadrant",	true);
+				float posx				= m.GetFloatProperty("posx", 5.f);
+				float posy				= m.GetFloatProperty("posy", 5.f);
+				float w					= m.GetFloatProperty("width", 5.f);
+				float h					= m.GetFloatProperty("height", 5.f);
+				std::string texture		= m.GetPszProperty("texture","./Data/General/Textures/gui_pointer_mouse.tga");
+				bool isQuadrant			= m.GetBoolProperty("isQuadrant", true);
 				
 				CTexture* texture_pointer = textureM->GetTexture(texture);
 				
