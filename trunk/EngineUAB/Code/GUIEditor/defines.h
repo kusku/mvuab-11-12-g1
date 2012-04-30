@@ -12,5 +12,6 @@
 #define WM_UPDATE_FILE_DATA		(WM_USER + 4)
 #define WM_ADD_WINDOW			(WM_USER + 5)
 #define WM_CHANGE_WINDOW_NAME	(WM_USER + 6)
+#define WM_RELOAD_FILE_LIST		(WM_USER + 7)
 
 #endif

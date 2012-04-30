@@ -92,6 +92,7 @@ public:
 	void				SetVisiblePointerMouse		( bool flag )	{ m_bVisiblePointerMouse = flag; }
 	CGUIWindow*			GetWindow					( const std::string &window );
 	bool				ChangeWindowName			( const std::string &window, const std::string &newName );
+	const TWindowsMap&	GetAllWindows				() const		{ return m_WindowsMap; }
 	//----CScriptRegister interface--------------------------------------------
 	//virtual void						RegisterFunctions				(CScriptManager* scriptManager);
 
