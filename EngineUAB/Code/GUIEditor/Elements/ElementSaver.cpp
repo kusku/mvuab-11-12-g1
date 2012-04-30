@@ -85,7 +85,7 @@ void CElementSaver::SaveProperties(CGuiElement *element)
 	if( l_Name != l_NewName )
 	{
 		//Actualizamos la lista de ficheros
-		CString *original = new CString(element->GetID().c_str());
+		CString *original = new CString(l_Name.c_str());
 		CString *modified = new CString(l_NewName.c_str());
 		PostMessage( CHWNDManager::GetInstance()->GetHWNDFiles(), WM_UPDATE_FILE_DATA, (WPARAM)original,(LPARAM)modified);
 	}
