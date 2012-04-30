@@ -29,6 +29,11 @@ CFileView::CFileView()
 
 CFileView::~CFileView()
 {
+	Release();
+}
+
+void CFileView::Release()
+{
 	m_WindowsMap.clear();
 
 	TElementsWindow::iterator l_It = m_ElementsWindowMap.begin();
@@ -290,6 +295,47 @@ void CFileView::OnChangeVisualStyle()
 	m_wndFileView.SetImageList(&m_FileViewImages, TVSIL_NORMAL);
 }
 
+void CFileView::ReloadAll()
+{
+	m_wndFileView.DeleteAllItems();
+	CElementManager::GetInstance()->SetWindowToAdd("");
+	CElementManager::GetInstance()->SetElementToAdd(NONE);
+	Release();
+
+	HTREEITEM hRoot = m_wndFileView.InsertItem(_T("Windows"), 0, 0);
+	m_wndFileView.SetItemState(hRoot, TVIS_BOLD, TVIS_BOLD);
+	m_WindowsMap[ "Windows" ] = hRoot;
+
+	CGUIManager *l_pManager = CORE->GetGUIManager();
+	CGUIManager::TWindowsMap l_Windows = l_pManager->GetAllWindows();
+
+	CGUIManager::TWindowsMap::iterator l_It = l_Windows.begin();
+	CGUIManager::TWindowsMap::iterator l_ItEnd = l_Windows.end(); 
+
+	for(; l_It != l_ItEnd; ++l_It)
+	{
+		std::string window_name = l_It->first;
+		HTREEITEM hSrc = m_wndFileView.InsertItem(_T(window_name.c_str()), 0, 0, hRoot);
+		m_WindowsMap[ window_name ] = hSrc;
+
+		uint16 count = l_It->second->GetNumElements();
+		for(uint16 j=0; j<count; ++j)
+		{
+			CGuiElement *l_pElement = l_It->second->GetElementById(j);
+			l_pElement->SetRenderForGUIEditor(true);
+			std::string element_name = l_pElement->GetName();
+
+			HTREEITEM l_Child = m_wndFileView.InsertItem(_T( element_name.c_str() ), 1, 1, hSrc);
+
+			m_ElementsWindowMap[window_name][element_name] = l_Child;
+		}
+
+		m_wndFileView.Expand(hSrc, TVE_EXPAND);
+	}
+
+	m_wndFileView.Expand(hRoot, TVE_EXPAND);
+}
+
 BOOL CFileView::PreTranslateMessage(MSG* pMsg)
 {
 	switch( pMsg->message )
@@ -376,12 +422,6 @@ BOOL CFileView::PreTranslateMessage(MSG* pMsg)
 			strcpy_s(nameChar, *newname);
 			std::string new_name = nameChar;
 
-	/*		int find = current_name.rfind(".");
-			current_name = current_name.substr(0, find);
-
-			find = new_name.rfind(".");
-			new_name = new_name.substr(0, find);*/
-
 			if( m_WindowsMap.find(current_name) != m_WindowsMap.end() )
 			{
 				HTREEITEM item  = m_WindowsMap[current_name];
@@ -397,6 +437,11 @@ BOOL CFileView::PreTranslateMessage(MSG* pMsg)
 
 			CHECKED_DELETE(name);
 			CHECKED_DELETE(newname);
+			break;
+		}
+	case WM_RELOAD_FILE_LIST:
+		{
+			ReloadAll();
 			break;
 		}
 	}

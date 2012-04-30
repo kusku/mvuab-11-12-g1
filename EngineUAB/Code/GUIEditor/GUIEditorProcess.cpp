@@ -29,6 +29,8 @@ void CGUIEditorProcess::Init()
 {
 	std::string window = CORE->GetGUIManager()->GetCurrentWindow();
 	CElementProperties::WindowProperties( CORE->GetGUIManager()->GetWindow( window ) );
+
+	PostMessage( CHWNDManager::GetInstance()->GetHWNDFiles(), WM_RELOAD_FILE_LIST, 0, 0);
 }
 
 void CGUIEditorProcess::Update(float elapsedTime)
@@ -57,6 +59,11 @@ void CGUIEditorProcess::Update(float elapsedTime)
 		CORE->GetGUIManager()->Init( std::string(path) );
 		CElementManager::GetInstance()->SetPathToInit("");
 
+		name_window = CORE->GetGUIManager()->GetCurrentWindow();
+		window = CORE->GetGUIManager()->GetWindow(name_window);
+		CElementProperties::WindowProperties(window);
+
+		PostMessage( CHWNDManager::GetInstance()->GetHWNDFiles(), WM_RELOAD_FILE_LIST, 0, 0);
 	}
 
 	std::string name_window = CORE->GetGUIManager()->GetCurrentWindow();

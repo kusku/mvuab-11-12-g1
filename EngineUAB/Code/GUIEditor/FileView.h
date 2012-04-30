@@ -47,6 +47,8 @@ public:
 
 private:
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	void Release();
+	void ReloadAll();
 
 protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
