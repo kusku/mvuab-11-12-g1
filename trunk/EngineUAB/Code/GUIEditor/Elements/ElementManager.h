@@ -34,6 +34,9 @@ public:
 	void				SetWindowToAdd			( const std::string& window )	{ m_WindowToAdd = window; }
 	const std::string&	GetWindowToAdd			() const						{ return m_WindowToAdd; }
 
+	void				SetPathToInit			( const std::string& path )		{ m_PathToInit = path; }
+	const std::string&	GetPathToInit			() const						{ return m_PathToInit; }
+
 private:
 	CElementManager();
 	~CElementManager();
@@ -43,7 +46,7 @@ private:
 
 	TElement		m_ElementToAdd;
 	std::string		m_WindowToAdd;
-	
+	std::string		m_PathToInit;
 };
 
 #endif

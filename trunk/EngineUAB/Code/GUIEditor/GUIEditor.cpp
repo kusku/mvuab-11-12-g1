@@ -36,7 +36,7 @@ BEGIN_MESSAGE_MAP(CGUIEditorApp, CWinAppEx)
 	// Comandos de documento estándar basados en archivo
 	ON_COMMAND(ID_FILE_NEW, &CGUIEditorApp::OnFileNew)
 	//ON_COMMAND(ID_FILE_OPEN, &CWinAppEx::OnFileOpen)
-	ON_COMMAND(ID_FILE_OPEN, &CGUIEditorApp::OnFileOpen)
+	//ON_COMMAND(ID_FILE_OPEN, &CGUIEditorApp::OnFileOpen)
 	// Comando de configuración de impresión estándar
 	ON_COMMAND(ID_FILE_PRINT_SETUP, &CWinAppEx::OnFilePrintSetup)
 END_MESSAGE_MAP()

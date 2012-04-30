@@ -11,6 +11,7 @@
 #include "HWNDManager.h"
 #include "Elements\ElementSaver.h"
 #include "Elements\ElementProperties.h"
+#include "Elements\ElementManager.h"
 #include "InputManager.h"
 
 CGUIEditorProcess::CGUIEditorProcess(void)
@@ -38,6 +39,25 @@ void CGUIEditorProcess::Update(float elapsedTime)
 
 	HWND hWnd = CHWNDManager::GetInstance()->GetHWNDOutput();
 	PostMessage( hWnd, WM_GETLOGGER, 0, 0);
+
+	std::string path = CElementManager::GetInstance()->GetPathToInit();
+	if( path != "")
+	{
+		std::string name_window = CORE->GetGUIManager()->GetCurrentWindow();
+		CGUIWindow *window = CORE->GetGUIManager()->GetWindow(name_window);
+
+		uint32 count = window->GetNumElements();
+		for( uint32 i=0; i<count; ++i)
+		{
+			window->GetElementById(i)->SetIsSelected(false);
+		}
+		CElementProperties::WindowProperties(window);
+
+		CORE->GetGUIManager()->Done();
+		CORE->GetGUIManager()->Init( std::string(path) );
+		CElementManager::GetInstance()->SetPathToInit("");
+
+	}
 
 	std::string name_window = CORE->GetGUIManager()->GetCurrentWindow();
 	CGUIWindow *window = CORE->GetGUIManager()->GetWindow(name_window);

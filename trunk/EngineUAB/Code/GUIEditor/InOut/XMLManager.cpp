@@ -33,7 +33,7 @@ void CXMLManager::SaveFiles(const std::string &filename)
 
 	l_Node.StartElement( "Gui_config" );
 
-	l_Node.StartElement( "GuiFile" );
+	l_Node.StartElement( "GuiFiles" );
 	l_Node.WritePszProperty("path", "./Data/XML/GUI/");
 	l_Node.EndElement();
 

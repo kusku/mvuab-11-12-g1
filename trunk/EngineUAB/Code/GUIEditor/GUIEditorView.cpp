@@ -16,6 +16,9 @@
 
 #include "Engine.h"
 #include "GUIEditorProcess.h"
+#include "Elements\ElementManager.h"
+#include "GUIManager.h"
+#include "Core.h"
 #include "Base.h"
 #include "defines.h"
 #include "EngineManager.h"
@@ -32,6 +35,7 @@ IMPLEMENT_DYNCREATE(CGUIEditorView, CView)
 
 BEGIN_MESSAGE_MAP(CGUIEditorView, CView)
 	// Comandos de impresión estándar
+	ON_COMMAND(ID_FILE_OPEN, &CGUIEditorView::OnFileOpen)
 	ON_COMMAND(ID_FILE_PRINT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CGUIEditorView::OnFilePrintPreview)
@@ -54,6 +58,7 @@ CGUIEditorView::CGUIEditorView()
 	//---------------------------------------------------------------//
 
 	CEngineManager::GetInstance()->GetEngine()->LoadConfigXML("./Data/XML/engine.xml");
+	CElementManager::GetInstance()->SetPathToInit("");
 }
 
 CGUIEditorView::~CGUIEditorView()
@@ -190,6 +195,21 @@ CGUIEditorDoc* CGUIEditorView::GetDocument() const // La versión de no depuració
 BOOL CGUIEditorView::PreTranslateMessage(MSG* pMsg)
 {
 	return CView::PreTranslateMessage(pMsg);
+}
+
+void CGUIEditorView::OnFileOpen()
+{
+	CString nom;
+	CFileDialog openOBJ (TRUE, NULL, NULL,
+			OFN_FILEMUSTEXIST | OFN_HIDEREADONLY ,
+			_T("XML Files (*.xml)|*.xml|All Files (*.*)|*.*||"));;
+
+			if (openOBJ.DoModal() != IDOK)	return;  // stay with old data file
+			else nom=openOBJ.GetPathName();
+
+	char* nomfitx = (char *)(LPCTSTR)nom;
+
+	CElementManager::GetInstance()->SetPathToInit( std::string(nomfitx) );
 }
 
 // Controladores de mensaje de CGUIEditorView
