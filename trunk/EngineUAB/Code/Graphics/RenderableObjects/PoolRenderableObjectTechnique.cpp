@@ -9,55 +9,22 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-CPoolRenderableObjectTechnique::CPoolRenderableObjectTechnique(CXMLTreeNode &Node)
+// *****************************************
+//			CONSTRUCTOR/DESTRUCTOR
+// *****************************************
+CPoolRenderableObjectTechnique::CPoolRenderableObjectTechnique(CXMLTreeNode &_Node)
 {
+	SetName ( _Node.GetPszProperty ( "name" ) );
 }
 
-
-CPoolRenderableObjectTechnique::~CPoolRenderableObjectTechnique()
+CPoolRenderableObjectTechnique::~CPoolRenderableObjectTechnique ( void )
 {
 	Destroy();
 }
 
-void CPoolRenderableObjectTechnique::Destroy()
-{
-	TPoolROTechinqueElement::iterator l_It = m_RenderableObjectTechniqueElementsVector.begin();
-	TPoolROTechinqueElement::iterator l_End = m_RenderableObjectTechniqueElementsVector.end();
-	for(; l_It != l_End; ++l_It)
-	{
-		CHECKED_DELETE(*l_It);
-	}
-	m_RenderableObjectTechniqueElementsVector.clear();
-}
-
-void CPoolRenderableObjectTechnique::AddElement(const std::string &Name, const std::string &TechniqueName, 
-												CRenderableObjectTechnique *ROTOnRenderableObjectTechniqueManager)
-{
-	CEffectTechnique *l_EffectTechnique = CORE->GetEffectManager()->GetEffectTechnique(TechniqueName);
-
-	CPoolRenderableObjectTechniqueElement *l_PoolROTE = 
-		new CPoolRenderableObjectTechniqueElement(Name, l_EffectTechnique, ROTOnRenderableObjectTechniqueManager);
-
-	m_RenderableObjectTechniqueElementsVector.push_back( l_PoolROTE );
-
-	l_PoolROTE = NULL;
-}
-
-void CPoolRenderableObjectTechnique::Apply()
-{
-	CEffectTechnique *l_EffectTechnique = NULL;
-
-	TPoolROTechinqueElement::iterator l_It = m_RenderableObjectTechniqueElementsVector.begin();
-	TPoolROTechinqueElement::iterator l_End = m_RenderableObjectTechniqueElementsVector.end();
-	for(; l_It != l_End; ++l_It)
-	{
-		(*l_It)->m_pOnRenderableObjectTechniqueManager->SetEffectTechnique( (*l_It)->m_RenderableObjectTechnique.GetEffectTechnique() );
-	}
-}
-
-CPoolRenderableObjectTechnique::CPoolRenderableObjectTechniqueElement::CPoolRenderableObjectTechniqueElement()
-{
-}
+//CPoolRenderableObjectTechnique::CPoolRenderableObjectTechniqueElement::CPoolRenderableObjectTechniqueElement()
+//{
+//}
 
 CPoolRenderableObjectTechnique::CPoolRenderableObjectTechniqueElement::CPoolRenderableObjectTechniqueElement(const std::string &Name,
 	CEffectTechnique *EffectTechnique, CRenderableObjectTechnique *OnRenderableObjectTechniqueManager)
@@ -69,4 +36,45 @@ CPoolRenderableObjectTechnique::CPoolRenderableObjectTechniqueElement::CPoolRend
 CPoolRenderableObjectTechnique::CPoolRenderableObjectTechniqueElement::~CPoolRenderableObjectTechniqueElement()
 {
 	m_pOnRenderableObjectTechniqueManager = NULL;
+}
+
+// *****************************************
+//				MÈTODES 
+// *****************************************
+void CPoolRenderableObjectTechnique::AddElement ( const std::string &_Name, const std::string &_TechniqueName, CRenderableObjectTechnique *_ROTOnRenderableObjectTechniqueManager )
+{
+	CEffectTechnique *l_EffectTechnique = CORE->GetEffectManager()->GetEffectTechnique( _TechniqueName );
+
+	CPoolRenderableObjectTechniqueElement *l_PoolROTE = 
+		new CPoolRenderableObjectTechniqueElement( _Name, l_EffectTechnique, _ROTOnRenderableObjectTechniqueManager );
+
+	m_RenderableObjectTechniqueElementsVector.push_back( l_PoolROTE );
+
+	l_PoolROTE = NULL;
+}
+
+void CPoolRenderableObjectTechnique::Apply()
+{
+	CEffectTechnique *l_EffectTechnique = NULL;
+
+	TPoolROTechniqueElement::iterator l_It	= m_RenderableObjectTechniqueElementsVector.begin ();
+	TPoolROTechniqueElement::iterator l_End = m_RenderableObjectTechniqueElementsVector.end ();
+	for(; l_It != l_End; ++l_It)
+	{
+		// assignem cada CEffectTechnique del ROTechnique al onROTechniqueManager	
+		(*l_It)->m_pOnRenderableObjectTechniqueManager->SetEffectTechnique( (*l_It)->m_RenderableObjectTechnique.GetEffectTechnique() );
+	}
+}
+
+
+
+void CPoolRenderableObjectTechnique::Destroy()
+{
+	TPoolROTechniqueElement::iterator l_It = m_RenderableObjectTechniqueElementsVector.begin();
+	TPoolROTechniqueElement::iterator l_End = m_RenderableObjectTechniqueElementsVector.end();
+	for(; l_It != l_End; ++l_It)
+	{
+		CHECKED_DELETE(*l_It);
+	}
+	m_RenderableObjectTechniqueElementsVector.clear();
 }

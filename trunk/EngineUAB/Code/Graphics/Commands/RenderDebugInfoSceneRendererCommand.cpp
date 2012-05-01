@@ -14,6 +14,7 @@
 #endif
 
 CRenderDebugInfoSceneRendererCommand::CRenderDebugInfoSceneRendererCommand(CXMLTreeNode &Node)
+	: CSceneRendererCommand ( Node )
 {
 	m_Grid = Node.GetBoolProperty("grid", false);
 	m_Axis = Node.GetBoolProperty("axis", false);

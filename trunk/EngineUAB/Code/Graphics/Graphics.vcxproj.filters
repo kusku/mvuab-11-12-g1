@@ -232,6 +232,18 @@
     <ClInclude Include="Effects\EffectTechnique.h">
       <Filter>Effects</Filter>
     </ClInclude>
+    <ClInclude Include="Commands\DisableAlphaBlendingSceneRendererCommand.h">
+      <Filter>Commands\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\EnableAlphaBlendingSceneRendererCommand.h">
+      <Filter>Commands\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\SaveSceneToFileRendererCommand.h">
+      <Filter>Commands\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\RenderDebugSoundsSceneRendererCommand.h">
+      <Filter>Commands\Command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
@@ -448,6 +460,18 @@
     </ClCompile>
     <ClCompile Include="Effects\EffectTechnique.cpp">
       <Filter>Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\DisableAlphaBlendingSceneRendererCommand.cpp">
+      <Filter>Commands\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\EnableAlphaBlendingSceneRendererCommand.cpp">
+      <Filter>Commands\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\SaveSceneToFileRendererCommand.cpp">
+      <Filter>Commands\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\RenderDebugSoundsSceneRendererCommand.cpp">
+      <Filter>Commands\Command</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

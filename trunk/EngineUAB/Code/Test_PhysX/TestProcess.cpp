@@ -10,7 +10,7 @@
 #include "RenderableObjects\RenderableObjectsManager.h"
 #include "RenderableObjects\RenderableObjectsLayersManager.h"
 #include "ActionToInput.h"
-#include "ScriptManager.h"
+#include "Scripting\ScriptManager.h"
 #include "Modifiers\ModifierManager.h"
 #include "DebugGUIManager.h"
 #include "PhysicsManager.h"
@@ -20,6 +20,7 @@
 #include "PhysicSphericalJoint.h"
 #include "PhysicRevoluteJoint.h"
 #include "PhysicController.h"
+#include "PhysicUserData.h"
 
 #undef min
 #undef max
@@ -31,22 +32,41 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-CTestProcess::CTestProcess(void)
-	: m_pThPSCamera(NULL)
-	, pos(0,0)
-	, screen(800,600)
-	, m_pTrigger(NULL)
+// -----------------------------------------
+//			CONSTRUCTOR/DESTRUCTOR
+// -----------------------------------------
+CTestProcess::CTestProcess( void )
+	: m_pThPSCamera		( NULL )
+	, pos				( 0,0 )
+	, screen			( 800,600 )
+	, m_pTrigger		( NULL )
 {
 }
 
-CTestProcess::~CTestProcess(void)
+CTestProcess::~CTestProcess( void )
 {
 	CHECKED_DELETE(m_pTrigger);
 	CHECKED_DELETE( m_pThPSCamera );
 	m_Camera = NULL;
 }
 
-void CTestProcess::Init()
+// -----------------------------------------
+//					METODOS
+// -----------------------------------------
+void CTestProcess::Done ( void )
+{
+	if ( IsOk ( ) )
+	{
+		Release();
+		m_bIsOk = false;
+	}
+}
+
+void CTestProcess::Release ( void )
+{
+}
+
+bool CTestProcess::Init( void )
 {
 	screen = CORE->GetRenderManager()->GetScreenSize();
 	pos.x = screen.x / 2;
@@ -110,6 +130,8 @@ void CTestProcess::Init()
 	m_Controller->SetVisible(true);
 
 	CORE->GetPhysicsManager()->AddPhysicController(m_Controller);
+
+	return true;
 }
 
 void CTestProcess::CreateSphereActor()
@@ -134,7 +156,7 @@ void CTestProcess::Update(float elapsedTime)
 {
 	CORE->SetCamera(m_Camera);
 	m_Player.Update(elapsedTime, m_Camera);
-	UpdateInputs(elapsedTime);
+	//UpdateInputs(elapsedTime);
 
 	SCollisionInfo info;
 	int kk = 0;

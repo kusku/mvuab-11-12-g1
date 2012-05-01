@@ -11,6 +11,8 @@
 #endif
 
 CRenderSceneSceneRendererCommand::CRenderSceneSceneRendererCommand(CXMLTreeNode &Node)
+	: CSceneRendererCommand ( Node )
+
 {
 	//<render_scene layer="solid" active="true"/>
 	m_Layer = Node.GetPszProperty("layer", "");

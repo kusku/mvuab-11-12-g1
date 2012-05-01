@@ -47,6 +47,7 @@
     <ClInclude Include="PhysicStream.h" />
     <ClInclude Include="PhysicTriggerReport.h" />
     <ClInclude Include="PhysicUserAllocator.h" />
+    <ClInclude Include="PhysicUserData.h" />
     <ClInclude Include="PhysxBone.h" />
     <ClInclude Include="PhysxGrenade.h" />
     <ClInclude Include="PhysxSkeleton.h" />
@@ -82,7 +83,7 @@
     <OutDir>$(SolutionDir)\bin\Lib\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IntDir>$(SolutionDir)\bin\Intermediate\$(ProjectName)$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)\bin\Intermediate\$(ProjectName)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

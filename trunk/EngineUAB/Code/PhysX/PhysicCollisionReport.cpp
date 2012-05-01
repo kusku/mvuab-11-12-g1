@@ -1,38 +1,38 @@
 #include "PhysicCollisionReport.h"
 
-void  CPhysicCollisionReport::onContactNotify(NxContactPair& _pair, NxU32 _events)
+void  CPhysicCollisionReport::onContactNotify(NxContactPair& _Pair, NxU32 _Events)
 {
-  if(_pair.isDeletedActor[0] || _pair.isDeletedActor[1])
-    return;
+	if ( _Pair.isDeletedActor [0] || _Pair.isDeletedActor [1] )
+		return;
 
-  NxActor* actor = _pair.actors[0];
-	CPhysicUserData* entity_collision = (CPhysicUserData*)actor->userData;  
+	NxActor* l_Actor = _Pair.actors[0];
+	CPhysicUserData* l_EntityCollision1 = ( CPhysicUserData* ) l_Actor->userData;  
 
-	actor = _pair.actors[1];
-	CPhysicUserData* entity_collision2= (CPhysicUserData*)actor->userData;
+	l_Actor = _Pair.actors[1];
+	CPhysicUserData* l_EntityCollision2	= ( CPhysicUserData* ) l_Actor->userData;
 
-	if(_events & NX_NOTIFY_ON_START_TOUCH)           
+	if ( _Events & NX_NOTIFY_ON_START_TOUCH)           
 	{                           
-		OnStartTouch(entity_collision, entity_collision2);
+		OnStartTouch ( l_EntityCollision1, l_EntityCollision2 );
 	}            
-  if(_events & NX_NOTIFY_ON_END_TOUCH)            
+  if ( _Events & NX_NOTIFY_ON_END_TOUCH)            
 	{                
-		OnEndTouch(entity_collision, entity_collision2);         
+		OnEndTouch ( l_EntityCollision1, l_EntityCollision2 );         
 	}
-  if(_events & NX_NOTIFY_ON_TOUCH)            
+  if ( _Events & NX_NOTIFY_ON_TOUCH)            
 	{                
-		OnTouch(entity_collision, entity_collision2);         
+		OnTouch ( l_EntityCollision1, l_EntityCollision2 );         
 	}
-  if(_events & NX_NOTIFY_ON_START_TOUCH_FORCE_THRESHOLD)           
+  if ( _Events & NX_NOTIFY_ON_START_TOUCH_FORCE_THRESHOLD)           
 	{                           
-		OnStartTouchForceThreshold(entity_collision, entity_collision2);
+		OnStartTouchForceThreshold( l_EntityCollision1, l_EntityCollision2 );
 	}            
-  if(_events & NX_NOTIFY_ON_END_TOUCH_FORCE_THRESHOLD)            
+  if ( _Events & NX_NOTIFY_ON_END_TOUCH_FORCE_THRESHOLD)            
 	{                
-		OnEndTouchForceThreshold(entity_collision, entity_collision2);         
+		OnEndTouchForceThreshold( l_EntityCollision1, l_EntityCollision2 );         
 	}
-  if(_events & NX_NOTIFY_ON_TOUCH_FORCE_THRESHOLD)            
+  if ( _Events & NX_NOTIFY_ON_TOUCH_FORCE_THRESHOLD)            
 	{                
-		OnTouchForceThreshold(entity_collision, entity_collision2);         
+		OnTouchForceThreshold( l_EntityCollision1, l_EntityCollision2 );         
 	}
 }

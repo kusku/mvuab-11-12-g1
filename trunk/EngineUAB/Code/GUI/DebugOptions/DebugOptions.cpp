@@ -4,7 +4,7 @@
 #include "RenderManager.h"
 #include "Fonts\FontManager.h"
 #include "Math\Vector2.h"
-#include "ScriptManager.h"
+#include "Scripting\ScriptManager.h"
 #include "ActionToInput.h"
 #include "Utils/BaseUtils.h"
 #include "Base.h"

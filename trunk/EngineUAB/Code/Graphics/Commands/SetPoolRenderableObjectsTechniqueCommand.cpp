@@ -12,18 +12,10 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-CSetPoolRenderableObjectsTechniqueCommand::CSetPoolRenderableObjectsTechniqueCommand()
-	: m_PoolRenderableObjectTechnique(NULL)
-{
-
-}
-
-CSetPoolRenderableObjectsTechniqueCommand::~CSetPoolRenderableObjectsTechniqueCommand()
-{
-
-}
 
 CSetPoolRenderableObjectsTechniqueCommand::CSetPoolRenderableObjectsTechniqueCommand(CXMLTreeNode &Node)
+	: CSceneRendererCommand ( Node )
+	, m_PoolRenderableObjectTechnique(NULL)
 {
 	//<set_pool_renderable_objects_technique pool="generate_deferred_shading_pool_renderable_object_technique"/>
 	std::string poolName = Node.GetPszProperty("pool", "");

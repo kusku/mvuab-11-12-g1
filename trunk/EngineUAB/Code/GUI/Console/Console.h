@@ -49,7 +49,7 @@ public:
 
 	bool	Init		  					();
 	void	Done							();
-	bool	IsOk      						() const	{ return m_bIsOk; }
+	bool	IsOk      						( void ) const	{ return m_bIsOk; }
 	//-----------------------------
 
 	void	Render						(CRenderManager &renderManager, CFontManager &fontManager);

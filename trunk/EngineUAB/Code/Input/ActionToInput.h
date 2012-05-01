@@ -30,7 +30,7 @@ public:
 
 	bool	Init		( HWND hWnd, const Vect2i& screenRes, bool exclusiveModeinMouse );
 	void	Done		();
-	bool	IsOk		() const { return m_bIsOk; }
+	bool	IsOk		( void ) const { return m_bIsOk; }
 
 	// Read Data
 	void	LoadXML		( const std::string &filename );
@@ -44,8 +44,8 @@ public:
 
 	//-----Get Methods-------
 	void			GetActionInfo	( const std::string &action, std::string &keys_ );
-	bool			GetGamepadState () const;
-	CInputManager*	GetInputManager() const { return m_pInputManager; }
+	bool			GetGamepadState ( void ) const;
+	CInputManager*	GetInputManager( void ) const { return m_pInputManager; }
 	
 
 private:

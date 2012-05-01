@@ -3,34 +3,39 @@
 #ifndef _TESTPROCESS_H
 #define _TESTPROCESS_H
 
-class CCamera;
-class CThPSCamera;
-class CActionToInput;
+#include <vector>
 
 #include "Player.h"
 #include "EngineProcess.h"
 #include "Math\Vector2.h"
-#include <vector>
+
+//---FOWARD DECLARATIONS---//
+class CCamera;
+class CThPSCamera;
+class CActionToInput;
+//-------------------------//
+
 
 class CTestProcess : public CEngineProcess
 {
 public:
-	CTestProcess();
-	virtual ~CTestProcess();
+			CTestProcess		( void );
+	virtual ~CTestProcess		( void );
 
-	void Init ();
-	void Update (float elapsedTime);
-	void Render (CRenderManager &RM);
+	bool	Init				( void );
+	void	Update				( float _ElapsedTime );
+	void	Render				( CRenderManager &_RM );
 
 protected:
-	void UpdateInputs( float elapsedTime );
-	void UpdateDebugInputs( float elapsedTime, CActionToInput &action2Input );
+	void	UpdateInputs		( float elapsedTime );
+	void	UpdateDebugInputs	( float elapsedTime, CActionToInput &action2Input );
 
-	Vect2i pos;
-	Vect2i screen;
+	Vect2i	pos;
+	Vect2i	screen;
 
 	CPlayer m_Player;
 	CThPSCamera *m_pThPSCamera;
 };
 
 #endif
+ 

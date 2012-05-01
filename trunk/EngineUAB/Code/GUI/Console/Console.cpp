@@ -3,7 +3,7 @@
 #include "Utils/BaseUtils.h"
 #include "RenderManager.h"
 #include "Fonts\FontManager.h"
-#include "ScriptManager.h"
+#include "Scripting\ScriptManager.h"
 #include "InputManager.h"
 #include "ActionToInput.h"
 #include "Base.h"

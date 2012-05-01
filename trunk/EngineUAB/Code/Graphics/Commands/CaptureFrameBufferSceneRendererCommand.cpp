@@ -11,7 +11,11 @@
 #include "Memory\MemLeaks.h"
 #endif
 
+// -----------------------------------------
+//		  CONSTRUCTORS / DESTRUCTOR
+// -----------------------------------------	
 CCaptureFrameBufferSceneRendererCommand::CCaptureFrameBufferSceneRendererCommand(CXMLTreeNode &Node)
+	: CStagedTexturedRendererCommand ( Node )
 {
 	uint16 l_Count = Node.GetNumChildren();
 	for(uint16 i=0; i<l_Count; ++i)
@@ -54,6 +58,9 @@ CCaptureFrameBufferSceneRendererCommand::CCaptureFrameBufferSceneRendererCommand
 	}
 }
 
+// -----------------------------------------
+//			  MÈTODES PRINCIPALS
+// -----------------------------------------
 void CCaptureFrameBufferSceneRendererCommand::Execute(CRenderManager &RM)
 {
 	CaptureFrameBuffer();

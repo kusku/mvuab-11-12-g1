@@ -9,6 +9,8 @@
 #include "PhysicsManager.h"
 #include "PhysicActor.h"
 #include "PhysxBone.h"
+#include "PhysicUserData.h"
+
 #include <cal3d/cal3d.h>
 #include <XML/XMLTreeNode.h>
 #include "RenderManager.h"
@@ -19,7 +21,6 @@
 #undef max
 #include "NxPhysics.h"
 //---------------------//
-
 
 //Release dels elements
 void CPhysxGrenade::Release()

@@ -7,9 +7,9 @@
 // de los triggers contenidos en la escena
 //----------------------------------------------------------------------------------
 #pragma once
-#ifndef _PHYSIC_TRIGGER_REPORT_H
-#define _PHYSIC_TRIGGER_REPORT_H
 
+#ifndef __PHYSIC_TRIGGER_REPORT_CLASS_H__
+#define __PHYSIC_TRIGGER_REPORT_CLASS_H__
 
 //---Engine Includes---//
 #undef min
@@ -20,21 +20,21 @@
 
 class CPhysicUserData;
 
-class CPhysicTriggerReport: public NxUserTriggerReport   
-{    
+class CPhysicTriggerReport : public NxUserTriggerReport 
+{
 public:
-	CPhysicTriggerReport() 
-	{
-	}
-	virtual ~CPhysicTriggerReport() {/*Nothing*/;}
+	//--- Init and End protocols------------------------------------------
+					CPhysicTriggerReport	( void ) {}
+	virtual			~CPhysicTriggerReport	( void ) {}
 
-	//---NxUserTriggerReport Interface---
-	void			onTrigger	(NxShape& triggerShape, NxShape& otherShape, NxTriggerFlag status);
-	//-----------------------------------
 
-	//---CPhysicTrigger Interface---
-	virtual void	OnEnter		(CPhysicUserData* entity_trigger1, CPhysicUserData* other_shape) = 0;
-	virtual	void	OnLeave		(CPhysicUserData* entity_trigger1, CPhysicUserData* other_shape) = 0;
+	//--- NxUserTriggerReport Interface	----------------------------------
+	void			onTrigger	( NxShape &_TriggerShape, NxShape &_OtherShape, NxTriggerFlag _Status );
+	
+	//--- CPhysicTrigger Interface ---------------------------------------
+	virtual void	OnEnter		( CPhysicUserData* _Entity_Trigger1, CPhysicUserData* _Other_Shape) = 0;
+	virtual	void	OnLeave		( CPhysicUserData* _Entity_Trigger1, CPhysicUserData* _Other_Shape) = 0;
+	virtual	void	OnStay		( CPhysicUserData* _Entity_Trigger1, CPhysicUserData* _Other_Shape) = 0;
 };
 
-#endif // _PHYSIC_TRIGGER_REPORT_H
+#endif __PHYSIC_TRIGGER_REPORT_CLASS_H__

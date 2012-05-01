@@ -12,14 +12,30 @@ protected:
 	CCamera*	m_Camera;
 
 public:
-	CEngineProcess();
-	virtual ~CEngineProcess();
+	//--- Init and End protocols------------------------------------------
+						CEngineProcess	( void );
+	virtual				~CEngineProcess	( void );
 
-	virtual void Init();
-	virtual void Update(float ElapsedTime);
-	virtual void Render( CRenderManager &RM);
+	virtual bool		Init			( void );
+	virtual void		Done			( void );
+	virtual bool		IsOk			( void ) const				{ return m_bIsOk; }
+	
+private:
+	virtual void		Release		( void );
 
-	virtual CCamera* GetCamera () const { return m_Camera; }
+	//----Funcions principals--------------------------------------------
+public:
+	virtual void		Update			(float ElapsedTime);
+	virtual void		Render			( CRenderManager &RM );
+	
+	//----Properties ( get & Set )---------------------------------------
+	virtual CCamera*	GetCamera		( void ) const				{ return m_Camera; }
+
+	//----Members -------------------------------------------------------
+protected:
+	bool				m_bIsOk;			// em diu si tot és correcte o no en certes operacions
+
+	CCamera*			m_pCamera;			// la càmera activa
 };
 
 #endif

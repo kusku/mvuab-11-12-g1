@@ -12,7 +12,8 @@
 #endif
 
 CRenderDebugSceneSceneRendererCommand::CRenderDebugSceneSceneRendererCommand(CXMLTreeNode &Node)
-	: m_pRenderableObjectsManager(NULL)
+	: CSceneRendererCommand ( Node )
+	, m_pRenderableObjectsManager(NULL)
 {
 	bool l_Active = Node.GetBoolProperty("active", false);
 	SetActive( l_Active );

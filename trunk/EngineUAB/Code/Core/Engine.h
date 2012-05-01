@@ -8,32 +8,53 @@
 #include "Math\Color.h"
 #include "Utils\Timer.h"
 #include "CoreDefs.h"
+
+//---FOWARD DECLARATIONS --- //
 class CLogger;
 class CCore;
+//---------------------------//
 
 class CEngine
 {
 public:
-	CEngine();
-	virtual ~CEngine();
+	//--- Init and End protocols------------------------------------------
+					CEngine				( void );
+	virtual			~CEngine			( void );
 
-	void Init( HWND hWnd );
-	void Update();
-	void Render();
-	void RenderScene( CRenderManager* renderManager );
+	bool				Init			( HWND _HWnd );
+	void				Done			( void );
+	bool				IsOk			( void ) const { return m_bIsOk; }
 
-	void LoadConfigXML	( const std::string &configFile );
-	void Reload			();
+	//----Main Methods -----------------------------------------------------
+	void			Update				( void );
+	void			Render				( void );
+	void			RenderScene			( CRenderManager* _RM );
 
-	void SetProcess( CEngineProcess *process ) { m_pProcess = process; }
-	CEngineProcess*	GetProcess() const	{ return m_pProcess; }
+private:
+	void			Release				( void );
 
-	Vect2i		GetResolution	() const { return m_Config.resolution; }
-	Vect2i		GetPosition		() const { return m_Config.position; }
+	//---- Methods ---------------------------------------------------------
+public:
+	void			LoadConfigXML		( const std::string &_ConfigFile );
+	void			Reload				( void );
 
-	const SConfig&	GetConfig		() const { return m_Config; }
+	//----Properties ( get & Set )---------------------------------------
+	void			SetProcess			( CEngineProcess *_Process )		{ m_pProcess = _Process; }
+	CEngineProcess*	GetProcess			( void ) const						{ return m_pProcess; }
 
+	Vect2i			GetResolution		( void ) const						{ return m_Config.resolution; }
+	Vect2i			GetPosition			( void ) const						{ return m_Config.position; }
+
+	const SConfig&	GetConfig			( void ) const						{ return m_Config; }
+
+	//----Members -------------------------------------------------------
 protected:
+	bool			m_bIsOk;			// em diu si tot és correcte o no en certes operacions
+
+	const CColor	string2Color		( const std::string &color );
+	void			UpdateDebugInputs	( void );	
+
+
 	CCore			*m_pCore;
 	CEngineProcess	*m_pProcess;
 	CLogger			*m_pLogger;
@@ -41,9 +62,6 @@ protected:
 	CTimer			m_Timer;
 
 	SConfig			m_Config;
-
-	const CColor	string2Color	( const std::string &color );
-	void			UpdateDebugInputs	();	
 };
 
 #endif

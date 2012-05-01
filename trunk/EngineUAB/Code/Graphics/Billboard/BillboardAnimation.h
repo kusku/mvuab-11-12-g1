@@ -54,6 +54,9 @@ public:
 	void					SetSize					( float _fSize )								{ m_fSize = _fSize; }
 	float					GetSize					( void ) const									{ return m_fSize; }
 
+	void					SetAngle				( float _fAngle )								{ m_fAngle = _fAngle; }
+	float					GetAngle				( void ) const									{ return m_fAngle; }
+
 	void					SetTotalTextures		( uint16 _uiNumTextures							) { m_uiNumTextures = _uiNumTextures; }
 	uint16					GetTotalTextures		( void ) const									{ return m_uiNumTextures; }
 
@@ -70,6 +73,7 @@ private:
 	
 	uint16						m_uiImage;			// Imatge en curs 
 
+	float						m_fAngle;
 	Vect4f						m_vColor;
 	float						m_fSize;
 	uint16						m_uiNumTextures;

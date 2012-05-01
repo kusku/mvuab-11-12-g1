@@ -12,15 +12,15 @@ class CPhysicsControllerHitReport : public NxUserControllerHitReport
 		if(hit.shape)
 		{
 			NxCollisionGroup group = hit.shape->getGroup();
-			if(group==ECG_OBJECTES_DINAMICS)
+			if ( group == ECG_OBJECTES_DINAMICS )
 			{
 				NxActor& actor = hit.shape->getActor();
 
-					if(hit.dir.y==0.0f)
-					{
-              NxF32 coeff = actor.getMass() * hit.length * 10.0f;
-              actor.addForceAtLocalPos(hit.dir*coeff, NxVec3(0,0,0), NX_IMPULSE);
-          }
+				if(hit.dir.y==0.0f)
+				{
+					NxF32 coeff = actor.getMass() * hit.length * 10.0f;
+					actor.addForceAtLocalPos(hit.dir*coeff, NxVec3(0,0,0), NX_IMPULSE);
+				}
 			}
 		}
 

@@ -16,6 +16,8 @@ CLanguageManager::CLanguageManager()
 
 void CLanguageManager::LoadXMLs ()
 {
+	LOGGER->AddNewLog(ELL_INFORMATION, "CLanguageManager::LoadXMLs --> Loading Fonts.");
+
 	//Tener en cuenta que se puede hacer un reload!
 	std::map<std::string, TLanguage>::iterator it_1		= m_Languages.begin();
 	std::map<std::string, TLanguage>::iterator itEnd_1	= m_Languages.end();
@@ -26,7 +28,7 @@ void CLanguageManager::LoadXMLs ()
 	}
 	m_Languages.clear();
 
-	std::vector<std::string>::const_iterator it			= m_vXML_Files.begin();
+	std::vector<std::string>::const_iterator it		= m_vXML_Files.begin();
 	std::vector<std::string>::const_iterator itEnd	= m_vXML_Files.end();
 	while (it != itEnd)
 	{
@@ -38,6 +40,8 @@ void CLanguageManager::LoadXMLs ()
 
 void CLanguageManager::LoadXML (const std::string& pathFile)
 {
+	LOGGER->AddNewLog(ELL_INFORMATION, "CLanguageManager::LoadXML --> Loading Fonts.");
+
 	CXMLTreeNode parser;
 	if (!parser.LoadFile(pathFile.c_str()))
 	{
@@ -60,8 +64,8 @@ void CLanguageManager::LoadXML (const std::string& pathFile)
 	if (m.Exists())
 	{
 		int count = m.GetNumChildren();
-    for (int i = 0; i < count; ++i)
-    {
+		for (int i = 0; i < count; ++i)
+		{
 			//for each literal:
 			SLiteral l_literal;
 			
@@ -69,7 +73,7 @@ void CLanguageManager::LoadXML (const std::string& pathFile)
 			l_literal.m_sFontId	= m(i).GetPszProperty("font");
 			Vect4f vecColor			= m(i).GetVect4fProperty("color", Vect4f(0.f,0.f,0.f,0.f));	
 			l_literal.m_value		= m(i).GetPszISOProperty("value", "nothing");	
-			l_literal.m_cColor	= CColor(vecColor.x, vecColor.y, vecColor.z, vecColor.w);
+			l_literal.m_cColor		= CColor(vecColor.x, vecColor.y, vecColor.z, vecColor.w);
 			language.insert(std::pair<std::string,SLiteral>(id, l_literal));
 			LOGGER->AddNewLog(ELL_INFORMATION, "LanguageManager::LoadXML-> Añadido literal(%s,%s,[%f,%f,%f,%f],%s)", 
 																	id.c_str(), l_literal.m_sFontId.c_str(),vecColor.x,vecColor.y,vecColor.z,vecColor.w, l_literal.m_value.c_str());	
@@ -78,7 +82,7 @@ void CLanguageManager::LoadXML (const std::string& pathFile)
 	if (m_Languages.find(id_language) != m_Languages.end())
 	{
 		//Ya está registrado el identificador id_language
-		LOGGER->AddNewLog(ELL_WARNING, "LanguageManager::LoadXML-> EYa se ha registrado un language con identificador %s", id_language.c_str());
+		LOGGER->AddNewLog(ELL_WARNING, "LanguageManager::LoadXML-> Ya se ha registrado un language con identificador %s", id_language.c_str());
 	}
 	else
 	{

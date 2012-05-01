@@ -35,7 +35,7 @@ public:
 	void		GoToRoot				();
 
 	void		SetVisible				( bool visible );
-	bool		GetVisible				() const			{ return GetActive(); }
+	bool		GetVisible				( void ) const			{ return GetActive(); }
 
 private:
 	std::string				m_FileName;

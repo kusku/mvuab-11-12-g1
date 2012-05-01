@@ -6,9 +6,11 @@
 #include "SceneRendererCommand.h"
 #include <vector>
 
+//---Foward Declarations---//
 class CRenderManager;
 class CXMLTreeNode;
 class CTexture;
+//-------------------------//
 
 class CStagedTexturedRendererCommand : public CSceneRendererCommand
 {
@@ -19,40 +21,38 @@ protected:
 		int				m_StageId;
 		CTexture		*m_pTexture;
 
-		CStageTexture()
-			: m_StageId(-1)
-			, m_pTexture(NULL)
+		CStageTexture( void )
+			: m_StageId		( -1 )
+			, m_pTexture	 (NULL )
 		{
 		}
 
-		CStageTexture(int StageId, CTexture *Texture)
-			: m_StageId(StageId)
-			, m_pTexture(Texture)
+		CStageTexture(int _StageId, CTexture *_Texture)
+			: m_StageId		( _StageId )
+			, m_pTexture	( _Texture )
 		{
 		}
 
-		void Activate();
-		void Deactivate();
-		void ActivateRenderTarget();
-		void DeactivateRenderTarget();
-		void CaptureFrameBuffer();
+		void	Activate				( void );
+		void	Deactivate				( void );
+		void	ActivateRenderTarget	( void );
+		void	DeactivateRenderTarget	( void );
+		void	CaptureFrameBuffer		( void );
 	};
 
 	std::vector<CStageTexture>			m_StageTexturesVector;
 
 public:
-	CStagedTexturedRendererCommand();
 	CStagedTexturedRendererCommand(CXMLTreeNode &Node);
-	virtual ~CStagedTexturedRendererCommand();
 
-	void	ActivateTextures				();
-	void	DeactivateTextures				();
-	void	ActivateTexturesRenderTarget	();
-	void	DeactivateTexturesRenderTarget	();
-	void	AddStageTexture					(int StageId, CTexture *Texture);
-	void	CaptureFrameBuffer				();
+	void			ActivateTextures				( void );
+	void			DeactivateTextures				( void );
+	void			ActivateTexturesRenderTarget	( void );
+	void			DeactivateTexturesRenderTarget	( void );
+	void			AddStageTexture					( int StageId, CTexture *Texture );
+	void			CaptureFrameBuffer				( void );
 
-	virtual void	Execute					( CRenderManager &RM ) = 0;
+	virtual void	Execute							( CRenderManager &RM ) = 0;
 
 
 };

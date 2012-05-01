@@ -7,6 +7,7 @@
 #endif
 
 CEnableZTestSceneRendererCommand::CEnableZTestSceneRendererCommand(CXMLTreeNode &Node)
+	: CSceneRendererCommand ( Node )
 {
 }
 

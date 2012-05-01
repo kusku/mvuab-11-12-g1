@@ -1,31 +1,42 @@
 #pragma once
+#ifndef __CLASS_SCENE_RENDERER_COMMAND_MANAGER_H__
+#define __CLASS_SCENE_RENDERER_COMMAND_MANAGER_H__
 
-#ifndef _SCENE_RENDERER_COMMAND_MANAGER_H
-#define _SCENE_RENDERER_COMMAND_MANAGER_H
+#include <string>
 
 #include "Utils\TemplatedVectorMapManager.h"
 #include "SceneRendererCommand.h"
-#include <string>
 
 class CRenderManager;
 
 class CSceneRendererCommandManager
 {
 public:
-	CSceneRendererCommandManager();
-	virtual ~CSceneRendererCommandManager();
+	//--- Init and End protocols------------------------------------------
+				CSceneRendererCommandManager	( void );
+	virtual		~CSceneRendererCommandManager	( void );
+	
+	//----Funcions principals---------------------------------------
+	bool		Load	( const std::string &_FileName );
+	void		Execute	( CRenderManager &_RM );
 
-	void		Load		( const std::string &FileName );
-	void		Execute		( CRenderManager &RM );
-	void		Reload		();
+	//----Funcions ---------------------------------------
+	bool		Reload  ( void );
 
 private:
-	void			LoadXML			();
-	void			CleanUp			();
-	std::string		GetNextName		();
+	void		CleanUp							( void );
+	bool		LoadXML							( void );
 
-	CTemplatedVectorMapManager<CSceneRendererCommand>	m_SceneRendererCommands;
-	std::string											m_FileName;
+	//----Properties ( get & Set )---------------------------------------
+public:
+	std::string				GetNextName			( CXMLTreeNode &_atts );
+	CSceneRendererCommand	*GetCommand			( std::string _ComandName ) { return m_SceneRendererCommands.GetResource( _ComandName ); }
+
+	//----Membres ---------------------------------------
+private:
+	CTemplatedVectorMapManager<CSceneRendererCommand>	m_SceneRendererCommands;	// llistat de comandes a executar que provenen del XML
+	
+	std::string		m_FileName;
 };
 
-#endif
+#endif __CLASS_SCENE_RENDERER_COMMAND_MANAGER_H__

@@ -54,7 +54,7 @@ public:
 	void		AddValue				();
 	void		SubsValue				();
 
-	uint16		GetNumOfParams			() const		{ return m_ParamsMap.size(); }
+	uint16		GetNumOfParams			( void ) const		{ return m_ParamsMap.size(); }
 };
 
 #endif

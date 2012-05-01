@@ -10,16 +10,22 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-CRenderParticlesSceneRendererCommand::CRenderParticlesSceneRendererCommand(CXMLTreeNode &Node)
-{
-}
+// -----------------------------------------
+//			CONSTRUCTOR/DESTRUCTOR
+// -----------------------------------------
+CRenderParticlesSceneRendererCommand::CRenderParticlesSceneRendererCommand( CXMLTreeNode &_Node )
+	: CSceneRendererCommand ( _Node )
+{}
 
-void CRenderParticlesSceneRendererCommand ::Execute(CRenderManager &RM)
+// -----------------------------------------
+//			  MÈTODES PRINCIPALS
+// -----------------------------------------
+void CRenderParticlesSceneRendererCommand ::Execute( CRenderManager &_RM )
 {	
-	RM.EnableAlphaBlend();
+	_RM.EnableAlphaBlend();
 
-	CORE->GetBillboardManager()->Render(RM);
-	CORE->GetParticleManager()->Render(RM);
+	CORE->GetBillboardManager()->Render(_RM);
+	CORE->GetParticlesManager()->Render(_RM);
 
-	RM.DisableAlphaBlend();
+	_RM.DisableAlphaBlend();
 }

@@ -10,6 +10,7 @@
 #endif
 
 CRenderDebugProcessSceneRendererCommand::CRenderDebugProcessSceneRendererCommand(CXMLTreeNode &Node)
+	: CSceneRendererCommand ( Node )
 {
 	m_Active = Node.GetBoolProperty("active", false);
 }

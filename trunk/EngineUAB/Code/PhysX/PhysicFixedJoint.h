@@ -25,8 +25,8 @@ public:
 	void					SetInfo				(CPhysicActor* actorA,  CPhysicActor* actorB =0);
 
 	//---Get PhsX Info---
-	NxJoint*				GetPhXJoint			() const		{ return m_pJoint; }
-	NxFixedJointDesc*		GetPhXDescJoint		() const		{ return m_pFixedDesc; }
+	NxJoint*				GetPhXJoint			( void ) const		{ return m_pJoint; }
+	NxFixedJointDesc*		GetPhXDescJoint		( void ) const		{ return m_pFixedDesc; }
 
 private:
 	NxJoint					*m_pJoint;

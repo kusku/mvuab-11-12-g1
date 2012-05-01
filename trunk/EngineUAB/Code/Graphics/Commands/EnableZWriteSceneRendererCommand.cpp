@@ -7,6 +7,7 @@
 #endif
 
 CEnableZWriteSceneRendererCommand::CEnableZWriteSceneRendererCommand(CXMLTreeNode &Node)
+	: CSceneRendererCommand ( Node )
 {
 }
 

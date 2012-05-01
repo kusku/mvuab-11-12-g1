@@ -11,15 +11,8 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-CStagedTexturedRendererCommand::CStagedTexturedRendererCommand()
-{
-}
-
 CStagedTexturedRendererCommand::CStagedTexturedRendererCommand(CXMLTreeNode &Node)
-{
-}
-
-CStagedTexturedRendererCommand::~CStagedTexturedRendererCommand()
+	: CSceneRendererCommand ( Node )
 {
 }
 

@@ -11,16 +11,13 @@ class CPoolRenderableObjectTechnique;
 
 class CSetPoolRenderableObjectsTechniqueCommand : public CSceneRendererCommand
 {
-private:
-	CPoolRenderableObjectTechnique* m_PoolRenderableObjectTechnique;
-
 public:
-	CSetPoolRenderableObjectsTechniqueCommand();
 	CSetPoolRenderableObjectsTechniqueCommand(CXMLTreeNode &Node);
-	virtual ~CSetPoolRenderableObjectsTechniqueCommand();
-
+	
 	void	Execute		( CRenderManager &RM );
 
+private:
+	CPoolRenderableObjectTechnique* m_PoolRenderableObjectTechnique;
 
 };
 

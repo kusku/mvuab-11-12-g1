@@ -5,7 +5,7 @@
 #include "Textures/Texture.h"
 #include "RenderManager.h"
 #include "Logger/Logger.h"
-#include "ScriptManager.h"
+#include "Scripting\ScriptManager.h"
 #include "GraphicsDefs.h"
 
 CGUISlider::CGUISlider(	uint32 windowsHeight, uint32 windowsWidth, float height_precent, float witdh_percent,

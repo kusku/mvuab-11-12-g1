@@ -7,14 +7,17 @@ class CRenderManager;
 class CGUIEditorProcess : public CEngineProcess
 {
 public:
-	CGUIEditorProcess();
-	~CGUIEditorProcess();
+					CGUIEditorProcess	( void );
+					~CGUIEditorProcess	( void );
 
-	void Init();
-	void Update (float elapsedTime);
-	void Render(CRenderManager &RM);
+	bool			Init				( void );
+	void			Done				( void );
+	void			Update				( float _ElapsedTime );
+	void			Render				( CRenderManager &_RM );
 
-	CGUIManager*	GetGUIManager	() const		{ return m_pGUIManager; }
+	virtual void	Release				( void );
+
+	CGUIManager*	GetGUIManager		( void ) const				{ return m_pGUIManager; }
 protected:
 
 	CGUIManager		*m_pGUIManager;

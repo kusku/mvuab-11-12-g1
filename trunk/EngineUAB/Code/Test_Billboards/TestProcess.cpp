@@ -8,7 +8,7 @@
 #include "RenderableObjects\RenderableObjectsManager.h"
 #include "RenderableObjects\RenderableObjectsLayersManager.h"
 #include "ActionToInput.h"
-#include "ScriptManager.h"
+#include "Scripting\ScriptManager.h"
 #include "Console\Console.h"
 #include "Modifiers\ModifierManager.h"
 #include "DebugOptions\DebugOptions.h"
@@ -33,7 +33,7 @@ CTestProcess::~CTestProcess(void)
 	m_Camera = NULL;
 }
 
-void CTestProcess::Init()
+bool CTestProcess::Init(void)
 {
 	screen = CORE->GetRenderManager()->GetScreenSize();
 	pos.x = screen.x / 2;
@@ -48,13 +48,15 @@ void CTestProcess::Init()
 	m_pThPSCamera = new CThPSCamera(1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_Player, 10.0f);
 	m_Camera = static_cast<CCamera*>(m_pThPSCamera);
 	CORE->SetCamera(m_Camera);
+
+	return true;
 }
 
 void CTestProcess::Update(float elapsedTime)
 {
 	CORE->SetCamera(m_Camera);
 	m_Player.Update(elapsedTime, m_Camera);
-	UpdateInputs(elapsedTime);
+	//UpdateInputs(elapsedTime);
 
 	CORE->GetRenderableObjectsLayersManager()->Update(elapsedTime);
 }

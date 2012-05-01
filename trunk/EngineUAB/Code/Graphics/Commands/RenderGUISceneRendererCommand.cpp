@@ -9,15 +9,23 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-CRenderGUISceneRendererCommand::CRenderGUISceneRendererCommand(CXMLTreeNode &Node)
-{
-	m_Active = Node.GetBoolProperty("active", false);
-}
+// -----------------------------------------
+//			CONSTRUCTOR/DESTRUCTOR
+// -----------------------------------------
 
-void CRenderGUISceneRendererCommand ::Execute(CRenderManager &RM)
+CRenderGUISceneRendererCommand::CRenderGUISceneRendererCommand( CXMLTreeNode &_Node )
+	: CSceneRendererCommand ( _Node )
+{}
+
+
+// -----------------------------------------	
+//			  MÈTODES PRINCIPALS
+// -----------------------------------------
+
+void CRenderGUISceneRendererCommand ::Execute( CRenderManager &_RM )
 {	
 	if( GetActive() )
 	{
-		CORE->GetGUIManager()->Render( &RM, CORE->GetFontManager() );
+		CORE->GetGUIManager()->Render( &_RM, CORE->GetFontManager() );
 	}
 }

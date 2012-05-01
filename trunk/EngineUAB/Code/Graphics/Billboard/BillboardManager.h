@@ -36,6 +36,8 @@ public:
 	void			SetXMLFile			( const std::string &_Filename )		{ m_szFilename = _Filename; }
 	std::string		GetXMLFile			( void )	const						{ return m_szFilename; }
 
+	CBillboardAnimation * GetBillboardInstance ( const std::string &_Name );
+	
 	//inline			CBillboardAnimation operator = ( const CBillboardAnimation& _pBillboardAnimation )    const;
 
 	//----Members ---------------------------------------

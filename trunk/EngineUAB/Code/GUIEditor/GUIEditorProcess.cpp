@@ -14,23 +14,40 @@
 #include "Elements\ElementManager.h"
 #include "InputManager.h"
 
-CGUIEditorProcess::CGUIEditorProcess(void)
+CGUIEditorProcess::CGUIEditorProcess( void )
 	: m_pGUIManager(NULL)
 {	
 }
 
 
-CGUIEditorProcess::~CGUIEditorProcess(void)
+CGUIEditorProcess::~CGUIEditorProcess( void )
 {
 	CHECKED_DELETE(m_pGUIManager);
 }
 
-void CGUIEditorProcess::Init()
+// -----------------------------------------
+//				MÈTODES 
+// -----------------------------------------
+void CGUIEditorProcess::Done ( void )
+{
+	if ( IsOk ( ) )
+	{
+		Release();
+		m_bIsOk = false;
+	}
+}
+
+void CGUIEditorProcess::Release ( void )
+{
+}
+
+bool CGUIEditorProcess::Init( void )
 {
 	std::string window = CORE->GetGUIManager()->GetCurrentWindow();
 	CElementProperties::WindowProperties( CORE->GetGUIManager()->GetWindow( window ) );
 
 	PostMessage( CHWNDManager::GetInstance()->GetHWNDFiles(), WM_RELOAD_FILE_LIST, 0, 0);
+	return true;
 }
 
 void CGUIEditorProcess::Update(float elapsedTime)
@@ -101,6 +118,7 @@ void CGUIEditorProcess::Update(float elapsedTime)
 
 }
 
-void CGUIEditorProcess::Render(CRenderManager &RM)
+
+void CGUIEditorProcess::Render( CRenderManager &_RM )
 {
 }

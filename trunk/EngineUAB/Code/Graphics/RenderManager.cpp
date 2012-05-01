@@ -804,3 +804,60 @@ void CRenderManager::DisableAlphaBlend()
 	m_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 	m_pD3DDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 }
+
+//--------------------------------------------------
+//				  CAPTURE VIDEO/PICTURE
+//--------------------------------------------------
+bool CRenderManager::DebugDumpBuffer ( const std::string &_FileName, const std::string &_FileNamePath )
+{
+	IDirect3DSurface9*	pRenderTarget = NULL;
+	IDirect3DSurface9*	pDestTarget	 = NULL;
+	//D3DDISPLAYMODE	d3ddisplaymode;
+	D3DSURFACE_DESC		VDesc;
+	std::string			szFileName; 
+	int					ndebug  = 0;
+
+	//DBG_UNREFERENCED_LOCAL_VARIABLE ( szFileName ); 
+	
+	//strcpy ( szFileName, "ScreenShot.bmp" );
+
+	// sanity checks.
+	if ( m_pD3DDevice == NULL)
+		return false;
+
+	// get the render target surface.
+	HRESULT hr = m_pD3DDevice->GetRenderTarget( 0, &pRenderTarget );
+	if ( FAILED ( hr ) )
+		return false;
+
+	// get the current adapter display mode.
+	//hr = m_pD3D->GetAdapterDisplayMode( D3DADAPTER_DEFAULT, &d3ddisplaymode );
+
+	// get the description structure
+	hr= pRenderTarget->GetDesc( &VDesc );  
+	if ( FAILED ( hr ) )
+		return false;
+
+	// create a destination surface.
+	m_pD3DDevice->CreateOffscreenPlainSurface ( VDesc.Width, VDesc.Height, VDesc.Format, D3DPOOL_SYSTEMMEM, &pDestTarget, NULL );
+
+	// copy the render target to the destination surface.
+	hr = m_pD3DDevice->GetRenderTargetData( pRenderTarget, pDestTarget );
+	if ( FAILED ( hr ) )
+		return false;
+
+	szFileName = _FileNamePath + _FileName;
+		
+	// save its contents to a bitmap file.
+	hr = D3DXSaveSurfaceToFile( szFileName.c_str(), D3DXIFF_BMP, pDestTarget, NULL, NULL );
+	if ( FAILED ( hr ) )
+	{
+		LOGGER->AddNewLog ( ELL_ERROR, "CRenderManager::DebugDumpBuffer-->Error %s when saving screenshot to file", hr ); 	
+		return false;
+	}
+	// clean up.
+	pRenderTarget->Release();
+	pDestTarget->Release();
+	
+	return true;
+}

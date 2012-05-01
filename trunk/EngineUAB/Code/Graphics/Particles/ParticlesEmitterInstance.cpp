@@ -30,7 +30,7 @@ CParticlesEmitterInstance::CParticlesEmitterInstance( CXMLTreeNode &_Node )
 	SetName( _Node.GetPszProperty( "name", "" ) );
 	std::string l_NomCore = _Node.GetPszProperty( "core", "" );
 
-	m_pCore = CORE->GetParticleManager()->GetParticlesEmitterCore( l_NomCore );
+	m_pCore = CORE->GetParticlesManager()->GetParticlesEmitterCore( l_NomCore );
 	if ( !m_pCore )
 		return;
 	

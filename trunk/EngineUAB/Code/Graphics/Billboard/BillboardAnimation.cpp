@@ -24,6 +24,7 @@ CBillboardAnimation::CBillboardAnimation( float _Time, const std::vector<CTextur
 	, m_uiImage			( 0 )
 	, m_vColor			( Vect4f(0.f,0.f,0.f,0.f) )
 	, m_fSize			( 0.f )
+	, m_fAngle			( 0.f )
 	, m_uiNumTextures	( 0 )
 	, m_bLoop			( false )
 {}
@@ -37,6 +38,7 @@ CBillboardAnimation::CBillboardAnimation( const CBillboardAnimation *_BillboardA
 	m_uiImage		= _BillboardAnimation->GetImageIndex();
 	m_vColor		= _BillboardAnimation->GetColor();
 	m_fSize			= _BillboardAnimation->GetSize();
+	m_fAngle		= _BillboardAnimation->GetAngle();
 	m_uiNumTextures	= _BillboardAnimation->GetTotalTextures();
 	m_vTextures		= _BillboardAnimation->GetTexturesVector();
 

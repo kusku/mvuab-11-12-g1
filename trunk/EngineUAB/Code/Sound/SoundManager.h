@@ -1,97 +1,146 @@
+//----------------------------------------------------------------------------------
+// CSoundManager class
+// Author: Enric Vergara
+// Changes: Jordi Arenas
+// Description:
+// This secures availability of the necessary sounds functions.
+// It internally uses the OpenAL library.
+//----------------------------------------------------------------------------------
 #pragma once
 
-#ifndef _SOUND_MANAGER_H_
-#define _SOUND_MANAGER_H_
+#ifndef __CLASS_SOUND_MANAGER_H__
+#define __CLASS_SOUND_MANAGER_H__
 
-//#include "Script/ScriptRegister.h"
-#include "Utils\LerpAnimator1D.h"
-#include "Math\Vector3.h"
-#include "al.h"
-#include <map>
-#include <vector>
 #include <string>
+#include <vector>
+#include <map>
+
+// ----- openAL -------------//
+#include "al.h"
+// --------------------------//
+
+#include "Utils/MapManager.h"
+//#include "Script/ScriptRegister.h"
+#include "Utils/LerpAnimator1D.h"
+#include "Math/Vector3.h"
+
+//---Forward Declarations---
+class CRenderManager;
+class CBillboard;
+class CObject3D;
+//--------------------------
 
 class CSoundManager
 {
 public:
-	//----Init and End protocols------------------------------------
-    CSoundManager();
-    virtual ~CSoundManager() { Done(); }
-    bool    Init        ();
-    void    Done        ();
-    bool    IsOk        () const { return m_bIsOk; }
-    //---------------------------------------------------------------
+	//--- Init and End protocols------------------------------------------
+					CSoundManager			( void );
+	virtual			~CSoundManager			( void )								{ Done(); }  
 
-    //----CScriptRegister interface-------------------
-    //virtual void    RegisterFunctions                (CScriptManager* scriptManager);
+	bool			Init					( void );
+    void			Done					( void );
+    bool			IsOk					( void ) const							{ return m_bIsOk; }
 
-	//-----------GENERAL METHODS-----------------------
-    void    Update			(float deltaTime);
-    bool    LoadSounds		(const std::string& xmlSoundsFile);
-    void    Reset			();
-    void    Pause			();
-    void    Stop			();
-    void    SoundOn			()				{ m_bSoundON=true; }
-    void    SoundOff		()				{ m_bSoundON=false; }
-    void    SetGain			(float gain);
-    float   GetGain			();
-     
+	//----Funcions principals---------------------------------------------
+	bool			Load					( const std::string &_XMLSoundsFile );
+	void			Update					( float _ElapsedTime );
+	void			Render					( CRenderManager &_RM );
+	bool			Reload					( void );
+	
+	//----Funcions -------------------------------------------------------
+	   
+	//-----------GENERAL FUNCTIONS------------------------
+    bool			LoadSounds				( void );
+    void			Reset					( void );
+    void			Pause					( void );
+    void			Stop					( void );
+    void			SoundOn					( void )								{ m_bSoundON = true; }
+    void			SoundOff				( void )								{ m_bSoundON = false; }
+    void			SetGain					( float _Gain  );
+    float			GetGain					( void );
+
     //---------ACTION METHODS---------------------------------
-    bool    PlayAction2D    ( const std::string& action );
-    bool    PlayAction3D    ( const std::string& action, const Vect3f& position );
-
-	//-----SOURCE METHODS------------------------------
-    uint32  CreateSource       ();
-    bool    DeleteSource        ( uint32 source );
-    bool    PlaySource2D        ( uint32 source, const std::string& action, bool loop );
-    bool    PlaySource3D        ( uint32 source, const std::string& action, bool loop );
-    bool    PauseSource			( uint32 source );
-    bool    StopSource			( uint32 source );
-    bool    SetSourceGain		( uint32 source, float inGain );
-    bool    GetSourceGain		( uint32 source, float& outGain );
-    bool    SetSourcePosition   ( uint32 source, const Vect3f& inPosition );
-    bool    GetSourcePosition   ( uint32 source, Vect3f& outPosition );
-    bool    SetSourceVelocity   ( uint32 source, const Vect3f& inVelocity );
-    bool    GetSourceVelocity   ( uint32 source, Vect3f& outVelocity );
-    bool    FadeInSource		( uint32 source, float totalTime, float finalGain = 1.f, ETypeFunction type = FUNC_CONSTANT );
-    bool    FadeOutSource		( uint32 source, float totalTime, ETypeFunction type = FUNC_CONSTANT );
+    bool			PlayAction2D			( const std::string& _Action, float _Gain = 1.f );
+    bool			PlayAction3D			( const std::string& _Action, const Vect3f& _Position, float _Gain = 1.f );
+        
+    //---------SOURCE FUNCTIONS-------------------------------
+   
+	uint32			CreateSource			( void );
+    bool			DeleteSource			( uint32 _Source );
+    bool			PlaySource2D			( uint32 _Source, const std::string& _Action, bool _Loop, float _Gain = 1.f );
+    bool			PlaySource3D			( uint32 _Source, const std::string& _Action, bool _Loop, float _Gain = 1.f );
+    bool			PauseSource				( uint32 _Source );
+    bool			StopSource				( uint32 _Source );
+    bool			SetSourceGain			( uint32 _Source, float _InGain );
+    bool			GetSourceGain			( uint32 _Source, float& _OutGain );
+    bool			SetSourcePosition		( uint32 _Source, const Vect3f& _InPosition );
+    bool			GetSourcePosition		( uint32 _Source, Vect3f& _OutPosition );
+    bool			SetSourceVelocity		( uint32 _Source, const Vect3f& _InVelocity );
+    bool			GetSourceVelocity		( uint32 _Source, Vect3f& _OutVelocity );
+    bool			FadeInSource			( uint32 _Source, float _TotalTime, float _FinalGain = 1.f, ETypeFunction _Type = FUNC_CONSTANT );
+    bool			FadeOutSource			( uint32 _Source, float _TotalTime, ETypeFunction _Type = FUNC_CONSTANT );
 
 	//-----LISTENER METHODS---------------------------
-    void    SetListenerPosition			( const Vect3f& inPosition );
-    void    GetListenerPosition			( Vect3f& outPosition );
-    void    SetListenerVelocity			( const Vect3f& inVelocity );
-    void    GetListenerVelocity			( Vect3f& outVelocity );
-    void    SetListenerOrientation		( const Vect3f& inAt, const Vect3f& inUp );
-    void    GetListenerOrientation		( Vect3f& outAt, Vect3f& outUp );
+    void			SetListenerPosition		( const Vect3f& _InPosition );
+    void			GetListenerPosition		( Vect3f& _OutPosition );
+    void			SetListenerVelocity		( const Vect3f& _InVelocity );
+    void			GetListenerVelocity		( Vect3f& _OutVelocity );
+    void			SetListenerOrientation	( const Vect3f& InAt, const Vect3f& _InUp );
+    void			GetListenerOrientation	( Vect3f& _OutAt, Vect3f& _OutUp );
 
 private:
-    //Types
+
+	//Types
     typedef struct
     {
         ALuint  m_uSource;
         bool	m_bReserved;
-    }tInfoSource;
-   
-    typedef std::string     tSoundFile;
-    typedef std::string		tAction;
-    typedef ALuint			tIdBuffer;
-   
-	void			Release				();
-    bool			_initAL				();
-    void			_finalizeAL			();
-    bool			_loadSound			(const std::string& file, tIdBuffer& buffer);
-    void			_clear				();
-    int				_getSource			(bool reserved=false);
-    std::string		_getALErrorString   (ALenum err);
+    } tInfoSource;
 
-private:   
-    bool    m_bIsOk;          // Initialization boolean control
-    bool    m_bSoundON;
-    bool    m_bPause;
+	typedef std::string					tSoundFile;
+    typedef std::string					tAction;
+    typedef ALuint						tIdBuffer;
 
-    std::map<tAction, tIdBuffer>        m_BuffersMap;
+	void			Release					( void );
+
+	bool			_initAL					( void );
+    void			_finalizeAL				( void );
+    bool			_loadSound				( const std::string& _File, tIdBuffer& _Buffer );
+    void			_clear					( void );
+    int				_getSource				( bool _Reserved );
+    std::string		_getALErrorString		( ALenum _Err );
+
+	//----Properties ( get & Set )----------------------------------------
+public:
+	
+	std::string		GetFile					( void ) const					{ return m_szFileName; }
+
+	bool			IsSourceFinished		( uint32 _Source );
+	 
+	// Funcions per test
+	void			SetSoundVolume			( float _VolumValue )			{ m_fSoundVolume = _VolumValue; }
+	float			GetSoundVolume			( void ) const					{ return m_fSoundVolume; }
+	
+	// Coloco o obtengo el Listener asociado
+	void			SetListener				( CObject3D * _pListener )		{ m_pListener = _pListener; }
+	CObject3D *		GetListener				( void ) const					{ return m_pListener; }
+
+	//----Members ---------------------------------------
+private:
+	std::string							m_szFileName;
+	float								m_fSoundVolume;
+	bool								m_bIsOk;					// Initialization boolean control
+    bool								m_bSoundON;
+    bool								m_bPause;
+
+	
+    std::map<std::string, tIdBuffer>	m_BuffersMap;
     std::vector<tInfoSource>			m_SourcesVector;
-    std::map<uint32,CLerpAnimator1D>    m_SourcesFadeInOutMap;
+    std::map<uint32, CLerpAnimator1D>   m_SourcesFadeInOutMap;
+
+	std::vector<CBillboard*>			m_BillboardVector;			// Para pintar los altavoces en modo debug
+
+	CObject3D						  * m_pListener;
 };
 
-#endif
+#endif __CLASS_SOUND_MANAGER_H__

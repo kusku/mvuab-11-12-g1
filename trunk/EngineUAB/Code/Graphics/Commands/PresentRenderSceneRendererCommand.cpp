@@ -7,6 +7,7 @@
 #endif
 
 CPresentSceneRendererCommand::CPresentSceneRendererCommand(CXMLTreeNode &Node)
+	: CSceneRendererCommand ( Node )
 {
 }
 
