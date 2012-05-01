@@ -432,6 +432,10 @@ BOOL CFileView::PreTranslateMessage(MSG* pMsg)
 					m_WindowsMap.erase(current_name);
 					m_WindowsMap[new_name] = item;
 				}
+
+				std::map<std::string, HTREEITEM> l_Elements = m_ElementsWindowMap[current_name];
+				m_ElementsWindowMap.erase(current_name);
+				m_ElementsWindowMap[new_name] = l_Elements;
 			}
 			
 
