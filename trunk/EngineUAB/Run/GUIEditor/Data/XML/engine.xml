@@ -21,9 +21,11 @@
 	<SceneRendererCommands commandsXML="./Data/XML/scene_renderer_commands.xml" />
 	<RenderableObjectTechniques poolsXML="./Data/XML/renderable_object_techniques.xml" />
 	<Scripts scriptsXML="./Data/XML/scripts.xml" />
-	<Billboards fileXML="./Data/XML/billboard_animations.xml" />
-	<Particles fileXML="./Data/XML/particles.xml" />
-	<GUI fileXML="./Data/XML/gui.xml" />
+ 	<Billboards billboardsXML="./Data/XMLs/billboard_animations.xml" />
+	<ParticlesSystem particlesXML="./Data/XMLs/sistema_particulas.xml" />
+	<TriggersSystem triggersXML="./Data/XMLs/triggers.xml" />
+	<GUI guiXML="./Data/GUI/initGui_laberynth.xml" />
+	<Sound soundXML="./Data/XMLs/sounds.xml" />
 	<Modifiers modifiersXML="./Data/XML/modifiers.xml" />
 	<Debug_Options debug_options_xml="./data/xml/debug_options.xml" />
 </Config>
