@@ -10,10 +10,10 @@
 #ifndef _TEMPLATED_VECTOR_MAP_MANAGER_H
 #define _TEMPLATED_VECTOR_MAP_MANAGER_H
 
-#include "Base.h"
 #include <string>
 #include <vector>
 #include <map>
+#include "Base.h"
 
 template <class T>
 class CTemplatedVectorMapManager
@@ -117,9 +117,9 @@ public:
 	{
 		m_ResourcesMap.clear();
 
-		for(uint16 i=0; i< m_ResourcesVector.size() ; ++i)
+		for ( uint16 i = 0; i < m_ResourcesVector.size() ; ++i )
 		{
-			CHECKED_DELETE(m_ResourcesVector[i]);
+			CHECKED_DELETE( m_ResourcesVector[i] );
 		}
 		m_ResourcesVector.clear();
 	}

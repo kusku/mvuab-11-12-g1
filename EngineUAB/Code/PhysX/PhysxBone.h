@@ -15,7 +15,8 @@ class CPhysicActor;
 class CPhysicUserData;
 class CXMLTreeNode;
 class CalSkeleton;
-class CGameEntity;
+//class CGameEntity;
+class CObject3D;
 
 
 class CPhysxBone :
@@ -49,9 +50,9 @@ public:
   static Mat44f       GetBoneLeftHandedAbsoluteTransformation(CalBone* _pBone);
 
   //Funcions per afegir la info del actor de fisica.
-  bool				        AddBoxActor(CXMLTreeNode _XMLObjects, CGameEntity* _pEntity);
-  bool				        AddSphereActor(CXMLTreeNode _XMLObjects, CGameEntity* _pEntity);
-  bool				        AddCapsuleActor(CXMLTreeNode _XMLObjects, CGameEntity* _pEntity);
+  bool				        AddBoxActor(CXMLTreeNode _XMLObjects, CObject3D* _pEntity);
+  bool				        AddSphereActor(CXMLTreeNode _XMLObjects, CObject3D* _pEntity);
+  bool				        AddCapsuleActor(CXMLTreeNode _XMLObjects, CObject3D* _pEntity);
 
   
 private:

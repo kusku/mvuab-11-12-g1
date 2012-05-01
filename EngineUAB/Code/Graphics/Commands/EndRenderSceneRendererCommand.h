@@ -5,14 +5,18 @@
 
 #include "SceneRendererCommand.h"
 
+//---Foward Declarations---//
 class CRenderManager;
 class CXMLTreeNode;
-
-class CEndSceneRendererCommand : public CSceneRendererCommand
+//-------------------------//
+class CEndRenderSceneRendererCommand : public CSceneRendererCommand
 {
 public:
-	CEndSceneRendererCommand(CXMLTreeNode &Node);
-	virtual void	Execute		( CRenderManager &RM );
+	//--- Init and End protocols------------------------------------------
+					CEndRenderSceneRendererCommand ( CXMLTreeNode &_Node );
+	
+	//----Main Methods ---------------------------------------------------
+	virtual void	Execute		( CRenderManager &_RM );
 };
 
 #endif

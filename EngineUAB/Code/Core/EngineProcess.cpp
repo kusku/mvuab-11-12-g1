@@ -7,24 +7,46 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-CEngineProcess::CEngineProcess()
+// -----------------------------------------
+//			CONSTRUCTOR/DESTRUCTOR
+// -----------------------------------------
+CEngineProcess::CEngineProcess ( void )
 	: m_Camera(NULL)
 {
 }
 
-CEngineProcess::~CEngineProcess()
+CEngineProcess::~CEngineProcess ( void )
+{
+	Done ();
+}
+
+// -----------------------------------------
+//					METODOS
+// -----------------------------------------
+
+void CEngineProcess::Done ( void )
+{
+	if ( IsOk ( ) )
+	{
+		Release();
+		m_bIsOk = false;
+	}
+}
+
+void CEngineProcess::Release ( void )
 {
 }
 
-void CEngineProcess::Init()
+bool CEngineProcess::Init ( void )
+{
+	return m_bIsOk;
+}
+
+void CEngineProcess::Render( CRenderManager &_RM )
 {
 }
 
-void CEngineProcess::Render(CRenderManager &RM)
-{
-}
-
-void CEngineProcess::Update(float ElapsedTime)
+void CEngineProcess::Update( float _ElapsedTime )
 {
 }
 

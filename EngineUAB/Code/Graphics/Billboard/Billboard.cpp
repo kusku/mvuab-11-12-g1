@@ -62,7 +62,7 @@ void CBillboard::Render ( CRenderManager &_RM, const CColor &_Color )
 void CBillboard::RenderBySoftware ( CRenderManager &_RM, const CColor &_Color )
 {
 	TCOLOREDTEXTURE1_VERTEX l_Points[4];
-    unsigned short l_Indexes[6]={0,2,3,1};
+    unsigned short l_Indexes[6] = { 0, 2, 3, 1 };
 	
 	unsigned long color_aux = _Color.GetUint32Argb();
 
@@ -124,7 +124,7 @@ void CBillboard::RenderByHardware ( CRenderManager &_RM, const CColor &_Color )
 				//_RM->DrawColoredQuad2DTexturedInPixels ( _Color, _U0, _V0, _U1, _V1 );
 
 				TCOLOREDTEXTURE1_VERTEX l_Points[4];
-				unsigned short l_Indexes[6]={0, 2, 3, 1};
+				unsigned short l_Indexes[6] = { 0, 2, 3, 1 };
 	
 				unsigned long color_aux = _Color.GetUint32Argb();
 
@@ -188,15 +188,16 @@ void CBillboard::RenderByHardware ( CRenderManager &_RM, const CColor &_Color )
 void CBillboard::Update ( CCamera * _pCamera, float _Angle )
 {
 	Mat33f l_Rotation;
-	l_Rotation.FromAxisAngle ( _pCamera->GetDirection(), _Angle );
-	Vect3f l_UpVector = l_Rotation * _pCamera->GetVecUp();
+	l_Rotation.SetIdentity();
+	l_Rotation.FromAxisAngle ( _pCamera->GetDirection().Normalize(), _Angle );
+	Vect3f l_UpVector = l_Rotation * _pCamera->GetVecUp().Normalize();
 
 	Vect3f l_Right = l_UpVector^( - _pCamera->GetDirection() );
 	l_Right.Normalize();
-	m_PointA = m_vPosition + m_fHeight/2 * _pCamera->GetVecUp() - m_fWidth/2 * l_Right;
-	m_PointB = m_vPosition + m_fHeight/2 * _pCamera->GetVecUp() + m_fWidth/2 * l_Right;
-	m_PointC = m_vPosition - m_fHeight/2 * _pCamera->GetVecUp() - m_fWidth/2 * l_Right;
-	m_PointD = m_vPosition - m_fHeight/2 * _pCamera->GetVecUp() + m_fWidth/2 * l_Right;
+	m_PointA = m_vPosition + m_fHeight/2 * l_UpVector - m_fWidth/2 * l_Right;
+	m_PointB = m_vPosition + m_fHeight/2 * l_UpVector + m_fWidth/2 * l_Right;
+	m_PointC = m_vPosition - m_fHeight/2 * l_UpVector - m_fWidth/2 * l_Right;
+	m_PointD = m_vPosition - m_fHeight/2 * l_UpVector + m_fWidth/2 * l_Right;
 }
 	
 // -----------------------------------------

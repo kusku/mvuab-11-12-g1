@@ -21,18 +21,18 @@ class CPhysicActor;
 class CPhysicRevoluteJoint
 {
 public:
-	CPhysicRevoluteJoint();
-	~CPhysicRevoluteJoint();
+							CPhysicRevoluteJoint	( void );
+							~CPhysicRevoluteJoint	( void );
 
-	void					CreateJoint			(NxJoint* joint);
-	void					SetInfo				(const Vect3f& axis, const Vect3f& anchor, CPhysicActor* actorA,  CPhysicActor* actorB = 0);
-
-	void					SetMotor			(float maxForce, float veltarget, bool limit=false, float limHigh=0.f, float limLow=0.f);
-	void					ActiveMotor			(float velocity);
+	void					CreateJoint				( NxJoint* joint );
+	void					SetInfo					( const Vect3f& axis, const Vect3f& anchor, CPhysicActor* actorA,  CPhysicActor* actorB = 0 );
+													  
+	void					SetMotor				( float maxForce, float veltarget, bool limit=false, float limHigh=0.f, float limLow=0.f );
+	void					ActiveMotor				( float velocity );
 
 	//---Get PhsX Info---
-	NxJoint*				GetPhXJoint			() const		{ return m_pJoint; }
-	NxRevoluteJointDesc*	GetPhXDescJoint		() const		{ return m_pRevoluteDesc; }
+	NxJoint*				GetPhXJoint				( void ) const		{ return m_pJoint; }
+	NxRevoluteJointDesc*	GetPhXDescJoint			( void ) const		{ return m_pRevoluteDesc; }
 
 
 private:

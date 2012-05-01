@@ -76,7 +76,7 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 
 		LONG wsOpt = 0;
 
-		if(g_Engine->GetConfig().bFullscreen)
+		if ( g_Engine->GetConfig().bFullscreen )
 		{
 			wsOpt = WS_POPUP;
 		}

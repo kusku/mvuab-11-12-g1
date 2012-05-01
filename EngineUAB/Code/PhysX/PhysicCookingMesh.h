@@ -33,30 +33,36 @@ public:
 
 public:
 	//--- Init and End protocols	
-	CPhysicCookingMesh();
-	~CPhysicCookingMesh()		{ Done(); }
+								CPhysicCookingMesh	( void );
+								~CPhysicCookingMesh	( void )			{ Done(); }
 
-	bool				Init					(NxPhysicsSDK* physicSDK, CPhysicUserAllocator* myAllocator);
-	void				Done					();
-	bool				IsOk					() const		{ return m_bIsOk; }
+	bool						Init				( NxPhysicsSDK* physicSDK, CPhysicUserAllocator* myAllocator );
+	void						Done				( void );
+	bool						IsOk				( void ) const { return m_bIsOk; }
 
-	NxTriangleMesh*		GetPhysicMesh			( const std::string& name );
 
-	bool				CreatePhysicMesh		( const std::string& binFilename, const std::string& nameMesh );
-	bool				CreatePhysicMesh		( const std::vector<Vect3f>& vertices, const std::vector<uint32>& faces, const std::string &nameMesh );
-	bool				SavePhysicMesh			( const std::vector<Vect3f>& vertices, const std::vector<uint32>& faces, const std::string &binFilename );
-	bool				ReadMeshFromASE			( std::string fileName, std::vector<Vect3f>&vertices, std::vector<unsigned int>& faces );
-	bool				CookClothMesh			( const NxClothMeshDesc& desc, NxStream& stream );
+	NxTriangleMesh*				GetPhysicMesh		(const std::string& name);
+
+
+	bool						CreatePhysicMesh	( const std::string& _BinFilename, const std::string& _NameMesh );
+	bool						CreatePhysicMesh	( const std::vector<Vect3f>& _Vertices, const std::vector<uint32>& _Faces, const std::string &_NameMesh );
+	bool						SavePhysicMesh		( const std::vector<Vect3f>& _Vertices, const std::vector<uint32>& _Faces, const std::string &_BinFilename );
+	bool						CreateMeshFromASE	( std::string _FileName, std::string _Name );
+	bool						CookClothMesh		( const NxClothMeshDesc& _Desc, NxStream& _Stream);
 
 private:
-	void				Release					();
+
+	void						Release				( void );
+	bool						ReadMeshFromASE		( std::string _FileName, std::vector<Vect3f>& _Vertices, std::vector<unsigned int>& _Faces );
+	
 
 private:
-	bool							m_bIsOk;
-	VecMeshes						m_TriangleMeshes;
-	NxPhysicsSDK					*m_pPhysicSDK;
-	CPhysicUserAllocator			*m_pMyAllocator;
-	NxCookingInterface				*m_pCooking;
+
+	bool						m_bIsOk;
+	NxPhysicsSDK*				m_pPhysicSDK;
+	CPhysicUserAllocator*		m_pMyAllocator;
+	NxCookingInterface*			m_pCooking;
+	VecMeshes					m_TriangleMeshes;
 };
 
 #endif // INC_PHYSIC_COOKING_MESH_H_

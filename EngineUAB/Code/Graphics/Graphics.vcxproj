@@ -24,9 +24,11 @@
     <ClInclude Include="Commands\ClearSceneRendererCommand.h" />
     <ClInclude Include="Commands\CommandsIncludes.h" />
     <ClInclude Include="Commands\DeferredShadingSceneRendererCommand.h" />
+    <ClInclude Include="Commands\DisableAlphaBlendingSceneRendererCommand.h" />
     <ClInclude Include="Commands\DisableZTestSceneRendererCommand.h" />
     <ClInclude Include="Commands\DisableZWriteSceneRendererCommand.h" />
     <ClInclude Include="Commands\DrawQuadRendererCommand.h" />
+    <ClInclude Include="Commands\EnableAlphaBlendingSceneRendererCommand.h" />
     <ClInclude Include="Commands\EnableZTestSceneRendererCommand.h" />
     <ClInclude Include="Commands\EnableZWriteSceneRendererCommand.h" />
     <ClInclude Include="Commands\EndRenderSceneRendererCommand.h" />
@@ -38,9 +40,11 @@
     <ClInclude Include="Commands\RenderDebugProcessSceneRendererCommand.h" />
     <ClInclude Include="Commands\RenderDebugSceneSceneRendererCommand.h" />
     <ClInclude Include="Commands\RenderDebugShadowMapsSceneRendererCommand.h" />
+    <ClInclude Include="Commands\RenderDebugSoundsSceneRendererCommand.h" />
     <ClInclude Include="Commands\RenderGUISceneRendererCommand.h" />
     <ClInclude Include="Commands\RenderParticlesSceneRendererCommand.h" />
     <ClInclude Include="Commands\RenderSceneSceneRendererCommand.h" />
+    <ClInclude Include="Commands\SaveSceneToFileRendererCommand.h" />
     <ClInclude Include="Commands\SceneRendererCommand.h" />
     <ClInclude Include="Commands\SceneRendererCommandManager.h" />
     <ClInclude Include="Commands\SetPoolRenderableObjectsTechniqueCommand.h" />
@@ -103,9 +107,11 @@
     <ClCompile Include="Commands\CaptureFrameBufferSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\ClearSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\DeferredShadingSceneRendererCommand.cpp" />
+    <ClCompile Include="Commands\DisableAlphaBlendingSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\DisableZTestSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\DisableZWriteSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\DrawQuadRendererCommand.cpp" />
+    <ClCompile Include="Commands\EnableAlphaBlendingSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\EnableZTestSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\EnableZWriteSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\EndRenderSceneRendererCommand.cpp" />
@@ -117,9 +123,11 @@
     <ClCompile Include="Commands\RenderDebugProcessSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\RenderDebugSceneSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\RenderDebugShadowMapsSceneRendererCommand.cpp" />
+    <ClCompile Include="Commands\RenderDebugSoundsSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\RenderGUISceneRendererCommand.cpp" />
     <ClCompile Include="Commands\RenderParticlesSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\RenderSceneSceneRendererCommand.cpp" />
+    <ClCompile Include="Commands\SaveSceneToFileRendererCommand.cpp" />
     <ClCompile Include="Commands\SceneRendererCommand.cpp" />
     <ClCompile Include="Commands\SceneRendererCommandManager.cpp" />
     <ClCompile Include="Commands\SetPoolRenderableObjectsTechniqueCommand.cpp" />
@@ -197,7 +205,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)\bin\Lib\</OutDir>
-    <IntDir>$(SolutionDir)\bin\Intermediate\$(ProjectName)$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)\bin\Intermediate\$(ProjectName)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_d</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -208,7 +216,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\GUI\;$(SolutionDir)\Code\PhysX\;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src;$(SolutionDir)\Code\3dParty\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\GUI\;$(SolutionDir)\Code\Sound\;$(SolutionDir)\Code\PhysX\;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src;$(SolutionDir)\Code\3dParty\openAL\include;$(SolutionDir)\Code\3dParty\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

@@ -14,6 +14,7 @@
 #endif
 
 CGenerateShadowMapsSceneRendererCommand::CGenerateShadowMapsSceneRendererCommand(CXMLTreeNode &Node)
+	: CStagedTexturedRendererCommand ( Node )
 {
 }
 

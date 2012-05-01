@@ -37,8 +37,8 @@ public:
 
 	void		DoAction		();
 
-	uint16		GetActualPage	() const		{ return m_uNowPage; }
-	uint16		GetActualLine	() const		{ return m_uNowLine; }
+	uint16		GetActualPage	( void ) const		{ return m_uNowPage; }
+	uint16		GetActualLine	( void ) const		{ return m_uNowLine; }
 
 	//--- Set Methods -------
 	void		SetBool			( bool value )		{ m_bBoolValue = value; }

@@ -18,7 +18,7 @@ CPhysicUserStream::~CPhysicUserStream()
 }
 
 // Loading API
-NxU8 CPhysicUserStream::readByte() const
+NxU8 CPhysicUserStream::readByte( void ) const
 {
 	NxU8 b;
 	size_t r = fread(&b, sizeof(NxU8), 1, fp);
@@ -26,7 +26,7 @@ NxU8 CPhysicUserStream::readByte() const
 	return b;
 }
 
-NxU16 CPhysicUserStream::readWord() const
+NxU16 CPhysicUserStream::readWord( void ) const
 {
 	NxU16 w;
 	size_t r = fread(&w, sizeof(NxU16), 1, fp);
@@ -34,7 +34,7 @@ NxU16 CPhysicUserStream::readWord() const
 	return w;
 }
 
-NxU32 CPhysicUserStream::readDword() const
+NxU32 CPhysicUserStream::readDword( void ) const
 {
 	NxU32 d;
 	size_t r = fread(&d, sizeof(NxU32), 1, fp);
@@ -42,7 +42,7 @@ NxU32 CPhysicUserStream::readDword() const
 	return d;
 }
 
-float CPhysicUserStream::readFloat() const
+float CPhysicUserStream::readFloat( void ) const
 {
 	NxReal f;
 	size_t r = fread(&f, sizeof(NxReal), 1, fp);
@@ -50,7 +50,7 @@ float CPhysicUserStream::readFloat() const
 	return f;
 }
 
-double CPhysicUserStream::readDouble() const
+double CPhysicUserStream::readDouble( void ) const
 {
 	NxF64 f;
 	size_t r = fread(&f, sizeof(NxF64), 1, fp);
@@ -181,7 +181,7 @@ CPhysicMemoryReadBuffer::~CPhysicMemoryReadBuffer()
 	// We don't own the data => no delete
 }
 
-NxU8 CPhysicMemoryReadBuffer::readByte() const
+NxU8 CPhysicMemoryReadBuffer::readByte( void ) const
 {
 	NxU8 b;
 	memcpy(&b, buffer, sizeof(NxU8));
@@ -189,7 +189,7 @@ NxU8 CPhysicMemoryReadBuffer::readByte() const
 	return b;
 }
 
-NxU16 CPhysicMemoryReadBuffer::readWord() const
+NxU16 CPhysicMemoryReadBuffer::readWord( void ) const
 {
 	NxU16 w;
 	memcpy(&w, buffer, sizeof(NxU16));
@@ -197,7 +197,7 @@ NxU16 CPhysicMemoryReadBuffer::readWord() const
 	return w;
 }
 
-NxU32 CPhysicMemoryReadBuffer::readDword() const
+NxU32 CPhysicMemoryReadBuffer::readDword( void ) const
 {
 	NxU32 d;
 	memcpy(&d, buffer, sizeof(NxU32));
@@ -205,7 +205,7 @@ NxU32 CPhysicMemoryReadBuffer::readDword() const
 	return d;
 }
 
-float CPhysicMemoryReadBuffer::readFloat() const
+float CPhysicMemoryReadBuffer::readFloat( void ) const
 {
 	float f;
 	memcpy(&f, buffer, sizeof(float));
@@ -213,7 +213,7 @@ float CPhysicMemoryReadBuffer::readFloat() const
 	return f;
 }
 
-double CPhysicMemoryReadBuffer::readDouble() const
+double CPhysicMemoryReadBuffer::readDouble( void ) const
 {
 	double f;
 	memcpy(&f, buffer, sizeof(double));

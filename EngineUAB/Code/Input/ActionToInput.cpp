@@ -786,7 +786,7 @@ void CActionToInput::InitString2Input ()
 	m_String2Code.insert( PairString2Code("KEY_SCROLL",                          KEY_SCROLL) );  
 }
 
-bool CActionToInput::GetGamepadState() const
+bool CActionToInput::GetGamepadState( void ) const
 {
 	return m_pInputManager->HasGamePad();
 }

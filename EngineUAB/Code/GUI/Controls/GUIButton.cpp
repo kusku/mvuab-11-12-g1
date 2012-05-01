@@ -4,7 +4,7 @@
 #include "Textures\Texture.h"
 #include "RenderManager.h"
 #include "Logger\Logger.h"
-#include "ScriptManager.h"
+#include "Scripting\ScriptManager.h"
 #include "InputManager.h"
 
 

@@ -1,5 +1,5 @@
-#ifndef _COREDEFS_H
-#define _COREDEFS_H
+#ifndef __COREDEFS_H__
+#define __COREDEFS_H__
 
 #include "Math\Color.h"
 #include "Math\Vector2.h"
@@ -8,15 +8,75 @@
 #include <vector>
 
 #define DEBUG_MODE true
+//
+//enum TECLES 
+//{
+//	UP		= 0,
+//	DOWN	= 1,
+//	LEFT	= 2,
+//	RIGHT	= 3
+//	//NONE	= 4
+//};
 
-#define ACTION_LOGGER				"Logger"
-#define ACTION_DEBUG_INFO			"DebugInfo"
-#define ACTION_LOGGER_PAGEDOWN		"LogRender_PageDown"
-#define ACTION_LOGGER_PAGEUP		"LogRender_PageUp"
-#define ACTION_LOGGER_PREVLINE		"LogRender_PrevLine"
-#define ACTION_LOGGER_NEXTLINE		"LogRender_NextLine"
-#define ACTION_SAVE_LOG_FILE		"SaveLogsInFile"
-#define ACTION_RELOAD_ALL			"ReloadAll"
+// ********* RELOADS *********** 
+#define ACTION_RELOAD_ALL					"ReloadAll"
+#define ACTION_RELOAD_TTFS					"ReloadTTFs"
+#define ACTION_RELOAD_LANGUAGES				"ReloadLanguageXMLs"
+#define ACTION_RELOAD_ACTIONS				"ReloadActions"
+#define ACTION_RELOAD_COMMANDS				"ReloadCommands"
+#define ACTION_RELOAD_RENDERABLE_OBJECTS	"ReloadRenderableObjects"
+#define ACTION_RELOAD_LAYERS				"ReloadLayers"
+#define ACTION_RELOAD_POOLS					"ReloadPools"
+#define ACTION_RELOAD_MESHES				"ReloadMeshes"
+#define ACTION_RELOAD_ANIMATIONS			"ReloadAnimations"
+#define ACTION_RELOAD_EFFECTS				"ReloadEffects"
+#define ACTION_RELOAD_SHADERS				"ReloadShaders"
+#define ACTION_RELOAD_LIGHTS				"ReloadLightsModels"
+#define ACTION_RELOAD_SCRIPTS				"ReloadScripts"
+#define ACTION_RELOAD_PHYSIS				"ReloadPhysis"
+#define ACTION_RELOAD_GUI					"ReloadGUI"
+#define ACTION_RELOAD_SOUNDS				"ReloadSounds"
+
+
+// ********* VIEW CAMERA *********** 
+#define ACTION_CAMERA_SWITCH				"CameraSwicth"
+#define ACTION_PLAYER_SWITCH				"PlayerSwicth"
+
+// ********* CONSOLE *********** 
+#define ACTION_CONSOLE						"Console"
+
+// ********* DEBUG GUI *********** 
+#define ACTION_DEBUG_INFO					"DebugInfo"
+#define ACTION_DEBUG_OPTIONS				"DebugOptions"
+#define ACTION_DEBUG_NEXT_PAGE				"NextPage"
+#define ACTION_DEBUG_PREVIOUS_PAGE			"PrevPage"
+#define ACTION_DEBUG_NEXT_LINE				"NextLine"
+#define ACTION_DEBUG_PREVIOUS_LINE			"PrevPage"
+#define ACTION_DEBUG_DO_ACTION				"DoAction"
+
+// --------- LOGGER ---------
+#define ACTION_LOGGER						"Logger"
+#define ACTION_LOGGER_PAGEDOWN				"LogRender_PageDown"
+#define ACTION_LOGGER_PAGEUP				"LogRender_PageUp"
+#define ACTION_LOGGER_PREVLINE				"LogRender_PrevLine"
+#define ACTION_LOGGER_NEXTLINE				"LogRender_NextLine"
+#define ACTION_SAVE_LOG_FILE				"SaveLogsInFile"
+
+// --------- MODIFIERS ---------
+#define ACTION_MODIFIERS					"Modifiers"
+#define ACTION_SHOW_MODIFIERS				"ModifiersShow"
+#define ACTION_PREVIOUS_MODIFIERS			"Modifier_Previous"
+#define ACTION_NEXT_MODIFIERS				"Modifier_Next"
+#define ACTION_GOTO_MODIFIERS				"GoToModifier"
+#define ACTION_GOTO_ROOT_MODIFIERS			"GoToRootModifier"
+#define ACTION_ADD_VALUE_BY_PASS_MODIFIERS	"AddValueToModifierByPass"
+#define ACTION_SUBS_VALUE_BY_PASS_MODIFIERS	"SubsValueToModifierByPass"
+#define ACTION_ADD_VALUE_MODIFIERS			"AddValueToModifier"
+#define ACTION_SUBS_VALUE_MODIFIERS			"SubsValueToModifier"
+
+// ********* MISC *********** 
+#define ACTION_PRINT_SCREEN_TO_FILE			"SaveScreenToFile" 
+
 
 
 struct SConfig
@@ -64,7 +124,14 @@ struct SConfig
 	std::string billboards_path;
 	std::string particles_path;
 
+	// Parametros del sistema gui
 	std::string gui_path;
+
+	// Parametros del sistema de triggers
+	std::string triggers_system_path;
+
+	// Parametros del Sonido
+	std::string sound_system_path;
 };
 
-#endif
+#endif __COREDEFS_H__

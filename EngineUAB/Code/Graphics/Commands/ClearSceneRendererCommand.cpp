@@ -6,14 +6,21 @@
 #include "Memory\MemLeaks.h"
 #endif
 
+// --------------------------------------------
+//			CONSTRUCTOR/DESTRUCTOR
+// --------------------------------------------
 CClearSceneRendererCommand::CClearSceneRendererCommand(CXMLTreeNode &Node)
+	: CSceneRendererCommand ( Node )
 {
 	//<clear_scene color="true" depth="true" stencil="true"/>
-	m_Color = Node.GetBoolProperty("color", true);
-	m_Stencil = Node.GetBoolProperty("depth", true);
-	m_Depth = Node.GetBoolProperty("stencil", true);
+	m_Color		= Node.GetBoolProperty("color", true);
+	m_Stencil	= Node.GetBoolProperty("depth", true);
+	m_Depth		= Node.GetBoolProperty("stencil", true);
 }
 
+// --------------------------------------------
+//			   MÈTODES PRINCIPALS
+// --------------------------------------------
 void CClearSceneRendererCommand::Execute(CRenderManager &RM)
 {
 	DWORD clearBuffersOpts = 0x0;

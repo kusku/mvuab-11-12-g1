@@ -7,7 +7,9 @@
 #include "PhysicRevoluteJoint.h"
 #include "PhysicsManager.h"
 #include "PhysicActor.h"
+#include "PhysicUserData.h"
 #include "PhysxBone.h"
+
 #include <cal3d/cal3d.h>
 #include <XML/XMLTreeNode.h>
 #include "RenderManager.h"
@@ -15,6 +17,7 @@
 #include "base.h"
 #include "Math\Matrix44.h"
 #include "Logger\Logger.h"
+#include "Object3D.h"
 
 //---PhysX Includes---//
 #undef min
@@ -22,9 +25,7 @@
 #include "NxPhysics.h"
 //---------------------//
 
-
-
-bool CPhysxSkeleton::Init(const std::string& _szFileName, CalModel* _pCalModel, Mat44f _vMat, int _iColisionGroup, CGameEntity *_pEntity)
+bool CPhysxSkeleton::Init( const std::string& _szFileName, CalModel* _pCalModel, Mat44f _vMat, int _iColisionGroup, CObject3D *_pEntity )
 {
   m_pEntity = _pEntity;
   m_mTransform = _vMat;
@@ -40,13 +41,10 @@ bool CPhysxSkeleton::Init(const std::string& _szFileName, CalModel* _pCalModel, 
     CPhysxBone* l_pPhysXBone = new CPhysxBone(l_pBone->getCoreBone()->getName());
     l_pPhysXBone->Init(l_pBone,_vMat,_iColisionGroup);
     m_vBones.push_back(l_pPhysXBone);
-
   }
-
 
   //Load la info del XML I POSA ELS ACTORS!!!!
   Load(_szFileName);
-
 
   InitParents();
   InitPhysXJoints(_szFileName);
@@ -54,9 +52,6 @@ bool CPhysxSkeleton::Init(const std::string& _szFileName, CalModel* _pCalModel, 
   SetOk(true);
   return IsOk();
 }
-
-
-
 
 void CPhysxSkeleton::Release()
 {
@@ -563,7 +558,6 @@ bool CPhysxSkeleton::IsRagdollPhysXActor(const std::string& _szName)
       {
         return true;
       }
-      
     }
   }
 

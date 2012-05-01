@@ -5,9 +5,9 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-CRenderableObjectTechnique::CRenderableObjectTechnique()
-{
-}
+//CRenderableObjectTechnique::CRenderableObjectTechnique()
+//{
+//}
 
 CRenderableObjectTechnique::CRenderableObjectTechnique(const std::string &Name, CEffectTechnique *EffectTechnique)
 	: m_pEffectTechnique(EffectTechnique)

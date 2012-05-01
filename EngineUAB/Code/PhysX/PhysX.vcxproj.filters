@@ -2,20 +2,11 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="PhysicsManager.cpp" />
-    <ClCompile Include="PhysicStream.cpp" />
-    <ClCompile Include="PhysicASELoader.cpp" />
-    <ClCompile Include="PhysicMaterial.cpp" />
-    <ClCompile Include="PhysxBone.cpp" />
-    <ClCompile Include="PhysxGrenade.cpp" />
-    <ClCompile Include="PhysxSkeleton.cpp" />
     <ClCompile Include="PhysicUserAllocator.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="PhysicActor.cpp">
-      <Filter>Actor</Filter>
-    </ClCompile>
     <ClCompile Include="PhysicTriggerReport.cpp">
-      <Filter>Trigger</Filter>
+      <Filter>Reports</Filter>
     </ClCompile>
     <ClCompile Include="PhysicRevoluteJoint.cpp">
       <Filter>Joints</Filter>
@@ -27,34 +18,46 @@
       <Filter>Joints</Filter>
     </ClCompile>
     <ClCompile Include="PhysicCollisionReport.cpp">
-      <Filter>Trigger</Filter>
+      <Filter>Reports</Filter>
     </ClCompile>
     <ClCompile Include="PhysicCookingMesh.cpp">
       <Filter>Cooking Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="PhysicController.cpp">
-      <Filter>Actor</Filter>
-    </ClCompile>
     <ClCompile Include="Jump.cpp">
       <Filter>Jump</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysxGrenade.cpp">
+      <Filter>PhysXGrenades</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicMaterial.cpp">
+      <Filter>PhysicMaterial</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicASELoader.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicStream.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysxBone.cpp">
+      <Filter>Bone</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysxSkeleton.cpp">
+      <Filter>Bone</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicActor.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicController.cpp">
+      <Filter>Actor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PhysicsManager.h" />
-    <ClInclude Include="PhysicStream.h" />
-    <ClInclude Include="PhysicASELoader.h" />
-    <ClInclude Include="PhysicMaterial.h" />
-    <ClInclude Include="PhysxBone.h" />
-    <ClInclude Include="PhysxGrenade.h" />
-    <ClInclude Include="PhysxSkeleton.h" />
     <ClInclude Include="PhysicUserAllocator.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="PhysicActor.h">
-      <Filter>Actor</Filter>
-    </ClInclude>
     <ClInclude Include="PhysicTriggerReport.h">
-      <Filter>Trigger</Filter>
+      <Filter>Reports</Filter>
     </ClInclude>
     <ClInclude Include="PhysicRevoluteJoint.h">
       <Filter>Joints</Filter>
@@ -66,23 +69,47 @@
       <Filter>Joints</Filter>
     </ClInclude>
     <ClInclude Include="PhysicCollisionReport.h">
-      <Filter>Trigger</Filter>
+      <Filter>Reports</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsDefs.h" />
     <ClInclude Include="PhysicCookingMesh.h">
       <Filter>Cooking Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="PhysicController.h">
-      <Filter>Actor</Filter>
-    </ClInclude>
     <ClInclude Include="Jump.h">
       <Filter>Jump</Filter>
     </ClInclude>
-    <ClInclude Include="PhysicsControllerHitReport.h">
-      <Filter>Actor</Filter>
-    </ClInclude>
     <ClInclude Include="JointsDefs.h">
       <Filter>Joints</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicUserData.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysxGrenade.h">
+      <Filter>PhysXGrenades</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicMaterial.h">
+      <Filter>PhysicMaterial</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicASELoader.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicStream.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysxBone.h">
+      <Filter>Bone</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysxSkeleton.h">
+      <Filter>Bone</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicActor.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsControllerHitReport.h">
+      <Filter>Reports</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicController.h">
+      <Filter>Actor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -92,9 +119,6 @@
     <Filter Include="Actor">
       <UniqueIdentifier>{8e385da9-65a0-401e-abad-c7c576343fae}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Trigger">
-      <UniqueIdentifier>{783f0162-37db-4bab-8241-aa074e344739}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Joints">
       <UniqueIdentifier>{a3367ee8-1d9e-4d7c-8946-2c84f98e133b}</UniqueIdentifier>
     </Filter>
@@ -103,6 +127,21 @@
     </Filter>
     <Filter Include="Jump">
       <UniqueIdentifier>{7f23cc2c-a256-4c9d-ae24-82d99fb617ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PhysXGrenades">
+      <UniqueIdentifier>{0432d7c1-084d-4108-9568-1a2379d6e2f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PhysicMaterial">
+      <UniqueIdentifier>{d804575b-63bf-4a37-b8e7-cdfb34a170d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ragdolls">
+      <UniqueIdentifier>{b3c7417b-61a1-466d-9ad5-983cb6ade114}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Bone">
+      <UniqueIdentifier>{6e3aa92f-7fa1-42f5-894c-ffe9c4790364}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Reports">
+      <UniqueIdentifier>{783f0162-37db-4bab-8241-aa074e344739}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

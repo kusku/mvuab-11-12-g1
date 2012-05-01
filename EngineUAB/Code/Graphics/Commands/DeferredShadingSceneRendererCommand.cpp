@@ -4,12 +4,12 @@
 #include "DeferredShadingSceneRendererCommand.h"
 #include "XML\XMLTreeNode.h"
 #include "RenderManager.h"
+#include "Logger\Logger.h"
 #include "Base.h"
 #include "Core.h"
 #include "Textures\TextureManager.h"
-#include "Logger\Logger.h"
 #include "RenderableObjects\RenderableObjectTechnique.h"
-#include "RenderableObjects\RenderableObjectTechniqueManager.h"
+#include "RenderableObjects\RenderableObjectTechniqueManager.h"	
 #include "Vertexs\VertexType.h"
 #include "Lights\LightManager.h"
 #include "Lights\Light.h"
@@ -18,10 +18,16 @@
 #include "Effects\EffectManager.h"
 
 #if defined(_DEBUG)
-#include "Memory\MemLeaks.h"
+	#include "Memory\MemLeaks.h"
 #endif
 
-CDeferredShadingSceneRendererCommand::CDeferredShadingSceneRendererCommand(CXMLTreeNode &Node)
+
+// --------------------------------------------
+//			CONSTRUCTOR/DESTRUCTOR
+// --------------------------------------------
+
+CDeferredShadingSceneRendererCommand::CDeferredShadingSceneRendererCommand( CXMLTreeNode &Node )
+	: CStagedTexturedRendererCommand ( Node )
 {
 	uint16 l_Count = Node.GetNumChildren();
 	for(uint16 i=0; i<l_Count; ++i)
@@ -53,33 +59,37 @@ CDeferredShadingSceneRendererCommand::CDeferredShadingSceneRendererCommand(CXMLT
 		}
 	}
 	
-	std::string technique = CORE->GetROTManager()->GetRenderableObjectTechniqueNameByVertexType(TCOLOREDTEXTURE1_VERTEX::GetVertexType());
+	std::string l_Technique = CORE->GetROTManager()->GetRenderableObjectTechniqueNameByVertexType(TCOLOREDTEXTURE1_VERTEX::GetVertexType());
 
-	m_pRenderableObjectTechnique = CORE->GetROTManager()->GetResource(technique);
+	m_pRenderableObjectTechnique = CORE->GetROTManager()->GetResource(l_Technique);
 }
 
-void CDeferredShadingSceneRendererCommand::Execute(CRenderManager &RM)
+// --------------------------------------------
+//			   MÈTODES PRINCIPALS
+// --------------------------------------------
+
+void CDeferredShadingSceneRendererCommand::Execute( CRenderManager &_RM )
 {
 	this->ActivateTextures();
 
-	this->SetLightsData(RM);
+	this->SetLightsData( _RM );
 }
 
-void CDeferredShadingSceneRendererCommand::SetLightsData(CRenderManager &RM)
+void CDeferredShadingSceneRendererCommand::SetLightsData( CRenderManager &_RM )
 {
 	std::vector<CLight*> lights = CORE->GetLightManager()->GetResourcesVector();
 	uint32 numLights = lights.size();
 
-	for(uint32 i = 0; i < numLights; i++)
+	for ( uint32 i = 0; i < numLights; i++ )
 	{
 		CEffectTechnique* technique = m_pRenderableObjectTechnique->GetEffectTechnique();
 		CEffect* effect = technique->GetEffect();
 		
-		if(effect->SetLight(lights[i]))
-		{
+		if ( effect->SetLight(lights[i]) )
+		{ 
 			lights[i]->SetShadowMap();
 			//RM.DrawColoredQuad2DTexturedInPixelsByEffectTechnique(m_pRenderableObjectTechnique->GetEffectTechnique(), colRED);
-			RM.DrawQuad2DTexturedInPixelsInFullScreen( m_pRenderableObjectTechnique->GetEffectTechnique() );
+			_RM.DrawQuad2DTexturedInPixelsInFullScreen( m_pRenderableObjectTechnique->GetEffectTechnique() );
 		}
 	}
 }

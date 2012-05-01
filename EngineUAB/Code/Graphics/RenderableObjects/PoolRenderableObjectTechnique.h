@@ -27,17 +27,19 @@ private:
 		virtual ~CPoolRenderableObjectTechniqueElement();
 	};
 
-	typedef std::vector<CPoolRenderableObjectTechniqueElement*>		TPoolROTechinqueElement;
-	TPoolROTechinqueElement											m_RenderableObjectTechniqueElementsVector;
+	//----Membres --------------------------------------------------------
+	typedef std::vector<CPoolRenderableObjectTechniqueElement*>		TPoolROTechniqueElement;
+	TPoolROTechniqueElement											m_RenderableObjectTechniqueElementsVector;
 
 public:
-	CPoolRenderableObjectTechnique(CXMLTreeNode &Node);
-	virtual ~CPoolRenderableObjectTechnique();
+	//--- Init and End protocols------------------------------------------
+			CPoolRenderableObjectTechnique	( CXMLTreeNode &_Node );
+	virtual ~CPoolRenderableObjectTechnique ( void );
 
-	void		Destroy			();
-	void		AddElement		(const std::string &Name, const std::string &TechniqueName, 
-								CRenderableObjectTechnique *ROTOnRenderableObjectTechniqueManager);
-	void		Apply			();
+	//----Funcions principals---------------------------------------------
+	void	AddElement						( const std::string &_Name, const std::string &_TechniqueName, CRenderableObjectTechnique *_ROTOnRenderableObjectTechniqueManager );
+	void	Apply							( void );
+	void	Destroy							( void );
 };
 
 #endif

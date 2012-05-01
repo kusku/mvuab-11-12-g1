@@ -21,11 +21,15 @@ public:
 	CTestProcess();
 	virtual ~CTestProcess();
 
-	void Init ();
+	bool Init	( void );
+	void Done	( void );
+
 	void Update (float elapsedTime);
 	void Render (CRenderManager &RM);
 
 protected:
+	virtual void		Release				( void );
+
 	void UpdateInputs( float elapsedTime );
 	void UpdateDebugInputs( float elapsedTime, CActionToInput &action2Input );
 	void CreateSphereActor();

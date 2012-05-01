@@ -15,7 +15,8 @@ class CPhysicSphericalJoint;
 class CPhysicRevoluteJoint;
 class CXMLTreeNode;
 struct SSphericalLimitInfo;
-class CGameEntity;
+//class CGameEntity;
+class CObject3D;
 
 class CPhysxSkeleton : public CBaseControl
 {
@@ -25,7 +26,7 @@ public:
 
   virtual void Release();
 
-  bool              Init(const std::string& _szFileName, CalModel* _pCalModel, Mat44f _vMat, int _iColisionGroup, CGameEntity *_pEntity = 0);
+  bool              Init(const std::string& _szFileName, CalModel* _pCalModel, Mat44f _vMat, int _iColisionGroup, CObject3D *_pEntity = 0);
   const CalSkeleton* GetSkeleton()                        {return m_pCalSkeleton;};
   void              SetSkeleton(CalSkeleton* _pSkeleton)  {m_pCalSkeleton = _pSkeleton;};
   const Mat44f&     GetTransform()                 {return m_mTransform;};
@@ -71,7 +72,7 @@ private:
   std::vector<CPhysicSphericalJoint*>	m_vSphericalJoints;
   std::vector<CPhysicRevoluteJoint*>	m_vRevoluteJoints;
   bool									m_bRagdollActive;
-  CGameEntity*							m_pEntity;
+  CObject3D*							m_pEntity;
 };
 
 #endif 

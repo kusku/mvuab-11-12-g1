@@ -9,37 +9,56 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-CEffectManager::CEffectManager()
-	: m_StaticMeshTechnique(NULL)
-	, m_AnimatedModelTechnique(NULL)
-	, m_Filename("")
+
+// ------------------------------------------
+//			CONSTRUCTOR/DESTRUCTOR
+// ------------------------------------------
+CEffectManager::CEffectManager( void )
+	: m_StaticMeshTechnique		(NULL)
+	, m_AnimatedModelTechnique	(NULL)
+	, m_Filename				("")
 {
 }
 
-CEffectManager::~CEffectManager()
+CEffectManager::~CEffectManager( void )
 {
 	CleanUp();
 }
 
-void CEffectManager::CleanUp()
+// ------------------------------------------
+//			  MÈTODES PRINCIPALS
+// ------------------------------------------
+void CEffectManager::CleanUp( void )
 {
 	m_DefaultTechniqueEffectMap.clear();
 	m_Effects.Destroy();
 	Destroy();
 }
 
-void CEffectManager::Load(const std::string &Filename)
+bool CEffectManager::Load ( const std::string &_Filename )
 {
-	m_Filename = Filename;
+	m_Filename = _Filename;
+	return LoadXML();
+}
+
+bool CEffectManager::Reload	( void )
+{	
+	LOGGER->AddNewLog(ELL_INFORMATION, "CEffectManager::Reload->Reloading effects.");
+	Destroy();
+	return LoadXML();
+}
+
+bool CEffectManager::LoadXML ( void )
+{
 	LOGGER->AddNewLog(ELL_INFORMATION, "CEffectManager::Load->Cargando los efectos i techniques.");
 
 
 	CXMLTreeNode newFile;
-	if (!newFile.LoadFile(Filename.c_str()))
+	if ( !newFile.LoadFile( m_Filename.c_str() ) )
 	{
-		std::string msg_error = "CEffectManager::Load->Error al intentar leer el archivo de efectos: " + Filename;
+		std::string msg_error = "CEffectManager::Load->Error al intentar leer el archivo de efectos: " + m_Filename;
 		LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
-		return;
+		return false;
 	}
 
 	CXMLTreeNode l_Effects = newFile["effects"];
@@ -84,15 +103,17 @@ void CEffectManager::Load(const std::string &Filename)
 	}
 
 	AssignDefaultTechniques();
+	return true;
 }
 
-void CEffectManager::Reload()
+bool CEffectManager::ReloadShaders ( void )
 {
+	bool l_IsOK = false;
 	//Effects
 	for(uint16 i=0; i<m_EffectsNames.size(); ++i)
 	{
 		CEffect *l_Effect = m_Effects.GetResource(m_EffectsNames[i]);
-		l_Effect->Reload();
+		l_IsOK = l_Effect->Reload();
 	}
 
 	//Techniques
@@ -100,10 +121,11 @@ void CEffectManager::Reload()
 	std::map<std::string, CEffectTechnique*>::iterator l_End = m_Resources.end();
 	for(; l_It != l_End; ++l_It)
 	{
-		l_It->second->Refresh();
+		l_IsOK = l_IsOK & l_It->second->Refresh();
 	}
 
-	LOGGER->AddNewLog(ELL_INFORMATION, "CEffectManager::Reload->Effects and techniques reloaded.\n");
+	LOGGER->AddNewLog(ELL_INFORMATION, "CEffectManager::Reload->Shaders reloaded.\n");
+	return l_IsOK;
 }
 
 void CEffectManager::ActivateCamera(const Mat44f &ViewMatrix, const Mat44f &ProjectionMatrix, const Vect3f &CameraEye)
@@ -150,3 +172,8 @@ void CEffectManager::AssignDefaultTechniques()
 
 	}
 }
+
+// ------------------------------------------
+//				PROPIETATS 
+// ------------------------------------------
+

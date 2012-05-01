@@ -6,80 +6,94 @@
 // Esta clase representa un controlador de caracter.
 //----------------------------------------------------------------------------------
 #pragma once
-#ifndef INC_PHYSIC_CONTROLLER_H
-#define INC_PHYSIC_CONTROLLER_H
+
+#ifndef __INC_PHYSIC_CONTROLLER_H__
+#define __INC_PHYSIC_CONTROLLER_H__
 
 #include "Jump.h"
 #include "Object3d.h"
+#include "PhysicsDefs.h"
 
 //---Forward Declarations---
 class NxController;
 class NxCapsuleControllerDesc;
+class NxBoxControllerDesc;
+class NxControllerDesc;
 class NxScene;
 class CPhysicUserData;
 class CPhysicsControllerHitReport;
 
 //--------------------------
 
-enum CollisionGroup
-{
-	GROUP_NON_COLLIDABLE,
-	GROUP_COLLIDABLE_NON_PUSHABLE,
-	GROUP_COLLIDABLE_PUSHABLE,
-};
-
 class CPhysicController : public CObject3D
 {
 public:
-	CPhysicController(	float radius, float height, float slope, float skinwidth, 
-		float stepOffset, uint32 collisionGroups, CPhysicUserData* userData, 
-		const Vect3f& pos = Vect3f(0.f,0.f,0.f), float gravity = -9.8f );
+	//--- Init and End protocols------------------------------------------
+	CPhysicController ( float _fRadius, float _fHeight, float _fSlope, float _fSkinwidth, float _fStepOffset
+												, uint32 _uiCollisionGroups, CPhysicUserData* _pUserData
+												, const Vect3f& _vPos = Vect3f ( 0.f, 0.f, 0.f ), float _fGravity = -9.8f );
 
-	~CPhysicController();
+	CPhysicController ( Vect3f _Dim, float _fSlope, float _fSkinwidth, float _fStepOffset, uint32 _uiCollisionGroups, CPhysicUserData* _pUserData, 
+												const Vect3f& _vPos = Vect3f ( 0.f, 0.f, 0.f ), float _fGravity = -9.8f );
 
-	CPhysicUserData*			GetUserData				() const			{ return m_pUserData; }
-	void						SetCollision			(bool flag);
-	void						Move					(const Vect3f& direction, float elapsedTime);
-	void						Jump					(float ammount);
-	bool						UpdateCharacterExtents	(bool bent, float ammount);
+	~CPhysicController ( void );
 
-	Vect3f						GetPosition				();
-	void						SetPosition				(const Vect3f& pos);
-	float						GetGravity				() const				{ return m_fGravity; }
-	void						SetGravity				(float gravity)			{ m_fGravity = gravity; }
-	void						SetGroup                (int _iGroup);
-	void						SetHeight               (float _fHeight);
-	void						SetActive               (bool _bActive);
+	//---- Main Functions ------------------------------------------------
+	void						Move					( const Vect3f& _vDirection, float _fElapsedTime );
+	void						Jump					( float _fAmmount );
+	void						CreateController		( NxController* _pController, NxScene* _PScene );
+
+	//---- Functions -----------------------------------------------------
+	bool						UpdateCharacterExtents	( bool _bBent, float _fAmmount);
+	
+	//---- Properties ( get & Set )---------------------------------------
+	CPhysicUserData*			GetUserData				( void )				{ return m_pUserData; }
+	void						SetCollision			( bool _bFlag );
+	Vect3f						GetPosition				( void );
+	void						SetPosition				( const Vect3f& _vPos );
+	float						GetGravity				( void ) const			{ return m_fGravity; }
+	void						SetGravity				( float _fGravity )		{ m_fGravity = _fGravity; }
+	void						SetGroup                ( int _iGroup );
+	void						SetHeight               ( float _fHeight );
+	void						SetActive               ( bool _bActive );
+	
 	//---PhsX Info---
-	NxController*				GetPhXController			() const			{ return m_pPhXController; }
-	NxCapsuleControllerDesc*	GetPhXControllerDesc		() const			{ return m_pPhXControllerDesc; }
+	NxController*				GetPhXController		( void )				{ return m_pPhXController; }
+	NxControllerDesc*			GetPhXControllerDesc	( void );
+	
+	void						UseGravity				( bool _bUseGravity )	{ m_bUseGravity = _bUseGravity; }
 
-	void						CreateController				(NxController* controller, NxScene* scene);
+	EControleType				GetType					( void ) const			{ return m_Type; }
+	void						SetType					( EControleType _Type )	{ m_Type = _Type; }
 
-	void						UseGravity				(bool _bUseGravity)		{ m_bUseGravity = _bUseGravity; }
-
+  //---- Members ---------------------------------------
+		
 private:
-
-	CPhysicUserData					*m_pUserData;
-  //CPhysicsControllerHitReport m_Report;
-
-	void							*m_Report;
+	CPhysicUserData*				m_pUserData;
+	//CPhysicsControllerHitReport		m_Report;
+	
+	void*							m_pReport;
+	
 	uint32							m_uCollisionGroups;
 	CJump							m_Jump;
 	float							m_fGravity;
-	float							m_fRadius_Capsule;
-	float							m_fHeight_Capsule;
-	float							m_fSlopeLimit_Capsule;
-	float							m_fSkinWidth_Capsule;
-	float							m_fStepOffset_Capsule;
+	float							m_fRadiusControler;
+	float							m_fHeightControler;
+	float							m_fSlopeLimitControler;
+	float							m_fSkinWidthControler;
+	float							m_fStepOffsetControler;
 
-  bool m_bUseGravity;
+	Vect3f							m_vExtensio;
+	
+	EControleType					m_Type;
+
+	bool							m_bUseGravity;
 
 	//--- PhysX--
-	NxCapsuleControllerDesc			*m_pPhXControllerDesc;
+	NxCapsuleControllerDesc*		m_pPhXCapsuleControllerDesc;
+	NxBoxControllerDesc*			m_pPhXBoxControllerDesc;
 	NxController*					m_pPhXController;
 	NxScene*						m_pPhXScene;
-
 };
 
-#endif //INC_PHYSIC_CONTROLLER_H
+#endif //__INC_PHYSIC_CONTROLLER_H__

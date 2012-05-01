@@ -7,7 +7,7 @@
 #include "GUIWindow.h"
 #include "XML/XMLTreeNode.h"
 #include "Textures/TextureManager.h"
-#include "ScriptManager.h"
+#include "Scripting\ScriptManager.h"
 #include "GraphicsDefs.h"
 
 //--Includes GuiElements---
@@ -33,20 +33,20 @@
 //----------------------------------------------------------------------------
 // Constructor
 //----------------------------------------------------------------------------
-CGUIManager::CGUIManager(const Vect2i& resolution)
-: m_sCurrentWindows("Main.xml")
-, m_TextBox(NULL)
-, m_PointerMouse(NULL)
-, m_bRenderError(false)
-, m_bUpdateError(false)
-, m_ScreenResolution(resolution)
-, m_bIsOk(false)
-, m_bLoadedGuiFiles(false)
-, m_sLastLoadpathGUI_XML("")
-, m_bFirstUpdate(true)
-, m_bVisiblePointerMouse(true)
+CGUIManager::CGUIManager(const Vect2i& _Resolution)
+	: m_sCurrentWindows		( "Main.xml")
+	, m_TextBox				( NULL )
+	, m_PointerMouse		( NULL )
+	, m_bRenderError		( false )
+	, m_bUpdateError		( false )
+	, m_ScreenResolution	( _Resolution )
+	, m_bIsOk				( false )
+	, m_bLoadedGuiFiles		( false )
+	, m_sLastLoadpathGUI_XML( "" )
+	, m_bFirstUpdate		( true )
+	, m_bVisiblePointerMouse( true )
 {
-  int jorls  = 0;
+	int jorls  = 0;
 }
 
 //----------------------------------------------------------------------------
@@ -88,11 +88,11 @@ void CGUIManager::Release ()
 //----------------------------------------------------------------------------
 bool CGUIManager::Init (const std::string& initGuiXML)
 {
-	Done();
+	// Done();  NO CAL! ja ho fa el LoadGUIFiles
 
 	m_bIsOk = false;
 
-	LOGGER->AddNewLog(ELL_INFORMATION, "CGUIManager:: calling initialization");
+	LOGGER->AddNewLog(ELL_INFORMATION, "CGUIManager::Init-> calling initialization");
 
 	CXMLTreeNode parser;
 	if (!parser.LoadFile(initGuiXML.c_str()))
@@ -206,7 +206,7 @@ bool CGUIManager::Init (const std::string& initGuiXML)
 	}
 	else
 	{
-		LOGGER->AddNewLog(ELL_INFORMATION, "CGUIManager:: online (ok)");
+		LOGGER->AddNewLog(ELL_INFORMATION, "CGUIManager::Init->online (ok)");
 	}
 
 	return m_bIsOk;
@@ -216,11 +216,11 @@ bool CGUIManager::Init (const std::string& initGuiXML)
 //----------------------------------------------------------------------------
 // Render
 //----------------------------------------------------------------------------
-void CGUIManager::Render (CRenderManager *renderManager, CFontManager* fm)
+void CGUIManager::Render ( CRenderManager *_RM, CFontManager* _FM )
 {
 	if (m_bIsOk)
 	{
-    CORE->GetRenderManager()->EnableAlphaBlend();
+		CORE->GetRenderManager()->EnableAlphaBlend();
   
 		if (m_bLoadedGuiFiles)
 		{
@@ -229,8 +229,8 @@ void CGUIManager::Render (CRenderManager *renderManager, CFontManager* fm)
 			if( it != m_WindowsMap.end() )
 			{
 				CGUIWindow * currentWindows = it->second;
-				currentWindows->Render(renderManager, fm);
-				RenderTransitionEffect(renderManager);
+				currentWindows->Render( _RM, _FM );
+				RenderTransitionEffect(_RM);
 				m_bRenderError = false;
 			}
 			else
@@ -245,8 +245,8 @@ void CGUIManager::Render (CRenderManager *renderManager, CFontManager* fm)
 		
 		//Siempre los últimos en pintarse
 		assert(m_TextBox);
-		m_TextBox->Render(renderManager, fm);
-    RenderPointerMouse(renderManager, fm);
+		m_TextBox->Render( _RM, _FM );
+		RenderPointerMouse( _RM, _FM );
 		
     CORE->GetRenderManager()->DisableAlphaBlend();
 	}//END if (m_bIsOk)
@@ -314,7 +314,7 @@ void CGUIManager::Update (float elapsedTime)
 	}
 }
 
-void CGUIManager::RenderTransitionEffect(CRenderManager *renderManager)
+void CGUIManager::RenderTransitionEffect(CRenderManager * _RM )
 {
 	if (m_sTransitionEffect.m_bDoEffect)
 	{
@@ -339,7 +339,7 @@ void CGUIManager::RenderTransitionEffect(CRenderManager *renderManager)
 					alpha = m_sTransitionEffect.m_fTimeCounter / (m_sTransitionEffect.m_fTransitionTime*0.5f); //esto va de 1->2
 					color.SetAlpha(abs(alpha-2));
 				}
-				renderManager->DrawQuad2D(Vect2i(0,0),m_ScreenResolution.x,m_ScreenResolution.y,UPPER_LEFT,color);
+				_RM->DrawQuad2D(Vect2i(0,0),m_ScreenResolution.x,m_ScreenResolution.y,UPPER_LEFT, color);
 			}
 			break;
 		
@@ -349,18 +349,18 @@ void CGUIManager::RenderTransitionEffect(CRenderManager *renderManager)
 				//	- Irá de totalmente transparente a totalmente opaco negro
 				CColor color = colBLACK;
 
-        if (m_sTransitionEffect.m_fTimeCounter < m_sTransitionEffect.m_fTransitionTime)
+				if (m_sTransitionEffect.m_fTimeCounter < m_sTransitionEffect.m_fTransitionTime)
 				{
 					// alpha de 0.f -> 1.f
 					float alpha = m_sTransitionEffect.m_fTimeCounter / m_sTransitionEffect.m_fTransitionTime;
 					color.SetAlpha(alpha);
 				}
-        else
-        {
-          color.SetAlpha(0.f);
-        }
+				else
+				{
+				  color.SetAlpha(0.f);
+				}
 
-				renderManager->DrawQuad2D(Vect2i(0,0),m_ScreenResolution.x,m_ScreenResolution.y,UPPER_LEFT,color);
+				_RM->DrawQuad2D(Vect2i(0,0),m_ScreenResolution.x,m_ScreenResolution.y,UPPER_LEFT, color);
 			}
 			break;
 		
@@ -377,7 +377,7 @@ void CGUIManager::RenderTransitionEffect(CRenderManager *renderManager)
 					color.SetAlpha(abs(alpha - 1));
 				}
 
-				renderManager->DrawQuad2D(Vect2i(0,0),m_ScreenResolution.x,m_ScreenResolution.y,UPPER_LEFT,color);
+				_RM->DrawQuad2D(Vect2i(0,0),m_ScreenResolution.x,m_ScreenResolution.y,UPPER_LEFT, color);
 			}
 			break;
 		
@@ -451,20 +451,28 @@ bool CGUIManager::UpdateTransitionEffect (float elapsedTime)
 	return false;
 }
 
-void CGUIManager::ActiveWindowsWithEffect	(const std::string& inNameWindow, EtypeTransitionEffect type, float transitionTime )
+void CGUIManager::ActiveWindowsWithEffect	(const std::string& _InNameWindow, EtypeTransitionEffect type, float transitionTime )
 {
+	std::string l_Name = _InNameWindow;
+	int find = l_Name.rfind(".");
+	l_Name = l_Name.substr(0, find);
+
 	m_sTransitionEffect.m_bActiveWindows	= false; 
-	m_sTransitionEffect.m_bDoEffect				= true;
-	m_sTransitionEffect.m_eType						= type;
+	m_sTransitionEffect.m_bDoEffect			= true;
+	m_sTransitionEffect.m_eType				= type;
 	m_sTransitionEffect.m_fTransitionTime	= transitionTime;
 	m_sTransitionEffect.m_fTimeCounter		= 0.f;
-	m_sTransitionEffect.m_sWindowsName		= inNameWindow;
+	m_sTransitionEffect.m_sWindowsName		= l_Name;
 }
 
-void CGUIManager::ActiveWindows( const std::string& inNameWindow )
+void CGUIManager::ActiveWindows( const std::string& _InNameWindow )
 {
+	std::string l_Name = _InNameWindow;
+	int find = l_Name.rfind(".");
+	l_Name = l_Name.substr(0, find);
+
 	std::map<std::string, CGUIWindow*>::iterator it;
-	it = m_WindowsMap.find( inNameWindow );
+	it = m_WindowsMap.find( l_Name );
 	if( it != m_WindowsMap.end() )
 	{
 		//Primero finalizamos la ventana actual
@@ -478,7 +486,7 @@ void CGUIManager::ActiveWindows( const std::string& inNameWindow )
 			//A continuación leemos los valores de la nueva ventana
 			CGUIWindow* windows = it->second;
 			windows->LoadWindows();
-			m_sCurrentWindows = inNameWindow;
+			m_sCurrentWindows = l_Name;
 		}
 		else
 		{
@@ -487,41 +495,45 @@ void CGUIManager::ActiveWindows( const std::string& inNameWindow )
 	}
 	else
 	{
-		LOGGER->AddNewLog(ELL_ERROR, "CGUIManager:: Al intentar cambiar a la windows-->%s esta no se ha encontrado registrada", inNameWindow.c_str());
+		LOGGER->AddNewLog(ELL_ERROR, "CGUIManager:: Al intentar cambiar a la windows-->%s esta no se ha encontrado registrada", l_Name.c_str());
 	}
 }
 
 
-void CGUIManager::PushWindows (const std::string& inNameWindow )
+void CGUIManager::PushWindows ( const std::string& _InNameWindow )
 {
-  std::map<std::string, CGUIWindow*>::iterator it;
-  it = m_WindowsMap.find( inNameWindow );
-  if( it != m_WindowsMap.end() )
-  {
+	std::string l_Name = _InNameWindow;
+	int find = l_Name.rfind(".");
+	l_Name = l_Name.substr(0, find);
+
+	std::map<std::string, CGUIWindow*>::iterator it;
+	it = m_WindowsMap.find( l_Name );
+	if( it != m_WindowsMap.end() )
+	{
 		m_PrevWindows.push_back(m_sCurrentWindows);
-		ActiveWindows(inNameWindow);    
-  }
-  else
-  {
-    LOGGER->AddNewLog(ELL_ERROR, "CGUIManager::PushWindows Al intentar cambiar a la windows-->%s esta no se ha encontrado registrada", inNameWindow.c_str());
-  }
+		ActiveWindows(l_Name);    
+	}
+	else
+	{
+		LOGGER->AddNewLog(ELL_ERROR, "CGUIManager::PushWindows-> Al intentar cambiar a la windows-->%s esta no se ha encontrado registrada", l_Name.c_str());
+	}
 }
 
-void CGUIManager::PopWindows ()
+void CGUIManager::PopWindows ( void )
 {
-  if (m_PrevWindows.size() == 0)
-  {
-    LOGGER->AddNewLog(ELL_ERROR, "CGUIManager::PopWindows -> El vector de PrevWindows esta vacío!");
-  }
-  else
-  {
-    std::string popWindows = m_PrevWindows[m_PrevWindows.size()-1];
-    m_PrevWindows.pop_back();
-    ActiveWindows(popWindows);
-  }
+	if ( m_PrevWindows.size() == 0 )
+	{
+		LOGGER->AddNewLog(ELL_ERROR, "CGUIManager::PopWindows -> El vector de PrevWindows esta vacío!");
+	}
+	else
+	{
+		std::string popWindows = m_PrevWindows[m_PrevWindows.size()-1];
+		m_PrevWindows.pop_back();
+		ActiveWindows(popWindows);
+	}
 }
 
-void CGUIManager::AddWindows(const std::string& inNameWindow)
+void CGUIManager::AddWindows( const std::string& inNameWindow )
 {
 	std::map<std::string, CGUIWindow*>::iterator it;
 	it = m_WindowsMap.find( inNameWindow );
@@ -534,7 +546,7 @@ void CGUIManager::AddWindows(const std::string& inNameWindow)
 	}
 }
 
-void CGUIManager::SetScreenResolution(const Vect2i& resolution)
+void CGUIManager::SetScreenResolution( const Vect2i& resolution )
 {
 	std::map<std::string, CGuiElement*>::iterator it(m_ElementsMap.begin());
 	std::map<std::string, CGuiElement*>::iterator itEnd(m_ElementsMap.end());
@@ -549,7 +561,7 @@ void CGUIManager::SetScreenResolution(const Vect2i& resolution)
 	
 }
 
-bool CGUIManager::LoadGuiFiles (const std::string& pathGUI_XML)
+bool CGUIManager::LoadGuiFiles ( const std::string& pathGUI_XML )
 {
 	m_bLoadedGuiFiles = false;
 	LOGGER->AddNewLog(ELL_INFORMATION, "GUIManager::LoadGuiFiles-> Empezando a leer los .xml del directorio->%s",pathGUI_XML.c_str());
@@ -688,7 +700,7 @@ bool CGUIManager::GetVisibleGuiElement (const std::string& inNameGuiElement)
 	}
 	else
 	{
-		LOGGER->AddNewLog(ELL_ERROR, "CGUIManager::GetVisibleGuiElement-> No se ha encontrado el guiElement %s al ejecutar la funcion SetVisibleGuiElement", inNameGuiElement.c_str());
+		LOGGER->AddNewLog( ELL_ERROR, "CGUIManager::GetVisibleGuiElement-> No se ha encontrado el guiElement %s al ejecutar la funcion SetVisibleGuiElement", inNameGuiElement.c_str());
 	}
   return false;
 }
@@ -703,13 +715,12 @@ void CGUIManager::SetVisibleGuiElement (const std::string& inNameGuiElement, boo
 	}
 	else
 	{
-		LOGGER->AddNewLog(ELL_ERROR, "CGUIManager::SetVisibleGuiElement-> No se ha encontrado el guiElement %s al ejecutar la funcion SetVisibleGuiElement", inNameGuiElement.c_str());
+		LOGGER->AddNewLog( ELL_ERROR, "CGUIManager::SetVisibleGuiElement-> No se ha encontrado el guiElement %s al ejecutar la funcion SetVisibleGuiElement", inNameGuiElement.c_str());
 	}
 }
 
 bool CGUIManager::GetProgressBarValue (const std::string& inNameGuiElement, float& outValue)
 {
-
 	std::map<std::string, CGuiElement*>::iterator it;
 	it = m_ElementsMap.find(inNameGuiElement);
 	if( it!= m_ElementsMap.end() )

@@ -7,6 +7,7 @@
 #endif
 
 CSkySphereCommand::CSkySphereCommand(CXMLTreeNode &Node)
+	: CSceneRendererCommand ( Node )
 {
 	m_SkySphere.Load(Node);
 }

@@ -107,7 +107,6 @@
     <ClInclude Include="XML\XMLTreeNode.h">
       <Filter>XML</Filter>
     </ClInclude>
-    <ClInclude Include="Base.h" />
     <ClInclude Include="Math\Color.h">
       <Filter>Math</Filter>
     </ClInclude>
@@ -177,6 +176,7 @@
     <ClInclude Include="Utils\Random.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Base.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math\MathUtils.inl">

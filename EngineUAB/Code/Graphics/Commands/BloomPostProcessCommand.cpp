@@ -17,19 +17,24 @@
 #include "PostProcess\BloomPostProcess.h"
 
 #if defined(_DEBUG)
-#include "Memory\MemLeaks.h"
+	#include "Memory\MemLeaks.h"
 #endif
 
-CBloomPostProcessCommand::CBloomPostProcessCommand(CXMLTreeNode &Node)
+
+// --------------------------------------------
+//			CONSTRUCTOR/DESTRUCTOR
+// --------------------------------------------
+CBloomPostProcessCommand::CBloomPostProcessCommand( CXMLTreeNode &_Node )
+	: CSceneRendererCommand ( _Node )
 {
 	SBloomPostProcessSettings settings;
 
-	settings.m_BloomThreshold = Node.GetFloatProperty("BloomThreshold", 0.25f);
-	settings.m_BlurAmount = Node.GetFloatProperty("BlurAmount", 4.0f);
-	settings.m_BloomIntensity = Node.GetFloatProperty("BloomIntensity", 1.25f);
-	settings.m_BaseIntensity = Node.GetFloatProperty("BaseIntensity", 1.0f);
-	settings.m_BloomSaturation = Node.GetFloatProperty("BloomSaturation", 1.0f);
-	settings.m_BloomSaturation = Node.GetFloatProperty("BaseSaturation", 1.0f);
+	settings.m_BloomThreshold	= _Node.GetFloatProperty("BloomThreshold", 0.25f);
+	settings.m_BlurAmount		= _Node.GetFloatProperty("BlurAmount", 4.0f);
+	settings.m_BloomIntensity	= _Node.GetFloatProperty("BloomIntensity", 1.25f);
+	settings.m_BaseIntensity	= _Node.GetFloatProperty("BaseIntensity", 1.0f);
+	settings.m_BloomSaturation	= _Node.GetFloatProperty("BloomSaturation", 1.0f);
+	settings.m_BloomSaturation	= _Node.GetFloatProperty("BaseSaturation", 1.0f);
 	
 	m_Bloom = new CBloomPostProcess(settings);
 	m_Bloom->Init();
@@ -40,7 +45,10 @@ CBloomPostProcessCommand::~CBloomPostProcessCommand()
 	CHECKED_DELETE(m_Bloom);
 }
 
-void CBloomPostProcessCommand::Execute(CRenderManager &RM)
+// --------------------------------------------
+//			   MÈTODES PRINCIPALS
+// --------------------------------------------
+void CBloomPostProcessCommand::Execute( CRenderManager &_RM )
 {
 	assert(m_Bloom);
 

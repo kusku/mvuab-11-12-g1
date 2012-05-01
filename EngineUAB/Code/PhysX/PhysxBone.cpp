@@ -6,11 +6,14 @@
 #include "PhysicController.h"
 #include "PhysicFixedJoint.h"
 #include "PhysicSphericalJoint.h"
+#include "PhysicUserData.h"
+
 #include "RenderableObjects\AnimatedModel\AnimatedModelManager.h"
 #include "RenderManager.h"
 #include <XML/XMLTreeNode.h>
 #include "Core.h"
 #include "base.h"
+
 //---PhysX Includes---//
 #undef min
 #undef max
@@ -85,7 +88,7 @@ Mat44f CPhysxBone::GetBoneLeftHandedAbsoluteTransformation(CalBone* _pBone)
 
 
 //Funcions per afegir els actors de fisica.
-bool CPhysxBone::AddBoxActor(CXMLTreeNode _XMLObjects, CGameEntity* _pEntity)
+bool CPhysxBone::AddBoxActor(CXMLTreeNode _XMLObjects, CObject3D* _pEntity)
 {
   string l_szName;
   Vect3f l_vSize,l_fMiddlePoint; 
@@ -122,7 +125,7 @@ bool CPhysxBone::AddBoxActor(CXMLTreeNode _XMLObjects, CGameEntity* _pEntity)
   return true;
 }
 
-bool CPhysxBone::AddSphereActor(CXMLTreeNode _XMLObjects, CGameEntity* _pEntity)
+bool CPhysxBone::AddSphereActor(CXMLTreeNode _XMLObjects, CObject3D* _pEntity)
 {
   string l_szName;
   Vect3f l_vSize,l_fMiddlePoint; 
@@ -158,7 +161,7 @@ bool CPhysxBone::AddSphereActor(CXMLTreeNode _XMLObjects, CGameEntity* _pEntity)
 }
 
 
-bool CPhysxBone::AddCapsuleActor(CXMLTreeNode _XMLObjects, CGameEntity* _pEntity)
+bool CPhysxBone::AddCapsuleActor(CXMLTreeNode _XMLObjects, CObject3D* _pEntity)
 {
 
   return true;

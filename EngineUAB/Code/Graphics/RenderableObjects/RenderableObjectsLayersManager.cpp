@@ -20,7 +20,7 @@ CRenderableObjectsLayersManager::~CRenderableObjectsLayersManager()
 
 void CRenderableObjectsLayersManager::Destroy()
 {
-	CTemplatedVectorMapManager::Destroy();
+	CTemplatedVectorMapManager<CRenderableObjectsManager>::Destroy();
 	m_pDefaultRenderableObjectManager = NULL;
 }
 

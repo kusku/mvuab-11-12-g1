@@ -7,71 +7,121 @@
 #undef max
 #include "NxPhysics.h"
 #include "NxController.h"
-#include "PhysicsManager.h"
 #include "NxCapsuleController.h"
+
+#include "PhysicsManager.h"
 #include "PhysicsControllerHitReport.h"
+#include "NxBoxController.h"
 //---------------------//
 
-#if defined (_DEBUG)
-#include "Memory\MemLeaks.h"
-#endif
+//#if defined (_DEBUG)
+//#include "Memory\MemLeaks.h"
+//#endif
 
-CPhysicController::CPhysicController(float radius, float height, float slope, float skinwidth, float stepOffset,
-									uint32 collisionGroups, CPhysicUserData* userData, const Vect3f& pos, float gravity)
-	: m_pPhXController(NULL)
-	, m_pPhXControllerDesc(NULL)
-	, m_pUserData(userData)
-	, m_fRadius_Capsule(radius)
-	, m_fHeight_Capsule(height)
-	, m_fSlopeLimit_Capsule(slope)
-	, m_fSkinWidth_Capsule(skinwidth)
-	, m_fStepOffset_Capsule(stepOffset)
-	, m_fGravity(gravity)
-	, m_uCollisionGroups(collisionGroups)
-	, m_bUseGravity(true)
+// -----------------------------------------
+//		  CONSTRUCTORS / DESTRUCTOR
+// -----------------------------------------
+CPhysicController::CPhysicController ( float _fRadius, float _fHeight, float _fSlope, float _fSkinwidth, float _fStepOffset
+												, uint32 _uiCollisionGroups, CPhysicUserData* _pUserData, const Vect3f& _vPos, float _fGravity )
+	: m_pPhXController				( NULL )
+	, m_pPhXCapsuleControllerDesc	( NULL )
+	, m_pPhXBoxControllerDesc		( NULL )
+	, m_pUserData					( _pUserData )
+	, m_fRadiusControler			( _fRadius )
+	, m_fHeightControler			( _fHeight )
+	, m_fSlopeLimitControler		( _fSlope )
+	, m_fSkinWidthControler			( _fSkinwidth )
+	, m_fStepOffsetControler		( _fStepOffset )
+	, m_fGravity					( _fGravity )
+	, m_uCollisionGroups			( _uiCollisionGroups )
+	, m_bUseGravity					( true)
+	, m_Type						( ::CAPSULE )
                                     
 {
-	assert(userData);
+	assert( _pUserData );
 
 	//---- Crear un nuevo NxController----
-	m_pPhXControllerDesc = new NxCapsuleControllerDesc();
-	CPhysicsControllerHitReport* l_Report  = new CPhysicsControllerHitReport();
-	m_Report = l_Report;
+	m_pPhXCapsuleControllerDesc				= new NxCapsuleControllerDesc();
+	CPhysicsControllerHitReport* l_Report	= new CPhysicsControllerHitReport();
+	m_pReport = l_Report;
 
-	m_pPhXControllerDesc->position.x	    = pos.x;
-	m_pPhXControllerDesc->position.y	    = pos.y;
-	m_pPhXControllerDesc->position.z	    = pos.z;
-	m_pPhXControllerDesc->radius			= m_fRadius_Capsule;
-	m_pPhXControllerDesc->height			= m_fHeight_Capsule;
-	m_pPhXControllerDesc->slopeLimit	    = cosf(NxMath::degToRad(m_fSlopeLimit_Capsule));
-	m_pPhXControllerDesc->skinWidth		    = m_fSkinWidth_Capsule;
-	m_pPhXControllerDesc->stepOffset	    = m_fStepOffset_Capsule;
-	m_pPhXControllerDesc->upDirection	    = NX_Y;
-	m_pPhXControllerDesc->callback			= l_Report;
-	m_pPhXControllerDesc->interactionFlag	= NXIF_INTERACTION_USE_FILTER;
+	m_pPhXCapsuleControllerDesc->position.x			= _vPos.x;
+	m_pPhXCapsuleControllerDesc->position.y			= _vPos.y;
+	m_pPhXCapsuleControllerDesc->position.z			= _vPos.z;
+	m_pPhXCapsuleControllerDesc->radius				= m_fRadiusControler;
+	m_pPhXCapsuleControllerDesc->height				= m_fHeightControler;
+	
+	// Dona la pendent màxima que pot pujar. 0 ho desactiva. En funció del cosinus angle. Per defecte 0.707
+	m_pPhXCapsuleControllerDesc->slopeLimit			= cosf(NxMath::degToRad(m_fSlopeLimitControler));	
+	
+	m_pPhXCapsuleControllerDesc->skinWidth			= m_fSkinWidthControler;	// Dona l'amplada de la pell. Permet donar un marxe per evitar càlculs excesius. Defecte : 0.1
+	m_pPhXCapsuleControllerDesc->stepOffset			= m_fStepOffsetControler;	// Alçada màxima que el controler pot pujar. Massa petit + costa de pujar obstacles. Defecte : 0.5
+	m_pPhXCapsuleControllerDesc->upDirection		= NX_Y;						// Direcció cap al cel
+	m_pPhXCapsuleControllerDesc->callback			= l_Report;					// Es crida quan el controler colisiona
+	m_pPhXCapsuleControllerDesc->interactionFlag	= NXIF_INTERACTION_USE_FILTER;	// Diu si el controler colisiona amb altres controlers
+}
+
+CPhysicController::CPhysicController ( Vect3f _Dim, float _fSlope, float _fSkinwidth, float _fStepOffset
+												, uint32 _uiCollisionGroups, CPhysicUserData* _pUserData, const Vect3f& _vPos, float _fGravity )
+	: m_pPhXController				( NULL )
+	, m_pPhXCapsuleControllerDesc	( NULL )
+	, m_pPhXBoxControllerDesc		( NULL )
+	, m_pUserData					( _pUserData )
+	, m_vExtensio					( _Dim )
+	, m_fSlopeLimitControler		( _fSlope )
+	, m_fSkinWidthControler			( _fSkinwidth )
+	, m_fStepOffsetControler		( _fStepOffset )
+	, m_fGravity					( _fGravity )
+	, m_uCollisionGroups			( _uiCollisionGroups )
+	, m_bUseGravity					( true)
+	, m_Type						( ::BOX )
+                                    
+{
+	assert( _pUserData );
+
+	//---- Crear un nuevo NxController----
+	m_pPhXBoxControllerDesc = new NxBoxControllerDesc();
+	CPhysicsControllerHitReport* l_Report  = new CPhysicsControllerHitReport();
+	m_pReport = l_Report;
+
+	m_pPhXBoxControllerDesc->position.x			= _vPos.x;
+	m_pPhXBoxControllerDesc->position.y			= _vPos.y;
+	m_pPhXBoxControllerDesc->position.z			= _vPos.z;
+	m_pPhXBoxControllerDesc->extents.x			= _Dim.x;
+	m_pPhXBoxControllerDesc->extents.y			= _Dim.y;
+	m_pPhXBoxControllerDesc->extents.z			= _Dim.z;
+	m_pPhXBoxControllerDesc->slopeLimit			= cosf(NxMath::degToRad(m_fSlopeLimitControler));
+	m_pPhXBoxControllerDesc->skinWidth			= m_fSkinWidthControler;
+	m_pPhXBoxControllerDesc->stepOffset			= m_fStepOffsetControler;
+	m_pPhXBoxControllerDesc->upDirection		= NX_Y;
+	m_pPhXBoxControllerDesc->callback			= l_Report;
+	m_pPhXBoxControllerDesc->interactionFlag	= NXIF_INTERACTION_USE_FILTER;
 }
 
 CPhysicController::~CPhysicController()
 {
 	//delete m_pPhXControllerDesc->callback;
-	CHECKED_DELETE(m_pPhXControllerDesc);
-	CHECKED_DELETE(m_Report);
+	CHECKED_DELETE ( m_pPhXCapsuleControllerDesc );
+	CHECKED_DELETE ( m_pPhXBoxControllerDesc );
+	CHECKED_DELETE ( m_pReport );
 }
 
-void CPhysicController::CreateController (NxController* controller, NxScene* scene)
+// -----------------------------------------
+//			  MÈTODES PRINCIPALS
+// -----------------------------------------
+void CPhysicController::CreateController ( NxController* _pController, NxScene* _pScene)
 {
-	m_pPhXScene = scene;
-	m_pPhXController = controller;
-
-	assert(m_pPhXScene);
-	assert(m_pPhXController);
-
-	CHECKED_DELETE(m_pPhXControllerDesc);
+	m_pPhXScene			= _pScene;
+	m_pPhXController	= _pController;
+	assert ( m_pPhXScene );
+	assert ( m_pPhXController );
+	CHECKED_DELETE ( m_pPhXBoxControllerDesc );
+	CHECKED_DELETE ( m_pPhXCapsuleControllerDesc );
 }
 
 void CPhysicController::SetPosition	(const Vect3f& pos)
 {
-	if (m_pPhXController != NULL)
+	if ( m_pPhXController != NULL )
 	{
 		NxExtendedVec3 position;
 		position.x = pos.x;
@@ -81,12 +131,21 @@ void CPhysicController::SetPosition	(const Vect3f& pos)
 	}
 	else
 	{
-		m_pPhXControllerDesc->position.x		= pos.x;
-		m_pPhXControllerDesc->position.y		= pos.y;
-		m_pPhXControllerDesc->position.z		= pos.z;
+		if ( GetType() == ::BOX )
+		{
+			m_pPhXBoxControllerDesc->position.x	= pos.x;
+			m_pPhXBoxControllerDesc->position.y	= pos.y;
+			m_pPhXBoxControllerDesc->position.z	= pos.z;
+		}
+		else
+		{
+			m_pPhXCapsuleControllerDesc->position.x	= pos.x;
+			m_pPhXCapsuleControllerDesc->position.y	= pos.y;
+			m_pPhXCapsuleControllerDesc->position.z	= pos.z;
+		}
 	}
-
-	CObject3D::InitMat44();
+	//CObject3D::m_vPosition = pos;
+	//CObject3D::InitMat44();
 	CObject3D::SetPosition(pos);
 }
 
@@ -102,9 +161,18 @@ Vect3f CPhysicController::GetPosition ()
 	}
 	else
 	{
-		vec.x = (float)m_pPhXControllerDesc->position.x;
-		vec.y = (float)m_pPhXControllerDesc->position.y;
-		vec.z = (float)m_pPhXControllerDesc->position.z;
+		if ( GetType() == ::BOX )
+		{
+			vec.x = (float)m_pPhXBoxControllerDesc->position.x;
+			vec.y = (float)m_pPhXBoxControllerDesc->position.y;
+			vec.z = (float)m_pPhXBoxControllerDesc->position.z;
+		}
+		else
+		{
+			vec.x = (float)m_pPhXCapsuleControllerDesc->position.x;
+			vec.y = (float)m_pPhXCapsuleControllerDesc->position.y;
+			vec.z = (float)m_pPhXCapsuleControllerDesc->position.z;
+		}
 	}
 	return vec;
 }
@@ -114,51 +182,56 @@ void CPhysicController::Jump(float ammount)
 	m_Jump.StartJump(ammount);
 }
 
-void CPhysicController::Move(const Vect3f& direction, float elapsedTime)
+void CPhysicController::Move ( const Vect3f& _vDirection, float _ElapsedTime )
 {
-	assert (m_pPhXController!=NULL);
+	assert ( m_pPhXController != NULL );
 
-	float l_fDirectionY = direction.y;
-
-	if(m_bUseGravity)
+	float l_fDirectionY = _vDirection.y;
+	
+	if ( m_bUseGravity )
 	{
-		l_fDirectionY += (m_fGravity*elapsedTime);
+	 	l_fDirectionY += ( m_fGravity * _ElapsedTime );
 	}
 
-	NxVec3 d(direction.x, l_fDirectionY, direction.z);
+	NxVec3 l_Direction ( _vDirection.x, l_fDirectionY, _vDirection.z);
 	NxF32 sharpness = 1.0f;
 	NxU32 collisionFlags = 0;
 	//NxU32 Collision = 0;
-	float heightDelta = m_Jump.GetHeight(elapsedTime);
-	if( heightDelta != 0.f )
+	float heightDelta = m_Jump.GetHeight( _ElapsedTime );
+	if ( heightDelta != 0.f )
 	{
-		d.y+=heightDelta;
-		d.x *= 0.3f;
-		d.z *= 0.3f;
+		l_Direction.y+=heightDelta;
+		l_Direction.x *= 0.3f;
+		l_Direction.z *= 0.3f;
 	}
 
-	//m_pPhXController->move(d, 0, 0.000001f, collisionFlags, sharpness);
-	m_pPhXController->move(d, m_uCollisionGroups, 0.000001f, collisionFlags, sharpness);
-	if(	(collisionFlags & NXCC_COLLISION_DOWN) || (collisionFlags & NXCC_COLLISION_UP) )
+	int mask = 1 << ECG_PERSONATGE;
+	mask |= 1 << ECG_OBJECTES_DINAMICS;
+	mask |= 1 << ECG_ESCENARI;
+
+	m_pPhXController->move( l_Direction , mask, 0.000001f, collisionFlags, sharpness );
+	
+	if ( ( collisionFlags & NXCC_COLLISION_DOWN ) || ( collisionFlags & NXCC_COLLISION_UP ) )
 	{
 		m_Jump.StopJump();
 	}
-	NxExtendedVec3 tmp = m_pPhXController->getPosition();
-	CObject3D::m_Position.x = (float)tmp.x;
-	CObject3D::m_Position.y = (float)tmp.y;
-	CObject3D::m_Position.z = (float)tmp.z;
+	NxExtendedVec3 tmp = m_pPhXController->getDebugPosition();
+	//NxExtendedVec3 tmp = m_pPhXController->getPosition();
+
+	SetPosition ( Vect3f ( (float) tmp.x, (float) tmp.y, (float) tmp.z ) );
+	CObject3D::InitMat44();
 }
 
-void CPhysicController::SetCollision (bool flag)
+void CPhysicController::SetCollision ( bool _bFlag )
 {
-	assert(m_pPhXController);
-	m_pPhXController->setCollision(flag);
+	assert ( m_pPhXController );
+	m_pPhXController->setCollision ( _bFlag );
 }
 
 bool CPhysicController::UpdateCharacterExtents (bool bent, float ammount)
 {
-	NxF32 height = m_fHeight_Capsule;
-	NxF32 radius = m_fRadius_Capsule;
+	NxF32 height = m_fHeightControler;
+	NxF32 radius = m_fRadiusControler;
 	NxExtendedVec3 pos = m_pPhXController->getPosition();
 	if ( bent )
 	{
@@ -190,12 +263,11 @@ bool CPhysicController::UpdateCharacterExtents (bool bent, float ammount)
 
 	NxExtendedVec3 position(pos.x, pos.y, pos.z);
 	m_pPhXController->setPosition(position);
-	CObject3D::m_Position.x = (float)pos.x;
-	CObject3D::m_Position.y = (float)pos.y;
-	CObject3D::m_Position.z = (float)pos.z;
+	SetPosition ( Vect3f ( (float)pos.x, (float)pos.y, (float)pos.z ) );
 	NxCapsuleController* c = static_cast<NxCapsuleController*> (m_pPhXController);
 	c->setHeight(height);
-	m_fHeight_Capsule = height;
+	m_fHeightControler = height;
+	//CObject3D::InitMat44();
 	return true;
 }
 
@@ -210,7 +282,6 @@ void CPhysicController::SetGroup(int _iGroup)
   }
 }
 
-
 void CPhysicController::SetHeight(float _fHeight)
 {
   NxCapsuleController* l_CC = dynamic_cast<NxCapsuleController*>(m_pPhXController);
@@ -220,7 +291,21 @@ void CPhysicController::SetHeight(float _fHeight)
   }
 }
 
-void CPhysicController::SetActive(bool _bActive)
+void CPhysicController::SetActive ( bool _bActive )
 {
-  m_pPhXController->setCollision(_bActive);
+  m_pPhXController->setCollision ( _bActive );
+}
+
+NxControllerDesc* CPhysicController::GetPhXControllerDesc ( void )
+{ 
+	NxControllerDesc * l_Controler = NULL;
+	switch ( m_Type )
+	{
+	case NX_CONTROLLER_BOX:
+		l_Controler = m_pPhXBoxControllerDesc; 
+																						
+	case NX_CONTROLLER_CAPSULE:
+		l_Controler = m_pPhXCapsuleControllerDesc; 
+	};
+	return l_Controler;
 }

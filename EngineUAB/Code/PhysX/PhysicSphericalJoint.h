@@ -31,8 +31,8 @@ public:
 	void					SetInfo				(const Vect3f& anchor, CPhysicActor* actorA,  CPhysicActor* actorB =0);
 
 	//---Get PhsX Info---
-	NxJoint*				GetPhXJoint			() const		{	return m_pJoint; }
-	NxSphericalJointDesc*	GetPhXDescJoint		() const		{ return m_pSphericalDesc; }
+	NxJoint*				GetPhXJoint			( void ) const		{	return m_pJoint; }
+	NxSphericalJointDesc*	GetPhXDescJoint		( void ) const		{ return m_pSphericalDesc; }
 
 private:
 	NxJoint					*m_pJoint;

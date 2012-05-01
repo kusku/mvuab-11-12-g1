@@ -3,14 +3,20 @@
 #include "RenderManager.h"
 
 #if defined(_DEBUG)
-#include "Memory\MemLeaks.h"
+	#include "Memory\MemLeaks.h"
 #endif
 
-CEndSceneRendererCommand::CEndSceneRendererCommand(CXMLTreeNode &Node)
-{
-}
+// -----------------------------------------
+//		  CONSTRUCTORS / DESTRUCTOR
+// -----------------------------------------	
+CEndRenderSceneRendererCommand::CEndRenderSceneRendererCommand( CXMLTreeNode &_Node )
+	: CSceneRendererCommand ( _Node )
+{}
 
-void CEndSceneRendererCommand::Execute(CRenderManager &RM)
+// -----------------------------------------
+//			  MÈTODES PRINCIPALS
+// -----------------------------------------
+void CEndRenderSceneRendererCommand::Execute( CRenderManager &_RM )
 {
-	RM.GetDevice()->EndScene();
+	_RM.GetDevice()->EndScene();
 }

@@ -5,17 +5,23 @@
 
 #include "SceneRendererCommand.h"
 
+//---Foward Declarations---//
 class CRenderManager;
 class CXMLTreeNode;
 class CBloomPostProcess;
+//-------------------------//
 
 class CBloomPostProcessCommand : public CSceneRendererCommand
 {
 public:
-	CBloomPostProcessCommand(CXMLTreeNode &Node);
-	virtual ~CBloomPostProcessCommand();
-	virtual void	Execute		( CRenderManager &RM );
+	//--- Init and End protocols------------------------------------------
+					CBloomPostProcessCommand	( CXMLTreeNode &_Node );
+	virtual			~CBloomPostProcessCommand	( void );
 
+	//----Main Methods ---------------------------------------------------
+	virtual void	Execute						( CRenderManager &_RM );
+
+	//----Members --------------------------------------------------------
 private:
 	CBloomPostProcess*		m_Bloom;
 };

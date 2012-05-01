@@ -11,220 +11,225 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-CSceneRendererCommandManager::CSceneRendererCommandManager()
-	: m_FileName("")
-{
-}
 
-CSceneRendererCommandManager::~CSceneRendererCommandManager()
+// -----------------------------------------
+//			CONSTRUCTORS I DESTRUCTORS
+// -----------------------------------------
+CSceneRendererCommandManager::CSceneRendererCommandManager ( void ) 
+	: m_FileName("")
+{}
+
+CSceneRendererCommandManager::~CSceneRendererCommandManager ( void )
 {
 	CleanUp();
 }
 
+// -----------------------------------------
+//			  MÈTODES PRINCIPALS
+// -----------------------------------------
 void CSceneRendererCommandManager::CleanUp()
 {
 	m_SceneRendererCommands.Destroy();
 }
 
-void CSceneRendererCommandManager::Load(const std::string &FileName)
+bool CSceneRendererCommandManager::Load( const std::string &_FileName )
 {
 	LOGGER->AddNewLog(ELL_INFORMATION, "CSceneRendererCommandManager::Load->Cargando los comandos de renderizado.");
-
-	m_FileName = FileName;
-	LoadXML();
+	m_FileName = _FileName;
+	return LoadXML ();
 }
 
-void CSceneRendererCommandManager::Reload()
+bool CSceneRendererCommandManager::Reload ( void )
 {
 	LOGGER->AddNewLog(ELL_INFORMATION, "CSceneRendererCommandManager::Reload -> Reload de los Scene Renderer Commands.");
 	CleanUp();
-	LoadXML();
+	return LoadXML ( );
 }
 
-void CSceneRendererCommandManager::Execute(CRenderManager &RM)
+void CSceneRendererCommandManager::Execute ( CRenderManager &_RM )
 {
-	std::vector<CSceneRendererCommand*> l_VectorResources = m_SceneRendererCommands.GetResourcesVector();
-
-	uint16 l_Count = l_VectorResources.size();
-	for(uint16 i=0; i < l_Count; ++i)
+	CTemplatedVectorMapManager<CSceneRendererCommand>::TVectorResources l_VectorComandes = m_SceneRendererCommands.GetResourcesVector ();
+	
+	// Recorrem tots els comandos en ordre del vector i els executem
+	for ( unsigned short i = 0; i < l_VectorComandes.size () ; ++i )
 	{
-		l_VectorResources[i]->Execute(RM);
+		l_VectorComandes[i]->Execute ( _RM );
 	}
 }
 
-std::string CSceneRendererCommandManager::GetNextName()
-{
-	return "";
-}
-
-void CSceneRendererCommandManager::LoadXML()
+// -----------------------------------------
+//				MÈTODES PRIVATS
+// -----------------------------------------
+bool CSceneRendererCommandManager::LoadXML ( void )
 {
 	CXMLTreeNode newFile;
 	if (!newFile.LoadFile(m_FileName.c_str()))
 	{
 		std::string msg_error = "CSceneRendererCommandManager::LoadXML->Error al intentar leer el archivo de scene renderer commands: " + m_FileName;
 		LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
-		return;
+		return false;
 	}
 
-	CXMLTreeNode l_SRC = newFile["scene_renderer_commands"];
-	if( l_SRC.Exists() )
+	CXMLTreeNode l_Commands = newFile["scene_renderer_commands"];
+	if( l_Commands.Exists() )
 	{
 		std::string l_Type;
-		std::string l_NumCommand;
 		std::string l_CommandName;
-		CSceneRendererCommand *l_Command = NULL;
+		CSceneRendererCommand *l_ActiveCommand = NULL;
 
-		uint16 l_Count = l_SRC.GetNumChildren();
-		for(uint16 i=0; i<l_Count; ++i)
+		uint16 l_Count = l_Commands.GetNumChildren();
+		for( uint16 i = 0; i < l_Count; ++i )
 		{
-			l_Command = NULL;
-
-			//Converts the iteration number to string
-			std::stringstream out;
-			out << i;
-			l_NumCommand = out.str();
+			l_ActiveCommand = NULL;
 
 			//Read de commands
-			 l_Type = l_SRC(i).GetName();
-			 if( l_Type == "begin_scene" )
-			 {
-				 l_Command = new CBeginSceneRendererCommand( l_SRC(i) );
-				 l_CommandName = "begin_scene_" + l_NumCommand;
-			 }
-			 else if( l_Type == "end_scene" )
-			 {
-				 l_Command = new CEndSceneRendererCommand( l_SRC(i) );
-				 l_CommandName = "end_scene_" + l_NumCommand;
-			 }
-			 else if( l_Type == "clear_scene" )
-			 {
-				 l_Command = new CClearSceneRendererCommand( l_SRC(i) );
-				 l_CommandName = "clear_scene_" + l_NumCommand;
-			 }
-			 else if( l_Type == "enable_z_write" )
-			 {
-				 l_Command = new CEnableZWriteSceneRendererCommand( l_SRC(i) );
-				 l_CommandName = "enable_z_write_" + l_NumCommand;
-			 }
-			 else if( l_Type == "disable_z_write" )
-			 {
-				 l_Command = new CDisableZWriteSceneRendererCommand( l_SRC(i) );
-				 l_CommandName = "disable_z_write_" + l_NumCommand;
-			 }
-			 else if( l_Type == "enable_z_test" )
-			 {
-				 l_Command = new CEnableZTestSceneRendererCommand( l_SRC(i) );
-				 l_CommandName = "enable_z_test_" + l_NumCommand;
-			 }
-			 else if( l_Type == "disable_z_test" )
-			 {
-				 l_Command = new CDisableZTestSceneRendererCommand( l_SRC(i) );
-				 l_CommandName = "disable_z_test_" + l_NumCommand;
-			 }
+			l_Type = l_Commands(i).GetName();
+			if( l_Type == "begin_scene" )
+			{
+				l_ActiveCommand = new CBeginSceneRendererCommand ( l_Commands(i) );
+			}
+			else if( l_Type == "bloom_post_process" )
+			{
+				l_ActiveCommand = new CBloomPostProcessCommand( l_Commands(i) );
+			}
+			else if( l_Type == "capture_frame_buffer" )
+			{
+				l_ActiveCommand = new CCaptureFrameBufferSceneRendererCommand( l_Commands(i) );
+			}
+			else if( l_Type == "clear_scene" )
+			{
+				l_ActiveCommand = new CClearSceneRendererCommand( l_Commands(i) );
+			}
+			else if( l_Type == "disable_alpha_blending" )
+			{
+				l_ActiveCommand = new CDisableAlphaBlendingSceneRendererCommand ( l_Commands(i) );
+			}
+			else if( l_Type == "disable_z_test" )
+			{
+				l_ActiveCommand = new CDisableZTestSceneRendererCommand( l_Commands(i) );
+			}
+			else if( l_Type == "disable_z_write" )
+			{
+				l_ActiveCommand = new CDisableZWriteSceneRendererCommand( l_Commands(i) );
+			}
+			else if( l_Type == "end_scene" )
+			{
+				l_ActiveCommand = new CEndRenderSceneRendererCommand( l_Commands(i) );
+			}
+			else if( l_Type == "enable_alpha_blending" )
+			{
+				l_ActiveCommand = new CEnableAlphaBlendingSceneRendererCommand ( l_Commands(i) );
+			}
+			else if( l_Type == "end_scene" )
+			{
+				l_ActiveCommand = new CEndRenderSceneRendererCommand ( l_Commands(i) );
+			}
+			else if( l_Type == "enable_z_write" )
+			{
+				l_ActiveCommand = new CEnableZWriteSceneRendererCommand( l_Commands(i) );
+			}
+			else if( l_Type == "enable_z_test" )
+			{
+				l_ActiveCommand = new CEnableZTestSceneRendererCommand( l_Commands(i) );
+			}
+			else if( l_Type == "generate_shadow_maps" )
+			{
+				l_ActiveCommand = new CGenerateShadowMapsSceneRendererCommand( l_Commands(i) );
+			}
+			else if( l_Type == "present" )
+			{
+				l_ActiveCommand = new CPresentSceneRendererCommand( l_Commands(i) );
+			}
+			else if( l_Type == "render_deferred_shading" )
+			{
+				l_ActiveCommand = new CDeferredShadingSceneRendererCommand( l_Commands(i) );
+			}
+			else if( l_Type == "render_gui" )
+			{
+				l_ActiveCommand = new CRenderGUISceneRendererCommand( l_Commands(i) );
+			}
+			else if( l_Type == "render_draw_quad" )
+			{
+				l_ActiveCommand = new CDrawQuadRendererCommand( l_Commands(i) );
+			}
+			else if( l_Type == "render_particles" )
+			{
+				l_ActiveCommand = new CRenderParticlesSceneRendererCommand( l_Commands(i) );
+			}
+			else if( l_Type == "render_scene" )
+			{
+				l_ActiveCommand = new CRenderSceneSceneRendererCommand( l_Commands(i) );
+			}
+			else if( l_Type == "save_screen_to_file" )
+			{
+				l_ActiveCommand = new CSaveSceneToFileRendererCommand( l_Commands(i) );
+			}
+			else if( l_Type == "setup_matrices" )
+			{
+				l_ActiveCommand = new CSetupMatricesSceneRendererCommand( l_Commands(i) );
+			}
+			else if( l_Type == "set_pool_renderable_objects_technique" )
+			{
+				l_ActiveCommand = new CSetPoolRenderableObjectsTechniqueCommand( l_Commands(i) );
+			}
+			else if( l_Type == "set_render_target" )
+			{
+				l_ActiveCommand = new CSetRenderTargetSceneRendererCommand( l_Commands(i) );
+			}
+			else if( l_Type == "SkySphere" )
+			{
+				l_ActiveCommand = new CSkySphereCommand( l_Commands(i) );
+			}
+			else if( l_Type == "unset_render_target" )
+			{
+				std::string l_RenderTarget = l_Commands(i).GetPszProperty("render_target", "");
 
-			 else if( l_Type == "render_scene" )
-			 {
-				 l_Command = new CRenderSceneSceneRendererCommand( l_SRC(i) );
-				 l_CommandName = "render_scene_" + l_NumCommand;
-			 }
-			 else if( l_Type == "setup_matrices" )
-			 {
-				 l_Command = new CSetupMatricesSceneRendererCommand( l_SRC(i) );
-				 l_CommandName = "setup_matrices_" + l_NumCommand;
-			 }
-			 else if( l_Type == "set_pool_renderable_objects_technique" )
-			 {
-				 l_Command = new CSetPoolRenderableObjectsTechniqueCommand( l_SRC(i) );
-				 l_CommandName = "set_pool_renderable_objects_technique_" + l_NumCommand;
-			 }
-			 else if( l_Type == "set_render_target" )
-			 {
-				 l_Command = new CSetRenderTargetSceneRendererCommand( l_SRC(i) );
-				 l_CommandName = l_Command->GetName();
-			 }
-			 else if( l_Type == "unset_render_target" )
-			 {
-				 std::string l_RenderTarget = l_SRC(i).GetPszProperty("render_target", "");
+				CSetRenderTargetSceneRendererCommand* l_SRT = static_cast<CSetRenderTargetSceneRendererCommand*>(m_SceneRendererCommands.GetResource(l_RenderTarget));
 
-				 CSetRenderTargetSceneRendererCommand* l_SRT = static_cast<CSetRenderTargetSceneRendererCommand*>(m_SceneRendererCommands.GetResource(l_RenderTarget));
-
-				 l_Command = new CUnsetRenderTargetSceneRendererCommand(l_SRT, l_SRC(i));
-				 l_CommandName = "unset_render_target_" + l_NumCommand;
-			 }
-			 else if( l_Type == "render_draw_quad" )
-			 {
-				 l_Command = new CDrawQuadRendererCommand( l_SRC(i) );
-				 l_CommandName = l_Command->GetName() + "_" + l_NumCommand;
-			 }
-			 else if( l_Type == "render_deferred_shading" )
-			 {
-				 l_Command = new CDeferredShadingSceneRendererCommand( l_SRC(i) );
-				 l_CommandName = "render_deferred_shading_" + l_NumCommand;
-			 }
-			 else if( l_Type == "present" )
-			 {
-				 l_Command = new CPresentSceneRendererCommand( l_SRC(i) );
-				 l_CommandName = "present_" + l_NumCommand;
-			 }
-			 else if( l_Type == "generate_shadow_maps" )
-			 {
-				 l_Command = new CGenerateShadowMapsSceneRendererCommand( l_SRC(i) );
-				 l_CommandName = "generate_shadow_maps_" + l_NumCommand;
-			 }
-			 else if( l_Type == "capture_frame_buffer" )
-			 {
-				 l_Command = new CCaptureFrameBufferSceneRendererCommand( l_SRC(i) );
-				 l_CommandName = "capture_frame_buffer_" + l_NumCommand;
-			 }
-			 else if( l_Type == "SkySphere" )
-			 {
-				 l_Command = new CSkySphereCommand( l_SRC(i) );
-				 l_CommandName = "SkySphere_" + l_NumCommand;
-			 }
-			 else if( l_Type == "render_particles" )
-			 {
-				 l_Command = new CRenderParticlesSceneRendererCommand( l_SRC(i) );
-				 l_CommandName = "render_particles_" + l_NumCommand;
-			 }
-			 else if( l_Type == "bloom_post_process" )
-			 {
-				 l_Command = new CBloomPostProcessCommand( l_SRC(i) );
-				 l_CommandName = "bloom_post_process" + l_NumCommand;
-			 }
+				l_ActiveCommand = new CUnsetRenderTargetSceneRendererCommand(l_SRT, l_Commands(i));
+			}
+			
 #if defined(_DEBUG)
 			 else if( l_Type == "render_debug_info" )
 			 {
-				 l_Command = new CRenderDebugInfoSceneRendererCommand( l_SRC(i) );
-				 l_CommandName = "render_debug_info_" + l_NumCommand;
+				 l_ActiveCommand = new CRenderDebugInfoSceneRendererCommand( l_Commands(i) );
 			 }
 			 else if( l_Type == "render_debug_lights" )
 			 {
-				 l_Command = new CRenderDebugLightsSceneRendererCommand( l_SRC(i) );
-				 l_CommandName = "render_debug_lights_" + l_NumCommand;
-			 }
-			 else if( l_Type == "render_gui" )
-			 {
-				 l_Command = new CRenderGUISceneRendererCommand( l_SRC(i) );
-				 l_CommandName = "render_gui_" + l_NumCommand;
+				 l_ActiveCommand = new CRenderDebugLightsSceneRendererCommand( l_Commands(i) );
 			 }
 			 else if( l_Type == "render_debug_physics" )
 			 {
-				 l_Command = new CRenderDebugPhysicsSceneRendererCommand( l_SRC(i) );
-				 l_CommandName = "render_debug_physics_" + l_NumCommand;
+				 l_ActiveCommand = new CRenderDebugPhysicsSceneRendererCommand( l_Commands(i) );
 			 }
 			 else if( l_Type == "render_debug_process" )
 			 {
-				 l_Command = new CRenderDebugProcessSceneRendererCommand( l_SRC(i) );
-				 l_CommandName = "render_debug_process_" + l_NumCommand;
+				 l_ActiveCommand = new CRenderDebugProcessSceneRendererCommand( l_Commands(i) );
 			 }
+			 else if( l_Type == "render_debug_Sounds" )
+			 {
+				 l_ActiveCommand = new CRenderDebugSoundsSceneRendererCommand( l_Commands(i) );
+			 }			
+
+
 #endif
 
 			 //Add the command into the map
-			 if( l_Command != NULL )
-			 {
-				 m_SceneRendererCommands.AddResource(l_CommandName, l_Command);
-			 }
+			if ( l_ActiveCommand != NULL )
+			{
+				l_CommandName = l_ActiveCommand->GetName ();
+				m_SceneRendererCommands.AddResource ( l_CommandName, l_ActiveCommand );
+			}
 		}
 	}
+	return true;
+}
+
+std::string	CSceneRendererCommandManager::GetNextName ( CXMLTreeNode &_atts )
+{
+	std::stringstream out;
+	out << "_";
+	out << m_SceneRendererCommands.GetResourcesVector().size();
+	
+	return ( _atts.GetName () +  out.str() );
 }

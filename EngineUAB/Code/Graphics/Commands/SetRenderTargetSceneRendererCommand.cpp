@@ -13,6 +13,7 @@
 #endif
 
 CSetRenderTargetSceneRendererCommand::CSetRenderTargetSceneRendererCommand(CXMLTreeNode &Node)
+	: CStagedTexturedRendererCommand ( Node )
 {
 	//<set_render_target name="deferred_multiple_render_target">
 	m_Name = Node.GetPszProperty("name", "");

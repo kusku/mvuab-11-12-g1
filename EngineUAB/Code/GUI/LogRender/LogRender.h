@@ -31,14 +31,14 @@ public:
 
 	void					Render						(CRenderManager* renderManager, CFontManager* fm, CColor color = colWHITE);
 	void					Update						(float deltaTime);
-	uint32					GetNumOfLines				() const					{return m_uLinesPerPage;}
+	uint32					GetNumOfLines				( void ) const					{return m_uLinesPerPage;}
 	void					PageUp						();
 	void					PageDown					();
 	void					NextLine					();
 	void					PrevLine					();
 	void					SetWindowsPos				(const Vect2i& pos )		{m_WindowsPos = pos;}
-	const Vect2i&			GetWindowsPos				() const					{return m_WindowsPos;}
-	bool					GetVisible					() const					{return m_bIsVisible;}
+	const Vect2i&			GetWindowsPos				( void ) const					{return m_WindowsPos;}
+	bool					GetVisible					( void ) const					{return m_bIsVisible;}
 	void					SetVisible					(bool flag);
 	void					SetLinePerPage				(uint32 lines);
 

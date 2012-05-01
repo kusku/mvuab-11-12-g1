@@ -13,7 +13,7 @@
 #include "RenderableObjects\RenderableObjectsLayersManager.h"
 #include "Commands\SceneRendererCommandManager.h"
 #include "Lights\LightManager.h"
-#include "ScriptManager.h"
+#include "Scripting\ScriptManager.h"
 #include "DebugOptions\DebugOptions.h"
 #include "Console\Console.h"
 #include "DebugGUIManager.h"
@@ -39,7 +39,7 @@ CViewerProcess::~CViewerProcess()
 	m_Camera = NULL;
 }
 
-void CViewerProcess::Init()
+bool CViewerProcess::Init()
 {
 	screen = CORE->GetRenderManager()->GetScreenSize();
 	pos.x = screen.x / 2;
@@ -54,6 +54,8 @@ void CViewerProcess::Init()
 	m_pThPSCamera = new CThPSCamera( 1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_Player, 10.0f);
 	m_Camera = static_cast<CCamera*>(m_pThPSCamera);
 	CORE->SetCamera(m_Camera);
+
+	return true;
 }
 
 void CViewerProcess::Update(float elapsedTime)

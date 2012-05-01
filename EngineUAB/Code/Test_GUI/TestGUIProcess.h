@@ -15,21 +15,24 @@ class CActionToInput;
 class CTestGUIProcess : public CEngineProcess
 {
 public:
-	CTestGUIProcess();
-	virtual ~CTestGUIProcess();
+						CTestGUIProcess		( void );
+	virtual				~CTestGUIProcess	( void );
 
-	void Init ();
-	void Update (float elapsedTime);
-	void Render (CRenderManager &RM);
+	bool				Init				( void );
+	void				Done				( void );
+	void				Update				( float _ElapsedTime );
+	void				Render				( CRenderManager &_RM );
 
 protected:
-	void UpdateInputs( float elapsedTime );
-	void UpdateDebugInputs( float elapsedTime, CActionToInput &action2Input );
+	virtual void		Release				( void );
 
-	Vect2i pos;
-	Vect2i screen;
+	void				UpdateInputs		( float _ElapsedTime );
+	void				UpdateDebugInputs	( float _ElapsedTime, CActionToInput &_Action2Input );
 
-	CPlayer m_Player;
+	Vect2i		pos;
+	Vect2i		screen;
+
+	CPlayer		m_Player;
 	CThPSCamera *m_pThPSCamera;
 };
 

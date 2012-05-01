@@ -22,45 +22,79 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-CEngine::CEngine()
-	: m_pCore(NULL)
-	, m_pProcess(NULL)	
-	, m_pLogger(NULL)
-	, m_Timer(30)
+// -----------------------------------------
+//			CONSTRUCTOR/DESTRUCTOR
+// -----------------------------------------
+
+CEngine::CEngine( void )
+	: m_bIsOk		( false )
+	, m_pCore		( NULL )
+	, m_pProcess	( NULL )	
+	, m_pLogger		( NULL )
+	, m_Timer		( 30 )
+{}
+
+CEngine::~CEngine( void )
 {
+	Done();
+
+	
 }
 
-CEngine::~CEngine()
+// -----------------------------------------
+//				MÈTODES 
+// -----------------------------------------
+void CEngine::Done ( void )
+{
+	if (IsOk())
+	{
+		Release();
+		m_bIsOk = false;
+	}
+}
+
+void CEngine::Release ( void )
 {
 	m_Config.languages_path.clear();
 
-	CHECKED_DELETE(m_pCore);
-	CHECKED_DELETE(m_pProcess);
+	CHECKED_DELETE( m_pCore );
+	CHECKED_DELETE( m_pProcess );
 
-	CHECKED_DELETE(m_pLogger);
+	CHECKED_DELETE( m_pLogger );
 }
 
-void CEngine::Init(HWND hWnd)
+bool CEngine::Init( HWND _HWnd )
 {
 	m_pLogger = new CLogger();
 
 	LOGGER->AddNewLog(ELL_INFORMATION, "CEngine::Init-> Inicializando Engine");
 
 	m_pCore = new CCore();
-	m_pCore->Init(hWnd, m_Config);	
-	m_pProcess->Init();
-	m_pCore->SetProcess(m_pProcess);
+	m_bIsOk = m_pCore->Init( _HWnd, m_Config );	
+
+	if (m_bIsOk)
+		m_bIsOk = m_pProcess->Init();
+	
+	m_pCore->SetProcess ( m_pProcess );
+	m_pCore->SetTimer   ( &m_Timer );
+
+	if ( m_bIsOk )
+		LOGGER->AddNewLog( ELL_INFORMATION, "CEngine::Init-> Engine inicializado correctamente.");
+	else
+		LOGGER->AddNewLog( ELL_INFORMATION, "CEngine::Init-> Engine inicializado incorrectamente.");
+
+	return m_bIsOk;
 }
 
-void CEngine::Update()
+void CEngine::Update( void )
 {
 	m_Timer.Update();
-	float elapsedTime = m_Timer.GetElapsedTime();
+	float l_ElapsedTime = m_Timer.GetElapsedTime();
 
-	m_pCore->Update(elapsedTime);
-	m_pProcess->Update(elapsedTime);
+	m_pCore->Update	   ( l_ElapsedTime );
+	m_pProcess->Update ( l_ElapsedTime );
 
-	m_pCore->SetTimer(&m_Timer);
+	m_pCore->SetTimer	( &m_Timer );
 
 #if defined(_DEBUG)
 	UpdateDebugInputs();
@@ -249,16 +283,25 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 			}
 			else if( l_Name == "Billboards" )
 			{
-				m_Config.billboards_path = l_ConfigNode(i).GetPszProperty("fileXML", "");
+				m_Config.billboards_path = l_ConfigNode(i).GetPszProperty("billboardsXML", "");
 			}
 			else if( l_Name == "Particles" )
 			{
-				m_Config.particles_path = l_ConfigNode(i).GetPszProperty("fileXML", "");
+				m_Config.particles_path = l_ConfigNode(i).GetPszProperty("particlesXML", "");
 			}
 			else if( l_Name == "GUI" )
 			{
-				m_Config.gui_path = l_ConfigNode(i).GetPszProperty("fileXML", "");
+				m_Config.gui_path = l_ConfigNode(i).GetPszProperty("guiXML", "");
 			}
+			else if( l_Name == "TriggersSystem" )
+			{
+				m_Config.triggers_system_path = l_ConfigNode(i).GetPszProperty ( "triggersXML", "" );
+			}
+			else if( l_Name == "Sound" )
+			{
+				m_Config.sound_system_path = l_ConfigNode(i).GetPszProperty ( "soundXML", "" );
+			}
+
 #if defined (_DEBUG)
 			else if( l_Name == "Modifiers" )
 			{

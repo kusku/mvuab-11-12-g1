@@ -13,7 +13,8 @@
 
 /** Template class for creating single-instance global classes.
 */
-template <typename T> class CSingleton
+template <typename T> 
+class CSingleton
 {
 protected:
 

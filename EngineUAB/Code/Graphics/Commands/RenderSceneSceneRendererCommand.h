@@ -5,9 +5,11 @@
 
 #include "SceneRendererCommand.h"
 
+//--- Foward Declarations ---//
 class CRenderableObjectsLayersManager;
 class CRenderManager;
 class CXMLTreeNode;
+//---------------------------//
 
 class CRenderSceneSceneRendererCommand : public CSceneRendererCommand
 {

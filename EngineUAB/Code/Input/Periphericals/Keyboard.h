@@ -22,7 +22,7 @@ public:
 	virtual ~CKeyboard() { Done(); } 
 
 	bool          Init            (LPDIRECTINPUT8, HWND);
-	bool	        IsOk			      () const { return m_bIsOk; }
+	bool	        IsOk			      ( void ) const { return m_bIsOk; }
 	void	        Done			      ();
 
 	//----CInputDevice Interface----

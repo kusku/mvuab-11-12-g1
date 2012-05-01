@@ -5,14 +5,21 @@
 
 #include "StagedTexturedRendererCommand.h"
 
+
+//---Foward Declarations---//
 class CRenderManager;
 class CXMLTreeNode;
+//-------------------------//
 
 class CCaptureFrameBufferSceneRendererCommand : public CStagedTexturedRendererCommand
 {
 public:
-	CCaptureFrameBufferSceneRendererCommand(CXMLTreeNode &Node);
-	void	Execute				( CRenderManager &RM );
+	//--- Init and End protocols------------------------------------------
+			CCaptureFrameBufferSceneRendererCommand ( CXMLTreeNode &_Node );
+	
+	
+	//----Main Methods ---------------------------------------------------
+	void	Execute	 ( CRenderManager &_RM );
 };
 
 #endif

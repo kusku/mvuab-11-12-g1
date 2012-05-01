@@ -9,9 +9,9 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-CUnsetRenderTargetSceneRendererCommand::CUnsetRenderTargetSceneRendererCommand(CSetRenderTargetSceneRendererCommand *SetRenderTargetRendererCommand, 
-	CXMLTreeNode &Node)
-	: m_pSetRenderTargetRendererCommand(SetRenderTargetRendererCommand)
+CUnsetRenderTargetSceneRendererCommand::CUnsetRenderTargetSceneRendererCommand(CSetRenderTargetSceneRendererCommand *SetRenderTargetRendererCommand, CXMLTreeNode &Node)
+	: CStagedTexturedRendererCommand ( Node )
+	, m_pSetRenderTargetRendererCommand(SetRenderTargetRendererCommand)
 {
 }
 

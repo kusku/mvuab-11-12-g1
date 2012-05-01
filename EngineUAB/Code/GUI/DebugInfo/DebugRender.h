@@ -30,11 +30,11 @@ public:
 
 	//Set & Get Methods-------------------
 	void				SetVisible					( bool flag )		{ m_bIsVisible = flag; }
-	bool				GetVisible					() const			{ return m_bIsVisible; }
+	bool				GetVisible					( void ) const			{ return m_bIsVisible; }
 
-	bool				GetFPSVisible				() const			{ return m_bFPSVisible; }
-	bool				GetDeltaTimeVisible			() const			{ return m_bDeltaTimeVisible; }
-	bool				GetGamePadVisible			() const			{ return m_bGamePadVisible; }
+	bool				GetFPSVisible				( void ) const			{ return m_bFPSVisible; }
+	bool				GetDeltaTimeVisible			( void ) const			{ return m_bDeltaTimeVisible; }
+	bool				GetGamePadVisible			( void ) const			{ return m_bGamePadVisible; }
 
 	void				SetFPSVisible				( bool visible )	{ m_bFPSVisible = visible; AnalizeSizeInfo(); }
 	void				SetDeltaTimeVisible			( bool visible )	{ m_bDeltaTimeVisible = visible; AnalizeSizeInfo(); }

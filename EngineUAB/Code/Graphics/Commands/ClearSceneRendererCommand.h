@@ -5,15 +5,21 @@
 
 #include "SceneRendererCommand.h"
 
+//---Foward Declarations---//
 class CRenderManager;
 class CXMLTreeNode;
+//-------------------------//
 
 class CClearSceneRendererCommand : public CSceneRendererCommand
 {
 public:
-	CClearSceneRendererCommand(CXMLTreeNode &Node);
+	//--- Init and End protocols------------------------------------------
+			CClearSceneRendererCommand(CXMLTreeNode &Node);
+			
+	//----Main Methods ---------------------------------------------------
 	virtual void	Execute		( CRenderManager &RM );
 
+	//----Members ---------------------------------------------------
 protected:
 	bool		m_Color;
 	bool		m_Depth;

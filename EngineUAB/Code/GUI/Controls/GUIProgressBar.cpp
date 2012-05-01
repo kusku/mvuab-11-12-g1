@@ -2,7 +2,7 @@
 #include "Textures/Texture.h"
 #include "RenderManager.h"
 #include "Fonts\FontManager.h"
-#include "ScriptManager.h"
+#include "Scripting\ScriptManager.h"
 #include "GraphicsDefs.h"
 #include "Core.h"
 #include "Base.h"

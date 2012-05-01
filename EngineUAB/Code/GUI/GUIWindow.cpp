@@ -4,7 +4,7 @@
 #include "Textures\TextureManager.h"
 #include "RenderManager.h"
 #include "Logger\Logger.h"
-#include "ScriptManager.h"
+#include "Scripting\ScriptManager.h"
 #include "Core.h"
 #include "Base.h"
 #include "XML\XMLTreeNode.h"
@@ -257,11 +257,11 @@ bool CGUIWindow::LoadXML( const std::string &xmlGuiFile, const Vect2i& screenRes
 
 				//Para cada guielement leemos su informacion comun-->
 				std::string name	= pNewNode.GetPszProperty("name", "defaultGuiElement");
-				float posx				= pNewNode.GetFloatProperty("posx", 0.f);
-				float posy				= pNewNode.GetFloatProperty("posy", 0.f);
-				float w						= pNewNode.GetFloatProperty("width", 50.f);
-				float h						= pNewNode.GetFloatProperty("height", 50.f);
-				bool visible			= pNewNode.GetBoolProperty("visible", true);
+				float posx			= pNewNode.GetFloatProperty("posx", 0.f);
+				float posy			= pNewNode.GetFloatProperty("posy", 0.f);
+				float w				= pNewNode.GetFloatProperty("width", 50.f);
+				float h				= pNewNode.GetFloatProperty("height", 50.f);
+				bool visible		= pNewNode.GetBoolProperty("visible", true);
 				bool activated		= pNewNode.GetBoolProperty("active", true);
 
 				std::string tagName = pNewNode.GetName();
@@ -331,7 +331,7 @@ bool CGUIWindow::LoadXML( const std::string &xmlGuiFile, const Vect2i& screenRes
 					m_sLuaCode_OnKeyDown	= pNewNode.GetPszProperty("OnKeyDown", "");
 					m_uInputKeyDown				= pNewNode.GetIntProperty("input", 0);
 				}
-				else
+				else if (tagName.compare("comment")!=0)
 				{
 					//Warning
 					LOGGER->AddNewLog(ELL_WARNING, "GUIWindow:: No se reconoce el tag %s del fichero %s", tagName.c_str(), xmlGuiFile.c_str());
@@ -832,7 +832,7 @@ void	CGUIWindow::LoadAnimatedImage(CGUIAnimatedImage** image_aux, CXMLTreeNode& 
 		std::string tagName = pTexture.GetName();
 		if (tagName.compare("Texture")==0)
 		{	
-			std::string texture			=  pNewNode(j).GetPszProperty("name_texture");
+			std::string texture		=  pNewNode(j).GetPszProperty("name_texture");
 			CTexture* texture_image	=  tm->GetTexture(texture);
 			image->AddFrame(texture_image);
 		}

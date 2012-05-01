@@ -12,6 +12,7 @@
 #endif
 
 CRenderDebugPhysicsSceneRendererCommand::CRenderDebugPhysicsSceneRendererCommand(CXMLTreeNode &Node)
+	: CSceneRendererCommand ( Node )
 {
 	bool active = Node.GetBoolProperty("active", false);
 	SetActive(active);

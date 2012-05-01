@@ -11,7 +11,10 @@ class CXMLTreeNode;
 class CRenderDebugProcessSceneRendererCommand : public CSceneRendererCommand
 {
 public:
+	//--- Init and End protocols------------------------------------------
 	CRenderDebugProcessSceneRendererCommand (CXMLTreeNode &Node);
+	
+	//----Main Methods ---------------------------------------------------
 	virtual void	Execute		( CRenderManager &RM );
 };
 

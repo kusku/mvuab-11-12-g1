@@ -18,7 +18,7 @@ public:
 	CViewerProcess();
 	~CViewerProcess();
 
-	void Init();
+	bool Init();
 	void Update(float elapsedTime);
 	void Render(CRenderManager &RM);
 

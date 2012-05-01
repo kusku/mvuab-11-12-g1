@@ -9,6 +9,7 @@
 #endif
 
 CSetupMatricesSceneRendererCommand::CSetupMatricesSceneRendererCommand(CXMLTreeNode &Node)
+	: CSceneRendererCommand ( Node )
 {
 }
 

@@ -1,7 +1,7 @@
 #include "GuiElement.h"
 #include "Core.h"
 #include "Base.h"
-#include "ScriptManager.h"
+#include "Scripting\ScriptManager.h"
 #include "Location\LanguageManager.h"
 #include "RenderManager.h"
 #include "Fonts\FontManager.h"
