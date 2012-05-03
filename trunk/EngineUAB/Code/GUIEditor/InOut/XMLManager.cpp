@@ -14,6 +14,7 @@
 #include "Controls\GUIImage.h"
 #include "Controls\GUISlider.h"
 #include "Controls\GUIStaticText.h"
+#include "Controls\GUITextBox.h"
 #include "Core.h"
 #include "Base.h"
 
@@ -37,13 +38,21 @@ void CXMLManager::SaveFiles(const std::string &filename)
 	l_Node.WritePszProperty("path", "./Data/XML/GUI/");
 	l_Node.EndElement();
 
+	SaveTextBox(l_Node, l_pGUIManager->GetDefaultTextBox(), l_szPath);
 	SavePointerMouse(l_Node, l_pGUIManager->GetPointerMouse(), l_szPath);
 
 	l_Node.EndElement();
 
 	l_Node.EndNewFile();
 
-	SaveWindow( l_Node, l_pGUIManager->GetWindow( l_pGUIManager->GetCurrentWindow() ), l_szPath);
+	CGUIManager::TWindowsMap l_WindowsMap = l_pGUIManager->GetAllWindows();
+	CGUIManager::TWindowsMap::iterator l_It = l_WindowsMap.begin();
+	CGUIManager::TWindowsMap::iterator l_ItEnd = l_WindowsMap.end();
+
+	for(; l_It != l_ItEnd; ++l_It)
+	{
+		SaveWindow( l_Node, l_It->second, l_szPath);
+	}
 }
 
 void CXMLManager::SavePointerMouse(CXMLTreeNode &node, CGuiElement *element, const std::string &path)
@@ -401,6 +410,42 @@ void CXMLManager::SaveStaticText(CXMLTreeNode &node, CGuiElement *element, const
 	WriteCommonProperties( node, l_pStaticText );
 
 	node.EndElement();
+}
+
+void CXMLManager::SaveTextBox(CXMLTreeNode &node, CGuiElement *element, const std::string &path)
+{
+	CGUITextBox *l_pTextBox = static_cast<CGUITextBox*>(element);
+
+	node.StartElement("TextBox");
+
+	node.WriteFloatProperty("posx", l_pTextBox->GetPositionPercent().x);
+	node.WriteFloatProperty("posy", l_pTextBox->GetPositionPercent().y);
+	node.WriteFloatProperty("height", l_pTextBox->GetHeightPercent());
+	node.WriteFloatProperty("width", l_pTextBox->GetWidthPercent());
+	node.WriteFloatProperty("button_height", l_pTextBox->GetButtonHeight());
+	node.WriteFloatProperty("button_width", l_pTextBox->GetButtonWidth());
+
+	node.WritePszProperty("buttonClose_normal", GetNameTexture( l_pTextBox->GetNormalButtonClose()->GetFileName() ).c_str());
+	node.WritePszProperty("buttonClose_over", GetNameTexture( l_pTextBox->GetOverButtonClose()->GetFileName() ).c_str());
+	node.WritePszProperty("buttonClose_clicked", GetNameTexture( l_pTextBox->GetClickedButtonClose()->GetFileName() ).c_str());
+	node.WritePszProperty("buttonClose_deactivated", GetNameTexture( l_pTextBox->GetDeactivatedButtonClose()->GetFileName() ).c_str());
+	node.WritePszProperty("buttonMove_normal", GetNameTexture( l_pTextBox->GetNormalButtonMove()->GetFileName() ).c_str());
+	node.WritePszProperty("buttonMove_over", GetNameTexture( l_pTextBox->GetOverButtonMove()->GetFileName() ).c_str());
+	node.WritePszProperty("buttonMove_clicked", GetNameTexture( l_pTextBox->GetClickedButtonMove()->GetFileName() ).c_str());
+	node.WritePszProperty("buttonMovee_deactivated", GetNameTexture( l_pTextBox->GetDeactivatedButtonMove()->GetFileName() ).c_str());
+	node.WritePszProperty("quad", GetNameTexture( l_pTextBox->GetBackgroundTexture()->GetFileName() ).c_str());
+
+	node.EndElement();
+
+	CopyTexture( l_pTextBox->GetNormalButtonClose(), path );
+	CopyTexture( l_pTextBox->GetOverButtonClose(), path );
+	CopyTexture( l_pTextBox->GetClickedButtonClose(), path );
+	CopyTexture( l_pTextBox->GetDeactivatedButtonClose(), path );
+	CopyTexture( l_pTextBox->GetNormalButtonMove(), path );
+	CopyTexture( l_pTextBox->GetOverButtonMove(), path );
+	CopyTexture( l_pTextBox->GetClickedButtonMove(), path );
+	CopyTexture( l_pTextBox->GetDeactivatedButtonMove(), path );
+	CopyTexture( l_pTextBox->GetBackgroundTexture(), path );
 }
 
 std::string CXMLManager::GetNameTexture(const std::string &file)
