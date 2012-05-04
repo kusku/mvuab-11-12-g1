@@ -36,7 +36,7 @@ CViewerProcess::CViewerProcess()
 CViewerProcess::~CViewerProcess()
 {
 	CHECKED_DELETE( m_pThPSCamera );
-	m_Camera = NULL;
+	m_pCamera = NULL;
 }
 
 bool CViewerProcess::Init()
@@ -52,16 +52,16 @@ bool CViewerProcess::Init()
 
 	float aspect = CORE->GetRenderManager()->GetAspectRatio();
 	m_pThPSCamera = new CThPSCamera( 1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_Player, 10.0f);
-	m_Camera = static_cast<CCamera*>(m_pThPSCamera);
-	CORE->SetCamera(m_Camera);
+	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
+	CORE->SetCamera( m_pCamera );
 
 	return true;
 }
 
 void CViewerProcess::Update(float elapsedTime)
 {
-	CORE->SetCamera(m_Camera);
-	m_Player.Update(elapsedTime, m_Camera);
+	CORE->SetCamera( m_pCamera );
+	m_Player.Update(elapsedTime, m_pCamera );
 
 	CORE->GetRenderableObjectsLayersManager()->Update(elapsedTime);
 
@@ -73,7 +73,6 @@ void CViewerProcess::Update(float elapsedTime)
 void CViewerProcess::UpdateInputs(float elapsedTime)
 {
 	CActionToInput *action2Input = CORE->GetActionToInput();
-	CScriptManager *SCRIPT = CORE->GetScriptManager();
 
 	if( action2Input->DoAction( ACTION_CONSOLE ) )
 	{
