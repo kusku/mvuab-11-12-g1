@@ -22,7 +22,7 @@ public:
 	void Update(float elapsedTime);
 	void Render(CRenderManager &RM);
 
-	CCamera* GetCamera () const { return m_Camera; }
+	CCamera* GetCamera () const { return m_pCamera; }
 
 protected:
 	void UpdateInputs( float elapsedTime );
