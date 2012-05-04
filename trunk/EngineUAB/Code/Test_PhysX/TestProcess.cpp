@@ -47,7 +47,7 @@ CTestProcess::~CTestProcess( void )
 {
 	CHECKED_DELETE(m_pTrigger);
 	CHECKED_DELETE( m_pThPSCamera );
-	m_Camera = NULL;
+	m_pCamera = NULL;
 }
 
 // -----------------------------------------
@@ -79,8 +79,8 @@ bool CTestProcess::Init( void )
 
 	float aspect = CORE->GetRenderManager()->GetAspectRatio();
 	m_pThPSCamera = new CThPSCamera(1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_Player, 10.0f);
-	m_Camera = static_cast<CCamera*>(m_pThPSCamera);
-	CORE->SetCamera(m_Camera);
+	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
+	CORE->SetCamera(m_pCamera);
 
 	//-----PHYSX----------
 	NxScene *l_Scene = CORE->GetPhysicsManager()->GetScene();
@@ -154,8 +154,8 @@ void CTestProcess::CreateSphereActor()
 
 void CTestProcess::Update(float elapsedTime)
 {
-	CORE->SetCamera(m_Camera);
-	m_Player.Update(elapsedTime, m_Camera);
+	CORE->SetCamera(m_pCamera);
+	m_Player.Update(elapsedTime, m_pCamera);
 	//UpdateInputs(elapsedTime);
 
 	SCollisionInfo info;
@@ -187,7 +187,6 @@ void CTestProcess::Render(CRenderManager &RM)
 void CTestProcess::UpdateInputs(float elapsedTime)
 {
 	CActionToInput *action2Input = CORE->GetActionToInput();
-	CScriptManager *SCRIPT = CORE->GetScriptManager();
 
 	if( action2Input->DoAction("Sphere") )
 	{

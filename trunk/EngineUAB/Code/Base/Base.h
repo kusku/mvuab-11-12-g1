@@ -11,5 +11,7 @@
 
 #define CORE CCore::GetSingletonPtr()
 #define LOGGER CLogger::GetSingletonPtr()
+#define SCRIPT CScriptManager::GetSingletonPtr()
+
 
 #endif

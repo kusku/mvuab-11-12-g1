@@ -8,15 +8,6 @@
 #include <vector>
 
 #define DEBUG_MODE true
-//
-//enum TECLES 
-//{
-//	UP		= 0,
-//	DOWN	= 1,
-//	LEFT	= 2,
-//	RIGHT	= 3
-//	//NONE	= 4
-//};
 
 // ********* RELOADS *********** 
 #define ACTION_RELOAD_ALL					"ReloadAll"
@@ -37,10 +28,6 @@
 #define ACTION_RELOAD_GUI					"ReloadGUI"
 #define ACTION_RELOAD_SOUNDS				"ReloadSounds"
 
-
-// ********* VIEW CAMERA *********** 
-#define ACTION_CAMERA_SWITCH				"CameraSwicth"
-#define ACTION_PLAYER_SWITCH				"PlayerSwicth"
 
 // ********* CONSOLE *********** 
 #define ACTION_CONSOLE						"Console"
@@ -76,8 +63,6 @@
 
 // ********* MISC *********** 
 #define ACTION_PRINT_SCREEN_TO_FILE			"SaveScreenToFile" 
-
-
 
 struct SConfig
 {

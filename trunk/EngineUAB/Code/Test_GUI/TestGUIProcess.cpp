@@ -28,7 +28,7 @@ CTestGUIProcess::CTestGUIProcess( void )
 CTestGUIProcess::~CTestGUIProcess( void )
 {
 	CHECKED_DELETE( m_pThPSCamera );
-	m_Camera = NULL;
+	m_pCamera = NULL;
 }
 
 void CTestGUIProcess::Done ( void )
@@ -54,16 +54,16 @@ bool CTestGUIProcess::Init( void )
 
 	float aspect = CORE->GetRenderManager()->GetAspectRatio();
 	m_pThPSCamera = new CThPSCamera(1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_Player, 10.0f);
-	m_Camera = static_cast<CCamera*>(m_pThPSCamera);
-	CORE->SetCamera(m_Camera);
+	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
+	CORE->SetCamera(m_pCamera);
 
 	return true;
 }
 
 void CTestGUIProcess::Update( float _ElapsedTime )
 {
-	CORE->SetCamera( m_Camera );
-	m_Player.Update( _ElapsedTime, m_Camera );
+	CORE->SetCamera( m_pCamera );
+	m_Player.Update( _ElapsedTime, m_pCamera );
 	//UpdateInputs( _ElapsedTime );
 
 	CORE->GetRenderableObjectsLayersManager()->Update( _ElapsedTime );

@@ -259,11 +259,18 @@ void CCore::Render()
 // -----------------------------------------
 //			  MÈTODES PRINCIPALS
 // -----------------------------------------
+
+// -----------------------------------------
+//			 MÈTODES UPDATE INPUTS 
+// -----------------------------------------
+
+// ----------------------------------------------------------------------------------------------------------------
+//	UpdateInputs: Mira si se realizan acciones de teclado básicamente de reloads y debugs que sea propios del motor
+// ----------------------------------------------------------------------------------------------------------------
 void CCore::UpdateInputs( float _ElapsedTime )
 {
 	CActionToInput *l_Action2Input = CORE->GetActionToInput();
-	CScriptManager *SCRIPT = CORE->GetScriptManager();
-
+	
 	if( l_Action2Input->DoAction( ACTION_RELOAD_TTFS ) )					// Recarrega de fonts
 	{
 		SCRIPT->RunCode("reload_fonts()");
@@ -346,44 +353,26 @@ void CCore::UpdateInputs( float _ElapsedTime )
 	{
 		SCRIPT->RunCode("reload_render_commands()");
 	}
-		
-	if( l_Action2Input->DoAction( ACTION_CONSOLE ) )						// Activa/Desactiva la consola
-	{
-		SCRIPT->RunCode("toggle_console()");
-	}
 
-	if ( l_Action2Input->DoAction ( ACTION_CAMERA_SWITCH ) )		// Conmutacio de camera i visualitzo el que veu el jugador
-	{		
-		//TC_FPS
-		/*CCamera * l_Camera = GetCamera();
-		if ( ( l_Camera->GetTypeCamera ( ) ) == CCamera::ETypeCamera::TC_FPS )
-			m_pCamera = l_Camera;
-		else
-			m_pCamera = m_pCameraPrimera;*/
-	}	
-	
-	if ( l_Action2Input->DoAction( ACTION_PLAYER_SWITCH ) )		// Conmutacio de jugador. Ara puc moure l'actual jugador i el vell es mou automàticament
-	{
-		/*int countador = m_pPlayersList.size() - 1;
-		if ( m_uIndicePlayerCamera < countador ) 
-			m_uIndicePlayerCamera ++;
-		else
-			m_uIndicePlayerCamera = 0;
-		
-		m_pCamera->SetObject3D ( m_pPlayersList[m_uIndicePlayerCamera] );*/
-	}
-
-	
+#if defined(_DEBUG)
+	// Solo en mode debug comprovamos estas teclas
 	UpdateDebugInputs( _ElapsedTime, *l_Action2Input);
+#endif 
 }
 
-// -----------------------------------------
-//			 MÈTODES UPDATE INPUTS 
-// -----------------------------------------
-void CCore::UpdateDebugInputs(float elapsedTime, CActionToInput &_Action2Input)
+// ----------------------------------------------------------------------------------------------------------------
+//	UpdateDebugInputs: Mira si se realizan acciones de teclado básicamente de modo debug
+// ----------------------------------------------------------------------------------------------------------------
+void CCore::UpdateDebugInputs( float _ElapsedTime, CActionToInput &_Action2Input )
 {
 	CModifierManager *l_pModifierManager = CORE->GetDebugGUIManager()->GetModifierManager();
 	CDebugOptions *l_DebugOptions = CORE->GetDebugGUIManager()->GetDebugOptions();
+
+	//Show & Unshow la consola
+	if( _Action2Input.DoAction( ACTION_CONSOLE ) )					// Activa/Desactiva la consola
+	{
+		SCRIPT->RunCode("toggle_console()");
+	}
 
 	//Show & Unshow de debuggers
 	if( _Action2Input.DoAction( ACTION_DEBUG_OPTIONS ) )				// Activa/Desactiva opciones de debug gui
@@ -391,7 +380,7 @@ void CCore::UpdateDebugInputs(float elapsedTime, CActionToInput &_Action2Input)
 		l_DebugOptions->SetActive( !l_DebugOptions->GetActive() );
 	}
 
-	if( _Action2Input.DoAction( ACTION_SHOW_MODIFIERS ) )			// Activa/Desactiva modificadores
+	if( _Action2Input.DoAction( ACTION_SHOW_MODIFIERS ) )				// Activa/Desactiva modificadores
 	{
 		bool visible = l_pModifierManager->GetVisible();
 		l_pModifierManager->SetVisible( !visible );

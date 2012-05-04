@@ -17,7 +17,7 @@
 class CCamera
 {
 public:
-	typedef enum ETypeCamera {TC_FPS = 0, TC_THPS};
+	typedef enum ETypeCamera { TC_FPS = 0, TC_THPS };
 
 public:
 

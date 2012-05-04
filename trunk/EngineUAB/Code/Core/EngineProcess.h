@@ -8,9 +8,6 @@ class CCamera;
 
 class CEngineProcess
 {
-protected:
-	CCamera*	m_Camera;
-
 public:
 	//--- Init and End protocols------------------------------------------
 						CEngineProcess	( void );
@@ -29,7 +26,7 @@ public:
 	virtual void		Render			( CRenderManager &RM );
 	
 	//----Properties ( get & Set )---------------------------------------
-	virtual CCamera*	GetCamera		( void ) const				{ return m_Camera; }
+	virtual CCamera*	GetCamera		( void ) const				{ return m_pCamera; }
 
 	//----Members -------------------------------------------------------
 protected:

@@ -9,6 +9,7 @@
 #include "Textures\Texture.h"
 #include "Object3D.h"
 
+#include "Textures\TextureManager.h"
 #include "RenderManager.h"
 #include "Cameras\Camera.h"
 #include "XML\XMLTreeNode.h"
@@ -75,11 +76,16 @@ void CSoundManager::Release ( void )
 	
 	std::vector<CBillboard*>::iterator l_It = m_BillboardVector.begin();
 	std::vector<CBillboard*>::iterator l_End = m_BillboardVector.end();
-		
+
 	for ( ; l_It != l_End; l_It++ )
+	{
 		CHECKED_DELETE(*l_It);
+	}
 
 	m_BillboardVector.clear();
+	m_BuffersMap.clear();
+	m_SourcesFadeInOutMap.clear();
+	m_SourcesFadeInOutMap.clear();
 
 	_finalizeAL();
 	
@@ -1440,9 +1446,7 @@ int CSoundManager::_getSource ( bool _Reserved )
         i = (uint32) m_SourcesVector.size() - 1;    
 
 		CBillboard *l_Bb = new CBillboard();
-		CTexture* l_Tex = new CTexture();
-		if ( !l_Tex->Load ( "Data/General/Textures/Altavoz.png" ) )
-			CHECKED_DELETE ( l_Tex );
+		CTexture* l_Tex = CORE->GetTextureManager()->GetTexture( "Data/General/Textures/Altavoz.png" );
 
 		l_Bb->SetTexture ( l_Tex );
 		l_Bb->SetWidth ( 1.f );

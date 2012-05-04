@@ -21,9 +21,9 @@ public:
 					CEngine				( void );
 	virtual			~CEngine			( void );
 
-	bool				Init			( HWND _HWnd );
-	void				Done			( void );
-	bool				IsOk			( void ) const { return m_bIsOk; }
+	bool			Init			( HWND _HWnd );
+	void			Done			( void );
+	bool			IsOk			( void ) const { return m_bIsOk; }
 
 	//----Main Methods -----------------------------------------------------
 	void			Update				( void );
