@@ -5,6 +5,9 @@
 
 #include <string>
 #include <vector>
+
+#include "Utils\Singleton.h"
+
 extern "C"
 {
 	#include "lua.h"
@@ -12,7 +15,7 @@ extern "C"
 	#include "lauxlib.h"
 }
 
-class CScriptManager
+class CScriptManager : public CSingleton<CScriptManager>
 {
 public:
 	//--- Init and End protocols------------------------------------------
@@ -41,6 +44,7 @@ private:
 public:
 	lua_State * GetLuaState				( void ) const { return m_LS; }
 	
+	//---- Members -------------------------------------------------------
 private:
 	lua_State		*m_LS;			// Estat del lua
 	std::string		m_FileName;		// Fitxer xml on trobaré els scripts a registrar

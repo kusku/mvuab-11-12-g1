@@ -11,7 +11,7 @@
 //			CONSTRUCTOR/DESTRUCTOR
 // -----------------------------------------
 CEngineProcess::CEngineProcess ( void )
-	: m_Camera(NULL)
+	: m_pCamera ( NULL )
 {
 }
 
