@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<Config>
+	<ScreenResolution width="1600" height="900" />
+	<WindowsPosition position="0 0" />
+	<RenderMode fullscreenMode="false" />
+	<RenderColor colorDebug="blue" colorRelease="black" />
+	<ActionToInput inputXML="./Data/XML/input.xml" />
+	<Mouse exclusiveModeInMouse="true" drawPointerMouse="true" />
+	<Fonts fontsXML="./Data/XML/fonts.xml" />
+	<Languages default="catalan">
+		<Language languageXML="./Data/XML/Language/catalan.xml" />
+		<Language languageXML="./Data/XML/Language/spanish.xml" />
+		<Language languageXML="./Data/XML/Language/english.xml" />
+	</Languages>
+	<Textures no_texture="./Data/General/Textures/notexture.png" />
+	<Meshes meshesXML="./Data/XML/static_meshes.xml" />
+	<RenderableObjects objectsXML="./Data/XML/renderable_objects.xml" />
+	<AnimatedModels animatedXML="./Data/XML/animated_models.xml" />
+	<Lights lightXML="./Data/XML/lights.xml" />
+	<Effects effectsXML="./Data/XML/effects.xml" />
+	<SceneRendererCommands commandsXML="./Data/XML/scene_renderer_commands.xml" />
+	<RenderableObjectTechniques poolsXML="./Data/XML/renderable_object_techniques.xml" />
+	<Scripts scriptsXML="./Data/XML/scripts.xml" />
+	<Billboards billboardsXML="./Data/XML/billboard_animations.xml" />
+	<Particles particlesXML="./Data/XML/particles.xml" />
+	<TriggersSystem triggersXML="./Data/XML/triggers.xml" />
+	<Sound soundXML="./Data/XML/sounds.xml" />
+	<GUI guiXML="./Data/GUI/initGui_laberynth.xml" />
+	<Modifiers modifiersXML="./Data/XML/modifiers.xml" />
+	<Debug_Options debug_options_xml="./data/xml/debug_options.xml" />
+</Config>
