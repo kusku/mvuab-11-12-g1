@@ -25,7 +25,7 @@
 	<Particles particlesXML="./Data/XML/particles.xml" />
 	<TriggersSystem triggersXML="./Data/XML/triggers.xml" />
 	<Sound soundXML="./Data/XML/sounds.xml" />
-	<GUI guiXML="./Data/GUI/initGui_laberynth.xml" />
+	<GUI guiXML="./Data/XML/gui.xml" />
 	<Modifiers modifiersXML="./Data/XML/modifiers.xml" />
 	<Debug_Options debug_options_xml="./data/xml/debug_options.xml" />
 </Config>
