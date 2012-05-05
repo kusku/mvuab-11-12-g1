@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Gui_config>
-	<GuiFiles path="./Data/GUI" />
+	<GuiFiles path="./Data/GUI/GUI" />
 	<TextBox posx="100" posy="100" width="50" height="35" button_width="5" button_height="5"
 		buttonClose_normal="./Data/General/Textures/CloseDialegBox.jpg"
 		buttonClose_over="./Data/General/Textures/CloseDialegBoxO.jpg"

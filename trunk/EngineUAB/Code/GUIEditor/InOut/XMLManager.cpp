@@ -323,7 +323,7 @@ void CXMLManager::SaveImage(CXMLTreeNode &node, CGuiElement *element, const std:
 	node.WritePszProperty("OnLoadValue", l_pImage->GetOnLoad().c_str() );
 	node.WritePszProperty("OnSaveValue", l_pImage->GetOnSave().c_str() );
 
-	node.StartElement("Texture");
+	node.StartElement("texture");
 	
 	node.WritePszProperty("name", "tex1");
 	node.WritePszProperty("name_texture", GetNameTexture( texture->GetFileName() ).c_str() );
@@ -432,7 +432,7 @@ void CXMLManager::SaveTextBox(CXMLTreeNode &node, CGuiElement *element, const st
 	node.WritePszProperty("buttonMove_normal", GetNameTexture( l_pTextBox->GetNormalButtonMove()->GetFileName() ).c_str());
 	node.WritePszProperty("buttonMove_over", GetNameTexture( l_pTextBox->GetOverButtonMove()->GetFileName() ).c_str());
 	node.WritePszProperty("buttonMove_clicked", GetNameTexture( l_pTextBox->GetClickedButtonMove()->GetFileName() ).c_str());
-	node.WritePszProperty("buttonMovee_deactivated", GetNameTexture( l_pTextBox->GetDeactivatedButtonMove()->GetFileName() ).c_str());
+	node.WritePszProperty("buttonMove_deactivated", GetNameTexture( l_pTextBox->GetDeactivatedButtonMove()->GetFileName() ).c_str());
 	node.WritePszProperty("quad", GetNameTexture( l_pTextBox->GetBackgroundTexture()->GetFileName() ).c_str());
 
 	node.EndElement();
