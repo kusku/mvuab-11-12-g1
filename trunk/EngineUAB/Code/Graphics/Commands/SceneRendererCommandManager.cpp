@@ -188,31 +188,33 @@ bool CSceneRendererCommandManager::LoadXML ( void )
 
 				l_ActiveCommand = new CUnsetRenderTargetSceneRendererCommand(l_SRT, l_Commands(i));
 			}
-			
-#if defined(_DEBUG)
-			 else if( l_Type == "render_debug_info" )
-			 {
-				 l_ActiveCommand = new CRenderDebugInfoSceneRendererCommand( l_Commands(i) );
-			 }
-			 else if( l_Type == "render_debug_lights" )
-			 {
-				 l_ActiveCommand = new CRenderDebugLightsSceneRendererCommand( l_Commands(i) );
-			 }
-			 else if( l_Type == "render_debug_physics" )
-			 {
-				 l_ActiveCommand = new CRenderDebugPhysicsSceneRendererCommand( l_Commands(i) );
-			 }
-			 else if( l_Type == "render_debug_process" )
-			 {
-				 l_ActiveCommand = new CRenderDebugProcessSceneRendererCommand( l_Commands(i) );
-			 }
-			 else if( l_Type == "render_debug_Sounds" )
-			 {
-				 l_ActiveCommand = new CRenderDebugSoundsSceneRendererCommand( l_Commands(i) );
-			 }			
-
-
-#endif
+			else
+			{
+				//Comandas de debug
+				if( CORE->IsDebugMode() )
+				{
+					if( l_Type == "render_debug_info" )
+					{
+						l_ActiveCommand = new CRenderDebugInfoSceneRendererCommand( l_Commands(i) );
+					}
+					else if( l_Type == "render_debug_lights" )
+					{
+						l_ActiveCommand = new CRenderDebugLightsSceneRendererCommand( l_Commands(i) );
+					}
+					else if( l_Type == "render_debug_physics" )
+					{
+						l_ActiveCommand = new CRenderDebugPhysicsSceneRendererCommand( l_Commands(i) );
+					}
+					else if( l_Type == "render_debug_process" )
+					{
+						l_ActiveCommand = new CRenderDebugProcessSceneRendererCommand( l_Commands(i) );
+					}
+					else if( l_Type == "render_debug_Sounds" )
+					{
+						l_ActiveCommand = new CRenderDebugSoundsSceneRendererCommand( l_Commands(i) );
+					}	
+				}
+			}
 
 			 //Add the command into the map
 			if ( l_ActiveCommand != NULL )

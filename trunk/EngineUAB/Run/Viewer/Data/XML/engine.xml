@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<Config>
+<Config debug="true">
 	<ScreenResolution width="800" height="600" />
 	<WindowsPosition position="0 0" />
 	<RenderMode fullscreenMode="false" />
@@ -27,6 +27,6 @@
 	<Modifiers modifiersXML="./Data/XML/modifiers.xml" />
 	<Debug_Options debug_options_xml="./data/XML/debug_options.xml" />
 	<TriggersSystem triggersXML="./Data/XML/triggers.xml" />
-	<GUI guiXML="./Data/GUI/initGui_laberynth.xml" />
+	<GUI guiXML="./Data/XML/gui.xml" />
 	<Sound soundXML="./Data/XML/sounds.xml" />
 </Config>

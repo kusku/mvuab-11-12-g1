@@ -45,6 +45,7 @@
 // -----------------------------------------
 CCore::CCore ( void )
 	: m_bIsOk							( false )
+	, m_bDebugMode						( false )
 	, m_pRenderManager					( NULL )
 	, m_pFontManager					( NULL )
 	, m_pLanguageManager				( NULL )
@@ -123,6 +124,8 @@ bool CCore::Init( HWND _HWnd, const SConfig &config )
 {
 	m_bIsOk = false;
 	LOGGER->AddNewLog(ELL_INFORMATION, "CCore:: Inicializando Core");
+
+	m_bDebugMode = config.bDebugMode;
 
 	//Inicializa el Render
 	m_pRenderManager = new CRenderManager();
@@ -209,14 +212,15 @@ bool CCore::Init( HWND _HWnd, const SConfig &config )
 			m_pSoundManager = new CSoundManager();
 			m_pSoundManager->Load ( config.sound_system_path );
 
-#if defined (_DEBUG)
-			//Inicializa las estadísticas
-			m_pStadistics = new CStadistics();
+			if( m_bDebugMode )
+			{
+				//Inicializa las estadísticas
+				m_pStadistics = new CStadistics();
 
-			//Inicializa el manager de interfaz de debugeo
-			m_pDebugGUIManager = new CDebugGUIManager();
-			m_bIsOk = m_pDebugGUIManager->Init( config.modifiers_path, config.debug_options_path );		
-#endif
+				//Inicializa el manager de interfaz de debugeo
+				m_pDebugGUIManager = new CDebugGUIManager();
+				m_bIsOk = m_pDebugGUIManager->Init( config.modifiers_path, config.debug_options_path );		
+			}
 
 			m_pScriptManager = new CScriptManager();
 			m_pScriptManager->Load( config.scripts_path );
@@ -236,9 +240,10 @@ bool CCore::Init( HWND _HWnd, const SConfig &config )
 
 void CCore::Update( float _ElapsedTime )
 {
-#if defined(_DEBUG)
-	m_pStadistics->ResetAll();
-#endif
+	if( m_bDebugMode )
+	{
+		m_pStadistics->ResetAll();
+	}
 
 	m_pActionToInput->Update();
 	m_pPhysicsManager->Update	( _ElapsedTime );
@@ -246,10 +251,12 @@ void CCore::Update( float _ElapsedTime )
 	m_pParticlesManager->Update	( _ElapsedTime );
 	m_pGUIManager->Update		( _ElapsedTime );
 
-#if defined(_DEBUG)
-	m_pDebugGUIManager->Update( _ElapsedTime );
-#endif
-	UpdateInputs ( _ElapsedTime );
+
+	if( m_bDebugMode )
+	{
+		m_pDebugGUIManager->Update( _ElapsedTime );
+		UpdateInputs ( _ElapsedTime );
+	}
 }
 
 void CCore::Render()
@@ -354,10 +361,8 @@ void CCore::UpdateInputs( float _ElapsedTime )
 		SCRIPT->RunCode("reload_render_commands()");
 	}
 
-#if defined(_DEBUG)
 	// Solo en mode debug comprovamos estas teclas
 	UpdateDebugInputs( _ElapsedTime, *l_Action2Input);
-#endif 
 }
 
 // ----------------------------------------------------------------------------------------------------------------

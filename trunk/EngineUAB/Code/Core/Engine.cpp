@@ -96,9 +96,10 @@ void CEngine::Update( void )
 
 	m_pCore->SetTimer	( &m_Timer );
 
-#if defined(_DEBUG)
-	UpdateDebugInputs();
-#endif
+	if( CORE->IsDebugMode() )
+	{
+		UpdateDebugInputs();
+	}
 }
 
 void CEngine::UpdateDebugInputs()
@@ -187,6 +188,8 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 	CXMLTreeNode l_ConfigNode = newFile["Config"];
 	if (l_ConfigNode.Exists())
 	{
+		m_Config.bDebugMode = l_ConfigNode.GetBoolProperty("debug", false);
+
 		//Parsea los hijos del nodo <Engine>
 		int count = l_ConfigNode.GetNumChildren();
 		for(int i=0; i<count; ++i)
@@ -301,8 +304,6 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 			{
 				m_Config.sound_system_path = l_ConfigNode(i).GetPszProperty ( "soundXML", "" );
 			}
-
-#if defined (_DEBUG)
 			else if( l_Name == "Modifiers" )
 			{
 				m_Config.modifiers_path = l_ConfigNode(i).GetPszProperty("modifiersXML", "");
@@ -311,7 +312,6 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 			{
 				m_Config.debug_options_path = l_ConfigNode(i).GetPszProperty("debug_options_xml", "");
 			}
-#endif
 		}
 	}
 

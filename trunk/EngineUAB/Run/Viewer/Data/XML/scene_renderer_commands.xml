@@ -160,8 +160,7 @@
 	<render_particles />
 	
 	<!--Debug-->
-	<render_modifiers />
-	<render_debug_info grid="false" axis="false" />
+	<render_debug_info grid="false" axis="true"  render_console="true" render_logger="true" render_modifiers="true" render_debug_options="true" render_debug_render="true" />
 	<render_debug_lights active="false" />
 	<end_scene />
 	<present />

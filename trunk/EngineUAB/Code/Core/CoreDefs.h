@@ -68,6 +68,7 @@ struct SConfig
 {
 	//Screen params
 	bool bFullscreen;
+	bool bDebugMode;
 	Vect2i position;
 	Vect2i resolution;
 	CColor color_debug;
