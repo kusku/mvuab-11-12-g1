@@ -8,13 +8,13 @@
 //-----------------------------------------------------------------------------
 CBaseGameEntity* CEntityManager::GetEntityFromID( int _Id ) const
 {
-  //find the entity
-  TEntityMap::const_iterator ent = m_EntityMap.find(_Id);
+  // Encuentra la entidada
+  TEntityMap::const_iterator l_Ent = m_EntityMap.find(_Id);
 
-  //assert that the entity is a member of the map
-  assert ( ( ent !=  m_EntityMap.end()) && "EntityManager::GetEntityFromID-> invalid ID" );
+  // Comprueba si la entidad es un miembro del mapa 
+  assert ( ( l_Ent !=  m_EntityMap.end()) && "EntityManager::GetEntityFromID-> invalid ID" );
 
-  return ent->second;
+  return l_Ent->second;
 }
 
 //--------------------------- RemoveEntity ------------------------------------

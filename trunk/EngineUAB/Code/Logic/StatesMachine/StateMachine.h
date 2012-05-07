@@ -22,7 +22,7 @@ public:
 				, m_pGlobalState	( NULL )
 			{ return; }
 
-			~CStateMachine	( void );
+			~CStateMachine	( void )	{ return; }
 
 	// ------------- Funcions Principals ---------------------
 	// Cambiamos el actual estado a uno nuevo
@@ -99,9 +99,9 @@ public:
 	// ------------- Propietats ( Get / Set ) ----------------
 	
 	// Métodos para inicializar el FSM
-	void		SetCurrentState			(CState<T>* _pState)		{ m_pCurrentState	= _pState; }
-	void		SetGlobalState			(CState<T>* _pState)		{ m_pGlobalState	= _pState; }
-	void		SetPreviousState		(CState<T>* _pState)		{ m_pPreviousState	= _pState; }
+	void		SetCurrentState			( CState<T>* _pState )		{ m_pCurrentState	= _pState; }
+	void		SetGlobalState			( CState<T>* _pState )		{ m_pGlobalState	= _pState; }
+	void		SetPreviousState		( CState<T>* _pState )		{ m_pPreviousState	= _pState; }
 
 	// Métodos para obtener los estaos de FSM
 	CState<T>*	GetCurrentState			( void ) const				{ return m_pCurrentState; }

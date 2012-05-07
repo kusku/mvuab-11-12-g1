@@ -19,6 +19,21 @@ using std::cout;
 //--------------------------------------------------
 //				FUNCTIONS PRINCIPALS
 //--------------------------------------------------
+void CMessageDispatcher::Discharge( CBaseGameEntity* _pReceiver, const Telegram& _Telegram )
+{
+  if (!_pReceiver->HandleMessage( _Telegram ))
+  {
+    //telegram could not be handled
+    cout << "Message not handled";
+  }
+}
+
+
+//-----------------------------------------------------------------------------------------------------------
+//	DispatchStateMessage: dado un mensaje, un receptor, un emisor y cualquier demora de tiempo, esta función
+//				enruta el mensaje hacía el agente correcto (si no existe demora) o almacena el mensaje en la 
+//				cola de mensajes hasta que sea enviado en el tiempo indicado
+//-----------------------------------------------------------------------------------------------------------
 void CMessageDispatcher::DispatchStateMessage ( double _Delay, int _Sender, int _Receiver, int _Msg, void* _pExtraInfo )
 {
 	// obtengo el puntero del emisor y receptor
@@ -59,6 +74,10 @@ void CMessageDispatcher::DispatchStateMessage ( double _Delay, int _Sender, int 
 	}
 }
 
+//-----------------------------------------------------------------------------------------------------------
+//	DispatchDelayedMessages: envia cualquier telegrama segun el tiempo de demora. Una vez enviado se elimina 
+//						el mensaje de la cola
+//-----------------------------------------------------------------------------------------------------------
 void CMessageDispatcher::DispatchDelayedMessages ( void )
 {
 	//first get current time
@@ -83,3 +102,4 @@ void CMessageDispatcher::DispatchDelayedMessages ( void )
 		PriorityQSet.erase(PriorityQSet.begin());
 	}
 }
+
