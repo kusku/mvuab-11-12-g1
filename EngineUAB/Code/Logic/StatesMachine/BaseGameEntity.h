@@ -5,11 +5,10 @@
 
 #include <cassert>
 
-#include "Object3D.h"
 #include "MessageDefs.h"
 #include "Telegram.h"
 
-class CBaseGameEntity : public CObject3D
+class CBaseGameEntity 
 {
 public:
 	// ------------- Constructors i Destructors --------------

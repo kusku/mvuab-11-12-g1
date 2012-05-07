@@ -19,7 +19,7 @@ CIdleState::~CIdleState ( void )
 //				FUNCTIONS PRINCIPALS
 //--------------------------------------------------
 void CIdleState::Execute ( CCharacter* _pCharacter )
-{
+{	
 //	/*if (troll->isSafe())
 //	{
 //		troll->ChangeState(new State_Sleep());

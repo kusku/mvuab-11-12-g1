@@ -19,9 +19,8 @@ class CBaseGameEntity;
 
 class CMessageDispatcher : public CSingleton<CMessageDispatcher>
 {
-public:
 	// ------------- Constructors i Destructors ----------------
-private:
+public:
 				CMessageDispatcher	( void )		{}
 				~CMessageDispatcher	( void )		{}
 

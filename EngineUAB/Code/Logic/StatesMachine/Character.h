@@ -10,6 +10,7 @@
 
 #include "State.h"
 
+
 //--- Foward Declarations ---//
 //class CState;
 struct Telegram;
@@ -26,7 +27,7 @@ public:
 	//----Main Functions --------------------------------------
 
 	virtual bool	HandleMessage		( const Telegram& _Msg );
-	void			Update				( float _ElapsedTime );
+	virtual void	Update				( float _ElapsedTime );
 
 	//----Functions -------------------------------------------
 
