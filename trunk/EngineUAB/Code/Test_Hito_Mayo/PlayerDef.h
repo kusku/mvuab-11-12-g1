@@ -7,8 +7,9 @@
 #define RADI_XOC 10
 
 #define QUANTITAT_MOVIMENT_LLUM 10.f
+#define QUANTITAT_MOVIMENT_CAMERA 10.f
+#define QUANTITAT_MOVIMENT_PLAYER 10.f
 
-#define QUANTITAT_MOVIMENT 25
 #define QUANTITAT_ROTACIO 5
 
 #define FAR_RADIOUS 10
@@ -26,14 +27,20 @@ enum DIRECTION
 };
 
 
-// ********* PLAYER MOVEMENT *********** 
-#define ACTION_MOVE_PLAYER_FOWARD			"MovePlayerFoward"
-#define ACTION_MOVE_PLAYER_BACK				"MovePlayerBack"
-#define ACTION_MOVE_PLAYER_LEFT				"MovePlayerLeft"
-#define ACTION_MOVE_PLAYER_RIGHT			"MovePlayerRight"
-#define ACTION_MOVE_PLAYER_UP				"MovePlayerUp"
-#define ACTION_MOVE_PLAYER_DOWN 			"MovePlayerDown"
+// ********* CAMERA MOVEMENT *********** 
+#define ACTION_MOVE_CAMERA_FOWARD			"MoveCameraFoward"
+#define ACTION_MOVE_CAMERA_BACK				"MoveCameraBack"
+#define ACTION_MOVE_CAMERA_LEFT				"MoveCameraLeft"
+#define ACTION_MOVE_CAMERA_RIGHT			"MoveCameraRight"
+#define ACTION_MOVE_CAMERA_UP				"MoveCameraUp"
+#define ACTION_MOVE_CAMERA_DOWN 			"MoveCameraDown"
 
+// ********* CONTROLER / PLAYER MOVEMENT *********** 
+
+#define ACTION_MOVE_PLAYER_FOWARD			"MoveControlerFoward"
+#define ACTION_MOVE_PLAYER_BACK				"MoveControlerBack"
+#define ACTION_MOVE_PLAYER_LEFT				"MoveControlerLeft"
+#define ACTION_MOVE_PLAYER_RIGHT			"MoveControlerRight"
 
 #define MOMENTUM							100.f		// Cantidad de movimiento del player
 #define INCREMENT_FACTOR_VELOCITAT			50

@@ -23,15 +23,20 @@
 #include "DebugOptions\DebugOptions.h"
 #include "DebugGUIManager.h"
 
+#include "Main.h"
 
 #if defined(_DEBUG)
 	#include "Memory\MemLeaks.h"
 #endif
 
+
+// --- VARIABLES LOCALES ---
+// -------------------------
+
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CTestProcess::CTestProcess( void )
+CTestProcess::CTestProcess ( void )
 	: m_VectRatoli				( 0, 0)
 	, m_VectScreen				( 800, 600 )
 	, m_fTempsTotal				( 0 )
@@ -41,7 +46,7 @@ CTestProcess::CTestProcess( void )
 	, m_pCameraPrimeraPersona	( NULL )
 {}
 
-CTestProcess::~CTestProcess( void )
+CTestProcess::~CTestProcess ( void )
 {
 	Done ();
 }
@@ -58,7 +63,7 @@ void CTestProcess::Done ( void )
 	}
 }
 
-void CTestProcess::Release( void )
+void CTestProcess::Release ( void )
 {
 	for each ( CPlayer* l_pPlayer in m_pPlayersList )
 		CHECKED_DELETE ( l_pPlayer );
@@ -77,21 +82,24 @@ bool CTestProcess::Init(void)
 	m_fAngleY = 0.f;
 	m_fAngleZ = 0.f; 
 	
-	AddPlayer ( "Player", Vect3f ( -40.f, 20.f, 0.f ), false );
 
-	float l_Aspect = CORE->GetRenderManager()->GetAspectRatio();
-	m_pCameraTerceraPersona = new CThPSCamera (1.0f, 10000.f, 45.f * D3DX_PI / 180.f, l_Aspect, m_pPlayersList[m_uiIndicePlayerCamera], 10.0f );
-	m_pCameraPrimeraPersona = new CFPSCamera ( 0.f , 1.f ,  D3DX_PI / 4, static_cast <float> ( m_VectScreen.x/m_VectScreen.y), m_pPlayersList[m_uiIndicePlayerCamera] );
-	m_pCamera = static_cast<CCamera*>( m_pCameraTerceraPersona );
+	// TODO: Substituir tot per rails de càmeres o altres punts d'anclatge de les càmeres. En el procés que hereda d'aquest sí s'ha de fer l'anclatge la Player
+	/*AddPlayer ( "Player", Vect3f ( -40.f, 20.f, 0.f ), false );
+	AddPlayer ( "Pepe",   Vect3f ( 1.f, 2.f, 1.f ),    false );*/
 
-	// Assignamos el player por defecto
-	m_pActivePlayer = m_pPlayersList[m_uiIndicePlayerCamera];
+	//float l_Aspect = CORE->GetRenderManager()->GetAspectRatio();
+	//m_pCameraTerceraPersona = new CThPSCamera (1.0f, 10000.f, 45.f * D3DX_PI / 180.f, l_Aspect, m_pPlayersList[m_uiIndicePlayerCamera], 10.0f );
+	//m_pCameraPrimeraPersona = new CFPSCamera ( 0.f , 1.f ,  D3DX_PI / 4, static_cast <float> ( m_VectScreen.x/m_VectScreen.y), m_pPlayersList[m_uiIndicePlayerCamera] );
+	//m_pCamera = static_cast<CCamera*>( m_pCameraTerceraPersona );
 
-	// Asignamos la camera activa al core
-	CORE->SetCamera( m_pCamera );
-	
-	// La primera Player-Camera
-	m_uiIndicePlayerCamera = 0;
+	//// Assignamos el player por defecto
+	//m_pActivePlayer = m_pPlayersList[m_uiIndicePlayerCamera];
+
+	//// Asignamos la camera activa al core
+	//CORE->SetCamera( m_pCamera );
+	//
+	//// La primera Player-Camera
+	//m_uiIndicePlayerCamera = 0;
 
 	return true;
 }
@@ -99,6 +107,8 @@ bool CTestProcess::Init(void)
 void CargarProcesos ( void )
 {
 	// TODO: La idea es meter processos aquí o classes que generen tests	
+	
+
 }
 
 void CTestProcess::Update( float _ElapsedTime )
@@ -122,10 +132,14 @@ void CTestProcess::Render( CRenderManager *_RM )
 void CTestProcess::AddPlayer ( std::string _Name,	Vect3f _vPosition, bool _Automatic )
 {
 	CPlayer* pPlayer = new CPlayer ( _Name );
-	pPlayer->Init				( );
-	pPlayer->SetPosition		( _vPosition );
-	pPlayer->SetMoveAlone		( _Automatic );
-	m_pPlayersList.push_back	( pPlayer );
+	if ( pPlayer->Init() )
+	{	
+		pPlayer->SetPosition		( _vPosition );
+		pPlayer->SetMoveAlone		( _Automatic );
+		m_pPlayersList.push_back	( pPlayer );
+	}
+	else
+		CHECKED_DELETE ( pPlayer );
 }
 
 void CTestProcess::UpdateInputs( float _ElapsedTime )
@@ -146,13 +160,14 @@ void CTestProcess::UpdateInputs( float _ElapsedTime )
 	
 	if ( l_pAction2Input->DoAction( ACTION_PLAYER_SWITCH ) )		// Conmutacio de jugador. Ara puc moure l'actual jugador i el vell es mou automàticament
 	{
-		/*int countador = m_pPlayersList.size() - 1;
-		if ( m_uIndicePlayerCamera < countador ) 
-			m_uIndicePlayerCamera ++;
+		size_t l_Counter = m_pPlayersList.size() - 1;
+		if ( m_uiIndicePlayerCamera < l_Counter ) 
+			m_uiIndicePlayerCamera ++;
 		else
-			m_uIndicePlayerCamera = 0;
+			m_uiIndicePlayerCamera = 0;
 		
-		m_pCamera->SetObject3D ( m_pPlayersList[m_uIndicePlayerCamera] );*/
+		m_pCamera->SetObject3D ( m_pPlayersList[m_uiIndicePlayerCamera] );
+		m_pActivePlayer = m_pPlayersList[m_uiIndicePlayerCamera];
 	}
 }
 
