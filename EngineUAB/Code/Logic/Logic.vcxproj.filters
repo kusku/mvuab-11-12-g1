@@ -7,17 +7,8 @@
     <ClCompile Include="Triggers\TriggersManager.cpp">
       <Filter>Triggers</Filter>
     </ClCompile>
-    <ClCompile Include="StatesMachine\Character.cpp">
-      <Filter>IA\State Machine</Filter>
-    </ClCompile>
     <ClCompile Include="StatesMachine\BaseGameEntity.cpp">
       <Filter>IA\State Machine</Filter>
-    </ClCompile>
-    <ClCompile Include="StatesMachine\IdleState.cpp">
-      <Filter>IA\State Machine\Types</Filter>
-    </ClCompile>
-    <ClCompile Include="StatesMachine\PursuitState.cpp">
-      <Filter>IA\State Machine\Types</Filter>
     </ClCompile>
     <ClCompile Include="StatesMachine\EntityManager.cpp">
       <Filter>IA\State Machine\Messages</Filter>
@@ -47,15 +38,6 @@
     </ClInclude>
     <ClInclude Include="Triggers\TriggersManager.h">
       <Filter>Triggers</Filter>
-    </ClInclude>
-    <ClInclude Include="StatesMachine\Character.h">
-      <Filter>IA\State Machine</Filter>
-    </ClInclude>
-    <ClInclude Include="StatesMachine\IdleState.h">
-      <Filter>IA\State Machine\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="StatesMachine\PursuitState.h">
-      <Filter>IA\State Machine\Types</Filter>
     </ClInclude>
     <ClInclude Include="StatesMachine\EntityManager.h">
       <Filter>IA\State Machine\Messages</Filter>
