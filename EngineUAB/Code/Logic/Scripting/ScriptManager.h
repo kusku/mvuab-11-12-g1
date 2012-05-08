@@ -27,28 +27,29 @@ typedef enum ERegisterMethods
 	PHYSICS_SCRIPT,
 	SOUND_SCRIPT,
 	MATH_SCRIPT,
+	TRIGGER_SCRIPT,
 };
 
 class CScriptManager : public CSingleton<CScriptManager>
 {
 public:
 	//--- Init and End protocols------------------------------------------
-				CScriptManager			( void );
-	virtual		~CScriptManager			( void );
+				CScriptManager				( void );
+	virtual		~CScriptManager				( void );
 
 	//---- Main Functions ---------------------------------------
-	void		Initialize				( void );
-	void		Destroy					( void );
-	void		RunCode					( const std::string &Code ) const;
-	void		RunFile					( const std::string &FileName ) const;
-	bool		Load					( const std::string &_XMLFile );
+	void		Initialize					( void );
+	void		Destroy						( void );
+	void		RunCode						( const std::string &_Code ) const;
+	void		RunFile						( const std::string &_FileName ) const;
+	bool		Load						( const std::string &_XMLFile );
 
 	//---- Functions ---------------------------------------
 	bool		LoadXML						( void );
 	bool		Reload						( void );
 
 	//---- Register Methods -------------------------------------
-	void		RegisterLUAMethods			( ERegisterMethods type );
+	void		RegisterLUAMethods			( ERegisterMethods _Type );
 
 private:
 	void		RegisterCoreMethods			( void );
@@ -58,13 +59,14 @@ private:
 	void		RegisterInputMethods		( void );
 	void		RegisterLogicMethods		( void );
 	void		RegisterNetworkMethods		( void );
-	void		RegisterPhysicsMethods		( void );
+	void		RegisterPhysicMethods		( void );
 	void		RegisterSoundMethods		( void );
-	void		RegisterMathLUAFunctions	( void );
+	void		RegisterMathMethods		( void );
+	void		RegisterTriggerMethods	( void );
  	
 	//---- Properties ( get & Set )---------------------------------------
 public:
-	lua_State * GetLuaState				( void ) const { return m_LS; }
+	lua_State * GetLuaState					( void ) const		{ return m_LS; }
 	
 	//---- Members -------------------------------------------------------
 private:

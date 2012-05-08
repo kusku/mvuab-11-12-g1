@@ -236,7 +236,7 @@ void CScriptManager::RegisterLUAMethods(ERegisterMethods type)
 		}
 	case PHYSICS_SCRIPT:
 		{
-			RegisterPhysicsMethods();
+			RegisterPhysicMethods();
 			break;
 		}
 	case SOUND_SCRIPT:
@@ -246,7 +246,12 @@ void CScriptManager::RegisterLUAMethods(ERegisterMethods type)
 		}
 	case MATH_SCRIPT:
 		{
-			RegisterMathLUAFunctions();
+			RegisterMathMethods();
+			break;
+		}
+	case TRIGGER_SCRIPT:
+		{
+			RegisterTriggerMethods();
 			break;
 		}
 	}
@@ -280,11 +285,14 @@ void CScriptManager::RegisterCoreMethods()
 			.def("reload_pools", &CCore::ReloadPools)
 			.def("reload_scripts", &CCore::ReloadScripts)
 			.def("reload_lights", &CCore::ReloadLights)
+			.def("reload_physics", &CCore::ReloadPhysics)
+			.def("reload_billboards", &CCore::ReloadBillboards)
+			.def("reload_particles", &CCore::ReloadParticles)
+			.def("reload_triggers", &CCore::ReloadTriggers)
+			.def("reload_gui", &CCore::ReloadGUI)
+			.def("reload_sounds", &CCore::ReloadSounds)
 			.def("get_debug_gui_manager", &CCore::GetDebugGUIManager)
 			.def("get_stadistics", &CCore::GetStadistics)
-			.def("get_gui_manager", &CCore::GetGUIManager)
-			.def("get_sound_manager", &CCore::GetSoundManager)
-			.def("get_trigger_manager", &CCore::GetTriggersManager)
 	];
 }
 
@@ -394,7 +402,7 @@ void CScriptManager::RegisterNetworkMethods()
 //----------------------------------------------------------------------------
 // RegisterPhysicsMethods: Registramos todos los métodos de física
 //----------------------------------------------------------------------------
-void CScriptManager::RegisterPhysicsMethods()
+void CScriptManager::RegisterPhysicMethods()
 {
 }
 
@@ -455,7 +463,7 @@ void CScriptManager::RegisterSoundMethods( void )
 //----------------------------------------------------------------------------
 // RegisterMathLUAFunctions: Registrem totes les funcions de Matemàtiques
 //----------------------------------------------------------------------------
-void CScriptManager::RegisterMathLUAFunctions()
+void CScriptManager::RegisterMathMethods()
 {
 	module(m_LS) [
 		class_<Vect2f>("Vect2f")
@@ -613,5 +621,19 @@ void CScriptManager::RegisterMathLUAFunctions()
 			.def_readwrite("m20", &Mat33f::m20)
 			.def_readwrite("m21", &Mat33f::m21)
 			.def_readwrite("m22", &Mat33f::m22)	
+	];
+}
+
+//----------------------------------------------------------------------------
+// RegisterSoundFunctions: Registrem totes les funcions de GUI
+//----------------------------------------------------------------------------
+void CScriptManager::RegisterTriggerMethods( void )
+{
+	module(m_LS) [
+		class_<CTriggersManager>("CTriggersManager")
+			.def("exist_fisic_trigger", &CTriggersManager::ExistFisicTrigger)			// Retorna si existe un trigger ya cargado
+			.def("exist_trigger", &CTriggersManager::ExistTrigger)						// Retorna si existe un físic trigger asociado al trigger ya cargado
+			.def("get_trigger", &CTriggersManager::GetTrigger)							// Obtiene el trigger del mapa de triggers
+			.def("reload", &CTriggersManager::Reload)									// Recarga todos los triggers del XML
 	];
 }
