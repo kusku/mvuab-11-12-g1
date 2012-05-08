@@ -635,24 +635,24 @@ void	CGUIWindow::LoadRadioBox(CGUIRadioBox** radioBox_aux, CXMLTreeNode& pNewNod
   CGUIRadioBox* radioBox;
 
 	std::string name								= pNewNode.GetPszProperty("name", "defaultGuiElement");
-	float 			posx								= pNewNode.GetFloatProperty("posx", 0.f);
-	float 			posy								= pNewNode.GetFloatProperty("posy", 0.f);
-	float 			w										= pNewNode.GetFloatProperty("width", 50.f);
-	float 			h										= pNewNode.GetFloatProperty("height", 50.f);
-	bool 				visible							= pNewNode.GetBoolProperty("visible", true);
-	bool 				activated						= pNewNode.GetBoolProperty("active", true);
+	float posx								= pNewNode.GetFloatProperty("posx", 0.f);
+	float posy								= pNewNode.GetFloatProperty("posy", 0.f);
+	float w										= pNewNode.GetFloatProperty("width", 50.f);
+	float h										= pNewNode.GetFloatProperty("height", 50.f);
+	bool visible							= pNewNode.GetBoolProperty("visible", true);
+	bool activated						= pNewNode.GetBoolProperty("active", true);
 	std::string default_checkButton = pNewNode.GetPszProperty("default_checkButton", "");
 	std::string texture_back				= pNewNode.GetPszProperty("texture_back", "");
-	uint32			columns							= pNewNode.GetIntProperty("columns", 0);
-	uint32			rows								= pNewNode.GetIntProperty("rows", 0);
+	uint32 columns							= pNewNode.GetIntProperty("columns", 0);
+	uint32 rows								= pNewNode.GetIntProperty("rows", 0);
 	std::string OnCheckOn						= pNewNode.GetPszProperty("OnCheckOn", "");
 	std::string OnCheckOff					= pNewNode.GetPszProperty("OnCheckOff", "");
 	std::string OnOverButton				= pNewNode.GetPszProperty("OnOverButton", "");
 	std::string OnSaveValue					= pNewNode.GetPszProperty("OnSaveValue", "");
 	std::string OnLoadValue					= pNewNode.GetPszProperty("OnLoadValue", "");
 	std::string l_literal						= pNewNode.GetPszProperty("Literal", "");
-	float				widthOffsetPercent	= pNewNode.GetFloatProperty("widthOffset", 0.f);
-	float				heightOffsetPercent	= pNewNode.GetFloatProperty("heightOffset", 0.f);
+	float widthOffsetPercent	= pNewNode.GetFloatProperty("widthOffset", 0.f);
+	float heightOffsetPercent	= pNewNode.GetFloatProperty("heightOffset", 0.f);
 
 	uint32 widthOffset	= (uint32) (screenResolution.x	* 0.01f * widthOffsetPercent );
 	uint32 heightOffset	= (uint32) (screenResolution.y	* 0.01f * heightOffsetPercent );

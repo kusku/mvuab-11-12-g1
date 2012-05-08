@@ -11,6 +11,9 @@
 #include "Cameras\Camera.h"
 #include "RenderableObjects\RenderableObjectsManager.h"
 #include "RenderableObjects\RenderableObjectsLayersManager.h"
+#include "RenderableObjects\AnimatedModel\AnimatedModelManager.h"
+#include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
+#include "RenderableObjects\AnimatedModel\AnimatedCoreModel.h"
 #include "Commands\SceneRendererCommandManager.h"
 #include "Lights\LightManager.h"
 #include "Scripting\ScriptManager.h"
@@ -45,7 +48,7 @@ bool CViewerProcess::Init()
 	pos.x = screen.x / 2;
 	pos.y = screen.y / 2;
 
-	m_Player.SetPosition(Vect3f( 220.f,150.f,-120.f));
+	m_Player.SetPosition(Vect3f( 2.f,2.f,-2.f));
 	m_Player.SetPitch(-D3DX_PI/6);
 	m_Player.SetYaw(D3DX_PI);
 	m_Player.SetRoll(0.0f);
@@ -62,6 +65,9 @@ void CViewerProcess::Update(float elapsedTime)
 {
 	CORE->SetCamera( m_pCamera );
 	m_Player.Update(elapsedTime, m_pCamera );
+
+	CAnimatedInstanceModel *l_Instance = static_cast<CAnimatedInstanceModel*>( CORE->GetRenderableObjectsLayersManager()->GetResource("solid")->GetInstance("lobo") );
+	l_Instance->BlendCycle(0, 0.f);
 
 	CORE->GetRenderableObjectsLayersManager()->Update(elapsedTime);
 

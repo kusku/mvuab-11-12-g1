@@ -40,47 +40,43 @@ class CCore : public CSingleton<CCore>
 {
 public:
 	//--- Init and End protocols--------------------------------------------
-								CCore		( void );
-	virtual						~CCore		( void );
+					CCore				( void );
+	virtual			~CCore				( void );
 
-	bool						Init		( HWND hWnd, const SConfig &config );
-	void						Done		( void );
-	bool						IsOk		( void ) const							{ return m_bIsOk; }
-
-private:
-	void Release();
+	bool			Init				( HWND hWnd, const SConfig &config );
+	void			Done				( void );
+	bool			IsOk				( void ) const							{ return m_bIsOk; }
 
 	//----Main Methods -----------------------------------------------------
-public:
-	void						Update		( float _ElapsedTime );
-	void						Render		( void );
+	void			Update				( float _ElapsedTime );
+	void			Render				( void );
 
-	//----Inputs Methods -----------------------------------------------------
-	void						UpdateInputs								( float _ElapsedTime );
-	void						UpdateDebugInputs							( float _ElapsedTime, CActionToInput &_Action2Input );
+	//----Inputs Methods ----------------------------------------------------
+	void			UpdateInputs		( float _ElapsedTime );
+	void			UpdateDebugInputs	( float _ElapsedTime, CActionToInput &_Action2Input );		
 
 	//----Reload Methods ---------------------------------------------------
-	void						Reload										( void );
-	void						ReloadTTFs									( void );	
-	void						ReloadLanguages								( void );	
-	void						ReloadInputs								( void );
-	void						ReloadSceneRendererCommandManager			( void );
-	void						ReloadRenderableObjectsLayersManager		( void );
-	void						ReloadShaders								( void );
-	void						ReloadEffects								( void );
-	void						ReloadMeshes								( void );
-	void						ReloadAnimatedModels						( void );
-	void						ReloadPools									( void );
-	void						ReloadScripts								( void );
-	void						ReloadLights								( void );
-	void						ReloadPhysics								( void );
-	void						ReloadBillboards							( void );
-	void						ReloadParticlesManager						( void );
-	void						ReloadTriggersManager						( void );
-	void						ReloadGUIManager							( void );
-	void						ReloadSoundManager							( void );
+	void			Reload									( void );
+	void			ReloadTTFs								( void );	
+	void			ReloadLanguages							( void );	
+	void			ReloadInputs							( void );
+	void			ReloadSceneRendererCommandManager		( void );
+	void			ReloadRenderableObjectsLayersManager	( void );
+	void			ReloadShaders							( void );
+	void			ReloadEffects							( void );
+	void			ReloadMeshes							( void );
+	void			ReloadAnimatedModels					( void );
+	void			ReloadPools								( void );
+	void			ReloadScripts							( void );
+	void			ReloadLights							( void );
+	void			ReloadPhysics							( void );
+	void			ReloadBillboards						( void );
+	void			ReloadParticlesManager					( void );
+	void			ReloadTriggersManager					( void );
+	void			ReloadGUIManager						( void );
+	void			ReloadSoundManager						( void );
 
-	//----Properties ( get & Set )---------------------------------------
+	//----Properties ( Get & Set )---------------------------------------
 	void										SetCamera					( CCamera *_Camera )			{ m_pCamera = _Camera; }
 	void										SetTimer					( CTimer *_Timer )				{ m_pTimer = _Timer; }
 	void										SetProcess					( CEngineProcess *_Process )	{ m_pProcess = _Process; }
@@ -115,6 +111,9 @@ public:
 	inline CGUIManager*							GetGUIManager				( void ) const					{ return m_pGUIManager; }
 	inline CTriggersManager*					GetTriggersManager			( void ) const					{ return m_pTriggersManager; }					// Propietats dels triggers 
 	inline CSoundManager*						GetSoundManager				( void ) const					{ return m_pSoundManager; }						// Propietats dels sò 
+
+private:
+	void Release();
 
 	//----Members ---------------------------------------
 private:
