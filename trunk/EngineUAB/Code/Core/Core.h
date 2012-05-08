@@ -86,6 +86,7 @@ public:
 	void										SetProcess					( CEngineProcess *_Process )	{ m_pProcess = _Process; }
 
 	inline bool									IsDebugMode					() const						{ return m_bDebugMode; }
+	inline bool									IsReleaseMode				() const						{ return m_bReleaseMode; }
 
 	inline CCamera*								GetCamera					( void ) const					{ return m_pCamera; }
 	inline CTimer*								GetTimer					( void ) const					{ return m_pTimer; }
@@ -119,6 +120,7 @@ public:
 private:
 	bool	m_bIsOk;
 	bool	m_bDebugMode;
+	bool	m_bReleaseMode;
 
 	CCamera								*m_pCamera;						// punter a la càmera
 	CTimer								*m_pTimer;						// punter al timer

@@ -131,7 +131,6 @@
 		  texture_over="./Data/GUI/Textures_LaberynthGame/exit_over.png"
 		  texture_clicked="./Data/GUI/Textures_LaberynthGame/exit_press.png"
 		  texture_deactivated="./Data/GUI/Textures_LaberynthGame/exit_normal.png"
-		  OnClickedAction=" _guiM:push_windows('Exit.xml')
-							_soundM:play_action_2D('guiNext', 1.0)"
+		  OnClickedAction=" _guiM:push_windows('Exit.xml') _soundM:play_action_2D('guiNext', 1.0)"
 		  OnOverAction="_soundM:play_action_2D('guiOver', 1.0)"/>
 </Windows>

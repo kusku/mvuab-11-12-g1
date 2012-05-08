@@ -46,6 +46,7 @@
 CCore::CCore ( void )
 	: m_bIsOk							( false )
 	, m_bDebugMode						( false )
+	, m_bReleaseMode					( true )
 	, m_pRenderManager					( NULL )
 	, m_pFontManager					( NULL )
 	, m_pLanguageManager				( NULL )
@@ -126,6 +127,7 @@ bool CCore::Init( HWND _HWnd, const SConfig &config )
 	LOGGER->AddNewLog(ELL_INFORMATION, "CCore:: Inicializando Core");
 
 	m_bDebugMode = config.bDebugMode;
+	m_bReleaseMode = !config.bDebugMode;
 
 	//Inicializa el Render
 	m_pRenderManager = new CRenderManager();

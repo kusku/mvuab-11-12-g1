@@ -18,6 +18,7 @@ class CDebugRender;
 class CModifierManager;
 class CLogRender;
 class CTimer;
+class CScriptManager;
 
 #include <string>
 
@@ -33,7 +34,7 @@ public:
 	void			Update			( float _ElapsedTime );
 	void			Render			( CRenderManager &_RM, CFontManager &_FM, CTimer *_Timer );
 
-	//--- Get Methods ----------
+	//--- Get Methods ---------------------------
 	inline CDebugOptions*			GetDebugOptions			() const		{ return m_pDebugOptions; }
 	inline CConsole*				GetConsole				() const		{ return m_pConsole; }	
 	inline CDebugRender*			GetDebugRender			() const		{ return m_pDebugRender; }

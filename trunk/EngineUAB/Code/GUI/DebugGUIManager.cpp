@@ -7,6 +7,7 @@
 #include "Utils\Timer.h"
 #include "Console\Console.h"
 #include "Modifiers\ModifierManager.h"
+#include "Scripting\ScriptManager.h"
 #include "XML\XMLTreeNode.h"
 #include "Logger\Logger.h"
 #include "Base.h"
