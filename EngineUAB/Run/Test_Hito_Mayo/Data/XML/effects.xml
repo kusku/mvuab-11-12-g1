@@ -4,103 +4,111 @@
 	<default_technique vertex_type="31" technique="NormalMapping" />
 	<default_technique vertex_type="415" technique="Cal3DTechnique" />
 	
-	<!--<effect name="DiffuseEffect" file="./data/effects/DiffuseEffect.fx" />-->
-	<!--<effect name="DiffuseEffect" file="./data/effects/Lights.fx" />
-	<effect name="LightMapping" file="./data/effects/lightmap.fx" />
-	<effect name="Cal3DEffect" file="./data/effects/Cal3DEffect.fx" />-->
-	<effect name="AmbientLightEffect" file="./data/effects/AmbientLight.fx" />
-	<effect name="BasicQuadEffect" file="./data/effects/BasicQuadEffect.fx" />
-	<effect name="BasicDeferredModelDraw" file="./data/effects/BasicDeferredModelDraw.fx" />
-	<effect name="DeferredModelDrawWithNormal" file="./data/effects/DeferredModelDrawWithNormal.fx" />
-	<effect name="BasicDeferredLighting" file="./data/effects/BasicDeferredLighting.fx" />
-	<effect name="BasicDeferredLightingAndShadow" file="./data/effects/BasicDeferredLightingAndShadow.fx" />
-	<effect name="BasicDeferredLightingCombine" file="./data/effects/BasicDeferredLightingCombine.fx" />
-	<effect name="ClearGBuffer" file="./data/effects/ClearGBuffer.fx" />
-	<effect name="BasicBuildShadowMap" file="./data/effects/BasicBuildShadowMap.fx" />
-	<effect name="SSAA" file="./data/effects/SSAA.fx" />
-	<effect name="SSAO" file="./data/effects/SSAO.fx" />
-	<effect name="SSAOComposition" file="./data/effects/SSAOComposition.fx" />
-	<effect name="ColorGrading" file="./data/effects/ColorGrading.fx" />
-	<effect name="ZBlur" file="./data/effects/ZBlur.fx" />
-	<effect name="Vignetting" file="./data/effects/Vignetting.fx" />
-	<effect name="Noise" file="./data/effects/Noise.fx" />
-	<effect name="ForwardLightingWithNormal" file="./data/effects/ForwardLightingWithNormal.fx" />
+	<!-- ......... EFFECTS ............ -->
+	<effect name="cal_3D_effect" 								file="./data/effects/Cal3DEffect.fx" />
 	
-	<!--<effect name="Colors" file="./Data/effects/colors.fx" />-->
-	<!--<effect name="NormalMap" file="./data/effects/normalmap.fx" />-->
+	<effect name="forward_lighting_with_normal" 				file="./data/effects/ForwardLightingWithNormal.fx" />
+	<effect name="forward_lighting_basic" 						file="./data/effects/ForwardLightingBasic.fx" />
+	<effect name="ambient_light_effect" 						file="./data/effects/AmbientLight.fx" />
+	<effect name="basic_quad_effect" 							file="./data/effects/BasicQuadEffect.fx" />
+	<effect name="basic_deferred_model_draw" 					file="./data/effects/BasicDeferredModelDraw.fx" />
+	<effect name="deferred_model_draw_with_normal" 				file="./data/effects/DeferredModelDrawWithNormal.fx" />
+	<effect name="deferred_model_draw_rnm" 						file="./data/effects/DeferredModelDrawRNM.fx" />
+	<effect name="deferred_model_draw_with_normal_parallax" 	file="./data/effects/DeferredModelDrawWithNormalParallax.fx" />
+	<effect name="basic_deferred_lighting" 						file="./data/effects/BasicDeferredLighting.fx" />
+	<effect name="basic_deferred_lighting_and_shadow" 			file="./data/effects/BasicDeferredLightingAndShadow.fx" />
+	<effect name="basic_deferred_lighting_combine" 				file="./data/effects/BasicDeferredLightingCombine.fx" />
+	<effect name="clear_g_buffer" 								file="./data/effects/ClearGBuffer.fx" />
 	
-	<!--<technique name="RedColor" effect="Colors"
-		use_world_matrix="true" use_world_view_projection_matrix="true" use_view_inverse_matrix="false"
-		use_camera_position="true" use_lights_fs="true" num_of_lights_fs="2" />-->
-	<!--<technique name="NormalTexture" effect="DiffuseEffect"
-		use_world_matrix="true" use_world_view_projection_matrix="true" use_view_inverse_matrix="false"
-		use_camera_position="true" use_lights="true" num_of_lights="2" />
+	<effect name="basic_build_shadow_map" 						file="./data/effects/BasicBuildShadowMap.fx" />
 	
-	<technique name="LightMapping" effect="LightMapping"
+	<effect name="sky_sphere_effect" 							file="./data/effects/SkySphereEffect.fx" />
+	
+	<effect name="ssaa" 										file="./data/effects/SSAA.fx" />
+	<effect name="fxaa" 										file="./data/effects/fxaa.fx" />
+	<effect name="ssao" 										file="./data/effects/SSAO.fx" />
+	<effect name="color_correction" 							file="./data/effects/ColorGrading.fx" />
+	<effect name="z_blur" 										file="./data/effects/ZBlur.fx" />
+	<effect name="vignetting_and_noise" 						file="./data/effects/VignettingNoise.fx" />
+	
+	<effect name="BloomPostProcess" 							file="./data/effects/BloomPostProcess.fx" />
+	<!-- ......... EFFECTS ............ -->
+	
+	<!-- ................. TECHNIQUES ................. -->
+	<technique name="BloomExtract" effect="BloomPostProcess" use_half_pixel="false" />
+	<technique name="GaussianBlur" effect="BloomPostProcess" use_half_pixel="false" />
+	<technique name="BloomCombine" effect="BloomPostProcess" use_half_pixel="false" />
+	
+	<technique name="SkySphereEffect" effect="sky_sphere_effect" use_world_view_projection_matrix="true" />
+	<technique name="SkySphereEffectDeferred" effect="sky_sphere_effect" use_world_view_projection_matrix="true" />
+		
+	<technique name="Cal3DTechnique" effect="cal_3D_effect"
 		use_world_matrix="true" use_world_view_projection_matrix="true" />
 	
-	<technique name="NormalMapping" effect="DiffuseEffect" 
-		use_world_matrix="true" use_world_view_projection_matrix="true" 
-		use_camera_position="true" use_lights="true" num_of_lights="2" />
-	
-	<technique name="Cal3DTechnique" effect="Cal3DEffect"
-		use_world_matrix="true" use_world_view_projection_matrix="true" />-->
-	
-	<technique name="AmbientLight" effect="AmbientLightEffect"
+	<technique name="AmbientLight" effect="ambient_light_effect"
 		use_world_view_projection_matrix="true" />
 	
-	<technique name="BasicDeferredLightingAndShadow" effect="BasicDeferredLightingAndShadow"
+	<technique name="BasicDeferredLightingAndShadow" effect="basic_deferred_lighting_and_shadow"
 		use_lights="true" num_of_lights="1" use_view_projection_inverse_matrix="true"
 		use_half_pixel="true"
 		use_shadow_view_projection_matrix="true" use_shadow_maps="true" />
 	
-	<technique name="BasicBuildShadowMap" effect="BasicBuildShadowMap"
+	<technique name="BasicBuildShadowMap" effect="basic_build_shadow_map"
 		use_shadow_world_view_projection_matrix="true" />
 	
-	<technique name="BasicQuadEffect" effect="BasicQuadEffect" />
+	<technique name="BasicQuadEffect" effect="basic_quad_effect" />
 	
-	<technique name="ClearGBuffer" effect="ClearGBuffer" />
+	<technique name="ClearGBuffer" effect="clear_g_buffer" />
 	
-	<technique name="BasicDeferredModelDraw" effect="BasicDeferredModelDraw"
+	<technique name="BasicDeferredModelDraw" effect="basic_deferred_model_draw"
 		use_world_view_projection_matrix="true" use_world_matrix="true"/>
 	
-	<technique name="DeferredModelDrawWithNormal" effect="DeferredModelDrawWithNormal"
+	<technique name="DeferredModelDrawWithNormal" effect="deferred_model_draw_with_normal"
 		use_world_view_projection_matrix="true" use_world_matrix="true"/>
 	
-	<technique name="BasicDeferredLighting" effect="BasicDeferredLighting"
+	<technique name="DeferredModelDrawRNM" effect="deferred_model_draw_rnm"
+		use_world_view_projection_matrix="true" use_world_matrix="true"/>
+		
+	<technique name="DeferredModelDrawWithNormalParallax" effect="deferred_model_draw_with_normal_parallax"
+		use_world_view_projection_matrix="true" use_world_matrix="true"/>
+	
+	<technique name="BasicDeferredLighting" effect="basic_deferred_lighting"
 		use_lights="true" num_of_lights="1" use_view_projection_inverse_matrix="true"
 		use_proj_inverse_matrix="true" use_view_inverse_matrix="true" use_half_pixel="true" />
 	
-	<technique name="BasicDeferredLightingCombine" effect="BasicDeferredLightingCombine"
+	<technique name="BasicDeferredLightingCombine" effect="basic_deferred_lighting_combine"
 		use_half_pixel="true" />
 	
-	<technique name="SSAATechnique" effect="SSAA" 
+	<technique name="SSAATechnique" effect="ssaa" 
 		use_render_target_size="true" use_params="true" num_of_params="1" parameter_0="0.8" />
 	
-	<technique name="SSAOTechnique" effect="SSAO"
+	<technique name="fxaa_technique" effect="fxaa"
+		use_render_Target_size="true" />
+	
+	<technique name="SSAOTechnique" effect="ssao"
+		use_render_target_size="true" use_proj_inverse_matrix="true" use_projection_matrix="true" 
+		use_params="true" num_of_params="2" parameter_0="0.023" parameter_1="0.405" />
+	
+	<technique name="SSAOBlurTechnique" effect="ssao"
 		use_render_target_size="true" use_proj_inverse_matrix="true" use_projection_matrix="true" />
 	
-	<technique name="SSAOBlurTechnique" effect="SSAO"
-		use_render_target_size="true" use_proj_inverse_matrix="true" use_projection_matrix="true" />
+	<technique name="SSAOFinalCompositionTechnique" effect="ssao" />
 	
-	<technique name="SSAOFinalCompositionTechnique" effect="SSAOComposition" />
-	
-	<technique name="ColorGradingTechnique" effect="ColorGrading" use_params="true" num_of_params="7"
+	<technique name="ColorGradingTechnique" effect="color_correction" 
+		use_params="true" num_of_params="7"
 		parameter_0="0.0" parameter_1="0.5" parameter_2="0.2" parameter_3="0.3" parameter_4="1.0" parameter_5="0.0" parameter_6="1.0" />
 	
-	<technique name="ZBlurTechnique" effect="ZBlur"
+	<technique name="ZBlurTechnique" effect="z_blur"
 		use_view_inverse_matrix="true"	use_proj_inverse_matrix="true" use_render_target_size="true" use_params="true" num_of_params="4"
 		parameter_0="50" parameter_1="65" parameter_2="300" parameter_3="0.7" />
 	
-	<technique name="VignettingTechnique" effect="Vignetting" />
+	<technique name="VignettingNoiseTechnique" effect="vignetting_and_noise" 
+		use_time="true" />
 	
-	<technique name="NoiseTechnique" effect="Noise" use_time="true" />
+	<technique name="ForwardLightingWithNormal" effect="forward_lighting_with_normal" 
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true" />
 	
-	<technique name="ForwardLightingWithNormal" effect="ForwardLightingWithNormal" 
-		use_lights="true" use_fs="true" num_of_lights="1" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true" />
-	
-	<!--<technique name="NormalTextureVertexTechnique" effect="DefaultEffect"
-		use_world_matrix="true" use_world_view_projection_matrix="true" use_lights="true"
-		num_of_lights="4" use_camera_position="true" use_projection_matrix="true"
-		use_world_view_matrix="true" use_shadow_view_projection_matrix="true" use_shadow_camera_position="true" />-->
+	<technique name="ForwardLightingBasic" effect="forward_lighting_basic" 
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true" />
+	<!-- ................. TECHNIQUES ................. -->
 </effects>

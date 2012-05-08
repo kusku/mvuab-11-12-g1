@@ -4,7 +4,9 @@
 #define OMNI 0
 #define DIRECTIONAL 1
 #define SPOT 2
-#define SHADOW_EPSILON 0.00005f
+//#define SHADOW_EPSILON 	0.00005f
+#define SHADOW_EPSILON 		0.00000005f
+//#define SHADOW_EPSILON 		0.001f
 #define MAX_LIGHTS 3
 
 //////////////////////////////////////
@@ -34,10 +36,12 @@ uniform float		lightFalloff[MAX_LIGHTS]	: Lights_FallOff;
 
 uniform float2		HalfPixel				: HALFPIXEL;
 
-uniform int			SMap_Size				: SHADOW_MAP_SIZE				=	512;
+uniform int			SMap_Size				: SHADOW_MAP_SIZE				=	2048;
 uniform float4x4	ShadowViewProjection	: SHADOW_VIEWPROJECTION;
 uniform texture2D	DynamicShadowMap		: LIGHT_DYNAMIC_SHADOW_MAP;
 uniform texture2D	StaticShadowMap			: LIGHT_STATIC_SHADOW_MAP;
+uniform bool		HasStaticShadowMap		: STATIC_SHADOW_ENABLE			=   false;
+uniform bool		HasDynamicShadowMap		: DYNAMIC_SHADOW_ENABLE			= 	false;
 
 //////////////////////////////////////
 //Helper Functions				   //
@@ -160,24 +164,28 @@ float4 GetPositionFromDepth(float2 TexCoord, float depthVal)
 //Light Functions				   //
 /////////////////////////////////////
 
-float CalculateAttenuation(float distance)
+float CalculateAttenuation(float distance, float startAtt, float endAtt)
 {
-	return 1.0f;
+	return ( 1 - saturate( (distance - startAtt) / (endAtt - startAtt) ) );
 }
 
-float CalculateAttenuationFromAngle(float angle)
+float CalculateAttenuationFromAngle(float angle, float ltAngle, float ltFalloff)
 {
-	return 1.0f;
+	float startAngle = ltAngle / 2;
+	float endAngle = ltFalloff / 2;
+	
+	return (1 - saturate( (angle - startAngle) / (endAngle - startAngle) ) );
 }
 
 float4 CalculateOmniLight(float3 normal, float4 position, int lightNum)
 {
 	//Get Light Vector
+	float lightDistance = distance(lightPosition[lightNum], position.xyz);
 	float3 lightVector = normalize(lightPosition[lightNum] - position.xyz);
 	
 	float NDotL = max(0, dot(normal, lightVector));
 	
-	float OmniAttenuation = CalculateAttenuation(1);
+	float OmniAttenuation = CalculateAttenuation(lightDistance, lightStartAtt[lightNum], lightEndAtt[lightNum]);
 	
 	float4 OmniColorFinal = (float4(lightColor[lightNum], 1) * NDotL) * OmniAttenuation;
 	
@@ -200,7 +208,9 @@ float4 CalculateSpotLight(float3 normal, float4 position, int lightNum)
 	float4 SpotColorFinal = float4(0.0f, 0.0f, 0.0f, 0.0f);
 	
 	//Get Light Vector
+	float lightDistance = distance(lightPosition[lightNum], position);
 	float3 lightVector = normalize(lightPosition[lightNum] - position);
+	lightVector = normalize(lightVector);
 	
 	float SdL = dot(lightVector, -lightDirection[lightNum]);
 	float ldM = length(lightVector);
@@ -211,13 +221,14 @@ float4 CalculateSpotLight(float3 normal, float4 position, int lightNum)
 	
 	if(an <= (lightFalloff[lightNum] / 2))
 	{
-		float NDotL = saturate(dot(normal, lightVector));
+		float NDotL = saturate(dot(lightVector, normal));
 		
+		//float4 SpotColor = float4(1, 1, 1, 1);
 		float4 SpotColor = float4(lightColor[lightNum], 1.0f);
 		
-		float SpotLightAttenuationDistance = CalculateAttenuation(1);
+		float SpotLightAttenuationDistance = CalculateAttenuation(lightDistance, lightStartAtt[lightNum], lightEndAtt[lightNum]);
 		
-		float SpotLightAttenuationAngle = CalculateAttenuationFromAngle(an);
+		float SpotLightAttenuationAngle = CalculateAttenuationFromAngle(an, lightAngle[lightNum], lightFalloff[lightNum]);
 		
 		SpotColor *= (SpotLightAttenuationDistance * SpotLightAttenuationAngle);
 		SpotColorFinal = (SpotColor * NDotL);
@@ -264,8 +275,49 @@ float CalculateShadowCoeff(float4 position, sampler2D shadowMapSampler)
                               lerp( s2, s3, lerps.x ),
                               lerps.y );
 
-	//return 1.0f;
+	//return s0;
 	return shadowCoeff;
+}
+
+float CalcShadowCoeffVSM(float4 Pos, sampler2D shadowMapSampler)
+{
+	float lightAmount = 1.0;
+
+	//float2 depth = (float2) 0;
+	float depth = 0;
+	float2 ShadowTexC = (float2)0;
+	
+	float4 ShadowPos = mul(Pos, ShadowViewProjection);
+	
+	// Project the texture coords and scale/offset to [0, 1].
+	ShadowPos.xy /= ShadowPos.w;
+	ShadowPos.x =  0.5f*ShadowPos.x + 0.5f; 
+	ShadowPos.y = -0.5f*ShadowPos.y + 0.5f;
+	
+	ShadowTexC.x = ShadowPos.x;
+	ShadowTexC.y = ShadowPos.y;
+	//depth.x = ShadowPos.z;
+	//depth.y = ShadowPos.w;
+	depth = ShadowPos.z / ShadowPos.w;
+	
+	float2 moments = tex2D( shadowMapSampler, ShadowTexC ).xy;
+
+	float mean = moments.x;
+	float meanSqr = moments.y;	
+	float Ex_2 = mean * mean;
+	float E_x2 = meanSqr;
+	float variance = min(max(E_x2 - Ex_2, 0.0f) + SHADOW_EPSILON, 1.0f);
+	float m_d = (depth - mean);
+	float p = variance / (variance + m_d * m_d);
+
+	// Reduce light bleeding
+	float min = 2.5f;
+
+	p = saturate(pow(p, min) + 0.2f);
+
+	lightAmount = max(p, depth <= mean);	
+
+	return lightAmount; 
 }
 
 float2 CalculateParallax(float2 scaleAmount, float2 texCoord, float height, float3 ViewDirection)
@@ -274,6 +326,21 @@ float2 CalculateParallax(float2 scaleAmount, float2 texCoord, float height, floa
 	float2 ParallaxTexCoord = depthAmount * ViewDirection + texCoord;
 	
 	return ParallaxTexCoord;
+}
+
+float3 GetRadiosityNormalMap(float3 Nn, float2 UV, float3x3 WorldMatrix, sampler2D rnmX, sampler2D rnmY, sampler2D rnmZ)
+{
+	float3 l_LightmapX = tex2D(rnmX, UV)*2;
+	float3 l_LightmapY = tex2D(rnmY, UV)*2;
+	float3 l_LightmapZ = tex2D(rnmZ, UV)*2;
+
+	float3 l_BumpBasisX = normalize(float3(0.816496580927726, 0.5773502691896258, 0 ));
+	float3 l_BumpBasisY = normalize(float3(-0.408248290463863, 0.5773502691896258, 0.7071067811865475 ));
+	float3 l_BumpBasisZ = normalize(float3(-0.408248290463863, 0.5773502691896258, -0.7071067811865475));
+	
+	float3 diffuseLighting = saturate( dot( Nn, l_BumpBasisX ) ) * l_LightmapX + saturate( dot( Nn, l_BumpBasisY ) ) * l_LightmapY + saturate( dot( Nn, l_BumpBasisZ ) ) * l_LightmapZ;
+	
+	return diffuseLighting;
 }
 
 //////////////////////////////////////
