@@ -1,4 +1,4 @@
-#include "Player.h"
+ #include "Player.h"
 #include "PlayerDef.h"
 
 #include "Cameras\Camera.h"
@@ -7,6 +7,17 @@
 
 #include "ActionToInput.h"
 #include "RenderManager.h"
+
+#include "PlayerControler.h"
+
+#include "RenderableObjects\RenderableObjectsLayersManager.h"
+#include "RenderableObjects\RenderableObjectsManager.h"
+#include "RenderableObjects\RenderableObject.h"
+#include "RenderableObjects\AnimatedModel\AnimatedModelManager.h"
+#include "RenderableObjects\AnimatedModel\AnimatedCoreModel.h"
+#include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
+
+#include "StatesMachine\EntityManager.h"
 
 #include "Math\Matrix44.h"
 #include "Base.h"
@@ -20,17 +31,15 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CPlayer::CPlayer( void )
-	: CNamed				( )
-	, CObject3D				( )
+	: CCharacter			( 0 )					// El player tiene el ID = 0 
 	, m_vDirection			( 0.0f, 0.0f, 0.0f )
 	, m_bMoverAutomatico	( false )
 	, m_bLockCamera			( false )
 {
 }
 
-CPlayer::CPlayer ( std::string _Name )
-	: CNamed				( _Name )
-	, CObject3D				( )
+CPlayer::CPlayer ( const std::string &_Name )
+	: CCharacter			( 0, _Name )					// El player tiene el ID = 0 
 	, m_vDirection			( 0.0f, 0.0f, 0.0f )
 	, m_bMoverAutomatico	( false )
 	, m_bLockCamera			( false )
@@ -39,6 +48,7 @@ CPlayer::CPlayer ( std::string _Name )
 
 CPlayer::~CPlayer( void )
 {
+	Done();
 }
 
 // -----------------------------------------
@@ -55,15 +65,31 @@ void CPlayer::Done ( void )
 
 bool CPlayer::Init ( void )
 {
-	m_fPitch	= 0.f;
-	m_fYaw		= 0.f;
-	m_fRoll		= 0.f;
+	m_bIsOk = CCharacter::Init();
+	if ( m_bIsOk )
+	{		
+		CRenderableObjectsLayersManager *l_ROLayerManager = CORE->GetRenderableObjectsLayersManager();
+		CRenderableObjectsManager *l_ROManager = l_ROLayerManager->GetResource("solid");
+		CRenderableObject *l_RO = l_ROManager->GetInstance( "lobo1" );
+
+		if ( !l_RO ) 
+			l_ROManager->AddAnimatedMeshInstance( m_Name, Vect3f (0.f, 0.f, 0.f ) );
+		else
+			m_pCurrentAnimatedModel = static_cast<CAnimatedInstanceModel*> (l_RO);
+
+		/*if ( m_pCurrentAnimatedModel )
+		{
+			m_pCurrentAnimatedModel->ClearCycle ( 0.3f );
+			m_pCurrentAnimatedModel->BlendCycle ( 0, 0.3f );
+		}*/
+	}
 	
 	return m_bIsOk;
 }
 
 void CPlayer::Release ( void )
-{}
+{
+}
 
 void CPlayer::Update( float _ElapsedTime ) //, CCamera *_pCamera)
 {
@@ -71,6 +97,9 @@ void CPlayer::Update( float _ElapsedTime ) //, CCamera *_pCamera)
 		MoverAutomaticamente( _ElapsedTime );
 	else
 		MoverManualmente ( _ElapsedTime );
+
+	// Actualizamos los estados y características generales
+	CCharacter::Update( _ElapsedTime );
 }
 
 void CPlayer::MoverAutomaticamente ( float _ElapsedTime )
@@ -141,85 +170,85 @@ void CPlayer::MoverManualmente ( float _ElapsedTime )
 	}
 
 	// Comprovem el moviment del player	
-	if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_PLAYER_FOWARD ) )
+	if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_FOWARD ) )
 	{
-		if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_PLAYER_LEFT ) )
+		if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_LEFT ) )
 		{
 			Direccio = Vect3f( cosf( m_fYaw + D3DX_PI/4.f ), m_fPitch, sinf( m_fYaw + D3DX_PI/4.f ) );
-			m_Position +=  Direccio * QUANTITAT_MOVIMENT * _ElapsedTime;
+			m_Position +=  Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 		}
-		else if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_PLAYER_RIGHT ) )
+		else if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_RIGHT ) )
 		{
 			Direccio = Vect3f( cosf( m_fYaw - D3DX_PI/4.f ), m_fPitch, sinf(m_fYaw - D3DX_PI/4.f ) );
-			m_Position += Direccio * QUANTITAT_MOVIMENT * _ElapsedTime;
+			m_Position += Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 		}
 		else
 		{
 			Direccio = Vect3f ( cosf ( m_fYaw ) , m_fPitch, sinf ( m_fYaw ) );
-			m_Position += Direccio * QUANTITAT_MOVIMENT * _ElapsedTime;
+			m_Position += Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 		}
 		
-		if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_PLAYER_UP ) )
+		if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_UP ) )
 		{
 			Direccio = Vect3f ( 0 , 1, 0 );
-			m_Position -= Direccio * QUANTITAT_MOVIMENT * _ElapsedTime;
+			m_Position -= Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 		}
-		else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_PLAYER_DOWN ) )
+		else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_DOWN ) )
 		{
 			Direccio = Vect3f ( 0, 1, 0 );
-			m_Position += Direccio * QUANTITAT_MOVIMENT * _ElapsedTime;
+			m_Position += Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 		}
 	}
-	else if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_PLAYER_BACK ) )
+	else if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_BACK ) )
 	{
-		if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_PLAYER_LEFT ) )
+		if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_LEFT ) )
 		{
 			Direccio = ( Vect3f (cosf ( m_fYaw - D3DX_PI/4) , 0, sinf ( m_fYaw - D3DX_PI/4) ) );
-			m_Position -= Direccio * QUANTITAT_MOVIMENT * _ElapsedTime;
+			m_Position -= Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 		
 		}
-		else if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_PLAYER_RIGHT ) )
+		else if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_RIGHT ) )
 		{
 			Direccio = ( Vect3f ( cosf ( m_fYaw + D3DX_PI/4) , 0, sinf ( m_fYaw + D3DX_PI/4 ) ) );
-			m_Position -= Direccio * QUANTITAT_MOVIMENT * _ElapsedTime;
+			m_Position -= Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 		}
 		else
 		{
 			Direccio = Vect3f ( cosf ( m_fYaw ) , m_fPitch, sinf ( m_fYaw ) );
-			m_Position -= Direccio * QUANTITAT_MOVIMENT * _ElapsedTime;
+			m_Position -= Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 		}
 		
-		if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_PLAYER_UP ) )
+		if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_UP ) )
 		{
 			Direccio = Vect3f ( 0 , 1, 0 );
-			m_Position -= Direccio * QUANTITAT_MOVIMENT * _ElapsedTime;
+			m_Position -= Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 		}
-		else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_PLAYER_DOWN ) )
+		else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_DOWN ) )
 		{
 			Direccio = Vect3f ( 0, 1, 0 );
-			m_Position += Direccio * QUANTITAT_MOVIMENT * _ElapsedTime;
+			m_Position += Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 		}
 
 	}
-	else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_PLAYER_RIGHT ) )
+	else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_RIGHT ) )
 	{
 		Direccio = Vect3f ( cosf ( m_fYaw + D3DX_PI/2) , 0, sinf ( m_fYaw + D3DX_PI/2) );
-		m_Position -= Direccio * QUANTITAT_MOVIMENT * _ElapsedTime;
+		m_Position -= Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 	}
-	else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_PLAYER_LEFT ) )
+	else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_LEFT ) )
 	{
 		Direccio = Vect3f ( cosf ( m_fYaw + D3DX_PI/2) , 0, sinf ( m_fYaw + D3DX_PI/2) );
-		m_Position += Direccio * QUANTITAT_MOVIMENT * _ElapsedTime;
+		m_Position += Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 	}
-	else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_PLAYER_UP ) )
+	else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_UP ) )
 	{
 		Direccio = Vect3f ( 0 , 1, 0 );
-		m_Position -= Direccio * QUANTITAT_MOVIMENT * _ElapsedTime;
+		m_Position -= Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 	}
-	else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_PLAYER_DOWN ) )
+	else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_DOWN ) )
 	{
 		Direccio = Vect3f ( 0, 1, 0 );
-		m_Position += Direccio * QUANTITAT_MOVIMENT * _ElapsedTime;
+		m_Position += Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 	}
 }
 
@@ -329,20 +358,20 @@ void CPlayer::MoverManualmente ( float _ElapsedTime )
 
 void CPlayer::Render( CRenderManager *_RM )
 {
-	Mat44f matTotal, matTranslacio, matRotacioYaw, matRotacioPitch;
+	//Mat44f matTotal, matTranslacio, matRotacioYaw, matRotacioPitch;
 
-	matTotal.SetIdentity ();
-	matTranslacio.SetIdentity();
-	matRotacioYaw.SetIdentity();
-	matRotacioPitch.SetIdentity();
+	//matTotal.SetIdentity ();
+	//matTranslacio.SetIdentity();
+	//matRotacioYaw.SetIdentity();
+	//matRotacioPitch.SetIdentity();
 
-	matRotacioYaw.SetRotByAngleY ( -m_fYaw );
-	matRotacioPitch.SetRotByAngleZ ( m_fPitch );
-	matTranslacio.Translate( m_Position) ;							// moc segons tecles pitjades
+	//matRotacioYaw.SetRotByAngleY ( -m_fYaw );
+	//matRotacioPitch.SetRotByAngleZ ( m_fPitch );
+	//matTranslacio.Translate( m_Position) ;							// moc segons tecles pitjades
 
-	matTotal = matTranslacio * matRotacioYaw * matRotacioPitch;		// Obtinc la matriu final
+	//matTotal = matTranslacio * matRotacioYaw * matRotacioPitch;		// Obtinc la matriu final
 
-	_RM->SetTransform( matTotal );									// Roto + Trasllado 
-	//_RM->DrawSphere(0.5f, 7, colWHITE);	
-	_RM->DrawCube ( Vect3f ( 1.f, 1.f, 1.f) , colWHITE );			// Dibuixo
+	//_RM->SetTransform( matTotal );									// Roto + Trasllado 
+	////_RM->DrawSphere(0.5f, 7, colWHITE);	
+	//_RM->DrawCube ( Vect3f ( 1.f, 1.f, 1.f) , colWHITE );			// Dibuixo
 }
