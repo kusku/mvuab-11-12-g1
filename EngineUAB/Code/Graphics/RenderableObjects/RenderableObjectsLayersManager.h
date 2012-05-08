@@ -25,7 +25,7 @@ public:
 	void		Render		( CRenderManager *RM, const std::string &LayerName );
 
 private:
-	void		LoadFile	();
+	void							LoadFile	();
 	CRenderableObjectsManager*		GetRenderableObjectManager(CXMLTreeNode &Node);
 
 	std::string						m_FileName;

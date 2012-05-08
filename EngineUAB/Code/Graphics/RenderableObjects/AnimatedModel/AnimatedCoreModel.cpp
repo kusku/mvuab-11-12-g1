@@ -19,11 +19,11 @@
 #endif
 
 CAnimatedCoreModel::CAnimatedCoreModel()
-	: m_CalCoreModel(NULL)
-	, m_Name("")
-	, m_Path("")
-	, m_RenderableVertexs(NULL)
-	, m_CalHardwareModel(NULL)
+	: m_CalCoreModel		( NULL )
+	, m_Name				( "" )
+	, m_Path				( "" )
+	, m_RenderableVertexs	( NULL )
+	, m_CalHardwareModel	( NULL )
 {
 }
 
@@ -84,30 +84,24 @@ void CAnimatedCoreModel::Load(const std::string &Path, const std::string &XMLFil
 		for( uint16 i=0; i<l_Count; ++i)
 		{
 			std::string l_Type = l_AnimationCore(i).GetName();
+			std::string l_File = l_AnimationCore(i).GetPszProperty("filename", "");
+			l_File = m_Path + l_File;
 			if( l_Type == "mesh" )
 			{
-				std::string l_MeshFilename = l_AnimationCore(i).GetPszProperty("filename", "");
-				l_MeshFilename = m_Path + l_MeshFilename;
-				LoadMesh( l_MeshFilename ); //Load Mesh
+				LoadMesh( l_File ); //Load Mesh
 			}
 			else if( l_Type == "skeleton" )
 			{
-				std::string l_SkeletonFilename = l_AnimationCore(i).GetPszProperty("filename", "");
-				l_SkeletonFilename = m_Path + l_SkeletonFilename;
-				LoadSkeleton( l_SkeletonFilename ); //Load Skeleton
+				LoadSkeleton( l_File ); //Load Skeleton
 			}
 			else if( l_Type == "animation" )
 			{
 				std::string l_AnimationName = l_AnimationCore(i).GetPszProperty("name", "");
-				std::string l_AnimationPath = l_AnimationCore(i).GetPszProperty("filename", "");
-				l_AnimationPath = m_Path + l_AnimationPath;
-				LoadAnimation( m_Name, l_AnimationPath ); //Load Animation
+				LoadAnimation( l_AnimationName, l_File ); //Load Animation
 			}
 			else if( l_Type == "texture" )
 			{
-				std::string l_Texture = l_AnimationCore(i).GetPszProperty("filename", "");
-				l_Texture = m_Path + l_Texture;
-				m_TextureFilenameVector.push_back(l_Texture); //Load texture string
+				m_TextureFilenameVector.push_back( l_File ); //Load texture string
 			}
 		}
 
@@ -168,7 +162,8 @@ bool CAnimatedCoreModel::LoadVertexBuffer(CalModel *Model)
 
 bool CAnimatedCoreModel::LoadMesh(const std::string &Filename)
 {
-	assert(m_CalCoreModel!=NULL);
+	assert( m_CalCoreModel != NULL );
+	
 	uint16 err = m_CalCoreModel->loadCoreMesh( Filename );
 	if( err == -1)
 	{
@@ -187,7 +182,8 @@ bool CAnimatedCoreModel::LoadSkeleton(const std::string &Filename)
 
 bool CAnimatedCoreModel::LoadAnimation(const std::string &Name, const std::string &Filename)
 {
-	assert(m_CalCoreModel!=NULL);
+	assert( m_CalCoreModel != NULL );
+
 	uint16 err = m_CalCoreModel->loadCoreAnimation(Filename, Name);
 	if( err == -1 )
 	{

@@ -8,26 +8,26 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-CCamera::CCamera(float zn, float zf, float fov, float aspect, CObject3D* object3D, ETypeCamera typeCamera)
-: m_pObject3D(object3D)
-,	m_fFOV(fov)
-,	m_fAspectRatio(aspect)
-,	m_fZNear(zn)				
-,	m_fZFar(zf)		
-, m_fView_d(2.f)
-, m_eTypeCamera(typeCamera)
+CCamera::CCamera( float _Zn, float _Zf, float _Fov, float _Aspect, CObject3D* _pObject3D, ETypeCamera _TypeCamera )
+	: m_pObject3D		( _pObject3D )
+	, m_fFOV			( _Fov )
+	, m_fAspectRatio	( _Aspect )
+	, m_fZNear			( _Zn )				
+	, m_fZFar			( _Zf )		
+	, m_fView_d			( 2.f )
+	, m_eTypeCamera		( _TypeCamera )
 {
 	assert(m_pObject3D);
 }
 
-CCamera::CCamera()
-: m_pObject3D(NULL)
-,	m_fFOV( mathUtils::Deg2Rad(60.f) )
-,	m_fAspectRatio(4.f/3.f)
-,	m_fZNear(0.1f)				
-,	m_fZFar(100.f)	
-, m_fView_d(2.f)
-, m_eTypeCamera(TC_THPS)
+CCamera::CCamera( void )
+	: m_pObject3D		( NULL)
+	, m_fFOV			( mathUtils::Deg2Rad(60.f) )
+	, m_fAspectRatio	( 4.f/3.f )
+	, m_fZNear			( 0.1f )				
+	, m_fZFar			( 100.f )	
+	, m_fView_d			( 2.f )
+	, m_eTypeCamera		( TC_THPS )
 {}
 
 void CCamera::UpdateMatrices()

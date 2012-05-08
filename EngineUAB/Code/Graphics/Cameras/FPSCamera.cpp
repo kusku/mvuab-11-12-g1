@@ -5,47 +5,51 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-CFPSCamera::CFPSCamera(float zn, float zf, float fov, float aspect, CObject3D* object3D)
-: CCamera( zn, zf, fov, aspect, object3D, TC_FPS)
+// -----------------------------------------
+//		  CONSTRUCTORS / DESTRUCTOR
+// -----------------------------------------
+CFPSCamera::CFPSCamera( float _Zn, float _Zf, float _Fov, float _Aspect, CObject3D* _pObject3D )
+	: CCamera( _Zn, _Zf, _Fov, _Aspect, _pObject3D, TC_FPS)
 {}
 
-CFPSCamera::CFPSCamera()
-: CCamera()
+CFPSCamera::CFPSCamera( void )
+	: CCamera()
 {}
 
 
+// -----------------------------------------
+//			METODES PRINCIPALS
+// -----------------------------------------
 
-Vect3f CFPSCamera::GetDirection () const
+Vect3f CFPSCamera::GetDirection ( void ) const
 {
-	assert(m_pObject3D);
+	assert( m_pObject3D );
 
 	return (GetLookAt() - GetEye());
 }
 
-Vect3f CFPSCamera::GetLookAt () const
+Vect3f CFPSCamera::GetLookAt ( void ) const
 {
 	assert(m_pObject3D);
 
-	float yaw		= m_pObject3D->GetYaw();
+	float yaw	= m_pObject3D->GetYaw();
 	float pitch	= m_pObject3D->GetPitch();
 	Vect3f pos	= m_pObject3D->GetPosition();
 
 	//Pasamos de coordenadas esfericas a coordenadas cartesianas
-	Vect3f vEyePt(	cos(yaw) * cos(pitch), 
-		sin(pitch),
-		sin(yaw) * cos(pitch) );
+	Vect3f vEyePt( cos(yaw) * cos(pitch), sin(pitch), sin(yaw) * cos(pitch) );
 
 	return (pos + vEyePt);
 }
 
-Vect3f CFPSCamera::GetEye () const
+Vect3f CFPSCamera::GetEye ( void ) const
 {
 	assert(m_pObject3D);
 
 	return m_pObject3D->GetPosition();
 }
 
-Vect3f CFPSCamera::GetVecUp () const
+Vect3f CFPSCamera::GetVecUp ( void ) const
 {
 	assert(m_pObject3D);
 
