@@ -86,13 +86,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="IdleState.cpp" />
+    <ClCompile Include="Logic.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerControler.cpp" />
+    <ClCompile Include="PursuitState.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="TestProcess.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Character.h" />
+    <ClInclude Include="IdleState.h" />
+    <ClInclude Include="Logic.h" />
+    <ClInclude Include="Main.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerControler.h" />
     <ClInclude Include="PlayerDef.h" />
+    <ClInclude Include="PursuitState.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="TestDef.h" />
     <ClInclude Include="TestProcess.h" />
   </ItemGroup>

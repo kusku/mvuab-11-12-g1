@@ -3,6 +3,7 @@
 #include "Base.h"
 #include "Logger\Logger.h"
 #include "TestProcess.h"
+#include "Main.h"
 #include "Math\Vector2.h"
 #include "Exceptions\Exception.h"
 
@@ -61,11 +62,12 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 	try
 	{
 		// Añadir aquí el Init de la applicacioón
-		CTestProcess* l_TestProcess;
-		l_TestProcess = new CTestProcess();
+		CTestProcess* l_Main;
+		l_Main = new CMain();
 
 		g_Engine = new CEngine();
-		g_Engine->SetProcess(l_TestProcess);
+		g_Engine->SetProcess(l_Main);
+
 		g_Engine->LoadConfigXML("./Data/XML/engine.xml");
 		Vect2i position		= g_Engine->GetPosition();
 		Vect2i resolution	= g_Engine->GetResolution();

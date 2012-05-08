@@ -4,22 +4,69 @@
     <ClCompile Include="test.cpp" />
     <ClCompile Include="TestProcess.cpp" />
     <ClCompile Include="Player.cpp">
-      <Filter>Common</Filter>
+      <Filter>Personajes</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic.cpp">
+      <Filter>Logica</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="PlayerControler.cpp">
+      <Filter>Personajes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Escena</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Personajes</Filter>
+    </ClCompile>
+    <ClCompile Include="IdleState.cpp">
+      <Filter>Logica\States</Filter>
+    </ClCompile>
+    <ClCompile Include="PursuitState.cpp">
+      <Filter>Logica\States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestProcess.h" />
     <ClInclude Include="TestDef.h" />
     <ClInclude Include="Player.h">
-      <Filter>Common</Filter>
+      <Filter>Personajes</Filter>
     </ClInclude>
     <ClInclude Include="PlayerDef.h">
-      <Filter>Common</Filter>
+      <Filter>Personajes</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic.h">
+      <Filter>Logica</Filter>
+    </ClInclude>
+    <ClInclude Include="Main.h" />
+    <ClInclude Include="PlayerControler.h">
+      <Filter>Personajes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Escena</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Personajes</Filter>
+    </ClInclude>
+    <ClInclude Include="IdleState.h">
+      <Filter>Logica\States</Filter>
+    </ClInclude>
+    <ClInclude Include="PursuitState.h">
+      <Filter>Logica\States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Common">
+    <Filter Include="Personajes">
       <UniqueIdentifier>{fa7f401f-d855-4dcc-85d4-960387743666}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Escena">
+      <UniqueIdentifier>{a0c3ce20-2194-4cd8-a0c7-2769b20096d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logica">
+      <UniqueIdentifier>{f2fb26bc-327d-48e3-8bcf-15357039fc9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logica\States">
+      <UniqueIdentifier>{2c26eb92-85a5-4116-b6b2-b3331a893fc5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
