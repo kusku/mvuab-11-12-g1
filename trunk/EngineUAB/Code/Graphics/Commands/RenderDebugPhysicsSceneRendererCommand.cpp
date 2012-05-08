@@ -22,6 +22,9 @@ void CRenderDebugPhysicsSceneRendererCommand::Execute(CRenderManager &RM)
 {
 	if( GetActive() )
 	{
+		CORE->GetPhysicsManager()->SetDebugRenderMode ( true );
 		CORE->GetPhysicsManager()->DebugRender(&RM);
 	}
+	else
+		CORE->GetPhysicsManager()->SetDebugRenderMode ( false );
 }

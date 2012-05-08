@@ -17,6 +17,7 @@
 #include "RenderableObjects\RenderableObjectTechniqueManager.h"
 #include "Utils\TemplatedVectorMapManager.h"
 #include "Vertexs\VertexType.h"
+#include "Logger\Logger.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -110,22 +111,23 @@ void CAnimatedInstanceModel::Render(CRenderManager *RM)
 void CAnimatedInstanceModel::RenderModelByHardware(CRenderManager* RM)
 {
 	CEffectManager* l_EffectManager = CORE->GetEffectManager();
-	std::string techName = CORE->GetROTManager()->GetRenderableObjectTechniqueNameByVertexType(CAL3D_HW_VERTEX_BT::GetVertexType());
-	CEffectTechnique* l_EffectTechnique = CORE->GetROTManager()->GetResourcesMap()[techName].m_Value->GetEffectTechnique();
+	std::string techName = CORE->GetROTManager()->GetRenderableObjectTechniqueNameByVertexType( CAL3D_HW_VERTEX_BT::GetVertexType() );
+	CRenderableObjectTechniqueManager * l_ROTMgr = CORE->GetROTManager();
+ 	CEffectTechnique* l_EffectTechnique = CORE->GetROTManager()->GetResourcesMap()[techName].m_Value->GetEffectTechnique();
 
 	//CEffectTechnique* l_EffectTechnique = GetRenderableObjectTechnique()->GetEffectTechnique();;
 
-	if(l_EffectTechnique==NULL)
+	if( l_EffectTechnique == NULL )
 	{
 		l_EffectTechnique = CORE->GetEffectManager()->GetAnimatedModelTechnique();
-		if( l_EffectTechnique == NULL) return;
+		if ( l_EffectTechnique == NULL) return;
 	}
 
-	l_EffectManager->SetWorldMatrix(GetTransform());
+	l_EffectManager->SetWorldMatrix( GetTransform() );
 
 	CEffect* m_Effect= l_EffectTechnique->GetEffect();
 	
-	if(m_Effect==NULL)
+	if ( m_Effect == NULL )
 	{
 		return;
 	}
@@ -265,15 +267,18 @@ void CAnimatedInstanceModel::RenderModelBySoftware(CRenderManager *RM)
 
 void CAnimatedInstanceModel::ExecuteAction(uint32 Id, float Time)
 {
-	m_CalModel->getMixer()->executeAction(Id, 0, Time);
+	if ( m_CalModel->getMixer()->executeAction( Id, 0, Time ) )
+		LOGGER->AddNewLog ( ELL_ERROR, "Error execute action animation!" );
 }
 
-void CAnimatedInstanceModel::BlendCycle(uint32 Id, float Time)
+void CAnimatedInstanceModel::BlendCycle( uint32 Id, float Time )
 {
-	m_CalModel->getMixer()->blendCycle(Id, 1.0, Time);
+	if ( !m_CalModel->getMixer()->blendCycle( Id, 1.0, Time) )
+		LOGGER->AddNewLog ( ELL_ERROR, "Error blending animation!" );
 }
 
-void CAnimatedInstanceModel::ClearCycle(float Time)
+void CAnimatedInstanceModel::ClearCycle( uint32 Id, float Time )
 {
-	m_CalModel->getMixer()->clearCycle(0, Time);
+	if ( !m_CalModel->getMixer()->clearCycle( Id, Time) )
+		LOGGER->AddNewLog ( ELL_ERROR, "Error clearing animation!" );
 }

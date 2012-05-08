@@ -43,7 +43,7 @@ public:
 
 	void		ExecuteAction		( uint32 Id, float Time );
 	void		BlendCycle			( uint32 Id, float Time );
-	void		ClearCycle			( float Time );
+	void		ClearCycle			( uint32 Id, float Time );
 	
 private:
 	CalModel*								m_CalModel;
