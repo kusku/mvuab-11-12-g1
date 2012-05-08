@@ -15,6 +15,20 @@ extern "C"
 	#include "lauxlib.h"
 }
 
+typedef enum ERegisterMethods
+{
+	CORE_SCRIPT = 0,
+	GRAPHICS_SCRIPT,
+	GUI_SCRIPT,
+	DEBUG_GUI_SCRIPT,
+	INPUT_SCRIPT,	
+	LOGIC_SCRIPT,
+	NETWORK_SCRIPT,
+	PHYSICS_SCRIPT,
+	SOUND_SCRIPT,
+	MATH_SCRIPT,
+};
+
 class CScriptManager : public CSingleton<CScriptManager>
 {
 public:
@@ -33,12 +47,20 @@ public:
 	bool		LoadXML						( void );
 	bool		Reload						( void );
 
+	//---- Register Methods -------------------------------------
+	void		RegisterLUAMethods			( ERegisterMethods type );
+
 private:
-	void		RegisterLUAFunctions		( void );
-	void		RegisterGUIFunctions		( void );
+	void		RegisterCoreMethods			( void );
+	void		RegisterGraphicsMethods		( void );
+	void		RegisterGUIMethods			( void );
+	void		RegisterDebugGUIMethods		( void );
+	void		RegisterInputMethods		( void );
+	void		RegisterLogicMethods		( void );
+	void		RegisterNetworkMethods		( void );
+	void		RegisterPhysicsMethods		( void );
+	void		RegisterSoundMethods		( void );
 	void		RegisterMathLUAFunctions	( void );
-	void		RegisterSoundFunctions		( void );
-	void		RegisterTriggerLUAFunctions ( void );
  	
 	//---- Properties ( get & Set )---------------------------------------
 public:

@@ -3,11 +3,13 @@
 #include "XML\XMLTreeNode.h"
 #include "Base.h"
 #include "ScriptingDefs.h"
+
 #include <luabind/luabind.hpp>
 #include <luabind/function.hpp>
 #include <luabind/class.hpp>
 #include <luabind/operator.hpp>
 #include <luabind/return_reference_to_policy.hpp>
+
 using namespace luabind;
 
 #if defined(_DEBUG)
@@ -45,7 +47,16 @@ void CScriptManager::Initialize ( void )
 	//Sobreescribimos la función _ALERT de LUA cuando se genere algún error al ejecutar código LUA
 	lua_register ( m_LS, "_ALERT", Alert );
 	luabind::open(m_LS);
-	RegisterLUAFunctions();
+	
+	RegisterLUAMethods(CORE_SCRIPT);
+	RegisterLUAMethods(GRAPHICS_SCRIPT);
+	RegisterLUAMethods(GUI_SCRIPT);
+	RegisterLUAMethods(DEBUG_GUI_SCRIPT);
+	RegisterLUAMethods(INPUT_SCRIPT);
+	RegisterLUAMethods(LOGIC_SCRIPT);
+	RegisterLUAMethods(PHYSICS_SCRIPT);
+	RegisterLUAMethods(SOUND_SCRIPT);
+	RegisterLUAMethods(MATH_SCRIPT);
 }
 
 int Alert(lua_State * State)
@@ -182,9 +193,69 @@ void PrintLogger(int Level, const std::string &Msg)
 
 
 //----------------------------------------------------------------------------------------
-// RegisterLUAFunctions: Registrem totes les funcions generiques de core, managers, etc
+// RegisterLUAFunctions: Switch de los diferentes métodos a registrar
 //----------------------------------------------------------------------------------------
-void CScriptManager::RegisterLUAFunctions()
+void CScriptManager::RegisterLUAMethods(ERegisterMethods type)
+{
+	switch(type)
+	{
+	case CORE_SCRIPT:
+		{
+			RegisterCoreMethods();
+			break;
+		}
+	case GRAPHICS_SCRIPT:
+		{
+			RegisterGraphicsMethods();
+			break;
+		}
+	case GUI_SCRIPT:
+		{
+			RegisterGUIMethods();
+			break;
+		}
+	case DEBUG_GUI_SCRIPT:
+		{
+			RegisterDebugGUIMethods();
+			break;
+		}
+	case INPUT_SCRIPT:
+		{
+			RegisterInputMethods();
+			break;
+		}
+	case LOGIC_SCRIPT:
+		{
+			RegisterLogicMethods();
+			break;
+		}
+	case NETWORK_SCRIPT:
+		{
+			RegisterNetworkMethods();
+			break;
+		}
+	case PHYSICS_SCRIPT:
+		{
+			RegisterPhysicsMethods();
+			break;
+		}
+	case SOUND_SCRIPT:
+		{
+			RegisterSoundMethods();
+			break;
+		}
+	case MATH_SCRIPT:
+		{
+			RegisterMathLUAFunctions();
+			break;
+		}
+	}
+}
+
+//----------------------------------------------------------------------------
+// RegisterCoreMethods: Registramos los métodos del Core
+//----------------------------------------------------------------------------
+void CScriptManager::RegisterCoreMethods()
 {
 	REGISTER_LUA_FUNCTION("print_logger", PrintLogger);
 
@@ -215,7 +286,43 @@ void CScriptManager::RegisterLUAFunctions()
 			.def("get_sound_manager", &CCore::GetSoundManager)
 			.def("get_trigger_manager", &CCore::GetTriggersManager)
 	];
+}
 
+//----------------------------------------------------------------------------
+// RegisterGraphicsMethods: Registramos todos los métodos de gráficos
+//----------------------------------------------------------------------------
+void CScriptManager::RegisterGraphicsMethods()
+{
+}
+
+//----------------------------------------------------------------------------
+// RegisterGUIMethods: Registramos todos los métodos de la GUI
+//----------------------------------------------------------------------------
+void CScriptManager::RegisterGUIMethods( void )
+{
+	module(m_LS) [
+		class_<CGUIManager>("CGUIManager")
+			.def("active_windows", &CGUIManager::ActiveWindows)							// Activa la ventana pasada
+			.def("active_windows_with_effect", &CGUIManager::ActiveWindowsWithEffect)	// Activa la ventana pasada con effecto
+			.def("get_state_slider", &CGUIManager::GetStateSlider)						// Obtiene el valor del Slider indicado
+			.def("set_state_slider", &CGUIManager::SetStateSlider)						// Coloca el valor del Slider indicado
+			.def("push_windows", &CGUIManager::PushWindows)								// Almacena la ventana padre i activa la pasada
+			.def("pop_windows", &CGUIManager::PopWindows)								// Retorna a la ventana anterior padre
+			.def("play_image", &CGUIManager::PlayImage)									// Executa animacions d'imatges
+	];
+
+
+	module(m_LS) [
+		class_<CGUIAnimatedImage>("CGUIAnimatedImage")
+			.def("play_animation", &CGUIAnimatedImage::PlayAnimation)						// Executa animacions d'imatges
+	];
+}
+
+//----------------------------------------------------------------------------
+// RegisterDebugGUIMethods: Registramos todos los métodos de debug de la GUI
+//----------------------------------------------------------------------------
+void CScriptManager::RegisterDebugGUIMethods()
+{
 	module(m_LS) [
 		class_<CDebugGUIManager>("CDebugGUIManager")
 			.def("get_console",&CDebugGUIManager::GetConsole)
@@ -255,11 +362,94 @@ void CScriptManager::RegisterLUAFunctions()
 			.def("toggle_delta_time", &CDebugRender::ToggleDeltaTime)
 			.def("toggle_gamepad", &CDebugRender::ToggleGamePad)
 	];
+}
 
-	RegisterGUIFunctions();
-	RegisterMathLUAFunctions();
-	RegisterSoundFunctions();
-	RegisterTriggerLUAFunctions();
+//----------------------------------------------------------------------------
+// RegisterInputMethods: Registramos todos los métodos de input
+//----------------------------------------------------------------------------
+void CScriptManager::RegisterInputMethods()
+{
+}
+
+//----------------------------------------------------------------------------
+// RegisterLogicMethods: Registramos todos los métodos de lógica
+//----------------------------------------------------------------------------
+void CScriptManager::RegisterLogicMethods( void )
+{
+	module(m_LS) [
+		class_<CTriggersManager>("CTriggersManager")
+			.def("exist_fisic_trigger", &CTriggersManager::ExistFisicTrigger)			// Retorna si existe un trigger ya cargado
+			.def("exist_trigger", &CTriggersManager::ExistTrigger)						// Retorna si existe un físic trigger asociado al trigger ya cargado
+			.def("get_trigger", &CTriggersManager::GetTrigger)							// Obtiene el trigger del mapa de triggers
+	];
+}
+
+//----------------------------------------------------------------------------
+// RegisterNetworkMethods: Registramos todos los métodos de redes
+//----------------------------------------------------------------------------
+void CScriptManager::RegisterNetworkMethods()
+{
+}
+
+//----------------------------------------------------------------------------
+// RegisterPhysicsMethods: Registramos todos los métodos de física
+//----------------------------------------------------------------------------
+void CScriptManager::RegisterPhysicsMethods()
+{
+}
+
+//----------------------------------------------------------------------------
+// RegisterSoundMethods: Registramos todos los métodos de sonido
+//----------------------------------------------------------------------------
+void CScriptManager::RegisterSoundMethods( void )
+{
+	module(m_LS) [
+		class_<CSoundManager>("CSoundManager")
+			.def("set_volume_value", &CSoundManager::SetSoundVolume)					// Coloca el valor del volumen de sonido per un test
+			.def("get_volume_value", &CSoundManager::GetSoundVolume)					// Obtiene el valor del volumen de sonido per un test
+
+			.def("Init", &CSoundManager::Init)											// Inicializa el device y contexto
+			.def("Done", &CSoundManager::Done)											// Release
+			.def("IsOk", &CSoundManager::IsOk)											// Dice si todo está correctamente inicializado
+
+			.def("load", &CSoundManager::Load)											// Carga un fichero xml de sonidos
+			.def("update", &CSoundManager::Update)										// Actualiza los sonidos, fades in/out
+			.def("render", &CSoundManager::Render)										// Renderiza si se desea en modo debug para saber donde está cada elemento
+
+			.def("load_sounds", &CSoundManager::LoadSounds)								// Carga los sonidos del XML predefinido en el método Load
+			.def("reset", &CSoundManager::Reset)										// Para todos los sonidos y limpia buffers(sonidos) i sources (altavoces)
+			.def("pause", &CSoundManager::Pause)										// Determina si hace pausa/play de todos los sonidos segun la variable global "m_bPause"
+			.def("stop", &CSoundManager::Stop)											// Para todos los sonidos de los altavoces
+			.def("sound_on", &CSoundManager::SoundOn)									// Setea el sonido activo
+			.def("load_sounds", &CSoundManager::SoundOff)								// Setea mute
+			.def("set_gain", &CSoundManager::SetGain)									// Setea el volumen general
+			.def("get_gain", &CSoundManager::GetGain)									// Obtiene el valor del volumen de sonido 
+
+			.def("play_action_2D", &CSoundManager::PlayAction2D)						// Ejecuta sonidos en 2D
+			.def("play_action_3D", &CSoundManager::PlayAction3D)						// Ejecuta sonidos en 3D
+
+			.def("create_source", &CSoundManager::CreateSource)							// Crea un source (altavoz)
+			.def("delete_source", &CSoundManager::DeleteSource)							// Elimina un source (altavoz)
+			.def("play_source2D", &CSoundManager::PlaySource2D)							// Ejecuta sonidos en 2D de un altavoz concreto
+			.def("play_source3D", &CSoundManager::PlaySource3D)							// Ejecuta sonidos en 3D de un altavoz concreto
+			.def("pause_source", &CSoundManager::PauseSource)							// Ejecuta un altavoz
+			.def("stop_source", &CSoundManager::StopSource)								// Para un altavoz
+			.def("set_sourceGain", &CSoundManager::SetSourceGain)						// Da volumen a un altavoz
+			.def("get_sourceGain", &CSoundManager::GetSourceGain)						// Obtiene el volumen de un altavoz
+			.def("set_sourcePosition", &CSoundManager::SetSourcePosition)				// Coloca la posición del altavoz
+			.def("get_sourcePosition", &CSoundManager::GetSourcePosition)				// Obtiene la posición del altavoz
+			.def("set_source_velocity", &CSoundManager::SetSourceVelocity)				// Coloca la velocidad del altavoz
+			.def("get_source_velocity", &CSoundManager::GetSourceVelocity)				// Obtiene la velocidad del altavoz
+			.def("fade_in_source", &CSoundManager::FadeInSource)						// Realiza una entrada del sonido
+			.def("fade_out_source", &CSoundManager::FadeOutSource)						// Realiza una salida del sonido
+
+			.def("set_listener_position", &CSoundManager::SetListenerPosition)			// Coloca la posición del listener
+			.def("get_listener_position", &CSoundManager::GetListenerPosition)			// Obtiene la posición del listener
+			.def("set_listener_velocity", &CSoundManager::SetListenerVelocity)			// Coloca la velocidad del listener
+			.def("get_listener_velocity", &CSoundManager::GetListenerVelocity)			// Obtiene la velocidad del listener
+			.def("set_listener_orientation", &CSoundManager::SetListenerOrientation)	// Coloca la orientacion del listener
+			.def("get_listener_orientation", &CSoundManager::GetListenerOrientation)	// Obtiene la orientacion del listener	
+	];
 }
 
 //----------------------------------------------------------------------------
@@ -423,97 +613,5 @@ void CScriptManager::RegisterMathLUAFunctions()
 			.def_readwrite("m20", &Mat33f::m20)
 			.def_readwrite("m21", &Mat33f::m21)
 			.def_readwrite("m22", &Mat33f::m22)	
-	];
-}
-
-//----------------------------------------------------------------------------
-// RegisterSoundFunctions: Registrem totes les funcions de GUI
-//----------------------------------------------------------------------------
-void CScriptManager::RegisterGUIFunctions( void )
-{
-	module(m_LS) [
-		class_<CGUIManager>("CGUIManager")
-			.def("active_windows", &CGUIManager::ActiveWindows)							// Activa la ventana pasada
-			.def("active_windows_with_effect", &CGUIManager::ActiveWindowsWithEffect)	// Activa la ventana pasada con effecto
-			.def("get_state_slider", &CGUIManager::GetStateSlider)						// Obtiene el valor del Slider indicado
-			.def("set_state_slider", &CGUIManager::SetStateSlider)						// Coloca el valor del Slider indicado
-			.def("push_windows", &CGUIManager::PushWindows)								// Almacena la ventana padre i activa la pasada
-			.def("pop_windows", &CGUIManager::PopWindows)								// Retorna a la ventana anterior padre
-			
-			.def("play_image", &CGUIManager::PlayImage)									// Executa animacions d'imatges
-	];
-
-
-	module(m_LS) [
-		class_<CGUIAnimatedImage>("CGUIAnimatedImage")
-			.def("play_animation", &CGUIAnimatedImage::PlayAnimation)						// Executa animacions d'imatges
-
-	];
-}
-
-//----------------------------------------------------------------------------
-// RegisterSoundFunctions: Registrem totes les funcions de sò
-//----------------------------------------------------------------------------
-void CScriptManager::RegisterSoundFunctions( void )
-{
-	module(m_LS) [
-		class_<CSoundManager>("CSoundManager")
-			.def("set_volume_value", &CSoundManager::SetSoundVolume)					// Coloca el valor del volumen de sonido per un test
-			.def("get_volume_value", &CSoundManager::GetSoundVolume)					// Obtiene el valor del volumen de sonido per un test
-
-			.def("Init", &CSoundManager::Init)											// Inicializa el device y contexto
-			.def("Done", &CSoundManager::Done)											// Release
-			.def("IsOk", &CSoundManager::IsOk)											// Dice si todo está correctamente inicializado
-
-			.def("load", &CSoundManager::Load)											// Carga un fichero xml de sonidos
-			.def("update", &CSoundManager::Update)										// Actualiza los sonidos, fades in/out
-			.def("render", &CSoundManager::Render)										// Renderiza si se desea en modo debug para saber donde está cada elemento
-
-			.def("load_sounds", &CSoundManager::LoadSounds)								// Carga los sonidos del XML predefinido en el método Load
-			.def("reset", &CSoundManager::Reset)										// Para todos los sonidos y limpia buffers(sonidos) i sources (altavoces)
-			.def("pause", &CSoundManager::Pause)										// Determina si hace pausa/play de todos los sonidos segun la variable global "m_bPause"
-			.def("stop", &CSoundManager::Stop)											// Para todos los sonidos de los altavoces
-			.def("sound_on", &CSoundManager::SoundOn)									// Setea el sonido activo
-			.def("load_sounds", &CSoundManager::SoundOff)								// Setea mute
-			.def("set_gain", &CSoundManager::SetGain)									// Setea el volumen general
-			.def("get_gain", &CSoundManager::GetGain)									// Obtiene el valor del volumen de sonido 
-
-			.def("play_action_2D", &CSoundManager::PlayAction2D)						// Ejecuta sonidos en 2D
-			.def("play_action_3D", &CSoundManager::PlayAction3D)						// Ejecuta sonidos en 3D
-
-			.def("create_source", &CSoundManager::CreateSource)							// Crea un source (altavoz)
-			.def("delete_source", &CSoundManager::DeleteSource)							// Elimina un source (altavoz)
-			.def("play_source2D", &CSoundManager::PlaySource2D)							// Ejecuta sonidos en 2D de un altavoz concreto
-			.def("play_source3D", &CSoundManager::PlaySource3D)							// Ejecuta sonidos en 3D de un altavoz concreto
-			.def("pause_source", &CSoundManager::PauseSource)							// Ejecuta un altavoz
-			.def("stop_source", &CSoundManager::StopSource)								// Para un altavoz
-			.def("set_sourceGain", &CSoundManager::SetSourceGain)						// Da volumen a un altavoz
-			.def("get_sourceGain", &CSoundManager::GetSourceGain)						// Obtiene el volumen de un altavoz
-			.def("set_sourcePosition", &CSoundManager::SetSourcePosition)				// Coloca la posición del altavoz
-			.def("get_sourcePosition", &CSoundManager::GetSourcePosition)				// Obtiene la posición del altavoz
-			.def("set_source_velocity", &CSoundManager::SetSourceVelocity)				// Coloca la velocidad del altavoz
-			.def("get_source_velocity", &CSoundManager::GetSourceVelocity)				// Obtiene la velocidad del altavoz
-			.def("fade_in_source", &CSoundManager::FadeInSource)						// Realiza una entrada del sonido
-			.def("fade_out_source", &CSoundManager::FadeOutSource)						// Realiza una salida del sonido
-
-			.def("set_listener_position", &CSoundManager::SetListenerPosition)			// Coloca la posición del listener
-			.def("get_listener_position", &CSoundManager::GetListenerPosition)			// Obtiene la posición del listener
-			.def("set_listener_velocity", &CSoundManager::SetListenerVelocity)			// Coloca la velocidad del listener
-			.def("get_listener_velocity", &CSoundManager::GetListenerVelocity)			// Obtiene la velocidad del listener
-			.def("set_listener_orientation", &CSoundManager::SetListenerOrientation)	// Coloca la orientacion del listener
-			.def("get_listener_orientation", &CSoundManager::GetListenerOrientation)	// Obtiene la orientacion del listener	
-	];
-}
-
-//----------------------------------------------------------------------------
-// RegisterSoundFunctions: Registrem totes les funcions de GUI
-//----------------------------------------------------------------------------
-void CScriptManager::RegisterTriggerLUAFunctions( void )
-{
-	module(m_LS) [
-		class_<CTriggersManager>("CTriggersManager")
-			.def("exist_fisic_trigger", &CTriggersManager::ExistFisicTrigger)			// Retorna si existe un trigger ya cargado
-			.def("exist_trigger", &CTriggersManager::ExistTrigger)						// Retorna si existe un físic trigger asociado al trigger ya cargado
-			.def("get_trigger", &CTriggersManager::GetTrigger)							// Obtiene el trigger del mapa de triggers
 	];
 }
