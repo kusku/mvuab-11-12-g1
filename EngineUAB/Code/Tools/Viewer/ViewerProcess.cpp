@@ -66,8 +66,8 @@ void CViewerProcess::Update(float elapsedTime)
 	CORE->SetCamera( m_pCamera );
 	m_Player.Update(elapsedTime, m_pCamera );
 
-	CAnimatedInstanceModel *l_Instance = static_cast<CAnimatedInstanceModel*>( CORE->GetRenderableObjectsLayersManager()->GetResource("solid")->GetInstance("lobo") );
-	l_Instance->BlendCycle(0, 0.f);
+	/*CAnimatedInstanceModel *l_Instance = static_cast<CAnimatedInstanceModel*>( CORE->GetRenderableObjectsLayersManager()->GetResource("solid")->GetInstance("lobo") );
+	l_Instance->BlendCycle(0, 0.f);*/
 
 	CORE->GetRenderableObjectsLayersManager()->Update(elapsedTime);
 

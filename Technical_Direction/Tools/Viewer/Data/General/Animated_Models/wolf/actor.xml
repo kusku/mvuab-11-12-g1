@@ -1,7 +1,7 @@
 <animated_model name="lobo">
 	<skeleton filename="LOB_Esqueleto.csf"/>
 	<mesh filename="LOB_Mesh.cmf"/>
-	<!--<animation name="idle" filename="LOB_Iddle.caf"/>-->
+	<animation name="idle" filename="LOB_Iddle.caf"/>
 	<animation name="run" filename="LOB_RUN.caf"/>
 	<texture filename="LOB_Textura_v3.tga"/>
 </animated_model>
