@@ -13,23 +13,17 @@
   <ItemGroup>
     <ClCompile Include="Scripting\ScriptManager.cpp" />
     <ClCompile Include="StatesMachine\BaseGameEntity.cpp" />
-    <ClCompile Include="StatesMachine\Character.cpp" />
     <ClCompile Include="StatesMachine\EntityManager.cpp" />
-    <ClCompile Include="StatesMachine\IdleState.cpp" />
     <ClCompile Include="StatesMachine\MessageDispatcher.cpp" />
-    <ClCompile Include="StatesMachine\PursuitState.cpp" />
     <ClCompile Include="Triggers\TriggersManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scripting\ScriptingDefs.h" />
     <ClInclude Include="Scripting\ScriptManager.h" />
     <ClInclude Include="StatesMachine\BaseGameEntity.h" />
-    <ClInclude Include="StatesMachine\Character.h" />
     <ClInclude Include="StatesMachine\EntityManager.h" />
-    <ClInclude Include="StatesMachine\IdleState.h" />
     <ClInclude Include="StatesMachine\MessageDefs.h" />
     <ClInclude Include="StatesMachine\MessageDispatcher.h" />
-    <ClInclude Include="StatesMachine\PursuitState.h" />
     <ClInclude Include="StatesMachine\State.h" />
     <ClInclude Include="StatesMachine\StateMachine.h" />
     <ClInclude Include="StatesMachine\StateMachineDef.h" />
