@@ -61,8 +61,8 @@ private:
 	void		RegisterNetworkMethods		( void );
 	void		RegisterPhysicMethods		( void );
 	void		RegisterSoundMethods		( void );
-	void		RegisterMathMethods		( void );
-	void		RegisterTriggerMethods	( void );
+	void		RegisterMathMethods			( void );
+	void		RegisterTriggerMethods		( void );
  	
 	//---- Properties ( get & Set )---------------------------------------
 public:
