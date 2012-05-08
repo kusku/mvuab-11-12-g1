@@ -19,7 +19,7 @@
 #include "LogRender\LogRender.h"
 
 #if defined(_DEBUG)
-#include "Memory\MemLeaks.h"
+	#include "Memory\MemLeaks.h"
 #endif
 
 // -----------------------------------------
@@ -104,40 +104,7 @@ void CEngine::Update( void )
 
 void CEngine::UpdateDebugInputs()
 {
-	CActionToInput* action2Input = CORE->GetActionToInput();
-	if( action2Input->DoAction( ACTION_LOGGER ) )
-	{
-		bool visible = CORE->GetDebugGUIManager()->GetLogRender()->GetVisible();
-		CORE->GetDebugGUIManager()->GetLogRender()->SetVisible(!visible);
-	}
-
-	if( action2Input->DoAction( ACTION_LOGGER_PAGEDOWN ) )
-	{
-		CORE->GetDebugGUIManager()->GetLogRender()->PageDown();
-	}
-
-	if( action2Input->DoAction( ACTION_LOGGER_PAGEUP ) )
-	{
-		CORE->GetDebugGUIManager()->GetLogRender()->PageUp();
-	}
-
-	if( action2Input->DoAction( ACTION_LOGGER_PREVLINE ) )
-	{
-		CORE->GetDebugGUIManager()->GetLogRender()->PrevLine();
-	}
-
-	if( action2Input->DoAction( ACTION_LOGGER_NEXTLINE ) )
-	{
-		CORE->GetDebugGUIManager()->GetLogRender()->NextLine();
-	}
-
-	if( action2Input->DoAction(ACTION_DEBUG_INFO) )
-	{
-		bool visible = CORE->GetDebugGUIManager()->GetDebugRender()->GetVisible();
-		CORE->GetDebugGUIManager()->GetDebugRender()->SetVisible(!visible);
-	}
-
-	if( action2Input->DoAction( ACTION_RELOAD_ALL ) )
+	if( CORE->GetActionToInput()->DoAction( ACTION_RELOAD_ALL ) )
 	{
 		LOGGER->AddNewLog(ELL_INFORMATION, "CEngine->Iniciando reload de todo el Core.");
 

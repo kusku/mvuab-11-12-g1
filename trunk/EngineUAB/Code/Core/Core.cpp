@@ -21,8 +21,13 @@
 #include "Lights\LightManager.h"
 #include "Effects\EffectManager.h"
 
-#include "DebugOptions\DebugOptions.h"
 #include "DebugGUIManager.h"
+#include "DebugOptions\DebugOptions.h"
+#include "DebugInfo\DebugRender.h"
+#include "LogRender\LogRender.h"
+#include "Stadistics\Stadistics.h"
+
+
 #include "Console\Console.h"
 #include "Modifiers\ModifierManager.h"
 #include "DebugGUIManager.h"
@@ -35,6 +40,9 @@
 #include "GUIManager.h"
 #include "Triggers\TriggersManager.h"
 #include "SoundManager.h"
+
+#include "StatesMachine\EntityManager.h"
+#include "StatesMachine\MessageDispatcher.h"
 
 #if defined(_DEBUG)
 	#include "Memory\MemLeaks.h"
@@ -72,6 +80,8 @@ CCore::CCore ( void )
 	, m_pParticlesManager				( NULL )
 	, m_pTriggersManager				( NULL )
 	, m_pSoundManager					( NULL )
+	, m_pEntityManager					( NULL )
+	, m_pMessageDispatcher				( NULL )
 {
 }
 
@@ -116,7 +126,9 @@ void CCore::Release ( void )
 	CHECKED_DELETE ( m_pTriggersManager );
 	CHECKED_DELETE ( m_pPhysicsManager );
 	CHECKED_DELETE ( m_pSoundManager );
-
+	CHECKED_DELETE ( m_pEntityManager );
+	CHECKED_DELETE ( m_pMessageDispatcher );
+	
 	m_pCamera = NULL; //La cámara la elimina el proceso
 	m_pTimer = NULL;
 }
@@ -136,6 +148,8 @@ bool CCore::Init( HWND _HWnd, const SConfig &config )
 	m_pRenderManager->SetFullscreen  ( config.bFullscreen );
 	m_pRenderManager->SetScreenSize  ( config.resolution );
 	m_bIsOk = m_pRenderManager->Init ( _HWnd );
+
+	//SCRIPT->RunFile( "main.lua" );
 
 	if ( m_bIsOk )
 	{
@@ -226,6 +240,10 @@ bool CCore::Init( HWND _HWnd, const SConfig &config )
 
 			m_pScriptManager = new CScriptManager();
 			m_pScriptManager->Load( config.scripts_path );
+
+			// Inicialización de la lógica
+			m_pEntityManager = new CEntityManager();
+			m_pMessageDispatcher = new CMessageDispatcher();
 		}
 	}
 
@@ -252,6 +270,9 @@ void CCore::Update( float _ElapsedTime )
 	m_pBillboardManager->Update	( _ElapsedTime );
 	m_pParticlesManager->Update	( _ElapsedTime );
 	m_pGUIManager->Update		( _ElapsedTime );
+	
+	// Tratamos mensajes en cola en cada frame --> se establecen los cambios de estado de las entidades registradas
+	m_pMessageDispatcher->DispatchDelayedMessages();
 
 
 	if( m_bDebugMode )
@@ -307,7 +328,7 @@ void CCore::UpdateInputs( float _ElapsedTime )
 	
 	if ( l_Action2Input->DoAction ( ACTION_RELOAD_ANIMATIONS ) )			// Recarrega de les animacions
 	{ 
-		//CORE->ReloadAnimatedModels();
+		CORE->ReloadAnimatedModels();
 	}
 	
 	if( l_Action2Input->DoAction( ACTION_RELOAD_MESHES ) )					// Recarrega dels meshes
@@ -350,12 +371,17 @@ void CCore::UpdateInputs( float _ElapsedTime )
 	
 	if ( l_Action2Input->DoAction ( ACTION_RELOAD_GUI ) )					// Recarrega la GUI
 	{
-		CORE->ReloadGUIManager();
+		SCRIPT->RunCode("reload_gui()");
 	}
 
-	if( l_Action2Input->DoAction( ACTION_RELOAD_SOUNDS ) )					// Recarrega els sons
+	if( l_Action2Input->DoAction( ACTION_RELOAD_SOUNDS ) )				// Recarrega els sons
 	{
-		CORE->GetSoundManager()->Reload();
+		SCRIPT->RunCode("reload_sounds()");
+	}
+
+	if( l_Action2Input->DoAction( ACTION_RELOAD_TRIGGERS ) )				// Recarrega els triggers
+	{
+		SCRIPT->RunCode("reload_triggers()");
 	}
 
 	if( l_Action2Input->DoAction( ACTION_RELOAD_COMMANDS ) )				// Recarrega de comandes
@@ -376,21 +402,57 @@ void CCore::UpdateDebugInputs( float _ElapsedTime, CActionToInput &_Action2Input
 	CDebugOptions *l_DebugOptions = CORE->GetDebugGUIManager()->GetDebugOptions();
 
 	//Show & Unshow la consola
-	if( _Action2Input.DoAction( ACTION_CONSOLE ) )					// Activa/Desactiva la consola
+	if( _Action2Input.DoAction( ACTION_CONSOLE ) )						// Activa/Desactiva la consola
 	{
 		SCRIPT->RunCode("toggle_console()");
 	}
 
-	//Show & Unshow de debuggers
+	//Show & Unshow de debuggers info									// Activa/Desactiva info de debug 
+	if( _Action2Input.DoAction( ACTION_DEBUG_INFO ) )
+	{
+		bool visible = CORE->GetDebugGUIManager()->GetDebugRender()->GetVisible();
+		CORE->GetDebugGUIManager()->GetDebugRender()->SetVisible(!visible);
+	}
+
+	//Show & Unshow de debuggers options
 	if( _Action2Input.DoAction( ACTION_DEBUG_OPTIONS ) )				// Activa/Desactiva opciones de debug gui
 	{
 		l_DebugOptions->SetActive( !l_DebugOptions->GetActive() );
 	}
 
+	//Show & Unshow de modifiers
 	if( _Action2Input.DoAction( ACTION_SHOW_MODIFIERS ) )				// Activa/Desactiva modificadores
 	{
 		bool visible = l_pModifierManager->GetVisible();
 		l_pModifierManager->SetVisible( !visible );
+	}
+
+	//Show & Unshow el Logger
+	if( _Action2Input.DoAction( ACTION_LOGGER ) )						// Activa/Desactiva consola
+	{
+		bool visible = CORE->GetDebugGUIManager()->GetLogRender()->GetVisible();
+		CORE->GetDebugGUIManager()->GetLogRender()->SetVisible(!visible);
+	}
+
+	//Logger actions
+	if( _Action2Input.DoAction( ACTION_LOGGER_PAGEDOWN ) )
+	{
+		CORE->GetDebugGUIManager()->GetLogRender()->PageDown();
+	}
+
+	if( _Action2Input.DoAction( ACTION_LOGGER_PAGEUP ) )
+	{
+		CORE->GetDebugGUIManager()->GetLogRender()->PageUp();
+	}
+
+	if( _Action2Input.DoAction( ACTION_LOGGER_PREVLINE ) )
+	{
+		CORE->GetDebugGUIManager()->GetLogRender()->PrevLine();
+	}
+
+	if( _Action2Input.DoAction( ACTION_LOGGER_NEXTLINE ) )
+	{
+		CORE->GetDebugGUIManager()->GetLogRender()->NextLine();
 	}
 
 	//Modifiers actions
@@ -572,22 +634,22 @@ void CCore::ReloadBillboards()
 	m_pBillboardManager->Reload();
 }
 
-void CCore::ReloadParticlesManager()
+void CCore::ReloadParticles()
 {
 	m_pParticlesManager->Reload();
 }
 
-void CCore::ReloadTriggersManager()
+void CCore::ReloadTriggers()
 {
 	m_pTriggersManager->Reload();
 }
 
-void CCore::ReloadGUIManager()
+void CCore::ReloadGUI()
 {
 	m_pGUIManager->ReloadGuiFiles();
 }
 
-void CCore::ReloadSoundManager()
+void CCore::ReloadSounds()
 {
 	m_pSoundManager->Reload();
 }

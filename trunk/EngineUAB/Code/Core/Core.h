@@ -34,49 +34,56 @@ class CDebugGUIManager;
 class CGUIManager;
 class CTriggersManager;
 class CSoundManager;
+class CEntityManager;
+class CMessageDispatcher;
 //--------------------------
 
 class CCore : public CSingleton<CCore>
 {
 public:
 	//--- Init and End protocols--------------------------------------------
-					CCore				( void );
-	virtual			~CCore				( void );
+								CCore		( void );
+	virtual						~CCore		( void );
 
-	bool			Init				( HWND hWnd, const SConfig &config );
-	void			Done				( void );
-	bool			IsOk				( void ) const							{ return m_bIsOk; }
+	bool						Init		( HWND hWnd, const SConfig &config );
+	void						Done		( void );
+	bool						IsOk		( void ) const							{ return m_bIsOk; }
+
+private:
+	void Release();
 
 	//----Main Methods -----------------------------------------------------
-	void			Update				( float _ElapsedTime );
-	void			Render				( void );
+public:
+	void						Update		( float _ElapsedTime );
+	void						Render		( void );
 
-	//----Inputs Methods ----------------------------------------------------
-	void			UpdateInputs		( float _ElapsedTime );
-	void			UpdateDebugInputs	( float _ElapsedTime, CActionToInput &_Action2Input );		
+	//----Inputs Methods -----------------------------------------------------
+	void						UpdateInputs								( float _ElapsedTime );
+	void						UpdateDebugInputs							( float _ElapsedTime, CActionToInput &_Action2Input );
 
 	//----Reload Methods ---------------------------------------------------
-	void			Reload									( void );
-	void			ReloadTTFs								( void );	
-	void			ReloadLanguages							( void );	
-	void			ReloadInputs							( void );
-	void			ReloadSceneRendererCommandManager		( void );
-	void			ReloadRenderableObjectsLayersManager	( void );
-	void			ReloadShaders							( void );
-	void			ReloadEffects							( void );
-	void			ReloadMeshes							( void );
-	void			ReloadAnimatedModels					( void );
-	void			ReloadPools								( void );
-	void			ReloadScripts							( void );
-	void			ReloadLights							( void );
-	void			ReloadPhysics							( void );
-	void			ReloadBillboards						( void );
-	void			ReloadParticlesManager					( void );
-	void			ReloadTriggersManager					( void );
-	void			ReloadGUIManager						( void );
-	void			ReloadSoundManager						( void );
+	void						Reload										( void );
+	void						ReloadTTFs									( void );	
+	void						ReloadLanguages								( void );	
+	void						ReloadInputs								( void );
+	void						ReloadSceneRendererCommandManager			( void );
+	void						ReloadRenderableObjectsLayersManager		( void );
+	void						ReloadShaders								( void );
+	void						ReloadEffects								( void );
+	void						ReloadMeshes								( void );
+	void						ReloadAnimatedModels						( void );
+	void						ReloadPools									( void );
+	void						ReloadScripts								( void );
+	void						ReloadLights								( void );
+	void						ReloadPhysics								( void );
+	void						ReloadBillboards							( void );
+	void						ReloadParticles								( void );
+	void						ReloadTriggers								( void );
+	void						ReloadGUI									( void );
+	void						ReloadSounds								( void );
+	
 
-	//----Properties ( Get & Set )---------------------------------------
+	//----Properties ( get & Set )---------------------------------------
 	void										SetCamera					( CCamera *_Camera )			{ m_pCamera = _Camera; }
 	void										SetTimer					( CTimer *_Timer )				{ m_pTimer = _Timer; }
 	void										SetProcess					( CEngineProcess *_Process )	{ m_pProcess = _Process; }
@@ -111,9 +118,8 @@ public:
 	inline CGUIManager*							GetGUIManager				( void ) const					{ return m_pGUIManager; }
 	inline CTriggersManager*					GetTriggersManager			( void ) const					{ return m_pTriggersManager; }					// Propietats dels triggers 
 	inline CSoundManager*						GetSoundManager				( void ) const					{ return m_pSoundManager; }						// Propietats dels sò 
-
-private:
-	void Release();
+	inline CEntityManager*						GetEntityManager			( void ) const					{ return m_pEntityManager; }					// Accés al gestor lógic d'entitats 
+	inline CMessageDispatcher*					GetMessageDispatcher		( void ) const					{ return m_pMessageDispatcher; }				// Accés al gestor lógic de missatges
 
 	//----Members ---------------------------------------
 private:
@@ -148,6 +154,8 @@ private:
 	CGUIManager							*m_pGUIManager;
 	CTriggersManager					*m_pTriggersManager;
 	CSoundManager						*m_pSoundManager;
+	CEntityManager						*m_pEntityManager;
+	CMessageDispatcher					*m_pMessageDispatcher;
 };
 
 #endif
