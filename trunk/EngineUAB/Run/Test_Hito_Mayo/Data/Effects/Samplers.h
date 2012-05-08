@@ -69,3 +69,12 @@ sampler S3LinearWrapSampler : register( s3 ) = sampler_state
     MinFilter = LINEAR;
     Mipfilter = LINEAR;
 };
+
+sampler S0AnisotropicWrapSampler : register ( s0 ) = sampler_state
+{
+	AddressU = WRAP;
+	AddressV = WRAP;
+	MagFilter = ANISOTROPIC;
+	MinFilter = ANISOTROPIC;
+	MipFilter = ANISOTROPIC;
+};

@@ -4,22 +4,22 @@
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN_UP"  Code="KEY_L"/>
 	</action>
 	
-	<action name="MovePlayerBack">
+	<action name="MoveCameraBack">
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN"  Code="KEY_S"/>
 	</action>
-	<action name="MovePlayerFoward">
+	<action name="MoveCameraFoward">
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN"  Code="KEY_W"/>
 	</action>
-	<action name="MovePlayerLeft">
+	<action name="MoveCameraLeft">
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN"  Code="KEY_A"/>
 	</action>
-	<action name="MovePlayerRight">
+	<action name="MoveCameraRight">
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN"  Code="KEY_D"/>
 	</action>
-	<action name="MovePlayerUp">
+	<action name="MoveCameraUp">
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN"  Code="KEY_Q"/>
 	</action>
-	<action name="MovePlayerDown">
+	<action name="MoveCameraDown">
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN"  Code="KEY_E"/>
 	</action>
 	
@@ -35,17 +35,17 @@
 	</action>
 
 	<!-- ............ ACCIONS DE COMUNTACIO DE CAMERES ................. -->
-	<action name="COMUTACIO_CAMERA">
+	<action name="CommutacioCamera">
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN_UP"  Code="KEY_C"/>
 	</action>
-	<action name="COMUTACIO_PLAYER">
+	<action name="CommutacioPlayer">
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN_UP"  Code="KEY_TAB"/>
 	</action>
-	<action name="ROTACIO_CAMERA_HORITZONTAL">
+	<action name="RotacionCameraHorizontal">
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_SHIFT"/>
 		<input deviceType="IDV_MOUSE" AxisType="AXIS_MOUSE_Y"   Delta="0.01f"/>
 	</action>
-	<action name="ROTACIO_CAMERA_VERTICAL">
+	<action name="RotacionCameraVertical">
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_SHIFT"/>
 		<input deviceType="IDV_MOUSE" AxisType="AXIS_MOUSE_X"   Delta="0.01f"/>
 	</action>
@@ -117,12 +117,12 @@
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN_UP"  Code="KEY_F5"/>
 	</action>
 
-	<!--<action name="ReloadRenderableObjects">
+	<action name="ReloadRenderableObjects">
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_LCTRL" />
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN_UP" Code="KEY_F4" />
 	</action>
 	
-	<action name="ReloadPools">
+	<!--<action name="ReloadPools">
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_LSHIFT" />
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN_UP" Code="KEY_F8" />
 	</action>-->
@@ -326,21 +326,22 @@
 		<input deviceType="IDV_KEYBOARD"  EventType="EVENT_DOWN"    Code="KEY_C"/>
 	</action>
 	
-	<action name="MoureControlerUp">
+	<action name="MoveControlerFoward">
 		<input deviceType="IDV_KEYBOARD"  EventType="EVENT_DOWN"    Code="KEY_UP"/>
 	</action>
-	<action name="MoureControlerDown">
+	<action name="MoveControlerBack">
 		<input deviceType="IDV_KEYBOARD"  EventType="EVENT_DOWN"    Code="KEY_DOWN"/>
 	</action>
 	
-	<action name="MoureControlerLeft">
+	<action name="MoveControlerLeft">
 		<input deviceType="IDV_KEYBOARD"  EventType="EVENT_DOWN"    Code="KEY_LEFT"/>
 	</action>
 	
-	<action name="MoureControlerRight">
+	<action name="MoveControlerRight">
 		<input deviceType="IDV_KEYBOARD"  EventType="EVENT_DOWN"    Code="KEY_RIGHT"/>
 	</action>
 	
+
   <!--.......VIEWER CAMERA CONTROL: GAMEPAD.......................
   <action name="MoveXViewerCam">
     <input deviceType="IDV_GAMEPAD1" EventType="EVENT_DOWN"         Code="PAD_BUTTON_RIGHT_THUMB"/>
