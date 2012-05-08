@@ -27,6 +27,7 @@
 #define ACTION_RELOAD_PHYSIS				"ReloadPhysis"
 #define ACTION_RELOAD_GUI					"ReloadGUI"
 #define ACTION_RELOAD_SOUNDS				"ReloadSounds"
+#define ACTION_RELOAD_TRIGGERS				"ReloadTriggers"
 
 
 // ********* CONSOLE *********** 
