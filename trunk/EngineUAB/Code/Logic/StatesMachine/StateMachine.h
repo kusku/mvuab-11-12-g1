@@ -37,10 +37,10 @@ public:
 		m_pCurrentState->OnExit ( m_pOwner );
 
 		// Ponemos el nuevo estado
-		m_pCurrentState = pNewState;
+		m_pCurrentState = _pNewState;
 
 		// Llamamos al metodo de entrada del siguiente estado
-		m_pCurrentState->Enter( m_pOwner );
+		m_pCurrentState->OnEnter( m_pOwner );
 	}
 
 	// Volvemos al anterior estado
@@ -81,7 +81,7 @@ public:
 	bool HandleMessage ( const Telegram& _Msg ) const
 	{
 		// Mira si el estado actual es valido y si puede gestionar el mensaje
-		if (m_pCurrentState && m_pCurrentState->OnMessage(m_pOwner, _Msg))
+		if ( m_pCurrentState && m_pCurrentState->OnMessage(m_pOwner, _Msg) )
 		{
 			return true;
 		}
