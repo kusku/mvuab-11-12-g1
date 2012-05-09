@@ -293,6 +293,8 @@ void CScriptManager::RegisterCoreMethods()
 			.def("reload_sounds", &CCore::ReloadSounds)
 			.def("get_debug_gui_manager", &CCore::GetDebugGUIManager)
 			.def("get_stadistics", &CCore::GetStadistics)
+			.def("get_gui_manager", &CCore::GetGUIManager)
+			.def("get_sound_manager", &CCore::GetSoundManager)
 	];
 }
 
