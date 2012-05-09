@@ -51,6 +51,9 @@
     <ClInclude Include="StatesMachine\Telegram.h">
       <Filter>IA\State Machine\Messages</Filter>
     </ClInclude>
+    <ClInclude Include="LuaHelperFunctions.h">
+      <Filter>Scripting</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scripting">
