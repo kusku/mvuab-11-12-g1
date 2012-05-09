@@ -65,9 +65,6 @@ void CTestProcess::Done ( void )
 
 void CTestProcess::Release ( void )
 {
-	for each ( CPlayer* l_pPlayer in m_pPlayersList )
-		CHECKED_DELETE ( l_pPlayer );
-	
 	CHECKED_DELETE ( m_pCameraPrimeraPersona );
 	CHECKED_DELETE ( m_pCameraTerceraPersona );
 	m_pCamera = NULL;
