@@ -18,7 +18,7 @@
     <ClCompile Include="Triggers\TriggersManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LuaHelperFunctions.h" />
+    <ClInclude Include="Scripting\LuaHelperFunctions.h" />
     <ClInclude Include="Scripting\ScriptingDefs.h" />
     <ClInclude Include="Scripting\ScriptManager.h" />
     <ClInclude Include="StatesMachine\BaseGameEntity.h" />
