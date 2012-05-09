@@ -1,7 +1,6 @@
-<animated_model name="lobo">
+<animated_model name="caperu">
 	<skeleton filename="CAP_SKLETON.csf"/>
 	<mesh filename="CAP_mesh.cmf"/>
-	<!--<animation name="idle" filename="LOB_Iddle.caf"/>-->
 	<animation name="anim" filename="CAP_Animation.caf"/>
-	<texture filename="CAP_material.crf"/>
+	<texture filename="texture.jpg"/>
 </animated_model>
