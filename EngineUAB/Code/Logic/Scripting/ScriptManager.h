@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "Utils\Singleton.h"
+#include "LuaHelperFunctions.h"
 
 extern "C"
 {
@@ -66,12 +67,18 @@ private:
  	
 	//---- Properties ( get & Set )---------------------------------------
 public:
-	lua_State * GetLuaState					( void ) const		{ return m_LS; }
+	lua_State * GetLuaState					( void ) const				{ return m_pLuaState; }
 	
+	int			GetInt						( char* _VariableName )		{ return PopLuaNumber<int> ( m_pLuaState, _VariableName ); }
+    double		GetFloat					( char* _VariableName )		{ return PopLuaNumber<float> ( m_pLuaState, _VariableName ); }
+	double		GetDouble					( char* _VariableName )		{ return PopLuaNumber<double> ( m_pLuaState, _VariableName ); }
+	std::string GetString					( char* _VariableName )		{ return PopLuaString ( m_pLuaState, _VariableName ); }
+	bool		GetBool						( char* _VariableName )		{ return PopLuaBool ( m_pLuaState, _VariableName ); }
+	  
 	//---- Members -------------------------------------------------------
 private:
-	lua_State		*m_LS;			// Estat del lua
-	std::string		m_FileName;		// Fitxer xml on trobaré els scripts a registrar
+	lua_State	  * m_pLuaState;			// Estat del lua
+	std::string		m_FileName;				// Fitxer xml on trobaré els scripts a registrar
 };
 
 #endif __SCRIPT_MANAGER_CLASS_H__

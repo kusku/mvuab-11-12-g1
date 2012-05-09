@@ -18,7 +18,7 @@ using namespace luabind;
 #include "Memory\MemLeaks.h"
 #endif
 
-#define REGISTER_LUA_FUNCTION(FunctionName,AddrFunction) { luabind::module(m_LS) [ luabind::def(FunctionName,AddrFunction) ]; }
+#define REGISTER_LUA_FUNCTION(FunctionName,AddrFunction) { luabind::module(m_pLuaState) [ luabind::def(FunctionName,AddrFunction) ]; }
 
 int Alert(lua_State * State);
 
@@ -43,12 +43,12 @@ CScriptManager::~CScriptManager ( void )
 
 void CScriptManager::Initialize ( void )
 {
-	m_LS = luaL_newstate();
-	luaL_openlibs ( m_LS );
+	m_pLuaState = luaL_newstate();
+	luaL_openlibs ( m_pLuaState );
 
 	//Sobreescribimos la función _ALERT de LUA cuando se genere algún error al ejecutar código LUA
-	lua_register ( m_LS, "_ALERT", Alert );
-	luabind::open(m_LS);
+	lua_register ( m_pLuaState, "_ALERT", Alert );
+	luabind::open(m_pLuaState);
 	
 	RegisterLUAMethods(CORE_SCRIPT);
 	RegisterLUAMethods(GRAPHICS_SCRIPT);
@@ -89,7 +89,7 @@ int Alert(lua_State * State)
 //Para desinicializar el motor de LUA
 void CScriptManager::Destroy ( void )
 {
-	lua_close ( m_LS );
+	lua_close ( m_pLuaState );
 }
 
 // Per carregar un fitxer XML amb tots els scrits
@@ -103,9 +103,9 @@ bool CScriptManager::Load ( const std::string &_XMLFile )
 //Para ejecutar un fragmento de código LUA
 void CScriptManager::RunCode ( const std::string &_Code ) const
 {
-	if ( luaL_dostring ( m_LS, _Code.c_str() ) )
+	if ( luaL_dostring ( m_pLuaState, _Code.c_str() ) )
 	{
-		const char *l_Str = lua_tostring ( m_LS, -1 );
+		const char *l_Str = lua_tostring ( m_pLuaState, -1 );
 		LOGGER->AddNewLog ( ELL_ERROR, l_Str );
 	}
 }
@@ -113,9 +113,9 @@ void CScriptManager::RunCode ( const std::string &_Code ) const
 //Para ejecutar un fichero de código LUA
 void CScriptManager::RunFile(const std::string &FileName) const
 {
-	if ( luaL_dofile ( m_LS, FileName.c_str() ) )
+	if ( luaL_dofile ( m_pLuaState, FileName.c_str() ) )
 	{
-		const char *l_Str = lua_tostring ( m_LS, -1 );
+		const char *l_Str = lua_tostring ( m_pLuaState, -1 );
 		LOGGER->AddNewLog ( ELL_ERROR, l_Str );
 	}
 }
@@ -266,7 +266,7 @@ void CScriptManager::RegisterCoreMethods()
 {
 	REGISTER_LUA_FUNCTION("print_logger", PrintLogger);
 
-	module(m_LS) [
+	module(m_pLuaState) [
 		class_<CSingleton<CCore>>("CSingleton_CCore")
 			.scope 
 			[
@@ -274,7 +274,7 @@ void CScriptManager::RegisterCoreMethods()
 			]
 	];
 
-	module(m_LS) [
+	module(m_pLuaState) [
 		class_<CCore>("CCore")
 			.def("reload_all", &CCore::Reload)
 			.def("reload_fonts", &CCore::ReloadTTFs)
@@ -312,7 +312,7 @@ void CScriptManager::RegisterGraphicsMethods()
 //----------------------------------------------------------------------------
 void CScriptManager::RegisterGUIMethods( void )
 {
-	module(m_LS) [
+	module(m_pLuaState) [
 		class_<CGUIManager>("CGUIManager")
 			.def("active_windows", &CGUIManager::ActiveWindows)							// Activa la ventana pasada
 			.def("active_windows_with_effect", &CGUIManager::ActiveWindowsWithEffect)	// Activa la ventana pasada con effecto
@@ -324,7 +324,7 @@ void CScriptManager::RegisterGUIMethods( void )
 	];
 
 
-	module(m_LS) [
+	module(m_pLuaState) [
 		class_<CGUIAnimatedImage>("CGUIAnimatedImage")
 			.def("play_animation", &CGUIAnimatedImage::PlayAnimation)						// Executa animacions d'imatges
 	];
@@ -335,21 +335,21 @@ void CScriptManager::RegisterGUIMethods( void )
 //----------------------------------------------------------------------------
 void CScriptManager::RegisterDebugGUIMethods()
 {
-	module(m_LS) [
+	module(m_pLuaState) [
 		class_<CDebugGUIManager>("CDebugGUIManager")
 			.def("get_console",&CDebugGUIManager::GetConsole)
 			.def("get_debug_render", &CDebugGUIManager::GetDebugRender)
 			.def("get_debug_options", &CDebugGUIManager::GetDebugOptions)
 	];
 
-	module(m_LS) [
+	module(m_pLuaState) [
 		class_<CConsole>("CConsole")
 			.def("toggle", &CConsole::Toggle)
 			.def("set_active", &CConsole::SetActive)
 			.def("is_active", &CConsole::IsActive)
 	];
 
-	module(m_LS) [
+	module(m_pLuaState) [
 		class_<CStadistics>("CStadistics")
 			.def("get_draw_calls", &CStadistics::GetNumOfDrawCalls)
 			.def("get_draw_debug_lines", &CStadistics::GetNumOfDebugLines)
@@ -357,7 +357,7 @@ void CScriptManager::RegisterDebugGUIMethods()
 			.def("get_triangles_in_frustum", &CStadistics::GetNumOfTrianglesInFrustum)
 	];
 
-	module(m_LS) [
+	module(m_pLuaState) [
 		class_<CDebugOptions>("CDebugOptions")
 			.def("set_bool", &CDebugOptions::SetBool)
 			.def("set_int", &CDebugOptions::SetInt)
@@ -365,7 +365,7 @@ void CScriptManager::RegisterDebugGUIMethods()
 			.def("reload", &CDebugOptions::Reload)
 	];
 
-	module(m_LS) [
+	module(m_pLuaState) [
 		class_<CDebugRender>("CDebugRender")
 			.def("is_fps_visible", &CDebugRender::GetFPSVisible)
 			.def("is_delta_time_visible", &CDebugRender::GetDeltaTimeVisible)
@@ -388,19 +388,19 @@ void CScriptManager::RegisterInputMethods()
 //----------------------------------------------------------------------------
 void CScriptManager::RegisterLogicMethods( void )
 {
-	module(m_LS) [
+	module(m_pLuaState) [
 		class_<CTriggersManager>("CTriggersManager")
 			.def("exist_fisic_trigger", &CTriggersManager::ExistFisicTrigger)			// Retorna si existe un trigger ya cargado
 			.def("exist_trigger", &CTriggersManager::ExistTrigger)						// Retorna si existe un físic trigger asociado al trigger ya cargado
 			.def("get_trigger", &CTriggersManager::GetTrigger)							// Obtiene el trigger del mapa de triggers
 	];
 
-	/*module(m_LS) [
+	/*module(m_pLuaState) [
 		class_<CStateMachine>("CStateMachine")
 			.def(constructor<float, float>())
 	];
 
-	module(m_LS) [
+	module(m_pLuaState) [
 		class_<CStateMachine>("CState")
 			.def(constructor<float, float>())
 	];*/
@@ -425,7 +425,7 @@ void CScriptManager::RegisterPhysicMethods()
 //----------------------------------------------------------------------------
 void CScriptManager::RegisterSoundMethods( void )
 {
-	module(m_LS) [
+	module(m_pLuaState) [
 		class_<CSoundManager>("CSoundManager")
 			.def("set_volume_value", &CSoundManager::SetSoundVolume)					// Coloca el valor del volumen de sonido per un test
 			.def("get_volume_value", &CSoundManager::GetSoundVolume)					// Obtiene el valor del volumen de sonido per un test
@@ -479,7 +479,7 @@ void CScriptManager::RegisterSoundMethods( void )
 //----------------------------------------------------------------------------
 void CScriptManager::RegisterMathMethods()
 {
-	module(m_LS) [
+	module(m_pLuaState) [
 		class_<Vect2f>("Vect2f")
 			.def(constructor<float, float>())
 			.def(const_self + const_self)
@@ -498,7 +498,7 @@ void CScriptManager::RegisterMathMethods()
 			.def_readwrite("y", &Vect2f::y)
 	];
 
-	module(m_LS) [
+	module(m_pLuaState) [
 		class_<Vect3f>("Vect3f")
 			.def(constructor<float, float, float>())
 			.def(const_self + const_self)
@@ -518,7 +518,7 @@ void CScriptManager::RegisterMathMethods()
 			.def_readwrite("z", &Vect3f::z)
 	];
 
-	module(m_LS) [
+	module(m_pLuaState) [
 		class_<Vect4f>("Vect4f")
 			.def(constructor<float, float, float, float>())
 			.def(const_self + const_self)
@@ -538,7 +538,7 @@ void CScriptManager::RegisterMathMethods()
 			.def_readwrite("w", &Vect4f::w)
 	];
 
-	module(m_LS) [
+	module(m_pLuaState) [
 		class_<Vect2i>("Vect2i")
 			.def(constructor<int, int>())
 			.def(const_self + const_self)
@@ -554,7 +554,7 @@ void CScriptManager::RegisterMathMethods()
 			.def_readwrite("y", &Vect2i::y)
 	];
 
-	module(m_LS) [
+	module(m_pLuaState) [
 		class_<Vect3i>("Vect3i")
 			.def(constructor<int, int, int>())
 			.def(const_self + const_self)
@@ -571,7 +571,7 @@ void CScriptManager::RegisterMathMethods()
 			.def_readwrite("z", &Vect3i::z)
 	];
 
-	module(m_LS) [
+	module(m_pLuaState) [
 		class_<Vect4i>("Vect4i")
 			.def(constructor<int, int, int, int>())
 			.def(const_self + const_self)
@@ -589,7 +589,7 @@ void CScriptManager::RegisterMathMethods()
 			.def_readwrite("w", &Vect4i::w)
 	];
 
-	module(m_LS) [
+	module(m_pLuaState) [
 		class_<Mat33f>("Mat33f")
 			.def(constructor<float, float, float, float, float, float, float, float, float>())
 			.def(const_self + const_self)
@@ -643,7 +643,7 @@ void CScriptManager::RegisterMathMethods()
 //----------------------------------------------------------------------------
 void CScriptManager::RegisterTriggerMethods( void )
 {
-	module(m_LS) [
+	module(m_pLuaState) [
 		class_<CTriggersManager>("CTriggersManager")
 			.def("exist_fisic_trigger", &CTriggersManager::ExistFisicTrigger)			// Retorna si existe un trigger ya cargado
 			.def("exist_trigger", &CTriggersManager::ExistTrigger)						// Retorna si existe un físic trigger asociado al trigger ya cargado
