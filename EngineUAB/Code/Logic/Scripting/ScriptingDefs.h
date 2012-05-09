@@ -17,7 +17,10 @@
 #include "DebugInfo\DebugRender.h"
 #include "DebugGUIManager.h"
 #include "SoundManager.h"
-#include "../Triggers/TriggersManager.h"
+#include "Triggers\TriggersManager.h"
+#include "StatesMachine\State.h"
+#include "StatesMachine\StateMachine.h"
 #include "GUIManager.h"
 #include "Controls\GUIAnimatedImage.h"
+
 #endif __SCRIPTING_DEFS_H__

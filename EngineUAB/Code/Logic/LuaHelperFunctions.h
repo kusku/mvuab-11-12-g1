@@ -153,4 +153,4 @@ inline T LuaPopNumberFieldFromTable(lua_State* L, const char* key)
 	return val;
 }
 
-#endif __LUA_HELPER_FUNCS__
+#endif __LUA_HELPER_FUNCS__	

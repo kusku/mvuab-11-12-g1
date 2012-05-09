@@ -1,8 +1,10 @@
+
 #include "ScriptManager.h"
+#include "ScriptingDefs.h"
+
 #include "Logger\Logger.h"
 #include "XML\XMLTreeNode.h"
 #include "Base.h"
-#include "ScriptingDefs.h"
 
 #include <luabind/luabind.hpp>
 #include <luabind/function.hpp>
@@ -392,6 +394,16 @@ void CScriptManager::RegisterLogicMethods( void )
 			.def("exist_trigger", &CTriggersManager::ExistTrigger)						// Retorna si existe un físic trigger asociado al trigger ya cargado
 			.def("get_trigger", &CTriggersManager::GetTrigger)							// Obtiene el trigger del mapa de triggers
 	];
+
+	/*module(m_LS) [
+		class_<CStateMachine>("CStateMachine")
+			.def(constructor<float, float>())
+	];
+
+	module(m_LS) [
+		class_<CStateMachine>("CState")
+			.def(constructor<float, float>())
+	];*/
 }
 
 //----------------------------------------------------------------------------
