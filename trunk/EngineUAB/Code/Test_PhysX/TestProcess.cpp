@@ -37,8 +37,8 @@
 // -----------------------------------------
 CTestProcess::CTestProcess( void )
 	: m_pThPSCamera		( NULL )
-	, pos				( 0,0 )
-	, screen			( 800,600 )
+	, m_Posicion		( 0,0 )
+	, m_Screen			( 800,600 )
 	, m_pTrigger		( NULL )
 {
 }
@@ -68,9 +68,9 @@ void CTestProcess::Release ( void )
 
 bool CTestProcess::Init( void )
 {
-	screen = CORE->GetRenderManager()->GetScreenSize();
-	pos.x = screen.x / 2;
-	pos.y = screen.y / 2;
+	m_Screen = CORE->GetRenderManager()->GetScreenSize();
+	m_Posicion.x = m_Screen.x / 2;
+	m_Posicion.y = m_Screen.y / 2;
 
 	m_Player.SetPosition(Vect3f(0.f,1.f,0.f));
 	m_Player.SetPitch(0.0f);

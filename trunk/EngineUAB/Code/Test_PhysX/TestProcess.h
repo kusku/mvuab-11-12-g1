@@ -34,8 +34,8 @@ protected:
 	void UpdateDebugInputs( float elapsedTime, CActionToInput &action2Input );
 	void CreateSphereActor();
 
-	Vect2i pos;
-	Vect2i screen;
+	Vect2i m_Posicion;
+	Vect2i m_Screen;
 	Vect3f m_PosAnchor;
 	Vect3f m_PosActor;
 
