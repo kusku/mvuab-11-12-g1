@@ -105,9 +105,10 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 	}
 	UnregisterClass( APPLICATION_NAME, wc.hInstance );
 
-  // Añadir una llamada a la alicación para finalizar/liberar memoria de todos sus datos
+	// Añadir una llamada a la alicación para finalizar/liberar memoria de todos sus datos
+	CHECKED_DELETE ( g_Engine );
 
-  return 0;
+	return 0;
 }
 
 void ShowErrorMessage (const std::string& message)
