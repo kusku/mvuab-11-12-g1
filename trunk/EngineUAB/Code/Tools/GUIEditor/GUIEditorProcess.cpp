@@ -43,11 +43,15 @@ void CGUIEditorProcess::Release ( void )
 
 bool CGUIEditorProcess::Init( void )
 {
+	return true;
+}
+
+void CGUIEditorProcess::LoadWindow(void)
+{
 	std::string window = CORE->GetGUIManager()->GetCurrentWindow();
 	CElementProperties::WindowProperties( CORE->GetGUIManager()->GetWindow( window ) );
 
 	PostMessage( CHWNDManager::GetInstance()->GetHWNDFiles(), WM_RELOAD_FILE_LIST, 0, 0);
-	return true;
 }
 
 void CGUIEditorProcess::Update(float elapsedTime)

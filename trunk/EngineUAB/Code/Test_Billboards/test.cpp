@@ -5,6 +5,7 @@
 #include "TestProcess.h"
 #include "Math\Vector2.h"
 #include "Exceptions\Exception.h"
+#include "Core.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -61,11 +62,8 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 	try
 	{
 		// Añadir aquí el Init de la applicacioón
-		CTestProcess* l_TestProcess;
-		l_TestProcess = new CTestProcess();
-
 		g_Engine = new CEngine();
-		g_Engine->SetProcess(l_TestProcess);
+		
 		g_Engine->LoadConfigXML("./Data/XML/engine.xml");
 		Vect2i position = g_Engine->GetPosition();
 		Vect2i resolution = g_Engine->GetResolution();
@@ -74,7 +72,14 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 		HWND hWnd = CreateWindow(	APPLICATION_NAME, APPLICATION_NAME, WS_OVERLAPPEDWINDOW, position.x, position.y,
 				resolution.x, resolution.y, NULL, NULL, wc.hInstance, NULL );
 
+		CTestProcess* l_TestProcess;
+		l_TestProcess = new CTestProcess();
+		g_Engine->SetProcess(l_TestProcess);
+
 		g_Engine->Init(hWnd);
+
+		CORE->SetProcess(l_TestProcess);
+		CORE->SetGameMode(true);
 
 		ShowWindow( hWnd, SW_SHOWDEFAULT );
 		UpdateWindow( hWnd );

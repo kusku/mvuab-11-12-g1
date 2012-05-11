@@ -1,5 +1,6 @@
 #include <Windows.h>
 #include "Engine.h"
+#include "Core.h"
 #include "Base.h"
 #include "Exceptions\Exception.h"
 #include "Logger\Logger.h"
@@ -66,9 +67,6 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 	{
 		//Crear el Engine y leer la configuración
 		g_Engine = new CEngine();
-		CViewerProcess *l_Viewer;
-		l_Viewer = new CViewerProcess();
-		g_Engine->SetProcess(l_Viewer);
 
 		g_Engine->LoadConfigXML( "./Data/XML/engine.xml" );
 		Vect2i position = g_Engine->GetPosition();
@@ -91,8 +89,14 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 			resolution.x, resolution.y, NULL, NULL, wc.hInstance, NULL );
 
 		// Init de la applicacioón
+		CViewerProcess *l_Viewer;
+		l_Viewer = new CViewerProcess();
+		g_Engine->SetProcess(l_Viewer);
+
 		g_Engine->Init( hWnd );
 
+		CORE->SetProcess(l_Viewer);
+		CORE->SetGameMode(true);
 
 		ShowWindow( hWnd, SW_SHOWDEFAULT );
 		UpdateWindow( hWnd );

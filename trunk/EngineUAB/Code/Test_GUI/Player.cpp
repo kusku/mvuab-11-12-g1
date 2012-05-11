@@ -72,7 +72,7 @@ void CPlayer::UpdateInputActions(float elapsedTime, CCamera *camera)
 	}*/
 
 
-	if( action2Input->DoAction("MovePlayerUp") )
+	if( action2Input->DoAction("MovePlayerFoward") )
 	{
 		if( action2Input->DoAction("MovePlayerLeft") )
 		{
@@ -90,7 +90,7 @@ void CPlayer::UpdateInputActions(float elapsedTime, CCamera *camera)
 			m_Position += m_Dir * 15.f * elapsedTime;
 		}
 	}
-	else if( action2Input->DoAction("MovePlayerDown") )
+	else if( action2Input->DoAction("MovePlayerBack") )
 	{
 		if( action2Input->DoAction("MovePlayerLeft") )
 		{

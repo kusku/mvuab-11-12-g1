@@ -29,7 +29,6 @@
 CTriggersManager::CTriggersManager( void )
 	: m_szFilename	( "" )
 {
-	CORE->GetPhysicsManager()->SetTriggerReport ( this );
 }
 
 CTriggersManager::~CTriggersManager( void )
@@ -41,6 +40,11 @@ CTriggersManager::~CTriggersManager( void )
 // -----------------------------------------
 //			 MÈTODES PRINCIPALS
 // -----------------------------------------
+
+void CTriggersManager::Init()
+{
+	CORE->GetPhysicsManager()->SetTriggerReport ( this );
+}
 
 void CTriggersManager::Destroy ( void )
 {

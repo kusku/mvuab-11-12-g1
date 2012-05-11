@@ -9,7 +9,7 @@ typedef enum TETypePage
 {
 	OPTIONS = 0,
 	STADISTICS, 
-	NONE
+	NONE_PAGE
 };
 
 typedef enum TETypeOfValues

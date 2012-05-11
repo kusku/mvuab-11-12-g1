@@ -55,6 +55,7 @@ CCore::CCore ( void )
 	: m_bIsOk							( false )
 	, m_bDebugMode						( false )
 	, m_bReleaseMode					( true )
+	, m_bIsGameMode						( true )
 	, m_pRenderManager					( NULL )
 	, m_pFontManager					( NULL )
 	, m_pLanguageManager				( NULL )
@@ -138,6 +139,8 @@ bool CCore::Init( HWND _HWnd, const SConfig &config )
 	m_bIsOk = false;
 	LOGGER->AddNewLog(ELL_INFORMATION, "CCore:: Inicializando Core");
 
+	m_Config = config;
+
 	m_bDebugMode = config.bDebugMode;
 	m_bReleaseMode = !config.bDebugMode;
 
@@ -155,78 +158,78 @@ bool CCore::Init( HWND _HWnd, const SConfig &config )
 	{
 		//Inicializa las fuentes
 		m_pFontManager = new CFontManager();
-		m_bIsOk = m_pFontManager->Init( m_pRenderManager );
-		m_pFontManager->LoadTTFs( config.fonts_path );
+		/*m_bIsOk = m_pFontManager->Init( m_pRenderManager );
+		m_pFontManager->LoadTTFs( config.fonts_path );*/
 
 		if( m_bIsOk )
 		{
 			//Inicializa los lenguajes
 			m_pLanguageManager = new CLanguageManager();
-			int count = config.languages_path.size();
+			/*int count = config.languages_path.size();
 			for(int i=0; i<count; ++i)
 			{
 				m_pLanguageManager->SetXmlFile( config.languages_path[i] );
 			}
 			m_pLanguageManager->LoadXMLs();
-			m_pLanguageManager->SetCurrentLanguage( config.default_language );
+			m_pLanguageManager->SetCurrentLanguage( config.default_language );*/
 
 			//Inicializa los inputs
 			m_pActionToInput = new CActionToInput();
 			m_bIsOk = m_pActionToInput->Init( _HWnd, config.resolution, config.bExclusiveModeInMouse );
-			m_pActionToInput->LoadXML( config.input_path );
-			m_pInputManager = m_pActionToInput->GetInputManager();
+			/*m_pActionToInput->LoadXML( config.input_path );
+			m_pInputManager = m_pActionToInput->GetInputManager();*/
 
 			//Crea el TextureManager y añade una textura por sí al renderizar algun modelo no encuentra una textura
 			m_pTextureManager = new CTextureManager("NoTexture", config.no_texture_path);
 
 			//Inicia los efectos
 			m_pEffectManager = new CEffectManager();
-			m_pEffectManager->Load( config.effects_path );
+			/*m_pEffectManager->Load( config.effects_path );*/
 
 			//Inicia los Renderable Object Techniques
 			m_pROTManager = new CRenderableObjectTechniqueManager();
-			m_pROTManager->Load(config.renderable_object_techniques_path);
+			/*m_pROTManager->Load(config.renderable_object_techniques_path);*/
 
 			//Inicia los meshes
 			m_pStaticMeshManager = new CStaticMeshManager();
-			m_bIsOk = m_pStaticMeshManager->Load( config.static_meshes_path );
+			/*m_bIsOk = m_pStaticMeshManager->Load( config.static_meshes_path );*/
 
 			m_pAnimatedModelManager = new CAnimatedModelManager();
-			m_pAnimatedModelManager->Load( config.animated_models_path );
+			/*m_pAnimatedModelManager->Load( config.animated_models_path );*/
 
 			//Inicia el Renderable Objects Layers Manager
 			m_pRenderableObjectsLayersManager = new CRenderableObjectsLayersManager();
-			m_pRenderableObjectsLayersManager->Load(config.renderable_objects_path);
+			/*m_pRenderableObjectsLayersManager->Load(config.renderable_objects_path);*/
 
 			//Inicia las luces
 			m_pLightManager = new CLightManager();
-			m_pLightManager->Load( config.lights_path );
+			/*m_pLightManager->Load( config.lights_path );*/
 
 			//Inicia el Scene Renderer Command Manager
 			m_pSceneRendererCommandManager = new CSceneRendererCommandManager();
-			m_pSceneRendererCommandManager->Load(config.scene_renderer_command_manager_path);
+			/*m_pSceneRendererCommandManager->Load(config.scene_renderer_command_manager_path);*/
 
 			m_pPhysicsManager = new CPhysicsManager();
-			m_pPhysicsManager->Init();
+			/*m_pPhysicsManager->Init();*/
 
 			//Billboards & Particles
 			m_pBillboardManager = new CBillboardManager();
-			m_pBillboardManager->Load( config.billboards_path );
+			/*m_pBillboardManager->Load( config.billboards_path );*/
 
 			m_pParticlesManager = new CParticlesSystemManager();
-			m_pParticlesManager->Load( config.particles_path );
+			/*m_pParticlesManager->Load( config.particles_path );*/
 
 			//GUI
 			m_pGUIManager = new CGUIManager( CORE->GetRenderManager()->GetScreenSize() );
-			bool isOk = m_pGUIManager->Init( config.gui_path );
+			/*bool isOk = m_pGUIManager->Init( config.gui_path );*/
 
 			// Inicialización del sistema de triggers
 			m_pTriggersManager = new CTriggersManager( );
-			m_pTriggersManager->Load ( config.triggers_system_path );
+			/*m_pTriggersManager->Load ( config.triggers_system_path );*/
 
 			// Inicialización del sistema de sonido
 			m_pSoundManager = new CSoundManager();
-			m_pSoundManager->Load ( config.sound_system_path );
+			/*m_pSoundManager->Load ( config.sound_system_path );*/
 
 			if( m_bDebugMode )
 			{
@@ -235,7 +238,7 @@ bool CCore::Init( HWND _HWnd, const SConfig &config )
 
 				//Inicializa el manager de interfaz de debugeo
 				m_pDebugGUIManager = new CDebugGUIManager();
-				m_bIsOk = m_pDebugGUIManager->Init( config.modifiers_path, config.debug_options_path );		
+				/*m_bIsOk = m_pDebugGUIManager->Init( config.modifiers_path, config.debug_options_path );		*/
 			}
 
 			m_pScriptManager = new CScriptManager();
@@ -255,6 +258,7 @@ bool CCore::Init( HWND _HWnd, const SConfig &config )
 		throw CException(__FILE__, __LINE__, msg_error);
 	}
 
+	m_bIsOk = true;
 	return m_bIsOk;
 }
 
@@ -266,10 +270,17 @@ void CCore::Update( float _ElapsedTime )
 	}
 
 	m_pActionToInput->Update();
-	m_pPhysicsManager->Update	( _ElapsedTime );
-	m_pBillboardManager->Update	( _ElapsedTime );
-	m_pParticlesManager->Update	( _ElapsedTime );
-	m_pGUIManager->Update		( _ElapsedTime );
+
+	if( m_bIsGameMode )
+	{
+		m_pPhysicsManager->Update( _ElapsedTime );
+		m_pBillboardManager->Update( _ElapsedTime );
+		m_pParticlesManager->Update( _ElapsedTime );
+	}
+	else
+	{
+		m_pGUIManager->Update( _ElapsedTime );
+	}
 	
 	// Tratamos mensajes en cola en cada frame --> se establecen los cambios de estado de las entidades registradas
 	m_pMessageDispatcher->DispatchDelayedMessages();
@@ -289,6 +300,113 @@ void CCore::Render()
 // -----------------------------------------
 //			  MÈTODES PRINCIPALS
 // -----------------------------------------
+bool CCore::LoadFonts()
+{
+	m_bIsOk = m_pFontManager->Init( m_pRenderManager );
+	m_bIsOk = m_pFontManager->LoadTTFs( m_Config.fonts_path );
+	return m_bIsOk;
+}
+
+bool CCore::LoadLanguages()
+{
+	int count = m_Config.languages_path.size();
+	for(int i=0; i<count; ++i)
+	{
+		m_pLanguageManager->SetXmlFile( m_Config.languages_path[i] );
+	}
+	m_pLanguageManager->LoadXMLs();
+	m_pLanguageManager->SetCurrentLanguage( m_Config.default_language );
+
+	return true;
+}
+
+bool CCore::LoadInputs()
+{
+	m_pActionToInput->LoadXML( m_Config.input_path );
+	m_pInputManager = m_pActionToInput->GetInputManager();
+	return true;
+}
+
+bool CCore::LoadEffects()
+{
+	return m_pEffectManager->Load( m_Config.effects_path );
+}
+
+bool CCore::LoadROTechniques()
+{
+	return m_pROTManager->Load(m_Config.renderable_object_techniques_path);
+}
+
+bool CCore::LoadStaticMeshes()
+{
+	m_bIsOk = m_pStaticMeshManager->Load( m_Config.static_meshes_path );
+	return m_bIsOk;
+}
+
+bool CCore::LoadAnimatedModels()
+{
+	m_pAnimatedModelManager->Load( m_Config.animated_models_path );
+	return true;
+}
+
+bool CCore::LoadROLayers()
+{
+	m_pRenderableObjectsLayersManager->Load(m_Config.renderable_objects_path);
+	return true;
+}
+
+bool CCore::LoadLights()
+{
+	return m_pLightManager->Load( m_Config.lights_path );
+}
+
+bool CCore::LoadRenderCommands()
+{
+	m_pSceneRendererCommandManager->Load(m_Config.scene_renderer_command_manager_path, false);
+	return m_pSceneRendererCommandManager->Load(m_Config.scene_renderer_gui_command_manager_path, true);
+}
+
+bool CCore::LoadPhysics()
+{
+	return m_pPhysicsManager->Init();
+}
+
+bool CCore::LoadBillboards()
+{
+	return m_pBillboardManager->Load( m_Config.billboards_path );
+}
+
+bool CCore::LoadParticles()
+{
+	return m_pParticlesManager->Load( m_Config.particles_path );
+}
+
+bool CCore::LoadGUI()
+{
+	return m_pGUIManager->Init( m_Config.gui_path );
+}
+
+bool CCore::LoadTriggers()
+{
+	m_pTriggersManager->Init();
+	return m_pTriggersManager->Load( m_Config.triggers_system_path );
+}
+
+bool CCore::LoadSounds()
+{
+	return m_pSoundManager->Load( m_Config.sound_system_path );
+}
+
+bool CCore::LoadDebugGUI()
+{
+	return m_pDebugGUIManager->Init( m_Config.modifiers_path, m_Config.debug_options_path );		
+}
+
+void CCore::SetGameMode(bool _GameMode)
+{ 
+	m_bIsGameMode = _GameMode; 
+	m_pSceneRendererCommandManager->SetRenderScene(_GameMode); 
+}
 
 // -----------------------------------------
 //			 MÈTODES UPDATE INPUTS 

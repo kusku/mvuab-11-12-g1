@@ -1,10 +1,13 @@
 #include <Windows.h>
 #include "Engine.h"
+#include "Core.h"
 #include "Base.h"
 #include "Logger\Logger.h"
 #include "TestGUIProcess.h"
+#include "GameProcess.h"
 #include "Math\Vector2.h"
 #include "Exceptions\Exception.h"
+#include "TestDefs.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -13,6 +16,10 @@
 #define APPLICATION_NAME	"TEST_GUI"
 
 CEngine *g_Engine = NULL;
+CTestGUIProcess* g_GUIProcess = NULL;
+CGameProcess* g_GameProcess = NULL;
+
+HWND g_hWnd = NULL;
 
 //Headers
 void ShowErrorMessage (const std::string& message);
@@ -24,26 +31,53 @@ void ShowErrorMessage (const std::string& message);
 LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 {
 
-  switch( msg )
-  {
-  case WM_DESTROY:
-    {
-      PostQuitMessage( 0 );
-      return 0;
-    }
-    break;
-  case WM_KEYDOWN:
-    {
-      switch( wParam )
-      {
-      case VK_ESCAPE:
-        //Cleanup();
-        PostQuitMessage( 0 );
-        return 0;
-        break;
-      }
-    }
-    break;
+	switch( msg )
+	{
+	case WM_DESTROY:
+		{
+			PostQuitMessage( 0 );
+			return 0;
+			break;
+		}
+	case WM_KEYDOWN:
+	    {
+			switch( wParam )
+			{
+				case VK_ESCAPE:
+					//Cleanup();					
+					PostQuitMessage( 0 );
+			        return 0;
+				break;
+			}
+		break;
+		}
+	case WM_GAME_PROCESS:
+		{
+			if( g_GameProcess == NULL )
+			{
+				g_GameProcess = new CGameProcess(g_hWnd);
+				g_GameProcess->Init();
+			}
+
+			g_Engine->SetProcess( g_GameProcess );
+			CORE->SetProcess(g_GameProcess);
+			CORE->SetGameMode(true);
+			break;
+		}
+	case WM_GUI_PROCESS:
+		{
+			if( g_GUIProcess == NULL )
+			{
+				g_GUIProcess = new CTestGUIProcess(g_hWnd);
+				g_GUIProcess->Init();
+			}
+
+			g_Engine->SetProcess( g_GUIProcess );
+			CORE->SetProcess(g_GUIProcess);
+			CORE->SetGameMode(false);
+			break;
+		}
+    
   }//end switch( msg )
 
   return DefWindowProc( hWnd, msg, wParam, lParam );
@@ -61,23 +95,25 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 	try
 	{
 		// Añadir aquí el Init de la applicacioón
-		CTestGUIProcess* l_TestGUIProcess;
-		l_TestGUIProcess = new CTestGUIProcess();
-
 		g_Engine = new CEngine();
-		g_Engine->SetProcess(l_TestGUIProcess);
+		
 		g_Engine->LoadConfigXML("./Data/XML/engine.xml");
 		Vect2i position = g_Engine->GetPosition();
 		Vect2i resolution = g_Engine->GetResolution();
 
 		// Create the application's window
-		HWND hWnd = CreateWindow(	APPLICATION_NAME, APPLICATION_NAME, WS_OVERLAPPEDWINDOW, position.x, position.y,
+		g_hWnd = CreateWindow(	APPLICATION_NAME, APPLICATION_NAME, WS_OVERLAPPEDWINDOW, position.x, position.y,
 				resolution.x, resolution.y, NULL, NULL, wc.hInstance, NULL );
 
-		g_Engine->Init(hWnd);
+		g_GUIProcess = new CTestGUIProcess(g_hWnd);
+		g_Engine->SetProcess(g_GUIProcess);
+		g_Engine->Init(g_hWnd);
+		
+		CORE->SetProcess(g_GUIProcess);
+		CORE->SetGameMode(false);
 
-		ShowWindow( hWnd, SW_SHOWDEFAULT );
-		UpdateWindow( hWnd );
+		ShowWindow( g_hWnd, SW_SHOWDEFAULT );
+		UpdateWindow( g_hWnd );
 		MSG msg;
 		ZeroMemory( &msg, sizeof(msg) );
 
@@ -105,8 +141,9 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 	UnregisterClass( APPLICATION_NAME, wc.hInstance );
 
 	// Añadir una llamada a la alicación para finalizar/liberar memoria de todos sus datos
-	CHECKED_DELETE ( g_Engine );
-
+	CHECKED_DELETE(g_Engine);
+	CHECKED_DELETE(g_GUIProcess);
+	CHECKED_DELETE(g_GameProcess);
 
   return 0;
 }

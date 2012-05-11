@@ -10,9 +10,12 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="TestGUIProcess.cpp" />
     <ClCompile Include="testGUI.cpp" />
+    <ClCompile Include="GameProcess.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h" />
     <ClInclude Include="TestGUIProcess.h" />
+    <ClInclude Include="GameProcess.h" />
+    <ClInclude Include="TestDefs.h" />
   </ItemGroup>
 </Project>

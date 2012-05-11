@@ -11,7 +11,7 @@ uniform float		AmbientLightIntensity	: AMBIENT_LIGHT_INTENSITY
     float UIMin = 0.0;
     float UIMax = 1.0;
     float UIStep = 0.1;
-> = 0.0;
+> = 0.1;
 
 uniform float4		AmbientLightColor		: AMBIENT_LIGHT_COLOR
 <
@@ -71,8 +71,6 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR
 	
 	float4 PixColor = diffuseColor * ( light + (AmbientLightIntensity * AmbientLightColor) );
 
-	PixColor.a = 1.0f;
-	//PixColor = float4(1, 0, 0, 0);
 	return PixColor;
 }
 
@@ -80,7 +78,11 @@ technique BasicDeferredLightingCombine
 {
 	pass p0
 	{
-		AlphaBlendEnable = false;
+		AlphaBlendEnable 	= true;
+		SrcBlend			= SrcAlpha;
+		DestBlend			= InvSrcAlpha;
+		BlendOp				= Add;
+		
 		CullMode = CCW;
 		VertexShader = compile vs_3_0 VertexShaderFunction();
 		PixelShader = compile ps_3_0 PixelShaderFunction();

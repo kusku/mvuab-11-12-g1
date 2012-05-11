@@ -80,6 +80,9 @@ bool CTestProcess::Init(void)
 	m_fAngleZ = 0.f; 
 	
 
+	CORE->GetScriptManager()->RunCode("load_basics()");
+	CORE->GetScriptManager()->RunCode("load_data()");
+
 	// TODO: Substituir tot per rails de càmeres o altres punts d'anclatge de les càmeres. En el procés que hereda d'aquest sí s'ha de fer l'anclatge la Player
 	/*AddPlayer ( "Player", Vect3f ( -40.f, 20.f, 0.f ), false );
 	AddPlayer ( "Pepe",   Vect3f ( 1.f, 2.f, 1.f ),    false );*/

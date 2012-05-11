@@ -6,15 +6,11 @@
 #include <string>
 #include <vector>
 
+#include "ScriptingDefs.h"
 #include "Utils\Singleton.h"
 #include "LuaHelperFunctions.h"
 
-extern "C"
-{
-	#include "lua.h"
-	#include "lualib.h"
-	#include "lauxlib.h"
-}
+
 
 typedef enum ERegisterMethods
 {
@@ -76,7 +72,7 @@ public:
 	bool		GetBool						( char* _VariableName )		{ return PopLuaBool ( m_pLuaState, _VariableName ); }
 	  
 	//---- Members -------------------------------------------------------
-private:
+protected:
 	lua_State	  * m_pLuaState;			// Estat del lua
 	std::string		m_FileName;				// Fitxer xml on trobaré els scripts a registrar
 };

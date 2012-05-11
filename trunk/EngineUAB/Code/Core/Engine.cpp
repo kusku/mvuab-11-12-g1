@@ -58,7 +58,7 @@ void CEngine::Release ( void )
 	m_Config.languages_path.clear();
 
 	CHECKED_DELETE( m_pCore );
-	CHECKED_DELETE( m_pProcess );
+	//CHECKED_DELETE( m_pProcess );
 
 	CHECKED_DELETE( m_pLogger );
 }
@@ -75,7 +75,7 @@ bool CEngine::Init( HWND _HWnd )
 	if (m_bIsOk)
 		m_bIsOk = m_pProcess->Init();
 	
-	m_pCore->SetProcess ( m_pProcess );
+	//m_pCore->SetProcess ( m_pProcess );
 	m_pCore->SetTimer   ( &m_Timer );
 
 	if ( m_bIsOk )
@@ -134,6 +134,12 @@ void CEngine::Reload()
 {
 	LOGGER->AddNewLog(ELL_INFORMATION, "CEngine: Reload de todo el juego");
 	m_pCore->Reload();
+}
+
+void CEngine::SetProcess(CEngineProcess *_Process)
+{
+	 m_pProcess = _Process; 
+	 //m_pCore->SetProcess(_Process);
 }
 
 /*
@@ -242,6 +248,7 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 			else if( l_Name == "SceneRendererCommands" )
 			{
 				m_Config.scene_renderer_command_manager_path = l_ConfigNode(i).GetPszProperty("commandsXML", "");
+				m_Config.scene_renderer_gui_command_manager_path = l_ConfigNode(i).GetPszProperty("guiComanndsXML" ,"");
 			}
 			else if( l_Name == "RenderableObjectTechniques" )
 			{

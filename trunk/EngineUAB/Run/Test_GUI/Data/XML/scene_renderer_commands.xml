@@ -1,14 +1,167 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <scene_renderer_commands>
+<!--pre_render-->
 	<begin_scene />
 	<clear_scene color="true" depth="true" stencil="true" />
 	<enable_z_write />
 	<enable_z_test />
 	<setup_matrices />
 	
-	<render_gui active="true" />
-	<render_debug_info grid="false" axis="false" render_console="true" render_logger="true" render_modifiers="true" render_debug_options="true" render_debug_render="true" />
 	
+	<disable_z_test />
+	<!-- shadow maps -->
+	<set_pool_renderable_objects_technique pool="Basic_Build_Shadow_Map" />
+	<generate_shadow_maps />
+	<enable_z_test />
+	
+	<!-- Deferred -->
+	<set_render_target name="deferred_multiple_render_target">
+		<dynamic_texture stage_id="0" name="DiffuseMapTexture" texture_width_as_frame_buffer="true" format_type="A16B16G16R16" mipmaps="1" />
+		<dynamic_texture stage_id="1" name="NormalMapTexture" texture_width_as_frame_buffer="true" format_type="A16B16G16R16F" mipmaps="1" />
+		<dynamic_texture stage_id="2" name="DepthMapTexture" texture_width_as_frame_buffer="true" format_type="G32R32F" mipmaps="1" />
+		<dynamic_texture stage_id="3" name="LightMapTexture" texture_width_as_frame_buffer="true" format_type="A16B16G16R16" mipmaps="1" />
+	</set_render_target>
+	
+	<clear_scene color="true" depth="true" stencil="true" />
+	
+	<!-- SkySphere -->
+	<SkySphere SkyTexture="./Data/General/Textures/SkySphereTexture.dds" SkyEffectTechnique="SkySphereEffectDeferred" />
+	
+	<set_pool_renderable_objects_technique pool="Deferred_Shading" />
+	
+	<render_scene layer="solid" active="true" />
+	<render_debug_lights active="false" />
+	
+	<unset_render_target render_target="deferred_multiple_render_target"/>
+	
+<!--end pre_render-->
+
+	<disable_z_test />
+	<!-- deferred shading -->
+	<set_render_target name="deferred_lights">
+		<dynamic_texture stage_id="0" name="LightMapTexture"/>
+	</set_render_target>
+	
+	<render_deferred_shading>
+		<texture stage_id="0" file="NormalMapTexture"/>
+		<texture stage_id="1" file="DepthMapTexture"/>
+	</render_deferred_shading>
+	
+	<unset_render_target render_target="deferred_lights"/>
+		
+		
+	<set_pool_renderable_objects_technique pool="Deferred_Shading_Combine" />
+	<render_draw_quad name="Deferred_Lighting_Combine">
+		<texture stage_id="0" file="DiffuseMapTexture"/>
+		<texture stage_id="1" file="LightMapTexture"/>
+	</render_draw_quad>
+		
+	<!-- end deferred shading -->
+	<capture_frame_buffer>
+		<dynamic_texture stage_id="0" name="FrameBufferAfterDeferredShading"
+			texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="3" />
+	</capture_frame_buffer>
+	
+	<!-- ssao & blur-->
+	<!--<set_render_target name="ssao_multiple_render_target">
+		<dynamic_texture stage_id="0" name="SSAOBlurMapTexture" texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="3" />
+	</set_render_target>
+	<set_pool_renderable_objects_technique pool="ssao_pool_renderable_object_technique" />
+	<render_draw_quad name="prepare_ssao" >
+		<texture stage_id="1" file="./data/general/textures/rangernormal.jpg" load_file="true"/>
+		<texture stage_id="2" file="DepthMapTexture" />
+	</render_draw_quad>
+	
+	<capture_frame_buffer>
+		<dynamic_texture stage_id="0" name="SSAOMapTexture" texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="3" />
+	</capture_frame_buffer>
+	
+	<set_pool_renderable_objects_technique pool="ssao_blur_pool_renderable_object_technique" />
+	<render_draw_quad name="ssao_blur">
+		<texture stage_id="1" file="SSAOMapTexture" />
+		<texture stage_id="2" file="NormalMapTexture" />
+	</render_draw_quad>
+	
+	<unset_render_target render_target="ssao_multiple_render_target" />
+	
+	<set_pool_renderable_objects_technique pool="ssao_final_composition_pool_renderable_object_technique" />
+	<render_draw_quad name="SSAO_quad">
+		<texture stage_id="0" file="FrameBufferAfterDeferredShading" />
+		<texture stage_id="1" file="SSAOBlurMapTexture" />
+	</render_draw_quad>-->
+	<!-- end ssao & blur -->
+	
+	<capture_frame_buffer>
+		<dynamic_texture stage_id="0" name="FrameBufferAfterSSAO"
+			texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="3" />
+	</capture_frame_buffer>
+	
+	<!-- ssaa -->
+	<!--<set_pool_renderable_objects_technique pool="ssaa_pool" />
+	<render_draw_quad name="SSAA_Quad">
+		<texture stage_id="0" file="FrameBufferAfterSSAO"/>
+		<texture stage_id="1" file="NormalMapTexture"/>
+	</render_draw_quad> -->
+	<!-- end ssaa -->
+	
+	<!-- fxaa -->
+	<set_pool_renderable_objects_technique pool="fxaa_pool" />
+	<render_draw_quad name="fxaa_quad">
+		<texture stage_id="0" file="FrameBufferAfterSSAO"/>
+	</render_draw_quad><!-- -->
+	<!-- end fxaa -->
+	
+	<!--<capture_frame_buffer>
+		<dynamic_texture stage_id="0" name="FrameBufferAfterSSAA"
+			texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="3" />
+	</capture_frame_buffer>-->
+	
+	<!-- color correction -->
+	<!--<set_pool_renderable_objects_technique pool="color_grading_pool" />
+	<render_draw_quad name="color_grading_quad">
+		<texture stage_id="0" file="FrameBufferAfterSSAA"/>
+	</render_draw_quad>-->
+	<!-- end color correction -->
+	
+	<!-- zblur -->
+	<!--<capture_frame_buffer>
+		<dynamic_texture stage_id="0" name="FrameBufferCompleteTexture"
+			texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="3" />
+	</capture_frame_buffer>
+	<set_pool_renderable_objects_technique pool="zblur_pool" />
+	<render_draw_quad name="ZBlur_Quad">
+		<texture stage_id="0" file="FrameBufferCompleteTexture"/>
+		<texture stage_id="1" file="DepthMapTexture"/>
+	</render_draw_quad>-->
+	<!-- end zblur -->
+	
+	<!-- noise & vignetting -->	
+	<!--<set_pool_renderable_objects_technique pool="vignetting_noise_pool" />
+	<render_draw_quad name="NoiseAndVignetting_Quad">
+		<texture stage_id="0" file="./data/General/textures/vignette.tga" load_file="true" />
+		<texture stage_id="1" file="./data/General/textures/noiseCarlos.tga" load_file="true" />
+	</render_draw_quad> -->
+	<!-- end noise & vignetting -->
+	
+	<!-- TEST ONLY  -->
+	<!--<set_pool_renderable_objects_technique pool="dummy_manager" />
+	<render_draw_quad name="TEST">
+		<texture stage_id="0" file="FrameBufferAfterDeferredShading"/>
+	</render_draw_quad> -->
+	
+	<!-- TEST ONLY -->
+	<!--<set_pool_renderable_objects_technique pool="ssao_blur_pool_renderable_object_technique" />
+	<render_draw_quad name="TEST">
+		<texture stage_id="0" file="SSAOBlurMapTexture"/>
+	</render_draw_quad>-->
+	
+	<!--<bloom_post_process BloomThreshold="0.25" BlurAmount="4.0" BloomIntensity="1.25" BaseIntensity="1.0" m_BloomSaturation="1.0" BaseSaturation="1.0" /> -->
+	
+	<render_particles />
+	
+	<!--Debug-->
+	<render_debug_info grid="false" axis="true"  render_console="true" render_logger="true" render_modifiers="true" render_debug_options="true" render_debug_render="true" />
+	<render_debug_lights active="false" />
 	<end_scene />
 	<present />
 </scene_renderer_commands>

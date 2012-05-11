@@ -11,12 +11,14 @@
 
 #include "GUIEditorDoc.h"
 #include "GUIEditorView.h"
+#include "GUIEditorProcess.h"
 
 #include "OutputWnd.h"
 
 #include "Engine.h"
 #include "GUIEditorProcess.h"
 #include "Elements\ElementManager.h"
+#include "Scripting\ScriptManager.h"
 #include "GUIManager.h"
 #include "Core.h"
 #include "Base.h"
@@ -108,7 +110,16 @@ void CGUIEditorView::CalculateWindow()
 	m_Picture.ShowWindow(SW_SHOW);
 	m_Picture.UpdateWindow();
 
+	CGUIEditorProcess *process= new CGUIEditorProcess();
+	CEngineManager::GetInstance()->GetEngine()->SetProcess(process);
+	
 	CEngineManager::GetInstance()->GetEngine()->Init( m_Picture.m_hWnd );
+	CORE->GetScriptManager()->RunCode("load_basics()");
+	CORE->GetScriptManager()->RunCode("load_data()");
+	CORE->SetProcess( process );
+	CORE->SetGameMode(false);
+
+	process->LoadWindow();
 	m_bFirstTime = false;
 }
 

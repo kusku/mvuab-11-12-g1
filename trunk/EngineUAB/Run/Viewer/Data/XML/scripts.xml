@@ -1,4 +1,5 @@
 <scripts>
+	<script filename="./data/scripts/init.lua" />
 	<script filename="./data/scripts/utils.lua" />
 	<script filename="./data/scripts/reloads.lua" />
 	<script filename="./data/scripts/console.lua" />

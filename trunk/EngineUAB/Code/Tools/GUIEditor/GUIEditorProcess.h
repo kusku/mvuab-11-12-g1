@@ -12,6 +12,7 @@ public:
 
 	bool			Init				( void );
 	void			Done				( void );
+	void			LoadWindow			( void );
 	void			Update				( float _ElapsedTime );
 	void			Render				( CRenderManager &_RM );
 

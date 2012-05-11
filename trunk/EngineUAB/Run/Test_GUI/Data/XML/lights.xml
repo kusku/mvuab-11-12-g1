@@ -1,3 +1,35 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <lights>
+	<!--<directional name="Direct001" pos="595.726 255.76 -17.3757" color="255.0 255.0 255.0" att_start_range="201.575" att_end_range="201.575" generate_shadow_map="true" shadow_map_format_type="G32R32F" shadow_map_width="1024" shadow_map_height="1024" generate_static_shadow_map="true" static_shadow_map_format_type="G32R32F" static_shadow_map_width="1024" static_shadow_map_height="1024" dir="-573.099 -266.569 -4.55024" directional_light_camara_size_w="256" directional_light_camara_size_h="256">
+		<dynamic renderable_objects_layer="solid" />
+		<static renderable_objects_layer="solid" />
+	</directional>
+	<spot name="Spot001" pos="-53.0103 115.298 -38.7068" color="43.0 27.0 255.0" att_start_range="275.591" att_end_range="314.961" generate_shadow_map="true" shadow_map_format_type="G32R32F" shadow_map_width="1024" shadow_map_height="1024" generate_static_shadow_map="true" static_shadow_map_format_type="G32R32F" static_shadow_map_width="1024" static_shadow_map_height="1024" dir="123.175 -115.298 -23.8931" angle="30.0" fall_off="50.0" >
+		<dynamic renderable_objects_layer="solid" />
+		<static renderable_objects_layer="solid" />
+	</spot>
+	<spot name="Spot002" pos="-121.055 157.48 -200.331" color="217.0 8.0 72.0" att_start_range="255.906" att_end_range="354.331" generate_shadow_map="true" shadow_map_format_type="G32R32F" shadow_map_width="1024" shadow_map_height="1024" generate_static_shadow_map="true" static_shadow_map_format_type="G32R32F" static_shadow_map_width="1024" static_shadow_map_height="1024" dir="11.7435 -157.48 108.03" angle="30.0" fall_off="45.0" >
+		<dynamic renderable_objects_layer="solid" />
+		<static renderable_objects_layer="solid" />
+	</spot>
+	<spot name="Spot003" pos="107.229 201.612 221.381" color="30.0 169.0 43.0" att_start_range="275.591" att_end_range="389.764" generate_shadow_map="true" shadow_map_format_type="G32R32F" shadow_map_width="1024" shadow_map_height="1024" generate_static_shadow_map="true" static_shadow_map_format_type="G32R32F" static_shadow_map_width="1024" static_shadow_map_height="1024" dir="-266.676 -201.612 38.5283" angle="20.0" fall_off="40.0" >
+		<dynamic renderable_objects_layer="solid" />
+		<static renderable_objects_layer="solid" />
+	</spot>
+	<spot name="Spot004" pos="-267.928 188.61 -19.675" color="228.0 184.0 33.0" att_start_range="393.701" att_end_range="472.441" generate_shadow_map="true" shadow_map_format_type="G32R32F" shadow_map_width="1024" shadow_map_height="1024" generate_static_shadow_map="true" static_shadow_map_format_type="G32R32F" static_shadow_map_width="1024" static_shadow_map_height="1024" dir="132.571 -188.61 282.29" angle="30.0" fall_off="45.0" >
+		<dynamic renderable_objects_layer="solid" />
+		<static renderable_objects_layer="solid" />
+	</spot>
+	<omni name="Omni001" pos="-218.208 48.3771 -337.487" color="112.0 50.0 33.0" att_start_range="78.7402" att_end_range="118.11" >
+	</omni>-->
+	
+	<directional name="Direct001" pos="595.726 255.76 -17.3757" color="255.0 255.0 255.0" att_start_range="201.575" att_end_range="201.575" generate_shadow_map="true" shadow_map_format_type="G32R32F" shadow_map_width="1024" shadow_map_height="1024" generate_static_shadow_map="true" static_shadow_map_format_type="G32R32F" static_shadow_map_width="1024" static_shadow_map_height="1024" dir="-573.099 -266.569 -4.55024" directional_light_camara_size_w="256" directional_light_camara_size_h="256">
+		<dynamic renderable_objects_layer="solid" />
+		<static renderable_objects_layer="solid" />
+	</directional>
+	
+	<spot name="Spot004" pos="10.0 50.0 6.0" color="228.0 184.0 33.0" att_start_range="393.701" att_end_range="472.441" generate_shadow_map="true" shadow_map_format_type="G32R32F" shadow_map_width="1024" shadow_map_height="1024" generate_static_shadow_map="true" static_shadow_map_format_type="G32R32F" static_shadow_map_width="1024" static_shadow_map_height="1024" dir="0.0 -1.0 0.0" angle="30.0" fall_off="45.0" >
+		<dynamic renderable_objects_layer="solid" />
+		<static renderable_objects_layer="solid" />
+	</spot>
 </lights>

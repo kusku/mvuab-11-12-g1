@@ -13,15 +13,18 @@
 #include "Modifiers\ModifierManager.h"
 #include "DebugOptions\DebugOptions.h"
 #include "DebugGUIManager.h"
+#include "TestDefs.h"
+#include "Scripting\ScriptingDefs.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
 #endif
 
-CTestGUIProcess::CTestGUIProcess( void )
+CTestGUIProcess::CTestGUIProcess( HWND hWnd )
 	: m_pThPSCamera(NULL)
 	, pos(0,0)
 	, screen(800,600)
+	, m_hWnd(hWnd)
 {
 }
 
@@ -57,16 +60,46 @@ bool CTestGUIProcess::Init( void )
 	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
 	CORE->SetCamera(m_pCamera);
 
+	RegisterMethods();
+
+	CORE->GetScriptManager()->RunCode("load_basics()");
+
 	return true;
 }
 
 void CTestGUIProcess::Update( float _ElapsedTime )
 {
 	CORE->SetCamera( m_pCamera );
-	m_Player.Update( _ElapsedTime, m_pCamera );
+
+	//if( CORE->IsGameMode() )
+	//{
+	//	m_Player.Update( _ElapsedTime, m_pCamera );
+	//	CORE->GetRenderableObjectsLayersManager()->Update( _ElapsedTime );
+	//}
+
 	//UpdateInputs( _ElapsedTime );
 
-	CORE->GetRenderableObjectsLayersManager()->Update( _ElapsedTime );
+	if( CORE->GetActionToInput()->DoAction("ChangeRenderCommands") )
+	{
+		CORE->GetScriptManager()->RunCode("change_to_game_process()");
+		CORE->SetGameMode( !CORE->IsGameMode() );
+		/*PostMessage(m_hWnd, WM_GAME_PROCESS, 0, 0);*/
+	}
+}
+
+void CTestGUIProcess::ChangeProcess()
+{
+	PostMessage(m_hWnd, WM_GAME_PROCESS, 0, 0);
+}
+
+void CTestGUIProcess::RegisterMethods()
+{
+	lua_State *state = CORE->GetScriptManager()->GetLuaState();
+
+	module(state) [
+		class_<CTestGUIProcess, CEngineProcess>("CTestGUIProcess")
+			.def("change_process", &CTestGUIProcess::ChangeProcess)
+	];
 }
 
 void CTestGUIProcess::Render( CRenderManager &_RM )
