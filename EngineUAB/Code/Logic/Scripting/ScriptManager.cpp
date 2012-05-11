@@ -1,18 +1,9 @@
 
 #include "ScriptManager.h"
-#include "ScriptingDefs.h"
 
 #include "Logger\Logger.h"
 #include "XML\XMLTreeNode.h"
 #include "Base.h"
-
-#include <luabind/luabind.hpp>
-#include <luabind/function.hpp>
-#include <luabind/class.hpp>
-#include <luabind/operator.hpp>
-#include <luabind/return_reference_to_policy.hpp>
-
-using namespace luabind;
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -273,6 +264,10 @@ void CScriptManager::RegisterCoreMethods()
 				def("get_singleton", &CSingleton<CCore>::GetSingletonPtr)
 			]
 	];
+	
+	module(m_pLuaState) [
+		class_<CEngineProcess>("CEngineProcess")
+	];
 
 	module(m_pLuaState) [
 		class_<CCore>("CCore")
@@ -297,6 +292,25 @@ void CScriptManager::RegisterCoreMethods()
 			.def("get_stadistics", &CCore::GetStadistics)
 			.def("get_gui_manager", &CCore::GetGUIManager)
 			.def("get_sound_manager", &CCore::GetSoundManager)
+			.def("get_process", &CCore::GetProcess)
+			.def("load_fonts", &CCore::LoadFonts)
+			.def("load_languages", &CCore::LoadLanguages)
+			.def("load_inputs", &CCore::LoadInputs)
+			.def("load_effects", &CCore::LoadEffects)
+			.def("load_renderable_objects_techniques", &CCore::LoadROTechniques)
+			.def("load_static_meshes", &CCore::LoadStaticMeshes)
+			.def("load_animated_models", &CCore::LoadAnimatedModels)
+			.def("load_renderable_objects_layers", &CCore::LoadROLayers)
+			.def("load_lights", &CCore::LoadLights)
+			.def("load_render_commands", &CCore::LoadRenderCommands)
+			.def("load_physics", &CCore::LoadPhysics)
+			.def("load_billboards", &CCore::LoadBillboards)
+			.def("load_particles", &CCore::LoadParticles)
+			.def("load_gui", &CCore::LoadGUI)
+			.def("load_triggers", &CCore::LoadTriggers)
+			.def("load_sounds", &CCore::LoadSounds)
+			.def("load_debug_gui", &CCore::LoadDebugGUI)
+			.def("is_game_mode", &CCore::IsGameMode)
 	];
 }
 

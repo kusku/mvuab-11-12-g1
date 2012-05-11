@@ -54,8 +54,6 @@ CGUIEditorApp::CGUIEditorApp()
 	SetAppID(_T("GUIEditor.AppID.NoVersion"));
 
 	CEngine *engine = new CEngine();
-	CGUIEditorProcess *process= new CGUIEditorProcess();
-	engine->SetProcess(process);
 	CEngineManager::GetInstance()->SetEngine(engine);
 }
 

@@ -17,15 +17,18 @@ public:
 	virtual		~CSceneRendererCommandManager	( void );
 	
 	//----Funcions principals---------------------------------------
-	bool		Load	( const std::string &_FileName );
+	bool		Load	( const std::string &_FileName, bool _IsGUI );
 	void		Execute	( CRenderManager &_RM );
 
-	//----Funcions ---------------------------------------
+	//----Métodos ---------------------------------------
 	bool		Reload  ( void );
 
+	void		SetRenderScene		( bool render )		{ m_bIsExecutedSceneCommands = render; }
+	bool		IsRenderScene		() const			{ return m_bIsExecutedSceneCommands; }
+
 private:
-	void		CleanUp							( void );
-	bool		LoadXML							( void );
+	void		CleanUp				( void );
+	bool		LoadXML				( bool _IsGUI );
 
 	//----Properties ( get & Set )---------------------------------------
 public:
@@ -35,8 +38,12 @@ public:
 	//----Membres ---------------------------------------
 private:
 	CTemplatedVectorMapManager<CSceneRendererCommand>	m_SceneRendererCommands;	// llistat de comandes a executar que provenen del XML
-	
-	std::string		m_FileName;
+	CTemplatedVectorMapManager<CSceneRendererCommand>	m_GUIRendererCommands;
+
+	std::string		m_szSceneFileName;
+	std::string		m_szGUIFileName;
+
+	bool		m_bIsExecutedSceneCommands;
 };
 
 #endif __CLASS_SCENE_RENDERER_COMMAND_MANAGER_H__

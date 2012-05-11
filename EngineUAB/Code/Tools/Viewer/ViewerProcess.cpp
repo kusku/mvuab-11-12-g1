@@ -58,6 +58,9 @@ bool CViewerProcess::Init()
 	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
 	CORE->SetCamera( m_pCamera );
 
+	CORE->GetScriptManager()->RunCode("load_basics()");
+	CORE->GetScriptManager()->RunCode("load_data()");
+
 	return true;
 }
 

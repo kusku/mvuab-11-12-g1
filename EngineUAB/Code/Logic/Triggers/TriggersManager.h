@@ -50,6 +50,7 @@ public:
 	virtual			~CTriggersManager		( void );
 
 	//----Main Functions ------------------------------------------------
+	void			Init					( void );
 	void			Destroy					( void );
 	bool			Load					( const std::string &_FileName );
 	bool			Reload					( void );

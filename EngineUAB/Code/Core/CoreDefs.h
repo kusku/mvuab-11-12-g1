@@ -97,6 +97,7 @@ struct SConfig
 
 	//Scene Renderer Command params
 	std::string scene_renderer_command_manager_path;
+	std::string scene_renderer_gui_command_manager_path;
 
 	//Renderable Object Techniques
 	std::string renderable_object_techniques_path;

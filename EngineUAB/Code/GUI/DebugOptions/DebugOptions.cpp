@@ -82,7 +82,7 @@ bool CDebugOptions::LoadFile()
 			if( l_Type == "page" )
 			{
 				TETypePage l_TypeOfPage = String2TypePage( l_Node(i).GetPszProperty("type", "") );
-				if( l_TypeOfPage != NONE )
+				if( l_TypeOfPage != NONE_PAGE )
 				{
 					//Reading the options of a page
 					SPage l_Page;
@@ -125,7 +125,7 @@ TETypePage CDebugOptions::String2TypePage(const std::string &Type)
 {
 	if( Type == "Options" ) return OPTIONS;
 	else if( Type == "Stadistics" ) return STADISTICS;
-	else return NONE;
+	else return NONE_PAGE;
 }
 
 TETypeOfValues CDebugOptions::String2TypeValue(const std::string &Type)

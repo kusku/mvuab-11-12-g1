@@ -16,7 +16,9 @@
 //			CONSTRUCTORS I DESTRUCTORS
 // -----------------------------------------
 CSceneRendererCommandManager::CSceneRendererCommandManager ( void ) 
-	: m_FileName("")
+	: m_szSceneFileName("")
+	, m_szGUIFileName("")
+	, m_bIsExecutedSceneCommands(true)
 {}
 
 CSceneRendererCommandManager::~CSceneRendererCommandManager ( void )
@@ -30,42 +32,74 @@ CSceneRendererCommandManager::~CSceneRendererCommandManager ( void )
 void CSceneRendererCommandManager::CleanUp()
 {
 	m_SceneRendererCommands.Destroy();
+	m_GUIRendererCommands.Destroy();
 }
 
-bool CSceneRendererCommandManager::Load( const std::string &_FileName )
+bool CSceneRendererCommandManager::Load( const std::string &_FileName, bool _IsGUI )
 {
 	LOGGER->AddNewLog(ELL_INFORMATION, "CSceneRendererCommandManager::Load->Cargando los comandos de renderizado.");
-	m_FileName = _FileName;
-	return LoadXML ();
+	if( _IsGUI )
+	{
+		m_szGUIFileName = _FileName;
+	}
+	else
+	{
+		m_szSceneFileName = _FileName;
+	}
+
+	return LoadXML ( _IsGUI );
 }
 
 bool CSceneRendererCommandManager::Reload ( void )
 {
 	LOGGER->AddNewLog(ELL_INFORMATION, "CSceneRendererCommandManager::Reload -> Reload de los Scene Renderer Commands.");
 	CleanUp();
-	return LoadXML ( );
+	LoadXML(false);	//Carga el fichero de Comandos de Escena
+	return LoadXML(true); //Carga el fichero de Comandos de GUI
 }
 
 void CSceneRendererCommandManager::Execute ( CRenderManager &_RM )
 {
-	CTemplatedVectorMapManager<CSceneRendererCommand>::TVectorResources l_VectorComandes = m_SceneRendererCommands.GetResourcesVector ();
-	
-	// Recorrem tots els comandos en ordre del vector i els executem
-	for ( unsigned short i = 0; i < l_VectorComandes.size () ; ++i )
+	std::vector<CSceneRendererCommand*> l_Vector;
+	std::vector<CSceneRendererCommand*>::iterator l_It;
+	std::vector<CSceneRendererCommand*>::iterator l_ItEnd;
+
+	if( m_bIsExecutedSceneCommands )
 	{
-		l_VectorComandes[i]->Execute ( _RM );
+		l_Vector = m_SceneRendererCommands.GetResourcesVector();
+		l_It = l_Vector.begin();
+		l_ItEnd = l_Vector.end();
 	}
+	else
+	{
+		l_Vector = m_GUIRendererCommands.GetResourcesVector();
+		l_It = l_Vector.begin();
+		l_ItEnd = l_Vector.end();
+	}
+	
+	for(; l_It != l_ItEnd; ++l_It)
+	{
+		(*l_It)->Execute( _RM );
+	}
+
+	// Recorrem tots els comandos en ordre del vector i els executem
+	//for ( unsigned short i = 0; i < l_VectorComandes.size() ; ++i )
+	//{
+	//	l_VectorComandes[i]->Execute ( _RM );
+	//}
 }
 
 // -----------------------------------------
 //				MÈTODES PRIVATS
 // -----------------------------------------
-bool CSceneRendererCommandManager::LoadXML ( void )
+bool CSceneRendererCommandManager::LoadXML ( bool _IsGUI )
 {
+	std::string l_szFileName = _IsGUI ? m_szGUIFileName : m_szSceneFileName;
+
 	CXMLTreeNode newFile;
-	if (!newFile.LoadFile(m_FileName.c_str()))
+	if (!newFile.LoadFile(l_szFileName.c_str()))
 	{
-		std::string msg_error = "CSceneRendererCommandManager::LoadXML->Error al intentar leer el archivo de scene renderer commands: " + m_FileName;
+		std::string msg_error = "CSceneRendererCommandManager::LoadXML->Error al intentar leer el archivo de scene renderer commands: " + l_szFileName;
 		LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
 		return false;
 	}
@@ -219,8 +253,16 @@ bool CSceneRendererCommandManager::LoadXML ( void )
 			 //Add the command into the map
 			if ( l_ActiveCommand != NULL )
 			{
-				l_CommandName = l_ActiveCommand->GetName ();
-				m_SceneRendererCommands.AddResource ( l_CommandName, l_ActiveCommand );
+				l_CommandName = l_ActiveCommand->GetName();
+				
+				if( _IsGUI )
+				{
+					m_GUIRendererCommands.AddResource( l_CommandName, l_ActiveCommand );
+				}
+				else
+				{
+					m_SceneRendererCommands.AddResource( l_CommandName, l_ActiveCommand );
+				}
 			}
 		}
 	}

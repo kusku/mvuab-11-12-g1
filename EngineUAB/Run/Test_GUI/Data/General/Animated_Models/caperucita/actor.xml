@@ -1,0 +1,6 @@
+<animated_model name="caperu">
+	<skeleton filename="CAP_SKLETON.csf"/>
+	<mesh filename="CAP_mesh.cmf"/>
+	<animation name="anim" filename="CAP_Animation.caf"/>
+	<texture filename="texture.jpg"/>
+</animated_model>

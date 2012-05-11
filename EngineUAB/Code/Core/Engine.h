@@ -39,7 +39,7 @@ public:
 	void			Reload				( void );
 
 	//----Properties ( get & Set )---------------------------------------
-	void			SetProcess			( CEngineProcess *_Process )		{ m_pProcess = _Process; }
+	void			SetProcess			( CEngineProcess *_Process );
 	CEngineProcess*	GetProcess			( void ) const						{ return m_pProcess; }
 
 	Vect2i			GetResolution		( void ) const						{ return m_Config.resolution; }

@@ -15,13 +15,16 @@ class CActionToInput;
 class CTestGUIProcess : public CEngineProcess
 {
 public:
-						CTestGUIProcess		( void );
+						CTestGUIProcess		( HWND hWnd );
 	virtual				~CTestGUIProcess	( void );
 
 	bool				Init				( void );
 	void				Done				( void );
 	void				Update				( float _ElapsedTime );
 	void				Render				( CRenderManager &_RM );
+
+	void			ChangeProcess		();
+	void				RegisterMethods		();
 
 protected:
 	virtual void		Release				( void );
@@ -34,6 +37,8 @@ protected:
 
 	CPlayer		m_Player;
 	CThPSCamera *m_pThPSCamera;
+
+	HWND		m_hWnd;
 };
 
 #endif

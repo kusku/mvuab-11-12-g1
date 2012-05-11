@@ -42,54 +42,72 @@ class CCore : public CSingleton<CCore>
 {
 public:
 	//--- Init and End protocols--------------------------------------------
-								CCore		( void );
-	virtual						~CCore		( void );
+				CCore		( void );
+	virtual		~CCore		( void );
 
-	bool						Init		( HWND hWnd, const SConfig &config );
-	void						Done		( void );
-	bool						IsOk		( void ) const							{ return m_bIsOk; }
-
-private:
-	void Release();
+	bool		Init		( HWND hWnd, const SConfig &config );
+	void		Done		( void );
+	bool		IsOk		( void ) const							{ return m_bIsOk; }
 
 	//----Main Methods -----------------------------------------------------
-public:
-	void						Update		( float _ElapsedTime );
-	void						Render		( void );
+	void		Update		( float _ElapsedTime );
+	void		Render		( void );
+
+	//---Load Methods -------------------------------------------------------
+	bool		LoadFonts				();
+	bool		LoadLanguages			();
+	bool		LoadInputs				();
+	bool		LoadEffects				();
+	bool		LoadROTechniques		();
+	bool		LoadStaticMeshes		();
+	bool		LoadAnimatedModels		();
+	bool		LoadROLayers			();
+	bool		LoadLights				();
+	bool		LoadRenderCommands		();
+	bool		LoadPhysics				();
+	bool		LoadBillboards			();
+	bool		LoadParticles			();
+	bool		LoadGUI					();
+	bool		LoadTriggers			();
+	bool		LoadSounds				();
+	bool		LoadDebugGUI			();
 
 	//----Inputs Methods -----------------------------------------------------
-	void						UpdateInputs								( float _ElapsedTime );
-	void						UpdateDebugInputs							( float _ElapsedTime, CActionToInput &_Action2Input );
+	void		UpdateInputs							( float _ElapsedTime );
+	void		UpdateDebugInputs						( float _ElapsedTime, CActionToInput &_Action2Input );
 
 	//----Reload Methods ---------------------------------------------------
-	void						Reload										( void );
-	void						ReloadTTFs									( void );	
-	void						ReloadLanguages								( void );	
-	void						ReloadInputs								( void );
-	void						ReloadSceneRendererCommandManager			( void );
-	void						ReloadRenderableObjectsLayersManager		( void );
-	void						ReloadShaders								( void );
-	void						ReloadEffects								( void );
-	void						ReloadMeshes								( void );
-	void						ReloadAnimatedModels						( void );
-	void						ReloadPools									( void );
-	void						ReloadScripts								( void );
-	void						ReloadLights								( void );
-	void						ReloadPhysics								( void );
-	void						ReloadBillboards							( void );
-	void						ReloadParticles								( void );
-	void						ReloadTriggers								( void );
-	void						ReloadGUI									( void );
-	void						ReloadSounds								( void );
+	void		Reload									( void );
+	void		ReloadTTFs								( void );	
+	void		ReloadLanguages							( void );	
+	void		ReloadInputs							( void );
+	void		ReloadSceneRendererCommandManager		( void );
+	void		ReloadRenderableObjectsLayersManager	( void );
+	void		ReloadShaders							( void );
+	void		ReloadEffects							( void );
+	void		ReloadMeshes							( void );
+	void		ReloadAnimatedModels					( void );
+	void		ReloadPools								( void );
+	void		ReloadScripts							( void );
+	void		ReloadLights							( void );
+	void		ReloadPhysics							( void );
+	void		ReloadBillboards						( void );
+	void		ReloadParticles							( void );
+	void		ReloadTriggers							( void );
+	void		ReloadGUI								( void );
+	void		ReloadSounds							( void );
 	
 
 	//----Properties ( get & Set )---------------------------------------
-	void										SetCamera					( CCamera *_Camera )			{ m_pCamera = _Camera; }
-	void										SetTimer					( CTimer *_Timer )				{ m_pTimer = _Timer; }
-	void										SetProcess					( CEngineProcess *_Process )	{ m_pProcess = _Process; }
+	void					SetCamera					( CCamera *_Camera )			{ m_pCamera = _Camera; }
+	void					SetTimer					( CTimer *_Timer )				{ m_pTimer = _Timer; }
+	void					SetProcess					( CEngineProcess *_Process )	{ m_pProcess = _Process; }
+	void					SetGameMode					( bool _GameMode );
 
-	inline bool									IsDebugMode					() const						{ return m_bDebugMode; }
-	inline bool									IsReleaseMode				() const						{ return m_bReleaseMode; }
+	inline bool				IsDebugMode					() const						{ return m_bDebugMode; }
+	inline bool				IsReleaseMode				() const						{ return m_bReleaseMode; }
+	inline bool				IsGameMode					() const						{ return m_bIsGameMode; }
+	inline bool				IsGUIMode					() const						{ return !m_bIsGameMode; }
 
 	inline CCamera*								GetCamera					( void ) const					{ return m_pCamera; }
 	inline CTimer*								GetTimer					( void ) const					{ return m_pTimer; }
@@ -121,11 +139,17 @@ public:
 	inline CEntityManager*						GetEntityManager			( void ) const					{ return m_pEntityManager; }					// Accés al gestor lógic d'entitats 
 	inline CMessageDispatcher*					GetMessageDispatcher		( void ) const					{ return m_pMessageDispatcher; }				// Accés al gestor lógic de missatges
 
+private:
+	void Release();
+
 	//----Members ---------------------------------------
 private:
 	bool	m_bIsOk;
 	bool	m_bDebugMode;
 	bool	m_bReleaseMode;
+	bool	m_bIsGameMode;
+
+	SConfig	m_Config;
 
 	CCamera								*m_pCamera;						// punter a la càmera
 	CTimer								*m_pTimer;						// punter al timer

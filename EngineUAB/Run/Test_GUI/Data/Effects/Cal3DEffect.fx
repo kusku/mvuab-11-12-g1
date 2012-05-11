@@ -18,6 +18,7 @@ struct CAL3D_HW_VERTEX_PS
 	float3 WorldPosition : TEXCOORD2;
 	float3 WorldTangent : TEXCOORD3;
 	float3 WorldBinormal : TEXCOORD4;
+	float2 Depth : NORMAL1;
 };
 
 sampler DiffuseTextureSampler : register( s0 ) = sampler_state
@@ -99,7 +100,34 @@ CAL3D_HW_VERTEX_PS RenderCal3DHWVS(CAL3D_HW_VERTEX_VS IN)
 	OUT.UV = IN.TexCoord.xy;
 	OUT.HPosition = mul(l_WorldPosition, g_WorldViewProjMatrix );
 	
+	OUT.Depth.xy = OUT.HPosition.zw;
+	
 	return OUT;
+}
+
+struct PSO
+{
+ float4 dif : COLOR0;
+ float4 nrm : COLOR1;
+ float4 dep : COLOR2;
+};
+
+
+PSO RenderCal3DHWDRPS(CAL3D_HW_VERTEX_PS IN)
+{
+	//float3 Nn=CalcBumpMap(IN.WorldPosition, IN.WorldNormal, IN.WorldTangent,IN.WorldBinormal, IN.UV);
+	//float4 l_SpecularColor = 1.0;
+	//float4 l_DiffuseColor=tex2D(DiffuseTextureSampler, IN.UV);
+	//return CalcLighting (IN.WorldPosition, Nn, l_DiffuseColor, l_SpecularColor);
+	//return tex2D(DiffuseTextureSampler, IN.UV);
+	
+	PSO output = (PSO)0;
+	
+	output.dep = IN.Depth.x / IN.Depth.y;
+	output.nrm.xyz = IN.WorldNormal;
+	output.dif = tex2D(DiffuseTextureSampler, IN.UV);
+	
+	return output;
 }
 
 float4 RenderCal3DHWPS(CAL3D_HW_VERTEX_PS IN) : COLOR
@@ -121,6 +149,6 @@ technique Cal3DTechnique
 		AlphaBlendEnable = false;
 		CullMode = CCW;
 		VertexShader = compile vs_3_0 RenderCal3DHWVS();
-		PixelShader = compile ps_3_0 RenderCal3DHWPS();
+		PixelShader = compile ps_3_0 RenderCal3DHWDRPS();
 	}
 }
