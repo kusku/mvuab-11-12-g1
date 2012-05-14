@@ -17,32 +17,37 @@
 class CObject3D
 {
 public:
-	CObject3D(const Vect3f& pos, const Vect3f& scale, float yaw, float pitch, float roll = 0);
-	CObject3D();
-	virtual ~CObject3D(void) {/*Nothing*/;}
+	//--- Init and End protocols------------------------------------------
+								CObject3D			( const Vect3f& pos, const Vect3f& scale, float yaw, float pitch, float roll = 0 );
+								CObject3D			( void );
+	virtual						~CObject3D			( void ) {/*Nothing*/;}
 
-	void						InitMat44			();
+	//---- Methods ---------------------------------------------------------
+	void						InitMat44			( void );
 
+	//----Properties ( get & Set )---------------------------------------
 	//---Get Functions
-	inline float				GetYaw				() const { return m_fYaw; }
-	inline float				GetRoll				() const { return m_fRoll; }
-	inline float				GetPitch			() const { return m_fPitch; }
-	inline const Vect3f&		GetPosition			() const { return m_Position; }
-	inline const Vect3f&		GetScale			() const { return m_Scale; }
-	inline bool					GetVisible			() const { return m_Visible; }
-	inline const std::string&	GetTechniqueName	() const { return m_TechniqueName; }
-
-	const Mat44f				GetTransform		() const;
+	inline float				GetYaw				( void ) const					{ return m_fYaw; }
+	inline float				GetRoll				( void ) const					{ return m_fRoll; }
+	inline float				GetPitch			( void ) const					{ return m_fPitch; }
+	inline const Vect3f&		GetPosition			( void ) const					{ return m_Position; }
+	inline const Vect3f&		GetScale			( void ) const					{ return m_Scale; }
+	inline bool					GetVisible			( void ) const					{ return m_Visible; }
+	inline const std::string&	GetTechniqueName	( void ) const					{ return m_TechniqueName; }
+	
+	const Mat44f				GetTransform		( void ) const;
 
 	//---Set Functions
-	inline void		SetPosition			( const Vect3f& pos )			{ m_Position = pos; }
-	inline void		SetScale			( const Vect3f& sca )			{ m_Scale = sca; }
-	inline void		SetYaw				( float yaw )					{ m_fYaw = yaw; }
-	inline void		SetPitch			( float pitch )					{ m_fPitch = pitch; }
-	inline void		SetRoll				( float roll )					{ m_fRoll = roll; }
-	inline void		SetVisible			( bool visible )				{ m_Visible = visible; }
-	inline void		SetTechniqueName	( const std::string& name )		{ m_TechniqueName = name; }
+	inline void					SetPosition			( const Vect3f& pos )			{ m_Position = pos; }
+	inline void					SetScale			( const Vect3f& sca )			{ m_Scale = sca; }
+	inline void					SetYaw				( float yaw )					{ m_fYaw = yaw; }
+	inline void					SetPitch			( float pitch )					{ m_fPitch = pitch; }
+	inline void					SetRoll				( float roll )					{ m_fRoll = roll; }
+	inline void					SetVisible			( bool visible )				{ m_Visible = visible; }
+	inline void					SetTechniqueName	( const std::string& name )		{ m_TechniqueName = name; }
 
+
+	//----Members -------------------------------------------------------
 protected:
 	Vect3f		m_Position;
 	Vect3f		m_Scale;
