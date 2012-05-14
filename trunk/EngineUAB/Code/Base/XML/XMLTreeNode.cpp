@@ -161,6 +161,7 @@ CXMLTreeNode CXMLTreeNode::operator() (int _iIndex) const
   {
     int iCount = 0;
     xmlNodePtr pChildren = m_pNode->children;
+	//xmlChar         * value = (*pChildren).content;
     while (pChildren != NULL)
     {
       if (pChildren->type != XML_TEXT_NODE)
@@ -571,6 +572,28 @@ const char* CXMLTreeNode::GetPszKeyword (const char* _pszKey, const char* _pszDe
   }
 
   return pszRet;
+}
+
+//----------------------------------------------------------------------------
+// Returns a float vector3 keyword if found. Else a default value
+//----------------------------------------------------------------------------
+Vect3f CXMLTreeNode::GetVect3fKeyword  ( const char* _pszKey, const Vect3f& _Default, bool warningDefault ) const
+{
+	xmlChar* value = GetKeyword(_pszKey);
+	Vect3f l_V3f = _Default;
+
+	if ( value )
+	{
+		const char* pszValue = (const char*)value;
+		sscanf_s(pszValue,"%f %f %f",&l_V3f.x, &l_V3f.y, &l_V3f.z);    
+	}
+	else if(warningDefault)
+	{
+		LOGGER->AddNewLog(ELL_WARNING, "CXMLTreeNode::GetVect3fKeyword se ha utilizado el vector3f por defecto:(%f,%f,%f) para el tag <%s>",_Default.x, _Default.y, _Default.z, _pszKey);
+	}
+
+	xmlFree(value);
+	return l_V3f;
 }
 
 //----------------------------------------------------------------------------
