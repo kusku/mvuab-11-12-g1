@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<characters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation='characters_animated_states.xsd'>
+  <default_states core="caperucita">
+    <state name="idle">
+      <animation id="0"  />
+      <animation id="1"  />
+      <animation id="2"  />
+      <animation id="4"  />
+    </state>
+    <state name="run">
+      <animation id="2"  />
+      <animation id="3"  />
+    </state>
+    <state name="pursuit">
+      <animation id="2"  />
+      <animation id="3"  />
+      <animation id="5"  />
+    </state>
+  </default_states>
+  <default_states core="lobo">
+    <state name="idle">
+      <animation id="0"  />
+      <animation id="1"  />
+    </state>
+    <state name="run">
+      <animation id="0"  />
+      <animation id="1"  />
+      <animation id="2"  />
+      <animation id="4"  />
+    </state>
+  </default_states>
+  <player name="Jolete" core="caperucita">
+    <state name="idle">
+      <animation id="0"  />
+	  <animation id="10"  />
+    </state>
+    <state name="run">
+      <animation id="3"  />
+	  <animation id="2"  />
+	  <animation id="1"  />
+    </state>
+  </player>
+  <!--<enemies>
+    <enemy name="enemy1" core="lobo" animated_instace_name="lobo1" >
+      <state name="idle">
+        <animation id="3"  />
+        <animation id="15"  />
+      </state>
+      <state name="run">
+        <animation id="32"  />
+        <animation id="33"  />
+      </state>
+    </enemy>
+    <enemy name="enemy2" core="lobo" animated_instace_name="lobo2" >
+      <state name="idle">
+        <animation id="8"  />
+        <animation id="7"  />
+      </state>
+      <state name="run">
+        <animation id="6"  />
+        <animation id="9"  />
+      </state>
+    </enemy>
+  </enemies>-->
+</characters>
