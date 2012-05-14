@@ -4,6 +4,19 @@
 	<layer name="alpha_objects" />
 	<layer name="alpha_blend_objects" />
 	<layer name="particles" />
+	<!--<mesh_instance name="Casa" core="Casa" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
+	<mesh_instance name="otro" core="OTRO" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
+	-->
+	<!--<mesh_instance name="Plans" core="planells" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />-->
+	<mesh_instance name="TerrenoCasa" core="TerrenoCasa" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />
+	<!--<mesh_instance name="TerrenoCasa" core="TerrenoCasa" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />
+	<mesh_instance name="Plans" core="planells" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />
+	<mesh_instance name="Plane001" core="Plane001" position="2.001 -11.557 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />
+	<mesh_instance name="Box001" core="Box001" position="-8.946 -5.477 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />
+	<mesh_instance name="Box002" core="Box002" position="6.434 -7.439 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />
+	<mesh_instance name="Box003" core="Box003" position="4.217 0.345 0.989" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />
+	<mesh_instance name="Box004" core="Box004" position="9.569 8.208 2.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />
+	<mesh_instance name="Box005" core="Box005" position="18.494 18.186 3.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />-->
 	<!--<mesh_instance name="Cone001" core="Cone001" position="216.857 0.0 79.9658" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
 	<mesh_instance name="Plane002" core="Plane002" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
 	<mesh_instance name="Box003" core="Box003" position="-117.778 0.0 -109.947" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
@@ -13,7 +26,7 @@
 	<mesh_instance name="Box005" core="Box005" position="-291.024 0.0 -314.033" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
 	<mesh_instance name="Box006" core="Box006" position="-211.142 0.0 -263.352" yaw="-1.00179e-005" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
 	<mesh_instance name="Plane01" core="Plane01" position="-8000.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" scale="0.15 0.15 0.15" />-->
-	<mesh_instance name="Plane002" core="Plane002" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
+	<!--<mesh_instance name="Plane002" core="Plane002" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />-->
 	<!--<mesh_instance name="Llop" core="Llop" position="0.0 2.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="10.0 10.0 10.0" visible="true" layer="solid" create_physics="false" />-->
 	<animated_model_instance name="lobo1" core="lobo" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
 	<!--<animated_model_instance name="lobo2" core="lobo" position="10.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
