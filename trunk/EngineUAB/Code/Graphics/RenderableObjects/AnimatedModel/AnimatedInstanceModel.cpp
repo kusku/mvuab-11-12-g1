@@ -23,11 +23,17 @@
 #include "Memory\MemLeaks.h"
 #endif
 
+// -----------------------------------------
+//			CONSTRUCTOR/DESTRUCTOR
+// -----------------------------------------
+
 CAnimatedInstanceModel::CAnimatedInstanceModel()
-	: m_CalModel(NULL)
-	, m_AnimatedCoreModel(NULL)
-	, m_pVB(NULL)
-    , m_pIB(NULL)
+	: m_CalModel				( NULL )
+	, m_AnimatedCoreModel		( NULL )
+	, m_pVB						( NULL )
+    , m_pIB						( NULL )
+	, m_CreatePhysics			( false )
+	, m_CreateLogicBehaviour	( false )
 {
 }
 
@@ -81,31 +87,31 @@ void CAnimatedInstanceModel::Initialize(CAnimatedCoreModel *AnimatedCoreModel)
 	m_AnimatedCoreModel->LoadVertexBuffer(m_CalModel);
 }
 
-void CAnimatedInstanceModel::Update(float elapsedTime)
+void CAnimatedInstanceModel::Update( float _ElapsedTime )
 {
-	m_CalModel->update(elapsedTime);
+	m_CalModel->update( _ElapsedTime );
 }
 
-void CAnimatedInstanceModel::Render(CRenderManager *RM)
+void CAnimatedInstanceModel::Render( CRenderManager *_RM )
 {
 	Mat44f mat, rotYaw, rotPitch, rotRoll;
 
-	mat.SetIdentity();
-	/*rotYaw.SetIdentity();
+	mat.SetIdentity		();
+	rotYaw.SetIdentity	();
 	rotPitch.SetIdentity();
-	rotRoll.SetIdentity();
+	rotRoll.SetIdentity	();
 
 	mat.Translate( GetPosition() );
 		
 	rotPitch.SetRotByAngleX( mathUtils::Deg2Rad<float>(GetPitch()) );
-	rotYaw.SetRotByAngleY( mathUtils::Deg2Rad<float>(GetYaw()) );
+	rotYaw.SetRotByAngleY(  mathUtils::Deg2Rad<float>(GetYaw()) );
 	rotRoll.SetRotByAngleZ( mathUtils::Deg2Rad<float>(GetRoll()) );
-		
-	mat = mat * rotYaw * rotPitch * rotRoll;*/
-		
-	RM->SetTransform(mat);
 
-	RenderModelByHardware(RM);
+	mat = mat * rotYaw * rotPitch * rotRoll;
+		
+	_RM->SetTransform(mat);
+
+	RenderModelByHardware( _RM );
 }
 
 void CAnimatedInstanceModel::RenderModelByHardware(CRenderManager* RM)

@@ -1,4 +1,3 @@
-
 #include "ScriptManager.h"
 
 #include "Logger\Logger.h"
@@ -9,8 +8,10 @@
 #include "Memory\MemLeaks.h"
 #endif
 
+// Esto registra una classe de C++ usando Luabind y ser expuesta para ser llamada desde LUA
 #define REGISTER_LUA_FUNCTION(FunctionName,AddrFunction) { luabind::module(m_pLuaState) [ luabind::def(FunctionName,AddrFunction) ]; }
 
+// Para llamar desde LUA a una función de C++ primero debemos crear otra función en C++ igual pasandole el Lua State y devolviendo el int
 int Alert(lua_State * State);
 
 // -----------------------------------------
@@ -37,8 +38,8 @@ void CScriptManager::Initialize ( void )
 	m_pLuaState = luaL_newstate();
 	luaL_openlibs ( m_pLuaState );
 
-	//Sobreescribimos la función _ALERT de LUA cuando se genere algún error al ejecutar código LUA
-	lua_register ( m_pLuaState, "_ALERT", Alert );
+	//Sobreescribimos la función _ALERT de LUA cuando se genere algún error al ejecutar código LUA. Esto sin LuaBind.
+	lua_register ( m_pLuaState, "_ALERT", Alert );		// Así registramos una función de C++ para acceder desde Lua. Ejemplo de "Exposing a C/C++ Function to Lua"
 	luabind::open(m_pLuaState);
 	
 	RegisterLUAMethods(CORE_SCRIPT);
@@ -52,25 +53,27 @@ void CScriptManager::Initialize ( void )
 	RegisterLUAMethods(MATH_SCRIPT);
 }
 
-int Alert(lua_State * State)
+// Wrapper para llamar la función de alerta de Lua y meter la info en nuestro Alert de C++, és decir, el LOGGER
+// Ejemplo de "Exposing a C/C++ Function to Lua"
+int Alert( lua_State * _pState )
 {
 	std::string l_Text;
-	int n = lua_gettop(State);
+	int n = lua_gettop( _pState );				// Obtengo el top element de la pila
 	int i;
-	lua_getglobal(State, "tostring");
-	for (i=1; i<=n; i++) 
+	lua_getglobal( _pState , "tostring" );		
+	for ( i = 1; i <= n; i++ ) 
 	{
 		const char *s;
-		lua_pushvalue(State, -1);
-		lua_pushvalue(State, i);
-		lua_call(State, 1, 1);
-		s = lua_tostring(State, -1);
-		if (s == NULL)
-			return luaL_error(State, "`tostring' must return a string to `print'");
+		lua_pushvalue( _pState, -1 );
+		lua_pushvalue( _pState, i );
+		lua_call( _pState, 1, 1 );				// Llamamos a la función con el Lua State, el nº de parámetros y el nº de resultados devueltos
+		s = lua_tostring( _pState, -1 );
+		if ( s == NULL )
+			return luaL_error( _pState, "`tostring' must return a string to `print'" );
 
 		if (i>1) l_Text += '\t';
 		l_Text += s;
-		lua_pop(State, 1);
+		lua_pop( _pState, 1 );
 	}
 	l_Text += '\n';
 	LOGGER->AddNewLog( ELL_ERROR, l_Text.c_str() );
@@ -91,9 +94,10 @@ bool CScriptManager::Load ( const std::string &_XMLFile )
 	return LoadXML();
 }
 
-//Para ejecutar un fragmento de código LUA
+//Para ejecutar un fragmento de código LUA. Esto es un ejemplo de "Accessing a Lua Function from within C++"
 void CScriptManager::RunCode ( const std::string &_Code ) const
 {
+	// Compila y ejecuta el string
 	if ( luaL_dostring ( m_pLuaState, _Code.c_str() ) )
 	{
 		const char *l_Str = lua_tostring ( m_pLuaState, -1 );
@@ -104,6 +108,7 @@ void CScriptManager::RunCode ( const std::string &_Code ) const
 //Para ejecutar un fichero de código LUA
 void CScriptManager::RunFile(const std::string &FileName) const
 {
+	// Compila y ejecuta un fichero
 	if ( luaL_dofile ( m_pLuaState, FileName.c_str() ) )
 	{
 		const char *l_Str = lua_tostring ( m_pLuaState, -1 );
@@ -164,6 +169,7 @@ bool CScriptManager::LoadXML ( void )
 	return true;
 }
 
+// Ejemplo de "Exposing a C/C++ Function to Lua"
 void PrintLogger(int Level, const std::string &Msg)
 {
 	switch(Level)
@@ -255,6 +261,7 @@ void CScriptManager::RegisterLUAMethods(ERegisterMethods type)
 //----------------------------------------------------------------------------
 void CScriptManager::RegisterCoreMethods()
 {
+	// Forma de exponer métodos de C++ usando LuaBind para ser llamados en LUA.
 	REGISTER_LUA_FUNCTION("print_logger", PrintLogger);
 
 	module(m_pLuaState) [
@@ -269,6 +276,7 @@ void CScriptManager::RegisterCoreMethods()
 		class_<CEngineProcess>("CEngineProcess")
 	];
 
+	// Exposing C/C++ Classes Using Luabind
 	module(m_pLuaState) [
 		class_<CCore>("CCore")
 			.def("reload_all", &CCore::Reload)
@@ -410,11 +418,13 @@ void CScriptManager::RegisterLogicMethods( void )
 	];
 
 	/*module(m_pLuaState) [
-		class_<CStateMachine>("CStateMachine")
-			.def(constructor<float, float>())
-	];
+		class_<CStateMachine<T>>("CStateMachine")
+			.def("ChangeState", &CStateMachine<T>::ChangeState)
+			.def("CurrentState", &CStateMachine<T>::CurrentState)
+			.def("SetCurrentState", &CStateMachine<T>::SetCurrentState)
+	];*/
 
-	module(m_pLuaState) [
+	/*module(m_pLuaState) [
 		class_<CStateMachine>("CState")
 			.def(constructor<float, float>())
 	];*/

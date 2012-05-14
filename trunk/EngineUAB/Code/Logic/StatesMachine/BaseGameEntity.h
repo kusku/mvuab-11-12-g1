@@ -19,13 +19,13 @@ public:
 	//----Main Functions --------------------------------------
 	virtual void	Update				( float _ElapsedTime )		= 0;
 	
-	//all subclasses can communicate using messages.
-	virtual bool	HandleMessage		( const Telegram& _Msg)		= 0;
+	// todas las subclases se comunican usando mensajes
+	virtual bool	HandleMessage		( const Telegram& _Msg )		= 0;
 
 	//----Properties ( get & Set )-----------------------------
 	void			SetID				( int _Val );
 	
-	// Llamado por el constructor para asignar un ID correcto.
+	// Llamado por el constructor para asignar un ID correcto
 	int				GetID				( void ) const		{ return m_ID; }
 
 	//----Members )--------------------------------------------

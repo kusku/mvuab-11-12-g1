@@ -35,6 +35,7 @@ using namespace luabind;
 #include "Triggers\TriggersManager.h"
 #include "StatesMachine\State.h"
 #include "StatesMachine\StateMachine.h"
+#include "StatesMachine\BaseGameEntity.h"
 #include "GUIManager.h"
 #include "Controls\GUIAnimatedImage.h"
 #include "EngineProcess.h"
