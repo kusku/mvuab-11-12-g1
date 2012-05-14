@@ -42,6 +42,9 @@ enum DIRECTION
 #define ACTION_MOVE_PLAYER_LEFT				"MoveControlerLeft"
 #define ACTION_MOVE_PLAYER_RIGHT			"MoveControlerRight"
 
+#define ACTION_PLAYER_RESPAWN				"Respawn"
+
+
 #define MOMENTUM							100.f		// Cantidad de movimiento del player
 #define INCREMENT_FACTOR_VELOCITAT			50
 #define TIEMPO_INCREMENTO_VELOCITDAD		30

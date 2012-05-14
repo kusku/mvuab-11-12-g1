@@ -86,27 +86,41 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Character.cpp" />
-    <ClCompile Include="IdleState.cpp" />
-    <ClCompile Include="Logic.cpp" />
+    <ClCompile Include="Characters\Character.cpp" />
+    <ClCompile Include="Characters\CharacterManager.cpp" />
+    <ClCompile Include="Characters\Enemy.cpp" />
+    <ClCompile Include="Characters\Player.cpp" />
+    <ClCompile Include="Characters\PlayerControler.cpp" />
+    <ClCompile Include="Characters\Properties.cpp" />
+    <ClCompile Include="Characters\PropertiesManager.cpp" />
+    <ClCompile Include="Debug Scene\Scene.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayerControler.cpp" />
-    <ClCompile Include="PursuitState.cpp" />
-    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="States\AnimationIdleState.cpp" />
+    <ClCompile Include="States\AnimationPursuitState.cpp" />
+    <ClCompile Include="States\AnimationsStates.cpp" />
+    <ClCompile Include="States\AnimationsStatesManager.cpp" />
+    <ClCompile Include="States\IdleState.cpp" />
+    <ClCompile Include="States\PursuitState.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="TestProcess.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Character.h" />
-    <ClInclude Include="IdleState.h" />
-    <ClInclude Include="Logic.h" />
+    <ClInclude Include="Characters\Character.h" />
+    <ClInclude Include="Characters\CharacterManager.h" />
+    <ClInclude Include="Characters\Enemy.h" />
+    <ClInclude Include="Characters\Player.h" />
+    <ClInclude Include="Characters\PlayerControler.h" />
+    <ClInclude Include="Characters\PlayerDef.h" />
+    <ClInclude Include="Characters\Properties.h" />
+    <ClInclude Include="Characters\PropertiesManager.h" />
+    <ClInclude Include="Debug Scene\Scene.h" />
     <ClInclude Include="Main.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerControler.h" />
-    <ClInclude Include="PlayerDef.h" />
-    <ClInclude Include="PursuitState.h" />
-    <ClInclude Include="Scene.h" />
+    <ClInclude Include="States\AnimationIdleState.h" />
+    <ClInclude Include="States\AnimationPursuitState.h" />
+    <ClInclude Include="States\AnimationsStates.h" />
+    <ClInclude Include="States\AnimationsStatesManager.h" />
+    <ClInclude Include="States\IdleState.h" />
+    <ClInclude Include="States\PursuitState.h" />
     <ClInclude Include="TestDef.h" />
     <ClInclude Include="TestProcess.h" />
   </ItemGroup>

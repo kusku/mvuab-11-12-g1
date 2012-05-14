@@ -6,7 +6,7 @@
 #include "PhysicsManager.h"
 #include "PhysicActor.h"
 #include "PhysicSphericalJoint.h"
-#include "PhysicController.h"
+//#include "PhysicController.h"
 #include "PhysicUserData.h"
 
 #include "InputManager.h"
@@ -101,7 +101,7 @@ void CPlayerControler::UpdateInputActions ( float _ElapsedTime )
 	l_Pitch = 0.f;
 	l_Position = l_Direccio; //Vect3f( 0.f,-9.8f ,0.f);
 	///gDefaultGravity(0,-9.8,0);
-
+	l_Yaw += _ElapsedTime * 2.f;
 	CActionToInput *l_Action2Input = CORE->GetActionToInput();
 	// Comprovem el moviment del player	
 	if ( l_Action2Input->DoAction( ACTION_MOVE_PLAYER_FOWARD ) )
@@ -152,13 +152,15 @@ void CPlayerControler::UpdateInputActions ( float _ElapsedTime )
 		l_Direccio = Vect3f ( cosf ( l_Yaw + D3DX_PI/2) , 0, sinf ( l_Yaw + D3DX_PI/2) );
 		l_Position += l_Direccio * QUANTITAT_MOVIMENT_PLAYER * _ElapsedTime;
 	}
+	
+	m_pController->SetYaw( l_Yaw );
 
 	UpdateMovementControler ( _ElapsedTime, l_Position );
 }
 
-void CPlayerControler::UpdateMovementControler ( float _ElapsedTime, const Vect3f &_Direccio )
+void CPlayerControler::UpdateMovementControler ( float _ElapsedTime, const Vect3f &_Posicio )
 {
-	m_pController->Move( _Direccio, _ElapsedTime );
+	m_pController->Move( _Posicio, _ElapsedTime );
 }
 
 // -----------------------------------------
