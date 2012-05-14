@@ -520,7 +520,8 @@ void CCore::UpdateDebugInputs( float _ElapsedTime, CActionToInput &_Action2Input
 	CDebugOptions *l_DebugOptions = CORE->GetDebugGUIManager()->GetDebugOptions();
 
 	//Show & Unshow la consola
-	if( _Action2Input.DoAction( ACTION_CONSOLE ) )						// Activa/Desactiva la consola
+	bool action  =_Action2Input.DoAction( ACTION_CONSOLE );
+	if(action)						// Activa/Desactiva la consola
 	{
 		SCRIPT->RunCode("toggle_console()");
 	}

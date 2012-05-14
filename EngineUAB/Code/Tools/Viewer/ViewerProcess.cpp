@@ -83,11 +83,6 @@ void CViewerProcess::UpdateInputs(float elapsedTime)
 {
 	CActionToInput *action2Input = CORE->GetActionToInput();
 
-	if( action2Input->DoAction( ACTION_CONSOLE ) )
-	{
-		SCRIPT->RunCode("toggle_console()");
-	}
-
 	if( action2Input->DoAction( ACTION_RELOAD_TTFS ) )
 	{
 		SCRIPT->RunCode("reload_fonts()");
@@ -140,18 +135,6 @@ void CViewerProcess::UpdateDebugInputs(float elapsedTime, CActionToInput &action
 {
 	CModifierManager *l_pModifierManager = CORE->GetDebugGUIManager()->GetModifierManager();
 	CDebugOptions *l_DebugOptions = CORE->GetDebugGUIManager()->GetDebugOptions();
-
-	//Show & Unshow de debuggers
-	if( action2Input.DoAction("DebugOptions") )
-	{
-		l_DebugOptions->SetActive( !l_DebugOptions->GetActive() );
-	}
-
-	if( action2Input.DoAction("ModifiersShow") )
-	{
-		bool visible = l_pModifierManager->GetVisible();
-		l_pModifierManager->SetVisible( !visible );
-	}
 
 	//Modifiers actions
 	if( !CORE->GetDebugGUIManager()->GetConsole()->IsActive() && !l_DebugOptions->GetActive() )
