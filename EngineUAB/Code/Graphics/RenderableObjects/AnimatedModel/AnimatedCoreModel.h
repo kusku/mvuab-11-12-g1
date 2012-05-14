@@ -25,28 +25,34 @@ class CTexture;
 class CAnimatedCoreModel : public CNamed
 {
 public:
-	CAnimatedCoreModel();
-	virtual ~CAnimatedCoreModel();
+	//--- Init and End protocols------------------------------------------
+							CAnimatedCoreModel		( void );
+	virtual					~CAnimatedCoreModel		( void );
 
-	void			Load		( const std::string &Path, const std::string &XMLFilename );
-
-	CalCoreModel*			GetCoreModel		() const		{ return m_CalCoreModel; }
-	size_t					GetNumTextures		() const		{ return m_TextureFilenameVector.size(); }
-	const std::string&		GetTextureName		( size_t id )	{ return m_TextureFilenameVector[id]; }
-	CTexture*				GetTextureById		( uint16 id )	{ return m_TextureVector[id]; }
-
-	CalHardwareModel*		GetCalHardwareModel		() const;
-	CRenderableVertexs*		GetRenderableVertexs	() const;
+	//----Main Methods -----------------------------------------------------
+	void					Load					( const std::string &Path, const std::string &XMLFilename );
 	
-	bool					LoadVertexBuffer		(CalModel* Model);
-
+	//---- Methods ---------------------------------------------------------
+	bool					LoadVertexBuffer		( CalModel *_pModel );
+	CalHardwareModel*		GetCalHardwareModel		( void ) const;
+	CRenderableVertexs*		GetRenderableVertexs	( void ) const;
+	
 private:
-	bool			LoadMesh				( const std::string &Filename );
-	bool			LoadSkeleton			( const std::string &Filename );
-	bool			LoadAnimation			( const std::string &Name, const std::string &Filename );
-	void			LoadTextures			();
-	void			ClearTextureVector		();
+	bool					LoadMesh				( const std::string &_Filename );
+	bool					LoadSkeleton			( const std::string &_Filename );
+	bool					LoadAnimation			( const std::string &_Name, const std::string &_Filename );
+	void					LoadTextures			( void );
+	void					ClearTextureVector		( void );
 
+	//----Properties --------------------------------------------------------
+public:
+	CalCoreModel*			GetCoreModel			( void ) const		{ return m_CalCoreModel; }
+	size_t					GetNumTextures			( void ) const		{ return m_TextureFilenameVector.size(); }
+	const std::string&		GetTextureName			( size_t id )		{ return m_TextureFilenameVector[id]; }
+	CTexture*				GetTextureById			( uint16 id )		{ return m_TextureVector[id]; }
+
+	//----Members -----------------------------------------------------------
+private:
 	CalCoreModel*				m_CalCoreModel;
 	CalHardwareModel*			m_CalHardwareModel;
 	CRenderableVertexs*			m_RenderableVertexs;

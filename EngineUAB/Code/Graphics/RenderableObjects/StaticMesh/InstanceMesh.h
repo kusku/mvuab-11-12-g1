@@ -29,6 +29,9 @@ public:
 	//void Render ( CRenderManager *RM );
 	void Render ( CRenderManager *RM );
 
+	void CrearPhysicMesh ( const std::string &_Name );
+	void CreateASEMesh	 ( const std::string &_Filename, const std::string &_Name  );
+
 private:
 	CStaticMesh		*m_StaticMesh;
 };

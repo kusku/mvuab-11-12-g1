@@ -83,9 +83,9 @@ inline bool PopLuaBool(lua_State* pL, const char* name)
 	// Chequeamos que la variable es del tipo correcto. Sino, se lanza una excepción
 	if (!lua_isstring(pL, 1))
 	{
-	std::string err("<PopLuaBool> Cannot retrieve: ");
+		std::string err("<PopLuaBool> Cannot retrieve: ");
 
-	throw std::runtime_error(err + name);
+		throw std::runtime_error(err + name);
 	}
 
 	// Tomamos el valor, lo convertimos al tipo correcto y lo devolvemos
@@ -99,28 +99,28 @@ inline bool PopLuaBool(lua_State* pL, const char* name)
 
 //------------------------- LuaPopStringFieldFromTable ------------------------
 //-----------------------------------------------------------------------------
-inline std::string LuaPopStringFieldFromTable(lua_State* L, const char* key)
+inline std::string LuaPopStringFieldFromTable(lua_State* pL, const char* key)
 {
 
 	// ponemos la key en la pila 
-	lua_pushstring(L, key);
+	lua_pushstring(pL, key);
 
 	// La tabla es ahora en -2 (key es en -1). lua_gettable quita la llave de la pila 
 	// y pone los datos encontrados en la localizació de la key en la pila 
-	lua_gettable(L, -2);
+	lua_gettable(pL, -2);
 
 	// Chequeamos que la variable es del tipo correcto. Sino, se lanza una excepción
-	if (!lua_isstring(L, -1))
+	if (!lua_isstring(pL, -1))
 	{
-	std::string err("<LuaPopStringFieldFromTable> Cannot retrieve: ");
+		std::string err("<LuaPopStringFieldFromTable> Cannot retrieve: ");
 
-	throw std::runtime_error(err + key);
+		throw std::runtime_error(err + key);
 	}
 
 	// Tomamos los datos
-	std::string s = lua_tostring(L, -1);
+	std::string s = lua_tostring(pL, -1);
 
-	lua_pop(L, 1);
+	lua_pop(pL, 1);
 
 	return s;
 }
@@ -128,27 +128,27 @@ inline std::string LuaPopStringFieldFromTable(lua_State* L, const char* key)
 //----------------------------- LuaPopNumberFieldFromTable --------------------
 //-----------------------------------------------------------------------------
 template <class T>
-inline T LuaPopNumberFieldFromTable(lua_State* L, const char* key)
+inline T LuaPopNumberFieldFromTable(lua_State* pL, const char* key)
 {
 	// ponemos la key en la pila 
-	lua_pushstring(L, key);
+	lua_pushstring(pL, key);
 
 	// La tabla es ahora en -2 (key es en -1). lua_gettable quita la llave de la pila 
 	// y pone los datos encontrados en la localizació de la key en la pila 
-	lua_gettable(L, -2);
+	lua_gettable(pL, -2);
 
 	// Chequeamos que la variable es del tipo correcto. Sino, se lanza una excepción
-	if (!lua_isnumber(L, -1))
+	if (!lua_isnumber(pL, -1))
 	{
-	std::string err("<LuaPopNumberFieldFromTable> Cannot retrieve: ");
+		std::string err("<LuaPopNumberFieldFromTable> Cannot retrieve: ");
 
-	throw std::runtime_error(err + key);
+		throw std::runtime_error(err + key);
 	}
 
 	// Tomamos los datos
-	T val = (T)lua_tonumber(L, -1);
+	T val = (T)lua_tonumber(pL, -1);
 
-	lua_pop(L, 1);
+	lua_pop(pL, 1);
 
 	return val;
 }

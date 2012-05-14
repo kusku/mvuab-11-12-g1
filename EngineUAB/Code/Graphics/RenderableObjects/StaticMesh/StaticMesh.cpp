@@ -23,7 +23,9 @@ CStaticMesh::CStaticMesh()
 	, m_NumFaces(0)
 	, m_FileName("")
 	, m_RenderableObjecTechniqueName("")
-	, m_MeshName("")
+	, m_MeshName					("")
+	, m_IndxBuffer					( NULL )
+	, m_VtxsBuffer					( NULL )
 {
 }
 
@@ -201,8 +203,11 @@ CRenderableVertexs* CStaticMesh::ReadCreateVertexBuffer(FILE* modelFile, uint16 
 
 	uint16 numVertex = 0;
 	uint16 numIndex = 0;
-	uint16* idxBuffer = NULL;
-	void* vtxBuffer = NULL;
+	
+	uint16* l_IdxBuffer;
+	void*	l_VtxBuffer;
+
+
 	CRenderableVertexs* ret = NULL;
 
 	/*****************************************************/
@@ -211,11 +216,11 @@ CRenderableVertexs* CStaticMesh::ReadCreateVertexBuffer(FILE* modelFile, uint16 
 	fread(&numIndex, sizeof(uint16), 1, modelFile);
 	
 	//Create Index Buffer
-	idxBuffer = new uint16[numIndex];
-	memset(idxBuffer, 0, numIndex);
+	l_IdxBuffer = new uint16[numIndex];
+	memset(l_IdxBuffer, 0, numIndex);
 
 	//Read Index Buffer
-	fread(idxBuffer, sizeof(uint16), numIndex, modelFile);
+	fread(l_IdxBuffer, sizeof(uint16), numIndex, modelFile);
 	
 	/*****************************************************/
 
@@ -225,33 +230,51 @@ CRenderableVertexs* CStaticMesh::ReadCreateVertexBuffer(FILE* modelFile, uint16 
 	if(vertexType == TNORMALCOLORED_VERTEX::GetVertexType())
 	{
 		//Create Vertex Buffer
-		vtxBuffer = LoadCreateVertexBuffer<TNORMALCOLORED_VERTEX>(modelFile, numVertex);
+		l_VtxBuffer = LoadCreateVertexBuffer<TNORMALCOLORED_VERTEX>(modelFile, numVertex);
 		
+		m_VtxsBuffer = GetVertexsList<TNORMALCOLORED_VERTEX> ( l_VtxBuffer, numVertex );
+				
 		//Create CIndexVertexs
 		CIndexedVertexs<TNORMALCOLORED_VERTEX>* idxVtx = 
-			new CIndexedVertexs<TNORMALCOLORED_VERTEX>(CORE->GetRenderManager(), vtxBuffer, idxBuffer, numVertex, numIndex);
+			new CIndexedVertexs<TNORMALCOLORED_VERTEX>(CORE->GetRenderManager(), l_VtxBuffer, l_IdxBuffer, numVertex, numIndex);
 
 		ret = idxVtx;
 	}
 	else if(vertexType == TNORMALTEXTURE2_VERTEX::GetVertexType() )
 	{
 		//Create Vertex Buffer
-		vtxBuffer = LoadCreateVertexBuffer<TNORMALTEXTURE2_VERTEX>(modelFile, numVertex);
+		l_VtxBuffer = LoadCreateVertexBuffer<TNORMALTEXTURE2_VERTEX>(modelFile, numVertex);
 		
+		m_VtxsBuffer = GetVertexsList<TNORMALTEXTURE2_VERTEX> ( l_VtxBuffer, numVertex );
+
 		//Create CIndexVertexs
 		CIndexedVertexs<TNORMALTEXTURE2_VERTEX>* idxVtx = 
-			new CIndexedVertexs<TNORMALTEXTURE2_VERTEX>(CORE->GetRenderManager(), vtxBuffer, idxBuffer, numVertex, numIndex);
+			new CIndexedVertexs<TNORMALTEXTURE2_VERTEX>(CORE->GetRenderManager(), l_VtxBuffer, l_IdxBuffer, numVertex, numIndex);
 
 		ret = idxVtx;
 	}
 	else if(vertexType == TNORMALTEXTURE1_VERTEX::GetVertexType() )
 	{
 		//Create Vertex Buffer
-		vtxBuffer = LoadCreateVertexBuffer<TNORMALTEXTURE1_VERTEX>(modelFile, numVertex);
+		l_VtxBuffer = LoadCreateVertexBuffer<TNORMALTEXTURE1_VERTEX>(modelFile, numVertex);
 		
+		m_VtxsBuffer = GetVertexsList<TNORMALTEXTURE1_VERTEX> ( l_VtxBuffer, numVertex );
+		//m_IndxBuffer = GetIndexList( l_IdxBuffer, numIndex );
+
+		uint16 *l_IndxBuffer = (uint16 *) l_IdxBuffer;
+		
+		std::vector<uint32> l_Vect ;
+		
+		for ( uint16 i = 0; i < numIndex; ++i )
+		{
+			uint16 l_Valor = *l_IndxBuffer;
+			m_IndxBuffer.push_back(l_Valor);
+			l_IndxBuffer ++;
+		}
+
 		//Create CIndexVertexs
 		CIndexedVertexs<TNORMALTEXTURE1_VERTEX>* idxVtx = 
-			new CIndexedVertexs<TNORMALTEXTURE1_VERTEX>(CORE->GetRenderManager(), vtxBuffer, idxBuffer, numVertex, numIndex);
+			new CIndexedVertexs<TNORMALTEXTURE1_VERTEX>(CORE->GetRenderManager(), l_VtxBuffer, l_IdxBuffer, numVertex, numIndex);
 
 		ret = idxVtx;
 	}
@@ -259,34 +282,38 @@ CRenderableVertexs* CStaticMesh::ReadCreateVertexBuffer(FILE* modelFile, uint16 
 			vertexType == (TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX::GetVertexType() | VERTEX_TYPE_PARALLAX))
 	{
 		//Create Vertex Buffer
-		vtxBuffer = LoadCreateVertexBuffer<TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX>(modelFile, numVertex);
+		l_VtxBuffer = LoadCreateVertexBuffer<TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX>(modelFile, numVertex);
 		
-		CalcTangentsAndBinormals(vtxBuffer, idxBuffer, numVertex, numIndex, sizeof(TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX),
+		m_VtxsBuffer = GetVertexsList<TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX> ( l_VtxBuffer, numVertex );
+
+		CalcTangentsAndBinormals(l_VtxBuffer, l_IdxBuffer, numVertex, numIndex, sizeof(TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX),
 				0, 12, 28, 44, 60);
 
 		//Create CIndexVertexs
 		CIndexedVertexs<TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX>* idxVtx = 
-			new CIndexedVertexs<TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX>(CORE->GetRenderManager(), vtxBuffer, idxBuffer, numVertex, numIndex);
+			new CIndexedVertexs<TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX>(CORE->GetRenderManager(), l_VtxBuffer, l_IdxBuffer, numVertex, numIndex);
 
 		ret = idxVtx;
 	}
 	else if(vertexType == TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX::GetVertexType())
 	{
 		//Create Vertex Buffer
-		vtxBuffer = LoadCreateVertexBuffer<TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX>(modelFile, numVertex);
+		l_VtxBuffer = LoadCreateVertexBuffer<TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX>(modelFile, numVertex);
 		
-		CalcTangentsAndBinormals(vtxBuffer, idxBuffer, numVertex, numIndex, sizeof(TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX),
+		m_VtxsBuffer = GetVertexsList<TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX> ( l_VtxBuffer, numVertex );
+
+		CalcTangentsAndBinormals(l_VtxBuffer, l_IdxBuffer, numVertex, numIndex, sizeof(TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX),
 				0, 12, 28, 44, 60);
 
 		//Create CIndexVertexs
 		CIndexedVertexs<TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX>* idxVtx = 
-			new CIndexedVertexs<TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX>(CORE->GetRenderManager(), vtxBuffer, idxBuffer, numVertex, numIndex);
+			new CIndexedVertexs<TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX>(CORE->GetRenderManager(), l_VtxBuffer, l_IdxBuffer, numVertex, numIndex);
 
 		ret = idxVtx;
 	}
 	
-	CHECKED_DELETE(idxBuffer);
-	CHECKED_DELETE(vtxBuffer);
+	CHECKED_DELETE(l_IdxBuffer);
+	CHECKED_DELETE(l_VtxBuffer);
 
 	return ret;
 }
@@ -502,3 +529,35 @@ bool CStaticMesh::GetRenderableObjectTechnique()
 
 	return l_Ok;
 }
+
+// TODO:: Queria obtener los vertices pero... de momento ni flowers, además tengo el ASE para cargar la físcia.
+template <typename T>
+std::vector<Vect3f>	CStaticMesh::GetVertexsList	( const void *_VtxBuffer, uint16 _NumVertex )
+{
+	std::vector<Vect3f> l_Vect ;
+
+	unsigned char  *l_Vtxs = (unsigned char *) _VtxBuffer;
+	for ( uint16 i = 0; i < _NumVertex; ++i )
+	{
+		Vect3f *l_Vtx = (Vect3f *) l_Vtxs;
+		l_Vect.push_back(*l_Vtx);
+		l_Vtxs += sizeof(T);
+	}
+		
+	return l_Vect;
+}
+
+//std::vector<Vect3f> CStaticMesh::GetIndexList( const void *_IndxBuffer, uint16 _NumIndex )
+//{
+//	uint16 *l_IndxBuffer = (uint16 *) _IndxBuffer;
+//	std::vector<uint32> l_Vect ;
+//	
+//	for ( uint16 i = 0; i < _NumIndex; ++i )
+//	{
+//		uint16 l_Valor = *l_IndxBuffer;
+//		l_Vect.push_back(l_Valor);
+//		l_IndxBuffer ++;
+//	}
+//
+//	return l_Vect;
+

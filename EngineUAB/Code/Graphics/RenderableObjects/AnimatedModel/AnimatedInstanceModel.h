@@ -27,30 +27,41 @@ class CXMLTreeNode;
 class CAnimatedInstanceModel : public CRenderableObject
 {
 public:
-	CAnimatedInstanceModel();
-	virtual ~CAnimatedInstanceModel();
+	//--- Init and End protocols------------------------------------------
+				CAnimatedInstanceModel	( void );
+	virtual		~CAnimatedInstanceModel ( void );
 
-	void		ReadDataXML			( CXMLTreeNode &Node );
-	void		Initialize			( CAnimatedCoreModel *AnimatedCoreModel );
+	//----Main Methods -----------------------------------------------------
+	void		ReadDataXML				( CXMLTreeNode &_Node );
+	void		Initialize				( CAnimatedCoreModel *_pAnimatedCoreModel );
 
-	void		Update				( float elapsedTime );
+	void		Update					( float elapsedTime );
 
-	void		Render						( CRenderManager *RM );
-	void		RenderModelBySoftware		( CRenderManager *RM );
-	void		RenderModelByHardware		( CRenderManager* RM );
+	void		Render					( CRenderManager *_RM );
+	void		RenderModelBySoftware	( CRenderManager *_RM );
+	void		RenderModelByHardware	( CRenderManager *_RM );
 
-	void		Destroy		();
+	void		Destroy					( void );
 
-	void		ExecuteAction		( uint32 Id, float Time );
-	void		BlendCycle			( uint32 Id, float Time );
-	void		ClearCycle			( uint32 Id, float Time );
+	//---- Methods ---------------------------------------------------------
+	void		ExecuteAction			( uint32 _Id, float _Time );
+	void		BlendCycle				( uint32 _Id, float _Time );
+	void		ClearCycle				( uint32 _Id, float _Time );
 	
-private:
-	CalModel*								m_CalModel;
-	CAnimatedCoreModel*						m_AnimatedCoreModel;
+	//----Properties --------------------------------------------------------
+	bool		GetCreatePhysics		( void ) const		{ return m_CreatePhysics; }
+	bool		GetCreateBehaviour		( void ) const		{ return m_CreateLogicBehaviour; }
 
-	LPDIRECT3DVERTEXBUFFER9				m_pVB;
-	LPDIRECT3DINDEXBUFFER9				m_pIB;
+	//----Members -------------------------------------------------------	
+private:
+	CalModel*					m_CalModel;
+	CAnimatedCoreModel*			m_AnimatedCoreModel;
+
+	bool						m_CreatePhysics;
+	bool						m_CreateLogicBehaviour;
+
+	LPDIRECT3DVERTEXBUFFER9		m_pVB;
+	LPDIRECT3DINDEXBUFFER9		m_pIB;
 };
 
 #endif

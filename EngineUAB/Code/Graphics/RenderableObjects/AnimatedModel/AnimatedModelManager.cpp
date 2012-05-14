@@ -8,6 +8,10 @@
 #include "Memory\MemLeaks.h"
 #endif
 
+// -----------------------------------------
+//			CONSTRUCTOR/DESTRUCTOR
+// -----------------------------------------
+
 CAnimatedModelManager::CAnimatedModelManager()
 {
 	CalLoader::setLoadingMode(LOADER_ROTATE_X_AXIS);
@@ -19,6 +23,9 @@ CAnimatedModelManager::~CAnimatedModelManager()
 	Destroy();
 }
 
+// -----------------------------------------
+//				MAIN METHODS 
+// -----------------------------------------
 void CAnimatedModelManager::Load(const std::string &Filename)
 {
 	LOGGER->AddNewLog(ELL_INFORMATION, "CAnimatedModelManager::Load->Cargando los Animated Models.");
@@ -48,25 +55,33 @@ void CAnimatedModelManager::Load(const std::string &Filename)
 	}
 }
 
-CAnimatedCoreModel* CAnimatedModelManager::GetCore(const std::string &Name, const std::string &Path, const std::string &XMLFilename)
+// ------------------------------------------------------------------------------------------------------------------------------
+// GetCore : Obtiene el modelo o core existente en el Manager, en caso de no existir crea uno nuevo y carga el modelo segun 
+//			la ruta especificada. Devuelve el la classe encapçuladora del modelo animado de Cal3D
+// ------------------------------------------------------------------------------------------------------------------------------
+CAnimatedCoreModel* CAnimatedModelManager::GetCore( const std::string &_Name, const std::string &_Path, const std::string &_XMLFilename )
 {
-	CAnimatedCoreModel* l_CoreModel = GetResource(Name);
+	CAnimatedCoreModel* l_CoreModel = GetResource( _Name );
 	if( l_CoreModel == NULL )
 	{
 		l_CoreModel = new CAnimatedCoreModel();
-		l_CoreModel->Load(Path, XMLFilename);
+		l_CoreModel->Load( _Path, _XMLFilename );
 
-		AddResource(Name, l_CoreModel);
+		AddResource( _Name, l_CoreModel );
 	}
 
 	assert(l_CoreModel != NULL);
 	return l_CoreModel;
 }
 
-CAnimatedInstanceModel* CAnimatedModelManager::GetInstance(const std::string &Name)
+// ------------------------------------------------------------------------------------------------------------------------------
+// GetInstance : Obtiene el modelo o core existente en el Manager, en caso de no existir sale devolviendo una instancia nula. En 
+//				otro caso crea una nueva instancia y carga el modelo o core a esta devovieldo la instancia animada
+// ------------------------------------------------------------------------------------------------------------------------------
+CAnimatedInstanceModel* CAnimatedModelManager::GetInstance( const std::string &_Name )
 {
 	CAnimatedInstanceModel* l_InstanceModel = NULL;
-	CAnimatedCoreModel* l_CoreModel = GetResource(Name);
+	CAnimatedCoreModel* l_CoreModel = GetResource( _Name );
 	
 	if( l_CoreModel != NULL )
 	{

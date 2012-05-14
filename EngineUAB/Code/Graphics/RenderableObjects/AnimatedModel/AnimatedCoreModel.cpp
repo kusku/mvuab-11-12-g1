@@ -1,4 +1,3 @@
-
 #include <assert.h>
 
 #include "AnimatedCoreModel.h"
@@ -18,6 +17,9 @@
 #include "Memory\MemLeaks.h"
 #endif
 
+// -----------------------------------------
+//			CONSTRUCTOR/DESTRUCTOR
+// -----------------------------------------
 CAnimatedCoreModel::CAnimatedCoreModel()
 	: m_CalCoreModel		( NULL )
 	, m_Name				( "" )
@@ -35,6 +37,10 @@ CAnimatedCoreModel::~CAnimatedCoreModel()
 	CHECKED_DELETE(m_RenderableVertexs);
 }
 
+// -----------------------------------------
+//				MAIN METHODS 
+// -----------------------------------------
+
 void CAnimatedCoreModel::ClearTextureVector()
 {
 	std::vector<CTexture*>::iterator l_It = m_TextureVector.begin();
@@ -49,16 +55,6 @@ void CAnimatedCoreModel::ClearTextureVector()
 		}
 	}
 	m_TextureVector.clear();
-}
-
-CalHardwareModel* CAnimatedCoreModel::GetCalHardwareModel() const
-{
-	return m_CalHardwareModel;
-}
-
-CRenderableVertexs* CAnimatedCoreModel::GetRenderableVertexs() const
-{
-	return m_RenderableVertexs;
 }
 
 void CAnimatedCoreModel::Load(const std::string &Path, const std::string &XMLFilename)
@@ -213,4 +209,18 @@ void CAnimatedCoreModel::LoadTextures()
 		m_TextureVector.push_back(l_Texture);
 		l_Texture = NULL;
 	}
+}
+
+// -----------------------------------------
+//				  PROPERTIES
+// -----------------------------------------
+
+CalHardwareModel* CAnimatedCoreModel::GetCalHardwareModel() const
+{
+	return m_CalHardwareModel;
+}
+
+CRenderableVertexs* CAnimatedCoreModel::GetRenderableVertexs() const
+{
+	return m_RenderableVertexs;
 }
