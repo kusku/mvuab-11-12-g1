@@ -1,4 +1,4 @@
- #include "Player.h"
+#include "Player.h"
 #include "PlayerDef.h"
 
 #include "Cameras\Camera.h"
@@ -19,6 +19,13 @@
 
 #include "StatesMachine\EntityManager.h"
 
+#include "Properties.h"
+#include "../States/AnimationsStates.h"
+#include "../States/PursuitState.h"
+#include "../States/IdleState.h"
+#include "../States/AnimationIdleState.h"
+#include "../States/AnimationPursuitState.h"
+
 #include "Math\Matrix44.h"
 #include "Base.h"
 #include "Core.h"
@@ -31,18 +38,28 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CPlayer::CPlayer( void )
-	: CCharacter			( 0 )					// El player tiene el ID = 0 
-	, m_vDirection			( 0.0f, 0.0f, 0.0f )
-	, m_bMoverAutomatico	( false )
-	, m_bLockCamera			( false )
+	: CCharacter				( 0 )					// El player tiene el ID = 0 
+	, m_pPlayerProperties		( NULL )
+	, m_pPlayerAnimationsStates	( NULL )
+	, m_bMoverAutomatico		( false )
+	, m_bLockCamera				( false )
+	, m_pPursuitState			( NULL )
+	, m_pIdleState				( NULL )
+	, m_pAnimationPursuitState	( NULL )
+	, m_pAnimationIdleState		( NULL )
 {
 }
 
 CPlayer::CPlayer ( const std::string &_Name )
-	: CCharacter			( 0, _Name )					// El player tiene el ID = 0 
-	, m_vDirection			( 0.0f, 0.0f, 0.0f )
-	, m_bMoverAutomatico	( false )
-	, m_bLockCamera			( false )
+	: CCharacter				( 0, _Name )			// El player tiene el ID = 0 
+	, m_pPlayerProperties		( NULL )
+	, m_pPlayerAnimationsStates	( NULL )
+	, m_bMoverAutomatico		( false )
+	, m_bLockCamera				( false )
+	, m_pPursuitState			( NULL )
+	, m_pIdleState				( NULL )
+	, m_pAnimationPursuitState	( NULL )
+	, m_pAnimationIdleState		( NULL )
 {
 }
 
@@ -65,23 +82,31 @@ void CPlayer::Done ( void )
 
 bool CPlayer::Init ( void )
 {
-	m_bIsOk = CCharacter::Init();
-	if ( m_bIsOk )
-	{		
-		CRenderableObjectsLayersManager *l_ROLayerManager = CORE->GetRenderableObjectsLayersManager();
-		CRenderableObjectsManager *l_ROManager = l_ROLayerManager->GetResource("solid");
-		CRenderableObject *l_RO = l_ROManager->GetInstance( "lobo1" );
+	// Aquí ya debería tener cargadas las propiedades del player
+	m_bIsOk = CCharacter::Init( m_pPlayerProperties->GetName(), m_pPlayerProperties->GetPosition() );
+	if ( !m_bIsOk )
+		return false;
 
-		if ( !l_RO ) 
-			l_ROManager->AddAnimatedMeshInstance( m_Name, Vect3f (0.f, 0.f, 0.f ) );
-		else
-			m_pCurrentAnimatedModel = static_cast<CAnimatedInstanceModel*> (l_RO);
+	// Inicializo estados
+	m_pPursuitState				= new CPursuitState();
+	m_pIdleState				= new CIdleState();
+	m_pAnimationIdleState		= new CAnimationIdleState();
+	m_pAnimationPursuitState	= new CAnimationPursuitState();
 
-		/*if ( m_pCurrentAnimatedModel )
-		{
-			m_pCurrentAnimatedModel->ClearCycle ( 0.3f );
-			m_pCurrentAnimatedModel->BlendCycle ( 0, 0.3f );
-		}*/
+	CRenderableObjectsLayersManager *l_ROLayerManager = CORE->GetRenderableObjectsLayersManager();
+	CRenderableObjectsManager *l_ROManager = l_ROLayerManager->GetResource("solid");
+	CRenderableObject *l_RO = l_ROManager->GetInstance( "lobo1" );
+
+	if ( !l_RO ) 
+		l_ROManager->AddAnimatedMeshInstance( m_pPlayerProperties->GetName(), Vect3f (0.f, 0.f, 0.f ) );
+	else
+		m_pCurrentAnimatedModel = static_cast<CAnimatedInstanceModel*> (l_RO);
+
+	if ( m_pCurrentAnimatedModel )
+	{
+		// coloco el primer estado
+		m_pLogicStateMachine->SetCurrentState( m_pIdleState );
+		m_pGraphicStateMachine->SetCurrentState( m_pAnimationIdleState );
 	}
 	
 	return m_bIsOk;
@@ -89,17 +114,68 @@ bool CPlayer::Init ( void )
 
 void CPlayer::Release ( void )
 {
+	m_pPlayerProperties = NULL;
+	m_pPlayerAnimationsStates = NULL;
+
+	CHECKED_DELETE ( m_pPursuitState );
+	CHECKED_DELETE ( m_pIdleState );
+
+	CHECKED_DELETE ( m_pAnimationIdleState );
+	CHECKED_DELETE ( m_pAnimationPursuitState );
+
+	/*CHECKED_DELETE( m_pPlayerProperties );
+	CHECKED_DELETE( m_pPlayerAnimationsStates );*/
 }
 
 void CPlayer::Update( float _ElapsedTime ) //, CCamera *_pCamera)
 {
-	if (m_bMoverAutomatico)
+	/*if (m_bMoverAutomatico)
 		MoverAutomaticamente( _ElapsedTime );
 	else
-		MoverManualmente ( _ElapsedTime );
+		MoverManualmente ( _ElapsedTime );*/
 
-	// Actualizamos los estados y características generales
+	// Actualizamos los estados y características generales además de mover el Físic Controler
+	Vect3f	l_PosAnterior = m_pController->GetController()->GetPosition() ;
 	CCharacter::Update( _ElapsedTime );
+	Vect3f	l_PosActual	= m_pController->GetController()->GetPosition();
+	
+	if ( l_PosAnterior != l_PosActual )
+	{
+		l_PosActual.y -= 1.5f;
+		m_pCurrentAnimatedModel->SetPosition ( l_PosActual );
+		m_pLogicStateMachine->ChangeState	 ( m_pPursuitState);
+		m_pGraphicStateMachine->ChangeState  ( m_pAnimationPursuitState );
+
+
+		//float l_x = 0.f;
+		//float l_y = 0.f;
+		//float l_z = 0.f;
+
+		////m_pController->GetController()->GetPosition().GetAngles ( l_x, l_y, l_z );
+		//m_pCurrentAnimatedModel->SetYaw( m_pController->GetController()->GetYaw() );
+		//m_pPlayerProperties->SetYaw( m_pController->GetController()->GetYaw() );
+		//m_pCurrentAnimatedModel->SetYaw(CORE->GetCamera()->GetLookAt().GetAngleZ());
+	}
+	else
+	{
+		m_pLogicStateMachine->ChangeState	( m_pIdleState );
+		m_pGraphicStateMachine->ChangeState ( m_pAnimationIdleState );
+	}
+
+	//Mueve la cámara
+	//m_pPlayerProperties->SetPosition( m_pController->GetController()->GetPosition() );
+	/*m_pPlayerProperties->SetYaw( m_pController->GetController()->GetYaw() );
+	m_pPlayerProperties->SetPitch( m_pController->GetController()->GetPitch() );*/
+	 
+	//m_pPlayerProperties->SetPosition( l_Position );
+	/*m_pPlayerProperties->SetYaw ( l_fYaw );
+	m_pPlayerProperties->SetYaw ( l_fPitch );*/
+
+}
+
+bool CPlayer::HandleMessage( const Telegram& _Msg, bool _Logic, bool _Graphic )
+{
+	return CCharacter::HandleMessage( _Msg, _Logic, _Graphic );
 }
 
 void CPlayer::MoverAutomaticamente ( float _ElapsedTime )
@@ -143,30 +219,34 @@ void CPlayer::MoverAutomaticamente ( float _ElapsedTime )
 
 void CPlayer::MoverManualmente ( float _ElapsedTime )
 {
-	float l_Dt;
+	float	l_Dt;
+	float	l_fYaw		= m_pPlayerProperties->GetYaw();
+	float	l_fPitch	= m_pPlayerProperties->GetPitch();
+	float	l_fRoll		= m_pPlayerProperties->GetRoll();
+	Vect3f	l_Position	= m_pPlayerProperties->GetPosition();
 
 	if ( CORE->GetActionToInput()->DoAction( ACTION_LOCK_FREE_CAMERA , l_Dt  ) )
 		m_bLockCamera=!m_bLockCamera;
 	
-	if(m_bLockCamera)
+	if ( m_bLockCamera )
 		return;
 
-	Vect3f Direccio = ( 0.f, 0.f, 0.f );
+	Vect3f l_Direccio = ( 0.f, 0.f, 0.f );
 	
 	// Comprovem la Rotació del player
 	if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_FREE_CAMERA_X , l_Dt ) )
 	{
-		m_fYaw += l_Dt;
-		if ( m_fYaw > 2.0f * FLOAT_PI_VALUE )
-			m_fYaw -= 2.0f * FLOAT_PI_VALUE;
-		else if ( m_fYaw < -2.0f * FLOAT_PI_VALUE )
-			m_fYaw -= 2.0f * FLOAT_PI_VALUE;
+		l_fYaw += l_Dt;
+		if ( l_fYaw > 2.0f * FLOAT_PI_VALUE )
+			l_fYaw -= 2.0f * FLOAT_PI_VALUE;
+		else if ( l_fYaw < -2.0f * FLOAT_PI_VALUE )
+			l_fYaw -= 2.0f * FLOAT_PI_VALUE;
 	}
 
 	if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_FREE_CAMERA_Y, l_Dt ) )
 	{
-		m_fPitch += l_Dt;
-		m_fPitch = min ( max ( -FLOAT_PI_VALUE/2.1f, m_fPitch ), FLOAT_PI_VALUE/2.1f );
+		l_fPitch += l_Dt;
+		l_fPitch = min ( max ( -FLOAT_PI_VALUE/2.1f, l_fPitch ), FLOAT_PI_VALUE/2.1f );
 	}
 
 	// Comprovem el moviment del player	
@@ -174,82 +254,96 @@ void CPlayer::MoverManualmente ( float _ElapsedTime )
 	{
 		if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_LEFT ) )
 		{
-			Direccio = Vect3f( cosf( m_fYaw + D3DX_PI/4.f ), m_fPitch, sinf( m_fYaw + D3DX_PI/4.f ) );
-			m_Position +=  Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+			l_Direccio = Vect3f( cosf( l_fYaw + D3DX_PI/4.f ), l_fPitch, sinf( l_fYaw + D3DX_PI/4.f ) );
+			l_Position +=  l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 		}
 		else if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_RIGHT ) )
 		{
-			Direccio = Vect3f( cosf( m_fYaw - D3DX_PI/4.f ), m_fPitch, sinf(m_fYaw - D3DX_PI/4.f ) );
-			m_Position += Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+			l_Direccio = Vect3f( cosf( l_fYaw - D3DX_PI/4.f ), l_fPitch, sinf(l_fYaw - D3DX_PI/4.f ) );
+			l_Position += l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 		}
 		else
 		{
-			Direccio = Vect3f ( cosf ( m_fYaw ) , m_fPitch, sinf ( m_fYaw ) );
-			m_Position += Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+			l_Direccio = Vect3f ( cosf ( l_fYaw ) , l_fPitch, sinf ( l_fYaw ) );
+			l_Position += l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 		}
 		
 		if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_UP ) )
 		{
-			Direccio = Vect3f ( 0 , 1, 0 );
-			m_Position -= Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+			l_Direccio = Vect3f ( 0 , 1, 0 );
+			l_Position -= l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 		}
 		else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_DOWN ) )
 		{
-			Direccio = Vect3f ( 0, 1, 0 );
-			m_Position += Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+			l_Direccio = Vect3f ( 0, 1, 0 );
+			l_Position += l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 		}
 	}
 	else if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_BACK ) )
 	{
 		if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_LEFT ) )
 		{
-			Direccio = ( Vect3f (cosf ( m_fYaw - D3DX_PI/4) , 0, sinf ( m_fYaw - D3DX_PI/4) ) );
-			m_Position -= Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+			l_Direccio = ( Vect3f (cosf ( l_fYaw - D3DX_PI/4) , 0, sinf ( l_fYaw - D3DX_PI/4) ) );
+			l_Position -= l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 		
 		}
 		else if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_RIGHT ) )
 		{
-			Direccio = ( Vect3f ( cosf ( m_fYaw + D3DX_PI/4) , 0, sinf ( m_fYaw + D3DX_PI/4 ) ) );
-			m_Position -= Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+			l_Direccio = ( Vect3f ( cosf ( l_fYaw + D3DX_PI/4) , 0, sinf ( l_fYaw + D3DX_PI/4 ) ) );
+			l_Position -= l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 		}
 		else
 		{
-			Direccio = Vect3f ( cosf ( m_fYaw ) , m_fPitch, sinf ( m_fYaw ) );
-			m_Position -= Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+			l_Direccio = Vect3f ( cosf ( l_fYaw ) , l_fPitch, sinf ( l_fYaw ) );
+			l_Position -= l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 		}
 		
 		if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_UP ) )
 		{
-			Direccio = Vect3f ( 0 , 1, 0 );
-			m_Position -= Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+			l_Direccio = Vect3f ( 0 , 1, 0 );
+			l_Position -= l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 		}
 		else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_DOWN ) )
 		{
-			Direccio = Vect3f ( 0, 1, 0 );
-			m_Position += Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+			l_Direccio = Vect3f ( 0, 1, 0 );
+			l_Position += l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 		}
 
 	}
 	else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_RIGHT ) )
 	{
-		Direccio = Vect3f ( cosf ( m_fYaw + D3DX_PI/2) , 0, sinf ( m_fYaw + D3DX_PI/2) );
-		m_Position -= Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+		l_Direccio = Vect3f ( cosf ( l_fYaw + D3DX_PI/2) , 0, sinf ( l_fYaw + D3DX_PI/2) );
+		l_Position -= l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 	}
 	else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_LEFT ) )
 	{
-		Direccio = Vect3f ( cosf ( m_fYaw + D3DX_PI/2) , 0, sinf ( m_fYaw + D3DX_PI/2) );
-		m_Position += Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+		l_Direccio = Vect3f ( cosf ( l_fYaw + D3DX_PI/2) , 0, sinf ( l_fYaw + D3DX_PI/2) );
+		l_Position += l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 	}
 	else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_UP ) )
 	{
-		Direccio = Vect3f ( 0 , 1, 0 );
-		m_Position -= Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+		l_Direccio = Vect3f ( 0 , 1, 0 );
+		l_Position -= l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 	}
 	else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_DOWN ) )
 	{
-		Direccio = Vect3f ( 0, 1, 0 );
-		m_Position += Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+		l_Direccio = Vect3f ( 0, 1, 0 );
+		l_Position += l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
 	}
+
+	m_pPlayerProperties->SetPosition( l_Position );
+	m_pPlayerProperties->SetYaw ( l_fYaw );
+	m_pPlayerProperties->SetYaw ( l_fPitch );
+
+	
+	if( CORE->GetActionToInput()->DoAction( ACTION_PLAYER_RESPAWN ) )
+	{
+		m_pPlayerProperties->SetPosition ( m_pPlayerProperties->GetRespawnPosition() );
+		m_pController->UpdateMovementControler ( _ElapsedTime, m_pPlayerProperties->GetRespawnPosition() );
+	}
+
+	//CORE->GetCamera()->SetObject3D( m_pPlayerProperties );
+
 }
 
 // Codi MARC

@@ -10,7 +10,7 @@
 #include "Cameras\FPSCamera.h"
 #include "Cameras\ThPSCamera.h"
 
-#include "Player.h"
+//#include "Player.h"
 
 #include "RenderManager.h"
 #include "RenderableObjects\RenderableObjectsManager.h"
@@ -41,7 +41,7 @@ CTestProcess::CTestProcess ( void )
 	, m_VectScreen				( 800, 600 )
 	, m_fTempsTotal				( 0 )
 	, m_uiIndicePlayerCamera	( 0 )
-	, m_pActivePlayer			( NULL )	
+	//, m_pActivePlayer			( NULL )	
 	, m_pCameraTerceraPersona	( NULL )
 	, m_pCameraPrimeraPersona	( NULL )
 {}
@@ -65,6 +65,9 @@ void CTestProcess::Done ( void )
 
 void CTestProcess::Release ( void )
 {
+	/*for each ( CPlayer* l_pPlayer in m_pPlayersList )
+		CHECKED_DELETE ( l_pPlayer );*/
+	
 	CHECKED_DELETE ( m_pCameraPrimeraPersona );
 	CHECKED_DELETE ( m_pCameraTerceraPersona );
 	m_pCamera = NULL;
@@ -77,7 +80,7 @@ bool CTestProcess::Init(void)
 	m_VectRatoli.y = m_VectScreen.y / 2;
 	m_fAngleX = 0.f;
 	m_fAngleY = 0.f;
-	m_fAngleZ = 0.f; 
+	m_fAngleZ = 0.f;
 	
 
 	CORE->GetScriptManager()->RunCode("load_basics()");
@@ -114,7 +117,7 @@ void CargarProcesos ( void )
 void CTestProcess::Update( float _ElapsedTime )
 {
 	CORE->SetCamera( m_pCamera );
-	m_pActivePlayer->Update( _ElapsedTime );
+	//m_pActivePlayer->Update( _ElapsedTime );
 	
 	UpdateInputs( _ElapsedTime );
 
@@ -131,7 +134,7 @@ void CTestProcess::Render( CRenderManager *_RM )
 
 void CTestProcess::AddPlayer ( std::string _Name,	Vect3f _vPosition, bool _Automatic )
 {
-	CPlayer* pPlayer = new CPlayer ( _Name );
+	/*CPlayer* pPlayer = new CPlayer ( _Name );
 	if ( pPlayer->Init() )
 	{	
 		pPlayer->SetPosition		( _vPosition );
@@ -139,7 +142,7 @@ void CTestProcess::AddPlayer ( std::string _Name,	Vect3f _vPosition, bool _Autom
 		m_pPlayersList.push_back	( pPlayer );
 	}
 	else
-		CHECKED_DELETE ( pPlayer );
+		CHECKED_DELETE ( pPlayer );*/
 }
 
 void CTestProcess::UpdateInputs( float _ElapsedTime )
@@ -158,16 +161,16 @@ void CTestProcess::UpdateInputs( float _ElapsedTime )
 			m_pCamera = m_pCameraPrimeraPersona;
 	}	
 	
-	if ( l_pAction2Input->DoAction( ACTION_PLAYER_SWITCH ) )		// Conmutacio de jugador. Ara puc moure l'actual jugador i el vell es mou automàticament
-	{
-		size_t l_Counter = m_pPlayersList.size() - 1;
-		if ( m_uiIndicePlayerCamera < l_Counter ) 
-			m_uiIndicePlayerCamera ++;
-		else
-			m_uiIndicePlayerCamera = 0;
-		
-		m_pCamera->SetObject3D ( m_pPlayersList[m_uiIndicePlayerCamera] );
-		m_pActivePlayer = m_pPlayersList[m_uiIndicePlayerCamera];
-	}
+	//if ( l_pAction2Input->DoAction( ACTION_PLAYER_SWITCH ) )		// Conmutacio de jugador. Ara puc moure l'actual jugador i el vell es mou automàticament
+	//{
+	//	size_t l_Counter = m_pPlayersList.size() - 1;
+	//	if ( m_uiIndicePlayerCamera < l_Counter ) 
+	//		m_uiIndicePlayerCamera ++;
+	//	else
+	//		m_uiIndicePlayerCamera = 0;
+	//	
+	//	m_pCamera->SetObject3D ( m_pPlayersList[m_uiIndicePlayerCamera] );
+	//	m_pActivePlayer = m_pPlayersList[m_uiIndicePlayerCamera];
+	//}
 }
 

@@ -11,7 +11,7 @@
 #include "Math\Vector2.h"
 
 //---FOWARD DECLARATIONS---//
-class CPlayer; 
+//class CPlayer; 
 class CCamera;
 class CThPSCamera;
 class CFPSCamera;
@@ -57,9 +57,11 @@ protected:
 	float							m_fAngleY;
 	float							m_fAngleZ;
 	
-	std::vector<CPlayer*>			m_pPlayersList;
-	CPlayer*						m_pActivePlayer;
+	
 
+	/*std::vector<CPlayer*>			m_pPlayersList;
+	CPlayer*						m_pActivePlayer;
+*/
 	CThPSCamera*					m_pCameraTerceraPersona;
 	CFPSCamera*						m_pCameraPrimeraPersona;
 	unsigned int					m_uiIndicePlayerCamera;
