@@ -11,6 +11,8 @@
 typedef enum ETypeAlignment { CENTER, UPPER_LEFT, UPPER_RIGHT, LOWER_LEFT, LOWER_RIGHT };
 typedef enum ETypeFlip { NONE_FLIP, FLIP_X, FLIP_Y };
 
+
+
 struct CUSTOMVERTEX
 {
    float x, y, z;
