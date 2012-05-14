@@ -21,16 +21,16 @@ public:
 	virtual ~CThPSCamera(){/*Nothing*/;}
 
 	//---Interfaz de CCamera
-	virtual Vect3f					GetDirection		() const;
-	virtual Vect3f					GetLookAt				() const;
-	virtual Vect3f					GetEye					() const;
-	virtual Vect3f					GetVecUp				() const;
+	virtual Vect3f			GetDirection	() const;
+	virtual Vect3f			GetLookAt		() const;
+	virtual Vect3f			GetEye			() const;
+	virtual Vect3f			GetVecUp		() const;
 
 
 	//---Interfaz de CThPSCamera
-	void										SetZoom					(float zoom);
-	void										AddZoom					(float zoom);
-	float										GetZoom					() const	{return m_fZoom;}
+	void					SetZoom			(float zoom);
+	void					AddZoom			(float zoom);
+	float					GetZoom			() const	{return m_fZoom;}
 
 private:
 	float		m_fZoom;
