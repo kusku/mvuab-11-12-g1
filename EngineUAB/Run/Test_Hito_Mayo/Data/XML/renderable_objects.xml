@@ -7,11 +7,9 @@
 	<!--<mesh_instance name="Casa" core="Casa" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
 	<mesh_instance name="otro" core="OTRO" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
 	-->
-	<!--<mesh_instance name="Plans" core="planells" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />-->
-	<mesh_instance name="TerrenoCasa" core="TerrenoCasa" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />
-	<!--<mesh_instance name="TerrenoCasa" core="TerrenoCasa" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />
-	<mesh_instance name="Plans" core="planells" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />
-	<mesh_instance name="Plane001" core="Plane001" position="2.001 -11.557 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />
+	<!--<mesh_instance name="Plans" core="Plane001" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />-->
+	<mesh_instance name="TerrenoCasa" core="TerrenoCasa" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />-->
+	<!--<mesh_instance name="Plane001" core="Plane001" position="2.001 -11.557 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />
 	<mesh_instance name="Box001" core="Box001" position="-8.946 -5.477 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />
 	<mesh_instance name="Box002" core="Box002" position="6.434 -7.439 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />
 	<mesh_instance name="Box003" core="Box003" position="4.217 0.345 0.989" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />
