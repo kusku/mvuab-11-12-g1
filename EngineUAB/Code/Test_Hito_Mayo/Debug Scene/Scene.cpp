@@ -37,7 +37,7 @@ void CScene::Done ( void )
 
 bool CScene::Init ( void )
 {
-	//CreateScene();
+	CreateScene();
 	return m_bIsOk;
 }
 
