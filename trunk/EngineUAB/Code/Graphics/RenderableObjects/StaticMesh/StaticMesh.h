@@ -22,32 +22,32 @@ public:
 	CStaticMesh();
 	virtual ~CStaticMesh();
 
-	bool				Load				( const std::string &FileName );
-	bool				Reload				();
-	void				Unload				();
+	bool				Load							( const std::string &FileName );
+	bool				Reload							();
+	void				Unload							();
 
-	void				Render				( CRenderManager *RM ) const;
-	void				Render				( CRenderManager *RM, CEffectTechnique* technique ) const;
+	void				Render							( CRenderManager *RM ) const;
+	void				Render							( CRenderManager *RM, CEffectTechnique* technique ) const;
 
-	void				SetBoundingBox		(const TBoundingBox& boundingBox) { m_BoundingBox = boundingBox; }
-	void				SetBoundingSphere	(const TBoundingSphere& boundingSphere) { m_BoundingSphere = boundingSphere; }
+	void				SetBoundingBox					(const TBoundingBox& boundingBox) { m_BoundingBox = boundingBox; }
+	void				SetBoundingSphere				(const TBoundingSphere& boundingSphere) { m_BoundingSphere = boundingSphere; }
 
-	TBoundingBox		GetBoundingBox		() const { return m_BoundingBox; }
-	TBoundingSphere		GetBoundingSphere	() const { return m_BoundingSphere; }
+	TBoundingBox		GetBoundingBox					() const { return m_BoundingBox; }
+	TBoundingSphere		GetBoundingSphere				() const { return m_BoundingSphere; }
 
-	bool				GetRenderableObjectTechnique		();
+	bool				GetRenderableObjectTechnique	();
 
-	void				ClearTextures			();
+	void				ClearTextures					();
 
 	// TODO:: queria recuperar el vertex list del buffer de DX9
 private:
 	template <typename T>
-	std::vector<Vect3f>	GetVertexsList		( const void *_VtxBuffer,  uint16 _NumVertex );
-	//std::vector<Vect3f>	GetIndexList		( const void *_IndxBuffer, uint16 _NumIndex );
+	void				CreateVect3fVertexsList			( const void *_VtxBuffer,  uint16 _NumVertex );
+	void				CreateVect3fFacesList			( const void *_IndxBuffer, uint16 _NumIndex );
 
 public:
-	const std::vector<Vect3f>&	GetVertexBuffer		( void ) const		{ return m_VtxsBuffer; }
-	const std::vector<uint32>&	GetFacesBuffer		( void ) const		{ return m_IndxBuffer; }
+	const std::vector<Vect3f>&	GetVertexBuffer			( void ) const		{ return m_VtxsBuffer; }
+	const std::vector<uint32>&	GetFacesBuffer			( void ) const		{ return m_IndxBuffer; }
 
 protected:	
 	std::vector<CRenderableVertexs*>			m_RVs;
