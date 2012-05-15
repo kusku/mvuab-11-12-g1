@@ -95,7 +95,7 @@ bool CPlayer::Init ( void )
 
 	CRenderableObjectsLayersManager *l_ROLayerManager = CORE->GetRenderableObjectsLayersManager();
 	CRenderableObjectsManager *l_ROManager = l_ROLayerManager->GetResource("solid");
-	CRenderableObject *l_RO = l_ROManager->GetInstance( "lobo1" );
+	CRenderableObject *l_RO = l_ROManager->GetInstance( m_pPlayerProperties->GetAnimationInstance() );
 
 	if ( !l_RO ) 
 		l_ROManager->AddAnimatedMeshInstance( m_pPlayerProperties->GetName(), Vect3f (0.f, 0.f, 0.f ) );

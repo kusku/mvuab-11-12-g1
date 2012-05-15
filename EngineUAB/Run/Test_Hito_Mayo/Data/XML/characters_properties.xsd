@@ -6,16 +6,11 @@
         <xs:element minOccurs="0" maxOccurs="unbounded" name="default_properties">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="properties">
-                <xs:complexType>
-                  <xs:sequence>
-                    <xs:element name="life" type="xs:unsignedByte" />
-                    <xs:element name="strong" type="xs:unsignedByte" />
-                    <xs:element name="speed" type="xs:unsignedByte" />
-                    <xs:element name="direction" type="xs:string" />
-                  </xs:sequence>
-                </xs:complexType>
-              </xs:element>
+              <xs:element name="life" type="xs:unsignedByte" minOccurs="0" maxOccurs="1"/>
+              <xs:element name="strong" type="xs:unsignedByte" minOccurs="0" maxOccurs="1"/>
+              <xs:element name="speed" type="xs:unsignedByte" minOccurs="0" maxOccurs="1"/>
+              <xs:element name="direction" type="xs:string" minOccurs="0" maxOccurs="1"/>
+              <xs:element name="position" type="xs:string" minOccurs="0" maxOccurs="1"/>
             </xs:sequence>
             <xs:attribute name="core" type="xs:string" use="required" />
           </xs:complexType>
@@ -23,37 +18,27 @@
         <xs:element name="player" minOccurs="0" maxOccurs="1">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="properties" minOccurs="0" maxOccurs="1">
-                <xs:complexType>
-                  <xs:sequence>
-                    <xs:element name="life" type="xs:unsignedByte" />
-                    <xs:element name="strong" type="xs:unsignedByte" />
-                    <xs:element name="speed" type="xs:unsignedByte" />
-                    <xs:element name="direction" type="xs:string" />
-                  </xs:sequence>
-                </xs:complexType>
-              </xs:element>
+              <xs:element name="life" type="xs:unsignedByte" minOccurs="0" maxOccurs="1"/>
+              <xs:element name="strong" type="xs:unsignedByte" minOccurs="0" maxOccurs="1"/>
+              <xs:element name="speed" type="xs:unsignedByte" minOccurs="0" maxOccurs="1"/>
+              <xs:element name="direction" type="xs:string" minOccurs="0" maxOccurs="1"/>
+              <xs:element name="position" type="xs:string" minOccurs="0" maxOccurs="1"/>
             </xs:sequence>
             <xs:attribute name="name" type="xs:string" use="required" />
             <xs:attribute name="core" type="xs:string" use="required" />
+            <xs:attribute name="animated_instace_name" type="xs:string" use="required" />
           </xs:complexType>
         </xs:element>
-        <xs:element name="enemies">
+        <xs:element name="enemies" minOccurs="0" maxOccurs="1" >
           <xs:complexType>
             <xs:sequence>
-              <xs:element minOccurs="0" maxOccurs="unbounded" name="enemy">
+              <xs:element minOccurs="1" maxOccurs="unbounded" name="enemy">
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element name="properties" minOccurs="0" maxOccurs="1">
-                      <xs:complexType>  
-                        <xs:sequence>
-                          <xs:element name="life" type="xs:unsignedByte" minOccurs="0" maxOccurs="1" />
-                          <xs:element name="strong" type="xs:unsignedByte" minOccurs="0" maxOccurs="1" />
-                          <xs:element name="speed" type="xs:unsignedByte" minOccurs="0" maxOccurs="1" />
-                          <xs:element name="direction" type="xs:string" minOccurs="0" maxOccurs="1" />
-                        </xs:sequence>
-                      </xs:complexType>
-                    </xs:element>
+                    <xs:element name="life" type="xs:unsignedByte" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="strong" type="xs:unsignedByte" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="speed" type="xs:unsignedByte" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="direction" type="xs:string" minOccurs="0" maxOccurs="1"/>
                   </xs:sequence>
                   <xs:attribute name="name" type="xs:string" use="required" />
                   <xs:attribute name="core" type="xs:string" use="required" />

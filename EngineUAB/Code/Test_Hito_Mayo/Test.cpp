@@ -77,31 +77,36 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 		l_Main = new CMain();
 
 		g_Engine->SetProcess(l_Main);
-		g_Engine->Init(hWnd);
+		if ( g_Engine->Init(hWnd) )
+		{	
+			CORE->SetProcess(l_Main);
+			CORE->SetGameMode(true);
 
-		CORE->SetProcess(l_Main);
-		CORE->SetGameMode(true);
+			ShowWindow( hWnd, SW_SHOWDEFAULT );
+			UpdateWindow( hWnd );
+			MSG msg;
+			ZeroMemory( &msg, sizeof(msg) );
 
-		ShowWindow( hWnd, SW_SHOWDEFAULT );
-		UpdateWindow( hWnd );
-		MSG msg;
-		ZeroMemory( &msg, sizeof(msg) );
+			// Añadir en el while la condición de salida del programa de la aplicación
 
-		// Añadir en el while la condición de salida del programa de la aplicación
-
-		while( msg.message != WM_QUIT )
+			while( msg.message != WM_QUIT )
+			{
+				if( PeekMessage( &msg, NULL, 0U, 0U, PM_REMOVE ) )
+				{
+					TranslateMessage( &msg );
+					DispatchMessage( &msg );
+				}
+				else
+				{
+					// Main loop: Añadir aquí el Update y Render de la aplicación principal
+					g_Engine->Update();
+					g_Engine->Render();
+				}
+			}
+		}
+		else
 		{
-			if( PeekMessage( &msg, NULL, 0U, 0U, PM_REMOVE ) )
-			{
-				TranslateMessage( &msg );
-				DispatchMessage( &msg );
-			}
-			else
-			{
-				// Main loop: Añadir aquí el Update y Render de la aplicación principal
-				g_Engine->Update();
-				g_Engine->Render();
-			}
+			// NOTHING TODO : Ya se ha comunicado en el logger el problema
 		}
 	}
 	catch(CException &e)

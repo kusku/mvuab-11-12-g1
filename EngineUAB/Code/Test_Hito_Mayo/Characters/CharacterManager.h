@@ -75,6 +75,6 @@ private:
 	CPropertiesManager			*m_pPropertiesManager;
 	CAnimationsStatesManager	*m_pAnimatedStatesManager;
 
-	CPlayer*					m_pPlayer;
+	CPlayer						*m_pPlayer;
 };
 
