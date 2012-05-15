@@ -232,8 +232,9 @@ CRenderableVertexs* CStaticMesh::ReadCreateVertexBuffer(FILE* modelFile, uint16 
 		//Create Vertex Buffer
 		l_VtxBuffer = LoadCreateVertexBuffer<TNORMALCOLORED_VERTEX>(modelFile, numVertex);
 		
-		m_VtxsBuffer = GetVertexsList<TNORMALCOLORED_VERTEX> ( l_VtxBuffer, numVertex );
-				
+		CreateVect3fVertexsList<TNORMALCOLORED_VERTEX>( l_VtxBuffer, numVertex );
+		CreateVect3fFacesList( l_IdxBuffer, numIndex );
+
 		//Create CIndexVertexs
 		CIndexedVertexs<TNORMALCOLORED_VERTEX>* idxVtx = 
 			new CIndexedVertexs<TNORMALCOLORED_VERTEX>(CORE->GetRenderManager(), l_VtxBuffer, l_IdxBuffer, numVertex, numIndex);
@@ -245,7 +246,8 @@ CRenderableVertexs* CStaticMesh::ReadCreateVertexBuffer(FILE* modelFile, uint16 
 		//Create Vertex Buffer
 		l_VtxBuffer = LoadCreateVertexBuffer<TNORMALTEXTURE2_VERTEX>(modelFile, numVertex);
 		
-		m_VtxsBuffer = GetVertexsList<TNORMALTEXTURE2_VERTEX> ( l_VtxBuffer, numVertex );
+		CreateVect3fVertexsList<TNORMALTEXTURE2_VERTEX> ( l_VtxBuffer, numVertex );
+		CreateVect3fFacesList( l_IdxBuffer, numIndex );
 
 		//Create CIndexVertexs
 		CIndexedVertexs<TNORMALTEXTURE2_VERTEX>* idxVtx = 
@@ -258,19 +260,8 @@ CRenderableVertexs* CStaticMesh::ReadCreateVertexBuffer(FILE* modelFile, uint16 
 		//Create Vertex Buffer
 		l_VtxBuffer = LoadCreateVertexBuffer<TNORMALTEXTURE1_VERTEX>(modelFile, numVertex);
 		
-		m_VtxsBuffer = GetVertexsList<TNORMALTEXTURE1_VERTEX> ( l_VtxBuffer, numVertex );
-		//m_IndxBuffer = GetIndexList( l_IdxBuffer, numIndex );
-
-		uint16 *l_IndxBuffer = (uint16 *) l_IdxBuffer;
-		
-		std::vector<uint32> l_Vect ;
-		
-		for ( uint16 i = 0; i < numIndex; ++i )
-		{
-			uint16 l_Valor = *l_IndxBuffer;
-			m_IndxBuffer.push_back(l_Valor);
-			l_IndxBuffer ++;
-		}
+		CreateVect3fVertexsList<TNORMALTEXTURE1_VERTEX> ( l_VtxBuffer, numVertex );
+		CreateVect3fFacesList( l_IdxBuffer, numIndex );
 
 		//Create CIndexVertexs
 		CIndexedVertexs<TNORMALTEXTURE1_VERTEX>* idxVtx = 
@@ -284,7 +275,8 @@ CRenderableVertexs* CStaticMesh::ReadCreateVertexBuffer(FILE* modelFile, uint16 
 		//Create Vertex Buffer
 		l_VtxBuffer = LoadCreateVertexBuffer<TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX>(modelFile, numVertex);
 		
-		m_VtxsBuffer = GetVertexsList<TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX> ( l_VtxBuffer, numVertex );
+		CreateVect3fVertexsList<TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX> ( l_VtxBuffer, numVertex );
+		CreateVect3fFacesList( l_IdxBuffer, numIndex );
 
 		CalcTangentsAndBinormals(l_VtxBuffer, l_IdxBuffer, numVertex, numIndex, sizeof(TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX),
 				0, 12, 28, 44, 60);
@@ -300,7 +292,8 @@ CRenderableVertexs* CStaticMesh::ReadCreateVertexBuffer(FILE* modelFile, uint16 
 		//Create Vertex Buffer
 		l_VtxBuffer = LoadCreateVertexBuffer<TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX>(modelFile, numVertex);
 		
-		m_VtxsBuffer = GetVertexsList<TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX> ( l_VtxBuffer, numVertex );
+		CreateVect3fVertexsList<TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX> ( l_VtxBuffer, numVertex );
+		CreateVect3fFacesList( l_IdxBuffer, numIndex );
 
 		CalcTangentsAndBinormals(l_VtxBuffer, l_IdxBuffer, numVertex, numIndex, sizeof(TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX),
 				0, 12, 28, 44, 60);
@@ -530,9 +523,11 @@ bool CStaticMesh::GetRenderableObjectTechnique()
 	return l_Ok;
 }
 
-// TODO:: Queria obtener los vertices pero... de momento ni flowers, además tengo el ASE para cargar la físcia.
+// --------------------------------------------------------------------------------------------------------------
+// CreateVect3fVertexsList : Crea una lista de vertices que almacenamos en el propio código para crear la maya física
+// --------------------------------------------------------------------------------------------------------------
 template <typename T>
-std::vector<Vect3f>	CStaticMesh::GetVertexsList	( const void *_VtxBuffer, uint16 _NumVertex )
+void CStaticMesh::CreateVect3fVertexsList( const void *_VtxBuffer, uint16 _NumVertex )
 {
 	std::vector<Vect3f> l_Vect ;
 
@@ -540,24 +535,21 @@ std::vector<Vect3f>	CStaticMesh::GetVertexsList	( const void *_VtxBuffer, uint16
 	for ( uint16 i = 0; i < _NumVertex; ++i )
 	{
 		Vect3f *l_Vtx = (Vect3f *) l_Vtxs;
-		l_Vect.push_back(*l_Vtx);
+		m_VtxsBuffer.push_back(*l_Vtx);
 		l_Vtxs += sizeof(T);
 	}
-		
-	return l_Vect;
 }
 
-//std::vector<Vect3f> CStaticMesh::GetIndexList( const void *_IndxBuffer, uint16 _NumIndex )
-//{
-//	uint16 *l_IndxBuffer = (uint16 *) _IndxBuffer;
-//	std::vector<uint32> l_Vect ;
-//	
-//	for ( uint16 i = 0; i < _NumIndex; ++i )
-//	{
-//		uint16 l_Valor = *l_IndxBuffer;
-//		l_Vect.push_back(l_Valor);
-//		l_IndxBuffer ++;
-//	}
-//
-//	return l_Vect;
-
+// --------------------------------------------------------------------------------------------------------------
+// CreateVect3fFacesList : Crea una lista de indices que almacenamos en el propio código para crear la maya física
+// --------------------------------------------------------------------------------------------------------------
+void CStaticMesh::CreateVect3fFacesList( const void *_IndxBuffer, uint16 _NumIndex )
+{
+	uint16 *l_IndxBuffer = (uint16 *) _IndxBuffer;
+	for ( uint16 i = 0; i < _NumIndex; ++i )
+	{
+		uint16 l_Valor = *l_IndxBuffer;
+		m_IndxBuffer.push_back(l_Valor);
+		l_IndxBuffer ++;
+	}
+}
