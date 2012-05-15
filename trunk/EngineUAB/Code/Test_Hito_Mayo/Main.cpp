@@ -46,7 +46,7 @@ bool CMain::Init( void )
 	CTestProcess::Init();
 
 	// Creamos la escena de debug. Esto solo si no se tiene escenario
-	m_pScene->Init();
+	//m_pScene->Init();
 
 	// Inicializa el gestor de player y enemigos. Carga propiedades y estados de todo.
 	if ( !m_pCharactersManager->Initialize ( ) )

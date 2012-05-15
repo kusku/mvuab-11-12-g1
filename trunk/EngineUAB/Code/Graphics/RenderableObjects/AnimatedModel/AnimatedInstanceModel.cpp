@@ -53,12 +53,12 @@ void CAnimatedInstanceModel::Destroy()
 
 void CAnimatedInstanceModel::ReadDataXML(CXMLTreeNode &Node)
 {
-	m_Name = Node.GetPszProperty("name", "");
-	m_Position = Node.GetVect3fProperty("position", Vect3f(0.0f, 0.0f, 0.0f));
-	m_fYaw = Node.GetFloatProperty("yaw", 0.0f);
-	m_fPitch = Node.GetFloatProperty("pitch", 0.0f);
-	m_fRoll = Node.GetFloatProperty("roll", 0.0f);
-	m_Scale = Node.GetVect3fProperty("scale", Vect3f(1.0f, 1.0f, 1.0f));
+	m_Name		= Node.GetPszProperty("name", "");
+	m_Position	= Node.GetVect3fProperty("position", Vect3f(0.0f, 0.0f, 0.0f));
+	m_fYaw		= Node.GetFloatProperty("yaw", 0.0f);
+	m_fPitch	= Node.GetFloatProperty("pitch", 0.0f);
+	m_fRoll		= Node.GetFloatProperty("roll", 0.0f);
+	m_Scale		= Node.GetVect3fProperty("scale", Vect3f(1.0f, 1.0f, 1.0f));
 
 	//TODO: Faltar leer create_physics y physics_type
 }
