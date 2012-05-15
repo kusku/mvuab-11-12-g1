@@ -59,7 +59,7 @@ bool CMain::Init( void )
 	assert ( ENTMGR != NULL );
 	//ENTMGR->RegisterEntity( m_pPlayer );
 	
-	// La primera Player/Enemy-Camera. Esto podria ser útil si conseguimos cambiar la cámara de un player a un enemico en ciertos momentos
+	// La primera Player/Enemy-Camera. Esto podria ser útil si conseguimos cambiar la cámara de un player a un enemico en ciertos momentos. Lo usé y molaba!
 	m_uiIndicePlayerCamera = 0;
 
 	// Inicializamos las cámaras y se asocian al Player

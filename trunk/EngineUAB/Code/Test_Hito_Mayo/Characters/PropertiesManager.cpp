@@ -22,7 +22,7 @@ CPropertiesManager::~CPropertiesManager( void )
 // LoadProperties : Recibe un nodo con la información de propiedades, se recorren y se crea un objeto de propiedades
 //						que es devuelto
 //-----------------------------------------------------------------------------------------------------------------------------
-CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, const std::string &_Name, const std::string &_CoreName )
+CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, const std::string &_Name, const std::string &_CoreName, const std::string &_AnimatedInstance )
 {
 	CXMLTreeNode l_XMLPropertiesNode = _Node;
 	CProperties* l_Properties = NULL;
@@ -37,9 +37,10 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 	if ( !l_Properties )
 		l_Properties = new CProperties();
 
-	l_Properties->SetName(_Name);
-	l_Properties->SetCore(_CoreName);
-
+	l_Properties->SetName( _Name );
+	l_Properties->SetCore( _CoreName );
+	l_Properties->SetAnimationInstance( _AnimatedInstance );
+	
 	int l_Count = l_XMLPropertiesNode.GetNumChildren();
 	// Recorremos todas las propiedades y machacamos las encontradas
 	for( uint16 i = 0; i < l_Count; ++i )
@@ -59,13 +60,17 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 			Vect3f l_Vect = l_XMLPropertiesNode(i).GetVect3fKeyword ("direction");
 			l_Properties->SetDirection( l_Vect );
 		}
-		else if( l_PropertyField == "position" )
+		// Esta és una prueba para cojer elementos vect3f
+		else if( l_PropertyField == "RespawnPosition" )
 		{
-			Vect3f l_Vect = l_XMLPropertiesNode(i).GetVect3fKeyword ("position");
-			l_Properties->SetPosition( l_Vect );
+			Vect3f l_Vect = l_XMLPropertiesNode(i).GetVect3fKeyword ("RespawnPosition");
 			l_Properties->SetRespawnPosition ( l_Vect );
 		}
-
+		else if( l_PropertyField == "Position" )
+		{
+			Vect3f l_Vect = l_XMLPropertiesNode(i).GetVect3fKeyword ("Position");
+			l_Properties->SetPosition( l_Vect );
+		}
 		else if ( l_PropertyField != "comment" ) 
 		{
 			std::string msg_error = "CPropertiesManager::LoadXML --> Error reading a unknow tag when trying to load properties : " + l_PropertyField;
@@ -128,8 +133,10 @@ CProperties* CPropertiesManager::LoadPlayerProperties( const CXMLTreeNode &_Node
 	std::string l_Type = l_MainNode.GetName();		// Les propietats van primer
 	if( l_Type == "player" )
 	{
-		std::string l_Name = _Node.GetPszProperty("name");
-		std::string l_CoreName = _Node.GetPszProperty("core");
+		std::string l_Name = l_MainNode.GetPszProperty( "name", "", false );
+		std::string l_CoreName = l_MainNode.GetPszProperty( "core", "", false );
+		std::string l_AnimatedInstance = l_MainNode.GetPszProperty( "animated_instace_name", "", false ); 
+	
 		/*if ( GetResource ( l_CoreName ) )
 		{
 			std::string msg_error = "CPropertiesManager::LoadXML --> Error when trying to load a player properties already exist: " + l_CoreName;
@@ -138,7 +145,7 @@ CProperties* CPropertiesManager::LoadPlayerProperties( const CXMLTreeNode &_Node
 		}*/
 
 		// devuelvo las propiedades del player
-		return LoadProperties ( _Node, l_Name, l_CoreName );
+		return LoadProperties ( l_MainNode, l_Name, l_CoreName, l_AnimatedInstance );
 	}
 	else 
 	{
@@ -161,8 +168,10 @@ CProperties* CPropertiesManager::LoadEnemyProperties( const CXMLTreeNode &_Node 
 	std::string l_Type = l_MainNode.GetName();		// Les propietats van primer
 	if( l_Type == "enemy" )
 	{
-		std::string l_Name = l_MainNode.GetPszProperty("name");
-		std::string l_CoreName = l_MainNode.GetPszProperty("core");
+		std::string l_Name = l_MainNode.GetPszProperty( "name", "", false );
+		std::string l_CoreName = l_MainNode.GetPszProperty( "core", "", false );
+		std::string l_AnimatedInstance = l_MainNode.GetPszProperty( "animated_instace_name", "", false ); 
+	
 		/*if ( GetResource ( l_CoreName ) )
 		{
 			std::string msg_error = "CPropertiesManager::LoadXML --> Error when trying to load a defauld property already exist: " + l_CoreName;
@@ -171,7 +180,7 @@ CProperties* CPropertiesManager::LoadEnemyProperties( const CXMLTreeNode &_Node 
 		}*/
 		
 		// devuelvo las propiedades del enemigo
-		return LoadProperties ( _Node, l_Name, l_CoreName );
+		return LoadProperties ( l_MainNode, l_Name, l_CoreName, l_AnimatedInstance );
 	}
 	else 
 	{

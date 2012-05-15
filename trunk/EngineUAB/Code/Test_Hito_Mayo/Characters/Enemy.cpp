@@ -155,117 +155,117 @@ void CEnemy::MoverAutomaticamente ( float _ElapsedTime )
 
 void CEnemy::MoverManualmente ( float _ElapsedTime )
 {
-	float	l_Dt;
-	float	l_fYaw		= m_pEnemyProperties->GetYaw();
-	float	l_fPitch	= m_pEnemyProperties->GetPitch();
-	float	l_fRoll		= m_pEnemyProperties->GetRoll();
-	Vect3f	l_Position	= m_pEnemyProperties->GetPosition();
+	//float	l_Dt;
+	//float	l_fYaw		= m_pEnemyProperties->GetYaw();
+	//float	l_fPitch	= m_pEnemyProperties->GetPitch();
+	//float	l_fRoll		= m_pEnemyProperties->GetRoll();
+	//Vect3f	l_Position	= m_pEnemyProperties->GetPosition();
 
-	if ( CORE->GetActionToInput()->DoAction( ACTION_LOCK_FREE_CAMERA , l_Dt  ) )
-		m_bLockCamera=!m_bLockCamera;
-	
-	if(m_bLockCamera)
-		return;
+	//if ( CORE->GetActionToInput()->DoAction( ACTION_LOCK_FREE_CAMERA , l_Dt  ) )
+	//	m_bLockCamera=!m_bLockCamera;
+	//
+	//if(m_bLockCamera)
+	//	return;
 
-	Vect3f l_Direccio = ( 0.f, 0.f, 0.f );
-	
-	// Comprovem la Rotació del player
-	if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_FREE_CAMERA_X , l_Dt ) )
-	{
-		l_fYaw += l_Dt;
-		if ( l_fYaw > 2.0f * FLOAT_PI_VALUE )
-			l_fYaw -= 2.0f * FLOAT_PI_VALUE;
-		else if ( l_fYaw < -2.0f * FLOAT_PI_VALUE )
-			l_fYaw -= 2.0f * FLOAT_PI_VALUE;
-	}
+	//Vect3f l_Direccio = ( 0.f, 0.f, 0.f );
+	//
+	//// Comprovem la Rotació del player
+	//if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_FREE_CAMERA_X , l_Dt ) )
+	//{
+	//	l_fYaw += l_Dt;
+	//	if ( l_fYaw > 2.0f * FLOAT_PI_VALUE )
+	//		l_fYaw -= 2.0f * FLOAT_PI_VALUE;
+	//	else if ( l_fYaw < -2.0f * FLOAT_PI_VALUE )
+	//		l_fYaw -= 2.0f * FLOAT_PI_VALUE;
+	//}
 
-	if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_FREE_CAMERA_Y, l_Dt ) )
-	{
-		l_fPitch += l_Dt;
-		l_fPitch = min ( max ( -FLOAT_PI_VALUE/2.1f, l_fPitch ), FLOAT_PI_VALUE/2.1f );
-	}
+	//if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_FREE_CAMERA_Y, l_Dt ) )
+	//{
+	//	l_fPitch += l_Dt;
+	//	l_fPitch = min ( max ( -FLOAT_PI_VALUE/2.1f, l_fPitch ), FLOAT_PI_VALUE/2.1f );
+	//}
 
-	// Comprovem el moviment del player	
-	if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_FOWARD ) )
-	{
-		if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_LEFT ) )
-		{
-			l_Direccio = Vect3f( cosf( l_fYaw + D3DX_PI/4.f ), l_fPitch, sinf( l_fYaw + D3DX_PI/4.f ) );
-			l_Position +=  l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
-		}
-		else if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_RIGHT ) )
-		{
-			l_Direccio = Vect3f( cosf( l_fYaw - D3DX_PI/4.f ), l_fPitch, sinf(l_fYaw - D3DX_PI/4.f ) );
-			l_Position += l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
-		}
-		else
-		{
-			l_Direccio = Vect3f ( cosf ( l_fYaw ) , l_fPitch, sinf ( l_fYaw ) );
-			l_Position += l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
-		}
-		
-		if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_UP ) )
-		{
-			l_Direccio = Vect3f ( 0 , 1, 0 );
-			l_Position -= l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
-		}
-		else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_DOWN ) )
-		{
-			l_Direccio = Vect3f ( 0, 1, 0 );
-			l_Position += l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
-		}
-	}
-	else if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_BACK ) )
-	{
-		if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_LEFT ) )
-		{
-			l_Direccio = ( Vect3f (cosf ( l_fYaw - D3DX_PI/4) , 0, sinf ( l_fYaw - D3DX_PI/4) ) );
-			l_Position -= l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
-		
-		}
-		else if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_RIGHT ) )
-		{
-			l_Direccio = ( Vect3f ( cosf ( l_fYaw + D3DX_PI/4) , 0, sinf ( l_fYaw + D3DX_PI/4 ) ) );
-			l_Position -= l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
-		}
-		else
-		{
-			l_Direccio = Vect3f ( cosf ( l_fYaw ) , l_fPitch, sinf ( l_fYaw ) );
-			l_Position -= l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
-		}
-		
-		if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_UP ) )
-		{
-			l_Direccio = Vect3f ( 0 , 1, 0 );
-			l_Position -= l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
-		}
-		else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_DOWN ) )
-		{
-			l_Direccio = Vect3f ( 0, 1, 0 );
-			l_Position += l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
-		}
+	//// Comprovem el moviment del player	
+	//if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_FOWARD ) )
+	//{
+	//	if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_LEFT ) )
+	//	{
+	//		l_Direccio = Vect3f( cosf( l_fYaw + D3DX_PI/4.f ), l_fPitch, sinf( l_fYaw + D3DX_PI/4.f ) );
+	//		l_Position +=  l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+	//	}
+	//	else if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_RIGHT ) )
+	//	{
+	//		l_Direccio = Vect3f( cosf( l_fYaw - D3DX_PI/4.f ), l_fPitch, sinf(l_fYaw - D3DX_PI/4.f ) );
+	//		l_Position += l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+	//	}
+	//	else
+	//	{
+	//		l_Direccio = Vect3f ( cosf ( l_fYaw ) , l_fPitch, sinf ( l_fYaw ) );
+	//		l_Position += l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+	//	}
+	//	
+	//	if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_UP ) )
+	//	{
+	//		l_Direccio = Vect3f ( 0 , 1, 0 );
+	//		l_Position -= l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+	//	}
+	//	else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_DOWN ) )
+	//	{
+	//		l_Direccio = Vect3f ( 0, 1, 0 );
+	//		l_Position += l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+	//	}
+	//}
+	//else if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_BACK ) )
+	//{
+	//	if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_LEFT ) )
+	//	{
+	//		l_Direccio = ( Vect3f (cosf ( l_fYaw - D3DX_PI/4) , 0, sinf ( l_fYaw - D3DX_PI/4) ) );
+	//		l_Position -= l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+	//	
+	//	}
+	//	else if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_RIGHT ) )
+	//	{
+	//		l_Direccio = ( Vect3f ( cosf ( l_fYaw + D3DX_PI/4) , 0, sinf ( l_fYaw + D3DX_PI/4 ) ) );
+	//		l_Position -= l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+	//	}
+	//	else
+	//	{
+	//		l_Direccio = Vect3f ( cosf ( l_fYaw ) , l_fPitch, sinf ( l_fYaw ) );
+	//		l_Position -= l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+	//	}
+	//	
+	//	if ( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_UP ) )
+	//	{
+	//		l_Direccio = Vect3f ( 0 , 1, 0 );
+	//		l_Position -= l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+	//	}
+	//	else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_DOWN ) )
+	//	{
+	//		l_Direccio = Vect3f ( 0, 1, 0 );
+	//		l_Position += l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+	//	}
 
-	}
-	else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_RIGHT ) )
-	{
-		l_Direccio = Vect3f ( cosf ( l_fYaw + D3DX_PI/2) , 0, sinf ( l_fYaw + D3DX_PI/2) );
-		l_Position -= l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
-	}
-	else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_LEFT ) )
-	{
-		l_Direccio = Vect3f ( cosf ( l_fYaw + D3DX_PI/2) , 0, sinf ( l_fYaw + D3DX_PI/2) );
-		l_Position += l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
-	}
-	else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_UP ) )
-	{
-		l_Direccio = Vect3f ( 0 , 1, 0 );
-		l_Position -= l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
-	}
-	else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_DOWN ) )
-	{
-		l_Direccio = Vect3f ( 0, 1, 0 );
-		l_Position += l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
-	}
+	//}
+	//else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_RIGHT ) )
+	//{
+	//	l_Direccio = Vect3f ( cosf ( l_fYaw + D3DX_PI/2) , 0, sinf ( l_fYaw + D3DX_PI/2) );
+	//	l_Position -= l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+	//}
+	//else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_LEFT ) )
+	//{
+	//	l_Direccio = Vect3f ( cosf ( l_fYaw + D3DX_PI/2) , 0, sinf ( l_fYaw + D3DX_PI/2) );
+	//	l_Position += l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+	//}
+	//else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_UP ) )
+	//{
+	//	l_Direccio = Vect3f ( 0 , 1, 0 );
+	//	l_Position -= l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+	//}
+	//else if( CORE->GetActionToInput()->DoAction( ACTION_MOVE_CAMERA_DOWN ) )
+	//{
+	//	l_Direccio = Vect3f ( 0, 1, 0 );
+	//	l_Position += l_Direccio * QUANTITAT_MOVIMENT_CAMERA * _ElapsedTime;
+	//}
 }
 
 // Codi MARC

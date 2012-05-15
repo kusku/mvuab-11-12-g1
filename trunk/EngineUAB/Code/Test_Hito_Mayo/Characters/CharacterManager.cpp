@@ -237,7 +237,7 @@ bool CCharactersManager::LoadDefaultCoreProperties( const CXMLTreeNode &_Node )
 //-------------------------------------------------------------------------------------------------------------
 bool CCharactersManager::LoadPlayerProperties( const CXMLTreeNode &_Node )
 {
-	bool l_IsOk;
+	bool l_IsOk = true;
 	// Si no existe el player lo creamos
 	if ( !m_pPlayer )
 		m_pPlayer = new CPlayer( );
@@ -268,7 +268,7 @@ bool CCharactersManager::LoadEnemiesProperties( const CXMLTreeNode &_Node )
 {
 	LOGGER->AddNewLog ( ELL_INFORMATION, "CCharactersManager::LoadEnemiesProperties-->Loading enemies and properties." );
 	
-	bool l_IsOk;
+	bool l_IsOk = true;
 	int  l_NextIDValid = m_pPlayer->GetID() + 1;
 
 	CXMLTreeNode l_EnemiesNode = _Node;

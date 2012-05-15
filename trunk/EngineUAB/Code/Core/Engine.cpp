@@ -70,13 +70,14 @@ bool CEngine::Init( HWND _HWnd )
 	LOGGER->AddNewLog(ELL_INFORMATION, "CEngine::Init-> Inicializando Engine");
 
 	m_pCore = new CCore();
-	m_bIsOk = m_pCore->Init( _HWnd, m_Config );	
-
-	if (m_bIsOk)
+	m_bIsOk = m_pCore->Init( _HWnd, m_Config );
+		
+	if ( m_bIsOk )
 		m_bIsOk = m_pProcess->Init();
-	
-	//m_pCore->SetProcess ( m_pProcess );
-	m_pCore->SetTimer   ( &m_Timer );
+
+	if ( m_bIsOk )
+		//m_pCore->SetProcess ( m_pProcess );
+		m_pCore->SetTimer   ( &m_Timer );
 
 	if ( m_bIsOk )
 		LOGGER->AddNewLog( ELL_INFORMATION, "CEngine::Init-> Engine inicializado correctamente.");

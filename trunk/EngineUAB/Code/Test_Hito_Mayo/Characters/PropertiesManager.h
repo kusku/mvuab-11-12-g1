@@ -29,7 +29,8 @@ public:
 	CProperties*	LoadEnemyProperties			( const CXMLTreeNode &_Node );					// Carga un node de propiedades de un enemigo y lo devuelve
 
 private:
-	CProperties*	LoadProperties				( const CXMLTreeNode &_Node, const std::string &_Name = "", const std::string &_CoreName = "" );		// Carga un node de propiedades y lo devuelve
+	// Carga un nodo de propiedades y lo devuelve
+	CProperties*	LoadProperties				( const CXMLTreeNode &_Node, const std::string &_Name = "", const std::string &_CoreName = "", const std::string &_AnimatedInstance = "" );		
 
 	//---- Properties ( get & Set )---------------------------------------
 	//---- Members -------------------------------------------------------
