@@ -51,5 +51,7 @@ protected:
 	CPlayerControler			  * m_pController;				// Part de física. Control del player en el escenari
 	CStateMachine<CCharacter>	  *	m_pGraphicStateMachine;		// Part de gráfics. Control de la màquina d'estats d'animació del personatge
 	CAnimatedInstanceModel		  * m_pCurrentAnimatedModel;	// Part de gráfics. Manté un punté a l'animació en curs
+
+	Vect3f							m_PrevPosition;
 };
 

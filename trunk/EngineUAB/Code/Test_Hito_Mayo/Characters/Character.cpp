@@ -14,10 +14,11 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CCharacter::CCharacter( int _Id )
-	: CBaseGameEntity	( _Id )
+	: CBaseGameEntity			( _Id )
 	, m_pLogicStateMachine		( NULL )
 	, m_pGraphicStateMachine	( NULL )
 	, m_pCurrentAnimatedModel	( NULL )
+	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
 	
 {
 	// coloco la máquina de estados i el controler de física
@@ -33,6 +34,7 @@ CCharacter::CCharacter( int _Id, const std::string &_Name )
 	, m_pLogicStateMachine		( NULL )
 	, m_pGraphicStateMachine	( NULL )
 	, m_pCurrentAnimatedModel	( NULL )
+	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
 {
 	// coloco la máquina de estados
     m_pLogicStateMachine	= new CStateMachine<CCharacter>( this );
@@ -60,8 +62,20 @@ bool CCharacter::Init ( const std::string &_Name, const Vect3f &_InitialPosicion
 }
 
 void CCharacter::Update ( float _ElapsedTime )			
-{ 
-	m_pController->Update( _ElapsedTime );
+{
+	Vect3f	l_PosActual	= m_pController->GetPosition();
+	
+	if ( m_PrevPosition != l_PosActual )
+	{
+		m_pCurrentAnimatedModel->SetPosition ( l_PosActual );
+		
+	}
+	else
+	{
+		
+	}
+
+	//m_PrevPosition = l_PosActual;
 	m_pLogicStateMachine->Update( );
 	m_pGraphicStateMachine->Update( );
 }

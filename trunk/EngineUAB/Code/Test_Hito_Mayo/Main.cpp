@@ -15,6 +15,9 @@
 #include "Base.h"
 #include "Core.h"
 
+#if defined (_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
 
 // --- VARIABLES LOCALES ---
 
@@ -46,7 +49,7 @@ bool CMain::Init( void )
 	CTestProcess::Init();
 
 	// Creamos la escena de debug. Esto solo si no se tiene escenario
-	//m_pScene->Init();
+	m_pScene->Init();
 
 	// Inicializa el gestor de player y enemigos. Carga propiedades y estados de todo.
 	if ( !m_pCharactersManager->Initialize ( ) )
@@ -61,9 +64,9 @@ bool CMain::Init( void )
 
 	// Inicializamos las cámaras y se asocian al Player
 	float l_Aspect = CORE->GetRenderManager()->GetAspectRatio();
-	m_pCameraTerceraPersona = new CThPSCamera (1.0f, 10000.f, 45.f * D3DX_PI / 180.f, l_Aspect, m_pCharactersManager->GetPlayer()->GetProperties(), 4.0f );
-	m_pCameraPrimeraPersona = new CFPSCamera ( 0.f , 1.f ,  D3DX_PI / 4, static_cast <float> ( m_VectScreen.x/m_VectScreen.y), m_pCharactersManager->GetPlayer()->GetProperties() );
-	m_pCamera = static_cast<CCamera*>( m_pCameraTerceraPersona );
+	m_pThPSCamera	= new CThPSCamera( 1.0f, 10000.f, 45.f * D3DX_PI / 180.f, l_Aspect, m_pCharactersManager->GetPlayer()->GetProperties(), 10.0f );
+	m_pFPSCamera	= new CFPSCamera ( 0.f , 1.f ,  D3DX_PI / 4, static_cast <float> ( m_VectScreen.x/m_VectScreen.y), m_pCharactersManager->GetPlayer()->GetProperties() );
+	m_pCamera		= static_cast<CCamera*>( m_pThPSCamera );
 
 	// Asignamos la camera activa al core
 	CORE->SetCamera( m_pCamera );

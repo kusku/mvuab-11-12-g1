@@ -62,8 +62,8 @@ protected:
 	/*std::vector<CPlayer*>			m_pPlayersList;
 	CPlayer*						m_pActivePlayer;
 */
-	CThPSCamera*					m_pCameraTerceraPersona;
-	CFPSCamera*						m_pCameraPrimeraPersona;
+	CThPSCamera*					m_pThPSCamera;
+	CFPSCamera*						m_pFPSCamera;
 	unsigned int					m_uiIndicePlayerCamera;
 };
 
