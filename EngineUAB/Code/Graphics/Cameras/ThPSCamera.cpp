@@ -5,17 +5,20 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-CThPSCamera::CThPSCamera(float zn, float zf, float fov, float aspect, CObject3D* object3D, float zoom, float height)
+CThPSCamera::CThPSCamera(float zn, float zf, float fov, float aspect, CObject3D* object3D, float zoom, float height, const std::string &name)
 	: CCamera( zn, zf, fov, aspect, object3D, TC_THPS)
 	, m_fZoom( zoom )
 	, m_fHeight( height )
-{}
+{
+	m_Name = name;
+}
 
 CThPSCamera::CThPSCamera()
 	: CCamera()
 	, m_fZoom(50.f)
 	, m_fHeight(0.f)
-{}
+{
+}
 
 
 Vect3f CThPSCamera::GetDirection () const

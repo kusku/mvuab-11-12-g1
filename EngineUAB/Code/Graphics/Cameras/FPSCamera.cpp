@@ -8,13 +8,16 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CFPSCamera::CFPSCamera( float _Zn, float _Zf, float _Fov, float _Aspect, CObject3D* _pObject3D )
+CFPSCamera::CFPSCamera( float _Zn, float _Zf, float _Fov, float _Aspect, CObject3D* _pObject3D, const std::string &name )
 	: CCamera( _Zn, _Zf, _Fov, _Aspect, _pObject3D, TC_FPS)
-{}
+{
+	m_Name = name;
+}
 
 CFPSCamera::CFPSCamera( void )
 	: CCamera()
-{}
+{
+}
 
 
 // -----------------------------------------

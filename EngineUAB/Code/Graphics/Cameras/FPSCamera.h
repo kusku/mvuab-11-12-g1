@@ -17,7 +17,7 @@ class CFPSCamera : public CCamera
 
 public:
 
-	CFPSCamera(float zn, float zf, float fov, float aspect, CObject3D* object3D);
+	CFPSCamera(float zn, float zf, float fov, float aspect, CObject3D* object3D, const std::string &name = "");
 	CFPSCamera();
 	virtual ~CFPSCamera(){/*Nothing*/;}
 
