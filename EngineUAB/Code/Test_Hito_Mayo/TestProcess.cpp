@@ -42,8 +42,8 @@ CTestProcess::CTestProcess ( void )
 	, m_fTempsTotal				( 0 )
 	, m_uiIndicePlayerCamera	( 0 )
 	//, m_pActivePlayer			( NULL )	
-	, m_pCameraTerceraPersona	( NULL )
-	, m_pCameraPrimeraPersona	( NULL )
+	, m_pThPSCamera				( NULL )
+	, m_pFPSCamera				( NULL )
 {}
 
 CTestProcess::~CTestProcess ( void )
@@ -65,11 +65,8 @@ void CTestProcess::Done ( void )
 
 void CTestProcess::Release ( void )
 {
-	/*for each ( CPlayer* l_pPlayer in m_pPlayersList )
-		CHECKED_DELETE ( l_pPlayer );*/
-	
-	CHECKED_DELETE ( m_pCameraPrimeraPersona );
-	CHECKED_DELETE ( m_pCameraTerceraPersona );
+	CHECKED_DELETE ( m_pThPSCamera );
+	CHECKED_DELETE ( m_pFPSCamera );
 	m_pCamera = NULL;
 }
 
@@ -86,24 +83,6 @@ bool CTestProcess::Init(void)
 	CORE->GetScriptManager()->RunCode("load_basics()");
 	CORE->GetScriptManager()->RunCode("load_data()");
 
-	// TODO: Substituir tot per rails de càmeres o altres punts d'anclatge de les càmeres. En el procés que hereda d'aquest sí s'ha de fer l'anclatge la Player
-	/*AddPlayer ( "Player", Vect3f ( -40.f, 20.f, 0.f ), false );
-	AddPlayer ( "Pepe",   Vect3f ( 1.f, 2.f, 1.f ),    false );*/
-
-	//float l_Aspect = CORE->GetRenderManager()->GetAspectRatio();
-	//m_pCameraTerceraPersona = new CThPSCamera (1.0f, 10000.f, 45.f * D3DX_PI / 180.f, l_Aspect, m_pPlayersList[m_uiIndicePlayerCamera], 10.0f );
-	//m_pCameraPrimeraPersona = new CFPSCamera ( 0.f , 1.f ,  D3DX_PI / 4, static_cast <float> ( m_VectScreen.x/m_VectScreen.y), m_pPlayersList[m_uiIndicePlayerCamera] );
-	//m_pCamera = static_cast<CCamera*>( m_pCameraTerceraPersona );
-
-	//// Assignamos el player por defecto
-	//m_pActivePlayer = m_pPlayersList[m_uiIndicePlayerCamera];
-
-	//// Asignamos la camera activa al core
-	//CORE->SetCamera( m_pCamera );
-	//
-	//// La primera Player-Camera
-	//m_uiIndicePlayerCamera = 0;
-
 	return true;
 }
 
@@ -117,7 +96,6 @@ void CargarProcesos ( void )
 void CTestProcess::Update( float _ElapsedTime )
 {
 	CORE->SetCamera( m_pCamera );
-	//m_pActivePlayer->Update( _ElapsedTime );
 	
 	UpdateInputs( _ElapsedTime );
 
@@ -155,10 +133,10 @@ void CTestProcess::UpdateInputs( float _ElapsedTime )
 		CCamera * l_Camera = GetCamera();
 		if ( ( l_Camera->GetTypeCamera ( ) ) == CCamera::TC_FPS )
 			// Asignamos cámera de primera persona
-			m_pCamera = m_pCameraTerceraPersona;
+			m_pCamera = m_pThPSCamera;
 		else
 			// Asignamos cámera de tercera persona
-			m_pCamera = m_pCameraPrimeraPersona;
+			m_pCamera = m_pFPSCamera;
 	}	
 	
 	//if ( l_pAction2Input->DoAction( ACTION_PLAYER_SWITCH ) )		// Conmutacio de jugador. Ara puc moure l'actual jugador i el vell es mou automàticament

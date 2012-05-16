@@ -45,7 +45,7 @@ enum DIRECTION
 #define ACTION_PLAYER_RESPAWN				"Respawn"
 
 
-#define MOMENTUM							100.f		// Cantidad de movimiento del player
+#define MOMENTUM							10.f		// Cantidad de movimiento del player
 #define INCREMENT_FACTOR_VELOCITAT			50
 #define TIEMPO_INCREMENTO_VELOCITDAD		30
 

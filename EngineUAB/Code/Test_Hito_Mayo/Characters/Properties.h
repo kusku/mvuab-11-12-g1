@@ -51,8 +51,6 @@ private:
 	int					m_Speed;
 	Vect3f				m_Direction;
 	Vect3f				m_RespawnPosition;
-
-
 };
 
 #endif __CLASS_PROPERTIES_H__

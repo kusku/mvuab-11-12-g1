@@ -11,7 +11,7 @@
 class CPhysicActor;
 class CPhysicUserData;
 class CRenderManager;
-//class CPhysicController;
+///class CPhysicController;
 //--------------------------
 
 class CPlayerControler
@@ -31,23 +31,23 @@ public:
 	//----Functions -----------------------------------------------------
 	void						Update					( float ElapsedTime );
 	void						Render					( CRenderManager * _RM );
-	/*void						RenderScene				( void );*/
-	void						UpdateInputActions		( float ElapsedTime );
 
 	//----Test Functions ------------------------------------------------
-	void						UpdateMovementControler ( float _ElapsedTime, const Vect3f &_Position = Vect3f (0.f, 0.f, 0.f) );
+	void						MoveController			( float _ElapsedTime, const Vect3f &_Position = Vect3f (0.f, 0.f, 0.f) );
 		
 	//----Properties ( get & Set )---------------------------------------
-	//CPhysicActor*				GetActor				( void )		{ return m_pBoxActor; }
-	Vect3f						GetGlobalPosition		( void )		{ return m_PosActor; }
-	Vect3f						GetAnchor				( void )		{ return m_PosAnchor; }
-	CPhysicController*			GetController			( void )		{ return m_pController; }
+	CPhysicController*			GetController			( void )								{ return m_pController; }
 
-	//inline float				GetYaw				( void ) const		{ return m_pController->GetYaw(); }
-	//inline float				GetRoll				( void ) const		{ return m_pController->GetRoll(); }
-	//inline float				GetPitch			( void ) const		{ return m_pController->GetPitch(); }
+	inline float				GetYaw					( void ) const							{ return m_pController->GetYaw(); }
+	inline float				GetRoll					( void ) const							{ return m_pController->GetRoll(); }
+	inline float				GetPitch				( void ) const							{ return m_pController->GetPitch(); }
+	inline Vect3f				GetPosition				( void ) const							{ return m_pController->GetPosition(); }
+
+	inline void					SetYaw					( float _Yaw )							{ m_pController->SetYaw( _Yaw ); }
+	inline void					SetRoll					( float _Roll )							{ m_pController->SetRoll( _Roll ); }
+	inline void					SetPitch				( float _Pitch )						{ m_pController->SetPitch( _Pitch ); }
+	inline void					SetPosition				( const Vect3f &_Position ) 			{ m_pController->SetPosition( _Position ); }
 	
-	//Vect3f&		GetPosition			( void ) const		{ return m_pController->GetPosition(); }
 
 	//----Members -------------------------------------------------------
 private:
@@ -56,8 +56,6 @@ private:
 	CPhysicController*			m_pController;
 
 	CPhysicUserData*			m_pPhysicUserDataJugador;
-	Vect3f						m_PosAnchor;
-	Vect3f						m_PosActor;
 };
 
 #endif __CLASS_CONTROLADOR_JUGADOR_H__
