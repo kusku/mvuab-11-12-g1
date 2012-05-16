@@ -2,7 +2,6 @@
 #include "Engine.h"
 #include "Base.h"
 #include "Logger\Logger.h"
-#include "TestProcess.h"
 #include "Main.h"
 #include "Math\Vector2.h"
 #include "Exceptions\Exception.h"
@@ -73,40 +72,35 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 		HWND hWnd = CreateWindow(	APPLICATION_NAME, APPLICATION_NAME, WS_OVERLAPPEDWINDOW, position.x, position.y,
 				resolution.x, resolution.y, NULL, NULL, wc.hInstance, NULL );
 
-		CTestProcess* l_Main;
+		CMain* l_Main;
 		l_Main = new CMain();
 
 		g_Engine->SetProcess(l_Main);
-		if ( g_Engine->Init(hWnd) )
-		{	
-			CORE->SetProcess(l_Main);
-			CORE->SetGameMode(true);
+		g_Engine->Init(hWnd);
 
-			ShowWindow( hWnd, SW_SHOWDEFAULT );
-			UpdateWindow( hWnd );
-			MSG msg;
-			ZeroMemory( &msg, sizeof(msg) );
+		CORE->SetProcess(l_Main);
+		CORE->SetGameMode(true);
 
-			// Añadir en el while la condición de salida del programa de la aplicación
+		ShowWindow( hWnd, SW_SHOWDEFAULT );
+		UpdateWindow( hWnd );
+		MSG msg;
+		ZeroMemory( &msg, sizeof(msg) );
 
-			while( msg.message != WM_QUIT )
-			{
-				if( PeekMessage( &msg, NULL, 0U, 0U, PM_REMOVE ) )
-				{
-					TranslateMessage( &msg );
-					DispatchMessage( &msg );
-				}
-				else
-				{
-					// Main loop: Añadir aquí el Update y Render de la aplicación principal
-					g_Engine->Update();
-					g_Engine->Render();
-				}
-			}
-		}
-		else
+		// Añadir en el while la condición de salida del programa de la aplicación
+
+		while( msg.message != WM_QUIT )
 		{
-			// NOTHING TODO : Ya se ha comunicado en el logger el problema
+			if( PeekMessage( &msg, NULL, 0U, 0U, PM_REMOVE ) )
+			{
+				TranslateMessage( &msg );
+				DispatchMessage( &msg );
+			}
+			else
+			{
+				// Main loop: Añadir aquí el Update y Render de la aplicación principal
+				g_Engine->Update();
+				g_Engine->Render();
+			}
 		}
 	}
 	catch(CException &e)
