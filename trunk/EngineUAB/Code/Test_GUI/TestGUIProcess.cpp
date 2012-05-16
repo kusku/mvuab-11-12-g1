@@ -92,6 +92,11 @@ void CTestGUIProcess::ChangeProcess()
 	PostMessage(m_hWnd, WM_GAME_PROCESS, 0, 0);
 }
 
+void CTestGUIProcess::ExitGame()
+{
+	PostMessage(m_hWnd, WM_KEYDOWN, (WPARAM)VK_ESCAPE, 0);
+}
+
 void CTestGUIProcess::RegisterMethods()
 {
 	lua_State *state = CORE->GetScriptManager()->GetLuaState();
@@ -99,6 +104,7 @@ void CTestGUIProcess::RegisterMethods()
 	module(state) [
 		class_<CTestGUIProcess, CEngineProcess>("CTestGUIProcess")
 			.def("change_process", &CTestGUIProcess::ChangeProcess)
+			.def("exit_game", &CTestGUIProcess::ExitGame)
 	];
 }
 

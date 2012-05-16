@@ -185,6 +185,8 @@ void CTestProcess::Render(CRenderManager &RM)
 	RM.SetTransform(mat);
 
 	RM.DrawLine( m_PosAnchor, m_PosActor );
+
+	m_Player.Render(&RM);
 }
 
 void CTestProcess::UpdateInputs(float elapsedTime)

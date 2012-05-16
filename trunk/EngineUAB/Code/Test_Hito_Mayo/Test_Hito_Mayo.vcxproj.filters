@@ -2,72 +2,66 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="test.cpp" />
-    <ClCompile Include="Player.cpp">
-      <Filter>Personajes</Filter>
-    </ClCompile>
-    <ClCompile Include="Logic.cpp">
-      <Filter>Logica</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Scene.cpp">
-      <Filter>Escena</Filter>
-    </ClCompile>
-    <ClCompile Include="Character.cpp">
-      <Filter>Personajes</Filter>
-    </ClCompile>
-    <ClCompile Include="IdleState.cpp">
-      <Filter>Logica\States</Filter>
-    </ClCompile>
-    <ClCompile Include="PursuitState.cpp">
-      <Filter>Logica\States</Filter>
-    </ClCompile>
     <ClCompile Include="Camera\FreeCamera.cpp">
       <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugScene\Scene.cpp">
+      <Filter>DebugScene</Filter>
+    </ClCompile>
+    <ClCompile Include="States\IdleState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="States\PursuitState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Character.cpp">
+      <Filter>Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\Player.cpp">
+      <Filter>Characters\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestDef.h" />
-    <ClInclude Include="Player.h">
-      <Filter>Personajes</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerDef.h">
-      <Filter>Personajes</Filter>
-    </ClInclude>
-    <ClInclude Include="Logic.h">
-      <Filter>Logica</Filter>
-    </ClInclude>
     <ClInclude Include="Main.h" />
-    <ClInclude Include="Scene.h">
-      <Filter>Escena</Filter>
-    </ClInclude>
-    <ClInclude Include="Character.h">
-      <Filter>Personajes</Filter>
-    </ClInclude>
-    <ClInclude Include="IdleState.h">
-      <Filter>Logica\States</Filter>
-    </ClInclude>
-    <ClInclude Include="PursuitState.h">
-      <Filter>Logica\States</Filter>
-    </ClInclude>
     <ClInclude Include="Camera\FreeCamera.h">
       <Filter>Camera</Filter>
     </ClInclude>
+    <ClInclude Include="DebugScene\Scene.h">
+      <Filter>DebugScene</Filter>
+    </ClInclude>
+    <ClInclude Include="States\IdleState.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\PursuitState.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Character.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\PlayerDef.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\Player.h">
+      <Filter>Characters\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Personajes">
-      <UniqueIdentifier>{fa7f401f-d855-4dcc-85d4-960387743666}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Escena">
-      <UniqueIdentifier>{a0c3ce20-2194-4cd8-a0c7-2769b20096d5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Logica">
-      <UniqueIdentifier>{f2fb26bc-327d-48e3-8bcf-15357039fc9a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Logica\States">
-      <UniqueIdentifier>{2c26eb92-85a5-4116-b6b2-b3331a893fc5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Camera">
       <UniqueIdentifier>{e4ded320-6c6f-45e6-a599-0eb3e2e38bdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DebugScene">
+      <UniqueIdentifier>{a0c3ce20-2194-4cd8-a0c7-2769b20096d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States">
+      <UniqueIdentifier>{f2fb26bc-327d-48e3-8bcf-15357039fc9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters">
+      <UniqueIdentifier>{fa7f401f-d855-4dcc-85d4-960387743666}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\Player">
+      <UniqueIdentifier>{37f802fc-e3d5-437b-a3dc-4840f6bd74b7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -1,7 +1,6 @@
 #include "Main.h"
 
-#include "Scene.h"
-#include "Logic.h"
+#include "DebugScene\Scene.h"
 
 #include "Cameras\Camera.h"
 #include "Cameras\ThPSCamera.h"
@@ -27,14 +26,12 @@
 CMain::CMain(void)
 	: m_pThPSCamera(NULL)
 {
-	m_pLogic = new CLogic();
 	m_pScene	= new CScene ();
 }
 
 
 CMain::~CMain(void)
 {
-	CHECKED_DELETE ( m_pLogic );
 	CHECKED_DELETE ( m_pScene );
 }
 

@@ -4,10 +4,9 @@
 #define _MAIN_H_
 
 #include "EngineProcess.h"
-#include "Player.h"
+#include "Characters\Player\Player.h"
 #include "Camera\FreeCamera.h"
 
-class CLogic;
 class CScene;
 class CThPSCamera;
 class CCamera;
@@ -27,8 +26,7 @@ public:
 private:
 	void			UpdateInputs		( float _ElapsedTime );
 
-private:
-	CLogic		*m_pLogic; 
+private: 
 	CScene		*m_pScene;
 	CThPSCamera *m_pThPSCamera;
 	CThPSCamera *m_pThPSFreeCamera;

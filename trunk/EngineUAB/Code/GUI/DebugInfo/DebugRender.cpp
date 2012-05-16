@@ -4,6 +4,7 @@
 #include "Utils\Timer.h"
 #include "ActionToInput.h"
 #include "Utils\BaseUtils.h"
+#include "Cameras\Camera.h"
 #include "Base.h"
 #include "Core.h"
 #include <string>
@@ -18,6 +19,7 @@ CDebugRender::CDebugRender(void)
 	, m_bFPSVisible(true)
 	, m_bDeltaTimeVisible(true)
 	, m_bGamePadVisible(true)
+	, m_bCameraVisible(true)
 {
 }
 
@@ -69,8 +71,16 @@ void CDebugRender::Render(CRenderManager *_RM, CFontManager *fm, CTimer *timer, 
 		}
 		
 		if( m_bGamePadVisible )
+		{
 			dy += fm->DrawDefaultText(screen.x - dx, dy, color, "Gamepad: %s", gamepad.c_str());
+		}
 		
+		if( m_bCameraVisible )
+		{
+			std::string camera = CORE->GetCamera()->GetName();
+			dy += fm->DrawDefaultText(screen.x - dx, dy, color, "Camera: %s", camera.c_str());
+		}
+
 		//Info para ocultar la información
 		dy += fm->DrawDefaultText(screen.x - dx, dy, color, "_________________________");
 		dy += fm->DrawDefaultText(screen.x - dx, dy, color, "%s to hide", hideInfo.c_str());
@@ -109,6 +119,7 @@ void CDebugRender::AnalizeSizeInfo()
 	if( m_bFPSVisible ) ++l_NumOfElements;
 	if( m_bDeltaTimeVisible ) ++l_NumOfElements;
 	if( m_bGamePadVisible ) ++l_NumOfElements;
+	if( m_bCameraVisible ) ++l_NumOfElements;
 
 	//Calculate the size of the area
 	baseUtils::FormatSrting(l_sInfo,"_________________________");
