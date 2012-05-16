@@ -42,7 +42,7 @@ const Mat44f CObject3D::GetTransform() const
 	rotationZ.SetFromAngleZ	(mathUtils::Deg2Rad<float>(m_fRoll));
 	
 	//World = Scale * Rotation * Translation
-	world = scale * (rotationY * rotationX * rotationZ) * translation;
+	world = translation * scale * (rotationY * rotationX * rotationZ);
 
 	return world;
 }

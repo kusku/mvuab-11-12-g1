@@ -94,22 +94,20 @@ void CAnimatedInstanceModel::Update( float _ElapsedTime )
 
 void CAnimatedInstanceModel::Render( CRenderManager *_RM )
 {
-	Mat44f mat, rotYaw, rotPitch, rotRoll;
+	//Mat44f mat, trans, rot, rotPitch;
+	//mat.SetIdentity();
+	//trans.SetIdentity();
+	//rot.SetIdentity();
+	//rotPitch.SetIdentity();
+	//trans.Translate(m_Position);
+	//rot.SetRotByAngleY(m_fYaw);
+	//rotPitch.SetRotByAngleZ(m_fPitch);
 
-	mat.SetIdentity		();
-	rotYaw.SetIdentity	();
-	rotPitch.SetIdentity();
-	rotRoll.SetIdentity	();
+	////mat = trans * rot * rotPitch;
 
-	mat.Translate( GetPosition() );
-		
-	rotPitch.SetRotByAngleX( mathUtils::Deg2Rad<float>(GetPitch()) );
-	rotYaw.SetRotByAngleY(  mathUtils::Deg2Rad<float>(GetYaw()) );
-	rotRoll.SetRotByAngleZ( mathUtils::Deg2Rad<float>(GetRoll()) );
-
-	mat = mat * rotYaw * rotPitch * rotRoll;
-		
-	_RM->SetTransform(mat);
+	//mat = mat * rot * rotPitch;
+	//	
+	//_RM->SetTransform(mat);
 
 	RenderModelByHardware( _RM );
 }
@@ -151,7 +149,7 @@ void CAnimatedInstanceModel::RenderModelByHardware(CRenderManager* RM)
 		{
 			l_CalHardwareModel->selectHardwareMesh(hardwareMeshId);
 
-			for(int boneId = 0; boneId < l_CalHardwareModel->getBoneCount(); boneId++)
+			for(int boneId = 0; boneId < l_CalHardwareModel->getBoneCount(); ++boneId)
 			{
 				D3DXMatrixRotationQuaternion(&transformation[boneId],(CONST D3DXQUATERNION*)&l_CalHardwareModel->getRotationBoneSpace(boneId, m_CalModel->getSkeleton()));
 				CalVector translationBoneSpace = l_CalHardwareModel->getTranslationBoneSpace(boneId,m_CalModel->getSkeleton());

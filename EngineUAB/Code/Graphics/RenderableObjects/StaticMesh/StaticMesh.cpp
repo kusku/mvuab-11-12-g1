@@ -204,8 +204,8 @@ CRenderableVertexs* CStaticMesh::ReadCreateVertexBuffer(FILE* modelFile, uint16 
 	uint16 numVertex = 0;
 	uint16 numIndex = 0;
 	
-	uint16* l_IdxBuffer;
-	void*	l_VtxBuffer;
+	uint16* l_IdxBuffer = NULL;
+	void*	l_VtxBuffer = NULL;
 
 
 	CRenderableVertexs* ret = NULL;
