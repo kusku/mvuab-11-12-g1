@@ -50,13 +50,19 @@ public:
 	}
 
 	// Ejecutamos el estado
-	void Update	( void ) 
+	void Update( void ) 
 	{
 		// Si existe un estado global llamamos a su método execute
-		if ( m_pGlobalState ) m_pGlobalState->Execute( m_pOwner );
+		if( m_pGlobalState )
+		{
+			m_pGlobalState->Execute( m_pOwner );
+		}
 
 		// Lo mimo para el estado actual
-		if ( m_pCurrentState ) m_pCurrentState->Execute( m_pOwner );
+		if( m_pCurrentState ) 
+		{
+			m_pCurrentState->Execute( m_pOwner );
+		}
 
 	}
 

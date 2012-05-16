@@ -392,9 +392,11 @@ void CScriptManager::RegisterDebugGUIMethods()
 			.def("is_fps_visible", &CDebugRender::GetFPSVisible)
 			.def("is_delta_time_visible", &CDebugRender::GetDeltaTimeVisible)
 			.def("is_gamepad_visible", &CDebugRender::GetGamePadVisible)
+			.def("is_camera_visible", &CDebugRender::GetCameraVisible)
 			.def("toggle_fps", &CDebugRender::ToggleFPS)
 			.def("toggle_delta_time", &CDebugRender::ToggleDeltaTime)
 			.def("toggle_gamepad", &CDebugRender::ToggleGamePad)
+			.def("toggle_camera", &CDebugRender::ToggleCamera)
 	];
 }
 
