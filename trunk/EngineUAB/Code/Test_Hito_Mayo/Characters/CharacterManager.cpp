@@ -248,6 +248,10 @@ bool CCharactersManager::LoadPlayerProperties( const CXMLTreeNode &_Node )
 	{
 		//asignamos las propiedades al player
 		m_pPlayer->SetProperties ( l_PlayerProperties );
+		
+		// Inicializamos el player, sus estados, mayas animadas...
+		m_pPlayer->Init();
+
 		l_IsOk = true;
 	}
 	else 
@@ -292,6 +296,7 @@ bool CCharactersManager::LoadEnemiesProperties( const CXMLTreeNode &_Node )
 						l_Enemy = dynamic_cast<CEnemy*> (l_Character);
 
 					l_Enemy->SetProperties ( l_EnemyProperties );
+					l_Enemy->Init();
 					AddEnemy ( l_Enemy );
 					l_NextIDValid += 1;
 					l_IsOk = true;

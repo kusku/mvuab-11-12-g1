@@ -21,6 +21,10 @@
 
 #include "Properties.h"
 #include "../States/AnimationsStates.h"
+#include "../States/PursuitState.h"
+#include "../States/IdleState.h"
+#include "../States/AnimationIdleState.h"
+#include "../States/AnimationPursuitState.h"
 
 #include "Math\Matrix44.h"
 #include "Base.h"
@@ -34,18 +38,26 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CEnemy::CEnemy( int _ID )
-	: CCharacter			( _ID )								
-	, m_pEnemyProperties	( NULL )
-	, m_bMoverAutomatico	( false )
-	, m_bLockCamera			( false )
+	: CCharacter				( _ID )								
+	, m_pEnemyProperties		( NULL )
+	, m_bMoverAutomatico		( false )
+	, m_bLockCamera				( false )
+	, m_pPursuitState			( NULL )
+	, m_pIdleState				( NULL )
+	, m_pAnimationPursuitState	( NULL )
+	, m_pAnimationIdleState		( NULL )
 {
 }
 
 CEnemy::CEnemy( int _ID, const std::string &_Name )
-	: CCharacter			( _ID, _Name )					
-	, m_pEnemyProperties	( NULL )
-	, m_bMoverAutomatico	( false )
-	, m_bLockCamera			( false )
+	: CCharacter				( _ID, _Name )					
+	, m_pEnemyProperties		( NULL )
+	, m_bMoverAutomatico		( false )
+	, m_bLockCamera				( false )
+	, m_pPursuitState			( NULL )
+	, m_pIdleState				( NULL )
+	, m_pAnimationPursuitState	( NULL )
+	, m_pAnimationIdleState		( NULL )
 {
 }
 
@@ -70,22 +82,29 @@ bool CEnemy::Init ( void )
 {
 	// Aquí ya debería tener cargadas las propiedades del player
 	m_bIsOk = CCharacter::Init( m_pEnemyProperties->GetName(), m_pEnemyProperties->GetPosition() );
-	if ( m_bIsOk )
-	{		
-		CRenderableObjectsLayersManager *l_ROLayerManager = CORE->GetRenderableObjectsLayersManager();
-		CRenderableObjectsManager *l_ROManager = l_ROLayerManager->GetResource("solid");
-		CRenderableObject *l_RO = l_ROManager->GetInstance( "lobo1" );
+	if ( !m_bIsOk )
+		return false;
 
-		if ( !l_RO ) 
-			l_ROManager->AddAnimatedMeshInstance( m_pEnemyProperties->GetName(), Vect3f (0.f, 0.f, 0.f ) );
-		else
-			m_pCurrentAnimatedModel = static_cast<CAnimatedInstanceModel*> (l_RO);
+	// Inicializo estados
+	m_pPursuitState				= new CPursuitState();
+	m_pIdleState				= new CIdleState();
+	m_pAnimationIdleState		= new CAnimationIdleState();
+	m_pAnimationPursuitState	= new CAnimationPursuitState();
 
-		/*if ( m_pCurrentAnimatedModel )
-		{
-			m_pCurrentAnimatedModel->ClearCycle ( 0.3f );
-			m_pCurrentAnimatedModel->BlendCycle ( 0, 0.3f );
-		}*/
+	CRenderableObjectsLayersManager *l_ROLayerManager = CORE->GetRenderableObjectsLayersManager();
+	CRenderableObjectsManager *l_ROManager = l_ROLayerManager->GetResource("solid");
+	CRenderableObject *l_RO = l_ROManager->GetInstance( m_pEnemyProperties->GetAnimationInstance() );
+		
+	if ( !l_RO ) 
+		l_ROManager->AddAnimatedMeshInstance( m_pEnemyProperties->GetName(), Vect3f (0.f, 0.f, 0.f ) );
+	else
+		m_pCurrentAnimatedModel = static_cast<CAnimatedInstanceModel*> (l_RO);
+
+	if ( m_pCurrentAnimatedModel )
+	{
+		// coloco el primer estado
+		m_pLogicStateMachine->SetCurrentState( m_pIdleState );
+		m_pGraphicStateMachine->SetCurrentState( m_pAnimationIdleState );
 	}
 	
 	return m_bIsOk;
@@ -95,7 +114,12 @@ void CEnemy::Release ( void )
 {
 	m_pEnemyProperties = NULL;
 	m_pEnemyAnimationsStates = NULL;
-	//CHECKED_DELETE( m_pEnemyProperties );
+	
+	CHECKED_DELETE ( m_pPursuitState );
+	CHECKED_DELETE ( m_pIdleState );
+
+	CHECKED_DELETE ( m_pAnimationIdleState );
+	CHECKED_DELETE ( m_pAnimationPursuitState );
 }
 
 void CEnemy::Update( float _ElapsedTime ) //, CCamera *_pCamera)
@@ -105,8 +129,33 @@ void CEnemy::Update( float _ElapsedTime ) //, CCamera *_pCamera)
 	else
 		MoverManualmente ( _ElapsedTime );
 
-	// Actualizamos los estados y características generales
+	// Actualizamos los estados y características generales además de mover el Físic Controler
+	Vect3f	l_PosAnterior = m_pController->GetController()->GetPosition() ;
 	CCharacter::Update( _ElapsedTime );
+	Vect3f	l_PosActual	= m_pController->GetController()->GetPosition();
+	
+	if ( l_PosAnterior != l_PosActual )
+	{
+		l_PosActual.y -= 1.5f;
+		m_pCurrentAnimatedModel->SetPosition ( l_PosActual );
+		m_pLogicStateMachine->ChangeState	 ( m_pPursuitState);
+		m_pGraphicStateMachine->ChangeState  ( m_pAnimationPursuitState );
+
+
+		//float l_x = 0.f;
+		//float l_y = 0.f;
+		//float l_z = 0.f;
+
+		////m_pController->GetController()->GetPosition().GetAngles ( l_x, l_y, l_z );
+		//m_pCurrentAnimatedModel->SetYaw( m_pController->GetController()->GetYaw() );
+		//m_pPlayerProperties->SetYaw( m_pController->GetController()->GetYaw() );
+		//m_pCurrentAnimatedModel->SetYaw(CORE->GetCamera()->GetLookAt().GetAngleZ());
+	}
+	else
+	{
+		m_pLogicStateMachine->ChangeState	( m_pIdleState );
+		m_pGraphicStateMachine->ChangeState ( m_pAnimationIdleState );
+	}
 }
 
 bool CEnemy::HandleMessage( const Telegram& _Msg, bool _Logic, bool _Graphic )
