@@ -151,7 +151,7 @@ function ExportWayPoints FilePath =
 		
 		for j = 1 to l_points.count do
 		(
-			format "\t\t<waypoint name=\"%\" position=\"% %\">\n" l_points[j].WPName l_points[j].Pos.x l_points[j].Pos.z to:file
+			format "\t\t<waypoint name=\"%\" position=\"% % %\">\n" l_points[j].WPName l_points[j].Pos.x l_points[j].Pos.y l_points[j].Pos.z to:file
 			
 			local l_bros = l_points[j].Brothers
 			
