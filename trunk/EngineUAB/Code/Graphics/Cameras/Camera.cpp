@@ -17,6 +17,7 @@ CCamera::CCamera( float _Zn, float _Zf, float _Fov, float _Aspect, CObject3D* _p
 	, m_fView_d			( 2.f )
 	, m_eTypeCamera		( _TypeCamera )
 {
+	m_Name = "";
 	assert(m_pObject3D);
 }
 
@@ -28,7 +29,9 @@ CCamera::CCamera( void )
 	, m_fZFar			( 100.f )	
 	, m_fView_d			( 2.f )
 	, m_eTypeCamera		( TC_THPS )
-{}
+{
+	m_Name = "";
+}
 
 void CCamera::UpdateMatrices()
 {	

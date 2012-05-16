@@ -16,7 +16,7 @@ class CThPSCamera: public CCamera
 {
 public:
 
-	CThPSCamera(float zn, float zf, float fov, float aspect, CObject3D* object3D, float zoom, float height = 0.f);
+	CThPSCamera(float zn, float zf, float fov, float aspect, CObject3D* object3D, float zoom, float height = 0.f, const std::string &name = "");
 	CThPSCamera();
 	virtual ~CThPSCamera(){/*Nothing*/;}
 

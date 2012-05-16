@@ -11,10 +11,11 @@
 #define INC_CAMERA_H_
 
 #include "Object3D.h"
+#include "Utils\Named.h"
 #include "Math\Matrix44.h"
 #include <Windows.h>
 
-class CCamera
+class CCamera : public CNamed
 {
 public:
 	typedef enum ETypeCamera { TC_FPS = 0, TC_THPS };
