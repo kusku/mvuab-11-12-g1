@@ -115,3 +115,19 @@ function IsSmoothingGroupEnabled IdGroup Val =
 	local ValueMask=2^(IdGroup-1)
 	return (bit.and Val ValueMask)==ValueMask
 )
+
+function FromStringToArray str =
+(
+	local strArr = filterString str "#()\","
+	
+	local emptyIdx = findItem strArr " "
+	
+	while emptyIdx != 0 do
+	(
+		deleteItem strArr emptyIdx
+		
+		emptyIdx = findItem strArr " "
+	)
+	
+	return strArr;
+)

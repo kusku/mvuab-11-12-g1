@@ -270,6 +270,10 @@ function ExtractMeshGeometry obj counterClockwise t_mesh =
 			Vtx1 = ResetVertexToOriginal obj Vtx1
 			Vtx2 = ResetVertexToOriginal obj Vtx2
 			Vtx3 = ResetVertexToOriginal obj Vtx3
+			--Vtx1 = RHTranslationToLH Vtx1
+			--Vtx2 = RHTranslationToLH Vtx2
+			--Vtx3 = RHTranslationToLH Vtx3
+			
 			
 			--Create Vertexs
 			local Vertex1 = CreateVertex Vtx1 Normal1 TUVMap1 TUV2Map1 Diffuse1 MeshBuffer.VertexType
