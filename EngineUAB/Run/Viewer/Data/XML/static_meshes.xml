@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <static_meshes>
-	<static_mesh name="Cone001" filename=".\Data\.\EntregaTest\\Models\Cone001.m3d" />
+	<!--<static_mesh name="Cone001" filename=".\Data\.\EntregaTest\\Models\Cone001.m3d" />
 	<static_mesh name="Plane002" filename=".\Data\.\EntregaTest\\Models\Plane002.m3d" />
 	<static_mesh name="Box003" filename=".\Data\.\EntregaTest\\Models\Box003.m3d" />
 	<static_mesh name="lizard_geo" filename=".\Data\.\EntregaTest\\Models\lizard_geo.m3d" />
@@ -12,9 +12,11 @@
 	<static_mesh name="Llop" filename=".\Data\General\Static_Meshes\Object06.m3d" />
 	
 	<static_mesh name="Plane001" filename=".\Data\General\Static_Meshes\Plane001.m3d" />
-	<static_mesh name="room0" filename=".\Data\.\Chapter3\\Models\room0.m3d" />
+	<static_mesh name="room0" filename=".\Data\.\Chapter3\\Models\room0.m3d" />-->
 	<!--<static_mesh name="room1" filename=".\Data\.\Chapter3\\Models\room1.m3d" />-->
-	<static_mesh name="room2" filename=".\Data\.\Chapter3\\Models\room2.m3d" />
+	<!--<static_mesh name="room2" filename=".\Data\.\Chapter3\\Models\room2.m3d" />-->
 	<!--<static_mesh name="room3" filename=".\Data\.\Chapter3\\Models\room3.m3d" />-->
 	<!--<static_mesh name="room4" filename=".\Data\.\Chapter3\\Models\room4.m3d" />-->
+	
+	<static_mesh name="azul" filename="./Data/General/Static_Meshes/azul.m3d" />
 </static_meshes>

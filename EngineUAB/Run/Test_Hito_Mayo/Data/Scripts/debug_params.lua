@@ -15,6 +15,11 @@ function show_gamepad_state()
 	core:get_debug_gui_manager():get_debug_options():set_bool(value)
 end
 
+function show_camera_state()
+	local value = core:get_debug_gui_manager():get_debug_render():is_camera_visible()
+	core:get_debug_gui_manager():get_debug_options():set_bool(value)
+end
+
 function toggle_show_fps()
 	core:get_debug_gui_manager():get_debug_render():toggle_fps()
 end
@@ -25,4 +30,8 @@ end
 
 function toggle_show_gamepad()
 	core:get_debug_gui_manager():get_debug_render():toggle_gamepad()
+end
+
+function toggle_show_camera()
+	core:get_debug_gui_manager():get_debug_render():toggle_camera()
 end

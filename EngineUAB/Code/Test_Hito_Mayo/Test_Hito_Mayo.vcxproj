@@ -87,25 +87,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera\FreeCamera.cpp" />
-    <ClCompile Include="Character.cpp" />
-    <ClCompile Include="IdleState.cpp" />
-    <ClCompile Include="Logic.cpp" />
+    <ClCompile Include="Characters\Character.cpp" />
+    <ClCompile Include="Characters\Player\Player.cpp" />
+    <ClCompile Include="DebugScene\Scene.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PursuitState.cpp" />
-    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="States\IdleState.cpp" />
+    <ClCompile Include="States\PursuitState.cpp" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera\FreeCamera.h" />
-    <ClInclude Include="Character.h" />
-    <ClInclude Include="IdleState.h" />
-    <ClInclude Include="Logic.h" />
+    <ClInclude Include="Characters\Character.h" />
+    <ClInclude Include="Characters\PlayerDef.h" />
+    <ClInclude Include="Characters\Player\Player.h" />
+    <ClInclude Include="DebugScene\Scene.h" />
     <ClInclude Include="Main.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerDef.h" />
-    <ClInclude Include="PursuitState.h" />
-    <ClInclude Include="Scene.h" />
+    <ClInclude Include="States\IdleState.h" />
+    <ClInclude Include="States\PursuitState.h" />
     <ClInclude Include="TestDef.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

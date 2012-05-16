@@ -55,6 +55,7 @@ public:
 	void						SetGravity				( float _fGravity )		{ m_fGravity = _fGravity; }
 	void						SetGroup                ( int _iGroup );
 	void						SetHeight               ( float _fHeight );
+	float						GetHeight				( void ) const			{ return m_fHeightControler; }
 	void						SetActive               ( bool _bActive );
 	
 	//---PhsX Info---

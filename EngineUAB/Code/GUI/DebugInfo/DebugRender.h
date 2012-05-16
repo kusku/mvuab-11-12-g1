@@ -35,15 +35,18 @@ public:
 	bool				GetFPSVisible				( void ) const			{ return m_bFPSVisible; }
 	bool				GetDeltaTimeVisible			( void ) const			{ return m_bDeltaTimeVisible; }
 	bool				GetGamePadVisible			( void ) const			{ return m_bGamePadVisible; }
+	bool				GetCameraVisible			( void ) const			{ return m_bCameraVisible; }
 
 	void				SetFPSVisible				( bool visible )	{ m_bFPSVisible = visible; AnalizeSizeInfo(); }
 	void				SetDeltaTimeVisible			( bool visible )	{ m_bDeltaTimeVisible = visible; AnalizeSizeInfo(); }
 	void				SetGamePadVisible			( bool visible )	{ m_bGamePadVisible = visible; AnalizeSizeInfo(); }
-
+	void				SetCameraVisible			( bool visible )	{ m_bCameraVisible = visible; AnalizeSizeInfo(); }
+	
 	//Toggle Methods----------------------
 	void				ToggleFPS					()					{ m_bFPSVisible = !m_bFPSVisible; AnalizeSizeInfo(); }
 	void				ToggleDeltaTime				()					{ m_bDeltaTimeVisible = !m_bDeltaTimeVisible; AnalizeSizeInfo(); }
 	void				ToggleGamePad				()					{ m_bGamePadVisible = !m_bGamePadVisible; AnalizeSizeInfo(); }
+	void				ToggleCamera				()					{ m_bCameraVisible = !m_bCameraVisible; AnalizeSizeInfo(); }
 
 private:
 	void AnalizeSizeInfo ();
@@ -54,6 +57,7 @@ private:
 	bool					m_bFPSVisible;
 	bool					m_bDeltaTimeVisible;
 	bool					m_bGamePadVisible;
+	bool					m_bCameraVisible;
 };
 
 #endif

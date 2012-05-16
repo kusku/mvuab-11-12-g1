@@ -8,5 +8,6 @@
 	<mesh_instance name="plane_01" core="plane" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
 	<animated_model_instance name="lobo_01" core="lobo" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
 	<animated_model_instance name="caperu_01" core="caperu" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
+	<!--<mesh_instance name="azul" core="azul" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" />-->
 	
 </renderable_objects>

@@ -23,7 +23,8 @@ public:
 	void				Update				( float _ElapsedTime );
 	void				Render				( CRenderManager &_RM );
 
-	void			ChangeProcess		();
+	void				ChangeProcess		();
+	void				ExitGame			();
 	void				RegisterMethods		();
 
 protected:
