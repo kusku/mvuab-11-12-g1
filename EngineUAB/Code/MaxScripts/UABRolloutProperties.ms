@@ -1,4 +1,6 @@
-rollout UABSetProperties "UABSetProperties" width:262 height:652
+fileIn "HelperFunctions.ms"
+
+rollout UABSetProperties "UABSetProperties" width:624 height:652
 (
 	GroupBox grp1 "Render" pos:[8,4] width:249 height:161
 	checkbox ExportRenderCB "Export" pos:[14,25] width:53 height:15
@@ -16,8 +18,8 @@ rollout UABSetProperties "UABSetProperties" width:262 height:652
 	GroupBox grp3 "Logic" pos:[7,255] width:244 height:48
 	checkbox GenerateLogicCB "Generate" pos:[12,271] width:71 height:18
 	dropdownList GenerateLogicList "" pos:[87,269] width:156 height:24
-	button GetButton "Get" pos:[5,594] width:83 height:24
-	button SetButton "Set" pos:[165,596] width:83 height:24
+	button GetButton "Get" pos:[433,620] width:83 height:24
+	button SetButton "Set" pos:[529,619] width:83 height:24
 	checkbox cbGenShadowMap "Dynamic Shadow Map:" pos:[13,328] width:84 height:26 checked:false
 	dropdownList ddlShMapFormat "" pos:[109,329] width:110 height:24 items:#("G32R32F", "R32F")
 	dropdownList ddlShMapWidth "" pos:[109,357] width:108 height:24 items:#("512", "1024", "2048")
@@ -38,6 +40,14 @@ rollout UABSetProperties "UABSetProperties" width:262 height:652
 	label lbl43 "Dynamic Layer:" pos:[22,561] width:77 height:14
 	dropdownList ddlStaticLayer "" pos:[110,537] width:120 height:24 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles")
 	dropdownList ddlDynamicLayer "" pos:[110,561] width:120 height:24 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles")
+	GroupBox grp5 "AI Waypoints" pos:[278,11] width:326 height:290
+	button RefreshBrotherNodes "Refresh WP" pos:[293,257] width:94 height:25
+	checkbox IsWayPoint "Is Waypoint" pos:[291,36] width:119 height:19
+	dropdownList BrotherNodesAI "Brother Nodes" pos:[292,149] width:173 height:43 items:#()
+	button RemoveBrotherNode "Remove" pos:[479,164] width:96 height:25
+	dropdownList PossibleBrotherNodesAI "Possible Brother Nodes" pos:[294,204] width:172 height:43 items:#()
+	button AddBrotherNode "Add" pos:[482,222] width:90 height:24
+	dropDownList WayPointGroup "Waypoint Group" pos:[291,76] width:175 height:43 items:#("Group 1", "Group 2", "Group 3", "Group 4", "Group 5")
 	
 	local m_ObjSelected = undefined
 	
@@ -49,121 +59,139 @@ rollout UABSetProperties "UABSetProperties" width:262 height:652
 		GeneratePhysicsCB.checked = false
 		layerPhysicsCB.checked = false
 		GenerateLogicCB.checked = false
+		IsWayPoint.checked = false
 		AnimModelRenderText.text = ""
 	)
 	
 	function SaveObjectProps Obj =
 	(
-			--Set Export Render Prop to Object
-			if ExportRenderCB.checked then
+		--Set Export Render Prop to Object
+		if ExportRenderCB.checked then
+		(
+			setUserProp Obj "render_export" ExportRenderList.selected
+		)
+		else
+		(
+			setUserProp Obj "render_export" "undefined"
+		)
+		
+		--Set Visible Render Prop to Object
+		setUserProp Obj "render_visible" VisibleRenderCB.checked
+		
+		--Set Layer Render prop to Object
+		if LayerRenderCB.checked then
+		(
+			setUserProp Obj "render_layer" LayerRenderList.selected
+		)
+		else
+		(
+			setUserProp Obj "render_layer" "undefined"
+		)
+		
+		--Set Anim Model Core Prop to Object
+		setUserProp Obj "anim_model_core" AnimModelRenderText.text
+		
+		--Set Generate Physics prop to Object
+		if GeneratePhysicsCB.checked then
+		(
+			setUserProp Obj "physics_generate" GeneratePhysicsList.selected
+		)
+		else
+		(
+			setUserProp Obj "physics_generate" "undefined"
+		)
+		
+		--Set Layer Physics prop to Object
+		if layerPhysicsCB.checked then
+		(
+			setUserProp Obj "physics_layer" layerPhysicsList.selected
+		)
+		else
+		(
+			setUserProp Obj "physics_layer" "undefined"
+		)
+		
+		--Set Generate Logic prop to Object
+		if GenerateLogicCB.checked then
+		(
+			setUserProp Obj "logic_generate" GenerateLogicList.selected
+		)
+		else
+		(
+			setUserProp Obj "logic_generate" "undefined"
+		)
+		
+		if (cbGenShadowMap.checked) then
+		(	
+			setUserProp Obj "generate_shadow_map" cbGenShadowMap.checked
+			setUserProp Obj "shadow_map_format_type" ddlShMapFormat.selected
+			setUserProp Obj "shadow_map_width" ddlShMapWidth.selected
+			setUserProp Obj "shadow_map_height" ddlShMapHeigth.selected
+			setUserProp Obj "shadow_mask_dynamic_layer" ddlDynamicLayer.selected
+			
+			if cbShadowMask.checked then
 			(
-				setUserProp Obj "render_export" ExportRenderList.selected
+				setUserProp Obj "shadow_mask_path" lblShadowMask.text
 			)
 			else
 			(
-				setUserProp Obj "render_export" "undefined"
+				setUserProp Obj "shadow_mask_path" "undefined"
 			)
 			
-			--Set Visible Render Prop to Object
-			setUserProp Obj "render_visible" VisibleRenderCB.checked
-			
-			--Set Layer Render prop to Object
-			if LayerRenderCB.checked then
+			if(cbGenSShMap.checked) then
 			(
-				setUserProp Obj "render_layer" LayerRenderList.selected
+				setUserProp Obj "generate_static_shadow_map" cbGenSShMap.checked
+				setUserProp Obj "static_shadow_map_format_type" ddlSShMapFormat.selected
+				setUserProp Obj "static_shadow_map_width" ddlSShMapWidth.selected
+				setUserProp Obj "static_shadow_map_height" ddlSShMapHeigth.selected
+				setUserProp Obj "shadow_mask_static_layer" ddlStaticLayer.selected
 			)
 			else
 			(
-				setUserProp Obj "render_layer" "undefined"
-			)
-			
-			--Set Anim Model Core Prop to Object
-			setUserProp Obj "anim_model_core" AnimModelRenderText.text
-			
-			--Set Generate Physics prop to Object
-			if GeneratePhysicsCB.checked then
-			(
-				setUserProp Obj "physics_generate" GeneratePhysicsList.selected
-			)
-			else
-			(
-				setUserProp Obj "physics_generate" "undefined"
-			)
-			
-			--Set Layer Physics prop to Object
-			if layerPhysicsCB.checked then
-			(
-				setUserProp Obj "physics_layer" layerPhysicsList.selected
-			)
-			else
-			(
-				setUserProp Obj "physics_layer" "undefined"
-			)
-			
-			--Set Generate Logic prop to Object
-			if GenerateLogicCB.checked then
-			(
-				setUserProp Obj "logic_generate" GenerateLogicList.selected
-			)
-			else
-			(
-				setUserProp Obj "logic_generate" "undefined"
-			)
-			
-			if (cbGenShadowMap.checked) then
-			(	
-				setUserProp Obj "generate_shadow_map" cbGenShadowMap.checked
-				setUserProp Obj "shadow_map_format_type" ddlShMapFormat.selected
-				setUserProp Obj "shadow_map_width" ddlShMapWidth.selected
-				setUserProp Obj "shadow_map_height" ddlShMapHeigth.selected
-				setUserProp Obj "shadow_mask_dynamic_layer" ddlDynamicLayer.selected
-				
-				if cbShadowMask.checked then
-				(
-					setUserProp Obj "shadow_mask_path" lblShadowMask.text
-				)
-				else
-				(
-					setUserProp Obj "shadow_mask_path" "undefined"
-				)
-				
-				if(cbGenSShMap.checked) then
-				(
-					setUserProp Obj "generate_static_shadow_map" cbGenSShMap.checked
-					setUserProp Obj "static_shadow_map_format_type" ddlSShMapFormat.selected
-					setUserProp Obj "static_shadow_map_width" ddlSShMapWidth.selected
-					setUserProp Obj "static_shadow_map_height" ddlSShMapHeigth.selected
-					setUserProp Obj "shadow_mask_static_layer" ddlStaticLayer.selected
-				)
-				else
-				(
-					setUserProp Obj "generate_static_shadow_map" "false"
-					setUserProp Obj "static_shadow_map_format_type" "undefined" 
-					setUserProp Obj "static_shadow_map_width" "undefined"
-					setUserProp Obj "static_shadow_map_height" "undefined"
-					setUserProp Obj "shadow_mask_static_layer" "undefined"
-				)
-			)
-			else
-			(
-				cbGenSShMap.checked = false
-				
-				setUserProp Obj "generate_shadow_map" "false"
-				setUserProp Obj "shadow_map_format_type" "undefined" 
-				setUserProp Obj "shadow_map_width" "undefined"
-				setUserProp Obj "shadow_map_height" "undefined"
-				
 				setUserProp Obj "generate_static_shadow_map" "false"
 				setUserProp Obj "static_shadow_map_format_type" "undefined" 
 				setUserProp Obj "static_shadow_map_width" "undefined"
 				setUserProp Obj "static_shadow_map_height" "undefined"
-				
-				setUserProp Obj "shadow_mask_path" "undefined"
-				setUserProp Obj "shadow_mask_dynamic_layer" "undefined"
 				setUserProp Obj "shadow_mask_static_layer" "undefined"
 			)
+		)
+		else
+		(
+			cbGenSShMap.checked = false
+			
+			setUserProp Obj "generate_shadow_map" "false"
+			setUserProp Obj "shadow_map_format_type" "undefined" 
+			setUserProp Obj "shadow_map_width" "undefined"
+			setUserProp Obj "shadow_map_height" "undefined"
+			
+			setUserProp Obj "generate_static_shadow_map" "false"
+			setUserProp Obj "static_shadow_map_format_type" "undefined" 
+			setUserProp Obj "static_shadow_map_width" "undefined"
+			setUserProp Obj "static_shadow_map_height" "undefined"
+			
+			setUserProp Obj "shadow_mask_path" "undefined"
+			setUserProp Obj "shadow_mask_dynamic_layer" "undefined"
+			setUserProp Obj "shadow_mask_static_layer" "undefined"
+		)
+		
+		if IsWayPoint.checked then
+		(
+			if classof(Obj) != Point then
+			(
+				messageBox "Only Points can be WayPoints" title:"ATTENTION"
+			)
+			else
+			(
+				setUserProp Obj "is_waypoint" "true"
+				setUserProp Obj "waypoint_group" WayPointGroup.selected
+				setUserProp Obj "waypoint_brothers" BrotherNodesAI.items
+			)
+		)
+		else
+		(
+			setUserProp Obj "is_waypoint" false
+		)
 	)
-	
 	
 	on GetButton pressed do
 	(
@@ -191,9 +219,21 @@ rollout UABSetProperties "UABSetProperties" width:262 height:652
 			local l_ShadowMaskPath = getUserProp $ "shadow_mask_path"
 			local l_SMStaticLayer = getUserProp $ "shadow_mask_static_layer"
 			local l_SMDynamicLayer = getUserProp $ "shadow_mask_dynamic_layer"
+			local l_IsWP = getUserProp $ "is_waypoint"
 			
-			--Unchecked all check boxs
+			--Unchecked all check boxes
 			ResetProps()
+			
+			if l_IsWP != undefined AND l_IsWP == true then
+			(
+				IsWayPoint.checked = true
+				local bros = getUserProp $ "waypoint_brothers" 
+				
+				if(bros != undefined) then
+				(
+					BrotherNodesAI.items = FromStringToArray bros
+				)
+			)
 			
 			--Set Export Render Prop to Rollout
 			if l_ExportRender != "undefined" then
@@ -411,6 +451,69 @@ rollout UABSetProperties "UABSetProperties" width:262 height:652
 		(
 			lblShadowMask.text = data_path
 		)
+	)
+	
+	on RefreshBrotherNodes pressed do
+	(
+		if classof($) != Point then
+		(
+			messageBox "Only Points can be WayPoints" title:"ATTENTION"
+			return 0
+		)
+		
+		local wps = #()
+		local mainGroup = (getUserProp $ "waypoint_group")
+		
+		if mainGroup == undefined then
+		(
+			messageBox "No Waypoint group defined" title:"ATTENTION"
+			return 0
+		)
+		
+		for pnt in Helpers do
+		(
+			if pnt == $ then
+			(
+				continue
+			)
+			
+			if (classof(pnt) == Point)  then
+			(
+				local l_IsWP = (getUserProp pnt "is_waypoint")
+				local l_WPGroup = (getUserProp pnt "waypoint_group")
+				
+				if l_IsWP == true AND l_WPGroup ==  mainGroup then
+				(
+					append wps pnt.name
+				)
+			)
+		)
+		
+		PossibleBrotherNodesAI.items = wps;
+	)
+	
+	on AddBrotherNode pressed do
+	(
+		local pnt = PossibleBrotherNodesAI.selected
+		
+		if(pnt == undefined OR pnt == "") then
+		(
+			return 0
+		)
+		
+		local broPnts = BrotherNodesAI.items
+		
+		for i = 1 to broPnts.count do
+		(
+			if broPnts[i] == pnt then
+			(
+				return 0
+			)
+		)
+		
+		append broPnts pnt
+		
+		BrotherNodesAI.items = broPnts
 	)
 )
 
