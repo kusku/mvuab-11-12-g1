@@ -1,6 +1,3 @@
-#ifndef __TEST_DEF_H__
-#define __TEST_DEF_H__
-
 enum TECLES 
 {
 	UP		= 0,
@@ -38,16 +35,10 @@ enum ESTADOS_DISPARO
 	DESAPARICION
 };
 
-enum TIPO_ACTOR
+enum TIPUS_ACTOR
 {
 	ENEMY = 0,
 	PLAYER
-};
-
-enum TIPO_ENEMIGO
-{
-	LOBO = 0,
-	CONEJO
 };
 
 enum ESTADOS_ITEM
@@ -56,7 +47,7 @@ enum ESTADOS_ITEM
 	GOT
 };
 
-enum TIPO_CAMERA
+enum TYPES_CAMERA
 {
 	FIX = 0,
 	RAIL,
@@ -70,4 +61,3 @@ enum TIPO_CAMERA
 #define VIDA_INICIAL_PLAYER		10
 #define VIDA_INICIAL_ENEMY		30
 #define VIDA_INICIAL_ITEM		1
-#endif __TEST_DEF_H__

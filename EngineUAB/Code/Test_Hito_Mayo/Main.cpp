@@ -1,16 +1,16 @@
 #include "Main.h"
 
-#include "Debug Scene\Scene.h"
+#include "Scene.h"
+#include "Logic.h"
 
 #include "Cameras\Camera.h"
-#include "Cameras\FPSCamera.h"
 #include "Cameras\ThPSCamera.h"
 
-#include "Characters\CharacterManager.h"
-#include "Characters\Properties.h"
-#include "Characters\Player.h"
-
+#include "ActionToInput.h"
 #include "StatesMachine\EntityManager.h"
+#include "RenderableObjects\RenderableObjectsManager.h"
+#include "RenderableObjects\RenderableObjectsLayersManager.h"
+#include "Scripting\ScriptManager.h"
 #include "RenderManager.h"
 #include "Base.h"
 #include "Core.h"
@@ -24,76 +24,91 @@
 // -------------------------
 
 
-// -----------------------------------------
-//		  CONSTRUCTORS / DESTRUCTOR
-// -----------------------------------------
 CMain::CMain(void)
+	: m_pThPSCamera(NULL)
 {
-	m_pCharactersManager	= new CCharactersManager( );
-	m_pScene				= new CScene ();
+	m_pLogic = new CLogic();
+	m_pScene	= new CScene ();
 }
 
 
 CMain::~CMain(void)
 {
+	CHECKED_DELETE ( m_pLogic );
 	CHECKED_DELETE ( m_pScene );
-	CHECKED_DELETE ( m_pCharactersManager );
 }
 
 
-// -----------------------------------------
-//			METODES PRINCIPALS
-// -----------------------------------------
 bool CMain::Init( void )
 {
-	CTestProcess::Init();
+	CORE->GetScriptManager()->RunCode("load_basics()");
+	CORE->GetScriptManager()->RunCode("load_data()");
 
-	// Creamos la escena de debug. Esto solo si no se tiene escenario
+	// Creamos la escena
 	m_pScene->Init();
 
-	// Inicializa el gestor de player y enemigos. Carga propiedades y estados de todo.
-	if ( !m_pCharactersManager->Initialize ( ) )
-		return false;
+	screen = CORE->GetRenderManager()->GetScreenSize();
+	pos.x = screen.x / 2;
+	pos.y = screen.y / 2;
 
-	// Inicializamos la parte de lógica. Registramos la entidad como entidad que se le permite enviar/recibir mensajes de cambios de estado
-	assert ( ENTMGR != NULL );
-	//ENTMGR->RegisterEntity( m_pPlayer );
-	
-	// La primera Player/Enemy-Camera. Esto podria ser útil si conseguimos cambiar la cámara de un player a un enemico en ciertos momentos. Lo usé y molaba!
-	m_uiIndicePlayerCamera = 0;
+	m_Player.SetPosition(Vect3f( 0.f, 10.f, 0.f));
+	m_Player.SetPitch(-D3DX_PI/8);
+	m_Player.SetYaw(0.0f);
+	m_Player.SetRoll(0.0f);
+	m_Player.Init();
 
-	// Inicializamos las cámaras y se asocian al Player
-	float l_Aspect = CORE->GetRenderManager()->GetAspectRatio();
-	m_pThPSCamera	= new CThPSCamera( 1.0f, 10000.f, 45.f * D3DX_PI / 180.f, l_Aspect, m_pCharactersManager->GetPlayer()->GetProperties(), 10.0f );
-	m_pFPSCamera	= new CFPSCamera ( 0.f , 1.f ,  D3DX_PI / 4, static_cast <float> ( m_VectScreen.x/m_VectScreen.y), m_pCharactersManager->GetPlayer()->GetProperties() );
-	m_pCamera		= static_cast<CCamera*>( m_pThPSCamera );
-
-	// Asignamos la camera activa al core
+	float aspect = CORE->GetRenderManager()->GetAspectRatio();
+	m_pThPSCamera = new CThPSCamera( 1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_Player, 12.0f, 4.f, "Wolf");
+	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
 	CORE->SetCamera( m_pCamera );
-	
+
+	m_FreeCamera.SetPosition(Vect3f( 0.f, 10.f, 0.f));
+	m_FreeCamera.SetPitch(-D3DX_PI/6);
+	m_FreeCamera.SetYaw(0.0f);
+	m_FreeCamera.SetRoll(0.0f);
+
+	m_pThPSFreeCamera = new CThPSCamera( 1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_FreeCamera, 10.0f, 0.f, "Free");
+	m_pFreeCamera = static_cast<CCamera*>(m_pThPSFreeCamera);
+
+	m_Player.SetLockCamera( false );
+
 	return true;
 }
 
 void CMain::Update( float _ElapsedTime )
-{
-	CTestProcess::Update( _ElapsedTime );
-	
-	m_pCharactersManager->Update ( _ElapsedTime );
+{	
+	CORE->SetCamera( m_pCamera );
+	m_Player.Update(_ElapsedTime, m_pCamera );
+	if( m_Player.GetLockCamera() )
+	{
+		m_FreeCamera.Update(_ElapsedTime ,m_pCamera);
+	}
+
+	CORE->GetRenderableObjectsLayersManager()->Update(_ElapsedTime);
 
 	UpdateInputs( _ElapsedTime );
 }
 
-void CMain::Render( CRenderManager *_RM )
-{
-	CTestProcess::Render ( _RM );
-	
-	m_pScene->Render  ( _RM );
+void CMain::Render( CRenderManager &RM )
+{	
+	m_Player.Render(&RM);
 }
 
 void CMain::UpdateInputs ( float _ElapsedTime )
 {
-	CTestProcess::UpdateInputs( _ElapsedTime );
+	if( CORE->GetActionToInput()->DoAction("CommutacioCamera") )
+	{
+		if( m_pCamera == m_pThPSCamera )
+		{
+			m_pCamera = m_pThPSFreeCamera;
+			CORE->SetCamera( m_pThPSFreeCamera );
+			m_Player.SetLockCamera( true );
+		}
+		else
+		{
+			m_pCamera = m_pThPSCamera;
+			CORE->SetCamera( m_pThPSCamera );
+			m_Player.SetLockCamera( false );
+		}
+	}
 }
-
-
-

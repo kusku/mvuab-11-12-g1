@@ -55,7 +55,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Code\($ProjectName)\;$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\Logic\;$(SolutionDir)\Code\GUI\;$(SolutionDir)\Code\PhysX;$(SolutionDir)\Code\Sound\;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src;$(SolutionDir)\Code\3dParty\lua-5.2.0\src;$(SolutionDir)\Code\3dParty\luabind-0.9.1;$(SolutionDir)\Code\3dParty\boost_1_48_0;$(SolutionDir)\Code\3dParty\openAL\include;$(DXSDK_DIR)\Include;$(_PHYSX_SDK)\Foundation\include;$(_PHYSX_SDK)\NxCharacter\include;$(_PHYSX_SDK)\Physics\include;$(_PHYSX_SDK)\PhysXLoader\include;$(_PHYSX_SDK)\Cooking\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Code\($ProjectName)\;$(SolutionDir)\Code\Test_Hito_Mayo;$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\Logic\;$(SolutionDir)\Code\GUI\;$(SolutionDir)\Code\PhysX;$(SolutionDir)\Code\Sound\;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src;$(SolutionDir)\Code\3dParty\lua-5.2.0\src;$(SolutionDir)\Code\3dParty\luabind-0.9.1;$(SolutionDir)\Code\3dParty\boost_1_48_0;$(SolutionDir)\Code\3dParty\openAL\include;$(DXSDK_DIR)\Include;$(_PHYSX_SDK)\Foundation\include;$(_PHYSX_SDK)\NxCharacter\include;$(_PHYSX_SDK)\Physics\include;$(_PHYSX_SDK)\PhysXLoader\include;$(_PHYSX_SDK)\Cooking\include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -86,45 +86,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CharacterController.cpp" />
-    <ClCompile Include="Characters\Character.cpp" />
-    <ClCompile Include="Characters\CharacterManager.cpp" />
-    <ClCompile Include="Characters\Enemy.cpp" />
-    <ClCompile Include="Characters\Player.cpp" />
-    <ClCompile Include="Characters\PlayerControler.cpp" />
-    <ClCompile Include="Characters\Properties.cpp" />
-    <ClCompile Include="Characters\PropertiesManager.cpp" />
-    <ClCompile Include="Debug Scene\Scene.cpp" />
+    <ClCompile Include="Camera\FreeCamera.cpp" />
+    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="IdleState.cpp" />
+    <ClCompile Include="Logic.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="States\AnimationIdleState.cpp" />
-    <ClCompile Include="States\AnimationPursuitState.cpp" />
-    <ClCompile Include="States\AnimationsStates.cpp" />
-    <ClCompile Include="States\AnimationsStatesManager.cpp" />
-    <ClCompile Include="States\IdleState.cpp" />
-    <ClCompile Include="States\PursuitState.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PursuitState.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="test.cpp" />
-    <ClCompile Include="TestProcess.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CharacterController.h" />
-    <ClInclude Include="Characters\Character.h" />
-    <ClInclude Include="Characters\CharacterManager.h" />
-    <ClInclude Include="Characters\Enemy.h" />
-    <ClInclude Include="Characters\Player.h" />
-    <ClInclude Include="Characters\PlayerControler.h" />
-    <ClInclude Include="Characters\PlayerDef.h" />
-    <ClInclude Include="Characters\Properties.h" />
-    <ClInclude Include="Characters\PropertiesManager.h" />
-    <ClInclude Include="Debug Scene\Scene.h" />
+    <ClInclude Include="Camera\FreeCamera.h" />
+    <ClInclude Include="Character.h" />
+    <ClInclude Include="IdleState.h" />
+    <ClInclude Include="Logic.h" />
     <ClInclude Include="Main.h" />
-    <ClInclude Include="States\AnimationIdleState.h" />
-    <ClInclude Include="States\AnimationPursuitState.h" />
-    <ClInclude Include="States\AnimationsStates.h" />
-    <ClInclude Include="States\AnimationsStatesManager.h" />
-    <ClInclude Include="States\IdleState.h" />
-    <ClInclude Include="States\PursuitState.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerDef.h" />
+    <ClInclude Include="PursuitState.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="TestDef.h" />
-    <ClInclude Include="TestProcess.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
