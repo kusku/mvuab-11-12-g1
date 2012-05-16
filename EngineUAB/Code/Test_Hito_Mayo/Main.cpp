@@ -52,9 +52,6 @@ bool CMain::Init( void )
 	if ( !m_pCharactersManager->Initialize ( ) )
 		return false;
 
-	// Inicializamos el player, sus estados, mayas animadas...
-	m_pCharactersManager->GetPlayer()->Init();
-
 	// Inicializamos la parte de lógica. Registramos la entidad como entidad que se le permite enviar/recibir mensajes de cambios de estado
 	assert ( ENTMGR != NULL );
 	//ENTMGR->RegisterEntity( m_pPlayer );

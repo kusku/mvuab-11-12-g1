@@ -4,7 +4,6 @@
 #define __ENEMY_CLASS_H__
 
 #include <string>
-
 #include "Character.h"
 #include "Math\Vector3.h"
 
@@ -13,6 +12,10 @@ class CRenderManager;
 class CCamera;
 class CProperties;
 class CAnimationsStates;
+class CIdleState;
+class CPursuitState;
+class CAnimationIdleState;
+class CAnimationPursuitState;
 //--------------------------
 
 class CEnemy : public CCharacter
@@ -57,13 +60,18 @@ public:
 
 	//---- Members -------------------------------------------------------
 protected: 
-	bool				m_bIsOk;
+	bool							m_bIsOk;
 
 private:
-	bool				m_bMoverAutomatico;
-	bool				m_bLockCamera;
+	bool							m_bMoverAutomatico;
+	bool							m_bLockCamera;
 
-	CProperties		  * m_pEnemyProperties;
-	CAnimationsStates * m_pEnemyAnimationsStates;
+	CProperties					  *	m_pEnemyProperties;
+	CAnimationsStates			  *	m_pEnemyAnimationsStates;
+
+	CPursuitState				  * m_pPursuitState;
+	CIdleState					  * m_pIdleState;
+	CAnimationPursuitState		  * m_pAnimationPursuitState;
+	CAnimationIdleState			  * m_pAnimationIdleState;	
 };
 #endif __ENEMY_CLASS_H__

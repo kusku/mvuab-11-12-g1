@@ -178,45 +178,6 @@ bool CPlayer::HandleMessage( const Telegram& _Msg, bool _Logic, bool _Graphic )
 	return CCharacter::HandleMessage( _Msg, _Logic, _Graphic );
 }
 
-void CPlayer::MoverAutomaticamente ( float _ElapsedTime )
-{
-	//srand (static_cast <unsigned int>(time(0)));   // nº entre 0 i 32767
-	//int randomNumber = rand ();	
-	//int RandomDirection = (randomNumber % 8);		// obtinc un nº entre 0 i 8 - Totes les direccions
-	//Vect3f Direccio = ( 0.f, 0.f, 0.f );
-
-	//switch ( RandomDirection )
-	//{
-	//	case Up: 
-	//		Direccio = Vect3f ( cosf ( m_Yaw ) , m_Pitch, sinf ( m_Yaw ) );
-	//		m_Position += Direccio * QUANTITAT_MOVIMENT * _ElapsedTime;
-	//		break;
-	//	case UpRight:
-	//		Direccio = Vect3f( cosf( m_Yaw - D3DX_PI/4.f ), m_Pitch, sinf(m_Yaw - D3DX_PI/4.f ) );
-	//		m_Position += Direccio * QUANTITAT_MOVIMENT * _ElapsedTime;
-	//		break;
-	//	case UpLeft:
-	//		Direccio = Vect3f( cosf( m_Yaw + D3DX_PI/4.f ), m_Pitch, sinf( m_Yaw + D3DX_PI/4.f ) );
-	//		m_Position +=  Direccio * QUANTITAT_MOVIMENT * _ElapsedTime;
-	//		break;
-	//	case Back:
-	//		Direccio = Vect3f ( cosf ( m_Yaw ) , m_Pitch, sinf ( m_Yaw ) );
-	//		m_Position -= Direccio * QUANTITAT_MOVIMENT * _ElapsedTime;
-	//	case BackLeft: 
-	//		Direccio = ( Vect3f (cosf ( m_Yaw - D3DX_PI/4) , m_Pitch, sinf ( m_Yaw - D3DX_PI/4) ) );
-	//		m_Position -= Direccio * QUANTITAT_MOVIMENT * _ElapsedTime;
-	//	case BackRight:
-	//		Direccio = ( Vect3f ( cosf ( m_Yaw + D3DX_PI/4) , m_Pitch, sinf ( m_Yaw + D3DX_PI/4 ) ) );
-	//		m_Position -= Direccio * QUANTITAT_MOVIMENT * _ElapsedTime;
-	//	case Left:
-	//		Direccio = Vect3f ( cosf ( m_Yaw + D3DX_PI/2) , m_Pitch, sinf ( m_Yaw + D3DX_PI/2) );
-	//		m_Position += Direccio * QUANTITAT_MOVIMENT * _ElapsedTime;
-	//	case Right:
-	//		Direccio = Vect3f ( cosf ( m_Yaw + D3DX_PI/2) , m_Pitch, sinf ( m_Yaw + D3DX_PI/2) );
-	//		m_Position -= Direccio * QUANTITAT_MOVIMENT * _ElapsedTime;
-	//}
-}
-
 void CPlayer::MoverManualmente ( float _ElapsedTime )
 {
 	float	l_Dt;

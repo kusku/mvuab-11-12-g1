@@ -4,9 +4,7 @@
 #define __PLAYER_H__
 
 #include <string>
-
 #include "Character.h"
-
 #include "Math\Vector3.h"
 
 
@@ -40,7 +38,7 @@ public:
 	//void						RenderScene			( void );
 
 	//---- Functions -----------------------------------------------------
-	void						MoverAutomaticamente( float _ElapsedTime );
+	//void						MoverAutomaticamente( float _ElapsedTime );
 	void						MoverManualmente	( float _ElapsedTime );
 
 private:
