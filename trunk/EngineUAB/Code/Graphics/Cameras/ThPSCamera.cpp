@@ -5,14 +5,16 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-CThPSCamera::CThPSCamera(float zn, float zf, float fov, float aspect, CObject3D* object3D, float zoom)
-: CCamera( zn, zf, fov, aspect, object3D, TC_THPS)
-, m_fZoom( zoom )
+CThPSCamera::CThPSCamera(float zn, float zf, float fov, float aspect, CObject3D* object3D, float zoom, float height)
+	: CCamera( zn, zf, fov, aspect, object3D, TC_THPS)
+	, m_fZoom( zoom )
+	, m_fHeight( height )
 {}
 
 CThPSCamera::CThPSCamera()
-: CCamera()
-, m_fZoom(50.f)
+	: CCamera()
+	, m_fZoom(50.f)
+	, m_fHeight(0.f)
 {}
 
 
@@ -27,16 +29,20 @@ Vect3f CThPSCamera::GetLookAt () const
 {
 	assert(m_pObject3D);
 
-	return m_pObject3D->GetPosition();
+	Vect3f pos = m_pObject3D->GetPosition();
+	pos.y += m_fHeight;
+
+	return pos;
 }
 
 Vect3f CThPSCamera::GetEye () const
 {
 	assert(m_pObject3D);
 
-	float yaw		= m_pObject3D->GetYaw();
+	float yaw = m_pObject3D->GetYaw();
 	float pitch	= m_pObject3D->GetPitch();
-	Vect3f pos	= m_pObject3D->GetPosition();
+	Vect3f pos = m_pObject3D->GetPosition();
+//	pos.y += m_fHeight;
 
 	//Pasamos de coordenadas esfericas a coordenadas cartesianas
 	Vect3f vEyePt(	m_fZoom * cos(yaw) * cos(pitch), 

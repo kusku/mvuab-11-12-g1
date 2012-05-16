@@ -16,7 +16,7 @@ class CThPSCamera: public CCamera
 {
 public:
 
-	CThPSCamera(float zn, float zf, float fov, float aspect, CObject3D* object3D, float zoom);
+	CThPSCamera(float zn, float zf, float fov, float aspect, CObject3D* object3D, float zoom, float height = 0.f);
 	CThPSCamera();
 	virtual ~CThPSCamera(){/*Nothing*/;}
 
@@ -34,6 +34,7 @@ public:
 
 private:
 	float		m_fZoom;
+	float		m_fHeight;
 };
 
 #endif // INC_SPHERICAL_CAMERA_H_
