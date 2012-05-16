@@ -21,17 +21,17 @@
 	  <RespawnPosition>0 10 0</RespawnPosition>
   </player>
   <enemies>
-  <!--    <enemy name="enemy1" core="lobo" animated_instace_name="lobo1" >
+	<enemy name="enemy1" core="lobo" animated_instace_name="lobo2" >
         <life>120</life>
         <strong>13</strong>
         <speed>3</speed>
         <direction>3 20 -4</direction>
     </enemy>
-  <enemy name="enemy2" core="lobo" animated_instace_name="lobo2" >
+	<enemy name="enemy2" core="lobo" animated_instace_name="lobo3" >
         <life>130</life>
         <strong>17</strong>
         <speed>30</speed>
         <direction>21 210 -24</direction>
-    </enemy>-->
+    </enemy>
   </enemies>
 </characters>
