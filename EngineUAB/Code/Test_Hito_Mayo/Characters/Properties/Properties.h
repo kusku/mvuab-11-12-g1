@@ -20,26 +20,26 @@ public:
 	//---- Methods -------------------------------------------------------
 	//---- Properties ( get & Set )---------------------------------------
 
-	inline void			SetCore					( const std::string &_CoreName )					{ m_Core = _CoreName; }
-	inline std::string	GetCore					( void ) const										{ return m_Core; }
+	inline void					SetCore					( const std::string &_CoreName )					{ m_Core = _CoreName; }
+	inline const std::string	GetCore					( void ) const										{ return m_Core; }
 
-	inline void			SetAnimationInstance	( const std::string &_AnimationInstanceName )		{ m_AnimationInstanceName = _AnimationInstanceName; }
-	inline std::string	GetAnimationInstance	( void ) const										{ return m_AnimationInstanceName; }
+	inline void					SetAnimationInstance	( const std::string &_AnimationInstanceName )		{ m_AnimationInstanceName = _AnimationInstanceName; }
+	inline std::string			GetAnimationInstance	( void ) const										{ return m_AnimationInstanceName; }
 
-	inline void			SetLife					( int _Life )										{ m_Life = _Life; }
-	inline int			GetLife					( void ) const										{ return m_Life; }
+	inline void					SetLife					( int _Life )										{ m_Life = _Life; }
+	inline const int			GetLife					( void ) const										{ return m_Life; }
 
-	inline void			SetStrong				( int _Strong )										{ m_Strong = _Strong; }
-	inline int			SetStrong				( void ) const										{ return m_Strong; }
+	inline void					SetStrong				( int _Strong )										{ m_Strong = _Strong; }
+	inline const int			SetStrong				( void ) const										{ return m_Strong; }
 
-	inline void			SetSpeed				( int _Speed )										{ m_Speed = _Speed; }
-	inline int			GetSpeed				( void ) const										{ return m_Speed; }
+	inline void					SetSpeed				( int _Speed )										{ m_Speed = _Speed; }
+	inline const int			GetSpeed				( void ) const										{ return m_Speed; }
 
-	inline void			SetDirection			( const Vect3f &_Direction )						{ m_Direction = _Direction; }
-	inline Vect3f		GetDirection			( void ) const										{ return m_Direction; }
+	inline void					SetDirection			( const Vect3f &_Direction )						{ m_Direction = _Direction; }
+	inline const Vect3f			GetDirection			( void ) const										{ return m_Direction; }
 
-	inline void			SetRespawnPosition		( const Vect3f &_RespawnPosition )					{ m_RespawnPosition = _RespawnPosition; }
-	inline Vect3f		GetRespawnPosition		( void ) const										{ return m_RespawnPosition; }
+	inline void					SetRespawnPosition		( const Vect3f &_RespawnPosition )					{ m_RespawnPosition = _RespawnPosition; }
+	inline const Vect3f			GetRespawnPosition		( void ) const										{ return m_RespawnPosition; }
 
 
 	//---- Members -------------------------------------------------------

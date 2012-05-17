@@ -75,6 +75,9 @@
     <ClCompile Include="Utils\Random.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Math\Plane.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\MathTypes.h">
@@ -177,6 +180,9 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Base.h" />
+    <ClInclude Include="Math\Plane.h">
+      <Filter>Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Math\MathUtils.inl">

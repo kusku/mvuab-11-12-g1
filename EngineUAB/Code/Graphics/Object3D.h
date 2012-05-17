@@ -25,6 +25,10 @@ public:
 	//---- Methods ---------------------------------------------------------
 	void						InitMat44			( void );
 
+	inline void					AddYaw				( float _Radians )						{ m_fYaw   += _Radians; }
+	inline void					AddPitch			( float _Radians )						{ m_fPitch += _Radians; }
+	inline void					AddRoll				( float _Radians )						{ m_fRoll  += _Radians; }
+
 	//----Properties ( get & Set )---------------------------------------
 	//---Get Functions
 	inline float				GetYaw				( void ) const					{ return m_fYaw; }
@@ -45,6 +49,7 @@ public:
 	inline void					SetRoll				( float roll )					{ m_fRoll = roll; }
 	inline void					SetVisible			( bool visible )				{ m_Visible = visible; }
 	inline void					SetTechniqueName	( const std::string& name )		{ m_TechniqueName = name; }
+
 
 
 	//----Members -------------------------------------------------------

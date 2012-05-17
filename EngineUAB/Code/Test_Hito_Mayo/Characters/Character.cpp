@@ -109,3 +109,4 @@ void CCharacter::MoveController(const Vect3f &_Dir, float _ElapsedTime)
 {
 	m_pController->Move( _Dir, _ElapsedTime );
 }
+
