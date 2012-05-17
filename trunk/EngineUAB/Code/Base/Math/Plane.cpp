@@ -4,19 +4,19 @@ CPlane::CPlane( ) {
 }
 
 CPlane::CPlane( const Vect3f &base, const Vect3f &v1, const Vect3f &v2 ) {
-	const Vect3f sideA( v1 - base );
-	const Vect3f sideB( v2 - base );
+	Vect3f sideA( v1 - base );
+	Vect3f sideB( v2 - base );
 
-	_normal = sideA * sideB;	// Producto vectorial
+	_normal = sideA.Cross(sideB);
 	_normal.Normalize( );
-	_d = -_normal * base;		// Producto escalar
+	_d = -_normal.Dot( base );
 }
 
 CPlane::CPlane( const Vect3f &normal, const Vect3f &point )
 	: _normal ( normal )
 	, _d( 0 ) 
 {
-	_d = -_normal * point;
+	_d = -_normal.Dot( point );
 }
 
 CPlane::CPlane( const Vect3f &normal, float d )
@@ -31,7 +31,7 @@ CPlane::~CPlane( ) {
 void CPlane::compute( const Vect3f &normal, const Vect3f &point ) {
 	_normal = normal;
 	_normal.Normalize( );
-	_d = -_normal * point;
+	_d = -_normal.Dot( point );
 }
 
 void CPlane::set( const Vect3f &normal, float distance ) {
@@ -59,8 +59,9 @@ float CPlane::getDistance( ) const {
 	return _d;
 }
 
-float CPlane::distanceToPoint( const Vect3f &point ) const {
-	return _normal * point + _d;
+float CPlane::distanceToPoint( const Vect3f &point ) const 
+{
+	return _normal.Dot(point) + _d;
 }
 
 Vect3f CPlane::projectPoint( const Vect3f &point ) const {
@@ -71,8 +72,9 @@ Vect3f CPlane::projectPoint( const Vect3f &point ) const {
 	return out;
 }
 
-bool CPlane::isPointInside( const Vect3f &point ) const {
-	const float v = _normal * point + _d ;
-
+bool CPlane::isPointInside( const Vect3f &point ) const 
+{
+	const float v = _normal.Dot(point) + _d ;
+	
 	return v >= 0.0f;
 }

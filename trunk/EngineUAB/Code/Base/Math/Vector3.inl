@@ -829,6 +829,32 @@ inline Vector3<T> Vector3<T>::GetLerp (const Vector3<T>& otro, const T t) const
   return Vector3<T>(*this).Lerp(otro, t);
 }
 
+template<typename T>
+inline float Vector3<T>::Dot(const Vector3<T>& otro) const
+{
+	//A.B = Ax*Bx + Ay*By + Az*Bz
+	return x*otro.x + y*otro.y + z*otro.z;
+}
+
+template<typename T>
+inline Vector3<T> Vector3<T>::Cross(const Vector3<T>& otro) const
+{
+	//AxB == ( AyBz + AzBy, AzBx + AxBz, AxBy + AyBx )
+	Vector3<T> aux( y*otro.z + z*otro.y, z*otro.x + x*otro.z, x*otro.y + y*otro.x );
+
+	return aux;
+}
+
+template<typename T>
+inline Vector3<T> Vector3<T>::GetXZFromAngle (float radians)
+{	
+	x = sin( radians );
+	y = float( 0.0f );
+	z = -cos( radians );
+
+	return (*this);
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// Función externa: Devuelve un vector con las componentes mínimas de
 /// los pasados en los parámetros
