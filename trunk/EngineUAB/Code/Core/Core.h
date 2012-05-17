@@ -36,6 +36,7 @@ class CTriggersManager;
 class CSoundManager;
 class CEntityManager;
 class CMessageDispatcher;
+class CWayPointManager;
 //--------------------------
 
 class CCore : public CSingleton<CCore>
@@ -181,6 +182,7 @@ private:
 	CSoundManager						*m_pSoundManager;
 	CEntityManager						*m_pEntityManager;
 	CMessageDispatcher					*m_pMessageDispatcher;
+	CWayPointManager					*m_WayPointManager;
 };
 
 #endif

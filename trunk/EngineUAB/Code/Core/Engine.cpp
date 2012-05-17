@@ -287,6 +287,10 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 			{
 				m_Config.debug_options_path = l_ConfigNode(i).GetPszProperty("debug_options_xml", "");
 			}
+			else if( l_Name == "Waypoints" )
+			{
+				m_Config.waypoints_path = l_ConfigNode(i).GetPszProperty("wayPointsXML", "");
+			}
 		}
 	}
 

@@ -120,6 +120,9 @@ struct SConfig
 
 	// Parametros del Sonido
 	std::string sound_system_path;
+
+	// Parametros del WayPoints
+	std::string waypoints_path;
 };
 
 #endif __COREDEFS_H__

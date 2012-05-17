@@ -44,6 +44,8 @@
 #include "StatesMachine\EntityManager.h"
 #include "StatesMachine\MessageDispatcher.h"
 
+#include "Movement\WayPointManager.h"
+
 #if defined(_DEBUG)
 	#include "Memory\MemLeaks.h"
 #endif
@@ -83,6 +85,7 @@ CCore::CCore ( void )
 	, m_pSoundManager					( NULL )
 	, m_pEntityManager					( NULL )
 	, m_pMessageDispatcher				( NULL )
+	, m_WayPointManager					( NULL )
 {
 }
 
@@ -105,6 +108,7 @@ void CCore::Done ( void )
 
 void CCore::Release ( void )
 {
+	CHECKED_DELETE ( m_WayPointManager );
 	CHECKED_DELETE ( m_pRenderManager );
 	CHECKED_DELETE ( m_pLanguageManager );
 	CHECKED_DELETE ( m_pFontManager );
@@ -247,6 +251,9 @@ bool CCore::Init( HWND _HWnd, const SConfig &config )
 			// Inicialización de la lógica
 			m_pEntityManager = new CEntityManager();
 			m_pMessageDispatcher = new CMessageDispatcher();
+			
+			m_WayPointManager = new CWayPointManager();
+			m_WayPointManager->Load(config.waypoints_path);
 		}
 	}
 
