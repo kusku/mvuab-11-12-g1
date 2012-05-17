@@ -1,3 +1,6 @@
+
+#define NOMINMAX
+
 #include "Enemy.h"
 #include "Characters\PlayerDef.h"
 
@@ -9,6 +12,8 @@
 #include "RenderManager.h"
 
 //#include "PlayerController.h"
+#include "PhysicController.h"
+#include "CharacterController.h"
 
 #include "RenderableObjects\RenderableObjectsLayersManager.h"
 #include "RenderableObjects\RenderableObjectsManager.h"
@@ -33,6 +38,12 @@
 #include "Base.h"
 #include "Core.h"
 
+#include "Movement\WayPointManager.h"
+#include "RenderManager.h"
+#include "Core.h"
+
+#include "Movement\WayPoint.h"
+
 #if defined(_DEBUG)
 	#include "Memory\MemLeaks.h"
 #endif
@@ -45,11 +56,14 @@ CEnemy::CEnemy( int _ID )
 	, m_pEnemyProperties		( NULL )
 	, m_bMoverAutomatico		( false )
 	, m_bLockCamera				( false )
-	, m_pPursuitState			( NULL )
+	, m_pPursuitState			( NULL ) 
 	, m_pIdleState				( NULL )
 	, m_pAnimationPursuitState	( NULL )
 	, m_pAnimationIdleState		( NULL )
+	, m_CurrentWPIndex			(0)
+	, m_DestWavePoint			(NULL)
 {
+
 }
 
 CEnemy::CEnemy( int _ID, const std::string &_Name )
@@ -127,38 +141,56 @@ void CEnemy::Release ( void )
 
 void CEnemy::Update( float _ElapsedTime ) //, CCamera *_pCamera)
 {
-	//if (m_bMoverAutomatico)
-	//	MoverAutomaticamente( _ElapsedTime );
-	//else
-	//	MoverManualmente ( _ElapsedTime );
+	if(m_CurrentWPIndex == m_WavePoints.size())
+	{
+		GetWavePoint();
 
-	//// Actualizamos los estados y características generales además de mover el Físic Controler
-	//Vect3f	l_PosAnterior = m_pController->GetController()->GetPosition() ;
-	//CCharacter::Update( _ElapsedTime );
-	//Vect3f	l_PosActual	= m_pController->GetController()->GetPosition();
-	//
-	//if ( l_PosAnterior != l_PosActual )
-	//{
-	//	l_PosActual.y -= 1.5f;
-	//	m_pCurrentAnimatedModel->SetPosition ( l_PosActual );
-	//	m_pLogicStateMachine->ChangeState	 ( m_pPursuitState);
-	//	m_pGraphicStateMachine->ChangeState  ( m_pAnimationPursuitState );
+		if(m_WavePoints.size() == 0)
+		{
+			return;
+		}
+	}
 
+	if(m_WavePoints[m_CurrentWPIndex].SqDistance(m_Position) < 0.2f)
+	{
+		m_CurrentWPIndex++;
+		return;
+	}
 
-	//	//float l_x = 0.f;
-	//	//float l_y = 0.f;
-	//	//float l_z = 0.f;
+	Vect3f v = (m_WavePoints[m_CurrentWPIndex] - m_Position);
+	float back = v.Dot(GetFront());
+	if(back < 0)
+	{
+		m_fYaw += (mathUtils::Deg2Rad(90.0f) * _ElapsedTime);
+	}
+	else
+	{
+		m_fYaw += (-mathUtils::Deg2Rad(90.0f) * _ElapsedTime);
+	}
 
-	//	////m_pController->GetController()->GetPosition().GetAngles ( l_x, l_y, l_z );
-	//	//m_pCurrentAnimatedModel->SetYaw( m_pController->GetController()->GetYaw() );
-	//	//m_pPlayerProperties->SetYaw( m_pController->GetController()->GetYaw() );
-	//	//m_pCurrentAnimatedModel->SetYaw(CORE->GetCamera()->GetLookAt().GetAngleZ());
-	//}
-	//else
-	//{
-	//	m_pLogicStateMachine->ChangeState	( m_pIdleState );
-	//	m_pGraphicStateMachine->ChangeState ( m_pAnimationIdleState );
-	//}
+	Vect3f l_Position = Vect3f(0.0f, 0.0f, 0.0f);
+	Vect3f l_Dir = (m_WavePoints[m_CurrentWPIndex] - m_Position).Normalize();
+
+	l_Position += l_Dir * 6.0f * _ElapsedTime;
+
+	m_pController->SetYaw(m_fYaw);
+	CCharacter::MoveController(l_Position, _ElapsedTime);
+	CCharacter::Update( _ElapsedTime );
+
+	m_Position = m_pController->GetPosition();
+	m_Position.y = m_Position.y - m_pController->GetHeight();
+	float yaw = mathUtils::Rad2Deg(m_fYaw);
+	m_pCurrentAnimatedModel->SetYaw(-yaw + 90.f );
+	m_pCurrentAnimatedModel->SetPosition( m_Position );
+}
+
+void CEnemy::GetWavePoint()
+{
+	m_DestWavePoint = CORE->GetWayPointManager()->GetRandomWayPoint("Group 1");
+	assert(m_DestWavePoint);
+
+	m_CurrentWPIndex = 0;
+	m_WavePoints = CORE->GetWayPointManager()->GetPath("Group 1", m_Position, m_DestWavePoint->GetPosition());
 }
 
 bool CEnemy::HandleMessage( const Telegram& _Msg, bool _Logic, bool _Graphic )
@@ -426,22 +458,16 @@ void CEnemy::MoverManualmente ( float _ElapsedTime )
 
 void CEnemy::Render( CRenderManager *_RM )
 {
-	//Mat44f matTotal, matTranslacio, matRotacioYaw, matRotacioPitch;
-
-	//matTotal.SetIdentity ();
-	//matTranslacio.SetIdentity();
-	//matRotacioYaw.SetIdentity();
-	//matRotacioPitch.SetIdentity();
-
-	//matRotacioYaw.SetRotByAngleY ( -m_fYaw );
-	//matRotacioPitch.SetRotByAngleZ ( m_fPitch );
-	//matTranslacio.Translate( m_Position) ;							// moc segons tecles pitjades
-
-	//matTotal = matTranslacio * matRotacioYaw * matRotacioPitch;		// Obtinc la matriu final
-
-	//_RM->SetTransform( matTotal );									// Roto + Trasllado 
-	////_RM->DrawSphere(0.5f, 7, colWHITE);	
-	//_RM->DrawCube ( Vect3f ( 1.f, 1.f, 1.f) , colWHITE );			// Dibuixo
+//	CORE->GetRenderManager()->SetTransform(m44fIDENTITY);
+//
+//	Mat44f tran = m44fIDENTITY;
+//
+//	//CORE->GetRenderManager()->SetTransform(tran.Translate(m_Position));
+//
+//	Vect3f front = m_Position;
+//	Vect3f front2 = m_Position + GetFront() * 2;
+//
+//	CORE->GetRenderManager()->DrawLine(front, front2, colRED);
 }
 
 void CEnemy::MoveCharacterToDestination ( Vect3f _Destination, float _ElapsedTime )

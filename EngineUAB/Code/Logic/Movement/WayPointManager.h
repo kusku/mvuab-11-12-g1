@@ -7,6 +7,8 @@
 #include <list>
 #include <map>
 #include <vector>
+#include <stdlib.h>
+#include <time.h>
 
 #include "Math\Vector3.h"
 
@@ -39,7 +41,11 @@ class CWayPointManager
 
 		WayPointList&			GetWayPoints			(const std::string& groupName);
 
+		CWayPoint*				GetRandomWayPoint		(const std::string& groupName);
+
 		std::vector<Vect3f>		GetPath					(const std::string& groupName, const Vect3f& curPos, const Vect3f& destPos);
+
+		void					DebugRender				();
 };
 
 #endif
