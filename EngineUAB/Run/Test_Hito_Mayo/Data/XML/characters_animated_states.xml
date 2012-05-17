@@ -3,63 +3,31 @@
   <default_states core="caperucita">
     <state name="idle">
       <animation id="0"  />
-      <animation id="1"  />
-      <animation id="2"  />
-      <animation id="4"  />
     </state>
     <state name="run">
-      <animation id="2"  />
-      <animation id="3"  />
+      <animation id="1"  />
     </state>
-    <state name="pursuit">
+    <state name="attack">
       <animation id="2"  />
-      <animation id="3"  />
-      <animation id="5"  />
     </state>
   </default_states>
   <default_states core="lobo">
     <state name="idle">
       <animation id="0"  />
+    </state>
+    <state name="walk">
       <animation id="1"  />
     </state>
     <state name="run">
-      <animation id="0"  />
-      <animation id="1"  />
       <animation id="2"  />
-      <animation id="4"  />
     </state>
   </default_states>
   <player name="Jolete" core="caperucita">
-    <state name="idle">
-      <animation id="0"  />
-	  <animation id="10"  />
-    </state>
-    <state name="run">
-      <animation id="3"  />
-	  <animation id="2"  />
-	  <animation id="1"  />
-    </state>
   </player>
-  <!--<enemies>
-    <enemy name="enemy1" core="lobo" animated_instace_name="lobo1" >
-      <state name="idle">
-        <animation id="3"  />
-        <animation id="15"  />
-      </state>
-      <state name="run">
-        <animation id="32"  />
-        <animation id="33"  />
-      </state>
-    </enemy>
-    <enemy name="enemy2" core="lobo" animated_instace_name="lobo2" >
-      <state name="idle">
-        <animation id="8"  />
-        <animation id="7"  />
-      </state>
-      <state name="run">
-        <animation id="6"  />
-        <animation id="9"  />
-      </state>
-    </enemy>
-  </enemies>-->
+  <enemies>
+    <enemy name="enemy1" core="lobo" animated_instace_name="lobo1" />
+     
+    <enemy name="enemy2" core="lobo" animated_instace_name="lobo2" />
+     
+  </enemies>
 </characters>
