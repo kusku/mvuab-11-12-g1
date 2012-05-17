@@ -52,7 +52,7 @@ bool CMain::Init( void )
 	CORE->GetScriptManager()->RunCode("load_data()");
 
 	// Creamos la escena de debug. Esto solo si no se tiene escenario
-	m_pScene->Init();
+	//m_pScene->Init();
 
 	screen = CORE->GetRenderManager()->GetScreenSize();
 	pos.x = screen.x / 2;
