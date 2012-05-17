@@ -9,5 +9,9 @@
 	<static_mesh name="Box003" filename=".\Data\.\Chapter1\\Models\Box003.m3d" />
 	<static_mesh name="Box004" filename=".\Data\.\Chapter1\\Models\Box004.m3d" />
 	<static_mesh name="Box005" filename=".\Data\.\Chapter1\\Models\Box005.m3d" />
-	<static_mesh name="TerrenoCasa" filename=".\Data\.\Chapter1\\Models\TerrenoCasa.m3d" />
+	<static_mesh name="TerrenoCasa" filename=".\Data\.\Chapter1\\Models\TerrenoCasa.m3d" />	
+	<static_mesh name="Terrain04" filename=".\Data\.\General\\Models\Terrain04.m3d" />
+	<static_mesh name="Terrain01" filename=".\Data\.\General\\Models\Terrain01.m3d" />
+	<static_mesh name="Terrain02" filename=".\Data\.\General\\Models\Terrain02.m3d" />
+	<static_mesh name="Terrain03" filename=".\Data\.\General\\Models\Terrain03.m3d" />
 </static_meshes>
