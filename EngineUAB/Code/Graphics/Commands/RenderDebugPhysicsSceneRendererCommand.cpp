@@ -6,6 +6,7 @@
 #include "Math\Matrix44.h"
 #include "Base.h"
 #include "Core.h"
+#include "Movement\WayPointManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -22,6 +23,7 @@ void CRenderDebugPhysicsSceneRendererCommand::Execute(CRenderManager &RM)
 {
 	if( GetActive() )
 	{
+		CORE->GetWayPointManager()->DebugRender();
 		CORE->GetPhysicsManager()->SetDebugRenderMode ( true );
 		CORE->GetPhysicsManager()->DebugRender(&RM);
 	}
