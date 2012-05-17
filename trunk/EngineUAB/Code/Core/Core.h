@@ -138,6 +138,7 @@ public:
 	inline CPhysicsManager*						GetPhysicsManager			( void ) const					{ return m_pPhysicsManager; }
 	inline CBillboardManager*					GetBillboardManager			( void ) const					{ return m_pBillboardManager; }
 	inline CParticlesSystemManager*				GetParticlesManager			( void ) const					{ return m_pParticlesManager; }
+	inline CWayPointManager*					GetWayPointManager			( void )						{ return m_WayPointManager; }
 	inline CGUIManager*							GetGUIManager				( void ) const					{ return m_pGUIManager; }
 	inline CTriggersManager*					GetTriggersManager			( void ) const					{ return m_pTriggersManager; }					// Propietats dels triggers 
 	inline CSoundManager*						GetSoundManager				( void ) const					{ return m_pSoundManager; }						// Propietats dels sò 
