@@ -132,7 +132,15 @@ void CCharactersManager::Update ( float _ElapsedTime )
 	// Actualitzem l'enemic
 	TVectorResources l_EnemyList = GetResourcesVector();
 	for ( size_t i = 0; i < l_EnemyList.size(); i++ )
-		l_EnemyList[i]->Update( _ElapsedTime );
+	{
+		// solo para test de movimiento!!
+		CEnemy *l_Enemy = dynamic_cast<CEnemy*> (l_EnemyList[i]);
+		l_Enemy->MoveCharacterToDestination( Vect3f(400.f, 1.f, 100.f), _ElapsedTime );
+		l_Enemy->MoveController ( l_Enemy->GetPosition(), _ElapsedTime );
+		l_Enemy->GetAnimatedModel()->SetPosition( l_Enemy->GetPosition() );
+		//l_EnemyList[i]->Update( _ElapsedTime );
+	}
+	
 }
 
 void CCharactersManager::Render	( void )

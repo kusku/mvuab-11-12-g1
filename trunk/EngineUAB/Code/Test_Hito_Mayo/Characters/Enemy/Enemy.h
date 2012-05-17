@@ -39,6 +39,7 @@ public:
 	//---- Functions -----------------------------------------------------
 	void						MoverAutomaticamente( float _ElapsedTime );
 	void						MoverManualmente	( float _ElapsedTime );
+	void						MoveCharacterToDestination	( Vect3f _Destination, float _ElapsedTime );
 
 private:
 	//void						UpdateInputActions	( float _ElapsedTime ); //, CCamera* _pCamera ); 	NO CAL!! en principi el player té associada la càmera o al revés. A més, per commutar 1a 3a camera no serviria

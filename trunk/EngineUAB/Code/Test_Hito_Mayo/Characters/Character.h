@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Math\Plane.h"
 #include "Utils\MapManager.h"
 #include "Object3D.h"
 #include "Utils\Named.h"
@@ -41,7 +42,7 @@ public:
 
 	//----Functions -------------------------------------------
 	void						MoveController		( const Vect3f &_Dir, float _ElapsedTime );
-
+	
 	//----Properties ( get & Set )-----------------------------
 	virtual inline CStateMachine<CCharacter>*		GetLogicFSM			( void ) const			{ return m_pLogicStateMachine; }
 	virtual inline CStateMachine<CCharacter>*		GetGraphicFSM		( void ) const			{ return m_pGraphicStateMachine; }
@@ -51,6 +52,16 @@ public:
 
 	void						SetPrevPosition		( Vect3f pos )			{ m_PrevPosition = pos; }
 	const Vect3f&				GetPrevPosition		( void ) const			{ return m_PrevPosition; }
+
+	// Obtengo el angulo que forma donde mira
+	inline Vect3f				GetFront			( void ) const			{ Vect3f l_Front; l_Front.GetRotatedY( GetYaw() ) ; return l_Front; }
+																			//{ Vect3f front; front.xzFromAngle( m_Yaw ); return front; }
+
+	bool						isPointAtLeft		( const Vect3f &_Position ) const	
+																			{
+																				const CPlane p( GetPosition( ), GetPosition( ) + GetFront( ), Vect3f( 0.0f, 1.0f, 0.0f ) );
+																				return !p.isPointInside( _Position );
+																			}
 
 	//----Members )--------------------------------------------
 private:

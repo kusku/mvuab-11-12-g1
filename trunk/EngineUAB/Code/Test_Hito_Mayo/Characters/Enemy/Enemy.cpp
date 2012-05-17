@@ -28,6 +28,8 @@
 #include "Characters\States\AnimationPursuitState.h"
 
 #include "Math\Matrix44.h"
+#include "Math\Plane.h"
+
 #include "Base.h"
 #include "Core.h"
 
@@ -440,4 +442,46 @@ void CEnemy::Render( CRenderManager *_RM )
 	//_RM->SetTransform( matTotal );									// Roto + Trasllado 
 	////_RM->DrawSphere(0.5f, 7, colWHITE);	
 	//_RM->DrawCube ( Vect3f ( 1.f, 1.f, 1.f) , colWHITE );			// Dibuixo
+}
+
+void CEnemy::MoveCharacterToDestination ( Vect3f _Destination, float _ElapsedTime )
+{
+	// Pillo la ultima posición a conseguir y me encaro sobre ella. 
+	Vect3f l_LastPos = _Destination;		
+	Vect3f l_LastPositionNormalizated = (l_LastPos - this->GetPosition() ).Normalize();		// Normalizo el vector dirección entre ambas posiciones
+
+	// Calculo el ángulo
+	float l_vAngle = GetFront() * l_LastPositionNormalizated;
+	// Si el ángulo es cerrado y está entre la posición a donde ir voy y sino roto hasta encontrarla. Valores entre -1 i 1 (sin/cos)
+	if ( l_vAngle >= 0.9f ) 
+	{
+		Vect3f l_NewPosition			 = GetPosition( ) + GetFront( ) * _ElapsedTime * ( (float) m_pEnemyProperties->GetSpeed() );
+		Vect3f l_NewPositionNormalizated = ( l_LastPos - l_NewPosition ).Normalize();
+		if ( ( l_NewPositionNormalizated * l_LastPositionNormalizated ) > 0  )
+		{
+			SetPosition( l_NewPosition );
+		}
+		else {
+			SetPosition( l_LastPos );
+		}
+	}
+	else 
+	{
+		float l_RotationSpeed =	0.5;	//GetRotationSpeed ();
+		if( isPointAtLeft( l_LastPos ) ) {
+			AddYaw( -l_RotationSpeed * _ElapsedTime );
+			if( !isPointAtLeft( l_LastPos ) ) 
+			{
+				float l_fYaw = l_LastPositionNormalizated.GetAngleY(); // .xzToAngle ();
+				SetYaw ( l_fYaw );
+			}
+		} else {
+			AddYaw( l_RotationSpeed * _ElapsedTime );
+			if( isPointAtLeft( l_LastPos ) ) 
+			{
+				float l_fYaw = l_LastPositionNormalizated.GetAngleY(); // xzToAngle ();
+				SetYaw ( l_fYaw );
+			}
+		}
+	}
 }

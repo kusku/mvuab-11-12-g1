@@ -95,6 +95,7 @@
     <ClCompile Include="Location\LanguageManager.cpp" />
     <ClCompile Include="Logger\Logger.cpp" />
     <ClCompile Include="Math\MathConstants.cpp" />
+    <ClCompile Include="Math\Plane.cpp" />
     <ClCompile Include="Memory\MemLeaks.cpp" />
     <ClCompile Include="Stadistics\Stadistics.cpp" />
     <ClCompile Include="Utils\BoundingBox.cpp" />
@@ -122,6 +123,7 @@
     <ClInclude Include="Math\Matrix33.h" />
     <ClInclude Include="Math\Matrix34.h" />
     <ClInclude Include="Math\Matrix44.h" />
+    <ClInclude Include="Math\Plane.h" />
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="Math\Vector4.h" />
