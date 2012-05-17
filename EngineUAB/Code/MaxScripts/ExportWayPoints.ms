@@ -151,7 +151,12 @@ function ExportWayPoints FilePath =
 		
 		for j = 1 to l_points.count do
 		(
-			format "\t\t<waypoint name=\"%\" position=\"% % %\">\n" l_points[j].WPName l_points[j].Pos.x l_points[j].Pos.y l_points[j].Pos.z to:file
+			format "\t\t<waypoint name=\"%\" position=\"% % %\" />\n" l_points[j].WPName l_points[j].Pos.x l_points[j].Pos.y l_points[j].Pos.z to:file
+		)
+		
+		for j = 1 to l_points.count do
+		(
+			format "\t\t<Brothers wave_point_name=\"%\">\n" l_points[j].WPName to:file
 			
 			local l_bros = l_points[j].Brothers
 			
@@ -160,7 +165,7 @@ function ExportWayPoints FilePath =
 				format "\t\t\t<Brother name=\"%\" />\n" l_Bros[x] to:file
 			)
 			
-			format "\t\t</waypoint>\n" to:file
+			format "\t\t</Brothers>\n" to:file
 		)
 		
 		format "\t</group>\n" to:file
