@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<characters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation='characters_properties.xsd'>
+  <default_properties core="caperucita">
+      <life>100</life>
+      <strong>12</strong>
+      <speed>10</speed>
+      <direction>0 0 0</direction>
+	  <RespawnPosition>0 100 0</RespawnPosition>
+  </default_properties>
+  <default_properties core="lobo">
+      <life>200</life>
+      <strong>22</strong>
+      <speed>15</speed>
+      <direction>-10 -2 4</direction>
+  </default_properties>
+  <player name="Jolete" core="caperucita" animated_instace_name="lobo1" >
+      <life>10</life>
+      <strong>30</strong>
+      <speed>25</speed>
+      <direction>0 10 0</direction>
+	  <RespawnPosition>0 10 0</RespawnPosition>
+	  <Position>0 10 0</Position>
+  </player>
+  <enemies>
+	<enemy name="enemy1" core="lobo" animated_instace_name="lobo2" >
+        <life>120</life>
+        <strong>13</strong>
+        <speed>3</speed>
+        <direction>3 20 -4</direction>
+    </enemy>
+	<enemy name="enemy2" core="lobo" animated_instace_name="lobo3" >
+        <life>130</life>
+        <strong>17</strong>
+        <speed>30</speed>
+        <direction>21 210 -24</direction>
+    </enemy>
+  </enemies>
+</characters>
