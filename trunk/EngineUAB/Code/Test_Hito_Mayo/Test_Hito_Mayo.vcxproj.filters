@@ -3,17 +3,8 @@
   <ItemGroup>
     <ClCompile Include="test.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Camera\FreeCamera.cpp">
-      <Filter>Camera</Filter>
-    </ClCompile>
     <ClCompile Include="DebugScene\Scene.cpp">
       <Filter>DebugScene</Filter>
-    </ClCompile>
-    <ClCompile Include="States\IdleState.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
-    <ClCompile Include="States\PursuitState.cpp">
-      <Filter>States</Filter>
     </ClCompile>
     <ClCompile Include="Characters\Character.cpp">
       <Filter>Characters</Filter>
@@ -21,21 +12,45 @@
     <ClCompile Include="Characters\Player\Player.cpp">
       <Filter>Characters\Player</Filter>
     </ClCompile>
+    <ClCompile Include="Cameras\FreeCamera.cpp">
+      <Filter>Cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\CharacterManager.cpp">
+      <Filter>Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemy\Enemy.cpp">
+      <Filter>Characters\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Properties\Properties.cpp">
+      <Filter>Characters\Properties</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Properties\PropertiesManager.cpp">
+      <Filter>Characters\Properties</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\States\AnimationIdleState.cpp">
+      <Filter>Characters\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\States\AnimationPursuitState.cpp">
+      <Filter>Characters\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\States\AnimationsStates.cpp">
+      <Filter>Characters\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\States\AnimationsStatesManager.cpp">
+      <Filter>Characters\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\States\IdleState.cpp">
+      <Filter>Characters\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\States\PursuitState.cpp">
+      <Filter>Characters\States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestDef.h" />
     <ClInclude Include="Main.h" />
-    <ClInclude Include="Camera\FreeCamera.h">
-      <Filter>Camera</Filter>
-    </ClInclude>
     <ClInclude Include="DebugScene\Scene.h">
       <Filter>DebugScene</Filter>
-    </ClInclude>
-    <ClInclude Include="States\IdleState.h">
-      <Filter>States</Filter>
-    </ClInclude>
-    <ClInclude Include="States\PursuitState.h">
-      <Filter>States</Filter>
     </ClInclude>
     <ClInclude Include="Characters\Character.h">
       <Filter>Characters</Filter>
@@ -46,22 +61,61 @@
     <ClInclude Include="Characters\Player\Player.h">
       <Filter>Characters\Player</Filter>
     </ClInclude>
+    <ClInclude Include="Cameras\FreeCamera.h">
+      <Filter>Cameras</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\CharacterManager.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemy\Enemy.h">
+      <Filter>Characters\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Properties\Properties.h">
+      <Filter>Characters\Properties</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Properties\PropertiesManager.h">
+      <Filter>Characters\Properties</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\States\AnimationIdleState.h">
+      <Filter>Characters\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\States\AnimationPursuitState.h">
+      <Filter>Characters\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\States\AnimationsStates.h">
+      <Filter>Characters\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\States\AnimationsStatesManager.h">
+      <Filter>Characters\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\States\IdleState.h">
+      <Filter>Characters\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\States\PursuitState.h">
+      <Filter>Characters\States</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Camera">
-      <UniqueIdentifier>{e4ded320-6c6f-45e6-a599-0eb3e2e38bdf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="DebugScene">
       <UniqueIdentifier>{a0c3ce20-2194-4cd8-a0c7-2769b20096d5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="States">
-      <UniqueIdentifier>{f2fb26bc-327d-48e3-8bcf-15357039fc9a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Characters">
       <UniqueIdentifier>{fa7f401f-d855-4dcc-85d4-960387743666}</UniqueIdentifier>
     </Filter>
     <Filter Include="Characters\Player">
       <UniqueIdentifier>{37f802fc-e3d5-437b-a3dc-4840f6bd74b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cameras">
+      <UniqueIdentifier>{e4ded320-6c6f-45e6-a599-0eb3e2e38bdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\Properties">
+      <UniqueIdentifier>{b66e57ac-7e94-4df4-95a4-a2c5a2dbfff2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\States">
+      <UniqueIdentifier>{f2fb26bc-327d-48e3-8bcf-15357039fc9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\Enemy">
+      <UniqueIdentifier>{f6474584-c1fa-4fdb-bd30-e803e9fecf2e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

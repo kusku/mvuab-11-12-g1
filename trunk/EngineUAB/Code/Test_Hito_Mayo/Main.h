@@ -5,39 +5,46 @@
 
 #include "EngineProcess.h"
 #include "Characters\Player\Player.h"
-#include "Camera\FreeCamera.h"
+#include "Cameras\FreeCamera.h"
 
 class CScene;
 class CThPSCamera;
 class CCamera;
+class CCharactersManager;
 
 class CMain : public CEngineProcess
 {
 public:
-	CMain(void);
-	~CMain(void);
+	// ------------- Constructors i Destructors --------------------------
+					CMain(void);
+					~CMain(void);
 
+	// ------------- Mètodes Principals -----------------------------------
 	bool			Init				( void );
 	void			Update				( float _ElapsedTime );
-	void			Render				( CRenderManager &RM );
-
-	CCamera* GetCamera () const { return m_pCamera; }
+	void			Render				( CRenderManager &_RM );
 
 private:
 	void			UpdateInputs		( float _ElapsedTime );
 
-private: 
-	CScene		*m_pScene;
-	CThPSCamera *m_pThPSCamera;
-	CThPSCamera *m_pThPSFreeCamera;
+	//----Properties ( get & Set )----------------------------------------
+public:
+	CCamera*		GetCamera			( void ) const			{ return m_pCamera; }
 
-	CPlayer		m_Player;
-	CFreeCamera m_FreeCamera;
+	//----Members --------------------------------------------------------
+private:
+	CCharactersManager			*m_pCharactersManager;
+	CScene						*m_pScene;
+	CThPSCamera					*m_pThPSCamera;
+	CThPSCamera					*m_pThPSFreeCamera;
 
-	CCamera		*m_pFreeCamera;
+	CPlayer						*m_Player;
+	CFreeCamera					m_FreeCamera;
 
-	Vect2i pos;
-	Vect2i screen;
+	CCamera						*m_pFreeCamera;
+
+	Vect2i						pos;
+	Vect2i						screen;
 };
 
 #endif

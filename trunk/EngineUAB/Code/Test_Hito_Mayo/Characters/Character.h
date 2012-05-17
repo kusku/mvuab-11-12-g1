@@ -26,22 +26,26 @@ class CCharacter : public CBaseGameEntity, public CObject3D, public CNamed //, p
 {
 public:
 	// ------------- Constructors i Destructors --------------
-					CCharacter			( int _Id );
-					CCharacter			( int _Id, const std::string &_Name );
-	virtual			~CCharacter			( void );
+								CCharacter			( int _Id );
+								CCharacter			( int _Id, const std::string &_Name );
+	virtual						~CCharacter			( void );
 
 
 	//----Main Functions --------------------------------------
-	virtual bool	Init				( void );
-	virtual bool	HandleMessage		( const Telegram& _Msg );
-	virtual void	Update				( float _ElapsedTime );
+	virtual bool					Init				( const std::string &_Name, const Vect3f &_InitialPosicion );
+	virtual bool				HandleMessage		( const Telegram& _Msg, bool _Logic = true, bool _Graphic = true  );		// Envia telegramas a las máquinas de estados
+	virtual bool				HandleMessage		( const Telegram& _Msg );
+	virtual void				Update				( float _ElapsedTime );
 
 	//----Functions -------------------------------------------
-	void			MoveController		( const Vect3f &_Dir, float _ElapsedTime );
+	void						MoveController		( const Vect3f &_Dir, float _ElapsedTime );
 
 	//----Properties ( get & Set )-----------------------------
-	CStateMachine<CCharacter>*	GetFSM				( void ) const			{ return m_pLogicStateMachine; }
-	CAnimatedInstanceModel*		GetAnimatedModel	( void ) const			{ return m_pCurrentAnimatedModel; }
+	virtual inline CStateMachine<CCharacter>*		GetLogicFSM			( void ) const			{ return m_pLogicStateMachine; }
+	virtual inline CStateMachine<CCharacter>*		GetGraphicFSM		( void ) const			{ return m_pGraphicStateMachine; }
+	virtual inline CPhysicController*				GetControler		( void ) const			{ return m_pController; }
+	virtual inline CAnimatedInstanceModel*			GetAnimatedModel	( void ) const			{ return m_pCurrentAnimatedModel; }
+
 
 	void						SetPrevPosition		( Vect3f pos )			{ m_PrevPosition = pos; }
 	const Vect3f&				GetPrevPosition		( void ) const			{ return m_PrevPosition; }
@@ -51,17 +55,12 @@ private:
 	bool							m_bIsOk;
 	
 protected:
-	CStateMachine<CCharacter>		*m_pLogicStateMachine;			// Part de lógica. Control de la màquina d'estats del personatge
-	CAnimatedInstanceModel			*m_pCurrentAnimatedModel;	// Part de gráfics. Manté un punté a l'animació en curs
+	CStateMachine<CCharacter>	  *	m_pLogicStateMachine;		// Part de lógica. Control de la màquina d'estats del personatge
+	CStateMachine<CCharacter>	  *	m_pGraphicStateMachine;		// Part de gráfics. Control de la màquina d'estats d'animació del personatge
+	CAnimatedInstanceModel		  * m_pCurrentAnimatedModel;	// Part de gráfics. Manté un punté a l'animació en curs
 
-	CPhysicController				*m_pController;
-	CPhysicUserData					*m_pPhysicUserDataJugador;
-
-	CPursuitState					*m_pPursuitState;
-	CIdleState						*m_pIdleState;
-
-	int								m_State;
-	int								m_Life;
+	CPhysicController			  * m_pController;
+	CPhysicUserData				  * m_pPhysicUserDataJugador;
 
 	Vect3f							m_PrevPosition;
 };
