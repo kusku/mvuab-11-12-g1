@@ -5,11 +5,13 @@
 #include "Base.h"
 #include "Logger/Logger.h"
 #include "AStar.h"
+#include "Core.h"
+#include "RenderManager.h"
 
 CWayPointManager::CWayPointManager()
 	: m_Filename("")
 {
-
+	srand ( (uint32)time(NULL) );
 }
 
 CWayPointManager::~CWayPointManager()
@@ -277,17 +279,22 @@ std::vector<Vect3f> CWayPointManager::GetPath(const std::string& groupName, cons
 
 	CWayPoint* startPos = GetClosestWayPoint(groupName, curPos);
 	assert(startPos);
-
+	
 	CWayPoint* endPos = GetClosestWayPoint(groupName, destPos);
 	assert(endPos);
 
 	std::list<Vect3f> posList = GetPath(startPos, endPos);
-
-	std::list<Vect3f>::iterator it = posList.begin();
-	std::list<Vect3f>::iterator itEnd = posList.end();
-	for (; it != itEnd; ++it)
+	
+	if(posList.size() > 0)
 	{
-		vecPath.push_back(*it);
+		std::list<Vect3f>::iterator it = posList.begin();
+		std::list<Vect3f>::iterator itEnd = posList.end();
+		for (; it != itEnd; ++it)
+		{
+			vecPath.push_back(*it);
+		}
+
+		vecPath.push_back(destPos);
 	}
 
 	return vecPath;
@@ -319,4 +326,46 @@ CWayPoint* CWayPointManager::GetClosestWayPoint( const std::string& groupName, c
 	}
 
 	return wp;
+}
+
+CWayPoint* CWayPointManager::GetRandomWayPoint( const std::string& groupName )
+{
+	if(m_WPGroups.find(groupName) == m_WPGroups.end() && m_WPGroups[groupName].size() == 0)
+	{
+		return NULL;
+	}
+
+	int idx = rand() % m_WPGroups[groupName].size();
+
+	WayPointListIt it = m_WPGroups[groupName].begin();
+	WayPointListIt itEnd = m_WPGroups[groupName].end();
+
+	for (int i = 0; i < idx; ++i, ++it);
+
+	return (*it);
+}
+
+void CWayPointManager::DebugRender()
+{
+	CORE->GetRenderManager()->SetTransform(m44fIDENTITY);
+
+	WayPointGroupMapIt itMap = m_WPGroups.begin();
+	WayPointGroupMapIt itMapEnd = m_WPGroups.end();
+
+	for (; itMap != itMapEnd; ++itMap)
+	{
+		WayPointListIt it = itMap->second.begin();
+		WayPointListIt itEnd = itMap->second.end();
+
+		for (; it != itEnd; ++it)
+		{
+			CWayPoint *wp = (*it);
+
+			Mat44f trans = m44fIDENTITY;
+			trans.Translate((*it)->GetPosition());
+			CORE->GetRenderManager()->SetTransform(trans);
+
+			CORE->GetRenderManager()->DrawCube(Vect3f(2.0f, 2.0f, 2.0f), colRED);
+		}
+	}
 }

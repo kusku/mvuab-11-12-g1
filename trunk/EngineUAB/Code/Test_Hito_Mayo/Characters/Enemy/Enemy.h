@@ -6,6 +6,7 @@
 #include <string>
 #include "Characters\Character.h"
 #include "Math\Vector3.h"
+#include <vector>
 
 //---Forward Declarations---
 class CRenderManager;
@@ -16,6 +17,7 @@ class CIdleState;
 class CPursuitState;
 class CAnimationIdleState;
 class CAnimationPursuitState;
+class CWayPoint;
 //--------------------------
 
 class CEnemy : public CCharacter
@@ -45,6 +47,8 @@ private:
 	//void						UpdateInputActions	( float _ElapsedTime ); //, CCamera* _pCamera ); 	NO CAL!! en principi el player té associada la càmera o al revés. A més, per commutar 1a 3a camera no serviria
 	void						Release				( void );
 
+	void						GetWavePoint		();
+
 	//---- Properties ( get & Set )---------------------------------------
 public:
 	char *						GetName				( void ) const;
@@ -66,6 +70,10 @@ protected:
 private:
 	bool							m_bMoverAutomatico;
 	bool							m_bLockCamera;
+
+	CWayPoint*						m_DestWavePoint;
+	std::vector<Vect3f>				m_WavePoints;
+	int								m_CurrentWPIndex;
 
 	CProperties					  *	m_pEnemyProperties;
 	CAnimationsStates			  *	m_pEnemyAnimationsStates;
