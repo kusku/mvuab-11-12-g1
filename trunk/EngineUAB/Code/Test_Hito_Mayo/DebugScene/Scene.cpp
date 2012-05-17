@@ -69,10 +69,10 @@ void CScene::CreateScene( void )
 	CreateGrid();
 
 	// Creem unes escales
-	CreateStairs();
+	//CreateStairs();
 
 	// Box que fa de pla
-	CreateBox( Vect3f(0.f, 0.0f, 0.f), Vect3f(50, 0.0001f, 50), 0.f, 10.f, true, ::ECG_OBJECTES_DINAMICS );
+	CreateBox( Vect3f(0.f, 0.0f, 0.f), Vect3f(500, 0.0001f, 500), 0.f, 10.f, true, ::ECG_OBJECTES_DINAMICS );
 }
 
 // ------------ Crea unes escales ----------
