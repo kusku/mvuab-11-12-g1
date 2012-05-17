@@ -29,4 +29,5 @@
 	<TriggersSystem triggersXML="./Data/XML/triggers.xml" />
 	<GUI guiXML="./Data/XML/gui.xml" />
 	<Sound soundXML="./Data/XML/sounds.xml" />
+	<Waypoints wayPointsXML="./Data/XML/waypoints.xml" />
 </Config>
