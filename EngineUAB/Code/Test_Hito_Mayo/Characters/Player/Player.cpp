@@ -1,3 +1,5 @@
+#define NOMINMAX
+
 #include "Player.h"
 #include "Characters\PlayerDef.h"
 
@@ -9,6 +11,7 @@
 #include "RenderManager.h"
 
 #include "PhysicController.h"
+#include "CharacterController.h"
 
 #include "RenderableObjects\RenderableObjectsLayersManager.h"
 #include "RenderableObjects\RenderableObjectsManager.h"
@@ -18,8 +21,13 @@
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 
 #include "StatesMachine\EntityManager.h"
-#include "States\IdleState.h"
-#include "States\PursuitState.h"
+#include "Characters\Properties\Properties.h"
+
+#include "Characters\States\AnimationsStates.h"
+#include "Characters\States\PursuitState.h"
+#include "Characters\States\IdleState.h"
+#include "Characters\States\AnimationIdleState.h"
+#include "Characters\States\AnimationPursuitState.h"
 
 #include "Math\Matrix44.h"
 #include "Base.h"
@@ -33,18 +41,29 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CPlayer::CPlayer( void )
-	: CCharacter			( 0 )					// El player tiene el ID = 0 
-	, m_vDirection			( 0.0f, 0.0f, 0.0f )
-	, m_bMoverAutomatico	( false )
-	, m_bLockCamera			( false )
+	: CCharacter				( 0 )					// El player tiene el ID = 0 
+	, m_pPlayerProperties		( NULL )
+	, m_pPlayerAnimationsStates	( NULL )
+	, m_bMoverAutomatico		( false )
+	, m_bLockCamera				( false )
+	, m_pPursuitState			( NULL )
+	, m_pIdleState				( NULL )
+	, m_pAnimationPursuitState	( NULL )
+	, m_pAnimationIdleState		( NULL )
 {
 }
 
 CPlayer::CPlayer ( const std::string &_Name )
-	: CCharacter			( 0, _Name )					// El player tiene el ID = 0 
-	, m_vDirection			( 0.0f, 0.0f, 0.0f )
-	, m_bMoverAutomatico	( false )
-	, m_bLockCamera			( false )
+	: CCharacter				( 0, _Name )			// El player tiene el ID = 0 
+	, m_pPlayerProperties		( NULL )
+	, m_pPlayerAnimationsStates	( NULL )
+	, m_bMoverAutomatico		( false )
+	, m_bLockCamera				( false )
+	, m_pPursuitState			( NULL )
+	, m_pIdleState				( NULL )
+	, m_pAnimationPursuitState	( NULL )
+	, m_pAnimationIdleState		( NULL )
+	, m_vDirection				( 0.0f, 0.0f, 0.0f )
 {
 }
 
@@ -67,38 +86,81 @@ void CPlayer::Done ( void )
 
 bool CPlayer::Init ( void )
 {
-	m_bIsOk = CCharacter::Init();
-	if ( m_bIsOk )
-	{		
-		CRenderableObjectsLayersManager *l_ROLayerManager = CORE->GetRenderableObjectsLayersManager();
-		CRenderableObjectsManager *l_ROManager = l_ROLayerManager->GetResource("solid");
-		CRenderableObject *l_RO = l_ROManager->GetInstance( "lobo1" );
+	// Aquí ya debería tener cargadas las propiedades del player
+	m_bIsOk = CCharacter::Init( m_pPlayerProperties->GetName(), m_pPlayerProperties->GetPosition() );
+	
+	//m_pPlayerController = dynamic_cast<CCharacterController> m_pController;
+/*	m_pPlayerProperties->SetPitch	(-D3DX_PI/6);
+	m_pPlayerProperties->SetYaw		(0.0f);
+	m_pPlayerProperties->SetRoll	(0.0f);*/
 
-		if ( !l_RO ) 
-			l_ROManager->AddAnimatedMeshInstance( m_Name, Vect3f (0.f, 0.f, 0.f ) );
-		else
-			m_pCurrentAnimatedModel = static_cast<CAnimatedInstanceModel*> (l_RO);
+	if ( !m_bIsOk )
+		return false;
 
-		/*if ( m_pCurrentAnimatedModel )
-		{
-			m_pCurrentAnimatedModel->ClearCycle ( 0.3f );
-			m_pCurrentAnimatedModel->BlendCycle ( 0, 0.3f );
-		}*/
+	// Inicializo estados
+	m_pPursuitState				= new CPursuitState();
+	m_pIdleState				= new CIdleState();
+	m_pAnimationIdleState		= new CAnimationIdleState();
+	m_pAnimationPursuitState	= new CAnimationPursuitState();
+
+	CRenderableObjectsLayersManager *l_ROLayerManager = CORE->GetRenderableObjectsLayersManager();
+	CRenderableObjectsManager *l_ROManager = l_ROLayerManager->GetResource("solid");
+	CRenderableObject *l_RO = l_ROManager->GetInstance( m_pPlayerProperties->GetAnimationInstance() );
+
+	if ( !l_RO ) 
+		l_ROManager->AddAnimatedMeshInstance( m_pPlayerProperties->GetName(), Vect3f (0.f, 0.f, 0.f ) );
+	else
+		m_pCurrentAnimatedModel = static_cast<CAnimatedInstanceModel*> (l_RO);
+
+	if ( m_pCurrentAnimatedModel )
+	{
+		// coloco el primer estado
+		m_pLogicStateMachine->SetCurrentState  ( m_pIdleState );
+		m_pGraphicStateMachine->SetCurrentState( m_pAnimationIdleState );
 	}
-
+	
+	// Actualizamos el Yaw y lo asignamos al controler
 	float l_Yaw = m_pCurrentAnimatedModel->GetYaw();
-	m_pCurrentAnimatedModel->SetYaw( l_Yaw + mathUtils::Rad2Deg(m_fYaw) );
-
-	m_pController->SetYaw(m_fYaw);
-
+	m_pCurrentAnimatedModel->SetYaw( l_Yaw + mathUtils::Rad2Deg( m_pPlayerProperties->GetYaw() ) );
+	m_pController->SetYaw( m_pPlayerProperties->GetYaw() );
+	
 	return m_bIsOk;
 }
 
 void CPlayer::Release ( void )
 {
+	m_pPlayerProperties = NULL;
+	m_pPlayerAnimationsStates = NULL;
+
+	CHECKED_DELETE ( m_pPursuitState );
+	CHECKED_DELETE ( m_pIdleState );
+
+	CHECKED_DELETE ( m_pAnimationIdleState );
+	CHECKED_DELETE ( m_pAnimationPursuitState );
+
+	/*CHECKED_DELETE( m_pPlayerProperties );
+	CHECKED_DELETE( m_pPlayerAnimationsStates );*/
 }
 
 void CPlayer::Update( float _ElapsedTime, CCamera *_Camera )
+{
+	Vect3f	l_PosAnterior = m_pController->GetPosition();
+	UpdateInputActions( _ElapsedTime, _Camera );
+	Vect3f	l_PosActual	= m_pController->GetPosition();
+	
+	if ( l_PosAnterior != l_PosActual )
+	{
+		m_pLogicStateMachine->ChangeState	 ( m_pPursuitState);
+		m_pGraphicStateMachine->ChangeState  ( m_pAnimationPursuitState );
+	}
+	else
+	{
+		m_pLogicStateMachine->ChangeState	( m_pIdleState );
+		m_pGraphicStateMachine->ChangeState ( m_pAnimationIdleState );
+	}
+}
+
+void CPlayer::UpdateInputActions( float _ElapsedTime, CCamera *_Camera )
 {
 	if( !m_bLockCamera )
 	{
@@ -107,7 +169,7 @@ void CPlayer::Update( float _ElapsedTime, CCamera *_Camera )
 		Vect3f l_Position = Vect3f(0.f, 0.f, 0.f);
 
 		CActionToInput *action2Input = CORE->GetActionToInput();
-		CThPSCamera* l_ThPSCamera = static_cast<CThPSCamera*>(_Camera);
+		CThPSCamera* l_ThPSCamera = static_cast<CThPSCamera*>( _Camera );
 
 		m_fYaw = m_pController->GetYaw();
 		if ( action2Input->DoAction("YawViewerCam", d) )
