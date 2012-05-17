@@ -1,3 +1,5 @@
+#define NOMINMAX
+
 #include "CharacterManager.h"
 
 #include <windows.h>
@@ -13,6 +15,9 @@
 #include "RenderableObjects\RenderableObjectsLayersManager.h"
 #include "RenderableObjects\RenderableObjectsManager.h"
 #include "RenderableObjects\RenderableObject.h"
+
+#include "PhysicController.h"
+#include "CharacterController.h"
 
 #include "characters\Properties\PropertiesManager.h"
 #include "characters\Properties\Properties.h"
@@ -134,11 +139,7 @@ void CCharactersManager::Update ( float _ElapsedTime )
 	for ( size_t i = 0; i < l_EnemyList.size(); i++ )
 	{
 		// solo para test de movimiento!!
-		CEnemy *l_Enemy = dynamic_cast<CEnemy*> (l_EnemyList[i]);
-		l_Enemy->MoveCharacterToDestination( Vect3f(400.f, 1.f, 100.f), _ElapsedTime );
-		l_Enemy->MoveController ( l_Enemy->GetPosition(), _ElapsedTime );
-		l_Enemy->GetAnimatedModel()->SetPosition( l_Enemy->GetPosition() );
-		//l_EnemyList[i]->Update( _ElapsedTime );
+		l_EnemyList[i]->Update( _ElapsedTime );
 	}
 	
 }
