@@ -87,7 +87,7 @@ void CPlayer::Done ( void )
 bool CPlayer::Init ( void )
 {
 	// Aquí ya debería tener cargadas las propiedades del player
-	m_bIsOk = CCharacter::Init( m_pPlayerProperties->GetName(), m_pPlayerProperties->GetPosition() );
+	m_bIsOk = CCharacter::Init( m_pPlayerProperties->GetName(), m_pPlayerProperties->GetPosition(), ::ECG_PERSONATGE );
 	
 	//m_pPlayerController = dynamic_cast<CCharacterController> m_pController;
 /*	m_pPlayerProperties->SetPitch	(-D3DX_PI/6);

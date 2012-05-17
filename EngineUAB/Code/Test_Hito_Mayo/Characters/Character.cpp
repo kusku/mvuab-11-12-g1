@@ -56,7 +56,7 @@ CCharacter::~CCharacter( void )
 // -----------------------------------------
 //			METODES PRINCIPALS
 // -----------------------------------------
-bool CCharacter::Init ( const std::string &_Name, const Vect3f &_InitialPosicion )
+bool CCharacter::Init ( const std::string &_Name, const Vect3f &_InitialPosicion, ECollisionGroup _Grup )
 {
 	//Create a dynamic Player     
 	m_pPhysicUserDataJugador = new CPhysicUserData ( m_Name );
@@ -64,13 +64,11 @@ bool CCharacter::Init ( const std::string &_Name, const Vect3f &_InitialPosicion
 	m_pPhysicUserDataJugador->SetPaint ( true );
 
 	// Creo el controlador del jugador
-	m_pController = new CPhysicController ( 1.f, 1.5f, 45.f, 0.1f, 0.5f, ::ECG_PERSONATGE, m_pPhysicUserDataJugador );
+	m_pController = new CPhysicController ( 1.f, 1.5f, 45.f, 0.1f, 0.5f, _Grup, m_pPhysicUserDataJugador );
 	m_pController->SetPosition	( Vect3f( 0.f, 3.5f, 0.f ) );
 	m_pController->SetVisible	( true );
 	
 	CORE->GetPhysicsManager()->AddPhysicController( m_pController );
-
-	//m_pLogicStateMachine->SetCurrentState( m_pIdleState );
 
 	return m_bIsOk;
 }
