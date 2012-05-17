@@ -13,6 +13,8 @@
 
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 
+#include "PhysicsDefs.h"
+
 //--- Foward Declarations ---//
 //class CState;
 class CPhysicController;
@@ -32,7 +34,7 @@ public:
 
 
 	//----Main Functions --------------------------------------
-	virtual bool					Init				( const std::string &_Name, const Vect3f &_InitialPosicion );
+	virtual bool				Init				( const std::string &_Name, const Vect3f &_InitialPosicion, ECollisionGroup _Grup );
 	virtual bool				HandleMessage		( const Telegram& _Msg, bool _Logic = true, bool _Graphic = true  );		// Envia telegramas a las máquinas de estados
 	virtual bool				HandleMessage		( const Telegram& _Msg );
 	virtual void				Update				( float _ElapsedTime );

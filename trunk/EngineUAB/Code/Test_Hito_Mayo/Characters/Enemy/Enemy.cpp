@@ -82,7 +82,7 @@ void CEnemy::Done ( void )
 bool CEnemy::Init ( void )
 {
 	// Aquí ya debería tener cargadas las propiedades del player
-	m_bIsOk = CCharacter::Init( m_pEnemyProperties->GetName(), m_pEnemyProperties->GetPosition() );
+	m_bIsOk = CCharacter::Init( m_pEnemyProperties->GetName(), m_pEnemyProperties->GetPosition(), ::ECG_ENEMICS );
 	if ( !m_bIsOk )
 		return false;
 
