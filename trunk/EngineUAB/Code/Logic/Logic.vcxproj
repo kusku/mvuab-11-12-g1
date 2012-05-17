@@ -11,6 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Movement\AStar.cpp" />
+    <ClCompile Include="Movement\WayPoint.cpp" />
+    <ClCompile Include="Movement\WayPointManager.cpp" />
     <ClCompile Include="Scripting\ScriptManager.cpp" />
     <ClCompile Include="StatesMachine\BaseGameEntity.cpp" />
     <ClCompile Include="StatesMachine\EntityManager.cpp" />
@@ -18,6 +21,9 @@
     <ClCompile Include="Triggers\TriggersManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Movement\AStar.h" />
+    <ClInclude Include="Movement\WayPoint.h" />
+    <ClInclude Include="Movement\WayPointManager.h" />
     <ClInclude Include="Scripting\LuaHelperFunctions.h" />
     <ClInclude Include="Scripting\ScriptingDefs.h" />
     <ClInclude Include="Scripting\ScriptManager.h" />

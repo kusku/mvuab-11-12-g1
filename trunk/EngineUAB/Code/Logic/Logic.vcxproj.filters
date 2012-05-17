@@ -16,6 +16,15 @@
     <ClCompile Include="StatesMachine\MessageDispatcher.cpp">
       <Filter>IA\State Machine\Messages</Filter>
     </ClCompile>
+    <ClCompile Include="Movement\AStar.cpp">
+      <Filter>IA\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="Movement\WayPointManager.cpp">
+      <Filter>IA\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="Movement\WayPoint.cpp">
+      <Filter>IA\Movement</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StatesMachine\State.h">
@@ -54,6 +63,15 @@
     <ClInclude Include="Scripting\LuaHelperFunctions.h">
       <Filter>Scripting</Filter>
     </ClInclude>
+    <ClInclude Include="Movement\AStar.h">
+      <Filter>IA\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="Movement\WayPointManager.h">
+      <Filter>IA\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="Movement\WayPoint.h">
+      <Filter>IA\Movement</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scripting">
@@ -82,6 +100,9 @@
     </Filter>
     <Filter Include="IA\Fuzzy Machine">
       <UniqueIdentifier>{b53e8718-090a-4ca6-a9a5-eca6931ed451}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IA\Movement">
+      <UniqueIdentifier>{b0c4d1db-576f-45e4-9bf9-284b1989c842}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
