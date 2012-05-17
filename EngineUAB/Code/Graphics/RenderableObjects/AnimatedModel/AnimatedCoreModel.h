@@ -51,6 +51,8 @@ public:
 	const std::string&		GetTextureName			( size_t id )		{ return m_TextureFilenameVector[id]; }
 	CTexture*				GetTextureById			( uint16 id )		{ return m_TextureVector[id]; }
 
+
+					
 	//----Members -----------------------------------------------------------
 private:
 	CalCoreModel*				m_CalCoreModel;
