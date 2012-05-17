@@ -28,4 +28,5 @@
 	<GUI guiXML="./Data/XML/gui.xml" />
 	<Modifiers modifiersXML="./Data/XML/modifiers.xml" />
 	<Debug_Options debug_options_xml="./data/xml/debug_options.xml" />
+	<Waypoints wayPointsXML="./Data/XML/waypoints.xml" />
 </Config>
