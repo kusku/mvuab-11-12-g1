@@ -54,7 +54,7 @@ public:
 	const Vect3f&				GetPrevPosition		( void ) const			{ return m_PrevPosition; }
 
 	// Obtengo el angulo que forma donde mira
-	inline Vect3f				GetFront			( void ) const			{ Vect3f l_Front; l_Front.GetRotatedY( GetYaw() ) ; return l_Front; }
+	inline Vect3f				GetFront			( void ) const			{ Vect3f l_Front; l_Front.GetXZFromAngle( GetYaw() ) ; return l_Front; }
 																			//{ Vect3f front; front.xzFromAngle( m_Yaw ); return front; }
 
 	bool						isPointAtLeft		( const Vect3f &_Position ) const	
