@@ -2,10 +2,12 @@
 #include "Engine.h"
 #include "Base.h"
 #include "Logger\Logger.h"
-#include "Main.h"
+#include "GameProcess.h"
+#include "GUIProcess.h"
 #include "Math\Vector2.h"
 #include "Exceptions\Exception.h"
 #include "Core.h"
+#include "TestDef.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -14,6 +16,10 @@
 #define APPLICATION_NAME	"TEST_HITO_MAYO"
 
 CEngine *g_Engine = NULL;
+CGUIProcess* g_GUIProcess = NULL;
+CGameProcess* g_GameProcess = NULL;
+
+HWND g_hWnd = NULL;
 
 //Headers
 void ShowErrorMessage (const std::string& message);
@@ -31,8 +37,9 @@ LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
     {
       PostQuitMessage( 0 );
       return 0;
+
+	  break;
     }
-    break;
   case WM_KEYDOWN:
     {
       switch( wParam )
@@ -43,8 +50,34 @@ LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
         return 0;
         break;
       }
+	  break;
     }
-    break;
+	case WM_GAME_PROCESS:
+		{
+			if( g_GameProcess == NULL )
+			{
+				g_GameProcess = new CGameProcess(g_hWnd);
+				g_GameProcess->Init();
+			}
+
+			g_Engine->SetProcess( g_GameProcess );
+			CORE->SetProcess(g_GameProcess);
+			CORE->SetGameMode(true);
+			break;
+		}
+	case WM_GUI_PROCESS:
+		{
+			if( g_GUIProcess == NULL )
+			{
+				g_GUIProcess = new CGUIProcess(g_hWnd);
+				g_GUIProcess->Init();
+			}
+
+			g_Engine->SetProcess( g_GUIProcess );
+			CORE->SetProcess(g_GUIProcess);
+			CORE->SetGameMode(false);
+			break;
+		}
   }//end switch( msg )
 
   return DefWindowProc( hWnd, msg, wParam, lParam );
@@ -69,20 +102,19 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 		Vect2i resolution	= g_Engine->GetResolution();
 
 		// Create the application's window
-		HWND hWnd = CreateWindow(	APPLICATION_NAME, APPLICATION_NAME, WS_OVERLAPPEDWINDOW, position.x, position.y,
+		g_hWnd = CreateWindow(	APPLICATION_NAME, APPLICATION_NAME, WS_OVERLAPPEDWINDOW, position.x, position.y,
 				resolution.x, resolution.y, NULL, NULL, wc.hInstance, NULL );
 
-		CMain* l_Main;
-		l_Main = new CMain();
+		g_GUIProcess = new CGUIProcess(g_hWnd);
 
-		g_Engine->SetProcess(l_Main);
-		g_Engine->Init(hWnd);
+		g_Engine->SetProcess(g_GUIProcess);
+		g_Engine->Init(g_hWnd);
 
-		CORE->SetProcess(l_Main);
-		CORE->SetGameMode(true);
+		CORE->SetProcess(g_GUIProcess);
+		CORE->SetGameMode(false);
 
-		ShowWindow( hWnd, SW_SHOWDEFAULT );
-		UpdateWindow( hWnd );
+		ShowWindow( g_hWnd, SW_SHOWDEFAULT );
+		UpdateWindow( g_hWnd );
 		MSG msg;
 		ZeroMemory( &msg, sizeof(msg) );
 
@@ -110,6 +142,9 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 	UnregisterClass( APPLICATION_NAME, wc.hInstance );
 
 	CHECKED_DELETE(g_Engine);
+	CHECKED_DELETE(g_GUIProcess);
+	CHECKED_DELETE(g_GameProcess);
+
   return 0;
 }
 

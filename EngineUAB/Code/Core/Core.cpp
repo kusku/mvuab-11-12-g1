@@ -292,6 +292,7 @@ void CCore::Update( float _ElapsedTime )
 	// Tratamos mensajes en cola en cada frame --> se establecen los cambios de estado de las entidades registradas
 	m_pMessageDispatcher->DispatchDelayedMessages();
 
+	m_pSoundManager->Update(_ElapsedTime);
 
 	if( m_bDebugMode )
 	{

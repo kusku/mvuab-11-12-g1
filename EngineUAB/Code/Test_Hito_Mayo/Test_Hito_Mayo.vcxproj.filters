@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="test.cpp" />
-    <ClCompile Include="Main.cpp" />
     <ClCompile Include="DebugScene\Scene.cpp">
       <Filter>DebugScene</Filter>
     </ClCompile>
@@ -45,10 +44,14 @@
     <ClCompile Include="Characters\States\PursuitState.cpp">
       <Filter>Characters\States</Filter>
     </ClCompile>
+    <ClCompile Include="GameProcess.cpp" />
+    <ClCompile Include="GUIProcess.cpp" />
+    <ClCompile Include="Cameras\StaticCamera.cpp">
+      <Filter>Cameras</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestDef.h" />
-    <ClInclude Include="Main.h" />
     <ClInclude Include="DebugScene\Scene.h">
       <Filter>DebugScene</Filter>
     </ClInclude>
@@ -93,6 +96,11 @@
     </ClInclude>
     <ClInclude Include="Characters\States\PursuitState.h">
       <Filter>Characters\States</Filter>
+    </ClInclude>
+    <ClInclude Include="GameProcess.h" />
+    <ClInclude Include="GUIProcess.h" />
+    <ClInclude Include="Cameras\StaticCamera.h">
+      <Filter>Cameras</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

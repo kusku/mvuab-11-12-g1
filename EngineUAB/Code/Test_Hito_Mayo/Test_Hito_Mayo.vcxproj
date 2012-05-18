@@ -87,6 +87,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Cameras\FreeCamera.cpp" />
+    <ClCompile Include="Cameras\StaticCamera.cpp" />
     <ClCompile Include="Characters\Character.cpp" />
     <ClCompile Include="Characters\CharacterManager.cpp" />
     <ClCompile Include="Characters\Enemy\Enemy.cpp" />
@@ -100,11 +101,13 @@
     <ClCompile Include="Characters\States\IdleState.cpp" />
     <ClCompile Include="Characters\States\PursuitState.cpp" />
     <ClCompile Include="DebugScene\Scene.cpp" />
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="GameProcess.cpp" />
+    <ClCompile Include="GUIProcess.cpp" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cameras\FreeCamera.h" />
+    <ClInclude Include="Cameras\StaticCamera.h" />
     <ClInclude Include="Characters\Character.h" />
     <ClInclude Include="Characters\CharacterManager.h" />
     <ClInclude Include="Characters\Enemy\Enemy.h" />
@@ -119,7 +122,8 @@
     <ClInclude Include="Characters\States\IdleState.h" />
     <ClInclude Include="Characters\States\PursuitState.h" />
     <ClInclude Include="DebugScene\Scene.h" />
-    <ClInclude Include="Main.h" />
+    <ClInclude Include="GameProcess.h" />
+    <ClInclude Include="GUIProcess.h" />
     <ClInclude Include="TestDef.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

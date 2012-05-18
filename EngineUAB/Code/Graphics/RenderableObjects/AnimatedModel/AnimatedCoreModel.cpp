@@ -84,16 +84,25 @@ void CAnimatedCoreModel::Load(const std::string &Path, const std::string &XMLFil
 			l_File = m_Path + l_File;
 			if( l_Type == "mesh" )
 			{
-				LoadMesh( l_File ); //Load Mesh
+				if( !LoadMesh( l_File ) ) //Load Mesh
+				{
+					LOGGER->AddNewLog(ELL_WARNING, "CAnimatedCoreModel::Load->No se ha podido cargar la mesh: %s", l_File.c_str());
+				}
 			}
 			else if( l_Type == "skeleton" )
 			{
-				LoadSkeleton( l_File ); //Load Skeleton
+				if( !LoadSkeleton( l_File ) ) //Load Skeleton
+				{
+					LOGGER->AddNewLog(ELL_WARNING, "CAnimatedCoreModel::Load->No se ha podido cargar el esqueleto: %s", l_File.c_str());
+				}
 			}
 			else if( l_Type == "animation" )
 			{
 				std::string l_AnimationName = l_AnimationCore(i).GetPszProperty("name", "");
-				LoadAnimation( l_AnimationName, l_File ); //Load Animation
+				if( !LoadAnimation( l_AnimationName, l_File ) ) //Load Animation
+				{
+					LOGGER->AddNewLog(ELL_WARNING, "CAnimatedCoreModel::Load->No se ha podido cargar la animación: %s", l_File.c_str());
+				}
 			}
 			else if( l_Type == "texture" )
 			{

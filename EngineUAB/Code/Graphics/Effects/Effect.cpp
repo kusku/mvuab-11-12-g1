@@ -100,7 +100,7 @@ bool CEffect::LoadEffect()
 		}
 		else
 		{
-			l_Err = "Error al cargar el efecto.";
+			l_Err = "Error al cargar el efecto: " + m_FileName;
 		}
 		
 		std::string msg_error = "CEffect::LoadEffect->" + l_Err;

@@ -138,8 +138,8 @@ void CPlayer::Release ( void )
 	CHECKED_DELETE ( m_pAnimationIdleState );
 	CHECKED_DELETE ( m_pAnimationPursuitState );
 
-	/*CHECKED_DELETE( m_pPlayerProperties );
-	CHECKED_DELETE( m_pPlayerAnimationsStates );*/
+	//CHECKED_DELETE( m_pPlayerProperties );
+	//CHECKED_DELETE( m_pPlayerAnimationsStates );
 }
 
 void CPlayer::Update( float _ElapsedTime, CCamera *_Camera )
