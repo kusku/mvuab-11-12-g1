@@ -408,7 +408,7 @@ void CStaticMesh::AddTexVecToTexManager(std::vector<CTexture*>& textVector)
 {
 	for(uint32 i = 0; i < textVector.size(); ++i)
 	{
-		assert( CORE->GetTextureManager()->AddResource(textVector[i]->GetName(), textVector[i]) );
+		CORE->GetTextureManager()->AddResource(textVector[i]->GetName(), textVector[i]);
 	}
 }
 

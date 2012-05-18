@@ -1,0 +1,7 @@
+<animated_model name="caperucita">
+	<skeleton filename="Caperucita_Skeleton_v2.xsf"/>
+	<mesh filename="Caperucita_Mesh.cmf"/>
+	<animation name="run" filename="Caperucita_RUN.caf"/>
+	<animation name="attack" filename="Caperucita_ATTACK.caf"/>
+	<texture filename="texture.jpg"/>
+</animated_model>
