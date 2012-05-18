@@ -247,6 +247,10 @@ bool CSceneRendererCommandManager::LoadXML ( bool _IsGUI )
 					{
 						l_ActiveCommand = new CRenderDebugSoundsSceneRendererCommand( l_Commands(i) );
 					}	
+					else if( l_Type == "render_debug_waypoints" )
+					{
+						l_ActiveCommand = new CRenderDebugWayPointSceneRendererCommand( l_Commands(i) );
+					}	
 				}
 			}
 
