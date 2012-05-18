@@ -34,6 +34,7 @@
 
 #include "Math\Matrix44.h"
 #include "Math\Plane.h"
+#include "Math\Vector2.h"
 
 #include "Base.h"
 #include "Core.h"
@@ -151,7 +152,10 @@ void CEnemy::Update( float _ElapsedTime ) //, CCamera *_pCamera)
 		}
 	}
 
-	if(m_WavePoints[m_CurrentWPIndex].SqDistance(m_Position) < 0.2f)
+	Vect2f pointA(m_WavePoints[m_CurrentWPIndex].x, m_WavePoints[m_CurrentWPIndex].z);
+	Vect2f pointB(m_Position.x, m_Position.z);
+
+	if(pointA.SqDistance(pointB) < 0.2f)
 	{
 		m_CurrentWPIndex++;
 		return;

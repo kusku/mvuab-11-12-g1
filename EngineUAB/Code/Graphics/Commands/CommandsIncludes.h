@@ -31,6 +31,7 @@
 #include "Commands\SetRenderTargetSceneRendererCommand.h"
 #include "Commands\SkySphereCommand.h"
 #include "Commands\UnsetRenderTargetSceneRendererCommand.h"
+#include "Commands\RenderDebugWayPointSceneRendererCommand.h"
 
 
 #endif __CLASS_COMMANDS_INCLUDES_H__
