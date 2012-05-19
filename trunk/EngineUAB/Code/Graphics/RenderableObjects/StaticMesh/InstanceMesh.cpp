@@ -135,7 +135,7 @@ void CInstanceMesh::CrearPhysicMesh ( const std::string &_Name )
 		l_pPhysicUserDataMesh = new CPhysicUserData( GetName()  );
 		l_pPhysicUserDataMesh->SetPaint (true);
 		l_MeshActor = new CPhysicActor( l_pPhysicUserDataMesh );
-		l_MeshActor->AddMeshShape ( l_pCM->GetPhysicMesh(GetName()), Vect3f (0.f, 0.f, 0.f ) );
+		l_MeshActor->AddMeshShape ( l_pCM->GetPhysicMesh(GetName()), m_Position );
 		//m_AseMeshActor->CreateBody ( 10.f );
 		CORE->GetPhysicsManager()->AddPhysicActor ( l_MeshActor );
 	}
