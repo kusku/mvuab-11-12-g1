@@ -173,7 +173,7 @@ void CEnemy::UpdateMovement(float _ElapsedTime)
 	Vect2f pointA(m_WavePoints[m_CurrentWPIndex].x, m_WavePoints[m_CurrentWPIndex].z);
 	Vect2f pointB(m_Position.x, m_Position.z);
 
-	if(pointA.SqDistance(pointB) < 0.2f)
+	if(pointA.SqDistance(pointB) < 0.3f)
 	{
 		m_CurrentWPIndex++;
 		return;
@@ -190,8 +190,10 @@ void CEnemy::UpdateMovement(float _ElapsedTime)
 		m_fYaw += (-mathUtils::Deg2Rad(90.0f) * _ElapsedTime);
 	}
 
+	Vect3f pointA2(m_WavePoints[m_CurrentWPIndex].x, 0, m_WavePoints[m_CurrentWPIndex].z);
+	Vect3f pointB2(m_Position.x, 0, m_Position.z);
 	Vect3f l_Position = Vect3f(0.0f, 0.0f, 0.0f);
-	Vect3f l_Dir = (m_WavePoints[m_CurrentWPIndex] - m_Position).Normalize();
+	Vect3f l_Dir = (pointA2 - pointB2).Normalize();
 
 	l_Position += l_Dir * 6.0f * _ElapsedTime;
 
