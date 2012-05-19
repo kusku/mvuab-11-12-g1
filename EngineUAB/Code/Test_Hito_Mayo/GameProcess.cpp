@@ -142,23 +142,26 @@ void CGameProcess::UpdateInputs ( float _ElapsedTime )
 		}
 	}
 
-	if( CORE->GetActionToInput()->DoAction(ACTION_MOVE_PLAYER_FOWARD) || 
-		CORE->GetActionToInput()->DoAction(ACTION_MOVE_PLAYER_BACK) ||
-		CORE->GetActionToInput()->DoAction(ACTION_MOVE_PLAYER_LEFT) ||
-		CORE->GetActionToInput()->DoAction(ACTION_MOVE_PLAYER_RIGHT))
+	if( m_pCamera == static_cast<CCamera*>(m_pThPSCamera) )
 	{
-		if( m_AudioIsFade )
+		if( CORE->GetActionToInput()->DoAction(ACTION_MOVE_PLAYER_FOWARD) || 
+			CORE->GetActionToInput()->DoAction(ACTION_MOVE_PLAYER_BACK) ||
+			CORE->GetActionToInput()->DoAction(ACTION_MOVE_PLAYER_LEFT) ||
+			CORE->GetActionToInput()->DoAction(ACTION_MOVE_PLAYER_RIGHT))
 		{
-			CORE->GetSoundManager()->FadeInSource(m_uAudioID, 1.f);
-			m_AudioIsFade = false;
+			if( m_AudioIsFade )
+			{
+				CORE->GetSoundManager()->FadeInSource(m_uAudioID, 0.5f);
+				m_AudioIsFade = false;
+			}
 		}
-	}
-	else
-	{
-		if( !m_AudioIsFade )
+		else
 		{
-			CORE->GetSoundManager()->FadeOutSource(m_uAudioID, 1.f);
-			m_AudioIsFade = true;
+			if( !m_AudioIsFade )
+			{
+				CORE->GetSoundManager()->FadeOutSource(m_uAudioID, 0.5f);
+				m_AudioIsFade = true;
+			}
 		}
 	}
 }
