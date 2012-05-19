@@ -78,10 +78,7 @@ technique BasicDeferredLightingCombine
 {
 	pass p0
 	{
-		AlphaBlendEnable 	= true;
-		SrcBlend			= SrcAlpha;
-		DestBlend			= InvSrcAlpha;
-		BlendOp				= Add;
+		AlphaBlendEnable 	= false;
 		
 		CullMode = CCW;
 		VertexShader = compile vs_3_0 VertexShaderFunction();
