@@ -12,7 +12,6 @@
 class CRenderManager;
 class CCamera;
 class CProperties;
-class CAnimationsStates;
 class CIdleState;
 class CPursuitState;
 class CAnimationIdleState;
@@ -39,12 +38,10 @@ public:
 	//void						RenderScene			( void );
 
 	//---- Functions -----------------------------------------------------
-	void						MoverAutomaticamente( float _ElapsedTime );
-	void						MoverManualmente	( float _ElapsedTime );
 	void						MoveCharacterToDestination	( Vect3f _Destination, float _ElapsedTime );
 
 private:
-	//void						UpdateInputActions	( float _ElapsedTime ); //, CCamera* _pCamera ); 	NO CAL!! en principi el player té associada la càmera o al revés. A més, per commutar 1a 3a camera no serviria
+	void						UpdateMovement		( float l_ElapsedTime );
 	void						Release				( void );
 
 	void						GetWavePoint		();
@@ -60,9 +57,6 @@ public:
 	inline void					SetProperties		( CProperties* _pEnemyProperties )					{ m_pEnemyProperties = _pEnemyProperties; }
 	inline CProperties*			GetProperties		( void ) const										{ return m_pEnemyProperties; }
 
-	inline void					SetAnimationsStates	( CAnimationsStates* _pEnemyAnimationsStates )		{ m_pEnemyAnimationsStates = _pEnemyAnimationsStates; }
-	inline CAnimationsStates*	GetAnimationsStates	( void ) const										{ return m_pEnemyAnimationsStates; }
-
 	//---- Members -------------------------------------------------------
 protected: 
 	bool							m_bIsOk;
@@ -76,7 +70,6 @@ private:
 	int								m_CurrentWPIndex;
 
 	CProperties					  *	m_pEnemyProperties;
-	CAnimationsStates			  *	m_pEnemyAnimationsStates;
 
 	CPursuitState				  * m_pPursuitState;
 	CIdleState					  * m_pIdleState;

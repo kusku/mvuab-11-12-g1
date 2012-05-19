@@ -30,12 +30,10 @@ void CAnimationPursuitState::Execute	( CCharacter* _pCharacter )
 
 // Se ejecuta cuando el estado es entrado
 void CAnimationPursuitState::OnEnter ( CCharacter* _pCharacter )
-{
-	CPlayer * l_Player = dynamic_cast<CPlayer*>  (_pCharacter);
-	
-	CAnimationsStates* l_Anim = l_Player->GetAnimationsStates();
-	std::vector<uint16>* l_Vect = l_Player->GetAnimationsStates()->GetResource( "run" );
-	l_Player->GetAnimatedModel()->BlendCycle ( 1, 0.3f );  //(*l_Vect).at(2), 0.3f );
+{	
+	CAnimationsStates* l_Anim = _pCharacter->GetAnimationsStates();
+	std::vector<uint16>* l_Vect = _pCharacter->GetAnimationsStates()->GetResource( "run" );
+	_pCharacter->GetAnimatedModel()->BlendCycle ( 1, 0.3f );  //(*l_Vect).at(2), 0.3f );
 }
 
 	// Se ejecuta cuando el estado sale

@@ -43,7 +43,6 @@
 CPlayer::CPlayer( void )
 	: CCharacter				( 0 )					// El player tiene el ID = 0 
 	, m_pPlayerProperties		( NULL )
-	, m_pPlayerAnimationsStates	( NULL )
 	, m_bMoverAutomatico		( false )
 	, m_bLockCamera				( false )
 	, m_pPursuitState			( NULL )
@@ -56,7 +55,6 @@ CPlayer::CPlayer( void )
 CPlayer::CPlayer ( const std::string &_Name )
 	: CCharacter				( 0, _Name )			// El player tiene el ID = 0 
 	, m_pPlayerProperties		( NULL )
-	, m_pPlayerAnimationsStates	( NULL )
 	, m_bMoverAutomatico		( false )
 	, m_bLockCamera				( false )
 	, m_pPursuitState			( NULL )
@@ -130,7 +128,7 @@ bool CPlayer::Init ( void )
 void CPlayer::Release ( void )
 {
 	m_pPlayerProperties = NULL;
-	m_pPlayerAnimationsStates = NULL;
+	m_pAnimationsStates = NULL;
 
 	CHECKED_DELETE ( m_pPursuitState );
 	CHECKED_DELETE ( m_pIdleState );

@@ -22,6 +22,7 @@ class CPhysicController;
 class CPhysicUserData;
 class CIdleState;
 class CPursuitState;
+class CAnimationsStates;
 struct Telegram;
 //---------------------------//
 
@@ -63,6 +64,9 @@ public:
 																				return !p.isPointInside( _Position );
 																			}
 
+	inline void					SetAnimationsStates	( CAnimationsStates* _pAnimationsStates )			{ m_pAnimationsStates = _pAnimationsStates; }
+	inline CAnimationsStates*	GetAnimationsStates	( void ) const										{ return m_pAnimationsStates; }
+
 	//----Members )--------------------------------------------
 private:
 	bool							m_bIsOk;
@@ -71,6 +75,8 @@ protected:
 	CStateMachine<CCharacter>	  *	m_pLogicStateMachine;		// Part de lógica. Control de la màquina d'estats del personatge
 	CStateMachine<CCharacter>	  *	m_pGraphicStateMachine;		// Part de gráfics. Control de la màquina d'estats d'animació del personatge
 	CAnimatedInstanceModel		  * m_pCurrentAnimatedModel;	// Part de gráfics. Manté un punté a l'animació en curs
+
+	CAnimationsStates			  *	m_pAnimationsStates;
 
 	CPhysicController			  * m_pController;
 	CPhysicUserData				  * m_pPhysicUserDataJugador;

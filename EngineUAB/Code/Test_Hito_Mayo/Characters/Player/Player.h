@@ -14,7 +14,6 @@
 class CRenderManager;
 class CCamera;
 class CProperties;
-class CAnimationsStates;
 class CIdleState;
 class CPursuitState;
 class CAnimationIdleState;
@@ -57,8 +56,7 @@ public:
 	inline void					SetProperties		( CProperties* _pPlayerProperties )					{ m_pPlayerProperties = _pPlayerProperties; }
 	inline CProperties*			GetProperties		( void ) const										{ return m_pPlayerProperties; }
 
-	inline void					SetAnimationsStates	( CAnimationsStates* _pPlayerAnimationsStates )		{ m_pPlayerAnimationsStates = _pPlayerAnimationsStates; }
-	inline CAnimationsStates*	GetAnimationsStates	( void ) const										{ return m_pPlayerAnimationsStates; }
+	
 	
 	//---- Members -------------------------------------------------------
 protected: 
@@ -72,7 +70,6 @@ private:
 	Vect3f				m_vDirection;
 	
 	CProperties					  *	m_pPlayerProperties;
-	CAnimationsStates			  *	m_pPlayerAnimationsStates;
 
 	CPursuitState				  * m_pPursuitState;
 	CIdleState					  * m_pIdleState;
