@@ -10,6 +10,8 @@
 	<clear_scene color="true" depth="true" stencil="true" />
 	<render_scene layer="solid" active="true" />
 	
+	<render_particles />
+	
 	<render_gui active="false" />
 	<render_debug_physics active="false" />
 	<render_debug_info grid="false" axis="false"  render_console="true" render_logger="true" render_modifiers="true" render_debug_options="true" render_debug_render="true" />

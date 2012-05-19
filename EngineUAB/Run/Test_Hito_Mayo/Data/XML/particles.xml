@@ -1,3 +1,39 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <ParticleManager>
+	<ParticleEmitters>
+		<ParticleEmitter name="pFum">
+			<color color1="1.0 1.0 1.0 1.0" color2="1.0 1.0 1.0 1.0" time="0.0"/>
+			<direction d1="0.7 1.2 0.7" d2="-0.7 1.2 -0.7" time="0.0">
+			</direction>
+			<size mins="2.06" maxs="2.06" time="0.0"/>
+			<life_time life1="1.0" life2="20.0"/>
+			<emit_rate er1="400.0" er2="1000.0"/>
+			<gravity gr="false"/>
+			<velocity vel="1.0 2.0 1.0" time="0.0">
+				<time t="0.3" v="1.0 0.5 1.0"/>
+				<time t="0.4" v="1.0 0.8 1.0"/>
+			</velocity>
+			<angle ang="2.0" time="0.0"/>
+			<texture tex="Data/Particles/smoke.png"/>
+		</ParticleEmitter>
+		<ParticleEmitter name="pFoc">
+			<color color1="1.0 1.0 1.0 1.0" color2="1.0 1.0 1.0 1.0" time="0.0"/>
+			<direction d1="0.4 1.0 0.4" d2="-0.4 1.0 -0.4" time="0.0">
+			</direction>
+			<size mins="1.06" maxs="2.06" time="0.0"/>
+			<life_time life1="0.1" life2="6.0"/>
+			<emit_rate er1="100.0" er2="200.0"/>
+			<gravity gr="false"/>
+			<velocity vel="1.0 2.0 1.0" time="0.0">
+				<time t="0.3" v="1.0 0.5 1.0"/>
+				<time t="0.4" v="1.0 0.8 1.0"/>
+			</velocity>
+			<angle ang="2.0" time="0.0"/>
+			<texture tex="Data/Particles/fire.png"/>
+		</ParticleEmitter>
+	</ParticleEmitters>
+	<Instances>
+		<Instance name="pFum1"  		core="pFum" 	pos1="0.0 -9.0 0.0" 	pos2="0.0 -9.0 0.0" total_particulas="1000" />
+		<Instance name="pFoc1"  		core="pFoc" 	pos1="0.0 -10.0 0.0" 	pos2="0.0 -10.0 0.0" total_particulas="100" />
+	</Instances>
 </ParticleManager>
