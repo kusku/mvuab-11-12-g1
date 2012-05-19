@@ -1,30 +1,91 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <waypoints>
 	<group name="Group 1">
-		<waypoint name="c" position="-43.9172 0.0 44.3255" />
-		<waypoint name="d" position="-56.9117 0.0 -8.67209" />
-		<waypoint name="f" position="-13.6739 0.0 -33.0538" />
-		<waypoint name="b" position="25.8313 0.0 24.2254" />
-		<waypoint name="a" position="27.085 0.0 97.2602" />
-		<Brothers wave_point_name="c">
-			<Brother name="b" />
-			<Brother name="d" />
-			<Brother name="f" />
+		<waypoint name="wp_a" position="80.618 -0.961184 112.993" />
+		<waypoint name="wp_b" position="39.6658 -7.33944 124.324" />
+		<waypoint name="wp_c" position="4.76533 -7.71093 123.155" />
+		<waypoint name="wp_d" position="-13.7648 -10.1362 109.883" />
+		<waypoint name="wp_e" position="-25.8823 -10.2902 107.962" />
+		<waypoint name="wp_f" position="-38.9169 -11.7977 74.6614" />
+		<waypoint name="wp_g" position="2.37747 -8.15844 67.2822" />
+		<waypoint name="wp_h" position="35.4998 0.0 33.2554" />
+		<waypoint name="wp_i" position="20.8541 -9.30693 -2.90187" />
+		<waypoint name="wp_j" position="-58.9428 -7.42284 26.4957" />
+		<waypoint name="wp_k" position="-7.8215 -5.82294 -44.0807" />
+		<waypoint name="wp_l" position="-53.6801 -8.02399 -99.4603" />
+		<waypoint name="wp_m" position="-5.9956 -9.02375 -114.726" />
+		
+		<Brothers wave_point_name="wp_a">
+			<Brother name="wp_b" />
 		</Brothers>
-		<Brothers wave_point_name="d">
-			<Brother name="c" />
+		<Brothers wave_point_name="wp_b">
+			<Brother name="wp_a" />
+			<Brother name="wp_c" />
 		</Brothers>
-		<Brothers wave_point_name="f">
-			<Brother name="b" />
-			<Brother name="c" />
+		<Brothers wave_point_name="wp_c">
+			<Brother name="wp_b" />
+			<Brother name="wp_d" />
 		</Brothers>
-		<Brothers wave_point_name="b">
-			<Brother name="f" />
-			<Brother name="a" />
+		<Brothers wave_point_name="wp_d">
+			<Brother name="wp_c" />
+			<Brother name="wp_e" />
 		</Brothers>
-		<Brothers wave_point_name="a">
-			<Brother name="c" />
-			<Brother name="b" />
+		<Brothers wave_point_name="wp_e">
+			<Brother name="wp_f" />
+			<Brother name="wp_g" />
+			<Brother name="wp_d" />
+		</Brothers>
+		<Brothers wave_point_name="wp_f">
+			<Brother name="wp_e" />
+			<Brother name="wp_g" />
+			<Brother name="wp_h" />
+			<Brother name="wp_j" />
+		</Brothers>
+		<Brothers wave_point_name="wp_g">
+			<Brother name="wp_e" />
+			<Brother name="wp_f" />
+			<Brother name="wp_j" />
+			<Brother name="wp_k" />
+			<Brother name="wp_i" />
+			<Brother name="wp_h" />
+		</Brothers>
+		<Brothers wave_point_name="wp_h">
+			<Brother name="wp_g" />
+			<Brother name="wp_f" />
+			<Brother name="wp_j" />
+			<Brother name="wp_i" />
+		</Brothers>
+		<Brothers wave_point_name="wp_i">
+			<Brother name="wp_h" />
+			<Brother name="wp_k" />
+			<Brother name="wp_m" />
+			<Brother name="wp_j" />
+			<Brother name="wp_g" />
+		</Brothers>
+		<Brothers wave_point_name="wp_j">
+			<Brother name="wp_f" />
+			<Brother name="wp_g" />
+			<Brother name="wp_h" />
+			<Brother name="wp_i" />
+			<Brother name="wp_k" />
+			<Brother name="wp_l" />
+		</Brothers>
+		<Brothers wave_point_name="wp_k">
+			<Brother name="wp_i" />
+			<Brother name="wp_g" />
+			<Brother name="wp_j" />
+			<Brother name="wp_l" />
+			<Brother name="wp_m" />
+		</Brothers>
+		<Brothers wave_point_name="wp_l">
+			<Brother name="wp_j" />
+			<Brother name="wp_k" />
+			<Brother name="wp_m" />
+		</Brothers>
+		<Brothers wave_point_name="wp_m">
+			<Brother name="wp_l" />
+			<Brother name="wp_k" />
+			<Brother name="wp_i" />
 		</Brothers>
 	</group>
 </waypoints>

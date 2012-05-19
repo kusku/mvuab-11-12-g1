@@ -4,39 +4,142 @@
 	<layer name="alpha_objects" />
 	<layer name="alpha_blend_objects" />
 	<layer name="particles" />
-	<!--<mesh_instance name="Casa" core="Casa" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
-	<mesh_instance name="otro" core="OTRO" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
-	-->
-	<!--<mesh_instance name="Plans" core="Plane001" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />-->
-	<mesh_instance name="Terrain04" core="Terrain04" position="0.0 -0.0404053 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-	<mesh_instance name="Terrain01" core="Terrain01" position="0.0 -0.660156 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0"  visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-	<mesh_instance name="Terrain02" core="Terrain02" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-	<mesh_instance name="Terrain03" core="Terrain03" position="0.0 -0.00561523 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-	<!--<mesh_instance name="TerrenoCasa" core="TerrenoCasa" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />-->
-	<!--<mesh_instance name="Plane001" core="Plane001" position="2.001 -11.557 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />
-	<mesh_instance name="Box001" core="Box001" position="-8.946 -5.477 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />
-	<mesh_instance name="Box002" core="Box002" position="6.434 -7.439 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />
-	<mesh_instance name="Box003" core="Box003" position="4.217 0.345 0.989" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />
-	<mesh_instance name="Box004" core="Box004" position="9.569 8.208 2.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />
-	<mesh_instance name="Box005" core="Box005" position="18.494 18.186 3.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" />-->
-	<!--<mesh_instance name="Cone001" core="Cone001" position="216.857 0.0 79.9658" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
-	<mesh_instance name="Plane002" core="Plane002" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
-	<mesh_instance name="Box003" core="Box003" position="-117.778 0.0 -109.947" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
-	<mesh_instance name="lizard_geo" core="lizard_geo" position="62.1109 0.0 -77.3359" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
-	<mesh_instance name="Box004" core="Box004" position="61.1413 0.0 42.0619" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
-	<mesh_instance name="Cone002" core="Cone002" position="-150.33 0.0 250.496" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
-	<mesh_instance name="Box005" core="Box005" position="-291.024 0.0 -314.033" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
-	<mesh_instance name="Box006" core="Box006" position="-211.142 0.0 -263.352" yaw="-1.00179e-005" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
-	<mesh_instance name="Plane01" core="Plane01" position="-8000.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" scale="0.15 0.15 0.15" />-->
-	<!--<mesh_instance name="Plane002" core="Plane002" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />-->
-	<!--<mesh_instance name="Llop" core="Llop" position="0.0 2.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="10.0 10.0 10.0" visible="true" layer="solid" create_physics="false" />-->
-	<animated_model_instance name="lobo1" core="lobo" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-	<animated_model_instance name="lobo2" core="lobo" position="30.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-	<animated_model_instance name="lobo3" core="lobo" position="0.0 0.0 30.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-	<!--<animated_model_instance name="lobo4" core="lobo" position="-10.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-	<animated_model_instance name="lobo5" core="lobo" position="0.0 0.0 -10.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-	<mesh_instance name="default" core="default" position="0.0 2.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="10.0 10.0 10.0" visible="true" layer="solid" create_physics="false" />
-	<mesh_instance name="caperuza" core="caperuza" position="0.0 2.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="10.0 10.0 10.0" visible="true" layer="solid" create_physics="false" />
-	<mesh_instance name="Vestido" core="Vestido" position="0.0 2.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="10.0 10.0 10.0" visible="true" layer="solid" create_physics="false" />
-	<mesh_instance name="caperuza001" core="caperuza001" position="0.0 2.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="10.0 10.0 10.0" visible="true" layer="solid" create_physics="false" />-->
+	<mesh_instance name="Arbol_Gracioso" core="Arbol_Gracioso" position="-40.1991 -1.47007 -127.863" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino01" core="Pino01" position="-44.2856 -6.43351 -129.901" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino002" core="Pino002" position="-36.7625 -7.31889 -135.806" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino003" core="Pino003" position="-20.9846 -9.68412 -135.41" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino004" core="Pino004" position="-31.3375 -8.73332 -125.793" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino005" core="Pino005" position="-13.1073 -10.3273 -129.892" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino006" core="Pino006" position="-20.6104 -8.59684 -121.426" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino008" core="Pino008" position="-7.47853 -10.328 -119.882" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino009" core="Pino009" position="-2.50281 -9.98234 -107.457" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino011" core="Pino011" position="1.40174 -12.7709 -96.826" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino013" core="Pino013" position="7.15613 -12.1308 -86.103" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino015" core="Pino015" position="20.4748 -6.48637 -75.6094" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino017" core="Pino017" position="30.8698 -3.2714 -68.1762" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino019" core="Pino019" position="45.875 -6.0214 -67.4367" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino020" core="Pino020" position="38.352 -3.37174 -61.5316" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino021" core="Pino021" position="60.5315 -6.0214 -63.511" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino022" core="Pino022" position="50.5024 -8.08109 -46.3298" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino023" core="Pino023" position="18.8966 -6.0214 -140.044" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino024" core="Pino024" position="5.3306 -6.0214 -139.401" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino025" core="Pino025" position="27.2942 -6.0214 -130.477" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino026" core="Pino026" position="12.5298 -6.0214 -124.921" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino027" core="Pino027" position="30.3081 -6.0214 -119.313" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino028" core="Pino028" position="16.3594 -6.0214 -112.131" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino029" core="Pino029" position="30.7413 -6.0214 -107.998" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino030" core="Pino030" position="23.2253 -6.86857 -97.6566" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino031" core="Pino031" position="34.1542 -6.04972 -93.7507" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino032" core="Pino032" position="41.6773 -6.0214 -99.6558" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino033" core="Pino033" position="49.488 -1.19377 -90.9576" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino035" core="Pino035" position="63.568 -4.18229 -89.2314" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino037" core="Pino037" position="75.8378 -3.89421 -85.8328" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino038" core="Pino038" position="34.69 -3.02832 23.7517" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino053" core="Pino053" position="37.5095 -6.0214 -18.9474" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino055" core="Pino055" position="33.7151 -6.0214 -28.1353" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino056" core="Pino056" position="32.1595 -8.90788 -52.4449" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino057" core="Pino057" position="30.943 -6.0214 -18.9301" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino059" core="Pino059" position="13.6958 -8.6641 -83.2857" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino060" core="Pino060" position="33.204 -3.38322 -54.1867" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino068" core="Pino068" position="48.4666 -6.0214 -46.4212" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino070" core="Pino070" position="26.3747 -0.944216 23.3664" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino072" core="Pino072" position="40.8126 -1.18034 -55.5599" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino073" core="Pino073" position="52.1904 -6.0214 -54.0138" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino074" core="Pino074" position="-19.8154 -10.328 -110.042" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino075" core="Pino075" position="68.449 -6.0214 44.0015" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino076" core="Pino076" position="63.8611 -8.11198 49.0598" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino077" core="Pino077" position="-4.59518 -6.43351 59.7909" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino084" core="Pino084" position="-26.9322 -9.98234 88.6232" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino085" core="Pino085" position="0.711815 -10.1535 72.3404" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino086" core="Pino086" position="-15.6529 -12.7709 87.6031" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino087" core="Pino087" position="-11.8962 -11.9654 96.3982" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino088" core="Pino088" position="-4.27325 -13.566 83.7562" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino089" core="Pino089" position="0.381153 -4.27934 132.983" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino091" core="Pino091" position="14.2132 -6.0214 68.0782" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino092" core="Pino092" position="-53.2447 -10.543 92.1748" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino093" core="Pino093" position="24.2455 -6.0214 52.2517" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino094" core="Pino094" position="32.2703 -6.0214 62.2604" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino095" core="Pino095" position="30.1457 -4.51349 16.8797" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino096" core="Pino096" position="27.3943 -8.08109 -34.3152" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino097" core="Pino097" position="17.0642 -6.09552 18.9055" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino099" core="Pino099" position="21.0706 -0.110898 31.7373" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino100" core="Pino100" position="10.5587 0.864199 36.9183" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino101" core="Pino101" position="27.469 2.6601 37.8077" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino107" core="Pino107" position="14.9696 -1.69375 45.101" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino110" core="Pino110" position="19.5644 -6.09552 -0.508641" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino113" core="Pino113" position="-43.6284 -9.85612 120.746" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino115" core="Pino115" position="53.7945 -4.79838 131.755" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino117" core="Pino117" position="-56.1789 -2.2194 114.373" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino118" core="Pino118" position="55.3914 -4.00334 139.004" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino119" core="Pino119" position="7.28896 -1.37675 146.832" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino122" core="Pino122" position="42.7234 -9.65861 160.701" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino123" core="Pino123" position="64.6346 -7.68083 4.15119" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino124" core="Pino124" position="-16.8485 -2.38652 155.946" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino126" core="Pino126" position="23.6101 -8.90788 67.1592" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino129" core="Pino129" position="72.7239 -8.6641 32.4798" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino132" core="Pino132" position="21.8894 -3.77604 140.581" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino135" core="Pino135" position="47.9441 -5.48722 155.729" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino137" core="Pino137" position="72.2296 -6.0214 51.7131" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino138" core="Pino138" position="62.1086 -1.73417 148.423" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino139" core="Pino139" position="-42.2257 -12.6392 87.3264" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino141" core="Pino141" position="35.639 -4.80888 147.081" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino151" core="Pino151" position="31.8683 -10.1535 -11.6456" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino155" core="Pino155" position="6.99564 -13.6266 34.3782" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino159" core="Pino159" position="14.6506 1.01142 32.5419" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino174" core="Pino174" position="31.9423 -0.978678 -61.4968" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino176" core="Pino176" position="38.0329 -6.09552 -109.755" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino177" core="Pino177" position="28.1531 -8.35809 6.22679" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino181" core="Pino181" position="-46.5614 -10.8473 101.805" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino184" core="Pino184" position="25.2347 -7.20402 -17.1063" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino190" core="Pino190" position="17.1105 -2.35276 24.1424" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino192" core="Pino192" position="14.9535 -8.90788 74.8874" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino195" core="Pino195" position="-10.0705 -8.50509 46.1232" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino196" core="Pino196" position="-35.9724 -10.279 84.7154" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino197" core="Pino197" position="-28.2329 -7.87065 95.3686" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino198" core="Pino198" position="9.84507 -4.72245 134.382" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino199" core="Pino199" position="-13.1081 -1.70744 143.077" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino200" core="Pino200" position="37.4159 -5.2631 137.565" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino206" core="Pino206" position="14.0067 -8.75273 57.558" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino209" core="Pino209" position="17.7243 -10.0222 -6.1122" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino225" core="Pino225" position="-39.0647 -9.25761 127.134" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino237" core="Pino237" position="17.1112 -6.09552 7.76453" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino248" core="Pino248" position="6.28615 -7.31889 61.3316" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino250" core="Pino250" position="-34.8603 -10.8473 114.459" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino256" core="Pino256" position="-58.3076 -10.1535 162.099" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino264" core="Pino264" position="35.6587 -8.6641 -49.2136" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino270" core="Pino270" position="-17.923 -9.15202 78.1087" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino291" core="Pino291" position="-11.8453 -7.87065 -110.827" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino297" core="Pino297" position="-53.7876 -6.0214 -125.112" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino305" core="Pino305" position="58.2069 -7.31889 -27.6343" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pino307" core="Pino307" position="67.2247 -6.68205 25.3017" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Arbol_Gracioso001" core="Arbol_Gracioso001" position="-30.9798 -1.47007 -137.537" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Arbol_Gracioso002" core="Arbol_Gracioso002" position="-23.6966 -2.8646 -131.553" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Arbol_Gracioso003" core="Arbol_Gracioso003" position="-10.6719 -1.47007 -127.907" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Arbol_Gracioso004" core="Arbol_Gracioso004" position="-18.4569 -4.38352 -126.843" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Arbol_Gracioso005" core="Arbol_Gracioso005" position="53.6288 2.24954 -86.2024" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Arbol_Gracioso006" core="Arbol_Gracioso006" position="31.3803 -1.47007 -88.9913" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Arbol_Gracioso007" core="Arbol_Gracioso007" position="42.7128 -1.47007 -119.609" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Arbol_Gracioso008" core="Arbol_Gracioso008" position="13.1856 -1.47007 -119.565" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Arbol_Gracioso009" core="Arbol_Gracioso009" position="12.3707 -1.47007 -130.939" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Arbol_Gracioso010" core="Arbol_Gracioso010" position="105.107 -4.50565 -79.6696" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Arbol_Gracioso011" core="Arbol_Gracioso011" position="101.232 -1.47007 -64.0473" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Arbol_Gracioso012" core="Arbol_Gracioso012" position="96.6624 -0.704992 -58.6837" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Arbol_Gracioso013" core="Arbol_Gracioso013" position="75.9557 -2.09946 -41.6254" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Arbol_Gracioso014" core="Arbol_Gracioso014" position="63.2578 -1.47007 -26.9267" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Arbol_Gracioso015" core="Arbol_Gracioso015" position="27.877 -1.47007 136.605" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Arbol_Gracioso016" core="Arbol_Gracioso016" position="15.6661 -2.16129 136.605" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Gorda_Piedra" core="Gorda_Piedra" position="-27.2766 -9.2439 -143.778" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pequena_Piedra" core="Pequena_Piedra" position="-27.2589 -8.78198 -143.778" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Gorda_Piedra001" core="Gorda_Piedra001" position="-1.04401 -10.9269 -124.564" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	<mesh_instance name="Pequena_Piedra001" core="Pequena_Piedra001" position="-2.26491 -10.5846 -124.255" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" physics_type="triangle_mesh" />
+	
+	<mesh_instance name="Terreno" core="Terreno" position="1.39306 2.10659 0.277821" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
+	<mesh_instance name="Puente" core="Puente" position="92.5435 -9.13652 -72.9671" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
+	<mesh_instance name="cabana" core="cabana" position="47.8152 -8.21692 142.376" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
+	<mesh_instance name="Puente001" core="Puente001" position="105.718 -7.28581 -30.9652" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
+	<mesh_instance name="Puente003" core="Puente003" position="92.5435 -9.13652 -72.9671" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
+
+	<animated_model_instance name="lobo1" core="lobo" position="0.0 35.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
+	<animated_model_instance name="lobo2" core="lobo" position="30.0 35.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
+	<animated_model_instance name="lobo3" core="lobo" position="0.0 35.0 30.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
 </renderable_objects>

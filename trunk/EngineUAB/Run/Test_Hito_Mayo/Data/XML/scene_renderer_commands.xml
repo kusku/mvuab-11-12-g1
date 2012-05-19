@@ -13,6 +13,7 @@
 	<render_particles />
 	
 	<render_gui active="false" />
+	<render_debug_waypoints active="true" />
 	<render_debug_physics active="false" />
 	<render_debug_info grid="false" axis="false"  render_console="true" render_logger="true" render_modifiers="true" render_debug_options="true" render_debug_render="true" />
 	<render_modifiers />
