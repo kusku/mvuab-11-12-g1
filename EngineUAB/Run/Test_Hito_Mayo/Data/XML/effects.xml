@@ -25,7 +25,6 @@
 	<effect name="sky_sphere_effect" 							file="./data/effects/SkySphereEffect.fx" />
 	
 	<effect name="ssaa" 										file="./data/effects/SSAA.fx" />
-	<effect name="fxaa" 										file="./data/effects/fxaa.fx" />
 	<effect name="ssao" 										file="./data/effects/SSAO.fx" />
 	<effect name="color_correction" 							file="./data/effects/ColorGrading.fx" />
 	<effect name="z_blur" 										file="./data/effects/ZBlur.fx" />
@@ -81,10 +80,7 @@
 	
 	<technique name="SSAATechnique" effect="ssaa" 
 		use_render_target_size="true" use_params="true" num_of_params="1" parameter_0="0.8" />
-	
-	<technique name="fxaa_technique" effect="fxaa"
-		use_render_Target_size="true" />
-	
+		
 	<technique name="SSAOTechnique" effect="ssao"
 		use_render_target_size="true" use_proj_inverse_matrix="true" use_projection_matrix="true" 
 		use_params="true" num_of_params="2" parameter_0="0.023" parameter_1="0.405" />

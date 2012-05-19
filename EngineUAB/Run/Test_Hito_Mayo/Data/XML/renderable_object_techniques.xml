@@ -51,10 +51,6 @@
 		<default_technique vertex_type="81" technique="SSAATechnique" />
 	</pool_renderable_object_technique>
 	
-	<pool_renderable_object_technique name="fxaa_pool">
-		<default_technique vertex_type="81" technique="fxaa_technique" />
-	</pool_renderable_object_technique>
-	
 	<pool_renderable_object_technique name="ssao_pool_renderable_object_technique">
 		<default_technique vertex_type="81" technique="SSAOTechnique" />
 	</pool_renderable_object_technique>
