@@ -104,5 +104,8 @@
     <Filter Include="IA\Movement">
       <UniqueIdentifier>{b0c4d1db-576f-45e4-9bf9-284b1989c842}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Movement">
+      <UniqueIdentifier>{c75e9867-e0ea-46c7-a2b6-f7c7374245dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

@@ -99,6 +99,11 @@ bool CGameProcess::Init( void )
 	CORE->GetSoundManager()->PlaySource3D(m_uAudioID, "background", true);
 	CORE->GetSoundManager()->FadeOutSource(m_uAudioID, 0.001f);
 
+	uint32 l_FireAudioID = CORE->GetSoundManager()->CreateSource();
+	CORE->GetSoundManager()->SetSourcePosition( l_FireAudioID, Vect3f(0.f, -10.f, 0.f) );
+	CORE->GetSoundManager()->PlaySource3D(l_FireAudioID , "fire", true);
+	CORE->GetSoundManager()->FadeInSource(l_FireAudioID, 0.0001f);
+
 	return true;
 }
 
