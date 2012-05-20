@@ -6,4 +6,5 @@
 	<Sound path="./Data/Sounds/gui_back.wav" 	soundId="guiBack"/>
 	<Sound path="./Data/Sounds/gameOver.wav" 	soundId="gameOver"/>
 	<Sound path="./Data/Sounds/Init.wav" 		soundId="initGame"/>
+	<Sound path="./Data/Sounds/fire.wav" 		soundId="fire"/>
 </Sounds>
