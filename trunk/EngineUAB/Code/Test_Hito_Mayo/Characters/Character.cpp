@@ -72,7 +72,7 @@ bool CCharacter::Init ( const std::string &_Name, const Vect3f &_InitialPosicion
 	
 	CORE->GetPhysicsManager()->AddPhysicController( m_pController );
 
-	return m_bIsOk;
+	return true;
 }
 
 void CCharacter::Update ( float _ElapsedTime )			

@@ -142,6 +142,11 @@ void CEnemy::Release ( void )
 
 void CEnemy::Update( float _ElapsedTime ) //, CCamera *_pCamera)
 {
+	if(m_pController == NULL || m_pCurrentAnimatedModel == NULL  || _ElapsedTime == 0)
+	{
+		return;
+	}
+
 	Vect3f	l_PosAnterior = m_pController->GetPosition();
 	UpdateMovement( _ElapsedTime );
 	Vect3f	l_PosActual	= m_pController->GetPosition();
@@ -160,6 +165,7 @@ void CEnemy::Update( float _ElapsedTime ) //, CCamera *_pCamera)
 
 void CEnemy::UpdateMovement(float _ElapsedTime)
 {
+
 	if(m_CurrentWPIndex == m_WavePoints.size())
 	{
 		GetWavePoint();
