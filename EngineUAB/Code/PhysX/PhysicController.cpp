@@ -129,7 +129,7 @@ void CPhysicController::SetPosition	(const Vect3f& pos)
 		position.z = pos.z;
 		m_pPhXController->setPosition(position);
 	}
-	else
+	else if(m_pPhXBoxControllerDesc != NULL)
 	{
 		if ( GetType() == ::BOX )
 		{
@@ -144,6 +144,11 @@ void CPhysicController::SetPosition	(const Vect3f& pos)
 			m_pPhXCapsuleControllerDesc->position.z	= pos.z;
 		}
 	}
+	else
+	{
+		return;
+	}
+
 	//CObject3D::m_vPosition = pos;
 	//CObject3D::InitMat44();
 	CObject3D::SetPosition(pos);
@@ -151,7 +156,7 @@ void CPhysicController::SetPosition	(const Vect3f& pos)
 
 Vect3f CPhysicController::GetPosition ()
 {
-	Vect3f vec;
+	Vect3f vec(0, 0, 0);
 	if (m_pPhXController != NULL)
 	{
 		NxExtendedVec3 tmp = m_pPhXController->getPosition();
@@ -159,7 +164,7 @@ Vect3f CPhysicController::GetPosition ()
 		vec.y = (float)tmp.y;
 		vec.z = (float)tmp.z;
 	}
-	else
+	else if(m_pPhXBoxControllerDesc != NULL)
 	{
 		if ( GetType() == ::BOX )
 		{
@@ -174,6 +179,7 @@ Vect3f CPhysicController::GetPosition ()
 			vec.z = (float)m_pPhXCapsuleControllerDesc->position.z;
 		}
 	}
+
 	return vec;
 }
 
@@ -216,8 +222,10 @@ void CPhysicController::Move ( const Vect3f& _vDirection, float _ElapsedTime )
 	{
 		m_Jump.StopJump();
 	}
-	NxExtendedVec3 tmp = m_pPhXController->getDebugPosition();
-	//NxExtendedVec3 tmp = m_pPhXController->getPosition();
+
+	NxExtendedVec3 tmp;
+	
+	tmp = m_pPhXController->getDebugPosition();
 
 	SetPosition ( Vect3f ( (float) tmp.x, (float) tmp.y, (float) tmp.z ) );
 	CObject3D::InitMat44();

@@ -93,7 +93,9 @@ bool CPlayer::Init ( void )
 	m_pPlayerProperties->SetRoll	(0.0f);*/
 
 	if ( !m_bIsOk )
+	{
 		return false;
+	}
 
 	// Inicializo estados
 	m_pPursuitState				= new CPursuitState();
@@ -106,9 +108,13 @@ bool CPlayer::Init ( void )
 	CRenderableObject *l_RO = l_ROManager->GetInstance( m_pPlayerProperties->GetAnimationInstance() );
 
 	if ( !l_RO ) 
+	{
 		l_ROManager->AddAnimatedMeshInstance( m_pPlayerProperties->GetName(), Vect3f (0.f, 0.f, 0.f ) );
+	}
 	else
+	{
 		m_pCurrentAnimatedModel = static_cast<CAnimatedInstanceModel*> (l_RO);
+	}
 
 	if ( m_pCurrentAnimatedModel )
 	{
@@ -142,6 +148,11 @@ void CPlayer::Release ( void )
 
 void CPlayer::Update( float _ElapsedTime, CCamera *_Camera )
 {
+	if(m_pController == NULL || m_pCurrentAnimatedModel == NULL || _ElapsedTime == 0)
+	{
+		return;
+	}
+
 	Vect3f	l_PosAnterior = m_pController->GetPosition();
 	UpdateInputActions( _ElapsedTime, _Camera );
 	Vect3f	l_PosActual	= m_pController->GetPosition();

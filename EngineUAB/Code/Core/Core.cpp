@@ -426,6 +426,11 @@ void CCore::SetGameMode(bool _GameMode)
 void CCore::UpdateInputs( float _ElapsedTime )
 {
 	CActionToInput *l_Action2Input = CORE->GetActionToInput();
+
+	if(l_Action2Input == NULL || _ElapsedTime < 0)
+	{
+		return;
+	}
 	
 	if( l_Action2Input->DoAction( ACTION_RELOAD_TTFS ) )					// Recarrega de fonts
 	{

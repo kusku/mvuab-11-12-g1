@@ -66,8 +66,10 @@ bool CGameProcess::Init( void )
 
 	// Inicializa el gestor de player y enemigos. Carga propiedades y estados de todo.
 	if ( !m_pCharactersManager->Initialize ( ) )
+	{
 		return false;
-	
+	}
+
 	m_Player = m_pCharactersManager->GetPlayer();
 	m_Player->SetPosition(Vect3f( 0.f, 10.f, 0.f));
 	m_Player->SetPitch(-D3DX_PI/8);
@@ -113,7 +115,7 @@ void CGameProcess::Update( float _ElapsedTime )
 	
 	m_pCharactersManager->Update ( _ElapsedTime );
 		
-	//m_Player->Update(_ElapsedTime, m_pCamera );
+	m_Player->Update(_ElapsedTime, m_pCamera );
 	if( m_Player->GetLockCamera() )
 	{
 		m_FreeCamera.Update(_ElapsedTime ,m_pCamera);
