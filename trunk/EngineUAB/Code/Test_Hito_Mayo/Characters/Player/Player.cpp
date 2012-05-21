@@ -188,17 +188,17 @@ void CPlayer::UpdateInputActions( float _ElapsedTime, CCamera *_Camera )
 			if( action2Input->DoAction( ACTION_MOVE_PLAYER_LEFT ) )
 			{
 				l_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw + ePIf/4.f), 0.f, mathUtils::Sin<float>(m_fYaw + ePIf/4.f));
-				l_Position += l_Dir * MOMENTUM * _ElapsedTime;
+				l_Position += l_Dir;// * MOMENTUM * _ElapsedTime;
 			}
 			else if( action2Input->DoAction( ACTION_MOVE_PLAYER_RIGHT ) )
 			{
 				l_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw - ePIf/4.f), 0.f, mathUtils::Sin<float>(m_fYaw - ePIf/4.f));
-				l_Position += l_Dir * MOMENTUM * _ElapsedTime;
+				l_Position += l_Dir;// * MOMENTUM * _ElapsedTime;
 			}
 			else
 			{
 				l_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw), 0.f, mathUtils::Sin<float>(m_fYaw));
-				l_Position += l_Dir * MOMENTUM * _ElapsedTime;
+				l_Position += l_Dir;// * MOMENTUM * _ElapsedTime;
 			}
 		}
 		else if( action2Input->DoAction( ACTION_MOVE_PLAYER_BACK ) )
@@ -206,19 +206,26 @@ void CPlayer::UpdateInputActions( float _ElapsedTime, CCamera *_Camera )
 			if( action2Input->DoAction( ACTION_MOVE_PLAYER_LEFT ) )
 			{
 				l_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw - ePIf/4.f), 0.f, mathUtils::Sin<float>(m_fYaw - ePIf/4.f));
-				l_Position -= l_Dir * MOMENTUM * _ElapsedTime;
+				l_Position -= l_Dir;// * MOMENTUM * _ElapsedTime;
 			}
 			else if( action2Input->DoAction( ACTION_MOVE_PLAYER_RIGHT ) )
 			{
 				l_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw + ePIf/4.f), 0.f, mathUtils::Sin<float>(m_fYaw + ePIf/4.f));
-				l_Position -= l_Dir * MOMENTUM * _ElapsedTime;
+				l_Position -= l_Dir;// * MOMENTUM * _ElapsedTime;
 			}
 			else
 			{
 				l_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw), 0.f, mathUtils::Sin<float>(m_fYaw));
-				l_Position -= l_Dir * MOMENTUM * _ElapsedTime;
+				l_Position -= l_Dir;// * MOMENTUM * _ElapsedTime;
 			}
 		}
+
+		if(l_Position.SquaredLength() != 0)
+		{
+			l_Position.Normalize();
+		}
+
+		l_Position *= (MOMENTUM * _ElapsedTime);
 
 		m_pController->SetYaw(m_fYaw);
 		CCharacter::MoveController(l_Position, _ElapsedTime);
