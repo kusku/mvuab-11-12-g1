@@ -29,8 +29,10 @@
 #include "Characters\States\AnimationsStates.h"
 #include "Characters\States\PursuitState.h"
 #include "Characters\States\IdleState.h"
-#include "Characters\States\AnimationIdleState.h"
-#include "Characters\States\AnimationPursuitState.h"
+
+#include "Characters\States\Enemies\Animations\AnimationWolfIdleState.h"
+#include "Characters\States\Enemies\Animations\AnimationWolfWalkState.h"
+#include "Characters\States\Enemies\Animations\AnimationWolfRunState.h"
 
 #include "Math\Matrix44.h"
 #include "Math\Plane.h"
@@ -59,10 +61,11 @@ CEnemy::CEnemy( int _ID )
 	, m_bLockCamera				( false )
 	, m_pPursuitState			( NULL ) 
 	, m_pIdleState				( NULL )
-	, m_pAnimationPursuitState	( NULL )
+	, m_pAnimationRunState		( NULL )
 	, m_pAnimationIdleState		( NULL )
-	, m_CurrentWPIndex			(0)
-	, m_DestWavePoint			(NULL)
+	, m_pAnimationWalkState		( NULL )
+	, m_CurrentWPIndex			( 0 )
+	, m_DestWavePoint			( NULL )
 {
 
 }
@@ -74,8 +77,11 @@ CEnemy::CEnemy( int _ID, const std::string &_Name )
 	, m_bLockCamera				( false )
 	, m_pPursuitState			( NULL )
 	, m_pIdleState				( NULL )
-	, m_pAnimationPursuitState	( NULL )
+	, m_pAnimationRunState		( NULL )
 	, m_pAnimationIdleState		( NULL )
+	, m_pAnimationWalkState		( NULL )
+	, m_CurrentWPIndex			( 0 )
+	, m_DestWavePoint			( NULL ) 
 {
 }
 
@@ -106,8 +112,10 @@ bool CEnemy::Init ( void )
 	// Inicializo estados
 	m_pPursuitState				= new CPursuitState();
 	m_pIdleState				= new CIdleState();
-	m_pAnimationIdleState		= new CAnimationIdleState();
-	m_pAnimationPursuitState	= new CAnimationPursuitState();
+
+	m_pAnimationIdleState		= new CAnimationWolfIdleState();
+	m_pAnimationRunState		= new CAnimationWolfRunState();
+	m_pAnimationWalkState		= new CAnimationWolfWalkState();
 
 	CRenderableObjectsLayersManager *l_ROLayerManager = CORE->GetRenderableObjectsLayersManager();
 	CRenderableObjectsManager *l_ROManager = l_ROLayerManager->GetResource("solid");
@@ -137,7 +145,8 @@ void CEnemy::Release ( void )
 	CHECKED_DELETE ( m_pIdleState );
 
 	CHECKED_DELETE ( m_pAnimationIdleState );
-	CHECKED_DELETE ( m_pAnimationPursuitState );
+	CHECKED_DELETE ( m_pAnimationRunState );
+	CHECKED_DELETE ( m_pAnimationWalkState );
 }
 
 void CEnemy::Update( float _ElapsedTime ) //, CCamera *_pCamera)
@@ -154,7 +163,7 @@ void CEnemy::Update( float _ElapsedTime ) //, CCamera *_pCamera)
 	if ( l_PosAnterior != l_PosActual )
 	{
 		m_pLogicStateMachine->ChangeState	 ( m_pPursuitState);
-		m_pGraphicStateMachine->ChangeState  ( m_pAnimationPursuitState );
+		m_pGraphicStateMachine->ChangeState  ( m_pAnimationRunState );
 	}
 	else
 	{

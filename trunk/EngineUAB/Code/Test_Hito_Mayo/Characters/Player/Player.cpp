@@ -26,8 +26,10 @@
 #include "Characters\States\AnimationsStates.h"
 #include "Characters\States\PursuitState.h"
 #include "Characters\States\IdleState.h"
-#include "Characters\States\AnimationIdleState.h"
-#include "Characters\States\AnimationPursuitState.h"
+
+#include "Characters\States\Player\Animations\AnimationCaperuIdleState.h"
+#include "Characters\States\Player\Animations\AnimationCaperuRunState.h"
+#include "Characters\States\Player\Animations\AnimationCaperuAttackState.h"
 
 #include "Math\Matrix44.h"
 #include "Base.h"
@@ -47,8 +49,9 @@ CPlayer::CPlayer( void )
 	, m_bLockCamera				( false )
 	, m_pPursuitState			( NULL )
 	, m_pIdleState				( NULL )
-	, m_pAnimationPursuitState	( NULL )
 	, m_pAnimationIdleState		( NULL )
+	, m_pAnimationRunState		( NULL )
+	, m_pAnimationAttackState	( NULL )
 {
 }
 
@@ -59,8 +62,9 @@ CPlayer::CPlayer ( const std::string &_Name )
 	, m_bLockCamera				( false )
 	, m_pPursuitState			( NULL )
 	, m_pIdleState				( NULL )
-	, m_pAnimationPursuitState	( NULL )
 	, m_pAnimationIdleState		( NULL )
+	, m_pAnimationRunState		( NULL )
+	, m_pAnimationAttackState	( NULL )
 	, m_vDirection				( 0.0f, 0.0f, 0.0f )
 {
 }
@@ -100,8 +104,10 @@ bool CPlayer::Init ( void )
 	// Inicializo estados
 	m_pPursuitState				= new CPursuitState();
 	m_pIdleState				= new CIdleState();
-	m_pAnimationIdleState		= new CAnimationIdleState();
-	m_pAnimationPursuitState	= new CAnimationPursuitState();
+	
+	m_pAnimationIdleState		= new CAnimationCaperuIdleState();
+	m_pAnimationRunState		= new CAnimationCaperuRunState();
+	m_pAnimationAttackState		= new CAnimationCaperuAttackState();
 
 	CRenderableObjectsLayersManager *l_ROLayerManager = CORE->GetRenderableObjectsLayersManager();
 	CRenderableObjectsManager *l_ROManager = l_ROLayerManager->GetResource("solid");
@@ -140,7 +146,8 @@ void CPlayer::Release ( void )
 	CHECKED_DELETE ( m_pIdleState );
 
 	CHECKED_DELETE ( m_pAnimationIdleState );
-	CHECKED_DELETE ( m_pAnimationPursuitState );
+	CHECKED_DELETE ( m_pAnimationRunState );
+	CHECKED_DELETE ( m_pAnimationAttackState );
 
 	//CHECKED_DELETE( m_pPlayerProperties );
 	//CHECKED_DELETE( m_pPlayerAnimationsStates );
@@ -160,7 +167,7 @@ void CPlayer::Update( float _ElapsedTime, CCamera *_Camera )
 	if ( l_PosAnterior != l_PosActual )
 	{
 		m_pLogicStateMachine->ChangeState	 ( m_pPursuitState);
-		m_pGraphicStateMachine->ChangeState  ( m_pAnimationPursuitState );
+		m_pGraphicStateMachine->ChangeState  ( m_pAnimationRunState );
 	}
 	else
 	{

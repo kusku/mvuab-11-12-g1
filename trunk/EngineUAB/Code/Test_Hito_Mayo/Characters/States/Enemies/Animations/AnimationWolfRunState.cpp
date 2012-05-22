@@ -1,8 +1,11 @@
 #include "AnimationWolfRunState.h"
 #include "Characters\Character.h"
-#include "Characters\Player\Player.h"
-#include "Characters\States\AnimationsStatesManager.h"
-#include "Characters\States\AnimationsStates.h"
+//#include "Characters\Enemy\Enemy.h"
+//#include "Characters\States\AnimationsStatesManager.h"
+//#include "Characters\States\AnimationsStates.h"
+
+#include "RenderableObjects\AnimatedModel\AnimatedCoreModel.h"
+#include "Core.h"
 
 #include <vector>
 
@@ -31,17 +34,24 @@ void CAnimationWolfRunState::Execute	( CCharacter* _pCharacter )
 // Se ejecuta cuando el estado es entrado
 void CAnimationWolfRunState::OnEnter ( CCharacter* _pCharacter )
 {
-	CPlayer * l_Player = dynamic_cast<CPlayer*>  (_pCharacter);
+	//CEnemy * l_Enemy = dynamic_cast<CEnemy*> (_pCharacter);
 	
-	CAnimationsStates* l_Anim = l_Player->GetAnimationsStates();
-	std::vector<uint16>* l_Vect = l_Player->GetAnimationsStates()->GetResource( "run" );
-	l_Player->GetAnimatedModel()->BlendCycle ( 2, 0.3f );  //(*l_Vect).at(2), 0.3f );
+	//CAnimationsStates* l_Anim = l_Enemy->GetAnimationsStates();
+	//std::vector<uint16>* l_Vect = l_Enemy->GetAnimationsStates()->GetResource( "run" );
+	//l_Enemy->GetAnimatedModel()->BlendCycle ( 1, 0.3f );  //(*l_Vect).at(2), 0.3f );
+
+	CAnimatedCoreModel * l_Core =  _pCharacter->GetAnimatedModel()->GetAnimatedCoreModel();
+	int i = l_Core->GetCoreModel()->getCoreAnimationId ( "run" );
+	_pCharacter->GetAnimatedModel()->BlendCycle( i , 0.3f );  //(*l_Vect).at(2), 0.3f );
+
 }
 
 	// Se ejecuta cuando el estado sale
 void CAnimationWolfRunState::OnExit ( CCharacter* _pCharacter )
 {
-	_pCharacter->GetAnimatedModel()->ClearCycle ( 2, 0.3f );
+	CAnimatedCoreModel * l_Core =  _pCharacter->GetAnimatedModel()->GetAnimatedCoreModel();
+	int i = l_Core->GetCoreModel()->getCoreAnimationId ( "run" );
+	_pCharacter->GetAnimatedModel()->ClearCycle( i , 0.3f );  //(*l_Vect).at(2), 0.3f );
 }
 
 bool CAnimationWolfRunState::OnMessage ( CCharacter* _pCharacter, const Telegram& )
