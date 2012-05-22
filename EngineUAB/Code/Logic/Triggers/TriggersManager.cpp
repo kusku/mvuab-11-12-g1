@@ -7,7 +7,7 @@
 #include "PhysicActor.h"
 
 #include "Utils\MapManager.h"
-
+#include "Scripting\ScriptManager.h"
 
 #include "Math\Vector3.h"
 #include "Math\Color.h"
@@ -173,6 +173,18 @@ bool CTriggersManager::LoadXML ( void )
 		}
 	}
 	return true;
+}
+
+void CTriggersManager::RegisterMethods( void )
+{
+	lua_State * l_State = SCRIPT->GetLuaState();
+
+	module(l_State) [
+		class_<CTriggersManager>("CTriggersManager")
+			.def("exist_fisic_trigger", &CTriggersManager::ExistFisicTrigger)			// Retorna si existe un trigger ya cargado
+			.def("exist_trigger", &CTriggersManager::ExistTrigger)						// Retorna si existe un físic trigger asociado al trigger ya cargado
+			.def("get_trigger", &CTriggersManager::GetTrigger)							// Obtiene el trigger del mapa de triggers
+	];
 }
 
 // -----------------------------------------

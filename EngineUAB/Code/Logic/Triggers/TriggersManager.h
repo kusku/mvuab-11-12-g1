@@ -61,6 +61,7 @@ public:
 	//----Private Functions -----------------------------------------------------
 private:
 	bool			LoadXML					( void );
+	void			RegisterMethods			( void );
 
 	//---- Main Interfaces ------------------------------------------------
 public:
