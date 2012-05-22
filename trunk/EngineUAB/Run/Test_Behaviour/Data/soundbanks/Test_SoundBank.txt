@@ -1,0 +1,17 @@
+Event	ID	Name			Wwise Object Path	Notes
+	1342739050	Play_Explosions			\Default Work Unit\Play_Explosions	
+	3429773683	Play_Ground			\Default Work Unit\Play_Ground	
+
+Switch Group	ID	Name			Wwise Object Path	Notes
+	404567067	Ground_Materials			\Default Work Unit\Ground_Materials	
+
+Switch	ID	Name	Switch Group			Notes
+	2058049674	Wood	Ground_Materials			
+	2185786256	Gravel	Ground_Materials			
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	325431153	gravel_footsteps	C:\Users\Marc\Documents\WwiseProjects\Test\.cache\Windows\sfx\23703__hazure__footsteps_ab9e423f.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ground\gravel\gravel_footsteps		1362944
+	379492408	wood_footsteps	C:\Users\Marc\Documents\WwiseProjects\Test\.cache\Windows\sfx\29600__dude3966__footsteps-1_ab9e423f.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ground\wood\wood_footsteps		1435772
+	439016818	bomb	C:\Users\Marc\Documents\WwiseProjects\Test\.cache\Windows\sfx\35643__sandyrb__usat-bomb_ab9e423f.wem		\Actor-Mixer Hierarchy\Default Work Unit\Explosions\bomb		995764
+	1025111911	grenade	C:\Users\Marc\Documents\WwiseProjects\Test\.cache\Windows\sfx\33245__ljudman__grenade_ab9e423f.wem		\Actor-Mixer Hierarchy\Default Work Unit\Explosions\grenade		956132
+
