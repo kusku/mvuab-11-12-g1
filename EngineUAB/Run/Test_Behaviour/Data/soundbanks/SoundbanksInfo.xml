@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SoundBanksInfo Platform="Windows" SchemaVersion="9">
+	<RootPaths>
+		<ProjectRoot>C:\Users\Marc\Documents\WwiseProjects\Test\</ProjectRoot>
+		<SourceFilesRoot>C:\Users\Marc\Documents\WwiseProjects\Test\.cache\Windows\</SourceFilesRoot>
+		<SoundBanksRoot>C:\Users\Marc\Documents\WwiseProjects\Test\GeneratedSoundBanks\Windows\</SoundBanksRoot>
+		<ExternalSourcesInputFile></ExternalSourcesInputFile>
+		<ExternalSourcesOutputRoot>C:\Users\Marc\Documents\WwiseProjects\Test\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
+	</RootPaths>
+	<Arguments />
+	<DialogueEvents />
+	<StreamedFiles />
+	<SoundBanks>
+		<SoundBank Id="1355168291" Language="SFX">
+			<ShortName>Init</ShortName>
+			<Path>Init.bnk</Path>
+			<IncludedEvents />
+			<IncludedDialogueEvents />
+			<ReferencedStreamedFiles />
+			<IncludedFullFiles />
+			<IncludedPrefetchFiles />
+			<ExternalSources />
+		</SoundBank>
+		<SoundBank Id="4154996803" Language="SFX">
+			<ShortName>Test_SoundBank</ShortName>
+			<Path>Test_SoundBank.bnk</Path>
+			<IncludedEvents>
+				<Event Id="1342739050" Name="Play_Explosions" />
+				<Event Id="3429773683" Name="Play_Ground" />
+			</IncludedEvents>
+			<IncludedDialogueEvents />
+			<ReferencedStreamedFiles />
+			<IncludedFullFiles>
+				<File Id="325431153" Language="SFX">
+					<ShortName>23703__hazure__footsteps.wav</ShortName>
+					<Path>sfx\23703__hazure__footsteps_ab9e423f.wem</Path>
+				</File>
+				<File Id="379492408" Language="SFX">
+					<ShortName>29600__dude3966__footsteps-1.wav</ShortName>
+					<Path>sfx\29600__dude3966__footsteps-1_ab9e423f.wem</Path>
+				</File>
+				<File Id="1025111911" Language="SFX">
+					<ShortName>33245__ljudman__grenade.wav</ShortName>
+					<Path>sfx\33245__ljudman__grenade_ab9e423f.wem</Path>
+				</File>
+				<File Id="439016818" Language="SFX">
+					<ShortName>35643__sandyrb__usat-bomb.wav</ShortName>
+					<Path>sfx\35643__sandyrb__usat-bomb_ab9e423f.wem</Path>
+				</File>
+			</IncludedFullFiles>
+			<IncludedPrefetchFiles />
+			<ExternalSources />
+		</SoundBank>
+	</SoundBanks>
+</SoundBanksInfo>

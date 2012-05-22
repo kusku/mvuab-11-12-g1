@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<Language id="spanish">
+
+  <literal id="HiWorld" font="xfiles"  color="0.5 0.2 0.4 0.8" value="Hola Múndo"/>
+  <literal id="Exit"    font="xfiles"  color="0.1 0.1 0.1 0.8" value="Salir"/>
+
+</Language>
