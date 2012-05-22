@@ -1,6 +1,9 @@
 #include "AnimationCaperuAttackState.h"
 #include "Characters\Character.h"
 
+#include "RenderableObjects\AnimatedModel\AnimatedCoreModel.h"
+#include "Core.h"
+
 //--------------------------------------------------
 //				CONSTRUCTORS/DESTRUCTORS
 //--------------------------------------------------
@@ -26,13 +29,17 @@ void CAnimationCaperuAttackState::Execute ( CCharacter* _pCharacter )
 // Se ejecuta cuando el estado es entrado
 void CAnimationCaperuAttackState::OnEnter ( CCharacter* _pCharacter )
 {
-	_pCharacter->GetAnimatedModel()->BlendCycle ( 1, 0.3f );
+	CAnimatedCoreModel * l_Core =  _pCharacter->GetAnimatedModel()->GetAnimatedCoreModel();
+	int i = l_Core->GetCoreModel()->getCoreAnimationId ( "attack" );
+	_pCharacter->GetAnimatedModel()->BlendCycle ( i, 0.3f );
 }
 
 	// Se ejecuta cuando el estado sale
 void CAnimationCaperuAttackState::OnExit ( CCharacter* _pCharacter )
 {
-	_pCharacter->GetAnimatedModel()->ClearCycle ( 1, 0.3f );
+	CAnimatedCoreModel * l_Core =  _pCharacter->GetAnimatedModel()->GetAnimatedCoreModel();
+	int i = l_Core->GetCoreModel()->getCoreAnimationId ( "attack" );
+	_pCharacter->GetAnimatedModel()->ClearCycle ( i, 0.3f );
 }
 
 bool CAnimationCaperuAttackState::OnMessage ( CCharacter* _pCharacter, const Telegram& )

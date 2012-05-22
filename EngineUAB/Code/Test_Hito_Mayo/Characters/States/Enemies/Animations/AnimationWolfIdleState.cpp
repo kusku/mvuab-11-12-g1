@@ -1,6 +1,9 @@
 #include "AnimationWolfIdleState.h"
 #include "Characters\Character.h"
 
+#include "RenderableObjects\AnimatedModel\AnimatedCoreModel.h"
+#include "Core.h"
+
 //--------------------------------------------------
 //				CONSTRUCTORS/DESTRUCTORS
 //--------------------------------------------------
@@ -26,13 +29,17 @@ void CAnimationWolfIdleState::Execute ( CCharacter* _pCharacter )
 // Se ejecuta cuando el estado es entrado
 void CAnimationWolfIdleState::OnEnter ( CCharacter* _pCharacter )
 {
-	_pCharacter->GetAnimatedModel()->BlendCycle ( 0, 0.3f );
+	CAnimatedCoreModel * l_Core =  _pCharacter->GetAnimatedModel()->GetAnimatedCoreModel();
+	int i = l_Core->GetCoreModel()->getCoreAnimationId ( "idle" );
+	_pCharacter->GetAnimatedModel()->BlendCycle ( i, 0.3f );
 }
 
 	// Se ejecuta cuando el estado sale
 void CAnimationWolfIdleState::OnExit ( CCharacter* _pCharacter )
 {
-	_pCharacter->GetAnimatedModel()->ClearCycle ( 0, 0.3f );
+	CAnimatedCoreModel * l_Core =  _pCharacter->GetAnimatedModel()->GetAnimatedCoreModel();
+	int i = l_Core->GetCoreModel()->getCoreAnimationId ( "idle" );
+	_pCharacter->GetAnimatedModel()->ClearCycle ( i, 0.3f );
 }
 
 bool CAnimationWolfIdleState::OnMessage ( CCharacter* _pCharacter, const Telegram& )

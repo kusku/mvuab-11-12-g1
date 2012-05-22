@@ -1,10 +1,11 @@
 #include "AnimationCaperuRunState.h"
 #include "Characters\Character.h"
-#include "Characters\Player\Player.h"
-#include "Characters\States\AnimationsStates.h"
-#include "Characters\States\AnimationsStatesManager.h"
+//#include "Characters\Player\Player.h"
+//#include "Characters\States\AnimationsStates.h"
+//#include "Characters\States\AnimationsStatesManager.h"
 
 #include "RenderableObjects\AnimatedModel\AnimatedCoreModel.h"
+#include "Core.h"
 
 #include <vector>
 

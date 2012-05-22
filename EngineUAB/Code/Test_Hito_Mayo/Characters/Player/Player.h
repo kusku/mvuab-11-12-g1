@@ -16,8 +16,9 @@ class CCamera;
 class CProperties;
 class CIdleState;
 class CPursuitState;
-class CAnimationIdleState;
-class CAnimationPursuitState;
+class CAnimationCaperuIdleState;
+class CAnimationCaperuRunState;
+class CAnimationCaperuAttackState;
 //--------------------------
 
 class CPlayer : public CCharacter
@@ -73,8 +74,10 @@ private:
 
 	CPursuitState				  * m_pPursuitState;
 	CIdleState					  * m_pIdleState;
-	CAnimationPursuitState		  * m_pAnimationPursuitState;
-	CAnimationIdleState			  * m_pAnimationIdleState;
+
+	CAnimationCaperuIdleState	  * m_pAnimationIdleState;
+	CAnimationCaperuRunState	  * m_pAnimationRunState;
+	CAnimationCaperuAttackState	  * m_pAnimationAttackState;
 };
 
 #endif __PLAYER_H__

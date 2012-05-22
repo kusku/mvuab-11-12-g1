@@ -14,8 +14,9 @@ class CCamera;
 class CProperties;
 class CIdleState;
 class CPursuitState;
-class CAnimationIdleState;
-class CAnimationPursuitState;
+class CAnimationWolfIdleState;
+class CAnimationWolfWalkState;
+class CAnimationWolfRunState;
 class CWayPoint;
 //--------------------------
 
@@ -73,7 +74,10 @@ private:
 
 	CPursuitState				  * m_pPursuitState;
 	CIdleState					  * m_pIdleState;
-	CAnimationPursuitState		  * m_pAnimationPursuitState;
-	CAnimationIdleState			  * m_pAnimationIdleState;	
+	
+	CAnimationWolfIdleState		  * m_pAnimationIdleState;	
+	CAnimationWolfWalkState		  * m_pAnimationWalkState;	
+	CAnimationWolfRunState		  * m_pAnimationRunState;
+	
 };
 #endif __ENEMY_CLASS_H__

@@ -26,11 +26,10 @@
     <ClCompile Include="Characters\Properties\PropertiesManager.cpp">
       <Filter>Characters\Properties</Filter>
     </ClCompile>
-    <ClCompile Include="Characters\States\AnimationIdleState.cpp">
-      <Filter>Characters\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\States\AnimationPursuitState.cpp">
-      <Filter>Characters\States</Filter>
+    <ClCompile Include="GameProcess.cpp" />
+    <ClCompile Include="GUIProcess.cpp" />
+    <ClCompile Include="Cameras\StaticCamera.cpp">
+      <Filter>Cameras</Filter>
     </ClCompile>
     <ClCompile Include="Characters\States\AnimationsStates.cpp">
       <Filter>Characters\States</Filter>
@@ -44,10 +43,23 @@
     <ClCompile Include="Characters\States\PursuitState.cpp">
       <Filter>Characters\States</Filter>
     </ClCompile>
-    <ClCompile Include="GameProcess.cpp" />
-    <ClCompile Include="GUIProcess.cpp" />
-    <ClCompile Include="Cameras\StaticCamera.cpp">
-      <Filter>Cameras</Filter>
+    <ClCompile Include="Characters\States\Enemies\Animations\AnimationWolfIdleState.cpp">
+      <Filter>Characters\States\Enemies\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\States\Enemies\Animations\AnimationWolfRunState.cpp">
+      <Filter>Characters\States\Enemies\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\States\Enemies\Animations\AnimationWolfWalkState.cpp">
+      <Filter>Characters\States\Enemies\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\States\Player\Animations\AnimationCaperuAttackState.cpp">
+      <Filter>Characters\States\Player\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\States\Player\Animations\AnimationCaperuIdleState.cpp">
+      <Filter>Characters\States\Player\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\States\Player\Animations\AnimationCaperuRunState.cpp">
+      <Filter>Characters\States\Player\Animations</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -79,11 +91,10 @@
     <ClInclude Include="Characters\Properties\PropertiesManager.h">
       <Filter>Characters\Properties</Filter>
     </ClInclude>
-    <ClInclude Include="Characters\States\AnimationIdleState.h">
-      <Filter>Characters\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\States\AnimationPursuitState.h">
-      <Filter>Characters\States</Filter>
+    <ClInclude Include="GameProcess.h" />
+    <ClInclude Include="GUIProcess.h" />
+    <ClInclude Include="Cameras\StaticCamera.h">
+      <Filter>Cameras</Filter>
     </ClInclude>
     <ClInclude Include="Characters\States\AnimationsStates.h">
       <Filter>Characters\States</Filter>
@@ -97,10 +108,23 @@
     <ClInclude Include="Characters\States\PursuitState.h">
       <Filter>Characters\States</Filter>
     </ClInclude>
-    <ClInclude Include="GameProcess.h" />
-    <ClInclude Include="GUIProcess.h" />
-    <ClInclude Include="Cameras\StaticCamera.h">
-      <Filter>Cameras</Filter>
+    <ClInclude Include="Characters\States\Enemies\Animations\AnimationWolfIdleState.h">
+      <Filter>Characters\States\Enemies\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\States\Enemies\Animations\AnimationWolfRunState.h">
+      <Filter>Characters\States\Enemies\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\States\Enemies\Animations\AnimationWolfWalkState.h">
+      <Filter>Characters\States\Enemies\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\States\Player\Animations\AnimationCaperuAttackState.h">
+      <Filter>Characters\States\Player\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\States\Player\Animations\AnimationCaperuIdleState.h">
+      <Filter>Characters\States\Player\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\States\Player\Animations\AnimationCaperuRunState.h">
+      <Filter>Characters\States\Player\Animations</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +148,24 @@
     </Filter>
     <Filter Include="Characters\Enemy">
       <UniqueIdentifier>{f6474584-c1fa-4fdb-bd30-e803e9fecf2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\States\Enemies">
+      <UniqueIdentifier>{e58f55b0-1325-4e39-a757-40f58c2a9ab0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\States\Player">
+      <UniqueIdentifier>{2f825f79-2b20-428f-92d2-df104178e97e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\States\Enemies\Animations">
+      <UniqueIdentifier>{e6df9509-f9f2-4ac2-aca9-3c765875ba0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\States\Enemies\Logic">
+      <UniqueIdentifier>{d44f94ec-e065-499f-a3dd-f9d44c0d1c1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\States\Player\Animations">
+      <UniqueIdentifier>{9f8f6ad6-c1bd-4b4a-874e-544f5ea98442}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\States\Player\Logic">
+      <UniqueIdentifier>{d01a351b-bb06-4ef3-bcbd-16ac60766c87}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
