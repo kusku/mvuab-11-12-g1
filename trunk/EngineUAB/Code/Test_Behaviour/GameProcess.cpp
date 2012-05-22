@@ -3,6 +3,12 @@
 #include "Cameras\Camera.h"
 #include "RenderManager.h"
 #include "Scripting\ScriptManager.h"
+
+#include "Characters\CharacterManager.h"
+#include "Characters\Character.h"
+#include "StatesMachine\ScriptedStateMachine.h"
+
+
 #include "Core.h"
 #include "Base.h"
 #include "TestBehaviourDefs.h"
@@ -63,4 +69,10 @@ void CGameProcess::Render(CRenderManager &RM)
 //-------------------------------------
 void CGameProcess::RegisterMethods()
 {
+	module(SCRIPT->GetLuaState()) [
+		class_<CScriptedStateMachine<CCharacter>>("CScriptedStateMachine")
+			.def("ChangeState", &CScriptedStateMachine<CCharacter>::ChangeState)
+			.def("CurrentState", &CScriptedStateMachine<CCharacter>::CurrentState)
+			.def("SetCurrentState", &CScriptedStateMachine<CCharacter>::SetCurrentState)
+	];
 }
