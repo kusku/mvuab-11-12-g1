@@ -35,6 +35,8 @@ public:
 	void	Done	();
 	bool	IsOk	() const { return m_bIsOk; }
 
+	static void RegisterMethods ();
+
 	void	BeginRendering();
 	void	EndRendering();
 	void	SetupMatrices(CCamera* camera);

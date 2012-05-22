@@ -1,6 +1,7 @@
 #include "GUIProcess.h"
 #include "RenderManager.h"
 #include "Scripting\ScriptManager.h"
+#include "SoundManager.h"
 #include "ActionToInput.h"
 #include "Cameras\Camera.h"
 #include "Cameras\ThPSCamera.h"

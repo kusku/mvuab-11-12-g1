@@ -93,8 +93,6 @@ public:
 	CGUIWindow*			GetWindow					( const std::string &window );
 	bool				ChangeWindowName			( const std::string &window, const std::string &newName );
 	const TWindowsMap&	GetAllWindows				() const		{ return m_WindowsMap; }
-	//----CScriptRegister interface--------------------------------------------
-	//virtual void						RegisterFunctions				(CScriptManager* scriptManager);
 
 	//-------Funciones para modificar los GuiElements--------------------------
     void				SetActiveGuiElement				( const std::string& inNameGuiElement, bool flag);
@@ -131,6 +129,9 @@ public:
 	CGUITextBox*		GetDefaultTextBox				() const	{ return m_TextBox; }
 	CGUIPointerMouse*	GetPointerMouse					() const	{ return m_PointerMouse; }
 	//-----------------------------------------------------------------------------------------------------------//
+
+	//----CScriptRegister interface--------------------------------------------
+	static void					RegisterMethods		();
 
 private:
 	void				Release							();

@@ -45,6 +45,7 @@
 #include "StatesMachine\MessageDispatcher.h"
 
 #include "Movement\WayPointManager.h"
+#include "EngineProcess.h"
 
 #if defined(_DEBUG)
 	#include "Memory\MemLeaks.h"
@@ -158,6 +159,8 @@ bool CCore::Init( HWND _HWnd, const SConfig &config )
 
 	//SCRIPT->RunFile( "main.lua" );
 
+	m_pScriptManager = new CScriptManager();
+
 	if ( m_bIsOk )
 	{
 		//Inicializa las fuentes
@@ -228,7 +231,7 @@ bool CCore::Init( HWND _HWnd, const SConfig &config )
 			/*bool isOk = m_pGUIManager->Init( config.gui_path );*/
 
 			// Inicialización del sistema de triggers
-			m_pTriggersManager = new CTriggersManager( );
+			m_pTriggersManager = new CTriggersManager();
 			/*m_pTriggersManager->Load ( config.triggers_system_path );*/
 
 			// Inicialización del sistema de sonido
@@ -245,15 +248,21 @@ bool CCore::Init( HWND _HWnd, const SConfig &config )
 				/*m_bIsOk = m_pDebugGUIManager->Init( config.modifiers_path, config.debug_options_path );		*/
 			}
 
-			m_pScriptManager = new CScriptManager();
-			m_pScriptManager->Load( config.scripts_path );
-
 			// Inicialización de la lógica
 			m_pEntityManager = new CEntityManager();
 			m_pMessageDispatcher = new CMessageDispatcher();
 			
 			m_WayPointManager = new CWayPointManager();
 			m_WayPointManager->Load(config.waypoints_path);
+
+			CCore::RegisterMethods();
+			CRenderManager::RegisterMethods();
+			CGUIManager::RegisterMethods();
+			CSoundManager::RegisterMethods();
+			CTriggersManager::RegisterMethods();
+			CDebugGUIManager::RegisterMethods();
+
+			m_pScriptManager->Load( config.scripts_path );
 		}
 	}
 
@@ -786,7 +795,55 @@ void CCore::ReloadSounds()
 	m_pSoundManager->Reload();
 }
 
+void CCore::RegisterMethods()
+{
+	lua_State *state = SCRIPT->GetLuaState();
 
-// -----------------------------------------
-//				PROPIETATS 
-// -----------------------------------------
+	module(state) [
+		class_<CEngineProcess>("CEngineProcess")
+	];
+
+	module(state) [
+		class_<CCore>("CCore")
+			.def("reload_all", &CCore::Reload)
+			.def("reload_fonts", &CCore::ReloadTTFs)
+			.def("reload_languages", &CCore::ReloadLanguages)
+			.def("reload_inputs", &CCore::ReloadInputs)
+			.def("reload_render_commands", &CCore::ReloadSceneRendererCommandManager)
+			.def("reload_renderable_objects_layers", &CCore::ReloadRenderableObjectsLayersManager)
+			.def("reload_effects", &CCore::ReloadEffects)
+			.def("reload_meshes", &CCore::ReloadMeshes)
+			.def("reload_pools", &CCore::ReloadPools)
+			.def("reload_scripts", &CCore::ReloadScripts)
+			.def("reload_lights", &CCore::ReloadLights)
+			.def("reload_physics", &CCore::ReloadPhysics)
+			.def("reload_billboards", &CCore::ReloadBillboards)
+			.def("reload_particles", &CCore::ReloadParticles)
+			.def("reload_triggers", &CCore::ReloadTriggers)
+			.def("reload_gui", &CCore::ReloadGUI)
+			.def("reload_sounds", &CCore::ReloadSounds)
+			.def("get_debug_gui_manager", &CCore::GetDebugGUIManager)
+			.def("get_stadistics", &CCore::GetStadistics)
+			.def("get_gui_manager", &CCore::GetGUIManager)
+			.def("get_sound_manager", &CCore::GetSoundManager)
+			.def("get_process", &CCore::GetProcess)
+			.def("load_fonts", &CCore::LoadFonts)
+			.def("load_languages", &CCore::LoadLanguages)
+			.def("load_inputs", &CCore::LoadInputs)
+			.def("load_effects", &CCore::LoadEffects)
+			.def("load_renderable_objects_techniques", &CCore::LoadROTechniques)
+			.def("load_static_meshes", &CCore::LoadStaticMeshes)
+			.def("load_animated_models", &CCore::LoadAnimatedModels)
+			.def("load_renderable_objects_layers", &CCore::LoadROLayers)
+			.def("load_lights", &CCore::LoadLights)
+			.def("load_render_commands", &CCore::LoadRenderCommands)
+			.def("load_physics", &CCore::LoadPhysics)
+			.def("load_billboards", &CCore::LoadBillboards)
+			.def("load_particles", &CCore::LoadParticles)
+			.def("load_gui", &CCore::LoadGUI)
+			.def("load_triggers", &CCore::LoadTriggers)
+			.def("load_sounds", &CCore::LoadSounds)
+			.def("load_debug_gui", &CCore::LoadDebugGUI)
+			.def("is_game_mode", &CCore::IsGameMode)
+	];
+}

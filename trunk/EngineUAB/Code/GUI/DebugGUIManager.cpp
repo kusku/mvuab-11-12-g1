@@ -4,6 +4,7 @@
 #include "DebugOptions\DebugOptions.h"
 #include "DebugInfo\DebugRender.h"
 #include "LogRender\LogRender.h"
+#include "Stadistics\Stadistics.h"
 #include "Utils\Timer.h"
 #include "Console\Console.h"
 #include "Modifiers\ModifierManager.h"
@@ -93,4 +94,51 @@ void CDebugGUIManager::Render(CRenderManager &_RM, CFontManager &_FM, CTimer *_T
 
 	if( m_bRenderDebugOptions )
 		m_pDebugOptions->Render(_RM, _FM);
+}
+
+void CDebugGUIManager::RegisterMethods()
+{
+	lua_State *state = SCRIPT->GetLuaState();
+
+	module(state) [
+		class_<CDebugGUIManager>("CDebugGUIManager")
+			.def("get_console",&CDebugGUIManager::GetConsole)
+			.def("get_debug_render", &CDebugGUIManager::GetDebugRender)
+			.def("get_debug_options", &CDebugGUIManager::GetDebugOptions)
+	];
+
+	module(state) [
+		class_<CConsole>("CConsole")
+			.def("toggle", &CConsole::Toggle)
+			.def("set_active", &CConsole::SetActive)
+			.def("is_active", &CConsole::IsActive)
+	];
+
+	module(state) [
+		class_<CStadistics>("CStadistics")
+			.def("get_draw_calls", &CStadistics::GetNumOfDrawCalls)
+			.def("get_draw_debug_lines", &CStadistics::GetNumOfDebugLines)
+			.def("get_vertices_in_frustum", &CStadistics::GetNumOfVerticesInFrustum)
+			.def("get_triangles_in_frustum", &CStadistics::GetNumOfTrianglesInFrustum)
+	];
+
+	module(state) [
+		class_<CDebugOptions>("CDebugOptions")
+			.def("set_bool", &CDebugOptions::SetBool)
+			.def("set_int", &CDebugOptions::SetInt)
+			.def("set_float", &CDebugOptions::SetFloat)
+			.def("reload", &CDebugOptions::Reload)
+	];
+
+	module(state) [
+		class_<CDebugRender>("CDebugRender")
+			.def("is_fps_visible", &CDebugRender::GetFPSVisible)
+			.def("is_delta_time_visible", &CDebugRender::GetDeltaTimeVisible)
+			.def("is_gamepad_visible", &CDebugRender::GetGamePadVisible)
+			.def("is_camera_visible", &CDebugRender::GetCameraVisible)
+			.def("toggle_fps", &CDebugRender::ToggleFPS)
+			.def("toggle_delta_time", &CDebugRender::ToggleDeltaTime)
+			.def("toggle_gamepad", &CDebugRender::ToggleGamePad)
+			.def("toggle_camera", &CDebugRender::ToggleCamera)
+	];
 }

@@ -34,6 +34,8 @@ public:
 	void			Update			( float _ElapsedTime );
 	void			Render			( CRenderManager &_RM, CFontManager &_FM, CTimer *_Timer );
 
+	static void		RegisterMethods	();
+
 	//--- Get Methods ---------------------------
 	inline CDebugOptions*			GetDebugOptions			() const		{ return m_pDebugOptions; }
 	inline CConsole*				GetConsole				() const		{ return m_pConsole; }	

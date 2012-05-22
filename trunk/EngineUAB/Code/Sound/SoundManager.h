@@ -88,6 +88,8 @@ public:
     void			SetListenerOrientation	( const Vect3f& InAt, const Vect3f& _InUp );
     void			GetListenerOrientation	( Vect3f& _OutAt, Vect3f& _OutUp );
 
+	static void		RegisterMethods			();
+
 private:
 
 	//Types

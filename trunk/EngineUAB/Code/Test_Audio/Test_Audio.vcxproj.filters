@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Archivos de recursos">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Wwise">
+      <UniqueIdentifier>{6debe649-ee57-46a1-8df8-7b33c3849ea1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="testAudio.cpp" />
+    <ClCompile Include="TestAudioProcess.cpp" />
+    <ClCompile Include="Wwise\WwiseSoundManager.cpp">
+      <Filter>Wwise</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="TestAudioProcess.h" />
+    <ClInclude Include="Wwise\WwiseSoundManager.h">
+      <Filter>Wwise</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
