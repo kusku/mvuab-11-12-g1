@@ -23,7 +23,7 @@
 	<Scripts scriptsXML="./Data/XML/scripts.xml" />
 	<Billboards billboardsXML="./Data/XML/billboard_animations.xml" />
 	<Particles particlesXML="./Data/XML/particles.xml" />
-	<TriggersSystem triggersXML="./Data/XML/triggers.xml" />
+	<Triggers triggersXML="./Data/XML/triggers.xml" />
 	<Sound soundXML="./Data/XML/sounds.xml" />
 	<GUI guiXML="./Data/XML/gui.xml" />
 	<Waypoints wayPointsXML="./Data/XML/waypoints.xml" />

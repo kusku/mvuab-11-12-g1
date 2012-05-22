@@ -111,7 +111,7 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 		g_Engine->Init(g_hWnd);
 
 		CORE->SetProcess(g_GUIProcess);
-		CORE->SetGameMode(false);
+		CORE->SetGameMode( false );
 
 		ShowWindow( g_hWnd, SW_SHOWDEFAULT );
 		UpdateWindow( g_hWnd );
