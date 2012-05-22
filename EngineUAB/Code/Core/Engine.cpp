@@ -77,12 +77,12 @@ bool CEngine::Init( HWND _HWnd )
 
 	if ( m_bIsOk )
 		//m_pCore->SetProcess ( m_pProcess );
-		m_pCore->SetTimer   ( &m_Timer );
+		m_pCore->SetTimer( &m_Timer );
 
 	if ( m_bIsOk )
 		LOGGER->AddNewLog( ELL_INFORMATION, "CEngine::Init-> Engine inicializado correctamente.");
 	else
-		LOGGER->AddNewLog( ELL_INFORMATION, "CEngine::Init-> Engine inicializado incorrectamente.");
+		LOGGER->AddNewLog( ELL_ERROR, "CEngine::Init-> Engine inicializado incorrectamente.");
 
 	return m_bIsOk;
 }
@@ -271,7 +271,7 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 			{
 				m_Config.gui_path = l_ConfigNode(i).GetPszProperty("guiXML", "");
 			}
-			else if( l_Name == "TriggersSystem" )
+			else if( l_Name == "Triggers" )
 			{
 				m_Config.triggers_system_path = l_ConfigNode(i).GetPszProperty ( "triggersXML", "" );
 			}
