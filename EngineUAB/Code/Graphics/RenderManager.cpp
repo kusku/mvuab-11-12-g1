@@ -11,6 +11,7 @@
 #include "Math\MathUtils.h"
 #include "Vertexs\VertexType.h"
 #include "Stadistics\Stadistics.h"
+#include "Scripting\ScriptManager.h"
 #include <assert.h>
 #include <string>
 
@@ -860,4 +861,9 @@ bool CRenderManager::DebugDumpBuffer ( const std::string &_FileName, const std::
 	pDestTarget->Release();
 	
 	return true;
+}
+
+void CRenderManager::RegisterMethods()
+{
+	lua_State *state = SCRIPT->GetLuaState();
 }

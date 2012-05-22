@@ -50,13 +50,11 @@ public:
 	void						Done		( void );
 	bool						IsOk		( void ) const							{ return m_bIsOk; }
 
-private:
-	void Release();
-
 	//----Main Methods -----------------------------------------------------
-public:
 	void						Update		( float _ElapsedTime );
 	void						Render		( void );
+
+	static void					RegisterMethods();
 
 	//---Load Methods -------------------------------------------------------
 	bool		LoadFonts				();
@@ -144,6 +142,9 @@ public:
 	inline CSoundManager*						GetSoundManager				( void ) const					{ return m_pSoundManager; }						// Propietats dels sò 
 	inline CEntityManager*						GetEntityManager			( void ) const					{ return m_pEntityManager; }					// Accés al gestor lógic d'entitats 
 	inline CMessageDispatcher*					GetMessageDispatcher		( void ) const					{ return m_pMessageDispatcher; }				// Accés al gestor lógic de missatges
+
+private:
+	void Release();
 
 	//----Members ---------------------------------------
 private:

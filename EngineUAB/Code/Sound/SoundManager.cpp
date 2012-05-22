@@ -9,6 +9,7 @@
 #include "Textures\Texture.h"
 #include "Object3D.h"
 
+#include "Scripting\ScriptManager.h"
 #include "Textures\TextureManager.h"
 #include "RenderManager.h"
 #include "Cameras\Camera.h"
@@ -1515,4 +1516,57 @@ bool CSoundManager::IsSourceFinished ( uint32 _Source )
 	}
 
 	return ( l_State == AL_STOPPED ); // || l_State == AL_INITIAL );
+}
+
+void CSoundManager::RegisterMethods()
+{
+	lua_State *state = SCRIPT->GetLuaState();
+
+	module(state) [
+		class_<CSoundManager>("CSoundManager")
+			.def("set_volume_value", &CSoundManager::SetSoundVolume)					// Coloca el valor del volumen de sonido per un test
+			.def("get_volume_value", &CSoundManager::GetSoundVolume)					// Obtiene el valor del volumen de sonido per un test
+
+			.def("Init", &CSoundManager::Init)											// Inicializa el device y contexto
+			.def("Done", &CSoundManager::Done)											// Release
+			.def("IsOk", &CSoundManager::IsOk)											// Dice si todo está correctamente inicializado
+
+			.def("load", &CSoundManager::Load)											// Carga un fichero xml de sonidos
+			.def("update", &CSoundManager::Update)										// Actualiza los sonidos, fades in/out
+			.def("render", &CSoundManager::Render)										// Renderiza si se desea en modo debug para saber donde está cada elemento
+
+			.def("load_sounds", &CSoundManager::LoadSounds)								// Carga los sonidos del XML predefinido en el método Load
+			.def("reset", &CSoundManager::Reset)										// Para todos los sonidos y limpia buffers(sonidos) i sources (altavoces)
+			.def("pause", &CSoundManager::Pause)										// Determina si hace pausa/play de todos los sonidos segun la variable global "m_bPause"
+			.def("stop", &CSoundManager::Stop)											// Para todos los sonidos de los altavoces
+			.def("sound_on", &CSoundManager::SoundOn)									// Setea el sonido activo
+			.def("load_sounds", &CSoundManager::SoundOff)								// Setea mute
+			.def("set_gain", &CSoundManager::SetGain)									// Setea el volumen general
+			.def("get_gain", &CSoundManager::GetGain)									// Obtiene el valor del volumen de sonido 
+
+			.def("play_action_2D", &CSoundManager::PlayAction2D)						// Ejecuta sonidos en 2D
+			.def("play_action_3D", &CSoundManager::PlayAction3D)						// Ejecuta sonidos en 3D
+
+			.def("create_source", &CSoundManager::CreateSource)							// Crea un source (altavoz)
+			.def("delete_source", &CSoundManager::DeleteSource)							// Elimina un source (altavoz)
+			.def("play_source2D", &CSoundManager::PlaySource2D)							// Ejecuta sonidos en 2D de un altavoz concreto
+			.def("play_source3D", &CSoundManager::PlaySource3D)							// Ejecuta sonidos en 3D de un altavoz concreto
+			.def("pause_source", &CSoundManager::PauseSource)							// Ejecuta un altavoz
+			.def("stop_source", &CSoundManager::StopSource)								// Para un altavoz
+			.def("set_sourceGain", &CSoundManager::SetSourceGain)						// Da volumen a un altavoz
+			.def("get_sourceGain", &CSoundManager::GetSourceGain)						// Obtiene el volumen de un altavoz
+			.def("set_sourcePosition", &CSoundManager::SetSourcePosition)				// Coloca la posición del altavoz
+			.def("get_sourcePosition", &CSoundManager::GetSourcePosition)				// Obtiene la posición del altavoz
+			.def("set_source_velocity", &CSoundManager::SetSourceVelocity)				// Coloca la velocidad del altavoz
+			.def("get_source_velocity", &CSoundManager::GetSourceVelocity)				// Obtiene la velocidad del altavoz
+			.def("fade_in_source", &CSoundManager::FadeInSource)						// Realiza una entrada del sonido
+			.def("fade_out_source", &CSoundManager::FadeOutSource)						// Realiza una salida del sonido
+
+			.def("set_listener_position", &CSoundManager::SetListenerPosition)			// Coloca la posición del listener
+			.def("get_listener_position", &CSoundManager::GetListenerPosition)			// Obtiene la posición del listener
+			.def("set_listener_velocity", &CSoundManager::SetListenerVelocity)			// Coloca la velocidad del listener
+			.def("get_listener_velocity", &CSoundManager::GetListenerVelocity)			// Obtiene la velocidad del listener
+			.def("set_listener_orientation", &CSoundManager::SetListenerOrientation)	// Coloca la orientacion del listener
+			.def("get_listener_orientation", &CSoundManager::GetListenerOrientation)	// Obtiene la orientacion del listener	
+	];
 }

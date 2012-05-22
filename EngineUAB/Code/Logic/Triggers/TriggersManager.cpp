@@ -12,6 +12,7 @@
 #include "Math\Vector3.h"
 #include "Math\Color.h"
 
+#include "Scripting\ScriptManager.h"
 #include "RenderManager.h"
 #include "XML\XMLTreeNode.h"
 #include "base.h"
@@ -175,18 +176,6 @@ bool CTriggersManager::LoadXML ( void )
 	return true;
 }
 
-void CTriggersManager::RegisterMethods( void )
-{
-	lua_State * l_State = SCRIPT->GetLuaState();
-
-	module(l_State) [
-		class_<CTriggersManager>("CTriggersManager")
-			.def("exist_fisic_trigger", &CTriggersManager::ExistFisicTrigger)			// Retorna si existe un trigger ya cargado
-			.def("exist_trigger", &CTriggersManager::ExistTrigger)						// Retorna si existe un físic trigger asociado al trigger ya cargado
-			.def("get_trigger", &CTriggersManager::GetTrigger)							// Obtiene el trigger del mapa de triggers
-	];
-}
-
 // -----------------------------------------
 //				 EVENTS 
 // -----------------------------------------
@@ -265,4 +254,16 @@ bool CTriggersManager::ExistTrigger ( std::string _TriggerName )
 		return true;
 	else 
 		return false;
+}
+
+void CTriggersManager::RegisterMethods()
+{
+	lua_State *state = SCRIPT->GetLuaState();
+
+	module(state) [
+		class_<CTriggersManager>("CTriggersManager")
+			.def("exist_fisic_trigger", &CTriggersManager::ExistFisicTrigger)			// Retorna si existe un trigger ya cargado
+			.def("exist_trigger", &CTriggersManager::ExistTrigger)						// Retorna si existe un físic trigger asociado al trigger ya cargado
+			.def("get_trigger", &CTriggersManager::GetTrigger)							// Obtiene el trigger del mapa de triggers
+	];
 }

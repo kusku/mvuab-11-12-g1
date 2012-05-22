@@ -10,23 +10,6 @@
 #include "Utils\Singleton.h"
 #include "LuaHelperFunctions.h"
 
-
-
-typedef enum ERegisterMethods
-{
-	CORE_SCRIPT = 0,
-	GRAPHICS_SCRIPT,
-	GUI_SCRIPT,
-	DEBUG_GUI_SCRIPT,
-	INPUT_SCRIPT,	
-	LOGIC_SCRIPT,
-	NETWORK_SCRIPT,
-	PHYSICS_SCRIPT,
-	SOUND_SCRIPT,
-	MATH_SCRIPT,
-	TRIGGER_SCRIPT,
-};
-
 class CScriptManager : public CSingleton<CScriptManager>
 {
 public:
@@ -46,20 +29,10 @@ public:
 	bool		Reload						( void );
 
 	//---- Register Methods -------------------------------------
-	void		RegisterLUAMethods			( ERegisterMethods _Type );
+	void		RegisterLUAMethods			();
 
 private:
-	void		RegisterCoreMethods			( void );
-	void		RegisterGraphicsMethods		( void );
-	void		RegisterGUIMethods			( void );
-	void		RegisterDebugGUIMethods		( void );
-	void		RegisterInputMethods		( void );
-	void		RegisterLogicMethods		( void );
-	void		RegisterNetworkMethods		( void );
-	void		RegisterPhysicMethods		( void );
-	void		RegisterSoundMethods		( void );
 	void		RegisterMathMethods			( void );
-	void		RegisterTriggerMethods		( void );
  	
 	//---- Properties ( get & Set )---------------------------------------
 public:

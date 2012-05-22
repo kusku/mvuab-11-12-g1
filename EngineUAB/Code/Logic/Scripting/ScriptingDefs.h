@@ -26,18 +26,5 @@ using namespace luabind;
 #include "Math\Matrix33.h"
 #include "Math\Matrix44.h"
 #include "Math\Matrix34.h"
-#include "Console\Console.h"
-#include "Stadistics\Stadistics.h"
-#include "DebugOptions\DebugOptions.h"
-#include "DebugInfo\DebugRender.h"
-#include "DebugGUIManager.h"
-#include "SoundManager.h"
-#include "Triggers\TriggersManager.h"
-#include "StatesMachine\State.h"
-#include "StatesMachine\StateMachine.h"
-#include "StatesMachine\BaseGameEntity.h"
-#include "GUIManager.h"
-#include "Controls\GUIAnimatedImage.h"
-#include "EngineProcess.h"
 
 #endif __SCRIPTING_DEFS_H__

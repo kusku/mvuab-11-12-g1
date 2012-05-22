@@ -58,13 +58,9 @@ public:
 	void			Update					( float _ElapsedTime );
 	void			Render					( CRenderManager *_RM );
 	
-	//----Private Functions -----------------------------------------------------
-private:
-	bool			LoadXML					( void );
-	void			RegisterMethods			( void );
+	static void		RegisterMethods			();
 
 	//---- Main Interfaces ------------------------------------------------
-public:
 	virtual void	OnEnter					( CPhysicUserData* _Entity_Trigger1, CPhysicUserData* _Other_Shape );
 	virtual	void	OnLeave					( CPhysicUserData* _Entity_Trigger1, CPhysicUserData* _Other_Shape );
 	virtual	void	OnStay					( CPhysicUserData* _Entity_Trigger1, CPhysicUserData* _Other_Shape );
@@ -75,6 +71,10 @@ public:
 
 	//---- Properties ( get & Set )---------------------------------------
 	TriggerInstance	GetTrigger				( std::string _TriggerName );
+
+	//----Private Functions -----------------------------------------------------
+private:
+	bool			LoadXML					( void );
 
 	//---- Members -------------------------------------------------------
 private:
