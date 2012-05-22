@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef __CLASS_STATE_MACHINE_H__
+#define __CLASS_STATE_MACHINE_H__
+
 #include <assert.h>
 #include <string>
 
@@ -151,3 +154,4 @@ private:
 	CState<T>*		m_pGlobalState;;
 };
 
+#endif __CLASS_STATE_MACHINE_H__

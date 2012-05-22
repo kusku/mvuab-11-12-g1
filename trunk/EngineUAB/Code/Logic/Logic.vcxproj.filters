@@ -72,6 +72,9 @@
     <ClInclude Include="Movement\WayPoint.h">
       <Filter>IA\Movement</Filter>
     </ClInclude>
+    <ClInclude Include="StatesMachine\ScriptedStateMachine.h">
+      <Filter>IA\State Machine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scripting">
@@ -91,9 +94,6 @@
     </Filter>
     <Filter Include="IA\Steering Behaviors">
       <UniqueIdentifier>{b9303a42-7b6c-4df1-8f52-f074fc681a46}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="IA\State Machine\Types">
-      <UniqueIdentifier>{1b8ea84b-ef38-4346-a29d-5e114e1fb5ef}</UniqueIdentifier>
     </Filter>
     <Filter Include="IA\State Machine\Messages">
       <UniqueIdentifier>{e289ece9-4f7d-4da9-b0a9-69bc6d1b9524}</UniqueIdentifier>

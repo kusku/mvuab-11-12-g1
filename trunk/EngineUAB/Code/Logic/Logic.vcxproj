@@ -31,6 +31,7 @@
     <ClInclude Include="StatesMachine\EntityManager.h" />
     <ClInclude Include="StatesMachine\MessageDefs.h" />
     <ClInclude Include="StatesMachine\MessageDispatcher.h" />
+    <ClInclude Include="StatesMachine\ScriptedStateMachine.h" />
     <ClInclude Include="StatesMachine\State.h" />
     <ClInclude Include="StatesMachine\StateMachine.h" />
     <ClInclude Include="StatesMachine\StateMachineDef.h" />
