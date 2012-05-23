@@ -32,6 +32,8 @@ public:
 	void	Done		();
 	bool	IsOk		( void ) const { return m_bIsOk; }
 
+	static void RegisterMethods();
+
 	// Read Data
 	void	LoadXML		( const std::string &filename );
 	void	Reload		();
@@ -45,7 +47,8 @@ public:
 	//-----Get Methods-------
 	void			GetActionInfo	( const std::string &action, std::string &keys_ );
 	bool			GetGamepadState ( void ) const;
-	CInputManager*	GetInputManager( void ) const { return m_pInputManager; }
+
+	inline CInputManager*	GetInputManager( void ) const { return m_pInputManager; }
 	
 
 private:
