@@ -100,6 +100,8 @@ HRESULT CMouse::Update(void)
 
 	m_Delta.x = m_Delta.y = m_Delta.z = 0;
 
+	ZeroMemory(&od[0], sizeof(DIDEVICEOBJECTDATA)*BUFFER_SIZE);
+
 	// try to get the data from the mouse
 	if (FAILED(GetData(IDV_MOUSE, &od[0], &dwNumElem))) 
 	{
