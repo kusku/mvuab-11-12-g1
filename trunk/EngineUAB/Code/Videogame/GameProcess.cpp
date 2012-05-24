@@ -3,9 +3,12 @@
 #include "Cameras\Camera.h"
 #include "RenderManager.h"
 #include "Scripting\ScriptManager.h"
+#include "ActionToInput.h"
 #include "Core.h"
 #include "Base.h"
+
 #include "VideogameDefs.h"
+#include "Characters\CharacterManager.h"
 
 #if defined (_DEBUG)
 #include "Memory/MemLeaks.h"
@@ -13,11 +16,14 @@
 
 CGameProcess::CGameProcess(HWND hWnd)
 	: m_hWnd(hWnd)
+	, m_pThPSCamera(NULL)
+	, m_pCharacterManager(NULL)
 {
 }
 
 CGameProcess::~CGameProcess(void)
 {
+	CHECKED_DELETE(m_pCharacterManager);
 }
 
 bool CGameProcess::Init()
@@ -38,6 +44,14 @@ bool CGameProcess::Init()
 	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
 	CORE->SetCamera(m_pCamera);
 
+	//Registra los métodos
+	RegisterMethods();
+	CCharactersManager::RegisterMethods();
+
+	//Crea los datos para el gameplay
+	m_pCharacterManager = new CCharactersManager();
+
+	//Carga los datos en el engine
 	if( INIT_GUI )
 	{
 		CORE->GetScriptManager()->RunCode("load_data()");
@@ -47,15 +61,25 @@ bool CGameProcess::Init()
 		CORE->GetScriptManager()->RunCode("load_all()");
 	}
 
+	CORE->GetScriptManager()->Load("./Data/XML/script_gameplay.xml");
+	CORE->GetScriptManager()->RunCode("init_game_data()");
+
 	return true;
 }
 
 void CGameProcess::Update(float elapsedTime)
 {
+	m_pCharacterManager->Update(elapsedTime);
 }
 
 void CGameProcess::Render(CRenderManager &RM)
 {
+}
+
+CGameProcess* CGameProcess::GetGameProcess()
+{
+	CEngineProcess *proces = CORE->GetProcess();
+	return static_cast<CGameProcess*>(proces);
 }
 
 //-------------------------------------
@@ -63,4 +87,14 @@ void CGameProcess::Render(CRenderManager &RM)
 //-------------------------------------
 void CGameProcess::RegisterMethods()
 {
+	lua_State *state = SCRIPT->GetLuaState();
+
+	module(state) [
+		def("get_game_process", GetGameProcess)
+	];
+
+	module(state) [
+		class_<CGameProcess>("CGameProcess")
+			.def("get_character_manager", &CGameProcess::GetCharacterManager)
+	];
 }
