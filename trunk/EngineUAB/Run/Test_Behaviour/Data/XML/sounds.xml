@@ -1,3 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Sounds>
+	<Sound path="./Data/Sounds/music.wav" 	soundId="background" />
+	<Sound path="./Data/Sounds/gui_next.wav" 	soundId="guiNext"/>
+	<Sound path="./Data/Sounds/gui_over.wav" 	soundId="guiOver"/>
+	<Sound path="./Data/Sounds/gui_back.wav" 	soundId="guiBack"/>
+	<Sound path="./Data/Sounds/gameOver.wav" 	soundId="gameOver"/>
+	<Sound path="./Data/Sounds/Init.wav" 		soundId="initGame"/>
+	<Sound path="./Data/Sounds/fire.wav" 		soundId="fire"/>
 </Sounds>

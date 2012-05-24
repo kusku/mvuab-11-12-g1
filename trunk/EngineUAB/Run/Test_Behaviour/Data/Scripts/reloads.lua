@@ -39,3 +39,19 @@ end
 function reload_scripts()
 	core:reload_scripts()
 end
+
+function reload_physics()
+	core:reload_physics()
+end
+
+function reload_gui()
+	core:reload_gui()
+end
+
+function reload_sounds()
+	core:reload_sounds()
+end
+
+function reload_triggers()
+	core:reload_triggers()
+end
