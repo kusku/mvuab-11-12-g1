@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{50E04784-6B8F-4B1B-95AD-FED5F670E3C5}</ProjectGuid>
+    <ProjectGuid>{32D7EDB2-952B-4783-9F8B-1AD132E206CA}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Test_Behaviour</RootNamespace>
   </PropertyGroup>
@@ -53,12 +53,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Code\($ProjectName)\;$(SolutionDir)\Code\Test_Hito_Mayo;$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\Logic\;$(SolutionDir)\Code\GUI\;$(SolutionDir)\Code\PhysX;$(SolutionDir)\Code\Sound\;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src;$(SolutionDir)\Code\3dParty\lua-5.2.0\src;$(SolutionDir)\Code\3dParty\luabind-0.9.1;$(SolutionDir)\Code\3dParty\boost_1_48_0;$(SolutionDir)\Code\3dParty\openAL\include;$(DXSDK_DIR)\Include;$(_PHYSX_SDK)\Foundation\include;$(_PHYSX_SDK)\NxCharacter\include;$(_PHYSX_SDK)\Physics\include;$(_PHYSX_SDK)\PhysXLoader\include;$(_PHYSX_SDK)\Cooking\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Test_Behaviour\;$(SolutionDir)\Code\($ProjectName)\;$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\Logic\;$(SolutionDir)\Code\GUI\;$(SolutionDir)\Code\PhysX;$(SolutionDir)\Code\Sound\;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src;$(SolutionDir)\Code\3dParty\lua-5.2.0\src;$(SolutionDir)\Code\3dParty\luabind-0.9.1;$(SolutionDir)\Code\3dParty\boost_1_48_0;$(SolutionDir)\Code\3dParty\openAL\include;$(DXSDK_DIR)\Include;$(_PHYSX_SDK)\Foundation\include;$(_PHYSX_SDK)\NxCharacter\include;$(_PHYSX_SDK)\Physics\include;$(_PHYSX_SDK)\PhysXLoader\include;$(_PHYSX_SDK)\Cooking\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\lib;$(SolutionDir)\bin\lib;$(DXSDK_DIR)\lib\x86;$(_PHYSX_SDK)\lib\Win32;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\bin\lib;$(SolutionDir)\Code\3dParty\openAL\Lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>libxml2.lib;base_d.lib;core_d.lib;graphics_d.lib;input_d.lib;physx_d.lib;LUA_d.lib;Logic_d.lib;LUABind_d.lib;gui_d.lib;d3dx9d.lib;d3d9.lib;d3dxof.lib;dxguid.lib;dinput8.lib;xinput.lib;winmm.lib;cal3d_d.lib;PhysXLoader.lib;NxCooking.lib;NxCharacter.lib;Sound_d.lib;OpenAL32.lib;alut.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
@@ -71,23 +72,60 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Cameras\FreeCamera.cpp" />
     <ClCompile Include="Cameras\StaticCamera.cpp" />
+    <ClCompile Include="Characters\Character.cpp" />
+    <ClCompile Include="Characters\CharacterManager.cpp" />
+    <ClCompile Include="Characters\Enemy\Enemy.cpp" />
+    <ClCompile Include="Characters\Player\Player.cpp" />
+    <ClCompile Include="Characters\Properties\Properties.cpp" />
+    <ClCompile Include="Characters\Properties\PropertiesManager.cpp" />
+    <ClCompile Include="Characters\States\AnimationsStates.cpp" />
+    <ClCompile Include="Characters\States\AnimationsStatesManager.cpp" />
+    <ClCompile Include="Characters\States\Enemies\Animations\AnimationWolfIdleState.cpp" />
+    <ClCompile Include="Characters\States\Enemies\Animations\AnimationWolfRunState.cpp" />
+    <ClCompile Include="Characters\States\Enemies\Animations\AnimationWolfWalkState.cpp" />
+    <ClCompile Include="Characters\States\IdleState.cpp" />
+    <ClCompile Include="Characters\States\Player\Animations\AnimationCaperuAttackState.cpp" />
+    <ClCompile Include="Characters\States\Player\Animations\AnimationCaperuIdleState.cpp" />
+    <ClCompile Include="Characters\States\Player\Animations\AnimationCaperuRunState.cpp" />
+    <ClCompile Include="Characters\States\PursuitState.cpp" />
+    <ClCompile Include="DebugSceneBehaviour\Scene.cpp" />
     <ClCompile Include="GameProcess.cpp" />
     <ClCompile Include="GUIProcess.cpp" />
     <ClCompile Include="TestBehaviour.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Cameras\FreeCamera.h" />
     <ClInclude Include="Cameras\StaticCamera.h" />
+    <ClInclude Include="Characters\Character.h" />
+    <ClInclude Include="Characters\CharacterManager.h" />
+    <ClInclude Include="Characters\Enemy\Enemy.h" />
+    <ClInclude Include="Characters\PlayerDef.h" />
+    <ClInclude Include="Characters\Player\Player.h" />
+    <ClInclude Include="Characters\Properties\Properties.h" />
+    <ClInclude Include="Characters\Properties\PropertiesManager.h" />
+    <ClInclude Include="Characters\States\AnimationsStates.h" />
+    <ClInclude Include="Characters\States\AnimationsStatesManager.h" />
+    <ClInclude Include="Characters\States\Enemies\Animations\AnimationWolfIdleState.h" />
+    <ClInclude Include="Characters\States\Enemies\Animations\AnimationWolfRunState.h" />
+    <ClInclude Include="Characters\States\Enemies\Animations\AnimationWolfWalkState.h" />
+    <ClInclude Include="Characters\States\IdleState.h" />
+    <ClInclude Include="Characters\States\Player\Animations\AnimationCaperuAttackState.h" />
+    <ClInclude Include="Characters\States\Player\Animations\AnimationCaperuIdleState.h" />
+    <ClInclude Include="Characters\States\Player\Animations\AnimationCaperuRunState.h" />
+    <ClInclude Include="Characters\States\PursuitState.h" />
+    <ClInclude Include="DebugSceneBehaviour\Scene.h" />
     <ClInclude Include="GameProcess.h" />
     <ClInclude Include="GUIProcess.h" />
     <ClInclude Include="TestBehaviourDefs.h" />
