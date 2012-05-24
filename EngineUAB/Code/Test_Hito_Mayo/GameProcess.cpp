@@ -113,7 +113,7 @@ void CGameProcess::Update( float _ElapsedTime )
 {	
 	CORE->SetCamera( m_pCamera );
 	
-	m_pCharactersManager->Update ( _ElapsedTime );
+	m_pCharactersManager->Update( _ElapsedTime );
 		
 	m_Player->Update(_ElapsedTime, m_pCamera );
 	if( m_Player->GetLockCamera() )

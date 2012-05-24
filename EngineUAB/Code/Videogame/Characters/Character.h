@@ -30,10 +30,13 @@ class CCharacter : public CBaseGameEntity, public CObject3D, public CNamed //, p
 {
 public:
 	// ------------- Constructors i Destructors --------------
-			CCharacter			( int _Id );
-			CCharacter			( int _Id, const std::string &_Name );
-	virtual	~CCharacter			( void );
-	
+	CCharacter( int _Id );
+	CCharacter( int _Id, const std::string &_Name );
+	virtual	~CCharacter();
+
+
+	static void			RegisterMethods();
+
 	//----Main Functions --------------------------------------
 	virtual bool				Init				( const std::string &_Name, const Vect3f &_InitialPosicion, ECollisionGroup _Grup );
 	virtual bool				HandleMessage		( const Telegram& _Msg, bool _Logic = true, bool _Graphic = true  );		// Envia telegramas a las máquinas de estados
@@ -44,10 +47,10 @@ public:
 	void						MoveController		( const Vect3f &_Dir, float _ElapsedTime );
 	
 	//----Properties ( get & Set )-----------------------------
-	virtual inline CStateMachine<CCharacter>*		GetLogicFSM			( void ) const			{ return m_pLogicStateMachine; }
-	virtual inline CStateMachine<CCharacter>*		GetGraphicFSM		( void ) const			{ return m_pGraphicStateMachine; }
-	virtual inline CPhysicController*				GetControler		( void ) const			{ return m_pController; }
-	virtual inline CAnimatedInstanceModel*			GetAnimatedModel	( void ) const			{ return m_pCurrentAnimatedModel; }
+	inline CStateMachine<CCharacter>*		GetLogicFSM			( void ) const			{ return m_pLogicStateMachine; }
+	inline CStateMachine<CCharacter>*		GetGraphicFSM		( void ) const			{ return m_pGraphicStateMachine; }
+	inline CPhysicController*				GetControler		( void ) const			{ return m_pController; }
+	inline CAnimatedInstanceModel*			GetAnimatedModel	( void ) const			{ return m_pCurrentAnimatedModel; }
 
 
 	void						SetPrevPosition		( Vect3f pos )			{ m_PrevPosition = pos; }
@@ -82,4 +85,3 @@ protected:
 
 	Vect3f							m_PrevPosition;
 };
-

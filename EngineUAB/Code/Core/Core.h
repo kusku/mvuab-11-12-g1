@@ -74,6 +74,7 @@ public:
 	bool		LoadTriggers			();
 	bool		LoadSounds				();
 	bool		LoadDebugGUI			();
+	bool		LoadWaypoints			();
 
 	//----Inputs Methods -----------------------------------------------------
 	void						UpdateInputs								( float _ElapsedTime );

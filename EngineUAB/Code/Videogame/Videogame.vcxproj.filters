@@ -4,6 +4,9 @@
     <Filter Include="Cameras">
       <UniqueIdentifier>{45b4afae-7799-4667-862d-0ae495dc9aa8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Characters">
+      <UniqueIdentifier>{f4cb18b0-c5b4-4465-8afe-34c36486a913}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="videogame.cpp" />
@@ -12,6 +15,12 @@
       <Filter>Cameras</Filter>
     </ClCompile>
     <ClCompile Include="GameProcess.cpp" />
+    <ClCompile Include="Characters\Character.cpp">
+      <Filter>Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\CharacterManager.cpp">
+      <Filter>Characters</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUIProcess.h" />
@@ -20,5 +29,11 @@
       <Filter>Cameras</Filter>
     </ClInclude>
     <ClInclude Include="GameProcess.h" />
+    <ClInclude Include="Characters\Character.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\CharacterManager.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

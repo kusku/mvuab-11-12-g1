@@ -30,12 +30,8 @@ public:
 
 	//---- Register Methods -------------------------------------
 	void		RegisterLUAMethods			();
-
-private:
-	void		RegisterMathMethods			( void );
  	
 	//---- Properties ( get & Set )---------------------------------------
-public:
 	lua_State * GetLuaState					( void ) const				{ return m_pLuaState; }
 	
 	int			GetInt						( char* _VariableName )		{ return PopLuaNumber<int> ( m_pLuaState, _VariableName ); }
@@ -43,8 +39,10 @@ public:
 	double		GetDouble					( char* _VariableName )		{ return PopLuaNumber<double> ( m_pLuaState, _VariableName ); }
 	std::string GetString					( char* _VariableName )		{ return PopLuaString ( m_pLuaState, _VariableName ); }
 	bool		GetBool						( char* _VariableName )		{ return PopLuaBool ( m_pLuaState, _VariableName ); }
-	  
-	//---- Members -------------------------------------------------------
+	
+private:
+	void		RegisterMathMethods			( void );
+
 protected:
 	lua_State	  * m_pLuaState;			// Estat del lua
 	std::string		m_FileName;				// Fitxer xml on trobaré els scripts a registrar
