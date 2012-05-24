@@ -3,22 +3,163 @@
   <ItemGroup>
     <ClCompile Include="GameProcess.cpp" />
     <ClCompile Include="GUIProcess.cpp" />
+    <ClCompile Include="TestBehaviour.cpp" />
+    <ClCompile Include="DebugSceneBehaviour\Scene.cpp">
+      <Filter>DebugSceneBehaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="Cameras\FreeCamera.cpp">
+      <Filter>Cameras</Filter>
+    </ClCompile>
     <ClCompile Include="Cameras\StaticCamera.cpp">
       <Filter>Cameras</Filter>
     </ClCompile>
-    <ClCompile Include="TestBehaviour.cpp" />
+    <ClCompile Include="Characters\Properties\Properties.cpp">
+      <Filter>Characters\Properties</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Properties\PropertiesManager.cpp">
+      <Filter>Characters\Properties</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemy\Enemy.cpp">
+      <Filter>Characters\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\Player.cpp">
+      <Filter>Characters\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\States\AnimationsStates.cpp">
+      <Filter>Characters\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\States\AnimationsStatesManager.cpp">
+      <Filter>Characters\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\States\IdleState.cpp">
+      <Filter>Characters\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\States\PursuitState.cpp">
+      <Filter>Characters\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\States\Enemies\Animations\AnimationWolfIdleState.cpp">
+      <Filter>Characters\States\Enemy\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\States\Enemies\Animations\AnimationWolfRunState.cpp">
+      <Filter>Characters\States\Enemy\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\States\Enemies\Animations\AnimationWolfWalkState.cpp">
+      <Filter>Characters\States\Enemy\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\States\Player\Animations\AnimationCaperuAttackState.cpp">
+      <Filter>Characters\States\Player\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\States\Player\Animations\AnimationCaperuIdleState.cpp">
+      <Filter>Characters\States\Player\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\States\Player\Animations\AnimationCaperuRunState.cpp">
+      <Filter>Characters\States\Player\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Character.cpp">
+      <Filter>Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\CharacterManager.cpp">
+      <Filter>Characters</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameProcess.h" />
     <ClInclude Include="GUIProcess.h" />
+    <ClInclude Include="TestBehaviourDefs.h" />
+    <ClInclude Include="DebugSceneBehaviour\Scene.h">
+      <Filter>DebugSceneBehaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="Cameras\FreeCamera.h">
+      <Filter>Cameras</Filter>
+    </ClInclude>
     <ClInclude Include="Cameras\StaticCamera.h">
       <Filter>Cameras</Filter>
     </ClInclude>
-    <ClInclude Include="TestBehaviourDefs.h" />
+    <ClInclude Include="Characters\Properties\Properties.h">
+      <Filter>Characters\Properties</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Properties\PropertiesManager.h">
+      <Filter>Characters\Properties</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemy\Enemy.h">
+      <Filter>Characters\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\Player.h">
+      <Filter>Characters\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\States\AnimationsStates.h">
+      <Filter>Characters\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\States\AnimationsStatesManager.h">
+      <Filter>Characters\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\States\IdleState.h">
+      <Filter>Characters\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\States\PursuitState.h">
+      <Filter>Characters\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\States\Enemies\Animations\AnimationWolfIdleState.h">
+      <Filter>Characters\States\Enemy\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\States\Enemies\Animations\AnimationWolfRunState.h">
+      <Filter>Characters\States\Enemy\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\States\Enemies\Animations\AnimationWolfWalkState.h">
+      <Filter>Characters\States\Enemy\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\States\Player\Animations\AnimationCaperuAttackState.h">
+      <Filter>Characters\States\Player\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\States\Player\Animations\AnimationCaperuIdleState.h">
+      <Filter>Characters\States\Player\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\States\Player\Animations\AnimationCaperuRunState.h">
+      <Filter>Characters\States\Player\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Character.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\CharacterManager.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\PlayerDef.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <Filter Include="DebugSceneBehaviour">
+      <UniqueIdentifier>{f35f1c26-0aad-4d2e-9b02-61fee738a636}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters">
+      <UniqueIdentifier>{1efb8d0e-341e-4e3d-a96f-e9d097827845}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Cameras">
-      <UniqueIdentifier>{b69e19ba-521b-40bf-a195-81d5ca54a230}</UniqueIdentifier>
+      <UniqueIdentifier>{4e8feaaa-74da-4e13-adba-281c230033a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\Enemy">
+      <UniqueIdentifier>{86076381-8554-49f3-906a-44dcbfdb59ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\Player">
+      <UniqueIdentifier>{1f5db9dc-2f77-47c4-acf3-03a0422a9848}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\States">
+      <UniqueIdentifier>{bcc878b8-8e0d-4f48-bd5a-b4754cc771ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\Properties">
+      <UniqueIdentifier>{a5545fb0-b45a-4bb7-ad7c-260e3b3939c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\States\Player">
+      <UniqueIdentifier>{e842505b-b59c-44c9-a865-df38065261be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\States\Enemy">
+      <UniqueIdentifier>{f3ea0a96-6b98-483e-b322-90918fe953d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\States\Enemy\Animations">
+      <UniqueIdentifier>{28c9e93e-a2a8-4e58-9a67-1cb7c2eef8ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\States\Player\Animations">
+      <UniqueIdentifier>{5b7d2bea-caf9-4ed5-9706-1f6204a07914}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
