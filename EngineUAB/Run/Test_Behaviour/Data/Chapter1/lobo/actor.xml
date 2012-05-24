@@ -1,0 +1,8 @@
+<animated_model name="lobo">
+	<skeleton filename="LOB_Esqueleto.csf"/>
+	<mesh filename="LOB_Mesh.cmf"/>
+	<animation name="idle" filename="LOB_Iddle.caf"/>
+	<animation name="run" filename="LOB_Run.caf"/>
+	<animation name="walk" filename="LOB_Walk.caf"/>
+	<texture filename="LOB_Textura_v3.tga"/>
+</animated_model>

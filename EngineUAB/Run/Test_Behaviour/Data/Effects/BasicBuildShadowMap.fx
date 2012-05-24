@@ -36,7 +36,19 @@ PixelShaderOutput PixelShaderFunction(VertexShaderOutput input)
 	PixelShaderOutput output = (PixelShaderOutput)0;
 	
 	// Depth is z / w
-	output.DepthRT = input.Depth.x / input.Depth.y;
+	//output.DepthRT.r = input.Depth.x / input.Depth.y;
+	
+	//return output;
+	
+	float d = input.Depth.x / input.Depth.y;
+	float moment1 = d;
+	float moment2 = d * d;
+
+	 // Adjusting moments (this is sort of bias per pixel) using partial derivative
+	float dx = ddx(d);
+	float dy = ddy(d);
+	moment2 += 0.25 * (dx * dx + dy * dy) ;
+    output.DepthRT = float4(moment1, moment2, 0, 1.0f);
 	
 	return output;
 }

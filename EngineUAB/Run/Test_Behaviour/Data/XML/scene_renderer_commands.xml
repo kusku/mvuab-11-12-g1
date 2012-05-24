@@ -6,13 +6,19 @@
 	<enable_z_test />
 	<setup_matrices />
 	
+	<set_pool_renderable_objects_technique pool="dummy_manager" />
+	<clear_scene color="true" depth="true" stencil="true" />
 	<render_scene layer="solid" active="true" />
 	
-	<render_debug_physics active="true" />
-	<render_debug_info grid="true" axis="true" render_console="true" render_logger="true" render_modifiers="false" render_debug_options="true" render_debug_render="true" />
-	<render_debug_lights active="true" />
-	<render_debug_process active="true" />
 	<render_particles />
+	
+	<render_gui active="false" />
+	<render_debug_waypoints active="true" />
+	<render_debug_physics active="false" />
+	<render_debug_info grid="false" axis="false"  render_console="true" render_logger="true" render_modifiers="true" render_debug_options="true" render_debug_render="true" />
+	<render_modifiers />
+	<render_debug_lights active="false" />
+	<render_debug_process active="true" />
 	
 	<end_scene />
 	<present />

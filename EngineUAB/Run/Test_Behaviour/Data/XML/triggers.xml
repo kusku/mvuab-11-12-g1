@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <triggers>
+		<!--<trigger name="trigger1" triggername="triggername1" layer="pepe" 		   type="box"    position="1.0 0.0 1.1" size="20.0 30.0 40.0" color="1.0 0 0 1.0" luacode="" />
+		<trigger name="trigger2" triggername="triggername2" actorname="actorname2" type="sphere" position="1.0 0.0 1.1" size="20.0 30.0 40.0" color="1.0 0 0 1.0" luacode="" />-->
+	<!--<trigger name="trigger3" triggername="triggername3" actorname="actorname3" type="box" 	 position="1.0 0.0 1.1" size="20.0 30.0 40.0" color="1.0 0 0 1.0" luacode="" />
+	<trigger name="trigger4" triggername="triggername4" actorname="actorname4" type="box" 	 position="1.0 0.0 1.1" size="20.0 30.0 40.0" color="1.0 0 0 1.0" luacode="" />
+	<trigger name="trigger5" triggername="triggername5" actorname="actorname5" type="sphere" position="1.0 0.0 1.1" size="20.0 30.0 40.0" color="1.0 0 0 1.0" luacode="" />
+	<trigger name="trigger5" triggername="triggername6" actorname="actorname6" type="sphere" position="1.0 0.0 1.1" size="20.0 30.0 40.0" color="1.0 0 0 1.0" luacode="" />-->
 </triggers>
 

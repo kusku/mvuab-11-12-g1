@@ -5,11 +5,11 @@ function load_basics()
 	core:load_languages()
 	core:load_inputs()
 	core:load_effects()
+	core:load_physics()
 	core:load_renderable_objects_techniques()
 	core:load_render_commands()
-	core:load_physics()
-	core:load_gui()
 	core:load_sounds()
+	core:load_gui()
 	core:load_debug_gui()
 end
 

@@ -89,13 +89,13 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR
 	float3 Normal = (2.0f * tex2D(NormalTextureMap, input.TexCoord) - 1.0f);
 	Normal = mul(Normal, input.TangentToWorld);
 	Normal = normalize(Normal);
-
+	
 	float4 AmbientColor = AmbientLightIntensity * AmbientLightColor;
 	float4 DiffuseColor = (float4)0;
 	
-	for(int i = 0; i < numLights && i < MAX_LIGHTS; i++)
+	for(int i = 0; i < numLights && i < MAX_LIGHTS; ++i)
 	{
-		if(lightEnable[i])
+		if(lightEnable[i] == true)
 		{
 			if(lightType[i] == OMNI)
 			{
@@ -112,12 +112,14 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR
 		}
 	}
 	
-	float4 PixEndColor = (DiffuseColor) * TexColor;
+	float4 PixEndColor = (DiffuseColor + AmbientColor) * TexColor;
 
 	PixEndColor = saturate(PixEndColor);
 	PixEndColor.a = 1.0f;
 
+	//return DiffuseColor;
 	return PixEndColor;
+	//return float4(0, 1, 0, 1);
 }
 
 technique ForwardLightingWithNormal

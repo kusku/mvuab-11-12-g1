@@ -1,13 +1,14 @@
 <debug_options>
-	<page type="Options" >
-		<option name="Show FPS" show_script="show_fps_state()" action_script="toggle_show_fps()" type_value="bool" />
-		<option name="Show Delta Time" show_script="show_delta_time_state()" action_script="toggle_show_delta_time()" type_value="bool" />
-		<option name="Show Gamepad"	show_script="show_gamepad_state()" action_script="toggle_show_gamepad()" type_value="bool" />
-	</page>
 	<page type="Stadistics" >
 		<option name="Draw Calls" show_script="get_draw_calls()" action_script="get_draw_calls()" type_value="int" />
 		<option name="Draw Debug Lines" show_script="get_draw_debug_lines()" action_script="get_draw_debug_lines()" type_value="int" />
 		<option name="Rendering Vertices" show_script="get_rendering_vertices()" action_script="get_rendering_vertices()" type_value="int" />
 		<option name="Rendering Triangles" show_script="get_rendering_triangles()" action_script="get_rendering_triangles()" type_value="int" />
+	</page>
+	<page type="Options" >
+		<option name="Show FPS" show_script="show_fps_state()" action_script="toggle_show_fps()" type_value="bool" />
+		<option name="Show Delta Time" show_script="show_delta_time_state()" action_script="toggle_show_delta_time()" type_value="bool" />
+		<option name="Show Gamepad"	show_script="show_gamepad_state()" action_script="toggle_show_gamepad()" type_value="bool" />
+		<option name="Show Camera"	show_script="show_camera_state()" action_script="toggle_show_camera()" type_value="bool" />
 	</page>
 </debug_options>

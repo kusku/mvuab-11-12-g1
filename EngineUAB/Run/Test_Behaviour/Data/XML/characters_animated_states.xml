@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<characters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation='characters_animated_states.xsd'>
+  <default_states core="caperucita">
+    <state name="idle">
+      <animation id="0"  />
+    </state>
+    <state name="run">
+      <animation id="1"  />
+    </state>
+    <state name="attack">
+      <animation id="2"  />
+    </state>
+  </default_states>
+  <default_states core="lobo">
+    <state name="idle">
+      <animation id="0"  />
+    </state>
+    <state name="walk">
+      <animation id="1"  />
+    </state>
+    <state name="run">
+      <animation id="2"  />
+    </state>
+  </default_states>
+  <player name="Jolete" core="caperucita">
+  </player>
+  <enemies>
+    <enemy name="enemy1" core="lobo" animated_instace_name="lobo1" />
+     
+    <enemy name="enemy2" core="lobo" animated_instace_name="lobo2" />
+     
+  </enemies>
+</characters>
