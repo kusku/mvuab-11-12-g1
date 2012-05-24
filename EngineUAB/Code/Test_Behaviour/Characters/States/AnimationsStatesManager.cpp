@@ -92,7 +92,7 @@ bool CAnimationsStatesManager::LoadDefaultAnimationsStates( const CXMLTreeNode &
 	if( l_Type == "default_states" )
 	{
 		std::string l_CoreName = _Node.GetPszProperty("core");
-		// Si encuentro ya el corename lo eliminamos y metermos de nuevo las propiedades. Esto permite releer esta única parte...
+		// Si encuentro ya el corename lo eliminamos y metermos de nuevo los estados. Esto permite releer esta única parte...
 		if ( GetResource ( l_CoreName ) )
 		{
 			RemoveResource( l_CoreName );

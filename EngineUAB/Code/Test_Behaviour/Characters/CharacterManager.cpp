@@ -75,8 +75,8 @@ bool CCharactersManager::Initialize ( int _NumEnemies )
 	LOGGER->AddNewLog ( ELL_INFORMATION, "CCharactersManager::Initialize-> Initializating characters manager..." );
 
 	// Inicializamos el manager de propiedades por defecto de los personajes
-	/*m_pPropertiesManager	 = new CPropertiesManager();
-	m_pAnimatedStatesManager = new CAnimationsStatesManager();*/
+	m_pPropertiesManager	 = new CPropertiesManager();
+	m_pAnimatedStatesManager = new CAnimationsStatesManager();
 	
 	if ( !Load( "./data/xml/characters_properties.xml", "./data/xml/characters_animated_states.xml" ) )
 	{
@@ -102,7 +102,6 @@ void CCharactersManager::CleanUp ( void )
 bool CCharactersManager::Load( const std::string &_PropertyFileName, const std::string &_AnimatedStatesFileName )
 {
 	LOGGER->AddNewLog ( ELL_INFORMATION, "CCharactersManager::Load-->Loading characters, properties and states" );
-	m_PropertiesFileName	= "";
 	m_PropertiesFileName	= _PropertyFileName;
 	m_AnimatedFileName		= _AnimatedStatesFileName;
 	return LoadXML();

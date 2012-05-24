@@ -10,18 +10,16 @@
 #ifndef __GAME_PROCESS_TEST_BEHAVIOUR_H__
 #define __GAME_PROCESS_TEST_BEHAVIOUR_H__
 
+#include <Windows.h>
 #include "EngineProcess.h"
 #include "Cameras\StaticCamera.h"
-#include <Windows.h>
-
-//#include "Characters\Properties\PropertiesManager.h"
-
+#include "Cameras\FreeCamera.h"
 
 // --- Foward Declaractions ---
 class CRenderManager;
 class CThPSCamera;
 class CScene;
-//class CPlayer; 
+class CPlayer; 
 class CCharactersManager;
 class CPropertiesManager;
 // ----------------------------
@@ -30,17 +28,18 @@ class CGameProcess : public CEngineProcess
 {
 public:
 	//--- Init and End protocols-----------------------------------------------------
-				CGameProcess	( HWND hWnd );
-				~CGameProcess	( void );
+								CGameProcess	( HWND hWnd );
+								~CGameProcess	( void );
 
 	//----Main Methods----------------------------------------------------------------
-	bool		Init			( void );
-	void		Update			( float elapsedTime );
-	void		Render			(  CRenderManager &RM );
+	bool						Init			( void );
+	void						Update			( float elapsedTime );
+	void						Render			(  CRenderManager &RM );
 
 	//----Methods --------------------------------------------------------------------
 private:
-	void		RegisterMethods ( void );
+	void						RegisterMethods ( void );
+	void						UpdateInputs	( float _ElapsedTime );
 
 	//----Members --------------------------------------------------------------------
 private:
@@ -54,16 +53,12 @@ private:
 	CThPSCamera					*m_pThPSFreeCamera;
 	CStaticCamera				m_StaticCamera;
 
-	//CPlayer						*m_Player;
+	CPlayer						*m_Player;
+	CFreeCamera					m_FreeCamera;
+	CCamera						*m_pFreeCamera;
 	
-	//CFreeCamera					m_FreeCamera;
-
-	//CCamera						*m_pFreeCamera;
-	CPropertiesManager			*m_PM;
-	
-
-	/*bool						m_AudioIsFade;
-	uint32						m_uAudioID;*/
+	bool						m_AudioIsFade;
+	uint32						m_uAudioID;
 };
 
 #endif __GAME_PROCESS_TEST_BEHAVIOUR_H__
