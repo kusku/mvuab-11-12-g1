@@ -71,6 +71,7 @@ bool CEngine::Init( HWND _HWnd )
 
 	m_pCore = new CCore();
 	m_bIsOk = m_pCore->Init( _HWnd, m_Config );
+	m_pCore->SetProcess( m_pProcess );
 		
 	if ( m_bIsOk )
 		m_bIsOk = m_pProcess->Init();

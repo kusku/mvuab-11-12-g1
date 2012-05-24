@@ -106,19 +106,19 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 		if( INIT_GUI )
 		{
 			g_pGUIProcess = new CGUIProcess(g_hWnd);
+
 			g_pEngine->SetProcess(g_pGUIProcess);
 			g_pEngine->Init(g_hWnd);
 		
-			CORE->SetProcess(g_pGUIProcess);
 			CORE->SetGameMode(false);
 		}
 		else
 		{
 			g_pGameProcess = new CGameProcess(g_hWnd);
+
 			g_pEngine->SetProcess(g_pGameProcess);
 			g_pEngine->Init(g_hWnd);
 		
-			CORE->SetProcess(g_pGameProcess);
 			CORE->SetGameMode(true);
 		}
 		
@@ -150,9 +150,9 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 	UnregisterClass( APPLICATION_NAME, wc.hInstance );
 
 	//Elimina los datos
-	CHECKED_DELETE(g_pEngine);
 	CHECKED_DELETE(g_pGUIProcess);
-	//CHECKED_DELETE(g_GameProcess);
+	CHECKED_DELETE(g_pGameProcess);
+	CHECKED_DELETE(g_pEngine);
 
 	return 0;
 }

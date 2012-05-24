@@ -257,6 +257,7 @@ bool CCore::Init( HWND _HWnd, const SConfig &config )
 
 			CCore::RegisterMethods();
 			CRenderManager::RegisterMethods();
+			CActionToInput::RegisterMethods();
 			CGUIManager::RegisterMethods();
 			CSoundManager::RegisterMethods();
 			CTriggersManager::RegisterMethods();

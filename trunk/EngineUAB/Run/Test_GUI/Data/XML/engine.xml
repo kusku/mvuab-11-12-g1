@@ -23,10 +23,10 @@
 	<Scripts scriptsXML="./Data/XML/scripts.xml" />
 	<Billboards billboardsXML="./Data/XML/billboard_animations.xml" />
 	<Particles particlesXML="./Data/XML/particles.xml" />
-	<GUI guiXML="./Data/XML/config.xml" />
 	<Modifiers modifiersXML="./Data/XML/modifiers.xml" />
 	<Debug_Options debug_options_xml="./data/XML/debug_options.xml" />
 	<TriggersSystem triggersXML="./Data/XML/triggers.xml" />
-	<!--<GUI guiXML="./Data/XML/gui.xml" />-->
+	<!--<GUI guiXML="./Data/XML/config.xml" />-->
+	<GUI guiXML="./Data/GUI/initGui_laberynth.xml" />
 	<Sound soundXML="./Data/XML/sounds.xml" />
 </Config>

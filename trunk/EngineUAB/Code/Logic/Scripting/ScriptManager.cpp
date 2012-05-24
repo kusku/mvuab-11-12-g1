@@ -179,7 +179,6 @@ void PrintLogger(int Level, const std::string &Msg)
 		LOGGER->AddNewLog(ELL_INFORMATION, Msg.c_str() );
 		break;
 	}
-	
 }
 
 
