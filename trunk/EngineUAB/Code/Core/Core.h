@@ -23,7 +23,6 @@ class CRenderableObjectTechniqueManager;
 class CSceneRendererCommandManager;
 class CRenderableObjectsLayersManager;
 class CBillboardManager;
-class CParticlesSystemManager;
 class CCamera;
 class CTimer;
 class CScriptManager;
@@ -37,6 +36,9 @@ class CSoundManager;
 class CEntityManager;
 class CMessageDispatcher;
 class CWayPointManager;
+class CParticleEmitterManager;
+class CParticleSystemManager;;
+class CParticleSettingsManager;
 //--------------------------
 
 class CCore : public CSingleton<CCore>
@@ -136,14 +138,16 @@ public:
 	inline CScriptManager*						GetScriptManager			( void ) const					{ return m_pScriptManager; }
 	inline CPhysicsManager*						GetPhysicsManager			( void ) const					{ return m_pPhysicsManager; }
 	inline CBillboardManager*					GetBillboardManager			( void ) const					{ return m_pBillboardManager; }
-	inline CParticlesSystemManager*				GetParticlesManager			( void ) const					{ return m_pParticlesManager; }
+	
 	inline CWayPointManager*					GetWayPointManager			( void )						{ return m_WayPointManager; }
 	inline CGUIManager*							GetGUIManager				( void ) const					{ return m_pGUIManager; }
 	inline CTriggersManager*					GetTriggersManager			( void ) const					{ return m_pTriggersManager; }					// Propietats dels triggers 
 	inline CSoundManager*						GetSoundManager				( void ) const					{ return m_pSoundManager; }						// Propietats dels sò 
 	inline CEntityManager*						GetEntityManager			( void ) const					{ return m_pEntityManager; }					// Accés al gestor lógic d'entitats 
 	inline CMessageDispatcher*					GetMessageDispatcher		( void ) const					{ return m_pMessageDispatcher; }				// Accés al gestor lógic de missatges
-
+	inline CParticleEmitterManager*				GetParticleEmitterManager	() const						{ return m_ParticleEmitterManager; }
+	inline CParticleSystemManager*				GetParticleSystemManager	() const						{ return m_ParticleSystemManager; }
+	inline CParticleSettingsManager*			GetParticleSettingsManager	() const						{ return m_ParticleSettingsManager; }
 private:
 	void Release();
 
@@ -179,13 +183,15 @@ private:
 	CScriptManager						*m_pScriptManager;
 	CPhysicsManager						*m_pPhysicsManager;
 	CBillboardManager					*m_pBillboardManager;
-	CParticlesSystemManager				*m_pParticlesManager;
 	CGUIManager							*m_pGUIManager;
 	CTriggersManager					*m_pTriggersManager;
 	CSoundManager						*m_pSoundManager;
 	CEntityManager						*m_pEntityManager;
 	CMessageDispatcher					*m_pMessageDispatcher;
 	CWayPointManager					*m_WayPointManager;
+	CParticleEmitterManager				*m_ParticleEmitterManager;
+	CParticleSystemManager				*m_ParticleSystemManager;
+	CParticleSettingsManager			*m_ParticleSettingsManager;
 };
 
 #endif

@@ -1,6 +1,7 @@
 #include "DisableAlphaBlendingSceneRendererCommand.h"
 #include "XML\XMLTreeNode.h"
 #include "RenderManager.h"
+#include <assert.h>
 
 #if defined( _DEBUG )
 	#include "Memory\MemLeaks.h"
@@ -13,6 +14,7 @@
 CDisableAlphaBlendingSceneRendererCommand::CDisableAlphaBlendingSceneRendererCommand ( CXMLTreeNode &_atts )
 	: CSceneRendererCommand ( _atts )
 {
+	assert(!"Ya no es un comando valido");
 }
 
 // --------------------------------------------
@@ -20,8 +22,5 @@ CDisableAlphaBlendingSceneRendererCommand::CDisableAlphaBlendingSceneRendererCom
 // --------------------------------------------
 void CDisableAlphaBlendingSceneRendererCommand::Execute ( CRenderManager &_RM )
 {
-	_RM.GetDevice()->SetRenderState ( D3DRS_ALPHABLENDENABLE, FALSE );
-	_RM.GetDevice()->SetRenderState ( D3DRS_SRCBLEND, D3DBLEND_SRCALPHA );
-	_RM.GetDevice()->SetRenderState ( D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA );
 }
 

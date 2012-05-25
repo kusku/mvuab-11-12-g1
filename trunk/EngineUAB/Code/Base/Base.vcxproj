@@ -56,7 +56,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDIr)\Code\3dParty\iconv-1.9.2.win32\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Code\3dParty\boost_1_48_0;$(SolutionDir)\Code\Base;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDIr)\Code\3dParty\iconv-1.9.2.win32\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -77,7 +77,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDIr)\Code\3dParty\iconv-1.9.2.win32\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Code\3dParty\boost_1_48_0;$(SolutionDir)\Code\Base;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDIr)\Code\3dParty\iconv-1.9.2.win32\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -98,6 +98,7 @@
     <ClCompile Include="Math\Plane.cpp" />
     <ClCompile Include="Memory\MemLeaks.cpp" />
     <ClCompile Include="Stadistics\Stadistics.cpp" />
+    <ClCompile Include="Utils\BoostRandomHelper .cpp" />
     <ClCompile Include="Utils\BoundingBox.cpp" />
     <ClCompile Include="Utils\BoundingSphere.cpp" />
     <ClCompile Include="Utils\CountDownTimer.cpp" />
@@ -132,6 +133,7 @@
     <ClInclude Include="Utils\Active.h" />
     <ClInclude Include="Utils\BaseControl.h" />
     <ClInclude Include="Utils\BaseUtils.h" />
+    <ClInclude Include="Utils\BoostRandomHelper.h" />
     <ClInclude Include="Utils\BoundingBox.h" />
     <ClInclude Include="Utils\BoundingSphere.h" />
     <ClInclude Include="Utils\CountDownTimer.h" />

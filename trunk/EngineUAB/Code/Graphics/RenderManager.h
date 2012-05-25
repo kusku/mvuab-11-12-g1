@@ -19,6 +19,7 @@
 #include "GraphicsDefs.h"
 #include "Cameras\Frustum.h"
 #include "Math\Vector2.h"
+#include "Graphic States\GraphicStates.h"
 
 class CCamera;
 class CTexture;
@@ -44,9 +45,6 @@ public:
 
 	void	SetTransform	( const D3DXMATRIX &mat );
 	void	SetTransform	( const Mat44f &mat );
-
-	void	EnableAlphaBlend	();
-	void	DisableAlphaBlend	();
 
 	//Draw primitives
 	void    DrawPlane       (float size, const Vect3f& normal, float distance, CColor Color, int GridX, int GridZ ); 
@@ -90,6 +88,8 @@ public:
 	LPDIRECT3D9					GetD3D				() const	{ return m_pD3D; }
 	inline LPDIRECT3DDEVICE9	GetDevice			() const	{ return m_pD3DDevice; }
 
+	bool				 SetGraphicBlendState		(const TGraphicBlendStates& state);
+
 protected:
 	void Release ();
 	void GetWindowRect( HWND hWnd );
@@ -119,6 +119,8 @@ protected:
 
 	LPDIRECT3DVERTEXBUFFER9		m_VBQuad;
 	LPDIRECT3DINDEXBUFFER9		m_IBQuad;
+
+	TGraphicBlendStates m_CurrentBlendState;
 };
 
 #endif

@@ -1,100 +1,105 @@
 #ifndef __CLASS_PARTICLE_DEFINITIONS_H__
 #define __CLASS_PARTICLE_DEFINITIONS_H__
 
-#include <string>
-#include "Math\Vector3.h"
+
 #include "Math\Color.h"
+#include "Math\Vector3.h"
+#include "Base.h"
+#include <string>
 
-#define TIME_CERO	0.0f
+#include "Graphic States/GraphicStates.h"
 
-struct TEmitterAtTime
+struct TParticleSystemSettings
 {
-	float			m_fLifeTime1;
-	float			m_fLifeTime2;
+	std::string			m_Name;
 
-	Vect3f			m_vPosition1;
-	Vect3f			m_vPosition2;
+	std::string			m_TextureName;
 
-	float			m_fMinEmitRate;
-	float			m_fMaxEmitRate;
+	uint32				m_MaxParticles;
 
-	CColor			m_Color1;
-	CColor			m_Color2;
+	float				m_Duration;;
 
-	float			m_fMinSize;
-	float			m_fMaxSize;
+	float				m_DurationRandomness;
 
-	Vect3f			m_vSpawnDir1;
-	Vect3f			m_vSpawnDir2;
+	float				m_EmitterVelocitySensitivity;
 
-	float			m_fNumNewPartsExcess;
-	
-	bool			m_bAlive;				// Diu si l'emissor està viu 
+	float				m_MinHorizontalVelocity;
+	float				m_MaxHorizontalVelocity;
 
-	std::string		m_sTexture;
+	float				m_MinVerticalVelocity;
+	float				m_MaxVerticalVelocity;
 
-	Vect3f			m_vVelocity;
-	
-	float			m_fAngle;
-	
-	bool			m_bGravity;
+	Vect3f				m_Gravity;
 
-	float			m_fKeyTime;
+	float				m_EndVelocity;
+
+	CColor				m_MinColor;
+	CColor				m_MaxColor;
+
+	float				m_MinRotateSpeed;
+	float				m_MaxRotateSpeed;
+
+	float				m_MinStartSize;
+	float				m_MaxStartSize;
+
+	float				m_MinEndSize;
+	float				m_MaxEndSize;
+
+	TGraphicBlendStates	m_BlendState;
+
+	//Constructor
+	TParticleSystemSettings()
+		: m_Name("Default")
+		, m_TextureName("Default")
+		, m_MaxParticles(100)
+		, m_Duration(1.0f)
+		, m_DurationRandomness(0.0f)
+		, m_EmitterVelocitySensitivity(1.0f)
+		, m_MinHorizontalVelocity(0.0f)
+		, m_MaxHorizontalVelocity(0.0f)
+		, m_MinVerticalVelocity(0.0f)
+		, m_MaxVerticalVelocity(0.0f)
+		, m_Gravity(v3fZERO)
+		, m_EndVelocity(1.0f)
+		, m_MinColor(colWHITE)
+		, m_MaxColor(colWHITE)
+		, m_MinRotateSpeed(0.0f)
+		, m_MaxRotateSpeed(0.0f)
+		, m_MinStartSize(100.0f)
+		, m_MaxStartSize(100.0f)
+		, m_MinEndSize(100.0f)
+		, m_MaxEndSize(100.0f)
+		, m_BlendState(TGraphicBlendStates::NonPremultiplied)
+	{
+	}
+
+	TParticleSystemSettings(const std::string& name, const std::string textureName, uint32 maxParticles, float duration, float durationRandomness, float emitterVelocitySensitivity,
+		float minHorizontalVelocity, float maxHorizontalVelocity, float minVerticalVelocity, float maxVerticalVelocity,
+		const Vect3f& gravity, float endVelocity, const CColor& minColor, const CColor& maxColor, float minRotateSpeed,
+		float maxRotateSpeed, float minStartSize, float maxStartSize, float minEndSize, float maxEndSize, const TGraphicBlendStates& blendState)
+		: m_Name(name)
+		, m_TextureName(textureName)
+		, m_MaxParticles(maxParticles)
+		, m_Duration(duration)
+		, m_DurationRandomness(durationRandomness)
+		, m_EmitterVelocitySensitivity(emitterVelocitySensitivity)
+		, m_MinHorizontalVelocity(minHorizontalVelocity)
+		, m_MaxHorizontalVelocity(maxHorizontalVelocity)
+		, m_MinVerticalVelocity(minVerticalVelocity)
+		, m_MaxVerticalVelocity(maxVerticalVelocity)
+		, m_Gravity(gravity)
+		, m_EndVelocity(endVelocity)
+		, m_MinColor(minColor)
+		, m_MaxColor(maxColor)
+		, m_MinRotateSpeed(minRotateSpeed)
+		, m_MaxRotateSpeed(maxRotateSpeed)
+		, m_MinStartSize(minStartSize)
+		, m_MaxStartSize(maxStartSize)
+		, m_MinEndSize(minEndSize)
+		, m_MaxEndSize(maxEndSize)
+		, m_BlendState(blendState)
+	{
+	}
 };
 
-//
-//template<class T>
-//class TEmitterElement
-//{
-//	T*			m_fPreviousValue;
-//	/*T* 			m_fNextValue;
-//	
-//	float		m_fTime;*/
-//};
-////
-//template <typename T>
-//struct map_container
-//{
-//    typedef std::map<T, std::string> type;
-//};
-//
-//////: public CNamed
-////template<typename T>
-////struct TEmitterElementVector : std::vector<T> {};
-//
-////
-////
-////
-////struct baseTest {
-////	virtual GetNumberOfElems() = 0;
-////};
-////
-////
-////template <typename T>
-////struct test : public baseTest {
-////	std::size_t n;
-////	T* value;
-////	test(int num_of_elements) { value = new T[n = num_of_elements] };
-////	int GetNumberOfElems() { return n; } 
-////};
-////
-//
-////template <typename T>
-////struct vector_container
-////{
-////    typedef std::vector<T> type;
-////};
-//
-//
-////template <unsigned int x>
-////struct factorial 
-////{
-////  static const unsigned int result = factorial<x-1>::result * x;
-////};
-////template<>
-////struct factorial<0> 
-////{
-////  static const unsigned int result = 1;
-////};
-
-#endif __CLASS_PARTICLE_DEFINITIONS_H__
+#endif

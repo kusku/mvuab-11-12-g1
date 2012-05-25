@@ -2,7 +2,7 @@
 #include "XML\XMLTreeNode.h"
 #include "RenderManager.h"
 #include "Billboard\BillboardManager.h"
-#include "Particles\ParticlesSystemManager.h"
+#include "Particles\ParticleSystemManager.h"
 #include "Core.h"
 #include "Base.h"
 
@@ -22,10 +22,5 @@ CRenderParticlesSceneRendererCommand::CRenderParticlesSceneRendererCommand( CXML
 // -----------------------------------------
 void CRenderParticlesSceneRendererCommand ::Execute( CRenderManager &_RM )
 {	
-	_RM.EnableAlphaBlend();
-
-	CORE->GetBillboardManager()->Render(_RM);
-	CORE->GetParticlesManager()->Render(_RM);
-
-	_RM.DisableAlphaBlend();
+	CORE->GetParticleSystemManager()->Render();
 }

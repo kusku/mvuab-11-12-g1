@@ -78,6 +78,9 @@
     <ClCompile Include="Math\Plane.cpp">
       <Filter>Math</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\BoostRandomHelper .cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\MathTypes.h">
@@ -182,6 +185,9 @@
     <ClInclude Include="Base.h" />
     <ClInclude Include="Math\Plane.h">
       <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\BoostRandomHelper.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

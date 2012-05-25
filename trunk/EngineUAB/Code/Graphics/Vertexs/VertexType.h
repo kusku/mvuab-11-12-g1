@@ -17,6 +17,7 @@
 #define VERTEX_TYPE_INDICES		0x0100
 #define VERTEX_TYPE_PARALLAX	0x0200
 #define VERTEX_TYPE_RNM			0x0400
+#define VERTEX_TYPE_PARTICLE	0x0800
 
 
 struct TGEOMETRY_VERTEX
@@ -430,6 +431,38 @@ struct TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX
 	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
 	static LPDIRECT3DVERTEXDECLARATION9 & GetVertexDeclaration();
 };
+
+struct TPARTICLE_VERTEX
+{
+	int16 m_Corner_X;
+	int16 m_Corner_Y;
+	float m_x;
+	float m_y;
+	float m_z;
+	float m_v_x;
+	float m_v_y;
+	float m_v_z;
+	float m_Time;
+	unsigned long m_RandomColorRGBA;
+
+	static inline unsigned short GetVertexType()
+	{
+		return VERTEX_TYPE_PARTICLE;
+	}
+	static inline unsigned int GetFVF()
+	{
+		return 0;
+	}
+
+	static void ReleaseVertexDeclaration()
+	{
+		CHECKED_RELEASE(s_VertexDeclaration);
+	}
+
+	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
+	static LPDIRECT3DVERTEXDECLARATION9 & GetVertexDeclaration();
+};
+
 
 extern void CalcTangentsAndBinormals(void *VtxsData, unsigned short *IdxsData, size_t VtxCount, 
 										size_t IdxCount, size_t VertexStride, size_t GeometryStride, size_t NormalStride,

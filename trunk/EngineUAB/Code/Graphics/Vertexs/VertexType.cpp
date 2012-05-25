@@ -507,6 +507,42 @@ LPDIRECT3DVERTEXDECLARATION9& TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX::GetVert
 
 /////////////////////////////////////////////////////////////////////////////
 
+LPDIRECT3DVERTEXDECLARATION9 TPARTICLE_VERTEX::s_VertexDeclaration=NULL;
+
+LPDIRECT3DVERTEXDECLARATION9& TPARTICLE_VERTEX::GetVertexDeclaration()
+{
+
+	if(s_VertexDeclaration==NULL)
+	{
+		D3DVERTEXELEMENT9 l_VertexDeclaration[] =
+		{
+			{ 0, 0 , D3DDECLTYPE_SHORT2, D3DDECLMETHOD_DEFAULT,
+			D3DDECLUSAGE_POSITION, 0 },
+
+			{ 0, 4, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,
+			D3DDECLUSAGE_POSITION, 1 },
+
+			{ 0, 16, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT,
+			D3DDECLUSAGE_NORMAL, 0 },
+
+			{ 0, 28, D3DDECLTYPE_FLOAT1, D3DDECLMETHOD_DEFAULT,
+			D3DDECLUSAGE_TEXCOORD, 0 },
+
+			{ 0, 32, D3DDECLTYPE_D3DCOLOR, D3DDECLMETHOD_DEFAULT,
+			D3DDECLUSAGE_COLOR, 0 },
+
+			D3DDECL_END()
+		};
+
+		CORE->GetRenderManager()->GetDevice()->CreateVertexDeclaration(l_VertexDeclaration,
+			&s_VertexDeclaration);
+	}
+
+	return s_VertexDeclaration;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
 void CalcTangentsAndBinormals(void *VtxsData, unsigned short *IdxsData, size_t VtxCount, 
 								size_t IdxCount, size_t VertexStride, size_t GeometryStride, size_t NormalStride,
 								size_t TangentStride, size_t BiNormalStride, size_t TextureCoordsStride)

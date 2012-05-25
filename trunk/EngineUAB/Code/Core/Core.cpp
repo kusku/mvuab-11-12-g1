@@ -36,7 +36,6 @@
 
 #include "PhysicsManager.h"
 #include "Billboard\BillboardManager.h"
-#include "Particles\ParticlesSystemManager.h"
 #include "GUIManager.h"
 #include "Triggers\TriggersManager.h"
 #include "SoundManager.h"
@@ -46,6 +45,10 @@
 
 #include "Movement\WayPointManager.h"
 #include "EngineProcess.h"
+
+#include "Particles\ParticleSystemManager.h"
+#include "Particles\ParticleEmitterManager.h"
+#include "Particles\ParticleSettingsManager.h"
 
 #if defined(_DEBUG)
 	#include "Memory\MemLeaks.h"
@@ -81,12 +84,14 @@ CCore::CCore ( void )
 	, m_pPhysicsManager					( NULL )
 	, m_pGUIManager						( NULL )
 	, m_pBillboardManager				( NULL )
-	, m_pParticlesManager				( NULL )
 	, m_pTriggersManager				( NULL )
 	, m_pSoundManager					( NULL )
 	, m_pEntityManager					( NULL )
 	, m_pMessageDispatcher				( NULL )
 	, m_WayPointManager					( NULL )
+	, m_ParticleEmitterManager			(NULL)
+	, m_ParticleSystemManager			(NULL)
+	, m_ParticleSettingsManager			(NULL)
 {
 }
 
@@ -127,13 +132,15 @@ void CCore::Release ( void )
 	CHECKED_DELETE ( m_pDebugGUIManager );
 	CHECKED_DELETE ( m_pStadistics );
 	CHECKED_DELETE ( m_pBillboardManager );
-	CHECKED_DELETE ( m_pParticlesManager );
 	CHECKED_DELETE ( m_pGUIManager );
 	CHECKED_DELETE ( m_pTriggersManager );
 	CHECKED_DELETE ( m_pPhysicsManager );
 	CHECKED_DELETE ( m_pSoundManager );
 	CHECKED_DELETE ( m_pEntityManager );
 	CHECKED_DELETE ( m_pMessageDispatcher );
+	CHECKED_DELETE (m_ParticleEmitterManager);
+	CHECKED_DELETE (m_ParticleSystemManager);
+	CHECKED_DELETE (m_ParticleSettingsManager);
 	
 	m_pCamera = NULL; //La cámara la elimina el proceso
 	m_pTimer = NULL;
@@ -219,12 +226,19 @@ bool CCore::Init( HWND _HWnd, const SConfig &config )
 			m_pPhysicsManager = new CPhysicsManager();
 			/*m_pPhysicsManager->Init();*/
 
-			//Billboards & Particles
+			//Billboards
 			m_pBillboardManager = new CBillboardManager();
 			/*m_pBillboardManager->Load( config.billboards_path );*/
 
-			m_pParticlesManager = new CParticlesSystemManager();
-			/*m_pParticlesManager->Load( config.particles_path );*/
+			//Particles
+			m_ParticleSettingsManager = new CParticleSettingsManager();
+			//m_ParticleSettingsManager->Load(config.particle_settings_path);
+
+			m_ParticleSystemManager = new CParticleSystemManager();
+			//m_ParticleSystemManager->Load(config.particle_systems_path);
+
+			m_ParticleEmitterManager = new CParticleEmitterManager;
+			//m_ParticleEmitterManager->Load(config.particle_emitters_path);
 
 			//GUI
 			m_pGUIManager = new CGUIManager( CORE->GetRenderManager()->GetScreenSize() );
@@ -292,7 +306,10 @@ void CCore::Update( float _ElapsedTime )
 	{
 		m_pPhysicsManager->Update( _ElapsedTime );
 		m_pBillboardManager->Update( _ElapsedTime );
-		m_pParticlesManager->Update( _ElapsedTime );
+
+		//Particles
+		m_ParticleEmitterManager->Update(_ElapsedTime);
+		m_ParticleSystemManager->Update(_ElapsedTime);
 	}
 	else
 	{
@@ -396,7 +413,27 @@ bool CCore::LoadBillboards()
 
 bool CCore::LoadParticles()
 {
-	return m_pParticlesManager->Load( m_Config.particles_path );
+	//m_ParticleSettingsManager = new CParticleSettingsManager();
+	if(!m_ParticleSettingsManager->Load(m_Config.particle_settings_path))
+	{
+		return false;
+	}
+
+	//m_ParticleSystemManager = new CParticleSystemManager();
+	if(!m_ParticleSystemManager->Load(m_Config.particle_systems_path))
+	{
+		return false;
+	}
+
+	m_ParticleSystemManager->Initialize();
+
+	//m_ParticleEmitterManager = new CParticleEmitterManager;
+	if(!m_ParticleEmitterManager->Load(m_Config.particle_emitters_path))
+	{
+		return false;
+	}
+
+	return true;
 }
 
 bool CCore::LoadGUI()
@@ -686,7 +723,6 @@ void CCore::Reload()
 	m_pRenderableObjectsLayersManager->Reload	();
 	m_pPhysicsManager->Reload					();
 	m_pBillboardManager->Reload					();
-	m_pParticlesManager->Reload					();
 	m_pTriggersManager->Reload					();
 	m_pGUIManager->ReloadGuiFiles				();
 	m_pSoundManager->Reload						();
@@ -778,7 +814,7 @@ void CCore::ReloadBillboards()
 
 void CCore::ReloadParticles()
 {
-	m_pParticlesManager->Reload();
+	//m_pParticlesManager->Reload();
 }
 
 void CCore::ReloadTriggers()

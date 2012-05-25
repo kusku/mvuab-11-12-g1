@@ -108,9 +108,13 @@ struct SConfig
 	std::string modifiers_path;
 	std::string debug_options_path;
 
-	//Billboards & Particles
+	//Billboards
 	std::string billboards_path;
-	std::string particles_path;
+
+	//Particles
+	std::string particle_emitters_path;
+	std::string particle_settings_path;
+	std::string particle_systems_path;
 
 	// Parametros del sistema gui
 	std::string gui_path;

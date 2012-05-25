@@ -9,6 +9,7 @@
 #include "Textures/TextureManager.h"
 #include "Scripting\ScriptManager.h"
 #include "GraphicsDefs.h"
+#include "Graphic States\GraphicStates.h"
 
 //--Includes GuiElements---
 #include "Exceptions/Exception.h"
@@ -222,7 +223,8 @@ void CGUIManager::Render ( CRenderManager *_RM, CFontManager* _FM )
 {
 	if (m_bIsOk)
 	{
-		CORE->GetRenderManager()->EnableAlphaBlend();
+		CORE->GetRenderManager()->SetGraphicBlendState(TGraphicBlendStates::AlphaBlend);
+		CORE->GetRenderManager()->GetDevice()->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
   
 		if (m_bLoadedGuiFiles)
 		{
@@ -249,8 +251,9 @@ void CGUIManager::Render ( CRenderManager *_RM, CFontManager* _FM )
 		assert(m_TextBox);
 		m_TextBox->Render( _RM, _FM );
 		RenderPointerMouse( _RM, _FM );
-		
-    CORE->GetRenderManager()->DisableAlphaBlend();
+
+		CORE->GetRenderManager()->SetGraphicBlendState(TGraphicBlendStates::DefaultState);
+	CORE->GetRenderManager()->GetDevice()->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 	}//END if (m_bIsOk)
 }
 
