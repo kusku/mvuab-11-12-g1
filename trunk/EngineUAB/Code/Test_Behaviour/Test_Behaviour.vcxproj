@@ -109,6 +109,7 @@
   <ItemGroup>
     <ClInclude Include="Cameras\FreeCamera.h" />
     <ClInclude Include="Cameras\StaticCamera.h" />
+    <ClInclude Include="Character_Wrapper.h" />
     <ClInclude Include="Characters\Character.h" />
     <ClInclude Include="Characters\CharacterManager.h" />
     <ClInclude Include="Characters\Enemy\Enemy.h" />
@@ -127,6 +128,7 @@
     <ClInclude Include="Characters\States\Player\Animations\AnimationCaperuRunState.h" />
     <ClInclude Include="Characters\States\PursuitState.h" />
     <ClInclude Include="DebugSceneBehaviour\Scene.h" />
+    <ClInclude Include="Foo.h" />
     <ClInclude Include="GameProcess.h" />
     <ClInclude Include="GUIProcess.h" />
     <ClInclude Include="RegisterToLua.h" />

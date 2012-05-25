@@ -10,9 +10,6 @@
 #include "Utils\Random.h"
 
 #include "Object3D.h"
-#include "Characters\Player\Player.h"
-#include "Characters\Enemy\Enemy.h"
-
 #include "RenderableObjects\RenderableObjectsLayersManager.h"
 #include "RenderableObjects\RenderableObjectsManager.h"
 #include "RenderableObjects\RenderableObject.h"
@@ -20,12 +17,14 @@
 #include "PhysicController.h"
 #include "CharacterController.h"
 
+#include "Characters\Player\Player.h"
+#include "Characters\Enemy\Enemy.h"
 #include "characters\Properties\PropertiesManager.h"
 #include "characters\Properties\Properties.h"
-
 #include "characters\states\AnimationsStatesManager.h"
 #include "characters\states\AnimationsStates.h"
 
+#include "Scripting\ScriptManager.h"
 #include "Logger\Logger.h"
 #include "Base.h"
 #include "Core.h"
@@ -84,6 +83,9 @@ bool CCharactersManager::Initialize ( int _NumEnemies )
 		return false;
 	}
 	
+	// Registramos los mètodes para LUA
+	RegisterMethods();
+
 	LOGGER->AddNewLog ( ELL_INFORMATION, "CCharactersManager::Initialize-> Initialization succesful", _NumEnemies );
 	return true;
 }
@@ -422,9 +424,10 @@ bool CCharactersManager::LoadEnemiesAnimationStates( const CXMLTreeNode &_Node )
 	return l_IsOk;
 }
 
-void CCharactersManager::AddEnemy ( CEnemy *_pEnemy )
+void CCharactersManager::AddEnemy ( CCharacter *_pEnemy )
 {
-	AddResource ( _pEnemy->GetProperties()->GetName(), _pEnemy );
+	CEnemy* l_pEnemy = dynamic_cast<CEnemy*> (_pEnemy);
+	AddResource ( l_pEnemy->GetProperties()->GetName(), l_pEnemy );
 }
 
 // ---------------------------------------------------------------------------------------------------------
@@ -538,6 +541,32 @@ Vect3f CCharactersManager::RandomVector( const Vect3f &_Vect1, const Vect3f &_Ve
 	return ( Vect3f ( fRandX, fRandY, fRandZ ) );
 }
 
+
+void CCharactersManager::RegisterMethods( void )
+{
+	lua_State *l_pState = SCRIPT->GetLuaState();
+
+	module(l_pState) [
+		class_<CCharactersManager>("CCharactersManager")
+			.def("add_enemy", &CCharactersManager::AddEnemy)
+			.def("set_player", &CCharactersManager::SetPlayer)
+	];
+}
+
 //--------------------------------------------------
 //					PROPERTIES
 //--------------------------------------------------
+
+
+void CCharactersManager::SetPlayer( CCharacter *_pPlayer )
+{
+	m_pPlayer = dynamic_cast<CPlayer*> (_pPlayer);
+	
+	//m_pPlayer=player->derived();
+	//m_pPlayer=(CCharacter*)player.m;
+//	lua_getglobal(SCRIPT->GetLuaState(), "player");
+//	const void *l_Player=lua_topointer(SCRIPT->GetLuaState(), 1);
+//	m_pPlayer = (CCharacter *)l_Player;//luabind::object_cast<CCharacter*>(*player); 
+//	m_pPlayer=0;
+//	lua_pop(SCRIPT->GetLuaState(), 1);
+}

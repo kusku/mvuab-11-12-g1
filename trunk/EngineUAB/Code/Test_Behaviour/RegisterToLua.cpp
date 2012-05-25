@@ -11,9 +11,12 @@
 #include "StatesMachine\ScriptedStateMachine.h"
 
 #include "Characters/Character.h"
+#include "Character_Wrapper.h"
 #include "Object3D.h"
 #include "Utils\Named.h"
 #include "Utils\TemplatedVectorMapManager.h"
+
+#include "Foo.h"
 
 #include "core.h"
 #include "base.h"
@@ -44,7 +47,6 @@ void RegisterToLuaBaseGameEntity(lua_State* _pLua)
 		[
 			class_<CBaseGameEntity> ("CBaseGameEntity")
 			.def("get_id",&CBaseGameEntity::GetID)
-			.def("set_id",&CBaseGameEntity::SetID)
 		];
 }
 
@@ -68,10 +70,18 @@ void RegisterToLuaCObject3D(lua_State* _pLua)
 
 void RegisterToLuaCharacter(lua_State* _pLua)
 {
+	//module(state) [
+	//	class_<CCharacter, character_wrapper, bases<CBaseGameEntity, CObject3D, CNamed>>("CCharacter")
+	//		.def(constructor<int>())
+	//		.def("update", &CCharacter::Update, &character_wrapper::default_update)
+	//		//.def(constructor<int, const std::string&>())
+	//];
+
 	module(_pLua)
 		[
-			class_<CCharacter, bases<CBaseGameEntity, CObject3D, CNamed>> ("CCharacter")
+			class_<CCharacter, CCharacter_Wrapper, bases<CBaseGameEntity, CObject3D, CNamed>> ("CCharacter")
 			.def(constructor<int> ())
+			.def("update", &CCharacter::Update, &CCharacter_Wrapper::default_update)
 			/*.def("get_logic_fsm",&CCharacter::GetLogicFSM)
 			.def("get_graphic_fsm",&CCharacter::GetGraphicFSM)*/
 		];
@@ -104,5 +114,14 @@ void RegisterToLuaGlobals(lua_State* _pLua)
 {
 	globals(_pLua)["ent_caperucita"] = (int)ent_caperucita;
 	globals(_pLua)["ent_lobo"] = (int)ent_lobo;
+
+	luabind::module(_pLua) 
+		[
+			luabind::class_<CFoo>("Foo")
+			.def(luabind::constructor<luabind::object, const char*>())
+			.def("Think", &CFoo::Think)
+			.def("Kill", &CFoo::Kill)
+			.def_readwrite("name", &CFoo::m_Name)
+		];
 }
 
