@@ -247,9 +247,9 @@ CGameProcess* CGameProcess::GetGameProcess( void )
 
 void CGameProcess::RegisterToLuaGameProcess( lua_State* _pLua )
 {
-	module(_pLua) [
+	/*module(_pLua) [
 		def("get_game_process", GetGameProcess)
-	];
+	];*/
 
 	module(_pLua) [
 		class_<CGameProcess>("CGameProcess")
