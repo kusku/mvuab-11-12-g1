@@ -4,23 +4,5 @@
 	<layer name="alpha_objects" />
 	<layer name="alpha_blend_objects" />
 	<layer name="particles" />
-	<!--<mesh_instance name="Cone001" core="Cone001" position="216.857 0.0 79.9658" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
-	<mesh_instance name="Plane002" core="Plane002" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
-	<mesh_instance name="Box003" core="Box003" position="-117.778 0.0 -109.947" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
-	<mesh_instance name="lizard_geo" core="lizard_geo" position="62.1109 0.0 -77.3359" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
-	<mesh_instance name="Box004" core="Box004" position="61.1413 0.0 42.0619" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
-	<mesh_instance name="Cone002" core="Cone002" position="-150.33 0.0 250.496" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
-	<mesh_instance name="Box005" core="Box005" position="-291.024 0.0 -314.033" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
-	<mesh_instance name="Box006" core="Box006" position="-211.142 0.0 -263.352" yaw="-1.00179e-005" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
-	<mesh_instance name="Plane01" core="Plane01" position="-8000.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" scale="0.15 0.15 0.15" />-->
-	<!--<mesh_instance name="Plane002" core="Plane002" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />-->
-	<mesh_instance name="Plane001" core="Plane001" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
-	<!--<mesh_instance name="azul" core="azul" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />-->
-	<animated_model_instance name="caperu" core="caperucita" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
-	<animated_model_instance name="lobo" core="lobo" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-	<!--animated_model_instance name="caperu" core="caperu" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />-->
-	<!--<mesh_instance name="default" core="default" position="0.0 2.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="10.0 10.0 10.0" visible="true" layer="solid" create_physics="false" />
-	<mesh_instance name="caperuza" core="caperuza" position="0.0 2.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="10.0 10.0 10.0" visible="true" layer="solid" create_physics="false" />
-	<mesh_instance name="Vestido" core="Vestido" position="0.0 2.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="10.0 10.0 10.0" visible="true" layer="solid" create_physics="false" />
-	<mesh_instance name="caperuza001" core="caperuza001" position="0.0 2.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="10.0 10.0 10.0" visible="true" layer="solid" create_physics="false" />-->
+
 </renderable_objects>

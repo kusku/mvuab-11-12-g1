@@ -32,9 +32,13 @@
 	<effect name="vignetting_and_noise" 						file="./data/effects/VignettingNoise.fx" />
 	
 	<effect name="BloomPostProcess" 							file="./data/effects/BloomPostProcess.fx" />
+	
+	<effect name="ParticleEffect" 								file="./data/effects/ParticleEffect.fx" />
 	<!-- ......... EFFECTS ............ -->
 	
 	<!-- ................. TECHNIQUES ................. -->
+	<technique name="ParticleTechnique" effect="BloomPostProcess" />
+	
 	<technique name="BloomExtract" effect="BloomPostProcess" use_half_pixel="false" />
 	<technique name="GaussianBlur" effect="BloomPostProcess" use_half_pixel="false" />
 	<technique name="BloomCombine" effect="BloomPostProcess" use_half_pixel="false" />
