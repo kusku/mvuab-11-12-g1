@@ -61,6 +61,7 @@
     <ClCompile Include="Characters\CharacterManager.cpp">
       <Filter>Characters</Filter>
     </ClCompile>
+    <ClCompile Include="RegisterToLua.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameProcess.h" />
@@ -126,6 +127,7 @@
     <ClInclude Include="Characters\PlayerDef.h">
       <Filter>Characters</Filter>
     </ClInclude>
+    <ClInclude Include="RegisterToLua.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="DebugSceneBehaviour">
