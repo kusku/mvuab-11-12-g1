@@ -39,7 +39,9 @@ public:
 	bool						Init						( void );
 	void						Update						( float elapsedTime );
 	void						Render						(  CRenderManager &RM );
-	void						AddEnemy					( CEnemy* _pEnemy );
+
+	//void						AddEnemy					( CEnemy* _pEnemy );
+	
 	//----Methods --------------------------------------------------------------------
 private:
 	void						RegisterMethods				( void );

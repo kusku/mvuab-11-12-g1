@@ -23,6 +23,7 @@
 #include "ActionToInput.h"
 
 #include "RegisterToLua.h"
+#include "Foo.h"
 
 #include "Core.h"
 #include "Base.h"
@@ -36,8 +37,9 @@
 // -----------------------------------------
 CGameProcess::CGameProcess(HWND hWnd)
 	: m_hWnd	( hWnd )
+	, m_pScene	( NULL )
 	//, m_pPlayer ( NULL )
-{
+ {
 	m_pCharactersManager	= new CCharactersManager();
 	m_pScene = new CScene();
 }
@@ -137,7 +139,10 @@ bool CGameProcess::Init()
 
 	m_pPlayer->Init();*/
 
-	CORE->GetScriptManager()->RunCode("load_enemy()");
+	bool l_ok = CORE->GetScriptManager()->Load("./Data/XML/script_gameplay.xml");
+	CORE->GetScriptManager()->RunCode("init_game_data()");
+	//CORE->GetScriptManager()->RunCode("load_enemy()");
+	//CORE->GetScriptManager()->RunFile("foo.lua");
 
 	return true;
 }
@@ -205,10 +210,10 @@ void CGameProcess::UpdateInputs ( float _ElapsedTime )
 	}*/
 }
 
-void CGameProcess::AddEnemy ( CEnemy* _pEnemy )
-{
-	m_pCharactersManager->AddEnemy ( _pEnemy );
-}
+//void CGameProcess::AddEnemy ( CEnemy* _pEnemy )
+//{
+//	m_pCharactersManager->AddEnemy ( _pEnemy );
+//}
 
 //-------------------------------------
 //--Registrador de métodos en LUA------
@@ -229,17 +234,6 @@ void CGameProcess::RegisterMethods( void )
 	
 }
 
-void CGameProcess::RegisterToLuaGameProcess( lua_State* _pLua )
-{
-	module(_pLua) [
-		class_<CGameProcess>("CGameProcess")
-			.def("get_character_manager", &CGameProcess::GetCharactersManager)
-			.def("get_game_process",	  &CGameProcess::GetGameProcess)
-			.def("add_enemy",			  &CGameProcess::AddEnemy)
-	];
-}
-
-
 // -----------------------------------------
 //				PROPIEDADES
 // -----------------------------------------
@@ -249,3 +243,20 @@ CGameProcess* CGameProcess::GetGameProcess( void )
 	CEngineProcess *l_pProces = CORE->GetProcess();
 	return static_cast<CGameProcess*> ( l_pProces );
 }
+
+
+void CGameProcess::RegisterToLuaGameProcess( lua_State* _pLua )
+{
+	module(_pLua) [
+		def("get_game_process", GetGameProcess)
+	];
+
+	module(_pLua) [
+		class_<CGameProcess>("CGameProcess")
+			//.def("get_game_process"		, &CGameProcess::GetGameProcess)
+			.def("get_character_manager", &CGameProcess::GetCharactersManager)
+			//.def("add_enemy",			  &CGameProcess::AddEnemy)
+	];
+}
+
+

@@ -42,7 +42,7 @@ public:
 	void						Render							( void );
 
 	// ------------- Funcions --------------------------------
-	void						AddEnemy						( CEnemy *_pEnemy );				// Afegeix un enemic ja creat
+	void						AddEnemy						( CCharacter *_pEnemy );			// Afegeix un enemic ja creat
 	void						CreateEnemy						( void );							// Crea i afegeix un enemic ja creat
 	void						CreateRandomEnemy				( void );							// Crea i afegeix un enemic aleatori
 	bool						LoadXMLProperties				( void );							// Carga el XML de propiedades
@@ -59,6 +59,8 @@ private:
 
 	Vect3f						RandomVector					( const Vect3f &_Vect1, const Vect3f &_Vect2 );
 
+	void						RegisterMethods					( void );
+
 	//	void					DrawActors					( void );
 	
 	// ------------- Propietats ( Get / Set ) ----------------
@@ -69,7 +71,8 @@ public:
 	int							GetTotalEnemies					( void ) const		{ return m_ResourcesVector.size(); }
 	
 	CPlayer*					GetPlayer						( void ) const		{ return m_pPlayer; }
-	
+	void						SetPlayer						( CCharacter *_pPlayer );
+
 private:
 	std::string					m_PropertiesFileName;
 	std::string					m_AnimatedFileName;

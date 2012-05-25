@@ -13,13 +13,14 @@
 // -----------------------------------------
 CCharacter::CCharacter( int _Id )
 	: CBaseGameEntity			( _Id )
+	, CNamed					( )
+	, CObject3D					( )
 	, m_pLogicStateMachine		( NULL )
 	, m_pGraphicStateMachine	( NULL )
 	, m_pCurrentAnimatedModel	( NULL )
 	, m_pController				( NULL )
 	, m_pAnimationsStates		( NULL )
-	, CNamed					( )
-	, CObject3D					( )
+
 	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
 {
 	// coloco la máquina de estados i el controler de física
@@ -30,13 +31,13 @@ CCharacter::CCharacter( int _Id )
 
 CCharacter::CCharacter( int _Id, const std::string &_Name )
 	: CBaseGameEntity			( _Id )
+	, CNamed					( _Name )
+	, CObject3D					( )
 	, m_pLogicStateMachine		( NULL )
 	, m_pGraphicStateMachine	( NULL )
 	, m_pCurrentAnimatedModel	( NULL )
 	, m_pController				( NULL ) 
 	, m_pAnimationsStates		( NULL )
-	, CNamed					( _Name )
-	, CObject3D					( )
 	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
 {
 	// coloco la máquina de estados
@@ -44,7 +45,6 @@ CCharacter::CCharacter( int _Id, const std::string &_Name )
 	m_pGraphicStateMachine	= new CStateMachine<CCharacter>( this );
   //  m_pController			= new CPhysicController();
 }
-
 
 CCharacter::~CCharacter( void )
 {
