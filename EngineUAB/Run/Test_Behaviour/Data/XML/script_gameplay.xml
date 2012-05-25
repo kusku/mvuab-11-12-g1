@@ -1,0 +1,4 @@
+<scripts>
+	<script filename="./data/scripts/game/init_game.lua" />
+	<script filename="./data/scripts/game/enemy.lua" />
+</scripts>
