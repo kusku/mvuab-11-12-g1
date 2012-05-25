@@ -14,6 +14,7 @@
 #include "Scripting\ScriptManager.h"
 #include <assert.h>
 #include <string>
+#include "Graphic States\GraphicStates.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -298,6 +299,8 @@ void CRenderManager::BeginRendering()
 	{
 		m_pD3DDevice->SetRenderState( D3DRS_FILLMODE, D3DFILL_WIREFRAME );
 	}
+
+	m_CurrentBlendState = TGraphicBlendStates::DefaultState;
 }
 
 void CRenderManager::EndRendering()
@@ -790,22 +793,6 @@ void CRenderManager::SetTransform( const Mat44f &mat)
 	m_pD3DDevice->SetTransform(D3DTS_WORLD, &aux);
 }
 
-void CRenderManager::EnableAlphaBlend()
-{
-	m_pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-	m_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-	m_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-	m_pD3DDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
-}
-
-void CRenderManager::DisableAlphaBlend()
-{
-	m_pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-    m_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-	m_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-	m_pD3DDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
-}
-
 //--------------------------------------------------
 //				  CAPTURE VIDEO/PICTURE
 //--------------------------------------------------
@@ -867,3 +854,63 @@ void CRenderManager::RegisterMethods()
 {
 	lua_State *state = SCRIPT->GetLuaState();
 }
+bool CRenderManager::SetGraphicBlendState( const TGraphicBlendStates& state )
+{
+	if(m_pD3DDevice == NULL)
+	{
+		return false;
+	}
+
+	HRESULT hr = D3D_OK;
+
+	if(state.m_AlphaBlendEnable != m_CurrentBlendState.m_AlphaBlendEnable)
+	{
+		hr = m_pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, state.m_AlphaBlendEnable);
+
+		if(hr != D3D_OK)
+		{
+			return false;
+		}
+
+		m_CurrentBlendState.m_AlphaBlendEnable = state.m_AlphaBlendEnable;
+	}
+
+	if(state.m_BlendOp != m_CurrentBlendState.m_BlendOp)
+	{
+		hr = m_pD3DDevice->SetRenderState(D3DRS_BLENDOP, state.m_BlendOp);
+
+		if(hr != D3D_OK)
+		{
+			return false;
+		}
+
+		m_CurrentBlendState.m_BlendOp = state.m_BlendOp;
+	}
+
+	if(state.m_SrcBlend != m_CurrentBlendState.m_SrcBlend)
+	{
+		hr = m_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, state.m_SrcBlend);
+
+		if(hr != D3D_OK)
+		{
+			return false;
+		}
+
+		m_CurrentBlendState.m_SrcBlend = state.m_SrcBlend;
+	}
+
+	if(state.m_DestBlend != m_CurrentBlendState.m_DestBlend)
+	{
+		hr = m_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, state.m_DestBlend);
+
+		if(hr != D3D_OK)
+		{
+			return false;
+		}
+
+		m_CurrentBlendState.m_DestBlend = state.m_DestBlend;
+	}
+
+	return true;
+}
+

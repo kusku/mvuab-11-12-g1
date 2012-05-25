@@ -264,9 +264,17 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 			{
 				m_Config.billboards_path = l_ConfigNode(i).GetPszProperty("billboardsXML", "");
 			}
-			else if( l_Name == "Particles" )
+			else if( l_Name == "ParticlesEmitters" )
 			{
-				m_Config.particles_path = l_ConfigNode(i).GetPszProperty("particlesXML", "");
+				m_Config.particle_emitters_path = l_ConfigNode(i).GetPszProperty("particlesEmittersXML", "");
+			}
+			else if( l_Name == "ParticlesSettings" )
+			{
+				m_Config.particle_settings_path = l_ConfigNode(i).GetPszProperty("particlesSettingsXML", "");
+			}
+			else if( l_Name == "ParticlesSystems" )
+			{
+				m_Config.particle_systems_path = l_ConfigNode(i).GetPszProperty("particlesSystemsXML", "");
 			}
 			else if( l_Name == "GUI" )
 			{

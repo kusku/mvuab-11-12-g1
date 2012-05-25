@@ -196,22 +196,7 @@
     <ClInclude Include="Commands\BloomPostProcessCommand.h">
       <Filter>Commands\Command</Filter>
     </ClInclude>
-    <ClInclude Include="Particles\Particle.h">
-      <Filter>Particles</Filter>
-    </ClInclude>
     <ClInclude Include="Particles\ParticleDef.h">
-      <Filter>Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="Particles\ParticlesEmitterCore.h">
-      <Filter>Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="Particles\ParticlesEmitterInstance.h">
-      <Filter>Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="Particles\ParticlesEmitterProperties.h">
-      <Filter>Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="Particles\ParticlesSystemManager.h">
       <Filter>Particles</Filter>
     </ClInclude>
     <ClInclude Include="Commands\RenderGUISceneRendererCommand.h">
@@ -246,6 +231,30 @@
     </ClInclude>
     <ClInclude Include="Commands\RenderDebugWayPointSceneRendererCommand.h">
       <Filter>Commands\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic States\GraphicStates.h">
+      <Filter>Graphic States</Filter>
+    </ClInclude>
+    <ClInclude Include="Particles\ParticleSystem.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Particles\ParticleEmitter.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Particles\Emitters\ParticleEmitterRing.h">
+      <Filter>Particles\Emitters</Filter>
+    </ClInclude>
+    <ClInclude Include="Particles\ParticleEmitterManager.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Particles\ParticleSystemManager.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Particles\ParticleSettingsManager.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Particles\Emitters\ParticleEmitterPoint.h">
+      <Filter>Particles\Emitters</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -434,21 +443,6 @@
     <ClCompile Include="Commands\BloomPostProcessCommand.cpp">
       <Filter>Commands\Command</Filter>
     </ClCompile>
-    <ClCompile Include="Particles\Particle.cpp">
-      <Filter>Particles</Filter>
-    </ClCompile>
-    <ClCompile Include="Particles\ParticlesEmitterCore.cpp">
-      <Filter>Particles</Filter>
-    </ClCompile>
-    <ClCompile Include="Particles\ParticlesEmitterInstance.cpp">
-      <Filter>Particles</Filter>
-    </ClCompile>
-    <ClCompile Include="Particles\ParticlesEmitterProperties.cpp">
-      <Filter>Particles</Filter>
-    </ClCompile>
-    <ClCompile Include="Particles\ParticlesSystemManager.cpp">
-      <Filter>Particles</Filter>
-    </ClCompile>
     <ClCompile Include="Commands\RenderGUISceneRendererCommand.cpp">
       <Filter>Commands\Command</Filter>
     </ClCompile>
@@ -478,6 +472,30 @@
     </ClCompile>
     <ClCompile Include="Commands\RenderDebugWayPointSceneRendererCommand.cpp">
       <Filter>Commands\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Particles\ParticleSystem.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic States\GraphicStates.cpp">
+      <Filter>Graphic States</Filter>
+    </ClCompile>
+    <ClCompile Include="Particles\ParticleEmitter.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Particles\Emitters\ParticleEmitterRing.cpp">
+      <Filter>Particles\Emitters</Filter>
+    </ClCompile>
+    <ClCompile Include="Particles\ParticleEmitterManager.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Particles\ParticleSystemManager.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Particles\ParticleSettingsManager.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Particles\Emitters\ParticleEmitterPoint.cpp">
+      <Filter>Particles\Emitters</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -537,6 +555,12 @@
     </Filter>
     <Filter Include="Effects\Materials">
       <UniqueIdentifier>{13c11af5-b725-4561-852c-e9d01e4e2f57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic States">
+      <UniqueIdentifier>{ca93ffd5-f9f2-432a-9342-b13577198ee4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particles\Emitters">
+      <UniqueIdentifier>{4e7f76bb-a11f-4f65-a0e4-6e637ce7a4d8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
