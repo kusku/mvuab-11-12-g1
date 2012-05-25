@@ -15,11 +15,14 @@
 #include "Characters\Player\Player.h"
 #include "Characters\Properties\Properties.h"
 #include "Characters\Properties\PropertiesManager.h"
+#include "Characters\Enemy\Enemy.h"
 
 #include "StatesMachine\ScriptedStateMachine.h"
 #include "DebugSceneBehaviour\Scene.h"
 #include "SoundManager.h"
 #include "ActionToInput.h"
+
+#include "RegisterToLua.h"
 
 #include "Core.h"
 #include "Base.h"
@@ -28,6 +31,9 @@
 #include "Memory/MemLeaks.h"
 #endif
 
+// -----------------------------------------
+//		  CONSTRUCTORS / DESTRUCTOR
+// -----------------------------------------
 CGameProcess::CGameProcess(HWND hWnd)
 	: m_hWnd	( hWnd )
 	//, m_pPlayer ( NULL )
@@ -40,8 +46,13 @@ CGameProcess::~CGameProcess(void)
 {
 }
 
+// -----------------------------------------
+//			METODES PRINCIPALS
+// -----------------------------------------
 bool CGameProcess::Init()
 {
+	RegisterMethods();
+
 	if( INIT_GUI )
 	{
 		CORE->GetScriptManager()->RunCode("load_data()");
@@ -126,6 +137,7 @@ bool CGameProcess::Init()
 
 	m_pPlayer->Init();*/
 
+	CORE->GetScriptManager()->RunCode("load_enemy()");
 
 	return true;
 }
@@ -192,15 +204,48 @@ void CGameProcess::UpdateInputs ( float _ElapsedTime )
 		}
 	}*/
 }
+
+void CGameProcess::AddEnemy ( CEnemy* _pEnemy )
+{
+	m_pCharactersManager->AddEnemy ( _pEnemy );
+}
+
 //-------------------------------------
 //--Registrador de métodos en LUA------
 //-------------------------------------
-void CGameProcess::RegisterMethods()
+void CGameProcess::RegisterMethods( void )
 {
-	module(SCRIPT->GetLuaState()) [
-		class_<CScriptedStateMachine<CCharacter>>("CScriptedStateMachine")
-			.def("ChangeState", &CScriptedStateMachine<CCharacter>::ChangeState)
-			.def("CurrentState", &CScriptedStateMachine<CCharacter>::CurrentState)
-			.def("SetCurrentState", &CScriptedStateMachine<CCharacter>::SetCurrentState)
+	lua_State * l_State = SCRIPT->GetLuaState();
+
+	/*RegisterToLuaTelegram(l_State);
+	RegisterToLuaMessageDispacher(l_State);*/
+	RegisterToLuaCNamed					( l_State );
+	RegisterToLuaCObject3D				( l_State );
+	RegisterToLuaBaseGameEntity			( l_State );
+	RegisterToLuaCharacter				( l_State );
+	RegisterToLuaCharacterManager		( l_State );
+	RegisterToLuaScriptedStateMachine	( l_State );
+	RegisterToLuaGameProcess			( l_State );
+	
+}
+
+void CGameProcess::RegisterToLuaGameProcess( lua_State* _pLua )
+{
+	module(_pLua) [
+		class_<CGameProcess>("CGameProcess")
+			.def("get_character_manager", &CGameProcess::GetCharactersManager)
+			.def("get_game_process",	  &CGameProcess::GetGameProcess)
+			.def("add_enemy",			  &CGameProcess::AddEnemy)
 	];
+}
+
+
+// -----------------------------------------
+//				PROPIEDADES
+// -----------------------------------------
+
+CGameProcess* CGameProcess::GetGameProcess( void )
+{
+	CEngineProcess *l_pProces = CORE->GetProcess();
+	return static_cast<CGameProcess*> ( l_pProces );
 }

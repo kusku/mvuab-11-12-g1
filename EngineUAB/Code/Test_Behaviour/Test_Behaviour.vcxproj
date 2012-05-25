@@ -103,6 +103,7 @@
     <ClCompile Include="DebugSceneBehaviour\Scene.cpp" />
     <ClCompile Include="GameProcess.cpp" />
     <ClCompile Include="GUIProcess.cpp" />
+    <ClCompile Include="RegisterToLua.cpp" />
     <ClCompile Include="TestBehaviour.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +129,7 @@
     <ClInclude Include="DebugSceneBehaviour\Scene.h" />
     <ClInclude Include="GameProcess.h" />
     <ClInclude Include="GUIProcess.h" />
+    <ClInclude Include="RegisterToLua.h" />
     <ClInclude Include="TestBehaviourDefs.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

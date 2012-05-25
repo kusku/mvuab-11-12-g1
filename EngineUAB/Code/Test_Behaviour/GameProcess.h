@@ -11,6 +11,8 @@
 #define __GAME_PROCESS_TEST_BEHAVIOUR_H__
 
 #include <Windows.h>
+#include <luabind\luabind.hpp>
+
 #include "EngineProcess.h"
 #include "Cameras\StaticCamera.h"
 #include "Cameras\FreeCamera.h"
@@ -22,24 +24,33 @@ class CScene;
 class CPlayer; 
 class CCharactersManager;
 class CPropertiesManager;
+class CGameProcess;
+class CEnemy;
 // ----------------------------
 
 class CGameProcess : public CEngineProcess
 {
 public:
 	//--- Init and End protocols-----------------------------------------------------
-								CGameProcess	( HWND hWnd );
-								~CGameProcess	( void );
+								CGameProcess				( HWND hWnd );
+								~CGameProcess				( void );
 
 	//----Main Methods----------------------------------------------------------------
-	bool						Init			( void );
-	void						Update			( float elapsedTime );
-	void						Render			(  CRenderManager &RM );
-
+	bool						Init						( void );
+	void						Update						( float elapsedTime );
+	void						Render						(  CRenderManager &RM );
+	void						AddEnemy					( CEnemy* _pEnemy );
 	//----Methods --------------------------------------------------------------------
 private:
-	void						RegisterMethods ( void );
-	void						UpdateInputs	( float _ElapsedTime );
+	void						RegisterMethods				( void );
+	void						RegisterToLuaGameProcess	( lua_State* _pLua );
+	void						UpdateInputs				( float _ElapsedTime );
+
+	//----Properties  --------------------------------------------------------------------
+public:
+	
+	CGameProcess*				GetGameProcess				( void );
+	CCharactersManager*			GetCharactersManager		( void ) const		{ return m_pCharactersManager; }
 
 	//----Members --------------------------------------------------------------------
 private:
