@@ -5,6 +5,10 @@
 #include "Logger\Logger.h"
 #include "Math\Vector4.h"
 
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
+
 CParticleSettingsManager::CParticleSettingsManager()
 	: m_Filename("")
 {
@@ -13,7 +17,7 @@ CParticleSettingsManager::CParticleSettingsManager()
 
 CParticleSettingsManager::~CParticleSettingsManager()
 {
-
+	this->Destroy();
 }
 
 bool CParticleSettingsManager::Load( const std::string& filename )
