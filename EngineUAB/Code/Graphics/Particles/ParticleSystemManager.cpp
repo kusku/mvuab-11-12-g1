@@ -6,6 +6,10 @@
 #include "ParticleSettingsManager.h"
 #include "Logger\Logger.h"
 
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
+
 
 CParticleSystemManager::CParticleSystemManager()
 	: m_Filename("")
@@ -15,7 +19,7 @@ CParticleSystemManager::CParticleSystemManager()
 
 CParticleSystemManager::~CParticleSystemManager()
 {
-
+	this->Destroy();
 }
 
 void CParticleSystemManager::Initialize()

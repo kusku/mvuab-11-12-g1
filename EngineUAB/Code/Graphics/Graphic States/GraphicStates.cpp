@@ -1,6 +1,10 @@
 
 #include "GraphicStates.h"
 
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
+
 
 const TGraphicBlendStates TGraphicBlendStates::DefaultState = TGraphicBlendStates();
 const TGraphicBlendStates TGraphicBlendStates::NonPremultiplied = TGraphicBlendStates(true, D3DBLENDOP_ADD, D3DBLEND_SRCALPHA, D3DBLEND_INVSRCALPHA);

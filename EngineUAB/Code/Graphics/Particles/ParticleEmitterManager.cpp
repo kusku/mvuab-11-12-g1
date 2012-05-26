@@ -9,6 +9,10 @@
 #include "Core.h"
 #include "ParticleSystemManager.h"
 
+#if defined(_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
+
 CParticleEmitterManager::CParticleEmitterManager()
 	: m_Filename("")
 {
@@ -17,7 +21,7 @@ CParticleEmitterManager::CParticleEmitterManager()
 
 CParticleEmitterManager::~CParticleEmitterManager()
 {
-
+	this->Destroy();
 }
 
 void CParticleEmitterManager::Update( float elapsedTime )
