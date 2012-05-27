@@ -27,6 +27,7 @@ CScriptManager::CScriptManager ( void )
 CScriptManager::~CScriptManager ( void )
 {
 	Destroy();
+	m_FileNamesVector.clear();
 }
 
 // -----------------------------------------
@@ -75,14 +76,16 @@ int Alert( lua_State * _pState )
 //Para desinicializar el motor de LUA
 void CScriptManager::Destroy ( void )
 {
-	lua_close ( m_pLuaState );
+	lua_close( m_pLuaState );
 }
 
 // Per carregar un fitxer XML amb tots els scrits
 bool CScriptManager::Load ( const std::string &_XMLFile )
 {
-	LOGGER->AddNewLog ( ELL_INFORMATION, "CScriptManager::Load-->Loading scripts." );
+	LOGGER->AddNewLog( ELL_INFORMATION, "CScriptManager::Load-->Loading scripts." );
 	m_FileName = _XMLFile;
+	m_FileNamesVector.push_back(m_FileName);
+
 	return LoadXML();
 }
 
@@ -90,7 +93,7 @@ bool CScriptManager::Load ( const std::string &_XMLFile )
 void CScriptManager::RunCode ( const std::string &_Code ) const
 {
 	// Compila y ejecuta el string
-	if ( luaL_dostring ( m_pLuaState, _Code.c_str() ) )
+	if ( luaL_dostring( m_pLuaState, _Code.c_str() ) )
 	{
 		const char *l_Str = lua_tostring ( m_pLuaState, -1 );
 		LOGGER->AddNewLog ( ELL_ERROR, l_Str );
@@ -101,7 +104,7 @@ void CScriptManager::RunCode ( const std::string &_Code ) const
 void CScriptManager::RunFile(const std::string &FileName) const
 {
 	// Compila y ejecuta un fichero
-	if ( luaL_dofile ( m_pLuaState, FileName.c_str() ) )
+	if ( luaL_dofile( m_pLuaState, FileName.c_str() ) )
 	{
 		const char *l_Str = lua_tostring ( m_pLuaState, -1 );
 		LOGGER->AddNewLog ( ELL_ERROR, l_Str );
@@ -116,17 +119,28 @@ void CScriptManager::RunFile(const std::string &FileName) const
 // Per recarregar el XML
 bool CScriptManager::Reload ( void )
 {
-	LOGGER->AddNewLog ( ELL_INFORMATION, "CScriptManager::Reload->Reloading scripts." );
+	LOGGER->AddNewLog( ELL_INFORMATION, "CScriptManager::Reload->Reloading scripts." );
 	//Destroy ();
-	return LoadXML ();
+	//Initialize();
+
+	for(uint16 i=0; i<m_FileNamesVector.size(); ++i)
+	{
+		m_FileName = m_FileNamesVector[i];
+		if( !LoadXML() )
+		{
+			return false;
+		}
+	}
+
+	return true;
 }
 
 bool CScriptManager::LoadXML ( void ) 
 {
-	LOGGER->AddNewLog ( ELL_INFORMATION, "CScriptManager::LoadXML --> Loading Scripting Files..." );
+	LOGGER->AddNewLog( ELL_INFORMATION, "CScriptManager::LoadXML --> Loading Scripting Files..." );
 	CXMLTreeNode l_File;
 	
-	if ( l_File.LoadFile ( m_FileName.c_str () ) )
+	if ( l_File.LoadFile( m_FileName.c_str () ) )
 	{
 		CXMLTreeNode l_Scripts = l_File["scripts"];
 		if ( l_Scripts.Exists ( ) )
@@ -142,19 +156,19 @@ bool CScriptManager::LoadXML ( void )
 				}
 				else
 				{
-					LOGGER->AddNewLog ( ELL_WARNING, "CScriptManager::LoadXML --> Error loading file %s. The file doesn't contain any tag different form <SCRIPT>.", m_FileName ); 
+					LOGGER->AddNewLog( ELL_WARNING, "CScriptManager::LoadXML --> Error loading file %s. The file doesn't contain any tag different form <SCRIPT>.", m_FileName ); 
 				}
 			}
 		}
 		else
 		{
-			LOGGER->AddNewLog ( ELL_ERROR, "CScriptManager::LoadXML --> Error loading file %s. The file doesn't contain tag <SCRIPTS>.", m_FileName ); 
+			LOGGER->AddNewLog( ELL_ERROR, "CScriptManager::LoadXML --> Error loading file %s. The file doesn't contain tag <SCRIPTS>.", m_FileName ); 
 			return false;
 		}
 	}
 	else 
 	{
-		LOGGER->AddNewLog ( ELL_ERROR, "CScriptManager::LoadXML --> Error loading file %s. The file doesn't exist or contain sintaxis errors.", m_FileName ); 
+		LOGGER->AddNewLog( ELL_ERROR, "CScriptManager::LoadXML --> Error loading file %s. The file doesn't exist or contain sintaxis errors.", m_FileName ); 
 		return false;
 	}
 

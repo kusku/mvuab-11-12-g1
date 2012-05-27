@@ -28,25 +28,8 @@ CGameProcess::~CGameProcess(void)
 
 bool CGameProcess::Init()
 {
-	Vect2i pos;
-	Vect2i screen = CORE->GetRenderManager()->GetScreenSize();
-	pos.x = screen.x / 2;
-	pos.y = screen.y / 2;
-
-	//Establece la cámara
-	m_StaticCamera.SetPosition(Vect3f(0.f,1.f,0.f));
-	m_StaticCamera.SetPitch(0.0f);
-	m_StaticCamera.SetYaw(0.0f);
-	m_StaticCamera.SetRoll(0.0f);
-
-	float aspect = CORE->GetRenderManager()->GetAspectRatio();
-	m_pThPSCamera = new CThPSCamera(1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_StaticCamera, 10.0f, 0.f, "Static");
-	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
-	CORE->SetCamera(m_pCamera);
-
 	//Registra los métodos
 	RegisterMethods();
-	CCharactersManager::RegisterMethods();
 
 	//Crea los datos para el gameplay
 	m_pCharacterManager = new CCharactersManager();
@@ -61,14 +44,28 @@ bool CGameProcess::Init()
 		CORE->GetScriptManager()->RunCode("load_all()");
 	}
 
+	//Carga los scripts del juego
 	CORE->GetScriptManager()->Load("./Data/XML/script_gameplay.xml");
 	CORE->GetScriptManager()->RunCode("init_game_data()");
+
+	//Crea la cámara
+	float aspect = CORE->GetRenderManager()->GetAspectRatio();
+	m_pThPSCamera = new CThPSCamera(1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, m_pCharacterManager->GetPlayer(), 12.0f, 4.f, "Caperucita");
+	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
+	CORE->SetCamera(m_pCamera);
 
 	return true;
 }
 
 void CGameProcess::Update(float elapsedTime)
 {
+	//Vuelve a cargar los datos si hacemos el reload de LUA
+	if( CORE->GetActionToInput()->DoAction("ReloadScripts") )
+	{
+		CORE->GetScriptManager()->RunCode("init_game_data()");
+		m_pThPSCamera->SetObject3D( m_pCharacterManager->GetPlayer());
+	}
+
 	m_pCharacterManager->Update(elapsedTime);
 }
 
@@ -97,4 +94,6 @@ void CGameProcess::RegisterMethods()
 		class_<CGameProcess>("CGameProcess")
 			.def("get_character_manager", &CGameProcess::GetCharacterManager)
 	];
+
+	CCharactersManager::RegisterMethods();
 }

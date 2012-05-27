@@ -12,8 +12,8 @@ class CBaseGameEntity
 {
 public:
 	// ------------- Constructors i Destructors --------------
-					CBaseGameEntity		( int _Id )			{ SetID(_Id); }
-					~CBaseGameEntity	( void )			{}
+	CBaseGameEntity		( int _Id )			{ SetID(_Id); }
+	~CBaseGameEntity	();
 
 
 	//----Main Functions --------------------------------------
@@ -27,6 +27,8 @@ public:
 	
 	// Llamado por el constructor para asignar un ID correcto
 	int				GetID				( void ) const		{ return m_ID; }
+
+	static int		GetNextValidID		() 		{ return m_iNextValidID; }
 
 	//----Members )--------------------------------------------
 private:

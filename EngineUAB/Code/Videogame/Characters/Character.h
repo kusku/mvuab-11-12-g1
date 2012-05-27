@@ -30,8 +30,8 @@ class CCharacter : public CBaseGameEntity, public CObject3D, public CNamed //, p
 {
 public:
 	// ------------- Constructors i Destructors --------------
-	CCharacter( int _Id );
-	CCharacter( int _Id, const std::string &_Name );
+	CCharacter();
+	CCharacter(const std::string &_Name );
 	virtual	~CCharacter();
 
 
@@ -47,17 +47,17 @@ public:
 	void						MoveController		( const Vect3f &_Dir, float _ElapsedTime );
 	
 	//----Properties ( get & Set )-----------------------------
-	inline CStateMachine<CCharacter>*		GetLogicFSM			( void ) const			{ return m_pLogicStateMachine; }
-	inline CStateMachine<CCharacter>*		GetGraphicFSM		( void ) const			{ return m_pGraphicStateMachine; }
-	inline CPhysicController*				GetControler		( void ) const			{ return m_pController; }
-	inline CAnimatedInstanceModel*			GetAnimatedModel	( void ) const			{ return m_pCurrentAnimatedModel; }
+	inline CStateMachine<CCharacter>*		GetLogicFSM			() const			{ return m_pLogicStateMachine; }
+	inline CStateMachine<CCharacter>*		GetGraphicFSM		() const			{ return m_pGraphicStateMachine; }
+	inline CPhysicController*				GetController		() const			{ return m_pController; }
+	inline CAnimatedInstanceModel*			GetAnimatedModel	() const			{ return m_pCurrentAnimatedModel; }
 
 
 	void						SetPrevPosition		( Vect3f pos )			{ m_PrevPosition = pos; }
-	const Vect3f&				GetPrevPosition		( void ) const			{ return m_PrevPosition; }
+	const Vect3f&				GetPrevPosition		() const			{ return m_PrevPosition; }
 
 	// Obtengo el angulo que forma donde mira
-	inline Vect3f				GetFront			( void ) const			{ Vect3f l_Front; l_Front.GetXZFromAngle( GetYaw() ) ; return l_Front; }
+	inline Vect3f				GetFront			() const			{ Vect3f l_Front; l_Front.GetXZFromAngle( GetYaw() ) ; return l_Front; }
 																			//{ Vect3f front; front.xzFromAngle( m_Yaw ); return front; }
 
 	bool						isPointAtLeft		( const Vect3f &_Position ) const	
@@ -67,7 +67,7 @@ public:
 																			}
 
 	inline void					SetAnimationsStates	( CAnimationsStates* _pAnimationsStates )			{ m_pAnimationsStates = _pAnimationsStates; }
-	inline CAnimationsStates*	GetAnimationsStates	( void ) const										{ return m_pAnimationsStates; }
+	inline CAnimationsStates*	GetAnimationsStates	() const										{ return m_pAnimationsStates; }
 
 	//----Members )--------------------------------------------
 private:

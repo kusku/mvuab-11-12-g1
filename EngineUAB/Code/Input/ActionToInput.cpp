@@ -799,6 +799,6 @@ void CActionToInput::RegisterMethods()
 	module(state) [
 		class_<CActionToInput>("CActionToInput")
 			.def("do_action", (bool(CActionToInput::*)(const std::string&))&CActionToInput::DoAction)
-			.def("do_action", (bool(CActionToInput::*)(const std::string&, float&))&CActionToInput::DoAction)
+			//.def("do_action", (bool(CActionToInput::*)(const std::string&, float&))&CActionToInput::DoAction, luabind::pure_out_value(_3))
 	];
 }

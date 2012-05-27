@@ -270,12 +270,6 @@ bool CCore::Init( HWND _HWnd, const SConfig &config )
 			m_WayPointManager->Load(config.waypoints_path);
 
 			CCore::RegisterMethods();
-			CRenderManager::RegisterMethods();
-			CActionToInput::RegisterMethods();
-			CGUIManager::RegisterMethods();
-			CSoundManager::RegisterMethods();
-			CTriggersManager::RegisterMethods();
-			CDebugGUIManager::RegisterMethods();
 
 			m_pScriptManager->Load( config.scripts_path );
 		}
@@ -538,7 +532,13 @@ void CCore::UpdateInputs( float _ElapsedTime )
 
 	if( l_Action2Input->DoAction( ACTION_RELOAD_SCRIPTS ) )					// Recarrega els scripts
 	{
-		SCRIPT->RunCode("reload_scripts()");
+		m_pScriptManager->Destroy();
+		m_pScriptManager->Initialize();
+
+		CCore::RegisterMethods();
+		m_pProcess->RegisterMethods();
+
+		m_pScriptManager->Reload();
 	}
 
 	if ( l_Action2Input->DoAction ( ACTION_RELOAD_PHYSIS ) )				// Recarrega la física
@@ -863,6 +863,7 @@ void CCore::RegisterMethods()
 			.def("get_stadistics", &CCore::GetStadistics)
 			.def("get_gui_manager", &CCore::GetGUIManager)
 			.def("get_sound_manager", &CCore::GetSoundManager)
+			.def("get_action_to_input", &CCore::GetActionToInput)
 			.def("get_process", &CCore::GetProcess)
 			.def("load_fonts", &CCore::LoadFonts)
 			.def("load_languages", &CCore::LoadLanguages)
@@ -883,4 +884,13 @@ void CCore::RegisterMethods()
 			.def("load_debug_gui", &CCore::LoadDebugGUI)
 			.def("is_game_mode", &CCore::IsGameMode)
 	];
+
+	CRenderManager::RegisterMethods();
+	CActionToInput::RegisterMethods();
+	CPhysicsManager::RegisterMethods();
+	CGUIManager::RegisterMethods();
+	CSoundManager::RegisterMethods();
+	CTriggersManager::RegisterMethods();
+	CDebugGUIManager::RegisterMethods();
+
 }
