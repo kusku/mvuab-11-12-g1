@@ -15,6 +15,7 @@ extern "C"
 #include <luabind/class.hpp>
 #include <luabind/operator.hpp>
 #include <luabind/return_reference_to_policy.hpp>
+#include <luabind/out_value_policy.hpp>
 
 using namespace luabind;
 

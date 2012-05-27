@@ -132,7 +132,7 @@ bool CCharactersManager::LoadXML( void )
 
 void CCharactersManager::Update ( float _ElapsedTime )
 {
-	//assert(m_pPlayer != NULL);
+	assert(m_pPlayer != NULL);
 
 	// Actualitzem el player
 	m_pPlayer->Update( _ElapsedTime );
@@ -545,15 +545,7 @@ Vect3f CCharactersManager::RandomVector( const Vect3f &_Vect1, const Vect3f &_Ve
 void CCharactersManager::SetPlayer(CCharacter *player)
 {
 	m_pPlayer = player;
-	//m_pPlayer=player->derived();
-	//m_pPlayer=(CCharacter*)player.m;
-//	lua_getglobal(SCRIPT->GetLuaState(), "player");
-//	const void *l_Player=lua_topointer(SCRIPT->GetLuaState(), 1);
-//	m_pPlayer = (CCharacter *)l_Player;//luabind::object_cast<CCharacter*>(*player); 
-//	m_pPlayer=0;
-//	lua_pop(SCRIPT->GetLuaState(), 1);
 }
-
 
 void CCharactersManager::RegisterMethods()
 {

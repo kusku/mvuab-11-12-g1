@@ -30,6 +30,7 @@
 #include "PhysicUserData.h"
 ////--------------------------------
 
+#include "Scripting\ScriptManager.h"
 #include "RenderManager.h"
 #include "Exceptions\Exception.h"
 #include "Logger\Logger.h"
@@ -1156,4 +1157,15 @@ int CPhysicsManager::GetCollisionGroup( const std::string& _szGroup )
 	{
 		return 0;
 	}
+}
+
+void CPhysicsManager::RegisterMethods()
+{
+	lua_State *state = SCRIPT->GetLuaState();
+
+	module(state) [
+		class_<CPhysicController, CObject3D>("CPhysicController")
+			.def("move", &CPhysicController::Move)
+			.property("height", &CPhysicController::GetHeight)
+	];
 }

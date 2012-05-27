@@ -50,34 +50,28 @@ class CPhysicsManager
 {
 public:
 	//--- Init and End protocols------------------------------------------
-							CPhysicsManager					( void );
-	virtual					~CPhysicsManager				( void )									{ Done(); }
+							CPhysicsManager		();
+	virtual					~CPhysicsManager	()		{ Done(); }
 
 	//---- Main Functions ---------------------------------------
-	bool					Init							( void );
-	void					Done							( void );
-	bool					IsOk							( void ) const								{ return m_bIsOk; }
-	bool					Load							( const std::string &_PhysXConfig );
-	bool					Reload							( void );
+	bool					Init				();
+	void					Done				();
+	bool					IsOk				() const						{ return m_bIsOk; }
+	bool					Load				( const std::string &_PhysXConfig );
+	bool					Reload				();
 	
 	//--- Rendering Stuff:
-	void					DebugRender						( CRenderManager *_RM );
-	void					DrawActor						( NxActor* actor, CRenderManager* _RM );
+	void					DebugRender			( CRenderManager *_RM );
+	void					DrawActor			( NxActor* actor, CRenderManager* _RM );
 
 	//----CScriptRegister interface---------------------------------------
-	//virtual void			RegisterFunctions				(CScriptManager* scriptManager);
+	static void				RegisterMethods		();
 
-	//---- Functions privades --------------------------------------------
-private:
-	bool					LoadXML							( void );
-	void					Release							( void );
-
-public:
 	//--- Add/Release Actors
 	bool					AddPhysicActor					( CPhysicActor* _pActor);
 	bool					ReleasePhysicActor				( CPhysicActor* _pActor);
 	
-	bool					ReleaseAllActors				( void ); //EUserDataFlag _eFlags );
+	bool					ReleaseAllActors				(); //EUserDataFlag _eFlags );
 
 	//--- Add/Release CharacterControllers
 	bool					AddPhysicController				( CPhysicController* _pController, EControleType _Tipus = ::CAPSULE );
@@ -100,10 +94,7 @@ public:
 
 	//----Update
 	void					Update							( float _ElapsedTime );
-	void					WaitForSimulation				( void );
-
-	////----CScriptRegister interface-------------------
-	////virtual void		RegisterFunctions			( CScriptManager* scriptManager );
+	void					WaitForSimulation				();
 
 	////--- Create CCDSkeleton
 	NxCCDSkeleton*			CreateCCDSkeleton				( float size );
@@ -112,25 +103,25 @@ public:
 	void					SetDebugRenderMode				( bool _Flag )								{ m_bDebugRenderMode = _Flag; }
 	bool					GetDebugRenderMode				( void ) const								{ return m_bDebugRenderMode; }
 	
-	NxScene*				GetScene						( void ) const								{ return m_pScene; }	
+	NxScene*				GetScene						() const									{ return m_pScene; }	
 	
 	void					SetInitParams					( const SPhysicsInitParams& initParams )	{ m_InitParams = initParams; }
 	
 	//--- Get CookingMesh
-	CPhysicCookingMesh*		GetCookingMesh					( void ) const								{ return m_pCookingMesh; }
-
-	NxPhysicsSDK*			GetPhysicsSDK					( void )									{ return m_pPhysicsSDK; }
-
+	CPhysicCookingMesh*		GetCookingMesh					() const							{ return m_pCookingMesh; }
+	NxPhysicsSDK*			GetPhysicsSDK					()									{ return m_pPhysicsSDK; }
 	CPhysicActor*			GetActor						( std::string _ActorName );
 
 	void					SetTriggerReport				( CPhysicTriggerReport* _pReport );
-	
 	void					SetCollisionReport				( CPhysicCollisionReport* _pReport );
   
-	int						GetCollisionMask				( ECollisionGroup _szGroup )				{ return m_CollisionMasks[_szGroup]; }
-	const std::string&		GetConfigFileName				( void ) const								{ return m_szConfigFileName; }
-
+	int						GetCollisionMask				( ECollisionGroup _szGroup )		{ return m_CollisionMasks[_szGroup]; }
+	const std::string&		GetConfigFileName				() const							{ return m_szConfigFileName; }
 	int						GetCollisionGroup				( const std::string& _szGroup );
+
+private:
+	bool					LoadXML				();
+	void					Release				();
 
 private:
 	bool					m_bIsOk;

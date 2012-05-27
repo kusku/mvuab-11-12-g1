@@ -16,8 +16,13 @@
 // ----------------------------------------
 struct character_wrapper : CCharacter, luabind::wrap_base
 {
-	character_wrapper(int id)
-		: CCharacter(id)
+	character_wrapper()
+		: CCharacter()
+	{
+	}
+
+	character_wrapper(const std::string &name)
+		: CCharacter(name)
 	{
 	}
 
@@ -36,8 +41,8 @@ struct character_wrapper : CCharacter, luabind::wrap_base
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CCharacter::CCharacter( int _Id )
-	: CBaseGameEntity			( _Id )
+CCharacter::CCharacter()
+	: CBaseGameEntity			( CBaseGameEntity::GetNextValidID() )
 	, m_pLogicStateMachine		( NULL )
 	, m_pGraphicStateMachine	( NULL )
 	, m_pCurrentAnimatedModel	( NULL )
@@ -54,8 +59,8 @@ CCharacter::CCharacter( int _Id )
    // m_pController			= new CPhysicController();
 }
 
-CCharacter::CCharacter( int _Id, const std::string &_Name )
-	: CBaseGameEntity			( _Id )
+CCharacter::CCharacter( const std::string &_Name )
+	: CBaseGameEntity			( CBaseGameEntity::GetNextValidID() )
 	, m_pLogicStateMachine		( NULL )
 	, m_pGraphicStateMachine	( NULL )
 	, m_pCurrentAnimatedModel	( NULL )
@@ -148,17 +153,15 @@ void CCharacter::RegisterMethods()
 	];
 
 	module(state) [
-		class_<CObject3D>("CObject3D")
-	];
-
-	module(state) [
 		class_<CNamed>("CNamed")
 	];
 
 	module(state) [
 		class_<CCharacter, character_wrapper, bases<CBaseGameEntity, CObject3D, CNamed>>("CCharacter")
-			.def(constructor<int>())
+			.def(constructor<>())
+			.def(constructor<const std::string&>())
+			.def("init", &CCharacter::Init)
 			.def("update", &CCharacter::Update, &character_wrapper::default_update)
-			//.def(constructor<int, const std::string&>())
+			.property("physic_controller", &CCharacter::GetController)	
 	];
 }

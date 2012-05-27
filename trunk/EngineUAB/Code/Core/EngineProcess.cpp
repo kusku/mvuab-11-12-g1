@@ -50,3 +50,6 @@ void CEngineProcess::Update( float _ElapsedTime )
 {
 }
 
+void CEngineProcess::RegisterMethods()
+{
+}

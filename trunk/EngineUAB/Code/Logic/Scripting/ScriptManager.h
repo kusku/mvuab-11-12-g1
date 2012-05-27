@@ -46,6 +46,7 @@ private:
 protected:
 	lua_State	  * m_pLuaState;			// Estat del lua
 	std::string		m_FileName;				// Fitxer xml on trobaré els scripts a registrar
+	std::vector<std::string> m_FileNamesVector;
 };
 
 #endif __SCRIPT_MANAGER_CLASS_H__

@@ -12,3 +12,11 @@ void CBaseGameEntity::SetID ( int _Val )
 	m_ID = _Val;
 	m_iNextValidID = m_ID + 1;
 }
+
+CBaseGameEntity::~CBaseGameEntity()
+{
+	if( m_iNextValidID > 0)
+	{
+		--m_iNextValidID;
+	}
+}

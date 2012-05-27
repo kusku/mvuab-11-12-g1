@@ -104,3 +104,7 @@ void CTestAudioProcess::UpdateInputs()
 		m_pWwiseSoundManager->PlayEvent("Play_Ground");
 	}
 }
+
+void CTestAudioProcess::RegisterMethods()
+{
+}

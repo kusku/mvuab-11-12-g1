@@ -24,8 +24,10 @@ public:
 	void				Update				( float _ElapsedTime );
 	void				Render				( CRenderManager &_RM );
 
+	void				RegisterMethods		();
+
 protected:
-	virtual void		Release				( void );
+	void				Release				( void );
 	void				UpdateInputs		();
 
 	Vect2i		pos;

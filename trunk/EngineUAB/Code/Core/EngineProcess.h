@@ -10,25 +10,25 @@ class CEngineProcess
 {
 public:
 	//--- Init and End protocols------------------------------------------
-						CEngineProcess	( void );
-	virtual				~CEngineProcess	( void );
+						CEngineProcess	();
+	virtual				~CEngineProcess	();
 
-	virtual bool		Init			( void );
-	virtual void		Done			( void );
-	virtual bool		IsOk			( void ) const				{ return m_bIsOk; }
+	virtual bool		Init			();
+	virtual void		Done			();
+	virtual bool		IsOk			() const				{ return m_bIsOk; }
 	
-private:
-	virtual void		Release		( void );
-
-	//----Funcions principals--------------------------------------------
-public:
+	//----Funcions principals-------------------------------------------
 	virtual void		Update			(float ElapsedTime);
 	virtual void		Render			( CRenderManager &RM );
 	
 	//----Properties ( get & Set )---------------------------------------
-	virtual CCamera*	GetCamera		( void ) const				{ return m_pCamera; }
+	virtual CCamera*	GetCamera		() const				{ return m_pCamera; }
 
-	//----Members -------------------------------------------------------
+	virtual void RegisterMethods ();
+
+private:
+	virtual void		Release		();
+
 protected:
 	bool				m_bIsOk;			// em diu si tot és correcte o no en certes operacions
 
