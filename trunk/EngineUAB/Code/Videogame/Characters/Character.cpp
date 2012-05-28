@@ -4,7 +4,11 @@
 #include "PhysicUserData.h"
 #include "PhysicsManager.h"
 #include "Scripting\ScriptManager.h"
-
+#include "RenderableObjects\AnimatedModel\AnimatedModelManager.h"
+#include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
+#include "RenderableObjects\RenderableObjectsManager.h"
+#include "RenderableObjects\RenderableObjectsLayersManager.h"
+#include "Core.h"
 #include "Base.h"
 
 #if defined (_DEBUG)
@@ -57,6 +61,8 @@ CCharacter::CCharacter()
     m_pLogicStateMachine	= new CStateMachine<CCharacter>( this );
 	m_pGraphicStateMachine	= new CStateMachine<CCharacter>( this );
    // m_pController			= new CPhysicController();
+
+	m_pCurrentAnimatedModel = static_cast<CAnimatedInstanceModel*>(CORE->GetRenderableObjectsLayersManager()->GetResource("solid")->GetInstance("caperucita1"));
 }
 
 CCharacter::CCharacter( const std::string &_Name )
@@ -75,6 +81,8 @@ CCharacter::CCharacter( const std::string &_Name )
     m_pLogicStateMachine	= new CStateMachine<CCharacter>( this );
 	m_pGraphicStateMachine	= new CStateMachine<CCharacter>( this );
   //  m_pController			= new CPhysicController();
+
+	m_pCurrentAnimatedModel = static_cast<CAnimatedInstanceModel*>(CORE->GetRenderableObjectsLayersManager()->GetResource("solid")->GetInstance("caperucita1"));
 }
 
 
@@ -153,15 +161,12 @@ void CCharacter::RegisterMethods()
 	];
 
 	module(state) [
-		class_<CNamed>("CNamed")
-	];
-
-	module(state) [
 		class_<CCharacter, character_wrapper, bases<CBaseGameEntity, CObject3D, CNamed>>("CCharacter")
 			.def(constructor<>())
 			.def(constructor<const std::string&>())
 			.def("init", &CCharacter::Init)
 			.def("update", &CCharacter::Update, &character_wrapper::default_update)
 			.property("physic_controller", &CCharacter::GetController)	
+			.property("animated_model", &CCharacter::GetAnimatedModel)
 	];
 }

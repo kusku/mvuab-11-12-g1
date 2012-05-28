@@ -1,2 +1,3 @@
 <animated_models>
+	<animated_model name="caperucita" path="./Data/General/caperu/" filename="actor.xml"/>
 </animated_models>
