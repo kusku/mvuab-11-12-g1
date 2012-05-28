@@ -885,6 +885,10 @@ void CCore::RegisterMethods()
 			.def("is_game_mode", &CCore::IsGameMode)
 	];
 
+	module(state) [
+		class_<CNamed>("CNamed")
+	];
+
 	CRenderManager::RegisterMethods();
 	CActionToInput::RegisterMethods();
 	CPhysicsManager::RegisterMethods();
@@ -892,5 +896,7 @@ void CCore::RegisterMethods()
 	CSoundManager::RegisterMethods();
 	CTriggersManager::RegisterMethods();
 	CDebugGUIManager::RegisterMethods();
+	CRenderableObjectsLayersManager::RegisterMethods();
+	CAnimatedModelManager::RegisterMethods();
 
 }

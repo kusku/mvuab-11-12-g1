@@ -3,6 +3,7 @@
 #include "RenderManager.h"
 #include "Base.h"
 #include "Logger\Logger.h"
+#include "Scripting\ScriptManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -163,4 +164,9 @@ void CRenderableObjectsLayersManager::Render(CRenderManager *RM, const std::stri
 CRenderableObjectsManager* CRenderableObjectsLayersManager::GetRenderableObjectManager(CXMLTreeNode &Node)
 {
 	return NULL;
+}
+
+void CRenderableObjectsLayersManager::RegisterMethods()
+{
+	lua_State *state = SCRIPT->GetLuaState();
 }

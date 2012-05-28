@@ -24,6 +24,8 @@ public:
 	void		Render		( CRenderManager *RM );
 	void		Render		( CRenderManager *RM, const std::string &LayerName );
 
+	static void RegisterMethods();
+
 private:
 	void							LoadFile	();
 	CRenderableObjectsManager*		GetRenderableObjectManager(CXMLTreeNode &Node);
