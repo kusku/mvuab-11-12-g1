@@ -5,25 +5,24 @@ class 'CPlayer' (CCharacter)
 		self.pitch = -math.pi / 8
 		self.roll = 0.0
 		self.position = Vect3f(0.0, 0.0, 0.0)
+		self.animated_model.pitch = -90.0
 	end
 	
 	function CPlayer:update(elapsed_time)
 		local action_2_input = core:get_action_to_input()
 		
-		local success = true
 		local l_d = 0.0
 		local l_dir = Vect3f(0.0, 0.0, 0.0)
 		local l_position = Vect3f(0.0, 0.0, 0.0)
 		
 		local l_yaw = self.physic_controller.yaw
-		if action_2_input:do_action('YawViewerCam') then
+		l_d = action_2_input:do_action_mouse('YawViewerCam')
 			l_yaw = l_yaw + l_d
 			if l_yaw > 2*math.pi then
 				l_yaw = l_yaw - 2*math.pi
 			elseif l_yaw < -2*math.pi then
 				l_yaw = l_yaw + 2*math.pi
 			end
-		end
 		
 		if action_2_input:do_action('MovePlayerUp') then
 			if action_2_input:do_action('MovePlayerLeft') then
@@ -56,6 +55,8 @@ class 'CPlayer' (CCharacter)
 		
 		self.position = self.physic_controller.position
 		self.position = Vect3f(self.position.x, self.position.y - self.physic_controller.height, self.position.z)
+		self.yaw = l_yaw
 		
 		self.animated_model.position = self.position
+		self.animated_model.yaw = -(l_yaw * 180.0 / math.pi) + 90.0
 	end

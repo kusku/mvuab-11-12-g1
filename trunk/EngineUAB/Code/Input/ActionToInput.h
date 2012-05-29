@@ -43,6 +43,7 @@ public:
 	
 	bool	DoAction	( const std::string &action );
 	bool	DoAction	( const std::string &action, float &delta_ );
+	float	DoActionMouse( const std::string &action );
 
 	//-----Get Methods-------
 	void			GetActionInfo	( const std::string &action, std::string &keys_ );
