@@ -211,7 +211,6 @@
 	</action>
 
 	<action name="YawViewerCam">
-		<input deviceType="IDV_MOUSE" EventType="EVENT_DOWN"      Code="MOUSE_BUTTON_RIGHT"/>
 		<input deviceType="IDV_MOUSE" AxisType="AXIS_MOUSE_X"     Delta="0.01f"/>
 	</action>
 

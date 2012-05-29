@@ -390,6 +390,51 @@ bool CActionToInput::DoAction(const std::string &action, float &delta_)
 	return false;
 }
 
+float CActionToInput::DoActionMouse(const std::string &action)
+{
+	std::vector<SInputInfo*> l_Actions = m_ActionsMap[ action ];
+	float delta = 0.0f;
+
+	if( l_Actions.size() > 0 )
+	{
+		std::vector<SInputInfo*>::iterator l_It = l_Actions.begin();
+		std::vector<SInputInfo*>::iterator l_End = l_Actions.end();
+
+		for(; l_It != l_End; ++l_It)
+		{
+			INPUT_EVENT_TYPE l_Event = (*l_It)->eventType;
+			INPUT_AXIS_TYPE l_Axis = (*l_It)->axisType;
+			INPUT_DEVICE_TYPE l_Device = (*l_It)->deviceType;
+
+			if( l_Event == EVENT_NOTHING )
+			{
+				float l_Delta = (*l_It)->delta;
+
+				switch(l_Axis)
+				{
+				case AXIS_MOUSE_X:
+					{
+						delta = static_cast<float>(m_pInputManager->GetMouseDelta().x) * l_Delta;
+						break;
+					}
+				case AXIS_MOUSE_Y:
+					{
+						delta = static_cast<float>(m_pInputManager->GetMouseDelta().y) * l_Delta;
+						break;
+					}
+				case AXIS_MOUSE_Z:
+					{
+						delta = static_cast<float>(m_pInputManager->GetMouseDelta().z) * l_Delta;
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	return delta;
+}
+
 void CActionToInput::GetActionInfo( const std::string &action, std::string &keys_ )
 {
 	std::vector<SInputInfo*> l_Actions = m_ActionsMap[ action ];
@@ -799,6 +844,7 @@ void CActionToInput::RegisterMethods()
 	module(state) [
 		class_<CActionToInput>("CActionToInput")
 			.def("do_action", (bool(CActionToInput::*)(const std::string&))&CActionToInput::DoAction)
-			.def("do_action", (bool(CActionToInput::*)(const std::string&, float&))&CActionToInput::DoAction)
+			.def("do_action_mouse", &CActionToInput::DoActionMouse)
+			//.def("do_action", (bool(CActionToInput::*)(const std::string&, float&))&CActionToInput::DoAction, luabind::out_value(_2, _2))
 	];
 }
