@@ -30,7 +30,6 @@ CEffect::CEffect(CXMLTreeNode &XMLNode)
 	, m_ViewInverseMatrixParameter(NULL)
 	, m_WorldInverseMatrixParameter(NULL)
 	, m_ProjInverseMatrixParameter(NULL)
-	, m_LightEnabledParameter(NULL)
 	, m_LightsTypeParameter(NULL)
 	, m_LightsPositionParameter(NULL)
 	, m_LightsDirectionParameter(NULL)
@@ -39,19 +38,16 @@ CEffect::CEffect(CXMLTreeNode &XMLNode)
 	, m_LightsFallOffParameter(NULL)
 	, m_LightsStartRangeAttenuationParameter(NULL)
 	, m_LightsEndRangeAttenuationParameter(NULL)
-	, m_LightsDynamicShadowMapParameter(NULL)
-	, m_LightsStaticShadowMapParameter(NULL)
 	, m_CameraPositionParameter(NULL)
 	, m_BonesParameter(NULL)
 	, m_TimeParameter(NULL)
 	, m_NumLightsParameter(NULL)
 	, m_ViewProjectionInverseMatrixParameter(NULL)
-	, m_LightsDynamicShadowMap(NULL)
-	, m_LightsStaticShadowMap(NULL)
 	, m_HalfPixelParameter(NULL)
 	, m_RenderTargetSizeParameter(NULL)
-	, m_DynamicShadowMapEnableParameter(NULL)
-	, m_StaticShadowMapEnableParameter(NULL)
+	, m_LightShadowStaticEnableParameter(NULL)
+	, m_LightShadowDynamicEnableParameter(NULL)
+	, m_ActiveLights(0)
 {
 	m_EffectName = XMLNode.GetPszProperty("name", "");
 	m_FileName = XMLNode.GetPszProperty("file", "");
@@ -60,6 +56,23 @@ CEffect::CEffect(CXMLTreeNode &XMLNode)
 	{
 		m_Parameters.push_back(NULL);
 	}
+
+	memset(m_StaticShadowMapSamplerParameter, 0, sizeof(D3DXHANDLE) * MAX_LIGHTS_BY_SHADER);
+	memset(m_DynamicShadowMapSamplerParameter, 0, sizeof(D3DXHANDLE) * MAX_LIGHTS_BY_SHADER);
+
+	memset(m_LightShadowViewProjection, 0, sizeof(Mat44f) * MAX_LIGHTS_BY_SHADER);
+	memset(m_LightsType, 0, sizeof(int) * MAX_LIGHTS_BY_SHADER);
+	memset(m_LightsAngle, 0, sizeof(float) * MAX_LIGHTS_BY_SHADER);
+	memset(m_LightsFallOff, 0, sizeof(float) * MAX_LIGHTS_BY_SHADER);
+	memset(m_LightsStartRangeAttenuation, 0, sizeof(float) * MAX_LIGHTS_BY_SHADER);
+	memset(m_LightsEndRangeAttenuation, 0, sizeof(float) * MAX_LIGHTS_BY_SHADER);
+	memset(m_LightsPosition, 0, sizeof(Vect3f) * MAX_LIGHTS_BY_SHADER);
+	memset(m_LightsDirection, 0, sizeof(Vect3f) * MAX_LIGHTS_BY_SHADER);
+	memset(m_LightsColor, 0, sizeof(Vect3f) * MAX_LIGHTS_BY_SHADER);
+	memset(m_LightsDynamicShadowMap, 0, sizeof(CTexture*) * MAX_LIGHTS_BY_SHADER);
+	memset(m_LightsStaticShadowMap, 0, sizeof(CTexture*) * MAX_LIGHTS_BY_SHADER);
+	memset(m_LightsDynamicShadowMapEnable, 0, sizeof(bool) * MAX_LIGHTS_BY_SHADER);
+	memset(m_LightsStaticShadowMapEnable, 0, sizeof(bool) * MAX_LIGHTS_BY_SHADER);
 }
 
 CEffect::~CEffect()
@@ -124,7 +137,6 @@ bool CEffect::LoadEffect()
 
 	//Lights
 	GetParameterBySemantic("Num_Lights", m_NumLightsParameter, false);
-	GetParameterBySemantic("Lights_Enabled", m_LightEnabledParameter, false);
 	GetParameterBySemantic("Lights_Type", m_LightsTypeParameter, false);
 	GetParameterBySemantic("Lights_Position", m_LightsPositionParameter, false);
 	GetParameterBySemantic("Lights_Direction", m_LightsDirectionParameter, false);
@@ -133,8 +145,6 @@ bool CEffect::LoadEffect()
 	GetParameterBySemantic("Lights_EndAtt", m_LightsEndRangeAttenuationParameter, false);
 	GetParameterBySemantic("Lights_Angle", m_LightsAngleParameter, false);
 	GetParameterBySemantic("Lights_FallOff", m_LightsFallOffParameter, false);
-	GetParameterBySemantic("LIGHT_DYNAMIC_SHADOW_MAP", m_LightsDynamicShadowMapParameter, false);
-	GetParameterBySemantic("LIGHT_STATIC_SHADOW_MAP", m_LightsStaticShadowMapParameter, false);
 
 	//Time
 	GetParameterBySemantic("TIME", m_TimeParameter, false);
@@ -146,8 +156,18 @@ bool CEffect::LoadEffect()
 	GetParameterBySemantic("SHADOW_VIEWPROJECTION", m_ShadowViewProjectionMatrixParameter, false);
 	GetParameterBySemantic("SHADOW_CAMERA_POSITION", m_ShadowCameraPositionParameter, false);
 	GetParameterBySemantic("SHADOW_WORLDVIEWPROJECTION", m_ShadowWorldViewProjectionMatrixParameter, false);
-	GetParameterBySemantic("STATIC_SHADOW_ENABLE", m_StaticShadowMapEnableParameter, false);
-	GetParameterBySemantic("DYNAMIC_SHADOW_ENABLE", m_DynamicShadowMapEnableParameter, false);
+	GetParameterBySemantic("Lights_Shadow_Static_Enable", m_LightShadowStaticEnableParameter, false);
+	GetParameterBySemantic("Lights_Shadow_Dynamic_Enable", m_LightShadowDynamicEnableParameter, false);
+
+	GetParameterBySemantic("STATIC_SHADOW_MAP_1", m_StaticShadowMapSamplerParameter[0], false);
+	GetParameterBySemantic("STATIC_SHADOW_MAP_2", m_StaticShadowMapSamplerParameter[1], false);
+	GetParameterBySemantic("STATIC_SHADOW_MAP_3", m_StaticShadowMapSamplerParameter[2], false);
+	GetParameterBySemantic("STATIC_SHADOW_MAP_4", m_StaticShadowMapSamplerParameter[3], false);
+
+	GetParameterBySemantic("DYNAMIC_SHADOW_MAP_1", m_DynamicShadowMapSamplerParameter[0], false);
+	GetParameterBySemantic("DYNAMIC_SHADOW_MAP_2", m_DynamicShadowMapSamplerParameter[1], false);
+	GetParameterBySemantic("DYNAMIC_SHADOW_MAP_3", m_DynamicShadowMapSamplerParameter[2], false);
+	GetParameterBySemantic("DYNAMIC_SHADOW_MAP_4", m_DynamicShadowMapSamplerParameter[3], false);
 
 	//Misc
 	GetParameterBySemantic("HALFPIXEL", m_HalfPixelParameter, false);
@@ -198,7 +218,6 @@ void CEffect::SetNullParameters()
 	m_ViewInverseMatrixParameter				= NULL;
 	m_WorldInverseMatrixParameter				= NULL;
 	m_ProjInverseMatrixParameter				= NULL;
-	m_LightEnabledParameter						= NULL;
 	m_LightsTypeParameter						= NULL;
 	m_LightsPositionParameter					= NULL;
 	m_LightsDirectionParameter					= NULL;
@@ -207,19 +226,18 @@ void CEffect::SetNullParameters()
 	m_LightsFallOffParameter					= NULL;
 	m_LightsStartRangeAttenuationParameter		= NULL;
 	m_LightsEndRangeAttenuationParameter		= NULL;
-	m_LightsDynamicShadowMapParameter			= NULL;
-	m_LightsStaticShadowMapParameter			= NULL;
 	m_CameraPositionParameter					= NULL;
 	m_BonesParameter							= NULL;
 	m_TimeParameter								= NULL;
 	m_NumLightsParameter						= NULL;
 	m_ViewProjectionInverseMatrixParameter		= NULL;
-	m_LightsDynamicShadowMap					= NULL;
-	m_LightsStaticShadowMap						= NULL;
 	m_HalfPixelParameter						= NULL;
 	m_RenderTargetSizeParameter					= NULL;
-	m_StaticShadowMapEnableParameter			= NULL;
-	m_DynamicShadowMapEnableParameter			= NULL;
+	m_LightShadowStaticEnableParameter			= NULL;
+	m_LightShadowDynamicEnableParameter			= NULL;
+
+	memset(m_StaticShadowMapSamplerParameter, 0, sizeof(D3DXHANDLE) * MAX_LIGHTS_BY_SHADER);
+	memset(m_DynamicShadowMapSamplerParameter, 0, sizeof(D3DXHANDLE) * MAX_LIGHTS_BY_SHADER);
 
 	uint16 l_Count = m_Parameters.size();
 	for(uint16 i=0; i<l_Count; ++i)
@@ -252,35 +270,66 @@ bool CEffect::SetLights(size_t NumOfLights)
 {
 	CLightManager *l_Lights = CORE->GetLightManager();
 
-	for(size_t i=0; i<NumOfLights && i < MAX_LIGHTS && i < l_Lights->GetResourcesVector().size(); ++i)
+	uint32 lightCount = 0;
+	for(size_t i=0; i<NumOfLights && i < MAX_LIGHTS && i < l_Lights->GetResourcesVector().size(); ++i, ++lightCount)
 	{
 		CLight* l_Light = l_Lights->GetResourcesVector().at(i);
 
-		m_LightsEnabled[i] = l_Light->GetVisible();
+		if(!l_Light->GetVisible())
+		{
+			lightCount--;
+			continue;
+		}
 
 		CLight::TLightType l_LightType = l_Light->GetType();
-		m_LightsType[i] = static_cast<int>(l_LightType);
+		m_LightsType[lightCount] = static_cast<int>(l_LightType);
 
-		m_LightsStartRangeAttenuation[i] = l_Light->GetStartRangeAttenuation();
-		m_LightsEndRangeAttenuation[i] = l_Light->GetEndRangeAttenuation();
-		m_LightsPosition[i] = l_Light->GetPosition();
+		m_LightsStartRangeAttenuation[lightCount] = l_Light->GetStartRangeAttenuation();
+		m_LightsEndRangeAttenuation[lightCount] = l_Light->GetEndRangeAttenuation();
+		m_LightsPosition[lightCount] = l_Light->GetPosition();
 
 		CColor l_Color = l_Light->GetColor();
-		m_LightsColor[i] = Vect3f(l_Color.GetRed()/255.0f, l_Color.GetGreen()/255.0f, l_Color.GetBlue()/255.0f);
+		m_LightsColor[lightCount] = Vect3f(l_Color.GetRed()/255.0f, l_Color.GetGreen()/255.0f, l_Color.GetBlue()/255.0f);
 
 		if( l_LightType == CLight::DIRECTIONAL )
 		{
 			CDirectionalLight* l_DirLight = static_cast<CDirectionalLight*>(l_Light);
-			m_LightsDirection[i] = l_DirLight->GetDirection();
+			m_LightsDirection[lightCount] = l_DirLight->GetDirection();
 		}
 		else if( l_LightType == CLight::SPOT )
 		{
 			CSpotLight* l_SpotLight = static_cast<CSpotLight*>(l_Light);
-			m_LightsDirection[i] = l_SpotLight->GetDirection();
-			m_LightsAngle[i] = l_SpotLight->GetAngle();
-			m_LightsFallOff[i] = l_SpotLight->GetFallOff();
+			m_LightsDirection[lightCount] = l_SpotLight->GetDirection();
+			m_LightsAngle[lightCount] = l_SpotLight->GetAngle();
+			m_LightsFallOff[lightCount] = l_SpotLight->GetFallOff();
+		}
+
+		m_LightShadowViewProjection[lightCount] = l_Light->GetProjectionShadowMap() * l_Light->GetViewShadowMap();
+
+		if(l_Light->GetGenerateDynamicShadowMap()) 
+		{
+			m_LightsDynamicShadowMap[lightCount] = l_Light->GetDynamicShadowMap();
+			m_LightsDynamicShadowMapEnable[lightCount] = true;
+		}
+		else
+		{
+			m_LightsDynamicShadowMap[lightCount] = NULL;
+			m_LightsDynamicShadowMapEnable[lightCount] = false;
+		}
+
+		if(l_Light->GetGenerateStaticShadowMap())
+		{
+			m_LightsStaticShadowMap[lightCount] = l_Light->GetStaticShadowMap();
+			m_LightsStaticShadowMapEnable[lightCount] = true;
+		}
+		else
+		{
+			m_LightsStaticShadowMap[lightCount] = NULL;
+			m_LightsStaticShadowMapEnable[lightCount] = false;
 		}
 	}
+
+	m_ActiveLights = lightCount;
 
 	return true;
 }
@@ -291,8 +340,6 @@ bool CEffect::SetLight(CLight* light)
 	{
 		return false;
 	}
-
-	m_LightsEnabled[0] = light->GetVisible();
 
 	//CLight::TLightType l_LightType = CLight::OMNI;
 	CLight::TLightType l_LightType = light->GetType();
@@ -319,22 +366,28 @@ bool CEffect::SetLight(CLight* light)
 		m_LightsFallOff[0] = l_SpotLight->GetFallOff();
 	}
 
+	m_LightShadowViewProjection[0] = light->GetProjectionShadowMap() * light->GetViewShadowMap();
+
 	if(light->GetGenerateDynamicShadowMap()) 
 	{
-		m_LightsDynamicShadowMap = light->GetDynamicShadowMap();
+		m_LightsDynamicShadowMap[0] = light->GetDynamicShadowMap();
+		m_LightsDynamicShadowMapEnable[0] = true;
 	}
 	else
 	{
-		m_LightsDynamicShadowMap = NULL;
+		m_LightsDynamicShadowMap[0] = NULL;
+		m_LightsDynamicShadowMapEnable[0] = false;
 	}
 
 	if(light->GetGenerateStaticShadowMap())
 	{
-		m_LightsStaticShadowMap = light->GetStaticShadowMap();
+		m_LightsStaticShadowMap[0] = light->GetStaticShadowMap();
+		m_LightsStaticShadowMapEnable[0] = true;
 	}
 	else
 	{
-		m_LightsStaticShadowMap = NULL;
+		m_LightsStaticShadowMap[0] = NULL;
+		m_LightsStaticShadowMapEnable[0] = false;
 	}
 
 	return true;
