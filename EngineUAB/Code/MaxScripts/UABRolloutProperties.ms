@@ -7,7 +7,7 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 	dropdownList ExportRenderList "" pos:[94,24] width:156 height:24 items:#("static_mesh", "animated_model")
 	checkbox VisibleRenderCB "Visible" pos:[14,47] width:76 height:18
 	checkbox LayerRenderCB "Layer" pos:[14,70] width:71 height:17
-	dropdownList LayerRenderList "" pos:[94,68] width:156 height:24 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles")
+	dropdownList LayerRenderList "" pos:[94,68] width:156 height:24 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles", "vegetation", "water")
 	label lbl1 "Anim. model" pos:[14,105] width:70 height:16
 	edittext AnimModelRenderText "" pos:[93,101] width:157 height:21
 	GroupBox grp2 "Physics" pos:[6,178] width:249 height:70
