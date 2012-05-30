@@ -113,7 +113,7 @@ void CLight::ExtractCommonLightInfo(CXMLTreeNode &XMLNode)
 
 		m_pDynamicShadowMap = new CTexture();
 		CTexture::TFormatType l_Format = m_pDynamicShadowMap->GetFormatTypeFromString(l_DynamicType);
-		m_pDynamicShadowMap->Create(l_TextureName, l_WidthDynamicShadowMap, l_HeightDynamicShadowMap, 3, 
+		m_pDynamicShadowMap->Create(l_TextureName, l_WidthDynamicShadowMap, l_HeightDynamicShadowMap, 1, 
 			CTexture::RENDERTARGET, CTexture::DEFAULT, l_Format);
 
 		l_pTextureManager->AddResource(m_pDynamicShadowMap->GetName(), m_pDynamicShadowMap);
@@ -131,7 +131,7 @@ void CLight::ExtractCommonLightInfo(CXMLTreeNode &XMLNode)
 
 		m_pStaticShadowMap = new CTexture();
 		CTexture::TFormatType l_Format = m_pStaticShadowMap->GetFormatTypeFromString(l_StaticType);
-		m_pStaticShadowMap->Create(l_TextureName, l_WidthStaticShadowMap, l_HeightStaticShadowMap, 3, 
+		m_pStaticShadowMap->Create(l_TextureName, l_WidthStaticShadowMap, l_HeightStaticShadowMap, 1, 
 			CTexture::RENDERTARGET, CTexture::DEFAULT, l_Format);
 
 		l_pTextureManager->AddResource(m_pStaticShadowMap->GetName(), m_pStaticShadowMap);

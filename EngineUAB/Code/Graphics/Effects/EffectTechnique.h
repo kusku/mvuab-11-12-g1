@@ -44,7 +44,6 @@ private:
 	bool	m_UseWorldViewMatrix;
 	bool	m_UseWorldViewProjectionMatrix;
 	bool	m_UseViewProjectionMatrix;
-	bool	m_UseShadowViewProjectionMatrix;
 	bool	m_UseShadowCameraPosition;
 	bool	m_UseShadowWorldViewProjMatrix;
 	bool	m_UseShadowMaps;
