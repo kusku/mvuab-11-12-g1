@@ -3,7 +3,7 @@
 	<ScreenResolution width="800" height="600" />
 	<WindowsPosition position="0 0" />
 	<RenderMode fullscreenMode="false" />
-	<RenderColor colorDebug="black" colorRelease="transparent" />
+	<RenderColor colorDebug="blue" colorRelease="transparent" />
 	<ActionToInput inputXML="./Data/XML/input.xml" />
 	<Mouse exclusiveModeInMouse="true" drawPointerMouse="true" />
 	<Fonts fontsXML="./Data/XML/fonts.xml" />

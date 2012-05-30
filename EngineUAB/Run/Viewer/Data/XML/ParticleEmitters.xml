@@ -3,7 +3,7 @@
 	
 	<emitter name="FireRing" system_name="Fire" type="ring" particlesPerSecond="1200" initialPosition="0 0 0" horizontal="false" radius="30" height="40" width="40" />
 	
-	<emitter name="Smoke2" system_name="Smoke" type="ring" particlesPerSecond="60" initialPosition="-100 0 -100" />
+	<emitter name="Smoke2" system_name="Smoke" type="point" particlesPerSecond="60" initialPosition="-100 0 -100" />
 	
 	<emitter name="Explosions" system_name="Explosions" type="point" particlesPerSecond="30" initialPosition="30 150 30" />
 	
