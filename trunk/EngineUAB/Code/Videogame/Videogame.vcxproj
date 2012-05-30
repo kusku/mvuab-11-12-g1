@@ -90,6 +90,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Cameras\FreeCamera.cpp" />
     <ClCompile Include="Cameras\StaticCamera.cpp" />
     <ClCompile Include="Characters\Character.cpp" />
     <ClCompile Include="Characters\CharacterManager.cpp" />
@@ -98,6 +99,7 @@
     <ClCompile Include="videogame.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Cameras\FreeCamera.h" />
     <ClInclude Include="Cameras\StaticCamera.h" />
     <ClInclude Include="Characters\Character.h" />
     <ClInclude Include="Characters\CharacterManager.h" />
