@@ -7,8 +7,20 @@
 	<enable_z_test />
 	<setup_matrices />
 	
-	<render_particles />
-		
+	<disable_z_test />
+	<!-- shadow maps -->
+	<set_pool_renderable_objects_technique pool="Basic_Build_Shadow_Map" />
+	<generate_shadow_maps />
+	<enable_z_test />
+	
+	<set_pool_renderable_objects_technique pool="FowardShading1" />
+	
+	<render_scene layer="solid" active="true" />
+	
+	<set_pool_renderable_objects_technique pool="FowardShading2" />
+	
+	<render_scene layer="solid" active="true" />
+	
 	<!--Debug-->
 	<render_debug_lights active="true" />
 	<render_debug_info grid="false" axis="true"  render_console="true" render_logger="true" render_modifiers="true" render_debug_options="true" render_debug_render="true" />

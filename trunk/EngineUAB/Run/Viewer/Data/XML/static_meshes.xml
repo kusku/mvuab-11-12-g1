@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <static_meshes>
-
+	<static_mesh name="Plane001" filename=".\Data\.\General\\Models\Plane001.m3d" />
+	
+	<static_mesh name="Pino01" filename=".\Data\.\General\\Models\Pino01.m3d" />
+	
 </static_meshes>

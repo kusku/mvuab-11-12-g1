@@ -23,13 +23,12 @@
 	<omni name="Omni001" pos="-218.208 48.3771 -337.487" color="112.0 50.0 33.0" att_start_range="78.7402" att_end_range="118.11" >
 	</omni>-->
 	
-	<directional name="Direct001" pos="595.726 255.76 -17.3757" color="255.0 255.0 255.0" att_start_range="201.575" att_end_range="201.575" generate_shadow_map="true" shadow_map_format_type="G32R32F" shadow_map_width="1024" shadow_map_height="1024" generate_static_shadow_map="true" static_shadow_map_format_type="G32R32F" static_shadow_map_width="1024" static_shadow_map_height="1024" dir="-573.099 -266.569 -4.55024" directional_light_camara_size_w="256" directional_light_camara_size_h="256">
+	<directional name="Direct001" pos="100 60 0" color="255.0 255.0 255.0" att_start_range="1000" att_end_range="1000" generate_shadow_map="true" shadow_map_format_type="G32R32F" shadow_map_width="1024" shadow_map_height="1024" generate_static_shadow_map="false" static_shadow_map_format_type="G32R32F" static_shadow_map_width="1024" static_shadow_map_height="1024" dir="-100 -100 0" directional_light_camara_size_w="256" directional_light_camara_size_h="256">
 		<dynamic renderable_objects_layer="solid" />
-		<static renderable_objects_layer="solid" />
 	</directional>
 	
-	<spot name="Spot004" pos="10.0 50.0 6.0" color="228.0 184.0 33.0" att_start_range="393.701" att_end_range="472.441" generate_shadow_map="true" shadow_map_format_type="G32R32F" shadow_map_width="1024" shadow_map_height="1024" generate_static_shadow_map="true" static_shadow_map_format_type="G32R32F" static_shadow_map_width="1024" static_shadow_map_height="1024" dir="0.0 -1.0 0.0" angle="30.0" fall_off="45.0" >
+	<!---->
+	<spot name="Spot001" pos="26.1738 27.5697 -42.3909" color="255.0 0.0 255.0" att_start_range="80.0" att_end_range="200.0" generate_shadow_map="true" shadow_map_format_type="G32R32F" shadow_map_width="1024" shadow_map_height="1024" dir="-26.9476 -37.1744 47.6959" angle="43.0" fall_off="45.0" >
 		<dynamic renderable_objects_layer="solid" />
-		<static renderable_objects_layer="solid" />
 	</spot>
 </lights>
