@@ -12,6 +12,7 @@
 
 #include "EngineProcess.h"
 #include "Cameras\StaticCamera.h"
+#include "Cameras\FreeCamera.h"
 #include "Characters\CharacterManager.h"
 #include <Windows.h>
 
@@ -36,8 +37,11 @@ private:
 	void RegisterMethods ();
 
 private:
+	CFreeCamera			m_FreeCamera;
 	CStaticCamera		m_StaticCamera;
 	CThPSCamera			*m_pThPSCamera;
+	CThPSCamera			*m_pThPSFreeCamera;
+	CCamera				*m_pFreeCamera;
 
 	CCharactersManager	*m_pCharacterManager;
 

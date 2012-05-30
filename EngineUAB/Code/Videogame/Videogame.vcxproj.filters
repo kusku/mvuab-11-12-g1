@@ -21,6 +21,9 @@
     <ClCompile Include="Characters\CharacterManager.cpp">
       <Filter>Characters</Filter>
     </ClCompile>
+    <ClCompile Include="Cameras\FreeCamera.cpp">
+      <Filter>Cameras</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUIProcess.h" />
@@ -34,6 +37,9 @@
     </ClInclude>
     <ClInclude Include="Characters\CharacterManager.h">
       <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Cameras\FreeCamera.h">
+      <Filter>Cameras</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

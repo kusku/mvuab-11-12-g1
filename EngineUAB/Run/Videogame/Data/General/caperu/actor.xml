@@ -2,6 +2,6 @@
 	<skeleton filename="caperucita_skleton.CSF"/>
 	<mesh filename="caperucita_mesh.CMF"/>
 	<animation name="idle" filename="Caperucita_IDLE.CAF"/>
-	<animation name="run" filename="Caperucita_corriendo.CAF"/>
+	<!--<animation name="run" filename="Caperucita_corriendo.CAF"/>-->
 	<texture filename="DIFF_caperucita_PLANO.tga"/>
 </animated_model>

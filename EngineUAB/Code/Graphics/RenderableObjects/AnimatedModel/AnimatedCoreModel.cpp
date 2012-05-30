@@ -80,33 +80,36 @@ void CAnimatedCoreModel::Load(const std::string &Path, const std::string &XMLFil
 		for( uint16 i=0; i<l_Count; ++i)
 		{
 			std::string l_Type = l_AnimationCore(i).GetName();
-			std::string l_File = l_AnimationCore(i).GetPszProperty("filename", "");
-			l_File = m_Path + l_File;
-			if( l_Type == "mesh" )
+			if( l_Type != "comment" )
 			{
-				if( !LoadMesh( l_File ) ) //Load Mesh
+				std::string l_File = l_AnimationCore(i).GetPszProperty("filename", "");
+				l_File = m_Path + l_File;
+				if( l_Type == "mesh" )
 				{
-					LOGGER->AddNewLog(ELL_WARNING, "CAnimatedCoreModel::Load->No se ha podido cargar la mesh: %s", l_File.c_str());
+					if( !LoadMesh( l_File ) ) //Load Mesh
+					{
+						LOGGER->AddNewLog(ELL_WARNING, "CAnimatedCoreModel::Load->No se ha podido cargar la mesh: %s", l_File.c_str());
+					}
 				}
-			}
-			else if( l_Type == "skeleton" )
-			{
-				if( !LoadSkeleton( l_File ) ) //Load Skeleton
+				else if( l_Type == "skeleton" )
 				{
-					LOGGER->AddNewLog(ELL_WARNING, "CAnimatedCoreModel::Load->No se ha podido cargar el esqueleto: %s", l_File.c_str());
+					if( !LoadSkeleton( l_File ) ) //Load Skeleton
+					{
+						LOGGER->AddNewLog(ELL_WARNING, "CAnimatedCoreModel::Load->No se ha podido cargar el esqueleto: %s", l_File.c_str());
+					}
 				}
-			}
-			else if( l_Type == "animation" )
-			{
-				std::string l_AnimationName = l_AnimationCore(i).GetPszProperty("name", "");
-				if( !LoadAnimation( l_AnimationName, l_File ) ) //Load Animation
+				else if( l_Type == "animation" )
 				{
-					LOGGER->AddNewLog(ELL_WARNING, "CAnimatedCoreModel::Load->No se ha podido cargar la animación: %s", l_File.c_str());
+					std::string l_AnimationName = l_AnimationCore(i).GetPszProperty("name", "");
+					if( !LoadAnimation( l_AnimationName, l_File ) ) //Load Animation
+					{
+						LOGGER->AddNewLog(ELL_WARNING, "CAnimatedCoreModel::Load->No se ha podido cargar la animación: %s", l_File.c_str());
+					}
 				}
-			}
-			else if( l_Type == "texture" )
-			{
-				m_TextureFilenameVector.push_back( l_File ); //Load texture string
+				else if( l_Type == "texture" )
+				{
+					m_TextureFilenameVector.push_back( l_File ); //Load texture string
+				}
 			}
 		}
 

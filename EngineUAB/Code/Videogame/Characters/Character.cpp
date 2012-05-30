@@ -56,6 +56,7 @@ CCharacter::CCharacter()
 	, CNamed					( )
 	, CObject3D					( )
 	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
+	, m_bLocked					( false )
 {
 	// coloco la máquina de estados i el controler de física
     m_pLogicStateMachine	= new CStateMachine<CCharacter>( this );
@@ -76,6 +77,7 @@ CCharacter::CCharacter( const std::string &_Name )
 	, CNamed					( _Name )
 	, CObject3D					( )
 	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
+	, m_bLocked					( false )
 {
 	// coloco la máquina de estados
     m_pLogicStateMachine	= new CStateMachine<CCharacter>( this );
@@ -90,15 +92,15 @@ CCharacter::~CCharacter( void )
 {
 	CHECKED_DELETE ( m_pLogicStateMachine );
 	CHECKED_DELETE ( m_pGraphicStateMachine );
-	CHECKED_DELETE ( m_pController );
 	CHECKED_DELETE ( m_pPhysicUserDataJugador );
+	CORE->GetPhysicsManager()->ReleasePhysicController( m_pController );
 	m_pCurrentAnimatedModel = NULL;
 }
 
 // -----------------------------------------
 //			METODES PRINCIPALS
 // -----------------------------------------
-bool CCharacter::Init ( const std::string &_Name, const Vect3f &_InitialPosicion, ECollisionGroup _Grup )
+bool CCharacter::Init( const std::string &_Name, const Vect3f &_InitialPosition, ECollisionGroup _Group )
 {
 	//Create a dynamic Player     
 	m_pPhysicUserDataJugador = new CPhysicUserData ( m_Name );
@@ -106,9 +108,9 @@ bool CCharacter::Init ( const std::string &_Name, const Vect3f &_InitialPosicion
 	m_pPhysicUserDataJugador->SetPaint ( true );
 
 	// Creo el controlador del jugador
-	m_pController = new CPhysicController ( 1.f, 1.5f, 45.f, 0.1f, 0.5f, _Grup, m_pPhysicUserDataJugador );
-	m_pController->SetPosition	( Vect3f( 0.f, 3.5f, 0.f ) );
-	m_pController->SetVisible	( true );
+	m_pController = new CPhysicController( 0.5f, 1.0f, 45.f, 0.1f, 0.5f, _Group, m_pPhysicUserDataJugador );
+	m_pController->SetPosition( _InitialPosition );
+	m_pController->SetVisible( true );
 	
 	CORE->GetPhysicsManager()->AddPhysicController( m_pController );
 
@@ -168,5 +170,6 @@ void CCharacter::RegisterMethods()
 			.def("update", &CCharacter::Update, &character_wrapper::default_update)
 			.property("physic_controller", &CCharacter::GetController)	
 			.property("animated_model", &CCharacter::GetAnimatedModel)
+			.property("locked", &CCharacter::GetLocked, &CCharacter::SetLocked)
 	];
 }

@@ -24,6 +24,7 @@ CGameProcess::CGameProcess(HWND hWnd)
 CGameProcess::~CGameProcess(void)
 {
 	CHECKED_DELETE(m_pCharacterManager);
+	CHECKED_DELETE( m_pThPSFreeCamera );
 }
 
 bool CGameProcess::Init()
@@ -54,6 +55,15 @@ bool CGameProcess::Init()
 	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
 	CORE->SetCamera(m_pCamera);
 
+	//Crea una cámara libre de Debug
+	m_FreeCamera.SetPosition(Vect3f( 0.f, 10.f, 0.f));
+	m_FreeCamera.SetPitch(-D3DX_PI/6);
+	m_FreeCamera.SetYaw(0.0f);
+	m_FreeCamera.SetRoll(0.0f);
+
+	m_pThPSFreeCamera = new CThPSCamera( 1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_FreeCamera, 10.0f, 0.f, "Free");
+	m_pFreeCamera = static_cast<CCamera*>(m_pThPSFreeCamera);
+
 	return true;
 }
 
@@ -64,6 +74,27 @@ void CGameProcess::Update(float elapsedTime)
 	{
 		CORE->GetScriptManager()->RunCode("init_game_data()");
 		m_pThPSCamera->SetObject3D( m_pCharacterManager->GetPlayer());
+	}
+
+	if( CORE->GetActionToInput()->DoAction("CommutationCamera") )
+	{
+		if( m_pCamera == m_pThPSCamera )
+		{
+			m_pCamera = m_pThPSFreeCamera;
+			CORE->SetCamera( m_pThPSFreeCamera );
+			m_pCharacterManager->GetPlayer()->SetLocked( true );
+		}
+		else
+		{
+			m_pCamera = m_pThPSCamera;
+			CORE->SetCamera( m_pThPSCamera );
+			m_pCharacterManager->GetPlayer()->SetLocked( false );
+		}
+	}
+
+	if( m_pCharacterManager->GetPlayer()->GetLocked() )
+	{
+		m_FreeCamera.Update(elapsedTime ,m_pCamera);
 	}
 
 	m_pCharacterManager->Update(elapsedTime);

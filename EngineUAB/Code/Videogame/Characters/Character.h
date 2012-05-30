@@ -38,7 +38,7 @@ public:
 	static void			RegisterMethods();
 
 	//----Main Functions --------------------------------------
-	virtual bool				Init				( const std::string &_Name, const Vect3f &_InitialPosicion, ECollisionGroup _Grup );
+	virtual bool				Init				( const std::string &_Name, const Vect3f &_InitialPosition, ECollisionGroup _Group );
 	virtual bool				HandleMessage		( const Telegram& _Msg, bool _Logic = true, bool _Graphic = true  );		// Envia telegramas a las máquinas de estados
 	virtual bool				HandleMessage		( const Telegram& _Msg );
 	virtual void				Update				( float _ElapsedTime );
@@ -54,7 +54,10 @@ public:
 
 
 	void						SetPrevPosition		( Vect3f pos )			{ m_PrevPosition = pos; }
-	const Vect3f&				GetPrevPosition		() const			{ return m_PrevPosition; }
+	const Vect3f&				GetPrevPosition		() const				{ return m_PrevPosition; }
+
+	void						SetLocked			( bool locked )			{ m_bLocked = locked; }
+	bool						GetLocked			() const				{ return m_bLocked; }
 
 	// Obtengo el angulo que forma donde mira
 	inline Vect3f				GetFront			() const			{ Vect3f l_Front; l_Front.GetXZFromAngle( GetYaw() ) ; return l_Front; }
@@ -71,7 +74,8 @@ public:
 
 	//----Members )--------------------------------------------
 private:
-	bool							m_bIsOk;
+	bool			m_bIsOk;
+	bool			m_bLocked;
 	
 protected:
 	CStateMachine<CCharacter>	  *	m_pLogicStateMachine;		// Part de lógica. Control de la màquina d'estats del personatge
