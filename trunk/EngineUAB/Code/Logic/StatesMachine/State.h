@@ -21,22 +21,22 @@ public:
 	// ------------- Mètodes Principals ---------------------
 	
 	// Se ejecuta en cada update del estado
-	virtual void	Execute		( T* )						= 0;
+	virtual void	Execute		( T* ) {};
 
 	// Se ejecuta cuando el estado es entrado
-	virtual void	OnEnter		( T* )						= 0;
+	virtual void	OnEnter		( T* ) {};
 
 	// Se ejecuta cuando el estado sale
-	virtual void	OnExit		( T* )						= 0;
+	virtual void	OnExit		( T* ) {};
 
 	//// Pausa la ejecución del estado
-	//virtual void	OnSuspend	( T* )						= 0;
+	//virtual void	OnSuspend	( T* )						{};
 
 	//// Permite la continuación de la ejecución del estado
-	//virtual void	OnResume	( T* )						= 0;
+	//virtual void	OnResume	( T* )						{};
 
 	// Este se ejecuta si el agente recibe un mensaje de un dispensador de mensajes
-	virtual bool	OnMessage	( T*, const Telegram& )		= 0;
+	virtual bool	OnMessage	( T*, const Telegram& ) { return true; };
 
 };
 
