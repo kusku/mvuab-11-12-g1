@@ -18,6 +18,7 @@
 
 //--- Foward Declarations ---//
 //class CState;
+class CProperties;
 class CPhysicController;
 class CPhysicUserData;
 class CIdleState;
@@ -47,12 +48,15 @@ public:
 	//----Properties ( get & Set )-----------------------------
 	virtual inline CStateMachine<CCharacter>*		GetLogicFSM			( void ) const			{ return m_pLogicStateMachine; }
 	virtual inline CStateMachine<CCharacter>*		GetGraphicFSM		( void ) const			{ return m_pGraphicStateMachine; }
-	virtual inline CPhysicController*				GetControler		( void ) const			{ return m_pController; }
+	virtual inline CPhysicController*				GetController		( void ) const			{ return m_pController; }
 	virtual inline CAnimatedInstanceModel*			GetAnimatedModel	( void ) const			{ return m_pCurrentAnimatedModel; }
 
 
 	void						SetPrevPosition		( Vect3f pos )			{ m_PrevPosition = pos; }
 	const Vect3f&				GetPrevPosition		( void ) const			{ return m_PrevPosition; }
+
+	void						SetLocked			( bool locked )			{ m_bLocked = locked; }
+	bool						GetLocked			() const				{ return m_bLocked; }
 
 	// Obtengo el angulo que forma donde mira
 	inline Vect3f				GetFront			( void ) const			{ Vect3f l_Front; l_Front.GetXZFromAngle( GetYaw() ) ; return l_Front; }
@@ -64,12 +68,16 @@ public:
 																				return !p.isPointInside( _Position );
 																			}
 
-	inline void					SetAnimationsStates	( CAnimationsStates* _pAnimationsStates )			{ m_pAnimationsStates = _pAnimationsStates; }
-	inline CAnimationsStates*	GetAnimationsStates	( void ) const										{ return m_pAnimationsStates; }
+	inline void					SetAnimationsStates	( CAnimationsStates* _pAnimationsStates )	{ m_pAnimationsStates = _pAnimationsStates; }
+	inline CAnimationsStates*	GetAnimationsStates	( void ) const								{ return m_pAnimationsStates; }
+
+	inline void					SetProperties		( CProperties* _pProperties )				{ m_pProperties = _pProperties; }
+	inline CProperties*			GetProperties		( void ) const								{ return m_pProperties; }
 
 	//----Members )--------------------------------------------
 private:
 	bool							m_bIsOk;
+	bool							m_bLocked;
 	
 protected:
 	CStateMachine<CCharacter>	  *	m_pLogicStateMachine;		// Part de lógica. Control de la màquina d'estats del personatge
@@ -77,10 +85,11 @@ protected:
 	CAnimatedInstanceModel		  * m_pCurrentAnimatedModel;	// Part de gráfics. Manté un punté a l'animació en curs
 
 	CAnimationsStates			  *	m_pAnimationsStates;
+	CProperties					  *	m_pProperties;
 
 	CPhysicController			  * m_pController;
 	CPhysicUserData				  * m_pPhysicUserDataJugador;
-
+	
 	Vect3f							m_PrevPosition;
 };
 

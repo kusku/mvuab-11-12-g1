@@ -3,8 +3,18 @@
 #include "PhysicController.h"
 #include "PhysicUserData.h"
 #include "PhysicsManager.h"
+
+#include "RenderableObjects\RenderableObjectsLayersManager.h"
+#include "RenderableObjects\RenderableObjectsManager.h"
+#include "RenderableObjects\RenderableObject.h"
+#include "RenderableObjects\AnimatedModel\AnimatedModelManager.h"
+#include "RenderableObjects\AnimatedModel\AnimatedCoreModel.h"
+#include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
+
 #include "States\IdleState.h"
 #include "States\PursuitState.h"
+
+#include "Properties/Properties.h"
 
 #include "Base.h"
 
@@ -20,13 +30,14 @@ CCharacter::CCharacter( int _Id )
 	, m_pCurrentAnimatedModel	( NULL )
 	, m_pController				( NULL )
 	, m_pAnimationsStates		( NULL )
-
+	, m_pProperties				( NULL )
 	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
+	, m_bLocked					( false )
 {
 	// coloco la máquina de estados i el controler de física
     m_pLogicStateMachine	= new CStateMachine<CCharacter>( this );
 	m_pGraphicStateMachine	= new CStateMachine<CCharacter>( this );
-   // m_pController			= new CPhysicController();
+
 }
 
 CCharacter::CCharacter( int _Id, const std::string &_Name )
@@ -38,18 +49,21 @@ CCharacter::CCharacter( int _Id, const std::string &_Name )
 	, m_pCurrentAnimatedModel	( NULL )
 	, m_pController				( NULL ) 
 	, m_pAnimationsStates		( NULL )
+	, m_pProperties				( NULL )
 	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
+	, m_bLocked					( false )
 {
 	// coloco la máquina de estados
     m_pLogicStateMachine	= new CStateMachine<CCharacter>( this );
 	m_pGraphicStateMachine	= new CStateMachine<CCharacter>( this );
-  //  m_pController			= new CPhysicController();
+
 }
 
 CCharacter::~CCharacter( void )
 {
 	CHECKED_DELETE ( m_pLogicStateMachine );
 	CHECKED_DELETE ( m_pGraphicStateMachine );
+	// Amb lua no cal eliminar l'objecte. Lua ja se'n ocupa.
 	CHECKED_DELETE ( m_pController );
 	CHECKED_DELETE ( m_pPhysicUserDataJugador );
 	m_pCurrentAnimatedModel = NULL;
@@ -67,11 +81,39 @@ bool CCharacter::Init ( const std::string &_Name, const Vect3f &_InitialPosicion
 
 	// Creo el controlador del jugador
 	m_pController = new CPhysicController ( 1.f, 1.5f, 45.f, 0.1f, 0.5f, _Grup, m_pPhysicUserDataJugador );
-	m_pController->SetPosition	( Vect3f( 0.f, 3.5f, 0.f ) );
+	m_pController->SetPosition	( _InitialPosicion );
 	m_pController->SetVisible	( true );
 	
 	CORE->GetPhysicsManager()->AddPhysicController( m_pController );
+	
+	CRenderableObjectsLayersManager *l_ROLayerManager = CORE->GetRenderableObjectsLayersManager();
+	CRenderableObjectsManager *l_ROManager = l_ROLayerManager->GetResource("solid");
+	CRenderableObject *l_RO = l_ROManager->GetInstance( m_pProperties->GetAnimationInstance() );
 
+	if ( !l_RO ) 
+	{
+		l_ROManager->AddAnimatedMeshInstance( m_pProperties->GetName(), Vect3f (0.f, 0.f, 0.f ) );
+	}
+	else
+	{
+		m_pCurrentAnimatedModel = static_cast<CAnimatedInstanceModel*> (l_RO);
+	}
+
+	//if ( m_pCurrentAnimatedModel )
+	//{
+	//	// coloco el primer estado
+	//	m_pLogicStateMachine->SetCurrentState  ( m_pIdleState );
+	//	m_pGraphicStateMachine->SetCurrentState( m_pAnimationIdleState );
+	//}
+
+	if ( m_pCurrentAnimatedModel )
+	{
+		// Actualizamos el Yaw y lo asignamos al controler
+		float l_Yaw = m_pCurrentAnimatedModel->GetYaw();
+		m_pCurrentAnimatedModel->SetYaw( l_Yaw + mathUtils::Rad2Deg( m_pProperties->GetYaw() ) );
+		m_pController->SetYaw( m_pProperties->GetYaw() );
+	}
+	
 	return true;
 }
 

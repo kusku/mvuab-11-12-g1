@@ -19,12 +19,6 @@
     <ClCompile Include="Characters\Properties\PropertiesManager.cpp">
       <Filter>Characters\Properties</Filter>
     </ClCompile>
-    <ClCompile Include="Characters\Enemy\Enemy.cpp">
-      <Filter>Characters\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Player\Player.cpp">
-      <Filter>Characters\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Characters\States\AnimationsStates.cpp">
       <Filter>Characters\States</Filter>
     </ClCompile>
@@ -81,12 +75,6 @@
     </ClInclude>
     <ClInclude Include="Characters\Properties\PropertiesManager.h">
       <Filter>Characters\Properties</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemy\Enemy.h">
-      <Filter>Characters\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Player\Player.h">
-      <Filter>Characters\Player</Filter>
     </ClInclude>
     <ClInclude Include="Characters\States\AnimationsStates.h">
       <Filter>Characters\States</Filter>

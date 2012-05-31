@@ -30,7 +30,7 @@ public:
 	inline const int			GetLife					( void ) const										{ return m_Life; }
 
 	inline void					SetStrong				( int _Strong )										{ m_Strong = _Strong; }
-	inline const int			SetStrong				( void ) const										{ return m_Strong; }
+	inline const int			GetStrong				( void ) const										{ return m_Strong; }
 
 	inline void					SetSpeed				( int _Speed )										{ m_Speed = _Speed; }
 	inline const int			GetSpeed				( void ) const										{ return m_Speed; }
