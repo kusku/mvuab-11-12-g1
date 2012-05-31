@@ -97,6 +97,9 @@ void CLight::ExtractCommonLightInfo(CXMLTreeNode &XMLNode)
 	Vect3f l_Color = XMLNode.GetVect3fProperty("color", Vect3f(0.0f, 0.0f, 0.0f));
 	m_Color = CColor( l_Color.x, l_Color.y, l_Color.z );
 
+	//Intensity
+	m_Intensity = XMLNode.GetFloatProperty("intensity", 1.0f);
+
 	//Shadows
 	m_GenerateDynamicShadowMap = XMLNode.GetBoolProperty("generate_shadow_map", false, false);
 	m_GenerateStaticShadowMap = XMLNode.GetBoolProperty("generate_static_shadow_map", false, false);
