@@ -243,18 +243,25 @@ bool CEffectTechnique::BeginRender()
 		const Vect3f *l_Pos = m_Effect->GetLightPosition();
 		const Vect3f *l_Dir = m_Effect->GetLightDirection();
 		const Vect3f *l_Color = m_Effect->GetLightColor();
+		const float *l_Intensity = m_Effect->GetLightIntensity();
 
 		l_Effect->SetInt( m_Effect->GetNumLights(), m_Effect->GetActiveLights() );
 
 		if( FAILED( l_Effect->SetIntArray( m_Effect->GetLightsTypeMatrix(), l_Type, m_NumOfLights) ) )
 		{
 			msg_error = "Error al hacer el Set del parametro: m_Effect->GetLightsTypeMatrix()";
-			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());	
 		}
 
 		if( FAILED( l_Effect->SetFloatArray( m_Effect->GetLightsAngleMatrix(), l_Angle, m_NumOfLights) ) )
 		{
 			msg_error = "Error al hacer el Set del parametro: m_Effect->GetLightsAngleMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
+
+		if( FAILED( l_Effect->SetFloatArray( m_Effect->GetLightIntensityParameter(), l_Intensity, m_NumOfLights) ) )
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetLightIntensityParameter()";
 			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
 		}
 

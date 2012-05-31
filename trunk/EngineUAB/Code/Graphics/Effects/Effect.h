@@ -67,6 +67,7 @@ public:
 	D3DXHANDLE		GetStaticShadowMapSamplerParameter	(int idx) const	{ return m_StaticShadowMapSamplerParameter[idx]; }
 	D3DXHANDLE		GetDynamicShadowMapSamplerParameter	(int idx) const	{ return m_DynamicShadowMapSamplerParameter[idx]; }
 	D3DXHANDLE		GetParameterById					(uint16 id);
+	D3DXHANDLE		GetLightIntensityParameter			() const		{ return m_LightIntensityParameter; }
 
 
 	uint32			GetActiveLights						() const		{ return m_ActiveLights; }
@@ -75,6 +76,7 @@ public:
 	const float*	GetLightFallOff						() const		{ return m_LightsFallOff; }
 	const float*	GetLightStartAtt					() const		{ return m_LightsStartRangeAttenuation; }
 	const float*	GetLightEndAtt						() const		{ return m_LightsEndRangeAttenuation; }
+	const float*	GetLightIntensity					() const		{ return m_LightsIntensity; }
 	const Vect3f*	GetLightPosition					() const		{ return m_LightsPosition; }
 	const Vect3f*	GetLightDirection					() const		{ return m_LightsDirection; }
 	const Vect3f*	GetLightColor						() const		{ return m_LightsColor; }
@@ -94,6 +96,7 @@ private:
 	LPD3DXEFFECT	m_Effect;
 
 	uint32			m_ActiveLights;
+	float			m_LightsIntensity[MAX_LIGHTS_BY_SHADER];
 	Mat44f			m_LightShadowViewProjection[MAX_LIGHTS_BY_SHADER];
 	int				m_LightsType[MAX_LIGHTS_BY_SHADER];
 	float			m_LightsAngle[MAX_LIGHTS_BY_SHADER];
@@ -121,6 +124,7 @@ private:
 	D3DXHANDLE		m_ShadowViewProjectionMatrixParameter,
 					m_ShadowCameraPositionParameter,
 					m_ShadowWorldViewProjectionMatrixParameter;
+	D3DXHANDLE		m_LightIntensityParameter;
 	D3DXHANDLE		m_LightsTypeParameter, 
 					m_LightsPositionParameter, 
 					m_LightsDirectionParameter, 

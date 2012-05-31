@@ -47,6 +47,7 @@ CEffect::CEffect(CXMLTreeNode &XMLNode)
 	, m_RenderTargetSizeParameter(NULL)
 	, m_LightShadowStaticEnableParameter(NULL)
 	, m_LightShadowDynamicEnableParameter(NULL)
+	, m_LightIntensityParameter(NULL)
 	, m_ActiveLights(0)
 {
 	m_EffectName = XMLNode.GetPszProperty("name", "");
@@ -60,6 +61,7 @@ CEffect::CEffect(CXMLTreeNode &XMLNode)
 	memset(m_StaticShadowMapSamplerParameter, 0, sizeof(D3DXHANDLE) * MAX_LIGHTS_BY_SHADER);
 	memset(m_DynamicShadowMapSamplerParameter, 0, sizeof(D3DXHANDLE) * MAX_LIGHTS_BY_SHADER);
 
+	memset(m_LightsIntensity, 0, sizeof(float) * MAX_LIGHTS_BY_SHADER);
 	memset(m_LightShadowViewProjection, 0, sizeof(Mat44f) * MAX_LIGHTS_BY_SHADER);
 	memset(m_LightsType, 0, sizeof(int) * MAX_LIGHTS_BY_SHADER);
 	memset(m_LightsAngle, 0, sizeof(float) * MAX_LIGHTS_BY_SHADER);
@@ -145,6 +147,7 @@ bool CEffect::LoadEffect()
 	GetParameterBySemantic("Lights_EndAtt", m_LightsEndRangeAttenuationParameter, false);
 	GetParameterBySemantic("Lights_Angle", m_LightsAngleParameter, false);
 	GetParameterBySemantic("Lights_FallOff", m_LightsFallOffParameter, false);
+	GetParameterBySemantic("Lights_Intensity", m_LightIntensityParameter, false);
 
 	//Time
 	GetParameterBySemantic("TIME", m_TimeParameter, false);
@@ -206,6 +209,7 @@ D3DXHANDLE CEffect::GetTechniqueByName(const std::string &TechniqueName)
 
 void CEffect::SetNullParameters()
 {
+	m_LightIntensityParameter					= NULL;
 	m_WorldMatrixParameter						= NULL;
 	m_ViewMatrixParameter						= NULL;
 	m_ProjectionMatrixParameter					= NULL;
@@ -287,6 +291,7 @@ bool CEffect::SetLights(size_t NumOfLights)
 		m_LightsStartRangeAttenuation[lightCount] = l_Light->GetStartRangeAttenuation();
 		m_LightsEndRangeAttenuation[lightCount] = l_Light->GetEndRangeAttenuation();
 		m_LightsPosition[lightCount] = l_Light->GetPosition();
+		m_LightsIntensity[lightCount] = l_Light->GetIntensity();
 
 		CColor l_Color = l_Light->GetColor();
 		m_LightsColor[lightCount] = Vect3f(l_Color.GetRed()/255.0f, l_Color.GetGreen()/255.0f, l_Color.GetBlue()/255.0f);
@@ -349,6 +354,7 @@ bool CEffect::SetLight(CLight* light)
 	m_LightsStartRangeAttenuation[0] = light->GetStartRangeAttenuation();
 	m_LightsEndRangeAttenuation[0] = light->GetEndRangeAttenuation();
 	m_LightsPosition[0] = light->GetPosition();
+	m_LightsIntensity[0] = light->GetIntensity();
 
 	CColor l_Color = light->GetColor();
 	m_LightsColor[0] = Vect3f(l_Color.GetRed()/255.0f, l_Color.GetGreen()/255.0f, l_Color.GetBlue()/255.0f);

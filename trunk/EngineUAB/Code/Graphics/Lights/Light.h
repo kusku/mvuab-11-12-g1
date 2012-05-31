@@ -52,10 +52,12 @@ public:
 	void				SetGenerateDynamicShadowMap		( bool GenerateDynamicShadowMap )		{ m_GenerateDynamicShadowMap = GenerateDynamicShadowMap; }
 	void				SetGenerateStaticShadowMap		( bool GenerateStaticShadowMap )		{ m_GenerateStaticShadowMap = GenerateStaticShadowMap; }
 	void				SetMustUpdateStaticShadowMap	( bool MustUpdateStaticShadowMap )		{ m_MustUpdateStaticShadowMap = MustUpdateStaticShadowMap; }
+	void				SetIntensity					(float intensity)						{ m_Intensity = intensity; }
 
 	const CColor &		GetColor						() const		{ return m_Color; }
 	float				GetStartRangeAttenuation		() const		{ return m_StartRangeAttenuation; }
 	float				GetEndRangeAttenuation			() const		{ return m_EndRangeAttenuation; }
+	float				GetIntensity					() const		{ return m_Intensity; }
 	TLightType			GetType							() const		{ return m_Type; }
 	bool				GetGenerateDynamicShadowMap		() const		{ return m_GenerateDynamicShadowMap; }
 	bool				GetGenerateStaticShadowMap		() const		{ return m_GenerateStaticShadowMap; }
@@ -78,6 +80,7 @@ protected:
 	TLightType			m_Type;
 	float				m_StartRangeAttenuation;
 	float				m_EndRangeAttenuation;
+	float				m_Intensity;
 
 	bool				m_GenerateDynamicShadowMap;
 	bool				m_GenerateStaticShadowMap;
