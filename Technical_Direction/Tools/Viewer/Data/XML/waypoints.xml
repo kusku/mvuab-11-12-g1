@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<waypoints>
+	<group name="Group 1">
+		<waypoint name="c" position="-43.9172 0.0 44.3255" />
+		<waypoint name="d" position="-56.9117 0.0 -8.67209" />
+		<waypoint name="f" position="-13.6739 0.0 -33.0538" />
+		<waypoint name="b" position="25.8313 0.0 24.2254" />
+		<waypoint name="a" position="27.085 0.0 97.2602" />
+		<Brothers wave_point_name="c">
+			<Brother name="b" />
+			<Brother name="d" />
+			<Brother name="f" />
+		</Brothers>
+		<Brothers wave_point_name="d">
+			<Brother name="c" />
+		</Brothers>
+		<Brothers wave_point_name="f">
+			<Brother name="b" />
+			<Brother name="c" />
+		</Brothers>
+		<Brothers wave_point_name="b">
+			<Brother name="f" />
+			<Brother name="a" />
+		</Brothers>
+		<Brothers wave_point_name="a">
+			<Brother name="c" />
+			<Brother name="b" />
+		</Brothers>
+	</group>
+</waypoints>
