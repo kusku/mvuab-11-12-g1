@@ -1,4 +1,5 @@
 <scripts>
 	<script filename="./data/scripts/game/init_game.lua" />
-	<script filename="./data/scripts/game/enemy.lua" />
+	<script filename="./data/scripts/game/player.lua" />
+	<!--<script filename="./data/scripts/game/CaperucitaStates.lua" />	-->
 </scripts>
