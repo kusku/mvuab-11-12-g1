@@ -1,4 +1,3 @@
 <animated_models>
-	<animated_model name="lobo" path="./Data/General/Animated_Models/wolf/" filename="actor.xml"/>
-	<animated_model name="caperu" path="./Data/General/Animated_Models/caperucita/" filename="actor.xml"/>
+
 </animated_models>

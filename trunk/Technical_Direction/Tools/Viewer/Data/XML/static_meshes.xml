@@ -1,5 +1,45 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <static_meshes>
-	<static_mesh name="plane" filename=".\Data\General\Static_Meshes\plane.m3d" />
-	<!--<static_mesh name="azul" filename=".\Data\General\Static_Meshes\azul.m3d" />-->
+	<static_mesh name="Terreno" filename=".\Data\.\General\\Models\Terreno.m3d" />
+	<static_mesh name="Piedra_021" filename=".\Data\.\General\\Models\Piedra_021.m3d" />
+	<static_mesh name="Piedra_01" filename=".\Data\.\General\\Models\Piedra_01.m3d" />
+	<static_mesh name="Piedra_002" filename=".\Data\.\General\\Models\Piedra_002.m3d" />
+	<static_mesh name="Piedra_003" filename=".\Data\.\General\\Models\Piedra_003.m3d" />
+	<static_mesh name="Piedra_004" filename=".\Data\.\General\\Models\Piedra_004.m3d" />
+	<static_mesh name="Piedra_005" filename=".\Data\.\General\\Models\Piedra_005.m3d" />
+	<static_mesh name="Piedra_006" filename=".\Data\.\General\\Models\Piedra_006.m3d" />
+	<static_mesh name="Piedra_007" filename=".\Data\.\General\\Models\Piedra_007.m3d" />
+	<static_mesh name="Piedra_008" filename=".\Data\.\General\\Models\Piedra_008.m3d" />
+	<static_mesh name="Piedra_009" filename=".\Data\.\General\\Models\Piedra_009.m3d" />
+	<static_mesh name="Piedra_010" filename=".\Data\.\General\\Models\Piedra_010.m3d" />
+	<static_mesh name="Piedra_011" filename=".\Data\.\General\\Models\Piedra_011.m3d" />
+	<static_mesh name="Piedra_012" filename=".\Data\.\General\\Models\Piedra_012.m3d" />
+	<static_mesh name="Piedra_013" filename=".\Data\.\General\\Models\Piedra_013.m3d" />
+	<static_mesh name="Piedra_014" filename=".\Data\.\General\\Models\Piedra_014.m3d" />
+	<static_mesh name="Piedra_015" filename=".\Data\.\General\\Models\Piedra_015.m3d" />
+	<static_mesh name="Piedra_016" filename=".\Data\.\General\\Models\Piedra_016.m3d" />
+	<static_mesh name="Piedra_017" filename=".\Data\.\General\\Models\Piedra_017.m3d" />
+	<static_mesh name="Piedra_018" filename=".\Data\.\General\\Models\Piedra_018.m3d" />
+	<static_mesh name="Piedra_019" filename=".\Data\.\General\\Models\Piedra_019.m3d" />
+	<static_mesh name="Piedra_020" filename=".\Data\.\General\\Models\Piedra_020.m3d" />
+	<static_mesh name="Piedra_043" filename=".\Data\.\General\\Models\Piedra_043.m3d" />
+	<static_mesh name="Piedra_022" filename=".\Data\.\General\\Models\Piedra_022.m3d" />
+	<static_mesh name="Piedra_023" filename=".\Data\.\General\\Models\Piedra_023.m3d" />
+	<static_mesh name="Piedra_024" filename=".\Data\.\General\\Models\Piedra_024.m3d" />
+	<static_mesh name="Piedra_025" filename=".\Data\.\General\\Models\Piedra_025.m3d" />
+	<static_mesh name="Piedra_027" filename=".\Data\.\General\\Models\Piedra_027.m3d" />
+	<static_mesh name="Piedra_028" filename=".\Data\.\General\\Models\Piedra_028.m3d" />
+	<static_mesh name="Piedra_030" filename=".\Data\.\General\\Models\Piedra_030.m3d" />
+	<static_mesh name="Piedra_031" filename=".\Data\.\General\\Models\Piedra_031.m3d" />
+	<static_mesh name="Piedra_033" filename=".\Data\.\General\\Models\Piedra_033.m3d" />
+	<static_mesh name="Piedra_034" filename=".\Data\.\General\\Models\Piedra_034.m3d" />
+	<static_mesh name="Piedra_035" filename=".\Data\.\General\\Models\Piedra_035.m3d" />
+	<static_mesh name="Piedra_036" filename=".\Data\.\General\\Models\Piedra_036.m3d" />
+	<static_mesh name="Piedra_037" filename=".\Data\.\General\\Models\Piedra_037.m3d" />
+	<static_mesh name="Piedra_038" filename=".\Data\.\General\\Models\Piedra_038.m3d" />
+	<static_mesh name="Piedra_039" filename=".\Data\.\General\\Models\Piedra_039.m3d" />
+	<static_mesh name="Piedra_040" filename=".\Data\.\General\\Models\Piedra_040.m3d" />
+	<static_mesh name="Piedra_041" filename=".\Data\.\General\\Models\Piedra_041.m3d" />
+	<static_mesh name="PinoMain" filename=".\Data\.\General\\Models\PinoMain.m3d" />
+	<static_mesh name="Arbol_GraciosoMain" filename=".\Data\.\General\\Models\Arbol_GraciosoMain.m3d" />
 </static_meshes>

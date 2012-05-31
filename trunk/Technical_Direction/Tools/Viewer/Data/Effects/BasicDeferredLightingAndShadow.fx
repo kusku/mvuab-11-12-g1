@@ -8,9 +8,8 @@
 //Textures						   //
 /////////////////////////////////////
 
-sampler2D DynamicShadowMapSampler = sampler_state
+sampler2D DynamicShadowMapSampler : register( s2 ) = sampler_state
 {
-   Texture		= < DynamicShadowMap >;
    MinFilter	= POINT;
    MagFilter	= POINT;
    MipFilter	= NONE;
@@ -18,9 +17,8 @@ sampler2D DynamicShadowMapSampler = sampler_state
    AddressV		= CLAMP;
 };
 
-sampler2D StaticShadowMapSampler = sampler_state
+sampler2D StaticShadowMapSampler : register( s3 ) = sampler_state
 {
-   Texture		= < StaticShadowMap >;
    MinFilter	= POINT;
    MagFilter	= POINT;
    MipFilter	= NONE;
@@ -101,16 +99,16 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 		float shadowCoeffStatic = 1.0f;
 		float shadowCoeffDynamic = 1.0f;
 		
-		if(HasStaticShadowMap == true)
+		if(lightShadowStaticEnable[0] == true)
 		{
 			//shadowCoeffStatic = CalculateShadowCoeff(position, StaticShadowMapSampler);
-			shadowCoeffStatic = CalcShadowCoeffVSM(position, StaticShadowMapSampler);
+			shadowCoeffStatic = CalcShadowCoeffVSM(position, StaticShadowSamplers[0], 0);
 		}
 		
-		if(HasDynamicShadowMap == true)
+		if(lightShadowDynamicEnable[0] == true)
 		{
 			//shadowCoeffDynamic = CalculateShadowCoeff(position, DynamicShadowMapSampler);
-			shadowCoeffDynamic = CalcShadowCoeffVSM(position, DynamicShadowMapSampler);
+			shadowCoeffDynamic = CalcShadowCoeffVSM(position, DynamicShadowSamplers[0], 0);
 		}
 		
 		
@@ -130,8 +128,7 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 			}
 		}
 		
-		FinalPixelColor = saturate(FinalPixelColor * min(shadowCoeffStatic, shadowCoeffDynamic));
-		//FinalPixelColor = saturate(FinalPixelColor * shadowCoeffDynamic);
+		FinalPixelColor = FinalPixelColor * min(shadowCoeffStatic, shadowCoeffDynamic);
 	}
 	else
 	{
@@ -156,7 +153,6 @@ technique BasicDeferredLightingAndShadow
 		BlendOp				= Add;
 		SrcBlend			= One;
 		DestBlend			= One;
-		CullMode			= CCW;
 		
 		VertexShader = compile vs_3_0 VertexShaderFunction();
 		PixelShader = compile ps_3_0 PixelShaderFunction();

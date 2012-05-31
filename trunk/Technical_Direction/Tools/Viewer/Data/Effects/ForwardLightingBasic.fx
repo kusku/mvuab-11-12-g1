@@ -11,7 +11,7 @@ float AmbientLightIntensity <
     float UIMin = 0.0;
     float UIMax = 1.0;
     float UIStep = 0.1;
-> = 0.15;
+> = 0.0;
 
 float4 AmbientLightColor <
     string UIName =  "Ambient Light Color";
@@ -62,8 +62,8 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
     return output;
 }
 
-float4 PixelShaderFunction(VertexShaderOutput input) : COLOR
-{
+float4 PixelShaderFunction(VertexShaderOutput input, uniform bool shadow, uniform bool vegetation, uniform float AlphaTestThreshold, uniform float AlphaTestDirection) : COLOR
+{	
 	float4 TexColor = tex2D(DiffuseTextureMap, input.TexCoord);
 
 	input.EyePosition = normalize(input.EyePosition);
@@ -72,43 +72,162 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR
 	
 	float4 AmbientColor = AmbientLightIntensity * AmbientLightColor;
 	float4 DiffuseColor = (float4)0;
-	
+
 	for(int i = 0; i < numLights && i < MAX_LIGHTS; ++i)
-	{
-		if(lightEnable[i] == true)
+	{	
+		float4 passColor = (float4)0;
+		float shadowCoeffStatic = 1.0f;
+		float shadowCoeffDynamic = 1.0f;
+		
+		if(shadow == true)
 		{
-			if(lightType[i] == OMNI)
+			if(lightShadowStaticEnable[i] == true)
 			{
-				DiffuseColor += CalculateOmniLight(Normal, input.WPos, i);
+				if(i == 0)
+				{
+					shadowCoeffStatic = CalcShadowCoeffVSM(input.WPos, StaticShadowSamplers[0], i);
+				}
+				else if(i == 1)
+				{
+					shadowCoeffStatic = CalcShadowCoeffVSM(input.WPos, StaticShadowSamplers[1], i);
+				}
+				else if(i == 2)
+				{
+					shadowCoeffStatic = CalcShadowCoeffVSM(input.WPos, StaticShadowSamplers[2], i);
+				}
+				else
+				{
+					shadowCoeffStatic = CalcShadowCoeffVSM(input.WPos, StaticShadowSamplers[3], i);
+				}
 			}
-			else if(lightType[i] == DIRECTIONAL)
+			
+			if(lightShadowDynamicEnable[i] == true)
 			{
-				DiffuseColor += CalculateDirectionLight(Normal, input.WPos, i);
-			}
-			else if(lightType[i] == SPOT)
-			{
-				DiffuseColor += CalculateSpotLight(Normal, input.WPos, i);
+				if(i == 0)
+				{
+					shadowCoeffDynamic = CalcShadowCoeffVSM(input.WPos, DynamicShadowSamplers[0], i);
+				}
+				else if(i == 1)
+				{
+					shadowCoeffDynamic = CalcShadowCoeffVSM(input.WPos, DynamicShadowSamplers[1], i);
+				}
+				else if(i == 2)
+				{
+					shadowCoeffDynamic = CalcShadowCoeffVSM(input.WPos, DynamicShadowSamplers[2], i);
+				}
+				else
+				{
+					shadowCoeffDynamic = CalcShadowCoeffVSM(input.WPos, DynamicShadowSamplers[3], i);
+				}
 			}
 		}
+		
+		if(lightType[i] == OMNI)
+		{
+			passColor = CalculateOmniLight(Normal, input.WPos, i);
+		}
+		else if(lightType[i] == DIRECTIONAL)
+		{
+			passColor = CalculateDirectionLight(Normal, input.WPos, i);
+		}
+		else if(lightType[i] == SPOT)
+		{
+			passColor = CalculateSpotLight(Normal, input.WPos, i);
+		}
+		
+		if(shadow == true)
+		{
+			passColor *= min(shadowCoeffStatic, shadowCoeffDynamic);
+		}
+		
+		DiffuseColor += passColor;
 	}
 	
 	float4 PixEndColor = (DiffuseColor + AmbientColor) * TexColor;
 
-	PixEndColor = saturate(PixEndColor);
-	PixEndColor.a = 1.0f;
-
-	//return DiffuseColor;
+	PixEndColor.a = TexColor.a;
+	
+	if(vegetation == true)
+	{
+		clip((PixEndColor.a - AlphaTestThreshold) * AlphaTestDirection);
+	}
+	
 	return PixEndColor;
-	//return float4(0, 1, 0, 1);
 }
 
 technique ForwardLightingBasic
 {
 	pass p0
-	{
-		AlphaBlendEnable = false;
-		CullMode = CCW;
+	{		
 		VertexShader = compile vs_3_0 VertexShaderFunction();
-		PixelShader = compile ps_3_0 PixelShaderFunction();
+		PixelShader = compile ps_3_0 PixelShaderFunction(false, false, 0.0f, 0.0f);
+	}
+}
+
+technique ForwardLightingBasicShadow
+{
+	pass p0
+	{		
+		VertexShader = compile vs_3_0 VertexShaderFunction();
+		PixelShader = compile ps_3_0 PixelShaderFunction(true, false, 0.0f, 0.0f);
+	}
+}
+
+technique ForwardLightingBasicVegetation1
+{
+	pass p0
+	{
+		AlphaBlendEnable	= false;
+		CullMode			= None;
+		
+		VertexShader = compile vs_3_0 VertexShaderFunction();
+		PixelShader = compile ps_3_0 PixelShaderFunction(false, true, 0.95f, 1.0f);
+	}
+}
+
+technique ForwardLightingBasicVegetation2
+{
+	pass p0
+	{
+		
+		CullMode			= None;
+		ZWriteEnable		= false;
+		AlphaBlendEnable	= true;
+		BlendOp				= add;
+		SrcBlend			= SrcAlpha;
+		DestBlend			= InvSrcAlpha;
+		
+		VertexShader = compile vs_3_0 VertexShaderFunction();
+		PixelShader = compile ps_3_0 PixelShaderFunction(false, true, 0.95f, -1.0f);
+	}
+}
+
+technique ForwardLightingBasicShadowVegetation1
+{
+	pass p0
+	{
+		AlphaBlendEnable	= false;
+		CullMode			= None;
+		
+		VertexShader = compile vs_3_0 VertexShaderFunction();
+		PixelShader = compile ps_3_0 PixelShaderFunction(true, true, 0.95f, 1.0f);
+	}
+}
+
+technique ForwardLightingBasicShadowVegetation2
+{
+	pass p0
+	{
+		
+		CullMode			= None;
+		ZWriteEnable		= false;
+		AlphaBlendEnable	= true;
+		BlendOp				= add;
+		SrcBlend			= SrcAlpha;
+		DestBlend			= InvSrcAlpha;
+		
+		//CullMode = CCW;
+		VertexShader = compile vs_3_0 VertexShaderFunction();
+		PixelShader = compile ps_3_0 PixelShaderFunction(true, true, 0.95f, -1.0f);
 	}
 }
