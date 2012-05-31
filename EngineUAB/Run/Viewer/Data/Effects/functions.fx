@@ -32,6 +32,7 @@ uniform float		lightStartAtt[MAX_LIGHTS]				: Lights_StartAtt;
 uniform float		lightEndAtt[MAX_LIGHTS]					: Lights_EndAtt;
 uniform float		lightAngle[MAX_LIGHTS]					: Lights_Angle;
 uniform float		lightFalloff[MAX_LIGHTS]				: Lights_FallOff;
+uniform float		lightIntensity[MAX_LIGHTS]				: Lights_Intensity;
 
 uniform float2		HalfPixel								: HALFPIXEL;
 
@@ -213,7 +214,7 @@ float4 CalculateOmniLight(float3 normal, float4 position, int lightNum)
 	
 	float OmniAttenuation = CalculateAttenuation(lightDistance, lightStartAtt[lightNum], lightEndAtt[lightNum]);
 	
-	float4 OmniColorFinal = (float4(lightColor[lightNum], 1) * NDotL) * OmniAttenuation;
+	float4 OmniColorFinal = (float4(lightColor[lightNum] * lightIntensity[lightNum], 1) * NDotL) * OmniAttenuation;
 	
 	return OmniColorFinal;
 }
@@ -224,7 +225,7 @@ float4 CalculateDirectionLight(float3 normal, float4 position, int lightNum)
 	
 	float LdN = max(0, dot(lightVector, normal));
 	
-	float4 DirColor = float4(lightColor[lightNum], 1) * LdN;
+	float4 DirColor = float4(lightColor[lightNum] * lightIntensity[lightNum], 1) * LdN;
 	
 	return (DirColor);
 }
@@ -250,7 +251,7 @@ float4 CalculateSpotLight(float3 normal, float4 position, int lightNum)
 		float NDotL = saturate(dot(lightVector, normal));
 		
 		//float4 SpotColor = float4(1, 1, 1, 1);
-		float4 SpotColor = float4(lightColor[lightNum], 1.0f);
+		float4 SpotColor = float4(lightColor[lightNum] * lightIntensity[lightNum], 1.0f);
 		
 		float SpotLightAttenuationDistance = CalculateAttenuation(lightDistance, lightStartAtt[lightNum], lightEndAtt[lightNum]);
 		
