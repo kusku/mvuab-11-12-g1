@@ -86,8 +86,6 @@
     <ClCompile Include="Cameras\StaticCamera.cpp" />
     <ClCompile Include="Characters\Character.cpp" />
     <ClCompile Include="Characters\CharacterManager.cpp" />
-    <ClCompile Include="Characters\Enemy\Enemy.cpp" />
-    <ClCompile Include="Characters\Player\Player.cpp" />
     <ClCompile Include="Characters\Properties\Properties.cpp" />
     <ClCompile Include="Characters\Properties\PropertiesManager.cpp" />
     <ClCompile Include="Characters\States\AnimationsStates.cpp" />
@@ -112,9 +110,7 @@
     <ClInclude Include="Character_Wrapper.h" />
     <ClInclude Include="Characters\Character.h" />
     <ClInclude Include="Characters\CharacterManager.h" />
-    <ClInclude Include="Characters\Enemy\Enemy.h" />
     <ClInclude Include="Characters\PlayerDef.h" />
-    <ClInclude Include="Characters\Player\Player.h" />
     <ClInclude Include="Characters\Properties\Properties.h" />
     <ClInclude Include="Characters\Properties\PropertiesManager.h" />
     <ClInclude Include="Characters\States\AnimationsStates.h" />

@@ -21,11 +21,11 @@
 class CRenderManager;
 class CThPSCamera;
 class CScene;
-class CPlayer; 
+//class CPlayer; 
 class CCharactersManager;
 class CPropertiesManager;
 class CGameProcess;
-class CEnemy;
+//class CEnemy;
 // ----------------------------
 
 class CGameProcess : public CEngineProcess
@@ -51,7 +51,7 @@ private:
 	//----Properties  --------------------------------------------------------------------
 public:
 	
-	CGameProcess*				GetGameProcess				( void );
+	static CGameProcess*		GetGameProcess				( void );
 	CCharactersManager*			GetCharactersManager		( void ) const		{ return m_pCharactersManager; }
 
 	//----Members --------------------------------------------------------------------
@@ -66,7 +66,7 @@ private:
 	CThPSCamera					*m_pThPSFreeCamera;
 	CStaticCamera				m_StaticCamera;
 
-	CPlayer						*m_Player;
+	//CPlayer						*m_Player;
 	CFreeCamera					m_FreeCamera;
 	CCamera						*m_pFreeCamera;
 	

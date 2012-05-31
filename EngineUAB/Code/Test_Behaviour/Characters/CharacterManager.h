@@ -65,13 +65,13 @@ private:
 	
 	// ------------- Propietats ( Get / Set ) ----------------
 public:
-	TVectorResources			GetEnemiesVector				( void ) const		{ return m_ResourcesVector; }
-	TMapResources				GetEnemiesMap					( void ) const		{ return m_ResourcesMap; }
+	TVectorResources			GetEnemiesVector				( void ) const				{ return m_ResourcesVector; }
+	TMapResources				GetEnemiesMap					( void ) const				{ return m_ResourcesMap; }
 
-	int							GetTotalEnemies					( void ) const		{ return m_ResourcesVector.size(); }
+	int							GetTotalEnemies					( void ) const				{ return m_ResourcesVector.size(); }
 	
-	CPlayer*					GetPlayer						( void ) const		{ return m_pPlayer; }
-	void						SetPlayer						( CCharacter *_pPlayer );
+	CCharacter*					GetPlayer						( void ) const				{ return m_pPlayer; }
+	void						SetPlayer						( CCharacter *_pPlayer )	{ m_pPlayer = _pPlayer; }
 
 private:
 	std::string					m_PropertiesFileName;
@@ -80,6 +80,6 @@ private:
 	CPropertiesManager			*m_pPropertiesManager;
 	CAnimationsStatesManager	*m_pAnimatedStatesManager;
 
-	CPlayer						*m_pPlayer;
+	CCharacter					*m_pPlayer;
 };
 
