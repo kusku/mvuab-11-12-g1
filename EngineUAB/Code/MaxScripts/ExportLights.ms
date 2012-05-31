@@ -25,10 +25,11 @@ function ExportLights Objs FilePath IsPathCompleted RelativeShadowMaskPath =
 			local l_Color = Objs[i].rgb
 			local l_StartAtt = Objs[i].farAttenStart
 			local l_EndAtt = Objs[i].farAttenEnd
+			local l_Intensity = Objs[i].multiplier
 			
 			l_Pos = RHTranslationToLH l_Pos
 			
-			format "name=\"%\" pos=\"% % %\" color=\"% % %\" att_start_range=\"%\" att_end_range=\"%\"" l_Name l_Pos[1] l_Pos[2] l_Pos[3] l_Color.r l_Color.g l_Color.b l_StartAtt l_EndAtt to:l_XML_Line
+			format "name=\"%\" pos=\"% % %\" color=\"% % %\" att_start_range=\"%\" att_end_range=\"%\" intensity=\"%\"" l_Name l_Pos[1] l_Pos[2] l_Pos[3] l_Color.r l_Color.g l_Color.b l_StartAtt l_EndAtt l_Intensity to:l_XML_Line
 			
 			local l_GenShadowMap = getUserProp Objs[i] "generate_shadow_map"
 			local l_GenStaticShadowMap = getUserProp Objs[i] "generate_static_shadow_map"
