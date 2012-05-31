@@ -6,31 +6,31 @@ class 'CCaperucitaIdleState' (CState)
 		print_logger(0, "Inicio del estado idle de la caperucita")
 	end
 
-	-- function CCaperucitaIdleState:Enter(CState _State)
+	function CCaperucitaIdleState:Enter(_State)
 	
-	-- end
+	end
 	
-	-- function CCaperucitaIdleState:Execute(CState _State)
+	function CCaperucitaIdleState:Execute(_State)
 	
-	-- end
+	end
 	
-	-- function CCaperucitaIdleState:Exit(CState _State)
+	function CCaperucitaIdleState:Exit(_State)
 	
-	-- end
+	end
 	
-	-- function CCaperucitaIdleState:OnMessage(CState _State)
+	function CCaperucitaIdleState:OnMessage(_State)
 	
-	-- end
+	end
 	
-	-- function CCaperucitaIdleState:__Finalize()
+	function CCaperucitaIdleState:__Finalize()
 	
-	-- end
+	end
 	
 	
 class 'CPlayer' (CCharacter)
 	 --Idle = CCaperucitaIdleState()
 	
-	function CPlayer:__init()
+	function CPlayer:__init() 
 		CCharacter.__init(self,0)
 		self.yaw = 0.0
 		self.pitch = -math.pi / 8
