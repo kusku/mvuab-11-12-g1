@@ -5,21 +5,16 @@ class 'CCaperucitaIdleState' (CState)
 	end
 
 	function CCaperucitaIdleState:OnEnter(_CCharacter)
-		print_logger(0, "CCaperucitaIdleState:Enter")
-		if not ( _CCharacter == nil ) then
+		--print_logger(0, "CCaperucitaIdleState:Enter")
+		
 		-- Cal fer això
 		-- CAnimatedCoreModel * l_Core =  _pCharacter->GetAnimatedModel()->GetAnimatedCoreModel();
 		-- int i = l_Core->GetCoreModel()->getCoreAnimationId ( "idle" );
 		-- _pCharacter->GetAnimatedModel()->BlendCycle ( i, 0.3f );
 		
-			num = _CCharacter.core_animation_id
-			print_logger(1, "he obtingut el id")
-			model = _CCharacter:get_animation_model()
-			if not ( _CCharacter == nil ) then
-				print_logger(1, "he obtingut el model")
-				--model:blend_cycle( num, 0.3 )
-				--_CCharacter:get_animation_model():blend_cycle( num, 0.3 )
-			end 
+		if not ( _CCharacter == nil ) then
+			num = _CCharacter:get_animation_id("idle")
+			_CCharacter:get_animation_model():blend_cycle( num, 0.3 )
 		end
 	end
 	
@@ -28,7 +23,11 @@ class 'CCaperucitaIdleState' (CState)
 	end
 	
 	function CCaperucitaIdleState:OnExit(_CCharacter)
-		print_logger(0, "CCaperucitaIdleState:Exit")
+		--print_logger(0, "CCaperucitaIdleState:Exit")
+		if not ( _CCharacter == nil ) then
+			num = _CCharacter:get_animation_id("idle")
+			_CCharacter:get_animation_model():clear_cycle( num, 0.3 )
+		end
 	end
 	
 	function CCaperucitaIdleState:OnMessage(_CCharacter)
@@ -46,15 +45,23 @@ class 'CCaperucitaRunState' (CState)
 	end
 
 	function CCaperucitaRunState:OnEnter(_CCharacter)
-		print_logger(0, "CCaperucitaRunState:Enter")
+		--print_logger(0, "CCaperucitaRunState:Enter")
+		if not ( _CCharacter == nil ) then
+			num = _CCharacter:get_animation_id("run")
+			_CCharacter:get_animation_model():blend_cycle( num, 0.3 )
+		end
 	end
 	
 	function CCaperucitaRunState:Execute(_CCharacter)
-		print_logger(0, "CCaperucitaRunState:Execute")
+		--print_logger(0, "CCaperucitaRunState:Execute")
 	end
 	
 	function CCaperucitaRunState:OnExit(_CCharacter)
-		print_logger(0, "CCaperucitaRunState:Exit")
+		--print_logger(0, "CCaperucitaRunState:Exit")
+		if not ( _CCharacter == nil ) then
+			num = _CCharacter:get_animation_id("run")
+			_CCharacter:get_animation_model():clear_cycle( num, 0.3 )
+		end
 	end
 	
 	function CCaperucitaRunState:OnMessage(_CCharacter)
