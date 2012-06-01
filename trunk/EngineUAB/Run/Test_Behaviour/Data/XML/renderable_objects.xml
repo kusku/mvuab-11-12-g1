@@ -140,7 +140,7 @@
 	<mesh_instance name="Puente003" core="Puente003" position="92.5435 -9.13652 -72.9671" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
 
 	
-	<animated_model_instance name="caperucita1" core="caperucita" position="0.0 35.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="2.0 2.0 2.0" visible="true" layer="solid" />
+	<animated_model_instance name="caperucita1" core="caperucita" position="0.0 35.0 0.0" yaw="-90.0" pitch="0.0" roll="0.0" scale="2.0 2.0 2.0" visible="true" layer="solid" />
 	
 	<animated_model_instance name="lobo1" core="lobo" position="0.0 35.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
 	<animated_model_instance name="lobo2" core="lobo" position="30.0 35.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
