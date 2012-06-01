@@ -87,7 +87,7 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 //-----------------------------------------------------------------------------------------------------------------------------
 bool CPropertiesManager::LoadDefaultProperties( const CXMLTreeNode &_Node )
 {
-	LOGGER->AddNewLog ( ELL_INFORMATION, "CPropertiesManager::Reload-->Loading default properties Nodes." );
+	LOGGER->AddNewLog ( ELL_INFORMATION, "CPropertiesManager::LoadDefaultProperties-->Loading default properties Nodes." );
 
 	CXMLTreeNode l_MainNode = _Node;
 
@@ -114,7 +114,7 @@ bool CPropertiesManager::LoadDefaultProperties( const CXMLTreeNode &_Node )
 	}
 	else 
 	{
-		std::string msg_error = "CPropertiesManager::LoadXML --> Error when trying to load a default property : " + l_Type;
+		std::string msg_error = "CPropertiesManager::LoadDefaultProperties --> Error when trying to load a default property : " + l_Type;
 		LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
 		return false;
 	}
@@ -127,7 +127,7 @@ bool CPropertiesManager::LoadDefaultProperties( const CXMLTreeNode &_Node )
 //-----------------------------------------------------------------------------------------------------------------------------
 CProperties* CPropertiesManager::LoadPlayerProperties( const CXMLTreeNode &_Node )
 {
-	LOGGER->AddNewLog ( ELL_INFORMATION, "CPropertiesManager::Reload-->Loading player properties node." );
+	LOGGER->AddNewLog ( ELL_INFORMATION, "CPropertiesManager::LoadPlayerProperties-->Loading player properties node." );
 
 	CXMLTreeNode l_MainNode = _Node;
 	std::string l_Type = l_MainNode.GetName();		// Les propietats van primer
@@ -149,7 +149,7 @@ CProperties* CPropertiesManager::LoadPlayerProperties( const CXMLTreeNode &_Node
 	}
 	else 
 	{
-		std::string msg_error = "CPropertiesManager::LoadXML --> Error when trying to load a player properties : " + l_Type;
+		std::string msg_error = "CPropertiesManager::LoadPlayerProperties --> Error when trying to load a player properties : " + l_Type;
 		LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
 		return NULL;
 	}
@@ -161,7 +161,7 @@ CProperties* CPropertiesManager::LoadPlayerProperties( const CXMLTreeNode &_Node
 //-----------------------------------------------------------------------------------------------------------------------------
 CProperties* CPropertiesManager::LoadEnemyProperties( const CXMLTreeNode &_Node )
 {
-	LOGGER->AddNewLog ( ELL_INFORMATION, "CPropertiesManager::Reload-->Loading enemy properties node." );
+	LOGGER->AddNewLog ( ELL_INFORMATION, "CPropertiesManager::LoadEnemyProperties-->Loading enemy properties node." );
 
 	CXMLTreeNode l_MainNode = _Node;
 
@@ -184,7 +184,7 @@ CProperties* CPropertiesManager::LoadEnemyProperties( const CXMLTreeNode &_Node 
 	}
 	else 
 	{
-		std::string msg_error = "CPropertiesManager::LoadXML --> Error when trying to load a default property : " + l_Type;
+		std::string msg_error = "CPropertiesManager::LoadEnemyProperties --> Error when trying to load a default property : " + l_Type;
 		LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
 		return false;
 	}

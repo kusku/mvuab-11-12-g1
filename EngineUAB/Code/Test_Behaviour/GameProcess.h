@@ -47,6 +47,9 @@ private:
 	void						RegisterMethods				( void );
 	void						RegisterToLuaGameProcess	( lua_State* _pLua );
 	void						UpdateInputs				( float _ElapsedTime );
+	void						ReloadGameObjects			( void );
+	void						LoadGameObjects				( void );
+	bool						LoadMainScript				( void );
 
 	//----Properties  --------------------------------------------------------------------
 public:
@@ -57,6 +60,8 @@ public:
 	//----Members --------------------------------------------------------------------
 private:
 	HWND						m_hWnd;
+	bool						m_IsOK;
+
 	Vect2i						pos;
 	Vect2i						screen;
 

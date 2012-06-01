@@ -38,13 +38,8 @@
 CGameProcess::CGameProcess(HWND hWnd)
 	: m_hWnd	( hWnd )
 	, m_pScene	( NULL )
-	//, m_pPlayer ( NULL )
- {
-	//Crea los datos para el gameplay
-	m_pCharactersManager	= new CCharactersManager();
-
-	//Crea escena debug 
-	m_pScene = new CScene();
+	, m_IsOK	( false )
+{
 }
 
 CGameProcess::~CGameProcess(void)
@@ -66,106 +61,21 @@ bool CGameProcess::Init()
 	{
 		CORE->GetScriptManager()->RunCode("load_all()");
 	}
-
-
-	//Vect2i pos;
-	//Vect2i screen = CORE->GetRenderManager()->GetScreenSize();
-	//pos.x = screen.x / 2;
-	//pos.y = screen.y / 2;
-
-	////Establece la cámara
-	//m_StaticCamera.SetPosition(Vect3f(0.f,1.f,0.f));
-	//m_StaticCamera.SetPitch(0.0f);
-	//m_StaticCamera.SetYaw(0.0f);
-	//m_StaticCamera.SetRoll(0.0f);
-
-	//float l_Aspect = CORE->GetRenderManager()->GetAspectRatio();
-	//m_pThPSCamera = new CThPSCamera(1.0f, 10000.f, 45.f * D3DX_PI / 180.f, l_Aspect, &m_StaticCamera, 10.0f, 0.f, "Static");
-	////m_pThPSCamera = new CThPSCamera( 1.0f, 10000.f, 45.f * D3DX_PI / 180.f, l_Aspect, m_Player, 12.0f, 4.f, "Wolf");
-	//m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
-	//CORE->SetCamera(m_pCamera);
-
-	/*m_FreeCamera.SetPosition(Vect3f( 0.f, 10.f, 0.f));
-	m_FreeCamera.SetPitch(-D3DX_PI/6);
-	m_FreeCamera.SetYaw(0.0f);
-	m_FreeCamera.SetRoll(0.0f);
-
-	m_pThPSFreeCamera = new CThPSCamera( 1.0f, 10000.f, 45.f * D3DX_PI / 180.f, l_Aspect, &m_FreeCamera, 10.0f, 0.f, "Free");
-	m_pFreeCamera = static_cast<CCamera*>(m_pThPSFreeCamera);*/
-
-	//m_Player->SetLockCamera( false );
-
 	
-	// Creamos la escena de debug. Esto solo si no se tiene escenario
-	//m_pScene->Init();
-	
-	//Carga los scripts del juego
-	SCRIPT->Load("./Data/XML/script_gameplay.xml");
-	SCRIPT->RunCode("init_game_data()");
-
-	
-	// Inicializa el gestor de player y enemigos. Carga propiedades y estados de todo.
-	if ( !m_pCharactersManager->Initialize ( ) )
-	{
-		return false;
-	}
-
-	CCharacter * l_Player = m_pCharactersManager->GetPlayer();
-
-	//Crea la cámara
-	float l_Aspect = CORE->GetRenderManager()->GetAspectRatio();
-	m_pThPSCamera = new CThPSCamera(1.0f, 10000.f, 45.f * D3DX_PI / 180.f, l_Aspect, m_pCharactersManager->GetPlayer(), 12.0f, 4.f, "Caperucita");
-	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
-	CORE->SetCamera(m_pCamera);
-
-
-	/*bool l_ok = CORE->GetScriptManager()->Load("./Data/XML/script_gameplay.xml");
-	CORE->GetScriptManager()->RunCode("init_game_data()");*/
-	//CORE->GetScriptManager()->RunCode("load_enemy()");
-	//CORE->GetScriptManager()->RunFile("foo.lua");
-
-	//m_Player = m_pCharactersManager->GetPlayer();
-	//m_Player->SetPosition(Vect3f( 0.f, 10.f, 0.f));
-	//m_Player->SetPitch(-D3DX_PI/8);
-	//m_Player->SetYaw(0.0f);
-	//m_Player->SetRoll(0.0f);
-	//m_Player->Init();
-
-	//float l_Aspect = CORE->GetRenderManager()->GetAspectRatio();
-	//m_pThPSCamera = new CThPSCamera( 1.0f, 10000.f, 45.f * D3DX_PI / 180.f, l_Aspect, m_Player, 12.0f, 4.f, "Wolf");
-	//m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
-	//// Asignamos la camera activa al core
-	//CORE->SetCamera( m_pCamera );
-
-	//m_FreeCamera.SetPosition(Vect3f( 0.f, 10.f, 0.f));
-	//m_FreeCamera.SetPitch(-D3DX_PI/6);
-	//m_FreeCamera.SetYaw(0.0f);
-	//m_FreeCamera.SetRoll(0.0f);
-
-	//m_pThPSFreeCamera = new CThPSCamera( 1.0f, 10000.f, 45.f * D3DX_PI / 180.f, l_Aspect, &m_FreeCamera, 10.0f, 0.f, "Free");
-	//m_pFreeCamera = static_cast<CCamera*>(m_pThPSFreeCamera);
-
-	//m_Player->SetLockCamera( false );
-
-	/*CProperties* l_pPlayerProperties = new CProperties();
-	l_pPlayerProperties->SetAnimationInstance( "Caperucita1" );
-	l_pPlayerProperties->SetCore( "Caperucita" );
-	l_pPlayerProperties->SetLife( 50 );
-	l_pPlayerProperties->SetName( "Caperucita" );
-	l_pPlayerProperties->SetPosition( Vect3f(0.f,0.f,0.f ) );
-	l_pPlayerProperties->SetRespawnPosition( Vect3f(0.f,0.f,0.f ) );
-	l_pPlayerProperties->SetSpeed( 10 );
-
-	m_pPlayer = new CPlayer( "Jolete" );
-	m_pPlayer->SetProperties ( l_pPlayerProperties );
-
-	m_pPlayer->Init();*/
+	LoadGameObjects();
 
 	return true;
 }
 
 void CGameProcess::Update( float _ElapsedTime )
 {
+	if (!m_IsOK) 
+	{
+		return;
+	}
+
+	UpdateInputs( _ElapsedTime );	
+
 	if ( m_pCharactersManager->GetPlayer()->GetLocked() )
 	{
 		m_FreeCamera.Update( _ElapsedTime, m_pCamera );
@@ -174,8 +84,6 @@ void CGameProcess::Update( float _ElapsedTime )
 	m_pCharactersManager->Update ( _ElapsedTime );
 
 	CORE->GetRenderableObjectsLayersManager()->Update( _ElapsedTime );
-
-	UpdateInputs( _ElapsedTime );	
 }
 
 void CGameProcess::Render(CRenderManager &RM)
@@ -186,8 +94,8 @@ void CGameProcess::UpdateInputs ( float _ElapsedTime )
 {
 	if( CORE->GetActionToInput()->DoAction("ReloadScripts") )
 	{
-		/*CORE->GetScriptManager()->RunCode("init_game_data()");
-		m_pThPSCamera->SetObject3D( m_pCharacterManager->GetPlayer());*/
+		ReloadGameObjects();
+		/*m_pThPSCamera->SetObject3D( m_pCharacterManager->GetPlayer());*/
 	}
 
 	if( CORE->GetActionToInput()->DoAction("CommutationCamera") )
@@ -234,6 +142,47 @@ void CGameProcess::UpdateInputs ( float _ElapsedTime )
 //{
 //	m_pCharactersManager->AddEnemy ( _pEnemy );
 //}
+
+void CGameProcess::ReloadGameObjects( void )
+{
+	CHECKED_DELETE(m_pCharactersManager);
+	LoadGameObjects();
+}
+
+bool CGameProcess::LoadMainScript( void )
+{
+	return SCRIPT->Load("./Data/XML/script_gameplay.xml");
+}
+
+void CGameProcess::LoadGameObjects()
+{
+	//Crea los datos para el gameplay
+	m_pCharactersManager = new CCharactersManager();
+
+	//Crea escena debug 
+	//m_pScene = new CScene();
+
+	//Carga los scripts del juego
+	m_IsOK = LoadMainScript();
+
+	if ( !m_IsOK )
+		return;
+
+	// por si se desea hacer alguna mariconada...
+	//SCRIPT->RunCode("init_game_data()");
+
+	// Inicializa el gestor de player y enemigos. Carga propiedades y estados de todo.
+	if ( !m_pCharactersManager->Initialize ( ) )
+		return;
+
+	CCharacter * l_Player = m_pCharactersManager->GetPlayer();
+
+	//Crea la cámara
+	float l_Aspect = CORE->GetRenderManager()->GetAspectRatio();
+	m_pThPSCamera = new CThPSCamera(1.0f, 10000.f, 45.f * D3DX_PI / 180.f, l_Aspect, m_pCharactersManager->GetPlayer(), 12.0f, 4.f, "Caperucita");
+	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
+	CORE->SetCamera(m_pCamera);
+}
 
 //-------------------------------------
 //--Registrador de métodos en LUA------
