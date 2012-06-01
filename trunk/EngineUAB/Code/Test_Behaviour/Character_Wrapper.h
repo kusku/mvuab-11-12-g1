@@ -34,6 +34,13 @@ struct CCharacter_Wrapper: CCharacter, luabind::wrap_base
 		LOGGER->AddNewLog ( ELL_INFORMATION, "[C++CCharacter_Wrapper] destructor");
 	}
 
+	virtual bool Init()
+	{
+		 bool l = call<bool>("init");
+		 //int s = this->GetAnimationId("run");		// Això sembla que funciona
+		 return l;
+	}
+
 	virtual void Update(float _ElapsedTime)
 	{
 		call<void>("update", _ElapsedTime);

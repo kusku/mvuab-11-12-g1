@@ -80,7 +80,7 @@ void CCharactersManager::CleanUp ( void )
 {
 	CHECKED_DELETE ( m_pPropertiesManager );		// Eliminamos las propiedades por defecto
 	CHECKED_DELETE ( m_pAnimatedStatesManager );	// Eliminamos los estados por defecto
-	CHECKED_DELETE ( m_pPlayer );
+	m_pPlayer = NULL;
 	Destroy();
 }
 
@@ -123,6 +123,9 @@ void CCharactersManager::Update ( float _ElapsedTime )
 	assert( m_pPlayer != NULL );
 
 	// Actualitzem el player
+	if (!m_pPlayer)
+		return;
+
 	m_pPlayer->Update( _ElapsedTime );
 
 	// Actualitzem l'enemic
@@ -132,12 +135,10 @@ void CCharactersManager::Update ( float _ElapsedTime )
 		// solo para test de movimiento!!
 		l_EnemyList[i]->Update( _ElapsedTime );
 	}
-	
 }
 
 void CCharactersManager::Render	( void )
 {
-	//DrawActors();
 }
 
 //--------------------------------------------------
@@ -251,9 +252,8 @@ bool CCharactersManager::LoadPlayerProperties( const CXMLTreeNode &_Node )
 		m_pPlayer->SetProperties ( l_PlayerProperties );
 		
 		// Inicializamos el player, sus estados, mayas animadas...
-		m_pPlayer->Init( l_PlayerProperties->GetName(), l_PlayerProperties->GetPosition(), ::ECG_PERSONATGE );
-
-		l_IsOk = true;
+		m_pPlayer->Initialize( l_PlayerProperties->GetName(), l_PlayerProperties->GetPosition(), ::ECG_PERSONATGE );
+		l_IsOk = m_pPlayer->Init();		// Llamada a Lua
 	}
 	else 
 	{

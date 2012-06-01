@@ -52,7 +52,7 @@ public:
 	bool		GetCreatePhysics		( void ) const		{ return m_CreatePhysics; }
 	bool		GetCreateBehaviour		( void ) const		{ return m_CreateLogicBehaviour; }
 
-	CAnimatedCoreModel*	GetAnimatedCoreModel ( void ) const		{ return m_AnimatedCoreModel; }
+	CAnimatedCoreModel*	GetAnimatedCoreModel ( void ) const	{ return m_AnimatedCoreModel; }
 
 	//----Members -------------------------------------------------------	
 private:

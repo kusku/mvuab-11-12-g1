@@ -10,9 +10,11 @@
 #include "StatesMachine\BaseGameEntity.h"
 #include "StatesMachine\StateMachine.h"
 #include "StatesMachine\State.h"
+
 #include "Characters\Character.h"
 #include "Character_Wrapper.h"
 #include "Characters/Properties/Properties.h"
+#include "Characters/States/State_Wrapper.h"
 
 #include "PhysicController.h"
 
@@ -78,12 +80,15 @@ void RegisterToLuaCharacter(lua_State* _pLua)
 			class_<CCharacter, CCharacter_Wrapper, bases<CBaseGameEntity, CObject3D, CNamed>> ("CCharacter")
 				.def(constructor<int>())
 				.def(constructor<int,const std::string&>())
-				.def("init", &CCharacter::Init)
+				.def("init", &CCharacter::Init, &CCharacter_Wrapper::Init)
 				.def("update", &CCharacter::Update, &CCharacter_Wrapper::default_update)
+				.def("get_animation_id", &CCharacter::GetAnimationId)
+				.def("get_animation_model", &CCharacter::GetAnimatedModel)
 				.property("physic_controller", &CCharacter::GetController)	
 				.property("animated_model", &CCharacter::GetAnimatedModel)
+				//.property("core_animation_id", &CCharacter::GetAnimationId)
 				.property("get_logic_fsm", &CCharacter::GetLogicFSM)
-				.property("get_graphic_fsm", &CCharacter::GetLogicFSM)
+				.property("get_graphic_fsm", &CCharacter::GetGraphicFSM)
 				.property("properties", &CCharacter::GetProperties, &CCharacter::SetProperties)
 				.property("locked", &CCharacter::GetLocked, &CCharacter::SetLocked)
 		];
@@ -115,26 +120,29 @@ void RegisterToLuaCharacterManager(lua_State* _pLua)
 
 void RegisterToLuaStateMachine(lua_State* _pLua){
 	module( _pLua)
-		[class_<CStateMachine<CCharacter> > ("CStateMachine")
-		.def("change_state", &CStateMachine<CCharacter>::ChangeState)
-		.property("current_state", &CStateMachine<CCharacter>::GetCurrentState, &CStateMachine<CCharacter>::SetCurrentState)
-		.property("previous_state", &CStateMachine<CCharacter>::GetPreviousState, &CStateMachine<CCharacter>::SetPreviousState)
-		.property("global_state", &CStateMachine<CCharacter>::GetGlobalState, &CStateMachine<CCharacter>::SetGlobalState)
-		.def("revert_to_previous_state",&CStateMachine<CCharacter>::RevertToPreviousState)
-		.def("is_in_state",&CStateMachine<CCharacter>::isInState)
-		.property("get_name_of_current_state", &CStateMachine<CCharacter>::GetNameOfCurrentState)
-		.def("update",&CStateMachine<CCharacter>::Update)
+		[
+			class_<CStateMachine<CCharacter> > ("CStateMachine")
+				.def("change_state", &CStateMachine<CCharacter>::ChangeState)
+				.property("current_state", &CStateMachine<CCharacter>::GetCurrentState, &CStateMachine<CCharacter>::SetCurrentState)
+				.property("previous_state", &CStateMachine<CCharacter>::GetPreviousState, &CStateMachine<CCharacter>::SetPreviousState)
+				.property("global_state", &CStateMachine<CCharacter>::GetGlobalState, &CStateMachine<CCharacter>::SetGlobalState)
+				.def("revert_to_previous_state",&CStateMachine<CCharacter>::RevertToPreviousState)
+				.def("is_in_state",&CStateMachine<CCharacter>::isInState)
+				.property("get_name_of_current_state", &CStateMachine<CCharacter>::GetNameOfCurrentState)
+				.def("update",&CStateMachine<CCharacter>::Update)
 		];
 }
 
 void RegisterToLuaState(lua_State* _pLua){
 	module( _pLua)
-		[class_<CState<CCharacter> > ("CState")
-			.def(constructor<>())
-			.def("execute", &CState<CCharacter>::Execute)
-			.def("on_enter", &CState<CCharacter>::OnEnter)
-			.def("on_exit", &CState<CCharacter>::OnExit)
-			.def("on_message", &CState<CCharacter>::OnMessage)
+		//	class_<CCharacter, CCharacter_Wrapper, bases<CBaseGameEntity, CObject3D, CNamed>> ("CCharacter")
+		[
+			class_<CState<CCharacter>, CState_Wrapper> ("CState")
+				.def(constructor<>())
+				.def("Execute", &CState<CCharacter>::Execute)
+				.def("OnEnter", &CState<CCharacter>::OnEnter)
+				.def("OnExit", &CState<CCharacter>::OnExit)
+				.def("OnMessage", &CState<CCharacter>::OnMessage)
 		];
 }
 
@@ -143,13 +151,13 @@ void RegisterToLuaGlobals(lua_State* _pLua)
 	globals(_pLua)["ent_caperucita"] = (int)ent_caperucita;
 	globals(_pLua)["ent_lobo"] = (int)ent_lobo;
 
-	luabind::module(_pLua) 
+	/*luabind::module(_pLua) 
 		[
 			luabind::class_<CFoo>("Foo")
 			.def(luabind::constructor<luabind::object, const char*>())
 			.def("Think", &CFoo::Think)
 			.def("Kill", &CFoo::Kill)
 			.def_readwrite("name", &CFoo::m_Name)
-		];
+		];*/
 }
 

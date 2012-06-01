@@ -72,7 +72,20 @@ CCharacter::~CCharacter( void )
 // -----------------------------------------
 //			METODES PRINCIPALS
 // -----------------------------------------
-bool CCharacter::Init ( const std::string &_Name, const Vect3f &_InitialPosicion, ECollisionGroup _Grup )
+bool CCharacter::Init( void )
+{
+	// Metodo y cosas a implementar en Lua
+	//if ( m_pCurrentAnimatedModel )
+	//{
+	//	// coloco el primer estado
+	//	m_pLogicStateMachine->SetCurrentState  ( m_pIdleState );
+	//	m_pGraphicStateMachine->SetCurrentState( m_pAnimationIdleState );
+	//}
+
+	return true;
+}
+
+bool CCharacter::Initialize ( const std::string &_Name, const Vect3f &_InitialPosicion, ECollisionGroup _Grup )
 {
 	//Create a dynamic Player     
 	m_pPhysicUserDataJugador = new CPhysicUserData ( m_Name );
@@ -99,13 +112,6 @@ bool CCharacter::Init ( const std::string &_Name, const Vect3f &_InitialPosicion
 		m_pCurrentAnimatedModel = static_cast<CAnimatedInstanceModel*> (l_RO);
 	}
 
-	//if ( m_pCurrentAnimatedModel )
-	//{
-	//	// coloco el primer estado
-	//	m_pLogicStateMachine->SetCurrentState  ( m_pIdleState );
-	//	m_pGraphicStateMachine->SetCurrentState( m_pAnimationIdleState );
-	//}
-
 	if ( m_pCurrentAnimatedModel )
 	{
 		// Actualizamos el Yaw y lo asignamos al controler
@@ -113,7 +119,7 @@ bool CCharacter::Init ( const std::string &_Name, const Vect3f &_InitialPosicion
 		m_pCurrentAnimatedModel->SetYaw( l_Yaw + mathUtils::Rad2Deg( m_pProperties->GetYaw() ) );
 		m_pController->SetYaw( m_pProperties->GetYaw() );
 	}
-	
+
 	return true;
 }
 
@@ -154,3 +160,14 @@ void CCharacter::MoveController(const Vect3f &_Dir, float _ElapsedTime)
 	m_pController->Move( _Dir, _ElapsedTime );
 }
 
+
+
+// -----------------------------------------
+//				PROPERTIES
+// -----------------------------------------
+int CCharacter::GetAnimationId ( const std::string _AnimationName ) const
+{
+	CAnimatedCoreModel * l_Core =  m_pCurrentAnimatedModel->GetAnimatedCoreModel();
+	int i = l_Core->GetCoreModel()->getCoreAnimationId ( _AnimationName );
+	return i;
+}

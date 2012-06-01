@@ -37,7 +37,8 @@ public:
 
 
 	//----Main Functions --------------------------------------
-	virtual bool				Init				( const std::string &_Name, const Vect3f &_InitialPosicion, ECollisionGroup _Grup );
+	virtual bool				Initialize			( const std::string &_Name, const Vect3f &_InitialPosicion, ECollisionGroup _Grup );
+	virtual bool				Init				( void );
 	virtual bool				HandleMessage		( const Telegram& _Msg, bool _Logic = true, bool _Graphic = true  );		// Envia telegramas a las máquinas de estados
 	virtual bool				HandleMessage		( const Telegram& _Msg );
 	virtual void				Update				( float _ElapsedTime );
@@ -50,6 +51,8 @@ public:
 	virtual inline CStateMachine<CCharacter>*		GetGraphicFSM		( void ) const			{ return m_pGraphicStateMachine; }
 	virtual inline CPhysicController*				GetController		( void ) const			{ return m_pController; }
 	virtual inline CAnimatedInstanceModel*			GetAnimatedModel	( void ) const			{ return m_pCurrentAnimatedModel; }
+	
+	virtual inline int								GetAnimationId		( const std::string _AnimationName ) const;
 
 
 	void						SetPrevPosition		( Vect3f pos )			{ m_PrevPosition = pos; }
