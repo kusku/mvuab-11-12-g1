@@ -6,6 +6,8 @@
 #include "Object3D.h"
 #include "Math\Vector3.h"
 
+#define VELOCITY_FREE_CAMERA 10.0
+
 class CRenderManager;
 class CCamera;
 

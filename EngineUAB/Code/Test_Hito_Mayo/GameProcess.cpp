@@ -82,7 +82,7 @@ bool CGameProcess::Init( void )
 	//ENTMGR->RegisterEntity( m_pPlayer );
 	
 	float l_Aspect = CORE->GetRenderManager()->GetAspectRatio();
-	m_pThPSCamera = new CThPSCamera( 1.0f, 10000.f, 45.f * D3DX_PI / 180.f, l_Aspect, m_Player, 12.0f, 4.f, "Wolf");
+	m_pThPSCamera = new CThPSCamera( 1.0f, 10000.f, 45.f * D3DX_PI / 180.f, l_Aspect, m_Player, 12.0f, 0.f, 4.f, "Wolf");
 	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
 	// Asignamos la camera activa al core
 	CORE->SetCamera( m_pCamera );
@@ -92,7 +92,7 @@ bool CGameProcess::Init( void )
 	m_FreeCamera.SetYaw(0.0f);
 	m_FreeCamera.SetRoll(0.0f);
 
-	m_pThPSFreeCamera = new CThPSCamera( 1.0f, 10000.f, 45.f * D3DX_PI / 180.f, l_Aspect, &m_FreeCamera, 10.0f, 0.f, "Free");
+	m_pThPSFreeCamera = new CThPSCamera( 1.0f, 10000.f, 45.f * D3DX_PI / 180.f, l_Aspect, &m_FreeCamera, 10.0f, 0.f, 0.f, "Free");
 	m_pFreeCamera = static_cast<CCamera*>(m_pThPSFreeCamera);
 
 	m_Player->SetLockCamera( false );

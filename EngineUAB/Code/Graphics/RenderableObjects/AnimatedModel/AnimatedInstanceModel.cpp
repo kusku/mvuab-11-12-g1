@@ -271,22 +271,15 @@ void CAnimatedInstanceModel::RenderModelBySoftware(CRenderManager *RM)
 
 void CAnimatedInstanceModel::ExecuteAction(uint32 Id, float Time)
 {
-	if ( m_CalModel->getMixer()->executeAction( Id, 0, Time ) )
-	{
-		//LOGGER->AddNewLog ( ELL_ERROR, "Error execute action animation!" );
-	}
+	m_CalModel->getMixer()->executeAction( Id, 0, Time );
 }
 
 void CAnimatedInstanceModel::BlendCycle( uint32 Id, float Time )
 {
-	if ( !m_CalModel->getMixer()->blendCycle( Id, 1.0, Time) )
-	{
-	//	LOGGER->AddNewLog ( ELL_ERROR, "Error blending animation!" );
-	}
+	m_CalModel->getMixer()->blendCycle( Id, 1.0, Time);
 }
 
 void CAnimatedInstanceModel::ClearCycle( uint32 Id, float Time )
 {
-	if ( !m_CalModel->getMixer()->clearCycle( Id, Time) )
-		LOGGER->AddNewLog ( ELL_ERROR, "Error clearing animation!" );
+	m_CalModel->getMixer()->clearCycle( Id, Time);
 }

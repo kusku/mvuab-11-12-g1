@@ -179,7 +179,7 @@ void CGameProcess::LoadGameObjects()
 
 	//Crea la cámara
 	float l_Aspect = CORE->GetRenderManager()->GetAspectRatio();
-	m_pThPSCamera = new CThPSCamera(1.0f, 10000.f, 45.f * D3DX_PI / 180.f, l_Aspect, m_pCharactersManager->GetPlayer(), 12.0f, 4.f, "Caperucita");
+	m_pThPSCamera = new CThPSCamera(1.0f, 10000.f, 45.f * D3DX_PI / 180.f, l_Aspect, m_pCharactersManager->GetPlayer(), 12.0f, 4.f, 0.f, "Caperucita");
 	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
 	CORE->SetCamera(m_pCamera);
 }

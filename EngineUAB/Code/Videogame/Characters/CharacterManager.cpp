@@ -9,9 +9,6 @@
 #include "Utils\Random.h"
 
 #include "Object3D.h"
-#include "Characters\Player\Player.h"
-//#include "Characters\Enemy\Enemy.h"
-
 #include "RenderableObjects\RenderableObjectsLayersManager.h"
 #include "RenderableObjects\RenderableObjectsManager.h"
 #include "RenderableObjects\RenderableObject.h"
@@ -19,41 +16,29 @@
 #include "PhysicController.h"
 #include "CharacterController.h"
 
-//#include "characters\Properties\PropertiesManager.h"
-//#include "characters\Properties\Properties.h"
+#include "characters\Properties\PropertiesManager.h"
+#include "characters\Properties\Properties.h"
 
-//#include "characters\states\AnimationsStatesManager.h"
-//#include "characters\states\AnimationsStates.h"
+#include "characters\states\AnimationsStatesManager.h"
+#include "characters\states\AnimationsStates.h"
 
 #include "Logger\Logger.h"
 #include "Base.h"
 #include "Core.h"
 
+#if defined (_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
 
 //--------------------------------------------------
 //				CONSTRUCTORS/DESTRUCTORS
 //--------------------------------------------------
-//CCharactersManager::CCharactersManager ( CActor *_pPlayer, int _NumEnemies )
-//	: m_pPlayer ( _pPlayer )
-//{
-//	Initialize( _NumEnemies );
-//}
-
-//CCharactersManager::CCharactersManager ( int _NumEnemies )
-//	: m_FileName ( "" )
-//	, m_pPropertiesManager	( NULL )
-//{
-//	// Caragamos un numero concreto de nuevos enemigos
-//	Initialize ( _NumEnemies );
-//}
-
 CCharactersManager::CCharactersManager ( void )
 	: m_PropertiesFileName( "" )
 	, m_AnimatedFileName( "" )
 	, m_pPlayer(NULL)
-//	, m_pPropertiesManager		( NULL )
-//	, m_pAnimatedStatesManager	( NULL )
-	//, m_pPlayer					( NULL )
+	, m_pPropertiesManager( NULL )
+	, m_pAnimatedStatesManager( NULL )
 {
 }
 
@@ -75,14 +60,14 @@ bool CCharactersManager::Initialize ( int _NumEnemies )
 	LOGGER->AddNewLog ( ELL_INFORMATION, "CCharactersManager::Initialize-> Initializating characters manager..." );
 
 	// Inicializamos el manager de propiedades por defecto de los personajes
-	/*m_pPropertiesManager	 = new CPropertiesManager();
+	m_pPropertiesManager	 = new CPropertiesManager();
 	m_pAnimatedStatesManager = new CAnimationsStatesManager();
 	
 	if ( !Load( "./data/xml/characters_properties.xml", "./data/xml/characters_animated_states.xml" ) )
 	{
 		LOGGER->AddNewLog ( ELL_ERROR, "CCharactersManager::Initialize-> Errors in the initialization when loading properties and states", _NumEnemies );
 		return false;
-	}*/
+	}
 	
 	LOGGER->AddNewLog ( ELL_INFORMATION, "CCharactersManager::Initialize-> Initialization succesful", _NumEnemies );
 	return true;
@@ -90,9 +75,9 @@ bool CCharactersManager::Initialize ( int _NumEnemies )
 
 void CCharactersManager::CleanUp ( void )
 {
-	//CHECKED_DELETE ( m_pPropertiesManager );		// Eliminamos las propiedades por defecto
-	//CHECKED_DELETE ( m_pAnimatedStatesManager );	// Eliminamos los estados por defecto
-	//CHECKED_DELETE ( m_pPlayer );
+	CHECKED_DELETE ( m_pPropertiesManager );		// Eliminamos las propiedades por defecto
+	CHECKED_DELETE ( m_pAnimatedStatesManager );	// Eliminamos los estados por defecto
+	m_pPlayer = NULL;
 	Destroy();
 }
 
@@ -102,8 +87,8 @@ void CCharactersManager::CleanUp ( void )
 bool CCharactersManager::Load( const std::string &_PropertyFileName, const std::string &_AnimatedStatesFileName )
 {
 	LOGGER->AddNewLog ( ELL_INFORMATION, "CCharactersManager::Load-->Loading characters, properties and states" );
-	m_PropertiesFileName	= _PropertyFileName;
-	m_AnimatedFileName		= _AnimatedStatesFileName;
+	m_PropertiesFileName = _PropertyFileName;
+	m_AnimatedFileName = _AnimatedStatesFileName;
 	return LoadXML();
 }
 
@@ -138,12 +123,12 @@ void CCharactersManager::Update ( float _ElapsedTime )
 	m_pPlayer->Update( _ElapsedTime );
 
 	// Actualitzem l'enemic
-	//TVectorResources l_EnemyList = GetResourcesVector();
-	//for ( size_t i = 0; i < l_EnemyList.size(); i++ )
-	//{
-	//	// solo para test de movimiento!!
-	//	l_EnemyList[i]->Update( _ElapsedTime );
-	//}
+	TVectorResources l_EnemyList = GetResourcesVector();
+	for ( size_t i = 0; i < l_EnemyList.size(); i++ )
+	{
+		// TODO: solo para test de movimiento!!
+		l_EnemyList[i]->Update( _ElapsedTime );
+	}
 	
 }
 
@@ -163,35 +148,36 @@ void CCharactersManager::Render	( void )
 bool CCharactersManager::LoadXMLProperties( void )
 {
 	bool l_IsOk = true;
-	//CXMLTreeNode l_File;
-	//if ( !l_File.LoadFile( m_PropertiesFileName.c_str() ) )
-	//{
-	//	std::string msg_error = "CCharactersManager::LoadXML->Error trying to read the characters properties file : " + m_PropertiesFileName;
-	//	LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
-	//	return false;
-	//}
+	CXMLTreeNode l_File;
+	if ( !l_File.LoadFile( m_PropertiesFileName.c_str() ) )
+	{
+		std::string msg_error = "CCharactersManager::LoadXML->Error trying to read the characters properties file : " + m_PropertiesFileName;
+		LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
+		return false;
+	}
 
-	//// Por cada elemento cargamos las correspondientes propiedades
-	//CXMLTreeNode l_Characters = l_File["characters"];
-	//if( l_Characters.Exists() )
-	//{
-	//	uint16 l_Count = l_Characters.GetNumChildren();
-	//	for ( uint16 i = 0; i < l_Count; ++i )
-	//	{
-	//		std::string l_Type = l_Characters(i).GetName();
-	//		// Cargamos las propiedades de los cores
-	//		if( l_Type == "default_properties" )
-	//			l_IsOk = LoadDefaultCoreProperties( l_Characters(i) );
-
-	//		// Cargamos las propiedades del player
-	//		else if( l_Type == "player" )
-	//			l_IsOk &= LoadPlayerProperties( l_Characters(i) );
-
-	//		// Cargamos las propiedades de los enemigos
-	//		else if( l_Type == "enemies" )
-	//			l_IsOk &= LoadEnemiesProperties( l_Characters(i) );
-	//	}
-	//}
+	// Por cada elemento cargamos las correspondientes propiedades
+	CXMLTreeNode l_Characters = l_File["characters"];
+	if( l_Characters.Exists() )
+	{
+		uint16 l_Count = l_Characters.GetNumChildren();
+		for ( uint16 i = 0; i < l_Count; ++i )
+		{
+			std::string l_Type = l_Characters(i).GetName();
+			if( l_Type == "default_properties" ) // Cargamos las propiedades de los cores
+			{
+				l_IsOk = LoadDefaultCoreProperties( l_Characters(i) );
+			}
+			else if( l_Type == "player" ) // Cargamos las propiedades del player
+			{
+				l_IsOk &= LoadPlayerProperties( l_Characters(i) );
+			}
+			else if( l_Type == "enemies" ) // Cargamos las propiedades de los enemigos
+			{
+				//l_IsOk &= LoadEnemiesProperties( l_Characters(i) );
+			}
+		}
+	}
 	return l_IsOk;
 }
 
@@ -202,35 +188,36 @@ bool CCharactersManager::LoadXMLProperties( void )
 bool CCharactersManager::LoadXMLAnimatedStates( void )
 {
 	bool l_IsOk = true;
-	//CXMLTreeNode l_File;
-	//if ( !l_File.LoadFile( m_AnimatedFileName.c_str() ) )
-	//{
-	//	std::string msg_error = "CCharactersManager::LoadXML->Error trying to read the characters states file : " + m_AnimatedFileName;
-	//	LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
-	//	return false;
-	//}
+	CXMLTreeNode l_File;
+	if ( !l_File.LoadFile( m_AnimatedFileName.c_str() ) )
+	{
+		std::string msg_error = "CCharactersManager::LoadXML->Error trying to read the characters states file : " + m_AnimatedFileName;
+		LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
+		return false;
+	}
 
-	//// Por cada elemento cargamos los correspondientes estados
-	//CXMLTreeNode l_Characters = l_File["characters"];
-	//if( l_Characters.Exists() )
-	//{
-	//	uint16 l_Count = l_Characters.GetNumChildren();
-	//	for ( uint16 i = 0; i < l_Count; ++i )
-	//	{
-	//		std::string l_Type = l_Characters(i).GetName();
-	//		// Cargamos los estados de los cores
-	//		if( l_Type == "default_states" )
-	//			l_IsOk = LoadDefaultCoreAnimatedStates( l_Characters(i) );
-
-	//		// Cargamos los estados del player
-	//		else if( l_Type == "player" )
-	//			l_IsOk &= LoadPlayerAnimationStates( l_Characters(i) );
-
-	//		// Cargamos los estados de los enemigos
-	//		else if( l_Type == "enemies" )
-	//			l_IsOk &= LoadEnemiesAnimationStates( l_Characters(i) );
-	//	}
-	//}
+	// Por cada elemento cargamos los correspondientes estados
+	CXMLTreeNode l_Characters = l_File["characters"];
+	if( l_Characters.Exists() )
+	{
+		uint16 l_Count = l_Characters.GetNumChildren();
+		for ( uint16 i = 0; i < l_Count; ++i )
+		{
+			std::string l_Type = l_Characters(i).GetName();
+			if( l_Type == "default_states" ) // Cargamos los estados de los cores
+			{
+				l_IsOk = LoadDefaultCoreAnimatedStates( l_Characters(i) );
+			}
+			else if( l_Type == "player" ) // Cargamos los estados del player
+			{
+				l_IsOk &= LoadPlayerAnimationStates( l_Characters(i) );
+			}
+			else if( l_Type == "enemies" ) // Cargamos los estados de los enemigos
+			{
+				//l_IsOk &= LoadEnemiesAnimationStates( l_Characters(i) );
+			}
+		}
+	}
 	return l_IsOk;
 }
 
@@ -240,8 +227,7 @@ bool CCharactersManager::LoadXMLAnimatedStates( void )
 //-------------------------------------------------------------------------------------------------------------
 bool CCharactersManager::LoadDefaultCoreProperties( const CXMLTreeNode &_Node )
 {
-	//return m_pPropertiesManager->LoadDefaultProperties( _Node );
-	return true;
+	return m_pPropertiesManager->LoadDefaultProperties( _Node );
 }
 
 //-------------------------------------------------------------------------------------------------------------
@@ -251,27 +237,27 @@ bool CCharactersManager::LoadDefaultCoreProperties( const CXMLTreeNode &_Node )
 bool CCharactersManager::LoadPlayerProperties( const CXMLTreeNode &_Node )
 {
 	bool l_IsOk = true;
-	// Si no existe el player lo creamos
-	//if ( !m_pPlayer )
-	//	m_pPlayer = new CPlayer( );
 
-	//// Obtenemos las propiedades del player
-	//CProperties* l_PlayerProperties = m_pPropertiesManager->LoadPlayerProperties( _Node ); 
-	//if ( l_PlayerProperties )
-	//{
-	//	//asignamos las propiedades al player
-	//	m_pPlayer->SetProperties ( l_PlayerProperties );
-	//	
-	//	// Inicializamos el player, sus estados, mayas animadas...
-	//	m_pPlayer->Init();
+	// Si no existe el player lo creamos en LUA
+	if ( !m_pPlayer )
+		SCRIPT->RunCode("add_player()");
 
-	//	l_IsOk = true;
-	//}
-	//else 
-	//{
-	//	m_pPlayer->SetProperties ( l_PlayerProperties );
-	//	l_IsOk = false;
-	//}
+	// Obtenemos las propiedades del player
+	CProperties* l_PlayerProperties = m_pPropertiesManager->LoadPlayerProperties( _Node ); 
+	if ( l_PlayerProperties )
+	{
+		//asignamos las propiedades al player
+		m_pPlayer->SetProperties( l_PlayerProperties );
+		
+		// Inicializamos el player, sus estados, mayas animadas...
+		m_pPlayer->Initialize( l_PlayerProperties->GetName(), l_PlayerProperties->GetPosition(), ::ECG_PERSONATGE );
+		l_IsOk = m_pPlayer->Init();		// Llamada a Lua
+	}
+	else 
+	{
+		m_pPlayer->SetProperties( l_PlayerProperties );
+		l_IsOk = false;
+	}
 
 	//l_IsOk &= m_pPlayer->Init();
 	return l_IsOk;
@@ -286,83 +272,84 @@ bool CCharactersManager::LoadEnemiesProperties( const CXMLTreeNode &_Node )
 	LOGGER->AddNewLog ( ELL_INFORMATION, "CCharactersManager::LoadEnemiesProperties-->Loading enemies and properties." );
 	
 	bool l_IsOk = true;
-	//int  l_NextIDValid = m_pPlayer->GetID() + 1;
+	int  l_NextIDValid = m_pPlayer->GetID() + 1;
 
-	//CXMLTreeNode l_EnemiesNode = _Node;
-	//std::string l_Type = l_EnemiesNode.GetName();		// Les propietats van primer
-	//if( l_Type == "enemies" )
-	//{
-	//	uint16 l_Count = l_EnemiesNode.GetNumChildren();
-	//	for ( uint16 i = 0; i < l_Count; ++i )
-	//	{
-	//		l_Type = l_EnemiesNode(i).GetName();
-	//		if (  l_Type == "enemy" )
-	//		{
-	//			CProperties* l_EnemyProperties = m_pPropertiesManager->LoadEnemyProperties( l_EnemiesNode(i) ); 
-	//			if ( l_EnemyProperties )
-	//			{
-	//				CCharacter* l_Character = GetResource( l_EnemyProperties->GetName() );
-	//				CEnemy* l_Enemy = NULL;
-	//				if ( !l_Character )
-	//					l_Enemy = new CEnemy(l_NextIDValid);
-	//				else
-	//					l_Enemy = dynamic_cast<CEnemy*> (l_Character);
+	CXMLTreeNode l_EnemiesNode = _Node;
+	std::string l_Type = l_EnemiesNode.GetName();		// Les propietats van primer
+	if( l_Type == "enemies" )
+	{
+		uint16 l_Count = l_EnemiesNode.GetNumChildren();
+		for ( uint16 i = 0; i < l_Count; ++i )
+		{
+			/*l_Type = l_EnemiesNode(i).GetName();
+			if (  l_Type == "enemy" )
+			{
+				CProperties* l_EnemyProperties = m_pPropertiesManager->LoadEnemyProperties( l_EnemiesNode(i) ); 
+				if ( l_EnemyProperties )
+				{
+					CCharacter* l_Character = GetResource( l_EnemyProperties->GetName() );
+					CEnemy* l_Enemy = NULL;
+					if ( !l_Character )
+						l_Enemy = new CEnemy(l_NextIDValid);
+					else
+						l_Enemy = dynamic_cast<CEnemy*> (l_Character);
 
-	//				l_Enemy->SetProperties ( l_EnemyProperties );
-	//				l_Enemy->Init();
-	//				AddEnemy ( l_Enemy );
-	//				l_NextIDValid += 1;
-	//				l_IsOk = true;
-	//			}
-	//			else 
-	//			{
-	//				std::string msg_error = "CCharactersManager::LoadEnemiesProperties--> Error when trying to load enemy properties : " + l_Type;
-	//				LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
-	//				l_IsOk = false;
-	//			}
-	//		}
-	//		else if ( l_Type != "comment" ) 
-	//		{
-	//			std::string msg_error = "CCharactersManager::LoadEnemiesProperties--> Error, it cannot read the command line : " + l_Type;
-	//			LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
-	//		}
-	//	}
-	//}
-	//else 
-	//{
-	//	std::string msg_error = "CCharactersManager::LoadEnemiesProperties --> Error when trying to load enemies properties : " + l_Type;
-	//	LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
-	//	return false;
-	//}
+					l_Enemy->SetProperties ( l_EnemyProperties );
+					l_Enemy->Init();
+					AddEnemy ( l_Enemy );
+					l_NextIDValid += 1;
+					l_IsOk = true;
+				}
+				else 
+				{
+					std::string msg_error = "CCharactersManager::LoadEnemiesProperties--> Error when trying to load enemy properties : " + l_Type;
+					LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
+					l_IsOk = false;
+				}
+			}
+			else if ( l_Type != "comment" ) 
+			{
+				std::string msg_error = "CCharactersManager::LoadEnemiesProperties--> Error, it cannot read the command line : " + l_Type;
+				LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
+			}*/
+		}
+	}
+	else 
+	{
+		std::string msg_error = "CCharactersManager::LoadEnemiesProperties --> Error when trying to load enemies properties : " + l_Type;
+		LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
+		return false;
+	}
 	return l_IsOk;
 }
 
 bool CCharactersManager::LoadDefaultCoreAnimatedStates( const CXMLTreeNode &_Node )
 {
-	//return m_pAnimatedStatesManager->LoadDefaultAnimationsStates( _Node );
-	return true;
+	return m_pAnimatedStatesManager->LoadDefaultAnimationsStates( _Node );
 }
 
 bool CCharactersManager::LoadPlayerAnimationStates( const CXMLTreeNode &_Node )
 {
-	bool l_IsOk = true;
-	// Si no existe el player lo creamos
-	//if ( !m_pPlayer )
-	//	m_pPlayer = new CPlayer( );
+	bool l_IsOk;
+	
+	// Si no existe el player lo creamos en LUA
+	if ( !m_pPlayer )
+		SCRIPT->RunCode("add_player()");
 
-	//// Obtenemos los estados del player
-	//CAnimationsStates* l_PlayerAnimationsStates = m_pAnimatedStatesManager->LoadPlayerAnimationsStates( _Node ); 
-	//if ( l_PlayerAnimationsStates )
-	//{
-	//	//asignamos los estados al player
-	//	m_pPlayer->SetAnimationsStates( l_PlayerAnimationsStates );
-	//	l_IsOk = true;
-	//}
-	//else 
-	//{
-	//	m_pPlayer->SetAnimationsStates ( l_PlayerAnimationsStates );
-	//	l_IsOk = false;
-	//}
+
+	// Obtenemos los estados del player
+	CAnimationsStates* l_PlayerAnimationsStates = m_pAnimatedStatesManager->LoadPlayerAnimationsStates( _Node ); 
+	if ( l_PlayerAnimationsStates )
+	{
+		//asignamos los estados al player
+		m_pPlayer->SetAnimationsStates( l_PlayerAnimationsStates );
+		l_IsOk = true;
+	}
+	else 
+	{
+		m_pPlayer->SetAnimationsStates ( l_PlayerAnimationsStates );
+		l_IsOk = false;
+	}
 
 	return l_IsOk;
 }
@@ -372,64 +359,64 @@ bool CCharactersManager::LoadEnemiesAnimationStates( const CXMLTreeNode &_Node )
 	LOGGER->AddNewLog ( ELL_INFORMATION, "CCharactersManager::LoadEnemiesAnimationStates-->Loading enemies animations states." );
 	
 	bool l_IsOk = true;
-	//int  l_NextIDValid = m_pPlayer->GetID() + 1;
+	int  l_NextIDValid = m_pPlayer->GetID() + 1;
 
-	//CXMLTreeNode l_EnemiesNode = _Node;
-	//std::string l_Type = l_EnemiesNode.GetName();		// Les propietats van primer
-	//if( l_Type == "enemies" )
-	//{
-	//	uint16 l_Count = l_EnemiesNode.GetNumChildren();
-	//	for ( uint16 i = 0; i < l_Count; ++i )
-	//	{
-	//		l_Type = l_EnemiesNode(i).GetName();
-	//		if (  l_Type == "enemy" )
-	//		{
-	//			CAnimationsStates* l_EnemyStates = m_pAnimatedStatesManager->LoadEnemyAnimationsStates( l_EnemiesNode(i) ); 
-	//			if ( l_EnemyStates )
-	//			{
-	//				std::string l_EnemyName = l_EnemiesNode(i).GetPszProperty( "name", "", true );
-	//				CCharacter* l_Character = GetResource( l_EnemyName );
-	//				CEnemy* l_Enemy = NULL;
-	//				if ( !l_Character )
-	//				{
-	//					std::string msg_error = "CCharactersManager::LoadEnemiesAnimationStates--> Error, enemy " + l_EnemyName + " no found";
-	//					LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
-	//					l_IsOk &= false;
-	//				}
-	//				else
-	//				{
-	//					l_Enemy = dynamic_cast<CEnemy*> (l_Character);
-	//					l_Enemy->SetAnimationsStates( l_EnemyStates );
-	//					l_IsOk &= true;
-	//				}
-	//			}
-	//			else 
-	//			{
-	//				std::string msg_error = "CCharactersManager::LoadEnemiesProperties--> Error when trying to load enemy properties : " + l_Type;
-	//				LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
-	//				l_IsOk = false;
-	//			}
-	//		}
-	//		else if ( l_Type != "comment" ) 
-	//		{
-	//			std::string msg_error = "CCharactersManager::LoadEnemiesProperties--> Error, it cannot read the command line : " + l_Type;
-	//			LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
-	//		}
-	//	}
-	//}
-	//else 
-	//{
-	//	std::string msg_error = "CCharactersManager::LoadEnemiesProperties --> Error when trying to load enemies properties : " + l_Type;
-	//	LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
-	//	return false;
-	//}
+	CXMLTreeNode l_EnemiesNode = _Node;
+	std::string l_Type = l_EnemiesNode.GetName();		// Les propietats van primer
+	if( l_Type == "enemies" )
+	{
+		uint16 l_Count = l_EnemiesNode.GetNumChildren();
+		for ( uint16 i = 0; i < l_Count; ++i )
+		{
+			/*l_Type = l_EnemiesNode(i).GetName();
+			if (  l_Type == "enemy" )
+			{
+				CAnimationsStates* l_EnemyStates = m_pAnimatedStatesManager->LoadEnemyAnimationsStates( l_EnemiesNode(i) ); 
+				if ( l_EnemyStates )
+				{
+					std::string l_EnemyName = l_EnemiesNode(i).GetPszProperty( "name", "", true );
+					CCharacter* l_Character = GetResource( l_EnemyName );
+					CEnemy* l_Enemy = NULL;
+					if ( !l_Character )
+					{
+						std::string msg_error = "CCharactersManager::LoadEnemiesAnimationStates--> Error, enemy " + l_EnemyName + " no found";
+						LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
+						l_IsOk &= false;
+					}
+					else
+					{
+						l_Enemy = dynamic_cast<CEnemy*> (l_Character);
+						l_Enemy->SetAnimationsStates( l_EnemyStates );
+						l_IsOk &= true;
+					}
+				}
+				else 
+				{
+					std::string msg_error = "CCharactersManager::LoadEnemiesProperties--> Error when trying to load enemy properties : " + l_Type;
+					LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
+					l_IsOk = false;
+				}
+			}
+			else if ( l_Type != "comment" ) 
+			{
+				std::string msg_error = "CCharactersManager::LoadEnemiesProperties--> Error, it cannot read the command line : " + l_Type;
+				LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
+			}*/
+		}
+	}
+	else 
+	{
+		std::string msg_error = "CCharactersManager::LoadEnemiesProperties --> Error when trying to load enemies properties : " + l_Type;
+		LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
+		return false;
+	}
 	return l_IsOk;
 }
 
-//void CCharactersManager::AddEnemy ( CEnemy *_pEnemy )
-//{
-//	AddResource ( _pEnemy->GetProperties()->GetName(), _pEnemy );
-//}
+void CCharactersManager::AddEnemy ( CCharacter *_pEnemy )
+{
+	//AddResource ( _pEnemy->GetProperties()->GetName(), _pEnemy );
+}
 
 // ---------------------------------------------------------------------------------------------------------
 // CreateRandomEnemy: Crea enemigo de forma aleatoria entre unas coordenadas especificas y lo añade al mapa
@@ -542,11 +529,6 @@ Vect3f CCharactersManager::RandomVector( const Vect3f &_Vect1, const Vect3f &_Ve
 	return ( Vect3f ( fRandX, fRandY, fRandZ ) );
 }
 
-void CCharactersManager::SetPlayer(CCharacter *player)
-{
-	m_pPlayer = player;
-}
-
 void CCharactersManager::RegisterMethods()
 {
 	lua_State *state = SCRIPT->GetLuaState();
@@ -554,6 +536,7 @@ void CCharactersManager::RegisterMethods()
 	module(state) [
 		class_<CCharactersManager>("CCharactersManager")
 			.def("set_player", &CCharactersManager::SetPlayer)
+			.def("add_enemy", &CCharactersManager::AddEnemy)
 	];
 
 	CCharacter::RegisterMethods();

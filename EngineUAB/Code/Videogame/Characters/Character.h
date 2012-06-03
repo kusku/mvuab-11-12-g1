@@ -17,11 +17,9 @@
 #include "PhysicsDefs.h"
 
 //--- Foward Declarations ---//
-//class CState;
+class CProperties;
 class CPhysicController;
 class CPhysicUserData;
-class CIdleState;
-class CPursuitState;
 class CAnimationsStates;
 struct Telegram;
 //---------------------------//
@@ -38,10 +36,11 @@ public:
 	static void			RegisterMethods();
 
 	//----Main Functions --------------------------------------
-	virtual bool				Init				( const std::string &_Name, const Vect3f &_InitialPosition, ECollisionGroup _Group );
-	virtual bool				HandleMessage		( const Telegram& _Msg, bool _Logic = true, bool _Graphic = true  );		// Envia telegramas a las máquinas de estados
-	virtual bool				HandleMessage		( const Telegram& _Msg );
-	virtual void				Update				( float _ElapsedTime );
+	virtual bool			Initialize			( const std::string &_Name, const Vect3f &_InitialPosicion, ECollisionGroup _Grup );
+	virtual bool			Init				();
+	virtual bool			HandleMessage		( const Telegram& _Msg, bool _Logic = true, bool _Graphic = true  );		// Envia telegramas a las máquinas de estados
+	virtual bool			HandleMessage		( const Telegram& _Msg );
+	virtual void			Update				( float _ElapsedTime );
 
 	//----Functions -------------------------------------------
 	void						MoveController		( const Vect3f &_Dir, float _ElapsedTime );
@@ -52,6 +51,7 @@ public:
 	inline CPhysicController*				GetController		() const			{ return m_pController; }
 	inline CAnimatedInstanceModel*			GetAnimatedModel	() const			{ return m_pCurrentAnimatedModel; }
 
+	inline int								GetAnimationId		( const std::string _AnimationName ) const;
 
 	void						SetPrevPosition		( Vect3f pos )			{ m_PrevPosition = pos; }
 	const Vect3f&				GetPrevPosition		() const				{ return m_PrevPosition; }
@@ -72,6 +72,10 @@ public:
 	inline void					SetAnimationsStates	( CAnimationsStates* _pAnimationsStates )			{ m_pAnimationsStates = _pAnimationsStates; }
 	inline CAnimationsStates*	GetAnimationsStates	() const										{ return m_pAnimationsStates; }
 
+	inline void					SetProperties		( CProperties* _pProperties )				{ m_pProperties = _pProperties; }
+	inline CProperties*			GetProperties		( void ) const								{ return m_pProperties; }
+
+
 	//----Members )--------------------------------------------
 private:
 	bool			m_bIsOk;
@@ -83,6 +87,7 @@ protected:
 	CAnimatedInstanceModel		  * m_pCurrentAnimatedModel;	// Part de gráfics. Manté un punté a l'animació en curs
 
 	CAnimationsStates			  *	m_pAnimationsStates;
+	CProperties					  *	m_pProperties;
 
 	CPhysicController			  * m_pController;
 	CPhysicUserData				  * m_pPhysicUserDataJugador;

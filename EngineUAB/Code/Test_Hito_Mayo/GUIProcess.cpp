@@ -39,7 +39,7 @@ bool CGUIProcess::Init()
 	m_StaticCamera.SetRoll(0.0f);
 
 	float aspect = CORE->GetRenderManager()->GetAspectRatio();
-	m_pThPSCamera = new CThPSCamera(1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_StaticCamera, 10.0f, 0.f, "Static");
+	m_pThPSCamera = new CThPSCamera(1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_StaticCamera, 10.0f, 0.f, 0.f, "Static");
 	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
 	CORE->SetCamera(m_pCamera);
 

@@ -1166,6 +1166,7 @@ void CPhysicsManager::RegisterMethods()
 	module(state) [
 		class_<CPhysicController, CObject3D>("CPhysicController")
 			.def("move", &CPhysicController::Move)
+			.def("jump", &CPhysicController::Jump)
 			.property("height", &CPhysicController::GetHeight)
 	];
 }

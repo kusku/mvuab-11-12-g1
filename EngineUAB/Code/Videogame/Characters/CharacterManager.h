@@ -15,13 +15,11 @@
 
 //--- Foward Declarations ---
 class CRenderableObjectsManager;
-//class CPropertiesManager;
-//class CAnimationsStatesManager;
-//class CPlayer;
-//class CEnemy;
+class CPropertiesManager;
+class CAnimationsStatesManager;
 //---------------------------
 
-class CCharactersManager : public CTemplatedVectorMapManager<CCharacter> //public CRandomHelper
+class CCharactersManager : public CTemplatedVectorMapManager<CCharacter>
 {
 public:
 	CCharactersManager	();
@@ -37,13 +35,12 @@ public:
 	void			Render			();
 
 	// ------------- Methods --------------------------------
-	//void			AddEnemy					( CEnemy *_pEnemy );				// Afegeix un enemic ja creat
+	void			AddEnemy					( CCharacter *_pEnemy );	// Afegeix un enemic ja creat
 	void			CreateEnemy					();							// Crea i afegeix un enemic ja creat
 	void			CreateRandomEnemy			();							// Crea i afegeix un enemic aleatori
 	bool			LoadXMLProperties			();							// Carga el XML de propiedades
 	bool			LoadXMLAnimatedStates		();							// Carga el XML de estados
 
-	//	void					DrawActors					( void );
 	
 	// ------------- Propietats ( Get / Set ) ----------------
 	TVectorResources	GetEnemiesVector		() const				{ return m_ResourcesVector; }
@@ -51,7 +48,7 @@ public:
 	int					GetTotalEnemies			() const				{ return m_ResourcesVector.size(); }
 	CCharacter*			GetPlayer				() const				{ return m_pPlayer; }
 	
-	void				SetPlayer	(CCharacter *player);
+	inline void			SetPlayer	(CCharacter *player)				{ m_pPlayer = player; }
 
 private:
 	bool	LoadXML							();							// Carga el XML de propiedades y estados
@@ -68,8 +65,8 @@ private:
 	std::string					m_PropertiesFileName;
 	std::string					m_AnimatedFileName;
 
-	//CPropertiesManager			*m_pPropertiesManager;
-	//CAnimationsStatesManager	*m_pAnimatedStatesManager;
+	CPropertiesManager			*m_pPropertiesManager;
+	CAnimationsStatesManager	*m_pAnimatedStatesManager;
 
 	CCharacter					*m_pPlayer;
 };
