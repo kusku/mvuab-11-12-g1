@@ -50,28 +50,28 @@ void CFreeCamera::Update(float _ElapsedTime, CCamera *camera)
 		if( action2Input->DoAction( "MovePlayerLeft" ) )
 		{
 			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw + ePIf/4.f), m_fPitch, mathUtils::Sin<float>(m_fYaw + ePIf/4.f));
-			m_Position += m_Dir * MOMENTUM * _ElapsedTime;
+			m_Position += m_Dir * VELOCITY_FREE_CAMERA * _ElapsedTime;
 		}
 		else if( action2Input->DoAction( "MovePlayerRight" ) )
 		{
 			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw - ePIf/4.f), m_fPitch, mathUtils::Sin<float>(m_fYaw - ePIf/4.f));
-			m_Position += m_Dir * MOMENTUM * _ElapsedTime;
+			m_Position += m_Dir * VELOCITY_FREE_CAMERA * _ElapsedTime;
 		}
 		else
 		{
 			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw), m_fPitch, mathUtils::Sin<float>(m_fYaw));
-			m_Position += m_Dir * MOMENTUM * _ElapsedTime;
+			m_Position += m_Dir * VELOCITY_FREE_CAMERA * _ElapsedTime;
 		}
 
 		if ( action2Input->DoAction( "MoveCameraUp" ) )
 		{
 			m_Dir = Vect3f ( 0 , 1, 0 );
-			m_Position -= m_Dir * MOMENTUM * _ElapsedTime;
+			m_Position -= m_Dir * VELOCITY_FREE_CAMERA * _ElapsedTime;
 		}
 		else if( action2Input->DoAction( "MoveCameraDown" ) )
 		{
 			m_Dir = Vect3f ( 0, 1, 0 );
-			m_Position += m_Dir * MOMENTUM * _ElapsedTime;
+			m_Position += m_Dir * VELOCITY_FREE_CAMERA * _ElapsedTime;
 		}
 
 	}
@@ -80,28 +80,28 @@ void CFreeCamera::Update(float _ElapsedTime, CCamera *camera)
 		if( action2Input->DoAction( "MovePlayerLeft" ) )
 		{
 			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw - ePIf/4.f), m_fPitch, mathUtils::Sin<float>(m_fYaw - ePIf/4.f));
-			m_Position -= m_Dir * MOMENTUM * _ElapsedTime;
+			m_Position -= m_Dir * VELOCITY_FREE_CAMERA * _ElapsedTime;
 		}
 		else if( action2Input->DoAction( "MovePlayerRight" ) )
 		{
 			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw + ePIf/4.f), m_fPitch, mathUtils::Sin<float>(m_fYaw + ePIf/4.f));
-			m_Position -= m_Dir * MOMENTUM * _ElapsedTime;
+			m_Position -= m_Dir * VELOCITY_FREE_CAMERA * _ElapsedTime;
 		}
 		else
 		{
 			m_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw), m_fPitch, mathUtils::Sin<float>(m_fYaw));
-			m_Position -= m_Dir * MOMENTUM * _ElapsedTime;
+			m_Position -= m_Dir * VELOCITY_FREE_CAMERA * _ElapsedTime;
 		}
 
 		if ( action2Input->DoAction( "MoveCameraUp" ) )
 		{
 			m_Dir = Vect3f ( 0 , 1, 0 );
-			m_Position -= m_Dir * MOMENTUM * _ElapsedTime;
+			m_Position -= m_Dir * VELOCITY_FREE_CAMERA * _ElapsedTime;
 		}
 		else if( action2Input->DoAction( "MoveCameraDown" ) )
 		{
 			m_Dir = Vect3f ( 0, 1, 0 );
-			m_Position += m_Dir * MOMENTUM * _ElapsedTime;
+			m_Position += m_Dir * VELOCITY_FREE_CAMERA * _ElapsedTime;
 		}
 	}
 	else
@@ -109,25 +109,25 @@ void CFreeCamera::Update(float _ElapsedTime, CCamera *camera)
 		if( action2Input->DoAction( "MovePlayerLeft" ) )
 		{
 			m_Dir = Vect3f(cosf(m_fYaw + ePIf/2.f), 0.0f, sinf(m_fYaw + ePIf/2.f));
-			m_Position += m_Dir * MOMENTUM * _ElapsedTime;
+			m_Position += m_Dir * VELOCITY_FREE_CAMERA * _ElapsedTime;
 		}
 
 		if( action2Input->DoAction( "MovePlayerRight" ) )
 		{
 			m_Dir = Vect3f(cosf(m_fYaw + ePIf/2.f), 0.0f, sinf(m_fYaw + ePIf/2.f));
-			m_Position -= m_Dir * MOMENTUM * _ElapsedTime;
+			m_Position -= m_Dir * VELOCITY_FREE_CAMERA * _ElapsedTime;
 		}
 		
 		if ( action2Input->DoAction( "MoveCameraUp") )
 		{
 			m_Dir = Vect3f ( 0 , 1, 0 );
-			m_Position -= m_Dir * MOMENTUM * _ElapsedTime;
+			m_Position -= m_Dir * VELOCITY_FREE_CAMERA * _ElapsedTime;
 		}
 		
 		if( action2Input->DoAction( "MoveCameraDown" ) )
 		{
 			m_Dir = Vect3f ( 0, 1, 0 );
-			m_Position += m_Dir * MOMENTUM * _ElapsedTime;
+			m_Position += m_Dir * VELOCITY_FREE_CAMERA * _ElapsedTime;
 		}
 	}
 }

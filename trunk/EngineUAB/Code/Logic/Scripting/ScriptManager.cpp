@@ -178,11 +178,6 @@ bool CScriptManager::LoadXML ( void )
 // Ejemplo de "Exposing a C/C++ Function to Lua"
 void PrintLogger(int Level, const std::string &Msg)
 {
-	// Ejemplo de conexión con LUA
-	/*char l_Text[256];
-	_snprintf_s(l_Text,256,256,"update_mi_ia_molona(%f)", ElapsedTime);*/
-	/*CORE->GetScriptManager()->RunCode(l_Text);
-	CPlayer *l_Player=luabind::call_function<CPlayer *>(LUA_STATE, "update_mi_ia_molona", luabind::object<CPlayer*>(m_Player), luabind::object<CPlayer*>(m_Player), luabind::object<CPlayer*>(m_Player));*/
 	switch(Level)
 	{
 	case 0:

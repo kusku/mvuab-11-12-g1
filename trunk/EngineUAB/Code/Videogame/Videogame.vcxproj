@@ -94,8 +94,13 @@
     <ClCompile Include="Cameras\StaticCamera.cpp" />
     <ClCompile Include="Characters\Character.cpp" />
     <ClCompile Include="Characters\CharacterManager.cpp" />
+    <ClCompile Include="Characters\Properties\Properties.cpp" />
+    <ClCompile Include="Characters\Properties\PropertiesManager.cpp" />
+    <ClCompile Include="Characters\States\AnimationsStates.cpp" />
+    <ClCompile Include="Characters\States\AnimationsStatesManager.cpp" />
     <ClCompile Include="GameProcess.cpp" />
     <ClCompile Include="GUIProcess.cpp" />
+    <ClCompile Include="RegisterToLua.cpp" />
     <ClCompile Include="videogame.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -103,8 +108,15 @@
     <ClInclude Include="Cameras\StaticCamera.h" />
     <ClInclude Include="Characters\Character.h" />
     <ClInclude Include="Characters\CharacterManager.h" />
+    <ClInclude Include="Characters\CharacterWrapper.h" />
+    <ClInclude Include="Characters\Properties\Properties.h" />
+    <ClInclude Include="Characters\Properties\PropertiesManager.h" />
+    <ClInclude Include="Characters\States\AnimationsStates.h" />
+    <ClInclude Include="Characters\States\AnimationsStatesManager.h" />
+    <ClInclude Include="Characters\States\State_Wrapper.h" />
     <ClInclude Include="GameProcess.h" />
     <ClInclude Include="GUIProcess.h" />
+    <ClInclude Include="RegisterToLua.h" />
     <ClInclude Include="VideogameDefs.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

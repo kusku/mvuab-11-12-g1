@@ -7,6 +7,12 @@
     <Filter Include="Characters">
       <UniqueIdentifier>{f4cb18b0-c5b4-4465-8afe-34c36486a913}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Characters\Properties">
+      <UniqueIdentifier>{f573c5b7-ae52-4aa6-afc1-1db8984ff61e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\States">
+      <UniqueIdentifier>{fbc3703c-6cf7-4ed9-9650-42161e73b469}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="videogame.cpp" />
@@ -24,6 +30,19 @@
     <ClCompile Include="Cameras\FreeCamera.cpp">
       <Filter>Cameras</Filter>
     </ClCompile>
+    <ClCompile Include="Characters\Properties\Properties.cpp">
+      <Filter>Characters\Properties</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Properties\PropertiesManager.cpp">
+      <Filter>Characters\Properties</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\States\AnimationsStates.cpp">
+      <Filter>Characters\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\States\AnimationsStatesManager.cpp">
+      <Filter>Characters\States</Filter>
+    </ClCompile>
+    <ClCompile Include="RegisterToLua.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUIProcess.h" />
@@ -40,6 +59,25 @@
     </ClInclude>
     <ClInclude Include="Cameras\FreeCamera.h">
       <Filter>Cameras</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\CharacterWrapper.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Properties\Properties.h">
+      <Filter>Characters\Properties</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Properties\PropertiesManager.h">
+      <Filter>Characters\Properties</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\States\AnimationsStates.h">
+      <Filter>Characters\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\States\AnimationsStatesManager.h">
+      <Filter>Characters\States</Filter>
+    </ClInclude>
+    <ClInclude Include="RegisterToLua.h" />
+    <ClInclude Include="Characters\States\State_Wrapper.h">
+      <Filter>Characters\States</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

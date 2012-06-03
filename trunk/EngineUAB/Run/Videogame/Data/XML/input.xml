@@ -36,7 +36,7 @@
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN_UP"  Code="KEY_F5"/>
 	</action>
 
-<!--.............MOVIMIENTO PLAYER.................-->
+	<!--.............MOVIMIENTO PLAYER.................-->
 	<action name="MovePlayerUp">
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_W"/>
 	</action>
@@ -53,10 +53,18 @@
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_D"/>
 	</action>
 	
+	<action name="PlayerJump">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_SPACE"/>
+	</action>
+	
 	<action name="YawPlayer">
 		<input deviceType="IDV_MOUSE" AxisType="AXIS_MOUSE_X"     Delta="0.01f"/>
 	</action>
-<!--.............MOVIMIENTO PLAYER.................-->
+	
+	<action name="PitchPlayer">
+		<input deviceType="IDV_MOUSE" AxisType="AXIS_MOUSE_Y"     Delta="0.01f"/>
+	</action>
+	<!--.............MOVIMIENTO PLAYER.................-->
 	
 	<action name="ReloadAll">
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_LCTRL" />

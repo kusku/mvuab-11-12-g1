@@ -24,12 +24,11 @@ public:
 	void			Update				( float _ElapsedTime );
 	void			Render				( CRenderManager &_RM );
 
+	//----Properties ( get & Set )---------------------------------------
+	CCamera*		GetCamera			( void ) const			{ return m_pCamera; }
+
 private:
 	void			UpdateInputs		( float _ElapsedTime );
-
-	//----Properties ( get & Set )----------------------------------------
-public:
-	CCamera*		GetCamera			( void ) const			{ return m_pCamera; }
 
 private:
 	CCharactersManager			*m_pCharactersManager;

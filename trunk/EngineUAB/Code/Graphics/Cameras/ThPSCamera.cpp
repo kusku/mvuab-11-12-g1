@@ -1,14 +1,17 @@
 #include "ThPSCamera.h"
+#include "Scripting\ScriptManager.h"
+#include "Base.h"
 #include <assert.h>
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
 #endif
 
-CThPSCamera::CThPSCamera(float zn, float zf, float fov, float aspect, CObject3D* object3D, float zoom, float height, const std::string &name)
+CThPSCamera::CThPSCamera(float zn, float zf, float fov, float aspect, CObject3D* object3D, float zoom, float heightLookAt, float heightEye, const std::string &name)
 	: CCamera( zn, zf, fov, aspect, object3D, TC_THPS)
 	, m_fZoom( zoom )
-	, m_fHeight( height )
+	, m_fHeightLookAt( heightLookAt )
+	, m_fHeightEye( heightEye )
 {
 	m_Name = name;
 }
@@ -16,7 +19,8 @@ CThPSCamera::CThPSCamera(float zn, float zf, float fov, float aspect, CObject3D*
 CThPSCamera::CThPSCamera()
 	: CCamera()
 	, m_fZoom(50.f)
-	, m_fHeight(0.f)
+	, m_fHeightLookAt(0.f)
+	, m_fHeightEye(0.f)
 {
 }
 
@@ -33,7 +37,7 @@ Vect3f CThPSCamera::GetLookAt () const
 	assert(m_pObject3D);
 
 	Vect3f pos = m_pObject3D->GetPosition();
-	pos.y += m_fHeight;
+	pos.y += m_fHeightLookAt;
 
 	return pos;
 }
@@ -45,7 +49,7 @@ Vect3f CThPSCamera::GetEye () const
 	float yaw = m_pObject3D->GetYaw();
 	float pitch	= m_pObject3D->GetPitch();
 	Vect3f pos = m_pObject3D->GetPosition();
-//	pos.y += m_fHeight;
+	pos.y += m_fHeightEye;
 
 	//Pasamos de coordenadas esfericas a coordenadas cartesianas
 	Vect3f vEyePt(	m_fZoom * cos(yaw) * cos(pitch), 
@@ -91,4 +95,14 @@ void CThPSCamera::AddZoom (float zoom)
 	else if( m_fZoom < m_fZNear*2.f) {
 		m_fZoom = m_fZNear*2.f;
 	}
+}
+
+void CThPSCamera::RegisterMethods()
+{
+	lua_State *state = SCRIPT->GetLuaState();
+
+	module(state) [
+		class_<CThPSCamera, CNamed>("CThPSCamera")
+			.def("get_direction", &CThPSCamera::GetDirection)
+	];
 }

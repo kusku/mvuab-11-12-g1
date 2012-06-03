@@ -3,7 +3,10 @@
 #include "Cameras\Camera.h"
 #include "RenderManager.h"
 #include "Scripting\ScriptManager.h"
+#include "RenderableObjects\RenderableObjectsLayersManager.h"
+#include "RenderableObjects\RenderableObjectsManager.h"
 #include "ActionToInput.h"
+#include "RegisterToLua.h"
 #include "Core.h"
 #include "Base.h"
 
@@ -18,6 +21,7 @@ CGameProcess::CGameProcess(HWND hWnd)
 	: m_hWnd(hWnd)
 	, m_pThPSCamera(NULL)
 	, m_pCharacterManager(NULL)
+	, m_IsOK(false)
 {
 }
 
@@ -25,6 +29,7 @@ CGameProcess::~CGameProcess(void)
 {
 	CHECKED_DELETE(m_pCharacterManager);
 	CHECKED_DELETE( m_pThPSFreeCamera );
+	CHECKED_DELETE( m_pThPSCamera );
 }
 
 bool CGameProcess::Init()
@@ -45,26 +50,30 @@ bool CGameProcess::Init()
 		CORE->GetScriptManager()->RunCode("load_all()");
 	}
 
-	//Carga los scripts del juego
-	CORE->GetScriptManager()->Load("./Data/XML/script_gameplay.xml");
-	CORE->GetScriptManager()->RunCode("init_game_data()");
-
-	//Crea la cámara
-	float aspect = CORE->GetRenderManager()->GetAspectRatio();
-	m_pThPSCamera = new CThPSCamera(1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, m_pCharacterManager->GetPlayer(), 12.0f, 4.f, "Caperucita");
-	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
-	CORE->SetCamera(m_pCamera);
-
 	//Crea una cámara libre de Debug
 	m_FreeCamera.SetPosition(Vect3f( 0.f, 10.f, 0.f));
 	m_FreeCamera.SetPitch(-D3DX_PI/6);
 	m_FreeCamera.SetYaw(0.0f);
 	m_FreeCamera.SetRoll(0.0f);
 
-	m_pThPSFreeCamera = new CThPSCamera( 1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_FreeCamera, 10.0f, 0.f, "Free");
+	float aspect = CORE->GetRenderManager()->GetAspectRatio();
+	m_pThPSFreeCamera = new CThPSCamera( 1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_FreeCamera, 10.0f, 0.f, 0.f, "Free");
 	m_pFreeCamera = static_cast<CCamera*>(m_pThPSFreeCamera);
 
+	//Carga los objetos del juego
+	LoadGameObjects();
+
 	return true;
+}
+
+void CGameProcess::CreatePlayerCamera(float _near, float _far, float _zoom, float _heightEye, float _heightLookAt, const std::string &_name)
+{
+	CHECKED_DELETE( m_pThPSCamera );
+
+	float aspect = CORE->GetRenderManager()->GetAspectRatio();
+	m_pThPSCamera = new CThPSCamera(_near, _far, 45.f * D3DX_PI / 180.f, aspect, m_pCharacterManager->GetPlayer(), _zoom, _heightLookAt, _heightEye, _name);
+	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
+	CORE->SetCamera(m_pCamera);
 }
 
 void CGameProcess::Update(float elapsedTime)
@@ -98,10 +107,46 @@ void CGameProcess::Update(float elapsedTime)
 	}
 
 	m_pCharacterManager->Update(elapsedTime);
+	CORE->GetRenderableObjectsLayersManager()->Update(elapsedTime);
 }
 
 void CGameProcess::Render(CRenderManager &RM)
 {
+}
+
+bool CGameProcess::LoadMainScript( void )
+{
+	return SCRIPT->Load("./Data/XML/script_gameplay.xml");
+}
+
+void CGameProcess::LoadGameObjects()
+{
+	//Crea los datos para el gameplay
+	m_pCharacterManager = new CCharactersManager();
+
+	//Crea escena debug 
+	//m_pScene = new CScene();
+
+	//Carga los scripts del juego
+	m_IsOK = LoadMainScript();
+
+	if ( !m_IsOK )
+		return;
+
+	// por si se desea hacer alguna mariconada...
+	//SCRIPT->RunCode("init_game_data()");
+
+	// Inicializa el gestor de player y enemigos. Carga propiedades y estados de todo.
+	if ( !m_pCharacterManager->Initialize ( ) )
+		return;
+
+	CCharacter * l_Player = m_pCharacterManager->GetPlayer();
+
+	//Crea la cámara
+	/*float l_Aspect = CORE->GetRenderManager()->GetAspectRatio();
+	m_pThPSCamera = new CThPSCamera(1.0f, 10000.f, 45.f * D3DX_PI / 180.f, l_Aspect, m_pCharacterManager->GetPlayer(), 12.0f, 4.f, 0.f, "Caperucita");
+	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
+	CORE->SetCamera(m_pCamera);*/
 }
 
 CGameProcess* CGameProcess::GetGameProcess()
@@ -124,7 +169,14 @@ void CGameProcess::RegisterMethods()
 	module(state) [
 		class_<CGameProcess>("CGameProcess")
 			.def("get_character_manager", &CGameProcess::GetCharacterManager)
+			.def("create_player_camera", &CGameProcess::CreatePlayerCamera)
+			.property("player_camera", &CGameProcess::GetPlayerCamera)
 	];
 
-	CCharactersManager::RegisterMethods();
+	RegisterToLuaBaseGameEntity			( state );
+	RegisterToLuaCharacter				( state );
+	RegisterToLuaCharacterManager		( state );
+	RegisterToLuaStateMachine			( state );
+	RegisterToLuaState					( state );
+	RegisterToLuaProperties				( state );
 }

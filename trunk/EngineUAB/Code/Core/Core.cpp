@@ -50,6 +50,8 @@
 #include "Particles\ParticleEmitterManager.h"
 #include "Particles\ParticleSettingsManager.h"
 
+#include "Cameras\ThPSCamera.h"
+
 #if defined(_DEBUG)
 	#include "Memory\MemLeaks.h"
 #endif
@@ -890,6 +892,7 @@ void CCore::RegisterMethods()
 	];
 
 	CRenderManager::RegisterMethods();
+	CThPSCamera::RegisterMethods();
 	CActionToInput::RegisterMethods();
 	CPhysicsManager::RegisterMethods();
 	CGUIManager::RegisterMethods();
