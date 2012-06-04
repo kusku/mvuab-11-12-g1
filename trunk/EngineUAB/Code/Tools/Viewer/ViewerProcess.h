@@ -8,6 +8,7 @@ class CThPSCamera;
 class CActionToInput;
 
 #include "Player.h"
+#include "FreeCamera.h"
 #include "EngineProcess.h"
 #include "Math\Vector2.h"
 #include "Modifiers\ModifierManager.h"
@@ -33,8 +34,10 @@ protected:
 
 	float yaw;
 	CPlayer m_Player;
+	CFreeCamera m_FreeCamera;
 
-	CThPSCamera *m_pThPSCamera;
+	CThPSCamera		*m_pThPSCamera;
+	CThPSCamera		*m_pFreeCamera;
 };
 
 #endif
