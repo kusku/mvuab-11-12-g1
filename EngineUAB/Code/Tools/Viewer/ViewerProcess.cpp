@@ -33,12 +33,14 @@ CViewerProcess::CViewerProcess()
 	, screen(800,600)
 	, yaw(0.0f)
 	, m_pThPSCamera(NULL)	
+	, m_pFreeCamera(NULL)
 {
 }
 
 CViewerProcess::~CViewerProcess()
 {
 	CHECKED_DELETE( m_pThPSCamera );
+	CHECKED_DELETE( m_pFreeCamera );
 	m_pCamera = NULL;
 }
 
@@ -57,6 +59,12 @@ bool CViewerProcess::Init()
 	m_pThPSCamera = new CThPSCamera( 1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_Player, 10.0f);
 	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
 	CORE->SetCamera( m_pCamera );
+
+	m_FreeCamera.SetPosition(Vect3f( 0.f, 10.f, 0.f));
+	m_FreeCamera.SetPitch(-D3DX_PI/6);
+	m_FreeCamera.SetYaw(0.0f);
+	m_FreeCamera.SetRoll(0.0f);
+	m_pFreeCamera = new CThPSCamera( 1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_FreeCamera, 10.0f);
 
 	CORE->GetScriptManager()->RunCode("load_basics()");
 	CORE->GetScriptManager()->RunCode("load_data()");
@@ -82,6 +90,20 @@ void CViewerProcess::Update(float elapsedTime)
 void CViewerProcess::UpdateInputs(float elapsedTime)
 {
 	CActionToInput *action2Input = CORE->GetActionToInput();
+
+	if( action2Input->DoAction( "CommutationCamera" ) )
+	{
+		if( m_pCamera == m_pThPSCamera )
+		{
+			m_pCamera = m_pFreeCamera;
+			CORE->SetCamera( m_pFreeCamera );
+		}
+		else
+		{
+			m_pCamera = m_pThPSCamera;
+			CORE->SetCamera( m_pThPSCamera );
+		}
+	}
 
 	if( action2Input->DoAction( ACTION_RELOAD_TTFS ) )
 	{

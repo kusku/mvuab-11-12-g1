@@ -91,11 +91,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FreeCamera.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="viewer.cpp" />
     <ClCompile Include="ViewerProcess.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FreeCamera.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ViewerDefs.h" />
     <ClInclude Include="ViewerProcess.h" />

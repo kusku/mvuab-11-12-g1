@@ -10,10 +10,12 @@
     <ClCompile Include="viewer.cpp" />
     <ClCompile Include="ViewerProcess.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="FreeCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ViewerProcess.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ViewerDefs.h" />
+    <ClInclude Include="FreeCamera.h" />
   </ItemGroup>
 </Project>
