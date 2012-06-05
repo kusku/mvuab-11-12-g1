@@ -374,19 +374,32 @@ function ExportSelection selectedObjs outputDir subOutPutDir counterClockwise ex
 		
 		--------------------------------------
 		
-		--------------------------------------
+		local l_IsInstance = getUserProp objPM "is_instance"
+		local l_InstanceName = getUserProp objPM "instance_name"
 		
-		format "Verifying Instance of object. Current number in array % \n" processedObjects.count
-		
-		--------------------------------------
-		
-		--Verify if it is an instance
-		for i = 1 to processedObjects.count do
+		if ( (l_IsInstance == true) AND (l_InstanceName != undefined) ) then
 		(
-			if (areNodesInstances objPM processedObjects[i]) == true then
+			format "Verifying Instance of object. Object is instace \n"
+			
+			t_mesh.IsInstance = true
+			t_mesh.InstanceName = l_InstanceName as string
+		)
+		else
+		(
+			--------------------------------------
+			
+			format "Verifying Instance of object. Current number in array % \n" processedObjects.count
+			
+			--------------------------------------
+			
+			--Verify if it is an instance
+			for i = 1 to processedObjects.count do
 			(
-				t_mesh.IsInstance = true
-				t_mesh.InstanceName = processedObjects[i].Name
+				if (areNodesInstances objPM processedObjects[i]) == true then
+				(
+					t_mesh.IsInstance = true
+					t_mesh.InstanceName = processedObjects[i].Name
+				)
 			)
 		)
 	

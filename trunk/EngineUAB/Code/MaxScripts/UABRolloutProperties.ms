@@ -43,11 +43,13 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 	GroupBox grp5 "AI Waypoints" pos:[278,11] width:326 height:290
 	button RefreshBrotherNodes "Refresh WP" pos:[293,257] width:94 height:25
 	checkbox IsWayPoint "Is Waypoint" pos:[291,36] width:119 height:19
-	dropdownList BrotherNodesAI "Brother Nodes" pos:[292,149] width:173 height:43 items:#()
+	dropdownList BrotherNodesAI "Brother Nodes" pos:[292,149] width:173 height:43
 	button RemoveBrotherNode "Remove" pos:[479,164] width:96 height:25
-	dropdownList PossibleBrotherNodesAI "Possible Brother Nodes" pos:[294,204] width:172 height:43 items:#()
+	dropdownList PossibleBrotherNodesAI "Possible Brother Nodes" pos:[294,204] width:172 height:43
 	button AddBrotherNode "Add" pos:[482,222] width:90 height:24
-	dropDownList WayPointGroup "Waypoint Group" pos:[291,76] width:175 height:43 items:#("Group 1", "Group 2", "Group 3", "Group 4", "Group 5")
+	dropdownList WayPointGroup "Waypoint Group" pos:[291,76] width:175 height:43 items:#("Group 1", "Group 2", "Group 3", "Group 4", "Group 5")
+	checkbox cbIsInstance "Is Instance:" pos:[19,137] width:80 height:16
+	editText InstanceName "" pos:[98,137] width:145 height:18
 	
 	local m_ObjSelected = undefined
 	
@@ -60,11 +62,23 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 		layerPhysicsCB.checked = false
 		GenerateLogicCB.checked = false
 		IsWayPoint.checked = false
+		cbIsInstance.checked = false
 		AnimModelRenderText.text = ""
 	)
 	
 	function SaveObjectProps Obj =
 	(
+		--Set Instance
+		if cbIsInstance.checked then
+		(
+			setUserProp Obj "is_instance" true
+			setUserProp Obj "instance_name" InstanceName.text
+		)
+		else
+		(
+			setUserProp Obj "is_instance" false
+		)
+		
 		--Set Export Render Prop to Object
 		if ExportRenderCB.checked then
 		(
@@ -220,6 +234,7 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 			local l_SMStaticLayer = getUserProp $ "shadow_mask_static_layer"
 			local l_SMDynamicLayer = getUserProp $ "shadow_mask_dynamic_layer"
 			local l_IsWP = getUserProp $ "is_waypoint"
+			local l_IsInstace = getUserProp $ "is_instance"
 			
 			--Unchecked all check boxes
 			ResetProps()
@@ -233,6 +248,20 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 				(
 					BrotherNodesAI.items = FromStringToArray bros
 				)
+			)
+			
+			--Set Instance
+			if l_IsInstace == true then
+			(
+				cbIsInstance.checked = true
+				
+				local instanceNameProp = getUserProp $ "instance_name" as string
+				InstanceName.text = instanceNameProp
+			)
+			else
+			(
+				cbIsInstance.checked = false
+				InstanceName.text = ""
 			)
 			
 			--Set Export Render Prop to Rollout

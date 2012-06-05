@@ -1018,7 +1018,7 @@ struct SceneObj
 				
 				if ( MeshObjs[i].RenderExport == "static_mesh" ) then
 				(
-					format "\t<mesh_instance name=\"%\" core=\"%\" position=\"%\" yaw=\"%\" pitch=\"%\" roll=\"%\" " MeshObjs[i].MeshName coreName (pos as string) MeshObjs[i].YawAngle MeshObjs[i].PitchAngle MeshObjs[i].RollAngle to:file
+					format "\t<mesh_instance name=\"%\" core=\"%\" position=\"%\" yaw=\"%\" pitch=\"%\" roll=\"%\" scale=\"1.0 1.0 1.0\" " MeshObjs[i].MeshName coreName (pos as string) MeshObjs[i].YawAngle MeshObjs[i].PitchAngle MeshObjs[i].RollAngle to:file
 					format "visible=\"%\" " MeshObjs[i].RenderVisible to:file
 					if MeshObjs[i].RenderLayer != "undefined" then
 					(
