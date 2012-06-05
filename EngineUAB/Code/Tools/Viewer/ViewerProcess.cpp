@@ -56,7 +56,7 @@ bool CViewerProcess::Init()
 	m_Player.SetRoll(0.0f);
 
 	float aspect = CORE->GetRenderManager()->GetAspectRatio();
-	m_pThPSCamera = new CThPSCamera( 1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_Player, 10.0f);
+	m_pThPSCamera = new CThPSCamera( 1.0f, 1000.f, D3DX_PI * .25f, aspect, &m_Player, 10.0f);
 	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
 	CORE->SetCamera( m_pCamera );
 

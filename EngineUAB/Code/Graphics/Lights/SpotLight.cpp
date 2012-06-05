@@ -7,6 +7,7 @@
 #include "Effects\EffectManager.h"
 #include "Core.h"
 #include "Base.h"
+#include "Cameras\Camera.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -78,10 +79,19 @@ void CSpotLight::SetShadowMap()
 	D3DXMatrixLookAtLH( &l_View, &l_Eye, &l_LookAt, &l_VUP);
 	
     //Setup Matrix projection
-	D3DXMatrixPerspectiveFovLH(&l_Projection, D3DX_PI * .5f, 1.0f, 1.0f, 10000);
+	D3DXMatrixPerspectiveFovLH(&l_Projection, D3DX_PI * .25f, 1.0f, 1.0f, 1000);
 
 	m_ViewShadowMap = Mat44f(l_View);
 	m_ProjectionShadowMap= Mat44f(l_Projection);
+
+	// Compute near and far
+	float Near = CORE->GetCamera()->GetZn();
+	float Far  = m_EndRangeAttenuation;
+
+	// Compute linear (distance to light) near and min/max for this perspective matrix
+	float CosLightFOV = mathUtils::Cos<float>(0.5f * D3DX_PI * .25f);
+	m_LightLinNearFar.x = Near;
+	m_LightLinNearFar.y  = Far / (CosLightFOV * CosLightFOV);
 
 	l_EffectManager->SetShadowCameraEye(m_Position);
 	l_EffectManager->SetShadowProjectionMatrix(m_ProjectionShadowMap);

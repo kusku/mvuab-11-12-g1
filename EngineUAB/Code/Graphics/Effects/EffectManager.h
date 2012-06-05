@@ -56,12 +56,15 @@ public:
 	const Mat44f&		GetShadowProjectionMatrix				( void ) const						{ return m_ShadowProjectionMatrix; }
 	const Mat44f		GetShadowViewProjMatrix					( void ) const						{ return m_ShadowProjectionMatrix * m_ShadowViewMatrix; };
 	const Mat44f		GetShadowWorldViewProjMatrix			( void ) const						{ return m_ShadowProjectionMatrix * m_ShadowViewMatrix * m_WorldMatrix; };
+	const Mat44f		GetShadowWorldViewMatrix				( void ) const						{ return m_ShadowViewMatrix * m_WorldMatrix; };
 	const Vect3f&		GetShadowCameraEye						( void ) const						{ return m_ShadowCameraEye; }
 	const Mat44f&		GetWorldInverseMatrix					( void ) const						{ return m_WorldInverseMatrix; }
 	const Mat44f&		GetViewInverseMatrix					( void ) const						{ return m_ViewInverseMatrix; }
 	const Mat44f&		GetProjInverseMatrix					( void ) const						{ return m_ProjInverseMatrix; }
 	const Vect3f&		GetCameraEye							( void ) const						{ return m_CameraEye; }
+	Vect2f				GetLightShadowLinNearFar				() const							{ return m_LightShadowLinNearFar; }
 
+	void				SetLightShadowLinNearFar				(const Vect2f lightShadowLinNearFar){ m_LightShadowLinNearFar = lightShadowLinNearFar; }
 	void				SetWorldMatrix							( const Mat44f &Matrix )			{ m_WorldMatrix = Matrix; }
 	void				SetProjectionMatrix						( const Mat44f &Matrix )			{ m_ProjectionMatrix = Matrix; }
 	void				SetViewMatrix							( const Mat44f &Matrix )			{ m_ViewMatrix = Matrix; }
@@ -87,6 +90,7 @@ private:
 	Mat44f									m_ShadowViewMatrix, m_ShadowProjectionMatrix;
 	Vect3f									m_ShadowCameraEye;
 	Vect3f									m_CameraEye;
+	Vect2f									m_LightShadowLinNearFar;
 
 	CMapManager<CEffect>					m_Effects;
 	std::vector<std::string>				m_EffectsNames;

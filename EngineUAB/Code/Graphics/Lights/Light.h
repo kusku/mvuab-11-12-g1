@@ -17,6 +17,7 @@
 #include "Utils\Named.h"
 #include "Math\Color.h"
 #include "Math\Matrix44.h"
+#include "Math\Vector2.h"
 
 class CXMLTreeNode;
 class CRenderManager;
@@ -53,6 +54,7 @@ public:
 	void				SetGenerateStaticShadowMap		( bool GenerateStaticShadowMap )		{ m_GenerateStaticShadowMap = GenerateStaticShadowMap; }
 	void				SetMustUpdateStaticShadowMap	( bool MustUpdateStaticShadowMap )		{ m_MustUpdateStaticShadowMap = MustUpdateStaticShadowMap; }
 	void				SetIntensity					(float intensity)						{ m_Intensity = intensity; }
+	void				SetLightLinNearFar				(const Vect2f& lightLinNearFar)			{ m_LightLinNearFar = lightLinNearFar; }
 
 	const CColor &		GetColor						() const		{ return m_Color; }
 	float				GetStartRangeAttenuation		() const		{ return m_StartRangeAttenuation; }
@@ -67,6 +69,7 @@ public:
 	CTexture*			GetShadowMaskTexture			() const		{ return m_pShadowMaskTexture; }
 	const Mat44f &		GetViewShadowMap				() const		{ return m_ViewShadowMap; }
 	const Mat44f &		GetProjectionShadowMap			() const		{ return m_ProjectionShadowMap; }
+	Vect2f				GetLightLinNearFar				() const		{ return m_LightLinNearFar; }
 
 	std::vector<CRenderableObjectsManager*> &	GetStaticShadowMapRenderableObjectsManagers()	{ return m_StaticShadowMapRenderableObjectsManagers; }
 	std::vector<CRenderableObjectsManager*> &	GetDynamicShadowMapRenderableObjectsManagers()	{ return m_DynamicShadowMapRenderableObjectsManagers; }
@@ -81,6 +84,7 @@ protected:
 	float				m_StartRangeAttenuation;
 	float				m_EndRangeAttenuation;
 	float				m_Intensity;
+	Vect2f				m_LightLinNearFar;
 
 	bool				m_GenerateDynamicShadowMap;
 	bool				m_GenerateStaticShadowMap;

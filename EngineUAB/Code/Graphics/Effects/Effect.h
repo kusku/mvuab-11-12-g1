@@ -9,6 +9,7 @@
 
 #include "EffectDefs.h"
 #include "Math\Vector3.h"
+#include "Math\Vector2.h"
 #include "Math\Matrix44.h"
 
 class CXMLTreeNode;
@@ -43,6 +44,7 @@ public:
 	D3DXHANDLE		GetWorldViewProjectionMatrix		() const		{ return m_WorldViewProjectionMatrixParameter; }
 	D3DXHANDLE		GetShadowViewProjectionMatrix		() const		{ return m_ShadowViewProjectionMatrixParameter; }
 	D3DXHANDLE		GetShadowWorldViewProjectionMatrix	() const		{ return m_ShadowWorldViewProjectionMatrixParameter; }
+	D3DXHANDLE		GetShadowWorldViewMatrix			() const		{ return m_ShadowWorldViewMatrixParameter; }
 	D3DXHANDLE		GetShadowCameraPositionMatrix		() const		{ return m_ShadowCameraPositionParameter; }
 	D3DXHANDLE		GetViewInverseMatrix				() const		{ return m_ViewInverseMatrixParameter; }
 	D3DXHANDLE		GetWorldInverseMatrix				() const		{ return m_WorldInverseMatrixParameter; }
@@ -68,7 +70,8 @@ public:
 	D3DXHANDLE		GetDynamicShadowMapSamplerParameter	(int idx) const	{ return m_DynamicShadowMapSamplerParameter[idx]; }
 	D3DXHANDLE		GetParameterById					(uint16 id);
 	D3DXHANDLE		GetLightIntensityParameter			() const		{ return m_LightIntensityParameter; }
-
+	D3DXHANDLE		GetLightLinNearFarParameter			() const		{ return m_LightLinNearFarParameter; }
+	D3DXHANDLE		GetShadowLightLinNearFarParameter	() const		{ return m_ShadowLightLinNearFarParameter; }
 
 	uint32			GetActiveLights						() const		{ return m_ActiveLights; }
 	const int*		GetLightType						() const		{ return m_LightsType; }
@@ -85,6 +88,7 @@ public:
 	const BOOL*		GetLightsDynamicShadowMapEnable		() const		{ return m_LightsDynamicShadowMapEnable; }
 	const BOOL*		GetLightsStaticShadowMapEnable		() const		{ return m_LightsStaticShadowMapEnable; }
 	const Mat44f*	GetLightShadowViewProjection		() const		{ return m_LightShadowViewProjection; }
+	const Vect2f*	GetLightLinNearFar					() const		{ return m_LightLinNearFar; }
 
 private:
 	void		SetNullParameters			();
@@ -95,6 +99,7 @@ private:
 	std::string		m_FileName;
 	LPD3DXEFFECT	m_Effect;
 
+	Vect2f			m_LightLinNearFar[MAX_LIGHTS_BY_SHADER];
 	uint32			m_ActiveLights;
 	float			m_LightsIntensity[MAX_LIGHTS_BY_SHADER];
 	Mat44f			m_LightShadowViewProjection[MAX_LIGHTS_BY_SHADER];
@@ -111,6 +116,9 @@ private:
 	BOOL			m_LightsDynamicShadowMapEnable[MAX_LIGHTS_BY_SHADER];
 	BOOL			m_LightsStaticShadowMapEnable[MAX_LIGHTS_BY_SHADER];
 
+	D3DXHANDLE		m_ShadowLightLinNearFarParameter;
+	D3DXHANDLE		m_ShadowWorldViewMatrixParameter;
+	D3DXHANDLE		m_LightLinNearFarParameter;
 	D3DXHANDLE		m_WorldMatrixParameter, 
 					m_ViewMatrixParameter,
 					m_ProjectionMatrixParameter;
