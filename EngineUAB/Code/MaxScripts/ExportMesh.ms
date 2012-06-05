@@ -58,14 +58,15 @@ function ExtractMaterialProperties obj t_mesh =
 				local id = matIDs[i]
 				
 				if ( (obj.material[id] != undefined) AND ( classOf(obj.material[id]) ) == Standardmaterial ) then
-				(
-					
+				(					
 					local meshBuffer = CreateMeshBuffer()
 					
 					meshBuffer.MatID = id
 					
 					--Get Vertex Type of the mesh and Materials
 					meshBuffer.SetVertexTypeAndMaterial obj.material[id]
+					
+					format "Adding Material ID: % \n" meshBuffer.MatID
 					
 					append t_mesh.MeshBuffers meshBuffer
 				)
@@ -89,6 +90,8 @@ function ExtractMaterialProperties obj t_mesh =
 			
 			--Get Vertex Type of the mesh and Materials
 			meshBuffer.SetVertexTypeAndMaterial obj.material
+			
+			format "Adding Material ID: % \n" meshBuffer.MatID
 			
 			append t_mesh.MeshBuffers meshBuffer
 		)
@@ -164,7 +167,6 @@ function ExtractMeshGeometry obj counterClockwise t_mesh =
 	--Extract Geometry information if t_mesh is not an instance
 	if t_mesh.IsInstance == false then
 	(
-		
 		-----------------------------------------------------------------
 		
 		--Create VtxNormalMap
@@ -188,8 +190,14 @@ function ExtractMeshGeometry obj counterClockwise t_mesh =
 				
 				if MeshBuffer == undefined then
 				(
-					--Should never happend but just to be safe
-					return -2
+					Format "MatID MeshBuffer not found % \n" MatID
+					
+					for x = 1 to t_mesh.MeshBuffers.count do
+					(
+						Format "Available MatID Mesh Buffers: % \n" t_mesh.MeshBuffers[x].MatID
+					)
+					
+					continue
 				)
 			)
 			else
@@ -456,7 +464,7 @@ function ExportSelection selectedObjs outputDir subOutPutDir counterClockwise ex
 			
 			if ret != 1 then
 			(
-				warningMeshes = warningMeshes + (obj.name + " unexpected error in \"ExtractMeshGeometry\" ret: " + ret + "\n")
+				warningMeshes = warningMeshes + (obj.name + " unexpected error in \"ExtractMeshGeometry\" ret: " + (ret as string) + "\n")
 				
 				continue
 			)
