@@ -57,7 +57,7 @@
 		use_half_pixel="true" use_shadow_maps="true" />
 	
 	<technique name="BasicBuildShadowMap" effect="basic_build_shadow_map"
-		use_shadow_world_view_projection_matrix="true" />
+		use_shadow_world_view_projection_matrix="true" use_shadow_world_view_matrix="true" use_lights_shadow_linNearFar="true" />
 	
 	<technique name="BasicQuadEffect" effect="basic_quad_effect" />
 	
