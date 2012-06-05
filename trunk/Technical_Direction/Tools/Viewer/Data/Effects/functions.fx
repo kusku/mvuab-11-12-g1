@@ -23,6 +23,9 @@ uniform float4x4	InvertView								: VIEWINVERSE;
 uniform float4x4	InvertProjection						: PROJECTIONINVERSE;
 uniform float4x4	ProjectionMatrix						: PROJECTION;
 
+uniform float4x4 	ShadowWorldViewProjection				: SHADOW_WORLDVIEWPROJECTION;
+uniform float4x4 	ShadowWorldView							: SHADOW_WORLDVIEW;
+
 uniform int			numLights								: Num_Lights;
 uniform int 		lightType[MAX_LIGHTS]					: Lights_Type;
 uniform float3		lightPosition[MAX_LIGHTS]				: Lights_Position;
@@ -33,6 +36,8 @@ uniform float		lightEndAtt[MAX_LIGHTS]					: Lights_EndAtt;
 uniform float		lightAngle[MAX_LIGHTS]					: Lights_Angle;
 uniform float		lightFalloff[MAX_LIGHTS]				: Lights_FallOff;
 uniform float		lightIntensity[MAX_LIGHTS]				: Lights_Intensity;
+uniform float2		lightLinNearFar[MAX_LIGHTS]				: Lights_LinNearFar;
+uniform float2		shLightLinNearFar						: Lights_Shadow_LinNearFar;
 
 uniform float2		HalfPixel								: HALFPIXEL;
 
@@ -49,84 +54,100 @@ uniform texture2D	DynamicShadowMap2						: DYNAMIC_SHADOW_MAP_2;
 uniform texture2D	DynamicShadowMap3						: DYNAMIC_SHADOW_MAP_3;
 uniform texture2D	DynamicShadowMap4						: DYNAMIC_SHADOW_MAP_4;
 
-sampler StaticShadowSamplers[MAX_LIGHTS] =
+//Variance
+
+uniform float		VSMMinVariance = 0.000001;	// Minimum variance for VSM
+uniform bool		LBREnable = true;			// Enable/disable light bleeding reduction
+uniform float		LBRAmount = 0.25;			// Aggressiveness of light bleeding reduction
+
+/////
+
+sampler StaticShadowMapSampler1 = sampler_state
 {
-	sampler_state
-	{
-	   Texture		= <StaticShadowMap1>;
-	   MinFilter	= POINT;
-	   MagFilter	= POINT;
-	   MipFilter	= POINT;
-	   AddressU		= CLAMP;
-	   AddressV		= CLAMP;
-	},
-	sampler_state
-	{
-	   Texture		= <StaticShadowMap2>;
-	   MinFilter	= POINT;
-	   MagFilter	= POINT;
-	   MipFilter	= POINT;
-	   AddressU		= CLAMP;
-	   AddressV		= CLAMP;
-	},
-	sampler_state
-	{
-	   Texture		= <StaticShadowMap3>;
-	   MinFilter	= POINT;
-	   MagFilter	= POINT;
-	   MipFilter	= POINT;
-	   AddressU		= CLAMP;
-	   AddressV		= CLAMP;
-	},
-	sampler_state
-	{
-	   Texture		= <StaticShadowMap4>;
-	   MinFilter	= POINT;
-	   MagFilter	= POINT;
-	   MipFilter	= POINT;
-	   AddressU		= CLAMP;
-	   AddressV		= CLAMP;
-	}
+   Texture		= <StaticShadowMap1>;
+   MinFilter	= ANISOTROPIC;
+   MagFilter	= ANISOTROPIC;
+   MipFilter	= ANISOTROPIC;
+   AddressU		= CLAMP;
+   AddressV		= CLAMP;
+   MaxAnisotropy = 16;
 };
 
-sampler DynamicShadowSamplers[MAX_LIGHTS] =
+sampler StaticShadowMapSampler2 = sampler_state
 {
-	sampler_state
-	{
-	   Texture		= <DynamicShadowMap1>;
-	   MinFilter	= POINT;
-	   MagFilter	= POINT;
-	   MipFilter	= POINT;
-	   AddressU		= CLAMP;
-	   AddressV		= CLAMP;
-	},
-	sampler_state
-	{
-	   Texture		= <DynamicShadowMap2>;
-	   MinFilter	= POINT;
-	   MagFilter	= POINT;
-	   MipFilter	= POINT;
-	   AddressU		= CLAMP;
-	   AddressV		= CLAMP;
-	},
-	sampler_state
-	{
-	   Texture		= <DynamicShadowMap3>;
-	   MinFilter	= POINT;
-	   MagFilter	= POINT;
-	   MipFilter	= POINT;
-	   AddressU		= CLAMP;
-	   AddressV		= CLAMP;
-	},
-	sampler_state
-	{
-	   Texture		= <DynamicShadowMap4>;
-	   MinFilter	= POINT;
-	   MagFilter	= POINT;
-	   MipFilter	= POINT;
-	   AddressU		= CLAMP;
-	   AddressV		= CLAMP;
-	}
+   Texture		= <StaticShadowMap2>;
+   MinFilter	= ANISOTROPIC;
+   MagFilter	= ANISOTROPIC;
+   MipFilter	= ANISOTROPIC;
+   AddressU		= CLAMP;
+   AddressV		= CLAMP;
+   MaxAnisotropy = 16;
+};
+
+sampler StaticShadowMapSampler3 = sampler_state
+{
+   Texture		= <StaticShadowMap3>;
+   MinFilter	= ANISOTROPIC;
+   MagFilter	= ANISOTROPIC;
+   MipFilter	= ANISOTROPIC;
+   AddressU		= CLAMP;
+   AddressV		= CLAMP;
+   MaxAnisotropy = 16;
+};
+
+sampler StaticShadowMapSampler4 = sampler_state
+{
+   Texture		= <StaticShadowMap4>;
+   MinFilter	= ANISOTROPIC;
+   MagFilter	= ANISOTROPIC;
+   MipFilter	= ANISOTROPIC;
+   AddressU		= CLAMP;
+   AddressV		= CLAMP;
+   MaxAnisotropy = 16;
+};
+
+sampler DynamicShadowMapSampler1 = sampler_state
+{
+   Texture		= <DynamicShadowMap1>;
+   MinFilter	= ANISOTROPIC;
+   MagFilter	= ANISOTROPIC;
+   MipFilter	= ANISOTROPIC;
+   AddressU		= CLAMP;
+   AddressV		= CLAMP;
+   MaxAnisotropy = 16;
+};
+
+sampler DynamicShadowMapSampler2 = sampler_state
+{
+   Texture		= <DynamicShadowMap2>;
+   MinFilter	= ANISOTROPIC;
+   MagFilter	= ANISOTROPIC;
+   MipFilter	= ANISOTROPIC;
+   AddressU		= CLAMP;
+   AddressV		= CLAMP;
+   MaxAnisotropy = 16;
+};
+
+sampler DynamicShadowMapSampler3 = sampler_state
+{
+   Texture		= <DynamicShadowMap3>;
+   MinFilter	= ANISOTROPIC;
+   MagFilter	= ANISOTROPIC;
+   MipFilter	= ANISOTROPIC;
+   AddressU		= CLAMP;
+   AddressV		= CLAMP;
+   MaxAnisotropy = 16;
+};
+
+sampler DynamicShadowMapSampler4 = sampler_state
+{
+   Texture		= <DynamicShadowMap4>;
+   MinFilter	= ANISOTROPIC;
+   MagFilter	= ANISOTROPIC;
+   MipFilter	= ANISOTROPIC;
+   AddressU		= CLAMP;
+   AddressV		= CLAMP;
+   MaxAnisotropy = 16;
 };
 
 //////////////////////////////////////
@@ -372,3 +393,101 @@ float3 GetRadiosityNormalMap(float3 Nn, float2 UV, float3x3 WorldMatrix, sampler
 }
 
 //////////////////////////////////////
+
+//Variance Shadow Map
+
+//////////////////////////////////////
+
+float linstep(float min, float max, float v)
+{
+	return clamp((v - min) / (max - min), 0, 1);
+}
+
+// Rescale into [0, 1]
+float RescaleDistToLight(float Distance, int light)
+{
+    return linstep(lightLinNearFar[light].x, lightLinNearFar[light].y, Distance);
+}
+
+float RescaleDistToLight(float Distance)
+{
+    return linstep(shLightLinNearFar.x, shLightLinNearFar.y, Distance);
+}
+
+float2 GetFPBias()
+{
+    return float2(0.5, 0);
+}
+
+// Utility function
+float2 ComputeMoments(float Depth)
+{
+    // Compute first few moments of depth
+    float2 Moments;
+    Moments.x = Depth;
+    Moments.y = Depth * Depth;
+    
+    // Ajust the variance distribution to include the whole pixel if requested
+    // NOTE: Disabled right now as a min variance clamp takes care of all problems
+    // and doesn't risk screwy hardware derivatives.
+    //float dx = ddx(Depth);
+    //float dy = ddy(Depth);
+    //float Delta = 0.25 * (dx*dx + dy*dy);
+    // Perhaps clamp maximum Delta here
+    //Moments.y += Delta;
+
+    return Moments;
+}
+
+float LBR(float p)
+{
+    // Lots of options here if we don't care about being an upper bound.
+    // Use whatever falloff function works well for your scene.
+    return linstep(LBRAmount, 1, p);
+    //return smoothstep(g_LBRAmount, 1, p);
+}
+
+float ChebyshevUpperBound(float2 Moments, float Mean, float MinVariance)
+{
+    // Standard shadow map comparison
+    float p = (Mean <= Moments.x);
+    
+    // Compute variance
+    float Variance = Moments.y - (Moments.x * Moments.x);
+    Variance = max(Variance, MinVariance);
+    
+    // Compute probabilistic upper bound
+    float d     = Mean - Moments.x;
+    float p_max = Variance / (Variance + d*d);
+    
+    return max(p, p_max);
+}
+
+float CalcShadowVariance(float4 Pos, sampler shadowMapSampler, int light)
+{		
+	float4 ShadowPos = mul(Pos, ShadowViewProjection[light]);
+	
+	// Project the texture coords and scale/offset to [0, 1].
+    float2 ShadowTexC = (ShadowPos.xy / ShadowPos.w) * float2(0.5, -0.5) + 0.5;
+		
+    //float3 DirToLight = lightPosition[light] - Pos.xyz;
+    //float DistToLight = length(DirToLight);
+	
+	//float RescaledDist = RescaleDistToLight(DistToLight, light);
+	float RescaledDist = ShadowPos.z / ShadowPos.w;
+	
+	float2 Moments = tex2Dlod( shadowMapSampler, float4(ShadowTexC, 0, 1)).xy;
+	//float2 Moments = tex2D(shadowMapSampler, ShadowTexC).rg;
+    Moments = Moments + GetFPBias();
+	
+    float ShadowContrib = ChebyshevUpperBound(Moments, RescaledDist, VSMMinVariance);
+    
+    [flatten] 
+	if (LBREnable)
+	{
+        ShadowContrib = LBR(ShadowContrib);
+    }
+	
+	return ShadowContrib;
+}
+
