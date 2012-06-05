@@ -1,5 +1,4 @@
-
-float4x4 WorldViewProjection : SHADOW_WORLDVIEWPROJECTION;
+#include "functions.fx"
 
 struct VertexShaderInput
 {
@@ -9,48 +8,35 @@ struct VertexShaderInput
 struct VertexShaderOutput
 {
     float4 Position : POSITION0;
-	float2 Depth : TEXCOORD0;
-};
-
-struct PixelShaderOutput
-{
-	float4 DepthRT	: COLOR0;
+	//float3 PosView	: NORMAL0;
+	float2 PosView2	: NORMAL1;
 };
 
 VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 {
 	VertexShaderOutput output = (VertexShaderOutput)0;
 	
-	// Compute the projected coordinates
-	output.Position = mul( float4(input.Position, 1.0f), WorldViewProjection );
+    
+    output.Position = mul(float4(input.Position, 1), ShadowWorldViewProjection);
+    //output.PosView  = mul(float4(input.Position, 1), ShadowWorldView);
+	output.PosView2	= output.Position.zw;
 	
-	// Store z and w in our spare texcoord
-	output.Depth.x = output.Position.z;
-	output.Depth.y = output.Position.w;
-	
-	return output;
+    return output;
 }
 
-PixelShaderOutput PixelShaderFunction(VertexShaderOutput input)
-{
-	PixelShaderOutput output = (PixelShaderOutput)0;
+float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
+{	
+    //float Depth = RescaleDistToLight(length(input.PosView));
+	float Depth = input.PosView2.x / input.PosView2.y;
 	
-	// Depth is z / w
-	//output.DepthRT.r = input.Depth.x / input.Depth.y;
+    float2 Moments = ComputeMoments(Depth) - GetFPBias();
+    
+	float4 ret = (float4)0;
 	
-	//return output;
+	ret.r = Moments.x;
+	ret.g = Moments.y;
 	
-	float d = input.Depth.x / input.Depth.y;
-	float moment1 = d;
-	float moment2 = d * d;
-
-	 // Adjusting moments (this is sort of bias per pixel) using partial derivative
-	float dx = ddx(d);
-	float dy = ddy(d);
-	moment2 += 0.25 * (dx * dx + dy * dy) ;
-    output.DepthRT = float4(moment1, moment2, 0, 1.0f);
-	
-	return output;
+	return ret;
 }
 
 technique BasicBuildShadowMap 
