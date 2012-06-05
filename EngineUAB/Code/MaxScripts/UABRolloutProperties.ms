@@ -38,8 +38,8 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 	checkbox cbShadowMask "" pos:[98,508] width:24 height:25 witdh:25
 	label lblStaticLayer "Static Layer:" pos:[38,536] width:70 height:14
 	label lbl43 "Dynamic Layer:" pos:[22,561] width:77 height:14
-	dropdownList ddlStaticLayer "" pos:[110,537] width:120 height:24 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles")
-	dropdownList ddlDynamicLayer "" pos:[110,561] width:120 height:24 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles")
+	dropdownList ddlStaticLayer "" pos:[110,537] width:120 height:24 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles", "vegetation", "water")
+	dropdownList ddlDynamicLayer "" pos:[110,561] width:120 height:24 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles", "vegetation", "water")
 	GroupBox grp5 "AI Waypoints" pos:[278,11] width:326 height:290
 	button RefreshBrotherNodes "Refresh WP" pos:[293,257] width:94 height:25
 	checkbox IsWayPoint "Is Waypoint" pos:[291,36] width:119 height:19
