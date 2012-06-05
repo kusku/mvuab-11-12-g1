@@ -85,19 +85,19 @@ float4 PixelShaderFunction(VertexShaderOutput input, uniform bool shadow, unifor
 			{
 				if(i == 0)
 				{
-					shadowCoeffStatic = CalcShadowCoeffVSM(input.WPos, StaticShadowSamplers[0], i);
+					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler1, i);
 				}
 				else if(i == 1)
 				{
-					shadowCoeffStatic = CalcShadowCoeffVSM(input.WPos, StaticShadowSamplers[1], i);
+					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler2, i);
 				}
 				else if(i == 2)
 				{
-					shadowCoeffStatic = CalcShadowCoeffVSM(input.WPos, StaticShadowSamplers[2], i);
+					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler3, i);
 				}
 				else
 				{
-					shadowCoeffStatic = CalcShadowCoeffVSM(input.WPos, StaticShadowSamplers[3], i);
+					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler4, i);
 				}
 			}
 			
@@ -105,19 +105,19 @@ float4 PixelShaderFunction(VertexShaderOutput input, uniform bool shadow, unifor
 			{
 				if(i == 0)
 				{
-					shadowCoeffDynamic = CalcShadowCoeffVSM(input.WPos, DynamicShadowSamplers[0], i);
+					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler1, i);
 				}
 				else if(i == 1)
 				{
-					shadowCoeffDynamic = CalcShadowCoeffVSM(input.WPos, DynamicShadowSamplers[1], i);
+					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler2, i);
 				}
 				else if(i == 2)
 				{
-					shadowCoeffDynamic = CalcShadowCoeffVSM(input.WPos, DynamicShadowSamplers[2], i);
+					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler3, i);
 				}
 				else
 				{
-					shadowCoeffDynamic = CalcShadowCoeffVSM(input.WPos, DynamicShadowSamplers[3], i);
+					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler4, i);
 				}
 			}
 		}
