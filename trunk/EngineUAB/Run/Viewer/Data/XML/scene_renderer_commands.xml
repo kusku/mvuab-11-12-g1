@@ -13,13 +13,13 @@
 	<generate_shadow_maps />
 	<enable_z_test />
 	
+	<set_pool_renderable_objects_technique pool="FowardShading" />
+	<render_scene layer="solid" active="true" />
+	
 	<set_pool_renderable_objects_technique pool="FowardShading1" />
-	
-	<render_scene layer="solid" active="true" />
-	
+	<render_scene layer="vegetation" active="true" />
 	<set_pool_renderable_objects_technique pool="FowardShading2" />
-	
-	<render_scene layer="solid" active="true" />
+	<render_scene layer="vegetation" active="true" />
 	
 	<!--Debug-->
 	<render_debug_lights active="true" />
