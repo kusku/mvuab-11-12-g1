@@ -49,6 +49,9 @@ CEffect::CEffect(CXMLTreeNode &XMLNode)
 	, m_LightShadowDynamicEnableParameter(NULL)
 	, m_LightIntensityParameter(NULL)
 	, m_ActiveLights(0)
+	, m_LightLinNearFarParameter(NULL)
+	, m_ShadowWorldViewMatrixParameter(NULL)
+	, m_ShadowLightLinNearFarParameter(NULL)
 {
 	m_EffectName = XMLNode.GetPszProperty("name", "");
 	m_FileName = XMLNode.GetPszProperty("file", "");
@@ -61,6 +64,7 @@ CEffect::CEffect(CXMLTreeNode &XMLNode)
 	memset(m_StaticShadowMapSamplerParameter, 0, sizeof(D3DXHANDLE) * MAX_LIGHTS_BY_SHADER);
 	memset(m_DynamicShadowMapSamplerParameter, 0, sizeof(D3DXHANDLE) * MAX_LIGHTS_BY_SHADER);
 
+	memset(m_LightLinNearFar, 0, sizeof(Vect2f) * MAX_LIGHTS_BY_SHADER);
 	memset(m_LightsIntensity, 0, sizeof(float) * MAX_LIGHTS_BY_SHADER);
 	memset(m_LightShadowViewProjection, 0, sizeof(Mat44f) * MAX_LIGHTS_BY_SHADER);
 	memset(m_LightsType, 0, sizeof(int) * MAX_LIGHTS_BY_SHADER);
@@ -103,7 +107,7 @@ bool CEffect::LoadEffect()
 {
 	LPD3DXBUFFER l_ErrorBuffer=NULL;
 	HRESULT l_HR=D3DXCreateEffectFromFile(CORE->GetRenderManager()->GetDevice(), m_FileName.c_str(), NULL,
-		NULL, D3DXSHADER_DEBUG, NULL, &m_Effect, &l_ErrorBuffer);
+		NULL, D3DXSHADER_DEBUG | D3DXSHADER_OPTIMIZATION_LEVEL0 | D3DXSHADER_SKIPOPTIMIZATION, NULL, &m_Effect, &l_ErrorBuffer);
 	
 	if(FAILED(l_HR) || l_ErrorBuffer)
 	{
@@ -148,7 +152,9 @@ bool CEffect::LoadEffect()
 	GetParameterBySemantic("Lights_Angle", m_LightsAngleParameter, false);
 	GetParameterBySemantic("Lights_FallOff", m_LightsFallOffParameter, false);
 	GetParameterBySemantic("Lights_Intensity", m_LightIntensityParameter, false);
-
+	GetParameterBySemantic("Lights_LinNearFar", m_LightLinNearFarParameter, false);
+	GetParameterBySemantic("Lights_Shadow_LinNearFar", m_ShadowLightLinNearFarParameter, false);
+	
 	//Time
 	GetParameterBySemantic("TIME", m_TimeParameter, false);
 
@@ -156,6 +162,7 @@ bool CEffect::LoadEffect()
 	GetParameterBySemantic("BONES", m_BonesParameter, false);
 
 	//Shadows
+	GetParameterBySemantic("SHADOW_WORLDVIEW", m_ShadowWorldViewMatrixParameter, false);
 	GetParameterBySemantic("SHADOW_VIEWPROJECTION", m_ShadowViewProjectionMatrixParameter, false);
 	GetParameterBySemantic("SHADOW_CAMERA_POSITION", m_ShadowCameraPositionParameter, false);
 	GetParameterBySemantic("SHADOW_WORLDVIEWPROJECTION", m_ShadowWorldViewProjectionMatrixParameter, false);
@@ -209,6 +216,8 @@ D3DXHANDLE CEffect::GetTechniqueByName(const std::string &TechniqueName)
 
 void CEffect::SetNullParameters()
 {
+	m_ShadowLightLinNearFarParameter			= NULL;
+	m_LightLinNearFarParameter					= NULL;
 	m_LightIntensityParameter					= NULL;
 	m_WorldMatrixParameter						= NULL;
 	m_ViewMatrixParameter						= NULL;
@@ -239,6 +248,7 @@ void CEffect::SetNullParameters()
 	m_RenderTargetSizeParameter					= NULL;
 	m_LightShadowStaticEnableParameter			= NULL;
 	m_LightShadowDynamicEnableParameter			= NULL;
+	m_ShadowWorldViewMatrixParameter			= NULL;
 
 	memset(m_StaticShadowMapSamplerParameter, 0, sizeof(D3DXHANDLE) * MAX_LIGHTS_BY_SHADER);
 	memset(m_DynamicShadowMapSamplerParameter, 0, sizeof(D3DXHANDLE) * MAX_LIGHTS_BY_SHADER);
@@ -292,6 +302,7 @@ bool CEffect::SetLights(size_t NumOfLights)
 		m_LightsEndRangeAttenuation[lightCount] = l_Light->GetEndRangeAttenuation();
 		m_LightsPosition[lightCount] = l_Light->GetPosition();
 		m_LightsIntensity[lightCount] = l_Light->GetIntensity();
+		m_LightLinNearFar[lightCount] = l_Light->GetLightLinNearFar();
 
 		CColor l_Color = l_Light->GetColor();
 		m_LightsColor[lightCount] = Vect3f(l_Color.GetRed()/255.0f, l_Color.GetGreen()/255.0f, l_Color.GetBlue()/255.0f);
@@ -355,6 +366,7 @@ bool CEffect::SetLight(CLight* light)
 	m_LightsEndRangeAttenuation[0] = light->GetEndRangeAttenuation();
 	m_LightsPosition[0] = light->GetPosition();
 	m_LightsIntensity[0] = light->GetIntensity();
+	m_LightLinNearFar[0] = light->GetLightLinNearFar();
 
 	CColor l_Color = light->GetColor();
 	m_LightsColor[0] = Vect3f(l_Color.GetRed()/255.0f, l_Color.GetGreen()/255.0f, l_Color.GetBlue()/255.0f);

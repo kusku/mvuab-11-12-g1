@@ -47,6 +47,9 @@ CEffectTechnique::CEffectTechnique(	CXMLTreeNode &XMLNode )
 	m_UseHalfPixel					= XMLNode.GetBoolProperty("use_half_pixel", false, false);
 	m_UseRenderTargetSize			= XMLNode.GetBoolProperty("use_render_target_size", false, false);
 	m_UseTime						= XMLNode.GetBoolProperty("use_time", false, false);
+	m_UseShadowWorldViewMatrix		= XMLNode.GetBoolProperty("use_shadow_world_view_matrix", false, false);
+	m_UseLightsShadowLinNearFar		= XMLNode.GetBoolProperty("use_lights_shadow_linNearFar", false, false);
+	
 
 	//Lectura de parámetros
 	m_UseParams						= XMLNode.GetBoolProperty("use_params", false, false);
@@ -94,6 +97,16 @@ bool CEffectTechnique::BeginRender()
 	CEffectManager *l_EffectManager = CORE->GetEffectManager();
 	
 	std::string msg_error = "";
+
+	if(m_UseLightsShadowLinNearFar)
+	{
+		float arr[2] = {l_EffectManager->GetLightShadowLinNearFar().x, l_EffectManager->GetLightShadowLinNearFar().y};
+		if( FAILED( l_Effect->SetFloatArray( m_Effect->GetShadowLightLinNearFarParameter(), arr, 2 ) ) ) 
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetShadowLightLinNearFarParameter()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
+	}
 
 	if( m_UseWorldMatrix )
 	{
@@ -165,6 +178,17 @@ bool CEffectTechnique::BeginRender()
 		if( FAILED( l_Effect->SetMatrix( m_Effect->GetShadowWorldViewProjectionMatrix(), &l_ShadowWorldViewProjMatrix.GetD3DXMatrix() ) ) )
 		{
 			msg_error = "Error al hacer el Set del parametro: m_Effect->GetShadowWorldViewProjectionMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
+	}
+
+	if(m_UseShadowWorldViewMatrix)
+	{
+		Mat44f l_ShadowWorldViewMatrix = l_EffectManager->GetShadowWorldViewMatrix();
+
+		if( FAILED( l_Effect->SetMatrix( m_Effect->GetShadowWorldViewMatrix(), &l_ShadowWorldViewMatrix.GetD3DXMatrix() ) ) )
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetShadowWorldViewMatrix()";
 			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
 		}
 	}
@@ -244,6 +268,7 @@ bool CEffectTechnique::BeginRender()
 		const Vect3f *l_Dir = m_Effect->GetLightDirection();
 		const Vect3f *l_Color = m_Effect->GetLightColor();
 		const float *l_Intensity = m_Effect->GetLightIntensity();
+		const Vect2f *l_LinNearFar = m_Effect->GetLightLinNearFar();
 
 		l_Effect->SetInt( m_Effect->GetNumLights(), m_Effect->GetActiveLights() );
 
@@ -298,6 +323,12 @@ bool CEffectTechnique::BeginRender()
 		if( FAILED( l_Effect->SetFloatArray( m_Effect->GetLightsColorMatrix(), (float*)l_Color, 3*m_NumOfLights) ) )
 		{
 			msg_error = "Error al hacer el Set del parametro: m_Effect->GetLightsColorMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
+
+		if( FAILED( l_Effect->SetFloatArray( m_Effect->GetLightLinNearFarParameter(), (float*)l_LinNearFar, 2*m_NumOfLights) ) )
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetLightLinNearFarParameter()";
 			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
 		}
 	}

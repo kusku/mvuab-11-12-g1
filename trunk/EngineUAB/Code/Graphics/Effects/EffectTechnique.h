@@ -46,12 +46,14 @@ private:
 	bool	m_UseViewProjectionMatrix;
 	bool	m_UseShadowCameraPosition;
 	bool	m_UseShadowWorldViewProjMatrix;
+	bool	m_UseShadowWorldViewMatrix;
 	bool	m_UseShadowMaps;
 	bool	m_UseTime;
 	bool	m_UseHalfPixel;
 	bool	m_UseRenderTargetSize;
 	bool	m_UseParams;
 	bool	m_FowardShading;
+	bool	m_UseLightsShadowLinNearFar;
 
 	uint16	m_NumOfParams;
 	std::vector<float>	m_Params;

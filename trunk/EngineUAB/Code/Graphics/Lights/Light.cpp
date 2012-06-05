@@ -9,6 +9,7 @@
 #include "Textures\TextureManager.h"
 #include "RenderableObjects\RenderableObjectsLayersManager.h"
 #include "Logger\Logger.h"
+#include "Effects\EffectManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -27,6 +28,7 @@ CLight::CLight()
 	, m_pShadowMaskTexture(NULL)
 	, m_ViewShadowMap(m44fIDENTITY)
 	, m_ProjectionShadowMap(m44fIDENTITY)
+	, m_LightLinNearFar(0, 0)
 {
 }
 
@@ -52,6 +54,7 @@ void CLight::GenerateShadowMap(CRenderManager *RM)
 		m_pStaticShadowMap->SetAsRenderTarget(0);
 
 		RM->ClearTarget(colTRANSPARENT);
+		CORE->GetEffectManager()->SetLightShadowLinNearFar(m_LightLinNearFar);
 
 		for(size_t i=0; i<m_StaticShadowMapRenderableObjectsManagers.size(); ++i)
 		{
@@ -69,6 +72,7 @@ void CLight::GenerateShadowMap(CRenderManager *RM)
 		m_pDynamicShadowMap->SetAsRenderTarget(0);
 		
 		RM->ClearTarget(colTRANSPARENT);
+		CORE->GetEffectManager()->SetLightShadowLinNearFar(m_LightLinNearFar);
 
 		for(size_t i=0; i<m_DynamicShadowMapRenderableObjectsManagers.size(); ++i)
 		{

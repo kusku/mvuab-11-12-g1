@@ -839,8 +839,8 @@ inline float Vector3<T>::Dot(const Vector3<T>& otro) const
 template<typename T>
 inline Vector3<T> Vector3<T>::Cross(const Vector3<T>& otro) const
 {
-	//AxB == ( AyBz + AzBy, AzBx + AxBz, AxBy + AyBx )
-	Vector3<T> aux( y*otro.z + z*otro.y, z*otro.x + x*otro.z, x*otro.y + y*otro.x );
+	//AxB == ( AyBz - AzBy, AzBx - AxBz, AxBy - AyBx )
+	Vector3<T> aux( y*otro.z - z*otro.y, z*otro.x - x*otro.z, x*otro.y - y*otro.x );
 
 	return aux;
 }

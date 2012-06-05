@@ -26,6 +26,7 @@ public:
   const Vect3f& GetMiddlePoint() const { return m_vMiddlePoint; };
   const float GetMaxSideLength() const { return m_fMaxSideLenght; };
   void CalcDimension2();
+  bool InitFromPoints(Vect3f _vPoints[8]);
 
 protected:
   virtual void Release();
@@ -35,7 +36,6 @@ private:
   void CalcMiddlePoint();
   void CalcDimension();
   void CalcMaxSide();
-
   Vect3f m_vMiddlePoint;
 
   float m_fMaxSideLenght;

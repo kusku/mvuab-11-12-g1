@@ -23,6 +23,51 @@ bool CBoundingBox::Init(const Vect3f& _vMin, const Vect3f& _vMax)
   return IsOk();
 }
 
+bool CBoundingBox::InitFromPoints(Vect3f _vPoints[8])
+{
+	Vect3f min = _vPoints[0];
+	Vect3f max = _vPoints[0];
+
+	for(int i = 0; i < 8; ++i)
+	{
+		if(min.x > _vPoints[i].x)
+		{
+			min.x = _vPoints[i].x;
+		}
+		if(min.y > _vPoints[i].y)
+		{
+			min.y = _vPoints[i].y;
+		}
+		if(min.z > _vPoints[i].z)
+		{
+			min.z = _vPoints[i].z;
+		}
+
+
+		if(max.x < _vPoints[i].x)
+		{
+			max.x = _vPoints[i].x;
+		}
+		if(max.y < _vPoints[i].y)
+		{
+			max.y = _vPoints[i].y;
+		}
+		if(max.z < _vPoints[i].z)
+		{
+			max.z = _vPoints[i].z;
+		}
+	}
+
+	CalcBox(min, max);
+	CalcMiddlePoint();
+	CalcDimension();
+	CalcMaxSide();
+
+	SetOk(true);
+
+	return IsOk();
+}
+
 bool CBoundingBox::Init(Vect3f _vPoints[8])
 {
   m_vBox[0] = Vect3f(_vPoints[0].x,_vPoints[0].y,_vPoints[0].z);
