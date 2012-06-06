@@ -48,6 +48,8 @@ public:
 	void		BlendCycle				( uint32 _Id, float _Time );
 	void		ClearCycle				( uint32 _Id, float _Time );
 	
+	float		GetCurrentAnimationDuration	( const std::string &_Name );
+
 	//----Properties --------------------------------------------------------
 	bool		GetCreatePhysics		( void ) const		{ return m_CreatePhysics; }
 	bool		GetCreateBehaviour		( void ) const		{ return m_CreateLogicBehaviour; }

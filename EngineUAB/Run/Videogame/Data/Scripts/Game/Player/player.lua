@@ -15,6 +15,8 @@ class 'CPlayer' (CCharacter)
 		self.idle = CPlayerIdleState()
 		self.run = CPlayerRunState()
 		self.attack = CPlayerAttackState()
+		
+		self.animation_time = -1.0
 	end
 
 	function CPlayer:init() 
@@ -100,8 +102,22 @@ class 'CPlayer' (CCharacter)
 			end
 			
 			--Ataque del player
-			if action_2_input:do_action('AttackPlayer') then
-				l_attack_player = true
+			if self.animation_time <= -1.0 then
+				if action_2_input:do_action('AttackPlayer') then --Se pulsa el botón de atacar
+					l_attack_player = true
+					self.animation_time = 0.0
+				end
+			elseif self.animation_time > self.animated_model:get_current_animation_duration("attack") - 0.5 then --Finaliza el estado de atacar
+				if action_2_input:do_action('AttackPlayer') then --MIra si se vuelve a pulsar para no cambiar a un estado que no se quiere ir
+					l_attack_player = true
+					self.animation_time = 0.0
+				else
+					l_attack_player = false	--Se cambia al estado correspondiente
+					self.animation_time = -1.0
+				end
+			else
+				l_attack_player = true --Controla el tiempo de la animación
+				self.animation_time = self.animation_time + elapsed_time
 			end
 			
 			--Establece los ángulos de rotación si se mueve el player

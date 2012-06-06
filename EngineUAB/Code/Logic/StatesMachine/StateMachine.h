@@ -33,17 +33,20 @@ public:
 	{
 		assert( _pNewState && "StateMachine::ChangeState-> Trying to change to a null state");
 
-		// guardo registro del anterior estado
-		m_pPreviousState = m_pCurrentState;
+		if( m_pCurrentState != _pNewState )
+		{
+			// guardo registro del anterior estado
+			m_pPreviousState = m_pCurrentState;
 
-		// llamamos al metodo exit del estado que salimos
-		m_pCurrentState->OnExit ( m_pOwner );
+			// llamamos al metodo exit del estado que salimos
+			m_pCurrentState->OnExit ( m_pOwner );
 
-		// Ponemos el nuevo estado
-		m_pCurrentState = _pNewState;
+			// Ponemos el nuevo estado
+			m_pCurrentState = _pNewState;
 
-		// Llamamos al metodo de entrada del siguiente estado
-		m_pCurrentState->OnEnter( m_pOwner );
+			// Llamamos al metodo de entrada del siguiente estado
+			m_pCurrentState->OnEnter( m_pOwner );
+		}
 	}
 
 	// Volvemos al anterior estado

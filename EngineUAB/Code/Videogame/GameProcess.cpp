@@ -81,7 +81,7 @@ void CGameProcess::Update(float elapsedTime)
 	//Vuelve a cargar los datos si hacemos el reload de LUA
 	if( CORE->GetActionToInput()->DoAction("ReloadScripts") )
 	{
-		CORE->GetScriptManager()->RunCode("init_game_data()");
+		LoadGameObjects();
 		m_pThPSCamera->SetObject3D( m_pCharacterManager->GetPlayer());
 	}
 
@@ -121,6 +121,8 @@ bool CGameProcess::LoadMainScript( void )
 
 void CGameProcess::LoadGameObjects()
 {
+	CHECKED_DELETE(m_pCharacterManager);
+
 	//Crea los datos para el gameplay
 	m_pCharacterManager = new CCharactersManager();
 
