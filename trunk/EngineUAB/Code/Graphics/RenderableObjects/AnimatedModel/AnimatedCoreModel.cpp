@@ -32,6 +32,7 @@ CAnimatedCoreModel::CAnimatedCoreModel()
 CAnimatedCoreModel::~CAnimatedCoreModel()
 {
 	m_TextureFilenameVector.clear();
+	m_AnimationsMap.clear();
 	CHECKED_DELETE(m_CalCoreModel);
 	CHECKED_DELETE(m_CalHardwareModel);
 	CHECKED_DELETE(m_RenderableVertexs);
@@ -192,13 +193,14 @@ bool CAnimatedCoreModel::LoadAnimation(const std::string &Name, const std::strin
 {
 	assert( m_CalCoreModel != NULL );
 
-	uint16 err = m_CalCoreModel->loadCoreAnimation(Filename, Name);
-	if( err == -1 )
+	uint16 id = m_CalCoreModel->loadCoreAnimation(Filename, Name);
+	if( id == -1 )
 	{
 		LOGGER->AddNewLog(ELL_WARNING, "CAnimatedCoreModel::LoadMesh->No se ha podido leer la animación: %", Name.c_str());
 		return false;
 	}
 
+	m_AnimationsMap[Name] = id;
 	return true;
 }
 

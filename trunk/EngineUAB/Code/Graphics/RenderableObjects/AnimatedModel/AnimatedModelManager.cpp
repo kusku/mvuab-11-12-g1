@@ -104,5 +104,6 @@ void CAnimatedModelManager::RegisterMethods()
 			.def("blend_cycle", &CAnimatedInstanceModel::BlendCycle)
 			.def("clear_cycle", &CAnimatedInstanceModel::ClearCycle)
 			.def("execute_action", &CAnimatedInstanceModel::ExecuteAction)
+			.def("get_current_animation_duration", &CAnimatedInstanceModel::GetCurrentAnimationDuration)
 	];
 }

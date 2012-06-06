@@ -129,7 +129,6 @@ void CCharactersManager::Update ( float _ElapsedTime )
 		// TODO: solo para test de movimiento!!
 		l_EnemyList[i]->Update( _ElapsedTime );
 	}
-	
 }
 
 void CCharactersManager::Render	( void )

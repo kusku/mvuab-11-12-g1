@@ -100,6 +100,8 @@
     <ClCompile Include="Characters\States\AnimationsStatesManager.cpp" />
     <ClCompile Include="GameProcess.cpp" />
     <ClCompile Include="GUIProcess.cpp" />
+    <ClCompile Include="Items\Item.cpp" />
+    <ClCompile Include="Items\ItemManager.cpp" />
     <ClCompile Include="RegisterToLua.cpp" />
     <ClCompile Include="videogame.cpp" />
   </ItemGroup>
@@ -116,6 +118,9 @@
     <ClInclude Include="Characters\States\State_Wrapper.h" />
     <ClInclude Include="GameProcess.h" />
     <ClInclude Include="GUIProcess.h" />
+    <ClInclude Include="Items\Item.h" />
+    <ClInclude Include="Items\ItemManager.h" />
+    <ClInclude Include="Items\ItemWrapper.h" />
     <ClInclude Include="RegisterToLua.h" />
     <ClInclude Include="VideogameDefs.h" />
   </ItemGroup>

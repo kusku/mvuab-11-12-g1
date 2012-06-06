@@ -59,8 +59,6 @@ void CAnimatedInstanceModel::ReadDataXML(CXMLTreeNode &Node)
 	m_fPitch	= Node.GetFloatProperty("pitch", 0.0f);
 	m_fRoll		= Node.GetFloatProperty("roll", 0.0f);
 	m_Scale		= Node.GetVect3fProperty("scale", Vect3f(1.0f, 1.0f, 1.0f));
-
-	//TODO: Faltar leer create_physics y physics_type
 }
 
 void CAnimatedInstanceModel::Initialize(CAnimatedCoreModel *AnimatedCoreModel)
@@ -282,4 +280,10 @@ void CAnimatedInstanceModel::BlendCycle( uint32 Id, float Time )
 void CAnimatedInstanceModel::ClearCycle( uint32 Id, float Time )
 {
 	m_CalModel->getMixer()->clearCycle( Id, Time);
+}
+
+float CAnimatedInstanceModel::GetCurrentAnimationDuration(const std::string &_Name)
+{
+	uint16 id = m_AnimatedCoreModel->GetAnimationIdByName(_Name);
+	return m_AnimatedCoreModel->GetCoreModel()->getCoreAnimation(id)->getDuration();
 }

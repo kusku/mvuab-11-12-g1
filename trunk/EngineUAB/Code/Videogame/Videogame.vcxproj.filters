@@ -13,6 +13,9 @@
     <Filter Include="Characters\States">
       <UniqueIdentifier>{fbc3703c-6cf7-4ed9-9650-42161e73b469}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Items">
+      <UniqueIdentifier>{ee65b3fb-6c4b-41de-91c6-e29f38705103}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="videogame.cpp" />
@@ -43,6 +46,12 @@
       <Filter>Characters\States</Filter>
     </ClCompile>
     <ClCompile Include="RegisterToLua.cpp" />
+    <ClCompile Include="Items\ItemManager.cpp">
+      <Filter>Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Items\Item.cpp">
+      <Filter>Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUIProcess.h" />
@@ -78,6 +87,15 @@
     <ClInclude Include="RegisterToLua.h" />
     <ClInclude Include="Characters\States\State_Wrapper.h">
       <Filter>Characters\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Items\ItemManager.h">
+      <Filter>Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Items\Item.h">
+      <Filter>Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Items\ItemWrapper.h">
+      <Filter>Items</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
