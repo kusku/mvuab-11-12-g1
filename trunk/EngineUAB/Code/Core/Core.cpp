@@ -839,7 +839,7 @@ void CCore::ReloadSounds()
 	m_pSoundManager->Reload();
 }
 
-void CCore::ReloadWaypoints()
+void CCore::ReloadWayPoints()
 {
 	m_WayPointManager->Reload();
 }
@@ -871,10 +871,12 @@ void CCore::RegisterMethods()
 			.def("reload_triggers", &CCore::ReloadTriggers)
 			.def("reload_gui", &CCore::ReloadGUI)
 			.def("reload_sounds", &CCore::ReloadSounds)
+			.def("reload_waypoints", &CCore::ReloadWayPoints)
 			.def("get_debug_gui_manager", &CCore::GetDebugGUIManager)
 			.def("get_stadistics", &CCore::GetStadistics)
 			.def("get_gui_manager", &CCore::GetGUIManager)
 			.def("get_sound_manager", &CCore::GetSoundManager)
+			.def("get_waypoints_manager", &CCore::GetWayPointManager)
 			.def("get_action_to_input", &CCore::GetActionToInput)
 			.def("get_process", &CCore::GetProcess)
 			.def("load_fonts", &CCore::LoadFonts)
@@ -894,6 +896,7 @@ void CCore::RegisterMethods()
 			.def("load_triggers", &CCore::LoadTriggers)
 			.def("load_sounds", &CCore::LoadSounds)
 			.def("load_debug_gui", &CCore::LoadDebugGUI)
+			.def("load_waypoints", &CCore::LoadWaypoints)
 			.def("is_game_mode", &CCore::IsGameMode)
 	];
 
