@@ -1,90 +1,19 @@
-class 'CCaperucitaIdleState' (CState)
-	function CCaperucitaIdleState:__init() 
-		CState.__init(self)
-		print_logger(0, "Inicio del estado idle de la caperucita")
-	end
-
-	function CCaperucitaIdleState:OnEnter(_CCharacter)
-		--print_logger(0, "CCaperucitaIdleState:Enter")
-		
-		-- Cal fer això
-		-- CAnimatedCoreModel * l_Core =  _pCharacter->GetAnimatedModel()->GetAnimatedCoreModel();
-		-- int i = l_Core->GetCoreModel()->getCoreAnimationId ( "idle" );
-		-- _pCharacter->GetAnimatedModel()->BlendCycle ( i, 0.3f );
-		
-		if not ( _CCharacter == nil ) then
-			num = _CCharacter:get_animation_id("idle")
-			_CCharacter:get_animation_model():blend_cycle( num, 0.3 )
-		end
-	end
-	
-	function CCaperucitaIdleState:Execute(_CCharacter)
-		--print_logger(0, "CCaperucitaIdleState:Execute")
-	end
-	
-	function CCaperucitaIdleState:OnExit(_CCharacter)
-		--print_logger(0, "CCaperucitaIdleState:Exit")
-		if not ( _CCharacter == nil ) then
-			num = _CCharacter:get_animation_id("idle")
-			_CCharacter:get_animation_model():clear_cycle( num, 0.3 )
-		end
-	end
-	
-	function CCaperucitaIdleState:OnMessage(_CCharacter)
-		print_logger(0, "CCaperucitaIdleState:OnMessage")	
-	end
-	
-	function CCaperucitaIdleState:__Finalize()
-	
-	end
-	
-class 'CCaperucitaRunState' (CState)
-	function CCaperucitaRunState:__init() 
-		CState.__init(self)
-		print_logger(0, "Inicio del estado run de la caperucita")
-	end
-
-	function CCaperucitaRunState:OnEnter(_CCharacter)
-		--print_logger(0, "CCaperucitaRunState:Enter")
-		if not ( _CCharacter == nil ) then
-			num = _CCharacter:get_animation_id("run")
-			_CCharacter:get_animation_model():blend_cycle( num, 0.3 )
-		end
-	end
-	
-	function CCaperucitaRunState:Execute(_CCharacter)
-		--print_logger(0, "CCaperucitaRunState:Execute")
-	end
-	
-	function CCaperucitaRunState:OnExit(_CCharacter)
-		--print_logger(0, "CCaperucitaRunState:Exit")
-		if not ( _CCharacter == nil ) then
-			num = _CCharacter:get_animation_id("run")
-			_CCharacter:get_animation_model():clear_cycle( num, 0.3 )
-		end
-	end
-	
-	function CCaperucitaRunState:OnMessage(_CCharacter)
-		print_logger(0, "CCaperucitaRunState:OnMessage")
-	end
-	
-	function CCaperucitaRunState:__Finalize()
-	
-	end
-	
 class 'CPlayer' (CCharacter)
-	Idle = CCaperucitaIdleState()
-	if Idle == Nil then
-		print_logger(2, "Error al cargar un estado idle")
-	else 
-		print_logger(0, "Creat estat idle")
-	end
+
+	function CPlayer:load_states()
+		self.animation_idle_state = CCaperucitaIdleState()
+		if self.animation_idle_state == Nil then
+			print_logger(2, "Error al cargar un estado idle")
+		else 
+			print_logger(0, "Creat estat idle")
+		end
 	
-	Run = CCaperucitaRunState()
-	if Run == Nil then
-		print_logger(2, "Error al cargar un estado Run")
-	else
-		print_logger(0, "Creat estat run")
+		self.animation_run_state = CCaperucitaRunState()
+		if self.animation_run_state == Nil then
+			print_logger(2, "Error al cargar un estado Run")
+		else
+			print_logger(0, "Creat estat run")
+		end
 	end
 	
 	function CPlayer:__init() 
@@ -93,19 +22,20 @@ class 'CPlayer' (CCharacter)
 		self.pitch = -math.pi / 8
 		self.roll = 0.0
 		self.position = Vect3f(0.0, 0.0, 0.0)
-		--self.animated_model.pitch = -90.0
 		self.locked = false
+		
+		self:load_states()
 	end
 	
 	function CPlayer:init() 
 		print_logger(0, "Entro en el Init del player")
-		l_fsm =	self.get_graphic_fsm 
+		l_fsm =	self.graphic_fsm 
 		if (l_fsm == nil) then
 			print_logger(2, "maquina d'estats nil")
 			return false
 		else
 			print_logger(2, "maquina d'estats inicialitzada")
-			l_fsm.current_state = Idle 
+			l_fsm.current_state = self.animation_idle_state 
 			print_logger(2, "Current state assignat")
 			return true
 		end
@@ -186,18 +116,17 @@ class 'CPlayer' (CCharacter)
 				--print_logger (0, "No iguals" )
 			
 			
-			l_Fsm =	self.get_graphic_fsm 
+			l_Fsm =	self.graphic_fsm 
 			l_Fsm:update()
 			if l_Fsm == Nil then
 				print_logger(2, "error obtenir FSM")
 			else
 				--print_logger(0, "OK obtenir FSM")
 				if not (l_pos_anterior == l_pos_actual) then 
-					l_Fsm:change_state(Run)
+					l_Fsm:change_state(self.animation_run_state)
 					--print_logger(2, "poso a corre")
 				else
-					l_Fsm:change_state(Idle)
-					--print_logger(0, "poso a repos")
+					l_Fsm:change_state(self.animation_idle_state)
 				end
 			end 
 			
