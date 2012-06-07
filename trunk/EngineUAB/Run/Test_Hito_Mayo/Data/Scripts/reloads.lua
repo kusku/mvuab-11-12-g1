@@ -52,6 +52,10 @@ function reload_sounds()
 	core:reload_sounds()
 end
 
+function reload_waypoints()
+	core:reload_waypoints()
+end
+
 function reload_triggers()
 	core:reload_triggers()
 end
