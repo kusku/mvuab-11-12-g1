@@ -20,12 +20,15 @@ class 'CPlayer' (CCharacter)
 	end
 
 	function CPlayer:init() 
+		get_game_process():create_player_camera(1.0, 10000.0, 2.5, 0.7, 1.0, 'Caperucita')
+	
 		l_fsm =	self.get_graphic_fsm 
 		if (l_fsm == nil) then
 			print_logger(2, "CPlayer::init->Máquina de estado no construida.")
 			return false
 		else
 			l_fsm.current_state = self.idle 
+			l_fsm:change_state(self.idle)
 			return true
 		end
 		
@@ -143,13 +146,12 @@ class 'CPlayer' (CCharacter)
 		--Actualizamos los estados en caso de cambiar
 		l_Fsm =	self.get_graphic_fsm 
 		l_Fsm:update()
-		if l_Fsm ~= Nil then
-			if l_attack_player then
-				l_Fsm:change_state(self.attack)
-			elseif l_move_player then 
-				l_Fsm:change_state(self.run)
-			else
-				l_Fsm:change_state(self.idle)
-			end
-		end 
+		if l_attack_player then
+			print_logger(0,"attack")
+			l_Fsm:change_state(self.attack)
+		elseif l_move_player then 
+			l_Fsm:change_state(self.run)
+		else
+			l_Fsm:change_state(self.idle)
+		end	
 	end
