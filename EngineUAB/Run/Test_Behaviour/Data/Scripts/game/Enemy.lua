@@ -1,9 +1,3 @@
-
-	-- function player_is_too_away()
-		-- return true
-	-- end
-	
-	
 -- ------------------------------------------------------------------------
 --	Clase CEnemy
 -- ------------------------------------------------------------------------
@@ -115,25 +109,26 @@ class 'CEnemy' (CCharacter)
 		end
 	end
 	
-	function CEnemy:player_is_detected()
-		l_PlayerPos = self.character_manager.player.position
+	-- function cenemy:player_is_detected()
+		-- --l_playerpos = self.character_manager.player.position
 		
-		get_closest_way_point
-	end
+		-- --get_closest_way_point
+		-- return true
+	-- end
 	
 	-- ------------------------------
 	--			Update
 	-- ------------------------------
-	function CEnemy:update( _elapsed_time )
+	function CEnemy:update( elapsed_time )
 		
-		print_logger(0 , "Updating enemy...")
+		-- print_logger(0 , "Updating enemy...")
 		
-		if( self.physic_controller == NULL || self.animated_model == NULL  || _elapsed_time == 0)
-		{
-			return
-		}
+		-- -- if( self.physic_controller == NULL || self.animated_model == NULL  || _elapsed_time == 0)
+		-- -- {
+			-- -- return
+		-- -- }
 	
-		--l = self.PlayerIsDetected() 
+		-- --l = self.PlayerIsDetected() 
 		-- if ( self.player_is_detected() ) then 
 			-- print_logger ( 0 , "player is detected ")
 			-- -- -- if ( player_is_too_away() ) then
@@ -146,96 +141,96 @@ class 'CEnemy' (CCharacter)
 			-- -- -- Intercambio de Estados de esperando i patrullando
 		-- end 
 		
-		--if not self.locked then
+		-- --if not self.locked then
 			
-			-- -- capturamos la posición para ver si hay un cambio de estado de la animación
-			-- l_pos_anterior = Vect3f(self.physic_controller.position.x,self.physic_controller.position.y,self.physic_controller.position.z)
-			-- --print_logger(0 , "posición anterior :"..l_pos_anterior.x.." "..l_pos_anterior.y.." "..l_pos_anterior.z)
+			-- -- -- capturamos la posición para ver si hay un cambio de estado de la animación
+			-- -- l_pos_anterior = Vect3f(self.physic_controller.position.x,self.physic_controller.position.y,self.physic_controller.position.z)
+			-- -- --print_logger(0 , "posición anterior :"..l_pos_anterior.x.." "..l_pos_anterior.y.." "..l_pos_anterior.z)
 			
-			-- local action_2_input = core:get_action_to_input()
+			-- -- local action_2_input = core:get_action_to_input()
 			
-			-- local l_move_player = false
-			-- local l_d = 0.0
-			-- local l_dir = Vect3f(0.0, 0.0, 0.0)
-			-- local l_position = Vect3f(0.0, 0.0, 0.0)
+			-- -- local l_move_player = false
+			-- -- local l_d = 0.0
+			-- -- local l_dir = Vect3f(0.0, 0.0, 0.0)
+			-- -- local l_position = Vect3f(0.0, 0.0, 0.0)
 			
-			-- local l_yaw = self.physic_controller.yaw
-			-- l_d = action_2_input:do_action_mouse('YawPlayer')
-				-- l_yaw = l_yaw + l_d
-				-- if l_yaw > 2*math.pi then
-					-- l_yaw = l_yaw - 2*math.pi
-				-- elseif l_yaw < -2*math.pi then
-					-- l_yaw = l_yaw + 2*math.pi
-				-- end
+			-- -- local l_yaw = self.physic_controller.yaw
+			-- -- l_d = action_2_input:do_action_mouse('YawPlayer')
+				-- -- l_yaw = l_yaw + l_d
+				-- -- if l_yaw > 2*math.pi then
+					-- -- l_yaw = l_yaw - 2*math.pi
+				-- -- elseif l_yaw < -2*math.pi then
+					-- -- l_yaw = l_yaw + 2*math.pi
+				-- -- end
 			
-			-- if action_2_input:do_action('MovePlayerUp') then
-				-- if action_2_input:do_action('MovePlayerLeft') then
-					-- l_dir = Vect3f(math.cos(l_yaw + math.pi/4), 0.0, math.sin( l_yaw + math.pi/4 ))
-					-- l_position = l_position + l_dir
-				-- elseif action_2_input:do_action('MovePlayerRight') then
-					-- l_dir = Vect3f(math.cos(l_yaw - math.pi/4), 0.0, math.sin(l_yaw - math.pi/4))
-					-- l_position = l_position + l_dir
-				-- else
-					-- l_dir = Vect3f(math.cos(l_yaw), 0.0, math.sin(l_yaw))
-					-- l_position = l_position + l_dir
-				-- end
+			-- -- if action_2_input:do_action('MovePlayerUp') then
+				-- -- if action_2_input:do_action('MovePlayerLeft') then
+					-- -- l_dir = Vect3f(math.cos(l_yaw + math.pi/4), 0.0, math.sin( l_yaw + math.pi/4 ))
+					-- -- l_position = l_position + l_dir
+				-- -- elseif action_2_input:do_action('MovePlayerRight') then
+					-- -- l_dir = Vect3f(math.cos(l_yaw - math.pi/4), 0.0, math.sin(l_yaw - math.pi/4))
+					-- -- l_position = l_position + l_dir
+				-- -- else
+					-- -- l_dir = Vect3f(math.cos(l_yaw), 0.0, math.sin(l_yaw))
+					-- -- l_position = l_position + l_dir
+				-- -- end
 				
-				-- l_move_player = true
-			-- elseif action_2_input:do_action('MovePlayerDown') then
-				-- if action_2_input:do_action('MovePlayerLeft') then
-					-- l_dir = Vect3f(math.cos(l_yaw - math.pi/4), 0.0, math.sin(l_yaw - math.pi/4))
-					-- l_position = l_position - l_dir
-				-- elseif action_2_input:do_action('MovePlayerRight') then
-					-- l_dir = Vect3f(math.cos(l_yaw + math.pi/4), 0.0, math.sin(l_yaw + math.pi/4))
-					-- l_position = l_position - l_dir
-				-- else
-					-- l_dir = Vect3f(math.cos(l_yaw), 0.0, math.sin(l_yaw))
-					-- l_position = l_position - l_dir
-				-- end
+				-- -- l_move_player = true
+			-- -- elseif action_2_input:do_action('MovePlayerDown') then
+				-- -- if action_2_input:do_action('MovePlayerLeft') then
+					-- -- l_dir = Vect3f(math.cos(l_yaw - math.pi/4), 0.0, math.sin(l_yaw - math.pi/4))
+					-- -- l_position = l_position - l_dir
+				-- -- elseif action_2_input:do_action('MovePlayerRight') then
+					-- -- l_dir = Vect3f(math.cos(l_yaw + math.pi/4), 0.0, math.sin(l_yaw + math.pi/4))
+					-- -- l_position = l_position - l_dir
+				-- -- else
+					-- -- l_dir = Vect3f(math.cos(l_yaw), 0.0, math.sin(l_yaw))
+					-- -- l_position = l_position - l_dir
+				-- -- end
 				
-				-- l_move_player = true
-			-- end
+				-- -- l_move_player = true
+			-- -- end
 			
-			-- l_position = l_position * 10.0 * elapsed_time
+			-- -- l_position = l_position * 10.0 * elapsed_time
 			
-			-- self.physic_controller.yaw = l_yaw
-			-- controller = self.physic_controller:move(l_position, elapsed_time)
+			-- -- self.physic_controller.yaw = l_yaw
+			-- -- controller = self.physic_controller:move(l_position, elapsed_time)
 			
+			-- -- self.position = self.physic_controller.position
+			-- -- self.position = Vect3f(self.position.x, self.position.y - self.physic_controller.height + 0.4, self.position.z)
+			-- -- self.yaw = l_yaw
+			
+			-- -- self.animated_model.position = self.position
+			-- -- if l_move_player then
+				-- -- self.animated_model.yaw = -(l_yaw * 180.0 / math.pi) + 90.0
+			-- -- end
+			
+			-- -- -- Comprobamos si cambiamos de estado
+			-- -- --l_pos_actual = Vect3f(self.position.x,self.position.y,self.position.z)
+			-- -- l_pos_actual = Vect3f(self.physic_controller.position.x,self.physic_controller.position.y,self.physic_controller.position.z)
+			-- -- --print_logger(0 , "posición actual :"..l_pos_actual.x.." "..l_pos_actual.y.." "..l_pos_actual.z)
+			
+			-- l_fsm =	self.graphic_fsm
+			
+			-- if l_fsm == nil then
+				-- print_logger(2, "error obtenir fsm")
+			-- else
+				-- l_fsm:update()
+				-- --print_logger(0, "ok obtenir fsm")
+				-- -- if not (l_pos_anterior == l_pos_actual) then 
+					-- l_fsm:change_state(self.animation_idle_state)
+					-- --print_logger(2, "poso a corre")
+				-- -- else
+					-- -- l_fsm:change_state(idle)
+					-- -- --print_logger(0, "poso a repos")
+				-- -- end
+			-- end 
+			
+		-- -- else
+			-- self.physic_controller:move(Vect3f(0.0,0.0,0.0), elapsed_time)
 			-- self.position = self.physic_controller.position
-			-- self.position = Vect3f(self.position.x, self.position.y - self.physic_controller.height + 0.4, self.position.z)
-			-- self.yaw = l_yaw
-			
 			-- self.animated_model.position = self.position
-			-- if l_move_player then
-				-- self.animated_model.yaw = -(l_yaw * 180.0 / math.pi) + 90.0
-			-- end
-			
-			-- -- Comprobamos si cambiamos de estado
-			-- --l_pos_actual = Vect3f(self.position.x,self.position.y,self.position.z)
-			-- l_pos_actual = Vect3f(self.physic_controller.position.x,self.physic_controller.position.y,self.physic_controller.position.z)
-			-- --print_logger(0 , "posición actual :"..l_pos_actual.x.." "..l_pos_actual.y.." "..l_pos_actual.z)
-			
-			l_fsm =	self.graphic_fsm
-			
-			if l_fsm == nil then
-				print_logger(2, "error obtenir fsm")
-			else
-				l_fsm:update()
-				--print_logger(0, "ok obtenir fsm")
-				-- if not (l_pos_anterior == l_pos_actual) then 
-					l_fsm:change_state(self.animation_idle_state)
-					--print_logger(2, "poso a corre")
-				-- else
-					-- l_fsm:change_state(idle)
-					-- --print_logger(0, "poso a repos")
-				-- end
-			end 
-			
-		-- else
-			self.physic_controller:move(Vect3f(0.0,0.0,0.0), elapsed_time)
-			self.position = self.physic_controller.position
-			self.animated_model.position = self.position
-		-- end
+		-- -- end
 	end
 
 	-- ------------------------------
