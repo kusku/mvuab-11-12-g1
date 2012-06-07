@@ -55,3 +55,7 @@ end
 function reload_triggers()
 	core:reload_triggers()
 end
+
+function reload_waypoints()
+	core:reload_waypoints()
+end
