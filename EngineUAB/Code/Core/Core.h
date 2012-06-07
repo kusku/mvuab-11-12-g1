@@ -98,7 +98,7 @@ public:
 	void		ReloadTriggers							();
 	void		ReloadGUI								();
 	void		ReloadSounds							();
-	void		ReloadWaypoints							();
+	void		ReloadWayPoints							();
 
 	//----Properties ( get & Set )---------------------------------------
 	void				SetCamera					( CCamera *_Camera )			{ m_pCamera = _Camera; }
