@@ -116,28 +116,35 @@ class 'CEnemy' (CCharacter)
 	end
 	
 	function CEnemy:player_is_detected()
+		l_PlayerPos = self.character_manager.player.position
 		
-		return true
+		get_closest_way_point
 	end
 	
 	-- ------------------------------
 	--			Update
 	-- ------------------------------
-	function CEnemy:update(elapsed_time)
+	function CEnemy:update( _elapsed_time )
 		
 		print_logger(0 , "Updating enemy...")
+		
+		if( self.physic_controller == NULL || self.animated_model == NULL  || _elapsed_time == 0)
+		{
+			return
+		}
+	
 		--l = self.PlayerIsDetected() 
-		if ( self.player_is_detected() ) then 
-			print_logger ( 0 , "player is detected ")
-			-- -- if ( player_is_too_away() ) then
-				-- -- -- Acercandose para atacar
-			-- -- else 
-				-- -- -- Intercambio de estados de Atacando
-			-- -- end
-			-- -- Persiguiendo 
-		-- --else
-			-- -- Intercambio de Estados de esperando i patrullando
-		end 
+		-- if ( self.player_is_detected() ) then 
+			-- print_logger ( 0 , "player is detected ")
+			-- -- -- if ( player_is_too_away() ) then
+				-- -- -- -- Acercandose para atacar
+			-- -- -- else 
+				-- -- -- -- Intercambio de estados de Atacando
+			-- -- -- end
+			-- -- -- Persiguiendo 
+		-- -- --else
+			-- -- -- Intercambio de Estados de esperando i patrullando
+		-- end 
 		
 		--if not self.locked then
 			
