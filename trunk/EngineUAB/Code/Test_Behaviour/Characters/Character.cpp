@@ -18,6 +18,10 @@
 
 #include "Base.h"
 
+#if defined (_DEBUG)
+	#include "Memory\MemLeaks.h"
+#endif
+
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
@@ -64,6 +68,7 @@ CCharacter::~CCharacter( void )
 	CHECKED_DELETE ( m_pLogicStateMachine );
 	CHECKED_DELETE ( m_pGraphicStateMachine );
 	// Amb lua no cal eliminar l'objecte. Lua ja se'n ocupa.
+	CORE->GetPhysicsManager()->ReleasePhysicController(m_pController);
 	CHECKED_DELETE ( m_pController );
 	CHECKED_DELETE ( m_pPhysicUserDataJugador );
 	m_pCurrentAnimatedModel = NULL;

@@ -18,6 +18,8 @@
 //#include "Characters\Enemy\Enemy.h"
 
 #include "StatesMachine\ScriptedStateMachine.h"
+#include "StatesMachine\BaseGameEntity.h"
+
 #include "DebugSceneBehaviour\Scene.h"
 #include "SoundManager.h"
 #include "ActionToInput.h"
@@ -29,7 +31,7 @@
 #include "Base.h"
 
 #if defined (_DEBUG)
-#include "Memory/MemLeaks.h"
+	#include "Memory/MemLeaks.h"
 #endif
 
 // -----------------------------------------
@@ -158,7 +160,7 @@ void CGameProcess::LoadGameObjects()
 {
 	//Crea los datos para el gameplay
 	m_pCharactersManager = new CCharactersManager();
-
+	
 	//Crea escena debug 
 	//m_pScene = new CScene();
 
@@ -170,6 +172,8 @@ void CGameProcess::LoadGameObjects()
 
 	// por si se desea hacer alguna mariconada...
 	//SCRIPT->RunCode("init_game_data()");
+
+	CBaseGameEntity::Initialize();
 
 	// Inicializa el gestor de player y enemigos. Carga propiedades y estados de todo.
 	if ( !m_pCharactersManager->Initialize ( ) )

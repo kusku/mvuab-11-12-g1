@@ -9,6 +9,10 @@
 #include "PhysicCookingMesh.h"
 #include "PhysicUserData.h"
 
+#if defined (_DEBUG)
+	#include "Memory\MemLeaks.h"
+#endif
+
 
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR

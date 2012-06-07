@@ -9,7 +9,7 @@
 #include "TestBehaviourDefs.h"
 
 #if defined (_DEBUG)
-#include "Memory\MemLeaks.h"
+	#include "Memory\MemLeaks.h"
 #endif
 
 CGUIProcess::CGUIProcess(HWND hWnd)

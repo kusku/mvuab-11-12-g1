@@ -2,11 +2,13 @@
 #include "WayPointManager.h"
 #include "WayPoint.h"
 #include "XML/XMLTreeNode.h"
-#include "Base.h"
-#include "Logger/Logger.h"
 #include "AStar.h"
-#include "Core.h"
+
+#include "Scripting\ScriptManager.h"
 #include "RenderManager.h"
+#include "Logger/Logger.h"
+#include "Core.h"
+#include "Base.h"
 
 CWayPointManager::CWayPointManager()
 	: m_Filename("")
@@ -368,4 +370,17 @@ void CWayPointManager::DebugRender()
 			CORE->GetRenderManager()->DrawCube(Vect3f(2.0f, 2.0f, 2.0f), colRED);
 		}
 	}
+}
+
+void CWayPointManager::RegisterMethods()
+{
+	lua_State* _pLua = SCRIPT->GetLuaState();
+	module(_pLua) 
+		[
+			class_<CWayPointManager>("CWayPointManager")
+				.def("get_closest_way_point", &CWayPointManager::GetClosestWayPoint)
+				//.def("get_path", &CWayPointManager::GetPath)
+				//.def("get_way_point", &CWayPointManager::GetWayPoint)
+				//.def("get_path_distance", &CWayPointManager::GetWayPoint)
+		];
 }

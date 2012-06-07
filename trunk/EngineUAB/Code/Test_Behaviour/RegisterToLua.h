@@ -6,10 +6,6 @@
 #include <luabind/luabind.hpp>
 using namespace luabind;
 
-enum {
-	ent_caperucita= 1, 
-	ent_lobo = 2
-};
 
 void RegisterToLuaGlobals				( lua_State* _pLua );
 //void RegisterToLuaTelegram(lua_State* _pLua);

@@ -72,7 +72,7 @@ public:
 
 	}
 
-	void SuspedState( CState<T>* _pNewState )
+	void SuspendState( CState<T>* _pNewState )
 	{
 		assert( _pNewState && "StateMachine::SuspedState-> Trying to change to a null state");
 

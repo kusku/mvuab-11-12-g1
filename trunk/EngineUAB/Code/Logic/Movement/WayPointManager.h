@@ -46,6 +46,9 @@ class CWayPointManager
 		std::vector<Vect3f>		GetPath					(const std::string& groupName, const Vect3f& curPos, const Vect3f& destPos);
 
 		void					DebugRender				();
+
+		void					RegisterMethods			();
+
 };
 
 #endif
