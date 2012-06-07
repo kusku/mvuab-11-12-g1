@@ -21,4 +21,12 @@ function load_data()
 	core:load_billboards()
 	core:load_particles()
 	core:load_triggers()
+	core:load_waypoints()
 end
+
+
+function load_all()
+	load_basics()
+	load_data()
+end
+
