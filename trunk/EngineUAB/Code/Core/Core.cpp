@@ -269,7 +269,7 @@ bool CCore::Init( HWND _HWnd, const SConfig &config )
 			m_pMessageDispatcher = new CMessageDispatcher();
 			
 			m_WayPointManager = new CWayPointManager();
-			m_WayPointManager->Load(config.waypoints_path);
+			//m_WayPointManager->Load(config.waypoints_path);
 
 			CCore::RegisterMethods();
 
@@ -451,6 +451,11 @@ bool CCore::LoadSounds()
 bool CCore::LoadDebugGUI()
 {
 	return m_pDebugGUIManager->Init( m_Config.modifiers_path, m_Config.debug_options_path );		
+}
+
+bool CCore::LoadWaypoints()
+{
+	return m_WayPointManager->Load( m_Config.waypoints_path ); 
 }
 
 void CCore::SetGameMode(bool _GameMode)
@@ -832,6 +837,11 @@ void CCore::ReloadGUI()
 void CCore::ReloadSounds()
 {
 	m_pSoundManager->Reload();
+}
+
+void CCore::ReloadWaypoints()
+{
+	m_WayPointManager->Reload();
 }
 
 void CCore::RegisterMethods()
