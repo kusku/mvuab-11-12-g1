@@ -1,5 +1,9 @@
 #include "AnimationsStates.h"
 
+#if defined (_DEBUG)
+	#include "Memory\MemLeaks.h"
+#endif
+
 // ------------------------------------------
 //			CONSTRUCTOR/DESTRUCTOR
 // ------------------------------------------

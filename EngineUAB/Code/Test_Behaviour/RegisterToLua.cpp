@@ -15,7 +15,7 @@
 #include "Character_Wrapper.h"
 #include "Characters/Properties/Properties.h"
 #include "Characters/States/State_Wrapper.h"
-
+#include "Characters\CharacterManager.h"
 #include "PhysicController.h"
 
 #include "Object3D.h"
@@ -86,9 +86,8 @@ void RegisterToLuaCharacter(lua_State* _pLua)
 				.def("get_animation_model", &CCharacter::GetAnimatedModel)
 				.property("physic_controller", &CCharacter::GetController)	
 				.property("animated_model", &CCharacter::GetAnimatedModel)
-				//.property("core_animation_id", &CCharacter::GetAnimationId)
-				.property("get_logic_fsm", &CCharacter::GetLogicFSM)
-				.property("get_graphic_fsm", &CCharacter::GetGraphicFSM)
+				.property("logic_fsm", &CCharacter::GetLogicFSM)
+				.property("graphic_fsm", &CCharacter::GetGraphicFSM)
 				.property("properties", &CCharacter::GetProperties, &CCharacter::SetProperties)
 				.property("locked", &CCharacter::GetLocked, &CCharacter::SetLocked)
 		];
@@ -111,11 +110,13 @@ void RegisterToLuaProperties(lua_State* _pLua)
 
 void RegisterToLuaCharacterManager(lua_State* _pLua)
 {
-	//module(_pLua)
-	//	[
-	//		class_<CCharactersManager, bases<CTemplatedVectorMapManager<CCharacter>> > ("CCharactersManager")
-	//			.def("add_enemy", &CCharactersManager::AddEnemy)
-	//	]
+	module(_pLua) 
+		[
+			class_<CCharactersManager>("CCharactersManager")
+				.def("add_enemy", &CCharactersManager::AddEnemy)
+				.def("set_player", &CCharactersManager::SetPlayer)
+				.property("player", &CCharactersManager::GetPlayer)
+		];
 }
 
 void RegisterToLuaStateMachine(lua_State* _pLua){

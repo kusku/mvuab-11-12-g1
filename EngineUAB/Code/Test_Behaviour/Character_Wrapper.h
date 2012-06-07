@@ -20,13 +20,13 @@ struct CCharacter_Wrapper: CCharacter, luabind::wrap_base
 	CCharacter_Wrapper(int Id)
 		:CCharacter(Id)
 	{
-		LOGGER->AddNewLog ( ELL_INFORMATION, "[C++CCharacter_Wrapper] constructor");
+		LOGGER->AddNewLog ( ELL_INFORMATION, "[C++CCharacter_Wrapper] first constructor");
 	}
 
 	CCharacter_Wrapper(int Id, const std::string &_Name)
 		:CCharacter(Id, _Name)
 	{
-		LOGGER->AddNewLog ( ELL_INFORMATION, "[C++CCharacter_Wrapper] constructor");
+		LOGGER->AddNewLog ( ELL_INFORMATION, "[C++CCharacter_Wrapper] second constructor");
 	}
 
 	virtual ~CCharacter_Wrapper()
@@ -37,7 +37,6 @@ struct CCharacter_Wrapper: CCharacter, luabind::wrap_base
 	virtual bool Init()
 	{
 		 bool l = call<bool>("init");
-		 //int s = this->GetAnimationId("run");		// Això sembla que funciona
 		 return l;
 	}
 

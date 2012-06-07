@@ -107,7 +107,7 @@ void CScriptManager::RunFile(const std::string &FileName) const
 	if ( luaL_dofile( m_pLuaState, FileName.c_str() ) )
 	{
 		const char *l_Str = lua_tostring ( m_pLuaState, -1 );
-		LOGGER->AddNewLog ( ELL_ERROR, l_Str );
+ 		LOGGER->AddNewLog ( ELL_ERROR, l_Str );
 	}
 }
 

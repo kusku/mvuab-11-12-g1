@@ -73,12 +73,12 @@ void CAnimatedInstanceModel::Initialize(CAnimatedCoreModel *AnimatedCoreModel)
 		m_CalModel->attachMesh( meshId );
 	}
 	
-	if(l_CalCoreModel->getCoreAnimationCount() > 1)
+	if(l_CalCoreModel->getCoreAnimationCount() > 0)
 	{
-		ExecuteAction(0, 0.0f);
-	}
+		//ExecuteAction(0, 0.0f);
+	/*}
 	else
-	{
+	{*/
 		BlendCycle(0, 0.0f);
 	}
 

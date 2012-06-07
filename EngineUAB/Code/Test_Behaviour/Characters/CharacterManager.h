@@ -59,9 +59,8 @@ private:
 
 	Vect3f						RandomVector					( const Vect3f &_Vect1, const Vect3f &_Vect2 );
 
-	void						RegisterMethods					( void );
+	std::string					ConvertInt						( int _Number );
 
-	//	void					DrawActors					( void );
 	
 	// ------------- Propietats ( Get / Set ) ----------------
 public:
