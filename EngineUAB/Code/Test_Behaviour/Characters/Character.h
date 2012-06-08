@@ -45,6 +45,7 @@ public:
 
 	//----Functions -------------------------------------------
 	void						MoveController		( const Vect3f &_Dir, float _ElapsedTime );
+	void						MoveTo				( const Vect3f &_Position, float _ElapsedTime );
 	
 	//----Properties ( get & Set )-----------------------------
 	virtual inline CStateMachine<CCharacter>*		GetLogicFSM			( void ) const			{ return m_pLogicStateMachine; }

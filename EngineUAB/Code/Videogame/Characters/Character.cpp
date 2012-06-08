@@ -77,17 +77,7 @@ CCharacter::~CCharacter( void )
 // -----------------------------------------
 bool CCharacter::Init()
 {
-	////Create a dynamic Player     
-	//m_pPhysicUserDataJugador = new CPhysicUserData ( m_Name );
-	//m_pPhysicUserDataJugador->SetColor ( colYELLOW );
-	//m_pPhysicUserDataJugador->SetPaint ( true );
-
-	//// Creo el controlador del jugador
-	//m_pController = new CPhysicController( 0.5f, 1.0f, 45.f, 0.1f, 0.5f, _Group, m_pPhysicUserDataJugador );
-	//m_pController->SetPosition( _InitialPosition );
-	//m_pController->SetVisible( true );
-	//
-	//CORE->GetPhysicsManager()->AddPhysicController( m_pController );
+	// Implementación en lua!
 
 	return true;
 }

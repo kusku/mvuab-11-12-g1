@@ -65,14 +65,6 @@ void RegisterToLuaCNamed(lua_State* _pLua)
 		];
 }
 
-void RegisterToLuaCObject3D(lua_State* _pLua)
-{
-	module(_pLua)
-		[
-			class_<CObject3D> ("CObject3D")
-		];
-}
-
 void RegisterToLuaCharacter(lua_State* _pLua)
 {
 	module(_pLua)
@@ -84,6 +76,7 @@ void RegisterToLuaCharacter(lua_State* _pLua)
 				.def("update", &CCharacter::Update, &CCharacter_Wrapper::default_update)
 				.def("get_animation_id", &CCharacter::GetAnimationId)
 				.def("get_animation_model", &CCharacter::GetAnimatedModel)
+				.def("move_to", &CCharacter::MoveTo)
 				.property("physic_controller", &CCharacter::GetController)	
 				.property("animated_model", &CCharacter::GetAnimatedModel)
 				.property("logic_fsm", &CCharacter::GetLogicFSM)
@@ -104,7 +97,8 @@ void RegisterToLuaProperties(lua_State* _pLua)
 				.property("life", &CProperties::GetLife, &CProperties::SetLife)	
 				.property("strong", &CProperties::GetStrong, &CProperties::SetStrong)	
 				.property("direction", &CProperties::GetDirection, &CProperties::SetDirection)	
-				.property("respawn_position", &CProperties::GetRespawnPosition, &CProperties::SetRespawnPosition)	
+				.property("respawn_position", &CProperties::GetRespawnPosition, &CProperties::SetRespawnPosition)
+				.property("detection_distance", &CProperties::GetDetectionDistance, &CProperties::SetDetectionDistance)
 		];
 }
 
@@ -113,9 +107,9 @@ void RegisterToLuaCharacterManager(lua_State* _pLua)
 	module(_pLua) 
 		[
 			class_<CCharactersManager>("CCharactersManager")
-				.def("add_enemy", &CCharactersManager::AddEnemy)
-				.def("set_player", &CCharactersManager::SetPlayer)
-				.property("player", &CCharactersManager::GetPlayer)
+				/*.def("add_enemy", &CCharactersManager::AddEnemy)
+				.def("set_player", &CCharactersManager::SetPlayer)*/
+				.def("get_player", &CCharactersManager::GetPlayer)
 		];
 }
 

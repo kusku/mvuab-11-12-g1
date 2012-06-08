@@ -135,7 +135,6 @@ void CCharactersManager::Update ( float _ElapsedTime )
 
 void CCharactersManager::Render	( void )
 {
-	//DrawActors();
 }
 
 //--------------------------------------------------
@@ -175,7 +174,7 @@ bool CCharactersManager::LoadXMLProperties( void )
 			}
 			else if( l_Type == "enemies" ) // Cargamos las propiedades de los enemigos
 			{
-				//l_IsOk &= LoadEnemiesProperties( l_Characters(i) );
+				l_IsOk &= LoadEnemiesProperties( l_Characters(i) );
 			}
 		}
 	}

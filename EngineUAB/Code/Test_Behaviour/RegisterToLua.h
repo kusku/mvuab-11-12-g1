@@ -10,7 +10,6 @@ using namespace luabind;
 void RegisterToLuaGlobals				( lua_State* _pLua );
 //void RegisterToLuaTelegram(lua_State* _pLua);
 //void RegisterToLuaMessageDispacher(lua_State* _pLua);
-void RegisterToLuaCObject3D				( lua_State* _pLua );
 void RegisterToLuaBaseGameEntity		( lua_State* _pLua );
 void RegisterToLuaCNamed				( lua_State* _pLua );
 void RegisterToLuaCharacter				( lua_State* _pLua );

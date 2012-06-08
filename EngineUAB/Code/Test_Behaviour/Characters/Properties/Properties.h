@@ -41,6 +41,8 @@ public:
 	inline void					SetRespawnPosition		( const Vect3f &_RespawnPosition )					{ m_RespawnPosition = _RespawnPosition; }
 	inline const Vect3f			GetRespawnPosition		( void ) const										{ return m_RespawnPosition; }
 
+	inline void					SetDetectionDistance	( float _DetectionDistance )						{ m_DetectionDistance = _DetectionDistance; }
+	inline float				GetDetectionDistance	( void ) const										{ return m_DetectionDistance; }
 
 	//---- Members -------------------------------------------------------
 private:
@@ -51,6 +53,7 @@ private:
 	int					m_Speed;
 	Vect3f				m_Direction;
 	Vect3f				m_RespawnPosition;
+	float				m_DetectionDistance;			// distancia de detección de otros caràcteres
 };
 
 #endif __CLASS_PROPERTIES_H__
