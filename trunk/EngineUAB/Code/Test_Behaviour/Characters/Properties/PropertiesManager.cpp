@@ -75,6 +75,11 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 			Vect3f l_Vect = l_XMLPropertiesNode(i).GetVect3fKeyword ("Position");
 			l_Properties->SetPosition( l_Vect );
 		}
+		else if( l_PropertyField == "DetectionDistance" )
+		{
+			float l_distance = l_XMLPropertiesNode(i).GetFloatKeyword ("DetectionDistance");
+			l_Properties->SetDetectionDistance( l_distance );
+		}
 		else if ( l_PropertyField != "comment" ) 
 		{
 			std::string msg_error = "CPropertiesManager::LoadXML --> Error reading a unknow tag when trying to load properties : " + l_PropertyField;

@@ -165,7 +165,12 @@ void CCharacter::MoveController(const Vect3f &_Dir, float _ElapsedTime)
 	m_pController->Move( _Dir, _ElapsedTime );
 }
 
-
+void CCharacter::MoveTo( const Vect3f &_Position, float _ElapsedTime )
+{
+	this->GetController()->Move(_Position, _ElapsedTime);
+	this->SetPosition(Vect3f ( GetController()->GetPosition().x, GetController()->GetPosition().y - GetController()->GetHeight() + 0.4f, GetController()->GetPosition().z));
+	this->GetAnimatedModel()->SetPosition( GetPosition() );
+}
 
 // -----------------------------------------
 //				PROPERTIES

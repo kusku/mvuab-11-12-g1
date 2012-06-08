@@ -197,8 +197,7 @@ void CGameProcess::RegisterMethods( void )
 
 	/*RegisterToLuaTelegram(l_State);
 	RegisterToLuaMessageDispacher(l_State);*/
-	//RegisterToLuaCNamed					( l_State );
-	//RegisterToLuaCObject3D				( l_State );
+//	RegisterToLuaCNamed					( l_State );
 	RegisterToLuaBaseGameEntity			( l_State );
 	RegisterToLuaCharacter				( l_State );
 	RegisterToLuaCharacterManager		( l_State );
