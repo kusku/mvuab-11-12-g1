@@ -5,11 +5,10 @@
 class 'CEnemy' (CCharacter)
 	
 	function CEnemy:load_states()
-		print_logger(0, "hola")
 		-- Idle State --
 		self.animation_idle_state = CWolfIdleState()
 		-- self.animation_idle_state = nil
-		if animation_idle_state == Nil then
+		if self.animation_idle_state == nil then
 			print_logger(2, "Error al cargar un estado idle del lobo")
 		else 
 			print_logger(0, "Creat estat idle del lobo")
@@ -17,7 +16,7 @@ class 'CEnemy' (CCharacter)
 		
 		-- Walk State --
 		self.animation_walk_state = CWolfWalkState()
-		if self.animation_walk_state == Nil then
+		if self.animation_walk_state == nil then
 			print_logger(2, "Error al cargar un estado Walk del lobo")
 		else
 			print_logger(0, "Creat estat Walk del lobo")
@@ -25,7 +24,7 @@ class 'CEnemy' (CCharacter)
 		
 		-- Run State --
 		self.animation_run_state = CWolfRunState()
-		if self.animation_run_state == Nil then
+		if self.animation_run_state == nil then
 			print_logger(2, "Error al cargar un estado Run del lobo")
 		else
 			print_logger(0, "Creat estat run del lobo")
@@ -33,7 +32,7 @@ class 'CEnemy' (CCharacter)
 		
 		-- Attack Still State --
 		self.animation_still_attack_state = CWolfStillAttackState()
-		if self.animation_still_attack_state == Nil then
+		if self.animation_still_attack_state == nil then
 			print_logger(2, "Error al cargar un estado Still Attack del lobo")
 		else
 			print_logger(0, "Creat estat run del lobo")
@@ -41,7 +40,7 @@ class 'CEnemy' (CCharacter)
 		
 		-- Attack Run State --
 		self.animation_run_attack_state = CWolfRunAttackState()
-		if self.animation_run_attack_state == Nil then
+		if self.animation_run_attack_state == nil then
 			print_logger(2, "Error al cargar un estado Run Attack del lobo")
 		else
 			print_logger(0, "Creat estat run del lobo")
@@ -49,7 +48,7 @@ class 'CEnemy' (CCharacter)
 		
 		-- Hit State --
 		self.animation_hit_state = CWolfHitState()
-		if self.animation_hit_state == Nil then
+		if self.animation_hit_state == nil then
 			print_logger(2, "Error al cargar un estado Hit del lobo")
 		else
 			print_logger(0, "Creat estat run del lobo")
@@ -57,7 +56,7 @@ class 'CEnemy' (CCharacter)
 		
 		-- Deffense State --
 		self.animation_deffense_state = CWolfDeffenseState()
-		if self.animation_hit_state == Nil then
+		if self.animation_hit_state == nil then
 			print_logger(2, "Error al cargar un estado deffense del lobo")
 		else
 			print_logger(0, "Creat estat run del lobo")
@@ -73,7 +72,9 @@ class 'CEnemy' (CCharacter)
 		self.yaw = 0.0
 		self.pitch = -math.pi / 8
 		self.roll = 0.0
-		self.position = Vect3f(0.0, 0.0, 0.0)
+		--self.position = Vect3f(0.0, 0.0, 0.0)
+		--self.position = Vect3f(0.0, 0.0, 0.0)
+		--self.position2 = self.position 
 		self.locked = false
 		self.character_manager = get_game_process():get_character_manager()
 		
@@ -90,37 +91,97 @@ class 'CEnemy' (CCharacter)
 		self.position = Vect3f(0.0, 0.0, 0.0)
 		self.locked = false
 		self.character_manager = get_game_process():get_character_manager()
+		self.player = get_game_process():get_character_manager():get_player()
+		
+		if ( self.player == nil ) then
+			print_logger ( 2, "player is nil" )
+		else 
+			print_logger ( 0, "player existe" )
+		end
 		
 		-- Cargamos los estados		
 		self:load_states()
 	end
 	
 	function CEnemy:init() 
-		print_logger(0, "Entro en el Init del player")
+		print_logger(0, "Entro en el Init() del enemic")
 		l_fsm =	self.graphic_fsm 
 		if (l_fsm == nil) then
 			print_logger(2, "maquina d'estats nil del enemic")
 			return false
 		else
-			print_logger(2, "maquina d'estats inicialitzada del enemic")
+			print_logger(0, "maquina d'estats inicialitzada del enemic")
 			l_fsm.current_state = self.animation_idle_state 
-			print_logger(2, "Current state assignat del enemic")
+			print_logger(0, "Current state idle assignat del enemic")
 			return true
 		end
 	end
 	
-	-- function cenemy:player_is_detected()
-		-- --l_playerpos = self.character_manager.player.position
-		
-		-- --get_closest_way_point
+	-- function CEnemy:is_player_too_near()
+		-- print_logger (0, " is player near ")
 		-- return true
 	-- end
+	
+	function CEnemy:is_player_detected()
+	
+		print_logger (0, " is player detected ")
+		return true
+		
+		-- --l_pointB = Vect2f (self.position2.x, self.position2.z)
+		
+		-- --l = self:is_player_too_near()		NO FUNCIONA!!
+		-- -- l = CEnemy:is_player_too_near()
+		
+		-- -- if (l == true) then
+			-- -- print_logger(0, "valor : es true")
+		-- -- else
+			-- -- print_logger(0, "valor : es false")
+		-- -- end
+		
+		
+		-- --CCharacter:IsPlayerDetected(self)
+		-- --is_player_detected()
+		-- --l = is_player_detected()
+		-- -- -- local l_pepe = self.position
+		-- -- -- local l = "posicio enemic"..l_pepe.x.." Y: "..l_pepe.y
+			-- -- -- print_logger (0, l)
+		-- -- --local l_Player = self.player
+		-- -- if ( get_game_process():get_character_manager():get_player() == nil ) then
+			-- -- print_logger(2, "player no trobat" )
+			-- -- return false
+		-- -- else 
+			-- -- --print_logger(0, "player pillat" )
+			-- -- l_playerpos = get_game_process():get_character_manager():get_player().position
+			-- -- --print_logger(0, "X: "..l_playerpos.x.." Y: "..l_playerpos.y.." Z: "..l_playerpos.z)
+			-- -- l_pointA = Vect2f(l_playerpos.x, l_playerpos.z)
+			-- -- --local l_pointB = Vect3f(0.0,0.0,0.0)
+			-- -- --l_pointB = self.position
+			-- -- --l_pointC.x = self.position.x
+			-- -- --self.physic_controller.position.x, self.physic_controller.position.z)
+			-- -- --l_pointB = self.position
+			-- -- --l_pos = self.properties.detection_distance
+			-- -- --print_logger(0, "X: "..self.properties.detection_distance)
+			-- -- -- si la distancia entre el player i el enemigo es menor de un valor empieza el ataque
+			-- -- -- if ( l_pointA:sq_distance(l_pointB) < self.properties.detection_distance ) then
+			-- -- -- 		self.graphic_fsm:change_state(self.animation_attack_state)
+			-- -- -- end
+			-- -- return true
+		-- -- end
+		
+	end
 	
 	-- ------------------------------
 	--			Update
 	-- ------------------------------
-	function CEnemy:update( elapsed_time )
-		
+	function CEnemy:update(elapsed_time)
+		l_fsm =	self.graphic_fsm
+		if l_fsm == nil then
+			print_logger(2, "error obtenir fsm")
+		else
+			self.elapsed_time = elapsed_time
+			l_fsm:update()				
+		end 
+			
 		-- print_logger(0 , "Updating enemy...")
 		
 		-- -- if( self.physic_controller == NULL || self.animated_model == NULL  || _elapsed_time == 0)

@@ -1,15 +1,19 @@
+-- ------------------------------------------------------------------------
+--	Clase CPlayer
+-- ------------------------------------------------------------------------
+
 class 'CPlayer' (CCharacter)
 
 	function CPlayer:load_states()
 		self.animation_idle_state = CCaperucitaIdleState()
-		if self.animation_idle_state == Nil then
+		if self.animation_idle_state == nil then
 			print_logger(2, "Error al cargar un estado idle")
 		else 
 			print_logger(0, "Creat estat idle")
 		end
 	
 		self.animation_run_state = CCaperucitaRunState()
-		if self.animation_run_state == Nil then
+		if self.animation_run_state == nil then
 			print_logger(2, "Error al cargar un estado Run")
 		else
 			print_logger(0, "Creat estat run")
@@ -28,22 +32,25 @@ class 'CPlayer' (CCharacter)
 	end
 	
 	function CPlayer:init() 
-		print_logger(0, "Entro en el Init del player")
+		--l = self.position
+		print_logger(0, "Entro en el Init() del player")
 		l_fsm =	self.graphic_fsm 
 		if (l_fsm == nil) then
 			print_logger(2, "maquina d'estats nil")
 			return false
 		else
-			print_logger(2, "maquina d'estats inicialitzada")
+			print_logger(0, "maquina d'estats del player inicialitzada")
 			l_fsm.current_state = self.animation_idle_state 
-			print_logger(2, "Current state assignat")
+			print_logger(0, "Current state idle assignat")
 			return true
 		end
 	end
 	
 	function CPlayer:update(elapsed_time)
 		if not self.locked then
-			
+			-- local l_pepe = self.position
+			-- local l = "posicio player"..l_pepe.x.." Y: "..l_pepe.y
+			-- print_logger (0, l)
 			-- capturamos la posición para ver si hay un cambio de estado de la animación
 			l_pos_anterior = Vect3f(self.physic_controller.position.x,self.physic_controller.position.y,self.physic_controller.position.z)
 			--print_logger(0 , "posición anterior :"..l_pos_anterior.x.." "..l_pos_anterior.y.." "..l_pos_anterior.z)
