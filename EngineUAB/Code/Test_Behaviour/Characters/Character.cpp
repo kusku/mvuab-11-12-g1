@@ -16,6 +16,9 @@
 
 #include "Properties/Properties.h"
 
+#include "GameProcess.h"
+#include "CharacterManager.h"
+
 #include "Base.h"
 
 #if defined (_DEBUG)
@@ -170,6 +173,57 @@ void CCharacter::MoveTo( const Vect3f &_Position, float _ElapsedTime )
 	this->GetController()->Move(_Position, _ElapsedTime);
 	this->SetPosition(Vect3f ( GetController()->GetPosition().x, GetController()->GetPosition().y - GetController()->GetHeight() + 0.4f, GetController()->GetPosition().z));
 	this->GetAnimatedModel()->SetPosition( GetPosition() );
+}
+
+bool CCharacter::IsPlayerDetected( void )
+{
+	CGameProcess* l_Process =  dynamic_cast<CGameProcess*> (CORE->GetProcess());
+	CCharacter* l_Player = l_Process->GetCharactersManager()->GetPlayer();
+
+	Vect3f l_PlayerPosition = l_Player->GetPosition();
+	Vect3f l_EnemyPosition  = this->GetPosition();
+
+	Vect2f l_PointA(l_PlayerPosition.x, l_PlayerPosition.z);
+	Vect2f l_PointB(l_EnemyPosition.x,  l_EnemyPosition.z);
+
+	if (l_PointA.SqDistance(l_PointB) < this->GetProperties()->GetDetectionDistance())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void CCharacter::AddLife( int _Life )								
+{ 
+	m_pProperties->SetLife( m_pProperties->GetLife() + _Life ); 
+}
+
+void CCharacter::RestLife( int _Life )								
+{ 
+	m_pProperties->SetLife( m_pProperties->GetLife() - _Life ); 
+}
+
+void CCharacter::AddSpeed( int _Speed )
+{
+	m_pProperties->SetSpeed( m_pProperties->GetSpeed() - _Speed ); 
+}
+
+void CCharacter::RestSpeed( int _Speed )
+{
+	m_pProperties->SetSpeed( m_pProperties->GetSpeed() - _Speed ); 
+}
+
+void CCharacter::AddStrong( int _Strong )
+{
+	m_pProperties->SetStrong( m_pProperties->GetStrong() - _Strong ); 
+}
+
+void CCharacter::RestStrong( int _Strong )
+{
+	m_pProperties->SetStrong( m_pProperties->GetStrong() - _Strong ); 
 }
 
 // -----------------------------------------

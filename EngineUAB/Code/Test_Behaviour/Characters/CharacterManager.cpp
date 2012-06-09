@@ -30,7 +30,10 @@
 
 #include "PhysicsManager.h"
 #include "PhysicController.h"
+
 #include "Scripting\ScriptManager.h"
+#include "Scripting\LuaHelperFunctions.h"
+
 #include "Logger\Logger.h"
 #include "Base.h"
 #include "Core.h"
@@ -145,6 +148,7 @@ bool CCharactersManager::LoadXML( void )
 	return l_IsOk;
 }
 
+
 //----------------------------------------------------------------------------------------------------
 // Update : Actualiza el player i los enemigos registrados en el manager
 //----------------------------------------------------------------------------------------------------
@@ -156,15 +160,29 @@ void CCharactersManager::Update ( float _ElapsedTime )
 	if (!m_pPlayer)
 		return;
 
-	m_pPlayer->Update( _ElapsedTime );
+	/*set_pcall_callback(&add_file_and_line);
+	try {*/
+		m_pPlayer->Update( _ElapsedTime );
 
-	// Actualitzem l'enemic
-	TVectorResources l_EnemyList = GetResourcesVector();
-	for ( size_t i = 0; i < l_EnemyList.size(); i++ )
-	{
-		// solo para test de movimiento!!
-		l_EnemyList[i]->Update( _ElapsedTime );
-	}
+		// Actualitzem l'enemic
+		TVectorResources l_EnemyList = GetResourcesVector();
+		for ( size_t i = 0; i < l_EnemyList.size(); i++ )
+		{
+			// solo para test de movimiento!!
+			l_EnemyList[i]->Update( _ElapsedTime );
+		}
+	//}
+	//catch (error& e) {
+	//	object error_msg(from_stack(e.state(),-1));
+	//	//cout << error_msg << " " << e.what() << endl;
+	//}
+	//catch (cast_failed& e){
+	//	object error_msg(from_stack(e.state(),-1));
+	//	//cout << error_msg << " " << e.what() << endl;
+	//}
+	//catch (exception& e){
+	//	//cout << "Throw error: " << e.what() << endl;
+	//}
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -272,7 +290,7 @@ bool CCharactersManager::LoadDefaultCoreProperties( const CXMLTreeNode &_Node )
 bool CCharactersManager::LoadPlayerProperties( const CXMLTreeNode &_Node )
 {
 	bool l_IsOk = true;
-
+	
 	// Si no existe el player lo creamos en LUA
 	if ( !m_pPlayer )
 		// ( Lua State, Nom de funció, Paràmetres )

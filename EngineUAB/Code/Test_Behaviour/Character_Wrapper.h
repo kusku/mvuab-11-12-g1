@@ -45,6 +45,12 @@ struct CCharacter_Wrapper: CCharacter, luabind::wrap_base
 		call<void>("update", _ElapsedTime);
 	}
 
+	/*bool IsPlayerDetected( void )
+	{
+		bool l = call<bool>("is_player_detected");
+		return l;
+	}*/
+
 	static void default_update(CCharacter *ptr, float _ElapsedTime)
 	{
 		ptr->CCharacter::Update(_ElapsedTime);

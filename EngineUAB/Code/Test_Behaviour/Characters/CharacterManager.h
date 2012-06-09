@@ -15,6 +15,8 @@
 #include "Utils\MapManager.h"
 #include "XML\XMLTreeNode.h"
 
+#include "Scripting\ScriptManager.h"
+
 //--- Foward Declarations ---
 class CRenderableObjectsManager;
 class CPropertiesManager;
