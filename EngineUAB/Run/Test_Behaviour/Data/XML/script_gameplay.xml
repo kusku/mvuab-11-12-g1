@@ -1,7 +1,14 @@
 <scripts>
 	<script filename="./data/scripts/game/Init_game.lua" />
 	<script filename="./data/scripts/game/CaperucitaStates.lua" />
-	<script filename="./data/scripts/game/WolfStates.lua" />
+	<!--<script filename="./data/scripts/game/WolfStates.lua" />-->
+	<script filename="./data/scripts/game/wolf_deffense_state.lua" />
+	<script filename="./data/scripts/game/wolf_hit_state.lua" />
+	<script filename="./data/scripts/game/wolf_idle_state.lua" />
+	<script filename="./data/scripts/game/wolf_run_attack_state.lua" />
+	<script filename="./data/scripts/game/wolf_run_state.lua" />
+	<script filename="./data/scripts/game/wolf_still_attack_state.lua" />
+	<script filename="./data/scripts/game/wolf_walk_state.lua" />
 	<script filename="./data/scripts/game/Player.lua" />
 	<script filename="./data/scripts/game/Enemy.lua" />
 </scripts>

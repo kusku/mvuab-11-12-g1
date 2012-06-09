@@ -1,0 +1,7 @@
+<scripts>
+	<script filename="./data/scripts/game/Init_game.lua" />
+	<script filename="./data/scripts/game/CaperucitaStates.lua" />
+	<script filename="./data/scripts/game/WolfStates.lua" />
+	<script filename="./data/scripts/game/Player.lua" />
+	<script filename="./data/scripts/game/Enemy.lua" />
+</scripts>
