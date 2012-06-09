@@ -72,9 +72,8 @@ class 'CEnemy' (CCharacter)
 		self.yaw = 0.0
 		self.pitch = -math.pi / 8
 		self.roll = 0.0
-		--self.position = Vect3f(0.0, 0.0, 0.0)
-		--self.position = Vect3f(0.0, 0.0, 0.0)
-		--self.position2 = self.position 
+		self.position = Vect3f(0.0, 0.0, 0.0)
+		--self.position2 = self.position
 		self.locked = false
 		self.character_manager = get_game_process():get_character_manager()
 		
@@ -89,6 +88,7 @@ class 'CEnemy' (CCharacter)
 		self.pitch = -math.pi / 8
 		self.roll = 0.0
 		self.position = Vect3f(0.0, 0.0, 0.0)
+		--self.position2 = self.position
 		self.locked = false
 		self.character_manager = get_game_process():get_character_manager()
 		self.player = get_game_process():get_character_manager():get_player()
@@ -98,6 +98,7 @@ class 'CEnemy' (CCharacter)
 		else 
 			print_logger ( 0, "player existe" )
 		end
+		
 		
 		-- Cargamos los estados		
 		self:load_states()
@@ -117,17 +118,18 @@ class 'CEnemy' (CCharacter)
 		end
 	end
 	
-	-- function CEnemy:is_player_too_near()
-		-- print_logger (0, " is player near ")
-		-- return true
-	-- end
+	function CEnemy:is_player_too_near()
+		print_logger (0, " is player near ")
+		return true
+	end
 	
 	function CEnemy:is_player_detected()
 	
 		print_logger (0, " is player detected ")
-		return true
 		
-		-- --l_pointB = Vect2f (self.position2.x, self.position2.z)
+		--l_pointB = Vect2f (self.position2.x, self.position2.z)
+		--local l_Point = self.position2
+		return true
 		
 		-- --l = self:is_player_too_near()		NO FUNCIONA!!
 		-- -- l = CEnemy:is_player_too_near()
@@ -174,6 +176,9 @@ class 'CEnemy' (CCharacter)
 	--			Update
 	-- ------------------------------
 	function CEnemy:update(elapsed_time)
+		
+		self.position2 = self.position
+		
 		l_fsm =	self.graphic_fsm
 		if l_fsm == nil then
 			print_logger(2, "error obtenir fsm")
@@ -181,6 +186,7 @@ class 'CEnemy' (CCharacter)
 			self.elapsed_time = elapsed_time
 			l_fsm:update()				
 		end 
+		
 			
 		-- print_logger(0 , "Updating enemy...")
 		
