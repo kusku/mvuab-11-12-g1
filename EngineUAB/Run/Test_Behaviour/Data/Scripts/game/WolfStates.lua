@@ -20,7 +20,7 @@ class 'CWolfIdleState' (CState)
 	
 	function CWolfIdleState:Execute(_CCharacter)
 		--print_logger(0, "CWolfIdleState:Execute")
-		if ( _CCharacter.player_is_detected() ) then 
+		if ( _CCharacter.is_player_detected() ) then 
 			print_logger ( 0 , "player is detected ")
 		end 
 	end
