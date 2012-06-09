@@ -80,6 +80,11 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 			float l_distance = l_XMLPropertiesNode(i).GetFloatKeyword ("DetectionDistance");
 			l_Properties->SetDetectionDistance( l_distance );
 		}
+		else if( l_PropertyField == "DistanceChase" )
+		{
+			float l_distance = l_XMLPropertiesNode(i).GetFloatKeyword ("DistanceChase");
+			l_Properties->SetDistanceChase( l_distance );
+		}
 		else if ( l_PropertyField != "comment" ) 
 		{
 			std::string msg_error = "CPropertiesManager::LoadXML --> Error reading a unknow tag when trying to load properties : " + l_PropertyField;

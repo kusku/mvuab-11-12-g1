@@ -46,7 +46,16 @@ public:
 	//----Functions -------------------------------------------
 	void						MoveController		( const Vect3f &_Dir, float _ElapsedTime );
 	void						MoveTo				( const Vect3f &_Position, float _ElapsedTime );
+	bool						IsPlayerDetected	( void );
 	
+	void						AddLife				( int _Life );								
+	void						RestLife			( int _Life );								
+	void						AddSpeed			( int _Speed );								
+	void						RestSpeed			( int _Speed );								
+	void						AddStrong			( int _Strong );								
+	void						RestStrong			( int _Strong );								
+
+
 	//----Properties ( get & Set )-----------------------------
 	virtual inline CStateMachine<CCharacter>*		GetLogicFSM			( void ) const			{ return m_pLogicStateMachine; }
 	virtual inline CStateMachine<CCharacter>*		GetGraphicFSM		( void ) const			{ return m_pGraphicStateMachine; }

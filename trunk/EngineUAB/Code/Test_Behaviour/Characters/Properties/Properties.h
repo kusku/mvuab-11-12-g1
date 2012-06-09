@@ -43,6 +43,9 @@ public:
 
 	inline void					SetDetectionDistance	( float _DetectionDistance )						{ m_DetectionDistance = _DetectionDistance; }
 	inline float				GetDetectionDistance	( void ) const										{ return m_DetectionDistance; }
+	
+	inline void					SetDistanceChase		( float _DistanceChase )							{ m_DistanceChase = _DistanceChase; }
+	inline float				GetDistanceChase		( void ) const										{ return m_DistanceChase; }
 
 	//---- Members -------------------------------------------------------
 private:
@@ -54,6 +57,7 @@ private:
 	Vect3f				m_Direction;
 	Vect3f				m_RespawnPosition;
 	float				m_DetectionDistance;			// distancia de detección de otros caràcteres
+	float				m_DistanceChase;			// distancia de persecución 
 };
 
 #endif __CLASS_PROPERTIES_H__
