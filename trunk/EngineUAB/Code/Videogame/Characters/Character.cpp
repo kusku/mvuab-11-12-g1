@@ -59,7 +59,28 @@ CCharacter::CCharacter( const std::string &_Name )
 	m_pGraphicStateMachine	= new CStateMachine<CCharacter>( this );
   //  m_pController			= new CPhysicController();
 
-	m_pCurrentAnimatedModel = static_cast<CAnimatedInstanceModel*>(CORE->GetRenderableObjectsLayersManager()->GetResource("solid")->GetInstance("caperucita1"));
+	//m_pCurrentAnimatedModel = static_cast<CAnimatedInstanceModel*>(CORE->GetRenderableObjectsLayersManager()->GetResource("solid")->GetInstance("caperucita1"));
+}
+
+CCharacter::CCharacter(int _ID, const std::string &_Name)
+	: CBaseGameEntity			( _ID )
+	, m_pLogicStateMachine		( NULL )
+	, m_pGraphicStateMachine	( NULL )
+	, m_pCurrentAnimatedModel	( NULL )
+	, m_pController				( NULL ) 
+	, m_pAnimationsStates		( NULL )
+	, m_pPhysicUserDataJugador	( NULL )
+	, CNamed					( _Name )
+	, CObject3D					( )
+	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
+	, m_bLocked					( false )
+{
+	// coloco la máquina de estados
+    m_pLogicStateMachine	= new CStateMachine<CCharacter>( this );
+	m_pGraphicStateMachine	= new CStateMachine<CCharacter>( this );
+  //  m_pController			= new CPhysicController();
+
+	//m_pCurrentAnimatedModel = static_cast<CAnimatedInstanceModel*>(CORE->GetRenderableObjectsLayersManager()->GetResource("solid")->GetInstance("caperucita1"));
 }
 
 
@@ -176,6 +197,7 @@ void CCharacter::RegisterMethods()
 		class_<CCharacter, CCharacter_Wrapper, bases<CBaseGameEntity, CObject3D, CNamed>>("CCharacter")
 			.def(constructor<>())
 			.def(constructor<const std::string&>())
+			.def(constructor<int, const std::string&>())
 			.def("init", &CCharacter::Init, &CCharacter_Wrapper::Init)
 			.def("update", &CCharacter::Update, &CCharacter_Wrapper::Default_Update)
 			.def("get_animation_id", &CCharacter::GetAnimationId)

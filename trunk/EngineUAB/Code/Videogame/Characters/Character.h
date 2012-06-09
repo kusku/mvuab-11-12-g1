@@ -29,7 +29,8 @@ class CCharacter : public CBaseGameEntity, public CObject3D, public CNamed //, p
 public:
 	// ------------- Constructors i Destructors --------------
 	CCharacter();
-	CCharacter(const std::string &_Name );
+	CCharacter( const std::string &_Name );
+	CCharacter( int _ID, const std::string &_Name );
 	virtual	~CCharacter();
 
 

@@ -4,4 +4,7 @@
 	<script filename="./data/scripts/game/player/player_run_state.lua" />
 	<script filename="./data/scripts/game/player/player_attack_state.lua" />
 	<script filename="./data/scripts/game/player/player.lua" />
+	<script filename="./data/scripts/game/enemies/wolfstates.lua" />
+	<script filename="./data/scripts/game/enemies/wolf_states/wolf_idle_state.lua" />
+	<script filename="./data/scripts/game/enemies/enemy.lua" />
 </scripts>
