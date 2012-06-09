@@ -29,6 +29,11 @@ struct CCharacter_Wrapper : CCharacter, luabind::wrap_base
 	{
 	}
 
+	CCharacter_Wrapper(int id, const std::string &name)
+		: CCharacter(id, name)
+	{
+	}
+
 	virtual bool Init()
 	{
 		 return call<bool>("init");

@@ -128,7 +128,6 @@ void CCharactersManager::Update ( float _ElapsedTime )
 	TVectorResources l_EnemyList = GetResourcesVector();
 	for ( size_t i = 0; i < l_EnemyList.size(); i++ )
 	{
-		// TODO: solo para test de movimiento!!
 		l_EnemyList[i]->Update( _ElapsedTime );
 	}
 }
@@ -434,7 +433,7 @@ bool CCharactersManager::LoadEnemiesAnimationStates( const CXMLTreeNode &_Node )
 
 void CCharactersManager::AddEnemy ( CCharacter *_pEnemy )
 {
-	//AddResource ( _pEnemy->GetProperties()->GetName(), _pEnemy );
+	AddResource ( _pEnemy->GetName(), _pEnemy );
 }
 
 // ---------------------------------------------------------------------------------------------------------

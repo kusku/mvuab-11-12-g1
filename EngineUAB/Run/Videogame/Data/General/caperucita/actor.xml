@@ -1,0 +1,8 @@
+<animated_model name="caperucita">
+	<skeleton filename="caperucita_skeleton.CSF"/>
+	<mesh filename="caperucita_mesh.CMF"/>
+	<animation name="idle" filename="caperucita_idle.CAF"/>
+	<animation name="run" filename="Caperucita_correr.CAF"/>
+	<animation name="attack" filename="Caperucita_ataque_hit1.CAF"/>
+	<texture filename="df_caperucita.dds"/>
+</animated_model>
