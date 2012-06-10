@@ -277,7 +277,7 @@ bool CPhysicsManager::Reload ( void )
 //----------------------------------------------------------------------------
 bool CPhysicsManager::LoadXML ( void ) 
 {
-	LOGGER->AddNewLog ( ELL_INFORMATION, "CPhysicsManager::LoadXML --> Loading Scripting Files..." );
+	LOGGER->AddNewLog ( ELL_INFORMATION, "CPhysicsManager::LoadXML --> Loading physic Files..." );
 	/*CXMLTreeNode l_File;
 	
 	if ( l_File.LoadFile ( m_FileName.c_str () ) )
