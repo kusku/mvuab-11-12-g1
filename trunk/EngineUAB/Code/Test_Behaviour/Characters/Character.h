@@ -46,6 +46,7 @@ public:
 	//----Functions -------------------------------------------
 	void						MoveController		( const Vect3f &_Dir, float _ElapsedTime );
 	void						MoveTo				( const Vect3f &_Position, float _ElapsedTime );
+	void						FaceTo				( const Vect3f &_Position, float _ElapsedTime );
 	bool						IsPlayerDetected	( void );
 	
 	void						AddLife				( int _Life );								
@@ -64,7 +65,6 @@ public:
 	
 	virtual inline int								GetAnimationId		( const std::string _AnimationName ) const;
 
-
 	void						SetPrevPosition		( Vect3f pos )			{ m_PrevPosition = pos; }
 	const Vect3f&				GetPrevPosition		( void ) const			{ return m_PrevPosition; }
 
@@ -73,9 +73,10 @@ public:
 
 	// Obtengo el angulo que forma donde mira
 	inline Vect3f				GetFront			( void ) const			{ Vect3f l_Front; l_Front.GetXZFromAngle( GetYaw() ) ; return l_Front; }
+																			//{ Vect3f l_Front; l_Front.GetXZFromAngle( GetYaw() ) ; return l_Front; }
 																			//{ Vect3f front; front.xzFromAngle( m_Yaw ); return front; }
 
-	bool						isPointAtLeft		( const Vect3f &_Position ) const	
+	bool						IsPointAtLeft		( const Vect3f &_Position ) const	
 																			{
 																				const CPlane p( GetPosition( ), GetPosition( ) + GetFront( ), Vect3f( 0.0f, 1.0f, 0.0f ) );
 																				return !p.isPointInside( _Position );

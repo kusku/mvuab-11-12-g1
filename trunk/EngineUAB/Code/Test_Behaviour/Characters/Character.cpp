@@ -168,12 +168,147 @@ void CCharacter::MoveController(const Vect3f &_Dir, float _ElapsedTime)
 	m_pController->Move( _Dir, _ElapsedTime );
 }
 
+//void CCharacter::MoveTo( const Vect3f &_Position, float _ElapsedTime )
+//{
+//	Vect3f l_LastPos = _Position;		// Ultima posición del player
+//	Vect3f l_LastPositionNormalizated =  (l_LastPos - m_Position).Normalize();	// Ultima posición del player normalizda
+//
+//	Vect3f l_NewPosition = m_Position + GetFront() * _ElapsedTime * (m_pProperties->GetSpeed());
+//	Vect3f l_NewPositionNormalizated = (l_LastPos - l_NewPosition).Normalize();
+//	
+//	if ( l_NewPositionNormalizated.Dot(l_LastPositionNormalizated) > 0  )
+//	{
+//		SetPosition(l_NewPosition);
+//	}
+//	else 
+//	{
+//		SetPosition(l_LastPos);
+//	}
+//
+//	float l_RotationSpeed = m_pProperties->GetRotationSpeed();
+//	if( IsPointAtLeft( l_LastPos ) ) {
+//		AddYaw( -l_RotationSpeed * _ElapsedTime );
+//		if ( !IsPointAtLeft(l_LastPos) ) 
+//		{
+//			float l_Yaw = l_LastPositionNormalizated.GetAngleY();
+//			SetYaw(l_Yaw);
+//		}
+//	} 
+//	else 
+//	{
+//		AddYaw( l_RotationSpeed * _ElapsedTime );
+//		if ( IsPointAtLeft(l_LastPos) ) 
+//		{
+//			float l_Yaw = l_LastPositionNormalizated.GetAngleY();
+//			SetYaw(l_Yaw);
+//		}
+//	}
+//
+//	this->GetController()->Move(m_Position, _ElapsedTime);
+//	this->SetPosition(Vect3f ( GetController()->GetPosition().x, GetController()->GetPosition().y - GetController()->GetHeight() + 0.4f, GetController()->GetPosition().z));
+//	this->GetAnimatedModel()->SetPosition( GetPosition() );
+//}
+
+void CCharacter::FaceTo( const Vect3f &_Position, float _ElapsedTime )
+{
+	Vect3f v = (_Position - m_Position);
+	float l_RotationSpeed = m_pProperties->GetRotationSpeed();
+	float l_back = v.Dot(GetFront());
+	if ( l_back < 0 )
+	{
+		m_fYaw += (mathUtils::Deg2Rad(l_RotationSpeed) * _ElapsedTime);
+	}
+	else
+	{
+		m_fYaw += (-mathUtils::Deg2Rad(l_RotationSpeed) * _ElapsedTime);
+	}
+}
+
 void CCharacter::MoveTo( const Vect3f &_Position, float _ElapsedTime )
 {
-	this->GetController()->Move(_Position, _ElapsedTime);
-	this->SetPosition(Vect3f ( GetController()->GetPosition().x, GetController()->GetPosition().y - GetController()->GetHeight() + 0.4f, GetController()->GetPosition().z));
-	this->GetAnimatedModel()->SetPosition( GetPosition() );
+	Vect2f pointA(_Position.x, _Position.z);
+	Vect2f pointB(m_Position.x, m_Position.z);
+
+	if(pointA.SqDistance(pointB) <= m_pProperties->GetAttackDistance())
+	{
+		FaceTo( _Position, _ElapsedTime );
+		m_pController->SetYaw(m_fYaw);
+		float l_Yaw = mathUtils::Rad2Deg(m_fYaw);
+		m_pCurrentAnimatedModel->SetYaw(-l_Yaw + 90.f );
+		return;
+	}
+
+	FaceTo( _Position, _ElapsedTime );
+
+	Vect3f pointA2(_Position.x, 0, _Position.z);
+	Vect3f pointB2(m_Position.x, 0, m_Position.z);
+	Vect3f l_Position = Vect3f(0.0f, 0.0f, 0.0f);
+	Vect3f l_Dir = (pointA2 - pointB2).Normalize();
+
+	l_Position += l_Dir * m_pProperties->GetSpeed() * _ElapsedTime;
+
+	m_pController->SetYaw(m_fYaw);
+	MoveController(l_Position, _ElapsedTime);
+	
+	m_Position = m_pController->GetPosition();
+	m_Position.y = m_Position.y - m_pController->GetHeight() + 0.4f;
+	float l_Yaw = mathUtils::Rad2Deg(m_fYaw);
+	m_pCurrentAnimatedModel->SetYaw(-l_Yaw + 90.f );
+	m_pCurrentAnimatedModel->SetPosition( m_Position );
 }
+
+//void CCharacter::FaceTo( const Vect3f &_Position, float _ElapsedTime )
+//{
+//	Vect3f l_LastPositionNormalizated =  (_Position - m_Position).Normalize();		// Ultima dirección a la posición del player normalitzada
+//	
+//	float l_RotationSpeed = m_pProperties->GetRotationSpeed();
+//
+//	if ( IsPointAtLeft( _Position ) ) {
+//		AddYaw( -l_RotationSpeed * _ElapsedTime );
+//		if( !IsPointAtLeft( _Position ) ) 
+//		{
+//			float l_Yaw = l_LastPositionNormalizated.GetAngleY();
+//			SetYaw( l_Yaw );
+//		}
+//	} 
+//	else 
+//	{
+//		AddYaw( l_RotationSpeed * _ElapsedTime );
+//		if( IsPointAtLeft( _Position ) ) 
+//		{
+//			float l_Yaw = l_LastPositionNormalizated.GetAngleY ();
+//			SetYaw( l_Yaw );
+//		}
+//	}
+//}
+//
+//void CCharacter::MoveTo( const Vect3f &_Position, float _ElapsedTime )
+//{
+//	Vect3f l_LastPos = _Position;		// Ultima posició del player
+//	Vect3f l_LastPositionNormalizated = (l_LastPos - GetPosition()).Normalize();		// Ultima posició del player normalitzada
+//
+//	Vect3f l_NewPosition				= GetPosition( ) + GetFront( ) * _ElapsedTime * m_pProperties->GetSpeed();
+//	Vect3f l_NewPositionNormalizated	= ( l_LastPos - l_NewPosition ).Normalize();
+//	if ( l_NewPositionNormalizated.Dot( l_LastPositionNormalizated ) > 0  )
+//	{
+//		SetPosition( l_NewPosition );
+//	}
+//	else {
+//		SetPosition( l_LastPos );
+//	}
+//
+//	FaceTo( _Position, _ElapsedTime );
+//
+//	//m_pController->SetYaw(m_fYaw);
+//	MoveController(m_Position, _ElapsedTime);
+//	
+//	m_Position = m_pController->GetPosition();
+//	m_Position.y = m_Position.y - m_pController->GetHeight() + 0.4f;
+//	float l_Yaw = mathUtils::Rad2Deg(m_fYaw);
+//	m_pCurrentAnimatedModel->SetYaw(m_fYaw);
+//	m_pCurrentAnimatedModel->SetPosition( m_Position );
+//}
+
 
 bool CCharacter::IsPlayerDetected( void )
 {
