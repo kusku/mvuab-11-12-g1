@@ -7,8 +7,7 @@ class 'CWolfHitState' (CState)
 	function CWolfHitState:OnEnter(_CCharacter)
 		--print_logger(0, "CWolfHitState:Enter")
 		if not ( _CCharacter == nil ) then
-			num = _CCharacter:get_animation_id("hit")
-			_CCharacter:get_animation_model():blend_cycle( num, 0.3 )
+
 		end
 	end
 	
@@ -19,8 +18,6 @@ class 'CWolfHitState' (CState)
 	function CWolfHitState:OnExit(_CCharacter)
 		--print_logger(0, "CWolfHitState:Exit")
 		if not ( _CCharacter == nil ) then
-			num = _CCharacter:get_animation_id("hit")
-			_CCharacter:get_animation_model():clear_cycle( num, 0.3 )
 		end
 	end
 	
