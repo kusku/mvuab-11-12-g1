@@ -51,7 +51,7 @@ public:
 	inline CStateMachine<CCharacter>*		GetGraphicFSM		() const			{ return m_pGraphicStateMachine; }
 	inline CPhysicController*				GetController		() const			{ return m_pController; }
 	inline CAnimatedInstanceModel*			GetAnimatedModel	() const			{ return m_pCurrentAnimatedModel; }
-
+	inline CPhysicUserData*					GetPhysicUserData	() const			{ return m_pPhysicUserDataJugador; }
 	inline int								GetAnimationId		( const std::string _AnimationName ) const;
 
 	void						SetPrevPosition		( Vect3f pos )			{ m_PrevPosition = pos; }

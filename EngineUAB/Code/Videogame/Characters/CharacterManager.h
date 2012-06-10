@@ -15,8 +15,11 @@
 
 //--- Foward Declarations ---
 class CRenderableObjectsManager;
+class CRenderManager;
+class CFontManager;
 class CPropertiesManager;
 class CAnimationsStatesManager;
+class CPhysicUserData;
 //---------------------------
 
 class CCharactersManager : public CTemplatedVectorMapManager<CCharacter>
@@ -25,14 +28,12 @@ public:
 	CCharactersManager	();
 	~CCharactersManager	();
 
-	static void		RegisterMethods	();
-
 	bool			Initialize		( int _NumEnemies = 0 );
 	bool			Load			( const std::string &_PropertyFileName, const std::string &_AnimatedStatesFileName );
 	bool			Reload			();
 	void			CleanUp			();
 	void			Update			( float _ElapsedTime );
-	void			Render			();
+	void			Render			( CRenderManager *_RM, CFontManager *_FM );
 
 	// ------------- Methods --------------------------------
 	void			AddEnemy					( CCharacter *_pEnemy );	// Afegeix un enemic ja creat
@@ -41,7 +42,6 @@ public:
 	bool			LoadXMLProperties			();							// Carga el XML de propiedades
 	bool			LoadXMLAnimatedStates		();							// Carga el XML de estados
 
-	
 	// ------------- Propietats ( Get / Set ) ----------------
 	TVectorResources	GetEnemiesVector		() const				{ return m_ResourcesVector; }
 	TMapResources		GetEnemiesMap			() const				{ return m_ResourcesMap; }
@@ -49,6 +49,9 @@ public:
 	CCharacter*			GetPlayer				() const				{ return m_pPlayer; }
 	
 	inline void			SetPlayer	(CCharacter *player)				{ m_pPlayer = player; }
+
+	CPhysicUserData*	ShootPlayerRaycast		();
+	CCharacter*			ExistEnemyUserData		( CPhysicUserData *_userData );
 
 private:
 	bool	LoadXML							();							// Carga el XML de propiedades y estados

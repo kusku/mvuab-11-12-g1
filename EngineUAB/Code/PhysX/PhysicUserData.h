@@ -31,33 +31,34 @@ enum EUserDataFlag
 class CPhysicUserData : public CNamed
 {
 public:
-					CPhysicUserData				( const std::string& _szName, EUserDataFlag _eflags = UD_IS_HW_ACTOR )	// Afegeixo el flag per distingir-lo
-						: CNamed				( _szName )
-						, m_bPaintPhysicObject	( false )
-						, m_ColorPhysicObject	( colWHITE )
-						, m_pEntity				( 0 )
-						, m_pActor				( 0 )
-						, m_eFlags				( _eflags )
-					{}
+	CPhysicUserData				( const std::string& _szName, EUserDataFlag _eflags = UD_IS_HW_ACTOR )	// Afegeixo el flag per distingir-lo
+		: CNamed				( _szName )
+		, m_bPaintPhysicObject	( false )
+		, m_ColorPhysicObject	( colWHITE )
+		, m_pEntity				( 0 )
+		, m_pActor				( 0 )
+		, m_eFlags				( _eflags )
+	{}
 					
-					~CPhysicUserData			( void )							{
-																						 m_pActor = NULL;
-																						 m_pEntity = NULL;
-																					}
+	~CPhysicUserData()						
+	{
+		m_pActor = NULL;
+		m_pEntity = NULL;
+	}
 
 	void			SetPaint					( bool _bFlag )						{ m_bPaintPhysicObject = _bFlag; };
 	void			SetColor					( const CColor& _Color )			{ m_ColorPhysicObject = _Color; };
 	void			SetEntity					( CObject3D* _pEntity )				{ m_pEntity = _pEntity; };
 	void			SetActor					( CPhysicActor* _pActor )			{ m_pActor = _pActor; };
 
-	bool			GetPaint					( void ) const						{ return m_bPaintPhysicObject; };
-	const CColor&	GetColor					( void ) const						{ return m_ColorPhysicObject; };
-	CObject3D* 		GetEntity					( void ) const						{ return m_pEntity; };
-	CPhysicActor*   GetActor					( void ) 							{ return m_pActor; };
+	inline bool				GetPaint			() const					{ return m_bPaintPhysicObject; };
+	inline const CColor&	GetColor			() const					{ return m_ColorPhysicObject; };
+	inline CObject3D* 		GetEntity			() const					{ return m_pEntity; };
+	inline CPhysicActor*	GetActor			()							{ return m_pActor; };
 	
 	// Per permetre saber info del objecte
-	void			setFlags					( EUserDataFlag	_eFlags ) 			{ m_eFlags = _eFlags; }
-	EUserDataFlag	GetFlags					( void ) const						{ return m_eFlags; }
+	void			setFlags					( EUserDataFlag	_eFlags ) 		{ m_eFlags = _eFlags; }
+	EUserDataFlag	GetFlags					() const						{ return m_eFlags; }
 
 private:
 	bool			m_bPaintPhysicObject;

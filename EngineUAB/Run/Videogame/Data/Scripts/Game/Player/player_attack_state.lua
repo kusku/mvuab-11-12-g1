@@ -11,6 +11,12 @@ class 'CPlayerAttackState' (CState)
 	end
 	
 	function CPlayerAttackState:Execute(_CCharacter)
+		local user_data = get_game_process():get_character_manager():shoot_player_raycast()
+		if get_game_process():get_character_manager():exist_enemy_user_data(user_data) then
+			print_logger(0, "tocat")
+		else
+			print_logger(0, "no tocat")
+		end
 	end
 	
 	function CPlayerAttackState:OnExit(_CCharacter)

@@ -2,10 +2,11 @@ class 'CWolfIdleState' (CState)
 	function CWolfIdleState:__init() 
 		CState.__init(self)
 		print_logger(0, "Inicio del estado idle de la caperucita")
+		--self.position = Vect3f(0.0,0.0,0.0)
 	end
 
 	function CWolfIdleState:OnEnter(_CCharacter)
-		--print_logger(0, "CWolfIdleState:Enter")
+		print_logger(0, "CWolfIdleState:Enter")
 		
 		-- Cal fer aixó
 		-- CAnimatedCoreModel * l_Core =  _pCharacter->GetAnimatedModel()->GetAnimatedCoreModel();
@@ -18,15 +19,13 @@ class 'CWolfIdleState' (CState)
 		end
 	end
 	
-	function CWolfIdleState:Execute(_CCharacter)
+	function CWolfIdleState:Execute(_Character)
 		--print_logger(0, "CWolfIdleState:Execute")
-		if ( _CCharacter.player_is_detected() ) then 
-			print_logger ( 0 , "player is detected ")
-		end 
+		_Character:is_player_detected()
 	end
 	
 	function CWolfIdleState:OnExit(_CCharacter)
-		--print_logger(0, "CWolfIdleState:Exit")
+		print_logger(0, "CWolfIdleState:Exit")
 		if not ( _CCharacter == nil ) then
 			num = _CCharacter:get_animation_id("idle")
 			_CCharacter:get_animation_model():clear_cycle( num, 0.3 )
