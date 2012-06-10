@@ -57,7 +57,10 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 			l_Properties->SetStrong( l_XMLPropertiesNode(i).GetIntKeyword( "strong", 0 ) );
 
 		else if( l_PropertyField == "speed" )
-			l_Properties->SetSpeed( l_XMLPropertiesNode(i).GetIntKeyword( "speed", 0 ) );
+			l_Properties->SetSpeed( l_XMLPropertiesNode(i).GetFloatKeyword( "speed", 10.f ) );
+
+		else if( l_PropertyField == "rotation_speed" )
+			l_Properties->SetRotationSpeed( l_XMLPropertiesNode(i).GetFloatKeyword( "rotation_speed", 360.f ) );
 
 		else if( l_PropertyField == "direction" )
 		{
@@ -65,25 +68,30 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 			l_Properties->SetDirection( l_Vect );
 		}
 		// Esta és una prueba para cojer elementos vect3f
-		else if( l_PropertyField == "RespawnPosition" )
+		else if( l_PropertyField == "respawn_position" )
 		{
-			Vect3f l_Vect = l_XMLPropertiesNode(i).GetVect3fKeyword ("RespawnPosition");
+			Vect3f l_Vect = l_XMLPropertiesNode(i).GetVect3fKeyword ("respawn_position");
 			l_Properties->SetRespawnPosition ( l_Vect );
 		}
-		else if( l_PropertyField == "Position" )
+		else if( l_PropertyField == "position" )
 		{
-			Vect3f l_Vect = l_XMLPropertiesNode(i).GetVect3fKeyword ("Position");
+			Vect3f l_Vect = l_XMLPropertiesNode(i).GetVect3fKeyword ("position");
 			l_Properties->SetPosition( l_Vect );
 		}
-		else if( l_PropertyField == "DetectionDistance" )
+		else if( l_PropertyField == "detection_distance" )
 		{
-			float l_distance = l_XMLPropertiesNode(i).GetFloatKeyword ("DetectionDistance");
+			float l_distance = l_XMLPropertiesNode(i).GetFloatKeyword ("detection_distance");
 			l_Properties->SetDetectionDistance( l_distance );
 		}
-		else if( l_PropertyField == "DistanceChase" )
+		else if( l_PropertyField == "distance_chase" )
 		{
-			float l_distance = l_XMLPropertiesNode(i).GetFloatKeyword ("DistanceChase");
+			float l_distance = l_XMLPropertiesNode(i).GetFloatKeyword ("distance_chase");
 			l_Properties->SetDistanceChase( l_distance );
+		}
+		else if( l_PropertyField == "attack_distance" )
+		{
+			float l_distance = l_XMLPropertiesNode(i).GetFloatKeyword ("attack_distance");
+			l_Properties->SetAttackDistance( l_distance );
 		}
 		else if ( l_PropertyField != "comment" ) 
 		{
