@@ -5,42 +5,41 @@
       <strong>12</strong>
       <speed>10</speed>
       <direction>0 0 0</direction>
-	  <RespawnPosition>0 100 0</RespawnPosition>
-	  <DetectionDistance>10</DetectionDistance>
+	  <rotation_speed>360</rotation_speed>
+	  <respawn_position>0 100 0</respawn_position>
+	  <detection_distance>500</detection_distance>
+	  <distance_chase>3000</distance_chase>
+	  <attack_distance>2</attack_distance>
   </default_properties>
   <default_properties core="lobo">
       <life>200</life>
       <strong>22</strong>
-      <speed>15</speed>
+      <speed>5</speed>
       <direction>-10 -2 4</direction>
-	  <DetectionDistance>10</DetectionDistance>
-	  <DistanceChase>10</DistanceChase>
+	  <rotation_speed>90</rotation_speed>
+	  <detection_distance>300</detection_distance>
+	  <distance_chase>1000</distance_chase>
+	  <attack_distance>10</attack_distance>
   </default_properties>
   <player name="Jolete" core="caperucita" animated_instace_name="caperucita1" >
       <life>10</life>
       <strong>30</strong>
       <speed>25</speed>
       <direction>0 10 0</direction>
-	  <RespawnPosition>0 10 0</RespawnPosition>
+	  <respawn_position>0 10 0</respawn_position>
 	  <Position>0 10 0</Position>
-	  <DetectionDistance>10</DetectionDistance>
   </player>
   <enemies>
-	<enemy name="enemy1" core="lobo" animated_instace_name="lobo2" >
+	<enemy name="enemy1" core="lobo" animated_instace_name="lobo1" >
         <life>120</life>
         <strong>13</strong>
-        <speed>3</speed>
         <direction>3 20 -4</direction>
-		<DetectionDistance>10</DetectionDistance>
-		<DistanceChase>30</DistanceChase>
     </enemy>
-	<enemy name="enemy2" core="lobo" animated_instace_name="lobo3" >
+	<!--<enemy name="enemy2" core="lobo" animated_instace_name="lobo2" >
         <life>130</life>
         <strong>17</strong>
         <speed>30</speed>
         <direction>21 210 -24</direction>
-		<DetectionDistance>10</DetectionDistance>
-		<DistanceChase>30</DistanceChase>
-    </enemy>
+    </enemy>-->
   </enemies>
 </characters>

@@ -143,6 +143,6 @@
 	<animated_model_instance name="caperucita1" core="caperucita" position="0.0 35.0 0.0" yaw="-90.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
 	
 	<animated_model_instance name="lobo1" core="lobo" position="2.0 35.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-	<animated_model_instance name="lobo2" core="lobo" position="0.0 35.0 2.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-	<animated_model_instance name="lobo3" core="lobo" position="3.0 35.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
+	<!--<animated_model_instance name="lobo2" core="lobo" position="0.0 35.0 2.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />-->
+	<!--<animated_model_instance name="lobo3" core="lobo" position="3.0 35.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />-->
 </renderable_objects>

@@ -12,26 +12,27 @@ class 'CWolfAnimatedIdleState' (CState)
 			_CCharacter:get_animation_model():blend_cycle( num, 0.3 )
 		end
 	end
-	
+
 	function CWolfAnimatedIdleState:Execute(_CCharacter)
 		--print_logger(0, "CWolfAnimatedIdleState:Execute")
-		if ( _CCharacter.is_player_detected() ) then 
-			print_logger ( 0 , "player is detected ")
-			
-			print_logger(0 , "posición anterior :".._CCharacter.position.x.." ".._CCharacter.position.y.." ".._CCharacter.position.z)
-			_CCharacter.position = _CCharacter.position
-			
-			l_fsm = _CCharacter.graphic_fsm
-			if (l_fsm == nil) then
-				print_logger(2, "maquina d'estats nil del enemic")
-				return false
+		if ( is_player_detected( _CCharacter, _CCharacter.player ) ) then 
+			_CCharacter:move_to (_CCharacter.player.position, _CCharacter.elapsed_time)
+			-- Si el player es atacable
+			if ( is_player_attackable( _CCharacter, _CCharacter.player ) ) then
+				_CCharacter.graphic_fsm:change_state(_CCharacter.animation_still_attack_state)
 			else
-				print_logger (0 , "Canvi d'estat a RUN" )
-				l_fsm:change_state(_CCharacter.animation_run_state)
+				-- player no atacable i movemos hacia el player
+				print_logger (0 , "movemos hacia el player con estado a RUN" )
+				_CCharacter.graphic_fsm:change_state(_CCharacter.animation_run_state)
 			end
+			
+			--print_logger(0 , "posición anterior :".._CCharacter.position.x.." ".._CCharacter.position.y.." ".._CCharacter.position.z)
+			--_CCharacter.position = _CCharacter.position
+			
 		else
-			print_logger ( 0 , "player not detected ")
-			_CCharacter:move_to ( Vect3f(0.0,0.0,0.0), _CCharacter.elapsed_time )
+			-- print_logger ( 0 , "player not detected i el enemigo caminaria")
+			-- _CCharacter.graphic_fsm:change_state(_CCharacter.animation_walk_state)
+			--_CCharacter:move_to( Vect3f(0.0, 0.0, 0.0), _CCharacter.elapsed_time)
 		end
 	end
 	
