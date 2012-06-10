@@ -7,8 +7,6 @@ class 'CWolfRunAttackState' (CState)
 	function CWolfRunAttackState:OnEnter(_CCharacter)
 		--print_logger(0, "CWolfRunAttackState:Enter")
 		if not ( _CCharacter == nil ) then
-			num = _CCharacter:get_animation_id("attack_run")
-			_CCharacter:get_animation_model():blend_cycle( num, 0.3 )
 		end
 	end
 	
@@ -19,8 +17,6 @@ class 'CWolfRunAttackState' (CState)
 	function CWolfRunAttackState:OnExit(_CCharacter)
 		--print_logger(0, "CWolfRunAttackState:Exit")
 		if not ( _CCharacter == nil ) then
-			num = _CCharacter:get_animation_id("attack_run")
-			_CCharacter:get_animation_model():clear_cycle( num, 0.3 )
 		end
 	end
 	
