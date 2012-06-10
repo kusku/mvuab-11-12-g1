@@ -916,7 +916,7 @@ void CRenderManager::RegisterMethods()
 	
 	module(state) [
 		class_<CObject3D>("CObject3D")
-			.def("set_position", &CObject3D::SetPosition)
+			//.def("set_position", &CObject3D::SetPosition)
 			.property("position",&CObject3D::GetPosition, &CObject3D::SetPosition)
 			.property("yaw", &CObject3D::GetYaw, &CObject3D::SetYaw)
 			.property("pitch", &CObject3D::GetPitch, &CObject3D::SetPitch)
