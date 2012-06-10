@@ -147,7 +147,6 @@ class 'CPlayer' (CCharacter)
 		l_Fsm =	self.get_graphic_fsm 
 		l_Fsm:update()
 		if l_attack_player then
-			print_logger(0,"attack")
 			l_Fsm:change_state(self.attack)
 		elseif l_move_player then 
 			l_Fsm:change_state(self.run)

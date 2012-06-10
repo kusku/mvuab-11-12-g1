@@ -9,9 +9,10 @@ class 'CEnemy' (CCharacter)
 		self.pitch = -math.pi / 8
 		self.roll = 0.0
 		self.position = Vect3f(0.0, 0.0, 0.0)
+		self.position2 = self.position
 		self.locked = false
 		
-		--self:__create_states()
+		self:load_states()
 	end
 
 	function CEnemy:__init(id, name)
@@ -23,7 +24,7 @@ class 'CEnemy' (CCharacter)
 		self.position = Vect3f(0.0, 0.0, 0.0)
 		self.locked = false
 		
-		self.animation_idle_state = CWolfIdleState()
+		self:load_states()
 	end
 	
 	function CEnemy:init()
@@ -38,8 +39,11 @@ class 'CEnemy' (CCharacter)
 		return true
 	end
 	
+	function CEnemy:load_states()
+		self.animation_idle_state = CWolfIdleState()
+	end
+
 	function CEnemy:update(elapsed_time)
-		print_logger(0, "hola")
 		self.physic_controller:move(Vect3f(0.0,0.0,0.0), elapsed_time)
 		
 		--Actualiza la posición del objeto 3D
@@ -50,5 +54,20 @@ class 'CEnemy' (CCharacter)
 		self.animated_model.position = self.position
 		
 		local l_Fsm = self.get_graphic_fsm 
+		l_Fsm:update()
 		l_Fsm:change_state(self.animation_idle_state)
+		self.position2 = self.position
+		--self:is_player_detected()
+	end
+	
+	function CEnemy:is_player_detected()
+		--local l_Point = Vect2f(self.position.x, self.position.z)
+		local l_PointA = self.locked
+		if l_PointA == true then
+			--print_logger(0, "IsPlayerDetected: TRUE")
+		else
+			--print_logger(0, "IsPlayerDetected: FALSE")
+		end
+		
+		local point = self.position2
 	end

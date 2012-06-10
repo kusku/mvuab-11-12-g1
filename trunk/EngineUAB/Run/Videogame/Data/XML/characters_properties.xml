@@ -14,7 +14,7 @@
       <direction>-10 -2 4</direction>
   </default_properties>
   <player name="Jolete" core="caperucita" animated_instace_name="caperucita1" >
-      <life>10</life>
+      <life>100</life>
       <strong>30</strong>
       <speed>25</speed>
       <direction>0 10 0</direction>

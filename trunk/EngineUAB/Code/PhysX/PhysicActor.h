@@ -36,9 +36,9 @@ class CPhysicActor
 {
 public:
 	//--- Init and End protocols------------------------------------------
-						CPhysicActor::CPhysicActor	( CPhysicUserData* _pUserData );
-						//CPhysicActor::CPhysicActor	( NxActor * _pActor );
-						CPhysicActor::~CPhysicActor	( void );
+	CPhysicActor::CPhysicActor	( CPhysicUserData* _pUserData );
+	//CPhysicActor::CPhysicActor	( NxActor * _pActor );
+	CPhysicActor::~CPhysicActor	();
 
 	//---- Main Functions ---------------------------------------
 	void				CreateBody					( float _Density, float _AngularDamping = 0.5f, float _LinearDamping = 0.5f );
@@ -70,20 +70,20 @@ public:
 	void				SetKinematic				( bool _bValue );
 
   //---- Properties ( get & Set )---------------------------------------
-	CPhysicUserData*	GetUserData					( void )							{ return m_pUserData; }
+	CPhysicUserData*	GetUserData					()							{ return m_pUserData; }
 
 	void				SetLinearVelocity			( const Vect3f& _vVelocity );
-	Vect3f				GetLinearVelocity			( void );
-	Vect3f				GetPosition					( void );
-	Vect3f				GetRotation					( void );
+	Vect3f				GetLinearVelocity			();
+	Vect3f				GetPosition					();
+	Vect3f				GetRotation					();
 	void				SetRotation     			( const Vect3f& _vRot);
 	void				SetRotation     			( const Mat33f& _mRot);
 	void				SetAngularVelocity			( const Vect3f  _vVelocity );
-	Vect3f				GetAngularVelocity			( void );
+	Vect3f				GetAngularVelocity			();
 	void				SetGlobalPosition			( const Vect3f& _vPos = Vect3f ( 0.f, 0.f, 0.f ) );
 	void				MoveGlobalPosition			( const Vect3f& _vPos);
-	Vect3f				GetAngularMomentum			( void );
-	Mat33f				GetInertiaTensor			( void );
+	Vect3f				GetAngularMomentum			();
+	Mat33f				GetInertiaTensor			();
 	void				SetCollisionGroup			( uint32 _uiGroup );
 
 	//---Get Info-------
@@ -92,8 +92,8 @@ public:
 	void				MoveGlobalPoseMat44			( const Mat44f& _mMatrix );
 	
 	//---Get PhsX Info---
-	NxActor*			GetPhXActor					( void ) { return m_pPhXActor; }
-	NxActorDesc*		GetActorDesc				( void ) { return m_pPhXActorDesc; }
+	NxActor*			GetPhXActor					() { return m_pPhXActor; }
+	NxActorDesc*		GetActorDesc				() { return m_pPhXActorDesc; }
 
 //---Get Info-------
 	void				SetActorSolverIterationCount( int _iCount );
@@ -101,7 +101,7 @@ public:
 	void				SetContactReportThreshold	( float _fThreshold );
 
 private:
-	void				Destroy						( void );
+	void				Destroy						();
 	void				AddForceAtPos				( const Vect3f& _vDirection, const Vect3f& _vPos, float _fPower, NxForceMode _sForceMode, bool _bLocal );
 
 	//---- Members ---------------------------------------

@@ -112,6 +112,7 @@ void CGameProcess::Update(float elapsedTime)
 
 void CGameProcess::Render(CRenderManager &RM)
 {
+	m_pCharacterManager->Render(&RM, CORE->GetFontManager());
 }
 
 bool CGameProcess::LoadMainScript( void )

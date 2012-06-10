@@ -1,29 +1,25 @@
 #define NOMINMAX
-
 #include "CharacterManager.h"
-
 #include <windows.h>
 #include <sstream>
-
+#include <luabind/adopt_policy.hpp>
 #include "Math\Vector3.h"
 #include "Utils\Random.h"
-
-#include <luabind/adopt_policy.hpp>
-
 #include "Object3D.h"
 #include "RenderableObjects\RenderableObjectsLayersManager.h"
 #include "RenderableObjects\RenderableObjectsManager.h"
 #include "RenderableObjects\RenderableObject.h"
-
+#include "RenderManager.h"
+#include "Fonts\FontManager.h"
 #include "PhysicController.h"
 #include "CharacterController.h"
-
+#include "PhysicUserData.h"
+#include "PhysicsManager.h"
+#include "Cameras\Camera.h"
 #include "characters\Properties\PropertiesManager.h"
 #include "characters\Properties\Properties.h"
-
 #include "characters\states\AnimationsStatesManager.h"
 #include "characters\states\AnimationsStates.h"
-
 #include "Logger\Logger.h"
 #include "Base.h"
 #include "Core.h"
@@ -132,8 +128,10 @@ void CCharactersManager::Update ( float _ElapsedTime )
 	}
 }
 
-void CCharactersManager::Render	( void )
+void CCharactersManager::Render(CRenderManager *_RM, CFontManager *_FM)
 {
+	int life = m_pPlayer->GetProperties()->GetLife();
+	_FM->DrawDefaultText(10, 50, colBLACK, "Life: %d", life);
 }
 
 //--------------------------------------------------
@@ -547,15 +545,45 @@ Vect3f CCharactersManager::RandomVector( const Vect3f &_Vect1, const Vect3f &_Ve
 	return ( Vect3f ( fRandX, fRandY, fRandZ ) );
 }
 
-void CCharactersManager::RegisterMethods()
+CCharacter* CCharactersManager::ExistEnemyUserData(CPhysicUserData *_userData)
 {
-	lua_State *state = SCRIPT->GetLuaState();
+	if( _userData != NULL )
+	{
+		TVectorResources l_EnemyList = GetResourcesVector();
+		for(uint16 i=0; i<l_EnemyList.size(); ++i)
+		{
+			if( l_EnemyList[i]->GetPhysicUserData() == _userData )
+			{
+				return l_EnemyList[i];
+			}
+		}
+	}
+	return NULL;
+}
 
-	module(state) [
-		class_<CCharactersManager>("CCharactersManager")
-			.def("set_player", &CCharactersManager::SetPlayer)
-			.def("add_enemy", &CCharactersManager::AddEnemy)
-	];
+CPhysicUserData* CCharactersManager::ShootPlayerRaycast()
+{
+	SCollisionInfo l_Info;
+	Vect3f l_Pos = m_pPlayer->GetPosition();
+	Vect3f l_Dir = CORE->GetCamera()->GetDirection();
+	l_Dir.y = 0.0f;
+	l_Dir.Normalize();
 
-	CCharacter::RegisterMethods();
+	int mask = 1 << ECG_PERSONATGE;
+	mask |= 1 << ECG_OBJECTES_DINAMICS;
+	mask |= 1 << ECG_ESCENARI;
+	mask |= 1 << ECG_ENEMICS;
+
+	/*std::vector<CPhysicUserData*> objects;
+	CORE->GetPhysicsManager()->OverlapSphereActor(5.0f, l_Pos, objects, mask);
+	for( uint16 i=0; i<objects.size(); ++i)
+	{
+		CCharacter* character = ExistEnemyUserData(objects[i]);
+		if( character != NULL )
+		{
+			return NULL;
+		}
+	}
+	return NULL;*/
+	return CORE->GetPhysicsManager()->RaycastClosestActor(m_pPlayer->GetPosition(), l_Dir, CORE->GetPhysicsManager()->GetCollisionMask(ECG_RAY_SHOOT_PLAYER), l_Info);
 }

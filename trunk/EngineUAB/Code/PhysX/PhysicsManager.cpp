@@ -877,13 +877,12 @@ CPhysicUserData* CPhysicsManager::RaycastClosestActorShoot ( const Vect3f _vPosR
 	_Info.m_Normal				= Vect3f(hit.worldNormal.x, hit.worldNormal.y, hit.worldNormal.z ); 
 	_Info.m_CollisionPoint	= Vect3f(hit.worldImpact.x, hit.worldImpact.y, hit.worldImpact.z ); 
 
-  Vect3f l_vDirection( _vDirRay.x-_vPosRay.x,_vDirRay.y-_vPosRay.y,_vDirRay.z-_vPosRay.z );
-  l_vDirection.Normalize();
+	Vect3f l_vDirection( _vDirRay.x-_vPosRay.x,_vDirRay.y-_vPosRay.y,_vDirRay.z-_vPosRay.z );
+	l_vDirection.Normalize();
 
-  NxVec3 l_vDirectionVec( _vDirRay.x, _vDirRay.y, _vDirRay.z ); 
-  NxF32 coeff = actor->getMass() * _fPower;
-  actor->addForceAtLocalPos ( l_vDirectionVec*coeff, NxVec3(0,0,0), NX_IMPULSE,true );
-
+	NxVec3 l_vDirectionVec( _vDirRay.x, _vDirRay.y, _vDirRay.z ); 
+	NxF32 coeff = actor->getMass() * _fPower;
+	actor->addForceAtLocalPos ( l_vDirectionVec*coeff, NxVec3(0,0,0), NX_IMPULSE,true );
 
 	return impactObject;
 }
@@ -1164,9 +1163,21 @@ void CPhysicsManager::RegisterMethods()
 	lua_State *state = SCRIPT->GetLuaState();
 
 	module(state) [
+		class_<CPhysicsManager>("CPhysicsManager")
+			.def("raycast_closest_actor",&CPhysicsManager::RaycastClosestActor)
+	];
+
+	module(state) [
 		class_<CPhysicController, CObject3D>("CPhysicController")
 			.def("move", &CPhysicController::Move)
 			.def("jump", &CPhysicController::Jump)
 			.property("height", &CPhysicController::GetHeight)
+			.property("user_data", &CPhysicController::GetUserData)
+	];
+
+	module(state) [
+		class_<CPhysicUserData>("CPhysicUserData")
+			.property("actor", &CPhysicUserData::GetActor, &CPhysicUserData::SetActor)
+			.property("entity", &CPhysicUserData::GetEntity, &CPhysicUserData::SetEntity)
 	];
 }

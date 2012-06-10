@@ -17,6 +17,7 @@
 #include "Characters/Properties/Properties.h"
 #include "Characters\States\State_Wrapper.h"
 #include "PhysicController.h"
+#include "PhysicUserData.h"
 
 #include "Object3D.h"
 #include "Utils\Named.h"
@@ -103,6 +104,8 @@ void RegisterToLuaCharacterManager(lua_State* _pLua)
 			class_<CCharactersManager, bases<CTemplatedVectorMapManager<CCharacter>> > ("CCharactersManager")
 				.def("add_enemy", &CCharactersManager::AddEnemy)
 				.def("set_player", &CCharactersManager::SetPlayer)
+				.def("exist_enemy_user_data", &CCharactersManager::ExistEnemyUserData)
+				.def("shoot_player_raycast", &CCharactersManager::ShootPlayerRaycast)
 		];
 }
 
