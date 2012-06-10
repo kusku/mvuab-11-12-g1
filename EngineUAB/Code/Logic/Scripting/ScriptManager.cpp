@@ -154,21 +154,21 @@ bool CScriptManager::LoadXML ( void )
 					std::string l_FileName = l_Scripts(i).GetPszProperty ( "filename" );		// Obtenemos la ruta del fichero lua
 					RunFile ( l_FileName );														// Ejecutamos el fichero lua
 				}
-				else
+				else if ( l_Type != "comment" ) 
 				{
-					LOGGER->AddNewLog( ELL_WARNING, "CScriptManager::LoadXML --> Error loading file %s. The file doesn't contain any tag different form <SCRIPT>.", m_FileName ); 
+					LOGGER->AddNewLog( ELL_WARNING, "CScriptManager::LoadXML --> Error loading file %s. The file doesn't contain any tag different form <SCRIPT>.", m_FileName.c_str() ); 
 				}
 			}
 		}
-		else
+		else 
 		{
-			LOGGER->AddNewLog( ELL_ERROR, "CScriptManager::LoadXML --> Error loading file %s. The file doesn't contain tag <SCRIPTS>.", m_FileName ); 
+			LOGGER->AddNewLog( ELL_ERROR, "CScriptManager::LoadXML --> Error loading file %s. The file doesn't exist.", m_FileName.c_str() ); 
 			return false;
 		}
 	}
 	else 
 	{
-		LOGGER->AddNewLog( ELL_ERROR, "CScriptManager::LoadXML --> Error loading file %s. The file doesn't exist or contain sintaxis errors.", m_FileName ); 
+		LOGGER->AddNewLog( ELL_ERROR, "CScriptManager::LoadXML --> Error loading file %s. The file doesn't exist or contain sintaxis errors.", m_FileName.c_str() ); 
 		return false;
 	}
 
@@ -195,6 +195,21 @@ void PrintLogger(int Level, const std::string &Msg)
 	}
 }
 
+struct my_exception
+{};
+
+void translate_my_exception(lua_State* L, my_exception const&)
+{
+    lua_pushstring(L, "my_exception");
+}
+
+
+void my_exception()
+{
+    //lua_pushstring(L, "my_exception");
+}
+
+
 
 //----------------------------------------------------------------------------------------
 // RegisterLUAFunctions: Switch de los diferentes métodos a registrar
@@ -202,6 +217,10 @@ void PrintLogger(int Level, const std::string &Msg)
 void CScriptManager::RegisterLUAMethods()
 {
 	REGISTER_LUA_FUNCTION("print_logger", PrintLogger);
+	
+	/*luabind::register_exception_handler<my_exception>(&translate_my_exception);
+	luabind::set_pcall_callback(my_exception);*/
+	//luabind::set_error_callback()
 
 	module(m_pLuaState) [
 		class_<CSingleton<CCore>>("CSingleton_CCore")

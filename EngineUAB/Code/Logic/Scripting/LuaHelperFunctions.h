@@ -153,4 +153,26 @@ inline T LuaPopNumberFieldFromTable(lua_State* pL, const char* key)
 	return val;
 }
 
+//int add_file_and_line(lua_State* L) 
+//{
+//
+//	/*lua_Debug d;
+//	lua_getstack(L, 1, &d);
+//	lua_getinfo(L, "Sln", &d);
+//	std::string err = lua_tostring(L, -1);
+//	lua_pop(L, 1);
+//	std::stringstream msg;
+//	msg << "\n" << d.short_src << ":" << d.currentline;
+//
+//	if (d.name != 0) {
+//		msg << "(" << d.namewhat << " " << d.name << ")";
+//	}
+//	msg << " " << err;
+//	lua_pushstring(L, msg.str().c_str());
+//	fprintf(stderr,msg.str().c_str());*/
+//	return 1;
+//
+//
+//}
+
 #endif __LUA_HELPER_FUNCS__	

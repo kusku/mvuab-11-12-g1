@@ -16,6 +16,7 @@ extern "C"
 #include <luabind/operator.hpp>
 #include <luabind/return_reference_to_policy.hpp>
 #include <luabind/out_value_policy.hpp>
+#include <luabind/exception_handler.hpp>
 
 using namespace luabind;
 
