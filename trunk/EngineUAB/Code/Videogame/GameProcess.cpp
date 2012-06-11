@@ -14,31 +14,32 @@
 #include "Characters\CharacterManager.h"
 
 #if defined (_DEBUG)
-#include "Memory/MemLeaks.h"
+	#include "Memory/MemLeaks.h"
 #endif
 
-CGameProcess::CGameProcess(HWND hWnd)
-	: m_hWnd(hWnd)
-	, m_pThPSCamera(NULL)
-	, m_pCharacterManager(NULL)
-	, m_IsOK(false)
+// -----------------------------------------
+//		  CONSTRUCTORS / DESTRUCTOR
+// -----------------------------------------
+CGameProcess::CGameProcess( HWND hWnd )
+	: m_hWnd				(hWnd)
+	, m_pThPSCamera			(NULL)
+	, m_pCharactersManager	(NULL)
+	, m_IsOK				(false)
 {
 }
 
-CGameProcess::~CGameProcess(void)
+CGameProcess::~CGameProcess( void )
 {
-	CHECKED_DELETE(m_pCharacterManager);
-	CHECKED_DELETE( m_pThPSFreeCamera );
-	CHECKED_DELETE( m_pThPSCamera );
+	CleanUp();
 }
 
-bool CGameProcess::Init()
+// -----------------------------------------
+//			METODES PRINCIPALS
+// -----------------------------------------
+bool CGameProcess::Init( void )
 {
 	//Registra los métodos
 	RegisterMethods();
-
-	//Crea los datos para el gameplay
-	m_pCharacterManager = new CCharactersManager();
 
 	//Carga los datos en el engine
 	if( INIT_GUI )
@@ -50,20 +51,23 @@ bool CGameProcess::Init()
 		CORE->GetScriptManager()->RunCode("load_all()");
 	}
 
-	//Crea una cámara libre de Debug
-	m_FreeCamera.SetPosition(Vect3f( 0.f, 10.f, 0.f));
-	m_FreeCamera.SetPitch(-D3DX_PI/6);
-	m_FreeCamera.SetYaw(0.0f);
-	m_FreeCamera.SetRoll(0.0f);
-
-	float aspect = CORE->GetRenderManager()->GetAspectRatio();
-	m_pThPSFreeCamera = new CThPSCamera( 1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_FreeCamera, 10.0f, 0.f, 0.f, "Free");
-	m_pFreeCamera = static_cast<CCamera*>(m_pThPSFreeCamera);
-
 	//Carga los objetos del juego
 	LoadGameObjects();
 
 	return true;
+}
+
+void CGameProcess::CleanUp( void )
+{
+	//m_FreeCamera = NULL;
+	//m_StaticCamera = NULL;
+	m_pCamera = NULL;
+	CHECKED_DELETE( m_pThPSFreeCamera );
+	CHECKED_DELETE( m_pThPSCamera );
+	//CHECKED_DELETE( m_pFreeCamera );
+	m_pFreeCamera = NULL;
+
+	CHECKED_DELETE( m_pCharactersManager );
 }
 
 void CGameProcess::CreatePlayerCamera(float _near, float _far, float _zoom, float _heightEye, float _heightLookAt, const std::string &_name)
@@ -71,18 +75,36 @@ void CGameProcess::CreatePlayerCamera(float _near, float _far, float _zoom, floa
 	CHECKED_DELETE( m_pThPSCamera );
 
 	float aspect = CORE->GetRenderManager()->GetAspectRatio();
-	m_pThPSCamera = new CThPSCamera(_near, _far, 45.f * D3DX_PI / 180.f, aspect, m_pCharacterManager->GetPlayer(), _zoom, _heightLookAt, _heightEye, _name);
+	m_pThPSCamera = new CThPSCamera(_near, _far, 45.f * D3DX_PI / 180.f, aspect,  m_pCharactersManager->GetPlayer(), _zoom, _heightLookAt, _heightEye, _name);
 	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
 	CORE->SetCamera(m_pCamera);
 }
 
+void CGameProcess::CreateFreeCamera(float _near, float _far, float _zoom, float _heightEye, float _heightLookAt, const std::string &_name)
+{
+	//Crea una cámara libre de Debug
+	m_FreeCamera.SetPosition(Vect3f( 0.f, 10.f, 0.f));
+	m_FreeCamera.SetPitch(-D3DX_PI/6);
+	m_FreeCamera.SetYaw(0.0f);
+	m_FreeCamera.SetRoll(0.0f);
+
+	float aspect = CORE->GetRenderManager()->GetAspectRatio();
+	m_pThPSFreeCamera = new CThPSCamera( _near, _far, 45.f * D3DX_PI / 180.f, aspect, &m_FreeCamera, _zoom, _heightLookAt, _heightEye, _name);
+	m_pFreeCamera = static_cast<CCamera*>(m_pThPSFreeCamera);
+}
+
 void CGameProcess::Update(float elapsedTime)
 {
+	if (!m_IsOK) 
+	{
+		return;
+	}
+	
 	//Vuelve a cargar los datos si hacemos el reload de LUA
 	if( CORE->GetActionToInput()->DoAction("ReloadScripts") )
 	{
-		LoadGameObjects();
-		m_pThPSCamera->SetObject3D( m_pCharacterManager->GetPlayer());
+		ReloadGameObjects();
+		m_pThPSCamera->SetObject3D( m_pCharactersManager->GetPlayer());
 	}
 
 	if( CORE->GetActionToInput()->DoAction("CommutationCamera") )
@@ -91,28 +113,34 @@ void CGameProcess::Update(float elapsedTime)
 		{
 			m_pCamera = m_pThPSFreeCamera;
 			CORE->SetCamera( m_pThPSFreeCamera );
-			m_pCharacterManager->GetPlayer()->SetLocked( true );
+			m_pCharactersManager->GetPlayer()->SetLocked( true );
 		}
 		else
 		{
 			m_pCamera = m_pThPSCamera;
 			CORE->SetCamera( m_pThPSCamera );
-			m_pCharacterManager->GetPlayer()->SetLocked( false );
+			m_pCharactersManager->GetPlayer()->SetLocked( false );
 		}
 	}
 
-	if( m_pCharacterManager->GetPlayer()->GetLocked() )
+	if( m_pCharactersManager->GetPlayer()->GetLocked() )
 	{
 		m_FreeCamera.Update(elapsedTime ,m_pCamera);
 	}
 
-	m_pCharacterManager->Update(elapsedTime);
+	m_pCharactersManager->Update(elapsedTime);
 	CORE->GetRenderableObjectsLayersManager()->Update(elapsedTime);
+}
+
+void CGameProcess::ReloadGameObjects( void )
+{
+	CleanUp();
+	LoadGameObjects();
 }
 
 void CGameProcess::Render(CRenderManager &RM)
 {
-	m_pCharacterManager->Render(&RM, CORE->GetFontManager());
+	 m_pCharactersManager->Render(&RM, CORE->GetFontManager());
 }
 
 bool CGameProcess::LoadMainScript( void )
@@ -122,11 +150,9 @@ bool CGameProcess::LoadMainScript( void )
 
 void CGameProcess::LoadGameObjects()
 {
-	CHECKED_DELETE(m_pCharacterManager);
-
 	//Crea los datos para el gameplay
-	m_pCharacterManager = new CCharactersManager();
-
+	m_pCharactersManager = new CCharactersManager();
+	
 	//Crea escena debug 
 	//m_pScene = new CScene();
 
@@ -139,23 +165,13 @@ void CGameProcess::LoadGameObjects()
 	// por si se desea hacer alguna mariconada...
 	//SCRIPT->RunCode("init_game_data()");
 
+	CBaseGameEntity::Initialize();
+
 	// Inicializa el gestor de player y enemigos. Carga propiedades y estados de todo.
-	if ( !m_pCharacterManager->Initialize ( ) )
+	if ( !m_pCharactersManager->Initialize ( ) )
 		return;
 
-	CCharacter * l_Player = m_pCharacterManager->GetPlayer();
-
-	//Crea la cámara
-	/*float l_Aspect = CORE->GetRenderManager()->GetAspectRatio();
-	m_pThPSCamera = new CThPSCamera(1.0f, 10000.f, 45.f * D3DX_PI / 180.f, l_Aspect, m_pCharacterManager->GetPlayer(), 12.0f, 4.f, 0.f, "Caperucita");
-	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
-	CORE->SetCamera(m_pCamera);*/
-}
-
-CGameProcess* CGameProcess::GetGameProcess()
-{
-	CEngineProcess *proces = CORE->GetProcess();
-	return static_cast<CGameProcess*>(proces);
+	CreateFreeCamera(  1.0f, 10000.f, 10.0f, 0.f, 0.f, "Free" );	
 }
 
 //-------------------------------------
@@ -163,23 +179,33 @@ CGameProcess* CGameProcess::GetGameProcess()
 //-------------------------------------
 void CGameProcess::RegisterMethods()
 {
-	lua_State *state = SCRIPT->GetLuaState();
+	lua_State * l_State = SCRIPT->GetLuaState();
 
-	module(state) [
+	module(l_State) [
 		def("get_game_process", GetGameProcess)
 	];
 
-	module(state) [
+	module(l_State) [
 		class_<CGameProcess>("CGameProcess")
-			.def("get_character_manager", &CGameProcess::GetCharacterManager)
+			.def("get_character_manager", &CGameProcess::GetCharactersManager)
 			.def("create_player_camera", &CGameProcess::CreatePlayerCamera)
 			.property("player_camera", &CGameProcess::GetPlayerCamera)
 	];
 
-	RegisterToLuaBaseGameEntity			( state );
-	RegisterToLuaCharacter				( state );
-	RegisterToLuaCharacterManager		( state );
-	RegisterToLuaStateMachine			( state );
-	RegisterToLuaState					( state );
-	RegisterToLuaProperties				( state );
+	RegisterToLuaBaseGameEntity			( l_State );
+	RegisterToLuaCharacter				( l_State );
+	RegisterToLuaCharacterManager		( l_State );
+	RegisterToLuaStateMachine			( l_State );
+	RegisterToLuaState					( l_State );
+	RegisterToLuaProperties				( l_State );
+}
+
+// -----------------------------------------
+//				PROPIEDADES
+// -----------------------------------------
+
+CGameProcess* CGameProcess::GetGameProcess()
+{
+	CEngineProcess *proces = CORE->GetProcess();
+	return static_cast<CGameProcess*>(proces);
 }

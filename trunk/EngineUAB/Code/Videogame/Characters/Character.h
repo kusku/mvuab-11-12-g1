@@ -41,38 +41,49 @@ public:
 	virtual void		Update				( float _ElapsedTime );
 
 	//----Functions -------------------------------------------
-	void				MoveController		( const Vect3f &_Dir, float _ElapsedTime );
+	void						MoveController		( const Vect3f &_Dir, float _ElapsedTime );
+	void						MoveTo				( const Vect3f &_Position, float _ElapsedTime );
+	void						FaceTo				( const Vect3f &_Position, float _ElapsedTime );
+	//bool						IsPlayerDetected	( void );
 	
+	void						AddLife				( int _Life );								
+	void						RestLife			( int _Life );								
+	void						AddSpeed			( int _Speed );								
+	void						RestSpeed			( int _Speed );								
+	void						AddStrong			( int _Strong );								
+	void						RestStrong			( int _Strong );								
+
+
 	//----Properties ( get & Set )-----------------------------
 	inline CStateMachine<CCharacter>*		GetLogicFSM			() const			{ return m_pLogicStateMachine; }
 	inline CStateMachine<CCharacter>*		GetGraphicFSM		() const			{ return m_pGraphicStateMachine; }
 	inline CPhysicController*				GetController		() const			{ return m_pController; }
 	inline CAnimatedInstanceModel*			GetAnimatedModel	() const			{ return m_pCurrentAnimatedModel; }
 	inline CPhysicUserData*					GetPhysicUserData	() const			{ return m_pPhysicUserDataJugador; }
-	int										GetAnimationID		( const std::string &_AnimationName );
+	int										GetAnimationID		( const std::string &_AnimationName ) const;
 
 	inline void					SetPrevPosition		( Vect3f pos )			{ m_PrevPosition = pos; }
-	inline const Vect3f&		GetPrevPosition		() const				{ return m_PrevPosition; }
+	inline const Vect3f&		GetPrevPosition		( void ) const				{ return m_PrevPosition; }
 
 	void						SetEnable			( bool enable );
-	inline bool					IsEnable			() const				{ return m_bIsEnable; }
+	inline bool					IsEnable			( void ) const				{ return m_bIsEnable; }
 
 
 	inline void					SetLocked			( bool locked )			{ m_bLocked = locked; }
-	inline bool					GetLocked			() const				{ return m_bLocked; }
+	inline bool					GetLocked			( void ) const				{ return m_bLocked; }
 
 	// Obtengo el angulo que forma donde mira
-	inline Vect3f				GetFront			() const			{ Vect3f l_Front; l_Front.GetXZFromAngle( GetYaw() ) ; return l_Front; }
+	inline Vect3f				GetFront			( void ) const			{ Vect3f l_Front; l_Front.GetXZFromAngle( GetYaw() ) ; return l_Front; }
 																			//{ Vect3f front; front.xzFromAngle( m_Yaw ); return front; }
 
-	bool						isPointAtLeft		( const Vect3f &_Position ) const	
+	bool						IsPointAtLeft		( const Vect3f &_Position ) const	
 																			{
 																				const CPlane p( GetPosition( ), GetPosition( ) + GetFront( ), Vect3f( 0.0f, 1.0f, 0.0f ) );
 																				return !p.isPointInside( _Position );
 																			}
 
-	inline void					SetAnimationsStates	( CAnimationsStates* _pAnimationsStates )		{ m_pAnimationsStates = _pAnimationsStates; }
-	inline CAnimationsStates*	GetAnimationsStates	() const										{ return m_pAnimationsStates; }
+	inline void					SetAnimationsStates	( CAnimationsStates* _pAnimationsStates )	{ m_pAnimationsStates = _pAnimationsStates; }
+	inline CAnimationsStates*	GetAnimationsStates	( void ) const								{ return m_pAnimationsStates; }
 
 	inline void					SetProperties		( CProperties* _pProperties )				{ m_pProperties = _pProperties; }
 	inline CProperties*			GetProperties		( void ) const								{ return m_pProperties; }
@@ -94,7 +105,7 @@ protected:
 
 	CPhysicController			  * m_pController;
 	CPhysicUserData				  * m_pPhysicUserDataJugador;
-
+	
 	Vect3f							m_PrevPosition;
 };
 

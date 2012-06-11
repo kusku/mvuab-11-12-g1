@@ -49,6 +49,7 @@ CCharacter::CCharacter( const std::string &_Name )
 	, m_pCurrentAnimatedModel	( NULL )
 	, m_pController				( NULL ) 
 	, m_pAnimationsStates		( NULL )
+	, m_pProperties				( NULL )
 	, m_pPhysicUserDataJugador	( NULL )
 	, CNamed					( _Name )
 	, CObject3D					( )
@@ -66,14 +67,15 @@ CCharacter::CCharacter( const std::string &_Name )
 
 CCharacter::CCharacter(int _ID, const std::string &_Name)
 	: CBaseGameEntity			( _ID )
+	, CNamed					( _Name )
+	, CObject3D					( )
 	, m_pLogicStateMachine		( NULL )
 	, m_pGraphicStateMachine	( NULL )
 	, m_pCurrentAnimatedModel	( NULL )
 	, m_pController				( NULL ) 
 	, m_pAnimationsStates		( NULL )
+	, m_pProperties				( NULL )
 	, m_pPhysicUserDataJugador	( NULL )
-	, CNamed					( _Name )
-	, CObject3D					( )
 	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
 	, m_bLocked					( false )
 	, m_bIsEnable				( true )
@@ -81,9 +83,7 @@ CCharacter::CCharacter(int _ID, const std::string &_Name)
 	// coloco la máquina de estados
     m_pLogicStateMachine	= new CStateMachine<CCharacter>( this );
 	m_pGraphicStateMachine	= new CStateMachine<CCharacter>( this );
-  //  m_pController			= new CPhysicController();
 
-	//m_pCurrentAnimatedModel = static_cast<CAnimatedInstanceModel*>(CORE->GetRenderableObjectsLayersManager()->GetResource("solid")->GetInstance("caperucita1"));
 }
 
 
@@ -91,6 +91,9 @@ CCharacter::~CCharacter( void )
 {
 	CHECKED_DELETE ( m_pLogicStateMachine );
 	CHECKED_DELETE ( m_pGraphicStateMachine );
+	// Amb lua no cal eliminar l'objecte. Lua ja se'n ocupa.
+	//CORE->GetPhysicsManager()->ReleasePhysicController(m_pController);
+	//CHECKED_DELETE ( m_pController );
 	CHECKED_DELETE ( m_pPhysicUserDataJugador );
 	CORE->GetPhysicsManager()->ReleasePhysicController( m_pController );
 	m_pCurrentAnimatedModel = NULL;
@@ -99,9 +102,15 @@ CCharacter::~CCharacter( void )
 // -----------------------------------------
 //			METODES PRINCIPALS
 // -----------------------------------------
-bool CCharacter::Init()
+bool CCharacter::Init( void )
 {
-	// Implementación en lua!
+	// Metodo y cosas a implementar en Lua
+	//if ( m_pCurrentAnimatedModel )
+	//{
+	//	// coloco el primer estado
+	//	m_pLogicStateMachine->SetCurrentState  ( m_pIdleState );
+	//	m_pGraphicStateMachine->SetCurrentState( m_pAnimationIdleState );
+	//}
 
 	return true;
 }
@@ -170,8 +179,8 @@ bool CCharacter::HandleMessage( const Telegram& _Msg, bool _Logic, bool _Graphic
 bool CCharacter::HandleMessage( const Telegram& _Msg )
 {
 	bool l_CanHandle;
-	l_CanHandle = m_pLogicStateMachine->HandleMessage( _Msg );
-	l_CanHandle &= m_pGraphicStateMachine->HandleMessage( _Msg );
+	l_CanHandle = m_pLogicStateMachine->HandleMessage		( _Msg );
+	l_CanHandle &= m_pGraphicStateMachine->HandleMessage	( _Msg );
 
 	return l_CanHandle;
 }
@@ -181,7 +190,95 @@ void CCharacter::MoveController(const Vect3f &_Dir, float _ElapsedTime)
 	m_pController->Move( _Dir, _ElapsedTime );
 }
 
-int CCharacter::GetAnimationID(const std::string &_AnimationName)
+void CCharacter::FaceTo( const Vect3f &_Position, float _ElapsedTime )
+{
+	Vect3f v = (_Position - m_Position);
+	float l_RotationSpeed = m_pProperties->GetRotationSpeed();
+	float l_back = v.Dot(GetFront());
+
+	if(abs(l_back) < .9f)
+	{
+		return;
+	}
+
+	if ( l_back < 0 )
+	{
+		m_fYaw += (mathUtils::Deg2Rad(l_RotationSpeed) * _ElapsedTime);
+	}
+	else
+	{
+		m_fYaw += (-mathUtils::Deg2Rad(l_RotationSpeed) * _ElapsedTime);
+	}
+}
+
+void CCharacter::MoveTo( const Vect3f &_Position, float _ElapsedTime )
+{
+	Vect2f pointA(_Position.x, _Position.z);
+	Vect2f pointB(m_Position.x, m_Position.z);
+
+	if(pointA.SqDistance(pointB) <= m_pProperties->GetAttackDistance())
+	{
+		FaceTo( _Position, _ElapsedTime );
+		m_pController->SetYaw(m_fYaw);
+		float l_Yaw = mathUtils::Rad2Deg(m_fYaw);
+		m_pCurrentAnimatedModel->SetYaw(-l_Yaw + 90.f );
+		return;
+	}
+
+	FaceTo( _Position, _ElapsedTime );
+
+	Vect3f pointA2(_Position.x, 0, _Position.z);
+	Vect3f pointB2(m_Position.x, 0, m_Position.z);
+	Vect3f l_Position = Vect3f(0.0f, 0.0f, 0.0f);
+	Vect3f l_Dir = (pointA2 - pointB2).Normalize();
+
+	l_Position += l_Dir * m_pProperties->GetSpeed() * _ElapsedTime;
+
+	m_pController->SetYaw(m_fYaw);
+	MoveController(l_Position, _ElapsedTime);
+	
+	m_Position = m_pController->GetPosition();
+	m_Position.y = m_Position.y - m_pController->GetHeight() + 0.4f;
+	float l_Yaw = mathUtils::Rad2Deg(m_fYaw);
+	m_pCurrentAnimatedModel->SetYaw(-l_Yaw + 90.f );
+	m_pCurrentAnimatedModel->SetPosition( m_Position );
+}
+
+// -----------------------------------------
+//				PROPERTIES
+// -----------------------------------------
+
+void CCharacter::AddLife( int _Life )								
+{ 
+	m_pProperties->SetLife( m_pProperties->GetLife() + _Life ); 
+}
+
+void CCharacter::RestLife( int _Life )								
+{ 
+	m_pProperties->SetLife( m_pProperties->GetLife() - _Life ); 
+}
+
+void CCharacter::AddSpeed( int _Speed )
+{
+	m_pProperties->SetSpeed( m_pProperties->GetSpeed() - _Speed ); 
+}
+
+void CCharacter::RestSpeed( int _Speed )
+{
+	m_pProperties->SetSpeed( m_pProperties->GetSpeed() - _Speed ); 
+}
+
+void CCharacter::AddStrong( int _Strong )
+{
+	m_pProperties->SetStrong( m_pProperties->GetStrong() - _Strong ); 
+}
+
+void CCharacter::RestStrong( int _Strong )
+{
+	m_pProperties->SetStrong( m_pProperties->GetStrong() - _Strong ); 
+}
+
+int CCharacter::GetAnimationID(const std::string &_AnimationName) const
 {
 	CAnimatedCoreModel * l_Core =  m_pCurrentAnimatedModel->GetAnimatedCoreModel();
 	return l_Core->GetCoreModel()->getCoreAnimationId( _AnimationName );

@@ -33,19 +33,20 @@
 //--------------------------------------------------
 //				CONSTRUCTORS/DESTRUCTORS
 //--------------------------------------------------
-CCharactersManager::CCharactersManager (void)
-	: m_PropertiesFileName("")
-	, m_AnimatedFileName("")
-	, m_pPlayer(NULL)
-	, m_pPropertiesManager(NULL)
-	, m_pAnimatedStatesManager(NULL)
-	, m_pTargetEnemy(NULL)
+CCharactersManager::CCharactersManager ( void )
+	: m_PropertiesFileName		( "" )
+	, m_AnimatedFileName		( "" )
+	, m_pPropertiesManager		( NULL )
+	, m_pAnimatedStatesManager	( NULL )
+	, m_pPlayer					( NULL )
+	, m_pTargetEnemy			( NULL )
 {
 }
 
 CCharactersManager::~CCharactersManager(void)
 {
-	CleanUp();
+	//CleanUp();
+	CleanReloadScripts();
 }
 
 //--------------------------------------------------
@@ -74,11 +75,34 @@ bool CCharactersManager::Initialize ( int _NumEnemies )
 	return true;
 }
 
+void CCharactersManager::CleanReloadScripts ( void )
+{
+	CHECKED_DELETE ( m_pPropertiesManager );		// Eliminamos las propiedades por defecto
+	CHECKED_DELETE ( m_pAnimatedStatesManager );	// Eliminamos los estados por defecto
+
+	// Estos cambios són debido a la nueva forma y reload de cargar los caracteres mediante Lua
+	CORE->GetPhysicsManager()->ReleasePhysicController(m_pPlayer->GetController());
+	m_pPlayer = NULL;
+	
+	TVectorResources::iterator l_It = m_ResourcesVector.begin();
+	TVectorResources::iterator l_End = m_ResourcesVector.end();
+	
+	for ( l_It; l_It < l_End; l_It++ )
+	{
+		CORE->GetPhysicsManager()->ReleasePhysicController((*l_It)->GetController());
+		(*l_It) = NULL;
+	}
+
+	// Lua destruye los objetos pero aquí limpio las listas para evitar el error
+	m_ResourcesMap.clear();
+	m_ResourcesVector.clear();
+}
+
 void CCharactersManager::CleanUp ( void )
 {
 	CHECKED_DELETE ( m_pPropertiesManager );		// Eliminamos las propiedades por defecto
 	CHECKED_DELETE ( m_pAnimatedStatesManager );	// Eliminamos los estados por defecto
-	m_pPlayer = NULL;
+	CHECKED_DELETE ( m_pPlayer );
 	Destroy();
 }
 

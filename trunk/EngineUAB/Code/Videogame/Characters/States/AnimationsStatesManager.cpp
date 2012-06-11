@@ -190,7 +190,11 @@ CAnimationsStates* CAnimationsStatesManager::LoadEnemyAnimationsStates( const CX
 	}
 }
 
-void CAnimationsStatesManager::CleanUp()
+void CAnimationsStatesManager::CleanUp( void )
 {
 	Destroy();
 }
+
+// ------------------------------------------
+//				PROPIETATS 
+
