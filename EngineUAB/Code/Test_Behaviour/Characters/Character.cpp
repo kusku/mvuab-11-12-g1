@@ -214,6 +214,12 @@ void CCharacter::FaceTo( const Vect3f &_Position, float _ElapsedTime )
 	Vect3f v = (_Position - m_Position);
 	float l_RotationSpeed = m_pProperties->GetRotationSpeed();
 	float l_back = v.Dot(GetFront());
+
+	if(abs(l_back) < .9f)
+	{
+		return;
+	}
+
 	if ( l_back < 0 )
 	{
 		m_fYaw += (mathUtils::Deg2Rad(l_RotationSpeed) * _ElapsedTime);
