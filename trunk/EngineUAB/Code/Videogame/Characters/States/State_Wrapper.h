@@ -1,3 +1,4 @@
+#pragma once
 
 #ifndef __STATE_WRAPPER_H__
 #define __STATE_WRAPPER_H__

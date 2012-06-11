@@ -4,6 +4,7 @@
       <life>100</life>
       <strong>12</strong>
       <speed>10</speed>
+	  <height>1.1</height>
       <direction>0 0 0</direction>
 	  <RespawnPosition>0 100 0</RespawnPosition>
   </default_properties>
@@ -12,6 +13,7 @@
       <strong>22</strong>
       <speed>15</speed>
       <direction>-10 -2 4</direction>
+	  <height>2.4</height>
   </default_properties>
   <player name="Jolete" core="caperucita" animated_instace_name="caperucita1" >
       <life>100</life>
@@ -23,7 +25,7 @@
   </player>
   <enemies>
 	<enemy name="enemy1" core="lobo" animated_instace_name="lobo1" >
-        <life>120</life>
+        <life>10</life>
         <strong>13</strong>
         <speed>3</speed>
         <direction>3 20 -4</direction>

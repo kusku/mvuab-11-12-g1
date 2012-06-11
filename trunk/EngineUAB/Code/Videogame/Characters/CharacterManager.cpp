@@ -20,6 +20,8 @@
 #include "characters\Properties\Properties.h"
 #include "characters\states\AnimationsStatesManager.h"
 #include "characters\states\AnimationsStates.h"
+#include "Billboard\BillboardManager.h"
+#include "Billboard\BillboardAnimation.h"
 #include "Logger\Logger.h"
 #include "Base.h"
 #include "Core.h"
@@ -31,12 +33,13 @@
 //--------------------------------------------------
 //				CONSTRUCTORS/DESTRUCTORS
 //--------------------------------------------------
-CCharactersManager::CCharactersManager ( void )
-	: m_PropertiesFileName( "" )
-	, m_AnimatedFileName( "" )
+CCharactersManager::CCharactersManager (void)
+	: m_PropertiesFileName("")
+	, m_AnimatedFileName("")
 	, m_pPlayer(NULL)
-	, m_pPropertiesManager( NULL )
-	, m_pAnimatedStatesManager( NULL )
+	, m_pPropertiesManager(NULL)
+	, m_pAnimatedStatesManager(NULL)
+	, m_pTargetEnemy(NULL)
 {
 }
 
@@ -124,7 +127,24 @@ void CCharactersManager::Update ( float _ElapsedTime )
 	TVectorResources l_EnemyList = GetResourcesVector();
 	for ( size_t i = 0; i < l_EnemyList.size(); i++ )
 	{
-		l_EnemyList[i]->Update( _ElapsedTime );
+		if( l_EnemyList[i]->IsEnable() )
+		{
+			l_EnemyList[i]->Update( _ElapsedTime );
+		}
+	}
+
+	//Actualiza el billboard del target enemy
+	if( m_pTargetEnemy != NULL )
+	{
+		Vect3f l_Pos = m_pTargetEnemy->GetPosition();
+		l_Pos.y += m_pTargetEnemy->GetController()->GetHeight() + 1.5f;
+
+		CORE->GetBillboardManager()->GetBillboardInstance("target_enemy")->SetPosition(l_Pos);
+		CORE->GetBillboardManager()->GetBillboardInstance("target_enemy")->SetVisible(true);
+	}
+	else
+	{
+		CORE->GetBillboardManager()->GetBillboardInstance("target_enemy")->SetVisible(false);
 	}
 }
 
@@ -569,21 +589,33 @@ CPhysicUserData* CCharactersManager::ShootPlayerRaycast()
 	l_Dir.y = 0.0f;
 	l_Dir.Normalize();
 
+	l_Pos.y += m_pPlayer->GetController()->GetHeight()/2;
+	l_Pos += l_Dir;
+
 	int mask = 1 << ECG_PERSONATGE;
 	mask |= 1 << ECG_OBJECTES_DINAMICS;
 	mask |= 1 << ECG_ESCENARI;
 	mask |= 1 << ECG_ENEMICS;
 
-	/*std::vector<CPhysicUserData*> objects;
-	CORE->GetPhysicsManager()->OverlapSphereActor(5.0f, l_Pos, objects, mask);
-	for( uint16 i=0; i<objects.size(); ++i)
+	CPhysicUserData *userdata = CORE->GetPhysicsManager()->RaycastClosestActor(l_Pos, l_Dir, mask, l_Info);
+	return userdata;
+}
+
+CCharacter* CCharactersManager::IsPlayerNearEnemy(float distance)
+{
+	Vect3f l_Pos = m_pPlayer->GetPosition();
+
+	TVectorResources l_EnemyList = GetResourcesVector();
+	for(uint16 i=0; i<l_EnemyList.size(); ++i)
 	{
-		CCharacter* character = ExistEnemyUserData(objects[i]);
-		if( character != NULL )
+		if( l_EnemyList[i]->IsEnable() )
 		{
-			return NULL;
+			if( l_Pos.Distance( l_EnemyList[i]->GetPosition() ) <= distance )
+			{
+				return l_EnemyList[i];
+			}
 		}
 	}
-	return NULL;*/
-	return CORE->GetPhysicsManager()->RaycastClosestActor(m_pPlayer->GetPosition(), l_Dir, CORE->GetPhysicsManager()->GetCollisionMask(ECG_RAY_SHOOT_PLAYER), l_Info);
+
+	return NULL;
 }

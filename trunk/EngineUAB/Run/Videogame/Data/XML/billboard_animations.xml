@@ -1,3 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <BillboardAnimation>
+	<Billboard>
+		<Animation name="target_enemy" color="1.0 1.0 1.0 1.0" size="1.0" timePerImage="0.0" loop="false">
+			<Texture file="./data/general/textures/target_enemy.png" />
+		</Animation>
+	</Billboard>
+	<Instances>
+		<Instance id="target_enemy" pos="0.0 5.0 0.0" />
+	</Instances>	
 </BillboardAnimation>

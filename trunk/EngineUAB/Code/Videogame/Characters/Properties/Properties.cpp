@@ -5,7 +5,7 @@
 //			CONSTRUCTOR/DESTRUCTOR
 // ------------------------------------------
 
-CProperties::CProperties( const std::string &_Name, int _Life, int _Strong, int _Speed, const Vect3f &_Direction )
+CProperties::CProperties( const std::string &_Name, int _Life, int _Strong, int _Speed, float _Height, const Vect3f &_Direction )
 	: CNamed			( _Name )
 	, CObject3D			( )
 	, m_Life			( _Life )
@@ -13,6 +13,8 @@ CProperties::CProperties( const std::string &_Name, int _Life, int _Strong, int 
 	, m_Speed			( _Speed )
 	, m_Direction		( _Direction )
 	, m_RespawnPosition	( Vect3f(0.f,0.f,0.f) )
+	, m_Height			( _Height )
+
 {
 }
 
@@ -24,6 +26,7 @@ CProperties::CProperties( void )
 	, m_Speed		( 0 )
 	, m_Direction	( Vect3f(0.f,0.f,0.f) )
 	, m_RespawnPosition	( Vect3f(0.f,0.f,0.f) )
+	, m_Height			( 0.f )
 {
 }
 

@@ -24,6 +24,14 @@ class 'CPlayerAttackState' (CState)
 			num = _CCharacter:get_animation_id("attack")
 			_CCharacter:get_animation_model():clear_cycle( num, 0.1 )
 		end
+		
+		local enemy = get_game_process():get_character_manager():is_player_near_enemy(2.0)
+		if enemy ~= nil then
+			enemy.properties.life = enemy.properties.life - 10
+			if enemy.properties.life <= 0 then
+				enemy.enable = false
+			end
+		end
 	end
 	
 	function CPlayerAttackState:OnMessage(_CCharacter)

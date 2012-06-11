@@ -41,6 +41,7 @@ CBillboardAnimation::CBillboardAnimation( const CBillboardAnimation *_BillboardA
 	m_fAngle		= _BillboardAnimation->GetAngle();
 	m_uiNumTextures	= _BillboardAnimation->GetTotalTextures();
 	m_vTextures		= _BillboardAnimation->GetTexturesVector();
+	m_Name			= _BillboardAnimation->GetName();
 
 	return;
 }
