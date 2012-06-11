@@ -190,6 +190,10 @@ bool CSceneRendererCommandManager::LoadXML ( bool _IsGUI )
 			{
 				l_ActiveCommand = new CRenderParticlesSceneRendererCommand( l_Commands(i) );
 			}
+			else if( l_Type == "render_billboards" )
+			{
+				l_ActiveCommand = new CRenderBillboardsSceneRendererCommand( l_Commands(i) );
+			}
 			else if( l_Type == "render_scene" )
 			{
 				l_ActiveCommand = new CRenderSceneSceneRendererCommand( l_Commands(i) );
