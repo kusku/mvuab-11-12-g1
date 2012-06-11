@@ -71,7 +71,10 @@ void CBillboardManager::Render( CRenderManager &_RM )
 
 	for ( ; l_It < l_End; ++l_It )
 	{
-		(*l_It)->Render( _RM );
+		if( (*l_It)->GetVisible() )
+		{
+			(*l_It)->Render( _RM );
+		}
 	}	
 }
 
@@ -154,15 +157,15 @@ bool CBillboardManager::LoadXML()
 
 CBillboardAnimation * CBillboardManager::GetBillboardInstance ( const std::string &_Name )
 {
-	bool l_blnTrobat = false;
-	uint16 l_Index = 0;
+	std::vector<CBillboardAnimation*>::iterator l_It = m_vBillboardAnimationVectorINSTANCES.begin();
+	std::vector<CBillboardAnimation*>::iterator l_ItEnd = m_vBillboardAnimationVectorINSTANCES.end();
 
-	while ( ( l_blnTrobat ) && ( l_Index < m_vBillboardAnimationVectorINSTANCES.size() ) )
+	for(; l_It != l_ItEnd; ++l_It)
 	{
-		if ( m_vBillboardAnimationVectorINSTANCES[l_Index]->GetName() == _Name ) 
-			return m_vBillboardAnimationVectorINSTANCES[l_Index];
-
-		l_Index++;
+		if( (*l_It)->GetName() == _Name )
+		{
+			return *l_It;
+		}
 	}
 
 	return NULL;

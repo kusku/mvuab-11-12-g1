@@ -1,12 +1,10 @@
 #pragma once
 
-#include <vector>
-//#include "Rail.h"
-//#include "TestDef.h"
-//#include "MathHelper.h"
-//#include "RandomHelper.h"
+#ifndef _CHARACTER_MANAGER_H_
+#define _CHARACTER_MANAGER_H_
 
-//#include "../TestDef.h"
+#include <vector>
+#include <string>
 #include "Character.h"
 #include "Scripting\ScriptManager.h"
 #include "Utils\TemplatedVectorMapManager.h"
@@ -45,14 +43,16 @@ public:
 	// ------------- Propietats ( Get / Set ) ----------------
 	TVectorResources	GetEnemiesVector		() const				{ return m_ResourcesVector; }
 	TMapResources		GetEnemiesMap			() const				{ return m_ResourcesMap; }
-	int					GetTotalEnemies			() const				{ return m_ResourcesVector.size(); }
-	CCharacter*			GetPlayer				() const				{ return m_pPlayer; }
-	
-	inline void			SetPlayer	(CCharacter *player)				{ m_pPlayer = player; }
+	inline int			GetTotalEnemies			() const				{ return m_ResourcesVector.size(); }
+	inline CCharacter*	GetPlayer				() const				{ return m_pPlayer; }
+	inline CCharacter*	GetTargetEnemy			() const				{ return m_pTargetEnemy; }
+
+	inline void			SetPlayer				(CCharacter *player)	{ m_pPlayer = player; }
+	inline void			SetTargetEnemy			( CCharacter *enemy )	{ m_pTargetEnemy = enemy; }
 
 	CPhysicUserData*	ShootPlayerRaycast		();
 	CCharacter*			ExistEnemyUserData		( CPhysicUserData *_userData );
-
+	CCharacter*			IsPlayerNearEnemy		( float distance );
 private:
 	bool	LoadXML							();							// Carga el XML de propiedades y estados
 	bool	LoadDefaultCoreProperties		( const CXMLTreeNode &_Node );		// Carga las propiedades por defecto del XML
@@ -72,5 +72,7 @@ private:
 	CAnimationsStatesManager	*m_pAnimatedStatesManager;
 
 	CCharacter					*m_pPlayer;
+	CCharacter					*m_pTargetEnemy;
 };
 
+#endif

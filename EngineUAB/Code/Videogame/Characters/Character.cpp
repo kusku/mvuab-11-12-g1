@@ -32,6 +32,7 @@ CCharacter::CCharacter()
 	, CObject3D					( )
 	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
 	, m_bLocked					( false )
+	, m_bIsEnable				( true )
 {
 	// coloco la máquina de estados i el controler de física
     m_pLogicStateMachine	= new CStateMachine<CCharacter>( this );
@@ -53,6 +54,7 @@ CCharacter::CCharacter( const std::string &_Name )
 	, CObject3D					( )
 	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
 	, m_bLocked					( false )
+	, m_bIsEnable				( true )
 {
 	// coloco la máquina de estados
     m_pLogicStateMachine	= new CStateMachine<CCharacter>( this );
@@ -74,6 +76,7 @@ CCharacter::CCharacter(int _ID, const std::string &_Name)
 	, CObject3D					( )
 	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
 	, m_bLocked					( false )
+	, m_bIsEnable				( true )
 {
 	// coloco la máquina de estados
     m_pLogicStateMachine	= new CStateMachine<CCharacter>( this );
@@ -111,7 +114,7 @@ bool CCharacter::Initialize ( const std::string &_Name, const Vect3f &_InitialPo
 	m_pPhysicUserDataJugador->SetPaint( true );
 
 	// Creo el controlador del jugador
-	m_pController = new CPhysicController( 0.5f, 1.1f, 45.f, 0.1f, 0.5f, _Grup, m_pPhysicUserDataJugador );
+	m_pController = new CPhysicController( 0.5f, m_pProperties->GetHeight(), 45.f, 0.1f, 0.5f, _Grup, m_pPhysicUserDataJugador );
 	m_pController->SetPosition( _InitialPosicion );
 	m_pController->SetVisible( true );
 	
@@ -167,8 +170,8 @@ bool CCharacter::HandleMessage( const Telegram& _Msg, bool _Logic, bool _Graphic
 bool CCharacter::HandleMessage( const Telegram& _Msg )
 {
 	bool l_CanHandle;
-	l_CanHandle = m_pLogicStateMachine->HandleMessage		( _Msg );
-	l_CanHandle &= m_pGraphicStateMachine->HandleMessage	( _Msg );
+	l_CanHandle = m_pLogicStateMachine->HandleMessage( _Msg );
+	l_CanHandle &= m_pGraphicStateMachine->HandleMessage( _Msg );
 
 	return l_CanHandle;
 }
@@ -178,35 +181,24 @@ void CCharacter::MoveController(const Vect3f &_Dir, float _ElapsedTime)
 	m_pController->Move( _Dir, _ElapsedTime );
 }
 
-int CCharacter::GetAnimationId ( const std::string _AnimationName ) const
+int CCharacter::GetAnimationID(const std::string &_AnimationName)
 {
 	CAnimatedCoreModel * l_Core =  m_pCurrentAnimatedModel->GetAnimatedCoreModel();
-	int i = l_Core->GetCoreModel()->getCoreAnimationId ( _AnimationName );
-	return i;
+	return l_Core->GetCoreModel()->getCoreAnimationId( _AnimationName );
 }
 
-void CCharacter::RegisterMethods()
+void CCharacter::SetEnable(bool enable)
 {
-	lua_State *state = SCRIPT->GetLuaState();
+	if( !enable )
+	{
+		m_pCurrentAnimatedModel->SetVisible(false);
+		m_pController->SetCollision(false);
+	}
+	else
+	{
+		m_pCurrentAnimatedModel->SetVisible(true);
+		m_pController->SetCollision(true);
+	}
 
-	module(state) [
-		class_<CBaseGameEntity>("CBaseGameEntity")
-	];
-
-	module(state) [
-		class_<CCharacter, CCharacter_Wrapper, bases<CBaseGameEntity, CObject3D, CNamed>>("CCharacter")
-			.def(constructor<>())
-			.def(constructor<const std::string&>())
-			.def(constructor<int, const std::string&>())
-			.def("init", &CCharacter::Init, &CCharacter_Wrapper::Init)
-			.def("update", &CCharacter::Update, &CCharacter_Wrapper::Default_Update)
-			.def("get_animation_id", &CCharacter::GetAnimationId)
-			.def("get_animation_model", &CCharacter::GetAnimatedModel)
-			.property("physic_controller", &CCharacter::GetController)	
-			.property("animated_model", &CCharacter::GetAnimatedModel)
-			.property("logic_fsm", &CCharacter::GetLogicFSM)
-			.property("graphic_fsm", &CCharacter::GetGraphicFSM)
-			.property("properties", &CCharacter::GetProperties, &CCharacter::SetProperties)
-			.property("locked", &CCharacter::GetLocked, &CCharacter::SetLocked)
-	];
+	m_bIsEnable = enable;
 }

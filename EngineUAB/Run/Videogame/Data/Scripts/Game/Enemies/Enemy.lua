@@ -48,7 +48,7 @@ class 'CEnemy' (CCharacter)
 		
 		--Actualiza la posición del objeto 3D
 		self.position = self.physic_controller.position
-		--self.position = Vect3f(self.position.x, self.position.y - self.physic_controller.height + 0.4, self.position.z)
+		self.position = Vect3f(self.position.x, self.position.y - self.physic_controller.height + 0.4, self.position.z)
 		
 		--Actualiza la posición del modelo animado
 		self.animated_model.position = self.position
@@ -57,7 +57,6 @@ class 'CEnemy' (CCharacter)
 		l_Fsm:update()
 		l_Fsm:change_state(self.animation_idle_state)
 		self.position2 = self.position
-		--self:is_player_detected()
 	end
 	
 	function CEnemy:is_player_detected()

@@ -66,6 +66,10 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 			Vect3f l_Vect = l_XMLPropertiesNode(i).GetVect3fKeyword ("direction");
 			l_Properties->SetDirection( l_Vect );
 		}
+		else if( l_PropertyField == "height" )
+		{
+			l_Properties->SetHeight( l_XMLPropertiesNode(i).GetFloatKeyword("height", 0.0f) );
+		}
 		// Esta és una prueba para cojer elementos vect3f
 		else if( l_PropertyField == "RespawnPosition" )
 		{

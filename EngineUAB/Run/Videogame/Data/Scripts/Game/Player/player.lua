@@ -153,4 +153,15 @@ class 'CPlayer' (CCharacter)
 		else
 			l_Fsm:change_state(self.idle)
 		end	
+		
+		----------------------
+		--Finaliza el movimiento del player
+		----------------------
+		self:detect_enemy()
+	end
+	
+	function CPlayer:detect_enemy()
+		local character_manager = get_game_process():get_character_manager()
+		local enemy = character_manager:is_player_near_enemy(10.0)
+		character_manager.target_enemy = enemy
 	end

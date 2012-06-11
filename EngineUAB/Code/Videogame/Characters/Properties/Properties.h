@@ -12,7 +12,7 @@ class CProperties : public CObject3D, public CNamed
 {
 public:
 	//--- Init and End protocols ----------------------------------------
-						CProperties				( const std::string &_Name, int _Life = 0, int _Strong = 0, int _Speed = 0 , const Vect3f &_Direction = Vect3f(0.f,0.f,0.f) );
+						CProperties				( const std::string &_Name, int _Life = 0, int _Strong = 0, int _Speed = 0 , float _Height = 0.f, const Vect3f &_Direction = Vect3f(0.f,0.f,0.f) );
 						CProperties				( void );
 						~CProperties			( void );
 
@@ -35,6 +35,9 @@ public:
 	inline void					SetSpeed				( int _Speed )										{ m_Speed = _Speed; }
 	inline const int			GetSpeed				( void ) const										{ return m_Speed; }
 
+	inline void					SetHeight				( float _Height )									{ m_Height = _Height; }
+	inline const float			GetHeight				() const											{ return m_Height; }
+
 	inline void					SetDirection			( const Vect3f &_Direction )						{ m_Direction = _Direction; }
 	inline const Vect3f			GetDirection			( void ) const										{ return m_Direction; }
 
@@ -51,6 +54,7 @@ private:
 	int					m_Speed;
 	Vect3f				m_Direction;
 	Vect3f				m_RespawnPosition;
+	float				m_Height;
 };
 
 #endif __CLASS_PROPERTIES_H__
