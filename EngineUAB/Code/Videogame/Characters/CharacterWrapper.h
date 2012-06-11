@@ -24,13 +24,13 @@ struct CCharacter_Wrapper : CCharacter, luabind::wrap_base
 	{
 	}
 
-	CCharacter_Wrapper(const std::string &name)
-		: CCharacter(name)
+	CCharacter_Wrapper(const std::string &_Name)
+		: CCharacter(_Name)
 	{
 	}
 
-	CCharacter_Wrapper(int id, const std::string &name)
-		: CCharacter(id, name)
+	CCharacter_Wrapper(int _id, const std::string &_Name)
+		: CCharacter(_id, _Name)
 	{
 	}
 

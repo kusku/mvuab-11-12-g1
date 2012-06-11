@@ -6,7 +6,7 @@
 #include "Base.h"
 
 #if defined (_DEBUG)
-#include "Memory\MemLeaks.h"
+	#include "Memory\MemLeaks.h"
 #endif
 
 // ------------------------------------------
@@ -59,27 +59,44 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 			l_Properties->SetStrong( l_XMLPropertiesNode(i).GetIntKeyword( "strong", 0 ) );
 
 		else if( l_PropertyField == "speed" )
-			l_Properties->SetSpeed( l_XMLPropertiesNode(i).GetIntKeyword( "speed", 0 ) );
+			l_Properties->SetSpeed( l_XMLPropertiesNode(i).GetFloatKeyword( "speed", 10.f ) );
+
+		else if( l_PropertyField == "rotation_speed" )
+			l_Properties->SetRotationSpeed( l_XMLPropertiesNode(i).GetFloatKeyword( "rotation_speed", 360.f ) );
 
 		else if( l_PropertyField == "direction" )
 		{
 			Vect3f l_Vect = l_XMLPropertiesNode(i).GetVect3fKeyword ("direction");
 			l_Properties->SetDirection( l_Vect );
 		}
-		else if( l_PropertyField == "height" )
+		else if( l_PropertyField == "respawn_position" )
 		{
-			l_Properties->SetHeight( l_XMLPropertiesNode(i).GetFloatKeyword("height", 0.0f) );
-		}
-		// Esta és una prueba para cojer elementos vect3f
-		else if( l_PropertyField == "RespawnPosition" )
-		{
-			Vect3f l_Vect = l_XMLPropertiesNode(i).GetVect3fKeyword ("RespawnPosition");
+			Vect3f l_Vect = l_XMLPropertiesNode(i).GetVect3fKeyword ("respawn_position");
 			l_Properties->SetRespawnPosition ( l_Vect );
 		}
-		else if( l_PropertyField == "Position" )
+		else if( l_PropertyField == "height" )
 		{
-			Vect3f l_Vect = l_XMLPropertiesNode(i).GetVect3fKeyword ("Position");
+			l_Properties->SetHeight( l_XMLPropertiesNode(i).GetFloatKeyword("height", 1.0f) );
+		}
+		else if( l_PropertyField == "position" )
+		{
+			Vect3f l_Vect = l_XMLPropertiesNode(i).GetVect3fKeyword ("position");
 			l_Properties->SetPosition( l_Vect );
+		}
+		else if( l_PropertyField == "detection_distance" )
+		{
+			float l_distance = l_XMLPropertiesNode(i).GetFloatKeyword ("detection_distance");
+			l_Properties->SetDetectionDistance( l_distance );
+		}
+		else if( l_PropertyField == "distance_chase" )
+		{
+			float l_distance = l_XMLPropertiesNode(i).GetFloatKeyword ("distance_chase");
+			l_Properties->SetDistanceChase( l_distance );
+		}
+		else if( l_PropertyField == "attack_distance" )
+		{
+			float l_distance = l_XMLPropertiesNode(i).GetFloatKeyword ("attack_distance");
+			l_Properties->SetAttackDistance( l_distance );
 		}
 		else if ( l_PropertyField != "comment" ) 
 		{
@@ -205,20 +222,7 @@ void CPropertiesManager::CleanUp( void )
 	Destroy();
 }
 
-void CPropertiesManager::RegisterMethods()
-{
-	lua_State *state = SCRIPT->GetLuaState();
-
-	module(state)
-		[
-			class_<CProperties, bases<CObject3D, CNamed>> ("CProperties")
-				.def(constructor<>())
-				.property("core", &CProperties::GetCore, &CProperties::SetCore)	
-				.property("animated_instance_name", &CProperties::GetAnimationInstance, &CProperties::SetAnimationInstance)	
-				.property("life", &CProperties::GetLife, &CProperties::SetLife)	
-				.property("strong", &CProperties::GetStrong, &CProperties::SetStrong)	
-				.property("direction", &CProperties::GetDirection, &CProperties::SetDirection)	
-				.property("respawn_position", &CProperties::GetRespawnPosition, &CProperties::SetRespawnPosition)	
-		];
-}
+// ------------------------------------------
+//				PROPIETATS 
+// ------------------------------------------
 

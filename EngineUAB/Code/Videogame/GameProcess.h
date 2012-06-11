@@ -23,36 +23,48 @@ class CThPSCamera;
 class CGameProcess : public CEngineProcess
 {
 public:
-	CGameProcess( HWND hWnd );
-	~CGameProcess();
+	//--- Init and End protocols-----------------------------------------------------
+								CGameProcess				( HWND hWnd );
+								~CGameProcess				( void );
 
-	bool		Init				();
-	void		Update				( float elapsedTime );
-	void		Render				(  CRenderManager &RM );
+	//----Main Methods----------------------------------------------------------------
+	bool						Init						( void );
+	void						CleanUp						( void );
+	void						Update						( float elapsedTime );
+	void						Render						(  CRenderManager &RM );
 
+	//----Methods --------------------------------------------------------------------
 	void	CreatePlayerCamera	( float _near, float _far, float _zoom, float _heightEye, float _heightLookAt, const std::string &_name );
+	void	CreateFreeCamera	( float _near, float _far, float _zoom, float _heightEye, float _heightLookAt, const std::string &_name );
 
-	static CGameProcess*	GetGameProcess		();
-	CCharactersManager*		GetCharacterManager () const		{ return m_pCharacterManager; }
-	CThPSCamera*			GetPlayerCamera		() const		{ return m_pThPSCamera; }
 
 private:
-	void		RegisterMethods			();
-	void		LoadGameObjects			();
-	bool		LoadMainScript			();
+	void						RegisterMethods				( void );
+	void						RegisterToLuaGameProcess	( lua_State* _pLua );
+	void						UpdateInputs				( float _ElapsedTime );
+	void						ReloadGameObjects			( void );
+	void						LoadGameObjects				( void );
+	bool						LoadMainScript				( void );
 
+	//----Properties  --------------------------------------------------------------------
+public:
+	
+	static CGameProcess*		GetGameProcess				( void );
+	CCharactersManager*			GetCharactersManager		( void ) const		{ return m_pCharactersManager; }
+	CThPSCamera*				GetPlayerCamera				( void ) const		{ return m_pThPSCamera; }
+
+	//----Members --------------------------------------------------------------------
 private:
-	bool				m_IsOK;
+	HWND						m_hWnd;
+	bool						m_IsOK;
 
-	CFreeCamera			m_FreeCamera;
-	CStaticCamera		m_StaticCamera;
-	CThPSCamera			*m_pThPSCamera;
-	CThPSCamera			*m_pThPSFreeCamera;
-	CCamera				*m_pFreeCamera;
+	CFreeCamera					m_FreeCamera;
+	CStaticCamera				m_StaticCamera;
+	CThPSCamera					*m_pThPSCamera;
+	CThPSCamera					*m_pThPSFreeCamera;
+	CCamera						*m_pFreeCamera;
 
-	CCharactersManager	*m_pCharacterManager;
-
-	HWND	m_hWnd;
+	CCharactersManager			*m_pCharactersManager;
 };
 
 #endif
