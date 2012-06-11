@@ -19,6 +19,14 @@ class 'CWolfAnimatedStillAttackState' (CState)
 			if ( is_player_attackable( _CCharacter, _CCharacter.player ) ) then
 				_CCharacter:move_to( _CCharacter.player.position, _CCharacter.elapsed_time )
 				_CCharacter.graphic_fsm:change_state(_CCharacter.animation_still_attack_state)
+				
+				--let the wife know I'm home
+				-- Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
+                              -- pMiner->ID(),        //ID of sender
+                              -- ent_Elsa,            //ID of recipient
+                              -- Msg_HiHoneyImHome,   //the message
+                              -- NO_ADDITIONAL_INFO);    
+							  
 			else
 				_CCharacter.graphic_fsm:change_state(_CCharacter.animation_run_state)
 				--face_to_player ( _CCharacter, _CCharacter.player, _CCharacter.elapsed_time )

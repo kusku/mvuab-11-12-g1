@@ -16,7 +16,7 @@ class 'CWolfAnimatedIdleState' (CState)
 	function CWolfAnimatedIdleState:Execute(_CCharacter)
 		--print_logger(0, "CWolfAnimatedIdleState:Execute")
 		if ( is_player_detected( _CCharacter, _CCharacter.player ) ) then 
-			_CCharacter:move_to (_CCharacter.player.position, _CCharacter.elapsed_time)
+			_CCharacter:move_to(_CCharacter.player.position, _CCharacter.elapsed_time)
 			-- Si el player es atacable
 			if ( is_player_attackable( _CCharacter, _CCharacter.player ) ) then
 				_CCharacter.graphic_fsm:change_state(_CCharacter.animation_still_attack_state)
