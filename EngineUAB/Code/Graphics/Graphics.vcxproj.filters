@@ -256,6 +256,9 @@
     <ClInclude Include="Particles\Emitters\ParticleEmitterPoint.h">
       <Filter>Particles\Emitters</Filter>
     </ClInclude>
+    <ClInclude Include="Commands\RenderBillboardsSceneRendererCommand.h">
+      <Filter>Commands\Command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
@@ -496,6 +499,9 @@
     </ClCompile>
     <ClCompile Include="Particles\Emitters\ParticleEmitterPoint.cpp">
       <Filter>Particles\Emitters</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\RenderBillboardsSceneRendererCommand.cpp">
+      <Filter>Commands\Command</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

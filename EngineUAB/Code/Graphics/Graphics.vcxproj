@@ -34,6 +34,7 @@
     <ClInclude Include="Commands\EndRenderSceneRendererCommand.h" />
     <ClInclude Include="Commands\GenerateShadowMapsSceneRendererCommand.h" />
     <ClInclude Include="Commands\PresentRenderSceneRendererCommand.h" />
+    <ClInclude Include="Commands\RenderBillboardsSceneRendererCommand.h" />
     <ClInclude Include="Commands\RenderDebugInfoSceneRendererCommand.h" />
     <ClInclude Include="Commands\RenderDebugLightsSceneRendererCommand.h" />
     <ClInclude Include="Commands\RenderDebugPhysicsSceneRendererCommand.h" />
@@ -121,6 +122,7 @@
     <ClCompile Include="Commands\EndRenderSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\GenerateShadowMapsSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\PresentRenderSceneRendererCommand.cpp" />
+    <ClCompile Include="Commands\RenderBillboardsSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\RenderDebugInfoSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\RenderDebugLightsSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\RenderDebugPhysicsSceneRendererCommand.cpp" />
