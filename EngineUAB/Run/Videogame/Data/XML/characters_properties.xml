@@ -7,6 +7,7 @@
 	  <height>1.1</height>
       <direction>0 0 0</direction>
 	  <RespawnPosition>0 100 0</RespawnPosition>
+	  <height>1.1</height>
   </default_properties>
   <default_properties core="lobo">
       <life>200</life>
