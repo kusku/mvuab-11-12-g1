@@ -160,9 +160,9 @@ class 'CEnemy' (CCharacter)
 	function CEnemy:__init( _id, _name )
 		print_logger(0, "CEnemy:init()->Llamada al constructor __init( _id, _name)")
 		CCharacter.__init( self, _id, _name )
-		self.yaw = 0.0
+		--self.yaw = 0.0
 		self.pitch = -math.pi / 8
-		self.roll = 0.0
+		--self.roll = 0.0
 		--self.position = Vect3f(3.0, 0.0, 0.0)
 		--self.position2 = self.position
 		self.locked = false
@@ -224,7 +224,9 @@ class 'CEnemy' (CCharacter)
 		-- Almacenamos el elapsed time pq después será impossible de guardar
 		self.elapsed_time = _elapsed_time
 		
-		self.enable = false
+		self.enable = true
+		print_logger (1, "CEnemy:Update()-> NAME : "..self.name)
+		print_logger (1 , "CEnemy::Update()->POSITION :"..self.position.x.." "..self.position.y.." "..self.position.z)
 		
 		l_gfsm = self.graphic_fsm 
 		if l_gfsm == nil then

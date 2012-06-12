@@ -5,7 +5,7 @@ class 'CWolfAnimatedStillAttackState' (CState)
 	end
 
 	function CWolfAnimatedStillAttackState:OnEnter(_CCharacter)
-		print_logger(0, "CWolfAnimatedStillAttackState:Enter")
+		--print_logger(0, "CWolfAnimatedStillAttackState:Enter")
 		if not ( _CCharacter == nil ) then
 			num = _CCharacter:get_animation_id("attack_still")
 			_CCharacter:get_animation_model():blend_cycle( num, 0.3 )
@@ -13,7 +13,7 @@ class 'CWolfAnimatedStillAttackState' (CState)
 	end
 	
 	function CWolfAnimatedStillAttackState:Execute(_CCharacter)
-		print_logger(0, "CWolfAnimatedStillAttackState:Execute")
+		--print_logger(0, "CWolfAnimatedStillAttackState:Execute")
 		if ( is_player_detected( _CCharacter, _CCharacter.player ) ) then 
 			-- Si el player es atacable
 			if ( is_player_attackable( _CCharacter, _CCharacter.player ) ) then

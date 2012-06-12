@@ -4,24 +4,34 @@
 		<life>100</life>
 		<strong>12</strong>
 		<speed>15</speed>
-		<height>1.1</height>
 		<direction>0 0 0</direction>
 		<rotation_speed>360</rotation_speed>
 		<respawn_position>0 100 0</respawn_position>
 		<detection_distance>500</detection_distance>
 		<distance_chase>3000</distance_chase>
 		<attack_distance>10</attack_distance>
+		<height_controller>1.1</height_controller>
+		<width_controller>0.5</width_controller>
+		<slope>45.0</slope>
+		<skin_width>0.1</skin_width>
+		<step_offset>0.5</step_offset>
 	</default_properties>
 	<default_properties core="lobo">
 		<life>200</life>
 		<strong>22</strong>
 		<speed>7</speed>
 		<direction>-10 -2 4</direction>
-		<height>2.4</height>
-		<rotation_speed>360</rotation_speed>
+		<height_controller>9.4</height_controller>
+		<width_controller>9.1</width_controller>
+		<rotation_speed>240</rotation_speed>
 		<detection_distance>300</detection_distance>
 		<distance_chase>1000</distance_chase>
 		<attack_distance>10</attack_distance>
+		<height_controller>1.9</height_controller>
+		<width_controller>1.7</width_controller>
+		<slope>45.0</slope>
+		<skin_width>0.1</skin_width>
+		<step_offset>0.5</step_offset>
 	</default_properties>
 	<player name="Jolete" core="caperucita" animated_instace_name="caperucita1" >
 		<life>10</life>
@@ -29,19 +39,45 @@
 		<speed>25</speed>
 		<direction>0 10 0</direction>
 		<respawn_position>0 10 0</respawn_position>
-		<position>0 10 0</position>
+		<position>35 10 50</position>
 	</player>
 	<enemies>
 		<enemy name="enemy1" core="lobo" animated_instace_name="lobo1" >
 			<life>120</life>
 			<strong>13</strong>
 			<direction>3 20 -4</direction>
+			<speed>2</speed>
 		</enemy>
-		<!--<enemy name="enemy2" core="lobo" animated_instace_name="lobo2" >
-        <life>130</life>
-        <strong>17</strong>
-        <speed>30</speed>
-        <direction>21 210 -24</direction>
-    </enemy>-->
+		<enemy name="enemy2" core="lobo" animated_instace_name="lobo2" >
+			<life>130</life>
+			<strong>17</strong>
+			<speed>3</speed>
+			<direction>21 210 -24</direction>
+		</enemy>
+		<enemy name="enemy3" core="lobo" animated_instace_name="lobo3" >
+			<life>130</life>
+			<strong>17</strong>
+			<speed>4</speed>
+			<direction>21 210 -24</direction>
+		</enemy>
+		<enemy name="enemy4" core="lobo" animated_instace_name="lobo4" >
+			<life>130</life>
+			<strong>17</strong>
+			<speed>5</speed>
+			<direction>21 210 -24</direction>
+		</enemy>
+		<enemy name="enemy5" core="lobo" animated_instace_name="lobo5" >
+			<life>130</life>
+			<strong>17</strong>
+			<speed>6</speed>
+			<direction>21 210 -24</direction>
+		</enemy>
+		<enemy name="enemy6" core="lobo" animated_instace_name="lobo6" >
+			<life>130</life>
+			<strong>17</strong>
+			<speed>7</speed>
+			<direction>21 210 -24</direction>
+		</enemy>
+	
 	</enemies>
 </characters>
