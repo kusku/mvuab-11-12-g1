@@ -1,30 +1,41 @@
-	#define NOMINMAX
-#include "CharacterManager.h"
+#define NOMINMAX
+
 #include <windows.h>
 #include <sstream>
 #include <luabind/adopt_policy.hpp>
+
+#include "CharacterManager.h"
+
 #include "Math\Vector3.h"
 #include "Utils\Random.h"
+#include "Logger\Logger.h"
+#include "Base.h"
+#include "Core.h"
+
 #include "Object3D.h"
 #include "RenderableObjects\RenderableObjectsLayersManager.h"
 #include "RenderableObjects\RenderableObjectsManager.h"
 #include "RenderableObjects\RenderableObject.h"
 #include "RenderManager.h"
+
 #include "Fonts\FontManager.h"
 #include "PhysicController.h"
 #include "CharacterController.h"
 #include "PhysicUserData.h"
 #include "PhysicsManager.h"
+
 #include "Cameras\Camera.h"
+
 #include "characters\Properties\PropertiesManager.h"
 #include "characters\Properties\Properties.h"
 #include "characters\states\AnimationsStatesManager.h"
 #include "characters\states\AnimationsStates.h"
+
+#include "StatesMachine\EntityManager.h"
+#include "StatesMachine\MessageDispatcher.h"
+
 #include "Billboard\BillboardManager.h"
 #include "Billboard\BillboardAnimation.h"
-#include "Logger\Logger.h"
-#include "Base.h"
-#include "Core.h"
 
 #if defined (_DEBUG)
 	#include "Memory\MemLeaks.h"
@@ -150,15 +161,14 @@ void CCharactersManager::Update ( float _ElapsedTime )
 
 	// Actualitzem el player
 	m_pPlayer->Update( _ElapsedTime );
+	
+	Vect3f l = m_pPlayer->GetFront();
 
 	// Actualitzem l'enemic
 	TVectorResources l_EnemyList = GetResourcesVector();
 	for ( size_t i = 0; i < l_EnemyList.size(); i++ )
 	{
-		//if( l_EnemyList[i]->IsEnable() )
-		//{
-			l_EnemyList[i]->Update( _ElapsedTime );
-		//}
+		l_EnemyList[i]->Update( _ElapsedTime );
 	}
 
 	//Actualiza el billboard del target enemy
@@ -299,6 +309,7 @@ bool CCharactersManager::LoadPlayerProperties( const CXMLTreeNode &_Node )
 		// Inicializamos el player, sus estados, mayas animadas...
 		m_pPlayer->Initialize( l_PlayerProperties->GetName(), l_PlayerProperties->GetPosition(), ::ECG_PERSONATGE );
 		l_IsOk = m_pPlayer->Init();		// Llamada a Lua
+		ENTMGR->RegisterEntity(m_pPlayer);
 	}
 	else 
 	{
@@ -363,6 +374,7 @@ bool CCharactersManager::LoadEnemiesProperties( const CXMLTreeNode &_Node )
 					l_IsOk &= l_Character->Init();		// Llamada a Lua
 					AddEnemy( l_Character );			// La meto dentro de la lista
 					l_NextIDValid += 1;					// Pròxim ID vàlid
+					ENTMGR->RegisterEntity(l_Character);
 				}
 				else 
 				{
