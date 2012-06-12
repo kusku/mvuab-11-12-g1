@@ -222,21 +222,11 @@ class 'CEnemy' (CCharacter)
 		-- Almacenamos el elapsed time pq después será impossible de guardar
 		self.elapsed_time = _elapsed_time
 		
-		-- self.physic_controller:move(Vect3f(0.0,0.0,0.0), elapsed_time)
-		
-		-- --Actualiza la posición del objeto 3D
-		-- self.position = self.physic_controller.position
-		-- self.position = Vect3f(self.position.x, self.position.y - self.physic_controller.height + 0.4, self.position.z)
-		
-		--Actualiza la posición del modelo animado
-		-- self.animated_model.position = self.position
-		
 		l_gfsm = self.graphic_fsm 
 		if l_gfsm == nil then
 			print_logger(2, "CEnemy:update()->No se ha podido obtener la máquina de estados gráfica.")
 		else
 			l_gfsm:update()
-			--l_gfsm:change_state(self.animation_idle_state)
 			--print_logger(0, "CEnemy::update()->Actualizando gfsm...")			
 		end 
 		
