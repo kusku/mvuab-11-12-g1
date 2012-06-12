@@ -219,8 +219,14 @@ void CCharacter::MoveTo( const Vect3f &_Position, float _ElapsedTime )
 	{
 		FaceTo( _Position, _ElapsedTime );
 		m_pController->SetYaw(m_fYaw);
+		Vect3f l_Position = Vect3f(0.0f, 0.0f, 0.0f);
+		MoveController(l_Position, _ElapsedTime);
+
+		m_Position = m_pController->GetPosition();
+		m_Position.y = m_Position.y - m_pController->GetHeight() + 0.4f;
 		float l_Yaw = mathUtils::Rad2Deg(m_fYaw);
 		m_pCurrentAnimatedModel->SetYaw(-l_Yaw + 90.f );
+		m_pCurrentAnimatedModel->SetPosition( m_Position );
 		return;
 	}
 
@@ -285,16 +291,5 @@ int CCharacter::GetAnimationID( const std::string &_AnimationName )
 
 void CCharacter::SetEnable( bool _Enable )
 {
-	if( !_Enable )
-	{
-		m_pCurrentAnimatedModel->SetVisible(false);
-		m_pController->SetCollision(false);
-	}
-	else
-	{
-		m_pCurrentAnimatedModel->SetVisible(true);
-		m_pController->SetCollision(true);
-	}
-
 	m_bIsEnable = _Enable;
 }
