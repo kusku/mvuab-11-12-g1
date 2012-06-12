@@ -12,7 +12,11 @@ class CProperties : public CObject3D, public CNamed
 {
 public:
 	//--- Init and End protocols ----------------------------------------
-						CProperties				( const std::string &_Name, int _Life = 0, int _Strong = 0, float _Speed = 0.f , float _Height = 0.f, const Vect3f &_Direction = Vect3f(0.f,0.f,0.f) );
+						CProperties				( const std::string &_Name, int _Life = 0, int _Strong = 0, float _Speed = 0.f , 
+												float _HeightController = 1.f, float _WidthController = 1.f, float _Slope  = 45.f, 
+												float _SkinWidth  = 0.1f, float _StepOffset = 0.5, 
+												const Vect3f &_Direction = Vect3f(0.f,0.f,0.f), const Vect3f &_Position = NULL );
+
 						CProperties				( void );
 						~CProperties			( void );
 
@@ -38,9 +42,6 @@ public:
 	inline void					SetRotationSpeed		( float _RotationSpeed )							{ m_RotationSpeed = _RotationSpeed; }
 	inline const float			GetRotationSpeed		( void ) const										{ return m_RotationSpeed; }
 
-	inline void					SetHeight				( float _Height )									{ m_Height = _Height; }
-	inline const float			GetHeight				( void ) const											{ return m_Height; }
-
 	inline void					SetDirection			( const Vect3f &_Direction )						{ m_Direction = _Direction; }
 	inline const Vect3f			GetDirection			( void ) const										{ return m_Direction; }
 
@@ -56,7 +57,21 @@ public:
 	inline void					SetAttackDistance		( float _AttackDistance )							{ m_AttackDistance = _AttackDistance; }
 	inline float				GetAttackDistance		( void ) const										{ return m_AttackDistance; }
 
-	
+	inline void					SetHeightController		( float _Height )									{ m_HeightController = _Height; }
+	inline const float			GetHeightController		( void ) const										{ return m_HeightController; }
+
+	inline void					SetWidthController		( float _Width )									{ m_WidthController = _Width; }
+	inline const float			GetWidthController		( void ) const										{ return m_WidthController; }
+
+	inline void					SetSlopeController		( float _Slope )									{ m_Slope = _Slope; }
+	inline const float			GetSlopeController		( void ) const										{ return m_Slope; }
+
+	inline void					SetSkinWidthController	( float _SkinWidth )								{ m_SkinWidth = _SkinWidth; }
+	inline const float			GetSkinWidthController	( void ) const										{ return m_SkinWidth; }
+
+	inline void					SetStepOffsetController	( float _StepOffset )								{ m_StepOffset = _StepOffset; }
+	inline const float			GetStepOffsetController	( void ) const										{ return m_StepOffset; }
+
 	//---- Members -------------------------------------------------------
 private:
 	std::string			m_Core;
@@ -67,10 +82,16 @@ private:
 	float				m_RotationSpeed;								
 	Vect3f				m_Direction;
 	Vect3f				m_RespawnPosition;
-	float				m_DetectionDistance;			// distancia de detección de otros caràcteres
+	float				m_DetectionDistance;		// distancia de detección de otros caràcteres
 	float				m_DistanceChase;			// distancia de persecución 
 	float				m_AttackDistance;			// distancia de persecución 
-	float				m_Height;					// altura del controler
+	
+	// Propiedades del controller
+	float				m_HeightController;			// altura del controller
+	float				m_WidthController;			// anchura del controller
+	float				m_Slope;					// Slope del controller
+	float				m_SkinWidth;	
+	float				m_StepOffset;
 };
 
 #endif __CLASS_PROPERTIES_H__

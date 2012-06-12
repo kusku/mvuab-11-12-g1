@@ -903,6 +903,7 @@ void CCore::RegisterMethods()
 
 	module(state) [
 		class_<CNamed>("CNamed")
+			.property("name", &CNamed::GetName, &CNamed::SetName)
 	];
 
 	CRenderManager::RegisterMethods();

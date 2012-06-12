@@ -3,7 +3,6 @@
 #include "EntityManager.h"
 #include "BaseGameEntity.h"
 
-
 //------------------------- GetEntityFromID -----------------------------------
 //-----------------------------------------------------------------------------
 CBaseGameEntity* CEntityManager::GetEntityFromID( int _Id ) const
@@ -29,4 +28,14 @@ void CEntityManager::RemoveEntity( CBaseGameEntity* _pEntity )
 void CEntityManager::RegisterEntity( CBaseGameEntity* _pNewEntity )
 {
 	m_EntityMap.insert( std::make_pair( _pNewEntity->GetID(), _pNewEntity ) );
+}
+
+void CEntityManager::RegisterMethods( lua_State* _pLua )
+{
+	module( _pLua)
+		[
+			class_<CEntityManager> ("CEntityManager")
+				/*.def("",&Telegram::Msg)
+				.def_readwrite("ExtraInfo", &Telegram::ExtraInfo)*/
+		];
 }

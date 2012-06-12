@@ -116,18 +116,7 @@ bool CCharacter::Init( void )
 
 bool CCharacter::Initialize ( const std::string &_Name, const Vect3f &_InitialPosicion, ECollisionGroup _Grup )
 {
-	//Create a dynamic Player     
-	m_pPhysicUserDataJugador = new CPhysicUserData( m_Name );
-	m_pPhysicUserDataJugador->SetColor( colYELLOW );
-	m_pPhysicUserDataJugador->SetPaint( true );
-
-	// Creo el controlador del jugador
-	m_pController = new CPhysicController( 0.5f, m_pProperties->GetHeight(), 45.f, 0.1f, 0.5f, _Grup, m_pPhysicUserDataJugador );
-	m_pController->SetPosition( _InitialPosicion );
-	m_pController->SetVisible( true );
-	
-	CORE->GetPhysicsManager()->AddPhysicController( m_pController );
-	
+	// Primero debemos adjuntar el modelo animado. Ojo! este nos da la posición
 	CRenderableObjectsLayersManager *l_ROLayerManager = CORE->GetRenderableObjectsLayersManager();
 	CRenderableObjectsManager *l_ROManager = l_ROLayerManager->GetResource("solid");
 	CRenderableObject *l_RO = l_ROManager->GetInstance( m_pProperties->GetAnimationInstance() );
@@ -141,6 +130,30 @@ bool CCharacter::Initialize ( const std::string &_Name, const Vect3f &_InitialPo
 		m_pCurrentAnimatedModel = static_cast<CAnimatedInstanceModel*> (l_RO);
 	}
 
+	// Ahora creamos la parte física del controller del jugador
+	m_pPhysicUserDataJugador = new CPhysicUserData( m_Name );
+	m_pPhysicUserDataJugador->SetColor( colYELLOW );
+	m_pPhysicUserDataJugador->SetPaint( true );
+
+	// Creo el controlador del jugador
+	m_pController = new CPhysicController( m_pProperties->GetWidthController(), m_pProperties->GetHeightController(), m_pProperties->GetSlopeController(), 
+										   m_pProperties->GetSkinWidthController(), m_pProperties->GetStepOffsetController(), _Grup, m_pPhysicUserDataJugador );
+	Vect3f l_Position; 
+	if ( _InitialPosicion != NULL )
+	{
+		l_Position = _InitialPosicion;
+	}
+	else
+	{
+		l_Position = m_pCurrentAnimatedModel->GetPosition();
+	}
+	m_pController->SetPosition( l_Position );
+	m_pController->SetVisible( true );
+	
+	CORE->GetPhysicsManager()->AddPhysicController( m_pController );
+	m_pController->Move( l_Position, 0.f );
+
+	// Metemos el yaw y posición del modelo animado al controller
 	if ( m_pCurrentAnimatedModel )
 	{
 		// Actualizamos el Yaw y lo asignamos al controler
@@ -148,7 +161,8 @@ bool CCharacter::Initialize ( const std::string &_Name, const Vect3f &_InitialPo
 		m_pCurrentAnimatedModel->SetYaw( l_Yaw + mathUtils::Rad2Deg( m_pProperties->GetYaw() ) );
 		m_pController->SetYaw( m_pProperties->GetYaw() );
 	}
-
+	
+	MoveTo( l_Position, 0.0f );
 	return true;
 }
 

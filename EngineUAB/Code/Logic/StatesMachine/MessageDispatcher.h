@@ -11,17 +11,18 @@
 const double	SEND_MSG_IMMEDIATELY	= 0.0f;
 const int		NO_ADDITIONAL_INFO		= 0;
 
+#include "Scripting\ScriptManager.h"
+#include "Base.h"
 
 //--- Foward Declarations ---//
 class CBaseGameEntity;
-
 //---------------------------//
 
 class CMessageDispatcher : public CSingleton<CMessageDispatcher>
 {
 	// ------------- Constructors i Destructors ----------------
 public:
-				CMessageDispatcher	( void )		{}
+				CMessageDispatcher	( void )		{ RegisterMethods( SCRIPT->GetLuaState() ); }
 				~CMessageDispatcher	( void )		{}
 
 public:
@@ -34,6 +35,9 @@ public:
 		
 	// Envia cualquier mensaje con retardo. Método llamado cada vez desde el loop principal del juego
 	void		DispatchDelayedMessages ( void );
+	
+	// Permite registrar clase y mètodos para Lua
+	void		RegisterMethods	( lua_State* _pLua );
 
 	// ------------- Mètodes -----------------------------------
 private:

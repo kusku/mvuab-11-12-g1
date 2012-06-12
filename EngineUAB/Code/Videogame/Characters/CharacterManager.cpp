@@ -16,6 +16,7 @@
 #include "RenderableObjects\RenderableObjectsLayersManager.h"
 #include "RenderableObjects\RenderableObjectsManager.h"
 #include "RenderableObjects\RenderableObject.h"
+#include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 #include "RenderManager.h"
 
 #include "Fonts\FontManager.h"
@@ -307,7 +308,7 @@ bool CCharactersManager::LoadPlayerProperties( const CXMLTreeNode &_Node )
 		m_pPlayer->SetProperties( l_PlayerProperties );
 		
 		// Inicializamos el player, sus estados, mayas animadas...
-		m_pPlayer->Initialize( l_PlayerProperties->GetName(), l_PlayerProperties->GetPosition(), ::ECG_PERSONATGE );
+		m_pPlayer->Initialize( l_PlayerProperties->GetName(), m_pPlayer->GetProperties()->GetPosition(), ::ECG_PERSONATGE );
 		l_IsOk = m_pPlayer->Init();		// Llamada a Lua
 		ENTMGR->RegisterEntity(m_pPlayer);
 	}
@@ -370,7 +371,7 @@ bool CCharactersManager::LoadEnemiesProperties( const CXMLTreeNode &_Node )
 					l_Character->SetProperties ( l_EnemyProperties );
 		
 					// Inicializamos el player, sus estados, mayas animadas...
-					l_IsOk = l_Character->Initialize( l_EnemyProperties->GetName(), l_EnemyProperties->GetPosition(), ::ECG_ENEMICS );
+					l_IsOk = l_Character->Initialize( l_EnemyProperties->GetName(), l_Character->GetProperties()->GetPosition(), ::ECG_ENEMICS );
 					l_IsOk &= l_Character->Init();		// Llamada a Lua
 					AddEnemy( l_Character );			// La meto dentro de la lista
 					l_NextIDValid += 1;					// Pròxim ID vàlid

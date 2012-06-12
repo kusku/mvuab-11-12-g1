@@ -159,7 +159,9 @@ Vect3f CPhysicController::GetPosition ()
 	Vect3f vec(0, 0, 0);
 	if (m_pPhXController != NULL)
 	{
-		NxExtendedVec3 tmp = m_pPhXController->getPosition();
+		// Parxe Jordi!!
+		//NxExtendedVec3 tmp = m_pPhXController->getPosition();
+		NxExtendedVec3 tmp = m_pPhXController->getDebugPosition();
 		vec.x = (float)tmp.x;
 		vec.y = (float)tmp.y;
 		vec.z = (float)tmp.z;
