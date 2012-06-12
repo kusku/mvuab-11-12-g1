@@ -8,7 +8,7 @@ class 'CPlayer' (CCharacter)
 		self.yaw = 0.0
 		self.pitch = -math.pi / 8
 		self.roll = 0.0
-		self.position = Vect3f(0.0, 0.0, 0.0)
+		--self.position = Vect3f(0.0, 0.0, 0.0)
 		
 		self.locked = false
 		
@@ -20,7 +20,7 @@ class 'CPlayer' (CCharacter)
 	end
 
 	function CPlayer:init() 
-		get_game_process():create_player_camera(1.0, 10000.0, 2.5, 0.7, 1.0, 'Caperucita')
+		get_game_process():create_player_camera(1.0, 10000.0, 10.5, 0.7, 1.0, 'Caperucita')
 	
 		l_gfsm = self.graphic_fsm 
 		if (l_gfsm == nil) then

@@ -5,7 +5,7 @@ class 'CWolfAnimatedIdleState' (CState)
 	end
 
 	function CWolfAnimatedIdleState:OnEnter(_CCharacter)
-		print_logger(0, "CWolfAnimatedIdleState:Enter")
+		--print_logger(0, "CWolfAnimatedIdleState:Enter")
 
 		if not ( _CCharacter == nil ) then
 			num = _CCharacter:get_animation_id("idle")
@@ -14,7 +14,7 @@ class 'CWolfAnimatedIdleState' (CState)
 	end
 
 	function CWolfAnimatedIdleState:Execute(_CCharacter)
-		print_logger(0, "CWolfAnimatedIdleState:Execute")
+		--print_logger(0, "CWolfAnimatedIdleState:Execute")
 		if ( is_player_detected( _CCharacter, _CCharacter.player ) ) then 
 			-- _CCharacter:move_to(_CCharacter.player.position, _CCharacter.elapsed_time)
 			-- Si el player es atacable
