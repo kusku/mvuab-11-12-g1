@@ -9,11 +9,11 @@ function init_game_data()
 	process:create_player_camera(1.0, 10000.0, 2.5, 0.7, 1.0, 'Caperucita')]]--
 end
 
-function add_enemy()
-	print_logger(0, "add_enemy-> Añadiendo un enemigo.")
-	enemy = CEnemy()
-	enemy:init("Lobo1", Vect3f(5.0, 0.0, 0.0), 0)
+-- function add_enemy()
+	-- print_logger(0, "add_enemy-> Añadiendo un enemigo.")
+	-- enemy = CEnemy()
+	-- enemy:init("Lobo1", Vect3f(5.0, 0.0, 0.0), 0)
 	
-	-- get_game_process():get_character_manager():set_player(player)
-	-- print_logger(0, "player retornat")
-end
+	-- -- get_game_process():get_character_manager():set_player(player)
+	-- -- print_logger(0, "player retornat")
+-- end
