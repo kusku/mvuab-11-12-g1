@@ -2,33 +2,36 @@ class 'CWolfIdleState' (CState)
 	function CWolfIdleState:__init() 
 		CState.__init(self)
 		print_logger(0, "Inicio del estado idle de la caperucita")
-		--self.position = Vect3f(0.0,0.0,0.0)
 	end
 
 	function CWolfIdleState:OnEnter(_CCharacter)
-		print_logger(0, "CWolfIdleState:Enter")
-		
-		-- Cal fer aixó
-		-- CAnimatedCoreModel * l_Core =  _pCharacter->GetAnimatedModel()->GetAnimatedCoreModel();
-		-- int i = l_Core->GetCoreModel()->getCoreAnimationId ( "idle" );
-		-- _pCharacter->GetAnimatedModel()->BlendCycle ( i, 0.3f );
-		
+		--print_logger(0, "CWolfIdleState:Enter")
+
 		if not ( _CCharacter == nil ) then
-			num = _CCharacter:get_animation_id("idle")
-			_CCharacter:get_animation_model():blend_cycle( num, 0.3 )
+		
 		end
 	end
 	
-	function CWolfIdleState:Execute(_Character)
+	function CWolfIdleState:Execute(_CCharacter)
 		--print_logger(0, "CWolfIdleState:Execute")
-		_Character:is_player_detected()
+		if ( is_player_detected() ) then 
+			print_logger ( 0 , "player is detected ")
+			
+			local l_fsm = _CCharacter.logic_fsm
+			if (l_fsm == nil) then
+				print_logger(2, "maquina d'estats nil del enemic")
+				return false
+			else
+				l_fsm:change_state(_CCharacter.run_state)
+			end
+		--else
+			--_CCharacter:move_to ( Vect3f(0.0,0.0,0.0), _CCharacter.elapsed_time )
+		end
 	end
 	
 	function CWolfIdleState:OnExit(_CCharacter)
-		print_logger(0, "CWolfIdleState:Exit")
+		--print_logger(0, "CWolfIdleState:Exit")
 		if not ( _CCharacter == nil ) then
-			num = _CCharacter:get_animation_id("idle")
-			_CCharacter:get_animation_model():clear_cycle( num, 0.3 )
 		end
 	end
 	
