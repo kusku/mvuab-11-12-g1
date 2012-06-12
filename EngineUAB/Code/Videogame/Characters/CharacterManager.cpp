@@ -1,4 +1,4 @@
-#define NOMINMAX
+	#define NOMINMAX
 #include "CharacterManager.h"
 #include <windows.h>
 #include <sstream>
@@ -27,7 +27,7 @@
 #include "Core.h"
 
 #if defined (_DEBUG)
-#include "Memory\MemLeaks.h"
+	#include "Memory\MemLeaks.h"
 #endif
 
 //--------------------------------------------------
@@ -112,8 +112,8 @@ void CCharactersManager::CleanUp ( void )
 bool CCharactersManager::Load( const std::string &_PropertyFileName, const std::string &_AnimatedStatesFileName )
 {
 	LOGGER->AddNewLog ( ELL_INFORMATION, "CCharactersManager::Load-->Loading characters, properties and states" );
-	m_PropertiesFileName = _PropertyFileName;
-	m_AnimatedFileName = _AnimatedStatesFileName;
+	m_PropertiesFileName	= _PropertyFileName;
+	m_AnimatedFileName		= _AnimatedStatesFileName;
 	return LoadXML();
 }
 
@@ -140,6 +140,10 @@ bool CCharactersManager::LoadXML( void )
 	return l_IsOk;
 }
 
+
+//----------------------------------------------------------------------------------------------------
+// Update : Actualiza el player i los enemigos registrados en el manager
+//----------------------------------------------------------------------------------------------------
 void CCharactersManager::Update ( float _ElapsedTime )
 {
 	assert(m_pPlayer != NULL);
@@ -151,10 +155,10 @@ void CCharactersManager::Update ( float _ElapsedTime )
 	TVectorResources l_EnemyList = GetResourcesVector();
 	for ( size_t i = 0; i < l_EnemyList.size(); i++ )
 	{
-		if( l_EnemyList[i]->IsEnable() )
-		{
+		//if( l_EnemyList[i]->IsEnable() )
+		//{
 			l_EnemyList[i]->Update( _ElapsedTime );
-		}
+		//}
 	}
 
 	//Actualiza el billboard del target enemy
@@ -314,7 +318,7 @@ bool CCharactersManager::LoadEnemiesProperties( const CXMLTreeNode &_Node )
 {
 	LOGGER->AddNewLog ( ELL_INFORMATION, "CCharactersManager::LoadEnemiesProperties-->Loading enemies and properties." );
 	
-	bool l_IsOk = true;
+	bool l_IsOk = false;
 	int  l_NextIDValid = m_pPlayer->GetID() + 1;
 
 	CXMLTreeNode l_EnemiesNode = _Node;
@@ -355,7 +359,7 @@ bool CCharactersManager::LoadEnemiesProperties( const CXMLTreeNode &_Node )
 					l_Character->SetProperties ( l_EnemyProperties );
 		
 					// Inicializamos el player, sus estados, mayas animadas...
-					l_Character->Initialize( l_EnemyProperties->GetName(), l_EnemyProperties->GetPosition(), ::ECG_ENEMICS );
+					l_IsOk = l_Character->Initialize( l_EnemyProperties->GetName(), l_EnemyProperties->GetPosition(), ::ECG_ENEMICS );
 					l_IsOk &= l_Character->Init();		// Llamada a Lua
 					AddEnemy( l_Character );			// La meto dentro de la lista
 					l_NextIDValid += 1;					// Pròxim ID vàlid
@@ -643,3 +647,8 @@ CCharacter* CCharactersManager::IsPlayerNearEnemy(float distance)
 
 	return NULL;
 }
+
+
+//--------------------------------------------------
+//					PROPERTIES
+//--------------------------------------------------

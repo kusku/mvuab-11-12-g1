@@ -21,6 +21,7 @@ CProperties::CProperties( const std::string &_Name, int _Life, int _Strong, floa
 	, m_DetectionDistance	( 0.f )
 	, m_DistanceChase		( 0.f )
 	, m_AttackDistance		( 1.f )
+	, m_Height				( _Height )
 {
 }
 
@@ -36,6 +37,7 @@ CProperties::CProperties( void )
 	, m_DetectionDistance	( 0.f )
 	, m_DistanceChase		( 0.f )
 	, m_AttackDistance		( 1.f )
+	, m_Height				( _Height )
 {
 }
 

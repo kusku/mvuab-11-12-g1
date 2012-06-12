@@ -67,7 +67,6 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 			Vect3f l_Vect = l_XMLPropertiesNode(i).GetVect3fKeyword ("direction");
 			l_Properties->SetDirection( l_Vect );
 		}
-		// Esta és una prueba para cojer elementos vect3f
 		else if( l_PropertyField == "respawn_position" )
 		{
 			Vect3f l_Vect = l_XMLPropertiesNode(i).GetVect3fKeyword ("respawn_position");
@@ -215,6 +214,28 @@ CProperties* CPropertiesManager::LoadEnemyProperties( const CXMLTreeNode &_Node 
 void CPropertiesManager::CleanUp( void )
 {
 	Destroy();
+}
+
+void RegisterMethods( void )
+{
+	lua_State* l_pLua = SCRIPT->GetLuaState();
+	
+	module(l_pLua)
+		[
+			class_<CProperties, bases<CObject3D, CNamed>> ("CProperties")
+				.def(constructor<>())
+				.property("core", &CProperties::GetCore, &CProperties::SetCore)	
+				.property("animated_instance_name", &CProperties::GetAnimationInstance, &CProperties::SetAnimationInstance)	
+				.property("life", &CProperties::GetLife, &CProperties::SetLife)	
+				.property("strong", &CProperties::GetStrong, &CProperties::SetStrong)	
+				.property("direction", &CProperties::GetDirection, &CProperties::SetDirection)	
+				.property("speed", &CProperties::GetSpeed, &CProperties::SetSpeed)	
+				.property("rotation_speed", &CProperties::GetRotationSpeed, &CProperties::SetRotationSpeed)	
+				.property("respawn_position", &CProperties::GetRespawnPosition, &CProperties::SetRespawnPosition)
+				.property("detection_distance", &CProperties::GetDetectionDistance, &CProperties::SetDetectionDistance)
+				.property("distance_chase", &CProperties::GetDistanceChase, &CProperties::SetDistanceChase)
+				.property("attack_distance", &CProperties::GetAttackDistance, &CProperties::SetAttackDistance)
+		];
 }
 
 // ------------------------------------------

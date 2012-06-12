@@ -107,8 +107,8 @@
   <ItemGroup>
     <ClInclude Include="Cameras\FreeCamera.h" />
     <ClInclude Include="Cameras\StaticCamera.h" />
+    <ClInclude Include="Characters\Character_Wrapper.h" />
     <ClInclude Include="Characters\States\State_Wrapper.h" />
-    <ClInclude Include="Character_Wrapper.h" />
     <ClInclude Include="Characters\Character.h" />
     <ClInclude Include="Characters\CharacterManager.h" />
     <ClInclude Include="Characters\PlayerDef.h" />

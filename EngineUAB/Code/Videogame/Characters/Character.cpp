@@ -92,10 +92,9 @@ CCharacter::~CCharacter( void )
 	CHECKED_DELETE ( m_pLogicStateMachine );
 	CHECKED_DELETE ( m_pGraphicStateMachine );
 	// Amb lua no cal eliminar l'objecte. Lua ja se'n ocupa.
-	//CORE->GetPhysicsManager()->ReleasePhysicController(m_pController);
-	//CHECKED_DELETE ( m_pController );
+	CORE->GetPhysicsManager()->ReleasePhysicController(m_pController);
+	CHECKED_DELETE ( m_pController );
 	CHECKED_DELETE ( m_pPhysicUserDataJugador );
-	CORE->GetPhysicsManager()->ReleasePhysicController( m_pController );
 	m_pCurrentAnimatedModel = NULL;
 }
 
@@ -155,8 +154,8 @@ bool CCharacter::Initialize ( const std::string &_Name, const Vect3f &_InitialPo
 
 void CCharacter::Update ( float _ElapsedTime )			
 { 
-	m_pLogicStateMachine->Update( );
-	m_pGraphicStateMachine->Update( );
+	/*m_pLogicStateMachine->Update( );
+	m_pGraphicStateMachine->Update( );*/
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -278,15 +277,15 @@ void CCharacter::RestStrong( int _Strong )
 	m_pProperties->SetStrong( m_pProperties->GetStrong() - _Strong ); 
 }
 
-int CCharacter::GetAnimationID(const std::string &_AnimationName) const
+int CCharacter::GetAnimationID( const std::string &_AnimationName )
 {
 	CAnimatedCoreModel * l_Core =  m_pCurrentAnimatedModel->GetAnimatedCoreModel();
 	return l_Core->GetCoreModel()->getCoreAnimationId( _AnimationName );
 }
 
-void CCharacter::SetEnable(bool enable)
+void CCharacter::SetEnable( bool _Enable )
 {
-	if( !enable )
+	if( !_Enable )
 	{
 		m_pCurrentAnimatedModel->SetVisible(false);
 		m_pController->SetCollision(false);
@@ -297,5 +296,5 @@ void CCharacter::SetEnable(bool enable)
 		m_pController->SetCollision(true);
 	}
 
-	m_bIsEnable = enable;
+	m_bIsEnable = _Enable;
 }
