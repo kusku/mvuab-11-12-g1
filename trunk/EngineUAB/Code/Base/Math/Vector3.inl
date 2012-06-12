@@ -846,6 +846,12 @@ inline Vector3<T> Vector3<T>::Cross(const Vector3<T>& otro) const
 }
 
 template<typename T>
+inline float Vector3<T>::xzToAngle( ) {
+	return atan2( x, -z );
+}
+
+
+template<typename T>
 inline Vector3<T> Vector3<T>::GetXZFromAngle (float radians)
 {	
 	x = sin( radians );

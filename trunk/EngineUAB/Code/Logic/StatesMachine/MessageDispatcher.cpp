@@ -17,15 +17,15 @@ using std::cout;
 #endif
 
 //--------------------------------------------------
-//				FUNCTIONS PRINCIPALS
+//					MAIN FUNCTIONS
 //--------------------------------------------------
 void CMessageDispatcher::Discharge( CBaseGameEntity* _pReceiver, const Telegram& _Telegram )
 {
-  if (!_pReceiver->HandleMessage( _Telegram ))
-  {
-    //telegram could not be handled
-    cout << "Message not handled";
-  }
+	if (!_pReceiver->HandleMessage( _Telegram ))
+	{
+		//telegram could not be handled
+		cout << "Message not handled";
+	}
 }
 
 
@@ -103,3 +103,11 @@ void CMessageDispatcher::DispatchDelayedMessages ( void )
 	}
 }
 
+void CMessageDispatcher::RegisterMethods( lua_State* _pLua )
+{
+	module( _pLua)
+		[
+			class_<CMessageDispatcher> ("CMessageDispatcher")
+				.def("dispatch_state_message",&CMessageDispatcher::DispatchStateMessage)
+		];
+}

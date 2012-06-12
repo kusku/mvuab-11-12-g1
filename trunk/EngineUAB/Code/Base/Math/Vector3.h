@@ -134,6 +134,7 @@ public:
   inline T           GetAngleZ   () const;
   inline void        GetAngles   (T& angX, T& angY, T& angZ) const;
   
+  inline float		 xzToAngle	();
   inline Vector3<T>	 GetXZFromAngle (float radians);
 
   inline float		Dot		(const Vector3<T>& otro) const;

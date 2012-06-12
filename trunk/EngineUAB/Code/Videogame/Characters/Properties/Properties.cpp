@@ -9,9 +9,10 @@
 //			CONSTRUCTOR/DESTRUCTOR
 // ------------------------------------------
 
-CProperties::CProperties( const std::string &_Name, int _Life, int _Strong, float _Speed, float _Height, const Vect3f &_Direction )
+CProperties::CProperties( const std::string &_Name, int _Life, int _Strong, float _Speed, float _HeightController, float _WidthController, 
+							 float _Slope, float _SkinWidth, float _StepOffset, const Vect3f &_Direction, const Vect3f &_Position )
 	: CNamed				( _Name )
-	, CObject3D				( )
+	, CObject3D				( _Position, Vect3f(1.0f,1.0f,1.0f) , 0.0f, 0.0f, 0.0f  )
 	, m_Life				( _Life )
 	, m_Strong				( _Strong )
 	, m_Speed				( _Speed )
@@ -21,13 +22,17 @@ CProperties::CProperties( const std::string &_Name, int _Life, int _Strong, floa
 	, m_DetectionDistance	( 0.f )
 	, m_DistanceChase		( 0.f )
 	, m_AttackDistance		( 1.f )
-	, m_Height				( _Height )
+	, m_HeightController	( _HeightController )
+	, m_WidthController		( _WidthController )
+	, m_Slope				( _Slope )	
+	, m_SkinWidth			( _SkinWidth )
+	, m_StepOffset			( _StepOffset )
 {
 }
 
 CProperties::CProperties( void )
 	: CNamed				( "" )
-	, CObject3D				( )
+	, CObject3D				( NULL, NULL, 0.0f, 0.0f, 0.0f  )
 	, m_Life				( 0 )
 	, m_Strong				( 0 )
 	, m_Speed				( 0 )
@@ -37,7 +42,11 @@ CProperties::CProperties( void )
 	, m_DetectionDistance	( 0.f )
 	, m_DistanceChase		( 0.f )
 	, m_AttackDistance		( 1.f )
-	, m_Height				( 1.0 )
+	, m_HeightController	( 1.f )
+	, m_WidthController		( 1.f )
+	, m_Slope				( 45.f )	
+	, m_SkinWidth			( 0.1f )
+	, m_StepOffset			( 0.5f )
 {
 }
 

@@ -8,6 +8,8 @@
 #include <map>
 
 #include "Utils\Singleton.h"
+#include "Scripting\ScriptManager.h"
+#include "base.h"
 
 //--- Foward Declaration ---//
 class CBaseGameEntity;
@@ -21,7 +23,7 @@ private:
 
 public:
 	// ------------- Constructors i Destructors --------------
-							CEntityManager	( void )		{};
+							CEntityManager	( void )		{ RegisterMethods( SCRIPT->GetLuaState() ); }
 							~CEntityManager	( void )		{};
 
 	//static	CEntityManager*	Instance();
@@ -29,6 +31,8 @@ public:
 	// ------------- Funcions Principals ---------------------
 	// Almacena un puntero a la entidad en el std::vector m_Entities en la posición inbdicada por el ID de la entidad. Permite un acceso rápido
 	void					RegisterEntity	( CBaseGameEntity* _pNewEntity );
+
+	void					RegisterMethods	( lua_State* _pLua );
 
 	// ------------- Propietats ( Get / Set ) ----------------
 	// Devuelve el puntero de la entidad a partir del ID dado 

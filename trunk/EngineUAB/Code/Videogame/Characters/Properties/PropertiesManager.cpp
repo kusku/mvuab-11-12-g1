@@ -74,10 +74,6 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 			Vect3f l_Vect = l_XMLPropertiesNode(i).GetVect3fKeyword ("respawn_position");
 			l_Properties->SetRespawnPosition ( l_Vect );
 		}
-		else if( l_PropertyField == "height" )
-		{
-			l_Properties->SetHeight( l_XMLPropertiesNode(i).GetFloatKeyword("height", 1.0f) );
-		}
 		else if( l_PropertyField == "position" )
 		{
 			Vect3f l_Vect = l_XMLPropertiesNode(i).GetVect3fKeyword ("position");
@@ -97,6 +93,26 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 		{
 			float l_distance = l_XMLPropertiesNode(i).GetFloatKeyword ("attack_distance");
 			l_Properties->SetAttackDistance( l_distance );
+		}
+		else if( l_PropertyField == "height_controller" )
+		{
+			l_Properties->SetHeightController( l_XMLPropertiesNode(i).GetFloatKeyword("height_controller", 1.0f) );
+		}
+		else if( l_PropertyField == "width_controller" )
+		{
+			l_Properties->SetWidthController( l_XMLPropertiesNode(i).GetFloatKeyword("width_controller", 1.0f) );
+		}
+		else if( l_PropertyField == "slope" )
+		{
+			l_Properties->SetSlopeController( l_XMLPropertiesNode(i).GetFloatKeyword("slope", 45.0f) );
+		}
+		else if( l_PropertyField == "skin_width" )
+		{
+			l_Properties->SetSkinWidthController( l_XMLPropertiesNode(i).GetFloatKeyword("skin_width", 0.1f) );
+		}
+		else if( l_PropertyField == "step_offset" )
+		{
+			l_Properties->SetStepOffsetController( l_XMLPropertiesNode(i).GetFloatKeyword("step_offset", 0.5f) );
 		}
 		else if ( l_PropertyField != "comment" ) 
 		{
