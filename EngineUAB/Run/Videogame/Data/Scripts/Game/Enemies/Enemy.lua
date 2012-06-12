@@ -180,7 +180,6 @@ class 'CEnemy' (CCharacter)
 			print_logger ( 0, "CEnemy::__init()->player existe" )
 		end
 		
-		
 		-- Cargamos los estados		
 		self:load_logic_states()
 		self:load_graphic_states()
@@ -211,6 +210,9 @@ class 'CEnemy' (CCharacter)
 			print_logger(0, "CEnemy:init()->Current state idle asignado del enemigo")
 			l_IsOk = l_IsOk and true
 		end
+		
+		self.enable = false
+		
 		return l_IsOk
 	end
 	
@@ -222,13 +224,21 @@ class 'CEnemy' (CCharacter)
 		-- Almacenamos el elapsed time pq después será impossible de guardar
 		self.elapsed_time = _elapsed_time
 		
+		self.enable = false
+		
 		l_gfsm = self.graphic_fsm 
 		if l_gfsm == nil then
 			print_logger(2, "CEnemy:update()->No se ha podido obtener la máquina de estados gráfica.")
 		else
-			l_gfsm:update()
-			--print_logger(0, "CEnemy::update()->Actualizando gfsm...")			
-		end 
+			if (self.enable == true ) then
+				l_gfsm:update()
+				--print_logger(0, "CEnemy::update()->Actualizando gfsm...")			
+			else
+				--print_logger(0, "CEnemy::update()->Enable = false")
+				self.graphic_fsm:change_state(self.animation_idle_state)
+				self:move_to( self.position, _elapsed_time )
+			end 
+		end
 		
 		-- self.position2 = self.position
 		-- local l_pointB = self.position
