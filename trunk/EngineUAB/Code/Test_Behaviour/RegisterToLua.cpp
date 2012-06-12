@@ -26,6 +26,9 @@
 
 #include "core.h"
 #include "base.h"
+#if defined (_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
 
 void RegisterToLuaTelegram(lua_State* _pLua)
 {
@@ -56,15 +59,6 @@ void RegisterToLuaBaseGameEntity(lua_State* _pLua)
 		];
 }
 
-void RegisterToLuaCNamed(lua_State* _pLua)
-{
-	module(_pLua)
-		[
-			class_<CNamed> ("CName")
-			
-		];
-}
-
 void RegisterToLuaCharacter(lua_State* _pLua)
 {
 	module(_pLua)
@@ -73,7 +67,7 @@ void RegisterToLuaCharacter(lua_State* _pLua)
 				.def(constructor<int>())
 				.def(constructor<int,const std::string&>())
 				.def("init", &CCharacter::Init, &CCharacter_Wrapper::Init)
-				.def("update", &CCharacter::Update, &CCharacter_Wrapper::default_update)
+				.def("update", &CCharacter::Update, &CCharacter_Wrapper::Default_Update)
 				.def("get_animation_id", &CCharacter::GetAnimationId)
 				.def("get_animation_model", &CCharacter::GetAnimatedModel)
 				.def("move_to", &CCharacter::MoveTo)
@@ -92,6 +86,7 @@ void RegisterToLuaCharacter(lua_State* _pLua)
 				.property("graphic_fsm", &CCharacter::GetGraphicFSM)
 				.property("properties", &CCharacter::GetProperties, &CCharacter::SetProperties)
 				.property("locked", &CCharacter::GetLocked, &CCharacter::SetLocked)
+				.property("enable", &CCharacter::IsEnable, &CCharacter::SetEnable)
 		];
 }
 
@@ -156,8 +151,8 @@ void RegisterToLuaState(lua_State* _pLua){
 
 void RegisterToLuaGlobals(lua_State* _pLua)
 {
-	globals(_pLua)["ent_caperucita"] = (int)ent_caperucita;
-	globals(_pLua)["ent_lobo"] = (int)ent_lobo;
+	/*globals(_pLua)["ent_caperucita"] = (int)ent_caperucita;
+	globals(_pLua)["ent_lobo"] = (int)ent_lobo;*/
 
 	/*luabind::module(_pLua) 
 		[

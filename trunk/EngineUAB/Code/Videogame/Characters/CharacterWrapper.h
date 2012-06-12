@@ -12,26 +12,33 @@
 
 #include "Character.h"
 #include "Scripting\ScriptManager.h"
+#include "Logger\Logger.h"
 
 #if defined (_DEBUG)
 #include "Memory\MemLeaks.h"
 #endif
 
-struct CCharacter_Wrapper : CCharacter, luabind::wrap_base
+// ----------------------------------------
+//		WRAPPER PARA LUA
+// ----------------------------------------
+struct CCharacter_Wrapper: CCharacter, luabind::wrap_base
 {
 	CCharacter_Wrapper()
 		: CCharacter()
 	{
+		LOGGER->AddNewLog ( ELL_INFORMATION, "[C++CCharacter_Wrapper] first constructor");
 	}
 
 	CCharacter_Wrapper(const std::string &_Name)
 		: CCharacter(_Name)
 	{
+		LOGGER->AddNewLog ( ELL_INFORMATION, "[C++CCharacter_Wrapper] second constructor");
 	}
 
 	CCharacter_Wrapper(int _id, const std::string &_Name)
 		: CCharacter(_id, _Name)
 	{
+		LOGGER->AddNewLog ( ELL_INFORMATION, "[C++CCharacter_Wrapper] destructor");
 	}
 
 	virtual bool Init()
@@ -50,4 +57,5 @@ struct CCharacter_Wrapper : CCharacter, luabind::wrap_base
 	}
 };
 
-#endif
+
+#endif /* __CHARACTER_WRAPPER_H__ */

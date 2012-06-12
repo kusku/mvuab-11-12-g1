@@ -52,6 +52,7 @@ CCharactersManager::CCharactersManager ( void )
 	, m_pPropertiesManager		( NULL )
 	, m_pAnimatedStatesManager	( NULL )
 	, m_pPlayer					( NULL )
+	, m_pTargetEnemy			( NULL )
 {
 }
 

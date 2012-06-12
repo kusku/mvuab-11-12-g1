@@ -207,16 +207,6 @@ void CGameProcess::RegisterMethods( void )
 	RegisterToLuaGameProcess			( l_State );
 }
 
-// -----------------------------------------
-//				PROPIEDADES
-// -----------------------------------------
-
-CGameProcess* CGameProcess::GetGameProcess( void )
-{
-	CEngineProcess *l_pProces = CORE->GetProcess();
-	return static_cast<CGameProcess*> ( l_pProces );
-}
-
 void CGameProcess::RegisterToLuaGameProcess( lua_State* _pLua )
 {
 	module(_pLua) [
@@ -230,5 +220,16 @@ void CGameProcess::RegisterToLuaGameProcess( lua_State* _pLua )
 			//.def("add_enemy",			  &CGameProcess::AddEnemy)
 	];
 }
+
+// -----------------------------------------
+//				PROPIEDADES
+// -----------------------------------------
+
+CGameProcess* CGameProcess::GetGameProcess( void )
+{
+	CEngineProcess *l_pProces = CORE->GetProcess();
+	return static_cast<CGameProcess*> ( l_pProces );
+}
+
 
 
