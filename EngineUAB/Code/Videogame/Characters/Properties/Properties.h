@@ -54,6 +54,9 @@ public:
 	inline void					SetDistanceChase		( float _DistanceChase )							{ m_DistanceChase = _DistanceChase; }
 	inline float				GetDistanceChase		( void ) const										{ return m_DistanceChase; }
 
+	inline void					SetDistanceFollowPath	( float _DistanceFollowPath )						{ m_DistanceFollowPath = _DistanceFollowPath; }
+	inline float				GetDistanceFollowPath	( void ) const										{ return m_DistanceFollowPath; }
+
 	inline void					SetAttackDistance		( float _AttackDistance )							{ m_AttackDistance = _AttackDistance; }
 	inline float				GetAttackDistance		( void ) const										{ return m_AttackDistance; }
 
@@ -84,6 +87,7 @@ private:
 	Vect3f				m_RespawnPosition;
 	float				m_DetectionDistance;		// distancia de detección de otros caràcteres
 	float				m_DistanceChase;			// distancia de persecución 
+	float				m_DistanceFollowPath;		// distancia de persecución a través de waypoints
 	float				m_AttackDistance;			// distancia de persecución 
 	
 	// Propiedades del controller
