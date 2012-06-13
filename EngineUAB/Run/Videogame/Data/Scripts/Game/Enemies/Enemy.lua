@@ -73,61 +73,116 @@ class 'CEnemy' (CCharacter)
 		
 		-- Idle State --
 		self.idle_state = CWolfIdleState()
-		-- self.idle_state = nil
 		if self.idle_state == nil then
-			print_logger(2, "CEnemy::load_logic_states->Error al cargar un estado idle del lobo")
+			print_logger(2, "CEnemy::load_logic_states->Error al cargar un estado IDLE del lobo")
 		else 
-			print_logger(0, "CEnemy::load_logic_states->Creat estat idle del lobo")
+			print_logger(0, "CEnemy::load_logic_states->Creat estat IDLE del lobo")
 		end		
 		
-		-- Walk State --
-		self.animation_walk_state = CWolfWalkState()
-		if self.animation_walk_state == nil then
-			print_logger(2, "CEnemy::load_logic_states->Error al cargar un estado Walk del lobo")
-		else
-			print_logger(0, "CEnemy::load_logic_states->Creat estat Walk del lobo")
-		end
+		-- Seek State -- Ir directamente a un destino
+		self.seek_state = CWolfSeekState()
+		if self.seek_state == nil then
+			print_logger(2, "CEnemy::load_logic_states->Error al cargar un estado SEEK del lobo")
+		else 
+			print_logger(0, "CEnemy::load_logic_states->Creat estat SEEK del lobo")
+		end	
 		
-		-- Run State --
-		self.animation_run_state = CWolfRunState()
-		if self.animation_run_state == nil then
-			print_logger(2, "CEnemy::load_logic_states->Error al cargar un estado Run del lobo")
-		else
-			print_logger(0, "CEnemy::load_logic_states->Creat estat run del lobo")
-		end
+		-- Flee State -- Huye directamente de un destino
+		self.flee_state = CWolfWanderState()
+		if self.flee_state == nil then
+			print_logger(2, "CEnemy::load_logic_states->Error al cargar un estado FLEE del lobo")
+		else 
+			print_logger(0, "CEnemy::load_logic_states->Creat estat FLEE del lobo")
+		end	
 		
-		-- Attack Still State --
-		self.animation_still_attack_state = CWolfStillAttackState()
-		if self.animation_still_attack_state == nil then
-			print_logger(2, "CEnemy::load_logic_states->Error al cargar un estado Still Attack del lobo")
-		else
-			print_logger(0, "CEnemy::load_logic_states->Creat estat run del lobo")
-		end
+		-- Pursuit State -- Persigue inteligentemente
+		self.pursuit_state = CWolfPursuitState()
+		if self.pursuit_state == nil then
+			print_logger(2, "CEnemy::load_logic_states->Error al cargar un estado PURSUIT del lobo")
+		else 
+			print_logger(0, "CEnemy::load_logic_states->Creat estat PURSUIT del lobo")
+		end	
 		
-		-- Attack Run State --
-		self.animation_run_attack_state = CWolfRunAttackState()
-		if self.animation_run_attack_state == nil then
-			print_logger(2, "CEnemy::load_logic_states->Error al cargar un estado Run Attack del lobo")
-		else
-			print_logger(0, "CEnemy::load_logic_states->Creat estat run del lobo")
-		end
+		-- Evade State -- Huye inteligentemente
+		self.evade_state = CWolfEvadeState()
+		if self.evade_state == nil then
+			print_logger(2, "CEnemy::load_logic_states->Error al cargar un estado EVADE del lobo")
+		else 
+			print_logger(0, "CEnemy::load_logic_states->Creat estat EVADE del lobo")
+		end	
 		
-		-- Hit State --
-		self.animation_hit_state = CWolfHitState()
-		if self.animation_hit_state == nil then
-			print_logger(2, "CEnemy::load_logic_states->Error al cargar un estado Hit del lobo")
-		else
-			print_logger(0, "CEnemy::load_logic_states->Creat estat run del lobo")
-		end
+		-- Wander State -- Actua como un errante
+		self.wander_state = CWolfWanderState()
+		if self.wander_state == nil then
+			print_logger(2, "CEnemy::load_logic_states->Error al cargar un estado WANDER del lobo")
+		else 
+			print_logger(0, "CEnemy::load_logic_states->Creat estat WANDER del lobo")
+		end	
 		
-		-- Deffense State --
-		self.animation_deffense_state = CWolfDeffenseState()
-		if self.animation_hit_state == nil then
-			print_logger(2, "CEnemy::load_logic_states->Error al cargar un estado deffense del lobo")
-		else
-			print_logger(0, "CEnemy::load_logic_states->Creat estat run del lobo")
-		end
-		print_logger(0, "CEnemy::load_logic_states->Logic states loaded")
+		-- Path Follow State --	Sigue un camino
+		self.path_follow_state = CWolfPathFollowState()
+		if self.path_follow_state == nil then
+			print_logger(2, "CEnemy::load_logic_states->Error al cargar un estado PATH FOLLOW del lobo")
+		else 
+			print_logger(0, "CEnemy::load_logic_states->Creat estat PATH FOLLOW del lobo")
+		end	
+		
+		-- Attack State --	Entra en estado de ataque al player
+		self.attack_state = CWolfAttackState()
+		if self.attack_state == nil then
+			print_logger(2, "CEnemy::load_logic_states->Error al cargar un estado ATTACK del lobo")
+		else 
+			print_logger(0, "CEnemy::load_logic_states->Creat estat ATTACK del lobo")
+		end	
+		
+		-- -- Walk State --
+		-- self.animation_walk_state = CWolfWalkState()
+		-- if self.walk_state == nil then
+			-- print_logger(2, "CEnemy::load_logic_states->Error al cargar un estado Walk del lobo")
+		-- else
+			-- print_logger(0, "CEnemy::load_logic_states->Creat estat Walk del lobo")
+		-- end
+		
+		-- -- Run State --
+		-- self.animation_run_state = CWolfRunState()
+		-- if self.animation_run_state == nil then
+			-- print_logger(2, "CEnemy::load_logic_states->Error al cargar un estado Run del lobo")
+		-- else
+			-- print_logger(0, "CEnemy::load_logic_states->Creat estat run del lobo")
+		-- end
+		
+		-- -- Attack Still State --
+		-- self.animation_still_attack_state = CWolfStillAttackState()
+		-- if self.animation_still_attack_state == nil then
+			-- print_logger(2, "CEnemy::load_logic_states->Error al cargar un estado Still Attack del lobo")
+		-- else
+			-- print_logger(0, "CEnemy::load_logic_states->Creat estat run del lobo")
+		-- end
+		
+		-- -- Attack Run State --
+		-- self.animation_run_attack_state = CWolfRunAttackState()
+		-- if self.animation_run_attack_state == nil then
+			-- print_logger(2, "CEnemy::load_logic_states->Error al cargar un estado Run Attack del lobo")
+		-- else
+			-- print_logger(0, "CEnemy::load_logic_states->Creat estat run del lobo")
+		-- end
+		
+		-- -- Hit State --
+		-- self.animation_hit_state = CWolfHitState()
+		-- if self.animation_hit_state == nil then
+			-- print_logger(2, "CEnemy::load_logic_states->Error al cargar un estado Hit del lobo")
+		-- else
+			-- print_logger(0, "CEnemy::load_logic_states->Creat estat run del lobo")
+		-- end
+		
+		-- -- Deffense State --
+		-- self.animation_deffense_state = CWolfDeffenseState()
+		-- if self.animation_hit_state == nil then
+			-- print_logger(2, "CEnemy::load_logic_states->Error al cargar un estado deffense del lobo")
+		-- else
+			-- print_logger(0, "CEnemy::load_logic_states->Creat estat run del lobo")
+		-- end
+		-- print_logger(0, "CEnemy::load_logic_states->Logic states loaded")
 	end	
 	
 	-- ------------------------------
@@ -211,7 +266,7 @@ class 'CEnemy' (CCharacter)
 			l_IsOk = l_IsOk and true
 		end
 		
-		self.enable = false
+		self.enable = true
 		
 		return l_IsOk
 	end
@@ -224,20 +279,32 @@ class 'CEnemy' (CCharacter)
 		-- Almacenamos el elapsed time pq después será impossible de guardar
 		self.elapsed_time = _elapsed_time
 		
-		self.enable = false
-		--print_logger (1, "CEnemy:Update()-> NAME : "..self.name)
-		--print_logger (1 , "CEnemy::Update()->POSITION :"..self.position.x.." "..self.position.y.." "..self.position.z)
+		-- print_logger (1, "CEnemy:Update()-> NAME : "..self.name)
+		-- print_logger (1 , "CEnemy::Update()->POSITION :"..self.position.x.." "..self.position.y.." "..self.position.z)
 		
 		l_gfsm = self.graphic_fsm 
 		if l_gfsm == nil then
-			--print_logger(2, "CEnemy:update()->No se ha podido obtener la máquina de estados gráfica.")
+			print_logger(2, "CEnemy:update()->No se ha podido obtener la máquina de estados gráfica.")
 		else
 			if (self.enable == true ) then
 				l_gfsm:update()
 				--print_logger(0, "CEnemy::update()->Actualizando gfsm...")			
 			else
 				--print_logger(0, "CEnemy::update()->Enable = false")
-				self.graphic_fsm:change_state(self.animation_idle_state)
+				l_gfsm:change_state(self.animation_idle_state)
+			end 
+		end
+		
+		l_lfsm = self.logic_fsm 
+		if l_lfsm == nil then
+			print_logger(2, "CEnemy:update()->No se ha podido obtener la máquina de estados gráfica.")
+		else
+			if (self.enable == true ) then
+				l_lfsm:update()
+				--print_logger(0, "CEnemy::update()->Actualizando lfsm...")			
+			else
+				--print_logger(0, "CEnemy::update()->Enable = false")
+				l_lfsm:change_state(self.idle_state)
 				self:move_to( self.position, _elapsed_time )
 			end 
 		end
@@ -257,6 +324,7 @@ class 'CEnemy' (CCharacter)
 	--			Test Method
 	-- ------------------------------
 	function CEnemy:is_player_detected()
+		local p = self.position
 		--local l_Point = Vect2f(self.position.x, self.position.z)
 		local l_PointA = self.locked
 		if l_PointA == true then
