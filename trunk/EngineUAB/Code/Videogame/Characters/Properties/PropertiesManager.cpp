@@ -89,6 +89,11 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 			float l_distance = l_XMLPropertiesNode(i).GetFloatKeyword ("distance_chase");
 			l_Properties->SetDistanceChase( l_distance );
 		}
+		else if( l_PropertyField == "distance_follow_path" )
+		{
+			float l_distance = l_XMLPropertiesNode(i).GetFloatKeyword ("distance_follow_path");
+			l_Properties->SetDistanceFollowPath( l_distance );
+		}
 		else if( l_PropertyField == "attack_distance" )
 		{
 			float l_distance = l_XMLPropertiesNode(i).GetFloatKeyword ("attack_distance");
