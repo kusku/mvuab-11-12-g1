@@ -20,7 +20,7 @@ class 'CPlayer' (CCharacter)
 	end
 
 	function CPlayer:init() 
-		get_game_process():create_player_camera(1.0, 10000.0, 3.0, 0.7, 1.0, 'Caperucita')
+		get_game_process():create_player_camera(1.0, 10000.0, 4.0, 1.0, 1.3, 'Caperucita')
 	
 		l_gfsm = self.graphic_fsm 
 		if (l_gfsm == nil) then
@@ -51,10 +51,10 @@ class 'CPlayer' (CCharacter)
 			--Calcula el pitch a partir del ratón
 			l_d = action_2_input:do_action_mouse('PitchPlayer')
 			self.pitch = self.pitch + l_d
-			if self.pitch > math.pi/10 then
-				self.pitch = math.pi/10
-			elseif self.pitch < -math.pi/4 then 
-				self.pitch = -math.pi/4
+			if self.pitch > math.pi/12 then
+				self.pitch = math.pi/12
+			elseif self.pitch < -math.pi/6 then 
+				self.pitch = -math.pi/6
 			end
 			
 			--Calcula el yaw a partir del ratón
@@ -162,6 +162,6 @@ class 'CPlayer' (CCharacter)
 	
 	function CPlayer:detect_enemy()
 		local character_manager = get_game_process():get_character_manager()
-		local enemy = character_manager:search_target_enemy(10.0, math.pi / 4)
+		local enemy = character_manager:search_target_enemy(20.0, math.pi / 4)
 		character_manager.target_enemy = enemy
 	end
