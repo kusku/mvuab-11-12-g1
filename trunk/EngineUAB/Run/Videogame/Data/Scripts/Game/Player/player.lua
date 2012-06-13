@@ -20,7 +20,7 @@ class 'CPlayer' (CCharacter)
 	end
 
 	function CPlayer:init() 
-		get_game_process():create_player_camera(1.0, 10000.0, 10.5, 0.7, 1.0, 'Caperucita')
+		get_game_process():create_player_camera(1.0, 10000.0, 3.0, 0.7, 1.0, 'Caperucita')
 	
 		l_gfsm = self.graphic_fsm 
 		if (l_gfsm == nil) then
@@ -162,6 +162,6 @@ class 'CPlayer' (CCharacter)
 	
 	function CPlayer:detect_enemy()
 		local character_manager = get_game_process():get_character_manager()
-		local enemy = character_manager:is_player_near_enemy(10.0)
+		local enemy = character_manager:search_target_enemy(10.0, math.pi / 4)
 		character_manager.target_enemy = enemy
 	end

@@ -38,6 +38,10 @@
 #include "Billboard\BillboardManager.h"
 #include "Billboard\BillboardAnimation.h"
 
+#include "Cameras\ThPSCamera.h"
+#include "EngineProcess.h"
+#include "GameProcess.h"
+
 #if defined (_DEBUG)
 	#include "Memory\MemLeaks.h"
 #endif
@@ -151,7 +155,6 @@ bool CCharactersManager::LoadXML( void )
 	l_IsOk &= LoadXMLAnimatedStates();
 	return l_IsOk;
 }
-
 
 //----------------------------------------------------------------------------------------------------
 // Update : Actualiza el player i los enemigos registrados en el manager
@@ -644,24 +647,110 @@ CPhysicUserData* CCharactersManager::ShootPlayerRaycast()
 
 CCharacter* CCharactersManager::IsPlayerNearEnemy(float distance)
 {
+	CCharacter *l_NearestEnemy = NULL;
+	float l_NearestDistance = 0.f;
 	Vect3f l_Pos = m_pPlayer->GetPosition();
 
 	TVectorResources l_EnemyList = GetResourcesVector();
-	for(uint16 i=0; i<l_EnemyList.size(); ++i)
+
+	if( l_EnemyList.size() == 0 )
 	{
-		if( l_EnemyList[i]->IsEnable() )
+		return NULL;
+	}
+
+	l_NearestEnemy = l_EnemyList[0];
+	l_NearestDistance = l_Pos.Distance(l_NearestEnemy->GetPosition());
+
+	TVectorResources::iterator l_It = l_EnemyList.begin();
+	TVectorResources::iterator l_End = l_EnemyList.end();
+	for(; l_It != l_End; ++l_It)
+	{
+		if( (*l_It)->IsAlive() )
 		{
-			if( l_Pos.Distance( l_EnemyList[i]->GetPosition() ) <= distance )
+			float l_CurrentDistance = l_Pos.Distance( (*l_It)->GetPosition() );
+			if( l_CurrentDistance <= distance && l_CurrentDistance < l_NearestDistance )
 			{
-				return l_EnemyList[i];
+				l_NearestDistance = l_CurrentDistance;
+				l_NearestEnemy = (*l_It);
 			}
 		}
 	}
 
-	return NULL;
+	return l_NearestEnemy;
 }
 
+CCharacter* CCharactersManager::SearchTargetEnemy(float _Distance, float _AngleVisible)
+{
+	assert( _Distance > 0.f );
+	assert( _AngleVisible > 0.f );
 
-//--------------------------------------------------
-//					PROPERTIES
-//--------------------------------------------------
+	CCharacter *l_NearestEnemy = NULL;
+	bool l_IsEnemyFound = false;
+	float l_NearestDistance = 0.f;
+	Vect3f l_Pos = m_pPlayer->GetPosition();
+
+	TVectorResources l_EnemyList = GetResourcesVector();
+
+	if( l_EnemyList.size() == 0 )
+	{
+		return NULL;
+	}
+
+	//Inicializamos los datos de enemigo para comparar
+	l_NearestEnemy = l_EnemyList[0];
+	l_NearestDistance = l_Pos.Distance(l_NearestEnemy->GetPosition());
+
+	TVectorResources::iterator l_It = l_EnemyList.begin();
+	TVectorResources::iterator l_End = l_EnemyList.end();
+	for(; l_It != l_End; ++l_It)
+	{
+		if( (*l_It)->IsAlive() )
+		{
+			//Mira si el enemigo está más cerca que el resto del player
+			float l_CurrentDistance = l_Pos.Distance( (*l_It)->GetPosition() );
+			if( l_CurrentDistance <= _Distance && l_CurrentDistance <= l_NearestDistance )
+			{
+				//Mira si el enemigo que está cerca está visible en un ángulo respecto el player
+				if( EnemyIsVisibleInAngle( (*l_It), _AngleVisible) ) 
+				{
+					l_NearestDistance = l_CurrentDistance;
+					l_NearestEnemy = (*l_It);
+					l_IsEnemyFound = true;
+				}
+			}
+		}
+	}
+
+	if( !l_IsEnemyFound )
+	{
+		return NULL;
+	}
+
+	return l_NearestEnemy;
+}
+
+bool CCharactersManager::EnemyIsVisibleInAngle(CCharacter *_Enemy, float _Angle)
+{
+	assert( m_pPlayer );
+	assert( _Enemy );
+	assert( _Angle > 0.f );
+
+	//Cogemos la dirección del player
+	Vect3f l_DirPlayer = static_cast<CGameProcess*>(CORE->GetProcess())->GetPlayerCamera()->GetDirection();
+	l_DirPlayer.y = 0.f;
+
+	//Calculamos el vector entre el player y el enemigo
+	Vect3f l_DirEnemy = _Enemy->GetPosition() - m_pPlayer->GetPosition();
+	l_DirEnemy.y = 0.f;
+	l_DirEnemy.Normalize(1.f);
+
+	//Calculamos el ángulo entre los dos vectores
+	float l_Angle = l_DirPlayer.AngleWithVector(l_DirEnemy);
+
+	if( l_Angle > _Angle )
+	{
+		return false;
+	}
+
+	return true;
+}

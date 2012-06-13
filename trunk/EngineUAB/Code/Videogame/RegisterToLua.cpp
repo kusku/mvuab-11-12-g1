@@ -127,6 +127,7 @@ void RegisterToLuaCharacterManager(lua_State* _pLua)
 				.def("exist_enemy_user_data", &CCharactersManager::ExistEnemyUserData)
 				.def("shoot_player_raycast", &CCharactersManager::ShootPlayerRaycast)
 				.def("is_player_near_enemy", &CCharactersManager::IsPlayerNearEnemy)
+				.def("search_target_enemy", &CCharactersManager::SearchTargetEnemy)
 				.property("target_enemy", &CCharactersManager::GetTargetEnemy, &CCharactersManager::SetTargetEnemy)
 		];
 }
