@@ -9,11 +9,14 @@
 	
 	<disable_z_test />
 	<!-- shadow maps -->
-	<set_pool_renderable_objects_technique pool="Basic_Build_Shadow_Map" />
-	<generate_shadow_maps />
+	<!--<set_pool_renderable_objects_technique pool="Basic_Build_Shadow_Map" />
+	<generate_shadow_maps />-->
 	<enable_z_test />
+
+	<set_pool_renderable_objects_technique pool="dummy_manager"/>
+	<render_scene layer="solid" active="true" />
 	
-	<render_particles />
+	<!--<render_particles />-->
 
 	<!--<set_pool_renderable_objects_technique pool="FowardShading" />
 	<render_scene layer="solid" active="true" />

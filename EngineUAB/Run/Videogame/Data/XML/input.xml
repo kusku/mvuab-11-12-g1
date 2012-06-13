@@ -58,12 +58,16 @@
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_SPACE"/>
 	</action>
 	
+	<action name="PlayerTarget">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_F"/>
+	</action>
+	
 	<action name="YawPlayer">
-		<input deviceType="IDV_MOUSE" AxisType="AXIS_MOUSE_X"     Delta="0.01f"/>
+		<input deviceType="IDV_MOUSE" AxisType="AXIS_MOUSE_X"     Delta="0.05f"/>
 	</action>
 	
 	<action name="PitchPlayer">
-		<input deviceType="IDV_MOUSE" AxisType="AXIS_MOUSE_Y"     Delta="0.01f"/>
+		<input deviceType="IDV_MOUSE" AxisType="AXIS_MOUSE_Y"     Delta="0.05f"/>
 	</action>
 	
 	<action name="AttackPlayer">

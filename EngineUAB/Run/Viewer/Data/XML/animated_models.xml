@@ -1,3 +1,5 @@
 <animated_models>
-
+	<animated_model name="rabbit" path="./Data/General/Animated_Models/rabbit/" filename="actor.xml"/>
+	<animated_model name="caperu" path="./Data/General/Animated_Models/caperu/" filename="actor.xml"/>
+	<animated_model name="wolf" path="./Data/General/Animated_Models/wolf/" filename="actor.xml"/>
 </animated_models>

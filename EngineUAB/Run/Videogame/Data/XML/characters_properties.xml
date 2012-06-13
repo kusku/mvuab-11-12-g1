@@ -43,13 +43,13 @@
 	</player>
 	<enemies>
 		<enemy name="enemy1" core="lobo" animated_instace_name="lobo1" >
-			<life>120</life>
+			<life>20</life>
 			<strong>13</strong>
 			<direction>3 20 -4</direction>
 			<speed>2</speed>
 		</enemy>
 		<enemy name="enemy2" core="lobo" animated_instace_name="lobo2" >
-			<life>130</life>
+			<life>10</life>
 			<strong>17</strong>
 			<speed>3</speed>
 			<direction>21 210 -24</direction>
