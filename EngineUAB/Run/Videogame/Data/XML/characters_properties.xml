@@ -8,7 +8,8 @@
 		<rotation_speed>360</rotation_speed>
 		<respawn_position>0 100 0</respawn_position>
 		<detection_distance>500</detection_distance>
-		<distance_chase>3000</distance_chase>
+		<distance_chase>200</distance_chase>
+		<distance_follow_path>3000</distance_follow_path>
 		<attack_distance>10</attack_distance>
 		<height_controller>1.1</height_controller>
 		<width_controller>0.5</width_controller>
@@ -21,11 +22,10 @@
 		<strong>22</strong>
 		<speed>7</speed>
 		<direction>-10 -2 4</direction>
-		<height_controller>9.4</height_controller>
-		<width_controller>9.1</width_controller>
 		<rotation_speed>240</rotation_speed>
-		<detection_distance>300</detection_distance>
-		<distance_chase>1000</distance_chase>
+		<detection_distance>500</detection_distance>
+		<distance_chase>200</distance_chase>
+		<distance_follow_path>3000</distance_follow_path>
 		<attack_distance>10</attack_distance>
 		<height_controller>1.9</height_controller>
 		<width_controller>1.7</width_controller>
