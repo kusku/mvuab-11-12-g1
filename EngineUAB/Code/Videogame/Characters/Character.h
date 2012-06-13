@@ -28,14 +28,14 @@ class CCharacter : public CBaseGameEntity, public CObject3D, public CNamed //, p
 {
 public:
 	// ------------- Constructors i Destructors --------------
-								CCharacter			( void );
+								CCharacter			();
 								CCharacter			( const std::string &_Name );
 								CCharacter			( int _ID, const std::string &_Name );
-	virtual						~CCharacter			( void );
+	virtual						~CCharacter			();
 
 	//----Main Functions --------------------------------------
 	virtual bool				Initialize			( const std::string &_Name, const Vect3f &_InitialPosicion, ECollisionGroup _Grup );
-	virtual bool				Init				( void );
+	virtual bool				Init				();
 	virtual bool				HandleMessage		( const Telegram& _Msg, bool _Logic = true, bool _Graphic = true  );		// Envia telegramas a las máquinas de estados
 	virtual bool				HandleMessage		( const Telegram& _Msg );
 	virtual void				Update				( float _ElapsedTime );
@@ -55,25 +55,27 @@ public:
 
 
 	//----Properties ( get & Set )-----------------------------
-	inline CStateMachine<CCharacter>*		GetLogicFSM			( void ) const			{ return m_pLogicStateMachine; }
-	inline CStateMachine<CCharacter>*		GetGraphicFSM		( void ) const			{ return m_pGraphicStateMachine; }
-	inline CPhysicController*				GetController		( void ) const			{ return m_pController; }
-	inline CAnimatedInstanceModel*			GetAnimatedModel	( void ) const			{ return m_pCurrentAnimatedModel; }
-	inline CPhysicUserData*					GetPhysicUserData	( void ) const			{ return m_pPhysicUserDataJugador; }
+	inline CStateMachine<CCharacter>*		GetLogicFSM			() const			{ return m_pLogicStateMachine; }
+	inline CStateMachine<CCharacter>*		GetGraphicFSM		() const			{ return m_pGraphicStateMachine; }
+	inline CPhysicController*				GetController		() const			{ return m_pController; }
+	inline CAnimatedInstanceModel*			GetAnimatedModel	() const			{ return m_pCurrentAnimatedModel; }
+	inline CPhysicUserData*					GetPhysicUserData	() const			{ return m_pPhysicUserDataJugador; }
 	int										GetAnimationID		( const std::string &_AnimationName );
 
 	inline void					SetPrevPosition		( Vect3f pos )				{ m_PrevPosition = pos; }
-	inline const Vect3f&		GetPrevPosition		( void ) const				{ return m_PrevPosition; }
+	inline const Vect3f&		GetPrevPosition		() const					{ return m_PrevPosition; }
 
 	void						SetEnable			( bool enable );
-	inline bool					IsEnable			( void ) const				{ return m_bIsEnable; }
+	inline bool					IsEnable			() const					{ return m_bIsEnable; }
 
+	inline void					SetAlive			( bool alive )				{ m_bIsAlive = alive; }
+	inline bool					IsAlive				() const					{ return m_bIsAlive; }
 
 	inline void					SetLocked			( bool locked )				{ m_bLocked = locked; }
-	inline bool					GetLocked			( void ) const				{ return m_bLocked; }
+	inline bool					GetLocked			() const					{ return m_bLocked; }
 
 	// Obtengo el angulo que forma donde mira
-	inline Vect3f				GetFront			( void ) const				{ Vect3f l_Front; l_Front.GetXZFromAngle( GetYaw() ) ; return l_Front; }
+	inline Vect3f				GetFront			() const				{ Vect3f l_Front; l_Front.GetXZFromAngle( GetYaw() ) ; return l_Front; }
 																				//{ Vect3f front; front.xzFromAngle( m_Yaw ); return front; }
 
 	bool						IsPointAtLeft		( const Vect3f &_Position ) const	
@@ -83,10 +85,10 @@ public:
 															}
 
 	inline void					SetAnimationsStates	( CAnimationsStates* _pAnimationsStates )	{ m_pAnimationsStates = _pAnimationsStates; }
-	inline CAnimationsStates*	GetAnimationsStates	( void ) const								{ return m_pAnimationsStates; }
+	inline CAnimationsStates*	GetAnimationsStates	() const									{ return m_pAnimationsStates; }
 
 	inline void					SetProperties		( CProperties* _pProperties )				{ m_pProperties = _pProperties; }
-	inline CProperties*			GetProperties		( void ) const								{ return m_pProperties; }
+	inline CProperties*			GetProperties		() const									{ return m_pProperties; }
 
 
 	//----Members ---------------------------------------------
@@ -94,6 +96,7 @@ private:
 	bool							m_bIsOk;
 	bool							m_bLocked;
 	bool							m_bIsEnable;
+	bool							m_bIsAlive;
 
 protected:
 	CStateMachine<CCharacter>	  *	m_pLogicStateMachine;		// Part de lógica. Control de la màquina d'estats del personatge

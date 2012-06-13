@@ -846,6 +846,12 @@ inline Vector3<T> Vector3<T>::Cross(const Vector3<T>& otro) const
 }
 
 template<typename T>
+inline float Vector3<T>::AngleWithVector(const Vector3<T>& otro) const
+{
+	return mathUtils::ACos<T>( Vector3<T>(*this).Dot(otro) / ( Vector3<T>(*this).Length() * otro.Length() ) );
+}
+
+template<typename T>
 inline float Vector3<T>::xzToAngle( ) {
 	return atan2( x, -z );
 }

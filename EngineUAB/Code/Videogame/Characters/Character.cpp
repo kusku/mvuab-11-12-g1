@@ -33,6 +33,7 @@ CCharacter::CCharacter()
 	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
 	, m_bLocked					( false )
 	, m_bIsEnable				( true )
+	, m_bIsAlive				( true )
 {
 	// coloco la máquina de estados i el controler de física
     m_pLogicStateMachine	= new CStateMachine<CCharacter>( this );
@@ -56,6 +57,7 @@ CCharacter::CCharacter( const std::string &_Name )
 	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
 	, m_bLocked					( false )
 	, m_bIsEnable				( true )
+	, m_bIsAlive				( true )
 {
 	// coloco la máquina de estados
     m_pLogicStateMachine	= new CStateMachine<CCharacter>( this );
@@ -79,6 +81,7 @@ CCharacter::CCharacter(int _ID, const std::string &_Name)
 	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
 	, m_bLocked					( false )
 	, m_bIsEnable				( true )
+	, m_bIsAlive				( true )
 {
 	// coloco la máquina de estados
     m_pLogicStateMachine	= new CStateMachine<CCharacter>( this );

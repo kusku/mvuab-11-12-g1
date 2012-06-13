@@ -224,13 +224,13 @@ class 'CEnemy' (CCharacter)
 		-- Almacenamos el elapsed time pq después será impossible de guardar
 		self.elapsed_time = _elapsed_time
 		
-		self.enable = true
-		print_logger (1, "CEnemy:Update()-> NAME : "..self.name)
-		print_logger (1 , "CEnemy::Update()->POSITION :"..self.position.x.." "..self.position.y.." "..self.position.z)
+		self.enable = false
+		--print_logger (1, "CEnemy:Update()-> NAME : "..self.name)
+		--print_logger (1 , "CEnemy::Update()->POSITION :"..self.position.x.." "..self.position.y.." "..self.position.z)
 		
 		l_gfsm = self.graphic_fsm 
 		if l_gfsm == nil then
-			print_logger(2, "CEnemy:update()->No se ha podido obtener la máquina de estados gráfica.")
+			--print_logger(2, "CEnemy:update()->No se ha podido obtener la máquina de estados gráfica.")
 		else
 			if (self.enable == true ) then
 				l_gfsm:update()

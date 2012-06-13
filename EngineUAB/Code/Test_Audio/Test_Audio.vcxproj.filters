@@ -16,11 +16,23 @@
     <ClCompile Include="Wwise\WwiseSoundManager.cpp">
       <Filter>Wwise</Filter>
     </ClCompile>
+    <ClCompile Include="Wwise\Speaker.cpp">
+      <Filter>Wwise</Filter>
+    </ClCompile>
+    <ClCompile Include="Wwise\Listener.cpp">
+      <Filter>Wwise</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h" />
     <ClInclude Include="TestAudioProcess.h" />
     <ClInclude Include="Wwise\WwiseSoundManager.h">
+      <Filter>Wwise</Filter>
+    </ClInclude>
+    <ClInclude Include="Wwise\Speaker.h">
+      <Filter>Wwise</Filter>
+    </ClInclude>
+    <ClInclude Include="Wwise\Listener.h">
       <Filter>Wwise</Filter>
     </ClInclude>
   </ItemGroup>

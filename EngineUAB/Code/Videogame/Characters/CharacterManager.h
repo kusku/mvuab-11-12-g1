@@ -24,40 +24,42 @@ class CCharactersManager : public CTemplatedVectorMapManager<CCharacter>
 {
 public:
 	// ------------- Constructors i Destructors --------------
-						CCharactersManager		( void );
-						~CCharactersManager		( void );
+	CCharactersManager		();
+	~CCharactersManager		();
 
 	bool				Initialize				( int _NumEnemies = 0 );
 	bool				Load					( const std::string &_PropertyFileName, const std::string &_AnimatedStatesFileName );
-	bool				Reload					( void );
-	void				CleanUp					( void );
-	void				CleanReloadScripts		( void );
+	bool				Reload					();
+	void				CleanUp					();
+	void				CleanReloadScripts		();
 	void				Update					( float _ElapsedTime );
 	void				Render					( CRenderManager *_RM, CFontManager *_FM );
 
 	// ------------- Methods --------------------------------
 	void				AddEnemy				( CCharacter *_pEnemy );			// Afegeix un enemic ja creat
-	void				CreateEnemy				( void );							// Crea i afegeix un enemic ja creat
-	void				CreateRandomEnemy		( void );							// Crea i afegeix un enemic aleatori
-	bool				LoadXMLProperties		( void );							// Carga el XML de propiedades
-	bool				LoadXMLAnimatedStates	( void );							// Carga el XML de estados
+	void				CreateEnemy				();									// Crea i afegeix un enemic ja creat
+	void				CreateRandomEnemy		();									// Crea i afegeix un enemic aleatori
+	bool				LoadXMLProperties		();									// Carga el XML de propiedades
+	bool				LoadXMLAnimatedStates	();									// Carga el XML de estados
+
+	CPhysicUserData*	ShootPlayerRaycast		();
+	CCharacter*			ExistEnemyUserData		( CPhysicUserData *_userData );
+	CCharacter*			IsPlayerNearEnemy		( float distance );
+	CCharacter*			SearchTargetEnemy		( float _Distance, float _AngleVisible );
+	bool				EnemyIsVisibleInAngle	( CCharacter *_Enemy, float _Angle );
 
 	// ------------- Propietats ( Get / Set ) ----------------
-	TVectorResources	GetEnemiesVector		( void ) const				{ return m_ResourcesVector; }
-	TMapResources		GetEnemiesMap			( void ) const				{ return m_ResourcesMap; }
-	inline int			GetTotalEnemies			( void ) const				{ return m_ResourcesVector.size(); }
-	inline CCharacter*	GetPlayer				( void ) const				{ return m_pPlayer; }
-	inline CCharacter*	GetTargetEnemy			( void ) const				{ return m_pTargetEnemy; }
+	TVectorResources	GetEnemiesVector		() const					{ return m_ResourcesVector; }
+	TMapResources		GetEnemiesMap			() const					{ return m_ResourcesMap; }
+	inline int			GetTotalEnemies			() const					{ return m_ResourcesVector.size(); }
+	inline CCharacter*	GetPlayer				() const					{ return m_pPlayer; }
+	inline CCharacter*	GetTargetEnemy			() const					{ return m_pTargetEnemy; }
 
 	inline void			SetPlayer				( CCharacter *player )		{ m_pPlayer = player; }
 	inline void			SetTargetEnemy			( CCharacter *enemy )		{ m_pTargetEnemy = enemy; }
 
-	CPhysicUserData*	ShootPlayerRaycast		( void );
-	CCharacter*			ExistEnemyUserData		( CPhysicUserData *_userData );
-	CCharacter*			IsPlayerNearEnemy		( float distance );
-
 private:
-	bool	LoadXML								( void );							// Carga el XML de propiedades y estados
+	bool	LoadXML								();									// Carga el XML de propiedades y estados
 	bool	LoadDefaultCoreProperties			( const CXMLTreeNode &_Node );		// Carga las propiedades por defecto del XML
 	bool	LoadPlayerProperties				( const CXMLTreeNode &_Node );		// Carga una nueva instancia del player dependiendo de las propiedades obtenidas
 	bool	LoadEnemiesProperties				( const CXMLTreeNode &_Node );		// Carga una enemigos dependiendo de las propiedades obtenidas

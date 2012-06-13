@@ -1,7 +1,10 @@
 #include "WwiseSoundManager.h"
-#include "Cameras\Camera.h"
 #include "Logger\Logger.h"
+#include "Speaker.h"
+#include "Listener.h"
+#include "XML\XMLTreeNode.h"
 #include "Base.h"
+#include "Core.h"
 
 #include <AK/SoundEngine/Common/AkSoundEngine.h>
 #include <AK/IBytes.h>
@@ -17,11 +20,16 @@
 const AkGameObjectID GAME_OBJECT_ID_TEST = 100;
 
 CWwiseSoundManager::CWwiseSoundManager()
+	: m_pListener(NULL)
+	, m_SoundBanksFilename("")
+	, m_SpeakersFilename("")
+	, m_Path("data/soundbanks/")
 {
 }
 
 CWwiseSoundManager::~CWwiseSoundManager()
 {
+	Terminate();
 }
 
 bool CWwiseSoundManager::Init()
@@ -67,9 +75,20 @@ bool CWwiseSoundManager::Init()
 		return false;
 	}
 
-	// load initialization and main soundbanks
+	m_pListener = new CListener(CORE->GetCamera());
 
-	AK::SOUNDENGINE_DLL::SetBasePath( L"data/soundbanks/" );
+	/*AddResource("test", new CSpeaker(100, "test") );
+	AK::SoundEngine::RegisterGameObj(GetResource("test")->GetID(), "TestGameObject");*/
+
+	return true;
+}
+
+bool CWwiseSoundManager::InitBanks()
+{
+	// load initialization and main soundbanks
+	AkOSChar *path;
+	CONVERT_CHAR_TO_OSCHAR(m_Path.c_str(), path);
+	AK::SOUNDENGINE_DLL::SetBasePath( path );
 	AK::StreamMgr::SetCurrentLanguage( L"English(US)" );
 
 	AkBankID bankID;
@@ -81,57 +100,153 @@ bool CWwiseSoundManager::Init()
 		return false;
 	}
 
-	retValue = AK::SoundEngine::LoadBank( "Test_SoundBank.bnk", AK_DEFAULT_POOL_ID, bankID );
-	if( retValue != AK_Success )
+	return true;
+}
+
+bool CWwiseSoundManager::Load(const std::string &soundbanks_filename, const std::string &speakers_filename)
+{
+	m_SoundBanksFilename = soundbanks_filename;
+	m_SpeakersFilename = speakers_filename;
+
+	bool l_IsOk = true;
+	l_IsOk = LoadSoundBanksXML();
+	l_IsOk &= LoadSpeakersXML();
+
+	return l_IsOk;
+}
+
+bool CWwiseSoundManager::Reload()
+{
+	Terminate();
+	bool l_IsOk = true;
+	l_IsOk = LoadSoundBanksXML();
+	l_IsOk &= LoadSpeakersXML();
+
+	return l_IsOk;
+}
+
+bool CWwiseSoundManager::LoadSoundBanksXML()
+{
+	CXMLTreeNode newFile;
+	if (!newFile.LoadFile(m_SoundBanksFilename.c_str()))
 	{
-		LOGGER->AddNewLog(ELL_ERROR, "CWwiseSoundManager::Init->No se ha podido cargar Test_SoundBank.bnk");
+		std::string msg_error = "CWwiseSoundManager::LoadSoundBanksXML->Error al intentar leer el archivo de sonidos: " + m_SoundBanksFilename;
+		LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
 		return false;
 	}
 
-	AK::SoundEngine::RegisterGameObj(GAME_OBJECT_ID_TEST, "TestGameObject");
+	CXMLTreeNode l_Banks = newFile["SoundBanks"];
+	if( l_Banks.Exists() )
+	{
+		m_Path = l_Banks.GetPszProperty("path", "");
+		InitBanks(); //Carga el banco de sonidos Init.bnk
+
+		//Lee los bancos de sonido y los carga
+		uint16 l_Count = l_Banks.GetNumChildren();
+		for( uint16 i = 0; i < l_Count; ++i )
+		{
+			std::string l_Type = l_Banks(i).GetName();
+			if( l_Type == "Bank" )
+			{
+				std::string l_BankName = l_Banks(i).GetPszProperty("name", "");
+				LoadBank(l_BankName);
+			}
+		}
+	}
+	else
+	{
+		std::string msg_error = "CWwiseSoundManager::LoadSoundBanksXML->Error al intentar leer el archivo de sonidos: " + m_SoundBanksFilename;
+		LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
+		return false;
+	}
 
 	return true;
 }
 
-void CWwiseSoundManager::Update(CCamera &camera)
+bool CWwiseSoundManager::LoadSpeakersXML()
+{
+	CXMLTreeNode newFile;
+	if (!newFile.LoadFile(m_SpeakersFilename.c_str()))
+	{
+		std::string msg_error = "CWwiseSoundManager::LoadSpeakersXML->Error al intentar leer el archivo de speakers: " + m_SpeakersFilename;
+		LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
+		return false;
+	}
+
+	CXMLTreeNode l_Speakers = newFile["Speakers"];
+	if( l_Speakers.Exists() )
+	{
+		uint16 l_Count = l_Speakers.GetNumChildren();
+		for( uint16 i = 0; i < l_Count; ++i )
+		{
+			std::string l_Type = l_Speakers(i).GetName();
+			if( l_Type == "Speaker" )
+			{
+				std::string l_Name = l_Speakers(i).GetPszProperty("name", "");
+				Vect3f l_Position = l_Speakers(i).GetVect3fProperty("position", Vect3f(0.f, 0.f, 0.f));
+				Vect3f l_Orientation = l_Speakers(i).GetVect3fProperty("orientation", Vect3f(0.f, 0.f, 0.f));
+
+				CSpeaker *l_pSpeaker = new CSpeaker( GetResourcesVector().size(), l_Name );
+				l_pSpeaker->SetPosition( l_Position );
+				l_pSpeaker->SetOrientation( l_Orientation );
+				l_pSpeaker->Init();
+				AddResource( l_Name, l_pSpeaker );
+			}
+		}
+	}
+	else
+	{
+		std::string msg_error = "CWwiseSoundManager::LoadSpeakersXML->Error al intentar leer el archivo de speakers: " + m_SpeakersFilename;
+		LOGGER->AddNewLog(ELL_ERROR, msg_error.c_str());
+		return false;
+	}
+
+	return true;
+}
+
+bool CWwiseSoundManager::LoadBank(const std::string &bank)
+{
+	AkBankID bankID;
+	AKRESULT retValue;
+
+	retValue = AK::SoundEngine::LoadBank( bank.c_str(), AK_DEFAULT_POOL_ID, bankID );
+	if( retValue != AK_Success )
+	{
+		LOGGER->AddNewLog(ELL_ERROR, "CWwiseSoundManager::Init->No se ha podido cargar el soundbank: %s", bank.c_str());
+		return false;
+	}
+
+	return true;
+}
+
+void CWwiseSoundManager::Update()
 {
 	if( !AK::SoundEngine::IsInitialized() )
 	{
 		return;
 	}
 
-	//Establecer el micrófono
-	AkListenerPosition listener;
+	//Actualiza el micrófono
+	m_pListener->Update();
 
-	listener.OrientationFront.X = camera.GetDirection().x;
-	listener.OrientationFront.Y = camera.GetDirection().y;
-	listener.OrientationFront.Z = camera.GetDirection().z;
-	listener.OrientationTop.X = 0;
-	listener.OrientationTop.Y = 0;
-	listener.OrientationTop.Z = 1.0f;
-	listener.Position.X = camera.GetPosition().x;
-	listener.Position.Y = camera.GetPosition().y;
-	listener.Position.Z = camera.GetPosition().z;
+	//Actualiza los speakers
+	TVectorResources l_Speakers = GetResourcesVector();
+	TVectorResources::iterator l_It = l_Speakers.begin();
+	TVectorResources::iterator l_ItEnd = l_Speakers.end();
+	for(; l_It != l_ItEnd; ++l_It)
+	{
+		(*l_It)->Update();
+	}
 
-	AK::SoundEngine::SetListenerPosition( listener );
-
-	//Establecer la posición de los altavoces
-	AkSoundPosition snd;
-
-	snd.Orientation.X = camera.GetDirection().x;
-	snd.Orientation.Y = camera.GetDirection().y;
-	snd.Orientation.Z = camera.GetDirection().z;
-	snd.Position.X = camera.GetPosition().x;
-	snd.Position.Y = camera.GetPosition().y;
-	snd.Position.Z = camera.GetPosition().z;
-
-	AK::SoundEngine::SetPosition(GAME_OBJECT_ID_TEST , snd );
-
+	//Actualiza Wwise
 	AK::SOUNDENGINE_DLL::Tick();
 }
 
 void CWwiseSoundManager::Terminate()
 {
+	CHECKED_DELETE(m_pListener);
+	Destroy();
+
 	AK::SoundEngine::UnregisterAllGameObj();
 	AK::SOUNDENGINE_DLL::Term();
 }
@@ -143,10 +258,10 @@ void CWwiseSoundManager::PlayEvent(const std::string &event_name)
 		return;
 	}
 
-	AK::SoundEngine::PostEvent( event_name.c_str(), GAME_OBJECT_ID_TEST);
+	AK::SoundEngine::PostEvent( event_name.c_str(), GetResource("Test")->GetID());
 }
 
 void CWwiseSoundManager::SetSwitch(const std::string &switch_name, const std::string &container_name)
 {
-	AKRESULT res = AK::SoundEngine::SetSwitch( switch_name.c_str(), container_name.c_str(), GAME_OBJECT_ID_TEST);
+	AKRESULT res = AK::SoundEngine::SetSwitch( switch_name.c_str(), container_name.c_str(), GetResource("Test")->GetID());
 }

@@ -14,11 +14,15 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="testAudio.cpp" />
     <ClCompile Include="TestAudioProcess.cpp" />
+    <ClCompile Include="Wwise\Listener.cpp" />
+    <ClCompile Include="Wwise\Speaker.cpp" />
     <ClCompile Include="Wwise\WwiseSoundManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h" />
     <ClInclude Include="TestAudioProcess.h" />
+    <ClInclude Include="Wwise\Listener.h" />
+    <ClInclude Include="Wwise\Speaker.h" />
     <ClInclude Include="Wwise\WwiseSoundManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

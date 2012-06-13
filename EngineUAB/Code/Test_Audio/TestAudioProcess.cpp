@@ -61,6 +61,7 @@ bool CTestAudioProcess::Init( void )
 
 	m_pWwiseSoundManager = new CWwiseSoundManager();
 	m_pWwiseSoundManager->Init();
+	m_pWwiseSoundManager->Load("./data/xml/soundbanks.xml", "./data/xml/speakers.xml");
 
 	m_pWwiseSoundManager->SetSwitch("Ground_Materials", "Wood");
 	m_pWwiseSoundManager->PlayEvent("Play_Ground");
@@ -78,7 +79,7 @@ void CTestAudioProcess::Update( float _ElapsedTime )
 
 	CORE->GetRenderableObjectsLayersManager()->Update( _ElapsedTime );
 
-	m_pWwiseSoundManager->Update( *m_pCamera );
+	m_pWwiseSoundManager->Update();
 }
 
 void CTestAudioProcess::Render( CRenderManager &_RM )

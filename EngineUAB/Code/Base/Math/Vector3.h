@@ -140,6 +140,8 @@ public:
   inline float		Dot		(const Vector3<T>& otro) const;
   inline Vector3<T>	Cross	(const Vector3<T>& otro) const;
 
+  inline float		AngleWithVector	( const Vector3<T> &otro) const;
+
   // Interpolación lineal
   inline Vector3<T>& Lerp    (const Vector3<T>& otro, const T t);
   inline Vector3<T>  GetLerp (const Vector3<T>& otro, const T t) const;
