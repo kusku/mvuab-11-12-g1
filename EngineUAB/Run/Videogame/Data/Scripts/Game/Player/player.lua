@@ -11,6 +11,7 @@ class 'CPlayer' (CCharacter)
 		--self.position = Vect3f(0.0, 0.0, 0.0)
 		
 		self.locked = false
+		self.is_target_fixed = false
 		
 		self.idle = CPlayerIdleState()
 		self.run = CPlayerRunState()
@@ -43,59 +44,91 @@ class 'CPlayer' (CCharacter)
 		local l_pos_anterior = self.physic_controller.position
 	
 		if not self.locked then
-			local action_2_input = core:get_action_to_input()
-			
 			local l_d = 0.0
 			local l_yaw = 0.0
+			local enemy_detected = nil
+			local action_2_input = core:get_action_to_input()
 			
-			--Calcula el pitch a partir del ratón
-			l_d = action_2_input:do_action_mouse('PitchPlayer')
-			self.pitch = self.pitch + l_d
-			if self.pitch > math.pi/12 then
-				self.pitch = math.pi/12
-			elseif self.pitch < -math.pi/6 then 
-				self.pitch = -math.pi/6
+			--Mira si hay un enemigo cerca y lo marca como target
+			if not self.is_target_fixed then
+				enemy_detected = self:detect_enemy()
 			end
 			
-			--Calcula el yaw a partir del ratón
-			l_d = action_2_input:do_action_mouse('YawPlayer')
-			self.yaw = self.yaw + l_d
-			if self.yaw > 2*math.pi then
-				self.yaw = self.yaw - 2*math.pi
-			elseif self.yaw < -2*math.pi then
-				self.yaw = self.yaw + 2*math.pi
+			--Asigna o no un enemigo como target
+			if action_2_input:do_action('PlayerTarget') then
+				if not self.is_target_fixed then
+					if enemy_detected ~= nil then
+						self.is_target_fixed = true
+					end
+				else
+					self.is_target_fixed = false
+				end
 			end
-			l_yaw = self.yaw
 			
-			--Mira los controles de movimiento
-			if action_2_input:do_action('MovePlayerUp') then --El player se mueve hacia adelante
-				if action_2_input:do_action('MovePlayerLeft') then
-					l_yaw = l_yaw + math.pi/4
-				elseif action_2_input:do_action('MovePlayerRight') then
-					l_yaw = l_yaw - math.pi/4
+			if not self.is_target_fixed then --Mira si no hay un target asignado
+				--Calcula el pitch a partir del ratón
+				l_d = action_2_input:do_action_mouse('PitchPlayer')
+				self.pitch = self.pitch + l_d
+				if self.pitch > math.pi/12 then
+					self.pitch = math.pi/12
+				elseif self.pitch < -math.pi/6 then 
+					self.pitch = -math.pi/6
 				end
-				l_dir = Vect3f(math.cos(l_yaw), 0.0, math.sin(l_yaw))
-				l_move_player = true
 				
-			elseif action_2_input:do_action('MovePlayerDown') then --El player se mueve hacia atrás
-				l_yaw = self.yaw - math.pi
-				if action_2_input:do_action('MovePlayerLeft') then
-					l_yaw = l_yaw - math.pi/4
-				elseif action_2_input:do_action('MovePlayerRight') then
-					l_yaw = l_yaw + math.pi/4
+				--Calcula el yaw a partir del ratón
+				l_d = action_2_input:do_action_mouse('YawPlayer')
+				self.yaw = self.yaw + l_d
+				if self.yaw > 2*math.pi then
+					self.yaw = self.yaw - 2*math.pi
+				elseif self.yaw < -2*math.pi then
+					self.yaw = self.yaw + 2*math.pi
 				end
-				l_dir = Vect3f(math.cos(l_yaw), 0.0, math.sin(l_yaw))
-				l_move_player = true
+				l_yaw = self.yaw
+			
+				--Mira los controles de movimiento
+				if action_2_input:do_action('MovePlayerUp') then --El player se mueve hacia adelante
+					if action_2_input:do_action('MovePlayerLeft') then
+						l_yaw = l_yaw + math.pi/4
+					elseif action_2_input:do_action('MovePlayerRight') then
+						l_yaw = l_yaw - math.pi/4
+					end
+					l_dir = Vect3f(math.cos(l_yaw), 0.0, math.sin(l_yaw))
+					l_move_player = true
+					
+				elseif action_2_input:do_action('MovePlayerDown') then --El player se mueve hacia atrás
+					l_yaw = self.yaw - math.pi
+					if action_2_input:do_action('MovePlayerLeft') then
+						l_yaw = l_yaw - math.pi/4
+					elseif action_2_input:do_action('MovePlayerRight') then
+						l_yaw = l_yaw + math.pi/4
+					end
+					l_dir = Vect3f(math.cos(l_yaw), 0.0, math.sin(l_yaw))
+					l_move_player = true
+					
+				elseif action_2_input:do_action('MovePlayerLeft') then --El player se mueve hacia la izquierda
+					l_yaw = l_yaw + math.pi/2
+					l_dir = Vect3f(math.cos(l_yaw), 0.0, math.sin(l_yaw))
+					l_move_player = true
+					
+				elseif action_2_input:do_action('MovePlayerRight') then --El player se mueve hacia la derecha
+					l_yaw = l_yaw - math.pi/2
+					l_dir = Vect3f(math.cos(l_yaw), 0.0, math.sin(l_yaw))
+					l_move_player = true
+				end
+			else
+				l_yaw = self.yaw
 				
-			elseif action_2_input:do_action('MovePlayerLeft') then --El player se mueve hacia la izquierda
-				l_yaw = l_yaw + math.pi/2
-				l_dir = Vect3f(math.cos(l_yaw), 0.0, math.sin(l_yaw))
-				l_move_player = true
+				--Hay un target asignado
+				if action_2_input:do_action('MovePlayerUp') then
+					l_dir = Vect3f(math.cos(l_yaw), 0.0, math.sin(l_yaw))
+					l_move_player = true
+					
+				elseif action_2_input:do_action('MovePlayerDown') then
+					l_yaw = self.yaw - math.pi
+					l_dir = Vect3f(math.cos(l_yaw), 0.0, math.sin(l_yaw))
+					l_move_player = true
+				end
 				
-			elseif action_2_input:do_action('MovePlayerRight') then --El player se mueve hacia la derecha
-				l_yaw = l_yaw - math.pi/2
-				l_dir = Vect3f(math.cos(l_yaw), 0.0, math.sin(l_yaw))
-				l_move_player = true
 			end
 			l_dir = l_dir * 10.0 * elapsed_time
 			
@@ -153,15 +186,11 @@ class 'CPlayer' (CCharacter)
 		else
 			l_gfsm:change_state(self.idle)
 		end	
-		
-		----------------------
-		--Finaliza el movimiento del player
-		----------------------
-		self:detect_enemy()
 	end
 	
 	function CPlayer:detect_enemy()
 		local character_manager = get_game_process():get_character_manager()
 		local enemy = character_manager:search_target_enemy(20.0, math.pi / 4)
 		character_manager.target_enemy = enemy
+		return enemy
 	end
