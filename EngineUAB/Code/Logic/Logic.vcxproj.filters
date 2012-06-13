@@ -25,6 +25,12 @@
     <ClCompile Include="Movement\WayPoint.cpp">
       <Filter>IA\Movement</Filter>
     </ClCompile>
+    <ClCompile Include="Steering Behaviours\Steering.cpp">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="Steering Behaviours\SteeringBehaviours.cpp">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StatesMachine\State.h">
@@ -74,6 +80,15 @@
     </ClInclude>
     <ClInclude Include="StatesMachine\ScriptedStateMachine.h">
       <Filter>IA\State Machine</Filter>
+    </ClInclude>
+    <ClInclude Include="Steering Behaviours\Steering.h">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="Steering Behaviours\SteeringBehaviours.h">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="Steering Behaviours\SteeringBehavioursDefs.h">
+      <Filter>IA\Steering Behaviors</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
