@@ -32,7 +32,7 @@ class 'CWolfAnimatedIdleState' (CState)
 		else
 			-- print_logger ( 0 , "player not detected i el enemigo caminaria")
 			-- _CCharacter.graphic_fsm:change_state(_CCharacter.animation_walk_state)
-			-- _CCharacter:move_to( Vect3f(0.0, 0.0, 0.0), _CCharacter.elapsed_time)
+			_CCharacter:move_to( Vect3f(0.0, 0.0, 0.0), _CCharacter.elapsed_time)
 		end
 	end
 	
