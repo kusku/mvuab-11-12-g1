@@ -107,6 +107,7 @@ void RegisterToLuaProperties(lua_State* _pLua)
 				.property("respawn_position", &CProperties::GetRespawnPosition, &CProperties::SetRespawnPosition)
 				.property("detection_distance", &CProperties::GetDetectionDistance, &CProperties::SetDetectionDistance)
 				.property("distance_chase", &CProperties::GetDistanceChase, &CProperties::SetDistanceChase)
+				.property("distance_path_follow", &CProperties::GetDistanceFollowPath, &CProperties::SetDistanceFollowPath)
 				.property("attack_distance", &CProperties::GetAttackDistance, &CProperties::SetAttackDistance)
 		];
 }

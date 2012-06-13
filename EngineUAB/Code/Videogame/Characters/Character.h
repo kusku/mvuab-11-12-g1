@@ -21,6 +21,7 @@ class CPhysicController;
 class CPhysicUserData;
 class CAnimationsStates;
 class CAnimatedInstanceModel;
+class CSteeringBehaviours;
 struct Telegram;
 //---------------------------//
 
@@ -48,8 +49,8 @@ public:
 	
 	void						AddLife				( int _Life );								
 	void						RestLife			( int _Life );								
-	void						AddSpeed			( int _Speed );								
-	void						RestSpeed			( int _Speed );								
+	void						AddSpeed			( float _Speed );								
+	void						RestSpeed			( float _Speed );								
 	void						AddStrong			( int _Strong );								
 	void						RestStrong			( int _Strong );								
 
@@ -73,6 +74,8 @@ public:
 
 	inline void					SetLocked			( bool locked )				{ m_bLocked = locked; }
 	inline bool					GetLocked			() const					{ return m_bLocked; }
+
+	inline CSteeringBehaviours*	GetBehaviours		( void ) const				{ return m_pBehaviours; }
 
 	// Obtengo el angulo que forma donde mira
 	inline Vect3f				GetFront			() const				{ Vect3f l_Front; l_Front.GetXZFromAngle( GetYaw() ) ; return l_Front; }
@@ -110,6 +113,8 @@ protected:
 	CPhysicUserData				  * m_pPhysicUserDataJugador;
 	
 	Vect3f							m_PrevPosition;
+
+	CSteeringBehaviours			  * m_pBehaviours;
 };
 
 #endif
