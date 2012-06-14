@@ -211,23 +211,29 @@ void CCharacter::MoveController(const Vect3f &_Dir, float _ElapsedTime)
 
 void CCharacter::FaceTo( const Vect3f &_Position, float _ElapsedTime )
 {
-	Vect3f v = (_Position - m_Position);
-	float l_RotationSpeed = m_pProperties->GetRotationSpeed();
-	float l_back = v.Dot(GetFront());
-
-	if(abs(l_back) < .9f)
-	{
+	//m_fYaw-=mathUtils::Deg2Rad(180.0f);
+	if(_Position.x==m_Position.x && _Position.z==m_Position.z)
 		return;
-	}
+	Vect3f v = (_Position - m_Position);
+	v.y=.0f;
+	v.Normalize();
+	float l_DesiredYaw=v.GetAngleY();
+	float l_RotationSpeed = m_pProperties->GetRotationSpeed();
 
-	if ( l_back < 0 )
-	{
-		m_fYaw += (mathUtils::Deg2Rad(l_RotationSpeed) * _ElapsedTime);
-	}
-	else
-	{
-		m_fYaw += (-mathUtils::Deg2Rad(l_RotationSpeed) * _ElapsedTime);
-	}
+	if(l_DesiredYaw<0.0f)
+		l_DesiredYaw+=mathUtils::Deg2Rad(360.0f);
+	if(m_fYaw<0.0f)
+		m_fYaw+=mathUtils::Deg2Rad(360.0f);
+
+	if((l_DesiredYaw-m_fYaw)>mathUtils::Deg2Rad(180.0f))
+		l_DesiredYaw-=mathUtils::Deg2Rad(360.0f);
+	else if((l_DesiredYaw-m_fYaw)<mathUtils::Deg2Rad(-180.0f))
+		m_fYaw-=mathUtils::Deg2Rad(360.0f);
+	
+	if(l_DesiredYaw>m_fYaw)
+		m_fYaw=mathUtils::Min(l_DesiredYaw, m_fYaw+mathUtils::Deg2Rad(l_RotationSpeed) * _ElapsedTime);
+	else 
+		m_fYaw=mathUtils::Max(l_DesiredYaw, m_fYaw-mathUtils::Deg2Rad(l_RotationSpeed) * _ElapsedTime);
 }
 
 void CCharacter::MoveTo( const Vect3f &_Position, float _ElapsedTime )
@@ -245,7 +251,7 @@ void CCharacter::MoveTo( const Vect3f &_Position, float _ElapsedTime )
 		m_Position = m_pController->GetPosition();
 		m_Position.y = m_Position.y - m_pController->GetHeight() + 0.4f;
 		float l_Yaw = mathUtils::Rad2Deg(m_fYaw);
-		m_pCurrentAnimatedModel->SetYaw(-l_Yaw + 90.f );
+		m_pCurrentAnimatedModel->SetYaw(l_Yaw/* + 90.f*/ );
 		m_pCurrentAnimatedModel->SetPosition( m_Position );
 		return;
 	}
@@ -265,7 +271,7 @@ void CCharacter::MoveTo( const Vect3f &_Position, float _ElapsedTime )
 	m_Position = m_pController->GetPosition();
 	m_Position.y = m_Position.y - m_pController->GetHeight() + 0.4f;
 	float l_Yaw = mathUtils::Rad2Deg(m_fYaw);
-	m_pCurrentAnimatedModel->SetYaw(-l_Yaw + 90.f );
+	m_pCurrentAnimatedModel->SetYaw(l_Yaw/* + 90.f*/ );
 	m_pCurrentAnimatedModel->SetPosition( m_Position );
 }
 
