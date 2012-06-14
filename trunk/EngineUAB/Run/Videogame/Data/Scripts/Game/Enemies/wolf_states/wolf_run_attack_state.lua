@@ -20,8 +20,9 @@ class 'CWolfRunAttackState' (CState)
 		end
 	end
 	
-	function CWolfRunAttackState:OnMessage(_CCharacter)
+	function CWolfRunAttackState:OnMessage(_CCharacter, _Msg)
 		print_logger(0, "CWolfRunAttackState:OnMessage")
+		return false
 	end
 	
 	function CWolfRunAttackState:__Finalize()

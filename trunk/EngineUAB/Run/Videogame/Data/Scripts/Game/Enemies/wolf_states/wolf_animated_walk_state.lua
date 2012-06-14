@@ -36,8 +36,9 @@ class 'CWolfAnimatedWalkState' (CState)
 		end
 	end
 	
-	function CWolfAnimatedWalkState:OnMessage(_CCharacter)
+	function CWolfAnimatedWalkState:OnMessage(_CCharacter, _Msg)
 		print_logger(0, "CWolfAnimatedWalkState:OnMessage")
+		return false
 	end
 	
 	function CWolfAnimatedWalkState:__Finalize()

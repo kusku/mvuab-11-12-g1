@@ -20,7 +20,9 @@ class 'CPlayerRunState' (CState)
 		end
 	end
 	
-	function CPlayerRunState:OnMessage(_CCharacter)
+	function CPlayerRunState:OnMessage(_CCharacter, _Msg)
+		print_logger(0, "CPlayerRunState:OnMessage")	
+		return false
 	end
 	
 	function CPlayerRunState:__Finalize()

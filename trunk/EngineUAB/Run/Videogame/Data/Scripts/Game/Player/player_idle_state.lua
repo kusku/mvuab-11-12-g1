@@ -20,7 +20,9 @@ class 'CPlayerIdleState' (CState)
 		end
 	end
 	
-	function CPlayerIdleState:OnMessage(_CCharacter)
+	function CPlayerIdleState:OnMessage(_CCharacter, _Msg)
+		print_logger(0, "CPlayerIdleState:OnMessage")	
+		return false
 	end
 	
 	function CPlayerIdleState:__Finalize()

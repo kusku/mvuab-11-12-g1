@@ -24,8 +24,9 @@ class 'CWolfAnimatedRunAttackState' (CState)
 		end
 	end
 	
-	function CWolfAnimatedRunAttackState:OnMessage(_CCharacter)
+	function CWolfAnimatedRunAttackState:OnMessage(_CCharacter, _Msg)
 		print_logger(0, "CWolfAnimatedRunAttackState:OnMessage")
+		return false
 	end
 	
 	function CWolfAnimatedRunAttackState:__Finalize()

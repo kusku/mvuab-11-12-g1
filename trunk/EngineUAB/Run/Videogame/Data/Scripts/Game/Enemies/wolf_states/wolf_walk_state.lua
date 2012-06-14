@@ -20,8 +20,9 @@ class 'CWolfWalkState' (CState)
 		end
 	end
 	
-	function CWolfWalkState:OnMessage(_CCharacter)
+	function CWolfWalkState:OnMessage(_CCharacter, _Msg)
 		print_logger(0, "CWolfWalkState:OnMessage")
+		return false
 	end
 	
 	function CWolfWalkState:__Finalize()

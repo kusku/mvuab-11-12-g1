@@ -24,8 +24,9 @@ class 'CWolfAnimatedHitState' (CState)
 		end
 	end
 	
-	function CWolfAnimatedHitState:OnMessage(_CCharacter)
+	function CWolfAnimatedHitState:OnMessage(_CCharacter, _Msg)
 		print_logger(0, "CWolfAnimatedHitState:OnMessage")
+		return false
 	end
 	
 	function CWolfAnimatedHitState:__Finalize()

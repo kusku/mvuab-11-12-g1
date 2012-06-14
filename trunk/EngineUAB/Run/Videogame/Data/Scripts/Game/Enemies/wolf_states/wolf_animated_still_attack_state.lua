@@ -10,30 +10,26 @@ class 'CWolfAnimatedStillAttackState' (CState)
 			num = _CCharacter:get_animation_id("attack_still")
 			_CCharacter:get_animation_model():blend_cycle( num, 0.3 )
 		end
+		_CCharacter.animation_time = 0.0
 	end
 	
 	function CWolfAnimatedStillAttackState:Execute(_CCharacter)
-		--print_logger(0, "CWolfAnimatedStillAttackState:Execute")
-		if ( is_player_detected( _CCharacter, _CCharacter.player ) ) then 
-			-- Si el player es atacable
-			if ( is_player_attackable( _CCharacter, _CCharacter.player ) ) then
-				_CCharacter:move_to( _CCharacter.player.position, _CCharacter.elapsed_time )
-				_CCharacter.graphic_fsm:change_state(_CCharacter.animation_still_attack_state)
-				
-				--let the wife know I'm home
-				-- Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
-                              -- pMiner->ID(),        //ID of sender
-                              -- ent_Elsa,            //ID of recipient
-                              -- Msg_HiHoneyImHome,   //the message
-                              -- NO_ADDITIONAL_INFO);    
-							  
-			else
-				_CCharacter.graphic_fsm:change_state(_CCharacter.animation_run_state)
-				--face_to_player ( _CCharacter, _CCharacter.player, _CCharacter.elapsed_time )
-				--_CCharacter:move_to ( _CCharacter.player.position, _CCharacter.elapsed_time )
-			end
-		else
-			_CCharacter.graphic_fsm:change_state(_CCharacter.animation_idle_state)
+		-- print_logger(0, "CWolfAnimatedStillAttackState:Execute")
+		if ( _CCharacter.animation_time > _CCharacter.animated_model:get_current_animation_duration("attack_still") ) then 
+			print_logger(1, "ATTACK REALITZAT")
+			-- print_logger(1, "ATTACK SEND_MSG_IMMEDIATELY: "..SEND_MSG_IMMEDIATELY)
+			-- print_logger(1, "_CCharacter.get_id() :".._CCharacter:get_id())
+			-- print_logger(1, "_CCharacter.player.get_id() :".._CCharacter.player:get_id())
+			-- print_logger(1, "msg_attack : "..msg_attack)
+			--_DispatchMgr:dispatch_state_message( SEND_MSG_IMMEDIATELY, _CCharacter:get_id(), _CCharacter.player:get_id(), msg_attack, NO_ADDITIONAL_INFO ) 
+			_CCharacter.animation_time = 0.0
+		else 
+			_CCharacter.animation_time =  _CCharacter.animation_time + _CCharacter.elapsed_time
+		end 
+		
+		-- Si el player NO es atacable lo volvemos a perseguir
+		if not ( is_player_attackable( _CCharacter, _CCharacter.player ) ) then
+			_CCharacter.graphic_fsm:change_state(_CCharacter.animation_run_state)
 		end
 	end
 	
@@ -45,8 +41,9 @@ class 'CWolfAnimatedStillAttackState' (CState)
 		end
 	end
 	
-	function CWolfAnimatedStillAttackState:OnMessage(_CCharacter)
+	function CWolfAnimatedStillAttackState:OnMessage(_CCharacter, _Msg)
 		print_logger(0, "CWolfAnimatedStillAttackState:OnMessage")
+		return false
 	end
 	
 	function CWolfAnimatedStillAttackState:__Finalize()
