@@ -125,13 +125,14 @@ class 'CPlayer' (CCharacter)
 				l_player_dir.y = 0.0
 				l_enemy_dir.y = 0.0
 				l_enemy_dir:normalize(1.0)
-				l_d = l_enemy_dir:angle_with_vector(l_player_dir) --Calcula el ángulo entre donde mira el personaje y la dirección hacia el enemigo
-				if (math.deg(l_d) > 0.1)  then
-					if l_d > 0.0 then
-						self.yaw = self.yaw + l_d
-					else
-						self.yaw = self.yaw - l_d
+				l_player_dir:normalize(1.0)
+				l_d = l_enemy_dir:dot(l_player_dir) --Calcula el ángulo entre donde mira el personaje y la dirección hacia el enemigo
+				l_d = math.acos(l_d)
+				if (math.deg(l_d) > 0.1 or math.deg(l_d) < -0.1)  then
+					if( l_d < 0.0 ) then
+						print_logger(0,"més petit")
 					end
+					self.yaw = self.yaw - l_d
 					if self.yaw > 2*math.pi then
 						self.yaw = self.yaw - 2*math.pi
 					elseif self.yaw < -2*math.pi then
@@ -152,12 +153,12 @@ class 'CPlayer' (CCharacter)
 				
 				elseif action_2_input:do_action('MovePlayerLeft') then
 					--l_dir = l_dir:cross(Vect3f(0.0, 1.0, 0.0))
-					local l_vector_yaw = l_yaw + math.pi/4
+					local l_vector_yaw = l_yaw + math.pi/2
 					l_dir = Vect3f(math.cos(l_vector_yaw), 0.0, math.sin(l_vector_yaw))
 					l_move_player = true
 					
 				elseif action_2_input:do_action('MovePlayerRight') then
-					local l_vector_yaw = l_yaw -  math.pi/4
+					local l_vector_yaw = l_yaw -  math.pi/2
 					l_dir = Vect3f(math.cos(l_vector_yaw), 0.0, math.sin(l_vector_yaw))
 					l_move_player = true
 				
@@ -179,7 +180,7 @@ class 'CPlayer' (CCharacter)
 					l_attack_player = true
 					self.animation_time = 0.0
 				end
-			elseif self.animation_time > self.animated_model:get_current_animation_duration("attack") - 0.5 then --Finaliza el estado de atacar
+			elseif self.animation_time > self.animated_model:get_current_animation_duration("attack1")-0.05 then --Finaliza el estado de atacar
 				if action_2_input:do_action('AttackPlayer') then --MIra si se vuelve a pulsar para no cambiar a un estado que no se quiere ir
 					l_attack_player = true
 					self.animation_time = 0.0
