@@ -21,7 +21,16 @@ class 'CPlayerRunState' (CState)
 	end
 	
 	function CPlayerRunState:OnMessage(_CCharacter, _Msg)
-		print_logger(0, "CPlayerRunState:OnMessage")	
+		print_logger(0, "CPlayerRunState:OnMessage")
+		if ( _Msg.Msg == msg_attack ) then
+			print_logger(0, "Missatge acceptat per la caperucita... aquí faria el que vull, en principi restà vida...")
+			-- If depend tipus d'atac... treu més o menys vida... --
+			_CCharacter:rest_life( 1 )
+			--_CCharacter.graphic_fsm:change_state(_CCharacter.hit_state)
+			print_logger(0, "Player life : ".._CCharacter.properties.life)
+			
+			return true
+		end		
 		return false
 	end
 	
