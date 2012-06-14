@@ -36,8 +36,8 @@ void RegisterToLuaTelegram(lua_State* _pLua)
 	module( _pLua)
 		[
 			class_<Telegram> ("Telegram")
-			.def_readwrite("Msg",&Telegram::Msg)
-			.def_readwrite("ExtraInfo", &Telegram::ExtraInfo)
+			.def_readwrite("msg",&Telegram::Msg)
+			.def_readwrite("extra_info", &Telegram::ExtraInfo)
 		];
 }
 
