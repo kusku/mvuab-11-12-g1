@@ -12,8 +12,8 @@ class 'CWolfIdleState' (CState)
 	
 	function CWolfIdleState:Execute(_CCharacter)
 		--print_logger(0, "CWolfIdleState:Execute")
-		local l_distance = get_distance_to_player(_CCharacter, _CCharacter.player)
-		print_logger (1, "Distancia al player: "..l_distance)
+		-- local l_distance = get_distance_to_player(_CCharacter, _CCharacter.player)
+		-- print_logger (1, "Distancia al player: "..l_distance)
 		if ( is_player_detected( _CCharacter, _CCharacter.player ) ) then 
 			-- Is Attacable --
 			if ( is_player_attackable( _CCharacter, _CCharacter.player ) ) then
@@ -54,6 +54,10 @@ class 'CWolfIdleState' (CState)
 	
 	function CWolfIdleState:OnMessage(_CCharacter, _Msg)
 		print_logger(0, "CWolfIdleState:OnMessage")	
+		if ( _Msg.Msg == msg_attack ) then
+			print_logger(0, "Missatge acceptat per la caperucita")
+			return true
+		end
 		return false
 	end
 	

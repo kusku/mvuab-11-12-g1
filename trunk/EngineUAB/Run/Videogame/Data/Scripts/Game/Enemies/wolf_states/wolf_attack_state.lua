@@ -13,17 +13,6 @@ class 'CWolfAttackState' (CState)
 		--print_logger(0, "CWolfAttackState:Execute")
 		if ( is_player_attackable( _CCharacter, _CCharacter.player ) ) then
 			_CCharacter:move_to( _CCharacter.player.position, _CCharacter.elapsed_time )
-			-- TODO!!! Enviariamos un mensaje de hit al player!!
-			
-		
-				--let the wife know I'm home
-				-- Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
-							  -- -- pMiner->ID(),        //ID of sender
-							  -- -- ent_Elsa,            //ID of recipient
-							  -- -- Msg_HiHoneyImHome,   //the message
-							  -- -- NO_ADDITIONAL_INFO);    
-			-- end
-			
 		else
 			_CCharacter:move_to( _CCharacter.position, _CCharacter.elapsed_time )
 			_CCharacter.logic_fsm:change_state(_CCharacter.pursuit_state)
@@ -38,10 +27,11 @@ class 'CWolfAttackState' (CState)
 	
 	function CWolfAttackState:OnMessage(_CCharacter, _Msg)
 		print_logger(0, "CWolfAttackState:OnMessage")
-		-- if ( _Msg == Msg_Attack ) then
-			-- print_logger(0, "Missatge acceptat per el llob")
-			-- return true
-		-- end
+		print_logger(0, "Missatge: ".._Msg)
+		if ( _Msg.Msg == msg_attack ) then
+			print_logger(0, "Missatge acceptat per el llob")
+			return true
+		end
 		return false
 	end
 	

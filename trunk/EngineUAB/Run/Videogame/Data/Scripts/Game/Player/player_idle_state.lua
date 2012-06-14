@@ -22,6 +22,10 @@ class 'CPlayerIdleState' (CState)
 	
 	function CPlayerIdleState:OnMessage(_CCharacter, _Msg)
 		print_logger(0, "CPlayerIdleState:OnMessage")	
+		if ( _Msg.Msg == msg_attack ) then
+			print_logger(0, "Missatge acceptat per la caperucita... aquí faria el que vull")
+			return true
+		end
 		return false
 	end
 	

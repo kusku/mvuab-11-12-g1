@@ -16,12 +16,12 @@ class 'CWolfAnimatedStillAttackState' (CState)
 	function CWolfAnimatedStillAttackState:Execute(_CCharacter)
 		-- print_logger(0, "CWolfAnimatedStillAttackState:Execute")
 		if ( _CCharacter.animation_time > _CCharacter.animated_model:get_current_animation_duration("attack_still") ) then 
-			print_logger(1, "ATTACK REALITZAT")
+			print_logger(1, "ATTACK REALITZAT DEL LLOB: ".._CCharacter:get_id().." a la Caperucita")
 			-- print_logger(1, "ATTACK SEND_MSG_IMMEDIATELY: "..SEND_MSG_IMMEDIATELY)
 			-- print_logger(1, "_CCharacter.get_id() :".._CCharacter:get_id())
 			-- print_logger(1, "_CCharacter.player.get_id() :".._CCharacter.player:get_id())
 			-- print_logger(1, "msg_attack : "..msg_attack)
-			--_DispatchMgr:dispatch_state_message( SEND_MSG_IMMEDIATELY, _CCharacter:get_id(), _CCharacter.player:get_id(), msg_attack, NO_ADDITIONAL_INFO ) 
+			_DispatchMgr:dispatch_state_message( SEND_MSG_IMMEDIATELY, _CCharacter:get_id(), _CCharacter.player:get_id(), msg_attack, NO_ADDITIONAL_INFO ) 
 			_CCharacter.animation_time = 0.0
 		else 
 			_CCharacter.animation_time =  _CCharacter.animation_time + _CCharacter.elapsed_time
@@ -43,6 +43,10 @@ class 'CWolfAnimatedStillAttackState' (CState)
 	
 	function CWolfAnimatedStillAttackState:OnMessage(_CCharacter, _Msg)
 		print_logger(0, "CWolfAnimatedStillAttackState:OnMessage")
+		if ( _Msg.Msg == msg_attack ) then
+			print_logger(0, "Missatge acceptat per l'animació del llob")
+			return true
+		end
 		return false
 	end
 	
