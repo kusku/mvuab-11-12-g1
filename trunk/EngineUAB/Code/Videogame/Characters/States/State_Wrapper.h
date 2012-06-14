@@ -48,8 +48,7 @@ struct CState_Wrapper: CState<CCharacter>, luabind::wrap_base
 	
 	virtual bool OnMessage(CCharacter *_pCharacter, const Telegram &_Msg )
 	{
-		//return call<bool>("OnMessage", _pCharacter, _Msg );
-		return false;
+		return call<bool>("OnMessage", _pCharacter, _Msg );
 	}
 };
 
