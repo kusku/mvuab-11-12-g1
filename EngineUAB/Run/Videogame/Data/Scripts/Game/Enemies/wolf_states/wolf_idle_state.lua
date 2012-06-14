@@ -55,7 +55,10 @@ class 'CWolfIdleState' (CState)
 	function CWolfIdleState:OnMessage(_CCharacter, _Msg)
 		print_logger(0, "CWolfIdleState:OnMessage")	
 		if ( _Msg.Msg == msg_attack ) then
-			print_logger(0, "Missatge acceptat per la caperucita")
+			print_logger(0, "Missatge acceptat per el llob")
+			-- If depend tipus d'atac... treu més o menys vida... --
+			_CCharacter:rest_life( 1 )
+			print_logger(0, "Player life : ".._CCharacter.properties.life)
 			return true
 		end
 		return false
