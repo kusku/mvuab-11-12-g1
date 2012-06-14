@@ -41,7 +41,7 @@ public:
 	virtual bool				HandleMessage		( const Telegram& _Msg );
 	virtual void				Update				( float _ElapsedTime );
 
-	//----Functions -------------------------------------------
+	//----Methods ---------------------------------------------
 	void						MoveController		( const Vect3f &_Dir, float _ElapsedTime );
 	void						MoveTo				( const Vect3f &_Position, float _ElapsedTime );
 	void						FaceTo				( const Vect3f &_Position, float _ElapsedTime );
@@ -54,6 +54,7 @@ public:
 	void						AddStrong			( int _Strong );								
 	void						RestStrong			( int _Strong );								
 
+	CPhysicUserData*			ShootCollisionRay	();
 
 	//----Properties ( get & Set )-----------------------------
 	inline CStateMachine<CCharacter>*		GetLogicFSM			() const			{ return m_pLogicStateMachine; }

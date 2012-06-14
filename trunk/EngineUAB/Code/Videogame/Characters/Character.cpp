@@ -314,6 +314,26 @@ void CCharacter::RestStrong( int _Strong )
 	m_pProperties->SetStrong( l_Strong ); 
 }
 
+CPhysicUserData* CCharacter::ShootCollisionRay()
+{
+	SCollisionInfo l_Info;
+	Vect3f l_Pos = m_Position;
+	//Vect3f(math.cos(l_vector_yaw), 0.0, math.sin(l_vector_yaw))
+	Vect3f l_Dir = Vect3f(mathUtils::Cos<float>(m_fYaw), 0.0, mathUtils::Sin<float>(m_fYaw));
+	l_Dir.Normalize();
+
+	l_Pos.y += m_pController->GetHeight()/2;
+	l_Pos += l_Dir;
+
+	int mask = 1 << ECG_PERSONATGE;
+	mask |= 1 << ECG_OBJECTES_DINAMICS;
+	mask |= 1 << ECG_ESCENARI;
+	mask |= 1 << ECG_ENEMICS;
+
+	CPhysicUserData *userdata = CORE->GetPhysicsManager()->RaycastClosestActor(l_Pos, l_Dir, mask, l_Info);
+	return userdata;
+}
+
 // -----------------------------------------
 //				PROPERTIES
 // -----------------------------------------
