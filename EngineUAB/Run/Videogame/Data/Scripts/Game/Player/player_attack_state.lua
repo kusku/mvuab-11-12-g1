@@ -32,10 +32,11 @@ class 'CPlayerAttackState' (CState)
 			print_logger(1, "Player ha atacat a un enemic nº : " ..enemy:get_id())
 			_DispatchMgr:dispatch_state_message( SEND_MSG_IMMEDIATELY, _CCharacter:get_id(), enemy:get_id(), msg_attack, NO_ADDITIONAL_INFO ) 
 			
-			enemy.properties.life = enemy.properties.life - 10
-			if enemy.properties.life <= 0 then
-				enemy.enable = false
-			end
+			-- TODO:: AQuest codi hauria d'anar en el OnMessage del llob!!
+			-- enemy.properties.life = enemy.properties.life - 10
+			-- if enemy.properties.life <= 0 then
+				-- enemy.enable = false
+			-- end
 		end
 	end
 	
