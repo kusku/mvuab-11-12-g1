@@ -52,7 +52,7 @@ void CMessageDispatcher::DispatchStateMessage ( double _Delay, int _Sender, int 
 	//if there is no delay, route the telegram immediately
 	if ( _Delay <= 0.0 )
 	{
-		/*cout << "\nInstant telegram dispatched at time: " << CORE->GetTimer()->GetTotalTime()
+			/*cout << "\nInstant telegram dispatched at time: " << CORE->GetTimer()->GetTotalTime()
 			 << " by " << GetNameOfEntity(pSender->ID()) << " for " << GetNameOfEntity(l_pReceiver->GetID()) 
 			 << ". Msg is "<< MsgToStr(msg);*/
 
@@ -105,9 +105,33 @@ void CMessageDispatcher::DispatchDelayedMessages ( void )
 
 void CMessageDispatcher::RegisterMethods( lua_State* _pLua )
 {
-	module( _pLua)
+	module( _pLua )
 		[
-			class_<CMessageDispatcher> ("CMessageDispatcher")
+			class_<CMessageDispatcher> ("_DispatchMgr")
 				.def("dispatch_state_message",&CMessageDispatcher::DispatchStateMessage)
 		];
+
+	globals(_pLua)["_DispatchMgr"]		= DISPATCH;
+	
+	globals(_pLua)["msg_idle"]		= (int)Msg_Idle;
+	globals(_pLua)["msg_ready"]		= (int)Msg_Ready;
+	globals(_pLua)["msg_sleep"]		= (int)Msg_Sleep;
+	globals(_pLua)["msg_attack"]	= (int)Msg_Attack;
+	globals(_pLua)["msg_run_away"]	= (int)Msg_RunAway;
+	globals(_pLua)["msg_patrol"]	= (int)Msg_Patrol;
+	globals(_pLua)["msg_pursuit"]	= (int)Msg_Pusuit;
+	globals(_pLua)["msg_roam"]		= (int)Msg_Roam;
+	globals(_pLua)["msg_evade"]		= (int)Msg_Evade;
+	globals(_pLua)["msg_chase"]		= (int)Msg_Chase;
+	
+	/*module( _pLua )
+		[
+			class_<A>("A")
+			.enum_("constants")
+			[
+				value("my_enum", 4),
+				value("my_2nd_enum", 7),
+				value("another_enum", 6)
+			]
+		];*/
 }

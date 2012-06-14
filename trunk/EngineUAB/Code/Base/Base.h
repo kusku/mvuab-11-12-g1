@@ -13,6 +13,6 @@
 #define LOGGER		CLogger::GetSingletonPtr()
 #define SCRIPT		CScriptManager::GetSingletonPtr()
 #define ENTMGR		CEntityManager::GetSingletonPtr()
-#define DISPACTH	CMessageDispatcher::GetSingletonPtr()
+#define DISPATCH	CMessageDispatcher::GetSingletonPtr()
 
 #endif

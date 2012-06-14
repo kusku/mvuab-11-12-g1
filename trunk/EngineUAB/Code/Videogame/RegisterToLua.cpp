@@ -56,7 +56,7 @@ void RegisterToLuaBaseGameEntity(lua_State* _pLua)
 	module(_pLua)
 		[
 			class_<CBaseGameEntity> ("CBaseGameEntity")
-			.def("get_id",&CBaseGameEntity::GetID)
+				.def("get_id",&CBaseGameEntity::GetID)
 		];
 }
 
@@ -81,6 +81,7 @@ void RegisterToLuaCharacter(lua_State* _pLua)
 				.def("add_strong", &CCharacter::AddStrong)
 				.def("rest_strong", &CCharacter::RestStrong)
 				.def("get_front", &CCharacter::GetFront)
+				//.def("get_id", &CBaseGameEntity::GetID)
 				.property("physic_controller", &CCharacter::GetController)	
 				.property("animated_model", &CCharacter::GetAnimatedModel)
 				.property("logic_fsm", &CCharacter::GetLogicFSM)

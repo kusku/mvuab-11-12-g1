@@ -9,6 +9,7 @@
 
 #include "StatesMachine\State.h"
 #include "Characters\Character.h"
+#include "StatesMachine\Telegram.h"
 
 #include "Base.h"
 #include "Core.h"
@@ -45,10 +46,11 @@ struct CState_Wrapper: CState<CCharacter>, luabind::wrap_base
 		call<void>("OnExit", _pCharacter);
 	}
 	
-	/*virtual bool OnMessage(CCharacter *_pCharacter, )
+	virtual bool OnMessage(CCharacter *_pCharacter, const Telegram &_Msg )
 	{
-		ptr->CCharacter::Update(_ElapsedTime);
-	}*/
+		//return call<bool>("OnMessage", _pCharacter, _Msg );
+		return false;
+	}
 };
 
 

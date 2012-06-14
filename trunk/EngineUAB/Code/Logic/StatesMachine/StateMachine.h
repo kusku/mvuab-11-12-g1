@@ -90,7 +90,7 @@ public:
 	}
 
 	// Gestiona los mensajes que llegan
-	bool HandleMessage ( const Telegram& _Msg ) const
+	bool HandleMessage ( const Telegram &_Msg ) const
 	{
 		// Mira si el estado actual es valido y si puede gestionar el mensaje
 		if ( m_pCurrentState && m_pCurrentState->OnMessage(m_pOwner, _Msg) )
