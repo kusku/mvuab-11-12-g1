@@ -64,7 +64,7 @@ bool CViewerProcess::Init()
 	m_FreeCamera.SetPitch(-D3DX_PI/6);
 	m_FreeCamera.SetYaw(0.0f);
 	m_FreeCamera.SetRoll(0.0f);
-	m_pFreeCamera = new CThPSCamera( 1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_FreeCamera, 10.0f);
+	m_pFreeCamera = new CThPSCamera( 1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_FreeCamera, 1.0f);
 
 	CORE->GetScriptManager()->RunCode("load_basics()");
 	CORE->GetScriptManager()->RunCode("load_data()");

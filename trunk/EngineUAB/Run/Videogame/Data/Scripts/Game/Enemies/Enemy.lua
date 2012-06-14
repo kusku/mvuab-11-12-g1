@@ -266,7 +266,7 @@ class 'CEnemy' (CCharacter)
 			l_IsOk = l_IsOk and true
 		end
 		
-		self.enable = true
+		self.enable = false
 		
 		return l_IsOk
 	end
