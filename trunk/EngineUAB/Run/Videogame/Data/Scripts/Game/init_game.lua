@@ -1,19 +1,19 @@
-function init_game_data()
-	--[[local process = get_game_process()
 
-	player = CPlayer()
-	player:init("Player", Vect3f(0.0, 3.5, 0.0), 0)
-	process:get_character_manager():set_player(player)
+-- Enum para mensajes 
+SEND_MSG_IMMEDIATELY = 0
+NO_ADDITIONAL_INFO = nil
+
+Msg_Idle 	= 0		-- Repòs
+Msg_Ready 	= 1		-- Llest
+Msg_Sleep	= 2		-- Dormir
+Msg_Attack	= 3 	-- Atacar
+Msg_RunAway = 4 	-- Fugir
+Msg_Patrol 	= 5		-- Patrullar
+Msg_Pusuit 	= 6		-- Cercar
+Msg_Roam 	= 7		-- Vagar
+Msg_Evade	= 8		-- Evadir
+Msg_Chase	= 9 	-- Persecució
 	
-	--Set Camera
-	process:create_player_camera(1.0, 10000.0, 2.5, 0.7, 1.0, 'Caperucita')]]--
+function init_game_data()
 end
 
--- function add_enemy()
-	-- print_logger(0, "add_enemy-> Añadiendo un enemigo.")
-	-- enemy = CEnemy()
-	-- enemy:init("Lobo1", Vect3f(5.0, 0.0, 0.0), 0)
-	
-	-- -- get_game_process():get_character_manager():set_player(player)
-	-- -- print_logger(0, "player retornat")
--- end
