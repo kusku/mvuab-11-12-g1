@@ -27,6 +27,11 @@ class 'CPlayerAttackState' (CState)
 		
 		local enemy = get_game_process():get_character_manager():search_target_enemy(8.0, math.pi/6)
 		if enemy ~= nil then
+			
+			-- Test jordi missatges entre entitats
+			print_logger(1, "Player ha atacat a un enemic nº : " ..enemy:get_id())
+			_DispatchMgr:dispatch_state_message( SEND_MSG_IMMEDIATELY, _CCharacter:get_id(), enemy:get_id(), msg_attack, NO_ADDITIONAL_INFO ) 
+			
 			enemy.properties.life = enemy.properties.life - 10
 			if enemy.properties.life <= 0 then
 				enemy.enable = false
@@ -34,7 +39,9 @@ class 'CPlayerAttackState' (CState)
 		end
 	end
 	
-	function CPlayerAttackState:OnMessage(_CCharacter)
+	function CPlayerAttackState:OnMessage(_CCharacter, _Msg)
+		print_logger(0, "CPlayerAttackState:OnMessage")	
+		return false
 	end
 	
 	function CPlayerAttackState:__Finalize()

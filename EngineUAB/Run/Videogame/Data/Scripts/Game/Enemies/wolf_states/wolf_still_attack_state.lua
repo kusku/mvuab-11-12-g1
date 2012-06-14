@@ -22,8 +22,9 @@ class 'CWolfStillAttackState' (CState)
 		end
 	end
 	
-	function CWolfStillAttackState:OnMessage(_CCharacter)
+	function CWolfStillAttackState:OnMessage(_CCharacter, _Msg)
 		print_logger(0, "CWolfStillAttackState:OnMessage")
+		return false
 	end
 	
 	function CWolfStillAttackState:__Finalize()

@@ -1,3 +1,15 @@
+-- ["msg_idle"]	
+-- msg_ready"]		
+-- msg_sleep"]		
+-- msg_attack"]	
+-- ["msg_run_away"]
+-- msg_patrol"]	
+-- msg_pursuit"]	
+-- msg_roam"]		
+-- msg_evade"]		
+-- msg_chase"]		
+
+
 -- -------------------------------------------------------------------------------------
 --  is_player_attackable: Mira si estoy muy proximo al player en disposició de ataque
 -- -------------------------------------------------------------------------------------
@@ -41,18 +53,13 @@ function is_player_detected( _enemy, _player )
 end
 
 -- -------------------------------------------------------------------------------------
---  is_player_detected: Se encara hacia el player para afrontarse a el
+--  get_distance_to_player: Retorna la distancia entre el player y enemigo
 -- -------------------------------------------------------------------------------------
-function face_to_player( _enemy, _player, _elapsed_time )
-	-- diferencia de la posición
-	l_vector_posicion = _player.position - _enemy.position
+function get_distance_to_player( _enemy, _player )
+	l_positionA = Vect2f(_enemy.position.x, _enemy.position.z)
+	l_positionB = Vect2f(_player.position.x, _player.position.z)
 	
-	-- miro si está a mi espalda y debe girar
-	l_back = l_vector_posicion:dot( _enemy:get_front() );
-	--print_logger( 0, " posició back o anlge : "..back)
-	-- if ( l_back < 0 ) then
-		-- _enemy.yaw += ( math.rad (90.0f) * _elapsed_time);
-	-- else
-		-- _enemy.yaw += (-math.rad(90.0f) * _elapsed_time);
-	-- end
+	l_distance = l_positionA:sq_distance(l_positionB)
+	
+	return l_distance
 end

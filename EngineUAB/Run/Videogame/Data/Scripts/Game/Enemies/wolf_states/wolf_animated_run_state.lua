@@ -13,13 +13,11 @@ class 'CWolfAnimatedRunState' (CState)
 	end
 	
 	function CWolfAnimatedRunState:Execute(_CCharacter)
-		print_logger(0, "CWolfAnimatedRunState:Execute")
+		-- print_logger(0, "CWolfAnimatedRunState:Execute")
 		if ( is_player_detected( _CCharacter, _CCharacter.player ) ) then 
-			-- Si el player es atacable
+			-- Si el player es atacable --
 			if ( is_player_attackable( _CCharacter, _CCharacter.player ) ) then
 				_CCharacter.graphic_fsm:change_state(_CCharacter.animation_still_attack_state)
-			else
-				_CCharacter:move_to( _CCharacter.player.position, _CCharacter.elapsed_time )
 			end
 		else
 			_CCharacter.graphic_fsm:change_state(_CCharacter.animation_idle_state)
@@ -34,8 +32,9 @@ class 'CWolfAnimatedRunState' (CState)
 		end
 	end
 	
-	function CWolfAnimatedRunState:OnMessage(_CCharacter)
+	function CWolfAnimatedRunState:OnMessage(_CCharacter, _Msg)
 		print_logger(0, "CWolfAnimatedRunState:OnMessage")
+		return false
 	end
 	
 	function CWolfAnimatedRunState:__Finalize()

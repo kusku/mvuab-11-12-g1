@@ -21,8 +21,9 @@ class 'CWolfHitState' (CState)
 		end
 	end
 	
-	function CWolfHitState:OnMessage(_CCharacter)
+	function CWolfHitState:OnMessage(_CCharacter, _Msg)
 		print_logger(0, "CWolfHitState:OnMessage")
+		return false
 	end
 	
 	function CWolfHitState:__Finalize()

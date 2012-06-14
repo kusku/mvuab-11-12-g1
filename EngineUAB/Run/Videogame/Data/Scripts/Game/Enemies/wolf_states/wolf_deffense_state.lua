@@ -22,8 +22,9 @@ class 'CWolfDeffenseState' (CState)
 		end
 	end
 	
-	function CWolfDeffenseState:OnMessage(_CCharacter)
+	function CWolfDeffenseState:OnMessage(_CCharacter, _Msg)
 		print_logger(0, "CWolfDeffenseState:OnMessage")
+		return false
 	end
 	
 	function CWolfDeffenseState:__Finalize()
