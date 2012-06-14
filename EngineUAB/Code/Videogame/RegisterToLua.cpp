@@ -41,16 +41,6 @@ void RegisterToLuaTelegram(lua_State* _pLua)
 		];
 }
 
-void RegisterToLuaMessageDispacher(lua_State* _pLua)
-{
-	//module(_pLua)
-	//	[
-	//		class_<CMessageDispatcher> ("Dispatch")
-	//		.def("DispatchStateMessage",&MessageDispatcher::DispatchMsg)
-	//	];
-	//globals( Lua)["Dispatch"] = Dispatch; // Es una class singleton
-}
-
 void RegisterToLuaBaseGameEntity(lua_State* _pLua)
 {
 	module(_pLua)

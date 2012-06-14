@@ -192,6 +192,7 @@ void CGameProcess::RegisterMethods()
 			.property("player_camera", &CGameProcess::GetPlayerCamera)
 	];
 
+	RegisterToLuaTelegram				( l_State );
 	RegisterToLuaBaseGameEntity			( l_State );
 	RegisterToLuaCharacter				( l_State );
 	RegisterToLuaCharacterManager		( l_State );
