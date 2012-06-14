@@ -30,6 +30,9 @@ class 'CWolfAttackState' (CState)
 		print_logger(0, "Missatge: ".._Msg)
 		if ( _Msg.Msg == msg_attack ) then
 			print_logger(0, "Missatge acceptat per el llob")
+			-- If depend tipus d'atac... treu més o menys vida... --
+			self:_CCharacter( 1 )
+			print_logger(0, "Player life : "..self.properties.life)
 			return true
 		end
 		return false
