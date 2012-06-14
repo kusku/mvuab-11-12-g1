@@ -7,7 +7,7 @@
 	<layer name="vegetation" />
 	<mesh_instance name="Terreno" core="Terreno" position="1.39306 2.10659 0.277821" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" />
 	<!--<animated_model_instance name="rabbit1" core="rabbit" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />-->
-	<animated_model_instance name="wolf1" core="wolf" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
+	<animated_model_instance name="caperu1" core="caperu" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
 	<!--<mesh_instance name="Pino435" core="PinoMain" position="0 -5 0" yaw="0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />-->
 	<!--<mesh_instance name="Pino435" core="PinoMain" position="-71.2613 -13.566 83.7562" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
 	<mesh_instance name="Pino434" core="PinoMain" position="-31.0588 -7.87065 80.0617" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />

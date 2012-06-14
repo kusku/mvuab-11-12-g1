@@ -44,7 +44,7 @@
 #define ACTION_MOVE_PLAYER_RIGHT			"MovePlayerRight"
 #define ACTION_MOVE_PLAYER_UP				"MovePlayerUp"
 #define ACTION_MOVE_PLAYER_DOWN 			"MovePlayerDown"
-#define MOMENTUM							100.f		// Cantidad de movimiento del player
+#define MOMENTUM							10.f		// Cantidad de movimiento del player
 
 // ********* MISC *********** 
 

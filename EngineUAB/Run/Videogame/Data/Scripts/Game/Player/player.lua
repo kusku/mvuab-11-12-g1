@@ -41,6 +41,7 @@ class 'CPlayer' (CCharacter)
 		local l_dir = Vect3f(0.0, 0.0, 0.0)
 		local l_move_player = false
 		local l_attack_player = false
+		local l_target_rotation = false
 		local l_pos_anterior = self.physic_controller.position
 	
 		if not self.locked then
@@ -65,16 +66,16 @@ class 'CPlayer' (CCharacter)
 				end
 			end
 			
+			--Calcula el pitch a partir del ratón
+			l_d = action_2_input:do_action_mouse('PitchPlayer')
+			self.pitch = self.pitch + l_d
+			if self.pitch > math.pi/12 then
+				self.pitch = math.pi/12
+			elseif self.pitch < -math.pi/6 then 
+				self.pitch = -math.pi/6
+			end
+			
 			if not self.is_target_fixed then --Mira si no hay un target asignado
-				--Calcula el pitch a partir del ratón
-				l_d = action_2_input:do_action_mouse('PitchPlayer')
-				self.pitch = self.pitch + l_d
-				if self.pitch > math.pi/12 then
-					self.pitch = math.pi/12
-				elseif self.pitch < -math.pi/6 then 
-					self.pitch = -math.pi/6
-				end
-				
 				--Calcula el yaw a partir del ratón
 				l_d = action_2_input:do_action_mouse('YawPlayer')
 				self.yaw = self.yaw + l_d
@@ -116,17 +117,52 @@ class 'CPlayer' (CCharacter)
 					l_move_player = true
 				end
 			else
-				l_yaw = self.yaw
+				--Está bloqueado sobre un target
+				l_target_rotation = true
 				
-				--Hay un target asignado
+				local l_player_dir = get_game_process().player_camera:get_direction()
+				local l_enemy_dir = get_game_process():get_character_manager().target_enemy.position - self.position
+				l_player_dir.y = 0.0
+				l_enemy_dir.y = 0.0
+				l_enemy_dir:normalize(1.0)
+				l_d = l_enemy_dir:angle_with_vector(l_player_dir) --Calcula el ángulo entre donde mira el personaje y la dirección hacia el enemigo
+				if (math.deg(l_d) > 0.1)  then
+					if l_d > 0.0 then
+						self.yaw = self.yaw + l_d
+					else
+						self.yaw = self.yaw - l_d
+					end
+					if self.yaw > 2*math.pi then
+						self.yaw = self.yaw - 2*math.pi
+					elseif self.yaw < -2*math.pi then
+						self.yaw = self.yaw + 2*math.pi
+					end
+					l_move_player = true
+				end
+			
+				l_yaw = self.yaw
+				--Se mueve el personaje con el target asignado
 				if action_2_input:do_action('MovePlayerUp') then
-					l_dir = Vect3f(math.cos(l_yaw), 0.0, math.sin(l_yaw))
+					l_dir = l_enemy_dir
 					l_move_player = true
 					
 				elseif action_2_input:do_action('MovePlayerDown') then
-					l_yaw = self.yaw - math.pi
-					l_dir = Vect3f(math.cos(l_yaw), 0.0, math.sin(l_yaw))
+					l_dir = Vect3f(-l_enemy_dir.x, -l_enemy_dir.y, -l_enemy_dir.z)
 					l_move_player = true
+				
+				elseif action_2_input:do_action('MovePlayerLeft') then
+					--l_dir = l_dir:cross(Vect3f(0.0, 1.0, 0.0))
+					local l_vector_yaw = l_yaw + math.pi/4
+					l_dir = Vect3f(math.cos(l_vector_yaw), 0.0, math.sin(l_vector_yaw))
+					l_move_player = true
+					
+				elseif action_2_input:do_action('MovePlayerRight') then
+					local l_vector_yaw = l_yaw -  math.pi/4
+					l_dir = Vect3f(math.cos(l_vector_yaw), 0.0, math.sin(l_vector_yaw))
+					l_move_player = true
+				
+				else
+					l_dir = Vect3f(0.0, 0.0, 0.0)
 				end
 				
 			end
@@ -157,7 +193,7 @@ class 'CPlayer' (CCharacter)
 			end
 			
 			--Establece los ángulos de rotación si se mueve el player
-			if l_move_player then
+			if l_move_player or l_target_rotation then
 				self.physic_controller.yaw = l_yaw
 				self.animated_model.yaw = -(l_yaw * 180.0 / math.pi) + 90.0
 			end
@@ -177,7 +213,7 @@ class 'CPlayer' (CCharacter)
 		local l_pos_actual = self.physic_controller.position
 		
 		--Actualizamos los estados en caso de cambiar
-		l_gfsm =	self.graphic_fsm 
+		l_gfsm = self.graphic_fsm 
 		l_gfsm:update()
 		if l_attack_player then
 			l_gfsm:change_state(self.attack)
