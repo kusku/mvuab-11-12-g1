@@ -5,10 +5,11 @@ class 'CPlayerTargetRunState' (CState)
 	end
 
 	function CPlayerTargetRunState:OnEnter(_CCharacter)
-		self.enemy_detected = get_game_process():get_character_manager().target_enemy
+		self.enemy_detected = get_game_process():get_character_manager().preview_target_enemy
 		if self.enemy_detected == nil then
 			self.enemy_detected = _CCharacter:detect_enemy()
 		end
+		get_game_process():get_character_manager().target_enemy = self.enemy_detected
 	end
 	
 	function CPlayerTargetRunState:Execute(_CCharacter)
