@@ -71,7 +71,11 @@
 	</action>
 	
 	<action name="AttackPlayer">
-		<input deviceType="IDV_MOUSE" EventType="EVENT_DOWN_UP"      Code="MOUSE_BUTTON_LEFT"/>
+		<input deviceType="IDV_MOUSE" EventType="EVENT_DOWN_UP"   Code="MOUSE_BUTTON_LEFT"/>
+	</action>
+	
+	<action name="DefensePlayer">
+		<input deviceType="IDV_MOUSE" EventType="EVENT_DOWN"      Code="MOUSE_BUTTON_RIGHT"/>
 	</action>
 	
 	<!--.............MOVIMIENTO PLAYER.................-->
