@@ -61,8 +61,8 @@ CCharactersManager::CCharactersManager ( void )
 
 CCharactersManager::~CCharactersManager(void)
 {
-	//CleanUp();
-	CleanReloadScripts();
+	CleanUp();
+	//CleanReloadScripts();
 }
 
 //--------------------------------------------------

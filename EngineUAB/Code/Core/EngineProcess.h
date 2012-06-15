@@ -24,7 +24,7 @@ public:
 	//----Properties ( get & Set )---------------------------------------
 	virtual CCamera*	GetCamera		() const				{ return m_pCamera; }
 
-	virtual void RegisterMethods ();
+	virtual void		RegisterMethods ();
 
 private:
 	virtual void		Release		();

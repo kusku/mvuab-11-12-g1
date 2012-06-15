@@ -47,7 +47,7 @@ class CWayPointManager
 
 		void					DebugRender				();
 
-		void					RegisterMethods			();
+		static void				RegisterMethods			();
 
 };
 

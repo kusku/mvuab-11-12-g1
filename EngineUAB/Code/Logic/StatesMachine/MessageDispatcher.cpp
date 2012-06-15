@@ -7,6 +7,7 @@
 using std::cout;
 
 #include "Utils\Timer.h"
+#include "Logger\Logger.h"
 #include "Core.h"
 #include "Base.h"
 
@@ -24,7 +25,9 @@ void CMessageDispatcher::Discharge( CBaseGameEntity* _pReceiver, const Telegram&
 	if (!_pReceiver->HandleMessage( _Telegram ))
 	{
 		//telegram could not be handled
-		cout << "Message not handled";
+		//cout << "Message not handled";
+		LOGGER->AddNewLog( ELL_INFORMATION, "CMessageDispatcher::Discharge->message not handled" );
+		return;
 	}
 }
 
@@ -42,7 +45,7 @@ void CMessageDispatcher::DispatchStateMessage ( double _Delay, int _Sender, int 
 
 	if ( l_pReceiver == NULL )
 	{
-		cout << "\nWarning! No Receiver with ID of " << _Receiver << " found";
+		//cout << "\nWarning! No Receiver with ID of " << _Receiver << " found";
 		return;
 	}
 
@@ -103,26 +106,28 @@ void CMessageDispatcher::DispatchDelayedMessages ( void )
 	}
 }
 
-void CMessageDispatcher::RegisterMethods( lua_State* _pLua )
+void CMessageDispatcher::RegisterMethods( void )
 {
-	module( _pLua )
+	lua_State* l_pLua = SCRIPT->GetLuaState();
+
+	module( l_pLua )
 		[
-			class_<CMessageDispatcher> ("_DispatchMgr")
+			class_<CMessageDispatcher> ("CMessageDispatcher")
 				.def("dispatch_state_message",&CMessageDispatcher::DispatchStateMessage)
 		];
 
-	globals(_pLua)["_DispatchMgr"]		= DISPATCH;
+	globals(l_pLua)["_dispatchM"]		= DISPATCH;
 	
-	globals(_pLua)["msg_idle"]		= (int)Msg_Idle;
-	globals(_pLua)["msg_ready"]		= (int)Msg_Ready;
-	globals(_pLua)["msg_sleep"]		= (int)Msg_Sleep;
-	globals(_pLua)["msg_attack"]	= (int)Msg_Attack;
-	globals(_pLua)["msg_run_away"]	= (int)Msg_RunAway;
-	globals(_pLua)["msg_patrol"]	= (int)Msg_Patrol;
-	globals(_pLua)["msg_pursuit"]	= (int)Msg_Pusuit;
-	globals(_pLua)["msg_roam"]		= (int)Msg_Roam;
-	globals(_pLua)["msg_evade"]		= (int)Msg_Evade;
-	globals(_pLua)["msg_chase"]		= (int)Msg_Chase;
+	globals(l_pLua)["msg_idle"]		= (int)Msg_Idle;
+	globals(l_pLua)["msg_ready"]		= (int)Msg_Ready;
+	globals(l_pLua)["msg_sleep"]		= (int)Msg_Sleep;
+	globals(l_pLua)["msg_attack"]	= (int)Msg_Attack;
+	globals(l_pLua)["msg_run_away"]	= (int)Msg_RunAway;
+	globals(l_pLua)["msg_patrol"]	= (int)Msg_Patrol;
+	globals(l_pLua)["msg_pursuit"]	= (int)Msg_Pusuit;
+	globals(l_pLua)["msg_roam"]		= (int)Msg_Roam;
+	globals(l_pLua)["msg_evade"]		= (int)Msg_Evade;
+	globals(l_pLua)["msg_chase"]		= (int)Msg_Chase;
 	
 	/*module( _pLua )
 		[

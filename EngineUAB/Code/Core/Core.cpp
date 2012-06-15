@@ -918,5 +918,7 @@ void CCore::RegisterMethods()
 	CDebugGUIManager::RegisterMethods();
 	CRenderableObjectsLayersManager::RegisterMethods();
 	CAnimatedModelManager::RegisterMethods();
-
+	CMessageDispatcher::RegisterMethods();
+	CEntityManager::RegisterMethods();
+	CWayPointManager::RegisterMethods();
 }

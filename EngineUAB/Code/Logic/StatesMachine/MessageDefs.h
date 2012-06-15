@@ -10,6 +10,7 @@ enum message_type
 	Msg_Sleep,		// Dormir
 	Msg_Attack,		// Atacar
 	Msg_RunAway,	// Fugir
+	Msg_MoveAway,	// Separarse
 	Msg_Patrol,		// Patrullar
 	Msg_Pusuit,		// Cercar
 	Msg_Roam,		// Vagar
@@ -35,6 +36,9 @@ inline std::string MsgToStr( int _Msg )
 		
 		case Msg_RunAway:
 			return "RunAway";
+
+		case Msg_MoveAway:
+			return "MoveAway";
 
 		case Msg_Patrol:
 			return "Patrol";
