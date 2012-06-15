@@ -7,7 +7,8 @@
 #include "SteeringBehavioursDefs.h"
 
 // --- Foward Declaractions ---
-class CObject3D;
+//class CObject3D;
+class CSteeringEntity;
 // ----------------------------
 
 class CSteering
@@ -18,7 +19,7 @@ public:
 	virtual					~CSteering			( void );
 
 	//---- Main Functions ---------------------------------------
-	virtual	Vect2f			CalculateSteering	( CObject3D *_pEntity )	= 0;				 // Método que deberá ser sobreescrito en cada clase que herede de Steering
+	virtual	Vect2f			CalculateSteering	( CSteeringEntity *_pEntity )	= 0;				 // Método que deberá ser sobreescrito en cada clase que herede de Steering
     
 	//---- Functions ---------------------------------------
 
@@ -27,7 +28,7 @@ public:
 
 	//---- Register Methods -------------------------------------
 private:	
-	void					RegisterLUAMethods	( void );
+	static void				RegisterLUAMethods	( void );
 
 protected:
 

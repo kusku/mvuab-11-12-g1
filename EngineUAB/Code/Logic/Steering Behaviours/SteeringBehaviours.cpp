@@ -8,6 +8,7 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CSteeringBehaviours::CSteeringBehaviours(void)
+	: m_SteeringForce		( Vect2f(0.f, 0.f) )
 {
 }
 
