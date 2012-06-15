@@ -36,7 +36,7 @@ class 'CPlayer' (CCharacter)
 
 	function CPlayer:init() 
 		get_game_process():create_player_camera(1.0, 10000.0, 4.0, 1.0, 1.3, 'Caperucita')
-	
+		
 		l_gfsm = self.graphic_fsm 
 		l_gfsm.current_state = self.animated_idle 
 		l_gfsm:change_state(self.animated_idle)
@@ -44,9 +44,10 @@ class 'CPlayer' (CCharacter)
 		l_lfsm = self.logic_fsm
 		l_lfsm.current_state = self.idle
 		l_lfsm:change_state(self.idle)
-
+		
 		self.animated_model.yaw = (self.yaw * math.pi / 180.0) + 90.0
 		self.animated_model.pitch = 0
+		
 		return true
 	end
 	
