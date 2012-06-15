@@ -22,12 +22,14 @@ class 'CPlayer' (CCharacter)
 		self.target_attack = CPlayerTargetAttackState()
 		self.target_attack2 = CPlayerTargetAttack2State()
 		self.target_attack3 = CPlayerTargetAttack3State()
+		self.defense = CPlayerDefenseState()
 		
 		self.animated_idle = CPlayerAnimationIdleState()
 		self.animated_run = CPlayerAnimationRunState()
 		self.animated_attack = CPlayerAnimationAttackState()
 		self.animated_attack2 = CPlayerAnimationAttack2State()
 		self.animated_attack3 = CPlayerAnimationAttack3State()
+		self.animated_defense = CPlayerAnimationDefenseState()
 		
 		self.animation_time = -1.0
 	end
@@ -63,6 +65,11 @@ class 'CPlayer' (CCharacter)
 				self.pitch = l_pi/12
 			elseif self.pitch < -l_pi/6 then
 				self.pitch = -l_pi/6
+			end
+			
+			if core:get_action_to_input():do_action('DefensePlayer') then
+				self.logic_fsm:change_state(self.defense)
+				self.graphic_fsm:change_state(self.animated_defense)
 			end
 			
 			--Crea el salto del player
