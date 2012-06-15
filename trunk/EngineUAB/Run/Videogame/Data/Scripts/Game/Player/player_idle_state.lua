@@ -10,9 +10,11 @@ class 'CPlayerIdleState' (CState)
 	function CPlayerIdleState:Execute(_CCharacter)
 		if self.action_2_input:do_action('PlayerTarget') then
 			--Se asigna un target
+			local l_enemy_detected = _CCharacter:detect_enemy()
 			if not _CCharacter.is_target_fixed then
-				if _CCharacter:detect_enemy() ~= nil then
+				if l_enemy_detected ~= nil then
 					_CCharacter.is_target_fixed = true
+					get_game_process():get_character_manager().target_enemy = l_enemy_detected
 				end
 			else
 				_CCharacter.is_target_fixed = false
@@ -48,6 +50,20 @@ class 'CPlayerIdleState' (CState)
 			l_d = self.action_2_input:do_action_mouse('YawPlayer')
 			_CCharacter.yaw = _CCharacter.yaw + l_d
 			_CCharacter.yaw = angle_filter(_CCharacter.yaw)
+		else
+			local l_player_dir = get_game_process().player_camera:get_direction()
+			local l_enemy_dir = get_game_process():get_character_manager().target_enemy.position - _CCharacter.position
+			l_player_dir.y = 0.0
+			l_enemy_dir.y = 0.0
+			l_enemy_dir:normalize(1.0)
+			l_player_dir:normalize(1.0)
+			l_d = l_enemy_dir:dot(l_player_dir) --Calcula el ángulo entre donde mira el personaje y la dirección hacia el enemigo		
+			l_d = math.acos(l_d)
+			
+			if (math.deg(l_d) > 0.1)  then
+				_CCharacter.yaw = _CCharacter.yaw - l_d
+				_CCharacter.yaw = angle_filter(_CCharacter.yaw)
+			end
 		end
 		
 		--Actualiza el personaje

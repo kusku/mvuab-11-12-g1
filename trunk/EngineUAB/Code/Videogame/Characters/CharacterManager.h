@@ -54,9 +54,11 @@ public:
 	inline int			GetTotalEnemies			() const					{ return m_ResourcesVector.size(); }
 	inline CCharacter*	GetPlayer				() const					{ return m_pPlayer; }
 	inline CCharacter*	GetTargetEnemy			() const					{ return m_pTargetEnemy; }
+	inline CCharacter*	GetPreviewTargetEnemy	() const					{ return m_pPreviewTargetEnemy; }
 
 	inline void			SetPlayer				( CCharacter *player )		{ m_pPlayer = player; }
 	inline void			SetTargetEnemy			( CCharacter *enemy )		{ m_pTargetEnemy = enemy; }
+	inline void			SetPreviewTargetEnemy	( CCharacter *enemy )		{ m_pPreviewTargetEnemy = enemy; }
 
 private:
 	bool	LoadXML								();									// Carga el XML de propiedades y estados
@@ -78,6 +80,7 @@ private:
 
 	CCharacter					*m_pPlayer;
 	CCharacter					*m_pTargetEnemy;
+	CCharacter					*m_pPreviewTargetEnemy;
 };
 
 #endif

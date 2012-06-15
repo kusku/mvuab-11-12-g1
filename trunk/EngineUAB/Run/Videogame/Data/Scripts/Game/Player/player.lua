@@ -73,6 +73,6 @@ class 'CPlayer' (CCharacter)
 	function CPlayer:detect_enemy()
 		local character_manager = get_game_process():get_character_manager()
 		local enemy = character_manager:search_target_enemy(20.0, math.pi / 4)
-		character_manager.target_enemy = enemy
+		character_manager.preview_target_enemy = enemy
 		return enemy
 	end

@@ -121,6 +121,7 @@ void RegisterToLuaCharacterManager(lua_State* _pLua)
 				.def("is_player_near_enemy", &CCharactersManager::IsPlayerNearEnemy)
 				.def("search_target_enemy", &CCharactersManager::SearchTargetEnemy)
 				.property("target_enemy", &CCharactersManager::GetTargetEnemy, &CCharactersManager::SetTargetEnemy)
+				.property("preview_target_enemy", &CCharactersManager::GetPreviewTargetEnemy, &CCharactersManager::SetPreviewTargetEnemy)
 		];
 }
 
