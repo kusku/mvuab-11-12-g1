@@ -23,6 +23,18 @@ class 'CPlayerTargetRunState' (CState)
 			_CCharacter.is_target_fixed = false
 		end
 		
+		--El jugador ataca
+		if self.action_2_input:do_action('AttackPlayer') then
+			if _CCharacter.is_target_fixed then
+				_CCharacter.logic_fsm:change_state(_CCharacter.target_attack)
+				_CCharacter.graphic_fsm:change_state(_CCharacter.animated_attack)
+			else
+				_CCharacter.logic_fsm:change_state(_CCharacter.attack)
+				_CCharacter.graphic_fsm:change_state(_CCharacter.animated_attack)
+			end
+		end
+		
+		--Calcula el ángulo entre donde miras y el enemigo
 		local l_player_dir = get_game_process().player_camera:get_direction()
 		local l_enemy_dir = get_game_process():get_character_manager().target_enemy.position - _CCharacter.position
 		l_player_dir.y = 0.0

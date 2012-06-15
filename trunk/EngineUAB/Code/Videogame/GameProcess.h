@@ -37,6 +37,7 @@ public:
 	void	CreatePlayerCamera	( float _near, float _far, float _zoom, float _heightEye, float _heightLookAt, const std::string &_name );
 	void	CreateFreeCamera	( float _near, float _far, float _zoom, float _heightEye, float _heightLookAt, const std::string &_name );
 
+	float	GetTimeBetweenClicks	() const				{ return m_fTimeBetweenClicks; }
 
 private:
 	void						RegisterMethods				( void );
@@ -57,6 +58,7 @@ public:
 private:
 	HWND						m_hWnd;
 	bool						m_IsOK;
+	float						m_fTimeBetweenClicks;
 
 	CFreeCamera					m_FreeCamera;
 	CStaticCamera				m_StaticCamera;
