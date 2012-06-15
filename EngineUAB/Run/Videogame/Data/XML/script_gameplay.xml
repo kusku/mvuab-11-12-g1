@@ -4,11 +4,17 @@
 	<script filename="./data/scripts/game/player/player_idle_state.lua" />
 	<script filename="./data/scripts/game/player/player_run_state.lua" />
 	<script filename="./data/scripts/game/player/player_attack_state.lua" />
+	<script filename="./data/scripts/game/player/player_attack2_state.lua" />
+	<script filename="./data/scripts/game/player/player_attack3_state.lua" />
 	<script filename="./data/scripts/game/player/player_target_attack_state.lua" />
+	<script filename="./data/scripts/game/player/player_target_attack2_state.lua" />
+	<script filename="./data/scripts/game/player/player_target_attack3_state.lua" />
 	<script filename="./data/scripts/game/player/player_target_run_state.lua" />
 	<script filename="./data/scripts/game/player/player_animation_idle_state.lua" />
 	<script filename="./data/scripts/game/player/player_animation_run_state.lua" />
 	<script filename="./data/scripts/game/player/player_animation_attack_state.lua" />
+	<script filename="./data/scripts/game/player/player_animation_attack2_state.lua" />
+	<script filename="./data/scripts/game/player/player_animation_attack3_state.lua" />
 	<script filename="./data/scripts/game/player/player.lua" />
 	<script filename="./data/scripts/game/enemies/wolf_states/wolf_idle_state.lua" />
 	<script filename="./data/scripts/game/enemies/wolf_states/wolf_attack_state.lua" />

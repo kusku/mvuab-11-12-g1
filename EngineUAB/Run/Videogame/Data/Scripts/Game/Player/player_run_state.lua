@@ -19,6 +19,17 @@ class 'CPlayerRunState' (CState)
 			enemy_detected = _CCharacter:detect_enemy()
 		end
 		
+		--El jugador ataca
+		if self.action_2_input:do_action('AttackPlayer') then
+			if _CCharacter.is_target_fixed then
+				_CCharacter.logic_fsm:change_state(_CCharacter.target_attack)
+				_CCharacter.graphic_fsm:change_state(_CCharacter.animated_attack)
+			else
+				_CCharacter.logic_fsm:change_state(_CCharacter.attack)
+				_CCharacter.graphic_fsm:change_state(_CCharacter.animated_attack)
+			end
+		end
+		
 		--Actualización del yaw a partir del movimiento del mouse
 		l_d = self.action_2_input:do_action_mouse('YawPlayer')
 		_CCharacter.yaw = _CCharacter.yaw + l_d

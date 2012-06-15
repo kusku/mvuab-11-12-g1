@@ -1,22 +1,22 @@
-class 'CPlayerTargetAttackState' (CState)
-	function CPlayerTargetAttackState:__init() 
+class 'CPlayerTargetAttack2State' (CState)
+	function CPlayerTargetAttack2State:__init() 
 		CState.__init(self)
 		self.action_2_input = core:get_action_to_input()
 	end
 
-	function CPlayerTargetAttackState:OnEnter(_CCharacter)
-		self.animation_time = 0.0
+	function CPlayerTargetAttack2State:OnEnter(_CCharacter)
+		self.animation_time = 0.0	
 	end
 	
-	function CPlayerTargetAttackState:Execute(_CCharacter)
+	function CPlayerTargetAttack2State:Execute(_CCharacter)
 		if self.animation_time > _CCharacter.animated_model:get_current_animation_duration("attack1") - 0.02 then
 			if core:get_action_to_input():do_action('AttackPlayer') then
-					_CCharacter.logic_fsm:change_state(_CCharacter.target_attack2)
-					_CCharacter.graphic_fsm:change_state(_CCharacter.animated_attack2)
+					_CCharacter.logic_fsm:change_state(_CCharacter.target_attack3)
+					_CCharacter.graphic_fsm:change_state(_CCharacter.animated_attack3)
 			else
 				if get_game_process():get_time_between_clicks() < 0.3 then
-					_CCharacter.logic_fsm:change_state(_CCharacter.target_attack2)
-					_CCharacter.graphic_fsm:change_state(_CCharacter.animated_attack2)
+					_CCharacter.logic_fsm:change_state(_CCharacter.target_attack3)
+					_CCharacter.graphic_fsm:change_state(_CCharacter.animated_attack3)
 				else
 					_CCharacter.logic_fsm:change_state(_CCharacter.idle)
 					_CCharacter.graphic_fsm:change_state(_CCharacter.animated_idle)
@@ -46,12 +46,12 @@ class 'CPlayerTargetAttackState' (CState)
 		_CCharacter.animated_model.position = _CCharacter.position
 	end
 	
-	function CPlayerTargetAttackState:OnExit(_CCharacter)
+	function CPlayerTargetAttack2State:OnExit(_CCharacter)
 	end
 	
-	function CPlayerTargetAttackState:OnMessage(_CCharacter, _Msg)
+	function CPlayerTargetAttack2State:OnMessage(_CCharacter, _Msg)
 	end
 	
-	function CPlayerTargetAttackState:__Finalize()
+	function CPlayerTargetAttack2State:__Finalize()
 	end
 	

@@ -16,7 +16,7 @@ class 'CPlayerAnimationAttackState' (CState)
 	function CPlayerAnimationAttackState:OnExit(_CCharacter)
 		if not ( _CCharacter == nil ) then
 			num = _CCharacter:get_animation_id("attack1")
-			_CCharacter:get_animation_model():clear_cycle( num, 0.2 )
+			--_CCharacter:get_animation_model():clear_cycle( num, 0.05 )
 		end
 	end
 	

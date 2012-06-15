@@ -26,6 +26,7 @@ CGameProcess::CGameProcess( HWND hWnd )
 	, m_pThPSCamera			(NULL)
 	, m_pCharactersManager	(NULL)
 	, m_IsOK				(false)
+	, m_fTimeBetweenClicks	(0.f)
 {
 }
 
@@ -131,6 +132,12 @@ void CGameProcess::Update(float elapsedTime)
 		m_FreeCamera.Update(elapsedTime ,m_pCamera);
 	}
 
+	m_fTimeBetweenClicks += elapsedTime;
+	if( CORE->GetActionToInput()->DoAction("AttackPlayer") )
+	{
+		m_fTimeBetweenClicks = 0.f;
+	}
+
 	m_pCharactersManager->Update(elapsedTime);
 	CORE->GetRenderableObjectsLayersManager()->Update(elapsedTime);
 }
@@ -193,6 +200,7 @@ void CGameProcess::RegisterMethods()
 		class_<CGameProcess>("CGameProcess")
 			.def("get_character_manager", &CGameProcess::GetCharactersManager)
 			.def("create_player_camera", &CGameProcess::CreatePlayerCamera)
+			.def("get_time_between_clicks", &CGameProcess::GetTimeBetweenClicks)
 			.property("player_camera", &CGameProcess::GetPlayerCamera)
 	];
 

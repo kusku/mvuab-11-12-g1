@@ -16,12 +16,18 @@ class 'CPlayer' (CCharacter)
 		self.idle = CPlayerIdleState()
 		self.run = CPlayerRunState()
 		self.attack = CPlayerAttackState()
+		self.attack2 = CPlayerAttack2State()
+		self.attack3 = CPlayerAttack3State()
 		self.target_run = CPlayerTargetRunState()
 		self.target_attack = CPlayerTargetAttackState()
+		self.target_attack2 = CPlayerTargetAttack2State()
+		self.target_attack3 = CPlayerTargetAttack3State()
 		
 		self.animated_idle = CPlayerAnimationIdleState()
 		self.animated_run = CPlayerAnimationRunState()
 		self.animated_attack = CPlayerAnimationAttackState()
+		self.animated_attack2 = CPlayerAnimationAttack2State()
+		self.animated_attack3 = CPlayerAnimationAttack3State()
 		
 		self.animation_time = -1.0
 	end

@@ -1,22 +1,23 @@
-class 'CPlayerAttackState' (CState)
-	function CPlayerAttackState:__init() 
+class 'CPlayerAttack2State' (CState)
+	function CPlayerAttack2State:__init() 
 		CState.__init(self)
 	end
 
-	function CPlayerAttackState:OnEnter(_CCharacter)
-		print_logger(0, "State: Attack 1")
+	function CPlayerAttack2State:OnEnter(_CCharacter)
+		print_logger(0, "State: Attack 2")
 		self.animation_time = 0.0
 	end
 	
-	function CPlayerAttackState:Execute(_CCharacter)
-		if self.animation_time > _CCharacter.animated_model:get_current_animation_duration("attack1") - 0.02 then
+	function CPlayerAttack2State:Execute(_CCharacter)
+		if self.animation_time > _CCharacter.animated_model:get_current_animation_duration("attack2") - 0.02 then
 			if core:get_action_to_input():do_action('AttackPlayer') then
-					_CCharacter.logic_fsm:change_state(_CCharacter.attack2)
-					_CCharacter.graphic_fsm:change_state(_CCharacter.animated_attack2)
+				_CCharacter.logic_fsm:change_state(_CCharacter.attack3)
+				_CCharacter.graphic_fsm:change_state(_CCharacter.animated_attack3)
 			else
 				if get_game_process():get_time_between_clicks() < 0.3 then
-					_CCharacter.logic_fsm:change_state(_CCharacter.attack2)
-					_CCharacter.graphic_fsm:change_state(_CCharacter.animated_attack2)
+					_CCharacter.logic_fsm:change_state(_CCharacter.attack3)
+					_CCharacter.graphic_fsm:change_state(_CCharacter.animated_attack3)
+
 				else
 					_CCharacter.logic_fsm:change_state(_CCharacter.idle)
 					_CCharacter.graphic_fsm:change_state(_CCharacter.animated_idle)
@@ -46,8 +47,8 @@ class 'CPlayerAttackState' (CState)
 		_CCharacter.animated_model.position = _CCharacter.position
 	end
 	
-	function CPlayerAttackState:OnExit(_CCharacter)
-		print_logger(0, "Exit State: Attack 1")
+	function CPlayerAttack2State:OnExit(_CCharacter)
+		print_logger(0, "Exit State: Attack 2")
 		local enemy = get_game_process():get_character_manager():search_target_enemy(8.0, math.pi/6)
 		if enemy ~= nil then
 			
@@ -63,7 +64,7 @@ class 'CPlayerAttackState' (CState)
 		end
 	end
 	
-	function CPlayerAttackState:OnMessage(_CCharacter, _Msg)
+	function CPlayerAttack2State:OnMessage(_CCharacter, _Msg)
 		print_logger(0, "CPlayerAttackState:OnMessage")	
 		if ( _Msg.Msg == msg_attack ) then
 			print_logger(0, "Missatge acceptat per la caperucita... aquí faria el que vull, en principi restà vida...")
@@ -77,5 +78,5 @@ class 'CPlayerAttackState' (CState)
 		return false
 	end
 	
-	function CPlayerAttackState:__Finalize()
+	function CPlayerAttack2State:__Finalize()
 	end
