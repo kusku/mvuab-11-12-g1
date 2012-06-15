@@ -63,3 +63,18 @@ function get_distance_to_player( _enemy, _player )
 	
 	return l_distance
 end
+
+-- -------------------------------------------------------------------------------------
+--  angle_filter: Transforma un ángulo en un valor entre 0 y 2*pi
+-- -------------------------------------------------------------------------------------
+function angle_filter(_angle)
+	l_angle = _angle	
+	--[[local l_2_pi = 2 * math.pi
+	if l_angle > l_2_pi then
+		l_angle = l_angle - l_2_pi
+	elseif l_angle < -l_2_pi then
+		l_angle = l_angle + l_2_pi
+	end]]--
+	
+	return l_angle
+end

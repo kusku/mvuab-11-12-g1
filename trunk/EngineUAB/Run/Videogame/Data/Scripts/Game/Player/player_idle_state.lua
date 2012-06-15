@@ -1,23 +1,64 @@
 class 'CPlayerIdleState' (CState)
 	function CPlayerIdleState:__init() 
 		CState.__init(self)
+		self.action_2_input = core:get_action_to_input()
 	end
 
 	function CPlayerIdleState:OnEnter(_CCharacter)
-		if not ( _CCharacter == nil ) then
-			num = _CCharacter:get_animation_id("idle")
-			_CCharacter:get_animation_model():blend_cycle( num, 0.3 )
-		end
 	end
 	
 	function CPlayerIdleState:Execute(_CCharacter)
+		if self.action_2_input:do_action('PlayerTarget') then
+			--Se asigna un target
+			if not _CCharacter.is_target_fixed then
+				if _CCharacter:detect_enemy() ~= nil then
+					_CCharacter.is_target_fixed = true
+				end
+			else
+				_CCharacter.is_target_fixed = false
+			end
+		end
+	
+		if self.action_2_input:do_action('AttackPlayer') then
+			--El jugador ataca
+			if _CCharacter.is_target_fixed then
+				_CCharacter.logic_fsm:change_state(_CCharacter.target_attack)
+				_CCharacter.graphic_fsm:change_state(_CCharacter.animated_attack)
+			else
+				_CCharacter.logic_fsm:change_state(_CCharacter.attack)
+				_CCharacter.graphic_fsm:change_state(_CCharacter.animated_attack)
+			end
+			
+		elseif 	self.action_2_input:do_action('MovePlayerUp') or 
+				self.action_2_input:do_action('MovePlayerDown') or 
+				self.action_2_input:do_action('MovePlayerLeft') or
+				self.action_2_input:do_action('MovePlayerRight') then
+			if _CCharacter.is_target_fixed then
+				_CCharacter.logic_fsm:change_state(_CCharacter.target_run)
+				_CCharacter.graphic_fsm:change_state(_CCharacter.animated_run)
+			else
+				_CCharacter.logic_fsm:change_state(_CCharacter.run)
+				_CCharacter.graphic_fsm:change_state(_CCharacter.animated_run)
+			end
+		end
+		
+		--Actualización del yaw a partir del movimiento del mouse
+		l_d = self.action_2_input:do_action_mouse('YawPlayer')
+		_CCharacter.yaw = _CCharacter.yaw + l_d
+		_CCharacter.yaw = angle_filter(_CCharacter.yaw)
+		
+		--Actualiza el personaje
+		_CCharacter.physic_controller:move(Vect3f(0.0, 0.0, 0.0), _CCharacter.elapsed_time)
+		
+		--Actualiza la posición del objeto 3D
+		_CCharacter.position = _CCharacter.physic_controller.position
+		_CCharacter.position = Vect3f(_CCharacter.position.x, _CCharacter.position.y - _CCharacter.physic_controller.height + 0.4, _CCharacter.position.z)
+		
+		--Actualiza la posición del modelo animado
+		_CCharacter.animated_model.position = _CCharacter.position
 	end
 	
 	function CPlayerIdleState:OnExit(_CCharacter)
-		if not ( _CCharacter == nil ) then
-			num = _CCharacter:get_animation_id("idle")
-			_CCharacter:get_animation_model():clear_cycle( num, 0.3 )
-		end
 	end
 	
 	function CPlayerIdleState:OnMessage(_CCharacter, _Msg)

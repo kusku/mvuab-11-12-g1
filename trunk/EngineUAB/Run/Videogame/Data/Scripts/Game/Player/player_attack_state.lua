@@ -4,27 +4,30 @@ class 'CPlayerAttackState' (CState)
 	end
 
 	function CPlayerAttackState:OnEnter(_CCharacter)
-		if not ( _CCharacter == nil ) then
-			num = _CCharacter:get_animation_id("attack1")
-			_CCharacter:get_animation_model():execute_action( num, 0.3 )
-		end
+		print_logger(0, "attack enter")
+		self.animation_time = 0.0
 	end
 	
 	function CPlayerAttackState:Execute(_CCharacter)
-		--[[local user_data = get_game_process():get_character_manager():shoot_player_raycast()
-		if get_game_process():get_character_manager():exist_enemy_user_data(user_data) then
-			print_logger(0, "tocat")
+		print_logger(0, "attack execute")
+		if self.animation_time > _CCharacter.animated_model:get_current_animation_duration("attack1") then
+			_CCharacter.logic_fsm:change_state(_CCharacter.idle)
+			_CCharacter.graphic_fsm:change_state(_CCharacter.animated_idle)
+			
+			--if core:get_action_to_input():do_action('AttackPlayer') then
+				--_CCharacter.graphic_fsm:change_state(_CCharacter.idle)
+				--print_logger(0, "posa atac 2")
+			--else
+				--_CCharacter.graphic_fsm:change_state(_CCharacter.idle)
+				--print_logger(0, "posa idle")
+			--end
 		else
-			print_logger(0, "no tocat")
-		end]]--
+			print_logger(0, "time elapsed")
+			self.animation_time = self.animation_time + _CCharacter.elapsed_time
+		end
 	end
 	
 	function CPlayerAttackState:OnExit(_CCharacter)
-		if not ( _CCharacter == nil ) then
-			num = _CCharacter:get_animation_id("attack1")
-			_CCharacter:get_animation_model():clear_cycle( num, 0.1 )
-		end
-		
 		local enemy = get_game_process():get_character_manager():search_target_enemy(8.0, math.pi/6)
 		if enemy ~= nil then
 			
