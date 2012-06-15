@@ -37,8 +37,8 @@ class 'CPlayer' (CCharacter)
 		l_lfsm.current_state = self.idle
 		l_lfsm:change_state(self.idle)
 
-		--self.animated_model.yaw = (self.yaw * math.pi / 180.0) + 90.0
-		--self.animated_model.pitch = 0
+		self.animated_model.yaw = (self.yaw * math.pi / 180.0) + 90.0
+		self.animated_model.pitch = 0
 		return true
 	end
 	
@@ -52,6 +52,12 @@ class 'CPlayer' (CCharacter)
 			l_d = core:get_action_to_input():do_action_mouse('PitchPlayer')
 			self.pitch = self.pitch + l_d
 			self.pitch = angle_filter(self.pitch)
+			local l_pi = math.pi
+			if self.pitch > l_pi/12 then
+				self.pitch = l_pi/12
+			elseif self.pitch < -l_pi/6 then
+				self.pitch = -l_pi/6
+			end
 			
 			--Crea el salto del player
 			--if action_2_input:do_action('PlayerJump') then

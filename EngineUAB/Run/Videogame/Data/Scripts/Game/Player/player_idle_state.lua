@@ -16,6 +16,7 @@ class 'CPlayerIdleState' (CState)
 				end
 			else
 				_CCharacter.is_target_fixed = false
+				get_game_process():get_character_manager().target_enemy = nil
 			end
 		end
 	
@@ -43,9 +44,11 @@ class 'CPlayerIdleState' (CState)
 		end
 		
 		--Actualización del yaw a partir del movimiento del mouse
-		l_d = self.action_2_input:do_action_mouse('YawPlayer')
-		_CCharacter.yaw = _CCharacter.yaw + l_d
-		_CCharacter.yaw = angle_filter(_CCharacter.yaw)
+		if not _CCharacter.is_target_fixed then
+			l_d = self.action_2_input:do_action_mouse('YawPlayer')
+			_CCharacter.yaw = _CCharacter.yaw + l_d
+			_CCharacter.yaw = angle_filter(_CCharacter.yaw)
+		end
 		
 		--Actualiza el personaje
 		_CCharacter.physic_controller:move(Vect3f(0.0, 0.0, 0.0), _CCharacter.elapsed_time)

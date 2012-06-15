@@ -69,12 +69,12 @@ end
 -- -------------------------------------------------------------------------------------
 function angle_filter(_angle)
 	l_angle = _angle	
-	--[[local l_2_pi = 2 * math.pi
+	local l_2_pi = 2 * math.pi
 	if l_angle > l_2_pi then
 		l_angle = l_angle - l_2_pi
 	elseif l_angle < -l_2_pi then
 		l_angle = l_angle + l_2_pi
-	end]]--
+	end
 	
 	return l_angle
 end

@@ -5,16 +5,18 @@ class 'CPlayerTargetRunState' (CState)
 	end
 
 	function CPlayerTargetRunState:OnEnter(_CCharacter)
-		self.enemy_detected = _CCharacter:detect_enemy()
+		self.enemy_detected = get_game_process():get_character_manager().target_enemy
+		if self.enemy_detected == nil then
+			self.enemy_detected = _CCharacter:detect_enemy()
+		end
 	end
 	
 	function CPlayerTargetRunState:Execute(_CCharacter)
-		print_logger(0, "execute run target")
 		local l_d = 0.0
 		local l_yaw = 0.0
 		local l_dir = Vect3f(0.0, 0.0, 0.0)
 		local l_move_player = false
-	
+		
 		--Mira si se desbloquea el target
 		if self.action_2_input:do_action('PlayerTarget') then
 			_CCharacter.is_target_fixed = false
@@ -26,17 +28,12 @@ class 'CPlayerTargetRunState' (CState)
 		l_enemy_dir.y = 0.0
 		l_enemy_dir:normalize(1.0)
 		l_player_dir:normalize(1.0)
-		l_d = l_enemy_dir:dot(l_player_dir) --Calcula el ángulo entre donde mira el personaje y la dirección hacia el enemigo
+		l_d = l_enemy_dir:dot(l_player_dir) --Calcula el ángulo entre donde mira el personaje y la dirección hacia el enemigo		
 		l_d = math.acos(l_d)
-		if (math.deg(l_d) > 0.1 or math.deg(l_d) < -0.1)  then
-			if( l_d < 0.0 ) then
-				print_logger(0,"més petit")
-			end
+		
+		if (math.deg(l_d) > 0.1)  then
 			_CCharacter.yaw = _CCharacter.yaw - l_d
-			_CCharacter.yaw = angle_filter(_CCharacter.yaw)
-			l_move_player = true
 		end
-	
 		l_yaw = _CCharacter.yaw
 		--Se mueve el personaje con el target asignado
 		if self.action_2_input:do_action('MovePlayerUp') then
@@ -48,13 +45,13 @@ class 'CPlayerTargetRunState' (CState)
 			l_move_player = true
 		
 		elseif self.action_2_input:do_action('MovePlayerLeft') then
-			--l_dir = l_dir:cross(Vect3f(0.0, 1.0, 0.0))
 			local l_vector_yaw = l_yaw + math.pi/2
 			l_dir = Vect3f(math.cos(l_vector_yaw), 0.0, math.sin(l_vector_yaw))
 			l_move_player = true
 			
 		elseif self.action_2_input:do_action('MovePlayerRight') then
-			local l_vector_yaw = l_yaw -  math.pi/2
+			_CCharacter.yaw = l_yaw + 2*l_d
+			local l_vector_yaw = _CCharacter.yaw - math.pi/2
 			l_dir = Vect3f(math.cos(l_vector_yaw), 0.0, math.sin(l_vector_yaw))
 			l_move_player = true
 		
@@ -62,6 +59,7 @@ class 'CPlayerTargetRunState' (CState)
 			l_dir = Vect3f(0.0, 0.0, 0.0)
 		end
 		
+		_CCharacter.yaw = angle_filter(_CCharacter.yaw)
 		--Le aplica la velocidad al movimiento
 		l_dir = l_dir * 10.0 * _CCharacter.elapsed_time
 		
