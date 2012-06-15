@@ -55,11 +55,11 @@ LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 			if( g_pGameProcess == NULL )
 			{
 				g_pGameProcess = new CGameProcess(g_hWnd);
+				CORE->SetProcess(g_pGameProcess);
 				g_pGameProcess->Init();
 			}
 
 			g_pEngine->SetProcess( g_pGameProcess );
-			CORE->SetProcess(g_pGameProcess);
 			CORE->SetGameMode(true);
 			break;
 		}
@@ -68,11 +68,11 @@ LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 			if( g_pGUIProcess == NULL )
 			{
 				g_pGUIProcess = new CGUIProcess(g_hWnd);
+				CORE->SetProcess(g_pGUIProcess);
 				g_pGUIProcess->Init();
 			}
 
 			g_pEngine->SetProcess( g_pGUIProcess );
-			CORE->SetProcess(g_pGUIProcess);
 			CORE->SetGameMode(false);
 			break;
 		}
@@ -118,7 +118,7 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 
 			g_pEngine->SetProcess(g_pGameProcess);
 			g_pEngine->Init(g_hWnd);
-		
+
 			CORE->SetGameMode(true);
 		}
 		
