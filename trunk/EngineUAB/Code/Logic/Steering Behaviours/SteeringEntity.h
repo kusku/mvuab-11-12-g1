@@ -42,6 +42,9 @@ public:
 	inline void					SetBoundingRadius			( float _BoundingRadius )					{ m_BoundingRadius = _BoundingRadius; }
 	inline const Vect2f			GetBoundingRadius			( void ) const								{ return m_BoundingRadius; }
 
+	// Devuelvo la velocidad como float
+	inline const float			GetSpeed					( void ) const								{ return  m_Velocity.Length(); }
+
 	// Devuelvo el angulo entre la posición y el objetivo
 	inline const float			GetAngle					( void ) const								{ return Vect2f(m_PreviousPosition.y - m_Position.y, m_PreviousPosition.x - m_Position.x).GetAngle(); }
 

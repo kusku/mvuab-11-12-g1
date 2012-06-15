@@ -15,7 +15,7 @@ class CSteering
 {
 public:
 	//--- Init and End protocols------------------------------------------
-							CSteering			( BehaviorType _Type );
+							CSteering			( eBehaviorType _Type );
 	virtual					~CSteering			( void );
 
 	//---- Main Functions ---------------------------------------
@@ -24,7 +24,7 @@ public:
 	//---- Functions ---------------------------------------
 
 	//---- Properties ( get & Set )---------------------------------------
-	inline BehaviorType		GetType				( void ) const		{ return m_Type; }		// Tipo del steering concreto, se establece en el constructor
+	inline eBehaviorType		GetType				( void ) const		{ return m_Type; }		// Tipo del steering concreto, se establece en el constructor
 
 	//---- Register Methods -------------------------------------
 private:	
@@ -32,7 +32,7 @@ private:
 
 protected:
 
-	BehaviorType m_Type;		// Tipo del steering concreto
+	eBehaviorType m_Type;		// Tipo del steering concreto
 };
 
 #endif __STEERING_CLASS_H__

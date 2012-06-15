@@ -18,8 +18,12 @@
     <ClCompile Include="StatesMachine\BaseGameEntity.cpp" />
     <ClCompile Include="StatesMachine\EntityManager.cpp" />
     <ClCompile Include="StatesMachine\MessageDispatcher.cpp" />
+    <ClCompile Include="Steering Behaviours\Arrive.cpp" />
+    <ClCompile Include="Steering Behaviours\Pursuit.cpp" />
+    <ClCompile Include="Steering Behaviours\Seek.cpp" />
     <ClCompile Include="Steering Behaviours\Steering.cpp" />
     <ClCompile Include="Steering Behaviours\SteeringBehaviours.cpp" />
+    <ClCompile Include="Steering Behaviours\SteeringEntity.cpp" />
     <ClCompile Include="Triggers\TriggersManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -37,9 +41,13 @@
     <ClInclude Include="StatesMachine\StateMachine.h" />
     <ClInclude Include="StatesMachine\StateMachineDef.h" />
     <ClInclude Include="StatesMachine\Telegram.h" />
+    <ClInclude Include="Steering Behaviours\Arrive.h" />
+    <ClInclude Include="Steering Behaviours\Pursuit.h" />
+    <ClInclude Include="Steering Behaviours\Seek.h" />
     <ClInclude Include="Steering Behaviours\Steering.h" />
     <ClInclude Include="Steering Behaviours\SteeringBehaviours.h" />
     <ClInclude Include="Steering Behaviours\SteeringBehavioursDefs.h" />
+    <ClInclude Include="Steering Behaviours\SteeringEntity.h" />
     <ClInclude Include="Triggers\TriggersManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
