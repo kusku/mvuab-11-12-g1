@@ -5,6 +5,7 @@
 #include "Scripting\ScriptManager.h"
 #include "RenderableObjects\RenderableObjectsLayersManager.h"
 #include "RenderableObjects\RenderableObjectsManager.h"
+#include "StatesMachine\EntityManager.h"
 #include "ActionToInput.h"
 #include "RegisterToLua.h"
 #include "Core.h"
@@ -61,6 +62,8 @@ void CGameProcess::CleanUp( void )
 {
 	//m_FreeCamera = NULL;
 	//m_StaticCamera = NULL;
+	ENTMGR->RemoveEntities();
+
 	m_pCamera = NULL;
 	CHECKED_DELETE( m_pThPSFreeCamera );
 	CHECKED_DELETE( m_pThPSCamera );
@@ -135,6 +138,7 @@ void CGameProcess::Update(float elapsedTime)
 void CGameProcess::ReloadGameObjects( void )
 {
 	CleanUp();
+	//SCRIPT->RegisterLUAMethods();
 	LoadGameObjects();
 }
 
@@ -162,10 +166,10 @@ void CGameProcess::LoadGameObjects()
 	if ( !m_IsOK )
 		return;
 
-	// por si se desea hacer alguna mariconada...
-	//SCRIPT->RunCode("init_game_data()");
-
 	CBaseGameEntity::Initialize();
+
+	// por si se desea hacer alguna mariconada...
+	SCRIPT->RunCode("init_game_data()");
 
 	// Inicializa el gestor de player y enemigos. Carga propiedades y estados de todo.
 	if ( !m_pCharactersManager->Initialize ( ) )

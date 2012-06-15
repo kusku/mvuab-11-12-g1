@@ -23,7 +23,7 @@ private:
 
 public:
 	// ------------- Constructors i Destructors --------------
-							CEntityManager	( void )		{ RegisterMethods( SCRIPT->GetLuaState() ); }
+							CEntityManager	( void )		{};
 							~CEntityManager	( void )		{};
 
 	//static	CEntityManager*	Instance();
@@ -31,8 +31,9 @@ public:
 	// ------------- Funcions Principals ---------------------
 	// Almacena un puntero a la entidad en el std::vector m_Entities en la posición inbdicada por el ID de la entidad. Permite un acceso rápido
 	void					RegisterEntity	( CBaseGameEntity* _pNewEntity );
+	void					RemoveEntities	( void );
 
-	void					RegisterMethods	( lua_State* _pLua );
+	static void				RegisterMethods	( void );
 
 	// ------------- Propietats ( Get / Set ) ----------------
 	// Devuelve el puntero de la entidad a partir del ID dado 

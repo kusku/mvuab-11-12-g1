@@ -78,9 +78,6 @@
     <ClInclude Include="Movement\WayPoint.h">
       <Filter>IA\Movement</Filter>
     </ClInclude>
-    <ClInclude Include="StatesMachine\ScriptedStateMachine.h">
-      <Filter>IA\State Machine</Filter>
-    </ClInclude>
     <ClInclude Include="Steering Behaviours\Steering.h">
       <Filter>IA\Steering Behaviors</Filter>
     </ClInclude>

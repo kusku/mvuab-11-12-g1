@@ -14,7 +14,6 @@ CWayPointManager::CWayPointManager()
 	: m_Filename("")
 {
 	srand ( (uint32)time(NULL) );
-	RegisterMethods();
 }
 
 CWayPointManager::~CWayPointManager()

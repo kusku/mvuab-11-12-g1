@@ -1,6 +1,6 @@
 #pragma once
 
-#define MESSAGEDISPATHER CMessageDispatcher::GetSingletonPtr()
+//#define MESSAGEDISPATHER CMessageDispatcher::GetSingletonPtr()
 
 #include <set>
 #include "MessageDefs.h"
@@ -22,7 +22,7 @@ class CMessageDispatcher : public CSingleton<CMessageDispatcher>
 {
 	// ------------- Constructors i Destructors ----------------
 public:
-				CMessageDispatcher	( void )		{ RegisterMethods( SCRIPT->GetLuaState() ); }
+				CMessageDispatcher	( void )		{}
 				~CMessageDispatcher	( void )		{}
 
 public:
@@ -37,7 +37,7 @@ public:
 	void		DispatchDelayedMessages ( void );
 	
 	// Permite registrar clase y mètodos para Lua
-	void		RegisterMethods	( lua_State* _pLua );
+	static void	RegisterMethods	( void );
 
 	// ------------- Mètodes -----------------------------------
 private:

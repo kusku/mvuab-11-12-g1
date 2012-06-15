@@ -30,12 +30,26 @@ void CEntityManager::RegisterEntity( CBaseGameEntity* _pNewEntity )
 	m_EntityMap.insert( std::make_pair( _pNewEntity->GetID(), _pNewEntity ) );
 }
 
-void CEntityManager::RegisterMethods( lua_State* _pLua )
+void CEntityManager::RemoveEntities( void )
 {
-	module( _pLua)
+	
+	/*TEntityMap::iterator l_It	= m_EntityMap.begin();
+	TEntityMap::iterator l_End	= m_EntityMap.end();
+	for ( ; l_It != l_End; ++l_It )
+	{
+		m_EntityMap.erase (l_It);
+	}*/
+	m_EntityMap.clear();
+}
+
+void CEntityManager::RegisterMethods( void )
+{
+	lua_State* l_pLua = SCRIPT->GetLuaState();
+
+	module( l_pLua)
 		[
 			class_<CEntityManager> ("CEntityManager")
-				/*.def("",&Telegram::Msg)
-				.def_readwrite("ExtraInfo", &Telegram::ExtraInfo)*/
+				.def("get_entity_from_id",&CEntityManager::GetEntityFromID)
+				.def("remove_entities", &CEntityManager::RemoveEntities)
 		];
 }
