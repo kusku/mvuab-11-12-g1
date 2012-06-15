@@ -11,7 +11,7 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 
-CSteering::CSteering( BehaviorType _Type )
+CSteering::CSteering( eBehaviorType _Type )
 	: m_Type ( _Type )
 {}
 

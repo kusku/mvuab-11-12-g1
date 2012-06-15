@@ -1,21 +1,24 @@
 #pragma once
 
-#ifndef __CLASS_SEEK_H__
-#define __CLASS_SEEK_H__
+#ifndef __CLASS_ARRIVE_H__
+#define __CLASS_ARRIVE_H__
 
 #include "Math\Vector2.h"
 #include "Steering Behaviours\Steering.h"
+#include "SteeringBehavioursDefs.h"
 
 //--- Foward Declarations ---
 class CSteeringEntity;
 //---------------------------
 
-class CSeek : public CSteering
+class CArrive : public CSteering
 {
 public:
+
+
 	//--- Init and End protocols------------------------------------------
-							CSeek			( void );
-	virtual					~CSeek			( void );
+							CArrive				( eDeceleration _Deceleration, float _DecelerationBeginsAtDistance );
+	virtual					~CArrive			( void );
 
 	//---- Main Functions ---------------------------------------
 	virtual	Vect2f			CalculateSteering	( CSteeringEntity *_pEntity );					// Método que deberá ser sobreescrito en cada clase que herede de Steering
@@ -23,14 +26,18 @@ public:
 	//---- Functions ---------------------------------------
 
 	//---- Properties ( get & Set )---------------------------------------
-	inline eBehaviorType		GetType				( void ) const		{ return m_Type; }		// Tipo del steering concreto, se establece en el constructor
+	inline eBehaviorType	GetType			( void ) const						{ return m_Type; }			// Tipo del steering concreto, se establece en el constructor
+	
+	inline const Vect2f&	GetTarget		( void ) 							{ return (m_Target); }		
+	inline void				SetTarget		( const Vect2f & _Target ) 			{ m_Target = _Target; }		
 
 	//---- Register Methods -------------------------------------
 	
 	//---- Members -----------------------------------------------
 private:
-		Vect2f	m_Target;
-
+		Vect2f			m_Target;
+		eDeceleration	m_Deceleration;
+		float	 		m_DecelerationBeginsAtDistance;
 };
 
-#endif __CLASS_SEEK_H__
+#endif __CLASS_ARRIVE_H__

@@ -3,7 +3,7 @@
 #ifndef __STEERING_BEHAVIOURS_DEFINITIONS_H__
 #define __STEERING_BEHAVIOURS_DEFINITIONS_H__
 
-enum BehaviorType
+enum eBehaviorType
 {
     none = 0x00000,
     seek = 0x00002,
@@ -22,6 +22,13 @@ enum BehaviorType
     hide = 0x04000,
     flock = 0x08000,
     offset_pursuit = 0x10000,
+};
+
+enum eDeceleration 
+{ 
+    slow	= 3, 
+    normal	= 2, 
+    fast	= 1 
 };
 
 #endif __STEERING_BEHAVIOURS_DEFINITIONS_H__
