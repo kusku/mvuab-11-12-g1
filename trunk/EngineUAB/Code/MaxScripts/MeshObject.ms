@@ -449,7 +449,7 @@ struct VIBuffers
 	function WriteIndexBufferToFile file	=
 	(
 		--Write how many indexes we have
-		WriteShort file IndexBuffer.count #unsigned
+		WriteLong file IndexBuffer.count #unsigned
 		
 		-- Write the index buffer to file
 		for i = 1 to IndexBuffer.count do
@@ -462,7 +462,7 @@ struct VIBuffers
 	function WriteVertexBufferToFile file =
 	(
 		--Write how many vertexs we have
-		WriteShort file VertexBuffer.count #unsigned
+		WriteLong file VertexBuffer.count #unsigned
 		
 		--Write the vertex buffer to file
 		for i = 1 to VertexBuffer.count do
@@ -649,6 +649,7 @@ struct MeshObj
 	Translation,
 	IsInstance,
 	InstanceName,
+	ParentInstance,
 	RelativeMeshFileName,
 	RenderExport,
 	RenderVisible,
@@ -887,6 +888,8 @@ struct MeshObj
 		
 		if IsInstance == false then
 		(
+			format "Parent Instance: % \n" ParentInstance
+			
 			format "Num Materials: % \n" MeshBuffers.count
 			
 			format "Has Boc Attributes: % \n" (BocMeshAttributes != undefined)
@@ -1012,16 +1015,23 @@ struct SceneObj
 				format "% % %" MeshObjs[i].Translation.x MeshObjs[i].Translation.y MeshObjs[i].Translation.z to:pos
 				
 				local coreName = MeshObjs[i].InstanceName
+				local nodeName = "mesh_instance_hw"
 				
 				if ( MeshObjs[i].IsInstance == false ) then
 				(
 					coreName = MeshObjs[i].MeshName
+					
+					if MeshObjs[i].ParentInstance == false then
+					(
+						nodeName = "mesh_instance"
+					)
 				)
 				
 				if ( MeshObjs[i].RenderExport == "static_mesh" ) then
 				(
-					format "\t<mesh_instance name=\"%\" core=\"%\" position=\"%\" yaw=\"%\" pitch=\"%\" roll=\"%\" scale=\"1.0 1.0 1.0\" " MeshObjs[i].MeshName coreName (pos as string) MeshObjs[i].YawAngle MeshObjs[i].PitchAngle MeshObjs[i].RollAngle to:file
+					format "\t<% name=\"%\" core=\"%\" position=\"%\" yaw=\"%\" pitch=\"%\" roll=\"%\" scale=\"1.0 1.0 1.0\" " nodeName MeshObjs[i].MeshName coreName (pos as string) MeshObjs[i].YawAngle MeshObjs[i].PitchAngle MeshObjs[i].RollAngle to:file
 					format "visible=\"%\" " MeshObjs[i].RenderVisible to:file
+					
 					if MeshObjs[i].RenderLayer != "undefined" then
 					(
 						format "layer=\"%\" " MeshObjs[i].RenderLayer to:file
@@ -1118,7 +1128,7 @@ function CreateVertex pos nrm tex tex2 diffCol VertexType =
 
 function CreateMeshStruct =
 (
-	local meshObject = MeshObj  MeshPath:"" MeshName:"" MeshBuffers:#() BBox:0 BSphere:0 BocMeshAttributes:0 MeshFileName:"" YawAngle:0 PitchAngle:0 RollAngle:0 Translation:0 IsInstance:False InstanceName:"" RelativeMeshFileName:"" RenderExport:"" RenderVisible:"" RenderLayer:"" AnimModelCore:"" PhysicsType:"" VtxNormalBuffer:#()
+	local meshObject = MeshObj  MeshPath:"" MeshName:"" MeshBuffers:#() BBox:0 BSphere:0 BocMeshAttributes:0 MeshFileName:"" YawAngle:0 PitchAngle:0 RollAngle:0 Translation:0 IsInstance:False InstanceName:"" ParentInstance:false RelativeMeshFileName:"" RenderExport:"" RenderVisible:"" RenderLayer:"" AnimModelCore:"" PhysicsType:"" VtxNormalBuffer:#()
 	
 	return meshObject
 )
