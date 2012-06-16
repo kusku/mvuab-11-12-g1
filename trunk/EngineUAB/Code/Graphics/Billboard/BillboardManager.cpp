@@ -5,6 +5,7 @@
 #include "base.h"
 #include "core.h"
 #include "Logger\Logger.h"
+#include "Graphic States\GraphicStates.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -60,6 +61,7 @@ void CBillboardManager::Update ( float _ElapsedTime )
 
 	for ( ; l_It < l_End; ++l_It )
 	{
+
 		(*l_It)->Update( _ElapsedTime );
 	}	
 }
@@ -69,13 +71,17 @@ void CBillboardManager::Render( CRenderManager &_RM )
 	std::vector<CBillboardAnimation*>::iterator l_It = m_vBillboardAnimationVectorINSTANCES.begin();
 	std::vector<CBillboardAnimation*>::iterator l_End = m_vBillboardAnimationVectorINSTANCES.end();
 
+	CORE->GetRenderManager()->SetGraphicBlendState(TGraphicBlendStates::NonPremultiplied);
+
 	for ( ; l_It < l_End; ++l_It )
 	{
 		if( (*l_It)->GetVisible() )
 		{
 			(*l_It)->Render( _RM );
 		}
-	}	
+	}
+
+	CORE->GetRenderManager()->SetGraphicBlendState(TGraphicBlendStates::DefaultState);
 }
 
 // -----------------------------------------
