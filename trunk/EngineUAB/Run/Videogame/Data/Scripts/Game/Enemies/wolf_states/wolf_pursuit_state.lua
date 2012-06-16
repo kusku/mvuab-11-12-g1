@@ -7,6 +7,8 @@ class 'CWolfPursuitState' (CState)
 	function CWolfPursuitState:OnEnter(_CCharacter)
 		--print_logger(0, "CWolfPursuitState:Enter")
 		if not ( _CCharacter == nil ) then
+			num = _CCharacter:get_animation_id("run")
+			_CCharacter:get_animation_model():blend_cycle( num, 0.3 )
 		end
 	end
 	
@@ -28,11 +30,20 @@ class 'CWolfPursuitState' (CState)
 	function CWolfPursuitState:OnExit(_CCharacter)
 		--print_logger(0, "CWolfPursuitState:Exit")
 		if not ( _CCharacter == nil ) then
+			num = _CCharacter:get_animation_id("run")
+			_CCharacter:get_animation_model():clear_cycle( num, 0.3 )
 		end
 	end
 	
 	function CWolfPursuitState:OnMessage(_CCharacter, _Msg)
 		print_logger(0, "CWolfPursuitState:OnMessage")
+		if ( _Msg.Msg == msg_attack ) then
+			print_logger(0, "Missatge acceptat per el llob")
+			-- If depend tipus d'atac... treu més o menys vida... --
+			_CCharacter:rest_life( 1 )
+			print_logger(0, "WOLF life : ".._CCharacter.properties.life)
+			return true
+		end
 		return false
 	end
 	
