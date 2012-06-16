@@ -9,8 +9,8 @@
 #endif
 
 
-CParticleEmitterRing::CParticleEmitterRing(const std::string& name, CParticleSystem* particleSystem, float particlesPerSecond, const Vect3f& initialPosition, bool horizontal, float radius, float height, float width)
-	: CParticleEmitter(name, particleSystem, particlesPerSecond, initialPosition)
+CParticleEmitterRing::CParticleEmitterRing(const std::string& name, CParticleSystem* particleSystem, float particlesPerSecond, const Vect3f& initialPosition, bool useDis, bool horizontal, float radius, float height, float width)
+	: CParticleEmitter(name, particleSystem, particlesPerSecond, initialPosition, useDis)
 	, m_Horizontal(horizontal)
 	, m_Radius(radius)
 	, m_Height(height)

@@ -22,7 +22,7 @@ class CParticleEmitterRing : public CParticleEmitter
 		Vect3f				CalculateParticlePosition	();
 
 	public:
-		CParticleEmitterRing(const std::string& name, CParticleSystem* particleSystem, float particlesPerSecond, const Vect3f& initialPosition, bool horizontal = false, float radius = 30.0f, float height = 40.0f, float width = 40.0f);
+		CParticleEmitterRing(const std::string& name, CParticleSystem* particleSystem, float particlesPerSecond, const Vect3f& initialPosition, bool useDis, bool horizontal = false, float radius = 30.0f, float height = 40.0f, float width = 40.0f);
 		virtual ~CParticleEmitterRing();
 };
 

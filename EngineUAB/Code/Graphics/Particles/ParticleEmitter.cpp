@@ -7,7 +7,7 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-CParticleEmitter::CParticleEmitter(const std::string& name, CParticleSystem* particleSystem, float particlesPerSecond, const Vect3f& initialPosition)
+CParticleEmitter::CParticleEmitter(const std::string& name, CParticleSystem* particleSystem, float particlesPerSecond, const Vect3f& initialPosition, bool useDis)
 	: m_Name(name)
 	, m_ParticleSystem(particleSystem)
 	, m_TimeBetweenParticles(1.0f / particlesPerSecond)
@@ -19,6 +19,7 @@ CParticleEmitter::CParticleEmitter(const std::string& name, CParticleSystem* par
 	, m_TimeLeftOver(0.0f)
 	, m_ParticleCount(0)
 	, m_ParticlesEjectionCount(0)
+	, m_UseDis(useDis)
 {
 	assert(particleSystem);
 }
@@ -29,6 +30,18 @@ CParticleEmitter::~CParticleEmitter()
 
 void CParticleEmitter::Update(float elapsedTime)
 {
+	Vect3f velocity = v3fZERO;
+	Vect3f previous = v3fZERO;
+
+	if(m_HasNewPosition && m_UseDis)
+	{
+		previous = m_PreviousPosition;
+		velocity = m_CurrentPosition - m_PreviousPosition;
+		velocity = velocity / elapsedTime;
+		m_HasNewPosition = false;
+		m_PreviousPosition = m_CurrentPosition;
+	}
+
 	if(!m_OnLoop && !m_EjectParticles)
 	{
 		return;
@@ -36,13 +49,6 @@ void CParticleEmitter::Update(float elapsedTime)
 
 	if (elapsedTime > 0 && m_ParticleSystem != NULL)
 	{
-		Vect3f velocity = v3fZERO;
-
-		if(m_HasNewPosition)
-		{
-			velocity = m_CurrentPosition - m_PreviousPosition;
-			velocity = velocity / elapsedTime;
-		}
 
 		float timeToSpend = m_TimeLeftOver + elapsedTime;
 
@@ -55,7 +61,7 @@ void CParticleEmitter::Update(float elapsedTime)
 
 			float mu = currentTime / elapsedTime;
 
-			Vect3f position = m_PreviousPosition;
+			Vect3f position = previous;
 			position.Lerp(m_CurrentPosition, mu);
 
 			position += CalculateParticlePosition();

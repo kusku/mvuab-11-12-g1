@@ -25,6 +25,7 @@ class CParticleEmitter
 
 		bool						m_HasNewPosition;
 		Vect3f						m_CurrentPosition;
+		bool						m_UseDis;
 
 		bool						m_OnLoop;
 		bool						m_EjectParticles;
@@ -34,7 +35,7 @@ class CParticleEmitter
 		virtual Vect3f				CalculateParticlePosition	() = 0;
 
 	public:
-		CParticleEmitter(const std::string& name, CParticleSystem* particleSystem, float particlesPerSecond, const Vect3f& initialPosition);
+		CParticleEmitter(const std::string& name, CParticleSystem* particleSystem, float particlesPerSecond, const Vect3f& initialPosition, bool useDis);
 		virtual ~CParticleEmitter();
 
 		inline void SetParticlesEjectionCount(uint32 particleEjectionCount)

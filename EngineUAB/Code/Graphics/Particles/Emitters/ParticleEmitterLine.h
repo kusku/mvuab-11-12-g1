@@ -20,7 +20,7 @@ class CParticleEmitterLine : public CParticleEmitter
 		Vect3f				CalculateParticlePosition	();
 
 	public:
-		CParticleEmitterLine(const std::string& name, CParticleSystem* particleSystem, float particlesPerSecond, const Vect3f& initialPosition, const Vect3f& lineStart, const Vect3f& lineEnd);
+		CParticleEmitterLine(const std::string& name, CParticleSystem* particleSystem, float particlesPerSecond, const Vect3f& initialPosition, bool useDis, const Vect3f& lineStart, const Vect3f& lineEnd);
 		virtual ~CParticleEmitterLine();
 };
 
