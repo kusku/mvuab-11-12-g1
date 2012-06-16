@@ -80,7 +80,7 @@ class 'CPlayer' (CCharacter)
 		
 		--Mirar si el personaje está muerto
 		if self.properties.life <= 0 then
-			change_to_gui_process()
+			change_to_game_over_gui_process()
 		end
 		
 		--Actualizamos los estados en caso de cambiar

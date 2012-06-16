@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <triggers>
+	<trigger name="trigger1" triggername="triggername1" layer="pepe" type="box" position="0.0 15.0 0.0" size="10.0 10.0 10.0" color="1.0 0 0 1.0" luacode="print_something()" />
 </triggers>
-
