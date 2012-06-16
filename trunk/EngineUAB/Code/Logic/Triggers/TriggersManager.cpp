@@ -182,32 +182,25 @@ bool CTriggersManager::LoadXML ( void )
 
 void CTriggersManager::OnEnter ( CPhysicUserData* _Entity_Trigger1, CPhysicUserData* _Other_Shape )
 {
-	LOGGER->AddNewLog ( ELL_INFORMATION, "CTriggerTest::OnEnter->Element 1 es : %s" , _Entity_Trigger1->GetName ().c_str () );
-	LOGGER->AddNewLog ( ELL_INFORMATION, "CTriggerTest::OnEnter->Element 2 es : %s" ,_Other_Shape->GetName ().c_str () );
-
-	// Mirem si està marcat com a trigger el primer paràmetre i actor el segon per aplicar el que necessitem. En l'exemple s'usa a l'hora 
-	// de renderitzar
-	CPhysicActor* l_TriggerActor = _Entity_Trigger1->GetActor();
-    if ( ( (CPhysicUserData*)(l_TriggerActor->GetUserData() ) )->GetFlags() & UD_IS_TRIGGER )
-    {
-       /* if (status & NX_TRIGGER_ON_STAY)
-        {
-		}*/
+	std::map<std::string, TriggerInstance>::iterator l_It = m_TriggersMap.begin();
+	std::map<std::string, TriggerInstance>::iterator l_End = m_TriggersMap.end();
+	for(; l_It != l_End; ++l_It)
+	{
+		if( _Entity_Trigger1 == l_It->second.pTriggerActor->GetUserData() )
+		{
+			SCRIPT->RunCode( l_It->second.LuaCode );
+		}
 	}
 }
 
 
 void CTriggersManager::OnLeave ( CPhysicUserData* _Entity_Trigger1, CPhysicUserData* _Other_Shape )
 {
-	LOGGER->AddNewLog ( ELL_INFORMATION, "CTriggerTest::OnLeave->Element 1 es : %s" , _Entity_Trigger1->GetName ().c_str () );
-	LOGGER->AddNewLog ( ELL_INFORMATION, "CTriggerTest::OnLeave->Element 2 es : %s" ,_Other_Shape->GetName ().c_str () );
 }
 
 
 void CTriggersManager::OnStay ( CPhysicUserData* _Entity_Trigger1, CPhysicUserData* _Other_Shape )
 {
-	LOGGER->AddNewLog ( ELL_INFORMATION, "CTriggerTest::OnLeave->Element 1 es : %s" , _Entity_Trigger1->GetName ().c_str () );
-	LOGGER->AddNewLog ( ELL_INFORMATION, "CTriggerTest::OnLeave->Element 2 es : %s" ,_Other_Shape->GetName ().c_str () );
 }
 
 // -----------------------------------------

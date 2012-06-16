@@ -110,7 +110,7 @@ void CGameProcess::Update(float elapsedTime)
 
 	if( CORE->GetActionToInput()->DoAction("GoToMenu") )
 	{
-		SCRIPT->RunCode("change_to_gui_process()");
+		SCRIPT->RunCode("change_to_end_gui_process()");
 	}
 
 	if( CORE->GetActionToInput()->DoAction("CommutationCamera") )

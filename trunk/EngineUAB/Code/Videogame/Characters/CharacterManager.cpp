@@ -749,8 +749,9 @@ bool CCharactersManager::EnemyIsVisibleInAngle(CCharacter *_Enemy, float _Angle)
 	assert( m_pPlayer );
 	assert( _Enemy );
 	assert( _Angle > 0.f );
-
 	//Cogemos la dirección del player
+	//Vect2f dir = Vect2f( mathUtils::Abs(mathUtils::Cos(m_pPlayer->GetYaw())), mathUtils::Abs(mathUtils::Sin(m_pPlayer->GetYaw() ) ) );
+	//Vect3f l_DirPlayer = Vect3f( dir.x, 0.0f, dir.y);
 	Vect3f l_DirPlayer = static_cast<CGameProcess*>(CORE->GetProcess())->GetPlayerCamera()->GetDirection();
 	l_DirPlayer.y = 0.f;
 

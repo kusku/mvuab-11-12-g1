@@ -1,6 +1,7 @@
 <scripts>
 	<script filename="./data/scripts/game/init_game.lua" />
 	<script filename="./data/scripts/game/helpers.lua" />
+	<script filename="./data/scripts/game/triggers.lua" />
 	<script filename="./data/scripts/game/player/player_idle_state.lua" />
 	<script filename="./data/scripts/game/player/player_run_state.lua" />
 	<script filename="./data/scripts/game/player/player_attack_state.lua" />

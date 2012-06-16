@@ -41,6 +41,9 @@ class 'CPlayerAttackState' (CState)
 		
 		--Mueve el controller físico
 		_CCharacter.physic_controller:move(l_dir, _CCharacter.elapsed_time)
+		
+		_CCharacter.physic_controller.yaw = _CCharacter.yaw
+		_CCharacter.animated_model.yaw = -(_CCharacter.yaw * 180.0 / math.pi) + 90.0
 	end
 	
 	function CPlayerAttackState:OnExit(_CCharacter)
