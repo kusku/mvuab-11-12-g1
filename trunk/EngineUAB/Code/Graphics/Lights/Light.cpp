@@ -133,12 +133,12 @@ void CLight::ExtractCommonLightInfo(CXMLTreeNode &XMLNode)
 		//////Depth Stencil
 
 		//Elimina la textura si ya existía
-		std::string l_TextureNameDS = m_Name + "_dynamic_ds";
-		l_pTextureManager->RemoveResource( l_TextureNameDS );
+		//std::string l_TextureNameDS = m_Name + "_dynamic_ds";
+		//l_pTextureManager->RemoveResource( l_TextureNameDS );
 
-		m_DynamicDepthStencil = new CTexture();
-		m_pDynamicShadowMap->CreateDepthStencil(l_WidthDynamicShadowMap, l_HeightDynamicShadowMap, CTexture::D24S8, D3DMULTISAMPLE_8_SAMPLES);
-		l_pTextureManager->AddResource(l_TextureNameDS, m_DynamicDepthStencil);
+		//m_DynamicDepthStencil = new CTexture();
+		//m_pDynamicShadowMap->CreateDepthStencil(l_WidthDynamicShadowMap, l_HeightDynamicShadowMap, CTexture::D24S8, D3DMULTISAMPLE_8_SAMPLES);
+		//l_pTextureManager->AddResource(l_TextureNameDS, m_DynamicDepthStencil);
 	}
 
 	if( m_GenerateStaticShadowMap )
