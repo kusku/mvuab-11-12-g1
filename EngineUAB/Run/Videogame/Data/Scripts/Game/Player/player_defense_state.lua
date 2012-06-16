@@ -5,6 +5,7 @@ class 'CPlayerDefenseState' (CState)
 	end
 
 	function CPlayerDefenseState:OnEnter(_CCharacter)
+		core:get_debug_gui_manager().debug_render:set_state_name("Defense")
 	end
 	
 	function CPlayerDefenseState:Execute(_CCharacter)

@@ -8,5 +8,6 @@
 	<animation name="attack1" filename="caperucita_ataque01.caf"/>
 	<animation name="attack2" filename="caperucita_ataque02.caf"/>
 	<animation name="attack3" filename="caperucita_ataque03.caf"/>
+	<animation name="jump" filename="caperucita_salto.caf"/>
 	<texture filename="df_caperucita.dds"/>
 </animated_model>

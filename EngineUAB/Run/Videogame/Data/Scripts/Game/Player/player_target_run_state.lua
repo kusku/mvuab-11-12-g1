@@ -5,6 +5,8 @@ class 'CPlayerTargetRunState' (CState)
 	end
 
 	function CPlayerTargetRunState:OnEnter(_CCharacter)
+		core:get_debug_gui_manager().debug_render:set_state_name("Target run")
+	
 		self.enemy_detected = get_game_process():get_character_manager().preview_target_enemy
 		if self.enemy_detected == nil then
 			self.enemy_detected = _CCharacter:detect_enemy()
@@ -95,9 +97,14 @@ class 'CPlayerTargetRunState' (CState)
 			_CCharacter.logic_fsm:change_state(_CCharacter.idle)
 			_CCharacter.graphic_fsm:change_state(_CCharacter.animated_idle)
 		else
-			if not _CCharacter.is_target_fixed then
+			--Mira si se hace un salto
+			if self.action_2_input:do_action('PlayerJump') then 
+				_CCharacter.logic_fsm:change_state(_CCharacter.jump)
+				_CCharacter.graphic_fsm:change_state(_CCharacter.animated_jump)
+			elseif not _CCharacter.is_target_fixed then
 				_CCharacter.logic_fsm:change_state(_CCharacter.run)
 				_CCharacter.graphic_fsm:change_state(_CCharacter.animated_run)
+				get_game_process():get_character_manager().target_enemy = nil
 			end
 		end
 	end

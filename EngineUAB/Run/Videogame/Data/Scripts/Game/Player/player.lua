@@ -23,6 +23,7 @@ class 'CPlayer' (CCharacter)
 		self.target_attack2 = CPlayerTargetAttack2State()
 		self.target_attack3 = CPlayerTargetAttack3State()
 		self.defense = CPlayerDefenseState()
+		self.jump = CPlayerJumpState()
 		
 		self.animated_idle = CPlayerAnimationIdleState()
 		self.animated_run = CPlayerAnimationRunState()
@@ -30,6 +31,7 @@ class 'CPlayer' (CCharacter)
 		self.animated_attack2 = CPlayerAnimationAttack2State()
 		self.animated_attack3 = CPlayerAnimationAttack3State()
 		self.animated_defense = CPlayerAnimationDefenseState()
+		self.animated_jump = CPlayerAnimationJumpState()
 		
 		self.animation_time = -1.0
 	end
@@ -60,7 +62,6 @@ class 'CPlayer' (CCharacter)
 			--Calcula el pitch a partir del ratón
 			l_d = core:get_action_to_input():do_action_mouse('PitchPlayer')
 			self.pitch = self.pitch + l_d
-			self.pitch = angle_filter(self.pitch)
 			local l_pi = math.pi
 			if self.pitch > l_pi/12 then
 				self.pitch = l_pi/12
@@ -68,15 +69,11 @@ class 'CPlayer' (CCharacter)
 				self.pitch = -l_pi/6
 			end
 			
+			--Mira si el player hace una defensa
 			if core:get_action_to_input():do_action('DefensePlayer') then
 				self.logic_fsm:change_state(self.defense)
 				self.graphic_fsm:change_state(self.animated_defense)
 			end
-			
-			--Crea el salto del player
-			--if action_2_input:do_action('PlayerJump') then
-				--self.physic_controller:jump(70)
-			--end
 		end
 		
 		--Actualizamos los estados en caso de cambiar

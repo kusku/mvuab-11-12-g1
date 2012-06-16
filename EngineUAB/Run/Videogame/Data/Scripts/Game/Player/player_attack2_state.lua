@@ -4,7 +4,9 @@ class 'CPlayerAttack2State' (CState)
 	end
 
 	function CPlayerAttack2State:OnEnter(_CCharacter)
+		core:get_debug_gui_manager().debug_render:set_state_name("Attack 2")
 		print_logger(0, "State: Attack 2")
+		
 		self.animation_time = 0.0
 	end
 	
