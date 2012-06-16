@@ -52,6 +52,10 @@ CEffect::CEffect(CXMLTreeNode &XMLNode)
 	, m_LightLinNearFarParameter(NULL)
 	, m_ShadowWorldViewMatrixParameter(NULL)
 	, m_ShadowLightLinNearFarParameter(NULL)
+	, m_ElapsedTimeParameter(NULL)
+	, m_TotalElapsedTimeParameter(NULL)
+	, m_TextureDimParameter(NULL)
+	, m_ShadowViewParameter(NULL)
 {
 	m_EffectName = XMLNode.GetPszProperty("name", "");
 	m_FileName = XMLNode.GetPszProperty("file", "");
@@ -106,8 +110,17 @@ bool CEffect::Reload()
 bool CEffect::LoadEffect()
 {
 	LPD3DXBUFFER l_ErrorBuffer=NULL;
-	HRESULT l_HR=D3DXCreateEffectFromFile(CORE->GetRenderManager()->GetDevice(), m_FileName.c_str(), NULL,
-		NULL, D3DXSHADER_DEBUG | D3DXSHADER_OPTIMIZATION_LEVEL0 | D3DXSHADER_SKIPOPTIMIZATION, NULL, &m_Effect, &l_ErrorBuffer);
+
+	std::string extension = "";
+
+#ifdef _DEBUG
+	extension = "_d.fxo";
+#else
+	extension = ".fxo";
+#endif
+
+	HRESULT l_HR=D3DXCreateEffectFromFile(CORE->GetRenderManager()->GetDevice(), (m_FileName + extension).c_str(), NULL,
+		NULL, D3DXSHADER_DEBUG, NULL, &m_Effect, &l_ErrorBuffer);
 	
 	if(FAILED(l_HR) || l_ErrorBuffer)
 	{
@@ -134,6 +147,7 @@ bool CEffect::LoadEffect()
 	GetParameterBySemantic("VIEW", m_ViewMatrixParameter, false);
 	GetParameterBySemantic("WORLD", m_WorldMatrixParameter, false);
 	GetParameterBySemantic("WORLDVIEWPROJECTION", m_WorldViewProjectionMatrixParameter, false);
+	GetParameterBySemantic("VIEWPROJECTION", m_ViewProjectionMatrixParameter, false);
 	GetParameterBySemantic("VIEWINVERSE", m_ViewInverseMatrixParameter, false);
 	GetParameterBySemantic("PROJECTIONINVERSE", m_ProjInverseMatrixParameter, false);
 	GetParameterBySemantic("VIEWPROJECTIONINVERSE", m_ViewProjectionInverseMatrixParameter, false);
@@ -162,6 +176,7 @@ bool CEffect::LoadEffect()
 	GetParameterBySemantic("BONES", m_BonesParameter, false);
 
 	//Shadows
+	GetParameterBySemantic("SHADOW_VIEW", m_ShadowViewParameter, false);
 	GetParameterBySemantic("SHADOW_WORLDVIEW", m_ShadowWorldViewMatrixParameter, false);
 	GetParameterBySemantic("SHADOW_VIEWPROJECTION", m_ShadowViewProjectionMatrixParameter, false);
 	GetParameterBySemantic("SHADOW_CAMERA_POSITION", m_ShadowCameraPositionParameter, false);
@@ -182,6 +197,9 @@ bool CEffect::LoadEffect()
 	//Misc
 	GetParameterBySemantic("HALFPIXEL", m_HalfPixelParameter, false);
 	GetParameterBySemantic("RENDER_TARGET_SIZE", m_RenderTargetSizeParameter, false);
+	GetParameterBySemantic("ELAPSED_TIME", m_ElapsedTimeParameter, false);
+	GetParameterBySemantic("TOTAL_ELAPSED_TIME", m_TotalElapsedTimeParameter, false);
+	GetParameterBySemantic("TEXTURE_DIM", m_TextureDimParameter, false);
 
 	//Parameters
 	for(uint16 i=0; i<MAX_PARAMS_BY_EFFECT; ++i)
@@ -216,6 +234,7 @@ D3DXHANDLE CEffect::GetTechniqueByName(const std::string &TechniqueName)
 
 void CEffect::SetNullParameters()
 {
+	m_ShadowViewParameter						= NULL;
 	m_ShadowLightLinNearFarParameter			= NULL;
 	m_LightLinNearFarParameter					= NULL;
 	m_LightIntensityParameter					= NULL;
@@ -249,6 +268,9 @@ void CEffect::SetNullParameters()
 	m_LightShadowStaticEnableParameter			= NULL;
 	m_LightShadowDynamicEnableParameter			= NULL;
 	m_ShadowWorldViewMatrixParameter			= NULL;
+	m_ElapsedTimeParameter						= NULL;
+	m_TotalElapsedTimeParameter					= NULL;
+	m_TextureDimParameter						= NULL;
 
 	memset(m_StaticShadowMapSamplerParameter, 0, sizeof(D3DXHANDLE) * MAX_LIGHTS_BY_SHADER);
 	memset(m_DynamicShadowMapSamplerParameter, 0, sizeof(D3DXHANDLE) * MAX_LIGHTS_BY_SHADER);

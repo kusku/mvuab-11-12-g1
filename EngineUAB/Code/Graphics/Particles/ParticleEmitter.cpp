@@ -14,7 +14,11 @@ CParticleEmitter::CParticleEmitter(const std::string& name, CParticleSystem* par
 	, m_CurrentPosition(initialPosition)
 	, m_PreviousPosition(initialPosition)
 	, m_HasNewPosition(false)
+	, m_EjectParticles(false)
+	, m_OnLoop(true)
 	, m_TimeLeftOver(0.0f)
+	, m_ParticleCount(0)
+	, m_ParticlesEjectionCount(0)
 {
 	assert(particleSystem);
 }
@@ -25,6 +29,11 @@ CParticleEmitter::~CParticleEmitter()
 
 void CParticleEmitter::Update(float elapsedTime)
 {
+	if(!m_OnLoop && !m_EjectParticles)
+	{
+		return;
+	}
+
 	if (elapsedTime > 0 && m_ParticleSystem != NULL)
 	{
 		Vect3f velocity = v3fZERO;
@@ -52,6 +61,14 @@ void CParticleEmitter::Update(float elapsedTime)
 			position += CalculateParticlePosition();
 
 			m_ParticleSystem->AddParticle(position, velocity);
+			++m_ParticleCount;
+
+			if(!m_OnLoop && m_ParticleCount > m_ParticlesEjectionCount)
+			{
+				m_EjectParticles = false;
+				m_ParticleCount = 0;
+				timeToSpend = 0.0f;
+			}
 		}
 
 		m_TimeLeftOver = timeToSpend;

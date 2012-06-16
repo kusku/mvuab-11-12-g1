@@ -259,6 +259,12 @@
     <ClInclude Include="Commands\RenderBillboardsSceneRendererCommand.h">
       <Filter>Commands\Command</Filter>
     </ClInclude>
+    <ClInclude Include="Particles\Emitters\ParticleEmitterLine.h">
+      <Filter>Particles\Emitters</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderableObjects\StaticMesh\InstanceMeshHW.h">
+      <Filter>RenderableObjects\StaticMesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
@@ -502,6 +508,12 @@
     </ClCompile>
     <ClCompile Include="Commands\RenderBillboardsSceneRendererCommand.cpp">
       <Filter>Commands\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Particles\Emitters\ParticleEmitterLine.cpp">
+      <Filter>Particles\Emitters</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderableObjects\StaticMesh\InstanceMeshHW.cpp">
+      <Filter>RenderableObjects\StaticMesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

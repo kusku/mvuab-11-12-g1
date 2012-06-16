@@ -5,6 +5,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Effects">
+      <UniqueIdentifier>{6789ae92-1309-4fcf-85a5-7136ef1c8da9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XML">
+      <UniqueIdentifier>{f1db7f9f-a1f0-46a0-a847-c3e881a74ef6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="viewer.cpp" />
@@ -17,5 +23,156 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="ViewerDefs.h" />
     <ClInclude Include="FreeCamera.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Run\Viewer\Data\XML\animated_models.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\..\Run\Viewer\Data\XML\billboard_animations.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\..\Run\Viewer\Data\XML\debug_options.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\..\Run\Viewer\Data\XML\effects.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\..\Run\Viewer\Data\XML\engine.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\..\Run\Viewer\Data\XML\fonts.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\..\Run\Viewer\Data\XML\gui.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\..\Run\Viewer\Data\XML\input.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\..\Run\Viewer\Data\XML\lights.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\..\Run\Viewer\Data\XML\modifiers.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\..\Run\Viewer\Data\XML\ParticleEmitters.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\..\Run\Viewer\Data\XML\ParticleSettings.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\..\Run\Viewer\Data\XML\ParticleSystems.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\..\Run\Viewer\Data\XML\renderable_object_techniques.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\..\Run\Viewer\Data\XML\renderable_objects.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\..\Run\Viewer\Data\XML\scene_renderer_commands.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\..\Run\Viewer\Data\XML\scripts.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\..\Run\Viewer\Data\XML\sounds.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\..\Run\Viewer\Data\XML\static_meshes.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\..\Run\Viewer\Data\XML\triggers.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\..\Run\Viewer\Data\XML\waypoints.xml">
+      <Filter>XML</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\AmbientLight.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\VignettingNoise.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\Vignetting.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\UABEffect.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\SSAO.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\SSAA.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\SkySphereEffect.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\Samplers.h">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\ParticleEffect.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\fxaa.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\functions.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\ForwardLightingWithNormal.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\ForwardLightingBasic.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\DeferredSpotLight.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\DeferredModelDrawWithNormalParallax.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\DeferredModelDrawWithNormal.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\DeferredModelDrawRNM.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\ColorGrading.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\ClearGBuffer.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\Cal3DEffect.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\BloomPostProcess.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\ZBlur.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\BasicDeferredModelDraw.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\BasicDeferredLightingCombine.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\BasicDeferredLightingAndShadow.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\BasicDeferredLighting.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\BasicQuadEffect.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\Run\Viewer\Data\Effects\BasicBuildShadowMap.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>

@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <particle_emitters>
 
+  <emitter name="WaterFall" system_name="WaterFall" type="line" particlesPerSecond="200" initialPosition="143.393 15.8139 -117.942" line_start="0 0 -9" line_end="0 0 8" />
+  <emitter name="WaterFall2" system_name="WaterFall" type="line" particlesPerSecond="70" initialPosition="130.16 4.20049 -115.248" line_start="0 0 -4" line_end="0 0 4" />
+  <emitter name="WaterFall3" system_name="WaterFall2" type="line" particlesPerSecond="70" initialPosition="121.061 -4.02268 -115.445" line_start="-4 -0.8 -2" line_end="2 2.2 4" />
+
+  <emitter name="Blood" system_name="Blood" type="point" particlesPerSecond="100" initialPosition="0 30 0" on_loop="false" ejection_count="5" />
+
+  <!--<emitter name="FireRing" system_name="Fire" type="ring" particlesPerSecond="1200" initialPosition="0 0 0" horizontal="false" radius="30" height="40" width="40" />
+	
+	<emitter name="Smoke2" system_name="Smoke" type="point" particlesPerSecond="60" initialPosition="-100 0 -100" />
+	
+	<emitter name="Explosions" system_name="Explosions" type="point" particlesPerSecond="30" initialPosition="30 150 30" />-->
+
 </particle_emitters>

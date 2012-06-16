@@ -3,6 +3,7 @@
 #include "ParticleSystem.h"
 #include "Emitters\ParticleEmitterRing.h"
 #include "Emitters\ParticleEmitterPoint.h"
+#include "Emitters\ParticleEmitterLine.h"
 #include "XML\XMLTreeNode.h"
 #include "Base.h"
 #include "Logger\Logger.h"
@@ -68,6 +69,8 @@ bool CParticleEmitterManager::Reload()
 				float particlesPerSecond = l_xml(i).GetFloatProperty("particlesPerSecond", 0, true);
 				std::string type = l_xml(i).GetPszProperty("type", "", true);
 				Vect3f initPos = l_xml(i).GetVect3fProperty("initialPosition", Vect3f(0, 0, 0), true);
+				bool onLoop = l_xml(i).GetBoolProperty("on_loop", true, false);
+				uint32 pej = (uint32)l_xml(i).GetIntProperty("ejection_count", 0, !onLoop);
 
 				CParticleSystem* system = CORE->GetParticleSystemManager()->GetResource(systemName);
 				assert(system);
@@ -91,9 +94,21 @@ bool CParticleEmitterManager::Reload()
 
 					emitter = ring;
 				}
+				else if(type == "line")
+				{
+					Vect3f lineStart = l_xml(i).GetVect3fProperty("line_start", v3fZERO);
+					Vect3f lineEnd = l_xml(i).GetVect3fProperty("line_end", v3fZERO);
+
+					CParticleEmitterLine* line = new CParticleEmitterLine(name, system, particlesPerSecond, initPos, lineStart, lineEnd);
+
+					emitter = line;
+				}
 
 				assert(emitter);
 				
+				emitter->SetOnLoop(onLoop);
+				emitter->SetParticlesEjectionCount(pej);
+
 				bool isOk = this->AddResource(name, emitter);
 				assert(isOk);
 			}

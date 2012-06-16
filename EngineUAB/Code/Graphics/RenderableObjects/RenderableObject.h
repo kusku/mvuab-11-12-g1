@@ -10,7 +10,7 @@ class CRenderableObjectTechnique;
 #include "Object3D.h"
 #include "Utils\Named.h"
 
-class CRenderableObject : public CObject3D, public CNamed
+class CRenderableObject : public CObject3D
 {
 public:
 	CRenderableObject();

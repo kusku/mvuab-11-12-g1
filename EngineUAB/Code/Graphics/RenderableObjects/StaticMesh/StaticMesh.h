@@ -13,6 +13,7 @@ class CTexture;
 #include "Utils\Types.h"
 #include "Math\Vector3.h"
 #include "BoundingObjects.h"
+#include <d3dx9.h>
 
 class CEffectTechnique;
 
@@ -26,6 +27,7 @@ public:
 	bool				Reload							();
 	void				Unload							();
 
+	void				RenderInstance					(CRenderManager* RM, LPDIRECT3DVERTEXBUFFER9 instanceBuffer, uint32 count) const;
 	void				Render							( CRenderManager *RM ) const;
 	void				Render							( CRenderManager *RM, CEffectTechnique* technique ) const;
 
@@ -42,8 +44,8 @@ public:
 	// TODO:: queria recuperar el vertex list del buffer de DX9
 private:
 	template <typename T>
-	void				CreateVect3fVertexsList			( const void *_VtxBuffer,  uint16 _NumVertex );
-	void				CreateVect3fFacesList			( const void *_IndxBuffer, uint16 _NumIndex );
+	void				CreateVect3fVertexsList			( const void *_VtxBuffer,  uint32 _NumVertex );
+	void				CreateVect3fFacesList			( const void *_IndxBuffer, uint32 _NumIndex );
 
 public:
 	const std::vector<Vect3f>&	GetVertexBuffer			( void ) const		{ return m_VtxsBuffer; }
@@ -54,6 +56,7 @@ protected:
 	std::vector<std::vector<CTexture*>>			m_Textures;
 	std::vector<int>							m_VertexTypes;
 	std::vector<CRenderableObjectTechnique*>	m_RenderableObjectsTechniques;
+	std::vector<CRenderableObjectTechnique*>	m_RenderableObjectsTechniquesInstance;
 	std::string									m_FileName;
 	std::string									m_RenderableObjecTechniqueName;
 	uint32										m_NumVertexs, m_NumFaces;

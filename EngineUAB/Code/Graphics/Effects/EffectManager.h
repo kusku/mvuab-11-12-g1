@@ -63,6 +63,7 @@ public:
 	const Mat44f&		GetProjInverseMatrix					( void ) const						{ return m_ProjInverseMatrix; }
 	const Vect3f&		GetCameraEye							( void ) const						{ return m_CameraEye; }
 	Vect2f				GetLightShadowLinNearFar				() const							{ return m_LightShadowLinNearFar; }
+	Vect2f				GetTextureDim							() const							{ return m_TextureDim; }
 
 	void				SetLightShadowLinNearFar				(const Vect2f lightShadowLinNearFar){ m_LightShadowLinNearFar = lightShadowLinNearFar; }
 	void				SetWorldMatrix							( const Mat44f &Matrix )			{ m_WorldMatrix = Matrix; }
@@ -77,6 +78,7 @@ public:
 	void				SetProjInverseMatrix					( const Mat44f &Matrix )			{ m_ProjInverseMatrix = Matrix; }
 	void				SetCameraEye							( const Vect3f &Eye )				{ m_CameraEye = Eye; }
 	void				SetShadowCameraEye						( const Vect3f &ShadowEye )			{ m_ShadowCameraEye = ShadowEye; }
+	void				SetTextureDim							( const Vect2f &textureDim )		{ m_TextureDim = textureDim; }
 
 private:
 	
@@ -91,6 +93,7 @@ private:
 	Vect3f									m_ShadowCameraEye;
 	Vect3f									m_CameraEye;
 	Vect2f									m_LightShadowLinNearFar;
+	Vect2f									m_TextureDim;
 
 	CMapManager<CEffect>					m_Effects;
 	std::vector<std::string>				m_EffectsNames;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<characters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation='characters_properties.xsd'>
+<characters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<default_properties core="caperucita">
 		<life>100</life>
 		<strong>12</strong>

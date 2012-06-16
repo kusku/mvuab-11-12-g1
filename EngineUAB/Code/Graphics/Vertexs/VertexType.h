@@ -18,7 +18,7 @@
 #define VERTEX_TYPE_PARALLAX	0x0200
 #define VERTEX_TYPE_RNM			0x0400
 #define VERTEX_TYPE_PARTICLE	0x0800
-
+#define VERTEX_TYPE_INSTANCE	0x1000
 
 struct TGEOMETRY_VERTEX
 {
@@ -65,6 +65,9 @@ struct TCOLORED_VERTEX
 	
 	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
 	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration();
+
+	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclarationInstance;
+	static LPDIRECT3DVERTEXDECLARATION9 & GetVertexDeclarationInstance();
 };
 
 struct TNORMALCOLORED_VERTEX
@@ -90,6 +93,9 @@ struct TNORMALCOLORED_VERTEX
 	
 	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
 	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration();
+
+	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclarationInstance;
+	static LPDIRECT3DVERTEXDECLARATION9 & GetVertexDeclarationInstance();
 };
 
 struct TTEXTURE1_VERTEX
@@ -268,6 +274,9 @@ struct TNORMALTEXTURE1_VERTEX
 	
 	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
 	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration();
+
+	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclarationInstance;
+	static LPDIRECT3DVERTEXDECLARATION9 & GetVertexDeclarationInstance();
 };
 
 struct TNORMALTEXTURE2_VERTEX
@@ -294,6 +303,9 @@ struct TNORMALTEXTURE2_VERTEX
 	
 	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
 	static LPDIRECT3DVERTEXDECLARATION9& GetVertexDeclaration();
+
+	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclarationInstance;
+	static LPDIRECT3DVERTEXDECLARATION9 & GetVertexDeclarationInstance();
 };
 
 struct TNORMALBINORMAL_VERTEX
@@ -377,6 +389,9 @@ struct CAL3D_HW_VERTEX_BT
 	
 	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
 	static LPDIRECT3DVERTEXDECLARATION9 & GetVertexDeclaration();
+
+	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclarationInstance;
+	static LPDIRECT3DVERTEXDECLARATION9 & GetVertexDeclarationInstance();
 };
 
 struct TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX
@@ -403,6 +418,9 @@ struct TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX
 
 	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
 	static LPDIRECT3DVERTEXDECLARATION9 & GetVertexDeclaration();
+
+	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclarationInstance;
+	static LPDIRECT3DVERTEXDECLARATION9 & GetVertexDeclarationInstance();
 };
 
 struct TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX
@@ -430,6 +448,9 @@ struct TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX
 
 	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
 	static LPDIRECT3DVERTEXDECLARATION9 & GetVertexDeclaration();
+
+	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclarationInstance;
+	static LPDIRECT3DVERTEXDECLARATION9 & GetVertexDeclarationInstance();
 };
 
 struct TPARTICLE_VERTEX
@@ -463,6 +484,45 @@ struct TPARTICLE_VERTEX
 	static LPDIRECT3DVERTEXDECLARATION9 & GetVertexDeclaration();
 };
 
+struct TINSTANCE_VERTEX
+{
+	float m_00;
+	float m_01;
+	float m_02;
+	float m_03;
+
+	float m_10;
+	float m_11;
+	float m_12;
+	float m_13;
+
+	float m_20;
+	float m_21;
+	float m_22;
+	float m_23;
+
+	float m_30;
+	float m_31;
+	float m_32;
+	float m_33;
+
+	static inline unsigned short GetVertexType()
+	{
+		return VERTEX_TYPE_INSTANCE;
+	}
+	static inline unsigned int GetFVF()
+	{
+		return 0;
+	}
+
+	static void ReleaseVertexDeclaration()
+	{
+		CHECKED_RELEASE(s_VertexDeclaration);
+	}
+
+	static LPDIRECT3DVERTEXDECLARATION9 s_VertexDeclaration;
+	static LPDIRECT3DVERTEXDECLARATION9 & GetVertexDeclaration();
+};
 
 extern void CalcTangentsAndBinormals(void *VtxsData, unsigned short *IdxsData, size_t VtxCount, 
 										size_t IdxCount, size_t VertexStride, size_t GeometryStride, size_t NormalStride,

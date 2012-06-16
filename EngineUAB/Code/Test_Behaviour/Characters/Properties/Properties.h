@@ -8,7 +8,7 @@
 #include "Utils\Named.h"
 #include "Math\Vector3.h"
 
-class CProperties : public CObject3D, public CNamed
+class CProperties : public CObject3D
 {
 public:
 	//--- Init and End protocols ----------------------------------------

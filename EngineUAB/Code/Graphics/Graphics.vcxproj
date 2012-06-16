@@ -68,6 +68,7 @@
     <ClInclude Include="Lights\OmniLight.h" />
     <ClInclude Include="Lights\SpotLight.h" />
     <ClInclude Include="Object3D.h" />
+    <ClInclude Include="Particles\Emitters\ParticleEmitterLine.h" />
     <ClInclude Include="Particles\Emitters\ParticleEmitterPoint.h" />
     <ClInclude Include="Particles\Emitters\ParticleEmitterRing.h" />
     <ClInclude Include="Particles\ParticleDef.h" />
@@ -88,6 +89,7 @@
     <ClInclude Include="RenderableObjects\RenderableObjectTechnique.h" />
     <ClInclude Include="RenderableObjects\RenderableObjectTechniqueManager.h" />
     <ClInclude Include="RenderableObjects\StaticMesh\InstanceMesh.h" />
+    <ClInclude Include="RenderableObjects\StaticMesh\InstanceMeshHW.h" />
     <ClInclude Include="RenderableObjects\StaticMesh\StaticMesh.h" />
     <ClInclude Include="RenderableObjects\StaticMesh\StaticMeshManager.h" />
     <ClInclude Include="RenderManager.h" />
@@ -154,6 +156,7 @@
     <ClCompile Include="Lights\OmniLight.cpp" />
     <ClCompile Include="Lights\SpotLight.cpp" />
     <ClCompile Include="Object3D.cpp" />
+    <ClCompile Include="Particles\Emitters\ParticleEmitterLine.cpp" />
     <ClCompile Include="Particles\Emitters\ParticleEmitterPoint.cpp" />
     <ClCompile Include="Particles\Emitters\ParticleEmitterRing.cpp" />
     <ClCompile Include="Particles\ParticleEmitter.cpp" />
@@ -173,6 +176,7 @@
     <ClCompile Include="RenderableObjects\RenderableObjectTechnique.cpp" />
     <ClCompile Include="RenderableObjects\RenderableObjectTechniqueManager.cpp" />
     <ClCompile Include="RenderableObjects\StaticMesh\InstanceMesh.cpp" />
+    <ClCompile Include="RenderableObjects\StaticMesh\InstanceMeshHW.cpp" />
     <ClCompile Include="RenderableObjects\StaticMesh\StaticMesh.cpp" />
     <ClCompile Include="RenderableObjects\StaticMesh\StaticMeshManager.cpp" />
     <ClCompile Include="RenderManager.cpp" />

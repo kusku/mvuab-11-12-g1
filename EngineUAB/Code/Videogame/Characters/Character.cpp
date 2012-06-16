@@ -28,7 +28,6 @@ CCharacter::CCharacter()
 	, m_pController				( NULL )
 	, m_pAnimationsStates		( NULL )
 	, m_pPhysicUserDataJugador	( NULL )
-	, CNamed					( )
 	, CObject3D					( )
 	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
 	, m_bLocked					( false )
@@ -53,7 +52,6 @@ CCharacter::CCharacter( const std::string &_Name )
 	, m_pAnimationsStates		( NULL )
 	, m_pProperties				( NULL )
 	, m_pPhysicUserDataJugador	( NULL )
-	, CNamed					( _Name )
 	, CObject3D					( )
 	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
 	, m_bLocked					( false )
@@ -67,11 +65,12 @@ CCharacter::CCharacter( const std::string &_Name )
   //  m_pController			= new CPhysicController();
 
 	//m_pCurrentAnimatedModel = static_cast<CAnimatedInstanceModel*>(CORE->GetRenderableObjectsLayersManager()->GetResource("solid")->GetInstance("caperucita1"));
+
+	SetName(_Name);
 }
 
 CCharacter::CCharacter(int _ID, const std::string &_Name)
 	: CBaseGameEntity			( _ID )
-	, CNamed					( _Name )
 	, CObject3D					( )
 	, m_pLogicStateMachine		( NULL )
 	, m_pGraphicStateMachine	( NULL )
@@ -89,7 +88,7 @@ CCharacter::CCharacter(int _ID, const std::string &_Name)
 	// coloco la máquina de estados
     m_pLogicStateMachine	= new CStateMachine<CCharacter>( this );
 	m_pGraphicStateMachine	= new CStateMachine<CCharacter>( this );
-
+	SetName(_Name);
 }
 
 

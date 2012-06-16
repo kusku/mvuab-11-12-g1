@@ -1,5 +1,108 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <particle_settings>
+
+	<settings name="Blood">
+    <TextureName value="./Data/General/Textures/Splash0001.tga" />
+    <MaxParticles value="300" />
+
+    <Duration value="0.5" />
+    <DurationRandomness value="0.1" />
+			
+    <EmitterVelocitySensitivity value="1" />
+
+    <MinHorizontalVelocity value="-1.5" />
+    <MaxHorizontalVelocity value="1.5" />
+            
+    <MinVerticalVelocity value="-1" />
+    <MaxVerticalVelocity value="1" />
+         
+    <Gravity value="0 -3 0" />
+            
+    <EndVelocity value="5" />
+			
+    <MinColor value="218 16 16 255" />
+    <MaxColor value="255 0 0 255" />
+            
+    <MinRotateSpeed value="1" />
+    <MaxRotateSpeed value="2" />
+            
+    <MinStartSize value="0.5" />
+    <MaxStartSize value="1" />
+    
+    <MinEndSize value="1" />
+    <MaxEndSize value="2" />
+			
+    <BlendState value="NonPremultiplied" />
+	</settings>
+
+  <settings name="water_fall">
+    <TextureName value="./Data/General/Textures/mist2.tga" />
+    
+    <MaxParticles value="1200" />
+
+    <Duration value="3.5" />
+    <DurationRandomness value="1" />
+
+    <MinHorizontalVelocity value="0" />
+    <MaxHorizontalVelocity value="0" />
+
+    <MinVerticalVelocity value="0" />
+    <MaxVerticalVelocity value="0" />
+
+    <Gravity value="-7 -5 2" />
+
+    <EndVelocity value="0" />
+
+    <MinColor value="177 233 251 128" />
+    <MaxColor value="177 233 251 128" />
+
+    <MinRotateSpeed value="0" />
+    <MaxRotateSpeed value="0" />
+
+    <MinStartSize value="1" />
+    <MaxStartSize value="5" />
+
+    <MinEndSize value="5" />
+    <MaxEndSize value="10" />
+
+    <BlendState value="NonPremultiplied" />
+    
+  </settings>
+
+  <settings name="water_fall2">
+    <TextureName value="./Data/General/Textures/mist2.tga" />
+
+    <MaxParticles value="500" />
+
+    <Duration value="3" />
+    <DurationRandomness value="1" />
+
+    <MinHorizontalVelocity value="0" />
+    <MaxHorizontalVelocity value="0" />
+
+    <MinVerticalVelocity value="0" />
+    <MaxVerticalVelocity value="0" />
+
+    <Gravity value="-2 -3 3" />
+
+    <EndVelocity value="0" />
+
+    <MinColor value="177 233 251 128" />
+    <MaxColor value="177 233 251 128" />
+
+    <MinRotateSpeed value="0" />
+    <MaxRotateSpeed value="0" />
+
+    <MinStartSize value="1" />
+    <MaxStartSize value="5" />
+
+    <MinEndSize value="10" />
+    <MaxEndSize value="15" />
+
+    <BlendState value="NonPremultiplied" />
+
+  </settings>
+  
 	<settings name="smoke">
 	        <TextureName value="./Data/General/Textures/smoke.png" />
             <MaxParticles value="1000" />

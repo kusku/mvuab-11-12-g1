@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <Config debug="true">
-	<ScreenResolution width="800" height="600" />
+	<ScreenResolution width="1280" height="720" />
 	<WindowsPosition position="0 0" />
 	<RenderMode fullscreenMode="false" />
 	<RenderColor colorDebug="blue" colorRelease="black" />

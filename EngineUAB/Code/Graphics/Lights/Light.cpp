@@ -26,6 +26,7 @@ CLight::CLight()
 	, m_pStaticShadowMap(NULL)
 	, m_pDynamicShadowMap(NULL)
 	, m_pShadowMaskTexture(NULL)
+	, m_DynamicDepthStencil(NULL)
 	, m_ViewShadowMap(m44fIDENTITY)
 	, m_ProjectionShadowMap(m44fIDENTITY)
 	, m_LightLinNearFar(0, 0)
@@ -68,10 +69,12 @@ void CLight::GenerateShadowMap(CRenderManager *RM)
 
 	if( m_DynamicShadowMapRenderableObjectsManagers.size() > 0)
 	{
-
 		m_pDynamicShadowMap->SetAsRenderTarget(0);
+		//m_DynamicDepthStencil->SetAsDepthStencil();
 		
 		RM->ClearTarget(colTRANSPARENT);
+		//RM->GetDevice()->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER, D3DCOLOR_RGBA(0, 0, 0, 0), 1.0f, 0 );
+
 		CORE->GetEffectManager()->SetLightShadowLinNearFar(m_LightLinNearFar);
 
 		for(size_t i=0; i<m_DynamicShadowMapRenderableObjectsManagers.size(); ++i)
@@ -80,6 +83,7 @@ void CLight::GenerateShadowMap(CRenderManager *RM)
 		}
 
 		m_pDynamicShadowMap->UnsetAsRenderTarget(0);
+		//m_DynamicDepthStencil->UnsetAsDepthStencil();
 	}
 }
 
@@ -124,6 +128,17 @@ void CLight::ExtractCommonLightInfo(CXMLTreeNode &XMLNode)
 			CTexture::RENDERTARGET, CTexture::DEFAULT, l_Format);
 
 		l_pTextureManager->AddResource(m_pDynamicShadowMap->GetName(), m_pDynamicShadowMap);
+
+
+		//////Depth Stencil
+
+		//Elimina la textura si ya existía
+		std::string l_TextureNameDS = m_Name + "_dynamic_ds";
+		l_pTextureManager->RemoveResource( l_TextureNameDS );
+
+		m_DynamicDepthStencil = new CTexture();
+		m_pDynamicShadowMap->CreateDepthStencil(l_WidthDynamicShadowMap, l_HeightDynamicShadowMap, CTexture::D24S8, D3DMULTISAMPLE_8_SAMPLES);
+		l_pTextureManager->AddResource(l_TextureNameDS, m_DynamicDepthStencil);
 	}
 
 	if( m_GenerateStaticShadowMap )

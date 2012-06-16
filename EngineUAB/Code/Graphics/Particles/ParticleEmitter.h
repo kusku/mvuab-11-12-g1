@@ -7,6 +7,8 @@
 #include <string>
 
 #include "Math\Vector3.h"
+#include "Base.h"
+#include "Utils\Types.h"
 
 class CParticleSystem;
 
@@ -24,11 +26,41 @@ class CParticleEmitter
 		bool						m_HasNewPosition;
 		Vect3f						m_CurrentPosition;
 
+		bool						m_OnLoop;
+		bool						m_EjectParticles;
+		uint32						m_ParticleCount;
+		uint32						m_ParticlesEjectionCount;
+
 		virtual Vect3f				CalculateParticlePosition	() = 0;
 
 	public:
 		CParticleEmitter(const std::string& name, CParticleSystem* particleSystem, float particlesPerSecond, const Vect3f& initialPosition);
 		virtual ~CParticleEmitter();
+
+		inline void SetParticlesEjectionCount(uint32 particleEjectionCount)
+		{
+			m_ParticlesEjectionCount = particleEjectionCount;
+		}
+
+		inline uint32 GetParticlesEjectionCount()
+		{
+			return m_ParticlesEjectionCount;
+		}
+
+		inline void SetOnLoop(bool onLoop)
+		{
+			m_OnLoop = onLoop;
+		}
+
+		inline bool GetOnLoop()
+		{
+			return m_OnLoop;
+		}
+
+		inline void EjectParticles()
+		{
+			m_EjectParticles = true;
+		}
 
 		inline void SetPosition(const Vect3f& position) 
 		{ 

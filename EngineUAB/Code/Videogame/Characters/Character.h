@@ -25,7 +25,7 @@ class CSteeringBehaviours;
 struct Telegram;
 //---------------------------//
 
-class CCharacter : public CBaseGameEntity, public CObject3D, public CNamed //, public CMapManager<int>
+class CCharacter : public CBaseGameEntity, public CObject3D //, public CMapManager<int>
 {
 public:
 	// ------------- Constructors i Destructors --------------

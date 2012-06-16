@@ -29,6 +29,7 @@ public:
 	virtual bool		Render(CRenderManager *RM, CEffectTechnique* technique) const = 0;
 	virtual bool		Render(CRenderManager *RM, CEffectTechnique *EffectTechnique, int baseVertexIndex,
 								uint32 minVertexIndex, uint32 vertexCount, uint32 startIndex, uint32 faceCount) const = 0;
+	virtual bool RenderInstance(CRenderManager *RM, CEffectTechnique *EffectTechnique, LPDIRECT3DVERTEXBUFFER9 instanceBuffer, uint32 size) const = 0;
 	
 
 	virtual inline size_t				GetFacesCount () const		{ return m_IndexCount / 3; }
