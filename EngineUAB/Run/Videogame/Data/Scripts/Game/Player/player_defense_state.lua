@@ -22,6 +22,7 @@ class 'CPlayerDefenseState' (CState)
 	end
 	
 	function CPlayerDefenseState:OnMessage(_CCharacter, _Msg)
+		return false
 	end
 	
 	function CPlayerDefenseState:__Finalize()

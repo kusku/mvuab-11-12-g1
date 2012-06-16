@@ -26,6 +26,7 @@ class 'CPlayerHitState' (CState)
 	end
 	
 	function CPlayerHitState:OnMessage(_CCharacter, _Msg)
+		return false
 	end
 	
 	function CPlayerHitState:__Finalize()

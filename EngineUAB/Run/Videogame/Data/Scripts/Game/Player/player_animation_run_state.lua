@@ -21,6 +21,7 @@ class 'CPlayerAnimationRunState' (CState)
 	end
 	
 	function CPlayerAnimationRunState:OnMessage(_CCharacter, _Msg)
+		return false
 	end
 	
 	function CPlayerAnimationRunState:__Finalize()
