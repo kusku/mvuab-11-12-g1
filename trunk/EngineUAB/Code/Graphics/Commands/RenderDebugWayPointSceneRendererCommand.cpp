@@ -7,6 +7,7 @@
 #include "Base.h"
 #include "Core.h"
 #include "Movement\WayPointManager.h"
+#include "Triggers\TriggersManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -24,5 +25,6 @@ void CRenderDebugWayPointSceneRendererCommand::Execute(CRenderManager &RM)
 	if( GetActive() )
 	{
 		CORE->GetWayPointManager()->DebugRender();
+		CORE->GetTriggersManager()->Render(&RM);
 	}
 }

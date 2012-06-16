@@ -87,7 +87,19 @@ void CTriggersManager::Update ( float _ElapsedTime )
 
 void CTriggersManager::Render ( CRenderManager *_RM )
 {
-	return;
+	CORE->GetRenderManager()->SetTransform(m44fIDENTITY);
+
+	std::map<std::string, TriggerInstance>::iterator l_It =	m_TriggersMap.begin();
+	std::map<std::string, TriggerInstance>::iterator l_End = m_TriggersMap.end();
+
+	for (; l_It != l_End; ++l_It)
+	{
+		Mat44f trans = m44fIDENTITY;
+		trans.Translate(l_It->second.Position);
+		CORE->GetRenderManager()->SetTransform(trans);
+
+		CORE->GetRenderManager()->DrawCube(l_It->second.Size, colGREEN);
+	}
 }
 
 // -----------------------------------------
@@ -121,6 +133,7 @@ bool CTriggersManager::LoadXML ( void )
 			{
 				CXMLTreeNode l_TriggerNode = l_NodePare(i);
 				TriggerInstance l_Instance;
+				l_Instance.Active = true;
 				l_Instance.Name			= static_cast<std::string> ( l_TriggerNode.GetPszProperty ( "name", "" ) );
 				l_Instance.TriggerName	= static_cast<std::string> ( l_TriggerNode.GetPszProperty ( "triggername", "" ) );
 				l_Instance.ActorName	= static_cast<std::string> ( l_TriggerNode.GetPszProperty ( "actorname", "" ) );
@@ -186,7 +199,7 @@ void CTriggersManager::OnEnter ( CPhysicUserData* _Entity_Trigger1, CPhysicUserD
 	std::map<std::string, TriggerInstance>::iterator l_End = m_TriggersMap.end();
 	for(; l_It != l_End; ++l_It)
 	{
-		if( _Entity_Trigger1 == l_It->second.pTriggerActor->GetUserData() )
+		if( _Entity_Trigger1 == l_It->second.pTriggerActor->GetUserData() && l_It->second.Active )
 		{
 			SCRIPT->RunCode( l_It->second.LuaCode );
 		}

@@ -37,6 +37,7 @@
   <render_particles />
 
   <!--Debug-->
+  <render_debug_waypoints active="true" />
   <render_debug_process active="true" />
   <render_debug_physics active="false" />
   <render_debug_lights active="true" />
