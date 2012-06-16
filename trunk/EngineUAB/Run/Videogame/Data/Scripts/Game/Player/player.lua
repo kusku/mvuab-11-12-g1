@@ -103,5 +103,6 @@ class 'CPlayer' (CCharacter)
 	end
 	
 	function CPlayer:hit_to_player()
+		print_logger(0, "hit")
 		self:rest_life( 10 + math.random(0, 10) )
 	end

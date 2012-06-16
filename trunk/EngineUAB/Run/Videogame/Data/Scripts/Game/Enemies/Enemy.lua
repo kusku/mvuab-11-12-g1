@@ -286,7 +286,6 @@ class 'CEnemy' (CCharacter)
 		-- print_logger(0, "CEnemy::update()->Actualizando enemigo...")
 		-- Almacenamos el elapsed time pq después será impossible de guardar
 		self.elapsed_time = _elapsed_time
-		
 		-- print_logger (1, "CEnemy:Update()-> NAME : "..self.name)
 		-- print_logger (1 , "CEnemy::Update()->POSITION :"..self.position.x.." "..self.position.y.." "..self.position.z)
 		
