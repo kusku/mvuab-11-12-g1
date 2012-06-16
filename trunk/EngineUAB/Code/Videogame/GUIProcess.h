@@ -30,9 +30,11 @@ public:
 	//--Métodos para exponer en LUA-------
 	void			ChangeProcess		();
 	void			ExitGame			();
+	void			SetCameraToCore		();
+
+	static void		RegisterMethods ();
 
 private:
-	void			RegisterMethods ();
 	void			Release			();
 
 private:

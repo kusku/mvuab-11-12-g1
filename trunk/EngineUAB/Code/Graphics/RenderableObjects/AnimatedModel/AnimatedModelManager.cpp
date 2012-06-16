@@ -21,12 +21,17 @@ CAnimatedModelManager::CAnimatedModelManager()
 
 CAnimatedModelManager::~CAnimatedModelManager()
 {
-	Destroy();
+	CleanUp();
 }
 
 // -----------------------------------------
 //				MAIN METHODS 
 // -----------------------------------------
+void CAnimatedModelManager::CleanUp()
+{
+	Destroy();
+}
+
 void CAnimatedModelManager::Load(const std::string &Filename)
 {
 	LOGGER->AddNewLog(ELL_INFORMATION, "CAnimatedModelManager::Load->Cargando los Animated Models.");

@@ -543,7 +543,6 @@ void CCore::UpdateInputs( float _ElapsedTime )
 		m_pScriptManager->Initialize();
 
 		CCore::RegisterMethods();
-		m_pProcess->RegisterMethods();
 
 		m_pScriptManager->Reload();
 	}
@@ -844,6 +843,43 @@ void CCore::ReloadWayPoints()
 	m_WayPointManager->Reload();
 }
 
+void CCore::UnloadStaticMeshes()
+{
+	m_pStaticMeshManager->CleanUp();
+}
+
+void CCore::UnloadAnimatedModels()
+{
+	m_pAnimatedModelManager->CleanUp();
+}
+
+void CCore::UnloadRenderableObjectsLayers()
+{
+	m_pRenderableObjectsLayersManager->Destroy();
+}
+
+void CCore::UnloadLights()
+{
+	m_pLightManager->CleanUp();
+}
+
+void CCore::UnloadBillboards()
+{
+	m_pBillboardManager->Destroy();
+}
+
+void CCore::UnloadParticles()
+{
+	m_ParticleSettingsManager->CleanUp();
+	m_ParticleSystemManager->CleanUp();
+	m_ParticleEmitterManager->CleanUp();
+}
+
+void CCore::UnloadTriggers()
+{
+	m_pTriggersManager->Destroy();
+}
+
 void CCore::RegisterMethods()
 {
 	lua_State *state = SCRIPT->GetLuaState();
@@ -901,6 +937,13 @@ void CCore::RegisterMethods()
 			.def("load_debug_gui", &CCore::LoadDebugGUI)
 			.def("load_waypoints", &CCore::LoadWaypoints)
 			.def("is_game_mode", &CCore::IsGameMode)
+			.def("unload_static_meshes", &CCore::UnloadStaticMeshes)
+			.def("unload_animated_models", &CCore::UnloadAnimatedModels)
+			.def("unload_renderable_objects_layers", &CCore::UnloadRenderableObjectsLayers)
+			.def("unload_lights", &CCore::UnloadLights)
+			.def("unload_billboards", &CCore::UnloadBillboards)
+			.def("unload_particles", &CCore::UnloadParticles)
+			.def("unload_triggers", &CCore::UnloadTriggers)
 	];
 
 	module(state) [

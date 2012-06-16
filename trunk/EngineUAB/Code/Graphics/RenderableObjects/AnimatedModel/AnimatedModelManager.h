@@ -24,6 +24,7 @@ public:
 	virtual ~CAnimatedModelManager();
 
 	void		Load		( const std::string &Filename );
+	void		CleanUp		();
 
 	CAnimatedCoreModel*			GetCore			( const std::string &Name, const std::string &Path, const std::string &XMLFilename );
 	CAnimatedInstanceModel*		GetInstance		( const std::string &Name );

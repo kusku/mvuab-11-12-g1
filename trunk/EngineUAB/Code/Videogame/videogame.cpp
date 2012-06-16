@@ -60,19 +60,25 @@ LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 			}
 
 			g_pEngine->SetProcess( g_pGameProcess );
+			CORE->SetProcess(g_pGameProcess);
 			CORE->SetGameMode(true);
 			break;
 		}
 	case WM_GUI_PROCESS:
 		{
+			SCRIPT->RunCode("unload_data()");
+			CHECKED_DELETE(g_pGameProcess);
+
 			if( g_pGUIProcess == NULL )
-			{
+			{				
 				g_pGUIProcess = new CGUIProcess(g_hWnd);
 				CORE->SetProcess(g_pGUIProcess);
 				g_pGUIProcess->Init();
 			}
 
 			g_pEngine->SetProcess( g_pGUIProcess );
+			CORE->SetProcess(g_pGUIProcess);
+			g_pGUIProcess->SetCameraToCore();
 			CORE->SetGameMode(false);
 			break;
 		}
@@ -122,6 +128,9 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 			CORE->SetGameMode(true);
 		}
 		
+		CGUIProcess::RegisterMethods();
+		CGameProcess::RegisterMethods();
+
 		ShowWindow( g_hWnd, SW_SHOWDEFAULT );
 		UpdateWindow( g_hWnd );
 		MSG msg;

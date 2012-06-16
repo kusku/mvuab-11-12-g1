@@ -49,7 +49,3 @@ void CEngineProcess::Render( CRenderManager &_RM )
 void CEngineProcess::Update( float _ElapsedTime )
 {
 }
-
-void CEngineProcess::RegisterMethods()
-{
-}

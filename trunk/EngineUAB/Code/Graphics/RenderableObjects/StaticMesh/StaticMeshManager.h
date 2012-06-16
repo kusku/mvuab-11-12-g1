@@ -23,6 +23,7 @@ public:
 
 	bool		Load		( const std::string &FileName );
 	bool		Reload		();
+	void		CleanUp		();
 
 	void		CreateRenderableObjectsTechniques	();
 

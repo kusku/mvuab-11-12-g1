@@ -27,3 +27,13 @@ function load_all()
 	load_basics()
 	load_data()
 end
+
+function unload_data()
+	core:unload_renderable_objects_layers()
+	core:unload_static_meshes()
+	core:unload_animated_models()
+	core:unload_lights()
+	core:unload_billboards()
+	core:unload_particles()
+	core:unload_triggers()
+end

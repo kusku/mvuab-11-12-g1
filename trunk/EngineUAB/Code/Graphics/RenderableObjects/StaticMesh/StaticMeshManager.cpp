@@ -79,15 +79,7 @@ bool CStaticMeshManager::Reload()
 {
 	LOGGER->AddNewLog(ELL_INFORMATION, "CStaticMeshManager: Reload de las Static Meshes.");
 
-	TVectorResources &l_StaticMeshes = GetResourcesVector();
-	uint16 l_Count = l_StaticMeshes.size();
-	for(uint16 i=0; i<l_Count; ++i)
-	{
-		//Borra las texturas que utilizan los static meshes.
-		l_StaticMeshes[i]->ClearTextures();
-	}
-
-	Destroy();
+	CleanUp();
 	return LoadXML();
 }
 
@@ -99,4 +91,17 @@ void CStaticMeshManager::CreateRenderableObjectsTechniques()
 	{
 		l_StaticMeshes[i]->GetRenderableObjectTechnique();
 	}
+}
+
+void CStaticMeshManager::CleanUp()
+{
+	TVectorResources &l_StaticMeshes = GetResourcesVector();
+	uint16 l_Count = l_StaticMeshes.size();
+	for(uint16 i=0; i<l_Count; ++i)
+	{
+		//Borra las texturas que utilizan los static meshes.
+		l_StaticMeshes[i]->ClearTextures();
+	}
+
+	Destroy();
 }

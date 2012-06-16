@@ -76,9 +76,6 @@
     <ClInclude Include="RenderableObjects\RenderableObjectsLayersManager.h">
       <Filter>RenderableObjects</Filter>
     </ClInclude>
-    <ClInclude Include="RenderableObjects\RenderableObjectTechnique.h">
-      <Filter>RenderableObjects</Filter>
-    </ClInclude>
     <ClInclude Include="RenderableObjects\PoolRenderableObjectTechnique.h">
       <Filter>RenderableObjects</Filter>
     </ClInclude>
@@ -265,6 +262,7 @@
     <ClInclude Include="RenderableObjects\StaticMesh\InstanceMeshHW.h">
       <Filter>RenderableObjects\StaticMesh</Filter>
     </ClInclude>
+    <ClInclude Include="RenderableObjects\RenderableObjectTechnique.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />

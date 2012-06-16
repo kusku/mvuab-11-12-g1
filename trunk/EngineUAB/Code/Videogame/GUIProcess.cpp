@@ -48,7 +48,7 @@ bool CGUIProcess::Init()
 	CORE->SetCamera(m_pCamera);
 
 	//Registra los métodos de él mismo
-	RegisterMethods();
+	//RegisterMethods();
 
 	//Carga los datos básicos
 	CORE->GetScriptManager()->RunCode("load_basics()");
@@ -62,6 +62,11 @@ void CGUIProcess::Update(float elapsedTime)
 
 void CGUIProcess::Render(CRenderManager &RM)
 {
+}
+
+void CGUIProcess::SetCameraToCore()
+{
+	CORE->SetCamera(m_pCamera);
 }
 
 //-------------------------------------

@@ -45,7 +45,7 @@ class 'CPlayerAttackState' (CState)
 	
 	function CPlayerAttackState:OnExit(_CCharacter)
 		print_logger(0, "Exit State: Attack 1")
-		local enemy = get_game_process():get_character_manager():search_target_enemy(8.0, math.pi/6)
+		local enemy = get_game_process():get_character_manager():search_target_enemy(3.0, math.pi/6)
 		if enemy ~= nil then
 			
 			-- Test jordi missatges entre entitats
