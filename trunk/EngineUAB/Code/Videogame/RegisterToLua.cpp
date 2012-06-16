@@ -10,7 +10,9 @@
 #include "StatesMachine\BaseGameEntity.h"
 #include "StatesMachine\StateMachine.h"
 #include "StatesMachine\State.h"
-#include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
+#include "Steering Behaviours\SteeringBehaviours.h"
+#include "Steering Behaviours\SteeringEntity.h"
+
 #include "Characters\Character.h"
 #include "Characters\CharacterManager.h"
 #include "Characters\CharacterWrapper.h"
@@ -19,7 +21,9 @@
 #include "PhysicController.h"
 #include "PhysicUserData.h"
 
+#include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 #include "Object3D.h"
+
 #include "Utils\Named.h"
 #include "Utils\TemplatedVectorMapManager.h"
 
@@ -28,7 +32,7 @@
 #include <string>
 
 #if defined (_DEBUG)
-#include "Memory\MemLeaks.h"
+	#include "Memory\MemLeaks.h"
 #endif
 
 void RegisterToLuaTelegram(lua_State* _pLua)
@@ -71,7 +75,8 @@ void RegisterToLuaCharacter(lua_State* _pLua)
 				.def("add_strong", &CCharacter::AddStrong)
 				.def("rest_strong", &CCharacter::RestStrong)
 				.def("get_front", &CCharacter::GetFront)
-				//.def("get_id", &CBaseGameEntity::GetID)
+				.property( "behaviours", &CCharacter::GetBehaviours)
+				.property( "steering_entity", &CCharacter::GetSteeringEntity)
 				.property("physic_controller", &CCharacter::GetController)	
 				.property("animated_model", &CCharacter::GetAnimatedModel)
 				.property("logic_fsm", &CCharacter::GetLogicFSM)
@@ -100,6 +105,8 @@ void RegisterToLuaProperties(lua_State* _pLua)
 				.property("distance_chase", &CProperties::GetDistanceChase, &CProperties::SetDistanceChase)
 				.property("distance_path_follow", &CProperties::GetDistanceFollowPath, &CProperties::SetDistanceFollowPath)
 				.property("attack_distance", &CProperties::GetAttackDistance, &CProperties::SetAttackDistance)
+				.property("bounding_radius", &CProperties::GetBoundingRadious, &CProperties::SetBoundingRadious)
+				.property("max_speed", &CProperties::GetMaxSpeed, &CProperties::SetMaxSpeed)
 		];
 }
 
@@ -138,6 +145,8 @@ void RegisterToLuaStateMachine(lua_State* _pLua){
 				.property("get_name_of_current_state", &CStateMachine<CCharacter>::GetNameOfCurrentState)
 				.def("update",&CStateMachine<CCharacter>::Update)
 		];
+
+	CSteeringBehaviours::RegisterLUAMethods();
 }
 
 void RegisterToLuaState(lua_State* _pLua){

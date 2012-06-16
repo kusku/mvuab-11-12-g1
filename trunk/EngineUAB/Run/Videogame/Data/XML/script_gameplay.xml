@@ -1,4 +1,5 @@
 <scripts>
+	<!--<script filename="./data/scripts/utils.lua" />-->
 	<script filename="./data/scripts/game/init_game.lua" />
 	<script filename="./data/scripts/game/helpers.lua" />
 	<script filename="./data/scripts/game/player/player_idle_state.lua" />
@@ -22,23 +23,22 @@
 	<script filename="./data/scripts/game/player/player.lua" />
 	<script filename="./data/scripts/game/enemies/wolf_states/wolf_idle_state.lua" />
 	<script filename="./data/scripts/game/enemies/wolf_states/wolf_attack_state.lua" />
+	<script filename="./data/scripts/game/enemies/wolf_states/wolf_hit_state.lua" />
+	<script filename="./data/scripts/game/enemies/wolf_states/wolf_walk_state.lua" />
+	<script filename="./data/scripts/game/enemies/wolf_states/wolf_deffense_state.lua" />
 	<script filename="./data/scripts/game/enemies/wolf_states/wolf_seek_state.lua" />
 	<script filename="./data/scripts/game/enemies/wolf_states/wolf_flee_state.lua" />
 	<script filename="./data/scripts/game/enemies/wolf_states/wolf_pursuit_state.lua" />
 	<script filename="./data/scripts/game/enemies/wolf_states/wolf_evade_state.lua" />
 	<script filename="./data/scripts/game/enemies/wolf_states/wolf_wander_state.lua" />
 	<script filename="./data/scripts/game/enemies/wolf_states/wolf_path_follow_state.lua" />
-	<script filename="./data/scripts/game/enemies/wolf_states/wolf_deffense_state.lua" />
-	<script filename="./data/scripts/game/enemies/wolf_states/wolf_hit_state.lua" />
-	<script filename="./data/scripts/game/enemies/wolf_states/wolf_walk_state.lua" />
-	<script filename="./data/scripts/game/enemies/wolf_states/wolf_run_attack_state.lua" />
-	<script filename="./data/scripts/game/enemies/wolf_states/wolf_still_attack_state.lua" />
-	<script filename="./data/scripts/game/enemies/wolf_states/wolf_animated_deffense_state.lua" />
-	<script filename="./data/scripts/game/enemies/wolf_states/wolf_animated_hit_state.lua" />
-	<script filename="./data/scripts/game/enemies/wolf_states/wolf_animated_idle_state.lua" />
-	<script filename="./data/scripts/game/enemies/wolf_states/wolf_animated_run_attack_state.lua" />
-	<script filename="./data/scripts/game/enemies/wolf_states/wolf_animated_run_state.lua" />
-	<script filename="./data/scripts/game/enemies/wolf_states/wolf_animated_still_attack_state.lua" />
-	<script filename="./data/scripts/game/enemies/wolf_states/wolf_animated_walk_state.lua" />
+	<!--<script filename="./data/scripts/game/enemies/wolf_states/wolf_animated_idle_state.lua" />
+	<script filename="./data/scripts/game/enemies/wolf_states/wolf_animated_attack_state.lua" />
+	<script filename="./data/scripts/game/enemies/wolf_states/wolf_animated_pursuit_state.lua" />-->
+	<!--<script filename="./data/scripts/game/enemies/wolf_states/wolf_animated_hit_state.lua" />-->
+	<!--<script filename="./data/scripts/game/enemies/wolf_states/wolf_animated_deffense_state.lua" />-->
+	<!--<script filename="./data/scripts/game/enemies/wolf_states/wolf_animated_walk_state.lua" />-->
+	
+	
 	<script filename="./data/scripts/game/enemies/Enemy.lua" />	
 </scripts>

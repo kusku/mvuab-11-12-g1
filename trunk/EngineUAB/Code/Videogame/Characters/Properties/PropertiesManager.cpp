@@ -1,5 +1,5 @@
 #include "PropertiesManager.h"
-//#include "Properties.h"
+#include "VideogameDefs.h"
 #include "Logger\Logger.h"
 #include "XML\XMLTreeNode.h"
 #include "Scripting\ScriptManager.h"
@@ -119,6 +119,16 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 		{
 			l_Properties->SetStepOffsetController( l_XMLPropertiesNode(i).GetFloatKeyword("step_offset", 0.5f) );
 		}
+		// --- Temas de IA --- //
+		else if( l_PropertyField == "bounding_radius" )
+		{
+			l_Properties->SetBoundingRadious( l_XMLPropertiesNode(i).GetFloatKeyword("bounding_radius", 10.f) );
+		}
+		else if( l_PropertyField == "max_speed" )
+		{
+			l_Properties->SetMaxSpeed( l_XMLPropertiesNode(i).GetFloatKeyword("max_speed", VELOCIDAD_MAXIMA) );
+		}
+		// --- Fi temas de IA --- //
 		else if ( l_PropertyField != "comment" ) 
 		{
 			std::string msg_error = "CPropertiesManager::LoadXML --> Error reading a unknow tag when trying to load properties : " + l_PropertyField;

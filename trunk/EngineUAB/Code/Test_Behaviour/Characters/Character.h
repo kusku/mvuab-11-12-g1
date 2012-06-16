@@ -51,8 +51,8 @@ public:
 	
 	void						AddLife				( int _Life );								
 	void						RestLife			( int _Life );								
-	void						AddSpeed			( int _Speed );								
-	void						RestSpeed			( int _Speed );								
+	void						AddSpeed			( float _Speed );								
+	void						RestSpeed			( float _Speed );								
 	void						AddStrong			( int _Strong );								
 	void						RestStrong			( int _Strong );								
 

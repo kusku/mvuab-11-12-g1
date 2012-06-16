@@ -75,6 +75,12 @@ public:
 	inline void					SetStepOffsetController	( float _StepOffset )								{ m_StepOffset = _StepOffset; }
 	inline const float			GetStepOffsetController	( void ) const										{ return m_StepOffset; }
 
+	inline void					SetBoundingRadious		( float _BoundingRadius )							{ m_BoundingRadius = _BoundingRadius; }
+	inline const float			GetBoundingRadious		( void ) const										{ return m_BoundingRadius; }
+
+	inline void					SetMaxSpeed				( float _MaxSpeed )									{ m_MaxSpeed = _MaxSpeed; }
+	inline const float			GetMaxSpeed				( void ) const										{ return m_MaxSpeed; }
+
 	//---- Members -------------------------------------------------------
 private:
 	std::string			m_Core;
@@ -96,6 +102,11 @@ private:
 	float				m_Slope;					// Slope del controller
 	float				m_SkinWidth;	
 	float				m_StepOffset;
+
+	// Propiedades de IA 
+	float				m_BoundingRadius;
+	float				m_MaxSpeed;
+
 };
 
 #endif __CLASS_PROPERTIES_H__

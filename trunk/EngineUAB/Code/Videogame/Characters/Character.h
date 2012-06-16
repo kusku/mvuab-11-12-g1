@@ -22,6 +22,7 @@ class CPhysicUserData;
 class CAnimationsStates;
 class CAnimatedInstanceModel;
 class CSteeringBehaviours;
+class CSteeringEntity;
 struct Telegram;
 //---------------------------//
 
@@ -36,7 +37,8 @@ public:
 
 	//----Main Functions --------------------------------------
 	virtual bool				Initialize			( const std::string &_Name, const Vect3f &_InitialPosicion, ECollisionGroup _Grup );
-	virtual bool				Init				();
+	bool						InitializeAI		( void );
+	virtual bool				Init				( void );
 	virtual bool				HandleMessage		( const Telegram& _Msg, bool _Logic = true, bool _Graphic = true  );		// Envia telegramas a las máquinas de estados
 	virtual bool				HandleMessage		( const Telegram& _Msg );
 	virtual void				Update				( float _ElapsedTime );
@@ -77,9 +79,11 @@ public:
 	inline bool					GetLocked			() const					{ return m_bLocked; }
 
 	inline CSteeringBehaviours*	GetBehaviours		( void ) const				{ return m_pBehaviours; }
+	inline CSteeringEntity*		GetSteeringEntity	( void ) const				{ return m_pSteeringEntity; }
+	
 
 	// Obtengo el angulo que forma donde mira
-	inline Vect3f				GetFront			() const				{ Vect3f l_Front; l_Front.GetXZFromAngle( GetYaw() ) ; return l_Front; }
+	inline Vect3f				GetFront			() const					{ Vect3f l_Front; l_Front.GetXZFromAngle( GetYaw() ) ; return l_Front; }
 																				//{ Vect3f front; front.xzFromAngle( m_Yaw ); return front; }
 
 	bool						IsPointAtLeft		( const Vect3f &_Position ) const	
@@ -116,6 +120,7 @@ protected:
 	Vect3f							m_PrevPosition;
 
 	CSteeringBehaviours			  * m_pBehaviours;
+	CSteeringEntity				  * m_pSteeringEntity;
 };
 
 #endif

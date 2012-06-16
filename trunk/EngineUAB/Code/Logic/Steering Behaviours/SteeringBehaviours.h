@@ -16,6 +16,7 @@ class CArrive;
 
 class CSteeringBehaviours
 {
+public:
 	//--- Init and End protocols------------------------------------------
 							CSteeringBehaviours			( float _MaxForce );
 	virtual					~CSteeringBehaviours		( void );
@@ -32,6 +33,8 @@ class CSteeringBehaviours
 
 	int						HasBehavior					( eBehaviorType type );
 	
+	inline Vect2f			Truncate					(  Vect2f v, float _Max );
+
 	//---- Properties ( get & Set )---------------------------------------
 	// Fuerza del steering creada por la combinación en la ejecución de todos los steerings
 	const Vect2f&			GetSteeringForce			( void ) const 					{ return m_SteeringForce; }
@@ -47,8 +50,7 @@ class CSteeringBehaviours
 	inline CArrive*			GetArrive					( void );
 
 	//---- Register Methods ----------------------------------------------
-private:	
-	void					RegisterLUAMethods			( void );
+	static void				RegisterLUAMethods			( void );
 
     //---- Members -------------------------------------------------------
 

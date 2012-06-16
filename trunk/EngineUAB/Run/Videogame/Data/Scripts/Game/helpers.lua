@@ -65,6 +65,14 @@ function get_distance_to_player( _enemy, _player )
 end
 
 -- -------------------------------------------------------------------------------------
+--  is_weak_than_player: Retorna si l'enemic és més débil que el player
+-- -------------------------------------------------------------------------------------
+function is_weaker_than_player( _enemy, _player )
+	local l_is_weaker = ( _enemy.properties.life <= player.properties.life )
+	return l_is_weaker
+end
+
+-- -------------------------------------------------------------------------------------
 --  angle_filter: Transforma un ángulo en un valor entre 0 y 2*pi
 -- -------------------------------------------------------------------------------------
 function angle_filter(_angle)

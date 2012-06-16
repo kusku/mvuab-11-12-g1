@@ -26,16 +26,12 @@ public:
 	//---- Functions ---------------------------------------
 
 	//---- Properties ( get & Set )---------------------------------------
-	inline eBehaviorType	GetType			( void ) const						{ return m_Type; }			// Tipo del steering concreto, se establece en el constructor
 	
-	inline const Vect2f&	GetTarget		( void ) 							{ return (m_Target); }		
-	inline void				SetTarget		( const Vect2f & _Target ) 			{ m_Target = _Target; }		
-
 	//---- Register Methods -------------------------------------
-	
+	static void				RegisterLUAMethods	( void );
+
 	//---- Members -----------------------------------------------
 private:
-		Vect2f			m_Target;
 		eDeceleration	m_Deceleration;
 		float	 		m_DecelerationBeginsAtDistance;
 };

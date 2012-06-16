@@ -12,7 +12,8 @@
 // -----------------------------------------
 
 CSteering::CSteering( eBehaviorType _Type )
-	: m_Type ( _Type )
+	: m_Type	( _Type )
+	, m_Target	( )
 {}
 
 
@@ -29,6 +30,7 @@ void CSteering::RegisterLUAMethods( void )
 
 	module(state) [
 		class_<CSteering>("CSteering")
-			
+			.property( "type", &CSteering::GetType)
+			.property( "target", &CSteering::GetTarget, &CSteering::SetTarget)
 	];
 }

@@ -26,13 +26,12 @@ public:
 	//---- Functions ---------------------------------------
 	
 	//---- Properties ( get & Set )---------------------------------------
-	inline eBehaviorType		GetType			( void ) const		{ return m_Type; }		// Tipo del steering concreto, se establece en el constructor
 
 	//---- Register Methods -------------------------------------
-	
+	static void				RegisterLUAMethods	( void );
+
 	//---- Members -----------------------------------------------
 private:
-		Vect2f				m_Target;
 		bool				m_EvaderUpdated;
 		CArrive			*	m_pArrive;
         CSteeringEntity *	m_pEvader;
