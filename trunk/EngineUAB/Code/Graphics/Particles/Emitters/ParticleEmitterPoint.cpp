@@ -9,8 +9,8 @@
 #endif
 
 
-CParticleEmitterPoint::CParticleEmitterPoint(const std::string& name, CParticleSystem* particleSystem, float particlesPerSecond, const Vect3f& initialPosition)
-	: CParticleEmitter(name, particleSystem, particlesPerSecond, initialPosition)
+CParticleEmitterPoint::CParticleEmitterPoint(const std::string& name, CParticleSystem* particleSystem, float particlesPerSecond, const Vect3f& initialPosition, bool useDis)
+	: CParticleEmitter(name, particleSystem, particlesPerSecond, initialPosition, useDis)
 {
 
 }

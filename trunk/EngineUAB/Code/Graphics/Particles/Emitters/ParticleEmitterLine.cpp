@@ -9,8 +9,8 @@
 #endif
 
 
-CParticleEmitterLine::CParticleEmitterLine(const std::string& name, CParticleSystem* particleSystem, float particlesPerSecond, const Vect3f& initialPosition, const Vect3f& lineStart, const Vect3f& lineEnd)
-	: CParticleEmitter(name, particleSystem, particlesPerSecond, initialPosition)
+CParticleEmitterLine::CParticleEmitterLine(const std::string& name, CParticleSystem* particleSystem, float particlesPerSecond, const Vect3f& initialPosition, bool useDis, const Vect3f& lineStart, const Vect3f& lineEnd)
+	: CParticleEmitter(name, particleSystem, particlesPerSecond, initialPosition, useDis)
 	, m_LineStart(lineStart)
 	, m_LineEnd(lineEnd)
 {

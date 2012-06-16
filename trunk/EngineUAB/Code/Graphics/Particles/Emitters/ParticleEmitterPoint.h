@@ -17,7 +17,7 @@ class CParticleEmitterPoint : public CParticleEmitter
 		Vect3f				CalculateParticlePosition	();
 
 	public:
-		CParticleEmitterPoint(const std::string& name, CParticleSystem* particleSystem, float particlesPerSecond, const Vect3f& initialPosition);
+		CParticleEmitterPoint(const std::string& name, CParticleSystem* particleSystem, float particlesPerSecond, const Vect3f& initialPosition, bool useDis);
 		virtual ~CParticleEmitterPoint();
 };
 

@@ -76,7 +76,8 @@ bool CParticleEmitterManager::Reload()
 				Vect3f initPos = l_xml(i).GetVect3fProperty("initialPosition", Vect3f(0, 0, 0), true);
 				bool onLoop = l_xml(i).GetBoolProperty("on_loop", true, false);
 				uint32 pej = (uint32)l_xml(i).GetIntProperty("ejection_count", 0, !onLoop);
-
+				bool useDis = l_xml(i).GetBoolProperty("use_dis", true, false);
+				
 				CParticleSystem* system = CORE->GetParticleSystemManager()->GetResource(systemName);
 				assert(system);
 
@@ -84,7 +85,7 @@ bool CParticleEmitterManager::Reload()
 
 				if(type == "point")
 				{
-					CParticleEmitterPoint* point = new CParticleEmitterPoint(name, system, particlesPerSecond, initPos);
+					CParticleEmitterPoint* point = new CParticleEmitterPoint(name, system, particlesPerSecond, initPos, useDis);
 
 					emitter = point;
 				}
@@ -95,7 +96,7 @@ bool CParticleEmitterManager::Reload()
 					float height = l_xml(i).GetFloatProperty("height", 0, true);
 					float width = l_xml(i).GetFloatProperty("width", 0, true);
 
-					CParticleEmitterRing* ring = new CParticleEmitterRing(name, system, particlesPerSecond, initPos, horizontal, radius, height, width);
+					CParticleEmitterRing* ring = new CParticleEmitterRing(name, system, particlesPerSecond, initPos, useDis, horizontal, radius, height, width);
 
 					emitter = ring;
 				}
@@ -104,7 +105,7 @@ bool CParticleEmitterManager::Reload()
 					Vect3f lineStart = l_xml(i).GetVect3fProperty("line_start", v3fZERO);
 					Vect3f lineEnd = l_xml(i).GetVect3fProperty("line_end", v3fZERO);
 
-					CParticleEmitterLine* line = new CParticleEmitterLine(name, system, particlesPerSecond, initPos, lineStart, lineEnd);
+					CParticleEmitterLine* line = new CParticleEmitterLine(name, system, particlesPerSecond, initPos, useDis, lineStart, lineEnd);
 
 					emitter = line;
 				}
