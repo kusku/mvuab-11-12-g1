@@ -7,6 +7,7 @@ class 'CPlayerHitState' (CState)
 	function CPlayerHitState:OnEnter(_CCharacter)
 		core:get_debug_gui_manager().debug_render:set_state_name("Hit")
 		
+		_CCharacter:hit_to_player()
 		self.animation_time = 0.0
 	end
 	

@@ -62,7 +62,6 @@ class 'CPlayerAttackState' (CState)
 	function CPlayerAttackState:OnMessage(_CCharacter, _Msg)
 		print_logger(0, "CPlayerAttackState:OnMessage")	
 		if ( _Msg.msg == msg_attack ) then
-			_CCharacter:rest_life( 1 )
 			_CCharacter.logic_fsm:change_state(_CCharacter.hit)
 			_CCharacter.graphic_fsm:change_state(_CCharacter.animated_hit)
 			return true

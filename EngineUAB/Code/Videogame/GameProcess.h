@@ -37,6 +37,8 @@ public:
 	void	CreatePlayerCamera	( float _near, float _far, float _zoom, float _heightEye, float _heightLookAt, const std::string &_name );
 	void	CreateFreeCamera	( float _near, float _far, float _zoom, float _heightEye, float _heightLookAt, const std::string &_name );
 
+	void			ChangeToGUIProcess		();
+
 	float	GetTimeBetweenClicks	() const				{ return m_fTimeBetweenClicks; }
 
 	static void					RegisterMethods				( void );
