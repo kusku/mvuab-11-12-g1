@@ -1,5 +1,4 @@
 <scripts>
-	<!--<script filename="./data/scripts/utils.lua" />-->
 	<script filename="./data/scripts/game/init_game.lua" />
 	<script filename="./data/scripts/game/helpers.lua" />
 	<script filename="./data/scripts/game/player/player_idle_state.lua" />
