@@ -15,12 +15,6 @@ Msg_Evade	= 8		-- Evadir
 Msg_Chase	= 9 	-- Persecució
 	
 function init_game_data()
-	print_logger(0, "Iniciant l'aplicació...")
-	if ( core == nil ) then
-		print_logger(2, "core es null")
-	else
-		print_logger(1, "core NO es null")
-	end
-	
+	print_logger(0, "Iniciant l'aplicació...")	
 end
 
