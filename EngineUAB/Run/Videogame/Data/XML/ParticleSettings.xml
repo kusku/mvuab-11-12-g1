@@ -35,6 +35,40 @@
     <BlendState value="NonPremultiplied" />
   </settings>
 
+  <settings name="water_mist">
+    <TextureName value="./Data/General/Textures/wmist.png" />
+
+    <MaxParticles value="500" />
+
+    <Duration value="3.5" />
+    <DurationRandomness value="1.5" />
+
+    <MinHorizontalVelocity value="1" />
+    <MaxHorizontalVelocity value="3" />
+
+    <MinVerticalVelocity value="1" />
+    <MaxVerticalVelocity value="3" />
+
+    <Gravity value="0 0 0" />
+
+    <EndVelocity value="0" />
+
+    <MinColor value="177 233 251 128" />
+    <MaxColor value="177 233 251 128" />
+
+    <MinRotateSpeed value="1" />
+    <MaxRotateSpeed value="2" />
+
+    <MinStartSize value="1" />
+    <MaxStartSize value="5" />
+
+    <MinEndSize value="5" />
+    <MaxEndSize value="10" />
+
+    <BlendState value="NonPremultiplied" />
+
+  </settings>
+
   <settings name="water_fall">
     <TextureName value="./Data/General/Textures/mist2.tga" />
 
@@ -158,30 +192,32 @@
 
   <settings name="explosion">
     <TextureName value="./Data/General/Textures/explosion.png" />
-    <MaxParticles value="100" />
+    <MaxParticles value="200" />
 
-    <Duration value="2" />
-    <DurationRandomness value="1" />
+    <Duration value="0.75" />
+    <DurationRandomness value="0.25" />
 
-    <MinHorizontalVelocity value="20" />
-    <MaxHorizontalVelocity value="30" />
+    <MinHorizontalVelocity value="-2" />
+    <MaxHorizontalVelocity value="2" />
 
-    <MinVerticalVelocity value="-20" />
-    <MaxVerticalVelocity value="20" />
+    <MinVerticalVelocity value="-2" />
+    <MaxVerticalVelocity value="2" />
+
+    <Gravity value="0 0 0" />
 
     <EndVelocity value="0" />
 
     <MinColor value="169 169 169 255" />
     <MaxColor value="128 128 128 255" />
 
-    <MinRotateSpeed value="-1" />
-    <MaxRotateSpeed value="1" />
+    <MinRotateSpeed value="-2" />
+    <MaxRotateSpeed value="2" />
 
-    <MinStartSize value="7" />
-    <MaxStartSize value="7" />
+    <MinStartSize value="1" />
+    <MaxStartSize value="2" />
 
-    <MinEndSize value="70" />
-    <MaxEndSize value="140" />
+    <MinEndSize value="5" />
+    <MaxEndSize value="10" />
 
     <BlendState value="Additive" />
   </settings>
