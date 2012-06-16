@@ -12,4 +12,6 @@
 
   <system name="Blood" settings_name="Blood" />
 
+  <system name="WaterMist" settings_name="water_mist" />
+
 </particle_systems>
