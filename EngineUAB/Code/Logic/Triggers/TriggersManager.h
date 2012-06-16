@@ -31,6 +31,7 @@ struct TriggerInstance
 	CColor			Color;
 	float			Radius;
 	uint32			Group;
+	bool			Active;
 
 	CPhysicActor *	pTriggerActor;
 

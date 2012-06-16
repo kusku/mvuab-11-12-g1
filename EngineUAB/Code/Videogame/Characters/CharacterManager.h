@@ -55,6 +55,7 @@ public:
 	inline CCharacter*	GetPlayer				() const					{ return m_pPlayer; }
 	inline CCharacter*	GetTargetEnemy			() const					{ return m_pTargetEnemy; }
 	inline CCharacter*	GetPreviewTargetEnemy	() const					{ return m_pPreviewTargetEnemy; }
+	inline CCharacter*	GetEnemyByName			( const std::string &name )	{ return GetResource(name); }
 
 	inline void			SetPlayer				( CCharacter *player )		{ m_pPlayer = player; }
 	inline void			SetTargetEnemy			( CCharacter *enemy )		{ m_pTargetEnemy = enemy; }

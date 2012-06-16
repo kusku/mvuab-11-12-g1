@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <triggers>
-	<trigger name="trigger1" triggername="triggername1" layer="pepe" type="box" position="0.0 15.0 0.0" size="10.0 10.0 10.0" color="1.0 0 0 1.0" luacode="print_something()" />
+	<trigger name="inicio" triggername="inicio" layer="pepe" actorname="" type="box" position="-14.79 -29.66 -113.58" size="2.0 2.0 2.0" color="1.0 0 0 1.0" luacode="trigger_inicio()" group="0" radius="1.0" />
+	<trigger name="cascada" triggername="cascada" layer="pepe" actorname="" type="box" position="62.05 -23.51 -75.32" size="3.0 2.0 2.0" color="1.0 0 0 1.0" luacode="trigger_cascada()" group="0" radius="1.0" />
+	<trigger name="puente" triggername="puente" layer="pepe" actorname="" type="box" position="90.82 -24.56 -24.13" size="2.0 2.0 3.0" color="1.0 0 0 1.0" luacode="trigger_puente()" group="0" radius="1.0" />
+	<trigger name="casa" triggername="casa" layer="pepe" actorname="" type="box" position="51.82 -31.56 103.44" size="3.0 2.0 2.0" color="1.0 0 0 1.0" luacode="trigger_casa()" group="0" radius="1.0" />
+	<trigger name="final" triggername="final" layer="pepe" actorname="" type="box" position="-30.18 -30.32 104.00" size="4.0 2.0 3.0" color="1.0 0 0 1.0" luacode="trigger_end_game" group="0" radius="1.0" />
 </triggers>
+
