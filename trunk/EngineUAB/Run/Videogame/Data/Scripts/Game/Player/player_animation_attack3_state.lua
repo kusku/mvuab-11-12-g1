@@ -21,6 +21,7 @@ class 'CPlayerAnimationAttack3State' (CState)
 	end
 	
 	function CPlayerAnimationAttack3State:OnMessage(_CCharacter, _Msg)
+		return false
 	end
 	
 	function CPlayerAnimationAttack3State:__Finalize()

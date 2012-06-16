@@ -17,6 +17,7 @@ class 'CPlayerAnimationHitState' (CState)
 	end
 	
 	function CPlayerAnimationHitState:OnMessage(_CCharacter, _Msg)
+		return false
 	end
 	
 	function CPlayerAnimationHitState:__Finalize()

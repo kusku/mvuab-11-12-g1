@@ -17,6 +17,7 @@ class 'CPlayerAnimationAttackState' (CState)
 	end
 	
 	function CPlayerAnimationAttackState:OnMessage(_CCharacter, _Msg)
+		return false
 	end
 	
 	function CPlayerAnimationAttackState:__Finalize()

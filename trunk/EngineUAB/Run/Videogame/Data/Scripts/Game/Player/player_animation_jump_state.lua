@@ -17,6 +17,7 @@ class 'CPlayerAnimationJumpState' (CState)
 	end
 	
 	function CPlayerAnimationJumpState:OnMessage(_CCharacter, _Msg)
+		return false
 	end
 	
 	function CPlayerAnimationJumpState:__Finalize()
