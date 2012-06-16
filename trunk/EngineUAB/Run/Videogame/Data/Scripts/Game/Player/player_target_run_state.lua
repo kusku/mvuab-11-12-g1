@@ -81,13 +81,6 @@ class 'CPlayerTargetRunState' (CState)
 		--Mueve el controller físico
 		_CCharacter.physic_controller:move(l_dir, _CCharacter.elapsed_time)
 		
-		--Actualiza la posición del objeto 3D
-		_CCharacter.position = _CCharacter.physic_controller.position
-		_CCharacter.position = Vect3f(_CCharacter.position.x, _CCharacter.position.y - _CCharacter.physic_controller.height + 0.4, _CCharacter.position.z)
-		
-		--Actualiza la posición del modelo animado
-		_CCharacter.animated_model.position = _CCharacter.position
-		
 		--Pone la rotación del personaje
 		_CCharacter.physic_controller.yaw = l_yaw
 		_CCharacter.animated_model.yaw = -(l_yaw * 180.0 / math.pi) + 90.0
