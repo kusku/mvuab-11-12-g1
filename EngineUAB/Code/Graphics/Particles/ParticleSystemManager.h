@@ -23,7 +23,8 @@ class CParticleSystemManager : public CMapManager<CParticleSystem>
 
 		bool					Load					(const std::string& filename);
 		bool					Reload					();
-		void		Initialize		();
+		void					CleanUp					();
+		void					Initialize		();
 };
 
 #endif

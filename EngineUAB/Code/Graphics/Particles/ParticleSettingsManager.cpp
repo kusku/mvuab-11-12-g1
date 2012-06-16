@@ -17,6 +17,11 @@ CParticleSettingsManager::CParticleSettingsManager()
 
 CParticleSettingsManager::~CParticleSettingsManager()
 {
+	CleanUp();
+}
+
+void CParticleSettingsManager::CleanUp()
+{
 	this->Destroy();
 }
 

@@ -100,6 +100,15 @@ public:
 	void		ReloadSounds							();
 	void		ReloadWayPoints							();
 
+	//----Unload Methods ---------------------------------------------------
+	void		UnloadStaticMeshes						();
+	void		UnloadAnimatedModels					();
+	void		UnloadRenderableObjectsLayers			();
+	void		UnloadLights							();
+	void		UnloadBillboards						();
+	void		UnloadParticles							();
+	void		UnloadTriggers							();
+
 	//----Properties ( get & Set )---------------------------------------
 	void				SetCamera					( CCamera *_Camera )			{ m_pCamera = _Camera; }
 	void				SetTimer					( CTimer *_Timer )				{ m_pTimer = _Timer; }

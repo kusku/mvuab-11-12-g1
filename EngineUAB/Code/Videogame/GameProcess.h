@@ -39,8 +39,9 @@ public:
 
 	float	GetTimeBetweenClicks	() const				{ return m_fTimeBetweenClicks; }
 
+	static void					RegisterMethods				( void );
+
 private:
-	void						RegisterMethods				( void );
 	void						RegisterToLuaGameProcess	( lua_State* _pLua );
 	void						UpdateInputs				( float _ElapsedTime );
 	void						ReloadGameObjects			( void );

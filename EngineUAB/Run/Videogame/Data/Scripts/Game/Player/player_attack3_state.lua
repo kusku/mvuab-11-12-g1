@@ -44,19 +44,9 @@ class 'CPlayerAttack3State' (CState)
 	end
 	
 	function CPlayerAttack3State:OnExit(_CCharacter)
-		print_logger(0, "Exit State: Attack 3")
-		local enemy = get_game_process():get_character_manager():search_target_enemy(8.0, math.pi/6)
+		local enemy = get_game_process():get_character_manager():search_target_enemy(3.0, math.pi/6)
 		if enemy ~= nil then
-			
-			-- Test jordi missatges entre entitats
-			print_logger(1, "Player ha atacat a un enemic nº : " ..enemy:get_id())
 			_DispatchMgr:dispatch_state_message( SEND_MSG_IMMEDIATELY, _CCharacter:get_id(), enemy:get_id(), msg_attack, NO_ADDITIONAL_INFO ) 
-			
-			-- TODO:: AQuest codi hauria d'anar en el OnMessage del llob!!
-			-- enemy.properties.life = enemy.properties.life - 10
-			-- if enemy.properties.life <= 0 then
-				-- enemy.enable = false
-			-- end
 		end
 	end
 	

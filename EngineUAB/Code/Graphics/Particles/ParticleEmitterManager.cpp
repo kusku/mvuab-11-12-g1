@@ -22,6 +22,11 @@ CParticleEmitterManager::CParticleEmitterManager()
 
 CParticleEmitterManager::~CParticleEmitterManager()
 {
+	CleanUp();
+}
+
+void CParticleEmitterManager::CleanUp()
+{
 	this->Destroy();
 }
 

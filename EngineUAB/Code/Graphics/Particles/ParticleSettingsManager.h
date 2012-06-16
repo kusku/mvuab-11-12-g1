@@ -19,6 +19,7 @@ class CParticleSettingsManager : public CMapManager<TParticleSystemSettings>
 
 		bool					Load					(const std::string& filename);
 		bool					Reload					();
+		void					CleanUp					();
 };
 
 

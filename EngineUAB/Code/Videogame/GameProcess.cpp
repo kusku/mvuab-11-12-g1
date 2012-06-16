@@ -8,6 +8,7 @@
 #include "StatesMachine\EntityManager.h"
 #include "ActionToInput.h"
 #include "RegisterToLua.h"
+#include "GUIManager.h"
 #include "Core.h"
 #include "Base.h"
 
@@ -41,14 +42,10 @@ CGameProcess::~CGameProcess( void )
 bool CGameProcess::Init( void )
 {
 	//Registra los métodos
-	RegisterMethods();
+	//RegisterMethods();
 
 	//Carga los datos en el engine
-	if( INIT_GUI )
-	{
-		CORE->GetScriptManager()->RunCode("load_data()");
-	}
-	else
+	if( !INIT_GUI )
 	{
 		CORE->GetScriptManager()->RunCode("load_all()");
 	}
@@ -109,6 +106,12 @@ void CGameProcess::Update(float elapsedTime)
 	{
 		ReloadGameObjects();
 		m_pThPSCamera->SetObject3D( m_pCharactersManager->GetPlayer());
+	}
+
+	if( CORE->GetActionToInput()->DoAction("GoToMenu") )
+	{
+		CORE->GetGUIManager()->PopWindows();
+		PostMessage(m_hWnd, WM_GUI_PROCESS, 0, 0);
 	}
 
 	if( CORE->GetActionToInput()->DoAction("CommutationCamera") )
