@@ -102,9 +102,9 @@ void CDebugGUIManager::RegisterMethods()
 
 	module(state) [
 		class_<CDebugGUIManager>("CDebugGUIManager")
-			.def("get_console",&CDebugGUIManager::GetConsole)
-			.def("get_debug_render", &CDebugGUIManager::GetDebugRender)
-			.def("get_debug_options", &CDebugGUIManager::GetDebugOptions)
+			.property("console", &CDebugGUIManager::GetConsole)
+			.property("debug_render",&CDebugGUIManager::GetDebugRender)
+			.property("debug_options", &CDebugGUIManager::GetDebugOptions)
 	];
 
 	module(state) [
@@ -136,9 +136,12 @@ void CDebugGUIManager::RegisterMethods()
 			.def("is_delta_time_visible", &CDebugRender::GetDeltaTimeVisible)
 			.def("is_gamepad_visible", &CDebugRender::GetGamePadVisible)
 			.def("is_camera_visible", &CDebugRender::GetCameraVisible)
+			.def("is_state_visible", &CDebugRender::GetStateVisible)
 			.def("toggle_fps", &CDebugRender::ToggleFPS)
 			.def("toggle_delta_time", &CDebugRender::ToggleDeltaTime)
 			.def("toggle_gamepad", &CDebugRender::ToggleGamePad)
 			.def("toggle_camera", &CDebugRender::ToggleCamera)
+			.def("toggle_state", &CDebugRender::ToggleState)
+			.def("set_state_name", &CDebugRender::SetStateName)
 	];
 }

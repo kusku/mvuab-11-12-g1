@@ -7,7 +7,6 @@
 #include "Cameras\Camera.h"
 #include "Base.h"
 #include "Core.h"
-#include <string>
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -20,6 +19,8 @@ CDebugRender::CDebugRender(void)
 	, m_bDeltaTimeVisible(true)
 	, m_bGamePadVisible(true)
 	, m_bCameraVisible(true)
+	, m_bStateVisible(true)
+	, m_StateName("")
 {
 }
 
@@ -81,6 +82,11 @@ void CDebugRender::Render(CRenderManager *_RM, CFontManager *fm, CTimer *timer, 
 			dy += fm->DrawDefaultText(screen.x - dx, dy, color, "Camera: %s", camera.c_str());
 		}
 
+		if( m_bStateVisible )
+		{
+			dy += fm->DrawDefaultText(screen.x - dx, dy, color, "State: %s", m_StateName.c_str());
+		}
+
 		//Info para ocultar la información
 		dy += fm->DrawDefaultText(screen.x - dx, dy, color, "_________________________");
 		dy += fm->DrawDefaultText(screen.x - dx, dy, color, "%s to hide", hideInfo.c_str());
@@ -120,6 +126,7 @@ void CDebugRender::AnalizeSizeInfo()
 	if( m_bDeltaTimeVisible ) ++l_NumOfElements;
 	if( m_bGamePadVisible ) ++l_NumOfElements;
 	if( m_bCameraVisible ) ++l_NumOfElements;
+	if( m_bStateVisible ) ++l_NumOfElements;
 
 	//Calculate the size of the area
 	baseUtils::FormatSrting(l_sInfo,"_________________________");

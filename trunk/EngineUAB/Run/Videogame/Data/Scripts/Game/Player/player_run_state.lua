@@ -5,6 +5,7 @@ class 'CPlayerRunState' (CState)
 	end
 
 	function CPlayerRunState:OnEnter(_CCharacter)
+		core:get_debug_gui_manager().debug_render:set_state_name("Run")
 	end
 	
 	function CPlayerRunState:Execute(_CCharacter)
@@ -66,7 +67,7 @@ class 'CPlayerRunState' (CState)
 			l_dir = Vect3f(math.cos(l_yaw), 0.0, math.sin(l_yaw))
 			l_move_player = true
 		end
-			
+		
 		--Le aplica la velocidad al movimiento
 		l_dir = l_dir * 10.0 * _CCharacter.elapsed_time
 		
@@ -84,6 +85,12 @@ class 'CPlayerRunState' (CState)
 			--Pone de forma correcta los ángulos
 			_CCharacter.physic_controller.yaw = l_yaw
 			_CCharacter.animated_model.yaw = -(l_yaw * 180.0 / math.pi) + 90.0
+			
+			--Mira si se hace un salto
+			if self.action_2_input:do_action('PlayerJump') then
+				_CCharacter.logic_fsm:change_state(_CCharacter.jump)
+				_CCharacter.graphic_fsm:change_state(_CCharacter.animated_jump)
+			end
 		else
 			--Cambia de estado a idle
 			_CCharacter.logic_fsm:change_state(_CCharacter.idle)

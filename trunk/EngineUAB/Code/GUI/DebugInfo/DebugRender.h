@@ -12,6 +12,7 @@
 
 #include "Math\Color.h"
 #include "Math\Vector2.h"
+#include <string>
 
 //---Forward Declarations---
 class CRenderManager;
@@ -30,23 +31,27 @@ public:
 
 	//Set & Get Methods-------------------
 	void				SetVisible					( bool flag )		{ m_bIsVisible = flag; }
-	bool				GetVisible					( void ) const			{ return m_bIsVisible; }
+	bool				GetVisible					() const			{ return m_bIsVisible; }
 
-	bool				GetFPSVisible				( void ) const			{ return m_bFPSVisible; }
-	bool				GetDeltaTimeVisible			( void ) const			{ return m_bDeltaTimeVisible; }
-	bool				GetGamePadVisible			( void ) const			{ return m_bGamePadVisible; }
-	bool				GetCameraVisible			( void ) const			{ return m_bCameraVisible; }
+	bool				GetFPSVisible				() const			{ return m_bFPSVisible; }
+	bool				GetDeltaTimeVisible			() const			{ return m_bDeltaTimeVisible; }
+	bool				GetGamePadVisible			() const			{ return m_bGamePadVisible; }
+	bool				GetCameraVisible			() const			{ return m_bCameraVisible; }
+	bool				GetStateVisible				() const			{ return m_bStateVisible; }
 
 	void				SetFPSVisible				( bool visible )	{ m_bFPSVisible = visible; AnalizeSizeInfo(); }
 	void				SetDeltaTimeVisible			( bool visible )	{ m_bDeltaTimeVisible = visible; AnalizeSizeInfo(); }
 	void				SetGamePadVisible			( bool visible )	{ m_bGamePadVisible = visible; AnalizeSizeInfo(); }
 	void				SetCameraVisible			( bool visible )	{ m_bCameraVisible = visible; AnalizeSizeInfo(); }
-	
+	void				SetStateVisible				( bool visible )	{ m_bStateVisible = visible; AnalizeSizeInfo(); }
+
+	void				SetStateName				( const std::string& state) { m_StateName = state; }
 	//Toggle Methods----------------------
 	void				ToggleFPS					()					{ m_bFPSVisible = !m_bFPSVisible; AnalizeSizeInfo(); }
 	void				ToggleDeltaTime				()					{ m_bDeltaTimeVisible = !m_bDeltaTimeVisible; AnalizeSizeInfo(); }
 	void				ToggleGamePad				()					{ m_bGamePadVisible = !m_bGamePadVisible; AnalizeSizeInfo(); }
 	void				ToggleCamera				()					{ m_bCameraVisible = !m_bCameraVisible; AnalizeSizeInfo(); }
+	void				ToggleState					()					{ m_bStateVisible = !m_bStateVisible; AnalizeSizeInfo(); }
 
 private:
 	void AnalizeSizeInfo ();
@@ -58,6 +63,9 @@ private:
 	bool					m_bDeltaTimeVisible;
 	bool					m_bGamePadVisible;
 	bool					m_bCameraVisible;
+	bool					m_bStateVisible;
+
+	std::string				m_StateName;
 };
 
 #endif
