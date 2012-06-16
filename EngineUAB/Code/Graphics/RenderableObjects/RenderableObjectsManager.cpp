@@ -24,16 +24,6 @@ CRenderableObjectsManager::CRenderableObjectsManager()
 CRenderableObjectsManager::~CRenderableObjectsManager()
 {
 	CleanUp();
-
-	InstanceMeshHWMapIt it = m_InstanceMeshHWMap.begin();
-	InstanceMeshHWMapIt itEnd = m_InstanceMeshHWMap.end();
-
-	for(; it != itEnd; ++it)
-	{
-		CHECKED_DELETE(it->second);
-	}
-
-	m_InstanceMeshHWMap.clear();
 }
 
 void CRenderableObjectsManager::Update(float elapsedTime)
@@ -181,4 +171,14 @@ void CRenderableObjectsManager::CleanUp()
 {
 	Destroy();
 	m_RenderableObjects.clear();
+
+	InstanceMeshHWMapIt it = m_InstanceMeshHWMap.begin();
+	InstanceMeshHWMapIt itEnd = m_InstanceMeshHWMap.end();
+
+	for(; it != itEnd; ++it)
+	{
+		CHECKED_DELETE(it->second);
+	}
+
+	m_InstanceMeshHWMap.clear();
 }
