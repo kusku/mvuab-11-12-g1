@@ -110,8 +110,7 @@ void CGameProcess::Update(float elapsedTime)
 
 	if( CORE->GetActionToInput()->DoAction("GoToMenu") )
 	{
-		CORE->GetGUIManager()->PopWindows();
-		PostMessage(m_hWnd, WM_GUI_PROCESS, 0, 0);
+		SCRIPT->RunCode("change_to_gui_process()");
 	}
 
 	if( CORE->GetActionToInput()->DoAction("CommutationCamera") )
@@ -191,6 +190,11 @@ void CGameProcess::LoadGameObjects()
 //-------------------------------------
 //--Registrador de métodos en LUA------
 //-------------------------------------
+void CGameProcess::ChangeToGUIProcess()
+{
+	PostMessage(m_hWnd, WM_GUI_PROCESS, 0, 0);
+}
+
 void CGameProcess::RegisterMethods()
 {
 	lua_State * l_State = SCRIPT->GetLuaState();
@@ -204,6 +208,7 @@ void CGameProcess::RegisterMethods()
 			.def("get_character_manager", &CGameProcess::GetCharactersManager)
 			.def("create_player_camera", &CGameProcess::CreatePlayerCamera)
 			.def("get_time_between_clicks", &CGameProcess::GetTimeBetweenClicks)
+			.def("change_to_gui_process", &CGameProcess::ChangeToGUIProcess)
 			.property("player_camera", &CGameProcess::GetPlayerCamera)
 	];
 

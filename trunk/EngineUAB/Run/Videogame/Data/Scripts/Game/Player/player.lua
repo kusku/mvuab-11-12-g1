@@ -78,6 +78,11 @@ class 'CPlayer' (CCharacter)
 			end
 		end
 		
+		--Mirar si el personaje está muerto
+		if self.properties.life <= 0 then
+			change_to_gui_process()
+		end
+		
 		--Actualizamos los estados en caso de cambiar
 		self.logic_fsm:update()
 		self.graphic_fsm:update()
@@ -95,4 +100,8 @@ class 'CPlayer' (CCharacter)
 		local enemy = character_manager:search_target_enemy(20.0, math.pi / 4)
 		character_manager.preview_target_enemy = enemy
 		return enemy
+	end
+	
+	function CPlayer:hit_to_player()
+		self:rest_life( 10 + math.random(0, 10) )
 	end

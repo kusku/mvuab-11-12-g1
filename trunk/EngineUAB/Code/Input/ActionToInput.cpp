@@ -80,7 +80,7 @@ void CActionToInput::Update()
 
 bool CActionToInput::DoAction(const std::string &action)
 {
-	std::vector<SInputInfo*> l_Actions = m_ActionsMap[ action ];
+ 	std::vector<SInputInfo*> l_Actions = m_ActionsMap[ action ];
 
 	if( l_Actions.size() > 0 )
 	{
