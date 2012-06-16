@@ -15,7 +15,7 @@
 		<width_controller>0.5</width_controller>
 		<slope>45.0</slope>
 		<skin_width>0.1</skin_width>
-		<step_offset>0.5</step_offset>
+		<step_offset>0.2</step_offset>
 	</default_properties>
 	<default_properties core="lobo">
 		<life>200</life>

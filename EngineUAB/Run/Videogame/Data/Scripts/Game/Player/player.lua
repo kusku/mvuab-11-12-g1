@@ -24,6 +24,7 @@ class 'CPlayer' (CCharacter)
 		self.target_attack3 = CPlayerTargetAttack3State()
 		self.defense = CPlayerDefenseState()
 		self.jump = CPlayerJumpState()
+		self.hit = CPlayerHitState()
 		
 		self.animated_idle = CPlayerAnimationIdleState()
 		self.animated_run = CPlayerAnimationRunState()
@@ -32,6 +33,7 @@ class 'CPlayer' (CCharacter)
 		self.animated_attack3 = CPlayerAnimationAttack3State()
 		self.animated_defense = CPlayerAnimationDefenseState()
 		self.animated_jump = CPlayerAnimationJumpState()
+		self.animated_hit = CPlayerAnimationHitState()
 		
 		self.animation_time = -1.0
 	end
@@ -79,6 +81,13 @@ class 'CPlayer' (CCharacter)
 		--Actualizamos los estados en caso de cambiar
 		self.logic_fsm:update()
 		self.graphic_fsm:update()
+		
+		--Actualiza la posición del objeto 3D
+		self.position = self.physic_controller.position
+		self.position = Vect3f(self.position.x, self.position.y - self.physic_controller.height - 0.05, self.position.z)
+		
+		--Actualiza la posición del modelo animado
+		self.animated_model.position = self.position
 	end
 	
 	function CPlayer:detect_enemy()

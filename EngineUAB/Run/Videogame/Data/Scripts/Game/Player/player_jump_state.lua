@@ -50,14 +50,7 @@ class 'CPlayerJumpState' (CState)
 		
 		--Mueve el controller físico
 		_CCharacter.physic_controller:move(l_dir, _CCharacter.elapsed_time)
-		
-		--Actualiza la posición del objeto 3D
-		_CCharacter.position = _CCharacter.physic_controller.position
-		_CCharacter.position = Vect3f(_CCharacter.position.x, _CCharacter.position.y - _CCharacter.physic_controller.height + 0.4, _CCharacter.position.z)
-		
-		--Actualiza la posición del modelo animado
-		_CCharacter.animated_model.position = _CCharacter.position
-		
+				
 		--Gira el perosnaje
 		_CCharacter.physic_controller.yaw = self.jump_yaw
 		_CCharacter.animated_model.yaw = -(self.jump_yaw * 180.0 / math.pi) + 90.0

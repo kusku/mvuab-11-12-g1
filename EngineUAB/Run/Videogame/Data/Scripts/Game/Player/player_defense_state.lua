@@ -16,13 +16,6 @@ class 'CPlayerDefenseState' (CState)
 		
 		--Actualiza el personaje
 		_CCharacter.physic_controller:move(Vect3f(0.0, 0.0, 0.0), _CCharacter.elapsed_time)
-		
-		--Actualiza la posición del objeto 3D
-		_CCharacter.position = _CCharacter.physic_controller.position
-		_CCharacter.position = Vect3f(_CCharacter.position.x, _CCharacter.position.y - _CCharacter.physic_controller.height + 0.4, _CCharacter.position.z)
-		
-		--Actualiza la posición del modelo animado
-		_CCharacter.animated_model.position = _CCharacter.position
 	end
 	
 	function CPlayerDefenseState:OnExit(_CCharacter)
