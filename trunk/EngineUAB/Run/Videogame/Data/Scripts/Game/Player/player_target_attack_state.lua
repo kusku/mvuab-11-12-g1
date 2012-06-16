@@ -11,13 +11,15 @@ class 'CPlayerTargetAttackState' (CState)
 	
 	function CPlayerTargetAttackState:Execute(_CCharacter)
 		if self.animation_time > _CCharacter.animated_model:get_current_animation_duration("attack1") - 0.02 then
-			if core:get_action_to_input():do_action('AttackPlayer') then
+			if core:get_action_to_input():do_action('AttackPlayer') and not _CCharacter.locked then
 					_CCharacter.logic_fsm:change_state(_CCharacter.target_attack2)
 					_CCharacter.graphic_fsm:change_state(_CCharacter.animated_attack2)
 			else
 				if get_game_process():get_time_between_clicks() < 0.3 then
-					_CCharacter.logic_fsm:change_state(_CCharacter.target_attack2)
-					_CCharacter.graphic_fsm:change_state(_CCharacter.animated_attack2)
+					if not _CCharacter.locked then
+						_CCharacter.logic_fsm:change_state(_CCharacter.target_attack2)
+						_CCharacter.graphic_fsm:change_state(_CCharacter.animated_attack2)
+					end
 				else
 					_CCharacter.logic_fsm:change_state(_CCharacter.idle)
 					_CCharacter.graphic_fsm:change_state(_CCharacter.animated_idle)
@@ -29,8 +31,10 @@ class 'CPlayerTargetAttackState' (CState)
 		
 		--Movimiento del player hacia adelante
 		local l_dir = Vect3f(0.0, 0.0, 0.0)
-		if core:get_action_to_input():do_action('MovePlayerUp') then
-			l_dir = Vect3f(math.cos(_CCharacter.yaw), 0.0, math.sin(_CCharacter.yaw))
+		if not _CCharacter.locked then
+			if core:get_action_to_input():do_action('MovePlayerUp') then
+				l_dir = Vect3f(math.cos(_CCharacter.yaw), 0.0, math.sin(_CCharacter.yaw))
+			end
 		end
 		
 		--Le aplica la velocidad al movimiento
@@ -44,6 +48,13 @@ class 'CPlayerTargetAttackState' (CState)
 	end
 	
 	function CPlayerTargetAttackState:OnMessage(_CCharacter, _Msg)
+		if ( _Msg.msg == msg_attack ) then
+			_CCharacter:rest_life( 1 )
+			_CCharacter.logic_fsm:change_state(_CCharacter.hit)
+			_CCharacter.graphic_fsm:change_state(_CCharacter.animated_hit)
+			return true
+		end
+		return false
 	end
 	
 	function CPlayerTargetAttackState:__Finalize()

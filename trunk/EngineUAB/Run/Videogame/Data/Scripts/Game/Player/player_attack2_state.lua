@@ -31,8 +31,10 @@ class 'CPlayerAttack2State' (CState)
 		
 		--Movimiento del player hacia adelante
 		local l_dir = Vect3f(0.0, 0.0, 0.0)
-		if core:get_action_to_input():do_action('MovePlayerUp') then
-			l_dir = Vect3f(math.cos(_CCharacter.yaw), 0.0, math.sin(_CCharacter.yaw))
+		if not _CCharacter.locked then
+			if core:get_action_to_input():do_action('MovePlayerUp') then
+				l_dir = Vect3f(math.cos(_CCharacter.yaw), 0.0, math.sin(_CCharacter.yaw))
+			end
 		end
 		
 		--Le aplica la velocidad al movimiento
@@ -60,14 +62,10 @@ class 'CPlayerAttack2State' (CState)
 	end
 	
 	function CPlayerAttack2State:OnMessage(_CCharacter, _Msg)
-		print_logger(0, "CPlayerAttackState:OnMessage")	
-		if ( _Msg.Msg == msg_attack ) then
-			print_logger(0, "Missatge acceptat per la caperucita... aquí faria el que vull, en principi restà vida...")
-			-- If depend tipus d'atac... treu més o menys vida... --
+		if ( _Msg.msg == msg_attack ) then
 			_CCharacter:rest_life( 1 )
-			--_CCharacter.graphic_fsm:change_state(_CCharacter.hit_state)
-			print_logger(0, "Player life : ".._CCharacter.properties.life)
-			
+			_CCharacter.logic_fsm:change_state(_CCharacter.hit)
+			_CCharacter.graphic_fsm:change_state(_CCharacter.animated_hit)
 			return true
 		end
 		return false

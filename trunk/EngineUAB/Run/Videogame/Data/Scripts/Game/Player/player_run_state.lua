@@ -20,52 +20,54 @@ class 'CPlayerRunState' (CState)
 			enemy_detected = _CCharacter:detect_enemy()
 		end
 		
-		--El jugador ataca
-		if self.action_2_input:do_action('AttackPlayer') then
-			if _CCharacter.is_target_fixed then
-				_CCharacter.logic_fsm:change_state(_CCharacter.target_attack)
-				_CCharacter.graphic_fsm:change_state(_CCharacter.animated_attack)
-			else
-				_CCharacter.logic_fsm:change_state(_CCharacter.attack)
-				_CCharacter.graphic_fsm:change_state(_CCharacter.animated_attack)
+		if not _CCharacter.locked then
+			--El jugador ataca
+			if self.action_2_input:do_action('AttackPlayer') then
+				if _CCharacter.is_target_fixed then
+					_CCharacter.logic_fsm:change_state(_CCharacter.target_attack)
+					_CCharacter.graphic_fsm:change_state(_CCharacter.animated_attack)
+				else
+					_CCharacter.logic_fsm:change_state(_CCharacter.attack)
+					_CCharacter.graphic_fsm:change_state(_CCharacter.animated_attack)
+				end
 			end
-		end
+			
+			--Actualización del yaw a partir del movimiento del mouse
+			l_d = self.action_2_input:do_action_mouse('YawPlayer')
+			_CCharacter.yaw = _CCharacter.yaw + l_d
+			_CCharacter.yaw = angle_filter(_CCharacter.yaw)
+			l_yaw = _CCharacter.yaw
 		
-		--Actualización del yaw a partir del movimiento del mouse
-		l_d = self.action_2_input:do_action_mouse('YawPlayer')
-		_CCharacter.yaw = _CCharacter.yaw + l_d
-		_CCharacter.yaw = angle_filter(_CCharacter.yaw)
-		l_yaw = _CCharacter.yaw
-	
-		--Mira los controles de movimiento
-		if self.action_2_input:do_action('MovePlayerUp') then --El player se mueve hacia adelante
-			if self.action_2_input:do_action('MovePlayerLeft') then
-				l_yaw = l_yaw + math.pi/4
-			elseif self.action_2_input:do_action('MovePlayerRight') then
-				l_yaw = l_yaw - math.pi/4
+			--Mira los controles de movimiento
+			if self.action_2_input:do_action('MovePlayerUp') then --El player se mueve hacia adelante
+				if self.action_2_input:do_action('MovePlayerLeft') then
+					l_yaw = l_yaw + math.pi/4
+				elseif self.action_2_input:do_action('MovePlayerRight') then
+					l_yaw = l_yaw - math.pi/4
+				end
+				l_dir = Vect3f(math.cos(l_yaw), 0.0, math.sin(l_yaw))
+				l_move_player = true
+				
+			elseif self.action_2_input:do_action('MovePlayerDown') then --El player se mueve hacia atrás
+				l_yaw = l_yaw - math.pi
+				if self.action_2_input:do_action('MovePlayerLeft') then
+					l_yaw = l_yaw - math.pi/4
+				elseif self.action_2_input:do_action('MovePlayerRight') then
+					l_yaw = l_yaw + math.pi/4
+				end
+				l_dir = Vect3f(math.cos(l_yaw), 0.0, math.sin(l_yaw))
+				l_move_player = true
+				
+			elseif self.action_2_input:do_action('MovePlayerLeft') then --El player se mueve hacia la izquierda
+				l_yaw = l_yaw + math.pi/2
+				l_dir = Vect3f(math.cos(l_yaw), 0.0, math.sin(l_yaw))
+				l_move_player = true
+				
+			elseif self.action_2_input:do_action('MovePlayerRight') then --El player se mueve hacia la derecha
+				l_yaw = l_yaw - math.pi/2
+				l_dir = Vect3f(math.cos(l_yaw), 0.0, math.sin(l_yaw))
+				l_move_player = true
 			end
-			l_dir = Vect3f(math.cos(l_yaw), 0.0, math.sin(l_yaw))
-			l_move_player = true
-			
-		elseif self.action_2_input:do_action('MovePlayerDown') then --El player se mueve hacia atrás
-			l_yaw = l_yaw - math.pi
-			if self.action_2_input:do_action('MovePlayerLeft') then
-				l_yaw = l_yaw - math.pi/4
-			elseif self.action_2_input:do_action('MovePlayerRight') then
-				l_yaw = l_yaw + math.pi/4
-			end
-			l_dir = Vect3f(math.cos(l_yaw), 0.0, math.sin(l_yaw))
-			l_move_player = true
-			
-		elseif self.action_2_input:do_action('MovePlayerLeft') then --El player se mueve hacia la izquierda
-			l_yaw = l_yaw + math.pi/2
-			l_dir = Vect3f(math.cos(l_yaw), 0.0, math.sin(l_yaw))
-			l_move_player = true
-			
-		elseif self.action_2_input:do_action('MovePlayerRight') then --El player se mueve hacia la derecha
-			l_yaw = l_yaw - math.pi/2
-			l_dir = Vect3f(math.cos(l_yaw), 0.0, math.sin(l_yaw))
-			l_move_player = true
 		end
 		
 		--Le aplica la velocidad al movimiento
@@ -95,16 +97,12 @@ class 'CPlayerRunState' (CState)
 	end
 	
 	function CPlayerRunState:OnMessage(_CCharacter, _Msg)
-		print_logger(0, "CPlayerRunState:OnMessage")
-		-- if ( _Msg.msg == msg_attack ) then
-			-- print_logger(0, "Missatge acceptat per la caperucita... aquí faria el que vull, en principi restà vida...")
-			-- -- If depend tipus d'atac... treu més o menys vida... --
-			-- _CCharacter:rest_life( 1 )
-			-- --_CCharacter.graphic_fsm:change_state(_CCharacter.hit_state)
-			-- print_logger(0, "Player life : ".._CCharacter.properties.life)
-			
-			-- return true
-		-- end		
+		if ( _Msg.msg == msg_attack ) then
+			_CCharacter:rest_life( 1 )
+			_CCharacter.logic_fsm:change_state(_CCharacter.hit)
+			_CCharacter.graphic_fsm:change_state(_CCharacter.animated_hit)
+			return true
+		end
 		return false
 	end
 	
