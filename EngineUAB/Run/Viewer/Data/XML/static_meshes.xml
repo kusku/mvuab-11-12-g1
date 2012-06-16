@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <static_meshes>
   <static_mesh name="Plane001" filename=".\Data\.\General\\Models\Plane001.m3d" />
-  <static_mesh name="Arbolt7_c" filename=".\Data\.\General\\Models\Arbolt7_c.m3d" />
+  <!--<static_mesh name="Arbolt7_c" filename=".\Data\.\General\\Models\Arbolt7_c.m3d" />
   <static_mesh name="Arbolt2Main" filename=".\Data\.\General\\Models\Arbolt2Main.m3d" />
-  <static_mesh name="ArboltMain" filename=".\Data\.\General\\Models\ArboltMain.m3d" />
+  <static_mesh name="ArboltMain" filename=".\Data\.\General\\Models\ArboltMain.m3d" />-->
 </static_meshes>

@@ -7,7 +7,7 @@
   <layer name="vegetation" />
   <layer name="water" />
   <mesh_instance name="Plane001" core="Plane001" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
-  <mesh_instance name="Arbolt7_c" core="Arbolt7_c" position="55.9745 -17.8833 -11.0532" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <!--<mesh_instance name="Arbolt7_c" core="Arbolt7_c" position="55.9745 -17.8833 -11.0532" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
   <mesh_instance_hw name="Arbolt3" core="ArboltMain" position="-14.1643 2.58765 -140.663" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
   <mesh_instance_hw name="Arbolt5" core="ArboltMain" position="54.8983 -18.7598 -25.5322" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
   <mesh_instance_hw name="Arbolt6" core="Arbolt2Main" position="33.8106 -10.3926 -83.8342" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
@@ -295,5 +295,5 @@
   <mesh_instance_hw name="Arbolt368" core="ArboltMain" position="8.19717 -18.5768 -114.216" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
   <mesh_instance_hw name="Arbolt369" core="ArboltMain" position="24.309 -12.8505 -114.129" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
   <mesh_instance_hw name="Arbolt370" core="Arbolt2Main" position="41.9394 -11.2338 -73.7175" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
-  <mesh_instance_hw name="Arbolt371" core="ArboltMain" position="78.766 -10.916 -65.2663" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt371" core="ArboltMain" position="78.766 -10.916 -65.2663" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />--A
 </renderable_objects>
