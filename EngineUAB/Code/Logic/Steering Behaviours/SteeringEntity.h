@@ -18,13 +18,9 @@ public:
 			~CSteeringEntity	(void);
 
 	//---- Main Functions ---------------------------------------
-	virtual	Vect2f			CalculateSteering	( CBaseGameEntity *_pEntity );					// Método que deberá ser sobreescrito en cada clase que herede de Steering
-    
 	//---- Functions ---------------------------------------
-
-	
 	//---- Register Methods -------------------------------------
-	
+	static void				RegisterLUAMethods	( void );
 	
 	//---- Properties ( get & Set )---------------------------------------
 	inline void					SetVelocity					( const Vect2f &_Velocity )					{ m_Velocity = _Velocity; }

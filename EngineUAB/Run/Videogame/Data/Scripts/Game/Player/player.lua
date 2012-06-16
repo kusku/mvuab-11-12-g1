@@ -37,7 +37,7 @@ class 'CPlayer' (CCharacter)
 	end
 
 	function CPlayer:init() 
-		get_game_process():create_player_camera(1.0, 10000.0, 4.0, 1.0, 1.3, 'Caperucita')
+		get_game_process():create_player_camera(1.0, 10000.0, 9.0, 1.0, 1.3, 'Caperucita')
 		
 		l_gfsm = self.graphic_fsm 
 		l_gfsm.current_state = self.animated_idle 

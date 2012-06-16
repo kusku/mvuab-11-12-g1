@@ -389,6 +389,7 @@ bool CCharactersManager::LoadEnemiesProperties( const CXMLTreeNode &_Node )
 		
 					// Inicializamos el player, sus estados, mayas animadas...
 					l_IsOk = l_Character->Initialize( l_EnemyProperties->GetName(), l_Character->GetProperties()->GetPosition(), ::ECG_ENEMICS );
+					l_IsOk &= l_Character->InitializeAI();
 					l_IsOk &= l_Character->Init();		// Llamada a Lua
 					AddEnemy( l_Character );			// La meto dentro de la lista
 					l_NextIDValid += 1;					// Pròxim ID vàlid

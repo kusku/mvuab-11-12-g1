@@ -9,6 +9,10 @@
 #include "Scripting\ScriptManager.h"
 #include "Base.h"
 
+#if defined (_DEBUG)
+	#include "Memory\MemLeaks.h"
+#endif
+
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
@@ -20,8 +24,9 @@ CSteeringBehaviours::CSteeringBehaviours( float _MaxForce )
 	, m_MaxForce			( _MaxForce )
 {
 	m_Behaviors = new std::list<eBehaviorType>();
-}
 
+	Initialize();
+}
 
 CSteeringBehaviours::~CSteeringBehaviours(void)
 {
@@ -80,10 +85,34 @@ const Vect2f& CSteeringBehaviours::Update( float _ElapsedTime, CSteeringEntity *
     //        
     //// Devolvemos la fuerza producira por el steering truncada a la limitación del valor máximo
     //return GameHelper.VectorHelper.TruncateVector(this._steeringForce, this._maxForce);
-	const Vect2f &v = m_SteeringForce.Truncate(m_MaxForce);
+	const Vect2f& v = Truncate(m_SteeringForce, m_MaxForce);
 	return v;
 }
 
+//template<typename T>
+//inline Vector2<T> Truncate( float _Max )
+//{
+//	if ((*this).Length() > _Max)
+//    {
+//        (*this).Normalize();
+//
+//        (*this) *= _Max;
+//    }
+//
+//    return Vector2<T>(*this);
+//}
+
+inline Vect2f CSteeringBehaviours::Truncate( Vect2f v, float _Max )
+{
+	if ( v.Length() > _Max )
+    {
+		v.Normalize();
+
+        v *= _Max;
+    }
+
+    return v;
+}
 
 // -----------------------------------------
 //				MÈTODES
@@ -120,7 +149,19 @@ void CSteeringBehaviours::RegisterLUAMethods( void )
 	module(l_pLuaState) [
 		class_<CSteeringBehaviours>("CSteeringBehaviours")
 			.def("has_behavior", &CSteeringBehaviours::HasBehavior)
+			.def("update", &CSteeringBehaviours::Update)
+			.def("add_behaviour", (void(CSteeringBehaviours::*)(CSeek*)) &CSteeringBehaviours::AddBehavior)
+			.def("add_behaviour", (void(CSteeringBehaviours::*)(CPursuit*)) &CSteeringBehaviours::AddBehavior)
+			.def("add_behaviour", (void(CSteeringBehaviours::*)(CArrive*)) &CSteeringBehaviours::AddBehavior)
+			.property("seek", &CSteeringBehaviours::GetSeek, &CSteeringBehaviours::SetSeek)
+			.property("pursuit", &CSteeringBehaviours::GetPursuit, &CSteeringBehaviours::SetPursuit)
+			.property("arrive", &CSteeringBehaviours::GetArrive, &CSteeringBehaviours::SetArrive)
 	];
+
+	CSteering::RegisterLUAMethods();
+	CSeek::RegisterLUAMethods();
+	CPursuit::RegisterLUAMethods();
+	CArrive::RegisterLUAMethods();
 }
 
 // -----------------------------------------
@@ -155,7 +196,6 @@ CSeek* CSteeringBehaviours::GetSeek( void )
 
 	return m_pSeek;
 }
-
 
 CPursuit* CSteeringBehaviours::GetPursuit( void ) 
 {

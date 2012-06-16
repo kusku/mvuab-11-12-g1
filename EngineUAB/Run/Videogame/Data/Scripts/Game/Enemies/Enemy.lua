@@ -25,45 +25,45 @@ class 'CEnemy' (CCharacter)
 			print_logger(0, "CEnemy::load_graphic_states->Creat estado animado Walk del lobo")
 		end
 		
-		-- Run State --
-		self.animation_run_state = CWolfAnimatedRunState()
-		if self.animation_run_state == nil then
-			print_logger(2, "CEnemy::load_graphic_states->Error al cargar un estado animado Run del lobo")
+		-- Pursuit State --
+		self.animation_pursuit_state = CWolfAnimatedPursuitState()
+		if self.animation_pursuit_state == nil then
+			print_logger(2, "CEnemy::load_graphic_states->Error al cargar un estado animado PURSUIT del lobo")
 		else
-			print_logger(0, "CEnemy::load_graphic_states->Creat estado animado run del lobo")
+			print_logger(0, "CEnemy::load_graphic_states->Creat estado animado PURSUIT del lobo")
 		end
 		
-		-- Attack Still State --
-		self.animation_still_attack_state = CWolfAnimatedStillAttackState()
-		if self.animation_still_attack_state == nil then
-			print_logger(2, "CEnemy::load_graphic_states->Error al cargar un estado animado Still Attack del lobo")
+		-- Attack State --
+		self.animation_attack_state = CWolfAnimatedAttackState()
+		if self.animation_attack_state == nil then
+			print_logger(2, "CEnemy::load_graphic_states->Error al cargar un estado animado ATTACK del lobo")
 		else
-			print_logger(0, "CEnemy::load_graphic_states->Creat estado animado run del lobo")
+			print_logger(0, "CEnemy::load_graphic_states->Creat estado animado ATTACK del lobo")
 		end
 		
-		-- Attack Run State --
-		self.animation_run_attack_state = CWolfAnimatedRunAttackState()
-		if self.animation_run_attack_state == nil then
-			print_logger(2, "CEnemy::load_graphic_states->Error al cargar un estado animado Run Attack del lobo")
-		else
-			print_logger(0, "CEnemy::load_graphic_states->Creat estado animado run del lobo")
-		end
+		-- -- Attack Run State --
+		-- self.animation_run_attack_state = CWolfAnimatedRunAttackState()
+		-- if self.animation_run_attack_state == nil then
+			-- print_logger(2, "CEnemy::load_graphic_states->Error al cargar un estado animado Run Attack del lobo")
+		-- else
+			-- print_logger(0, "CEnemy::load_graphic_states->Creat estado animado run del lobo")
+		-- end
 		
-		-- Hit State --
-		self.animation_hit_state = CWolfAnimatedHitState()
-		if self.animation_hit_state == nil then
-			print_logger(2, "CEnemy::load_graphic_states->Error al cargar un estado animado Hit del lobo")
-		else
-			print_logger(0, "CEnemy::load_graphic_states->Creat estado animado run del lobo")
-		end
+		-- -- Hit State --
+		-- self.animation_hit_state = CWolfAnimatedHitState()
+		-- if self.animation_hit_state == nil then
+			-- print_logger(2, "CEnemy::load_graphic_states->Error al cargar un estado animado Hit del lobo")
+		-- else
+			-- print_logger(0, "CEnemy::load_graphic_states->Creat estado animado run del lobo")
+		-- end
 		
-		-- Deffense State --
-		self.animation_deffense_state = CWolfAnimatedDeffenseState()
-		if self.animation_hit_state == nil then
-			print_logger(2, "CEnemy::load_graphic_states->Error al cargar un estado animado deffense del lobo")
-		else
-			print_logger(0, "CEnemy::load_graphic_states->Creat estado animado run del lobo")
-		end
+		-- -- Deffense State --
+		-- self.animation_deffense_state = CWolfAnimatedDeffenseState()
+		-- if self.animation_hit_state == nil then
+			-- print_logger(2, "CEnemy::load_graphic_states->Error al cargar un estado animado deffense del lobo")
+		-- else
+			-- print_logger(0, "CEnemy::load_graphic_states->Creat estado animado run del lobo")
+		-- end
 		
 		print_logger(0, "CEnemy::load_graphic_states->Animated states loaded")
 	end 
@@ -88,7 +88,7 @@ class 'CEnemy' (CCharacter)
 		end	
 		
 		-- Flee State -- Huye directamente de un destino
-		self.flee_state = CWolfWanderState()
+		self.flee_state = CWolfFleeState()
 		if self.flee_state == nil then
 			print_logger(2, "CEnemy::load_logic_states->Error al cargar un estado FLEE del lobo")
 		else 
@@ -209,7 +209,7 @@ class 'CEnemy' (CCharacter)
 		
 		-- Cargamos estados
 		self:load_logic_states()
-		self:load_graphic_states()
+		--self:load_graphic_states()
 	end
 	
 	function CEnemy:__init( _id, _name )
@@ -237,7 +237,7 @@ class 'CEnemy' (CCharacter)
 		
 		-- Cargamos los estados		
 		self:load_logic_states()
-		self:load_graphic_states()
+		--self:load_graphic_states()
 	end
 	
 	function CEnemy:init()
@@ -261,12 +261,20 @@ class 'CEnemy' (CCharacter)
 			l_IsOk = false
 		else
 			print_logger(0, "CEnemy:init()->Máquina de estados lógica inicializada.")
+			self:get_animation_model():clear_cycle( self:get_animation_id("run"), 0.3 )
+			self:get_animation_model():clear_cycle( self:get_animation_id("attack_still"), 0.3 )
+			self:get_animation_model():clear_cycle( self:get_animation_id("idle"), 0.3 )
+			self:get_animation_model():clear_cycle( self:get_animation_id("walk"), 0.3 )
 			l_lfsm.current_state = self.idle_state
+			num = self:get_animation_id("idle")
+			self:get_animation_model():blend_cycle( num, 0.3 )
+			
 			print_logger(0, "CEnemy:init()->Current state idle asignado del enemigo")
 			l_IsOk = l_IsOk and true
 		end
 		
 		self.enable = false
+		self.fatigue = 2
 		
 		return l_IsOk
 	end
@@ -282,20 +290,25 @@ class 'CEnemy' (CCharacter)
 		-- print_logger (1, "CEnemy:Update()-> NAME : "..self.name)
 		-- print_logger (1 , "CEnemy::Update()->POSITION :"..self.position.x.." "..self.position.y.." "..self.position.z)
 		
-		l_gfsm = self.graphic_fsm 
-		if l_gfsm == nil then
-			print_logger(2, "CEnemy:update()->No se ha podido obtener la máquina de estados gráfica.")
-		else
-			if (self.enable == true ) then
-				l_gfsm:update()
-				--print_logger(0, "CEnemy::update()->Actualizando gfsm...")			
-			else
-				--print_logger(0, "CEnemy::update()->Enable = false")
-				l_gfsm:change_state(self.animation_idle_state)
-			end 
-		end
+		-- l_gfsm = self.graphic_fsm 
+		-- if l_gfsm == nil then
+			-- print_logger(2, "CEnemy:update()->No se ha podido obtener la máquina de estados gráfica.")
+		-- else
+			-- if (self.enable == true ) then
+				-- l_gfsm:update()
+				-- --print_logger(0, "CEnemy::update()->Actualizando gfsm...")			
+			-- else
+				-- --print_logger(0, "CEnemy::update()->Enable = false")
+				-- l_gfsm:change_state(self.animation_idle_state)
+			-- end 
+		-- end
 		
-		l_lfsm = self.logic_fsm 
+		-- Actualizamos parte de la IA
+		-- self.behaviours.seek.target =  self.player.position
+		-- self.steering_entity.velocity = self.behaviours:update( _elapsed_time, self.steering_entity )
+		-- self.steering_entity.position = self.steering_entity.position + self.steering_entity.velocity
+			
+		local l_lfsm = self.logic_fsm 
 		if l_lfsm == nil then
 			print_logger(2, "CEnemy:update()->No se ha podido obtener la máquina de estados gráfica.")
 		else
@@ -308,6 +321,12 @@ class 'CEnemy' (CCharacter)
 				self:move_to( self.position, _elapsed_time )
 			end 
 		end
+		
+		if ( core == nil ) then
+			print_logger(2, "CORE ES NULL")
+		-- else
+			-- print_logger(1, "CORE ES CORRECTE")
+		end 
 		
 		-- self.position2 = self.position
 		-- local l_pointB = self.position
@@ -335,3 +354,10 @@ class 'CEnemy' (CCharacter)
 		
 		local point = self.position2
 	end
+
+	
+	function CEnemy:is_fatigued()
+		return self.fatigue <= 0
+	end
+
+	

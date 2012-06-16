@@ -343,17 +343,25 @@ void CCharacter::AddLife( int _Life )
 
 void CCharacter::RestLife( int _Life )								
 { 
-	m_pProperties->SetLife( m_pProperties->GetLife() - _Life ); 
+	int l_Life = m_pProperties->GetLife() - _Life;
+	if ( l_Life < 0 ) 
+		l_Life = 0;
+
+	m_pProperties->SetLife( l_Life ); 
 }
 
-void CCharacter::AddSpeed( int _Speed )
+void CCharacter::AddSpeed( float _Speed )
 {
 	m_pProperties->SetSpeed( m_pProperties->GetSpeed() - _Speed ); 
 }
 
-void CCharacter::RestSpeed( int _Speed )
+void CCharacter::RestSpeed( float _Speed )
 {
-	m_pProperties->SetSpeed( m_pProperties->GetSpeed() - _Speed ); 
+	float l_Speed = m_pProperties->GetSpeed() - _Speed;
+	if ( l_Speed < 0 ) 
+		l_Speed = 0;
+
+	m_pProperties->SetSpeed( l_Speed ); 
 }
 
 void CCharacter::AddStrong( int _Strong )
@@ -363,7 +371,10 @@ void CCharacter::AddStrong( int _Strong )
 
 void CCharacter::RestStrong( int _Strong )
 {
-	m_pProperties->SetStrong( m_pProperties->GetStrong() - _Strong ); 
+	int l_Strong = m_pProperties->GetStrong() - _Strong;
+	if ( l_Strong < 0 ) 
+		l_Strong = 0;
+	m_pProperties->SetStrong( l_Strong ); 
 }
 
 // -----------------------------------------

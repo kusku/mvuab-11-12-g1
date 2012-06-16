@@ -1,6 +1,7 @@
 #include "Arrive.h"
 #include "Steering Behaviours\SteeringBehavioursDefs.h"
 #include "Steering Behaviours\SteeringEntity.h"
+#include "Scripting\ScriptManager.h"
 
 #include "Math\Vector2.h"
 
@@ -19,7 +20,7 @@
 
 CArrive::CArrive( eDeceleration _Deceleration, float _DecelerationBeginsAtDistance  )
 	: CSteering							( ::arrive )
-	, m_Target							( NULL )
+	//, m_Target							( NULL )
 	, m_Deceleration					( _Deceleration )
 	, m_DecelerationBeginsAtDistance	( _DecelerationBeginsAtDistance )
 {
@@ -76,6 +77,17 @@ Vect2f CArrive::CalculateSteering( CSteeringEntity *_pEntity )
     }
 }
    
+// -----------------------------------------
+//			     REGISTER METHOD
+// -----------------------------------------
+void CArrive::RegisterLUAMethods( void )
+{
+	lua_State *state = SCRIPT->GetLuaState();
+
+	module(state) [
+		class_<CArrive>("CArrive")
+	];
+}
 
 // -----------------------------------------
 //			     PROPERTIES

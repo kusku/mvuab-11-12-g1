@@ -1,20 +1,32 @@
 #include "Character.h"
 #include "CharacterWrapper.h"
+#include "Properties/Properties.h"
+#include "VideogameDefs.h"
+
+#include "Steering Behaviours\SteeringBehaviours.h"
+#include "Steering Behaviours\SteeringBehavioursDefs.h"
+#include "Steering Behaviours\SteeringEntity.h"
+#include "Steering Behaviours\Seek.h"
+#include "Steering Behaviours\Pursuit.h"
+#include "Steering Behaviours\Arrive.h"
+
 #include "StatesMachine\MessageDispatcher.h"
+
 #include "PhysicController.h"
 #include "PhysicUserData.h"
 #include "PhysicsManager.h"
-#include "Scripting\ScriptManager.h"
+
 #include "RenderableObjects\AnimatedModel\AnimatedModelManager.h"
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 #include "RenderableObjects\RenderableObjectsManager.h"
 #include "RenderableObjects\RenderableObjectsLayersManager.h"
-#include "Properties/Properties.h"
+
+#include "Scripting\ScriptManager.h"
 #include "Core.h"
 #include "Base.h"
 
 #if defined (_DEBUG)
-#include "Memory\MemLeaks.h"
+	#include "Memory\MemLeaks.h"
 #endif
 
 // -----------------------------------------
@@ -28,11 +40,11 @@ CCharacter::CCharacter()
 	, m_pController				( NULL )
 	, m_pAnimationsStates		( NULL )
 	, m_pPhysicUserDataJugador	( NULL )
-	, CObject3D					( )
 	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
 	, m_bLocked					( false )
 	, m_bIsEnable				( true )
 	, m_pBehaviours				( NULL )
+	, m_pSteeringEntity			( NULL )
 	, m_bIsAlive				( true )
 {
 	// coloco la máquina de estados i el controler de física
@@ -52,26 +64,25 @@ CCharacter::CCharacter( const std::string &_Name )
 	, m_pAnimationsStates		( NULL )
 	, m_pProperties				( NULL )
 	, m_pPhysicUserDataJugador	( NULL )
-	, CObject3D					( )
 	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
 	, m_bLocked					( false )
 	, m_bIsEnable				( true )
 	, m_pBehaviours				( NULL )
+	, m_pSteeringEntity			( NULL )
 	, m_bIsAlive				( true )
 {
+	SetName ( _Name );
+
 	// coloco la máquina de estados
     m_pLogicStateMachine	= new CStateMachine<CCharacter>( this );
 	m_pGraphicStateMachine	= new CStateMachine<CCharacter>( this );
   //  m_pController			= new CPhysicController();
 
 	//m_pCurrentAnimatedModel = static_cast<CAnimatedInstanceModel*>(CORE->GetRenderableObjectsLayersManager()->GetResource("solid")->GetInstance("caperucita1"));
-
-	SetName(_Name);
 }
 
 CCharacter::CCharacter(int _ID, const std::string &_Name)
 	: CBaseGameEntity			( _ID )
-	, CObject3D					( )
 	, m_pLogicStateMachine		( NULL )
 	, m_pGraphicStateMachine	( NULL )
 	, m_pCurrentAnimatedModel	( NULL )
@@ -83,17 +94,20 @@ CCharacter::CCharacter(int _ID, const std::string &_Name)
 	, m_bLocked					( false )
 	, m_bIsEnable				( true )
 	, m_pBehaviours				( NULL )
+	, m_pSteeringEntity			( NULL )
 	, m_bIsAlive				( true )
 {
+	SetName ( _Name );
 	// coloco la máquina de estados
     m_pLogicStateMachine	= new CStateMachine<CCharacter>( this );
 	m_pGraphicStateMachine	= new CStateMachine<CCharacter>( this );
-	SetName(_Name);
 }
 
 
 CCharacter::~CCharacter( void )
 {
+	CHECKED_DELETE ( m_pBehaviours );
+	CHECKED_DELETE ( m_pSteeringEntity );
 	CHECKED_DELETE ( m_pLogicStateMachine );
 	CHECKED_DELETE ( m_pGraphicStateMachine );
 	// Amb lua no cal eliminar l'objecte. Lua ja se'n ocupa.
@@ -168,8 +182,31 @@ bool CCharacter::Initialize ( const std::string &_Name, const Vect3f &_InitialPo
 	}
 	
 	MoveTo( l_Position, 0.0f );
+
 	return true;
 }
+
+bool CCharacter::InitializeAI ( void )
+{
+	m_pBehaviours			= new CSteeringBehaviours( FUERZA_MAXIMA );
+	m_pSteeringEntity		= new CSteeringEntity();
+
+	if ( m_pBehaviours == NULL || m_pSteeringEntity == NULL )
+	{
+		return false;
+	}
+	else 
+	{
+		m_pSteeringEntity->SetBoundingRadius ( m_pProperties->GetBoundingRadious() );
+		m_pSteeringEntity->SetMaxSpeed ( m_pProperties->GetBoundingRadious() );
+
+		m_pBehaviours->AddBehavior( new CSeek() );
+		m_pBehaviours->AddBehavior( new CPursuit(::normal, 50.f) );
+		m_pBehaviours->AddBehavior( new CArrive(::normal, 50.f) );
+
+		return true;
+	}
+}	
 
 void CCharacter::Update ( float _ElapsedTime )			
 { 

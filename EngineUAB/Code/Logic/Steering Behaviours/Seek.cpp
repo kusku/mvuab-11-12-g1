@@ -1,6 +1,7 @@
 #include "Seek.h"
 #include "Steering Behaviours\SteeringBehavioursDefs.h"
 #include "Steering Behaviours\SteeringEntity.h"
+#include "Scripting\ScriptManager.h"
 
 #include "Logger\Logger.h"
 #include "Core.h"
@@ -17,7 +18,6 @@
 
 CSeek::CSeek(void)
 	: CSteering		( ::seek )
-	, m_Target		( )
 {
 }
 
@@ -45,7 +45,17 @@ Vect2f CSeek::CalculateSteering( CSteeringEntity *_pEntity )
     }
 }
    
+// -----------------------------------------
+//			     REGISTER METHOD
+// -----------------------------------------
+void CSeek::RegisterLUAMethods( void )
+{
+	lua_State *state = SCRIPT->GetLuaState();
 
+	module(state) [
+		class_<CSeek>("CSeek")
+	];
+}
 // -----------------------------------------
 //			     PROPERTIES
 // -----------------------------------------
