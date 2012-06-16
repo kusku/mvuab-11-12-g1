@@ -43,11 +43,12 @@ bool CSkySphere::Load(CXMLTreeNode &XMLNode)
 	m_SkySphereTechnique = NULL;
 	m_SkyTextureParameter = NULL;
 
-	std::string skyTextureFile = XMLNode.GetPszProperty("SkyTexture", "");
-	std::string skyCloudTextureFile = XMLNode.GetPszProperty("SkyCloudTexture", "");
+	m_Clouds = XMLNode.GetBoolProperty("Clouds", false, false);
+
+	std::string skyTextureFile = XMLNode.GetPszProperty("SkyTexture", "", !m_Clouds);
+	std::string skyCloudTextureFile = XMLNode.GetPszProperty("SkyCloudTexture", "", m_Clouds);
 	std::string skyEffectTechnique = XMLNode.GetPszProperty("SkyEffectTechnique", "");
 	Vect3f scale = XMLNode.GetVect3fProperty("Scale", Vect3f(1000, 900, 1000));
-	m_Clouds = XMLNode.GetBoolProperty("Clouds", false, false);
 
 	m_SkyTexture = new CTextureCube();
 	m_SkyCloudTexture = new CTexture();
