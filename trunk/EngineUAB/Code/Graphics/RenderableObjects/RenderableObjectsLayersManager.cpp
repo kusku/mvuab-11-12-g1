@@ -73,10 +73,11 @@ void CRenderableObjectsLayersManager::LoadFile()
 					}
 				}	
 			}
-			else if( l_Type == "mesh_instance" )
+			else if( l_Type == "mesh_instance" || l_Type == "mesh_instance_hw")
 			{
 				std::string l_Layer = l_RObjects(i).GetPszProperty("layer", "", false);
 				CRenderableObjectsManager *l_ROManager = NULL;
+
 				if( l_Layer == "" )
 				{
 					l_ROManager = m_pDefaultRenderableObjectManager;
@@ -88,7 +89,14 @@ void CRenderableObjectsLayersManager::LoadFile()
 
 				if( l_ROManager != NULL )
 				{
-					l_ROManager->AddMeshInstance(l_RObjects(i));
+					if(l_Type.compare("mesh_instance") == 0)
+					{
+						l_ROManager->AddMeshInstance(l_RObjects(i));
+					}
+					else
+					{
+						l_ROManager->AddMeshInstanceHw(l_RObjects(i));
+					}
 				}
 				else
 				{

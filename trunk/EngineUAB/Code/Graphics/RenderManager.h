@@ -81,7 +81,7 @@ public:
 	CColor				GetColorRelease		() const	{ return m_BackbufferColor_release; }
 	Vect2f				GetHalfPixel		() const	{ return m_HalfPixel; }
 	Vect2f				GetRenderTargetSize	() const	{ return m_NowTargetSize; }
-	const CFrustum*		GetFrustum			() const	{ return &m_Frustum; }
+	CFrustum*		GetFrustum			() 	{ return &m_Frustum; }
 
 
 	HWND						GetHWND				() const	{ return m_hWnd; }

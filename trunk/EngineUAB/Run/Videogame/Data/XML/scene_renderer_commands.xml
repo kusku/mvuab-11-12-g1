@@ -1,23 +1,45 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <scene_renderer_commands>
-	<begin_scene />
-	<clear_scene color="true" depth="true" stencil="true" />
-	<enable_z_write />
-	<enable_z_test />
-	<setup_matrices />
-	
-	<set_pool_renderable_objects_technique pool="dummy_manager" />
-	<clear_scene color="true" depth="true" stencil="true" />
-	<render_scene layer="solid" active="true" />
-	
-	<render_particles />
-	<render_billboards />
-	
-	<render_debug_physics active="false" />
-	<render_debug_info grid="false" axis="true" render_console="true" render_logger="true" render_modifiers="false" render_debug_options="true" render_debug_render="true" />
-	<render_debug_lights active="true" />
-	<render_debug_process active="true" />
-	
-	<end_scene />
-	<present />
+  <!--pre_render-->
+  <begin_scene />
+  <clear_scene color="true" depth="true" stencil="true" />
+  <enable_z_write />
+  <enable_z_test />
+  <setup_matrices />
+
+  <!-- shadow maps -->
+  <!---->
+  <disable_z_test />
+  
+  <set_pool_renderable_objects_technique pool="Basic_Build_Shadow_Map" />
+  <generate_shadow_maps />
+  <!---->
+  <enable_z_test />
+  
+
+  <SkySphere SkyTexture="./Data/General/Textures/NewSky.dds" SkyCloudTexture="./Data/General/Textures/clouds0.dds" Scale="500 400 500" SkyEffectTechnique="SkySphereEffect" />
+  <SkySphere SkyCloudTexture="./Data/General/Textures/clouds2.dds" Scale="499 399 499" SkyEffectTechnique="SkySphereEffectClouds" Clouds="true" />
+
+  <render_particles />
+
+  <set_pool_renderable_objects_technique pool="FowardShading" />
+  <render_scene layer="solid" active="true" />
+
+  <set_pool_renderable_objects_technique pool="Vegetation1" />
+  <render_scene layer="vegetation" active="true" />
+  <set_pool_renderable_objects_technique pool="Vegetation2" />
+  <render_scene layer="vegetation" active="true" />
+
+  <set_pool_renderable_objects_technique pool="Water" />
+  <render_scene layer="water" active="true" />
+
+
+  <render_particles />
+
+  <!--Debug-->
+  <render_debug_physics active="false" />
+  <render_debug_lights active="true" />
+  <render_debug_info grid="false" axis="true"  render_console="false" render_logger="false" render_modifiers="false" render_debug_options="false" render_debug_render="true" />
+  <end_scene />
+  <present />
 </scene_renderer_commands>

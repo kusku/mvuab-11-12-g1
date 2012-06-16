@@ -30,7 +30,6 @@
 // -----------------------------------------
 CCharacter::CCharacter( int _Id )
 	: CBaseGameEntity			( _Id )
-	, CNamed					( )
 	, CObject3D					( )
 	, m_pLogicStateMachine		( NULL )
 	, m_pGraphicStateMachine	( NULL )
@@ -49,7 +48,6 @@ CCharacter::CCharacter( int _Id )
 
 CCharacter::CCharacter( int _Id, const std::string &_Name )
 	: CBaseGameEntity			( _Id )
-	, CNamed					( _Name )
 	, CObject3D					( )
 	, m_pLogicStateMachine		( NULL )
 	, m_pGraphicStateMachine	( NULL )
@@ -64,6 +62,7 @@ CCharacter::CCharacter( int _Id, const std::string &_Name )
     m_pLogicStateMachine	= new CStateMachine<CCharacter>( this );
 	m_pGraphicStateMachine	= new CStateMachine<CCharacter>( this );
 
+	SetName(_Name);
 }
 
 CCharacter::~CCharacter( void )

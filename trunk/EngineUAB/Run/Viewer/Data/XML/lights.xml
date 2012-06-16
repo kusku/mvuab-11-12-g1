@@ -22,7 +22,14 @@
 	</spot>
 	<omni name="Omni001" pos="-218.208 48.3771 -337.487" color="112.0 50.0 33.0" att_start_range="78.7402" att_end_range="118.11" >
 	</omni>-->
-	<!---->
+	
+	
+	<directional name="Direct001" pos="19.9023 53.1 223.292" color="234 220 66" att_start_range="200.0" att_end_range="200.0" intensity="1.0" generate_shadow_map="true" shadow_map_format_type="G32R32F" shadow_map_width="2048" shadow_map_height="2048" dir="-1.73859 -60.518 -232.679" >
+		<dynamic renderable_objects_layer="solid" />
+    <dynamic renderable_objects_layer="vegetation" />
+	</directional>
+	
+	<!--
 	<directional name="Direct001" intensity="1.0" pos="100 60 0" color="255.0 255.0 255.0" att_start_range="1000" att_end_range="1000" generate_shadow_map="true" shadow_map_format_type="G32R32F" shadow_map_width="1024" shadow_map_height="1024" generate_static_shadow_map="false" static_shadow_map_format_type="G32R32F" static_shadow_map_width="1024" static_shadow_map_height="1024" dir="-100 -100 0" directional_light_camara_size_w="256" directional_light_camara_size_h="256">
 		<dynamic renderable_objects_layer="solid" />
 		<dynamic renderable_objects_layer="vegetation" />
@@ -32,5 +39,5 @@
 	<spot name="Spot001" intensity="1.0" pos="15.0 3.0 -15.0" color="255.0 255.0 0.0" att_start_range="80.0" att_end_range="200.0" generate_shadow_map="true" shadow_map_format_type="G32R32F" shadow_map_width="1024" shadow_map_height="1024" dir="-46.9476 -17.1744 47.6959" angle="43.0" fall_off="45.0" >
 		<dynamic renderable_objects_layer="solid" />
 		<dynamic renderable_objects_layer="vegetation" />
-	</spot>
+	</spot>-->
 </lights>

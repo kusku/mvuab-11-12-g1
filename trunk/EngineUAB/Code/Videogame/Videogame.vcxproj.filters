@@ -16,6 +16,12 @@
     <Filter Include="Items">
       <UniqueIdentifier>{ee65b3fb-6c4b-41de-91c6-e29f38705103}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Effects">
+      <UniqueIdentifier>{24b2c19d-4c33-403b-8c6a-1c93d13afb2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XML">
+      <UniqueIdentifier>{de1c2d7c-722f-49fb-ba12-d92ba3500985}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="videogame.cpp" />
@@ -97,5 +103,186 @@
     <ClInclude Include="Items\ItemWrapper.h">
       <Filter>Items</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Run\Videogame\Data\XML\characters_properties.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\XML\debug_options.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\XML\effects.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\XML\engine.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\XML\fonts.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\XML\gui.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\XML\input.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\XML\lights.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\XML\modifiers.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\XML\ParticleEmitters.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\XML\ParticleSettings.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\XML\ParticleSystems.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\XML\renderable_object_techniques.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\XML\renderable_objects.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\XML\scene_renderer_commands.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\XML\scene_renderer_gui_commands.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\XML\script_gameplay.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\XML\scripts.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\XML\sounds.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\XML\static_meshes.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\XML\triggers.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\XML\waypoints.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\XML\animated_models.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\XML\billboard_animations.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\XML\characters_animated_states.xml">
+      <Filter>XML</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\VignettingNoise.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\Vignetting.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\UABEffect.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\SSAOComposition.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\SSAO.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\SSAA.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\SkySphereEffect.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\Samplers.h">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\ParticleEffect.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\normalmap.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\Noise.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\Lights.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\lightmap.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\fxaa.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\functions.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\ForwardLightingWithNormal.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\ForwardLightingBasic.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\diffuseeffect.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\DeferredSpotLight.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\DeferredModelDrawWithNormalParallax.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\DeferredModelDrawWithNormal.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\DeferredModelDrawRNM.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\ColorGrading.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\ClearGBuffer.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\Cal3DEffect.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\BloomPostProcess.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\BasicQuadEffect.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\BasicDeferredModelDraw.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\BasicDeferredLightingCombine.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\BasicDeferredLightingAndShadow.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\BasicDeferredLighting.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\BasicBuildShadowMap.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\AmbientLight.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\ZBlur.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>

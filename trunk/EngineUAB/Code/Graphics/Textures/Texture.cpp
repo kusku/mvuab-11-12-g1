@@ -29,7 +29,20 @@ bool CTexture::LoadFile()
 {
 	LPDIRECT3DDEVICE9 Device = CORE->GetRenderManager()->GetDevice();
 	HRESULT l_HR = D3DXCreateTextureFromFile(Device, m_FileName.c_str(), &m_Texture);
-	return l_HR == S_OK ;
+
+	if(l_HR != S_OK)
+	{
+		return false;
+	}
+
+	D3DSURFACE_DESC desc;
+	
+	m_Texture->GetLevelDesc(0, &desc);
+
+	m_Width = desc.Width;
+	m_Height = desc.Height;
+
+	return true;
 }
 
 void CTexture::Unload()
@@ -176,6 +189,8 @@ CTexture::TFormatType CTexture::GetFormatTypeFromString(const std::string &Forma
 		return CTexture::R8G8B8;
 	else if( FormatType == "X8R8G8B8" )
 		return CTexture::X8R8G8B8;
+	else if( FormatType == "D24S8" )
+		return CTexture::D24S8;
 	else
 		LOGGER->AddNewLog(ELL_WARNING, "CTexture::GetFormatTypeFromString->Tipo de formato %s no reconocido.", FormatType.c_str());
 
@@ -183,7 +198,7 @@ CTexture::TFormatType CTexture::GetFormatTypeFromString(const std::string &Forma
 }
 
 
-bool CTexture::CreateDepthStencil(uint32 Width, uint32 Height, TFormatType FormatType)
+bool CTexture::CreateDepthStencil(uint32 Width, uint32 Height, TFormatType FormatType, D3DMULTISAMPLE_TYPE msType)
 {
 	D3DFORMAT l_Format = D3DFMT_A8R8G8B8;
 
@@ -210,9 +225,12 @@ bool CTexture::CreateDepthStencil(uint32 Width, uint32 Height, TFormatType Forma
 		case G32R32F:
 			l_Format = D3DFMT_G32R32F;
 			break;
+		case D24S8:
+			l_Format = D3DFMT_D24S8;
+			break;
 	}
-
-	HRESULT hr = CORE->GetRenderManager()->GetDevice()->CreateDepthStencilSurface(Width, Height, l_Format, D3DMULTISAMPLE_NONE, 0, TRUE, &m_DepthStencilRenderTargetTexture, NULL);
+	
+	HRESULT hr = CORE->GetRenderManager()->GetDevice()->CreateDepthStencilSurface(Width, Height, l_Format, msType, 0, TRUE, &m_DepthStencilRenderTargetTexture, NULL);
 
 	assert(hr==D3D_OK);
 
@@ -231,7 +249,10 @@ bool CTexture::SetAsDepthStencil()
 		return false; 
 	}
 
-	l_Device->SetDepthStencilSurface( m_DepthStencilRenderTargetTexture );
+	if( FAILED( l_Device->SetDepthStencilSurface( m_DepthStencilRenderTargetTexture ) ) )
+	{
+		return false; 
+	}
 
 	return true;
 }

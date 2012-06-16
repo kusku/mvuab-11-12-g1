@@ -161,6 +161,70 @@ bool Render(CRenderManager *RM, CEffectTechnique *EffectTechnique) const
 	}
 }
 
+bool RenderInstance(CRenderManager *RM, CEffectTechnique *EffectTechnique, LPDIRECT3DVERTEXBUFFER9 instanceBuffer, uint32 size) const
+{
+	LPDIRECT3DDEVICE9 l_Device=RM->GetDevice();
+	UINT l_NumPasses;
+
+	if( EffectTechnique == NULL )
+	{
+		//Coger una technique por defecto
+		std::string l_TechName = CORE->GetEffectManager()->GetTechniqueEffectNameByVertexDefault( T::GetVertexType() );
+		EffectTechnique = CORE->GetEffectManager()->GetEffectTechnique(l_TechName);
+	}
+
+	if( EffectTechnique->BeginRender() )
+	{
+		LPD3DXEFFECT l_Effect = EffectTechnique->GetEffect()->GetD3DEffect();
+		
+		l_Effect->SetTechnique(EffectTechnique->GetD3DTechnique());
+
+		//Set VB of Geo
+		l_Device->SetStreamSource(0, m_VB, 0, sizeof(T));
+		l_Device->SetStreamSourceFreq(0, D3DSTREAMSOURCE_INDEXEDDATA | size);
+
+		//Set VB of Instance
+		l_Device->SetStreamSource( 1, instanceBuffer, 0, sizeof(TINSTANCE_VERTEX) );
+		l_Device->SetStreamSourceFreq(1, D3DSTREAMSOURCE_INSTANCEDATA | 1ul);
+
+		l_Device->SetVertexDeclaration(T::GetVertexDeclarationInstance());
+
+		l_Device->SetIndices(m_IB);
+
+		if(SUCCEEDED(l_Effect->Begin(&l_NumPasses,0)))
+		{
+			for (UINT b=0;b<l_NumPasses;++b)
+			{
+				l_Effect->BeginPass(b);
+				l_Device->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, 0, 0,
+					static_cast<UINT>(m_VertexCount), 0, static_cast<UINT>( m_IndexCount/3));
+				l_Effect->EndPass();
+
+#if defined(_DEBUG)
+				//Capture Info for Stadistics
+				CStadistics *l_pStadistics = CORE->GetStadistics();
+
+				l_pStadistics->AddDrawCall();
+				l_pStadistics->AddVerticesInFrustum(m_VertexCount);
+				l_pStadistics->AddTriangles( m_IndexCount / 3 );
+#endif
+
+			}
+			l_Effect->End();
+		}
+
+		//Set Steam Freq to Default
+		l_Device->SetStreamSourceFreq( 0, 1 );
+		l_Device->SetStreamSourceFreq( 1, 1 );
+
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 virtual inline unsigned short GetVertexType() const { return T::GetVertexType(); }
 
 protected:

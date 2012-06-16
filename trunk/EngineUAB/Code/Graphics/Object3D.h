@@ -13,8 +13,9 @@
 #include "Math\Vector3.h"
 #include "Math\Matrix44.h"
 #include <string>
+#include "Utils\Named.h"
 
-class CObject3D
+class CObject3D : public CNamed
 {
 public:
 	//--- Init and End protocols------------------------------------------

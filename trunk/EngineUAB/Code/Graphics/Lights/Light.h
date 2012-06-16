@@ -25,7 +25,7 @@ class CTexture;
 class CRenderableObjectsManager;
 class CEffect;
 
-class CLight : public CObject3D, public CNamed
+class CLight : public CObject3D
 {
 public:
 	enum TLightType
@@ -93,6 +93,7 @@ protected:
 	CTexture			*m_pStaticShadowMap;
 	CTexture			*m_pDynamicShadowMap;
 	CTexture			*m_pShadowMaskTexture;
+	CTexture			*m_DynamicDepthStencil;
 
 	std::vector<CRenderableObjectsManager*>		m_StaticShadowMapRenderableObjectsManagers;
 	std::vector<CRenderableObjectsManager*>		m_DynamicShadowMapRenderableObjectsManagers;

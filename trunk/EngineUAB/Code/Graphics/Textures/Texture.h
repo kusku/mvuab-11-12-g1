@@ -42,7 +42,8 @@ public:
 		R8G8B8,
 		X8R8G8B8,
 		R32F,
-		G32R32F
+		G32R32F,
+		D24S8
 	};
 public:
 	CTexture();
@@ -56,7 +57,7 @@ public:
 	bool		Create		( const std::string &Name, uint32 Width, uint32 Height, uint32 MipMaps,
 								TUsageType UsageType, TPoolType PoolType, TFormatType FormatType );
 
-	bool		CreateDepthStencil		(uint32 Width, uint32 Height, TFormatType FormatType);
+	bool		CreateDepthStencil		(uint32 Width, uint32 Height, TFormatType FormatType, D3DMULTISAMPLE_TYPE msType = D3DMULTISAMPLE_NONE);
 
 	void		CaptureFrameBuffer		( size_t IdStage );
 

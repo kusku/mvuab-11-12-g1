@@ -12,6 +12,7 @@
 #include "Utils\Timer.h"
 #include <sstream>
 #include "Lights\LightManager.h"
+#include "Cameras\Camera.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -35,6 +36,8 @@ CEffectTechnique::CEffectTechnique(	CXMLTreeNode &XMLNode )
 	m_UseProjMatrix					= XMLNode.GetBoolProperty("use_projection_matrix", false, false);
 	m_UseWorldViewMatrix			= XMLNode.GetBoolProperty("use_world_view_matrix", false, false);
 	m_UseShadowWorldViewProjMatrix	= XMLNode.GetBoolProperty("use_shadow_world_view_projection_matrix", false, false);
+	m_UseShadowViewProjMatrix		= XMLNode.GetBoolProperty("use_shadow_view_projection_matrix", false, false);
+	m_UseShadowViewMatrix			= XMLNode.GetBoolProperty("use_shadow_view_matrix", false, false);
 	m_UseShadowCameraPosition		= XMLNode.GetBoolProperty("use_shadow_camera_position", false, false);
 	m_UseShadowMaps					= XMLNode.GetBoolProperty("use_shadow_maps", false, false);
 	m_UseInverseViewMatrix			= XMLNode.GetBoolProperty("use_view_inverse_matrix", false, false);
@@ -49,6 +52,9 @@ CEffectTechnique::CEffectTechnique(	CXMLTreeNode &XMLNode )
 	m_UseTime						= XMLNode.GetBoolProperty("use_time", false, false);
 	m_UseShadowWorldViewMatrix		= XMLNode.GetBoolProperty("use_shadow_world_view_matrix", false, false);
 	m_UseLightsShadowLinNearFar		= XMLNode.GetBoolProperty("use_lights_shadow_linNearFar", false, false);
+	m_UseElapsedTime				= XMLNode.GetBoolProperty("use_elapsed_time", false, false);
+	m_UseTotalElapsedTime			= XMLNode.GetBoolProperty("use_total_elapsed_time", false, false);
+	m_UseTextureDim					= XMLNode.GetBoolProperty("use_texture_dim", false, false);
 	
 
 	//Lectura de parámetros
@@ -98,6 +104,38 @@ bool CEffectTechnique::BeginRender()
 	
 	std::string msg_error = "";
 
+	if( m_UseElapsedTime )
+	{
+		float elapsedTime = CORE->GetTimer()->GetElapsedTime();
+
+		if( FAILED( l_Effect->SetFloat( m_Effect->GetElapsedTimeParameter(), elapsedTime) ) ) 
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetElapsedTimeParameter()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
+	}
+
+	if( m_UseTotalElapsedTime )
+	{
+		float totalElapsedTime = CORE->GetTimer()->GetTotalTime();
+
+		if( FAILED( l_Effect->SetFloat( m_Effect->GetTotalElapsedTimeParameter(), totalElapsedTime) ) ) 
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetTotalElapsedTimeParameter()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
+	}
+
+	if(m_UseTextureDim)
+	{
+		float arr[2] = {l_EffectManager->GetTextureDim().x, l_EffectManager->GetTextureDim().y};
+		if( FAILED( l_Effect->SetFloatArray( m_Effect->GetTextureDimParameter(), arr, 2 ) ) ) 
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetTextureDimParameter()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
+	}
+
 	if(m_UseLightsShadowLinNearFar)
 	{
 		float arr[2] = {l_EffectManager->GetLightShadowLinNearFar().x, l_EffectManager->GetLightShadowLinNearFar().y};
@@ -146,7 +184,6 @@ bool CEffectTechnique::BeginRender()
 			msg_error = "Error al hacer el Set del parametro: m_Effect->GetWorldViewMatrix()";
 			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
 		}
-
 	}
 
 	if( m_UseViewProjectionMatrix )
@@ -167,6 +204,28 @@ bool CEffectTechnique::BeginRender()
 		if( FAILED( l_Effect->SetMatrix( m_Effect->GetWorldViewProjectionMatrix(), &l_WorldMatrix.GetD3DXMatrix() ) ) ) 
 		{
 			msg_error = "Error al hacer el Set del parametro: m_Effect->GetWorldViewProjectionMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
+	}
+
+	if(m_UseShadowViewProjMatrix)
+	{
+		D3DXMATRIX shadowVP[1] = { l_EffectManager->GetShadowViewProjMatrix().GetD3DXMatrix() };
+
+		if( FAILED( l_Effect->SetMatrixArray( m_Effect->GetShadowViewProjectionMatrix(), shadowVP, 1) ) )
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->l_ShadowViewProjMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
+	}		
+
+	if(m_UseShadowViewMatrix)
+	{
+		Mat44f shadowViewMatrix = l_EffectManager->GetShadowViewMatrix();
+
+		if( FAILED( l_Effect->SetMatrix( m_Effect->GetShadowViewParameter(), &shadowViewMatrix.GetD3DXMatrix() ) ) )
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetShadowViewParameter()";
 			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
 		}
 	}
@@ -239,7 +298,7 @@ bool CEffectTechnique::BeginRender()
 
 	if( m_UseCameraPosition )
 	{
-		Vect3f l_CameraEye = l_EffectManager->GetCameraEye();
+		Vect3f l_CameraEye = CORE->GetCamera()->GetPosition();// l_EffectManager->GetCameraEye();
 		float l_Camera[3];
 		l_Camera[0] = l_CameraEye.x;
 		l_Camera[1] = l_CameraEye.y;

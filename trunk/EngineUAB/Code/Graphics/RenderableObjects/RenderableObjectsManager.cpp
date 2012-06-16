@@ -9,6 +9,7 @@
 #include "Core.h"
 #include "Effects\EffectTechnique.h"
 #include "Logger\Logger.h"
+#include "StaticMesh\InstanceMeshHW.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -23,6 +24,16 @@ CRenderableObjectsManager::CRenderableObjectsManager()
 CRenderableObjectsManager::~CRenderableObjectsManager()
 {
 	CleanUp();
+
+	InstanceMeshHWMapIt it = m_InstanceMeshHWMap.begin();
+	InstanceMeshHWMapIt itEnd = m_InstanceMeshHWMap.end();
+
+	for(; it != itEnd; ++it)
+	{
+		CHECKED_DELETE(it->second);
+	}
+
+	m_InstanceMeshHWMap.clear();
 }
 
 void CRenderableObjectsManager::Update(float elapsedTime)
@@ -73,6 +84,14 @@ void CRenderableObjectsManager::Render(CRenderManager *RM)
 			(*l_It)->Render(RM);
 		}
 	}
+
+	InstanceMeshHWMapIt it = m_InstanceMeshHWMap.begin();
+	InstanceMeshHWMapIt itEnd = m_InstanceMeshHWMap.end();
+
+	for(; it != itEnd; ++it)
+	{
+		it->second->Render(RM);
+	}
 }
 
 CRenderableObject* CRenderableObjectsManager::AddMeshInstance(const std::string &CoreMeshName, const std::string &InstanceName, const Vect3f &Position)
@@ -102,6 +121,34 @@ CRenderableObject* CRenderableObjectsManager::AddMeshInstance(CXMLTreeNode &Node
 	AddResource( l_InstanceMesh->GetName(), l_InstanceMesh );
 
 	return l_InstanceMesh;
+}
+
+bool CRenderableObjectsManager::AddMeshInstanceHw(CXMLTreeNode &Node)
+{
+	std::string core = Node.GetPszProperty("core", "");
+
+	if(core.compare("") == 0)
+	{
+		return false;
+	}
+
+	CInstanceMeshHW* hwMesh = NULL;
+	InstanceMeshHWMapIt it = m_InstanceMeshHWMap.find(core);
+
+	if(it == m_InstanceMeshHWMap.end())
+	{
+		hwMesh = new CInstanceMeshHW(core);
+
+		m_InstanceMeshHWMap[core] = hwMesh;
+	}
+	else
+	{
+		hwMesh = it->second;
+	}
+
+	hwMesh->AddHWInstance(Node);
+
+	return true;
 }
 
 CRenderableObject* CRenderableObjectsManager::AddAnimatedMeshInstance(CXMLTreeNode &Node)

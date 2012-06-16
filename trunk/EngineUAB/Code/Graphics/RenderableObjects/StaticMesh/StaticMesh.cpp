@@ -13,6 +13,7 @@
 #include "RenderableObjects\RenderableObjectTechnique.h"
 #include "Logger\Logger.h"
 #include "Cameras\Frustum.h"
+#include "Cameras\Camera.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -201,8 +202,8 @@ CRenderableVertexs* CStaticMesh::ReadCreateVertexBuffer(FILE* modelFile, uint16 
 {
 	assert(modelFile);
 
-	uint16 numVertex = 0;
-	uint16 numIndex = 0;
+	uint32 numVertex = 0;
+	uint32 numIndex = 0;
 	
 	uint16* l_IdxBuffer = NULL;
 	void*	l_VtxBuffer = NULL;
@@ -213,7 +214,7 @@ CRenderableVertexs* CStaticMesh::ReadCreateVertexBuffer(FILE* modelFile, uint16 
 	/*****************************************************/
 
 	//Read number of indexes
-	fread(&numIndex, sizeof(uint16), 1, modelFile);
+	fread(&numIndex, sizeof(uint32), 1, modelFile);
 	
 	//Create Index Buffer
 	l_IdxBuffer = new uint16[numIndex];
@@ -225,7 +226,7 @@ CRenderableVertexs* CStaticMesh::ReadCreateVertexBuffer(FILE* modelFile, uint16 
 	/*****************************************************/
 
 	//Read number of vertexs
-	fread(&numVertex, sizeof(uint16), 1, modelFile);
+	fread(&numVertex, sizeof(uint32), 1, modelFile);
 
 	if(vertexType == TNORMALCOLORED_VERTEX::GetVertexType())
 	{
@@ -470,9 +471,27 @@ void CStaticMesh::Render(CRenderManager *RM) const
 		uint16 l_NumTexs = static_cast<uint16>(m_Textures[i].size());
 		for( uint16 j=0; j < l_NumTexs; ++j)
 		{
+			CORE->GetEffectManager()->SetTextureDim(Vect2f((float)m_Textures[i][j]->GetWidth(), (float)m_Textures[i][j]->GetHeight()));
 			m_Textures[i][j]->Activate(j);
 		}
 		m_RVs[i]->Render( RM, m_RenderableObjectsTechniques[i]->GetEffectTechnique() );
+	}
+}
+
+void CStaticMesh::RenderInstance(CRenderManager* RM, LPDIRECT3DVERTEXBUFFER9 instanceBuffer, uint32 count) const
+{
+	uint16 l_Size = static_cast<uint16>(m_RVs.size());
+
+	for(uint16 i=0; i<l_Size; ++i)
+	{
+		uint16 l_NumTexs = static_cast<uint16>(m_Textures[i].size());
+		for( uint16 j=0; j < l_NumTexs; ++j)
+		{
+			CORE->GetEffectManager()->SetTextureDim(Vect2f((float)m_Textures[i][j]->GetWidth(), (float)m_Textures[i][j]->GetHeight()));
+			m_Textures[i][j]->Activate(j);
+		}
+		
+		m_RVs[i]->RenderInstance(RM, m_RenderableObjectsTechniquesInstance[i]->GetEffectTechnique(), instanceBuffer, count);
 	}
 }
 
@@ -486,6 +505,7 @@ void CStaticMesh::Render(CRenderManager *RM, CEffectTechnique* technique) const
 			uint16 l_NumTexs = static_cast<uint16>(m_Textures[i].size());
 			for( uint16 j=0; j < l_NumTexs; ++j)
 			{
+				CORE->GetEffectManager()->SetTextureDim(Vect2f((float)m_Textures[i][j]->GetWidth(), (float)m_Textures[i][j]->GetHeight()));
 				m_Textures[i][j]->Activate(j);
 			}
 		}
@@ -498,6 +518,8 @@ bool CStaticMesh::GetRenderableObjectTechnique()
 {	
 	bool l_Ok = true;
 	m_RenderableObjectsTechniques.clear();
+	m_RenderableObjectsTechniquesInstance.clear();
+
 	CRenderableObjectTechniqueManager *l_ROTM = CORE->GetROTManager();
 	
 	for(size_t i=0; i<m_VertexTypes.size(); ++i)
@@ -516,6 +538,13 @@ bool CStaticMesh::GetRenderableObjectTechnique()
 				m_RenderableObjecTechniqueName;
 			LOGGER->AddNewLog( ELL_ERROR, warn.c_str() );
 		}
+
+
+
+		std::string instanceTechniqueName = l_ROTM->GetRenderableObjectTechniqueNameByVertexType(m_VertexTypes[i] | VERTEX_TYPE_INSTANCE);
+		CRenderableObjectTechnique* InstanceROT = l_ROTM->GetResource(instanceTechniqueName);
+		assert(InstanceROT);
+		m_RenderableObjectsTechniquesInstance.push_back(InstanceROT);
 		
 		l_Ok = l_Ok && l_ROT!=NULL;
 	}
@@ -527,12 +556,12 @@ bool CStaticMesh::GetRenderableObjectTechnique()
 // CreateVect3fVertexsList : Crea una lista de vertices que almacenamos en el propio código para crear la maya física
 // --------------------------------------------------------------------------------------------------------------
 template <typename T>
-void CStaticMesh::CreateVect3fVertexsList( const void *_VtxBuffer, uint16 _NumVertex )
+void CStaticMesh::CreateVect3fVertexsList( const void *_VtxBuffer, uint32 _NumVertex )
 {
 	std::vector<Vect3f> l_Vect ;
 
 	unsigned char  *l_Vtxs = (unsigned char *) _VtxBuffer;
-	for ( uint16 i = 0; i < _NumVertex; ++i )
+	for ( uint32 i = 0; i < _NumVertex; ++i )
 	{
 		Vect3f *l_Vtx = (Vect3f *) l_Vtxs;
 		m_VtxsBuffer.push_back(*l_Vtx);
@@ -543,13 +572,12 @@ void CStaticMesh::CreateVect3fVertexsList( const void *_VtxBuffer, uint16 _NumVe
 // --------------------------------------------------------------------------------------------------------------
 // CreateVect3fFacesList : Crea una lista de indices que almacenamos en el propio código para crear la maya física
 // --------------------------------------------------------------------------------------------------------------
-void CStaticMesh::CreateVect3fFacesList( const void *_IndxBuffer, uint16 _NumIndex )
+void CStaticMesh::CreateVect3fFacesList( const void *_IndxBuffer, uint32 _NumIndex )
 {
-	uint16 *l_IndxBuffer = (uint16 *) _IndxBuffer;
-	for ( uint16 i = 0; i < _NumIndex; ++i )
+	uint16* l_IndxBuffer = (uint16 *) _IndxBuffer;
+	for ( uint32 i = 0; i < _NumIndex; ++i )
 	{
-		uint16 l_Valor = *l_IndxBuffer;
+		uint16 l_Valor = l_IndxBuffer[i];
 		m_IndxBuffer.push_back(l_Valor);
-		l_IndxBuffer ++;
 	}
 }

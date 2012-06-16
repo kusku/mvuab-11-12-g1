@@ -11,8 +11,7 @@
 
 CProperties::CProperties( const std::string &_Name, int _Life, int _Strong, float _Speed, float _HeightController, float _WidthController, 
 							 float _Slope, float _SkinWidth, float _StepOffset, const Vect3f &_Direction, const Vect3f &_Position )
-	: CNamed				( _Name )
-	, CObject3D				( _Position, Vect3f(1.0f,1.0f,1.0f) , 0.0f, 0.0f, 0.0f  )
+	: CObject3D				( _Position, Vect3f(1.0f,1.0f,1.0f) , 0.0f, 0.0f, 0.0f  )
 	, m_Life				( _Life )
 	, m_Strong				( _Strong )
 	, m_Speed				( _Speed )
@@ -29,11 +28,11 @@ CProperties::CProperties( const std::string &_Name, int _Life, int _Strong, floa
 	, m_SkinWidth			( _SkinWidth )
 	, m_StepOffset			( _StepOffset )
 {
+	SetName(_Name);
 }
 
 CProperties::CProperties( void )
-	: CNamed				( "" )
-	, CObject3D				( NULL, NULL, 0.0f, 0.0f, 0.0f  )
+	: CObject3D				( NULL, NULL, 0.0f, 0.0f, 0.0f  )
 	, m_Life				( 0 )
 	, m_Strong				( 0 )
 	, m_Speed				( 0 )

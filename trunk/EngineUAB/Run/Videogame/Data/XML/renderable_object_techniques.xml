@@ -1,78 +1,133 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <renderable_object_techniques>
-	<pool_renderable_object_technique name="dummy_manager">
+  <!--<pool_renderable_object_technique name="dummy_manager">
 		<default_technique vertex_type="415" technique="Cal3DTechnique" />
 		<default_technique vertex_type="19" technique="AmbientLight" />
 		<default_technique vertex_type="31" technique="AmbientLight" />
 		<default_technique vertex_type="51" technique="AmbientLight" />
 		<default_technique vertex_type="81" technique="BasicQuadEffect" />
-	</pool_renderable_object_technique>
-	
-	<pool_renderable_object_technique name="FowardShading">
-		<default_technique vertex_type="415" technique="Cal3DTechnique" />
-		<default_technique vertex_type="19" technique="ForwardLightingBasic" />
-		<default_technique vertex_type="31" technique="ForwardLightingWithNormal" />
-		<default_technique vertex_type="51" technique="ForwardLightingBasic" />
-		<default_technique vertex_type="543" technique="ForwardLightingWithNormal" />
-		<default_technique vertex_type="1055" technique="ForwardLightingWithNormal" />
-		<default_technique vertex_type="81" technique="BasicQuadEffect" />
-	</pool_renderable_object_technique>
-	
-	<!-- Pool of Effects for Building Basic Shadow Maps -->
-	<pool_renderable_object_technique name="Basic_Build_Shadow_Map">
-		<default_technique vertex_type="415" technique="Cal3DTechnique" />
-		<default_technique vertex_type="19" technique="BasicBuildShadowMap" />
-		<default_technique vertex_type="31" technique="BasicBuildShadowMap" />
-		<default_technique vertex_type="543" technique="BasicBuildShadowMap" />
-		<default_technique vertex_type="1055" technique="BasicBuildShadowMap" />
-	</pool_renderable_object_technique>
-	
-	
-	<!-- Pool of Effects for Deferred Shading -->
-	<pool_renderable_object_technique name="Deferred_Shading">
-		<default_technique vertex_type="415" technique="Cal3DTechnique" />
-		<default_technique vertex_type="19" technique="BasicDeferredModelDraw" />
-		<default_technique vertex_type="31" technique="DeferredModelDrawWithNormal" />
-		<default_technique vertex_type="543" technique="DeferredModelDrawWithNormalParallax" />
-		<default_technique vertex_type="1055" technique="DeferredModelDrawRNM" />
-		<!--<default_technique vertex_type="81" technique="BasicDeferredLighting" />-->
-		<default_technique vertex_type="81" technique="BasicDeferredLightingAndShadow" /> 
-	</pool_renderable_object_technique>
-	
-	<pool_renderable_object_technique name="Deferred_Shading_Combine">
-		<default_technique vertex_type="81" technique="BasicDeferredLightingCombine" />
-	</pool_renderable_object_technique>
-	
-	<pool_renderable_object_technique name="Clear_G_Buffer_Pool">
-		<default_technique vertex_type="81" technique="ClearGBuffer" />
-	</pool_renderable_object_technique>
-	
-	<pool_renderable_object_technique name="ssaa_pool">
-		<default_technique vertex_type="81" technique="SSAATechnique" />
-	</pool_renderable_object_technique>
-	
-	<pool_renderable_object_technique name="ssao_pool_renderable_object_technique">
-		<default_technique vertex_type="81" technique="SSAOTechnique" />
-	</pool_renderable_object_technique>
-		
-	<pool_renderable_object_technique name="ssao_blur_pool_renderable_object_technique">
-		<default_technique vertex_type="81" technique="SSAOBlurTechnique" />
-	</pool_renderable_object_technique>
-	
-	<pool_renderable_object_technique name="ssao_final_composition_pool_renderable_object_technique">
-		<default_technique vertex_type="81" technique="SSAOFinalCompositionTechnique" />
-	</pool_renderable_object_technique>
-	
-	<pool_renderable_object_technique name="color_grading_pool">
-		<default_technique vertex_type="81" technique="ColorGradingTechnique" />
-	</pool_renderable_object_technique>
-	
-	<pool_renderable_object_technique name="zblur_pool">
-		<default_technique vertex_type="81" technique="ZBlurTechnique" />
-	</pool_renderable_object_technique>
-	
-	<pool_renderable_object_technique name="vignetting_noise_pool">
-		<default_technique vertex_type="81" technique="VignettingNoiseTechnique" />
-	</pool_renderable_object_technique>
-	
+	</pool_renderable_object_technique>-->
+
+  <pool_renderable_object_technique name="FowardShading">
+    <default_technique vertex_type="415" technique="Cal3DTechniqueBasicShadow" />
+    <default_technique vertex_type="19" technique="ForwardLightingBasicShadow" />
+    <default_technique vertex_type="31" technique="ForwardLightingWithNormal" />
+    <default_technique vertex_type="51" technique="ForwardLightingBasicShadow" />
+    <default_technique vertex_type="543" technique="ForwardLightingWithNormalShadow" />
+    <default_technique vertex_type="1055" technique="ForwardLightingWithNormalShadow" />
+    <default_technique vertex_type="81" technique="BasicQuadEffect" />
+
+    <default_technique vertex_type="4115" technique="ForwardLightingBasicShadowInstance" />
+    <default_technique vertex_type="4127" technique="ForwardLightingWithNormalInstance" />
+    <default_technique vertex_type="4147" technique="ForwardLightingBasicShadowInstance" />
+    <default_technique vertex_type="4639" technique="ForwardLightingWithNormalShadowInstance" />
+    <default_technique vertex_type="5151" technique="ForwardLightingWithNormalShadowInstance" />
+  </pool_renderable_object_technique>
+
+  <pool_renderable_object_technique name="Vegetation1">
+    <default_technique vertex_type="19" technique="ForwardLightingBasicShadowVegetation1" />
+    <default_technique vertex_type="31" technique="ForwardLightingWithNormalShadowVegetation1" />
+    <default_technique vertex_type="51" technique="ForwardLightingBasicShadowVegetation1" />
+    <default_technique vertex_type="543" technique="ForwardLightingWithNormalShadowVegetation1" />
+    <default_technique vertex_type="1055" technique="ForwardLightingWithNormalShadowVegetation1" />
+
+    <default_technique vertex_type="4115" technique="ForwardLightingBasicShadowVegetation1Instance" />
+    <default_technique vertex_type="4127" technique="ForwardLightingWithNormalShadowVegetation1Instance" />
+    <default_technique vertex_type="4147" technique="ForwardLightingBasicShadowVegetation1Instance" />
+    <default_technique vertex_type="4639" technique="ForwardLightingWithNormalShadowVegetation1Instance" />
+    <default_technique vertex_type="5151" technique="ForwardLightingWithNormalShadowVegetation1Instance" />
+  </pool_renderable_object_technique>
+
+  <pool_renderable_object_technique name="Vegetation2">
+    <default_technique vertex_type="19" technique="ForwardLightingBasicShadowVegetation2" />
+    <default_technique vertex_type="31" technique="ForwardLightingWithNormalShadowVegetation2" />
+    <default_technique vertex_type="51" technique="ForwardLightingBasicShadowVegetation2" />
+    <default_technique vertex_type="543" technique="ForwardLightingWithNormalShadowVegetation2" />
+    <default_technique vertex_type="1055" technique="ForwardLightingWithNormalShadowVegetation2" />
+
+    <default_technique vertex_type="4115" technique="ForwardLightingBasicShadowVegetation2Instance" />
+    <default_technique vertex_type="4127" technique="ForwardLightingWithNormalShadowVegetation2Instance" />
+    <default_technique vertex_type="4147" technique="ForwardLightingBasicShadowVegetation2Instance" />
+    <default_technique vertex_type="4639" technique="ForwardLightingWithNormalShadowVegetation2Instance" />
+    <default_technique vertex_type="5151" technique="ForwardLightingWithNormalShadowVegetation2Instance" />
+  </pool_renderable_object_technique>
+
+  <pool_renderable_object_technique name="Water">
+    <default_technique vertex_type="31" technique="ForwardLightingWithNormalWater" />
+    <default_technique vertex_type="543" technique="ForwardLightingWithNormalWater" />
+    <default_technique vertex_type="1055" technique="ForwardLightingWithNormalWater" />
+
+    <default_technique vertex_type="4127" technique="ForwardLightingWithNormalWaterInstance" />
+    <default_technique vertex_type="4639" technique="ForwardLightingWithNormalWaterInstance" />
+    <default_technique vertex_type="5151" technique="ForwardLightingWithNormalWaterInstance" />
+
+    <!--<default_technique vertex_type="31" technique="ForwardLightingWithNormalShadowWater" />
+    <default_technique vertex_type="543" technique="ForwardLightingWithNormalShadowWater" />
+    <default_technique vertex_type="1055" technique="ForwardLightingWithNormalShadowWater" />-->
+  </pool_renderable_object_technique>
+
+  <!-- Pool of Effects for Building Basic Shadow Maps -->
+  <pool_renderable_object_technique name="Basic_Build_Shadow_Map">
+    <default_technique vertex_type="415" technique="Cal3DTechniqueShadow" />
+    <default_technique vertex_type="19" technique="BasicBuildShadowMap" />
+    <default_technique vertex_type="31" technique="BasicBuildShadowMap" />
+    <default_technique vertex_type="543" technique="BasicBuildShadowMap" />
+    <default_technique vertex_type="1055" technique="BasicBuildShadowMap" />
+
+    <default_technique vertex_type="4115" technique="BasicBuildShadowMapInstance" />
+    <default_technique vertex_type="4127" technique="BasicBuildShadowMapInstance" />
+    <default_technique vertex_type="4639" technique="BasicBuildShadowMapInstance" />
+    <default_technique vertex_type="5151" technique="BasicBuildShadowMapInstance" />
+  </pool_renderable_object_technique>
+
+
+  <!-- Pool of Effects for Deferred Shading -->
+  <!--<pool_renderable_object_technique name="Deferred_Shading">
+    <default_technique vertex_type="415" technique="Cal3DTechnique" />
+    <default_technique vertex_type="19" technique="BasicDeferredModelDraw" />
+    <default_technique vertex_type="31" technique="DeferredModelDrawWithNormal" />
+    <default_technique vertex_type="543" technique="DeferredModelDrawWithNormalParallax" />
+    <default_technique vertex_type="1055" technique="DeferredModelDrawRNM" />
+  </pool_renderable_object_technique>-->
+
+  <pool_renderable_object_technique name="Deferred_Shading_Combine">
+    <default_technique vertex_type="81" technique="BasicDeferredLightingCombine" />
+  </pool_renderable_object_technique>
+
+  <pool_renderable_object_technique name="Clear_G_Buffer_Pool">
+    <default_technique vertex_type="81" technique="ClearGBuffer" />
+  </pool_renderable_object_technique>
+
+  <pool_renderable_object_technique name="ssaa_pool">
+    <default_technique vertex_type="81" technique="SSAATechnique" />
+  </pool_renderable_object_technique>
+
+  <pool_renderable_object_technique name="fxaa_pool">
+    <default_technique vertex_type="81" technique="fxaa_technique" />
+  </pool_renderable_object_technique>
+
+  <pool_renderable_object_technique name="ssao_pool_renderable_object_technique">
+    <default_technique vertex_type="81" technique="SSAOTechnique" />
+  </pool_renderable_object_technique>
+
+  <pool_renderable_object_technique name="ssao_blur_pool_renderable_object_technique">
+    <default_technique vertex_type="81" technique="SSAOBlurTechnique" />
+  </pool_renderable_object_technique>
+
+  <pool_renderable_object_technique name="ssao_final_composition_pool_renderable_object_technique">
+    <default_technique vertex_type="81" technique="SSAOFinalCompositionTechnique" />
+  </pool_renderable_object_technique>
+
+  <pool_renderable_object_technique name="color_grading_pool">
+    <default_technique vertex_type="81" technique="ColorGradingTechnique" />
+  </pool_renderable_object_technique>
+
+  <pool_renderable_object_technique name="zblur_pool">
+    <default_technique vertex_type="81" technique="ZBlurTechnique" />
+  </pool_renderable_object_technique>
+
+  <pool_renderable_object_technique name="vignetting_noise_pool">
+    <default_technique vertex_type="81" technique="VignettingNoiseTechnique" />
+  </pool_renderable_object_technique>
+
 </renderable_object_techniques>

@@ -1,164 +1,299 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <renderable_objects>
-	<layer name="solid" default="true" />
-	<layer name="alpha_objects" />
-	<layer name="alpha_blend_objects" />
-	<layer name="particles" />
-	<layer name="vegetation" />
-	<mesh_instance name="Terreno" core="Terreno" position="1.39306 2.10659 0.277821" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="false" />
-	<!--<animated_model_instance name="rabbit1" core="rabbit" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />-->
-	<animated_model_instance name="caperu1" core="caperu" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-	<!--<mesh_instance name="Pino435" core="PinoMain" position="0 -5 0" yaw="0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />-->
-	<!--<mesh_instance name="Pino435" core="PinoMain" position="-71.2613 -13.566 83.7562" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino434" core="PinoMain" position="-31.0588 -7.87065 80.0617" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino430" core="PinoMain" position="47.585 -6.06677 -61.272" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino423" core="PinoMain" position="-60.7019 -7.31889 61.3316" yaw="70.146" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino419" core="PinoMain" position="69.3684 -9.64262 16.4634" yaw="70.146" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino412" core="PinoMain" position="72.1723 -11.3263 20.8018" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino404" core="PinoMain" position="79.2876 -6.0214 40.6216" yaw="70.146" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino391" core="PinoMain" position="1.17367 -6.0214 -73.1915" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino388" core="PinoMain" position="73.1762 -6.66471 45.1361" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino387" core="PinoMain" position="-69.8342 -9.97795 -145.051" yaw="70.146" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="PinoMain" core="PinoMain" position="-81.5069 -10.3273 -144.074" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino365" core="PinoMain" position="54.2705 -6.09552 -3.83681" yaw="69.1711" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino334" core="PinoMain" position="-43.3779 -8.90788 67.1592" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino333" core="PinoMain" position="1.0179 -6.09552 4.43181" yaw="87.169" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino329" core="PinoMain" position="86.2282 -9.46317 15.5983" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino328" core="PinoMain" position="-50.3886 -1.19377 48.7551" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino326" core="PinoMain" position="71.3324 -6.0214 38.2704" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino322" core="PinoMain" position="-36.6799 -6.0214 40.7562" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino317" core="PinoMain" position="-28.1926 -6.58411 -117.085" yaw="128.413" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino316" core="PinoMain" position="54.068 -6.0214 -13.3422" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino309" core="PinoMain" position="77.9518 -8.59684 29.6691" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino307" core="PinoMain" position="67.2247 -6.68205 25.3017" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino306" core="PinoMain" position="77.5776 -9.68412 15.6847" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino305" core="PinoMain" position="58.2069 -7.31889 -27.6343" yaw="69.3286" pitch="-7.4277" roll="-15.6128" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino304" core="PinoMain" position="-71.5832 -6.43351 59.7909" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino300" core="PinoMain" position="80.9299 -6.06677 -105.118" yaw="69.7532" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino297" core="PinoMain" position="-53.7876 -6.0214 -125.112" yaw="70.146" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino291" core="PinoMain" position="-11.8453 -7.87065 -110.827" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino262" core="PinoMain" position="-45.9655 -6.0214 -116.041" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino261" core="PinoMain" position="5.92448 -8.8457 -50.8779" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino254" core="PinoMain" position="-28.2663 -10.328 57.8541" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino250" core="PinoMain" position="-34.8603 -10.8473 114.459" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino237" core="PinoMain" position="17.1112 -6.09552 7.76453" yaw="69.1711" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino225" core="PinoMain" position="-39.0647 -9.25761 127.134" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino222" core="PinoMain" position="-12.1576 -8.18848 34.1658" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino219" core="PinoMain" position="-8.85829 -9.70704 19.0886" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino217" core="PinoMain" position="1.97588 -4.45109 25.0675" yaw="69.1711" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino215" core="PinoMain" position="-6.36318 -8.5682 31.5469" yaw="69.1711" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino211" core="PinoMain" position="23.6604 -6.06677 -43.606" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino210" core="PinoMain" position="51.43 -6.0214 -104.691" yaw="70.146" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino209" core="PinoMain" position="17.7243 -10.0222 -6.1122" yaw="69.1711" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino207" core="PinoMain" position="8.29881 -9.54472 -65.7257" yaw="69.7532" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino206" core="PinoMain" position="14.0067 -8.75273 57.558" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino205" core="PinoMain" position="15.3207 -8.08109 -23.1369" yaw="70.146" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino199" core="PinoMain" position="-13.1081 -1.70744 143.077" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino198" core="PinoMain" position="9.84507 -4.72245 134.382" yaw="88.4461" pitch="-0.825472" roll="-5.66984" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino197" core="PinoMain" position="-28.2329 -7.87065 95.3686" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino193" core="PinoMain" position="-0.730656 -6.09552 -25.8261" yaw="69.1711" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino191" core="PinoMain" position="2.1522 -6.0214 -38.2393" yaw="70.146" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino190" core="PinoMain" position="17.1105 -2.35276 24.1424" yaw="69.1711" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino189" core="PinoMain" position="8.60027 -6.0214 -29.0514" yaw="70.146" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino188" core="PinoMain" position="-5.68355 -2.64372 159.181" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino183" core="PinoMain" position="4.85684 -8.44376 20.0498" yaw="69.1711" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino178" core="PinoMain" position="16.6852 -6.0214 -35.4554" yaw="70.146" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino177" core="PinoMain" position="28.1531 -8.35809 6.22679" yaw="69.1711" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino175" core="PinoMain" position="13.8741 -6.06677 -46.1659" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino167" core="PinoMain" position="-12.6164 -6.06677 -86.1051" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino165" core="PinoMain" position="-15.4888 -6.0214 -97.9955" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino159" core="PinoMain" position="14.6506 1.01142 32.5419" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino158" core="PinoMain" position="-24.1231 -6.2465 32.2289" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino151" core="PinoMain" position="31.8683 -10.1535 -11.6456" yaw="70.146" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino142" core="PinoMain" position="-2.66882 -6.09552 -9.60556" yaw="69.1711" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino141" core="PinoMain" position="35.639 -4.80888 147.081" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino139" core="PinoMain" position="-42.2257 -12.6392 87.3264" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino138" core="PinoMain" position="62.1086 -1.73417 148.423" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino137" core="PinoMain" position="72.2296 -6.0214 51.7131" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino135" core="PinoMain" position="47.9441 -5.48722 155.729" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino127" core="PinoMain" position="24.9863 -6.49125 152.776" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino126" core="PinoMain" position="23.6101 -8.90788 67.1592" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino124" core="PinoMain" position="-16.8485 -2.38652 155.946" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino123" core="PinoMain" position="64.6346 -7.68083 4.15119" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino122" core="PinoMain" position="40.169 -9.65861 160.701" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino121" core="PinoMain" position="17.9572 -6.63517 162.331" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino120" core="PinoMain" position="12.312 -5.79765 153.213" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino119" core="PinoMain" position="7.28896 -1.37675 146.832" yaw="88.5277" pitch="5.67042" roll="-0.821434" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino117" core="PinoMain" position="-56.1789 -2.2194 114.373" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino113" core="PinoMain" position="-43.6284 -9.85612 120.746" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino112" core="PinoMain" position="30.1825 -11.8792 164.374" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino111" core="PinoMain" position="12.8103 -6.09552 17.5592" yaw="87.169" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino109" core="PinoMain" position="7.50428 -3.12921 29.3534" yaw="88.2616" pitch="-22.4373" roll="3.34283" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino106" core="PinoMain" position="-7.42528 -6.09552 44.3829" yaw="87.169" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino104" core="PinoMain" position="-10.8069 -6.0214 66.3082" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino103" core="PinoMain" position="-18.8502 -6.0214 56.3719" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino102" core="PinoMain" position="-26.5653 -6.0214 69.1939" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino101" core="PinoMain" position="27.469 2.6601 37.8077" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino100" core="PinoMain" position="10.5587 0.864199 36.9183" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino099" core="PinoMain" position="21.0706 -0.110898 31.7373" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino096" core="PinoMain" position="27.3943 -8.08109 -34.3152" yaw="127.712" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino095" core="PinoMain" position="30.1457 -4.51349 16.8797" yaw="86.8823" pitch="-3.61592" roll="-22.3971" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino094" core="PinoMain" position="32.2703 -6.0214 62.2604" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino092" core="PinoMain" position="-53.2447 -10.543 92.1748" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino091" core="PinoMain" position="14.2132 -6.0214 68.0782" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino090" core="PinoMain" position="-18.245 -4.93107 166.125" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino088" core="PinoMain" position="-4.27325 -13.566 83.7562" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino087" core="PinoMain" position="-11.8962 -11.9654 96.3982" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino086" core="PinoMain" position="-15.6529 -12.7709 87.6031" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino084" core="PinoMain" position="-26.9322 -9.98234 88.6232" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino078" core="PinoMain" position="15.9162 -7.27855 2.42059" yaw="69.1711" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino077" core="PinoMain" position="-4.59518 -6.43351 59.7909" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino076" core="PinoMain" position="63.8611 -8.11198 49.0598" yaw="88.4576" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino073" core="PinoMain" position="52.1904 -6.0214 -54.0138" yaw="70.146" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino066" core="PinoMain" position="2.50349 -8.94996 -13.945" yaw="69.1711" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino065" core="PinoMain" position="8.06162 -6.0214 -34.5411" yaw="70.146" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino063" core="PinoMain" position="66.6492 -6.0214 -105.248" yaw="70.146" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino060" core="PinoMain" position="33.204 -3.38322 -54.1867" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino059" core="PinoMain" position="13.6958 -8.6641 -83.2857" yaw="70.2783" pitch="5.21486" roll="-2.41763" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino058" core="PinoMain" position="22.3013 -6.37895 -21.836" yaw="70.146" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino056" core="PinoMain" position="32.1595 -8.90788 -52.4449" yaw="70.146" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino054" core="PinoMain" position="-47.0827 -6.2465 -96.2678" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino053" core="PinoMain" position="37.5095 -6.0214 -18.9474" yaw="70.146" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino044" core="PinoMain" position="-22.3643 -6.65324 -95.5143" yaw="28.9046" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino038" core="PinoMain" position="34.69 -3.02832 23.7517" yaw="0.0" pitch="0.0" roll="-5.69502" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino037" core="PinoMain" position="75.8378 -3.89421 -85.8328" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino036" core="PinoMain" position="73.9508 -2.71379 -99.4115" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino032" core="PinoMain" position="41.6773 -6.0214 -99.6558" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino031" core="PinoMain" position="34.1542 -6.04972 -93.7507" yaw="0.0" pitch="0.0" roll="23.106" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino030" core="PinoMain" position="23.2253 -6.86857 -97.6566" yaw="0.0" pitch="0.0" roll="11.5414" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino029" core="PinoMain" position="30.7413 -6.0214 -107.998" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino028" core="PinoMain" position="16.3594 -6.09028 -112.131" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino026" core="PinoMain" position="12.5298 -6.0214 -124.921" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino024" core="PinoMain" position="5.3306 -6.0214 -139.401" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino023" core="PinoMain" position="18.8966 -6.0214 -140.044" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino021" core="PinoMain" position="60.5315 -6.0214 -63.511" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino020" core="PinoMain" position="38.352 -3.37174 -61.5316" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino017" core="PinoMain" position="30.8698 -3.2714 -68.1762" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino013" core="PinoMain" position="7.15613 -12.1308 -86.103" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino012" core="PinoMain" position="-6.49953 -11.7893 -90.0417" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino011" core="PinoMain" position="1.40174 -12.7709 -96.826" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino009" core="PinoMain" position="-2.50281 -6.65396 -107.457" yaw="0.0" pitch="0.0" roll="-5.76927" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino008" core="PinoMain" position="-7.47853 -10.328 -119.882" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino006" core="PinoMain" position="-20.6104 -8.59684 -121.426" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino004" core="PinoMain" position="-31.3375 -8.73332 -125.793" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino003" core="PinoMain" position="-20.9846 -9.68412 -135.41" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino002" core="PinoMain" position="-36.7625 -7.31889 -135.806" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Pino01" core="PinoMain" position="-44.2856 -6.43351 -129.901" yaw="0.0" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Arbol_Gracioso016" core="Arbol_GraciosoMain" position="15.6661 -2.16129 136.605" yaw="3.4458e-005" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Arbol_Gracioso015" core="Arbol_GraciosoMain" position="27.877 -1.47007 136.605" yaw="-142.603" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Arbol_Gracioso014" core="Arbol_GraciosoMain" position="63.2578 -1.47007 -26.9267" yaw="-142.603" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Arbol_Gracioso013" core="Arbol_GraciosoMain" position="75.9557 -2.09946 -41.6254" yaw="-142.603" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Arbol_Gracioso012" core="Arbol_GraciosoMain" position="96.6624 -0.704992 -58.6837" yaw="-142.603" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Arbol_Gracioso011" core="Arbol_GraciosoMain" position="101.232 -1.47007 -64.0473" yaw="-142.603" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Arbol_Gracioso010" core="Arbol_GraciosoMain" position="105.107 -4.50565 -79.6696" yaw="-142.603" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Arbol_Gracioso009" core="Arbol_GraciosoMain" position="12.3707 -1.47007 -130.939" yaw="-142.603" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Arbol_Gracioso008" core="Arbol_GraciosoMain" position="13.1856 -4.78847 -119.565" yaw="-142.603" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Arbol_Gracioso007" core="Arbol_GraciosoMain" position="42.7128 -1.47007 -119.609" yaw="-142.603" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Arbol_Gracioso006" core="Arbol_GraciosoMain" position="31.3803 -1.47007 -88.9913" yaw="-142.603" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Arbol_Gracioso005" core="Arbol_GraciosoMain" position="53.6288 2.24954 -86.2024" yaw="-142.603" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Arbol_Gracioso004" core="Arbol_GraciosoMain" position="-18.4569 -4.38352 -126.843" yaw="-142.603" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Arbol_Gracioso003" core="Arbol_GraciosoMain" position="-10.6719 -4.7808 -127.907" yaw="-142.603" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Arbol_Gracioso002" core="Arbol_GraciosoMain" position="-23.6966 -2.8646 -131.553" yaw="-142.603" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Arbol_Gracioso001" core="Arbol_GraciosoMain" position="-30.9798 -1.47007 -137.537" yaw="-142.603" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />
-	<mesh_instance name="Arbol_GraciosoMain" core="Arbol_GraciosoMain" position="-40.1991 -1.47007 -127.863" yaw="-142.603" pitch="0.0" roll="0.0" visible="true" layer="vegetation" create_physics="false" />-->
+  <layer name="solid" default="true" />
+  <layer name="alpha_objects" />
+  <layer name="alpha_blend_objects" />
+  <layer name="particles" />
+  <layer name="vegetation" />
+  <layer name="water" />
+  <mesh_instance name="Plane001" core="Plane001" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
+  <mesh_instance name="Arbolt7_c" core="Arbolt7_c" position="55.9745 -17.8833 -11.0532" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt3" core="ArboltMain" position="-14.1643 2.58765 -140.663" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt5" core="ArboltMain" position="54.8983 -18.7598 -25.5322" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt6" core="Arbolt2Main" position="33.8106 -10.3926 -83.8342" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt030" core="ArboltMain" position="20.3689 -14.5583 -118.688" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt031" core="ArboltMain" position="25.9103 -11.7214 -116.013" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt032" core="ArboltMain" position="5.55785 -13.352 -128.213" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt033" core="ArboltMain" position="4.40481 -11.5548 -132.774" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt034" core="ArboltMain" position="9.7778 -13.8361 -130.395" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt035" core="ArboltMain" position="19.0416 -13.5011 -129.505" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt036" core="ArboltMain" position="8.19717 -15.4372 -118.705" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt037" core="ArboltMain" position="16.2288 -12.18 -136.638" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt038" core="ArboltMain" position="9.18112 -11.3246 -136.95" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt039" core="ArboltMain" position="5.62907 -6.58511 -141.546" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt040" core="ArboltMain" position="27.0586 -9.71085 -122.215" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt041" core="ArboltMain" position="18.7829 -16.2041 -112.487" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt042" core="ArboltMain" position="14.9952 -15.7167 -116.394" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt043" core="ArboltMain" position="18.2492 -15.0592 -123.406" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt044" core="ArboltMain" position="23.6222 -12.1989 -121.027" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt045" core="ArboltMain" position="23.0255 -11.9635 -127.581" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt046" core="ArboltMain" position="19.4735 -10.4021 -140.413" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt047" core="ArboltMain" position="13.9015 -8.04117 -141.505" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt048" core="ArboltMain" position="22.0416 -14.9418 -114.955" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt049" core="ArboltMain" position="23.166 -12.1142 -124.728" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt050" core="ArboltMain" position="12.5934 -14.6713 -124.44" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt051" core="ArboltMain" position="15.8683 -15.0015 -125.74" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt052" core="ArboltMain" position="-29.5664 -2.95645 -85.3986" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt053" core="ArboltMain" position="-44.5592 -18.7194 -88.5649" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt054" core="ArboltMain" position="-39.8983 -14.3813 -84.3109" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt055" core="ArboltMain" position="-39.4554 -15.3212 -90.4275" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt056" core="ArboltMain" position="-34.0824 -9.5961 -88.0489" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt057" core="ArboltMain" position="-24.8186 -4.25284 -87.1588" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt058" core="ArboltMain" position="-35.663 -9.27603 -80.381" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt059" core="ArboltMain" position="-27.6313 -11.3232 -94.2918" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt060" core="ArboltMain" position="-34.6791 -15.3212 -94.6032" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt061" core="ArboltMain" position="-38.2311 -15.3212 -99.1992" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt062" core="ArboltMain" position="-43.4108 -14.3813 -94.7667" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt063" core="ArboltMain" position="-29.9586 -13.4628 -99.1589" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt064" core="ArboltMain" position="-24.3867 -11.3232 -98.0664" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt065" core="ArboltMain" position="-25.611 -2.95645 -81.0594" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt066" core="ArboltMain" position="-20.238 -6.1254 -78.6808" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt067" core="ArboltMain" position="-20.8347 -8.79117 -85.2351" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt068" core="ArboltMain" position="-30.7148 -2.95645 -79.1968" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt069" core="ArboltMain" position="-21.8186 -6.1254 -71.0129" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt070" core="ArboltMain" position="-48.4644 -13.8649 -97.28" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt071" core="ArboltMain" position="-49.6845 -14.3813 -86.0954" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt072" core="ArboltMain" position="-26.0539 -3.267 -74.9428" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt073" core="ArboltMain" position="-50.1005 -13.8649 -91.9181" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt074" core="ArboltMain" position="-47.9803 -14.3813 -67.844" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt075" core="ArboltMain" position="-62.973 -14.3813 -71.0103" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt076" core="ArboltMain" position="-58.3122 -12.7616 -66.7563" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt077" core="ArboltMain" position="-57.8693 -17.927 -72.8729" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt078" core="ArboltMain" position="-52.4963 -15.5617 -70.4943" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt079" core="ArboltMain" position="-43.2325 -13.881 -69.6041" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt080" core="ArboltMain" position="-54.0769 -12.7616 -62.8264" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt081" core="ArboltMain" position="-46.0452 -14.3813 -76.7372" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt082" core="ArboltMain" position="-53.093 -17.7096 -77.0486" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt083" core="ArboltMain" position="-56.645 -19.6862 -81.6446" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt084" core="ArboltMain" position="-61.8247 -14.3813 -77.2121" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt085" core="ArboltMain" position="-48.3725 -18.9403 -81.6043" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt086" core="ArboltMain" position="-42.8006 -14.3813 -80.5118" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt087" core="ArboltMain" position="-44.0249 -14.3813 -63.5048" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt088" core="ArboltMain" position="-38.6519 -14.3813 -61.1262" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt089" core="ArboltMain" position="-39.2486 -12.6161 -67.6805" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt090" core="ArboltMain" position="-49.1287 -12.9506 -61.6422" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt091" core="ArboltMain" position="-40.2325 -14.3813 -53.4583" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt092" core="ArboltMain" position="-66.8783 -18.0514 -79.7254" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt093" core="ArboltMain" position="-68.0984 -12.4137 -68.5408" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt094" core="ArboltMain" position="-44.4678 -14.3813 -57.3882" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt095" core="ArboltMain" position="-68.5144 -16.2411 -74.3634" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt096" core="ArboltMain" position="8.66544 -19.3903 -53.6458" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt097" core="ArboltMain" position="-6.66711 -18.6725 -56.8121" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt098" core="ArboltMain" position="-2.00624 -18.9508 -52.5581" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt099" core="ArboltMain" position="-1.56333 -19.6791 -58.6747" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt100" core="ArboltMain" position="3.80966 -19.3952 -56.2961" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt101" core="ArboltMain" position="13.0735 -18.1027 -55.4059" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt102" core="ArboltMain" position="2.22903 -16.7543 -48.6282" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt103" core="ArboltMain" position="10.2607 -18.9196 -62.539" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt104" core="ArboltMain" position="3.21298 -13.039 -62.8504" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt105" core="ArboltMain" position="-6.57573 -14.1696 -25.6354" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt106" core="ArboltMain" position="-5.51881 -17.5568 -63.0139" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt107" core="ArboltMain" position="-30.2064 -17.5622 -36.788" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt108" core="ArboltMain" position="13.5053 -13.039 -66.3136" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt109" core="ArboltMain" position="12.2811 -16.0177 -49.3066" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt110" core="ArboltMain" position="-28.9862 -16.7733 -47.9726" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt111" core="ArboltMain" position="-2.34047 -13.7873 -21.7055" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt112" core="ArboltMain" position="7.17728 -14.9357 -47.444" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt113" core="ArboltMain" position="-11.2366 -16.1989 -29.8894" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt114" core="ArboltMain" position="-10.5723 -13.039 -65.5272" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt115" core="ArboltMain" position="-11.7925 -17.1564 -54.3426" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt116" core="ArboltMain" position="11.8382 -14.8817 -43.19" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt117" core="ArboltMain" position="-12.2085 -17.0417 -60.1653" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt118" core="ArboltMain" position="-10.0883 -13.039 -36.0912" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt119" core="ArboltMain" position="-24.5744 -17.5058 -39.2575" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt120" core="ArboltMain" position="-20.4201 -17.683 -35.0035" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt121" core="ArboltMain" position="-19.9772 -17.9306 -41.1201" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt122" core="ArboltMain" position="-14.6042 -16.7113 -38.7415" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt123" core="ArboltMain" position="-5.34042 -13.039 -37.8513" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt124" core="ArboltMain" position="-16.1849 -16.8705 -31.0736" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt125" core="ArboltMain" position="-8.1532 -16.1571 -44.9844" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt126" core="ArboltMain" position="-15.2009 -17.3576 -45.2958" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt127" core="ArboltMain" position="-18.4085 -16.9413 -49.8918" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt128" core="ArboltMain" position="-22.9171 -17.527 -45.4593" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt129" core="ArboltMain" position="-10.4805 -17.0602 -49.8515" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt130" core="ArboltMain" position="-4.90857 -43.3407 -48.759" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt131" core="ArboltMain" position="-6.13283 -13.039 -31.752" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt132" core="ArboltMain" position="-0.759838 -12.6759 -29.3733" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt133" core="ArboltMain" position="-1.35652 -13.039 -35.9277" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt134" core="ArboltMain" position="-30.6224 -17.776 -42.6106" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt135" core="ArboltMain" position="17.6541 -14.2494 -46.928" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt136" core="ArboltMain" position="7.9334 -13.039 -67.4061" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt137" core="ArboltMain" position="-0.339073 -12.4037 -67.4464" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt138" core="ArboltMain" position="17.0574 -15.4169 -53.4823" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt139" core="ArboltMain" position="16.0734 -14.0255 -39.2601" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt140" core="ArboltMain" position="26.3081 -16.521 -17.6822" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt141" core="ArboltMain" position="11.3154 -13.039 -20.8485" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt142" core="ArboltMain" position="15.9763 -13.039 -16.5945" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt143" core="ArboltMain" position="16.4192 -13.039 -22.7111" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt144" core="ArboltMain" position="21.7922 -14.0032 -20.3324" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt145" core="ArboltMain" position="31.056 -20.7354 -19.4423" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt146" core="ArboltMain" position="20.2116 -15.1435 -12.6646" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt147" core="ArboltMain" position="28.2432 -17.897 -26.5754" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt148" core="ArboltMain" position="21.1955 -13.039 -26.8867" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt149" core="ArboltMain" position="11.4068 -13.039 10.3283" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt150" core="ArboltMain" position="12.4637 -13.039 -27.0503" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt151" core="ArboltMain" position="-12.2238 -20.9254 -0.824364" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt152" core="ArboltMain" position="31.4879 -19.1049 -30.35" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt153" core="ArboltMain" position="30.2636 -20.2965 -13.343" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt154" core="ArboltMain" position="-11.0037 -19.1147 -12.009" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt155" core="ArboltMain" position="15.6421 -13.039 14.2581" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt156" core="ArboltMain" position="25.1598 -16.521 -11.4804" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt157" core="ArboltMain" position="6.74593 -13.039 6.07424" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt158" core="ArboltMain" position="7.41022 -13.039 -29.5636" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt159" core="ArboltMain" position="6.19009 -13.039 -18.379" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt160" core="ArboltMain" position="29.8207 -19.0208 -7.22635" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt161" core="ArboltMain" position="5.77408 -13.039 -24.2016" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt162" core="ArboltMain" position="7.89424 -13.039 -0.127541" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt163" core="ArboltMain" position="-7.09846 -19.6549 -3.29386" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt164" core="ArboltMain" position="-2.43759 -17.9779 0.960167" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt165" core="ArboltMain" position="-1.99468 -17.1847 -5.15646" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt166" core="ArboltMain" position="3.37831 -16.0844 -2.77782" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt167" core="ArboltMain" position="12.6421 -13.039 -1.8877" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt168" core="ArboltMain" position="1.79768 -16.4909 4.89001" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt169" core="ArboltMain" position="9.82935 -13.039 -9.02074" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt170" core="ArboltMain" position="2.78163 -15.057 -9.33213" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt171" core="ArboltMain" position="-0.770424 -15.1591 -13.9282" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt172" core="ArboltMain" position="-5.95016 -18.4176 -9.49564" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt173" core="ArboltMain" position="7.50204 -13.039 -13.8878" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt174" core="ArboltMain" position="13.074 -13.039 -12.7953" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt175" core="ArboltMain" position="11.8497 -13.039 4.21165" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt176" core="ArboltMain" position="17.2227 -13.039 6.59028" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt177" core="ArboltMain" position="16.626 -13.039 0.0359726" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt178" core="ArboltMain" position="-12.6398 -20.244 -6.64701" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt179" core="ArboltMain" position="35.6366 -22.8409 -10.9643" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt180" core="ArboltMain" position="25.9159 -13.039 -31.4425" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt181" core="ArboltMain" position="17.6435 -13.039 -31.4828" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt182" core="ArboltMain" position="35.0399 -24.7466 -17.5186" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt183" core="ArboltMain" position="34.056 -20.2965 -3.29651" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt184" core="ArboltMain" position="79.483 -5.5441 -130.942" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt185" core="ArboltMain" position="64.4903 -9.03836 -134.109" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt186" core="ArboltMain" position="69.1512 -5.5441 -129.855" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt187" core="ArboltMain" position="69.5941 -9.03836 -135.971" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt188" core="ArboltMain" position="74.9671 -5.5441 -133.593" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt189" core="ArboltMain" position="84.2309 -5.5441 -132.703" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt190" core="ArboltMain" position="73.3864 -9.54068 -125.925" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt191" core="ArboltMain" position="58.5176 -6.5817 -83.9436" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt193" core="ArboltMain" position="64.5817 -9.95987 -102.932" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt195" core="ArboltMain" position="84.2314 -9.01321 -90.092" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt196" core="ArboltMain" position="83.4385 -12.6576 -126.603" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt197" core="ArboltMain" position="68.8169 -10.0139 -99.0021" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt198" core="ArboltMain" position="78.3347 -13.022 -124.741" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt199" core="ArboltMain" position="59.9208 -9.27127 -107.186" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt200" core="ArboltMain" position="78.6594 -9.01321 -91.1845" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt201" core="ArboltMain" position="59.3649 -9.03836 -131.639" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt202" core="ArboltMain" position="82.9956 -13.5293 -120.487" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt203" core="ArboltMain" position="58.9489 -5.99991 -137.462" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt204" core="ArboltMain" position="61.0691 -8.06314 -113.388" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt205" core="ArboltMain" position="65.2072 -8.71915 -86.7923" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt206" core="ArboltMain" position="70.387 -9.19327 -91.2248" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt207" core="ArboltMain" position="56.5532 -9.24429 -116.038" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt208" core="ArboltMain" position="65.817 -9.27127 -115.148" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt209" core="ArboltMain" position="54.9725 -8.53641 -108.37" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt210" core="ArboltMain" position="63.0042 -8.73404 -122.281" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt211" core="ArboltMain" position="55.9565 -5.5441 -122.592" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt212" core="ArboltMain" position="73.939 -7.81802 -86.6288" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt213" core="ArboltMain" position="80.9868 -9.01321 -86.3174" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt214" core="ArboltMain" position="60.6769 -9.62296 -127.148" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt215" core="ArboltMain" position="66.2488 -7.92252 -126.056" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt216" core="ArboltMain" position="65.0246 -8.84232 -109.049" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt217" core="ArboltMain" position="70.3976 -10.4949 -106.67" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt218" core="ArboltMain" position="69.8009 -10.2888 -113.224" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt219" core="ArboltMain" position="88.8115 -11.3345 -124.225" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt222" core="ArboltMain" position="88.2148 -10.0337 -130.779" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt223" core="ArboltMain" position="87.2308 -12.4217 -116.557" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt224" core="ArboltMain" position="88.8009 -10.6087 -108.779" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt225" core="ArboltMain" position="82.4728 -9.01321 -98.1451" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt226" core="ArboltMain" position="87.1337 -9.01321 -93.8911" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt227" core="ArboltMain" position="87.5766 -9.01321 -100.008" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt229" core="ArboltMain" position="74.5357 -7.42178 -80.0744" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt231" core="ArboltMain" position="69.1627 -8.69034 -82.4531" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt232" core="ArboltMain" position="92.3529 -10.794 -104.183" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt234" core="ArboltMain" position="83.6211 -10.4182 -104.347" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt238" core="ArboltMain" position="60.1537 -9.73184 -89.3056" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt239" core="ArboltMain" position="76.9315 -11.1598 -101.498" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt240" core="ArboltMain" position="77.3475 -9.01321 -95.6756" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt241" core="ArboltMain" position="78.5676 -12.3948 -106.86" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt250" core="ArboltMain" position="70.8183 5.24728 -144.743" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt251" core="ArboltMain" position="79.0908 -4.77151 -144.703" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt252" core="ArboltMain" position="47.2247 -6.32169 -122.756" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt253" core="ArboltMain" position="52.4044 -10.0221 -127.188" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt254" core="ArboltMain" position="51.1802 -9.05118 -118.417" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt255" core="ArboltMain" position="50.7373 -7.40518 -112.3" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt256" core="ArboltMain" position="60.5851 -3.41995 -142.824" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt257" core="ArboltMain" position="84.6627 -5.5441 -143.61" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt258" core="ArboltMain" position="65.6386 -4.77151 -140.311" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt260" core="ArboltMain" position="74.3704 -5.20877 -140.147" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt261" core="ArboltMain" position="81.4181 -5.5441 -139.836" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt265" core="ArboltMain" position="64.0255 -16.8339 3.32542" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt266" core="ArboltMain" position="58.2363 -16.5336 -22.4862" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt267" core="ArboltMain" position="74.3326 -16.1054 -35.2373" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt268" core="ArboltMain" position="59.9631 -16.4359 -25.7682" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt270" core="ArboltMain" position="66.0983 -15.5065 6.11086" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt271" core="ArboltMain" position="62.0135 -15.1493 36.2509" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt273" core="ArboltMain" position="65.0375 -15.7199 21.5612" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt277" core="ArboltMain" position="66.7357 -15.0065 45.086" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt279" core="ArboltMain" position="64.6593 -15.8085 15.4075" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt281" core="ArboltMain" position="60.1551 -17.371 -4.78783" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt283" core="ArboltMain" position="54.7105 -17.2055 -20.5127" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt284" core="ArboltMain" position="65.8076 -16.93 9.2057" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt285" core="ArboltMain" position="70.5909 -14.9536 49.9772" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt286" core="ArboltMain" position="76.7851 -14.9215 47.9639" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt287" core="ArboltMain" position="61.2917 -17.3863 6.55541" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt288" core="ArboltMain" position="70.5555 -15.5338 7.44553" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt289" core="ArboltMain" position="59.711 -19.0021 14.2232" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt290" core="ArboltMain" position="67.7427 -16.8661 0.312492" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt291" core="ArboltMain" position="60.695 -17.4899 0.00110626" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt292" core="ArboltMain" position="74.2785 -14.3207 49.2582" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt294" core="ArboltMain" position="65.4154 -17.3134 -4.5546" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt295" core="ArboltMain" position="60.1038 -16.6308 3.39181" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt296" core="ArboltMain" position="66.3705 -15.4444 13.0066" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt297" core="ArboltMain" position="67.0886 -14.8866 17.8349" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt300" core="ArboltMain" position="61.4881 -15.2058 41.9874" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt309" core="ArboltMain" position="66.7423 -14.3207 49.7639" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt311" core="ArboltMain" position="63.5822 -14.3207 45.6509" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt313" core="ArboltMain" position="64.4757 -14.9278 46.4492" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt315" core="ArboltMain" position="58.3624 -15.1327 44.7083" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt316" core="ArboltMain" position="60.1551 -14.4057 48.1473" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt318" core="ArboltMain" position="64.8922 -15.2896 33.2879" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt330" core="ArboltMain" position="60.8425 -17.7519 -28.9339" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt331" core="ArboltMain" position="71.3527 -14.7421 -39.5661" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt332" core="ArboltMain" position="51.9632 -20.8025 -0.162407" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt333" core="ArboltMain" position="54.5466 -19.1376 -3.31599" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt334" core="ArboltMain" position="55.9187 -19.1449 4.17678" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt335" core="ArboltMain" position="55.4758 -19.1287 10.2934" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt336" core="ArboltMain" position="52.3053 -14.3207 -24.2821" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt337" core="ArboltMain" position="73.738 -13.0829 -40.0407" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt338" core="ArboltMain" position="52.4972 -16.0844 -17.717" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt340" core="ArboltMain" position="66.141 -15.9318 -35.2394" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt341" core="Arbolt2Main" position="30.0178 -10.2592 -76.7892" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt342" core="Arbolt2Main" position="26.1578 -10.2592 -76.7892" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt343" core="Arbolt2Main" position="22.4092 -11.3904 -78.1931" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt344" core="Arbolt2Main" position="39.0514 -10.1409 -80.6359" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt345" core="Arbolt2Main" position="35.2032 -10.2592 -75.1561" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt346" core="Arbolt2Main" position="42.688 -10.1409 -78.6997" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt2Main" core="Arbolt2Main" position="70.6151 -11.7827 -51.3989" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt348" core="ArboltMain" position="20.3689 -16.2423 -110.177" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt349" core="ArboltMain" position="22.878 -14.8611 -107.502" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt350" core="ArboltMain" position="13.1454 -16.8803 -113.032" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt351" core="ArboltMain" position="23.166 -14.0707 -116.217" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt352" core="ArboltMain" position="9.7778 -16.9757 -121.884" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt353" core="ArboltMain" position="19.0416 -14.9054 -120.994" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt354" core="ArboltMain" position="22.0416 -16.0746 -104.848" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt355" core="ArboltMain" position="13.7571 -14.4773 -129.887" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt356" core="ArboltMain" position="9.18112 -14.4643 -128.439" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt357" core="ArboltMain" position="6.91393 -12.1364 -134.473" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt358" core="ArboltMain" position="13.9015 -11.175 -132.994" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt359" core="ArboltMain" position="17.9099 -17.1016 -105.294" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt360" core="ArboltMain" position="15.6064 -16.9403 -110.02" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt361" core="ArboltMain" position="18.2492 -16.8214 -114.895" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt362" core="ArboltMain" position="23.6222 -14.2575 -110.297" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt363" core="ArboltMain" position="23.0255 -13.0033 -119.07" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt364" core="ArboltMain" position="19.4735 -13.5418 -131.902" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt365" core="ArboltMain" position="14.2937 -18.1411 -119.234" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt366" core="ArboltMain" position="4.40481 -14.6945 -124.263" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="ArboltMain" core="ArboltMain" position="3.9619 -16.4916 -118.146" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt368" core="ArboltMain" position="8.19717 -18.5768 -114.216" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt369" core="ArboltMain" position="24.309 -12.8505 -114.129" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt370" core="Arbolt2Main" position="41.9394 -11.2338 -73.7175" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
+  <mesh_instance_hw name="Arbolt371" core="ArboltMain" position="78.766 -10.916 -65.2663" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
 </renderable_objects>

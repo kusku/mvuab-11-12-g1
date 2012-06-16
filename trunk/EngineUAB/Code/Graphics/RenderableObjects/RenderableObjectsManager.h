@@ -12,6 +12,7 @@
 
 #include <vector>
 #include <string>
+#include <map>
 
 #include "Utils\MapManager.h"
 #include "Math\Vector3.h"
@@ -20,6 +21,7 @@
 class CRenderManager;
 class CEffectTechnique;
 class CXMLTreeNode;
+class CInstanceMeshHW;
 
 class CRenderableObjectsManager : public CMapManager<CRenderableObject>
 {
@@ -32,6 +34,7 @@ public:
 
 	CRenderableObject*	AddMeshInstance			( const std::string &CoreMeshName, const std::string &InstanceName, const Vect3f &Position );
 	CRenderableObject*	AddMeshInstance			( CXMLTreeNode &Node );
+	bool				AddMeshInstanceHw		( CXMLTreeNode &Node );
 	CRenderableObject*	AddAnimatedMeshInstance	( const std::string &Name, const Vect3f &Position );
 	CRenderableObject*	AddAnimatedMeshInstance ( CXMLTreeNode &Node );
 	bool				AddResource				( const std::string &Name, CRenderableObject *RenderableObject );
@@ -43,6 +46,12 @@ public:
 protected:
 	std::vector<CRenderableObject*>			m_RenderableObjects;
 	std::string								m_FileName;
+
+	typedef std::map<std::string, CInstanceMeshHW*> InstanceMeshHWMap;
+	typedef InstanceMeshHWMap::iterator InstanceMeshHWMapIt;
+	typedef InstanceMeshHWMap::const_iterator InstanceMeshHWMapItConst;
+
+	InstanceMeshHWMap						m_InstanceMeshHWMap;
 };
 
 #endif

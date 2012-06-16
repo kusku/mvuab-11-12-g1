@@ -19,6 +19,7 @@ CDirectionalLight::CDirectionalLight( CXMLTreeNode &XMLNode )
 {
 	m_Type = DIRECTIONAL;
 	m_Direction = XMLNode.GetVect3fProperty("dir", Vect3f(0.0f, 0.0f, 0.0f));
+	//m_Direction.Normalize();
 
 	m_OrthoShadowMapSize.x = XMLNode.GetIntProperty("directional_light_camara_size_w", 256);
 	m_OrthoShadowMapSize.y = XMLNode.GetIntProperty("directional_light_camara_size_h", 256);
@@ -65,7 +66,6 @@ void CDirectionalLight::Render(CRenderManager *RM)
 
 void CDirectionalLight::SetShadowMap()
 {
-
 	D3DXMATRIX l_View;
 	D3DXMATRIX l_Projection;
 
@@ -73,10 +73,14 @@ void CDirectionalLight::SetShadowMap()
 
 	D3DXVECTOR3 l_Eye = D3DXVECTOR3(m_Position.x, m_Position.y, m_Position.z);
 
-	Vect3f lookat = m_Direction;
+	//static Vect3f temp = (-m_Direction).GetNormalized();
+	//m_Direction = -temp;
+
+	Vect3f lookat = m_Direction.GetNormalized();
+	//lookat = m_Direction;
 	D3DXVECTOR3 l_LookAt(lookat.x, lookat.y, lookat.z);
 
-	Vect3f vup(0.0f, 1.0f, 0.0f);
+	Vect3f vup(0, 1, 0);
 	D3DXVECTOR3 l_VUP(vup.x, vup.y, vup.z);
 
 	//Setup Matrix view
@@ -100,14 +104,35 @@ void CDirectionalLight::SetShadowMap()
 	//lightDirNor.Normalize();
 	//D3DXVECTOR3 lightDir(lightDirNor.x, lightDirNor.y, lightDirNor.z);
 	////D3DXVECTOR3 lightDir(-0.3333333f, 0.6666667f, 0.6666667f);
-	//D3DXVECTOR3 temp = lightDir;
+	//D3DXVECTOR3 temp = -lightDir;
 
 	//// Matrix with that will rotate in points the direction of the light
 	//D3DXMATRIX lightRotation;
 	//D3DXMatrixLookAtLH(&lightRotation, &cameraEye, &temp, &up);
+	////D3DXMatrixLookAtRH(&lightRotation, &cameraEye, &temp, &up);
 	//Mat44f lightRotationUAB(lightRotation);
 
-	//// Get the corners of the frustum
+	//////Get the corners of the frustum
+	////D3DXMATRIX newVP;
+	////newVP._11 = 1.44852793f;
+	////newVP._12 = 0.0f;
+	////newVP._13 = 0.0f;
+	////newVP._14 = 0.0f;
+	////newVP._21 = 0.0f;
+	////newVP._22 = 2.159338f;
+	////newVP._23 = -0.447661281f;
+	////newVP._24 = -0.44721362f;
+	////newVP._31 = 0.0f;
+	////newVP._32 = -1.079669f;
+	////newVP._33 = -0.895322561f;
+	////newVP._34 = -0.89442724f;
+	////newVP._41 = 0.0f;
+	////newVP._42 = -43.1867638f;
+	////newVP._43 = 119.867546f;
+	////newVP._44 = 120.747681f;
+	////Mat44f newUABVP(newVP);
+	////CORE->GetRenderManager()->GetFrustum()->Update(newVP);
+
 	//const Vect3f *frustumCornersConst = CORE->GetRenderManager()->GetFrustum()->GetCorners();
 	//Vect3f frustumCorners[8];
 
@@ -135,8 +160,10 @@ void CDirectionalLight::SetShadowMap()
 	//temp = (cameraEye + lightDir);
 	//
 	//D3DXMatrixLookAtLH(&view, &cameraEye, &temp, &up);
+	////D3DXMatrixLookAtRH(&view, &cameraEye, &temp, &up);
 
 	//D3DXMatrixOrthoLH(&projection, boxSize.x, boxSize.y, -boxSize.z, boxSize.z);
+	////D3DXMatrixOrthoRH(&projection, boxSize.x, boxSize.y, -boxSize.z, boxSize.z);
 
 	//m_ProjectionShadowMap = Mat44f(projection);
 	//m_ViewShadowMap = Mat44f(view);

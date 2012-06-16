@@ -72,6 +72,10 @@ public:
 	D3DXHANDLE		GetLightIntensityParameter			() const		{ return m_LightIntensityParameter; }
 	D3DXHANDLE		GetLightLinNearFarParameter			() const		{ return m_LightLinNearFarParameter; }
 	D3DXHANDLE		GetShadowLightLinNearFarParameter	() const		{ return m_ShadowLightLinNearFarParameter; }
+	D3DXHANDLE		GetElapsedTimeParameter				() const		{ return m_ElapsedTimeParameter; }
+	D3DXHANDLE		GetTotalElapsedTimeParameter		() const		{ return m_TotalElapsedTimeParameter; }
+	D3DXHANDLE		GetTextureDimParameter				() const		{ return m_TextureDimParameter; }
+	D3DXHANDLE		GetShadowViewParameter				() const		{ return m_ShadowViewParameter; }
 
 	uint32			GetActiveLights						() const		{ return m_ActiveLights; }
 	const int*		GetLightType						() const		{ return m_LightsType; }
@@ -116,6 +120,10 @@ private:
 	BOOL			m_LightsDynamicShadowMapEnable[MAX_LIGHTS_BY_SHADER];
 	BOOL			m_LightsStaticShadowMapEnable[MAX_LIGHTS_BY_SHADER];
 
+	D3DXHANDLE		m_ShadowViewParameter;
+	D3DXHANDLE		m_ElapsedTimeParameter;
+	D3DXHANDLE		m_TotalElapsedTimeParameter;
+	D3DXHANDLE		m_TextureDimParameter;
 	D3DXHANDLE		m_ShadowLightLinNearFarParameter;
 	D3DXHANDLE		m_ShadowWorldViewMatrixParameter;
 	D3DXHANDLE		m_LightLinNearFarParameter;

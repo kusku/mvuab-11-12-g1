@@ -6,6 +6,9 @@
 #include "Math\Matrix44.h"
 #include "Base.h"
 #include "Core.h"
+#include "Particles\ParticleEmitterManager.h"
+#include "Particles\ParticleEmitter.h"
+#include "InputManager.h"
 
 #include "ViewerDefs.h"
 
@@ -157,6 +160,13 @@ void CPlayer::UpdateInputActions(float _ElapsedTime, CCamera *camera)
 			m_Dir = Vect3f ( 0, 1, 0 );
 			m_Position += m_Dir * MOMENTUM * _ElapsedTime;
 		}
+	}
+
+	if(action2Input->GetInputManager()->IsUpDown(IDV_KEYBOARD, KEY_SPACE))
+	{
+		CParticleEmitter* emitter = CORE->GetParticleEmitterManager()->GetResource("Blood");
+
+		emitter->EjectParticles();
 	}
 }
 

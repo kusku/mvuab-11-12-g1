@@ -5,21 +5,6 @@
 
 //////////////////////////////////
 
-float AmbientLightIntensity <
-    string UIName =  "Ambient Light Intensity";
-    string UIWidget = "slider";
-    float UIMin = 0.0;
-    float UIMax = 1.0;
-    float UIStep = 0.1;
-> = 0.0;
-
-float4 AmbientLightColor <
-    string UIName =  "Ambient Light Color";
-    string UIWidget = "Color";
-> = {1.0f, 1.0f, 1.0f, 1.0f};
-
-//////////////////////////////////
-
 sampler2D DiffuseTextureMap : register( s0 ) = sampler_state
 {
    MinFilter = Linear;
@@ -36,14 +21,49 @@ struct VertexShaderInput
 	float3 Normal	: NORMAL0;
 };
 
+struct VertexShaderInstanceInput
+{
+    float3 Position : POSITION0;
+    float2 TexCoord : TEXCOORD0;
+	float3 Normal	: NORMAL0;
+	float4 Mat1		: TEXCOORD1;
+	float4 Mat2		: TEXCOORD2;
+	float4 Mat3		: TEXCOORD3;
+	float4 Mat4		: TEXCOORD4;
+};
+
 struct VertexShaderOutput
 {
     float4 Position         : POSITION0;
 	float2 TexCoord         : TEXCOORD0;
-	float3 EyePosition      : TEXCOORD1;
-	float3 Normal			: NORMAL0;
-	float4 WPos				: NORMAL1;
+	float3 EyePosition      : NORMAL1;
+	float3 Normal			: NORMAL2;
+	float4 WPos				: NORMAL3;
 };
+
+VertexShaderOutput VertexShaderInstanceFunction(VertexShaderInstanceInput input)
+{
+	VertexShaderOutput output = (VertexShaderOutput)0;
+
+	float4x4 WorldInstance = (float4x4)0;
+
+	WorldInstance[0] = input.Mat1;
+	WorldInstance[1] = input.Mat2;
+	WorldInstance[2] = input.Mat3;
+	WorldInstance[3] = input.Mat4;
+	
+	float4 WorldSpacePosition = mul(float4(input.Position, 1.0f), WorldInstance);	
+
+	output.Position = mul(WorldSpacePosition, ViewProjection);
+	output.TexCoord = input.TexCoord;
+
+	output.WPos = WorldSpacePosition;
+	output.EyePosition = CameraPosition - WorldSpacePosition.xyz;
+	
+	output.Normal = mul(input.Normal, WorldInstance);
+
+    return output;
+}
 
 VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 {
@@ -218,7 +238,6 @@ technique ForwardLightingBasicShadowVegetation2
 {
 	pass p0
 	{
-		
 		CullMode			= None;
 		ZWriteEnable		= false;
 		AlphaBlendEnable	= true;
@@ -228,6 +247,84 @@ technique ForwardLightingBasicShadowVegetation2
 		
 		//CullMode = CCW;
 		VertexShader = compile vs_3_0 VertexShaderFunction();
+		PixelShader = compile ps_3_0 PixelShaderFunction(true, true, 0.95f, -1.0f);
+	}
+}
+
+
+/// Instance
+technique ForwardLightingBasicInstance
+{
+	pass p0
+	{		
+		VertexShader = compile vs_3_0 VertexShaderInstanceFunction();
+		PixelShader = compile ps_3_0 PixelShaderFunction(false, false, 0.0f, 0.0f);
+	}
+}
+
+technique ForwardLightingBasicShadowInstance
+{
+	pass p0
+	{		
+		VertexShader = compile vs_3_0 VertexShaderInstanceFunction();
+		PixelShader = compile ps_3_0 PixelShaderFunction(true, false, 0.0f, 0.0f);
+	}
+}
+
+technique ForwardLightingBasicVegetation1Instance
+{
+	pass p0
+	{
+		AlphaBlendEnable	= false;
+		CullMode			= None;
+		
+		VertexShader = compile vs_3_0 VertexShaderInstanceFunction();
+		PixelShader = compile ps_3_0 PixelShaderFunction(false, true, 0.95f, 1.0f);
+	}
+}
+
+technique ForwardLightingBasicVegetation2Instance
+{
+	pass p0
+	{
+		
+		CullMode			= None;
+		ZWriteEnable		= false;
+		AlphaBlendEnable	= true;
+		BlendOp				= add;
+		SrcBlend			= SrcAlpha;
+		DestBlend			= InvSrcAlpha;
+		
+		VertexShader = compile vs_3_0 VertexShaderInstanceFunction();
+		PixelShader = compile ps_3_0 PixelShaderFunction(false, true, 0.95f, -1.0f);
+	}
+}
+
+technique ForwardLightingBasicShadowVegetation1Instance
+{
+	pass p0
+	{
+		AlphaBlendEnable	= false;
+		CullMode			= None;
+		
+		VertexShader = compile vs_3_0 VertexShaderInstanceFunction();
+		PixelShader = compile ps_3_0 PixelShaderFunction(true, true, 0.95f, 1.0f);
+	}
+}
+
+technique ForwardLightingBasicShadowVegetation2Instance
+{
+	pass p0
+	{	
+		CullMode			= None;
+		ZWriteEnable		= false;
+		AlphaBlendEnable	= true;
+		BlendOp				= add;
+		SrcBlend			= SrcAlpha;
+		DestBlend			= InvSrcAlpha;
+		
+		//CullMode = CCW;
+		VertexShader = compile vs_3_0 VertexShaderInstanceFunction();
 		PixelShader = compile ps_3_0 PixelShaderFunction(true, true, 0.95f, -1.0f);
 	}
 }
