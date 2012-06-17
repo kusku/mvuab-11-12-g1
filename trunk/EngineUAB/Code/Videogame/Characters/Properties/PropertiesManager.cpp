@@ -52,7 +52,12 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 	for( uint16 i = 0; i < l_Count; ++i )
 	{
 		std::string l_PropertyField = l_XMLPropertiesNode(i).GetName();
-		if( l_PropertyField == "life" )
+		
+		if( l_PropertyField == "active" )
+		{
+			l_Properties->SetActive( l_XMLPropertiesNode(i).GetBoolKeyword("active") );
+		}
+		else if ( l_PropertyField == "life" )
 			l_Properties->SetLife( l_XMLPropertiesNode(i).GetIntKeyword( "life", 0 ) );
 
 		else if( l_PropertyField == "strong" )

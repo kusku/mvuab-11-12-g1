@@ -42,7 +42,6 @@ CCharacter::CCharacter()
 	, m_pPhysicUserDataJugador	( NULL )
 	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
 	, m_bLocked					( false )
-	, m_bIsEnable				( true )
 	, m_pBehaviours				( NULL )
 	, m_pSteeringEntity			( NULL )
 	, m_bIsAlive				( true )
@@ -66,7 +65,6 @@ CCharacter::CCharacter( const std::string &_Name )
 	, m_pPhysicUserDataJugador	( NULL )
 	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
 	, m_bLocked					( false )
-	, m_bIsEnable				( true )
 	, m_pBehaviours				( NULL )
 	, m_pSteeringEntity			( NULL )
 	, m_bIsAlive				( true )
@@ -92,7 +90,6 @@ CCharacter::CCharacter(int _ID, const std::string &_Name)
 	, m_pPhysicUserDataJugador	( NULL )
 	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
 	, m_bLocked					( false )
-	, m_bIsEnable				( true )
 	, m_pBehaviours				( NULL )
 	, m_pSteeringEntity			( NULL )
 	, m_bIsAlive				( true )
@@ -323,9 +320,11 @@ void CCharacter::AddLife( int _Life )
 void CCharacter::RestLife( int _Life )								
 { 
 	int l_Life = m_pProperties->GetLife() - _Life;
-	if ( l_Life < 0 ) 
+	if ( l_Life <= 0 ) 
+	{
 		l_Life = 0;
-
+		SetAlive(false);
+	}
 	m_pProperties->SetLife( l_Life ); 
 }
 
@@ -387,5 +386,8 @@ int CCharacter::GetAnimationID( const std::string &_AnimationName )
 
 void CCharacter::SetEnable( bool _Enable )
 {
-	m_bIsEnable = _Enable;
+	m_pProperties->SetActive(_Enable);
+	m_pProperties->SetVisible(_Enable);
+	m_pCurrentAnimatedModel->SetVisible(_Enable);
+	m_pController->SetActive(false);
 }

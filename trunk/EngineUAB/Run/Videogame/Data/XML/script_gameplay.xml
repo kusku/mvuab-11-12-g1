@@ -40,7 +40,12 @@
 	<!--<script filename="./data/scripts/game/enemies/wolf_states/wolf_animated_hit_state.lua" />-->
 	<!--<script filename="./data/scripts/game/enemies/wolf_states/wolf_animated_deffense_state.lua" />-->
 	<!--<script filename="./data/scripts/game/enemies/wolf_states/wolf_animated_walk_state.lua" />-->
+	<script filename="./data/scripts/game/enemies/wolf.lua" />	
 	
-	
-	<script filename="./data/scripts/game/enemies/Enemy.lua" />	
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_idle_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_pursuit_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_attack_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_hit_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_flee_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit.lua" />	
 </scripts>

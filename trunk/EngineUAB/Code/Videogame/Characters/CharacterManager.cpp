@@ -19,6 +19,9 @@
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 #include "RenderManager.h"
 
+#include "Particles\ParticleEmitterManager.h"
+#include "Particles\ParticleEmitter.h"
+
 #include "Fonts\FontManager.h"
 #include "PhysicController.h"
 #include "CharacterController.h"
@@ -167,13 +170,20 @@ void CCharactersManager::Update ( float _ElapsedTime )
 	// Actualitzem el player
 	m_pPlayer->Update( _ElapsedTime );
 	
-	Vect3f l = m_pPlayer->GetFront();
-
 	// Actualitzem l'enemic
 	TVectorResources l_EnemyList = GetResourcesVector();
 	for ( size_t i = 0; i < l_EnemyList.size(); i++ )
 	{
-		l_EnemyList[i]->Update( _ElapsedTime );
+		if ( l_EnemyList[i]->GetProperties()->GetActive() )
+		{
+			l_EnemyList[i]->Update( _ElapsedTime );
+			if ( !l_EnemyList[i]->IsAlive() )
+			{
+				CORE->GetParticleEmitterManager()->GetResource("Explosions")->SetPosition(l_EnemyList[i]->GetPosition());
+				CORE->GetParticleEmitterManager()->GetResource("Explosions")->EjectParticles();
+				l_EnemyList[i]->SetEnable(false);
+			}
+		}
 	}
 
 	//Actualiza el billboard del target enemy
@@ -381,7 +391,10 @@ bool CCharactersManager::LoadEnemiesProperties( const CXMLTreeNode &_Node )
 					{
 						//std::string l_Num = ConvertInt( l_NextIDValid );
 						//SCRIPT->RunCode("add_enemy( " + l_Num + ", '" + l_EnemyProperties->GetName() + "')");
-						l_Character = call_function<CCharacter*>(SCRIPT->GetLuaState(), "CEnemy", l_NextIDValid, l_EnemyProperties->GetName() )[adopt(result)];
+						if ( l_EnemyProperties->GetCore() == "lobo" )
+							l_Character = call_function<CCharacter*>(SCRIPT->GetLuaState(), "CWolf", l_NextIDValid, l_EnemyProperties->GetName() )[adopt(result)];
+						if ( l_EnemyProperties->GetCore() == "conejo" ) 
+							l_Character = call_function<CCharacter*>(SCRIPT->GetLuaState(), "CRabbit", l_NextIDValid, l_EnemyProperties->GetName() )[adopt(result)];
 					}
 
 					// Asignamos las propiedades

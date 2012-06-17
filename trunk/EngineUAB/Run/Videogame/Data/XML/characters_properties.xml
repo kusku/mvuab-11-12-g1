@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <characters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<default_properties core="caperucita">
-		<life>100</life>
+		<active>true</active>
+		<life>200</life>
 		<strong>12</strong>
 		<speed>15</speed>
 		<direction>0 0 0</direction>
@@ -18,7 +19,8 @@
 		<step_offset>0.2</step_offset>
 	</default_properties>
 	<default_properties core="lobo">
-		<life>200</life>
+		<active>true</active>
+		<life>1</life>
 		<strong>22</strong>
 		<speed>7</speed>
 		<direction>-10 -2 4</direction>
@@ -27,6 +29,7 @@
 		<distance_chase>200</distance_chase>
 		<distance_follow_path>3000</distance_follow_path>
 		<attack_distance>10</attack_distance>
+		<tired_distance>10</tired_distance>
 		<height_controller>1.9</height_controller>
 		<width_controller>1.7</width_controller>
 		<slope>45.0</slope>
@@ -35,22 +38,77 @@
 		<bounding_radius>10.5</bounding_radius>
 		<max_speed>0.15</max_speed>
 	</default_properties>
+	<default_properties core="conejo">
+		<active>true</active>
+		<life>1</life>
+		<strong>22</strong>
+		<speed>17</speed>
+		<direction>-10 -2 4</direction>
+		<rotation_speed>360</rotation_speed>
+		<detection_distance>500</detection_distance>
+		<distance_chase>200</distance_chase>
+		<distance_follow_path>3000</distance_follow_path>
+		<attack_distance>2</attack_distance>
+		<tired_distance>10</tired_distance>
+		<height_controller>0.7</height_controller>
+		<width_controller>0.4</width_controller>
+		<slope>45.0</slope>
+		<skin_width>0.1</skin_width>
+		<step_offset>0.5</step_offset>
+		<bounding_radius>10.5</bounding_radius>
+		<max_speed>0.15</max_speed>
+	</default_properties>
 	<player name="Jolete" core="caperucita" animated_instace_name="caperucita1" >
-		<life>100</life>
+		<life>50</life>
 		<strong>30</strong>
 		<speed>25</speed>
 		<direction>0 10 0</direction>
 		<respawn_position>0 10 0</respawn_position>
-		<position>-35 10 0</position>
+		<position>-55 10 0</position>
 	</player>
 	<enemies>
 		<enemy name="enemy1" core="lobo" animated_instace_name="lobo1" >
-			<life>20</life>
+			<life>1</life>
 			<strong>13</strong>
 			<direction>3 20 -4</direction>
 			<speed>2</speed>
-			<position>0.0 5.0 0.0</position>
+			<position>-30.0 5.0 10.0</position>
 		</enemy>
+		<enemy name="enemy2" core="conejo" animated_instace_name="conejo1" >
+			<life>1</life>
+			<strong>13</strong>
+			<direction>3 20 -4</direction>
+			<speed>15</speed>
+			<position>-25.0 5.0 -10.0</position>
+		</enemy>
+		<!--<enemy name="enemy3" core="conejo" animated_instace_name="conejo2" >
+			<life>1</life>
+			<strong>13</strong>
+			<direction>3 20 -4</direction>
+			<speed>15</speed>
+			<position>-25.0 5.0 -1.0</position>
+		</enemy>
+		<enemy name="enemy4" core="conejo" animated_instace_name="conejo3" >
+			<life>1</life>
+			<strong>13</strong>
+			<direction>3 20 -4</direction>
+			<speed>15</speed>
+			<position>-25.0 5.0 -5.0</position>
+		</enemy>
+		<enemy name="enemy5" core="conejo" animated_instace_name="conejo4" >
+			<life>1</life>
+			<strong>13</strong>
+			<direction>3 20 -4</direction>
+			<speed>15</speed>
+			<position>-30.0 5.0 -10.0</position>
+		</enemy>
+		<enemy name="enemy5" core="conejo" animated_instace_name="conejo5" >
+			<life>1</life>
+			<strong>13</strong>
+			<direction>3 20 -4</direction>
+			<speed>15</speed>
+			<position>-14.0 5.0 -10.0</position>
+		</enemy>-->
 		<!--<enemy name="enemy2" core="lobo" animated_instace_name="lobo2" >
 			<life>10</life>
 			<strong>17</strong>
