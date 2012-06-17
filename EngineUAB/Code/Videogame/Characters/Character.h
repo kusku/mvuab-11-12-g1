@@ -7,16 +7,17 @@
 #include "Utils\MapManager.h"
 #include "Object3D.h"
 #include "Utils\Named.h"
+#include "Utils\Active.h"
 #include "Base.h"
 #include "Core.h"
 #include "StatesMachine\BaseGameEntity.h"
 #include "StatesMachine\State.h"
 #include "StatesMachine\StateMachine.h"
 #include "PhysicsDefs.h"
+#include "Properties/Properties.h"
 #include <string>
 
 //--- Foward Declarations ---//
-class CProperties;
 class CPhysicController;
 class CPhysicUserData;
 class CAnimationsStates;
@@ -26,7 +27,7 @@ class CSteeringEntity;
 struct Telegram;
 //---------------------------//
 
-class CCharacter : public CBaseGameEntity, public CObject3D //, public CMapManager<int>
+class CCharacter : public CBaseGameEntity, public CObject3D
 {
 public:
 	// ------------- Constructors i Destructors --------------
@@ -69,14 +70,14 @@ public:
 	inline void					SetPrevPosition		( Vect3f pos )				{ m_PrevPosition = pos; }
 	inline const Vect3f&		GetPrevPosition		() const					{ return m_PrevPosition; }
 
-	void						SetEnable			( bool enable );
-	inline bool					IsEnable			() const					{ return m_bIsEnable; }
+	void						SetEnable			( bool _Enable );			
+	inline bool					IsEnable			( void ) const				{ return this->GetProperties()->GetActive(); }  // m_bIsEnable; }
 
 	inline void					SetAlive			( bool alive )				{ m_bIsAlive = alive; }
-	inline bool					IsAlive				() const					{ return m_bIsAlive; }
+	inline bool					IsAlive				( void ) const				{ return m_bIsAlive; }
 
 	inline void					SetLocked			( bool locked )				{ m_bLocked = locked; }
-	inline bool					GetLocked			() const					{ return m_bLocked; }
+	inline bool					GetLocked			( void ) const				{ return m_bLocked; }
 
 	inline CSteeringBehaviours*	GetBehaviours		( void ) const				{ return m_pBehaviours; }
 	inline CSteeringEntity*		GetSteeringEntity	( void ) const				{ return m_pSteeringEntity; }
@@ -103,7 +104,7 @@ public:
 private:
 	bool							m_bIsOk;
 	bool							m_bLocked;
-	bool							m_bIsEnable;
+	//bool							m_bIsEnable;
 	bool							m_bIsAlive;
 
 protected:

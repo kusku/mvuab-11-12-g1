@@ -13,6 +13,11 @@
   
   <animated_model_instance name="lobo1" core="lobo" position="0.0 5.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
   <animated_model_instance name="lobo2" core="lobo" position="5.0 5.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
+  <animated_model_instance name="conejo1" core="conejo" position="5.0 5.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
+  <animated_model_instance name="conejo2" core="conejo" position="5.0 5.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
+  <animated_model_instance name="conejo3" core="conejo" position="5.0 5.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
+  <animated_model_instance name="conejo4" core="conejo" position="5.0 5.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
+  <animated_model_instance name="conejo5" core="conejo" position="5.0 5.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
   
   <mesh_instance name="Arbolt7_c" core="Arbolt7_c" position="55.9745 -17.8833 -11.0532" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
   <mesh_instance_hw name="Arbolt3" core="ArboltMain" position="-14.1643 2.58765 -140.663" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />

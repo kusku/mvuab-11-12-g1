@@ -4,11 +4,12 @@
 
 #include <string>
 
-#include "Object3D.h"
+#include "Utils\Active.h"
 #include "Utils\Named.h"
 #include "Math\Vector3.h"
+#include "Object3D.h"
 
-class CProperties : public CObject3D
+class CProperties : public CObject3D, public CActive
 {
 public:
 	//--- Init and End protocols ----------------------------------------
