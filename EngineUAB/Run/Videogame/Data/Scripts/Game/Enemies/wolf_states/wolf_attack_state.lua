@@ -24,6 +24,7 @@ class 'CWolfAttackState' (CState)
 				-- print_logger(1, "_CCharacter.player.get_id() :".._CCharacter.player:get_id())
 				-- print_logger(1, "msg_attack : "..msg_attack)
 				if not ( _dispatchM == nil ) then
+					-- print_logger( 2, "CWolfAttackState:Execute->El Dispatch" )
 					_dispatchM:dispatch_state_message( SEND_MSG_IMMEDIATELY, _CCharacter:get_id(), _CCharacter.player:get_id(), msg_attack, NO_ADDITIONAL_INFO ) 
 					self.attack_animation_time = 0.0
 				else
@@ -52,17 +53,20 @@ class 'CWolfAttackState' (CState)
 		--print_logger(0, "CWolfAttackState:Exit")
 		if not ( _CCharacter == nil ) then
 			num = _CCharacter:get_animation_id("attack_still")
-			_CCharacter:get_animation_model():clear_cycle( num, 0.3 )
+			_CCharacter:get_animation_model():clear_cycle( num, 0.7 )
 		end
 	end
 	
 	function CWolfAttackState:OnMessage(_CCharacter, _Msg)
 		print_logger(0, "CWolfAttackState:OnMessage-> Missatge rebut: ".._Msg.msg)
-		if ( _Msg.Msg == msg_attack ) then
+		if ( _Msg.msg == msg_attack ) then
 			print_logger(0, "Missatge acceptat per el llob")
-			-- If depend tipus d'atac... treu més o menys vida... --
-			_CCharacter:rest_life( 1 )
+			-- -- If depend tipus d'atac... treu més o menys vida... --
+			_CCharacter:rest_life( 1 ) -- NO!! Ho farà el Hit però podria tenir algun cas que no
 			print_logger(0, "WOLF life : ".._CCharacter.properties.life)
+			if ( self.attack_animation_time < _CCharacter.animated_model:get_current_animation_duration("attack_still") ) then 
+				_CCharacter.logic_fsm:change_state(_CCharacter.hit_state)
+			end
 			return true
 		end
 		return false

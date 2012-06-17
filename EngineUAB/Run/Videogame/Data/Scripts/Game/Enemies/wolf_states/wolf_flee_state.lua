@@ -14,7 +14,7 @@ class 'CWolfFleeState' (CState)
 		end
 		
 		self.walk_animation_time = 0.0
-		self.max_animation_time = math.random(4.0, 8.0) 
+		self.max_animation_time = math.random(1.0, 2.0) 
 		print_logger(1, "Ara evading tant de temps "..self.max_animation_time )
 	end
 	
@@ -52,11 +52,11 @@ class 'CWolfFleeState' (CState)
 	
 	function CWolfFleeState:OnMessage(_CCharacter, _Msg)
 		print_logger(0, "CWolfFleeState:OnMessage")
-		if ( _Msg.Msg == msg_attack ) then
+		if ( _Msg.msg == msg_attack ) then
 			print_logger(0, "Missatge acceptat per el llob")
 			-- If depend tipus d'atac... treu més o menys vida... --
 			_CCharacter:rest_life( 1 )
-			print_logger(0, "WOLF life : ".._CCharacter.properties.life)
+			print_logger(0, "CWolfFleeState:OnMessage->WOLF life : ".._CCharacter.properties.life)
 			return true
 		end
 		return false
