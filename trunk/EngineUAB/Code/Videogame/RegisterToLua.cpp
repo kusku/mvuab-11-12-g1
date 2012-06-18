@@ -109,6 +109,8 @@ void RegisterToLuaProperties(lua_State* _pLua)
 				.property("panic_distance", &CProperties::GetPanicDistance, &CProperties::SetPanicDistance)
 				.property("bounding_radius", &CProperties::GetBoundingRadious, &CProperties::SetBoundingRadious)
 				.property("max_speed", &CProperties::GetMaxSpeed, &CProperties::SetMaxSpeed)
+				.property("animation_offset", &CProperties::GetAnimationOffset)
+				
 		];
 }
 
