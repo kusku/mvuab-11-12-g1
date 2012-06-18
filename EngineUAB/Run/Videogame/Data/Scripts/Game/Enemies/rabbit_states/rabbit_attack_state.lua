@@ -79,7 +79,7 @@ class 'CRabbitAttackState' (CState)
 
 	function CRabbitAttackState:GetRandomAnimationName()
 		local AnimationType = math.random(1, 2) 
-		if ( AnimationType == 1 )
+		if ( AnimationType == 1 ) then
 			return "attack_1"
 		else
 			return "attack_2"
