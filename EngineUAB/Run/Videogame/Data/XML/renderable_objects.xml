@@ -17,6 +17,29 @@
   <animated_model_instance name="conejo3" core="conejo" position="5.0 5.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
   <animated_model_instance name="conejo4" core="conejo" position="5.0 5.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
   <animated_model_instance name="conejo5" core="conejo" position="5.0 5.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
+  
+  <mesh_instance_hw name="Fish002" core="Fish_Main" position="53.2179 -37.2097 61.7393" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="fish" create_physics="false" />
+  <mesh_instance_hw name="Fish019" core="Fish_Main" position="28.3305 -37.2097 71.5336" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="fish" create_physics="false" />
+  <mesh_instance_hw name="Fish018" core="Fish_Main" position="49.1783 -36.2776 47.4661" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="fish" create_physics="false" />
+  <mesh_instance_hw name="Fish001" core="Fish_Main" position="34.2855 -37.2097 66.9769" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="fish" create_physics="false" />
+  <mesh_instance_hw name="Fish017" core="Fish_Main" position="51.1985 -36.2776 41.9022" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="fish" create_physics="false" />
+  <mesh_instance_hw name="Fish003" core="Fish_Main" position="66.2402 -32.9673 58.0258" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="fish" create_physics="false" />
+  <mesh_instance_hw name="Fish_Main" core="Fish_Main" position="12.8583 -37.2097 82.3819" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="fish" create_physics="false" />
+  <mesh_instance_hw name="Fish004" core="Fish_Main" position="83.9161 -30.0781 49.4707" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="fish" create_physics="false" />
+  <mesh_instance_hw name="Fish005" core="Fish_Main" position="85.0687 -30.0781 38.8253" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="fish" create_physics="false" />
+  <mesh_instance_hw name="Fish006" core="Fish_Main" position="82.9923 -30.0781 25.8709" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="fish" create_physics="false" />
+  <mesh_instance_hw name="Fish007" core="Fish_Main" position="89.0196 -30.0781 4.00891" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="fish" create_physics="false" />
+  <mesh_instance_hw name="Fish008" core="Fish_Main" position="93.7602 -31.0529 -13.935" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="fish" create_physics="false" />
+  <mesh_instance_hw name="Fish009" core="Fish_Main" position="66.4498 -31.0529 -40.3497" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="fish" create_physics="false" />
+  <mesh_instance_hw name="Fish010" core="Fish_Main" position="82.0352 -30.0033 -49.5793" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="fish" create_physics="false" />
+  <mesh_instance_hw name="Fish011" core="Fish_Main" position="91.4635 -30.0033 -75.6598" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="fish" create_physics="false" />
+  <mesh_instance_hw name="Fish012" core="Fish_Main" position="89.735 -30.0033 -63.4139" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="fish" create_physics="false" />
+  <mesh_instance_hw name="Fish013" core="Fish_Main" position="101.93 -30.0033 -99.0641" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="fish" create_physics="false" />
+  <mesh_instance_hw name="Fish014" core="Fish_Main" position="41.5684 -37.9313 -19.237" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="fish" create_physics="false" />
+  <mesh_instance_hw name="Fish015" core="Fish_Main" position="44.6838 -37.7241 7.28907" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="fish" create_physics="false" />
+  <mesh_instance_hw name="Fish016" core="Fish_Main" position="58.0887 -36.2776 21.5816" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="fish" create_physics="false" />
+  <mesh_instance_hw name="Fish020" core="Fish_Main" position="2.96181 -39.3699 90.8385" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="fish" create_physics="false" />
+  <mesh_instance_hw name="Fish021" core="Fish_Main" position="-35.3904 -39.3699 153.64" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="fish" create_physics="false" />
 
   <mesh_instance_hw name="Flor_Roja_619" core="Flor_Roja_Main" position="-19.9825 -32.9866 111.647" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
   <mesh_instance_hw name="Flor_Roja_618" core="Flor_Roja_Main" position="-16.8884 -30.8733 113.99" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="vegetation" create_physics="false" />
