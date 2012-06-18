@@ -12,6 +12,8 @@
 #include "Elements\ElementSaver.h"
 #include "Elements\ElementProperties.h"
 #include "Elements\ElementManager.h"
+#include "Cameras\ThPSCamera.h"
+#include "Cameras\Camera.h"
 #include "InputManager.h"
 
 CGUIEditorProcess::CGUIEditorProcess( void )
@@ -43,6 +45,21 @@ void CGUIEditorProcess::Release ( void )
 
 bool CGUIEditorProcess::Init( void )
 {
+	Vect2i pos;
+	Vect2i screen = CORE->GetRenderManager()->GetScreenSize();
+	pos.x = screen.x / 2;
+	pos.y = screen.y / 2;
+
+	//Establece la cámara
+	m_StaticCamera.SetPosition(Vect3f(0.f,1.f,0.f));
+	m_StaticCamera.SetPitch(0.0f);
+	m_StaticCamera.SetYaw(0.0f);
+	m_StaticCamera.SetRoll(0.0f);
+
+	float aspect = CORE->GetRenderManager()->GetAspectRatio();
+	m_pThPSCamera = new CThPSCamera(1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_StaticCamera, 10.0f, 0.f, 0.f, "Static");
+	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
+	CORE->SetCamera(m_pCamera);
 	return true;
 }
 

@@ -1,8 +1,10 @@
 #pragma once
 
 #include "EngineProcess.h"
+#include "Camera\StaticCamera.h"
 class CGUIManager;
 class CRenderManager;
+class CThPSCamera;
 
 class CGUIEditorProcess : public CEngineProcess
 {
@@ -22,5 +24,7 @@ public:
 protected:
 
 	CGUIManager		*m_pGUIManager;
+	CStaticCamera		m_StaticCamera;
+	CThPSCamera			*m_pThPSCamera;
 };
 
