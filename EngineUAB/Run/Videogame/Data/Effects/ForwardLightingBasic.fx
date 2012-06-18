@@ -39,6 +39,7 @@ struct VertexShaderOutput
 	float3 EyePosition      : NORMAL1;
 	float3 Normal			: NORMAL2;
 	float4 WPos				: NORMAL3;
+	float FogLerp			: NORMAL4;
 };
 
 VertexShaderOutput VertexShaderInstanceFunction(VertexShaderInstanceInput input)
@@ -61,6 +62,12 @@ VertexShaderOutput VertexShaderInstanceFunction(VertexShaderInstanceInput input)
 	output.EyePosition = CameraPosition - WorldSpacePosition.xyz;
 	
 	output.Normal = mul(input.Normal, WorldInstance);
+	
+	[flatten]
+	if(FogEnable == true)
+	{
+		output.FogLerp = saturate( (distance(WorldSpacePosition, output.EyePosition) - FogStart) / FogRange);
+	}
 
     return output;
 }
@@ -78,6 +85,12 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 	output.EyePosition = CameraPosition - WorldSpacePosition.xyz;
 	
 	output.Normal = mul(input.Normal, World);
+
+	[flatten]
+	if(FogEnable == true)
+	{
+		output.FogLerp = saturate( (distance(WorldSpacePosition, output.EyePosition) - FogStart) / FogRange);
+	}
 
     return output;
 }
@@ -164,9 +177,16 @@ float4 PixelShaderFunction(VertexShaderOutput input, uniform bool shadow, unifor
 	}
 	
 	float4 PixEndColor = (DiffuseColor + AmbientColor) * TexColor;
+	
+	[flatten]
+	if(FogEnable == true)
+	{
+		PixEndColor.xyz = lerp(PixEndColor.xyz, FogColor, input.FogLerp);
+	}
 
 	PixEndColor.a = TexColor.a;
 	
+	[flatten]
 	if(vegetation == true)
 	{
 		clip((PixEndColor.a - AlphaTestThreshold) * AlphaTestDirection);

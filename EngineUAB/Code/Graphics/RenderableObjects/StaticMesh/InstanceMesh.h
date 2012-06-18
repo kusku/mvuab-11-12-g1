@@ -29,7 +29,7 @@ public:
 	//void Render ( CRenderManager *RM );
 	void Render ( CRenderManager *RM );
 
-	void CrearPhysicMesh ( const std::string &_Name );
+	void CrearPhysicMesh ( const std::string &_Name, const std::string &typePhysic );
 	void CreateASEMesh	 ( const std::string &_Filename, const std::string &_Name  );
 
 private:

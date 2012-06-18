@@ -232,9 +232,9 @@ CRenderableVertexs* CStaticMesh::ReadCreateVertexBuffer(FILE* modelFile, uint16 
 	{
 		//Create Vertex Buffer
 		l_VtxBuffer = LoadCreateVertexBuffer<TNORMALCOLORED_VERTEX>(modelFile, numVertex);
-		
-		CreateVect3fVertexsList<TNORMALCOLORED_VERTEX>( l_VtxBuffer, numVertex );
+
 		CreateVect3fFacesList( l_IdxBuffer, numIndex );
+		CreateVect3fVertexsList<TNORMALCOLORED_VERTEX>( (TNORMALCOLORED_VERTEX*)l_VtxBuffer, numVertex );
 
 		//Create CIndexVertexs
 		CIndexedVertexs<TNORMALCOLORED_VERTEX>* idxVtx = 
@@ -246,9 +246,9 @@ CRenderableVertexs* CStaticMesh::ReadCreateVertexBuffer(FILE* modelFile, uint16 
 	{
 		//Create Vertex Buffer
 		l_VtxBuffer = LoadCreateVertexBuffer<TNORMALTEXTURE2_VERTEX>(modelFile, numVertex);
-		
-		CreateVect3fVertexsList<TNORMALTEXTURE2_VERTEX> ( l_VtxBuffer, numVertex );
+
 		CreateVect3fFacesList( l_IdxBuffer, numIndex );
+		CreateVect3fVertexsList<TNORMALTEXTURE2_VERTEX> ( (TNORMALTEXTURE2_VERTEX*)l_VtxBuffer, numVertex );
 
 		//Create CIndexVertexs
 		CIndexedVertexs<TNORMALTEXTURE2_VERTEX>* idxVtx = 
@@ -260,9 +260,9 @@ CRenderableVertexs* CStaticMesh::ReadCreateVertexBuffer(FILE* modelFile, uint16 
 	{
 		//Create Vertex Buffer
 		l_VtxBuffer = LoadCreateVertexBuffer<TNORMALTEXTURE1_VERTEX>(modelFile, numVertex);
-		
-		CreateVect3fVertexsList<TNORMALTEXTURE1_VERTEX> ( l_VtxBuffer, numVertex );
+
 		CreateVect3fFacesList( l_IdxBuffer, numIndex );
+		CreateVect3fVertexsList<TNORMALTEXTURE1_VERTEX> ( (TNORMALTEXTURE1_VERTEX*)l_VtxBuffer, numVertex );
 
 		//Create CIndexVertexs
 		CIndexedVertexs<TNORMALTEXTURE1_VERTEX>* idxVtx = 
@@ -275,9 +275,9 @@ CRenderableVertexs* CStaticMesh::ReadCreateVertexBuffer(FILE* modelFile, uint16 
 	{
 		//Create Vertex Buffer
 		l_VtxBuffer = LoadCreateVertexBuffer<TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX>(modelFile, numVertex);
-		
-		CreateVect3fVertexsList<TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX> ( l_VtxBuffer, numVertex );
+
 		CreateVect3fFacesList( l_IdxBuffer, numIndex );
+		CreateVect3fVertexsList<TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX> ( (TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX*)l_VtxBuffer, numVertex );
 
 		CalcTangentsAndBinormals(l_VtxBuffer, l_IdxBuffer, numVertex, numIndex, sizeof(TNORMAL_TANGENT_BINORMAL_TEXTURED_VERTEX),
 				0, 12, 28, 44, 60);
@@ -292,9 +292,9 @@ CRenderableVertexs* CStaticMesh::ReadCreateVertexBuffer(FILE* modelFile, uint16 
 	{
 		//Create Vertex Buffer
 		l_VtxBuffer = LoadCreateVertexBuffer<TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX>(modelFile, numVertex);
-		
-		CreateVect3fVertexsList<TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX> ( l_VtxBuffer, numVertex );
+
 		CreateVect3fFacesList( l_IdxBuffer, numIndex );
+		CreateVect3fVertexsList<TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX> ( (TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX*)l_VtxBuffer, numVertex );
 
 		CalcTangentsAndBinormals(l_VtxBuffer, l_IdxBuffer, numVertex, numIndex, sizeof(TNORMAL_TANGENT_BINORMAL_TEXTURED2_VERTEX),
 				0, 12, 28, 44, 60);
@@ -556,16 +556,13 @@ bool CStaticMesh::GetRenderableObjectTechnique()
 // CreateVect3fVertexsList : Crea una lista de vertices que almacenamos en el propio código para crear la maya física
 // --------------------------------------------------------------------------------------------------------------
 template <typename T>
-void CStaticMesh::CreateVect3fVertexsList( const void *_VtxBuffer, uint32 _NumVertex )
+void CStaticMesh::CreateVect3fVertexsList( T* _VtxBuffer, uint32 _NumVertex )
 {
-	std::vector<Vect3f> l_Vect ;
-
-	unsigned char  *l_Vtxs = (unsigned char *) _VtxBuffer;
 	for ( uint32 i = 0; i < _NumVertex; ++i )
 	{
-		Vect3f *l_Vtx = (Vect3f *) l_Vtxs;
-		m_VtxsBuffer.push_back(*l_Vtx);
-		l_Vtxs += sizeof(T);
+		Vect3f l_Vtx(_VtxBuffer[i].x, _VtxBuffer[i].y, _VtxBuffer[i].z);
+
+		m_VtxsBuffer.push_back(l_Vtx);
 	}
 }
 
@@ -574,10 +571,12 @@ void CStaticMesh::CreateVect3fVertexsList( const void *_VtxBuffer, uint32 _NumVe
 // --------------------------------------------------------------------------------------------------------------
 void CStaticMesh::CreateVect3fFacesList( const void *_IndxBuffer, uint32 _NumIndex )
 {
+	uint32 offset = m_VtxsBuffer.size();
+
 	uint16* l_IndxBuffer = (uint16 *) _IndxBuffer;
 	for ( uint32 i = 0; i < _NumIndex; ++i )
 	{
-		uint16 l_Valor = l_IndxBuffer[i];
+		uint32 l_Valor = (uint32)l_IndxBuffer[i] + offset;
 		m_IndxBuffer.push_back(l_Valor);
 	}
 }

@@ -51,7 +51,8 @@ struct VertexShaderOutput
 	float2 TexCoord         : TEXCOORD0;
 	float3 EyePosition      : NORMAL1;
 	float4 WPos				: NORMAL2;
-	float3x3 TangentToWorld : NORMAL3;
+	float FogLerp			: NORMAL3;
+	float3x3 TangentToWorld : NORMAL4;
 };
 
 VertexShaderOutput VertexShaderInstanceFunction(VertexShaderInstanceInput input)
@@ -76,6 +77,12 @@ VertexShaderOutput VertexShaderInstanceFunction(VertexShaderInstanceInput input)
     output.TangentToWorld[0] = mul(input.Tangent.xyz, WorldInstance);
     output.TangentToWorld[1] = mul(input.Binormal.xyz, WorldInstance);
     output.TangentToWorld[2] = mul(input.Normal.xyz, WorldInstance);
+	
+	[flatten]
+	if(FogEnable == true)
+	{
+		output.FogLerp = saturate( (distance(WorldSpacePosition, output.EyePosition) - FogStart) / FogRange);
+	}
 
     return output;
 }
@@ -98,6 +105,12 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
     output.TangentToWorld[0] = mul(input.Tangent.xyz, World);
     output.TangentToWorld[1] = mul(input.Binormal.xyz, World);
     output.TangentToWorld[2] = mul(input.Normal.xyz, World);
+	
+	[flatten]
+	if(FogEnable == true)
+	{
+		output.FogLerp = saturate( (distance(WorldSpacePosition, output.EyePosition) - FogStart) / FogRange);
+	}
 
     return output;
 }
@@ -188,9 +201,16 @@ float4 PixelShaderFunction(VertexShaderOutput input, uniform bool shadow, unifor
 	}
 	
 	float4 PixEndColor = (DiffuseColor + AmbientColor) * TexColor;
+	
+	[flatten]
+	if(FogEnable == true)
+	{
+		PixEndColor.xyz = lerp(PixEndColor.xyz, FogColor, input.FogLerp);
+	}
 
 	PixEndColor.a = TexColor.a;
 	
+	[flatten]
 	if(vegetation == true)
 	{
 		clip((PixEndColor.a - AlphaTestThreshold) * AlphaTestDirection);
@@ -230,6 +250,12 @@ VertexShaderOutput VertexShaderWaterInstanceFunction(VertexShaderInstanceInput i
     output.TangentToWorld[0] = mul(input.Tangent.xyz, WorldInstance);
     output.TangentToWorld[1] = mul(input.Binormal.xyz, WorldInstance);
     output.TangentToWorld[2] = mul(input.Normal.xyz, WorldInstance);
+	
+	[flatten]
+	if(FogEnable == true)
+	{
+		output.FogLerp = saturate( (distance(WorldSpacePosition, output.EyePosition) - FogStart) / FogRange);
+	}
 
     return output;
 }
@@ -258,6 +284,12 @@ VertexShaderOutput VertexShaderWaterFunction(VertexShaderInput input)
     output.TangentToWorld[0] = mul(input.Tangent.xyz, World);
     output.TangentToWorld[1] = mul(input.Binormal.xyz, World);
     output.TangentToWorld[2] = mul(input.Normal.xyz, World);
+
+	[flatten]
+	if(FogEnable == true)
+	{
+		output.FogLerp = saturate( (distance(WorldSpacePosition, output.EyePosition) - FogStart) / FogRange);
+	}
 
     return output;
 }
@@ -371,6 +403,12 @@ float4 PixelShaderWaterFunction(VertexShaderOutput input, uniform bool shadow) :
 	}
 	
 	float4 PixEndColor = (DiffuseColor + AmbientColor) * ((TexColor * .25f) + Specular);
+	
+	[flatten]
+	if(FogEnable == true)
+	{
+		PixEndColor.xyz = lerp(PixEndColor.xyz, FogColor, input.FogLerp);
+	}
 
 	PixEndColor.a = 0.6f + SpecularShine;
 

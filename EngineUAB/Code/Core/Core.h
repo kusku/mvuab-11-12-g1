@@ -39,6 +39,7 @@ class CWayPointManager;
 class CParticleEmitterManager;
 class CParticleSystemManager;;
 class CParticleSettingsManager;
+class CAnimalManager;
 //--------------------------
 
 class CCore : public CSingleton<CCore>
@@ -77,6 +78,7 @@ public:
 	bool		LoadSounds				();
 	bool		LoadDebugGUI			();
 	bool		LoadWaypoints			();
+	bool		LoadAnimalMovements		();
 
 	//----Reload Methods ---------------------------------------------------
 	void		Reload									();
@@ -108,6 +110,8 @@ public:
 	void		UnloadBillboards						();
 	void		UnloadParticles							();
 	void		UnloadTriggers							();
+	void		UnloadAnimalMovements					();
+	void		UnloadWayPoints							();
 
 	//----Properties ( get & Set )---------------------------------------
 	void				SetCamera					( CCamera *_Camera )			{ m_pCamera = _Camera; }
@@ -153,6 +157,9 @@ public:
 	inline CParticleEmitterManager*				GetParticleEmitterManager	() const						{ return m_ParticleEmitterManager; }
 	inline CParticleSystemManager*				GetParticleSystemManager	() const						{ return m_ParticleSystemManager; }
 	inline CParticleSettingsManager*			GetParticleSettingsManager	() const						{ return m_ParticleSettingsManager; }
+
+	inline CAnimalManager*						GetAnimalManager			() const					{ return m_Animalmanager; }
+
 private:
 	void Release();
 
@@ -200,6 +207,7 @@ private:
 	CParticleEmitterManager				*m_ParticleEmitterManager;
 	CParticleSystemManager				*m_ParticleSystemManager;
 	CParticleSettingsManager			*m_ParticleSettingsManager;
+	CAnimalManager						*m_Animalmanager;
 };
 
 #endif

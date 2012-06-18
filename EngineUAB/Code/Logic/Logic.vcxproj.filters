@@ -43,6 +43,9 @@
     <ClCompile Include="Steering Behaviours\Arrive.cpp">
       <Filter>IA\Steering Behaviors</Filter>
     </ClCompile>
+    <ClCompile Include="Animal Control\AnimalManager.cpp">
+      <Filter>IA\Animal Control</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StatesMachine\State.h">
@@ -111,6 +114,9 @@
     <ClInclude Include="Steering Behaviours\Arrive.h">
       <Filter>IA\Steering Behaviors</Filter>
     </ClInclude>
+    <ClInclude Include="Animal Control\AnimalManager.h">
+      <Filter>IA\Animal Control</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scripting">
@@ -142,6 +148,9 @@
     </Filter>
     <Filter Include="Movement">
       <UniqueIdentifier>{c75e9867-e0ea-46c7-a2b6-f7c7374245dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IA\Animal Control">
+      <UniqueIdentifier>{9b23ea66-2a1a-4fc9-9d03-36730cbd3b5a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

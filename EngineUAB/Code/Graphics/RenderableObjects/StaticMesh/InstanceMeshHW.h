@@ -16,21 +16,12 @@ struct TINSTANCE_VERTEX;
 #include <d3dx9.h>
 
 #include "Utils\Types.h"
+#include "Math\Vector3.h"
+
+class CObject3D;
 
 class CInstanceMeshHW
 {
-public:
-	CInstanceMeshHW(const std::string& coreName);
-	virtual ~CInstanceMeshHW();
-
-	bool AddHWInstance(CXMLTreeNode &Node);
-
-	bool BuildInstanceBuffer();
-
-	void Render ( CRenderManager *RM );
-
-	void CrearPhysicMesh ( const std::string &_Name );
-	void CreateASEMesh	 ( const std::string &_Filename, const std::string &_Name  );
 
 private:
 	void UpdateBuffer();
@@ -49,6 +40,26 @@ private:
 	typedef ObjectMap::const_iterator ObjectMapItConst;
 
 	ObjectMap					m_ObjectMap;
+
+public:
+	CInstanceMeshHW(const std::string& coreName);
+	virtual ~CInstanceMeshHW();
+
+	bool AddHWInstance(CXMLTreeNode &Node);
+
+	bool BuildInstanceBuffer();
+
+	void Render ( CRenderManager *RM );
+
+	CObject3D* GetInstance(const std::string& name);
+
+	ObjectMap&	GetObjectMap()
+	{
+		return m_ObjectMap;
+	}
+
+	void CrearPhysic ( const std::string& _Name, const std::string& typePhysic, const Vect3f& position );
+	//void CreateASEMesh	 ( const std::string &_Filename, const std::string &_Name  );
 };
 
 #endif

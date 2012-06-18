@@ -167,6 +167,26 @@ CRenderableObject* CRenderableObjectsManager::GetInstance(const std::string &Nam
 	return GetResource(Name);
 }
 
+CObject3D* CRenderableObjectsManager::GetInstanceHW( const std::string &Name )
+{
+	InstanceMeshHWMapIt it = m_InstanceMeshHWMap.begin();
+	InstanceMeshHWMapIt itEnd = m_InstanceMeshHWMap.end();
+
+	for(; it != itEnd; ++it)
+	{
+		CInstanceMeshHW* instanceHW = it->second;
+
+		CObject3D* obj = instanceHW->GetInstance(Name);
+
+		if(obj != NULL)
+		{
+			return obj;
+		}
+	}
+
+	return NULL;
+}
+
 void CRenderableObjectsManager::CleanUp()
 {
 	Destroy();

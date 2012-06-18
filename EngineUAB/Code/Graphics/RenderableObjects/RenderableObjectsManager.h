@@ -22,9 +22,21 @@ class CRenderManager;
 class CEffectTechnique;
 class CXMLTreeNode;
 class CInstanceMeshHW;
+class CObject3D;
 
 class CRenderableObjectsManager : public CMapManager<CRenderableObject>
 {
+
+protected:
+	std::vector<CRenderableObject*>			m_RenderableObjects;
+	std::string								m_FileName;
+
+	typedef std::map<std::string, CInstanceMeshHW*> InstanceMeshHWMap;
+	typedef InstanceMeshHWMap::iterator InstanceMeshHWMapIt;
+	typedef InstanceMeshHWMap::const_iterator InstanceMeshHWMapItConst;
+
+	InstanceMeshHWMap						m_InstanceMeshHWMap;
+
 public:
 	CRenderableObjectsManager();
 	virtual ~CRenderableObjectsManager();
@@ -40,18 +52,19 @@ public:
 	bool				AddResource				( const std::string &Name, CRenderableObject *RenderableObject );
 	
 	CRenderableObject*	GetInstance				( const std::string &Name );
+	CObject3D*			GetInstanceHW			( const std::string &Name );
 
-	void		CleanUp		();
+	TMapResource&		GetResourceMap			()
+	{
+		return m_Resources;
+	}
 
-protected:
-	std::vector<CRenderableObject*>			m_RenderableObjects;
-	std::string								m_FileName;
+	InstanceMeshHWMap&	GetResourceHWMap		()
+	{
+		return m_InstanceMeshHWMap;
+	}
 
-	typedef std::map<std::string, CInstanceMeshHW*> InstanceMeshHWMap;
-	typedef InstanceMeshHWMap::iterator InstanceMeshHWMapIt;
-	typedef InstanceMeshHWMap::const_iterator InstanceMeshHWMapItConst;
-
-	InstanceMeshHWMap						m_InstanceMeshHWMap;
+	void				CleanUp		();
 };
 
 #endif

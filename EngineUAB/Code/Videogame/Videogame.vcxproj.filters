@@ -180,6 +180,9 @@
     <None Include="..\..\Run\Videogame\Data\XML\characters_animated_states.xml">
       <Filter>XML</Filter>
     </None>
+    <None Include="..\..\Run\Videogame\Data\XML\animal_movement.xml">
+      <Filter>XML</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\Run\Videogame\Data\Effects\VignettingNoise.fx">

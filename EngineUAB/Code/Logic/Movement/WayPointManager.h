@@ -28,8 +28,6 @@ class CWayPointManager
 
 		CWayPoint*				GetWayPoint				(const std::string& groupName, const std::string& wpName);
 
-		CWayPoint*				GetClosestWayPoint		(const std::string& groupName, const Vect3f& pos);
-
 		std::list<Vect3f>		GetPath					(CWayPoint* startPos, CWayPoint* destPos);
 
 	public:
@@ -43,11 +41,15 @@ class CWayPointManager
 
 		CWayPoint*				GetRandomWayPoint		(const std::string& groupName);
 
+		CWayPoint*				GetClosestWayPoint		(const std::string& groupName, const Vect3f& pos);
+
 		std::vector<Vect3f>		GetPath					(const std::string& groupName, const Vect3f& curPos, const Vect3f& destPos);
 
 		void					DebugRender				();
 
 		static void				RegisterMethods			();
+
+		void					CleanUp					();
 
 };
 

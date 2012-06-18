@@ -127,6 +127,9 @@ struct SConfig
 
 	// Parametros del WayPoints
 	std::string waypoints_path;
+
+	// Parametros del Animal Movement
+	std::string animal_movement_path;
 };
 
 #endif __COREDEFS_H__
