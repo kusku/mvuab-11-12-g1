@@ -89,15 +89,25 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 			float l_distance = l_XMLPropertiesNode(i).GetFloatKeyword ("detection_distance");
 			l_Properties->SetDetectionDistance( l_distance );
 		}
-		else if( l_PropertyField == "distance_chase" )
+		else if( l_PropertyField == "chase_distance" )
 		{
-			float l_distance = l_XMLPropertiesNode(i).GetFloatKeyword ("distance_chase");
-			l_Properties->SetDistanceChase( l_distance );
+			float l_distance = l_XMLPropertiesNode(i).GetFloatKeyword ("chase_distance");
+			l_Properties->SetChaseDistance( l_distance );
 		}
-		else if( l_PropertyField == "distance_follow_path" )
+		else if( l_PropertyField == "follow_path_distance" )
 		{
-			float l_distance = l_XMLPropertiesNode(i).GetFloatKeyword ("distance_follow_path");
-			l_Properties->SetDistanceFollowPath( l_distance );
+			float l_distance = l_XMLPropertiesNode(i).GetFloatKeyword ("follow_path_distance");
+			l_Properties->SetFollowPathDistance( l_distance );
+		}
+		else if( l_PropertyField == "tired_distance" )
+		{
+			float l_distance = l_XMLPropertiesNode(i).GetFloatKeyword ("tired_distance");
+			l_Properties->SetTiredDistance( l_distance );
+		}
+		else if( l_PropertyField == "panic_distance" )
+		{
+			float l_distance = l_XMLPropertiesNode(i).GetFloatKeyword ("panic_distance");
+			l_Properties->SetPanicDistance( l_distance );
 		}
 		else if( l_PropertyField == "attack_distance" )
 		{
@@ -124,6 +134,11 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 		{
 			l_Properties->SetStepOffsetController( l_XMLPropertiesNode(i).GetFloatKeyword("step_offset", 0.5f) );
 		}
+		else if( l_PropertyField == "animation_offset" )
+		{
+			l_Properties->SetAnimationOffset( l_XMLPropertiesNode(i).GetFloatKeyword("animation_offset", 0.5f) );
+		}
+
 		// --- Temas de IA --- //
 		else if( l_PropertyField == "bounding_radius" )
 		{

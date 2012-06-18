@@ -20,6 +20,7 @@
     <ClCompile Include="StatesMachine\EntityManager.cpp" />
     <ClCompile Include="StatesMachine\MessageDispatcher.cpp" />
     <ClCompile Include="Steering Behaviours\Arrive.cpp" />
+    <ClCompile Include="Steering Behaviours\Flee.cpp" />
     <ClCompile Include="Steering Behaviours\Pursuit.cpp" />
     <ClCompile Include="Steering Behaviours\Seek.cpp" />
     <ClCompile Include="Steering Behaviours\Steering.cpp" />
@@ -44,6 +45,7 @@
     <ClInclude Include="StatesMachine\StateMachineDef.h" />
     <ClInclude Include="StatesMachine\Telegram.h" />
     <ClInclude Include="Steering Behaviours\Arrive.h" />
+    <ClInclude Include="Steering Behaviours\Flee.h" />
     <ClInclude Include="Steering Behaviours\Pursuit.h" />
     <ClInclude Include="Steering Behaviours\Seek.h" />
     <ClInclude Include="Steering Behaviours\Steering.h" />
