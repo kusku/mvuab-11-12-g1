@@ -117,6 +117,9 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 			g_pEngine->Init(g_hWnd);
 		
 			CORE->SetGameMode(false);
+
+			CGUIProcess::RegisterMethods();
+			CGameProcess::RegisterMethods();
 		}
 		else
 		{
@@ -127,9 +130,6 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 
 			CORE->SetGameMode(true);
 		}
-		
-		CGUIProcess::RegisterMethods();
-		CGameProcess::RegisterMethods();
 
 		ShowWindow( g_hWnd, SW_SHOWDEFAULT );
 		UpdateWindow( g_hWnd );

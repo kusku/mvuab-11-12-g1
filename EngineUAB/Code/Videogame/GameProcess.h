@@ -25,11 +25,11 @@ class CGameProcess : public CEngineProcess
 public:
 	//--- Init and End protocols-----------------------------------------------------
 								CGameProcess				( HWND hWnd );
-								~CGameProcess				( void );
+								~CGameProcess				();
 
 	//----Main Methods----------------------------------------------------------------
-	bool						Init						( void );
-	void						CleanUp						( void );
+	bool						Init						();
+	void						CleanUp						();
 	void						Update						( float elapsedTime );
 	void						Render						(  CRenderManager &RM );
 
@@ -41,21 +41,21 @@ public:
 
 	float	GetTimeBetweenClicks	() const				{ return m_fTimeBetweenClicks; }
 
-	static void					RegisterMethods				( void );
+	static void					RegisterMethods				();
 
 private:
 	void						RegisterToLuaGameProcess	( lua_State* _pLua );
 	void						UpdateInputs				( float _ElapsedTime );
-	void						ReloadGameObjects			( void );
-	void						LoadGameObjects				( void );
-	bool						LoadMainScript				( void );
+	void						ReloadGameObjects			();
+	void						LoadGameObjects				();
+	bool						LoadMainScript				();
 
 	//----Properties  --------------------------------------------------------------------
 public:
 	
-	static CGameProcess*		GetGameProcess				( void );
-	CCharactersManager*			GetCharactersManager		( void ) const		{ return m_pCharactersManager; }
-	CThPSCamera*				GetPlayerCamera				( void ) const		{ return m_pThPSCamera; }
+	static CGameProcess*		GetGameProcess				();
+	CCharactersManager*			GetCharactersManager		() const		{ return m_pCharactersManager; }
+	CThPSCamera*				GetPlayerCamera				() const		{ return m_pThPSCamera; }
 
 	//----Members --------------------------------------------------------------------
 private:
