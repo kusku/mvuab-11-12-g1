@@ -25,6 +25,7 @@
   <static_mesh name="Parte034" filename=".\Data\.\General\\Models\Parte034.m3d" />
   <static_mesh name="Parte033" filename=".\Data\.\General\\Models\Parte033.m3d" />
   <static_mesh name="Parte020" filename=".\Data\.\General\\Models\Parte020.m3d" />
+  <static_mesh name="Arbol_1_Main" filename=".\Data\.\General\\Models\Arbol_1_Main.m3d" />
   <static_mesh name="Arbol_2_Main" filename=".\Data\.\General\\Models\Arbol_2_Main.m3d" />
   <static_mesh name="Arbol_3_Main" filename=".\Data\.\General\\Models\Arbol_3_Main.m3d" />
   <static_mesh name="Puente_Piedra_2" filename=".\Data\.\General\\Models\Puente_Piedra_2.m3d" />
