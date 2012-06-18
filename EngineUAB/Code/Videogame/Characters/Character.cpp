@@ -12,6 +12,7 @@
 
 #include "StatesMachine\MessageDispatcher.h"
 
+#include "Math/Vector3.h"
 #include "PhysicController.h"
 #include "PhysicUserData.h"
 #include "PhysicsManager.h"
@@ -282,7 +283,7 @@ void CCharacter::MoveTo( const Vect3f &_Position, float _ElapsedTime )
 		MoveController(l_Position, _ElapsedTime);
 
 		m_Position = m_pController->GetPosition();
-		m_Position.y = m_Position.y - m_pController->GetHeight() + 0.4f;
+		m_Position.y = m_Position.y - m_pController->GetHeight() + m_pProperties->GetAnimationOffset();
 		float l_Yaw = mathUtils::Rad2Deg(m_fYaw);
 		m_pCurrentAnimatedModel->SetYaw(l_Yaw/* + 90.f*/ );
 		m_pCurrentAnimatedModel->SetPosition( m_Position );
@@ -302,7 +303,7 @@ void CCharacter::MoveTo( const Vect3f &_Position, float _ElapsedTime )
 	MoveController(l_Position, _ElapsedTime);
 	
 	m_Position = m_pController->GetPosition();
-	m_Position.y = m_Position.y - m_pController->GetHeight() + 0.4f;
+	m_Position.y = m_Position.y - m_pController->GetHeight() + m_pProperties->GetAnimationOffset();
 	float l_Yaw = mathUtils::Rad2Deg(m_fYaw);
 	m_pCurrentAnimatedModel->SetYaw(l_Yaw/* + 90.f*/ );
 	m_pCurrentAnimatedModel->SetPosition( m_Position );
@@ -389,5 +390,5 @@ void CCharacter::SetEnable( bool _Enable )
 	m_pProperties->SetActive(_Enable);
 	m_pProperties->SetVisible(_Enable);
 	m_pCurrentAnimatedModel->SetVisible(_Enable);
-	m_pController->SetActive(false);
+	m_pController->SetActive(_Enable);
 }

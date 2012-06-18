@@ -10,6 +10,7 @@
 // --- Foward Declarations ---
 class CSteeringEntity;
 class CSeek;
+class CFlee;
 class CPursuit;
 class CArrive;
 // ---------------------------
@@ -28,6 +29,7 @@ public:
 
 	//---- Functions -----------------------------------------------------
 	void					AddBehavior					( CSeek *_pSteering );
+	void					AddBehavior					( CFlee *_pSteering );
 	void					AddBehavior					( CPursuit *_pSteering );
 	void					AddBehavior					( CArrive *_pSteering );
 
@@ -43,6 +45,9 @@ public:
 	inline void				SetSeek						( CSeek * _Seek )				{ m_pSeek = _Seek; }
 	inline CSeek*			GetSeek						( void );
 	
+	inline void				SetFlee						( CFlee * _Flee )				{ m_pFlee = _Flee; }
+	inline CSeek*			GetFlee						( void );
+
 	inline void				SetPursuit					( CPursuit * _Pursuit )			{ m_pPursuit = _Pursuit; }
 	inline CPursuit*		GetPursuit					( void );
 
@@ -63,6 +68,7 @@ protected:
 	Vect2f					m_SteeringForce;		// Resultado de la suma de todas las fuerzas segun los steerings
 	float					m_MaxForce;				// Màxima fuerza que puede llegar a alcanzar el behaviour
 	CSeek				  * m_pSeek;				// Comportamiento de acercarse al objetivo de forma directa
+	CFlee				  * m_pFlee;				// Comportamiento de alejarse del objetivo de forma directa
 	CPursuit			  * m_pPursuit;				// Comportamiento de acercarse al objetivo de forma inteligente
 	CArrive				  * m_pArrive;				// Comportamiento de acercarse al objetivo de forma suave y frenando
 

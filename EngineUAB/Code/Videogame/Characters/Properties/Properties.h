@@ -52,11 +52,17 @@ public:
 	inline void					SetDetectionDistance	( float _DetectionDistance )						{ m_DetectionDistance = _DetectionDistance; }
 	inline float				GetDetectionDistance	( void ) const										{ return m_DetectionDistance; }
 	
-	inline void					SetDistanceChase		( float _DistanceChase )							{ m_DistanceChase = _DistanceChase; }
-	inline float				GetDistanceChase		( void ) const										{ return m_DistanceChase; }
+	inline void					SetChaseDistance		( float _ChaseDistance )							{ m_ChaseDistance = _ChaseDistance; }
+	inline float				GetChaseDistance		( void ) const										{ return m_ChaseDistance; }
 
-	inline void					SetDistanceFollowPath	( float _DistanceFollowPath )						{ m_DistanceFollowPath = _DistanceFollowPath; }
-	inline float				GetDistanceFollowPath	( void ) const										{ return m_DistanceFollowPath; }
+	inline void					SetFollowPathDistance	( float _FollowPathDistance )						{ m_FollowPathDistance = _FollowPathDistance; }
+	inline float				GetFollowPathDistance	( void ) const										{ return m_FollowPathDistance; }
+
+	inline void					SetPanicDistance		( float _PanicDistance )							{ m_PanicDistance = _PanicDistance; }
+	inline float				GetPanicDistance		( void ) const										{ return m_PanicDistance; }
+
+	inline void					SetTiredDistance		( float _TiredDistance )							{ m_TiredDistance = _TiredDistance; }
+	inline float				GetTiredDistance		( void ) const										{ return m_TiredDistance; }
 
 	inline void					SetAttackDistance		( float _AttackDistance )							{ m_AttackDistance = _AttackDistance; }
 	inline float				GetAttackDistance		( void ) const										{ return m_AttackDistance; }
@@ -76,6 +82,9 @@ public:
 	inline void					SetStepOffsetController	( float _StepOffset )								{ m_StepOffset = _StepOffset; }
 	inline const float			GetStepOffsetController	( void ) const										{ return m_StepOffset; }
 
+	inline void					SetAnimationOffset		( float _AnimationOffset )							{ m_AnimationOffset = _AnimationOffset; }
+	inline const float			GetAnimationOffset		( void ) const										{ return m_AnimationOffset; }
+
 	inline void					SetBoundingRadious		( float _BoundingRadius )							{ m_BoundingRadius = _BoundingRadius; }
 	inline const float			GetBoundingRadious		( void ) const										{ return m_BoundingRadius; }
 
@@ -93,16 +102,19 @@ private:
 	Vect3f				m_Direction;
 	Vect3f				m_RespawnPosition;
 	float				m_DetectionDistance;		// distancia de detección de otros caràcteres
-	float				m_DistanceChase;			// distancia de persecución 
-	float				m_DistanceFollowPath;		// distancia de persecución a través de waypoints
-	float				m_AttackDistance;			// distancia de persecución 
-	
-	// Propiedades del controller
+	float				m_ChaseDistance;			// distancia de persecución 
+	float				m_FollowPathDistance;		// distancia de persecución a través de waypoints
+	float				m_AttackDistance;			// distancia de para poder atacar
+	float				m_PanicDistance;			// distancia que recorre en estado de pànico. Este para el estado de evade o flee
+	float				m_TiredDistance;			// distancia de alejamiento del enemigo respecto al player cuando está cansado. como flee pero de cara al player
+
+	// Propiedades del controller y animacion
 	float				m_HeightController;			// altura del controller
 	float				m_WidthController;			// anchura del controller
 	float				m_Slope;					// Slope del controller
-	float				m_SkinWidth;	
-	float				m_StepOffset;
+	float				m_SkinWidth;				// parámetro que da el ancho de una piel que envuelve el controler con la que hace colision. Recomendado 0.1f
+	float				m_StepOffset;				// cantidad para subir un escalon
+	float				m_AnimationOffset;			// Offset para restar la coordenada Y de la animación 
 
 	// Propiedades de IA 
 	float				m_BoundingRadius;

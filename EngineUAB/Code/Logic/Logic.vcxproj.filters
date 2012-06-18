@@ -46,6 +46,9 @@
     <ClCompile Include="Animal Control\AnimalManager.cpp">
       <Filter>IA\Animal Control</Filter>
     </ClCompile>
+    <ClCompile Include="Steering Behaviours\Flee.cpp">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StatesMachine\State.h">
@@ -116,6 +119,9 @@
     </ClInclude>
     <ClInclude Include="Animal Control\AnimalManager.h">
       <Filter>IA\Animal Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Steering Behaviours\Flee.h">
+      <Filter>IA\Steering Behaviors</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

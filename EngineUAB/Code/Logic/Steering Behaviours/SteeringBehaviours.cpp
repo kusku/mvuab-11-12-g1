@@ -3,6 +3,7 @@
 #include "SteeringBehavioursDefs.h"
 
 #include "Seek.h"
+#include "Flee.h"
 #include "Pursuit.h"
 #include "Arrive.h"
 
@@ -62,8 +63,8 @@ const Vect2f& CSteeringBehaviours::Update( float _ElapsedTime, CSteeringEntity *
     if ( HasBehavior(::seek) )
         m_SteeringForce += m_pSeek->CalculateSteering(_pEntity) * m_WeightSeek;
 
-    //if (this.HasBehavior(BehaviorType.flee))
-    //    this._steeringForce += this._flee.CalculateSteering(entity) * this.weightFlee;
+	if ( HasBehavior(::flee) )
+		m_SteeringForce += m_pFlee->CalculateSteering(_pEntity) * m_WeightFlee;
 
 	 if ( HasBehavior(::arrive) )
         m_SteeringForce += m_pArrive->CalculateSteering(_pEntity) * m_WeightArrive;
