@@ -33,7 +33,7 @@ CGameProcess::CGameProcess( HWND hWnd )
 {
 }
 
-CGameProcess::~CGameProcess( void )
+CGameProcess::~CGameProcess()
 {
 	CleanUp();
 }
@@ -41,15 +41,18 @@ CGameProcess::~CGameProcess( void )
 // -----------------------------------------
 //			METODES PRINCIPALS
 // -----------------------------------------
-bool CGameProcess::Init( void )
+bool CGameProcess::Init()
 {
 	//Registra los métodos
 	//RegisterMethods();
 
-	//Carga los datos en el engine
 	if( !INIT_GUI )
 	{
-		CORE->GetScriptManager()->RunCode("load_all()");
+		CORE->GetScriptManager()->RunCode("load_basics()");
+
+		CGameProcess::RegisterMethods();
+			
+		CORE->GetScriptManager()->RunCode("load_data()");
 	}
 
 	//Carga los objetos del juego
@@ -58,7 +61,7 @@ bool CGameProcess::Init( void )
 	return true;
 }
 
-void CGameProcess::CleanUp( void )
+void CGameProcess::CleanUp()
 {
 	//m_FreeCamera = NULL;
 	//m_StaticCamera = NULL;
@@ -94,6 +97,7 @@ void CGameProcess::CreateFreeCamera(float _near, float _far, float _zoom, float 
 	float aspect = CORE->GetRenderManager()->GetAspectRatio();
 	m_pThPSFreeCamera = new CThPSCamera( _near, _far, 45.f * D3DX_PI / 180.f, aspect, &m_FreeCamera, _zoom, _heightLookAt, _heightEye, _name);
 	m_pFreeCamera = static_cast<CCamera*>(m_pThPSFreeCamera);
+	CORE->SetCamera(m_pCamera);
 }
 
 void CGameProcess::Update(float elapsedTime)
@@ -148,7 +152,7 @@ void CGameProcess::Update(float elapsedTime)
 	CORE->GetRenderableObjectsLayersManager()->Update(elapsedTime);
 }
 
-void CGameProcess::ReloadGameObjects( void )
+void CGameProcess::ReloadGameObjects()
 {
 	CleanUp();
 	//SCRIPT->RegisterLUAMethods();
@@ -160,7 +164,7 @@ void CGameProcess::Render(CRenderManager &RM)
 	 m_pCharactersManager->Render(&RM, CORE->GetFontManager());
 }
 
-bool CGameProcess::LoadMainScript( void )
+bool CGameProcess::LoadMainScript()
 {
 	return SCRIPT->Load("./Data/XML/script_gameplay.xml");
 }
