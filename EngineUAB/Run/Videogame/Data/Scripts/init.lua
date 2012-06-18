@@ -21,6 +21,8 @@ function load_data()
 	core:load_billboards()
 	core:load_particles()
 	core:load_triggers()
+	core:load_animal_movement()
+	core:load_waypoints()
 end
 
 function load_all()
@@ -36,4 +38,6 @@ function unload_data()
 	core:unload_billboards()
 	core:unload_particles()
 	core:unload_triggers()
+	core:unload_animal_movement()
+	core:Unload_waypoints()
 end
