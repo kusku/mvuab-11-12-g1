@@ -135,6 +135,7 @@
     <None Include="UserImages.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera\StaticCamera.h" />
     <ClInclude Include="ChildFrm.h" />
     <ClInclude Include="Elements\ElementCreator.h" />
     <ClInclude Include="Elements\ElementManager.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="ViewTree.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera\StaticCamera.cpp" />
     <ClCompile Include="ChildFrm.cpp" />
     <ClCompile Include="Elements\ElementCreator.cpp" />
     <ClCompile Include="Elements\ElementManager.cpp" />
