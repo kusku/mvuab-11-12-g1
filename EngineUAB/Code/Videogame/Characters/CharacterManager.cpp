@@ -65,8 +65,8 @@ CCharactersManager::CCharactersManager ( void )
 
 CCharactersManager::~CCharactersManager(void)
 {
-	//CleanUp();
-	CleanReloadScripts();
+	CleanUp();
+	//CleanReloadScripts();
 }
 
 //--------------------------------------------------
@@ -182,6 +182,9 @@ void CCharactersManager::Update ( float _ElapsedTime )
 				CORE->GetParticleEmitterManager()->GetResource("Explosions")->SetPosition(l_EnemyList[i]->GetPosition());
 				CORE->GetParticleEmitterManager()->GetResource("Explosions")->EjectParticles();
 				l_EnemyList[i]->SetEnable(false);
+				//CHECKED_DELETE(l_EnemyList[i]);
+				/*m_pTargetEnemy = NULL;
+				m_pPreviewTargetEnemy = NULL;*/
 			}
 		}
 	}

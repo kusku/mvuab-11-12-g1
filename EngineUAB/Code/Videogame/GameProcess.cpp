@@ -108,7 +108,7 @@ void CGameProcess::Update(float elapsedTime)
 	}
 	
 	//Vuelve a cargar los datos si hacemos el reload de LUA
-	if( CORE->GetActionToInput()->DoAction("ReloadScripts") )
+	if( CORE->GetActionToInput()->DoAction("ReloadGamePlayScripts") )
 	{
 		ReloadGameObjects();
 		m_pThPSCamera->SetObject3D( m_pCharactersManager->GetPlayer());
@@ -145,7 +145,7 @@ void CGameProcess::Update(float elapsedTime)
 	{
 		m_fTimeBetweenClicks = 0.f;
 
-		CORE->GetParticleEmitterManager()->GetResource("Explosions")->EjectParticles();
+		//CORE->GetParticleEmitterManager()->GetResource("Explosions")->EjectParticles();
 	}
 
 	m_pCharactersManager->Update(elapsedTime);

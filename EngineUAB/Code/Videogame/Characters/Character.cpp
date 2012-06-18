@@ -101,7 +101,6 @@ CCharacter::CCharacter(int _ID, const std::string &_Name)
 	m_pGraphicStateMachine	= new CStateMachine<CCharacter>( this );
 }
 
-
 CCharacter::~CCharacter( void )
 {
 	CHECKED_DELETE ( m_pBehaviours );
@@ -109,7 +108,9 @@ CCharacter::~CCharacter( void )
 	CHECKED_DELETE ( m_pLogicStateMachine );
 	CHECKED_DELETE ( m_pGraphicStateMachine );
 	// Amb lua no cal eliminar l'objecte. Lua ja se'n ocupa.
-	CORE->GetPhysicsManager()->ReleasePhysicController(m_pController);
+	// En aquest cas volem alliberar el controller ja que aquest s'allibera si està mort però si no està mort cal fer-ho ara.
+	if ( IsAlive() && CORE->GetPhysicsManager() )
+		CORE->GetPhysicsManager()->ReleasePhysicController(m_pController);
 	CHECKED_DELETE ( m_pController );
 	CHECKED_DELETE ( m_pPhysicUserDataJugador );
 	m_pCurrentAnimatedModel = NULL;
@@ -146,9 +147,10 @@ bool CCharacter::Initialize ( const std::string &_Name, const Vect3f &_InitialPo
 	{
 		m_pCurrentAnimatedModel = static_cast<CAnimatedInstanceModel*> (l_RO);
 	}
+	this->SetName(_Name);
 
 	// Ahora creamos la parte física del controller del jugador
-	m_pPhysicUserDataJugador = new CPhysicUserData( m_Name );
+	m_pPhysicUserDataJugador = new CPhysicUserData( _Name );
 	m_pPhysicUserDataJugador->SetColor( colYELLOW );
 	m_pPhysicUserDataJugador->SetPaint( true );
 
@@ -391,4 +393,10 @@ void CCharacter::SetEnable( bool _Enable )
 	m_pProperties->SetVisible(_Enable);
 	m_pCurrentAnimatedModel->SetVisible(_Enable);
 	m_pController->SetActive(_Enable);
+	m_pController->SetVisible(_Enable);
+	if (!_Enable & !IsAlive())
+	{
+		CORE->GetPhysicsManager()->ReleasePhysicController(m_pController);
+		//CHECKED_DELETE(m_pController);
+	}
 }

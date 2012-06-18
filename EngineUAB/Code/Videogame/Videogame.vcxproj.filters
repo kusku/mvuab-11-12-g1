@@ -22,6 +22,24 @@
     <Filter Include="XML">
       <UniqueIdentifier>{de1c2d7c-722f-49fb-ba12-d92ba3500985}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scripts">
+      <UniqueIdentifier>{09f4749e-0689-4f73-b04e-7464cac75b71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Game">
+      <UniqueIdentifier>{7f1878ca-7b8c-40b3-92e8-ade1e65a3502}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Game\Player">
+      <UniqueIdentifier>{b3367d42-669c-4d13-b2c7-d2d326723a20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Game\Enemies">
+      <UniqueIdentifier>{eb81de91-906c-43e7-8020-740c08d58aed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Game\Enemies\rabbit_states">
+      <UniqueIdentifier>{4c3c9f03-e489-4368-b57a-20274ab43cc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Game\Enemies\wolf_states">
+      <UniqueIdentifier>{1bdf18bd-07f5-4909-b902-110e9275e92f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="videogame.cpp" />
@@ -182,6 +200,189 @@
     </None>
     <None Include="..\..\Run\Videogame\Data\XML\animal_movement.xml">
       <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\process.lua">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\reloads.lua">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\stadistics.lua">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\utils.lua">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\console.lua">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\debug_params.lua">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\init.lua">
+      <Filter>Scripts</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\init_game.lua">
+      <Filter>Scripts\Game</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers.lua">
+      <Filter>Scripts\Game</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\helpers.lua">
+      <Filter>Scripts\Game</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Player\player_animation_jump_state.lua">
+      <Filter>Scripts\Game\Player</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Player\player_animation_run_state.lua">
+      <Filter>Scripts\Game\Player</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Player\player_attack_state.lua">
+      <Filter>Scripts\Game\Player</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Player\player_attack2_state.lua">
+      <Filter>Scripts\Game\Player</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Player\player_attack3_state.lua">
+      <Filter>Scripts\Game\Player</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Player\player_defense_state.lua">
+      <Filter>Scripts\Game\Player</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Player\player_hit_state.lua">
+      <Filter>Scripts\Game\Player</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Player\player_idle_state.lua">
+      <Filter>Scripts\Game\Player</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Player\player_jump_state.lua">
+      <Filter>Scripts\Game\Player</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Player\player_run_state.lua">
+      <Filter>Scripts\Game\Player</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Player\player_target_attack_state.lua">
+      <Filter>Scripts\Game\Player</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Player\player_target_attack2_state.lua">
+      <Filter>Scripts\Game\Player</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Player\player_target_attack3_state.lua">
+      <Filter>Scripts\Game\Player</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Player\player_target_run_state.lua">
+      <Filter>Scripts\Game\Player</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Player\player.lua">
+      <Filter>Scripts\Game\Player</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Player\player_animation_attack_state.lua">
+      <Filter>Scripts\Game\Player</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Player\player_animation_attack2_state.lua">
+      <Filter>Scripts\Game\Player</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Player\player_animation_attack3_state.lua">
+      <Filter>Scripts\Game\Player</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Player\player_animation_defense_state.lua">
+      <Filter>Scripts\Game\Player</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Player\player_animation_hit_state.lua">
+      <Filter>Scripts\Game\Player</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Player\player_animation_idle_state.lua">
+      <Filter>Scripts\Game\Player</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\Rabbit.lua">
+      <Filter>Scripts\Game\Enemies</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\Wolf.lua">
+      <Filter>Scripts\Game\Enemies</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_animated_run_attack_state.lua">
+      <Filter>Scripts\Game\Enemies\wolf_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_animated_run_state.lua">
+      <Filter>Scripts\Game\Enemies\wolf_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_animated_still_attack_state.lua">
+      <Filter>Scripts\Game\Enemies\wolf_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_animated_walk_state.lua">
+      <Filter>Scripts\Game\Enemies\wolf_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_attack_state.lua">
+      <Filter>Scripts\Game\Enemies\wolf_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_deffense_state.lua">
+      <Filter>Scripts\Game\Enemies\wolf_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_evade_state.lua">
+      <Filter>Scripts\Game\Enemies\wolf_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_flee_state.lua">
+      <Filter>Scripts\Game\Enemies\wolf_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_hit_state.lua">
+      <Filter>Scripts\Game\Enemies\wolf_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_idle_state.lua">
+      <Filter>Scripts\Game\Enemies\wolf_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_path_follow_state.lua">
+      <Filter>Scripts\Game\Enemies\wolf_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_pursuit_state.lua">
+      <Filter>Scripts\Game\Enemies\wolf_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_run_attack_state.lua">
+      <Filter>Scripts\Game\Enemies\wolf_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_run_state.lua">
+      <Filter>Scripts\Game\Enemies\wolf_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_seek_state.lua">
+      <Filter>Scripts\Game\Enemies\wolf_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_still_attack_state.lua">
+      <Filter>Scripts\Game\Enemies\wolf_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_walk_state.lua">
+      <Filter>Scripts\Game\Enemies\wolf_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_wander_state.lua">
+      <Filter>Scripts\Game\Enemies\wolf_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_animated_attack_state.lua">
+      <Filter>Scripts\Game\Enemies\wolf_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_animated_deffense_state.lua">
+      <Filter>Scripts\Game\Enemies\wolf_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_animated_hit_state.lua">
+      <Filter>Scripts\Game\Enemies\wolf_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_animated_idle_state.lua">
+      <Filter>Scripts\Game\Enemies\wolf_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_animated_pursuit_state.lua">
+      <Filter>Scripts\Game\Enemies\wolf_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_pursuit_state.lua">
+      <Filter>Scripts\Game\Enemies\rabbit_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_attack_state.lua">
+      <Filter>Scripts\Game\Enemies\rabbit_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_flee_state.lua">
+      <Filter>Scripts\Game\Enemies\rabbit_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_hit_state.lua">
+      <Filter>Scripts\Game\Enemies\rabbit_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_idle_state.lua">
+      <Filter>Scripts\Game\Enemies\rabbit_states</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
