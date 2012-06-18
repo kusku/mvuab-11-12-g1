@@ -10,7 +10,7 @@ class 'CPlayerTargetAttackState' (CState)
 	end
 	
 	function CPlayerTargetAttackState:Execute(_CCharacter)
-		if self.animation_time > _CCharacter.animated_model:get_current_animation_duration("attack1") - 0.02 then
+		if self.animation_time > _CCharacter.animated_model:get_current_animation_duration("attack1") - 0.1 then
 			if core:get_action_to_input():do_action('AttackPlayer') and not _CCharacter.locked then
 					_CCharacter.logic_fsm:change_state(_CCharacter.target_attack2)
 					_CCharacter.graphic_fsm:change_state(_CCharacter.animated_attack2)
@@ -45,6 +45,7 @@ class 'CPlayerTargetAttackState' (CState)
 	end
 	
 	function CPlayerTargetAttackState:OnExit(_CCharacter)
+		local ok = _soundM:play_action_2D('sword',0.6)
 		local enemy = get_game_process():get_character_manager():search_target_enemy(3.0, math.pi/6)
 		if enemy ~= nil then
 			_DispatchMgr:dispatch_state_message( SEND_MSG_IMMEDIATELY, _CCharacter:get_id(), enemy:get_id(), msg_attack, NO_ADDITIONAL_INFO ) 

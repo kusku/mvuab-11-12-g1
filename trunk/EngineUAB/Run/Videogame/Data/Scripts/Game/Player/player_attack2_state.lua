@@ -48,6 +48,7 @@ class 'CPlayerAttack2State' (CState)
 	end
 	
 	function CPlayerAttack2State:OnExit(_CCharacter)
+		local ok = _soundM:play_action_2D('sword',0.6)
 		local enemy = get_game_process():get_character_manager():search_target_enemy(3.0, math.pi/6)
 		if enemy ~= nil then
 			_DispatchMgr:dispatch_state_message( SEND_MSG_IMMEDIATELY, _CCharacter:get_id(), enemy:get_id(), msg_attack, NO_ADDITIONAL_INFO ) 
