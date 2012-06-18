@@ -11,6 +11,8 @@
 #include "GUIManager.h"
 #include "Core.h"
 #include "Base.h"
+#include "Particles\ParticleEmitterManager.h"
+#include "Particles\ParticleEmitter.h"
 
 #include "VideogameDefs.h"
 #include "Characters\CharacterManager.h"
@@ -138,6 +140,8 @@ void CGameProcess::Update(float elapsedTime)
 	if( CORE->GetActionToInput()->DoAction("AttackPlayer") )
 	{
 		m_fTimeBetweenClicks = 0.f;
+
+		CORE->GetParticleEmitterManager()->GetResource("Explosions")->EjectParticles();
 	}
 
 	m_pCharactersManager->Update(elapsedTime);

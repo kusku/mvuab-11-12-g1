@@ -44,7 +44,7 @@ public:
 	// TODO:: queria recuperar el vertex list del buffer de DX9
 private:
 	template <typename T>
-	void				CreateVect3fVertexsList			( const void *_VtxBuffer,  uint32 _NumVertex );
+	void				CreateVect3fVertexsList			( T* _VtxBuffer,  uint32 _NumVertex );
 	void				CreateVect3fFacesList			( const void *_IndxBuffer, uint32 _NumIndex );
 
 public:

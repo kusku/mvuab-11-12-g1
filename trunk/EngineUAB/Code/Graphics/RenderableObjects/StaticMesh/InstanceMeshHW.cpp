@@ -73,6 +73,9 @@ bool CInstanceMeshHW::AddHWInstance(CXMLTreeNode &Node)
 	Vect3f		scale		= Node.GetVect3fProperty("scale", Vect3f(1.0f, 1.0f, 1.0f));
 	bool		visible		= Node.GetBoolProperty("visible", true, false);
 
+	bool		addPhyX		= Node.GetBoolProperty("create_physics", true, false);
+	std::string	typePhyX	= Node.GetPszProperty("physics_type", "", addPhyX);
+
 	instance->SetName(name);
 	instance->SetPosition(position);
 	instance->SetYaw(yaw);
@@ -91,6 +94,11 @@ bool CInstanceMeshHW::AddHWInstance(CXMLTreeNode &Node)
 	}
 
 	m_ObjectMap[name] = instance;
+
+	if(addPhyX)
+	{
+		CrearPhysic(name, typePhyX, position);
+	}
 
 	m_Initialize = false;
 
@@ -149,12 +157,27 @@ void CInstanceMeshHW::UpdateBuffer()
 
 		if(instance->GetVisible())
 		{
-			D3DXMATRIX dxMatrix = instance->GetTransform().GetD3DXMatrix();
+			Mat44f WorldMatrix = instance->GetTransform().GetD3DXMatrix();
 
-			memcpy(&m_InstanceVertex[i], &dxMatrix, sizeof(TINSTANCE_VERTEX));
+			//CFrustum* frus = CORE->GetRenderManager()->GetFrustum();
+			//
+			//TBoundingBox bb = m_StaticMesh->GetBoundingBox();
+			//
+			//Vect3f minTrans = bb.m_MinPos;
+			//Vect3f maxTrans = bb.m_MaxPos;
 
-			++i;
-			++m_VisibleObjects;
+			//WorldMatrix.TransformVector(minTrans);
+			//WorldMatrix.TransformVector(maxTrans);
+
+			//if(frus->BoxVisible(minTrans, maxTrans))
+			//{
+				D3DXMATRIX dxMatrix = WorldMatrix.GetD3DXMatrix();
+
+				memcpy(&m_InstanceVertex[i], &dxMatrix, sizeof(TINSTANCE_VERTEX));
+
+				++i;
+				++m_VisibleObjects;
+			//}
 		}
 	}
 
@@ -191,6 +214,16 @@ void CInstanceMeshHW::Render(CRenderManager *RM)
 	m_StaticMesh->RenderInstance(RM, m_InstanceBuffer, m_VisibleObjects);
 }
 
+CObject3D* CInstanceMeshHW::GetInstance(const std::string& name)
+{
+	if(m_ObjectMap.find(name) == m_ObjectMap.end())
+	{
+		return NULL;
+	}
+
+	return m_ObjectMap[name];
+}
+
 /*
 void CInstanceMeshHW::CreateASEMesh ( const std::string &_Filename, const std::string &_Name  )
 {
@@ -211,26 +244,46 @@ void CInstanceMeshHW::CreateASEMesh ( const std::string &_Filename, const std::s
 	l_pCM						= NULL;
 	l_pPhysicUserDataASEMesh	= NULL;
 	l_AseMeshActor				= NULL;
-}
+}*/
 
 // TODO:: Otra manera de meter la física a partir de los ficheros binarios que creamos desde MAX.
-void CInstanceMeshHW::CrearPhysicMesh ( const std::string &_Name )
+void CInstanceMeshHW::CrearPhysic( const std::string& _Name, const std::string& typePhysic, const Vect3f& position )
 {
-	CPhysicUserData* l_pPhysicUserDataMesh;
-	CPhysicActor*	 l_MeshActor;
-	
-	CPhysicCookingMesh* l_pCM = CORE->GetPhysicsManager()->GetCookingMesh();
-	if ( l_pCM->CreatePhysicMesh ( m_StaticMesh->GetVertexBuffer(), m_StaticMesh->GetFacesBuffer(), _Name ) )
+	if(typePhysic == "bounding_box")
 	{
-		l_pPhysicUserDataMesh = new CPhysicUserData( GetName()  );
-		l_pPhysicUserDataMesh->SetPaint (true);
-		l_MeshActor = new CPhysicActor( l_pPhysicUserDataMesh );
-		l_MeshActor->AddMeshShape ( l_pCM->GetPhysicMesh(GetName()), m_Position );
-		//m_AseMeshActor->CreateBody ( 10.f );
-		CORE->GetPhysicsManager()->AddPhysicActor ( l_MeshActor );
-	}
+		CPhysicUserData* l_pPhysicUserDataMesh = new CPhysicUserData( _Name  );
 
-	l_pCM					= NULL;
-	l_pPhysicUserDataMesh	= NULL;
-	l_MeshActor				= NULL;
-}*/
+		CPhysicActor* l_MeshActor = new CPhysicActor(l_pPhysicUserDataMesh);
+		l_pPhysicUserDataMesh->SetPaint (true);
+		TBoundingBox bb = m_StaticMesh->GetBoundingBox();
+
+		Vect3f size = (bb.m_MaxPos - bb.m_MinPos);
+		size = Vect3f(abs(size.x), abs(size.y), abs(size.z));
+		size /= 4;
+		l_MeshActor->AddBoxSphape(size, position, Vect3f(0, size.y * 1.5f, 0));
+		
+		//l_MeshActor->CreateBody(1);
+
+		CORE->GetPhysicsManager()->AddPhysicActor(l_MeshActor);
+	}
+	else if(typePhysic == "triangle_mesh")
+	{
+		CPhysicUserData* l_pPhysicUserDataMesh;
+		CPhysicActor*	 l_MeshActor;
+
+		CPhysicCookingMesh* l_pCM = CORE->GetPhysicsManager()->GetCookingMesh();
+		if ( l_pCM->CreatePhysicMesh ( m_StaticMesh->GetVertexBuffer(), m_StaticMesh->GetFacesBuffer(), _Name ) )
+		{
+			l_pPhysicUserDataMesh = new CPhysicUserData( _Name  );
+			l_pPhysicUserDataMesh->SetPaint (true);
+			l_MeshActor = new CPhysicActor( l_pPhysicUserDataMesh );
+			l_MeshActor->AddMeshShape ( l_pCM->GetPhysicMesh(_Name), position);
+			//m_AseMeshActor->CreateBody ( 10.f );
+			CORE->GetPhysicsManager()->AddPhysicActor ( l_MeshActor );
+		}
+
+		l_pCM					= NULL;
+		l_pPhysicUserDataMesh	= NULL;
+		l_MeshActor				= NULL;
+	}
+}

@@ -362,6 +362,7 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(DXSDK_DIR)Utilities\bin\x86\"fxc.exe  /WX /O3 /T fx_2_0 /Fo "$(SolutionDir)\Run\Videogame\Data\Effects\Obj\%(Filename).fxo" "%(FullPath)"</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\Run\Videogame\Data\Effects\Obj\$(filename).fxo</Outputs>
     </CustomBuild>
+    <None Include="..\..\Run\Videogame\Data\XML\animal_movement.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\animated_models.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\billboard_animations.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\characters_animated_states.xml" />
@@ -376,7 +377,9 @@
     <None Include="..\..\Run\Videogame\Data\XML\input.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\lights.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\modifiers.xml" />
-    <None Include="..\..\Run\Videogame\Data\XML\ParticleEmitters.xml" />
+    <None Include="..\..\Run\Videogame\Data\XML\ParticleEmitters.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="..\..\Run\Videogame\Data\XML\ParticleSettings.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\ParticleSystems.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\renderable_objects.xml" />
@@ -384,7 +387,9 @@
     <None Include="..\..\Run\Videogame\Data\XML\scene_renderer_commands.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\scene_renderer_gui_commands.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\scripts.xml" />
-    <None Include="..\..\Run\Videogame\Data\XML\script_gameplay.xml" />
+    <None Include="..\..\Run\Videogame\Data\XML\script_gameplay.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="..\..\Run\Videogame\Data\XML\sounds.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\static_meshes.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\triggers.xml" />

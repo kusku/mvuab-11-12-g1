@@ -50,6 +50,8 @@
 #include "Particles\ParticleEmitterManager.h"
 #include "Particles\ParticleSettingsManager.h"
 
+#include "Animal Control\AnimalManager.h"
+
 #include "Cameras\ThPSCamera.h"
 
 #if defined(_DEBUG)
@@ -94,6 +96,7 @@ CCore::CCore ( void )
 	, m_ParticleEmitterManager			(NULL)
 	, m_ParticleSystemManager			(NULL)
 	, m_ParticleSettingsManager			(NULL)
+	, m_Animalmanager					(NULL)
 {
 }
 
@@ -143,6 +146,7 @@ void CCore::Release ( void )
 	CHECKED_DELETE (m_ParticleEmitterManager);
 	CHECKED_DELETE (m_ParticleSystemManager);
 	CHECKED_DELETE (m_ParticleSettingsManager);
+	CHECKED_DELETE (m_Animalmanager);
 	
 	m_pCamera = NULL; //La cámara la elimina el proceso
 	m_pTimer = NULL;
@@ -271,6 +275,9 @@ bool CCore::Init( HWND _HWnd, const SConfig &config )
 			m_WayPointManager = new CWayPointManager();
 			//m_WayPointManager->Load(config.waypoints_path);
 
+			m_Animalmanager = new CAnimalManager();
+			//m_Animalmanager->Load(config.animal_movement_path);
+
 			CCore::RegisterMethods();
 
 			m_pScriptManager->Load( config.scripts_path );
@@ -306,6 +313,9 @@ void CCore::Update( float _ElapsedTime )
 		//Particles
 		m_ParticleEmitterManager->Update(_ElapsedTime);
 		m_ParticleSystemManager->Update(_ElapsedTime);
+
+		//Animal Manager
+		m_Animalmanager->Update(_ElapsedTime);
 	}
 	else
 	{
@@ -331,6 +341,13 @@ void CCore::Render()
 // -----------------------------------------
 //			  MÈTODES PRINCIPALS
 // -----------------------------------------
+bool CCore::LoadAnimalMovements()
+{
+	m_Animalmanager->Load(m_Config.animal_movement_path);
+
+	return true;
+}
+
 bool CCore::LoadFonts()
 {
 	m_bIsOk = m_pFontManager->Init( m_pRenderManager );
@@ -875,6 +892,16 @@ void CCore::UnloadParticles()
 	m_ParticleEmitterManager->CleanUp();
 }
 
+void CCore::UnloadWayPoints()
+{
+	m_WayPointManager->CleanUp();
+}
+
+void CCore::UnloadAnimalMovements()
+{
+	m_Animalmanager->CleanUp();
+}
+
 void CCore::UnloadTriggers()
 {
 	m_pTriggersManager->Destroy();
@@ -936,6 +963,7 @@ void CCore::RegisterMethods()
 			.def("load_sounds", &CCore::LoadSounds)
 			.def("load_debug_gui", &CCore::LoadDebugGUI)
 			.def("load_waypoints", &CCore::LoadWaypoints)
+			.def("load_animal_movement", &CCore::LoadAnimalMovements)
 			.def("is_game_mode", &CCore::IsGameMode)
 			.def("unload_static_meshes", &CCore::UnloadStaticMeshes)
 			.def("unload_animated_models", &CCore::UnloadAnimatedModels)
@@ -944,6 +972,8 @@ void CCore::RegisterMethods()
 			.def("unload_billboards", &CCore::UnloadBillboards)
 			.def("unload_particles", &CCore::UnloadParticles)
 			.def("unload_triggers", &CCore::UnloadTriggers)
+			.def("unload_animal_movement", &CCore::UnloadAnimalMovements)
+			.def("Unload_waypoints", &CCore::UnloadWayPoints)
 	];
 
 	module(state) [

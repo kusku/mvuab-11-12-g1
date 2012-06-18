@@ -38,16 +38,16 @@
   <settings name="water_mist">
     <TextureName value="./Data/General/Textures/wmist.png" />
 
-    <MaxParticles value="500" />
+    <MaxParticles value="600" />
 
     <Duration value="3.5" />
-    <DurationRandomness value="1.5" />
+    <DurationRandomness value="1.0" />
 
-    <MinHorizontalVelocity value="1" />
+    <MinHorizontalVelocity value="2" />
     <MaxHorizontalVelocity value="3" />
 
-    <MinVerticalVelocity value="1" />
-    <MaxVerticalVelocity value="3" />
+    <MinVerticalVelocity value="3" />
+    <MaxVerticalVelocity value="4" />
 
     <Gravity value="0 0 0" />
 
@@ -59,11 +59,11 @@
     <MinRotateSpeed value="1" />
     <MaxRotateSpeed value="2" />
 
-    <MinStartSize value="1" />
-    <MaxStartSize value="5" />
+    <MinStartSize value="3" />
+    <MaxStartSize value="6" />
 
-    <MinEndSize value="5" />
-    <MaxEndSize value="10" />
+    <MinEndSize value="7" />
+    <MaxEndSize value="13" />
 
     <BlendState value="NonPremultiplied" />
 
@@ -72,9 +72,9 @@
   <settings name="water_fall">
     <TextureName value="./Data/General/Textures/mist2.tga" />
 
-    <MaxParticles value="1200" />
+    <MaxParticles value="1800" />
 
-    <Duration value="3.5" />
+    <Duration value="6" />
     <DurationRandomness value="1" />
 
     <MinHorizontalVelocity value="0" />
@@ -83,9 +83,9 @@
     <MinVerticalVelocity value="0" />
     <MaxVerticalVelocity value="0" />
 
-    <Gravity value="-7 -5 2" />
+    <Gravity value="-4.5 -5 0" />
 
-    <EndVelocity value="0" />
+    <EndVelocity value="-10" />
 
     <MinColor value="177 233 251 128" />
     <MaxColor value="177 233 251 128" />
@@ -106,10 +106,10 @@
   <settings name="water_fall2">
     <TextureName value="./Data/General/Textures/mist2.tga" />
 
-    <MaxParticles value="500" />
+    <MaxParticles value="650" />
 
-    <Duration value="3" />
-    <DurationRandomness value="1" />
+    <Duration value="5" />
+    <DurationRandomness value="0.5" />
 
     <MinHorizontalVelocity value="0" />
     <MaxHorizontalVelocity value="0" />
@@ -117,9 +117,9 @@
     <MinVerticalVelocity value="0" />
     <MaxVerticalVelocity value="0" />
 
-    <Gravity value="-2 -3 3" />
+    <Gravity value="-3.5 -7 0.5" />
 
-    <EndVelocity value="0" />
+    <EndVelocity value="-20" />
 
     <MinColor value="177 233 251 128" />
     <MaxColor value="177 233 251 128" />

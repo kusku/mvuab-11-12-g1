@@ -18,6 +18,11 @@ CWayPointManager::CWayPointManager()
 
 CWayPointManager::~CWayPointManager()
 {
+	CleanUp();
+}
+
+void CWayPointManager::CleanUp()
+{
 	WayPointGroupMapIt itMap = m_WPGroups.begin();
 	WayPointGroupMapIt itMapEnd = m_WPGroups.end();
 
@@ -368,6 +373,19 @@ void CWayPointManager::DebugRender()
 			CORE->GetRenderManager()->SetTransform(trans);
 
 			CORE->GetRenderManager()->DrawCube(Vect3f(2.0f, 2.0f, 2.0f), colRED);
+
+			WayPointList& bros = wp->GetBrothers();
+
+			WayPointListIt broIt = bros.begin();
+			WayPointListIt broItEnd = bros.end();
+
+			trans = m44fIDENTITY;
+			CORE->GetRenderManager()->SetTransform(trans);
+
+			for (; broIt != broItEnd; ++broIt)
+			{
+				CORE->GetRenderManager()->DrawLine(wp->GetPosition(), (*broIt)->GetPosition(), colRED);
+			}
 		}
 	}
 }
