@@ -72,8 +72,9 @@ function ExtractMaterialProperties obj t_mesh =
 				)
 				else if obj.material[id] == undefined then
 				(
+					format "Undefined Material % count %\n" id matIDs.count
 					-- Undefined Material 
-					return -5
+					continue
 				)
 				else
 				(
@@ -425,34 +426,41 @@ function ExportSelection selectedObjs outputDir subOutPutDir counterClockwise ex
 		--Set Filename
 		t_mesh.SetFileNameMesh sceneObjects.FilePath sceneObjects.RelativeFilePath
 		
-		--Extract Material Properties from object
-		ret = ExtractMaterialProperties obj t_mesh
-		
-		if ret != 1 then 
+		if t_mesh.IsInstance == true then
 		(
-			if ret == -1 then
+			format "% is an instance, no need to extract materials\n" t_mesh.MeshName
+		)
+		else
+		(
+			--Extract Material Properties from object
+			ret = ExtractMaterialProperties obj t_mesh
+		
+			if ret != 1 then 
 			(
-				warningMeshes = warningMeshes + (obj.name + " is not an editable mesh. Object will not be exported.\n")
+				if ret == -1 then
+				(
+					warningMeshes = warningMeshes + (obj.name + " is not an editable mesh. Object will not be exported.\n")
+				)
+				else if ret == -3 then
+				(
+					warningMeshes = warningMeshes + (obj.name + " has not materials assigned to it. Object will not be exported.\n")
+				)
+				else if ret == -4 then
+				(
+					warningMeshes = warningMeshes + (obj.name + " has a material not supported by this exporter (Supported Materials: Standard and Multi). Object will not be exported\n")
+				)
+				else if ret == -5 then
+				(
+					warningMeshes = warningMeshes + (obj.name + " has a material that is not initialize. Object will not be exported.\n")
+				)
+				else
+				(
+					warningMeshes = warningMeshes + (obj.name + " unexpected error in \"ExtractMaterialProperties\" ret: " + (ret as string) + "\n")
+				)
+				
+				--Do not continue with this object and discard it
+				continue
 			)
-			else if ret == -3 then
-			(
-				warningMeshes = warningMeshes + (obj.name + " has not materials assigned to it. Object will not be exported.\n")
-			)
-			else if ret == -4 then
-			(
-				warningMeshes = warningMeshes + (obj.name + " has a material not supported by this exporter (Supported Materials: Standard and Multi). Object will not be exported\n")
-			)
-			else if ret == -5 then
-			(
-				warningMeshes = warningMeshes + (obj.name + " has a material that is not initialize. Object will not be exported.\n")
-			)
-			else
-			(
-				warningMeshes = warningMeshes + (obj.name + " unexpected error in \"ExtractMaterialProperties\" ret: " + (ret as string) + "\n")
-			)
-			
-			--Do not continue with this object and discard it
-			continue
 		)
 	
 		--Set Relative Path to Materials
