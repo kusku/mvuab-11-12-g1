@@ -72,75 +72,30 @@
 		<position>-55 10 0</position>
 	</player>
 	<enemies>
-		<enemy name="enemy1" core="lobo" animated_instace_name="lobo1" >
-			<life>1</life>
-			<strong>13</strong>
-			<direction>3 20 -4</direction>
-			<position>-30.0 5.0 10.0</position>
-		</enemy>
-		<enemy name="enemy2" core="conejo" animated_instace_name="conejo1" >
-			<life>1</life>
-			<strong>8</strong>
-			<direction>3 20 -4</direction>
-			<position>-25.0 5.0 -10.0</position>
-		</enemy>
-		<enemy name="enemy3" core="conejo" animated_instace_name="conejo2" >
-			<life>1</life>
-			<strong>13</strong>
-			<direction>3 20 -4</direction>
-			<position>-25.0 5.0 -1.0</position>
-		</enemy>
-		<!--<enemy name="enemy4" core="conejo" animated_instace_name="conejo3" >
-			<life>1</life>
-			<strong>13</strong>
-			<direction>3 20 -4</direction>
-			<speed>15</speed>
-			<position>-25.0 5.0 -5.0</position>
-		</enemy>
-		<enemy name="enemy5" core="conejo" animated_instace_name="conejo4" >
-			<life>1</life>
-			<strong>13</strong>
-			<direction>3 20 -4</direction>
-			<speed>15</speed>
-			<position>-30.0 5.0 -10.0</position>
-		</enemy>
-		<enemy name="enemy5" core="conejo" animated_instace_name="conejo5" >
-			<life>1</life>
-			<strong>13</strong>
-			<direction>3 20 -4</direction>
-			<speed>15</speed>
-			<position>-14.0 5.0 -10.0</position>
-		</enemy>-->
-		<!--<enemy name="enemy2" core="lobo" animated_instace_name="lobo2" >
-			<life>10</life>
-			<strong>17</strong>
-			<speed>3</speed>
-			<direction>21 210 -24</direction>
-		</enemy>-->
-		<!--<enemy name="enemy3" core="lobo" animated_instace_name="lobo3" >
-			<life>130</life>
-			<strong>17</strong>
-			<speed>4</speed>
-			<direction>21 210 -24</direction>
-		</enemy>
-		<enemy name="enemy4" core="lobo" animated_instace_name="lobo4" >
-			<life>130</life>
-			<strong>17</strong>
-			<speed>5</speed>
-			<direction>21 210 -24</direction>
-		</enemy>
-		<enemy name="enemy5" core="lobo" animated_instace_name="lobo5" >
-			<life>130</life>
-			<strong>17</strong>
-			<speed>6</speed>
-			<direction>21 210 -24</direction>
-		</enemy>
-		<enemy name="enemy6" core="lobo" animated_instace_name="lobo6" >
-			<life>130</life>
-			<strong>17</strong>
-			<speed>7</speed>
-			<direction>21 210 -24</direction>
-		</enemy>-->
-	
+		<enemy name="enemy1" core="lobo" animated_instace_name="lobo1" ></enemy>
+		
+		<enemy name="enemy2" core="conejo" animated_instace_name="enemy2" ></enemy>
+		<enemy name="enemy3" core="conejo" animated_instace_name="enemy3" ></enemy>
+		<enemy name="enemy4" core="conejo" animated_instace_name="enemy4" ></enemy>
+		
+		<enemy name="enemy5" core="conejo" animated_instace_name="enemy5" ></enemy>
+		<enemy name="enemy6" core="conejo" animated_instace_name="enemy6" ></enemy>
+		<enemy name="enemy7" core="conejo" animated_instace_name="enemy7" ></enemy>
+		<enemy name="enemy8" core="conejo" animated_instace_name="enemy8" ></enemy>
+		<enemy name="enemy9" core="conejo" animated_instace_name="enemy9" ></enemy>
+		
+		<enemy name="enemy10" core="conejo" animated_instace_name="enemy10" ></enemy>
+		<enemy name="enemy11" core="conejo" animated_instace_name="enemy11" ></enemy>
+		<enemy name="enemy12" core="conejo" animated_instace_name="enemy12" ></enemy>
+		<enemy name="enemy13" core="conejo" animated_instace_name="enemy13" ></enemy>
+		<enemy name="enemy14" core="conejo" animated_instace_name="enemy14" ></enemy>
+		<enemy name="enemy15" core="conejo" animated_instace_name="enemy15" ></enemy>
+		<enemy name="enemy16" core="conejo" animated_instace_name="enemy16" ></enemy>
+		<enemy name="enemy17" core="conejo" animated_instace_name="enemy17" ></enemy>
+		
+		<enemy name="enemy18" core="conejo" animated_instace_name="enemy18" ></enemy>
+		<enemy name="enemy19" core="conejo" animated_instace_name="enemy19" ></enemy>
+		<enemy name="enemy20" core="conejo" animated_instace_name="enemy20" ></enemy>
+		<enemy name="enemy21" core="conejo" animated_instace_name="enemy21" ></enemy>
 	</enemies>
 </characters>

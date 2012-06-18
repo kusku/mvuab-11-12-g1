@@ -153,7 +153,7 @@ void CGameProcess::Update(float elapsedTime)
 }
 
 void CGameProcess::ReloadGameObjects()
-{
+{	
 	CleanUp();
 	//SCRIPT->RegisterLUAMethods();
 	LoadGameObjects();
