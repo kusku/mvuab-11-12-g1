@@ -33,4 +33,5 @@
   <static_mesh name="parte01Puente" filename=".\Data\.\General\\Models\parte01Puente.m3d" />
   <static_mesh name="Cabana" filename=".\Data\.\General\\Models\Cabana.m3d" />
   <static_mesh name="Agua_rio" filename=".\Data\.\General\\Models\Agua_rio.m3d" />
+  <static_mesh name="Fish_Main" filename=".\Data\.\General\\Models\Fish_Main.m3d" />
 </static_meshes>
