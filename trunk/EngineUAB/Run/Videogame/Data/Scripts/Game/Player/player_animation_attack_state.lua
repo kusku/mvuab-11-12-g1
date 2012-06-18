@@ -14,9 +14,12 @@ class 'CPlayerAnimationAttackState' (CState)
 	end
 	
 	function CPlayerAnimationAttackState:OnExit(_CCharacter)
+		num = _CCharacter:get_animation_id("attack1")
+		_CCharacter:get_animation_model():clear_cycle( num, 0.3 )
 	end
 	
 	function CPlayerAnimationAttackState:OnMessage(_CCharacter, _Msg)
+	
 		return false
 	end
 	
