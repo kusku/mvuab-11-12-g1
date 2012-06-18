@@ -11,7 +11,7 @@ class 'CPlayerAttack3State' (CState)
 	end
 	
 	function CPlayerAttack3State:Execute(_CCharacter)
-		if self.animation_time > _CCharacter.animated_model:get_current_animation_duration("attack3") - 0.02 then
+		if self.animation_time > _CCharacter.animated_model:get_current_animation_duration("attack3") - 0.1 then
 			if core:get_action_to_input():do_action('AttackPlayer') then
 				_CCharacter.logic_fsm:change_state(_CCharacter.attack)
 				_CCharacter.graphic_fsm:change_state(_CCharacter.animated_attack)
