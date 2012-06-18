@@ -47,7 +47,7 @@ class 'CPlayerAttackState' (CState)
 	end
 	
 	function CPlayerAttackState:OnExit(_CCharacter)
-		print_logger(0, "Exit State: Attack 1")
+		local ok = _soundM:play_action_2D('sword',0.6)
 		local enemy = get_game_process():get_character_manager():search_target_enemy(3.0, math.pi/6)
 		if enemy ~= nil then
 			
