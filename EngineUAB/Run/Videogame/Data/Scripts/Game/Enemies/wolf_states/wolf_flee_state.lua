@@ -14,7 +14,7 @@ class 'CWolfFleeState' (CState)
 		end
 		
 		self.walk_animation_time = 0.0
-		self.max_animation_time = math.random(1.0, 2.0) 
+		self.max_animation_time = math.random(2.0, 4.0) 
 		print_logger(1, "Ara evading tant de temps "..self.max_animation_time )
 	end
 	
@@ -23,13 +23,35 @@ class 'CWolfFleeState' (CState)
 		l_positionA = Vect2f(_CCharacter.position.x, _CCharacter.position.z)
 		l_positionB = Vect2f(_CCharacter.player.position.x, _CCharacter.player.position.z)
 	
-		DesiredFleePoint = (l_positionA - l_positionB)
-		DesiredFleePoint:normalize(1.0);
-		DesiredFleePoint = DesiredFleePoint * _CCharacter.properties.speed
+		local l_DesiredFleePoint = 0.0
+		l_DesiredFleePoint = (l_positionA - l_positionB)
+		-- Compruebo que no me aleje más de la distancia de espera por cansado
+		local l_distance = l_positionA:sq_distance(l_positionB)
+		if ( l_distance <= _CCharacter.properties.tired_distance ) then 
+			-- print_logger(0 , "CWolfFleeState:Execute->posició d'evasió:"..l_DesiredFleePoint.x.." "..l_DesiredFleePoint.y.." "..l_DesiredFleePoint.z)
 		
-		-- print_logger(0 , "CWolfFleeState:Execute->posició d'evasió:"..DesiredFleePoint.x.." "..DesiredFleePoint.y.." "..DesiredFleePoint.z)
-		DesiredFleePoint = Vect3f(DesiredFleePoint.x,0.0,DesiredFleePoint.y)
-		_CCharacter:move_to( DesiredFleePoint, _CCharacter.elapsed_time )
+			-- local num = _CCharacter:get_animation_id("walk")
+			-- _CCharacter:get_animation_model():clear_cycle( num, 0.3 )
+			
+			l_DesiredFleePoint:normalize(1.0);
+			l_DesiredFleePoint = l_DesiredFleePoint * _CCharacter.properties.speed
+			
+			-- print_logger(0 , "CWolfFleeState:Execute->posició d'evasió:"..l_DesiredFleePoint.x.." "..l_DesiredFleePoint.y.." "..l_DesiredFleePoint.z)
+			l_DesiredFleePoint = Vect3f(l_DesiredFleePoint.x,0.0,l_DesiredFleePoint.y)
+		else
+			local num = _CCharacter:get_animation_id("walk")
+			_CCharacter:get_animation_model():clear_cycle( num, 0.3 )
+			
+			num = _CCharacter:get_animation_id("idle")
+			_CCharacter:get_animation_model():blend_cycle( num, 0.3 )
+		
+			-- print_logger ( 0, "L'latra popcipel distancia "..l_distance)
+			-- print_logger ( 1, "L'latra popcipel distancia del llob : "..(_CCharacter.properties.tired_distance))
+		
+			l_DesiredFleePoint = _CCharacter.position
+		end 
+				
+		_CCharacter:move_to( l_DesiredFleePoint, _CCharacter.elapsed_time )
 		_CCharacter:face_to( _CCharacter.player.position, _CCharacter.elapsed_time )
 		if ( self.walk_animation_time >= self.max_animation_time ) then
 			print_logger(0 , "CWolfFleeState:Execute->Revertir estado al anterior:")
@@ -45,9 +67,12 @@ class 'CWolfFleeState' (CState)
 		_CCharacter.max_animation_time = 0.0
 		
 		if not ( _CCharacter == nil ) then
-			num = _CCharacter:get_animation_id("walk")
+			local num = _CCharacter:get_animation_id("walk")
 			_CCharacter:get_animation_model():clear_cycle( num, 0.3 )
 		end
+		local num = _CCharacter:get_animation_id("idle")
+		_CCharacter:get_animation_model():clear_cycle( num, 0.3 )
+			
 	end
 	
 	function CWolfFleeState:OnMessage(_CCharacter, _Msg)
