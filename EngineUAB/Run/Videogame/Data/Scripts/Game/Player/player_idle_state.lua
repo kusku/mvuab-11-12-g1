@@ -10,9 +10,21 @@ class 'CPlayerIdleState' (CState)
 	
 	function CPlayerIdleState:Execute(_CCharacter)
 		if not _CCharacter.locked then
+			local l_enemy_detected = _CCharacter:detect_enemy()
+			if _CCharacter.is_target_fixed then
+				if l_enemy_detected ~= nil then
+					if not l_enemy_detected:is_alive() then
+						get_game_process():get_character_manager().target_enemy = nil
+						_CCharacter.is_target_fixed = false
+					end
+				else
+					get_game_process():get_character_manager().target_enemy = nil
+					_CCharacter.is_target_fixed = false
+				end
+			end
+		
 			if self.action_2_input:do_action('PlayerTarget') then
 				--Se asigna un target
-				local l_enemy_detected = _CCharacter:detect_enemy()
 				if not _CCharacter.is_target_fixed then
 					if l_enemy_detected ~= nil then
 						_CCharacter.is_target_fixed = true

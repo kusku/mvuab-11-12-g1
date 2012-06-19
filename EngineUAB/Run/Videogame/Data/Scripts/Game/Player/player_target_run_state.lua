@@ -21,6 +21,13 @@ class 'CPlayerTargetRunState' (CState)
 		local l_move_player = false
 		
 		if not _CCharacter.locked then
+			if self.enemy_detected ~= nil then
+				if not self.enemy_detected:is_alive() then
+					get_game_process():get_character_manager().target_enemy = nil
+					_CCharacter.is_target_fixed = false
+				end
+			end
+			
 			--Mira si se desbloquea el target
 			if self.action_2_input:do_action('PlayerTarget') then
 				_CCharacter.is_target_fixed = false

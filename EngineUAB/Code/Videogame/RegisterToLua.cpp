@@ -77,6 +77,7 @@ void RegisterToLuaCharacter(lua_State* _pLua)
 				.def("add_strong", &CCharacter::AddStrong)
 				.def("rest_strong", &CCharacter::RestStrong)
 				.def("get_front", &CCharacter::GetFront)
+				.def("is_alive", &CCharacter::IsAlive)
 				.property( "behaviours", &CCharacter::GetBehaviours)
 				.property( "steering_entity", &CCharacter::GetSteeringEntity)
 				.property("physic_controller", &CCharacter::GetController)	
@@ -112,7 +113,6 @@ void RegisterToLuaProperties(lua_State* _pLua)
 				.property("bounding_radius", &CProperties::GetBoundingRadious, &CProperties::SetBoundingRadious)
 				.property("max_speed", &CProperties::GetMaxSpeed, &CProperties::SetMaxSpeed)
 				.property("animation_offset", &CProperties::GetAnimationOffset)
-				
 		];
 }
 
