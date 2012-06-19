@@ -202,6 +202,7 @@ void CTriggersManager::OnEnter ( CPhysicUserData* _Entity_Trigger1, CPhysicUserD
 		if( _Entity_Trigger1 == l_It->second.pTriggerActor->GetUserData() && l_It->second.Active )
 		{
 			SCRIPT->RunCode( l_It->second.LuaCode );
+			l_It->second.Active = false;
 		}
 	}
 }
