@@ -743,7 +743,7 @@ CCharacter* CCharactersManager::SearchTargetEnemy(float _Distance, float _AngleV
 	TVectorResources::iterator l_End = l_EnemyList.end();
 	for(; l_It != l_End; ++l_It)
 	{
-		if( (*l_It)->IsAlive() )
+		if( (*l_It)->IsAlive() && (*l_It)->GetProperties()->GetActive() )
 		{
 			//Mira si el enemigo está más cerca que el resto del player
 			float l_CurrentDistance = l_Pos.Distance( (*l_It)->GetPosition() );
