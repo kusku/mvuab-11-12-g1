@@ -82,11 +82,10 @@ class 'CPlayerIdleState' (CState)
 			local l_Enemy = get_game_process():get_character_manager():get_enemy_by_id(_Msg.sender)
 			local l_received_pain = math.random( ( l_Enemy.properties.strong/ 2 ), l_Enemy.properties.strong) 
 			local l_received_pain_to_hit = l_Enemy.properties.strong * 0.95		-- Busco el 95% de la fuerza total
-			print_logger(1, "l_received_pain_to_hit----- :"..l_received_pain_to_hit)
-			print_logger(1, "l_received_pain----- :"..l_received_pain)
 			if ( l_received_pain >= l_received_pain_to_hit  ) then
-				_CCharacter.logic_fsm:change_state(_CCharacter.hit)
-				_CCharacter.graphic_fsm:change_state(_CCharacter.animated_hit)
+				--_CCharacter.logic_fsm:change_state(_CCharacter.hit)
+				--_CCharacter.graphic_fsm:change_state(_CCharacter.animated_hit)
+				_CCharacter:hit_to_player()
 			end
 			print_logger(1, "PLAYER LIFE :".._CCharacter.properties.life)
 			
