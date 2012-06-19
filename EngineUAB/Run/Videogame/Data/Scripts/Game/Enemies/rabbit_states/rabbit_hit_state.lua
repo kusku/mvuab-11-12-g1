@@ -11,6 +11,8 @@ class 'CRabbitHitState' (CState)
 			_CCharacter:get_animation_model():blend_cycle( num, 0.01 )
 		end
 		self.hit_animation_time = 0.0
+		print_logger(0, "HIT")
+		_CCharacter:rest_life(_CCharacter.player.properties.strong)
 	end
 	
 	function CRabbitHitState:Execute(_CCharacter)

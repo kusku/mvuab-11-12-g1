@@ -328,7 +328,7 @@ void CCharacter::RestLife( int _Life )
 	if ( l_Life <= 0 ) 
 	{
 		l_Life = 0;
-		SetAlive(false);
+		m_bIsAlive = false;
 	}
 	m_pProperties->SetLife( l_Life ); 
 }

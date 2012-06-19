@@ -41,7 +41,9 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 	
 	// Pero si no hemos asignado nada y las propiedades són nulas creamos un nuevo objeto
 	if ( !l_Properties )
+	{
 		l_Properties = new CProperties();
+	}
 
 	l_Properties->SetName( _Name );
 	l_Properties->SetCore( _CoreName );
@@ -239,7 +241,7 @@ CProperties* CPropertiesManager::LoadPlayerProperties( const CXMLTreeNode &_Node
 //-----------------------------------------------------------------------------------------------------------------------------
 CProperties* CPropertiesManager::LoadEnemyProperties( const CXMLTreeNode &_Node )
 {
-	LOGGER->AddNewLog ( ELL_INFORMATION, "CPropertiesManager::LoadEnemyProperties-->Loading enemy properties node." );
+	LOGGER->AddNewLog( ELL_INFORMATION, "CPropertiesManager::LoadEnemyProperties-->Loading enemy properties node." );
 
 	CXMLTreeNode l_MainNode = _Node;
 
@@ -250,22 +252,14 @@ CProperties* CPropertiesManager::LoadEnemyProperties( const CXMLTreeNode &_Node 
 		std::string l_CoreName = l_MainNode.GetPszProperty( "core", "", false );
 		std::string l_AnimatedInstance = l_MainNode.GetPszProperty( "animated_instace_name", "", false ); 
 	
-		/*if ( GetResource ( l_CoreName ) )
-		{
-			std::string msg_error = "CPropertiesManager::LoadXML --> Error when trying to load a defauld property already exist: " + l_CoreName;
-			LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
-			return false;
-		}*/
-		
 		// devuelvo las propiedades del enemigo
-		return LoadProperties ( l_MainNode, l_Name, l_CoreName, l_AnimatedInstance );
+		return LoadProperties( l_MainNode, l_Name, l_CoreName, l_AnimatedInstance );
 	}
-	else 
-	{
-		std::string msg_error = "CPropertiesManager::LoadEnemyProperties --> Error when trying to load a default property : " + l_Type;
-		LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
-		return false;
-	}
+
+	std::string msg_error = "CPropertiesManager::LoadEnemyProperties --> Error when trying to load a default property : " + l_Type;
+	LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
+
+	return NULL;
 }
 
 void CPropertiesManager::CleanUp( void )
