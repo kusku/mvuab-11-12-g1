@@ -426,7 +426,9 @@
     <None Include="..\..\Run\Videogame\Data\XML\animal_movement.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\animated_models.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\billboard_animations.xml" />
-    <None Include="..\..\Run\Videogame\Data\XML\characters_animated_states.xml" />
+    <None Include="..\..\Run\Videogame\Data\XML\characters_animated_states.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="..\..\Run\Videogame\Data\XML\characters_properties.xml">
       <SubType>Designer</SubType>
     </None>
@@ -459,7 +461,9 @@
     <None Include="..\..\Run\Videogame\Data\XML\script_gameplay.xml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="..\..\Run\Videogame\Data\XML\sounds.xml" />
+    <None Include="..\..\Run\Videogame\Data\XML\sounds.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="..\..\Run\Videogame\Data\XML\static_meshes.xml">
       <SubType>Designer</SubType>
     </None>
