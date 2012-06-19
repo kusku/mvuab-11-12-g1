@@ -24,7 +24,7 @@
 	</omni>-->
 
   
-  <directional name="Direct001" pos="0 200.0 200.0" color="234 220 66" att_start_range="200.0" att_end_range="200.0" intensity="1.0" generate_shadow_map="true" shadow_map_format_type="G32R32F" shadow_map_width="2048" shadow_map_height="2048" dir="8.96186 -39.468 -213.19" directional_light_camara_size_w="256" directional_light_camara_size_h="256" >
+  <directional name="Direct001" pos="0 100 213" color="234 220 66" att_start_range="400.0" att_end_range="400.0" intensity="1.0" generate_shadow_map="true" shadow_map_format_type="G32R32F" shadow_map_width="2048" shadow_map_height="2048" dir="-3.95383e-006 -87.6215 -293.514" directional_light_camara_size_w="256" directional_light_camara_size_h="256" >
     <dynamic renderable_objects_layer="solid" />
     <dynamic renderable_objects_layer="vegetation" />
   </directional>

@@ -427,12 +427,16 @@
     <None Include="..\..\Run\Videogame\Data\XML\animated_models.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\billboard_animations.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\characters_animated_states.xml" />
-    <None Include="..\..\Run\Videogame\Data\XML\characters_properties.xml" />
+    <None Include="..\..\Run\Videogame\Data\XML\characters_properties.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="..\..\Run\Videogame\Data\XML\debug_options.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\effects.xml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="..\..\Run\Videogame\Data\XML\engine.xml" />
+    <None Include="..\..\Run\Videogame\Data\XML\engine.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="..\..\Run\Videogame\Data\XML\fonts.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\gui.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\input.xml" />
@@ -443,16 +447,22 @@
     </None>
     <None Include="..\..\Run\Videogame\Data\XML\ParticleSettings.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\ParticleSystems.xml" />
-    <None Include="..\..\Run\Videogame\Data\XML\renderable_objects.xml" />
+    <None Include="..\..\Run\Videogame\Data\XML\renderable_objects.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="..\..\Run\Videogame\Data\XML\renderable_object_techniques.xml" />
-    <None Include="..\..\Run\Videogame\Data\XML\scene_renderer_commands.xml" />
+    <None Include="..\..\Run\Videogame\Data\XML\scene_renderer_commands.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="..\..\Run\Videogame\Data\XML\scene_renderer_gui_commands.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\scripts.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\script_gameplay.xml">
       <SubType>Designer</SubType>
     </None>
     <None Include="..\..\Run\Videogame\Data\XML\sounds.xml" />
-    <None Include="..\..\Run\Videogame\Data\XML\static_meshes.xml" />
+    <None Include="..\..\Run\Videogame\Data\XML\static_meshes.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="..\..\Run\Videogame\Data\XML\triggers.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\waypoints.xml" />
   </ItemGroup>

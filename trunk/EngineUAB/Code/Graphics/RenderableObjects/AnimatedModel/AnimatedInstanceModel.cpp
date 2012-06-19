@@ -165,6 +165,12 @@ void CAnimatedInstanceModel::RenderModelByHardware(CRenderManager* RM)
 
 			l_Effect->SetFloatArray(m_Effect->GetBonesMatrix(), (float *)l_Matrix,(l_CalHardwareModel->getBoneCount())*3*4);
 			m_AnimatedCoreModel->GetTextureById(0)->Activate(0);
+			
+			if(m_AnimatedCoreModel->GetNumTextures() != 1)
+			{
+				m_AnimatedCoreModel->GetTextureById(1)->Activate(1);
+			}
+			
 			//m_NormalTextureList[0]->Activate(1);
 	
 			m_AnimatedCoreModel->GetRenderableVertexs()->Render(RM, l_EffectTechnique, l_CalHardwareModel->getBaseVertexIndex(), 

@@ -308,7 +308,7 @@ VertexShaderNormalOutput RenderCal3DHWNormalVS(VertexShaderNormalInput input)
 	return output;
 }
 
-float4 RenderCal3DHWNormalPS(VertexShaderNormalOutput input, uniform bool shadow) : COLOR
+float4 RenderCal3DHWNormalPS(VertexShaderNormalOutput input, uniform bool shadow) : COLOR0  
 {
 	float4 TexColor = tex2D(DiffuseTextureSampler, input.TexCoord);
 	
