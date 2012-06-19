@@ -17,13 +17,14 @@
   <enable_z_test />
   
 
-  <SkySphere SkyTexture="./Data/General/Textures/NewSky.dds" SkyCloudTexture="./Data/General/Textures/clouds0.dds" Scale="500 400 500" SkyEffectTechnique="SkySphereEffect" />
+  <SkySphere SkyTexture="./Data/General/Textures/NewSky.dds" Scale="500 400 500" SkyEffectTechnique="SkySphereEffect" />
   <SkySphere SkyCloudTexture="./Data/General/Textures/clouds2.dds" Scale="499 399 499" SkyEffectTechnique="SkySphereEffectClouds" Clouds="true" />
 
   <render_particles />
 
   <set_pool_renderable_objects_technique pool="FowardShading" />
   <render_scene layer="solid" active="true" />
+  <render_scene layer="fish" active="true" />
 
   <set_pool_renderable_objects_technique pool="Vegetation1" />
   <render_scene layer="vegetation" active="true" />
@@ -42,7 +43,7 @@
   <render_debug_waypoints active="true" />
   <render_debug_process active="true" />
   <render_debug_physics active="false" />
-  <render_debug_lights active="false" />
+  <render_debug_lights active="true" />
   <render_debug_info grid="false" axis="false"  render_console="false" render_logger="true" render_modifiers="false" render_debug_options="false" render_debug_render="true" />
   <end_scene />
   <present />

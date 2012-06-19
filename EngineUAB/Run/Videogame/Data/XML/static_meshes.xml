@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <static_meshes>
-  <static_mesh name="Flor_Roja_Main" filename=".\Data\.\General\\Models\Flor_Roja_Main.m3d" />
   <static_mesh name="Parte060" filename=".\Data\.\General\\Models\Parte060.m3d" />
   <static_mesh name="Parte059" filename=".\Data\.\General\\Models\Parte059.m3d" />
   <static_mesh name="Parte058" filename=".\Data\.\General\\Models\Parte058.m3d" />
@@ -25,9 +24,6 @@
   <static_mesh name="Parte034" filename=".\Data\.\General\\Models\Parte034.m3d" />
   <static_mesh name="Parte033" filename=".\Data\.\General\\Models\Parte033.m3d" />
   <static_mesh name="Parte020" filename=".\Data\.\General\\Models\Parte020.m3d" />
-  <static_mesh name="Arbol_1_Main" filename=".\Data\.\General\\Models\Arbol_1_Main.m3d" />
-  <static_mesh name="Arbol_2_Main" filename=".\Data\.\General\\Models\Arbol_2_Main.m3d" />
-  <static_mesh name="Arbol_3_Main" filename=".\Data\.\General\\Models\Arbol_3_Main.m3d" />
   <static_mesh name="Puente_Piedra_2" filename=".\Data\.\General\\Models\Puente_Piedra_2.m3d" />
   <static_mesh name="parte01Puente003" filename=".\Data\.\General\\Models\parte01Puente003.m3d" />
   <static_mesh name="parte01Puente002" filename=".\Data\.\General\\Models\parte01Puente002.m3d" />
@@ -35,4 +31,6 @@
   <static_mesh name="Cabana" filename=".\Data\.\General\\Models\Cabana.m3d" />
   <static_mesh name="Agua_rio" filename=".\Data\.\General\\Models\Agua_rio.m3d" />
   <static_mesh name="Fish_Main" filename=".\Data\.\General\\Models\Fish_Main.m3d" />
+  <static_mesh name="Arbol_2_Main" filename=".\Data\.\General\\Models\Arbol_2_Main.m3d" />
+  <static_mesh name="Arbol_1_Main" filename=".\Data\.\General\\Models\Arbol_1_Main.m3d" />
 </static_meshes>
