@@ -36,12 +36,11 @@ class 'CRabbitPursuitState' (CState)
 	end
 	
 	function CRabbitPursuitState:OnMessage(_CCharacter, _Msg)
-		print_logger(0, "CRabbitPursuitState:OnMessage")
+		--print_logger(0, "CRabbitPursuitState:OnMessage")
 		if ( _Msg.msg == msg_attack ) then
-			print_logger(0, "Missatge acceptat per el llob")
+			print_logger(0, "CRabbitPursuitState:OnMessage->Mensaje acceptado por el Rabbit")
 			-- If depend tipus d'atac... treu més o menys vida... --
-			_CCharacter:rest_life( 1 )
-			print_logger(0, "CRabbitPursuitState:OnMessage->Rabbit life : ".._CCharacter.properties.life)
+			_CCharacter.logic_fsm:change_state(_CCharacter.hit_state)
 			return true
 		end
 		return false
