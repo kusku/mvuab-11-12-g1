@@ -89,10 +89,10 @@ class 'CPlayer' (CCharacter)
 		
 		--Actualiza la posición del objeto 3D
 		self.position = self.physic_controller.position
-		self.position = Vect3f(self.position.x, self.position.y - self.physic_controller.height + self.properties.animation_offset, self.position.z)
-		
+		self.position = Vect3f(self.position.x, self.position.y - self.physic_controller.height, self.position.z)
 		--Actualiza la posición del modelo animado
-		self.animated_model.position = self.position
+		local v = Vect3f(self.position.x, self.position.y - self.physic_controller.height + self.properties.animation_offset, self.position.z)
+		self.animated_model.position = v
 	end
 	
 	function CPlayer:detect_enemy()
