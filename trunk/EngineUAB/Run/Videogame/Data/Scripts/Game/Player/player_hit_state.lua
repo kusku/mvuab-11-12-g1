@@ -12,7 +12,7 @@ class 'CPlayerHitState' (CState)
 	end
 	
 	function CPlayerHitState:Execute(_CCharacter)
-		if self.animation_time > _CCharacter.animated_model:get_current_animation_duration("hit") - 0.1 then
+		if self.animation_time >= _CCharacter.animated_model:get_current_animation_duration("hit") then
 			_CCharacter.logic_fsm:change_state(_CCharacter.idle)
 			_CCharacter.graphic_fsm:change_state(_CCharacter.animated_idle)
 		else
