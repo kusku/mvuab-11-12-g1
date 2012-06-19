@@ -2,13 +2,14 @@ class 'CPlayerJumpState' (CState)
 	function CPlayerJumpState:__init() 
 		CState.__init(self)
 		self.action_2_input = core:get_action_to_input()
+		self.previous_position = Vect3f(0.0, 0.0, 0.0)
 	end
 
 	function CPlayerJumpState:OnEnter(_CCharacter)
 		core:get_debug_gui_manager().debug_render:set_state_name("Jump")
 		
 		self.animation_time = 0.0
-		_CCharacter.physic_controller:jump(60)
+		_CCharacter.physic_controller:jump(50)
 		
 		self.jump_yaw = _CCharacter.yaw
 		if self.action_2_input:do_action('MovePlayerUp') then --El player se mueve hacia adelante
@@ -46,10 +47,14 @@ class 'CPlayerJumpState' (CState)
 		local l_dir = Vect3f(math.cos(self.jump_yaw), 0.0, math.sin(self.jump_yaw))
 		
 		--Le aplica la velocidad al movimiento
-		l_dir = l_dir * 30.0 * _CCharacter.elapsed_time
+		l_dir = l_dir * 10.0 * _CCharacter.elapsed_time
 		
 		--Mueve el controller físico
 		_CCharacter.physic_controller:move(l_dir, _CCharacter.elapsed_time)
+		if self.previous_position.y == _CCharacter.physic_controller.position.y then			
+			_CCharacter.logic_fsm:change_state(_CCharacter.idle)
+			_CCharacter.graphic_fsm:change_state(_CCharacter.animated_idle)
+		end
 				
 		--Gira el perosnaje
 		_CCharacter.physic_controller.yaw = self.jump_yaw
@@ -57,6 +62,7 @@ class 'CPlayerJumpState' (CState)
 	end
 	
 	function CPlayerJumpState:OnExit(_CCharacter)
+		_CCharacter.physic_controller:move(Vect3f(0.0, 0.0, 0.0), _CCharacter.elapsed_time)
 	end
 	
 	function CPlayerJumpState:OnMessage(_CCharacter, _Msg)
