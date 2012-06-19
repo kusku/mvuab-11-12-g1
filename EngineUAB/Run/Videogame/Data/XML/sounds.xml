@@ -3,6 +3,7 @@
 	<Sound path="./Data/Sounds/gui_next.wav" 	soundId="guiNext"/>
 	<Sound path="./Data/Sounds/gui_over.wav" 	soundId="guiOver"/>
 	<Sound path="./Data/Sounds/gui_back.wav" 	soundId="guiBack"/>
-	<Sound path="./Data/Sounds/level_1_audio.wav" 	soundId="level_1"/>
+	<Sound path="./Data/Sounds/gui_audio.wav" 	soundId="gui_audio"/>
+	<Sound path="./Data/Sounds/level_1_music.wav" 	soundId="level_1"/>
 	<Sound path="./Data/Sounds/sword.wav" 	soundId="sword"/>
 </Sounds>
