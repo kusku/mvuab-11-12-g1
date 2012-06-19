@@ -128,7 +128,7 @@ bool CSkySphere::Render()
 	//Set World Matrix
 	Mat44f pos(m44fIDENTITY);
 	Vect3f newPos = CORE->GetCamera()->GetPosition();
-	newPos.y = -50;
+	newPos.y = 85;
 	pos.Translate(newPos);
 
 	CORE->GetEffectManager()->SetWorldMatrix(pos * m_World);
