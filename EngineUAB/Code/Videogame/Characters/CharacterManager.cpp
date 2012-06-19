@@ -524,6 +524,12 @@ bool CCharactersManager::LoadEnemiesAnimationStates( const CXMLTreeNode &_Node )
 	return l_IsOk;
 }
 
+CCharacter* CCharactersManager::GetCharacterById( int _Id )
+{
+	CCharacter * l_Character = dynamic_cast<CCharacter*> (ENTMGR->GetEntityFromID(_Id));
+	return l_Character;
+}
+
 void CCharactersManager::AddEnemy ( CCharacter *_pEnemy )
 {
 	AddResource ( _pEnemy->GetName(), _pEnemy );
