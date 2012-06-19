@@ -34,7 +34,7 @@ class 'CPlayerRunState' (CState)
 			
 			--Actualización del yaw a partir del movimiento del mouse
 			l_d = self.action_2_input:do_action_mouse('YawPlayer')
-			_CCharacter.yaw = _CCharacter.yaw + l_d
+			_CCharacter.yaw = _CCharacter.yaw - l_d
 			_CCharacter.yaw = angle_filter(_CCharacter.yaw)
 			l_yaw = _CCharacter.yaw
 		
