@@ -150,7 +150,7 @@ bool CCharactersManager::Reload ( void )
 //----------------------------------------------------------------------------------------------------
 // LoadXML : Tracta la càrrega dels fitxers XML amb tots els enemics, players i valors per defecte
 //----------------------------------------------------------------------------------------------------
-bool CCharactersManager::LoadXML( void )
+bool CCharactersManager::LoadXML()
 {
 	bool l_IsOk;
 
@@ -163,7 +163,7 @@ bool CCharactersManager::LoadXML( void )
 //----------------------------------------------------------------------------------------------------
 // Update : Actualiza el player i los enemigos registrados en el manager
 //----------------------------------------------------------------------------------------------------
-void CCharactersManager::Update ( float _ElapsedTime )
+void CCharactersManager::Update( float _ElapsedTime )
 {
 	assert(m_pPlayer != NULL);
 
@@ -172,9 +172,10 @@ void CCharactersManager::Update ( float _ElapsedTime )
 	
 	// Actualitzem l'enemic
 	TVectorResources l_EnemyList = GetResourcesVector();
-	for ( size_t i = 0; i < l_EnemyList.size(); i++ )
+	for ( size_t i = 0; i < l_EnemyList.size(); ++i )
 	{
-		if ( l_EnemyList[i]->GetProperties()->GetActive() )
+		CProperties *properties = l_EnemyList[i]->GetProperties();
+		if ( properties->GetActive() )
 		{
 			l_EnemyList[i]->Update( _ElapsedTime );
 			if ( !l_EnemyList[i]->IsAlive() )
@@ -379,23 +380,9 @@ bool CCharactersManager::LoadEnemiesProperties( const CXMLTreeNode &_Node )
 				if ( l_EnemyProperties )
 				{
 					CCharacter* l_Character = GetResource( l_EnemyProperties->GetName() );
-					/*CEnemy* l_Enemy = NULL;
-					if ( !l_Character )
-						l_Enemy = new CEnemy(l_NextIDValid);
-					else
-						l_Enemy = dynamic_cast<CEnemy*> (l_Character);*/
-
-					//asignamos las propiedades al player
-					/*l_Character->SetProperties ( l_EnemyProperties );
-					l_Character->Init();
-					AddEnemy ( l_Enemy );
-					l_NextIDValid += 1;
-					l_IsOk = true;*/
 
 					if ( !l_Character )
 					{
-						//std::string l_Num = ConvertInt( l_NextIDValid );
-						//SCRIPT->RunCode("add_enemy( " + l_Num + ", '" + l_EnemyProperties->GetName() + "')");
 						if ( l_EnemyProperties->GetCore() == "lobo" )
 							l_Character = call_function<CCharacter*>(SCRIPT->GetLuaState(), "CWolf", l_NextIDValid, l_EnemyProperties->GetName() )[adopt(result)];
 						if ( l_EnemyProperties->GetCore() == "conejo" ) 
@@ -403,7 +390,9 @@ bool CCharactersManager::LoadEnemiesProperties( const CXMLTreeNode &_Node )
 					}
 
 					// Asignamos las propiedades
-					l_Character->SetProperties ( l_EnemyProperties );
+					CProperties *properties = new CProperties();
+					memcpy(properties, l_EnemyProperties, sizeof(CProperties));
+					l_Character->SetProperties(properties);
 		
 					// Inicializamos el player, sus estados, mayas animadas...
 					l_IsOk = l_Character->Initialize( l_EnemyProperties->GetName(), l_Character->GetProperties()->GetPosition(), ::ECG_ENEMICS );
@@ -419,11 +408,6 @@ bool CCharactersManager::LoadEnemiesProperties( const CXMLTreeNode &_Node )
 					LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
 					l_IsOk = false;
 				}
-			}
-			else if ( l_Type != "comment" ) 
-			{
-				std::string msg_error = "CCharactersManager::LoadEnemiesProperties--> Error, it cannot read the command line : " + l_Type;
-				LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
 			}
 		}
 	}

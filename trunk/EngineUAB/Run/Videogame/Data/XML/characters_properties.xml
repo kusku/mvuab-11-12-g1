@@ -9,26 +9,26 @@
 		<rotation_speed>360</rotation_speed>
 		<respawn_position>0 100 0</respawn_position>
 		<detection_distance>500</detection_distance>
-    <chase_distance>200</chase_distance>
-    <follow_path_distance>3000</follow_path_distance>
+		<chase_distance>200</chase_distance>
+		<follow_path_distance>3000</follow_path_distance>
 		<attack_distance>10</attack_distance>
 		<height_controller>1.0</height_controller>
 		<width_controller>0.3</width_controller>
 		<slope>45.0</slope>
 		<skin_width>0.1</skin_width>
 		<step_offset>0.5</step_offset>
-    <animation_offset>1.2</animation_offset>
+		<animation_offset>1.2</animation_offset>
 	</default_properties>
 	<default_properties core="lobo">
-		<active>true</active>
+		<active>false</active>
 		<life>200</life>
 		<strong>20</strong>
 		<speed>7</speed>
 		<direction>-10 -2 4</direction>
 		<rotation_speed>240</rotation_speed>
 		<detection_distance>500</detection_distance>
-    <chase_distance>200</chase_distance>
-    <follow_path_distance>3000</follow_path_distance>
+		<chase_distance>200</chase_distance>
+		<follow_path_distance>3000</follow_path_distance>
 		<attack_distance>10</attack_distance>
 		<tired_distance>10</tired_distance>
 		<panic_distance>10</panic_distance>
@@ -42,7 +42,7 @@
     <animation_offset>-0.8</animation_offset>
 	</default_properties>
 	<default_properties core="conejo">
-		<active>true</active>
+		<active>false</active>
 		<life>50</life>
 		<strong>5</strong>
 		<speed>8</speed>
@@ -61,7 +61,7 @@
 		<step_offset>0.5</step_offset>
 		<bounding_radius>10.5</bounding_radius>
 		<max_speed>0.15</max_speed>
-    <animation_offset>-0.0</animation_offset>
+		<animation_offset>-0.0</animation_offset>
 	</default_properties>
 	<player name="Jolete" core="caperucita" animated_instace_name="caperucita1" >
 		<life>1050</life>
