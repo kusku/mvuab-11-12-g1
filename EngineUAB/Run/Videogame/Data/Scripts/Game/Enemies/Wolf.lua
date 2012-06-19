@@ -275,7 +275,7 @@ class 'CWolf' (CCharacter)
 			l_IsOk = l_IsOk and true
 		end
 		
-		self.enable = false
+		--self.enable = false
 		self.fatigue = 2
 		
 		return l_IsOk
