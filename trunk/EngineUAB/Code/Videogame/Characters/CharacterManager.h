@@ -42,6 +42,8 @@ public:
 	bool				LoadXMLProperties		();									// Carga el XML de propiedades
 	bool				LoadXMLAnimatedStates	();									// Carga el XML de estados
 
+
+	CCharacter*			GetCharacterById		( int _Id );
 	CPhysicUserData*	ShootPlayerRaycast		();
 	CCharacter*			ExistEnemyUserData		( CPhysicUserData *_userData );
 	CCharacter*			IsPlayerNearEnemy		( float distance );

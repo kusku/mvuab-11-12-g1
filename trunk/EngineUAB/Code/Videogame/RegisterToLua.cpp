@@ -41,6 +41,8 @@ void RegisterToLuaTelegram(lua_State* _pLua)
 		[
 			class_<Telegram> ("Telegram")
 			.def_readwrite("msg",&Telegram::Msg)
+			.def_readwrite("sender",&Telegram::Sender)
+			.def_readwrite("receiver",&Telegram::Receiver)
 			.def_readwrite("extra_info", &Telegram::ExtraInfo)
 		];
 }
@@ -132,6 +134,7 @@ void RegisterToLuaCharacterManager(lua_State* _pLua)
 				.def("is_player_near_enemy", &CCharactersManager::IsPlayerNearEnemy)
 				.def("search_target_enemy", &CCharactersManager::SearchTargetEnemy)
 				.def("get_enemy_by_name", &CCharactersManager::GetEnemyByName)
+				.def("get_enemy_by_id", &CCharactersManager::GetCharacterById)
 				.property("target_enemy", &CCharactersManager::GetTargetEnemy, &CCharactersManager::SetTargetEnemy)
 				.property("preview_target_enemy", &CCharactersManager::GetPreviewTargetEnemy, &CCharactersManager::SetPreviewTargetEnemy)
 		];
