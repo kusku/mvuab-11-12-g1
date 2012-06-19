@@ -220,7 +220,9 @@ void CCharactersManager::Update ( float _ElapsedTime )
 void CCharactersManager::Render(CRenderManager *_RM, CFontManager *_FM)
 {
 	int life = m_pPlayer->GetProperties()->GetLife();
+	Vect3f l_Pos = m_pPlayer->GetController()->GetPosition();
 	_FM->DrawDefaultText(10, 50, colBLACK, "Life: %d", life);
+	_FM->DrawDefaultText(10, 65, colBLACK, "Position: %f, %f, %f", l_Pos.x, l_Pos.y, l_Pos.z);
 }
 
 //--------------------------------------------------
