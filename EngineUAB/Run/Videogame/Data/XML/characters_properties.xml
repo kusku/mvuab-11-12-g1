@@ -69,7 +69,7 @@
 		<speed>25</speed>
 		<direction>0 10 0</direction>
 		<respawn_position>0 10 0</respawn_position>
-		<position>-55 10 0</position>
+		<position>-66.407 -25.849 -121.407</position>
 	</player>
 	<enemies>
 		<enemy name="enemy1" core="lobo" animated_instace_name="lobo1" ></enemy>
