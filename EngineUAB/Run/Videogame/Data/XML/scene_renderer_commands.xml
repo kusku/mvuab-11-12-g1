@@ -17,8 +17,8 @@
   <enable_z_test />
   
 
-  <SkySphere SkyTexture="./Data/General/Textures/NewSky.dds" Scale="500 400 500" SkyEffectTechnique="SkySphereEffect" />
-  <SkySphere SkyCloudTexture="./Data/General/Textures/clouds2.dds" Scale="499 399 499" SkyEffectTechnique="SkySphereEffectClouds" Clouds="true" />
+  <SkySphere SkyTexture="./Data/General/Textures/SkyRelease1.dds" Scale="1000 900 1000" SkyEffectTechnique="SkySphereEffect" />
+  <!--<SkySphere SkyCloudTexture="./Data/General/Textures/clouds2.dds" Scale="499 399 499" SkyEffectTechnique="SkySphereEffectClouds" Clouds="true" />-->
 
   <render_particles />
 
@@ -34,10 +34,11 @@
   <set_pool_renderable_objects_technique pool="Water" />
   <render_scene layer="water" active="true" />
 
-
   <render_particles />
 
-  <render_billboards />
+  <!--<bloom_post_process BloomThreshold="0.95" BlurAmount="4.0" BloomIntensity=".75" BaseIntensity="1.5" BloomSaturation="1.0" BaseSaturation="1.0" />-->
+  
+  <render_billboards /> 
 
   <!--Debug-->
   <render_debug_waypoints active="true" />

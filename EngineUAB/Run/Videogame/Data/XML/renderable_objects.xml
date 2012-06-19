@@ -56,31 +56,8 @@
   <mesh_instance_hw name="Fish019" core="Fish_Main" position="28.3305 -37.2097 71.5336" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="fish" create_physics="false" />
   <mesh_instance_hw name="Fish020" core="Fish_Main" position="2.96181 -39.3699 90.8385" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="fish" create_physics="false" />
   <mesh_instance_hw name="Fish021" core="Fish_Main" position="-35.3904 -39.3699 153.64" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="fish" create_physics="false" />
-  
-  <mesh_instance name="Parte060" core="Parte060" position="-124.787 -22.1637 136.822" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-  <mesh_instance name="Parte059" core="Parte059" position="-38.8195 -26.5849 141.355" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-  <mesh_instance name="Parte058" core="Parte058" position="-2.58025 -29.4454 141.355" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-  <mesh_instance name="Parte056" core="Parte056" position="83.6441 -9.63694 141.355" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-  <mesh_instance name="Parte055" core="Parte055" position="-119.416 -19.1242 102.068" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-  <mesh_instance name="Parte054" core="Parte054" position="-55.0646 -11.6633 102.068" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-  <mesh_instance name="Parte051" core="Parte051" position="84.8938 -10.0812 102.068" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-  <mesh_instance name="Parte050" core="Parte050" position="-80.0565 -4.20054 71.8468" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-  <mesh_instance name="Parte049" core="Parte049" position="-8.82847 -29.6245 64.2914" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-  <mesh_instance name="Parte048" core="Parte048" position="40.0437 -29.9008 64.291" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-  <mesh_instance name="Parte047" core="Parte047" position="86.1313 -21.8874 64.2824" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-  <mesh_instance name="Parte046" core="Parte046" position="31.1939 -26.1229 27.8927" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-  <mesh_instance name="Parte045" core="Parte045" position="83.6232 -26.8708 28.0472" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-  <mesh_instance name="Parte044" core="Parte044" position="22.4071 -33.0134 -5.23068" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-  <mesh_instance name="Parte042" core="Parte042" position="-11.3236 -27.7627 -38.4609" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-  <mesh_instance name="Parte041" core="Parte041" position="39.9071 -27.7211 -38.4566" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-  <mesh_instance name="Parte040" core="Parte040" position="87.374 -28.3941 -38.4545" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-  <mesh_instance name="Parte039" core="Parte039" position="-36.3192 -22.3019 -74.5473" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-  <mesh_instance name="Parte038" core="Parte038" position="2.50195 -24.9375 -74.6951" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-  <mesh_instance name="Parte037" core="Parte037" position="45.362 -21.0358 -76.2369" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
+
   <mesh_instance name="Parte035" core="Parte035" position="87.393 -24.9295 -114.013" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-  <mesh_instance name="Parte034" core="Parte034" position="41.1299 -18.1046 -120.043" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-  <mesh_instance name="Parte033" core="Parte033" position="-8.81413 -18.6591 -123.043" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-  <mesh_instance name="Parte020" core="Parte020" position="-72.5595 -23.3105 135.311" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
 
   <mesh_instance name="parte01Puente" core="parte01Puente" position="87.9799 -24.364 -65.7458" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
   <mesh_instance name="parte01Puente002" core="parte01Puente002" position="90.5615 -24.793 19.8508" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
