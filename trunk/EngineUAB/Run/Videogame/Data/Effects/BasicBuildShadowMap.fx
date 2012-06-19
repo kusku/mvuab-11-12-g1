@@ -1,13 +1,24 @@
 #include "functions.fx"
 
+sampler2D DiffuseTextureMap : register( s0 ) = sampler_state
+{
+   MinFilter = Linear;
+   MagFilter = Linear;
+   MipFilter = Linear;   
+   AddressU  = Wrap;
+   AddressV  = Wrap;
+};
+
 struct VertexShaderInput
 {
     float3 Position : POSITION0;
+	float2 TexCoord : TEXCOORD0;
 };
 
 struct VertexShaderInstanceInput
 {
     float3 Position : POSITION0;
+	float2 TexCoord : TEXCOORD0;
 	float4 Mat1		: TEXCOORD1;
 	float4 Mat2		: TEXCOORD2;
 	float4 Mat3		: TEXCOORD3;
@@ -18,7 +29,8 @@ struct VertexShaderOutput
 {
     float4 Position : POSITION0;
 	//float3 PosView	: NORMAL0;
-	float2 PosView2	: TEXCOORD0;
+	float2 TexCoord : TEXCOORD0;
+	float2 PosView2	: TEXCOORD1;
 };
 
 VertexShaderOutput VertexShaderInstanceFunction(VertexShaderInstanceInput input)
@@ -36,6 +48,8 @@ VertexShaderOutput VertexShaderInstanceFunction(VertexShaderInstanceInput input)
     //output.PosView  = mul(float4(input.Position, 1), ShadowWorldView);
 	output.PosView2	= output.Position.zw;
 	
+	output.TexCoord = input.TexCoord;
+
     return output;
 }
 
@@ -47,6 +61,8 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
     //output.PosView  = mul(float4(input.Position, 1), ShadowWorldView);
 	output.PosView2	= output.Position.zw;
 	
+	output.TexCoord = input.TexCoord;
+
     return output;
 }
 
@@ -58,6 +74,13 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
     float2 Moments = ComputeMoments(Depth) - GetFPBias();
     
 	float4 ret = float4(Moments.x, Moments.y, 0, 1);
+
+	float alfa = tex2D(DiffuseTextureMap, input.TexCoord).a;
+	
+	//if(alfa == 0)
+	//{
+		clip(alfa < 0.1 ? -1 : 1);
+	//}
 	
 	return ret;
 }
