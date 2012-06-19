@@ -81,11 +81,12 @@
   <mesh_instance name="Parte034" core="Parte034" position="41.1299 -18.1046 -120.043" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
   <mesh_instance name="Parte033" core="Parte033" position="-8.81413 -18.6591 -123.043" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
   <mesh_instance name="Parte020" core="Parte020" position="-72.5595 -23.3105 135.311" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
- 
+
+  <mesh_instance name="parte01Puente" core="parte01Puente" position="87.9799 -24.364 -65.7458" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
+  <mesh_instance name="parte01Puente002" core="parte01Puente002" position="90.5615 -24.793 19.8508" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
+  <mesh_instance name="parte01Puente003" core="parte01Puente003" position="98.8359 -26.0131 -27.1432" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
+  
   <mesh_instance name="Puente_Piedra_2" core="Puente_Piedra_2" position="-20.779 -30.4888 106.705" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-  <mesh_instance name="parte01Puente003" core="parte01Puente003" position="98.7221 -26.0148 -26.9971" yaw="2.87924e-005" pitch="4.08403e-007" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-  <mesh_instance name="parte01Puente002" core="parte01Puente002" position="90.3305 -24.8852 19.5558" yaw="0.0305719" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
-  <mesh_instance name="parte01Puente" core="parte01Puente" position="87.7549 -24.1341 -65.7567" yaw="-0.0324033" pitch="-8.45362e-007" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
   <mesh_instance name="Cabana" core="Cabana" position="17.1051 -24.9482 122.662" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="bounding_box" />
   <mesh_instance name="Agua_rio" core="Agua_rio" position="53.4419 -14.6671 20.7192" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="water" create_physics="false" />
 
