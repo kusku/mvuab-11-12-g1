@@ -10,4 +10,5 @@
 	<animation name="attack3" filename="caperucita_ataque03.caf"/>
 	<animation name="jump" filename="caperucita_salto.caf"/>
 	<texture filename="df_caperucita.dds"/>
+	<texture filename="NRM_caperucita2.dds"/>
 </animated_model>
