@@ -60,10 +60,7 @@ class 'CWolfAttackState' (CState)
 	function CWolfAttackState:OnMessage(_CCharacter, _Msg)
 		print_logger(0, "CWolfAttackState:OnMessage-> Missatge rebut: ".._Msg.msg)
 		if ( _Msg.msg == msg_attack ) then
-			print_logger(0, "Missatge acceptat per el llob")
-			-- -- If depend tipus d'atac... treu més o menys vida... --
-			_CCharacter:rest_life( 1 ) -- NO!! Ho farà el Hit però podria tenir algun cas que no
-			print_logger(0, "WOLF life : ".._CCharacter.properties.life)
+			--print_logger(0, "Missatge acceptat per el llob")
 			if ( self.attack_animation_time < _CCharacter.animated_model:get_current_animation_duration("attack_still") ) then 
 				_CCharacter.logic_fsm:change_state(_CCharacter.hit_state)
 			end

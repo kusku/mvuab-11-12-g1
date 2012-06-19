@@ -38,10 +38,8 @@ class 'CWolfPursuitState' (CState)
 	function CWolfPursuitState:OnMessage(_CCharacter, _Msg)
 		print_logger(0, "CWolfPursuitState:OnMessage")
 		if ( _Msg.msg == msg_attack ) then
-			print_logger(0, "Missatge acceptat per el llob")
-			-- If depend tipus d'atac... treu més o menys vida... --
-			_CCharacter:rest_life( 1 )
-			print_logger(0, "WOLF life : ".._CCharacter.properties.life)
+			-- print_logger(0, "Missatge acceptat per el llob")
+			_CCharacter.logic_fsm:change_state(_CCharacter.hit_state)
 			return true
 		end
 		return false
