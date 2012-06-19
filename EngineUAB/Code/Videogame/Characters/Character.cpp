@@ -147,7 +147,6 @@ bool CCharacter::Initialize ( const std::string &_Name, const Vect3f &_InitialPo
 	{
 		m_pCurrentAnimatedModel = static_cast<CAnimatedInstanceModel*> (l_RO);
 	}
-	this->SetName(_Name);
 
 	// Ahora creamos la parte física del controller del jugador
 	m_pPhysicUserDataJugador = new CPhysicUserData( _Name );
@@ -181,6 +180,9 @@ bool CCharacter::Initialize ( const std::string &_Name, const Vect3f &_InitialPo
 		m_pController->SetYaw( m_pProperties->GetYaw() );
 	}
 	
+	this->SetName(_Name);
+	this->SetEnable ( m_pProperties->GetActive() );
+
 	MoveTo( l_Position, 0.0f );
 
 	return true;
