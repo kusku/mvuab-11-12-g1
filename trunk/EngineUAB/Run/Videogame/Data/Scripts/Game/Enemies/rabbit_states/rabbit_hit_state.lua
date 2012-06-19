@@ -16,7 +16,7 @@ class 'CRabbitHitState' (CState)
 	function CRabbitHitState:Execute(_CCharacter)
 		-- print_logger(0, "CRabbitHitState:Execute")
 		if ( self.hit_animation_time >= _CCharacter.animated_model:get_current_animation_duration("hit") ) then
-			print_logger(0, "CRabbitHitState:OnMessage->WOLF life : ".._CCharacter.properties.life)
+			print_logger(0, "CRabbitHitState:OnMessage->RABBIT life : ".._CCharacter.properties.life)
 			_CCharacter.logic_fsm:revert_to_previous_state()
 		end
 		self.hit_animation_time = self.hit_animation_time + _CCharacter.elapsed_time
