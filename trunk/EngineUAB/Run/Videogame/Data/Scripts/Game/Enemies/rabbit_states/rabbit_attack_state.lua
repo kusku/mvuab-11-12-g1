@@ -61,12 +61,12 @@ class 'CRabbitAttackState' (CState)
 	function CRabbitAttackState:OnMessage(_CCharacter, _Msg)
 		print_logger(0, "CRabbitAttackState:OnMessage-> Missatge rebut: ".._Msg.msg)
 		if ( _Msg.msg == msg_attack ) then
-			print_logger(0, "Missatge acceptat per el llob")
-			-- -- If depend tipus d'atac... treu més o menys vida... --
-			_CCharacter:rest_life( 1 ) -- NO!! Ho farà el Hit però podria tenir algun cas que no
-			print_logger(0, "WOLF life : ".._CCharacter.properties.life)
-			if ( self.attack_animation_time < _CCharacter.animated_model:get_current_animation_duration(self.animation_name) ) then 
+			-- Solo me pongo en hit si realmente he finalizado el estado de ataqueç
+			print_logger ( 1, "ARA REBO!" )
+			if ( self.attack_animation_time < _CCharacter.animated_model:get_current_animation_duration(self.active_animation_name) ) then 
 				_CCharacter.logic_fsm:change_state(_CCharacter.hit_state)
+			else
+				_CCharacter:rest_life(  _CCharacter.player.properties.strong )
 			end
 			return true
 		end

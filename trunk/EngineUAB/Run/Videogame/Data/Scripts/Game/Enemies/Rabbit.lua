@@ -266,7 +266,7 @@ class 'CRabbit' (CCharacter)
 			l_IsOk = l_IsOk and true
 		end
 		
-		self.enable = false
+		self.enable = true
 		self.fatigue = 2
 		
 		return l_IsOk

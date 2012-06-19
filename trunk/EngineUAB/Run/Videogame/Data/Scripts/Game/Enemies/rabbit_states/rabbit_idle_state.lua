@@ -18,11 +18,11 @@ class 'CRabbitIdleState' (CState)
 		-- print_logger (1, "Distancia al player: "..l_distance)
 		if ( is_player_detected( _CCharacter, _CCharacter.player ) ) then 
 			-- Is Attacable --
-			if ( is_player_attackable( _CCharacter, _CCharacter.player ) ) then
-				--_CCharacter.graphic_fsm:change_state(_CCharacter.attack_state)
+			-- if ( is_player_attackable( _CCharacter, _CCharacter.player ) ) then
+				-- --_CCharacter.graphic_fsm:change_state(_CCharacter.attack_state)
 				
-			-- Pursuit --
-			else
+			-- -- Pursuit --
+			-- else
 				-- player no atacable i lo perseguimos pq lo hemos detectado
 				
 				-- 1) Caso en que está lejísimo. Seguramente debe hacer un rodeo y usar los waypoints
@@ -39,7 +39,7 @@ class 'CRabbitIdleState' (CState)
 					-- _CCharacter.logic_fsm:change_state(_CCharacter.seek_state)
 					-- print_logger (1, "ara molt aprop")
 				-- end 
-			end
+			-- end
 		
 		-- No detecto player --> no hago nada o patrullo. TODO!!
 		else
@@ -59,10 +59,6 @@ class 'CRabbitIdleState' (CState)
 	function CRabbitIdleState:OnMessage(_CCharacter, _Msg)
 		print_logger(0, "CRabbitIdleState:OnMessage")	
 		if ( _Msg.msg == msg_attack ) then
-			print_logger(0, "Missatge acceptat per el llob")
-			-- If depend tipus d'atac... treu més o menys vida... --
-			_CCharacter:rest_life( 1 )
-			print_logger(0, "CRabbitIdleState:OnMessage->WOLF life : ".._CCharacter.properties.life)
 			_CCharacter.logic_fsm:change_state(_CCharacter.hit_state)
 			return true
 		end
