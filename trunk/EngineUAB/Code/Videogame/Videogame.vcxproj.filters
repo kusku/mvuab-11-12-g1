@@ -384,6 +384,12 @@
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_idle_state.lua">
       <Filter>Scripts\Game\Enemies\rabbit_states</Filter>
     </None>
+    <None Include="..\..\Run\Videogame\Data\Effects\functions.fx">
+      <Filter>Effects</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Effects\Samplers.h">
+      <Filter>Effects</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\Run\Videogame\Data\Effects\VignettingNoise.fx">
@@ -407,9 +413,6 @@
     <CustomBuild Include="..\..\Run\Videogame\Data\Effects\SkySphereEffect.fx">
       <Filter>Effects</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\Samplers.h">
-      <Filter>Effects</Filter>
-    </CustomBuild>
     <CustomBuild Include="..\..\Run\Videogame\Data\Effects\ParticleEffect.fx">
       <Filter>Effects</Filter>
     </CustomBuild>
@@ -426,9 +429,6 @@
       <Filter>Effects</Filter>
     </CustomBuild>
     <CustomBuild Include="..\..\Run\Videogame\Data\Effects\fxaa.fx">
-      <Filter>Effects</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\functions.fx">
       <Filter>Effects</Filter>
     </CustomBuild>
     <CustomBuild Include="..\..\Run\Videogame\Data\Effects\ForwardLightingWithNormal.fx">
