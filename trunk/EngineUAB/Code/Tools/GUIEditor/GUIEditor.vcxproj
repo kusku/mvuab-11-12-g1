@@ -56,14 +56,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Tools\$(ProjectName);$(vcinstaller)\Include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\lua-5.2.0\src;$(SolutionDir)\Code\3dParty\luabind-0.9.1;$(SolutionDir)\Code\3dParty\boost_1_48_0;$(SolutionDir)\Code\3dParty\OpenAL\Include;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\GUI\;$(SolutionDir)\Code\Logic\;$(SolutionDir)\Code\PhysX;$(SolutionDir)\Code\Sound;$(DXSDK_DIR)\Include;$(_PHYSX_SDK)\Foundation\include;$(_PHYSX_SDK)\NxCharacter\include;$(_PHYSX_SDK)\Physics\include;$(_PHYSX_SDK)\PhysXLoader\include;$(_PHYSX_SDK)\Cooking\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Tools\$(ProjectName);$(vcinstaller)\Include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\lua-5.2.0\src;$(SolutionDir)\Code\3dParty\luabind-0.9.1;$(SolutionDir)\Code\3dParty\boost_1_48_0;$(SolutionDir)\Code\3dParty\OpenAL\Include;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\GUI\;$(SolutionDir)\Code\Logic\;$(SolutionDir)\Code\PhysX;$(SolutionDir)\Code\Sound;$(DXSDK_DIR)\Include;$(_PHYSX_SDK)\Foundation\include;$(_PHYSX_SDK)\NxCharacter\include;$(_PHYSX_SDK)\Physics\include;$(_PHYSX_SDK)\PhysXLoader\include;$(_PHYSX_SDK)\Cooking\include;$(WWISESDK)\include;$(WWISESDK)\samples\SoundEngine\Win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\lib;$(SolutionDir)\bin\lib;$(DXSDK_DIR)\lib\x86;$(_PHYSX_SDK)\lib\Win32;$(SolutionDir)\Code\3dParty\openAL\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libxml2.lib;base_d.lib;core_d.lib;graphics_d.lib;input_d.lib;gui_d.lib;physx_d.lib;logic_d.lib;sound_d.lib;LUA_d.lib;LUABind_d.lib;d3dx9d.lib;d3d9.lib;d3dxof.lib;dxguid.lib;dinput8.lib;xinput.lib;winmm.lib;cal3d_d.lib;PhysXLoader.lib;NxCooking.lib;NxCharacter.lib;OpenAL32.lib;alut.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\lib;$(SolutionDir)\bin\lib;$(DXSDK_DIR)\lib\x86;$(_PHYSX_SDK)\lib\Win32;$(SolutionDir)\Code\3dParty\openAL\lib;$(WWISESDK)\Win32_vc100\$(Configuration)\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libxml2.lib;base_d.lib;core_d.lib;graphics_d.lib;input_d.lib;gui_d.lib;physx_d.lib;logic_d.lib;sound_d.lib;LUA_d.lib;LUABind_d.lib;d3dx9d.lib;d3d9.lib;d3dxof.lib;dxguid.lib;dinput8.lib;xinput.lib;winmm.lib;cal3d_d.lib;PhysXLoader.lib;NxCooking.lib;NxCharacter.lib;OpenAL32.lib;alut.lib;AkSoundEngine.lib;AkMemoryMgr.lib;AkStreamMgr.lib;AkMusicEngine.lib;AkSoundEngineDLL.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -84,7 +84,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Tools\$(ProjectName);$(vcinstaller)\Include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\lua-5.2.0\src;$(SolutionDir)\Code\3dParty\luabind-0.9.1;$(SolutionDir)\Code\3dParty\boost_1_48_0;$(SolutionDir)\Code\3dParty\OpenAL\Include;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\GUI\;$(SolutionDir)\Code\Logic\;$(SolutionDir)\Code\PhysX;$(SolutionDir)\Code\Sound;$(DXSDK_DIR)\Include;$(_PHYSX_SDK)\Foundation\include;$(_PHYSX_SDK)\NxCharacter\include;$(_PHYSX_SDK)\Physics\include;$(_PHYSX_SDK)\PhysXLoader\include;$(_PHYSX_SDK)\Cooking\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Tools\$(ProjectName);$(vcinstaller)\Include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\lua-5.2.0\src;$(SolutionDir)\Code\3dParty\luabind-0.9.1;$(SolutionDir)\Code\3dParty\boost_1_48_0;$(SolutionDir)\Code\3dParty\OpenAL\Include;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\GUI\;$(SolutionDir)\Code\Logic\;$(SolutionDir)\Code\PhysX;$(SolutionDir)\Code\Sound;$(DXSDK_DIR)\Include;$(_PHYSX_SDK)\Foundation\include;$(_PHYSX_SDK)\NxCharacter\include;$(_PHYSX_SDK)\Physics\include;$(_PHYSX_SDK)\PhysXLoader\include;$(_PHYSX_SDK)\Cooking\include;$(WWISESDK)\include;$(WWISESDK)\samples\SoundEngine\Win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -92,8 +92,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\lib;$(SolutionDir)\bin\lib;$(DXSDK_DIR)\lib\x86;$(_PHYSX_SDK)\lib\Win32;$(SolutionDir)\Code\3dParty\openAL\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libxml2.lib;base.lib;core.lib;graphics.lib;input.lib;physx.lib;gui.lib;logic.lib;sound.lib;d3dx9d.lib;d3d9.lib;d3dxof.lib;dxguid.lib;dinput8.lib;xinput.lib;winmm.lib;cal3d.lib;LUA.lib;LUABind.lib;PhysXLoader.lib;NxCooking.lib;NxCharacter.lib;alut.lib;OpenAL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\lib;$(SolutionDir)\bin\lib;$(DXSDK_DIR)\lib\x86;$(_PHYSX_SDK)\lib\Win32;$(SolutionDir)\Code\3dParty\openAL\lib;$(WWISESDK)\Win32_vc100\$(Configuration)\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libxml2.lib;base.lib;core.lib;graphics.lib;input.lib;physx.lib;gui.lib;logic.lib;sound.lib;d3dx9d.lib;d3d9.lib;d3dxof.lib;dxguid.lib;dinput8.lib;xinput.lib;winmm.lib;cal3d.lib;LUA.lib;LUABind.lib;PhysXLoader.lib;NxCooking.lib;NxCharacter.lib;alut.lib;OpenAL32.lib;AkSoundEngine.lib;AkMemoryMgr.lib;AkStreamMgr.lib;AkMusicEngine.lib;AkSoundEngineDLL.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>

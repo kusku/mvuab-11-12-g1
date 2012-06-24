@@ -24,7 +24,7 @@ void CRenderDebugSoundsSceneRendererCommand::Execute ( CRenderManager &_RM )
 {
 	if( GetActive() )
 	{
-		CORE->GetSoundManager()->Render( _RM );
+		CORE->GetSoundManager()->Render( &_RM );
 	}
 
 }

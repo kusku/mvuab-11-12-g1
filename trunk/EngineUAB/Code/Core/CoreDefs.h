@@ -123,7 +123,8 @@ struct SConfig
 	std::string triggers_system_path;
 
 	// Parametros del Sonido
-	std::string sound_system_path;
+	std::string sound_banks_path;
+	std::string speakers_path;
 
 	// Parametros del WayPoints
 	std::string waypoints_path;

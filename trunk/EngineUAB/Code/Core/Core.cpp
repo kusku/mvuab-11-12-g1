@@ -325,7 +325,7 @@ void CCore::Update( float _ElapsedTime )
 	// Tratamos mensajes en cola en cada frame --> se establecen los cambios de estado de las entidades registradas
 	m_pMessageDispatcher->DispatchDelayedMessages();
 
-	m_pSoundManager->Update(_ElapsedTime);
+	m_pSoundManager->Update();
 
 	if( m_bDebugMode )
 	{
@@ -462,7 +462,10 @@ bool CCore::LoadTriggers()
 
 bool CCore::LoadSounds()
 {
-	return m_pSoundManager->Load( m_Config.sound_system_path );
+	bool l_bIsOk = false;
+	l_bIsOk = m_pSoundManager->Init();
+	l_bIsOk &= m_pSoundManager->Load( m_Config.sound_banks_path, m_Config.speakers_path );
+	return l_bIsOk;
 }
 
 bool CCore::LoadDebugGUI()
