@@ -282,11 +282,12 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 			}
 			else if( l_Name == "Triggers" )
 			{
-				m_Config.triggers_system_path = l_ConfigNode(i).GetPszProperty ( "triggersXML", "" );
+				m_Config.triggers_system_path = l_ConfigNode(i).GetPszProperty( "triggersXML", "" );
 			}
 			else if( l_Name == "Sound" )
 			{
-				m_Config.sound_system_path = l_ConfigNode(i).GetPszProperty ( "soundXML", "" );
+				m_Config.sound_banks_path = l_ConfigNode(i).GetPszProperty( "soundbanks", "" );
+				m_Config.speakers_path = l_ConfigNode(i).GetPszProperty( "speakers", "" );
 			}
 			else if( l_Name == "Modifiers" )
 			{

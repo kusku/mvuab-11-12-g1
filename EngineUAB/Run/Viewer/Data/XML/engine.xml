@@ -30,6 +30,6 @@
 	<Debug_Options debug_options_xml="./data/XML/debug_options.xml" />
 	<TriggersSystem triggersXML="./Data/XML/triggers.xml" />
 	<GUI guiXML="./Data/XML/gui.xml" />
-	<Sound soundXML="./Data/XML/sounds.xml" />
+	<Sound soundbanks="./Data/XML/soundbanks.xml" speakers="./Data/XML/speakers.xml" />
 	<Waypoints wayPointsXML="./Data/XML/waypoints.xml" />
 </Config>

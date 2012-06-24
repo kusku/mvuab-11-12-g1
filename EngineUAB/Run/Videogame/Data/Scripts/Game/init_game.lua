@@ -16,8 +16,6 @@ Msg_Chase	= 9 	-- Persecució
 	
 function init_game_data()
 	print_logger(0, "Iniciant l'aplicació...")	
-	_soundM:stop()
-	local source = _soundM:create_source()
-	local ok = _soundM:play_source2D(source, 'level_1', true, 1.0)
+	_soundM:play_event('Play_MUS_Level_1')
 end
 

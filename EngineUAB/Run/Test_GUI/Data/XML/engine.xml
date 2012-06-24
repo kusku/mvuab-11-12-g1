@@ -28,5 +28,5 @@
 	<TriggersSystem triggersXML="./Data/XML/triggers.xml" />
 	<!--<GUI guiXML="./Data/XML/config.xml" />-->
 	<GUI guiXML="./Data/GUI/initGui_laberynth.xml" />
-	<Sound soundXML="./Data/XML/sounds.xml" />
+	<Sound soundbanks="./Data/XML/soundbanks.xml" speakers="./Data/XML/speakers.xml" />
 </Config>

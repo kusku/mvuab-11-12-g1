@@ -25,7 +25,7 @@
 	<ParticlesSystem particlesXML="./Data/XMLs/sistema_particulas.xml" />
 	<TriggersSystem triggersXML="./Data/XMLs/triggers.xml" />
 	<GUI guiXML="./Data/XML/gui.xml" />
-	<Sound soundXML="./Data/XMLs/sounds.xml" />
+	<Sound soundbanks="./Data/XML/soundbanks.xml" speakers="./Data/XML/speakers.xml" />
 	<Modifiers modifiersXML="./Data/XML/modifiers.xml" />
 	<Debug_Options debug_options_xml="./data/xml/debug_options.xml" />
 </Config>

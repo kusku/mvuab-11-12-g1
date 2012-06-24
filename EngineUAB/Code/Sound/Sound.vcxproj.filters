@@ -2,8 +2,12 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="Listener.cpp" />
+    <ClCompile Include="Speaker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="Listener.h" />
+    <ClInclude Include="Speaker.h" />
   </ItemGroup>
 </Project>

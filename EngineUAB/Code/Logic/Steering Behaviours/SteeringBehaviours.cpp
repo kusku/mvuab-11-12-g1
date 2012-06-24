@@ -86,8 +86,8 @@ const Vect2f& CSteeringBehaviours::Update( float _ElapsedTime, CSteeringEntity *
     //        
     //// Devolvemos la fuerza producira por el steering truncada a la limitación del valor máximo
     //return GameHelper.VectorHelper.TruncateVector(this._steeringForce, this._maxForce);
-	const Vect2f& v = Truncate(m_SteeringForce, m_MaxForce);
-	return v;
+	//const Vect2f& v = Truncate(m_SteeringForce, m_MaxForce);
+	return m_SteeringForce;
 }
 
 //template<typename T>

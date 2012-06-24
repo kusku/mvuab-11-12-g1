@@ -11,10 +11,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Listener.cpp" />
     <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="Speaker.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Listener.h" />
     <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="Speaker.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{13D69848-EE97-4804-9A7F-56CAD20EB8CB}</ProjectGuid>
@@ -62,9 +66,9 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;AKSOUNDENGINE_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>false</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Code\$(ProjectName);$(SolutionDir)\Code\Base;$(SolutionDir)\Code\Core;$(SolutionDir)\Code\Logic;$(SolutionDir)\Code\Graphics;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\openAL\include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\lua-5.2.0\src;$(SolutionDir)\Code\3dParty\boost_1_48_0;$(SolutionDir)\Code\3dParty\luabind-0.9.1</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Code\$(ProjectName);$(SolutionDir)\Code\Base;$(SolutionDir)\Code\Core;$(SolutionDir)\Code\Logic;$(SolutionDir)\Code\Graphics;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\openAL\include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\lua-5.2.0\src;$(SolutionDir)\Code\3dParty\boost_1_48_0;$(SolutionDir)\Code\3dParty\luabind-0.9.1;$(WWISESDK)\include;$(WWISESDK)\samples\SoundEngine\Win32</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -82,9 +86,9 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;AK_OPTIMIZED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>false</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Code\$(ProjectName);$(SolutionDir)\Code\Base;$(SolutionDir)\Code\Core;$(SolutionDir)\Code\Logic;$(SolutionDir)\Code\Graphics;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\openAL\include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\lua-5.2.0\src;$(SolutionDir)\Code\3dParty\boost_1_48_0;$(SolutionDir)\Code\3dParty\luabind-0.9.1</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Code\$(ProjectName);$(SolutionDir)\Code\Base;$(SolutionDir)\Code\Core;$(SolutionDir)\Code\Logic;$(SolutionDir)\Code\Graphics;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\openAL\include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\lua-5.2.0\src;$(SolutionDir)\Code\3dParty\boost_1_48_0;$(SolutionDir)\Code\3dParty\luabind-0.9.1;$(WWISESDK)\include;$(WWISESDK)\samples\SoundEngine\Win32</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

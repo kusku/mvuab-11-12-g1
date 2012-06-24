@@ -16,7 +16,7 @@ class 'CPlayerAttackState' (CState)
 					_CCharacter.logic_fsm:change_state(_CCharacter.attack2)
 					_CCharacter.graphic_fsm:change_state(_CCharacter.animated_attack2)
 			else
-				if get_game_process():get_time_between_clicks() < 0.3 then
+				if get_game_process():get_time_between_clicks() < 0.1 then
 					_CCharacter.logic_fsm:change_state(_CCharacter.attack2)
 					_CCharacter.graphic_fsm:change_state(_CCharacter.animated_attack2)
 				else
@@ -47,7 +47,7 @@ class 'CPlayerAttackState' (CState)
 	end
 	
 	function CPlayerAttackState:OnExit(_CCharacter)
-		local ok = _soundM:play_action_2D('sword',0.6)
+		_soundM:play_event('Play_EFX_Sword')
 		local enemy = get_game_process():get_character_manager():search_target_enemy(3.0, math.pi/6)
 		if enemy ~= nil then
 			
