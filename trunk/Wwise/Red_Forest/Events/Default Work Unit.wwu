@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" SchemaVersion="51">
+	<Events>
+		<WorkUnit Name="Default Work Unit" ID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="Play_MUS_GUI_Intro" ID="{CAD7D884-E521-423D-ABA9-FC21D0EDEE49}">
+					<ChildrenList>
+						<Action Name="Stop All" ID="{C7740B02-E372-466F-A21D-358E17F74E02}" ShortID="654750458" Type="Stop" Scope="All" Global="true" />
+						<Action Name="Play" ID="{276A9A1B-E731-4971-B4C4-0D76925B03EA}" ShortID="1069572768" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{590ECA8C-3834-4756-9209-0CC3B6454D66}" Global="false">
+									<ObjectRef Name="MUS_GUI_Intro" ID="{A79EF0FF-2D8E-4471-8C72-6B366C8FA11C}" WorkUnitID="{BAAA8488-2744-4EA9-8021-4AC153B97350}" />
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_EFX_GUI_Button_Over" ID="{E2EEAA92-1B23-482D-8A4E-2F039C955B51}">
+					<ChildrenList>
+						<Action Name="Play" ID="{D707DCBD-3EAE-49DC-9EFA-673000F24F8D}" ShortID="88113489" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{39ACB761-79C0-4DD5-939E-8046D936E92E}" Global="false">
+									<ObjectRef Name="EFX_GUI_Button_Over" ID="{CE9E7CB6-CDCD-4876-AE7C-91FDA639AACE}" WorkUnitID="{BAAA8488-2744-4EA9-8021-4AC153B97350}" />
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_EFX_GUI_Button_Next" ID="{2A18313F-821B-41AD-AF5F-60E10B6C1DCE}">
+					<ChildrenList>
+						<Action Name="Play" ID="{2D38335D-F439-4B1E-B09A-F47BA87152DB}" ShortID="1001093850" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{8C473BD6-93C4-489D-933B-127C8F66BAE2}" Global="false">
+									<ObjectRef Name="EFX_GUI_Button_Next" ID="{5387594A-2477-4984-AB13-A0DDF7560406}" WorkUnitID="{BAAA8488-2744-4EA9-8021-4AC153B97350}" />
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_EFX_GUI_Button_Back" ID="{6F493325-F482-44F2-956A-1B36549F33C3}">
+					<ChildrenList>
+						<Action Name="Play" ID="{F2C8235C-22F0-4A38-BCC1-02C6DF2E4B98}" ShortID="883717284" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{573CEEC3-8F21-4075-B25A-E23C92BF595F}" Global="false">
+									<ObjectRef Name="EFX_GUI_Button_Back" ID="{6BEA7189-2E62-4D81-9C51-9F2BEA012270}" WorkUnitID="{BAAA8488-2744-4EA9-8021-4AC153B97350}" />
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_MUS_Level_1" ID="{73F70F20-20AC-4A31-8567-997CD5C13282}">
+					<ChildrenList>
+						<Action Name="Stop All" ID="{4B35B305-AF5F-4624-B4B0-474885F9E6B3}" ShortID="89614146" Type="Stop" Scope="All" Global="true" />
+						<Action Name="Play" ID="{F7A782AE-B165-4CFA-BD68-3C966271E736}" ShortID="994113330" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{C3A21E99-7F2B-49D9-8E88-00E31AB850F7}" Global="false">
+									<ObjectRef Name="MUS_Level_1" ID="{AA2037B5-5339-4522-A49C-0B82A8069B9B}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_EFX_Sword" ID="{D65620B1-7106-4282-9F46-70EE054179ED}">
+					<ChildrenList>
+						<Action Name="Play" ID="{0BC4E784-5EF6-4961-B81A-5EB952366E06}" ShortID="224405076" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{187A9F3D-B9B9-4CD4-B436-566B3E89928C}" Global="false">
+									<ObjectRef Name="EFX_Sword" ID="{4C045EE6-EB30-4187-A24F-2DE756C95043}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

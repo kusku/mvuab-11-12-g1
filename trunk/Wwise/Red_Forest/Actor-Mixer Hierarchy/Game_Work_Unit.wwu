@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" SchemaVersion="51">
+	<AudioObjects>
+		<WorkUnit Name="Game_Work_Unit" ID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" PersistMode="Standalone">
+			<ChildrenList>
+				<Folder Name="Music" ID="{FB4755D7-E1E2-4D0A-906B-F4081AB46913}" ShortID="448917704">
+					<ChildrenList>
+						<Sound Name="MUS_Level_1" ID="{AA2037B5-5339-4522-A49C-0B82A8069B9B}" ShortID="864686587" Type="SoundFX">
+							<PropertyList>
+								<Property Name="IsLoopingEnabled" Type="bool" Value="True" />
+							</PropertyList>
+							<ChildrenList>
+								<AudioFileSource Name="level_1_music" ID="{910E2989-DB78-4F88-AB3A-A2A54C06ED87}" ShortID="574484578">
+									<Language>SFX</Language>
+									<AudioFile>level_1_music.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<BusRouting Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" />
+							<ConversionInfo>
+								<ConversionRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" />
+							</ConversionInfo>
+							<ActiveSourceList>
+								<ActiveSource Name="level_1_music" ID="{910E2989-DB78-4F88-AB3A-A2A54C06ED87}" Platform="Linked" />
+							</ActiveSourceList>
+						</Sound>
+					</ChildrenList>
+				</Folder>
+				<Folder Name="Effects" ID="{A50A5657-C903-4630-91DA-88FAA1916828}" ShortID="139761312">
+					<ChildrenList>
+						<Sound Name="EFX_Sword" ID="{4C045EE6-EB30-4187-A24F-2DE756C95043}" ShortID="762298784" Type="SoundFX">
+							<ChildrenList>
+								<AudioFileSource Name="sword" ID="{FB496644-9E32-46B1-8BB0-479700949252}" ShortID="626104674">
+									<Language>SFX</Language>
+									<AudioFile>sword.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<BusRouting Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" />
+							<ConversionInfo>
+								<ConversionRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" />
+							</ConversionInfo>
+							<ActiveSourceList>
+								<ActiveSource Name="sword" ID="{FB496644-9E32-46B1-8BB0-479700949252}" Platform="Linked" />
+							</ActiveSourceList>
+						</Sound>
+					</ChildrenList>
+				</Folder>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>

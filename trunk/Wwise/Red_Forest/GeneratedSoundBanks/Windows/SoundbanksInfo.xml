@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SoundBanksInfo Platform="Windows" SchemaVersion="9">
+	<RootPaths>
+		<ProjectRoot>C:\Users\Marc\Documents\WwiseProjects\Red_Forest\</ProjectRoot>
+		<SourceFilesRoot>C:\Users\Marc\Documents\WwiseProjects\Red_Forest\.cache\Windows\</SourceFilesRoot>
+		<SoundBanksRoot>C:\Users\Marc\Documents\WwiseProjects\Red_Forest\GeneratedSoundBanks\Windows\</SoundBanksRoot>
+		<ExternalSourcesInputFile></ExternalSourcesInputFile>
+		<ExternalSourcesOutputRoot>C:\Users\Marc\Documents\WwiseProjects\Red_Forest\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
+	</RootPaths>
+	<Arguments />
+	<DialogueEvents />
+	<StreamedFiles />
+	<SoundBanks>
+		<SoundBank Id="676535983" Language="SFX">
+			<ShortName>GUI_Bank</ShortName>
+			<Path>GUI_Bank.bnk</Path>
+			<IncludedEvents>
+				<Event Id="1621476486" Name="Play_EFX_GUI_Button_Back" />
+				<Event Id="4151175976" Name="Play_EFX_GUI_Button_Next" />
+				<Event Id="2151123781" Name="Play_EFX_GUI_Button_Over" />
+				<Event Id="1954071212" Name="Play_MUS_GUI_Intro" />
+			</IncludedEvents>
+			<IncludedDialogueEvents />
+			<ReferencedStreamedFiles />
+			<IncludedFullFiles>
+				<File Id="1013933578" Language="SFX">
+					<ShortName>gui_audio.wav</ShortName>
+					<Path>sfx\gui_audio_ab9e423e.wem</Path>
+				</File>
+				<File Id="1048577469" Language="SFX">
+					<ShortName>gui_back.wav</ShortName>
+					<Path>sfx\gui_back_ab9e423f.wem</Path>
+				</File>
+				<File Id="18890471" Language="SFX">
+					<ShortName>gui_next.wav</ShortName>
+					<Path>sfx\gui_next_ab9e423f.wem</Path>
+				</File>
+				<File Id="231337779" Language="SFX">
+					<ShortName>gui_over.wav</ShortName>
+					<Path>sfx\gui_over_ab9e423f.wem</Path>
+				</File>
+			</IncludedFullFiles>
+			<IncludedPrefetchFiles />
+			<ExternalSources />
+		</SoundBank>
+		<SoundBank Id="1355168291" Language="SFX">
+			<ShortName>Init</ShortName>
+			<Path>Init.bnk</Path>
+			<IncludedEvents />
+			<IncludedDialogueEvents />
+			<ReferencedStreamedFiles />
+			<IncludedFullFiles />
+			<IncludedPrefetchFiles />
+			<ExternalSources />
+		</SoundBank>
+		<SoundBank Id="4217467928" Language="SFX">
+			<ShortName>Game_Bank</ShortName>
+			<Path>Game_Bank.bnk</Path>
+			<IncludedEvents>
+				<Event Id="3187607523" Name="Play_EFX_Sword" />
+				<Event Id="4101543520" Name="Play_MUS_Level_1" />
+			</IncludedEvents>
+			<IncludedDialogueEvents />
+			<ReferencedStreamedFiles />
+			<IncludedFullFiles>
+				<File Id="574484578" Language="SFX">
+					<ShortName>level_1_music.wav</ShortName>
+					<Path>sfx\level_1_music_ab9e423e.wem</Path>
+				</File>
+				<File Id="626104674" Language="SFX">
+					<ShortName>sword.wav</ShortName>
+					<Path>sfx\sword_ab9e423f.wem</Path>
+				</File>
+			</IncludedFullFiles>
+			<IncludedPrefetchFiles />
+			<ExternalSources />
+		</SoundBank>
+	</SoundBanks>
+</SoundBanksInfo>

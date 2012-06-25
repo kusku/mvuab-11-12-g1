@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{414E2977-E923-4C76-8EAF-F10C1685C1F2}" SchemaVersion="51">
+	<Conversions>
+		<WorkUnit Name="Default Work Unit" ID="{414E2977-E923-4C76-8EAF-F10C1685C1F2}" PersistMode="Standalone">
+			<ChildrenList>
+				<Conversion Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}">
+					<PropertyList>
+						<Property Name="Channels" Type="int32">
+							<ValueList>
+								<Value Platform="NGP">4</Value>
+								<Value Platform="Windows">4</Value>
+								<Value Platform="Wii">4</Value>
+								<Value Platform="WiiUSW">4</Value>
+								<Value Platform="Xbox360">4</Value>
+								<Value Platform="3DS">4</Value>
+								<Value Platform="PS3">4</Value>
+								<Value Platform="iOS">4</Value>
+								<Value Platform="Mac">4</Value>
+								<Value Platform="Android">4</Value>
+							</ValueList>
+						</Property>
+						<Property Name="LRMix" Type="Real64">
+							<ValueList>
+								<Value Platform="NGP">0</Value>
+								<Value Platform="Windows">0</Value>
+								<Value Platform="Wii">0</Value>
+								<Value Platform="WiiUSW">0</Value>
+								<Value Platform="Xbox360">0</Value>
+								<Value Platform="3DS">0</Value>
+								<Value Platform="PS3">0</Value>
+								<Value Platform="iOS">0</Value>
+								<Value Platform="Mac">0</Value>
+								<Value Platform="Android">0</Value>
+							</ValueList>
+						</Property>
+						<Property Name="SampleRate" Type="int32">
+							<ValueList>
+								<Value Platform="NGP">0</Value>
+								<Value Platform="Windows">0</Value>
+								<Value Platform="Wii">0</Value>
+								<Value Platform="WiiUSW">0</Value>
+								<Value Platform="Xbox360">0</Value>
+								<Value Platform="3DS">0</Value>
+								<Value Platform="PS3">0</Value>
+								<Value Platform="iOS">0</Value>
+								<Value Platform="Mac">0</Value>
+								<Value Platform="Android">0</Value>
+							</ValueList>
+						</Property>
+					</PropertyList>
+					<ConversionPluginInfoList>
+						<ConversionPluginInfo Platform="NGP">
+							<ConversionPlugin Name="" ID="{54F59DC4-783D-4D24-8E00-5CC86AFE842C}" PluginName="PCM" CompanyID="0" PluginID="1" />
+						</ConversionPluginInfo>
+						<ConversionPluginInfo Platform="Windows">
+							<ConversionPlugin Name="" ID="{B2845903-F5FE-49FF-A86D-02CCEA4B38FA}" PluginName="PCM" CompanyID="0" PluginID="1" />
+						</ConversionPluginInfo>
+						<ConversionPluginInfo Platform="Wii">
+							<ConversionPlugin Name="" ID="{CF6F47E4-F62D-4070-B7C8-A9C3DDDC2CC2}" PluginName="PCM" CompanyID="0" PluginID="1" />
+						</ConversionPluginInfo>
+						<ConversionPluginInfo Platform="WiiUSW">
+							<ConversionPlugin Name="" ID="{1F719069-0E37-43DB-B724-49EBDE3633D0}" PluginName="PCM" CompanyID="0" PluginID="1" />
+						</ConversionPluginInfo>
+						<ConversionPluginInfo Platform="Xbox360">
+							<ConversionPlugin Name="" ID="{16110987-0215-4531-85F9-209AB8F467AB}" PluginName="PCM" CompanyID="0" PluginID="1" />
+						</ConversionPluginInfo>
+						<ConversionPluginInfo Platform="3DS">
+							<ConversionPlugin Name="" ID="{C3BEA6B0-6F94-4B4E-9B39-A2B6AFC4C9F2}" PluginName="PCM" CompanyID="0" PluginID="1" />
+						</ConversionPluginInfo>
+						<ConversionPluginInfo Platform="PS3">
+							<ConversionPlugin Name="" ID="{27EDE765-A9B7-4F81-9D21-D2460AE9A27E}" PluginName="PCM" CompanyID="0" PluginID="1" />
+						</ConversionPluginInfo>
+						<ConversionPluginInfo Platform="iOS">
+							<ConversionPlugin Name="" ID="{9103B0AA-9A23-4476-813F-DBF19C365F05}" PluginName="PCM" CompanyID="0" PluginID="1" />
+						</ConversionPluginInfo>
+						<ConversionPluginInfo Platform="Mac">
+							<ConversionPlugin Name="" ID="{9C8B9E38-3140-46E5-9B7E-5D84BE966E27}" PluginName="PCM" CompanyID="0" PluginID="1" />
+						</ConversionPluginInfo>
+						<ConversionPluginInfo Platform="Android">
+							<ConversionPlugin Name="" ID="{8948411D-408C-4B96-B5D7-72E003A0C3B4}" PluginName="PCM" CompanyID="0" PluginID="1" />
+						</ConversionPluginInfo>
+					</ConversionPluginInfoList>
+				</Conversion>
+			</ChildrenList>
+		</WorkUnit>
+	</Conversions>
+</WwiseDocument>

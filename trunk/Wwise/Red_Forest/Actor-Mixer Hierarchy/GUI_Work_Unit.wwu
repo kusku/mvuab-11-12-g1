@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{BAAA8488-2744-4EA9-8021-4AC153B97350}" SchemaVersion="51">
+	<AudioObjects>
+		<WorkUnit Name="GUI_Work_Unit" ID="{BAAA8488-2744-4EA9-8021-4AC153B97350}" PersistMode="Standalone">
+			<ChildrenList>
+				<Folder Name="Music" ID="{5F8FAA79-83EA-4231-A438-9D35E46A4A7B}" ShortID="810252214">
+					<ChildrenList>
+						<Sound Name="MUS_GUI_Intro" ID="{A79EF0FF-2D8E-4471-8C72-6B366C8FA11C}" ShortID="770421213" Type="SoundFX">
+							<PropertyList>
+								<Property Name="IsLoopingEnabled" Type="bool" Value="True" />
+							</PropertyList>
+							<ChildrenList>
+								<AudioFileSource Name="gui_audio" ID="{7C4BFC43-2409-4CF0-8219-3D3515A34401}" ShortID="1013933578">
+									<Language>SFX</Language>
+									<AudioFile>gui_audio.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<BusRouting Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" />
+							<ConversionInfo>
+								<ConversionRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" />
+							</ConversionInfo>
+							<ActiveSourceList>
+								<ActiveSource Name="gui_audio" ID="{7C4BFC43-2409-4CF0-8219-3D3515A34401}" Platform="Linked" />
+							</ActiveSourceList>
+						</Sound>
+					</ChildrenList>
+				</Folder>
+				<Folder Name="Effects" ID="{E9673391-432F-4DB1-9778-1F3477AD8357}" ShortID="797609814">
+					<ChildrenList>
+						<Sound Name="EFX_GUI_Button_Back" ID="{6BEA7189-2E62-4D81-9C51-9F2BEA012270}" ShortID="85270316" Type="SoundFX">
+							<ChildrenList>
+								<AudioFileSource Name="gui_back" ID="{C2DFFA23-A1CD-402E-8380-209BAC012DB8}" ShortID="1048577469">
+									<Language>SFX</Language>
+									<AudioFile>gui_back.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<BusRouting Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" />
+							<ConversionInfo>
+								<ConversionRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" />
+							</ConversionInfo>
+							<ActiveSourceList>
+								<ActiveSource Name="gui_back" ID="{C2DFFA23-A1CD-402E-8380-209BAC012DB8}" Platform="Linked" />
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="EFX_GUI_Button_Over" ID="{CE9E7CB6-CDCD-4876-AE7C-91FDA639AACE}" ShortID="730514583" Type="SoundFX">
+							<ChildrenList>
+								<AudioFileSource Name="gui_over" ID="{798A27F3-EB79-444C-BEA9-437E309046E3}" ShortID="231337779">
+									<Language>SFX</Language>
+									<AudioFile>gui_over.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<BusRouting Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" />
+							<ConversionInfo>
+								<ConversionRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" />
+							</ConversionInfo>
+							<ActiveSourceList>
+								<ActiveSource Name="gui_over" ID="{798A27F3-EB79-444C-BEA9-437E309046E3}" Platform="Linked" />
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="EFX_GUI_Button_Next" ID="{5387594A-2477-4984-AB13-A0DDF7560406}" ShortID="476439474" Type="SoundFX">
+							<ChildrenList>
+								<AudioFileSource Name="gui_next" ID="{7BD2945B-7DE4-4E14-892F-2288C29A46B8}" ShortID="18890471">
+									<Language>SFX</Language>
+									<AudioFile>gui_next.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<BusRouting Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" />
+							<ConversionInfo>
+								<ConversionRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" />
+							</ConversionInfo>
+							<ActiveSourceList>
+								<ActiveSource Name="gui_next" ID="{7BD2945B-7DE4-4E14-892F-2288C29A46B8}" Platform="Linked" />
+							</ActiveSourceList>
+						</Sound>
+					</ChildrenList>
+				</Folder>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>
