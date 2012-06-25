@@ -263,6 +263,9 @@
       <Filter>RenderableObjects\StaticMesh</Filter>
     </ClInclude>
     <ClInclude Include="RenderableObjects\RenderableObjectTechnique.h" />
+    <ClInclude Include="Particles\Emitters\ParticleEmitterBox.h">
+      <Filter>Particles\Emitters</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
@@ -512,6 +515,9 @@
     </ClCompile>
     <ClCompile Include="RenderableObjects\StaticMesh\InstanceMeshHW.cpp">
       <Filter>RenderableObjects\StaticMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Particles\Emitters\ParticleEmitterBox.cpp">
+      <Filter>Particles\Emitters</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

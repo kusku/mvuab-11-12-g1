@@ -1,4 +1,3 @@
-
 #pragma once
 
 #ifndef _PARTICLIE_SETTINGS_MANAGER_h

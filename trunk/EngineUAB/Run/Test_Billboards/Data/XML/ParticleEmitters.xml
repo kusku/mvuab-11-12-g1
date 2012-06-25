@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<particle_emitters>
+
+  <emitter name="Box_Test" system_name="Smoke" type="box" particlesPerSecond="100" initialPosition="0.0 0.0 0.0" box_min="0.0 0.0 0.0" box_max="5.0 5.0 5.0" />
+</particle_emitters>

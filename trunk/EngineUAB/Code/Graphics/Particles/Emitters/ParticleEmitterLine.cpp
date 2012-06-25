@@ -1,4 +1,3 @@
-
 #include <assert.h>
 #include "ParticleEmitterLine.h"
 #include "Particles\ParticleSystem.h"

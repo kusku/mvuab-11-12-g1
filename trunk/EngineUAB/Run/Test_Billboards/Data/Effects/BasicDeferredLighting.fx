@@ -64,7 +64,9 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 }
 
 float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
-{
+{	
+	float4 FinalPixelColor = (float4)0;
+	
 	//Get Normal From Map and unpack
 	float3 normal = tex2D(NormalTextureMap, input.TexCoord).xyz;
 	normal = normalize(UnpackNormal(normal));
@@ -72,25 +74,30 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
     //Get Depth from Map
     float depthVal = tex2D(DepthTextureMap, input.TexCoord).r;
 
-    //compute screen-space position
-	float4 position = GetPositionFromDepth(input.TexCoord, depthVal);
-	
-	float4 FinalPixelColor = (float4)0;
-	
-	if(lightType[0] == OMNI)
+	if(depthVal != 1)
 	{
-		FinalPixelColor = CalculateOmniLight(normal, position, 0);
+		//compute screen-space position
+		float4 position = GetPositionFromDepth(input.TexCoord, depthVal);
+		
+		if(lightType[0] == OMNI)
+		{
+			FinalPixelColor = CalculateOmniLight(normal, position, 0);
+		}
+		else if(lightType[0] == DIRECTIONAL)
+		{
+			FinalPixelColor = CalculateDirectionLight(normal, position, 0);
+		}
+		else if(lightType[0] == SPOT)
+		{
+			FinalPixelColor = CalculateSpotLight(normal, position, 0);
+		}
+		
+		FinalPixelColor = saturate(FinalPixelColor);
 	}
-	else if(lightType[0] == DIRECTIONAL)
+	else
 	{
-		FinalPixelColor = CalculateDirectionLight(normal, position, 0);
+		FinalPixelColor = float4(1, 1, 1, 1);
 	}
-	else if(lightType[0] == SPOT)
-	{
-		FinalPixelColor = CalculateSpotLight(normal, position, 0);
-	}
-	
-	FinalPixelColor = saturate(FinalPixelColor);
 	
 	return FinalPixelColor;
 }
