@@ -1,0 +1,8 @@
+Event	ID	Name			Wwise Object Path	Notes
+	3187607523	Play_EFX_Sword			\Default Work Unit\Play_EFX_Sword	
+	4101543520	Play_MUS_Level_1			\Default Work Unit\Play_MUS_Level_1	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	574484578	MUS_Level_1	C:\Users\Marc\Documents\WwiseProjects\Red_Forest\.cache\Windows\sfx\level_1_music_ab9e423e.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Music\MUS_Level_1		11349568
+	626104674	EFX_Sword	C:\Users\Marc\Documents\WwiseProjects\Red_Forest\.cache\Windows\sfx\sword_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\EFX_Sword		101420
+

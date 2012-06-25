@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{9CD85EAC-A7CF-445B-A38D-4C362DA3C636}" SchemaVersion="51">
+	<Busses>
+		<WorkUnit Name="Default Work Unit" ID="{9CD85EAC-A7CF-445B-A38D-4C362DA3C636}" PersistMode="Standalone">
+			<ChildrenList>
+				<Bus Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" ShortID="652183330" />
+				<MotionBus Name="Master Motion Bus" ID="{20A630BA-3398-4676-B927-1004DFE41FD8}" ShortID="730541037" />
+			</ChildrenList>
+		</WorkUnit>
+	</Busses>
+</WwiseDocument>
