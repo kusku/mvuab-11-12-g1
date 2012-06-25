@@ -1,4 +1,3 @@
-
 #include "ParticleSettingsManager.h"
 #include "XML\XMLTreeNode.h"
 #include "Base.h"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <BillboardAnimation>
-	<Billboard>
+	<!--<Billboard>
 		<Animation name="fire" color="1.0 1.0 1.0 1.0" size="5.0" timePerImage="0.07" loop="true">
 			<Texture file="./data/particles/fire/flame1.tga" />
 			<Texture file="./data/particles/fire/flame2.tga" />
@@ -26,5 +26,5 @@
 	<Instances>
 		<Instance id="boom" pos="3.0 0.0 0.0" />
 		<Instance id="fire" pos="0.0 0.0 0.0" />
-	</Instances>
+	</Instances>-->
 </BillboardAnimation>

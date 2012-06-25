@@ -68,6 +68,7 @@
     <ClInclude Include="Lights\OmniLight.h" />
     <ClInclude Include="Lights\SpotLight.h" />
     <ClInclude Include="Object3D.h" />
+    <ClInclude Include="Particles\Emitters\ParticleEmitterBox.h" />
     <ClInclude Include="Particles\Emitters\ParticleEmitterLine.h" />
     <ClInclude Include="Particles\Emitters\ParticleEmitterPoint.h" />
     <ClInclude Include="Particles\Emitters\ParticleEmitterRing.h" />
@@ -156,6 +157,7 @@
     <ClCompile Include="Lights\OmniLight.cpp" />
     <ClCompile Include="Lights\SpotLight.cpp" />
     <ClCompile Include="Object3D.cpp" />
+    <ClCompile Include="Particles\Emitters\ParticleEmitterBox.cpp" />
     <ClCompile Include="Particles\Emitters\ParticleEmitterLine.cpp" />
     <ClCompile Include="Particles\Emitters\ParticleEmitterPoint.cpp" />
     <ClCompile Include="Particles\Emitters\ParticleEmitterRing.cpp" />

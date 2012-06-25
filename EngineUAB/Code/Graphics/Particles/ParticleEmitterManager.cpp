@@ -1,9 +1,9 @@
-
 #include "ParticleEmitterManager.h"
 #include "ParticleSystem.h"
 #include "Emitters\ParticleEmitterRing.h"
 #include "Emitters\ParticleEmitterPoint.h"
 #include "Emitters\ParticleEmitterLine.h"
+#include "Emitters\ParticleEmitterBox.h"
 #include "XML\XMLTreeNode.h"
 #include "Base.h"
 #include "Logger\Logger.h"
@@ -108,6 +108,15 @@ bool CParticleEmitterManager::Reload()
 					CParticleEmitterLine* line = new CParticleEmitterLine(name, system, particlesPerSecond, initPos, useDis, lineStart, lineEnd);
 
 					emitter = line;
+				}
+				else if(type == "box")
+				{
+					Vect3f boxMin = l_xml(i).GetVect3fProperty("box_min", v3fZERO);
+					Vect3f boxMax = l_xml(i).GetVect3fProperty("box_max", v3fZERO);
+
+					CParticleEmitterBox* box = new CParticleEmitterBox(name, system, particlesPerSecond, initPos, useDis, boxMin, boxMax);
+
+					emitter = box;
 				}
 
 				assert(emitter);

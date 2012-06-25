@@ -8,9 +8,8 @@
 //Textures						   //
 /////////////////////////////////////
 
-sampler2D DynamicShadowMapSampler = sampler_state
+sampler2D DynamicShadowMapSampler : register( s2 ) = sampler_state
 {
-   Texture		= < DynamicShadowMap >;
    MinFilter	= POINT;
    MagFilter	= POINT;
    MipFilter	= NONE;
@@ -18,11 +17,10 @@ sampler2D DynamicShadowMapSampler = sampler_state
    AddressV		= CLAMP;
 };
 
-sampler2D StaticShadowMapSampler = sampler_state
+sampler2D StaticShadowMapSampler : register( s3 ) = sampler_state
 {
-   Texture		= < StaticShadowMap >;
-   MinFilter	= Point;
-   MagFilter	= Point;
+   MinFilter	= POINT;
+   MagFilter	= POINT;
    MipFilter	= NONE;
    AddressU		= CLAMP;
    AddressV		= CLAMP;
@@ -88,38 +86,52 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	
 	//Get Depth from Map
 	float depthVal = tex2D(DepthTextureMap, input.TexCoord);
-		
-	//compute screen-space position
-	float4 position = GetPositionFromDepth(input.TexCoord, depthVal);
 	
-	//Get Normal From Map and unpack
-	float3 normal = tex2D(NormalTextureMap, input.TexCoord).rgb;
-	normal = normalize(UnpackNormal(normal));
-	
-	float shadowCoeffStatic = 0.0f;
-	float shadowCoeffDynamic = 0.0f;
-	
-	shadowCoeffStatic = CalculateShadowCoeff(position, StaticShadowMapSampler);
-	shadowCoeffDynamic = CalculateShadowCoeff(position, DynamicShadowMapSampler);
-	
-	if(shadowCoeffDynamic != 0 && shadowCoeffStatic != 0)
+	if(depthVal != 1)
 	{
-		if(lightType[0] == OMNI)
+		//compute screen-space position
+		float4 position = GetPositionFromDepth(input.TexCoord, depthVal);
+		
+		//Get Normal From Map and unpack
+		float3 normal = tex2D(NormalTextureMap, input.TexCoord).rgb;
+		normal = normalize(UnpackNormal(normal));
+		
+		float shadowCoeffStatic = 1.0f;
+		float shadowCoeffDynamic = 1.0f;
+		
+		if(lightShadowStaticEnable[0] == true)
 		{
-			FinalPixelColor = CalculateOmniLight(normal, position, 0);
+			shadowCoeffStatic = CalcShadowVariance(position, StaticShadowMapSampler1, 0);
 		}
-		else if(lightType[0] == DIRECTIONAL)
+		
+		if(lightShadowDynamicEnable[0] == true)
 		{
-			FinalPixelColor = CalculateDirectionLight(normal, position, 0);
+			shadowCoeffDynamic = CalcShadowVariance(position, DynamicShadowMapSampler1, 0);
 		}
-		else if(lightType[0] == SPOT)
+		
+		if(shadowCoeffDynamic != 0 || shadowCoeffStatic != 0)
 		{
-			FinalPixelColor = CalculateSpotLight(normal, position, 0);
+			if(lightType[0] == OMNI)
+			{
+				FinalPixelColor = CalculateOmniLight(normal, position, 0);
+			}
+			else if(lightType[0] == DIRECTIONAL)
+			{
+				FinalPixelColor = CalculateDirectionLight(normal, position, 0);
+			}
+			else if(lightType[0] == SPOT)
+			{
+				FinalPixelColor = CalculateSpotLight(normal, position, 0);
+			}
 		}
+		
+		FinalPixelColor = FinalPixelColor * min(shadowCoeffStatic, shadowCoeffDynamic);
+	}
+	else
+	{
+		FinalPixelColor = float4(1, 1, 1, 1);
 	}
 	
-	FinalPixelColor = saturate(FinalPixelColor * max(shadowCoeffStatic, shadowCoeffDynamic));
-
 	return FinalPixelColor;
 }
 
@@ -138,7 +150,6 @@ technique BasicDeferredLightingAndShadow
 		BlendOp				= Add;
 		SrcBlend			= One;
 		DestBlend			= One;
-		CullMode			= CCW;
 		
 		VertexShader = compile vs_3_0 VertexShaderFunction();
 		PixelShader = compile ps_3_0 PixelShaderFunction();
