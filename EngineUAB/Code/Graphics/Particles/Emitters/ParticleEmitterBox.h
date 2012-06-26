@@ -18,7 +18,7 @@ public:
 	virtual ~CParticleEmitterBox();
 
 protected:
-	Vect3f		CalculateParticlePosition	();
+	const Vect3f&	CalculateParticlePosition	();
 
 protected:
 	Vect3f		m_BoxMin;

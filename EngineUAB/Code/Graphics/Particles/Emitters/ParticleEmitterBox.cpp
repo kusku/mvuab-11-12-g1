@@ -17,7 +17,7 @@ CParticleEmitterBox::~CParticleEmitterBox()
 {
 }
 
-Vect3f CParticleEmitterBox::CalculateParticlePosition()
+const Vect3f& CParticleEmitterBox::CalculateParticlePosition()
 {
 	Vect3f l_Point;
 
