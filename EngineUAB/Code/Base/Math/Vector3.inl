@@ -862,7 +862,7 @@ inline Vector3<T> Vector3<T>::GetXZFromAngle (float radians)
 {	
 	x = sin( radians );
 	y = float( 0.0f );
-	z = -cos( radians );
+	z = cos( radians );
 
 	return (*this);
 }
