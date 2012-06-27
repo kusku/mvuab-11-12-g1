@@ -84,7 +84,32 @@
 		<input deviceType="IDV_MOUSE" EventType="EVENT_DOWN"      Code="MOUSE_BUTTON_RIGHT"/>
 	</action>
 	
-	<!--.............MOVIMIENTO PLAYER.................-->
+	<!--.............MOVIMIENTO FREE CAMERA.................-->
+	<action name="MoveCameraFoward">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_W"/>
+	</action>
+	
+	<action name="MoveCameraBack">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_S"/>
+	</action>
+	
+	<action name="MoveCameraLeft">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_A"/>
+	</action>
+	
+	<action name="MoveCameraRight">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_D"/>
+	</action>
+	
+	<action name="MoveCameraUp">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_E"/>
+	</action>
+	
+	<action name="MoveCameraDown">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_Q"/>
+	</action>
+	
+	<!--.............RELOADS.................-->
 	
 	<action name="ReloadAll">
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_LCTRL" />
