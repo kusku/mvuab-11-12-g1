@@ -72,6 +72,7 @@
     <ClInclude Include="Particles\Emitters\ParticleEmitterLine.h" />
     <ClInclude Include="Particles\Emitters\ParticleEmitterPoint.h" />
     <ClInclude Include="Particles\Emitters\ParticleEmitterRing.h" />
+    <ClInclude Include="Particles\Emitters\ParticleEmitterSphere.h" />
     <ClInclude Include="Particles\ParticleDef.h" />
     <ClInclude Include="Particles\ParticleEmitter.h" />
     <ClInclude Include="Particles\ParticleEmitterManager.h" />
@@ -161,6 +162,7 @@
     <ClCompile Include="Particles\Emitters\ParticleEmitterLine.cpp" />
     <ClCompile Include="Particles\Emitters\ParticleEmitterPoint.cpp" />
     <ClCompile Include="Particles\Emitters\ParticleEmitterRing.cpp" />
+    <ClCompile Include="Particles\Emitters\ParticleEmitterSphere.cpp" />
     <ClCompile Include="Particles\ParticleEmitter.cpp" />
     <ClCompile Include="Particles\ParticleEmitterManager.cpp" />
     <ClCompile Include="Particles\ParticleSettingsManager.cpp" />
