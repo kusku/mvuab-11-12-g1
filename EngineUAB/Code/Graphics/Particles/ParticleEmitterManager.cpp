@@ -4,6 +4,7 @@
 #include "Emitters\ParticleEmitterPoint.h"
 #include "Emitters\ParticleEmitterLine.h"
 #include "Emitters\ParticleEmitterBox.h"
+#include "Emitters\ParticleEmitterSphere.h"
 #include "XML\XMLTreeNode.h"
 #include "Base.h"
 #include "Logger\Logger.h"
@@ -117,6 +118,14 @@ bool CParticleEmitterManager::Reload()
 					CParticleEmitterBox* box = new CParticleEmitterBox(name, system, particlesPerSecond, initPos, useDis, boxMin, boxMax);
 
 					emitter = box;
+				}
+				else if(type == "sphere")
+				{
+					float radius = l_xml(i).GetFloatProperty("radius", 1.f);
+
+					CParticleEmitterSphere *sphere = new CParticleEmitterSphere(name, system, particlesPerSecond, initPos, useDis, radius);
+
+					emitter = sphere;
 				}
 
 				assert(emitter);
