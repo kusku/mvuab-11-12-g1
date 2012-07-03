@@ -1,4 +1,5 @@
 #include "GUIProcess.h"
+#include "XML\XMLControl.h"
 #include "RenderManager.h"
 #include "Scripting\ScriptManager.h"
 #include "Cameras\ThPSCamera.h"
@@ -74,12 +75,26 @@ void CGUIProcess::SetCameraToCore()
 //-------------------------------------
 void CGUIProcess::ChangeProcess()
 {
+	XML::InitThreads();
+	XML::LockLibrary();
+
+	SCRIPT->RunCode("load_data()");
+
+	XML::UnlockLibrary();
+	XML::FinalizeThreads();
+
 	PostMessage(m_hWnd, WM_GAME_PROCESS, 0, 0);
 }
 
 void CGUIProcess::ExitGame()
 {
 	PostMessage(m_hWnd, WM_KEYDOWN, (WPARAM)VK_ESCAPE, 0);
+}
+
+void CGUIProcess::LoadGameData()
+{
+	//m_pThread = new boost::thread(&CGUIProcess::ChangeProcess, this);
+	ChangeProcess();
 }
 
 //-------------------------------------
@@ -93,5 +108,6 @@ void CGUIProcess::RegisterMethods()
 		class_<CGUIProcess, CEngineProcess>("CGUIProcess")
 			.def("change_process", &CGUIProcess::ChangeProcess)
 			.def("exit_game", &CGUIProcess::ExitGame)
+			.def("load_game_data", &CGUIProcess::LoadGameData)
 	];
 }

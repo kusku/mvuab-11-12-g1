@@ -1,7 +1,6 @@
 #include <Windows.h>
 #include "GUIProcess.h"
 #include "GameProcess.h"
-#include "Xml/XMLTreeNode.h"
 #include "Exceptions\Exception.h"
 #include "Engine.h"
 #include "Logger\Logger.h"
@@ -14,7 +13,11 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-#define APPLICATION_NAME	"VIDEOGAME"
+#if defined (_DEBUG)
+#define APPLICATION_NAME	"VIDEOGAME DEBUG"
+#else
+#define APPLICATION_NAME	"VIDEOGAME RELEASE"
+#endif
 
 CEngine			*g_pEngine = NULL;
 CGUIProcess		*g_pGUIProcess = NULL;
@@ -96,9 +99,10 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 	WNDCLASSEX wc = {	sizeof(WNDCLASSEX), CS_CLASSDC, MsgProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, APPLICATION_NAME, NULL };
 	
 	RegisterClassEx( &wc );
-
+	
 	try
 	{
+		//Crea el engine
 		g_pEngine = new CEngine();
 		g_pEngine->LoadConfigXML("./Data/XML/engine.xml");
 

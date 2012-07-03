@@ -36,9 +36,9 @@ public:
 	bool	Reload		();
 
 	//--- Wwise Controls -----------------------
-	bool	LoadBank	( const std::string &bank );
-	void	PlayEvent	( const std::string &event_name );
-	void	SetSwitch	( const std::string &switch_name, const std::string &container_name );
+	bool	LoadSoundBank	( const std::string &bank );
+	void	PlayEvent		( const std::string &event_name );
+	void	SetSwitch		( const std::string &switch_name, const std::string &container_name );
 
 	//--- Properties ---------------------------
 	inline void			SetPath		( const std::string &path )		{ m_Path = path; }

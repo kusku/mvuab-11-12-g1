@@ -5,7 +5,6 @@
 #include "Cameras\ThPSCamera.h"
 #include "Core.h"
 #include "Base.h"
-#include "Characters\PlayerDef.h"
 
 #if defined (_DEBUG)
 #include "Memory\MemLeaks.h"

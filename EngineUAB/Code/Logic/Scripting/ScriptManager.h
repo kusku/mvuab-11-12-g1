@@ -10,6 +10,9 @@
 #include "Utils\Singleton.h"
 #include "LuaHelperFunctions.h"
 
+// Esto registra una classe de C++ usando Luabind y ser expuesta para ser llamada desde LUA
+#define REGISTER_LUA_FUNCTION(FunctionName,AddrFunction) { luabind::module(m_pLuaState) [ luabind::def(FunctionName,AddrFunction) ]; }
+
 class CScriptManager : public CSingleton<CScriptManager>
 {
 public:

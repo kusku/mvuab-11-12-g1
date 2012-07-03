@@ -11,9 +11,4 @@
 const float VELOCIDAD_MAXIMA	 = 3.0f;
 const float FUERZA_MAXIMA		= 0.15f;
 
-//enum {
-//	ent_caperucita= 1, 
-//	ent_lobo = 2
-//};
-
 #endif
