@@ -42,7 +42,7 @@ void CXMLTreeNode::Release ()
     m_pWriter = NULL;
   }
 
-  xmlCleanupParser();
+  //xmlCleanupParser();
 }
 
 //----------------------------------------------------------------------------

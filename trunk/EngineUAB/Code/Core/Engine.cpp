@@ -5,6 +5,7 @@
 #include "Cameras\Camera.h"
 #include "Fonts\FontManager.h"
 #include "Location\LanguageManager.h"
+#include "XML\XMLControl.h"
 #include "XML\XMLTreeNode.h"
 #include "ActionToInput.h"
 #include "Math\Color.h"
@@ -57,6 +58,9 @@ void CEngine::Release ( void )
 {
 	m_Config.languages_path.clear();
 
+	//Finaliza el lector de XML
+	XML::FinalizeParser();
+
 	CHECKED_DELETE( m_pCore );
 	//CHECKED_DELETE( m_pProcess );
 
@@ -65,14 +69,20 @@ void CEngine::Release ( void )
 
 bool CEngine::Init( HWND _HWnd )
 {
+	//Crea el Logger
 	m_pLogger = new CLogger();
 
 	LOGGER->AddNewLog(ELL_INFORMATION, "CEngine::Init-> Inicializando Engine");
 
+	//Inicializa el lector de XML
+	XML::InitParser();
+
+	//Cra el Core
 	m_pCore = new CCore();
 	m_bIsOk = m_pCore->Init( _HWnd, m_Config );
 	m_pCore->SetProcess( m_pProcess );
-		
+	
+	//Inicializa el proceso
 	if ( m_bIsOk )
 		m_bIsOk = m_pProcess->Init();
 
@@ -93,10 +103,10 @@ void CEngine::Update( void )
 	m_Timer.Update();
 	float l_ElapsedTime = m_Timer.GetElapsedTime();
 
-	m_pCore->Update	   ( l_ElapsedTime );
-	m_pProcess->Update ( l_ElapsedTime );
+	m_pCore->Update( l_ElapsedTime );
+	m_pProcess->Update( l_ElapsedTime );
 
-	m_pCore->SetTimer	( &m_Timer );
+	m_pCore->SetTimer( &m_Timer );
 
 	if( CORE->IsDebugMode() )
 	{

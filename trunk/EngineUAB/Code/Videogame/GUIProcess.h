@@ -29,6 +29,7 @@ public:
 
 	//--Métodos para exponer en LUA-------
 	void			ChangeProcess		();
+	void			LoadGameData		();
 	void			ExitGame			();
 	void			SetCameraToCore		();
 

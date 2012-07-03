@@ -8,9 +8,6 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-// Esto registra una classe de C++ usando Luabind y ser expuesta para ser llamada desde LUA
-#define REGISTER_LUA_FUNCTION(FunctionName,AddrFunction) { luabind::module(m_pLuaState) [ luabind::def(FunctionName,AddrFunction) ]; }
-
 // Para llamar desde LUA a una función de C++ primero debemos crear otra función en C++ igual pasandole el Lua State y devolviendo el int
 int Alert(lua_State * State);
 
@@ -111,11 +108,6 @@ void CScriptManager::RunFile(const std::string &FileName) const
 	}
 }
 
-
-// -----------------------------------------
-//					MÈTODES
-// -----------------------------------------
-
 // Per recarregar el XML
 bool CScriptManager::Reload ( void )
 {
@@ -208,8 +200,6 @@ void my_exception()
 {
     //lua_pushstring(L, "my_exception");
 }
-
-
 
 //----------------------------------------------------------------------------------------
 // RegisterLUAFunctions: Switch de los diferentes métodos a registrar

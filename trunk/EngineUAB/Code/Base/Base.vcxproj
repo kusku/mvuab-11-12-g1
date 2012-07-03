@@ -149,6 +149,7 @@
     <ClInclude Include="Utils\TemplatedVectorMapManager.h" />
     <ClInclude Include="Utils\Timer.h" />
     <ClInclude Include="Utils\Types.h" />
+    <ClInclude Include="XML\XMLControl.h" />
     <ClInclude Include="XML\XMLTreeNode.h" />
   </ItemGroup>
   <ItemGroup>

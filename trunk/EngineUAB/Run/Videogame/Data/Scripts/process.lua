@@ -1,6 +1,6 @@
 function change_to_game_process()
-	load_data()
-	core:get_process():change_process()
+	core:get_process():load_game_data()
+	--core:get_process():change_process()
 end
 
 function change_to_game_over_gui_process()
