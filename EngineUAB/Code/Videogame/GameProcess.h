@@ -18,6 +18,7 @@
 
 class CRenderManager;
 class CCHaractersManager;
+class CThPSCharacterCamera;
 class CThPSCamera;
 
 class CGameProcess : public CEngineProcess
@@ -55,7 +56,7 @@ public:
 	
 	static CGameProcess*		GetGameProcess				();
 	CCharactersManager*			GetCharactersManager		() const		{ return m_pCharactersManager; }
-	CThPSCamera*				GetPlayerCamera				() const		{ return m_pThPSCamera; }
+	CThPSCharacterCamera*		GetPlayerCamera				() const		{ return m_pThPSCamera; }
 
 	//----Members --------------------------------------------------------------------
 private:
@@ -65,7 +66,7 @@ private:
 
 	CFreeCamera					m_FreeCamera;
 	CStaticCamera				m_StaticCamera;
-	CThPSCamera					*m_pThPSCamera;
+	CThPSCharacterCamera		*m_pThPSCamera;
 	CThPSCamera					*m_pThPSFreeCamera;
 	CCamera						*m_pFreeCamera;
 

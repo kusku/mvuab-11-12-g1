@@ -91,7 +91,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Cameras\FreeCamera.cpp" />
-    <ClCompile Include="Cameras\MainCamera.cpp" />
+    <ClCompile Include="Cameras\ThPSCharacterCamera.cpp" />
     <ClCompile Include="Cameras\StaticCamera.cpp" />
     <ClCompile Include="Characters\Character.cpp" />
     <ClCompile Include="Characters\CharacterManager.cpp" />
@@ -114,7 +114,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\Run\Videogame\Data\Effects\Obj\$(filename).fxo</Outputs>
     </None>
     <ClInclude Include="Cameras\FreeCamera.h" />
-    <ClInclude Include="Cameras\MainCamera.h" />
+    <ClInclude Include="Cameras\ThPSCharacterCamera.h" />
     <ClInclude Include="Cameras\StaticCamera.h" />
     <ClInclude Include="Characters\Character.h" />
     <ClInclude Include="Characters\CharacterManager.h" />

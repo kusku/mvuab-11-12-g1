@@ -3,6 +3,8 @@
 
 #include "GameProcess.h"
 
+#include "Cameras\ThPSCharacterCamera.h"
+
 #include "StatesMachine\BaseGameEntity.h"
 #include "StatesMachine\StateMachine.h"
 #include "StatesMachine\Telegram.h"
@@ -185,3 +187,11 @@ void RegisterToLuaGlobals(lua_State* _pLua)
 		];*/
 }
 
+void RegisterToLuaCamera(lua_State *_pLua)
+{
+	module(_pLua)
+		[
+			class_<CThPSCharacterCamera>("CThPSCharacterCamera")
+			.def("get_direction", &CThPSCharacterCamera::GetDirection)
+		];
+}

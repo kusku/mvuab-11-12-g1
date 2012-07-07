@@ -1,4 +1,5 @@
 #include "GameProcess.h"
+#include "Cameras\ThPSCharacterCamera.h"
 #include "Cameras\ThPSCamera.h"
 #include "Cameras\Camera.h"
 #include "RenderManager.h"
@@ -83,7 +84,7 @@ void CGameProcess::CreatePlayerCamera(float _near, float _far, float _zoom, floa
 	CHECKED_DELETE( m_pThPSCamera );
 
 	float aspect = CORE->GetRenderManager()->GetAspectRatio();
-	m_pThPSCamera = new CThPSCamera(_near, _far, 45.f * D3DX_PI / 180.f, aspect,  m_pCharactersManager->GetPlayer(), _zoom, _heightLookAt, _heightEye, _name);
+	m_pThPSCamera = new CThPSCharacterCamera(_near, _far, 45.f * D3DX_PI / 180.f, aspect,  m_pCharactersManager->GetPlayer(), _zoom, _heightLookAt, _heightEye, _name);
 	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
 	CORE->SetCamera(m_pCamera);
 }
@@ -225,13 +226,14 @@ void CGameProcess::RegisterMethods()
 			.property("player_camera", &CGameProcess::GetPlayerCamera)
 	];
 
-	RegisterToLuaTelegram				( l_State );
-	RegisterToLuaBaseGameEntity			( l_State );
-	RegisterToLuaCharacter				( l_State );
-	RegisterToLuaCharacterManager		( l_State );
-	RegisterToLuaStateMachine			( l_State );
-	RegisterToLuaState					( l_State );
-	RegisterToLuaProperties				( l_State );
+	RegisterToLuaTelegram			( l_State );
+	RegisterToLuaBaseGameEntity		( l_State );
+	RegisterToLuaCharacter			( l_State );
+	RegisterToLuaCharacterManager	( l_State );
+	RegisterToLuaStateMachine		( l_State );
+	RegisterToLuaState				( l_State );
+	RegisterToLuaProperties			( l_State );
+	RegisterToLuaCamera				( l_State );
 }
 
 // -----------------------------------------
