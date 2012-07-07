@@ -41,7 +41,7 @@
 #include "Billboard\BillboardManager.h"
 #include "Billboard\BillboardAnimation.h"
 
-#include "Cameras\ThPSCamera.h"
+#include "Cameras\ThPSCharacterCamera.h"
 #include "EngineProcess.h"
 #include "GameProcess.h"
 

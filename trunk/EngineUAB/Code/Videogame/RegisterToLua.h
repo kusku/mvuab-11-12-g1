@@ -21,5 +21,6 @@ void RegisterToLuaCharacterManager		( lua_State *_pLua );
 void RegisterToLuaStateMachine			( lua_State* _pLua );
 void RegisterToLuaState					( lua_State* _pLua );
 void RegisterToLuaProperties			( lua_State* _pLua );
+void RegisterToLuaCamera				( lua_State* _pLua );
 
 #endif /* __REGISTERTOLUA_H__ */

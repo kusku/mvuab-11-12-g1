@@ -76,7 +76,7 @@
     <ClCompile Include="Items\Item.cpp">
       <Filter>Items</Filter>
     </ClCompile>
-    <ClCompile Include="Cameras\MainCamera.cpp">
+    <ClCompile Include="Cameras\ThPSCharacterCamera.cpp">
       <Filter>Cameras</Filter>
     </ClCompile>
   </ItemGroup>
@@ -124,7 +124,7 @@
     <ClInclude Include="Items\ItemWrapper.h">
       <Filter>Items</Filter>
     </ClInclude>
-    <ClInclude Include="Cameras\MainCamera.h">
+    <ClInclude Include="Cameras\ThPSCharacterCamera.h">
       <Filter>Cameras</Filter>
     </ClInclude>
   </ItemGroup>
