@@ -13,6 +13,8 @@
 #include "Base.h"
 #include "Particles\ParticleEmitterManager.h"
 #include "Particles\ParticleEmitter.h"
+#include "SoundManager.h"
+#include "Listener.h"
 
 #include "VideogameDefs.h"
 #include "Characters\CharacterManager.h"
@@ -193,6 +195,9 @@ void CGameProcess::LoadGameObjects()
 		return;
 
 	CreateFreeCamera(  1.0f, 10000.f, 10.0f, 0.f, 0.f, "Free" );	
+
+	//Asigna una cámara al micrófono de sonido
+	CORE->GetSoundManager()->GetListener()->SetCamera( m_pThPSCamera );
 }
 
 //-------------------------------------
