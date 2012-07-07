@@ -76,6 +76,9 @@
     <ClCompile Include="Items\Item.cpp">
       <Filter>Items</Filter>
     </ClCompile>
+    <ClCompile Include="Cameras\MainCamera.cpp">
+      <Filter>Cameras</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUIProcess.h" />
@@ -120,6 +123,9 @@
     </ClInclude>
     <ClInclude Include="Items\ItemWrapper.h">
       <Filter>Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Cameras\MainCamera.h">
+      <Filter>Cameras</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
