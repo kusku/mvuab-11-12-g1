@@ -253,6 +253,7 @@ void CPhysicActor::AddMeshShape	( NxTriangleMesh* mesh, const Vect3f& _vGlobalPo
 	{
 		triangleMeshDesc->ccdSkeleton = skeleton;
 		triangleMeshDesc->shapeFlags |= NX_SF_DYNAMIC_DYNAMIC_CCD; //Activate dynamic-dynamic CCD for this body
+		triangleMeshDesc->shapeFlags |= NX_MESH_SMOOTH_SPHERE_COLLISIONS;
 	}
 
 	m_pPhXActorDesc->shapes.pushBack( triangleMeshDesc );
