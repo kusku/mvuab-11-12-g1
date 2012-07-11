@@ -77,7 +77,7 @@ CCharactersManager::~CCharactersManager(void)
 // Initialize: Permite crear un nº de enemigos concretos. Si no se pasa el parámetro se coje toda la info
 //			encontrada en el RenderableObjectsManager llamado "solid"
 // ---------------------------------------------------------------------------------------------------------
-bool CCharactersManager::Initialize ( int _NumEnemies )
+bool CCharactersManager::Initialize( int _NumEnemies )
 {
 	LOGGER->AddNewLog ( ELL_INFORMATION, "CCharactersManager::Initialize-> Initializating characters manager..." );
 

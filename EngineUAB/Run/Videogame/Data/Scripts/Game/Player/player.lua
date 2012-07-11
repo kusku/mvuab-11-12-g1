@@ -66,8 +66,10 @@ class 'CPlayer' (CCharacter)
 			self.pitch = self.pitch - l_d
 			local l_pi = math.pi
 			if self.pitch > l_pi/12 then
+				print_logger(0, "mouse 12")
 				self.pitch = l_pi/12
 			elseif self.pitch < -l_pi/6 then
+				print_logger(0, "mouse 6")
 				self.pitch = -l_pi/6
 			end
 			

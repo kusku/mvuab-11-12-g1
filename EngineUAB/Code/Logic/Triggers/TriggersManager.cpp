@@ -143,7 +143,7 @@ bool CTriggersManager::LoadXML ( void )
 				l_Instance.Position		= static_cast<Vect3f> ( l_TriggerNode.GetVect3fProperty   ( "position", Vect3f(0.f,0.f,0.f) ) );
 				l_Instance.Size			= static_cast<Vect3f> ( l_TriggerNode.GetVect3fProperty   ( "size",	    Vect3f(0.f,0.f,0.f) ) );
 				l_Instance.Color		= static_cast<CColor> ( l_TriggerNode.GetVect4fProperty   ( "color",	Vect4f(0.f,0.f,0.f,0.f) ) );
-				l_Instance.Group		= static_cast<uint32> ( l_TriggerNode.GetIntProperty	  ( "group",	0 ) );
+				l_Instance.Group		= static_cast<uint32> ( l_TriggerNode.GetIntProperty	  ( "group",	ECG_TRIGGERS ) );
 				l_Instance.Radius		= static_cast<float>  ( l_TriggerNode.GetFloatProperty    ( "radius",	1.f ) );
 
 				if ( !ExistTrigger ( l_Instance.Name ) ) 
@@ -161,10 +161,10 @@ bool CTriggersManager::LoadXML ( void )
 						l_FisicTrigger = new CPhysicActor ( l_UserData );
 						l_Instance.pTriggerActor = l_FisicTrigger;
 						if ( l_Instance.TriggerType == "box" )
-							l_FisicTrigger->CreateBoxTrigger ( l_Instance.Position, l_Instance.Size, l_Instance.Group );
+							l_FisicTrigger->CreateBoxTrigger ( l_Instance.Position, l_Instance.Size, ECG_TRIGGERS );
 
 						if ( l_Instance.TriggerType == "sphere" )
-							l_FisicTrigger->CreateSphereTrigger ( l_Instance.Position, l_Instance.Radius, l_Instance.Group );
+							l_FisicTrigger->CreateSphereTrigger ( l_Instance.Position, l_Instance.Radius, ECG_TRIGGERS );
 					
 						if ( !l_PM->AddPhysicActor ( l_FisicTrigger ) )
 							LOGGER->AddNewLog ( ELL_ERROR, "CTriggersManager::LoadXML->A físic trigger from file called %s could not be created or already exist", l_Instance.Name.c_str() );  
