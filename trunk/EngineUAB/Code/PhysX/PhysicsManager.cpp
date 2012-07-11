@@ -726,7 +726,7 @@ bool CPhysicsManager::RelasePhysicFixedJoint ( CPhysicFixedJoint* _pJoint )
 	return true;
 }
 
-bool CPhysicsManager::AddPhysicController ( CPhysicController* _pController, EControleType _Tipus )
+bool CPhysicsManager::AddPhysicController ( CPhysicController* _pController, EControleType _Tipus, ECollisionGroup _Group )
 {
 	assert ( _pController != NULL );
 	assert ( m_pScene != NULL );
@@ -734,6 +734,7 @@ bool CPhysicsManager::AddPhysicController ( CPhysicController* _pController, ECo
 
 	bool l_bIsOK = false;
 	NxController* l_NxController = _pController->GetPhXController();
+	
 	assert ( l_NxController == NULL ); //Nos aseguramos que no hayan registrado ya un actor en la escena
 	 
 	switch ( _pController->GetType() )
@@ -752,7 +753,7 @@ bool CPhysicsManager::AddPhysicController ( CPhysicController* _pController, ECo
 			l_NxControllerDesc = _pController->GetPhXControllerDesc();
 			assert ( l_NxControllerDesc != NULL );
 			l_NxController = m_pControllerManager->createController ( m_pScene, *l_NxControllerDesc );
-	
+			
 			break;
 		}
 	}
@@ -763,7 +764,7 @@ bool CPhysicsManager::AddPhysicController ( CPhysicController* _pController, ECo
 		l_NxController->getActor()->userData = _pController->GetUserData();
 		//NxShape*const* shape = nxController->getActor()->getShapes();
 		//shape[0]->setGroup(controller->);
-
+		l_NxController->getActor()->getShapes()[0]->setGroup(_Group);
 		l_bIsOK = true;
 	}
 

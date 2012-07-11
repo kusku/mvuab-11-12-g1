@@ -74,7 +74,7 @@ public:
 	bool					ReleaseAllActors				(); //EUserDataFlag _eFlags );
 
 	//--- Add/Release CharacterControllers
-	bool					AddPhysicController				( CPhysicController* _pController, EControleType _Tipus = ::CAPSULE );
+	bool					AddPhysicController				( CPhysicController* _pController, EControleType _Tipus = ::CAPSULE, ECollisionGroup _Group = ::ECG_ENEMICS );
 	bool					ReleasePhysicController			( CPhysicController* _pController );
 
 	////--- Add/Release Joints

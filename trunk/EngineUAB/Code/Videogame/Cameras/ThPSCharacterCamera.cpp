@@ -62,6 +62,12 @@ void CThPSCharacterCamera::Update(float _ElapsedTime)
 {
 	assert(m_pObject3D);
 
+	//Variables locales sobre la colisión
+	SCollisionInfo l_CollisionInfo;
+	CPhysicUserData *l_pUserData = NULL;
+	CPhysicUserData *l_pUserDataBack = NULL;
+	CPhysicUserData *l_pUserDataDown = NULL;
+
 	//Guardamos la posición anterior
 	m_PrevEye = m_Eye;
 
@@ -97,9 +103,6 @@ void CThPSCharacterCamera::Update(float _ElapsedTime)
 
 	//----Miramos las colisiones con el escenario-------
 	//--------------------------------------------------
-	SCollisionInfo l_CollisionInfo;
-	CPhysicUserData *l_pUserData = NULL;
-	CPhysicUserData *l_pUserDataBack = NULL;
 
 	//Vectores de dirección de rayos
 	Vect3f l_Dir = m_Eye - m_LookAt;
@@ -109,9 +112,8 @@ void CThPSCharacterCamera::Update(float _ElapsedTime)
 	l_DirXZ.y = 0.f;
 
 	//Máscara de colisión
-	int l_iMask = 1 << ECG_PERSONATGE;
+	int l_iMask = 1 << ECG_ESCENARI;
 	l_iMask |= 1 << ECG_OBJECTES_DINAMICS;
-	l_iMask |= 1 << ECG_ESCENARI;
 	l_iMask |= 1 << ECG_ENEMICS;	
 
 	//Miramos si hay un objeto por delante de la cámara
@@ -125,6 +127,13 @@ void CThPSCharacterCamera::Update(float _ElapsedTime)
 		{
 			m_Eye = l_CollisionInfo.m_CollisionPoint - l_Dir;
 		}
+	}
+
+	l_pUserDataDown = CORE->GetPhysicsManager()->RaycastClosestActor(m_Eye + l_Dir + v3fNEGY, v3fNEGY, l_iMask, l_CollisionInfo);
+	if( l_pUserDataDown == NULL )
+	{
+		m_Eye = m_Eye - v3fNEGY;
+		m_pObject3D->SetPitch( -ePI<float>() / 6 ); //Bloquea el movimiento del pitch
 	}
 }
 

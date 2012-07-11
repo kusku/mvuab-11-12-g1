@@ -101,7 +101,7 @@ CCharacter::CCharacter(int _ID, const std::string &_Name)
 	m_pGraphicStateMachine	= new CStateMachine<CCharacter>( this );
 }
 
-CCharacter::~CCharacter( void )
+CCharacter::~CCharacter()
 {
 	CHECKED_DELETE ( m_pBehaviours );
 	CHECKED_DELETE ( m_pSteeringEntity );
@@ -119,7 +119,7 @@ CCharacter::~CCharacter( void )
 // -----------------------------------------
 //			METODES PRINCIPALS
 // -----------------------------------------
-bool CCharacter::Init( void )
+bool CCharacter::Init()
 {
 	// Metodo y cosas a implementar en Lua
 	//if ( m_pCurrentAnimatedModel )
@@ -132,7 +132,7 @@ bool CCharacter::Init( void )
 	return true;
 }
 
-bool CCharacter::Initialize ( const std::string &_Name, const Vect3f &_InitialPosicion, ECollisionGroup _Grup )
+bool CCharacter::Initialize( const std::string &_Name, const Vect3f &_InitialPosicion, ECollisionGroup _Grup )
 {
 	// Primero debemos adjuntar el modelo animado. Ojo! este nos da la posición
 	CRenderableObjectsLayersManager *l_ROLayerManager = CORE->GetRenderableObjectsLayersManager();
@@ -156,6 +156,7 @@ bool CCharacter::Initialize ( const std::string &_Name, const Vect3f &_InitialPo
 	// Creo el controlador del jugador
 	m_pController = new CPhysicController( m_pProperties->GetWidthController(), m_pProperties->GetHeightController(), m_pProperties->GetSlopeController(), 
 										   m_pProperties->GetSkinWidthController(), m_pProperties->GetStepOffsetController(), _Grup, m_pPhysicUserDataJugador );
+	
 	Vect3f l_Position; 
 	if ( _InitialPosicion != NULL )
 	{
@@ -168,7 +169,7 @@ bool CCharacter::Initialize ( const std::string &_Name, const Vect3f &_InitialPo
 	m_pController->SetPosition( l_Position );
 	m_pController->SetVisible( true );
 	
-	CORE->GetPhysicsManager()->AddPhysicController( m_pController );
+	CORE->GetPhysicsManager()->AddPhysicController( m_pController, CAPSULE, _Grup );
 	m_pController->Move( l_Position, 0.f );
 
 	// Metemos el yaw y posición del modelo animado al controller
@@ -188,7 +189,7 @@ bool CCharacter::Initialize ( const std::string &_Name, const Vect3f &_InitialPo
 	return true;
 }
 
-bool CCharacter::InitializeAI ( void )
+bool CCharacter::InitializeAI ()
 {
 	m_pBehaviours			= new CSteeringBehaviours( FUERZA_MAXIMA );
 	m_pSteeringEntity		= new CSteeringEntity();

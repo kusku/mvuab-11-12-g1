@@ -38,8 +38,8 @@ public:
 
 	//----Main Functions --------------------------------------
 	virtual bool				Initialize			( const std::string &_Name, const Vect3f &_InitialPosicion, ECollisionGroup _Grup );
-	bool						InitializeAI		( void );
-	virtual bool				Init				( void );
+	bool						InitializeAI		();
+	virtual bool				Init				();
 	virtual bool				HandleMessage		( const Telegram& _Msg, bool _Logic = true, bool _Graphic = true  );		// Envia telegramas a las máquinas de estados
 	virtual bool				HandleMessage		( const Telegram& _Msg );
 	virtual void				Update				( float _ElapsedTime );
@@ -48,7 +48,7 @@ public:
 	void						MoveController		( const Vect3f &_Dir, float _ElapsedTime );
 	void						MoveTo				( const Vect3f &_Position, float _ElapsedTime );
 	void						FaceTo				( const Vect3f &_Position, float _ElapsedTime );
-	//bool						IsPlayerDetected	( void );
+	//bool						IsPlayerDetected	();
 	
 	void						AddLife				( int _Life );								
 	void						RestLife			( int _Life );								
@@ -71,16 +71,16 @@ public:
 	inline const Vect3f&		GetPrevPosition		() const					{ return m_PrevPosition; }
 
 	void						SetEnable			( bool _Enable );			
-	inline bool					IsEnable			( void ) const				{ return this->GetProperties()->GetActive(); }  // m_bIsEnable; }
+	inline bool					IsEnable			() const				{ return this->GetProperties()->GetActive(); }  // m_bIsEnable; }
 
 	inline void					SetAlive			( bool alive )				{ m_bIsAlive = alive; }
-	inline bool					IsAlive				( void ) const				{ return m_bIsAlive; }
+	inline bool					IsAlive				() const				{ return m_bIsAlive; }
 
 	inline void					SetLocked			( bool locked )				{ m_bLocked = locked; }
-	inline bool					GetLocked			( void ) const				{ return m_bLocked; }
+	inline bool					GetLocked			() const				{ return m_bLocked; }
 
-	inline CSteeringBehaviours*	GetBehaviours		( void ) const				{ return m_pBehaviours; }
-	inline CSteeringEntity*		GetSteeringEntity	( void ) const				{ return m_pSteeringEntity; }
+	inline CSteeringBehaviours*	GetBehaviours		() const				{ return m_pBehaviours; }
+	inline CSteeringEntity*		GetSteeringEntity	() const				{ return m_pSteeringEntity; }
 	
 
 	// Obtengo el angulo que forma donde mira
