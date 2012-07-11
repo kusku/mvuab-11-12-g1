@@ -155,14 +155,14 @@ void CInstanceMesh::CrearPhysicMesh ( const std::string &_Name, const std::strin
 		CPhysicActor*	 l_MeshActor;
 
 		CPhysicCookingMesh* l_pCM = CORE->GetPhysicsManager()->GetCookingMesh();
-		if ( l_pCM->CreatePhysicMesh ( m_StaticMesh->GetVertexBuffer(), m_StaticMesh->GetFacesBuffer(), _Name ) )
+		if ( l_pCM->CreatePhysicMesh( m_StaticMesh->GetVertexBuffer(), m_StaticMesh->GetFacesBuffer(), _Name ) )
 		{
 			l_pPhysicUserDataMesh = new CPhysicUserData( _Name  );
-			l_pPhysicUserDataMesh->SetPaint (true);
+			l_pPhysicUserDataMesh->SetPaint( true );
 			l_MeshActor = new CPhysicActor( l_pPhysicUserDataMesh );
-			l_MeshActor->AddMeshShape ( l_pCM->GetPhysicMesh(_Name), m_Position);
+			l_MeshActor->AddMeshShape( l_pCM->GetPhysicMesh(_Name), m_Position );
 			//m_AseMeshActor->CreateBody ( 10.f );
-			CORE->GetPhysicsManager()->AddPhysicActor ( l_MeshActor );
+			CORE->GetPhysicsManager()->AddPhysicActor( l_MeshActor );
 		}
 
 		l_pCM					= NULL;

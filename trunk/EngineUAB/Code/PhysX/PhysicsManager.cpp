@@ -900,7 +900,6 @@ void CPhysicsManager::OverlapSphereActor ( float _fRadiusSphere, const Vect3f& _
 	}
 
 	m_pScene->overlapSphereShapes ( l_WorldSphere, NX_ALL_SHAPES, nbShapes, shapes, NULL, _uiImpactMask);
-
 	for (NxU32 i = 0; i < nbShapes; i++) 
 	{
 		if( shapes[i] != NULL )

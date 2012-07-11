@@ -63,7 +63,7 @@
 		<max_speed>0.15</max_speed>
 		<animation_offset>-0.0</animation_offset>
 	</default_properties>
-	<player name="Jolete" core="caperucita" animated_instace_name="caperucita1" >
+	<player name="Caperu" core="caperucita" animated_instace_name="caperucita1" >
 		<life>1050</life>
 		<strong>30</strong>
 		<speed>25</speed>

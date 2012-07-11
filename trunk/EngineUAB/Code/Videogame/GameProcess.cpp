@@ -165,6 +165,7 @@ void CGameProcess::ReloadGameObjects()
 void CGameProcess::Render(CRenderManager &RM)
 {
 	 m_pCharactersManager->Render(&RM, CORE->GetFontManager());
+	 m_pThPSCamera->Render(&RM);
 }
 
 bool CGameProcess::LoadMainScript()

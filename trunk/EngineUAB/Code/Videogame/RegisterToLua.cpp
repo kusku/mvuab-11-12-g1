@@ -193,5 +193,6 @@ void RegisterToLuaCamera(lua_State *_pLua)
 		[
 			class_<CThPSCharacterCamera>("CThPSCharacterCamera")
 			.def("get_direction", &CThPSCharacterCamera::GetDirection)
+			.def("update", &CThPSCharacterCamera::Update)
 		];
 }
