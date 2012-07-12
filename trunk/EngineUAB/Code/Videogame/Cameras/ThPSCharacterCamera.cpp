@@ -65,8 +65,6 @@ void CThPSCharacterCamera::Update(float _ElapsedTime)
 	//Variables locales sobre la colisión
 	SCollisionInfo l_CollisionInfo;
 	CPhysicUserData *l_pUserData = NULL;
-	CPhysicUserData *l_pUserDataBack = NULL;
-	CPhysicUserData *l_pUserDataDown = NULL;
 
 	//Guardamos la posición anterior
 	m_PrevEye = m_Eye;
@@ -111,6 +109,8 @@ void CThPSCharacterCamera::Update(float _ElapsedTime)
 	Vect3f l_DirXZ = l_Dir;
 	l_DirXZ.y = 0.f;
 
+	Vect3f l_vLeft = l_DirXZ.Cross(v3fNEGY);
+
 	//Máscara de colisión
 	int l_iMask = 1 << ECG_ESCENARI;
 	l_iMask |= 1 << ECG_OBJECTES_DINAMICS;
@@ -129,12 +129,39 @@ void CThPSCharacterCamera::Update(float _ElapsedTime)
 		}
 	}
 
-	l_pUserDataDown = CORE->GetPhysicsManager()->RaycastClosestActor(m_Eye + l_Dir + v3fNEGY, v3fNEGY, l_iMask, l_CollisionInfo);
-	if( l_pUserDataDown == NULL )
+	//Miramos si colisiona con algun sitio y desplazamos la cámara
+	l_pUserData = CORE->GetPhysicsManager()->RaycastClosestActor(m_Eye + l_Dir + v3fNEGY, v3fNEGY, l_iMask, l_CollisionInfo);
+	if( l_pUserData == NULL )
 	{
-		m_Eye = m_Eye - v3fNEGY;
+		m_Eye -= v3fNEGY;
 		m_pObject3D->SetPitch( -ePI<float>() / 6 ); //Bloquea el movimiento del pitch
 	}
+
+	l_pUserData = CORE->GetPhysicsManager()->RaycastClosestActor(m_Eye + l_vLeft + v3fNEGY, v3fNEGY, l_iMask, l_CollisionInfo);
+	if( l_pUserData == NULL )
+	{
+		m_Eye -= l_vLeft;
+	}
+
+	l_pUserData = CORE->GetPhysicsManager()->RaycastClosestActor(m_Eye - l_vLeft + v3fNEGY, v3fNEGY, l_iMask, l_CollisionInfo);
+	if( l_pUserData == NULL )
+	{
+		m_Eye += l_vLeft;
+	}
+
+	//l_pUserData = CORE->GetPhysicsManager()->RaycastClosestActor(m_Eye - l_vLeft, -l_vLeft, l_iMask, l_CollisionInfo);
+	//if( l_pUserData == NULL )
+	//{
+	//	m_Eye -= l_vLeft;
+	//}
+	//else
+	//{
+	//	l_pUserData = CORE->GetPhysicsManager()->RaycastClosestActor(m_Eye + l_vLeft, l_vLeft, l_iMask, l_CollisionInfo);
+	//	if( l_pUserData == NULL )
+	//	{
+	//		m_Eye += l_vLeft;
+	//	}
+	//}
 }
 
 //----------------------------------------------
@@ -186,28 +213,47 @@ void CThPSCharacterCamera::CreateCollision()
 
 void CThPSCharacterCamera::Render(CRenderManager *_RM)
 {
+	Mat44f mat;
+
 	Vect3f l_EyeRayPosition = m_Eye + v3fNEGY;
 	Vect3f l_DownPosition = l_EyeRayPosition + v3fNEGY;
 	Vect3f l_Dir = m_Eye - m_LookAt;
 	l_Dir.Normalize();	
+
 	Vect3f l_DirXZ = l_Dir;
 	l_DirXZ.y = 0.f;
 
-	Mat44f mat;
+	Vect3f l_vLeft = l_DirXZ.Cross(v3fNEGY);
+
+	//Esfera de la cámara
+	mat.SetIdentity();
+	mat.Translate(m_Eye);
+	_RM->SetTransform(mat);
+	_RM->DrawSphere(1.f, 15);
+
+	//Rayo desde la cámara hacia el punto de Look At
 	mat.SetIdentity();
 	_RM->SetTransform(mat);
 	_RM->DrawLine( m_Eye, m_LookAt);
 
-	mat.SetIdentity();
-	mat.Translate(m_Eye);
-	_RM->SetTransform(mat);
-	_RM->DrawSphere(1.f, 20);
-
+	//Suelo de la cámara
 	mat.SetIdentity();
 	_RM->SetTransform(mat);
 	_RM->DrawLine(m_Eye + l_Dir + v3fNEGY, m_Eye + l_Dir + v3fNEGY*2, colRED);
 
+	//Espalda de la cámara
 	mat.SetIdentity();
 	_RM->SetTransform(mat);
 	_RM->DrawLine(m_Eye + l_DirXZ, m_Eye + l_DirXZ * 2, colRED);
+
+	//Izquierda de la cámara
+	mat.SetIdentity();
+	_RM->SetTransform(mat);
+	_RM->DrawLine(m_Eye + l_vLeft + v3fNEGY, m_Eye + l_vLeft + v3fNEGY * 2, colRED);
+
+	//Derecha de la cámara
+	mat.SetIdentity();
+	_RM->SetTransform(mat);
+	_RM->DrawLine(m_Eye - l_vLeft + v3fNEGY, m_Eye - l_vLeft + v3fNEGY * 2, colRED);
+
 }
