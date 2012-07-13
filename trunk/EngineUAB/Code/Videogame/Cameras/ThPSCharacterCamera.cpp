@@ -133,35 +133,21 @@ void CThPSCharacterCamera::Update(float _ElapsedTime)
 	l_pUserData = CORE->GetPhysicsManager()->RaycastClosestActor(m_Eye + l_Dir + v3fNEGY, v3fNEGY, l_iMask, l_CollisionInfo);
 	if( l_pUserData == NULL )
 	{
-		m_Eye -= v3fNEGY;
+		m_Eye -= v3fNEGY * 0.5f;
 		m_pObject3D->SetPitch( -ePI<float>() / 6 ); //Bloquea el movimiento del pitch
 	}
 
 	l_pUserData = CORE->GetPhysicsManager()->RaycastClosestActor(m_Eye + l_vLeft + v3fNEGY, v3fNEGY, l_iMask, l_CollisionInfo);
 	if( l_pUserData == NULL )
 	{
-		m_Eye -= l_vLeft;
+		m_Eye -= l_vLeft * 0.5f;
 	}
 
 	l_pUserData = CORE->GetPhysicsManager()->RaycastClosestActor(m_Eye - l_vLeft + v3fNEGY, v3fNEGY, l_iMask, l_CollisionInfo);
 	if( l_pUserData == NULL )
 	{
-		m_Eye += l_vLeft;
+		m_Eye += l_vLeft * 0.5f;
 	}
-
-	//l_pUserData = CORE->GetPhysicsManager()->RaycastClosestActor(m_Eye - l_vLeft, -l_vLeft, l_iMask, l_CollisionInfo);
-	//if( l_pUserData == NULL )
-	//{
-	//	m_Eye -= l_vLeft;
-	//}
-	//else
-	//{
-	//	l_pUserData = CORE->GetPhysicsManager()->RaycastClosestActor(m_Eye + l_vLeft, l_vLeft, l_iMask, l_CollisionInfo);
-	//	if( l_pUserData == NULL )
-	//	{
-	//		m_Eye += l_vLeft;
-	//	}
-	//}
 }
 
 //----------------------------------------------
