@@ -260,7 +260,7 @@ struct Vertex
 	Tex2,
 	Diff,
 
-	function WriteToFile vertexType file =
+	function WriteToFile vertexType textureSplatting file =
 	(
 		-- Write Geometry
 		WriteFloat file Pos.x
@@ -301,14 +301,9 @@ struct Vertex
 			WriteFloat file Tex1.y
 		)
 		
-		if (bit.and VertexType VERTEX_TYPE_TEXTURE2) == VERTEX_TYPE_TEXTURE2 then
-		(
-			--Write Texture Coordinates for texture 2
-			WriteFloat file Tex2.x
-			WriteFloat file Tex2.y
-		)
-		
-		if (bit.and VertexType VERTEX_TYPE_RNM) == VERTEX_TYPE_RNM then
+		if ( (bit.and VertexType VERTEX_TYPE_TEXTURE2) == VERTEX_TYPE_TEXTURE2 ) OR
+           ( (bit.and VertexType VERTEX_TYPE_RNM) == VERTEX_TYPE_RNM ) OR
+		   ( textureSplatting == true ) then
 		(
 			--Write Texture Coordinates for texture 2
 			WriteFloat file Tex2.x
@@ -459,7 +454,7 @@ struct VIBuffers
 		)
 	),
 
-	function WriteVertexBufferToFile file =
+	function WriteVertexBufferToFile textureSplatting file =
 	(
 		--Write how many vertexs we have
 		WriteLong file VertexBuffer.count #unsigned
@@ -467,11 +462,11 @@ struct VIBuffers
 		--Write the vertex buffer to file
 		for i = 1 to VertexBuffer.count do
 		(
-			VertexBuffer[i].WriteToFile VertexType file
+			VertexBuffer[i].WriteToFile VertexType textureSplatting file
 		)
 	),
 
-	function WriteToFile file = 
+	function WriteToFile textureSplatting file = 
 	(
 		--Write Vertex Type to file
 		WriteShort file VertexType
@@ -483,7 +478,7 @@ struct VIBuffers
 		WriteIndexBufferToFile file
 		
 		--Write Vertex Buffer to File
-		WriteVertexBufferToFile file
+		WriteVertexBufferToFile textureSplatting file
 	),
 	------------------------------------------------------------
 	---------------End File Write Functions ----------------
@@ -564,7 +559,7 @@ struct VIBuffers
 		format "Index Buffer Size: %\n" IndexBuffer.count
 		if opt == 1 then
 		(
-			--PrintIndexBufferTestXNA()
+			PrintIndexBufferTestXNA()
 		)
 		else
 		(
@@ -574,7 +569,7 @@ struct VIBuffers
 		format "Vertex Buffer Size: %\n" VertexBuffer.count
 		if opt == 1 then
 		(
-			--PrintVertexBufferTestXNA()
+			PrintVertexBufferTestXNA()
 		)
 		else
 		(
@@ -657,6 +652,7 @@ struct MeshObj
 	AnimModelCore,
 	PhysicsType,
 	VtxNormalBuffer,
+	TextureSplatting,
 	
 	function CalcVtxNormals obj =
 	(
@@ -845,7 +841,7 @@ struct MeshObj
 			
 			for i = 1 to MeshBuffers.count do
 			(
-				MeshBuffers[i].WriteToFile file
+				MeshBuffers[i].WriteToFile TextureSplatting file
 			)
 			
 			--Write Bounding Box
@@ -908,6 +904,8 @@ struct MeshObj
 			format "Mesh Target Directory: % \n" MeshPath
 			format "Mesh Relative Filename: % \n" RelativeMeshFileName
 			format "Mesh output Filename: % \n"  MeshFileName
+			
+			format "Mesh Texture Splatting: % \n" TextureSplatting
 			
 			BBox.PrintBoundingBoxTest
 			BSpherePrintBoundingSphereTest
@@ -1097,7 +1095,7 @@ function CreateMaterialObjectStruct =
 	return matObj
 )
 
-function CreateVertex pos nrm tex tex2 diffCol VertexType =
+function CreateVertex pos nrm tex tex2 diffCol =
 (
 	local vtx = Vertex Pos:0 Nrm:0 Tex1:(point3 0 0 0) Tex2:(point3 0 0 0) Diff:0
 	
@@ -1107,30 +1105,21 @@ function CreateVertex pos nrm tex tex2 diffCol VertexType =
 	--Add Normal
 	vtx.Nrm = (nrm as point3)
 	
-	if (bit.and VertexType VERTEX_TYPE_TEXTURE1) == VERTEX_TYPE_TEXTURE1 then
-	(
-		vtx.Tex1 = (tex as point3)
-		
-		if (bit.and VertexType VERTEX_TYPE_TEXTURE2) == VERTEX_TYPE_TEXTURE2 then
-		(
-			vtx.Tex2 = (tex2 as point3)
-		)
-		if (bit.and VertexType VERTEX_TYPE_RNM) == VERTEX_TYPE_RNM then
-		(
-			vtx.Tex2 = (tex2 as point3)
-		)
-	)
-	else
-	(
-		vtx.diff = (diffCol as integer) 
-	)
+	--Add Texture Coord 1
+	vtx.Tex1 = (tex as point3)
+	
+	--Add Texture Coord 2
+	vtx.Tex2 = (tex2 as point3)
+	
+	--Add Diffuse Color
+	vtx.diff = (diffCol as integer) 
 	
 	return vtx
 )
 
 function CreateMeshStruct =
 (
-	local meshObject = MeshObj  MeshPath:"" MeshName:"" MeshBuffers:#() BBox:0 BSphere:0 BocMeshAttributes:0 MeshFileName:"" YawAngle:0 PitchAngle:0 RollAngle:0 Translation:0 IsInstance:False InstanceName:"" ParentInstance:false RelativeMeshFileName:"" RenderExport:"" RenderVisible:"" RenderLayer:"" AnimModelCore:"" PhysicsType:"" VtxNormalBuffer:#()
+	local meshObject = MeshObj  MeshPath:"" MeshName:"" MeshBuffers:#() BBox:0 BSphere:0 BocMeshAttributes:0 MeshFileName:"" YawAngle:0 PitchAngle:0 RollAngle:0 Translation:0 IsInstance:False InstanceName:"" ParentInstance:false RelativeMeshFileName:"" RenderExport:"" RenderVisible:"" RenderLayer:"" AnimModelCore:"" PhysicsType:"" VtxNormalBuffer:#() TextureSplatting:false
 	
 	return meshObject
 )

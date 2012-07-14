@@ -249,16 +249,9 @@ function ExtractMeshGeometry obj counterClockwise t_mesh =
 				TUVMap3 = meshop.getMapVert obj 1 (IdxsMap.z as integer)
 				TUVMap3.y = 1 - TUVMap3.y
 			
-				if (bit.and MeshBuffer.VertexType VERTEX_TYPE_TEXTURE2) == VERTEX_TYPE_TEXTURE2 then
-				(
-					TUV2Map1 = meshop.getMapVert obj 2 (IdxsMap.x as integer)
-					TUV2Map1.y = 1 - TUV2Map1.y
-					TUV2Map2 = meshop.getMapVert obj 2 (IdxsMap.y as integer)
-					TUV2Map2.y = 1 - TUV2Map2.y
-					TUV2Map3 = meshop.getMapVert obj 2 (IdxsMap.z as integer)
-					TUV2Map3.y = 1 - TUV2Map3.y
-				)
-				if (bit.and MeshBuffer.VertexType VERTEX_TYPE_RNM) == VERTEX_TYPE_RNM then
+				if ( (bit.and MeshBuffer.VertexType VERTEX_TYPE_TEXTURE2) == VERTEX_TYPE_TEXTURE2 ) OR
+				   ( (bit.and MeshBuffer.VertexType VERTEX_TYPE_RNM) == VERTEX_TYPE_RNM ) OR
+				   ( t_mesh.TextureSplatting == true ) then
 				(
 					TUV2Map1 = meshop.getMapVert obj 2 (IdxsMap.x as integer)
 					TUV2Map1.y = 1 - TUV2Map1.y
@@ -283,11 +276,10 @@ function ExtractMeshGeometry obj counterClockwise t_mesh =
 			--Vtx2 = RHTranslationToLH Vtx2
 			--Vtx3 = RHTranslationToLH Vtx3
 			
-			
 			--Create Vertexs
-			local Vertex1 = CreateVertex Vtx1 Normal1 TUVMap1 TUV2Map1 Diffuse1 MeshBuffer.VertexType
-			local Vertex2 = CreateVertex Vtx2 Normal2 TUVMap2 TUV2Map2 Diffuse2 MeshBuffer.VertexType
-			local Vertex3 = CreateVertex Vtx3 Normal3 TUVMap3 TUV2Map3 Diffuse3 MeshBuffer.VertexType
+			local Vertex1 = CreateVertex Vtx1 Normal1 TUVMap1 TUV2Map1 Diffuse1
+			local Vertex2 = CreateVertex Vtx2 Normal2 TUVMap2 TUV2Map2 Diffuse2 
+			local Vertex3 = CreateVertex Vtx3 Normal3 TUVMap3 TUV2Map3 Diffuse3 
 			
 			--Add to Buffer
 			MeshBuffer.AddVertexAndIndex Vertex1 Vertex2 Vertex3 counterClockwise
@@ -380,6 +372,10 @@ function ExportSelection selectedObjs outputDir subOutPutDir counterClockwise ex
 		--------------------------------------
 		
 		format "Starting export of object: % \n" t_mesh.MeshName 
+		
+		--------------------------------------
+		
+		t_mesh.TextureSplatting = getUserProp objPM "texture_splatting"
 		
 		--------------------------------------
 		

@@ -4,33 +4,33 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 (
 	GroupBox grp1 "Render" pos:[8,4] width:249 height:205
 	checkbox ExportRenderCB "Export" pos:[14,25] width:53 height:15
-	dropdownList ExportRenderList "" pos:[94,24] width:156 height:24 items:#("static_mesh", "animated_model")
+	dropdownList ExportRenderList "" pos:[94,24] width:156 height:21 items:#("static_mesh", "animated_model")
 	checkbox VisibleRenderCB "Visible" pos:[14,47] width:76 height:18
 	checkbox LayerRenderCB "Layer" pos:[14,70] width:71 height:17
-	dropdownList LayerRenderList "" pos:[94,68] width:156 height:24 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles", "vegetation", "water", "fish", "birds")
-	label lbl1 "Anim. model" pos:[14,105] width:70 height:16
-	edittext AnimModelRenderText "" pos:[93,101] width:157 height:21
+	dropdownList LayerRenderList "" pos:[94,68] width:156 height:21 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles", "vegetation", "water", "fish", "birds")
+	label lbl1 "Anim. model" pos:[21,142] width:70 height:16
+	edittext AnimModelRenderText "" pos:[98,141] width:157 height:21
 	GroupBox grp2 "Physics" pos:[8,215] width:249 height:70
 	checkbox GeneratePhysicsCB "Generate" pos:[14,230] width:71 height:18
-	dropdownList GeneratePhysicsList "" pos:[94,227] width:156 height:24 items:#("triangle_mesh", "convex_shape", "bounding_box", "sphere_shape", "plane_shape", "capsule_shape")
+	dropdownList GeneratePhysicsList "" pos:[94,227] width:156 height:21 items:#("triangle_mesh", "convex_shape", "bounding_box", "sphere_shape", "plane_shape", "capsule_shape")
 	checkbox layerPhysicsCB "Layer" pos:[14,257] width:72 height:16
-	dropdownList LayerPhysicsList "" pos:[94,255] width:156 height:24
+	dropdownList LayerPhysicsList "" pos:[94,255] width:156 height:21
 	GroupBox grp3 "Logic" pos:[9,292] width:244 height:48
 	checkbox GenerateLogicCB "Generate" pos:[14,308] width:71 height:18
-	dropdownList GenerateLogicList "" pos:[89,306] width:156 height:24
+	dropdownList GenerateLogicList "" pos:[89,306] width:156 height:21
 	button GetButton "Get" pos:[433,620] width:83 height:24
 	button SetButton "Set" pos:[529,619] width:83 height:24
 	checkbox cbGenShadowMap "Dynamic Shadow Map:" pos:[15,365] width:84 height:26 checked:false
-	dropdownList ddlShMapFormat "" pos:[111,366] width:110 height:24 items:#("G32R32F", "R32F")
-	dropdownList ddlShMapWidth "" pos:[111,394] width:108 height:24 items:#("512", "1024", "2048")
+	dropdownList ddlShMapFormat "" pos:[111,366] width:110 height:21 items:#("G32R32F", "R32F")
+	dropdownList ddlShMapWidth "" pos:[111,394] width:108 height:21 items:#("512", "1024", "2048")
 	label lbShMapWidth "Width:" pos:[67,397] width:35 height:18
-	dropdownList ddlShMapHeigth "" pos:[111,422] width:108 height:24 items:#("512", "1024", "2048")
+	dropdownList ddlShMapHeigth "" pos:[111,422] width:108 height:21 items:#("512", "1024", "2048")
 	label lbShMapHeigth "Heigth:" pos:[65,426] width:35 height:18
 	checkbox cbGenSShMap "Static Shadow Map:" pos:[17,452] width:91 height:26 checked:false
-	dropdownList ddlSShMapFormat "" pos:[111,456] width:110 height:24 items:#("G32R32F", "R32F")
-	dropdownList ddlSShMapWidth "" pos:[111,485] width:108 height:24 items:#("512", "1024", "2048")
+	dropdownList ddlSShMapFormat "" pos:[111,456] width:110 height:21 items:#("G32R32F", "R32F")
+	dropdownList ddlSShMapWidth "" pos:[111,485] width:108 height:21 items:#("512", "1024", "2048")
 	label lbSShMapWidth "Width:" pos:[72,488] width:35 height:18
-	dropdownList ddlSShMapHeigth "" pos:[111,513] width:108 height:24 items:#("512", "1024", "2048")
+	dropdownList ddlSShMapHeigth "" pos:[111,513] width:108 height:21 items:#("512", "1024", "2048")
 	label lbSShMapHeigth "Heigth:" pos:[71,516] width:35 height:18
 	GroupBox grpLights "Lights" pos:[7,352] width:243 height:272
 	button btnShadowMask "Shadow Mask" pos:[18,547] width:77 height:20
@@ -38,20 +38,20 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 	checkbox cbShadowMask "" pos:[100,545] width:24 height:25 witdh:25
 	label lblStaticLayer "Static Layer:" pos:[40,573] width:70 height:14
 	label lbl43 "Dynamic Layer:" pos:[24,598] width:77 height:14
-	dropdownList ddlStaticLayer "" pos:[112,574] width:120 height:24 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles", "vegetation", "water", "fish", "birds" )
-	dropdownList ddlDynamicLayer "" pos:[112,598] width:120 height:24 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles", "vegetation", "water", "fish", "birds")
+	dropdownList ddlStaticLayer "" pos:[112,574] width:120 height:21 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles", "vegetation", "water", "fish", "birds")
+	dropdownList ddlDynamicLayer "" pos:[112,598] width:120 height:21 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles", "vegetation", "water", "fish", "birds")
 	GroupBox grp5 "AI Waypoints" pos:[278,11] width:326 height:290
 	button RefreshBrotherNodes "Refresh WP" pos:[293,257] width:94 height:25
 	checkbox IsWayPoint "Is Waypoint" pos:[291,36] width:119 height:19
-	dropdownList BrotherNodesAI "Brother Nodes" pos:[292,149] width:173 height:43
+	dropdownList BrotherNodesAI "Brother Nodes" pos:[292,149] width:173 height:40
 	button RemoveBrotherNode "Remove" pos:[479,164] width:96 height:25
-	dropdownList PossibleBrotherNodesAI "Possible Brother Nodes" pos:[294,204] width:172 height:43
+	dropdownList PossibleBrotherNodesAI "Possible Brother Nodes" pos:[294,204] width:172 height:40
 	button AddBrotherNode "Add" pos:[482,222] width:90 height:24
-	dropdownList WayPointGroup "Waypoint Group" pos:[291,76] width:175 height:43 items:#("Group 1", "Group 2", "Group 3", "Group 4", "Group 5", "Fish Group", "Bird Group")
-	checkbox cbIsInstance "Is Instance:" pos:[20,160] width:80 height:16
-	edittext InstanceName "" pos:[98,160] width:145 height:18
-	checkbox cbParentInstance "Is Parent Instance" pos:[20,137] width:127 height:14
-	
+	dropdownList WayPointGroup "Waypoint Group" pos:[291,76] width:175 height:40 items:#("Group 1", "Group 2", "Group 3", "Group 4", "Group 5", "Fish Group", "Bird Group")
+	checkbox cbIsInstance "Is Instance:" pos:[21,185] width:80 height:16
+	edittext InstanceName "" pos:[101,184] width:145 height:18
+	checkbox cbParentInstance "Is Parent Instance" pos:[20,166] width:127 height:14
+	checkbox cbTextureSplatting "Texture Splatting" pos:[17,115] width:106 height:16
 	
 	
 	local m_ObjSelected = undefined
@@ -68,10 +68,21 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 		cbIsInstance.checked = false
 		cbParentInstance.checked = false
 		AnimModelRenderText.text = ""
+		cbTextureSplatting.checked = false
 	)
 	
 	function SaveObjectProps Obj =
 	(
+		--Set Texture Splatting 
+		if cbTextureSplatting.checked then
+		(
+			setUserProp Obj "texture_splatting" true
+		)
+		else
+		(
+			setUserProp Obj "texture_splatting" false
+		)
+		
 		--Set Instance
 		if cbIsInstance.checked then
 		(
@@ -249,6 +260,7 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 			local l_IsWP = getUserProp $ "is_waypoint"
 			local l_IsInstace = getUserProp $ "is_instance"
 			local l_ParentInstance = getUserProp $ "parent_instance"
+			local l_TextureSplatting = getUserProp $ "texture_splatting"
 			
 			--Unchecked all check boxes
 			ResetProps()
@@ -262,6 +274,15 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 				(
 					BrotherNodesAI.items = FromStringToArray bros
 				)
+			)
+			
+			if l_TextureSplatting == true then
+			(
+				cbTextureSplatting.checked = true
+			)
+			else
+			(
+				cbTextureSplatting.checked = false
 			)
 			
 			--Set Instance
@@ -567,5 +588,6 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 		
 		BrotherNodesAI.items = broPnts
 	)
+	
 )
 
