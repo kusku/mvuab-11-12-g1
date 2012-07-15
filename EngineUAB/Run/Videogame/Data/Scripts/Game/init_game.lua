@@ -15,7 +15,6 @@ Msg_Evade	= 8		-- Evadir
 Msg_Chase	= 9 	-- Persecució
 	
 function init_game_data()
-	print_logger(0, "Iniciant l'aplicació...")	
-	_soundM:play_event('Play_MUS_Level_1')
+	core:load_triggers()
 end
 

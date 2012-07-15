@@ -29,6 +29,11 @@
 #include "Utils\Named.h"
 #include "Utils\TemplatedVectorMapManager.h"
 
+#include "Triggers/Types/BoxTrigger.h"
+#include "Triggers\Types\SphereTrigger.h"
+#include "Triggers\Trigger.h"
+#include "Triggers/TriggerWrapper.h"
+
 #include "core.h"
 #include "base.h"
 #include <string>
@@ -55,6 +60,33 @@ void RegisterToLuaBaseGameEntity(lua_State* _pLua)
 		[
 			class_<CBaseGameEntity> ("CBaseGameEntity")
 				.def("get_id",&CBaseGameEntity::GetID)
+		];
+
+	//TRIGGERS
+	module(_pLua)
+		[
+			class_<CTrigger, CNamed>("CTrigger")
+		];
+
+	module(_pLua)
+		[
+			class_<CBoxTrigger, Box_Trigger_Wrapper, CTrigger>("CBoxTrigger")
+				.def(constructor<>())
+				.def("update", &CBoxTrigger::Update, &Box_Trigger_Wrapper::Update)
+				.def("on_enter", &CBoxTrigger::OnEnter, &Box_Trigger_Wrapper::OnEnter)
+				.def("on_execute", &CBoxTrigger::OnExecute, &Box_Trigger_Wrapper::OnExecute)
+				.def("on_exit", &CBoxTrigger::OnExit, &Box_Trigger_Wrapper::OnExit)
+				.property("active", &CBoxTrigger::IsActive, &CBoxTrigger::SetActive)
+		];
+
+	module(_pLua)
+		[
+			class_<CSphereTrigger, Sphere_Trigger_Wrapper, CTrigger>("CSphereTrigger")
+			.def(constructor<>())
+			.def("update", &CSphereTrigger::Update, &Sphere_Trigger_Wrapper::Update)
+			.def("on_enter", &CSphereTrigger::OnEnter, &Sphere_Trigger_Wrapper::OnEnter)
+			.def("on_execute", &CSphereTrigger::OnExecute, &Sphere_Trigger_Wrapper::OnExecute)
+			.def("on_exit", &CSphereTrigger::OnExit, &Sphere_Trigger_Wrapper::OnExit)
 		];
 }
 

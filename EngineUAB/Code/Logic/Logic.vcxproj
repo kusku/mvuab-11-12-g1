@@ -26,7 +26,10 @@
     <ClCompile Include="Steering Behaviours\Steering.cpp" />
     <ClCompile Include="Steering Behaviours\SteeringBehaviours.cpp" />
     <ClCompile Include="Steering Behaviours\SteeringEntity.cpp" />
+    <ClCompile Include="Triggers\Trigger.cpp" />
     <ClCompile Include="Triggers\TriggersManager.cpp" />
+    <ClCompile Include="Triggers\Types\BoxTrigger.cpp" />
+    <ClCompile Include="Triggers\Types\SphereTrigger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animal Control\AnimalManager.h" />
@@ -52,7 +55,11 @@
     <ClInclude Include="Steering Behaviours\SteeringBehaviours.h" />
     <ClInclude Include="Steering Behaviours\SteeringBehavioursDefs.h" />
     <ClInclude Include="Steering Behaviours\SteeringEntity.h" />
+    <ClInclude Include="Triggers\Trigger.h" />
     <ClInclude Include="Triggers\TriggersManager.h" />
+    <ClInclude Include="Triggers\TriggerWrapper.h" />
+    <ClInclude Include="Triggers\Types\BoxTrigger.h" />
+    <ClInclude Include="Triggers\Types\SphereTrigger.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C7E5C5FF-A876-42C2-86CC-D5563ECD1C75}</ProjectGuid>

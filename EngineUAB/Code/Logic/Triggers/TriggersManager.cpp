@@ -1,115 +1,110 @@
-#include <string>
-#include <map>
-
 #include "TriggersManager.h"
+#include "Trigger.h"
+#include "Types/BoxTrigger.h"
+#include "Types\SphereTrigger.h"
+
 #include "PhysicsManager.h"
 #include "PhysicUserData.h"
 #include "PhysicActor.h"
 
-#include "Utils\MapManager.h"
-#include "Scripting\ScriptManager.h"
-
-#include "Math\Vector3.h"
-#include "Math\Color.h"
-
 #include "Scripting\ScriptManager.h"
 #include "RenderManager.h"
 #include "XML\XMLTreeNode.h"
-#include "base.h"
+#include "Base.h"
 #include "Core.h"
 #include "Logger\Logger.h"
+
+#include <string>
+#include <map>
+#include <luabind/adopt_policy.hpp>
 
 #if defined(_DEBUG)
 	#include "Memory\MemLeaks.h"
 #endif
 
-// -----------------------------------------
-//			CONSTRUCTOR/DESTRUCTOR
-// -----------------------------------------
-
-CTriggersManager::CTriggersManager( void )
+//----------------------------------------------
+CTriggersManager::CTriggersManager()
 	: m_szFilename	( "" )
 {
 }
 
-CTriggersManager::~CTriggersManager( void )
+//----------------------------------------------
+CTriggersManager::~CTriggersManager()
 {
 	Destroy();
 }
 
-
-// -----------------------------------------
-//			 MÈTODES PRINCIPALS
-// -----------------------------------------
-
+//----------------------------------------------
 void CTriggersManager::Init()
 {
-	CORE->GetPhysicsManager()->SetTriggerReport ( this );
+	CORE->GetPhysicsManager()->SetTriggerReport( this );
+
+	TTRIGGERMAP::iterator l_It = m_TriggerMap.begin();
+	TTRIGGERMAP::iterator l_End = m_TriggerMap.end();
+
+	for(; l_It != l_End; ++l_It)
+	{
+		l_It->second->Init();
+	}
 }
 
-void CTriggersManager::Destroy ( void )
+//----------------------------------------------
+void CTriggersManager::Destroy()
 {
-	std::map<std::string, TriggerInstance>::iterator l_It =	m_TriggersMap.begin();
-	std::map<std::string, TriggerInstance>::iterator l_End = m_TriggersMap.end();
-	
-	// Eliminem els triggers que ha creat el manager
-	for ( l_It ; l_It != l_End; l_It++ )
-	{
-		CPhysicActor *l_pActor = l_It->second.pTriggerActor;
-		CORE->GetPhysicsManager()->ReleasePhysicActor ( l_pActor );
-		CPhysicUserData* l_Data = l_pActor->GetUserData ();
+	TTRIGGERMAP::iterator l_It = m_TriggerMap.begin();
+	TTRIGGERMAP::iterator l_End = m_TriggerMap.end();
 
-		CHECKED_DELETE ( l_Data );
-		CHECKED_DELETE ( l_pActor );
+	for(; l_It != l_End; ++l_It)
+	{
+		//El trigger creado en Scripting lo destruye la librería de script.
+		l_It->second = NULL;
 	}
 
-	m_TriggersMap.clear();
+	m_TriggerMap.clear();
 }
 
-bool CTriggersManager::Load ( const std::string &_Filename )
+//----------------------------------------------
+bool CTriggersManager::Load( const std::string &_Filename )
 {
 	m_szFilename = _Filename;
 	return LoadXML();
 }
 
-bool CTriggersManager::Reload ( void )
+//----------------------------------------------
+bool CTriggersManager::Reload()
 {
 	LOGGER->AddNewLog( ELL_INFORMATION, "CTriggersManager::Reload--> Reloading triggers system." );
 	Destroy();
 	return LoadXML();
 }
 
-// Actualitzem totes les instancies d'emissors
-void CTriggersManager::Update ( float _ElapsedTime )
+//----------------------------------------------
+void CTriggersManager::Update( float _ElapsedTime )
 {
-	return;
-}
+	TTRIGGERMAP::iterator l_It = m_TriggerMap.begin();
+	TTRIGGERMAP::iterator l_End = m_TriggerMap.end();
 
-void CTriggersManager::Render ( CRenderManager *_RM )
-{
-	CORE->GetRenderManager()->SetTransform(m44fIDENTITY);
-
-	std::map<std::string, TriggerInstance>::iterator l_It =	m_TriggersMap.begin();
-	std::map<std::string, TriggerInstance>::iterator l_End = m_TriggersMap.end();
-
-	for (; l_It != l_End; ++l_It)
+	for(; l_It != l_End; ++l_It)
 	{
-		Mat44f trans = m44fIDENTITY;
-		trans.Translate(l_It->second.Position);
-		CORE->GetRenderManager()->SetTransform(trans);
-
-		CORE->GetRenderManager()->DrawCube(l_It->second.Size, colGREEN);
+		l_It->second->Update(_ElapsedTime);
 	}
 }
 
-// -----------------------------------------
-//				MÈTODES 
-// -----------------------------------------
-
-// Carreguem el fitxer d'emissors de partícules
-bool CTriggersManager::LoadXML ( void )
+//----------------------------------------------
+void CTriggersManager::Render( CRenderManager *_RM )
 {
-	LOGGER->AddNewLog( ELL_INFORMATION, "CTriggersManager::LoadXML --> Loading triggers System." );
+	TTRIGGERMAP::iterator l_It = m_TriggerMap.begin();
+	TTRIGGERMAP::iterator l_End = m_TriggerMap.end();
+
+	for(; l_It != l_End; ++l_It)
+	{
+		l_It->second->Render(_RM);
+	}
+}
+
+//----------------------------------------------
+bool CTriggersManager::LoadXML()
+{
 	CXMLTreeNode newFile;
 	if ( !newFile.LoadFile ( m_szFilename.c_str ( ) ) )
 	{
@@ -118,159 +113,118 @@ bool CTriggersManager::LoadXML ( void )
 		return false;
 	}
 
-	CPhysicsManager* l_PM = CORE->GetPhysicsManager();
-	CPhysicActor* l_FisicTrigger = NULL;
-		
 	CXMLTreeNode l_NodePare = newFile ["triggers"];
-	if ( l_NodePare.Exists ( ) )
+	if ( l_NodePare.Exists() )
 	{
 		uint16 l_TotalNodes = l_NodePare.GetNumChildren ();
-		// Recorro els triggers 
 		for ( uint16 i = 0; i < l_TotalNodes; ++i )
 		{
+			CXMLTreeNode l_TriggerNode = l_NodePare(i);
+
 			std::string l_Node = l_NodePare(i).GetName();
 			if ( l_Node == "trigger" ) 
 			{
-				CXMLTreeNode l_TriggerNode = l_NodePare(i);
-				TriggerInstance l_Instance;
-				l_Instance.Active = true;
-				l_Instance.Name			= static_cast<std::string> ( l_TriggerNode.GetPszProperty ( "name", "" ) );
-				l_Instance.TriggerName	= static_cast<std::string> ( l_TriggerNode.GetPszProperty ( "triggername", "" ) );
-				l_Instance.ActorName	= static_cast<std::string> ( l_TriggerNode.GetPszProperty ( "actorname", "" ) );
-				l_Instance.LayerName	= static_cast<std::string> ( l_TriggerNode.GetPszProperty ( "layer", "" ) );
-				l_Instance.TriggerType	= static_cast<std::string> ( l_TriggerNode.GetPszProperty ( "type", "" ) );
-				l_Instance.LuaCode		= static_cast<std::string> ( l_TriggerNode.GetPszProperty ( "luacode", "" ) );
-				l_Instance.Position		= static_cast<Vect3f> ( l_TriggerNode.GetVect3fProperty   ( "position", Vect3f(0.f,0.f,0.f) ) );
-				l_Instance.Size			= static_cast<Vect3f> ( l_TriggerNode.GetVect3fProperty   ( "size",	    Vect3f(0.f,0.f,0.f) ) );
-				l_Instance.Color		= static_cast<CColor> ( l_TriggerNode.GetVect4fProperty   ( "color",	Vect4f(0.f,0.f,0.f,0.f) ) );
-				l_Instance.Group		= static_cast<uint32> ( l_TriggerNode.GetIntProperty	  ( "group",	ECG_TRIGGERS ) );
-				l_Instance.Radius		= static_cast<float>  ( l_TriggerNode.GetFloatProperty    ( "radius",	1.f ) );
+				std::string l_Type = static_cast<std::string> ( l_TriggerNode.GetPszProperty ( "type", "" ) );
+				std::string l_LUAClass = static_cast<std::string> ( l_TriggerNode.GetPszProperty ( "scriptclass", "" ) );
 
-				if ( !ExistTrigger ( l_Instance.Name ) ) 
+				CTrigger *l_pTrigger = NULL;
+				if( l_Type == "box" )
 				{
-					TriggerInstance l_Trigger; //=GetTrigger( l_Instance.TriggerName );
-				
-					if ( l_Trigger.pTriggerActor == NULL )
-					{
-						// Creem un UserData per aquest físic trigger
-						CPhysicUserData * l_UserData = new CPhysicUserData ( l_Instance.TriggerName, UD_IS_TRIGGER );
-						l_UserData->SetColor ( l_Instance.Color );
-						l_UserData->SetPaint ( true );
-
-						// Creem un actor-trigger
-						l_FisicTrigger = new CPhysicActor ( l_UserData );
-						l_Instance.pTriggerActor = l_FisicTrigger;
-						if ( l_Instance.TriggerType == "box" )
-							l_FisicTrigger->CreateBoxTrigger ( l_Instance.Position, l_Instance.Size, ECG_TRIGGERS );
-
-						if ( l_Instance.TriggerType == "sphere" )
-							l_FisicTrigger->CreateSphereTrigger ( l_Instance.Position, l_Instance.Radius, ECG_TRIGGERS );
-					
-						if ( !l_PM->AddPhysicActor ( l_FisicTrigger ) )
-							LOGGER->AddNewLog ( ELL_ERROR, "CTriggersManager::LoadXML->A físic trigger from file called %s could not be created or already exist", l_Instance.Name.c_str() );  
-
-						m_TriggersMap.insert ( std::pair<std::string, TriggerInstance>( l_Instance.Name, l_Instance ) );
-						l_UserData = NULL;
-						l_FisicTrigger = NULL;
-					}
-					else
-						LOGGER->AddNewLog ( ELL_WARNING, "CTriggersManager::LoadXML->A trigger from file called %s already exist a It won't be created", l_Instance.Name );  
+					l_pTrigger = call_function<CBoxTrigger*>(SCRIPT->GetLuaState(), l_LUAClass.c_str(), 0)[adopt(result)];
 				}
-				else
-					LOGGER->AddNewLog ( ELL_ERROR, "CTriggersManager::LoadXML->A trigger from file called %s already exist a It won't be created", l_Instance.Name );  
-			}
-			else if ( l_Node != "comment" ) 
-			{
-				std::string msg_error = "CTriggersManager::LoadXML->Error when trying to load a node : " + l_Node + " from file: " + m_szFilename;
-				LOGGER->AddNewLog( ELL_ERROR, msg_error.c_str() );
+				else if( l_Type == "sphere" )
+				{
+					l_pTrigger = call_function<CSphereTrigger*>(SCRIPT->GetLuaState(), l_LUAClass.c_str(), 0)[adopt(result)];
+				}
+
+				l_pTrigger->ReadData(l_TriggerNode);
+				m_TriggerMap[ l_pTrigger->GetName() ] = l_pTrigger;
 			}
 		}
 	}
+	else
+	{
+		return false;
+	}
+
 	return true;
 }
 
-// -----------------------------------------
-//				 EVENTS 
-// -----------------------------------------
-
-void CTriggersManager::OnEnter ( CPhysicUserData* _Entity_Trigger1, CPhysicUserData* _Other_Shape )
+//----------------------------------------------
+void CTriggersManager::OnEnter( CPhysicUserData* _Entity_Trigger1, CPhysicUserData* _Other_Shape )
 {
-	std::map<std::string, TriggerInstance>::iterator l_It = m_TriggersMap.begin();
-	std::map<std::string, TriggerInstance>::iterator l_End = m_TriggersMap.end();
+	CTrigger *l_pTrigger = NULL;
+
+	TTRIGGERMAP::iterator l_It = m_TriggerMap.begin();
+	TTRIGGERMAP::iterator l_End = m_TriggerMap.end();
+
 	for(; l_It != l_End; ++l_It)
 	{
-		if( _Entity_Trigger1 == l_It->second.pTriggerActor->GetUserData() && l_It->second.Active )
+		l_pTrigger = l_It->second;
+		if( l_pTrigger->IsActive() )
 		{
-			SCRIPT->RunCode( l_It->second.LuaCode );
-			l_It->second.Active = false;
+			if( _Entity_Trigger1 == l_pTrigger->GetTriggerActor()->GetUserData() )
+			{
+				l_pTrigger->OnEnter();
+				return;
+			}
 		}
 	}
 }
 
-
-void CTriggersManager::OnLeave ( CPhysicUserData* _Entity_Trigger1, CPhysicUserData* _Other_Shape )
+//----------------------------------------------
+void CTriggersManager::OnLeave( CPhysicUserData* _Entity_Trigger1, CPhysicUserData* _Other_Shape )
 {
-}
+	CTrigger *l_pTrigger = NULL;
 
+	TTRIGGERMAP::iterator l_It = m_TriggerMap.begin();
+	TTRIGGERMAP::iterator l_End = m_TriggerMap.end();
 
-void CTriggersManager::OnStay ( CPhysicUserData* _Entity_Trigger1, CPhysicUserData* _Other_Shape )
-{
-}
-
-// -----------------------------------------
-//				 PROPIETATS 
-// -----------------------------------------
-TriggerInstance	CTriggersManager::GetTrigger ( std::string _TriggerName )
-{
-	TriggerInstance l_FisicTrigger;
-	bool blnTrobat = false;
-
-	std::map<std::string, TriggerInstance>::iterator l_It = m_TriggersMap.begin();
-	std::map<std::string, TriggerInstance>::iterator l_End = m_TriggersMap.end();
-	
-	/*for ( l_It ; l_It != l_End; ++l_It ) 
+	for(; l_It != l_End; ++l_It)
 	{
-		if ( _TriggerName == ((*(&(l_It)._Ptr->_Myval)).second).TriggerName )
+		l_pTrigger = l_It->second;
+		if ( l_pTrigger->IsActive() )
 		{
-			blnTrobat = true;
-			l_FisicTrigger = ((*(&(l_It)._Ptr->_Myval)).second);
-			break;
+			if( _Entity_Trigger1 == l_pTrigger->GetTriggerActor()->GetUserData() )
+			{
+				l_pTrigger->OnExit();
+				return;
+			}
 		}
-	}*/
-	
-	return l_FisicTrigger;
+	}
 }
 
-bool CTriggersManager::ExistFisicTrigger ( std::string _FisicTriggerName )
+//----------------------------------------------
+void CTriggersManager::OnStay( CPhysicUserData* _Entity_Trigger1, CPhysicUserData* _Other_Shape )
 {
-	TriggerInstance l_Trigger;
-	
-	std::map<std::string, TriggerInstance>::iterator l_It = m_TriggersMap.find(_FisicTriggerName);
-	if ( l_It != m_TriggersMap.end () )
-		return true;
-	else 
-		return false;
+	CTrigger *l_pTrigger = NULL;
+
+	TTRIGGERMAP::iterator l_It = m_TriggerMap.begin();
+	TTRIGGERMAP::iterator l_End = m_TriggerMap.end();
+
+	for(; l_It != l_End; ++l_It)
+	{
+		l_pTrigger = l_It->second;
+		if( l_pTrigger )
+		{
+			if( _Entity_Trigger1 == l_pTrigger->GetTriggerActor()->GetUserData() )
+			{
+				l_pTrigger->OnExecute();
+				return;
+			}
+		}
+	}
 }
 
-bool CTriggersManager::ExistTrigger ( std::string _TriggerName )
-{
-	TriggerInstance l_Trigger;
-	
-	std::map<std::string, TriggerInstance>::iterator l_It = m_TriggersMap.find(_TriggerName);
-	if ( l_It != m_TriggersMap.end () )
-		return true;
-	else 
-		return false;
-}
-
+//----------------------------------------------
 void CTriggersManager::RegisterMethods()
 {
 	lua_State *state = SCRIPT->GetLuaState();
 
 	module(state) [
 		class_<CTriggersManager>("CTriggersManager")
-			.def("exist_fisic_trigger", &CTriggersManager::ExistFisicTrigger)			// Retorna si existe un trigger ya cargado
-			.def("exist_trigger", &CTriggersManager::ExistTrigger)						// Retorna si existe un físic trigger asociado al trigger ya cargado
-			.def("get_trigger", &CTriggersManager::GetTrigger)							// Obtiene el trigger del mapa de triggers
+			//.def("exist_fisic_trigger", &CTriggersManager::ExistFisicTrigger)			// Retorna si existe un trigger ya cargado
+			//.def("exist_trigger", &CTriggersManager::ExistTrigger)						// Retorna si existe un físic trigger asociado al trigger ya cargado
+			//.def("get_trigger", &CTriggersManager::GetTrigger)							// Obtiene el trigger del mapa de triggers
 	];
 }
