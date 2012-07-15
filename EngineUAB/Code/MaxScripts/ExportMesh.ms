@@ -251,14 +251,16 @@ function ExtractMeshGeometry obj counterClockwise t_mesh =
 			
 				if ( (bit.and MeshBuffer.VertexType VERTEX_TYPE_TEXTURE2) == VERTEX_TYPE_TEXTURE2 ) OR
 				   ( (bit.and MeshBuffer.VertexType VERTEX_TYPE_RNM) == VERTEX_TYPE_RNM ) OR
-				   ( t_mesh.TextureSplatting == true ) then
+				   ( t_mesh.TextureSplatting.TSEnable == true ) then
 				(
+					IdxsMap = meshop.getMapFace obj 2 i
+					
 					TUV2Map1 = meshop.getMapVert obj 2 (IdxsMap.x as integer)
 					TUV2Map1.y = 1 - TUV2Map1.y
 					TUV2Map2 = meshop.getMapVert obj 2 (IdxsMap.y as integer)
 					TUV2Map2.y = 1 - TUV2Map2.y
 					TUV2Map3 = meshop.getMapVert obj 2 (IdxsMap.z as integer)
-					TUV2Map3.y = 1 - TUV2Map3.y
+					TUV2Map3.y = 1 - TUV2Map3.y					
 				)
 			)
 			else
@@ -375,7 +377,15 @@ function ExportSelection selectedObjs outputDir subOutPutDir counterClockwise ex
 		
 		--------------------------------------
 		
-		t_mesh.TextureSplatting = getUserProp objPM "texture_splatting"
+		t_mesh.TextureSplatting.TSEnable = getUserProp objPM "texture_splatting"
+		
+		if t_mesh.TextureSplatting.TSEnable == true then
+		(
+			t_mesh.TextureSplatting.TSBlend1 = getUserProp $ "texture_splatting_blend1" 
+			t_mesh.TextureSplatting.TSBlend2 = getUserProp $ "texture_splatting_blend2" 
+			t_mesh.TextureSplatting.TSBlend3 = getUserProp $ "texture_splatting_blend3" 
+			t_mesh.TextureSplatting.TSBlend4 = getUserProp $ "texture_splatting_blend4" 
+		)
 		
 		--------------------------------------
 		
