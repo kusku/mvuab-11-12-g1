@@ -27,6 +27,8 @@ CThPSCharacterCamera::CThPSCharacterCamera(const std::string &_Name)
 	, m_LookAt(v3fBOTTOM)
 	, m_bCollision(false)
 	, m_CollisionPoint(v3fZERO)
+	, m_fCollisionCorrection(0.15f)
+	, m_fMinimumDistanceToGround(1.f)
 {
 	m_Name = _Name;
 }
@@ -46,6 +48,8 @@ CThPSCharacterCamera::CThPSCharacterCamera(float zn, float zf, float fov, float 
 	, m_LookAt(v3fBOTTOM)
 	, m_bCollision(false)
 	, m_CollisionPoint(v3fZERO)
+	, m_fCollisionCorrection(0.05f)
+	, m_fMinimumDistanceToGround(1.f)
 {
 	m_Name = name;
 	//CreateCollision();
@@ -136,17 +140,38 @@ void CThPSCharacterCamera::Update(float _ElapsedTime)
 		m_Eye -= v3fNEGY * 0.5f;
 		m_pObject3D->SetPitch( -ePI<float>() / 6 ); //Bloquea el movimiento del pitch
 	}
+	else
+	{
+		if ( l_CollisionInfo.m_fDistance < m_fMinimumDistanceToGround )
+		{
+			m_Eye -= v3fNEGY * m_fCollisionCorrection;
+		}
+	}
 
 	l_pUserData = CORE->GetPhysicsManager()->RaycastClosestActor(m_Eye + l_vLeft + v3fNEGY, v3fNEGY, l_iMask, l_CollisionInfo);
 	if( l_pUserData == NULL )
 	{
 		m_Eye -= l_vLeft * 0.5f;
 	}
+	else
+	{
+		if ( l_CollisionInfo.m_fDistance < m_fMinimumDistanceToGround )
+		{
+			m_Eye -= v3fNEGY * m_fCollisionCorrection;
+		}
+	}
 
 	l_pUserData = CORE->GetPhysicsManager()->RaycastClosestActor(m_Eye - l_vLeft + v3fNEGY, v3fNEGY, l_iMask, l_CollisionInfo);
 	if( l_pUserData == NULL )
 	{
 		m_Eye += l_vLeft * 0.5f;
+	}
+	else
+	{
+		if ( l_CollisionInfo.m_fDistance < m_fMinimumDistanceToGround )
+		{
+			m_Eye -= v3fNEGY * m_fCollisionCorrection;
+		}
 	}
 }
 

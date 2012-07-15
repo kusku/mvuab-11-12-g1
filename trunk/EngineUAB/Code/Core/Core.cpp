@@ -456,8 +456,10 @@ bool CCore::LoadGUI()
 
 bool CCore::LoadTriggers()
 {
+	bool l_bIsOk = m_pTriggersManager->Load( m_Config.triggers_system_path );
 	m_pTriggersManager->Init();
-	return m_pTriggersManager->Load( m_Config.triggers_system_path );
+
+	return l_bIsOk;
 }
 
 bool CCore::LoadSounds()

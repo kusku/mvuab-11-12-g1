@@ -7,38 +7,29 @@ class 'CWolf' (CCharacter)
 	--		Load States Methods
 	-- ------------------------------
 	function CWolf:load_graphic_states()
-		print_logger(0, "CWolf::load_graphic_states->Loading animated states...")
 		
 		-- Idle State --
 		self.animation_idle_state = CWolfAnimatedIdleState()
 		if self.animation_idle_state == nil then
 			print_logger(2, "CWolf::load_graphic_states->Error al cargar un estado animado idle del lobo")
-		else 
-			print_logger(0, "CWolf::load_graphic_states->CWolf::load_graphic_states->Creat estado animado idle del lobo")
 		end		
 		
 		-- Walk State --
 		self.animation_walk_state = CWolfAnimatedWalkState()
 		if self.animation_walk_state == nil then
 			print_logger(2, "CWolf::load_graphic_states->Error al cargar un estado animado Walk del lobo")
-		else
-			print_logger(0, "CWolf::load_graphic_states->Creat estado animado Walk del lobo")
 		end
 		
 		-- Pursuit State --
 		self.animation_pursuit_state = CWolfAnimatedPursuitState()
 		if self.animation_pursuit_state == nil then
 			print_logger(2, "CWolf::load_graphic_states->Error al cargar un estado animado PURSUIT del lobo")
-		else
-			print_logger(0, "CWolf::load_graphic_states->Creat estado animado PURSUIT del lobo")
 		end
 		
 		-- Attack State --
 		self.animation_attack_state = CWolfAnimatedAttackState()
 		if self.animation_attack_state == nil then
 			print_logger(2, "CWolf::load_graphic_states->Error al cargar un estado animado ATTACK del lobo")
-		else
-			print_logger(0, "CWolf::load_graphic_states->Creat estado animado ATTACK del lobo")
 		end
 		
 		-- -- Attack Run State --
@@ -69,70 +60,53 @@ class 'CWolf' (CCharacter)
 	end 
 	
 	function CWolf:load_logic_states()
-		print_logger(0, "CWolf::load_logic_states->Loading logic states...")
 		
 		-- Idle State --
 		self.idle_state = CWolfIdleState()
 		if self.idle_state == nil then
 			print_logger(2, "CWolf::load_logic_states->Error al cargar un estado IDLE del lobo")
-		else 
-			print_logger(0, "CWolf::load_logic_states->Creat estat IDLE del lobo")
 		end		
 		
 		-- Seek State -- Ir directamente a un destino
 		self.seek_state = CWolfSeekState()
 		if self.seek_state == nil then
 			print_logger(2, "CWolf::load_logic_states->Error al cargar un estado SEEK del lobo")
-		else 
-			print_logger(0, "CWolf::load_logic_states->Creat estat SEEK del lobo")
 		end	
 		
 		-- Flee State -- Huye directamente de un destino
 		self.flee_state = CWolfFleeState()
 		if self.flee_state == nil then
 			print_logger(2, "CWolf::load_logic_states->Error al cargar un estado FLEE del lobo")
-		else 
-			print_logger(0, "CWolf::load_logic_states->Creat estat FLEE del lobo")
 		end	
 		
 		-- Pursuit State -- Persigue inteligentemente
 		self.pursuit_state = CWolfPursuitState()
 		if self.pursuit_state == nil then
 			print_logger(2, "CWolf::load_logic_states->Error al cargar un estado PURSUIT del lobo")
-		else 
-			print_logger(0, "CWolf::load_logic_states->Creat estat PURSUIT del lobo")
 		end	
 		
 		-- Evade State -- Huye inteligentemente
 		self.evade_state = CWolfEvadeState()
 		if self.evade_state == nil then
 			print_logger(2, "CWolf::load_logic_states->Error al cargar un estado EVADE del lobo")
-		else 
-			print_logger(0, "CWolf::load_logic_states->Creat estat EVADE del lobo")
 		end	
 		
 		-- Wander State -- Actua como un errante
 		self.wander_state = CWolfWanderState()
 		if self.wander_state == nil then
 			print_logger(2, "CWolf::load_logic_states->Error al cargar un estado WANDER del lobo")
-		else 
-			print_logger(0, "CWolf::load_logic_states->Creat estat WANDER del lobo")
 		end	
 		
 		-- Path Follow State --	Sigue un camino
 		self.path_follow_state = CWolfPathFollowState()
 		if self.path_follow_state == nil then
 			print_logger(2, "CWolf::load_logic_states->Error al cargar un estado PATH FOLLOW del lobo")
-		else 
-			print_logger(0, "CWolf::load_logic_states->Creat estat PATH FOLLOW del lobo")
 		end	
 		
 		-- Attack State --	Entra en estado de ataque al player
 		self.attack_state = CWolfAttackState()
 		if self.attack_state == nil then
 			print_logger(2, "CWolf::load_logic_states->Error al cargar un estado ATTACK del lobo")
-		else 
-			print_logger(0, "CWolf::load_logic_states->Creat estat ATTACK del lobo")
 		end	
 		
 		-- -- Walk State --
@@ -171,16 +145,12 @@ class 'CWolf' (CCharacter)
 		self.hit_state = CWolfHitState()
 		if self.hit_state == nil then
 			print_logger(2, "CWolf::load_logic_states->Error al cargar un estado HIT del lobo")
-		else
-			print_logger(0, "CWolf::load_logic_states->Creat estat HIT del lobo")
 		end
 		
 		-- Deffense State --
 		self.deffense_state = CWolfDeffenseState()
 		if self.deffense_state == nil then
 			print_logger(2, "CWolf::load_logic_states->Error al cargar un estado DEFFENSE del lobo")
-		else
-			print_logger(0, "CWolf::load_logic_states->Creat estat DEFFENSE del lobo")
 		end
 		
 		print_logger(0, "CWolf::load_logic_states->Logic states loaded")
@@ -190,7 +160,6 @@ class 'CWolf' (CCharacter)
 	--			Constructors
 	-- ------------------------------	
 	function CWolf:__init( _id )
-		print_logger(0, "CWolf::__init->Llamada al constructor __init( _id )")
 		CCharacter.__init( self, _id )
 		self.yaw = 0.0
 		self.pitch = -math.pi / 8
@@ -204,8 +173,6 @@ class 'CWolf' (CCharacter)
 		
 		if ( self.player == nil ) then
 			print_logger ( 2, "CWolf::__init()->player is nil" )
-		else 
-			print_logger ( 0, "CWolf::__init()->player existe" )
 		end
 		
 		-- Cargamos estados
@@ -214,7 +181,6 @@ class 'CWolf' (CCharacter)
 	end
 	
 	function CWolf:__init( _id, _name )
-		print_logger(0, "CWolf:init()->Llamada al constructor __init( _id, _name)")
 		CCharacter.__init( self, _id, _name )
 		--self.yaw = 0.0
 		self.pitch = -math.pi / 8
@@ -223,17 +189,11 @@ class 'CWolf' (CCharacter)
 		--self.position2 = self.position
 		self.locked = false
 		
-		print_logger(0 , "CWolf::__init()->posición :"..self.position.x.." "..self.position.y.." "..self.position.z)
-		
 		self.character_manager = get_game_process():get_character_manager()
 		self.player = get_game_process():get_character_manager():get_player()
-		
-		print_logger(0 , "CWolf::__init()->posición :"..self.position.x.." "..self.position.y.." "..self.position.z)
-		
+			
 		if ( self.player == nil ) then
 			print_logger ( 2, "CWolf::__init()->player is nil" )
-		else 
-			print_logger ( 0, "CWolf::__init()->player existe" )
 		end
 		
 		-- Cargamos los estados		
@@ -242,7 +202,6 @@ class 'CWolf' (CCharacter)
 	end
 	
 	function CWolf:init()
-		print_logger(0, "CWolf::init()->Inicializamos estados del enemigo")
 		local l_IsOk = false
 		
 		l_gfsm = self.graphic_fsm 
@@ -250,9 +209,7 @@ class 'CWolf' (CCharacter)
 			print_logger(2, "CWolf:init()->No se ha podido obtener la máquina de estados gráfica.")
 			l_IsOk = false
 		else
-			print_logger(0, "CWolf:init()->Máquina de estados gráfica inicializada.")
 			l_gfsm.current_state = self.animation_idle_state 
-			print_logger(0, "CWolf:init()->Current state animated idle asignado del enemigo")
 			l_IsOk = true
 		end
 		
@@ -261,7 +218,6 @@ class 'CWolf' (CCharacter)
 			print_logger(2, "CWolf:init()->No se ha podido obtener la máquina de estados lógica.")
 			l_IsOk = false
 		else
-			print_logger(0, "CWolf:init()->Máquina de estados lógica inicializada.")
 			self:get_animation_model():clear_cycle( self:get_animation_id("run"), 0.3 )
 			self:get_animation_model():clear_cycle( self:get_animation_id("attack_still"), 0.3 )
 			self:get_animation_model():clear_cycle( self:get_animation_id("idle"), 0.3 )
@@ -271,7 +227,6 @@ class 'CWolf' (CCharacter)
 			num = self:get_animation_id("idle")
 			self:get_animation_model():blend_cycle( num, 0.3 )
 			
-			print_logger(0, "CWolf:init()->Current state idle asignado del enemigo")
 			l_IsOk = l_IsOk and true
 		end
 		

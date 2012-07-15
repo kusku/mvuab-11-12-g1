@@ -61,6 +61,9 @@ private:
 
 	Vect3f		m_CollisionPoint;
 	bool		m_bCollision;
+
+	float		m_fCollisionCorrection;
+	float		m_fMinimumDistanceToGround;
 };
 
 #endif //_THPS_CHARACTER_CAMERA_H_

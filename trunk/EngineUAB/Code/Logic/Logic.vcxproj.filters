@@ -49,6 +49,15 @@
     <ClCompile Include="Steering Behaviours\Flee.cpp">
       <Filter>IA\Steering Behaviors</Filter>
     </ClCompile>
+    <ClCompile Include="Triggers\Trigger.cpp">
+      <Filter>Triggers</Filter>
+    </ClCompile>
+    <ClCompile Include="Triggers\Types\BoxTrigger.cpp">
+      <Filter>Triggers\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Triggers\Types\SphereTrigger.cpp">
+      <Filter>Triggers\Types</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StatesMachine\State.h">
@@ -123,6 +132,18 @@
     <ClInclude Include="Steering Behaviours\Flee.h">
       <Filter>IA\Steering Behaviors</Filter>
     </ClInclude>
+    <ClInclude Include="Triggers\Trigger.h">
+      <Filter>Triggers</Filter>
+    </ClInclude>
+    <ClInclude Include="Triggers\Types\BoxTrigger.h">
+      <Filter>Triggers\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Triggers\TriggerWrapper.h">
+      <Filter>Triggers</Filter>
+    </ClInclude>
+    <ClInclude Include="Triggers\Types\SphereTrigger.h">
+      <Filter>Triggers\Types</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scripting">
@@ -157,6 +178,9 @@
     </Filter>
     <Filter Include="IA\Animal Control">
       <UniqueIdentifier>{9b23ea66-2a1a-4fc9-9d03-36730cbd3b5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Triggers\Types">
+      <UniqueIdentifier>{4cd95e38-460e-4f73-8dd2-83a7f35ac870}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -16,6 +16,7 @@
 #include "Particles\ParticleEmitter.h"
 #include "SoundManager.h"
 #include "Listener.h"
+#include "Triggers/TriggersManager.h"
 
 #include "VideogameDefs.h"
 #include "Characters\CharacterManager.h"
@@ -191,7 +192,7 @@ void CGameProcess::LoadGameObjects()
 
 	// por si se desea hacer alguna mariconada...
 	SCRIPT->RunCode("init_game_data()");
-
+	
 	// Inicializa el gestor de player y enemigos. Carga propiedades y estados de todo.
 	if ( !m_pCharactersManager->Initialize ( ) )
 		return;
