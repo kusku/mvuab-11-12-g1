@@ -75,7 +75,7 @@ void CSphereTrigger::OnEnter()
 }
 
 //----------------------------------------------
-void CSphereTrigger::OnExecute()
+void CSphereTrigger::OnStay()
 {
 
 }

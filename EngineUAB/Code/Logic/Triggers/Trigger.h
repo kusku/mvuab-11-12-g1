@@ -30,7 +30,7 @@ public:
 
 	//---Trigger Methods---------------------
 	virtual void	OnEnter		() = 0;
-	virtual void	OnExecute	() = 0;
+	virtual void	OnStay		() = 0;
 	virtual void	OnExit		() = 0;
 
 	//---Get & Set Methods-------------------

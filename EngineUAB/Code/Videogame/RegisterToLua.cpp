@@ -74,7 +74,7 @@ void RegisterToLuaBaseGameEntity(lua_State* _pLua)
 				.def(constructor<>())
 				.def("update", &CBoxTrigger::Update, &Box_Trigger_Wrapper::Update)
 				.def("on_enter", &CBoxTrigger::OnEnter, &Box_Trigger_Wrapper::OnEnter)
-				.def("on_execute", &CBoxTrigger::OnExecute, &Box_Trigger_Wrapper::OnExecute)
+				.def("on_stay", &CBoxTrigger::OnStay, &Box_Trigger_Wrapper::OnStay)
 				.def("on_exit", &CBoxTrigger::OnExit, &Box_Trigger_Wrapper::OnExit)
 				.property("active", &CBoxTrigger::IsActive, &CBoxTrigger::SetActive)
 		];
@@ -85,7 +85,7 @@ void RegisterToLuaBaseGameEntity(lua_State* _pLua)
 			.def(constructor<>())
 			.def("update", &CSphereTrigger::Update, &Sphere_Trigger_Wrapper::Update)
 			.def("on_enter", &CSphereTrigger::OnEnter, &Sphere_Trigger_Wrapper::OnEnter)
-			.def("on_execute", &CSphereTrigger::OnExecute, &Sphere_Trigger_Wrapper::OnExecute)
+			.def("on_stay", &CSphereTrigger::OnStay, &Sphere_Trigger_Wrapper::OnStay)
 			.def("on_exit", &CSphereTrigger::OnExit, &Sphere_Trigger_Wrapper::OnExit)
 		];
 }

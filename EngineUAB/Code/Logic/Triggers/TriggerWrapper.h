@@ -31,9 +31,9 @@ struct Box_Trigger_Wrapper: CBoxTrigger, luabind::wrap_base
 		call<void>("on_enter");
 	}
 
-	virtual void OnExecute()
+	virtual void OnStay()
 	{
-		call<void>("on_execute");
+		call<void>("on_stay");
 	}
 
 	virtual void OnExit()
@@ -59,9 +59,9 @@ struct Sphere_Trigger_Wrapper: CSphereTrigger, luabind::wrap_base
 		call<void>("on_enter");
 	}
 
-	virtual void OnExecute()
+	virtual void OnStay()
 	{
-		call<void>("on_execute");
+		call<void>("on_stay");
 	}
 
 	virtual void OnExit()

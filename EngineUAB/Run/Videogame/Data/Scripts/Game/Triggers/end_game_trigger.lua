@@ -10,7 +10,7 @@ class 'CEndGameTrigger' (CBoxTrigger)
 		change_to_end_gui_process()
 	end
 	
-	function CEndGameTrigger:on_execute()
+	function CEndGameTrigger:on_stay()
 	end
 	
 	function CEndGameTrigger:on_exit()

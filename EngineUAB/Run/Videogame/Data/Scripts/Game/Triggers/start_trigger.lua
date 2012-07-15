@@ -14,7 +14,7 @@ class 'CStartTrigger' (CBoxTrigger)
 		self.active = false
 	end
 	
-	function CStartTrigger:on_execute()
+	function CStartTrigger:on_stay()
 	end
 	
 	function CStartTrigger:on_exit()

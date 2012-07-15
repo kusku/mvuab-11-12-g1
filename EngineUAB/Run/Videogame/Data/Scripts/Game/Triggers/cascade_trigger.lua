@@ -16,7 +16,7 @@ class 'CCascadeTrigger' (CBoxTrigger)
 		self.active = false
 	end
 	
-	function CCascadeTrigger:on_execute()
+	function CCascadeTrigger:on_stay()
 	end
 	
 	function CCascadeTrigger:on_exit()

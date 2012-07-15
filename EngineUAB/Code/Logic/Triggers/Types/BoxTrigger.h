@@ -25,7 +25,7 @@ public:
 
 	//---Trigger Methods---------------------
 	void	OnEnter		();
-	void	OnExecute	();
+	void	OnStay		();
 	void	OnExit		();
 
 	//---Get & Set Methods-------------------
