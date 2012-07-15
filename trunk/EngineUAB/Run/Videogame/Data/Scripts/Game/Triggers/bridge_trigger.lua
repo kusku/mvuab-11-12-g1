@@ -19,7 +19,7 @@ class 'CBridgeTrigger' (CBoxTrigger)
 		self.active = false
 	end
 	
-	function CBridgeTrigger:on_execute()
+	function CBridgeTrigger:on_stay()
 	end
 	
 	function CBridgeTrigger:on_exit()

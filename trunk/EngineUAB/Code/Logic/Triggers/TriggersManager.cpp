@@ -209,7 +209,7 @@ void CTriggersManager::OnStay( CPhysicUserData* _Entity_Trigger1, CPhysicUserDat
 		{
 			if( _Entity_Trigger1 == l_pTrigger->GetTriggerActor()->GetUserData() )
 			{
-				l_pTrigger->OnExecute();
+				l_pTrigger->OnStay();
 				return;
 			}
 		}

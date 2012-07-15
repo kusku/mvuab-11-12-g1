@@ -76,7 +76,7 @@ void CBoxTrigger::OnEnter()
 }
 
 //----------------------------------------------
-void CBoxTrigger::OnExecute()
+void CBoxTrigger::OnStay()
 {
 
 }

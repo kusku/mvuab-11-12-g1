@@ -16,7 +16,7 @@ class 'CHouseTrigger' (CBoxTrigger)
 		self.active = false
 	end
 	
-	function CHouseTrigger:on_execute()
+	function CHouseTrigger:on_stay()
 	end
 	
 	function CHouseTrigger:on_exit()
