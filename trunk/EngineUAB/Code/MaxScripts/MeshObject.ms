@@ -9,6 +9,10 @@ Last Update: 12/15/2011
 
 ********************************************************/
 
+--Includes------------------------------------
+fileIn "HelperFunctions.ms"
+------------------------------------------------
+
 /**************************************
     Globals
 **************************************/
@@ -21,15 +25,21 @@ global VERTEX_TYPE_TEXTURE2	= 0x0020;
 global VERTEX_TYPE_DIFFUSE		= 0x0040;
 global VERTEX_TYPE_PARALLAX		= 0x0200;
 global VERTEX_TYPE_RNM			= 0x0400;
-
-global PARENT_SUBDIR		= "\\Data\\"
-global MESH_SUBDIR		= "\\Models\\";
-global TEXTURE_SUBDIR	= "\\Textures\\";
-global MESH_EXTENSION	= ".m3d"
+global VERTEX_TYPE_TEXSPLAT	= 0x2000;
 
 /**************************************
     Definitions
 **************************************/
+
+struct TextureSplattingObj
+(
+	TSEnable,
+	TSBlend1,
+	TSBlend2,
+	TSBlend3,
+	TSBlend4
+)
+
 struct MaterialObject
 (
 	CompletePath,
@@ -41,55 +51,49 @@ struct MaterialObject
 	RNMTextureY,
 	RNMTextureZ,
 	
-	function GetRelativeFileName filename =
-	(
-		local fileString = (filenameFromPath filename)
-		
-		fileString = (RelativePath + TEXTURE_SUBDIR + fileString)
-	),
-	
-	function GetRelativeFileNameWithParentDir filename =
-	(
-		local fileString = (GetRelativeFileName filename)
-		
-		fileString = ("."  + PARENT_SUBDIR + fileString)
-	),
-	
-	function GetCompleteFileName filename =
-	(
-		local fileString = (filenameFromPath filename)
-		
-		fileString = (CompletePath + TEXTURE_SUBDIR + fileString)
-	),
-	
-	function WriteToFile vertexType file =
+	function WriteToFile vertexType textureSplatting file =
 	(
 		local finalName = ""
 		
 		if (bit.and vertexType VERTEX_TYPE_TEXTURE1) == VERTEX_TYPE_TEXTURE1 then
 		(
-			finalName = (GetRelativeFileNameWithParentDir Texture1)
+			finalName = (GetRelativeFileNameWithParentDir Texture1 RelativePath)
 			WriteStringToFile finalName file
 		
 			if (bit.and vertexType VERTEX_TYPE_TEXTURE2) == VERTEX_TYPE_TEXTURE2 then
 			(
-				finalName = (GetRelativeFileNameWithParentDir Texture2)
+				finalName = (GetRelativeFileNameWithParentDir Texture2 RelativePath)
+				WriteStringToFile finalName file
+			)
+			
+			if (textureSplatting.TSEnable == true) then
+			(
+				finalName = (GetRelativeFileNameWithParentDir textureSplatting.TSBlend1 RelativePath)
+				WriteStringToFile finalName file
+				
+				finalName = (GetRelativeFileNameWithParentDir textureSplatting.TSBlend2 RelativePath)
+				WriteStringToFile finalName file
+				
+				finalName = (GetRelativeFileNameWithParentDir textureSplatting.TSBlend3 RelativePath)
+				WriteStringToFile finalName file
+				
+				finalName = (GetRelativeFileNameWithParentDir textureSplatting.TSBlend4 RelativePath)
 				WriteStringToFile finalName file
 			)
 		
 			if (bit.and vertexType VERTEX_TYPE_RNM) == VERTEX_TYPE_RNM then
 			(
-				finalName = (GetRelativeFileNameWithParentDir RNMTextureX)
+				finalName = (GetRelativeFileNameWithParentDir RNMTextureX RelativePath)
 				WriteStringToFile finalName file
-				finalName = (GetRelativeFileNameWithParentDir RNMTextureY)
+				finalName = (GetRelativeFileNameWithParentDir RNMTextureY RelativePath)
 				WriteStringToFile finalName file
-				finalName = (GetRelativeFileNameWithParentDir RNMTextureZ)
+				finalName = (GetRelativeFileNameWithParentDir RNMTextureZ RelativePath)
 				WriteStringToFile finalName file
 			)
 		
 			if (bit.and vertexType VERTEX_TYPE_TANGENT) == VERTEX_TYPE_TANGENT then
 			(
-				finalName = (GetRelativeFileNameWithParentDir Bump)
+				finalName = (GetRelativeFileNameWithParentDir Bump RelativePath)
 				WriteStringToFile finalName file
 			)
 		)
@@ -109,7 +113,7 @@ struct MaterialObject
 		--Make sure texture1 is set
 		if Texture1 != "" then
 		(
-			destFile = (GetCompleteFileName Texture1)
+			destFile = (GetCompleteFileName Texture1 CompletePath)
 		
 			--Delete any file that exists
 			deleteFile destFile
@@ -121,7 +125,7 @@ struct MaterialObject
 		--Make sure texture2 is set
 		if Texture2 != "" then
 		(
-			destFile = (GetCompleteFileName Texture2)
+			destFile = (GetCompleteFileName Texture2 CompletePath)
 		
 			--Delete any file that exists
 			deleteFile destFile
@@ -133,7 +137,7 @@ struct MaterialObject
 		--Make sure RNMTextureX is set
 		if RNMTextureX != "" then
 		(
-			destFile = (GetCompleteFileName RNMTextureX)
+			destFile = (GetCompleteFileName RNMTextureX CompletePath)
 		
 			--Delete any file that exists
 			deleteFile destFile
@@ -145,7 +149,7 @@ struct MaterialObject
 		--Make sure RNMTextureY is set
 		if RNMTextureY != "" then
 		(
-			destFile = (GetCompleteFileName RNMTextureY)
+			destFile = (GetCompleteFileName RNMTextureY CompletePath)
 		
 			--Delete any file that exists
 			deleteFile destFile
@@ -157,7 +161,7 @@ struct MaterialObject
 		--Make sure RNMTextureZ is set
 		if RNMTextureZ != "" then
 		(
-			destFile = (GetCompleteFileName RNMTextureZ)
+			destFile = (GetCompleteFileName RNMTextureZ CompletePath)
 		
 			--Delete any file that exists
 			deleteFile destFile
@@ -169,7 +173,7 @@ struct MaterialObject
 		--Make sure bump is set
 		if Bump != "" then
 		(
-			destFile = (GetCompleteFileName Bump)
+			destFile = (GetCompleteFileName Bump CompletePath)
 		
 			--Delete any file that exists
 			deleteFile destFile
@@ -187,8 +191,8 @@ struct MaterialObject
 		if Texture1 != "" then
 		(
 			format "Original Texture 1: % \n" Texture1
-			format "Relative Texture 1: % \n" (GetRelativeFileName Texture1)
-			format "Target Texture 1: % \n" (GetCompleteFileName Texture1)
+			format "Relative Texture 1: % \n" (GetRelativeFileName Texture1 RelativePath)
+			format "Target Texture 1: % \n" (GetCompleteFileName Texture1 CompletePath)
 		)
 		else
 		(
@@ -198,8 +202,8 @@ struct MaterialObject
 		if Texture2 != "" then
 		(
 			format "Original Texture 2: % \n" Texture2
-			format "Relative Texture 2: % \n" (GetRelativeFileName Texture2)
-			format "Target Texture 2: % \n" (GetCompleteFileName Texture2)
+			format "Relative Texture 2: % \n" (GetRelativeFileName Texture2 RelativePath)
+			format "Target Texture 2: % \n" (GetCompleteFileName Texture2 CompletePath)
 		)
 		else
 		(
@@ -209,8 +213,8 @@ struct MaterialObject
 		if RNMTextureX != "" then
 		(
 			format "Original RNM Texture X: % \n" RNMTextureX
-			format "Relative RNM Texture X: % \n" (GetRelativeFileName RNMTextureX)
-			format "Target RNM Texture X: % \n" (GetCompleteFileName RNMTextureX)
+			format "Relative RNM Texture X: % \n" (GetRelativeFileName RNMTextureX RelativePath)
+			format "Target RNM Texture X: % \n" (GetCompleteFileName RNMTextureX CompletePath)
 		)
 		else
 		(
@@ -220,8 +224,8 @@ struct MaterialObject
 		if RNMTextureY != "" then
 		(
 			format "Original RNM Texture Y: % \n" RNMTextureY
-			format "Relative RNM Texture Y: % \n" (GetRelativeFileName RNMTextureY)
-			format "Target RNM Texture Y: % \n" (GetCompleteFileName RNMTextureY)
+			format "Relative RNM Texture Y: % \n" (GetRelativeFileName RNMTextureY RelativePath)
+			format "Target RNM Texture Y: % \n" (GetCompleteFileName RNMTextureY CompletePath)
 		)
 		else
 		(
@@ -231,8 +235,8 @@ struct MaterialObject
 		if RNMTextureZ != "" then
 		(
 			format "Original RNM Texture Z: % \n" RNMTextureZ
-			format "Relative RNM Texture Z: % \n" (GetRelativeFileName RNMTextureZ)
-			format "Target RNM Texture Z: % \n" (GetCompleteFileName RNMTextureZ)
+			format "Relative RNM Texture Z: % \n" (GetRelativeFileName RNMTextureZ RelativePath)
+			format "Target RNM Texture Z: % \n" (GetCompleteFileName RNMTextureZ CompletePath)
 		)
 		else
 		(
@@ -242,8 +246,8 @@ struct MaterialObject
 		if Bump != "" then
 		(
 			format "Original Bump: % \n" Bump
-			format "Relative Bump: % \n" (GetRelativeFileName Bump)
-			format "Target Bump: % \n" (GetCompleteFileName Bump)
+			format "Relative Bump: % \n" (GetRelativeFileName Bump RelativePath)
+			format "Target Bump: % \n" (GetCompleteFileName Bump CompletePath)
 		)
 		else
 		(
@@ -303,7 +307,7 @@ struct Vertex
 		
 		if ( (bit.and VertexType VERTEX_TYPE_TEXTURE2) == VERTEX_TYPE_TEXTURE2 ) OR
            ( (bit.and VertexType VERTEX_TYPE_RNM) == VERTEX_TYPE_RNM ) OR
-		   ( textureSplatting == true ) then
+		   ( textureSplatting.TSEnable == true ) then
 		(
 			--Write Texture Coordinates for texture 2
 			WriteFloat file Tex2.x
@@ -468,11 +472,18 @@ struct VIBuffers
 
 	function WriteToFile textureSplatting file = 
 	(
+		local vtxType = VertexType
+		
+		if textureSplatting.TSEnable == true then
+		(
+			vtxType = (bit.or VertexType VERTEX_TYPE_TEXSPLAT)
+		)
+		
 		--Write Vertex Type to file
-		WriteShort file VertexType
+		WriteShort file vtxType
 		
 		--Write Materials to File
-		MeshMaterial.WriteToFile VertexType file
+		MeshMaterial.WriteToFile VertexType textureSplatting file
 		
 		--Write Index Buffer to File
 		WriteIndexBufferToFile file
@@ -653,6 +664,8 @@ struct MeshObj
 	PhysicsType,
 	VtxNormalBuffer,
 	TextureSplatting,
+	CompletePath,
+	RelativePath,
 	
 	function CalcVtxNormals obj =
 	(
@@ -858,16 +871,80 @@ struct MeshObj
 		)
 	),
 	
+	function CopyTSTexturesToOutput = 
+	(
+		if TextureSplatting.TSEnable == true then
+		(
+			--Final output directory
+			local outputDir = (CompletePath + TEXTURE_SUBDIR)
+
+			--Make sure output dir exists
+			makeDir outputDir all:true
+			
+			--Texture FileNames
+			local destFile = ""
+			
+			if TextureSplatting.TSBlend1 != "" AND TextureSplatting.TSBlend1 != "C:\\"  then
+			(
+				destFile = (GetCompleteFileName TextureSplatting.TSBlend1 CompletePath)
+				
+				--Delete any file that exists
+				deleteFile destFile
+					
+				--Copy file to new location
+				copyFile TextureSplatting.TSBlend1 destFile
+			)
+			
+			if TextureSplatting.TSBlend2 != "" AND TextureSplatting.TSBlend2 != "C:\\"  then
+			(
+				destFile = (GetCompleteFileName TextureSplatting.TSBlend2 CompletePath)
+			
+				--Delete any file that exists
+				deleteFile destFile
+					
+				--Copy file to new location
+				copyFile TextureSplatting.TSBlend2 destFile
+			)
+			
+			if TextureSplatting.TSBlend3 != "" AND TextureSplatting.TSBlend3 != "C:\\"  then
+			(
+				destFile = (GetCompleteFileName TextureSplatting.TSBlend3 CompletePath)
+			
+				--Delete any file that exists
+				deleteFile destFile
+					
+				--Copy file to new location
+				copyFile TextureSplatting.TSBlend3 destFile
+			)
+			
+			if TextureSplatting.TSBlend4 != "" AND TextureSplatting.TSBlend4 != "C:\\"  then
+			(
+				destFile = (GetCompleteFileName TextureSplatting.TSBlend4 CompletePath)
+			
+				--Delete any file that exists
+				deleteFile destFile
+					
+				--Copy file to new location
+				copyFile TextureSplatting.TSBlend4 destFile
+			)
+		)
+	),
+	
 	function CopyTexturesToOutput =
 	(
 		for i = 1 to MeshBuffers.count do
 		(
 			MeshBuffers[i].CopyTexturesToOutput()
 		)
+		
+		CopyTSTexturesToOutput()
 	),
 	
-	function SetCompleteAndRelativePathToMaterials CompletePath RelativePath =
+	function SetCompleteAndRelativePathToMaterials pCompletePath pRelativePath =
 	(
+		CompletePath = pCompletePath
+		RelativePath = pRelativePath
+		
 		for i = 1 to MeshBuffers.count do
 		(
 			MeshBuffers[i].SetCompleteAndRelativePath CompletePath RelativePath
@@ -905,7 +982,12 @@ struct MeshObj
 			format "Mesh Relative Filename: % \n" RelativeMeshFileName
 			format "Mesh output Filename: % \n"  MeshFileName
 			
-			format "Mesh Texture Splatting: % \n" TextureSplatting
+			format "Mesh Texture Splatting: % \n" TextureSplatting.TSEnable
+			
+			if TextureSplatting.TSEnable == true then
+			(
+				format "Texture Splatting Textures:\n\tBlend 1: %\n\tBlend 2: %\n\tBlend 3: %\n\tBlend 4: %\n" TextureSplatting.TSBlend1 TextureSplatting.TSBlend2 TextureSplatting.TSBlend3 TextureSplatting.TSBlend4
+			)
 			
 			BBox.PrintBoundingBoxTest
 			BSpherePrintBoundingSphereTest
@@ -1117,9 +1199,18 @@ function CreateVertex pos nrm tex tex2 diffCol =
 	return vtx
 )
 
+function CreateTextureSplattingObj = 
+(
+	local tsObj = TextureSplattingObj TSEnable:false TSBlend1:"" TSBlend2:"" TSBlend3:"" TSBlend4:""
+	
+	return tsObj
+)
+
 function CreateMeshStruct =
 (
-	local meshObject = MeshObj  MeshPath:"" MeshName:"" MeshBuffers:#() BBox:0 BSphere:0 BocMeshAttributes:0 MeshFileName:"" YawAngle:0 PitchAngle:0 RollAngle:0 Translation:0 IsInstance:False InstanceName:"" ParentInstance:false RelativeMeshFileName:"" RenderExport:"" RenderVisible:"" RenderLayer:"" AnimModelCore:"" PhysicsType:"" VtxNormalBuffer:#() TextureSplatting:false
+	local meshObject = MeshObj  MeshPath:"" MeshName:"" MeshBuffers:#() BBox:0 BSphere:0 BocMeshAttributes:0 MeshFileName:"" YawAngle:0 PitchAngle:0 RollAngle:0 Translation:0 IsInstance:False InstanceName:"" ParentInstance:false RelativeMeshFileName:"" RenderExport:"" RenderVisible:"" RenderLayer:"" AnimModelCore:"" PhysicsType:"" VtxNormalBuffer:#() TextureSplatting:"" CompletePath:"" RelativePath:""
+	
+	meshObject.TextureSplatting = CreateTextureSplattingObj()
 	
 	return meshObject
 )

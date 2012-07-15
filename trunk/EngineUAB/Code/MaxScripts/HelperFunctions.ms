@@ -18,6 +18,14 @@ Rotations follow the right-hand-rule.
 ********************************************************/
 
 /**************************************
+    Globals
+**************************************/
+global PARENT_SUBDIR		= "\\Data\\"
+global MESH_SUBDIR		= "\\Models\\";
+global TEXTURE_SUBDIR	= "\\Textures\\";
+global MESH_EXTENSION	= ".m3d"
+
+/**************************************
     Functions
 **************************************/
 
@@ -131,3 +139,31 @@ function FromStringToArray str =
 	
 	return strArr;
 )
+
+function GetRelativeFileName filename relativePath =
+(
+	local fileString = (filenameFromPath filename)
+	
+	fileString = (relativePath + TEXTURE_SUBDIR + fileString)
+	
+	return fileString
+)
+
+function GetRelativeFileNameWithParentDir filename relativePath =
+(
+	local fileString = (GetRelativeFileName filename relativePath)
+	
+	fileString = ("."  + PARENT_SUBDIR + fileString)
+	
+	return fileString
+)
+
+function GetCompleteFileName filename completePath =
+(
+	local fileString = (filenameFromPath filename)
+	
+	fileString = (completePath + TEXTURE_SUBDIR + fileString)
+	
+	return fileString
+)
+	

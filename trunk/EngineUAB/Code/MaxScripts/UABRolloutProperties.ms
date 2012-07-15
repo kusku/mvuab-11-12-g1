@@ -8,7 +8,7 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 	checkbox VisibleRenderCB "Visible" pos:[14,47] width:76 height:18
 	checkbox LayerRenderCB "Layer" pos:[14,70] width:71 height:17
 	dropdownList LayerRenderList "" pos:[94,68] width:156 height:21 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles", "vegetation", "water", "fish", "birds")
-	label lbl1 "Anim. model" pos:[21,142] width:70 height:16
+	label lbl1 "Anim. model" pos:[19,143] width:70 height:16
 	edittext AnimModelRenderText "" pos:[98,141] width:157 height:21
 	GroupBox grp2 "Physics" pos:[8,215] width:249 height:70
 	checkbox GeneratePhysicsCB "Generate" pos:[14,230] width:71 height:18
@@ -51,7 +51,16 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 	checkbox cbIsInstance "Is Instance:" pos:[21,185] width:80 height:16
 	edittext InstanceName "" pos:[101,184] width:145 height:18
 	checkbox cbParentInstance "Is Parent Instance" pos:[20,166] width:127 height:14
-	checkbox cbTextureSplatting "Texture Splatting" pos:[17,115] width:106 height:16
+	checkbox cbTextureSplatting "Texture Splatting" pos:[289,334] width:106 height:16
+	GroupBox gbTextureSplatting "Texture Splatting" pos:[278,312] width:327 height:209
+	label lbBlend3 "C:\\" pos:[343,433] width:235 height:39
+	button bnBlend3 "Blend 3" pos:[286,434] width:49 height:20
+	label lbBlend2 "C:\\" pos:[341,394] width:235 height:36
+	button bnBlend2 "Blend 2" pos:[285,395] width:49 height:20
+	label lbBlend1 "C:\\" pos:[340,359] width:235 height:35
+	button bnBlend1 "Blend 1" pos:[286,356] width:49 height:20
+	label lbBlend4 "C:\\" pos:[343,476] width:235 height:36
+	button bnBlend4 "Blend 4" pos:[285,475] width:49 height:20
 	
 	
 	local m_ObjSelected = undefined
@@ -69,6 +78,11 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 		cbParentInstance.checked = false
 		AnimModelRenderText.text = ""
 		cbTextureSplatting.checked = false
+		
+		lbBlend1.text = "C:\\"
+		lbBlend2.text = "C:\\"
+		lbBlend3.text = "C:\\"
+		lbBlend4.text = "C:\\"
 	)
 	
 	function SaveObjectProps Obj =
@@ -77,10 +91,20 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 		if cbTextureSplatting.checked then
 		(
 			setUserProp Obj "texture_splatting" true
+		
+			setUserProp Obj "texture_splatting_blend1" lbBlend1.text
+			setUserProp Obj "texture_splatting_blend2" lbBlend2.text
+			setUserProp Obj "texture_splatting_blend3" lbBlend3.text
+			setUserProp Obj "texture_splatting_blend4" lbBlend4.text
 		)
 		else
 		(
 			setUserProp Obj "texture_splatting" false
+			
+			setUserProp Obj "texture_splatting_blend1" ""
+			setUserProp Obj "texture_splatting_blend2" ""
+			setUserProp Obj "texture_splatting_blend3" ""
+			setUserProp Obj "texture_splatting_blend4" ""
 		)
 		
 		--Set Instance
@@ -279,10 +303,20 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 			if l_TextureSplatting == true then
 			(
 				cbTextureSplatting.checked = true
-			)
+				
+				lbBlend1.text = (getUserProp $ "texture_splatting_blend1" as string)
+				lbBlend2.text = (getUserProp $ "texture_splatting_blend2" as string)
+				lbBlend3.text = (getUserProp $ "texture_splatting_blend3" as string)
+				lbBlend4.text = (getUserProp $ "texture_splatting_blend4" as string)
+			)   
 			else
 			(
 				cbTextureSplatting.checked = false
+				
+				lbBlend1.text = "C:\\"
+				lbBlend2.text = "C:\\"
+				lbBlend3.text = "C:\\"
+				lbBlend4.text = "C:\\"
 			)
 			
 			--Set Instance
@@ -516,6 +550,7 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 			)
 		)
 	)
+	
 	on btnShadowMask pressed do
 	(
 		local data_path = getOpenFileName caption:"Shadow Mask Path" types:"TGA(*.tga)|*.tga|BMP(*.bmp)|*.bmp|JPG(*.jpg)|*.jpg|PNG(*.png)|*.png|DDS(*.dds)|*.dds|All|*.*|"initialDir=lblShadowMask.text
@@ -587,6 +622,53 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 		append broPnts pnt
 		
 		BrotherNodesAI.items = broPnts
+	)
+	
+	function GetBlendTexPath =
+	(
+		local data_path = getOpenFileName caption:"Blend TexturePath" types:"TGA(*.tga)|*.tga|BMP(*.bmp)|*.bmp|JPG(*.jpg)|*.jpg|PNG(*.png)|*.png|DDS(*.dds)|*.dds|All|*.*|"initialDir="C:\\"
+			
+		return data_path
+	)
+	
+	on bnBlend1 pressed do
+	(
+		local data_path = GetBlendTexPath()
+		
+		if data_path != undefined then
+		(
+			lbBlend1.text = data_path
+		)		
+	)
+	
+	on bnBlend2 pressed do
+	(
+		local data_path = GetBlendTexPath()
+		
+		if data_path != undefined then
+		(
+			lbBlend2.text = data_path
+		)		
+	)
+	
+	on bnBlend3 pressed do
+	(
+		local data_path = GetBlendTexPath()
+		
+		if data_path != undefined then
+		(
+			lbBlend3.text = data_path
+		)		
+	)
+	
+	on bnBlend4 pressed do
+	(
+		local data_path = GetBlendTexPath()
+		
+		if data_path != undefined then
+		(
+			lbBlend4.text = data_path
+		)		
 	)
 	
 )
