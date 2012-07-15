@@ -34,6 +34,9 @@
   <effect name="BloomPostProcess"                         file="./data/effects/Obj/BloomPostProcess" />
 
   <effect name="ParticleEffect"                           file="./data/effects/Obj/ParticleEffect" />
+
+  <effect name="TerrainEffect"                            file="./data/effects/Obj/TerrainEffect" />
+  
   <!-- ......... EFFECTS ............ -->
 
   <!-- ................. TECHNIQUES ................. -->
@@ -102,6 +105,19 @@
 
   <technique name="VignettingNoiseTechnique" effect="vignetting_and_noise"
 		use_time="true" />
+
+  <!-- 
+  ###################################
+          Terrain Effect
+  ###################################
+  -->
+
+  <technique name="TerrainEffectTechnique" effect="TerrainEffect"
+		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true" />
+
+  <technique name="TerrainEffectTechniqueShadow" effect="TerrainEffect"
+		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
+		use_shadow_maps="true" />
 
   <!-- 
   ###################################

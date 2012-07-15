@@ -16,6 +16,7 @@
     <default_technique vertex_type="543" technique="ForwardLightingWithNormalShadow" />
     <default_technique vertex_type="1055" technique="ForwardLightingWithNormalShadow" />
     <default_technique vertex_type="81" technique="BasicQuadEffect" />
+    <default_technique vertex_type="8211" technique="TerrainEffectTechnique" />
 
     <default_technique vertex_type="4115" technique="ForwardLightingBasicShadowInstance" />
     <default_technique vertex_type="4127" technique="ForwardLightingWithNormalInstance" />

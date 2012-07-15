@@ -143,6 +143,33 @@ bool CStaticMesh::ExtractMesh(FILE* modelFile)
 					return false;
 				}
 			}
+		
+			if(vertexType & VERTEX_TYPE_TEXSPLAT)
+			{
+				if(!ExtractTexture(modelFile, textVector))
+				{
+					ClearTextureVector(textVector);
+					return false;
+				}
+
+				if(!ExtractTexture(modelFile, textVector))
+				{
+					ClearTextureVector(textVector);
+					return false;
+				}
+
+				if(!ExtractTexture(modelFile, textVector))
+				{
+					ClearTextureVector(textVector);
+					return false;
+				}
+
+				if(!ExtractTexture(modelFile, textVector))
+				{
+					ClearTextureVector(textVector);
+					return false;
+				}
+			}
 
 			if(vertexType & VERTEX_TYPE_RNM)
 			{
@@ -242,7 +269,8 @@ CRenderableVertexs* CStaticMesh::ReadCreateVertexBuffer(FILE* modelFile, uint16 
 
 		ret = idxVtx;
 	}
-	else if(vertexType == TNORMALTEXTURE2_VERTEX::GetVertexType() )
+	else if ( (vertexType == TNORMALTEXTURE2_VERTEX::GetVertexType() ) ||
+		      (vertexType == (TNORMALTEXTURE1_VERTEX::GetVertexType() | VERTEX_TYPE_TEXSPLAT)) )
 	{
 		//Create Vertex Buffer
 		l_VtxBuffer = LoadCreateVertexBuffer<TNORMALTEXTURE2_VERTEX>(modelFile, numVertex);
@@ -358,7 +386,7 @@ template<class T>
 void* CStaticMesh::LoadCreateVertexBuffer(FILE* modelFile, uint16 numVertex)
 {	
 	//Create Vertex Buffer
-	void* vtxBuffer = new T[numVertex];
+	T* vtxBuffer = new T[numVertex];
 
 	//Set to 0 all buffer
 	memset(vtxBuffer, 0, numVertex * sizeof(T));
@@ -388,16 +416,23 @@ bool CStaticMesh::ExtractTexture(FILE* modelFile, std::vector<CTexture*>& textVe
 	sPath = std::string(path);
 	CHECKED_DELETE(path);
 
-	CTexture* texture = new CTexture();
-	texture->SetName(m_MeshName + "_" + sPath);
-			
-	if(!texture->Load(sPath))
-	{
-		CHECKED_DELETE(texture);
-		texture = CORE->GetTextureManager()->GetNoTexture();
+	std::string texName = m_MeshName + "_" + sPath;
 
-		std::string err = "CStaticMesh::ExtractTexture->No se ha podido crear la textura: " + sPath;
-		LOGGER->AddNewLog(ELL_WARNING, err.c_str() );
+	CTexture* texture = CORE->GetTextureManager()->GetResource(texName);
+
+	if(texture == NULL)
+	{
+		texture = new CTexture();
+		texture->SetName(texName);
+			
+		if(!texture->Load(sPath))
+		{
+			CHECKED_DELETE(texture);
+			texture = CORE->GetTextureManager()->GetNoTexture();
+
+			std::string err = "CStaticMesh::ExtractTexture->No se ha podido crear la textura: " + sPath;
+			LOGGER->AddNewLog(ELL_WARNING, err.c_str() );
+		}
 	}
 
 	textVector.push_back(texture);
@@ -539,13 +574,14 @@ bool CStaticMesh::GetRenderableObjectTechnique()
 			LOGGER->AddNewLog( ELL_ERROR, warn.c_str() );
 		}
 
-
-
 		std::string instanceTechniqueName = l_ROTM->GetRenderableObjectTechniqueNameByVertexType(m_VertexTypes[i] | VERTEX_TYPE_INSTANCE);
 		CRenderableObjectTechnique* InstanceROT = l_ROTM->GetResource(instanceTechniqueName);
-		assert(InstanceROT);
-		m_RenderableObjectsTechniquesInstance.push_back(InstanceROT);
 		
+		if(InstanceROT != NULL)
+		{
+			m_RenderableObjectsTechniquesInstance.push_back(InstanceROT);
+		}
+
 		l_Ok = l_Ok && l_ROT!=NULL;
 	}
 
