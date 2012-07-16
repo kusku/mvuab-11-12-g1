@@ -2,7 +2,6 @@
 #include "Arrive.h"
 #include "Steering Behaviours\SteeringBehavioursDefs.h"
 #include "Steering Behaviours\SteeringEntity.h"
-#include "Scripting\ScriptManager.h"
 
 #include "Logger\Logger.h"
 #include "Core.h"
@@ -70,19 +69,3 @@ Vect2f CPursuit::CalculateSteering( CSteeringEntity *_pEntity )
 	m_pEvader		= _pEvader;
 	m_EvaderUpdated = true;
 }
-
-
- // -----------------------------------------
-//			     REGISTER METHOD
-// -----------------------------------------
-void CPursuit::RegisterLUAMethods( void )
-{
-	lua_State *state = SCRIPT->GetLuaState();
-
-	module(state) [
-		class_<CPursuit>("CPursuit")
-	];
-}
-// -----------------------------------------
-//			     PROPERTIES
-// -----------------------------------------

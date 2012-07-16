@@ -64,9 +64,6 @@ public:
 	void					DebugRender			( CRenderManager *_RM );
 	void					DrawActor			( NxActor* actor, CRenderManager* _RM );
 
-	//----CScriptRegister interface---------------------------------------
-	static void				RegisterMethods		();
-
 	//--- Add/Release Actors
 	bool					AddPhysicActor					( CPhysicActor* _pActor);
 	bool					ReleasePhysicActor				( CPhysicActor* _pActor);

@@ -4,10 +4,21 @@
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Listener.cpp" />
     <ClCompile Include="Speaker.cpp" />
+    <ClCompile Include="_ScriptAPI\SoundRegisterScript.cpp">
+      <Filter>_ScriptAPI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Listener.h" />
     <ClInclude Include="Speaker.h" />
+    <ClInclude Include="_ScriptAPI\SoundRegisterScript.h">
+      <Filter>_ScriptAPI</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="_ScriptAPI">
+      <UniqueIdentifier>{73c445ef-d5b3-4153-b7ca-2e9cb9591579}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

@@ -33,6 +33,7 @@
     <ClCompile Include="LogRender\LogRender.cpp" />
     <ClCompile Include="Modifiers\Modifier.cpp" />
     <ClCompile Include="Modifiers\ModifierManager.cpp" />
+    <ClCompile Include="_ScriptAPI\GUIRegisterScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Console\Console.h" />
@@ -58,6 +59,7 @@
     <ClInclude Include="LogRender\LogRender.h" />
     <ClInclude Include="Modifiers\Modifier.h" />
     <ClInclude Include="Modifiers\ModifierManager.h" />
+    <ClInclude Include="_ScriptAPI\GUIRegisterScript.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5730AB8A-773A-4D15-8C79-D6B3824B3764}</ProjectGuid>

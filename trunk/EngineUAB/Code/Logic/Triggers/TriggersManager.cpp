@@ -215,16 +215,3 @@ void CTriggersManager::OnStay( CPhysicUserData* _Entity_Trigger1, CPhysicUserDat
 		}
 	}
 }
-
-//----------------------------------------------
-void CTriggersManager::RegisterMethods()
-{
-	lua_State *state = SCRIPT->GetLuaState();
-
-	module(state) [
-		class_<CTriggersManager>("CTriggersManager")
-			//.def("exist_fisic_trigger", &CTriggersManager::ExistFisicTrigger)			// Retorna si existe un trigger ya cargado
-			//.def("exist_trigger", &CTriggersManager::ExistTrigger)						// Retorna si existe un físic trigger asociado al trigger ya cargado
-			//.def("get_trigger", &CTriggersManager::GetTrigger)							// Obtiene el trigger del mapa de triggers
-	];
-}

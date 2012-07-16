@@ -27,7 +27,6 @@
 #include "LogRender\LogRender.h"
 #include "Stadistics\Stadistics.h"
 
-
 #include "Console\Console.h"
 #include "Modifiers\ModifierManager.h"
 #include "DebugGUIManager.h"
@@ -53,6 +52,8 @@
 #include "Animal Control\AnimalManager.h"
 
 #include "Cameras\ThPSCamera.h"
+
+#include "_ScriptAPI\CoreRegisterScript.h"
 
 #if defined(_DEBUG)
 	#include "Memory\MemLeaks.h"
@@ -278,7 +279,7 @@ bool CCore::Init( HWND _HWnd, const SConfig &config )
 			m_Animalmanager = new CAnimalManager();
 			//m_Animalmanager->Load(config.animal_movement_path);
 
-			CCore::RegisterMethods();
+			Core::ScriptAPI::RegisterScript();
 
 			m_pScriptManager->Load( config.scripts_path );
 		}
@@ -564,7 +565,7 @@ void CCore::UpdateInputs( float _ElapsedTime )
 		m_pScriptManager->Destroy();
 		m_pScriptManager->Initialize();
 
-		CCore::RegisterMethods();
+		Core::ScriptAPI::RegisterScript();
 
 		m_pScriptManager->Reload();
 	}
@@ -910,93 +911,4 @@ void CCore::UnloadAnimalMovements()
 void CCore::UnloadTriggers()
 {
 	m_pTriggersManager->Destroy();
-}
-
-void CCore::RegisterMethods()
-{
-	lua_State *state = SCRIPT->GetLuaState();
-
-	module(state) [
-		class_<CEngineProcess>("CEngineProcess")
-	];
-
-	module(state) [
-		class_<CCore>("CCore")
-			.def("reload_all", &CCore::Reload)
-			.def("reload_fonts", &CCore::ReloadTTFs)
-			.def("reload_languages", &CCore::ReloadLanguages)
-			.def("reload_inputs", &CCore::ReloadInputs)
-			.def("reload_render_commands", &CCore::ReloadSceneRendererCommandManager)
-			.def("reload_renderable_objects_layers", &CCore::ReloadRenderableObjectsLayersManager)
-			.def("reload_effects", &CCore::ReloadEffects)
-			.def("reload_meshes", &CCore::ReloadMeshes)
-			.def("reload_pools", &CCore::ReloadPools)
-			.def("reload_scripts", &CCore::ReloadScripts)
-			.def("reload_lights", &CCore::ReloadLights)
-			.def("reload_physics", &CCore::ReloadPhysics)
-			.def("reload_billboards", &CCore::ReloadBillboards)
-			.def("reload_particles", &CCore::ReloadParticles)
-			.def("reload_triggers", &CCore::ReloadTriggers)
-			.def("reload_gui", &CCore::ReloadGUI)
-			.def("reload_sounds", &CCore::ReloadSounds)
-			.def("reload_waypoints", &CCore::ReloadWayPoints)
-			.def("get_debug_gui_manager", &CCore::GetDebugGUIManager)
-			.def("get_stadistics", &CCore::GetStadistics)
-			.def("get_gui_manager", &CCore::GetGUIManager)
-			.def("get_sound_manager", &CCore::GetSoundManager)
-			.def("get_waypoints_manager", &CCore::GetWayPointManager)
-			.def("get_action_to_input", &CCore::GetActionToInput)
-			.def("get_physics_manager", &CCore::GetPhysicsManager)
-			.def("get_process", &CCore::GetProcess)
-			.def("get_entity_manager", &CCore::GetEntityManager)
-			.def("get_message_dispatchers", &CCore::GetMessageDispatcher)
-			.def("load_fonts", &CCore::LoadFonts)
-			.def("load_languages", &CCore::LoadLanguages)
-			.def("load_inputs", &CCore::LoadInputs)
-			.def("load_effects", &CCore::LoadEffects)
-			.def("load_renderable_objects_techniques", &CCore::LoadROTechniques)
-			.def("load_static_meshes", &CCore::LoadStaticMeshes)
-			.def("load_animated_models", &CCore::LoadAnimatedModels)
-			.def("load_renderable_objects_layers", &CCore::LoadROLayers)
-			.def("load_lights", &CCore::LoadLights)
-			.def("load_render_commands", &CCore::LoadRenderCommands)
-			.def("load_physics", &CCore::LoadPhysics)
-			.def("load_billboards", &CCore::LoadBillboards)
-			.def("load_particles", &CCore::LoadParticles)
-			.def("load_gui", &CCore::LoadGUI)
-			.def("load_triggers", &CCore::LoadTriggers)
-			.def("load_sounds", &CCore::LoadSounds)
-			.def("load_debug_gui", &CCore::LoadDebugGUI)
-			.def("load_waypoints", &CCore::LoadWaypoints)
-			.def("load_animal_movement", &CCore::LoadAnimalMovements)
-			.def("is_game_mode", &CCore::IsGameMode)
-			.def("unload_static_meshes", &CCore::UnloadStaticMeshes)
-			.def("unload_animated_models", &CCore::UnloadAnimatedModels)
-			.def("unload_renderable_objects_layers", &CCore::UnloadRenderableObjectsLayers)
-			.def("unload_lights", &CCore::UnloadLights)
-			.def("unload_billboards", &CCore::UnloadBillboards)
-			.def("unload_particles", &CCore::UnloadParticles)
-			.def("unload_triggers", &CCore::UnloadTriggers)
-			.def("unload_animal_movement", &CCore::UnloadAnimalMovements)
-			.def("Unload_waypoints", &CCore::UnloadWayPoints)
-	];
-
-	module(state) [
-		class_<CNamed>("CNamed")
-			.property("name", &CNamed::GetName, &CNamed::SetName)
-	];
-
-	CRenderManager::RegisterMethods();
-	CThPSCamera::RegisterMethods();
-	CActionToInput::RegisterMethods();
-	CPhysicsManager::RegisterMethods();
-	CGUIManager::RegisterMethods();
-	CSoundManager::RegisterMethods();
-	CTriggersManager::RegisterMethods();
-	CDebugGUIManager::RegisterMethods();
-	CRenderableObjectsLayersManager::RegisterMethods();
-	CAnimatedModelManager::RegisterMethods();
-	CMessageDispatcher::RegisterMethods();
-	CEntityManager::RegisterMethods();
-	CWayPointManager::RegisterMethods();
 }

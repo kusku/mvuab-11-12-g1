@@ -58,6 +58,9 @@
     <ClCompile Include="Triggers\Types\SphereTrigger.cpp">
       <Filter>Triggers\Types</Filter>
     </ClCompile>
+    <ClCompile Include="_ScriptAPI\LogicRegisterScript.cpp">
+      <Filter>_ScriptAPI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StatesMachine\State.h">
@@ -138,11 +141,14 @@
     <ClInclude Include="Triggers\Types\BoxTrigger.h">
       <Filter>Triggers\Types</Filter>
     </ClInclude>
-    <ClInclude Include="Triggers\TriggerWrapper.h">
-      <Filter>Triggers</Filter>
-    </ClInclude>
     <ClInclude Include="Triggers\Types\SphereTrigger.h">
       <Filter>Triggers\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="_ScriptAPI\Wrappers\TriggerWrapper.h">
+      <Filter>_ScriptAPI\Wrappers</Filter>
+    </ClInclude>
+    <ClInclude Include="_ScriptAPI\LogicRegisterScript.h">
+      <Filter>_ScriptAPI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +187,12 @@
     </Filter>
     <Filter Include="Triggers\Types">
       <UniqueIdentifier>{4cd95e38-460e-4f73-8dd2-83a7f35ac870}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_ScriptAPI">
+      <UniqueIdentifier>{1baad55a-d51b-49eb-8c12-3f35bbd57c8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_ScriptAPI\Wrappers">
+      <UniqueIdentifier>{41e49b89-0d4f-4ae6-8ca6-ae6f616e28cb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

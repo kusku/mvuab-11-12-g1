@@ -20,7 +20,7 @@ public:
 	virtual void	Update				( float _ElapsedTime )		= 0;
 	
 	// todas las subclases se comunican usando mensajes
-	virtual bool	HandleMessage		( const Telegram& _Msg )	= 0;
+	virtual bool	HandleMessage		( const STelegram& _Msg )	= 0;
 
 	static	void	Initialize			( void )			{ m_iNextValidID = 0; } 
 

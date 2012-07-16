@@ -28,9 +28,6 @@ public:
 	
 	inline void				SetTarget				( const Vect2f&	_Target )			{ m_Target = _Target; }
 	inline const Vect2f&	GetTarget				( void ) const						{ return m_Target; }		
-	
-	//---- Register Methods -------------------------------------
-	static void				RegisterLUAMethods	( void );
 
 protected:
 

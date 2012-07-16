@@ -43,19 +43,16 @@ public:
 	const float				GetMaxForce					( void ) const 					{ return m_MaxForce; }
 
 	inline void				SetSeek						( CSeek * _Seek )				{ m_pSeek = _Seek; }
-	inline CSeek*			GetSeek						( void );
+	CSeek*					GetSeek						( void );
 	
 	inline void				SetFlee						( CFlee * _Flee )				{ m_pFlee = _Flee; }
-	inline CSeek*			GetFlee						( void );
+	CFlee*					GetFlee						( void );
 
 	inline void				SetPursuit					( CPursuit * _Pursuit )			{ m_pPursuit = _Pursuit; }
-	inline CPursuit*		GetPursuit					( void );
+	CPursuit*				GetPursuit					( void );
 
-	inline void				SetArrive					( CArrive * _pArrive )		{ m_pArrive = _pArrive; }
-	inline CArrive*			GetArrive					( void );
-
-	//---- Register Methods ----------------------------------------------
-	static void				RegisterLUAMethods			( void );
+	inline void				SetArrive					( CArrive * _pArrive )			{ m_pArrive = _pArrive; }
+	CArrive*				GetArrive					( void );
 
     //---- Members -------------------------------------------------------
 

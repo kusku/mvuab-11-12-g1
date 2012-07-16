@@ -36,14 +36,11 @@ public:
 	// Envia cualquier mensaje con retardo. Método llamado cada vez desde el loop principal del juego
 	void		DispatchDelayedMessages ( void );
 	
-	// Permite registrar clase y mètodos para Lua
-	static void	RegisterMethods	( void );
-
 	// ------------- Mètodes -----------------------------------
 private:
 	// Método usado por DispatchMessage o DispatchDelayedMessages.
 	// Este método llama la funció que gestiona el mensaje de la entidad que recibe con el telegrama más nuevo
-	void		Discharge ( CBaseGameEntity* pReceiver, const Telegram& msg );
+	void		Discharge ( CBaseGameEntity* pReceiver, const STelegram& msg );
 
 	// ------------- Operators -------------------------------
 	CMessageDispatcher ( const CMessageDispatcher& );
@@ -54,7 +51,7 @@ private:
 private:
 	// Se usa un std::set para contener los mensajes con retraso obteniendo una ordenación automática y evitar replicados. 
 	// Los mensajes se ordenan por el tiempo de envío
-	std::set<Telegram> PriorityQSet;
+	std::set<STelegram> PriorityQSet;
 };
 
 // Definimos el Singlenton

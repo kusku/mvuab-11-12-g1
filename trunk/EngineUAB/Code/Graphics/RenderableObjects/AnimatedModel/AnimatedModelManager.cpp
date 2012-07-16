@@ -3,7 +3,6 @@
 #include "XML\XMLTreeNode.h"
 #include "Logger\Logger.h"
 #include "Base.h"
-#include "Scripting\ScriptManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -97,18 +96,4 @@ CAnimatedInstanceModel* CAnimatedModelManager::GetInstance( const std::string &_
 
 	assert(l_InstanceModel != NULL);
 	return l_InstanceModel;
-}
-
-void CAnimatedModelManager::RegisterMethods()
-{
-	lua_State *state = SCRIPT->GetLuaState();
-
-	module(state) [
-		class_<CAnimatedInstanceModel, bases<CObject3D, CNamed>>("CAnimatedInstanceModel")
-			.def(constructor<>())
-			.def("blend_cycle", &CAnimatedInstanceModel::BlendCycle)
-			.def("clear_cycle", &CAnimatedInstanceModel::ClearCycle)
-			.def("execute_action", &CAnimatedInstanceModel::ExecuteAction)
-			.def("get_current_animation_duration", &CAnimatedInstanceModel::GetCurrentAnimationDuration)
-	];
 }

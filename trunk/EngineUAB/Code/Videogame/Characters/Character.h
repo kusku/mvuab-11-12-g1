@@ -24,7 +24,7 @@ class CAnimationsStates;
 class CAnimatedInstanceModel;
 class CSteeringBehaviours;
 class CSteeringEntity;
-struct Telegram;
+struct STelegram;
 //---------------------------//
 
 class CCharacter : public CBaseGameEntity, public CObject3D
@@ -40,8 +40,8 @@ public:
 	virtual bool				Initialize			( const std::string &_Name, const Vect3f &_InitialPosicion, ECollisionGroup _Grup );
 	bool						InitializeAI		();
 	virtual bool				Init				();
-	virtual bool				HandleMessage		( const Telegram& _Msg, bool _Logic = true, bool _Graphic = true  );		// Envia telegramas a las máquinas de estados
-	virtual bool				HandleMessage		( const Telegram& _Msg );
+	virtual bool				HandleMessage		( const STelegram& _Msg, bool _Logic = true, bool _Graphic = true  );		// Envia telegramas a las máquinas de estados
+	virtual bool				HandleMessage		( const STelegram& _Msg );
 	virtual void				Update				( float _ElapsedTime );
 
 	//----Methods ---------------------------------------------

@@ -57,8 +57,6 @@ public:
 	void						Update		( float _ElapsedTime );
 	void						Render		();
 
-	static void					RegisterMethods();
-
 	//---Load Methods -------------------------------------------------------
 	bool		LoadFonts				();
 	bool		LoadLanguages			();

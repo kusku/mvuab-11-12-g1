@@ -16,24 +16,22 @@
 #include "Logger\Logger.h"
 
 // ----------------------------------------
-//		WRAPPER PARA LUA
+//              WRAPPER PARA LUA
 // ----------------------------------------
 struct CState_Wrapper: CState<CCharacter>, luabind::wrap_base
 {
 	CState_Wrapper()
 		:CState()
 	{
-		LOGGER->AddNewLog ( ELL_INFORMATION, "[C++CState_Wrapper] constructor");
 	}
 
 	virtual ~CState_Wrapper()
 	{
-		LOGGER->AddNewLog ( ELL_INFORMATION, "[C++CState_Wrapper] destructor");
 	}
 
 	virtual void Execute(CCharacter *_pCharacter)
 	{
-		 call<void>("Execute", _pCharacter);
+		call<void>("Execute", _pCharacter);
 	}
 
 	virtual void OnEnter(CCharacter *_pCharacter)
@@ -45,8 +43,8 @@ struct CState_Wrapper: CState<CCharacter>, luabind::wrap_base
 	{
 		call<void>("OnExit", _pCharacter);
 	}
-	
-	virtual bool OnMessage(CCharacter *_pCharacter, const Telegram &_Msg )
+
+	virtual bool OnMessage(CCharacter *_pCharacter, const STelegram &_Msg )
 	{
 		return call<bool>("OnMessage", _pCharacter, _Msg );
 	}
@@ -54,3 +52,4 @@ struct CState_Wrapper: CState<CCharacter>, luabind::wrap_base
 
 
 #endif /* __STATE_WRAPPER_H__ */
+

@@ -2,14 +2,8 @@
 
 #include "Assert.h"
 #include "PhysicsManager.h"
-//#include "Logger.h"
-//#include "Scripting\ScriptManager.h"
-//#include "Base/Math/Matrix44.h"
-
 #include "XML\XMLTreeNode.h"
 #include "base.h"
-
-//#include "luabind.hpp"
 
 ////----PhysX Includes-------------
 #undef min
@@ -30,7 +24,6 @@
 #include "PhysicUserData.h"
 ////--------------------------------
 
-#include "Scripting\ScriptManager.h"
 #include "RenderManager.h"
 #include "Exceptions\Exception.h"
 #include "Logger\Logger.h"
@@ -1156,72 +1149,4 @@ int CPhysicsManager::GetCollisionGroup( const std::string& _szGroup )
 	{
 		return 0;
 	}
-}
-
-void CPhysicsManager::RegisterMethods()
-{
-	lua_State *state = SCRIPT->GetLuaState();
-
-	module(state) [
-		class_<CPhysicsManager>("CPhysicsManager")
-			.def("raycast_closest_actor",&CPhysicsManager::RaycastClosestActor)
-			.property("debug_render_mode",  &CPhysicsManager::GetDebugRenderMode, &CPhysicsManager::SetDebugRenderMode)
-			.def("add_physic_actor", &CPhysicsManager::AddPhysicActor)
-			.def("add_physic_controller", &CPhysicsManager::AddPhysicController)
-			.def("add_physic_fixed_joint", &CPhysicsManager::AddPhysicFixedJoint)
-			.def("add_physic_revolute_joint", &CPhysicsManager::AddPhysicRevoluteJoint)
-			.def("add_physic_spherical_joint", &CPhysicsManager::AddPhysicSphericalJoint)
-	];
-
-	module(state) [
-		class_<CPhysicController, CObject3D>("CPhysicController")
-			.def("move", &CPhysicController::Move)
-			.def("jump", &CPhysicController::Jump)
-			.property("height", &CPhysicController::GetHeight)
-			.property("user_data", &CPhysicController::GetUserData)
-	];
-
-	module(state) [
-		class_<CPhysicUserData>("CPhysicUserData")
-			.property("actor", &CPhysicUserData::GetActor, &CPhysicUserData::SetActor)
-			.property("entity", &CPhysicUserData::GetEntity, &CPhysicUserData::SetEntity)
-	];
-
-	// registramos la clase CPhysicsManager
-	module(state) [
-		class_<CPhysicSphericalJoint>("CPhysicSphericalJoint")
-			// registramos su constructor
-			.def(constructor<>())
-			// registramos sus funciones publicas
-			.def("create_joint",  &CPhysicSphericalJoint::CreateJoint)
-			.def("set_info_complete", &CPhysicSphericalJoint::SetInfoComplete)
-			.def("set_info", &CPhysicSphericalJoint::SetInfo)
-			.def("get_joint", &CPhysicSphericalJoint::GetPhXJoint)
-			.def("get_desc_joint", &CPhysicSphericalJoint::GetPhXDescJoint)
-	];
-	// registramos la clase CPhysicsManager
-	module(state) [
-		class_<CPhysicFixedJoint>("CPhysicFixedJoint")
-			// registramos su constructor
-			.def(constructor<>())
-			// registramos sus funciones publicas
-			.def("create_joint",  &CPhysicFixedJoint::CreateJoint)
-			.def("set_info", &CPhysicFixedJoint::SetInfo)
-			.def("get_joint", &CPhysicFixedJoint::GetPhXJoint)
-			.def("get_desc_joint", &CPhysicFixedJoint::GetPhXDescJoint)
-	];
-
-	// registramos la clase CPhysicsManager
-	module(state) [
-		class_<CPhysicRevoluteJoint>("CPhysicRevoluteJoint")
-			// registramos su constructor
-			.def(constructor<>())
-			// registramos sus funciones publicas
-			.def("create_joint",  &CPhysicRevoluteJoint::CreateJoint)
-			.def("set_info", &CPhysicRevoluteJoint::SetInfo)
-			.def("get_joint", &CPhysicRevoluteJoint::GetPhXJoint)
-			.def("get_desc_joint", &CPhysicRevoluteJoint::GetPhXDescJoint)
-			.def("active_motor", &CPhysicRevoluteJoint::ActiveMotor)
-			.def("set_motor", &CPhysicRevoluteJoint::SetMotor)
-	];
 }

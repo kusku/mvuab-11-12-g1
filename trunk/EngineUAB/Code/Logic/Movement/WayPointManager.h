@@ -26,8 +26,6 @@ class CWayPointManager
 		WayPointGroupMap		m_WPGroups;
 		std::string				m_Filename;
 
-		CWayPoint*				GetWayPoint				(const std::string& groupName, const std::string& wpName);
-
 		std::list<Vect3f>		GetPath					(CWayPoint* startPos, CWayPoint* destPos);
 
 	public:
@@ -37,18 +35,13 @@ class CWayPointManager
 		bool					Load					(const std::string& filename);
 		bool					Reload					();
 
+		CWayPoint*				GetWayPoint				(const std::string& groupName, const std::string& wpName);
 		WayPointList&			GetWayPoints			(const std::string& groupName);
-
 		CWayPoint*				GetRandomWayPoint		(const std::string& groupName);
-
 		CWayPoint*				GetClosestWayPoint		(const std::string& groupName, const Vect3f& pos);
-
 		std::vector<Vect3f>		GetPath					(const std::string& groupName, const Vect3f& curPos, const Vect3f& destPos);
 
 		void					DebugRender				();
-
-		static void				RegisterMethods			();
-
 		void					CleanUp					();
 
 };

@@ -22,13 +22,6 @@ public:
 
 	//---- Main Functions ---------------------------------------
 	virtual	Vect2f			CalculateSteering	( CSteeringEntity *_pEntity );					// Método que deberá ser sobreescrito en cada clase que herede de Steering
-    
-	//---- Functions ---------------------------------------
-
-	//---- Properties ( get & Set )---------------------------------------
-	
-	//---- Register Methods -------------------------------------
-	static void				RegisterLUAMethods	( void );
 
 	//---- Members -----------------------------------------------
 private:

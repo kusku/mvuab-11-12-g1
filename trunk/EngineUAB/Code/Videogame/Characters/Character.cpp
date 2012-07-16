@@ -1,5 +1,4 @@
 #include "Character.h"
-#include "CharacterWrapper.h"
 #include "Properties/Properties.h"
 #include "VideogameDefs.h"
 
@@ -220,7 +219,7 @@ void CCharacter::Update ( float _ElapsedTime )
 //-------------------------------------------------------------------------------------------------
 // HandleMessage
 //-------------------------------------------------------------------------------------------------
-bool CCharacter::HandleMessage( const Telegram& _Msg, bool _Logic, bool _Graphic )
+bool CCharacter::HandleMessage( const STelegram& _Msg, bool _Logic, bool _Graphic )
 {
 	if ( _Logic )
 		m_pLogicStateMachine->HandleMessage( _Msg );
@@ -234,7 +233,7 @@ bool CCharacter::HandleMessage( const Telegram& _Msg, bool _Logic, bool _Graphic
 //-------------------------------------------------------------------------------------------------
 // HandleMessage
 //-------------------------------------------------------------------------------------------------
-bool CCharacter::HandleMessage( const Telegram& _Msg )
+bool CCharacter::HandleMessage( const STelegram& _Msg )
 {
 	bool l_CanHandle;
 	l_CanHandle = m_pLogicStateMachine->HandleMessage		( _Msg );

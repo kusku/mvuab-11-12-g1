@@ -20,13 +20,4 @@ extern "C"
 
 using namespace luabind;
 
-#include "Core.h"
-#include "Utils\Singleton.h"
-#include "Math\Vector2.h"
-#include "Math\Vector3.h"
-#include "Math\Vector4.h"
-#include "Math\Matrix33.h"
-#include "Math\Matrix44.h"
-#include "Math\Matrix34.h"
-
 #endif __SCRIPTING_DEFS_H__

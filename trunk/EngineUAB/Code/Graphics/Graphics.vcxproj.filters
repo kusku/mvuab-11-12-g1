@@ -269,6 +269,9 @@
     <ClInclude Include="Particles\Emitters\ParticleEmitterSphere.h">
       <Filter>Particles\Emitters</Filter>
     </ClInclude>
+    <ClInclude Include="_ScriptAPI\GraphicsRegisterScript.h">
+      <Filter>_ScriptAPI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
@@ -525,6 +528,9 @@
     <ClCompile Include="Particles\Emitters\ParticleEmitterSphere.cpp">
       <Filter>Particles\Emitters</Filter>
     </ClCompile>
+    <ClCompile Include="_ScriptAPI\GraphicsRegisterScript.cpp">
+      <Filter>_ScriptAPI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Cameras">
@@ -589,6 +595,9 @@
     </Filter>
     <Filter Include="Particles\Emitters">
       <UniqueIdentifier>{4e7f76bb-a11f-4f65-a0e4-6e637ce7a4d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_ScriptAPI">
+      <UniqueIdentifier>{e05d399a-b6d9-44aa-9b9e-3a0b3c8ac070}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -32,8 +32,6 @@ public:
 	void	Done		();
 	bool	IsOk		( void ) const { return m_bIsOk; }
 
-	static void RegisterMethods();
-
 	// Read Data
 	void	LoadXML		( const std::string &filename );
 	void	Reload		();

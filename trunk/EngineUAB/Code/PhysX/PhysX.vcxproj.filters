@@ -50,6 +50,9 @@
     <ClCompile Include="PhysicController.cpp">
       <Filter>Actor</Filter>
     </ClCompile>
+    <ClCompile Include="_ScriptAPI\PhysicRegisterScript.cpp">
+      <Filter>_ScriptAPI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PhysicsManager.h" />
@@ -111,6 +114,9 @@
     <ClInclude Include="PhysicController.h">
       <Filter>Actor</Filter>
     </ClInclude>
+    <ClInclude Include="_ScriptAPI\PhysicRegisterScript.h">
+      <Filter>_ScriptAPI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Utils">
@@ -142,6 +148,9 @@
     </Filter>
     <Filter Include="PhysicMaterial\Jump">
       <UniqueIdentifier>{7f23cc2c-a256-4c9d-ae24-82d99fb617ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_ScriptAPI">
+      <UniqueIdentifier>{39108422-72b4-4ce7-a243-15cf79e3f25b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -7,7 +7,6 @@
 #include "GUIWindow.h"
 #include "XML/XMLTreeNode.h"
 #include "Textures/TextureManager.h"
-#include "Scripting\ScriptManager.h"
 #include "GraphicsDefs.h"
 #include "Graphic States\GraphicStates.h"
 
@@ -1061,26 +1060,4 @@ bool CGUIManager::ChangeWindowName(const std::string &window, const std::string 
 CGUIWindow*	CGUIManager::GetWindow( const std::string &window )
 {
 	return m_WindowsMap[window];
-}
-
-void CGUIManager::RegisterMethods()
-{
-	lua_State *state = SCRIPT->GetLuaState();
-
-	module(state) [
-		class_<CGUIManager>("CGUIManager")
-			.def("active_windows", &CGUIManager::ActiveWindows)							// Activa la ventana pasada
-			.def("active_windows_with_effect", &CGUIManager::ActiveWindowsWithEffect)	// Activa la ventana pasada con effecto
-			.def("get_state_slider", &CGUIManager::GetStateSlider)						// Obtiene el valor del Slider indicado
-			.def("set_state_slider", &CGUIManager::SetStateSlider)						// Coloca el valor del Slider indicado
-			.def("push_windows", &CGUIManager::PushWindows)								// Almacena la ventana padre i activa la pasada
-			.def("pop_windows", &CGUIManager::PopWindows)								// Retorna a la ventana anterior padre
-			.def("play_image", &CGUIManager::PlayImage)									// Executa animacions d'imatges
-	];
-
-
-	module(state) [
-		class_<CGUIAnimatedImage>("CGUIAnimatedImage")
-			.def("play_animation", &CGUIAnimatedImage::PlayAnimation)						// Executa animacions d'imatges
-	];
 }

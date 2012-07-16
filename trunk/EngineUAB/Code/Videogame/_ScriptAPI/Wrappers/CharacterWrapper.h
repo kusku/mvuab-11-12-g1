@@ -10,7 +10,7 @@
 #ifndef _CHARACTER_WRAPPER_H_
 #define _CHARACTER_WRAPPER_H_
 
-#include "Character.h"
+#include "Characters\Character.h"
 #include "Scripting\ScriptManager.h"
 
 #if defined (_DEBUG)

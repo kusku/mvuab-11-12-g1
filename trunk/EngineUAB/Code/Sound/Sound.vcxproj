@@ -14,11 +14,13 @@
     <ClCompile Include="Listener.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Speaker.cpp" />
+    <ClCompile Include="_ScriptAPI\SoundRegisterScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Listener.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Speaker.h" />
+    <ClInclude Include="_ScriptAPI\SoundRegisterScript.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{13D69848-EE97-4804-9A7F-56CAD20EB8CB}</ProjectGuid>

@@ -41,15 +41,3 @@ void CEntityManager::RemoveEntities( void )
 	}*/
 	m_EntityMap.clear();
 }
-
-void CEntityManager::RegisterMethods( void )
-{
-	lua_State* l_pLua = SCRIPT->GetLuaState();
-
-	module( l_pLua)
-		[
-			class_<CEntityManager> ("CEntityManager")
-				.def("get_entity_from_id",&CEntityManager::GetEntityFromID)
-				.def("remove_entities", &CEntityManager::RemoveEntities)
-		];
-}

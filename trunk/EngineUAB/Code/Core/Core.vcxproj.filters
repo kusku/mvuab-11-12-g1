@@ -4,11 +4,22 @@
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="EngineProcess.cpp" />
+    <ClCompile Include="_ScriptAPI\CoreRegisterScript.cpp">
+      <Filter>_ScriptAPI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="CoreDefs.h" />
     <ClInclude Include="EngineProcess.h" />
+    <ClInclude Include="_ScriptAPI\CoreRegisterScript.h">
+      <Filter>_ScriptAPI</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="_ScriptAPI">
+      <UniqueIdentifier>{4c7c1b78-5552-40f5-b381-e1c04dcc19da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

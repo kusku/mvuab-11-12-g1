@@ -29,8 +29,6 @@ public:
 	bool			Load					( const std::string &_FileName );
 	bool			Reload					();
 
-	static void		RegisterMethods			();
-
 	//---- Main Interfaces ------------------------------------------------
 	virtual void	OnEnter					( CPhysicUserData* _Entity_Trigger1, CPhysicUserData* _Other_Shape );
 	virtual	void	OnLeave					( CPhysicUserData* _Entity_Trigger1, CPhysicUserData* _Other_Shape );

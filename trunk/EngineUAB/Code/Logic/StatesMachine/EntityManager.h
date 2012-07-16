@@ -33,8 +33,6 @@ public:
 	void					RegisterEntity	( CBaseGameEntity* _pNewEntity );
 	void					RemoveEntities	( void );
 
-	static void				RegisterMethods	( void );
-
 	// ------------- Propietats ( Get / Set ) ----------------
 	// Devuelve el puntero de la entidad a partir del ID dado 
 	CBaseGameEntity*		GetEntityFromID		( int _Id ) const;		

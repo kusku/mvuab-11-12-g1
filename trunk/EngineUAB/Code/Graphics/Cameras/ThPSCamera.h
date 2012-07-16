@@ -32,8 +32,6 @@ public:
 	void					AddZoom			(float zoom);
 	float					GetZoom			() const	{return m_fZoom;}
 
-	static void				RegisterMethods	();
-
 private:
 	float		m_fZoom;
 	float		m_fHeightLookAt;

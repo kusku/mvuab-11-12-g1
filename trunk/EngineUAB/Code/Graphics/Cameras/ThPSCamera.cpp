@@ -1,5 +1,4 @@
 #include "ThPSCamera.h"
-#include "Scripting\ScriptManager.h"
 #include "Base.h"
 #include <assert.h>
 
@@ -95,14 +94,4 @@ void CThPSCamera::AddZoom (float zoom)
 	else if( m_fZoom < m_fZNear*2.f) {
 		m_fZoom = m_fZNear*2.f;
 	}
-}
-
-void CThPSCamera::RegisterMethods()
-{
-	lua_State *state = SCRIPT->GetLuaState();
-
-	module(state) [
-		class_<CThPSCamera, CNamed>("CThPSCamera")
-			.def("get_direction", &CThPSCamera::GetDirection)
-	];
 }

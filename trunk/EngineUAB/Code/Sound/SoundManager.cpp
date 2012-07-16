@@ -316,14 +316,3 @@ void CSoundManager::SetSwitch(const std::string &switch_name, const std::string 
 {
 	AKRESULT res = AK::SoundEngine::SetSwitch( switch_name.c_str(), container_name.c_str(), GetResource("Test")->GetID());
 }
-
-void CSoundManager::RegisterMethods()
-{
-	lua_State *state = SCRIPT->GetLuaState();
-
-	module(state) [
-		class_<CSoundManager>("CSoundManager")
-			.def("play_event", &CSoundManager::PlayEvent)
-			.def("set_switch", &CSoundManager::SetSwitch)
-	];
-}
