@@ -16,5 +16,6 @@ Msg_Chase	= 9 	-- Persecució
 	
 function init_game_data()
 	core:load_triggers()
+	_soundM:play_event('Play_MUS_Level_1')
 end
 
