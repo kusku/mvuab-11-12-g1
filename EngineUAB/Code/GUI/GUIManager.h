@@ -130,9 +130,6 @@ public:
 	CGUIPointerMouse*	GetPointerMouse					() const	{ return m_PointerMouse; }
 	//-----------------------------------------------------------------------------------------------------------//
 
-	//----CScriptRegister interface--------------------------------------------
-	static void					RegisterMethods		();
-
 private:
 	void				Release							();
 	void				RenderTransitionEffect			(CRenderManager *renderManager);

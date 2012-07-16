@@ -61,6 +61,9 @@
     <ClCompile Include="Controls\GUITextBox.cpp">
       <Filter>Controls</Filter>
     </ClCompile>
+    <ClCompile Include="_ScriptAPI\GUIRegisterScript.cpp">
+      <Filter>_ScriptAPI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Debug_GUI">
@@ -83,6 +86,9 @@
     </Filter>
     <Filter Include="Controls">
       <UniqueIdentifier>{790f9ac2-06f9-4792-85b4-b078084a1270}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_ScriptAPI">
+      <UniqueIdentifier>{397b10f6-bee2-49e5-9e22-f8d63f30e4ec}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +154,9 @@
     </ClInclude>
     <ClInclude Include="Controls\GUITextBox.h">
       <Filter>Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="_ScriptAPI\GUIRegisterScript.h">
+      <Filter>_ScriptAPI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -15,10 +15,16 @@
       <Filter>Periphericals</Filter>
     </ClCompile>
     <ClCompile Include="ActionToInput.cpp" />
+    <ClCompile Include="_ScriptAPI\InputRegisterScript.cpp">
+      <Filter>_ScriptAPI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Periphericals">
       <UniqueIdentifier>{300ce8b3-ba2a-4ff1-b84b-09c2b8310e17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_ScriptAPI">
+      <UniqueIdentifier>{b567ea84-dc5a-455c-aa29-96630317ff8f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -37,5 +43,8 @@
       <Filter>Periphericals</Filter>
     </ClInclude>
     <ClInclude Include="ActionToInput.h" />
+    <ClInclude Include="_ScriptAPI\InputRegisterScript.h">
+      <Filter>_ScriptAPI</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

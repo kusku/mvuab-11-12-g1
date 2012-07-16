@@ -20,7 +20,7 @@ using std::cout;
 //--------------------------------------------------
 //					MAIN FUNCTIONS
 //--------------------------------------------------
-void CMessageDispatcher::Discharge( CBaseGameEntity* _pReceiver, const Telegram& _Telegram )
+void CMessageDispatcher::Discharge( CBaseGameEntity* _pReceiver, const STelegram& _Telegram )
 {
 	if (!_pReceiver->HandleMessage( _Telegram ))
 	{
@@ -50,7 +50,7 @@ void CMessageDispatcher::DispatchStateMessage ( double _Delay, int _Sender, int 
 	}
 
 	//create the telegram
-	Telegram l_Telegram ( 0, _Sender, _Receiver, _Msg, _pExtraInfo );
+	STelegram l_Telegram ( 0, _Sender, _Receiver, _Msg, _pExtraInfo );
 	
 	//if there is no delay, route the telegram immediately
 	if ( _Delay <= 0.0 )
@@ -93,7 +93,7 @@ void CMessageDispatcher::DispatchDelayedMessages ( void )
 	while( ( PriorityQSet.begin()->DispatchTime < l_CurrentTime ) && ( PriorityQSet.begin()->DispatchTime > 0 ) )
 	{
 		//read the telegram from the front of the queue
-		Telegram l_Telegram = *PriorityQSet.begin();
+		STelegram l_Telegram = *PriorityQSet.begin();
 
 		//find the recipient
 		CBaseGameEntity* l_pReceiver = ENTITYMANAGER->GetEntityFromID( l_Telegram.Receiver);
@@ -104,39 +104,4 @@ void CMessageDispatcher::DispatchDelayedMessages ( void )
 		//and remove it from the queue
 		PriorityQSet.erase(PriorityQSet.begin());
 	}
-}
-
-void CMessageDispatcher::RegisterMethods( void )
-{
-	lua_State* l_pLua = SCRIPT->GetLuaState();
-
-	module( l_pLua )
-		[
-			class_<CMessageDispatcher> ("CMessageDispatcher")
-				.def("dispatch_state_message",&CMessageDispatcher::DispatchStateMessage)
-		];
-
-	globals(l_pLua)["_dispatchM"]		= DISPATCH;
-	
-	globals(l_pLua)["msg_idle"]		= (int)Msg_Idle;
-	globals(l_pLua)["msg_ready"]		= (int)Msg_Ready;
-	globals(l_pLua)["msg_sleep"]		= (int)Msg_Sleep;
-	globals(l_pLua)["msg_attack"]	= (int)Msg_Attack;
-	globals(l_pLua)["msg_run_away"]	= (int)Msg_RunAway;
-	globals(l_pLua)["msg_patrol"]	= (int)Msg_Patrol;
-	globals(l_pLua)["msg_pursuit"]	= (int)Msg_Pusuit;
-	globals(l_pLua)["msg_roam"]		= (int)Msg_Roam;
-	globals(l_pLua)["msg_evade"]		= (int)Msg_Evade;
-	globals(l_pLua)["msg_chase"]		= (int)Msg_Chase;
-	
-	/*module( _pLua )
-		[
-			class_<A>("A")
-			.enum_("constants")
-			[
-				value("my_enum", 4),
-				value("my_2nd_enum", 7),
-				value("another_enum", 6)
-			]
-		];*/
 }

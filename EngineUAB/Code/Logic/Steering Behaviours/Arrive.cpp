@@ -1,7 +1,6 @@
 #include "Arrive.h"
 #include "Steering Behaviours\SteeringBehavioursDefs.h"
 #include "Steering Behaviours\SteeringEntity.h"
-#include "Scripting\ScriptManager.h"
 
 #include "Math\Vector2.h"
 
@@ -76,19 +75,3 @@ Vect2f CArrive::CalculateSteering( CSteeringEntity *_pEntity )
 		return NULL;
     }
 }
-   
-// -----------------------------------------
-//			     REGISTER METHOD
-// -----------------------------------------
-void CArrive::RegisterLUAMethods( void )
-{
-	lua_State *state = SCRIPT->GetLuaState();
-
-	module(state) [
-		class_<CArrive>("CArrive")
-	];
-}
-
-// -----------------------------------------
-//			     PROPERTIES
-// -----------------------------------------

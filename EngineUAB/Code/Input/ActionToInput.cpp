@@ -3,7 +3,6 @@
 #include "XML\XMLTreeNode.h"
 #include "Logger\Logger.h"
 #include "Exceptions\Exception.h"
-#include "Scripting\ScriptManager.h"
 #include "Base.h"
 
 #if defined(_DEBUG)
@@ -835,16 +834,4 @@ void CActionToInput::InitString2Input ()
 bool CActionToInput::GetGamepadState( void ) const
 {
 	return m_pInputManager->HasGamePad();
-}
-
-void CActionToInput::RegisterMethods()
-{
-	lua_State *state = SCRIPT->GetLuaState();
-
-	module(state) [
-		class_<CActionToInput>("CActionToInput")
-			.def("do_action", (bool(CActionToInput::*)(const std::string&))&CActionToInput::DoAction)
-			.def("do_action_mouse", &CActionToInput::DoActionMouse)
-			//.def("do_action", (bool(CActionToInput::*)(const std::string&, float&))&CActionToInput::DoAction, luabind::out_value(_2, _2))
-	];
 }

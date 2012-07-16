@@ -1,4 +1,5 @@
 #include "GameProcess.h"
+#include "_ScriptAPI\VideogameRegisterScript.h"
 #include "Cameras\ThPSCharacterCamera.h"
 #include "Cameras\ThPSCamera.h"
 #include "Cameras\Camera.h"
@@ -8,7 +9,6 @@
 #include "RenderableObjects\RenderableObjectsManager.h"
 #include "StatesMachine\EntityManager.h"
 #include "ActionToInput.h"
-#include "RegisterToLua.h"
 #include "GUIManager.h"
 #include "Core.h"
 #include "Base.h"
@@ -219,23 +219,7 @@ void CGameProcess::RegisterMethods()
 		def("get_game_process", GetGameProcess)
 	];
 
-	module(l_State) [
-		class_<CGameProcess>("CGameProcess")
-			.def("get_character_manager", &CGameProcess::GetCharactersManager)
-			.def("create_player_camera", &CGameProcess::CreatePlayerCamera)
-			.def("get_time_between_clicks", &CGameProcess::GetTimeBetweenClicks)
-			.def("change_to_gui_process", &CGameProcess::ChangeToGUIProcess)
-			.property("player_camera", &CGameProcess::GetPlayerCamera)
-	];
-
-	RegisterToLuaTelegram			( l_State );
-	RegisterToLuaBaseGameEntity		( l_State );
-	RegisterToLuaCharacter			( l_State );
-	RegisterToLuaCharacterManager	( l_State );
-	RegisterToLuaStateMachine		( l_State );
-	RegisterToLuaState				( l_State );
-	RegisterToLuaProperties			( l_State );
-	RegisterToLuaCamera				( l_State );
+	Videogame::ScriptAPI::RegisterScript(l_State);
 }
 
 // -----------------------------------------

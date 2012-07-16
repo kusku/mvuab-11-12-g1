@@ -4,7 +4,7 @@
 #include <iostream>
 #include <math.h>
 
-struct Telegram
+struct STelegram
 {
 	// La entidad que envia el telegrama
 	int Sender;
@@ -21,7 +21,7 @@ struct Telegram
 	// Info adicional que podria acompañar el mensaje 
 	void* ExtraInfo;
 
-	Telegram ( void )
+	STelegram()
 		: DispatchTime	(-1)
 		, Sender		(-1)
 		, Receiver		(-1)
@@ -29,7 +29,7 @@ struct Telegram
 	{}
 
 
-	Telegram ( double _Time, int _Sender, int _Receiver, int _Msg, void*  _Info = NULL )
+	STelegram( double _Time, int _Sender, int _Receiver, int _Msg, void*  _Info = NULL )
 		: DispatchTime	(_Time)
 		, Sender			(_Sender)
 		, Receiver		(_Receiver)
@@ -42,7 +42,7 @@ struct Telegram
 // Parámetro que indica el retardo menor posible para que 2 telegramas se consideren únicos
 const double SmallestDelay = 0.25;
 
-inline bool operator==(const Telegram& t1, const Telegram& t2)
+inline bool operator==(const STelegram& t1, const STelegram& t2)
 {
   return ( fabs(t1.DispatchTime-t2.DispatchTime) < SmallestDelay) &&
           (t1.Sender == t2.Sender)        &&
@@ -50,7 +50,7 @@ inline bool operator==(const Telegram& t1, const Telegram& t2)
           (t1.Msg == t2.Msg);
 }
 
-inline bool operator<(const Telegram& t1, const Telegram& t2)
+inline bool operator<(const STelegram& t1, const STelegram& t2)
 {
   if (t1 == t2)
   {
@@ -63,7 +63,7 @@ inline bool operator<(const Telegram& t1, const Telegram& t2)
   }
 }
 
-inline std::ostream& operator<<(std::ostream& os, const Telegram& t)
+inline std::ostream& operator<<(std::ostream& os, const STelegram& t)
 {
   os << "time: " << t.DispatchTime << "  Sender: " << t.Sender
      << "   Receiver: " << t.Receiver << "   Msg: " << t.Msg;
@@ -79,4 +79,4 @@ inline T DereferenceToType(void* p)
   return *(T*)(p);
 }
 
-#endif __CLASS_TELEGRAM_H__
+#endif //__CLASS_TELEGRAM_H__

@@ -28,8 +28,6 @@ public:
 
 	CAnimatedCoreModel*			GetCore			( const std::string &Name, const std::string &Path, const std::string &XMLFilename );
 	CAnimatedInstanceModel*		GetInstance		( const std::string &Name );
-
-	static void RegisterMethods ();
 };
 
 #endif

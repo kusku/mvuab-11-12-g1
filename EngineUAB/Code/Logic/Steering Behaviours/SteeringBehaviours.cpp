@@ -7,7 +7,6 @@
 #include "Pursuit.h"
 #include "Arrive.h"
 
-#include "Scripting\ScriptManager.h"
 #include "Base.h"
 
 #if defined (_DEBUG)
@@ -141,28 +140,6 @@ void CSteeringBehaviours::AddBehavior( CArrive *_pSteering )
 		m_Behaviors->push_back(_pSteering->GetType());
 
     m_pArrive = _pSteering;
-}
-
-void CSteeringBehaviours::RegisterLUAMethods( void )
-{
-	lua_State* l_pLuaState = SCRIPT->GetLuaState();
-	
-	module(l_pLuaState) [
-		class_<CSteeringBehaviours>("CSteeringBehaviours")
-			.def("has_behavior", &CSteeringBehaviours::HasBehavior)
-			.def("update", &CSteeringBehaviours::Update)
-			.def("add_behaviour", (void(CSteeringBehaviours::*)(CSeek*)) &CSteeringBehaviours::AddBehavior)
-			.def("add_behaviour", (void(CSteeringBehaviours::*)(CPursuit*)) &CSteeringBehaviours::AddBehavior)
-			.def("add_behaviour", (void(CSteeringBehaviours::*)(CArrive*)) &CSteeringBehaviours::AddBehavior)
-			.property("seek", &CSteeringBehaviours::GetSeek, &CSteeringBehaviours::SetSeek)
-			.property("pursuit", &CSteeringBehaviours::GetPursuit, &CSteeringBehaviours::SetPursuit)
-			.property("arrive", &CSteeringBehaviours::GetArrive, &CSteeringBehaviours::SetArrive)
-	];
-
-	CSteering::RegisterLUAMethods();
-	CSeek::RegisterLUAMethods();
-	CPursuit::RegisterLUAMethods();
-	CArrive::RegisterLUAMethods();
 }
 
 // -----------------------------------------

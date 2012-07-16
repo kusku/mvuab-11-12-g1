@@ -1,6 +1,7 @@
 #include "Logger.h"
 #include "Utils\BaseUtils.h"
 #include "Utils\Types.h"
+#include "Base.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -116,3 +117,29 @@ bool CLogger::SaveLogsInFile	()
 	}
 	return isOk;
 }
+
+namespace Base
+{
+namespace Logger
+{
+	void PrintLogger(int Level, const std::string &Msg)
+	{
+		switch(Level)
+		{
+		case 0:
+			LOGGER->AddNewLog(ELL_INFORMATION, Msg.c_str() );
+			break;
+		case 1:
+			LOGGER->AddNewLog(ELL_WARNING, Msg.c_str() );
+			break;
+		case 2:
+			LOGGER->AddNewLog(ELL_ERROR, Msg.c_str() );
+			break;
+		default:
+			LOGGER->AddNewLog(ELL_INFORMATION, Msg.c_str() );
+			break;
+		}
+	}
+
+} //namespace Logger
+} //namespace Base

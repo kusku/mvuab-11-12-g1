@@ -8,7 +8,7 @@
 //--- Foward Declarations ---//
 //---------------------------//
 
-struct Telegram;
+struct STelegram;
 
 template <class T>
 class CState
@@ -42,7 +42,7 @@ public:
 	//virtual void	OnResume	( T* )						{};
 
 	// Este se ejecuta si el agente recibe un mensaje de un dispensador de mensajes
-	virtual bool	OnMessage	( T*, const Telegram& ) { 
+	virtual bool	OnMessage	( T*, const STelegram& ) { 
 															return true; 
 														};
 

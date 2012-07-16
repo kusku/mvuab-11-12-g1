@@ -30,6 +30,7 @@
     <ClCompile Include="Triggers\TriggersManager.cpp" />
     <ClCompile Include="Triggers\Types\BoxTrigger.cpp" />
     <ClCompile Include="Triggers\Types\SphereTrigger.cpp" />
+    <ClCompile Include="_ScriptAPI\LogicRegisterScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animal Control\AnimalManager.h" />
@@ -57,9 +58,10 @@
     <ClInclude Include="Steering Behaviours\SteeringEntity.h" />
     <ClInclude Include="Triggers\Trigger.h" />
     <ClInclude Include="Triggers\TriggersManager.h" />
-    <ClInclude Include="Triggers\TriggerWrapper.h" />
     <ClInclude Include="Triggers\Types\BoxTrigger.h" />
     <ClInclude Include="Triggers\Types\SphereTrigger.h" />
+    <ClInclude Include="_ScriptAPI\LogicRegisterScript.h" />
+    <ClInclude Include="_ScriptAPI\Wrappers\TriggerWrapper.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C7E5C5FF-A876-42C2-86CC-D5563ECD1C75}</ProjectGuid>

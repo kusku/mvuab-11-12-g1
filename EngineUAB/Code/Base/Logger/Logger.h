@@ -43,6 +43,13 @@ struct SLog
 };
 //------------------------------------------------------------
 
+namespace Base
+{
+namespace Logger
+{
+	void PrintLogger(int Level, const std::string &Msg);
+} //namespace Logger
+} //namespace Base
 
 class CLogger: public CSingleton<CLogger>
 {

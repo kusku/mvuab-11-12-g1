@@ -28,6 +28,7 @@
     <ClCompile Include="PhysxBone.cpp" />
     <ClCompile Include="PhysxGrenade.cpp" />
     <ClCompile Include="PhysxSkeleton.cpp" />
+    <ClCompile Include="_ScriptAPI\PhysicRegisterScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="JointsDefs.h" />
@@ -51,6 +52,7 @@
     <ClInclude Include="PhysxBone.h" />
     <ClInclude Include="PhysxGrenade.h" />
     <ClInclude Include="PhysxSkeleton.h" />
+    <ClInclude Include="_ScriptAPI\PhysicRegisterScript.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{385B57FD-59FD-45F1-A4D0-7D0277984561}</ProjectGuid>
@@ -100,7 +102,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\Logic\;$(SolutionDir)\Code\GUI\;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src;$(SolutionDir)\Code\3dParty\;$(_PHYSX_SDK)\Foundation\include;$(_PHYSX_SDK)\NxCharacter\include;$(_PHYSX_SDK)\Physics\include;$(_PHYSX_SDK)\PhysXLoader\include;$(_PHYSX_SDK)\Cooking\include;$(SolutionDir)\Code\3dParty\lua-5.2.0\src;$(SolutionDir)\Code\3dParty\luabind-0.9.1;$(SolutionDir)\Code\3dParty\boost_1_48_0;$(_PHYSX_SDK_UAB)\Foundation\include;$(_PHYSX_SDK_UAB)\NxCharacter\include;$(_PHYSX_SDK_UAB)\Physics\include;$(_PHYSX_SDK_UAB)\PhysXLoader\include;$(_PHYSX_SDK_UAB)\Cooking\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\Logic\;$(SolutionDir)\Code\PhysX\;$(SolutionDir)\Code\GUI\;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src;$(SolutionDir)\Code\3dParty\;$(_PHYSX_SDK)\Foundation\include;$(_PHYSX_SDK)\NxCharacter\include;$(_PHYSX_SDK)\Physics\include;$(_PHYSX_SDK)\PhysXLoader\include;$(_PHYSX_SDK)\Cooking\include;$(SolutionDir)\Code\3dParty\lua-5.2.0\src;$(SolutionDir)\Code\3dParty\luabind-0.9.1;$(SolutionDir)\Code\3dParty\boost_1_48_0;$(_PHYSX_SDK_UAB)\Foundation\include;$(_PHYSX_SDK_UAB)\NxCharacter\include;$(_PHYSX_SDK_UAB)\Physics\include;$(_PHYSX_SDK_UAB)\PhysXLoader\include;$(_PHYSX_SDK_UAB)\Cooking\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -120,7 +122,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\Logic\;$(SolutionDir)\Code\GUI\;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src;$(SolutionDir)\Code\3dParty\;$(_PHYSX_SDK)\Foundation\include;$(_PHYSX_SDK)\NxCharacter\include;$(_PHYSX_SDK)\Physics\include;$(_PHYSX_SDK)\PhysXLoader\include;$(_PHYSX_SDK)\Cooking\include;$(SolutionDir)\Code\3dParty\lua-5.2.0\src;$(SolutionDir)\Code\3dParty\luabind-0.9.1;$(SolutionDir)\Code\3dParty\boost_1_48_0;$(_PHYSX_SDK_UAB)\Foundation\include;$(_PHYSX_SDK_UAB)\NxCharacter\include;$(_PHYSX_SDK_UAB)\Physics\include;$(_PHYSX_SDK_UAB)\PhysXLoader\include;$(_PHYSX_SDK_UAB)\Cooking\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Code\Base\;$(SolutionDir)\Code\Core\;$(SolutionDir)\Code\Input\;$(SolutionDir)\Code\PhysX\;$(SolutionDir)\Code\Graphics\;$(SolutionDir)\Code\Logic\;$(SolutionDir)\Code\GUI\;$(DXSDK_DIR)\Include;$(SolutionDir)\Code\3dParty\iconv-1.9.2.win32\include;$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\include;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\src;$(SolutionDir)\Code\3dParty\;$(_PHYSX_SDK)\Foundation\include;$(_PHYSX_SDK)\NxCharacter\include;$(_PHYSX_SDK)\Physics\include;$(_PHYSX_SDK)\PhysXLoader\include;$(_PHYSX_SDK)\Cooking\include;$(SolutionDir)\Code\3dParty\lua-5.2.0\src;$(SolutionDir)\Code\3dParty\luabind-0.9.1;$(SolutionDir)\Code\3dParty\boost_1_48_0;$(_PHYSX_SDK_UAB)\Foundation\include;$(_PHYSX_SDK_UAB)\NxCharacter\include;$(_PHYSX_SDK_UAB)\Physics\include;$(_PHYSX_SDK_UAB)\PhysXLoader\include;$(_PHYSX_SDK_UAB)\Cooking\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

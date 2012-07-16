@@ -24,9 +24,6 @@ public:
 
 	//---- Properties ( get & Set )---------------------------------------
 	// inline eBehaviorType		GetType				( void ) const		{ return m_Type; }		// Tipo del steering concreto, se establece en el constructor
-		
-	//---- Register Methods -------------------------------------
-	static void				RegisterLUAMethods	( void );
 	
 	
 	//---- Members -----------------------------------------------

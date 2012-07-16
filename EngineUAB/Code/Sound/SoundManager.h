@@ -47,9 +47,6 @@ public:
 	inline const std::string&	GetPath		() const		{ return m_Path; }
 	inline CListener*			GetListener	() const		{ return m_pListener; }		
 
-	//--- Scripting ---------------------------
-	static void RegisterMethods ();
-
 private:
 	bool	InitBanks			();
 	bool	LoadSoundBanksXML	();

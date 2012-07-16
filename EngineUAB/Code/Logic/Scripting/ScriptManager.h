@@ -17,34 +17,31 @@ class CScriptManager : public CSingleton<CScriptManager>
 {
 public:
 	//--- Init and End protocols------------------------------------------
-				CScriptManager				( void );
-	virtual		~CScriptManager				( void );
+				CScriptManager				();
+	virtual		~CScriptManager				();
 
 	//---- Main Functions ---------------------------------------
-	void		Initialize					( void );
-	void		Destroy						( void );
+	void		Initialize					();
+	void		Destroy						();
 	void		RunCode						( const std::string &_Code ) const;
 	void		RunFile						( const std::string &_FileName ) const;
 	bool		Load						( const std::string &_XMLFile );
 
 	//---- Functions ---------------------------------------
-	bool		LoadXML						( void );
-	bool		Reload						( void );
+	bool		LoadXML						();
+	bool		Reload						();
 
 	//---- Register Methods -------------------------------------
-	void		RegisterLUAMethods			();
+	void		RegisterLUAFunctions		();
  	
 	//---- Properties ( get & Set )---------------------------------------
-	lua_State * GetLuaState					( void ) const				{ return m_pLuaState; }
+	lua_State * GetLuaState					() const				{ return m_pLuaState; }
 	
-	int			GetInt						( char* _VariableName )		{ return PopLuaNumber<int> ( m_pLuaState, _VariableName ); }
-    double		GetFloat					( char* _VariableName )		{ return PopLuaNumber<float> ( m_pLuaState, _VariableName ); }
-	double		GetDouble					( char* _VariableName )		{ return PopLuaNumber<double> ( m_pLuaState, _VariableName ); }
-	std::string GetString					( char* _VariableName )		{ return PopLuaString ( m_pLuaState, _VariableName ); }
-	bool		GetBool						( char* _VariableName )		{ return PopLuaBool ( m_pLuaState, _VariableName ); }
-	
-private:
-	void		RegisterMathMethods			( void );
+	int			GetInt						( char* _VariableName )		{ return Logic::LuaHelper::PopLuaNumber<int> ( m_pLuaState, _VariableName ); }
+    double		GetFloat					( char* _VariableName )		{ return Logic::LuaHelper::PopLuaNumber<float> ( m_pLuaState, _VariableName ); }
+	double		GetDouble					( char* _VariableName )		{ return Logic::LuaHelper::PopLuaNumber<double> ( m_pLuaState, _VariableName ); }
+	std::string GetString					( char* _VariableName )		{ return Logic::LuaHelper::PopLuaString ( m_pLuaState, _VariableName ); }
+	bool		GetBool						( char* _VariableName )		{ return Logic::LuaHelper::PopLuaBool ( m_pLuaState, _VariableName ); }
 
 protected:
 	lua_State	  * m_pLuaState;			// Estat del lua

@@ -40,7 +40,7 @@ void CScriptManager::Initialize ( void )
 	lua_register ( m_pLuaState, "_ALERT", Alert );		// Así registramos una función de C++ para acceder desde Lua. Ejemplo de "Exposing a C/C++ Function to Lua"
 	luabind::open(m_pLuaState);
 	
-	RegisterLUAMethods();
+	RegisterLUAFunctions();
 }
 
 // Wrapper para llamar la función de alerta de Lua y meter la info en nuestro Alert de C++, és decir, el LOGGER
@@ -167,26 +167,6 @@ bool CScriptManager::LoadXML ( void )
 	return true;
 }
 
-// Ejemplo de "Exposing a C/C++ Function to Lua"
-void PrintLogger(int Level, const std::string &Msg)
-{
-	switch(Level)
-	{
-	case 0:
-		LOGGER->AddNewLog(ELL_INFORMATION, Msg.c_str() );
-		break;
-	case 1:
-		LOGGER->AddNewLog(ELL_WARNING, Msg.c_str() );
-		break;
-	case 2:
-		LOGGER->AddNewLog(ELL_ERROR, Msg.c_str() );
-		break;
-	default:
-		LOGGER->AddNewLog(ELL_INFORMATION, Msg.c_str() );
-		break;
-	}
-}
-
 struct my_exception
 {};
 
@@ -204,189 +184,7 @@ void my_exception()
 //----------------------------------------------------------------------------------------
 // RegisterLUAFunctions: Switch de los diferentes métodos a registrar
 //----------------------------------------------------------------------------------------
-void CScriptManager::RegisterLUAMethods()
+void CScriptManager::RegisterLUAFunctions()
 {
-	REGISTER_LUA_FUNCTION("print_logger", PrintLogger);
-	
-	/*luabind::register_exception_handler<my_exception>(&translate_my_exception);
-	luabind::set_pcall_callback(my_exception);*/
-	//luabind::set_error_callback()
-
-	module(m_pLuaState) [
-		class_<CSingleton<CCore>>("CSingleton_CCore")
-			.scope 
-			[
-				def("get_singleton", &CSingleton<CCore>::GetSingletonPtr)
-			]
-	];
-
-	RegisterMathMethods();
-}
-
-//----------------------------------------------------------------------------
-// RegisterMathLUAFunctions: Registrem totes les funcions de Matemàtiques
-//----------------------------------------------------------------------------
-void CScriptManager::RegisterMathMethods()
-{
-	module(m_pLuaState) [
-		class_<Vect2f>("Vect2f")
-			.def(constructor<float, float>())
-			.def(const_self + const_self)
-			.def(const_self - const_self)
-			.def(const_self * const_self)
-			.def(const_self + float())
-			.def(const_self - float())
-			.def(const_self * float())
-			.def(const_self / float())
-			.def(const_self == const_self)
-			.def("normalize", &Vect2f::Normalize)
-			.def("length", &Vect2f::Length)
-			.def("distance", &Vect2f::Distance)
-			.def("sq_distance", &Vect2f::SqDistance)
-			.def("zero", &Vect2f::SetZero)
-			.def_readwrite("x", &Vect2f::x)
-			.def_readwrite("y", &Vect2f::y)
-	];
-
-	module(m_pLuaState) [
-		class_<Vect3f>("Vect3f")
-			.def(constructor<float, float, float>())
-			.def(const_self + const_self)
-			.def(const_self - const_self)
-			.def(const_self * const_self)
-			.def(const_self + float())
-			.def(const_self - float())
-			.def(const_self * float())
-			.def(const_self / float())
-			.def(const_self == const_self)
-			.def("normalize", &Vect3f::Normalize)
-			.def("length", &Vect3f::Length)
-			.def("distance", &Vect3f::Distance)
-			.def("zero", &Vect3f::SetZero)
-			.def("dot", &Vect3f::Dot)
-			.def("cross", &Vect3f::Cross)
-			.def("angle_with_vector", &Vect3f::AngleWithVector)
-			.def_readwrite("x", &Vect3f::x)
-			.def_readwrite("y", &Vect3f::y)
-			.def_readwrite("z", &Vect3f::z)
-	];
-
-	module(m_pLuaState) [
-		class_<Vect4f>("Vect4f")
-			.def(constructor<float, float, float, float>())
-			.def(const_self + const_self)
-			.def(const_self - const_self)
-			.def(const_self * const_self)
-			.def(const_self + float())
-			.def(const_self - float())
-			.def(const_self * float())
-			.def(const_self / float())
-			.def(const_self == const_self)
-			.def("normalize", &Vect4f::Normalize)
-			.def("length", &Vect4f::Length)
-			.def("zero", &Vect4f::SetZero)
-			.def_readwrite("x", &Vect4f::x)
-			.def_readwrite("y", &Vect4f::y)
-			.def_readwrite("z", &Vect4f::z)
-			.def_readwrite("w", &Vect4f::w)
-	];
-
-	module(m_pLuaState) [
-		class_<Vect2i>("Vect2i")
-			.def(constructor<int, int>())
-			.def(const_self + const_self)
-			.def(const_self - const_self)
-			.def(const_self * const_self)
-			.def(const_self + int())
-			.def(const_self - int())
-			.def(const_self * int())
-			.def(const_self / int())
-			.def(const_self == const_self)
-			.def("zero", &Vect2i::SetZero)
-			.def_readwrite("x", &Vect2i::x)
-			.def_readwrite("y", &Vect2i::y)
-	];
-
-	module(m_pLuaState) [
-		class_<Vect3i>("Vect3i")
-			.def(constructor<int, int, int>())
-			.def(const_self + const_self)
-			.def(const_self - const_self)
-			.def(const_self * const_self)
-			.def(const_self + int())
-			.def(const_self - int())
-			.def(const_self * int())
-			.def(const_self / int())
-			.def(const_self == const_self)
-			.def("zero", &Vect3i::SetZero)
-			.def_readwrite("x", &Vect3i::x)
-			.def_readwrite("y", &Vect3i::y)
-			.def_readwrite("z", &Vect3i::z)
-	];
-
-	module(m_pLuaState) [
-		class_<Vect4i>("Vect4i")
-			.def(constructor<int, int, int, int>())
-			.def(const_self + const_self)
-			.def(const_self - const_self)
-			.def(const_self * const_self)
-			.def(const_self + int())
-			.def(const_self - int())
-			.def(const_self * int())
-			.def(const_self / int())
-			.def(const_self == const_self)
-			.def("zero", &Vect4i::SetZero)
-			.def_readwrite("x", &Vect4i::x)
-			.def_readwrite("y", &Vect4i::y)
-			.def_readwrite("z", &Vect4i::z)
-			.def_readwrite("w", &Vect4i::w)
-	];
-
-	module(m_pLuaState) [
-		class_<Mat33f>("Mat33f")
-			.def(constructor<float, float, float, float, float, float, float, float, float>())
-			.def(const_self + const_self)
-			.def(const_self - const_self)
-			.def(const_self * const_self)
-			.def(const_self * float())
-			.def(const_self / float())
-			.def(const_self == const_self)
-			.def("identity", &Mat33f::SetIdentity)
-			.def("zero", &Mat33f::SetZero)
-			.def("reset_rotation", &Mat33f::ResetRotation)
-			.def("reset_scale", &Mat33f::ResetScale)
-			.def("set_from_angle_x", &Mat33f::SetFromAngleX)
-			.def("set_from_angle_y", &Mat33f::SetFromAngleY)
-			.def("set_from_angle_z", &Mat33f::SetFromAngleZ)
-			.def("set_from_angles_xz", &Mat33f::SetFromAnglesXZ)
-			.def("set_from_angles_yxz", &Mat33f::SetFromAnglesYXZ)
-			.def("set_rot_by_angle_x", &Mat33f::SetRotByAngleX)
-			.def("set_rot_by_angle_y", &Mat33f::SetRotByAngleY)
-			.def("set_rot_by_angle_z", &Mat33f::SetRotByAngleZ)
-			.def("set_rot_by_angles_xz", &Mat33f::SetRotByAnglesXZ)
-			.def("set_rot_by_angles_yxz", &Mat33f::SetRotByAnglesYXZ)
-			.def("get_scale", &Mat33f::GetScale)
-			.def("get_scale_x", &Mat33f::GetScaleX)
-			.def("get_scale_y", &Mat33f::GetScaleY)
-			.def("get_scale_z", &Mat33f::GetScaleZ)
-			.def("get_angle_x", &Mat33f::GetAngleX)
-			.def("get_angle_y", &Mat33f::GetAngleY)
-			.def("get_angle_z", &Mat33f::GetAngleZ)
-			.def("get_yaw", &Mat33f::GetYaw)
-			.def("get_pitch", &Mat33f::GetPitch)
-			.def("get_roll", &Mat33f::GetRoll)
-			.def("get_pitch_roll_yaw", &Mat33f::GetPitchRollYaw)
-			.def("set_pitch_roll_yaw", &Mat33f::SetPitchRollYaw)
-			.def("invert", &Mat33f::Invert)
-			.def("transpose", &Mat33f::Transpose)
-			.def_readwrite("m00", &Mat33f::m00)
-			.def_readwrite("m01", &Mat33f::m01)
-			.def_readwrite("m02", &Mat33f::m02)
-			.def_readwrite("m10", &Mat33f::m10)
-			.def_readwrite("m11", &Mat33f::m11)
-			.def_readwrite("m12", &Mat33f::m12)
-			.def_readwrite("m20", &Mat33f::m20)
-			.def_readwrite("m21", &Mat33f::m21)
-			.def_readwrite("m22", &Mat33f::m22)	
-	];
+	REGISTER_LUA_FUNCTION("print_logger", Base::Logger::PrintLogger);
 }

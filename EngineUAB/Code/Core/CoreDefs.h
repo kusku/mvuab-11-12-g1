@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef __COREDEFS_H__
 #define __COREDEFS_H__
 

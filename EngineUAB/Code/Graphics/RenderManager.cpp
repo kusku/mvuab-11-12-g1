@@ -11,7 +11,6 @@
 #include "Math\MathUtils.h"
 #include "Vertexs\VertexType.h"
 #include "Stadistics\Stadistics.h"
-#include "Scripting\ScriptManager.h"
 #include <assert.h>
 #include <string>
 #include "Graphic States\GraphicStates.h"
@@ -908,19 +907,4 @@ bool CRenderManager::SetGraphicBlendState( const TGraphicBlendStates& state )
 	}
 
 	return true;
-}
-
-void CRenderManager::RegisterMethods()
-{
-	lua_State *state = SCRIPT->GetLuaState();
-	
-	module(state) [
-		class_<CObject3D>("CObject3D")
-			//.def("set_position", &CObject3D::SetPosition)
-			.property("position",&CObject3D::GetPosition, &CObject3D::SetPosition)
-			.property("yaw", &CObject3D::GetYaw, &CObject3D::SetYaw)
-			.property("pitch", &CObject3D::GetPitch, &CObject3D::SetPitch)
-			.property("roll", &CObject3D::GetRoll, &CObject3D::SetRoll)
-			.property("scale", &CObject3D::GetScale, &CObject3D::SetScale)
-	];
 }
