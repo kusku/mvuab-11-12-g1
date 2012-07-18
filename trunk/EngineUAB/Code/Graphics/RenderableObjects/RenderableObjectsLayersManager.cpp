@@ -168,7 +168,7 @@ void CRenderableObjectsLayersManager::Render(CRenderManager *RM, const std::stri
 	}
 }
 
-CRenderableObjectsManager* CRenderableObjectsLayersManager::GetRenderableObjectManager(CXMLTreeNode &Node)
+CRenderableObjectsManager* CRenderableObjectsLayersManager::GetRenderableObjectManager(const std::string & _Layer)
 {
-	return NULL;
+	return GetResource(_Layer);
 }

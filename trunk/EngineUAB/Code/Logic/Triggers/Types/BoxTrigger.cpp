@@ -7,10 +7,13 @@
 #include "PhysicActor.h"
 #include "PhysicsDefs.h"
 #include "PhysicsManager.h"
+#include "RenderableObjects\RenderableObjectsManager.h"
+#include "RenderableObjects\RenderableObjectsLayersManager.h"
 #include "Core.h"
 #include "Base.h"
 #include "XML\XMLTreeNode.h"
 #include "Math\Color.h"
+#include "Logger\Logger.h"
 
 #if defined (_DEBUG)
 #include "Memory/MemLeaks.h"
@@ -33,6 +36,19 @@ void CBoxTrigger::ReadData( CXMLTreeNode &_Node )
 	m_Position		= _Node.GetVect3fProperty("position", v3fZERO);
 	m_Size			= _Node.GetVect3fProperty("size", v3fZERO);
 	m_RenderColor	= CColor( _Node.GetVect4fProperty("color", Vect4f(1.f, 1.f, 1.f, 1.f)) );
+
+	std::string l_ROName = _Node.GetPszProperty("renderable_object", "", false);
+	std::string l_Layer = _Node.GetPszProperty("layer", "", false);
+
+	CRenderableObjectsManager *l_pROM = CORE->GetRenderableObjectsLayersManager()->GetRenderableObjectManager(l_Layer);
+	if( l_pROM != NULL )
+	{
+		m_pTriggerObject = l_pROM->GetInstance(l_ROName);
+		if( m_pTriggerObject == NULL )
+		{
+			LOGGER->AddNewLog(ELL_WARNING, "CBoxTrigger::ReadData->No se ha podido obtener el objeto: %s de la capa Solid.", l_ROName.c_str());
+		}
+	}
 }
 
 //----------------------------------------------
