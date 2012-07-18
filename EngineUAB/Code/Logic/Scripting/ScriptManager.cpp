@@ -15,13 +15,13 @@ int Alert(lua_State * State);
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 
-CScriptManager::CScriptManager ( void )
+CScriptManager::CScriptManager()
 	: m_FileName("")
 {	
 	Initialize();
 }
 
-CScriptManager::~CScriptManager ( void )
+CScriptManager::~CScriptManager()
 {
 	Destroy();
 	m_FileNamesVector.clear();
@@ -31,7 +31,7 @@ CScriptManager::~CScriptManager ( void )
 //			  MÈTODES PRINCIPALS
 // -----------------------------------------
 
-void CScriptManager::Initialize ( void )
+void CScriptManager::Initialize()
 {
 	m_pLuaState = luaL_newstate();
 	luaL_openlibs ( m_pLuaState );
@@ -71,13 +71,13 @@ int Alert( lua_State * _pState )
 }
 
 //Para desinicializar el motor de LUA
-void CScriptManager::Destroy ( void )
+void CScriptManager::Destroy()
 {
 	lua_close( m_pLuaState );
 }
 
 // Per carregar un fitxer XML amb tots els scrits
-bool CScriptManager::Load ( const std::string &_XMLFile )
+bool CScriptManager::Load( const std::string &_XMLFile )
 {
 	LOGGER->AddNewLog( ELL_INFORMATION, "CScriptManager::Load-->Loading scripts." );
 	m_FileName = _XMLFile;
@@ -92,8 +92,8 @@ void CScriptManager::RunCode ( const std::string &_Code ) const
 	// Compila y ejecuta el string
 	if ( luaL_dostring( m_pLuaState, _Code.c_str() ) )
 	{
-		const char *l_Str = lua_tostring ( m_pLuaState, -1 );
-		LOGGER->AddNewLog ( ELL_ERROR, l_Str );
+		const char *l_Str = lua_tostring( m_pLuaState, -1 );
+		LOGGER->AddNewLog( ELL_ERROR, l_Str );
 	}
 }
 
@@ -103,13 +103,13 @@ void CScriptManager::RunFile(const std::string &FileName) const
 	// Compila y ejecuta un fichero
 	if ( luaL_dofile( m_pLuaState, FileName.c_str() ) )
 	{
-		const char *l_Str = lua_tostring ( m_pLuaState, -1 );
- 		LOGGER->AddNewLog ( ELL_ERROR, l_Str );
+		const char *l_Str = lua_tostring( m_pLuaState, -1 );
+ 		LOGGER->AddNewLog( ELL_ERROR, l_Str );
 	}
 }
 
 // Per recarregar el XML
-bool CScriptManager::Reload ( void )
+bool CScriptManager::Reload()
 {
 	LOGGER->AddNewLog( ELL_INFORMATION, "CScriptManager::Reload->Reloading scripts." );
 	//Destroy ();
@@ -127,7 +127,7 @@ bool CScriptManager::Reload ( void )
 	return true;
 }
 
-bool CScriptManager::LoadXML ( void ) 
+bool CScriptManager::LoadXML() 
 {
 	LOGGER->AddNewLog( ELL_INFORMATION, "CScriptManager::LoadXML --> Loading Scripting Files..." );
 	CXMLTreeNode l_File;

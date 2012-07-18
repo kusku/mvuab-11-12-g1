@@ -1,5 +1,6 @@
 #include "LogicRegisterScript.h"
 #include "Scripting\ScriptManager.h"
+#include "Object3D.h"
 #include "Triggers/Types/BoxTrigger.h"
 #include "Triggers\Types\SphereTrigger.h"
 #include "Triggers\Trigger.h"
@@ -31,41 +32,41 @@ namespace ScriptAPI
 		module(_pLua)
 			[
 				class_<CTrigger, CNamed>("CTrigger")
+					.property("trigger_object", &CTrigger::GetTriggerObject, &CTrigger::SetTriggerObject)
+					.property("active", &CTrigger::IsActive, &CTrigger::SetActive)
 			];
 
 		module(_pLua)
 			[
 				class_<CBoxTrigger, Box_Trigger_Wrapper, CTrigger>("CBoxTrigger")
-				.def(constructor<>())
-				.def("update", &CBoxTrigger::Update, &Box_Trigger_Wrapper::Update)
-				.def("on_enter", &CBoxTrigger::OnEnter, &Box_Trigger_Wrapper::OnEnter)
-				.def("on_stay", &CBoxTrigger::OnStay, &Box_Trigger_Wrapper::OnStay)
-				.def("on_exit", &CBoxTrigger::OnExit, &Box_Trigger_Wrapper::OnExit)
-				.property("active", &CBoxTrigger::IsActive, &CBoxTrigger::SetActive)
+					.def(constructor<>())
+					.def("update", &CBoxTrigger::Update, &Box_Trigger_Wrapper::Update)
+					.def("on_enter", &CBoxTrigger::OnEnter, &Box_Trigger_Wrapper::OnEnter)
+					.def("on_stay", &CBoxTrigger::OnStay, &Box_Trigger_Wrapper::OnStay)
+					.def("on_exit", &CBoxTrigger::OnExit, &Box_Trigger_Wrapper::OnExit)
 			];
 
 		module(_pLua)
 			[
 				class_<CSphereTrigger, Sphere_Trigger_Wrapper, CTrigger>("CSphereTrigger")
-				.def(constructor<>())
-				.def("update", &CSphereTrigger::Update, &Sphere_Trigger_Wrapper::Update)
-				.def("on_enter", &CSphereTrigger::OnEnter, &Sphere_Trigger_Wrapper::OnEnter)
-				.def("on_stay", &CSphereTrigger::OnStay, &Sphere_Trigger_Wrapper::OnStay)
-				.def("on_exit", &CSphereTrigger::OnExit, &Sphere_Trigger_Wrapper::OnExit)
-				.property("active", &CBoxTrigger::IsActive, &CBoxTrigger::SetActive)
+					.def(constructor<>())
+					.def("update", &CSphereTrigger::Update, &Sphere_Trigger_Wrapper::Update)
+					.def("on_enter", &CSphereTrigger::OnEnter, &Sphere_Trigger_Wrapper::OnEnter)
+					.def("on_stay", &CSphereTrigger::OnStay, &Sphere_Trigger_Wrapper::OnStay)
+					.def("on_exit", &CSphereTrigger::OnExit, &Sphere_Trigger_Wrapper::OnExit)
 			];
 
 		module(_pLua)
 			[
 				class_<CEntityManager>("CEntityManager")
-				.def("get_entity_from_id",&CEntityManager::GetEntityFromID)
-				.def("remove_entities", &CEntityManager::RemoveEntities)
+					.def("get_entity_from_id",&CEntityManager::GetEntityFromID)
+					.def("remove_entities", &CEntityManager::RemoveEntities)
 			];
 
 		module(_pLua)
 			[
 				class_<CMessageDispatcher> ("CMessageDispatcher")
-				.def("dispatch_state_message",&CMessageDispatcher::DispatchStateMessage)
+					.def("dispatch_state_message",&CMessageDispatcher::DispatchStateMessage)
 			];
 
 		globals(_pLua)["_dispatchM"]	= DISPATCH;
