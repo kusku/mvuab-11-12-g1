@@ -99,12 +99,18 @@
 		use_params="true" num_of_params="7"
 		parameter_0="0.0" parameter_1="0.5" parameter_2="0.2" parameter_3="0.3" parameter_4="1.0" parameter_5="0.0" parameter_6="1.0" />
 
-  <technique name="ZBlurTechnique" effect="z_blur"
-		use_view_inverse_matrix="true"	use_proj_inverse_matrix="true" use_render_target_size="true" use_params="true" num_of_params="4"
-		parameter_0="50" parameter_1="65" parameter_2="300" parameter_3="0.7" />
-
   <technique name="VignettingNoiseTechnique" effect="vignetting_and_noise"
 		use_time="true" />
+
+  <!-- 
+  ###################################
+          ZBlur Effect
+  ###################################
+  -->
+
+  <technique name="ZBlurTechnique" effect="z_blur"
+		use_view_projection_inverse_matrix="true" use_camera_position="true" use_render_target_size="true" use_params="true" num_of_params="4"
+		parameter_0="50" parameter_1="65" parameter_2="300" parameter_3="0.7" />
 
   <!-- 
   ###################################

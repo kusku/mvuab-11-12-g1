@@ -1,65 +1,13 @@
 
 #include "functions.fx"
 
+////////////////////////////////////////////////////////////////////
+
 #define MAXBONES 29
 
-struct VertexShaderInput
-{
-	float3 Position	: POSITION0;
-	float4 Weight	: BLENDWEIGHT0;
-	float4 Indices	: BLENDINDICES0;
-	float4 Normal	: NORMAL0;
-	float2 TexCoord	: TEXCOORD0;
-};
+float3x4 g_Bones[MAXBONES] : BONES;
 
-struct VertexShaderOutput
-{
-    float4 Position         : POSITION0;
-	float2 TexCoord         : TEXCOORD0;
-	float3 EyePosition      : NORMAL1;
-	float3 Normal			: NORMAL2;
-	float4 WPos				: NORMAL3;
-};
-
-struct VertexShaderNormalInput
-{
-	float3 Position	: POSITION0;
-	float4 Weight	: BLENDWEIGHT0;
-	float4 Indices	: BLENDINDICES0;
-	float4 Normal	: NORMAL0;
-	float4 Tangent	: TANGENT0;
-	float4 BiNormal	: BINORMAL0;
-	float2 TexCoord	: TEXCOORD0;
-};
-
-struct VertexShaderNormalOutput
-{
-    float4 Position         : POSITION0;
-	float2 TexCoord         : TEXCOORD0;
-	float3 EyePosition      : NORMAL1;
-	float4 WPos				: NORMAL2;
-	float3x3 TangentToWorld : NORMAL3;
-};
-
-struct PixelShaderDROutput
-{
-	float4 DiffuseRT	: COLOR0;
-	float4 NormalRT		: COLOR1;
-	float4 DepthRT		: COLOR2;
-};
-
-struct VertexShaderShadowInput
-{
-	float3 Position	: POSITION0;
-	float4 Weight	: BLENDWEIGHT0;
-	float4 Indices	: BLENDINDICES0;
-};
-
-struct VertexShaderShadowOutput
-{
-	float4 Position	: POSITION0;
-	float2 Depth	: TEXCOORD0;
-};
+////////////////////////////////////////////////////////////////////
 
 sampler DiffuseTextureSampler : register( s0 ) = sampler_state
 {
@@ -79,8 +27,79 @@ sampler NormalTextureSampler : register( s1 ) = sampler_state
 	AddressV = clamp;
 };
 
+////////////////////////////////////////////////////////////////////
 
-float3x4 g_Bones[MAXBONES] : BONES;
+struct VertexShaderInput
+{
+	float3 Position	: POSITION0;
+	float4 Weight	: BLENDWEIGHT0;
+	float4 Indices	: BLENDINDICES0;
+	float4 Normal	: NORMAL0;
+	float2 TexCoord	: TEXCOORD0;
+};
+
+struct VertexShaderOutput
+{
+    float4 Position         : POSITION0;
+	float2 TexCoord         : TEXCOORD0;
+	float3 Normal			: NORMAL0;
+	float3 EyePosition      : NORMAL1;
+	float4 WPos				: NORMAL2;
+	float2 DepthInt			: NORMAL3;
+};
+
+struct VertexShaderNormalInput
+{
+	float3 Position	: POSITION0;
+	float4 Weight	: BLENDWEIGHT0;
+	float4 Indices	: BLENDINDICES0;
+	float4 Normal	: NORMAL0;
+	float4 Tangent	: TANGENT0;
+	float4 BiNormal	: BINORMAL0;
+	float2 TexCoord	: TEXCOORD0;
+};
+
+struct VertexShaderNormalOutput
+{
+    float4 Position         : POSITION0;
+	float2 TexCoord         : TEXCOORD0;
+	float2 DepthInt			: NORMAL0;
+	float3 EyePosition      : NORMAL1;
+	float4 WPos				: NORMAL2;
+	float3x3 TangentToWorld : NORMAL3;
+};
+
+struct VertexShaderShadowInput
+{
+	float3 Position	: POSITION0;
+	float4 Weight	: BLENDWEIGHT0;
+	float4 Indices	: BLENDINDICES0;
+};
+
+struct VertexShaderShadowOutput
+{
+	float4 Position	: POSITION0;
+	float2 Depth	: TEXCOORD0;
+};
+
+struct PixelShaderOutput
+{
+	float4 DiffuseRT	: COLOR0;
+	float4 DepthRT		: COLOR1;
+};
+
+struct PixelShaderDROutput
+{
+	float4 DiffuseRT	: COLOR0;
+	float4 NormalRT		: COLOR1;
+	float4 DepthRT		: COLOR2;
+};
+
+////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////
+// Helper Functions
+//////////////////////////////////
 
 float3 CalcAnimtedPos(float4 Position, float4 Indices, float4 Weight)
 {
@@ -164,6 +183,9 @@ void CalcAnimatedNormal(float3 Normal, float4 Indices, float4 Weight, out float3
 	OutNormal = normalize(OutNormal);
 }
 
+//////////////////////////////////
+// Vertex Shaders
+//////////////////////////////////
 
 /*********************
          Basic
@@ -188,11 +210,72 @@ VertexShaderOutput RenderCal3DHWVS(VertexShaderInput input)
 
     output.Normal = mul(l_Normal, World);
 
+	/////////////
+	//Depth Map
+	////////////
+	output.DepthInt = output.Position.zw;
+
 	return output;
 }
 
-float4 RenderCal3DHWPS(VertexShaderOutput input, uniform bool shadow) : COLOR
+/*********************
+       Shadow
+**********************/
+VertexShaderShadowOutput RenderCal3DHWShadowVS(VertexShaderShadowInput input)
 {
+	VertexShaderShadowOutput output = (VertexShaderShadowOutput)0;
+	
+	float3 position = CalcAnimtedPos(float4(input.Position.xyz,1.0), input.Indices, input.Weight);
+	
+	output.Position = mul(float4(position, 1.0), ShadowWorldViewProjection);
+	
+	output.Depth.xy = output.Position.zw;
+	
+	return output;
+}
+
+/*********************
+    Normal/Tangent
+**********************/
+VertexShaderNormalOutput RenderCal3DHWNormalVS(VertexShaderNormalInput input)
+{
+	VertexShaderNormalOutput output = (VertexShaderNormalOutput)0;
+	
+	float3 l_Normal= 0;
+	float3 l_Tangent=0;
+	
+	CalcAnimatedNormalTangent(input.Normal.xyz, input.Tangent.xyz, input.Indices, input.Weight, l_Normal, l_Tangent);
+	
+	float3 l_Position = CalcAnimtedPos(float4(input.Position.xyz,1.0), input.Indices, input.Weight);
+
+	float4 WorldSpacePosition = mul(float4(l_Position, 1.0f), World);
+
+	output.Position	= mul(float4(l_Position, 1), WorldViewProjection );
+	output.TexCoord = input.TexCoord;
+	
+	output.WPos			= WorldSpacePosition;
+	output.EyePosition	= CameraPosition - WorldSpacePosition.xyz;
+
+    output.TangentToWorld[0] = mul(l_Tangent, World);
+    output.TangentToWorld[1] = mul(cross(l_Tangent,l_Normal),(float3x3)World);
+    output.TangentToWorld[2] = mul(l_Normal, World);
+
+	/////////////
+	//Depth Map
+	////////////
+	output.DepthInt = output.Position.zw;
+
+	return output;
+}
+
+//////////////////////////////////
+// Pixel Shaders
+//////////////////////////////////
+
+PixelShaderOutput RenderCal3DHWPS(VertexShaderOutput input, uniform bool shadow)
+{
+	PixelShaderOutput output = (PixelShaderOutput)0;
+
 	float4 TexColor = tex2D(DiffuseTextureSampler, input.TexCoord);
 	
 	input.EyePosition = normalize(input.EyePosition);
@@ -276,40 +359,20 @@ float4 RenderCal3DHWPS(VertexShaderOutput input, uniform bool shadow) : COLOR
 
 	PixEndColor.a = TexColor.a;
 	
-	return PixEndColor;
-}
-
-/*********************
-    Normal/Tangent
-**********************/
-VertexShaderNormalOutput RenderCal3DHWNormalVS(VertexShaderNormalInput input)
-{
-	VertexShaderNormalOutput output = (VertexShaderNormalOutput)0;
+	output.DiffuseRT = PixEndColor;
 	
-	float3 l_Normal= 0;
-	float3 l_Tangent=0;
+	/////////////
+	//Depth Map
+	////////////
+	output.DepthRT.r = input.DepthInt.x / input.DepthInt.y;
 	
-	CalcAnimatedNormalTangent(input.Normal.xyz, input.Tangent.xyz, input.Indices, input.Weight, l_Normal, l_Tangent);
-	
-	float3 l_Position = CalcAnimtedPos(float4(input.Position.xyz,1.0), input.Indices, input.Weight);
-
-	float4 WorldSpacePosition = mul(float4(l_Position, 1.0f), World);
-
-	output.Position	= mul(float4(l_Position, 1), WorldViewProjection );
-	output.TexCoord = input.TexCoord;
-	
-	output.WPos			= WorldSpacePosition;
-	output.EyePosition	= CameraPosition - WorldSpacePosition.xyz;
-
-    output.TangentToWorld[0] = mul(l_Tangent, World);
-    output.TangentToWorld[1] = mul(cross(l_Tangent,l_Normal),(float3x3)World);
-    output.TangentToWorld[2] = mul(l_Normal, World);
-
 	return output;
 }
 
-float4 RenderCal3DHWNormalPS(VertexShaderNormalOutput input, uniform bool shadow) : COLOR0  
+PixelShaderOutput RenderCal3DHWNormalPS(VertexShaderNormalOutput input, uniform bool shadow)  
 {
+	PixelShaderOutput output = (PixelShaderOutput)0;
+
 	float4 TexColor = tex2D(DiffuseTextureSampler, input.TexCoord);
 	
 	input.EyePosition = normalize(input.EyePosition);
@@ -397,9 +460,15 @@ float4 RenderCal3DHWNormalPS(VertexShaderNormalOutput input, uniform bool shadow
 
 	PixEndColor.a = TexColor.a;
 	
-	return PixEndColor;
+	output.DiffuseRT = PixEndColor;
+	
+	/////////////
+	//Depth Map
+	////////////
+	output.DepthRT.r = input.DepthInt.x / input.DepthInt.y;
+	
+	return output;
 }
-
 
 /*PixelShaderDROutput RenderCal3DHWDRPS(CAL3D_HW_VERTEX_PS IN)
 {
@@ -411,22 +480,6 @@ float4 RenderCal3DHWNormalPS(VertexShaderNormalOutput input, uniform bool shadow
 	
 	return output;
 }*/
-
-/*********************
-       Shadow
-**********************/
-VertexShaderShadowOutput RenderCal3DHWShadowVS(VertexShaderShadowInput input)
-{
-	VertexShaderShadowOutput output = (VertexShaderShadowOutput)0;
-	
-	float3 position = CalcAnimtedPos(float4(input.Position.xyz,1.0), input.Indices, input.Weight);
-	
-	output.Position = mul(float4(position, 1.0), ShadowWorldViewProjection);
-	
-	output.Depth.xy = output.Position.zw;
-	
-	return output;
-}
 
 float4 RenderCal3DHWShadowPS(VertexShaderShadowOutput input) : COLOR
 {	
@@ -441,6 +494,10 @@ float4 RenderCal3DHWShadowPS(VertexShaderShadowOutput input) : COLOR
 	
 	return ret;
 }
+
+//////////////////////////////////
+// Techniques
+//////////////////////////////////
 
 technique Cal3DTechniqueShadow
 {

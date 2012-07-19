@@ -43,7 +43,8 @@ public:
 		X8R8G8B8,
 		R32F,
 		G32R32F,
-		D24S8
+		D24S8,
+		D32
 	};
 public:
 	CTexture();
@@ -51,7 +52,7 @@ public:
 
 	bool		Load		(const std::string &FileName);
 	bool		Reload		();
-	void		Activate	(size_t StageId);
+	bool		Activate	(size_t StageId);
 	void		Deactivate	(size_t StageId);
 
 	bool		Create		( const std::string &Name, uint32 Width, uint32 Height, uint32 MipMaps,

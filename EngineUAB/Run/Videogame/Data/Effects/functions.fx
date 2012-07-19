@@ -27,14 +27,16 @@ float4 AmbientLightColor <
 > = {1.0f, 1.0f, 1.0f, 1.0f};
 
 
-uniform bool FogEnable = true;
-uniform float3 FogColor = float3(0.75f, 0.23f, 0.0f);
-uniform float FogStart = 200.0f;
-uniform float FogRange = 300.0f;
+uniform bool		FogEnable = true;
+uniform float3		FogColor = float3(0.75f, 0.23f, 0.0f);
+uniform float		FogStart = 200.0f;
+uniform float		FogRange = 300.0f;
 
 uniform float4x4	WorldViewProjection 					: WORLDVIEWPROJECTION;
 uniform float4x4	ViewProjection 							: VIEWPROJECTION;
 uniform float4x4	World									: WORLD;
+
+uniform float2		RenderTargetSize						: RENDER_TARGET_SIZE;
 
 uniform float3		CameraPosition							: CAMERA_POSITION;
 
@@ -71,14 +73,14 @@ uniform int			SMap_Size								: SHADOW_MAP_SIZE				=	2048;
 uniform float4x4	ShadowViewProjection[MAX_LIGHTS]		: SHADOW_VIEWPROJECTION;
 uniform bool		lightShadowDynamicEnable[MAX_LIGHTS]	: Lights_Shadow_Dynamic_Enable;
 uniform bool		lightShadowStaticEnable[MAX_LIGHTS]		: Lights_Shadow_Static_Enable;
-uniform texture2D	StaticShadowMap1						: STATIC_SHADOW_MAP_1;
-uniform texture2D	StaticShadowMap2						: STATIC_SHADOW_MAP_2;
-uniform texture2D	StaticShadowMap3						: STATIC_SHADOW_MAP_3;
-uniform texture2D	StaticShadowMap4						: STATIC_SHADOW_MAP_4;
-uniform texture2D	DynamicShadowMap1						: DYNAMIC_SHADOW_MAP_1;
-uniform texture2D	DynamicShadowMap2						: DYNAMIC_SHADOW_MAP_2;
-uniform texture2D	DynamicShadowMap3						: DYNAMIC_SHADOW_MAP_3;
-uniform texture2D	DynamicShadowMap4						: DYNAMIC_SHADOW_MAP_4;
+uniform Texture2D	StaticShadowMap1						: STATIC_SHADOW_MAP_1;
+uniform Texture2D	StaticShadowMap2						: STATIC_SHADOW_MAP_2;
+uniform Texture2D	StaticShadowMap3						: STATIC_SHADOW_MAP_3;
+uniform Texture2D	StaticShadowMap4						: STATIC_SHADOW_MAP_4;
+uniform Texture2D	DynamicShadowMap1						: DYNAMIC_SHADOW_MAP_1;
+uniform Texture2D	DynamicShadowMap2						: DYNAMIC_SHADOW_MAP_2;
+uniform Texture2D	DynamicShadowMap3						: DYNAMIC_SHADOW_MAP_3;
+uniform Texture2D	DynamicShadowMap4						: DYNAMIC_SHADOW_MAP_4;
 
 //Variance
 

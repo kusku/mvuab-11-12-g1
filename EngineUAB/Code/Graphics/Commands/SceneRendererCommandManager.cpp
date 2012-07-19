@@ -214,10 +214,6 @@ bool CSceneRendererCommandManager::LoadXML ( bool _IsGUI )
 			{
 				l_ActiveCommand = new CSetRenderTargetSceneRendererCommand( l_Commands(i) );
 			}
-			else if( l_Type == "SkySphere" )
-			{
-				l_ActiveCommand = new CSkySphereCommand( l_Commands(i) );
-			}
 			else if( l_Type == "unset_render_target" )
 			{
 				std::string l_RenderTarget = l_Commands(i).GetPszProperty("render_target", "");
@@ -225,6 +221,22 @@ bool CSceneRendererCommandManager::LoadXML ( bool _IsGUI )
 				CSetRenderTargetSceneRendererCommand* l_SRT = static_cast<CSetRenderTargetSceneRendererCommand*>(m_SceneRendererCommands.GetResource(l_RenderTarget));
 
 				l_ActiveCommand = new CUnsetRenderTargetSceneRendererCommand(l_SRT, l_Commands(i));
+			}
+			else if( l_Type == "SkySphere" )
+			{
+				l_ActiveCommand = new CSkySphereCommand( l_Commands(i) );
+			}
+			else if( l_Type == "set_ds" )
+			{
+				l_ActiveCommand = new CSetDepthStencilSceneRendererCommand( l_Commands(i) );
+			}
+			else if( l_Type == "unset_ds" )
+			{
+				std::string l_ds = l_Commands(i).GetPszProperty("ds", "");
+
+				CSetDepthStencilSceneRendererCommand* l_SDS = static_cast<CSetDepthStencilSceneRendererCommand*>(m_SceneRendererCommands.GetResource(l_ds));
+
+				l_ActiveCommand = new CUnsetDepthStencilSceneRendererCommand(l_SDS, l_Commands(i));
 			}
 			else
 			{

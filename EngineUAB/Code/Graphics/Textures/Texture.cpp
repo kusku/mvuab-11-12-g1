@@ -66,9 +66,11 @@ bool CTexture::Reload()
 	return LoadFile();
 }
 
-void CTexture::Activate(size_t StageId)
+bool CTexture::Activate(size_t StageId)
 {
-	CORE->GetRenderManager()->GetDevice()->SetTexture(StageId, m_Texture);
+	HRESULT hr = CORE->GetRenderManager()->GetDevice()->SetTexture(StageId, m_Texture);
+
+	return (hr == D3D_OK);
 }
 
 void CTexture::Deactivate(size_t StageId)
@@ -191,9 +193,11 @@ CTexture::TFormatType CTexture::GetFormatTypeFromString(const std::string &Forma
 		return CTexture::X8R8G8B8;
 	else if( FormatType == "D24S8" )
 		return CTexture::D24S8;
+	else if( FormatType == "D32" )
+		return CTexture::D32;
 	else
 		LOGGER->AddNewLog(ELL_WARNING, "CTexture::GetFormatTypeFromString->Tipo de formato %s no reconocido.", FormatType.c_str());
-
+	
 	return CTexture::A8R8G8B8;
 }
 
@@ -228,6 +232,9 @@ bool CTexture::CreateDepthStencil(uint32 Width, uint32 Height, TFormatType Forma
 		case D24S8:
 			l_Format = D3DFMT_D24S8;
 			break;
+		case D32:
+			l_Format = D3DFMT_D32;
+			break;
 	}
 	
 	HRESULT hr = CORE->GetRenderManager()->GetDevice()->CreateDepthStencilSurface(Width, Height, l_Format, msType, 0, TRUE, &m_DepthStencilRenderTargetTexture, NULL);
@@ -248,7 +255,7 @@ bool CTexture::SetAsDepthStencil()
 	{
 		return false; 
 	}
-
+	
 	if( FAILED( l_Device->SetDepthStencilSurface( m_DepthStencilRenderTargetTexture ) ) )
 	{
 		return false; 
@@ -259,6 +266,11 @@ bool CTexture::SetAsDepthStencil()
 
 void CTexture::UnsetAsDepthStencil()
 {
+	if(m_OldDepthStencilRenderTarget == NULL)
+	{
+		return;
+	}
+
 	LPDIRECT3DDEVICE9 l_Device = CORE->GetRenderManager()->GetDevice();
 
 	l_Device->SetDepthStencilSurface( m_OldDepthStencilRenderTarget );

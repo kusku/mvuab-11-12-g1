@@ -36,7 +36,7 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR
 	float4 PixColor = tex2D(QuadTextureSampler, input.TexCoord);
 	
 	//return float4 (1.0f, 1.0f, 1.0f, 1.0f);
-	//PixColor.a = 1.0f;
+	//PixColor.a = .0f;
 	//return float4(input.TexCoord.x, input.TexCoord.y, input.TexCoord.x * input.TexCoord.y , 1.0f);
 	return PixColor;
 }
@@ -50,7 +50,6 @@ technique BasicQuadEffect
 		DestBlend			= InvSrcAlpha;
 		BlendOp				= Add;
 		
-		CullMode = CCW;
 		VertexShader = compile vs_3_0 VertexShaderFunction();
 		PixelShader = compile ps_3_0 PixelShaderFunction();
 	}

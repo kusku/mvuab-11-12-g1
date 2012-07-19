@@ -91,6 +91,10 @@
     <default_technique vertex_type="1055" technique="DeferredModelDrawRNM" />
   </pool_renderable_object_technique>-->
 
+  <pool_renderable_object_technique name="Basic_Quad">
+    <default_technique vertex_type="81" technique="BasicQuadEffect" />
+  </pool_renderable_object_technique>
+  
   <pool_renderable_object_technique name="Deferred_Shading_Combine">
     <default_technique vertex_type="81" technique="BasicDeferredLightingCombine" />
   </pool_renderable_object_technique>

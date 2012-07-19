@@ -17,6 +17,7 @@ uniform extern float2		StartSize			: START_SIZE;
 uniform extern float2		EndSize				: END_SIZE;
 
 uniform extern Texture2D	ParticleTexture		: PARTICLE_TEXTURE;
+
 sampler ParticleTextureSampler = sampler_state
 {
     Texture		= < ParticleTexture >;
@@ -41,7 +42,20 @@ struct VertexShaderOutput
     float4	Position			: POSITION0;
     float4	Color				: COLOR0;
     float2	TextureCoordinate	: COLOR1;
+	float2	DepthInt			: NORMAL0;
 };
+
+struct PixelShaderOutput
+{
+	float4 DiffuseRT	: COLOR0;
+	float4 DepthRT		: COLOR1;
+};
+
+////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////
+// Helper Functions
+//////////////////////////////////
 
 float4 ComputeParticlePosition(float3 position, float3 velocity,
                                float age, float normalizedAge)
@@ -92,6 +106,10 @@ float2x2 ComputeParticleRotation(float randomValue, float age)
     return float2x2(c, -s, s, c);
 }
 
+//////////////////////////////////
+// Vertex Shaders
+//////////////////////////////////
+
 VertexShaderOutput ParticleVertexShader(VertexShaderInput input)
 {
     VertexShaderOutput output = (VertexShaderOutput)0;
@@ -115,13 +133,37 @@ VertexShaderOutput ParticleVertexShader(VertexShaderInput input)
 
     output.TextureCoordinate = (input.Corner + 1) / 2;
 
+	/////////////
+	//Depth Map
+	////////////
+	output.DepthInt = output.Position.zw;
+
     return output;
 }
 
-float4 ParticlePixelShader(VertexShaderOutput input) : COLOR0
+//////////////////////////////////
+// Pixel Shaders
+//////////////////////////////////
+
+PixelShaderOutput ParticlePixelShader(VertexShaderOutput input)
 {
-    return tex2D(ParticleTextureSampler, input.TextureCoordinate) * input.Color;
+	PixelShaderOutput output = (PixelShaderOutput)0;
+
+    float4 PixEndColor = tex2D(ParticleTextureSampler, input.TextureCoordinate) * input.Color;
+	
+	output.DiffuseRT = PixEndColor;
+	
+	/////////////
+	//Depth Map
+	////////////
+	output.DepthRT.r = input.DepthInt.x / input.DepthInt.y;
+
+	return output;
 }
+
+//////////////////////////////////
+// Techniques
+//////////////////////////////////
 
 technique ParticleTechnique
 {

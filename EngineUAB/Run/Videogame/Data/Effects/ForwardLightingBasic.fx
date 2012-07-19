@@ -3,7 +3,7 @@
 /////////////////////////////////////
 #include "functions.fx"
 
-//////////////////////////////////
+////////////////////////////////////////////////////////////////////
 
 sampler2D DiffuseTextureMap : register( s0 ) = sampler_state
 {
@@ -13,6 +13,8 @@ sampler2D DiffuseTextureMap : register( s0 ) = sampler_state
    AddressU  = Wrap;
    AddressV  = Wrap;
 };
+
+////////////////////////////////////////////////////////////////////
 
 struct VertexShaderInput
 {
@@ -34,13 +36,26 @@ struct VertexShaderInstanceInput
 
 struct VertexShaderOutput
 {
-    float4 Position         : POSITION0;
-	float2 TexCoord         : TEXCOORD0;
-	float3 EyePosition      : NORMAL1;
-	float3 Normal			: NORMAL2;
-	float4 WPos				: NORMAL3;
-	float FogLerp			: NORMAL4;
+    float4	Position        : POSITION0;
+	float2	TexCoord        : TEXCOORD0;
+	float3	Normal			: NORMAL0;
+	float3	EyePosition     : NORMAL1;
+	float4	WPos			: NORMAL2;
+	float	FogLerp			: NORMAL3;
+	float2	DepthInt		: NORMAL4;
 };
+
+struct PixelShaderOutput
+{
+	float4 DiffuseRT	: COLOR0;
+	float4 DepthRT		: COLOR1;
+};
+
+////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////
+// Vertex Shaders
+//////////////////////////////////
 
 VertexShaderOutput VertexShaderInstanceFunction(VertexShaderInstanceInput input)
 {
@@ -69,6 +84,11 @@ VertexShaderOutput VertexShaderInstanceFunction(VertexShaderInstanceInput input)
 		output.FogLerp = saturate( (distance(WorldSpacePosition, output.EyePosition) - FogStart) / FogRange);
 	}
 
+	/////////////
+	//Depth Map
+	////////////
+	output.DepthInt = output.Position.zw;
+
     return output;
 }
 
@@ -92,11 +112,22 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 		output.FogLerp = saturate( (distance(WorldSpacePosition, output.EyePosition) - FogStart) / FogRange);
 	}
 
+	/////////////
+	//Depth Map
+	////////////
+	output.DepthInt = output.Position.zw;
+
     return output;
 }
 
-float4 PixelShaderFunction(VertexShaderOutput input, uniform bool shadow, uniform bool vegetation, uniform float AlphaTestThreshold, uniform float AlphaTestDirection) : COLOR
+//////////////////////////////////
+// Pixel Shaders
+//////////////////////////////////
+
+PixelShaderOutput PixelShaderFunction(VertexShaderOutput input, uniform bool shadow, uniform bool vegetation, uniform float AlphaTestThreshold, uniform float AlphaTestDirection)
 {	
+	PixelShaderOutput output = (PixelShaderOutput)0;
+
 	float4 TexColor = tex2D(DiffuseTextureMap, input.TexCoord);
 
 	input.EyePosition = normalize(input.EyePosition);
@@ -192,8 +223,19 @@ float4 PixelShaderFunction(VertexShaderOutput input, uniform bool shadow, unifor
 		clip((PixEndColor.a - AlphaTestThreshold) * AlphaTestDirection);
 	}
 	
-	return PixEndColor;
+	output.DiffuseRT = PixEndColor;
+	
+	/////////////
+	//Depth Map
+	////////////
+	output.DepthRT.r = input.DepthInt.x / input.DepthInt.y;
+
+	return output;
 }
+
+//////////////////////////////////
+// Techniques
+//////////////////////////////////
 
 technique ForwardLightingBasic
 {
