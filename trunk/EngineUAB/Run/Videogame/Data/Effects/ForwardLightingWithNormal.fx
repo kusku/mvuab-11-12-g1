@@ -3,7 +3,8 @@
 /////////////////////////////////////
 #include "functions.fx"
 
-//////////////////////////////////
+
+////////////////////////////////////////////////////////////////////
 
 sampler2D DiffuseTextureMap : register( s0 ) = sampler_state
 {
@@ -13,6 +14,8 @@ sampler2D DiffuseTextureMap : register( s0 ) = sampler_state
    AddressU  = Wrap;
    AddressV  = Wrap;
 };
+
+////////////////////////////////////////////////////////////////////
 
 sampler2D NormalTextureMap : register( s1 ) = sampler_state
 {
@@ -49,11 +52,24 @@ struct VertexShaderOutput
 {
     float4 Position         : POSITION0;
 	float2 TexCoord         : TEXCOORD0;
+	float2 DepthInt			: NORMAL0;
 	float3 EyePosition      : NORMAL1;
 	float4 WPos				: NORMAL2;
 	float FogLerp			: NORMAL3;
 	float3x3 TangentToWorld : NORMAL4;
 };
+
+struct PixelShaderOutput
+{
+	float4 DiffuseRT	: COLOR0;
+	float4 DepthRT		: COLOR1;
+};
+
+////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////
+// Vertex Shaders
+//////////////////////////////////
 
 VertexShaderOutput VertexShaderInstanceFunction(VertexShaderInstanceInput input)
 {
@@ -84,6 +100,11 @@ VertexShaderOutput VertexShaderInstanceFunction(VertexShaderInstanceInput input)
 		output.FogLerp = saturate( (distance(WorldSpacePosition, output.EyePosition) - FogStart) / FogRange);
 	}
 
+	/////////////
+	//Depth Map
+	////////////
+	output.DepthInt = output.Position.zw;
+
     return output;
 }
 
@@ -112,11 +133,107 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 		output.FogLerp = saturate( (distance(WorldSpacePosition, output.EyePosition) - FogStart) / FogRange);
 	}
 
+	/////////////
+	//Depth Map
+	////////////
+	output.DepthInt = output.Position.zw;
+
     return output;
 }
 
-float4 PixelShaderFunction(VertexShaderOutput input, uniform bool shadow, uniform bool vegetation, uniform float AlphaTestThreshold, uniform float AlphaTestDirection) : COLOR
+VertexShaderOutput VertexShaderWaterInstanceFunction(VertexShaderInstanceInput input)
 {
+	VertexShaderOutput output = (VertexShaderOutput)0;
+
+	float4x4 WorldInstance = (float4x4)0;
+
+	WorldInstance[0] = input.Mat1;
+	WorldInstance[1] = input.Mat2;
+	WorldInstance[2] = input.Mat3;
+	WorldInstance[3] = input.Mat4;
+	
+	//Set the position for z to simulate waves in water
+	//input.Position.z -= sin( ( (TotalElapsedTime / 4) * 8 ) + ( input.Position.y / 4 ) )/16;
+	input.Position.y -= sin( ( (TotalElapsedTime / 4) * 8 ) + ( input.Position.z / 4 ) )/16;
+	//input.Position.x -= sin( ( (TotalElapsedTime / 4) * 4 ) + ( input.Position.z / 2 ) )/8;
+	//input.Position.z -= sin( ( (TotalElapsedTime / 4) * 4 ) + ( input.Position.y / 2 ) )/8;
+	
+	float4 WorldSpacePosition = mul(float4(input.Position, 1.0f), WorldInstance);	
+
+	output.Position = mul(WorldSpacePosition, ViewProjection);
+	output.TexCoord = input.TexCoord;
+
+	output.WPos = WorldSpacePosition;
+	output.EyePosition = CameraPosition - WorldSpacePosition.xyz;
+	
+    // calculate tangent space to world space matrix using the world space tangent,
+    // binormal, and normal as basis vectors.  the pixel shader will normalize these
+    // in case the world matrix has scaling.
+    output.TangentToWorld[0] = mul(input.Tangent.xyz, WorldInstance);
+    output.TangentToWorld[1] = mul(input.Binormal.xyz, WorldInstance);
+    output.TangentToWorld[2] = mul(input.Normal.xyz, WorldInstance);
+	
+	[flatten]
+	if(FogEnable == true)
+	{
+		output.FogLerp = saturate( (distance(WorldSpacePosition, output.EyePosition) - FogStart) / FogRange);
+	}
+
+	/////////////
+	//Depth Map
+	////////////
+	output.DepthInt = output.Position.zw;
+
+    return output;
+}
+
+VertexShaderOutput VertexShaderWaterFunction(VertexShaderInput input)
+{
+	VertexShaderOutput output = (VertexShaderOutput)0;
+	
+	//Set the position for z to simulate waves in water
+	//input.Position.z -= sin( ( (TotalElapsedTime / 4) * 8 ) + ( input.Position.y / 4 ) )/16;
+	input.Position.y -= sin( ( (TotalElapsedTime / 4) * 8 ) + ( input.Position.z / 4 ) )/16;
+	//input.Position.x -= sin( ( (TotalElapsedTime / 4) * 4 ) + ( input.Position.z / 2 ) )/8;
+	//input.Position.z -= sin( ( (TotalElapsedTime / 4) * 4 ) + ( input.Position.y / 2 ) )/8;
+	
+	float4 WorldSpacePosition = mul(float4(input.Position, 1.0f), World);	
+
+	output.Position = mul(float4(input.Position, 1), WorldViewProjection);
+	output.TexCoord = input.TexCoord;
+
+	output.WPos = WorldSpacePosition;
+	output.EyePosition = CameraPosition - WorldSpacePosition.xyz;
+	
+    // calculate tangent space to world space matrix using the world space tangent,
+    // binormal, and normal as basis vectors.  the pixel shader will normalize these
+    // in case the world matrix has scaling.
+    output.TangentToWorld[0] = mul(input.Tangent.xyz, World);
+    output.TangentToWorld[1] = mul(input.Binormal.xyz, World);
+    output.TangentToWorld[2] = mul(input.Normal.xyz, World);
+
+	[flatten]
+	if(FogEnable == true)
+	{
+		output.FogLerp = saturate( (distance(WorldSpacePosition, output.EyePosition) - FogStart) / FogRange);
+	}
+
+	/////////////
+	//Depth Map
+	////////////
+	output.DepthInt = output.Position.zw;
+
+    return output;
+}
+
+//////////////////////////////////
+// Pixel Shaders
+//////////////////////////////////
+
+PixelShaderOutput PixelShaderFunction(VertexShaderOutput input, uniform bool shadow, uniform bool vegetation, uniform float AlphaTestThreshold, uniform float AlphaTestDirection)
+{
+	PixelShaderOutput output = (PixelShaderOutput)0;
+
 	float4 TexColor = tex2D(DiffuseTextureMap, input.TexCoord);
 
 	input.EyePosition = normalize(input.EyePosition);
@@ -216,86 +333,20 @@ float4 PixelShaderFunction(VertexShaderOutput input, uniform bool shadow, unifor
 		clip((PixEndColor.a - AlphaTestThreshold) * AlphaTestDirection);
 	}
 	
-	return PixEndColor;
+	output.DiffuseRT = PixEndColor;
+	
+	/////////////
+	//Depth Map
+	////////////
+	output.DepthRT.r = input.DepthInt.x / input.DepthInt.y;
+
+	return output;
 }
 
-VertexShaderOutput VertexShaderWaterInstanceFunction(VertexShaderInstanceInput input)
+PixelShaderOutput PixelShaderWaterFunction(VertexShaderOutput input, uniform bool shadow)
 {
-	VertexShaderOutput output = (VertexShaderOutput)0;
+	PixelShaderOutput output = (PixelShaderOutput)0;
 
-	float4x4 WorldInstance = (float4x4)0;
-
-	WorldInstance[0] = input.Mat1;
-	WorldInstance[1] = input.Mat2;
-	WorldInstance[2] = input.Mat3;
-	WorldInstance[3] = input.Mat4;
-	
-	//Set the position for z to simulate waves in water
-	//input.Position.z -= sin( ( (TotalElapsedTime / 4) * 8 ) + ( input.Position.y / 4 ) )/16;
-	input.Position.y -= sin( ( (TotalElapsedTime / 4) * 8 ) + ( input.Position.z / 4 ) )/16;
-	//input.Position.x -= sin( ( (TotalElapsedTime / 4) * 4 ) + ( input.Position.z / 2 ) )/8;
-	//input.Position.z -= sin( ( (TotalElapsedTime / 4) * 4 ) + ( input.Position.y / 2 ) )/8;
-	
-	float4 WorldSpacePosition = mul(float4(input.Position, 1.0f), WorldInstance);	
-
-	output.Position = mul(WorldSpacePosition, ViewProjection);
-	output.TexCoord = input.TexCoord;
-
-	output.WPos = WorldSpacePosition;
-	output.EyePosition = CameraPosition - WorldSpacePosition.xyz;
-	
-    // calculate tangent space to world space matrix using the world space tangent,
-    // binormal, and normal as basis vectors.  the pixel shader will normalize these
-    // in case the world matrix has scaling.
-    output.TangentToWorld[0] = mul(input.Tangent.xyz, WorldInstance);
-    output.TangentToWorld[1] = mul(input.Binormal.xyz, WorldInstance);
-    output.TangentToWorld[2] = mul(input.Normal.xyz, WorldInstance);
-	
-	[flatten]
-	if(FogEnable == true)
-	{
-		output.FogLerp = saturate( (distance(WorldSpacePosition, output.EyePosition) - FogStart) / FogRange);
-	}
-
-    return output;
-}
-
-VertexShaderOutput VertexShaderWaterFunction(VertexShaderInput input)
-{
-	VertexShaderOutput output = (VertexShaderOutput)0;
-	
-	//Set the position for z to simulate waves in water
-	//input.Position.z -= sin( ( (TotalElapsedTime / 4) * 8 ) + ( input.Position.y / 4 ) )/16;
-	input.Position.y -= sin( ( (TotalElapsedTime / 4) * 8 ) + ( input.Position.z / 4 ) )/16;
-	//input.Position.x -= sin( ( (TotalElapsedTime / 4) * 4 ) + ( input.Position.z / 2 ) )/8;
-	//input.Position.z -= sin( ( (TotalElapsedTime / 4) * 4 ) + ( input.Position.y / 2 ) )/8;
-	
-	float4 WorldSpacePosition = mul(float4(input.Position, 1.0f), World);	
-
-	output.Position = mul(float4(input.Position, 1), WorldViewProjection);
-	output.TexCoord = input.TexCoord;
-
-	output.WPos = WorldSpacePosition;
-	output.EyePosition = CameraPosition - WorldSpacePosition.xyz;
-	
-    // calculate tangent space to world space matrix using the world space tangent,
-    // binormal, and normal as basis vectors.  the pixel shader will normalize these
-    // in case the world matrix has scaling.
-    output.TangentToWorld[0] = mul(input.Tangent.xyz, World);
-    output.TangentToWorld[1] = mul(input.Binormal.xyz, World);
-    output.TangentToWorld[2] = mul(input.Normal.xyz, World);
-
-	[flatten]
-	if(FogEnable == true)
-	{
-		output.FogLerp = saturate( (distance(WorldSpacePosition, output.EyePosition) - FogStart) / FogRange);
-	}
-
-    return output;
-}
-
-float4 PixelShaderWaterFunction(VertexShaderOutput input, uniform bool shadow) : COLOR
-{
 	//Mofidy Tex Coords for Color Texture
 	input.TexCoord.y = input.TexCoord.y * 10.0f + sin( (TotalElapsedTime / 4) * 3 + 10 ) / TextureDim.y;
     input.TexCoord.x = input.TexCoord.x * 10.0f;
@@ -411,9 +462,20 @@ float4 PixelShaderWaterFunction(VertexShaderOutput input, uniform bool shadow) :
 	}
 
 	PixEndColor.a = 0.6f + SpecularShine;
+	
+	output.DiffuseRT = PixEndColor;
+	
+	/////////////
+	//Depth Map
+	////////////
+	output.DepthRT.r = input.DepthInt.x / input.DepthInt.y;
 
-	return PixEndColor;
+	return output;
 }
+
+//////////////////////////////////
+// Techniques
+//////////////////////////////////
 
 technique ForwardLightingWithNormalWater
 {

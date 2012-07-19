@@ -33,6 +33,8 @@
 #include "Commands\UnsetRenderTargetSceneRendererCommand.h"
 #include "Commands\RenderDebugWayPointSceneRendererCommand.h"
 #include "Commands\RenderBillboardsSceneRendererCommand.h"
+#include "Commands\SetDepthStencilSceneRendererCommand.h"
+#include "Commands\UnsetDepthStencilSceneRendererCommand.h"
 
 
 #endif __CLASS_COMMANDS_INCLUDES_H__

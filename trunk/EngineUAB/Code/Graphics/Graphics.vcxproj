@@ -49,11 +49,13 @@
     <ClInclude Include="Commands\SaveSceneToFileRendererCommand.h" />
     <ClInclude Include="Commands\SceneRendererCommand.h" />
     <ClInclude Include="Commands\SceneRendererCommandManager.h" />
+    <ClInclude Include="Commands\SetDepthStencilSceneRendererCommand.h" />
     <ClInclude Include="Commands\SetPoolRenderableObjectsTechniqueCommand.h" />
     <ClInclude Include="Commands\SetRenderTargetSceneRendererCommand.h" />
     <ClInclude Include="Commands\SetupMatricesSceneRendererCommand.h" />
     <ClInclude Include="Commands\SkySphereCommand.h" />
     <ClInclude Include="Commands\StagedTexturedRendererCommand.h" />
+    <ClInclude Include="Commands\UnsetDepthStencilSceneRendererCommand.h" />
     <ClInclude Include="Commands\UnsetRenderTargetSceneRendererCommand.h" />
     <ClInclude Include="Effects\Effect.h" />
     <ClInclude Include="Effects\EffectDefs.h" />
@@ -142,11 +144,13 @@
     <ClCompile Include="Commands\SaveSceneToFileRendererCommand.cpp" />
     <ClCompile Include="Commands\SceneRendererCommand.cpp" />
     <ClCompile Include="Commands\SceneRendererCommandManager.cpp" />
+    <ClCompile Include="Commands\SetDepthStencilSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\SetPoolRenderableObjectsTechniqueCommand.cpp" />
     <ClCompile Include="Commands\SetRenderTargetSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\SetupMatricesSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\SkySphereCommand.cpp" />
     <ClCompile Include="Commands\StagedTexturedRendererCommand.cpp" />
+    <ClCompile Include="Commands\UnsetDepthStencilSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\UnsetRenderTargetSceneRendererCommand.cpp" />
     <ClCompile Include="Effects\Effect.cpp" />
     <ClCompile Include="Effects\EffectManager.cpp" />

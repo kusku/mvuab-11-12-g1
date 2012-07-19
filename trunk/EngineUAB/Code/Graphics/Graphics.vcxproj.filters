@@ -272,6 +272,12 @@
     <ClInclude Include="_ScriptAPI\GraphicsRegisterScript.h">
       <Filter>_ScriptAPI</Filter>
     </ClInclude>
+    <ClInclude Include="Commands\SetDepthStencilSceneRendererCommand.h">
+      <Filter>Commands\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\UnsetDepthStencilSceneRendererCommand.h">
+      <Filter>Commands\Command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
@@ -528,8 +534,16 @@
     <ClCompile Include="Particles\Emitters\ParticleEmitterSphere.cpp">
       <Filter>Particles\Emitters</Filter>
     </ClCompile>
+
+
     <ClCompile Include="_ScriptAPI\GraphicsRegisterScript.cpp">
       <Filter>_ScriptAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\SetDepthStencilSceneRendererCommand.cpp">
+      <Filter>Commands\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\UnsetDepthStencilSceneRendererCommand.cpp">
+      <Filter>Commands\Command</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
