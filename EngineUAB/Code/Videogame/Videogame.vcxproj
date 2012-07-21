@@ -102,9 +102,16 @@
     <ClCompile Include="GameProcess.cpp" />
     <ClCompile Include="GUIProcess.cpp" />
     <ClCompile Include="videogame.cpp" />
+    <ClCompile Include="Weapons\Types\MeleeWeapon.cpp" />
+    <ClCompile Include="Weapons\Weapon.cpp" />
+    <ClCompile Include="Weapons\WeaponManager.cpp" />
     <ClCompile Include="_ScriptAPI\VideogameRegisterScript.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Weapons\Types\MeleeWeapon.h" />
+    <ClInclude Include="Weapons\Weapon.h" />
+    <ClInclude Include="Weapons\WeaponDefs.h" />
+    <ClInclude Include="Weapons\WeaponManager.h" />
     <ClInclude Include="_ScriptAPI\VideogameRegisterScript.h" />
     <ClInclude Include="_ScriptAPI\Wrappers\CharacterWrapper.h" />
     <ClInclude Include="_ScriptAPI\Wrappers\StateWrapper.h" />

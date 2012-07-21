@@ -43,6 +43,12 @@
     <Filter Include="_ScriptAPI\Wrappers">
       <UniqueIdentifier>{10942d6b-30dc-49d4-97b9-0a6d8d271f3e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Weapons">
+      <UniqueIdentifier>{f381ded8-e503-4b56-a2db-21b9626604a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Weapons\Types">
+      <UniqueIdentifier>{b2194e4f-013a-4db3-81fc-741af9e52835}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="videogame.cpp" />
@@ -77,6 +83,15 @@
     </ClCompile>
     <ClCompile Include="_ScriptAPI\VideogameRegisterScript.cpp">
       <Filter>_ScriptAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapons\WeaponManager.cpp">
+      <Filter>Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapons\Weapon.cpp">
+      <Filter>Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapons\Types\MeleeWeapon.cpp">
+      <Filter>Weapons\Types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +133,18 @@
     </ClInclude>
     <ClInclude Include="_ScriptAPI\Wrappers\StateWrapper.h">
       <Filter>_ScriptAPI\Wrappers</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapons\WeaponManager.h">
+      <Filter>Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapons\Weapon.h">
+      <Filter>Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapons\WeaponDefs.h">
+      <Filter>Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapons\Types\MeleeWeapon.h">
+      <Filter>Weapons\Types</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

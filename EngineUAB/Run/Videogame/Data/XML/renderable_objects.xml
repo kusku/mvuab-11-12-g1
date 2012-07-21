@@ -12,6 +12,9 @@
   
   <animated_model_instance name="lobo1" core="lobo" position="9.94149 -28.0586 107.903" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
   
+  <animated_model_instance name="melee_left_weapon" core="conejo" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="0.3 0.3 0.3" visible="true" layer="solid" />
+  <animated_model_instance name="melee_right_weapon" core="conejo" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="0.3 0.3 0.3" visible="true" layer="solid" />
+  
   <animated_model_instance name="enemy2" core="conejo" position="2.795 -29.18 -96.25" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
   <animated_model_instance name="enemy3" core="conejo" position="-0.871 -29.18 -100.257" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
   <animated_model_instance name="enemy4" core="conejo" position="2.795 -29.18 -100.257" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />

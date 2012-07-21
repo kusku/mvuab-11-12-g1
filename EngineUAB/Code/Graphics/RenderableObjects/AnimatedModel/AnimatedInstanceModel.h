@@ -56,6 +56,9 @@ public:
 
 	CAnimatedCoreModel*	GetAnimatedCoreModel ( void ) const	{ return m_AnimatedCoreModel; }
 
+	bool		GetBonePosition			( const std::string & _Bone, Vect3f &_Position );
+	bool		GetBoneRotation			( const std::string & _Bone, Vect4f & _Rotation );
+
 	//----Members -------------------------------------------------------	
 private:
 	CalModel*					m_CalModel;
