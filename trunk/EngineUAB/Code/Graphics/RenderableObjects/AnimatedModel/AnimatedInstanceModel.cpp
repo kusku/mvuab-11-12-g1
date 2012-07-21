@@ -100,7 +100,7 @@ void CAnimatedInstanceModel::Render( CRenderManager *_RM )
 	//trans.Translate(m_Position);
 	//rot.SetRotByAngleY(m_fYaw);
 	//rotPitch.SetRotByAngleZ(m_fPitch);
-
+	
 	////mat = trans * rot * rotPitch;
 
 	//mat = mat * rot * rotPitch;
@@ -292,4 +292,38 @@ float CAnimatedInstanceModel::GetCurrentAnimationDuration(const std::string &_Na
 {
 	uint16 id = m_AnimatedCoreModel->GetAnimationIdByName(_Name);
 	return m_AnimatedCoreModel->GetCoreModel()->getCoreAnimation(id)->getDuration();
+}
+
+bool CAnimatedInstanceModel::GetBonePosition( const std::string & _Bone, Vect3f & _Position )
+{
+	int l_iBoneIndex = m_AnimatedCoreModel->GetCoreModel()->getCoreSkeleton()->getCoreBoneId(_Bone);
+	if ( l_iBoneIndex != -1 )
+	{
+		CalSkeleton* l_pSkeleton = m_CalModel->getSkeleton();
+		CalBone* l_pBone = l_pSkeleton->getBone(l_iBoneIndex);
+		CalVector l_vTranslation = l_pBone->getTranslationAbsolute();
+
+		_Position = Vect3f(l_vTranslation.x, l_vTranslation.y, l_vTranslation.z);
+
+		return true;
+	}
+
+	return false;
+}
+
+bool CAnimatedInstanceModel::GetBoneRotation( const std::string & _Bone, Vect4f & _Rotation )
+{
+	int l_iBoneIndex = m_AnimatedCoreModel->GetCoreModel()->getCoreSkeleton()->getCoreBoneId(_Bone);
+	if ( l_iBoneIndex != -1 )
+	{
+		CalSkeleton* l_pSkeleton = m_CalModel->getSkeleton();
+		CalBone* l_pBone = l_pSkeleton->getBone(l_iBoneIndex);
+		CalQuaternion l_vRotation = l_pBone->getRotationAbsolute();
+
+		_Rotation = Vect4f(l_vRotation.x, l_vRotation.y, l_vRotation.z, l_vRotation.w);
+
+		return true;
+	}
+
+	return false;
 }

@@ -17,6 +17,13 @@
 #include "SoundManager.h"
 #include "Listener.h"
 #include "Triggers/TriggersManager.h"
+#include "Weapons\WeaponManager.h"
+
+#include "Core.h"
+#include "Base.h"
+#include "RenderableObjects\AnimatedModel\AnimatedModelManager.h"
+#include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
+#include "Math\Matrix44.h"
 
 #include "VideogameDefs.h"
 #include "Characters\CharacterManager.h"
@@ -32,6 +39,7 @@ CGameProcess::CGameProcess( HWND hWnd )
 	: m_hWnd				(hWnd)
 	, m_pThPSCamera			(NULL)
 	, m_pCharactersManager	(NULL)
+	, m_pWeaponManager		(NULL)
 	, m_IsOK				(false)
 	, m_fTimeBetweenClicks	(0.f)
 {
@@ -78,6 +86,7 @@ void CGameProcess::CleanUp()
 	m_pFreeCamera = NULL;
 
 	CHECKED_DELETE( m_pCharactersManager );
+	CHECKED_DELETE( m_pWeaponManager );
 }
 
 void CGameProcess::CreatePlayerCamera(float _near, float _far, float _zoom, float _heightEye, float _heightLookAt, const std::string &_name)
@@ -154,6 +163,9 @@ void CGameProcess::Update(float elapsedTime)
 
 	m_pCharactersManager->Update(elapsedTime);
 	CORE->GetRenderableObjectsLayersManager()->Update(elapsedTime);
+
+	//Actualiza la posición de las armas
+	m_pWeaponManager->Update(elapsedTime);
 }
 
 void CGameProcess::ReloadGameObjects()
@@ -165,8 +177,31 @@ void CGameProcess::ReloadGameObjects()
 
 void CGameProcess::Render(CRenderManager &RM)
 {
-	 m_pCharactersManager->Render(&RM, CORE->GetFontManager());
-	 m_pThPSCamera->Render(&RM);
+	m_pCharactersManager->Render(&RM, CORE->GetFontManager());
+	m_pThPSCamera->Render(&RM);
+
+	//Armas
+	CRenderableObject *l_pRO =  CORE->GetRenderableObjectsLayersManager()->GetRenderableObjectManager("solid")->GetResource("caperucita1");
+
+	Vect3f l_Pos = v3fZERO;
+	Vect3f l_Trans = v3fZERO;
+	Vect4f l_Rot = v4fZERO;
+	l_Pos = l_pRO->GetPosition();
+	float l_Yaw = l_pRO->GetYaw();
+	(static_cast<CAnimatedInstanceModel*>(l_pRO))->GetBonePosition("CHR_CAP R Hand", l_Trans);
+	(static_cast<CAnimatedInstanceModel*>(l_pRO))->GetBoneRotation("CHR_CAP R Hand", l_Rot);
+
+	Mat44f mat, matCharacter;
+	mat.SetIdentity();
+	matCharacter.SetIdentity();
+	
+	matCharacter = l_pRO->GetTransform();
+	mat.Translate(l_Trans);
+	
+	mat = matCharacter * mat;
+
+	RM.SetTransform(mat);
+	RM.DrawSphere(0.05f, 5, colGREEN);
 }
 
 bool CGameProcess::LoadMainScript()
@@ -201,6 +236,10 @@ void CGameProcess::LoadGameObjects()
 
 	//Asigna una cámara al micrófono de sonido
 	CORE->GetSoundManager()->GetListener()->SetCamera( m_pThPSCamera );
+
+	m_pWeaponManager = new CWeaponManager();
+	m_pWeaponManager->Load("./Data/XML/weapons.xml");
+	m_pWeaponManager->ChangeCurrentWeapon("hoces");
 }
 
 //-------------------------------------

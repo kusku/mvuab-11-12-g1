@@ -20,6 +20,7 @@ class CRenderManager;
 class CCHaractersManager;
 class CThPSCharacterCamera;
 class CThPSCamera;
+class CWeaponManager;
 
 class CGameProcess : public CEngineProcess
 {
@@ -71,6 +72,7 @@ private:
 	CCamera						*m_pFreeCamera;
 
 	CCharactersManager			*m_pCharactersManager;
+	CWeaponManager				*m_pWeaponManager;
 };
 
 #endif
