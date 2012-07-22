@@ -21,9 +21,6 @@
 
 #include "Core.h"
 #include "Base.h"
-#include "RenderableObjects\AnimatedModel\AnimatedModelManager.h"
-#include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
-#include "Math\Matrix44.h"
 
 #include "VideogameDefs.h"
 #include "Characters\CharacterManager.h"
@@ -179,29 +176,6 @@ void CGameProcess::Render(CRenderManager &RM)
 {
 	m_pCharactersManager->Render(&RM, CORE->GetFontManager());
 	m_pThPSCamera->Render(&RM);
-
-	//Armas
-	CRenderableObject *l_pRO =  CORE->GetRenderableObjectsLayersManager()->GetRenderableObjectManager("solid")->GetResource("caperucita1");
-
-	Vect3f l_Pos = v3fZERO;
-	Vect3f l_Trans = v3fZERO;
-	Vect4f l_Rot = v4fZERO;
-	l_Pos = l_pRO->GetPosition();
-	float l_Yaw = l_pRO->GetYaw();
-	(static_cast<CAnimatedInstanceModel*>(l_pRO))->GetBonePosition("CHR_CAP R Hand", l_Trans);
-	(static_cast<CAnimatedInstanceModel*>(l_pRO))->GetBoneRotation("CHR_CAP R Hand", l_Rot);
-
-	Mat44f mat, matCharacter;
-	mat.SetIdentity();
-	matCharacter.SetIdentity();
-	
-	matCharacter = l_pRO->GetTransform();
-	mat.Translate(l_Trans);
-	
-	mat = matCharacter * mat;
-
-	RM.SetTransform(mat);
-	RM.DrawSphere(0.05f, 5, colGREEN);
 }
 
 bool CGameProcess::LoadMainScript()

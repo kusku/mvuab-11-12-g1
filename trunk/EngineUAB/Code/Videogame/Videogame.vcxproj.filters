@@ -415,6 +415,9 @@
     <None Include="..\..\Run\Videogame\Data\Effects\Samplers.h">
       <Filter>Effects</Filter>
     </None>
+    <None Include="..\..\Run\Videogame\Data\XML\weapons.xml">
+      <Filter>XML</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\Run\Videogame\Data\Effects\VignettingNoise.fx">
