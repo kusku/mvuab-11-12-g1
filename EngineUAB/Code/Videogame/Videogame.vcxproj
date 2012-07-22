@@ -133,6 +133,13 @@
     <ClInclude Include="GameProcess.h" />
     <ClInclude Include="GUIProcess.h" />
     <ClInclude Include="VideogameDefs.h" />
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\bridge_trigger.lua" />
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\cascade_trigger.lua" />
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\end_game_trigger.lua" />
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\house_trigger.lua" />
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\start_trigger.lua" />
+    <None Include="..\..\Run\Videogame\Data\XML\soundbanks.xml" />
+    <None Include="..\..\Run\Videogame\Data\XML\speakers.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\weapons.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -563,7 +570,6 @@
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Player\player_target_attack3_state.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Player\player_target_attack_state.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Player\player_target_run_state.lua" />
-    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\init.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\process.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\reloads.lua" />
@@ -607,9 +613,6 @@
     </None>
     <None Include="..\..\Run\Videogame\Data\XML\scripts.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\script_gameplay.xml">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="..\..\Run\Videogame\Data\XML\sounds.xml">
       <SubType>Designer</SubType>
     </None>
     <None Include="..\..\Run\Videogame\Data\XML\static_meshes.xml">
