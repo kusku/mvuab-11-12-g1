@@ -133,6 +133,7 @@
     <ClInclude Include="GameProcess.h" />
     <ClInclude Include="GUIProcess.h" />
     <ClInclude Include="VideogameDefs.h" />
+    <None Include="..\..\Run\Videogame\Data\XML\weapons.xml" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\Run\Videogame\Data\Effects\AmbientLight.fx">
