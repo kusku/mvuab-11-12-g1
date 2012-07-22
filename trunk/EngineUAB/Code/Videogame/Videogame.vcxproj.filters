@@ -49,6 +49,9 @@
     <Filter Include="Weapons\Types">
       <UniqueIdentifier>{b2194e4f-013a-4db3-81fc-741af9e52835}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scripts\Game\Triggers">
+      <UniqueIdentifier>{f5159f2e-9926-4939-83e6-edeac1ad6790}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="videogame.cpp" />
@@ -202,9 +205,6 @@
     <None Include="..\..\Run\Videogame\Data\XML\scripts.xml">
       <Filter>XML</Filter>
     </None>
-    <None Include="..\..\Run\Videogame\Data\XML\sounds.xml">
-      <Filter>XML</Filter>
-    </None>
     <None Include="..\..\Run\Videogame\Data\XML\static_meshes.xml">
       <Filter>XML</Filter>
     </None>
@@ -248,9 +248,6 @@
       <Filter>Scripts</Filter>
     </None>
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\init_game.lua">
-      <Filter>Scripts\Game</Filter>
-    </None>
-    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers.lua">
       <Filter>Scripts\Game</Filter>
     </None>
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\helpers.lua">
@@ -417,6 +414,27 @@
     </None>
     <None Include="..\..\Run\Videogame\Data\XML\weapons.xml">
       <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\XML\soundbanks.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\XML\speakers.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\bridge_trigger.lua">
+      <Filter>Scripts\Game\Triggers</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\cascade_trigger.lua">
+      <Filter>Scripts\Game\Triggers</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\end_game_trigger.lua">
+      <Filter>Scripts\Game\Triggers</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\house_trigger.lua">
+      <Filter>Scripts\Game\Triggers</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\start_trigger.lua">
+      <Filter>Scripts\Game\Triggers</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
