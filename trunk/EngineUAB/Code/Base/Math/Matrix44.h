@@ -198,19 +198,19 @@ public:
                                         const Vector3<T>& vBasisY,
                                         const Vector3<T>& vBasisZ,
                                         const Vector3<T>& Pos);
-	inline Matrix44<T>& SetFromBasis     (const Vector3<T>& vBasisX,
-																				const Vector3<T>& vBasisY,
-																				const Vector3<T>& vBasisZ);
-  inline Matrix44<T>& SetFromAngleX    (const T angleX);
-  inline Matrix44<T>& SetFromAngleY    (const T angleY);
-  inline Matrix44<T>& SetFromAngleZ    (const T angleZ);
-  inline Matrix44<T>& SetFromAnglesXZ  (const T angleX, const T angleZ);
-  inline Matrix44<T>& SetFromAnglesYXZ (const T angleY, const T angleX, const T angleZ);
-  inline Matrix44<T>& SetFromPos       (const T posX, const T posY, const T posZ);
-  inline Matrix44<T>& SetFromPos       (const Vector3<T>& pos);
-  inline Matrix44<T>& SetFromScale     (const T escala_x, const T escala_y, const T escala_z);
-  inline Matrix44<T>& SetFromLookAt    (const Vector3<T>& vPos, const Vector3<T>& vTarget, const Vector3<T>& vUp);
-  inline Matrix44<T>& SetFromLookAt    (const Vector3<T>& vPos, const Vector3<T>& vTarget);
+	inline Matrix44<T>& SetFromBasis     (const Vector3<T>& vBasisX, const Vector3<T>& vBasisY, const Vector3<T>& vBasisZ);
+
+	inline Matrix44<T>& SetFromQuaternion(const Vector4<T>& quat);									
+	inline Matrix44<T>& SetFromAngleX    (const T angleX);
+	inline Matrix44<T>& SetFromAngleY    (const T angleY);
+	inline Matrix44<T>& SetFromAngleZ    (const T angleZ);
+	inline Matrix44<T>& SetFromAnglesXZ  (const T angleX, const T angleZ);
+	inline Matrix44<T>& SetFromAnglesYXZ (const T angleY, const T angleX, const T angleZ);
+	inline Matrix44<T>& SetFromPos       (const T posX, const T posY, const T posZ);
+	inline Matrix44<T>& SetFromPos       (const Vector3<T>& pos);
+	inline Matrix44<T>& SetFromScale     (const T escala_x, const T escala_y, const T escala_z);
+	inline Matrix44<T>& SetFromLookAt    (const Vector3<T>& vPos, const Vector3<T>& vTarget, const Vector3<T>& vUp);
+	inline Matrix44<T>& SetFromLookAt    (const Vector3<T>& vPos, const Vector3<T>& vTarget);
   //inline Matrix44<T>& SetFromQuatPos   (const Quatn<T>& quat, const Vector3<T>& vPos);
 
 

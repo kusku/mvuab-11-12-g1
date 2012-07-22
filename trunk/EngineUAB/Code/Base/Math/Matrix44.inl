@@ -420,6 +420,38 @@ inline Matrix44<T>& Matrix44<T>::SetFromBasis (const Vector3<T>& ejeX,
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// Crea una matriz de rotación a partir de un quaternion
+/// que también es una matriz de sistema de referencia, con todos sus ejes rotados sobre todos los ejes
+/// del sistema de referencia padre
+/// (Ver comentario en Matrix33::SetFromQuaternion)
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+template<typename T>
+inline Matrix44<T>& Matrix44<T>::SetFromQuaternion(const Vector4<T>& quat)
+{
+	m00 = 1.0f - 2.0f*quat.y*quat.y - 2.0f*quat.z*quat.z; 
+	m01 = 2.0f*quat.x*quat.y - 2.0f*quat.z*quat.w; 
+	m02 = 2.0f*quat.x*quat.z + 2.0f*quat.y*quat.w;
+	m03 = 0.f;
+
+	m10 = 2.0f*quat.x*quat.y + 2.0f*quat.z*quat.w;
+	m11 = 1.0f - 2*quat.x*quat.x - 2.0f*quat.z*quat.z;
+	m12 = 2.0f*quat.y*quat.z - 2.0f*quat.x*quat.w;
+	m13 = 0.0f;
+
+	m20 = 2.0f*quat.x*quat.z - 2.0f*quat.y*quat.w;
+	m21 = 2.0f*quat.y*quat.z + 2.0f*quat.x*quat.w;
+	m22 = 1.0f - 2*quat.x*quat.x - 2.0f*quat.y*quat.y;
+	m23 = 0.0f;
+	
+	m30 = 0.0f;
+	m31 = 0.0f;
+	m32 = 0.0f;
+	m33 = 1.0f;
+
+	return (*this);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// Crea una matriz de rotación de 'angleX' radianes alrededor del ejeX (normalmente inclinación)
 /// que también es una matriz de sistema de referencia, con todos sus ejes rotados sobre el ejeX
 /// del sistema de referencia padre
