@@ -46,6 +46,9 @@ CParticleSystem::CParticleSystem(const std::string& name, const TParticleSystemS
 	, m_EndSizeParam(NULL)
 	, m_TextureParam(NULL)
 	, m_Effect(NULL)
+	, m_PrevViewProjectionParam(NULL)
+	, m_InvertViewProjectionParam(NULL)
+	, m_CameraPositionParam(NULL)
 {
 	assert(settings);
 }
@@ -69,22 +72,26 @@ void CParticleSystem::Initialize()
 
 	//Get Parameters
 	m_Effect = CORE->GetEffectManager()->GetEffect("ParticleEffect");
+	
+	m_Effect->GetParameterBySemantic("CAMERA_POSITION", m_CameraPositionParam);
+	m_Effect->GetParameterBySemantic("VIEW", m_ViewParam);
+	m_Effect->GetParameterBySemantic("PROJECTION", m_ProjectionParam);
+	m_Effect->GetParameterBySemantic("VIEWPROJECTION_PREV", m_PrevViewProjectionParam);
+	m_Effect->GetParameterBySemantic("VIEWPROJECTIONINVERSE", m_InvertViewProjectionParam);
 
-	m_Effect->GetParameterBySemantic("CAMERA_VIEW", m_ViewParam);
-	m_Effect->GetParameterBySemantic("CAMERA_PROJECTION", m_ProjectionParam);
-	m_Effect->GetParameterBySemantic("VIEWPORT_SCALE", m_ViewPortScaleParam);
-	m_Effect->GetParameterBySemantic("CURRENT_TIME", m_CurrentTimeParam);
-	m_Effect->GetParameterBySemantic("DURATION", m_DurationParam);
-	m_Effect->GetParameterBySemantic("DURATION_RANDOMNESS", m_DurationRandomnessParam);
-	m_Effect->GetParameterBySemantic("GRAVITY", m_GravityParam);
-	m_Effect->GetParameterBySemantic("END_VELOCITY", m_EndVelocityParam);
-	m_Effect->GetParameterBySemantic("MIN_COLOR", m_MinColorParam);
-	m_Effect->GetParameterBySemantic("MAX_COLOR", m_MaxColorParam);
-	m_Effect->GetParameterBySemantic("ROTATE_SPEED", m_RotateSpeedParam);
-	m_Effect->GetParameterBySemantic("START_SIZE", m_StartSizeParam);
-	m_Effect->GetParameterBySemantic("END_SIZE", m_EndSizeParam);
-	m_Effect->GetParameterBySemantic("PARTICLE_TEXTURE", m_TextureParam);
-
+	m_Effect->GetParameterBySemantic("PSP_VIEWPORT_SCALE", m_ViewPortScaleParam);
+	m_Effect->GetParameterBySemantic("PSP_CURRENT_TIME", m_CurrentTimeParam);
+	m_Effect->GetParameterBySemantic("PSP_DURATION", m_DurationParam);
+	m_Effect->GetParameterBySemantic("PSP_DURATION_RANDOMNESS", m_DurationRandomnessParam);
+	m_Effect->GetParameterBySemantic("PSP_GRAVITY", m_GravityParam);
+	m_Effect->GetParameterBySemantic("PSP_END_VELOCITY", m_EndVelocityParam);
+	m_Effect->GetParameterBySemantic("PSP_MIN_COLOR", m_MinColorParam);
+	m_Effect->GetParameterBySemantic("PSP_MAX_COLOR", m_MaxColorParam);
+	m_Effect->GetParameterBySemantic("PSP_ROTATE_SPEED", m_RotateSpeedParam);
+	m_Effect->GetParameterBySemantic("PSP_START_SIZE", m_StartSizeParam);
+	m_Effect->GetParameterBySemantic("PSP_END_SIZE", m_EndSizeParam);
+	m_Effect->GetParameterBySemantic("PSP_PARTICLE_TEXTURE", m_TextureParam);
+	
 	//Load Texture
 	m_ParticeTexture = new CTexture();
 	m_ParticeTexture->Load(m_Settings->m_TextureName);
@@ -159,7 +166,14 @@ void CParticleSystem::SetParamsParticleEffect()
 	m_Effect->GetD3DEffect()->SetFloatArray(m_RotateSpeedParam, rotateSpeed, 2);
 	m_Effect->GetD3DEffect()->SetFloatArray(m_StartSizeParam, startSize, 2);
 	m_Effect->GetD3DEffect()->SetFloatArray(m_EndSizeParam, endSize, 2);
+	
+	m_Effect->GetD3DEffect()->SetFloatArray(m_CameraPositionParam, (float*)&CORE->GetCamera()->GetPosition(), 3);
+	
+	Mat44f viewProjection = CORE->GetEffectManager()->GetViewProjectionMatrix();
+	viewProjection.Invert();
+	m_Effect->GetD3DEffect()->SetMatrix(m_InvertViewProjectionParam, &viewProjection.GetD3DXMatrix());
 
+	m_Effect->GetD3DEffect()->SetMatrix(m_PrevViewProjectionParam, &CORE->GetEffectManager()->GetPrevViewProjectionMatrix().GetD3DXMatrix());
 	m_Effect->GetD3DEffect()->SetMatrix(m_ViewParam, &CORE->GetCamera()->GetViewMatrix().GetD3DXMatrix());
 	m_Effect->GetD3DEffect()->SetMatrix(m_ProjectionParam, &CORE->GetCamera()->GetProjectionMatrix().GetD3DXMatrix());
 	m_Effect->GetD3DEffect()->SetFloat(m_CurrentTimeParam, m_CurrentTime);

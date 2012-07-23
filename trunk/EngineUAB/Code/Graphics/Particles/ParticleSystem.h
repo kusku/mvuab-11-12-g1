@@ -28,6 +28,9 @@ class CParticleSystem
 		CEffect*						m_Effect;
 		D3DXHANDLE						m_ViewParam;
 		D3DXHANDLE						m_ProjectionParam;
+		D3DXHANDLE						m_PrevViewProjectionParam;
+		D3DXHANDLE						m_InvertViewProjectionParam;
+		D3DXHANDLE						m_CameraPositionParam;
 		D3DXHANDLE						m_ViewPortScaleParam;
 		D3DXHANDLE						m_CurrentTimeParam;
 		D3DXHANDLE						m_DurationParam;

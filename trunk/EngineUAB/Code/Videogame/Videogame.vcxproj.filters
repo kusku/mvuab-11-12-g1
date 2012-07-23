@@ -537,5 +537,8 @@
     <CustomBuild Include="..\..\Run\Videogame\Data\Effects\TerrainEffect.fx">
       <Filter>Effects</Filter>
     </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\MotionBlurEffect.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>

@@ -238,6 +238,10 @@ bool CSceneRendererCommandManager::LoadXML ( bool _IsGUI )
 
 				l_ActiveCommand = new CUnsetDepthStencilSceneRendererCommand(l_SDS, l_Commands(i));
 			}
+			else if( l_Type == "begin_motion_blur" )
+			{
+				l_ActiveCommand = new CBeginMotionBlurSceneRendererCommand( l_Commands(i) );
+			}
 			else
 			{
 				//Comandas de debug

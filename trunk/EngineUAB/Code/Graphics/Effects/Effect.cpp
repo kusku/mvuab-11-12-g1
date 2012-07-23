@@ -56,6 +56,9 @@ CEffect::CEffect(CXMLTreeNode &XMLNode)
 	, m_TotalElapsedTimeParameter(NULL)
 	, m_TextureDimParameter(NULL)
 	, m_ShadowViewParameter(NULL)
+	, m_PrevViewMatrixParameter(NULL)
+	, m_PrevProjectionMatrixParameter(NULL)
+	, m_PrevViewProjectionMatrixParameter(NULL)
 {
 	m_EffectName = XMLNode.GetPszProperty("name", "");
 	m_FileName = XMLNode.GetPszProperty("file", "");
@@ -151,7 +154,12 @@ bool CEffect::LoadEffect()
 	GetParameterBySemantic("VIEWINVERSE", m_ViewInverseMatrixParameter, false);
 	GetParameterBySemantic("PROJECTIONINVERSE", m_ProjInverseMatrixParameter, false);
 	GetParameterBySemantic("VIEWPROJECTIONINVERSE", m_ViewProjectionInverseMatrixParameter, false);
-
+	
+	//Prev Matrices
+	GetParameterBySemantic("VIEW_PREV", m_PrevViewMatrixParameter, false);
+	GetParameterBySemantic("PROJECTION_PREV", m_PrevProjectionMatrixParameter, false);
+	GetParameterBySemantic("VIEWPROJECTION_PREV", m_PrevViewProjectionMatrixParameter, false);
+	
 	//Camera
 	GetParameterBySemantic("CAMERA_POSITION", m_CameraPositionParameter, false);
 
@@ -271,6 +279,9 @@ void CEffect::SetNullParameters()
 	m_ElapsedTimeParameter						= NULL;
 	m_TotalElapsedTimeParameter					= NULL;
 	m_TextureDimParameter						= NULL;
+	m_PrevViewMatrixParameter					= NULL;
+	m_PrevProjectionMatrixParameter				= NULL;
+	m_PrevViewProjectionMatrixParameter			= NULL;
 
 	memset(m_StaticShadowMapSamplerParameter, 0, sizeof(D3DXHANDLE) * MAX_LIGHTS_BY_SHADER);
 	memset(m_DynamicShadowMapSamplerParameter, 0, sizeof(D3DXHANDLE) * MAX_LIGHTS_BY_SHADER);

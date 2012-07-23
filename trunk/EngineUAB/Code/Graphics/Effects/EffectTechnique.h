@@ -59,6 +59,9 @@ private:
 	bool	m_UseElapsedTime;
 	bool	m_UseTotalElapsedTime;
 	bool	m_UseTextureDim;
+	bool	m_UsePrevViewMatrix;
+	bool	m_UsePrevProjMatrix;
+	bool	m_UsePrevViewProjectionMatrix;
 
 	uint16	m_NumOfParams;
 	std::vector<float>	m_Params;

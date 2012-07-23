@@ -55,7 +55,10 @@ CEffectTechnique::CEffectTechnique(	CXMLTreeNode &XMLNode )
 	m_UseElapsedTime				= XMLNode.GetBoolProperty("use_elapsed_time", false, false);
 	m_UseTotalElapsedTime			= XMLNode.GetBoolProperty("use_total_elapsed_time", false, false);
 	m_UseTextureDim					= XMLNode.GetBoolProperty("use_texture_dim", false, false);
-	
+	m_UsePrevViewMatrix				= XMLNode.GetBoolProperty("use_prev_view_matrix", false, false);
+	m_UsePrevProjMatrix				= XMLNode.GetBoolProperty("use_prev_projection_matrix", false, false);
+	m_UsePrevViewProjectionMatrix	= XMLNode.GetBoolProperty("use_prev_view_projection_matrix", false, false);
+
 
 	//Lectura de parámetros
 	m_UseParams						= XMLNode.GetBoolProperty("use_params", false, false);
@@ -204,6 +207,33 @@ bool CEffectTechnique::BeginRender()
 		if( FAILED( l_Effect->SetMatrix( m_Effect->GetWorldViewProjectionMatrix(), &l_WorldMatrix.GetD3DXMatrix() ) ) ) 
 		{
 			msg_error = "Error al hacer el Set del parametro: m_Effect->GetWorldViewProjectionMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
+	}
+
+	if(m_UsePrevViewMatrix)
+	{
+		if( FAILED( l_Effect->SetMatrix( m_Effect->GetPrevViewMatrix(), &l_EffectManager->GetPrevViewMatrix().GetD3DXMatrix() ) ) ) 
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetPrevViewMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
+	}
+	
+	if(m_UsePrevProjMatrix)
+	{
+		if( FAILED( l_Effect->SetMatrix( m_Effect->GetPrevProjectionMatrix(), &l_EffectManager->GetPrevProjectionMatrix().GetD3DXMatrix() ) ) ) 
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetPrevProjectionMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
+	}
+
+	if(m_UsePrevViewProjectionMatrix)
+	{
+		if( FAILED( l_Effect->SetMatrix( m_Effect->GetPrevViewProjectionMatrix(), &l_EffectManager->GetPrevViewProjectionMatrix().GetD3DXMatrix() ) ) ) 
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetPrevViewProjectionMatrix()";
 			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
 		}
 	}
