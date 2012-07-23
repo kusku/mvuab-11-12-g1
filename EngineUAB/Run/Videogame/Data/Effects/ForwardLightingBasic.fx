@@ -43,12 +43,14 @@ struct VertexShaderOutput
 	float4	WPos			: NORMAL2;
 	float	FogLerp			: NORMAL3;
 	float2	DepthInt		: NORMAL4;
+	float2	VelocityMB		: NORMAL5;
 };
 
 struct PixelShaderOutput
 {
 	float4 DiffuseRT	: COLOR0;
 	float4 DepthRT		: COLOR1;
+	float4 MotionBlurRT	: COLOR2;
 };
 
 ////////////////////////////////////////////////////////////////////
@@ -88,6 +90,17 @@ VertexShaderOutput VertexShaderInstanceFunction(VertexShaderInstanceInput input)
 	//Depth Map
 	////////////
 	output.DepthInt = output.Position.zw;
+	
+	//End Depth Map
+	////////////
+
+	///////////////
+	//Motion Blur
+	///////////////
+	output.VelocityMB = MotionBlurVelocity(output.Position, WorldSpacePosition);
+
+	//End Motion Blur
+	///////////////
 
     return output;
 }
@@ -116,6 +129,17 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 	//Depth Map
 	////////////
 	output.DepthInt = output.Position.zw;
+	
+	//End Depth Map
+	////////////
+
+	///////////////
+	//Motion Blur
+	///////////////
+	output.VelocityMB = MotionBlurVelocity(output.Position, WorldSpacePosition);
+
+	//End Motion Blur
+	///////////////
 
     return output;
 }
@@ -229,6 +253,17 @@ PixelShaderOutput PixelShaderFunction(VertexShaderOutput input, uniform bool sha
 	//Depth Map
 	////////////
 	output.DepthRT.r = input.DepthInt.x / input.DepthInt.y;
+	
+	//End Depth Map
+	////////////
+
+	///////////////
+	//Motion Blur
+	///////////////
+	output.MotionBlurRT = float4(input.VelocityMB, 1.0f, 1.0f);
+
+	//End Motion Blur
+	///////////////
 
 	return output;
 }

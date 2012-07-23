@@ -128,16 +128,28 @@ bool CEffectManager::ReloadShaders ( void )
 	return l_IsOK;
 }
 
-void CEffectManager::ActivateCamera(const Mat44f &ViewMatrix, const Mat44f &ProjectionMatrix, const Vect3f &CameraEye)
+void CEffectManager::ActivateCamera(const Mat44f &ViewMatrix, const Mat44f &ProjectionMatrix, const Vect3f &CameraEye, const Mat44f &PrevViewMatrix, const Mat44f &PrevProjectionMatrix)
 {
 	m_ViewMatrix = ViewMatrix;
 	m_ProjectionMatrix = ProjectionMatrix;
-	m_CameraEye = CameraEye;
+
+	m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
+
+	//////////////////////////////////
+
+	m_PrevProjectionMatrix = PrevProjectionMatrix;
+	m_PrevViewMatrix = PrevViewMatrix;
+
+	m_PrevViewProjectionMatrix = m_PrevProjectionMatrix * m_PrevViewMatrix;
+
+	//////////////////////////////////
 
 	m_ViewInverseMatrix = m_ViewMatrix.GetInverted();
 	m_ProjInverseMatrix	= m_ProjectionMatrix.GetInverted();
+	
+	//////////////////////////////////
 
-	m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
+	m_CameraEye = CameraEye;
 }
 
 std::string CEffectManager::GetTechniqueEffectNameByVertexDefault(uint16 VertexType)

@@ -40,33 +40,35 @@ struct VertexShaderInput
 
 struct VertexShaderOutput
 {
-    float4 Position         : POSITION0;
-	float2 TexCoord         : TEXCOORD0;
-	float3 Normal			: NORMAL0;
-	float3 EyePosition      : NORMAL1;
-	float4 WPos				: NORMAL2;
-	float2 DepthInt			: NORMAL3;
+    float4	Position		: POSITION0;
+	float2	TexCoord		: TEXCOORD0;
+	float3	Normal			: NORMAL0;
+	float3	EyePosition		: NORMAL1;
+	float4	WPos			: NORMAL2;
+	float2	DepthInt		: NORMAL3;
+	float2	VelocityMB		: NORMAL4;
 };
 
 struct VertexShaderNormalInput
 {
-	float3 Position	: POSITION0;
-	float4 Weight	: BLENDWEIGHT0;
-	float4 Indices	: BLENDINDICES0;
-	float4 Normal	: NORMAL0;
-	float4 Tangent	: TANGENT0;
-	float4 BiNormal	: BINORMAL0;
-	float2 TexCoord	: TEXCOORD0;
+	float3	Position	: POSITION0;
+	float4	Weight		: BLENDWEIGHT0;
+	float4	Indices		: BLENDINDICES0;
+	float4	Normal		: NORMAL0;
+	float4	Tangent		: TANGENT0;
+	float4	BiNormal	: BINORMAL0;
+	float2	TexCoord	: TEXCOORD0;
 };
 
 struct VertexShaderNormalOutput
 {
-    float4 Position         : POSITION0;
-	float2 TexCoord         : TEXCOORD0;
-	float2 DepthInt			: NORMAL0;
-	float3 EyePosition      : NORMAL1;
-	float4 WPos				: NORMAL2;
-	float3x3 TangentToWorld : NORMAL3;
+    float4		Position		: POSITION0;
+	float2		TexCoord		: TEXCOORD0;
+	float2		DepthInt		: NORMAL0;
+	float2		VelocityMB		: NORMAL1;
+	float3		EyePosition		: NORMAL2;
+	float4		WPos			: NORMAL3;
+	float3x3	TangentToWorld	: NORMAL4;
 };
 
 struct VertexShaderShadowInput
@@ -86,6 +88,7 @@ struct PixelShaderOutput
 {
 	float4 DiffuseRT	: COLOR0;
 	float4 DepthRT		: COLOR1;
+	float4 MotionBlurRT	: COLOR2;
 };
 
 struct PixelShaderDROutput
@@ -214,6 +217,17 @@ VertexShaderOutput RenderCal3DHWVS(VertexShaderInput input)
 	//Depth Map
 	////////////
 	output.DepthInt = output.Position.zw;
+	
+	//End Depth Map
+	////////////
+
+	///////////////
+	//Motion Blur
+	///////////////
+	output.VelocityMB = MotionBlurVelocity(output.Position, WorldSpacePosition);
+
+	//End Motion Blur
+	///////////////
 
 	return output;
 }
@@ -264,6 +278,17 @@ VertexShaderNormalOutput RenderCal3DHWNormalVS(VertexShaderNormalInput input)
 	//Depth Map
 	////////////
 	output.DepthInt = output.Position.zw;
+	
+	//End Depth Map
+	////////////
+
+	///////////////
+	//Motion Blur
+	///////////////
+	output.VelocityMB = MotionBlurVelocity(output.Position, WorldSpacePosition);
+
+	//End Motion Blur
+	///////////////
 
 	return output;
 }
@@ -366,6 +391,17 @@ PixelShaderOutput RenderCal3DHWPS(VertexShaderOutput input, uniform bool shadow)
 	////////////
 	output.DepthRT.r = input.DepthInt.x / input.DepthInt.y;
 	
+	//End Depth Map
+	////////////
+
+	///////////////
+	//Motion Blur
+	///////////////
+	output.MotionBlurRT = float4(input.VelocityMB, 1.0f, 1.0f);
+
+	//End Motion Blur
+	///////////////
+	
 	return output;
 }
 
@@ -466,6 +502,17 @@ PixelShaderOutput RenderCal3DHWNormalPS(VertexShaderNormalOutput input, uniform 
 	//Depth Map
 	////////////
 	output.DepthRT.r = input.DepthInt.x / input.DepthInt.y;
+	
+	//End Depth Map
+	////////////
+
+	///////////////
+	//Motion Blur
+	///////////////
+	output.MotionBlurRT = float4(input.VelocityMB, 1.0f, 1.0f);
+
+	//End Motion Blur
+	///////////////
 	
 	return output;
 }

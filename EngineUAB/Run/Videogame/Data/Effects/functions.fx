@@ -32,9 +32,20 @@ uniform float3		FogColor = float3(0.75f, 0.23f, 0.0f);
 uniform float		FogStart = 200.0f;
 uniform float		FogRange = 300.0f;
 
-uniform float4x4	WorldViewProjection 					: WORLDVIEWPROJECTION;
-uniform float4x4	ViewProjection 							: VIEWPROJECTION;
 uniform float4x4	World									: WORLD;
+uniform float4x4	WorldViewProjection 					: WORLDVIEWPROJECTION;
+
+uniform float4x4	ViewMatrix								: VIEW;
+uniform float4x4	InvertView								: VIEWINVERSE;
+uniform float4x4	PrevView								: VIEW_PREV;
+
+uniform float4x4	ProjectionMatrix						: PROJECTION;
+uniform float4x4	InvertProjection						: PROJECTIONINVERSE;
+uniform float4x4	PrevProjectionMatrix					: PROJECTION_PREV;
+
+uniform float4x4	ViewProjection 							: VIEWPROJECTION;
+uniform float4x4	InvertViewProjection					: VIEWPROJECTIONINVERSE;
+uniform float4x4	PrevViewProjection						: VIEWPROJECTION_PREV;
 
 uniform float2		RenderTargetSize						: RENDER_TARGET_SIZE;
 
@@ -44,11 +55,6 @@ uniform float		ElapsedTime								: ELAPSED_TIME;
 uniform float		TotalElapsedTime						: TOTAL_ELAPSED_TIME;
 
 uniform float2		TextureDim								: TEXTURE_DIM;
-
-uniform float4x4	InvertViewProjection					: VIEWPROJECTIONINVERSE;
-uniform float4x4	InvertView								: VIEWINVERSE;
-uniform float4x4	InvertProjection						: PROJECTIONINVERSE;
-uniform float4x4	ProjectionMatrix						: PROJECTION;
 
 uniform float4x4 	ShadowWorldViewProjection				: SHADOW_WORLDVIEWPROJECTION;
 uniform float4x4 	ShadowWorldView							: SHADOW_WORLDVIEW;
@@ -547,4 +553,33 @@ float CalcShadowVariance(float4 Pos, sampler shadowMapSampler, int light)
 	
 	return ShadowContrib;
 }
+
+//////////////////////////////////////
+
+//////////////////////////////////////
+//Motion Blur Functions				//
+/////////////////////////////////////
+float2 MotionBlurVelocity(float4 wvpPosition, float4 wPosition)
+{
+	float4 prevProjSpace = wvpPosition;
+	float4 currentProjSpace = mul(wPosition, PrevViewProjection);
+	
+    // Convert to non-homogeneous points [-1,1] by dividing by w 
+    currentProjSpace /= currentProjSpace.w;
+    prevProjSpace /= prevProjSpace.w;
+
+	// Vertex's velocity (in non-homogeneous projection space) is the position this frame minus 
+    // its position last frame.  This information is stored in a texture coord.  The pixel shader 
+    // will read the texture coordinate with a sampler and use it to output each pixel's velocity.
+    float2 velocity = currentProjSpace - prevProjSpace;   
+	
+    // The velocity is now between (-2,2) so divide by 2 to get it to (-1,1)
+    velocity /= 2.0f;
+
+	return velocity;
+}
+
+
+//////////////////////////////////////
+
 

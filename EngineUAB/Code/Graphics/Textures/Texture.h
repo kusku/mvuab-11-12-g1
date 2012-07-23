@@ -70,6 +70,8 @@ public:
 
 	TFormatType	GetFormatTypeFromString			( const std::string &FormatType );
 
+	void		SetDXTexture			(LPDIRECT3DTEXTURE9 dxTexture)	{ m_Texture = dxTexture; }
+
 	const std::string &		GetFileName		() const		{ return m_FileName; }
 	LPDIRECT3DTEXTURE9		GetDXTexture	() const		{ return m_Texture; }
 	uint32					GetWidth		() const		{ return m_Width; }

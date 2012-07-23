@@ -135,4 +135,8 @@
     <default_technique vertex_type="81" technique="VignettingNoiseTechnique" />
   </pool_renderable_object_technique>
 
+  <pool_renderable_object_technique name="motion_blur">
+    <default_technique vertex_type="81" technique="MotionBlurTechnique" />
+  </pool_renderable_object_technique>
+
 </renderable_object_techniques>

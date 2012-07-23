@@ -36,6 +36,10 @@ public:
 	//Get Methods
 	const std::string&	GetEffectName					() const		{ return m_EffectName; }
 
+	
+	D3DXHANDLE		GetPrevViewMatrix					() const		{ return m_PrevViewMatrixParameter; }
+	D3DXHANDLE		GetPrevProjectionMatrix				() const		{ return m_PrevProjectionMatrixParameter; }
+	D3DXHANDLE		GetPrevViewProjectionMatrix			() const		{ return m_PrevViewProjectionMatrixParameter; }
 	D3DXHANDLE		GetWorldMatrix						() const		{ return m_WorldMatrixParameter; }
 	D3DXHANDLE		GetViewMatrix						() const		{ return m_ViewMatrixParameter; }
 	D3DXHANDLE		GetProjectionMatrix					() const		{ return m_ProjectionMatrixParameter; }
@@ -120,6 +124,9 @@ private:
 	BOOL			m_LightsDynamicShadowMapEnable[MAX_LIGHTS_BY_SHADER];
 	BOOL			m_LightsStaticShadowMapEnable[MAX_LIGHTS_BY_SHADER];
 
+	D3DXHANDLE		m_PrevViewMatrixParameter;
+	D3DXHANDLE		m_PrevProjectionMatrixParameter;
+	D3DXHANDLE		m_PrevViewProjectionMatrixParameter;
 	D3DXHANDLE		m_ShadowViewParameter;
 	D3DXHANDLE		m_ElapsedTimeParameter;
 	D3DXHANDLE		m_TotalElapsedTimeParameter;

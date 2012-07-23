@@ -278,6 +278,9 @@
     <ClInclude Include="Commands\UnsetDepthStencilSceneRendererCommand.h">
       <Filter>Commands\Command</Filter>
     </ClInclude>
+    <ClInclude Include="Commands\BeginMotionBlurSceneRendererCommand.h">
+      <Filter>Commands\Command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
@@ -534,8 +537,6 @@
     <ClCompile Include="Particles\Emitters\ParticleEmitterSphere.cpp">
       <Filter>Particles\Emitters</Filter>
     </ClCompile>
-
-
     <ClCompile Include="_ScriptAPI\GraphicsRegisterScript.cpp">
       <Filter>_ScriptAPI</Filter>
     </ClCompile>
@@ -543,6 +544,9 @@
       <Filter>Commands\Command</Filter>
     </ClCompile>
     <ClCompile Include="Commands\UnsetDepthStencilSceneRendererCommand.cpp">
+      <Filter>Commands\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\BeginMotionBlurSceneRendererCommand.cpp">
       <Filter>Commands\Command</Filter>
     </ClCompile>
   </ItemGroup>

@@ -312,35 +312,49 @@ void CRenderManager::EndRendering()
 
 void CRenderManager::SetupMatrices(CCamera* camera)
 {
-	D3DXMATRIX m_matView;
-	D3DXMATRIX m_matProject;
-	D3DXVECTOR3 l_Eye;
+	D3DXMATRIX l_matViewDX;
+	D3DXMATRIX l_matProjectDX;
+	D3DXVECTOR3 l_EyeDX;
+
+	Mat44f l_matView = m44fIDENTITY;
+	Mat44f l_matProject = m44fIDENTITY;
+	Mat44f l_prevMatView = m44fIDENTITY;
+	Mat44f l_prevMatProject = m44fIDENTITY;
+	Vect3f l_Eye = v3fZERO;
+	
 
 	if(!camera)
 	{
 		//Set default view and projection matrix
 		//Setup Matrix view
-		l_Eye=D3DXVECTOR3(5.0f,5.0f,-5.0f);
+		l_EyeDX = D3DXVECTOR3(5.0f,5.0f,-5.0f);
 		D3DXVECTOR3 l_LookAt(0.0f,0.0f,0.0f), l_VUP(0.0f,1.0f,0.0f);
-		D3DXMatrixLookAtLH( &m_matView, &l_Eye, &l_LookAt, &l_VUP);
+		D3DXMatrixLookAtLH( &l_matViewDX, &l_EyeDX, &l_LookAt, &l_VUP);
 
 		//Setup Matrix projection
-		D3DXMatrixPerspectiveFovLH( &m_matProject, 45.0f * D3DX_PI / 180.0f, m_AspectRatio, 1.0f, 10000.0f );
+		D3DXMatrixPerspectiveFovLH( &l_matProjectDX, 45.0f * D3DX_PI / 180.0f, m_AspectRatio, 1.0f, 10000.0f );
 	}
 	else
 	{
+		l_prevMatView = camera->GetViewMatrix();
+		l_prevMatProject = camera->GetProjectionMatrix();
+
 		camera->UpdateMatrices();
 
-		m_matView = camera->GetViewMatrixDX();
+		l_matView = camera->GetViewMatrix();
+		l_matProject = camera->GetProjectionMatrix();
 
-		m_matProject = camera->GetProjectionMatrixDX();
+		l_matViewDX = camera->GetViewMatrixDX();
+		l_matProjectDX = camera->GetProjectionMatrixDX();
+
+		l_Eye = camera->GetPosition();
 	}
 
-	m_Frustum.Update( m_matView * m_matProject );
-	m_pD3DDevice->SetTransform( D3DTS_VIEW, &m_matView );
-	m_pD3DDevice->SetTransform( D3DTS_PROJECTION, &m_matProject );
+	m_Frustum.Update( l_matView * l_matProject );
+	m_pD3DDevice->SetTransform(D3DTS_VIEW, &l_matViewDX);
+	m_pD3DDevice->SetTransform(D3DTS_PROJECTION, &l_matProjectDX);
 
-	CORE->GetEffectManager()->ActivateCamera(m_matView , m_matProject, Vect3f(l_Eye.x, l_Eye.y, l_Eye.z));
+	CORE->GetEffectManager()->ActivateCamera(l_matView , l_matProject, l_Eye, l_prevMatView, l_prevMatProject);
 }
 
 void CRenderManager::DrawLine( const Vect3f &PosA, const Vect3f &PosB, CColor Color)

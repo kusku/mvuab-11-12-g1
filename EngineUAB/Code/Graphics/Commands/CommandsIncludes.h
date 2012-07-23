@@ -35,6 +35,6 @@
 #include "Commands\RenderBillboardsSceneRendererCommand.h"
 #include "Commands\SetDepthStencilSceneRendererCommand.h"
 #include "Commands\UnsetDepthStencilSceneRendererCommand.h"
-
+#include "Commands\BeginMotionBlurSceneRendererCommand.h"
 
 #endif __CLASS_COMMANDS_INCLUDES_H__
