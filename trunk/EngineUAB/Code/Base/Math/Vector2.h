@@ -89,6 +89,7 @@ public:
   inline T           Distance      (const Vector2<T>& rhs) const;
   inline T           SqDistance    (const Vector2<T>& rhs) const;
 
+  inline float			Dot			(const Vector2<T>& otro) const;
 
   // Rotaciones
   inline Vector2<T>& Rotate     (const T angle);
