@@ -4,6 +4,7 @@
 #include "RenderableObjects/AnimatedModel/AnimatedInstanceModel.h"
 #include "Object3D.h"
 #include "Utils/Named.h"
+#include "cal3d\animcallback.h"
 
 #if defined (_DEBUG)
 #include "Memory/MemLeaks.h"
@@ -17,6 +18,7 @@ namespace ScriptAPI
 	{
 		module(_pLua) [
 			class_<CObject3D>("CObject3D")
+				.def("get_front", &CObject3D::GetFront)
 				.property("position",&CObject3D::GetPosition, &CObject3D::SetPosition)
 				.property("yaw", &CObject3D::GetYaw, &CObject3D::SetYaw)
 				.property("pitch", &CObject3D::GetPitch, &CObject3D::SetPitch)
@@ -35,7 +37,12 @@ namespace ScriptAPI
 				.def("blend_cycle", &CAnimatedInstanceModel::BlendCycle)
 				.def("clear_cycle", &CAnimatedInstanceModel::ClearCycle)
 				.def("execute_action", &CAnimatedInstanceModel::ExecuteAction)
+				.def("remove_action", &CAnimatedInstanceModel::RemoveAction)
 				.def("get_current_animation_duration", &CAnimatedInstanceModel::GetCurrentAnimationDuration)
+		];
+
+		module(_pLua) [
+			class_<CalAnimationCallback>("CalAnimationCallback")
 		];
 	}
 

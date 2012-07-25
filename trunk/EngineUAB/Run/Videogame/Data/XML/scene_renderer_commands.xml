@@ -83,7 +83,7 @@
   <render_debug_process active="true" />
   <render_debug_physics active="false" />
   <render_debug_lights active="false" />
-  <render_debug_info grid="false" axis="false"  render_console="false" render_logger="false" render_modifiers="false" render_debug_options="false" render_debug_render="true" />
+  <render_debug_info grid="false" axis="false"  render_console="false" render_logger="true" render_modifiers="false" render_debug_options="false" render_debug_render="true" />
   
   
   <end_scene />

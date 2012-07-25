@@ -12,34 +12,15 @@ class 'CPlayer' (CCharacter)
 		
 		self.locked = false
 		self.is_target_fixed = false
-		
-		self.idle = CPlayerIdleState()
-		self.run = CPlayerRunState()
-		self.attack = CPlayerAttackState()
-		self.attack2 = CPlayerAttack2State()
-		self.attack3 = CPlayerAttack3State()
-		self.target_run = CPlayerTargetRunState()
-		self.target_attack = CPlayerTargetAttackState()
-		self.target_attack2 = CPlayerTargetAttack2State()
-		self.target_attack3 = CPlayerTargetAttack3State()
-		self.defense = CPlayerDefenseState()
-		self.jump = CPlayerJumpState()
-		self.hit = CPlayerHitState()
-		
-		self.animated_idle = CPlayerAnimationIdleState()
-		self.animated_run = CPlayerAnimationRunState()
-		self.animated_attack = CPlayerAnimationAttackState()
-		self.animated_attack2 = CPlayerAnimationAttack2State()
-		self.animated_attack3 = CPlayerAnimationAttack3State()
-		self.animated_defense = CPlayerAnimationDefenseState()
-		self.animated_jump = CPlayerAnimationJumpState()
-		self.animated_hit = CPlayerAnimationHitState()
-		
+				
 		self.animation_time = -1.0
 	end
 
 	function CPlayer:init() 
 		get_game_process():create_player_camera(1.0, 10000.0, 3.8, 0.7, 1.0, 'Caperucita')
+		
+		self:create_callbacks()
+		self:create_states()
 		
 		l_gfsm = self.graphic_fsm 
 		l_gfsm.current_state = self.animated_idle 
@@ -108,4 +89,36 @@ class 'CPlayer' (CCharacter)
 	function CPlayer:hit_to_player()
 		print_logger(0, "hit")
 		self:rest_life( 10 + math.random(0, 10) )
+	end
+	
+	function CPlayer:create_callbacks()
+		local animation_callback_manager = get_game_process():get_animation_callback_manager()
+		
+		animation_callback_manager:create_callback("attack1", self.animated_model )
+		animation_callback_manager:create_callback("attack2", self.animated_model )
+		animation_callback_manager:create_callback("attack3", self.animated_model )
+	end
+	
+	function CPlayer:create_states()
+		self.idle = CPlayerIdleState()
+		self.run = CPlayerRunState()
+		self.attack = CPlayerAttackState()
+		self.attack2 = CPlayerAttack2State()
+		self.attack3 = CPlayerAttack3State()
+		self.target_run = CPlayerTargetRunState()
+		self.target_attack = CPlayerTargetAttackState()
+		self.target_attack2 = CPlayerTargetAttack2State()
+		self.target_attack3 = CPlayerTargetAttack3State()
+		self.defense = CPlayerDefenseState()
+		self.jump = CPlayerJumpState()
+		self.hit = CPlayerHitState()
+		
+		self.animated_idle = CPlayerAnimationIdleState()
+		self.animated_run = CPlayerAnimationRunState()
+		self.animated_attack = CPlayerAnimationAttackState()
+		self.animated_attack2 = CPlayerAnimationAttack2State()
+		self.animated_attack3 = CPlayerAnimationAttack3State()
+		self.animated_defense = CPlayerAnimationDefenseState()
+		self.animated_jump = CPlayerAnimationJumpState()
+		self.animated_hit = CPlayerAnimationHitState()
 	end

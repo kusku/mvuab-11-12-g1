@@ -1,22 +1,22 @@
 class 'CPlayerAttack3State' (CState)
 	function CPlayerAttack3State:__init() 
 		CState.__init(self)
+		self.animation_callback = get_game_process():get_animation_callback_manager():get_callback("attack3")
 	end
 
 	function CPlayerAttack3State:OnEnter(_CCharacter)
 		core:get_debug_gui_manager().debug_render:set_state_name("Attack 3")
-	
-		print_logger(0, "State: Attack 3")
-		self.animation_time = 0.0
+		self.animation_time = _CCharacter.elapsed_time
+		self.animation_callback:start_animation()
 	end
 	
 	function CPlayerAttack3State:Execute(_CCharacter)
-		if self.animation_time > _CCharacter.animated_model:get_current_animation_duration("attack3") - 0.1 then
+		if self.animation_callback:is_animation_finished() then
 			if core:get_action_to_input():do_action('AttackPlayer') then
 				_CCharacter.logic_fsm:change_state(_CCharacter.attack)
 				_CCharacter.graphic_fsm:change_state(_CCharacter.animated_attack)
 			else
-				if get_game_process():get_time_between_clicks() < 0.1 then
+				if get_game_process():get_time_between_clicks() < 0.2 then
 					_CCharacter.logic_fsm:change_state(_CCharacter.attack)
 					_CCharacter.graphic_fsm:change_state(_CCharacter.animated_attack)
 				else
@@ -43,7 +43,6 @@ class 'CPlayerAttack3State' (CState)
 		_CCharacter.physic_controller:move(l_dir, _CCharacter.elapsed_time)
 		
 		_CCharacter.physic_controller.yaw = _CCharacter.yaw
-		_CCharacter.animated_model.yaw = -(_CCharacter.yaw * 180.0 / math.pi) + 90.0
 	end
 	
 	function CPlayerAttack3State:OnExit(_CCharacter)
