@@ -50,6 +50,7 @@ public:
 	inline void					SetVisible			( bool visible )				{ m_Visible = visible; }
 	inline void					SetTechniqueName	( const std::string& name )		{ m_TechniqueName = name; }
 
+	inline Vect3f				GetFront			() const						{ Vect3f l_Front; l_Front.GetXZFromAngle( mathUtils::Deg2Rad(m_fYaw) ) ; return l_Front; }
 
 	//----Members -------------------------------------------------------
 protected:
