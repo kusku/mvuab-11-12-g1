@@ -95,7 +95,7 @@ bool CCharactersManager::Initialize( int _NumEnemies )
 	return true;
 }
 
-void CCharactersManager::CleanReloadScripts ( void )
+void CCharactersManager::CleanReloadScripts ()
 {
 	CHECKED_DELETE ( m_pPropertiesManager );		// Eliminamos las propiedades por defecto
 	CHECKED_DELETE ( m_pAnimatedStatesManager );	// Eliminamos los estados por defecto
@@ -118,11 +118,11 @@ void CCharactersManager::CleanReloadScripts ( void )
 	m_ResourcesVector.clear();
 }
 
-void CCharactersManager::CleanUp ( void )
+void CCharactersManager::CleanUp ()
 {
-	CHECKED_DELETE ( m_pPropertiesManager );		// Eliminamos las propiedades por defecto
-	CHECKED_DELETE ( m_pAnimatedStatesManager );	// Eliminamos los estados por defecto
-	CHECKED_DELETE ( m_pPlayer );
+	CHECKED_DELETE( m_pPropertiesManager );		// Eliminamos las propiedades por defecto
+	CHECKED_DELETE( m_pAnimatedStatesManager );	// Eliminamos los estados por defecto
+	CHECKED_DELETE( m_pPlayer );
 	Destroy();
 }
 
@@ -223,7 +223,18 @@ void CCharactersManager::Render(CRenderManager *_RM, CFontManager *_FM)
 	int life = m_pPlayer->GetProperties()->GetLife();
 	Vect3f l_Pos = m_pPlayer->GetController()->GetPosition();
 	_FM->DrawDefaultText(10, 50, colBLACK, "Life: %d", life);
-	//_FM->DrawDefaultText(10, 65, colBLACK, "Position: %f, %f, %f", l_Pos.x, l_Pos.y, l_Pos.z);
+
+	Mat44f mat;
+	mat.SetIdentity();
+	_RM->SetTransform(mat);
+
+	Vect3f l_PosPlayer = m_pPlayer->GetPosition();
+	l_PosPlayer.y += 2.f;
+	Vect3f l_DirPlayer = m_pPlayer->GetAnimatedModel()->GetFront();
+	l_DirPlayer.y = 0.f;
+
+
+	_RM->DrawLine(l_PosPlayer, l_PosPlayer + l_DirPlayer, colGREEN);
 }
 
 //--------------------------------------------------
@@ -760,7 +771,8 @@ bool CCharactersManager::EnemyIsVisibleInAngle(CCharacter *_Enemy, float _Angle)
 	//Cogemos la dirección del player
 	//Vect2f dir = Vect2f( mathUtils::Abs(mathUtils::Cos(m_pPlayer->GetYaw())), mathUtils::Abs(mathUtils::Sin(m_pPlayer->GetYaw() ) ) );
 	//Vect3f l_DirPlayer = Vect3f( dir.x, 0.0f, dir.y);
-	Vect3f l_DirPlayer = static_cast<CGameProcess*>(CORE->GetProcess())->GetPlayerCamera()->GetDirection();
+	//Vect3f l_DirPlayer = static_cast<CGameProcess*>(CORE->GetProcess())->GetPlayerCamera()->GetDirection();
+	Vect3f l_DirPlayer = m_pPlayer->GetAnimatedModel()->GetFront();
 	l_DirPlayer.y = 0.f;
 
 	//Calculamos el vector entre el player y el enemigo
@@ -769,7 +781,7 @@ bool CCharactersManager::EnemyIsVisibleInAngle(CCharacter *_Enemy, float _Angle)
 	l_DirEnemy.Normalize(1.f);
 
 	//Calculamos el ángulo entre los dos vectores
-	float l_Angle = l_DirPlayer.AngleWithVector(l_DirEnemy);
+	float l_Angle = l_DirPlayer.Dot(l_DirEnemy);
 
 	if( l_Angle > _Angle )
 	{

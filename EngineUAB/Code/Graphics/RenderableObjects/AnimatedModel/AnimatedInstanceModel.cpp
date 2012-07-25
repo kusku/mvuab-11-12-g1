@@ -278,6 +278,11 @@ void CAnimatedInstanceModel::ExecuteAction(uint32 Id, float Time)
 	m_CalModel->getMixer()->executeAction( Id, 0, Time );
 }
 
+void CAnimatedInstanceModel::RemoveAction( uint32 _Id )
+{
+	m_CalModel->getMixer()->removeAction(_Id);
+}
+
 void CAnimatedInstanceModel::BlendCycle( uint32 Id, float Time )
 {
 	m_CalModel->getMixer()->blendCycle( Id, 1.0, Time);
@@ -324,6 +329,6 @@ bool CAnimatedInstanceModel::GetBoneRotation( const std::string & _Bone, Vect4f 
 
 		return true;
 	}
-
+	
 	return false;
 }

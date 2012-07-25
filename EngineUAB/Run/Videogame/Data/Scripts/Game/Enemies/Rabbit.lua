@@ -164,7 +164,7 @@ class 'CRabbit' (CCharacter)
 		self.yaw = 0.0
 		self.pitch = -math.pi / 8
 		self.roll = 0.0
-		self.locked = false
+		self.locked = true
 		
 		self.character_manager = get_game_process():get_character_manager()
 		self.player = get_game_process():get_character_manager():get_player()
@@ -185,7 +185,7 @@ class 'CRabbit' (CCharacter)
 		--self.roll = 0.0
 		--self.position = Vect3f(3.0, 0.0, 0.0)
 		--self.position2 = self.position
-		self.locked = false
+		self.locked = true
 		
 		self.character_manager = get_game_process():get_character_manager()
 		self.player = get_game_process():get_character_manager():get_player()
@@ -229,7 +229,6 @@ class 'CRabbit' (CCharacter)
 			l_IsOk = l_IsOk and true
 		end
 		
-		--self.enable = true
 		self.fatigue = 2
 		
 		return l_IsOk
@@ -239,52 +238,17 @@ class 'CRabbit' (CCharacter)
 	--			Main Methods
 	-- ------------------------------
 	function CRabbit:update(_elapsed_time)
-		-- print_logger(0, "CRabbit::update()->Actualizando enemigo...")
-		-- Almacenamos el elapsed time pq después será impossible de guardar
 		self.elapsed_time = _elapsed_time
-		
-		-- print_logger (1, "CRabbit:Update()-> NAME : "..self.name)
-		-- print_logger (1 , "CRabbit::Update()->POSITION :"..self.position.x.." "..self.position.y.." "..self.position.z)
-		
-		-- l_gfsm = self.graphic_fsm 
-		-- if l_gfsm == nil then
-			-- print_logger(2, "CRabbit:update()->No se ha podido obtener la máquina de estados gráfica.")
-		-- else
-			-- if (self.enable == true ) then
-				-- l_gfsm:update()
-				-- --print_logger(0, "CRabbit::update()->Actualizando gfsm...")			
-			-- else
-				-- --print_logger(0, "CRabbit::update()->Enable = false")
-				-- l_gfsm:change_state(self.animation_idle_state)
-			-- end 
-		-- end
-		
-		-- Actualizamos parte de la IA
-		-- self.behaviours.seek.target =  self.player.position
-		-- self.steering_entity.velocity = self.behaviours:update( _elapsed_time, self.steering_entity )
-		-- self.steering_entity.position = self.steering_entity.position + self.steering_entity.velocity
-			
+
 		local l_lfsm = self.logic_fsm 
-		if l_lfsm == nil then
-			print_logger(2, "CRabbit:update()->No se ha podido obtener la máquina de estados gráfica.")
-		else
-			if (self.enable == true ) then
+		if l_lfsm ~= nil then
+			if (self.locked == false ) then
 				l_lfsm:update()
-				-- print_logger(0, "CRabbit::update()->Actualizando lfsm...")			
 			else
 				l_lfsm:change_state(self.idle_state)
-				self:move_to( self.position, _elapsed_time )
+				self:move_to( Vect3f(0.0, 0.0, 0.0), _elapsed_time )
 			end 
 		end
-		
-		if ( core == nil ) then
-			print_logger(2, "CORE ES NULL")
-		-- else
-			-- print_logger(1, "CORE ES CORRECTE")
-		end 
-		
-		-- self.position2 = self.position
-		-- local l_pointB = self.position
 	end
 	
 	-- ------------------------------

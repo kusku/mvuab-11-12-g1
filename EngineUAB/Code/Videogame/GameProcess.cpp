@@ -18,6 +18,7 @@
 #include "Listener.h"
 #include "Triggers/TriggersManager.h"
 #include "Weapons\WeaponManager.h"
+#include "Callbacks\Animation\AnimationCallbackManager.h"
 
 #include "Core.h"
 #include "Base.h"
@@ -33,12 +34,13 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CGameProcess::CGameProcess( HWND hWnd )
-	: m_hWnd				(hWnd)
-	, m_pThPSCamera			(NULL)
-	, m_pCharactersManager	(NULL)
-	, m_pWeaponManager		(NULL)
-	, m_IsOK				(false)
-	, m_fTimeBetweenClicks	(0.f)
+	: m_hWnd						(hWnd)
+	, m_pThPSCamera					(NULL)
+	, m_pCharactersManager			(NULL)
+	, m_pWeaponManager				(NULL)
+	, m_pAnimationCallbackManager	(NULL)
+	, m_IsOK						(false)
+	, m_fTimeBetweenClicks			(0.f)
 {
 }
 
@@ -64,6 +66,8 @@ bool CGameProcess::Init()
 		CORE->GetScriptManager()->RunCode("load_data()");
 	}
 
+	m_pAnimationCallbackManager = new CAnimationCallbackManager();
+
 	//Carga los objetos del juego
 	LoadGameObjects();
 
@@ -84,6 +88,7 @@ void CGameProcess::CleanUp()
 
 	CHECKED_DELETE( m_pCharactersManager );
 	CHECKED_DELETE( m_pWeaponManager );
+	CHECKED_DELETE( m_pAnimationCallbackManager );
 }
 
 void CGameProcess::CreatePlayerCamera(float _near, float _far, float _zoom, float _heightEye, float _heightLookAt, const std::string &_name)

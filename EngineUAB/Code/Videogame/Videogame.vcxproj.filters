@@ -52,6 +52,12 @@
     <Filter Include="Scripts\Game\Triggers">
       <UniqueIdentifier>{f5159f2e-9926-4939-83e6-edeac1ad6790}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Callbacks">
+      <UniqueIdentifier>{4a7f930b-71a9-437e-9fae-2641af4b8fda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Callbacks\Animation">
+      <UniqueIdentifier>{ea54ebb9-28ef-4c2b-bb2f-944a850916d4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="videogame.cpp" />
@@ -95,6 +101,12 @@
     </ClCompile>
     <ClCompile Include="Weapons\Types\MeleeWeapon.cpp">
       <Filter>Weapons\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Callbacks\Animation\AnimationCallback.cpp">
+      <Filter>Callbacks\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Callbacks\Animation\AnimationCallbackManager.cpp">
+      <Filter>Callbacks\Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +160,12 @@
     </ClInclude>
     <ClInclude Include="Weapons\Types\MeleeWeapon.h">
       <Filter>Weapons\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Callbacks\Animation\AnimationCallback.h">
+      <Filter>Callbacks\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Callbacks\Animation\AnimationCallbackManager.h">
+      <Filter>Callbacks\Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

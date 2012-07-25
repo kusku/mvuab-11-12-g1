@@ -21,6 +21,7 @@ class CCHaractersManager;
 class CThPSCharacterCamera;
 class CThPSCamera;
 class CWeaponManager;
+class CAnimationCallbackManager;
 
 class CGameProcess : public CEngineProcess
 {
@@ -58,6 +59,7 @@ public:
 	static CGameProcess*		GetGameProcess				();
 	CCharactersManager*			GetCharactersManager		() const		{ return m_pCharactersManager; }
 	CThPSCharacterCamera*		GetPlayerCamera				() const		{ return m_pThPSCamera; }
+	CAnimationCallbackManager*	GetAnimationCallbackManager	() const		{ return m_pAnimationCallbackManager; }
 
 	//----Members --------------------------------------------------------------------
 private:
@@ -73,6 +75,7 @@ private:
 
 	CCharactersManager			*m_pCharactersManager;
 	CWeaponManager				*m_pWeaponManager;
+	CAnimationCallbackManager	*m_pAnimationCallbackManager;
 };
 
 #endif

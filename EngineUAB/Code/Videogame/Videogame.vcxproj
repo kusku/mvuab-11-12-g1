@@ -90,6 +90,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Callbacks\Animation\AnimationCallback.cpp" />
+    <ClCompile Include="Callbacks\Animation\AnimationCallbackManager.cpp" />
     <ClCompile Include="Cameras\FreeCamera.cpp" />
     <ClCompile Include="Cameras\ThPSCharacterCamera.cpp" />
     <ClCompile Include="Cameras\StaticCamera.cpp" />
@@ -108,6 +110,8 @@
     <ClCompile Include="_ScriptAPI\VideogameRegisterScript.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Callbacks\Animation\AnimationCallback.h" />
+    <ClInclude Include="Callbacks\Animation\AnimationCallbackManager.h" />
     <ClInclude Include="Weapons\Types\MeleeWeapon.h" />
     <ClInclude Include="Weapons\Weapon.h" />
     <ClInclude Include="Weapons\WeaponDefs.h" />
