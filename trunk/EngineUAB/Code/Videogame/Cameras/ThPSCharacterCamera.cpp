@@ -129,7 +129,7 @@ void CThPSCharacterCamera::Update(float _ElapsedTime)
 
 		if( l_fDistancePlayerToCollision < l_fDistancePlayerToCamera )	//La cámara está por detrás de un objeto
 		{
-			m_Eye = l_CollisionInfo.m_CollisionPoint - l_Dir;
+			m_Eye = l_CollisionInfo.m_CollisionPoint - l_Dir * 0.5f;
 		}
 	}
 
@@ -137,41 +137,61 @@ void CThPSCharacterCamera::Update(float _ElapsedTime)
 	l_pUserData = CORE->GetPhysicsManager()->RaycastClosestActor(m_Eye + l_Dir + v3fNEGY, v3fNEGY, l_iMask, l_CollisionInfo);
 	if( l_pUserData == NULL )
 	{
-		m_Eye -= v3fNEGY * 0.5f;
-		m_pObject3D->SetPitch( -ePI<float>() / 6 ); //Bloquea el movimiento del pitch
+		m_Eye -= v3fNEGY * 1.5f * _ElapsedTime;
+		//m_Eye -= v3fNEGY * 0.5f;
+		//m_pObject3D->SetPitch( -ePI<float>() / 6 ); //Bloquea el movimiento del pitch
 	}
 	else
 	{
 		if ( l_CollisionInfo.m_fDistance < m_fMinimumDistanceToGround )
 		{
-			m_Eye -= v3fNEGY * m_fCollisionCorrection;
+			m_Eye -= v3fNEGY * m_fCollisionCorrection * _ElapsedTime;
 		}
 	}
 
 	l_pUserData = CORE->GetPhysicsManager()->RaycastClosestActor(m_Eye + l_vLeft + v3fNEGY, v3fNEGY, l_iMask, l_CollisionInfo);
 	if( l_pUserData == NULL )
 	{
-		m_Eye -= l_vLeft * 0.5f;
+		m_Eye -= l_vLeft * 1.5f * _ElapsedTime;
 	}
 	else
 	{
 		if ( l_CollisionInfo.m_fDistance < m_fMinimumDistanceToGround )
 		{
-			m_Eye -= v3fNEGY * m_fCollisionCorrection;
+			m_Eye -= v3fNEGY * m_fCollisionCorrection * _ElapsedTime;
 		}
 	}
 
 	l_pUserData = CORE->GetPhysicsManager()->RaycastClosestActor(m_Eye - l_vLeft + v3fNEGY, v3fNEGY, l_iMask, l_CollisionInfo);
 	if( l_pUserData == NULL )
 	{
-		m_Eye += l_vLeft * 0.5f;
+		//m_Eye += l_vLeft * 0.5f;
+		m_Eye += l_vLeft * 1.5f * _ElapsedTime;
 	}
 	else
 	{
 		if ( l_CollisionInfo.m_fDistance < m_fMinimumDistanceToGround )
 		{
-			m_Eye -= v3fNEGY * m_fCollisionCorrection;
+			m_Eye -= v3fNEGY * m_fCollisionCorrection * _ElapsedTime;
 		}
+	}
+
+	//Cálculo de la diferencia de ángulo para modificar el Pitch
+	Vect3f l_NewDirection = l_Pos - m_Eye;
+
+	Vect2f l_DirXY = m_Direction.GetProjXY();
+	Vect2f l_NewDirXY = l_NewDirection.GetProjXY();
+
+	l_DirXY.Normalize();
+	l_NewDirXY.Normalize();
+
+	float angle = l_DirXY.Dot(l_NewDirXY);
+	if( angle < 0.99999999f )
+	{
+		angle = mathUtils::ACos(angle);
+
+		angle = l_fPitch - angle;
+		m_pObject3D->SetPitch(angle);
 	}
 }
 
