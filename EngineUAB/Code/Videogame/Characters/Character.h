@@ -71,21 +71,17 @@ public:
 	inline const Vect3f&		GetPrevPosition		() const					{ return m_PrevPosition; }
 
 	void						SetEnable			( bool _Enable );			
-	inline bool					IsEnable			() const				{ return this->GetProperties()->GetActive(); }  // m_bIsEnable; }
+	inline bool					IsEnable			() const				{ return this->GetProperties()->GetActive(); }
 
-	inline void					SetAlive			( bool alive )				{ m_bIsAlive = alive; }
+	inline void					SetAlive			( bool alive )			{ m_bIsAlive = alive; }
 	inline bool					IsAlive				() const				{ return m_bIsAlive; }
 
-	inline void					SetLocked			( bool locked )				{ m_bLocked = locked; }
+	inline void					SetLocked			( bool locked )			{ m_bLocked = locked; }
 	inline bool					GetLocked			() const				{ return m_bLocked; }
 
 	inline CSteeringBehaviours*	GetBehaviours		() const				{ return m_pBehaviours; }
 	inline CSteeringEntity*		GetSteeringEntity	() const				{ return m_pSteeringEntity; }
 	
-
-	// Obtengo el angulo que forma donde mira
-	inline Vect3f				GetFront			() const					{ Vect3f l_Front; l_Front.GetXZFromAngle( GetYaw() ) ; return l_Front; }
-																				//{ Vect3f front; front.xzFromAngle( m_Yaw ); return front; }
 
 	bool						IsPointAtLeft		( const Vect3f &_Position ) const	
 															{
@@ -104,7 +100,6 @@ public:
 private:
 	bool							m_bIsOk;
 	bool							m_bLocked;
-	//bool							m_bIsEnable;
 	bool							m_bIsAlive;
 
 protected:
