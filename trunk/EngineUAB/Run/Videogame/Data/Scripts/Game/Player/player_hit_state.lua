@@ -1,6 +1,6 @@
 class 'CPlayerHitState' (CState)
-	function CPlayerHitState:__init() 
-		CState.__init(self)
+	function CPlayerHitState:__init(name) 
+		CState.__init(self, name)
 		self.action_2_input = core:get_action_to_input()
 	end
 

@@ -1,6 +1,6 @@
 class 'CPlayerAttackState' (CState)
-	function CPlayerAttackState:__init() 
-		CState.__init(self)
+	function CPlayerAttackState:__init(name) 
+		CState.__init(self, name)
 		self.animation_callback = get_game_process():get_animation_callback_manager():get_callback("attack1")
 	end
 

@@ -1,6 +1,6 @@
 class 'CWolfSeekState' (CState)
-	function CWolfSeekState:__init() 
-		CState.__init(self)
+	function CWolfSeekState:__init(name) 
+		CState.__init(self, name)
 		print_logger(0, "Inicio del estado run de la caperucita")
 	end
 

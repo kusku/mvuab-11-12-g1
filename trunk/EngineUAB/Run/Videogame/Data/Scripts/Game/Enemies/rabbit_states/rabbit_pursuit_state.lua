@@ -1,6 +1,6 @@
 class 'CRabbitPursuitState' (CState)
-	function CRabbitPursuitState:__init() 
-		CState.__init(self)
+	function CRabbitPursuitState:__init(name) 
+		CState.__init(self, name)
 		print_logger(0, "CRabbitPursuitState:__init->Inicio del estado run de la caperucita")
 	end
 

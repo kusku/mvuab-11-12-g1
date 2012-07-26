@@ -1,6 +1,6 @@
 class 'CWolfWalkState' (CState)
-	function CWolfWalkState:__init() 
-		CState.__init(self)
+	function CWolfWalkState:__init(name) 
+		CState.__init(self, name)
 		print_logger(0, "Inicio del estado run de la caperucita")
 	end
 

@@ -1,6 +1,6 @@
 class 'CRabbitHitState' (CState)
-	function CRabbitHitState:__init() 
-		CState.__init(self)
+	function CRabbitHitState:__init(name) 
+		CState.__init(self, name)
 		print_logger(0, "Inicio del estado still attack de la caperucita")
 	end
 

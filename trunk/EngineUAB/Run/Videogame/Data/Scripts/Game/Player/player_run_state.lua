@@ -1,6 +1,6 @@
 class 'CPlayerRunState' (CState)
-	function CPlayerRunState:__init() 
-		CState.__init(self)
+	function CPlayerRunState:__init(name) 
+		CState.__init(self, name)
 		self.action_2_input = core:get_action_to_input()
 	end
 

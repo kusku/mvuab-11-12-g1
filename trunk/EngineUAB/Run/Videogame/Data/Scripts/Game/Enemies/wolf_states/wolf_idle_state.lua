@@ -1,7 +1,6 @@
 class 'CWolfIdleState' (CState)
-	function CWolfIdleState:__init() 
-		CState.__init(self)
-		print_logger(0, "Inicio del estado idle de la caperucita")
+	function CWolfIdleState:__init(name) 
+		CState.__init(self, name)
 	end
 
 	function CWolfIdleState:OnEnter(_CCharacter)

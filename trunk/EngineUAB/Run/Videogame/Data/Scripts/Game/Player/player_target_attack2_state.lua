@@ -1,6 +1,6 @@
 class 'CPlayerTargetAttack2State' (CState)
-	function CPlayerTargetAttack2State:__init() 
-		CState.__init(self)
+	function CPlayerTargetAttack2State:__init(name) 
+		CState.__init(self, name)
 		self.action_2_input = core:get_action_to_input()
 	end
 

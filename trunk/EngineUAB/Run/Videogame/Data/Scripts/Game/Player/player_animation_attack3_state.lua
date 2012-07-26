@@ -1,6 +1,6 @@
 class 'CPlayerAnimationAttack3State' (CState)
-	function CPlayerAnimationAttack3State:__init() 
-		CState.__init(self)
+	function CPlayerAnimationAttack3State:__init(name) 
+		CState.__init(self, name)
 	end
 
 	function CPlayerAnimationAttack3State:OnEnter(_CCharacter)

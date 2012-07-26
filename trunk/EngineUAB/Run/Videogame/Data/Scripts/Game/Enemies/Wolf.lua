@@ -9,25 +9,25 @@ class 'CWolf' (CCharacter)
 	function CWolf:load_graphic_states()
 		
 		-- Idle State --
-		self.animation_idle_state = CWolfAnimatedIdleState()
+		self.animation_idle_state = CWolfAnimatedIdleState("wolf_animation_idle")
 		if self.animation_idle_state == nil then
 			print_logger(2, "CWolf::load_graphic_states->Error al cargar un estado animado idle del lobo")
 		end		
 		
 		-- Walk State --
-		self.animation_walk_state = CWolfAnimatedWalkState()
+		self.animation_walk_state = CWolfAnimatedWalkState("wolf_animation_walk")
 		if self.animation_walk_state == nil then
 			print_logger(2, "CWolf::load_graphic_states->Error al cargar un estado animado Walk del lobo")
 		end
 		
 		-- Pursuit State --
-		self.animation_pursuit_state = CWolfAnimatedPursuitState()
+		self.animation_pursuit_state = CWolfAnimatedPursuitState("wolf_animation_pursiut")
 		if self.animation_pursuit_state == nil then
 			print_logger(2, "CWolf::load_graphic_states->Error al cargar un estado animado PURSUIT del lobo")
 		end
 		
 		-- Attack State --
-		self.animation_attack_state = CWolfAnimatedAttackState()
+		self.animation_attack_state = CWolfAnimatedAttackState("wolf_animation_attack")
 		if self.animation_attack_state == nil then
 			print_logger(2, "CWolf::load_graphic_states->Error al cargar un estado animado ATTACK del lobo")
 		end
@@ -62,49 +62,49 @@ class 'CWolf' (CCharacter)
 	function CWolf:load_logic_states()
 		
 		-- Idle State --
-		self.idle_state = CWolfIdleState()
+		self.idle_state = CWolfIdleState("wolf_idle")
 		if self.idle_state == nil then
 			print_logger(2, "CWolf::load_logic_states->Error al cargar un estado IDLE del lobo")
 		end		
 		
 		-- Seek State -- Ir directamente a un destino
-		self.seek_state = CWolfSeekState()
+		self.seek_state = CWolfSeekState("wolf_seek")
 		if self.seek_state == nil then
 			print_logger(2, "CWolf::load_logic_states->Error al cargar un estado SEEK del lobo")
 		end	
 		
 		-- Flee State -- Huye directamente de un destino
-		self.flee_state = CWolfFleeState()
+		self.flee_state = CWolfFleeState("wolf_flee")
 		if self.flee_state == nil then
 			print_logger(2, "CWolf::load_logic_states->Error al cargar un estado FLEE del lobo")
 		end	
 		
 		-- Pursuit State -- Persigue inteligentemente
-		self.pursuit_state = CWolfPursuitState()
+		self.pursuit_state = CWolfPursuitState("wolf_pursuit")
 		if self.pursuit_state == nil then
 			print_logger(2, "CWolf::load_logic_states->Error al cargar un estado PURSUIT del lobo")
 		end	
 		
 		-- Evade State -- Huye inteligentemente
-		self.evade_state = CWolfEvadeState()
+		self.evade_state = CWolfEvadeState("wolf_evade")
 		if self.evade_state == nil then
 			print_logger(2, "CWolf::load_logic_states->Error al cargar un estado EVADE del lobo")
 		end	
 		
 		-- Wander State -- Actua como un errante
-		self.wander_state = CWolfWanderState()
+		self.wander_state = CWolfWanderState("wolf_wander")
 		if self.wander_state == nil then
 			print_logger(2, "CWolf::load_logic_states->Error al cargar un estado WANDER del lobo")
 		end	
 		
 		-- Path Follow State --	Sigue un camino
-		self.path_follow_state = CWolfPathFollowState()
+		self.path_follow_state = CWolfPathFollowState("wolf_path_follow")
 		if self.path_follow_state == nil then
 			print_logger(2, "CWolf::load_logic_states->Error al cargar un estado PATH FOLLOW del lobo")
 		end	
 		
 		-- Attack State --	Entra en estado de ataque al player
-		self.attack_state = CWolfAttackState()
+		self.attack_state = CWolfAttackState("wolf_attack")
 		if self.attack_state == nil then
 			print_logger(2, "CWolf::load_logic_states->Error al cargar un estado ATTACK del lobo")
 		end	
@@ -142,13 +142,13 @@ class 'CWolf' (CCharacter)
 		-- end
 		
 		-- Hit State --
-		self.hit_state = CWolfHitState()
+		self.hit_state = CWolfHitState("wolf_hit")
 		if self.hit_state == nil then
 			print_logger(2, "CWolf::load_logic_states->Error al cargar un estado HIT del lobo")
 		end
 		
 		-- Deffense State --
-		self.deffense_state = CWolfDeffenseState()
+		self.deffense_state = CWolfDeffenseState("wolf_defense")
 		if self.deffense_state == nil then
 			print_logger(2, "CWolf::load_logic_states->Error al cargar un estado DEFFENSE del lobo")
 		end

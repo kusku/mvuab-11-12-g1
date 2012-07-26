@@ -1,6 +1,6 @@
 class 'CPlayerAnimationIdleState' (CState)
-	function CPlayerAnimationIdleState:__init() 
-		CState.__init(self)
+	function CPlayerAnimationIdleState:__init(name) 
+		CState.__init(self, name)
 	end
 
 	function CPlayerAnimationIdleState:OnEnter(_CCharacter)

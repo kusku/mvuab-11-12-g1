@@ -1,6 +1,6 @@
 class 'CRabbitIdleState' (CState)
-	function CRabbitIdleState:__init() 
-		CState.__init(self)
+	function CRabbitIdleState:__init(name) 
+		CState.__init(self, name)
 		print_logger(0, "Inicio del estado idle de la caperucita")
 	end
 

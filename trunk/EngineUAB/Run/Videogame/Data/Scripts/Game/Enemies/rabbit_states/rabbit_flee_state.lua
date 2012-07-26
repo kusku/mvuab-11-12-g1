@@ -1,7 +1,7 @@
 
 class 'CRabbitFleeState' (CState)
-	function CRabbitFleeState:__init() 
-		CState.__init(self)
+	function CRabbitFleeState:__init(name) 
+		CState.__init(self, name)
 		print_logger(0, "Inicio del estado flee de la caperucita")
 	end
 
