@@ -10,6 +10,7 @@
 #include "Utils\TemplatedVectorMapManager.h"
 #include "Utils\MapManager.h"
 #include "XML\XMLTreeNode.h"
+#include "Math\Vector3.h"
 
 //--- Foward Declarations ---
 class CRenderableObjectsManager;
@@ -47,8 +48,8 @@ public:
 	CPhysicUserData*	ShootPlayerRaycast		();
 	CCharacter*			ExistEnemyUserData		( CPhysicUserData *_userData );
 	CCharacter*			IsPlayerNearEnemy		( float distance );
-	CCharacter*			SearchTargetEnemy		( float _Distance, float _AngleVisible );
-	bool				EnemyIsVisibleInAngle	( CCharacter *_Enemy, float _Angle );
+	CCharacter*			SearchTargetEnemy		( float _Distance, float _AngleVisible, const Vect3f &_Front );
+	bool				EnemyIsVisibleInAngle	( CCharacter *_Enemy, float _Angle, const Vect3f &_Front );
 
 	// ------------- Propietats ( Get / Set ) ----------------
 	TVectorResources	GetEnemiesVector		() const					{ return m_ResourcesVector; }

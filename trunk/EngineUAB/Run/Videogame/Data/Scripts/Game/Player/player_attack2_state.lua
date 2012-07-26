@@ -49,7 +49,9 @@ class 'CPlayerAttack2State' (CState)
 	
 	function CPlayerAttack2State:OnExit(_CCharacter)
 		_soundM:play_event('Play_EFX_Sword')
-		local enemy = get_game_process():get_character_manager():search_target_enemy(3.0, math.pi/6)
+		
+		local l_front = _CCharacter.animated_model:get_front()
+		local enemy = get_game_process():get_character_manager():search_target_enemy(3.0, math.pi/6, l_front)
 		if enemy ~= nil then
 			_dispatchM:dispatch_state_message( SEND_MSG_IMMEDIATELY, _CCharacter:get_id(), enemy:get_id(), msg_attack, NO_ADDITIONAL_INFO ) 
 		end
