@@ -16,8 +16,7 @@
 //----------------------------------------------
 CThPSCharacterCamera::CThPSCharacterCamera(const std::string &_Name)
 	: m_pActor( NULL )
-	, m_fZoom(0.f)
-	, m_fMinimumZoom(0.f)
+	, m_fZoom(1.f)
 	, m_fHeightLookAt(0.f)
 	, m_fHeightEye(0.f)
 	, m_Direction(v3fTOP)
@@ -27,8 +26,8 @@ CThPSCharacterCamera::CThPSCharacterCamera(const std::string &_Name)
 	, m_LookAt(v3fBOTTOM)
 	, m_bCollision(false)
 	, m_CollisionPoint(v3fZERO)
-	, m_fCollisionCorrection(0.15f)
-	, m_fMinimumDistanceToGround(1.f)
+	, m_fCollisionCorrection(1.f)
+	, m_fMinimumDistanceToGround(0.4f)
 {
 	m_Name = _Name;
 }
@@ -38,7 +37,6 @@ CThPSCharacterCamera::CThPSCharacterCamera(float zn, float zf, float fov, float 
 	: CCamera( zn, zf, fov, aspect, object3D, TC_THPS)
 	, m_pActor( NULL )
 	, m_fZoom( zoom )
-	, m_fMinimumZoom( zoom )
 	, m_fHeightLookAt( heightLookAt )
 	, m_fHeightEye( heightEye )
 	, m_Direction(v3fTOP)
@@ -48,8 +46,8 @@ CThPSCharacterCamera::CThPSCharacterCamera(float zn, float zf, float fov, float 
 	, m_LookAt(v3fBOTTOM)
 	, m_bCollision(false)
 	, m_CollisionPoint(v3fZERO)
-	, m_fCollisionCorrection(0.05f)
-	, m_fMinimumDistanceToGround(1.f)
+	, m_fCollisionCorrection(1.f)
+	, m_fMinimumDistanceToGround(0.4f)
 {
 	m_Name = name;
 	//CreateCollision();
@@ -176,6 +174,39 @@ void CThPSCharacterCamera::Update(float _ElapsedTime)
 		}
 	}
 
+	//Miramos si la esfera de la cámara colisiona por detrás de algún muro
+	l_pUserData = CORE->GetPhysicsManager()->RaycastClosestActor(m_Eye + l_vLeft + l_DirXZ, l_Dir, l_iMask, l_CollisionInfo);
+	if( l_pUserData != NULL )
+	{
+		float l_fDistancePlayerToCamera = l_Pos.SqDistance(m_Eye);
+		float l_fDistancePlayerToCollision = l_Pos.SqDistance(l_CollisionInfo.m_CollisionPoint);
+
+		if( l_fDistancePlayerToCollision < l_fDistancePlayerToCamera )	//La cámara está por detrás de un objeto
+		{
+			m_Eye = l_CollisionInfo.m_CollisionPoint - l_Dir * 0.5f;
+		}
+	}
+	else
+	{
+		m_Eye -= l_Dir * 0.5f;
+	}
+
+	l_pUserData = CORE->GetPhysicsManager()->RaycastClosestActor(m_Eye - l_vLeft + l_DirXZ, l_Dir, l_iMask, l_CollisionInfo);
+	if( l_pUserData != NULL )
+	{
+		float l_fDistancePlayerToCamera = l_Pos.SqDistance(m_Eye);
+		float l_fDistancePlayerToCollision = l_Pos.SqDistance(l_CollisionInfo.m_CollisionPoint);
+
+		if( l_fDistancePlayerToCollision < l_fDistancePlayerToCamera )	//La cámara está por detrás de un objeto
+		{
+			m_Eye = l_CollisionInfo.m_CollisionPoint - l_Dir * 0.5f;
+		}
+	}
+	else
+	{
+		m_Eye -= l_Dir * 0.5f;
+	}
+
 	//Cálculo de la diferencia de ángulo para modificar el Pitch
 	Vect3f l_NewDirection = l_Pos - m_Eye;
 
@@ -277,6 +308,16 @@ void CThPSCharacterCamera::Render(CRenderManager *_RM)
 	_RM->SetTransform(mat);
 	_RM->DrawLine(m_Eye + l_DirXZ, m_Eye + l_DirXZ * 2, colRED);
 
+	//Espalda izquierda de la cámara
+	mat.SetIdentity();
+	_RM->SetTransform(mat);
+	_RM->DrawLine(m_Eye + l_vLeft + l_DirXZ, m_Eye + l_vLeft + l_DirXZ * 2, colRED);
+
+	//Espalda derecha de la cámara
+	mat.SetIdentity();
+	_RM->SetTransform(mat);
+	_RM->DrawLine(m_Eye - l_vLeft + l_DirXZ, m_Eye - l_vLeft + l_DirXZ * 2, colRED);
+	
 	//Izquierda de la cámara
 	mat.SetIdentity();
 	_RM->SetTransform(mat);
