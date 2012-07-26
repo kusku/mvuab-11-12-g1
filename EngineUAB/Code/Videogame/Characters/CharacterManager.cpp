@@ -233,7 +233,6 @@ void CCharactersManager::Render(CRenderManager *_RM, CFontManager *_FM)
 	Vect3f l_DirPlayer = m_pPlayer->GetAnimatedModel()->GetFront();
 	l_DirPlayer.y = 0.f;
 
-
 	_RM->DrawLine(l_PosPlayer, l_PosPlayer + l_DirPlayer, colGREEN);
 }
 
@@ -713,7 +712,7 @@ CCharacter* CCharactersManager::IsPlayerNearEnemy(float distance)
 	return l_NearestEnemy;
 }
 
-CCharacter* CCharactersManager::SearchTargetEnemy(float _Distance, float _AngleVisible)
+CCharacter* CCharactersManager::SearchTargetEnemy(float _Distance, float _AngleVisible, const Vect3f &_Front)
 {
 	assert( _Distance > 0.f );
 	assert( _AngleVisible > 0.f );
@@ -745,7 +744,7 @@ CCharacter* CCharactersManager::SearchTargetEnemy(float _Distance, float _AngleV
 			if( l_CurrentDistance <= _Distance && l_CurrentDistance <= l_NearestDistance )
 			{
 				//Mira si el enemigo que está cerca está visible en un ángulo respecto el player
-				if( EnemyIsVisibleInAngle( (*l_It), _AngleVisible) ) 
+				if( EnemyIsVisibleInAngle( (*l_It), _AngleVisible, _Front) ) 
 				{
 					l_NearestDistance = l_CurrentDistance;
 					l_NearestEnemy = (*l_It);
@@ -763,7 +762,7 @@ CCharacter* CCharactersManager::SearchTargetEnemy(float _Distance, float _AngleV
 	return l_NearestEnemy;
 }
 
-bool CCharactersManager::EnemyIsVisibleInAngle(CCharacter *_Enemy, float _Angle)
+bool CCharactersManager::EnemyIsVisibleInAngle(CCharacter *_Enemy, float _Angle, const Vect3f &_Front)
 {
 	assert( m_pPlayer );
 	assert( _Enemy );
@@ -772,7 +771,7 @@ bool CCharactersManager::EnemyIsVisibleInAngle(CCharacter *_Enemy, float _Angle)
 	//Vect2f dir = Vect2f( mathUtils::Abs(mathUtils::Cos(m_pPlayer->GetYaw())), mathUtils::Abs(mathUtils::Sin(m_pPlayer->GetYaw() ) ) );
 	//Vect3f l_DirPlayer = Vect3f( dir.x, 0.0f, dir.y);
 	//Vect3f l_DirPlayer = static_cast<CGameProcess*>(CORE->GetProcess())->GetPlayerCamera()->GetDirection();
-	Vect3f l_DirPlayer = m_pPlayer->GetAnimatedModel()->GetFront();
+	Vect3f l_DirPlayer = _Front;
 	l_DirPlayer.y = 0.f;
 
 	//Calculamos el vector entre el player y el enemigo
@@ -782,6 +781,7 @@ bool CCharactersManager::EnemyIsVisibleInAngle(CCharacter *_Enemy, float _Angle)
 
 	//Calculamos el ángulo entre los dos vectores
 	float l_Angle = l_DirPlayer.Dot(l_DirEnemy);
+	l_Angle = mathUtils::ACos(l_Angle);
 
 	if( l_Angle > _Angle )
 	{
