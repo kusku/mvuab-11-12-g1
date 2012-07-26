@@ -14,10 +14,14 @@ class 'CPlayer' (CCharacter)
 		self.is_target_fixed = false
 				
 		self.animation_time = -1.0
+		
+		self.movement_zoom = 3.3
+		self.static_zoom = 3.0
+		self.velocity_adaptative_zoom = 1.5
 	end
 
 	function CPlayer:init() 
-		get_game_process():create_player_camera(1.0, 10000.0, 3.0, 0.7, 0.7, 'Caperucita')
+		get_game_process():create_player_camera(1.0, 10000.0, self.static_zoom, 0.7, 0.7, 'Caperucita')
 		
 		self:create_callbacks()
 		self:create_states()
@@ -42,9 +46,23 @@ class 'CPlayer' (CCharacter)
 		if not self.locked then
 			local l_d = 0.0
 			
-			if self.logic_fsm.current_state then
-				print_logger(0, "no és idle.")
+			--Modifica el zoom según el estado del player
+			local l_camera_player = get_game_process().player_camera
+			local zoom = l_camera_player.zoom
+			if self.logic_fsm.current_state.name ~= "player_idle" then
+				if (self.movement_zoom - zoom) > 0.0001 then
+					l_camera_player.zoom = zoom + self.velocity_adaptative_zoom * elapsed_time
+				else
+					l_camera_player.zoom = self.movement_zoom
+				end
+			else
+				if (zoom - self.static_zoom) > 0.0001 then
+					l_camera_player.zoom = zoom - self.velocity_adaptative_zoom * elapsed_time
+				else
+					l_camera_player.zoom = self.static_zoom
+				end
 			end
+			
 			
 			--Calcula el pitch a partir del ratón
 			l_d = core:get_action_to_input():do_action_mouse('PitchPlayer')

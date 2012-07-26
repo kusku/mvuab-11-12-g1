@@ -53,7 +53,6 @@ private:
 	Vect3f		m_PrevEye;
 
 	float		m_fZoom;
-	float		m_fMinimumZoom;
 	float		m_fHeightLookAt;
 	float		m_fHeightEye;
 

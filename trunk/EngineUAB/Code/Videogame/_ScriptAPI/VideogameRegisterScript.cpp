@@ -145,9 +145,9 @@ namespace ScriptAPI
 			[
 				class_<CThPSCharacterCamera>("CThPSCharacterCamera")
 					.def("get_direction", &CThPSCharacterCamera::GetDirection)
-					.def("set_zoom", &CThPSCharacterCamera::SetZoom)
 					.def("add_zoom", &CThPSCharacterCamera::AddZoom)
 					.def("update", &CThPSCharacterCamera::Update)
+					.property("zoom", &CThPSCharacterCamera::GetZoom, &CThPSCharacterCamera::SetZoom)
 			];
 
 		module(_pLua)
