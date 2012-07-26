@@ -10,12 +10,15 @@
 
 struct STelegram;
 
+#include "Utils\Named.h"
+#include <string>
+
 template <class T>
-class CState
+class CState : public CNamed
 {
 public:
 	// ------------- Constructors i Destructors ----------------
-					CState		( void ) {};
+					CState		( const std::string &_Name ) { SetName(_Name); }
 	virtual			~CState		( void ) {};
 
 	// ------------- Mètodes Principals ---------------------

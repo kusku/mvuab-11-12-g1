@@ -1,6 +1,6 @@
 class 'CPlayerAnimationRunState' (CState)
-	function CPlayerAnimationRunState:__init() 
-		CState.__init(self)
+	function CPlayerAnimationRunState:__init(name) 
+		CState.__init(self, name)
 	end
 
 	function CPlayerAnimationRunState:OnEnter(_CCharacter)

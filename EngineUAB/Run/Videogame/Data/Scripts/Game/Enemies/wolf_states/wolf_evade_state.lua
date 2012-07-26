@@ -1,7 +1,6 @@
 class 'CWolfEvadeState' (CState)
-	function CWolfEvadeState:__init() 
-		CState.__init(self)
-		print_logger(0, "Inicio del estado run de la caperucita")
+	function CWolfEvadeState:__init(name) 
+		CState.__init(self, name)
 	end
 
 	function CWolfEvadeState:OnEnter(_CCharacter)

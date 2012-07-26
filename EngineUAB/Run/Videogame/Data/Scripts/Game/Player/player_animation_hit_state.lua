@@ -1,6 +1,6 @@
 class 'CPlayerAnimationHitState' (CState)
-	function CPlayerAnimationHitState:__init() 
-		CState.__init(self)
+	function CPlayerAnimationHitState:__init(name) 
+		CState.__init(self, name)
 	end
 
 	function CPlayerAnimationHitState:OnEnter(_CCharacter)

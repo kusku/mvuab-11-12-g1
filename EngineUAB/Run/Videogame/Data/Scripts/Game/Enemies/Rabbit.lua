@@ -8,25 +8,25 @@ class 'CRabbit' (CCharacter)
 	-- ------------------------------
 	function CRabbit:load_graphic_states()
 		-- Idle State --
-		self.animation_idle_state = CRabbitAnimatedIdleState()
+		self.animation_idle_state = CRabbitAnimatedIdleState("rabbit_animation_idle")
 		if self.animation_idle_state == nil then
 			print_logger(2, "CRabbit::load_graphic_states->Error al cargar un estado animado idle del conejito")
 		end		
 		
 		-- Walk State --
-		self.animation_walk_state = CRabbitAnimatedWalkState()
+		self.animation_walk_state = CRabbitAnimatedWalkState("rabbit_animation_walk")
 		if self.animation_walk_state == nil then
 			print_logger(2, "CRabbit::load_graphic_states->Error al cargar un estado animado Walk del conejito")
 		end
 		
 		-- Pursuit State --
-		self.animation_pursuit_state = CRabbitAnimatedPursuitState()
+		self.animation_pursuit_state = CRabbitAnimatedPursuitState("rabbit_animation_pursuit")
 		if self.animation_pursuit_state == nil then
 			print_logger(2, "CRabbit::load_graphic_states->Error al cargar un estado animado PURSUIT del conejito")		
 		end
 		
 		-- Attack State --
-		self.animation_attack_state = CRabbitAnimatedAttackState()
+		self.animation_attack_state = CRabbitAnimatedAttackState("rabbit_animation_attack")
 		if self.animation_attack_state == nil then
 			print_logger(2, "CRabbit::load_graphic_states->Error al cargar un estado animado ATTACK del conejito")
 		end
@@ -60,7 +60,7 @@ class 'CRabbit' (CCharacter)
 	
 	function CRabbit:load_logic_states()
 		-- Idle State --
-		self.idle_state = CRabbitIdleState()
+		self.idle_state = CRabbitIdleState("rabbit_idle")
 		if self.idle_state == nil then
 			print_logger(2, "CRabbit::load_logic_states->Error al cargar un estado IDLE del conejito")
 		end		
@@ -74,13 +74,13 @@ class 'CRabbit' (CCharacter)
 		-- end	
 		
 		-- Flee State -- Huye directamente de un destino
-		self.flee_state = CRabbitFleeState()
+		self.flee_state = CRabbitFleeState("rabbit_flee")
 		if self.flee_state == nil then
 			print_logger(2, "CRabbit::load_logic_states->Error al cargar un estado FLEE del conejito")
 		end	
 		
 		-- Pursuit State -- Persigue inteligentemente
-		self.pursuit_state = CRabbitPursuitState()
+		self.pursuit_state = CRabbitPursuitState("rabbit_pursuit")
 		if self.pursuit_state == nil then
 			print_logger(2, "CRabbit::load_logic_states->Error al cargar un estado PURSUIT del conejito")
 		end	
@@ -110,7 +110,7 @@ class 'CRabbit' (CCharacter)
 		-- end	
 		
 		-- Attack State --	Entra en estado de ataque al player
-		self.attack_state = CRabbitAttackState()
+		self.attack_state = CRabbitAttackState("rabbit_attack")
 		if self.attack_state == nil then
 			print_logger(2, "CRabbit::load_logic_states->Error al cargar un estado ATTACK del conejito")
 		end	
@@ -140,7 +140,7 @@ class 'CRabbit' (CCharacter)
 		-- -- end
 		
 		-- Hit State --
-		self.hit_state = CRabbitHitState()
+		self.hit_state = CRabbitHitState("rabbit_hit")
 		if self.hit_state == nil then
 			print_logger(2, "CRabbit::load_logic_states->Error al cargar un estado HIT del conejito")
 		end

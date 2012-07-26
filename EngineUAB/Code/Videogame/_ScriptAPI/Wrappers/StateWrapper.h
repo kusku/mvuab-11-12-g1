@@ -20,8 +20,8 @@
 // ----------------------------------------
 struct CState_Wrapper: CState<CCharacter>, luabind::wrap_base
 {
-	CState_Wrapper()
-		:CState()
+	CState_Wrapper(const std::string& _Name)
+		:CState(_Name)
 	{
 	}
 

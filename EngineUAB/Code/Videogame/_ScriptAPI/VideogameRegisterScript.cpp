@@ -110,8 +110,8 @@ namespace ScriptAPI
 
 		module( _pLua)
 			[
-				class_<CState<CCharacter>, CState_Wrapper> ("CState")
-					.def(constructor<>())
+				class_<CState<CCharacter>, CState_Wrapper, CNamed> ("CState")
+					.def(constructor<const std::string&>())
 					.def("Execute", &CState<CCharacter>::Execute)
 					.def("OnEnter", &CState<CCharacter>::OnEnter)
 					.def("OnExit", &CState<CCharacter>::OnExit)
@@ -145,6 +145,7 @@ namespace ScriptAPI
 			[
 				class_<CThPSCharacterCamera>("CThPSCharacterCamera")
 					.def("get_direction", &CThPSCharacterCamera::GetDirection)
+					.def("set_zoom", &CThPSCharacterCamera::SetZoom)
 					.def("add_zoom", &CThPSCharacterCamera::AddZoom)
 					.def("update", &CThPSCharacterCamera::Update)
 			];

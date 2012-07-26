@@ -1,7 +1,6 @@
 class 'CWolfDeffenseState' (CState)
-	function CWolfDeffenseState:__init() 
-		CState.__init(self)
-		print_logger(0, "Inicio del estado still attack de la caperucita")
+	function CWolfDeffenseState:__init(name) 
+		CState.__init(self, name)
 	end
 
 	function CWolfDeffenseState:OnEnter(_CCharacter)

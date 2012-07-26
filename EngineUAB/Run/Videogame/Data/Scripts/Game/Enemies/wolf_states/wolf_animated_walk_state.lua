@@ -1,8 +1,7 @@
 class 'CWolfAnimatedWalkState' (CState)
-	function CWolfAnimatedWalkState:__init() 
-		CState.__init(self)
+	function CWolfAnimatedWalkState:__init(name) 
+		CState.__init(self, name)
 		self.position = Vect2f(0.0,0.0)
-		print_logger(0, "Inicio del estado run de la caperucita")
 	end
 
 	function CWolfAnimatedWalkState:OnEnter(_CCharacter)
