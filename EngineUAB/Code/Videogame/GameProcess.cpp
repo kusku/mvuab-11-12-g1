@@ -66,8 +66,6 @@ bool CGameProcess::Init()
 		CORE->GetScriptManager()->RunCode("load_data()");
 	}
 
-	m_pAnimationCallbackManager = new CAnimationCallbackManager();
-
 	//Carga los objetos del juego
 	LoadGameObjects();
 
@@ -190,6 +188,9 @@ bool CGameProcess::LoadMainScript()
 
 void CGameProcess::LoadGameObjects()
 {
+	//Crea el gestor de callbacks de animaciones
+	m_pAnimationCallbackManager = new CAnimationCallbackManager();
+
 	//Crea los datos para el gameplay
 	m_pCharactersManager = new CCharactersManager();
 	
