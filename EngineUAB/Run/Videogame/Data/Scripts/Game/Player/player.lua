@@ -15,9 +15,10 @@ class 'CPlayer' (CCharacter)
 				
 		self.animation_time = -1.0
 		
-		self.movement_zoom = 3.3
-		self.static_zoom = 3.0
+		self.movement_zoom = 3.7
+		self.static_zoom = 3.2
 		self.velocity_adaptative_zoom = 1.5
+		self.down_zoom = 1.0
 	end
 
 	function CPlayer:init() 
@@ -46,24 +47,6 @@ class 'CPlayer' (CCharacter)
 		if not self.locked then
 			local l_d = 0.0
 			
-			--Modifica el zoom según el estado del player
-			local l_camera_player = get_game_process().player_camera
-			local zoom = l_camera_player.zoom
-			if self.logic_fsm.current_state.name ~= "player_idle" then
-				if (self.movement_zoom - zoom) > 0.0001 then
-					l_camera_player.zoom = zoom + self.velocity_adaptative_zoom * elapsed_time
-				else
-					l_camera_player.zoom = self.movement_zoom
-				end
-			else
-				if (zoom - self.static_zoom) > 0.0001 then
-					l_camera_player.zoom = zoom - self.velocity_adaptative_zoom * elapsed_time
-				else
-					l_camera_player.zoom = self.static_zoom
-				end
-			end
-			
-			
 			--Calcula el pitch a partir del ratón
 			l_d = core:get_action_to_input():do_action_mouse('PitchPlayer')
 			self.pitch = self.pitch - l_d
@@ -72,6 +55,36 @@ class 'CPlayer' (CCharacter)
 				self.pitch = l_pi/12
 			elseif self.pitch < -l_pi/6 then
 				self.pitch = -l_pi/6
+			end
+			
+			--Modifica el zoom según el estado del player
+			local l_camera_player = get_game_process().player_camera
+			local zoom = l_camera_player.zoom
+					
+			if self.logic_fsm.current_state.name ~= "player_idle" then
+				if (self.movement_zoom - zoom) > 0.0001 then
+					l_camera_player.zoom = zoom + self.velocity_adaptative_zoom * elapsed_time
+				else
+					l_camera_player.zoom = self.movement_zoom
+				end
+			else
+				if self.pitch > -l_pi/10 then
+					if (zoom - self.down_zoom) > 0.0001 then
+						l_camera_player.zoom = zoom -  2 * self.velocity_adaptative_zoom * elapsed_time
+					else
+						l_camera_player.zoom = self.down_zoom
+					end
+				else
+					if (zoom - self.static_zoom) > 0.0001 then
+						l_camera_player.zoom = zoom - self.velocity_adaptative_zoom * elapsed_time
+					else
+						if (self.static_zoom - zoom) > 0.1 then
+							l_camera_player.zoom = zoom + self.velocity_adaptative_zoom * elapsed_time
+						else
+							l_camera_player.zoom = self.static_zoom
+						end
+					end	
+				end
 			end
 			
 			--Mira si el player hace una defensa

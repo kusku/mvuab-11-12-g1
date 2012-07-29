@@ -27,7 +27,7 @@ CThPSCharacterCamera::CThPSCharacterCamera(const std::string &_Name)
 	, m_bCollision(false)
 	, m_CollisionPoint(v3fZERO)
 	, m_fCollisionCorrection(1.f)
-	, m_fMinimumDistanceToGround(0.4f)
+	, m_fMinimumDistanceToGround(0.3f)
 {
 	m_Name = _Name;
 }
@@ -47,7 +47,7 @@ CThPSCharacterCamera::CThPSCharacterCamera(float zn, float zf, float fov, float 
 	, m_bCollision(false)
 	, m_CollisionPoint(v3fZERO)
 	, m_fCollisionCorrection(1.f)
-	, m_fMinimumDistanceToGround(0.4f)
+	, m_fMinimumDistanceToGround(0.3f)
 {
 	m_Name = name;
 	//CreateCollision();
