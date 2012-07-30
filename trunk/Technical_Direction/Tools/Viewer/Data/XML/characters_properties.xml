@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<characters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<default_properties core="caperucita">
+		<active>true</active>
+		<life>100</life>
+		<strong>50</strong>
+		<speed>15</speed>
+		<direction>0 0 0</direction>
+		<rotation_speed>360</rotation_speed>
+		<respawn_position>0 100 0</respawn_position>
+		<detection_distance>500</detection_distance>
+		<chase_distance>200</chase_distance>
+		<follow_path_distance>3000</follow_path_distance>
+		<attack_distance>10</attack_distance>
+		<height_controller>1.0</height_controller>
+		<width_controller>0.3</width_controller>
+		<slope>45.0</slope>
+		<skin_width>0.1</skin_width>
+		<step_offset>0.5</step_offset>
+		<animation_offset>1.2</animation_offset>
+	</default_properties>
+	<default_properties core="lobo">
+		<active>false</active>
+		<life>200</life>
+		<strong>20</strong>
+		<speed>7</speed>
+		<direction>-10 -2 4</direction>
+		<rotation_speed>240</rotation_speed>
+		<detection_distance>500</detection_distance>
+		<chase_distance>200</chase_distance>
+		<follow_path_distance>3000</follow_path_distance>
+		<attack_distance>10</attack_distance>
+		<tired_distance>10</tired_distance>
+		<panic_distance>10</panic_distance>
+		<height_controller>1.9</height_controller>
+		<width_controller>1.7</width_controller>
+		<slope>45.0</slope>
+		<skin_width>0.1</skin_width>
+		<step_offset>0.5</step_offset>
+		<bounding_radius>10.5</bounding_radius>
+		<max_speed>0.15</max_speed>
+    <animation_offset>-0.8</animation_offset>
+	</default_properties>
+	<default_properties core="conejo">
+		<active>false</active>
+		<life>50</life>
+		<strong>5</strong>
+		<speed>8</speed>
+		<direction>-10 -2 4</direction>
+		<rotation_speed>360</rotation_speed>
+		<detection_distance>500</detection_distance>
+		<chase_distance>200</chase_distance>
+    <follow_path_distance>3000</follow_path_distance>
+		<attack_distance>2</attack_distance>
+		<tired_distance>10</tired_distance>
+		<panic_distance>100</panic_distance>
+		<height_controller>0.7</height_controller>
+		<width_controller>0.4</width_controller>
+		<slope>45.0</slope>
+		<skin_width>0.1</skin_width>
+		<step_offset>0.5</step_offset>
+		<bounding_radius>10.5</bounding_radius>
+		<max_speed>0.15</max_speed>
+		<animation_offset>-0.0</animation_offset>
+	</default_properties>
+	<player name="Caperu" core="caperucita" animated_instace_name="caperucita1" >
+		<life>1050</life>
+		<strong>30</strong>
+		<speed>25</speed>
+		<direction>0 10 0</direction>
+		<respawn_position>0 10 0</respawn_position>
+		<position>-66.407 -25.849 -121.407</position>
+	</player>
+	<enemies>
+		<enemy name="enemy1" core="lobo" animated_instace_name="lobo1" ></enemy>
+		
+		<enemy name="enemy2" core="conejo" animated_instace_name="enemy2" ></enemy>
+		<enemy name="enemy3" core="conejo" animated_instace_name="enemy3" ></enemy>
+		<enemy name="enemy4" core="conejo" animated_instace_name="enemy4" ></enemy>
+		
+		<enemy name="enemy5" core="conejo" animated_instace_name="enemy5" ></enemy>
+		<enemy name="enemy6" core="conejo" animated_instace_name="enemy6" ></enemy>
+		<enemy name="enemy7" core="conejo" animated_instace_name="enemy7" ></enemy>
+		<enemy name="enemy8" core="conejo" animated_instace_name="enemy8" ></enemy>
+		<enemy name="enemy9" core="conejo" animated_instace_name="enemy9" ></enemy>
+		
+		<enemy name="enemy10" core="conejo" animated_instace_name="enemy10" ></enemy>
+		<enemy name="enemy11" core="conejo" animated_instace_name="enemy11" ></enemy>
+		<enemy name="enemy12" core="conejo" animated_instace_name="enemy12" ></enemy>
+		<enemy name="enemy13" core="conejo" animated_instace_name="enemy13" ></enemy>
+		<enemy name="enemy14" core="conejo" animated_instace_name="enemy14" ></enemy>
+		<enemy name="enemy15" core="conejo" animated_instace_name="enemy15" ></enemy>
+		<enemy name="enemy16" core="conejo" animated_instace_name="enemy16" ></enemy>
+		<enemy name="enemy17" core="conejo" animated_instace_name="enemy17" ></enemy>
+		
+		<enemy name="enemy18" core="conejo" animated_instace_name="enemy18" ></enemy>
+		<enemy name="enemy19" core="conejo" animated_instace_name="enemy19" ></enemy>
+		<enemy name="enemy20" core="conejo" animated_instace_name="enemy20" ></enemy>
+		<enemy name="enemy21" core="conejo" animated_instace_name="enemy21" ></enemy>
+	</enemies>
+</characters>

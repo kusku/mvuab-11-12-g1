@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <triggers>
-	<!--<trigger name="trigger1" triggername="triggername1" layer="pepe" 		   type="box"    position="1.0 0.0 1.1" size="20.0 30.0 40.0" color="1.0 0 0 1.0" luacode="" />
-	<trigger name="trigger2" triggername="triggername2" actorname="actorname2" type="sphere" position="1.0 0.0 1.1" size="20.0 30.0 40.0" color="1.0 0 0 1.0" luacode="" />-->
-	<!--<trigger name="trigger3" triggername="triggername3" actorname="actorname3" type="box" 	 position="1.0 0.0 1.1" size="20.0 30.0 40.0" color="1.0 0 0 1.0" luacode="" />
-	<trigger name="trigger4" triggername="triggername4" actorname="actorname4" type="box" 	 position="1.0 0.0 1.1" size="20.0 30.0 40.0" color="1.0 0 0 1.0" luacode="" />
-	<trigger name="trigger5" triggername="triggername5" actorname="actorname5" type="sphere" position="1.0 0.0 1.1" size="20.0 30.0 40.0" color="1.0 0 0 1.0" luacode="" />
-	<trigger name="trigger5" triggername="triggername6" actorname="actorname6" type="sphere" position="1.0 0.0 1.1" size="20.0 30.0 40.0" color="1.0 0 0 1.0" luacode="" />-->
+	<trigger name="inicio" type="box" position="-14.79 -29.66 -113.58" size="2.0 2.0 2.0" color="1.0 0.0 1.0 1.0" scriptclass="CStartTrigger" />
+	<trigger name="cascada" type="box" position="62.05 -23.51 -75.32" size="3.0 2.0 2.0"  color="1.0 0.0 1.0 1.0" scriptclass="CCascadeTrigger" />
+	<trigger name="puente" type="box" position="90.82 -24.56 -24.13" size="2.0 2.0 3.0" color="1.0 0.0 1.0 1.0" scriptclass="CBridgeTrigger" />
+	<trigger name="casa" type="box" position="51.82 -31.56 103.44" size="3.0 2.0 2.0" color="1.0 0.0 1.0 1.0" scriptclass="CHouseTrigger" />
+	<trigger name="final" type="box" position="-30.18 -30.32 104.00" size="4.0 2.0 3.0" color="1.0 0.0 1.0 1.0" scriptclass="CEndGameTrigger" />
+	<!--<trigger name="inicio" type="sphere" position="-14.79 -29.66 -113.58" radius="5.0" color="1.0 0.0 1.0 1.0" scriptclass="CSphereTriggerTest" />-->
 </triggers>
 

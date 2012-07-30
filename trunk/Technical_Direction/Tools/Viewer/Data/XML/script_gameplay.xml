@@ -1,0 +1,58 @@
+<scripts>
+	<script filename="./data/scripts/game/init_game.lua" />
+	<script filename="./data/scripts/game/helpers.lua" />
+	
+	<script filename="./data/scripts/game/triggers/start_trigger.lua" />
+	<script filename="./data/scripts/game/triggers/cascade_trigger.lua" />
+	<script filename="./data/scripts/game/triggers/bridge_trigger.lua" />
+	<script filename="./data/scripts/game/triggers/house_trigger.lua" />
+	<script filename="./data/scripts/game/triggers/end_game_trigger.lua" />
+	
+	<script filename="./data/scripts/game/player/player_idle_state.lua" />
+	<script filename="./data/scripts/game/player/player_run_state.lua" />
+	<script filename="./data/scripts/game/player/player_attack_state.lua" />
+	<script filename="./data/scripts/game/player/player_attack2_state.lua" />
+	<script filename="./data/scripts/game/player/player_attack3_state.lua" />
+	<script filename="./data/scripts/game/player/player_defense_state.lua" />
+	<script filename="./data/scripts/game/player/player_hit_state.lua" />
+	<script filename="./data/scripts/game/player/player_jump_state.lua" />
+	<script filename="./data/scripts/game/player/player_target_attack_state.lua" />
+	<script filename="./data/scripts/game/player/player_target_attack2_state.lua" />
+	<script filename="./data/scripts/game/player/player_target_attack3_state.lua" />
+	<script filename="./data/scripts/game/player/player_target_run_state.lua" />
+	<script filename="./data/scripts/game/player/player_animation_idle_state.lua" />
+	<script filename="./data/scripts/game/player/player_animation_run_state.lua" />
+	<script filename="./data/scripts/game/player/player_animation_attack_state.lua" />
+	<script filename="./data/scripts/game/player/player_animation_attack2_state.lua" />
+	<script filename="./data/scripts/game/player/player_animation_attack3_state.lua" />
+	<script filename="./data/scripts/game/player/player_animation_defense_state.lua" />
+	<script filename="./data/scripts/game/player/player_animation_jump_state.lua" />
+	<script filename="./data/scripts/game/player/player_animation_hit_state.lua" />
+	<script filename="./data/scripts/game/player/player.lua" />
+	
+	<script filename="./data/scripts/game/enemies/wolf_states/wolf_idle_state.lua" />
+	<script filename="./data/scripts/game/enemies/wolf_states/wolf_attack_state.lua" />
+	<script filename="./data/scripts/game/enemies/wolf_states/wolf_hit_state.lua" />
+	<script filename="./data/scripts/game/enemies/wolf_states/wolf_walk_state.lua" />
+	<script filename="./data/scripts/game/enemies/wolf_states/wolf_deffense_state.lua" />
+	<script filename="./data/scripts/game/enemies/wolf_states/wolf_seek_state.lua" />
+	<script filename="./data/scripts/game/enemies/wolf_states/wolf_flee_state.lua" />
+	<script filename="./data/scripts/game/enemies/wolf_states/wolf_pursuit_state.lua" />
+	<script filename="./data/scripts/game/enemies/wolf_states/wolf_evade_state.lua" />
+	<script filename="./data/scripts/game/enemies/wolf_states/wolf_wander_state.lua" />
+	<script filename="./data/scripts/game/enemies/wolf_states/wolf_path_follow_state.lua" />
+	<!--<script filename="./data/scripts/game/enemies/wolf_states/wolf_animated_idle_state.lua" />
+	<script filename="./data/scripts/game/enemies/wolf_states/wolf_animated_attack_state.lua" />
+	<script filename="./data/scripts/game/enemies/wolf_states/wolf_animated_pursuit_state.lua" />-->
+	<!--<script filename="./data/scripts/game/enemies/wolf_states/wolf_animated_hit_state.lua" />-->
+	<!--<script filename="./data/scripts/game/enemies/wolf_states/wolf_animated_deffense_state.lua" />-->
+	<!--<script filename="./data/scripts/game/enemies/wolf_states/wolf_animated_walk_state.lua" />-->
+	<script filename="./data/scripts/game/enemies/wolf.lua" />	
+	
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_idle_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_pursuit_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_attack_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_hit_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_flee_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit.lua" />	
+</scripts>

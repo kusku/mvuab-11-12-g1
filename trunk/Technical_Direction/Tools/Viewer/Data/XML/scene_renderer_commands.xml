@@ -1,29 +1,91 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <scene_renderer_commands>
-<!--pre_render-->
-	<begin_scene />
-	<clear_scene color="true" depth="true" stencil="true" />
-	<enable_z_write />
-	<enable_z_test />
-	<setup_matrices />
-	
-	<disable_z_test />
-	<!-- shadow maps -->
-	<set_pool_renderable_objects_technique pool="Basic_Build_Shadow_Map" />
-	<generate_shadow_maps />
-	<enable_z_test />
-	
-	<set_pool_renderable_objects_technique pool="FowardShading" />
-	<render_scene layer="solid" active="true" />
-	
-	<set_pool_renderable_objects_technique pool="FowardShading1" />
-	<render_scene layer="vegetation" active="true" />
-	<set_pool_renderable_objects_technique pool="FowardShading2" />
-	<render_scene layer="vegetation" active="true" />
-	
-	<!--Debug-->
-	<render_debug_lights active="true" />
-	<render_debug_info grid="false" axis="true"  render_console="true" render_logger="true" render_modifiers="true" render_debug_options="true" render_debug_render="true" />
-	<end_scene />
-	<present />
+  <!--pre_render-->
+  <begin_scene />
+  
+  <clear_scene color="true" depth="true" stencil="true" />
+  <enable_z_write />
+  <enable_z_test />
+  <setup_matrices />
+
+  <!-- shadow maps -->
+  <!---->
+  <disable_z_test />
+
+  <set_pool_renderable_objects_technique pool="Basic_Build_Shadow_Map" />
+  <generate_shadow_maps />
+  <!---->
+  <enable_z_test />
+
+  <!-- Initialize Motion Blur -->
+  <begin_motion_blur />
+  
+  <!--Set Depth Map & Motion Blur RT-->
+  <set_render_target name="CustomRTs">
+    <dynamic_texture stage_id="1" name="DepthMapTexture" texture_width_as_frame_buffer="true" format_type="R32F" mipmaps="1" />
+    <dynamic_texture stage_id="2" name="__CURRENT_MOTION_BLUR_TEXTURE" texture_width_as_frame_buffer="true" format_type="G32R32F" mipmaps="1" />
+  </set_render_target>
+
+  <clear_scene color="true" />
+
+
+  <!--<SkySphere SkyTexture="./Data/General/Textures/SkyRelease1.dds" Scale="1000 900 1000" SkyEffectTechnique="SkySphereEffect" />
+  <SkySphere SkyCloudTexture="./Data/General/Textures/clouds2.dds" Scale="499 399 499" SkyEffectTechnique="SkySphereEffectClouds" Clouds="true" />-->
+
+  <render_particles />
+
+  <set_pool_renderable_objects_technique pool="FowardShading" />
+  <render_scene layer="solid" active="true" />
+  <render_scene layer="fish" active="true" />
+
+  <set_pool_renderable_objects_technique pool="Vegetation1" />
+  <render_scene layer="vegetation" active="true" />
+  <set_pool_renderable_objects_technique pool="Vegetation2" />
+  <render_scene layer="vegetation" active="true" />
+
+  <set_pool_renderable_objects_technique pool="Water" />
+  <render_scene layer="water" active="true" />
+
+  <render_particles />
+
+  <!--<bloom_post_process BloomThreshold="0.95" BlurAmount="4.0" BloomIntensity=".75" BaseIntensity="1.5" BloomSaturation="1.0" BaseSaturation="1.0" />-->
+  
+  <render_billboards />
+
+  <!--Unset Depth Map & Motion Blur RT-->
+  <unset_render_target render_target="CustomRTs"/>
+  
+  <!--Get Render Scene to Texture-->
+  <capture_frame_buffer>
+    <dynamic_texture stage_id="0" name="SceneRender" texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="1" />
+  </capture_frame_buffer>
+  
+  <set_pool_renderable_objects_technique pool="zblur_pool" />
+  <render_draw_quad name="ZBlur" >
+    <texture file="SceneRender" stage_id="0" />
+    <texture file="DepthMapTexture" stage_id="1" />
+  </render_draw_quad>
+
+  <!--Get Render Scene to Texture-->
+  <capture_frame_buffer>
+    <dynamic_texture stage_id="0" name="SceneRender" texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="1" />
+  </capture_frame_buffer>
+  
+  <set_pool_renderable_objects_technique pool="motion_blur" />
+  <render_draw_quad name="MotionBlur" >
+    <texture file="SceneRender" stage_id="0" />
+    <texture file="__PREV_MOTION_BLUR_TEXTURE" stage_id="1" />
+    <texture file="__CURRENT_MOTION_BLUR_TEXTURE" stage_id="2" />
+  </render_draw_quad>
+
+  <!--Debug-->
+  <render_debug_waypoints active="false" />
+  <render_debug_process active="true" />
+  <render_debug_physics active="false" />
+  <render_debug_lights active="false" />
+  <render_debug_info grid="false" axis="false"  render_console="false" render_logger="true" render_modifiers="false" render_debug_options="false" render_debug_render="true" />
+  
+  
+  <end_scene />
+  <present />
 </scene_renderer_commands>

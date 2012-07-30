@@ -13,5 +13,5 @@
 		quad="./Data/General/Textures/BaseDialegBox.jpg" />
 		
 	<PointerMouse posx="5" posy="5" width="5" height="5"
-		texture="./Data/General/Textures/gui_pointer_mouse.tga" isQuadrant="true" />
+		texture="./Data/General/Textures/GUI/cursor.png" isQuadrant="true" />
 </Gui_config>

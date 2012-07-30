@@ -2,22 +2,7 @@
 //Global Constants				   //
 /////////////////////////////////////
 
-uniform float2		HalfPixel				: HALFPIXEL;
-
-uniform float		AmbientLightIntensity	: AMBIENT_LIGHT_INTENSITY
-<
-    string UIName =  "Ambient Light Intensity";
-    string UIWidget = "slider";
-    float UIMin = 0.0;
-    float UIMax = 1.0;
-    float UIStep = 0.1;
-> = 0.1;
-
-uniform float4		AmbientLightColor		: AMBIENT_LIGHT_COLOR
-<
-    string UIName =  "Ambient Light Color";
-    string UIWidget = "Color";
-> = {1.0f, 1.0f, 1.0f, 1.0f};
+#include "functions.fx"
 
 /////////////////////////////////////////////////////
 
