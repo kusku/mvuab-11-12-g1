@@ -1,0 +1,12 @@
+<animated_model name="lobo">
+	<skeleton filename="LOB_Skeleton.CSF"/>
+	<mesh filename="LOB_Mesh.CMF"/>
+	<animation name="idle" filename="LOB_Idle.CAF"/>
+	<animation name="walk" filename="LOB_Walk.CAF"/>
+	<animation name="run" filename="LOB_Run.CAF"/>
+	<animation name="attack_run" filename="LOB_Attack_Run.CAF"/>
+	<animation name="attack_still" filename="LOB_Attack_Still.CAF"/>
+	<animation name="deffense" filename="LOB_Defense.CAF"/>
+	<animation name="hit" filename="LOB_Hit.CAF"/>
+	<texture filename="LOB_Textura_v3.dds"/>
+</animated_model>
