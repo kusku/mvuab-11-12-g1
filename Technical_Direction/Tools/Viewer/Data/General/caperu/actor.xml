@@ -1,0 +1,14 @@
+<animated_model name="caperucita">
+	<skeleton filename="caperucita_skeleton.csf"/>
+	<mesh filename="caperucita_mesh.cmf"/>
+	<animation name="idle" filename="caperucita_idle.caf"/>
+	<animation name="run" filename="caperucita_corre.caf"/>
+	<animation name="hit" filename="caperucita_hit.caf"/>
+	<animation name="defense" filename="caperucita_defensesostenida.caf"/>
+	<animation name="attack1" filename="caperucita_ataque01.caf"/>
+	<animation name="attack2" filename="caperucita_ataque02.caf"/>
+	<animation name="attack3" filename="caperucita_ataque03.caf"/>
+	<animation name="jump" filename="caperucita_salto.caf"/>
+	<texture filename="df_caperucita.dds"/>
+	<texture filename="NRM_caperucita2.dds"/>
+</animated_model>
