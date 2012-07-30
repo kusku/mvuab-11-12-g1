@@ -7,7 +7,7 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 	dropdownList ExportRenderList "" pos:[94,24] width:156 height:21 items:#("static_mesh", "animated_model")
 	checkbox VisibleRenderCB "Visible" pos:[14,47] width:76 height:18
 	checkbox LayerRenderCB "Layer" pos:[14,70] width:71 height:17
-	dropdownList LayerRenderList "" pos:[94,68] width:156 height:21 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles", "vegetation", "water", "fish", "birds")
+	dropdownList LayerRenderList "" pos:[94,68] width:156 height:21 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles", "vegetation", "water", "fish", "birds", "terrain")
 	label lbl1 "Anim. model" pos:[19,143] width:70 height:16
 	edittext AnimModelRenderText "" pos:[98,141] width:157 height:21
 	GroupBox grp2 "Physics" pos:[8,215] width:249 height:70
@@ -38,8 +38,8 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 	checkbox cbShadowMask "" pos:[100,545] width:24 height:25 witdh:25
 	label lblStaticLayer "Static Layer:" pos:[40,573] width:70 height:14
 	label lbl43 "Dynamic Layer:" pos:[24,598] width:77 height:14
-	dropdownList ddlStaticLayer "" pos:[112,574] width:120 height:21 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles", "vegetation", "water", "fish", "birds")
-	dropdownList ddlDynamicLayer "" pos:[112,598] width:120 height:21 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles", "vegetation", "water", "fish", "birds")
+	dropdownList ddlStaticLayer "" pos:[112,574] width:120 height:21 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles", "vegetation", "water", "fish", "birds", "terrain")
+	dropdownList ddlDynamicLayer "" pos:[112,598] width:120 height:21 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles", "vegetation", "water", "fish", "birds", "terrain")
 	GroupBox grp5 "AI Waypoints" pos:[278,11] width:326 height:290
 	button RefreshBrotherNodes "Refresh WP" pos:[293,257] width:94 height:25
 	checkbox IsWayPoint "Is Waypoint" pos:[291,36] width:119 height:19

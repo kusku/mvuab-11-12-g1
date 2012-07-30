@@ -1088,6 +1088,7 @@ struct SceneObj
 		format "\t<layer name=\"water\" />\n" to:file
 		format "\t<layer name=\"fish\" />\n" to:file 
 		format "\t<layer name=\"birds\" />\n" to:file
+		format "\t<layer name=\"terrain\" />\n" to:file
 		
 		for i = 1 to MeshObjs.count do
 		(	
