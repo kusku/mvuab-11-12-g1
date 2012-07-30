@@ -13,18 +13,52 @@
 //Global Constants				   //
 /////////////////////////////////////
 
-float4x4 WorldViewProjection 	: WORLDVIEWPROJECTION;
-float4x4 World					: WORLD;
+float AmbientLightIntensity <
+    string UIName =  "Ambient Light Intensity";
+    string UIWidget = "slider";
+    float UIMin = 0.0;
+    float UIMax = 1.0;
+    float UIStep = 0.1;
+> = 0.10;
 
-float3		CameraPosition			: CAMERA_POSITION;
+float4 AmbientLightColor <
+    string UIName =  "Ambient Light Color";
+    string UIWidget = "Color";
+> = {1.0f, 1.0f, 1.0f, 1.0f};
 
-uniform float4x4	InvertViewProjection					: VIEWPROJECTIONINVERSE;
+
+uniform bool		FogEnable = false;
+uniform float3		FogColor = float3(0.75f, 0.23f, 0.0f);
+uniform float		FogStart = 200.0f;
+uniform float		FogRange = 300.0f;
+
+uniform float4x4	World									: WORLD;
+uniform float4x4	WorldViewProjection 					: WORLDVIEWPROJECTION;
+
+uniform float4x4	ViewMatrix								: VIEW;
 uniform float4x4	InvertView								: VIEWINVERSE;
-uniform float4x4	InvertProjection						: PROJECTIONINVERSE;
+uniform float4x4	PrevView								: VIEW_PREV;
+
 uniform float4x4	ProjectionMatrix						: PROJECTION;
+uniform float4x4	InvertProjection						: PROJECTIONINVERSE;
+uniform float4x4	PrevProjectionMatrix					: PROJECTION_PREV;
+
+uniform float4x4	ViewProjection 							: VIEWPROJECTION;
+uniform float4x4	InvertViewProjection					: VIEWPROJECTIONINVERSE;
+uniform float4x4	PrevViewProjection						: VIEWPROJECTION_PREV;
+
+uniform float2		RenderTargetSize						: RENDER_TARGET_SIZE;
+
+uniform float3		CameraPosition							: CAMERA_POSITION;
+
+uniform float		ElapsedTime								: ELAPSED_TIME;
+uniform float		TotalElapsedTime						: TOTAL_ELAPSED_TIME;
+
+uniform float2		TextureDim								: TEXTURE_DIM;
 
 uniform float4x4 	ShadowWorldViewProjection				: SHADOW_WORLDVIEWPROJECTION;
 uniform float4x4 	ShadowWorldView							: SHADOW_WORLDVIEW;
+uniform float4x4 	ShadowView								: SHADOW_VIEW;
 
 uniform int			numLights								: Num_Lights;
 uniform int 		lightType[MAX_LIGHTS]					: Lights_Type;
@@ -45,20 +79,21 @@ uniform int			SMap_Size								: SHADOW_MAP_SIZE				=	2048;
 uniform float4x4	ShadowViewProjection[MAX_LIGHTS]		: SHADOW_VIEWPROJECTION;
 uniform bool		lightShadowDynamicEnable[MAX_LIGHTS]	: Lights_Shadow_Dynamic_Enable;
 uniform bool		lightShadowStaticEnable[MAX_LIGHTS]		: Lights_Shadow_Static_Enable;
-uniform texture2D	StaticShadowMap1						: STATIC_SHADOW_MAP_1;
-uniform texture2D	StaticShadowMap2						: STATIC_SHADOW_MAP_2;
-uniform texture2D	StaticShadowMap3						: STATIC_SHADOW_MAP_3;
-uniform texture2D	StaticShadowMap4						: STATIC_SHADOW_MAP_4;
-uniform texture2D	DynamicShadowMap1						: DYNAMIC_SHADOW_MAP_1;
-uniform texture2D	DynamicShadowMap2						: DYNAMIC_SHADOW_MAP_2;
-uniform texture2D	DynamicShadowMap3						: DYNAMIC_SHADOW_MAP_3;
-uniform texture2D	DynamicShadowMap4						: DYNAMIC_SHADOW_MAP_4;
+uniform Texture2D	StaticShadowMap1						: STATIC_SHADOW_MAP_1;
+uniform Texture2D	StaticShadowMap2						: STATIC_SHADOW_MAP_2;
+uniform Texture2D	StaticShadowMap3						: STATIC_SHADOW_MAP_3;
+uniform Texture2D	StaticShadowMap4						: STATIC_SHADOW_MAP_4;
+uniform Texture2D	DynamicShadowMap1						: DYNAMIC_SHADOW_MAP_1;
+uniform Texture2D	DynamicShadowMap2						: DYNAMIC_SHADOW_MAP_2;
+uniform Texture2D	DynamicShadowMap3						: DYNAMIC_SHADOW_MAP_3;
+uniform Texture2D	DynamicShadowMap4						: DYNAMIC_SHADOW_MAP_4;
 
 //Variance
 
 uniform float		VSMMinVariance = 0.000001;	// Minimum variance for VSM
 uniform bool		LBREnable = true;			// Enable/disable light bleeding reduction
-uniform float		LBRAmount = 0.25;			// Aggressiveness of light bleeding reduction
+uniform float		LBRAmount = 0.18;			// Aggressiveness of light bleeding reduction
+uniform float2		FPBias = float2(0.0, 0.0);
 
 /////
 
@@ -256,8 +291,8 @@ float4 CalculateSpotLight(float3 normal, float4 position, int lightNum)
 	float4 SpotColorFinal = float4(0.0f, 0.0f, 0.0f, 0.0f);
 	
 	//Get Light Vector
-	float lightDistance = distance(lightPosition[lightNum], position);
-	float3 lightVector = normalize(lightPosition[lightNum] - position);
+	float lightDistance = distance(lightPosition[lightNum], position.xyz);
+	float3 lightVector = normalize(lightPosition[lightNum] - position.xyz);
 	lightVector = normalize(lightVector);
 	
 	float SdL = dot(lightVector, -lightDirection[lightNum]);
@@ -283,6 +318,31 @@ float4 CalculateSpotLight(float3 normal, float4 position, int lightNum)
 	}
 	
 	return ( SpotColorFinal );
+}
+
+float4 CalculateSpecular(float3 pos, float specularFactor, float3 eyePosition, float3 normal, int lightNum, bool directional, out float specularShine)
+{
+	float4 SpecularColor = float4(lightColor[lightNum] * lightIntensity[lightNum], 1);
+	float3 lightVector = (float3)0;
+	specularShine = 0;
+
+	if(directional)
+	{
+		lightVector = -normalize(lightDirection[lightNum]);
+	}
+	else
+	{
+		lightVector = normalize(lightPosition[lightNum] - pos);
+	}
+	
+	float NdL = saturate(dot(lightVector, normal));
+
+	float3 Reflect = normalize(2.0f * NdL * normal - lightVector);
+	
+	specularShine = pow(saturate(dot(Reflect, eyePosition)), specularFactor);
+
+	return (SpecularColor * specularShine);
+	//return float4(1, 0, 0, 1);
 }
 
 //////////////////////////////////////
@@ -372,16 +432,16 @@ float CalcShadowCoeffVSM(float4 Pos, sampler shadowMapSampler, int light)
 float2 CalculateParallax(float2 scaleAmount, float2 texCoord, float height, float3 ViewDirection)
 {
 	float depthAmount = scaleAmount.x * height  + scaleAmount.y;
-	float2 ParallaxTexCoord = depthAmount * ViewDirection + texCoord;
+	float2 ParallaxTexCoord = (depthAmount * ViewDirection).xy + texCoord;
 	
 	return ParallaxTexCoord;
 }
 
 float3 GetRadiosityNormalMap(float3 Nn, float2 UV, float3x3 WorldMatrix, sampler2D rnmX, sampler2D rnmY, sampler2D rnmZ)
 {
-	float3 l_LightmapX = tex2D(rnmX, UV)*2;
-	float3 l_LightmapY = tex2D(rnmY, UV)*2;
-	float3 l_LightmapZ = tex2D(rnmZ, UV)*2;
+	float3 l_LightmapX = (tex2D(rnmX, UV)*2).xyz;
+	float3 l_LightmapY = (tex2D(rnmY, UV)*2).xyz;
+	float3 l_LightmapZ = (tex2D(rnmZ, UV)*2).xyz;
 
 	float3 l_BumpBasisX = normalize(float3(0.816496580927726, 0.5773502691896258, 0 ));
 	float3 l_BumpBasisY = normalize(float3(-0.408248290463863, 0.5773502691896258, 0.7071067811865475 ));
@@ -416,7 +476,7 @@ float RescaleDistToLight(float Distance)
 
 float2 GetFPBias()
 {
-    return float2(0.5, 0);
+    return FPBias;
 }
 
 // Utility function
@@ -433,7 +493,7 @@ float2 ComputeMoments(float Depth)
     //float dx = ddx(Depth);
     //float dy = ddy(Depth);
     //float Delta = 0.25 * (dx*dx + dy*dy);
-    // Perhaps clamp maximum Delta here
+    ////Perhaps clamp maximum Delta here
     //Moments.y += Delta;
 
     return Moments;
@@ -464,11 +524,14 @@ float ChebyshevUpperBound(float2 Moments, float Mean, float MinVariance)
 }
 
 float CalcShadowVariance(float4 Pos, sampler shadowMapSampler, int light)
-{		
+{	
 	float4 ShadowPos = mul(Pos, ShadowViewProjection[light]);
 	
 	// Project the texture coords and scale/offset to [0, 1].
-    float2 ShadowTexC = (ShadowPos.xy / ShadowPos.w) * float2(0.5, -0.5) + 0.5;
+	float2 ShadowTexC = ShadowPos.xy /= ShadowPos.w;
+	ShadowTexC.x =  0.5f*ShadowPos.x + 0.5f; 
+	ShadowTexC.y = -0.5f*ShadowPos.y + 0.5f;
+    //float2 ShadowTexC = (ShadowPos.xy / ShadowPos.w) * float2(0.5, -0.5) + 0.5;
 		
     //float3 DirToLight = lightPosition[light] - Pos.xyz;
     //float DistToLight = length(DirToLight);
@@ -476,7 +539,7 @@ float CalcShadowVariance(float4 Pos, sampler shadowMapSampler, int light)
 	//float RescaledDist = RescaleDistToLight(DistToLight, light);
 	float RescaledDist = ShadowPos.z / ShadowPos.w;
 	
-	float2 Moments = tex2Dlod( shadowMapSampler, float4(ShadowTexC, 0, 1)).xy;
+	float2 Moments = tex2Dlod( shadowMapSampler, float4(ShadowTexC, 0, 1)).rg;
 	//float2 Moments = tex2D(shadowMapSampler, ShadowTexC).rg;
     Moments = Moments + GetFPBias();
 	
@@ -490,4 +553,33 @@ float CalcShadowVariance(float4 Pos, sampler shadowMapSampler, int light)
 	
 	return ShadowContrib;
 }
+
+//////////////////////////////////////
+
+//////////////////////////////////////
+//Motion Blur Functions				//
+/////////////////////////////////////
+float2 MotionBlurVelocity(float4 wvpPosition, float4 wPosition)
+{
+	float4 prevProjSpace = wvpPosition;
+	float4 currentProjSpace = mul(wPosition, PrevViewProjection);
+	
+    // Convert to non-homogeneous points [-1,1] by dividing by w 
+    currentProjSpace /= currentProjSpace.w;
+    prevProjSpace /= prevProjSpace.w;
+
+	// Vertex's velocity (in non-homogeneous projection space) is the position this frame minus 
+    // its position last frame.  This information is stored in a texture coord.  The pixel shader 
+    // will read the texture coordinate with a sampler and use it to output each pixel's velocity.
+    float2 velocity = currentProjSpace - prevProjSpace;   
+	
+    // The velocity is now between (-2,2) so divide by 2 to get it to (-1,1)
+    velocity /= 2.0f;
+
+	return velocity;
+}
+
+
+//////////////////////////////////////
+
 

@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <particle_systems>
-	
 
-	
+  <system name="Fire" settings_name="fire" />
+
+  <system name="Smoke" settings_name="smoke" />
+
+  <system name="Explosions" settings_name="explosion" />
+
+  <system name="WaterFall" settings_name="water_fall" />
+  <system name="WaterFall2" settings_name="water_fall2" />
+
+  <system name="Blood" settings_name="Blood" />
+
+  <system name="WaterMist" settings_name="water_mist" />
+
 </particle_systems>

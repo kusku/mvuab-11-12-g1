@@ -18,14 +18,16 @@ float g_ZBlurFocalEnd=65;
 float g_ZBlurEnd=300;
 float g_ConstantBlur=0.4;*/
 
-float g_ZBlurFocalStart : PARAMETER0;
-float g_ZBlurFocalEnd : PARAMETER1;
-float g_ZBlurEnd : PARAMETER2;
-float g_ConstantBlur : PARAMETER3;
+extern uniform float ZBlurFocalStart	: PARAMETER0 = 50;
+extern uniform float ZBlurFocalEnd		: PARAMETER1 = 65;
+extern uniform float ZBlurEnd			: PARAMETER2 = 300;
+extern uniform float ConstantBlur		: PARAMETER3 = 0.4f;
 
-float4x4 g_InverseProjectionMatrix : PROJECTIONINVERSE;
-float4x4 g_InverseViewMatrix : VIEWINVERSE;
-float2 g_RenderTargetSize : RENDER_TARGET_SIZE;
+uniform const float2 BlurDelta[8] =
+{
+	float2(-1,1),float2(1,-1),float2(-1,1),float2(1,1),
+	float2(-1,0),float2(1,0),float2(0,-1),float2(0,1)
+};
 
 VertexShaderOutput ZBlurVS(VertexShaderInput input)
 {
@@ -38,36 +40,37 @@ VertexShaderOutput ZBlurVS(VertexShaderInput input)
 
 float4 ZBlurPS(VertexShaderOutput input) : COLOR
 {
-	float4 l_DepthMap=tex2D(S1LinearClampSampler,input.UV);
-	float3 l_CameraPosition=g_InverseViewMatrix[3].xyz;
-	float3 l_WorldPosition=GetPositionFromZDepthView(l_DepthMap, float2(0,0), g_InverseViewMatrix, g_InverseProjectionMatrix);
-	float l_Distance=length(l_WorldPosition-l_CameraPosition);
-	float4 l_Color=float4(0,0,0,0);
-	float l_Blur=1.0;
-	if(l_Distance<g_ZBlurFocalStart)
-	{
-		l_Blur=max(l_Distance/g_ZBlurFocalStart, g_ConstantBlur);
-		}
-	else if(l_Distance>g_ZBlurFocalEnd)
-	{
-		l_Blur=max(1.0-(l_Distance-g_ZBlurFocalEnd)/g_ZBlurEnd, g_ConstantBlur);
-	}
-	//return float4(l_Blur,l_Blur,l_Blur,1.0);
-	const float2 delta[8] =
-	{
-		float2(-1,1),float2(1,-1),float2(-1,1),float2(1,1),
-		float2(-1,0),float2(1,0),float2(0,-1),float2(0,1)
-	};
+	float depthVal = tex2D(S1LinearClampSampler, input.UV).r;
+
+	float3 pos = GetPositionFromDepth(input.UV, depthVal);
 	
-	float2 l_PixelInc=4*1/g_RenderTargetSize.x; //4 pixeles a la redonda
-	float4 l_AlbedoColor=tex2D(S0LinearClampSampler,input.UV);
+	float dist = length(pos - CameraPosition);
+	
+	float4 PixEndColor = (float4)0;
+	
+	float blur = 1.0;
+	
+	if(dist < ZBlurFocalStart)
+	{
+		blur = max(dist / ZBlurFocalStart, ConstantBlur);
+	}
+	else if(dist > ZBlurFocalEnd)
+	{
+		blur = max(1.0 - (dist - ZBlurFocalEnd) / ZBlurEnd, ConstantBlur);
+	}
+
+	float2 pixelInc = 4*1 / RenderTargetSize.x; //4 pixeles a la redonda
+
+	float4 albedoColor = tex2D(S0LinearClampSampler, input.UV);
+	
 	for( int i=0;i<8;i++ )
 	{
-		l_Color += tex2D(S0LinearClampSampler,input.UV + delta[i]*l_PixelInc)*(1-l_Blur)+l_Blur*l_AlbedoColor;
+		PixEndColor += tex2D(S0LinearClampSampler, input.UV + BlurDelta[i] * pixelInc) * ( 1 - blur) + blur * albedoColor;
 	}
-	l_Color = l_Color*(1.0/8.0);
+
+	PixEndColor = PixEndColor * (1.0/8.0);
 	
-	return l_Color;
+	return PixEndColor;
 }
 
 technique ZBlurTechnique
@@ -75,7 +78,7 @@ technique ZBlurTechnique
 	pass p0
 	{
 		AlphaBlendEnable = false;
-		CullMode = CCW;
+		
 		VertexShader = compile vs_3_0 ZBlurVS();
 		PixelShader = compile ps_3_0 ZBlurPS();
 	}
