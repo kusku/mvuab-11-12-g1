@@ -16,8 +16,12 @@ namespace XML
 		l_szPath = _Filename.substr(0, find);
 
 		//Crea la carpeta para las partículas
-		std::string textures_folder = l_szPath + "\\Textures\\";
+		std::string textures_folder = l_szPath + "\\Data\\";
 		BOOL isOk = CreateDirectory( textures_folder.c_str(), NULL);
+		textures_folder += "General\\";
+		isOk = CreateDirectory( textures_folder.c_str(), NULL);
+		textures_folder += "Textures\\";
+		isOk = CreateDirectory( textures_folder.c_str(), NULL);
 		textures_folder += "Particles\\";
 		isOk = CreateDirectory( textures_folder.c_str(), NULL);
 
@@ -43,7 +47,7 @@ namespace XML
 			std::string path = "./Data/General/Textures/Particles/" + l_Settings->m_TextureName.substr(find + 1, l_Settings->m_TextureName.size());
 			l_Node.WritePszProperty("value", path.c_str());
 
-			path = l_szPath + "\\Textures\\Particles\\" + l_Settings->m_TextureName.substr(find + 1, l_Settings->m_TextureName.size());
+			path = l_szPath + "\\Data\\General\\Textures\\Particles\\" + l_Settings->m_TextureName.substr(find + 1, l_Settings->m_TextureName.size());
 			CopyFile( l_Settings->m_TextureName.c_str(), path.c_str(), false);
 
 			l_Node.EndElement();
