@@ -46,6 +46,7 @@ struct TParticleSystemSettings
 	float				m_MaxEndSize;
 
 	TGraphicBlendStates	m_BlendState;
+	std::string			m_BlendName;
 
 	//Constructor
 	TParticleSystemSettings()
@@ -70,6 +71,7 @@ struct TParticleSystemSettings
 		, m_MinEndSize(100.0f)
 		, m_MaxEndSize(100.0f)
 		, m_BlendState(TGraphicBlendStates::NonPremultiplied)
+		, m_BlendName("NonPremultiplied")
 	{
 	}
 

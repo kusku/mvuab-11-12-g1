@@ -144,6 +144,7 @@ bool CParticleSettingsManager::Reload()
 					else if(l_TypeChild == "BlendState")
 					{
 						std::string type = child(j).GetPszProperty("value", 0, true);
+						settings->m_BlendName = type;
 
 						if(type.compare("NonPremultiplied") == 0)
 						{

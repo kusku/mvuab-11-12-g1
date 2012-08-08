@@ -20,6 +20,9 @@
     <Filter Include="Properties">
       <UniqueIdentifier>{14cbc4b3-1384-47ef-aeb7-23bc0ff22107}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data">
+      <UniqueIdentifier>{55103cbb-0350-45ee-a2b5-01b64b35c563}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\file_view.ico">
@@ -153,6 +156,9 @@
     <ClInclude Include="Properties\PropertiesSaver.h">
       <Filter>Properties</Filter>
     </ClInclude>
+    <ClInclude Include="Data\XMLManager.h">
+      <Filter>Data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ParticleEditorView.cpp" />
@@ -196,6 +202,9 @@
     </ClCompile>
     <ClCompile Include="Properties\PropertiesSaver.cpp">
       <Filter>Properties</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\XMLManager.cpp">
+      <Filter>Data</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
