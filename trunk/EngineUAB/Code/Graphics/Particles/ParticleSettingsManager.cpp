@@ -173,4 +173,40 @@ bool CParticleSettingsManager::Reload()
 	return true;
 }
 
+void CParticleSettingsManager::AddDefaultSettings(const std::string &name)
+{
+	assert(name != "");
+
+	if( GetResource(name) == NULL )
+	{
+		TParticleSystemSettings* l_pSettings = new TParticleSystemSettings();
+
+		l_pSettings->m_Name = name;
+		l_pSettings->m_TextureName = "";
+		l_pSettings->m_MaxParticles = 100;
+		l_pSettings->m_Duration = 0.f;
+		l_pSettings->m_DurationRandomness = 0.f;
+		l_pSettings->m_EmitterVelocitySensitivity = 0.f;
+		l_pSettings->m_MinHorizontalVelocity = 0.f;
+		l_pSettings->m_MaxHorizontalVelocity = 0.f;
+		l_pSettings->m_MinVerticalVelocity = 0.f;
+		l_pSettings->m_MaxVerticalVelocity = 0.f;
+		l_pSettings->m_Gravity = Vect3f(0.f, 0.f, 0.f);
+		l_pSettings->m_EndVelocity = 0.f;
+		l_pSettings->m_MinColor = colBLACK;
+		l_pSettings->m_MaxColor = colBLACK;
+		l_pSettings->m_MinRotateSpeed = 0.f;
+		l_pSettings->m_MaxRotateSpeed = 0.f;
+		l_pSettings->m_MinEndSize = 0.f;
+		l_pSettings->m_MaxEndSize = 0.f;
+		l_pSettings->m_BlendState = TGraphicBlendStates::NonPremultiplied;
+
+		AddResource(name, l_pSettings);
+	}
+	else
+	{
+		LOGGER->AddNewLog(ELL_WARNING, "CParticleSettingsManager::AddDefaultSettings->Los settings con nombre %s ya existen.", name.c_str());
+	}
+}
+
 

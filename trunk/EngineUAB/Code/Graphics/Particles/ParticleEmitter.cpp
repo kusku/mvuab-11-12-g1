@@ -30,6 +30,11 @@ CParticleEmitter::~CParticleEmitter()
 
 void CParticleEmitter::Update(float elapsedTime)
 {
+	if(!m_Active)
+	{
+		return;
+	}
+
 	Vect3f velocity = v3fZERO;
 	Vect3f previous = m_CurrentPosition;
 

@@ -108,3 +108,13 @@ bool CParticleSystemManager::Reload()
 
 	return true;
 }
+
+void CParticleSystemManager::AddNewSystem(const std::string &name)
+{
+	TParticleSystemSettings* settings = CORE->GetParticleSettingsManager()->GetResource(name);
+	assert(settings);
+
+	CParticleSystem* system = new CParticleSystem(name, settings);
+	this->AddResource(name, system);
+	system->Initialize();
+}
