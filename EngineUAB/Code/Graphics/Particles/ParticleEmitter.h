@@ -9,81 +9,61 @@
 #include "Math\Vector3.h"
 #include "Base.h"
 #include "Utils\Types.h"
+#include "Utils\Active.h"
 
 class CParticleSystem;
 
-class CParticleEmitter
+class CParticleEmitter : public CActive
 {
-	protected:
+public:
+	CParticleEmitter(const std::string& name, CParticleSystem* particleSystem, float particlesPerSecond, const Vect3f& initialPosition, bool useDis);
+	virtual ~CParticleEmitter();
 
-		std::string					m_Name;
+	void		Update		(float elapsedTime);
 
-		CParticleSystem*			m_ParticleSystem;
-		float						m_TimeBetweenParticles;
-		Vect3f						m_PreviousPosition;
-		float						m_TimeLeftOver;
+	//--Get & Set Methods----------------------------------------
+	inline void SetParticlesEjectionCount(uint32 particleEjectionCount)	{ m_ParticlesEjectionCount = particleEjectionCount; }
+	inline uint32 GetParticlesEjectionCount()	{ return m_ParticlesEjectionCount; }
 
-		bool						m_HasNewPosition;
-		Vect3f						m_CurrentPosition;
-		bool						m_UseDis;
+	inline void SetOnLoop(bool onLoop)			{ m_OnLoop = onLoop; }
+	inline bool GetOnLoop()						{ return m_OnLoop; }
 
-		bool						m_OnLoop;
-		bool						m_EjectParticles;
-		uint32						m_ParticleCount;
-		uint32						m_ParticlesEjectionCount;
+	inline void EjectParticles()				{ m_EjectParticles = true; }
 
-		virtual Vect3f				CalculateParticlePosition	() = 0;
-
-	public:
-		CParticleEmitter(const std::string& name, CParticleSystem* particleSystem, float particlesPerSecond, const Vect3f& initialPosition, bool useDis);
-		virtual ~CParticleEmitter();
-
-		inline void SetParticlesEjectionCount(uint32 particleEjectionCount)
+	inline void SetPosition(const Vect3f& position) 
+	{ 
+		if(position == m_CurrentPosition)
 		{
-			m_ParticlesEjectionCount = particleEjectionCount;
+			return;
 		}
 
-		inline uint32 GetParticlesEjectionCount()
-		{
-			return m_ParticlesEjectionCount;
-		}
+		m_HasNewPosition = true;
+		m_PreviousPosition = m_CurrentPosition;
+		m_CurrentPosition = position;
+	}
 
-		inline void SetOnLoop(bool onLoop)
-		{
-			m_OnLoop = onLoop;
-		}
+	inline Vect3f GetPosition() const			{ return m_CurrentPosition; }
+	inline void		SetParticleSystem	( CParticleSystem *_pSystem )	{ assert(_pSystem); m_ParticleSystem = _pSystem; }
 
-		inline bool GetOnLoop()
-		{
-			return m_OnLoop;
-		}
+protected:
+	virtual Vect3f				CalculateParticlePosition()		= 0;
 
-		inline void EjectParticles()
-		{
-			m_EjectParticles = true;
-		}
+protected:
+	std::string					m_Name;
 
-		inline void SetPosition(const Vect3f& position) 
-		{ 
-			if(position == m_CurrentPosition)
-			{
-				return;
-			}
+	CParticleSystem*			m_ParticleSystem;
+	float						m_TimeBetweenParticles;
+	Vect3f						m_PreviousPosition;
+	float						m_TimeLeftOver;
 
-			m_HasNewPosition = true;
+	bool						m_HasNewPosition;
+	Vect3f						m_CurrentPosition;
+	bool						m_UseDis;
 
-			m_PreviousPosition = m_CurrentPosition;
-
-			m_CurrentPosition = position;
-		}
-
-		inline Vect3f GetPosition() const
-		{
-			return m_CurrentPosition;
-		}
-
-		void						Update						(float elapsedTime);
-
+	bool						m_OnLoop;
+	bool						m_EjectParticles;
+	uint32						m_ParticleCount;
+	uint32						m_ParticlesEjectionCount;
 };
 
 #endif

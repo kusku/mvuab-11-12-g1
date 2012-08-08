@@ -6,8 +6,9 @@
 #include <string>
 #include "ParticleDef.h"
 #include "Utils\MapManager.h"
+#include "Utils\TemplatedVectorMapManager.h"
 
-class CParticleSettingsManager : public CMapManager<TParticleSystemSettings>
+class CParticleSettingsManager : public CTemplatedVectorMapManager<TParticleSystemSettings>
 {
 	private:
 		std::string				m_Filename;
@@ -19,6 +20,8 @@ class CParticleSettingsManager : public CMapManager<TParticleSystemSettings>
 		bool					Load					(const std::string& filename);
 		bool					Reload					();
 		void					CleanUp					();
+
+		void					AddDefaultSettings		(const std::string &name);
 };
 
 

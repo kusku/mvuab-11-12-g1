@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Archivos de recursos">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Window">
+      <UniqueIdentifier>{4186330e-a20b-4264-a9ac-6076919b284a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window\App">
+      <UniqueIdentifier>{350e3b18-6b74-462c-8078-ab3e207a36e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window\Controls">
+      <UniqueIdentifier>{aebd88de-bd60-4dc9-ae1f-ad993c68e29d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{ccc82d4d-a1c0-4a36-81c2-ffd3dd6b86c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Properties">
+      <UniqueIdentifier>{14cbc4b3-1384-47ef-aeb7-23bc0ff22107}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\file_view.ico">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\file_view_hc.ico">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\class_view.ico">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\class_view_hc.ico">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\fileview.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\fileview_hc.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\classview.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\classview_hc.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\explorer.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\explorer_hc.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\sort.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\sort_hc.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\menuimages.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\menuimages_hc.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\output_wnd.ico">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\output_wnd_hc.ico">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\properties_wnd.ico">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\properties_wnd_hc.ico">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\properties.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\properties_hc.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="UserImages.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\ParticleEditor.rc2">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\ParticleEditorDoc.ico">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\ParticleEditor.ico">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\Toolbar.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="res\Toolbar256.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ParticleEditorView.h" />
+    <ClInclude Include="PropertiesWnd.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassView.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="FileView.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="OutputWnd.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Window\App</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Window\App</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Window\App</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrm.h">
+      <Filter>Window\App</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleEditorDoc.h">
+      <Filter>Window\App</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleEditor.h">
+      <Filter>Window\App</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewTree.h">
+      <Filter>Window\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="MyPicture.h">
+      <Filter>Window\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleEditorProcess.h" />
+    <ClInclude Include="Player\Player.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineManager.h" />
+    <ClInclude Include="defines.h">
+      <Filter>Window\App</Filter>
+    </ClInclude>
+    <ClInclude Include="HWNDManager.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Properties\PropertiesSaver.h">
+      <Filter>Properties</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ParticleEditorView.cpp" />
+    <ClCompile Include="ClassView.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="FileView.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="OutputWnd.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="PropertiesWnd.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Window\App</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrm.cpp">
+      <Filter>Window\App</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleEditorDoc.cpp">
+      <Filter>Window\App</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleEditor.cpp">
+      <Filter>Window\App</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewTree.cpp">
+      <Filter>Window\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="MyPicture.cpp">
+      <Filter>Window\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleEditorProcess.cpp" />
+    <ClCompile Include="Player\Player.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineManager.cpp" />
+    <ClCompile Include="HWNDManager.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Properties\PropertiesSaver.cpp">
+      <Filter>Properties</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ParticleEditor.rc">
+      <Filter>Archivos de recursos</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

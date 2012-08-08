@@ -30,7 +30,7 @@ CParticleSystem::CParticleSystem(const std::string& name, const TParticleSystemS
 	, m_Settings(settings)
 	, m_CurrentTime(0.0f)
 	, m_DrawCounter(0)
-	, m_ParticeTexture(NULL)
+	, m_ParticleTexture(NULL)
 	, m_ViewParam(NULL)
 	, m_ProjectionParam(NULL)
 	, m_ViewPortScaleParam(NULL)
@@ -58,7 +58,7 @@ CParticleSystem::~CParticleSystem()
 	CHECKED_RELEASE(m_VertexBuffer);
 	CHECKED_RELEASE(m_IndexBuffer);
 	CHECKED_DELETE_ARRAY(m_Particles);
-	CHECKED_DELETE(m_ParticeTexture);
+	CHECKED_DELETE(m_ParticleTexture);
 }
 
 void CParticleSystem::Initialize()
@@ -93,8 +93,8 @@ void CParticleSystem::Initialize()
 	m_Effect->GetParameterBySemantic("PSP_PARTICLE_TEXTURE", m_TextureParam);
 	
 	//Load Texture
-	m_ParticeTexture = new CTexture();
-	m_ParticeTexture->Load(m_Settings->m_TextureName);
+	m_ParticleTexture = new CTexture();
+	m_ParticleTexture->Load(m_Settings->m_TextureName);
 
 	//Create Particles
 	m_Particles = new TPARTICLE_VERTEX[m_Settings->m_MaxParticles * 4];
@@ -157,7 +157,7 @@ void CParticleSystem::SetParamsParticleEffect()
 	m_Effect->GetD3DEffect()->SetFloat(m_EndVelocityParam, m_Settings->m_EndVelocity);
 	m_Effect->GetD3DEffect()->SetInt(m_MinColorParam, m_Settings->m_MinColor.GetUint32Argb());
 	m_Effect->GetD3DEffect()->SetInt(m_MaxColorParam, m_Settings->m_MaxColor.GetUint32Argb());
-	m_Effect->GetD3DEffect()->SetTexture(m_TextureParam, m_ParticeTexture->GetDXTexture());
+	m_Effect->GetD3DEffect()->SetTexture(m_TextureParam, m_ParticleTexture->GetDXTexture());
 
 	float startSize[] = { m_Settings->m_MinStartSize, m_Settings->m_MaxStartSize};
 	float endSize[] = { m_Settings->m_MinEndSize, m_Settings->m_MaxEndSize};
@@ -388,4 +388,17 @@ void CParticleSystem::AddNewParticlesToVertexBuffer()
 
 	// Move the particles we just uploaded from the new to the active queue.
 	m_FirstNewParticle = m_FirstFreeParticle;
+}
+
+void CParticleSystem::RefreshTexture()
+{
+	if( m_Settings->m_TextureName != "" )
+	{
+		CHECKED_DELETE(m_ParticleTexture);
+
+		m_ParticleTexture = new CTexture();
+		m_ParticleTexture->Load(m_Settings->m_TextureName);
+
+		assert(m_ParticleTexture);
+	}
 }

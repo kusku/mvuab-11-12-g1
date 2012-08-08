@@ -19,65 +19,64 @@ struct TParticleSystemSettings;
 
 class CParticleSystem
 {
-	protected:
+protected:
+	std::string						m_Name;
 
-		std::string						m_Name;
+	CTexture*						m_ParticleTexture;
+	CEffectTechnique*				m_ParticleTechnique;
+	CEffect*						m_Effect;
+	D3DXHANDLE						m_ViewParam;
+	D3DXHANDLE						m_ProjectionParam;
+	D3DXHANDLE						m_PrevViewProjectionParam;
+	D3DXHANDLE						m_InvertViewProjectionParam;
+	D3DXHANDLE						m_CameraPositionParam;
+	D3DXHANDLE						m_ViewPortScaleParam;
+	D3DXHANDLE						m_CurrentTimeParam;
+	D3DXHANDLE						m_DurationParam;
+	D3DXHANDLE						m_DurationRandomnessParam;
+	D3DXHANDLE						m_GravityParam;
+	D3DXHANDLE						m_EndVelocityParam;
+	D3DXHANDLE						m_MinColorParam;
+	D3DXHANDLE						m_MaxColorParam;
+	D3DXHANDLE						m_RotateSpeedParam;
+	D3DXHANDLE						m_StartSizeParam;
+	D3DXHANDLE						m_EndSizeParam;
+	D3DXHANDLE						m_TextureParam;
 
-		CTexture*						m_ParticeTexture;
-		CEffectTechnique*				m_ParticleTechnique;
-		CEffect*						m_Effect;
-		D3DXHANDLE						m_ViewParam;
-		D3DXHANDLE						m_ProjectionParam;
-		D3DXHANDLE						m_PrevViewProjectionParam;
-		D3DXHANDLE						m_InvertViewProjectionParam;
-		D3DXHANDLE						m_CameraPositionParam;
-		D3DXHANDLE						m_ViewPortScaleParam;
-		D3DXHANDLE						m_CurrentTimeParam;
-		D3DXHANDLE						m_DurationParam;
-		D3DXHANDLE						m_DurationRandomnessParam;
-		D3DXHANDLE						m_GravityParam;
-		D3DXHANDLE						m_EndVelocityParam;
-		D3DXHANDLE						m_MinColorParam;
-		D3DXHANDLE						m_MaxColorParam;
-		D3DXHANDLE						m_RotateSpeedParam;
-		D3DXHANDLE						m_StartSizeParam;
-		D3DXHANDLE						m_EndSizeParam;
-		D3DXHANDLE						m_TextureParam;
+	const TParticleSystemSettings*	m_Settings;
 
-		const TParticleSystemSettings*	m_Settings;
+	TPARTICLE_VERTEX*				m_Particles;
 
-		TPARTICLE_VERTEX*				m_Particles;
+	LPDIRECT3DVERTEXBUFFER9			m_VertexBuffer;
+	LPDIRECT3DINDEXBUFFER9			m_IndexBuffer;
 
-		LPDIRECT3DVERTEXBUFFER9			m_VertexBuffer;
-		LPDIRECT3DINDEXBUFFER9			m_IndexBuffer;
+	uint32							m_FirstActiveParticle;
+	uint32							m_FirstNewParticle;
+	uint32							m_FirstFreeParticle;
+	uint32							m_FirstRetiredParticle;
 
-		uint32							m_FirstActiveParticle;
-		uint32							m_FirstNewParticle;
-		uint32							m_FirstFreeParticle;
-		uint32							m_FirstRetiredParticle;
+	float							m_CurrentTime;
 
-        float							m_CurrentTime;
-		
-        uint32							m_DrawCounter;
+	uint32							m_DrawCounter;
 
-        void							RetireActiveParticles			();
+protected:
+	void							RetireActiveParticles			();
+	void							FreeRetiredParticles			();
 
-		void							FreeRetiredParticles			();
+	void							AddNewParticlesToVertexBuffer	();
+	void							SetParamsParticleEffect			();
 
-		void							AddNewParticlesToVertexBuffer	();
-		
-		void							SetParamsParticleEffect			();
+public:
+	CParticleSystem(const std::string& name, const TParticleSystemSettings* settings);
+	virtual ~CParticleSystem();
 
-	public:
-		CParticleSystem(const std::string& name, const TParticleSystemSettings* settings);
-		virtual ~CParticleSystem();
-		
-		bool							AddParticle						(const Vect3f& position, const Vect3f& velocity);
+	void			Initialize			();
+	void			Update				(float elapsedTime);
+	void			Render				();
 
-		void							Initialize						();
+	bool			AddParticle			(const Vect3f& position, const Vect3f& velocity);
 
-		void							Update							(float elapsedTime);
-		void							Render							();
+	void			RefreshTexture		();	
 };
 
 #endif
