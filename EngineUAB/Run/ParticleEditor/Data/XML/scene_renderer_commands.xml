@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<scene_renderer_commands>
+	<begin_scene />
+	<clear_scene color="true" depth="true" stencil="true" />
+	<enable_z_write />
+	<enable_z_test />
+	<setup_matrices />
+	
+	<render_particles />
+	
+	<render_gui active="false" />
+	<render_debug_info grid="false" axis="true" render_console="false" render_logger="false" render_modifiers="false" render_debug_options="false" render_debug_render="true" />
+	
+	<end_scene />
+	<present />
+</scene_renderer_commands>
