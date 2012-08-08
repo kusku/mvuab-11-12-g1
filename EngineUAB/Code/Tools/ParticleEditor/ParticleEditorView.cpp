@@ -20,6 +20,7 @@
 #include "Utils\Active.h"
 #include "Base.h"
 #include "Core.h"
+#include "Data\XMLManager.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -36,6 +37,7 @@ BEGIN_MESSAGE_MAP(CParticleEditorView, CView)
 	ON_COMMAND(ID_RING, &CParticleEditorView::OnRingEmitter)
 	ON_COMMAND(ID_BOX, &CParticleEditorView::OnBoxEmitter)
 	ON_COMMAND(ID_SPHERE, &CParticleEditorView::OnSphereEmitter)
+	ON_COMMAND(ID_FILE_SAVE, &CParticleEditorView::OnSaveData)
 	ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONUP()
 END_MESSAGE_MAP()
@@ -158,6 +160,29 @@ void CParticleEditorView::OnSphereEmitter()
 {
 	CParticleEditorProcess::DisableAllEmitters();
 	CORE->GetParticleEmitterManager()->GetResource("sphere_emitter_editor")->SetActive(true);
+}
+
+void CParticleEditorView::OnSaveData()
+{
+	CString nom;
+	FILE* file = NULL;
+
+	//  Obrir diàleg d'escriptura de fitxer (fitxers *.MNT)
+	CFileDialog openExportXML (FALSE, NULL, NULL,
+		OFN_FILEMUSTEXIST | OFN_HIDEREADONLY ,
+		_T("XML Files(*.xml)|*.xml|All Files (*.*)|*.*||"));;
+
+	if (openExportXML.DoModal() != IDOK)
+		return;                 // stay with old data file
+	else
+	{nom=openExportXML.GetPathName();}
+
+	nom = nom + CString(".xml");
+	// Conversió de la variable CString nom a la variable char *nomfitx, compatible amb la funció carregar3DS
+	char * nomfitx = (char *)(LPCTSTR)nom;
+	std::string l_szName = nomfitx;
+
+	XML::SaveData(l_szName);
 }
 
 //------------------------------------------

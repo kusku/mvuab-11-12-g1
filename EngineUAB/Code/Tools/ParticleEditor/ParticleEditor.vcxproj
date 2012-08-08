@@ -136,6 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClassView.h" />
+    <ClInclude Include="Data\XMLManager.h" />
     <ClInclude Include="defines.h" />
     <ClInclude Include="EngineManager.h" />
     <ClInclude Include="FileView.h" />
@@ -157,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ClassView.cpp" />
+    <ClCompile Include="Data\XMLManager.cpp" />
     <ClCompile Include="EngineManager.cpp" />
     <ClCompile Include="FileView.cpp" />
     <ClCompile Include="HWNDManager.cpp" />

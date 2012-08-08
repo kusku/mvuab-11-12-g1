@@ -208,9 +208,9 @@ void CPropertiesWnd::InitPropList()
 	CMFCPropertyGridProperty *l_pGeneral = new CMFCPropertyGridProperty(_T("General"));
 	static const TCHAR l_Filter[] = _T("JPG(*.jpg)|*.jpg|PNG(*.png)|*.png|BMP(*.bmp)|*.bmp|TGA(*.tga)|*.tga|DDS(*.dds)|*.dds|Todos los archivos(*.*)|*.*||");
 	l_pGeneral->AddSubItem(new CMFCPropertyGridFileProperty(_T("Texture"), TRUE, _T(""), _T("png"), 0, l_Filter, _T("Specify the texture.")));
-	/*l_pProperty = new CMFCPropertyGridProperty(_T("Quantity"), (_variant_t)300, _T("Maximum of particles for emitter."));
+	l_pProperty = new CMFCPropertyGridProperty(_T("Quantity"), (_variant_t)300, _T("Maximum of particles for emitter."));
 	l_pProperty->EnableSpinControl(TRUE, 0, 10000);
-	l_pGeneral->AddSubItem(l_pProperty);*/
+	l_pGeneral->AddSubItem(l_pProperty);
 	l_pProperty = new CMFCPropertyGridProperty(_T("Blend"), _T("NonPremultiplied"), _T("Type of blend."));
 	l_pProperty->AddOption(_T("DefaultState"));
 	l_pProperty->AddOption(_T("NonPremultiplied"));

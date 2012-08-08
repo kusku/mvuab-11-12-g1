@@ -72,7 +72,11 @@ void CPropertiesSaver::SaveProperties( TParticleSystemSettings *_ParticleSystem 
 	{
 		_ParticleSystem->m_TextureName = l_Texture;
 	}
+
 	l_Value = CPropertiesSaver::m_pProperties->GetProperty(2)->GetSubItem(1)->GetValue();
+	_ParticleSystem->m_MaxParticles = l_Value.intVal;
+
+	l_Value = CPropertiesSaver::m_pProperties->GetProperty(2)->GetSubItem(2)->GetValue();
 	std::string l_Blend = std::string( _bstr_t( l_Value.bstrVal ) );
 	if( l_Blend == "NonPremultiplied" )
 	{
@@ -86,6 +90,7 @@ void CPropertiesSaver::SaveProperties( TParticleSystemSettings *_ParticleSystem 
 	{
 		_ParticleSystem->m_BlendState = TGraphicBlendStates::DefaultState;
 	}
+	_ParticleSystem->m_BlendName = l_Blend;
 
 	// Rotate Speed Properties
 	//-----------------------------------------------
@@ -192,8 +197,12 @@ void CPropertiesSaver::LoadProperties( TParticleSystemSettings *_ParticleSystem 
 	static const TCHAR l_Filter[] = _T("JPG(*.jpg)|*.jpg|PNG(*.png)|*.png|BMP(*.bmp)|*.bmp|TGA(*.tga)|*.tga|DDS(*.dds)|*.dds|Todos los archivos(*.*)|*.*||");
 	l_pGeneral->AddSubItem(new CMFCPropertyGridFileProperty(_T("Texture"), TRUE, _T(_ParticleSystem->m_TextureName.c_str()), _T("png"), 0, l_Filter, _T("Specify the texture.")));
 
+	l_pProperty = new CMFCPropertyGridProperty(_T("Quantity"), (_variant_t)_ParticleSystem->m_MaxParticles, _T("Maximum of particles for emitter."));
+	l_pProperty->EnableSpinControl(TRUE, 0, 10000);
+	l_pGeneral->AddSubItem(l_pProperty);
+
 	//TODO: Posar el blend corresponent
-	l_pProperty = new CMFCPropertyGridProperty(_T("Blend"), _T("NonPremultiplied"), _T("Type of blend."));
+	l_pProperty = new CMFCPropertyGridProperty(_T("Blend"), _T(_ParticleSystem->m_BlendName.c_str()), _T("Type of blend."));
 	l_pProperty->AddOption(_T("DefaultState"));
 	l_pProperty->AddOption(_T("NonPremultiplied"));
 	l_pProperty->AddOption(_T("Additive"));
