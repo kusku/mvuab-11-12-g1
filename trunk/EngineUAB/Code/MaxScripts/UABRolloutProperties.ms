@@ -17,7 +17,7 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 	dropdownList LayerPhysicsList "" pos:[94,255] width:156 height:21
 	GroupBox grp3 "Logic" pos:[9,292] width:244 height:48
 	checkbox GenerateLogicCB "Generate" pos:[14,308] width:71 height:18
-	dropdownList GenerateLogicList "" pos:[89,306] width:156 height:21
+	dropdownList GenerateLogicList "" pos:[89,306] width:156 height:21 items:#("rails")
 	button GetButton "Get" pos:[433,620] width:83 height:24
 	button SetButton "Set" pos:[529,619] width:83 height:24
 	checkbox cbGenShadowMap "Dynamic Shadow Map:" pos:[15,365] width:84 height:26 checked:false
