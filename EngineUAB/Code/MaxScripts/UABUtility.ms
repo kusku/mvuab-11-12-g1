@@ -2,6 +2,7 @@ fileIn "ExportMesh.ms"
 fileIn "ExportLights.ms"
 fileIn "UABRolloutProperties.ms"
 fileIn "ExportWayPoints.ms"
+fileIn "ExportRails.ms"
 fileIn "HelperFunctions.ms"
 
 utility UABUtility "UAB Utility" width:165 height:568
@@ -14,7 +15,7 @@ utility UABUtility "UAB Utility" width:165 height:568
 	GroupBox gbExportmesh "Export Mesh Options" pos:[5,271] width:151 height:136
 	button bMeshExport "Export" pos:[8,376] width:137 height:25
 	checkbox cbCounterClockwise "Counter Clockwise" pos:[10,290] width:125 height:15 checked:true
-	radiobuttons rdoExport "Export Objects" pos:[10,141] width:74 height:78 labels:#("Selection", "Scene", "Lights", "WayPoints") default:1 columns:1
+	radiobuttons rdoExport "Export Objects" pos:[10,161] width:74 height:78 labels:#("Selection", "Scene", "Lights", "WayPoints", "Rails") default:1 columns:1
 	checkbox cbCreateStaticMesh "Create Static Mesh" pos:[11,341] width:126 height:15 checked:true
 	checkbox cbPrintDebugInfo "Print Debug Info" pos:[9,358] width:126 height:15 checked:false
 	button bProperties "Properties" pos:[86,169] width:72 height:20
@@ -65,6 +66,12 @@ utility UABUtility "UAB Utility" width:165 height:568
 			local l_Path = filepath + subOutPutDir + "WayPoints\\"
 			makeDir l_Path
 			ExportWayPoints l_Path
+		)
+		else if rdoExport.state == 5 then
+		(
+			local l_Path = filepath + subOutPutDir + "Rails\\"
+			makeDir l_Path
+			ExportRails $* l_Path
 		)
 		else
 		(
