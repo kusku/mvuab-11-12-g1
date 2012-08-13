@@ -30,10 +30,10 @@ class CPhysicController : public CObject3D
 public:
 	//--- Init and End protocols------------------------------------------
 	CPhysicController ( float _fRadius, float _fHeight, float _fSlope, float _fSkinwidth, float _fStepOffset
-												, uint32 _uiCollisionGroups, CPhysicUserData* _pUserData
+												, ECollisionGroup _uiCollisionGroups, CPhysicUserData* _pUserData
 												, const Vect3f& _vPos = Vect3f ( 0.f, 0.f, 0.f ), float _fGravity = -9.8f );
 
-	CPhysicController ( Vect3f _Dim, float _fSlope, float _fSkinwidth, float _fStepOffset, uint32 _uiCollisionGroups, CPhysicUserData* _pUserData, 
+	CPhysicController ( Vect3f _Dim, float _fSlope, float _fSkinwidth, float _fStepOffset, ECollisionGroup _uiCollisionGroups, CPhysicUserData* _pUserData, 
 												const Vect3f& _vPos = Vect3f ( 0.f, 0.f, 0.f ), float _fGravity = -9.8f );
 
 	~CPhysicController ( void );
@@ -48,16 +48,27 @@ public:
 	
 	//---- Properties ( get & Set )---------------------------------------
 	CPhysicUserData*			GetUserData				( void )				{ return m_pUserData; }
+	
 	void						SetCollision			( bool _bFlag );
+	
 	Vect3f						GetPosition				( void );
 	void						SetPosition				( const Vect3f& _vPos );
+	
 	float						GetGravity				( void ) const			{ return m_fGravity; }
 	void						SetGravity				( float _fGravity )		{ m_fGravity = _fGravity; }
+	
 	void						SetGroup                ( int _iGroup );
+	
 	void						SetHeight               ( float _fHeight );
 	float						GetHeight				( void ) const			{ return m_fHeightControler; }
-	void						SetActive               ( bool _bActive );
 	
+	void						SetActive               ( bool _bActive );
+
+	float						GetRadius				( void ) const			{ return m_fRadiusControler; }
+	void						SetRadius               ( float _fRadius );
+	
+	ECollisionGroup				GetColisionGroup		( void ) const			{ return m_uCollisionGroups; }
+
 	//---PhsX Info---
 	NxController*				GetPhXController		( void )				{ return m_pPhXController; }
 	NxControllerDesc*			GetPhXControllerDesc	( void );
@@ -75,7 +86,7 @@ private:
 	
 	void*							m_pReport;
 	
-	uint32							m_uCollisionGroups;
+	ECollisionGroup					m_uCollisionGroups;
 	CJump							m_Jump;
 	float							m_fGravity;
 	float							m_fRadiusControler;

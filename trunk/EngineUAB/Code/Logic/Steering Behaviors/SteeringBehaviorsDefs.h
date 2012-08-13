@@ -3,6 +3,8 @@
 #ifndef __STEERING_BEHAVIOURS_DEFINITIONS_H__
 #define __STEERING_BEHAVIOURS_DEFINITIONS_H__
 
+#define FUSTRUM_ENEMY_ANGLE 45.f
+
 enum eBehaviorType
 {
     none = 0x00000,
@@ -12,9 +14,9 @@ enum eBehaviorType
     wander = 0x00010,
     cohesion = 0x00020,
     separation = 0x00040,
-    allignment = 0x00080,
-    obstacle_avoidance = 0x00100,
-    wall_avoidance = 0x00200,
+    alignment = 0x00080,				// Align to some targets
+    collision_avoidance = 0x00100,
+    obstacle_wall_avoidance = 0x00200,
     follow_path = 0x00400,
     pursuit = 0x00800,
     evade = 0x01000,
@@ -22,6 +24,14 @@ enum eBehaviorType
     hide = 0x04000,
     flock = 0x08000,
     offset_pursuit = 0x10000,
+	align = 0x10002,					// Align to a target 
+};
+
+enum eSummingMethod
+{
+	weighted_average, 
+	prioritized, 
+	dithered
 };
 
 enum eDeceleration 

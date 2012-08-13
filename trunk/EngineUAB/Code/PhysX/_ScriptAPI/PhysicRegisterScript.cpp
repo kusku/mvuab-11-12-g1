@@ -1,5 +1,7 @@
 #include "PhysicRegisterScript.h"
 #include "Scripting\ScriptManager.h"
+#include "Object3D.h"
+
 #include "PhysicsManager.h"
 #include "PhysicController.h"
 #include "PhysicUserData.h"
@@ -7,7 +9,7 @@
 #include "PhysicSphericalJoint.h"
 #include "PhysicRevoluteJoint.h"
 #include "PhysicActor.h"
-#include "Object3D.h"
+
 
 #if defined (_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -29,7 +31,7 @@ namespace ScriptAPI
 				.def("add_physic_revolute_joint", &CPhysicsManager::AddPhysicRevoluteJoint)
 				.def("add_physic_spherical_joint", &CPhysicsManager::AddPhysicSphericalJoint)
 		];
-
+		
 		module(_pLua) [
 			class_<CPhysicController, CObject3D>("CPhysicController")
 				.def("move", &CPhysicController::Move)
@@ -55,6 +57,8 @@ namespace ScriptAPI
 				.def("create_joint",  &CPhysicSphericalJoint::CreateJoint)
 				.def("set_info_complete", &CPhysicSphericalJoint::SetInfoComplete)
 				.def("set_info", &CPhysicSphericalJoint::SetInfo)
+				.def("get_joint", &CPhysicSphericalJoint::GetPhXJoint)
+				.def("get_desc_joint", &CPhysicSphericalJoint::GetPhXDescJoint)
 		];
 		// registramos la clase CPhysicsManager
 		module(_pLua) [
@@ -62,6 +66,8 @@ namespace ScriptAPI
 				.def(constructor<>())
 				.def("create_joint",  &CPhysicFixedJoint::CreateJoint)
 				.def("set_info", &CPhysicFixedJoint::SetInfo)
+				.def("get_joint", &CPhysicFixedJoint::GetPhXJoint)
+				.def("get_desc_joint", &CPhysicFixedJoint::GetPhXDescJoint)
 		];
 
 		// registramos la clase CPhysicsManager
@@ -70,9 +76,12 @@ namespace ScriptAPI
 				.def(constructor<>())
 				.def("create_joint",  &CPhysicRevoluteJoint::CreateJoint)
 				.def("set_info", &CPhysicRevoluteJoint::SetInfo)
+				.def("get_joint", &CPhysicRevoluteJoint::GetPhXJoint)
+				.def("get_desc_joint", &CPhysicRevoluteJoint::GetPhXDescJoint)
 				.def("active_motor", &CPhysicRevoluteJoint::ActiveMotor)
 				.def("set_motor", &CPhysicRevoluteJoint::SetMotor)
 		];
+
 	}
 
 } //namespace ScriptAPI

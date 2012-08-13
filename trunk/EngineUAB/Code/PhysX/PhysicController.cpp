@@ -1,5 +1,6 @@
 #define __DONT_INCLUDE_MEM_LEAKS__
 #include "base.h"
+#include "Core.h"
 #include "PhysicController.h"
 
 //---PhysX Includes---//
@@ -8,10 +9,12 @@
 #include "NxPhysics.h"
 #include "NxController.h"
 #include "NxCapsuleController.h"
+#include "NxBoxController.h"
 
+#include "PhysicUserData.h"
+#include "PhysicController.h"
 #include "PhysicsManager.h"
 #include "PhysicsControllerHitReport.h"
-#include "NxBoxController.h"
 //---------------------//
 
 //#if defined (_DEBUG)
@@ -22,7 +25,7 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CPhysicController::CPhysicController ( float _fRadius, float _fHeight, float _fSlope, float _fSkinwidth, float _fStepOffset
-												, uint32 _uiCollisionGroups, CPhysicUserData* _pUserData, const Vect3f& _vPos, float _fGravity )
+												, ECollisionGroup _uiCollisionGroups, CPhysicUserData* _pUserData, const Vect3f& _vPos, float _fGravity )
 	: m_pPhXController				( NULL )
 	, m_pPhXCapsuleControllerDesc	( NULL )
 	, m_pPhXBoxControllerDesc		( NULL )
@@ -40,6 +43,8 @@ CPhysicController::CPhysicController ( float _fRadius, float _fHeight, float _fS
 {
 	assert( _pUserData );
 
+	m_pUserData->SetController(this);
+
 	//---- Crear un nuevo NxController----
 	m_pPhXCapsuleControllerDesc				= new NxCapsuleControllerDesc();
 	CPhysicsControllerHitReport* l_Report	= new CPhysicsControllerHitReport();
@@ -51,6 +56,8 @@ CPhysicController::CPhysicController ( float _fRadius, float _fHeight, float _fS
 	m_pPhXCapsuleControllerDesc->radius				= m_fRadiusControler;
 	m_pPhXCapsuleControllerDesc->height				= m_fHeightControler;
 	
+	m_pUserData->SetRadius(m_fRadiusControler);
+
 	// Dona la pendent màxima que pot pujar. 0 ho desactiva. En funció del cosinus angle. Per defecte 0.707
 	m_pPhXCapsuleControllerDesc->slopeLimit			= cosf(NxMath::degToRad(m_fSlopeLimitControler));	
 	
@@ -62,7 +69,7 @@ CPhysicController::CPhysicController ( float _fRadius, float _fHeight, float _fS
 }
 
 CPhysicController::CPhysicController ( Vect3f _Dim, float _fSlope, float _fSkinwidth, float _fStepOffset
-												, uint32 _uiCollisionGroups, CPhysicUserData* _pUserData, const Vect3f& _vPos, float _fGravity )
+												, ECollisionGroup _uiCollisionGroups, CPhysicUserData* _pUserData, const Vect3f& _vPos, float _fGravity )
 	: m_pPhXController				( NULL )
 	, m_pPhXCapsuleControllerDesc	( NULL )
 	, m_pPhXBoxControllerDesc		( NULL )
@@ -213,10 +220,10 @@ void CPhysicController::Move ( const Vect3f& _vDirection, float _ElapsedTime )
 		l_Direction.z *= 0.3f;
 	}
 
-	int mask = 1 << ECG_PERSONATGE;
-	mask |= 1 << ECG_OBJECTES_DINAMICS;
-	mask |= 1 << ECG_ESCENARI;
-	mask |= 1 << ECG_ENEMICS;
+	int mask = 1 << ECG_PLAYER;
+	mask |= 1 << ECG_DYNAMIC_OBJECTS;
+	mask |= 1 << ECG_ESCENE;
+	mask |= 1 << ECG_ENEMY;
 
 	m_pPhXController->move( l_Direction , mask, 0.000001f, collisionFlags, sharpness );
 	
@@ -228,7 +235,7 @@ void CPhysicController::Move ( const Vect3f& _vDirection, float _ElapsedTime )
 	NxExtendedVec3 tmp;
 	
 	tmp = m_pPhXController->getDebugPosition();
-
+	
 	SetPosition ( Vect3f ( (float) tmp.x, (float) tmp.y, (float) tmp.z ) );
 	CObject3D::InitMat44();
 }
@@ -284,27 +291,36 @@ bool CPhysicController::UpdateCharacterExtents (bool bent, float ammount)
 
 void CPhysicController::SetGroup(int _iGroup)
 {
-  //m_pPhXController->getActor()->setGroup(_iGroup);
-  NxShape *const* shapes = m_pPhXController->getActor()->getShapes();
-  int l_iNumShapes = m_pPhXController->getActor()->getNbShapes();
-  for(int i = 0; i < l_iNumShapes; ++i)
-  {
-    shapes[i]->setGroup(_iGroup);
-  }
+	//m_pPhXController->getActor()->setGroup(_iGroup);
+	NxShape *const* shapes = m_pPhXController->getActor()->getShapes();
+	int l_iNumShapes = m_pPhXController->getActor()->getNbShapes();
+	for(int i = 0; i < l_iNumShapes; ++i)
+	{
+		shapes[i]->setGroup(_iGroup);
+	}
 }
 
 void CPhysicController::SetHeight(float _fHeight)
 {
-  NxCapsuleController* l_CC = dynamic_cast<NxCapsuleController*>(m_pPhXController);
-  if(l_CC)
-  {
-    l_CC->setHeight(_fHeight);
-  }
+	NxCapsuleController* l_CC = dynamic_cast<NxCapsuleController*>(m_pPhXController);
+	if(l_CC)
+	{
+		l_CC->setHeight(_fHeight);
+	}
+}
+
+void CPhysicController::SetRadius(float _fRadius)
+{
+	NxCapsuleController* l_CC = dynamic_cast<NxCapsuleController*>(m_pPhXController);
+	if(l_CC)
+	{
+	l_CC->setRadius(_fRadius);
+	}
 }
 
 void CPhysicController::SetActive ( bool _bActive )
 {
-  m_pPhXController->setCollision ( _bActive );
+	m_pPhXController->setCollision ( _bActive );
 }
 
 NxControllerDesc* CPhysicController::GetPhXControllerDesc ( void )

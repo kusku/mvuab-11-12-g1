@@ -12,6 +12,7 @@
 #include <vector>
 #include "base.h"
 #include "Math\Vector3.h"
+#include "PhysicsDefs.h"
 
 //---Forward Declarations---
 class NxActor;
@@ -74,17 +75,24 @@ public:
 
 	void				SetLinearVelocity			( const Vect3f& _vVelocity );
 	Vect3f				GetLinearVelocity			();
+	
 	Vect3f				GetPosition					();
 	Vect3f				GetRotation					();
 	void				SetRotation     			( const Vect3f& _vRot);
 	void				SetRotation     			( const Mat33f& _mRot);
+	
 	void				SetAngularVelocity			( const Vect3f  _vVelocity );
 	Vect3f				GetAngularVelocity			();
+	
 	void				SetGlobalPosition			( const Vect3f& _vPos = Vect3f ( 0.f, 0.f, 0.f ) );
 	void				MoveGlobalPosition			( const Vect3f& _vPos);
+	
 	Vect3f				GetAngularMomentum			();
+	
 	Mat33f				GetInertiaTensor			();
+	
 	void				SetCollisionGroup			( uint32 _uiGroup );
+	uint32				GetColisionGroup			( void ) const				{ return m_uCollisionGroups; }
 
 	//---Get Info-------
 	void				GetMat44					( Mat44f& _mMatrix ) const;
@@ -117,6 +125,8 @@ private:
 	std::vector<NxCapsuleShapeDesc*>			m_vCapsuleDesc;
 	std::vector<NxSphereShapeDesc*>				m_vSphereDesc;
 	std::vector<NxPlaneShapeDesc*>				m_vPlaneDesc;
+
+	ECollisionGroup								m_uCollisionGroups;
 };
 
 #endif __PHYSIC_ACTOR_CLASS_H__

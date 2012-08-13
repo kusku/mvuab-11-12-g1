@@ -12,7 +12,7 @@ class CPhysicsControllerHitReport : public NxUserControllerHitReport
 		if(hit.shape)
 		{
 			NxCollisionGroup group = hit.shape->getGroup();
-			if ( group == ECG_OBJECTES_DINAMICS )
+			if ( group == ECG_DYNAMIC_OBJECTS )
 			{
 				NxActor& actor = hit.shape->getActor();
 

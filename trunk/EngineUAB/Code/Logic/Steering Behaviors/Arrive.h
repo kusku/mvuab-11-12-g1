@@ -4,8 +4,8 @@
 #define __CLASS_ARRIVE_H__
 
 #include "Math\Vector2.h"
-#include "Steering Behaviours\Steering.h"
-#include "SteeringBehavioursDefs.h"
+#include "Steering Behaviors\Steering.h"
+#include "SteeringBehaviorsDefs.h"
 
 //--- Foward Declarations ---
 class CSteeringEntity;
@@ -21,7 +21,7 @@ public:
 	virtual					~CArrive			( void );
 
 	//---- Main Functions ---------------------------------------
-	virtual	Vect2f			CalculateSteering	( CSteeringEntity *_pEntity );					// Método que deberá ser sobreescrito en cada clase que herede de Steering
+	virtual	Vect3f			CalculateSteering	( CSteeringEntity *_pEntity );					// Método que deberá ser sobreescrito en cada clase que herede de Steering
 
 	//---- Members -----------------------------------------------
 private:

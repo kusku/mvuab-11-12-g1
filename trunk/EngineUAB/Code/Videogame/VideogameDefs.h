@@ -8,7 +8,10 @@
 #define WM_GAME_PROCESS		( WM_USER + 1 )
 #define WM_GUI_PROCESS		( WM_USER + 2 )
 
-const float VELOCIDAD_MAXIMA	 = 3.0f;
+const float VELOCIDAD_MINIMA	= 1.0f;
+const float VELOCIDAD_MAXIMA	= 3.0f;
 const float FUERZA_MAXIMA		= 0.15f;
+const float ACELERACION_MAXIMA	= 2.f;
+const float ROTACION_MAXIMA		= 360.f;
 
 #endif
