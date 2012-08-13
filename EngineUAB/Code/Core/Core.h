@@ -40,6 +40,7 @@ class CParticleEmitterManager;
 class CParticleSystemManager;;
 class CParticleSettingsManager;
 class CAnimalManager;
+class CSteeringBehaviorsSeetingsManager;
 //--------------------------
 
 class CCore : public CSingleton<CCore>
@@ -58,25 +59,26 @@ public:
 	void						Render		();
 
 	//---Load Methods -------------------------------------------------------
-	bool		LoadFonts				();
-	bool		LoadLanguages			();
-	bool		LoadInputs				();
-	bool		LoadEffects				();
-	bool		LoadROTechniques		();
-	bool		LoadStaticMeshes		();
-	bool		LoadAnimatedModels		();
-	bool		LoadROLayers			();
-	bool		LoadLights				();
-	bool		LoadRenderCommands		();
-	bool		LoadPhysics				();
-	bool		LoadBillboards			();
-	bool		LoadParticles			();
-	bool		LoadGUI					();
-	bool		LoadTriggers			();
-	bool		LoadSounds				();
-	bool		LoadDebugGUI			();
-	bool		LoadWaypoints			();
-	bool		LoadAnimalMovements		();
+	bool		LoadFonts						();
+	bool		LoadLanguages					();
+	bool		LoadInputs						();
+	bool		LoadEffects						();
+	bool		LoadROTechniques				();
+	bool		LoadStaticMeshes				();
+	bool		LoadAnimatedModels				();
+	bool		LoadROLayers					();
+	bool		LoadLights						();
+	bool		LoadRenderCommands				();
+	bool		LoadPhysics						();
+	bool		LoadBillboards					();
+	bool		LoadParticles					();
+	bool		LoadGUI							();
+	bool		LoadTriggers					();
+	bool		LoadSounds						();
+	bool		LoadDebugGUI					();
+	bool		LoadWaypoints					();
+	bool		LoadAnimalMovements				();
+	bool		LoadSteeringBehaviorSettings	();
 
 	//----Reload Methods ---------------------------------------------------
 	void		Reload									();
@@ -99,6 +101,7 @@ public:
 	void		ReloadGUI								();
 	void		ReloadSounds							();
 	void		ReloadWayPoints							();
+	void		ReloadSteeringBehaviorSettings			();
 
 	//----Unload Methods ---------------------------------------------------
 	void		UnloadStaticMeshes						();
@@ -152,11 +155,13 @@ public:
 	inline CEntityManager*						GetEntityManager			() const					{ return m_pEntityManager; }					// Accés al gestor lógic d'entitats 
 	inline CMessageDispatcher*					GetMessageDispatcher		() const					{ return m_pMessageDispatcher; }				// Accés al gestor lógic de missatges
 
-	inline CParticleEmitterManager*				GetParticleEmitterManager	() const						{ return m_ParticleEmitterManager; }
-	inline CParticleSystemManager*				GetParticleSystemManager	() const						{ return m_ParticleSystemManager; }
-	inline CParticleSettingsManager*			GetParticleSettingsManager	() const						{ return m_ParticleSettingsManager; }
-
+	inline CParticleEmitterManager*				GetParticleEmitterManager	() const					{ return m_ParticleEmitterManager; }
+	inline CParticleSystemManager*				GetParticleSystemManager	() const					{ return m_ParticleSystemManager; }
+	inline CParticleSettingsManager*			GetParticleSettingsManager	() const					{ return m_ParticleSettingsManager; }
+	
 	inline CAnimalManager*						GetAnimalManager			() const					{ return m_Animalmanager; }
+
+	inline CSteeringBehaviorsSeetingsManager*	GetSteeringBehaviourSettingsManager () const			{ return m_pSteeringBehaviorSeetingsManager; }
 
 private:
 	void Release();
@@ -206,6 +211,7 @@ private:
 	CParticleSystemManager				*m_ParticleSystemManager;
 	CParticleSettingsManager			*m_ParticleSettingsManager;
 	CAnimalManager						*m_Animalmanager;
+	CSteeringBehaviorsSeetingsManager	*m_pSteeringBehaviorSeetingsManager;
 };
 
 #endif

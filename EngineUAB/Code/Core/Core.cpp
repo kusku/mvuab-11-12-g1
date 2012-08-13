@@ -27,6 +27,7 @@
 #include "LogRender\LogRender.h"
 #include "Stadistics\Stadistics.h"
 
+
 #include "Console\Console.h"
 #include "Modifiers\ModifierManager.h"
 #include "DebugGUIManager.h"
@@ -50,6 +51,8 @@
 #include "Particles\ParticleSettingsManager.h"
 
 #include "Animal Control\AnimalManager.h"
+
+#include "Steering Behaviors\SteeringBehaviorsSeetingsManager.h"
 
 #include "Cameras\ThPSCamera.h"
 
@@ -94,10 +97,11 @@ CCore::CCore ( void )
 	, m_pEntityManager					( NULL )
 	, m_pMessageDispatcher				( NULL )
 	, m_WayPointManager					( NULL )
-	, m_ParticleEmitterManager			(NULL)
-	, m_ParticleSystemManager			(NULL)
-	, m_ParticleSettingsManager			(NULL)
-	, m_Animalmanager					(NULL)
+	, m_ParticleEmitterManager			( NULL )
+	, m_ParticleSystemManager			( NULL )
+	, m_ParticleSettingsManager			( NULL )
+	, m_Animalmanager					( NULL )
+	, m_pSteeringBehaviorSeetingsManager( NULL )
 {
 }
 
@@ -144,10 +148,11 @@ void CCore::Release ( void )
 	CHECKED_DELETE ( m_pSoundManager );
 	CHECKED_DELETE ( m_pEntityManager );
 	CHECKED_DELETE ( m_pMessageDispatcher );
-	CHECKED_DELETE (m_ParticleEmitterManager);
-	CHECKED_DELETE (m_ParticleSystemManager);
-	CHECKED_DELETE (m_ParticleSettingsManager);
-	CHECKED_DELETE (m_Animalmanager);
+	CHECKED_DELETE ( m_ParticleEmitterManager );
+	CHECKED_DELETE ( m_ParticleSystemManager );
+	CHECKED_DELETE ( m_ParticleSettingsManager );
+	CHECKED_DELETE ( m_Animalmanager );
+	CHECKED_DELETE ( m_pSteeringBehaviorSeetingsManager );
 	
 	m_pCamera = NULL; //La cámara la elimina el proceso
 	m_pTimer = NULL;
@@ -278,6 +283,8 @@ bool CCore::Init( HWND _HWnd, const SConfig &config )
 
 			m_Animalmanager = new CAnimalManager();
 			//m_Animalmanager->Load(config.animal_movement_path);
+				
+			m_pSteeringBehaviorSeetingsManager = new CSteeringBehaviorsSeetingsManager();
 
 			Core::ScriptAPI::RegisterScript();
 
@@ -479,6 +486,10 @@ bool CCore::LoadDebugGUI()
 bool CCore::LoadWaypoints()
 {
 	return m_WayPointManager->Load( m_Config.waypoints_path ); 
+}
+bool CCore::LoadSteeringBehaviorSettings()
+{
+	return m_pSteeringBehaviorSeetingsManager->Load( m_Config.steering_behavior_settings_path );
 }
 
 void CCore::SetGameMode(bool _GameMode)
@@ -864,6 +875,11 @@ void CCore::ReloadSounds()
 void CCore::ReloadWayPoints()
 {
 	m_WayPointManager->Reload();
+}
+
+void CCore::ReloadSteeringBehaviorSettings()
+{
+	m_pSteeringBehaviorSeetingsManager->Reload();
 }
 
 void CCore::UnloadStaticMeshes()
