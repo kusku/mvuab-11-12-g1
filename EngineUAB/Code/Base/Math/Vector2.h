@@ -95,7 +95,8 @@ public:
   inline Vector2<T>& Rotate     (const T angle);
   inline Vector2<T>  GetRotated (const T angle) const;
   inline T           GetAngle   () const;
-
+  inline Vector2<T>	 GetXYFromAngle (float radians);
+  inline Vector2<T>&  GetPerpendicular();				// Devuelve un vector perpendicular 
 
   // Interpolación lineal
   inline Vector2<T>& Lerp    (const Vector2<T>& otro, const T t);

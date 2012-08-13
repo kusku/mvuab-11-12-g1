@@ -14,6 +14,12 @@ class CRenderDebugPhysicsSceneRendererCommand : public CSceneRendererCommand
 public:
 	CRenderDebugPhysicsSceneRendererCommand(CXMLTreeNode &Node);
 	virtual void	Execute		( CRenderManager &RM );
+	
+private:
+	bool	m_DrawFrustrum;
+	bool	m_DrawFront;
+	bool	m_DrawNames;
+	bool	m_DrawRays;
 };
 
 #endif

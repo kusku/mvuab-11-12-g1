@@ -74,7 +74,7 @@ public:
   inline Vector3<T>& operator ()  (const T tx, const T ty, const T tz);
   inline void        Set          (const T tx, const T ty, const T tz);
   inline void        SetZero      ();
-
+  inline bool		 IsZero		  ();
 
   // Coordenadas polares
   void  SetFromPolar (const T longitude, const T latitude, const T length);
@@ -135,12 +135,14 @@ public:
   inline void        GetAngles   (T& angX, T& angY, T& angZ) const;
   
   inline float		 xzToAngle	();
-  inline Vector3<T>	 GetXZFromAngle (float radians);
+  inline Vector3<T>	 GetXZFromAngle (float radians);		// Devuelve la X y Z a partir del YAW
+  inline Vector3<T>	 Truncate	( float _Max );				// Devuelve el vector acotado al màximo permitido
+  inline Vector3<T>  GetPerpendicular();					// Devuelve un vector perpendicular en el plano ZX
 
-  inline float		Dot		(const Vector3<T>& otro) const;
-  inline Vector3<T>	Cross	(const Vector3<T>& otro) const;
-
-  inline float		AngleWithVector	( const Vector3<T> &otro) const;
+  inline float		 Dot		(const Vector3<T>& otro) const;
+  inline Vector3<T>	 Cross		(const Vector3<T>& otro) const;
+					 
+  inline float		 AngleWithVector	( const Vector3<T> &otro) const;
 
   // Interpolación lineal
   inline Vector3<T>& Lerp    (const Vector3<T>& otro, const T t);
