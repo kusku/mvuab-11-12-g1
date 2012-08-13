@@ -315,6 +315,10 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 			{
 				m_Config.animal_movement_path = l_ConfigNode(i).GetPszProperty("animalMovementXML", "");
 			}
+			else if( l_Name == "SteeringBehaviorsSettings" )
+			{
+				m_Config.steering_behavior_settings_path= l_ConfigNode(i).GetPszProperty("SteeringBehaviorsSettingsXML", "");
+			}
 		}
 	}
 
