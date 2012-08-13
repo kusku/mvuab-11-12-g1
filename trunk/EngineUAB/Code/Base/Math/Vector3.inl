@@ -371,6 +371,15 @@ inline void Vector3<T>::SetZero ()
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// Retorna true si el vector es [0, 0, 0]
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+template<typename T>
+inline bool Vector3<T>::IsZero ()
+{
+	return ( x == Zero<T>() &&  y == Zero<T>() && z == Zero<T>() );
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// Establece el valor del vector a partir de coordenadas polares
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 template<typename T>
@@ -853,7 +862,10 @@ inline float Vector3<T>::AngleWithVector(const Vector3<T>& otro) const
 
 template<typename T>
 inline float Vector3<T>::xzToAngle( ) {
-	return atan2( x, -z );
+	//return atan2( x, -z );
+	//return atan2( x, z );		// Right-Hand
+	return atan2( -x, z );	// Left-Hand
+
 }
 
 
@@ -864,8 +876,35 @@ inline Vector3<T> Vector3<T>::GetXZFromAngle (float radians)
 	y = float( 0.0f );
 	z = cos( radians );
 
-	return (*this);
+	return Vector3<T>(*this);
 }
+
+template<typename T>
+inline Vector3<T> Vector3<T>::Truncate( float _Max )
+{
+	if ((*this).Length() > _Max)
+    {
+        (*this).Normalize();
+
+        (*this) *= _Max;
+    }
+
+    return Vector3<T>(*this);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// Devuelve el vector perpendicular
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+template<typename T>
+inline Vector3<T> Vector3<T>::GetPerpendicular()
+{
+	T l_Coord = x;
+	x = -z;
+	z = l_Coord;
+
+	return Vector3<T>(*this);
+}
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// Función externa: Devuelve un vector con las componentes mínimas de
