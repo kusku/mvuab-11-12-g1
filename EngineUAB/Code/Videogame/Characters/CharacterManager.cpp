@@ -38,6 +38,9 @@
 #include "StatesMachine\EntityManager.h"
 #include "StatesMachine\MessageDispatcher.h"
 
+#include "Steering Behaviors\SteeringEntity.h"
+#include "Steering Behaviors\SteeringBehaviorsSeetingsManager.h"
+
 #include "Billboard\BillboardManager.h"
 #include "Billboard\BillboardAnimation.h"
 
@@ -95,7 +98,7 @@ bool CCharactersManager::Initialize( int _NumEnemies )
 	return true;
 }
 
-void CCharactersManager::CleanReloadScripts ()
+void CCharactersManager::CleanReloadScripts( void )
 {
 	CHECKED_DELETE ( m_pPropertiesManager );		// Eliminamos las propiedades por defecto
 	CHECKED_DELETE ( m_pAnimatedStatesManager );	// Eliminamos los estados por defecto
@@ -118,11 +121,11 @@ void CCharactersManager::CleanReloadScripts ()
 	m_ResourcesVector.clear();
 }
 
-void CCharactersManager::CleanUp ()
+void CCharactersManager::CleanUp( void )
 {
-	CHECKED_DELETE( m_pPropertiesManager );		// Eliminamos las propiedades por defecto
-	CHECKED_DELETE( m_pAnimatedStatesManager );	// Eliminamos los estados por defecto
-	CHECKED_DELETE( m_pPlayer );
+	CHECKED_DELETE ( m_pPropertiesManager );		// Eliminamos las propiedades por defecto
+	CHECKED_DELETE ( m_pAnimatedStatesManager );	// Eliminamos los estados por defecto
+	CHECKED_DELETE ( m_pPlayer );
 	Destroy();
 }
 
@@ -140,7 +143,7 @@ bool CCharactersManager::Load( const std::string &_PropertyFileName, const std::
 ////----------------------------------------------------------------------------
 //// Reload : Per recarregar un fitxer XML amb tots els enemics
 ////----------------------------------------------------------------------------
-bool CCharactersManager::Reload ( void )
+bool CCharactersManager::Reload( void )
 {
 	LOGGER->AddNewLog ( ELL_INFORMATION, "CCharactersManager::Reload-->Reloading characters, properties and states" );
 	CleanUp();
@@ -150,7 +153,7 @@ bool CCharactersManager::Reload ( void )
 //----------------------------------------------------------------------------------------------------
 // LoadXML : Tracta la càrrega dels fitxers XML amb tots els enemics, players i valors per defecte
 //----------------------------------------------------------------------------------------------------
-bool CCharactersManager::LoadXML()
+bool CCharactersManager::LoadXML( void )
 {
 	bool l_IsOk;
 
@@ -170,12 +173,15 @@ void CCharactersManager::Update( float _ElapsedTime )
 	// Actualitzem el player
 	m_pPlayer->Update( _ElapsedTime );
 	
+	// Comprobamos qué enemigos deben atacar y cuales no
+	CalculateEnemyOrderToAttack(m_pPlayer->GetPosition(), 20);
+
 	// Actualitzem l'enemic
 	TVectorResources l_EnemyList = GetResourcesVector();
 	for ( size_t i = 0; i < l_EnemyList.size(); ++i )
 	{
-		CProperties *properties = l_EnemyList[i]->GetProperties();
-		if ( properties->GetActive() )
+		CProperties * l_pProperties = l_EnemyList[i]->GetProperties();
+		if ( l_pProperties->GetActive() )
 		{
 			l_EnemyList[i]->Update( _ElapsedTime );
 			if ( !l_EnemyList[i]->IsAlive() )
@@ -218,27 +224,273 @@ void CCharactersManager::Update( float _ElapsedTime )
 	}
 }
 
+//----------------------------------------------------------------------------------------------------
+// Render : Renderiza el player i algunos enemigos y sus fustrums, rayos, etc
+//----------------------------------------------------------------------------------------------------
 void CCharactersManager::Render(CRenderManager *_RM, CFontManager *_FM)
 {
-	int life = m_pPlayer->GetProperties()->GetLife();
-	Vect3f l_Pos = m_pPlayer->GetController()->GetPosition();
-	_FM->DrawDefaultText(10, 50, colBLACK, "Life: %d", life);
+	if ( m_pPlayer ) 
+	{
+		int life = m_pPlayer->GetProperties()->GetLife();
+		Vect3f l_Pos = m_pPlayer->GetController()->GetPosition();
+		_FM->DrawDefaultText(10, 50, colWHITE, "Life: %d", life);
+		_FM->DrawDefaultText(10, 65, colWHITE, "Position: %f, %f, %f", l_Pos.x, l_Pos.y, l_Pos.z);
+	}
 
-	Mat44f mat;
-	mat.SetIdentity();
-	_RM->SetTransform(mat);
+	CCharacter* l_Enemy = GetResource("enemy22");
+	if ( l_Enemy )
+		_FM->DrawDefaultText(10, 85, colWHITE, "Position Rabbit: %f, %f, %f", l_Enemy->GetPosition().x, l_Enemy->GetPosition().y, l_Enemy->GetPosition().z);
+	
+	if ( CORE->GetPhysicsManager()->GetDrawFront() )
+		DrawFront();
 
-	Vect3f l_PosPlayer = m_pPlayer->GetPosition();
-	l_PosPlayer.y += 2.f;
-	Vect3f l_DirPlayer = m_pPlayer->GetAnimatedModel()->GetFront();
-	l_DirPlayer.y = 0.f;
+	if ( CORE->GetPhysicsManager()->GetDrawFustrum() )
+		DrawFustrum();
 
-	_RM->DrawLine(l_PosPlayer, l_PosPlayer + l_DirPlayer, colGREEN);
+	if ( CORE->GetPhysicsManager()->GetDrawNames() )
+		DrawNames(_FM);
+
+	if ( CORE->GetPhysicsManager()->GetDrawRays() )
+		DrawRay();
 }
 
 //--------------------------------------------------
 //					FUNCTIONS 
 //--------------------------------------------------
+
+
+void CCharactersManager::DrawNames( CFontManager *_FM )
+{
+	Mat44f mat;
+	mat.SetIdentity();
+	CRenderManager * l_RM = CORE->GetRenderManager();
+	l_RM->SetTransform(mat);
+
+	TVectorResources::iterator l_It = m_ResourcesVector.begin();
+	TVectorResources::iterator l_End = m_ResourcesVector.end();
+	
+	Vect3f v;
+	v.SetZero();
+	for ( l_It; l_It!=l_End; l_It++ )
+	{
+		std::string s = (*l_It)->GetName().c_str();
+		//_FM->DrawDefaultText( (float)(*l_It)->GetPosition().x, (float)(*l_It)->GetPosition().z, colWHITE, "POEPE" );
+		
+	}
+}
+
+// Dibuixem els fustrums dels enemics i del player
+void CCharactersManager::DrawFustrum( void )
+{
+	Mat44f mat;
+	mat.SetIdentity();
+	CRenderManager * l_RM = CORE->GetRenderManager();
+	l_RM->SetTransform(mat);
+
+	TVectorResources::iterator l_It = m_ResourcesVector.begin();
+	TVectorResources::iterator l_End = m_ResourcesVector.end();
+
+	Vect3f l_FinalPosition;
+	Vect3f l_InitialPosition;
+
+	for ( l_It; l_It<l_End; l_It++ )
+	{
+		l_InitialPosition = (*l_It)->GetSteeringEntity()->GetInitialPositionToThrowRay();
+		l_FinalPosition = (*l_It)->GetSteeringEntity()->GetFinalPositionToThrowRay(0.f);
+		l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );
+	
+		l_FinalPosition = (*l_It)->GetSteeringEntity()->GetFinalPositionToThrowRay(45.f);
+		l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );
+
+		l_FinalPosition = (*l_It)->GetSteeringEntity()->GetFinalPositionToThrowRay(-45.f);
+		l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );
+	}
+}
+
+// Dibuixem el front dels enemics i del player
+void CCharactersManager::DrawFront( void )
+{
+	Mat44f mat;
+	mat.SetIdentity();
+	CRenderManager * l_RM = CORE->GetRenderManager();
+	l_RM->SetTransform(mat);
+
+	TVectorResources::iterator l_It = m_ResourcesVector.begin();
+	TVectorResources::iterator l_End = m_ResourcesVector.end();
+	
+	Vect3f l_FinalPosition;
+	Vect3f l_InitialPosition;
+
+	l_FinalPosition .SetZero();
+	for ( l_It; l_It!=l_End; l_It++ )
+	{
+		l_InitialPosition = (*l_It)->GetSteeringEntity()->GetInitialPositionToThrowRay();
+		l_FinalPosition  = Vect3f ( (*l_It)->GetPosition().x + (*l_It)->GetFront().x, (*l_It)->GetPosition().y + (*l_It)->GetProperties()->GetHeightController(), (*l_It)->GetPosition().z + (*l_It)->GetFront().z);
+		//l_FinalPosition = (*l_It)->GetSteeringEntity()->GetFinalPositionToThrowRay(0.f);
+		l_RM->DrawLine( l_InitialPosition, l_FinalPosition );
+	}
+	
+	// Ara el player
+	if ( m_pPlayer )
+	{
+		l_FinalPosition.SetZero();
+		l_FinalPosition = Vect3f ( m_pPlayer->GetPosition().x + m_pPlayer->GetSteeringEntity()->GetFront().x, m_pPlayer->GetPosition().y, m_pPlayer->GetPosition().z + m_pPlayer->GetSteeringEntity()->GetFront().z);
+		l_RM->DrawLine( Vect3f( m_pPlayer->GetPosition().x, m_pPlayer->GetPosition().y, m_pPlayer->GetPosition().z ) , l_FinalPosition );
+	}
+}
+
+void CCharactersManager::DrawRay( void )
+{
+	Mat44f mat;
+	mat.SetIdentity();
+	CRenderManager * l_RM = CORE->GetRenderManager();
+	l_RM->SetTransform(mat);
+	
+	Vect3f l_FinalPosition;
+	Vect3f l_InitialPosition;
+	Vect3f l_Front;
+
+	float l_ObstacleDistanceRay = CORE->GetSteeringBehaviourSettingsManager()->GetCollisionDetectionFeelerLength();
+	float l_RotacioRaigs = 45.f;
+
+	CCharacter * l_Enemy = GetResource("enemy22");
+	if (l_Enemy)
+	{
+		for ( float i = -45.f; i <= 45.f; i += l_RotacioRaigs ) 
+		{
+			l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
+			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(i);
+			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );
+		}
+
+		/*l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
+		l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(0.f);
+		l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );
+
+		l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(30.f);
+		l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );
+
+		l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(-30.f);
+		l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );*/
+	}
+
+	l_Enemy = GetResource("enemy23");
+	if (l_Enemy)
+	{ 
+		for ( float i = -45.f; i <= 45.f; i += l_RotacioRaigs ) 
+		{
+			l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
+			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(i);
+			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colGREEN );
+		}
+
+		/*l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
+		l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(0.f);
+		l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colGREEN );
+	
+		l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(30.f);
+		l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colGREEN );
+
+		l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(-30.f);
+		l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colGREEN );*/
+	}
+
+	l_Enemy = GetResource("enemy24");
+	if (l_Enemy)
+	{ 
+		/*l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
+		l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(0.f);
+		l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colRED );
+	
+		l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(30.f);
+		l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colRED );
+
+		l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(-30.f);
+		l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colRED );*/
+
+		for ( float i = -45.f; i <= 45.f; i += l_RotacioRaigs ) 
+		{
+			l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
+			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(i);
+			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colRED );
+		}
+
+	}
+
+	l_Enemy = GetResource("enemy25");
+	if (l_Enemy)
+	{
+		/*l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
+		l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(0.f);
+		l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colYELLOW );
+	
+		l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(30.f);
+		l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colYELLOW );
+
+		l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(-30.f);
+		l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colYELLOW );	*/	
+		
+		for ( float i = -45.f; i <= 45.f; i += l_RotacioRaigs ) 
+		{
+			l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
+			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(i);
+			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colYELLOW );
+		}
+	}
+
+	l_Enemy = GetResource("enemy26");
+	if (l_Enemy)
+	{
+		/*l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
+		l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(0.f);
+		l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colCYAN );
+	
+		l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(30.f);
+		l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colCYAN );
+
+		l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(-30.f);
+		l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colCYAN );		*/
+		for ( float i = -45.f; i <= 45.f; i += l_RotacioRaigs ) 
+		{
+			l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
+			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(i);
+			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colCYAN );
+		}
+	}
+	
+	l_Enemy = GetResource("enemy27");
+	if (l_Enemy)
+	{
+		/*l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
+		l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(0.f);
+		l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colBLUE );
+	
+		l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(30.f);
+		l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colBLUE );
+
+		l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(-30.f);
+		l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colBLUE );	*/
+		for ( float i = -45.f; i <= 45.f; i += l_RotacioRaigs ) 
+		{
+			l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
+			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(i);
+			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colBLUE );
+		}
+	}
+	
+	//Vect3f l_InitialPosition = l_Enemy->GetPosition();
+	//l_InitialPosition.y += 1;
+	//
+	//Vect3f l_FinalPosition = l_Enemy->GetPosition() + l_Enemy->GetFront();
+	////l_FinalPosition.Normalize();
+	//l_FinalPosition.y = l_InitialPosition.y;
+
+	//Vect3f l_FinalPosition = Vect3f ( l_Enemy->GetPosition().x + l_Enemy->GetFront().x, l_Enemy->GetPosition().y + l_Enemy->GetProperties()->GetHeightController(), l_Enemy->GetPosition().z + l_Enemy->GetFront().z) * 2;
+	//l_RM->DrawLine( Vect3f ( l_Enemy->GetPosition().x, l_Enemy->GetPosition().y + l_Enemy->GetProperties()->GetHeightController() , l_Enemy->GetPosition().z ), l_FinalPosition );
+
+	//l_FinalPosition.Normalize();
+	//l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );
+}
 
 //-------------------------------------------------------------------------------------------------------------
 // LoadXMLProperties : permite cargar las propiedades por defecto de los cores y de esta manera tener
@@ -351,8 +603,9 @@ bool CCharactersManager::LoadPlayerProperties( const CXMLTreeNode &_Node )
 		m_pPlayer->SetProperties( l_PlayerProperties );
 		
 		// Inicializamos el player, sus estados, mayas animadas...
-		m_pPlayer->Initialize( l_PlayerProperties->GetName(), m_pPlayer->GetProperties()->GetPosition(), ::ECG_PERSONATGE );
-		l_IsOk = m_pPlayer->Init();		// Llamada a Lua
+		m_pPlayer->Initialize( l_PlayerProperties->GetName(), m_pPlayer->GetProperties()->GetPosition(), ::ECG_PLAYER );
+		l_IsOk &= m_pPlayer->InitializeAI();
+		l_IsOk &= m_pPlayer->Init();		// Llamada a Lua
 		ENTMGR->RegisterEntity(m_pPlayer);
 	}
 	else 
@@ -405,7 +658,7 @@ bool CCharactersManager::LoadEnemiesProperties( const CXMLTreeNode &_Node )
 					l_Character->SetProperties(properties);
 		
 					// Inicializamos el player, sus estados, mayas animadas...
-					l_IsOk = l_Character->Initialize( l_EnemyProperties->GetName(), l_Character->GetProperties()->GetPosition(), ::ECG_ENEMICS );
+					l_IsOk = l_Character->Initialize( l_EnemyProperties->GetName(), l_Character->GetProperties()->GetPosition(), ::ECG_ENEMY );
 					l_IsOk &= l_Character->InitializeAI();
 					l_IsOk &= l_Character->Init();		// Llamada a Lua
 					AddEnemy( l_Character );			// La meto dentro de la lista
@@ -669,10 +922,10 @@ CPhysicUserData* CCharactersManager::ShootPlayerRaycast()
 	l_Pos.y += m_pPlayer->GetController()->GetHeight()/2;
 	l_Pos += l_Dir;
 
-	int mask = 1 << ECG_PERSONATGE;
-	mask |= 1 << ECG_OBJECTES_DINAMICS;
-	mask |= 1 << ECG_ESCENARI;
-	mask |= 1 << ECG_ENEMICS;
+	int mask = 1 << ECG_PLAYER;
+	mask |= 1 << ECG_DYNAMIC_OBJECTS;
+	mask |= 1 << ECG_ESCENE;
+	mask |= 1 << ECG_ENEMY;
 
 	CPhysicUserData *userdata = CORE->GetPhysicsManager()->RaycastClosestActor(l_Pos, l_Dir, mask, l_Info);
 	return userdata;
@@ -780,6 +1033,7 @@ bool CCharactersManager::EnemyIsVisibleInAngle(CCharacter *_Enemy, float _Angle,
 	l_DirEnemy.Normalize(1.f);
 
 	//Calculamos el ángulo entre los dos vectores
+	//float l_Angle = l_DirPlayer.AngleWithVector(l_DirEnemy);		// Jordi : Jo tinc això...
 	float l_Angle = l_DirPlayer.Dot(l_DirEnemy);
 	l_Angle = mathUtils::ACos(l_Angle);
 
@@ -790,3 +1044,81 @@ bool CCharactersManager::EnemyIsVisibleInAngle(CCharacter *_Enemy, float _Angle,
 
 	return true;
 }
+
+void CCharactersManager::CalculateEnemyOrderToAttack( const Vect3f & _Position, float _ViewDistance )
+{
+	// Obtengo el vector de enemigos
+	TMapResources l_EnemyList = GetResourcesMap();
+	if( l_EnemyList.size() == 0 )
+	{
+		return;
+	}
+
+	int l_Mask = 1 << ECG_ENEMY;
+	//std::multimap<std::string, >	l_OrderedMap;
+	std::vector<CCharacter *>	l_EnemyByDistance;
+
+	l_EnemyByDistance.clear();
+		
+	// Calculamos los vecinos a una posición 
+	CORE->GetPhysicsManager()->OverlapSphereActor( _ViewDistance, _Position, m_UserDatas, l_Mask );
+
+	if ( m_UserDatas.size() > 0 )
+	{
+		CCharacter * l_Character = GetResource(m_UserDatas[0]->GetName());
+		l_EnemyByDistance.push_back(l_Character);
+
+		for ( size_t i = 1; i < m_UserDatas.size(); i++)
+		{
+			bool l_Trobat = false;
+
+			CCharacter * l_Character = GetResource(m_UserDatas[i]->GetName());
+			// Si encontrado
+			if ( l_Character && l_Character->IsAlive() ) 
+			{
+				// Distancia del elemento q tratamos
+				float l_CurrentDistance = m_UserDatas[i]->GetSteeringEntity()->GetPosition().Distance(m_pPlayer->GetPosition());
+
+				std::vector<CCharacter*>::iterator l_Iter;
+
+				for ( l_Iter = l_EnemyByDistance.begin(); l_Iter != l_EnemyByDistance.end(); l_Iter++ )
+				{
+					// Si la distancia es menor que la existente del elemento ya guardado le insertamos el nuevo en esta posición
+					float l_Dist = ( (*l_Iter)->GetSteeringEntity()->GetPosition().Distance(m_pPlayer->GetPosition()));
+					if ( l_CurrentDistance <= ( (*l_Iter)->GetSteeringEntity()->GetPosition().Distance(m_pPlayer->GetPosition())) )
+					{
+						l_Character = GetResource(m_UserDatas[i]->GetName());
+						l_EnemyByDistance.insert(l_Iter, l_Character);
+						l_Trobat = true;
+						break;
+					}
+				}
+
+				if ( !l_Trobat) 
+				{
+					l_EnemyByDistance.push_back(l_Character);
+				}
+			}
+			else if ( !l_Character->IsAlive() )
+			{
+				l_Character->SetReadyToAttack(false);
+			}
+		}	// For user data
+
+		// Esto activa para el ataque los N primeros, los restantes se mantendran en Idle
+		int l_NumPlayersAttackedSameTime = CORE->GetSteeringBehaviourSettingsManager()->GetNumberEnemiesToAttackAtSameTime();
+		for ( int i = 0; i < static_cast<int>(l_EnemyByDistance.size()); i++ )
+		{
+			if ( i >= l_NumPlayersAttackedSameTime ) 
+			{
+				l_EnemyByDistance[i]->SetReadyToAttack(false);
+			}
+			else
+			{
+				l_EnemyByDistance[i]->SetReadyToAttack(true);
+			}
+		}
+
+	}	// for if exist user data
+}
+

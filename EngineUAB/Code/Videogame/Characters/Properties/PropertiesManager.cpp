@@ -65,16 +65,9 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 		else if( l_PropertyField == "strong" )
 			l_Properties->SetStrong( l_XMLPropertiesNode(i).GetIntKeyword( "strong", 0 ) );
 
-		else if( l_PropertyField == "speed" )
-			l_Properties->SetSpeed( l_XMLPropertiesNode(i).GetFloatKeyword( "speed", 10.f ) );
-
-		else if( l_PropertyField == "rotation_speed" )
-			l_Properties->SetRotationSpeed( l_XMLPropertiesNode(i).GetFloatKeyword( "rotation_speed", 360.f ) );
-
-		else if( l_PropertyField == "direction" )
+		else if( l_PropertyField == "mass" )
 		{
-			Vect3f l_Vect = l_XMLPropertiesNode(i).GetVect3fKeyword ("direction");
-			l_Properties->SetDirection( l_Vect );
+			l_Properties->SetMass( l_XMLPropertiesNode(i).GetFloatKeyword("mass", 1.f) );
 		}
 		else if( l_PropertyField == "respawn_position" )
 		{
@@ -86,6 +79,8 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 			Vect3f l_Vect = l_XMLPropertiesNode(i).GetVect3fKeyword ("position");
 			l_Properties->SetPosition( l_Vect );
 		}
+
+		// --- Propiedades de distancias --- // 
 		else if( l_PropertyField == "detection_distance" )
 		{
 			float l_distance = l_XMLPropertiesNode(i).GetFloatKeyword ("detection_distance");
@@ -116,6 +111,21 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 			float l_distance = l_XMLPropertiesNode(i).GetFloatKeyword ("attack_distance");
 			l_Properties->SetAttackDistance( l_distance );
 		}
+		else if( l_PropertyField == "impact_distance" )
+		{
+			float l_distance = l_XMLPropertiesNode(i).GetFloatKeyword ("impact_distance");
+			l_Properties->SetImpactDistance( l_distance );
+		}
+		else if( l_PropertyField == "aproximation_distance" )
+		{
+			float l_distance = l_XMLPropertiesNode(i).GetFloatKeyword ("aproximation_distance");
+			l_Properties->SetAproximationDistance( l_distance );
+		}
+		else if( l_PropertyField == "prepared_to_attack_distance" )
+		{
+			float l_distance = l_XMLPropertiesNode(i).GetFloatKeyword ("prepared_to_attack_distance");
+			l_Properties->SetPreparedAttackDistance( l_distance );
+		}
 		else if( l_PropertyField == "height_controller" )
 		{
 			l_Properties->SetHeightController( l_XMLPropertiesNode(i).GetFloatKeyword("height_controller", 1.0f) );
@@ -141,14 +151,39 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 			l_Properties->SetAnimationOffset( l_XMLPropertiesNode(i).GetFloatKeyword("animation_offset", 0.5f) );
 		}
 
-		// --- Temas de IA --- //
+		// --- Propiedades de IA --- //
 		else if( l_PropertyField == "bounding_radius" )
 		{
 			l_Properties->SetBoundingRadious( l_XMLPropertiesNode(i).GetFloatKeyword("bounding_radius", 10.f) );
 		}
+		else if( l_PropertyField == "velocity" )
+		{
+			Vect3f l_Vect = l_XMLPropertiesNode(i).GetVect3fKeyword ("velocity", Vect3f(0.f,0.f,0.f));
+			l_Properties->SetVelocity( l_Vect );
+		}
+		else if( l_PropertyField == "speed" )
+		{
+			l_Properties->SetSpeed( l_XMLPropertiesNode(i).GetFloatKeyword ("speed", 1.f ) );
+		}
+		else if( l_PropertyField == "max_rotation_speed" )
+		{
+			l_Properties->SetMaxRotationSpeed( l_XMLPropertiesNode(i).GetFloatKeyword( "max_rotation_speed", ROTACION_MAXIMA ) );
+		}
+		else if( l_PropertyField == "min_speed" )
+		{
+			l_Properties->SetMinSpeed( l_XMLPropertiesNode(i).GetFloatKeyword("min_speed", VELOCIDAD_MINIMA) );
+		}
 		else if( l_PropertyField == "max_speed" )
 		{
 			l_Properties->SetMaxSpeed( l_XMLPropertiesNode(i).GetFloatKeyword("max_speed", VELOCIDAD_MAXIMA) );
+		}
+		else if( l_PropertyField == "max_acceleration" )
+		{
+			l_Properties->SetMaxAcceleration( l_XMLPropertiesNode(i).GetFloatKeyword("max_acceleration", ACELERACION_MAXIMA) );
+		}
+		else if( l_PropertyField == "max_force" )
+		{
+			l_Properties->SetMaxForce( l_XMLPropertiesNode(i).GetFloatKeyword("max_force", FUERZA_MAXIMA) );
 		}
 		// --- Fi temas de IA --- //
 		else if ( l_PropertyField != "comment" ) 

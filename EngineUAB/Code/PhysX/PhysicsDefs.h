@@ -36,13 +36,13 @@ struct SCollisionInfo
 };
 
 enum ECollisionGroup {
-	ECG_ESCENARI,
-	ECG_PERSONATGE,
-	ECG_ENEMICS,
+	ECG_ESCENE,
+	ECG_PLAYER,
+	ECG_ENEMY,
 	ECG_TRIGGERS,
 	ECG_MALGLOBAL,
 	ECG_COBERTURES,
-	ECG_OBJECTES_DINAMICS,
+	ECG_DYNAMIC_OBJECTS,
 	ECG_EXPLOSIONS,
 	ECG_RAY_SHOOT,
 	ECG_RAY_SHOOT_PLAYER,
@@ -52,6 +52,7 @@ enum ECollisionGroup {
 	ECG_RAGDOLL,
 	ECG_RAGDOLL_PLAYER,
 	ECG_VIGIA,
+	ECG_LIMITS,			// Representa muros o límites del escenario por donde el player no debería poder cruzar
 
 	//aquest ha de ser l'últim sempre!!!!
 	ECG_LAST_GROUP

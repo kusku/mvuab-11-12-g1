@@ -25,29 +25,8 @@
     <ClCompile Include="Movement\WayPoint.cpp">
       <Filter>IA\Movement</Filter>
     </ClCompile>
-    <ClCompile Include="Steering Behaviours\Steering.cpp">
-      <Filter>IA\Steering Behaviors</Filter>
-    </ClCompile>
-    <ClCompile Include="Steering Behaviours\SteeringBehaviours.cpp">
-      <Filter>IA\Steering Behaviors</Filter>
-    </ClCompile>
-    <ClCompile Include="Steering Behaviours\Seek.cpp">
-      <Filter>IA\Steering Behaviors</Filter>
-    </ClCompile>
-    <ClCompile Include="Steering Behaviours\SteeringEntity.cpp">
-      <Filter>IA\Steering Behaviors</Filter>
-    </ClCompile>
-    <ClCompile Include="Steering Behaviours\Pursuit.cpp">
-      <Filter>IA\Steering Behaviors</Filter>
-    </ClCompile>
-    <ClCompile Include="Steering Behaviours\Arrive.cpp">
-      <Filter>IA\Steering Behaviors</Filter>
-    </ClCompile>
     <ClCompile Include="Animal Control\AnimalManager.cpp">
       <Filter>IA\Animal Control</Filter>
-    </ClCompile>
-    <ClCompile Include="Steering Behaviours\Flee.cpp">
-      <Filter>IA\Steering Behaviors</Filter>
     </ClCompile>
     <ClCompile Include="Triggers\Trigger.cpp">
       <Filter>Triggers</Filter>
@@ -60,6 +39,30 @@
     </ClCompile>
     <ClCompile Include="_ScriptAPI\LogicRegisterScript.cpp">
       <Filter>_ScriptAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="Steering Behaviors\Arrive.cpp">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="Steering Behaviors\Flee.cpp">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="Steering Behaviors\Pursuit.cpp">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="Steering Behaviors\Seek.cpp">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="Steering Behaviors\Steering.cpp">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="Steering Behaviors\SteeringBehaviors.cpp">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="Steering Behaviors\SteeringBehaviorsSeetingsManager.cpp">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="Steering Behaviors\SteeringEntity.cpp">
+      <Filter>IA\Steering Behaviors</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -108,32 +111,8 @@
     <ClInclude Include="Movement\WayPoint.h">
       <Filter>IA\Movement</Filter>
     </ClInclude>
-    <ClInclude Include="Steering Behaviours\Steering.h">
-      <Filter>IA\Steering Behaviors</Filter>
-    </ClInclude>
-    <ClInclude Include="Steering Behaviours\SteeringBehaviours.h">
-      <Filter>IA\Steering Behaviors</Filter>
-    </ClInclude>
-    <ClInclude Include="Steering Behaviours\SteeringBehavioursDefs.h">
-      <Filter>IA\Steering Behaviors</Filter>
-    </ClInclude>
-    <ClInclude Include="Steering Behaviours\Seek.h">
-      <Filter>IA\Steering Behaviors</Filter>
-    </ClInclude>
-    <ClInclude Include="Steering Behaviours\SteeringEntity.h">
-      <Filter>IA\Steering Behaviors</Filter>
-    </ClInclude>
-    <ClInclude Include="Steering Behaviours\Pursuit.h">
-      <Filter>IA\Steering Behaviors</Filter>
-    </ClInclude>
-    <ClInclude Include="Steering Behaviours\Arrive.h">
-      <Filter>IA\Steering Behaviors</Filter>
-    </ClInclude>
     <ClInclude Include="Animal Control\AnimalManager.h">
       <Filter>IA\Animal Control</Filter>
-    </ClInclude>
-    <ClInclude Include="Steering Behaviours\Flee.h">
-      <Filter>IA\Steering Behaviors</Filter>
     </ClInclude>
     <ClInclude Include="Triggers\Trigger.h">
       <Filter>Triggers</Filter>
@@ -149,6 +128,36 @@
     </ClInclude>
     <ClInclude Include="_ScriptAPI\LogicRegisterScript.h">
       <Filter>_ScriptAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="Steering Behaviors\Arrive.h">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="Steering Behaviors\Flee.h">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="Steering Behaviors\Pursuit.h">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="Steering Behaviors\Seek.h">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="Steering Behaviors\Steering.h">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="Steering Behaviors\SteeringBehaviors.h">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="Steering Behaviors\SteeringBehaviorsDefs.h">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="Steering Behaviors\SteeringBehaviorsSeetingsManager.h">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="Steering Behaviors\SteeringEntity.h">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="Steering Behaviors\Smoother.h">
+      <Filter>IA\Steering Behaviors</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

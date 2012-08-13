@@ -22,7 +22,7 @@ class CPhysicController;
 class CPhysicUserData;
 class CAnimationsStates;
 class CAnimatedInstanceModel;
-class CSteeringBehaviours;
+class CSteeringBehaviors;
 class CSteeringEntity;
 struct STelegram;
 //---------------------------//
@@ -38,8 +38,8 @@ public:
 
 	//----Main Functions --------------------------------------
 	virtual bool				Initialize			( const std::string &_Name, const Vect3f &_InitialPosicion, ECollisionGroup _Grup );
-	bool						InitializeAI		();
-	virtual bool				Init				();
+	bool						InitializeAI		( void );
+	virtual bool				Init				( void );
 	virtual bool				HandleMessage		( const STelegram& _Msg, bool _Logic = true, bool _Graphic = true  );		// Envia telegramas a las máquinas de estados
 	virtual bool				HandleMessage		( const STelegram& _Msg );
 	virtual void				Update				( float _ElapsedTime );
@@ -47,8 +47,10 @@ public:
 	//----Methods ---------------------------------------------
 	void						MoveController		( const Vect3f &_Dir, float _ElapsedTime );
 	void						MoveTo				( const Vect3f &_Position, float _ElapsedTime );
+	void						MoveTo2				( const Vect3f &_Position, float _ElapsedTime );
 	void						FaceTo				( const Vect3f &_Position, float _ElapsedTime );
-	//bool						IsPlayerDetected	();
+	void						FaceTo2				( const Vect3f &_Position, float _ElapsedTime );
+	//bool						IsPlayerDetected	( void );
 	
 	void						AddLife				( int _Life );								
 	void						RestLife			( int _Life );								
@@ -71,17 +73,20 @@ public:
 	inline const Vect3f&		GetPrevPosition		() const					{ return m_PrevPosition; }
 
 	void						SetEnable			( bool _Enable );			
-	inline bool					IsEnable			() const				{ return this->GetProperties()->GetActive(); }
+	inline bool					IsEnable			( void ) const				{ return this->GetProperties()->GetActive(); }  // m_bIsEnable; }
 
-	inline void					SetAlive			( bool alive )			{ m_bIsAlive = alive; }
-	inline bool					IsAlive				() const				{ return m_bIsAlive; }
+	inline void					SetAlive			( bool alive )				{ m_bIsAlive = alive; }
+	inline bool					IsAlive				( void ) const				{ return m_bIsAlive; }
 
-	inline void					SetLocked			( bool locked )			{ m_bLocked = locked; }
-	inline bool					GetLocked			() const				{ return m_bLocked; }
+	inline void					SetLocked			( bool locked )				{ m_bLocked = locked; }
+	inline bool					GetLocked			( void ) const				{ return m_bLocked; }
 
-	inline CSteeringBehaviours*	GetBehaviours		() const				{ return m_pBehaviours; }
-	inline CSteeringEntity*		GetSteeringEntity	() const				{ return m_pSteeringEntity; }
+	inline CSteeringBehaviors*	GetBehaviors		( void ) const				{ return m_pBehaviors; }
+	inline CSteeringEntity*		GetSteeringEntity	( void ) const				{ return m_pSteeringEntity; }
 	
+
+	// Obtengo el angulo que forma donde mira
+	inline Vect3f				GetFront			() const					{ Vect3f l_Front; l_Front.GetXZFromAngle( GetYaw() ) ; return l_Front; }
 
 	bool						IsPointAtLeft		( const Vect3f &_Position ) const	
 															{
@@ -95,6 +100,8 @@ public:
 	inline void					SetProperties		( CProperties* _pProperties )				{ m_pProperties = _pProperties; }
 	inline CProperties*			GetProperties		() const									{ return m_pProperties; }
 
+	inline void					SetReadyToAttack	( bool _isReady )			{ m_ReadyToAttack = _isReady; }
+	inline bool					GetReadyToAttack	( void ) const				{ return m_ReadyToAttack; }
 
 	//----Members ---------------------------------------------
 private:
@@ -115,8 +122,11 @@ protected:
 	
 	Vect3f							m_PrevPosition;
 
-	CSteeringBehaviours			  * m_pBehaviours;
+	CSteeringBehaviors			  * m_pBehaviors;
 	CSteeringEntity				  * m_pSteeringEntity;
+
+	bool							m_ReadyToAttack; 
+
 };
 
 #endif

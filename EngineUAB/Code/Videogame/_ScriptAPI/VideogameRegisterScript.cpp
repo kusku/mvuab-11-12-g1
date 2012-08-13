@@ -7,8 +7,8 @@
 #include "PhysicController.h"
 #include "Characters/Character.h"
 #include "Characters/CharacterManager.h"
-#include "Steering Behaviours\SteeringEntity.h"
-#include "Steering Behaviours\SteeringBehaviours.h"
+#include "Steering Behaviors\SteeringEntity.h"
+#include "Steering Behaviors\SteeringBehaviors.h"
 #include "StatesMachine\StateMachine.h"
 #include "StatesMachine\State.h"
 #include "PhysicUserData.h"
@@ -63,7 +63,7 @@ namespace ScriptAPI
 					.def("add_strong", &CCharacter::AddStrong)
 					.def("rest_strong", &CCharacter::RestStrong)
 					.def("is_alive", &CCharacter::IsAlive)
-					.property( "behaviours", &CCharacter::GetBehaviours)
+					.property( "behaviors", &CCharacter::GetBehaviors)
 					.property( "steering_entity", &CCharacter::GetSteeringEntity)
 					.property("physic_controller", &CCharacter::GetController)	
 					.property("animated_model", &CCharacter::GetAnimatedModel)
@@ -126,18 +126,25 @@ namespace ScriptAPI
 					.property("animated_instance_name", &CProperties::GetAnimationInstance, &CProperties::SetAnimationInstance)	
 					.property("life", &CProperties::GetLife, &CProperties::SetLife)	
 					.property("strong", &CProperties::GetStrong, &CProperties::SetStrong)	
-					.property("direction", &CProperties::GetDirection, &CProperties::SetDirection)	
-					.property("speed", &CProperties::GetSpeed, &CProperties::SetSpeed)	
-					.property("rotation_speed", &CProperties::GetRotationSpeed, &CProperties::SetRotationSpeed)	
+					.property("mass", &CProperties::GetMass, &CProperties::SetMass)
 					.property("respawn_position", &CProperties::GetRespawnPosition, &CProperties::SetRespawnPosition)
+					.property("velocity", &CProperties::GetVelocity, &CProperties::SetVelocity)	
+					.property("speed", &CProperties::GetSpeed, &CProperties::SetSpeed)	
+					.property("max_speed", &CProperties::GetMaxSpeed, &CProperties::SetMaxSpeed)
+					.property("min_speed", &CProperties::GetMinSpeed, &CProperties::SetMinSpeed)
+					.property("max_acceleration", &CProperties::GetMaxAcceleration, &CProperties::SetMaxAcceleration)
+					.property("max_rotation", &CProperties::GetMaxRotationSpeed, &CProperties::SetMaxRotationSpeed)
+					.property("max_force", &CProperties::GetMaxForce, &CProperties::SetMaxForce)	
 					.property("detection_distance", &CProperties::GetDetectionDistance, &CProperties::SetDetectionDistance)
-					.property("distance_chase", &CProperties::GetChaseDistance, &CProperties::SetChaseDistance)
-					.property("distance_path_follow", &CProperties::GetFollowPathDistance, &CProperties::SetFollowPathDistance)
+					.property("chase_distance", &CProperties::GetChaseDistance, &CProperties::SetChaseDistance)
+					.property("path_follow_distance", &CProperties::GetFollowPathDistance, &CProperties::SetFollowPathDistance)
+					.property("impact_distance", &CProperties::GetImpactDistance, &CProperties::SetImpactDistance)
 					.property("attack_distance", &CProperties::GetAttackDistance, &CProperties::SetAttackDistance)
+					.property("aproximation_distance", &CProperties::GetAproximationDistance, &CProperties::SetAproximationDistance)
+					.property("prepared_attack_distance", &CProperties::GetPreparedAttackDistance, &CProperties::SetPreparedAttackDistance)
 					.property("tired_distance", &CProperties::GetTiredDistance, &CProperties::SetTiredDistance)
 					.property("panic_distance", &CProperties::GetPanicDistance, &CProperties::SetPanicDistance)
 					.property("bounding_radius", &CProperties::GetBoundingRadious, &CProperties::SetBoundingRadious)
-					.property("max_speed", &CProperties::GetMaxSpeed, &CProperties::SetMaxSpeed)
 					.property("animation_offset", &CProperties::GetAnimationOffset)
 			];
 

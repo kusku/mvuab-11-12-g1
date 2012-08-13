@@ -5,6 +5,16 @@
 
 #include <luabind/luabind.hpp>
 
+#define NOMINMAX
+#include "NxJoint.h"
+#include "NxFixedJointDesc.h"
+#include "NxFixedJoint.h"
+#include "NxSphericalJointDesc.h"
+#include "NxSphericalJoint.h"
+#include "NxRevoluteJointDesc.h"
+#include "NxRevoluteJoint.h"
+
+
 namespace Physic
 {
 	namespace ScriptAPI

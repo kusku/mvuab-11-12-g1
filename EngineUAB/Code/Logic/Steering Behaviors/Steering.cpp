@@ -12,7 +12,7 @@
 
 CSteering::CSteering( eBehaviorType _Type )
 	: m_Type	( _Type )
-	, m_Target	( )
+	, m_Target	( Vect3f(0,0,0) )
 {}
 
 

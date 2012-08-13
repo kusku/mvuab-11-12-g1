@@ -50,19 +50,19 @@ class CPhysicsManager
 {
 public:
 	//--- Init and End protocols------------------------------------------
-							CPhysicsManager		();
-	virtual					~CPhysicsManager	()		{ Done(); }
+							CPhysicsManager					();
+	virtual					~CPhysicsManager				()		{ Done(); }
 
 	//---- Main Functions ---------------------------------------
-	bool					Init				();
-	void					Done				();
-	bool					IsOk				() const						{ return m_bIsOk; }
-	bool					Load				( const std::string &_PhysXConfig );
-	bool					Reload				();
+	bool					Init							();
+	void					Done							();
+	bool					IsOk							() const						{ return m_bIsOk; }
+	bool					Load							( const std::string &_PhysXConfig );
+	bool					Reload							();
 	
 	//--- Rendering Stuff:
-	void					DebugRender			( CRenderManager *_RM );
-	void					DrawActor			( NxActor* actor, CRenderManager* _RM );
+	void					DebugRender						( CRenderManager *_RM );
+	void					DrawActor						( NxActor* actor, CRenderManager* _RM );
 
 	//--- Add/Release Actors
 	bool					AddPhysicActor					( CPhysicActor* _pActor);
@@ -71,7 +71,7 @@ public:
 	bool					ReleaseAllActors				(); //EUserDataFlag _eFlags );
 
 	//--- Add/Release CharacterControllers
-	bool					AddPhysicController				( CPhysicController* _pController, EControleType _Tipus = ::CAPSULE, ECollisionGroup _Group = ::ECG_ENEMICS );
+	bool					AddPhysicController				( CPhysicController* _pController, EControleType _Tipus = ::CAPSULE, ECollisionGroup _Group = ::ECG_ENEMY );
 	bool					ReleasePhysicController			( CPhysicController* _pController );
 
 	////--- Add/Release Joints
@@ -105,20 +105,33 @@ public:
 	void					SetInitParams					( const SPhysicsInitParams& initParams )	{ m_InitParams = initParams; }
 	
 	//--- Get CookingMesh
-	CPhysicCookingMesh*		GetCookingMesh					() const							{ return m_pCookingMesh; }
-	NxPhysicsSDK*			GetPhysicsSDK					()									{ return m_pPhysicsSDK; }
+	CPhysicCookingMesh*		GetCookingMesh					() const									{ return m_pCookingMesh; }
+	NxPhysicsSDK*			GetPhysicsSDK					()											{ return m_pPhysicsSDK; }
 	CPhysicActor*			GetActor						( std::string _ActorName );
 
 	void					SetTriggerReport				( CPhysicTriggerReport* _pReport );
 	void					SetCollisionReport				( CPhysicCollisionReport* _pReport );
   
-	int						GetCollisionMask				( ECollisionGroup _szGroup )		{ return m_CollisionMasks[_szGroup]; }
-	const std::string&		GetConfigFileName				() const							{ return m_szConfigFileName; }
+	int						GetCollisionMask				( ECollisionGroup _szGroup )				{ return m_CollisionMasks[_szGroup]; }
+	const std::string&		GetConfigFileName				() const									{ return m_szConfigFileName; }
 	int						GetCollisionGroup				( const std::string& _szGroup );
 
+	inline void				SetDrawFustrum					( bool _draw )							{ m_bFustrum = _draw; }
+	inline bool				GetDrawFustrum					( void )								{ return m_bFustrum; }
+	
+	inline void				SetDrawFront					( bool _draw )							{ m_bFront = _draw; }
+	inline bool				GetDrawFront					( void )								{ return m_bFront; }
+	
+	inline void				SetDrawNames					( bool _draw )							{ m_bFustrum = _draw; }
+	inline bool				GetDrawNames					( void )								{ return m_bFustrum; }
+	
+	inline void				SetDrawRays						( bool _draw )							{ m_bRays = _draw; }
+	inline bool				GetDrawRays						( void )								{ return m_bRays; }
+	
+
 private:
-	bool					LoadXML				();
-	void					Release				();
+	bool					LoadXML							();
+	void					Release							();
 
 private:
 	bool					m_bIsOk;
@@ -135,6 +148,12 @@ private:
 	CPhysicCookingMesh*		m_pCookingMesh;
 	SPhysicsInitParams		m_InitParams;
 	//-------------------------------------------
+
+	bool				m_bFustrum;			// dice si dibuja los fustrums de los caracteres
+	bool				m_bFront;			// dice si dibuja los fronts de los caracteres
+	bool				m_bNames;			// dice si dibuja los Nombres de los caracteres
+	bool				m_bRays;			// dice si dibuja los Rayos de los caracteres
+	
 };
 
 #endif __PHYSX_MANAGER_CLASS_H__

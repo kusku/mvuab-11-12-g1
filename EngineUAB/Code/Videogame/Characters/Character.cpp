@@ -2,12 +2,12 @@
 #include "Properties/Properties.h"
 #include "VideogameDefs.h"
 
-#include "Steering Behaviours\SteeringBehaviours.h"
-#include "Steering Behaviours\SteeringBehavioursDefs.h"
-#include "Steering Behaviours\SteeringEntity.h"
-#include "Steering Behaviours\Seek.h"
-#include "Steering Behaviours\Pursuit.h"
-#include "Steering Behaviours\Arrive.h"
+#include "Steering Behaviors\SteeringBehaviors.h"
+#include "Steering Behaviors\SteeringBehaviorsDefs.h"
+#include "Steering Behaviors\SteeringEntity.h"
+#include "Steering Behaviors\Seek.h"
+#include "Steering Behaviors\Pursuit.h"
+#include "Steering Behaviors\Arrive.h"
 
 #include "StatesMachine\MessageDispatcher.h"
 
@@ -42,9 +42,10 @@ CCharacter::CCharacter()
 	, m_pPhysicUserDataJugador	( NULL )
 	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
 	, m_bLocked					( false )
-	, m_pBehaviours				( NULL )
+	, m_pBehaviors				( NULL )
 	, m_pSteeringEntity			( NULL )
 	, m_bIsAlive				( true )
+	, m_ReadyToAttack			( false )
 {
 	// coloco la máquina de estados i el controler de física
     m_pLogicStateMachine	= new CStateMachine<CCharacter>( this );
@@ -65,9 +66,10 @@ CCharacter::CCharacter( const std::string &_Name )
 	, m_pPhysicUserDataJugador	( NULL )
 	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
 	, m_bLocked					( false )
-	, m_pBehaviours				( NULL )
+	, m_pBehaviors				( NULL )
 	, m_pSteeringEntity			( NULL )
 	, m_bIsAlive				( true )
+	, m_ReadyToAttack			( false )
 {
 	SetName ( _Name );
 
@@ -90,9 +92,10 @@ CCharacter::CCharacter(int _ID, const std::string &_Name)
 	, m_pPhysicUserDataJugador	( NULL )
 	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
 	, m_bLocked					( false )
-	, m_pBehaviours				( NULL )
+	, m_pBehaviors				( NULL )
 	, m_pSteeringEntity			( NULL )
 	, m_bIsAlive				( true )
+	, m_ReadyToAttack			( false )
 {
 	SetName ( _Name );
 	// coloco la máquina de estados
@@ -102,7 +105,7 @@ CCharacter::CCharacter(int _ID, const std::string &_Name)
 
 CCharacter::~CCharacter()
 {
-	CHECKED_DELETE ( m_pBehaviours );
+	CHECKED_DELETE ( m_pBehaviors );
 	CHECKED_DELETE ( m_pSteeringEntity );
 	CHECKED_DELETE ( m_pLogicStateMachine );
 	CHECKED_DELETE ( m_pGraphicStateMachine );
@@ -118,7 +121,7 @@ CCharacter::~CCharacter()
 // -----------------------------------------
 //			METODES PRINCIPALS
 // -----------------------------------------
-bool CCharacter::Init()
+bool CCharacter::Init( void )
 {
 	// Metodo y cosas a implementar en Lua
 	//if ( m_pCurrentAnimatedModel )
@@ -178,33 +181,62 @@ bool CCharacter::Initialize( const std::string &_Name, const Vect3f &_InitialPos
 		float l_Yaw = m_pCurrentAnimatedModel->GetYaw();
 		m_pCurrentAnimatedModel->SetYaw( l_Yaw + mathUtils::Rad2Deg( m_pProperties->GetYaw() ) );
 		m_pController->SetYaw( m_pProperties->GetYaw() );
+		m_pCurrentAnimatedModel->SetPosition( l_Position );
 	}
 	
 	this->SetName(_Name);
 	this->SetEnable ( m_pProperties->GetActive() );
 
-	MoveTo( l_Position, 0.0f );
+	// Jordi 12/08/2012 -- Antes debemos inicializar el m_pSteeringEntity
+	//MoveTo( l_Position, 0.0f );
 
 	return true;
 }
 
-bool CCharacter::InitializeAI ()
+bool CCharacter::InitializeAI ( void )
 {
-	m_pBehaviours			= new CSteeringBehaviours( FUERZA_MAXIMA );
+	m_pBehaviors			= new CSteeringBehaviors( FUERZA_MAXIMA );
 	m_pSteeringEntity		= new CSteeringEntity();
 
-	if ( m_pBehaviours == NULL || m_pSteeringEntity == NULL )
+	if ( m_pBehaviors == NULL || m_pSteeringEntity == NULL )
 	{
 		return false;
 	}
 	else 
 	{
-		m_pSteeringEntity->SetBoundingRadius ( m_pProperties->GetBoundingRadious() );
-		m_pSteeringEntity->SetMaxSpeed ( m_pProperties->GetBoundingRadious() );
+		m_pSteeringEntity->SetPosition			( m_pProperties->GetPosition() );
+		m_pSteeringEntity->SetPreviousPosition	( m_pProperties->GetPosition() );
+		m_pSteeringEntity->SetBoundingRadius	( m_pProperties->GetBoundingRadious() );
+		m_pSteeringEntity->SetHeight			( m_pProperties->GetHeightController() );
+		m_pSteeringEntity->SetName				( m_pProperties->GetName() );
+		m_pSteeringEntity->SetMass 				( m_pProperties->GetMass() );
+		m_pSteeringEntity->SetMaxForce			( m_pProperties->GetMaxForce() );
+		m_pSteeringEntity->SetMaxSpeed			( m_pProperties->GetMaxSpeed() );
+		m_pSteeringEntity->SetMaxRotation		( m_pProperties->GetMaxRotationSpeed() );
+		m_pSteeringEntity->SetMaxAcceleration	( m_pProperties->GetMaxAcceleration() );
+		m_pSteeringEntity->SetYaw				( m_pProperties->GetYaw() );
+		
+		m_pSteeringEntity->SetVelocity			( m_pProperties->GetVelocity() );
+		if ( m_pSteeringEntity->GetVelocity().SquaredLength() > 0.00000001 )		
+		{
+			Vect3f v = m_pSteeringEntity->GetVelocity();
+			v.Normalize();
+			m_pSteeringEntity->SetHeading(v);
+			m_pSteeringEntity->SetSide( v.GetPerpendicular() );
+		}
+		else
+		{
+			Vect3f v = m_pSteeringEntity->GetPosition();
+			v.Normalize();
+			m_pSteeringEntity->SetHeading(v);
+			m_pSteeringEntity->SetSide( v.GetPerpendicular() );
+		}
 
-		m_pBehaviours->AddBehavior( new CSeek() );
-		m_pBehaviours->AddBehavior( new CPursuit(::normal, 50.f) );
-		m_pBehaviours->AddBehavior( new CArrive(::normal, 50.f) );
+		m_pSteeringEntity->SetYaw(m_pSteeringEntity->GetVelocity().GetAngleY());
+
+		// Esto lo necesito para trabajar con los datos de movimiento y colisiones con físic
+		m_pController->GetUserData()->SetSteeringEntity(m_pSteeringEntity);
+		m_pSteeringEntity->SetController(m_pController);
 
 		return true;
 	}
@@ -212,6 +244,7 @@ bool CCharacter::InitializeAI ()
 
 void CCharacter::Update ( float _ElapsedTime )			
 { 
+	// Fet en Lua
 	/*m_pLogicStateMachine->Update( );
 	m_pGraphicStateMachine->Update( );*/
 }
@@ -247,16 +280,56 @@ void CCharacter::MoveController(const Vect3f &_Dir, float _ElapsedTime)
 	m_pController->Move( _Dir, _ElapsedTime );
 }
 
+void CCharacter::FaceTo2( const Vect3f &_Position, float _ElapsedTime )
+{
+	//m_fYaw-=mathUtils::Deg2Rad(180.0f);
+	if ( _Position.x == m_Position.x && _Position.z == m_Position.z )
+		return;
+	
+	Vect3f l_ToTarget = _Position;
+	l_ToTarget.y = .0f;
+	l_ToTarget.Normalize();
+	
+	float l_DesiredYaw = l_ToTarget.GetAngleY();
+	float l_RotationSpeed = m_pProperties->GetMaxRotationSpeed();
+
+	if(l_DesiredYaw<0.0f)
+		l_DesiredYaw+=mathUtils::Deg2Rad(360.0f);
+	if(m_fYaw<0.0f)
+		m_fYaw+=mathUtils::Deg2Rad(360.0f);
+
+	if((l_DesiredYaw-m_fYaw)>mathUtils::Deg2Rad(180.0f))
+		l_DesiredYaw-=mathUtils::Deg2Rad(360.0f);
+	else if((l_DesiredYaw-m_fYaw)<mathUtils::Deg2Rad(-180.0f))
+		m_fYaw-=mathUtils::Deg2Rad(360.0f);
+	
+	float l_Rot = mathUtils::Deg2Rad(l_RotationSpeed);
+	if(l_DesiredYaw>m_fYaw)
+		m_fYaw=mathUtils::Min(l_DesiredYaw, m_fYaw + l_Rot * _ElapsedTime);
+	else 
+	{
+		m_fYaw=mathUtils::Max(l_DesiredYaw, m_fYaw - l_Rot * _ElapsedTime);
+	}
+
+	m_pController->SetYaw(m_fYaw);
+	float l_Yaw = mathUtils::Rad2Deg(m_fYaw);
+	m_pCurrentAnimatedModel->SetYaw(l_Yaw /*+ 90.f */ );
+	m_pSteeringEntity->SetYaw(l_Yaw);
+}
+
+
 void CCharacter::FaceTo( const Vect3f &_Position, float _ElapsedTime )
 {
 	//m_fYaw-=mathUtils::Deg2Rad(180.0f);
 	if(_Position.x==m_Position.x && _Position.z==m_Position.z)
 		return;
-	Vect3f v = (_Position - m_Position);
-	v.y=.0f;
-	v.Normalize();
-	float l_DesiredYaw=v.GetAngleY();
-	float l_RotationSpeed = m_pProperties->GetRotationSpeed();
+
+	Vect3f l_ToTarget = (_Position - m_Position);
+	l_ToTarget.y=.0f;
+	l_ToTarget.Normalize();
+
+	float l_DesiredYaw = l_ToTarget.GetAngleY();
+	float l_RotationSpeed = m_pProperties->GetMaxRotationSpeed();
 
 	if(l_DesiredYaw<0.0f)
 		l_DesiredYaw+=mathUtils::Deg2Rad(360.0f);
@@ -272,6 +345,53 @@ void CCharacter::FaceTo( const Vect3f &_Position, float _ElapsedTime )
 		m_fYaw=mathUtils::Min(l_DesiredYaw, m_fYaw+mathUtils::Deg2Rad(l_RotationSpeed) * _ElapsedTime);
 	else 
 		m_fYaw=mathUtils::Max(l_DesiredYaw, m_fYaw-mathUtils::Deg2Rad(l_RotationSpeed) * _ElapsedTime);
+
+	m_pController->SetYaw(m_fYaw);
+	float l_Yaw = mathUtils::Rad2Deg(m_fYaw);
+	m_pCurrentAnimatedModel->SetYaw(l_Yaw /*+ 90.f */ );
+	m_pSteeringEntity->SetYaw(m_fYaw);
+}
+
+void CCharacter::MoveTo2( const Vect3f &_Velocity, float _ElapsedTime )
+{
+	//Vect2f pointA(_Position.x, _Position.z);
+	//Vect2f pointB(m_Position.x, m_Position.z);
+
+	//if ( pointA.SqDistance(pointB) <= m_pProperties->GetAttackDistance() )
+	//{
+	//	FaceTo( _Position, _ElapsedTime );
+	//	m_pController->SetYaw(m_fYaw);
+	//	Vect3f l_Position = Vect3f(0.0f, 0.0f, 0.0f);
+	//	MoveController(l_Position, _ElapsedTime);
+
+	//	m_Position = m_pController->GetPosition();
+	//	m_Position.y = m_Position.y - m_pController->GetHeight() + m_pProperties->GetAnimationOffset();
+	//	float l_Yaw = mathUtils::Rad2Deg(m_fYaw);
+	//	m_pCurrentAnimatedModel->SetYaw(l_Yaw/* + 90.f*/ );
+	//	m_pCurrentAnimatedModel->SetPosition( m_Position );
+	//	return;
+	//}
+
+	//FaceTo( _Position, _ElapsedTime );
+	Vect3f l_Velocity (_Velocity.x, _Velocity.y, _Velocity.z);
+
+	// Si queremos que la dirección sea más suave cojemos el heading del Smoother que és un average de los últimos headings
+	if ( ( this->GetSteeringEntity()->isSmoothingOn() ) && ( this->GetSteeringEntity()->GetSpeed() != 0 ) )
+	{
+		float l_Speed = this->GetSteeringEntity()->GetSpeed();
+		Vect3f v = this->GetSteeringEntity()->GetSmoothedHeading();
+		v.Normalize();
+		l_Velocity = v * l_Speed;
+	}
+
+	MoveController(l_Velocity, _ElapsedTime);
+	
+	m_Position = m_pController->GetPosition();
+	m_Position.y = m_Position.y - m_pController->GetHeight() + m_pProperties->GetAnimationOffset();
+	//float l_Yaw = mathUtils::Rad2Deg(m_fYaw);
+	//m_pCurrentAnimatedModel->SetYaw(l_Yaw/* + 90.f*/ );
+	m_pCurrentAnimatedModel->SetPosition( m_Position );
+	m_pSteeringEntity->SetPosition( m_Position );
 }
 
 void CCharacter::MoveTo( const Vect3f &_Position, float _ElapsedTime )
@@ -311,6 +431,7 @@ void CCharacter::MoveTo( const Vect3f &_Position, float _ElapsedTime )
 	float l_Yaw = mathUtils::Rad2Deg(m_fYaw);
 	m_pCurrentAnimatedModel->SetYaw(l_Yaw/* + 90.f*/ );
 	m_pCurrentAnimatedModel->SetPosition( m_Position );
+	m_pSteeringEntity->SetPosition ( m_Position );
 }
 
 // -----------------------------------------
@@ -371,10 +492,10 @@ CPhysicUserData* CCharacter::ShootCollisionRay()
 	l_Pos.y += m_pController->GetHeight()/2;
 	l_Pos += l_Dir;
 
-	int mask = 1 << ECG_PERSONATGE;
-	mask |= 1 << ECG_OBJECTES_DINAMICS;
-	mask |= 1 << ECG_ESCENARI;
-	mask |= 1 << ECG_ENEMICS;
+	int mask = 1 << ECG_PLAYER;
+	mask |= 1 << ECG_DYNAMIC_OBJECTS;
+	mask |= 1 << ECG_ESCENE;
+	mask |= 1 << ECG_ENEMY;
 
 	CPhysicUserData *userdata = CORE->GetPhysicsManager()->RaycastClosestActor(l_Pos, l_Dir, mask, l_Info);
 	return userdata;

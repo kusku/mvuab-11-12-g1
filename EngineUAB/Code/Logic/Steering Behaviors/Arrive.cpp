@@ -1,8 +1,9 @@
 #include "Arrive.h"
-#include "Steering Behaviours\SteeringBehavioursDefs.h"
-#include "Steering Behaviours\SteeringEntity.h"
+#include "Steering Behaviors\SteeringBehaviorsSeetingsManager.h"
+#include "Steering Behaviors\SteeringBehaviorsDefs.h"
+#include "Steering Behaviors\SteeringEntity.h"
 
-#include "Math\Vector2.h"
+#include "Math\Vector3.h"
 
 #include "Logger\Logger.h"
 #include "Core.h"
@@ -34,17 +35,17 @@ CArrive::~CArrive(void)
 //				MAIN METHODS
 // -----------------------------------------
 
-Vect2f CArrive::CalculateSteering( CSteeringEntity *_pEntity )	
+Vect3f CArrive::CalculateSteering( CSteeringEntity *_pEntity )	
 {
 	if (m_Target != NULL)
     {
 		// Vector desde la posición de la entidad hasta el target
-		Vect2f l_ToTarget = m_Target - _pEntity->GetPosition();
+		Vect3f l_ToTarget = m_Target - _pEntity->GetPosition();
 
 		// Distancia al target
 		float l_Distance = l_ToTarget.Length();
 
-		Vect2f l_DesiredVelocity;
+		Vect3f l_DesiredVelocity;
 
 		// Bajamos la velocidad cuando está dentro del área de "pánico"
 		if (l_Distance <= m_DecelerationBeginsAtDistance)
@@ -64,7 +65,7 @@ Vect2f CArrive::CalculateSteering( CSteeringEntity *_pEntity )
 		else 
 		{
 			// Seek
-			l_DesiredVelocity = Vect2f(m_Target - _pEntity->GetPosition()).Normalize() * _pEntity->GetMaxSpeed();
+			l_DesiredVelocity = Vect3f(m_Target - _pEntity->GetPosition()).Normalize() * _pEntity->GetMaxSpeed();
 		}
 
 		return (l_DesiredVelocity - _pEntity->GetVelocity());

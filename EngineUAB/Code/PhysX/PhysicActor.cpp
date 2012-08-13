@@ -25,6 +25,7 @@ CPhysicActor::CPhysicActor( CPhysicUserData* _pUserData )
 {
 	assert ( m_pUserData );
 	_pUserData->SetActor(this);
+	m_uCollisionGroups = _pUserData->GetGroup();
 	m_pPhXActorDesc = new NxActorDesc();
 	m_pPhXBodyDesc 	= new NxBodyDesc();
 }

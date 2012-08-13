@@ -114,9 +114,9 @@ void CThPSCharacterCamera::Update(float _ElapsedTime)
 	Vect3f l_vLeft = l_DirXZ.Cross(v3fNEGY);
 
 	//Máscara de colisión
-	int l_iMask = 1 << ECG_ESCENARI;
-	l_iMask |= 1 << ECG_OBJECTES_DINAMICS;
-	l_iMask |= 1 << ECG_ENEMICS;	
+	int l_iMask = 1 << ECG_ESCENE;
+	l_iMask |= 1 << ECG_DYNAMIC_OBJECTS;
+	l_iMask |= 1 << ECG_ENEMY;	
 
 	//Miramos si hay un objeto por delante de la cámara
 	l_pUserData = CORE->GetPhysicsManager()->RaycastClosestActor(m_LookAt, l_Dir, l_iMask, l_CollisionInfo);
@@ -267,7 +267,7 @@ void CThPSCharacterCamera::CreateCollision()
 	l_pUserData->SetColor(colBLUE);
 	
 	m_pActor = new CPhysicActor(l_pUserData);
-	m_pActor->AddSphereShape(0.1f, m_pObject3D->GetPosition(), v3fZERO, 0, ECG_ESCENARI);
+	m_pActor->AddSphereShape(0.1f, m_pObject3D->GetPosition(), v3fZERO, 0, ECG_ESCENE);
 	m_pActor->CreateBody(0.1f);
 
 	CORE->GetPhysicsManager()->AddPhysicActor(m_pActor);

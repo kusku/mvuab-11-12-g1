@@ -12,11 +12,16 @@
 #include "Utils\Named.h"
 #include "Movement\WayPointManager.h"
 #include "Movement\WayPoint.h"
-#include "Steering Behaviours\SteeringBehaviours.h"
-#include "Steering Behaviours\Steering.h"
-#include "Steering Behaviours\Seek.h"
-#include "Steering Behaviours\Pursuit.h"
-#include "Steering Behaviours\Arrive.h"
+
+#include "Steering Behaviors\SteeringBehaviorsSeetingsManager.h"
+#include "Steering Behaviors\SteeringBehaviors.h"
+#include "Steering Behaviors\SteeringEntity.h"
+#include "Steering Behaviors\Steering.h"
+#include "Steering Behaviors\Smoother.h"
+#include "Steering Behaviors\Seek.h"
+//#include "Steering Behaviors\Flee.h"	
+#include "Steering Behaviors\Pursuit.h"
+#include "Steering Behaviors\Arrive.h"
 
 #if defined (_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -119,28 +124,128 @@ namespace ScriptAPI
 		];
 
 		module(_pLua) [
-			class_<CSeek>("CSeek")
+			class_<CSteeringEntity>("CSteeringEntity")
+				.def(constructor<>())
+				.def("get_front", &CSteeringEntity::GetFront)
+				.def("get_yaw", &CSteeringEntity::GetYaw)
+				.def("get_side", &CSteeringEntity::GetSide)
+				.def("get_angle", &CSteeringEntity::GetAngle)
+				.def("get_angle2", &CSteeringEntity::GetAngle2)
+				.def("get_initial_position_to_throwRay", &CSteeringEntity::GetInitialPositionToThrowRay)
+				.def("get_final_position_to_throwRay", &CSteeringEntity::GetFinalPositionToThrowRay)
+				.property("name", &CSteeringEntity::GetName, &CSteeringEntity::SetName)
+				.property("mass", &CSteeringEntity::GetMass, &CSteeringEntity::SetMass)
+				.property("yaw", &CSteeringEntity::GetYaw, &CSteeringEntity::SetYaw)
+				.property("velocity", &CSteeringEntity::GetVelocity, &CSteeringEntity::SetVelocity)
+				.property("heading", &CSteeringEntity::GetHeading, &CSteeringEntity::SetHeading)
+				.property("side", &CSteeringEntity::GetSide, &CSteeringEntity::SetSide)
+				.property("speed", &CSteeringEntity::GetSpeed )
+				.property("max_speed", &CSteeringEntity::GetMaxSpeed, &CSteeringEntity::SetMaxSpeed)
+				.property("max_force", &CSteeringEntity::GetMaxForce, &CSteeringEntity::SetMaxForce)
+				.property("max_rotation_speed", &CSteeringEntity::GetMaxRotation, &CSteeringEntity::SetMaxRotation)
+				.property("position", &CSteeringEntity::GetPosition, &CSteeringEntity::SetPosition)
+				.property("previous_position", &CSteeringEntity::GetPreviousPosition, &CSteeringEntity::SetPreviousPosition)
+				.property("bounding_radius", &CSteeringEntity::GetBoundingRadius, &CSteeringEntity::SetBoundingRadius)
+				.property("height", &CSteeringEntity::GetHeight, &CSteeringEntity::SetHeight)
+				.property("smoothing_heading", &CSteeringEntity::GetSmoothedHeading, &CSteeringEntity::SetSmoothedHeading)
+				.property("heading_smoother", &CSteeringEntity::GetHeadingSmoother)
+				.def("is_smoothing_on", &CSteeringEntity::isSmoothingOn)
+				.def("toggle_smoothing", &CSteeringEntity::ToggleSmoothing)
+				.def("smoothing_on", &CSteeringEntity::SmoothingOn)
+				.def("smoothing_off", &CSteeringEntity::SmoothingOff)
 		];
 
-		module(_pLua) [
-			class_<CPursuit>("CPursuit")
-		];
-
+		// STEERINGS 
 		module(_pLua) [
 			class_<CArrive>("CArrive")
 		];
 
+		/*module(_pLua) [
+			class_<CFlee>("CFlee")
+		];*/
+
 		module(_pLua) [
-			class_<CSteeringBehaviours>("CSteeringBehaviours")
-				.def("has_behavior", &CSteeringBehaviours::HasBehavior)
-				.def("update", &CSteeringBehaviours::Update)
-				.def("add_behaviour", (void(CSteeringBehaviours::*)(CSeek*)) &CSteeringBehaviours::AddBehavior)
-				.def("add_behaviour", (void(CSteeringBehaviours::*)(CPursuit*)) &CSteeringBehaviours::AddBehavior)
-				.def("add_behaviour", (void(CSteeringBehaviours::*)(CArrive*)) &CSteeringBehaviours::AddBehavior)
-				.property("seek", &CSteeringBehaviours::GetSeek, &CSteeringBehaviours::SetSeek)
-				.property("pursuit", &CSteeringBehaviours::GetPursuit, &CSteeringBehaviours::SetPursuit)
-				.property("arrive", &CSteeringBehaviours::GetArrive, &CSteeringBehaviours::SetArrive)
+			class_<CPursuit>("CPursuit")
+				.def(constructor<>())
+				.def(constructor<eDeceleration, float>())
+				.def("update_evader_entity", &CPursuit::UpdateEvaderEntity )
 		];
+
+		module(_pLua) [
+			class_<CSeek, CSteering>("CSeek")
+				.def(constructor<>())
+		];
+
+		/*	module(_pLua) [
+			class_<CSmoother>("CSmoother")
+				.def("update", &CSmoother::Update)
+
+		];*/
+		
+
+		module(_pLua) [
+			class_<CSteeringBehaviors>("CSteeringBehaviors")
+				.def("has_behavior", &CSteeringBehaviors::HasBehavior)
+				.def("update", &CSteeringBehaviors::Update)
+				.def("add_behaviour", (void(CSteeringBehaviors::*)(CSeek*)) &CSteeringBehaviors::AddBehavior)
+				.def("add_behaviour", (void(CSteeringBehaviors::*)(CPursuit*)) &CSteeringBehaviors::AddBehavior)
+				.def("add_behaviour", (void(CSteeringBehaviors::*)(CArrive*)) &CSteeringBehaviors::AddBehavior)
+				/*.def("add_behaviour", (void(CSteeringBehaviors::*)(CEvade*)) &CSteeringBehaviors::AddBehavior)
+				.def("add_behaviour", (void(CSteeringBehaviors::*)(CArrive*)) &CSteeringBehaviors::AddBehavior)
+				.def("add_behaviour", (void(CSteeringBehaviors::*)(CWander*)) &CSteeringBehaviors::AddBehavior)
+				.def("add_behaviour", (void(CSteeringBehaviors::*)(CCollisionAvoidance*)) &CSteeringBehaviors::AddBehavior)
+				.def("add_behaviour", (void(CSteeringBehaviors::*)(CObstacleWallAvoidance*)) &CSteeringBehaviors::AddBehavior)
+				.def("add_behaviour", (void(CSteeringBehaviors::*)(CSeparation*)) &CSteeringBehaviors::AddBehavior)
+				.def("add_behaviour", (void(CSteeringBehaviors::*)(CAlignment*)) &CSteeringBehaviors::AddBehavior)
+				.def("add_behaviour", (void(CSteeringBehaviors::*)(CCohesion*)) &CSteeringBehaviors::AddBehavior)*/
+				.def("on", &CSteeringBehaviors::On)
+				.def("seek_on", &CSteeringBehaviors::SeekOn)
+				.def("seek_off", &CSteeringBehaviors::SeekOff)
+				.def("flee_on", &CSteeringBehaviors::FleeOn)
+				.def("flee_off", &CSteeringBehaviors::FleeOff)
+				.def("pursuit_on", &CSteeringBehaviors::PursuitOn)
+				.def("pursuit_off", &CSteeringBehaviors::PursuitOff)
+				//.def("offset_pursuit_on", &CSteeringBehaviors::OffsetPursuitOn)
+				.def("offset_pursuit_off", &CSteeringBehaviors::OffsetPursuitOff)
+				.def("evade_on", &CSteeringBehaviors::EvadeOn)
+				.def("evade_off", &CSteeringBehaviors::EvadeOff)
+				.def("arrive_on", &CSteeringBehaviors::ArriveOn)
+				.def("arrive_off", &CSteeringBehaviors::ArriveOff)
+				.def("wander_on", &CSteeringBehaviors::WanderOn)
+				.def("wander_off", &CSteeringBehaviors::WanderOff)
+				.def("collision_avoidance_on", &CSteeringBehaviors::CollisionAvoidanceOn)
+				.def("collision_avoidance_off", &CSteeringBehaviors::CollisionAvoidanceOff)
+				.def("obstacle_wall_avoidance_on", &CSteeringBehaviors::ObstacleWallAvoidanceOn)
+				.def("obstacle_wall_avoidance_off", &CSteeringBehaviors::ObstacleWallAvoidanceOff)
+				.def("separation_on", &CSteeringBehaviors::SeparationOn)
+				.def("separation_off", &CSteeringBehaviors::SeparationOff)
+				.def("alignment_on", &CSteeringBehaviors::AlignmentOn)
+				.def("alignment_off", &CSteeringBehaviors::AlignmentOff)
+				.def("cohesion_on", &CSteeringBehaviors::CohesionOn)
+				.def("cohesion_off", &CSteeringBehaviors::CohesionOff)
+				.property("seek", &CSteeringBehaviors::GetSeek, &CSteeringBehaviors::SetSeek)
+				/*.property("flee", &CSteeringBehaviors::GetFlee, &CSteeringBehaviors::SetFlee)*/
+				.property("pursuit", &CSteeringBehaviors::GetPursuit, &CSteeringBehaviors::SetPursuit)
+				/*.property("evade", &CSteeringBehaviors::GetEvade, &CSteeringBehaviors::SetEvade)*/
+				.property("arrive", &CSteeringBehaviors::GetArrive, &CSteeringBehaviors::SetArrive)
+				/*.property("wander", &CSteeringBehaviors::GetWander, &CSteeringBehaviors::SetWander)
+				.property("collision_avoidance", &CSteeringBehaviors::GetCollisionAvoidance, &CSteeringBehaviors::SetCollisionAvoidance)
+				.property("obstacle_wall_avoidance", &CSteeringBehaviors::GetObstacleWallAvoidance, &CSteeringBehaviors::SetObstacleWallAvoidance)*/
+				/*.property("separation", &CSteeringBehaviors::GetSeparation, &CSteeringBehaviors::SetSeparation)
+				.property("alignment", &CSteeringBehaviors::GetAlignment, &CSteeringBehaviors::SetAlignment)
+				.property("cohesion", &CSteeringBehaviors::GetCohesion, &CSteeringBehaviors::SetCohesion)*/
+		];
+		
+		module(_pLua) [
+			class_<CSteeringBehaviorsSeetingsManager>("CSteeringBehaviorsSeetingsManager")
+				.def(constructor<>())
+				.property("wander_distance", &CSteeringBehaviorsSeetingsManager::GetWanderDistance, &CSteeringBehaviorsSeetingsManager::SetWanderDistance)
+				.property("wander_radius", &CSteeringBehaviorsSeetingsManager::GetWanderRadius, &CSteeringBehaviorsSeetingsManager::SetWanderRadius)
+				.property("wander_refresh_rate", &CSteeringBehaviorsSeetingsManager::GetWanderRefreshRate, &CSteeringBehaviorsSeetingsManager::SetWanderRefreshRate)
+		];
+
+		
+		
 	}
 
 } //namespace ScriptAPI

@@ -320,7 +320,7 @@ void CPhysicsManager::Update ( float _ElapsedTime )
 {
 	assert( m_pScene != NULL );
 	assert( m_pControllerManager != NULL );
-
+	
 	// Start simulation (non blocking)
 	m_pScene->simulate ( _ElapsedTime ); 
 
@@ -522,7 +522,7 @@ bool CPhysicsManager::AddPhysicActor ( CPhysicActor* _pActor )
 	assert ( _pActor != NULL );
 	assert ( m_pScene != NULL );
 
-	bool isOk = false;
+	bool l_bIsOK = false;
 	NxActor* nxActor;
 	NxActorDesc* l_pActorDesc = _pActor->GetActorDesc();
 
@@ -532,10 +532,13 @@ bool CPhysicsManager::AddPhysicActor ( CPhysicActor* _pActor )
 	{
 		nxActor->userData = _pActor->GetUserData();
 		_pActor->CreateActor ( nxActor );
-		isOk = true;
+		l_bIsOK = true;
 	}
 
-	return isOk;
+	if ( l_bIsOK )
+		_pActor->SetCollisionGroup( _pActor->GetColisionGroup() );
+
+	return l_bIsOK;
 }
 
 //----------------------------------------------------------------------------
@@ -761,6 +764,9 @@ bool CPhysicsManager::AddPhysicController ( CPhysicController* _pController, ECo
 		l_bIsOK = true;
 	}
 
+	if ( l_bIsOK )
+		_pController->SetGroup( _pController->GetColisionGroup() );
+
 	return l_bIsOK;
 }
 
@@ -812,6 +818,38 @@ NxCCDSkeleton* CPhysicsManager::CreateCCDSkeleton (float size)
 
 	return m_pPhysicsSDK->createCCDSkeleton(stm);
 }
+
+//CPhysicUserData* CPhysicsManager::RaycastClosestActor ( const Vect3f _vPosRay, const Vect3f& _vDirRay, uint32 _uiImpactMask, SCollisionInfo& _Info )
+//{
+//  //NxUserRaycastReport::ALL_SHAPES
+//	assert(m_pScene != NULL);
+//
+//	NxRay ray; 
+//	ray.dir =  NxVec3 ( _vDirRay.x, _vDirRay.y, _vDirRay.z );
+//	ray.orig = NxVec3 ( _vPosRay.x, _vPosRay.y, _vPosRay.z );
+//
+//	NxRaycastHit hit;
+//	NxShape* closestShape = NULL;
+//	
+//	//closestShape = m_pScene->raycastClosestShape ( ray, NX_ALL_SHAPES, hit, _uiImpactMask,  NX_MAX_F32, _uiImpactMask );
+//	//closestShape = m_pScene->raycastClosestShape( ray, NX_ALL_SHAPES, hit, 0xffffffff, NX_MAX_F32, 0xffffffff, NULL, NULL );
+//	closestShape = m_pScene->raycastClosestShape( ray, NX_ALL_SHAPES, hit, _uiImpactMask );
+//	if (!closestShape) 
+//	{
+//		//No hemos tocado a ningún objeto físico de la escena.
+//		return NULL;
+//	}
+//	NxActor* actor = &closestShape->getActor();
+//	CPhysicUserData* impactObject =(CPhysicUserData*)actor->userData;
+//	//Si está petando aquí quiere decir que se ha registrado un objeto físico sin proporcionarle UserData
+//	assert(impactObject);
+//
+//	_Info.m_fDistance		= hit.distance;
+//	_Info.m_Normal			= Vect3f(hit.worldNormal.x, hit.worldNormal.y, hit.worldNormal.z ); 
+//	_Info.m_CollisionPoint	= Vect3f(hit.worldImpact.x, hit.worldImpact.y, hit.worldImpact.z ); 
+//
+//	return impactObject;
+//}
 
 CPhysicUserData* CPhysicsManager::RaycastClosestActor ( const Vect3f _vPosRay, const Vect3f& _vDirRay, uint32 _uiImpactMask, SCollisionInfo& _Info )
 {
@@ -867,8 +905,8 @@ CPhysicUserData* CPhysicsManager::RaycastClosestActorShoot ( const Vect3f _vPosR
 	//Si está petando aquí quiere decir que se ha registrado un objeto físico sin proporcionarle UserData
 	assert(impactObject);
 
-	_Info.m_fDistance	= hit.distance;
-	_Info.m_Normal				= Vect3f(hit.worldNormal.x, hit.worldNormal.y, hit.worldNormal.z ); 
+	_Info.m_fDistance		= hit.distance;
+	_Info.m_Normal			= Vect3f(hit.worldNormal.x, hit.worldNormal.y, hit.worldNormal.z ); 
 	_Info.m_CollisionPoint	= Vect3f(hit.worldImpact.x, hit.worldImpact.y, hit.worldImpact.z ); 
 
 	Vect3f l_vDirection( _vDirRay.x-_vPosRay.x,_vDirRay.y-_vPosRay.y,_vDirRay.z-_vPosRay.z );
@@ -893,7 +931,8 @@ void CPhysicsManager::OverlapSphereActor ( float _fRadiusSphere, const Vect3f& _
 		shapes[i] = NULL;
 	}
 
-	m_pScene->overlapSphereShapes ( l_WorldSphere, NX_ALL_SHAPES, nbShapes, shapes, NULL, _uiImpactMask);
+	m_pScene->overlapSphereShapes ( l_WorldSphere, NX_ALL_SHAPES, nbShapes, shapes, NULL, _uiImpactMask );
+
 	for (NxU32 i = 0; i < nbShapes; i++) 
 	{
 		if( shapes[i] != NULL )
@@ -1083,15 +1122,15 @@ int CPhysicsManager::GetCollisionGroup( const std::string& _szGroup )
 {
 	if(_szGroup == "escenari")
 	{
-		return ECG_ESCENARI;
+		return ECG_ESCENE;
 	}
 	else if(_szGroup == "personatge")
 	{
-		return ECG_PERSONATGE;
+		return ECG_PLAYER;
 	}
 	else if(_szGroup == "enemic")
 	{
-		return ECG_ENEMICS;
+		return ECG_ENEMY;
 	}
 	else if(_szGroup == "trigger")
 	{
@@ -1107,7 +1146,7 @@ int CPhysicsManager::GetCollisionGroup( const std::string& _szGroup )
 	}
 	else if(_szGroup == "objecte dinamic")
 	{
-		return ECG_OBJECTES_DINAMICS;
+		return ECG_DYNAMIC_OBJECTS;
 	}
 	else if(_szGroup == "explosio")
 	{
@@ -1145,6 +1184,10 @@ int CPhysicsManager::GetCollisionGroup( const std::string& _szGroup )
 	{
 		return ECG_VIGIA;
 	}
+	/*else if(_szGroup == "limits")
+	{
+		return ECG_LIMITS;
+	}*/
 	else
 	{
 		return 0;
