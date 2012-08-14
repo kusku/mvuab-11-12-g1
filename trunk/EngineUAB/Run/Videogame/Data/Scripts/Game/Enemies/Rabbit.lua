@@ -164,7 +164,7 @@ class 'CRabbit' (CCharacter)
 		self.yaw = 0.0
 		self.pitch = -math.pi / 8
 		self.roll = 0.0
-		self.locked = true
+		self.locked = false
 		
 		self.character_manager = get_game_process():get_character_manager()
 		self.player = get_game_process():get_character_manager():get_player()
@@ -185,7 +185,7 @@ class 'CRabbit' (CCharacter)
 		--self.roll = 0.0
 		--self.position = Vect3f(3.0, 0.0, 0.0)
 		--self.position2 = self.position
-		self.locked = true
+		self.locked = false
 		
 		self.character_manager = get_game_process():get_character_manager()
 		self.player = get_game_process():get_character_manager():get_player()
@@ -200,7 +200,7 @@ class 'CRabbit' (CCharacter)
 	end
 	
 	function CRabbit:init()
-		print_logger(1, "CRabbit:init->")
+		print_logger(0, "CRabbit::init()->Inicializamos estados del enemigo")
 		local l_IsOk = false
 		
 		l_gfsm = self.graphic_fsm 
@@ -263,7 +263,7 @@ class 'CRabbit' (CCharacter)
 		
 		self.position 				 	= self.physic_controller.position
 		self.steering_entity.position 	= self.physic_controller.position
-		self.behaviors.seek.target 		= self.player.position
+		-- -- self.behaviors.seek.target 		= self.player.position
 		-- -- self.behaviors.flee.target 	= self.player.position
 		-- -- self.behaviors.pursuit.target  = self.player.position
 		-- -- self.behaviors.evade.target	= self.player.position
@@ -288,46 +288,50 @@ class 'CRabbit' (CCharacter)
 	end
 	
 	function CRabbit:updateIA(_elapsed_time)
+		-- print_logger(0, "CRabbit::updateIA()->Actualizando IA enemigo...")
 		-- Calculamos la fuerza hacia el objetivo
+		if ( self.steering_entity == nil ) then
+			print_logger(2, "CRabbit::updateIA()->Error en self.steering_entity == nil")
+			return
+		end 
 		local l_steering_force = self.behaviors:update( _elapsed_time, self.steering_entity ) 
-		l_steering_force = Vect3f( l_steering_force.x, 0, l_steering_force.z )
+		-- local l_steering_force2 = Vect3f( l_steering_force.x, 0, l_steering_force.z )
 		
-		-- aceleración = fuerza/masa
-		local l_acceleration  = l_steering_force / self.steering_entity.mass
+		-- -- aceleración = fuerza/masa
+		-- local l_acceleration  = l_steering_force2 / self.steering_entity.mass
 		
-		-- actualizamos la velocidad. Ya hemos comprobado en C++ su trucamiento con la max. velocidad
-		self.steering_entity.velocity =  self.steering_entity.velocity + l_acceleration * _elapsed_time 
-		self.steering_entity.velocity = Vect3f (self.steering_entity.velocity.x, 0, self.steering_entity.velocity.z) 
+		-- -- actualizamos la velocidad. Ya hemos comprobado en C++ su trucamiento con la max. velocidad
+		-- self.steering_entity.velocity =  self.steering_entity.velocity + l_acceleration * _elapsed_time 
+		-- self.steering_entity.velocity = Vect3f (self.steering_entity.velocity.x, 0, self.steering_entity.velocity.z) 
 		
-		-- nos aseguramos que el rabbit no excede de la velocidad máxima permitida
-		local l_Vel = Vect3f( self.steering_entity.velocity.x, self.steering_entity.velocity.y, self.steering_entity.velocity.z )
-		l_Vel = l_Vel:truncate(self.steering_entity.max_speed)
-		self.steering_entity.velocity = l_Vel
+		-- -- nos aseguramos que el rabbit no excede de la velocidad máxima permitida
+		-- local l_Vel = Vect3f( self.steering_entity.velocity.x, self.steering_entity.velocity.y, self.steering_entity.velocity.z )
+		-- l_Vel = l_Vel:truncate(self.steering_entity.max_speed)
+		-- self.steering_entity.velocity = l_Vel
 		
-		-- actualizamos la posición
-		self.steering_entity.position = self.steering_entity.position + self.steering_entity.velocity * _elapsed_time 
+		-- -- actualizamos la posición
+		-- self.steering_entity.position = self.steering_entity.position + self.steering_entity.velocity * _elapsed_time 
 		
-		-- Actualizamos el Heahing y Side de la entidad solo si esta tiene velocidad
-		-- print_logger ( 1, "CRabbit:updateIA->Squared_length : "..self.steering_entity.velocity:squared_length() )
-		if ( self.steering_entity.velocity:squared_length() > 0.00000001 ) then
-			self.steering_entity.heading = self.steering_entity.velocity
-			-- Ahora actualizamos el heading (Vector unitario velocidad) y su perpendicular
-			self.steering_entity.heading:normalize(1.0)
-			local v = self.steering_entity.heading
-			self.steering_entity.side = v:perpendicular()
-		else
-			self.steering_entity.heading = self.steering_entity:get_front()+-- Ahora actualizamos el heading (Vector unitario velocidad) y su perpendicular
-			self.steering_entity.heading:normalize(1.0)
-			local v = self.steering_entity.heading
-			self.steering_entity.side = v:perpendicular()
-		end
-		
+		-- -- Actualizamos el Heahing y Side de la entidad solo si esta tiene velocidad
+		-- -- print_logger ( 1, "CRabbit:updateIA->Squared_length : "..self.steering_entity.velocity:squared_length() )
+		-- if ( self.steering_entity.velocity:squared_length() > 0.00000001 ) then
+			-- self.steering_entity.heading = self.steering_entity.velocity
+			-- -- Ahora actualizamos el heading (Vector unitario velocidad) y su perpendicular
+			-- self.steering_entity.heading:normalize(1.0)
+			-- local v = self.steering_entity.heading
+			-- self.steering_entity.side = v:perpendicular()
+		-- else
+			-- self.steering_entity.heading = self.steering_entity:get_front() 	-- Ahora actualizamos el heading (Vector unitario velocidad) y su perpendicular
+			-- self.steering_entity.heading:normalize(1.0)
+			-- local v = self.steering_entity.heading
+			-- self.steering_entity.side = v:perpendicular()
+		-- end
 		
 		-- Actualiza el heading del caracter para suabizarlo si está activado
-		self.steering_entity:smoothing_on()
-		if (self.steering_entity:is_smoothing_on()) then
-			self.steering_entity.smoothing_heading = self.steering_entity.heading_smoother:update(self.steering_entity.heading);
-		end
+		-- self.steering_entity:smoothing_on()
+		-- if (self.steering_entity:is_smoothing_on()) then
+			-- self.steering_entity.smoothing_heading = self.steering_entity.heading_smoother:update(self.steering_entity.heading);
+		-- end
 	end 
 	
 	-- ------------------------------
@@ -347,7 +351,7 @@ class 'CRabbit' (CCharacter)
 		-- self.behaviors.wander.target 				= self.behaviors.wander.target
 		-- self.behaviors.arrive.target 				= self.player.position
 		
-		-- self:updateIA(_elapsed_time)
+		self:updateIA(_elapsed_time)
 		
 		-- l_gfsm = self.graphic_fsm 
 		-- if l_gfsm == nil then
