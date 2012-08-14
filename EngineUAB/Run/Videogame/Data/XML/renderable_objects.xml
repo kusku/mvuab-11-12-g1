@@ -35,6 +35,15 @@
   <animated_model_instance name="enemy19" core="conejo" position="26.6532 -30.3101 114.994" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
   <animated_model_instance name="enemy20" core="conejo" position="26.6532 -30.3101 122.646" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
   <animated_model_instance name="enemy21" core="conejo" position="26.6532 -30.3101 107.077" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
+  
+  	<animated_model_instance name="enemy22" core="conejo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
+	<animated_model_instance name="enemy23" core="conejo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
+	<animated_model_instance name="enemy24" core="conejo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
+	<animated_model_instance name="enemy25" core="conejo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
+	<animated_model_instance name="enemy26" core="conejo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
+	<animated_model_instance name="enemy27" core="conejo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
+	
+  
 
   <mesh_instance_hw name="Fish_Main" core="Fish_Main" position="12.8583 -37.2097 82.3819" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="fish" create_physics="false" />
   <mesh_instance_hw name="Fish001" core="Fish_Main" position="34.2855 -37.2097 66.9769" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="fish" create_physics="false" />

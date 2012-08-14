@@ -93,7 +93,16 @@ const Vect3f& CSteeringBehaviors::Update( float _ElapsedTime, CSteeringEntity * 
     m_SteeringForce.SetZero();
 	
 	// Almaceno la entidad tratada
-	m_pEntity = _pEntity;
+
+	if ( _pEntity == NULL ) 
+	{
+		LOGGER->AddNewLog(ELL_ERROR, "CSteeringBehaviors::Update->Error en la _pEntity == NULL");
+		return m_SteeringForce;
+	}
+	else 
+	{
+		m_pEntity = _pEntity;
+	}
 
 	// Segun el método asumido calcularemos los valores. Por defecto devolveremos Zero
 	switch (m_SummingMethod)
@@ -289,8 +298,22 @@ const Vect3f& CSteeringBehaviors::CalculatePrioritized( void )
 
 	if ( HasBehavior(::seek) && On(::seek) )
 	{
-        l_Force = m_pSeek->CalculateSteering(m_pEntity) * m_WeightSeek;
-		
+		if ( m_pSeek != NULL ) 
+		{
+			if ( m_pEntity != NULL ) 
+			{
+				l_Force = m_pSeek->CalculateSteering(m_pEntity) * m_WeightSeek;
+			}
+			else
+			{
+				LOGGER->AddNewLog(ELL_ERROR, "ERORR m_pEntity");
+			}
+		}
+		else
+		{
+			LOGGER->AddNewLog(ELL_ERROR, "ERORR m_pSeek");
+		}
+        
 		if (!AccumulateForce(m_SteeringForce, l_Force)) 
 			return m_SteeringForce;
 	}	
