@@ -60,7 +60,7 @@
 		<animation_offset>-0.8</animation_offset>
 	</default_properties>
 	<default_properties core="conejo">
-		<active>false</active>
+		<active>true</active>
 		<life>50</life>
 		<strong>5</strong>
 		<mass>0.01</mass>
@@ -94,7 +94,8 @@
 		<speed>25</speed>
 		<velocity>0 0 0</velocity>
 		<respawn_position>0 10 0</respawn_position>
-		<position>-66.407 -25.849 -121.407</position>
+		<!--<position>-66.407 -25.849 -121.407</position>-->
+		<position>-30 -30 0</position>
 	</player>
 	<enemies>
 		<enemy name="enemy1" core="lobo" animated_instace_name="lobo1" ></enemy>
@@ -122,5 +123,25 @@
 		<enemy name="enemy19" core="conejo" animated_instace_name="enemy19" ></enemy>
 		<enemy name="enemy20" core="conejo" animated_instace_name="enemy20" ></enemy>
 		<enemy name="enemy21" core="conejo" animated_instace_name="enemy21" ></enemy>
+
+		<enemy name="enemy22" core="conejo" animated_instace_name="enemy22" >
+			<position>-5 -30 2</position>
+		</enemy>
+		<enemy name="enemy23" core="conejo" animated_instace_name="enemy23" >
+			<position>-10 -30 -2</position>
+		</enemy>
+		<enemy name="enemy24" core="conejo" animated_instace_name="enemy24" >
+			<position>-15 -30 0</position>
+		</enemy>
+		<enemy name="enemy25" core="conejo" animated_instace_name="enemy25" >
+			<position>-20 -30 0</position>
+		</enemy>
+		<enemy name="enemy26" core="conejo" animated_instace_name="enemy26" >
+			<position>-25 -30 0</position>
+		</enemy>
+		<!--<enemy name="enemy27" core="conejo" animated_instace_name="enemy27" >
+			<position>-5 -30 0</position>
+		</enemy>-->
+
 	</enemies>
 </characters>

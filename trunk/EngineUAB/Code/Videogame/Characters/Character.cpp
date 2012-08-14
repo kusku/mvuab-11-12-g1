@@ -379,9 +379,9 @@ void CCharacter::MoveTo2( const Vect3f &_Velocity, float _ElapsedTime )
 	if ( ( this->GetSteeringEntity()->isSmoothingOn() ) && ( this->GetSteeringEntity()->GetSpeed() != 0 ) )
 	{
 		float l_Speed = this->GetSteeringEntity()->GetSpeed();
-		Vect3f v = this->GetSteeringEntity()->GetSmoothedHeading();
+		/*Vect3f v = this->GetSteeringEntity()->GetSmoothedHeading();
 		v.Normalize();
-		l_Velocity = v * l_Speed;
+		l_Velocity = v * l_Speed;*/
 	}
 
 	MoveController(l_Velocity, _ElapsedTime);

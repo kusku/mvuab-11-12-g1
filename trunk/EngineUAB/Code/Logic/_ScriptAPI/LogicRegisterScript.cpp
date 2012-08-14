@@ -23,6 +23,8 @@
 #include "Steering Behaviors\Pursuit.h"
 #include "Steering Behaviors\Arrive.h"
 
+#include "Steering Behaviors\Smoother.h"
+
 #if defined (_DEBUG)
 #include "Memory\MemLeaks.h"
 #endif
@@ -147,8 +149,8 @@ namespace ScriptAPI
 				.property("previous_position", &CSteeringEntity::GetPreviousPosition, &CSteeringEntity::SetPreviousPosition)
 				.property("bounding_radius", &CSteeringEntity::GetBoundingRadius, &CSteeringEntity::SetBoundingRadius)
 				.property("height", &CSteeringEntity::GetHeight, &CSteeringEntity::SetHeight)
-				.property("smoothing_heading", &CSteeringEntity::GetSmoothedHeading, &CSteeringEntity::SetSmoothedHeading)
-				.property("heading_smoother", &CSteeringEntity::GetHeadingSmoother)
+				/*.property("smoothing_heading", &CSteeringEntity::GetSmoothedHeading, &CSteeringEntity::SetSmoothedHeading)
+				.property("heading_smoother", &CSteeringEntity::GetHeadingSmoother)*/
 				.def("is_smoothing_on", &CSteeringEntity::isSmoothingOn)
 				.def("toggle_smoothing", &CSteeringEntity::ToggleSmoothing)
 				.def("smoothing_on", &CSteeringEntity::SmoothingOn)
@@ -176,7 +178,7 @@ namespace ScriptAPI
 				.def(constructor<>())
 		];
 
-		/*	module(_pLua) [
+		/*module(_pLua) [
 			class_<CSmoother>("CSmoother")
 				.def("update", &CSmoother::Update)
 

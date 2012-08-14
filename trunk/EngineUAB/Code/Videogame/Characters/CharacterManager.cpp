@@ -183,6 +183,7 @@ void CCharactersManager::Update( float _ElapsedTime )
 		CProperties * l_pProperties = l_EnemyList[i]->GetProperties();
 		if ( l_pProperties->GetActive() )
 		{
+
 			l_EnemyList[i]->Update( _ElapsedTime );
 			if ( !l_EnemyList[i]->IsAlive() )
 			{

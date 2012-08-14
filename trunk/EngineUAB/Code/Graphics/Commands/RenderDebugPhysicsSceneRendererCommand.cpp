@@ -20,7 +20,7 @@ CRenderDebugPhysicsSceneRendererCommand::CRenderDebugPhysicsSceneRendererCommand
 	SetActive(active);
 
 	m_DrawFront		= Node.GetBoolProperty("draw_fronts", false);
-	m_DrawFrustrum	= Node.GetBoolProperty("draw_frustrum", false);
+	m_DrawFrustrum	= Node.GetBoolProperty("draw_fustrum", false);
 	m_DrawNames		= Node.GetBoolProperty("draw_names", false);
 	m_DrawRays		= Node.GetBoolProperty("draw_rays", false);
 	

@@ -45,6 +45,17 @@ public:
 		return sum / (float)m_History.size();
 	}
 
+	//---- Register Methods -------------------------------------
+	/*static void RegisterLUAMethods( void )
+	{
+		lua_State *state = SCRIPT->GetLuaState();
+
+		module(state) [
+			class_<CSmoother>("CSmoother")
+				.def("update", &CSmoother::Update)
+		];
+	}*/
+
 	//---- Members -----------------------------------------------
 private:
 
