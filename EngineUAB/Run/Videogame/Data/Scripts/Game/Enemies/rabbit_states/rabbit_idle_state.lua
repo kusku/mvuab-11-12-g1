@@ -5,7 +5,7 @@ class 'CRabbitIdleState' (CState)
 	end
 
 	function CRabbitIdleState:OnEnter(_CCharacter)
-		-- print_logger(0, "CRabbitIdleState:Enter")
+		print_logger(0, "CRabbitIdleState:Enter")
 		if not ( _CCharacter == nil ) then
 			num = _CCharacter:get_animation_id("idle")
 			_CCharacter:get_animation_model():blend_cycle( num, 0.3 )
@@ -17,7 +17,7 @@ class 'CRabbitIdleState' (CState)
 	end
 	
 	function CRabbitIdleState:Execute(_CCharacter)
-		--print_logger(0, "CRabbitIdleState:Execute")
+		-- print_logger(1, "CRabbitIdleState:Execute")
 		-- local l_distance = get_distance_to_player(_CCharacter, _CCharacter.player)
 		-- print_logger (1, "Distancia al player: "..l_distance)
 		
@@ -51,13 +51,13 @@ class 'CRabbitIdleState' (CState)
 					-------------------------------
 					-- _CCharacter.behaviors.pursuit.target = _CCharacter.player.position
 					-- _CCharacter.behaviors.pursuit:update_evader_entity( _CCharacter.player.steering_entity )
-					-- _CCharacter.behaviors.seek.target = _CCharacter.player.position
+					_CCharacter.behaviors.seek.target = _CCharacter.player.position
 					
 					-- _CCharacter.behaviors:separation_on()
 					-- _CCharacter.behaviors:alignment_on()
 					-- _CCharacter.behaviors:cohesion_on()
 					-- _CCharacter.behaviors:pursuit_on()
-					-- _CCharacter.behaviors:seek_on()
+					_CCharacter.behaviors:seek_on()
 					-- _CCharacter.behaviors:collision_avoidance_on()
 					-- _CCharacter.behaviors:flee_on()
 					-- _CCharacter.behaviors:arrive_on()
@@ -80,11 +80,16 @@ class 'CRabbitIdleState' (CState)
 			-- end
 		-- No detecto player --> no hago nada o patrullo. TODO!!
 		-- else
+		
+			if ( _CCharacter.steering_entity == nil ) then
+				print_logger(2, "CRabbitIdleState:Execute->Error en _CCharacter.steering_entity == nil")
+				return
+			end 
 			_CCharacter.steering_entity.velocity = Vect3f(0,0,0)
 			_CCharacter:move_to2( _CCharacter.steering_entity.velocity, _CCharacter.elapsed_time )
-			print_logger(0 , "Velocity :".._CCharacter.steering_entity.velocity.x.." ".._CCharacter.steering_entity.velocity.y.." ".._CCharacter.steering_entity.velocity.z)
+			-- print_logger(0 , "Velocity :".._CCharacter.steering_entity.velocity.x.." ".._CCharacter.steering_entity.velocity.y.." ".._CCharacter.steering_entity.velocity.z)
 		
-			--_CCharacter:move_to2( _CCharacter.position, _CCharacter.elapsed_time)
+			-- _CCharacter:move_to2( _CCharacter.position, _CCharacter.elapsed_time)
 		-- end
 	end
 	
