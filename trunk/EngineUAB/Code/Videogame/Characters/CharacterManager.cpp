@@ -627,7 +627,7 @@ bool CCharactersManager::LoadEnemiesProperties( const CXMLTreeNode &_Node )
 {
 	LOGGER->AddNewLog ( ELL_INFORMATION, "CCharactersManager::LoadEnemiesProperties-->Loading enemies and properties." );
 	
-	bool l_IsOk = false;
+	bool l_IsOk = true;
 	int  l_NextIDValid = m_pPlayer->GetID() + 1;
 
 	CXMLTreeNode l_EnemiesNode = _Node;
