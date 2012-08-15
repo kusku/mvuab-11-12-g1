@@ -54,6 +54,8 @@
 
 #include "Steering Behaviors\SteeringBehaviorsSeetingsManager.h"
 
+#include "Rails\RailManager.h"
+
 #include "Cameras\ThPSCamera.h"
 
 #include "_ScriptAPI\CoreRegisterScript.h"
@@ -102,6 +104,7 @@ CCore::CCore ( void )
 	, m_ParticleSettingsManager			( NULL )
 	, m_Animalmanager					( NULL )
 	, m_pSteeringBehaviorSeetingsManager( NULL )
+	, m_pRailManager					( NULL )
 {
 }
 
@@ -153,6 +156,7 @@ void CCore::Release ( void )
 	CHECKED_DELETE ( m_ParticleSettingsManager );
 	CHECKED_DELETE ( m_Animalmanager );
 	CHECKED_DELETE ( m_pSteeringBehaviorSeetingsManager );
+	CHECKED_DELETE ( m_pRailManager  );
 	
 	m_pCamera = NULL; //La cámara la elimina el proceso
 	m_pTimer = NULL;
@@ -284,10 +288,14 @@ bool CCore::Init( HWND _HWnd, const SConfig &config )
 			m_Animalmanager = new CAnimalManager();
 			//m_Animalmanager->Load(config.animal_movement_path);
 				
+			//Steering Behaviours
 			m_pSteeringBehaviorSeetingsManager = new CSteeringBehaviorsSeetingsManager();
 
-			Core::ScriptAPI::RegisterScript();
+			//Raíles
+			m_pRailManager = new CRailManager();
 
+			//Scripting
+			Core::ScriptAPI::RegisterScript();
 			m_pScriptManager->Load( config.scripts_path );
 		}
 	}
@@ -324,6 +332,9 @@ void CCore::Update( float _ElapsedTime )
 
 		//Animal Manager
 		m_Animalmanager->Update(_ElapsedTime);
+
+		//Rails
+		m_pRailManager->Update(_ElapsedTime);
 	}
 	else
 	{
@@ -490,6 +501,11 @@ bool CCore::LoadWaypoints()
 bool CCore::LoadSteeringBehaviorSettings()
 {
 	return m_pSteeringBehaviorSeetingsManager->Load( m_Config.steering_behavior_settings_path );
+}
+
+bool CCore::LoadRails()
+{
+	return m_pRailManager->Load( m_Config.rails_path );
 }
 
 void CCore::SetGameMode(bool _GameMode)
@@ -880,6 +896,11 @@ void CCore::ReloadWayPoints()
 void CCore::ReloadSteeringBehaviorSettings()
 {
 	m_pSteeringBehaviorSeetingsManager->Reload();
+}
+
+void CCore::ReloadRails()
+{
+	m_pRailManager->Reload();
 }
 
 void CCore::UnloadStaticMeshes()

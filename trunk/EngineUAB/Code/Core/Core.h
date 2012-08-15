@@ -41,6 +41,7 @@ class CParticleSystemManager;;
 class CParticleSettingsManager;
 class CAnimalManager;
 class CSteeringBehaviorsSeetingsManager;
+class CRailManager;
 //--------------------------
 
 class CCore : public CSingleton<CCore>
@@ -79,6 +80,7 @@ public:
 	bool		LoadWaypoints					();
 	bool		LoadAnimalMovements				();
 	bool		LoadSteeringBehaviorSettings	();
+	bool		LoadRails						();
 
 	//----Reload Methods ---------------------------------------------------
 	void		Reload									();
@@ -102,6 +104,7 @@ public:
 	void		ReloadSounds							();
 	void		ReloadWayPoints							();
 	void		ReloadSteeringBehaviorSettings			();
+	void		ReloadRails								();
 
 	//----Unload Methods ---------------------------------------------------
 	void		UnloadStaticMeshes						();
@@ -162,6 +165,8 @@ public:
 	inline CAnimalManager*						GetAnimalManager			() const					{ return m_Animalmanager; }
 
 	inline CSteeringBehaviorsSeetingsManager*	GetSteeringBehaviourSettingsManager () const			{ return m_pSteeringBehaviorSeetingsManager; }
+	
+	inline CRailManager*						GetRailManager				() const					{ return m_pRailManager; }
 
 private:
 	void Release();
@@ -212,6 +217,7 @@ private:
 	CParticleSettingsManager			*m_ParticleSettingsManager;
 	CAnimalManager						*m_Animalmanager;
 	CSteeringBehaviorsSeetingsManager	*m_pSteeringBehaviorSeetingsManager;
+	CRailManager						*m_pRailManager;
 };
 
 #endif

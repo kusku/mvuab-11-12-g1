@@ -20,6 +20,7 @@ class CRenderManager;
 class CCHaractersManager;
 class CThPSCharacterCamera;
 class CThPSCamera;
+class CFPSCamera;
 class CWeaponManager;
 class CAnimationCallbackManager;
 
@@ -76,6 +77,10 @@ private:
 	CCharactersManager			*m_pCharactersManager;
 	CWeaponManager				*m_pWeaponManager;
 	CAnimationCallbackManager	*m_pAnimationCallbackManager;
+
+	CStaticCamera				m_FPSStaticCamera;
+	CFPSCamera					*m_pFPSCamera;
+	CCamera						*m_pFPSRail;
 };
 
 #endif

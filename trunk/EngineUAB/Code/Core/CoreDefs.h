@@ -136,6 +136,9 @@ struct SConfig
 
 	// Parametros del Animal Movement
 	std::string steering_behavior_settings_path;
+
+	//Parámeteros de los raíles
+	std::string rails_path;
 };
 
 #endif __COREDEFS_H__
