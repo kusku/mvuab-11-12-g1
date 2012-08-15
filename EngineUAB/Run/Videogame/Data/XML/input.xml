@@ -1,4 +1,16 @@
 <Actions> 
+	<action name="play">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_P"/>
+	</action>
+
+	<action name="pause">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_O"/>
+	</action>
+	
+	<action name="stop">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN" Code="KEY_I"/>
+	</action>
+	
 	<action name="CommutationCamera">
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN"  Code="KEY_C"/>
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN_UP"  Code="KEY_TAB"/>

@@ -64,6 +64,12 @@
     <ClCompile Include="Steering Behaviors\SteeringEntity.cpp">
       <Filter>IA\Steering Behaviors</Filter>
     </ClCompile>
+    <ClCompile Include="Rails\Rail.cpp">
+      <Filter>Rails</Filter>
+    </ClCompile>
+    <ClCompile Include="Rails\RailManager.cpp">
+      <Filter>Rails</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StatesMachine\State.h">
@@ -159,6 +165,15 @@
     <ClInclude Include="Steering Behaviors\Smoother.h">
       <Filter>IA\Steering Behaviors</Filter>
     </ClInclude>
+    <ClInclude Include="Rails\Rail.h">
+      <Filter>Rails</Filter>
+    </ClInclude>
+    <ClInclude Include="Rails\RailManager.h">
+      <Filter>Rails</Filter>
+    </ClInclude>
+    <ClInclude Include="Rails\RailDefs.h">
+      <Filter>Rails</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scripting">
@@ -202,6 +217,9 @@
     </Filter>
     <Filter Include="_ScriptAPI\Wrappers">
       <UniqueIdentifier>{41e49b89-0d4f-4ae6-8ca6-ae6f616e28cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rails">
+      <UniqueIdentifier>{dcf97d91-7056-4caa-b3f3-1d0e62a21cc1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

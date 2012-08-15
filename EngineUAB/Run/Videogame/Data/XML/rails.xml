@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<rails>
+	<rail name="test">
+		<!--<point value="0.0 0.0 0.0" />
+		<point value="10.0 0.0 0.0" />
+		<point value="10.0 10.0 10.0" />
+		<point value="0.0 0.0 -10.0" />-->
+		<point value="0.0 0.0 0.0" />
+		<point value="5.0 0.0 0.0" />
+		<point value="10.0 -5.0 10.0" />
+		<point value="0.0 0.0 5.0" />
+		<point value="0.0 0.0 0.0" />
+	</rail>
+</rails>

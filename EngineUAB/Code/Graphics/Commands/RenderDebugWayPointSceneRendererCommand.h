@@ -14,6 +14,11 @@ class CRenderDebugWayPointSceneRendererCommand : public CSceneRendererCommand
 public:
 	CRenderDebugWayPointSceneRendererCommand(CXMLTreeNode &Node);
 	virtual void	Execute		( CRenderManager &RM );
+
+private:
+	bool	m_bRenderWaypoints;
+	bool	m_bRenderTriggers;
+	bool	m_bRenderRails;
 };
 
 #endif

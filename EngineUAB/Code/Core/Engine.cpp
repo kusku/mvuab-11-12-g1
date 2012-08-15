@@ -319,6 +319,10 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 			{
 				m_Config.steering_behavior_settings_path= l_ConfigNode(i).GetPszProperty("SteeringBehaviorsSettingsXML", "");
 			}
+			else if( l_Name == "Rails" )
+			{
+				m_Config.rails_path = l_ConfigNode(i).GetPszProperty("railsXML", "");
+			}
 		}
 	}
 
