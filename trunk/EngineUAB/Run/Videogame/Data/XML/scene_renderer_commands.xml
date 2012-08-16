@@ -48,7 +48,7 @@
 
   <render_particles />
 
-  <!--<bloom_post_process BloomThreshold="0.95" BlurAmount="4.0" BloomIntensity=".75" BaseIntensity="1.5" BloomSaturation="1.0" BaseSaturation="1.0" />-->
+  <bloom_post_process BloomThreshold="0.95" BlurAmount="4.0" BloomIntensity=".75" BaseIntensity="1.5" BloomSaturation="1.0" BaseSaturation="1.0" />
   
   <render_billboards />
 
@@ -79,11 +79,11 @@
   </render_draw_quad>
 
   <!--Debug-->
-  <render_debug_waypoints active="false" />
+  <render_debug_waypoints waypoints="false" triggers="false" rails="false" />
   <render_debug_process active="true" />
   <render_debug_physics active="false" draw_fronts="false" draw_fustrum="false" draw_names="false" draw_rays="true" />
   <render_debug_lights active="false" />
-  <render_debug_info grid="false" axis="false"  render_console="false" render_logger="true" render_modifiers="false" render_debug_options="false" render_debug_render="true" />
+  <render_debug_info grid="false" axis="false" render_console="false" render_logger="true" render_modifiers="false" render_debug_options="false" render_debug_render="true" />
   
   
   <end_scene />

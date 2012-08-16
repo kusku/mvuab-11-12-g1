@@ -10,6 +10,8 @@
 
 //--------------------------------------------------
 CRailManager::CRailManager()
+	: m_pCurrentRail(NULL)
+	, m_Filename("")
 {
 
 }
