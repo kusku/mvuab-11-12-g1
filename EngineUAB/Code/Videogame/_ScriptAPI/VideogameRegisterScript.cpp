@@ -51,7 +51,7 @@ namespace ScriptAPI
 					.def(constructor<const std::string&>())
 					.def(constructor<int, const std::string&>())
 					.def("init", &CCharacter::Init, &CCharacter_Wrapper::Init)
-					.def("update", &CCharacter::Update, &CCharacter_Wrapper::Default_Update)
+					.def("update", &CCharacter::Update)
 					.def("get_animation_model", &CCharacter::GetAnimatedModel)
 					.def("get_animation_id", &CCharacter::GetAnimationID)
 					.def("move_to", &CCharacter::MoveTo)

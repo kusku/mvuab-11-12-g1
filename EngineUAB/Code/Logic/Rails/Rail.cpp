@@ -87,7 +87,8 @@ void CRail::Update( float _fElapsedTime )
 				l_Position = l_Position + l_Dir * ( m_fVelocity / 2.f) * _fElapsedTime;
 			}
 
-			//Calcula los ángulos de dirección
+			//Calcula el Yaw
+			//---------------------
 			Vect2f l_XZDir	=	Vect2f( l_Dir.x, l_Dir.z );
 			l_XZDir.Normalize();
 
@@ -98,8 +99,44 @@ void CRail::Update( float _fElapsedTime )
 				l_Yaw = -l_Yaw;
 			}
 
-			//TODO: Calcular el Pitch
-			float l_Pitch = 0.0f;
+			//Calcula el Pitch
+			//---------------------
+			float l_Pitch = 0.f;
+			if(l_Dir.x != 0.f)
+			{
+				Vect2f l_XYDir = Vect2f(l_Dir.x, l_Dir.y);
+				l_XYDir.Normalize();
+
+				if(l_Dir.x > 0.f)
+				{
+					l_Pitch = l_XYDir.Dot(Vect2f(1.f, 0.f));
+					l_Pitch = - mathUtils::ACos(l_Pitch);
+				}
+				else
+				{
+					l_Pitch = l_XYDir.Dot(Vect2f(-1.f, 0.f));
+					l_Pitch = mathUtils::ACos(l_Pitch);
+				}
+			}
+			else
+			{
+				Vect2f l_YZDir = Vect2f(l_Dir.y, l_Dir.z);
+				l_YZDir.Normalize();
+
+				if(l_Dir.z > 0.f)
+				{
+					l_Pitch = l_YZDir.Dot(Vect2f(0.f, 1.f));
+					l_Pitch = - mathUtils::ACos(l_Pitch);
+				}
+				else
+				{
+					l_Pitch = l_YZDir.Dot(Vect2f(0.f, -1.f));
+					l_Pitch = mathUtils::ACos(l_Pitch);
+				}
+			}
+			
+
+			//l_Pitch = 0.0f;
 
 			//Asigna la nueva posición y los nuevos ángulos
 			m_pObject->SetPosition( l_Position );

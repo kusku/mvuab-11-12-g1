@@ -20,15 +20,11 @@
 #include "Weapons\WeaponManager.h"
 #include "Callbacks\Animation\AnimationCallbackManager.h"
 
-#include "Rails\RailManager.h"
-
 #include "Core.h"
 #include "Base.h"
 
 #include "VideogameDefs.h"
 #include "Characters\CharacterManager.h"
-
-#include "Cameras\FPSCamera.h"
 
 #if defined (_DEBUG)
 	#include "Memory/MemLeaks.h"
@@ -69,8 +65,6 @@ bool CGameProcess::Init()
 			
 		CORE->GetScriptManager()->RunCode("load_data()");
 	}
-
-	CORE->GetRailManager()->SetCurrentRail("test");
 
 	//Carga los objetos del juego
 	LoadGameObjects();
@@ -117,17 +111,6 @@ void CGameProcess::CreateFreeCamera(float _near, float _far, float _zoom, float 
 	m_pThPSFreeCamera = new CThPSCamera( _near, _far, 45.f * D3DX_PI / 180.f, aspect, &m_FreeCamera, _zoom, _heightLookAt, _heightEye, _name);
 	m_pFreeCamera = static_cast<CCamera*>(m_pThPSFreeCamera);
 	CORE->SetCamera(m_pCamera);
-
-	//------------------------
-	/*m_FPSStaticCamera.SetPosition(Vect3f( 0.f, 10.f, 0.f));
-	m_FPSStaticCamera.SetPitch(-D3DX_PI/6);
-	m_FPSStaticCamera.SetYaw(0.0f);
-	m_FPSStaticCamera.SetRoll(0.0f);
-
-	aspect = CORE->GetRenderManager()->GetAspectRatio();
-	m_pFPSCamera = new CFPSCamera( _near, _far, 45.f * D3DX_PI / 180.f, aspect, &m_FPSStaticCamera, _name);
-	m_pFPSRail = static_cast<CCamera*>(m_pFPSCamera);
-	CORE->GetRailManager()->GetCurrentRail()->SetObject(static_cast<CObject3D*>(&m_FPSStaticCamera));*/
 }
 
 void CGameProcess::Update(float elapsedTime)
@@ -148,22 +131,7 @@ void CGameProcess::Update(float elapsedTime)
 	{
 		SCRIPT->RunCode("change_to_end_gui_process()");
 	}
-	//----------------------
-	if( CORE->GetActionToInput()->DoAction("play"))
-	{
-		CORE->GetRailManager()->StartCurrentRail();
-	}
 
-	if( CORE->GetActionToInput()->DoAction("pause"))
-	{
-		CORE->GetRailManager()->PauseCurrentRail();
-	}
-
-	if( CORE->GetActionToInput()->DoAction("stop"))
-	{
-		CORE->GetRailManager()->StopCurrentRail();
-	}
-	//----------------------
 	if( CORE->GetActionToInput()->DoAction("CommutationCamera") )
 	{
 		if( m_pCamera == m_pThPSCamera )
@@ -171,9 +139,6 @@ void CGameProcess::Update(float elapsedTime)
 			m_pCamera = m_pThPSFreeCamera;
 			CORE->SetCamera( m_pThPSFreeCamera );
 			m_pCharactersManager->GetPlayer()->SetLocked( true );
-
-			/*m_pCamera = m_pFPSCamera;
-			CORE->SetCamera( m_pFPSCamera );*/
 		}
 		else
 		{
@@ -214,12 +179,6 @@ void CGameProcess::Render(CRenderManager &RM)
 {
 	m_pCharactersManager->Render(&RM, CORE->GetFontManager());
 	m_pThPSCamera->Render(&RM);
-
-	Mat44f mat;
-	mat.SetIdentity();	
-	mat.Translate(m_FPSStaticCamera.GetPosition());
-	RM.SetTransform(mat);
-	RM.DrawSphere(0.5, 10, colRED);
 }
 
 bool CGameProcess::LoadMainScript()
