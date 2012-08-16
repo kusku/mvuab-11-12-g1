@@ -100,6 +100,22 @@ void CRailManager::SetCurrentRail( const std::string &_Rail )
 }
 
 //--------------------------------------------------
+void CRailManager::SetObjectToCurrentRail( CObject3D *_Object3D )
+{
+#ifdef _DEBUG
+	assert(m_pCurrentRail);
+
+	if(m_pCurrentRail != NULL)
+	{
+		m_pCurrentRail->SetObject(_Object3D);
+	}
+
+#else
+	m_pCurrentRail->SetObject(_Object3D);
+#endif
+}
+
+//--------------------------------------------------
 void CRailManager::StartCurrentRail()
 {
 #ifdef _DEBUG
@@ -141,6 +157,23 @@ void CRailManager::StopCurrentRail()
 	}
 #else
 	m_pCurrentRail->Stop();
+#endif
+}
+
+//--------------------------------------------------
+bool CRailManager::HasFinishedCurrentRail()
+{
+#ifdef _DEBUG
+	assert( m_pCurrentRail );
+
+	if(m_pCurrentRail != NULL)
+	{
+		return m_pCurrentRail->HasFinished();
+	}
+
+	return false;
+#else
+	return m_pCurrentRail->HasFinished();
 #endif
 }
 
