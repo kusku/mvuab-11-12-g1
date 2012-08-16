@@ -18,6 +18,7 @@
 //--Forward declarations------
 class CXMLTreeNode;
 class CRenderManager;
+class CObject3D;
 //----------------------------
 
 class CRailManager : public CTemplatedVectorMapManager< CRail >
@@ -39,10 +40,13 @@ public:
 	void	PauseCurrentRail		();
 	void	StopCurrentRail			();
 
+	bool	HasFinishedCurrentRail	();
+
 	//--Set & Get Methods------------------
-	void			SetCurrentRail	( const std::string &_Rail );
-	CRail*			GetRail			( const std::string &_Rail )	{ return GetResource(_Rail); }
-	inline CRail*	GetCurrentRail	() const						{ return m_pCurrentRail; }
+	void			SetCurrentRail			( const std::string &_Rail );
+	void			SetObjectToCurrentRail	( CObject3D *_Object3D );
+	inline CRail*	GetRail					( const std::string &_Rail )	{ return GetResource(_Rail); }
+	inline CRail*	GetCurrentRail			() const						{ return m_pCurrentRail; }
 
 	//--Debug Methods----------------------
 	void	Render		( CRenderManager &_RM );
