@@ -69,8 +69,8 @@ LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 		}
 	case WM_GUI_PROCESS:
 		{
-			SCRIPT->RunCode("unload_data()");
 			CHECKED_DELETE(g_pGameProcess);
+			SCRIPT->RunCode("unload_data()");
 
 			if( g_pGUIProcess == NULL )
 			{				
@@ -82,6 +82,7 @@ LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 			g_pEngine->SetProcess( g_pGUIProcess );
 			CORE->SetProcess(g_pGUIProcess);
 			g_pGUIProcess->SetCameraToCore();
+			g_pGUIProcess->SetCameraToAudio();
 			CORE->SetGameMode(false);
 			break;
 		}
