@@ -5,7 +5,10 @@ class 'CPlayerAttack2State' (CState)
 	end
 
 	function CPlayerAttack2State:OnEnter(_CCharacter)
-		core:get_debug_gui_manager().debug_render:set_state_name("Attack 2")
+		if core:is_debug_mode() then
+			core:get_debug_gui_manager().debug_render:set_state_name("Attack 2")
+		end
+		
 		self.animation_time = _CCharacter.elapsed_time
 		self.animation_callback:start_animation()
 	end

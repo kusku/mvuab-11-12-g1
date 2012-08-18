@@ -491,13 +491,18 @@ bool CCore::LoadSounds()
 
 bool CCore::LoadDebugGUI()
 {
+#if defined _DEBUG
 	return m_pDebugGUIManager->Init( m_Config.modifiers_path, m_Config.debug_options_path );		
+#else
+	return false;
+#endif
 }
 
 bool CCore::LoadWaypoints()
 {
 	return m_WayPointManager->Load( m_Config.waypoints_path ); 
 }
+
 bool CCore::LoadSteeringBehaviorSettings()
 {
 	return m_pSteeringBehaviorSeetingsManager->Load( m_Config.steering_behavior_settings_path );

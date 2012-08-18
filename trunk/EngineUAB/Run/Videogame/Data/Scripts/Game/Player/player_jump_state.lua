@@ -6,7 +6,9 @@ class 'CPlayerJumpState' (CState)
 	end
 
 	function CPlayerJumpState:OnEnter(_CCharacter)
-		core:get_debug_gui_manager().debug_render:set_state_name("Jump")
+		if core:is_debug_mode() then
+			core:get_debug_gui_manager().debug_render:set_state_name("Jump")
+		end
 		
 		self.animation_time = 0.0
 		_CCharacter.physic_controller:jump(50)
@@ -51,7 +53,7 @@ class 'CPlayerJumpState' (CState)
 		
 		--Mueve el controller físico
 		_CCharacter.physic_controller:move(l_dir, _CCharacter.elapsed_time)
-		if self.previous_position.y == _CCharacter.physic_controller.position.y then			
+		if self.previous_position.y == _CCharacter.physic_controller.position.y then	
 			_CCharacter.logic_fsm:change_state(_CCharacter.idle)
 			_CCharacter.graphic_fsm:change_state(_CCharacter.animated_idle)
 		end

@@ -5,7 +5,9 @@ class 'CPlayerIdleState' (CState)
 	end
 
 	function CPlayerIdleState:OnEnter(_CCharacter)
-		core:get_debug_gui_manager().debug_render:set_state_name("Idle")
+		if core:is_debug_mode() then
+			core:get_debug_gui_manager().debug_render:set_state_name("Idle")
+		end
 	end
 	
 	function CPlayerIdleState:Execute(_CCharacter)
