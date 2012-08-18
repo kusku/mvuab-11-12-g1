@@ -5,7 +5,9 @@ class 'CPlayerTargetRunState' (CState)
 	end
 
 	function CPlayerTargetRunState:OnEnter(_CCharacter)
-		core:get_debug_gui_manager().debug_render:set_state_name("Target run")
+		if core:is_debug_mode() then
+			core:get_debug_gui_manager().debug_render:set_state_name("Target run")
+		end
 	
 		self.enemy_detected = get_game_process():get_character_manager().preview_target_enemy
 		if self.enemy_detected == nil then

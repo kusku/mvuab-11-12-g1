@@ -5,7 +5,10 @@ class 'CPlayerTargetAttack2State' (CState)
 	end
 
 	function CPlayerTargetAttack2State:OnEnter(_CCharacter)
-		core:get_debug_gui_manager().debug_render:set_state_name("Target attack 2")
+		if core:is_debug_mode() then
+			core:get_debug_gui_manager().debug_render:set_state_name("Target attack 2")
+		end
+		
 		self.animation_time = 0.0	
 	end
 	

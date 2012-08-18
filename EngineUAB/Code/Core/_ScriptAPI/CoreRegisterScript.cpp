@@ -108,6 +108,8 @@ namespace ScriptAPI
 					.def("load_steering_behaviors_settings", &CCore::LoadSteeringBehaviorSettings)
 					.def("load_rails", &CCore::LoadRails)
 					.def("is_game_mode", &CCore::IsGameMode)
+					.def("is_debug_mode", &CCore::IsDebugMode)
+					.def("is_release_mode", &CCore::IsReleaseMode)
 					.def("unload_static_meshes", &CCore::UnloadStaticMeshes)
 					.def("unload_animated_models", &CCore::UnloadAnimatedModels)
 					.def("unload_renderable_objects_layers", &CCore::UnloadRenderableObjectsLayers)

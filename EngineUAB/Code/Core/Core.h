@@ -37,7 +37,7 @@ class CEntityManager;
 class CMessageDispatcher;
 class CWayPointManager;
 class CParticleEmitterManager;
-class CParticleSystemManager;;
+class CParticleSystemManager;
 class CParticleSettingsManager;
 class CAnimalManager;
 class CSteeringBehaviorsSeetingsManager;

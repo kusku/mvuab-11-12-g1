@@ -5,7 +5,9 @@ class 'CPlayerRunState' (CState)
 	end
 
 	function CPlayerRunState:OnEnter(_CCharacter)
-		core:get_debug_gui_manager().debug_render:set_state_name("Run")
+		if core:is_debug_mode() then
+			core:get_debug_gui_manager().debug_render:set_state_name("Run")
+		end
 	end
 	
 	function CPlayerRunState:Execute(_CCharacter)
@@ -85,11 +87,13 @@ class 'CPlayerRunState' (CState)
 			if self.action_2_input:do_action('PlayerJump') then
 				_CCharacter.logic_fsm:change_state(_CCharacter.jump)
 				_CCharacter.graphic_fsm:change_state(_CCharacter.animated_jump)
+				print_logger(0, "salta")
 			end
 		else
 			--Cambia de estado a idle
 			_CCharacter.logic_fsm:change_state(_CCharacter.idle)
 			_CCharacter.graphic_fsm:change_state(_CCharacter.animated_idle)
+			print_logger(0, "idle")
 		end
 	end
 	
