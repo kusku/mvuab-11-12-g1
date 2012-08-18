@@ -32,6 +32,7 @@ public:
 	void			LoadGameData		();
 	void			ExitGame			();
 	void			SetCameraToCore		();
+	void			SetCameraToAudio	();
 
 	static void		RegisterMethods ();
 

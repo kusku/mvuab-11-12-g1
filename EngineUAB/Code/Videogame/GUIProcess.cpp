@@ -2,6 +2,8 @@
 #include "XML\XMLControl.h"
 #include "RenderManager.h"
 #include "Scripting\ScriptManager.h"
+#include "SoundManager.h"
+#include "Listener.h"
 #include "Cameras\ThPSCamera.h"
 #include "Cameras\Camera.h"
 #include "Math\Vector2.h"
@@ -68,6 +70,11 @@ void CGUIProcess::Render(CRenderManager &RM)
 void CGUIProcess::SetCameraToCore()
 {
 	CORE->SetCamera(m_pCamera);
+}
+
+void CGUIProcess::SetCameraToAudio()
+{
+	CORE->GetSoundManager()->GetListener()->SetCamera(m_pCamera);
 }
 
 //-------------------------------------
