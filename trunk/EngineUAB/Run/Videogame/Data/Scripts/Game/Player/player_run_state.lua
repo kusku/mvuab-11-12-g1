@@ -88,13 +88,29 @@ class 'CPlayerRunState' (CState)
 				
 				if self.action_2_input:do_action('MovePlayerLeft') then
 					l_yaw = l_yaw - math.pi/4
-					l_model_yaw = l_model_yaw - math.pi/4 * self.rotation_velocity * elapsed_tim
+					
+					--if math.abs(l_model_yaw - l_yaw) > 0.1 * self.rotation_velocity then
+						--if l_yaw >= l_model_yaw then
+							l_model_yaw = l_model_yaw - math.pi/4 * self.rotation_velocity * elapsed_time
+						--else
+							--l_model_yaw = l_model_yaw + math.pi/4 * self.rotation_velocity * elapsed_time
+						--end
+					end
+					
 					--TODO: Corrección de dirección
 					
 				elseif self.action_2_input:do_action('MovePlayerRight') then
 					l_yaw = l_yaw + math.pi/4
 					l_model_yaw = l_model_yaw + math.pi/4 * self.rotation_velocity * elapsed_time
 					--TODO: Corrección de dirección
+				else
+					if math.abs(l_model_yaw + l_yaw) > 0.1 * self.rotation_velocity then
+						if l_yaw >= l_model_yaw then
+							l_model_yaw = l_model_yaw + self.rotation_velocity * elapsed_time
+						else
+							l_model_yaw = l_model_yaw - self.rotation_velocity * elapsed_time
+						end
+					end
 				end
 				
 				l_dir = Vect3f(math.cos(l_yaw), 0.0, math.sin(l_yaw))
