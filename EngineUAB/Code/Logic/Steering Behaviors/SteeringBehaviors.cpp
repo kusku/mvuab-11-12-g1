@@ -9,21 +9,22 @@
 #include "Seek.h"
 #include "Flee.h"
 #include "Pursuit.h"
-//#include "Evade.h"
-//#include "OffsetPursuit.h"
+#include "Evade.h"
+#include "OffsetPursuit.h"
 #include "Arrive.h"
-//#include "Wander.h"
-//#include "CollisionAvoidance.h"
-//#include "ObstacleWallAvoidance.h"
+#include "Wander.h"
+#include "CollisionAvoidance.h"
+#include "ObstacleWallAvoidance.h"
+
 // --- Para Flocking Behaviur ---- 
-//#include "Separation.h"
-//#include "Alignment.h"
-//#include "Cohesion.h"
+#include "Separation.h"
+#include "Alignment.h"
+#include "Cohesion.h"
 // -------------------------------
 
-//#include "PhysicsManager.h"
-//#include "PhysicUserData.h"
-//#include "PhysicsDefs.h"
+#include "PhysicsManager.h"
+#include "PhysicUserData.h"
+#include "PhysicsDefs.h"
 
 #include "Base.h"
 #include "Core.h"
@@ -39,14 +40,14 @@
 CSteeringBehaviors::CSteeringBehaviors( float _MaxForce )
 	: m_SteeringForce			( Vect3f(0.f, 0.f, 0.f) )
 	, m_pSeek					( NULL )
-	//, m_pFlee					( NULL )
+	, m_pFlee					( NULL )
 	, m_pPursuit				( NULL )
 	, m_pArrive					( NULL )
-	//, m_pCollisionAvoidance		( NULL )
-	//, m_pObstacleWallAvoidance	( NULL )
-	//, m_pSeparation				( NULL )
-	//, m_pAlignment				( NULL )
-	//, m_pCohesion				( NULL )
+	, m_pCollisionAvoidance		( NULL )
+	, m_pObstacleWallAvoidance	( NULL )
+	, m_pSeparation				( NULL )
+	, m_pAlignment				( NULL )
+	, m_pCohesion				( NULL )
 	, m_MaxForce				( _MaxForce )
 	, m_SummingMethod			( ::prioritized )
 {
@@ -57,7 +58,7 @@ CSteeringBehaviors::CSteeringBehaviors( float _MaxForce )
 
 CSteeringBehaviors::~CSteeringBehaviors(void)
 {
-
+	Destroy();
 }
 
 
@@ -75,9 +76,14 @@ void CSteeringBehaviors::Initialize( void )
 	m_WeightFlee				= 0.22f;
 	m_WeightArrive				= 0.22f;
 	m_WeightPursuit				= 0.22f;
+	m_WeightOffsetPursuit		= 0.22f;
 	m_WeightWander				= 0.22f;
 	m_WeightSeparation			= 0.22f;
-
+	m_WeightCohesion			= 0.22f;
+	m_WeightAlignment			= 0.22f;
+	//m_WeightInterpose			= 0.22f;
+	//m_WeightHide				= 0.22f;
+	//m_WeightFollowPath		= 0.22f;
 }
 
 void CSteeringBehaviors::Destroy( void )
@@ -178,122 +184,71 @@ const Vect3f& CSteeringBehaviors::CalculatePrioritized( void )
 	Vect3f l_Force;
 	l_Force.SetZero();
 	
-	//if ( HasBehavior(::obstacle_wall_avoidance) && On(::obstacle_wall_avoidance))
-	//{
-	//	l_Force = m_pObstacleWallAvoidance->CalculateSteering(m_pEntity) * m_WeightWallAvoidance;
+	if ( HasBehavior(::obstacle_wall_avoidance) && On(::obstacle_wall_avoidance))
+	{
+		l_Force = m_pObstacleWallAvoidance->CalculateSteering(m_pEntity) * m_WeightWallAvoidance;
 
-	//	if (!AccumulateForce(m_SteeringForce, l_Force)) 
-	//		return m_SteeringForce;
-	//}
+		if (!AccumulateForce(m_SteeringForce, l_Force)) 
+			return m_SteeringForce;
+	}
 
-	//if ( HasBehavior(::collision_avoidance) && On(::collision_avoidance) )
-	//{
-	//	l_Force = m_pCollisionAvoidance->CalculateSteering(m_pEntity) * m_WeightObstacleAvoidance;
-	//	
-	//	if (!AccumulateForce(m_SteeringForce, l_Force)) 
-	//		return m_SteeringForce;
-	//}
+	if ( HasBehavior(::collision_avoidance) && On(::collision_avoidance) )
+	{
+		l_Force = m_pCollisionAvoidance->CalculateSteering(m_pEntity) * m_WeightObstacleAvoidance;
+		
+		if (!AccumulateForce(m_SteeringForce, l_Force)) 
+			return m_SteeringForce;
+	}
 
-	//if ( HasBehavior(::evade) && On(::evade) )
-	//{	
-	//	l_Force = m_pEvade->CalculateSteering(m_pEntity) * m_WeightEvade;
+	if ( HasBehavior(::evade) && On(::evade) )
+	{	
+		l_Force = m_pEvade->CalculateSteering(m_pEntity) * m_WeightEvade;
 
-	//	if (!AccumulateForce(m_SteeringForce, l_Force)) 
-	//		return m_SteeringForce;
-	//}
+		if (!AccumulateForce(m_SteeringForce, l_Force)) 
+			return m_SteeringForce;
+	}
 
-	//if ( HasBehavior(::flee) && On(::flee) )
-	//{
-	//	l_Force = m_pFlee->CalculateSteering(m_pEntity) * m_WeightFlee;
+	if ( HasBehavior(::flee) && On(::flee) )
+	{
+		l_Force = m_pFlee->CalculateSteering(m_pEntity) * m_WeightFlee;
 
-	//	if (!AccumulateForce(m_SteeringForce, l_Force)) 
-	//		return m_SteeringForce;
-	//}
+		if (!AccumulateForce(m_SteeringForce, l_Force)) 
+			return m_SteeringForce;
+	}
 	
 	// ---  tratamiento grupal ---
 	// En caso de comportamiento grupal buscamos los agentes cercanos dentro del radio especificado
-	//if (On(::separation) || On(::alignment) || On(::cohesion))
- //   {
-	//	if (m_pSeparation== NULL )
-	//	{
-	//		float l = 0.f;
-	//	}
-	//	else 
-	//	{
-	//		float l = 0.f;
-	//	}
-	//	if ( m_UserDatas.size() == 0 )
-	//	{
-	//		float l = 0.f;
-	//	}
-	//	else 
-	//	{
-	//		float l = 0.f;
-	//	}
-	//	if (m_pEntity== NULL )
-	//	{
-	//		float l = 0.f;
-	//	}
-	//	else 
-	//	{
-	//		float l = 0.f;
-	//	}
+	if (On(::separation) || On(::alignment) || On(::cohesion))
+    {
+		CalculateNeighbors( m_pEntity->GetPosition(), CORE->GetSteeringBehaviourSettingsManager()->GetNeightbourRadius() );
+	}
 
-	//	//CalculateNeighbors( m_pEntity->GetPosition(), CORE->GetSteeringBehaviourSettingsManager()->GetNeightbourRadius() );
+	if ( HasBehavior(::separation) && On(::separation) )
+    {
+		m_pSeparation->UpdateParameters(m_UserDatas);
+		l_Force = m_pSeparation->CalculateSteering(m_pEntity) * m_WeightSeparation;
 
-	//	if (m_pSeparation== NULL )
-	//	{
-	//		float l = 0.f;
-	//	}
-	//	else 
-	//	{
-	//		float l = 0.f;
-	//	}
-	//	if ( m_UserDatas.size() == 0 )
-	//	{
-	//		float l = 0.f;
-	//	}
-	//	else 
-	//	{
-	//		float l = 0.f;
-	//	}
-	//	if (m_pEntity== NULL )
-	//	{
-	//		float l = 0.f;
-	//	}
-	//	else 
-	//	{
-	//		float l = 0.f;
-	//	}
- //   }
+		if (!AccumulateForce(m_SteeringForce, l_Force)) 
+			return m_SteeringForce;
+    }
 
-	//if ( HasBehavior(::separation) && On(::separation) )
- //   {
-	//	//m_pSeparation->UpdateParameters(m_UserDatas);
-	//	//l_Force = m_pSeparation->CalculateSteering(m_pEntity) * m_WeightSeparation;
-	//	l_Force = Vect3f(0,0,0);
+	if ( HasBehavior(::alignment) && On(::alignment) )
+    {
+		m_pAlignment->UpdateParameters(m_UserDatas);
+		l_Force = m_pAlignment->CalculateSteering(m_pEntity) * m_WeightAlignment;
 
-	//	if (!AccumulateForce(m_SteeringForce, l_Force)) 
-	//		return m_SteeringForce;
- //   }
+		if (!AccumulateForce(m_SteeringForce, l_Force)) 
+			return m_SteeringForce;
+    }
+	
+    if ( HasBehavior(::cohesion) && On(::cohesion) )
+    {
+		m_pCohesion->UpdateParameters(m_UserDatas);
+		l_Force = m_pCohesion->CalculateSteering(m_pEntity) * m_WeightCohesion;
 
-	//if ( HasBehavior(::alignment) && On(::alignment) )
- //   {
-	//	m_pAlignment->UpdateParameters(m_UserDatas);
-	//	l_Force = m_pAlignment->CalculateSteering(m_pEntity) * m_WeightAlignment;
-
-	//	if (!AccumulateForce(m_SteeringForce, l_Force)) 
-	//		return m_SteeringForce;
- //   }
-	//
- //   if ( HasBehavior(::cohesion) && On(::cohesion) )
- //   {
-	//	m_pCohesion->UpdateParameters(m_UserDatas);
-	//	l_Force = m_pCohesion->CalculateSteering(m_pEntity) * m_WeightCohesion;
-
-	//	if (!AccumulateForce(m_SteeringForce, l_Force)) 
-	//		return m_SteeringForce;
- //   }
+		if (!AccumulateForce(m_SteeringForce, l_Force)) 
+			return m_SteeringForce;
+    }
 	// ---  fin tratamiento grupal ---
 
 	if ( HasBehavior(::seek) && On(::seek) )
@@ -326,65 +281,62 @@ const Vect3f& CSteeringBehaviors::CalculatePrioritized( void )
 			return m_SteeringForce;
 	}	
 
-	//if ( HasBehavior(::wander) && On(::wander) ) 
-	//{
-	//	l_Force = m_pWander->CalculateSteering(m_pEntity) * m_WeightWander;
-
-	//	if (!AccumulateForce(m_SteeringForce, l_Force)) 
-	//		return m_SteeringForce;
-	//}
-
-	if ( HasBehavior(::pursuit) && On(::pursuit) ) 
+	if ( HasBehavior(::wander) && On(::wander) ) 
 	{
-		//assert(m_pTargetAgent1 && "pursuit target not assigned");
-
-		//l_Force = Pursuit(m_pTargetAgent1) * m_WeightPursuit;
-		l_Force = m_pPursuit->CalculateSteering(m_pEntity) * m_WeightPursuit;
+		l_Force = m_pWander->CalculateSteering(m_pEntity) * m_WeightWander;
 
 		if (!AccumulateForce(m_SteeringForce, l_Force)) 
 			return m_SteeringForce;
 	}
 
-	//if ( HasBehavior(::offset_pursuit) && On(::offset_pursuit) ) 
-	//{
-	//	/*assert (m_pTargetAgent1 && "pursuit target not assigned");
-	//	assert (!m_vOffset.isZero() && "No offset assigned");*/
+	if ( HasBehavior(::pursuit) && On(::pursuit) ) 
+	{
+			l_Force = m_pPursuit->CalculateSteering(m_pEntity) * m_WeightPursuit;
 
-	//	l_Force =  m_pOffsetPursuit->CalculateSteering(m_pEntity) * m_WeightOffsetPursuit;
-	//	//l_Force = m_pOffsetPursuit(m_pTargetAgent1, m_vOffset);
+		if (!AccumulateForce(m_SteeringForce, l_Force)) 
+			return m_SteeringForce;
+	}
 
-	//	if (!AccumulateForce(m_SteeringForce, l_Force)) 
-	//		return m_SteeringForce;
-	//}
+	if ( HasBehavior(::offset_pursuit) && On(::offset_pursuit) ) 
+	{
+		/*assert (m_pTargetAgent1 && "pursuit target not assigned");
+		assert (!m_vOffset.isZero() && "No offset assigned");*/
 
-	//if ( HasBehavior(::interpose) && On(::interpose) ) 
-	//{
-	//	/*assert (m_pTargetAgent1 && m_pTargetAgent2 && "Interpose agents not assigned");
+		l_Force =  m_pOffsetPursuit->CalculateSteering(m_pEntity) * m_WeightOffsetPursuit;
+		//l_Force = m_pOffsetPursuit(m_pTargetAgent1, m_vOffset);
 
-	//	l_Force = m_pInterpose(m_pTargetAgent1, m_pTargetAgent2) * m_WeightInterpose;*/
+		if (!AccumulateForce(m_SteeringForce, l_Force)) 
+			return m_SteeringForce;
+	}
 
-	//	if (!AccumulateForce(m_SteeringForce, l_Force)) 
-	//		return m_SteeringForce;
-	//}
+	if ( HasBehavior(::interpose) && On(::interpose) ) 
+	{
+		/*assert (m_pTargetAgent1 && m_pTargetAgent2 && "Interpose agents not assigned");
 
-	//if ( HasBehavior(::hide) && On(::hide) ) 
-	//{
-	//	/*assert(m_pTargetAgent1 && "Hide target not assigned");
+		l_Force = m_pInterpose(m_pTargetAgent1, m_pTargetAgent2) * m_WeightInterpose;*/
 
-	//	l_Force = m_pHide(m_pTargetAgent1, m_pVehicle->World()->Obstacles()) * m_WeightHide;*/
+		if (!AccumulateForce(m_SteeringForce, l_Force)) 
+			return m_SteeringForce;
+	}
 
-	//	if (!AccumulateForce(m_SteeringForce, l_Force)) 
-	//		return m_SteeringForce;
-	//}
+	if ( HasBehavior(::hide) && On(::hide) ) 
+	{
+		/*assert(m_pTargetAgent1 && "Hide target not assigned");
+
+		l_Force = m_pHide(m_pTargetAgent1, m_pVehicle->World()->Obstacles()) * m_WeightHide;*/
+
+		if (!AccumulateForce(m_SteeringForce, l_Force)) 
+			return m_SteeringForce;
+	}
 
 
-	//if ( HasBehavior(::follow_path) && On(::follow_path) ) 
-	//{
-	//	//l_Force = m_pFollowPath->CalculateSteering(m_pEntity) * m_WeightFollowPath;
-	//
-	//	if (!AccumulateForce(m_SteeringForce, l_Force)) 
-	//		return m_SteeringForce;
-	//}
+	if ( HasBehavior(::follow_path) && On(::follow_path) ) 
+	{
+		//l_Force = m_pFollowPath->CalculateSteering(m_pEntity) * m_WeightFollowPath;
+	
+		if (!AccumulateForce(m_SteeringForce, l_Force)) 
+			return m_SteeringForce;
+	}
 
 	return m_SteeringForce;
 }
@@ -406,13 +358,13 @@ void CSteeringBehaviors::AddBehavior( CSeek *_pSteering )
     m_pSeek = _pSteering;
 }
 
-//void CSteeringBehaviors::AddBehavior( CFlee *_pSteering ) 
-//{
-//    if ( !HasBehavior(_pSteering->GetType() ) )
-//		m_Behaviors->push_back(_pSteering->GetType());
-//
-//    m_pFlee = _pSteering;
-//}
+void CSteeringBehaviors::AddBehavior( CFlee *_pSteering ) 
+{
+    if ( !HasBehavior(_pSteering->GetType() ) )
+		m_Behaviors->push_back(_pSteering->GetType());
+
+    m_pFlee = _pSteering;
+}
 
 void CSteeringBehaviors::AddBehavior( CPursuit *_pSteering ) 
 {
@@ -422,13 +374,13 @@ void CSteeringBehaviors::AddBehavior( CPursuit *_pSteering )
     m_pPursuit = _pSteering;
 }
 
-//void CSteeringBehaviors::AddBehavior( CEvade *_pSteering ) 
-//{
-//    if ( !HasBehavior(_pSteering->GetType() ) )
-//		m_Behaviors->push_back(_pSteering->GetType());
-//
-//    m_pEvade = _pSteering;
-//}
+void CSteeringBehaviors::AddBehavior( CEvade *_pSteering ) 
+{
+    if ( !HasBehavior(_pSteering->GetType() ) )
+		m_Behaviors->push_back(_pSteering->GetType());
+
+    m_pEvade = _pSteering;
+}
 
 void CSteeringBehaviors::AddBehavior( CArrive *_pSteering ) 
 {
@@ -438,75 +390,76 @@ void CSteeringBehaviors::AddBehavior( CArrive *_pSteering )
     m_pArrive = _pSteering;
 }
 
-//void CSteeringBehaviors::AddBehavior( CWander *_pSteering ) 
-//{
-//    if ( !HasBehavior(_pSteering->GetType() ) )
-//		m_Behaviors->push_back(_pSteering->GetType());
-//
-//    m_pWander = _pSteering;
-//}
-//
-//void CSteeringBehaviors::AddBehavior( CCollisionAvoidance *_pSteering ) 
-//{
-//    if ( !HasBehavior(_pSteering->GetType() ) ) 
-//		m_Behaviors->push_back(_pSteering->GetType());
-//
-//    m_pCollisionAvoidance = _pSteering;
-//}
-//
-//void CSteeringBehaviors::AddBehavior( CObstacleWallAvoidance *_pSteering ) 
-//{
-//    if ( !HasBehavior(_pSteering->GetType() ) ) 
-//		m_Behaviors->push_back(_pSteering->GetType());
-//
-//    m_pObstacleWallAvoidance = _pSteering;
-//}
-//
-//void CSteeringBehaviors::AddBehavior( CSeparation *_pSteering ) 
-//{
-//    if ( !HasBehavior(_pSteering->GetType() ) ) 
-//		m_Behaviors->push_back(_pSteering->GetType());
-//
-//    //m_pSeparation = _pSteering;
-//}
-//
-//void CSteeringBehaviors::AddBehavior( CAlignment *_pSteering ) 
-//{
-//    if ( !HasBehavior(_pSteering->GetType() ) ) 
-//		m_Behaviors->push_back(_pSteering->GetType());
-//
-//    //m_pAlignment = _pSteering;
-//}
-//
-//void CSteeringBehaviors::AddBehavior( CCohesion *_pSteering ) 
-//{
-//    if ( !HasBehavior(_pSteering->GetType() ) ) 
-//		m_Behaviors->push_back(_pSteering->GetType());
-//
-//    //m_pCohesion = _pSteering;
-//}
+void CSteeringBehaviors::AddBehavior( CWander *_pSteering ) 
+{
+    if ( !HasBehavior(_pSteering->GetType() ) )
+		m_Behaviors->push_back(_pSteering->GetType());
 
-//void CSteeringBehaviors::ClearNeighbors( void )
-//{
-//	m_UserDatas.clear();
-//}
-//
-//void CSteeringBehaviors::CalculateNeighbors( const Vect3f & _Position, float _ViewDistance )
-//{
-//	int l_Mask = 1 << ECG_ENEMY;
-//
-//	// Limpiamos la lista anterior
-//	ClearNeighbors();
-//
-//	// Calculamos los vecinos a una posición 
-//	CORE->GetPhysicsManager()->OverlapSphereActor( _ViewDistance, _Position, m_UserDatas, l_Mask );
-//
-//	//if ( m_UserDatas.size() > 0 )
-//	//{
-//	//	LOGGER->AddNewLog( ELL_INFORMATION, "He trobat veins" );
-//	//	return;
-//	//}
-//}
+    m_pWander = _pSteering;
+}
+
+void CSteeringBehaviors::AddBehavior( CCollisionAvoidance *_pSteering ) 
+{
+    if ( !HasBehavior(_pSteering->GetType() ) ) 
+		m_Behaviors->push_back(_pSteering->GetType());
+
+    m_pCollisionAvoidance = _pSteering;
+}
+
+void CSteeringBehaviors::AddBehavior( CObstacleWallAvoidance *_pSteering ) 
+{
+    if ( !HasBehavior(_pSteering->GetType() ) ) 
+		m_Behaviors->push_back(_pSteering->GetType());
+
+    m_pObstacleWallAvoidance = _pSteering;
+}
+
+void CSteeringBehaviors::AddBehavior( CSeparation *_pSteering ) 
+{
+    if ( !HasBehavior(_pSteering->GetType() ) ) 
+		m_Behaviors->push_back(_pSteering->GetType());
+
+    m_pSeparation = _pSteering;
+}
+
+void CSteeringBehaviors::AddBehavior( CAlignment *_pSteering ) 
+{
+    if ( !HasBehavior(_pSteering->GetType() ) ) 
+		m_Behaviors->push_back(_pSteering->GetType());
+
+    m_pAlignment = _pSteering;
+}
+
+void CSteeringBehaviors::AddBehavior( CCohesion *_pSteering ) 
+{
+    if ( !HasBehavior(_pSteering->GetType() ) ) 
+		m_Behaviors->push_back(_pSteering->GetType());
+
+    m_pCohesion = _pSteering;
+}
+
+void CSteeringBehaviors::ClearNeighbors( void )
+{
+	m_UserDatas.clear();
+}
+
+void CSteeringBehaviors::CalculateNeighbors( const Vect3f & _Position, float _ViewDistance )
+{
+	int l_Mask = 1 << ECG_ENEMY;
+
+	// Limpiamos la lista anterior
+	ClearNeighbors();
+
+	// Calculamos los vecinos a una posición 
+	CORE->GetPhysicsManager()->OverlapSphereActor( _ViewDistance, _Position, m_UserDatas, l_Mask );
+
+	//if ( m_UserDatas.size() > 0 )
+	//{
+	//	LOGGER->AddNewLog( ELL_INFORMATION, "He trobat veins" );
+	//	return;
+	//}
+}
+
 
 // -----------------------------------------
 //				PROPERTIES
@@ -540,15 +493,15 @@ CSeek* CSteeringBehaviors::GetSeek( void )
 	return m_pSeek;
 }
 
-//CFlee * CSteeringBehaviors::GetFlee( void ) 
-//{
-//	if ( m_pFlee == NULL && HasBehavior(::flee) )
-//	{
-//			m_pFlee = new CFlee(0.f);
-//    }
-//
-//	return m_pFlee;
-//}
+CFlee * CSteeringBehaviors::GetFlee( void ) 
+{
+	if ( m_pFlee == NULL && HasBehavior(::flee) )
+	{
+			m_pFlee = new CFlee(0.f);
+    }
+
+	return m_pFlee;
+}
 
 CPursuit* CSteeringBehaviors::GetPursuit( void ) 
 {
@@ -560,15 +513,15 @@ CPursuit* CSteeringBehaviors::GetPursuit( void )
 	return m_pPursuit;
 }
 
-//CEvade* CSteeringBehaviors::GetEvade( void ) 
-//{
-//	if ( m_pEvade == NULL && HasBehavior(::evade) )
-//	{
-//			m_pEvade = new CEvade( 0.f );
-//    }
-//
-//	return m_pEvade;
-//}
+CEvade* CSteeringBehaviors::GetEvade( void ) 
+{
+	if ( m_pEvade == NULL && HasBehavior(::evade) )
+	{
+			m_pEvade = new CEvade( 0.f );
+    }
+
+	return m_pEvade;
+}
 
 CArrive* CSteeringBehaviors::GetArrive( void )
 {
@@ -580,64 +533,64 @@ CArrive* CSteeringBehaviors::GetArrive( void )
 	return m_pArrive;
 }
 
-//CWander* CSteeringBehaviors::GetWander( void )
-//{
-//	if ( m_pWander == NULL && HasBehavior(::wander) )
-//	{
-//			CSteeringBehaviorSeetingsManager * l_Manager =  CORE->GetSteeringBehaviourSettingsManager();
-//			m_pWander = new CWander( l_Manager->GetWanderRefreshRate(),  l_Manager->GetWanderDistance(), l_Manager->GetWanderRadius(), l_Manager->GetArriveDecelaration() , l_Manager->GetArriveDecelarationDistance() );
-//			l_Manager = NULL;
-//    }
-//
-//	return m_pWander;
-//}
-//
-//CCollisionAvoidance* CSteeringBehaviors::GetCollisionAvoidance( void )
-//{
-//	if ( m_pCollisionAvoidance == NULL && HasBehavior(::collision_avoidance) )
-//	{
-//			m_pCollisionAvoidance = new CCollisionAvoidance( CORE->GetSteeringBehaviourSettingsManager()->GetCollisionDetectionFeelerLength() );
-//    }
-//
-//	return m_pCollisionAvoidance;
-//}
-//
-//CObstacleWallAvoidance* CSteeringBehaviors::GetObstacleWallAvoidance( void )
-//{
-//	if ( m_pObstacleWallAvoidance == NULL && HasBehavior(::obstacle_wall_avoidance) )
-//	{
-//			m_pObstacleWallAvoidance = new CObstacleWallAvoidance( CORE->GetSteeringBehaviourSettingsManager()->GetObstacleWallDetectionFeelerLength() );
-//    }
-//
-//	return m_pObstacleWallAvoidance;
-//}
+CWander* CSteeringBehaviors::GetWander( void )
+{
+	if ( m_pWander == NULL && HasBehavior(::wander) )
+	{
+			CSteeringBehaviorsSeetingsManager * l_Manager =  CORE->GetSteeringBehaviourSettingsManager();
+			m_pWander = new CWander( l_Manager->GetWanderRefreshRate(),  l_Manager->GetWanderDistance(), l_Manager->GetWanderRadius(), l_Manager->GetArriveDecelaration() , l_Manager->GetArriveDecelarationDistance() );
+			l_Manager = NULL;
+    }
 
-//CSeparation * CSteeringBehaviors::GetSeparation( void )
-//{
-//	if ( m_pSeparation == NULL && HasBehavior(::separation) )
-//	{
-//		m_pSeparation = new CSeparation();
-//    }
-//
-//	return m_pSeparation;
-//}
-//
-//CAlignment * CSteeringBehaviors::GetAlignment( void )
-//{
-//	if ( m_pAlignment == NULL && HasBehavior(::alignment) )
-//	{
-//		m_pAlignment = new CAlignment();
-//    }
-//
-//	return m_pAlignment;
-//}
-//
-//CCohesion * CSteeringBehaviors::GetCohesion( void )
-//{
-//	if ( m_pCohesion == NULL && HasBehavior(::cohesion) )
-//	{
-//		m_pCohesion = new CCohesion();
-//    }
-//
-//	return m_pCohesion;
-//}
+	return m_pWander;
+}
+
+CCollisionAvoidance* CSteeringBehaviors::GetCollisionAvoidance( void )
+{
+	if ( m_pCollisionAvoidance == NULL && HasBehavior(::collision_avoidance) )
+	{
+			m_pCollisionAvoidance = new CCollisionAvoidance( CORE->GetSteeringBehaviourSettingsManager()->GetCollisionDetectionFeelerLength() );
+    }
+
+	return m_pCollisionAvoidance;
+}
+
+CObstacleWallAvoidance* CSteeringBehaviors::GetObstacleWallAvoidance( void )
+{
+	if ( m_pObstacleWallAvoidance == NULL && HasBehavior(::obstacle_wall_avoidance) )
+	{
+			m_pObstacleWallAvoidance = new CObstacleWallAvoidance( CORE->GetSteeringBehaviourSettingsManager()->GetObstacleWallDetectionFeelerLength() );
+    }
+
+	return m_pObstacleWallAvoidance;
+}
+
+CSeparation * CSteeringBehaviors::GetSeparation( void )
+{
+	if ( m_pSeparation == NULL && HasBehavior(::separation) )
+	{
+		m_pSeparation = new CSeparation();
+    }
+
+	return m_pSeparation;
+}
+
+CAlignment * CSteeringBehaviors::GetAlignment( void )
+{
+	if ( m_pAlignment == NULL && HasBehavior(::alignment) )
+	{
+		m_pAlignment = new CAlignment();
+    }
+
+	return m_pAlignment;
+}
+
+CCohesion * CSteeringBehaviors::GetCohesion( void )
+{
+	if ( m_pCohesion == NULL && HasBehavior(::cohesion) )
+	{
+		m_pCohesion = new CCohesion();
+    }
+
+	return m_pCohesion;
+}
