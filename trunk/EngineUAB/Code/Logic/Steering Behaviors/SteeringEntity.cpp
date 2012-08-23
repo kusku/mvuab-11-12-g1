@@ -16,20 +16,21 @@
 
 CSteeringEntity::CSteeringEntity( void )
 	: m_pController			( NULL ) 
-	//, m_pHeadingSmoother	( NULL )
+	, m_pHeadingSmoother	( NULL )
 	, m_SmoothingOn			( true )
-	//, m_SmoothedHeading		( Vect3f(0,0,0) )
+	, m_SmoothedHeading		( Vect3f(0,0,0) )
 {
 	// colocamos el smoother
-	//m_pHeadingSmoother = new CSmoother<Vect3f>(10, Vect3f(0.0, 0.0, 0.0)); 
+	m_pHeadingSmoother = new CSmoother<Vect3f>(10, Vect3f(0.0, 0.0, 0.0)); 
 }
 
 
 CSteeringEntity::~CSteeringEntity( void )
 {
 	m_pController = NULL;
-	//CHECKED_DELETE( m_pHeadingSmoother );
+	CHECKED_DELETE( m_pHeadingSmoother );
 }
+
 
 const Vect3f CSteeringEntity::GetInitialPositionToThrowRay( void ) const
 {

@@ -137,7 +137,7 @@ private:
 		// --- Smooth members ---
 		Vect3f				m_SmoothedHeading;		// Vector que representa la media de headings de los ultimos frames i que nos permitirá suavizar los movimientos evitando el temblor
 		bool				m_SmoothingOn;			// Dice si lo activamos
-		//CSmoother<Vect3f>*	m_pHeadingSmoother;		// Listado de los headings de los ultimos frames
+		CSmoother<Vect3f>*	m_pHeadingSmoother;		// Listado de los headings de los ultimos frames
 		// ----------------------
 
 		CPhysicController*	m_pController;			// Controller de physX. A veces necesito acceder a él

@@ -1,37 +1,40 @@
 #pragma once
 
-#ifndef __CLASS_FLEE_H__
-#define __CLASS_FLEE_H__
+#ifndef __CLASS_ALIGNMENT_H__
+#define __CLASS_ALIGNMENT_H__
+
+#include <vector>
 
 #include "Math\Vector3.h"
 #include "Steering Behaviors\Steering.h"
+#include "SteeringBehaviorsDefs.h"
 
 //--- Foward Declarations ---
 class CSteeringEntity;
+class CPhysicUserData;
 //---------------------------
 
-class CFlee : public CSteering
+class CAlignment : public CSteering
 {
 public:
+
+
 	//--- Init and End protocols------------------------------------------
-							CFlee			( float _PanicDistance );
-	virtual					~CFlee			( void );
+							CAlignment			( void );
+	virtual					~CAlignment			( void );
 
 	//---- Main Functions ---------------------------------------
 	virtual	Vect3f			CalculateSteering	( CSteeringEntity *_pEntity );					// Método que deberá ser sobreescrito en cada clase que herede de Steering
-
+    
 	//---- Functions ---------------------------------------
+	void					UpdateParameters	( const std::vector<CPhysicUserData*> &_UserDatas );
 
 	//---- Properties ( get & Set )---------------------------------------
-
-	inline void					SetPanicDistance	( float _PanicDistance )		{ m_PanicDistance = _PanicDistance; }
-	inline const float			GetPanicDistance	( void ) const					{ return m_PanicDistance; }
-
-
+	
 	//---- Members -----------------------------------------------
 private:
-	float m_PanicDistance;
-
+	std::vector<CPhysicUserData*>	m_UserDatas;
+	bool							m_AlignmentUpdated;
 };
 
-#endif __CLASS_FLEE_H__
+#endif __CLASS_ALIGNMENT_H__

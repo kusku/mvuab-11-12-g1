@@ -21,7 +21,6 @@ CFlee::CFlee( float _PanicDistance )
 {
 }
 
-
 CFlee::~CFlee(void)
 {
 }
@@ -35,7 +34,10 @@ Vect3f CFlee::CalculateSteering( CSteeringEntity *_pEntity )
 	if (m_Target != NULL)
 	{
 		if ( (_pEntity->GetPosition()).SqDistance(m_Target) > m_PanicDistance )
-			return Vect3f ( 0.0f, 0.0f, 0.0f );
+		{
+			_pEntity->SetVelocity( Vect3f(0,0,0) );
+			return Vect3f( 0.0f, 0.0f, 0.0f );
+		}
 
 		Vect3f l_DesiredVelocity = Vect3f(_pEntity->GetPosition() - m_Target).Normalize() * _pEntity->GetMaxSpeed();
 

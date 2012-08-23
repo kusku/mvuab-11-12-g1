@@ -31,8 +31,15 @@ CSeek::~CSeek(void)
 
 Vect3f CSeek::CalculateSteering( CSteeringEntity *_pEntity )	
 {
-	if (m_Target != NULL)
+	if (!m_Target.IsZero())
     {
+		// Si està dins la distancia d'atac
+		/*if ( _pEntity->GetPosition().SqDistance( GetTarget() ) < ( 2.f * 2.f ))
+		{
+			_pEntity->SetVelocity( Vect3f(0,0,0) );
+			return Vect3f(0,0,0);
+		}*/
+
 		Vect3f v = m_Target - _pEntity->GetPosition();
 		Vect3f l_DesiredVelocity = v.Normalize() * _pEntity->GetMaxSpeed();	
 
