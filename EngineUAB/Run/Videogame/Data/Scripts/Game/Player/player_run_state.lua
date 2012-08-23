@@ -95,7 +95,7 @@ class 'CPlayerRunState' (CState)
 						--else
 							--l_model_yaw = l_model_yaw + math.pi/4 * self.rotation_velocity * elapsed_time
 						--end
-					end
+					--end
 					
 					--TODO: Corrección de dirección
 					
