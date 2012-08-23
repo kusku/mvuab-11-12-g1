@@ -183,17 +183,19 @@ void CCharactersManager::Update( float _ElapsedTime )
 		CProperties * l_pProperties = l_EnemyList[i]->GetProperties();
 		if ( l_pProperties->GetActive() )
 		{
-
-			l_EnemyList[i]->Update( _ElapsedTime );
-			if ( !l_EnemyList[i]->IsAlive() )
-			{
-				CORE->GetParticleEmitterManager()->GetResource("Explosions")->SetPosition(l_EnemyList[i]->GetPosition());
-				CORE->GetParticleEmitterManager()->GetResource("Explosions")->EjectParticles();
-				l_EnemyList[i]->SetEnable(false);
-				//CHECKED_DELETE(l_EnemyList[i]);
-				/*m_pTargetEnemy = NULL;
-				m_pPreviewTargetEnemy = NULL;*/
-			}
+			CCharacter * l_Character = l_EnemyList[i];
+			l_Character->Update( _ElapsedTime );
+			l_Character->UpdateIA( _ElapsedTime );
+			//if ( !l_EnemyList[i]->IsAlive() )
+			//{
+			//
+			//	CORE->GetParticleEmitterManager()->GetResource("Explosions")->SetPosition(l_EnemyList[i]->GetPosition());
+			//	CORE->GetParticleEmitterManager()->GetResource("Explosions")->EjectParticles();
+			//	l_EnemyList[i]->SetEnable(false);
+			//	//CHECKED_DELETE(l_EnemyList[i]);
+			//	/*m_pTargetEnemy = NULL;
+			//	m_pPreviewTargetEnemy = NULL;*/
+			//}
 		}
 	}
 
@@ -978,16 +980,21 @@ CCharacter* CCharactersManager::SearchTargetEnemy(float _Distance, float _AngleV
 
 	TVectorResources l_EnemyList = GetResourcesVector();
 
-	if( l_EnemyList.size() == 0 )
+  	if( l_EnemyList.size() < 0 )
 	{
 		return NULL;
+	}
+
+	if( l_EnemyList.size() == 1 )
+	{
+		return (dynamic_cast<CCharacter*>(l_EnemyList[0]));
 	}
 
 	//Inicializamos los datos de enemigo para comparar
 	l_NearestEnemy = l_EnemyList[0];
 	l_NearestDistance = l_Pos.Distance(l_NearestEnemy->GetPosition());
 
-	TVectorResources::iterator l_It = l_EnemyList.begin();
+	TVectorResources::iterator l_It = l_EnemyList.begin()+1;
 	TVectorResources::iterator l_End = l_EnemyList.end();
 	for(; l_It != l_End; ++l_It)
 	{
@@ -1034,9 +1041,9 @@ bool CCharactersManager::EnemyIsVisibleInAngle(CCharacter *_Enemy, float _Angle,
 	l_DirEnemy.Normalize(1.f);
 
 	//Calculamos el ángulo entre los dos vectores
-	//float l_Angle = l_DirPlayer.AngleWithVector(l_DirEnemy);		// Jordi : Jo tinc això...
-	float l_Angle = l_DirPlayer.Dot(l_DirEnemy);
-	l_Angle = mathUtils::ACos(l_Angle);
+	float l_Angle = l_DirPlayer.AngleWithVector(l_DirEnemy);		// Jordi : Jo tinc això...
+	//float l_Angle = l_DirPlayer.Dot(l_DirEnemy);
+	//l_Angle = mathUtils::ACos(l_Angle);
 
 	if( l_Angle > _Angle )
 	{

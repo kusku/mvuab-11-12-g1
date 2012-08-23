@@ -22,6 +22,11 @@ class 'CRabbitFleeState' (CState)
 	--	Caso especial de Flee. Realmente no se aleja de pánico sinó de cansancio pero me es útil igualmente
 	-- ---------------------------------------------------------------------------------------------------------
 	function CRabbitFleeState:Execute(_CCharacter)
+		-- Actualizamos el target del búsqueda y la posición
+		_CCharacter.behaviors.flee.target =  Vect3f( _CCharacter.player.position.x, 0, _CCharacter.player.position.z ) 
+		_CCharacter.steering_entity.velocity = _CCharacter.behaviors:update( _CCharacter.elapsed_time, _CCharacter.steering_entity ) 
+		_CCharacter.steering_entity.position = _CCharacter.steering_entity.velocity * _CCharacter.elapsed_time
+			
 		-- print_logger(0, "CRabbitFleeState:Execute")
 		l_positionA = Vect2f(_CCharacter.position.x, _CCharacter.position.z)
 		l_positionB = Vect2f(_CCharacter.player.position.x, _CCharacter.player.position.z)

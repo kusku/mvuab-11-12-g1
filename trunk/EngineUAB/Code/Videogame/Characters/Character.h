@@ -43,6 +43,7 @@ public:
 	virtual bool				HandleMessage		( const STelegram& _Msg, bool _Logic = true, bool _Graphic = true  );		// Envia telegramas a las máquinas de estados
 	virtual bool				HandleMessage		( const STelegram& _Msg );
 	virtual void				Update				( float _ElapsedTime );
+	virtual void				UpdateIA			( float _ElapsedTime );
 
 	//----Methods ---------------------------------------------
 	void						MoveController		( const Vect3f &_Dir, float _ElapsedTime );

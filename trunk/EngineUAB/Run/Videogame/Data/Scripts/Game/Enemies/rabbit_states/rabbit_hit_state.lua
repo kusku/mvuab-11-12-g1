@@ -1,7 +1,7 @@
 class 'CRabbitHitState' (CState)
 	function CRabbitHitState:__init(name) 
 		CState.__init(self, name)
-		print_logger(0, "Inicio del estado still attack de la caperucita")
+		print_logger(0, "Inicio del estado HIT de la caperucita")
 	end
 
 	function CRabbitHitState:OnEnter(_CCharacter)

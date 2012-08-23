@@ -48,11 +48,33 @@
 	<!--<script filename="./data/scripts/game/enemies/wolf_states/wolf_animated_deffense_state.lua" />-->
 	<!--<script filename="./data/scripts/game/enemies/wolf_states/wolf_animated_walk_state.lua" />-->
 	<script filename="./data/scripts/game/enemies/wolf.lua" />	
+
+	<!-- RABBIT ANIMATIONS STATES -->
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_animation_idle_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_animation_idle2_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_animation_walk_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_animation_left_lateral_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_animation_right_lateral_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_animation_run_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_animation_still_attack_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_animation_run_attack_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_animation_defense_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_animation_hit_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_animation_jump_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_animation_death_state.lua" />
 	
+	<!-- RABBIT STATES -->
 	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_idle_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_seek_state.lua" />
 	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_pursuit_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_prepared_to_attack_state.lua" />
 	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_attack_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_still_attack_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_run_attack_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_defense_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_jump_state.lua" />
 	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_hit_state.lua" />
 	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_flee_state.lua" />
+	<script filename="./data/scripts/game/enemies/rabbit_states/rabbit_tired_state.lua" />
 	<script filename="./data/scripts/game/enemies/rabbit.lua" />	
 </scripts>
