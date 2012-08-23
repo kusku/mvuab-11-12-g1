@@ -129,7 +129,11 @@ function is_enemy_focused( _enemy )
 
 	-- Buscamos el enemigo más cercano en 360º ya que ataca el más cercano y no el que tenga de cara el player
 	local l_character_manager = get_game_process():get_character_manager()
-	local l_enemy_detected = l_character_manager:search_target_enemy( _enemy.properties.detection_distance, 2 * math.pi)
+	
+	local l_front = get_game_process().player_camera:get_direction() 
+	local l_enemy_detected = l_character_manager:search_target_enemy( _enemy.properties.detection_distance, 2 * math.pi, l_front )
+	-- print_logger ( 1, "Enemy detected :"..l_enemy_detected.name.." i el nom enemic : ".._enemy.name )
+	-- print_logger( 2, " l_enemy_detected: "..l_enemy_detected )
 		
 	-- Si no tenemos enemigo como target o como preview target (enemigo más cercano señalado) lo buscamos
 	-- if ( get_game_process():get_character_manager().target_enemy == nil ) then 
@@ -142,9 +146,10 @@ function is_enemy_focused( _enemy )
 	-- end
 	
 	if ( l_enemy_detected == nil ) then 
-		print_logger ( 1, "Enemy not detected" )
+		-- print_logger ( 1, "Enemy not detected" )
 		return false
 	else 
+		-- print_logger ( 1, "Enemy detected :"..l_enemy_detected.name.." i el nom enemic : ".._enemy.name )
 		if ( l_enemy_detected.name == _enemy.name ) then
 			return true
 		else 
@@ -287,7 +292,8 @@ end
 
 function go_in_to_fustrum(_CCharacter, _angle)
 	local l_angle = math.rad(_angle)
-	if ( get_game_process():get_character_manager():is_enemy_visible_in_angle(_CCharacter, l_angle) ) then
+	local l_front = get_game_process().player_camera:get_direction() 
+	if ( get_game_process():get_character_manager():is_enemy_visible_in_angle(_CCharacter, l_angle, l_front) ) then
 		-- print_logger(1," Helper:go_in_to_fustrum->")
 		-- local l = math.deg(_angle)
 		-- print_logger(1," GRAUS "..l)
@@ -308,7 +314,7 @@ function go_in_to_fustrum(_CCharacter, _angle)
 		return
 	-- En caso contrario buscamos un punto dentro del fustrum de la càmara. Si en el camino tenemos opción de ataque entonces atacará
 	else
-		-- -- print_logger(1,"NO visible al fustrum")
+		-- print_logger(1,"NO visible al fustrum")
 		_CCharacter.behaviors:pursuit_off()
 		local l_point_to_go = get_point_of_front(_CCharacter)
 		_CCharacter.behaviors.seek.target = l_point_to_go
@@ -316,6 +322,8 @@ function go_in_to_fustrum(_CCharacter, _angle)
 
 		_CCharacter:face_to( _CCharacter.player.position, _CCharacter.elapsed_time )
 		_CCharacter:move_to2( _CCharacter.steering_entity.velocity, _CCharacter.elapsed_time )
+		
+		return
 	end 
 end
 

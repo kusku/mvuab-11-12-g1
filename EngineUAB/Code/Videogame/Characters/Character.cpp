@@ -249,6 +249,50 @@ void CCharacter::Update ( float _ElapsedTime )
 	m_pGraphicStateMachine->Update( );*/
 }
 
+void CCharacter::UpdateIA( float _ElapsedTime )			
+{ 
+	/*Vect3f l_SteeringForce = m_pBehaviors->Update( _ElapsedTime, m_pSteeringEntity );
+	l_SteeringForce.y = 0;
+
+	// aceleración = fuerza/masa
+	Vect3f l_Acceleration  = l_SteeringForce / m_pSteeringEntity->GetMass();
+		
+	// actualizamos la velocidad. Ya hemos comprobado en C++ su trucamiento con la max. velocidad
+	m_pSteeringEntity->SetVelocity( m_pSteeringEntity->GetVelocity() + l_Acceleration * _ElapsedTime );
+	m_pSteeringEntity->SetVelocity( Vect3f( m_pSteeringEntity->GetVelocity().x, 0, m_pSteeringEntity->GetVelocity().z ) );
+
+	// nos aseguramos que el rabbit no excede de la velocidad máxima permitida
+
+		-- local l_Vel = Vect3f( self.steering_entity.velocity.x, self.steering_entity.velocity.y, self.steering_entity.velocity.z )
+		-- l_Vel = l_Vel:truncate(self.steering_entity.max_speed)
+		-- self.steering_entity.velocity = l_Vel
+		
+		-- -- actualizamos la posición
+		-- self.steering_entity.position = self.steering_entity.position + self.steering_entity.velocity * _elapsed_time 
+		
+		-- -- Actualizamos el Heahing y Side de la entidad solo si esta tiene velocidad
+		-- -- print_logger ( 1, "CRabbit:updateIA->Squared_length : "..self.steering_entity.velocity:squared_length() )
+		-- if ( self.steering_entity.velocity:squared_length() > 0.00000001 ) then
+			-- self.steering_entity.heading = self.steering_entity.velocity
+			-- -- Ahora actualizamos el heading (Vector unitario velocidad) y su perpendicular
+			-- self.steering_entity.heading:normalize(1.0)
+			-- local v = self.steering_entity.heading
+			-- self.steering_entity.side = v:perpendicular()
+		-- else
+			-- self.steering_entity.heading = self.steering_entity:get_front() 	-- Ahora actualizamos el heading (Vector unitario velocidad) y su perpendicular
+			-- self.steering_entity.heading:normalize(1.0)
+			-- local v = self.steering_entity.heading
+			-- self.steering_entity.side = v:perpendicular()
+		-- end
+		
+		-- Actualiza el heading del caracter para suabizarlo si está activado
+		-- self.steering_entity:smoothing_on()
+		-- if (self.steering_entity:is_smoothing_on()) then
+			-- self.steering_entity.smoothing_heading = self.steering_entity.heading_smoother:update(self.steering_entity.heading);
+		-- end
+*/
+}
+
 //-------------------------------------------------------------------------------------------------
 // HandleMessage
 //-------------------------------------------------------------------------------------------------

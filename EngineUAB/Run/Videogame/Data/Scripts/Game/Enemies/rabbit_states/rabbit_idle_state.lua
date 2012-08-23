@@ -5,7 +5,7 @@ class 'CRabbitIdleState' (CState)
 	end
 
 	function CRabbitIdleState:OnEnter(_CCharacter)
-		print_logger(0, "CRabbitIdleState:Enter")
+		-- print_logger(0, "CRabbitIdleState:Enter")
 		if not ( _CCharacter == nil ) then
 			num = _CCharacter:get_animation_id("idle")
 			_CCharacter:get_animation_model():blend_cycle( num, 0.3 )
@@ -13,18 +13,17 @@ class 'CRabbitIdleState' (CState)
 		
 		self.action_time = 0
 		self.action_started = false
-		
 	end
 	
 	function CRabbitIdleState:Execute(_CCharacter)
-		-- print_logger(1, "CRabbitIdleState:Execute")
+		-- print_logger(0, "CRabbitIdleState:Execute")
 		-- local l_distance = get_distance_to_player(_CCharacter, _CCharacter.player)
 		-- print_logger (1, "Distancia al player: "..l_distance)
 		
 		-- print_logger(0 , "Posición :".._CCharacter.steering_entity.position.x.." ".._CCharacter.steering_entity.position.y.." ".._CCharacter.steering_entity.position.z)
 		-- print_logger(0 , "Antiga Posición :".._CCharacter.steering_entity.previous_position.x.." ".._CCharacter.steering_entity.previous_position.y.." ".._CCharacter.steering_entity.previous_position.z)
 			
-		-- if ( is_player_detected( _CCharacter, _CCharacter.player ) ) then 
+		if ( is_player_detected( _CCharacter, _CCharacter.player ) ) then 
 			-- Is Attacable --
 			-- if ( is_player_attackable( _CCharacter, _CCharacter.player ) ) then
 				-- --_CCharacter.graphic_fsm:change_state(_CCharacter.attack_state)
@@ -43,7 +42,7 @@ class 'CRabbitIdleState' (CState)
 					-- print_logger (1, "ara molt lluny")
 				-- 2) Caso en que está cerca y lo detecto pero no demasiado
 				-- if ( ( l_distance <= _CCharacter.properties.detection_distance ) and ( l_distance > _CCharacter.properties.chase_distance ) ) then
-					-- _CCharacter.logic_fsm:change_state(_CCharacter.pursuit_state)
+					_CCharacter.logic_fsm:change_state(_CCharacter.pursuit_state)
 					
 					-------------------------------
 					-- TEST de comportamientos
@@ -51,13 +50,13 @@ class 'CRabbitIdleState' (CState)
 					-------------------------------
 					-- _CCharacter.behaviors.pursuit.target = _CCharacter.player.position
 					-- _CCharacter.behaviors.pursuit:update_evader_entity( _CCharacter.player.steering_entity )
-					_CCharacter.behaviors.seek.target = _CCharacter.player.position
+					-- _CCharacter.behaviors.seek.target = _CCharacter.player.position
 					
 					-- _CCharacter.behaviors:separation_on()
 					-- _CCharacter.behaviors:alignment_on()
 					-- _CCharacter.behaviors:cohesion_on()
 					-- _CCharacter.behaviors:pursuit_on()
-					_CCharacter.behaviors:seek_on()
+					-- _CCharacter.behaviors:seek_on()
 					-- _CCharacter.behaviors:collision_avoidance_on()
 					-- _CCharacter.behaviors:flee_on()
 					-- _CCharacter.behaviors:arrive_on()
@@ -79,18 +78,15 @@ class 'CRabbitIdleState' (CState)
 				-- end 
 			-- end
 		-- No detecto player --> no hago nada o patrullo. TODO!!
-		-- else
-		
-			if ( _CCharacter.steering_entity == nil ) then
-				print_logger(2, "CRabbitIdleState:Execute->Error en _CCharacter.steering_entity == nil")
-				return
-			end 
+		else
+			-- if ( _CCharacter.steering_entity == nil ) then
+				-- print_logger(2, "CRabbitIdleState:Execute->Error en _CCharacter.steering_entity == nil")
+				-- return
+			-- end 
 			_CCharacter.steering_entity.velocity = Vect3f(0,0,0)
-			_CCharacter:move_to2( _CCharacter.steering_entity.velocity, _CCharacter.elapsed_time )
-			-- print_logger(0 , "Velocity :".._CCharacter.steering_entity.velocity.x.." ".._CCharacter.steering_entity.velocity.y.." ".._CCharacter.steering_entity.velocity.z)
-		
+			-- _CCharacter:move_to2( _CCharacter.steering_entity.velocity, _CCharacter.elapsed_time )
 			-- _CCharacter:move_to2( _CCharacter.position, _CCharacter.elapsed_time)
-		-- end
+		end
 	end
 	
 	function CRabbitIdleState:OnExit(_CCharacter)
@@ -113,4 +109,3 @@ class 'CRabbitIdleState' (CState)
 	function CRabbitIdleState:__Finalize()
 	
 	end
-	

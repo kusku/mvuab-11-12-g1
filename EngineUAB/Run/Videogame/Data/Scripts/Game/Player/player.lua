@@ -109,6 +109,13 @@ class 'CPlayer' (CCharacter)
 		--Actualiza la posición del modelo animado
 		local v = Vect3f(self.position.x, self.position.y - self.physic_controller.height + self.properties.animation_offset, self.position.z)
 		self.animated_model.position = v
+		self.steering_entity.position = v
+		if ( self.steering_entity.velocity:squared_length() > 0.00000001 ) then
+			self.steering_entity.heading = self.steering_entity.velocity
+			self.steering_entity.heading:normalize(1.0)
+			local v = self.steering_entity.heading
+			self.steering_entity.side = v:perpendicular()
+		end
 		
 		--Actualiza la cámara
 		get_game_process().player_camera:update(elapsed_time)

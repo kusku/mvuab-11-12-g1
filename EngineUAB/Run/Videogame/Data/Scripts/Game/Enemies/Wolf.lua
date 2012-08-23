@@ -261,8 +261,8 @@ class 'CWolf' (CCharacter)
 		-- end
 		
 		-- Actualizamos parte de la IA
-		-- self.behaviours.seek.target =  self.player.position
-		-- self.steering_entity.velocity = self.behaviours:update( _elapsed_time, self.steering_entity )
+		-- self.behaviors.seek.target =  self.player.position
+		-- self.steering_entity.velocity = self.behaviors:update( _elapsed_time, self.steering_entity )
 		-- self.steering_entity.position = self.steering_entity.position + self.steering_entity.velocity
 			
 		local l_lfsm = self.logic_fsm 
