@@ -186,16 +186,16 @@ void CCharactersManager::Update( float _ElapsedTime )
 			CCharacter * l_Character = l_EnemyList[i];
 			l_Character->Update( _ElapsedTime );
 			l_Character->UpdateIA( _ElapsedTime );
-			//if ( !l_EnemyList[i]->IsAlive() )
-			//{
-			//
-			//	CORE->GetParticleEmitterManager()->GetResource("Explosions")->SetPosition(l_EnemyList[i]->GetPosition());
-			//	CORE->GetParticleEmitterManager()->GetResource("Explosions")->EjectParticles();
-			//	l_EnemyList[i]->SetEnable(false);
-			//	//CHECKED_DELETE(l_EnemyList[i]);
-			//	/*m_pTargetEnemy = NULL;
-			//	m_pPreviewTargetEnemy = NULL;*/
-			//}
+			if ( !l_EnemyList[i]->IsAlive() )
+			{
+			
+				CORE->GetParticleEmitterManager()->GetResource("Explosions")->SetPosition(l_EnemyList[i]->GetPosition());
+				CORE->GetParticleEmitterManager()->GetResource("Explosions")->EjectParticles();
+				l_EnemyList[i]->SetEnable(false);
+				//CHECKED_DELETE(l_EnemyList[i]);
+				/*m_pTargetEnemy = NULL;
+				m_pPreviewTargetEnemy = NULL;*/
+			}
 		}
 	}
 
@@ -985,10 +985,10 @@ CCharacter* CCharactersManager::SearchTargetEnemy(float _Distance, float _AngleV
 		return NULL;
 	}
 
-	if( l_EnemyList.size() == 1 )
+	/*if( l_EnemyList.size() == 1 )
 	{
 		return (dynamic_cast<CCharacter*>(l_EnemyList[0]));
-	}
+	}*/
 
 	//Inicializamos los datos de enemigo para comparar
 	l_NearestEnemy = l_EnemyList[0];
