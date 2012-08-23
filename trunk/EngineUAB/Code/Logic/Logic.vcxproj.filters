@@ -67,6 +67,9 @@
     <ClCompile Include="Rails\Rail.cpp">
       <Filter>Rails</Filter>
     </ClCompile>
+    <ClCompile Include="Rails\RailManager.cpp">
+      <Filter>Rails</Filter>
+    </ClCompile>
     <ClCompile Include="Steering Behaviors\Cohesion.cpp">
       <Filter>IA\Steering Behaviors</Filter>
     </ClCompile>
@@ -197,6 +200,15 @@
     </ClInclude>
     <ClInclude Include="Steering Behaviors\Evade.h">
       <Filter>IA\Steering Behaviors</Filter>
+    </ClInclude>
+     <ClInclude Include="Rails\Rail.h">
+      <Filter>Rails</Filter>
+    </ClInclude>
+    <ClInclude Include="Rails\RailManager.h">
+      <Filter>Rails</Filter>
+    </ClInclude>
+    <ClInclude Include="Rails\RailDefs.h">
+      <Filter>Rails</Filter>
     </ClInclude>
     <ClInclude Include="Steering Behaviors\ObstacleWallAvoidance.h">
       <Filter>IA\Steering Behaviors</Filter>
