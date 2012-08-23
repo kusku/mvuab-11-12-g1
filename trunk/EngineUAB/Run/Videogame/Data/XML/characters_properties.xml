@@ -127,13 +127,13 @@
 		<enemy name="enemy22" core="conejo" animated_instace_name="enemy22" >
 			<position>-5 -30 2</position>
 		</enemy>
-		<!--<enemy name="enemy23" core="conejo" animated_instace_name="enemy23" >
+		<enemy name="enemy23" core="conejo" animated_instace_name="enemy23" >
 			<position>-10 -30 -2</position>
 		</enemy>
 		<enemy name="enemy24" core="conejo" animated_instace_name="enemy24" >
 			<position>-15 -30 0</position>
 		</enemy>
-		<enemy name="enemy25" core="conejo" animated_instace_name="enemy25" >
+		<!--<enemy name="enemy25" core="conejo" animated_instace_name="enemy25" >
 			<position>-20 -30 0</position>
 		</enemy>
 		<enemy name="enemy26" core="conejo" animated_instace_name="enemy26" >
