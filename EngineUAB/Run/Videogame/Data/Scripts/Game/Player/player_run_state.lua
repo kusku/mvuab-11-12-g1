@@ -2,7 +2,7 @@ class 'CPlayerRunState' (CState)
 	function CPlayerRunState:__init(name) 
 		CState.__init(self, name)
 		self.action_2_input = core:get_action_to_input()
-		self.rotation_velocity = 1.0
+		self.rotation_velocity = 10.0
 	end
 
 	function CPlayerRunState:OnEnter(_CCharacter)
@@ -52,7 +52,7 @@ class 'CPlayerRunState' (CState)
 					l_yaw = l_yaw + math.pi/4
 					
 					if math.abs(l_model_yaw - l_yaw) > 0.1 * self.rotation_velocity then
-						if l_yaw >= l_model_yaw then
+						if l_yaw >= math.abs(l_model_yaw) then
 							l_model_yaw = l_model_yaw + math.pi/4 * self.rotation_velocity * elapsed_time
 						else
 							l_model_yaw = l_model_yaw - math.pi/4 * self.rotation_velocity * elapsed_time
@@ -72,9 +72,9 @@ class 'CPlayerRunState' (CState)
 				else
 					if math.abs(l_model_yaw - l_yaw) > 0.1 * self.rotation_velocity then
 						if l_yaw >= l_model_yaw then
-							l_model_yaw = l_model_yaw + self.rotation_velocity * elapsed_time
+							l_model_yaw = l_model_yaw + math.pi/4 * self.rotation_velocity * elapsed_time
 						else
-							l_model_yaw = l_model_yaw - self.rotation_velocity * elapsed_time
+							l_model_yaw = l_model_yaw - math.pi/4 * self.rotation_velocity * elapsed_time
 						end
 					end
 				end
@@ -89,26 +89,30 @@ class 'CPlayerRunState' (CState)
 				if self.action_2_input:do_action('MovePlayerLeft') then
 					l_yaw = l_yaw - math.pi/4
 					
-					--if math.abs(l_model_yaw - l_yaw) > 0.1 * self.rotation_velocity then
-						--if l_yaw >= l_model_yaw then
+					if math.abs(l_model_yaw + l_yaw) > 0.1 * self.rotation_velocity then
+						if math.abs(l_yaw) >= math.abs(l_model_yaw) then
 							l_model_yaw = l_model_yaw - math.pi/4 * self.rotation_velocity * elapsed_time
-						--else
-							--l_model_yaw = l_model_yaw + math.pi/4 * self.rotation_velocity * elapsed_time
-						--end
-					--end
-					
-					--TODO: Corrección de dirección
+						else
+							l_model_yaw = l_model_yaw + math.pi/4 * self.rotation_velocity * elapsed_time
+						end
+					end
 					
 				elseif self.action_2_input:do_action('MovePlayerRight') then
 					l_yaw = l_yaw + math.pi/4
-					l_model_yaw = l_model_yaw + math.pi/4 * self.rotation_velocity * elapsed_time
-					--TODO: Corrección de dirección
+					
+					if math.abs(l_model_yaw + l_yaw) > 0.1 * self.rotation_velocity then
+						if math.abs(l_yaw) >= math.abs(l_model_yaw) then
+							l_model_yaw = l_model_yaw - math.pi/4 * self.rotation_velocity * elapsed_time
+						else
+							l_model_yaw = l_model_yaw + math.pi/4 * self.rotation_velocity * elapsed_time
+						end
+					end
 				else
 					if math.abs(l_model_yaw + l_yaw) > 0.1 * self.rotation_velocity then
 						if l_yaw >= l_model_yaw then
-							l_model_yaw = l_model_yaw + self.rotation_velocity * elapsed_time
+							l_model_yaw = l_model_yaw + math.pi/4 * self.rotation_velocity * elapsed_time
 						else
-							l_model_yaw = l_model_yaw - self.rotation_velocity * elapsed_time
+							l_model_yaw = l_model_yaw - math.pi/4 * self.rotation_velocity * elapsed_time
 						end
 					end
 				end
@@ -121,9 +125,9 @@ class 'CPlayerRunState' (CState)
 				
 				if math.abs(l_model_yaw - l_yaw) > 0.1 * self.rotation_velocity then
 					if l_yaw <= l_model_yaw then
-						l_model_yaw = l_model_yaw - math.pi/2 * self.rotation_velocity * elapsed_time
+						l_model_yaw = l_model_yaw - math.pi/4 * self.rotation_velocity * elapsed_time
 					else
-						l_model_yaw = l_model_yaw + math.pi/2 * self.rotation_velocity * elapsed_time
+						l_model_yaw = l_model_yaw + math.pi/4 * self.rotation_velocity * elapsed_time
 					end
 				end
 				
@@ -135,9 +139,9 @@ class 'CPlayerRunState' (CState)
 				
 				if math.abs(l_model_yaw - l_yaw) > 0.1 * self.rotation_velocity then
 					if l_yaw <= l_model_yaw then
-						l_model_yaw = l_model_yaw - math.pi/2 * self.rotation_velocity * elapsed_time
+						l_model_yaw = l_model_yaw - math.pi/4 * self.rotation_velocity * elapsed_time
 					else
-						l_model_yaw = l_model_yaw + math.pi/2 * self.rotation_velocity * elapsed_time
+						l_model_yaw = l_model_yaw + math.pi/4 * self.rotation_velocity * elapsed_time
 					end
 				end
 				
@@ -160,7 +164,7 @@ class 'CPlayerRunState' (CState)
 		l_dir = l_dir * 10.0 * _CCharacter.elapsed_time
 		
 		--Mueve el controller físico
-		--_CCharacter.physic_controller:move(l_dir, _CCharacter.elapsed_time)
+		_CCharacter.physic_controller:move(l_dir, _CCharacter.elapsed_time)
 		
 		if l_move_player then
 			--Pone de forma correcta los ángulos
