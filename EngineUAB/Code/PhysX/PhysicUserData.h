@@ -10,12 +10,13 @@
 #include "Base.h"
 #include "PhysicController.h"
 #include "PhysicsDefs.h"
+#include "Steering Behaviors\SteeringEntity.h"
 
 // ----- FOWARD Declarations -------//
 class CObject3D;
 class CPhysicActor;
 class CColor;
-class CSteeringEntity;
+//class CSteeringEntity;
 // ---------------------------------//
 
 enum EUserDataFlag

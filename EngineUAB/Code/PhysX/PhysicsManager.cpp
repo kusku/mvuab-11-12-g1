@@ -749,7 +749,7 @@ bool CPhysicsManager::AddPhysicController ( CPhysicController* _pController, ECo
 			l_NxControllerDesc = _pController->GetPhXControllerDesc();
 			assert ( l_NxControllerDesc != NULL );
 			l_NxController = m_pControllerManager->createController ( m_pScene, *l_NxControllerDesc );
-			
+	
 			break;
 		}
 	}
@@ -851,7 +851,7 @@ NxCCDSkeleton* CPhysicsManager::CreateCCDSkeleton (float size)
 //	return impactObject;
 //}
 
-CPhysicUserData* CPhysicsManager::RaycastClosestActor ( const Vect3f _vPosRay, const Vect3f& _vDirRay, uint32 _uiImpactMask, SCollisionInfo& _Info )
+CPhysicUserData* CPhysicsManager::RaycastClosestActor( const Vect3f _vPosRay, const Vect3f& _vDirRay, uint32 _uiImpactMask, SCollisionInfo& _Info, float _uiMaxDistance )
 {
   //NxUserRaycastReport::ALL_SHAPES
 	assert(m_pScene != NULL);
@@ -862,8 +862,14 @@ CPhysicUserData* CPhysicsManager::RaycastClosestActor ( const Vect3f _vPosRay, c
 
 	NxRaycastHit hit;
 	NxShape* closestShape = NULL;
+	
+	//closestShape = m_pScene->raycastClosestShape ( ray, NX_ALL_SHAPES, hit, _uiImpactMask,  NX_MAX_F32, _uiImpactMask );
+	//closestShape = m_pScene->raycastClosestShape( ray, NX_ALL_SHAPES, hit, 0xffffffff, NX_MAX_F32, 0xffffffff, NULL, NULL );
+	NxReal l_Distance = (NxReal) _uiMaxDistance;
 
-	closestShape = m_pScene->raycastClosestShape ( ray, NX_ALL_SHAPES, hit, _uiImpactMask );
+	// --- Jordi : Provisional. Cal deixar aquesta linia i modificar la col·lisió de càmera 
+	//closestShape = m_pScene->raycastClosestShape( ray, NX_ALL_SHAPES, hit, _uiImpactMask, l_Distance );
+	closestShape = m_pScene->raycastClosestShape( ray, NX_ALL_SHAPES, hit, _uiImpactMask );
 	if (!closestShape) 
 	{
 		//No hemos tocado a ningún objeto físico de la escena.
@@ -1184,10 +1190,10 @@ int CPhysicsManager::GetCollisionGroup( const std::string& _szGroup )
 	{
 		return ECG_VIGIA;
 	}
-	/*else if(_szGroup == "limits")
+	else if(_szGroup == "limits")
 	{
 		return ECG_LIMITS;
-	}*/
+	}
 	else
 	{
 		return 0;
