@@ -47,6 +47,11 @@ struct CCharacter_Wrapper: CCharacter, luabind::wrap_base
 		call<void>("update", _ElapsedTime);
 	}
 
+	virtual void UpdateIA(float _ElapsedTime)
+	{
+		call<void>("update_ia", _ElapsedTime);
+	}
+
 	/*static void Default_Update(CCharacter *ptr, float _ElapsedTime)
 	{
 		ptr->CCharacter::Update(_ElapsedTime);
