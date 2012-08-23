@@ -67,8 +67,32 @@
     <ClCompile Include="Rails\Rail.cpp">
       <Filter>Rails</Filter>
     </ClCompile>
-    <ClCompile Include="Rails\RailManager.cpp">
-      <Filter>Rails</Filter>
+    <ClCompile Include="Steering Behaviors\Cohesion.cpp">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="Steering Behaviors\CollisionAvoidance.cpp">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="Steering Behaviors\Evade.cpp">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="Steering Behaviors\ObstacleWallAvoidance.cpp">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="Steering Behaviors\OffsetPursuit.cpp">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="Steering Behaviors\Separation.cpp">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="Steering Behaviors\Wander.cpp">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="Steering Behaviors\Align.cpp">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="Steering Behaviors\Alignment.cpp">
+      <Filter>IA\Steering Behaviors</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -165,14 +189,32 @@
     <ClInclude Include="Steering Behaviors\Smoother.h">
       <Filter>IA\Steering Behaviors</Filter>
     </ClInclude>
-    <ClInclude Include="Rails\Rail.h">
-      <Filter>Rails</Filter>
+    <ClInclude Include="Steering Behaviors\Cohesion.h">
+      <Filter>IA\Steering Behaviors</Filter>
     </ClInclude>
-    <ClInclude Include="Rails\RailManager.h">
-      <Filter>Rails</Filter>
+    <ClInclude Include="Steering Behaviors\CollisionAvoidance.h">
+      <Filter>IA\Steering Behaviors</Filter>
     </ClInclude>
-    <ClInclude Include="Rails\RailDefs.h">
-      <Filter>Rails</Filter>
+    <ClInclude Include="Steering Behaviors\Evade.h">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="Steering Behaviors\ObstacleWallAvoidance.h">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="Steering Behaviors\OffsetPursuit.h">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="Steering Behaviors\Separation.h">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="Steering Behaviors\Wander.h">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="Steering Behaviors\Align.h">
+      <Filter>IA\Steering Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="Steering Behaviors\Alignment.h">
+      <Filter>IA\Steering Behaviors</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
