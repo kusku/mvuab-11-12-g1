@@ -83,7 +83,8 @@ public:
 	bool					RelasePhysicFixedJoint			( CPhysicFixedJoint* _pJoint );
 
 	////--- Intersection Functions:	
-	CPhysicUserData*		RaycastClosestActor				( const Vect3f posRay, const Vect3f& dirRay, uint32 impactMask, SCollisionInfo& info );
+	//CPhysicUserData*		RaycastClosestActor				( const Vect3f posRay, const Vect3f& dirRay, uint32 impactMask, SCollisionInfo& info );
+	CPhysicUserData*		RaycastClosestActor				( const Vect3f _vPosRay, const Vect3f& _vDirRay, uint32 _uiImpactMask, SCollisionInfo& _Info, float _uiMaxDistance = 0xffffffff );
 	CPhysicUserData*		RaycastClosestActorShoot		( const Vect3f posRay, const Vect3f& dirRay, uint32 impactMask, SCollisionInfo& info, float _fPower );
 	void					OverlapSphereActor				( float radiusSphere, const Vect3f& posSphere, std::vector<CPhysicUserData*> &impactObjects, uint32 impactMask );
 	void					OverlapSphereActorGrenade		( float radiusSphere, const Vect3f& posSphere, std::vector<CPhysicUserData*> impactObjects, float _fPower );
