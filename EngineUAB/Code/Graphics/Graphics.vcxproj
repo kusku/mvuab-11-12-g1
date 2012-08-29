@@ -34,6 +34,7 @@
     <ClInclude Include="Commands\EnableZWriteSceneRendererCommand.h" />
     <ClInclude Include="Commands\EndRenderSceneRendererCommand.h" />
     <ClInclude Include="Commands\GenerateShadowMapsSceneRendererCommand.h" />
+    <ClInclude Include="Commands\LensFlareSceneRendererCommand.h" />
     <ClInclude Include="Commands\PresentRenderSceneRendererCommand.h" />
     <ClInclude Include="Commands\RenderBillboardsSceneRendererCommand.h" />
     <ClInclude Include="Commands\RenderDebugInfoSceneRendererCommand.h" />
@@ -82,7 +83,8 @@
     <ClInclude Include="Particles\ParticleSettingsManager.h" />
     <ClInclude Include="Particles\ParticleSystemManager.h" />
     <ClInclude Include="Particles\ParticleSystem.h" />
-    <ClInclude Include="PostProcess\BloomPostProcess.h" />
+    <ClInclude Include="PostProcess\Bloom\BloomPostProcess.h" />
+    <ClInclude Include="PostProcess\LensFlare\LensFlarePostProcess.h" />
     <ClInclude Include="RenderableObjects\AnimatedModel\AnimatedCoreModel.h" />
     <ClInclude Include="RenderableObjects\AnimatedModel\AnimatedInstanceModel.h" />
     <ClInclude Include="RenderableObjects\AnimatedModel\AnimatedModelManager.h" />
@@ -130,6 +132,7 @@
     <ClCompile Include="Commands\EnableZWriteSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\EndRenderSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\GenerateShadowMapsSceneRendererCommand.cpp" />
+    <ClCompile Include="Commands\LensFlareSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\PresentRenderSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\RenderBillboardsSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\RenderDebugInfoSceneRendererCommand.cpp" />
@@ -175,7 +178,8 @@
     <ClCompile Include="Particles\ParticleSettingsManager.cpp" />
     <ClCompile Include="Particles\ParticleSystemManager.cpp" />
     <ClCompile Include="Particles\ParticleSystem.cpp" />
-    <ClCompile Include="PostProcess\BloomPostProcess.cpp" />
+    <ClCompile Include="PostProcess\Bloom\BloomPostProcess.cpp" />
+    <ClCompile Include="PostProcess\LensFlare\LensFlarePostProcess.cpp" />
     <ClCompile Include="RenderableObjects\AnimatedModel\AnimatedCoreModel.cpp" />
     <ClCompile Include="RenderableObjects\AnimatedModel\AnimatedInstanceModel.cpp" />
     <ClCompile Include="RenderableObjects\AnimatedModel\AnimatedModelManager.cpp" />

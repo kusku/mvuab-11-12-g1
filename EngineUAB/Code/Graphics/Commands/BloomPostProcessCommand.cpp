@@ -14,7 +14,7 @@
 #include "Vertexs\VertexType.h"
 #include "Math\Matrix44.h"
 
-#include "PostProcess\BloomPostProcess.h"
+#include "PostProcess\Bloom\BloomPostProcess.h"
 
 #if defined(_DEBUG)
 	#include "Memory\MemLeaks.h"

@@ -27,7 +27,7 @@ float4 AmbientLightColor <
 > = {1.0f, 1.0f, 1.0f, 1.0f};
 
 
-uniform bool		FogEnable = true;
+uniform bool		FogEnable = false;
 uniform float3		FogColor = float3(0.75f, 0.23f, 0.0f);
 uniform float		FogStart = 200.0f;
 uniform float		FogRange = 300.0f;

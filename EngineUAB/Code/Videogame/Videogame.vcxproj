@@ -130,6 +130,17 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\Run\Videogame\Data\Effects\Obj\%(filename).fxo</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\Run\Videogame\Data\Effects\functions.fx;$(SolutionDir)\Run\Videogame\Data\Effects\Samplers.h</AdditionalInputs>
     </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\BasicEffect.fx">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(DXSDK_DIR)Utilities\bin\x86\"fxc.exe /nologo /WX /O3 /T fx_2_0 /Fo "$(SolutionDir)\Run\Videogame\Data\Effects\Obj\%(Filename)_d.fxo" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Build HLSL shader %(FullPath)</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)\Run\Videogame\Data\Effects\Obj\%(filename)_d.fxo</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)\Run\Videogame\Data\Effects\functions.fx;$(SolutionDir)\Run\Videogame\Data\Effects\Samplers.h</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(DXSDK_DIR)Utilities\bin\x86\"fxc.exe /nologo /WX /O3 /T fx_2_0 /Fo "$(SolutionDir)\Run\Videogame\Data\Effects\Obj\%(Filename).fxo" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Build HLSL shader %(FullPath)</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\Run\Videogame\Data\Effects\Obj\%(filename).fxo</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\Run\Videogame\Data\Effects\functions.fx;$(SolutionDir)\Run\Videogame\Data\Effects\Samplers.h</AdditionalInputs>
+    </CustomBuild>
     <None Include="..\..\Run\Videogame\Data\Effects\Samplers.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(DXSDK_DIR)Utilities\bin\x86\"fxc.exe /WX /Od /O0 /Zi /T fx_2_0 /Fo "$(SolutionDir)\Run\Videogame\Data\Effects\Obj\%(Filename)_d.fxo" "%(FullPath)"</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)\Run\Videogame\Data\Effects\Obj\$(filename)_x86_d.fxo</Outputs>
