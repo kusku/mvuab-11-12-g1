@@ -214,6 +214,10 @@ bool CSceneRendererCommandManager::LoadXML ( bool _IsGUI )
 			{
 				l_ActiveCommand = new CSetRenderTargetSceneRendererCommand( l_Commands(i) );
 			}
+			else if( l_Type == "lens_flare" )
+			{
+				l_ActiveCommand = new CLensFlareSceneRemdererCommand( l_Commands(i) );
+			}
 			else if( l_Type == "unset_render_target" )
 			{
 				std::string l_RenderTarget = l_Commands(i).GetPszProperty("render_target", "");

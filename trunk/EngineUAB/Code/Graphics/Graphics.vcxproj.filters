@@ -187,9 +187,6 @@
     <ClInclude Include="Commands\RenderParticlesSceneRendererCommand.h">
       <Filter>Commands\Command</Filter>
     </ClInclude>
-    <ClInclude Include="PostProcess\BloomPostProcess.h">
-      <Filter>PostProcess</Filter>
-    </ClInclude>
     <ClInclude Include="Commands\BloomPostProcessCommand.h">
       <Filter>Commands\Command</Filter>
     </ClInclude>
@@ -279,6 +276,15 @@
       <Filter>Commands\Command</Filter>
     </ClInclude>
     <ClInclude Include="Commands\BeginMotionBlurSceneRendererCommand.h">
+      <Filter>Commands\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="PostProcess\Bloom\BloomPostProcess.h">
+      <Filter>PostProcess\Bloom</Filter>
+    </ClInclude>
+    <ClInclude Include="PostProcess\LensFlare\LensFlarePostProcess.h">
+      <Filter>PostProcess\LensFlare</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\LensFlareSceneRendererCommand.h">
       <Filter>Commands\Command</Filter>
     </ClInclude>
   </ItemGroup>
@@ -462,9 +468,6 @@
     <ClCompile Include="Commands\RenderParticlesSceneRendererCommand.cpp">
       <Filter>Commands\Command</Filter>
     </ClCompile>
-    <ClCompile Include="PostProcess\BloomPostProcess.cpp">
-      <Filter>PostProcess</Filter>
-    </ClCompile>
     <ClCompile Include="Commands\BloomPostProcessCommand.cpp">
       <Filter>Commands\Command</Filter>
     </ClCompile>
@@ -549,6 +552,15 @@
     <ClCompile Include="Commands\BeginMotionBlurSceneRendererCommand.cpp">
       <Filter>Commands\Command</Filter>
     </ClCompile>
+    <ClCompile Include="PostProcess\Bloom\BloomPostProcess.cpp">
+      <Filter>PostProcess\Bloom</Filter>
+    </ClCompile>
+    <ClCompile Include="PostProcess\LensFlare\LensFlarePostProcess.cpp">
+      <Filter>PostProcess\LensFlare</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\LensFlareSceneRendererCommand.cpp">
+      <Filter>Commands\Command</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Cameras">
@@ -616,6 +628,12 @@
     </Filter>
     <Filter Include="_ScriptAPI">
       <UniqueIdentifier>{e05d399a-b6d9-44aa-9b9e-3a0b3c8ac070}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PostProcess\Bloom">
+      <UniqueIdentifier>{566deca2-6dbf-4dae-bb2c-d4218122dbc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PostProcess\LensFlare">
+      <UniqueIdentifier>{647af1d4-a573-4740-aa68-310643fd1488}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

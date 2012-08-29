@@ -7,9 +7,10 @@
 
 sampler2D DiffuseTextureMap : register( s0 ) = sampler_state
 {
-   MinFilter = Linear;
+	MinFilter		= Anisotropic;
    MagFilter = Linear;
    MipFilter = Linear;   
+	MaxAnisotropy	= 8;
    AddressU  = Wrap;
    AddressV  = Wrap;
 };

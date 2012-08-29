@@ -806,6 +806,12 @@ void CRenderManager::SetTransform( const Mat44f &mat)
 	m_pD3DDevice->SetTransform(D3DTS_WORLD, &aux);
 }
 
+void CRenderManager::SetTransform( const D3DXMATRIX &mat)
+{
+	CORE->GetEffectManager()->SetWorldMatrix(mat);
+	m_pD3DDevice->SetTransform(D3DTS_WORLD, &mat);
+}
+
 //--------------------------------------------------
 //				  CAPTURE VIDEO/PICTURE
 //--------------------------------------------------
@@ -871,7 +877,7 @@ bool CRenderManager::SetGraphicBlendState( const TGraphicBlendStates& state )
 	}
 
 	HRESULT hr = D3D_OK;
-
+	
 	if(state.m_AlphaBlendEnable != m_CurrentBlendState.m_AlphaBlendEnable)
 	{
 		hr = m_pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, state.m_AlphaBlendEnable);
@@ -918,6 +924,18 @@ bool CRenderManager::SetGraphicBlendState( const TGraphicBlendStates& state )
 		}
 
 		m_CurrentBlendState.m_DestBlend = state.m_DestBlend;
+	}
+
+	if(state.m_ColorWriteChannels != m_CurrentBlendState.m_ColorWriteChannels)
+	{
+		hr = m_pD3DDevice->SetRenderState(D3DRS_COLORWRITEENABLE, state.m_ColorWriteChannels);
+
+		if(hr != D3D_OK)
+		{
+			return false;
+		}
+
+		m_CurrentBlendState.m_ColorWriteChannels = state.m_ColorWriteChannels;
 	}
 
 	return true;

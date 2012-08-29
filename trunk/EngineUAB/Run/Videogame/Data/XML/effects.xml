@@ -38,6 +38,8 @@
   <effect name="TerrainEffect"                            file="./data/effects/Obj/TerrainEffect" />
 
   <effect name="MotionBlurEffect"                         file="./data/effects/Obj/MotionBlurEffect" />
+
+  <effect name="BasicEffect"                              file="./data/effects/Obj/BasicEffect" />
   
   <!-- ......... EFFECTS ............ -->
 
@@ -105,6 +107,14 @@
 
   <!-- 
   ###################################
+          Basic Effect
+  ###################################
+  -->
+
+  <technique name="BasicEffectTechnique" effect="BasicEffect" use_world_view_projection_matrix="true" />
+
+  <!-- 
+  ###################################
           Motion Blur Effect
   ###################################
   -->
@@ -127,7 +137,7 @@
 
   <technique name="ZBlurTechnique" effect="z_blur"
 		use_view_projection_inverse_matrix="true" use_camera_position="true" use_render_target_size="true" use_params="true" num_of_params="4"
-		parameter_0="50" parameter_1="65" parameter_2="300" parameter_3="0.7" />
+		parameter_0="0" parameter_1="0" parameter_2="1000" parameter_3="0.7" />
 
   <!-- 
   ###################################
@@ -136,11 +146,12 @@
   -->
 
   <technique name="TerrainEffectTechnique" effect="TerrainEffect"
-		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true" />
+		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true" 
+    use_prev_view_projection_matrix="true" use_view_projection_matrix="true" />
 
   <technique name="TerrainEffectTechniqueShadow" effect="TerrainEffect"
 		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
-		use_shadow_maps="true" />
+		use_prev_view_projection_matrix="true" use_view_projection_matrix="true" use_shadow_maps="true" />
 
   <!-- 
   ###################################

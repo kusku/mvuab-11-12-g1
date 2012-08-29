@@ -8,16 +8,16 @@
   <enable_z_test />
   <setup_matrices />
 
-  <!-- shadow maps -->
-  <!---->
+   <!--shadow maps--> 
+  
   <disable_z_test />
 
   <set_pool_renderable_objects_technique pool="Basic_Build_Shadow_Map" />
   <generate_shadow_maps />
-  <!---->
+  
   <enable_z_test />
 
-  <!-- Initialize Motion Blur -->
+   <!--Initialize Motion Blur--> 
   <begin_motion_blur />
   
   <!--Set Depth Map & Motion Blur RT-->
@@ -28,11 +28,8 @@
 
   <clear_scene color="true" />
 
-  
-  <SkySphere SkyTexture="./Data/General/Textures/SkyRelease1.dds" Scale="1000 900 1000" SkyEffectTechnique="SkySphereEffect" />
-  <!--<SkySphere SkyCloudTexture="./Data/General/Textures/clouds2.dds" Scale="499 399 499" SkyEffectTechnique="SkySphereEffectClouds" Clouds="true" />-->
-
-  <render_particles />
+  <!--<SkySphere SkyTexture="./Data/General/Textures/SkyRelease1.dds" Scale="1000 900 1000" SkyEffectTechnique="SkySphereEffect" />
+  <SkySphere SkyCloudTexture="./Data/General/Textures/clouds2.dds" Scale="499 399 499" SkyEffectTechnique="SkySphereEffectClouds" Clouds="true" />-->
 
   <set_pool_renderable_objects_technique pool="FowardShading" />
   <render_scene layer="solid" active="true" />
@@ -48,14 +45,17 @@
 
   <render_particles />
 
-  <bloom_post_process BloomThreshold="0.95" BlurAmount="4.0" BloomIntensity=".75" BaseIntensity="1.5" BloomSaturation="1.0" BaseSaturation="1.0" />
-  
   <render_billboards />
 
+  <!--Post Process-->
+  <disable_z_test />
+
+  <!--<bloom_post_process BloomThreshold="0.95" BlurAmount="4.0" BloomIntensity=".75" BaseIntensity="1.5" BloomSaturation="1.0" BaseSaturation="1.0" />-->
+  
   <!--Unset Depth Map & Motion Blur RT-->
   <unset_render_target render_target="CustomRTs"/>
   
-  <!--Get Render Scene to Texture-->
+  <!--Get Render Scene to Texture--> 
   <capture_frame_buffer>
     <dynamic_texture stage_id="0" name="SceneRender" texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="1" />
   </capture_frame_buffer>
@@ -78,12 +78,16 @@
     <texture file="__CURRENT_MOTION_BLUR_TEXTURE" stage_id="2" />
   </render_draw_quad>
 
+  <!--Lens Flare-->
+  <enable_z_test />
+  <lens_flare light_index="0" />
+
   <!--Debug-->
   <render_debug_waypoints waypoints="false" triggers="false" rails="false" />
-  <render_debug_process active="true" />
-  <render_debug_physics active="false" draw_fronts="false" draw_fustrum="false" draw_names="false" draw_rays="true" />
-  <render_debug_lights active="false" />
-  <render_debug_info grid="false" axis="false" render_console="false" render_logger="true" render_modifiers="false" render_debug_options="false" render_debug_render="true" />
+  <render_debug_process active="false" />
+  <render_debug_physics active="false" draw_fronts="false" draw_fustrum="false" draw_names="false" draw_rays="false" />
+  <render_debug_lights active="true" />
+  <render_debug_info grid="false" axis="false" render_console="false" render_logger="false" render_modifiers="false" render_debug_options="false" render_debug_render="true" />
   
   
   <end_scene />
