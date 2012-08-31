@@ -33,7 +33,10 @@ void CRenderableObjectsManager::Update(float elapsedTime)
 
 	for(; l_It != l_End; ++l_It)
 	{
-		(*l_It)->Update(elapsedTime);
+		if( (*l_It)->GetVisible() )
+		{
+			(*l_It)->Update(elapsedTime);
+		}
 	}
 }
 
@@ -146,6 +149,9 @@ CRenderableObject* CRenderableObjectsManager::AddAnimatedMeshInstance(CXMLTreeNo
 	std::string l_Core = Node.GetPszProperty("core", "");
 	CAnimatedInstanceModel* l_AnimatedInstanceModel = CORE->GetAnimatedModelManager()->GetInstance(l_Core);
 	l_AnimatedInstanceModel->ReadDataXML(Node);
+
+	// Jordi 31/08/2012 -- No se miraba ningun atributo del nodo
+	l_AnimatedInstanceModel->SetVisible(Node.GetBoolProperty("visible", "false"));
 
 	AddResource( l_AnimatedInstanceModel->GetName(), static_cast<CRenderableObject*>(l_AnimatedInstanceModel) );
 
