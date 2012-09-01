@@ -202,7 +202,7 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 //-----------------------------------------------------------------------------------------------------------------------------
 bool CPropertiesManager::LoadDefaultProperties( const CXMLTreeNode &_Node )
 {
-	LOGGER->AddNewLog ( ELL_INFORMATION, "CPropertiesManager::LoadDefaultProperties-->Loading default properties Nodes." );
+	//LOGGER->AddNewLog ( ELL_INFORMATION, "CPropertiesManager::LoadDefaultProperties-->Loading default properties Nodes." );
 
 	CXMLTreeNode l_MainNode = _Node;
 
@@ -242,7 +242,7 @@ bool CPropertiesManager::LoadDefaultProperties( const CXMLTreeNode &_Node )
 //-----------------------------------------------------------------------------------------------------------------------------
 CProperties* CPropertiesManager::LoadPlayerProperties( const CXMLTreeNode &_Node )
 {
-	LOGGER->AddNewLog ( ELL_INFORMATION, "CPropertiesManager::LoadPlayerProperties-->Loading player properties node." );
+	//LOGGER->AddNewLog ( ELL_INFORMATION, "CPropertiesManager::LoadPlayerProperties-->Loading player properties node." );
 
 	CXMLTreeNode l_MainNode = _Node;
 	std::string l_Type = l_MainNode.GetName();		// Les propietats van primer
@@ -276,7 +276,7 @@ CProperties* CPropertiesManager::LoadPlayerProperties( const CXMLTreeNode &_Node
 //-----------------------------------------------------------------------------------------------------------------------------
 CProperties* CPropertiesManager::LoadEnemyProperties( const CXMLTreeNode &_Node )
 {
-	LOGGER->AddNewLog( ELL_INFORMATION, "CPropertiesManager::LoadEnemyProperties-->Loading enemy properties node." );
+	//LOGGER->AddNewLog( ELL_INFORMATION, "CPropertiesManager::LoadEnemyProperties-->Loading enemy properties node." );
 
 	CXMLTreeNode l_MainNode = _Node;
 
