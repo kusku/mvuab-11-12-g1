@@ -35,9 +35,7 @@
   <render_scene layer="solid" active="true" />
   <render_scene layer="fish" active="true" />
 
-  <set_pool_renderable_objects_technique pool="Vegetation1" />
-  <render_scene layer="vegetation" active="true" />
-  <set_pool_renderable_objects_technique pool="Vegetation2" />
+  <set_pool_renderable_objects_technique pool="Vegetation" />
   <render_scene layer="vegetation" active="true" />
 
   <set_pool_renderable_objects_technique pool="Water" />
