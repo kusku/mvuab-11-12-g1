@@ -25,32 +25,18 @@
     <default_technique vertex_type="5151" technique="ForwardLightingWithNormalShadowInstance" />
   </pool_renderable_object_technique>
 
-  <pool_renderable_object_technique name="Vegetation1">
-    <default_technique vertex_type="19" technique="ForwardLightingBasicShadowVegetation1" />
-    <default_technique vertex_type="31" technique="ForwardLightingWithNormalShadowVegetation1" />
-    <default_technique vertex_type="51" technique="ForwardLightingBasicShadowVegetation1" />
-    <default_technique vertex_type="543" technique="ForwardLightingWithNormalShadowVegetation1" />
-    <default_technique vertex_type="1055" technique="ForwardLightingWithNormalShadowVegetation1" />
+  <pool_renderable_object_technique name="Vegetation">
+    <default_technique vertex_type="19" technique="ForwardLightingBasicShadowVegetation" />
+    <default_technique vertex_type="31" technique="ForwardLightingWithNormalShadowVegetation" />
+    <default_technique vertex_type="51" technique="ForwardLightingBasicShadowVegetation" />
+    <default_technique vertex_type="543" technique="ForwardLightingWithNormalShadowVegetation" />
+    <default_technique vertex_type="1055" technique="ForwardLightingWithNormalShadowVegetation" />
 
-    <default_technique vertex_type="4115" technique="ForwardLightingBasicShadowVegetation1Instance" />
-    <default_technique vertex_type="4127" technique="ForwardLightingWithNormalShadowVegetation1Instance" />
-    <default_technique vertex_type="4147" technique="ForwardLightingBasicShadowVegetation1Instance" />
-    <default_technique vertex_type="4639" technique="ForwardLightingWithNormalShadowVegetation1Instance" />
-    <default_technique vertex_type="5151" technique="ForwardLightingWithNormalShadowVegetation1Instance" />
-  </pool_renderable_object_technique>
-
-  <pool_renderable_object_technique name="Vegetation2">
-    <default_technique vertex_type="19" technique="ForwardLightingBasicShadowVegetation2" />
-    <default_technique vertex_type="31" technique="ForwardLightingWithNormalShadowVegetation2" />
-    <default_technique vertex_type="51" technique="ForwardLightingBasicShadowVegetation2" />
-    <default_technique vertex_type="543" technique="ForwardLightingWithNormalShadowVegetation2" />
-    <default_technique vertex_type="1055" technique="ForwardLightingWithNormalShadowVegetation2" />
-
-    <default_technique vertex_type="4115" technique="ForwardLightingBasicShadowVegetation2Instance" />
-    <default_technique vertex_type="4127" technique="ForwardLightingWithNormalShadowVegetation2Instance" />
-    <default_technique vertex_type="4147" technique="ForwardLightingBasicShadowVegetation2Instance" />
-    <default_technique vertex_type="4639" technique="ForwardLightingWithNormalShadowVegetation2Instance" />
-    <default_technique vertex_type="5151" technique="ForwardLightingWithNormalShadowVegetation2Instance" />
+    <default_technique vertex_type="4115" technique="ForwardLightingBasicShadowVegetationInstance" />
+    <default_technique vertex_type="4127" technique="ForwardLightingWithNormalShadowVegetationInstance" />
+    <default_technique vertex_type="4147" technique="ForwardLightingBasicShadowVegetationInstance" />
+    <default_technique vertex_type="4639" technique="ForwardLightingWithNormalShadowVegetationInstance" />
+    <default_technique vertex_type="5151" technique="ForwardLightingWithNormalShadowVegetationInstance" />
   </pool_renderable_object_technique>
 
   <pool_renderable_object_technique name="Water">
