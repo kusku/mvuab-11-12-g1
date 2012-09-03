@@ -29,9 +29,9 @@ struct CState_Wrapper: CState<CCharacter>, luabind::wrap_base
 	{
 	}
 
-	virtual void Execute(CCharacter *_pCharacter)
+	virtual void Execute(CCharacter *_pCharacter, float _ElapsedTime)
 	{
-		call<void>("Execute", _pCharacter);
+		call<void>("Execute", _pCharacter, _ElapsedTime);
 	}
 
 	virtual void OnEnter(CCharacter *_pCharacter)

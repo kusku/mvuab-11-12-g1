@@ -12,7 +12,7 @@ class 'CPlayerTargetAttack3State' (CState)
 		self.animation_time = 0.0
 	end
 	
-	function CPlayerTargetAttack3State:Execute(_CCharacter)
+	function CPlayerTargetAttack3State:Execute(_CCharacter, _elapsed_time)
 		if self.animation_time > _CCharacter.animated_model:get_current_animation_duration("attack1") - 0.1 then
 			if core:get_action_to_input():do_action('AttackPlayer') and not _CCharacter.locked then
 					_CCharacter.logic_fsm:change_state(_CCharacter.target_attack)

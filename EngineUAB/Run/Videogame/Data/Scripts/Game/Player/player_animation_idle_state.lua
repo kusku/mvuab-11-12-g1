@@ -10,7 +10,7 @@ class 'CPlayerAnimationIdleState' (CState)
 		end
 	end
 	
-	function CPlayerAnimationIdleState:Execute(_CCharacter)
+	function CPlayerAnimationIdleState:Execute(_CCharacter, _elapsed_time)
 	end
 	
 	function CPlayerAnimationIdleState:OnExit(_CCharacter)

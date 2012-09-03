@@ -1,7 +1,7 @@
 class 'CRabbitSeekState' (CState)
 	function CRabbitSeekState:__init(name) 
 		CState.__init(self, name)
-		print_logger(0, "CRabbitSeekState:__init->Inicio del estado SEEK de la caperucita")
+		-- print_logger(0, "CRabbitSeekState:__init->Inicio del estado SEEK de la caperucita")
 	end
 	
 	function CRabbitSeekState:OnEnter(_CCharacter)
@@ -13,7 +13,7 @@ class 'CRabbitSeekState' (CState)
 		_CCharacter.behaviors:seek_on()
 	end
 	
-	function CRabbitSeekState:Execute(_CCharacter)
+	function CRabbitSeekState:Execute(_CCharacter, _elapsed_time)
 		--print_logger(0, "CRabbitSeekState:Execute")
 		if ( is_player_detected( _CCharacter, _CCharacter.player ) ) then 
 			-- -- 1) Is in a distance to prepared and Attacable -- Aquí deberiamos detectar si existen colisiones y movernos lateralmente en caso que ya no esté en modo ataque
@@ -30,8 +30,8 @@ class 'CRabbitSeekState' (CState)
 				-- -- -- print_logger(0, "CRabbitPreparedToAttackState:Execute-> aproximation_to_attack")
 				-- -- -- Rotamos al objetivo y movemos
 				
-				-- -- -- _CCharacter:face_to( _CCharacter.steering_entity.position, _CCharacter.elapsed_time )
-				-- -- -- _CCharacter:move_to2( _CCharacter.steering_entity.velocity, _CCharacter.elapsed_time )
+				-- -- -- _CCharacter:face_to( _CCharacter.steering_entity.position, _elapsed_time )
+				-- -- -- _CCharacter:move_to2( _CCharacter.steering_entity.velocity, _elapsed_time )
 			
 				-- -- -- -- En este caso atacamos, soy el foco y el player está preparado
 				-- -- -- self:aproximation_to_attack(_CCharacter) 
@@ -45,8 +45,8 @@ class 'CRabbitSeekState' (CState)
 				_CCharacter.behaviors.seek.target = _CCharacter.player.position
 					
 				-- Rotamos al objetivo y movemos
-				_CCharacter:face_to( _CCharacter.steering_entity.position, _CCharacter.elapsed_time )
-				_CCharacter:move_to2( _CCharacter.steering_entity.velocity, _CCharacter.elapsed_time )
+				_CCharacter:face_to( _CCharacter.steering_entity.position, _elapsed_time )
+				_CCharacter:move_to2( _CCharacter.steering_entity.velocity, _elapsed_time )
 			end
 		else
 			-- print_logger(0, "CRabbitPursuitState:Execute-> anem a idle")

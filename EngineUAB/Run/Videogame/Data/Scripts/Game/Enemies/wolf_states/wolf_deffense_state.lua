@@ -10,7 +10,7 @@ class 'CWolfDeffenseState' (CState)
 		end
 	end
 	
-	function CWolfDeffenseState:Execute(_CCharacter)
+	function CWolfDeffenseState:Execute(_CCharacter, _elapsed_time)
 		--print_logger(0, "CWolfDeffenseState:Execute")
 	end
 	

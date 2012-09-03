@@ -1,22 +1,29 @@
 class 'CRabbitIdleState' (CState)
 	function CRabbitIdleState:__init(name) 
 		CState.__init(self, name)
-		print_logger(0, "Inicio del estado idle de la caperucita")
+		-- print_logger(0, "Inicio del estado IDLE del Rabbit")
 	end
 
 	function CRabbitIdleState:OnEnter(_CCharacter)
 		-- print_logger(0, "CRabbitIdleState:Enter")
-		if not ( _CCharacter == nil ) then
-			num = _CCharacter:get_animation_id("idle")
-			_CCharacter:get_animation_model():blend_cycle( num, 0.3 )
-		end
+		-- if not ( _CCharacter == nil ) then
+			-- num = _CCharacter:get_animation_id("idle")
+			-- _CCharacter:get_animation_model():blend_cycle( num, 0.3 )
+		-- end
+		-- if core:is_debug_mode() then
+			-- core:get_debug_gui_manager().debug_render:set_state_name("idle")
+		-- end
+		
+		-- self.gfsm = _CCharacter.graphic_fsm 
+		-- self.gfsm:change_state(_CCharacter.animation_idle_state)
 		
 		self.action_time = 0
-		self.action_started = false
+		self.total_animation_time = 0
 	end
 	
-	function CRabbitIdleState:Execute(_CCharacter)
+	function CRabbitIdleState:Execute(_CCharacter, _elapsed_time)
 		-- print_logger(0, "CRabbitIdleState:Execute")
+		
 		-- local l_distance = get_distance_to_player(_CCharacter, _CCharacter.player)
 		-- print_logger (1, "Distancia al player: "..l_distance)
 		
@@ -31,7 +38,7 @@ class 'CRabbitIdleState' (CState)
 			-- -- Pursuit --
 			-- else
 				-- player no atacable i lo perseguimos pq lo hemos detectado
-				
+				-- print_logger(1, "CRabbitIdleState:Execute")
 				-- print_logger(0, "_CCharacter.properties.detection_distance : " .._CCharacter.properties.detection_distance )
 				-- print_logger(0, "_CCharacter.properties.chase_distance : " .._CCharacter.properties.chase_distance )
 				
@@ -43,6 +50,7 @@ class 'CRabbitIdleState' (CState)
 				-- 2) Caso en que está cerca y lo detecto pero no demasiado
 				-- if ( ( l_distance <= _CCharacter.properties.detection_distance ) and ( l_distance > _CCharacter.properties.chase_distance ) ) then
 					_CCharacter.logic_fsm:change_state(_CCharacter.pursuit_state)
+					_CCharacter.graphic_fsm:change_state(_CCharacter.animation_run_state)
 					
 					-------------------------------
 					-- TEST de comportamientos
@@ -64,8 +72,8 @@ class 'CRabbitIdleState' (CState)
 					-- _CCharacter.behaviors.evade.target	= _CCharacter.player.position
 					-- _CCharacter.behaviors.evade:update_pursuer_entity(_CCharacter.player.steering_entity, 1)
 					-- _CCharacter.behaviors:wander_on()
-					-- _CCharacter:face_to( _CCharacter.steering_entity.position, _CCharacter.elapsed_time )
-					-- _CCharacter:move_to2( _CCharacter.steering_entity.velocity, _CCharacter.elapsed_time )
+					-- _CCharacter:face_to( _CCharacter.steering_entity.position, _elapsed_time )
+					-- _CCharacter:move_to2( _CCharacter.steering_entity.velocity, _elapsed_time )
 					-------------------------------
 					
 					
@@ -79,22 +87,33 @@ class 'CRabbitIdleState' (CState)
 			-- end
 		-- No detecto player --> no hago nada o patrullo. TODO!!
 		else
-			-- if ( _CCharacter.steering_entity == nil ) then
-				-- print_logger(2, "CRabbitIdleState:Execute->Error en _CCharacter.steering_entity == nil")
-				-- return
-			-- end 
+			if ( self.action_time >= self.total_animation_time ) then
+				-- pillamos la animación idle que deseemos
+				if ( self:GetRandomAnimationName() == 1 ) then
+					_CCharacter.graphic_fsm:change_state(_CCharacter.animation_idle_state)
+				else
+					_CCharacter.graphic_fsm:change_state(_CCharacter.animation_idle2_state)
+				end
+				
+				-- pillamos un tiempo de ejecución aleatorio
+				self.total_animation_time = self:GetRandomAnimationTime()
+				self.action_time = 0 
+			else 
+				-- self.action_time = self.action_time + _elapsed_time
+				self.action_time = self.action_time + _elapsed_time
+			end 
+			
 			_CCharacter.steering_entity.velocity = Vect3f(0,0,0)
-			-- _CCharacter:move_to2( _CCharacter.steering_entity.velocity, _CCharacter.elapsed_time )
-			-- _CCharacter:move_to2( _CCharacter.position, _CCharacter.elapsed_time)
+			_CCharacter:move_to2( _CCharacter.steering_entity.velocity, _elapsed_time )
 		end
 	end
 	
 	function CRabbitIdleState:OnExit(_CCharacter)
 		--print_logger(0, "CRabbitIdleState:Exit")
-		if not ( _CCharacter == nil ) then
-			num = _CCharacter:get_animation_id("idle")
-			_CCharacter:get_animation_model():clear_cycle( num, 0.3 )
-		end
+		-- if not ( _CCharacter == nil ) then
+			-- num = _CCharacter:get_animation_id("idle")
+			-- _CCharacter:get_animation_model():clear_cycle( num, 0.3 )
+		-- end
 	end
 	
 	function CRabbitIdleState:OnMessage(_CCharacter, _Msg)
@@ -109,3 +128,11 @@ class 'CRabbitIdleState' (CState)
 	function CRabbitIdleState:__Finalize()
 	
 	end
+	
+	function CRabbitIdleState:GetRandomAnimationName()
+		return math.random(1, 2) 
+	end 
+	
+	function CRabbitIdleState:GetRandomAnimationTime()
+		return math.random(1, 2) 
+	end 

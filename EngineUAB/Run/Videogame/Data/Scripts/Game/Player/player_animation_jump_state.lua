@@ -10,7 +10,7 @@ class 'CPlayerAnimationJumpState' (CState)
 		end
 	end
 	
-	function CPlayerAnimationJumpState:Execute(_CCharacter)
+	function CPlayerAnimationJumpState:Execute(_CCharacter, _elapsed_time)
 	end
 	
 	function CPlayerAnimationJumpState:OnExit(_CCharacter)

@@ -2,7 +2,7 @@ class 'CRabbitDefenseState' (CState)
 	function CRabbitDefenseState:__init(name) 
 		CState.__init(self,name)
 		self.type = "CRabbitDefenseState"
-		print_logger(0, "Inicio del estado still attack del rabbit")
+		-- print_logger(0, "Inicio del estado DEFENSE del rabbit")
 	end
 
 	function CRabbitDefenseState:OnEnter(_CCharacter)
@@ -37,9 +37,9 @@ class 'CRabbitDefenseState' (CState)
 		_CCharacter.steering_entity.mass = 0.00500
 	end
 	
-	function CRabbitDefenseState:Execute(_CCharacter)
+	function CRabbitDefenseState:Execute(_CCharacter, _elapsed_time)
 		-- print_logger(0, "CRabbitDefenseState:Execute")
-		_CCharacter:face_to( _CCharacter.player.position, _CCharacter.elapsed_time )
+		_CCharacter:face_to( _CCharacter.player.position, _elapsed_time )
 	
 		-- Si bloqueo un golpeo debo retroceder
 		if ( self.hit_blocked ) then 
@@ -50,7 +50,7 @@ class 'CRabbitDefenseState' (CState)
 			-- Si aun no he hecho el retroceso lo sigo moviendo
 			if ( l_distance <= self.hit_distance ) then 
 				print_logger(1, "ara fa ")
-				_CCharacter:move_to2( _CCharacter.steering_entity.velocity, _CCharacter.elapsed_time )
+				_CCharacter:move_to2( _CCharacter.steering_entity.velocity, _elapsed_time )
 			
 			-- Si llego al destino paro el retroceso
 			else
@@ -58,7 +58,7 @@ class 'CRabbitDefenseState' (CState)
 				-- _CCharacter.behaviors:flee_off()
 				_CCharacter.behaviors:seek_off()
 				_CCharacter.steering_entity.velocity = Vect3f(0,0,0)
-				_CCharacter:move_to2( _CCharacter.steering_entity.velocity, _CCharacter.elapsed_time )
+				_CCharacter:move_to2( _CCharacter.steering_entity.velocity, _elapsed_time )
 				self.hit_blocked = false
 			end 
 		-- Si no bloqueado el golpe aun...
@@ -95,7 +95,7 @@ class 'CRabbitDefenseState' (CState)
 				else 
 					-- Incrementamos el tiempo que llevamos en este estado
 					-- print_logger(0, "CRabbitDefenseState:Execute->Incremento tiempo")
-					self.action_time = self.action_time + _CCharacter.elapsed_time
+					self.action_time = self.action_time + _elapsed_time
 				end 
 				
 				
@@ -140,7 +140,7 @@ class 'CRabbitDefenseState' (CState)
 			_CCharacter.behaviors.seek.target = l_front
 			-- _CCharacter.steering_entity.velocity = Vect3f(0,0,0)
 					
-			-- _CCharacter:move_to2( _CCharacter.steering_entity.velocity, _CCharacter.elapsed_time )
+			-- _CCharacter:move_to2( _CCharacter.steering_entity.velocity, _elapsed_time )
 
 			-- Cuento el nº de hits que lleva mientras bloqueo
 			self.hit_blocked_count = self.hit_blocked_count + 1

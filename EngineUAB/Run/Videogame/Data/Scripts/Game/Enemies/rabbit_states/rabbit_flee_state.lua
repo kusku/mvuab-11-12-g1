@@ -2,7 +2,7 @@
 class 'CRabbitFleeState' (CState)
 	function CRabbitFleeState:__init(name) 
 		CState.__init(self, name)
-		print_logger(0, "Inicio del estado flee de la caperucita")
+		-- print_logger(0, "Inicio del estado FLEE del Rabbit")
 	end
 
 	function CRabbitFleeState:OnEnter(_CCharacter)
@@ -21,11 +21,11 @@ class 'CRabbitFleeState' (CState)
 	-- ---------------------------------------------------------------------------------------------------------
 	--	Caso especial de Flee. Realmente no se aleja de pánico sinó de cansancio pero me es útil igualmente
 	-- ---------------------------------------------------------------------------------------------------------
-	function CRabbitFleeState:Execute(_CCharacter)
+	function CRabbitFleeState:Execute(_CCharacter, _elapsed_time)
 		-- Actualizamos el target del búsqueda y la posición
 		_CCharacter.behaviors.flee.target =  Vect3f( _CCharacter.player.position.x, 0, _CCharacter.player.position.z ) 
-		_CCharacter.steering_entity.velocity = _CCharacter.behaviors:update( _CCharacter.elapsed_time, _CCharacter.steering_entity ) 
-		_CCharacter.steering_entity.position = _CCharacter.steering_entity.velocity * _CCharacter.elapsed_time
+		_CCharacter.steering_entity.velocity = _CCharacter.behaviors:update( _elapsed_time, _CCharacter.steering_entity ) 
+		_CCharacter.steering_entity.position = _CCharacter.steering_entity.velocity * _elapsed_time
 			
 		-- print_logger(0, "CRabbitFleeState:Execute")
 		l_positionA = Vect2f(_CCharacter.position.x, _CCharacter.position.z)
@@ -59,14 +59,14 @@ class 'CRabbitFleeState' (CState)
 			l_DesiredFleePoint = _CCharacter.position
 		end 
 		
-		_CCharacter:face_to( _CCharacter.player.position, _CCharacter.elapsed_time )
-		_CCharacter:move_to( l_DesiredFleePoint, _CCharacter.elapsed_time )
+		_CCharacter:face_to( _CCharacter.player.position, _elapsed_time )
+		_CCharacter:move_to( l_DesiredFleePoint, _elapsed_time )
 		if ( self.walk_animation_time >= self.max_animation_time ) then
 			print_logger(0 , "CRabbitFleeState:Execute->Revertir estado al anterior:")
 			_CCharacter.logic_fsm:revert_to_previous_state()
 		end
 		
-		self.walk_animation_time = self.walk_animation_time + _CCharacter.elapsed_time
+		self.walk_animation_time = self.walk_animation_time + _elapsed_time
 	end
 	
 	function CRabbitFleeState:OnExit(_CCharacter)

@@ -11,7 +11,7 @@ class 'CPlayerRunState' (CState)
 		end
 	end
 	
-	function CPlayerRunState:Execute(_CCharacter)
+	function CPlayerRunState:Execute(_CCharacter, _elapsed_time)
 		local l_d 				= 0.0
 		local l_yaw 			= 0.0
 		local l_dir 			= Vect3f(0.0, 0.0, 0.0)
@@ -170,6 +170,9 @@ class 'CPlayerRunState' (CState)
 			--Pone de forma correcta los ángulos
 			_CCharacter.physic_controller.yaw = l_model_yaw
 			_CCharacter.animated_model.yaw = -(l_model_yaw * 180.0 / math.pi) + 90.0
+			_CCharacter.steering_entity.velocity = l_dir
+			_CCharacter.steering_entity.position = _CCharacter.physic_controller.position
+			_CCharacter.steering_entity.yaw = l_model_yaw
 			
 			--Mira si se hace un salto
 			if self.action_2_input:do_action('PlayerJump') then
@@ -180,6 +183,16 @@ class 'CPlayerRunState' (CState)
 			--Cambia de estado a idle
 			_CCharacter.logic_fsm:change_state(_CCharacter.idle)
 			_CCharacter.graphic_fsm:change_state(_CCharacter.animated_idle)
+		end
+		_CCharacter.steering_entity.yaw = _CCharacter.steering_entity:get_angle2() 
+		_CCharacter.steering_entity.velocity = l_dir
+		-- print_logger ( 1, "CRabbit:updateIA->Squared_length : ".._CCharacter.steering_entity.velocity:squared_length() )
+		if ( _CCharacter.steering_entity.velocity:squared_length() > 0.00000001 ) then
+			
+			_CCharacter.steering_entity.heading = _CCharacter.steering_entity.velocity
+			_CCharacter.steering_entity.heading:normalize(1.0)
+			local v = _CCharacter.steering_entity.heading
+			_CCharacter.steering_entity.side = v:perpendicular()
 		end
 	end
 	

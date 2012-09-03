@@ -9,7 +9,7 @@ class 'CWolfPathFollowState' (CState)
 		end
 	end
 	
-	function CWolfPathFollowState:Execute(_CCharacter)
+	function CWolfPathFollowState:Execute(_CCharacter, _elapsed_time)
 		--print_logger(0, "CWolfPathFollowState:Execute")
 	end
 	

@@ -1,7 +1,7 @@
 class 'CWolfSeekState' (CState)
 	function CWolfSeekState:__init(name) 
 		CState.__init(self, name)
-		print_logger(0, "Inicio del estado run de la caperucita")
+		-- print_logger(0, "Inicio del estado SEEK del lobo")
 	end
 
 	function CWolfSeekState:OnEnter(_CCharacter)
@@ -10,7 +10,7 @@ class 'CWolfSeekState' (CState)
 		end
 	end
 	
-	function CWolfSeekState:Execute(_CCharacter)
+	function CWolfSeekState:Execute(_CCharacter, _elapsed_time)
 		--print_logger(0, "CWolfSeekState:Execute")
 	end
 	

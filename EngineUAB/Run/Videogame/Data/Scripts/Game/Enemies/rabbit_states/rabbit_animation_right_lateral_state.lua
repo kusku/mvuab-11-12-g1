@@ -12,7 +12,7 @@ class 'CRabbitAnimatedRightLateralState' (CState)
 		end
 	end
 
-	function CRabbitAnimatedRightLateralState:Execute(_CCharacter)
+	function CRabbitAnimatedRightLateralState:Execute(_CCharacter, _elapsed_time)
 		 -- print_logger(0, "CRabbitAnimatedRightLateralState:Execute")
 	end
 	

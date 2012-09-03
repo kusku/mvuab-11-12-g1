@@ -46,7 +46,7 @@ class 'CPlayer' (CCharacter)
 		
 		if not self.locked then
 			local l_d = 0.0
-			
+				
 			--Calcula el pitch a partir del ratón
 			l_d = core:get_action_to_input():do_action_mouse('PitchPlayer')
 			self.pitch = self.pitch - l_d
@@ -58,9 +58,10 @@ class 'CPlayer' (CCharacter)
 			end
 			
 			--Modifica el zoom según el estado del player
+			local l_camera_player = get_game_process():get_player_camera()
 			local l_camera_player = get_game_process().player_camera
 			local zoom = l_camera_player.zoom
-					
+			
 			if self.logic_fsm.current_state.name ~= "player_idle" then
 				if (self.movement_zoom - zoom) > 0.0001 then
 					l_camera_player.zoom = zoom + self.velocity_adaptative_zoom * elapsed_time
@@ -87,21 +88,21 @@ class 'CPlayer' (CCharacter)
 				end
 			end
 			
-			--Mira si el player hace una defensa
+			-- Mira si el player hace una defensa
 			if core:get_action_to_input():do_action('DefensePlayer') then
 				self.logic_fsm:change_state(self.defense)
 				self.graphic_fsm:change_state(self.animated_defense)
 			end
 		end
 		
-		--Mirar si el personaje está muerto
+		-- Mirar si el personaje está muerto
 		if self.properties.life <= 0 then
 			change_to_game_over_gui_process()
 		end
 		
-		--Actualizamos los estados en caso de cambiar
-		self.logic_fsm:update()
-		self.graphic_fsm:update()
+		-- Actualizamos los estados en caso de cambiar
+		self.logic_fsm:update(elapsed_time)
+		self.graphic_fsm:update(elapsed_time)
 		
 		--Actualiza la posición del objeto 3D
 		self.position = self.physic_controller.position

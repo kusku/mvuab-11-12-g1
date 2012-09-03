@@ -12,7 +12,7 @@ class 'CRabbitAnimatedDeathState' (CState)
 		end
 	end
 
-	function CRabbitAnimatedDeathState:Execute(_CCharacter)
+	function CRabbitAnimatedDeathState:Execute(_CCharacter, _elapsed_time)
 		 -- print_logger(0, "CRabbitAnimatedDeathState:Execute")
 	end
 	

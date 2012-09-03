@@ -20,7 +20,7 @@ class 'CRabbitAttackState' (CState)
 		_CCharacter.behaviors:obstacle_wall_avoidance_on()
 	end
 	
-	function CRabbitAttackState:Execute(_CCharacter)
+	function CRabbitAttackState:Execute(_CCharacter, _elapsed_time)
 		print_logger(0, "CRabbitAttackState:Execute")
 		if ( is_player_attackable( _CCharacter, _CCharacter.player ) ) then
 		
@@ -48,7 +48,7 @@ class 'CRabbitAttackState' (CState)
 				
 				elseif ( _CCharacter.active_action_state == "go_in_to_fustrum" ) then
 					local l_angle = 22		-- 22,5 graus de fustrum
-					go_in_to_fustrum(_CCharacter, l_angle)
+					go_in_to_fustrum(_CCharacter, l_angle, _elapsed_time)
 				
 				end 
 			

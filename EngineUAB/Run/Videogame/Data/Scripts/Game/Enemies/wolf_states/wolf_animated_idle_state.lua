@@ -11,14 +11,14 @@ class 'CWolfAnimatedIdleState' (CState)
 		end
 	end
 
-	function CWolfAnimatedIdleState:Execute(_CCharacter)
+	function CWolfAnimatedIdleState:Execute(_CCharacter, _elapsed_time)
 		 -- print_logger(0, "CWolfAnimatedIdleState:Execute")
-		if ( is_player_detected( _CCharacter, _CCharacter.player ) ) then 
-			-- Lo perseguimos --
-			_CCharacter.graphic_fsm:change_state(_CCharacter.animation_run_state)
-		else
-			_CCharacter.graphic_fsm:change_state(_CCharacter.animation_idle_state)
-		end
+		-- if ( is_player_detected( _CCharacter, _CCharacter.player ) ) then 
+			-- -- Lo perseguimos --
+			-- _CCharacter.graphic_fsm:change_state(_CCharacter.animation_run_state)
+		-- else
+			-- _CCharacter.graphic_fsm:change_state(_CCharacter.animation_idle_state)
+		-- end
 	end
 	
 	function CWolfAnimatedIdleState:OnExit(_CCharacter)
@@ -35,5 +35,8 @@ class 'CWolfAnimatedIdleState' (CState)
 	end
 	
 	function CWolfAnimatedIdleState:__Finalize()
-	
+		if not ( _CCharacter == nil ) then
+			num = _CCharacter:get_animation_id("idle")
+			_CCharacter:get_animation_model():clear_cycle( num, 0.3 )
+		end
 	end

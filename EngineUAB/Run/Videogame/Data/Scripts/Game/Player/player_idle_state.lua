@@ -10,7 +10,7 @@ class 'CPlayerIdleState' (CState)
 		end
 	end
 	
-	function CPlayerIdleState:Execute(_CCharacter)
+	function CPlayerIdleState:Execute(_CCharacter, _elapsed_time)
 		if not _CCharacter.locked then
 			local l_enemy_detected = _CCharacter:detect_enemy()
 			if _CCharacter.is_target_fixed then

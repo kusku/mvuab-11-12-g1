@@ -12,7 +12,7 @@ class 'CRabbitAnimatedRunAttackState' (CState)
 		end
 	end
 
-	function CRabbitAnimatedRunAttackState:Execute(_CCharacter)
+	function CRabbitAnimatedRunAttackState:Execute(_CCharacter, _elapsed_time)
 		 -- print_logger(0, "CRabbitAnimatedRunAttackState:Execute")
 	end
 	

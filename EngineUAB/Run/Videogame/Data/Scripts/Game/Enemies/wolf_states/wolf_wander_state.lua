@@ -9,7 +9,7 @@ class 'CWolfWanderState' (CState)
 		end
 	end
 	
-	function CWolfWanderState:Execute(_CCharacter)
+	function CWolfWanderState:Execute(_CCharacter, _elapsed_time)
 		--print_logger(0, "CWolfWanderState:Execute")
 	end
 	

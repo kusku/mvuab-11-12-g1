@@ -1,7 +1,7 @@
 class 'CWolfWalkState' (CState)
 	function CWolfWalkState:__init(name) 
 		CState.__init(self, name)
-		print_logger(0, "Inicio del estado run de la caperucita")
+		-- print_logger(0, "Inicio del estado WALK del lobo")
 	end
 
 	function CWolfWalkState:OnEnter(_CCharacter)
@@ -10,7 +10,7 @@ class 'CWolfWalkState' (CState)
 		end
 	end
 	
-	function CWolfWalkState:Execute(_CCharacter)
+	function CWolfWalkState:Execute(_CCharacter, _elapsed_time)
 		--print_logger(0, "CWolfWalkState:Execute")
 	end
 	

@@ -2,7 +2,7 @@
 class 'CRabbitTiredState' (CState)
 	function CRabbitTiredState:__init(name) 
 		CState.__init(self, name)
-		print_logger(0, "Inicio del estado TIRED del Rabbit")
+		-- print_logger(0, "Inicio del estado TIRED del Rabbit")
 	end
 
 	function CRabbitTiredState:OnEnter(_CCharacter)
@@ -21,7 +21,7 @@ class 'CRabbitTiredState' (CState)
 	-- ---------------------------------------------------------------------------------------------------------
 	--	Caso especial de Flee. Realmente no se aleja de pánico sinó de cansancio pero me es útil igualmente
 	-- ---------------------------------------------------------------------------------------------------------
-	function CRabbitTiredState:Execute(_CCharacter)
+	function CRabbitTiredState:Execute(_CCharacter, _elapsed_time)
 		-- print_logger(0, "CRabbitTiredState:Execute")
 		
 		-- Si llego a descansar ya no esta fatigado y nos volvemos
@@ -31,10 +31,10 @@ class 'CRabbitTiredState' (CState)
 			_CCharacter.logic_fsm:revert_to_previous_state()
 		end
 		
-		self.tired_animation_time = self.tired_animation_time + _CCharacter.elapsed_time
+		self.tired_animation_time = self.tired_animation_time + _elapsed_time
 		
 		-- Mentre espero miro al player
-		_CCharacter:face_to( _CCharacter.player.position, _CCharacter.elapsed_time )
+		_CCharacter:face_to( _CCharacter.player.position, _elapsed_time )
 	end
 	
 	function CRabbitTiredState:OnExit(_CCharacter)
