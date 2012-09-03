@@ -42,20 +42,25 @@ struct CCharacter_Wrapper: CCharacter, luabind::wrap_base
 		 return call<bool>("init");
 	}
 
-	virtual void Update(float _ElapsedTime)
+	virtual void UpdatePlayer(float _ElapsedTime)
 	{
 		call<void>("update", _ElapsedTime);
 	}
 
-	virtual void UpdateIA(float _ElapsedTime)
+	/*virtual void UpdateEnemy(float _ElapsedTime)
+	{
+		call<void>("update", _ElapsedTime);
+	}*/
+
+	/*virtual void UpdateIA(float _ElapsedTime)
 	{
 		call<void>("update_ia", _ElapsedTime);
-	}
-
-	/*static void Default_Update(CCharacter *ptr, float _ElapsedTime)
-	{
-		ptr->CCharacter::Update(_ElapsedTime);
 	}*/
+
+	static void Default_Update(CCharacter *ptr, float _ElapsedTime)
+	{
+		ptr->CCharacter::UpdatePlayer(_ElapsedTime);
+	}
 };
 
 

@@ -10,7 +10,7 @@ class 'CPlayerAnimationHitState' (CState)
 		end
 	end
 	
-	function CPlayerAnimationHitState:Execute(_CCharacter)
+	function CPlayerAnimationHitState:Execute(_CCharacter, _elapsed_time)
 	end
 	
 	function CPlayerAnimationHitState:OnExit(_CCharacter)

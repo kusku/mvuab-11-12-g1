@@ -37,7 +37,7 @@ class 'CPlayerJumpState' (CState)
 		end
 	end
 	
-	function CPlayerJumpState:Execute(_CCharacter)
+	function CPlayerJumpState:Execute(_CCharacter, _elapsed_time)
 		if self.animation_time > _CCharacter.animated_model:get_current_animation_duration("jump") - 0.05 then
 			_CCharacter.logic_fsm:change_state(_CCharacter.idle)
 			_CCharacter.graphic_fsm:change_state(_CCharacter.animated_idle)

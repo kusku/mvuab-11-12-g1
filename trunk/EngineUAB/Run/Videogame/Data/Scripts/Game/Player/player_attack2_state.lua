@@ -13,7 +13,7 @@ class 'CPlayerAttack2State' (CState)
 		self.animation_callback:start_animation()
 	end
 	
-	function CPlayerAttack2State:Execute(_CCharacter)
+	function CPlayerAttack2State:Execute(_CCharacter, _elapsed_time)
 		--if self.animation_time > _CCharacter.animated_model:get_current_animation_duration("attack1") - 0.1 then
 		if self.animation_callback:is_animation_finished() then
 			if core:get_action_to_input():do_action('AttackPlayer') then

@@ -106,10 +106,10 @@ public:
 	inline void					SetController				( CPhysicController* _pController )			{ m_pController = _pController; }
 			
 	// --- Smooth movement ---
-	/*inline void					SetSmoothedHeading			( const Vect3f &_SmoothingVector ) 			{ m_SmoothedHeading = _SmoothingVector; }
-	inline const Vect3f			GetSmoothedHeading			( void ) const								{ return m_SmoothedHeading; }*/
+	inline void					SetSmoothedHeading			( const Vect3f &_SmoothingVector ) 			{ m_SmoothedHeading = _SmoothingVector; }
+	inline const Vect3f			GetSmoothedHeading			( void ) const								{ return m_SmoothedHeading; }
 
-	//inline CSmoother<Vect3f>*	GetHeadingSmoother			( void ) 									{ return m_pHeadingSmoother; }
+	inline CSmoother<Vect3f>*	GetHeadingSmoother			( void ) 									{ return m_pHeadingSmoother; }
 
 	inline bool					isSmoothingOn				( void ) const								{ return m_SmoothingOn; }
 	inline void					SmoothingOn					( void )									{ m_SmoothingOn = true; }

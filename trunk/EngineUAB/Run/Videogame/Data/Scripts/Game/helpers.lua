@@ -22,6 +22,7 @@ function is_player_inside_impact_distance( _enemy, _player )
 	
 	-- si la distancia entre el player i el enemigo es menor de un valor empieza el ataque
 	l_distance = l_positionA:distance(l_positionB)
+	-- print_logger(1, "Distancia al Player : "..l_distance)
 	if ( l_distance <= _enemy.properties.impact_distance ) then 
 		-- print_logger (0, "Player es atacable y esta a una distancia de : " ..l_distance.."metros? i té una distancia d'attack de : ".._enemy.properties.attack_distance)
 		return true
@@ -290,7 +291,7 @@ function get_random_time(_min, _max)
 	return random
 end 
 
-function go_in_to_fustrum(_CCharacter, _angle)
+function go_in_to_fustrum(_CCharacter, _angle, _elapsed_time)
 	local l_angle = math.rad(_angle)
 	local l_front = get_game_process().player_camera:get_direction() 
 	if ( get_game_process():get_character_manager():is_enemy_visible_in_angle(_CCharacter, l_angle, l_front) ) then
@@ -308,8 +309,8 @@ function go_in_to_fustrum(_CCharacter, _angle)
 		_CCharacter.behaviors:seek_on()
 		
 		-- Rotamos al objetivo y movemos
-		_CCharacter:face_to( _CCharacter.player.position, _CCharacter.elapsed_time )
-		_CCharacter:move_to2( _CCharacter.steering_entity.velocity, _CCharacter.elapsed_time )
+		_CCharacter:face_to( _CCharacter.player.position, _elapsed_time )
+		_CCharacter:move_to2( _CCharacter.steering_entity.velocity, _elapsed_time )
 
 		return
 	-- En caso contrario buscamos un punto dentro del fustrum de la càmara. Si en el camino tenemos opción de ataque entonces atacará
@@ -320,8 +321,8 @@ function go_in_to_fustrum(_CCharacter, _angle)
 		_CCharacter.behaviors.seek.target = l_point_to_go
 		_CCharacter.behaviors:seek_on()
 
-		_CCharacter:face_to( _CCharacter.player.position, _CCharacter.elapsed_time )
-		_CCharacter:move_to2( _CCharacter.steering_entity.velocity, _CCharacter.elapsed_time )
+		_CCharacter:face_to( _CCharacter.player.position, _elapsed_time )
+		_CCharacter:move_to2( _CCharacter.steering_entity.velocity, _elapsed_time )
 		
 		return
 	end 

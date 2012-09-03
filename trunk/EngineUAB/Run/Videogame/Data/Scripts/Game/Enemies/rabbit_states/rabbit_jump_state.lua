@@ -2,7 +2,7 @@ class 'CRabbitJumpState' (CState)
 	function CRabbitJumpState:__init(name) 
 		CState.__init(self, name)
 		self.type = "CRabbitJumpState"
-		print_logger(0, "Inicio del estado still attack del rabbit")
+		-- print_logger(0, "Inicio del estado JUMP del rabbit")
 	end
 
 	function CRabbitJumpState:OnEnter(_CCharacter)
@@ -18,7 +18,7 @@ class 'CRabbitJumpState' (CState)
 		_CCharacter.behaviors:obstacle_wall_avoidance_on()
 	end
 	
-	function CRabbitJumpState:Execute(_CCharacter)
+	function CRabbitJumpState:Execute(_CCharacter, _elapsed_time)
 		print_logger(0, "CRabbitJumpState:Execute")
 		if ( is_player_attackable( _CCharacter, _CCharacter.player ) ) then
 				

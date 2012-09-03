@@ -12,7 +12,7 @@ class 'CRabbitAnimatedWalkState' (CState)
 		end
 	end
 
-	function CRabbitAnimatedWalkState:Execute(_CCharacter)
+	function CRabbitAnimatedWalkState:Execute(_CCharacter, _elapsed_time)
 		 -- print_logger(0, "CRabbitAnimatedWalkState:Execute")
 	end
 	

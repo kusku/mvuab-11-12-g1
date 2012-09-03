@@ -7,7 +7,7 @@ class 'CRabbit' (CCharacter)
 	--		Load States Methods
 	-- ------------------------------
 	function CRabbit:load_graphic_states()
-		-- print_logger(0, "CRabbit::load_graphic_states->Loading animated states...")
+		-- print_logger(1, "CRabbit::load_graphic_states->Loading animated states...")
 		
 		-- Idle State --
 		self.animation_idle_state = CRabbitAnimatedIdleState("rabbit_idle_animation")
@@ -16,7 +16,7 @@ class 'CRabbit' (CCharacter)
 		end		
 		
 		-- Idle 2 State --
-		self.animation_idle2_state = CRabbitAnimatedIdleState("rabbit_idle2_animation")
+		self.animation_idle2_state = CRabbitAnimatedIdle2State("rabbit_idle2_animation")
 		if self.animation_idle2_state == nil then
 			print_logger(2, "CRabbit::load_graphic_states->Error al cargar un estado animado IDLE2 del conejito")
 		end	
@@ -81,11 +81,11 @@ class 'CRabbit' (CCharacter)
 			print_logger(2, "CRabbit::load_graphic_states->Error al cargar un estado animado JUMP del conejito")
 		end
 		
-		-- print_logger(0, "CRabbit::load_graphic_states->Animated states loaded")
+		-- print_logger(1, "CRabbit::load_graphic_states->Animated states loaded")
 	end 
 	
 	function CRabbit:load_logic_states()
-		-- print_logger(0, "CRabbit::load_logic_states->Loading logic states...")
+		-- print_logger(1, "CRabbit::load_logic_states->Loading logic states...")
 		
 		-- Idle State --
 		self.idle_state = CRabbitIdleState("rabbit_idle")
@@ -103,8 +103,6 @@ class 'CRabbit' (CCharacter)
 		self.flee_state = CRabbitFleeState("rabbit_flee")
 		if self.flee_state == nil then
 			print_logger(2, "CRabbit::load_logic_states->Error al cargar un estado FLEE del conejito")
-		else 
-			print_logger(0, "CRabbit::load_logic_states->Creat estat FLEE del conejito")
 		end	
 		
 		-- Tired State -- Cuando el rabbit se cansa de pegar ostias
@@ -155,14 +153,22 @@ class 'CRabbit' (CCharacter)
 			print_logger(2, "CRabbit::load_logic_states->Error al cargar un estado JUMP del conejito")
 		end
 		
-		-- Hit State --
+		-- -- Hit State --
 		self.hit_state = CRabbitHitState("CRabbitHitState")
 		if self.hit_state == nil then
 			print_logger(2, "CRabbit::load_logic_states->Error al cargar un estado HIT del conejito")
 		end
 		
-		print_logger(0, "CRabbit::load_logic_states->Logic states loaded")
+		-- print_logger(1, "CRabbit::load_logic_states->Logic states loaded")
 	end	
+	
+	function CRabbit:create_callbacks()
+		local animation_callback_manager = get_game_process():get_animation_callback_manager()
+		
+		animation_callback_manager:create_callback("attack_1", self.animated_model )
+		animation_callback_manager:create_callback("attack_2", self.animated_model )
+		animation_callback_manager:create_callback("hit", self.animated_model )
+	end
 	
 	-- ------------------------------
 	--			Constructors
@@ -175,7 +181,7 @@ class 'CRabbit' (CCharacter)
 		self.roll = 0.0
 		self.locked = false
 		
-		self.character_manager = get_game_process():get_character_manager()
+		-- self.character_manager = get_game_process():get_character_manager()
 		self.player = get_game_process():get_character_manager():get_player()
 		
 		if ( self.player == nil ) then
@@ -184,53 +190,52 @@ class 'CRabbit' (CCharacter)
 		
 		-- Cargamos estados
 		self:load_logic_states()
-		-- self:load_graphic_states()
+		self:load_graphic_states()
 	end
 	
 	function CRabbit:__init( _id, _name )
-		-- print_logger(0, "CRabbit:init()->Llamada al constructor __init( _id, _name)")
 		CCharacter.__init( self, _id, _name )
-		--self.yaw = 0.0
-		self.pitch = -math.pi / 8
+		-- self.yaw = 0.0
+		-- self.pitch = -math.pi / 8
 		--self.roll = 0.0
 		--self.position = Vect3f(3.0, 0.0, 0.0)
 		--self.position2 = self.position
 		self.locked = false
 		
-		self.character_manager = get_game_process():get_character_manager()
+		-- self.character_manager = get_game_process():get_character_manager()
 		self.player = get_game_process():get_character_manager():get_player()
 		
-		if ( self.player == nil ) then
+		if ( get_game_process():get_character_manager():get_player() == nil ) then
 			print_logger ( 2, "CRabbit::__init()->player is nil" )
 		end
 		
 		-- Cargamos los estados		
 		self:load_logic_states()
-		--self:load_graphic_states()
+		self:load_graphic_states()
 	end
 	
 	function CRabbit:init()
-		print_logger(0, "CRabbit::init()->Inicializamos estados del enemigo")
+		-- print_logger(1, "CRabbit::init()->Inicializamos estados del enemigo")
 		local l_IsOk = false
 
-		self:get_animation_model():clear_cycle( self:get_animation_id("run"), 0.3 )
-		self:get_animation_model():clear_cycle( self:get_animation_id("attack_1"), 0.3 )
-		self:get_animation_model():clear_cycle( self:get_animation_id("attack_2"), 0.3 )
-		self:get_animation_model():clear_cycle( self:get_animation_id("idle"), 0.3 )
-		self:get_animation_model():clear_cycle( self:get_animation_id("walk"), 0.3 )
-		self:get_animation_model():clear_cycle( self:get_animation_id("hit"), 0.3 )
+		-- self:create_callbacks()
+
+		-- self:get_animation_model():clear_cycle( self:get_animation_id("run"), 0.3 )
+		-- self:get_animation_model():clear_cycle( self:get_animation_id("attack_1"), 0.3 )
+		-- self:get_animation_model():clear_cycle( self:get_animation_id("attack_2"), 0.3 )
+		-- self:get_animation_model():clear_cycle( self:get_animation_id("idle"), 0.3 )
+		-- self:get_animation_model():clear_cycle( self:get_animation_id("walk"), 0.3 )
+		-- self:get_animation_model():clear_cycle( self:get_animation_id("hit"), 0.3 )
 		
-		l_gfsm = self.graphic_fsm 
-		if (l_gfsm ~= nil) then
-			l_gfsm.current_state = self.animation_idle_state 
+		if (self.graphic_fsm ~= nil) then
+			self.graphic_fsm.current_state = self.animation_hit_state 
+			self.graphic_fsm:change_state(self.animation_idle_state)
 			l_IsOk = true
 		end
 
-		l_lfsm = self.logic_fsm 
-		if (l_lfsm ~= nil) then
-			l_lfsm.current_state = self.idle_state
-			num = self:get_animation_id("idle")
-			self:get_animation_model():blend_cycle( num, 0.3 )
+		if (self.logic_fsm ~= nil) then
+			self.logic_fsm.current_state = self.hit_state
+			self.logic_fsm:change_state(self.idle_state)
 			l_IsOk = l_IsOk and true
 		end
 		
@@ -238,7 +243,7 @@ class 'CRabbit' (CCharacter)
 		self.behaviors:add_behaviour( CFlee(self.properties.panic_distance) )
 		self.behaviors:add_behaviour( CPursuit() )
 		self.behaviors:add_behaviour( CEvade(self.properties.panic_distance) )
-		-- self.behaviors:add_behaviour( CArrive() )
+		self.behaviors:add_behaviour( CArrive() )
 		self.behaviors:add_behaviour( CWander() )
 		self.behaviors:add_behaviour( CCollisionAvoidance(5) )
 		
@@ -290,7 +295,7 @@ class 'CRabbit' (CCharacter)
 	end
 	
 	function CRabbit:update_ia(_elapsed_time)
-		-- print_logger(0, "CRabbit::updateIA()->Actualizando IA enemigo...")
+		print_logger(0, "CRabbit::updateIA()->Actualizando IA enemigo...")
 		-- Calculamos la fuerza hacia el objetivo
 		if ( self.steering_entity == nil ) then
 			print_logger(2, "CRabbit::updateIA()->Error en self.steering_entity == nil")
@@ -344,7 +349,7 @@ class 'CRabbit' (CCharacter)
 	--			Main Methods
 	-- ------------------------------
 	function CRabbit:update(_elapsed_time)
-		-- print_logger(0, "CRabbit::update()->Actualizando enemigo...")
+		print_logger(0, "CRabbit::update()->Actualizando enemigo...")
 		-- Almacenamos el elapsed time pq después será impossible de guardar
 		self.elapsed_time = _elapsed_time
 		
@@ -372,7 +377,6 @@ class 'CRabbit' (CCharacter)
 	--			Destructor
 	-- ------------------------------
 	function CRabbit:__Finalize()
-	
 	end
 	
 	-- ------------------------------

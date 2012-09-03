@@ -16,7 +16,7 @@ class 'CPlayerTargetRunState' (CState)
 		get_game_process():get_character_manager().target_enemy = self.enemy_detected
 	end
 	
-	function CPlayerTargetRunState:Execute(_CCharacter)
+	function CPlayerTargetRunState:Execute(_CCharacter, _elapsed_time)
 		local l_d = 0.0
 		local l_yaw = 0.0
 		local l_dir = Vect3f(0.0, 0.0, 0.0)

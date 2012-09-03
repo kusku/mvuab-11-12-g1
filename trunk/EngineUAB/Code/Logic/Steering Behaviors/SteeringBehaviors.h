@@ -59,7 +59,9 @@ public:
 	int							HasBehavior						( eBehaviorType type );
 
 	//this function tests if a specific bit of m_iFlags is set
-	bool						On								( eBehaviorType _bt )		{ return (m_iFlags & _bt) == _bt; }
+	bool						On								( eBehaviorType _bt )		{ 
+																								return (m_iFlags & _bt) == _bt; 
+																							}
 
 	inline Vect2f				Truncate						(  Vect2f v, float _Max );
 

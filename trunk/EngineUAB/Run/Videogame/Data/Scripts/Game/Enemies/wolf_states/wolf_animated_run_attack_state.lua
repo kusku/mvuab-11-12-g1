@@ -11,7 +11,7 @@ class 'CWolfAnimatedRunAttackState' (CState)
 		end
 	end
 	
-	function CWolfAnimatedRunAttackState:Execute(_CCharacter)
+	function CWolfAnimatedRunAttackState:Execute(_CCharacter, _elapsed_time)
 		--print_logger(0, "CWolfAnimatedRunAttackState:Execute")
 	end
 	
@@ -29,5 +29,8 @@ class 'CWolfAnimatedRunAttackState' (CState)
 	end
 	
 	function CWolfAnimatedRunAttackState:__Finalize()
-	
+		if not ( _CCharacter == nil ) then
+			num = _CCharacter:get_animation_id("attack_run")
+			_CCharacter:get_animation_model():blend_cycle( num, 0.3 )
+		end
 	end

@@ -13,7 +13,7 @@ class 'CPlayerAnimationAttack2State' (CState)
 		end
 	end
 	
-	function CPlayerAnimationAttack2State:Execute(_CCharacter)
+	function CPlayerAnimationAttack2State:Execute(_CCharacter, _elapsed_time)
 	end
 	
 	function CPlayerAnimationAttack2State:OnExit(_CCharacter)

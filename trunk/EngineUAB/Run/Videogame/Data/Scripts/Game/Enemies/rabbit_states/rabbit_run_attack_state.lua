@@ -1,7 +1,7 @@
 class 'CRabbitRunAttackState' (CState)
 	function CRabbitRunAttackState:__init(name) 
 		CState.__init(self, name)
-		print_logger(0, "Inicio del estado STILL ATTACK del rabbit")
+		-- print_logger(0, "Inicio del estado RUN del rabbit")
 	end
 
 	function CRabbitRunAttackState:OnEnter(_CCharacter)
@@ -29,7 +29,7 @@ class 'CRabbitRunAttackState' (CState)
 		self.distance = get_distance_to_player(_CCharacter, _CCharacter.player)
 	end
 	
-	function CRabbitRunAttackState:Execute(_CCharacter)
+	function CRabbitRunAttackState:Execute(_CCharacter, _elapsed_time)
 		-- print_logger(0, "CRabbitRunAttackState:Execute")
 			
 		-- Compruebo si la animación a finalizado
@@ -47,10 +47,10 @@ class 'CRabbitRunAttackState' (CState)
 			-- Volvemos al estado anterior
 			_CCharacter.behaviors:seek_off()
 			_CCharacter.steering_entity.velocity = Vect3f(0,0,0)
-			_CCharacter:move_to2( _CCharacter.steering_entity.velocity, _CCharacter.elapsed_time )
+			_CCharacter:move_to2( _CCharacter.steering_entity.velocity, _elapsed_time )
 			_CCharacter.logic_fsm:revert_to_previous_state()
 		else 
-			self.action_animation_time =  self.action_animation_time + _CCharacter.elapsed_time 
+			self.action_animation_time =  self.action_animation_time + _elapsed_time 
 			
 			local l_distance = get_distance_to_player(_CCharacter, _CCharacter.player)
 			
@@ -58,11 +58,11 @@ class 'CRabbitRunAttackState' (CState)
 			-- que el ataque seguramente falló y así evitamos que exista un pequeño retroceso de volver hacia el player
 			if ( is_player_inside_impact_distance( _CCharacter, _CCharacter.player ) or ( l_distance > self.distance ) ) then
 				_CCharacter.steering_entity.velocity = Vect3f(0,0,0)
-				_CCharacter:face_to( _CCharacter.player.position, _CCharacter.elapsed_time )
+				_CCharacter:face_to( _CCharacter.player.position, _elapsed_time )
 			end 
 			-- Rotamos al objetivo y movemos
-			-- _CCharacter:face_to( self.target_position, _CCharacter.elapsed_time )
-			_CCharacter:move_to2( _CCharacter.steering_entity.velocity, _CCharacter.elapsed_time )
+			-- _CCharacter:face_to( self.target_position, _elapsed_time )
+			_CCharacter:move_to2( _CCharacter.steering_entity.velocity, _elapsed_time )
 		end 
 	end
 	

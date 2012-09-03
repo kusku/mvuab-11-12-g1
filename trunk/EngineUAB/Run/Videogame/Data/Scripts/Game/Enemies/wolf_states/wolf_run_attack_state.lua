@@ -9,7 +9,7 @@ class 'CWolfRunAttackState' (CState)
 		end
 	end
 	
-	function CWolfRunAttackState:Execute(_CCharacter)
+	function CWolfRunAttackState:Execute(_CCharacter, _elapsed_time)
 		--print_logger(0, "CWolfRunAttackState:Execute")
 	end
 	

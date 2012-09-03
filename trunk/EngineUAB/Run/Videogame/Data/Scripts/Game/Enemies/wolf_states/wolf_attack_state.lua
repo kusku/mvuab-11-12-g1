@@ -13,7 +13,7 @@ class 'CWolfAttackState' (CState)
 		_CCharacter.fatigue = 2
 	end
 	
-	function CWolfAttackState:Execute(_CCharacter)
+	function CWolfAttackState:Execute(_CCharacter, _elapsed_time)
 		-- print_logger(0, "CWolfAttackState:Execute")
 		if ( is_player_attackable( _CCharacter, _CCharacter.player ) ) then
 			if ( self.attack_animation_time > _CCharacter.animated_model:get_current_animation_duration("attack_still") ) then 
@@ -38,12 +38,12 @@ class 'CWolfAttackState' (CState)
 					print_logger(0, "cwolfattackstate:execute->más fatigado... ".._CCharacter.fatigue )
 				end 
 			else 
-				self.attack_animation_time =  self.attack_animation_time + _CCharacter.elapsed_time
+				self.attack_animation_time =  self.attack_animation_time + _elapsed_time
 			end 
 		
 		-- Si el player NO es atacable lo volvemos a perseguir
 		else 
-			_CCharacter:move_to( _CCharacter.position, _CCharacter.elapsed_time )
+			_CCharacter:move_to( _CCharacter.position, _elapsed_time )
 			_CCharacter.logic_fsm:change_state(_CCharacter.pursuit_state)
 		end
 	end

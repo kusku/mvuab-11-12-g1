@@ -12,15 +12,15 @@ class 'CWolfAnimatedWalkState' (CState)
 		end
 	end
 	
-	function CWolfAnimatedWalkState:Execute(_CCharacter)
+	function CWolfAnimatedWalkState:Execute(_CCharacter, _elapsed_time)
 		--print_logger(0, "CWolfAnimatedWalkState:Execute")
 		if ( is_player_detected( _CCharacter, _CCharacter.player ) ) then 
 			-- Si el player es atacable
 			if ( is_player_attackable( _CCharacter, _CCharacter.player ) ) then
 				_CCharacter.graphic_fsm:change_state(_CCharacter.animation_still_attack_state)
 			else
-				--face_to_player ( _CCharacter, _CCharacter.player, _CCharacter.elapsed_time )
-				_CCharacter:move_to ( _CCharacter.player.position, _CCharacter.elapsed_time )
+				--face_to_player ( _CCharacter, _CCharacter.player, _elapsed_time )
+				_CCharacter:move_to ( _CCharacter.player.position, _elapsed_time )
 			end
 		else
 			_CCharacter.graphic_fsm:change_state(_CCharacter.animation_idle_state)

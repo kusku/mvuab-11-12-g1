@@ -10,7 +10,7 @@ class 'CPlayerDefenseState' (CState)
 		end
 	end
 	
-	function CPlayerDefenseState:Execute(_CCharacter)
+	function CPlayerDefenseState:Execute(_CCharacter, _elapsed_time)
 		if not self.action_2_input:do_action('DefensePlayer') then
 			_CCharacter.logic_fsm:change_state(_CCharacter.idle)
 			_CCharacter.graphic_fsm:change_state(_CCharacter.animated_idle)

@@ -13,7 +13,7 @@ class 'CPlayerAttack3State' (CState)
 		self.animation_callback:start_animation()
 	end
 	
-	function CPlayerAttack3State:Execute(_CCharacter)
+	function CPlayerAttack3State:Execute(_CCharacter, _elapsed_time)
 		if self.animation_callback:is_animation_finished() then
 			if core:get_action_to_input():do_action('AttackPlayer') then
 				_CCharacter.logic_fsm:change_state(_CCharacter.attack)

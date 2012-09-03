@@ -10,7 +10,7 @@ class 'CPlayerAnimationDefenseState' (CState)
 		end
 	end
 	
-	function CPlayerAnimationDefenseState:Execute(_CCharacter)
+	function CPlayerAnimationDefenseState:Execute(_CCharacter, _elapsed_time)
 	end
 	
 	function CPlayerAnimationDefenseState:OnExit(_CCharacter)
