@@ -1,4 +1,5 @@
 #include "Character.h"
+#include "CharacterManager.h"
 #include "Properties/Properties.h"
 #include "VideogameDefs.h"
 
@@ -22,6 +23,10 @@
 #include "RenderableObjects\RenderableObjectsLayersManager.h"
 
 #include "Scripting\ScriptManager.h"
+#include "GameProcess.h"
+#include "Cameras\ThPSCharacterCamera.h"
+
+#include "EngineProcess.h"
 #include "Core.h"
 #include "Base.h"
 
@@ -121,18 +126,18 @@ CCharacter::~CCharacter()
 // -----------------------------------------
 //			METODES PRINCIPALS
 // -----------------------------------------
-bool CCharacter::Init( void )
-{
-	// Metodo y cosas a implementar en Lua
-	//if ( m_pCurrentAnimatedModel )
-	//{
-	//	// coloco el primer estado
-	//	m_pLogicStateMachine->SetCurrentState  ( m_pIdleState );
-	//	m_pGraphicStateMachine->SetCurrentState( m_pAnimationIdleState );
-	//}
-
-	return true;
-}
+//bool CCharacter::Init( void )
+//{
+//	// Metodo y cosas a implementar en Lua
+//	//if ( m_pCurrentAnimatedModel )
+//	//{
+//	//	// coloco el primer estado
+//	//	m_pLogicStateMachine->SetCurrentState  ( m_pIdleState );
+//	//	m_pGraphicStateMachine->SetCurrentState( m_pAnimationIdleState );
+//	//}
+//
+//	return true;
+//}
 
 bool CCharacter::Initialize( const std::string &_Name, const Vect3f &_InitialPosicion, ECollisionGroup _Grup )
 {
@@ -244,14 +249,18 @@ bool CCharacter::InitializeAI ( void )
 
 void CCharacter::Update ( float _ElapsedTime )			
 { 
-	// Fet en Lua
-	/*m_pLogicStateMachine->Update( );
-	m_pGraphicStateMachine->Update( );*/
+	m_pLogicStateMachine->Update( _ElapsedTime );
+	m_pGraphicStateMachine->Update( _ElapsedTime );
+}
+
+void CCharacter::UpdatePlayer ( float _ElapsedTime )			
+{ 
+	// En Lua
 }
 
 void CCharacter::UpdateIA( float _ElapsedTime )			
 { 
-	/*Vect3f l_SteeringForce = m_pBehaviors->Update( _ElapsedTime, m_pSteeringEntity );
+	Vect3f l_SteeringForce = m_pBehaviors->Update( _ElapsedTime, m_pSteeringEntity );
 	l_SteeringForce.y = 0;
 
 	// aceleración = fuerza/masa
@@ -262,35 +271,39 @@ void CCharacter::UpdateIA( float _ElapsedTime )
 	m_pSteeringEntity->SetVelocity( Vect3f( m_pSteeringEntity->GetVelocity().x, 0, m_pSteeringEntity->GetVelocity().z ) );
 
 	// nos aseguramos que el rabbit no excede de la velocidad máxima permitida
-
-		-- local l_Vel = Vect3f( self.steering_entity.velocity.x, self.steering_entity.velocity.y, self.steering_entity.velocity.z )
-		-- l_Vel = l_Vel:truncate(self.steering_entity.max_speed)
-		-- self.steering_entity.velocity = l_Vel
+	Vect3f l_Velocity = m_pSteeringEntity->GetVelocity();
+	l_Velocity.Truncate(m_pSteeringEntity->GetMaxSpeed());
+	
+	// actualizamos la posición
+	m_pSteeringEntity->SetPosition( m_pSteeringEntity->GetPosition() + l_Velocity * _ElapsedTime );
 		
-		-- -- actualizamos la posición
-		-- self.steering_entity.position = self.steering_entity.position + self.steering_entity.velocity * _elapsed_time 
+	// Actualizamos el Heahing y Side de la entidad solo si esta tiene velocidad
+	// print_logger ( 1, "CRabbit:updateIA->Squared_length : "..self.steering_entity.velocity:squared_length() )
+	if ( m_pSteeringEntity->GetVelocity().SquaredLength() > 0.00000001 ) 
+	{
+		// Ahora actualizamos el heading (Vector unitario velocidad) y su perpendicular
+		Vect3f l_Vect = m_pSteeringEntity->GetVelocity();
+		l_Vect.Normalize();
+		m_pSteeringEntity->SetHeading( l_Vect );
+		l_Vect = m_pSteeringEntity->GetHeading();
+		m_pSteeringEntity->SetSide( l_Vect.GetPerpendicular() );
+	}
+	else
+	{
+		Vect3f l_Front = m_pSteeringEntity->GetFront();
+		l_Front.Normalize();
+		m_pSteeringEntity->SetHeading( l_Front );		// Ahora actualizamos el heading (Vector unitario velocidad) y su perpendicular
+		Vect3f l_Vect = m_pSteeringEntity->GetHeading();
+		m_pSteeringEntity->SetSide( l_Vect.GetPerpendicular() );
+	}
 		
-		-- -- Actualizamos el Heahing y Side de la entidad solo si esta tiene velocidad
-		-- -- print_logger ( 1, "CRabbit:updateIA->Squared_length : "..self.steering_entity.velocity:squared_length() )
-		-- if ( self.steering_entity.velocity:squared_length() > 0.00000001 ) then
-			-- self.steering_entity.heading = self.steering_entity.velocity
-			-- -- Ahora actualizamos el heading (Vector unitario velocidad) y su perpendicular
-			-- self.steering_entity.heading:normalize(1.0)
-			-- local v = self.steering_entity.heading
-			-- self.steering_entity.side = v:perpendicular()
-		-- else
-			-- self.steering_entity.heading = self.steering_entity:get_front() 	-- Ahora actualizamos el heading (Vector unitario velocidad) y su perpendicular
-			-- self.steering_entity.heading:normalize(1.0)
-			-- local v = self.steering_entity.heading
-			-- self.steering_entity.side = v:perpendicular()
-		-- end
-		
-		-- Actualiza el heading del caracter para suabizarlo si está activado
-		-- self.steering_entity:smoothing_on()
-		-- if (self.steering_entity:is_smoothing_on()) then
-			-- self.steering_entity.smoothing_heading = self.steering_entity.heading_smoother:update(self.steering_entity.heading);
-		-- end
-*/
+	// Actualiza el heading del caracter para suabizarlo si está activado
+	m_pSteeringEntity->SmoothingOn();
+	if ( m_pSteeringEntity->isSmoothingOn() )
+	{
+		//-- self.steering_entity.smoothing_heading = self.steering_entity.heading_smoother:update(self.steering_entity.heading);
+		m_pSteeringEntity->SetSmoothedHeading( m_pSteeringEntity->GetHeadingSmoother()->Update( m_pSteeringEntity->GetHeading()));
+	}
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -479,7 +492,7 @@ void CCharacter::MoveTo( const Vect3f &_Position, float _ElapsedTime )
 }
 
 // -----------------------------------------
-//				PROPERTIES
+//				METHODS
 // -----------------------------------------
 
 void CCharacter::AddLife( int _Life )								
@@ -545,6 +558,105 @@ CPhysicUserData* CCharacter::ShootCollisionRay()
 	return userdata;
 }
 
+// TODO!!
+bool CCharacter::IsPlayerReady( void )
+{
+	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
+	CCharacter * l_Player = l_Process->GetPlayer();
+	
+	// std::string l_Name = l_Player->GetLogicFSM()->GetCurrentState()->GetName();
+	
+	/*if ( l_Player->GetLogicFSM()->isInState(l_Player->GetHitState()))
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}*/
+		
+	return true;
+}
+
+bool CCharacter::IsEnemyFocused( void )
+{
+	// Buscamos el enemigo más cercano en 360º ya que ataca el más cercano y no el que tenga de cara el player
+	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
+	
+	Vect3f l_Front = l_Process->GetPlayerCamera()->GetDirection();
+	float l_Distance = this->GetProperties()->GetDetectionDistance();
+	CCharacter * l_EnemyDetected = l_Process->GetCharactersManager()->SearchTargetEnemy(l_Distance, e2PIf, l_Front);
+
+	if ( !l_EnemyDetected ) 
+	{
+		// print_logger ( 1, "Enemy not detected" )
+		return false;
+	}
+	else 
+	{
+		// print_logger ( 1, "Enemy detected :"..l_enemy_detected.name.." i el nom enemic : ".._enemy.name )
+		if ( l_EnemyDetected->GetName() == this->GetName() ) 
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+bool CCharacter::IsPlayerAtacable( void )
+{
+	if ( IsEnemyFocused() && IsPlayerInsideDistance(this->GetProperties()->GetAttackDistance()) && IsPlayerReady() )
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool CCharacter::IsPlayerInsideDistance( float _DistanceToCheck )
+{
+	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
+	Vect3f l_PlayerPosition = l_Process->GetPlayer()->GetPosition();
+	Vect3f l_EnemyPosition  = GetPosition();
+
+	Vect2f l_positionA = Vect2f( l_EnemyPosition.x, l_EnemyPosition.z );
+	Vect2f l_positionB = Vect2f( l_PlayerPosition.x, l_PlayerPosition.z );
+
+	// miro si el player entra en distancia de detección
+	float l_distance = l_positionA.Distance(l_positionB);
+	if ( l_distance <= _DistanceToCheck  ) 
+	{
+		// print_logger (0, "Player detected!! go to player at: "..l_distance.." meters? metres de detecció enemic: ".._enemy.properties.detection_distance )
+		return true;
+	}
+	else
+	{
+		// print_logger (0, "Player massa lluny!! : "..l_distance.." meters? metres de detecció enemic: ".._enemy.properties.detection_distance )
+		return false;
+	}
+}
+
+bool CCharacter::IsPlayerDetected( void )
+{
+	return IsPlayerInsideDistance(this->GetProperties()->GetDetectionDistance());
+}
+
+bool CCharacter::IsEnemyPreparedToAttack( void )
+{
+	return IsPlayerInsideDistance(this->GetProperties()->GetPreparedAttackDistance());
+}
+
+bool CCharacter::IsEnemyAproximatedToAttack( void )
+{
+	return IsPlayerInsideDistance(this->GetProperties()->GetAproximationDistance());
+}
+
 // -----------------------------------------
 //				PROPERTIES
 // -----------------------------------------
@@ -566,4 +678,10 @@ void CCharacter::SetEnable( bool _Enable )
 		CORE->GetPhysicsManager()->ReleasePhysicController(m_pController);
 		//CHECKED_DELETE(m_pController);
 	}
+}
+
+CCharacter * CCharacter::GetPlayer( void )
+{
+	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
+	return l_Process->GetCharactersManager()->GetPlayer();
 }

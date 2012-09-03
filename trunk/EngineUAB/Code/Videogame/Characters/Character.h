@@ -31,47 +31,63 @@ class CCharacter : public CBaseGameEntity, public CObject3D
 {
 public:
 	// ------------- Constructors i Destructors --------------
-								CCharacter			();
-								CCharacter			( const std::string &_Name );
-								CCharacter			( int _ID, const std::string &_Name );
-	virtual						~CCharacter			();
+								CCharacter					( void );
+								CCharacter					( const std::string &_Name );
+								CCharacter					( int _ID, const std::string &_Name );
+	virtual						~CCharacter					( void );
 
 	//----Main Functions --------------------------------------
-	virtual bool				Initialize			( const std::string &_Name, const Vect3f &_InitialPosicion, ECollisionGroup _Grup );
-	bool						InitializeAI		( void );
-	virtual bool				Init				( void );
-	virtual bool				HandleMessage		( const STelegram& _Msg, bool _Logic = true, bool _Graphic = true  );		// Envia telegramas a las máquinas de estados
-	virtual bool				HandleMessage		( const STelegram& _Msg );
-	virtual void				Update				( float _ElapsedTime );
-	virtual void				UpdateIA			( float _ElapsedTime );
+	virtual bool				Initialize					( const std::string &_Name, const Vect3f &_InitialPosicion, ECollisionGroup _Grup );
+	bool						InitializeAI				( void );
+	
+	virtual bool				Init						( void ) = 0; // Inicialización del caracter en cuestión, de los hijos.
+	
+	virtual bool				HandleMessage				( const STelegram& _Msg, bool _Logic = true, bool _Graphic = true  );		// Envia telegramas a las máquinas de estados
+	virtual bool				HandleMessage				( const STelegram& _Msg );
+	virtual void				Update						( float _ElapsedTime );
+	virtual void				UpdatePlayer				( float _ElapsedTime );
+	virtual void				UpdateIA					( float _ElapsedTime );
 
 	//----Methods ---------------------------------------------
-	void						MoveController		( const Vect3f &_Dir, float _ElapsedTime );
-	void						MoveTo				( const Vect3f &_Position, float _ElapsedTime );
-	void						MoveTo2				( const Vect3f &_Position, float _ElapsedTime );
-	void						FaceTo				( const Vect3f &_Position, float _ElapsedTime );
-	void						FaceTo2				( const Vect3f &_Position, float _ElapsedTime );
-	//bool						IsPlayerDetected	( void );
+	void						MoveController				( const Vect3f &_Dir, float _ElapsedTime );
+	void						MoveTo						( const Vect3f &_Position, float _ElapsedTime );
+	void						MoveTo2						( const Vect3f &_Position, float _ElapsedTime );
+	void						FaceTo						( const Vect3f &_Position, float _ElapsedTime );
+	void						FaceTo2						( const Vect3f &_Position, float _ElapsedTime );
+	//bool						IsPlayerDetected			( void );
 	
-	void						AddLife				( int _Life );								
-	void						RestLife			( int _Life );								
-	void						AddSpeed			( float _Speed );								
-	void						RestSpeed			( float _Speed );								
-	void						AddStrong			( int _Strong );								
-	void						RestStrong			( int _Strong );								
+	void						AddLife						( int _Life );								
+	void						RestLife					( int _Life );								
+	void						AddSpeed					( float _Speed );								
+	void						RestSpeed					( float _Speed );								
+	void						AddStrong					( int _Strong );								
+	void						RestStrong					( int _Strong );								
 
-	CPhysicUserData*			ShootCollisionRay	();
+	CPhysicUserData*			ShootCollisionRay			( void );
+
+	bool						IsPlayerInsideDistance		( float _Distance );
+	bool						IsPlayerDetected			( void );
+	bool						IsPlayerAtacable			( void );
+	bool						IsPlayerReady				( void );
+
+	bool						IsEnemyFocused				( void );
+	bool						IsEnemyPreparedToAttack		( void );
+	bool						IsEnemyAproximatedToAttack	( void );
+	
+	// Permite cargar los estados 
+	/*virtual void				LoadGraphicStates		( void ) = 0; 
+	virtual void				LoadLogicStates			( void ) = 0;*/
 
 	//----Properties ( get & Set )-----------------------------
-	inline CStateMachine<CCharacter>*		GetLogicFSM			() const			{ return m_pLogicStateMachine; }
-	inline CStateMachine<CCharacter>*		GetGraphicFSM		() const			{ return m_pGraphicStateMachine; }
-	inline CPhysicController*				GetController		() const			{ return m_pController; }
-	inline CAnimatedInstanceModel*			GetAnimatedModel	() const			{ return m_pCurrentAnimatedModel; }
-	inline CPhysicUserData*					GetPhysicUserData	() const			{ return m_pPhysicUserDataJugador; }
+	inline CStateMachine<CCharacter>*		GetLogicFSM			( void ) const			{ return m_pLogicStateMachine; }
+	inline CStateMachine<CCharacter>*		GetGraphicFSM		( void ) const			{ return m_pGraphicStateMachine; }
+	inline CPhysicController*				GetController		( void ) const			{ return m_pController; }
+	inline CAnimatedInstanceModel*			GetAnimatedModel	( void ) const			{ return m_pCurrentAnimatedModel; }
+	inline CPhysicUserData*					GetPhysicUserData	( void ) const			{ return m_pPhysicUserDataJugador; }
 	int										GetAnimationID		( const std::string &_AnimationName );
 
 	inline void					SetPrevPosition		( Vect3f pos )				{ m_PrevPosition = pos; }
-	inline const Vect3f&		GetPrevPosition		() const					{ return m_PrevPosition; }
+	inline const Vect3f&		GetPrevPosition		( void ) const					{ return m_PrevPosition; }
 
 	void						SetEnable			( bool _Enable );			
 	inline bool					IsEnable			( void ) const				{ return this->GetProperties()->GetActive(); }  // m_bIsEnable; }
@@ -87,7 +103,7 @@ public:
 	
 
 	// Obtengo el angulo que forma donde mira
-	inline Vect3f				GetFront			() const					{ Vect3f l_Front; l_Front.GetXZFromAngle( GetYaw() ) ; return l_Front; }
+	inline Vect3f				GetFront			( void ) const					{ Vect3f l_Front; l_Front.GetXZFromAngle( GetYaw() ) ; return l_Front; }
 
 	bool						IsPointAtLeft		( const Vect3f &_Position ) const	
 															{
@@ -96,13 +112,15 @@ public:
 															}
 
 	inline void					SetAnimationsStates	( CAnimationsStates* _pAnimationsStates )	{ m_pAnimationsStates = _pAnimationsStates; }
-	inline CAnimationsStates*	GetAnimationsStates	() const									{ return m_pAnimationsStates; }
+	inline CAnimationsStates*	GetAnimationsStates	( void ) const									{ return m_pAnimationsStates; }
 
 	inline void					SetProperties		( CProperties* _pProperties )				{ m_pProperties = _pProperties; }
-	inline CProperties*			GetProperties		() const									{ return m_pProperties; }
+	inline CProperties*			GetProperties		( void ) const									{ return m_pProperties; }
 
 	inline void					SetReadyToAttack	( bool _isReady )			{ m_ReadyToAttack = _isReady; }
 	inline bool					GetReadyToAttack	( void ) const				{ return m_ReadyToAttack; }
+
+	CCharacter *				GetPlayer			( void );
 
 	//----Members ---------------------------------------------
 private:
