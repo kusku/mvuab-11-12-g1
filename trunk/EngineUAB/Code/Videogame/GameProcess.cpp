@@ -158,7 +158,7 @@ void CGameProcess::Update(float elapsedTime)
 	{
 		m_fTimeBetweenClicks = 0.f;
 
-		//CORE->GetParticleEmitterManager()->GetResource("Explosions")->EjectParticles();
+		CORE->GetParticleEmitterManager()->GetResource("Explosions")->EjectParticles();
 	}
 
 	m_pCharactersManager->Update(elapsedTime);

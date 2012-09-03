@@ -17,7 +17,8 @@
 #include <Windows.h>
 
 class CRenderManager;
-class CCHaractersManager;
+class CCharactersManager;
+class CCharacter;
 class CThPSCharacterCamera;
 class CThPSCamera;
 class CWeaponManager;
@@ -60,6 +61,7 @@ public:
 	CCharactersManager*			GetCharactersManager		() const		{ return m_pCharactersManager; }
 	CThPSCharacterCamera*		GetPlayerCamera				() const		{ return m_pThPSCamera; }
 	CAnimationCallbackManager*	GetAnimationCallbackManager	() const		{ return m_pAnimationCallbackManager; }
+	CCharacter*					GetPlayer					() const		{ return GetCharactersManager()->GetPlayer(); }
 
 	//----Members --------------------------------------------------------------------
 private:
