@@ -58,6 +58,18 @@
     <Filter Include="Callbacks\Animation">
       <UniqueIdentifier>{ea54ebb9-28ef-4c2b-bb2f-944a850916d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Characters\Enemies">
+      <UniqueIdentifier>{1995cea3-6cf2-4ae9-85c8-fb77708d971c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\Enemies\Rabbit">
+      <UniqueIdentifier>{6ce43790-124e-422a-aba7-85e83618661a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\Enemies\Rabbit\States">
+      <UniqueIdentifier>{8d3be038-1d00-4944-bb67-62c4c5b02124}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Callbacks\State">
+      <UniqueIdentifier>{825d0e30-ec87-45d1-97d5-3fc3c0734d47}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="videogame.cpp" />
@@ -107,6 +119,57 @@
     </ClCompile>
     <ClCompile Include="Callbacks\Animation\AnimationCallbackManager.cpp">
       <Filter>Callbacks\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\Rabbit.cpp">
+      <Filter>Characters\Enemies\Rabbit</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitIdleState.cpp">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitPursuitState.cpp">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitIdleAnimationState.cpp">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitDeathAnimationState.cpp">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitDefenseAnimationState.cpp">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitHitAnimationState.cpp">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitIdle2AnimationState.cpp">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitJumpAnimationState.cpp">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitLeftLateralAnimationState.cpp">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitRightLateralAnimationState.cpp">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitRunAnimationState.cpp">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitRunAttackAnimationState.cpp">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitStillAttackAnimationState.cpp">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitWalkAnimationState.cpp">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Callbacks\State\ActionStateCallback.cpp">
+      <Filter>Callbacks\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitPreparedToAttackState.cpp">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +229,60 @@
     </ClInclude>
     <ClInclude Include="Callbacks\Animation\AnimationCallbackManager.h">
       <Filter>Callbacks\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\Rabbit.h">
+      <Filter>Characters\Enemies\Rabbit</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitIdleState.h">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitPursuitState.h">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitIdleAnimationState.h">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\StatesDefs.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitDeathAnimationState.h">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitDefenseAnimationState.h">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitHitAnimationState.h">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitIdle2AnimationState.h">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitJumpAnimationState.h">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitLeftLateralAnimationState.h">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitRightLateralAnimationState.h">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitRunAnimationState.h">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitRunAttackAnimationState.h">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitStillAttackAnimationState.h">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitWalkAnimationState.h">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Callbacks\State\ActionStateCallback.h">
+      <Filter>Callbacks\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitPreparedToAttackState.h">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -394,19 +511,10 @@
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_wander_state.lua">
       <Filter>Scripts\Game\Enemies\wolf_states</Filter>
     </None>
-    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_animated_attack_state.lua">
-      <Filter>Scripts\Game\Enemies\wolf_states</Filter>
-    </None>
-    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_animated_deffense_state.lua">
-      <Filter>Scripts\Game\Enemies\wolf_states</Filter>
-    </None>
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_animated_hit_state.lua">
       <Filter>Scripts\Game\Enemies\wolf_states</Filter>
     </None>
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_animated_idle_state.lua">
-      <Filter>Scripts\Game\Enemies\wolf_states</Filter>
-    </None>
-    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_animated_pursuit_state.lua">
       <Filter>Scripts\Game\Enemies\wolf_states</Filter>
     </None>
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_pursuit_state.lua">
@@ -453,6 +561,66 @@
     </None>
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\start_trigger.lua">
       <Filter>Scripts\Game\Triggers</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_animation_death_state.lua">
+      <Filter>Scripts\Game\Enemies\rabbit_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_animation_defense_state.lua">
+      <Filter>Scripts\Game\Enemies\rabbit_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_animation_hit_state.lua">
+      <Filter>Scripts\Game\Enemies\rabbit_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_animation_idle_state.lua">
+      <Filter>Scripts\Game\Enemies\rabbit_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_animation_idle2_state.lua">
+      <Filter>Scripts\Game\Enemies\rabbit_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_animation_jump_state.lua">
+      <Filter>Scripts\Game\Enemies\rabbit_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_animation_left_lateral_state.lua">
+      <Filter>Scripts\Game\Enemies\rabbit_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_animation_right_lateral_state.lua">
+      <Filter>Scripts\Game\Enemies\rabbit_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_animation_run_attack_state.lua">
+      <Filter>Scripts\Game\Enemies\rabbit_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_animation_run_state.lua">
+      <Filter>Scripts\Game\Enemies\rabbit_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_animation_still_attack_state.lua">
+      <Filter>Scripts\Game\Enemies\rabbit_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_animation_walk_state.lua">
+      <Filter>Scripts\Game\Enemies\rabbit_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_defense_state.lua">
+      <Filter>Scripts\Game\Enemies\rabbit_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_jump_state.lua">
+      <Filter>Scripts\Game\Enemies\rabbit_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_prepared_to_attack_state.lua">
+      <Filter>Scripts\Game\Enemies\rabbit_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_run_attack_state.lua">
+      <Filter>Scripts\Game\Enemies\rabbit_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_seek_state.lua">
+      <Filter>Scripts\Game\Enemies\rabbit_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_still_attack_state.lua">
+      <Filter>Scripts\Game\Enemies\rabbit_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_tired_state.lua">
+      <Filter>Scripts\Game\Enemies\rabbit_states</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_animated_defense_state.lua">
+      <Filter>Scripts\Game\Enemies\wolf_states</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
