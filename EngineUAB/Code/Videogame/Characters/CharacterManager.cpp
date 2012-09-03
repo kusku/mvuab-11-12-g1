@@ -5,6 +5,7 @@
 #include <luabind/adopt_policy.hpp>
 
 #include "CharacterManager.h"
+#include "Enemies\Rabbit\Rabbit.h"
 
 #include "Math\Vector3.h"
 #include "Utils\Random.h"
@@ -28,8 +29,6 @@
 #include "PhysicUserData.h"
 #include "PhysicsManager.h"
 
-#include "Cameras\Camera.h"
-
 #include "characters\Properties\PropertiesManager.h"
 #include "characters\Properties\Properties.h"
 #include "characters\states\AnimationsStatesManager.h"
@@ -44,7 +43,9 @@
 #include "Billboard\BillboardManager.h"
 #include "Billboard\BillboardAnimation.h"
 
+#include "Cameras\Camera.h"
 #include "Cameras\ThPSCharacterCamera.h"
+
 #include "EngineProcess.h"
 #include "GameProcess.h"
 
@@ -171,7 +172,7 @@ void CCharactersManager::Update( float _ElapsedTime )
 	assert(m_pPlayer != NULL);
 
 	// Actualitzem el player
-	m_pPlayer->Update( _ElapsedTime );
+	m_pPlayer->UpdatePlayer( _ElapsedTime );
 	
 	// Comprobamos qué enemigos deben atacar y cuales no
 	CalculateEnemyOrderToAttack(m_pPlayer->GetPosition(), 20);
@@ -188,7 +189,6 @@ void CCharactersManager::Update( float _ElapsedTime )
 			l_Character->UpdateIA( _ElapsedTime );
 			if ( !l_EnemyList[i]->IsAlive() )
 			{
-			
 				CORE->GetParticleEmitterManager()->GetResource("Explosions")->SetPosition(l_EnemyList[i]->GetPosition());
 				CORE->GetParticleEmitterManager()->GetResource("Explosions")->EjectParticles();
 				l_EnemyList[i]->SetEnable(false);
@@ -198,6 +198,10 @@ void CCharactersManager::Update( float _ElapsedTime )
 			}
 		}
 	}
+	l_EnemyList.clear();
+
+	//SCRIPT->RunCode("collectgarbage(collect)");
+	//lua_gc(SCRIPT->GetLuaState(), LUA_GCCOLLECT, 0);
 
 	//Actualiza el billboard del target enemy
 	if( m_pTargetEnemy != NULL )
@@ -542,6 +546,10 @@ bool CCharactersManager::LoadXMLProperties( void )
 bool CCharactersManager::LoadXMLAnimatedStates( void )
 {
 	bool l_IsOk = true;
+
+	// Jordi - 27/08/2012 : Ya no se usa. Pero quizás se use en un futuro.
+	return l_IsOk;
+
 	CXMLTreeNode l_File;
 	if ( !l_File.LoadFile( m_AnimatedFileName.c_str() ) )
 	{
@@ -649,10 +657,19 @@ bool CCharactersManager::LoadEnemiesProperties( const CXMLTreeNode &_Node )
 
 					if ( !l_Character )
 					{
+
 						if ( l_EnemyProperties->GetCore() == "lobo" )
-							l_Character = call_function<CCharacter*>(SCRIPT->GetLuaState(), "CWolf", l_NextIDValid, l_EnemyProperties->GetName() )[adopt(result)];
+						{
+							std::string l_LUAClass = "CWolf";
+							l_Character = call_function<CCharacter*>(SCRIPT->GetLuaState(), l_LUAClass.c_str(), l_NextIDValid, l_EnemyProperties->GetName() )[adopt(result)];
+						}
 						if ( l_EnemyProperties->GetCore() == "conejo" ) 
-							l_Character = call_function<CCharacter*>(SCRIPT->GetLuaState(), "CRabbit", l_NextIDValid, l_EnemyProperties->GetName() )[adopt(result)];
+						{
+							std::string l_LUAClass = "CRabbit";
+							//boost::ref(val));
+							//l_Character = call_function<CCharacter*>(SCRIPT->GetLuaState(), l_LUAClass.c_str(), l_NextIDValid, l_EnemyProperties->GetName() )[adopt(result)];
+							l_Character = new CRabbit(l_NextIDValid, l_EnemyProperties->GetName());
+						}
 					}
 
 					// Asignamos las propiedades
@@ -980,7 +997,7 @@ CCharacter* CCharactersManager::SearchTargetEnemy(float _Distance, float _AngleV
 
 	TVectorResources l_EnemyList = GetResourcesVector();
 
-  	if( l_EnemyList.size() < 0 )
+  	if( l_EnemyList.size() < 1 )
 	{
 		return NULL;
 	}
@@ -1015,10 +1032,10 @@ CCharacter* CCharactersManager::SearchTargetEnemy(float _Distance, float _AngleV
 		}
 	}
 
-	if( !l_IsEnemyFound )
-	{
-		return NULL;
-	}
+	//if( !l_IsEnemyFound )
+	//{
+	//	return NULL;
+	//}
 
 	return l_NearestEnemy;
 }

@@ -91,7 +91,7 @@ CAnimationsStates* CAnimationsStatesManager::LoadAnimationsStates( const CXMLTre
 //-----------------------------------------------------------------------------------------------------------------------------
 bool CAnimationsStatesManager::LoadDefaultAnimationsStates( const CXMLTreeNode &_Node )
 {
-	LOGGER->AddNewLog ( ELL_INFORMATION, "CAnimationsStatesManager::Reload-->Loading default animations states Nodes." );
+	//LOGGER->AddNewLog ( ELL_INFORMATION, "CAnimationsStatesManager::Reload-->Loading default animations states Nodes." );
 
 	CXMLTreeNode l_MainNode = _Node;
 
@@ -131,7 +131,7 @@ bool CAnimationsStatesManager::LoadDefaultAnimationsStates( const CXMLTreeNode &
 //-----------------------------------------------------------------------------------------------------------------------------
 CAnimationsStates* CAnimationsStatesManager::LoadPlayerAnimationsStates( const CXMLTreeNode &_Node )
 {
-	LOGGER->AddNewLog ( ELL_INFORMATION, "CAnimationsStatesManager::Reload-->Loading player animations states node." );
+	//LOGGER->AddNewLog ( ELL_INFORMATION, "CAnimationsStatesManager::Reload-->Loading player animations states node." );
 
 	CXMLTreeNode l_MainNode = _Node;
 	std::string l_Type = l_MainNode.GetName();		
@@ -163,7 +163,7 @@ CAnimationsStates* CAnimationsStatesManager::LoadPlayerAnimationsStates( const C
 //-----------------------------------------------------------------------------------------------------------------------------
 CAnimationsStates* CAnimationsStatesManager::LoadEnemyAnimationsStates( const CXMLTreeNode &_Node )
 {
-	LOGGER->AddNewLog ( ELL_INFORMATION, "CAnimationsStatesManager::Reload-->Loading enemy animations states node." );
+	//LOGGER->AddNewLog ( ELL_INFORMATION, "CAnimationsStatesManager::Reload-->Loading enemy animations states node." );
 
 	CXMLTreeNode l_MainNode = _Node;
 
