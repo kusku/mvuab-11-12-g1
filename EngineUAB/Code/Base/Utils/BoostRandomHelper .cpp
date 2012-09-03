@@ -49,3 +49,10 @@ int32_t BoostRandomHelper::GetInt(int max)
 
 	return disRand(m_RGen);
 }
+
+int32_t BoostRandomHelper::GetInt(int min, int max)
+{
+	uniform_int_distribution<int> disRand(min, max);
+
+	return disRand(m_RGen);
+}

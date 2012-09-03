@@ -21,6 +21,7 @@ public:
 	static float		GetFloat				(float max);
 	static float		GetFloat				(float min, float max);
 	static int32		GetInt					(int max);
+	static int32		GetInt					(int min, int max);
 };
 
 #endif
