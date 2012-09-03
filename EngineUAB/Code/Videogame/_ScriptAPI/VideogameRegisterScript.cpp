@@ -42,6 +42,7 @@ namespace ScriptAPI
 					.def("change_to_gui_process", &CGameProcess::ChangeToGUIProcess)
 					.def("get_animation_callback_manager", &CGameProcess::GetAnimationCallbackManager)
 					.property("player_camera", &CGameProcess::GetPlayerCamera)
+					.def("get_player_camera", &CGameProcess::GetPlayerCamera)
 			];
 
 		module(_pLua)
@@ -51,9 +52,10 @@ namespace ScriptAPI
 					.def(constructor<const std::string&>())
 					.def(constructor<int, const std::string&>())
 					.def("init", &CCharacter::Init, &CCharacter_Wrapper::Init)
+					.def("update", &CCharacter::UpdatePlayer, &CCharacter_Wrapper::Default_Update)
 					//.def("update", &CCharacter::Update, &CCharacter_Wrapper::Default_Update)
-					.def("update", &CCharacter::Update, &CCharacter_Wrapper::Update)
-					.def("update_ia", &CCharacter::UpdateIA, &CCharacter_Wrapper::UpdateIA)
+					//.def("update", &CCharacter::Update, &CCharacter_Wrapper::Update)
+					//.def("update_ia", &CCharacter::UpdateIA, &CCharacter_Wrapper::UpdateIA)
 					.def("get_animation_model", &CCharacter::GetAnimatedModel)
 					.def("get_animation_id", &CCharacter::GetAnimationID)
 					.def("move_to", &CCharacter::MoveTo)
