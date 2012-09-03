@@ -18,13 +18,14 @@ class CState : public CNamed
 {
 public:
 	// ------------- Constructors i Destructors ----------------
+					CState		( void ) { return; }
 					CState		( const std::string &_Name ) { SetName(_Name); }
 	virtual			~CState		( void ) {};
 
-	// ------------- Mètodes Principals ---------------------
+	// ------------- Mètodes Principals ------------------------
 	
 	// Se ejecuta en cada update del estado
-	virtual void	Execute		( T* ) {
+	virtual void	Execute		( T*, float _ElapsedTime ) {
 											return;			
 									   };
 
@@ -48,6 +49,9 @@ public:
 	virtual bool	OnMessage	( T*, const STelegram& ) { 
 															return true; 
 														};
+	
+	// ------------- Members ---------------------------------
+private:
 
 };
 

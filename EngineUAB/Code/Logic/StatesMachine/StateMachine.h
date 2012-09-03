@@ -35,11 +35,14 @@ public:
 
 		if( m_pCurrentState != _pNewState )
 		{
-			// guardo registro del anterior estado
-			m_pPreviousState = m_pCurrentState;
+			if ( m_pCurrentState )
+			{
+				// guardo registro del anterior estado
+				m_pPreviousState = m_pCurrentState;
 
-			// llamamos al metodo exit del estado que salimos
-			m_pCurrentState->OnExit ( m_pOwner );
+				// llamamos al metodo exit del estado que salimos
+				m_pCurrentState->OnExit ( m_pOwner );
+			}
 
 			// Ponemos el nuevo estado
 			m_pCurrentState = _pNewState;
@@ -56,18 +59,18 @@ public:
 	}
 
 	// Ejecutamos el estado
-	void Update( void ) 
+	void Update( float _ElapsedTime ) 
 	{
 		// Si existe un estado global llamamos a su método execute
 		if( m_pGlobalState )
 		{
-			m_pGlobalState->Execute( m_pOwner );
+			m_pGlobalState->Execute( m_pOwner, _ElapsedTime );
 		}
 
 		// Lo mimo para el estado actual
 		if( m_pCurrentState ) 
 		{
-			m_pCurrentState->Execute( m_pOwner );
+			m_pCurrentState->Execute( m_pOwner, _ElapsedTime );
 		}
 
 	}
