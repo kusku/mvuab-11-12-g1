@@ -108,9 +108,9 @@
     <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitJumpAnimationState.cpp" />
     <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitLeftLateralAnimationState.cpp" />
     <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitPreparedToAttackState.cpp" />
-    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitRunAnimationState.cpp" />
     <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitPursuitState.cpp" />
     <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitRightLateralAnimationState.cpp" />
+    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitRunAnimationState.cpp" />
     <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitRunAttackAnimationState.cpp" />
     <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitStillAttackAnimationState.cpp" />
     <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitWalkAnimationState.cpp" />
@@ -140,13 +140,12 @@
     <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitJumpAnimationState.h" />
     <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitLeftLateralAnimationState.h" />
     <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitPreparedToAttackState.h" />
-    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitRunAnimationState.h" />
     <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitPursuitState.h" />
     <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitRightLateralAnimationState.h" />
+    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitRunAnimationState.h" />
     <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitRunAttackAnimationState.h" />
     <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitStillAttackAnimationState.h" />
     <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitWalkAnimationState.h" />
-    <ClInclude Include="Characters\StatesDefs.h" />
     <ClInclude Include="Weapons\Types\MeleeWeapon.h" />
     <ClInclude Include="Weapons\Weapon.h" />
     <ClInclude Include="Weapons\WeaponDefs.h" />
@@ -155,17 +154,6 @@
     <ClInclude Include="_ScriptAPI\Wrappers\CharacterWrapper.h" />
     <ClInclude Include="_ScriptAPI\Wrappers\StateWrapper.h" />
     <CustomBuild Include="..\..\Run\Videogame\Data\Effects\MotionBlurEffect.fx">
-      <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(DXSDK_DIR)Utilities\bin\x86\"fxc.exe /nologo /WX /O3 /T fx_2_0 /Fo "$(SolutionDir)\Run\Videogame\Data\Effects\Obj\%(Filename)_d.fxo" "%(FullPath)"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Build HLSL shader %(FullPath)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)\Run\Videogame\Data\Effects\Obj\%(filename)_d.fxo</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)\Run\Videogame\Data\Effects\functions.fx;$(SolutionDir)\Run\Videogame\Data\Effects\Samplers.h</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(DXSDK_DIR)Utilities\bin\x86\"fxc.exe /nologo /WX /O3 /T fx_2_0 /Fo "$(SolutionDir)\Run\Videogame\Data\Effects\Obj\%(Filename).fxo" "%(FullPath)"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Build HLSL shader %(FullPath)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\Run\Videogame\Data\Effects\Obj\%(filename).fxo</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\Run\Videogame\Data\Effects\functions.fx;$(SolutionDir)\Run\Videogame\Data\Effects\Samplers.h</AdditionalInputs>
-    </CustomBuild>
-    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\BasicEffect.fx">
       <FileType>Document</FileType>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(DXSDK_DIR)Utilities\bin\x86\"fxc.exe /nologo /WX /O3 /T fx_2_0 /Fo "$(SolutionDir)\Run\Videogame\Data\Effects\Obj\%(Filename)_d.fxo" "%(FullPath)"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Build HLSL shader %(FullPath)</Message>
