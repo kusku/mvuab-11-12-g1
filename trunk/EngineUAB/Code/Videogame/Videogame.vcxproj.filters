@@ -65,10 +65,10 @@
       <UniqueIdentifier>{6ce43790-124e-422a-aba7-85e83618661a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Characters\Enemies\Rabbit\States">
-      <UniqueIdentifier>{8d3be038-1d00-4944-bb67-62c4c5b02124}</UniqueIdentifier>
+      <UniqueIdentifier>{72f8e65c-1ade-423c-83d0-992d6df69cf9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Callbacks\State">
-      <UniqueIdentifier>{825d0e30-ec87-45d1-97d5-3fc3c0734d47}</UniqueIdentifier>
+      <UniqueIdentifier>{723ae2e2-c63e-4504-b262-0cab013f945e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -123,15 +123,6 @@
     <ClCompile Include="Characters\Enemies\Rabbit\Rabbit.cpp">
       <Filter>Characters\Enemies\Rabbit</Filter>
     </ClCompile>
-    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitIdleState.cpp">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitPursuitState.cpp">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitIdleAnimationState.cpp">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClCompile>
     <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitDeathAnimationState.cpp">
       <Filter>Characters\Enemies\Rabbit\States</Filter>
     </ClCompile>
@@ -144,10 +135,22 @@
     <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitIdle2AnimationState.cpp">
       <Filter>Characters\Enemies\Rabbit\States</Filter>
     </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitIdleAnimationState.cpp">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitIdleState.cpp">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClCompile>
     <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitJumpAnimationState.cpp">
       <Filter>Characters\Enemies\Rabbit\States</Filter>
     </ClCompile>
     <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitLeftLateralAnimationState.cpp">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitPreparedToAttackState.cpp">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitPursuitState.cpp">
       <Filter>Characters\Enemies\Rabbit\States</Filter>
     </ClCompile>
     <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitRightLateralAnimationState.cpp">
@@ -167,9 +170,6 @@
     </ClCompile>
     <ClCompile Include="Callbacks\State\ActionStateCallback.cpp">
       <Filter>Callbacks\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitPreparedToAttackState.cpp">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -233,18 +233,6 @@
     <ClInclude Include="Characters\Enemies\Rabbit\Rabbit.h">
       <Filter>Characters\Enemies\Rabbit</Filter>
     </ClInclude>
-    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitIdleState.h">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitPursuitState.h">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitIdleAnimationState.h">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\StatesDefs.h">
-      <Filter>Characters</Filter>
-    </ClInclude>
     <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitDeathAnimationState.h">
       <Filter>Characters\Enemies\Rabbit\States</Filter>
     </ClInclude>
@@ -257,10 +245,22 @@
     <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitIdle2AnimationState.h">
       <Filter>Characters\Enemies\Rabbit\States</Filter>
     </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitIdleAnimationState.h">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitIdleState.h">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClInclude>
     <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitJumpAnimationState.h">
       <Filter>Characters\Enemies\Rabbit\States</Filter>
     </ClInclude>
     <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitLeftLateralAnimationState.h">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitPreparedToAttackState.h">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitPursuitState.h">
       <Filter>Characters\Enemies\Rabbit\States</Filter>
     </ClInclude>
     <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitRightLateralAnimationState.h">
@@ -280,9 +280,6 @@
     </ClInclude>
     <ClInclude Include="Callbacks\State\ActionStateCallback.h">
       <Filter>Callbacks\State</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitPreparedToAttackState.h">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -724,9 +721,6 @@
       <Filter>Effects</Filter>
     </CustomBuild>
     <CustomBuild Include="..\..\Run\Videogame\Data\Effects\MotionBlurEffect.fx">
-      <Filter>Effects</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\BasicEffect.fx">
       <Filter>Effects</Filter>
     </CustomBuild>
   </ItemGroup>
