@@ -58,7 +58,7 @@ CPursuit::~CPursuit(void)
 
 Vect3f CPursuit::CalculateSteering( CSteeringEntity *_pEntity )	
 {
-	if (m_Target != NULL)
+	if (!m_Target.IsZero())
     {
 		if (m_EvaderUpdated)
         {
