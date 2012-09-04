@@ -50,6 +50,7 @@ CSteeringBehaviors::CSteeringBehaviors( float _MaxForce )
 	, m_pCohesion				( NULL )
 	, m_MaxForce				( _MaxForce )
 	, m_SummingMethod			( ::prioritized )
+	, m_iFlags					( none )
 {
 	m_Behaviors = new std::list<eBehaviorType>();
 
@@ -291,7 +292,7 @@ const Vect3f& CSteeringBehaviors::CalculatePrioritized( void )
 
 	if ( HasBehavior(::pursuit) && On(::pursuit) ) 
 	{
-			l_Force = m_pPursuit->CalculateSteering(m_pEntity) * m_WeightPursuit;
+		l_Force = m_pPursuit->CalculateSteering(m_pEntity) * m_WeightPursuit;
 
 		if (!AccumulateForce(m_SteeringForce, l_Force)) 
 			return m_SteeringForce;
