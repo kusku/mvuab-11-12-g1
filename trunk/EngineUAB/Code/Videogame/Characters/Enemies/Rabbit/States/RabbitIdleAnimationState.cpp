@@ -12,7 +12,7 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CRabbitIdleAnimationState::CRabbitIdleAnimationState( void )
-	: CState()
+	: CState("CRabbitIdleAnimationState")
 {
 }
 

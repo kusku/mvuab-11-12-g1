@@ -2,8 +2,10 @@
 #include "Utils\BoostRandomHelper.h"
 
 #include "Characters\Enemies\Rabbit\Rabbit.h"
+#include "Characters\Character.h"
 
 #include "RabbitPursuitState.h"
+#include "RabbitAttackState.h"
 
 #include "RabbitRunAnimationState.h"
 #include "RabbitHitAnimationState.h"
@@ -20,7 +22,8 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CRabbitPreparedToAttackState::CRabbitPreparedToAttackState( void )
-	: m_pRabbit		( NULL )
+	: CState	("CRabbitPreparedToAttackState")
+	, m_pRabbit	( NULL )
 {
 }
 
@@ -58,7 +61,7 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _Character, float _Elaps
 		// Reseteamos la velocidad del enemigo
 		_Character->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
 		m_pRabbit->SetHitsDone(2);		// Esto permite hacer una pausa al entrar en el estado de ataque antes de atacar por obligar estar fatigado y permitir ver al player qué va a hacer el enemigo
-		//m_pRabbit->GetLogicFSM()->ChangeState( m_pRabbit->GetAttackState());
+		m_pRabbit->GetLogicFSM()->ChangeState( m_pRabbit->GetAttackState() );
 	}
 	
 	// 2) Si el player NO es atacable pero casi nos aproximamos. Buscamos el hueco que no col·lisione con nada.
@@ -69,8 +72,8 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _Character, float _Elaps
 		{
 			// Este enemigo puede atacar. Ahora miro si está dentro del angulo de vision pero no es el elegido para atacar. Por tanto, vamos hacia el player para tener opciones de ser
 			// el elegido para atacar
-			float l_angle = 15.f;			//math.pi/15		// 12 graus de fustrum
-			//go_in_to_fustrum(_CCharacter, l_angle, _elapsed_time)
+			float l_Angle = 15.f;			//math.pi/15		// 12 graus de fustrum
+			m_pRabbit->GoInToFrustrum(l_Angle, _ElapsedTime);
 			m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetWalkAnimationState());
 		}
 		// Si el enemigo no está listo para atacar ya que està más lejos que los que deben atacar. Reseteamos velocidad y encaramos al player

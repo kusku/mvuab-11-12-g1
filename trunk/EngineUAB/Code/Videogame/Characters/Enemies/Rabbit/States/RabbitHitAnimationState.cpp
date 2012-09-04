@@ -14,7 +14,7 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CRabbitHitAnimationState::CRabbitHitAnimationState( void )
-	: CState()
+	: CState("CRabbitHitAnimationState")
 {
 }
 
