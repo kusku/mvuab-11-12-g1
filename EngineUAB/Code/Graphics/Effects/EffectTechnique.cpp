@@ -431,22 +431,31 @@ bool CEffectTechnique::BeginRender()
 		const Mat44f* shadowVPArr = m_Effect->GetLightShadowViewProjection();
 
 
-		D3DXMATRIX shadowVP[MAX_LIGHTS_BY_SHADER] = { shadowVPArr[0].GetD3DXMatrix(), shadowVPArr[1].GetD3DXMatrix(), shadowVPArr[2].GetD3DXMatrix(), shadowVPArr[3].GetD3DXMatrix() };
+		D3DXMATRIX shadowVP[4]; 
+		
+		shadowVP[0] = shadowVPArr[0].GetD3DXMatrix();
+		shadowVP[1] = shadowVPArr[1].GetD3DXMatrix();
+		shadowVP[2] = shadowVPArr[2].GetD3DXMatrix();
+		shadowVP[3] = shadowVPArr[3].GetD3DXMatrix();
 
-		if( FAILED( l_Effect->SetMatrixArray( m_Effect->GetShadowViewProjectionMatrix(), shadowVP, m_NumOfLights ) ) )
+		HRESULT hr = D3D_OK;
+
+		hr = l_Effect->SetMatrixArray( m_Effect->GetShadowViewProjectionMatrix(), shadowVP, 4 );
+		if( FAILED( hr ) )
 		{
 			msg_error = "Error al hacer el Set del parametro: m_Effect->l_ShadowViewProjMatrix()";
 			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
 		}
 
-		if( FAILED( l_Effect->SetBoolArray( m_Effect->GetLightShadowDynamicEnableParameter(), dynamicEnable, m_NumOfLights) ) )
+		hr = l_Effect->SetBoolArray( m_Effect->GetLightShadowDynamicEnableParameter(), dynamicEnable, 4);
+		if( FAILED( hr ) )
 		{
 			msg_error = "Error al hacer el Set del parametro: m_Effect->GetLightShadowDynamicEnableParameter()";
 			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
 		}
 
-
-		if( FAILED( l_Effect->SetBoolArray( m_Effect->GetLightShadowStaticEnableParameter(), staticEnable, m_NumOfLights) ) )
+		hr = l_Effect->SetBoolArray( m_Effect->GetLightShadowStaticEnableParameter(), staticEnable, 4);
+		if( FAILED( hr ) )
 		{
 			msg_error = "Error al hacer el Set del parametro: m_Effect->GetLightShadowStaticEnableParameter()";
 			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
@@ -456,7 +465,8 @@ bool CEffectTechnique::BeginRender()
 		{
 			if(staticMap[i] != NULL)
 			{
-				if( FAILED( l_Effect->SetTexture( m_Effect->GetStaticShadowMapSamplerParameter(i), staticMap[i]->GetDXTexture()) ) )
+				hr = l_Effect->SetTexture( m_Effect->GetStaticShadowMapSamplerParameter(i), staticMap[i]->GetDXTexture());
+				if( FAILED( hr ) )
 				{
 					msg_error = "Error al hacer el Set del parametro: m_Effect->GetStaticShadowMapSamplerParameter()";
 					LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
@@ -465,7 +475,11 @@ bool CEffectTechnique::BeginRender()
 
 			if(dynamicMap[i] != NULL)
 			{
-				if( FAILED( l_Effect->SetTexture( m_Effect->GetDynamicShadowMapSamplerParameter(i), dynamicMap[i]->GetDXTexture()) ) )
+				D3DXHANDLE dmParam = m_Effect->GetDynamicShadowMapSamplerParameter(i);
+				LPDIRECT3DTEXTURE9 dxTexture = dynamicMap[i]->GetDXTexture();
+
+				hr = l_Effect->SetTexture( dmParam, dxTexture);
+				if( FAILED( hr ) )
 				{
 					msg_error = "Error al hacer el Set del parametro: m_Effect->GetDynamicShadowMapSamplerParameter()";
 					LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());

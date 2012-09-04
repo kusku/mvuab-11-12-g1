@@ -25,12 +25,12 @@ float4 AmbientLightColor <
     string UIName =  "Ambient Light Color";
     string UIWidget = "Color";
 > = {1.0f, 1.0f, 1.0f, 1.0f};
-
+//243.0 115.0 13.0
 
 uniform bool		FogEnable = true;
-uniform float3		FogColor = float3(0.5f, 0.5f, 0.5f);
-uniform float		FogStart = 200.0f;
-uniform float		FogRange = 300.0f;
+uniform float3		FogColor = float3(0.9f, 0.65f, 0.05f);
+uniform float		FogStart = 250.0f;
+uniform float		FogRange = 450.0f;
 
 uniform float4x4	World									: WORLD;
 uniform float4x4	WorldViewProjection 					: WORLDVIEWPROJECTION;
@@ -56,10 +56,6 @@ uniform float		TotalElapsedTime						: TOTAL_ELAPSED_TIME;
 
 uniform float2		TextureDim								: TEXTURE_DIM;
 
-uniform float4x4 	ShadowWorldViewProjection				: SHADOW_WORLDVIEWPROJECTION;
-uniform float4x4 	ShadowWorldView							: SHADOW_WORLDVIEW;
-uniform float4x4 	ShadowView								: SHADOW_VIEW;
-
 uniform int			numLights								: Num_Lights;
 uniform int 		lightType[MAX_LIGHTS]					: Lights_Type;
 uniform float3		lightPosition[MAX_LIGHTS]				: Lights_Position;
@@ -75,6 +71,10 @@ uniform float2		shLightLinNearFar						: Lights_Shadow_LinNearFar;
 
 uniform float2		HalfPixel								: HALFPIXEL;
 
+
+uniform float4x4 	ShadowWorldViewProjection				: SHADOW_WORLDVIEWPROJECTION;
+uniform float4x4 	ShadowWorldView							: SHADOW_WORLDVIEW;
+uniform float4x4 	ShadowView								: SHADOW_VIEW;
 uniform int			SMap_Size								: SHADOW_MAP_SIZE				=	2048;
 uniform float4x4	ShadowViewProjection[MAX_LIGHTS]		: SHADOW_VIEWPROJECTION;
 uniform bool		lightShadowDynamicEnable[MAX_LIGHTS]	: Lights_Shadow_Dynamic_Enable;
@@ -89,7 +89,7 @@ uniform Texture2D	DynamicShadowMap3						: DYNAMIC_SHADOW_MAP_3;
 uniform Texture2D	DynamicShadowMap4						: DYNAMIC_SHADOW_MAP_4;
 
 //Variance
-
+//0.000001
 uniform float		VSMMinVariance = 0.000001;	// Minimum variance for VSM
 uniform bool		LBREnable = true;			// Enable/disable light bleeding reduction
 uniform float		LBRAmount = 0.18;			// Aggressiveness of light bleeding reduction
@@ -105,7 +105,7 @@ sampler StaticShadowMapSampler1 = sampler_state
    MipFilter	= ANISOTROPIC;
    AddressU		= CLAMP;
    AddressV		= CLAMP;
-   MaxAnisotropy = 16;
+   MaxAnisotropy = 8;
 };
 
 sampler StaticShadowMapSampler2 = sampler_state
@@ -116,7 +116,7 @@ sampler StaticShadowMapSampler2 = sampler_state
    MipFilter	= ANISOTROPIC;
    AddressU		= CLAMP;
    AddressV		= CLAMP;
-   MaxAnisotropy = 16;
+   MaxAnisotropy = 8;
 };
 
 sampler StaticShadowMapSampler3 = sampler_state
@@ -127,7 +127,7 @@ sampler StaticShadowMapSampler3 = sampler_state
    MipFilter	= ANISOTROPIC;
    AddressU		= CLAMP;
    AddressV		= CLAMP;
-   MaxAnisotropy = 16;
+   MaxAnisotropy = 8;
 };
 
 sampler StaticShadowMapSampler4 = sampler_state
@@ -138,7 +138,7 @@ sampler StaticShadowMapSampler4 = sampler_state
    MipFilter	= ANISOTROPIC;
    AddressU		= CLAMP;
    AddressV		= CLAMP;
-   MaxAnisotropy = 16;
+   MaxAnisotropy = 8;
 };
 
 sampler DynamicShadowMapSampler1 = sampler_state
@@ -149,7 +149,7 @@ sampler DynamicShadowMapSampler1 = sampler_state
    MipFilter	= ANISOTROPIC;
    AddressU		= CLAMP;
    AddressV		= CLAMP;
-   MaxAnisotropy = 16;
+   MaxAnisotropy = 8;
 };
 
 sampler DynamicShadowMapSampler2 = sampler_state
@@ -160,7 +160,7 @@ sampler DynamicShadowMapSampler2 = sampler_state
    MipFilter	= ANISOTROPIC;
    AddressU		= CLAMP;
    AddressV		= CLAMP;
-   MaxAnisotropy = 16;
+   MaxAnisotropy = 8;
 };
 
 sampler DynamicShadowMapSampler3 = sampler_state
@@ -171,7 +171,7 @@ sampler DynamicShadowMapSampler3 = sampler_state
    MipFilter	= ANISOTROPIC;
    AddressU		= CLAMP;
    AddressV		= CLAMP;
-   MaxAnisotropy = 16;
+   MaxAnisotropy = 8;
 };
 
 sampler DynamicShadowMapSampler4 = sampler_state
@@ -182,7 +182,7 @@ sampler DynamicShadowMapSampler4 = sampler_state
    MipFilter	= ANISOTROPIC;
    AddressU		= CLAMP;
    AddressV		= CLAMP;
-   MaxAnisotropy = 16;
+   MaxAnisotropy = 8;
 };
 
 //////////////////////////////////////
@@ -387,7 +387,7 @@ float CalculateShadowCoeff(float4 position, sampler2D shadowMapSampler, int ligh
 	return shadowCoeff;
 }
 
-float CalcShadowCoeffVSM(float4 Pos, sampler shadowMapSampler, int light)
+float CalcShadowCoeffVSM(float4 Pos, sampler2D shadowMapSampler, int light)
 {	
 	float lightAmount = 1.0;
 
@@ -408,8 +408,8 @@ float CalcShadowCoeffVSM(float4 Pos, sampler shadowMapSampler, int light)
 	//depth.y = ShadowPos.w;
 	depth = ShadowPos.z / ShadowPos.w;
 	
-	float2 moments = tex2Dlod( shadowMapSampler, float4(ShadowTexC, 0, 1)).xy;
-	//float2 moments = tex2D(shadowMapSampler, ShadowTexC).xy;
+	//float2 moments = tex2Dlod( shadowMapSampler, float4(ShadowTexC, 0, 1)).xy;
+	float2 moments = tex2D(shadowMapSampler, ShadowTexC).rg;
 
 	float mean = moments.x;
 	float meanSqr = moments.y;	
@@ -539,8 +539,8 @@ float CalcShadowVariance(float4 Pos, sampler shadowMapSampler, int light)
 	//float RescaledDist = RescaleDistToLight(DistToLight, light);
 	float RescaledDist = ShadowPos.z / ShadowPos.w;
 	
-	float2 Moments = tex2Dlod( shadowMapSampler, float4(ShadowTexC, 0, 1)).rg;
-	//float2 Moments = tex2D(shadowMapSampler, ShadowTexC).rg;
+	float2 Moments = tex2Dlod(shadowMapSampler, float4(ShadowTexC, 0, 1)).rg;
+	//float2 Moments = tex2D(DynamicShadowMapSampler1, ShadowTexC).rg;
     Moments = Moments + GetFPBias();
 	
     float ShadowContrib = ChebyshevUpperBound(Moments, RescaledDist, VSMMinVariance);

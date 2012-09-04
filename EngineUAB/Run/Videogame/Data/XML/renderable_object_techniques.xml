@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <renderable_object_techniques>
-  <!--<pool_renderable_object_technique name="dummy_manager">
-		<default_technique vertex_type="415" technique="Cal3DTechnique" />
-		<default_technique vertex_type="19" technique="AmbientLight" />
-		<default_technique vertex_type="31" technique="AmbientLight" />
-		<default_technique vertex_type="51" technique="AmbientLight" />
-		<default_technique vertex_type="81" technique="BasicQuadEffect" />
-	</pool_renderable_object_technique>-->
+  <!--Vertex-->
+  <!--
+  415	    VERTEX_TYPE_GEOMETRY | VERTEX_TYPE_NORMAL | VERTEX_TYPE_TANGENT | VERTEX_TYPE_BINORMAL | VERTEX_TYPE_TEXTURE1 | VERTEX_TYPE_WEIGHTS | VERTEX_TYPE_INDICES
+  19	    VERTEX_TYPE_GEOMETRY | VERTEX_TYPE_NORMAL | VERTEX_TYPE_TEXTURE1
+  31	    VERTEX_TYPE_GEOMETRY | VERTEX_TYPE_NORMAL | VERTEX_TYPE_TANGENT | VERTEX_TYPE_BINORMAL | VERTEX_TYPE_TEXTURE1
+  51	    VERTEX_TYPE_GEOMETRY | VERTEX_TYPE_NORMAL | VERTEX_TYPE_TEXTURE1 | VERTEX_TYPE_TEXTURE2
+  543	    VERTEX_TYPE_GEOMETRY | VERTEX_TYPE_NORMAL | VERTEX_TYPE_TANGENT | VERTEX_TYPE_BINORMAL | VERTEX_TYPE_TEXTURE1 | VERTEX_TYPE_PARALLAX
+  1055	  VERTEX_TYPE_GEOMETRY | VERTEX_TYPE_NORMAL | VERTEX_TYPE_TANGENT | VERTEX_TYPE_BINORMAL | VERTEX_TYPE_TEXTURE1 | VERTEX_TYPE_RNM
+  81	    VERTEX_TYPE_GEOMETRY | VERTEX_TYPE_TEXTURE1 | VERTEX_TYPE_DIFFUSE
+  8211	  VERTEX_TYPE_GEOMETRY | VERTEX_TYPE_NORMAL | VERTEX_TYPE_TEXTURE1 | VERTEX_TYPE_TEXSPLAT
+  4115	  VERTEX_TYPE_GEOMETRY | VERTEX_TYPE_NORMAL | VERTEX_TYPE_TEXTURE1 | VERTEX_TYPE_INSTANCE
+  4127	  VERTEX_TYPE_GEOMETRY | VERTEX_TYPE_NORMAL | VERTEX_TYPE_TANGENT | VERTEX_TYPE_BINORMAL | VERTEX_TYPE_TEXTURE1 | VERTEX_TYPE_INSTANCE
+  4147	  VERTEX_TYPE_GEOMETRY | VERTEX_TYPE_NORMAL | VERTEX_TYPE_TEXTURE1 | VERTEX_TYPE_TEXTURE2 | VERTEX_TYPE_INSTANCE
+  4639	  VERTEX_TYPE_GEOMETRY | VERTEX_TYPE_NORMAL | VERTEX_TYPE_TANGENT | VERTEX_TYPE_BINORMAL | VERTEX_TYPE_TEXTURE1 | VERTEX_TYPE_PARALLAX | VERTEX_TYPE_INSTANCE
+  5151	  VERTEX_TYPE_GEOMETRY | VERTEX_TYPE_NORMAL | VERTEX_TYPE_TANGENT | VERTEX_TYPE_BINORMAL | VERTEX_TYPE_TEXTURE1 | VERTEX_TYPE_RNM | VERTEX_TYPE_INSTANCE
+  -->
 
   <pool_renderable_object_technique name="FowardShading">
     <default_technique vertex_type="415" technique="Cal3DTechniqueNormalShadow" />
@@ -16,7 +25,7 @@
     <default_technique vertex_type="543" technique="ForwardLightingWithNormalShadow" />
     <default_technique vertex_type="1055" technique="ForwardLightingWithNormalShadow" />
     <default_technique vertex_type="81" technique="BasicQuadEffect" />
-    <default_technique vertex_type="8211" technique="TerrainEffectTechnique" />
+    <default_technique vertex_type="8211" technique="TerrainEffectTechniqueShadow" />
 
     <default_technique vertex_type="4115" technique="ForwardLightingBasicShadowInstance" />
     <default_technique vertex_type="4127" technique="ForwardLightingWithNormalInstance" />
@@ -60,6 +69,7 @@
     <default_technique vertex_type="31" technique="BasicBuildShadowMap" />
     <default_technique vertex_type="543" technique="BasicBuildShadowMap" />
     <default_technique vertex_type="1055" technique="BasicBuildShadowMap" />
+    <default_technique vertex_type="8211" technique="BasicBuildShadowMapNoClip" />
 
     <default_technique vertex_type="4115" technique="BasicBuildShadowMapInstance" />
     <default_technique vertex_type="4127" technique="BasicBuildShadowMapInstance" />

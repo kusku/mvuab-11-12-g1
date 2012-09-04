@@ -46,7 +46,7 @@ VertexShaderOutput VertexShaderInstanceFunction(VertexShaderInstanceInput input)
 	
     output.Position = mul(mul(float4(input.Position, 1), WorldInstance), ShadowViewProjection[0]);
     //output.PosView  = mul(float4(input.Position, 1), ShadowWorldView);
-	output.PosView2	= output.Position.zw;
+	output.PosView2.xy	= output.Position.zw;
 	
 	output.TexCoord = input.TexCoord;
 
@@ -59,28 +59,48 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 	
     output.Position = mul(float4(input.Position, 1), ShadowWorldViewProjection);
     //output.PosView  = mul(float4(input.Position, 1), ShadowWorldView);
-	output.PosView2	= output.Position.zw;
+	output.PosView2.xy	= output.Position.zw;
 	
 	output.TexCoord = input.TexCoord;
 
     return output;
 }
 
-float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
-{	
-    //float Depth = RescaleDistToLight(length(input.PosView));
+float4 PixelShaderFunction(VertexShaderOutput input, uniform bool clipAlpha) : COLOR0
+{
+	[flatten]
+	if(clipAlpha == true)
+	{
+		float alfa = tex2D(DiffuseTextureMap, input.TexCoord).a;
+	
+		clip(alfa - 0.1f);
+	}
+
+	////////////////////////////////////////
+	////////////////////////////////////////
+	////////////////////////////////////////
+
+	//float d = input.PosView2.x / input.PosView2.y;
+	//float moment1 = d;
+	//float moment2 = d * d;
+
+	//// Adjusting moments (this is sort of bias per pixel) using partial derivative
+	//float dx = ddx(d);
+	//float dy = ddy(d);
+	//moment2 += 0.25 * (dx * dx + dy * dy) ;
+	
+	//return float4(moment1, moment2, 0, 1.0f);
+	
+	////////////////////////////////////////
+	////////////////////////////////////////
+	////////////////////////////////////////
+
+	//float Depth = RescaleDistToLight(length(input.PosView));
 	float Depth = input.PosView2.x / input.PosView2.y;
 	
-    float2 Moments = ComputeMoments(Depth) - GetFPBias();
+	float2 Moments = ComputeMoments(Depth) - GetFPBias();
     
 	float4 ret = float4(Moments.x, Moments.y, 0, 1);
-
-	float alfa = tex2D(DiffuseTextureMap, input.TexCoord).a;
-	
-	//if(alfa == 0)
-	//{
-		clip(alfa < 0.1 ? -1 : 1);
-	//}
 	
 	return ret;
 }
@@ -90,17 +110,34 @@ technique BasicBuildShadowMap
 	pass p0 
 	{
 		VertexShader = compile vs_3_0 VertexShaderFunction();
-		PixelShader = compile ps_3_0 PixelShaderFunction();
+		PixelShader = compile ps_3_0 PixelShaderFunction(true);
+	}
+}
+
+technique BasicBuildShadowMapNoClip
+{
+	pass p0 
+	{
+		VertexShader = compile vs_3_0 VertexShaderFunction();
+		PixelShader = compile ps_3_0 PixelShaderFunction(false);
 	}
 }
 
 //Instance
-
 technique BasicBuildShadowMapInstance
 {
 	pass p0 
 	{
 		VertexShader = compile vs_3_0 VertexShaderInstanceFunction();
-		PixelShader = compile ps_3_0 PixelShaderFunction();
+		PixelShader = compile ps_3_0 PixelShaderFunction(true);
+	}
+}
+
+technique BasicBuildShadowMapInstanceNoClip
+{
+	pass p0 
+	{
+		VertexShader = compile vs_3_0 VertexShaderInstanceFunction();
+		PixelShader = compile ps_3_0 PixelShaderFunction(false);
 	}
 }

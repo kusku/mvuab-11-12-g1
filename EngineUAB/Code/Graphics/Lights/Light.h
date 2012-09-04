@@ -85,14 +85,16 @@ protected:
 	float				m_EndRangeAttenuation;
 	float				m_Intensity;
 	Vect2f				m_LightLinNearFar;
+	uint32				m_MultiSamples;
 
 	bool				m_GenerateDynamicShadowMap;
 	bool				m_GenerateStaticShadowMap;
 	bool				m_MustUpdateStaticShadowMap;
 
 	CTexture			*m_pStaticShadowMap;
-	CTexture			*m_pDynamicShadowMap;
 	CTexture			*m_pShadowMaskTexture;
+	CTexture			*m_StaticDepthStencil;
+	CTexture			*m_pDynamicShadowMap;
 	CTexture			*m_DynamicDepthStencil;
 
 	std::vector<CRenderableObjectsManager*>		m_StaticShadowMapRenderableObjectsManagers;

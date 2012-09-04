@@ -30,10 +30,13 @@
 CLensFlareSceneRemdererCommand::CLensFlareSceneRemdererCommand( CXMLTreeNode &_Node )
 	: CSceneRendererCommand ( _Node )
 {	
-	m_LensFlare = new CLensFlarePostProcess();
-	m_LensFlare->Init();
-
 	m_LightIndex = _Node.GetIntProperty("light_index", 0, true);
+	Vect3f glowColor = _Node.GetVect3fProperty("glow_color", v3fZERO, true);
+
+
+	m_LensFlare = new CLensFlarePostProcess();
+	m_LensFlare->SetGlowColor(CColor(Vect4f(glowColor / 255.0f, 1.0f)));
+	m_LensFlare->Init();
 }
 
 CLensFlareSceneRemdererCommand::~CLensFlareSceneRemdererCommand()
