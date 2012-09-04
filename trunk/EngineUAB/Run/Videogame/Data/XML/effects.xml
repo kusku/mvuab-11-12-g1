@@ -185,12 +185,18 @@
   -->
 
   <technique name="BasicBuildShadowMap" effect="basic_build_shadow_map"
-		use_shadow_world_view_projection_matrix="true" use_shadow_world_view_matrix="true" use_lights_shadow_linNearFar="true" />
+		use_shadow_world_view_projection_matrix="true" use_shadow_world_view_matrix="true" />
+
+  <technique name="BasicBuildShadowMapNoClip" effect="basic_build_shadow_map"
+		use_shadow_world_view_projection_matrix="true" use_shadow_world_view_matrix="true" />
 
   <!-- Instance -->
 
   <technique name="BasicBuildShadowMapInstance" effect="basic_build_shadow_map"
-		use_shadow_view_projection_matrix="true" use_shadow_view_matrix="true" use_lights_shadow_linNearFar="true" />
+		use_shadow_view_projection_matrix="true" />
+
+  <technique name="BasicBuildShadowMapInstanceNoClip" effect="basic_build_shadow_map"
+		use_shadow_view_projection_matrix="true" />
 
   <!-- 
   ###################################

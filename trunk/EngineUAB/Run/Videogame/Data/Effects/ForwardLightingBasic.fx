@@ -39,12 +39,12 @@ struct VertexShaderOutput
 {
     float4	Position        : POSITION0;
 	float2	TexCoord        : TEXCOORD0;
+	float4	WPos			: TEXCOORD1;
 	float3	Normal			: NORMAL0;
 	float3	EyePosition     : NORMAL1;
-	float4	WPos			: NORMAL2;
-	float	FogLerp			: NORMAL3;
-	float2	DepthInt		: NORMAL4;
-	float2	VelocityMB		: NORMAL5;
+	float	FogLerp			: NORMAL2;
+	float2	DepthInt		: NORMAL3;
+	float2	VelocityMB		: NORMAL4;
 };
 
 struct PixelShaderOutput

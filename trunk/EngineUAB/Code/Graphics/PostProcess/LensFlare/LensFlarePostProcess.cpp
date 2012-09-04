@@ -31,8 +31,8 @@ CLensFlarePostProcess::CLensFlarePostProcess()
 	, m_GlowSprite(NULL)
 	, m_OcclusionQueryActive(false)
 	, m_OcclusionAlpha(0.0f)
-	, m_GlowSize(400.0f)
-	, m_QuerySize(100.0f)
+	, m_GlowSize(250.0f)
+	, m_QuerySize(75.0f)
 	, m_LensFlarBS(TGraphicBlendStates::NoColorWriteChannels)
 	, m_LightDirection(v3fZERO)
 	, m_LightPosition(v2fZERO)
@@ -44,6 +44,7 @@ CLensFlarePostProcess::CLensFlarePostProcess()
 	, m_WorldParam(NULL)
 	, m_ViewParam(NULL)
 	, m_ProjParam(NULL)
+	, m_GlowColor(colWHITE)
 {
 	m_Flares[0] = SFlare(-0.5f, 0.7f, CColor( 50.0f / 255.0f,  25.0f / 255.0f,  50.0f / 255.0f), "./Data/General/Textures/flare1.dds");
 	m_Flares[1] = SFlare( 0.3f, 0.4f, CColor(100.0f / 255.0f, 255.0f / 255.0f, 200.0f / 255.0f), "./Data/General/Textures/flare1.dds");
@@ -221,7 +222,7 @@ void CLensFlarePostProcess::DrawGlows()
 		return;
 	}
 
-	CColor color = colWHITE * m_OcclusionAlpha;
+	CColor color = m_GlowColor * m_OcclusionAlpha;
 	Vect2f origin((float)m_GlowSprite->GetWidth() / 2, (float)m_GlowSprite->GetHeight() / 2);
 	float scale = m_GlowSize * 2 / (float)m_GlowSprite->GetWidth();
 

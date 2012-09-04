@@ -27,9 +27,11 @@ CLight::CLight()
 	, m_pDynamicShadowMap(NULL)
 	, m_pShadowMaskTexture(NULL)
 	, m_DynamicDepthStencil(NULL)
+	, m_StaticDepthStencil(NULL)
 	, m_ViewShadowMap(m44fIDENTITY)
 	, m_ProjectionShadowMap(m44fIDENTITY)
 	, m_LightLinNearFar(0, 0)
+	, m_MultiSamples(0)
 {
 }
 
@@ -53,8 +55,11 @@ void CLight::GenerateShadowMap(CRenderManager *RM)
 	if( m_GenerateStaticShadowMap && m_MustUpdateStaticShadowMap )
 	{
 		m_pStaticShadowMap->SetAsRenderTarget(0);
+		m_StaticDepthStencil->SetAsDepthStencil();
 
-		RM->ClearTarget(colTRANSPARENT);
+		//RM->ClearTarget(colTRANSPARENT);
+		RM->GetDevice()->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER, D3DCOLOR_RGBA(0, 0, 0, 0), 1.0f, 0 );
+
 		CORE->GetEffectManager()->SetLightShadowLinNearFar(m_LightLinNearFar);
 
 		for(size_t i=0; i<m_StaticShadowMapRenderableObjectsManagers.size(); ++i)
@@ -65,15 +70,16 @@ void CLight::GenerateShadowMap(CRenderManager *RM)
 		m_MustUpdateStaticShadowMap = false;
 		
 		m_pStaticShadowMap->UnsetAsRenderTarget(0);
+		m_StaticDepthStencil->UnsetAsDepthStencil();
 	}
 
 	if( m_DynamicShadowMapRenderableObjectsManagers.size() > 0)
 	{
 		m_pDynamicShadowMap->SetAsRenderTarget(0);
-		//m_DynamicDepthStencil->SetAsDepthStencil();
+		m_DynamicDepthStencil->SetAsDepthStencil();
 		
-		RM->ClearTarget(colTRANSPARENT);
-		//RM->GetDevice()->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER, D3DCOLOR_RGBA(0, 0, 0, 0), 1.0f, 0 );
+		//RM->ClearTarget(colTRANSPARENT);
+		RM->GetDevice()->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER, D3DCOLOR_RGBA(0, 0, 0, 0), 1.0f, 0 );
 
 		CORE->GetEffectManager()->SetLightShadowLinNearFar(m_LightLinNearFar);
 
@@ -83,7 +89,7 @@ void CLight::GenerateShadowMap(CRenderManager *RM)
 		}
 
 		m_pDynamicShadowMap->UnsetAsRenderTarget(0);
-		//m_DynamicDepthStencil->UnsetAsDepthStencil();
+		m_DynamicDepthStencil->UnsetAsDepthStencil();
 	}
 }
 
@@ -112,6 +118,9 @@ void CLight::ExtractCommonLightInfo(CXMLTreeNode &XMLNode)
 	m_GenerateDynamicShadowMap = XMLNode.GetBoolProperty("generate_shadow_map", false, false);
 	m_GenerateStaticShadowMap = XMLNode.GetBoolProperty("generate_static_shadow_map", false, false);
 
+	//MultiSamples
+	m_MultiSamples = XMLNode.GetBoolProperty("multi_samples", false, false);
+
 	if( m_GenerateDynamicShadowMap )
 	{
 		std::string l_DynamicType = XMLNode.GetPszProperty("shadow_map_format_type", "");
@@ -129,16 +138,15 @@ void CLight::ExtractCommonLightInfo(CXMLTreeNode &XMLNode)
 
 		l_pTextureManager->AddResource(m_pDynamicShadowMap->GetName(), m_pDynamicShadowMap);
 
-
 		//////Depth Stencil
 
 		//Elimina la textura si ya existía
-		//std::string l_TextureNameDS = m_Name + "_dynamic_ds";
-		//l_pTextureManager->RemoveResource( l_TextureNameDS );
+		std::string l_TextureNameDS = m_Name + "_dynamic_ds";
+		l_pTextureManager->RemoveResource( l_TextureNameDS );
 
-		//m_DynamicDepthStencil = new CTexture();
-		//m_pDynamicShadowMap->CreateDepthStencil(l_WidthDynamicShadowMap, l_HeightDynamicShadowMap, CTexture::D24S8, D3DMULTISAMPLE_8_SAMPLES);
-		//l_pTextureManager->AddResource(l_TextureNameDS, m_DynamicDepthStencil);
+		m_DynamicDepthStencil = new CTexture();
+		m_DynamicDepthStencil->CreateDepthStencil(l_WidthDynamicShadowMap, l_HeightDynamicShadowMap, CTexture::D24S8, static_cast<D3DMULTISAMPLE_TYPE>(m_MultiSamples));
+		l_pTextureManager->AddResource(l_TextureNameDS, m_DynamicDepthStencil);
 	}
 
 	if( m_GenerateStaticShadowMap )
@@ -159,6 +167,16 @@ void CLight::ExtractCommonLightInfo(CXMLTreeNode &XMLNode)
 		l_pTextureManager->AddResource(m_pStaticShadowMap->GetName(), m_pStaticShadowMap);
 
 		m_MustUpdateStaticShadowMap = true;
+
+		//////Depth Stencil
+
+		//Elimina la textura si ya existía
+		std::string l_TextureNameDS = m_Name + "_static_ds";
+		l_pTextureManager->RemoveResource( l_TextureNameDS );
+
+		m_StaticDepthStencil = new CTexture();
+		m_StaticDepthStencil->CreateDepthStencil(l_WidthStaticShadowMap, l_HeightStaticShadowMap, CTexture::D24S8, static_cast<D3DMULTISAMPLE_TYPE>(m_MultiSamples));
+		l_pTextureManager->AddResource(l_TextureNameDS, m_StaticDepthStencil);
 	}
 
 	if(m_GenerateDynamicShadowMap || m_GenerateStaticShadowMap)

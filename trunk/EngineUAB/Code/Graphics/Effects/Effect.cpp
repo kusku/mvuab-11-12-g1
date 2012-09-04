@@ -84,8 +84,8 @@ CEffect::CEffect(CXMLTreeNode &XMLNode)
 	memset(m_LightsColor, 0, sizeof(Vect3f) * MAX_LIGHTS_BY_SHADER);
 	memset(m_LightsDynamicShadowMap, 0, sizeof(CTexture*) * MAX_LIGHTS_BY_SHADER);
 	memset(m_LightsStaticShadowMap, 0, sizeof(CTexture*) * MAX_LIGHTS_BY_SHADER);
-	memset(m_LightsDynamicShadowMapEnable, 0, sizeof(bool) * MAX_LIGHTS_BY_SHADER);
-	memset(m_LightsStaticShadowMapEnable, 0, sizeof(bool) * MAX_LIGHTS_BY_SHADER);
+	memset(m_LightsDynamicShadowMapEnable, 0, sizeof(BOOL) * MAX_LIGHTS_BY_SHADER);
+	memset(m_LightsStaticShadowMapEnable, 0, sizeof(BOOL) * MAX_LIGHTS_BY_SHADER);
 }
 
 CEffect::~CEffect()

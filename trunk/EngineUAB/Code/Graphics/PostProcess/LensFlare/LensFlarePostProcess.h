@@ -41,6 +41,7 @@ class CLensFlarePostProcess
 		SFlare						m_Flares[10];
 		const float					m_GlowSize; 
 		const float					m_QuerySize;
+		CColor						m_GlowColor;
 
 		//Light
 		bool						m_LightBehindCamera;
@@ -74,6 +75,11 @@ class CLensFlarePostProcess
 	public:
 		CLensFlarePostProcess();
 		virtual ~CLensFlarePostProcess();
+
+		inline void SetGlowColor(const CColor& color)
+		{
+			m_GlowColor = color;
+		}
 
 		void						Init();
 		void						Render(const Vect3f& lightDirection);
