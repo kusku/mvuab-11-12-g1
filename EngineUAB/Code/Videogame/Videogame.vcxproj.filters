@@ -70,6 +70,18 @@
     <Filter Include="Callbacks\State">
       <UniqueIdentifier>{723ae2e2-c63e-4504-b262-0cab013f945e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Characters\Player">
+      <UniqueIdentifier>{9fbabd3d-c787-4934-a15e-01ce69bd5837}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\Player\LogicStates">
+      <UniqueIdentifier>{6fd0fb42-0b63-419e-bdcf-77da21964de4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\Player\AnimationStates">
+      <UniqueIdentifier>{b9f0610d-863c-4b4b-8fb0-e1116ddb40d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helpers">
+      <UniqueIdentifier>{73e0e951-2a9e-4715-8394-ff90c9fe16c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="videogame.cpp" />
@@ -170,6 +182,72 @@
     </ClCompile>
     <ClCompile Include="Callbacks\State\ActionStateCallback.cpp">
       <Filter>Callbacks\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\Player.cpp">
+      <Filter>Characters\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\AnimationStates\PlayerAnimationAttack2State.cpp">
+      <Filter>Characters\Player\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\AnimationStates\PlayerAnimationAttack3State.cpp">
+      <Filter>Characters\Player\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\AnimationStates\PlayerAnimationAttackState.cpp">
+      <Filter>Characters\Player\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\AnimationStates\PlayerAnimationDefenseState.cpp">
+      <Filter>Characters\Player\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\AnimationStates\PlayerAnimationHitState.cpp">
+      <Filter>Characters\Player\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\AnimationStates\PlayerAnimationIdleState.cpp">
+      <Filter>Characters\Player\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\AnimationStates\PlayerAnimationJumpState.cpp">
+      <Filter>Characters\Player\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\AnimationStates\PlayerAnimationRunState.cpp">
+      <Filter>Characters\Player\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\LogicStates\PlayerAttack2State.cpp">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\LogicStates\PlayerAttack3State.cpp">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\LogicStates\PlayerAttackState.cpp">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\LogicStates\PlayerDefenseState.cpp">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\LogicStates\PlayerHitState.cpp">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\LogicStates\PlayerIdleState.cpp">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\LogicStates\PlayerJumpState.cpp">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\LogicStates\PlayerRunState.cpp">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\LogicStates\PlayerTargetAttack2State.cpp">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\LogicStates\PlayerTargetAttack3State.cpp">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\LogicStates\PlayerTargetAttackState.cpp">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\LogicStates\PlayerTargetRunState.cpp">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\MathHelper.cpp">
+      <Filter>Helpers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -280,6 +358,72 @@
     </ClInclude>
     <ClInclude Include="Callbacks\State\ActionStateCallback.h">
       <Filter>Callbacks\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\Player.h">
+      <Filter>Characters\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\AnimationStates\PlayerAnimationAttack2State.h">
+      <Filter>Characters\Player\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\AnimationStates\PlayerAnimationAttack3State.h">
+      <Filter>Characters\Player\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\AnimationStates\PlayerAnimationAttackState.h">
+      <Filter>Characters\Player\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\AnimationStates\PlayerAnimationDefenseState.h">
+      <Filter>Characters\Player\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\AnimationStates\PlayerAnimationHitState.h">
+      <Filter>Characters\Player\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\AnimationStates\PlayerAnimationIdleState.h">
+      <Filter>Characters\Player\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\AnimationStates\PlayerAnimationJumpState.h">
+      <Filter>Characters\Player\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\AnimationStates\PlayerAnimationRunState.h">
+      <Filter>Characters\Player\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\LogicStates\PlayerAttack2State.h">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\LogicStates\PlayerAttack3State.h">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\LogicStates\PlayerAttackState.h">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\LogicStates\PlayerDefenseState.h">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\LogicStates\PlayerHitState.h">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\LogicStates\PlayerIdleState.h">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\LogicStates\PlayerJumpState.h">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\LogicStates\PlayerRunState.h">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\LogicStates\PlayerTargetAttack2State.h">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\LogicStates\PlayerTargetAttack3State.h">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\LogicStates\PlayerTargetAttackState.h">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\LogicStates\PlayerTargetRunState.h">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\MathHelper.h">
+      <Filter>Helpers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

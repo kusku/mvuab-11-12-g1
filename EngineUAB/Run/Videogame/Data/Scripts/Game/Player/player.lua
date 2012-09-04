@@ -49,7 +49,9 @@ class 'CPlayer' (CCharacter)
 				
 			--Calcula el pitch a partir del ratón
 			l_d = core:get_action_to_input():do_action_mouse('PitchPlayer')
+			
 			self.pitch = self.pitch - l_d
+		
 			local l_pi = math.pi
 			if self.pitch > l_pi/12 then
 				self.pitch = l_pi/12
@@ -120,6 +122,8 @@ class 'CPlayer' (CCharacter)
 		
 		--Actualiza la cámara
 		get_game_process().player_camera:update(elapsed_time)
+		
+		--super = nil
 	end
 	
 	function CPlayer:detect_enemy()
