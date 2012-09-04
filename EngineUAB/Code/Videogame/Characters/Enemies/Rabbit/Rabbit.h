@@ -13,6 +13,12 @@
 class CRabbitIdleState;
 class CRabbitPursuitState;
 class CRabbitPreparedToAttackState;
+class CRabbitAttackState;
+class CRabbitTiredState;
+class CRabbitHitState;
+class CRabbitDefenseState;
+class CRabbitStillAttackState;
+class CRabbitRunAttackState;
 
 // Estats animació 
 class CRabbitIdleAnimationState;
@@ -40,49 +46,70 @@ public:
 
 	//----Main Functions --------------------------------------
 	virtual bool	Init				( void );
+	void			CreateCallbacks		( void );
+
 	virtual void	LoadGraphicStates	( void ); 
 	virtual void	LoadLogicStates		( void );
 
 	//----Methods ---------------------------------------------
+	bool			IsFatigued			( void );
 
 	//----Properties ------------------------------------------
-	CRabbitIdleState *					GetIdleState					( void ) const		{ return m_pIdleState; }
-	CRabbitPursuitState	*				GetPursuitState					( void ) const		{ return m_pPursuitState; }
-	CRabbitPreparedToAttackState *		GetPreparedToAttack				( void ) const		{ return m_pPreparedToAttackState; }
+	CRabbitIdleState *					GetIdleState					( void ) const			{ return m_pIdleState; }
+	CRabbitPursuitState	*				GetPursuitState					( void ) const			{ return m_pPursuitState; }
+	CRabbitPreparedToAttackState *		GetPreparedToAttack				( void ) const			{ return m_pPreparedToAttackState; }
+	CRabbitAttackState *				GetAttackState					( void ) const			{ return m_pAttackState; }
+	CRabbitTiredState *					GetTiredState					( void ) const			{ return m_pTiredState; }
+	CRabbitHitState *					GetHitState						( void ) const			{ return m_pHitState; }
+	CRabbitDefenseState *				GetDefenseState					( void ) const			{ return m_pDefenseState; }
+	CRabbitStillAttackState *			GetStillAttackState				( void ) const			{ return m_pStillAttack; }
+	CRabbitRunAttackState *				GetRunAttackState				( void ) const			{ return m_pRunAttack; }
+	
+	CRabbitIdleAnimationState *			GetIdleAnimationState			( void ) const			{ return m_pAnimationIdleState; }
+	CRabbitIdle2AnimationState *		GetIdle2AnimationState			( void ) const			{ return m_pAnimationIdle2State; }
+	CRabbitRunAnimationState *			GetRunAnimationState			( void ) const			{ return m_pAnimationRunState; }
+	CRabbitDeathAnimationState *		GetDeathAnimationState			( void ) const			{ return m_pAnimationDeathState; }
+	CRabbitDefenseAnimationState *		GetDefenseAnimationState		( void ) const			{ return m_pAnimationDefenseState; }
+	CRabbitHitAnimationState *			GetHitAnimationState			( void ) const			{ return m_pAnimationHitState; }
+	CRabbitJumpAnimationState *			GetJumpAnimationState			( void ) const			{ return m_pAnimationJumpState; }
+	CRabbitLeftLateralAnimationState *	GetLefLateralAnimationState		( void ) const			{ return m_pAnimationLeftLateralState; }
+	CRabbitRightLateralAnimationState *	GetRightLateralAnimationState	( void ) const			{ return m_pAnimationRightLateralState; }
+	CRabbitRunAttackAnimationState *	GetRunAttackAnimationState		( void ) const			{ return m_pAnimationRunAttackState; }
+	CRabbitStillAttackAnimationState *	GetStillAttackAnimationState	( void ) const			{ return m_pAnimationStillAttackState; }
+	CRabbitWalkAnimationState *			GetWalkAnimationState			( void ) const			{ return m_pAnimationWalkState; }
 
-	CRabbitIdleAnimationState *			GetIdleAnimationState			( void ) const		{ return m_pAnimationIdleState; }
-	CRabbitIdle2AnimationState *		GetIdle2AnimationState			( void ) const		{ return m_pAnimationIdle2State; }
-	CRabbitRunAnimationState *			GetRunAnimationState			( void ) const		{ return m_pAnimationRunState; }
-	CRabbitDeathAnimationState *		GetDeathAnimationState			( void ) const		{ return m_pAnimationDeathState; }
-	CRabbitDefenseAnimationState *		GetDefenseAnimationState		( void ) const		{ return m_pAnimationDefenseState; }
-	CRabbitHitAnimationState *			GetHitAnimationState			( void ) const		{ return m_pAnimationHitState; }
-	CRabbitJumpAnimationState *			GetJumpAnimationState			( void ) const		{ return m_pAnimationJumpState; }
-	CRabbitLeftLateralAnimationState *	GetLefLateralAnimationState		( void ) const		{ return m_pAnimationLeftLateralState; }
-	CRabbitRightLateralAnimationState *	GetRightLateralAnimationState	( void ) const		{ return m_pAnimationRightLateralState; }
-	CRabbitRunAttackAnimationState *	GetRunAttackAnimationState		( void ) const		{ return m_pAnimationRunAttackState; }
-	CRabbitStillAttackAnimationState *	GetStillAttackAnimationState	( void ) const		{ return m_pAnimationStillAttackState; }
-	CRabbitWalkAnimationState *			GetWalkAnimationState			( void ) const		{ return m_pAnimationWalkState; }
+	inline void							SetHitsDone						( int _Hits ) 			{ m_HitsDone = _Hits; }
+	inline const int					GetHitsDone						( void ) const			{ return m_HitsDone; }
 
-	void								SetHitsDone						( int _Hits ) 		{ m_HitsDone = _Hits; }
-	const int							GetHitsDone						( void ) const		{ return m_HitsDone; }
+	inline void							SetReceivedHitsXMinut			( int _Hits ) 			{ m_ReceivedHits_X_Minut = _Hits; }
+	inline const int					GetReceivedHitsXMinut			( void ) const			{ return m_ReceivedHits_X_Minut; }
 
-	//void								SetReceivedHitsXMinut			( int _Hits ) const	{ m_ReceivedHits_X_Minut = _Hits; }
-	const int							GetReceivedHitsXMinut			( void ) const		{ return m_ReceivedHits_X_Minut; }
+	inline const int 					GetTotalReceivedHitsXMinut		( void ) const			{ return m_TotalReceivedHits_X_Minut; }
 
-	const int 							GetTotalReceivedHitsXMinut		( void ) const		{ return m_TotalReceivedHits_X_Minut; }
+	inline void							SetTotalHitsToBeTired			( int _HitsToBeTired ) 	{ m_TotalHitsDoneToTired = _HitsToBeTired; }
+	inline const int					GetTotalHitsToBeTired			( void ) const			{ return m_TotalHitsDoneToTired; }
 
 	//----Members ---------------------------------------------
 private:
-	int		m_HitsDone;				// Nº de hits que el conejo ha realizado
+	int		m_HitsDone;							// Nº de hits que el conejo ha realizado
+	int		m_TotalHitsDoneToTired;				// Total de golpes antes de sentirse cansado
 
 	// nº de hits que se le permite recibir al enemigo antes de empezar a bloquear. cuando llega al valor se pasa a estado de defense
-	// cada ciertos golpeos pasaré a un estado de defensa. estas variables me permitiràn controlarlo. 
-	int		m_ReceivedHits_X_Minut;				// conteo de golpeos 
+	// cada ciertos golpeos pasaré a un estado de defensa. Estas variables me permitiràn controlarlo. 
+	int		m_ReceivedHits_X_Minut;				// Conteo de golpeos recibidos
 	int		m_TotalReceivedHits_X_Minut;		// Total permitidos antes de pasar a estado defense
+	
 
 	CRabbitIdleState					*	m_pIdleState;
 	CRabbitPursuitState					*	m_pPursuitState;
 	CRabbitPreparedToAttackState		*	m_pPreparedToAttackState;
+	CRabbitAttackState					*	m_pAttackState;
+	CRabbitTiredState					*	m_pTiredState;
+	CRabbitHitState						*	m_pHitState;
+	CRabbitDefenseState					*	m_pDefenseState;
+	CRabbitStillAttackState				*	m_pStillAttack;
+	CRabbitRunAttackState				*	m_pRunAttack; 
+
 
 	CRabbitIdleAnimationState			*	m_pAnimationIdleState;
 	CRabbitIdle2AnimationState			*	m_pAnimationIdle2State;
