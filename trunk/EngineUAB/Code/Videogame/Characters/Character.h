@@ -120,15 +120,23 @@ public:
 	inline void					SetReadyToAttack	( bool _isReady )			{ m_ReadyToAttack = _isReady; }
 	inline bool					GetReadyToAttack	( void ) const				{ return m_ReadyToAttack; }
 
+	CState<CCharacter>*			GetLogicState		( const std::string &_State );
+	CState<CCharacter>*			GetAnimationState	( const std::string &_State );
+	
 	CCharacter *				GetPlayer			( void );
 
 	//----Members ---------------------------------------------
 private:
 	bool							m_bIsOk;
-	bool							m_bLocked;
 	bool							m_bIsAlive;
 
 protected:
+	typedef CState< CCharacter >			TState;
+	typedef std::map<std::string, TState* >	TStateMap;
+
+	TStateMap						m_LogicStatesMap;
+	TStateMap						m_AnimationStatesMap;
+	
 	CStateMachine<CCharacter>	  *	m_pLogicStateMachine;		// Part de lógica. Control de la màquina d'estats del personatge
 	CStateMachine<CCharacter>	  *	m_pGraphicStateMachine;		// Part de gráfics. Control de la màquina d'estats d'animació del personatge
 	CAnimatedInstanceModel		  * m_pCurrentAnimatedModel;	// Part de gráfics. Manté un punté a l'animació en curs
@@ -145,6 +153,7 @@ protected:
 	CSteeringEntity				  * m_pSteeringEntity;
 
 	bool							m_ReadyToAttack; 
+	bool							m_bLocked;
 
 };
 

@@ -685,3 +685,27 @@ CCharacter * CCharacter::GetPlayer( void )
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	return l_Process->GetCharactersManager()->GetPlayer();
 }
+
+CState<CCharacter>* CCharacter::GetLogicState( const std::string &_State )
+{
+	TStateMap::iterator l_pState = m_LogicStatesMap.find(_State);
+
+	if(l_pState != m_LogicStatesMap.end())
+	{
+		return l_pState->second;
+	}
+
+	return NULL;
+}
+
+CState<CCharacter>* CCharacter::GetAnimationState( const std::string &_State )
+{
+	TStateMap::iterator l_pState = m_AnimationStatesMap.find(_State);
+
+	if(l_pState != m_AnimationStatesMap.end())
+	{
+		return l_pState->second;
+	}
+
+	return NULL;
+}

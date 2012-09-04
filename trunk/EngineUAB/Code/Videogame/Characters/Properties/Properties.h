@@ -36,7 +36,7 @@ public:
 	inline const int			GetLife					( void ) const										{ return m_Life; }
 
 	inline void					SetStrong				( int _Strong )										{ m_Strong = _Strong; }
-	inline const int			GetStrong				( void ) const										{ return m_Strong; }
+	inline  int					GetStrong				( void ) const										{ return m_Strong; }
 
 	inline void					SetMass					( float _Mass )										{ m_Mass = _Mass; }
 	inline const float			GetMass					( void ) const										{ return m_Mass; }

@@ -33,6 +33,7 @@
 #include "characters\Properties\Properties.h"
 #include "characters\states\AnimationsStatesManager.h"
 #include "characters\states\AnimationsStates.h"
+#include "Characters\Player\Player.h"
 
 #include "StatesMachine\EntityManager.h"
 #include "StatesMachine\MessageDispatcher.h"
@@ -172,7 +173,7 @@ void CCharactersManager::Update( float _ElapsedTime )
 	assert(m_pPlayer != NULL);
 
 	// Actualitzem el player
-	m_pPlayer->UpdatePlayer( _ElapsedTime );
+	m_pPlayer->Update( _ElapsedTime );
 	
 	// Comprobamos qué enemigos deben atacar y cuales no
 	CalculateEnemyOrderToAttack(m_pPlayer->GetPosition(), 20);
@@ -185,8 +186,8 @@ void CCharactersManager::Update( float _ElapsedTime )
 		if ( l_pProperties->GetActive() )
 		{
 			CCharacter * l_Character = l_EnemyList[i];
-			l_Character->Update( _ElapsedTime );
-			l_Character->UpdateIA( _ElapsedTime );
+			//l_Character->Update( _ElapsedTime );
+			//l_Character->UpdateIA( _ElapsedTime );
 			if ( !l_EnemyList[i]->IsAlive() )
 			{
 				CORE->GetParticleEmitterManager()->GetResource("Explosions")->SetPosition(l_EnemyList[i]->GetPosition());
@@ -603,7 +604,8 @@ bool CCharactersManager::LoadPlayerProperties( const CXMLTreeNode &_Node )
 	// Si no existe el player lo creamos en LUA
 	if ( !m_pPlayer )
 	{
-		m_pPlayer = call_function<CCharacter*>(SCRIPT->GetLuaState(), "CPlayer", 0)[adopt(result)];
+		m_pPlayer = new CPlayer();
+		//m_pPlayer = call_function<CCharacter*>(SCRIPT->GetLuaState(), "CPlayer", 0)[adopt(result)];
 	}
 
 	// Obtenemos las propiedades del player

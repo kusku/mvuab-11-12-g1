@@ -157,8 +157,7 @@ void CGameProcess::Update(float elapsedTime)
 	if( CORE->GetActionToInput()->DoAction("AttackPlayer") )
 	{
 		m_fTimeBetweenClicks = 0.f;
-
-		CORE->GetParticleEmitterManager()->GetResource("Explosions")->EjectParticles();
+		//CORE->GetParticleEmitterManager()->GetResource("Explosions")->EjectParticles();
 	}
 
 	m_pCharactersManager->Update(elapsedTime);
@@ -166,6 +165,9 @@ void CGameProcess::Update(float elapsedTime)
 
 	//Actualiza la posición de las armas
 	m_pWeaponManager->Update(elapsedTime);
+
+	//SCRIPT->RunCode("super = nil");
+	SCRIPT->RunCode("collectgarbage('collect')");
 }
 
 void CGameProcess::ReloadGameObjects()
