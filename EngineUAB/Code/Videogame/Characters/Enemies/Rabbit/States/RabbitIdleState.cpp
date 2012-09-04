@@ -2,6 +2,7 @@
 #include "Utils\BoostRandomHelper.h"
 
 #include "Characters\Enemies\Rabbit\Rabbit.h"
+#include "Characters\Character.h"
 
 #include "RabbitPursuitState.h"
 
@@ -21,7 +22,8 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CRabbitIdleState::CRabbitIdleState( void )
-	: m_ActionTime  ( CActionStateCallback( 1.f, 2.f ) )
+	: CState		("CRabbitIdleState")
+	, m_ActionTime  ( CActionStateCallback( 1.f, 2.f ) )
 	, m_pRabbit		( NULL )
 {
 }
@@ -60,7 +62,6 @@ void CRabbitIdleState::Execute( CCharacter* _Character, float _ElapsedTime )
 	{
 		m_pRabbit->GetLogicFSM()->ChangeState( m_pRabbit->GetPursuitState());
 		m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetRunAnimationState());
-
 	}
 	else
 	{
@@ -101,8 +102,8 @@ bool CRabbitIdleState::OnMessage( CCharacter* _Character, const STelegram& _Tele
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
-		//CState<CCharacter> * l_State = dynamic_cast<CState<CCharacter>*> (m_pRabbit->GetHitAnimationState());
-		_Character->GetLogicFSM()->ChangeState(m_pRabbit->GetHitAnimationState());
+		// _Character->GetLogicFSM()->ChangeState(m_pRabbit->GetHitState());
+		_Character->GetGraphicFSM()->ChangeState(m_pRabbit->GetHitAnimationState());
 		return true;
 	}
 

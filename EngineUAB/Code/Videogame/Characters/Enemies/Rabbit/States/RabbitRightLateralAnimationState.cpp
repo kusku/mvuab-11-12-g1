@@ -12,7 +12,7 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CRabbitRightLateralAnimationState::CRabbitRightLateralAnimationState( void )
-	: CState()
+	: CState("CRabbitRightLateralAnimationState")
 {
 }
 

@@ -1,19 +1,26 @@
 #pragma once
 
-#ifndef _RABBIT_DEFENSE_ANIMATION_STATE_H_
-#define _RABBIT_DEFENSE_ANIMATION_STATE_H_
+#ifndef _RABBIT_TIRED_STATE_H_
+#define _RABBIT_TIRED_STATE_H_
+
 
 #include <string>
 #include "StatesMachine\State.h"
-#include "Characters\Enemies\Rabbit\Rabbit.h"
+#include "Callbacks\State\ActionStateCallback.h"
+#include "Characters\Character.h"
 
-class CRabbitDefenseAnimationState : public CState<CCharacter> 
+// --- Foward Declarations ---
+class CRabbit;
+// ---------------------------
+
+class CRabbitTiredState : public CState<CCharacter> 
 {
 public:
+
 	// ------------- Constructors i Destructors --------------
-					CRabbitDefenseAnimationState	( void );
-					CRabbitDefenseAnimationState	( const std::string &_Name );
-	virtual			~CRabbitDefenseAnimationState	( void );
+					CRabbitTiredState	( void );
+					CRabbitTiredState	( const std::string &_Name );
+	virtual			~CRabbitTiredState	( void );
 
 	//----Main Functions --------------------------------------
 	virtual void	Execute		( CCharacter*, float _ElapsedTime );
@@ -28,15 +35,16 @@ public:
 	virtual bool	OnMessage	( CCharacter*, const STelegram& );
 
 	//----Methods ---------------------------------------------
-
-	//----Properties ------------------------------------------
-	inline CRabbit * GetCharacter( void )		{ return m_pRabbit; }
+	std::string		GetRandomAttackName	( void );
 
 	//----Members ---------------------------------------------
 private:
-	CRabbit *		m_pRabbit;
-
+	CActionStateCallback		m_ActionTime;
+	CRabbit					  * m_pRabbit;
+	
+	std::string					m_ActiveActionState;		// Me indica qué acción o estado vamos a ejecutar después de hacer un random de todas ellas
+	
 };
 
 
-#endif _RABBIT_DEFENSE_ANIMATION_STATE_H_
+#endif _RABBIT_TIRED_STATE_H_

@@ -1,19 +1,26 @@
 #pragma once
 
-#ifndef _RABBIT_DEFENSE_ANIMATION_STATE_H_
-#define _RABBIT_DEFENSE_ANIMATION_STATE_H_
+#ifndef _RABBIT_STILL_ATTACK_STATE_H_
+#define _RABBIT_STILL_ATTACK_STATE_H_
+
 
 #include <string>
 #include "StatesMachine\State.h"
-#include "Characters\Enemies\Rabbit\Rabbit.h"
+#include "Characters\Character.h"
 
-class CRabbitDefenseAnimationState : public CState<CCharacter> 
+// --- Foward Declarations ---
+class CRabbit;
+class CAnimationCallback;
+// ---------------------------
+
+class CRabbitStillAttackState : public CState<CCharacter> 
 {
 public:
+
 	// ------------- Constructors i Destructors --------------
-					CRabbitDefenseAnimationState	( void );
-					CRabbitDefenseAnimationState	( const std::string &_Name );
-	virtual			~CRabbitDefenseAnimationState	( void );
+					CRabbitStillAttackState	( void );
+					CRabbitStillAttackState	( const std::string &_Name );
+	virtual			~CRabbitStillAttackState	( void );
 
 	//----Main Functions --------------------------------------
 	virtual void	Execute		( CCharacter*, float _ElapsedTime );
@@ -29,14 +36,11 @@ public:
 
 	//----Methods ---------------------------------------------
 
-	//----Properties ------------------------------------------
-	inline CRabbit * GetCharacter( void )		{ return m_pRabbit; }
-
 	//----Members ---------------------------------------------
 private:
-	CRabbit *		m_pRabbit;
-
+	CRabbit					  * m_pRabbit;
+	CAnimationCallback		  *	m_pAnimationCallback;
 };
 
 
-#endif _RABBIT_DEFENSE_ANIMATION_STATE_H_
+#endif _RABBIT_STILL_ATTACK_STATE_H_

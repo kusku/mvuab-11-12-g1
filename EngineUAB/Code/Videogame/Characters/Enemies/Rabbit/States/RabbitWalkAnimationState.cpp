@@ -12,6 +12,7 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CRabbitWalkAnimationState::CRabbitWalkAnimationState( void )
+	: CState ("CRabbitWalkAnimationState")
 {
 }
 
