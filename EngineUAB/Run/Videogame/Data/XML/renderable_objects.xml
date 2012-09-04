@@ -8,41 +8,46 @@
   <layer name="water" />
   <layer name="fish" />
   <layer name="terrain" />
-  
-  <animated_model_instance name="caperucita1" core="caperucita" position="0.0 0.0 0.0" yaw="90.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-  
-  <animated_model_instance name="lobo1" core="lobo" position="9.94149 -28.0586 107.903" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-  
-  <animated_model_instance name="melee_left_weapon" core="conejo" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="0.3 0.3 0.3" visible="true" layer="solid" />
-  <animated_model_instance name="melee_right_weapon" core="conejo" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="0.3 0.3 0.3" visible="true" layer="solid" />
-  
-  <animated_model_instance name="enemy2" core="conejo" position="2.795 -29.18 -96.25" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-  <animated_model_instance name="enemy3" core="conejo" position="-0.871 -29.18 -100.257" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-  <animated_model_instance name="enemy4" core="conejo" position="2.795 -29.18 -100.257" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-  <animated_model_instance name="enemy5" core="conejo" position="58.655 -20.6234 -100.257" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-  <animated_model_instance name="enemy6" core="conejo" position="58.655 -20.6234 -95.0931" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-  <animated_model_instance name="enemy7" core="conejo" position="66.2131 -20.6234 -95.0931" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-  <animated_model_instance name="enemy8" core="conejo" position="69.2707 -20.6234 -100.257" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-  <animated_model_instance name="enemy9" core="conejo" position="65.0244 -20.6234 -100.257" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-  <animated_model_instance name="enemy10" core="conejo" position="69.2707 -26.4351 -7.92545" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-  <animated_model_instance name="enemy11" core="conejo" position="64.2674 -26.4351 -7.92545" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-  <animated_model_instance name="enemy12" core="conejo" position="64.2674 -26.4351 -14.2743" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-  <animated_model_instance name="enemy13" core="conejo" position="70.3315 -26.4351 -14.2743" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-  <animated_model_instance name="enemy14" core="conejo" position="70.3315 -26.4351 -19.279" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-  <animated_model_instance name="enemy15" core="conejo" position="66.5056 -26.4351 -19.279" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-  <animated_model_instance name="enemy16" core="conejo" position="75.0162 -26.4351 -19.279" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-  <animated_model_instance name="enemy17" core="conejo" position="64.2674 -26.4351 -3.7653" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-  <animated_model_instance name="enemy18" core="conejo" position="36.271 -33.3276 114.994" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-  <animated_model_instance name="enemy19" core="conejo" position="26.6532 -30.3101 114.994" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-  <animated_model_instance name="enemy20" core="conejo" position="26.6532 -30.3101 122.646" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-  <animated_model_instance name="enemy21" core="conejo" position="26.6532 -30.3101 107.077" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-  
-  	<animated_model_instance name="enemy22" core="conejo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-	<animated_model_instance name="enemy23" core="conejo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-	<animated_model_instance name="enemy24" core="conejo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-	<animated_model_instance name="enemy25" core="conejo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-	<animated_model_instance name="enemy26" core="conejo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
-	<animated_model_instance name="enemy27" core="conejo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
+
+  <animated_model_instance name="caperucita1" core="caperucita" position="0.0 30.0 0.0" yaw="90.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
+
+  <animated_model_instance name="lobo1" core="lobo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="lobo2" core="lobo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="lobo3" core="lobo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="lobo4" core="lobo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="lobo5" core="lobo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <!--<animated_model_instance name="lobo1" core="lobo" position="9.94149 -28.0586 107.903" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />-->
+
+  <animated_model_instance name="melee_left_weapon" core="conejo" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="0.3 0.3 0.3" visible="false" layer="solid" />
+  <animated_model_instance name="melee_right_weapon" core="conejo" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="0.3 0.3 0.3" visible="false" layer="solid" />
+
+  <animated_model_instance name="enemy2" core="conejo" position="2.795 -29.18 -96.25" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy3" core="conejo" position="-0.871 -29.18 -100.257" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy4" core="conejo" position="2.795 -29.18 -100.257" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy5" core="conejo" position="58.655 -20.6234 -100.257" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy6" core="conejo" position="58.655 -20.6234 -95.0931" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy7" core="conejo" position="66.2131 -20.6234 -95.0931" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy8" core="conejo" position="69.2707 -20.6234 -100.257" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy9" core="conejo" position="65.0244 -20.6234 -100.257" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy10" core="conejo" position="69.2707 -26.4351 -7.92545" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy11" core="conejo" position="64.2674 -26.4351 -7.92545" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy12" core="conejo" position="64.2674 -26.4351 -14.2743" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy13" core="conejo" position="70.3315 -26.4351 -14.2743" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy14" core="conejo" position="70.3315 -26.4351 -19.279" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy15" core="conejo" position="66.5056 -26.4351 -19.279" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy16" core="conejo" position="75.0162 -26.4351 -19.279" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy17" core="conejo" position="64.2674 -26.4351 -3.7653" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy18" core="conejo" position="36.271 -33.3276 114.994" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy19" core="conejo" position="26.6532 -30.3101 114.994" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy20" core="conejo" position="26.6532 -30.3101 122.646" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy21" core="conejo" position="26.6532 -30.3101 107.077" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+
+  <animated_model_instance name="enemy22" core="conejo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
+  <animated_model_instance name="enemy23" core="conejo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy24" core="conejo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy25" core="conejo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy26" core="conejo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy27" core="conejo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
 
   <!--Cabaña, Rio y Puentes-->
   <mesh_instance name="Rio" core="Rio" position="-55.374 -30.9991 -92.2339" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="water" create_physics="false" />
