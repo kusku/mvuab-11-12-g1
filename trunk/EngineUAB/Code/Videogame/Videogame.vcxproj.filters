@@ -88,6 +88,9 @@
     <Filter Include="Characters\Enemies\Wolf\AnimationStates">
       <UniqueIdentifier>{858c1085-61b0-4d1c-bfa0-704a6b02ce2a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Characters\Enemies\Wolf\LogicStates">
+      <UniqueIdentifier>{283e7469-c247-4a34-a298-fe129e0ca3ec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="videogame.cpp" />
