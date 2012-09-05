@@ -186,8 +186,8 @@ void CCharactersManager::Update( float _ElapsedTime )
 		if ( l_pProperties->GetActive() )
 		{
 			CCharacter * l_Character = l_EnemyList[i];
-			//l_Character->Update( _ElapsedTime );
-			//l_Character->UpdateIA( _ElapsedTime );
+			l_Character->Update( _ElapsedTime );
+			l_Character->UpdateIA( _ElapsedTime );
 			if ( !l_EnemyList[i]->IsAlive() )
 			{
 				CORE->GetParticleEmitterManager()->GetResource("Explosions")->SetPosition(l_EnemyList[i]->GetPosition());
