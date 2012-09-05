@@ -55,11 +55,14 @@ void CRabbitStillAttackAnimationState::OnEnter( CCharacter* _Character )
 
 void CRabbitStillAttackAnimationState::OnExit( CCharacter* _Character )
 {
-	if (m_pRabbit) 
+	if ( !m_pRabbit ) 
 	{
-		int l_Num = m_pRabbit->GetAnimationID(STILL_ATTACK_STATE);
-		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+		// Almacenamos el enemigo
+		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
+
+	int l_Num = m_pRabbit->GetAnimationID(STILL_ATTACK_STATE);
+	m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
 }
 
 bool CRabbitStillAttackAnimationState::OnMessage( CCharacter*, const STelegram& _Telegram )

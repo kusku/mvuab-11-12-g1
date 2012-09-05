@@ -63,10 +63,9 @@ void CRabbitAttackState::OnEnter( CCharacter* _Character )
 	m_pRabbit->SetTotalHitsToBeTired(2);
 	m_pRabbit->GetBehaviors()->PursuitOff();
 	m_pRabbit->GetBehaviors()->SeekOff();
-	/*m_pRabbit->GetBehaviors()->SeparationOn();
+	m_pRabbit->GetBehaviors()->SeparationOn();
 	m_pRabbit->GetBehaviors()->CollisionAvoidanceOn();
-	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOn();*/
-
+	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOn();
 }
 
 void CRabbitAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
@@ -123,6 +122,11 @@ void CRabbitAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 
 void CRabbitAttackState::OnExit( CCharacter* _Character )
 {
+	if (!m_pRabbit) 
+	{
+		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+	}
+
 	m_pRabbit->GetBehaviors()->SeparationOff();
 	m_pRabbit->GetBehaviors()->CollisionAvoidanceOff();
 	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOff();

@@ -26,6 +26,11 @@ CRabbitRightLateralAnimationState::CRabbitRightLateralAnimationState( const std:
 
 CRabbitRightLateralAnimationState::~CRabbitRightLateralAnimationState(void)
 {
+	if (m_pRabbit)
+	{
+		int l_Num = m_pRabbit->GetAnimationID(RIGHT_LATERAL_STATE);
+		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+	}
 	m_pRabbit = NULL;
 }
 
@@ -39,23 +44,25 @@ void CRabbitRightLateralAnimationState::Execute( CCharacter*, float _ElapsedTime
 
 void CRabbitRightLateralAnimationState::OnEnter( CCharacter* _Character )
 {
-	if ( !_Character == NULL ) 
+	if ( !m_pRabbit ) 
 	{
 		// Almacenamos el enemigo
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
-
-		int l_Num = _Character->GetAnimationID(RIGHT_LATERAL_STATE);
-		m_pRabbit->GetAnimatedModel()->BlendCycle( l_Num, 0.3f );
 	}
+
+	int l_Num = m_pRabbit->GetAnimationID(RIGHT_LATERAL_STATE);
+	m_pRabbit->GetAnimatedModel()->BlendCycle( l_Num, 0.3f );
 }
 
 void CRabbitRightLateralAnimationState::OnExit( CCharacter* _Character )
 {
-	if ( !_Character == NULL ) 
+	if (!m_pRabbit) 
 	{
-		int l_Num = _Character->GetAnimationID(RIGHT_LATERAL_STATE);
-		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
+
+	int l_Num = m_pRabbit->GetAnimationID(RIGHT_LATERAL_STATE);
+	m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
 }
 
 bool CRabbitRightLateralAnimationState::OnMessage( CCharacter*, const STelegram& _Telegram )

@@ -25,11 +25,11 @@ CRabbitWalkAnimationState::CRabbitWalkAnimationState( const std::string &_Name )
 
 CRabbitWalkAnimationState::~CRabbitWalkAnimationState( void )
 {
-	/*if (!m_pRabbit)
+	if (m_pRabbit)
 	{
 		int l_Num = m_pRabbit->GetAnimationID(WALK_STATE);
 		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
-	}*/
+	}
 	m_pRabbit = NULL;
 }
 
