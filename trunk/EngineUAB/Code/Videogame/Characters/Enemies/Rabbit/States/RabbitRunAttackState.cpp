@@ -34,8 +34,9 @@ CRabbitRunAttackState::CRabbitRunAttackState( void )
 	, m_pRabbit				( NULL )
 	, m_pAnimationCallback	( NULL )
 {
-	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RUN_ATTACK_STATE);
+	/*CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RUN_ATTACK_STATE);*/
+	m_pAnimationCallback = static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager()->GetCallback(RUN_ATTACK_STATE);
 }
 
 CRabbitRunAttackState::CRabbitRunAttackState( const std::string &_Name )
@@ -43,8 +44,9 @@ CRabbitRunAttackState::CRabbitRunAttackState( const std::string &_Name )
 	, m_pRabbit				( NULL )
 	, m_pAnimationCallback	( NULL )
 {
-	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RUN_ATTACK_STATE);
+	/*CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RUN_ATTACK_STATE);*/
+	m_pAnimationCallback = static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager()->GetCallback(RUN_ATTACK_STATE);
 }
 
 

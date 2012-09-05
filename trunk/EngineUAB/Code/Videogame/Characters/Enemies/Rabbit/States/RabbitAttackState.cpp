@@ -84,7 +84,7 @@ void CRabbitAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 		}
 		else if ( m_pRabbit->GetReceivedHitsXMinut() == m_pRabbit->GetTotalReceivedHitsXMinut() ) 
 		{
-			// print_logger (1, "hits x minut rebuts i per tant bloquejaré...")
+			// print_logger (1, "	hits x minut rebuts i per tant bloquejaré...")
 			m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetDefenseState());
 		}
 		else 

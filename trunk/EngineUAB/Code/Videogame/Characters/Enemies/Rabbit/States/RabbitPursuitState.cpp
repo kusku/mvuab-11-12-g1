@@ -1,6 +1,7 @@
 #include "RabbitPursuitState.h"
 #include "RabbitIdleState.h"
 #include "RabbitPreparedToAttackState.h"
+#include "RabbitHitState.h"
 
 #include "RabbitIdleAnimationState.h"
 #include "RabbitHitAnimationState.h"
@@ -52,9 +53,9 @@ void CRabbitPursuitState::OnEnter( CCharacter* _Character )
 	m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_pRabbit->GetPlayer()->GetPosition());
 	m_pRabbit->GetBehaviors()->SeekOn();
 		
-	m_pRabbit->GetBehaviors()->GetPursuit()->SetTarget(m_pRabbit->GetPlayer()->GetPosition());
+	/*m_pRabbit->GetBehaviors()->GetPursuit()->SetTarget(m_pRabbit->GetPlayer()->GetPosition());
 	m_pRabbit->GetBehaviors()->GetPursuit()->UpdateEvaderEntity( m_pRabbit->GetPlayer()->GetSteeringEntity() );
-	m_pRabbit->GetBehaviors()->PursuitOn();
+	m_pRabbit->GetBehaviors()->PursuitOn();*/
 		
 	// _Character->GetBehaviors()->separation_on()
 	// _Character->GetBehaviors()->collision_avoidance_on()
@@ -125,8 +126,8 @@ bool CRabbitPursuitState::OnMessage( CCharacter* _Character, const STelegram& _T
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
-		//CState<CCharacter> * l_State = dynamic_cast<CState<CCharacter>*> (m_pRabbit->GetHitAnimationState());
-		_Character->GetLogicFSM()->ChangeState(m_pRabbit->GetHitAnimationState());
+		_Character->GetLogicFSM()->ChangeState(m_pRabbit->GetHitState());
+		_Character->GetGraphicFSM()->ChangeState(m_pRabbit->GetHitAnimationState());
 		return true;
 	}
 	return false;
