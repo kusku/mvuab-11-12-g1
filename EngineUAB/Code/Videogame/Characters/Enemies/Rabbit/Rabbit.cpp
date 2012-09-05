@@ -74,8 +74,6 @@ CRabbit::CRabbit( int _Id )
 	, m_pAnimationStillAttackState 	( NULL )
 	, m_pAnimationWalkState 		( NULL )
 {
-	LoadGraphicStates();
-	LoadLogicStates();
 }
 
 CRabbit::CRabbit( int _Id, std::string _Name )
@@ -105,8 +103,6 @@ CRabbit::CRabbit( int _Id, std::string _Name )
 	, m_pAnimationStillAttackState 	( NULL )
 	, m_pAnimationWalkState 		( NULL )
 {
-	LoadGraphicStates();
-	LoadLogicStates();
 }
 
 
@@ -146,6 +142,9 @@ bool CRabbit::Init( void )
 	bool l_IsOk = false;
 
 	//CState<CCharacter>* l = dynamic_cast<CState<CCharacter>> (m_pAnimationIdleState);
+	CreateCallbacks();
+	LoadGraphicStates();
+	LoadLogicStates();
 
 	// Coloco los estados iniciales
 	/*this->GetGraphicFSM()->SetCurrentState( m_pAnimationIdleState );
