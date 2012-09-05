@@ -65,15 +65,21 @@ public:
 
 	CPhysicUserData*			ShootCollisionRay			( void );
 
-	bool						IsPlayerInsideDistance		( float _Distance );
+	inline bool					IsPlayerInsideDistance		( float _Distance );
+	bool						IsPlayerInsideImpactDistance( void );
 	bool						IsPlayerDetected			( void );
 	bool						IsPlayerAtacable			( void );
 	bool						IsPlayerReady				( void );
-
+	
 	bool						IsEnemyFocused				( void );
 	bool						IsEnemyPreparedToAttack		( void );
 	bool						IsEnemyAproximatedToAttack	( void );
 	
+	Vect3f						GetPointOfFront				( void ) const;
+	void						GoInToFrustrum				( float _RangeAngle, float _ElapsedTime );	// Permite colocar un caracter dentro del frustum de la càmara en unos grados desde el centro
+
+	float						GetDistanceToPlayer			( void );
+
 	// Permite cargar los estados 
 	/*virtual void				LoadGraphicStates		( void ) = 0; 
 	virtual void				LoadLogicStates			( void ) = 0;*/

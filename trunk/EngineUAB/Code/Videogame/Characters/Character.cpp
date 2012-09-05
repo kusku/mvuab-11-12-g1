@@ -13,6 +13,7 @@
 #include "StatesMachine\MessageDispatcher.h"
 
 #include "Math/Vector3.h"
+#include "Math/Vector2.h"
 #include "PhysicController.h"
 #include "PhysicUserData.h"
 #include "PhysicsManager.h"
@@ -642,6 +643,11 @@ bool CCharacter::IsPlayerInsideDistance( float _DistanceToCheck )
 	}
 }
 
+bool CCharacter::IsPlayerInsideImpactDistance( void )
+{
+	return IsPlayerInsideDistance(this->GetProperties()->GetImpactDistance());
+}
+
 bool CCharacter::IsPlayerDetected( void )
 {
 	return IsPlayerInsideDistance(this->GetProperties()->GetDetectionDistance());
@@ -656,6 +662,55 @@ bool CCharacter::IsEnemyAproximatedToAttack( void )
 {
 	return IsPlayerInsideDistance(this->GetProperties()->GetAproximationDistance());
 }
+
+Vect3f CCharacter::GetPointOfFront( void ) const
+{
+	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
+	Vect3f	l_Front  = l_Process->GetPlayerCamera()->GetDirection();
+	
+	float l_Radi = this->GetProperties()->GetAttackDistance() + 2;
+
+	CSteeringEntity * l_Entity	= l_Process->GetCharactersManager()->GetPlayer()->GetSteeringEntity();
+	Vect3f l_Position = l_Entity->GetPosition();
+	//local l_front 	= _CCharacter.steering_entity:get_front()
+	float l_Height 	= l_Entity->GetHeight();
+	l_Front.Normalize();
+	l_Position = Vect3f( l_Position.x + l_Front.x * l_Radi , l_Position.y + l_Height, l_Position.z + l_Front.z * l_Radi );
+	
+	return l_Position;
+}
+
+void CCharacter::GoInToFrustrum( float _RangeAngle, float _ElapsedTime )
+{
+	float l_AngleRad = mathUtils::Deg2Rad(_RangeAngle);
+	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
+	Vect3f	l_Front  = l_Process->GetPlayerCamera()->GetDirection();
+	
+	if ( l_Process->GetCharactersManager()->EnemyIsVisibleInAngle(this, l_AngleRad, l_Front) )
+	{
+		this->GetBehaviors()->GetSeek()->SetTarget(this->GetPlayer()->GetPosition());
+	}
+	else
+	{
+		//this->GetBehaviors()->PursuitOff();
+		Vect3f l_PointToGo = GetPointOfFront();
+		this->GetBehaviors()->GetSeek()->SetTarget(l_PointToGo);
+	}
+
+	this->GetBehaviors()->SeekOn();
+	this->FaceTo( this->GetPlayer()->GetPosition(), _ElapsedTime);
+	this->MoveTo2(this->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
+}
+
+float CCharacter::GetDistanceToPlayer( void )
+{
+	Vect2f l_PositionA = Vect2f( this->GetPosition().x, this->GetPosition().z);
+	Vect2f l_PositionB = Vect2f( this->GetPlayer()->GetPosition().x, this->GetPlayer()->GetPosition().z);
+	
+	float l_Distance = l_PositionA.Distance(l_PositionB);
+	return l_Distance;
+}
+
 
 // -----------------------------------------
 //				PROPERTIES
@@ -680,10 +735,11 @@ void CCharacter::SetEnable( bool _Enable )
 	}
 }
 
-CCharacter * CCharacter::GetPlayer( void )
+CCharacter* CCharacter::GetPlayer( void )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	return l_Process->GetCharactersManager()->GetPlayer();
+	CCharacter* l_Character = l_Process->GetCharactersManager()->GetPlayer();
+	return l_Character;
 }
 
 CState<CCharacter>* CCharacter::GetLogicState( const std::string &_State )
