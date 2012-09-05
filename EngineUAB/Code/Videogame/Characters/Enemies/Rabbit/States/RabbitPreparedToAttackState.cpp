@@ -59,9 +59,9 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _Character, float _Elaps
 	if ( m_pRabbit->IsPlayerAtacable() ) 
 	{
 		// Reseteamos la velocidad del enemigo
-		_Character->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+		m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
 		m_pRabbit->SetHitsDone(2);		// Esto permite hacer una pausa al entrar en el estado de ataque antes de atacar por obligar estar fatigado y permitir ver al player qué va a hacer el enemigo
-		m_pRabbit->GetLogicFSM()->ChangeState( m_pRabbit->GetAttackState() );
+		//m_pRabbit->GetLogicFSM()->ChangeState( m_pRabbit->GetAttackState() );
 	}
 	
 	// 2) Si el player NO es atacable pero casi nos aproximamos. Buscamos el hueco que no col·lisione con nada.
@@ -80,8 +80,8 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _Character, float _Elaps
 		else
 		{
 			m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetWalkAnimationState());
-			_Character->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime);
-			_Character->MoveTo2(_Character->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
+			m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime);
+			m_pRabbit->MoveTo2(m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
 		}
 	}
 	else

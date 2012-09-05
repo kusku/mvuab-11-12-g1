@@ -3,6 +3,7 @@
 #include "Logger\Logger.h"
 #include "StatesMachine\MessageDispatcher.h"
 
+#include "Characters\StatesDefs.h"
 #include "Characters\Enemies\Rabbit\Rabbit.h"
 #include "Characters\Character.h"
 
@@ -37,7 +38,7 @@ CRabbitStillAttackState::CRabbitStillAttackState( void )
 	, m_pAnimationCallback		( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback("hit");
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(STILL_ATTACK_STATE);
 }
 
 CRabbitStillAttackState::CRabbitStillAttackState( const std::string &_Name )
@@ -46,7 +47,7 @@ CRabbitStillAttackState::CRabbitStillAttackState( const std::string &_Name )
 	, m_pAnimationCallback		( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback("hit");
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(STILL_ATTACK_STATE);
 }
 
 
