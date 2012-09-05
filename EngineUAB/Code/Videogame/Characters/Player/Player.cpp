@@ -40,13 +40,14 @@
 
 CPlayer::CPlayer()
 	: m_bIsTargetFixed(false)
-	, m_fMovementZoom(3.7f)
-	, m_fStaticZoom(3.2f)
+	, m_fMovementZoom(5.7f)
+	, m_fStaticZoom(5.2f)
 	, m_fVelocityAdaptativeZoom(1.5f)
-	, m_fDownZoom(1.0f)
+	, m_fDownZoom(2.0f)
+	, m_pCamera(NULL)
 {
 	m_fYaw		= 0.0f;
-	m_fPitch	= -FLOAT_PI_VALUE/8;
+	m_fPitch	= -FLOAT_PI_VALUE / 10.f;
 	m_fRoll		= 0.0f;
 
 	m_bLocked	= false;
@@ -74,7 +75,7 @@ CPlayer::~CPlayer()
 
 bool CPlayer::Init()
 {
-	static_cast<CGameProcess*>(CORE->GetProcess())->CreatePlayerCamera(1.0f, 10000.0f, m_fStaticZoom, 0.7f, 0.7f, "Caperucita");
+	m_pCamera = static_cast<CGameProcess*>(CORE->GetProcess())->CreatePlayerCamera(1.0f, 10000.0f, m_fStaticZoom, 1.05f, 1.05f, "Caperucita");
 
 	CreateCallbacks();
 	CreateStates();
@@ -101,7 +102,7 @@ void CPlayer::Update( float _ElapsedTime )
 
 		//Coge el desplazamiento que hace el mouse
 		float l_fDeltaMouse = l_pInput->DoActionMouse("PitchPlayer");
-
+		
 		//Calcula el ángulo pitch
 		m_fPitch = m_fPitch - l_fDeltaMouse;
 		if( m_fPitch > FLOAT_PI_VALUE / 12.f )
@@ -113,7 +114,53 @@ void CPlayer::Update( float _ElapsedTime )
 			m_fPitch = -FLOAT_PI_VALUE / 6.f;
 		}
 
-		//TODO: Modificar el zoom de la cámara
+		//Modifica el zoom de la cámara
+		/*float l_fZoom = m_pCamera->GetZoom();
+		if( m_pLogicStateMachine->GetCurrentState()->GetName() != "idle" )
+		{
+			if( (m_fMovementZoom - l_fZoom) > 0.0001f )
+			{
+				l_fZoom = l_fZoom + m_fVelocityAdaptativeZoom * _ElapsedTime;
+			}
+			else
+			{
+				l_fZoom = m_fMovementZoom;
+			}
+		}
+		else
+		{
+			if( m_fPitch > -FLOAT_PI_VALUE / 10.f )
+			{
+				if( (l_fZoom - m_fStaticZoom) > 0.0001f )
+				{
+					l_fZoom = l_fZoom - 2.f * m_fVelocityAdaptativeZoom * _ElapsedTime;
+				}
+				else
+				{
+					l_fZoom = m_fMovementZoom;
+				}
+			}
+			else
+			{
+				if( (l_fZoom - m_fStaticZoom) > 0.0001f )
+				{
+					l_fZoom = l_fZoom - m_fVelocityAdaptativeZoom * _ElapsedTime;
+				}
+				else
+				{
+					if( (m_fStaticZoom - l_fZoom) > 0.1f )
+					{
+						l_fZoom = l_fZoom + m_fVelocityAdaptativeZoom * _ElapsedTime;
+					}
+					else
+					{
+						l_fZoom = m_fStaticZoom;
+					}
+				}
+			}
+		}
+
+		m_pCamera->SetZoom( l_fZoom );*/
 
 		//Mira si el player se pone en defensa
 		if( l_pInput->DoAction("DefensePlayer") )

@@ -174,7 +174,7 @@ void CThPSCharacterCamera::Update(float _ElapsedTime)
 		}
 	}
 
-	//Miramos si la esfera de la cámara colisiona por detrás de algún muro
+	////Miramos si la esfera de la cámara colisiona por detrás de algún muro
 	l_pUserData = CORE->GetPhysicsManager()->RaycastClosestActor(m_Eye + l_vLeft + l_DirXZ, l_Dir, l_iMask, l_CollisionInfo);
 	if( l_pUserData != NULL )
 	{
@@ -191,24 +191,24 @@ void CThPSCharacterCamera::Update(float _ElapsedTime)
 		m_Eye -= l_Dir * 0.5f;
 	}
 
-	l_pUserData = CORE->GetPhysicsManager()->RaycastClosestActor(m_Eye - l_vLeft + l_DirXZ, l_Dir, l_iMask, l_CollisionInfo);
-	if( l_pUserData != NULL )
-	{
-		float l_fDistancePlayerToCamera = l_Pos.SqDistance(m_Eye);
-		float l_fDistancePlayerToCollision = l_Pos.SqDistance(l_CollisionInfo.m_CollisionPoint);
+	//l_pUserData = CORE->GetPhysicsManager()->RaycastClosestActor(m_Eye - l_vLeft + l_DirXZ, l_Dir, l_iMask, l_CollisionInfo);
+	//if( l_pUserData != NULL )
+	//{
+	//	float l_fDistancePlayerToCamera = l_Pos.SqDistance(m_Eye);
+	//	float l_fDistancePlayerToCollision = l_Pos.SqDistance(l_CollisionInfo.m_CollisionPoint);
 
-		if( l_fDistancePlayerToCollision < l_fDistancePlayerToCamera )	//La cámara está por detrás de un objeto
-		{
-			m_Eye = l_CollisionInfo.m_CollisionPoint - l_Dir * 0.5f;
-		}
-	}
-	else
-	{
-		m_Eye -= l_Dir * 0.5f;
-	}
+	//	if( l_fDistancePlayerToCollision < l_fDistancePlayerToCamera )	//La cámara está por detrás de un objeto
+	//	{
+	//		m_Eye = l_CollisionInfo.m_CollisionPoint - l_Dir * 0.5f;
+	//	}
+	//}
+	//else
+	//{
+	//	m_Eye -= l_Dir * 0.5f;
+	//}
 
 	//Cálculo de la diferencia de ángulo para modificar el Pitch
-	Vect3f l_NewDirection = l_Pos - m_Eye;
+	/*Vect3f l_NewDirection = l_Pos - m_Eye;
 
 	Vect2f l_DirXY = m_Direction.GetProjXY();
 	Vect2f l_NewDirXY = l_NewDirection.GetProjXY();
@@ -223,7 +223,7 @@ void CThPSCharacterCamera::Update(float _ElapsedTime)
 
 		angle = l_fPitch - angle;
 		m_pObject3D->SetPitch(angle);
-	}
+	}*/
 }
 
 //----------------------------------------------
