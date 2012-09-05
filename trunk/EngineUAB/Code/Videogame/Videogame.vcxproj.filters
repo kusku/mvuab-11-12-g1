@@ -82,6 +82,12 @@
     <Filter Include="Helpers">
       <UniqueIdentifier>{73e0e951-2a9e-4715-8394-ff90c9fe16c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Characters\Enemies\Wolf">
+      <UniqueIdentifier>{ffad27ad-bd02-46d9-ae6c-18d696744d87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\Enemies\Wolf\AnimationStates">
+      <UniqueIdentifier>{858c1085-61b0-4d1c-bfa0-704a6b02ce2a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="videogame.cpp" />
