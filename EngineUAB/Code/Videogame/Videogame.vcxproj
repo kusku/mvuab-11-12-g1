@@ -141,6 +141,7 @@
     <ClCompile Include="Characters\Enemies\Wolf\LogicStates\WolfRunAttackState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\LogicStates\WolfStillAttackState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\LogicStates\WolfTiredState.cpp" />
+    <ClCompile Include="Characters\Enemies\Wolf\Wolf.cpp" />
     <ClCompile Include="Characters\Player\AnimationStates\PlayerAnimationAttack2State.cpp" />
     <ClCompile Include="Characters\Player\AnimationStates\PlayerAnimationAttack3State.cpp" />
     <ClCompile Include="Characters\Player\AnimationStates\PlayerAnimationAttackState.cpp" />
@@ -222,6 +223,7 @@
     <ClInclude Include="Characters\Enemies\Wolf\LogicStates\WolfRunAttackState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\LogicStates\WolfStillAttackState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\LogicStates\WolfTiredState.h" />
+    <ClInclude Include="Characters\Enemies\Wolf\Wolf.h" />
     <ClInclude Include="Characters\Player\AnimationStates\PlayerAnimationAttack2State.h" />
     <ClInclude Include="Characters\Player\AnimationStates\PlayerAnimationAttack3State.h" />
     <ClInclude Include="Characters\Player\AnimationStates\PlayerAnimationAttackState.h" />

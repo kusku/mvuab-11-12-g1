@@ -339,6 +339,9 @@
     <ClCompile Include="Characters\Enemies\Wolf\LogicStates\WolfTiredState.cpp">
       <Filter>Characters\Enemies\Wolf\LogicStates</Filter>
     </ClCompile>
+    <ClCompile Include="Characters\Enemies\Wolf\Wolf.cpp">
+      <Filter>Characters\Enemies\Wolf</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUIProcess.h" />
@@ -595,6 +598,9 @@
     </ClInclude>
     <ClInclude Include="Characters\Enemies\Wolf\LogicStates\WolfTiredState.h">
       <Filter>Characters\Enemies\Wolf\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Wolf\Wolf.h">
+      <Filter>Characters\Enemies\Wolf</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
