@@ -4,6 +4,7 @@
 #include "StatesMachine\MessageDispatcher.h"
 #include "Math\Vector3.h"
 
+#include "Characters\StatesDefs.h"
 #include "Characters\Enemies\Rabbit\Rabbit.h"
 #include "Characters\Character.h"
 
@@ -34,6 +35,8 @@ CRabbitRunAttackState::CRabbitRunAttackState( void )
 	, m_pRabbit					( NULL )
 	, m_pAnimationCallback		( NULL )
 {
+	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RUN_ATTACK_STATE);
 }
 
 CRabbitRunAttackState::CRabbitRunAttackState( const std::string &_Name )
@@ -41,6 +44,8 @@ CRabbitRunAttackState::CRabbitRunAttackState( const std::string &_Name )
 	, m_pRabbit					( NULL )
 	, m_pAnimationCallback		( NULL )
 {
+	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RUN_ATTACK_STATE);
 }
 
 
