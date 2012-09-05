@@ -142,7 +142,7 @@ CRabbit::~CRabbit(void)
 //				MAIN METHODS
 // -----------------------------------------
 bool CRabbit::Init( void )
-{
+{ 
 	bool l_IsOk = false;
 
 	//CState<CCharacter>* l = dynamic_cast<CState<CCharacter>> (m_pAnimationIdleState);
