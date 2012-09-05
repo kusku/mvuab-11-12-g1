@@ -12,17 +12,20 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CRabbitDeathAnimationState::CRabbitDeathAnimationState( void )
-	: CState( "CRabbitDeathAnimationState" )
+	: CState	( "CRabbitDeathAnimationState" )
+	, m_pRabbit	( NULL )
 {
 }
 
 CRabbitDeathAnimationState::CRabbitDeathAnimationState( const std::string &_Name )
-	: CState(_Name)
+	: CState	(_Name)
+	, m_pRabbit	( NULL )
 {}
 
 
 CRabbitDeathAnimationState::~CRabbitDeathAnimationState(void)
 {
+	m_pRabbit = NULL;
 }
 
 
@@ -35,21 +38,21 @@ void CRabbitDeathAnimationState::Execute( CCharacter*, float _ElapsedTime )
 
 void CRabbitDeathAnimationState::OnEnter( CCharacter* _Character )
 {
-	if ( !_Character == NULL ) 
+	if ( !m_pRabbit == NULL ) 
 	{
 		// Almacenamos el enemigo
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
-
-		int l_Num = _Character->GetAnimationID(DEATH_STATE);
-		m_pRabbit->GetAnimatedModel()->BlendCycle( l_Num, 0.3f );
 	}
+
+	int l_Num = m_pRabbit->GetAnimationID(DEATH_STATE);
+	m_pRabbit->GetAnimatedModel()->BlendCycle( l_Num, 0.3f );
 }
 
 void CRabbitDeathAnimationState::OnExit( CCharacter* _Character )
 {
-	if ( !_Character == NULL ) 
+	if ( m_pRabbit != NULL ) 
 	{
-		int l_Num = _Character->GetAnimationID(DEATH_STATE);
+		int l_Num = m_pRabbit->GetAnimationID(DEATH_STATE);
 		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
 	}
 }

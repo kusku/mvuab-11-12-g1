@@ -12,17 +12,20 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CRabbitLeftLateralAnimationState::CRabbitLeftLateralAnimationState( void )
-	: CState("CRabbitLeftLateralAnimationState")
+	: CState	("CRabbitLeftLateralAnimationState")
+	, m_pRabbit	( NULL )
 {
 }
 
 CRabbitLeftLateralAnimationState::CRabbitLeftLateralAnimationState( const std::string &_Name )
-	: CState(_Name)
+	: CState	(_Name)
+	, m_pRabbit	( NULL )
 {}
 
 
 CRabbitLeftLateralAnimationState::~CRabbitLeftLateralAnimationState(void)
 {
+	m_pRabbit = NULL;
 }
 
 

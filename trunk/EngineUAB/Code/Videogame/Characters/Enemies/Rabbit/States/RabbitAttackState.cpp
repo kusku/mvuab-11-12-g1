@@ -28,16 +28,16 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CRabbitAttackState::CRabbitAttackState( void )
-	: CState					("CRabbitAttackState")
-	, m_ActionTime				( CActionStateCallback( 1.f, 2.f ) )
-	, m_pRabbit					( NULL )
+	: CState		("CRabbitAttackState")
+	, m_ActionTime	( CActionStateCallback( 1.f, 2.f ) )
+	, m_pRabbit		( NULL )
 {
 }
 
 CRabbitAttackState::CRabbitAttackState( const std::string &_Name )
-	: CState					(_Name)
-	, m_ActionTime				( CActionStateCallback( 1.f, 2.f ) )
-	, m_pRabbit					( NULL )
+	: CState		(_Name)
+	, m_ActionTime	( CActionStateCallback( 1.f, 2.f ) )
+	, m_pRabbit		( NULL )
 {
 }
 

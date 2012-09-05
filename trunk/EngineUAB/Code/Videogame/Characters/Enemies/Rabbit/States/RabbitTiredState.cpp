@@ -30,9 +30,9 @@ CRabbitTiredState::CRabbitTiredState( void )
 }
 
 CRabbitTiredState::CRabbitTiredState( const std::string &_Name )
-	: CState					(_Name)
-	, m_ActionTime				( CActionStateCallback( 0.2f, 0.5f ) )
-	, m_pRabbit					( NULL )
+	: CState		(_Name)
+	, m_ActionTime	( CActionStateCallback( 0.2f, 0.5f ) )
+	, m_pRabbit		( NULL )
 {
 }
 

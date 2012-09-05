@@ -26,7 +26,7 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CRabbitDefenseState::CRabbitDefenseState( void )
-	: CState("CRabbitDefenseState")
+	: CState			("CRabbitDefenseState")
 	, m_ActionTime		( CActionStateCallback( 0.f, 6.f ) )
 	, m_pRabbit			( NULL )
 	, m_HitBlocked		( false )
