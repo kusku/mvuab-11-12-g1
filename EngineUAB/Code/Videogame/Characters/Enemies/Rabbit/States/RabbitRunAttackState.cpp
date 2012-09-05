@@ -31,18 +31,18 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CRabbitRunAttackState::CRabbitRunAttackState( void )
-	: CState("CRabbitRunAttackState")
-	, m_pRabbit					( NULL )
-	, m_pAnimationCallback		( NULL )
+	: CState				("CRabbitRunAttackState")
+	, m_pRabbit				( NULL )
+	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RUN_ATTACK_STATE);
 }
 
 CRabbitRunAttackState::CRabbitRunAttackState( const std::string &_Name )
-	: CState					(_Name)
-	, m_pRabbit					( NULL )
-	, m_pAnimationCallback		( NULL )
+	: CState				(_Name)
+	, m_pRabbit				( NULL )
+	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RUN_ATTACK_STATE);

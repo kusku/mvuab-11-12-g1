@@ -10,6 +10,7 @@
 #include "RabbitRunAnimationState.h"
 #include "RabbitHitAnimationState.h"
 #include "RabbitWalkAnimationState.h"
+#include "RabbitIdleAnimationState.h"
 
 #include "Steering Behaviors\SteeringEntity.h"
 
@@ -45,7 +46,10 @@ CRabbitPreparedToAttackState::~CRabbitPreparedToAttackState(void)
 // -----------------------------------------
 void CRabbitPreparedToAttackState::OnEnter( CCharacter* _Character )
 {
-	m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+	if (!m_pRabbit) 
+	{
+		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+	}
 }
 
 void CRabbitPreparedToAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
@@ -79,7 +83,8 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _Character, float _Elaps
 		// Si el enemigo no está listo para atacar ya que està más lejos que los que deben atacar. Reseteamos velocidad y encaramos al player
 		else
 		{
-			m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetWalkAnimationState());
+			//m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetWalkAnimationState());
+			m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());
 			m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime);
 			m_pRabbit->MoveTo2(m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
 		}

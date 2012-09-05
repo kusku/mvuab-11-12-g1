@@ -12,17 +12,20 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CRabbitRightLateralAnimationState::CRabbitRightLateralAnimationState( void )
-	: CState("CRabbitRightLateralAnimationState")
+	: CState	("CRabbitRightLateralAnimationState")
+	, m_pRabbit	( NULL )
 {
 }
 
 CRabbitRightLateralAnimationState::CRabbitRightLateralAnimationState( const std::string &_Name )
-	: CState(_Name)
+	: CState	(_Name)
+	, m_pRabbit	( NULL )
 {}
 
 
 CRabbitRightLateralAnimationState::~CRabbitRightLateralAnimationState(void)
 {
+	m_pRabbit = NULL;
 }
 
 
@@ -40,7 +43,7 @@ void CRabbitRightLateralAnimationState::OnEnter( CCharacter* _Character )
 		// Almacenamos el enemigo
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 
-		int l_Num = _Character->GetAnimationID(RIGHT_LATERAL_STATE);
+		int l_Num = m_pRabbit->GetAnimationID(RIGHT_LATERAL_STATE);
 		m_pRabbit->GetAnimatedModel()->BlendCycle( l_Num, 0.3f );
 	}
 }

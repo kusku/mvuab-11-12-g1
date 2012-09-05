@@ -12,17 +12,20 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CRabbitRunAnimationState::CRabbitRunAnimationState( void )
-	: CState("CRabbitRunAnimationState")
+	: CState	("CRabbitRunAnimationState")
+	, m_pRabbit	( NULL )
 {
 }
 
 CRabbitRunAnimationState::CRabbitRunAnimationState( const std::string &_Name )
-	: CState(_Name)
+	: CState	(_Name)
+	, m_pRabbit	( NULL )
 {
 }
 
 CRabbitRunAnimationState::~CRabbitRunAnimationState( void )
 {
+	m_pRabbit = NULL;
 }
 
 
@@ -49,7 +52,7 @@ void CRabbitRunAnimationState::OnExit( CCharacter* _Character )
 {
 	if ( !_Character == NULL ) 
 	{
-		int l_Num = _Character->GetAnimationID(RUN_STATE);
+		int l_Num = m_pRabbit->GetAnimationID(RUN_STATE);
 		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
 	}
 }

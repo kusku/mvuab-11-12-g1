@@ -12,17 +12,20 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CRabbitJumpAnimationState::CRabbitJumpAnimationState( void )
-	: CState("CRabbitJumpAnimationState")
+	: CState	("CRabbitJumpAnimationState")
+	, m_pRabbit	( NULL )
 {
 }
 
 CRabbitJumpAnimationState::CRabbitJumpAnimationState( const std::string &_Name )
-	: CState(_Name)
+	: CState	(_Name)
+	, m_pRabbit	( NULL )
 {}
 
 
 CRabbitJumpAnimationState::~CRabbitJumpAnimationState(void)
 {
+	m_pRabbit = NULL;
 }
 
 
