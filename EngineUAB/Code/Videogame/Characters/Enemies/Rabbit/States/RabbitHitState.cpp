@@ -5,7 +5,6 @@
 #include "Callbacks\Animation\AnimationCallbackManager.h"
 
 #include "Characters\Enemies\Rabbit\Rabbit.h"
-#include "Characters\Character.h"
 #include "Characters\StatesDefs.h"
 
 #include "RabbitPursuitState.h"

@@ -1,6 +1,6 @@
 #include "RabbitWalkAnimationState.h"
 #include "Characters\StatesDefs.h"
-
+#include "Characters\Enemies\Rabbit\Rabbit.h"
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 
 #if defined(_DEBUG)
@@ -12,17 +12,25 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CRabbitWalkAnimationState::CRabbitWalkAnimationState( void )
-	: CState ("CRabbitWalkAnimationState")
+	: CState	("CRabbitWalkAnimationState")
+	, m_pRabbit	( NULL )
 {
 }
 
 CRabbitWalkAnimationState::CRabbitWalkAnimationState( const std::string &_Name )
-	: CState(_Name)
+	: CState	(_Name)
+	, m_pRabbit	( NULL )
 {
 }
 
 CRabbitWalkAnimationState::~CRabbitWalkAnimationState( void )
 {
+	/*if (!m_pRabbit)
+	{
+		int l_Num = m_pRabbit->GetAnimationID(WALK_STATE);
+		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+	}*/
+	m_pRabbit = NULL;
 }
 
 
@@ -35,23 +43,24 @@ void CRabbitWalkAnimationState::Execute( CCharacter*, float _ElapsedTime )
 
 void CRabbitWalkAnimationState::OnEnter( CCharacter* _Character )
 {
-	if ( !_Character == NULL ) 
+	if (!m_pRabbit) 
 	{
-		// Almacenamos el enemigo
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
-
-		int l_Num = _Character->GetAnimationID(WALK_STATE);
-		m_pRabbit->GetAnimatedModel()->BlendCycle( l_Num, 0.3f );
 	}
+
+	int l_Num = m_pRabbit->GetAnimationID(WALK_STATE);
+	m_pRabbit->GetAnimatedModel()->BlendCycle( l_Num, 0.3f );
 }
 
 void CRabbitWalkAnimationState::OnExit( CCharacter* _Character )
 {
-	if ( !_Character == NULL ) 
+	if (!m_pRabbit) 
 	{
-		int l_Num = _Character->GetAnimationID(WALK_STATE);
-		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
+
+	int l_Num = m_pRabbit->GetAnimationID(WALK_STATE);
+	m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
 }
 
 bool CRabbitWalkAnimationState::OnMessage( CCharacter*, const STelegram& _Telegram )

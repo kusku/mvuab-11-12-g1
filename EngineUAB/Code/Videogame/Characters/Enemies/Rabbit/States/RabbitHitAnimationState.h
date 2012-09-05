@@ -5,7 +5,7 @@
 
 #include <string>
 #include "StatesMachine\State.h"
-#include "Characters\Enemies\Rabbit\Rabbit.h"
+#include "Characters\Character.h"
 
 // --- Foward Declaractions ---
 class CRabbit;
