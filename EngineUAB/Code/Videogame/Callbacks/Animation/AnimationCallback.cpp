@@ -10,6 +10,7 @@ CAnimationCallback::CAnimationCallback(const std::string &_Animation, CAnimatedI
 	: m_pAnimatedModel(_pAnimatedModel)
 	, m_AnimationName(_Animation)
 	, m_bIsAnimationFinished(false)
+	, m_bIsAnimationStarted	(false)
 {
 
 }
@@ -26,6 +27,7 @@ void CAnimationCallback::AnimationUpdate(float anim_time, CalModel *model, void 
 
 void CAnimationCallback::AnimationComplete(CalModel *model, void * userData)
 {
+	//m_bIsAnimationStarted = false;	// Dudo, esto puede provocar alguna confusión
 	m_bIsAnimationFinished = true;
 }
 

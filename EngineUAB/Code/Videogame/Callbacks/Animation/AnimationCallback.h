@@ -14,20 +14,27 @@ class CAnimatedInstanceModel;
 class CAnimationCallback : public CalAnimationCallback
 {
 public:
-	CAnimationCallback( const std::string &_Animation, CAnimatedInstanceModel *_pAnimatedModel );
-	~CAnimationCallback();
+	//---Constructors &  Destructors----------------------------
+							CAnimationCallback	( const std::string &_Animation, CAnimatedInstanceModel *_pAnimatedModel );
+							~CAnimationCallback	();
 
-	virtual void AnimationUpdate(float anim_time,CalModel *model, void * userData);
-	virtual void AnimationComplete(CalModel *model, void * userData);
-
-	//---Set & Get Methods-----------------------
-	void					StartAnimation		()				{ m_bIsAnimationFinished = false; }
+	//---Main Methods----------------------------
+	void					Init				( void )		{ m_bIsAnimationStarted = false; }
+	virtual void			AnimationUpdate		(float anim_time,CalModel *model, void * userData);
+	virtual void			AnimationComplete	(CalModel *model, void * userData);
+	
+	//---Methods---------------------------------
+	void					StartAnimation		()				{ m_bIsAnimationFinished = false; m_bIsAnimationStarted = true; }
 	bool					IsAnimationFinished	() const;
+	bool					IsAnimationStarted	() const		{ return m_bIsAnimationStarted; }		// Me permite saber si he realizado el Start Animation
+	
+	//---Set & Get Methods-----------------------
 	const std::string&		GetAnimationName	() const		{ return m_AnimationName; }
 	CAnimatedInstanceModel*	GetAnimatedModel	() const		{ return m_pAnimatedModel; }
 
 private:
 	bool					m_bIsAnimationFinished;
+	bool					m_bIsAnimationStarted;
 	std::string				m_AnimationName;
 	CAnimatedInstanceModel	*m_pAnimatedModel;
 };
