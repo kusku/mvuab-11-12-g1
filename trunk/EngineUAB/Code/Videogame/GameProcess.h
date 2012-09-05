@@ -38,8 +38,8 @@ public:
 	void						Render						(  CRenderManager &RM );
 
 	//----Methods --------------------------------------------------------------------
-	void	CreatePlayerCamera	( float _near, float _far, float _zoom, float _heightEye, float _heightLookAt, const std::string &_name );
-	void	CreateFreeCamera	( float _near, float _far, float _zoom, float _heightEye, float _heightLookAt, const std::string &_name );
+	CThPSCharacterCamera*		CreatePlayerCamera	( float _near, float _far, float _zoom, float _heightEye, float _heightLookAt, const std::string &_name );
+	void						CreateFreeCamera	( float _near, float _far, float _zoom, float _heightEye, float _heightLookAt, const std::string &_name );
 
 	void			ChangeToGUIProcess		();
 

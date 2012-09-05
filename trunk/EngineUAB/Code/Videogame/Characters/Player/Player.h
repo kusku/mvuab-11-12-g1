@@ -8,6 +8,8 @@
 #include <map>
 #include <string>
 
+class CThPSCharacterCamera;
+
 class CPlayer : public CCharacter
 {
 public:
@@ -34,6 +36,8 @@ private:
 	float			m_fStaticZoom;
 	float			m_fVelocityAdaptativeZoom;
 	float			m_fDownZoom;
+
+	CThPSCharacterCamera *m_pCamera;
 };
 
 #endif //_PLAYER_H_

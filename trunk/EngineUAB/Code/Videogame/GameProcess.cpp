@@ -89,7 +89,7 @@ void CGameProcess::CleanUp()
 	CHECKED_DELETE( m_pAnimationCallbackManager );
 }
 
-void CGameProcess::CreatePlayerCamera(float _near, float _far, float _zoom, float _heightEye, float _heightLookAt, const std::string &_name)
+CThPSCharacterCamera* CGameProcess::CreatePlayerCamera(float _near, float _far, float _zoom, float _heightEye, float _heightLookAt, const std::string &_name)
 {
 	CHECKED_DELETE( m_pThPSCamera );
 
@@ -97,6 +97,8 @@ void CGameProcess::CreatePlayerCamera(float _near, float _far, float _zoom, floa
 	m_pThPSCamera = new CThPSCharacterCamera(_near, _far, 45.f * D3DX_PI / 180.f, aspect,  m_pCharactersManager->GetPlayer(), _zoom, _heightLookAt, _heightEye, _name);
 	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
 	CORE->SetCamera(m_pCamera);
+
+	return m_pThPSCamera;
 }
 
 void CGameProcess::CreateFreeCamera(float _near, float _far, float _zoom, float _heightEye, float _heightLookAt, const std::string &_name)
