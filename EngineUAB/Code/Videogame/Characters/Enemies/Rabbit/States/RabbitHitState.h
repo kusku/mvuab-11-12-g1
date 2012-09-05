@@ -6,6 +6,7 @@
 #include <string>
 #include "StatesMachine\State.h"
 #include "Characters\Character.h"
+#include "Callbacks\State\ActionStateCallback.h"
 
 // --- Foward Declarations ---
 class CRabbit;
@@ -39,6 +40,7 @@ public:
 private:
 	CRabbit					  * m_pRabbit;
 	CAnimationCallback		  *	m_pAnimationCallback;
+	CActionStateCallback	  * m_pActionState;
 	
 };
 #endif _RABBIT_HIT_STATE_H_

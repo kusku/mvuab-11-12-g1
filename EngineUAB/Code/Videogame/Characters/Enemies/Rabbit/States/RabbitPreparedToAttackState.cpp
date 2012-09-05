@@ -5,6 +5,7 @@
 
 #include "RabbitPursuitState.h"
 #include "RabbitAttackState.h"
+#include "RabbitHitState.h"
 
 #include "RabbitRunAnimationState.h"
 #include "RabbitHitAnimationState.h"
@@ -105,7 +106,8 @@ bool CRabbitPreparedToAttackState::OnMessage( CCharacter* _Character, const STel
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
 		//CState<CCharacter> * l_State = dynamic_cast<CState<CCharacter>*> (m_pRabbit->GetHitAnimationState());
-		_Character->GetLogicFSM()->ChangeState(m_pRabbit->GetHitAnimationState());
+		_Character->GetLogicFSM()->ChangeState(m_pRabbit->GetHitState());
+		_Character->GetGraphicFSM()->ChangeState(m_pRabbit->GetHitAnimationState());
 		return true;
 	}
 

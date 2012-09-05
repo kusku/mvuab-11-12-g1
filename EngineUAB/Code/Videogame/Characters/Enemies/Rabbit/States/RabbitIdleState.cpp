@@ -4,6 +4,7 @@
 #include "Characters\Enemies\Rabbit\Rabbit.h"
 
 #include "RabbitPursuitState.h"
+#include "RabbitHitState.h"
 
 #include "RabbitIdleAnimationState.h"
 #include "RabbitIdle2AnimationState.h"
@@ -46,7 +47,11 @@ CRabbitIdleState::~CRabbitIdleState(void)
 // -----------------------------------------
 void CRabbitIdleState::OnEnter( CCharacter* _Character )
 {
-	m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+	if (!m_pRabbit) 
+	{
+		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+	}
+	
 	m_ActionTime.StartAction();
 }
 
@@ -89,7 +94,7 @@ void CRabbitIdleState::Execute( CCharacter* _Character, float _ElapsedTime )
 
 	// Reseteamos la velocidad del enemigo
 	_Character->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-	_Character->MoveTo2(_Character->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
+		_Character->MoveTo2(_Character->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
 }
 
 
@@ -101,7 +106,7 @@ bool CRabbitIdleState::OnMessage( CCharacter* _Character, const STelegram& _Tele
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
-		// _Character->GetLogicFSM()->ChangeState(m_pRabbit->GetHitState());
+		_Character->GetLogicFSM()->ChangeState(m_pRabbit->GetHitState());
 		_Character->GetGraphicFSM()->ChangeState(m_pRabbit->GetHitAnimationState());
 		return true;
 	}

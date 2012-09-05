@@ -30,7 +30,6 @@ CRabbitStillAttackAnimationState::~CRabbitStillAttackAnimationState( void )
 		int l_Num = m_pRabbit->GetAnimationID(STILL_ATTACK_STATE);
 		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
 	}
-	
 	m_pRabbit = NULL;
 }
 
@@ -49,7 +48,10 @@ void CRabbitStillAttackAnimationState::OnEnter( CCharacter* _Character )
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 
-	int l_Num = _Character->GetAnimationID(STILL_ATTACK_STATE);
+	/*int l_Num = m_pRabbit->GetAnimationID(IDLE_STATE);
+	m_pRabbit->GetAnimatedModel()->BlendCycle(l_Num, 0.1f);*/
+
+	int l_Num = m_pRabbit->GetAnimationID(STILL_ATTACK_STATE);
 	m_pRabbit->GetAnimatedModel()->BlendCycle( l_Num, 0.3f );
 }
 

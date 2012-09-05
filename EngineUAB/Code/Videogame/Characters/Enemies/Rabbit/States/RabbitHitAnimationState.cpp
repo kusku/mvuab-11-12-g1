@@ -1,8 +1,6 @@
 #include "RabbitHitAnimationState.h"
 #include "Characters\StatesDefs.h"
-
 #include "Characters\Enemies\Rabbit\Rabbit.h"
-
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 
 #if defined(_DEBUG)
@@ -29,8 +27,8 @@ CRabbitHitAnimationState::~CRabbitHitAnimationState(void)
 {
 	if (m_pRabbit)
 	{
-		int l_Num = m_pRabbit->GetAnimationID(HIT_STATE);
-		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+		/*int l_Num = m_pRabbit->GetAnimationID(IDLE_STATE);
+		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.1f );*/
 	}
 	m_pRabbit = NULL;
 }
@@ -51,8 +49,11 @@ void CRabbitHitAnimationState::OnEnter( CCharacter* _Character )
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 
+	/*int l_Num = m_pRabbit->GetAnimationID(IDLE_STATE);
+	m_pRabbit->GetAnimatedModel()->BlendCycle(l_Num, 0.1f);*/
+
 	int l_Num = m_pRabbit->GetAnimationID(HIT_STATE);
-	m_pRabbit->GetAnimatedModel()->BlendCycle( l_Num, 0.3f );
+	m_pRabbit->GetAnimatedModel()->ExecuteAction( l_Num, 0.1f );
 }
 
 void CRabbitHitAnimationState::OnExit( CCharacter* _Character )
@@ -62,8 +63,8 @@ void CRabbitHitAnimationState::OnExit( CCharacter* _Character )
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 
-	int l_Num = m_pRabbit->GetAnimationID(HIT_STATE);
-	m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+	/*int l_Num = m_pRabbit->GetAnimationID(HIT_STATE);
+	m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.1f );*/
 }
 
 bool CRabbitHitAnimationState::OnMessage( CCharacter*, const STelegram& _Telegram )
