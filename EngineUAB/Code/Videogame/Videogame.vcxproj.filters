@@ -249,6 +249,24 @@
     <ClCompile Include="Helpers\MathHelper.cpp">
       <Filter>Helpers</Filter>
     </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitAttackState.cpp">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitStillAttackState.cpp">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitTiredState.cpp">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitDefenseState.cpp">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitHitState.cpp">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitRunAttackState.cpp">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUIProcess.h" />
@@ -424,6 +442,24 @@
     </ClInclude>
     <ClInclude Include="Helpers\MathHelper.h">
       <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitAttackState.h">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitStillAttackState.h">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitTiredState.h">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitDefenseState.h">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitHitState.h">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitRunAttackState.h">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -867,5 +903,6 @@
     <CustomBuild Include="..\..\Run\Videogame\Data\Effects\MotionBlurEffect.fx">
       <Filter>Effects</Filter>
     </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\BasicEffect.fx" />
   </ItemGroup>
 </Project>
