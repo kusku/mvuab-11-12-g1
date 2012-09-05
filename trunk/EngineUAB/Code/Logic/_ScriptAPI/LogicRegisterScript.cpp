@@ -259,7 +259,6 @@ namespace ScriptAPI
 				.def("add_behaviour", (void(CSteeringBehaviors::*)(CSeek*)) &CSteeringBehaviors::AddBehavior)
 				.def("add_behaviour", (void(CSteeringBehaviors::*)(CFlee*)) &CSteeringBehaviors::AddBehavior)
 				.def("add_behaviour", (void(CSteeringBehaviors::*)(CPursuit*)) &CSteeringBehaviors::AddBehavior)
-				.def("add_behaviour", (void(CSteeringBehaviors::*)(CArrive*)) &CSteeringBehaviors::AddBehavior)
 				.def("add_behaviour", (void(CSteeringBehaviors::*)(CEvade*)) &CSteeringBehaviors::AddBehavior)
 				.def("add_behaviour", (void(CSteeringBehaviors::*)(CArrive*)) &CSteeringBehaviors::AddBehavior)
 				.def("add_behaviour", (void(CSteeringBehaviors::*)(CWander*)) &CSteeringBehaviors::AddBehavior)
