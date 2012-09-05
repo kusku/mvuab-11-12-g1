@@ -1,6 +1,6 @@
 #include "RabbitStillAttackAnimationState.h"
 #include "Characters\StatesDefs.h"
-
+#include "Characters\Enemies\Rabbit\Rabbit.h"
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 
 #if defined(_DEBUG)
@@ -25,8 +25,11 @@ CRabbitStillAttackAnimationState::CRabbitStillAttackAnimationState( const std::s
 
 CRabbitStillAttackAnimationState::~CRabbitStillAttackAnimationState( void )
 {
-	int l_Num = m_pRabbit->GetAnimationID(STILL_ATTACK_STATE);
-	m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+	if ( m_pRabbit )
+	{	
+		int l_Num = m_pRabbit->GetAnimationID(STILL_ATTACK_STATE);
+		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+	}
 	
 	m_pRabbit = NULL;
 }
@@ -46,13 +49,13 @@ void CRabbitStillAttackAnimationState::OnEnter( CCharacter* _Character )
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 
-	int l_Num = m_pRabbit->GetAnimationID(STILL_ATTACK_STATE);
+	int l_Num = _Character->GetAnimationID(STILL_ATTACK_STATE);
 	m_pRabbit->GetAnimatedModel()->BlendCycle( l_Num, 0.3f );
 }
 
 void CRabbitStillAttackAnimationState::OnExit( CCharacter* _Character )
 {
-	if ( m_pRabbit != NULL ) 
+	if (m_pRabbit) 
 	{
 		int l_Num = m_pRabbit->GetAnimationID(STILL_ATTACK_STATE);
 		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );

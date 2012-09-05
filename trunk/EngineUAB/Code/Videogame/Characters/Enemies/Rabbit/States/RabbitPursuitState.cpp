@@ -6,7 +6,6 @@
 #include "RabbitHitAnimationState.h"
 
 #include "Characters\Enemies\Rabbit\Rabbit.h"
-#include "Characters\Character.h"
 
 #include "Steering Behaviors\SteeringEntity.h"
 #include "Steering Behaviors\SteeringBehaviors.h"

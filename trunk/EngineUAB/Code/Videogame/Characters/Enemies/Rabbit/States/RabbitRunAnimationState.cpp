@@ -1,5 +1,6 @@
 #include "RabbitRunAnimationState.h"
 #include "Characters\StatesDefs.h"
+#include "Characters\Enemies\Rabbit\Rabbit.h"
 
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 
@@ -52,7 +53,7 @@ void CRabbitRunAnimationState::OnExit( CCharacter* _Character )
 {
 	if ( !_Character == NULL ) 
 	{
-		int l_Num = m_pRabbit->GetAnimationID(RUN_STATE);
+		int l_Num = _Character->GetAnimationID(RUN_STATE);
 		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
 	}
 }

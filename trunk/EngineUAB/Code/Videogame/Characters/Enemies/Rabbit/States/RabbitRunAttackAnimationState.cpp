@@ -1,6 +1,6 @@
 #include "RabbitRunAttackAnimationState.h"
 #include "Characters\StatesDefs.h"
-
+#include "Characters\Enemies\Rabbit\Rabbit.h"
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 
 #if defined(_DEBUG)
@@ -25,6 +25,11 @@ CRabbitRunAttackAnimationState::CRabbitRunAttackAnimationState( const std::strin
 
 CRabbitRunAttackAnimationState::~CRabbitRunAttackAnimationState( void )
 {
+	if (m_pRabbit) 
+	{
+		int l_Num = m_pRabbit->GetAnimationID(RUN_ATTACK_STATE);
+		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+	}
 	m_pRabbit = NULL;
 }
 
@@ -49,7 +54,7 @@ void CRabbitRunAttackAnimationState::OnEnter( CCharacter* _Character )
 
 void CRabbitRunAttackAnimationState::OnExit( CCharacter* _Character )
 {
-	if ( !m_pRabbit == NULL ) 
+	if ( m_pRabbit != NULL ) 
 	{
 		int l_Num = m_pRabbit->GetAnimationID(RUN_ATTACK_STATE);
 		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );

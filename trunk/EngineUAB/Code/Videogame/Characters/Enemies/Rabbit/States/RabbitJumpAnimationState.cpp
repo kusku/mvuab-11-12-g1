@@ -1,6 +1,6 @@
 #include "RabbitJumpAnimationState.h"
 #include "Characters\StatesDefs.h"
-
+#include "Characters\Enemies\Rabbit\Rabbit.h"
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 
 #if defined(_DEBUG)

@@ -5,7 +5,11 @@
 
 #include <string>
 #include "StatesMachine\State.h"
-#include "Characters\Enemies\Rabbit\Rabbit.h"
+#include "Characters\Character.h"
+
+// --- Foward Declarations ---
+class CRabbit;
+// ---------------------------
 
 class CRabbitDefenseAnimationState : public CState<CCharacter> 
 {
@@ -37,6 +41,4 @@ private:
 	CRabbit *		m_pRabbit;
 
 };
-
-
 #endif _RABBIT_DEFENSE_ANIMATION_STATE_H_

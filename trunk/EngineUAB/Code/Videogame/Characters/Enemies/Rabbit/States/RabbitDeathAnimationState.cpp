@@ -1,5 +1,6 @@
 #include "RabbitDeathAnimationState.h"
 #include "Characters\StatesDefs.h"
+#include "Characters\Enemies\Rabbit\Rabbit.h"
 
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 
@@ -25,6 +26,10 @@ CRabbitDeathAnimationState::CRabbitDeathAnimationState( const std::string &_Name
 
 CRabbitDeathAnimationState::~CRabbitDeathAnimationState(void)
 {
+	if ( m_pRabbit) 
+	{
+	}
+	
 	m_pRabbit = NULL;
 }
 
@@ -38,7 +43,7 @@ void CRabbitDeathAnimationState::Execute( CCharacter*, float _ElapsedTime )
 
 void CRabbitDeathAnimationState::OnEnter( CCharacter* _Character )
 {
-	if ( !m_pRabbit == NULL ) 
+	if ( m_pRabbit == NULL ) 
 	{
 		// Almacenamos el enemigo
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);

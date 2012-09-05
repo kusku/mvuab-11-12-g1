@@ -5,7 +5,6 @@
 
 #include "Characters\StatesDefs.h"
 #include "Characters\Enemies\Rabbit\Rabbit.h"
-#include "Characters\Character.h"
 
 #include "RabbitPursuitState.h"
 #include "RabbitPreparedToAttackState.h"

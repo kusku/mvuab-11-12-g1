@@ -1,5 +1,6 @@
 #include "RabbitRightLateralAnimationState.h"
 #include "Characters\StatesDefs.h"
+#include "Characters\Enemies\Rabbit\Rabbit.h"
 
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 
@@ -43,7 +44,7 @@ void CRabbitRightLateralAnimationState::OnEnter( CCharacter* _Character )
 		// Almacenamos el enemigo
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 
-		int l_Num = m_pRabbit->GetAnimationID(RIGHT_LATERAL_STATE);
+		int l_Num = _Character->GetAnimationID(RIGHT_LATERAL_STATE);
 		m_pRabbit->GetAnimatedModel()->BlendCycle( l_Num, 0.3f );
 	}
 }
