@@ -1,5 +1,6 @@
 #include "RabbitStillAttackAnimationState.h"
 #include "Characters\StatesDefs.h"
+#include "StatesMachine\Telegram.h"
 #include "Characters\Enemies\Rabbit\Rabbit.h"
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 
@@ -27,8 +28,8 @@ CRabbitStillAttackAnimationState::~CRabbitStillAttackAnimationState( void )
 {
 	if ( m_pRabbit )
 	{	
-		int l_Num = m_pRabbit->GetAnimationID(STILL_ATTACK_STATE);
-		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+		/*int l_Num = m_pRabbit->GetAnimationID(STILL_ATTACK_STATE);
+		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );*/
 	}
 	m_pRabbit = NULL;
 }
@@ -52,7 +53,7 @@ void CRabbitStillAttackAnimationState::OnEnter( CCharacter* _Character )
 	m_pRabbit->GetAnimatedModel()->BlendCycle(l_Num, 0.1f);*/
 
 	int l_Num = m_pRabbit->GetAnimationID(STILL_ATTACK_STATE);
-	m_pRabbit->GetAnimatedModel()->BlendCycle( l_Num, 0.3f );
+	m_pRabbit->GetAnimatedModel()->ExecuteAction( l_Num, 0.1f );
 }
 
 void CRabbitStillAttackAnimationState::OnExit( CCharacter* _Character )
@@ -63,8 +64,8 @@ void CRabbitStillAttackAnimationState::OnExit( CCharacter* _Character )
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 
-	int l_Num = m_pRabbit->GetAnimationID(STILL_ATTACK_STATE);
-	m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+	/*int l_Num = m_pRabbit->GetAnimationID(STILL_ATTACK_STATE);
+	m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );*/
 }
 
 bool CRabbitStillAttackAnimationState::OnMessage( CCharacter*, const STelegram& _Telegram )

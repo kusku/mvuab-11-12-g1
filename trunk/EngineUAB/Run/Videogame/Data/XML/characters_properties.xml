@@ -25,7 +25,7 @@
 		<slope>45.0</slope>
 		<skin_width>0.1</skin_width>
 		<step_offset>0.5</step_offset>
-		<animation_offset>1.2</animation_offset>
+		<animation_offset>1.0</animation_offset>
 	</default_properties>
 	<default_properties core="lobo">
 		<active>true</active>
@@ -83,7 +83,7 @@
 		<slope>45.0</slope>
 		<skin_width>0.1</skin_width>
 		<step_offset>0.5</step_offset>
-		<animation_offset>0.0</animation_offset>
+		<animation_offset>-0.2</animation_offset>
 	</default_properties>
 	<player name="Caperu" core="caperucita" animated_instace_name="caperucita1" >
 		<life>1050</life>
@@ -92,7 +92,7 @@
 		<velocity>0 0 0</velocity>
 		<respawn_position>0 10 0</respawn_position>
 		<!--<position>-66.407 -25.849 -121.407</position>-->
-		<position>-30 -30 0</position>
+		<position>15 -40 30</position>
 	</player>
 	<enemies>
 		<!--<enemy name="enemy1" core="lobo" animated_instace_name="lobo1" ></enemy>
@@ -138,7 +138,7 @@
 		</enemy>-->
 		
 		<enemy name="enemy22" core="conejo" animated_instace_name="enemy22" >
-			<position>-5 -30 2</position>
+			<position>35 -40 30</position>
 			<active>true</active>
 		</enemy>
 		<!--<enemy name="enemy23" core="conejo" animated_instace_name="enemy23" >

@@ -11,6 +11,7 @@
 #include "LogRender\LogRender.h"
 
 #include "StatesMachine\MessageDispatcher.h"
+#include "StatesMachine\Telegram.h"
 
 #include "Characters\StatesDefs.h"
 #include "Characters\Enemies\Rabbit\Rabbit.h"
