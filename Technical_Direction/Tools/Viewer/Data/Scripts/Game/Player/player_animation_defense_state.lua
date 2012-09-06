@@ -1,6 +1,6 @@
 class 'CPlayerAnimationDefenseState' (CState)
-	function CPlayerAnimationDefenseState:__init() 
-		CState.__init(self)
+	function CPlayerAnimationDefenseState:__init(name) 
+		CState.__init(self, name)
 	end
 
 	function CPlayerAnimationDefenseState:OnEnter(_CCharacter)
@@ -10,7 +10,7 @@ class 'CPlayerAnimationDefenseState' (CState)
 		end
 	end
 	
-	function CPlayerAnimationDefenseState:Execute(_CCharacter)
+	function CPlayerAnimationDefenseState:Execute(_CCharacter, _elapsed_time)
 	end
 	
 	function CPlayerAnimationDefenseState:OnExit(_CCharacter)

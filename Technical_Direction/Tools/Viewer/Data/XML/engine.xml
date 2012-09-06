@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<Config debug="true">
+<Config debug="false">
 	<ScreenResolution width="1280" height="720" />
 	<WindowsPosition position="0 0" />
 	<RenderMode fullscreenMode="false" />
@@ -31,5 +31,7 @@
 	<Waypoints wayPointsXML="./Data/XML/waypoints.xml" />
 	<GUI guiXML="./Data/XML/gui.xml" />
 	<Sound soundbanks="./Data/XML/soundbanks.xml" speakers="./Data/XML/speakers.xml" />
-  <AnimalMovement animalMovementXML="./Data/XML/animal_movement.xml" />
+  	<AnimalMovement animalMovementXML="./Data/XML/animal_movement.xml" />
+	<SteeringBehaviorsSettings SteeringBehaviorsSettingsXML="./Data/XML/steering_properties.xml" />
+	<Rails railsXML="./Data/XML/rails.xml" />
 </Config>

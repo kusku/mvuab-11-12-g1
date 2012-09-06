@@ -1,11 +1,13 @@
 class 'CPlayerTargetRunState' (CState)
-	function CPlayerTargetRunState:__init() 
-		CState.__init(self)
+	function CPlayerTargetRunState:__init(name) 
+		CState.__init(self, name)
 		self.action_2_input = core:get_action_to_input()
 	end
 
 	function CPlayerTargetRunState:OnEnter(_CCharacter)
-		core:get_debug_gui_manager().debug_render:set_state_name("Target run")
+		if core:is_debug_mode() then
+			core:get_debug_gui_manager().debug_render:set_state_name("Target run")
+		end
 	
 		self.enemy_detected = get_game_process():get_character_manager().preview_target_enemy
 		if self.enemy_detected == nil then
@@ -14,7 +16,7 @@ class 'CPlayerTargetRunState' (CState)
 		get_game_process():get_character_manager().target_enemy = self.enemy_detected
 	end
 	
-	function CPlayerTargetRunState:Execute(_CCharacter)
+	function CPlayerTargetRunState:Execute(_CCharacter, _elapsed_time)
 		local l_d = 0.0
 		local l_yaw = 0.0
 		local l_dir = Vect3f(0.0, 0.0, 0.0)

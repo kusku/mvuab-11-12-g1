@@ -1,14 +1,16 @@
 class 'CPlayerIdleState' (CState)
-	function CPlayerIdleState:__init() 
-		CState.__init(self)
+	function CPlayerIdleState:__init(name) 
+		CState.__init(self, name)
 		self.action_2_input = core:get_action_to_input()
 	end
 
 	function CPlayerIdleState:OnEnter(_CCharacter)
-		core:get_debug_gui_manager().debug_render:set_state_name("Idle")
+		if core:is_debug_mode() then
+			core:get_debug_gui_manager().debug_render:set_state_name("Idle")
+		end
 	end
 	
-	function CPlayerIdleState:Execute(_CCharacter)
+	function CPlayerIdleState:Execute(_CCharacter, _elapsed_time)
 		if not _CCharacter.locked then
 			local l_enemy_detected = _CCharacter:detect_enemy()
 			if _CCharacter.is_target_fixed then

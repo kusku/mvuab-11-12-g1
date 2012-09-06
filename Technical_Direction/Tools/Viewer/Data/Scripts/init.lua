@@ -20,8 +20,11 @@ function load_data()
 	core:load_lights()
 	core:load_billboards()
 	core:load_particles()
+	--core:load_triggers()
 	core:load_animal_movement()
 	core:load_waypoints()
+	core:load_steering_behaviors_settings()
+	core:load_rails()
 end
 
 function load_all()

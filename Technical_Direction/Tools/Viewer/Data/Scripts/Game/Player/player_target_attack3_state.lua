@@ -1,15 +1,18 @@
 class 'CPlayerTargetAttack3State' (CState)
-	function CPlayerTargetAttack3State:__init() 
-		CState.__init(self)
+	function CPlayerTargetAttack3State:__init(name) 
+		CState.__init(self, name)
 		self.action_2_input = core:get_action_to_input()
 	end
 
 	function CPlayerTargetAttack3State:OnEnter(_CCharacter)
-		core:get_debug_gui_manager().debug_render:set_state_name("Target attack 3")
+		if core:is_debug_mode() then
+			core:get_debug_gui_manager().debug_render:set_state_name("Target attack 3")
+		end
+		
 		self.animation_time = 0.0
 	end
 	
-	function CPlayerTargetAttack3State:Execute(_CCharacter)
+	function CPlayerTargetAttack3State:Execute(_CCharacter, _elapsed_time)
 		if self.animation_time > _CCharacter.animated_model:get_current_animation_duration("attack1") - 0.1 then
 			if core:get_action_to_input():do_action('AttackPlayer') and not _CCharacter.locked then
 					_CCharacter.logic_fsm:change_state(_CCharacter.target_attack)
@@ -46,7 +49,9 @@ class 'CPlayerTargetAttack3State' (CState)
 	
 	function CPlayerTargetAttack3State:OnExit(_CCharacter)
 		_soundM:play_event('Play_EFX_Sword')
-		local enemy = get_game_process():get_character_manager():search_target_enemy(3.0, math.pi/6)
+		
+		local l_front = get_game_process().player_camera:get_direction()
+		local enemy = get_game_process():get_character_manager():search_target_enemy(3.0, math.pi/6, l_front)
 		if enemy ~= nil then
 			_dispatchM:dispatch_state_message( SEND_MSG_IMMEDIATELY, _CCharacter:get_id(), enemy:get_id(), msg_attack, NO_ADDITIONAL_INFO ) 
 		end
