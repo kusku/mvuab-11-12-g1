@@ -39,3 +39,7 @@ end
 function reload_scripts()
 	core:reload_scripts()
 end
+
+function reload_steering_properties()
+	core:reload_steering_behaviors_settings()
+end

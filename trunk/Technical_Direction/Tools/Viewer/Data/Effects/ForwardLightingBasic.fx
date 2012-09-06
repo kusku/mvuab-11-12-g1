@@ -39,12 +39,12 @@ struct VertexShaderOutput
 {
     float4	Position        : POSITION0;
 	float2	TexCoord        : TEXCOORD0;
+	float4	WPos			: TEXCOORD1;
 	float3	Normal			: NORMAL0;
 	float3	EyePosition     : NORMAL1;
-	float4	WPos			: NORMAL2;
-	float	FogLerp			: NORMAL3;
-	float2	DepthInt		: NORMAL4;
-	float2	VelocityMB		: NORMAL5;
+	float	FogLerp			: NORMAL2;
+	float2	DepthInt		: NORMAL3;
+	float2	VelocityMB		: NORMAL4;
 };
 
 struct PixelShaderOutput
@@ -149,7 +149,7 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 // Pixel Shaders
 //////////////////////////////////
 
-PixelShaderOutput PixelShaderFunction(VertexShaderOutput input, uniform bool shadow, uniform bool vegetation, uniform float AlphaTestThreshold, uniform float AlphaTestDirection)
+PixelShaderOutput PixelShaderFunction(VertexShaderOutput input, uniform bool shadow, uniform bool vegetation)
 {	
 	PixelShaderOutput output = (PixelShaderOutput)0;
 
@@ -245,7 +245,8 @@ PixelShaderOutput PixelShaderFunction(VertexShaderOutput input, uniform bool sha
 	[flatten]
 	if(vegetation == true)
 	{
-		clip((PixEndColor.a - AlphaTestThreshold) * AlphaTestDirection);
+		//clip((PixEndColor.a - AlphaTestThreshold) * AlphaTestDirection);
+		clip(PixEndColor.a - 0.2f);
 	}
 	
 	output.DiffuseRT = PixEndColor;
@@ -278,7 +279,7 @@ technique ForwardLightingBasic
 	pass p0
 	{		
 		VertexShader = compile vs_3_0 VertexShaderFunction();
-		PixelShader = compile ps_3_0 PixelShaderFunction(false, false, 0.0f, 0.0f);
+		PixelShader = compile ps_3_0 PixelShaderFunction(false, false);
 	}
 }
 
@@ -287,11 +288,11 @@ technique ForwardLightingBasicShadow
 	pass p0
 	{		
 		VertexShader = compile vs_3_0 VertexShaderFunction();
-		PixelShader = compile ps_3_0 PixelShaderFunction(true, false, 0.0f, 0.0f);
+		PixelShader = compile ps_3_0 PixelShaderFunction(true, false);
 	}
 }
 
-technique ForwardLightingBasicVegetation1
+technique ForwardLightingBasicVegetation
 {
 	pass p0
 	{
@@ -299,28 +300,11 @@ technique ForwardLightingBasicVegetation1
 		CullMode			= None;
 		
 		VertexShader = compile vs_3_0 VertexShaderFunction();
-		PixelShader = compile ps_3_0 PixelShaderFunction(false, true, 0.95f, 1.0f);
+		PixelShader = compile ps_3_0 PixelShaderFunction(false, true);
 	}
 }
 
-technique ForwardLightingBasicVegetation2
-{
-	pass p0
-	{
-		
-		CullMode			= None;
-		ZWriteEnable		= false;
-		AlphaBlendEnable	= true;
-		BlendOp				= add;
-		SrcBlend			= SrcAlpha;
-		DestBlend			= InvSrcAlpha;
-		
-		VertexShader = compile vs_3_0 VertexShaderFunction();
-		PixelShader = compile ps_3_0 PixelShaderFunction(false, true, 0.95f, -1.0f);
-	}
-}
-
-technique ForwardLightingBasicShadowVegetation1
+technique ForwardLightingBasicShadowVegetation
 {
 	pass p0
 	{
@@ -328,24 +312,7 @@ technique ForwardLightingBasicShadowVegetation1
 		CullMode			= None;
 		
 		VertexShader = compile vs_3_0 VertexShaderFunction();
-		PixelShader = compile ps_3_0 PixelShaderFunction(true, true, 0.95f, 1.0f);
-	}
-}
-
-technique ForwardLightingBasicShadowVegetation2
-{
-	pass p0
-	{
-		CullMode			= None;
-		ZWriteEnable		= false;
-		AlphaBlendEnable	= true;
-		BlendOp				= add;
-		SrcBlend			= SrcAlpha;
-		DestBlend			= InvSrcAlpha;
-		
-		//CullMode = CCW;
-		VertexShader = compile vs_3_0 VertexShaderFunction();
-		PixelShader = compile ps_3_0 PixelShaderFunction(true, true, 0.95f, -1.0f);
+		PixelShader = compile ps_3_0 PixelShaderFunction(true, true);
 	}
 }
 
@@ -356,7 +323,7 @@ technique ForwardLightingBasicInstance
 	pass p0
 	{		
 		VertexShader = compile vs_3_0 VertexShaderInstanceFunction();
-		PixelShader = compile ps_3_0 PixelShaderFunction(false, false, 0.0f, 0.0f);
+		PixelShader = compile ps_3_0 PixelShaderFunction(false, false);
 	}
 }
 
@@ -365,11 +332,11 @@ technique ForwardLightingBasicShadowInstance
 	pass p0
 	{		
 		VertexShader = compile vs_3_0 VertexShaderInstanceFunction();
-		PixelShader = compile ps_3_0 PixelShaderFunction(true, false, 0.0f, 0.0f);
+		PixelShader = compile ps_3_0 PixelShaderFunction(true, false);
 	}
 }
 
-technique ForwardLightingBasicVegetation1Instance
+technique ForwardLightingBasicVegetationInstance
 {
 	pass p0
 	{
@@ -377,28 +344,11 @@ technique ForwardLightingBasicVegetation1Instance
 		CullMode			= None;
 		
 		VertexShader = compile vs_3_0 VertexShaderInstanceFunction();
-		PixelShader = compile ps_3_0 PixelShaderFunction(false, true, 0.95f, 1.0f);
+		PixelShader = compile ps_3_0 PixelShaderFunction(false, true);
 	}
 }
 
-technique ForwardLightingBasicVegetation2Instance
-{
-	pass p0
-	{
-		
-		CullMode			= None;
-		ZWriteEnable		= false;
-		AlphaBlendEnable	= true;
-		BlendOp				= add;
-		SrcBlend			= SrcAlpha;
-		DestBlend			= InvSrcAlpha;
-		
-		VertexShader = compile vs_3_0 VertexShaderInstanceFunction();
-		PixelShader = compile ps_3_0 PixelShaderFunction(false, true, 0.95f, -1.0f);
-	}
-}
-
-technique ForwardLightingBasicShadowVegetation1Instance
+technique ForwardLightingBasicShadowVegetationInstance
 {
 	pass p0
 	{
@@ -406,23 +356,6 @@ technique ForwardLightingBasicShadowVegetation1Instance
 		CullMode			= None;
 		
 		VertexShader = compile vs_3_0 VertexShaderInstanceFunction();
-		PixelShader = compile ps_3_0 PixelShaderFunction(true, true, 0.95f, 1.0f);
-	}
-}
-
-technique ForwardLightingBasicShadowVegetation2Instance
-{
-	pass p0
-	{	
-		CullMode			= None;
-		ZWriteEnable		= false;
-		AlphaBlendEnable	= true;
-		BlendOp				= add;
-		SrcBlend			= SrcAlpha;
-		DestBlend			= InvSrcAlpha;
-		
-		//CullMode = CCW;
-		VertexShader = compile vs_3_0 VertexShaderInstanceFunction();
-		PixelShader = compile ps_3_0 PixelShaderFunction(true, true, 0.95f, -1.0f);
+		PixelShader = compile ps_3_0 PixelShaderFunction(true, true);
 	}
 }

@@ -1,6 +1,6 @@
 class 'CPlayerAnimationJumpState' (CState)
-	function CPlayerAnimationJumpState:__init() 
-		CState.__init(self)
+	function CPlayerAnimationJumpState:__init(name) 
+		CState.__init(self, name)
 	end
 
 	function CPlayerAnimationJumpState:OnEnter(_CCharacter)
@@ -10,7 +10,7 @@ class 'CPlayerAnimationJumpState' (CState)
 		end
 	end
 	
-	function CPlayerAnimationJumpState:Execute(_CCharacter)
+	function CPlayerAnimationJumpState:Execute(_CCharacter, _elapsed_time)
 	end
 	
 	function CPlayerAnimationJumpState:OnExit(_CCharacter)

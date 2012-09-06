@@ -1,16 +1,19 @@
 class 'CPlayerAttack2State' (CState)
-	function CPlayerAttack2State:__init() 
-		CState.__init(self)
+	function CPlayerAttack2State:__init(name) 
+		CState.__init(self, name)
 		self.animation_callback = get_game_process():get_animation_callback_manager():get_callback("attack2")
 	end
 
 	function CPlayerAttack2State:OnEnter(_CCharacter)
-		core:get_debug_gui_manager().debug_render:set_state_name("Attack 2")
+		if core:is_debug_mode() then
+			core:get_debug_gui_manager().debug_render:set_state_name("Attack 2")
+		end
+		
 		self.animation_time = _CCharacter.elapsed_time
 		self.animation_callback:start_animation()
 	end
 	
-	function CPlayerAttack2State:Execute(_CCharacter)
+	function CPlayerAttack2State:Execute(_CCharacter, _elapsed_time)
 		--if self.animation_time > _CCharacter.animated_model:get_current_animation_duration("attack1") - 0.1 then
 		if self.animation_callback:is_animation_finished() then
 			if core:get_action_to_input():do_action('AttackPlayer') then
@@ -49,7 +52,9 @@ class 'CPlayerAttack2State' (CState)
 	
 	function CPlayerAttack2State:OnExit(_CCharacter)
 		_soundM:play_event('Play_EFX_Sword')
-		local enemy = get_game_process():get_character_manager():search_target_enemy(3.0, math.pi/6)
+		
+		local l_front = _CCharacter.animated_model:get_front()
+		local enemy = get_game_process():get_character_manager():search_target_enemy(3.0, math.pi/6, l_front)
 		if enemy ~= nil then
 			_dispatchM:dispatch_state_message( SEND_MSG_IMMEDIATELY, _CCharacter:get_id(), enemy:get_id(), msg_attack, NO_ADDITIONAL_INFO ) 
 		end

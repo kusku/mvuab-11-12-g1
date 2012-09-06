@@ -1,7 +1,7 @@
 class 'CRabbitHitState' (CState)
-	function CRabbitHitState:__init() 
-		CState.__init(self)
-		print_logger(0, "Inicio del estado still attack de la caperucita")
+	function CRabbitHitState:__init(name) 
+		CState.__init(self, name)
+		-- print_logger(0, "Inicio del estado HIT de la caperucita")
 	end
 
 	function CRabbitHitState:OnEnter(_CCharacter)
@@ -15,13 +15,13 @@ class 'CRabbitHitState' (CState)
 		_CCharacter:rest_life(_CCharacter.player.properties.strong)
 	end
 	
-	function CRabbitHitState:Execute(_CCharacter)
+	function CRabbitHitState:Execute(_CCharacter, _elapsed_time)
 		-- print_logger(0, "CRabbitHitState:Execute")
 		if ( self.hit_animation_time >= _CCharacter.animated_model:get_current_animation_duration("hit") ) then
 			print_logger(0, "CRabbitHitState:OnMessage->RABBIT life : ".._CCharacter.properties.life)
 			_CCharacter.logic_fsm:revert_to_previous_state()
 		end
-		self.hit_animation_time = self.hit_animation_time + _CCharacter.elapsed_time
+		self.hit_animation_time = self.hit_animation_time + _elapsed_time
 	end
 	
 	function CRabbitHitState:OnExit(_CCharacter)

@@ -1,7 +1,6 @@
 class 'CWolfRunState' (CState)
-	function CWolfRunState:__init() 
-		CState.__init(self)
-		print_logger(0, "Inicio del estado run de la caperucita")
+	function CWolfRunState:__init(name) 
+		CState.__init(self, name)
 	end
 
 	function CWolfRunState:OnEnter(_CCharacter)
@@ -10,7 +9,7 @@ class 'CWolfRunState' (CState)
 		end
 	end
 	
-	function CWolfRunState:Execute(_CCharacter)
+	function CWolfRunState:Execute(_CCharacter, _elapsed_time)
 		--print_logger(0, "CWolfRunState:Execute")
 	end
 	

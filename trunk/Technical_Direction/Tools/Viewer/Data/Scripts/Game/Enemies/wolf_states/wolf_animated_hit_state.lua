@@ -1,7 +1,6 @@
 class 'CWolfAnimatedHitState' (CState)
-	function CWolfAnimatedHitState:__init() 
-		CState.__init(self)
-		print_logger(0, "Inicio del estado still attack de la caperucita")
+	function CWolfAnimatedHitState:__init(name) 
+		CState.__init(self, name)
 	end
 
 	function CWolfAnimatedHitState:OnEnter(_CCharacter)
@@ -12,7 +11,7 @@ class 'CWolfAnimatedHitState' (CState)
 		end
 	end
 	
-	function CWolfAnimatedHitState:Execute(_CCharacter)
+	function CWolfAnimatedHitState:Execute(_CCharacter, _elapsed_time)
 		--print_logger(0, "CWolfAnimatedHitState:Execute")
 	end
 	
@@ -30,5 +29,8 @@ class 'CWolfAnimatedHitState' (CState)
 	end
 	
 	function CWolfAnimatedHitState:__Finalize()
-	
+		if not ( _CCharacter == nil ) then
+			num = _CCharacter:get_animation_id("hit")
+			_CCharacter:get_animation_model():clear_cycle( num, 0.3 )
+		end
 	end

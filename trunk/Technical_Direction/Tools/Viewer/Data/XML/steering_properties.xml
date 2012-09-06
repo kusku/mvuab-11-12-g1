@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<steering_properties xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<!--longitud de colision de diferentes comportamientos-->
+	<ObstacleWallDetectionFeelerLength>5.0</ObstacleWallDetectionFeelerLength>	
+	<CollisionDetectionFeelerLength>1.4</CollisionDetectionFeelerLength>
+	<SeparationDetectionFeelerLength>1.6</SeparationDetectionFeelerLength>	<!-- Longitud de los rayos en separación. Ajo -->
+	<SeparationDecayCoefficient>0.1</SeparationDecayCoefficient>			<!-- Permite definir un coeficiente para la decrementación de la separación con la inversa a la distancia -->
+	<flockingNeightbourRadius>1.34</flockingNeightbourRadius>				<!-- Radio de búsqueda de vecinos para Separación, Alineación i Cohesión -->
+	<ArriveDecelerationDistance>4.7</ArriveDecelerationDistance>
+	<DecelerationTweaker>40.3</DecelerationTweaker>							<!-- Permite suavizar la desaceleración -->
+	<ArriveDeceleration>fast</ArriveDeceleration>
+	<WanderRefreshRate>1.5</WanderRefreshRate>
+	<WanderRadius>1.6</WanderRadius>
+	<WanderDistance>5.0</WanderDistance>
+	<WanderMinimumDistance>2.0</WanderMinimumDistance>
+	
+	
+	<!--usa estos valores para ajustar la cantidad de cada fuerza de comportamiento direccional del total de la fuerza steering -->
+	<SeparationWeight>4.0</SeparationWeight> 
+	<AlignmentWeight>2.0</AlignmentWeight> 
+	<CohesionWeight>3.0</CohesionWeight> 
+	<CollisionAvoidanceWeight>10.0</CollisionAvoidanceWeight> 
+	<ObstacleWallAvoidanceWeight>10.0</ObstacleWallAvoidanceWeight> 
+	<WanderWeight>1</WanderWeight> 
+	<SeekWeight>3.0</SeekWeight> 
+	<FleeWeight>1.0</FleeWeight> 
+	<ArriveWeight>1.0</ArriveWeight> 
+	<OffsetPursuitWeight>1.0</OffsetPursuitWeight> 
+	<InterposeWeight>1.0</InterposeWeight> 
+	<HideWeight>1.0</HideWeight> 
+	<EvadeWeight>0.01</EvadeWeight> 
+	<FollowPathWeight>0.05</FollowPathWeight> 
+
+	<!--usa estos valores para ajustar las probabilidades que cada comportamiento direccional pueda usar cuando se utiliza el mètodo de Prioridad o de Interpolación -->
+<!--	<property name="prWallAvoidance">0.5</property>
+	<property name="prObstacleAvoidance">0.5</property>
+	<property name="prSeparation">0.2</property>
+	<property name="prAlignment">0.3</property>
+	<property name="prCohesion">0.6</property>
+	<property name="prWander">0.8</property>
+	<property name="prSeek">0.8</property>
+	<property name="prFlee">0.6</property>
+	<property name="prEvade">1.0</property>
+	<property name="prHide">0.8</property>
+	<property name="prArrive">0.5</property>-->
+	
+	<!-- Permite definir el nº de enemigos que pueden atacar a la vez. Esto permite que los demás enemigos permanezcan inactivos 
+		hasta que les toque el turno, es decir, que ya no existan los N enemigos más cercanos a él y pueda entrar en acción -->
+	<NumberEnemiesCanAttack>5</NumberEnemiesCanAttack>				
+	
+</steering_properties>

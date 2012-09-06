@@ -75,13 +75,22 @@ struct VertexShaderInput
 
 struct VertexShaderOutput
 {
-    float4 Position         : POSITION0;
-	float2 TexCoord         : TEXCOORD0;
-    float2 TiledTexCoord	: TEXCOORD1;
-	float3 Normal			: NORMAL0;
-	float3 EyePosition      : NORMAL1;
-	float4 WPos				: NORMAL2;
-	float FogLerp			: NORMAL3;
+    float4	Position		: POSITION0;
+	float2	TexCoord		: TEXCOORD0;
+    float2	TiledTexCoord	: TEXCOORD1;
+	float3	Normal			: NORMAL0;
+	float3	EyePosition		: NORMAL1;
+	float4	WPos			: NORMAL2;
+	float	FogLerp			: NORMAL3;
+	float2	DepthInt		: NORMAL4;
+	float2	VelocityMB		: NORMAL5;
+};
+
+struct PixelShaderOutput
+{
+	float4 DiffuseRT	: COLOR0;
+	float4 DepthRT		: COLOR1;
+	float4 MotionBlurRT	: COLOR2;
 };
 
 //////////////////////////////////////////////////////////////////////
@@ -131,11 +140,29 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 		output.FogLerp = saturate( (distance(WorldSpacePosition, output.EyePosition) - FogStart) / FogRange);
 	}
 
+	/////////////
+	//Depth Map
+	////////////
+	output.DepthInt = output.Position.zw;
+	
+	//End Depth Map
+	////////////
+
+	///////////////
+	//Motion Blur
+	///////////////
+	output.VelocityMB = MotionBlurVelocity(output.Position, WorldSpacePosition);
+
+	//End Motion Blur
+	///////////////
+
     return output;
 }
 
-float4 PixelShaderFunction(VertexShaderOutput input, uniform bool shadow) : COLOR
+PixelShaderOutput PixelShaderFunction(VertexShaderOutput input, uniform bool shadow)
 {	
+	PixelShaderOutput output = (PixelShaderOutput)0;
+
 	input.EyePosition = normalize(input.EyePosition);
 
 	float3 Normal = normalize(input.Normal);
@@ -227,7 +254,25 @@ float4 PixelShaderFunction(VertexShaderOutput input, uniform bool shadow) : COLO
 
 	PixEndColor.a = 1;
 	
-	return PixEndColor;
+	output.DiffuseRT = PixEndColor;
+	
+	/////////////
+	//Depth Map
+	////////////
+	output.DepthRT.r = input.DepthInt.x / input.DepthInt.y;
+	
+	//End Depth Map
+	////////////
+
+	///////////////
+	//Motion Blur
+	///////////////
+	output.MotionBlurRT = float4(input.VelocityMB, 1.0f, 1.0f);
+
+	//End Motion Blur
+	///////////////
+	
+	return output;
 }
 
 technique TerrainEffectTechnique
