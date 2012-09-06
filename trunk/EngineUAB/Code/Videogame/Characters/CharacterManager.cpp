@@ -999,47 +999,52 @@ CCharacter* CCharactersManager::SearchTargetEnemy(float _Distance, float _AngleV
 
 	TVectorResources l_EnemyList = GetResourcesVector();
 
-  	if( l_EnemyList.size() < 1 )
+	uint16 l_iNumEnemies = l_EnemyList.size();
+  	if( l_iNumEnemies < 1 )
 	{
 		return NULL;
 	}
-
-	/*if( l_EnemyList.size() == 1 )
+	else if( l_iNumEnemies > 0 )
 	{
-		return (dynamic_cast<CCharacter*>(l_EnemyList[0]));
-	}*/
+		//Inicializamos los datos de enemigo para comparar
+		l_NearestEnemy = l_EnemyList[0];
+		l_NearestDistance = l_Pos.Distance(l_NearestEnemy->GetPosition());
 
-	//Inicializamos los datos de enemigo para comparar
-	l_NearestEnemy = l_EnemyList[0];
-	l_NearestDistance = l_Pos.Distance(l_NearestEnemy->GetPosition());
-
-	TVectorResources::iterator l_It = l_EnemyList.begin()+1;
-	TVectorResources::iterator l_End = l_EnemyList.end();
-	for(; l_It != l_End; ++l_It)
-	{
-		if( (*l_It)->IsAlive() && (*l_It)->GetProperties()->GetActive() )
+		if( l_NearestDistance <= _Distance )
 		{
-			//Mira si el enemigo está más cerca que el resto del player
-			float l_CurrentDistance = l_Pos.Distance( (*l_It)->GetPosition() );
-			if( l_CurrentDistance <= _Distance && l_CurrentDistance <= l_NearestDistance )
+			l_IsEnemyFound = true;
+		}
+
+		TVectorResources::iterator l_It = l_EnemyList.begin()+1;
+		TVectorResources::iterator l_End = l_EnemyList.end();
+		for(; l_It != l_End; ++l_It)
+		{
+			if( (*l_It)->IsAlive() && (*l_It)->GetProperties()->GetActive() )
 			{
-				//Mira si el enemigo que está cerca está visible en un ángulo respecto el player
-				if( EnemyIsVisibleInAngle( (*l_It), _AngleVisible, _Front) ) 
+				//Mira si el enemigo está más cerca que el resto del player
+				float l_CurrentDistance = l_Pos.Distance( (*l_It)->GetPosition() );
+				if( l_CurrentDistance <= _Distance && l_CurrentDistance <= l_NearestDistance )
 				{
-					l_NearestDistance = l_CurrentDistance;
-					l_NearestEnemy = (*l_It);
-					l_IsEnemyFound = true;
+					//Mira si el enemigo que está cerca está visible en un ángulo respecto el player
+					if( EnemyIsVisibleInAngle( (*l_It), _AngleVisible, _Front) ) 
+					{
+						l_NearestDistance = l_CurrentDistance;
+						l_NearestEnemy = (*l_It);
+						l_IsEnemyFound = true;
+					}
 				}
 			}
 		}
+
+		if( !l_IsEnemyFound )
+		{
+			return NULL;
+		}
+
+		return l_NearestEnemy;
 	}
 
-	//if( !l_IsEnemyFound )
-	//{
-	//	return NULL;
-	//}
-
-	return l_NearestEnemy;
+	return NULL;
 }
 
 bool CCharactersManager::EnemyIsVisibleInAngle(CCharacter *_Enemy, float _Angle, const Vect3f &_Front)

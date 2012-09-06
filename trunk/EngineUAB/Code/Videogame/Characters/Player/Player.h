@@ -37,6 +37,9 @@ private:
 	float			m_fVelocityAdaptativeZoom;
 	float			m_fDownZoom;
 
+	float			m_fDistanceToDetectEnemy;
+	float			m_fVisibilityAngle;
+
 	CThPSCharacterCamera *m_pCamera;
 };
 
