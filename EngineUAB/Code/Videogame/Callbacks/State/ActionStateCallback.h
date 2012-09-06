@@ -11,22 +11,26 @@ public:
 				~CActionStateCallback	( void );
 
 	// ------------- Mètodes Principals ------------------------
+	void		InitAction				( void )				{ m_ActionStarted = false; }
 	void		StartAction				( void );
-	bool		IsActionFinished		( void ) const			{ return m_CurrentTime >= m_TotalActionTime; }
+	bool		IsActionFinished		( void );
+	bool		IsActionStarted			( void ) const			{ return m_ActionStarted; }
 	
 	void		Update					( float _ElapsedTime )	{ m_CurrentTime += _ElapsedTime; }
 
-private:
 	// ------------- Mètodes -----------------------------------
-	float		GetRandomAnimationTime	( void );
 	void		SetTimeRange			( float _MinInterval, float _MaxInterval )		{ m_MinTime = _MinInterval; m_MaxTime = _MaxInterval; }
 
+private:
+	float		GetRandomAnimationTime	( void );
+	
 	// ------------- Members -----------------------------------
 	float		m_MinTime;
 	float		m_MaxTime;
 
 	float		m_TotalActionTime;
 	float		m_CurrentTime;
+	bool		m_ActionStarted;
 };
 
 #endif _ACTION_STATE_CALLBACK_H_
