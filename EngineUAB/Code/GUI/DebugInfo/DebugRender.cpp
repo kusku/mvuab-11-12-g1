@@ -13,14 +13,15 @@
 #endif
 
 CDebugRender::CDebugRender(void)
-	: m_bIsVisible(true)
-	, m_SizeRectangle( Vect2i(0,0) )
-	, m_bFPSVisible(true)
-	, m_bDeltaTimeVisible(true)
-	, m_bGamePadVisible(true)
-	, m_bCameraVisible(true)
-	, m_bStateVisible(true)
-	, m_StateName("")
+	: m_bIsVisible			(true)
+	, m_SizeRectangle		( Vect2i(0,0) )
+	, m_bFPSVisible			(true)
+	, m_bDeltaTimeVisible	(true)
+	, m_bGamePadVisible		(true)
+	, m_bCameraVisible		(true)
+	, m_bStateVisible		(true)
+	, m_StateName			("")
+	, m_EnemyStateName		("")
 {
 }
 
@@ -86,6 +87,12 @@ void CDebugRender::Render(CRenderManager *_RM, CFontManager *fm, CTimer *timer, 
 		{
 			dy += fm->DrawDefaultText(screen.x - dx, dy, color, "State: %s", m_StateName.c_str());
 		}
+
+		if( m_bStateVisible )
+		{
+			dy += fm->DrawDefaultText(screen.x - dx, dy, color, "Enemy State: %s", m_EnemyStateName.c_str());
+		}
+
 
 		//Info para ocultar la información
 		dy += fm->DrawDefaultText(screen.x - dx, dy, color, "_________________________");

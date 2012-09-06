@@ -46,6 +46,7 @@ public:
 	void				SetStateVisible				( bool visible )	{ m_bStateVisible = visible; AnalizeSizeInfo(); }
 
 	void				SetStateName				( const std::string& state) { m_StateName = state; }
+	void				SetEnemyStateName			( const std::string& state) { m_EnemyStateName = state; }
 	//Toggle Methods----------------------
 	void				ToggleFPS					()					{ m_bFPSVisible = !m_bFPSVisible; AnalizeSizeInfo(); }
 	void				ToggleDeltaTime				()					{ m_bDeltaTimeVisible = !m_bDeltaTimeVisible; AnalizeSizeInfo(); }
@@ -66,6 +67,7 @@ private:
 	bool					m_bStateVisible;
 
 	std::string				m_StateName;
+	std::string				m_EnemyStateName;
 };
 
 #endif
