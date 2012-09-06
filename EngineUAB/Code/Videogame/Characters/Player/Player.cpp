@@ -44,6 +44,8 @@ CPlayer::CPlayer()
 	, m_fStaticZoom(5.2f)
 	, m_fVelocityAdaptativeZoom(1.5f)
 	, m_fDownZoom(2.0f)
+	, m_fDistanceToDetectEnemy(20.f)
+	, m_fVisibilityAngle(FLOAT_PI_VALUE / 3.f)
 	, m_pCamera(NULL)
 {
 	m_fYaw		= 0.0f;
@@ -215,7 +217,7 @@ CCharacter* CPlayer::DetectEnemy()
 	CCharactersManager *l_pCharManager	= l_pProcess->GetCharactersManager();
 
 	Vect3f l_FrontCamera				= l_pProcess->GetPlayerCamera()->GetDirection();
-	CCharacter *l_pEnemy				= l_pCharManager->SearchTargetEnemy(20.f, FLOAT_PI_VALUE / 3.f, l_FrontCamera);
+	CCharacter *l_pEnemy				= l_pCharManager->SearchTargetEnemy(m_fDistanceToDetectEnemy, m_fVisibilityAngle, l_FrontCamera);
 
 	l_pCharManager->SetPreviewTargetEnemy( l_pEnemy );
 
