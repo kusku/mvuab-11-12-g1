@@ -124,6 +124,7 @@ void CRabbitStillAttackState::Execute( CCharacter* _Character, float _ElapsedTim
 
 				// Volvemos al estado anterior
 				m_pRabbit->GetLogicFSM()->RevertToPreviousState();
+				m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
@@ -174,7 +175,7 @@ void CRabbitStillAttackState::Execute( CCharacter* _Character, float _ElapsedTim
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("RES!");
+						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Fallo Cal3D!");
 					}
 				#endif
 			}
