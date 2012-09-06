@@ -43,6 +43,11 @@ public:
 
 	virtual bool AddResource(const std::string & Name, T * Resource)
 	{
+		if(Name == "" )
+		{
+			return false;
+		}
+
 		if (m_Resources.find(Name) == m_Resources.end())
 		{
 			m_Resources[Name]=Resource;
