@@ -43,6 +43,7 @@ void CTextureManager::Reload()
 CTexture* CTextureManager::GetTexture(const std::string &fileName)
 {
 	CTexture* l_Tex = GetResource(fileName);
+
 	if( l_Tex == NULL )
 	{
 		l_Tex = new CTexture();
