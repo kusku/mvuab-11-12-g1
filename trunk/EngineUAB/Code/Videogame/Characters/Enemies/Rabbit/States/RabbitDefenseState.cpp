@@ -10,6 +10,7 @@
 
 #include "RabbitHitAnimationState.h"
 #include "RabbitIdleAnimationState.h"
+#include "RabbitDefenseAnimationState.h"
 
 #include "Steering Behaviors\SteeringEntity.h"
 #include "Steering Behaviors\SteeringBehaviors.h"
@@ -60,13 +61,13 @@ void CRabbitDefenseState::OnEnter( CCharacter* _Character )
 	{
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
-
+	
 	m_ActionTime.StartAction();
 
 	// Me dice si bloqueo
 	m_HitBlocked = 0;
 
-	// Me dice la distancia que recorro cuando paga y bloqueo hacia atras
+	// Me dice la distancia que recorro cuando pega el player y bloqueo hacia atras
 	m_HitDistance = m_pRabbit->GetProperties()->GetImpactDistance() + 2;
 	
 	// Me dice el total de bloqueos que haré hasta que me pueda volver a golpear
@@ -90,23 +91,28 @@ void CRabbitDefenseState::Execute( CCharacter* _Character, float _ElapsedTime )
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 
+	m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime );
+
 	if ( m_HitBlocked ) 
 	{
 		float l_Distance = m_pRabbit->GetDistanceToPlayer();
 		// Si aun no he hecho el retroceso lo sigo moviendo
-		if ( l_Distance <= m_HitDistance ) 
-		{
-			m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
-		}
+		//if ( l_Distance <= m_HitDistance ) 
+		//{
+		//	//m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
+		//}
 		// Si llego al destino paro el retroceso
-		else
+		//else
+		//{
+		if ( l_Distance > m_HitDistance ) 
 		{
-			// _CCharacter.behaviors:flee_off()
 			m_pRabbit->GetBehaviors()->SeekOn();
 			m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-			m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+			//m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 			m_HitBlocked = false;
 		} 
+		//m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime );
+		m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 	}	
 	else 
 	{
@@ -119,6 +125,7 @@ void CRabbitDefenseState::Execute( CCharacter* _Character, float _ElapsedTime )
 				//print_logger (1, "retorno")
 				m_pRabbit->SetReceivedHitsXMinut(0);
 				m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetAttackState());
+				m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());
 				return;
 			}
 			
@@ -126,35 +133,34 @@ void CRabbitDefenseState::Execute( CCharacter* _Character, float _ElapsedTime )
 			float l_Distance = m_pRabbit->GetDistanceToPlayer();
 			if ( l_Distance <= ( m_pRabbit->GetProperties()->GetImpactDistance() * 2 ) ) 
 			{
-				m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());
+				m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetDefenseAnimationState());
 			}
 			else 
 			{
 				m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
 				m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());
+				m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 			}		
 
-			// print_logger (1, "temps total en defense ".._CCharacter.action_time)
 			if ( m_ActionTime.IsActionFinished() ) 
 			{
 				// nos volvemos
-				// print_logger(0, "CRabbitDefenseState:Execute->Nos Volvemos")
-				//m_pRabbit->getlo logic_fsm:change_state(_CCharacter.attack_state)
-				m_pRabbit->GetLogicFSM()->RevertToPreviousState();		
+				m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetAttackState());		
+				m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());		
 			}
 			else 
 			{
 				// Incrementamos el tiempo que llevamos en este estado
-				// print_logger(0, "CRabbitDefenseState:Execute->Incremento tiempo")
 				m_ActionTime.Update(_ElapsedTime);
 			}
+			//m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 		}
 		// Si el player NO es atacable lo volvemos a preparar o a perseguir
 		else 
 		{
 			m_pRabbit->SetReceivedHitsXMinut(0);
-			m_pRabbit->GetLogicFSM()->RevertToPreviousState();		
-			//_CCharacter.logic_fsm:change_state(_CCharacter.attack_state)
+			m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetAttackState());		
+			m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());		
 		}
 	}
 
@@ -185,15 +191,15 @@ bool CRabbitDefenseState::OnMessage( CCharacter* _Character, const STelegram& _T
 		l_Front.Normalize();
 		l_Front = l_Front.RotateY(mathUtils::PiTimes(1.f));
 			
-		m_pRabbit->GetBehaviors()->GetFlee()->SetTarget(m_pRabbit->GetPlayer()->GetPosition());
+		//m_pRabbit->GetBehaviors()->GetFlee()->SetTarget(m_pRabbit->GetPlayer()->GetPosition());
 		// l_target = Vect3f(l_front.x,l_front.y,l_front.z):normalize(1)
 		// l_target = l_target * 2
 		// _CCharacter.behaviors.flee.target = l_target
 			
 		l_Front = m_pRabbit->GetSteeringEntity()->GetPosition() + l_Front * m_HitDistance;
 		// _CCharacter.behaviors.flee.target = l_front
+		m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
 		m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(l_Front);
-		// _CCharacter.steering_entity.velocity = Vect3f(0,0,0)
 					
 		// _CCharacter:move_to2( _CCharacter.steering_entity.velocity, _elapsed_time )
 
