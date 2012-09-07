@@ -1,12 +1,20 @@
 #include "RabbitTiredState.h"
 #include "Utils\BoostRandomHelper.h"
 
+// --- Per pintar l'estat enemic ---
+#include "DebugGUIManager.h"
+#include "DebugInfo\DebugRender.h"
+#include "LogRender\LogRender.h"
+#include "Core.h"
+// ---------------------------------
+
 #include "Characters\Enemies\Rabbit\Rabbit.h"
 
 #include "RabbitPursuitState.h"
 #include "RabbitHitState.h"
 
 #include "RabbitIdleAnimationState.h"
+#include "RabbitIdle2AnimationState.h"
 #include "RabbitHitAnimationState.h"
 
 #include "Steering Behaviors\SteeringEntity.h"
@@ -23,7 +31,7 @@
 // -----------------------------------------
 CRabbitTiredState::CRabbitTiredState( void )
 	: CState		("CRabbitTiredState")
-	, m_ActionTime	( CActionStateCallback( 0.2f, 0.5f ) )
+	, m_ActionTime	( CActionStateCallback( 0.5f, 1.f ) )
 	, m_pRabbit		( NULL )
 {
 }
@@ -53,7 +61,26 @@ void CRabbitTiredState::OnEnter( CCharacter* _Character )
 	}
 
 	m_ActionTime.StartAction();
+	int l_Valor = BoostRandomHelper::GetInt(1, 3);
+	// Me gusta darle doble opción al idle 2... 
+	/*if ( l_Valor == 1 || l_Valor == 2 ) 
+	{
+		m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdle2AnimationState());
+	}
+	else
+	{*/
+		m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());
+	//}
+
+	LOGGER->AddNewLog(ELL_INFORMATION, "Valor : %d", l_Valor);
+	#if defined _DEBUG
+		if( CORE->IsDebugMode() )
+		{
+			CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Fatigued");
+		}
+	#endif
 }
+
 
 void CRabbitTiredState::Execute( CCharacter* _Character, float _ElapsedTime )
 {
@@ -67,12 +94,13 @@ void CRabbitTiredState::Execute( CCharacter* _Character, float _ElapsedTime )
 		// restauramos la variable que determina si está cansado
 		m_pRabbit->SetHitsDone(0);
 		m_pRabbit->GetLogicFSM()->RevertToPreviousState();
+		//m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());
 	}
 
 	m_ActionTime.Update(_ElapsedTime);
 
 	// Mentre espero miro al player
-	_Character->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime);
+	m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime);
 }
 
 

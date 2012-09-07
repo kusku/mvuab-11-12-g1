@@ -38,12 +38,16 @@ public:
 
 	//----Members ---------------------------------------------
 private:
-	CRabbit					  * m_pRabbit;
-	CAnimationCallback		  *	m_pAnimationCallback;
+	CRabbit				*	m_pRabbit;
+	CAnimationCallback	*	m_pAnimationCallback;
 
-	float						m_OldMaxSpeed;			// Permite almacenar la vieja velocidad para posteriormente recuperarla
-	float						m_OldMass;				// Permite almacenar la vieja masa para posteriormente recuperarla
-	float						m_CurrentDistance;		// Permite alamacenar la distancia para saber si luego nos pasamos
+	float					m_OldMaxSpeed;			// Permite almacenar la vieja velocidad para posteriormente recuperarla
+	float					m_OldMass;				// Permite almacenar la vieja masa para posteriormente recuperarla
+	float					m_CurrentDistance;		// Permite alamacenar la distancia para saber si luego nos pasamos
+
+	float					m_CurrentDuration;
+	float					m_AnimationDuration;
+
 };
 
 

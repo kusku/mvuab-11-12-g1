@@ -1,6 +1,13 @@
 #include "RabbitPreparedToAttackState.h"
 #include "Utils\BoostRandomHelper.h"
 
+// --- Per pintar l'estat enemic ---
+#include "DebugGUIManager.h"
+#include "DebugInfo\DebugRender.h"
+#include "LogRender\LogRender.h"
+#include "Core.h"
+// ---------------------------------
+
 #include "Characters\Enemies\Rabbit\Rabbit.h"
 
 #include "RabbitPursuitState.h"
@@ -50,6 +57,13 @@ void CRabbitPreparedToAttackState::OnEnter( CCharacter* _Character )
 	{
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
+
+	#if defined _DEBUG
+		if( CORE->IsDebugMode() )
+		{
+			CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Prepared to attack");
+		}
+	#endif
 }
 
 void CRabbitPreparedToAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
@@ -66,19 +80,32 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _Character, float _Elaps
 		m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
 		m_pRabbit->SetHitsDone(2);		// Esto permite hacer una pausa al entrar en el estado de ataque antes de atacar por obligar estar fatigado y permitir ver al player qué va a hacer el enemigo
 		m_pRabbit->GetLogicFSM()->ChangeState( m_pRabbit->GetAttackState() );
+		#if defined _DEBUG
+			if( CORE->IsDebugMode() )
+			{
+				CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Prepared-Atacable");
+			}
+		#endif
 	}
 	
 	// 2) Si el player NO es atacable pero casi nos aproximamos. Buscamos el hueco que no col·lisione con nada.
 	else if ( m_pRabbit->IsEnemyPreparedToAttack() ) 
 	{
-		// Si el player puede atacar porque és uno de los más cercanos pero aun no és el elegido
+		// Si el player puede atacar porque és uno de los más cercanos pero aun no és el elegido (el que realmente ataca ya que solo ataca 1)
 		if ( m_pRabbit->GetReadyToAttack() ) 
 		{
 			// Este enemigo puede atacar. Ahora miro si está dentro del angulo de vision pero no es el elegido para atacar. Por tanto, vamos hacia el player para tener opciones de ser
 			// el elegido para atacar
-			float l_Angle = 15.f;			//math.pi/15		// 12 graus de fustrum
+			float l_Angle = 60.f;			//math.pi/15		// 12 graus de fustrum
 			m_pRabbit->GoInToFrustrum(l_Angle, _ElapsedTime);
-			m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetWalkAnimationState());
+			//m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetWalkAnimationState());		// dudo de si uno u otro. Faltan pasos laterales...
+			m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetRunAnimationState());
+			#if defined _DEBUG
+				if( CORE->IsDebugMode() )
+				{
+					CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Prepared-Walk");
+				}
+			#endif
 		}
 		// Si el enemigo no está listo para atacar ya que està más lejos que los que deben atacar. Reseteamos velocidad y encaramos al player
 		else
@@ -87,6 +114,12 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _Character, float _Elaps
 			m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());
 			m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime);
 			m_pRabbit->MoveTo2(m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
+			#if defined _DEBUG
+				if( CORE->IsDebugMode() )
+				{
+					CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Not Ready-Too far");
+				}
+			#endif
 		}
 	}
 	else

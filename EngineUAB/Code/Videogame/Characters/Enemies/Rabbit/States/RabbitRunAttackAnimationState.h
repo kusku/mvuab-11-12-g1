@@ -39,6 +39,8 @@ public:
 	//----Members ---------------------------------------------
 private:
 	CRabbit *		m_pRabbit;
+	float			m_AnimationDuration;
+	float			m_Currentduration;
 
 };
 
