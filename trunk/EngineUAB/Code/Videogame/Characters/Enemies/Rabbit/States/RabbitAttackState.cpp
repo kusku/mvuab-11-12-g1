@@ -1,6 +1,13 @@
 #include "RabbitAttackState.h"
 #include "Utils\BoostRandomHelper.h"
 
+// --- Per pintar l'estat enemic ---
+#include "DebugGUIManager.h"
+#include "DebugInfo\DebugRender.h"
+#include "LogRender\LogRender.h"
+#include "Core.h"
+// ---------------------------------
+
 #include "Characters\StatesDefs.h"
 #include "Characters\Enemies\Rabbit\Rabbit.h"
 #include "Characters\Character.h"
@@ -14,6 +21,8 @@
 
 #include "RabbitHitAnimationState.h"
 #include "RabbitIdle2AnimationState.h"
+#include "RabbitIdleAnimationState.h"
+#include "RabbitDefenseAnimationState.h"
 
 #include "Steering Behaviors\SteeringEntity.h"
 #include "Steering Behaviors\SteeringBehaviors.h"
@@ -66,6 +75,13 @@ void CRabbitAttackState::OnEnter( CCharacter* _Character )
 	m_pRabbit->GetBehaviors()->SeparationOn();
 	m_pRabbit->GetBehaviors()->CollisionAvoidanceOn();
 	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOn();
+
+	#if defined _DEBUG
+		if( CORE->IsDebugMode() )
+		{
+			CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Attack");
+		}
+	#endif
 }
 
 void CRabbitAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
@@ -77,20 +93,22 @@ void CRabbitAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 
 	if ( m_pRabbit->IsPlayerAtacable() ) 
 	{
+		// si venimos del anterior estado haremos una pausa
 		if  ( m_pRabbit->IsFatigued() )
 		{
-			// print_logger (1, "fatigat després de fer n cops seguits...")
+			LOGGER->AddNewLog(ELL_INFORMATION, "CRabbitAttackState::Execute->Is fatigued");
 			m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetTiredState());
 		}
 		else if ( m_pRabbit->GetReceivedHitsXMinut() == m_pRabbit->GetTotalReceivedHitsXMinut() ) 
 		{
-			// print_logger (1, "	hits x minut rebuts i per tant bloquejaré...")
+			LOGGER->AddNewLog(ELL_INFORMATION, "CRabbitAttackState::Execute->hits x minut rebuts i per tant bloquejaré...");
 			m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetDefenseState());
+			m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetDefenseAnimationState());
 		}
 		else 
 		{
 			std::string l_ActiveActionState = GetRandomAttackName();
-			// print_logger ( 0, "Attack Random Sel·leccionat "..l_ActiveActionState ) 
+			LOGGER->AddNewLog(ELL_INFORMATION, "CRabbitAttackState::Execute->Attack Random Sel·leccionat %s", l_ActiveActionState.c_str());
 				
 			if ( l_ActiveActionState == STILL_ATTACK_STATE ) 
 			{
@@ -102,14 +120,14 @@ void CRabbitAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 			}	
 			else if ( l_ActiveActionState == DEFENSE_STATE ) 
 			{
-				m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetDefenseState());
+				//m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetDefenseState());
 			}		
 			// else if ( l_ActiveActionState == "jump" ) then
 				// _CCharacter.logic_fsm:change_state(_CCharacter.jump_state)
 			else if ( l_ActiveActionState == "go_in_to_fustrum" ) 
 			{
 				float l_Angle = 22.f;		// 22,5 graus de fustrum
-				m_pRabbit->GoInToFrustrum(l_Angle, _ElapsedTime);
+				//m_pRabbit->GoInToFrustrum(l_Angle, _ElapsedTime);
 			}
 		} 	// End fatigue
 	}	

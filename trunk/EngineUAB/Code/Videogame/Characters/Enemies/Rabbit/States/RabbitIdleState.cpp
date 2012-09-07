@@ -1,6 +1,14 @@
 #include "RabbitIdleState.h"
 #include "Utils\BoostRandomHelper.h"
 
+// --- Per pintar l'estat enemic ---
+#include "DebugGUIManager.h"
+#include "DebugInfo\DebugRender.h"
+#include "LogRender\LogRender.h"
+#include "Core.h"
+// ---------------------------------
+
+#include "Characters\StatesDefs.h"
 #include "Characters\Enemies\Rabbit\Rabbit.h"
 
 #include "RabbitPursuitState.h"
@@ -53,6 +61,12 @@ void CRabbitIdleState::OnEnter( CCharacter* _Character )
 	}
 	
 	m_ActionTime.StartAction();
+	#if defined _DEBUG
+		if( CORE->IsDebugMode() )
+		{
+			CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Idle state");
+		}
+	#endif
 }
 
 void CRabbitIdleState::Execute( CCharacter* _Character, float _ElapsedTime )
@@ -76,11 +90,23 @@ void CRabbitIdleState::Execute( CCharacter* _Character, float _ElapsedTime )
 			{
 				//CState<CCharacter> * l_State = dynamic_cast<CState<CCharacter>*> (m_pRabbit->GetIdleAnimationState());
 				m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());
+				#if defined _DEBUG
+					if( CORE->IsDebugMode() )
+					{
+						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName(IDLE_STATE);
+					}
+				#endif
 			}
 			else
 			{
 				//CState<CCharacter> * l_State = dynamic_cast<CState<CCharacter>*> (m_pRabbit->GetIdle2AnimationState());
 				m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdle2AnimationState());
+				#if defined _DEBUG
+					if( CORE->IsDebugMode() )
+					{
+						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName(IDLE2_STATE);
+					}
+				#endif
 			}
 
 			// pillamos un tiempo de ejecución aleatorio

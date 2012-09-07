@@ -13,6 +13,13 @@
 #include "Steering Behaviors\Pursuit.h"
 #include "Steering Behaviors\Seek.h"
 
+// --- Per pintar l'estat enemic ---
+#include "DebugGUIManager.h"
+#include "DebugInfo\DebugRender.h"
+#include "LogRender\LogRender.h"
+#include "Core.h"
+// ---------------------------------
+
 #if defined(_DEBUG)
 	#include "Memory\MemLeaks.h"
 #endif
@@ -60,6 +67,12 @@ void CRabbitPursuitState::OnEnter( CCharacter* _Character )
 	// _Character->GetBehaviors()->separation_on()
 	// _Character->GetBehaviors()->collision_avoidance_on()
 	// _Character->GetBehaviors()->obstacle_wall_avoidance_on()
+	#if defined _DEBUG
+		if( CORE->IsDebugMode() )
+		{
+			CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Pursuit");
+		}
+	#endif
 }
 
 void CRabbitPursuitState::Execute( CCharacter* _Character, float _ElapsedTime )

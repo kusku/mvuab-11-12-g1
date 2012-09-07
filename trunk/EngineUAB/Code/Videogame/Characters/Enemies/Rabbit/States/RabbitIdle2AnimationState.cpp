@@ -27,7 +27,7 @@ CRabbitIdle2AnimationState::~CRabbitIdle2AnimationState(void)
 {
 	if (m_pRabbit)
 	{
-		int l_Num = m_pRabbit->GetAnimationID(HIT_STATE);
+		int l_Num = m_pRabbit->GetAnimationID(IDLE2_STATE);
 		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
 	}
 	m_pRabbit = NULL;
