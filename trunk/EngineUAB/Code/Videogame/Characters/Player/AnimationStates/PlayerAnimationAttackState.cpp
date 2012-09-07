@@ -19,7 +19,7 @@ CPlayerAnimationAttackState::~CPlayerAnimationAttackState()
 
 void CPlayerAnimationAttackState::OnEnter( CCharacter* _pCharacter )
 {
-	int l_iAnimID = _pCharacter->GetAnimationID("idle");
+	int l_iAnimID = _pCharacter->GetAnimationID("attackfinal1");
 	_pCharacter->GetAnimatedModel()->BlendCycle(l_iAnimID, 0.1f);
 
 	l_iAnimID = _pCharacter->GetAnimationID("attack1");
@@ -33,7 +33,7 @@ void CPlayerAnimationAttackState::Execute( CCharacter* _pCharacter, float _fElap
 
 void CPlayerAnimationAttackState::OnExit( CCharacter* _pCharacter )
 {
-	int l_iAnimID = _pCharacter->GetAnimationID("idle");
+	int l_iAnimID = _pCharacter->GetAnimationID("attackfinal1");
 	_pCharacter->GetAnimatedModel()->ClearCycle(l_iAnimID, 0.1f);
 }
 
