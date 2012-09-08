@@ -23,6 +23,10 @@
 CPlayerAttack3State::CPlayerAttack3State( const std::string &_Name )
 	: CState(_Name)
 	, m_bFirstUpdate(true)
+	, m_fMaxVelocityMovement(10.f)
+	, m_fCurrentVelocityMovement(10.f)
+	, m_fAccelerationMovement(-40.f)
+	, m_fAttackYaw(0.f)
 {
 	m_pCallback = static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager()->GetCallback("attack3");
 }
@@ -41,7 +45,26 @@ void CPlayerAttack3State::OnEnter( CCharacter* _pCharacter )
 	}
 #endif
 
+	//Calcula el ángulo a moverse
+	CAnimatedInstanceModel *l_pAnimatedModel = _pCharacter->GetAnimatedModel();
+
+	float l_fYaw	= l_pAnimatedModel->GetYaw();
+	l_fYaw			= mathUtils::Deg2Rad( l_fYaw - 90.f );
+
+	if( !_pCharacter->GetLocked() )
+	{
+		l_fYaw		= CalculateAngleMovement( _pCharacter, l_fYaw );
+	}
+
+	_pCharacter->GetController()->SetYaw( l_fYaw );
+	l_pAnimatedModel->SetYaw( -mathUtils::Rad2Deg(l_fYaw) + 90.f );
+	m_fAttackYaw = l_fYaw;
+
+	//Inicia el callback
 	m_pCallback->StartAnimation();
+
+	//Establece los valores para la ejecución
+	m_fCurrentVelocityMovement = m_fMaxVelocityMovement;
 	m_bFirstUpdate = true;
 }
 
@@ -76,23 +99,25 @@ void CPlayerAttack3State::Execute( CCharacter* _pCharacter, float _fElapsedTime 
 	}
 
 	//Movimiento del player hacia adelante
-	Vect3f l_Dir = v3fZERO;
+	Vect3f l_Dir	= v3fZERO;
 	if( !_pCharacter->GetLocked() )
 	{
-		if(CORE->GetActionToInput()->DoAction("MovePlayerUp") )
-		{
-			l_Dir = Vect3f( mathUtils::Cos<float>( _pCharacter->GetYaw() ), 0.f, mathUtils::Sin<float>( _pCharacter->GetYaw() ));
-		}
+		l_Dir		= Vect3f( mathUtils::Cos<float>( m_fAttackYaw ), 0.f, mathUtils::Sin<float>( m_fAttackYaw ) );
 	}
 
 	//Aplica la velocidad al movimiento
-	l_Dir = l_Dir * 2.0f * _fElapsedTime;
+	l_Dir = l_Dir * m_fCurrentVelocityMovement * _fElapsedTime;
 
 	//Mueve el controller físico
 	CPhysicController *l_pController = _pCharacter->GetController();
 	l_pController->Move( l_Dir, _fElapsedTime );
 
-	l_pController->SetYaw( _pCharacter->GetYaw() );
+	//Actualiza la velocidad de movimiento
+	m_fCurrentVelocityMovement = m_fCurrentVelocityMovement + m_fAccelerationMovement * _fElapsedTime;
+	if( m_fCurrentVelocityMovement < 0.f )
+	{
+		m_fCurrentVelocityMovement = 0.f;
+	}
 }
 
 void CPlayerAttack3State::OnExit( CCharacter* _pCharacter )
@@ -125,4 +150,47 @@ bool CPlayerAttack3State::OnMessage( CCharacter* _pCharacter, const STelegram& _
 	}
 
 	return false;
+}
+
+float CPlayerAttack3State::CalculateAngleMovement( CCharacter *_pCharacter, float _fAngle )
+{
+	CActionToInput *l_pInput = CORE->GetActionToInput();
+
+	if( l_pInput->DoAction("MovePlayerUp") )
+	{
+		_fAngle = _pCharacter->GetYaw();
+		if( l_pInput->DoAction("MovePlayerLeft") )
+		{
+			_fAngle += FLOAT_PI_VALUE / 4.f;
+		}
+		else if( l_pInput->DoAction("MovePlayerRight") )
+		{
+			_fAngle -= FLOAT_PI_VALUE / 4.f;
+		}
+	}
+	else if( l_pInput->DoAction("MovePlayerDown") )
+	{
+		_fAngle = _pCharacter->GetYaw();
+		_fAngle -= FLOAT_PI_VALUE;
+		if( l_pInput->DoAction("MovePlayerLeft") )
+		{
+			_fAngle -= FLOAT_PI_VALUE / 4.f;
+		}
+		else if( l_pInput->DoAction("MovePlayerRight") )
+		{
+			_fAngle += FLOAT_PI_VALUE / 4.f;
+		}
+	}
+	else if( l_pInput->DoAction("MovePlayerLeft") )
+	{
+		_fAngle = _pCharacter->GetYaw();
+		_fAngle += FLOAT_PI_VALUE / 2.f;
+	}
+	else if( l_pInput->DoAction("MovePlayerRight") )
+	{
+		_fAngle = _pCharacter->GetYaw();
+		_fAngle -= FLOAT_PI_VALUE / 2.f;
+	}
+
+	return _fAngle;		
 }

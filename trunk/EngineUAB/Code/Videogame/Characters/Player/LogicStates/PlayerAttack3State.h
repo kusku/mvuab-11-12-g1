@@ -23,9 +23,16 @@ public:
 	bool	OnMessage	(  CCharacter* _pCharacter,  const STelegram& _Message );
 
 private:
+	float	CalculateAngleMovement( CCharacter *_pCharacter, float _fAngle );
+
+private:
 	CAnimationCallback	*m_pCallback;
 
 	bool				m_bFirstUpdate;
+	float				m_fMaxVelocityMovement;
+	float				m_fCurrentVelocityMovement;
+	float				m_fAccelerationMovement;
+	float				m_fAttackYaw;
 };
 
 #endif //_PLAYER_ATTACK_3_STATE_H_

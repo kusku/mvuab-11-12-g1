@@ -26,6 +26,9 @@ private:
 	CAnimationCallback	*m_pCallback;
 
 	bool				m_bFirstUpdate;
+	float				m_fMaxVelocityMovement;
+	float				m_fCurrentVelocityMovement;
+	float				m_fAccelerationMovement;
 };
 
 #endif //_PLAYER_TARGET_ATTACK_2_STATE_H_
