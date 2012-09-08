@@ -29,6 +29,7 @@
 #include "States\RabbitDefenseState.h"
 #include "States\RabbitStillAttackState.h"
 #include "States\RabbitRunAttackState.h"
+#include "States\RabbitDeathState.h"
 
 #include "States\RabbitIdleAnimationState.h"
 #include "States\RabbitIdle2AnimationState.h"
@@ -61,6 +62,7 @@ CRabbit::CRabbit( int _Id )
 	, m_pDefenseState				( NULL )
 	, m_pStillAttack				( NULL )
 	, m_pRunAttack					( NULL )
+	, m_pDeathState					( NULL )
 	, m_pAnimationIdleState 		( NULL )
 	, m_pAnimationIdle2State 		( NULL )
 	, m_pAnimationRunState 			( NULL )
@@ -90,6 +92,7 @@ CRabbit::CRabbit( int _Id, std::string _Name )
 	, m_pDefenseState				( NULL )
 	, m_pStillAttack				( NULL )
 	, m_pRunAttack					( NULL )
+	, m_pDeathState					( NULL )
 	, m_pAnimationIdleState 		( NULL )
 	, m_pAnimationIdle2State 		( NULL )
 	, m_pAnimationRunState 			( NULL )
@@ -117,7 +120,8 @@ CRabbit::~CRabbit(void)
 	CHECKED_DELETE ( m_pDefenseState );
 	CHECKED_DELETE ( m_pStillAttack );
 	CHECKED_DELETE ( m_pRunAttack );
-
+	CHECKED_DELETE ( m_pDeathState );
+	
 	// Estados animados
 	CHECKED_DELETE ( m_pAnimationIdleState );
 	CHECKED_DELETE ( m_pAnimationIdle2State );
@@ -191,6 +195,7 @@ void CRabbit::CreateCallbacks(void)
 	l_Process->GetAnimationCallbackManager()->CreateCallback(HIT_STATE, this->GetAnimatedModel());
 	l_Process->GetAnimationCallbackManager()->CreateCallback(STILL_ATTACK_STATE, this->GetAnimatedModel());
 	l_Process->GetAnimationCallbackManager()->CreateCallback(RUN_ATTACK_STATE, this->GetAnimatedModel());
+	l_Process->GetAnimationCallbackManager()->CreateCallback(DEATH_STATE, this->GetAnimatedModel());
 }
 
 void CRabbit::LoadGraphicStates( void )
@@ -222,7 +227,7 @@ void CRabbit::LoadLogicStates( void )
 	m_pDefenseState				= new CRabbitDefenseState();
 	m_pStillAttack				= new CRabbitStillAttackState();
 	m_pRunAttack				= new CRabbitRunAttackState();
-
+	m_pDeathState				= new CRabbitDeathState();
 	return;
 }
 
@@ -234,3 +239,7 @@ bool CRabbit::IsFatigued( void )
 	return m_HitsDone == m_TotalHitsDoneToTired;
 }
 
+void CRabbit::BeDead( void )
+{
+	this->GetLogicFSM()->ChangeState(GetDeathState());
+}

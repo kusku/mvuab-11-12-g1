@@ -1,5 +1,7 @@
 #include "RabbitPreparedToAttackState.h"
 #include "Utils\BoostRandomHelper.h"
+#include "Utils\Random.h"
+#include "GameProcess.h"
 
 // --- Per pintar l'estat enemic ---
 #include "DebugGUIManager.h"
@@ -138,9 +140,21 @@ bool CRabbitPreparedToAttackState::OnMessage( CCharacter* _Character, const STel
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
-		//CState<CCharacter> * l_State = dynamic_cast<CState<CCharacter>*> (m_pRabbit->GetHitAnimationState());
-		_Character->GetLogicFSM()->ChangeState(m_pRabbit->GetHitState());
-		_Character->GetGraphicFSM()->ChangeState(m_pRabbit->GetHitAnimationState());
+		// TODO!!
+		/*CRandom	l_Randomize;
+
+		CCharacter *l_pPlayer	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->GetCharacterById(_Telegram.Sender);
+		float l_fReceivedPain	= l_Randomize.getRandFloat( (float)(l_pPlayer->GetProperties()->GetStrong() / 2), (float)l_pPlayer->GetProperties()->GetStrong());
+		float l_fPainToHit		= l_pPlayer->GetProperties()->GetStrong() * 0.95f;*/
+
+		m_pRabbit->RestLife(100); 
+
+		/*if( l_fReceivedPain >= l_fPainToHit )
+		{
+			m_pRabbit->RestLife(10000); 
+		}*/
+
+		m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetHitState());
 		return true;
 	}
 

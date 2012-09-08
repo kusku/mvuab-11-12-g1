@@ -24,6 +24,7 @@ public:
 
 	void			SetTargetFixed	( bool fix )		{ m_bIsTargetFixed = fix; }
 	bool			IsTargetFixed	() const			{ return m_bIsTargetFixed; }
+	void			BeDead			();
 
 private:
 	void			CreateCallbacks	();

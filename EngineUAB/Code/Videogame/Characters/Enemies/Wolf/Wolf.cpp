@@ -232,15 +232,10 @@ void CWolf::LoadLogicStates( void )
 // -----------------------------------------
 bool CWolf::IsFatigued( void )
 {
-	// print_logger ( 1, "hits done : ".._CCharacter.hits_done.." and hits let : ".._CCharacter.total_hits_done_to_tired)
-	if ( m_HitsDone == m_TotalHitsDoneToTired ) 
-	{
-		m_HitsDone = 0;
-		return true;
-	}	
-	else 
-	{
-		return false;
-	}
+	return m_HitsDone == m_TotalHitsDoneToTired;
 }
 
+void CWolf::BeDead( void )
+{
+	//this->GetLogicFSM()->ChangeState(GetDeathState());
+}

@@ -131,6 +131,8 @@ public:
 	
 	CCharacter *				GetPlayer			( void );
 
+	virtual void				BeDead				( void ) = 0;
+
 	//----Members ---------------------------------------------
 private:
 	bool							m_bIsOk;

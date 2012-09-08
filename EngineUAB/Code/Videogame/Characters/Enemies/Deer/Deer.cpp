@@ -215,3 +215,7 @@ bool CDeer::IsFatigued( void )
 	return m_HitsDone == m_TotalHitsDoneToTired;
 }
 
+void CDeer::BeDead( void )
+{
+	//this->GetLogicFSM()->ChangeState(GetDeathState());
+}

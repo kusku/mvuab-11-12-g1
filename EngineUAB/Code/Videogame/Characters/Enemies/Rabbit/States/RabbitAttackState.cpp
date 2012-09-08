@@ -18,6 +18,7 @@
 #include "RabbitDefenseState.h"
 #include "RabbitStillAttackState.h"
 #include "RabbitRunAttackState.h"
+#include "RabbitHitState.h"
 
 #include "RabbitHitAnimationState.h"
 #include "RabbitIdle2AnimationState.h"
@@ -154,8 +155,8 @@ bool CRabbitAttackState::OnMessage( CCharacter* _Character, const STelegram& _Te
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
-		// _Character->GetLogicFSM()->ChangeState(m_pRabbit->GetHitState());
-		m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetHitAnimationState());
+		m_pRabbit->RestLife(100); 
+		m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetHitState());
 		return true;
 	}
 

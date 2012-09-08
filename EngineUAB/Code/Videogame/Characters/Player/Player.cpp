@@ -261,3 +261,9 @@ void CPlayer::CreateCallbacks()
 	l_pCallbackManager->CreateCallback("hit", m_pCurrentAnimatedModel);
 	l_pCallbackManager->CreateCallback("jump", m_pCurrentAnimatedModel);
 }
+
+// Jordi: Este método me permite hacer todo lo necesario cuando está muerto el caracter.
+void CPlayer::BeDead()
+{
+	return;
+}

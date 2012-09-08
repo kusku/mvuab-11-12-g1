@@ -49,6 +49,7 @@ public:
 
 	//----Methods ---------------------------------------------
 	bool			IsFatigued			( void );
+	void			BeDead				( void );
 
 	//----Properties ------------------------------------------
 	CDeerIdleState *					GetIdleState					( void ) const			{ return m_pIdleState; }

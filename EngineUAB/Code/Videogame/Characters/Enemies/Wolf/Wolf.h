@@ -53,6 +53,7 @@ public:
 
 	//----Methods ---------------------------------------------
 	bool			IsFatigued			( void );
+	void			BeDead				( void );
 
 	//----Properties ------------------------------------------
 	CWolfIdleState *					GetIdleState					( void ) const			{ return m_pIdleState; }

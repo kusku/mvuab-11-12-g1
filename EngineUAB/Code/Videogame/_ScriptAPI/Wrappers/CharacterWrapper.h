@@ -61,6 +61,11 @@ struct CCharacter_Wrapper: CCharacter, luabind::wrap_base
 	{
 		ptr->CCharacter::UpdatePlayer(_ElapsedTime);
 	}
+
+	virtual void BeDead()
+	{
+		 call<void>("bedead");
+	}
 };
 
 

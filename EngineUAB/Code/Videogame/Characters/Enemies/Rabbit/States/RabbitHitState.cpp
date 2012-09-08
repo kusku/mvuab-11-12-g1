@@ -15,6 +15,7 @@
 #include "Characters\StatesDefs.h"
 
 #include "RabbitIdleState.h"
+#include "RabbitDeathState.h"
 
 #include "RabbitHitAnimationState.h"
 #include "RabbitIdleAnimationState.h"
@@ -100,8 +101,19 @@ void CRabbitHitState::Execute( CCharacter* _Character, float _ElapsedTime )
 
 	if ( m_pActionState->IsActionFinished() )
 	{
-		m_pRabbit->GetLogicFSM()->RevertToPreviousState();
-		m_pRabbit->GetGraphicFSM()->RevertToPreviousState();
+		/*m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetIdleState());
+		m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());*/
+
+		if ( m_pRabbit->IsAlive() ) 
+		{
+			m_pRabbit->GetLogicFSM()->RevertToPreviousState();
+			m_pRabbit->GetGraphicFSM()->RevertToPreviousState();
+		}
+		//else
+		/*{
+			m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetDeathState());
+		}*/
+		
 	}
 	else
 	{
