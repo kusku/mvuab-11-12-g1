@@ -22,6 +22,7 @@
 
 CPlayerAttack2State::CPlayerAttack2State( const std::string &_Name )
 	: CState(_Name)
+	, m_bFirstUpdate(true)
 {
 	m_pCallback = static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager()->GetCallback("attack2");
 }
@@ -41,10 +42,17 @@ void CPlayerAttack2State::OnEnter( CCharacter* _pCharacter )
 #endif
 
 	m_pCallback->StartAnimation();
+	m_bFirstUpdate = true;
 }
 
 void CPlayerAttack2State::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 {
+	if( m_bFirstUpdate )
+	{
+		CORE->GetSoundManager()->PlayEvent("Play_EFX_Sword");
+		m_bFirstUpdate = false;
+	}
+
 	if( m_pCallback->IsAnimationFinished() )
 	{
 		if( CORE->GetActionToInput()->DoAction("AttackPlayer") )
@@ -89,8 +97,6 @@ void CPlayerAttack2State::Execute( CCharacter* _pCharacter, float _fElapsedTime 
 
 void CPlayerAttack2State::OnExit( CCharacter* _pCharacter  )
 {
-	CORE->GetSoundManager()->PlayEvent("Play_EFX_Sword");
-
 	Vect3f l_Front			= _pCharacter->GetAnimatedModel()->GetFront();
 	CCharacter *l_pEnemy	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->SearchTargetEnemy(3.0f, FLOAT_PI_VALUE / 6.f, l_Front);
 
