@@ -147,13 +147,17 @@ bool CRabbitPreparedToAttackState::OnMessage( CCharacter* _Character, const STel
 		float l_fReceivedPain	= l_Randomize.getRandFloat( (float)(l_pPlayer->GetProperties()->GetStrong() / 2), (float)l_pPlayer->GetProperties()->GetStrong());
 		float l_fPainToHit		= l_pPlayer->GetProperties()->GetStrong() * 0.95f;*/
 
-		m_pRabbit->RestLife(100); 
-
 		/*if( l_fReceivedPain >= l_fPainToHit )
 		{
 			m_pRabbit->RestLife(10000); 
 		}*/
 
+		if (!m_pRabbit) 
+		{
+			m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		}
+
+		m_pRabbit->RestLife(1000); 
 		m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetHitState());
 		return true;
 	}
