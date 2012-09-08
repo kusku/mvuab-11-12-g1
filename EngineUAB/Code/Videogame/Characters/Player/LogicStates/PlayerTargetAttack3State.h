@@ -24,6 +24,8 @@ public:
 
 private:
 	CAnimationCallback	*m_pCallback;
+
+	bool				m_bFirstUpdate;
 };
 
 #endif //_PLAYER_TARGET_ATTACK_3_STATE_H_
