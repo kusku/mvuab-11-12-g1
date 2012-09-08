@@ -23,6 +23,14 @@ public:
 
 private:
 	float	m_fRotationVelocity;
+	float	m_fAccelerationStart;
+	float	m_fAccelerationEnd;
+	float	m_fMaxVelocityMovement;
+	float	m_fCurrentVelocityMovement;
+
+	bool	m_bStartState;
+	bool	m_bEndState;
+	Vect3f  m_LastDirection;
 };
 
 #endif //_PLAYER_RUN_STATE_H_

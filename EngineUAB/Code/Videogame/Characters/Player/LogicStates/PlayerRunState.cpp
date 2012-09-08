@@ -20,6 +20,13 @@
 CPlayerRunState::CPlayerRunState( const std::string &_Name )
 	: CState(_Name)
 	, m_fRotationVelocity(10.f)
+	, m_fMaxVelocityMovement(10.f)
+	, m_fCurrentVelocityMovement(0.f)
+	, m_fAccelerationStart(30.f)
+	, m_fAccelerationEnd(65.f)
+	, m_bStartState(true)
+	, m_bEndState(false)
+	, m_LastDirection(v3fZERO)
 {
 
 }
@@ -37,6 +44,11 @@ void CPlayerRunState::OnEnter( CCharacter* _pCharacter )
 		CORE->GetDebugGUIManager()->GetDebugRender()->SetStateName("Run");
 	}
 #endif
+
+	m_LastDirection				= v3fZERO;
+	m_fCurrentVelocityMovement	= 0.f;
+	m_bStartState				= true;
+	m_bEndState					= false;
 }
 
 void CPlayerRunState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
@@ -120,10 +132,37 @@ void CPlayerRunState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 		if( l_bMovePlayer )
 		{
 			l_Dir = Vect3f( mathUtils::Cos<float>(l_fYaw), 0.f, mathUtils::Sin<float>(l_fYaw) );
+			m_LastDirection = l_Dir;
+		}
+		else
+		{
+			l_Dir = m_LastDirection;
+			m_bEndState = true;
 		}
 
+
 		//La aplica la velocidad al movimiento
-		l_Dir = l_Dir * 10.f * _fElapsedTime;
+		if( m_bStartState )
+		{
+			m_fCurrentVelocityMovement = m_fCurrentVelocityMovement + m_fAccelerationStart * _fElapsedTime;
+			if( m_fCurrentVelocityMovement >= m_fMaxVelocityMovement )
+			{
+				m_fCurrentVelocityMovement = m_fMaxVelocityMovement;
+				m_bStartState = false;
+			}
+		}
+		else if( m_bEndState )
+		{
+			m_fCurrentVelocityMovement = m_fCurrentVelocityMovement - m_fAccelerationEnd * _fElapsedTime;
+			if( m_fCurrentVelocityMovement <= 0.f )
+			{
+				m_fCurrentVelocityMovement = 0.f;
+				m_bEndState = false;
+			}
+		}
+		
+		
+		l_Dir = l_Dir * m_fCurrentVelocityMovement * _fElapsedTime;
 
 		//Mueve el controller físico
 		_pCharacter->GetController()->Move( l_Dir, _fElapsedTime );
@@ -141,7 +180,7 @@ void CPlayerRunState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 				_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animjump") );
 			}
 		}
-		else
+		else if( !l_bMovePlayer && !m_bEndState )
 		{
 			_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("idle") );
 			_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animidle") );

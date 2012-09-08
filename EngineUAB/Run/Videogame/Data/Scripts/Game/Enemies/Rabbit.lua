@@ -343,6 +343,8 @@ class 'CRabbit' (CCharacter)
 		-- if (self.steering_entity:is_smoothing_on()) then
 			-- self.steering_entity.smoothing_heading = self.steering_entity.heading_smoother:update(self.steering_entity.heading);
 		-- end
+		
+		--super = nil
 	end 
 	
 	-- ------------------------------
@@ -371,6 +373,8 @@ class 'CRabbit' (CCharacter)
 		
 		-- self:face_to( self.steering_entity.position, self.elapsed_time )
 		-- self:move_to2( self.steering_entity.velocity, self.elapsed_time )
+		
+		--super = nil
 	end
 	
 	-- ------------------------------
