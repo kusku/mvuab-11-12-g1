@@ -1,5 +1,6 @@
 #include "RabbitHitAnimationState.h"
 #include "Characters\StatesDefs.h"
+#include "StatesMachine\Telegram.h"
 #include "Characters\Enemies\Rabbit\Rabbit.h"
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 

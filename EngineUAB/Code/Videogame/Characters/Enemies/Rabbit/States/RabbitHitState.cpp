@@ -1,30 +1,36 @@
 #include "RabbitHitState.h"
-#include "Utils\BoostRandomHelper.h"
 #include "GameProcess.h"
+
+// --- Per pintar l'estat enemic ---
+#include "DebugGUIManager.h"
+#include "DebugInfo\DebugRender.h"
+#include "LogRender\LogRender.h"
+#include "Core.h"
+// ---------------------------------
+
+#include "StatesMachine\MessageDispatcher.h"
+#include "StatesMachine\Telegram.h"
+
+#include "Characters\Enemies\Rabbit\Rabbit.h"
+#include "Characters\StatesDefs.h"
+
+#include "RabbitIdleState.h"
+
+#include "RabbitHitAnimationState.h"
+#include "RabbitIdleAnimationState.h"
+
+#include "Steering Behaviors\SteeringEntity.h"
+#include "Steering Behaviors\SteeringBehaviors.h"
+
 #include "Callbacks\Animation\AnimationCallback.h"
 #include "Callbacks\Animation\AnimationCallbackManager.h"
 #include "Callbacks\State\ActionStateCallback.h"
 
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 
-#include "Characters\Enemies\Rabbit\Rabbit.h"
-#include "Characters\StatesDefs.h"
-
-#include "RabbitPursuitState.h"
-#include "RabbitPreparedToAttackState.h"
-#include "RabbitTiredState.h"
-
-#include "RabbitHitAnimationState.h"
-#include "RabbitIdle2AnimationState.h"
-
-#include "Steering Behaviors\SteeringEntity.h"
-#include "Steering Behaviors\SteeringBehaviors.h"
-
-
 #if defined(_DEBUG)
 	#include "Memory\MemLeaks.h"
 #endif
-
 
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR

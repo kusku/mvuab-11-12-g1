@@ -1,7 +1,7 @@
 #include "RabbitDeathAnimationState.h"
 #include "Characters\StatesDefs.h"
+#include "StatesMachine\Telegram.h"
 #include "Characters\Enemies\Rabbit\Rabbit.h"
-
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 
 #if defined(_DEBUG)
@@ -28,8 +28,8 @@ CRabbitDeathAnimationState::~CRabbitDeathAnimationState(void)
 {
 	if (m_pRabbit)
 	{
-		int l_Num = m_pRabbit->GetAnimationID(DEATH_STATE);
-		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+		/*int l_Num = m_pRabbit->GetAnimationID(DEATH_STATE);
+		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );*/
 	}
 	m_pRabbit = NULL;
 }
@@ -51,7 +51,7 @@ void CRabbitDeathAnimationState::OnEnter( CCharacter* _Character )
 	}
 
 	int l_Num = m_pRabbit->GetAnimationID(DEATH_STATE);
-	m_pRabbit->GetAnimatedModel()->BlendCycle( l_Num, 0.3f );
+	m_pRabbit->GetAnimatedModel()->ExecuteAction( l_Num, 0.3f );
 }
 
 void CRabbitDeathAnimationState::OnExit( CCharacter* _Character )
@@ -61,8 +61,8 @@ void CRabbitDeathAnimationState::OnExit( CCharacter* _Character )
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 
-	int l_Num = m_pRabbit->GetAnimationID(DEATH_STATE);
-	m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+	/*int l_Num = m_pRabbit->GetAnimationID(DEATH_STATE);
+	m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );*/
 }
 
 bool CRabbitDeathAnimationState::OnMessage( CCharacter*, const STelegram& _Telegram )
