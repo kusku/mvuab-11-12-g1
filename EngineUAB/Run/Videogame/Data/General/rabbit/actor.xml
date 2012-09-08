@@ -2,12 +2,17 @@
 	<skeleton filename="CNJO_Skeleton.CSF"/>
 	<mesh filename="CNJO_Mesh.CMF"/>
 	<animation name="idle" filename="CNJO_Idle.CAF"/>
+	<animation name="idle2" filename="CNJO_Idle_2.CAF"/>
 	<animation name="walk" filename="CNJO_Walk.CAF"/>
+	<animation name="right_lateral" filename="CNJO_PasoLateral_Derecha.CAF"/>
+	<animation name="left_lateral" filename="CNJO_PasoLateral_Izquierda.CAF"/>
 	<animation name="run" filename="CNJO_Run.CAF"/>
 	<animation name="attack_1" filename="CNJO_Attack_1.CAF"/>
 	<animation name="attack_2" filename="CNJO_Attack_2.CAF"/>
-	<animation name="deffense" filename="CNJO_Defense.CAF"/>
+	<animation name="defense" filename="CNJO_Defense.CAF"/>
 	<animation name="hit" filename="CNJO_Hit.CAF"/>
 	<animation name="jump" filename="CNJO_Jump.CAF"/>
-	<texture filename="DIF_conejoUV.dds"/>
+	<animation name="death" filename="CNJO_Death.CAF"/>
+	<texture filename="CNJO_Texture.dds"/>
+	<texture filename="CNJO_Texture_NRM.dds"/>
 </animated_model>
