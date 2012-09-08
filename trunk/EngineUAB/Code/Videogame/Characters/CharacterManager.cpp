@@ -190,12 +190,19 @@ void CCharactersManager::Update( float _ElapsedTime )
 			l_Character->UpdateIA( _ElapsedTime );
 			if ( !l_EnemyList[i]->IsAlive() )
 			{
-				CORE->GetParticleEmitterManager()->GetResource("Explosions")->SetPosition(l_EnemyList[i]->GetPosition());
+				if ( m_pTargetEnemy == l_EnemyList[i] )
+				{
+					m_pTargetEnemy = NULL;
+				}
+				if ( m_pPreviewTargetEnemy == l_EnemyList[i] )
+				{
+					m_pPreviewTargetEnemy = NULL;
+				}
+				l_EnemyList[i]->BeDead();
+
+				Vect3f l_Pos = l_EnemyList[i]->GetPosition();
+				CORE->GetParticleEmitterManager()->GetResource("Explosions")->SetPosition(l_Pos);
 				CORE->GetParticleEmitterManager()->GetResource("Explosions")->EjectParticles();
-				l_EnemyList[i]->SetEnable(false);
-				//CHECKED_DELETE(l_EnemyList[i]);
-				/*m_pTargetEnemy = NULL;
-				m_pPreviewTargetEnemy = NULL;*/
 			}
 		}
 	}

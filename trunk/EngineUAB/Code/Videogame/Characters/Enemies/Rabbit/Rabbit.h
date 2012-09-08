@@ -19,6 +19,7 @@ class CRabbitHitState;
 class CRabbitDefenseState;
 class CRabbitStillAttackState;
 class CRabbitRunAttackState;
+class CRabbitDeathState;
 
 // Estats animació 
 class CRabbitIdleAnimationState;
@@ -53,6 +54,7 @@ public:
 
 	//----Methods ---------------------------------------------
 	bool			IsFatigued			( void );
+	void			BeDead				( void );
 
 	//----Properties ------------------------------------------
 	CRabbitIdleState *					GetIdleState					( void ) const			{ return m_pIdleState; }
@@ -64,7 +66,8 @@ public:
 	CRabbitDefenseState *				GetDefenseState					( void ) const			{ return m_pDefenseState; }
 	CRabbitStillAttackState *			GetStillAttackState				( void ) const			{ return m_pStillAttack; }
 	CRabbitRunAttackState *				GetRunAttackState				( void ) const			{ return m_pRunAttack; }
-	
+	CRabbitDeathState *					GetDeathState					( void ) const			{ return m_pDeathState; }
+
 	CRabbitIdleAnimationState *			GetIdleAnimationState			( void ) const			{ return m_pAnimationIdleState; }
 	CRabbitIdle2AnimationState *		GetIdle2AnimationState			( void ) const			{ return m_pAnimationIdle2State; }
 	CRabbitRunAnimationState *			GetRunAnimationState			( void ) const			{ return m_pAnimationRunState; }
@@ -109,7 +112,7 @@ private:
 	CRabbitDefenseState					*	m_pDefenseState;
 	CRabbitStillAttackState				*	m_pStillAttack;
 	CRabbitRunAttackState				*	m_pRunAttack; 
-
+	CRabbitDeathState					*	m_pDeathState;
 
 	CRabbitIdleAnimationState			*	m_pAnimationIdleState;
 	CRabbitIdle2AnimationState			*	m_pAnimationIdle2State;

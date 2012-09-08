@@ -91,6 +91,15 @@
     <Filter Include="Characters\Enemies\Wolf\LogicStates">
       <UniqueIdentifier>{283e7469-c247-4a34-a298-fe129e0ca3ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Characters\Enemies\Deer">
+      <UniqueIdentifier>{c875898d-8234-4fb9-b4be-f9930a47b63d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\Enemies\Deer\AnimationStates">
+      <UniqueIdentifier>{e931c3bb-7f60-41bf-9c27-0571de59e67a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\Enemies\Deer\LogicStates">
+      <UniqueIdentifier>{bd33453e-5dce-4929-9bb6-60a21a2e35ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="videogame.cpp" />
@@ -341,6 +350,63 @@
     </ClCompile>
     <ClCompile Include="Characters\Enemies\Wolf\Wolf.cpp">
       <Filter>Characters\Enemies\Wolf</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Deer\Deer.cpp">
+      <Filter>Characters\Enemies\Deer</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Deer\LogicStates\DeerAttackState.cpp">
+      <Filter>Characters\Enemies\Deer\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Deer\LogicStates\DeerDefenseState.cpp">
+      <Filter>Characters\Enemies\Deer\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Deer\LogicStates\DeerHitState.cpp">
+      <Filter>Characters\Enemies\Deer\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Deer\LogicStates\DeerPreparedToAttackState.cpp">
+      <Filter>Characters\Enemies\Deer\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Deer\LogicStates\DeerPursuitState.cpp">
+      <Filter>Characters\Enemies\Deer\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Deer\LogicStates\DeerRunAttackState.cpp">
+      <Filter>Characters\Enemies\Deer\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Deer\LogicStates\DeerStillAttackState.cpp">
+      <Filter>Characters\Enemies\Deer\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Deer\LogicStates\DeerTiredState.cpp">
+      <Filter>Characters\Enemies\Deer\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Deer\AnimationStates\DeerDeathAnimationState.cpp">
+      <Filter>Characters\Enemies\Deer\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Deer\AnimationStates\DeerDefenseAnimationState.cpp">
+      <Filter>Characters\Enemies\Deer\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Deer\AnimationStates\DeerHitAnimationState.cpp">
+      <Filter>Characters\Enemies\Deer\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Deer\AnimationStates\DeerIdleAnimationState.cpp">
+      <Filter>Characters\Enemies\Deer\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Deer\AnimationStates\DeerRunAnimationState.cpp">
+      <Filter>Characters\Enemies\Deer\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Deer\AnimationStates\DeerRunAttackAnimationState.cpp">
+      <Filter>Characters\Enemies\Deer\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Deer\AnimationStates\DeerStillAttackAnimationState.cpp">
+      <Filter>Characters\Enemies\Deer\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Deer\AnimationStates\DeerWalkAnimationState.cpp">
+      <Filter>Characters\Enemies\Deer\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Deer\LogicStates\DeerIdleState.cpp">
+      <Filter>Characters\Enemies\Deer\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitDeathState.cpp">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -601,6 +667,63 @@
     </ClInclude>
     <ClInclude Include="Characters\Enemies\Wolf\Wolf.h">
       <Filter>Characters\Enemies\Wolf</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Deer\Deer.h">
+      <Filter>Characters\Enemies\Deer</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Deer\LogicStates\DeerAttackState.h">
+      <Filter>Characters\Enemies\Deer\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Deer\LogicStates\DeerDefenseState.h">
+      <Filter>Characters\Enemies\Deer\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Deer\LogicStates\DeerHitState.h">
+      <Filter>Characters\Enemies\Deer\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Deer\LogicStates\DeerPreparedToAttackState.h">
+      <Filter>Characters\Enemies\Deer\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Deer\LogicStates\DeerPursuitState.h">
+      <Filter>Characters\Enemies\Deer\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Deer\LogicStates\DeerRunAttackState.h">
+      <Filter>Characters\Enemies\Deer\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Deer\LogicStates\DeerStillAttackState.h">
+      <Filter>Characters\Enemies\Deer\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Deer\LogicStates\DeerTiredState.h">
+      <Filter>Characters\Enemies\Deer\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Deer\AnimationStates\DeerDeathAnimationState.h">
+      <Filter>Characters\Enemies\Deer\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Deer\AnimationStates\DeerDefenseAnimationState.h">
+      <Filter>Characters\Enemies\Deer\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Deer\AnimationStates\DeerHitAnimationState.h">
+      <Filter>Characters\Enemies\Deer\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Deer\AnimationStates\DeerIdleAnimationState.h">
+      <Filter>Characters\Enemies\Deer\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Deer\AnimationStates\DeerRunAnimationState.h">
+      <Filter>Characters\Enemies\Deer\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Deer\AnimationStates\DeerRunAttackAnimationState.h">
+      <Filter>Characters\Enemies\Deer\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Deer\AnimationStates\DeerStillAttackAnimationState.h">
+      <Filter>Characters\Enemies\Deer\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Deer\AnimationStates\DeerWalkAnimationState.h">
+      <Filter>Characters\Enemies\Deer\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Deer\LogicStates\DeerIdleState.h">
+      <Filter>Characters\Enemies\Deer\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitDeathState.h">
+      <Filter>Characters\Enemies\Rabbit\States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
