@@ -155,7 +155,12 @@ bool CRabbitAttackState::OnMessage( CCharacter* _Character, const STelegram& _Te
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
-		m_pRabbit->RestLife(100); 
+		if (!m_pRabbit) 
+		{
+			m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		}
+
+		m_pRabbit->RestLife(1000); 
 		m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetHitState());
 		return true;
 	}
