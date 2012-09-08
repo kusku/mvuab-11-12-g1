@@ -79,17 +79,16 @@ public:
 	{
 		assert( _pNewState && "StateMachine::SuspedState-> Trying to change to a null state");
 
-		// guardo registro del anterior estado
-		m_pPreviousState = m_pCurrentState;
+		// Llamamos al metodo de entrada del siguiente estado
+		//m_pCurrentState->OnSupend( m_pOwner );
+	}
 
-		// llamamos al metodo exit del estado que salimos
-		m_pCurrentState->Exit( m_pOwner );
-
-		// Ponemos el nuevo estado
-		m_pCurrentState = pNewState;
+	void ResumeState( CState<T>* _pNewState )
+	{
+		assert( _pNewState && "StateMachine::SuspedState-> Trying to change to a null state");
 
 		// Llamamos al metodo de entrada del siguiente estado
-		m_pCurrentState->Enter( m_pOwner );
+		//m_pCurrentState->OnResume( m_pOwner );
 	}
 
 	// Gestiona los mensajes que llegan
