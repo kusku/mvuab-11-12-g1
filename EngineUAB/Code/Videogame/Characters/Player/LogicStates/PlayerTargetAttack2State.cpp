@@ -23,6 +23,9 @@
 CPlayerTargetAttack2State::CPlayerTargetAttack2State( const std::string &_Name )
 	: CState(_Name)
 	, m_bFirstUpdate(true)
+	, m_fMaxVelocityMovement(10.f)
+	, m_fCurrentVelocityMovement(10.f)
+	, m_fAccelerationMovement(-35.f)
 {
 	m_pCallback = static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager()->GetCallback("attack2");
 }
@@ -41,6 +44,8 @@ void CPlayerTargetAttack2State::OnEnter( CCharacter* _pCharacter )
 #endif
 
 	m_pCallback->StartAnimation();
+
+	m_fCurrentVelocityMovement = m_fMaxVelocityMovement;
 	m_bFirstUpdate = true;
 }
 
@@ -78,18 +83,24 @@ void CPlayerTargetAttack2State::Execute( CCharacter* _pCharacter, float _fElapse
 	Vect3f l_Dir = v3fZERO;
 	if( !_pCharacter->GetLocked() )
 	{
-		if(CORE->GetActionToInput()->DoAction("MovePlayerUp") )
-		{
-			l_Dir = Vect3f( mathUtils::Cos<float>( _pCharacter->GetYaw() ), 0.f, mathUtils::Sin<float>( _pCharacter->GetYaw() ));
-		}
+		l_Dir = Vect3f( mathUtils::Cos<float>( _pCharacter->GetYaw() ), 0.f, mathUtils::Sin<float>( _pCharacter->GetYaw() ));
 	}
 
 	//Aplica la velocidad al movimiento
-	l_Dir = l_Dir * 2.0f * _fElapsedTime;
+	l_Dir = l_Dir * m_fCurrentVelocityMovement * _fElapsedTime;
 
 	//Mueve el controller físico
 	CPhysicController *l_pController = _pCharacter->GetController();
 	l_pController->Move( l_Dir, _fElapsedTime );
+
+	l_pController->SetYaw( _pCharacter->GetYaw() );
+
+	//Actualiza la velocidad de movimiento
+	m_fCurrentVelocityMovement = m_fCurrentVelocityMovement + m_fAccelerationMovement * _fElapsedTime;
+	if( m_fCurrentVelocityMovement < 0.f )
+	{
+		m_fCurrentVelocityMovement = 0.f;
+	}
 }
 
 void CPlayerTargetAttack2State::OnExit( CCharacter* _pCharacter )
