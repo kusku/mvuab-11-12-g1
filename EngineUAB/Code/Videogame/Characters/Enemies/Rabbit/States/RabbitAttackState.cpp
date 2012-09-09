@@ -1,5 +1,7 @@
 #include "RabbitAttackState.h"
 #include "Utils\BoostRandomHelper.h"
+#include "Logger\Logger.h"
+#include "Base.h"
 
 // --- Per pintar l'estat enemic ---
 #include "DebugGUIManager.h"
@@ -73,10 +75,10 @@ void CRabbitAttackState::OnEnter( CCharacter* _Character )
 	m_pRabbit->SetTotalHitsToBeTired(2);
 	m_pRabbit->GetBehaviors()->PursuitOff();
 	m_pRabbit->GetBehaviors()->SeekOff();
-	m_pRabbit->GetBehaviors()->SeparationOn();
-	m_pRabbit->GetBehaviors()->CollisionAvoidanceOn();
-	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOn();
-
+	m_pRabbit->GetBehaviors()->SeparationOff();
+	m_pRabbit->GetBehaviors()->CollisionAvoidanceOff();
+	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOff();
+	
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
@@ -97,19 +99,19 @@ void CRabbitAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 		// si venimos del anterior estado haremos una pausa
 		if  ( m_pRabbit->IsFatigued() )
 		{
-			LOGGER->AddNewLog(ELL_INFORMATION, "CRabbitAttackState::Execute->Is fatigued");
+			//LOGGER->AddNewLog(ELL_INFORMATION, "CRabbitAttackState::Execute->Is fatigued");
 			m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetTiredState());
 		}
 		else if ( m_pRabbit->GetReceivedHitsXMinut() == m_pRabbit->GetTotalReceivedHitsXMinut() ) 
 		{
-			LOGGER->AddNewLog(ELL_INFORMATION, "CRabbitAttackState::Execute->hits x minut rebuts i per tant bloquejaré...");
+			//LOGGER->AddNewLog(ELL_INFORMATION, "CRabbitAttackState::Execute->hits x minut rebuts i per tant bloquejaré...");
 			m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetDefenseState());
 			m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetDefenseAnimationState());
 		}
 		else 
 		{
 			std::string l_ActiveActionState = GetRandomAttackName();
-			LOGGER->AddNewLog(ELL_INFORMATION, "CRabbitAttackState::Execute->Attack Random Sel·leccionat %s", l_ActiveActionState.c_str());
+			//LOGGER->AddNewLog(ELL_INFORMATION, "CRabbitAttackState::Execute->Attack Random Sel·leccionat %s per %s", l_ActiveActionState.c_str(), m_pRabbit->GetName().c_str());
 				
 			if ( l_ActiveActionState == STILL_ATTACK_STATE ) 
 			{
@@ -130,6 +132,14 @@ void CRabbitAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 				float l_Angle = 22.f;		// 22,5 graus de fustrum
 				m_pRabbit->GoInToFrustrum(l_Angle, _ElapsedTime);
 			}
+
+			#if defined _DEBUG
+			if( CORE->IsDebugMode() )
+			{
+				//LOGGER->AddNewLog(ELL_INFORMATION, "Enemy %s in some attack...", m_pRabbit->GetName().c_str() );
+			}
+			#endif
+
 		} 	// End fatigue
 	}	
 	// Si el player NO es atacable lo volvemos a preparar o a perseguir
@@ -146,6 +156,8 @@ void CRabbitAttackState::OnExit( CCharacter* _Character )
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 
+	m_pRabbit->GetBehaviors()->PursuitOff();
+	m_pRabbit->GetBehaviors()->SeekOff();
 	m_pRabbit->GetBehaviors()->SeparationOff();
 	m_pRabbit->GetBehaviors()->CollisionAvoidanceOff();
 	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOff();

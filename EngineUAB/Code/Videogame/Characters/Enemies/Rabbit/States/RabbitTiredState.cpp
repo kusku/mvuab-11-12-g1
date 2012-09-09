@@ -31,7 +31,7 @@
 // -----------------------------------------
 CRabbitTiredState::CRabbitTiredState( void )
 	: CState		("CRabbitTiredState")
-	, m_ActionTime	( CActionStateCallback( 0.5f, 1.f ) )
+	, m_ActionTime	( CActionStateCallback( 0.2f, 0.5f ) )
 	, m_pRabbit		( NULL )
 {
 }
@@ -72,7 +72,7 @@ void CRabbitTiredState::OnEnter( CCharacter* _Character )
 		m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());
 	//}
 
-	LOGGER->AddNewLog(ELL_INFORMATION, "Valor : %d", l_Valor);
+	//LOGGER->AddNewLog(ELL_INFORMATION, "Valor : %d", l_Valor);
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{

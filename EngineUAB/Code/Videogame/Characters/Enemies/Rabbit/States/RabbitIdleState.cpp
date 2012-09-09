@@ -20,6 +20,7 @@
 #include "RabbitHitAnimationState.h"
 
 #include "Steering Behaviors\SteeringEntity.h"
+#include "Steering Behaviors\SteeringBehaviors.h"
 
 #if defined(_DEBUG)
 	#include "Memory\MemLeaks.h"
@@ -60,6 +61,8 @@ void CRabbitIdleState::OnEnter( CCharacter* _Character )
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 	
+	m_pRabbit->GetBehaviors()->CollisionAvoidanceOn();
+
 	m_ActionTime.StartAction();
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
@@ -119,8 +122,8 @@ void CRabbitIdleState::Execute( CCharacter* _Character, float _ElapsedTime )
 	}
 
 	// Reseteamos la velocidad del enemigo
-	_Character->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-		_Character->MoveTo2(_Character->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
+	m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+	m_pRabbit->MoveTo2(_Character->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
 }
 
 

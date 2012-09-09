@@ -84,6 +84,9 @@ void CRabbitStillAttackState::OnEnter( CCharacter* _Character )
 	}
 #endif
 
+	m_pRabbit->GetBehaviors()->CollisionAvoidanceOn();
+	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOn();
+
 	m_pAnimationCallback->Init();
 }
 
@@ -175,8 +178,10 @@ void CRabbitStillAttackState::Execute( CCharacter* _Character, float _ElapsedTim
 		{
 			if ( m_pRabbit->IsPlayerInsideImpactDistance() ) 
 			{
+				m_pRabbit->GetBehaviors()->SeekOff();
+				m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
 				m_pRabbit->FaceTo( m_pRabbit->GetSteeringEntity()->GetPosition(), _ElapsedTime );
-				m_pRabbit->MoveTo2( Vect3f(0,0,0), _ElapsedTime );
+				m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 				
 				/*self.active_animation_id = _CCharacter:get_animation_id("run")
 				_CCharacter:get_animation_model():clear_cycle( self.active_animation_id, 0.3 )
@@ -232,9 +237,9 @@ void CRabbitStillAttackState::Execute( CCharacter* _Character, float _ElapsedTim
 
 void CRabbitStillAttackState::OnExit( CCharacter* _Character )
 {
-	// nos volvemos
-	/*m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetAttackState());
-	m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());*/
+	m_pRabbit->GetBehaviors()->CollisionAvoidanceOff();
+	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOff();
+
 }
 
 bool CRabbitStillAttackState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
