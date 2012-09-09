@@ -20,6 +20,7 @@
 #include "Cameras\Frustum.h"
 #include "Math\Vector2.h"
 #include "Graphic States\GraphicStates.h"
+#include "BoundingObjects.h"
 
 class CCamera;
 class CTexture;
@@ -60,6 +61,8 @@ public:
 	void	DrawColoredQuad2DTexturedInPixelsByEffectTechnique( CEffectTechnique* EffectTechnique,const CColor &color, Vect2f vec1 = Vect2f(-1.0f, -1.0f), Vect2f vec2 = Vect2f(1.0f, 1.0f), 
 																float U0 = 0.0f, float V0 = 0.0f, float U1 = 1.0f, float V1 = 1.0f);
 	void	DrawQuad2DTexturedInPixelsInFullScreen( CEffectTechnique* EffectTechnique );
+
+	void	DrawAABB		(const TBoundingBox& bb, const Mat44f& world);
 
 	// Export Video/Picture
 	bool		DebugDumpBuffer		( const std::string &_FileName, const std::string &_FileNamePath );

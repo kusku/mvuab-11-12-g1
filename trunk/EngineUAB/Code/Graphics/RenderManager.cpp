@@ -350,7 +350,7 @@ void CRenderManager::SetupMatrices(CCamera* camera)
 		l_Eye = camera->GetPosition();
 	}
 
-	m_Frustum.Update( l_matView * l_matProject );
+	m_Frustum.Update( (l_matProject * l_matView).GetD3DXMatrix() );
 	m_pD3DDevice->SetTransform(D3DTS_VIEW, &l_matViewDX);
 	m_pD3DDevice->SetTransform(D3DTS_PROJECTION, &l_matProjectDX);
 
@@ -939,4 +939,15 @@ bool CRenderManager::SetGraphicBlendState( const TGraphicBlendStates& state )
 	}
 
 	return true;
+}
+
+void CRenderManager::DrawAABB( const TBoundingBox& bb, const Mat44f& world )
+{
+	Vect3f dimensions = (bb.m_MaxPos - bb.m_MinPos) / 2.0f;
+	
+	SetTransform(world);
+
+	DrawCube(dimensions, colYELLOW);
+
+	SetTransform(m44fIDENTITY);
 }

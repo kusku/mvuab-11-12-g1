@@ -9,189 +9,95 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-void CFrustum::Update(const Mat44f &clip) 
+void CFrustum::Update(const D3DXMATRIX &clip) 
 {
-// 	// Extract the numbers for the RIGHT plane 
-//	m_frustum[0].x = clip.m03 - clip.m00;
-//	m_frustum[0].y = clip.m13 - clip.m10;
-//	m_frustum[0].z = clip.m23 - clip.m20;
-//	m_frustum[0].w = clip.m33 - clip.m30;
-//
-//	// Normalize the result 
-//	float t = 1.0f / sqrtf( (m_frustum[0].x * m_frustum[0].x) + (m_frustum[0].y * m_frustum[0].y) + (m_frustum[0].z * m_frustum[0].z) );
-//	m_frustum[0].x  *= t;
-//	m_frustum[0].y  *= t;
-//	m_frustum[0].z  *= t;
-//	m_frustum[0].w  *= t;
-//
-//	// Extract the numbers for the LEFT plane 
-//	m_frustum[1].x  = clip.m03 + clip.m00;
-//	m_frustum[1].y  = clip.m13 + clip.m10;
-//	m_frustum[1].z  = clip.m23 + clip.m20;
-//	m_frustum[1].w  = clip.m33 + clip.m30;
-//
-//	// Normalize the result 
-//	t = 1.0f / sqrtf( (m_frustum[1].x * m_frustum[1].x) + (m_frustum[1].y * m_frustum[1].y) + (m_frustum[1].z * m_frustum[1].z) );
-//	m_frustum[1].x  *= t;
-//	m_frustum[1].y  *= t;
-//	m_frustum[1].z  *= t;
-//	m_frustum[1].w  *= t;
-//
-//	// Extract the BOTTOM plane 
-//	m_frustum[2].x  = clip.m03 + clip.m01;
-//	m_frustum[2].y  = clip.m13 + clip.m11;
-//	m_frustum[2].z  = clip.m23 + clip.m21;
-//	m_frustum[2].w  = clip.m33 + clip.m31;
-//
-//	// Normalize the result 
-//	t = 1.0f / sqrtf( (m_frustum[2].x * m_frustum[2].x) + (m_frustum[2].y * m_frustum[2].y) + (m_frustum[2].z * m_frustum[2].z) );
-//	m_frustum[2].x  *= t;
-//	m_frustum[2].y  *= t;
-//	m_frustum[2].z  *= t;
-//	m_frustum[2].w  *= t;
-//
-//	// Extract the TOP plane 
-//	m_frustum[3].x  = clip.m03 - clip.m01;
-//	m_frustum[3].y  = clip.m13 - clip.m11;
-//	m_frustum[3].z  = clip.m23 - clip.m21;
-//	m_frustum[3].w  = clip.m33 - clip.m31;
-//
-//	// Normalize the result 
-//	t = 1.0f / sqrtf( (m_frustum[3].x * m_frustum[3].x) + (m_frustum[3].y * m_frustum[3].y) + (m_frustum[3].z * m_frustum[3].z) );
-//	m_frustum[3].x  *= t;
-//	m_frustum[3].y  *= t;
-//	m_frustum[3].z  *= t;
-//	m_frustum[3].w  *= t;
-//
-//	// Extract the FAR plane 
-//	m_frustum[4].x  = clip.m03 - clip.m02;
-//	m_frustum[4].y  = clip.m13 - clip.m12;
-//	m_frustum[4].z  = clip.m23 - clip.m22;
-//	m_frustum[4].w  = clip.m33 - clip.m32;
-//
-//	// Normalize the result 
-//	t = 1.0f / sqrtf( (m_frustum[4].x * m_frustum[4].x) + (m_frustum[4].y * m_frustum[4].y) + (m_frustum[4].z * m_frustum[4].z) );
-//	m_frustum[4].x  *= t;
-//	m_frustum[4].y  *= t;
-//	m_frustum[4].z  *= t;
-//	m_frustum[4].w  *= t;
-//
-//	// Extract the NEAR plane 
-//	m_frustum[5].x  = clip.m03 + clip.m02;
-//	m_frustum[5].y  = clip.m13 + clip.m12;
-//	m_frustum[5].z  = clip.m23 + clip.m22;
-//	m_frustum[5].w  = clip.m33 + clip.m32;
-//
-//	// Normalize the result 
-//	t = 1.0f / sqrtf( (m_frustum[5].x * m_frustum[5].x) + (m_frustum[5].y * m_frustum[5].y) + (m_frustum[5].z * m_frustum[5].z) );
-//	m_frustum[5].x  *= t;
-//	m_frustum[5].y  *= t;
-//	m_frustum[5].z  *= t;
-//	m_frustum[5].w  *= t;
-//
-//#define NEAR_P		5
-//#define FAR_P		4
-//#define TOP_P		3
-//#define BOTTOM_P	2
-//#define RIGHT_P		0
-//#define LEFT_P		1
+	// Extract the numbers for the RIGHT plane 
+	m_frustum[0][0] = clip._14 - clip._11;
+	m_frustum[0][1] = clip._24 - clip._21;
+	m_frustum[0][2] = clip._34 - clip._31;
+	m_frustum[0][3] = clip._44 - clip._41;
 
-	D3DXMATRIX viewProjection = clip.GetD3DXMatrix();
-	// Left plane    
-	m_frustum[0].x = viewProjection._14 + viewProjection._11;  
-	m_frustum[0].y = viewProjection._24 + viewProjection._21;   
-	m_frustum[0].z = viewProjection._34 + viewProjection._31; 
-	m_frustum[0].w = viewProjection._44 + viewProjection._41; 
+	// Normalize the result 
+	float t = 1.0f / sqrtf( (m_frustum[0][0] * m_frustum[0][0]) + (m_frustum[0][1] * m_frustum[0][1]) + (m_frustum[0][2] * m_frustum[0][2]) );
+	m_frustum[0][0] *= t;
+	m_frustum[0][1] *= t;
+	m_frustum[0][2] *= t;
+	m_frustum[0][3] *= t;
 
-	// Right plane
-	m_frustum[1].x = viewProjection._14 - viewProjection._11;  
-	m_frustum[1].y = viewProjection._24 - viewProjection._21; 
-	m_frustum[1].z = viewProjection._34 - viewProjection._31;  
-	m_frustum[1].w = viewProjection._44 - viewProjection._41;  
+	// Extract the numbers for the LEFT plane 
+	m_frustum[1][0] = clip._14 + clip._11;
+	m_frustum[1][1] = clip._24 + clip._21;
+	m_frustum[1][2] = clip._34 + clip._31;
+	m_frustum[1][3] = clip._44 + clip._41;
 
-	// Top plane 
-	m_frustum[2].x = viewProjection._14 - viewProjection._12;  
-	m_frustum[2].y = viewProjection._24 - viewProjection._22;  
-	m_frustum[2].z = viewProjection._34 - viewProjection._32;  
-	m_frustum[2].w = viewProjection._44 - viewProjection._42;    
+	// Normalize the result 
+	t = 1.0f / sqrtf( (m_frustum[1][0] * m_frustum[1][0]) + (m_frustum[1][1] * m_frustum[1][1]) + (m_frustum[1][2] * m_frustum[1][2]) );
+	m_frustum[1][0] *= t;
+	m_frustum[1][1] *= t;
+	m_frustum[1][2] *= t;
+	m_frustum[1][3] *= t;
 
-	// Bottom plane   
-	m_frustum[3].x = viewProjection._14 + viewProjection._12; 
-	m_frustum[3].y = viewProjection._24 + viewProjection._22;  
-	m_frustum[3].z = viewProjection._34 + viewProjection._32;  
-	m_frustum[3].w = viewProjection._44 + viewProjection._42;
+	// Extract the BOTTOM plane 
+	m_frustum[2][0] = clip._14 + clip._12;
+	m_frustum[2][1] = clip._24 + clip._22;
+	m_frustum[2][2] = clip._34 + clip._32;
+	m_frustum[2][3] = clip._44 + clip._42;
 
-	// Near plane 
-	m_frustum[4].x = viewProjection._13;
-	m_frustum[4].y = viewProjection._23;
-	m_frustum[4].z = viewProjection._33;
-	m_frustum[4].w = viewProjection._43;
+	// Normalize the result 
+	t = 1.0f / sqrtf( (m_frustum[2][0] * m_frustum[2][0]) + (m_frustum[2][1] * m_frustum[2][1]) + (m_frustum[2][2] * m_frustum[2][2]) );
+	m_frustum[2][0] *= t;
+	m_frustum[2][1] *= t;
+	m_frustum[2][2] *= t;
+	m_frustum[2][3] *= t;
 
-	// Far plane
-	m_frustum[5].x = viewProjection._14 - viewProjection._13; 
-	m_frustum[5].y = viewProjection._24 - viewProjection._23;   
-	m_frustum[5].z = viewProjection._34 - viewProjection._33;  
-	m_frustum[5].w = viewProjection._44 - viewProjection._43;
+	// Extract the TOP plane 
+	m_frustum[3][0] = clip._14 - clip._12;
+	m_frustum[3][1] = clip._24 - clip._22;
+	m_frustum[3][2] = clip._34 - clip._32;
+	m_frustum[3][3] = clip._44 - clip._42;
 
-	for(int i = 0; i < 6; ++i)
-	{
-		Vect3f nn(m_frustum[i].x, m_frustum[i].y, m_frustum[i].z);
-		float lenght = 1 / nn.Length();
+	// Normalize the result 
+	t = 1.0f / sqrtf( (m_frustum[3][0] * m_frustum[3][0]) + (m_frustum[3][1] * m_frustum[3][1]) + (m_frustum[3][2] * m_frustum[3][2]) );
+	m_frustum[3][0] *= t;
+	m_frustum[3][1] *= t;
+	m_frustum[3][2] *= t;
+	m_frustum[3][3] *= t;
 
-		//float t = 1.0f / sqrtf( (m_frustum[i].x * m_frustum[i].x) + (m_frustum[i].y * m_frustum[i].y) + (m_frustum[i].z * m_frustum[i].z));
-		
-		m_frustum[i] *= lenght;
-	}
+	// Extract the FAR plane 
+	m_frustum[4][0] = clip._14 - clip._13;
+	m_frustum[4][1] = clip._24 - clip._23;
+	m_frustum[4][2] = clip._34 - clip._33;
+	m_frustum[4][3] = clip._44 - clip._43;
 
-#define NEAR_P		4
-#define FAR_P		5
-#define TOP_P		2
-#define BOTTOM_P	3
-#define RIGHT_P		1
-#define LEFT_P		0
+	// Normalize the result 
+	t = 1.0f / sqrtf( (m_frustum[4][0] * m_frustum[4][0]) + (m_frustum[4][1] * m_frustum[4][1]) + (m_frustum[4][2] * m_frustum[4][2]) );
+	m_frustum[4][0] *= t;
+	m_frustum[4][1] *= t;
+	m_frustum[4][2] *= t;
+	m_frustum[4][3] *= t;
 
-	m_Corners[0] = ComputeIntersection(m_frustum[NEAR_P],	m_frustum[BOTTOM_P],	m_frustum[RIGHT_P]);	//Near1          
-	m_Corners[1] = ComputeIntersection(m_frustum[NEAR_P],	m_frustum[TOP_P],		m_frustum[RIGHT_P]);	//Near2        
-	m_Corners[2] = ComputeIntersection(m_frustum[NEAR_P],	m_frustum[TOP_P],		m_frustum[LEFT_P]);		//Near3       
-	m_Corners[3] = ComputeIntersection(m_frustum[NEAR_P],	m_frustum[BOTTOM_P],	m_frustum[LEFT_P]);		//Near4          
-	m_Corners[4] = ComputeIntersection(m_frustum[FAR_P],	m_frustum[BOTTOM_P],	m_frustum[RIGHT_P]);	//Far1
-	m_Corners[5] = ComputeIntersection(m_frustum[FAR_P],	m_frustum[TOP_P],		m_frustum[RIGHT_P]);	//Far2
-	m_Corners[6] = ComputeIntersection(m_frustum[FAR_P],	m_frustum[TOP_P],		m_frustum[LEFT_P]);		//Far3
-	m_Corners[7] = ComputeIntersection(m_frustum[FAR_P],	m_frustum[BOTTOM_P],	m_frustum[LEFT_P]);		//Far4
+	// Extract the NEAR plane 
+	m_frustum[5][0] = clip._14 + clip._13;
+	m_frustum[5][1] = clip._24 + clip._23;
+	m_frustum[5][2] = clip._34 + clip._33;
+	m_frustum[5][3] = clip._44 + clip._43;
+
+	// Normalize the result 
+	t = 1.0f / sqrtf( (m_frustum[5][0] * m_frustum[5][0]) + (m_frustum[5][1] * m_frustum[5][1]) + (m_frustum[5][2] * m_frustum[5][2]) );
+	m_frustum[5][0] *= t;
+	m_frustum[5][1] *= t;
+	m_frustum[5][2] *= t;
+	m_frustum[5][3] *= t;
 }
 
-Vect3f CFrustum::ComputeIntersection(Vect4f plane1, Vect4f plane2, Vect4f plane3)
-{
-	// q = D1(N2 X N3) + D2(N3 X N1) + D3(N1 X N2)
-	//     ---------------------------------------
-	//              N1.(N2 X N3)
-
-	Vect3f normal1(plane1.x, plane1.y, plane1.z);
-	Vect3f normal2(plane2.x, plane2.y, plane2.z);
-	Vect3f normal3(plane3.x, plane3.y, plane3.z);
-
-	Vect3f N2CN3 = normal2.Cross(normal3);
-	float N1DN2CN2 = normal1.Dot(N2CN3);
-
-	Vect3f D1N2CN3 = plane1.w * (normal2.Cross(normal3));
-	Vect3f D2N3CN1 = plane2.w * (normal3.Cross(normal1));
-	Vect3f D3N1CN2 = plane3.w * (normal1.Cross(normal2));
-
-	Vect3f UpSum = D1N2CN3 + D2N3CN1 + D3N1CN2;
-
-	Vect3f Res = UpSum / N1DN2CN2;
-
-	return Res;
-}
-
-bool CFrustum::SphereVisible(const Vect3f &center,float radius) const 
+bool CFrustum::SphereVisible(const D3DXVECTOR3 &center,float radius) const 
 {
 	for (int i=0; i < 6; ++i)	
 	{
-		if (( (m_frustum[i].x*center.x) + (m_frustum[i].y*center.y) + 
-			 (m_frustum[i].z*center.z) + (m_frustum[i].w )) <= -radius )
+		if (( (m_frustum[i][0]*center.x) + (m_frustum[i][1]*center.y) + 
+			(m_frustum[i][2]*center.z) + (m_frustum[i][3] )) <= -radius )
 		{
-				return false;
+			return false;
 		}
 	}
 
@@ -200,27 +106,27 @@ bool CFrustum::SphereVisible(const Vect3f &center,float radius) const
 
 bool CFrustum::BoxVisibleByVertexs( const Vect3f* points) const 
 {  
-  int iInCount;
-	for(int p=0; p<6; ++p)
+	int iInCount;
+	for(int p=0; p<6; p++)
 	{
 		iInCount = 8;
-		for(int i=0; i<8; ++i)
+		for(int i=0; i<8; i++)
 		{
 			// Probamos el punto contra todos los planos
-			if( (m_frustum[p].x*points[i].x + m_frustum[p].y*points[i].y + m_frustum[p].z*points[i].z + m_frustum[p].w) <= 0 )
+			if( (m_frustum[p][0]*points[i].x + m_frustum[p][1]*points[i].y + m_frustum[p][2]*points[i].z + m_frustum[p][3]) <= 0 )
 				--iInCount;
 		}
 		// ¿Están todos los puntos fuera?
 		if (iInCount == 0)
 			return false;
 	}
-	
+
 	// Si todos los puntos están dentro, entonces la caja
 	// está dentro del frustum o parcialmente
 	return true;
 }
 
-bool CFrustum::BoxVisible( const Vect3f &max, const Vect3f &min) const 
+bool CFrustum::BoxVisible( const D3DXVECTOR3 &max, const D3DXVECTOR3 &min) const 
 {
 	float points[24];
 
@@ -258,13 +164,13 @@ bool CFrustum::BoxVisible( const Vect3f &max, const Vect3f &min) const
 	points[23] = min.z;
 
 	int iInCount;
-	for(int p=0; p<6; ++p)
+	for(int p=0; p<6; p++)
 	{
 		iInCount = 8;
-		for(int i=0; i<8; ++i)
+		for(int i=0; i<8; i++)
 		{
 			// Probamos el punto contra todos los planos
-			if( (m_frustum[p].x*points[3*i] + m_frustum[p].y*points[3*i+1] + m_frustum[p].z*points[3*i+2] + m_frustum[p].w) <= 0 )
+			if( (m_frustum[p][0]*points[3*i] + m_frustum[p][1]*points[3*i+1] + m_frustum[p][2]*points[3*i+2] + m_frustum[p][3]) <= 0 )
 			{
 				--iInCount;
 			}
@@ -273,17 +179,96 @@ bool CFrustum::BoxVisible( const Vect3f &max, const Vect3f &min) const
 		if (iInCount == 0)
 			return false;
 	}
-	
+
 	// Si todos los puntos están dentro, entonces la caja
 	// está dentro del frustum o parcialmente
 	return true;
 }
 
-CFrustum::CFrustum()
+bool CFrustum::BoxVisible(CalBoundingBox& bb)
 {
-	memset(m_proj, 0, sizeof(float) * 16);
-	memset(m_modl, 0, sizeof(float) * 16);
-	memset(m_clip, 0, sizeof(float) * 16);
-	memset(m_frustum, 0, sizeof(Vect4f) * 6);
-	memset(m_Corners, 0, sizeof(Vect3f) * 8);
+	CalVector cbb[8];
+	ZeroMemory(cbb, sizeof(CalVector) * 8);
+
+	bb.computePoints(cbb);
+
+	D3DXVECTOR3 minDX(cbb[0].x, cbb[0].y, cbb[0].z);
+	D3DXVECTOR3 maxDX(cbb[0].x, cbb[0].y, cbb[0].z);
+
+	for (int i = 1; i < 8; ++i)
+	{
+		if(minDX.x > cbb[i].x)
+		{
+			minDX.x = cbb[i].x;
+		}
+
+		if(minDX.y > cbb[i].y)
+		{
+			minDX.y = cbb[i].y;
+		}
+
+		if(minDX.z > cbb[i].z)
+		{
+			minDX.z = cbb[i].z;
+		}
+
+		if(maxDX.x < cbb[i].x)
+		{
+			maxDX.x = cbb[i].x;
+		}
+
+		if(maxDX.y < cbb[i].y)
+		{
+			maxDX.y = cbb[i].y;
+		}
+
+		if(maxDX.z < cbb[i].z)
+		{
+			maxDX.z = cbb[i].z;
+		}
+	}
+
+	return BoxVisible(maxDX, minDX);
+}
+
+Vect3f CFrustum::ComputeIntersection(D3DXPLANE plane1, D3DXPLANE plane2, D3DXPLANE plane3)
+{
+	// q = D1(N2 X N3) + D2(N3 X N1) + D3(N1 X N2)
+	//     ---------------------------------------
+	//              N1.(N2 X N3)
+
+	D3DXVECTOR3 normal1(plane1.a, plane1.b, plane1.c);
+	D3DXVECTOR3 normal2(plane2.a, plane2.b, plane2.c);
+	D3DXVECTOR3 normal3(plane3.a, plane3.b, plane3.c);
+
+	D3DXVECTOR3 N2CN3(0.0f, 0.0f, 0.0f);
+	D3DXVECTOR3 N3CN1(0.0f, 0.0f, 0.0f);
+	D3DXVECTOR3 N1CN2(0.0f, 0.0f, 0.0f);
+	D3DXVECTOR3 D1N2CN3(0.0f, 0.0f, 0.0f);
+	D3DXVECTOR3 D2N3CN1(0.0f, 0.0f, 0.0f);
+	D3DXVECTOR3 D3N1CN2(0.0f, 0.0f, 0.0f);
+	D3DXVECTOR3 UpSum(0.0f, 0.0f, 0.0f);
+	D3DXVECTOR3 Res(0.0f, 0.0f, 0.0f);
+	float N1DN2CN3 = 0.0f;
+
+	N1DN2CN3 = D3DXVec3Dot(&normal1, &N2CN3);
+
+	if(N1DN2CN3 == 0.0f)
+	{
+		return Vect3f((float)INFINITE, (float)INFINITE, (float)INFINITE);
+	}
+
+	D3DXVec3Cross(&N2CN3, &normal2, &normal3);
+	D3DXVec3Cross(&N3CN1, &normal3, &normal1);
+	D3DXVec3Cross(&N1CN2, &normal1, &normal2);
+
+	D1N2CN3 = plane1.d * N2CN3;
+	D2N3CN1 = plane2.d * N3CN1;
+	D3N1CN2 = plane3.d * N1CN2;
+	
+	UpSum = D1N2CN3 + D2N3CN1 + D3N1CN2;
+
+	Res = UpSum / N1DN2CN3;
+
+	return Vect3f(Res.x, Res.y, Res.z);
 }

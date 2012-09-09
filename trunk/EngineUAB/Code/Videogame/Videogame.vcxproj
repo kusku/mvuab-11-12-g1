@@ -807,7 +807,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="..\..\Run\Videogame\Data\XML\fonts.xml" />
-    <None Include="..\..\Run\Videogame\Data\XML\gui.xml" />
+    <None Include="..\..\Run\Videogame\Data\XML\gui.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="..\..\Run\Videogame\Data\XML\input.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\lights.xml">
       <SubType>Designer</SubType>

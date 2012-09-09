@@ -10,6 +10,8 @@
 #include "RenderableObjects\RenderableObjectsLayersManager.h"
 #include "Logger\Logger.h"
 #include "Effects\EffectManager.h"
+#include "Cameras\Frustum.h"
+#include "Lights\LightManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -32,11 +34,13 @@ CLight::CLight()
 	, m_ProjectionShadowMap(m44fIDENTITY)
 	, m_LightLinNearFar(0, 0)
 	, m_MultiSamples(0)
+	, m_LightFrustum(NULL)
 {
 }
 
 CLight::~CLight()
 {
+	CHECKED_DELETE(m_LightFrustum);
 }
 
 void CLight::BeginRenderEffectManagerShadowMap(CEffect *Effect)
@@ -51,6 +55,8 @@ void CLight::GenerateShadowMap(CRenderManager *RM)
 	}
 
 	SetShadowMap();
+
+	CORE->GetLightManager()->SetCurrentFrustum(m_LightFrustum);
 
 	if( m_GenerateStaticShadowMap && m_MustUpdateStaticShadowMap )
 	{
@@ -91,6 +97,8 @@ void CLight::GenerateShadowMap(CRenderManager *RM)
 		m_pDynamicShadowMap->UnsetAsRenderTarget(0);
 		m_DynamicDepthStencil->UnsetAsDepthStencil();
 	}
+
+	CORE->GetLightManager()->SetCurrentFrustum(NULL);
 }
 
 void CLight::ExtractCommonLightInfo(CXMLTreeNode &XMLNode)
@@ -181,6 +189,8 @@ void CLight::ExtractCommonLightInfo(CXMLTreeNode &XMLNode)
 
 	if(m_GenerateDynamicShadowMap || m_GenerateStaticShadowMap)
 	{
+		m_LightFrustum = new CFrustum();
+
 		uint32 numChild = XMLNode.GetNumChildren();
 
 		for(uint32 i = 0; i < numChild; ++i)

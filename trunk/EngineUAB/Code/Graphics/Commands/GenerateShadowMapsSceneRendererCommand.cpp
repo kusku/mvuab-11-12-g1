@@ -24,6 +24,8 @@ CGenerateShadowMapsSceneRendererCommand::~CGenerateShadowMapsSceneRendererComman
 
 void CGenerateShadowMapsSceneRendererCommand::Execute(CRenderManager &RM)
 {
+	CORE->SetDrawingShadows(true);
+
 	std::vector<CLight*> lights = CORE->GetLightManager()->GetResourcesVector();
 	uint32 numLights = lights.size();
 
@@ -31,4 +33,6 @@ void CGenerateShadowMapsSceneRendererCommand::Execute(CRenderManager &RM)
 	{
 		lights[i]->GenerateShadowMap(&RM);
 	}
+
+	CORE->SetDrawingShadows(false);
 }

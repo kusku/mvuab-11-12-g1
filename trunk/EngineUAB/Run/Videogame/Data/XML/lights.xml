@@ -5,7 +5,7 @@
 		<static renderable_objects_layer="solid" />
 	</directional>-->
 
-  <!--<directional name="Direct001" pos="-74.5455 47.0847 -1.87335e-006" color="255.0 255.0 255.0" att_start_range="80.0" att_end_range="200.0" intensity="1.0" generate_shadow_map="true" shadow_map_format_type="G32R32F" shadow_map_width="2048" shadow_map_height="2048" directional_light_camara_size_w="512" directional_light_camara_size_h="512" dir="127.06 -79.9583 1.90741e-006" >
+  <!--<directional name="Direct001" pos="-74.5455 47.0847 -1.87335e-006" color="255.0 255.0 255.0" att_start_range="80.0" att_end_range="200.0" intensity="1.0" generate_shadow_map="false" shadow_map_format_type="G32R32F" shadow_map_width="2048" shadow_map_height="2048" directional_light_camara_size_w="512" directional_light_camara_size_h="512" dir="127.06 -79.9583 1.90741e-006" >
     <dynamic renderable_objects_layer="cc" />
   </directional>-->
 

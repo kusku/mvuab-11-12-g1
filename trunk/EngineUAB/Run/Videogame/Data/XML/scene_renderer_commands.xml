@@ -14,7 +14,7 @@
   <generate_shadow_maps />
 
    <!--Initialize Motion Blur--> 
-  <!--<begin_motion_blur />-->
+  <begin_motion_blur />
   
   <!--Set Depth Map & Motion Blur RT-->
   <set_render_target name="CustomRTs">
@@ -64,12 +64,12 @@
     <dynamic_texture stage_id="0" name="SceneRender" texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="1" />
   </capture_frame_buffer>
   
-  <!--<set_pool_renderable_objects_technique pool="motion_blur" />
+  <set_pool_renderable_objects_technique pool="motion_blur" />
   <render_draw_quad name="MotionBlur" >
     <texture file="SceneRender" stage_id="0" />
     <texture file="__PREV_MOTION_BLUR_TEXTURE" stage_id="1" />
     <texture file="__CURRENT_MOTION_BLUR_TEXTURE" stage_id="2" />
-  </render_draw_quad>-->
+  </render_draw_quad>
 
   <!--Lens Flare-->
   <enable_z_test />
@@ -77,10 +77,10 @@
 
   <!--Debug-->
   <render_debug_waypoints waypoints="false" triggers="false" rails="false" />
-  <render_debug_process active="true" />
-  <render_debug_physics active="false" draw_fronts="false" draw_frustrum="false" draw_names="false" draw_rays="false" />
+  <render_debug_process active="false" />
+  <render_debug_physics active="false" draw_fronts="false" draw_fustrum="false" draw_names="false" draw_rays="false" />
   <render_debug_lights active="false" />
-  <render_debug_info grid="false" axis="false" render_console="false" render_logger="true" render_modifiers="false" render_debug_options="true" render_debug_render="true" />
+  <render_debug_info grid="false" axis="false" render_console="false" render_logger="false" render_modifiers="false" render_debug_options="true" render_debug_render="true" />
   
   
   <end_scene />

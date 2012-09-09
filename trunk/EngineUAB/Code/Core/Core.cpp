@@ -105,6 +105,7 @@ CCore::CCore ( void )
 	, m_Animalmanager					( NULL )
 	, m_pSteeringBehaviorSeetingsManager( NULL )
 	, m_pRailManager					( NULL )
+	, m_DrawingShadows					(false)
 {
 }
 
