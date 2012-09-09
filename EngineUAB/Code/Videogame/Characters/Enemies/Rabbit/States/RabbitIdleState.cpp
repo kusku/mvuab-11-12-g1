@@ -61,8 +61,6 @@ void CRabbitIdleState::OnEnter( CCharacter* _Character )
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 	
-	m_pRabbit->GetBehaviors()->CollisionAvoidanceOn();
-
 	m_ActionTime.StartAction();
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
