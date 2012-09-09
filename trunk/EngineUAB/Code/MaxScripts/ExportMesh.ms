@@ -219,9 +219,9 @@ function ExtractMeshGeometry obj counterClockwise t_mesh =
 						
 			local FaceNormal=getFaceNormal obj i
 			local SmoothValue=getFaceSmoothGroup obj i
-			local Normal1 = t_mesh.GetVertexNormal IdxsFace.x SmoothValue FaceNormal
-			local Normal2 = t_mesh.GetVertexNormal IdxsFace.y SmoothValue FaceNormal
-			local Normal3 = t_mesh.GetVertexNormal IdxsFace.z SmoothValue FaceNormal
+			local Normal1 = t_mesh.GetVertexNormal IdxsFace.x SmoothValue FaceNormal obj
+			local Normal2 = t_mesh.GetVertexNormal IdxsFace.y SmoothValue FaceNormal obj
+			local Normal3 = t_mesh.GetVertexNormal IdxsFace.z SmoothValue FaceNormal obj
 			Normal1 = RHTranslationToLH Normal1
 			Normal2 = RHTranslationToLH Normal2
 			Normal3 = RHTranslationToLH Normal3

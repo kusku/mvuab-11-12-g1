@@ -716,7 +716,7 @@ struct MeshObj
 		)
 	),
 	
-	function GetVertexNormal IdVertex SmoothValue FaceNormal =
+	function GetVertexNormal IdVertex SmoothValue FaceNormal obj =
 	(
 		local HasNormal = false
 		local Normal = point3 0 0 0
@@ -733,7 +733,8 @@ struct MeshObj
 		
 		if HasNormal == false then
 		(
-			Normal = FaceNormal
+			local inverseTransform = Inverse(Obj.transform)
+			Normal = FaceNormal * inverseTransform
 		)
 		
 		return Normal
@@ -756,8 +757,8 @@ struct MeshObj
 	(
 		BBox = CreateBoundingBox()
 		
-		BBox.MinPos = ( RHTranslationToLH (obj.min) )
-		BBox.MaxPos = ( RHTranslationToLH (obj.max ) )
+		BBox.MinPos = ( ResetVertexToOriginal obj (obj.min) )
+		BBox.MaxPos = ( ResetVertexToOriginal obj (obj.max ) )
 	),
 
 	function BuildBoundingSphere obj =
@@ -767,9 +768,9 @@ struct MeshObj
 		local center = point3 0 0 0
 		local delta = point3 0 0 0
 		local radius = 0
-		local maxpos = ( RHTranslationToLH ( obj.max ) )
+		local maxpos = ( ResetVertexToOriginal obj ( obj.max ) )
 		
-		center = ( RHTranslationToLH ( obj.center ) )
+		center = ( ResetVertexToOriginal obj ( obj.center ) )
 		delta = ( (maxpos - center) as point3)
 		
 		radius = ( sqrt(  ( (pow delta.x 2) + (pow delta.y 2) + (pow delta.z 2) ) ) )
