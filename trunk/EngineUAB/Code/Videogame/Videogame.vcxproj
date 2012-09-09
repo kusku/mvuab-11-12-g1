@@ -358,6 +358,9 @@
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\start_trigger.lua" />
     <None Include="..\..\Run\Videogame\Data\XML\soundbanks.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\speakers.xml" />
+    <None Include="..\..\Run\Videogame\Data\XML\steering_properties.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="..\..\Run\Videogame\Data\XML\weapons.xml" />
   </ItemGroup>
   <ItemGroup>

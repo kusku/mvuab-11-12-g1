@@ -256,7 +256,7 @@ Vect3f CSeparation::CalculateSteering( CSteeringEntity *_pEntity )
 
 void CSeparation::UpdateParameters ( const std::vector<CPhysicUserData*> & _UserDatas )
 {
-	/*m_UserDatas.clear();
-	m_UserDatas			= _UserDatas;*/
+	m_UserDatas.clear();
+	m_UserDatas			= _UserDatas;
 	m_SeparationUpdated = true;
 }

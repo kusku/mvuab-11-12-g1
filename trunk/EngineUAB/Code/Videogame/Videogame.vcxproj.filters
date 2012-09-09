@@ -1063,6 +1063,9 @@
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_animated_defense_state.lua">
       <Filter>Scripts\Game\Enemies\wolf_states</Filter>
     </None>
+    <None Include="..\..\Run\Videogame\Data\XML\steering_properties.xml">
+      <Filter>XML</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\Run\Videogame\Data\Effects\VignettingNoise.fx">

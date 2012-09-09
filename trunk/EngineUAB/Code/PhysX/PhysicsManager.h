@@ -117,14 +117,14 @@ public:
 	const std::string&		GetConfigFileName				() const									{ return m_szConfigFileName; }
 	int						GetCollisionGroup				( const std::string& _szGroup );
 
-	inline void				SetDrawFustrum					( bool _draw )							{ m_bFustrum = _draw; }
-	inline bool				GetDrawFustrum					( void )								{ return m_bFustrum; }
+	inline void				SetDrawFrustrum					( bool _draw )							{ m_bFrustrum = _draw; }
+	inline bool				GetDrawFrustrum					( void )								{ return m_bFrustrum; }
 	
 	inline void				SetDrawFront					( bool _draw )							{ m_bFront = _draw; }
 	inline bool				GetDrawFront					( void )								{ return m_bFront; }
 	
-	inline void				SetDrawNames					( bool _draw )							{ m_bFustrum = _draw; }
-	inline bool				GetDrawNames					( void )								{ return m_bFustrum; }
+	inline void				SetDrawNames					( bool _draw )							{ m_bNames = _draw; }
+	inline bool				GetDrawNames					( void )								{ return m_bNames; }
 	
 	inline void				SetDrawRays						( bool _draw )							{ m_bRays = _draw; }
 	inline bool				GetDrawRays						( void )								{ return m_bRays; }
@@ -150,7 +150,7 @@ private:
 	SPhysicsInitParams		m_InitParams;
 	//-------------------------------------------
 
-	bool				m_bFustrum;			// dice si dibuja los fustrums de los caracteres
+	bool				m_bFrustrum;		// dice si dibuja los frustrums de los caracteres
 	bool				m_bFront;			// dice si dibuja los fronts de los caracteres
 	bool				m_bNames;			// dice si dibuja los Nombres de los caracteres
 	bool				m_bRays;			// dice si dibuja los Rayos de los caracteres
