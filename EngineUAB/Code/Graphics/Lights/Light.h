@@ -24,6 +24,7 @@ class CRenderManager;
 class CTexture;
 class CRenderableObjectsManager;
 class CEffect;
+class CFrustum;
 
 class CLight : public CObject3D
 {
@@ -96,6 +97,7 @@ protected:
 	CTexture			*m_StaticDepthStencil;
 	CTexture			*m_pDynamicShadowMap;
 	CTexture			*m_DynamicDepthStencil;
+	CFrustum			*m_LightFrustum;
 
 	std::vector<CRenderableObjectsManager*>		m_StaticShadowMapRenderableObjectsManagers;
 	std::vector<CRenderableObjectsManager*>		m_DynamicShadowMapRenderableObjectsManagers;

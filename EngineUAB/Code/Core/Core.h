@@ -122,11 +122,13 @@ public:
 	void				SetTimer					( CTimer *_Timer )				{ m_pTimer = _Timer; }
 	void				SetProcess					( CEngineProcess *_Process )	{ m_pProcess = _Process; }
 	void				SetGameMode					( bool _GameMode );
-
+	void				SetDrawingShadows			(bool ds)						{ m_DrawingShadows = ds; }
+	
 	inline bool			IsDebugMode					() const						{ return m_bDebugMode; }
 	inline bool			IsReleaseMode				() const						{ return m_bReleaseMode; }
 	inline bool			IsGameMode					() const						{ return m_bIsGameMode; }
 	inline bool			IsGUIMode					() const						{ return !m_bIsGameMode; }
+	inline bool			IsDrawingShadows			() const						{ return m_DrawingShadows; }
 
 	inline CCamera*								GetCamera					() const					{ return m_pCamera; }
 	inline CTimer*								GetTimer					() const					{ return m_pTimer; }
@@ -180,6 +182,8 @@ private:
 	bool	m_bDebugMode;
 	bool	m_bReleaseMode;
 	bool	m_bIsGameMode;
+
+	bool	m_DrawingShadows;
 
 	SConfig	m_Config;
 

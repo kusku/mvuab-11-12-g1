@@ -91,16 +91,23 @@ void CDirectionalLight::SetShadowMap()
 	m_ViewShadowMap = Mat44f(l_View);
 	m_ProjectionShadowMap= Mat44f(l_Projection);
 
+	m_LightFrustum->Update((m_ProjectionShadowMap * m_ViewShadowMap).GetD3DXMatrix());
+
 	l_EffectManager->SetShadowCameraEye(m_Position);
 	l_EffectManager->SetShadowProjectionMatrix(m_ProjectionShadowMap);
 	l_EffectManager->SetShadowViewMatrix(m_ViewShadowMap);
+
+	////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////
 
 	//CEffectManager* l_EffectManager = CORE->GetEffectManager();
 	//D3DXMATRIX view;
 	//D3DXMATRIX projection;
 	//D3DXVECTOR3 cameraEye(0, 0, 0);
 	//D3DXVECTOR3 up(0.0f, 1.0f, 0.0f);
-	//Vect3f lightDirNor = m_Direction;
+
+	//Vect3f lightDirNor = -m_Direction;
 	//lightDirNor.Normalize();
 	//D3DXVECTOR3 lightDir(lightDirNor.x, lightDirNor.y, lightDirNor.z);
 	////D3DXVECTOR3 lightDir(-0.3333333f, 0.6666667f, 0.6666667f);
@@ -173,6 +180,7 @@ void CDirectionalLight::SetShadowMap()
 	//m_LightLinNearFar.y = m_EndRangeAttenuation;
 
 	//m_Position = lightPosition;
+	//m_LightFrustum->Update((m_ProjectionShadowMap * m_ViewShadowMap).GetD3DXMatrix());
 	//l_EffectManager->SetShadowCameraEye(m_Position);
 	//l_EffectManager->SetShadowProjectionMatrix(m_ProjectionShadowMap);
 	//l_EffectManager->SetShadowViewMatrix(m_ViewShadowMap);

@@ -93,6 +93,7 @@ void CSpotLight::SetShadowMap()
 	m_LightLinNearFar.x = Near;
 	m_LightLinNearFar.y  = Far / (CosLightFOV * CosLightFOV);
 
+	m_LightFrustum->Update((m_ProjectionShadowMap * m_ViewShadowMap).GetD3DXMatrix());
 	l_EffectManager->SetShadowCameraEye(m_Position);
 	l_EffectManager->SetShadowProjectionMatrix(m_ProjectionShadowMap);
 	l_EffectManager->SetShadowViewMatrix(m_ViewShadowMap);

@@ -12,6 +12,7 @@
 #include "RenderableObjects\RenderableObjectTechnique.h"
 #include "Vertexs\VertexType.h"
 #include "Object3D.h"
+#include "Lights\LightManager.h"
 
 ////----PhysX Includes-------------
 #undef min
@@ -157,27 +158,51 @@ void CInstanceMeshHW::UpdateBuffer()
 
 		if(instance->GetVisible())
 		{
-			Mat44f WorldMatrix = instance->GetTransform().GetD3DXMatrix();
+			bool draw = false;
+			D3DXMATRIX WorldMatrix = instance->GetTransform().GetD3DXMatrix();
+			CFrustum* frus = NULL;
 
-			//CFrustum* frus = CORE->GetRenderManager()->GetFrustum();
-			//
-			//TBoundingBox bb = m_StaticMesh->GetBoundingBox();
-			//
-			//Vect3f minTrans = bb.m_MinPos;
-			//Vect3f maxTrans = bb.m_MaxPos;
+			if(CORE->IsDrawingShadows())
+			{
+				frus = CORE->GetLightManager()->GetCurrentFrustum();
 
-			//WorldMatrix.TransformVector(minTrans);
-			//WorldMatrix.TransformVector(maxTrans);
+				if(frus == NULL)
+				{
+					draw = true;
+				}
+			}
+			else
+			{
+				frus = CORE->GetRenderManager()->GetFrustum();
+			}
 
-			//if(frus->BoxVisible(minTrans, maxTrans))
-			//{
-				D3DXMATRIX dxMatrix = WorldMatrix.GetD3DXMatrix();
+			if(frus != NULL)
+			{
+				TBoundingBox bb = m_StaticMesh->GetBoundingBox();
 
-				memcpy(&m_InstanceVertex[i], &dxMatrix, sizeof(TINSTANCE_VERTEX));
+				D3DXVECTOR3 minTrans(bb.m_MinPos.x, bb.m_MinPos.y, bb.m_MinPos.z);
+				D3DXVECTOR3 maxTrans(bb.m_MaxPos.x, bb.m_MaxPos.y, bb.m_MaxPos.z);
+
+				D3DXVECTOR4 minTrans4, maxTrans4;
+
+				D3DXVec3Transform(&minTrans4, &minTrans, &WorldMatrix);
+				D3DXVec3Transform(&maxTrans4, &maxTrans, &WorldMatrix);
+
+				minTrans = D3DXVECTOR3(minTrans4.x, minTrans4.y, minTrans4.z);
+				maxTrans = D3DXVECTOR3(maxTrans4.x, maxTrans4.y, maxTrans4.z);
+
+				draw = frus->BoxVisible(minTrans, maxTrans);
+			}
+
+			if(draw)
+			{
+				memcpy(&m_InstanceVertex[i], &WorldMatrix, sizeof(TINSTANCE_VERTEX));
 
 				++i;
 				++m_VisibleObjects;
-			//}
+
+				//CORE->GetRenderManager()->DrawAABB(bb, instance->GetTransform());
+			}
 		}
 	}
 

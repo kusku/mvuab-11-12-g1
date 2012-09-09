@@ -9,7 +9,9 @@
 #ifndef INC_FRUSTUM_H_
 #define INC_FRUSTUM_H_
 
+#include "cal3d\cal3d.h"
 #include <d3dx9math.h>
+#include <d3d9.h>
 #include "Math/Vector3.h"
 #include "Math/Vector4.h"
 #include "Math\Matrix44.h"
@@ -18,25 +20,20 @@
 class CFrustum 
 {
 public:
-	CFrustum();
 
-
-	void	Update						( const Mat44f &viewproj );
-	bool	SphereVisible				( const Vect3f &p, float radius ) const;
-	bool	BoxVisible					( const Vect3f &max, const Vect3f &min ) const;
-	bool  BoxVisibleByVertexs			( const Vect3f* points) const;
-
-	const Vect3f*	GetCorners			() const	{ return m_Corners; }
+	void	Update						( const D3DXMATRIX &viewproj );
+	bool	SphereVisible				( const D3DXVECTOR3 &p, float radius ) const;
+	bool	BoxVisible					( const D3DXVECTOR3 &max, const D3DXVECTOR3 &min ) const;
+	bool	BoxVisible					(CalBoundingBox& bb);
+	bool	BoxVisibleByVertexs			( const Vect3f* points) const;
+	Vect3f	ComputeIntersection			(D3DXPLANE plane1, D3DXPLANE plane2, D3DXPLANE plane3);
 
 private:
-	
+
 	float m_proj[16];
 	float m_modl[16];
 	float m_clip[16];
-	Vect4f m_frustum[6];
-	Vect3f m_Corners[8];
-
-	Vect3f ComputeIntersection(Vect4f plane1, Vect4f plane2, Vect4f plane3);
+	float m_frustum[6][4];
 };
 
 #endif //INC_FRUSTUM_H_

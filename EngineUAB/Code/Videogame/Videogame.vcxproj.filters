@@ -1161,6 +1161,8 @@
     <CustomBuild Include="..\..\Run\Videogame\Data\Effects\MotionBlurEffect.fx">
       <Filter>Effects</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\BasicEffect.fx" />
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\BasicEffect.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>

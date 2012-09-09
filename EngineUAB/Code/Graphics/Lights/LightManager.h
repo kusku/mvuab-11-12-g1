@@ -18,6 +18,8 @@ class CRenderManager;
 #include <string>
 #include <vector>
 
+class CFrustum;
+
 class CLightManager : public CTemplatedVectorMapManager<CLight>
 {
 public:
@@ -29,9 +31,13 @@ public:
 	void		CleanUp		();
 	void		Render		( CRenderManager *RM );
 
+	void		SetCurrentFrustum	(CFrustum* cf) { m_CurrentFrustum = cf; }
+	inline CFrustum*	GetCurrentFrustum	() const { return m_CurrentFrustum; }
+
 protected:
 	bool		LoadFile	();
 
+	CFrustum*		m_CurrentFrustum;
 	std::string		m_FileName;
 };
 

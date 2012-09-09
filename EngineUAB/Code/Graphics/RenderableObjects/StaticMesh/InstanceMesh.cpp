@@ -10,6 +10,7 @@
 #include "Effects\EffectManager.h"
 #include "XML\XMLTreeNode.h"
 #include "RenderableObjects\RenderableObjectTechnique.h"
+#include "Lights\LightManager.h"
 
 ////----PhysX Includes-------------
 #undef min
@@ -102,8 +103,54 @@ void CInstanceMesh::Render(CRenderManager *RM)
 {
 	if( m_StaticMesh != NULL )
 	{
-		CORE->GetEffectManager()->SetWorldMatrix(GetTransform());
-		m_StaticMesh->Render(RM);
+		if(this->GetVisible())
+		{
+			bool draw = false;
+
+			CFrustum* frus = NULL;
+
+			if(CORE->IsDrawingShadows())
+			{
+				frus = CORE->GetLightManager()->GetCurrentFrustum();
+
+				if(frus == NULL)
+				{
+					draw = true;
+				}
+			}
+			else
+			{
+				frus = CORE->GetRenderManager()->GetFrustum();
+			}
+
+			if(frus != NULL)
+			{
+				D3DXMATRIX WorldMatrix = GetTransform().GetD3DXMatrix();
+
+				TBoundingBox bb = m_StaticMesh->GetBoundingBox();
+
+				D3DXVECTOR3 minTrans(bb.m_MinPos.x, bb.m_MinPos.y, bb.m_MinPos.z);
+				D3DXVECTOR3 maxTrans(bb.m_MaxPos.x, bb.m_MaxPos.y, bb.m_MaxPos.z);
+
+				D3DXVECTOR4 minTrans4, maxTrans4;
+
+				D3DXVec3Transform(&minTrans4, &minTrans, &WorldMatrix);
+				D3DXVec3Transform(&maxTrans4, &maxTrans, &WorldMatrix);
+
+				minTrans = D3DXVECTOR3(minTrans4.x, minTrans4.y, minTrans4.z);
+				maxTrans = D3DXVECTOR3(maxTrans4.x, maxTrans4.y, maxTrans4.z);
+
+				draw = frus->BoxVisible(minTrans, maxTrans);
+			}
+
+			if(draw)
+			{
+				//CORE->GetRenderManager()->DrawAABB(bb, GetTransform());
+
+				CORE->GetEffectManager()->SetWorldMatrix(GetTransform());
+				m_StaticMesh->Render(RM);
+			}
+		}
 	}
 }
 

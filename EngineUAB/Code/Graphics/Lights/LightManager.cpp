@@ -6,6 +6,7 @@
 #include "XML\XMLTreeNode.h"
 #include "Math\Vector3.h"
 #include "Logger\Logger.h"
+#include "Cameras\Frustum.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -13,6 +14,7 @@
 
 CLightManager::CLightManager()
 	: m_FileName("")
+	, m_CurrentFrustum(NULL)
 {
 }
 
