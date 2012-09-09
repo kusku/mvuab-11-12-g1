@@ -90,7 +90,9 @@ void CRabbitRunAttackState::OnEnter( CCharacter* _Character )
 	// Activo el seek a saco a una posició en el momento de inicio de ataque
 	m_pRabbit->GetBehaviors()->SeekOff();
 	m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_pRabbit->GetPlayer()->GetPosition());
-		
+	m_pRabbit->GetBehaviors()->CollisionAvoidanceOn();
+	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOn();
+
 	// Almacenamos la distancia actual para saber si luego nos hemos pasado
 	m_CurrentDistance = m_pRabbit->GetDistanceToPlayer();
 
@@ -288,7 +290,9 @@ void CRabbitRunAttackState::OnExit( CCharacter* _Character )
 
 	// Quitamos el behaviur
 	m_pRabbit->GetBehaviors()->SeekOff();
-					
+	m_pRabbit->GetBehaviors()->CollisionAvoidanceOff();
+	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOff();
+				
 	// Restauramos la velocidad original
 	m_pRabbit->GetSteeringEntity()->SetMaxSpeed(m_OldMaxSpeed);
 	m_pRabbit->GetSteeringEntity()->SetMass(m_OldMass);

@@ -17,6 +17,14 @@
 #include "Steering Behaviors\Flee.h"
 #include "Steering Behaviors\Seek.h"
 
+// --- Per pintar l'estat enemic ---
+#include "DebugGUIManager.h"
+#include "DebugInfo\DebugRender.h"
+#include "LogRender\LogRender.h"
+#include "Core.h"
+// ---------------------------------
+
+
 #if defined(_DEBUG)
 	#include "Memory\MemLeaks.h"
 #endif
@@ -82,6 +90,14 @@ void CRabbitDefenseState::OnEnter( CCharacter* _Character )
 	m_OldMass = m_pRabbit->GetSteeringEntity()->GetMass();
 	m_pRabbit->GetSteeringEntity()->SetMaxSpeed(1);
 	m_pRabbit->GetSteeringEntity()->SetMass(0.00500f);
+
+	//LOGGER->AddNewLog(ELL_INFORMATION, "Valor : %d", l_Valor);
+	#if defined _DEBUG
+		if( CORE->IsDebugMode() )
+		{
+			CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Defense");
+		}
+	#endif
 }
 
 void CRabbitDefenseState::Execute( CCharacter* _Character, float _ElapsedTime )

@@ -20,6 +20,9 @@
 #include "Core.h"
 // ---------------------------------
 
+#include "Logger\Logger.h"
+#include "Base.h"
+
 #if defined(_DEBUG)
 	#include "Memory\MemLeaks.h"
 #endif
@@ -57,22 +60,17 @@ void CRabbitPursuitState::OnEnter( CCharacter* _Character )
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 
-	m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_pRabbit->GetPlayer()->GetPosition());
-	m_pRabbit->GetBehaviors()->SeekOn();
+	/*m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_pRabbit->GetPlayer()->GetPosition());
+	m_pRabbit->GetBehaviors()->SeekOn();*/
 		
-	/*m_pRabbit->GetBehaviors()->GetPursuit()->SetTarget(m_pRabbit->GetPlayer()->GetPosition());
+	m_pRabbit->GetBehaviors()->GetPursuit()->SetTarget(m_pRabbit->GetPlayer()->GetPosition());
 	m_pRabbit->GetBehaviors()->GetPursuit()->UpdateEvaderEntity( m_pRabbit->GetPlayer()->GetSteeringEntity() );
-	m_pRabbit->GetBehaviors()->PursuitOn();*/
+	m_pRabbit->GetBehaviors()->PursuitOn();
 		
-	// _Character->GetBehaviors()->separation_on()
-	// _Character->GetBehaviors()->collision_avoidance_on()
-	// _Character->GetBehaviors()->obstacle_wall_avoidance_on()
-	#if defined _DEBUG
-		if( CORE->IsDebugMode() )
-		{
-			CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Pursuit");
-		}
-	#endif
+	m_pRabbit->GetBehaviors()->SeparationOn();
+	m_pRabbit->GetBehaviors()->CohesionOn();
+	m_pRabbit->GetBehaviors()->CollisionAvoidanceOn();
+	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOn();
 }
 
 void CRabbitPursuitState::Execute( CCharacter* _Character, float _ElapsedTime )
@@ -97,15 +95,22 @@ void CRabbitPursuitState::Execute( CCharacter* _Character, float _ElapsedTime )
 		else
 		{
 			// Seguimos persiguiendo...
-			/*m_pRabbit->GetBehaviors()->GetPursuit()->SetTarget(m_pRabbit->GetPlayer()->GetPosition());
+			m_pRabbit->GetBehaviors()->GetPursuit()->SetTarget(m_pRabbit->GetPlayer()->GetPosition());
 			m_pRabbit->GetBehaviors()->GetPursuit()->UpdateEvaderEntity( m_pRabbit->GetPlayer()->GetSteeringEntity() );
-			m_pRabbit->GetBehaviors()->PursuitOn();*/
+			m_pRabbit->GetBehaviors()->PursuitOn();
 
-			m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_pRabbit->GetPlayer()->GetPosition());
-			m_pRabbit->GetBehaviors()->SeekOn();
+			/*m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_pRabbit->GetPlayer()->GetPosition());
+			m_pRabbit->GetBehaviors()->SeekOn();*/
 
 			m_pRabbit->FaceTo(m_pRabbit->GetSteeringEntity()->GetPosition(), _ElapsedTime);
 			m_pRabbit->MoveTo2(m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
+
+			#if defined _DEBUG
+			if( CORE->IsDebugMode() )
+			{
+				//LOGGER->AddNewLog(ELL_INFORMATION, "Enemy %s pursuit...", m_pRabbit->GetName().c_str() );
+			}
+			#endif
 		}
 	}
 	else
@@ -129,8 +134,8 @@ void CRabbitPursuitState::OnExit( CCharacter* _Character )
 	m_pRabbit->GetBehaviors()->CollisionAvoidanceOff();
 	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOff();
 
-	//_Character->GetBehaviors()->SeparationOff();
-	//_Character->GetBehaviors()->CohesionOff();
+	m_pRabbit->GetBehaviors()->SeparationOff();
+	m_pRabbit->GetBehaviors()->CohesionOff();
 	//_Character->GetBehaviors()->AlignmentOff();
 	
 }
