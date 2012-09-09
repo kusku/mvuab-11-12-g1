@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef _Wolf_RUN_ATTACK_ANIMATION_STATE_H_
-#define _Wolf_RUN_ATTACK_ANIMATION_STATE_H_
+#ifndef _WOLF_RUN_ATTACK_ANIMATION_STATE_H_
+#define _WOLF_RUN_ATTACK_ANIMATION_STATE_H_
 
 #include <string>
 #include "StatesMachine\State.h"
@@ -40,7 +40,10 @@ public:
 private:
 	CWolf *		m_pWolf;
 
+	float			m_AnimationDuration;
+	float			m_Currentduration;
+
 };
 
 
-#endif _Wolf_RUN_ATTACK_ANIMATION_STATE_H_
+#endif _WOLF_RUN_ATTACK_ANIMATION_STATE_H_

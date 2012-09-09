@@ -27,8 +27,8 @@ CWolfDefenseAnimationState::~CWolfDefenseAnimationState(void)
 {
 	if (m_pWolf)
 	{
-		int l_Num = m_pWolf->GetAnimationID(DEFENSE_STATE);
-		m_pWolf->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+		int l_Num = m_pWolf->GetAnimationID(WOLF_DEFENSE_STATE);
+		m_pWolf->GetAnimatedModel()->ClearCycle( l_Num, 0.1f );
 	}
 	m_pWolf = NULL;
 }
@@ -49,8 +49,8 @@ void CWolfDefenseAnimationState::OnEnter( CCharacter* _Character )
 		m_pWolf = dynamic_cast<CWolf*> (_Character);
 	}
 
-	int l_Num = m_pWolf->GetAnimationID(DEFENSE_STATE);
-	m_pWolf->GetAnimatedModel()->BlendCycle( l_Num, 0.3f );
+	int l_Num = m_pWolf->GetAnimationID(WOLF_DEFENSE_STATE);
+	m_pWolf->GetAnimatedModel()->BlendCycle( l_Num, 0.1f );
 }
 
 void CWolfDefenseAnimationState::OnExit( CCharacter* _Character )
@@ -60,8 +60,8 @@ void CWolfDefenseAnimationState::OnExit( CCharacter* _Character )
 		m_pWolf = dynamic_cast<CWolf*> (_Character);
 	}
 
-	int l_Num = m_pWolf->GetAnimationID(DEFENSE_STATE);
-	m_pWolf->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+	int l_Num = m_pWolf->GetAnimationID(WOLF_DEFENSE_STATE);
+	m_pWolf->GetAnimatedModel()->ClearCycle( l_Num, 0.1f );
 }
 
 bool CWolfDefenseAnimationState::OnMessage( CCharacter*, const STelegram& _Telegram )

@@ -27,7 +27,7 @@ CWolfStillAttackAnimationState::~CWolfStillAttackAnimationState( void )
 {
 	if ( m_pWolf )
 	{	
-		int l_Num = m_pWolf->GetAnimationID(STILL_ATTACK_STATE);
+		int l_Num = m_pWolf->GetAnimationID(WOLF_STILL_ATTACK_STATE);
 		m_pWolf->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
 	}
 	
@@ -49,7 +49,7 @@ void CWolfStillAttackAnimationState::OnEnter( CCharacter* _Character )
 		m_pWolf = dynamic_cast<CWolf*> (_Character);
 	}
 
-	int l_Num = _Character->GetAnimationID(STILL_ATTACK_STATE);
+	int l_Num = _Character->GetAnimationID(WOLF_STILL_ATTACK_STATE);
 	m_pWolf->GetAnimatedModel()->BlendCycle( l_Num, 0.3f );
 }
 
@@ -61,7 +61,7 @@ void CWolfStillAttackAnimationState::OnExit( CCharacter* _Character )
 		m_pWolf = dynamic_cast<CWolf*> (_Character);
 	}
 
-	int l_Num = m_pWolf->GetAnimationID(STILL_ATTACK_STATE);
+	int l_Num = m_pWolf->GetAnimationID(WOLF_STILL_ATTACK_STATE);
 	m_pWolf->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
 }
 

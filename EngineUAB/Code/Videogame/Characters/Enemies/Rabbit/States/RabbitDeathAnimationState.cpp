@@ -28,7 +28,7 @@ CRabbitDeathAnimationState::~CRabbitDeathAnimationState(void)
 {
 	if (m_pRabbit)
 	{
-		/*int l_Num = m_pRabbit->GetAnimationID(DEATH_STATE);
+		/*int l_Num = m_pRabbit->GetAnimationID(DEER_DEATH_STATE);
 		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );*/
 	}
 	m_pRabbit = NULL;
@@ -50,7 +50,7 @@ void CRabbitDeathAnimationState::OnEnter( CCharacter* _Character )
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 
-	int l_Num = m_pRabbit->GetAnimationID(DEATH_STATE);
+	int l_Num = m_pRabbit->GetAnimationID(DEER_DEATH_STATE);
 	m_pRabbit->GetAnimatedModel()->ExecuteAction( l_Num, 0.3f );
 }
 
@@ -61,7 +61,7 @@ void CRabbitDeathAnimationState::OnExit( CCharacter* _Character )
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 
-	/*int l_Num = m_pRabbit->GetAnimationID(DEATH_STATE);
+	/*int l_Num = m_pRabbit->GetAnimationID(DEER_DEATH_STATE);
 	m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );*/
 }
 

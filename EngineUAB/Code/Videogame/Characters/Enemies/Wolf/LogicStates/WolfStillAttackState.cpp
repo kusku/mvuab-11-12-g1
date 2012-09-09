@@ -1,7 +1,15 @@
 #include "WolfStillAttackState.h"
 #include "GameProcess.h"
-#include "Logger\Logger.h"
+
+// --- Per pintar l'estat enemic ---
+#include "DebugGUIManager.h"
+#include "DebugInfo\DebugRender.h"
+#include "LogRender\LogRender.h"
+#include "Core.h"
+// ---------------------------------
+
 #include "StatesMachine\MessageDispatcher.h"
+#include "StatesMachine\Telegram.h"
 
 #include "Characters\StatesDefs.h"
 #include "Characters\Enemies\Wolf\Wolf.h"
@@ -23,6 +31,8 @@
 #include "Callbacks\Animation\AnimationCallback.h"
 #include "Callbacks\Animation\AnimationCallbackManager.h"
 
+#include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
+
 #if defined(_DEBUG)
 	#include "Memory\MemLeaks.h"
 #endif
@@ -37,7 +47,7 @@ CWolfStillAttackState::CWolfStillAttackState( void )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(STILL_ATTACK_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(WOLF_STILL_ATTACK_STATE);
 }
 
 CWolfStillAttackState::CWolfStillAttackState( const std::string &_Name )
@@ -46,7 +56,7 @@ CWolfStillAttackState::CWolfStillAttackState( const std::string &_Name )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(STILL_ATTACK_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(WOLF_STILL_ATTACK_STATE);
 }
 
 
@@ -66,6 +76,17 @@ void CWolfStillAttackState::OnEnter( CCharacter* _Character )
 	{
 		m_pWolf = dynamic_cast<CWolf*> (_Character);
 	}
+	
+#if defined _DEBUG
+	if( CORE->IsDebugMode() )
+	{
+		CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Enter Still Attack");
+	}
+#endif
+
+	m_pWolf->GetBehaviors()->CollisionAvoidanceOn();
+	m_pWolf->GetBehaviors()->ObstacleWallAvoidanceOn();
+
 	m_pAnimationCallback->Init();
 }
 
@@ -98,19 +119,70 @@ void CWolfStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 
 				// Volvemos al estado anterior
 				m_pWolf->GetLogicFSM()->RevertToPreviousState();
+				m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());
+
+				#if defined _DEBUG
+					if( CORE->IsDebugMode() )
+					{
+						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Dispatch");
+					}
+				#endif
 			}
-			else 
+			// Si acaba la animacion pero no estamos en una distancia de poder impactar solo hacemos que se canse
+			else if ( m_pAnimationCallback->IsAnimationFinished() && !m_pWolf->IsPlayerInsideImpactDistance() )
 			{
-				//m_pAnimationCallback->AnimationUpdate(_ElapsedTime);
+				// Incrementamos el nº de ataques hechos --> si llega a un total estará cansado
+				m_pWolf->SetHitsDone(m_pWolf->GetHitsDone() + 1);
+
+				// Volvemos al estado anterior
+				//m_pWolf->GetLogicFSM()->RevertToPreviousState();
+				m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetAttackState());
+				m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());
+
+				#if defined _DEBUG
+					if( CORE->IsDebugMode() )
+					{
+						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Still Attack fallit ");
+					}
+				#endif
+
+				return;
+			}
+			// NO!! Esto hace que luego corra mientras ataca y queda de pena. Mantengo el comentario para recordarlo.
+			// En caso que no estemos en una distancia de ataque nos salimos. Este se comenta pq se prevee que falle y corte la animacion
+			/*else if ( !m_pWolf->IsPlayerInsideImpactDistance() )
+			{
+				m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetAttackState());
+				m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());
+
+				#if defined _DEBUG
+					if( CORE->IsDebugMode() )
+					{
+						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Allunyat!");
+					}
+				#endif
+
+				return;
+			}*/
+			// En otro caso actualizamos el tiempo de animacion
+			else
+			{
+				#if defined _DEBUG
+					if( CORE->IsDebugMode() )
+					{
+						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("NOT FINISHED YET!");
+					}
+				#endif
 			}
 		}
 		else
 		{
 			if ( m_pWolf->IsPlayerInsideImpactDistance() ) 
 			{
-				// print_logger( 0, "CWolfStillAttackState:Execute-> Impactamos!" )
+				m_pWolf->GetBehaviors()->SeekOff();
+				m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
 				m_pWolf->FaceTo( m_pWolf->GetSteeringEntity()->GetPosition(), _ElapsedTime );
-				m_pWolf->MoveTo2( Vect3f(0,0,0), _ElapsedTime );
+				m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 				
 				/*self.active_animation_id = _CCharacter:get_animation_id("run")
 				_CCharacter:get_animation_model():clear_cycle( self.active_animation_id, 0.3 )
@@ -138,12 +210,18 @@ void CWolfStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				}
 				else 
 				{
-					LOGGER->AddNewLog(ELL_ERROR, "CWolfStillAttackState:Execute->El Character Wolf es NULL" );
+					LOGGER->AddNewLog(ELL_ERROR, "CWolfStillAttackState:Execute->El Character Rabbit es NULL" );
 				}
 				
 				// Rotamos al objetivo y movemos
 				m_pWolf->FaceTo( m_pWolf->GetSteeringEntity()->GetPosition(), _ElapsedTime );
 				m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+				#if defined _DEBUG
+					if( CORE->IsDebugMode() )
+					{
+						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Ens apropem primer");
+					}
+				#endif
 			}
 		}
 	}

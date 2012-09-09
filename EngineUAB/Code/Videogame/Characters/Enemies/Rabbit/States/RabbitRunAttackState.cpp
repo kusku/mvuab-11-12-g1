@@ -20,7 +20,6 @@
 #include "RabbitPursuitState.h"
 #include "RabbitPreparedToAttackState.h"
 #include "RabbitHitState.h"
-#include "RabbitRunAttackState.h"
 
 #include "RabbitHitAnimationState.h"
 #include "RabbitIdleAnimationState.h"
@@ -51,7 +50,7 @@ CRabbitRunAttackState::CRabbitRunAttackState( void )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RUN_ATTACK_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RABBIT_RUN_ATTACK_STATE);
 }
 
 CRabbitRunAttackState::CRabbitRunAttackState( const std::string &_Name )
@@ -60,7 +59,7 @@ CRabbitRunAttackState::CRabbitRunAttackState( const std::string &_Name )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RUN_ATTACK_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RABBIT_RUN_ATTACK_STATE);
 }
 
 
@@ -193,7 +192,7 @@ void CRabbitRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				}
 				else
 				{
-					m_AnimationDuration = m_pRabbit->GetAnimatedModel()->GetCurrentAnimationDuration(RUN_ATTACK_STATE) / 3;
+					m_AnimationDuration = m_pRabbit->GetAnimatedModel()->GetCurrentAnimationDuration(RABBIT_RUN_ATTACK_STATE) / 3;
 
 					if ( m_CurrentDuration >= m_AnimationDuration )
 					{

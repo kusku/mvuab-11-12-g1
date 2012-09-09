@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef _Wolf_WALK_ANIMATION_STATE_H_
-#define _Wolf_WALK_ANIMATION_STATE_H_
+#ifndef _WOLF_WALK_ANIMATION_STATE_H_
+#define _WOLF_WALK_ANIMATION_STATE_H_
 
 #include <string>
 #include "StatesMachine\State.h"
@@ -42,4 +42,4 @@ private:
 };
 
 
-#endif _Wolf_WALK_ANIMATION_STATE_H_
+#endif _WOLF_WALK_ANIMATION_STATE_H_

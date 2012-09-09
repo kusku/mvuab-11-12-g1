@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef _Wolf_ATTACK_STATE_H_
-#define _Wolf_ATTACK_STATE_H_
+#ifndef _WOLF_ATTACK_STATE_H_
+#define _WOLF_ATTACK_STATE_H_
 
 #include <string>
 #include "StatesMachine\State.h"
@@ -44,4 +44,4 @@ private:
 };
 
 
-#endif _Wolf_ATTACK_STATE_H_
+#endif _WOLF_ATTACK_STATE_H_

@@ -28,7 +28,7 @@ CRabbitStillAttackAnimationState::~CRabbitStillAttackAnimationState( void )
 {
 	if ( m_pRabbit )
 	{
-		/*int l_Num = m_pRabbit->GetAnimationID(WALK_STATE);
+		/*int l_Num = m_pRabbit->GetAnimationID(RABBIT_WALK_STATE);
 		m_pRabbit->GetAnimatedModel()->ClearCycle(l_Num, 0.3f);*/
 	}
 
@@ -50,10 +50,10 @@ void CRabbitStillAttackAnimationState::OnEnter( CCharacter* _Character )
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 
-	/*int l_iAnimID = m_pRabbit->GetAnimationID(WALK_STATE);
+	/*int l_iAnimID = m_pRabbit->GetAnimationID(RABBIT_WALK_STATE);
 	m_pRabbit->GetAnimatedModel()->BlendCycle(l_iAnimID, 0.3f);*/
 
-	int l_Num = m_pRabbit->GetAnimationID(STILL_ATTACK_STATE);
+	int l_Num = m_pRabbit->GetAnimationID(RABBIT_STILL_ATTACK_STATE);
 	m_pRabbit->GetAnimatedModel()->ExecuteAction( l_Num, 0.3f );
 }
 
@@ -65,7 +65,7 @@ void CRabbitStillAttackAnimationState::OnExit( CCharacter* _Character )
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 	
-	/*int l_Num = m_pRabbit->GetAnimationID(WALK_STATE);
+	/*int l_Num = m_pRabbit->GetAnimationID(RABBIT_WALK_STATE);
 	m_pRabbit->GetAnimatedModel()->ClearCycle(l_Num, 0.3f);*/
 }
 

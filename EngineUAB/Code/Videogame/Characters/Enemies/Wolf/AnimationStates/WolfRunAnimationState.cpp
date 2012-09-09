@@ -28,7 +28,7 @@ CWolfRunAnimationState::~CWolfRunAnimationState( void )
 {
 	if (m_pWolf)
 	{
-		int l_Num = m_pWolf->GetAnimationID(RUN_STATE);
+		int l_Num = m_pWolf->GetAnimationID(WOLF_RUN_STATE);
 		m_pWolf->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
 	}
 	m_pWolf = NULL;
@@ -50,7 +50,7 @@ void CWolfRunAnimationState::OnEnter( CCharacter* _Character )
 		m_pWolf = dynamic_cast<CWolf*> (_Character);
 	}
 
-	int l_Num = m_pWolf->GetAnimationID(RUN_STATE);
+	int l_Num = m_pWolf->GetAnimationID(WOLF_RUN_STATE);
 	m_pWolf->GetAnimatedModel()->BlendCycle( l_Num, 0.3f );
 }
 
@@ -62,7 +62,7 @@ void CWolfRunAnimationState::OnExit( CCharacter* _Character )
 		m_pWolf = dynamic_cast<CWolf*> (_Character);
 	}
 
-	int l_Num = m_pWolf->GetAnimationID(RUN_STATE);
+	int l_Num = m_pWolf->GetAnimationID(WOLF_RUN_STATE);
 	m_pWolf->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
 }
 

@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef _Wolf_HIT_STATE_H_
-#define _Wolf_HIT_STATE_H_
+#ifndef _WOLF_HIT_STATE_H_
+#define _WOLF_HIT_STATE_H_
 
 #include <string>
 #include "StatesMachine\State.h"
@@ -10,6 +10,7 @@
 // --- Foward Declarations ---
 class CWolf;
 class CAnimationCallback;
+class CActionStateCallback;
 // ---------------------------
 
 class CWolfHitState : public CState<CCharacter> 
@@ -39,6 +40,7 @@ public:
 private:
 	CWolf					  * m_pWolf;
 	CAnimationCallback		  *	m_pAnimationCallback;
+	CActionStateCallback	  * m_pActionState;
 	
 };
-#endif _Wolf_HIT_STATE_H_
+#endif _WOLF_HIT_STATE_H_

@@ -132,12 +132,12 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _Character, float _Elaps
 				m_pRabbit->GoInToFrustrum(l_Angle, _ElapsedTime);
 				m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetWalkAnimationState());		// dudo de si uno u otro. Faltan pasos laterales...
 				//m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetRunAnimationState());
-				#if defined _DEBUG
+				/*#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
 						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Prepared-Walk");
 					}
-				#endif
+				#endif*/
 			//}	
 		}
 
@@ -175,6 +175,9 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _Character, float _Elaps
 
 void CRabbitPreparedToAttackState::OnExit( CCharacter* _Character )
 {
+	
+	m_pRabbit->GetBehaviors()->SeekOff();
+	m_pRabbit->GetBehaviors()->PursuitOff();
 	m_pRabbit->GetBehaviors()->CollisionAvoidanceOff();
 	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOff();
 	m_pRabbit->GetBehaviors()->SeparationOff();

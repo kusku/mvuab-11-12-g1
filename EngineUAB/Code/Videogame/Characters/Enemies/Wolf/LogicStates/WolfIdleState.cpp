@@ -1,12 +1,21 @@
 #include "WolfIdleState.h"
 #include "Utils\BoostRandomHelper.h"
 
+// --- Per pintar l'estat enemic ---
+#include "DebugGUIManager.h"
+#include "DebugInfo\DebugRender.h"
+#include "LogRender\LogRender.h"
+#include "Core.h"
+// ---------------------------------
+
+#include "Characters\StatesDefs.h"
 #include "Characters\Enemies\Wolf\Wolf.h"
 
 #include "WolfPursuitState.h"
+#include "WolfHitState.h"
 
 #include "Characters\Enemies\Wolf\AnimationStates\WolfIdleAnimationState.h"
-#include "Characters\Enemies\Wolf\AnimationStates\WolfIdle2AnimationState.h"
+//#include "Characters\Enemies\Wolf\AnimationStates\WolfIdle2AnimationState.h"
 #include "Characters\Enemies\Wolf\AnimationStates\WolfRunAnimationState.h"
 #include "Characters\Enemies\Wolf\AnimationStates\WolfHitAnimationState.h"
 
@@ -22,14 +31,14 @@
 // -----------------------------------------
 CWolfIdleState::CWolfIdleState( void )
 	: CState		("CWolfIdleState")
-	, m_ActionTime  ( CActionStateCallback( 1.f, 2.f ) )
+	//, m_ActionTime  ( CActionStateCallback( 1.f, 2.f ) )
 	, m_pWolf		( NULL )
 {
 }
 
 CWolfIdleState::CWolfIdleState( const std::string &_Name )
 	: CState		(_Name)
-	, m_ActionTime	( CActionStateCallback( 1.f, 2.f ) )
+	//, m_ActionTime	( CActionStateCallback( 1.f, 2.f ) )
 	, m_pWolf		( NULL )
 {
 }
@@ -47,7 +56,7 @@ CWolfIdleState::~CWolfIdleState(void)
 void CWolfIdleState::OnEnter( CCharacter* _Character )
 {
 	m_pWolf = dynamic_cast<CWolf*> (_Character);
-	m_ActionTime.StartAction();
+	//m_ActionTime.StartAction();
 }
 
 void CWolfIdleState::Execute( CCharacter* _Character, float _ElapsedTime )
@@ -64,27 +73,33 @@ void CWolfIdleState::Execute( CCharacter* _Character, float _ElapsedTime )
 	}
 	else
 	{
-		if ( m_ActionTime.IsActionFinished() )
-		{
+		// TODO: Esto comentado es para si existe otro idle para cargar
+		/*if ( m_ActionTime.IsActionFinished() )
+		{*/
 			// pillamos la animación idle que deseemos
-			if ( BoostRandomHelper::GetInt(1, 4) == 1 ) 
-			{
-				//CState<CCharacter> * l_State = dynamic_cast<CState<CCharacter>*> (m_pWolf->GetIdleAnimationState());
+			//if ( BoostRandomHelper::GetInt(1, 4) == 1 ) 
+			//{
 				m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());
-			}
-			else
-			{
-				//CState<CCharacter> * l_State = dynamic_cast<CState<CCharacter>*> (m_pWolf->GetIdle2AnimationState());
-				m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdle2AnimationState());
-			}
+				
+				#if defined _DEBUG
+					if( CORE->IsDebugMode() )
+					{
+						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName(RABBIT_IDLE_STATE);
+					}
+				#endif
+			//}
+			//else
+			//{
+			//	m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdle2AnimationState());
+			//}
 
 			// pillamos un tiempo de ejecución aleatorio
-			m_ActionTime.StartAction();
+		/*	m_ActionTime.StartAction();
 		}
 		else
 		{
 			m_ActionTime.Update(_ElapsedTime);
-		}
+		}*/
 	}
 
 	// Reseteamos la velocidad del enemigo
@@ -101,10 +116,14 @@ bool CWolfIdleState::OnMessage( CCharacter* _Character, const STelegram& _Telegr
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
-		// _Character->GetLogicFSM()->ChangeState(m_pWolf->GetHitState());
-		_Character->GetGraphicFSM()->ChangeState(m_pWolf->GetHitAnimationState());
+		if (!m_pWolf) 
+		{
+			m_pWolf = dynamic_cast<CWolf*> (_Character);
+		}
+
+		m_pWolf->RestLife(1000); 
+		m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetHitState());
 		return true;
 	}
-
 	return false;
 }

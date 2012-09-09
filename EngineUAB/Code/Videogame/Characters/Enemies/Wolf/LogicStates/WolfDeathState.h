@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef _WOLF_STILL_ATTACK_STATE_H_
-#define _WOLF_STILL_ATTACK_STATE_H_
+#ifndef _WOLF_DEATH_STATE_H_
+#define _WOLF_DEATH_STATE_H_
 
 
 #include <string>
@@ -13,14 +13,14 @@ class CWolf;
 class CAnimationCallback;
 // ---------------------------
 
-class CWolfStillAttackState : public CState<CCharacter> 
+class CWolfDeathState : public CState<CCharacter> 
 {
 public:
 
 	// ------------- Constructors i Destructors --------------
-					CWolfStillAttackState	( void );
-					CWolfStillAttackState	( const std::string &_Name );
-	virtual			~CWolfStillAttackState	( void );
+					CWolfDeathState	( void );
+					CWolfDeathState	( const std::string &_Name );
+	virtual			~CWolfDeathState	( void );
 
 	//----Main Functions --------------------------------------
 	virtual void	Execute		( CCharacter*, float _ElapsedTime );
@@ -41,6 +41,4 @@ private:
 	CWolf					  * m_pWolf;
 	CAnimationCallback		  *	m_pAnimationCallback;
 };
-
-
-#endif _WOLF_STILL_ATTACK_STATE_H_
+#endif _WOLF_DEATH_STATE_H_

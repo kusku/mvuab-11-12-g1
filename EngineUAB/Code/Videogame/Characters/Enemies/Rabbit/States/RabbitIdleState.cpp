@@ -94,7 +94,7 @@ void CRabbitIdleState::Execute( CCharacter* _Character, float _ElapsedTime )
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName(IDLE_STATE);
+						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName(RABBIT_IDLE_STATE);
 					}
 				#endif
 			}
@@ -105,7 +105,7 @@ void CRabbitIdleState::Execute( CCharacter* _Character, float _ElapsedTime )
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName(IDLE2_STATE);
+						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName(RABBIT_IDLE2_STATE);
 					}
 				#endif
 			}

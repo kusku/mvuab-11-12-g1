@@ -1,5 +1,14 @@
 #include "WolfAttackState.h"
 #include "Utils\BoostRandomHelper.h"
+#include "Logger\Logger.h"
+#include "Base.h"
+
+// --- Per pintar l'estat enemic ---
+#include "DebugGUIManager.h"
+#include "DebugInfo\DebugRender.h"
+#include "LogRender\LogRender.h"
+#include "Core.h"
+// ---------------------------------
 
 #include "Characters\StatesDefs.h"
 #include "Characters\Enemies\Wolf\Wolf.h"
@@ -11,9 +20,10 @@
 #include "WolfDefenseState.h"
 #include "WolfStillAttackState.h"
 #include "WolfRunAttackState.h"
+#include "WolfHitState.h"
 
 #include "Characters\Enemies\Wolf\AnimationStates\WolfHitAnimationState.h"
-#include "Characters\Enemies\Wolf\AnimationStates\WolfIdle2AnimationState.h"
+#include "Characters\Enemies\Wolf\AnimationStates\WolfDefenseAnimationState.h"
 
 #include "Steering Behaviors\SteeringEntity.h"
 #include "Steering Behaviors\SteeringBehaviors.h"
@@ -66,6 +76,13 @@ void CWolfAttackState::OnEnter( CCharacter* _Character )
 	m_pWolf->GetBehaviors()->SeparationOn();
 	m_pWolf->GetBehaviors()->CollisionAvoidanceOn();
 	m_pWolf->GetBehaviors()->ObstacleWallAvoidanceOn();
+
+	#if defined _DEBUG
+		if( CORE->IsDebugMode() )
+		{
+			CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Attack");
+		}
+	#endif
 }
 
 void CWolfAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
@@ -84,25 +101,26 @@ void CWolfAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 		}
 		else if ( m_pWolf->GetReceivedHitsXMinut() == m_pWolf->GetTotalReceivedHitsXMinut() ) 
 		{
-			// print_logger (1, "hits x minut rebuts i per tant bloquejaré...")
+			//LOGGER->AddNewLog(ELL_INFORMATION, "CWolfAttackState::Execute->hits x minut rebuts i per tant bloquejaré...");
 			m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetDefenseState());
+			m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetDefenseAnimationState());
 		}
 		else 
 		{
 			std::string l_ActiveActionState = GetRandomAttackName();
 			// print_logger ( 0, "Attack Random Sel·leccionat "..l_ActiveActionState ) 
 				
-			if ( l_ActiveActionState == STILL_ATTACK_STATE ) 
+			if ( l_ActiveActionState == WOLF_STILL_ATTACK_STATE ) 
 			{
-				//m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetStillAttackState());
+				m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetStillAttackState());
 			}	
-			else if ( l_ActiveActionState == RUN_ATTACK_STATE ) 
+			else if ( l_ActiveActionState == WOLF_RUN_ATTACK_STATE ) 
 			{
-				//m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetRunAttackState());
+				m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetRunAttackState());
 			}	
-			else if ( l_ActiveActionState == DEFENSE_STATE ) 
+			else if ( l_ActiveActionState == WOLF_DEFENSE_STATE ) 
 			{
-				//m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetDefenseState());
+				m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetDefenseState());
 			}		
 			// else if ( l_ActiveActionState == "jump" ) then
 				// _CCharacter.logic_fsm:change_state(_CCharacter.jump_state)
@@ -111,6 +129,14 @@ void CWolfAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 				float l_Angle = 22.f;		// 22,5 graus de fustrum
 				m_pWolf->GoInToFrustrum(l_Angle, _ElapsedTime);
 			}
+
+			#if defined _DEBUG
+			if( CORE->IsDebugMode() )
+			{
+				//LOGGER->AddNewLog(ELL_INFORMATION, "Enemy %s in some attack...", m_pWolf->GetName().c_str() );
+			}
+			#endif
+
 		} 	// End fatigue
 	}	
 	// Si el player NO es atacable lo volvemos a preparar o a perseguir
@@ -127,6 +153,8 @@ void CWolfAttackState::OnExit( CCharacter* _Character )
 		m_pWolf = dynamic_cast<CWolf*> (_Character);
 	}
 
+	m_pWolf->GetBehaviors()->PursuitOff();
+	m_pWolf->GetBehaviors()->SeekOff();
 	m_pWolf->GetBehaviors()->SeparationOff();
 	m_pWolf->GetBehaviors()->CollisionAvoidanceOff();
 	m_pWolf->GetBehaviors()->ObstacleWallAvoidanceOff();
@@ -136,8 +164,13 @@ bool CWolfAttackState::OnMessage( CCharacter* _Character, const STelegram& _Tele
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
-		// _Character->GetLogicFSM()->ChangeState(m_pWolf->GetHitState());
-		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetHitAnimationState());
+		if (!m_pWolf) 
+		{
+			m_pWolf = dynamic_cast<CWolf*> (_Character);
+		}
+
+		m_pWolf->RestLife(1000); 
+		m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetHitState());
 		return true;
 	}
 
@@ -154,21 +187,21 @@ std::string CWolfAttackState::GetRandomAttackName(void)
 
 	int l_AttackType = BoostRandomHelper::GetInt(1,12);
 	if ( l_AttackType == 1 ) 
-		l_Action = STILL_ATTACK_STATE;
+		l_Action = RABBIT_STILL_ATTACK_STATE;
 	else if ( l_AttackType == 2 ) 
-		l_Action =  STILL_ATTACK_STATE;
+		l_Action =  RABBIT_STILL_ATTACK_STATE;
 	else if ( l_AttackType == 3 ) 
-		l_Action = STILL_ATTACK_STATE;
+		l_Action = RABBIT_STILL_ATTACK_STATE;
 	else if ( l_AttackType == 4 ) 
-		l_Action = RUN_ATTACK_STATE;
+		l_Action = RABBIT_RUN_ATTACK_STATE;
 	else if ( l_AttackType == 5 ) 
-		l_Action = RUN_ATTACK_STATE;
+		l_Action = RABBIT_RUN_ATTACK_STATE;
 	else if ( l_AttackType == 6 ) 
-		l_Action = RUN_ATTACK_STATE;
+		l_Action = RABBIT_RUN_ATTACK_STATE;
 	else if ( l_AttackType == 7 ) 
-		l_Action = DEFENSE_STATE;
+		l_Action = RABBIT_DEFENSE_STATE;
 	else if ( l_AttackType == 8 ) 
-		l_Action =  JUMP_STATE;
+		l_Action =  RABBIT_JUMP_STATE;
 			
 	// Más probabilidades de ir al fustrum que no atacar
 	else if ( l_AttackType == 9 ) 

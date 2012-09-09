@@ -1,6 +1,13 @@
 #include "WolfTiredState.h"
 #include "Utils\BoostRandomHelper.h"
 
+// --- Per pintar l'estat enemic ---
+#include "DebugGUIManager.h"
+#include "DebugInfo\DebugRender.h"
+#include "LogRender\LogRender.h"
+#include "Core.h"
+// ---------------------------------
+
 #include "Characters\Enemies\Wolf\Wolf.h"
 
 #include "WolfPursuitState.h"
@@ -52,7 +59,15 @@ void CWolfTiredState::OnEnter( CCharacter* _Character )
 		m_pWolf = dynamic_cast<CWolf*> (_Character);
 	}
 
+	m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());
 	m_ActionTime.StartAction();
+
+	#if defined _DEBUG
+		if( CORE->IsDebugMode() )
+		{
+			CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Fatigued");
+		}
+	#endif
 }
 
 void CWolfTiredState::Execute( CCharacter* _Character, float _ElapsedTime )
@@ -72,7 +87,7 @@ void CWolfTiredState::Execute( CCharacter* _Character, float _ElapsedTime )
 	m_ActionTime.Update(_ElapsedTime);
 
 	// Mentre espero miro al player
-	_Character->FaceTo( m_pWolf->GetPlayer()->GetPosition(), _ElapsedTime);
+	m_pWolf->FaceTo( m_pWolf->GetPlayer()->GetPosition(), _ElapsedTime);
 }
 
 
@@ -84,8 +99,13 @@ bool CWolfTiredState::OnMessage( CCharacter* _Character, const STelegram& _Teleg
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
+		if (!m_pWolf) 
+		{
+			m_pWolf = dynamic_cast<CWolf*> (_Character);
+		}
+
+		m_pWolf->RestLife(1000); 
 		m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetHitState());
-		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetHitAnimationState());
 		return true;
 	}
 

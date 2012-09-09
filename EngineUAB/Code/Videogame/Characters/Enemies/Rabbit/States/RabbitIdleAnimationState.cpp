@@ -27,7 +27,7 @@ CRabbitIdleAnimationState::~CRabbitIdleAnimationState(void)
 {
 	if (m_pRabbit)
 	{
-		int l_Num = m_pRabbit->GetAnimationID(IDLE_STATE);
+		int l_Num = m_pRabbit->GetAnimationID(RABBIT_IDLE_STATE);
 		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
 	}
 	m_pRabbit = NULL;
@@ -45,7 +45,7 @@ void CRabbitIdleAnimationState::OnEnter( CCharacter* _Character )
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 
-	int l_Num = m_pRabbit->GetAnimationID(IDLE_STATE);
+	int l_Num = m_pRabbit->GetAnimationID(RABBIT_IDLE_STATE);
 	m_pRabbit->GetAnimatedModel()->BlendCycle( l_Num, 0.3f );
 }
 
@@ -60,7 +60,7 @@ void CRabbitIdleAnimationState::OnExit( CCharacter* _Character )
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 
-	int l_Num = m_pRabbit->GetAnimationID(IDLE_STATE);
+	int l_Num = m_pRabbit->GetAnimationID(RABBIT_IDLE_STATE);
 	m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
 }
 

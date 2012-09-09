@@ -6,6 +6,7 @@
 
 #include "CharacterManager.h"
 #include "Enemies\Rabbit\Rabbit.h"
+#include "Enemies\Wolf\Wolf.h"
 
 #include "Math\Vector3.h"
 #include "Utils\Random.h"
@@ -679,8 +680,11 @@ bool CCharactersManager::LoadEnemiesProperties( const CXMLTreeNode &_Node )
 
 						if ( l_EnemyProperties->GetCore() == "lobo" )
 						{
+							/*std::string l_LUAClass = "CWolf";
+							l_Character = call_function<CCharacter*>(SCRIPT->GetLuaState(), l_LUAClass.c_str(), l_NextIDValid, l_EnemyProperties->GetName() )[adopt(result)];*/
 							std::string l_LUAClass = "CWolf";
 							l_Character = call_function<CCharacter*>(SCRIPT->GetLuaState(), l_LUAClass.c_str(), l_NextIDValid, l_EnemyProperties->GetName() )[adopt(result)];
+							l_Character = new CWolf(l_NextIDValid, l_EnemyProperties->GetName());
 						}
 						if ( l_EnemyProperties->GetCore() == "conejo" ) 
 						{

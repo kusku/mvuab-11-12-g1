@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef _Wolf_RUN_ATTACK_STATE_H_
-#define _Wolf_RUN_ATTACK_STATE_H_
+#ifndef _WOLF_RUN_ATTACK_STATE_H_
+#define _WOLF_RUN_ATTACK_STATE_H_
 
 
 #include <string>
@@ -44,7 +44,10 @@ private:
 	float						m_OldMaxSpeed;			// Permite almacenar la vieja velocidad para posteriormente recuperarla
 	float						m_OldMass;				// Permite almacenar la vieja masa para posteriormente recuperarla
 	float						m_CurrentDistance;		// Permite alamacenar la distancia para saber si luego nos pasamos
+
+	float					m_CurrentDuration;
+	float					m_AnimationDuration;
 };
 
 
-#endif _Wolf_RUN_ATTACK_STATE_H_
+#endif _WOLF_RUN_ATTACK_STATE_H_
