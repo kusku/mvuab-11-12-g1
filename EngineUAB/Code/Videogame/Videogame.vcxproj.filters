@@ -294,19 +294,7 @@
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfHitAnimationState.cpp">
       <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
     </ClCompile>
-    <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfIdle2AnimationState.cpp">
-      <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfIdleAnimationState.cpp">
-      <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
-    </ClCompile>
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfJumpAnimationState.cpp">
-      <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfLeftLateralAnimationState.cpp">
-      <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfRightLateralAnimationState.cpp">
       <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
     </ClCompile>
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfRunAnimationState.cpp">
@@ -407,6 +395,12 @@
     </ClCompile>
     <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitDeathState.cpp">
       <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Wolf\LogicStates\WolfDeathState.cpp">
+      <Filter>Characters\Enemies\Wolf\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfIdleAnimationState.cpp">
+      <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -611,19 +605,10 @@
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfHitAnimationState.h">
       <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
     </ClInclude>
-    <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfIdle2AnimationState.h">
-      <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
-    </ClInclude>
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfIdleAnimationState.h">
       <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
     </ClInclude>
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfJumpAnimationState.h">
-      <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfLeftLateralAnimationState.h">
-      <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfRightLateralAnimationState.h">
       <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
     </ClInclude>
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfRunAnimationState.h">
@@ -724,6 +709,12 @@
     </ClInclude>
     <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitDeathState.h">
       <Filter>Characters\Enemies\Rabbit\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Wolf\LogicStates\WolfDeathState.h">
+      <Filter>Characters\Enemies\Wolf\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\StatesDefs.h">
+      <Filter>Characters</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
