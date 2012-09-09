@@ -259,7 +259,7 @@ void CCharactersManager::Render(CRenderManager *_RM, CFontManager *_FM)
 	if ( CORE->GetPhysicsManager()->GetDrawFront() )
 		DrawFront();
 
-	if ( CORE->GetPhysicsManager()->GetDrawFustrum() )
+	if ( CORE->GetPhysicsManager()->GetDrawFrustrum() )
 		DrawFustrum();
 
 	if ( CORE->GetPhysicsManager()->GetDrawNames() )
@@ -267,6 +267,9 @@ void CCharactersManager::Render(CRenderManager *_RM, CFontManager *_FM)
 
 	if ( CORE->GetPhysicsManager()->GetDrawRays() )
 		DrawRay();
+
+
+	
 }
 
 //--------------------------------------------------
@@ -319,7 +322,14 @@ void CCharactersManager::DrawFustrum( void )
 
 		l_FinalPosition = (*l_It)->GetSteeringEntity()->GetFinalPositionToThrowRay(-45.f);
 		l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );
+
+		mat.Translate((*l_It)->GetSteeringEntity()->GetPosition());
+		l_RM->SetTransform(mat);
+		l_RM->DrawSphere( (*l_It)->GetSteeringEntity()->GetBoundingRadius(), 10, colMAGENTA );		// Bounding box
+		l_RM->DrawSphere( (*l_It)->GetProperties()->GetDetectionDistance(), 10, colCYAN );			// Detection distance
+		l_RM->DrawSphere( (*l_It)->GetProperties()->GetAttackDistance(), 10, colRED);				// Impact distance
 	}
+	
 }
 
 // Dibuixem el front dels enemics i del player
