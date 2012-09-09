@@ -129,10 +129,17 @@ void CPlayerRunState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 			l_bMovePlayer = true;
 		}
 
+
 		if( l_bMovePlayer )
 		{
 			l_Dir = Vect3f( mathUtils::Cos<float>(l_fYaw), 0.f, mathUtils::Sin<float>(l_fYaw) );
 			m_LastDirection = l_Dir;
+
+			if( m_bEndState )
+			{
+				m_bStartState = true;
+				m_bEndState = false;
+			}
 		}
 		else
 		{
