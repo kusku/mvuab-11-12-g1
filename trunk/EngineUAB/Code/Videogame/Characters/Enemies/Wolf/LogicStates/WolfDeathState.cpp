@@ -1,4 +1,4 @@
-#include "RabbitDeathState.h"
+#include "WolfDeathState.h"
 #include "GameProcess.h"
 
 // --- Per pintar l'estat enemic ---
@@ -9,12 +9,12 @@
 // ---------------------------------
 
 #include "Characters\StatesDefs.h"
-#include "Characters\Enemies\Rabbit\Rabbit.h"
+#include "Characters\Enemies\Wolf\Wolf.h"
 
-#include "RabbitIdleState.h"
+#include "WolfIdleState.h"
 
-#include "RabbitDeathAnimationState.h"
-#include "RabbitIdleAnimationState.h"
+#include "Characters\Enemies\Wolf\AnimationStates\WolfDeathAnimationState.h"
+#include "Characters\Enemies\Wolf\AnimationStates\WolfIdleAnimationState.h"
 
 #include "Steering Behaviors\SteeringEntity.h"
 #include "Steering Behaviors\SteeringBehaviors.h"
@@ -33,18 +33,18 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CRabbitDeathState::CRabbitDeathState( void )
-	: CState				("CRabbitDeathState")
-	, m_pRabbit				( NULL )
+CWolfDeathState::CWolfDeathState( void )
+	: CState				("CWolfDeathState")
+	, m_pWolf				( NULL )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RABBIT_DEATH_STATE);
 }
 
-CRabbitDeathState::CRabbitDeathState( const std::string &_Name )
+CWolfDeathState::CWolfDeathState( const std::string &_Name )
 	: CState				(_Name)
-	, m_pRabbit				( NULL )
+	, m_pWolf				( NULL )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
@@ -52,9 +52,9 @@ CRabbitDeathState::CRabbitDeathState( const std::string &_Name )
 }
 
 
-CRabbitDeathState::~CRabbitDeathState(void)
+CWolfDeathState::~CWolfDeathState(void)
 {
-	m_pRabbit = NULL;
+	m_pWolf = NULL;
 	m_pAnimationCallback = NULL;
 }
 
@@ -62,11 +62,11 @@ CRabbitDeathState::~CRabbitDeathState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CRabbitDeathState::OnEnter( CCharacter* _Character )
+void CWolfDeathState::OnEnter( CCharacter* _Character )
 {
-	if (!m_pRabbit) 
+	if (!m_pWolf) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pWolf = dynamic_cast<CWolf*> (_Character);
 	}
 
 #if defined _DEBUG
@@ -79,11 +79,11 @@ void CRabbitDeathState::OnEnter( CCharacter* _Character )
 	m_pAnimationCallback->Init();
 }
 
-void CRabbitDeathState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CWolfDeathState::Execute( CCharacter* _Character, float _ElapsedTime )
 {
-	if (!m_pRabbit) 
+	if (!m_pWolf) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pWolf = dynamic_cast<CWolf*> (_Character);
 	}
 	
 	// Si és atacable miro si llegué al màximo de lo que permito que me golpeen y bloqueo
@@ -93,15 +93,15 @@ void CRabbitDeathState::Execute( CCharacter* _Character, float _ElapsedTime )
 		if ( m_pAnimationCallback->IsAnimationFinished() )
 		{
 			// Volvemos al estado anterior
-			/*m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetIdleState());
-			m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());*/
+			/*m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetIdleState());
+			m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());*/
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
 					CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Mort enemic");
 				}
 			#endif
-			m_pRabbit->SetEnable(false);	
+			m_pWolf->SetEnable(false);	
 			return;
 
 		}
@@ -118,11 +118,11 @@ void CRabbitDeathState::Execute( CCharacter* _Character, float _ElapsedTime )
 	}
 	else
 	{
-		m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetDeathAnimationState());
+		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetDeathAnimationState());
 		m_pAnimationCallback->StartAnimation();
 
-		//m_pRabbit->FaceTo( m_pRabbit->GetSteeringEntity()->GetPosition(), _ElapsedTime );
-		//m_pRabbit->MoveTo2( Vect3f(0,0,0), _ElapsedTime );
+		//m_pWolf->FaceTo( m_pWolf->GetSteeringEntity()->GetPosition(), _ElapsedTime );
+		//m_pWolf->MoveTo2( Vect3f(0,0,0), _ElapsedTime );
 
 		#if defined _DEBUG
 			if( CORE->IsDebugMode() )
@@ -134,14 +134,14 @@ void CRabbitDeathState::Execute( CCharacter* _Character, float _ElapsedTime )
 }
 
 
-void CRabbitDeathState::OnExit( CCharacter* _Character )
+void CWolfDeathState::OnExit( CCharacter* _Character )
 {
 	// nos volvemos
-	/*m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetAttackState());
-	m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());*/
+	/*m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetAttackState());
+	m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());*/
 }
 
-bool CRabbitDeathState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CWolfDeathState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
 {
 	return false;
 }

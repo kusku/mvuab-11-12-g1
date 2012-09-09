@@ -172,10 +172,10 @@ bool CDeer::Init( void )
 void CDeer::CreateCallbacks(void)
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	l_Process->GetAnimationCallbackManager()->CreateCallback(HIT_STATE, this->GetAnimatedModel());
-	l_Process->GetAnimationCallbackManager()->CreateCallback(STILL_ATTACK_STATE, this->GetAnimatedModel());
-	l_Process->GetAnimationCallbackManager()->CreateCallback(RUN_ATTACK_STATE, this->GetAnimatedModel());
-	l_Process->GetAnimationCallbackManager()->CreateCallback(DEATH_STATE, this->GetAnimatedModel());
+	l_Process->GetAnimationCallbackManager()->CreateCallback(RABBIT_HIT_STATE, this->GetAnimatedModel());
+	l_Process->GetAnimationCallbackManager()->CreateCallback(RABBIT_STILL_ATTACK_STATE, this->GetAnimatedModel());
+	l_Process->GetAnimationCallbackManager()->CreateCallback(RABBIT_RUN_ATTACK_STATE, this->GetAnimatedModel());
+	l_Process->GetAnimationCallbackManager()->CreateCallback(RABBIT_DEATH_STATE, this->GetAnimatedModel());
 }
 
 void CDeer::LoadGraphicStates( void )

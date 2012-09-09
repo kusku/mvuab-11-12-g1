@@ -1,12 +1,12 @@
 #pragma once
 
-#ifndef _Wolf_IDLE_STATE_H_
-#define _Wolf_IDLE_STATE_H_
+#ifndef _WOLF_IDLE_STATE_H_
+#define _WOLF_IDLE_STATE_H_
 
 
 #include <string>
 #include "StatesMachine\State.h"
-#include "Callbacks\State\ActionStateCallback.h"
+//#include "Callbacks\State\ActionStateCallback.h"
 #include "Characters\Character.h"
 
 // --- Foward Declarations ---
@@ -39,10 +39,10 @@ public:
 
 	//----Members ---------------------------------------------
 private:
-	CActionStateCallback		m_ActionTime;
+	//CActionStateCallback		m_ActionTime;
 	CWolf					  * m_pWolf;
 
 };
 
 
-#endif _Wolf_IDLE_STATE_H_
+#endif _WOLF_IDLE_STATE_H_

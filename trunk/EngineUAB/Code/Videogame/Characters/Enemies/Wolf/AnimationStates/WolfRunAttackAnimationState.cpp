@@ -27,7 +27,7 @@ CWolfRunAttackAnimationState::~CWolfRunAttackAnimationState( void )
 {
 	if (m_pWolf) 
 	{
-		int l_Num = m_pWolf->GetAnimationID(RUN_ATTACK_STATE);
+		int l_Num = m_pWolf->GetAnimationID(WOLF_RUN_ATTACK_STATE);
 		m_pWolf->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
 	}
 	m_pWolf = NULL;
@@ -48,7 +48,7 @@ void CWolfRunAttackAnimationState::OnEnter( CCharacter* _Character )
 		m_pWolf = dynamic_cast<CWolf*> (_Character);
 	}
 
-	int l_Num = _Character->GetAnimationID(RUN_ATTACK_STATE);
+	int l_Num = _Character->GetAnimationID(WOLF_RUN_ATTACK_STATE);
 	m_pWolf->GetAnimatedModel()->BlendCycle( l_Num, 0.3f );
 }
 
@@ -60,8 +60,8 @@ void CWolfRunAttackAnimationState::OnExit( CCharacter* _Character )
 		m_pWolf = dynamic_cast<CWolf*> (_Character);
 	}
 
-	int l_Num = m_pWolf->GetAnimationID(RUN_ATTACK_STATE);
-	m_pWolf->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+	int l_Num = m_pWolf->GetAnimationID(WOLF_RUN_ATTACK_STATE);
+	m_pWolf->GetAnimatedModel()->ClearCycle( l_Num, 0.1f );
 }
 
 bool CWolfRunAttackAnimationState::OnMessage( CCharacter*, const STelegram& _Telegram )

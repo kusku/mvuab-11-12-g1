@@ -16,6 +16,13 @@
 #include "Steering Behaviors\Flee.h"
 #include "Steering Behaviors\Seek.h"
 
+// --- Per pintar l'estat enemic ---
+#include "DebugGUIManager.h"
+#include "DebugInfo\DebugRender.h"
+#include "LogRender\LogRender.h"
+#include "Core.h"
+// ---------------------------------
+
 #if defined(_DEBUG)
 	#include "Memory\MemLeaks.h"
 #endif
@@ -81,6 +88,14 @@ void CWolfDefenseState::OnEnter( CCharacter* _Character )
 	m_OldMass = m_pWolf->GetSteeringEntity()->GetMass();
 	m_pWolf->GetSteeringEntity()->SetMaxSpeed(1);
 	m_pWolf->GetSteeringEntity()->SetMass(0.00500f);
+
+	//LOGGER->AddNewLog(ELL_INFORMATION, "Valor : %d", l_Valor);
+	#if defined _DEBUG
+		if( CORE->IsDebugMode() )
+		{
+			CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Defense");
+		}
+	#endif
 }
 
 void CWolfDefenseState::Execute( CCharacter* _Character, float _ElapsedTime )
@@ -94,19 +109,22 @@ void CWolfDefenseState::Execute( CCharacter* _Character, float _ElapsedTime )
 	{
 		float l_Distance = m_pWolf->GetDistanceToPlayer();
 		// Si aun no he hecho el retroceso lo sigo moviendo
-		if ( l_Distance <= m_HitDistance ) 
-		{
-			m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
-		}
+		//if ( l_Distance <= m_HitDistance ) 
+		//{
+		//	//m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
+		//}
 		// Si llego al destino paro el retroceso
-		else
+		//else
+		//{
+		if ( l_Distance > m_HitDistance ) 
 		{
 			// _CCharacter.behaviors:flee_off()
 			m_pWolf->GetBehaviors()->SeekOn();
 			m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-			m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+			//m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 			m_HitBlocked = false;
 		} 
+		m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 	}	
 	else 
 	{
@@ -132,20 +150,18 @@ void CWolfDefenseState::Execute( CCharacter* _Character, float _ElapsedTime )
 			{
 				m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
 				m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());
+				m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 			}		
 
-			// print_logger (1, "temps total en defense ".._CCharacter.action_time)
 			if ( m_ActionTime.IsActionFinished() ) 
 			{
 				// nos volvemos
-				// print_logger(0, "CWolfDefenseState:Execute->Nos Volvemos")
-				//m_pWolf->getlo logic_fsm:change_state(_CCharacter.attack_state)
 				m_pWolf->GetLogicFSM()->RevertToPreviousState();		
+				m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());
 			}
 			else 
 			{
 				// Incrementamos el tiempo que llevamos en este estado
-				// print_logger(0, "CWolfDefenseState:Execute->Incremento tiempo")
 				m_ActionTime.Update(_ElapsedTime);
 			}
 		}
@@ -154,7 +170,7 @@ void CWolfDefenseState::Execute( CCharacter* _Character, float _ElapsedTime )
 		{
 			m_pWolf->SetReceivedHitsXMinut(0);
 			m_pWolf->GetLogicFSM()->RevertToPreviousState();		
-			//_CCharacter.logic_fsm:change_state(_CCharacter.attack_state)
+			m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());
 		}
 	}
 
@@ -185,15 +201,15 @@ bool CWolfDefenseState::OnMessage( CCharacter* _Character, const STelegram& _Tel
 		l_Front.Normalize();
 		l_Front = l_Front.RotateY(mathUtils::PiTimes(1.f));
 			
-		m_pWolf->GetBehaviors()->GetFlee()->SetTarget(m_pWolf->GetPlayer()->GetPosition());
+		//m_pWolf->GetBehaviors()->GetFlee()->SetTarget(m_pWolf->GetPlayer()->GetPosition());
 		// l_target = Vect3f(l_front.x,l_front.y,l_front.z):normalize(1)
 		// l_target = l_target * 2
 		// _CCharacter.behaviors.flee.target = l_target
 			
 		l_Front = m_pWolf->GetSteeringEntity()->GetPosition() + l_Front * m_HitDistance;
 		// _CCharacter.behaviors.flee.target = l_front
+		m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
 		m_pWolf->GetBehaviors()->GetSeek()->SetTarget(l_Front);
-		// _CCharacter.steering_entity.velocity = Vect3f(0,0,0)
 					
 		// _CCharacter:move_to2( _CCharacter.steering_entity.velocity, _elapsed_time )
 

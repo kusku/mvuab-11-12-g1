@@ -27,7 +27,7 @@ CRabbitJumpAnimationState::~CRabbitJumpAnimationState(void)
 {
 	if (m_pRabbit)
 	{
-		int l_Num = m_pRabbit->GetAnimationID(JUMP_STATE);
+		int l_Num = m_pRabbit->GetAnimationID(RABBIT_JUMP_STATE);
 		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
 	}
 	m_pRabbit = NULL;
@@ -49,7 +49,7 @@ void CRabbitJumpAnimationState::OnEnter( CCharacter* _Character )
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 
-	int l_Num = m_pRabbit->GetAnimationID(JUMP_STATE);
+	int l_Num = m_pRabbit->GetAnimationID(RABBIT_JUMP_STATE);
 	m_pRabbit->GetAnimatedModel()->BlendCycle( l_Num, 0.3f );
 }
 
@@ -60,7 +60,7 @@ void CRabbitJumpAnimationState::OnExit( CCharacter* _Character )
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 
-	int l_Num = m_pRabbit->GetAnimationID(JUMP_STATE);
+	int l_Num = m_pRabbit->GetAnimationID(RABBIT_JUMP_STATE);
 	m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
 }
 

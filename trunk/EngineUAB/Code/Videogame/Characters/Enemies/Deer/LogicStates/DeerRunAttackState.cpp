@@ -51,7 +51,7 @@ CDeerRunAttackState::CDeerRunAttackState( void )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RUN_ATTACK_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RABBIT_RUN_ATTACK_STATE);
 }
 
 CDeerRunAttackState::CDeerRunAttackState( const std::string &_Name )
@@ -60,7 +60,7 @@ CDeerRunAttackState::CDeerRunAttackState( const std::string &_Name )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RUN_ATTACK_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RABBIT_RUN_ATTACK_STATE);
 }
 
 
@@ -191,7 +191,7 @@ void CDeerRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 				}
 				else
 				{
-					m_AnimationDuration = m_pDeer->GetAnimatedModel()->GetCurrentAnimationDuration(RUN_ATTACK_STATE) / 3;
+					m_AnimationDuration = m_pDeer->GetAnimatedModel()->GetCurrentAnimationDuration(RABBIT_RUN_ATTACK_STATE) / 3;
 
 					if ( m_CurrentDuration >= m_AnimationDuration )
 					{

@@ -1,6 +1,7 @@
 #include "WolfPursuitState.h"
 #include "WolfIdleState.h"
 #include "WolfPreparedToAttackState.h"
+#include "WolfHitState.h"
 
 #include "Characters\Enemies\Wolf\AnimationStates\WolfIdleAnimationState.h"
 #include "Characters\Enemies\Wolf\AnimationStates\WolfHitAnimationState.h"
@@ -11,6 +12,13 @@
 #include "Steering Behaviors\SteeringBehaviors.h"
 #include "Steering Behaviors\Pursuit.h"
 #include "Steering Behaviors\Seek.h"
+
+// --- Per pintar l'estat enemic ---
+#include "DebugGUIManager.h"
+#include "DebugInfo\DebugRender.h"
+#include "LogRender\LogRender.h"
+#include "Core.h"
+// ---------------------------------
 
 #if defined(_DEBUG)
 	#include "Memory\MemLeaks.h"
@@ -56,9 +64,10 @@ void CWolfPursuitState::OnEnter( CCharacter* _Character )
 	m_pWolf->GetBehaviors()->GetPursuit()->UpdateEvaderEntity( m_pWolf->GetPlayer()->GetSteeringEntity() );
 	m_pWolf->GetBehaviors()->PursuitOn();
 		
-	// _Character->GetBehaviors()->separation_on()
-	// _Character->GetBehaviors()->collision_avoidance_on()
-	// _Character->GetBehaviors()->obstacle_wall_avoidance_on()
+	m_pWolf->GetBehaviors()->SeparationOn();
+	m_pWolf->GetBehaviors()->CohesionOn();
+	m_pWolf->GetBehaviors()->CollisionAvoidanceOn();
+	m_pWolf->GetBehaviors()->ObstacleWallAvoidanceOn();
 }
 
 void CWolfPursuitState::Execute( CCharacter* _Character, float _ElapsedTime )
@@ -83,15 +92,22 @@ void CWolfPursuitState::Execute( CCharacter* _Character, float _ElapsedTime )
 		else
 		{
 			// Seguimos persiguiendo...
-			/*m_pWolf->GetBehaviors()->GetPursuit()->SetTarget(m_pWolf->GetPlayer()->GetPosition());
+			m_pWolf->GetBehaviors()->GetPursuit()->SetTarget(m_pWolf->GetPlayer()->GetPosition());
 			m_pWolf->GetBehaviors()->GetPursuit()->UpdateEvaderEntity( m_pWolf->GetPlayer()->GetSteeringEntity() );
-			m_pWolf->GetBehaviors()->PursuitOn();*/
+			m_pWolf->GetBehaviors()->PursuitOn();
 
-			m_pWolf->GetBehaviors()->GetSeek()->SetTarget(m_pWolf->GetPlayer()->GetPosition());
-			m_pWolf->GetBehaviors()->SeekOn();
+			/*m_pWolf->GetBehaviors()->GetSeek()->SetTarget(m_pWolf->GetPlayer()->GetPosition());
+			m_pWolf->GetBehaviors()->SeekOn();*/
 
 			m_pWolf->FaceTo(m_pWolf->GetSteeringEntity()->GetPosition(), _ElapsedTime);
 			m_pWolf->MoveTo2(m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
+
+			#if defined _DEBUG
+			if( CORE->IsDebugMode() )
+			{
+				//LOGGER->AddNewLog(ELL_INFORMATION, "Enemy %s pursuit...", m_pRabbit->GetName().c_str() );
+			}
+			#endif
 		}
 	}
 	else
@@ -115,8 +131,8 @@ void CWolfPursuitState::OnExit( CCharacter* _Character )
 	m_pWolf->GetBehaviors()->CollisionAvoidanceOff();
 	m_pWolf->GetBehaviors()->ObstacleWallAvoidanceOff();
 
-	//_Character->GetBehaviors()->SeparationOff();
-	//_Character->GetBehaviors()->CohesionOff();
+	m_pWolf->GetBehaviors()->SeparationOff();
+	m_pWolf->GetBehaviors()->CohesionOff();
 	//_Character->GetBehaviors()->AlignmentOff();
 	
 }
@@ -125,8 +141,13 @@ bool CWolfPursuitState::OnMessage( CCharacter* _Character, const STelegram& _Tel
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
-		//CState<CCharacter> * l_State = dynamic_cast<CState<CCharacter>*> (m_pWolf->GetHitAnimationState());
-		_Character->GetLogicFSM()->ChangeState(m_pWolf->GetHitAnimationState());
+		if (!m_pWolf) 
+		{
+			m_pWolf = dynamic_cast<CWolf*> (_Character);
+		}
+
+		m_pWolf->RestLife(1000); 
+		m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetHitState());
 		return true;
 	}
 	return false;

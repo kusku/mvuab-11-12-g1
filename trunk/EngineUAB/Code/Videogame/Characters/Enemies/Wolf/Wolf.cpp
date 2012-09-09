@@ -29,16 +29,17 @@
 #include "LogicStates\WolfDefenseState.h"
 #include "LogicStates\WolfStillAttackState.h"
 #include "LogicStates\WolfRunAttackState.h"
+#include "LogicStates\WolfDeathState.h"
 
 #include "AnimationStates\WolfIdleAnimationState.h"
-#include "AnimationStates\WolfIdle2AnimationState.h"
+//#include "AnimationStates\WolfIdle2AnimationState.h"
 #include "AnimationStates\WolfRunAnimationState.h"
 #include "AnimationStates\WolfDeathAnimationState.h"
 #include "AnimationStates\WolfDefenseAnimationState.h"
 #include "AnimationStates\WolfHitAnimationState.h"
 #include "AnimationStates\WolfJumpAnimationState.h"
-#include "AnimationStates\WolfLeftLateralAnimationState.h"
-#include "AnimationStates\WolfRightLateralAnimationState.h"
+//#include "AnimationStates\WolfLeftLateralAnimationState.h"
+//#include "AnimationStates\WolfRightLateralAnimationState.h"
 #include "AnimationStates\WolfStillAttackAnimationState.h"
 #include "AnimationStates\WolfRunAttackAnimationState.h"
 #include "AnimationStates\WolfWalkAnimationState.h"
@@ -59,23 +60,22 @@ CWolf::CWolf( int _Id )
 	, m_pTiredState					( NULL )
 	, m_pHitState					( NULL )
 	, m_pDefenseState				( NULL )
-	, m_pStillAttack				( NULL )
-	, m_pRunAttack					( NULL )
+	, m_pStillAttackState			( NULL )
+	, m_pRunAttackState				( NULL )
+	, m_pDeathState					( NULL )
 	, m_pAnimationIdleState 		( NULL )
-	, m_pAnimationIdle2State 		( NULL )
+	//, m_pAnimationIdle2State 		( NULL )
 	, m_pAnimationRunState 			( NULL )
 	, m_pAnimationDeathState 		( NULL )
 	, m_pAnimationDefenseState 		( NULL )
 	, m_pAnimationHitState 			( NULL )
 	, m_pAnimationJumpState 		( NULL )
-	, m_pAnimationLeftLateralState 	( NULL )
-	, m_pAnimationRightLateralState ( NULL )
+	/*, m_pAnimationLeftLateralState 	( NULL )
+	, m_pAnimationRightLateralState ( NULL )*/
 	, m_pAnimationRunAttackState 	( NULL )
 	, m_pAnimationStillAttackState 	( NULL )
 	, m_pAnimationWalkState 		( NULL )
 {
-	LoadGraphicStates();
-	LoadLogicStates();
 }
 
 CWolf::CWolf( int _Id, std::string _Name )
@@ -90,23 +90,22 @@ CWolf::CWolf( int _Id, std::string _Name )
 	, m_pTiredState					( NULL )
 	, m_pHitState					( NULL )
 	, m_pDefenseState				( NULL )
-	, m_pStillAttack				( NULL )
-	, m_pRunAttack					( NULL )
+	, m_pStillAttackState			( NULL )
+	, m_pRunAttackState				( NULL )
+	, m_pDeathState					( NULL )
 	, m_pAnimationIdleState 		( NULL )
-	, m_pAnimationIdle2State 		( NULL )
+	//, m_pAnimationIdle2State 		( NULL )
 	, m_pAnimationRunState 			( NULL )
 	, m_pAnimationDeathState 		( NULL )
 	, m_pAnimationDefenseState 		( NULL )
 	, m_pAnimationHitState 			( NULL )
 	, m_pAnimationJumpState 		( NULL )
-	, m_pAnimationLeftLateralState 	( NULL )
-	, m_pAnimationRightLateralState ( NULL )
+	/*, m_pAnimationLeftLateralState 	( NULL )
+	, m_pAnimationRightLateralState ( NULL )*/
 	, m_pAnimationRunAttackState 	( NULL )
 	, m_pAnimationStillAttackState 	( NULL )
 	, m_pAnimationWalkState 		( NULL )
 {
-	LoadGraphicStates();
-	LoadLogicStates();
 }
 
 
@@ -119,19 +118,20 @@ CWolf::~CWolf(void)
 	CHECKED_DELETE ( m_pTiredState );
 	CHECKED_DELETE ( m_pHitState );
 	CHECKED_DELETE ( m_pDefenseState );
-	CHECKED_DELETE ( m_pStillAttack );
-	CHECKED_DELETE ( m_pRunAttack );
+	CHECKED_DELETE ( m_pStillAttackState );
+	CHECKED_DELETE ( m_pRunAttackState );
+	CHECKED_DELETE ( m_pDeathState );
 
 	// Estados animados
 	CHECKED_DELETE ( m_pAnimationIdleState );
-	CHECKED_DELETE ( m_pAnimationIdle2State );
+	//CHECKED_DELETE ( m_pAnimationIdle2State );
 	CHECKED_DELETE ( m_pAnimationRunState );
 	CHECKED_DELETE ( m_pAnimationDeathState );
 	CHECKED_DELETE ( m_pAnimationHitState );
 	CHECKED_DELETE ( m_pAnimationDefenseState );
 	CHECKED_DELETE ( m_pAnimationJumpState );
-	CHECKED_DELETE ( m_pAnimationLeftLateralState );
-	CHECKED_DELETE ( m_pAnimationRightLateralState );
+	/*CHECKED_DELETE ( m_pAnimationLeftLateralState );
+	CHECKED_DELETE ( m_pAnimationRightLateralState );*/
 	CHECKED_DELETE ( m_pAnimationRunAttackState );
 	CHECKED_DELETE ( m_pAnimationStillAttackState );
 	CHECKED_DELETE ( m_pAnimationWalkState );
@@ -145,7 +145,9 @@ bool CWolf::Init( void )
 {
 	bool l_IsOk = false;
 
-	//CState<CCharacter>* l = dynamic_cast<CState<CCharacter>> (m_pAnimationIdleState);
+	CreateCallbacks();
+	LoadGraphicStates();
+	LoadLogicStates();
 
 	// Coloco los estados iniciales
 	/*this->GetGraphicFSM()->SetCurrentState( m_pAnimationIdleState );
@@ -189,26 +191,28 @@ bool CWolf::Init( void )
 void CWolf::CreateCallbacks(void)
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	l_Process->GetAnimationCallbackManager()->CreateCallback(HIT_STATE, this->GetAnimatedModel());
-	l_Process->GetAnimationCallbackManager()->CreateCallback(STILL_ATTACK_STATE, this->GetAnimatedModel());
-	l_Process->GetAnimationCallbackManager()->CreateCallback(RUN_ATTACK_STATE, this->GetAnimatedModel());
+
+	l_Process->GetAnimationCallbackManager()->CreateCallback(WOLF_HIT_STATE, this->GetAnimatedModel());
+	l_Process->GetAnimationCallbackManager()->CreateCallback(WOLF_STILL_ATTACK_STATE, this->GetAnimatedModel());
+	l_Process->GetAnimationCallbackManager()->CreateCallback(WOLF_RUN_ATTACK_STATE, this->GetAnimatedModel());
+	//l_Process->GetAnimationCallbackManager()->CreateCallback(WOLF_DEATH_STATE, this->GetAnimatedModel());
 }
 
 void CWolf::LoadGraphicStates( void )
 {
 	m_pAnimationIdleState			= new CWolfIdleAnimationState();
-	m_pAnimationIdle2State			= new CWolfIdle2AnimationState();
+	//m_pAnimationIdle2State			= new CWolfIdle2AnimationState();
 	m_pAnimationRunState			= new CWolfRunAnimationState();
 	m_pAnimationDeathState			= new CWolfDeathAnimationState();
 	m_pAnimationHitState			= new CWolfHitAnimationState();
 	m_pAnimationDefenseState		= new CWolfDefenseAnimationState();
 	m_pAnimationJumpState			= new CWolfJumpAnimationState();
-	m_pAnimationLeftLateralState	= new CWolfLeftLateralAnimationState();
-	m_pAnimationRightLateralState	= new CWolfRightLateralAnimationState();
+	//m_pAnimationLeftLateralState	= new CWolfLeftLateralAnimationState();
+	//m_pAnimationRightLateralState	= new CWolfRightLateralAnimationState();
 	m_pAnimationRunAttackState		= new CWolfRunAttackAnimationState();
 	m_pAnimationStillAttackState	= new CWolfStillAttackAnimationState();
 	m_pAnimationWalkState			= new CWolfWalkAnimationState();
-	
+
 	return;
 }
 
@@ -221,8 +225,9 @@ void CWolf::LoadLogicStates( void )
 	m_pTiredState				= new CWolfTiredState();
 	m_pHitState					= new CWolfHitState();
 	m_pDefenseState				= new CWolfDefenseState();
-	m_pStillAttack				= new CWolfStillAttackState();
-	m_pRunAttack				= new CWolfRunAttackState();
+	m_pStillAttackState			= new CWolfStillAttackState();
+	m_pRunAttackState			= new CWolfRunAttackState();
+	m_pDeathState				= new CWolfDeathState();
 
 	return;
 }
@@ -237,5 +242,5 @@ bool CWolf::IsFatigued( void )
 
 void CWolf::BeDead( void )
 {
-	//this->GetLogicFSM()->ChangeState(GetDeathState());
+	this->GetLogicFSM()->ChangeState(GetDeathState());
 }

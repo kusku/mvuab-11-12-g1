@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef _Wolf_TIRED_STATE_H_
-#define _Wolf_TIRED_STATE_H_
+#ifndef _WOLF_TIRED_STATE_H_
+#define _WOLF_TIRED_STATE_H_
 
 
 #include <string>
@@ -47,4 +47,4 @@ private:
 };
 
 
-#endif _Wolf_TIRED_STATE_H_
+#endif _WOLF_TIRED_STATE_H_

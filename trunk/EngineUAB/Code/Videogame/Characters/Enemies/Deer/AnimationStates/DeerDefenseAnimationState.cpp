@@ -27,7 +27,7 @@ CDeerDefenseAnimationState::~CDeerDefenseAnimationState(void)
 {
 	if (m_pDeer)
 	{
-		int l_Num = m_pDeer->GetAnimationID(DEFENSE_STATE);
+		int l_Num = m_pDeer->GetAnimationID(DEER_DEFENSE_STATE);
 		m_pDeer->GetAnimatedModel()->ClearCycle( l_Num, 0.1f );
 	}
 	m_pDeer = NULL;
@@ -49,7 +49,7 @@ void CDeerDefenseAnimationState::OnEnter( CCharacter* _Character )
 		m_pDeer = dynamic_cast<CDeer*> (_Character);
 	}
 
-	int l_Num = m_pDeer->GetAnimationID(DEFENSE_STATE);
+	int l_Num = m_pDeer->GetAnimationID(DEER_DEFENSE_STATE);
 	m_pDeer->GetAnimatedModel()->BlendCycle( l_Num, 0.1f );
 }
 
@@ -60,7 +60,7 @@ void CDeerDefenseAnimationState::OnExit( CCharacter* _Character )
 		m_pDeer = dynamic_cast<CDeer*> (_Character);
 	}
 
-	int l_Num = m_pDeer->GetAnimationID(DEFENSE_STATE);
+	int l_Num = m_pDeer->GetAnimationID(DEER_DEFENSE_STATE);
 	m_pDeer->GetAnimatedModel()->ClearCycle( l_Num, 0.1f );
 }
 

@@ -15,7 +15,7 @@
 #include "Characters\StatesDefs.h"
 
 #include "RabbitIdleState.h"
-#include "RabbitDeathState.h"
+//#include "RabbitDeathState.h"
 
 #include "RabbitHitAnimationState.h"
 #include "RabbitIdleAnimationState.h"
@@ -43,7 +43,9 @@ CRabbitHitState::CRabbitHitState( void )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(HIT_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RABBIT_HIT_STATE);
+
+	m_pActionState = new CActionStateCallback(0,1);
 }
 
 CRabbitHitState::CRabbitHitState( const std::string &_Name )
@@ -53,7 +55,9 @@ CRabbitHitState::CRabbitHitState( const std::string &_Name )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(HIT_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RABBIT_HIT_STATE);
+	
+	m_pActionState = new CActionStateCallback(0,1);
 }
 
 
@@ -76,7 +80,7 @@ void CRabbitHitState::OnEnter( CCharacter* _Character )
 	}
 	m_pAnimationCallback->Init();
 	m_pAnimationCallback->StartAnimation();
-	m_pActionState = new CActionStateCallback(0.f, m_pRabbit->GetAnimatedModel()->GetCurrentAnimationDuration(HIT_STATE));
+	m_pActionState->SetTimeRange( 0.f, m_pRabbit->GetAnimatedModel()->GetCurrentAnimationDuration(RABBIT_HIT_STATE));
 }
 
 void CRabbitHitState::Execute( CCharacter* _Character, float _ElapsedTime )

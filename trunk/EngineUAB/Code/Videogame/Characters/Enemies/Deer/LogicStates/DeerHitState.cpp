@@ -36,7 +36,7 @@ CDeerHitState::CDeerHitState( void )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(HIT_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RABBIT_HIT_STATE);
 }
 
 CDeerHitState::CDeerHitState( const std::string &_Name )
@@ -46,7 +46,7 @@ CDeerHitState::CDeerHitState( const std::string &_Name )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(HIT_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RABBIT_HIT_STATE);
 }
 
 

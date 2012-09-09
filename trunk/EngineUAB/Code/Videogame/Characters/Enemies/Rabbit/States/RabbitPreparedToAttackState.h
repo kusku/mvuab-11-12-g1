@@ -38,7 +38,7 @@ public:
 
 	//----Members ---------------------------------------------
 private:
-	CRabbit					  * m_pRabbit;
+	CRabbit	 * m_pRabbit;
 
 };
 

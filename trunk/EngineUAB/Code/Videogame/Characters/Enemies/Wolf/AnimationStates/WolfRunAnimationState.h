@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef _Wolf_RUN_ANIMATION_STATE_H_
-#define _Wolf_RUN_ANIMATION_STATE_H_
+#ifndef _WOLF_RUN_ANIMATION_STATE_H_
+#define _WOLF_RUN_ANIMATION_STATE_H_
 
 #include <string>
 #include "StatesMachine\State.h"
@@ -43,4 +43,4 @@ private:
 };
 
 
-#endif _Wolf_RUN_ANIMATION_STATE_H_
+#endif _WOLF_RUN_ANIMATION_STATE_H_

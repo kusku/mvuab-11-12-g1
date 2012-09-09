@@ -1,7 +1,7 @@
 #include "WolfDeathAnimationState.h"
 #include "Characters\StatesDefs.h"
+#include "StatesMachine\Telegram.h"
 #include "Characters\Enemies\Wolf\Wolf.h"
-
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 
 #if defined(_DEBUG)
@@ -28,8 +28,8 @@ CWolfDeathAnimationState::~CWolfDeathAnimationState(void)
 {
 	if (m_pWolf)
 	{
-		int l_Num = m_pWolf->GetAnimationID(DEATH_STATE);
-		m_pWolf->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+		/*int l_Num = m_pWolf->GetAnimationID(WOLF_DEATH_STATE);
+		m_pWolf->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );*/
 	}
 	m_pWolf = NULL;
 }
@@ -50,19 +50,19 @@ void CWolfDeathAnimationState::OnEnter( CCharacter* _Character )
 		m_pWolf = dynamic_cast<CWolf*> (_Character);
 	}
 
-	int l_Num = m_pWolf->GetAnimationID(DEATH_STATE);
-	m_pWolf->GetAnimatedModel()->BlendCycle( l_Num, 0.3f );
+	int l_Num = m_pWolf->GetAnimationID(WOLF_DEATH_STATE);
+	m_pWolf->GetAnimatedModel()->ExecuteAction( l_Num, 0.3f );
 }
 
 void CWolfDeathAnimationState::OnExit( CCharacter* _Character )
 {
-	if (!m_pWolf) 
+	if ( !m_pWolf ) 
 	{
 		m_pWolf = dynamic_cast<CWolf*> (_Character);
 	}
 
-	int l_Num = m_pWolf->GetAnimationID(DEATH_STATE);
-	m_pWolf->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+	/*int l_Num = m_pWolf->GetAnimationID(WOLF_DEATH_STATE);
+	m_pWolf->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );*/
 }
 
 bool CWolfDeathAnimationState::OnMessage( CCharacter*, const STelegram& _Telegram )

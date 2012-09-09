@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef _Wolf_PREPARED_TO_ATTACK_STATE_H_
-#define _Wolf_PREPARED_TO_ATTACK_STATE_H_
+#ifndef _WOLF_PREPARED_TO_ATTACK_STATE_H_
+#define _WOLF_PREPARED_TO_ATTACK_STATE_H_
 
 
 #include <string>
@@ -38,9 +38,9 @@ public:
 
 	//----Members ---------------------------------------------
 private:
-	CWolf					  * m_pWolf;
+	CWolf	* m_pWolf;
 
 };
 
 
-#endif _Wolf_PREPARED_TO_ATTACK_STATE_H_
+#endif _WOLF_PREPARED_TO_ATTACK_STATE_H_

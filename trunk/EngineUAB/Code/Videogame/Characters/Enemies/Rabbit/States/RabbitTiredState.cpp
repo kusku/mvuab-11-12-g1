@@ -94,7 +94,6 @@ void CRabbitTiredState::Execute( CCharacter* _Character, float _ElapsedTime )
 		// restauramos la variable que determina si está cansado
 		m_pRabbit->SetHitsDone(0);
 		m_pRabbit->GetLogicFSM()->RevertToPreviousState();
-		//m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());
 	}
 
 	m_ActionTime.Update(_ElapsedTime);
