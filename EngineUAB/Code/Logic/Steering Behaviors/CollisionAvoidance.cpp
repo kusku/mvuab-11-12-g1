@@ -74,99 +74,6 @@ CCollisionAvoidance::~CCollisionAvoidance(void)
 //				MAIN METHODS
 // -----------------------------------------
 
-Vect3f CCollisionAvoidance::CalculateSteering( CSteeringEntity *_pEntity )	
-{
-	//m_NearestObstacle = FLT_MAX;
-	m_NearestSteering.SetZero();
-	
-	// Almacenamos la entidad tratada
-	m_pEntity = NULL;
-	m_pEntity = _pEntity;
-
-	//CreateFeelers(FUSTRUM_ENEMY_ANGLE);
-
-	//// Distancia mínima de colisión
-	//float l_MinDistanceToCollision = 0.150f * _pEntity->GetSpeed();
-	//
-	//// La caja de detección es proporcional a la velocidad del agente
-	//float l_DetectionBoxLength = m_DetectionRayLength + ( _pEntity->GetSpeed() / _pEntity->GetMaxSpeed() ) * m_DetectionRayLength;
-	//
-	//// Guardamos aquí el ID de la entidad más cercana
-	////CBaseGameEntity* l_NearestObstacle	= NULL;
- //	
-	//// Analizamos sólo los obstáculos dentro del alcance
-	//SCollisionInfo l_Info; 
-	//CPhysicUserData * l_pUserData = ShootCollisionRay( _pEntity, m_Feelers[0], l_Info, l_DetectionBoxLength );
-
-	//// Sabemos que no és ni el player ni él mismo y debemos calcular otra posición
-	//if ( l_pUserData != NULL ) 
-	//{
-	//	//calculate the distance between the positions of the entities	
-	//	
-	//	Vect3f l_ObstaclePosition; 
-	//	
-	//	// Si no devuelve nada no retorno fuerza
-	//	l_ObstaclePosition = GetObstaclePosition(l_pUserData);
-	//	if ( l_ObstaclePosition == NULL )
-	//		return m_NearestSteering;
-
-	//	// Obtengo el radio del obstaculo
-	//	float  l_Radius = l_pUserData->GetRadius();
-
-	//	//l_ToEntity = _pEntity->GetPosition() - l_ObstaclePosition;
-
-	//	// distancia mínima al obstáculo para iniciar la separación del obstáculo
-	//	float l_MinDistanceToCenter = l_MinDistanceToCollision + l_Radius;
-	//	
-	//	// distancia de contacto
-	//	float l_TotalRadius = l_MinDistanceToCenter + _pEntity->GetBoundingRadius() * 2;
-	//	
-	//	// centro del obstáculo relativo a la posición de la entidad
-	//	Vect3f l_LocalOffset = l_ObstaclePosition - _pEntity->GetPosition();
-
-	//	// Miro el angulo entre los dos vectores, donde mira la entidad y el vector dirección hacia el objetivo
-	//	float l_Angle = _pEntity->GetYaw();
-	//	float l_Angle1 = _pEntity->GetAngle();
-	//	float l_Angle2 = _pEntity->GetAngle2();
-
-	//	float l_Angle3 = _pEntity->GetPosition().AngleWithVector( Vect3f(1,0,0) );
-	//	//float l_Angle4 = _pEntity->GetPosition().xzToAngle();
-	//	//Vect3f l_NewPos = _pEntity->GetPosition().GetXZFromAngle(mathUtils::Deg2Rad(l_Angle4));
-
-	//	//Vect3f l_Front = _pEntity->GetPosition().GetAngleY();
-	//	float l_ForwardComponent = l_LocalOffset.Dot( _pEntity->GetFront() );
-	//	Vect3f l_ForwardOffset = l_ForwardComponent * _pEntity->GetFront();
-
-	//	// Offset del forward al centro del obstáculo
-	//	Vect3f l_OffForwardOffset = l_LocalOffset - l_ForwardOffset;
-	//	//Vect3f l_OffForwardOffset = l_Info.m_fDistance;
-
-	//	// test para ver si el obstáculo es "pisado" por el agente
-	//	bool inCylinder = l_OffForwardOffset.Length() < l_TotalRadius;
-	//	bool nearby		= l_ForwardComponent < l_MinDistanceToCenter;
-	//	bool inFront	= l_ForwardComponent > 0;
-
-	//	// si se cumple una de las condiciones, alejamos del centro del obstáculo
-	//	if ( inCylinder || inFront || nearby ) 
-	//	{
-	//		float l_Length = (l_OffForwardOffset * -1).Length();
-
-	//		if (l_Length < m_NearestObstacle)
-	//		{
-	//			m_NearestObstacle = l_Length;
-	//			m_NearestSteering = l_OffForwardOffset * -1;
-	//			//this.obstacle = obstacle;
-	//		}
-	//	}
-	//	/*LOGGER->AddNewLog( ELL_INFORMATION, " Nom de la colisicó  %s", l_pUserData->GetName().c_str() );
-	//	LOGGER->AddNewLog( ELL_INFORMATION, " Nom de l'entitat  %s", _pEntity->GetName().c_str() );*/
-
-	//	//this->EnforceNonPenetrationConstraint( _pEntity, l_pUserData );
-	//}
-
-	return m_NearestSteering;
-}
-
 Vect3f CCollisionAvoidance::GetObstaclePosition( CPhysicUserData * _pUserData ) 
 {
 	Vect3f l_ObstaclePosition;
@@ -183,7 +90,106 @@ Vect3f CCollisionAvoidance::GetObstacleVelocity( CPhysicUserData *_pUserData )
 	return l_ObstacleVelocity;
 }
 
-Vect3f CCollisionAvoidance::CalculateSteering1( CSteeringEntity *_pEntity )	
+Vect3f CCollisionAvoidance::CalculateSteering( CSteeringEntity *_pEntity )	
+{
+	//m_NearestObstacle = FLT_MAX;
+	m_NearestSteering.SetZero();
+	
+	// Si no tengo velocidad retorno
+	if ( _pEntity->GetVelocity().SquaredLength() <= 0 )
+	{
+		return m_NearestSteering;
+	}
+
+	// Almacenamos la entidad tratada
+	m_pEntity = _pEntity;
+
+	// Creo un vector de linias que seran los rayos a lanzar
+	CreateFeelers(FUSTRUM_ENEMY_ANGLE);
+
+	// Distancia mínima de colisión
+	float l_MinDistanceToCollision = 0.150f * _pEntity->GetSpeed();
+	
+	// La caja de detección es proporcional a la velocidad del agente
+	float l_DetectionBoxLength = m_DetectionRayLength + ( _pEntity->GetSpeed() / _pEntity->GetMaxSpeed() ) * m_DetectionRayLength;
+	
+	// Guardamos aquí el ID de la entidad más cercana
+	//CBaseGameEntity* l_NearestObstacle	= NULL;
+ 	
+	// Analizamos sólo los obstáculos dentro del alcance
+	SCollisionInfo l_Info; 
+	CPhysicUserData * l_pUserData = ShootCollisionRay( _pEntity, m_Feelers[0], l_Info, l_DetectionBoxLength );
+
+	// Sabemos que no és ni el player ni él mismo y debemos calcular otra posición
+	if ( l_pUserData != NULL ) 
+	{
+		//calculate the distance between the positions of the entities	
+		
+		Vect3f l_ObstaclePosition; 
+		
+		// Si no devuelve nada no retorno fuerza
+		l_ObstaclePosition = GetObstaclePosition(l_pUserData);
+		if ( l_ObstaclePosition == NULL )
+			return m_NearestSteering;
+
+		// Obtengo el radio del obstaculo
+		float  l_Radius = l_pUserData->GetRadius();
+
+		//l_ToEntity = _pEntity->GetPosition() - l_ObstaclePosition;
+
+		// distancia mínima al obstáculo para iniciar la separación del obstáculo
+		float l_MinDistanceToCenter = l_MinDistanceToCollision + l_Radius;
+		
+		// distancia de contacto
+		float l_TotalRadius = l_MinDistanceToCenter + _pEntity->GetBoundingRadius() * 2;
+		
+		// centro del obstáculo relativo a la posición de la entidad
+		Vect3f l_LocalOffset = l_ObstaclePosition - _pEntity->GetPosition();
+
+		// Miro el angulo entre los dos vectores, donde mira la entidad y el vector dirección hacia el objetivo
+		float l_Angle = _pEntity->GetYaw();
+		float l_Angle1 = _pEntity->GetAngle();
+		float l_Angle2 = _pEntity->GetAngle2();
+
+		float l_Angle3 = _pEntity->GetPosition().AngleWithVector( Vect3f(1,0,0) );
+		//float l_Angle4 = _pEntity->GetPosition().xzToAngle();
+		//Vect3f l_NewPos = _pEntity->GetPosition().GetXZFromAngle(mathUtils::Deg2Rad(l_Angle4));
+
+		//Vect3f l_Front = _pEntity->GetPosition().GetAngleY();
+		float l_ForwardComponent = l_LocalOffset.Dot( _pEntity->GetFront() );
+		Vect3f l_ForwardOffset = l_ForwardComponent * _pEntity->GetFront();
+
+		// Offset del forward al centro del obstáculo
+		Vect3f l_OffForwardOffset = l_LocalOffset - l_ForwardOffset;
+		//Vect3f l_OffForwardOffset = l_Info.m_fDistance;
+
+		// test para ver si el obstáculo es "pisado" por el agente
+		bool inCylinder = l_OffForwardOffset.Length() < l_TotalRadius;
+		bool nearby		= l_ForwardComponent < l_MinDistanceToCenter;
+		bool inFront	= l_ForwardComponent > 0;
+
+		// si se cumple una de las condiciones, alejamos del centro del obstáculo
+		if ( inCylinder || inFront || nearby ) 
+		{
+			float l_Length = (l_OffForwardOffset * -1).Length();
+
+			if (l_Length < m_NearestObstacle)
+			{
+				m_NearestObstacle = l_Length;
+				m_NearestSteering = l_OffForwardOffset * -1;
+				//this.obstacle = obstacle;
+			}
+		}
+		/*LOGGER->AddNewLog( ELL_INFORMATION, " Nom de la colisicó  %s", l_pUserData->GetName().c_str() );
+		LOGGER->AddNewLog( ELL_INFORMATION, " Nom de l'entitat  %s", _pEntity->GetName().c_str() );*/
+
+		//this->EnforceNonPenetrationConstraint( _pEntity, l_pUserData );
+	}
+
+	return m_NearestSteering;
+}
+
+Vect3f CCollisionAvoidance::CalculateSteering2( CSteeringEntity *_pEntity )	
 {
 	// Almacenamos la entidad tratada
 	m_pEntity = _pEntity;
@@ -269,7 +275,7 @@ Vect3f CCollisionAvoidance::CalculateSteering1( CSteeringEntity *_pEntity )
 	return l_SteeringForce;
 }
 
-Vect3f CCollisionAvoidance::CalculateSteering2( CSteeringEntity *_pEntity )	
+Vect3f CCollisionAvoidance::CalculateSteering3( CSteeringEntity *_pEntity )	
 {
 	// Almacenamos la entidad tratada
 	m_pEntity = _pEntity;
@@ -307,7 +313,7 @@ Vect3f CCollisionAvoidance::CalculateSteering2( CSteeringEntity *_pEntity )
 	float l_Distance 				= 0.f;
 
 	//	// Elementos ya tratados
-	float l_ObstaclesCount = 0;
+	int l_ObstaclesCount = 0;
 	std::map<std::string, std::string> l_ObstaclesTreated;
 	l_ObstaclesTreated.clear();
 			
@@ -323,7 +329,7 @@ Vect3f CCollisionAvoidance::CalculateSteering2( CSteeringEntity *_pEntity )
 	// Distancia mínima de colisión
 	float l_MinDistanceToCollision = 5.150f * _pEntity->GetSpeed();
 
-	// Desactivo sla colisión de la entidad
+	// Desactivo la colisión de la entidad
 	_pEntity->GetController()->SetCollision(false);
 	_pEntity->GetController()->SetGroup( ECG_RAY_SHOOT);
 	
@@ -355,13 +361,12 @@ Vect3f CCollisionAvoidance::CalculateSteering2( CSteeringEntity *_pEntity )
 			float l_RelativeSpeed	= l_RelativeVelocity.Length();
 
 			// Calculamos el tiempo en el que colisionaran
-			float l_Angle = mathUtils::Rad2Deg( (l_RelativePosition.Dot(l_RelativeVelocity)) );
-			float l_Angle2 = (l_RelativePosition.Dot(l_RelativeVelocity));
-			float l_TimeToCollision = (l_Angle) / (l_RelativeSpeed * l_RelativeSpeed);
+			float l_fAngle	= l_RelativePosition.Dot( l_RelativeVelocity );			// Obtenemos el coseno del angulo
+			l_fAngle		= mathUtils::ACos<float>( l_fAngle );					// Obtenemos el angulo
+			float l_fAngleDegress = mathUtils::Rad2Deg(l_fAngle);
 
-			// Distancia al objetivo
-			l_Distance = l_RelativePosition.Length();
-			
+			float l_TimeToCollision = (l_fAngle) / (l_RelativeSpeed * l_RelativeSpeed)/100;
+
 			// distancia mínima al obstáculo para iniciar la separación del obstáculo
 			float l_MinDistanceToCenter = l_MinDistanceToCollision + _pEntity->GetBoundingRadius();
 
@@ -370,8 +375,12 @@ Vect3f CCollisionAvoidance::CalculateSteering2( CSteeringEntity *_pEntity )
 			l_TotalRadius			= l_Radius + l_MinDistanceToCenter;
 
 			// Comprovamos si va a colisionar al final
+			l_Distance = l_RelativePosition.Length();		// Distancia al objetivo
 			float l_MinSeparation = l_Distance - l_RelativeSpeed * l_TimeToCollision;
-			if ( l_MinSeparation > l_TotalRadius * 6 )
+
+			LOGGER->AddNewLog(ELL_INFORMATION,"minima separación : %d", l_MinSeparation);
+			LOGGER->AddNewLog(ELL_INFORMATION,"Time colision: %d", l_TimeToCollision);
+			if ( l_MinSeparation > l_TotalRadius )
 				continue;
 
 			// Comprovamos si és el más corto
@@ -421,6 +430,228 @@ Vect3f CCollisionAvoidance::CalculateSteering2( CSteeringEntity *_pEntity )
 	
 	return l_SteeringForce;
 }
+
+Vect3f CCollisionAvoidance::CalculateSteering1( CSteeringEntity *_pEntity )	
+{
+	// Almacenamos la entidad tratada
+	m_pEntity = _pEntity;
+
+	// Creo los bigotitos...
+	CreateFeelers(FUSTRUM_ENEMY_ANGLE);
+
+	// Almaceno info de colision
+	SCollisionInfo sInfo;
+	
+	// La fuerza resultante a devolver
+	Vect3f l_SteeringForce;
+	l_SteeringForce.SetZero();
+
+	// Registra la velocidad entre el target y el caracter
+	Vect3f l_RelativeVelocity;
+	l_RelativeVelocity.SetZero();
+
+	// Registra la posición entre el target y el caracter
+	Vect3f l_RelativePosition;
+	l_RelativePosition.SetZero();
+
+	// Guarda el primer tiempo de colisión
+	float l_ShortestTime = FLT_MAX;
+
+	// Info para guardar el target que colisiona y otra info necesaria para evitar recalculos
+	CSteeringEntity* l_FirstTarget		= NULL;
+	float l_FirstMinSeparation			= FLT_MAX;
+	float l_FirstDistance				= FLT_MAX;
+	float l_FirstMinCollisionDistance	= FLT_MAX;
+	Vect3f l_FirstRelativeVelocity;
+	l_FirstRelativeVelocity.SetZero();
+	Vect3f l_FirstRelativePosition;
+	l_FirstRelativePosition.SetZero();
+	float l_Distance 				= 0.f;
+
+	//	// Elementos ya tratados
+	int l_ObstaclesCount = 0;
+	std::map<std::string, std::string> l_ObstaclesTreated;
+	l_ObstaclesTreated.clear();
+			
+	// Radio del obstaculo
+	float  l_Radius		= 0.f;
+
+	// distancia mínima al obstáculo para iniciar la separación del obstáculo
+	//float l_MinDistanceToCenter = l_MinDistanceToCollision + l_Radius;
+	
+	// distancia de contacto
+	float l_TotalRadius = 0.f;
+
+	// Distancia mínima de colisión
+	float l_MinDistanceToCollision = 5.150f * _pEntity->GetSpeed();
+
+	// Desactivo la colisión de la entidad
+	_pEntity->GetController()->SetCollision(false);
+	_pEntity->GetController()->SetGroup( ECG_RAY_SHOOT);
+	
+	// Por cada rayo miramos con qué colisiona y buscamos el punto más cercano de colision de todos los caracteres. Puede ser que varios rayos colisionen
+	// con el mismo objeto pero siempre obtendremos el punto más cercano de colisión
+	for ( size_t flr = 0; flr < m_Feelers.size(); ++flr)
+	{
+		// Siempre hay que pasar la dirección normalizada
+		CPhysicUserData * l_pUserData = ShootCollisionRay( _pEntity, m_Feelers[flr], sInfo, m_DetectionRayLength );
+
+		// Si ha colisionado con algo miramos si está más proximo
+		if ( l_pUserData ) 
+		{
+			if ( l_pUserData->GetName().compare(_pEntity->GetName() ) != 0 ) 
+			{
+				std::string l_Name = l_pUserData->GetName();
+				if ( l_ObstaclesTreated.find(l_Name) == l_ObstaclesTreated.end() )
+				{
+					l_ObstaclesTreated[l_Name] = l_Name;
+					++l_ObstaclesCount;
+				}
+				else
+					continue;
+			}
+			else 
+				continue;
+
+			// Ahora pillamos la posición y velocidad del obstaculo
+			l_RelativePosition		= GetObstaclePosition(l_pUserData) - _pEntity->GetPosition();
+			l_RelativeVelocity		= GetObstacleVelocity(l_pUserData) - _pEntity->GetVelocity();
+			float l_RelativeSpeed	= l_RelativeVelocity.Length();
+
+			// Calculamos el tiempo en el que colisionaran
+			float l_fAngle	= l_RelativePosition.Dot( l_RelativeVelocity );			// Obtenemos el coseno del angulo
+			l_fAngle		= mathUtils::ACos<float>( l_fAngle );					// Obtenemos el angulo
+			float l_fAngleDegress = mathUtils::Rad2Deg(l_fAngle);
+
+			// distancia mínima al obstáculo para iniciar la separación del obstáculo
+			float l_MinDistanceToCenter = l_MinDistanceToCollision + _pEntity->GetBoundingRadius();
+
+			// Obtengo el radio del obstaculo
+			l_Radius				= l_pUserData->GetRadius();
+			l_TotalRadius			= l_Radius + l_MinDistanceToCenter;
+
+			// Comprovamos si va a colisionar al final
+			l_Distance = l_RelativePosition.Length();		// Distancia al objetivo
+			//float l_MinSeparation = l_Distance - l_RelativeSpeed * l_TimeToCollision;
+			if ( l_Distance > l_FirstDistance )
+			{
+				continue;
+			}
+
+			if ( l_Distance <= l_FirstDistance ) 
+			{
+				// Almacenamos el tiempo, target i datos
+				l_FirstTarget				= l_pUserData->GetSteeringEntity();
+				//l_FirstMinSeparation		= l_MinSeparation;
+				l_FirstDistance				= l_Distance;
+				l_FirstRelativePosition		= l_RelativePosition;
+				l_FirstRelativeVelocity		= l_RelativeVelocity;
+				l_FirstMinCollisionDistance = l_TotalRadius;
+			}
+		}
+	}
+
+	if ( l_FirstTarget ) 
+	{
+		//// Ya debería tener el elemento más cercano encontrado y calculamos la fuerza steering basada en la actual posición
+		
+		Vect3f l_Forward = m_pEntity->GetHeading();
+		float l_fAngle	= l_FirstRelativePosition.Dot( l_Forward );			// Obtenemos el coseno del angulo
+
+		// Solo aseguro que el vehículo está en frente pero ya lo ser...
+		if ( l_fAngle <= 0 )
+			return l_SteeringForce;
+
+		// Rayo + distancia
+		Vect3f l_Ray = l_Forward * m_DetectionRayLength;
+		Vect3f l_Projection = l_Forward * l_fAngle;		// Heading hacia el objeto que colisiono
+		//l_FirstRelativePosition
+		//l_FirstDistance
+		
+		Vect3f l_DesiredVelocity;
+
+		if ( l_FirstDistance <= l_FirstMinCollisionDistance && l_Projection.SquaredLength() < l_Ray.SquaredLength() )
+		{
+			// cojemos la máxima velocidad en la dirección que iba
+			l_DesiredVelocity = l_Forward * _pEntity->GetMaxSpeed();	
+			
+			// Rotamos
+			l_DesiredVelocity.RotateY(90);
+			
+			// Escalamos
+			//l_DesiredVelocity *= (1 - l_Projection.Length() / l_Ray.Length());
+			
+			l_SteeringForce = l_DesiredVelocity - m_pEntity->GetVelocity();
+		}
+
+
+		//			var dist:Number = projection.cloneVector().subtract(diff).length; //get the distance between the circle and vehicle
+		//			if(dist < circles[i].radius + width && projection.length < ray.length) 
+//			{
+//				//if the circle is in your path (radius+width to check the full size of the vehicle)
+//				//projection.length and ray.length make sure you are within the max distance
+//				var force:Vector2D = forward.cloneVector().multiply(maxSpeed); //get the max force
+//				force.angle += diff.sign(velocity) * Math.PI / 2; //rotate it away from the cirlce
+//				//PI / 2 is 90 degrees, vector's angles are in radians
+//				//sign returns whether the vector is to the right or left of the other vector
+//				force.multiply(1 - projection.length / ray.length); //scale the force so that a far off object
+//				//doesn't drastically change the velocity
+//				velocity.add(force);//change the velocity
+//				velocity.multiply(projection.length / ray.length);//and scale again
+//			}
+
+		/*m_pPursuer->SetPosition (l_FirstRelativePosition);
+		m_pPursuer->*/
+		/*m_pEvade->SetTarget( l_FirstRelativePosition );
+		m_pEvade->UpdatePursuerEntity( m_pPursuer, 31.f );
+		l_SteeringForce = m_pEvade->CalculateSteering(m_pPursuer);*/
+	}
+
+	// Vuelvo a activar la colisión de la entidad
+	_pEntity->GetController()->SetCollision(true);
+	_pEntity->GetController()->SetGroup( ECG_ENEMY);
+
+	
+	return l_SteeringForce;
+}
+
+///private var checkLength:Number = 100;//the distance to look ahead for circles
+
+//public function avoidObstacles(circles:Array):void 
+//{
+//	for(var i:int = 0; i < circles.length; i++) 
+//	{//loop through the array of obstacles
+//		var forward:Vector2D = velocity.cloneVector().normalize();//get the forward vector
+//		var diff:Vector2D = circles[i].position.cloneVector().subtract(position);//get the difference between the circle and the vehicle
+//		var dotProd:Number = diff.dotProduct(forward);//get the dot product
+//		//this will be used for projection
+//		//much like in the <a href="http://rocketmandevelopment.com/2010/05/19/separation-of-axis-theorem-for-collision-detection/">SAT</a>
+//
+//		if(dotProd > 0) 
+//		{ //if this object is in front of the vehicle
+//
+//			var ray:Vector2D = forward.cloneVector().multiply(checkLength); //get the ray
+//			var projection:Vector2D = forward.cloneVector().multiply(dotProd); //project the forward vector
+//			var dist:Number = projection.cloneVector().subtract(diff).length; //get the distance between the circle and vehicle
+//
+//			if(dist < circles[i].radius + width && projection.length < ray.length) 
+//			{
+//				//if the circle is in your path (radius+width to check the full size of the vehicle)
+//				//projection.length and ray.length make sure you are within the max distance
+//				var force:Vector2D = forward.cloneVector().multiply(maxSpeed); //get the max force
+//				force.angle += diff.sign(velocity) * Math.PI / 2; //rotate it away from the cirlce
+//				//PI / 2 is 90 degrees, vector's angles are in radians
+//				//sign returns whether the vector is to the right or left of the other vector
+//				force.multiply(1 - projection.length / ray.length); //scale the force so that a far off object
+//				//doesn't drastically change the velocity
+//				velocity.add(force);//change the velocity
+//				velocity.multiply(projection.length / ray.length);//and scale again
+//			}
+//		}
+//	}
+//}
+
+
 
  void CCollisionAvoidance::EnforceNonPenetrationConstraint( CSteeringEntity *_pEntity, CPhysicUserData *_pUserDataObstacle )
 {

@@ -36,6 +36,7 @@ public:
 	virtual	Vect3f			CalculateSteering				( CSteeringEntity *_pEntity );					// Método que deberá ser sobreescrito en cada clase que herede de Steering
 	virtual	Vect3f			CalculateSteering1				( CSteeringEntity *_pEntity );					// Método que deberá ser sobreescrito en cada clase que herede de Steering
 	virtual	Vect3f			CalculateSteering2				( CSteeringEntity *_pEntity );					// Método que deberá ser sobreescrito en cada clase que herede de Steering
+	virtual	Vect3f			CalculateSteering3				( CSteeringEntity *_pEntity );					// Método que deberá ser sobreescrito en cada clase que herede de Steering
 	void					CreateFeelers					( float _Angle );
 
 	//---- Functions ---------------------------------------
@@ -65,7 +66,6 @@ private:
         
 		CEvade*				m_pEvade;
 		CSteeringEntity*	m_pPursuer;
-		
 };
 
 #endif __CLASS_collision_avoidance_H__

@@ -25,7 +25,7 @@ CRenderDebugPhysicsSceneRendererCommand::CRenderDebugPhysicsSceneRendererCommand
 	m_DrawRays		= Node.GetBoolProperty("draw_rays", false);
 	
 	CORE->GetPhysicsManager()->SetDrawFront( Node.GetBoolProperty("draw_fronts", false) );
-	CORE->GetPhysicsManager()->SetDrawFustrum( Node.GetBoolProperty("draw_fustrum", false) );
+	CORE->GetPhysicsManager()->SetDrawFrustrum( Node.GetBoolProperty("draw_frustrum", false) );
 	CORE->GetPhysicsManager()->SetDrawNames( Node.GetBoolProperty("draw_names", false) );
 	CORE->GetPhysicsManager()->SetDrawRays( Node.GetBoolProperty("draw_rays", false) );
 }

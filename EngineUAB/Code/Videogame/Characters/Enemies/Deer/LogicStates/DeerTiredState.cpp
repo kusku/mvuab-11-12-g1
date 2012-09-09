@@ -71,7 +71,7 @@ void CDeerTiredState::OnEnter( CCharacter* _Character )
 		m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetIdleAnimationState());
 	//}
 
-	LOGGER->AddNewLog(ELL_INFORMATION, "Valor : %d", l_Valor);
+	//LOGGER->AddNewLog(ELL_INFORMATION, "Valor : %d", l_Valor);
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
