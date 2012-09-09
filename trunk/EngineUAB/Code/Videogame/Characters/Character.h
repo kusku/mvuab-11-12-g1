@@ -77,6 +77,8 @@ public:
 	
 	Vect3f						GetPointOfFront				( void ) const;
 	void						GoInToFrustrum				( float _RangeAngle, float _ElapsedTime );	// Permite colocar un caracter dentro del frustum de la càmara en unos grados desde el centro
+	
+	bool						IsCollisionedWithSomething	( void );
 
 	float						GetDistanceToPlayer			( void );
 

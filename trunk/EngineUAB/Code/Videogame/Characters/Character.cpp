@@ -191,6 +191,7 @@ bool CCharacter::Initialize( const std::string &_Name, const Vect3f &_InitialPos
 	}
 	
 	this->SetName(_Name);
+	this->SetLocked(m_pProperties->GetLocked());
 	this->SetEnable ( m_pProperties->GetActive() );
 
 	// Jordi 12/08/2012 -- Antes debemos inicializar el m_pSteeringEntity
@@ -250,6 +251,9 @@ bool CCharacter::InitializeAI ( void )
 
 void CCharacter::Update ( float _ElapsedTime )			
 { 
+	/*if( GetLocked() ) 
+		return;*/
+	
 	m_pLogicStateMachine->Update( _ElapsedTime );
 	m_pGraphicStateMachine->Update( _ElapsedTime );
 }
@@ -261,6 +265,9 @@ void CCharacter::UpdatePlayer ( float _ElapsedTime )
 
 void CCharacter::UpdateIA( float _ElapsedTime )			
 { 
+	if( GetLocked() ) 
+		return;
+	
 	Vect3f l_SteeringForce = m_pBehaviors->Update( _ElapsedTime, m_pSteeringEntity );
 	l_SteeringForce.y = 0;
 
@@ -605,12 +612,15 @@ bool CCharacter::IsEnemyFocused( void )
 			return false;
 		}
 	}
-	return true;
 }
 
 bool CCharacter::IsPlayerAtacable( void )
 {
-	if ( IsEnemyFocused() && IsPlayerInsideDistance(this->GetProperties()->GetAttackDistance()) && IsPlayerReady() )
+	bool l_IsFocused 			= IsEnemyFocused();
+	bool l_InsideAttackDistance	= IsPlayerInsideDistance(this->GetProperties()->GetAttackDistance());
+	bool l_IsPlayerReady		= IsPlayerReady();
+
+	if ( l_IsFocused && l_InsideAttackDistance && l_IsPlayerReady )
 	{
 		return true;
 	}
@@ -709,6 +719,12 @@ float CCharacter::GetDistanceToPlayer( void )
 	
 	float l_Distance = l_PositionA.Distance(l_PositionB);
 	return l_Distance;
+}
+
+bool CCharacter::IsCollisionedWithSomething	( void )
+{
+
+	return false;
 }
 
 
