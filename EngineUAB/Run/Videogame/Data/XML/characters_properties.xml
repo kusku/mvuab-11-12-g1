@@ -2,6 +2,7 @@
 <characters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<default_properties core="caperucita">
 		<active>true</active>
+		<locked>false</locked>
 		<life>100</life>
 		<strong>50</strong>
 		<respawn_position>0 100 0</respawn_position>
@@ -29,6 +30,7 @@
 	</default_properties>
 	<default_properties core="lobo">
 		<active>true</active>
+		<locked>false</locked>
 		<life>250</life>
 		<strong>20</strong>
 		<mass>0.01</mass>
@@ -40,15 +42,23 @@
 		<max_acceleration>0.1</max_acceleration>
 		<max_force>0.015</max_force>
 		<bounding_radius>0.4</bounding_radius>
-		<detection_distance>15</detection_distance>							<!-- Distancia a partir de la qual detecto el player y puedo perseguirlo -->
-		<chase_distance>10</chase_distance>									<!-- Creo que ahora no la uso... -->
+		<detection_distance>15</detection_distance>
+		<!-- Distancia a partir de la qual detecto el player y puedo perseguirlo -->
+		<chase_distance>10</chase_distance>
+		<!-- Creo que ahora no la uso... -->
 		<follow_path_distance>100</follow_path_distance>
-		<impact_distance>2.3</impact_distance>								<!-- Está encima el player -->
-		<attack_distance>5</attack_distance>								<!-- Está en distancia de poder hacer algunos de los ataques o defensa -->
-		<prepared_to_attack_distance>7.0</prepared_to_attack_distance>		<!-- Está lejos de poder atacar pero cerca de poder hacerlo -->
-		<aproximation_distance>15</aproximation_distance>					<!-- Está lejos y debe acercarse -->
-		<tired_distance>10</tired_distance>									<!-- Creo que ahora no la uso... -->
-		<panic_distance>100</panic_distance>								<!-- Sirve para saber la distancia máxima de evasión -->
+		<impact_distance>2.3</impact_distance>
+		<!-- Está encima el player -->
+		<attack_distance>5</attack_distance>
+		<!-- Está en distancia de poder hacer algunos de los ataques o defensa -->
+		<prepared_to_attack_distance>7.0</prepared_to_attack_distance>
+		<!-- Está lejos de poder atacar pero cerca de poder hacerlo -->
+		<aproximation_distance>15</aproximation_distance>
+		<!-- Está lejos y debe acercarse -->
+		<tired_distance>10</tired_distance>
+		<!-- Creo que ahora no la uso... -->
+		<panic_distance>100</panic_distance>
+		<!-- Sirve para saber la distancia máxima de evasión -->
 		<height_controller>1.9</height_controller>
 		<width_controller>1.7</width_controller>
 		<slope>45.0</slope>
@@ -58,6 +68,7 @@
 	</default_properties>
 	<default_properties core="conejo">
 		<active>false</active>
+		<locked>false</locked>
 		<life>50</life>
 		<strong>5</strong>
 		<mass>0.01</mass>
@@ -69,15 +80,23 @@
 		<max_acceleration>0.1</max_acceleration>
 		<max_force>0.015</max_force>
 		<bounding_radius>0.4</bounding_radius>
-		<detection_distance>15</detection_distance>							<!-- Distancia a partir de la qual detecto el player y puedo perseguirlo -->
-		<chase_distance>10</chase_distance>									<!-- Creo que ahora no la uso... -->
+		<detection_distance>15</detection_distance>
+		<!-- Distancia a partir de la qual detecto el player y puedo perseguirlo -->
+		<chase_distance>10</chase_distance>
+		<!-- Creo que ahora no la uso... -->
 		<follow_path_distance>100</follow_path_distance>
-		<impact_distance>1.2</impact_distance>								<!-- Está encima el player -->
-		<attack_distance>5</attack_distance>								<!-- Está en distancia de poder hacer algunos de los ataques o defensa -->
-		<prepared_to_attack_distance>7.0</prepared_to_attack_distance>		<!-- Está lejos de poder atacar pero cerca de poder hacerlo -->
-		<aproximation_distance>15</aproximation_distance>					<!-- Está lejos y debe acercarse -->
-		<tired_distance>10</tired_distance>									<!-- Creo que ahora no la uso... -->
-		<panic_distance>100</panic_distance>								<!-- Sirve para saber la distancia máxima de evasión -->
+		<impact_distance>1.2</impact_distance>
+		<!-- Está encima el player -->
+		<attack_distance>5</attack_distance>
+		<!-- Está en distancia de poder hacer algunos de los ataques o defensa -->
+		<prepared_to_attack_distance>7.0</prepared_to_attack_distance>
+		<!-- Está lejos de poder atacar pero cerca de poder hacerlo -->
+		<aproximation_distance>15</aproximation_distance>
+		<!-- Está lejos y debe acercarse -->
+		<tired_distance>10</tired_distance>
+		<!-- Creo que ahora no la uso... -->
+		<panic_distance>100</panic_distance>
+		<!-- Sirve para saber la distancia máxima de evasión -->
 		<height_controller>0.7</height_controller>
 		<width_controller>0.5</width_controller>
 		<slope>45.0</slope>
@@ -136,18 +155,20 @@
 		<enemy name="enemy5" core="lobo" animated_instace_name="lobo5" >
 			<position>-35 -30 2</position>
 		</enemy>-->
-		
+
 		<enemy name="enemy22" core="conejo" animated_instace_name="enemy22" >
-			<position>35 -40 30</position>
+			<position>35 -40 25</position>
 			<active>true</active>
+			<locked>false</locked>
 		</enemy>
-		<!--<enemy name="enemy23" core="conejo" animated_instace_name="enemy23" >
-			<position>-10 -30 -2</position>
+		<enemy name="enemy23" core="conejo" animated_instace_name="enemy23" >
+			<position>35 -40 30</position>
+			<locked>false</locked>
 		</enemy>
-		<enemy name="enemy24" core="conejo" animated_instace_name="enemy24" >
-			<position>-15 -30 0</position>
+		<!--<enemy name="enemy24" core="conejo" animated_instace_name="enemy24" >
+			<position>35 -40 35</position>
 		</enemy>
-		<enemy name="enemy25" core="conejo" animated_instace_name="enemy25" >
+    <enemy name="enemy25" core="conejo" animated_instace_name="enemy25" >
 			<position>-20 -30 0</position>
 		</enemy>
 		<enemy name="enemy26" core="conejo" animated_instace_name="enemy26" >
