@@ -185,6 +185,10 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 		{
 			l_Properties->SetMaxForce( l_XMLPropertiesNode(i).GetFloatKeyword("max_force", FUERZA_MAXIMA) );
 		}
+		else if( l_PropertyField == "locked" )
+		{
+			l_Properties->SetLocked( l_XMLPropertiesNode(i).GetBoolKeyword("locked", "false") );
+		}
 		// --- Fi temas de IA --- //
 		else if ( l_PropertyField != "comment" ) 
 		{
