@@ -44,6 +44,10 @@ public:
 	inline void					SetRespawnPosition		( const Vect3f &_RespawnPosition )					{ m_RespawnPosition = _RespawnPosition; }
 	inline const Vect3f			GetRespawnPosition		( void ) const										{ return m_RespawnPosition; }
 
+	inline void					SetLocked				( bool _Locked )									{ m_Locked = _Locked; }
+	inline const bool			GetLocked				( void ) const										{ return m_Locked; }
+
+
 	// -------------------- Popiedades de detección para estados --------------------------------------------------------------
 	inline void					SetDetectionDistance		( float _DetectionDistance )						{ m_DetectionDistance = _DetectionDistance; }
 	inline float				GetDetectionDistance		( void ) const										{ return m_DetectionDistance; }
@@ -127,6 +131,8 @@ private:
 	int					m_Strong;
 	Vect3f				m_RespawnPosition;
 	
+	bool				m_Locked;					// Dice que paralizo el caracter
+
 	// Propiedades de IA + Física
 	Vect3f				m_Velocity;
 	float				m_BoundingRadius;
