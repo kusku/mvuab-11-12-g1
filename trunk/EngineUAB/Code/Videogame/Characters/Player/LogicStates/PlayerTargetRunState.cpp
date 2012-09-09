@@ -21,6 +21,12 @@
 CPlayerTargetRunState::CPlayerTargetRunState( const std::string &_Name )
 	: CState(_Name)
 	, m_pTargetEnemy(NULL)
+	, m_fMaxVelocityMovement(10.f)
+	, m_fCurrentVelocityMovement(0.f)
+	, m_fAccelerationStart(30.f)
+	, m_fAccelerationEnd(65.f)
+	, m_bStartState(true)
+	, m_bEndState(false)
 {
 
 }
@@ -48,6 +54,10 @@ void CPlayerTargetRunState::OnEnter( CCharacter* _pCharacter )
 	}
 
 	l_pProcess->GetCharactersManager()->SetTargetEnemy( m_pTargetEnemy );
+
+	m_fCurrentVelocityMovement	= 0.f;
+	m_bStartState				= true;
+	m_bEndState					= false;
 }
 
 void CPlayerTargetRunState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
@@ -138,8 +148,44 @@ void CPlayerTargetRunState::Execute( CCharacter* _pCharacter, float _fElapsedTim
 
 		_pCharacter->SetYaw( Helper::AngleFilter( _pCharacter->GetYaw() ) );
 
+		if( l_bMovePlayer )
+		{
+			m_LastDirection = l_Dir;
+
+			if( m_bEndState )
+			{
+				m_bStartState	= true;
+				m_bEndState		= false;
+			}
+		}
+		else
+		{
+			l_Dir = m_LastDirection;
+			m_bEndState = true;
+		}
+
+		if( m_bStartState )
+		{
+			m_fCurrentVelocityMovement = m_fCurrentVelocityMovement + m_fAccelerationStart * _fElapsedTime;
+			if( m_fCurrentVelocityMovement >= m_fMaxVelocityMovement )
+			{
+				m_fCurrentVelocityMovement = m_fMaxVelocityMovement;
+				m_bStartState = false;
+			}
+		}
+		else if( m_bEndState )
+		{
+			m_fCurrentVelocityMovement = m_fCurrentVelocityMovement - m_fAccelerationEnd * _fElapsedTime;
+			if( m_fCurrentVelocityMovement <= 0.f )
+			{
+				m_fCurrentVelocityMovement = 0.f;
+				m_bEndState = false;
+			}
+		}
+
+
 		//Aplica la velocidad al movimiento
-		l_Dir = l_Dir * 10.f * _fElapsedTime;
+		l_Dir = l_Dir * m_fCurrentVelocityMovement * _fElapsedTime;
 
 		//Mueve el controller físico
 		_pCharacter->GetController()->Move( l_Dir, _fElapsedTime );

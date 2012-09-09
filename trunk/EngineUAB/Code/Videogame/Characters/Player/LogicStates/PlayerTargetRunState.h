@@ -23,6 +23,15 @@ public:
 
 private:
 	CCharacter		*m_pTargetEnemy;
+
+	float			m_fAccelerationStart;
+	float			m_fAccelerationEnd;
+	float			m_fMaxVelocityMovement;
+	float			m_fCurrentVelocityMovement;
+
+	bool			m_bStartState;
+	bool			m_bEndState;
+	Vect3f			m_LastDirection;
 };
 
 #endif //_PLAYER_TARGET_RUN_STATE_H_
