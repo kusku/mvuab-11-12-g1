@@ -9,6 +9,8 @@
 #include "Math\Vector3.h"
 #include "Utils\Timer.h"
 #include "Textures\Texture.h"
+#include "RenderManager.h"
+#include <d3d9.h>
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -133,7 +135,11 @@ bool CSkySphere::Render()
 
 	CORE->GetEffectManager()->SetWorldMatrix(pos * m_World);
 
+	CORE->GetRenderManager()->GetDevice()->SetRenderState(D3DRS_ZWRITEENABLE, false);
+
 	m_SphereMesh.Render(CORE->GetRenderManager(), m_SkySphereTechnique);
+
+	CORE->GetRenderManager()->GetDevice()->SetRenderState(D3DRS_ZWRITEENABLE, true);
 
 	return true;
 }

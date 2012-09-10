@@ -210,13 +210,25 @@ bool CSceneRendererCommandManager::LoadXML ( bool _IsGUI )
 			{
 				l_ActiveCommand = new CSetPoolRenderableObjectsTechniqueCommand( l_Commands(i) );
 			}
-			else if( l_Type == "set_render_target" )
-			{
-				l_ActiveCommand = new CSetRenderTargetSceneRendererCommand( l_Commands(i) );
-			}
 			else if( l_Type == "lens_flare" )
 			{
 				l_ActiveCommand = new CLensFlareSceneRemdererCommand( l_Commands(i) );
+			}
+			else if( l_Type == "set_depth_stencil" )
+			{
+				l_ActiveCommand = new CSetDepthStencilSceneRendererCommand( l_Commands(i) );
+			}
+			else if( l_Type == "unset_depth_stencil" )
+			{
+				std::string l_depthStencil = l_Commands(i).GetPszProperty("depth_stencil", "");
+
+				CSetDepthStencilSceneRendererCommand* l_SDS = static_cast<CSetDepthStencilSceneRendererCommand*>(m_SceneRendererCommands.GetResource(l_depthStencil));
+
+				l_ActiveCommand = new CUnsetDepthStencilSceneRendererCommand(l_SDS, l_Commands(i));
+			}
+			else if( l_Type == "set_render_target" )
+			{
+				l_ActiveCommand = new CSetRenderTargetSceneRendererCommand( l_Commands(i) );
 			}
 			else if( l_Type == "unset_render_target" )
 			{

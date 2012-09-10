@@ -85,19 +85,19 @@ void CLensFlarePostProcess::Init()
 
 	m_QueryVertices[0].x = -m_QuerySize / 2;
 	m_QueryVertices[0].y = -m_QuerySize / 2;
-	m_QueryVertices[0].z = 1;
+	m_QueryVertices[0].z = 1.0f;
 
 	m_QueryVertices[1].x = m_QuerySize / 2;
 	m_QueryVertices[1].y = -m_QuerySize / 2;
-	m_QueryVertices[1].z = 1;
+	m_QueryVertices[1].z = 1.0f;
 
 	m_QueryVertices[2].x = -m_QuerySize / 2;
 	m_QueryVertices[2].y = m_QuerySize / 2;
-	m_QueryVertices[2].z = 1;
+	m_QueryVertices[2].z = 1.0f;
 
 	m_QueryVertices[3].x = m_QuerySize / 2;
 	m_QueryVertices[3].y = m_QuerySize / 2;
-	m_QueryVertices[3].z = 1;
+	m_QueryVertices[3].z = 1.0f;
 
 	LPDIRECT3DDEVICE9 dx9Device = CORE->GetRenderManager()->GetDevice();
 
@@ -253,43 +253,6 @@ void CLensFlarePostProcess::DrawGlows()
 	m_SpriteBatch->Draw(m_GlowSprite->GetDXTexture(), NULL, &center, &lp, (D3DCOLOR)color.GetUint32Argb());
 
 	m_SpriteBatch->End();
-
-	//CORE->GetRenderManager()->SetGraphicBlendState(TGraphicBlendStates::DefaultState);
-
-	///////////////////////////////
-	//////////////////////////////
-
-	//CColor color = colWHITE;
-
-	//D3DXVECTOR3 lp(
-	//	300 / 1.0f, 
-	//	300 / 1.0f, 
-	//	0);
-
-	//D3DXVECTOR3 center(
-	//	256 / 1.0f, 
-	//	256 / 1.0f, 
-	//	0);
-
-	//D3DXVECTOR2 scale2DDX(
-	//	1.0f,
-	//	1.0f
-	//	);
-
-	//D3DXMATRIX scaleDX;
-	//D3DXMatrixTransformation2D(&scaleDX, NULL, 0, &scale2DDX, NULL, 0, NULL);
-
-	//CORE->GetRenderManager()->SetGraphicBlendState(TGraphicBlendStates::AlphaBlend);
-
-	//m_SpriteBatch->Begin(0);
-
-	//m_SpriteBatch->SetTransform(&scaleDX);
-
-	//m_SpriteBatch->Draw(m_GlowSprite->GetDXTexture(), NULL, &center, &lp, (D3DCOLOR)color.GetUint32Argb());
-
-	//m_SpriteBatch->End();
-
-	//CORE->GetRenderManager()->SetGraphicBlendState(TGraphicBlendStates::DefaultState);
 }
 
 void CLensFlarePostProcess::DrawFlares()

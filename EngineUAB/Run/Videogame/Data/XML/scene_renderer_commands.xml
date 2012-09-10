@@ -3,7 +3,6 @@
   <!--pre_render-->
   <begin_scene />
   
-  <clear_scene color="true" depth="true" stencil="true" />
   <enable_z_write />
   <enable_z_test />
   <setup_matrices />
@@ -22,11 +21,13 @@
     <dynamic_texture stage_id="2" name="__CURRENT_MOTION_BLUR_TEXTURE" texture_width_as_frame_buffer="true" format_type="G32R32F" mipmaps="1" />
   </set_render_target>
 
-  <clear_scene color="true" />
-
-  <!--<SkySphere SkyTexture="./Data/General/Textures/SkyRelease1.dds" Scale="1000 900 1000" SkyEffectTechnique="SkySphereEffect" />
-  <SkySphere SkyCloudTexture="./Data/General/Textures/clouds2.dds" Scale="499 399 499" SkyEffectTechnique="SkySphereEffectClouds" Clouds="true" />-->
-
+  <!--Set Depth Stencil with MS-->
+  <set_depth_stencil name="MSDS" format_type="D24S8" multi_samples="8" />
+  
+  <clear_scene color="true" depth="true" stencil="true" />
+  
+  <SkySphere SkyTexture="./Data/General/Textures/SkyRelease1.dds" Scale="1000 900 1000" SkyEffectTechnique="SkySphereEffect" />
+  
   <set_pool_renderable_objects_technique pool="FowardShading" />
   <render_scene layer="solid" active="true" />
 
@@ -73,15 +74,17 @@
 
   <!--Lens Flare-->
   <enable_z_test />
-  <lens_flare light_index="0" glow_color="255 210 40" />
+  <lens_flare light_index="0" glow_color="255 230 90" />
 
   <!--Debug-->
   <render_debug_waypoints waypoints="false" triggers="false" rails="false" />
   <render_debug_process active="false" />
   <render_debug_physics active="false" draw_fronts="false" draw_fustrum="false" draw_names="false" draw_rays="false" />
   <render_debug_lights active="false" />
-  <render_debug_info grid="false" axis="false" render_console="false" render_logger="false" render_modifiers="false" render_debug_options="true" render_debug_render="true" />
+  <render_debug_info grid="false" axis="false" render_console="false" render_logger="false" render_modifiers="false" render_debug_options="false" render_debug_render="true" />
   
+  <!--Unset DS MS-->
+  <unset_depth_stencil depth_stencil="MSDS"/>
   
   <end_scene />
   <present />

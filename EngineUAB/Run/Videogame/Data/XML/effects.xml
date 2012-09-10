@@ -49,10 +49,6 @@
   <technique name="GaussianBlur" effect="BloomPostProcess" use_half_pixel="false" />
   <technique name="BloomCombine" effect="BloomPostProcess" use_half_pixel="false" />
 
-  <technique name="SkySphereEffect" effect="sky_sphere_effect" use_world_view_projection_matrix="true" />
-  <technique name="SkySphereEffectClouds" effect="sky_sphere_effect" use_world_view_projection_matrix="true" />
-  <technique name="SkySphereEffectDeferred" effect="sky_sphere_effect" use_world_view_projection_matrix="true" />
-
   <technique name="AmbientLight" effect="ambient_light_effect"
 		use_world_view_projection_matrix="true" />
 
@@ -105,6 +101,19 @@
   <technique name="VignettingNoiseTechnique" effect="vignetting_and_noise"
 		use_time="true" />
 
+  <!-- 
+  ###################################
+          Sky Box Effect
+  ###################################
+  -->
+  
+  <technique name="SkySphereEffect" effect="sky_sphere_effect" use_world_view_projection_matrix="true" use_world_matrix="true"
+    use_prev_view_projection_matrix="true" />
+  
+  <technique name="SkySphereEffectClouds" effect="sky_sphere_effect" use_world_view_projection_matrix="true" />
+  
+  <technique name="SkySphereEffectDeferred" effect="sky_sphere_effect" use_world_view_projection_matrix="true" />
+  
   <!-- 
   ###################################
           Basic Effect
