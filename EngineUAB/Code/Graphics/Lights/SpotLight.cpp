@@ -56,8 +56,15 @@ void CSpotLight::Render(CRenderManager *RM)
 
 	mat.SetIdentity();
 	RM->SetTransform(mat);
-	Vect3f l_Dir = l_Pos + m_Direction;
+	Vect3f l_Dir = l_Pos + (m_Direction.GetNormalized() * 10.0f);
 	RM->DrawLine( l_Pos , l_Dir );
+	
+	RM->SetTransform(m44fIDENTITY);
+
+	if(m_LightFrustum != NULL)
+	{
+		m_LightFrustum->DrawFrustum();
+	}
 }
 
 void CSpotLight::SetShadowMap()
@@ -79,7 +86,7 @@ void CSpotLight::SetShadowMap()
 	D3DXMatrixLookAtLH( &l_View, &l_Eye, &l_LookAt, &l_VUP);
 	
     //Setup Matrix projection
-	D3DXMatrixPerspectiveFovLH(&l_Projection, D3DX_PI * .25f, 1.0f, 1.0f, 1000);
+	D3DXMatrixPerspectiveFovLH(&l_Projection, D3DX_PI * .25f, 1.0f, 1.0f, m_EndRangeAttenuation);
 
 	m_ViewShadowMap = Mat44f(l_View);
 	m_ProjectionShadowMap= Mat44f(l_Projection);
