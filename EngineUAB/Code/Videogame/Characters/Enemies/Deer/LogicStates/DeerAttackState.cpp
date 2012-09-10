@@ -127,7 +127,7 @@ void CDeerAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 			else if ( l_ActiveActionState == "go_in_to_fustrum" ) 
 			{
 				float l_Angle = 22.f;		// 22,5 graus de fustrum
-				m_pDeer->GoInToFrustrum(l_Angle, _ElapsedTime);
+				m_pDeer->GoInTofrustum(l_Angle, _ElapsedTime);
 			}
 		} 	// End fatigue
 	}	

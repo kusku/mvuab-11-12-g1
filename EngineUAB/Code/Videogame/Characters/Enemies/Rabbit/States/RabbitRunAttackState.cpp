@@ -179,7 +179,7 @@ void CRabbitRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 		
 				// Pararemos de correr si estamos en el momento de impacto o que la distancia al player no sea mayor que la inicial ya que indicará 
 				// que el ataque seguramente falló y así evitamos que exista un pequeño retroceso de volver hacia el player
-				if ( m_pRabbit->IsPlayerInsideImpactDistance() || ( l_Distance > m_CurrentDistance ) ) 
+				if ( m_pRabbit->IsPlayerInsideImpactDistance() ) //|| ( l_Distance > m_CurrentDistance ) ) 
 				{
 					m_pRabbit->GetBehaviors()->SeekOff();
 					m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
@@ -192,7 +192,8 @@ void CRabbitRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				}
 				else
 				{
-					m_AnimationDuration = m_pRabbit->GetAnimatedModel()->GetCurrentAnimationDuration(RABBIT_RUN_ATTACK_STATE) / 3;
+					m_AnimationDuration = m_pRabbit->GetAnimatedModel()->GetCurrentAnimationDuration(RABBIT_RUN_ATTACK_STATE);
+					//int l_AnimationTracks = m_pRabbit->GetAnimatedModel()->GetCurrentAnimationDuration(RABBIT_RUN_ATTACK_STATE);
 
 					if ( m_CurrentDuration >= m_AnimationDuration )
 					{
@@ -230,41 +231,42 @@ void CRabbitRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 			}
 			else
 			{
-				// Primer estado que se ejecutará. Si está lejos nos acercamos con gran velocidad
-				// Corremos rápido hacía el player
-				// _CCharacter.behaviors:pursuit_on()
-				m_pRabbit->GetBehaviors()->SeekOff();
+				// Primer estado que se ejecutará. Si está lejos nos acercamos con gran velocidad Corremos rápido hacía el player. 
+				// Para ello hay que saber el tiempo de la animación y cuando hay que activarla. 
+
+				// Pillo la duración de la animación
+				m_AnimationDuration = m_pRabbit->GetAnimatedModel()->GetCurrentAnimationDuration(RABBIT_RUN_ATTACK_STATE);
+
+				// Distancia recorrida según la duración de la animación a una velocidad determinada máxima
+				//float l_DistanciaRecorridaAnimacion = m_pRabbit->GetSteeringEntity()->GetMaxSpeed() * m_AnimationDuration;
+				float l_DistanciaRecorridaAnimacion = m_pRabbit->GetSteeringEntity()->GetMaxSpeed() * m_AnimationDuration * _ElapsedTime;
+				//float l_DistanciaRecorridaAnimacion = m_pRabbit->GetSteeringEntity()->GetMaxSpeed() * m_AnimationDuration + 1/2*m_pRabbit->GetSteeringEntity()->GetMaxAcceleration()*m_AnimationDuration*m_AnimationDuration * 1000;
+				float l_DistanceToPlayer = m_pRabbit->GetDistanceToPlayer();
+
+				// En este caso empezamos a ejecutar la animación
+				if ( l_DistanceToPlayer <= l_DistanciaRecorridaAnimacion ) 
+				{
+					m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetRunAttackAnimationState());
+					m_pAnimationCallback->StartAnimation();
+				}
+
+				m_pRabbit->GetBehaviors()->SeekOn();
 				m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_pRabbit->GetPlayer()->GetPosition());
+
+				
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
 						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Correm a sac!!");
 					}
 				#endif
-			}
 
-			// Ahora azitamos y empezamos la animación de ataque
-			if ( m_pRabbit != NULL ) 
-			{
-				/*int l_Num = m_pRabbit->GetAnimationID("attack_1");
-				m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+				// _CCharacter.behaviors:pursuit_on()
 				
-				l_Num = m_pRabbit->GetAnimationID("run");
-				m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
-					
-				l_Num = m_pRabbit->GetAnimationID("attack_2");
-				m_pRabbit->GetAnimatedModel()->BlendCycle( l_Num, 0.3f );*/
-
-				m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetRunAttackAnimationState());
-				m_pAnimationCallback->StartAnimation();
+			}
 
 				m_pRabbit->FaceTo( m_pRabbit->GetSteeringEntity()->GetPosition(), _ElapsedTime );
 				m_pRabbit->MoveTo2(  m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
-			}
-			else 
-			{
-				LOGGER->AddNewLog(ELL_ERROR, "CRabbitStillAttackState:Execute->El Character Rabbit es NULL" );
-			}
 		}
 	}
 	else
