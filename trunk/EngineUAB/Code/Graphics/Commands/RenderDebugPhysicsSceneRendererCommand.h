@@ -16,7 +16,7 @@ public:
 	virtual void	Execute		( CRenderManager &RM );
 	
 private:
-	bool	m_DrawFrustrum;
+	bool	m_Drawfrustum;
 	bool	m_DrawFront;
 	bool	m_DrawNames;
 	bool	m_DrawRays;
