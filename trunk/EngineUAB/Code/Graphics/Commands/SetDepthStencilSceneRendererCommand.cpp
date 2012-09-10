@@ -28,10 +28,12 @@ CSetDepthStencilSceneRendererCommand::CSetDepthStencilSceneRendererCommand(CXMLT
 	m_DepthStecilTexture->SetName(m_Name);
 
 	std::string format_type = Node.GetPszProperty("format_type", "D24S8");
+	uint32 multiSamples = Node.GetIntProperty("multi_samples", 0);
+	
 	uint32 width = CORE->GetRenderManager()->GetScreenSize().x;
 	uint32 height = CORE->GetRenderManager()->GetScreenSize().y;
 
-	bool ret = m_DepthStecilTexture->CreateDepthStencil(width, height, m_DepthStecilTexture->GetFormatTypeFromString(format_type), D3DMULTISAMPLE_NONE);
+	bool ret = m_DepthStecilTexture->CreateDepthStencil(width, height, m_DepthStecilTexture->GetFormatTypeFromString(format_type), static_cast<D3DMULTISAMPLE_TYPE>(multiSamples));
 
 	if(!ret)
 	{

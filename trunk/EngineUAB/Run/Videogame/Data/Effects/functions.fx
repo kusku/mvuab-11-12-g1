@@ -559,10 +559,16 @@ float CalcShadowVariance(float4 Pos, sampler shadowMapSampler, int light)
 //////////////////////////////////////
 //Motion Blur Functions				//
 /////////////////////////////////////
-float2 MotionBlurVelocity(float4 wvpPosition, float4 wPosition)
+float2 MotionBlurVelocity(float4 wvpPosition, float4 wPosition, bool skybox = false)
 {
 	float4 prevProjSpace = wvpPosition;
 	float4 currentProjSpace = mul(wPosition, PrevViewProjection);
+
+	[flatten]
+	if(skybox == true)
+	{
+		currentProjSpace = currentProjSpace.xyww;
+	}
 	
     // Convert to non-homogeneous points [-1,1] by dividing by w 
     currentProjSpace /= currentProjSpace.w;
