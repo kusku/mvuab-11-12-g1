@@ -24,8 +24,8 @@
 
   <clear_scene color="true" />
 
-  <!--<SkySphere SkyTexture="./Data/General/Textures/SkyRelease1.dds" Scale="1000 900 1000" SkyEffectTechnique="SkySphereEffect" />
-  <SkySphere SkyCloudTexture="./Data/General/Textures/clouds2.dds" Scale="499 399 499" SkyEffectTechnique="SkySphereEffectClouds" Clouds="true" />-->
+  <SkySphere SkyTexture="./Data/General/Textures/SkyRelease1.dds" Scale="1000 900 1000" SkyEffectTechnique="SkySphereEffect" />
+  <!--<SkySphere SkyCloudTexture="./Data/General/Textures/clouds2.dds" Scale="499 399 499" SkyEffectTechnique="SkySphereEffectClouds" Clouds="true" />-->
 
   <set_pool_renderable_objects_technique pool="FowardShading" />
   <render_scene layer="solid" active="true" />
