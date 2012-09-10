@@ -690,7 +690,7 @@ Vect3f CCharacter::GetPointOfFront( void ) const
 	return l_Position;
 }
 
-void CCharacter::GoInToFrustrum( float _RangeAngle, float _ElapsedTime )
+void CCharacter::GoInTofrustum( float _RangeAngle, float _ElapsedTime )
 {
 	float l_AngleRad = mathUtils::Deg2Rad(_RangeAngle);
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
