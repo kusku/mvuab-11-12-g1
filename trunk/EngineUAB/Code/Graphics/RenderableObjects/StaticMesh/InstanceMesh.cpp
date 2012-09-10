@@ -133,7 +133,7 @@ void CInstanceMesh::Render(CRenderManager *RM)
 
 			if(draw)
 			{
-				//CORE->GetRenderManager()->DrawAABB(bb, GetTransform());
+				//CORE->GetRenderManager()->DrawAABB(m_StaticMesh->GetBoundingBox(), GetTransform());
 
 				CORE->GetEffectManager()->SetWorldMatrix(GetTransform());
 				m_StaticMesh->Render(RM);

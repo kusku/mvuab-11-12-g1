@@ -154,7 +154,7 @@ bool CFrustum::BoxVisible( const D3DXVECTOR3 &max, const D3DXVECTOR3 &min) const
 		for(int i=0; i<8; i++)
 		{
 			// Probamos el punto contra todos los planos
-			if( (m_frustum[p][0]*points[3*i] + m_frustum[p][1]*points[3*i+1] + m_frustum[p][2]*points[3*i+2] + m_frustum[p][3]) <= 0 )
+			if( (m_frustum[p].a * points[3*i] + m_frustum[p].b * points[3*i+1] + m_frustum[p].c * points[3*i+2] + m_frustum[p].d) <= 0 )
 			{
 				--iInCount;
 			}
