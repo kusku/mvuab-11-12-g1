@@ -1,93 +1,60 @@
-// Disable warning for loss of data
-#pragma warning( disable : 4244 )  
 
 //main include files
 #include "Frustum.h"
 #include "Math\Vector3.h"
+#include "Core.h"
+#include "RenderManager.h"
+#include "Base.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
 #endif
 
-void CFrustum::Update(const D3DXMATRIX &clip) 
+
+CFrustum::CFrustum()
 {
-	// Extract the numbers for the RIGHT plane 
-	m_frustum[0][0] = clip._14 - clip._11;
-	m_frustum[0][1] = clip._24 - clip._21;
-	m_frustum[0][2] = clip._34 - clip._31;
-	m_frustum[0][3] = clip._44 - clip._41;
+	ZeroMemory(m_frustum, sizeof(D3DXPLANE) * 6);
+	ZeroMemory(m_Corners, sizeof(Vect3f) * 8);
+}
 
-	// Normalize the result 
-	float t = 1.0f / sqrtf( (m_frustum[0][0] * m_frustum[0][0]) + (m_frustum[0][1] * m_frustum[0][1]) + (m_frustum[0][2] * m_frustum[0][2]) );
-	m_frustum[0][0] *= t;
-	m_frustum[0][1] *= t;
-	m_frustum[0][2] *= t;
-	m_frustum[0][3] *= t;
 
-	// Extract the numbers for the LEFT plane 
-	m_frustum[1][0] = clip._14 + clip._11;
-	m_frustum[1][1] = clip._24 + clip._21;
-	m_frustum[1][2] = clip._34 + clip._31;
-	m_frustum[1][3] = clip._44 + clip._41;
+void CFrustum::Update(const D3DXMATRIX& viewProjection) 
+{
+	D3DXVECTOR4 col0(viewProjection(0,0), viewProjection(1,0), viewProjection(2,0), viewProjection(3,0));
+	D3DXVECTOR4 col1(viewProjection(0,1), viewProjection(1,1), viewProjection(2,1), viewProjection(3,1));
+	D3DXVECTOR4 col2(viewProjection(0,2), viewProjection(1,2), viewProjection(2,2), viewProjection(3,2));
+	D3DXVECTOR4 col3(viewProjection(0,3), viewProjection(1,3), viewProjection(2,3), viewProjection(3,3));
 
-	// Normalize the result 
-	t = 1.0f / sqrtf( (m_frustum[1][0] * m_frustum[1][0]) + (m_frustum[1][1] * m_frustum[1][1]) + (m_frustum[1][2] * m_frustum[1][2]) );
-	m_frustum[1][0] *= t;
-	m_frustum[1][1] *= t;
-	m_frustum[1][2] *= t;
-	m_frustum[1][3] *= t;
+	// Planes face inward.
+	m_frustum[0] = (D3DXPLANE)(col2);        // near
+	m_frustum[1] = (D3DXPLANE)(col3 - col2); // far
+	m_frustum[2] = (D3DXPLANE)(col3 + col0); // left
+	m_frustum[3] = (D3DXPLANE)(col3 - col0); // right
+	m_frustum[4] = (D3DXPLANE)(col3 - col1); // top
+	m_frustum[5] = (D3DXPLANE)(col3 + col1); // bottom
 
-	// Extract the BOTTOM plane 
-	m_frustum[2][0] = clip._14 + clip._12;
-	m_frustum[2][1] = clip._24 + clip._22;
-	m_frustum[2][2] = clip._34 + clip._32;
-	m_frustum[2][3] = clip._44 + clip._42;
+	for(int i = 0; i < 6; ++i)
+	{
+		D3DXPlaneNormalize(&m_frustum[i], &m_frustum[i]);
+	}
 
-	// Normalize the result 
-	t = 1.0f / sqrtf( (m_frustum[2][0] * m_frustum[2][0]) + (m_frustum[2][1] * m_frustum[2][1]) + (m_frustum[2][2] * m_frustum[2][2]) );
-	m_frustum[2][0] *= t;
-	m_frustum[2][1] *= t;
-	m_frustum[2][2] *= t;
-	m_frustum[2][3] *= t;
+#define NEAR_P		0
+#define FAR_P		1
+#define LEFT_P		2
+#define RIGHT_P		3
+#define TOP_P		4
+#define BOTTOM_P	5
 
-	// Extract the TOP plane 
-	m_frustum[3][0] = clip._14 - clip._12;
-	m_frustum[3][1] = clip._24 - clip._22;
-	m_frustum[3][2] = clip._34 - clip._32;
-	m_frustum[3][3] = clip._44 - clip._42;
+	m_Corners[0] = ComputeIntersection(m_frustum[NEAR_P],	m_frustum[BOTTOM_P],	m_frustum[RIGHT_P]);	//Near1          
+	m_Corners[1] = ComputeIntersection(m_frustum[NEAR_P],	m_frustum[TOP_P],		m_frustum[RIGHT_P]);	//Near2        
+	m_Corners[2] = ComputeIntersection(m_frustum[NEAR_P],	m_frustum[TOP_P],		m_frustum[LEFT_P]);		//Near3       
+	m_Corners[3] = ComputeIntersection(m_frustum[NEAR_P],	m_frustum[BOTTOM_P],	m_frustum[LEFT_P]);		//Near4          
+	m_Corners[4] = ComputeIntersection(m_frustum[FAR_P],	m_frustum[BOTTOM_P],	m_frustum[RIGHT_P]);	//Far1
+	m_Corners[5] = ComputeIntersection(m_frustum[FAR_P],	m_frustum[TOP_P],		m_frustum[RIGHT_P]);	//Far2
+	m_Corners[6] = ComputeIntersection(m_frustum[FAR_P],	m_frustum[TOP_P],		m_frustum[LEFT_P]);		//Far3
+	m_Corners[7] = ComputeIntersection(m_frustum[FAR_P],	m_frustum[BOTTOM_P],	m_frustum[LEFT_P]);		//Far4
 
-	// Normalize the result 
-	t = 1.0f / sqrtf( (m_frustum[3][0] * m_frustum[3][0]) + (m_frustum[3][1] * m_frustum[3][1]) + (m_frustum[3][2] * m_frustum[3][2]) );
-	m_frustum[3][0] *= t;
-	m_frustum[3][1] *= t;
-	m_frustum[3][2] *= t;
-	m_frustum[3][3] *= t;
-
-	// Extract the FAR plane 
-	m_frustum[4][0] = clip._14 - clip._13;
-	m_frustum[4][1] = clip._24 - clip._23;
-	m_frustum[4][2] = clip._34 - clip._33;
-	m_frustum[4][3] = clip._44 - clip._43;
-
-	// Normalize the result 
-	t = 1.0f / sqrtf( (m_frustum[4][0] * m_frustum[4][0]) + (m_frustum[4][1] * m_frustum[4][1]) + (m_frustum[4][2] * m_frustum[4][2]) );
-	m_frustum[4][0] *= t;
-	m_frustum[4][1] *= t;
-	m_frustum[4][2] *= t;
-	m_frustum[4][3] *= t;
-
-	// Extract the NEAR plane 
-	m_frustum[5][0] = clip._14 + clip._13;
-	m_frustum[5][1] = clip._24 + clip._23;
-	m_frustum[5][2] = clip._34 + clip._33;
-	m_frustum[5][3] = clip._44 + clip._43;
-
-	// Normalize the result 
-	t = 1.0f / sqrtf( (m_frustum[5][0] * m_frustum[5][0]) + (m_frustum[5][1] * m_frustum[5][1]) + (m_frustum[5][2] * m_frustum[5][2]) );
-	m_frustum[5][0] *= t;
-	m_frustum[5][1] *= t;
-	m_frustum[5][2] *= t;
-	m_frustum[5][3] *= t;
+	m_frustumBB = TBoundingBox(m_Corners);
 }
 
 bool CFrustum::SphereVisible(const D3DXVECTOR3 &center,float radius) const 
@@ -102,7 +69,7 @@ bool CFrustum::SphereVisible(const D3DXVECTOR3 &center,float radius) const
 	}
 
 	return true;
-}
+}	
 
 bool CFrustum::BoxVisibleByVertexs( const Vect3f* points) const 
 {  
@@ -121,10 +88,27 @@ bool CFrustum::BoxVisibleByVertexs( const Vect3f* points) const
 			return false;
 	}
 
-	// Si todos los puntos están dentro, entonces la caja
-	// está dentro del frustum o parcialmente
+	//Si todos los puntos están dentro, entonces la caja
+	//está dentro del frustum o parcialmente
 	return true;
 }
+
+bool CFrustum::BoxVisible(const TBoundingBox& bb, const D3DXMATRIX& WorldMatrix) const
+{
+	D3DXVECTOR3 minTrans(bb.m_MinPos.x, bb.m_MinPos.y, bb.m_MinPos.z);
+	D3DXVECTOR3 maxTrans(bb.m_MaxPos.x, bb.m_MaxPos.y, bb.m_MaxPos.z);
+
+	D3DXVECTOR4 minTrans4, maxTrans4;
+
+	D3DXVec3Transform(&minTrans4, &minTrans, &WorldMatrix);
+	D3DXVec3Transform(&maxTrans4, &maxTrans, &WorldMatrix);
+
+	minTrans = D3DXVECTOR3(minTrans4.x, minTrans4.y, minTrans4.z);
+	maxTrans = D3DXVECTOR3(maxTrans4.x, maxTrans4.y, maxTrans4.z);
+
+	return BoxVisible(minTrans, maxTrans);
+}
+
 
 bool CFrustum::BoxVisible( const D3DXVECTOR3 &max, const D3DXVECTOR3 &min) const 
 {
@@ -177,8 +161,10 @@ bool CFrustum::BoxVisible( const D3DXVECTOR3 &max, const D3DXVECTOR3 &min) const
 		}
 		// ¿Están todos los puntos fuera?
 		if (iInCount == 0)
+		{
 			return false;
-	}
+		}
+	}	
 
 	// Si todos los puntos están dentro, entonces la caja
 	// está dentro del frustum o parcialmente
@@ -251,6 +237,10 @@ Vect3f CFrustum::ComputeIntersection(D3DXPLANE plane1, D3DXPLANE plane2, D3DXPLA
 	D3DXVECTOR3 Res(0.0f, 0.0f, 0.0f);
 	float N1DN2CN3 = 0.0f;
 
+	D3DXVec3Cross(&N2CN3, &normal2, &normal3);
+	D3DXVec3Cross(&N3CN1, &normal3, &normal1);
+	D3DXVec3Cross(&N1CN2, &normal1, &normal2);
+
 	N1DN2CN3 = D3DXVec3Dot(&normal1, &N2CN3);
 
 	if(N1DN2CN3 == 0.0f)
@@ -258,17 +248,114 @@ Vect3f CFrustum::ComputeIntersection(D3DXPLANE plane1, D3DXPLANE plane2, D3DXPLA
 		return Vect3f((float)INFINITE, (float)INFINITE, (float)INFINITE);
 	}
 
-	D3DXVec3Cross(&N2CN3, &normal2, &normal3);
-	D3DXVec3Cross(&N3CN1, &normal3, &normal1);
-	D3DXVec3Cross(&N1CN2, &normal1, &normal2);
-
-	D1N2CN3 = plane1.d * N2CN3;
-	D2N3CN1 = plane2.d * N3CN1;
-	D3N1CN2 = plane3.d * N1CN2;
+	D1N2CN3 = -plane1.d * N2CN3;
+	D2N3CN1 = -plane2.d * N3CN1;
+	D3N1CN2 = -plane3.d * N1CN2;
 	
 	UpSum = D1N2CN3 + D2N3CN1 + D3N1CN2;
 
 	Res = UpSum / N1DN2CN3;
 
 	return Vect3f(Res.x, Res.y, Res.z);
+}
+
+void CFrustum::DrawFrustum()
+{
+	Vect3f line1(0.0f, 0.0f, 0.0f);
+	Vect3f line2(0.0f, 0.0f, 0.0f);
+
+	//NearPlane
+	CORE->GetRenderManager()->DrawLine(m_Corners[0], m_Corners[1], colRED);
+	CORE->GetRenderManager()->DrawLine(m_Corners[1], m_Corners[2], colRED);
+	CORE->GetRenderManager()->DrawLine(m_Corners[2], m_Corners[3], colRED);
+	CORE->GetRenderManager()->DrawLine(m_Corners[3], m_Corners[0], colRED);
+
+	//FarPlane
+	CORE->GetRenderManager()->DrawLine(m_Corners[4], m_Corners[5], colCYAN);
+	CORE->GetRenderManager()->DrawLine(m_Corners[5], m_Corners[6], colCYAN);
+	CORE->GetRenderManager()->DrawLine(m_Corners[6], m_Corners[7], colCYAN);
+	CORE->GetRenderManager()->DrawLine(m_Corners[7], m_Corners[4], colCYAN);
+
+	//RightPlane
+	CORE->GetRenderManager()->DrawLine(m_Corners[0], m_Corners[4], colWHITE);
+	CORE->GetRenderManager()->DrawLine(m_Corners[1], m_Corners[5], colWHITE);
+	
+	//LeftPlane
+	CORE->GetRenderManager()->DrawLine(m_Corners[3], m_Corners[7], colWHITE);
+	CORE->GetRenderManager()->DrawLine(m_Corners[2], m_Corners[6], colWHITE);
+
+	for(int x = 0; x < 19; ++x)
+	{
+		//NearPlane
+		line1.y = mathUtils::Lerp(m_Corners[1].y, m_Corners[2].y, ((float)x + 1.0f) / 20.0f);
+		line2.y = mathUtils::Lerp(m_Corners[0].y, m_Corners[3].y, ((float)x + 1.0f) / 20.0f);
+
+		line1.x = mathUtils::Lerp(m_Corners[1].x, m_Corners[2].x, ((float)x + 1.0f) / 20.0f);
+		line2.x = mathUtils::Lerp(m_Corners[0].x, m_Corners[3].x, ((float)x + 1.0f) / 20.0f);
+		
+		line1.z = mathUtils::Lerp(m_Corners[1].z, m_Corners[2].z, ((float)x + 1.0f) / 20.0f);
+		line2.z = mathUtils::Lerp(m_Corners[0].z, m_Corners[3].z, ((float)x + 1.0f) / 20.0f);
+		
+		CORE->GetRenderManager()->DrawLine(line1, line2, colRED);
+
+		//FarPlane
+		line1.y = mathUtils::Lerp(m_Corners[5].y, m_Corners[6].y, ((float)x + 1.0f) / 20.0f);
+		line2.y = mathUtils::Lerp(m_Corners[4].y, m_Corners[7].y, ((float)x + 1.0f) / 20.0f);
+
+		line1.x = mathUtils::Lerp(m_Corners[5].x, m_Corners[6].x, ((float)x + 1.0f) / 20.0f);
+		line2.x = mathUtils::Lerp(m_Corners[4].x, m_Corners[7].x, ((float)x + 1.0f) / 20.0f);
+		
+		line1.z = mathUtils::Lerp(m_Corners[5].z, m_Corners[6].z, ((float)x + 1.0f) / 20.0f);
+		line2.z = mathUtils::Lerp(m_Corners[4].z, m_Corners[7].z, ((float)x + 1.0f) / 20.0f);
+		
+		CORE->GetRenderManager()->DrawLine(line1, line2, colCYAN);
+
+		//RightPlane
+		line1.y = mathUtils::Lerp(m_Corners[0].y, m_Corners[4].y, ((float)x + 1.0f) / 20.0f);
+		line2.y = mathUtils::Lerp(m_Corners[1].y, m_Corners[5].y, ((float)x + 1.0f) / 20.0f);
+
+		line1.x = mathUtils::Lerp(m_Corners[0].x, m_Corners[4].x, ((float)x + 1.0f) / 20.0f);
+		line2.x = mathUtils::Lerp(m_Corners[1].x, m_Corners[5].x, ((float)x + 1.0f) / 20.0f);
+		
+		line1.z = mathUtils::Lerp(m_Corners[0].z, m_Corners[4].z, ((float)x + 1.0f) / 20.0f);
+		line2.z = mathUtils::Lerp(m_Corners[1].z, m_Corners[5].z, ((float)x + 1.0f) / 20.0f);
+		
+		CORE->GetRenderManager()->DrawLine(line1, line2, colWHITE);
+
+		//LeftPlane
+		line1.y = mathUtils::Lerp(m_Corners[3].y, m_Corners[7].y, ((float)x + 1.0f) / 20.0f);
+		line2.y = mathUtils::Lerp(m_Corners[2].y, m_Corners[6].y, ((float)x + 1.0f) / 20.0f);
+
+		line1.x = mathUtils::Lerp(m_Corners[3].x, m_Corners[7].x, ((float)x + 1.0f) / 20.0f);
+		line2.x = mathUtils::Lerp(m_Corners[2].x, m_Corners[6].x, ((float)x + 1.0f) / 20.0f);
+		
+		line1.z = mathUtils::Lerp(m_Corners[3].z, m_Corners[7].z, ((float)x + 1.0f) / 20.0f);
+		line2.z = mathUtils::Lerp(m_Corners[2].z, m_Corners[6].z, ((float)x + 1.0f) / 20.0f);
+		
+		CORE->GetRenderManager()->DrawLine(line1, line2, colWHITE);
+
+		//Top
+		line1.y = mathUtils::Lerp(m_Corners[1].y, m_Corners[5].y, ((float)x + 1.0f) / 20.0f);
+		line2.y = mathUtils::Lerp(m_Corners[2].y, m_Corners[6].y, ((float)x + 1.0f) / 20.0f);
+
+		line1.x = mathUtils::Lerp(m_Corners[1].x, m_Corners[5].x, ((float)x + 1.0f) / 20.0f);
+		line2.x = mathUtils::Lerp(m_Corners[2].x, m_Corners[6].x, ((float)x + 1.0f) / 20.0f);
+		
+		line1.z = mathUtils::Lerp(m_Corners[1].z, m_Corners[5].z, ((float)x + 1.0f) / 20.0f);
+		line2.z = mathUtils::Lerp(m_Corners[2].z, m_Corners[6].z, ((float)x + 1.0f) / 20.0f);
+
+		CORE->GetRenderManager()->DrawLine(line1, line2, colYELLOW);
+		
+		//Bottom
+		line1.y = mathUtils::Lerp(m_Corners[0].y, m_Corners[4].y, ((float)x + 1.0f) / 20.0f);
+		line2.y = mathUtils::Lerp(m_Corners[3].y, m_Corners[7].y, ((float)x + 1.0f) / 20.0f);
+
+		line1.x = mathUtils::Lerp(m_Corners[0].x, m_Corners[4].x, ((float)x + 1.0f) / 20.0f);
+		line2.x = mathUtils::Lerp(m_Corners[3].x, m_Corners[7].x, ((float)x + 1.0f) / 20.0f);
+		
+		line1.z = mathUtils::Lerp(m_Corners[0].z, m_Corners[4].z, ((float)x + 1.0f) / 20.0f);
+		line2.z = mathUtils::Lerp(m_Corners[3].z, m_Corners[7].z, ((float)x + 1.0f) / 20.0f);
+
+		CORE->GetRenderManager()->DrawLine(line1, line2, colYELLOW);
+	}
 }

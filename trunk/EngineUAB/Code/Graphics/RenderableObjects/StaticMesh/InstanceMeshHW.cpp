@@ -152,6 +152,8 @@ void CInstanceMeshHW::UpdateBuffer()
 	ObjectMapIt it = m_ObjectMap.begin();
 	ObjectMapIt itEnd = m_ObjectMap.end();
 
+	TBoundingBox bb = m_StaticMesh->GetBoundingBox();
+
 	for (uint32 i = 0; it != itEnd; ++it)
 	{
 		CObject3D* instance = it->second;
@@ -178,20 +180,7 @@ void CInstanceMeshHW::UpdateBuffer()
 
 			if(frus != NULL)
 			{
-				TBoundingBox bb = m_StaticMesh->GetBoundingBox();
-
-				D3DXVECTOR3 minTrans(bb.m_MinPos.x, bb.m_MinPos.y, bb.m_MinPos.z);
-				D3DXVECTOR3 maxTrans(bb.m_MaxPos.x, bb.m_MaxPos.y, bb.m_MaxPos.z);
-
-				D3DXVECTOR4 minTrans4, maxTrans4;
-
-				D3DXVec3Transform(&minTrans4, &minTrans, &WorldMatrix);
-				D3DXVec3Transform(&maxTrans4, &maxTrans, &WorldMatrix);
-
-				minTrans = D3DXVECTOR3(minTrans4.x, minTrans4.y, minTrans4.z);
-				maxTrans = D3DXVECTOR3(maxTrans4.x, maxTrans4.y, maxTrans4.z);
-
-				draw = frus->BoxVisible(minTrans, maxTrans);
+				draw = frus->BoxVisible(bb, WorldMatrix);
 			}
 
 			if(draw)
