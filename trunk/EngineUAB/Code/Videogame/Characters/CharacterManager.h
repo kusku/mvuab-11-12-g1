@@ -52,7 +52,7 @@ public:
 	CCharacter*			SearchTargetEnemy					( float _Distance, float _AngleVisible, const Vect3f &_Front );
 	bool				EnemyIsVisibleInAngle				( CCharacter *_Enemy, float _Angle, const Vect3f &_Front );
 	
-	void				DrawFustrum							( void );
+	void				Drawfrustum						( void );
 	void				DrawFront							( void );
 	void				DrawNames							( CFontManager *_FM );
 	void				DrawRay								( void );
