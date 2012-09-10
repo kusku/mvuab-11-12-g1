@@ -5,6 +5,7 @@
 #define _BOUDING_OBJECTS_H
 
 #include "Math\Vector3.h"
+#include <assert.h>
 
 struct TBoundingBox
 {
@@ -22,6 +23,43 @@ public:
 	{
 		m_MinPos = minPos;
 		m_MaxPos = maxPos;
+	}
+
+	TBoundingBox(Vect3f points[])
+	{
+		assert(points);
+
+		m_MinPos = points[0];
+		m_MaxPos = points[0];
+
+		for (int i = 1; i < 8; ++i)
+		{
+			if(m_MinPos.x > points[i].x)
+			{
+				m_MinPos.x = points[i].x;
+			}
+			if(m_MinPos.y > points[i].y)
+			{
+				m_MinPos.y = points[i].y;
+			}
+			if(m_MinPos.z > points[i].z)
+			{
+				m_MinPos.z = points[i].z;
+			}
+
+			if(m_MaxPos.x < points[i].x)
+			{
+				m_MaxPos.x = points[i].x;
+			}
+			if(m_MaxPos.y < points[i].y)
+			{
+				m_MaxPos.y = points[i].y;
+			}
+			if(m_MaxPos.z < points[i].z)
+			{
+				m_MaxPos.z = points[i].z;
+			}
+		}
 	}
 };
 
