@@ -160,7 +160,7 @@ void CInstanceMeshHW::UpdateBuffer()
 
 		if(instance->GetVisible())
 		{
-			bool draw = false;
+			bool draw = true;
 			D3DXMATRIX WorldMatrix = instance->GetTransform().GetD3DXMatrix();
 			CFrustum* frus = NULL;
 
@@ -190,7 +190,7 @@ void CInstanceMeshHW::UpdateBuffer()
 				++i;
 				++m_VisibleObjects;
 
-				//CORE->GetRenderManager()->DrawAABB(bb, instance->GetTransform());
+				//CORE->GetRenderManager()->DrawAABB(m_StaticMesh->GetBoundingBox(), instance->GetTransform());
 			}
 		}
 	}
@@ -201,7 +201,7 @@ void CInstanceMeshHW::UpdateBuffer()
 	}
 
 	void* data = NULL;
-	m_InstanceBuffer->Lock(0, sizeof(TINSTANCE_VERTEX) * m_VisibleObjects, &data, D3DLOCK_NOOVERWRITE);
+	m_InstanceBuffer->Lock(0, sizeof(TINSTANCE_VERTEX) * m_VisibleObjects, &data, D3DLOCK_DISCARD);
 	memcpy(data, m_InstanceVertex, sizeof(TINSTANCE_VERTEX) * m_VisibleObjects);
 	m_InstanceBuffer->Unlock();
 }
