@@ -129,7 +129,7 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _Character, float _Elaps
 				// Este enemigo puede atacar. Ahora miro si está dentro del angulo de vision pero no es el elegido para atacar. Por tanto, vamos hacia el player para tener opciones de ser
 				// el elegido para atacar
 				float l_Angle = 22.f;			//math.pi/15		// 12 graus de fustrum
-				m_pRabbit->GoInToFrustrum(l_Angle, _ElapsedTime);
+				m_pRabbit->GoInTofrustum(l_Angle, _ElapsedTime);
 				m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetWalkAnimationState());		// dudo de si uno u otro. Faltan pasos laterales...
 				//m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetRunAnimationState());
 				/*#if defined _DEBUG
