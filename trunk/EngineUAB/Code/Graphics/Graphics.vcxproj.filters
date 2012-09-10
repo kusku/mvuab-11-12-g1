@@ -287,6 +287,7 @@
     <ClInclude Include="Commands\LensFlareSceneRendererCommand.h">
       <Filter>Commands\Command</Filter>
     </ClInclude>
+    <ClInclude Include="BoundingObjects.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
