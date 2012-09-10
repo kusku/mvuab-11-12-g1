@@ -187,21 +187,21 @@ std::string CWolfAttackState::GetRandomAttackName(void)
 
 	int l_AttackType = BoostRandomHelper::GetInt(1,12);
 	if ( l_AttackType == 1 ) 
-		l_Action = RABBIT_STILL_ATTACK_STATE;
+		l_Action = WOLF_STILL_ATTACK_STATE;
 	else if ( l_AttackType == 2 ) 
-		l_Action =  RABBIT_STILL_ATTACK_STATE;
+		l_Action =  WOLF_STILL_ATTACK_STATE;
 	else if ( l_AttackType == 3 ) 
-		l_Action = RABBIT_STILL_ATTACK_STATE;
+		l_Action = WOLF_STILL_ATTACK_STATE;
 	else if ( l_AttackType == 4 ) 
-		l_Action = RABBIT_RUN_ATTACK_STATE;
+		l_Action = WOLF_RUN_ATTACK_STATE;
 	else if ( l_AttackType == 5 ) 
-		l_Action = RABBIT_RUN_ATTACK_STATE;
+		l_Action = WOLF_RUN_ATTACK_STATE;
 	else if ( l_AttackType == 6 ) 
-		l_Action = RABBIT_RUN_ATTACK_STATE;
+		l_Action = WOLF_RUN_ATTACK_STATE;
 	else if ( l_AttackType == 7 ) 
-		l_Action = RABBIT_DEFENSE_STATE;
+		l_Action = WOLF_DEFENSE_STATE;
 	else if ( l_AttackType == 8 ) 
-		l_Action =  RABBIT_JUMP_STATE;
+		l_Action =  WOLF_JUMP_STATE;
 			
 	// Más probabilidades de ir al fustrum que no atacar
 	else if ( l_AttackType == 9 ) 
