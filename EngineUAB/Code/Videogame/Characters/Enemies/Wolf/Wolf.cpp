@@ -195,7 +195,7 @@ void CWolf::CreateCallbacks(void)
 	l_Process->GetAnimationCallbackManager()->CreateCallback(WOLF_HIT_STATE, this->GetAnimatedModel());
 	l_Process->GetAnimationCallbackManager()->CreateCallback(WOLF_STILL_ATTACK_STATE, this->GetAnimatedModel());
 	l_Process->GetAnimationCallbackManager()->CreateCallback(WOLF_RUN_ATTACK_STATE, this->GetAnimatedModel());
-	//l_Process->GetAnimationCallbackManager()->CreateCallback(WOLF_DEATH_STATE, this->GetAnimatedModel());
+	l_Process->GetAnimationCallbackManager()->CreateCallback(WOLF_DEATH_STATE, this->GetAnimatedModel());
 }
 
 void CWolf::LoadGraphicStates( void )
