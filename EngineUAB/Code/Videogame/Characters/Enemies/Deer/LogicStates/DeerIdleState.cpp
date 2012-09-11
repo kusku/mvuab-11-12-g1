@@ -81,8 +81,8 @@ void CDeerIdleState::Execute( CCharacter* _Character, float _ElapsedTime )
 	}
 
 	// Reseteamos la velocidad del enemigo
-	_Character->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-	_Character->MoveTo2(_Character->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
+	m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+	m_pDeer->MoveTo2(_Character->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
 }
 
 
@@ -94,8 +94,13 @@ bool CDeerIdleState::OnMessage( CCharacter* _Character, const STelegram& _Telegr
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
-		_Character->GetLogicFSM()->ChangeState(m_pDeer->GetHitState());
-		_Character->GetGraphicFSM()->ChangeState(m_pDeer->GetHitAnimationState());
+		if (!m_pDeer) 
+		{
+			m_pDeer = dynamic_cast<CDeer*> (_Character);
+		}
+
+		m_pDeer->RestLife(1000); 
+		m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetHitState());
 		return true;
 	}
 

@@ -1,26 +1,26 @@
 #pragma once
 
-#ifndef _DEER_TIRED_STATE_H_
-#define _DEER_TIRED_STATE_H_
+#ifndef _DEER_DEATH_STATE_H_
+#define _DEER_DEATH_STATE_H_
 
 
 #include <string>
 #include "StatesMachine\State.h"
-#include "Callbacks\State\ActionStateCallback.h"
 #include "Characters\Character.h"
 
 // --- Foward Declarations ---
 class CDeer;
+class CAnimationCallback;
 // ---------------------------
 
-class CDeerTiredState : public CState<CCharacter> 
+class CDeerDeathState : public CState<CCharacter> 
 {
 public:
 
 	// ------------- Constructors i Destructors --------------
-					CDeerTiredState	( void );
-					CDeerTiredState	( const std::string &_Name );
-	virtual			~CDeerTiredState	( void );
+					CDeerDeathState	( void );
+					CDeerDeathState	( const std::string &_Name );
+	virtual			~CDeerDeathState	( void );
 
 	//----Main Functions --------------------------------------
 	virtual void	Execute		( CCharacter*, float _ElapsedTime );
@@ -35,16 +35,10 @@ public:
 	virtual bool	OnMessage	( CCharacter*, const STelegram& );
 
 	//----Methods ---------------------------------------------
-	//std::string		GetRandomAttackName	( void );
 
 	//----Members ---------------------------------------------
 private:
-	CActionStateCallback		m_ActionTime;
 	CDeer					  * m_pDeer;
-	
-	std::string					m_ActiveActionState;		// Me indica qué acción o estado vamos a ejecutar después de hacer un random de todas ellas
-	
+	CAnimationCallback		  *	m_pAnimationCallback;
 };
-
-
-#endif _DEER_TIRED_STATE_H_
+#endif _DEER_DEATH_STATE_H_

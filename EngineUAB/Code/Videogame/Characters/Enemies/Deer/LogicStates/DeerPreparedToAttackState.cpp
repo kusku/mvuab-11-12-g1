@@ -79,7 +79,7 @@ void CDeerPreparedToAttackState::Execute( CCharacter* _Character, float _Elapsed
 		// Reseteamos la velocidad del enemigo
 		m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
 		m_pDeer->SetHitsDone(2);		// Esto permite hacer una pausa al entrar en el estado de ataque antes de atacar por obligar estar fatigado y permitir ver al player qué va a hacer el enemigo
-		//m_pDeer->GetLogicFSM()->ChangeState( m_pDeer->GetAttackState() );
+		m_pDeer->GetLogicFSM()->ChangeState( m_pDeer->GetAttackState() );
 		#if defined _DEBUG
 			if( CORE->IsDebugMode() )
 			{
@@ -138,10 +138,15 @@ bool CDeerPreparedToAttackState::OnMessage( CCharacter* _Character, const STeleg
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
+		if (!m_pDeer) 
+		{
+			m_pDeer = dynamic_cast<CDeer*> (_Character);
+		}
+
+		m_pDeer->RestLife(1000); 
 		m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetHitState());
-		//m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetHitAnimationState());
 		return true;
-	}
+	} 
 
 	return false;
 }

@@ -29,6 +29,7 @@
 #include "LogicStates\DeerDefenseState.h"
 #include "LogicStates\DeerStillAttackState.h"
 #include "LogicStates\DeerRunAttackState.h"
+#include "LogicStates\DeerDeathState.h"
 
 #include "AnimationStates\DeerIdleAnimationState.h"
 #include "AnimationStates\DeerRunAnimationState.h"
@@ -55,8 +56,9 @@ CDeer::CDeer( int _Id )
 	, m_pTiredState					( NULL )
 	, m_pHitState					( NULL )
 	, m_pDefenseState				( NULL )
-	, m_pStillAttack				( NULL )
-	, m_pRunAttack					( NULL )
+	, m_pStillAttackState			( NULL )
+	, m_pRunAttackState				( NULL )
+	, m_pDeathState					( NULL )
 	, m_pAnimationIdleState 		( NULL )
 	, m_pAnimationRunState 			( NULL )
 	, m_pAnimationDeathState 		( NULL )
@@ -80,8 +82,9 @@ CDeer::CDeer( int _Id, std::string _Name )
 	, m_pTiredState					( NULL )
 	, m_pHitState					( NULL )
 	, m_pDefenseState				( NULL )
-	, m_pStillAttack				( NULL )
-	, m_pRunAttack					( NULL )
+	, m_pStillAttackState			( NULL )
+	, m_pRunAttackState				( NULL )
+	, m_pDeathState					( NULL )
 	, m_pAnimationIdleState 		( NULL )
 	, m_pAnimationRunState 			( NULL )
 	, m_pAnimationDeathState 		( NULL )
@@ -103,8 +106,9 @@ CDeer::~CDeer(void)
 	CHECKED_DELETE ( m_pTiredState );
 	CHECKED_DELETE ( m_pHitState );
 	CHECKED_DELETE ( m_pDefenseState );
-	CHECKED_DELETE ( m_pStillAttack );
-	CHECKED_DELETE ( m_pRunAttack );
+	CHECKED_DELETE ( m_pStillAttackState );
+	CHECKED_DELETE ( m_pRunAttackState );
+	CHECKED_DELETE ( m_pDeathState );
 
 	// Estados animados
 	CHECKED_DELETE ( m_pAnimationIdleState );
@@ -125,7 +129,6 @@ bool CDeer::Init( void )
 { 
 	bool l_IsOk = false;
 
-	//CState<CCharacter>* l = dynamic_cast<CState<CCharacter>> (m_pAnimationIdleState);
 	CreateCallbacks();
 	LoadGraphicStates();
 	LoadLogicStates();
@@ -172,10 +175,10 @@ bool CDeer::Init( void )
 void CDeer::CreateCallbacks(void)
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	l_Process->GetAnimationCallbackManager()->CreateCallback(RABBIT_HIT_STATE, this->GetAnimatedModel());
-	l_Process->GetAnimationCallbackManager()->CreateCallback(RABBIT_STILL_ATTACK_STATE, this->GetAnimatedModel());
-	l_Process->GetAnimationCallbackManager()->CreateCallback(RABBIT_RUN_ATTACK_STATE, this->GetAnimatedModel());
-	l_Process->GetAnimationCallbackManager()->CreateCallback(RABBIT_DEATH_STATE, this->GetAnimatedModel());
+	l_Process->GetAnimationCallbackManager()->CreateCallback(DEER_HIT_STATE, this->GetAnimatedModel());
+	l_Process->GetAnimationCallbackManager()->CreateCallback(DEER_STILL_ATTACK_STATE, this->GetAnimatedModel());
+	l_Process->GetAnimationCallbackManager()->CreateCallback(DEER_RUN_ATTACK_STATE, this->GetAnimatedModel());
+	l_Process->GetAnimationCallbackManager()->CreateCallback(DEER_DEATH_STATE, this->GetAnimatedModel());
 }
 
 void CDeer::LoadGraphicStates( void )
@@ -201,9 +204,10 @@ void CDeer::LoadLogicStates( void )
 	m_pTiredState				= new CDeerTiredState();
 	m_pHitState					= new CDeerHitState();
 	m_pDefenseState				= new CDeerDefenseState();
-	m_pStillAttack				= new CDeerStillAttackState();
-	m_pRunAttack				= new CDeerRunAttackState();
-
+	m_pStillAttackState			= new CDeerStillAttackState();
+	m_pRunAttackState			= new CDeerRunAttackState();
+	m_pDeathState				= new CDeerDeathState();
+	
 	return;
 }
 
@@ -217,5 +221,5 @@ bool CDeer::IsFatigued( void )
 
 void CDeer::BeDead( void )
 {
-	//this->GetLogicFSM()->ChangeState(GetDeathState());
+	this->GetLogicFSM()->ChangeState(GetDeathState());
 }

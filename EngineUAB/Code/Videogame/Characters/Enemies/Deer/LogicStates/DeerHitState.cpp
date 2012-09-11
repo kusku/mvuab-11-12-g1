@@ -36,7 +36,9 @@ CDeerHitState::CDeerHitState( void )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RABBIT_HIT_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_HIT_STATE);
+
+	m_pActionState = new CActionStateCallback(0,1);
 }
 
 CDeerHitState::CDeerHitState( const std::string &_Name )
@@ -46,7 +48,9 @@ CDeerHitState::CDeerHitState( const std::string &_Name )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RABBIT_HIT_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_HIT_STATE);
+
+	m_pActionState = new CActionStateCallback(0,1);
 }
 
 
@@ -67,9 +71,9 @@ void CDeerHitState::OnEnter( CCharacter* _Character )
 	{
 		m_pDeer = dynamic_cast<CDeer*> (_Character);
 	}
-	m_pAnimationCallback->Init();
-	m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetHitAnimationState());
-	m_pAnimationCallback->StartAnimation();
+	/*m_pAnimationCallback->Init();
+	m_pAnimationCallback->StartAnimation();*/
+	m_pActionState->SetTimeRange( 0.f, m_pDeer->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_HIT_STATE));
 }
 
 void CDeerHitState::Execute( CCharacter* _Character, float _ElapsedTime )
@@ -80,29 +84,38 @@ void CDeerHitState::Execute( CCharacter* _Character, float _ElapsedTime )
 	}
 
 	/*if ( m_pAnimationCallback->IsAnimationStarted() ) 
-	{*/
+	{
 		if ( m_pAnimationCallback->IsAnimationFinished() ) 
 		{
 			m_pDeer->GetLogicFSM()->RevertToPreviousState();
-			//m_pDeer->GetGraphicFSM()->RevertToPreviousState();
-
-			m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetIdleAnimationState());
+			m_pDeer->GetGraphicFSM()->RevertToPreviousState();
 		}
-	/*}
+	}
 	else
 	{
 		m_pAnimationCallback->StartAnimation();
 	}*/
 
-	/*if ( m_pActionState->IsActionFinished() )
+	if ( m_pActionState->IsActionFinished() )
 	{
-		m_pDeer->GetLogicFSM()->RevertToPreviousState();
-		m_pDeer->GetGraphicFSM()->RevertToPreviousState();
+		/*m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetIdleState());
+		m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetIdleAnimationState());*/
+
+		if ( m_pDeer->IsAlive() ) 
+		{
+			m_pDeer->GetLogicFSM()->RevertToPreviousState();
+			m_pDeer->GetGraphicFSM()->RevertToPreviousState();
+		}
+		//else
+		/*{
+			m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetDeathState());
+		}*/
+		
 	}
 	else
 	{
 		m_pActionState->Update(_ElapsedTime);
-	}*/
+	}
 }
 
 void CDeerHitState::OnExit( CCharacter* _Character )
@@ -111,13 +124,6 @@ void CDeerHitState::OnExit( CCharacter* _Character )
 
 bool CDeerHitState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
 {
-	//if ( _Telegram.Msg == Msg_Attack ) 
-	//{
-	//	/*m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetHitState());
-	//	m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetHitAnimationState());*/
-	//	return true;
-	//}
-
 	return false;
 }
 

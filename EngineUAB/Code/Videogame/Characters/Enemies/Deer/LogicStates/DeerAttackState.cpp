@@ -110,15 +110,15 @@ void CDeerAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 			std::string l_ActiveActionState = GetRandomAttackName();
 			LOGGER->AddNewLog(ELL_INFORMATION, "CDeerAttackState::Execute->Attack Random Sel·leccionat %s", l_ActiveActionState.c_str());
 				
-			if ( l_ActiveActionState == RABBIT_STILL_ATTACK_STATE ) 
+			if ( l_ActiveActionState == DEER_STILL_ATTACK_STATE ) 
 			{
 				m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetStillAttackState());
 			}	
-			else if ( l_ActiveActionState == RABBIT_RUN_ATTACK_STATE ) 
+			else if ( l_ActiveActionState == DEER_RUN_ATTACK_STATE ) 
 			{
 				m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetRunAttackState());
 			}	
-			else if ( l_ActiveActionState == RABBIT_DEFENSE_STATE ) 
+			else if ( l_ActiveActionState == DEER_DEFENSE_STATE ) 
 			{
 				m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetDefenseState());
 			}		
@@ -154,8 +154,13 @@ bool CDeerAttackState::OnMessage( CCharacter* _Character, const STelegram& _Tele
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
+		if (!m_pDeer) 
+		{
+			m_pDeer = dynamic_cast<CDeer*> (_Character);
+		}
+
+		m_pDeer->RestLife(1000); 
 		m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetHitState());
-		m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetHitAnimationState());
 		return true;
 	}
 
@@ -172,21 +177,21 @@ std::string CDeerAttackState::GetRandomAttackName(void)
 
 	int l_AttackType = BoostRandomHelper::GetInt(1,12);
 	if ( l_AttackType == 1 ) 
-		l_Action = RABBIT_STILL_ATTACK_STATE;
+		l_Action = DEER_STILL_ATTACK_STATE;
 	else if ( l_AttackType == 2 ) 
-		l_Action =  RABBIT_STILL_ATTACK_STATE;
+		l_Action =  DEER_STILL_ATTACK_STATE;
 	else if ( l_AttackType == 3 ) 
-		l_Action = RABBIT_STILL_ATTACK_STATE;
+		l_Action = DEER_STILL_ATTACK_STATE;
 	else if ( l_AttackType == 4 ) 
-		l_Action = RABBIT_RUN_ATTACK_STATE;
+		l_Action = DEER_RUN_ATTACK_STATE;
 	else if ( l_AttackType == 5 ) 
-		l_Action = RABBIT_RUN_ATTACK_STATE;
+		l_Action = DEER_RUN_ATTACK_STATE;
 	else if ( l_AttackType == 6 ) 
-		l_Action = RABBIT_RUN_ATTACK_STATE;
+		l_Action = DEER_RUN_ATTACK_STATE;
 	else if ( l_AttackType == 7 ) 
-		l_Action = RABBIT_DEFENSE_STATE;
+		l_Action = DEER_DEFENSE_STATE;
 	else if ( l_AttackType == 8 ) 
-		l_Action =  RABBIT_JUMP_STATE;
+		l_Action =  DEER_JUMP_STATE;
 			
 	// Más probabilidades de ir al fustrum que no atacar
 	else if ( l_AttackType == 9 ) 
