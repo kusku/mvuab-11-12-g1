@@ -76,7 +76,7 @@
     <speed>2</speed>
     <max_rotation_speed>360</max_rotation_speed>
     <min_speed>0.05</min_speed>
-    <max_speed>0.20</max_speed>
+    <max_speed>0.23</max_speed>
     <max_acceleration>0.1</max_acceleration>
     <max_force>0.015</max_force>
     <bounding_radius>1.7</bounding_radius>
@@ -87,9 +87,9 @@
     <follow_path_distance>100</follow_path_distance>
     <impact_distance>2.3</impact_distance>
     <!-- Está encima el player -->
-    <attack_distance>9</attack_distance>
+    <attack_distance>15</attack_distance>
     <!-- Está en distancia de poder hacer algunos de los ataques o defensa -->
-    <prepared_to_attack_distance>15.0</prepared_to_attack_distance>
+    <prepared_to_attack_distance>16</prepared_to_attack_distance>
     <!-- Está lejos de poder atacar pero cerca de poder hacerlo -->
     <aproximation_distance>19</aproximation_distance>
     <!-- Está lejos y debe acercarse -->
@@ -180,7 +180,7 @@
 
    <enemy name="enemy1" core="lobo" animated_instace_name="lobo1" >
 			<position>33 -40 27</position>
-     <active>true</active>
+     <active>false</active>
      <locked>false</locked>
 		</enemy>
     <!--  <enemy name="enemy2" core="lobo" animated_instace_name="lobo2" >
@@ -198,7 +198,7 @@
 
     <enemy name="enemy22" core="conejo" animated_instace_name="enemy22" >
 			<position>35 -40 25</position>
-			<active>true</active>
+			<active>false</active>
 			<locked>false</locked>
 		</enemy>
     <!--<enemy name="enemy23" core="conejo" animated_instace_name="enemy23" >
@@ -223,7 +223,7 @@
 
     <enemy name="enemy28" core="ciervo" animated_instace_name="enemy28" >
       <position>35 -40 27</position>
-      <active>false</active>
+      <active>true</active>
       <locked>false</locked>
     </enemy>
     <!-- <enemy name="enemy28" core="ciervo" animated_instace_name="enemy28" >
