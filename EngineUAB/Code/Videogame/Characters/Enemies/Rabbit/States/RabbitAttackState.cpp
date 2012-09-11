@@ -130,7 +130,7 @@ void CRabbitAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 			else if ( l_ActiveActionState == "go_in_to_fustrum" ) 
 			{
 				float l_Angle = 22.f;		// 22,5 graus de fustrum
-				m_pRabbit->GoInToFrustrum(l_Angle, _ElapsedTime);
+				m_pRabbit->GoInTofrustum(l_Angle, _ElapsedTime);
 			}
 
 			#if defined _DEBUG
