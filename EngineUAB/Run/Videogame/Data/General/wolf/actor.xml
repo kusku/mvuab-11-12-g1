@@ -5,8 +5,10 @@
 	<animation name="lobo_walk" filename="LOB_Walk.CAF"/>
 	<animation name="lobo_run" filename="LOB_Run.CAF"/>
 	<animation name="lobo_attack_run" filename="LOB_Attack_Run.CAF"/>
+	<animation name="lobo_attack_run_large" filename="LOB_Attack_Run_Larga.CAF"/>
 	<animation name="lobo_attack_still" filename="LOB_Attack_Still.CAF"/>
 	<animation name="lobo_defense" filename="LOB_Defense.CAF"/>
 	<animation name="lobo_hit" filename="LOB_Hit.CAF"/>
+	<animation name="lobo_death" filename="LOB_Die.CAF"/>
 	<texture filename="LOB_Textura_v3.dds"/>
 </animated_model>
