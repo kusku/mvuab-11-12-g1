@@ -136,9 +136,6 @@ void CRabbitDeathState::Execute( CCharacter* _Character, float _ElapsedTime )
 
 void CRabbitDeathState::OnExit( CCharacter* _Character )
 {
-	// nos volvemos
-	/*m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetAttackState());
-	m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());*/
 }
 
 bool CRabbitDeathState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
