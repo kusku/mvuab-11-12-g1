@@ -131,13 +131,6 @@ void CRabbitHitState::OnExit( CCharacter* _Character )
 
 bool CRabbitHitState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
 {
-	/*if ( _Telegram.Msg == Msg_Attack ) 
-	{*/
-		/*m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetHitState());
-		m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetHitAnimationState());*/
-		//return true;
-	//}
-
 	return false;
 }
 
