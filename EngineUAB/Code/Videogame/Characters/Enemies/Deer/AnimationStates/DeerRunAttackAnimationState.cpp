@@ -26,11 +26,11 @@ CDeerRunAttackAnimationState::CDeerRunAttackAnimationState( const std::string &_
 
 CDeerRunAttackAnimationState::~CDeerRunAttackAnimationState( void )
 {
-	if (m_pDeer) 
+	/*if (m_pDeer) 
 	{
 		int l_Num = m_pDeer->GetAnimationID(DEER_RUN_STATE);
 		m_pDeer->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
-	}
+	}*/
 	m_pDeer = NULL;
 }
 
@@ -40,13 +40,13 @@ CDeerRunAttackAnimationState::~CDeerRunAttackAnimationState( void )
 // -----------------------------------------
 void CDeerRunAttackAnimationState::Execute( CCharacter*, float _ElapsedTime )
 {
-	if ( m_Currentduration == m_AnimationDuration )
+	/*if ( m_Currentduration == m_AnimationDuration )
 	{
 		int l_iAnimID = m_pDeer->GetAnimationID(DEER_RUN_ATTACK_STATE);
 		m_pDeer->GetAnimatedModel()->BlendCycle(l_iAnimID, 0.3f);
 	}
 
-	m_Currentduration += _ElapsedTime;
+	m_Currentduration += _ElapsedTime;*/
 }
 
 void CDeerRunAttackAnimationState::OnEnter( CCharacter* _Character )
@@ -56,8 +56,8 @@ void CDeerRunAttackAnimationState::OnEnter( CCharacter* _Character )
 		m_pDeer = dynamic_cast<CDeer*> (_Character);
 	}
 
-	m_Currentduration = 0.f;
-	m_AnimationDuration = m_pDeer->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_RUN_ATTACK_STATE) / 2;
+	/*m_Currentduration = 0.f;
+	m_AnimationDuration = m_pDeer->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_RUN_ATTACK_STATE) / 2;*/
 
 	int l_Num = _Character->GetAnimationID(DEER_RUN_ATTACK_STATE);
 	m_pDeer->GetAnimatedModel()->ExecuteAction( l_Num, 0.1f );
@@ -65,14 +65,14 @@ void CDeerRunAttackAnimationState::OnEnter( CCharacter* _Character )
 
 void CDeerRunAttackAnimationState::OnExit( CCharacter* _Character )
 {
-	if ( !m_pDeer ) 
-	{
-		// Almacenamos el enemigo
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
-	}
+	//if ( !m_pDeer ) 
+	//{
+	//	// Almacenamos el enemigo
+	//	m_pDeer = dynamic_cast<CDeer*> (_Character);
+	//}
 
-	int l_Num = m_pDeer->GetAnimationID(DEER_RUN_ATTACK_STATE);
-	m_pDeer->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+	//int l_Num = m_pDeer->GetAnimationID(DEER_RUN_ATTACK_STATE);
+	//m_pDeer->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
 }
 
 bool CDeerRunAttackAnimationState::OnMessage( CCharacter*, const STelegram& _Telegram )

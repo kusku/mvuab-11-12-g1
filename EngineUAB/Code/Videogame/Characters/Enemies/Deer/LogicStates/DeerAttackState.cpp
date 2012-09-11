@@ -121,7 +121,7 @@ void CDeerAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 			else if ( l_ActiveActionState == DEER_DEFENSE_STATE ) 
 			{
 				m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetDefenseState());
-			}		
+			}	
 			// else if ( l_ActiveActionState == "jump" ) then
 				// _CCharacter.logic_fsm:change_state(_CCharacter.jump_state)
 			else if ( l_ActiveActionState == "go_in_to_fustrum" ) 

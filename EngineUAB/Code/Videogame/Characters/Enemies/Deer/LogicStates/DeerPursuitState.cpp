@@ -101,6 +101,13 @@ void CDeerPursuitState::Execute( CCharacter* _Character, float _ElapsedTime )
 
 			m_pDeer->FaceTo(m_pDeer->GetSteeringEntity()->GetPosition(), _ElapsedTime);
 			m_pDeer->MoveTo2(m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
+
+			#if defined _DEBUG
+				if( CORE->IsDebugMode() )
+				{
+					CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Pursuing");
+				}
+			#endif
 		}
 	}
 	else
