@@ -66,6 +66,44 @@
 		<step_offset>0.5</step_offset>
 		<animation_offset>-0.8</animation_offset>
 	</default_properties>
+  <default_properties core="ciervo">
+    <active>true</active>
+    <locked>false</locked>
+    <life>150</life>
+    <strong>20</strong>
+    <mass>0.01</mass>
+    <velocity>0 0 0</velocity>
+    <speed>2</speed>
+    <max_rotation_speed>360</max_rotation_speed>
+    <min_speed>0.05</min_speed>
+    <max_speed>0.20</max_speed>
+    <max_acceleration>0.1</max_acceleration>
+    <max_force>0.015</max_force>
+    <bounding_radius>1.7</bounding_radius>
+    <detection_distance>20</detection_distance>
+    <!-- Distancia a partir de la qual detecto el player y puedo perseguirlo -->
+    <chase_distance>10</chase_distance>
+    <!-- Creo que ahora no la uso... -->
+    <follow_path_distance>100</follow_path_distance>
+    <impact_distance>2.3</impact_distance>
+    <!-- Está encima el player -->
+    <attack_distance>9</attack_distance>
+    <!-- Está en distancia de poder hacer algunos de los ataques o defensa -->
+    <prepared_to_attack_distance>15.0</prepared_to_attack_distance>
+    <!-- Está lejos de poder atacar pero cerca de poder hacerlo -->
+    <aproximation_distance>19</aproximation_distance>
+    <!-- Está lejos y debe acercarse -->
+    <tired_distance>10</tired_distance>
+    <!-- Creo que ahora no la uso... -->
+    <panic_distance>100</panic_distance>
+    <!-- Sirve para saber la distancia máxima de evasión -->
+    <height_controller>1.9</height_controller>
+    <width_controller>1.7</width_controller>
+    <slope>45.0</slope>
+    <skin_width>0.1</skin_width>
+    <step_offset>0.5</step_offset>
+    <animation_offset>-0.8</animation_offset>
+  </default_properties>
 	<default_properties core="conejo">
 		<active>false</active>
 		<locked>false</locked>
@@ -142,7 +180,7 @@
 
    <enemy name="enemy1" core="lobo" animated_instace_name="lobo1" >
 			<position>33 -40 27</position>
-     <active>false</active>
+     <active>true</active>
      <locked>false</locked>
 		</enemy>
     <!--  <enemy name="enemy2" core="lobo" animated_instace_name="lobo2" >
@@ -163,7 +201,7 @@
 			<active>true</active>
 			<locked>false</locked>
 		</enemy>
-    <enemy name="enemy23" core="conejo" animated_instace_name="enemy23" >
+    <!--<enemy name="enemy23" core="conejo" animated_instace_name="enemy23" >
 			<position>35 -40 30</position>
       <active>false</active>
       <locked>false</locked>
@@ -172,7 +210,7 @@
 			<position>35 -40 35</position>
       <active>false</active>
       <locked>false</locked>
-		</enemy>
+		</enemy>-->
     <!--<enemy name="enemy25" core="conejo" animated_instace_name="enemy25" >
 			<position>-20 -30 0</position>
 		</enemy>
@@ -182,6 +220,22 @@
 		<enemy name="enemy27" core="conejo" animated_instace_name="enemy27" >
 			<position>-5 -30 0</position>
 		</enemy>-->
+
+    <enemy name="enemy28" core="ciervo" animated_instace_name="enemy28" >
+      <position>35 -40 27</position>
+      <active>false</active>
+      <locked>false</locked>
+    </enemy>
+    <!-- <enemy name="enemy28" core="ciervo" animated_instace_name="enemy28" >
+      <position>35 -40 25</position>
+      <active>true</active>
+      <locked>false</locked>
+    </enemy>
+    <enemy name="enemy28" core="ciervo" animated_instace_name="enemy28" >
+      <position>35 -40 25</position>
+      <active>true</active>
+      <locked>false</locked>
+    </enemy>-->
 
 	</enemies>
 </characters>
