@@ -127,7 +127,7 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 
 				m_pDeer->GetBehaviors()->SeekOff();
 				m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
-				m_pDeer->FaceTo( m_pDeer->GetSteeringEntity()->GetPosition(), _ElapsedTime );
+				m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime );
 				m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 			}
 			// Si acaba la animacion pero no estamos en una distancia de poder impactar solo hacemos que se canse
@@ -151,7 +151,7 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 
 				m_pDeer->GetBehaviors()->SeekOff();
 				m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
-				m_pDeer->FaceTo( m_pDeer->GetSteeringEntity()->GetPosition(), _ElapsedTime );
+				m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime );
 				m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 
 				return;
@@ -177,7 +177,7 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 			{
 				m_pDeer->GetBehaviors()->SeekOff();
 				m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
-				m_pDeer->FaceTo( m_pDeer->GetSteeringEntity()->GetPosition(), _ElapsedTime );
+				m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime );
 				m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 
 				#if defined _DEBUG
@@ -202,7 +202,7 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 			{
 				m_pDeer->GetBehaviors()->SeekOff();
 				m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
-				m_pDeer->FaceTo( m_pDeer->GetSteeringEntity()->GetPosition(), _ElapsedTime );
+				m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime );
 				m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 				
 				/*self.active_animation_id = _CCharacter:get_animation_id("run")
@@ -231,7 +231,7 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetRunAnimationState());
 				
 				// Rotamos al objetivo y movemos
-				m_pDeer->FaceTo( m_pDeer->GetSteeringEntity()->GetPosition(), _ElapsedTime );
+				m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime );
 				m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
