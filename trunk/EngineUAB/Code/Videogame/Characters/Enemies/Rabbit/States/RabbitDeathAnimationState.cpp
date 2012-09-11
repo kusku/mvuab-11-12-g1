@@ -50,19 +50,12 @@ void CRabbitDeathAnimationState::OnEnter( CCharacter* _Character )
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 
-	int l_Num = m_pRabbit->GetAnimationID(DEER_DEATH_STATE);
+	int l_Num = m_pRabbit->GetAnimationID(RABBIT_DEATH_STATE);
 	m_pRabbit->GetAnimatedModel()->ExecuteAction( l_Num, 0.3f );
 }
 
 void CRabbitDeathAnimationState::OnExit( CCharacter* _Character )
 {
-	if ( !m_pRabbit ) 
-	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
-	}
-
-	/*int l_Num = m_pRabbit->GetAnimationID(DEER_DEATH_STATE);
-	m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );*/
 }
 
 bool CRabbitDeathAnimationState::OnMessage( CCharacter*, const STelegram& _Telegram )
