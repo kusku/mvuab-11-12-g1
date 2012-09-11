@@ -47,7 +47,7 @@ CDeerStillAttackState::CDeerStillAttackState( void )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RABBIT_STILL_ATTACK_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_STILL_ATTACK_STATE);
 }
 
 CDeerStillAttackState::CDeerStillAttackState( const std::string &_Name )
@@ -56,7 +56,7 @@ CDeerStillAttackState::CDeerStillAttackState( const std::string &_Name )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RABBIT_STILL_ATTACK_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_STILL_ATTACK_STATE);
 }
 
 
@@ -175,8 +175,10 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 		{
 			if ( m_pDeer->IsPlayerInsideImpactDistance() ) 
 			{
+				m_pDeer->GetBehaviors()->SeekOff();
+				m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
 				m_pDeer->FaceTo( m_pDeer->GetSteeringEntity()->GetPosition(), _ElapsedTime );
-				m_pDeer->MoveTo2( Vect3f(0,0,0), _ElapsedTime );
+				m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 				
 				/*self.active_animation_id = _CCharacter:get_animation_id("run")
 				_CCharacter:get_animation_model():clear_cycle( self.active_animation_id, 0.3 )
@@ -204,7 +206,7 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				}
 				else 
 				{
-					LOGGER->AddNewLog(ELL_ERROR, "CDeerStillAttackState:Execute->El Character Deer es NULL" );
+					LOGGER->AddNewLog(ELL_ERROR, "CDeerStillAttackState:Execute->El Character DEER es NULL" );
 				}
 				
 				// Rotamos al objetivo y movemos
@@ -241,8 +243,13 @@ bool CDeerStillAttackState::OnMessage( CCharacter* _Character, const STelegram& 
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
+		if (!m_pDeer) 
+		{
+			m_pDeer = dynamic_cast<CDeer*> (_Character);
+		}
+
+		m_pDeer->RestLife(1000); 
 		m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetHitState());
-		m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetHitAnimationState());
 		return true;
 	}
 

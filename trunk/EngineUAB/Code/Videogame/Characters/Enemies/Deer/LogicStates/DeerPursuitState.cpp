@@ -60,19 +60,14 @@ void CDeerPursuitState::OnEnter( CCharacter* _Character )
 	m_pDeer->GetBehaviors()->GetSeek()->SetTarget(m_pDeer->GetPlayer()->GetPosition());
 	m_pDeer->GetBehaviors()->SeekOn();
 		
-	/*m_pDeer->GetBehaviors()->GetPursuit()->SetTarget(m_pDeer->GetPlayer()->GetPosition());
+	m_pDeer->GetBehaviors()->GetPursuit()->SetTarget(m_pDeer->GetPlayer()->GetPosition());
 	m_pDeer->GetBehaviors()->GetPursuit()->UpdateEvaderEntity( m_pDeer->GetPlayer()->GetSteeringEntity() );
-	m_pDeer->GetBehaviors()->PursuitOn();*/
+	m_pDeer->GetBehaviors()->PursuitOn();
 		
-	// _Character->GetBehaviors()->separation_on()
-	// _Character->GetBehaviors()->collision_avoidance_on()
-	// _Character->GetBehaviors()->obstacle_wall_avoidance_on()
-	#if defined _DEBUG
-		if( CORE->IsDebugMode() )
-		{
-			CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Pursuit");
-		}
-	#endif
+	m_pDeer->GetBehaviors()->SeparationOn();
+	m_pDeer->GetBehaviors()->CohesionOn();
+	m_pDeer->GetBehaviors()->CollisionAvoidanceOn();
+	m_pDeer->GetBehaviors()->ObstacleWallAvoidanceOn();
 }
 
 void CDeerPursuitState::Execute( CCharacter* _Character, float _ElapsedTime )
@@ -97,12 +92,12 @@ void CDeerPursuitState::Execute( CCharacter* _Character, float _ElapsedTime )
 		else
 		{
 			// Seguimos persiguiendo...
-			/*m_pDeer->GetBehaviors()->GetPursuit()->SetTarget(m_pDeer->GetPlayer()->GetPosition());
+			m_pDeer->GetBehaviors()->GetPursuit()->SetTarget(m_pDeer->GetPlayer()->GetPosition());
 			m_pDeer->GetBehaviors()->GetPursuit()->UpdateEvaderEntity( m_pDeer->GetPlayer()->GetSteeringEntity() );
-			m_pDeer->GetBehaviors()->PursuitOn();*/
+			m_pDeer->GetBehaviors()->PursuitOn();
 
-			m_pDeer->GetBehaviors()->GetSeek()->SetTarget(m_pDeer->GetPlayer()->GetPosition());
-			m_pDeer->GetBehaviors()->SeekOn();
+			/*m_pDeer->GetBehaviors()->GetSeek()->SetTarget(m_pDeer->GetPlayer()->GetPosition());
+			m_pDeer->GetBehaviors()->SeekOn();*/
 
 			m_pDeer->FaceTo(m_pDeer->GetSteeringEntity()->GetPosition(), _ElapsedTime);
 			m_pDeer->MoveTo2(m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
@@ -129,9 +124,9 @@ void CDeerPursuitState::OnExit( CCharacter* _Character )
 	m_pDeer->GetBehaviors()->CollisionAvoidanceOff();
 	m_pDeer->GetBehaviors()->ObstacleWallAvoidanceOff();
 
-	//_Character->GetBehaviors()->SeparationOff();
-	//_Character->GetBehaviors()->CohesionOff();
-	//_Character->GetBehaviors()->AlignmentOff();
+	m_pDeer->GetBehaviors()->SeparationOff();
+	m_pDeer->GetBehaviors()->CohesionOff();
+	//m_pDeer->GetBehaviors()->AlignmentOff();
 	
 }
 
@@ -139,8 +134,13 @@ bool CDeerPursuitState::OnMessage( CCharacter* _Character, const STelegram& _Tel
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
-		_Character->GetLogicFSM()->ChangeState(m_pDeer->GetHitState());
-		_Character->GetGraphicFSM()->ChangeState(m_pDeer->GetHitAnimationState());
+		if (!m_pDeer) 
+		{
+			m_pDeer = dynamic_cast<CDeer*> (_Character);
+		}
+
+		m_pDeer->RestLife(1000); 
+		m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetHitState());
 		return true;
 	}
 	return false;

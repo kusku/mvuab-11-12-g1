@@ -111,45 +111,50 @@ bool CDeerTiredState::OnMessage( CCharacter* _Character, const STelegram& _Teleg
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
+		if (!m_pDeer) 
+		{
+			m_pDeer = dynamic_cast<CDeer*> (_Character);
+		}
+
+		m_pDeer->RestLife(1000); 
 		m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetHitState());
-		m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetHitAnimationState());
 		return true;
 	}
 
 	return false;
 }
 
-std::string CDeerTiredState::GetRandomAttackName( void )
-{
-	int l_AttackType = BoostRandomHelper::GetInt(1, 12);
-	std::string l_Result;
-
-	if ( l_AttackType == 1 ) 
-		l_Result = "attack_1";
-	else if  ( l_AttackType == 2 ) 
-		l_Result = "attack_1";
-	else if  ( l_AttackType == 3 ) 
-		l_Result = "attack_1";
-	else if  ( l_AttackType == 4 ) 
-		l_Result = "attack_2";
-	else if  ( l_AttackType == 5 ) 
-		l_Result = "attack_2";
-	else if  ( l_AttackType == 6 ) 
-		l_Result = "attack_2";
-	else if  ( l_AttackType == 7 ) 
-		l_Result = "defense";
-	else if  ( l_AttackType == 8 ) 
-		l_Result = "jump";
-			
-	// Damos la opción de tener más probabilidades de ir al fustrum que no atacar
-	else if  ( l_AttackType == 9 ) 
-		l_Result = "go_in_to_fustrum";
-	else if  ( l_AttackType == 10 )
-		l_Result = "go_in_to_fustrum";
-	else if  ( l_AttackType == 11 ) 
-		l_Result = "go_in_to_fustrum";
-	else if  ( l_AttackType == 12 ) 
-		l_Result = "go_in_to_fustrum";
-
-	return l_Result;
-}
+//std::string CDeerTiredState::GetRandomAttackName( void )
+//{
+//	int l_AttackType = BoostRandomHelper::GetInt(1, 12);
+//	std::string l_Result;
+//
+//	if ( l_AttackType == 1 ) 
+//		l_Result = "attack_1";
+//	else if  ( l_AttackType == 2 ) 
+//		l_Result = "attack_1";
+//	else if  ( l_AttackType == 3 ) 
+//		l_Result = "attack_1";
+//	else if  ( l_AttackType == 4 ) 
+//		l_Result = "attack_2";
+//	else if  ( l_AttackType == 5 ) 
+//		l_Result = "attack_2";
+//	else if  ( l_AttackType == 6 ) 
+//		l_Result = "attack_2";
+//	else if  ( l_AttackType == 7 ) 
+//		l_Result = "defense";
+//	else if  ( l_AttackType == 8 ) 
+//		l_Result = "jump";
+//			
+//	// Damos la opción de tener más probabilidades de ir al fustrum que no atacar
+//	else if  ( l_AttackType == 9 ) 
+//		l_Result = "go_in_to_fustrum";
+//	else if  ( l_AttackType == 10 )
+//		l_Result = "go_in_to_fustrum";
+//	else if  ( l_AttackType == 11 ) 
+//		l_Result = "go_in_to_fustrum";
+//	else if  ( l_AttackType == 12 ) 
+//		l_Result = "go_in_to_fustrum";
+//
+//	return l_Result;
+//}

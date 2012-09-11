@@ -57,7 +57,7 @@ void CDeerRunAttackAnimationState::OnEnter( CCharacter* _Character )
 	}
 
 	m_Currentduration = 0.f;
-	m_AnimationDuration = m_pDeer->GetAnimatedModel()->GetCurrentAnimationDuration(RABBIT_RUN_ATTACK_STATE) / 2;
+	m_AnimationDuration = m_pDeer->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_RUN_ATTACK_STATE) / 2;
 
 	int l_Num = _Character->GetAnimationID(DEER_RUN_ATTACK_STATE);
 	m_pDeer->GetAnimatedModel()->ExecuteAction( l_Num, 0.1f );

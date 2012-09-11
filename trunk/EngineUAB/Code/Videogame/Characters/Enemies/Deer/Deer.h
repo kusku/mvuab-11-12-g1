@@ -19,6 +19,7 @@ class CDeerHitState;
 class CDeerDefenseState;
 class CDeerStillAttackState;
 class CDeerRunAttackState;
+class CDeerDeathState;
 
 // Estats animació 
 class CDeerIdleAnimationState;
@@ -59,8 +60,9 @@ public:
 	CDeerTiredState *					GetTiredState					( void ) const			{ return m_pTiredState; }
 	CDeerHitState *						GetHitState						( void ) const			{ return m_pHitState; }
 	CDeerDefenseState *					GetDefenseState					( void ) const			{ return m_pDefenseState; }
-	CDeerStillAttackState *				GetStillAttackState				( void ) const			{ return m_pStillAttack; }
-	CDeerRunAttackState *				GetRunAttackState				( void ) const			{ return m_pRunAttack; }
+	CDeerStillAttackState *				GetStillAttackState				( void ) const			{ return m_pStillAttackState; }
+	CDeerRunAttackState *				GetRunAttackState				( void ) const			{ return m_pRunAttackState; }
+	CDeerDeathState *					GetDeathState					( void ) const			{ return m_pDeathState; }
 	
 	CDeerIdleAnimationState *			GetIdleAnimationState			( void ) const			{ return m_pAnimationIdleState; }
 	CDeerRunAnimationState *			GetRunAnimationState			( void ) const			{ return m_pAnimationRunState; }
@@ -100,8 +102,9 @@ private:
 	CDeerTiredState					*	m_pTiredState;
 	CDeerHitState					*	m_pHitState;
 	CDeerDefenseState				*	m_pDefenseState;
-	CDeerStillAttackState			*	m_pStillAttack;
-	CDeerRunAttackState				*	m_pRunAttack; 
+	CDeerStillAttackState			*	m_pStillAttackState;
+	CDeerRunAttackState				*	m_pRunAttackState; 
+	CDeerDeathState					*	m_pDeathState; 
 
 
 	CDeerIdleAnimationState			*	m_pAnimationIdleState;
