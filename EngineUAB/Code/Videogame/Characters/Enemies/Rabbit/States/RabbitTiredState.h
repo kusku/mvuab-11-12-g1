@@ -35,7 +35,6 @@ public:
 	virtual bool	OnMessage	( CCharacter*, const STelegram& );
 
 	//----Methods ---------------------------------------------
-	std::string		GetRandomAttackName	( void );
 
 	//----Members ---------------------------------------------
 private:
