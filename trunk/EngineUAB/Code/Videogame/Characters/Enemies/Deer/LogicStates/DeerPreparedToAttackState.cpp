@@ -76,14 +76,20 @@ void CDeerPreparedToAttackState::Execute( CCharacter* _Character, float _Elapsed
 	// 1) Caso en que ataco al player. Si está focalizado y suficientemente cerca de atacar lo hace independientemente del angulo de visión del player
 	if ( m_pDeer->IsPlayerAtacable() ) 
 	{
-		// Reseteamos la velocidad del enemigo
-		m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
 		m_pDeer->SetHitsDone(2);		// Esto permite hacer una pausa al entrar en el estado de ataque antes de atacar por obligar estar fatigado y permitir ver al player qué va a hacer el enemigo
 		m_pDeer->GetLogicFSM()->ChangeState( m_pDeer->GetAttackState() );
+
+		// Reseteamos la velocidad del enemigo
+		m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+		m_pDeer->FaceTo( m_pDeer->GetSteeringEntity()->GetPosition(), _ElapsedTime );
+		m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+
+
 		#if defined _DEBUG
 			if( CORE->IsDebugMode() )
 			{
 				CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Prepared-Atacable");
+				LOGGER->AddNewLog(ELL_INFORMATION,"CDeerPreparedToAttackState::Execute->Change to Attack State");
 			}
 		#endif
 	}

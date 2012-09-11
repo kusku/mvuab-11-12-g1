@@ -54,7 +54,7 @@ void CDeerStillAttackAnimationState::OnEnter( CCharacter* _Character )
 	m_pDeer->GetAnimatedModel()->BlendCycle(l_iAnimID, 0.3f);*/
 
 	int l_Num = m_pDeer->GetAnimationID(DEER_STILL_ATTACK_STATE);
-	m_pDeer->GetAnimatedModel()->ExecuteAction( l_Num, 0.3f );
+	m_pDeer->GetAnimatedModel()->ExecuteAction( l_Num, 0.1f );
 }
 
 void CDeerStillAttackAnimationState::OnExit( CCharacter* _Character )

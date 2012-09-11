@@ -105,6 +105,7 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				if ( DISPATCH != NULL ) 
 				{
 					DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pDeer->GetID(), m_pDeer->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
+					LOGGER->AddNewLog(ELL_INFORMATION,"CDeerStillAttackState::Execute->Envio mensaje de tocado");
 				}
 				else
 				{
@@ -123,6 +124,11 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Dispatch");
 					}
 				#endif
+
+				m_pDeer->GetBehaviors()->SeekOff();
+				m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
+				m_pDeer->FaceTo( m_pDeer->GetSteeringEntity()->GetPosition(), _ElapsedTime );
+				m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 			}
 			// Si acaba la animacion pero no estamos en una distancia de poder impactar solo hacemos que se canse
 			else if ( m_pAnimationCallback->IsAnimationFinished() && !m_pDeer->IsPlayerInsideImpactDistance() )
@@ -131,16 +137,22 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				m_pDeer->SetHitsDone(m_pDeer->GetHitsDone() + 1);
 
 				// Volvemos al estado anterior
-				//m_pDeer->GetLogicFSM()->RevertToPreviousState();
-				m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetAttackState());
+				m_pDeer->GetLogicFSM()->RevertToPreviousState();
 				m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetIdleAnimationState());
 
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
 						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Still Attack fallit ");
+						LOGGER->AddNewLog(ELL_INFORMATION,"CDeerStillAttackState::Execute->Golpeo erratico");
+
 					}
 				#endif
+
+				m_pDeer->GetBehaviors()->SeekOff();
+				m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
+				m_pDeer->FaceTo( m_pDeer->GetSteeringEntity()->GetPosition(), _ElapsedTime );
+				m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 
 				return;
 			}
@@ -160,15 +172,28 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 
 				return;
 			}*/
-			// En otro caso actualizamos el tiempo de animacion
-			else
+			// En otro caso actualizamos el tiempo de animacion que aun no finalizó la animación
+			else 
 			{
+				m_pDeer->GetBehaviors()->SeekOff();
+				m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
+				m_pDeer->FaceTo( m_pDeer->GetSteeringEntity()->GetPosition(), _ElapsedTime );
+				m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
 						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("NOT FINISHED YET!");
+						LOGGER->AddNewLog(ELL_INFORMATION,"CDeerStillAttackState::Execute->Animacion en curso");
 					}
 				#endif
+
+				// hay que cancelar la animación
+				/*if ( !m_pDeer->IsPlayerInsideImpactDistance() )
+				{
+					m_pDeer->GetLogicFSM()->RevertToPreviousState();
+					m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetIdleAnimationState());
+				}*/
 			}
 		}
 		else
@@ -188,6 +213,14 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				
 				m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetStillAttackAnimationState());
 				m_pAnimationCallback->StartAnimation();
+
+				#if defined _DEBUG
+					if( CORE->IsDebugMode() )
+					{
+						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Inici atac");
+						LOGGER->AddNewLog(ELL_INFORMATION,"CDeerStillAttackState::Execute->Inicio Animacion");
+					}
+				#endif
 			}
 			else 
 			{
@@ -195,19 +228,7 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				// _CCharacter.behaviors:pursuit_on()
 				m_pDeer->GetBehaviors()->SeekOn();
 				m_pDeer->GetBehaviors()->GetSeek()->SetTarget(m_pDeer->GetPlayer()->GetPosition());
-				if ( m_pDeer != NULL ) 
-				{
-					// self.active_animation_name = _CCharacter:get_animation_id("attack_1")
-					// _CCharacter:get_animation_model():clear_cycle( self.active_animation_name, 0.3 )
-						
-					/*self.active_animation_name = _CCharacter:get_animation_id("run")
-					_CCharacter:get_animation_model():blend_cycle( self.active_animation_name, 0.3 )*/
-					m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetRunAnimationState());
-				}
-				else 
-				{
-					LOGGER->AddNewLog(ELL_ERROR, "CDeerStillAttackState:Execute->El Character DEER es NULL" );
-				}
+				m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetRunAnimationState());
 				
 				// Rotamos al objetivo y movemos
 				m_pDeer->FaceTo( m_pDeer->GetSteeringEntity()->GetPosition(), _ElapsedTime );
@@ -216,6 +237,7 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 					if( CORE->IsDebugMode() )
 					{
 						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Ens apropem primer");
+						LOGGER->AddNewLog(ELL_INFORMATION,"CDeerStillAttackState::Execute->Nos acercamos primero");
 					}
 				#endif
 			}
@@ -237,6 +259,8 @@ void CDeerStillAttackState::OnExit( CCharacter* _Character )
 	// nos volvemos
 	/*m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetAttackState());
 	m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetIdleAnimationState());*/
+	LOGGER->AddNewLog(ELL_INFORMATION,"CDeerStillAttackState::Execute->Salgo!");
+
 }
 
 bool CDeerStillAttackState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
