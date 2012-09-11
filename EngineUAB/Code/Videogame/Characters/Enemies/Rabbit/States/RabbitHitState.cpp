@@ -78,8 +78,8 @@ void CRabbitHitState::OnEnter( CCharacter* _Character )
 	{
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
-	m_pAnimationCallback->Init();
-	m_pAnimationCallback->StartAnimation();
+	/*m_pAnimationCallback->Init();
+	m_pAnimationCallback->StartAnimation();*/
 	m_pActionState->SetTimeRange( 0.f, m_pRabbit->GetAnimatedModel()->GetCurrentAnimationDuration(RABBIT_HIT_STATE));
 }
 
