@@ -49,6 +49,11 @@
   <animated_model_instance name="enemy26" core="conejo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
   <animated_model_instance name="enemy27" core="conejo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
 
+  <animated_model_instance name="enemy28" core="ciervo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy29" core="ciervo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy30" core="ciervo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+
+  
   <!--Cabaña, Rio y Puentes-->
   <mesh_instance name="Rio" core="Rio" position="-55.374 -30.9991 -92.2339" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="water" create_physics="false" />
   <mesh_instance name="PuenteColgante" core="PuenteColgante" position="-81.5062 -14.8848 -1.16986" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
