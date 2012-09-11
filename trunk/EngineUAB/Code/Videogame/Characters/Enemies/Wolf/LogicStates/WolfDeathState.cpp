@@ -39,7 +39,7 @@ CWolfDeathState::CWolfDeathState( void )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RABBIT_DEATH_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(WOLF_DEATH_STATE);
 }
 
 CWolfDeathState::CWolfDeathState( const std::string &_Name )
@@ -48,7 +48,7 @@ CWolfDeathState::CWolfDeathState( const std::string &_Name )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RABBIT_DEATH_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(WOLF_DEATH_STATE);
 }
 
 
@@ -136,9 +136,6 @@ void CWolfDeathState::Execute( CCharacter* _Character, float _ElapsedTime )
 
 void CWolfDeathState::OnExit( CCharacter* _Character )
 {
-	// nos volvemos
-	/*m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetAttackState());
-	m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());*/
 }
 
 bool CWolfDeathState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )

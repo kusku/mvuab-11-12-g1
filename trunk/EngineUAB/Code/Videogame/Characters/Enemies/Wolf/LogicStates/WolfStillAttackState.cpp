@@ -247,8 +247,13 @@ bool CWolfStillAttackState::OnMessage( CCharacter* _Character, const STelegram& 
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
+		if (!m_pWolf) 
+		{
+			m_pWolf = dynamic_cast<CWolf*> (_Character);
+		}
+
+		m_pWolf->RestLife(1000); 
 		m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetHitState());
-		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetHitAnimationState());
 		return true;
 	}
 
