@@ -130,8 +130,8 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _Character, float _Elaps
 				// el elegido para atacar
 				float l_Angle = 22.f;			//math.pi/15		// 12 graus de fustrum
 				m_pRabbit->GoInTofrustum(l_Angle, _ElapsedTime);
-				m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetWalkAnimationState());		// dudo de si uno u otro. Faltan pasos laterales...
-				//m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetRunAnimationState());
+				//m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetWalkAnimationState());		// dudo de si uno u otro. Faltan pasos laterales...
+				m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetRunAnimationState());
 				/*#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{

@@ -180,7 +180,7 @@ void CRabbitStillAttackState::Execute( CCharacter* _Character, float _ElapsedTim
 			{
 				m_pRabbit->GetBehaviors()->SeekOff();
 				m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
-				m_pRabbit->FaceTo( m_pRabbit->GetSteeringEntity()->GetPosition(), _ElapsedTime );
+				m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime );
 				m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 				
 				/*self.active_animation_id = _CCharacter:get_animation_id("run")
@@ -213,7 +213,7 @@ void CRabbitStillAttackState::Execute( CCharacter* _Character, float _ElapsedTim
 				}
 				
 				// Rotamos al objetivo y movemos
-				m_pRabbit->FaceTo( m_pRabbit->GetSteeringEntity()->GetPosition(), _ElapsedTime );
+				m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime );
 				m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )

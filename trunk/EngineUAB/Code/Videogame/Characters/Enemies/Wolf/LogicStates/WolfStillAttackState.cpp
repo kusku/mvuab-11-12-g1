@@ -181,7 +181,7 @@ void CWolfStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 			{
 				m_pWolf->GetBehaviors()->SeekOff();
 				m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
-				m_pWolf->FaceTo( m_pWolf->GetSteeringEntity()->GetPosition(), _ElapsedTime );
+				m_pWolf->FaceTo( m_pWolf->GetPlayer()->GetPosition(), _ElapsedTime );
 				m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 				
 				/*self.active_animation_id = _CCharacter:get_animation_id("run")
@@ -214,7 +214,7 @@ void CWolfStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				}
 				
 				// Rotamos al objetivo y movemos
-				m_pWolf->FaceTo( m_pWolf->GetSteeringEntity()->GetPosition(), _ElapsedTime );
+				m_pWolf->FaceTo( m_pWolf->GetPlayer()->GetPosition(), _ElapsedTime );
 				m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
