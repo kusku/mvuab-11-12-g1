@@ -7,6 +7,7 @@
 #include <string>
 #include "StatesMachine\State.h"
 #include "Characters\Character.h"
+#include "Callbacks\State\ActionStateCallback.h"
 
 // --- Foward Declarations ---
 class CDeer;
@@ -40,8 +41,11 @@ public:
 private:
 	CDeer					  * m_pDeer;
 	CAnimationCallback		  *	m_pAnimationCallback;
+	CActionStateCallback		m_pActionStateCallback;
 
 	bool						m_PlayerReached;		// Indica si el golpeo alcanza el player
+	bool						m_SoundPlayed1;			// Indica si el sonido ya se inició
+	bool						m_SoundPlayed2;			// Indica si el sonido ya se inició
 };
 
 

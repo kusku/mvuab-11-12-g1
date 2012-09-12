@@ -2,6 +2,7 @@
 #include "GameProcess.h"
 #include "Logger\Logger.h"
 #include "Math\Vector3.h"
+#include "SoundManager.h"
 
 // --- Per pintar l'estat enemic ---
 #include "DebugGUIManager.h"
@@ -105,6 +106,7 @@ void CDeerRunAttackState::OnEnter( CCharacter* _Character )
 	m_CurrentDuration = 0;
 
 	m_pAnimationCallback->Init();
+	CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerExclaim"); 
 
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
@@ -132,6 +134,7 @@ void CDeerRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 			if ( m_PlayerReached == false && m_pDeer->IsPlayerReached() )
 			{
 				m_PlayerReached = true;
+				CORE->GetSoundManager()->PlayEvent("Play_EFX_Punch3"); 
 			}
 			
 			// Compruebo si la animación ha finalizado
@@ -248,6 +251,7 @@ void CDeerRunAttackState::OnExit( CCharacter* _Character )
 	// Restauramos la velocidad original
 	m_pDeer->GetSteeringEntity()->SetMaxSpeed(m_OldMaxSpeed);
 	m_pDeer->GetSteeringEntity()->SetMass(m_OldMass);
+	CORE->GetSoundManager()->PlayEvent("Stop_EFX_DeerExclaim"); 
 }
 
 bool CDeerRunAttackState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
@@ -259,7 +263,7 @@ bool CDeerRunAttackState::OnMessage( CCharacter* _Character, const STelegram& _T
 			m_pDeer = dynamic_cast<CDeer*> (_Character);
 		}
 
-		m_pDeer->RestLife(50); 
+		m_pDeer->RestLife(20); 
 		m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetHitState());
 		return true;
 	}
