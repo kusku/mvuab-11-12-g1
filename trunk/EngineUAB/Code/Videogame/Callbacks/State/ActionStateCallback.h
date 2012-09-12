@@ -15,11 +15,17 @@ public:
 	void		StartAction				( void );
 	bool		IsActionFinished		( void );
 	bool		IsActionStarted			( void ) const			{ return m_ActionStarted; }
-	
+	bool		IsActionInTime			( float _TimeToCheck )	{ 
+																	return m_CurrentTime >= _TimeToCheck; 
+																}
+
 	void		Update					( float _ElapsedTime )	{ m_CurrentTime += _ElapsedTime; }
 
 	// ------------- Mètodes -----------------------------------
 	void		SetTimeRange			( float _MinInterval, float _MaxInterval )		{ m_MinTime = _MinInterval; m_MaxTime = _MaxInterval; }
+
+	// ------------- Properties---------------------------------
+	
 
 private:
 	float		GetRandomAnimationTime	( void );
