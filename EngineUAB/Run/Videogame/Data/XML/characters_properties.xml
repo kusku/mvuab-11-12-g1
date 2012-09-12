@@ -107,7 +107,7 @@
 	<default_properties core="conejo">
 		<active>false</active>
 		<locked>false</locked>
-		<life>50</life>
+		<life>100</life>
 		<strong>5</strong>
 		<mass>0.01</mass>
 		<velocity>0 0 0</velocity>
@@ -179,7 +179,7 @@
 		<enemy name="enemy21" core="conejo" animated_instace_name="enemy21" ></enemy>-->
 
    <enemy name="enemy1" core="lobo" animated_instace_name="lobo1" >
-			<position>33 -40 27</position>
+			<position>50 -30 20</position>
      <active>false</active>
      <locked>false</locked>
 		</enemy>
@@ -198,7 +198,7 @@
 
     <enemy name="enemy22" core="conejo" animated_instace_name="enemy22" >
 			<position>35 -40 25</position>
-			<active>falsed</active>
+			<active>false</active>
 			<locked>false</locked>
 		</enemy>
     <enemy name="enemy23" core="conejo" animated_instace_name="enemy23" >
