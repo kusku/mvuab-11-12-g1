@@ -102,7 +102,7 @@ void CDeerPreparedToAttackState::Execute( CCharacter* _Character, float _Elapsed
 		{
 			// Este enemigo puede atacar. Ahora miro si está dentro del angulo de vision pero no es el elegido para atacar. Por tanto, vamos hacia el player para tener opciones de ser
 			// el elegido para atacar
-			float l_Angle = 15.f;			//math.pi/15		// 12 graus de fustrum
+			float l_Angle = 7.f;			//math.pi/15		// 12 graus de fustrum
 			m_pDeer->GoInTofrustum(l_Angle, _ElapsedTime);
 			//m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetWalkAnimationState());		// dudo de si uno u otro. Faltan pasos laterales...
 			m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetRunAnimationState());

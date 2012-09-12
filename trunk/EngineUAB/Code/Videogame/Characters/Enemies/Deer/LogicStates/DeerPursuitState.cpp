@@ -1,4 +1,4 @@
-#include "DeerPursuitState.h"
+ #include "DeerPursuitState.h"
 #include "DeerIdleState.h"
 #include "DeerPreparedToAttackState.h"
 #include "DeerHitState.h"
@@ -57,15 +57,15 @@ void CDeerPursuitState::OnEnter( CCharacter* _Character )
 		m_pDeer = dynamic_cast<CDeer*> (_Character);
 	}
 
-	m_pDeer->GetBehaviors()->GetSeek()->SetTarget(m_pDeer->GetPlayer()->GetPosition());
-	m_pDeer->GetBehaviors()->SeekOn();
+	/*m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_pRabbit->GetPlayer()->GetPosition());
+	m_pRabbit->GetBehaviors()->SeekOn();*/
 		
 	m_pDeer->GetBehaviors()->GetPursuit()->SetTarget(m_pDeer->GetPlayer()->GetPosition());
 	m_pDeer->GetBehaviors()->GetPursuit()->UpdateEvaderEntity( m_pDeer->GetPlayer()->GetSteeringEntity() );
 	m_pDeer->GetBehaviors()->PursuitOn();
 		
 	m_pDeer->GetBehaviors()->SeparationOn();
-	m_pDeer->GetBehaviors()->CohesionOn();
+	m_pDeer->GetBehaviors()->CohesionOff();
 	m_pDeer->GetBehaviors()->CollisionAvoidanceOn();
 	m_pDeer->GetBehaviors()->ObstacleWallAvoidanceOn();
 }
@@ -85,8 +85,8 @@ void CDeerPursuitState::Execute( CCharacter* _Character, float _ElapsedTime )
 		if ( m_pDeer->IsEnemyPreparedToAttack() ) 
 		{
 			// Reseteamos la velocidad del enemigo y cambiamos a un estado que prepara para el ataque
-			m_pDeer->GetBehaviors()->PursuitOff();
-			m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+			/*m_pRabbit->GetBehaviors()->PursuitOff();
+			m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));*/
 			m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetPreparedToAttack());
 		}
 		else
@@ -99,13 +99,14 @@ void CDeerPursuitState::Execute( CCharacter* _Character, float _ElapsedTime )
 			/*m_pDeer->GetBehaviors()->GetSeek()->SetTarget(m_pDeer->GetPlayer()->GetPosition());
 			m_pDeer->GetBehaviors()->SeekOn();*/
 
-			m_pDeer->FaceTo(m_pDeer->GetSteeringEntity()->GetPosition(), _ElapsedTime);
+			m_pDeer->FaceTo(m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime);
 			m_pDeer->MoveTo2(m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
 
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
 					CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Pursuing");
+					//LOGGER->AddNewLog(ELL_INFORMATION, "Enemy %s pursuit...", m_pRabbit->GetName().c_str() );
 				}
 			#endif
 		}
