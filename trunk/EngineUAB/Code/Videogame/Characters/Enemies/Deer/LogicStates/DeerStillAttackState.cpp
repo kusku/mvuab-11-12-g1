@@ -1,5 +1,6 @@
 #include "DeerStillAttackState.h"
 #include "GameProcess.h"
+#include "SoundManager.h"
 
 // --- Per pintar l'estat enemic ---
 #include "DebugGUIManager.h"
@@ -45,6 +46,7 @@ CDeerStillAttackState::CDeerStillAttackState( void )
 	: CState				("CDeerStillAttackState")
 	, m_pDeer				( NULL )
 	, m_pAnimationCallback	( NULL )
+	, m_PlayerReached		( false )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_STILL_ATTACK_STATE);
@@ -54,6 +56,7 @@ CDeerStillAttackState::CDeerStillAttackState( const std::string &_Name )
 	: CState				(_Name)
 	, m_pDeer				( NULL )
 	, m_pAnimationCallback	( NULL )
+	, m_PlayerReached		( false )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_STILL_ATTACK_STATE);
@@ -84,6 +87,7 @@ void CDeerStillAttackState::OnEnter( CCharacter* _Character )
 	}
 #endif
 
+	m_PlayerReached = false;
 	m_pAnimationCallback->Init();
 }
 
@@ -99,8 +103,16 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 	{
 		if ( m_pAnimationCallback->IsAnimationStarted() ) 
 		{
+			if ( m_PlayerReached == false && m_pDeer->IsPlayerReached() )
+			{
+				m_PlayerReached = true;
+			}
+
+			CORE->GetSoundManager()->PlayEvent("Play_EFX_Punch2");
+			CORE->GetSoundManager()->PlayEvent("Play_EFX_Punch3");
+
 			// Compruebo si la animación a finalizado
-			if ( m_pAnimationCallback->IsAnimationFinished() && m_pDeer->IsPlayerInsideImpactDistance() )
+			if ( m_pAnimationCallback->IsAnimationFinished() && m_PlayerReached )
 			{
 				if ( DISPATCH != NULL ) 
 				{
@@ -131,7 +143,7 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 			}
 			// Si acaba la animacion pero no estamos en una distancia de poder impactar solo hacemos que se canse
-			else if ( m_pAnimationCallback->IsAnimationFinished() && !m_pDeer->IsPlayerInsideImpactDistance() )
+			else if ( m_pAnimationCallback->IsAnimationFinished() && !m_PlayerReached )
 			{
 				// Incrementamos el nº de ataques hechos --> si llega a un total estará cansado
 				m_pDeer->SetHitsDone(m_pDeer->GetHitsDone() + 1);
@@ -272,7 +284,7 @@ bool CDeerStillAttackState::OnMessage( CCharacter* _Character, const STelegram& 
 			m_pDeer = dynamic_cast<CDeer*> (_Character);
 		}
 
-		m_pDeer->RestLife(1000); 
+		m_pDeer->RestLife(10); 
 		m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetHitState());
 		return true;
 	}

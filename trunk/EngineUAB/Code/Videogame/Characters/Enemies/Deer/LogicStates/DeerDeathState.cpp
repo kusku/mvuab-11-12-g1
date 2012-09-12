@@ -101,6 +101,7 @@ void CDeerDeathState::Execute( CCharacter* _Character, float _ElapsedTime )
 					CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Mort enemic");
 				}
 			#endif
+			m_pAnimationCallback->Init();
 			m_pDeer->SetEnable(false);	
 			return;
 
