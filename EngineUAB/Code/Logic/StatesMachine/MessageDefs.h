@@ -16,6 +16,7 @@ enum message_type
 	Msg_Roam,		// Vagar
 	Msg_Evade,		// Evadir
 	Msg_Chase,		// Persecució
+	Msg_Push,		// Empenya
 };
 
 inline std::string MsgToStr( int _Msg )
@@ -54,6 +55,9 @@ inline std::string MsgToStr( int _Msg )
 		
 		case Msg_Chase:
 			return "Chase";
+
+		case Msg_Push:
+			return "Push";
 		// TODO
 
 		default:
