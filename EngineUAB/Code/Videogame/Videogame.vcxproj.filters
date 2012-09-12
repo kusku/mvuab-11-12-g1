@@ -64,9 +64,6 @@
     <Filter Include="Characters\Enemies\Rabbit">
       <UniqueIdentifier>{6ce43790-124e-422a-aba7-85e83618661a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Characters\Enemies\Rabbit\States">
-      <UniqueIdentifier>{72f8e65c-1ade-423c-83d0-992d6df69cf9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Callbacks\State">
       <UniqueIdentifier>{723ae2e2-c63e-4504-b262-0cab013f945e}</UniqueIdentifier>
     </Filter>
@@ -99,6 +96,12 @@
     </Filter>
     <Filter Include="Characters\Enemies\Deer\LogicStates">
       <UniqueIdentifier>{bd33453e-5dce-4929-9bb6-60a21a2e35ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\Enemies\Rabbit\LogicStates">
+      <UniqueIdentifier>{72f8e65c-1ade-423c-83d0-992d6df69cf9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\Enemies\Rabbit\AnimationStates">
+      <UniqueIdentifier>{35b48af0-c9bf-43c0-802f-d206e153620d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -152,51 +155,6 @@
     </ClCompile>
     <ClCompile Include="Characters\Enemies\Rabbit\Rabbit.cpp">
       <Filter>Characters\Enemies\Rabbit</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitDeathAnimationState.cpp">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitDefenseAnimationState.cpp">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitHitAnimationState.cpp">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitIdle2AnimationState.cpp">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitIdleAnimationState.cpp">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitIdleState.cpp">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitJumpAnimationState.cpp">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitLeftLateralAnimationState.cpp">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitPreparedToAttackState.cpp">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitPursuitState.cpp">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitRightLateralAnimationState.cpp">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitRunAnimationState.cpp">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitRunAttackAnimationState.cpp">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitStillAttackAnimationState.cpp">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitWalkAnimationState.cpp">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
     </ClCompile>
     <ClCompile Include="Callbacks\State\ActionStateCallback.cpp">
       <Filter>Callbacks\State</Filter>
@@ -266,24 +224,6 @@
     </ClCompile>
     <ClCompile Include="Helpers\MathHelper.cpp">
       <Filter>Helpers</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitAttackState.cpp">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitStillAttackState.cpp">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitTiredState.cpp">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitDefenseState.cpp">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitHitState.cpp">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitRunAttackState.cpp">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
     </ClCompile>
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfDeathAnimationState.cpp">
       <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
@@ -393,14 +333,80 @@
     <ClCompile Include="Characters\Enemies\Deer\LogicStates\DeerIdleState.cpp">
       <Filter>Characters\Enemies\Deer\LogicStates</Filter>
     </ClCompile>
-    <ClCompile Include="Characters\Enemies\Rabbit\States\RabbitDeathState.cpp">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClCompile>
     <ClCompile Include="Characters\Enemies\Wolf\LogicStates\WolfDeathState.cpp">
       <Filter>Characters\Enemies\Wolf\LogicStates</Filter>
     </ClCompile>
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfIdleAnimationState.cpp">
       <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Deer\LogicStates\DeerDeathState.cpp">
+      <Filter>Characters\Enemies\Deer\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\LogicStates\RabbitAttackState.cpp">
+      <Filter>Characters\Enemies\Rabbit\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\LogicStates\RabbitDeathState.cpp">
+      <Filter>Characters\Enemies\Rabbit\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\LogicStates\RabbitDefenseState.cpp">
+      <Filter>Characters\Enemies\Rabbit\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\LogicStates\RabbitHitState.cpp">
+      <Filter>Characters\Enemies\Rabbit\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\LogicStates\RabbitIdleState.cpp">
+      <Filter>Characters\Enemies\Rabbit\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\LogicStates\RabbitPreparedToAttackState.cpp">
+      <Filter>Characters\Enemies\Rabbit\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\LogicStates\RabbitPursuitState.cpp">
+      <Filter>Characters\Enemies\Rabbit\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\LogicStates\RabbitRunAttackState.cpp">
+      <Filter>Characters\Enemies\Rabbit\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\LogicStates\RabbitStillAttackState.cpp">
+      <Filter>Characters\Enemies\Rabbit\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\LogicStates\RabbitTiredState.cpp">
+      <Filter>Characters\Enemies\Rabbit\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\AnimationStates\RabbitDeathAnimationState.cpp">
+      <Filter>Characters\Enemies\Rabbit\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\AnimationStates\RabbitDefenseAnimationState.cpp">
+      <Filter>Characters\Enemies\Rabbit\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\AnimationStates\RabbitHitAnimationState.cpp">
+      <Filter>Characters\Enemies\Rabbit\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\AnimationStates\RabbitIdle2AnimationState.cpp">
+      <Filter>Characters\Enemies\Rabbit\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\AnimationStates\RabbitIdleAnimationState.cpp">
+      <Filter>Characters\Enemies\Rabbit\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\AnimationStates\RabbitJumpAnimationState.cpp">
+      <Filter>Characters\Enemies\Rabbit\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\AnimationStates\RabbitLeftLateralAnimationState.cpp">
+      <Filter>Characters\Enemies\Rabbit\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\AnimationStates\RabbitRightLateralAnimationState.cpp">
+      <Filter>Characters\Enemies\Rabbit\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\AnimationStates\RabbitRunAnimationState.cpp">
+      <Filter>Characters\Enemies\Rabbit\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\AnimationStates\RabbitRunAttackAnimationState.cpp">
+      <Filter>Characters\Enemies\Rabbit\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\AnimationStates\RabbitStillAttackAnimationState.cpp">
+      <Filter>Characters\Enemies\Rabbit\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Rabbit\AnimationStates\RabbitWalkAnimationState.cpp">
+      <Filter>Characters\Enemies\Rabbit\AnimationStates</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -463,51 +469,6 @@
     </ClInclude>
     <ClInclude Include="Characters\Enemies\Rabbit\Rabbit.h">
       <Filter>Characters\Enemies\Rabbit</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitDeathAnimationState.h">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitDefenseAnimationState.h">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitHitAnimationState.h">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitIdle2AnimationState.h">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitIdleAnimationState.h">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitIdleState.h">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitJumpAnimationState.h">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitLeftLateralAnimationState.h">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitPreparedToAttackState.h">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitPursuitState.h">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitRightLateralAnimationState.h">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitRunAnimationState.h">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitRunAttackAnimationState.h">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitStillAttackAnimationState.h">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitWalkAnimationState.h">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
     </ClInclude>
     <ClInclude Include="Callbacks\State\ActionStateCallback.h">
       <Filter>Callbacks\State</Filter>
@@ -577,24 +538,6 @@
     </ClInclude>
     <ClInclude Include="Helpers\MathHelper.h">
       <Filter>Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitAttackState.h">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitStillAttackState.h">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitTiredState.h">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitDefenseState.h">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitHitState.h">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitRunAttackState.h">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
     </ClInclude>
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfDeathAnimationState.h">
       <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
@@ -707,14 +650,80 @@
     <ClInclude Include="Characters\Enemies\Deer\LogicStates\DeerIdleState.h">
       <Filter>Characters\Enemies\Deer\LogicStates</Filter>
     </ClInclude>
-    <ClInclude Include="Characters\Enemies\Rabbit\States\RabbitDeathState.h">
-      <Filter>Characters\Enemies\Rabbit\States</Filter>
-    </ClInclude>
     <ClInclude Include="Characters\Enemies\Wolf\LogicStates\WolfDeathState.h">
       <Filter>Characters\Enemies\Wolf\LogicStates</Filter>
     </ClInclude>
     <ClInclude Include="Characters\StatesDefs.h">
       <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Deer\LogicStates\DeerDeathState.h">
+      <Filter>Characters\Enemies\Deer\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\LogicStates\RabbitAttackState.h">
+      <Filter>Characters\Enemies\Rabbit\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\LogicStates\RabbitDeathState.h">
+      <Filter>Characters\Enemies\Rabbit\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\LogicStates\RabbitDefenseState.h">
+      <Filter>Characters\Enemies\Rabbit\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\LogicStates\RabbitHitState.h">
+      <Filter>Characters\Enemies\Rabbit\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\LogicStates\RabbitIdleState.h">
+      <Filter>Characters\Enemies\Rabbit\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\LogicStates\RabbitPreparedToAttackState.h">
+      <Filter>Characters\Enemies\Rabbit\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\LogicStates\RabbitPursuitState.h">
+      <Filter>Characters\Enemies\Rabbit\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\LogicStates\RabbitRunAttackState.h">
+      <Filter>Characters\Enemies\Rabbit\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\LogicStates\RabbitStillAttackState.h">
+      <Filter>Characters\Enemies\Rabbit\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\LogicStates\RabbitTiredState.h">
+      <Filter>Characters\Enemies\Rabbit\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\AnimationStates\RabbitDeathAnimationState.h">
+      <Filter>Characters\Enemies\Rabbit\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\AnimationStates\RabbitDefenseAnimationState.h">
+      <Filter>Characters\Enemies\Rabbit\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\AnimationStates\RabbitHitAnimationState.h">
+      <Filter>Characters\Enemies\Rabbit\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\AnimationStates\RabbitIdle2AnimationState.h">
+      <Filter>Characters\Enemies\Rabbit\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\AnimationStates\RabbitIdleAnimationState.h">
+      <Filter>Characters\Enemies\Rabbit\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\AnimationStates\RabbitJumpAnimationState.h">
+      <Filter>Characters\Enemies\Rabbit\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\AnimationStates\RabbitLeftLateralAnimationState.h">
+      <Filter>Characters\Enemies\Rabbit\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\AnimationStates\RabbitRightLateralAnimationState.h">
+      <Filter>Characters\Enemies\Rabbit\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\AnimationStates\RabbitRunAnimationState.h">
+      <Filter>Characters\Enemies\Rabbit\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\AnimationStates\RabbitRunAttackAnimationState.h">
+      <Filter>Characters\Enemies\Rabbit\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\AnimationStates\RabbitStillAttackAnimationState.h">
+      <Filter>Characters\Enemies\Rabbit\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Rabbit\AnimationStates\RabbitWalkAnimationState.h">
+      <Filter>Characters\Enemies\Rabbit\AnimationStates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
