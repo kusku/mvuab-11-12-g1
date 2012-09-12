@@ -80,7 +80,7 @@
     <max_acceleration>0.1</max_acceleration>
     <max_force>0.015</max_force>
     <bounding_radius>1.7</bounding_radius>
-    <detection_distance>20</detection_distance>
+    <detection_distance>25</detection_distance>
     <!-- Distancia a partir de la qual detecto el player y puedo perseguirlo -->
     <chase_distance>10</chase_distance>
     <!-- Creo que ahora no la uso... -->
@@ -101,7 +101,7 @@
     <width_controller>1.7</width_controller>
     <slope>45.0</slope>
     <skin_width>0.1</skin_width>
-    <step_offset>0.5</step_offset>
+    <step_offset>1.5</step_offset>
     <animation_offset>-0.8</animation_offset>
   </default_properties>
 	<default_properties core="conejo">
@@ -114,7 +114,7 @@
 		<speed>2</speed>
 		<max_rotation_speed>360</max_rotation_speed>
 		<min_speed>0.05</min_speed>
-		<max_speed>0.1</max_speed>
+		<max_speed>0.13</max_speed>
 		<max_acceleration>0.1</max_acceleration>
 		<max_force>0.015</max_force>
 		<bounding_radius>0.4</bounding_radius>
@@ -198,15 +198,15 @@
 
     <enemy name="enemy22" core="conejo" animated_instace_name="enemy22" >
 			<position>35 -40 25</position>
-			<active>false</active>
+			<active>falsed</active>
 			<locked>false</locked>
 		</enemy>
-    <!--<enemy name="enemy23" core="conejo" animated_instace_name="enemy23" >
+    <enemy name="enemy23" core="conejo" animated_instace_name="enemy23" >
 			<position>35 -40 30</position>
       <active>false</active>
       <locked>false</locked>
 		</enemy>
-		<enemy name="enemy24" core="conejo" animated_instace_name="enemy24" >
+	<!--	<enemy name="enemy24" core="conejo" animated_instace_name="enemy24" >
 			<position>35 -40 35</position>
       <active>false</active>
       <locked>false</locked>
@@ -222,7 +222,7 @@
 		</enemy>-->
 
     <enemy name="enemy28" core="ciervo" animated_instace_name="enemy28" >
-      <position>35 -40 27</position>
+      <position>44 -40 24</position>
       <active>true</active>
       <locked>false</locked>
     </enemy>
