@@ -47,6 +47,7 @@ CDeerStillAttackState::CDeerStillAttackState( void )
 	, m_pDeer				( NULL )
 	, m_pAnimationCallback	( NULL )
 	, m_PlayerReached		( false )
+	, m_pActionStateCallback( 0, 1 )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_STILL_ATTACK_STATE);
@@ -57,6 +58,7 @@ CDeerStillAttackState::CDeerStillAttackState( const std::string &_Name )
 	, m_pDeer				( NULL )
 	, m_pAnimationCallback	( NULL )
 	, m_PlayerReached		( false )
+	, m_pActionStateCallback( 0, 1 )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_STILL_ATTACK_STATE);
@@ -83,12 +85,18 @@ void CDeerStillAttackState::OnEnter( CCharacter* _Character )
 #if defined _DEBUG
 	if( CORE->IsDebugMode() )
 	{
-		CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Enter Still Attack");
+		CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Still Attack");
 	}
 #endif
 
 	m_PlayerReached = false;
+	m_SoundPlayed1	= false;
+	m_SoundPlayed2	= false;
 	m_pAnimationCallback->Init();
+	
+	//CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerExclaim"); 
+	
+	m_pActionStateCallback.InitAction(0, m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_STILL_ATTACK_STATE) );
 }
 
 void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
@@ -107,10 +115,7 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 			{
 				m_PlayerReached = true;
 			}
-
-			CORE->GetSoundManager()->PlayEvent("Play_EFX_Punch2");
-			CORE->GetSoundManager()->PlayEvent("Play_EFX_Punch3");
-
+			
 			// Compruebo si la animación a finalizado
 			if ( m_pAnimationCallback->IsAnimationFinished() && m_PlayerReached )
 			{
@@ -133,7 +138,7 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Dispatch");
+						LOGGER->AddNewLog( ELL_INFORMATION, "CDeerStillAttackState:Execute->Dispatch" );
 					}
 				#endif
 
@@ -155,9 +160,7 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Still Attack fallit ");
 						LOGGER->AddNewLog(ELL_INFORMATION,"CDeerStillAttackState::Execute->Golpeo erratico");
-
 					}
 				#endif
 
@@ -192,11 +195,23 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime );
 				m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 
+				//float t = m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_STILL_ATTACK_STATE);
+				if ( !m_SoundPlayed1 &&  m_pActionStateCallback.IsActionInTime( 0.7f ) )
+				{
+					m_SoundPlayed1 = true;
+					CORE->GetSoundManager()->PlayEvent("Play_EFX_Punch2"); 
+				}
+
+				if ( !m_SoundPlayed2 &&  m_pActionStateCallback.IsActionInTime( 0.2f ) )
+				{
+					m_SoundPlayed2 = true;
+					CORE->GetSoundManager()->PlayEvent("Play_EFX_Punch3"); 
+				}
+
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("NOT FINISHED YET!");
-						LOGGER->AddNewLog(ELL_INFORMATION,"CDeerStillAttackState::Execute->Animacion en curso");
+						LOGGER->AddNewLog(ELL_INFORMATION,"CDeerStillAttackState::Execute->Animacion en curso...");
 					}
 				#endif
 
@@ -206,6 +221,8 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 					m_pDeer->GetLogicFSM()->RevertToPreviousState();
 					m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetIdleAnimationState());
 				}*/
+
+				m_pActionStateCallback.Update(_ElapsedTime);
 			}
 		}
 		else
@@ -225,11 +242,11 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				
 				m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetStillAttackAnimationState());
 				m_pAnimationCallback->StartAnimation();
-
+				m_pActionStateCallback.StartAction();
+				
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Inici atac");
 						LOGGER->AddNewLog(ELL_INFORMATION,"CDeerStillAttackState::Execute->Inicio Animacion");
 					}
 				#endif
@@ -248,7 +265,6 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Ens apropem primer");
 						LOGGER->AddNewLog(ELL_INFORMATION,"CDeerStillAttackState::Execute->Nos acercamos primero");
 					}
 				#endif
@@ -271,8 +287,9 @@ void CDeerStillAttackState::OnExit( CCharacter* _Character )
 	// nos volvemos
 	/*m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetAttackState());
 	m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetIdleAnimationState());*/
-	LOGGER->AddNewLog(ELL_INFORMATION,"CDeerStillAttackState::Execute->Salgo!");
-
+	
+	//LOGGER->AddNewLog(ELL_INFORMATION,"CDeerStillAttackState::Execute->Salgo!");
+	CORE->GetSoundManager()->PlayEvent("Stop_EFX_DeerExclaim"); 
 }
 
 bool CDeerStillAttackState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
@@ -286,6 +303,7 @@ bool CDeerStillAttackState::OnMessage( CCharacter* _Character, const STelegram& 
 
 		m_pDeer->RestLife(10); 
 		m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetHitState());
+		//m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetHitAnimationState());
 		return true;
 	}
 
