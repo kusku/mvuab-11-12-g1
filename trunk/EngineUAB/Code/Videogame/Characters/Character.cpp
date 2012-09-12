@@ -673,6 +673,11 @@ bool CCharacter::IsEnemyAproximatedToAttack( void )
 	return IsPlayerInsideDistance(this->GetProperties()->GetAproximationDistance());
 }
 
+bool CCharacter::IsPlayerReached( void )
+{
+	return ( IsPlayerInsideDistance(this->GetProperties()->GetImpactDistance() ) && ( IsObstacleVisibleInAngle(GetPlayer(), 60) ) );
+}
+
 Vect3f CCharacter::GetPointOfFront( void ) const
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
@@ -725,6 +730,30 @@ bool CCharacter::IsCollisionedWithSomething	( void )
 {
 
 	return false;
+}
+
+
+bool CCharacter::IsObstacleVisibleInAngle(CCharacter * _Obstacle, float _Angle)
+{
+	assert( _Obstacle );
+	assert( _Angle > 0.f );
+	
+	//Calculamos el vector entre el player y el enemigo
+	Vect3f l_DirToObstacle = _Obstacle->GetPosition() - this->GetPosition();
+	l_DirToObstacle.y = 0.f;
+	l_DirToObstacle.Normalize(1.f);
+
+	//Calculamos el ángulo entre los dos vectores
+	//float l_Angle = l_DirPlayer.AngleWithVector(l_DirEnemy);		// Jordi : Jo tinc això...
+	float l_Angle = GetFront().Dot(l_DirToObstacle);
+	l_Angle = mathUtils::ACos(l_Angle);
+
+	if( l_Angle > _Angle )
+	{
+		return false;
+	}
+
+	return true;
 }
 
 

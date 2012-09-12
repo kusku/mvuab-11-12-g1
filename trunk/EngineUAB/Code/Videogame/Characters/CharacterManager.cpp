@@ -1115,9 +1115,9 @@ bool CCharactersManager::EnemyIsVisibleInAngle(CCharacter *_Enemy, float _Angle,
 	l_DirEnemy.Normalize(1.f);
 
 	//Calculamos el ángulo entre los dos vectores
-	float l_Angle = l_DirPlayer.AngleWithVector(l_DirEnemy);		// Jordi : Jo tinc això...
-	//float l_Angle = l_DirPlayer.Dot(l_DirEnemy);
-	//l_Angle = mathUtils::ACos(l_Angle);
+	//float l_Angle = l_DirPlayer.AngleWithVector(l_DirEnemy);		// Jordi : Jo tinc això...
+	float l_Angle = l_DirPlayer.Dot(l_DirEnemy);
+	l_Angle = mathUtils::ACos(l_Angle);
 
 	if( l_Angle > _Angle )
 	{
@@ -1126,6 +1126,7 @@ bool CCharactersManager::EnemyIsVisibleInAngle(CCharacter *_Enemy, float _Angle,
 
 	return true;
 }
+
 
 void CCharactersManager::CalculateEnemyOrderToAttack( const Vect3f & _Position, float _ViewDistance )
 {

@@ -70,7 +70,9 @@ public:
 	bool						IsPlayerDetected			( void );
 	bool						IsPlayerAtacable			( void );
 	bool						IsPlayerReady				( void );
-	
+	bool						IsPlayerReached				( void );
+	bool						IsObstacleVisibleInAngle	( CCharacter * _Obstacle, float _Angle );
+
 	bool						IsEnemyFocused				( void );
 	bool						IsEnemyPreparedToAttack		( void );
 	bool						IsEnemyAproximatedToAttack	( void );
