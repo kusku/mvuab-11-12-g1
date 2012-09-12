@@ -5,9 +5,16 @@
 			<ChildrenList>
 				<SoundBank Name="Game_Bank" ID="{19A39916-D192-4E74-968D-1B0835ED3C4B}">
 					<ObjectInclusionList>
+						<ObjectRef Name="Play_EFX_Punch2" ID="{A5F77502-27C9-4F39-9186-04A4E9627502}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="Punch2" ID="{FD7B400B-0CF3-48FE-8856-454CFEE38929}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="DeerExclaim" ID="{8243450F-3F8E-46E7-820E-3A60D0896EAC}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_MUS_Level_1" ID="{73F70F20-20AC-4A31-8567-997CD5C13282}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="Stop_EFX_DeerExclaim" ID="{D6A07B3B-24FA-4BD6-AC61-FC139EF8FD7B}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="Play_EFX_DeerExclaim" ID="{DA273953-A19B-4854-A488-A93AFC125466}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="Punch3" ID="{BD55BBA2-D761-4049-8E0A-E1957A77A5EF}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_EFX_Sword" ID="{D65620B1-7106-4282-9F46-70EE054179ED}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="MUS_Level_1" ID="{AA2037B5-5339-4522-A49C-0B82A8069B9B}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="Play_EFX_Punch3" ID="{BF8012CF-19F4-4F63-9AC2-B155557151F1}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="EFX_Sword" ID="{4C045EE6-EB30-4187-A24F-2DE756C95043}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 					</ObjectInclusionList>
 					<ObjectExclusionList />

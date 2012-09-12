@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Windows" SchemaVersion="9">
 	<RootPaths>
-		<ProjectRoot>C:\Users\Marc\Documents\WwiseProjects\Red_Forest\</ProjectRoot>
-		<SourceFilesRoot>C:\Users\Marc\Documents\WwiseProjects\Red_Forest\.cache\Windows\</SourceFilesRoot>
-		<SoundBanksRoot>C:\Users\Marc\Documents\WwiseProjects\Red_Forest\GeneratedSoundBanks\Windows\</SoundBanksRoot>
+		<ProjectRoot>D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\</ProjectRoot>
+		<SourceFilesRoot>D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\</SourceFilesRoot>
+		<SoundBanksRoot>D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\GeneratedSoundBanks\Windows\</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>C:\Users\Marc\Documents\WwiseProjects\Red_Forest\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<Arguments />
 	<DialogueEvents />
@@ -57,15 +57,31 @@
 			<ShortName>Game_Bank</ShortName>
 			<Path>Game_Bank.bnk</Path>
 			<IncludedEvents>
+				<Event Id="3046853085" Name="Play_EFX_DeerExclaim" />
+				<Event Id="3236107786" Name="Play_EFX_Punch2" />
+				<Event Id="3236107787" Name="Play_EFX_Punch3" />
 				<Event Id="3187607523" Name="Play_EFX_Sword" />
 				<Event Id="4101543520" Name="Play_MUS_Level_1" />
+				<Event Id="1167721271" Name="Stop_EFX_DeerExclaim" />
 			</IncludedEvents>
 			<IncludedDialogueEvents />
 			<ReferencedStreamedFiles />
 			<IncludedFullFiles>
+				<File Id="799878212" Language="SFX">
+					<ShortName>DeerExclaim.wav</ShortName>
+					<Path>sfx\deerexclaim_ab9e423f.wem</Path>
+				</File>
 				<File Id="574484578" Language="SFX">
 					<ShortName>level_1_music.wav</ShortName>
 					<Path>sfx\level_1_music_ab9e423e.wem</Path>
+				</File>
+				<File Id="324106989" Language="SFX">
+					<ShortName>Punch2.wav</ShortName>
+					<Path>sfx\punch2_ab9e423f.wem</Path>
+				</File>
+				<File Id="917177926" Language="SFX">
+					<ShortName>Punch3.wav</ShortName>
+					<Path>sfx\punch3_ab9e423f.wem</Path>
 				</File>
 				<File Id="626104674" Language="SFX">
 					<ShortName>sword.wav</ShortName>
