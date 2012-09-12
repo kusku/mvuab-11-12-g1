@@ -28,6 +28,7 @@ CActionStateCallback::~CActionStateCallback( void )
 
 void CActionStateCallback::InitAction( void )														
 { 
+	m_CurrentTime = m_MinTime;
 	m_ActionStarted = false; 
 }
 
@@ -50,7 +51,6 @@ void CActionStateCallback::InitAction( float _MinValue, float _MinIntervalMaxVal
 
 void CActionStateCallback::StartAction( void )
 {
-	m_CurrentTime = m_MinTime;
 	m_ActionStarted = true;
 }
 
