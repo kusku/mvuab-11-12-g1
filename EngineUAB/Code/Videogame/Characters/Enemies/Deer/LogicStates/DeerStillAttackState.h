@@ -40,6 +40,8 @@ public:
 private:
 	CDeer					  * m_pDeer;
 	CAnimationCallback		  *	m_pAnimationCallback;
+
+	bool						m_PlayerReached;		// Indica si el golpeo alcanza el player
 };
 
 
