@@ -71,6 +71,50 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Play_EFX_Punch2" ID="{A5F77502-27C9-4F39-9186-04A4E9627502}">
+					<ChildrenList>
+						<Action Name="Play" ID="{4E279DFD-3E1F-4AE9-9007-FFE86819AB43}" ShortID="410056118" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{524D3903-4465-4D0B-8148-69E11436F349}" Global="false">
+									<ObjectRef Name="Punch2" ID="{FD7B400B-0CF3-48FE-8856-454CFEE38929}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_EFX_Punch3" ID="{BF8012CF-19F4-4F63-9AC2-B155557151F1}">
+					<ChildrenList>
+						<Action Name="Play" ID="{1091028E-261D-46DD-9C33-D581A7D705C6}" ShortID="156652261" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{D75E7D2A-09F7-4D98-8F34-94026A811BD7}" Global="false">
+									<ObjectRef Name="Punch3" ID="{BD55BBA2-D761-4049-8E0A-E1957A77A5EF}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_EFX_DeerExclaim" ID="{DA273953-A19B-4854-A488-A93AFC125466}">
+					<ChildrenList>
+						<Action Name="Play" ID="{124DC5C6-3F98-4F64-88C1-B0EB94E21CF8}" ShortID="501376434" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{5979821D-462D-4C75-9F35-EE480F700720}" Global="false">
+									<ObjectRef Name="DeerExclaim" ID="{8243450F-3F8E-46E7-820E-3A60D0896EAC}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Stop_EFX_DeerExclaim" ID="{D6A07B3B-24FA-4BD6-AC61-FC139EF8FD7B}">
+					<ChildrenList>
+						<Action Name="Stop" ID="{CEB94939-AE2C-44A4-A72A-2130D32F5C42}" ShortID="225434674" Type="Stop" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{4BA0A6DF-4C70-4611-AA5D-525812224B36}" Global="false">
+									<ObjectRef Name="DeerExclaim" ID="{8243450F-3F8E-46E7-820E-3A60D0896EAC}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

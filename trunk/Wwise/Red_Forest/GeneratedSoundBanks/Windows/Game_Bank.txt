@@ -1,8 +1,15 @@
 Event	ID	Name			Wwise Object Path	Notes
+	1167721271	Stop_EFX_DeerExclaim			\Default Work Unit\Stop_EFX_DeerExclaim	
+	3046853085	Play_EFX_DeerExclaim			\Default Work Unit\Play_EFX_DeerExclaim	
 	3187607523	Play_EFX_Sword			\Default Work Unit\Play_EFX_Sword	
+	3236107786	Play_EFX_Punch2			\Default Work Unit\Play_EFX_Punch2	
+	3236107787	Play_EFX_Punch3			\Default Work Unit\Play_EFX_Punch3	
 	4101543520	Play_MUS_Level_1			\Default Work Unit\Play_MUS_Level_1	
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
-	574484578	MUS_Level_1	C:\Users\Marc\Documents\WwiseProjects\Red_Forest\.cache\Windows\sfx\level_1_music_ab9e423e.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Music\MUS_Level_1		11349568
-	626104674	EFX_Sword	C:\Users\Marc\Documents\WwiseProjects\Red_Forest\.cache\Windows\sfx\sword_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\EFX_Sword		101420
+	324106989	Punch2	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\punch2_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Punch2		140044
+	574484578	MUS_Level_1	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\level_1_music_ab9e423e.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Music\MUS_Level_1		11349568
+	626104674	EFX_Sword	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\sword_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\EFX_Sword		101420
+	799878212	DeerExclaim	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\deerexclaim_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\DeerExclaim		2822464
+	917177926	Punch3	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\punch3_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Punch3		882064
 

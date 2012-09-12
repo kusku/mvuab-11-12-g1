@@ -42,6 +42,80 @@
 								<ActiveSource Name="sword" ID="{FB496644-9E32-46B1-8BB0-479700949252}" Platform="Linked" />
 							</ActiveSourceList>
 						</Sound>
+						<Sound Name="Punch2" ID="{FD7B400B-0CF3-48FE-8856-454CFEE38929}" ShortID="824391737" Type="SoundFX">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-25</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ChildrenList>
+								<AudioFileSource Name="Punch2" ID="{E436AFA2-E51A-481D-8FD6-302A08AD801A}" ShortID="324106989">
+									<Language>SFX</Language>
+									<AudioFile>Punch2.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<BusRouting Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" />
+							<ConversionInfo>
+								<ConversionRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" />
+							</ConversionInfo>
+							<ActiveSourceList>
+								<ActiveSource Name="Punch2" ID="{E436AFA2-E51A-481D-8FD6-302A08AD801A}" Platform="Linked" />
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="Punch3" ID="{BD55BBA2-D761-4049-8E0A-E1957A77A5EF}" ShortID="998805389" Type="SoundFX">
+							<ChildrenList>
+								<AudioFileSource Name="Punch3" ID="{F06C51BC-8E74-45CB-B6AD-2E294AC6D13C}" ShortID="917177926">
+									<Language>SFX</Language>
+									<AudioFile>Punch3.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<BusRouting Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" />
+							<ConversionInfo>
+								<ConversionRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" />
+							</ConversionInfo>
+							<ActiveSourceList>
+								<ActiveSource Name="Punch3" ID="{F06C51BC-8E74-45CB-B6AD-2E294AC6D13C}" Platform="Linked" />
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="Left 4 Dead 2   Charger Sounds" ID="{5C68B47D-1810-4D32-BA7B-B941FA881066}" ShortID="24867420" Type="SoundFX">
+							<ChildrenList>
+								<AudioFileSource Name="Left 4 Dead 2   Charger Sounds - copia" ID="{91A11461-F099-44CD-8195-3AA11E6E383F}" ShortID="708208012">
+									<PropertyList>
+										<Property Name="VolumeOffset" Type="Real64">
+											<ValueList>
+												<Value>-9.7</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<Language>SFX</Language>
+									<AudioFile>Left 4 Dead 2   Charger Sounds - copia.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<BusRouting Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" />
+							<ConversionInfo>
+								<ConversionRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" />
+							</ConversionInfo>
+							<ActiveSourceList>
+								<ActiveSource Name="Left 4 Dead 2   Charger Sounds - copia" ID="{91A11461-F099-44CD-8195-3AA11E6E383F}" Platform="Linked" />
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="DeerExclaim" ID="{8243450F-3F8E-46E7-820E-3A60D0896EAC}" ShortID="808795744" Type="SoundFX">
+							<ChildrenList>
+								<AudioFileSource Name="DeerExclaim" ID="{3A88116F-7770-429F-BFBF-311B01C8E5BA}" ShortID="799878212">
+									<Language>SFX</Language>
+									<AudioFile>DeerExclaim.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<BusRouting Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" />
+							<ConversionInfo>
+								<ConversionRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" />
+							</ConversionInfo>
+							<ActiveSourceList>
+								<ActiveSource Name="DeerExclaim" ID="{3A88116F-7770-429F-BFBF-311B01C8E5BA}" Platform="Linked" />
+							</ActiveSourceList>
+						</Sound>
 					</ChildrenList>
 				</Folder>
 			</ChildrenList>
