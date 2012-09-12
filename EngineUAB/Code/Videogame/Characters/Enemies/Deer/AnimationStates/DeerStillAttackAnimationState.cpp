@@ -28,8 +28,8 @@ CDeerStillAttackAnimationState::~CDeerStillAttackAnimationState( void )
 {
 	if ( m_pDeer )
 	{
-		/*int l_Num = m_pDeer->GetAnimationID(DEER_WALK_STATE);
-		m_pDeer->GetAnimatedModel()->ClearCycle(l_Num, 0.3f);*/
+		int l_Num = m_pDeer->GetAnimationID(DEER_STILL_ATTACK_STATE);
+		m_pDeer->GetAnimatedModel()->RemoveAction(l_Num);
 	}
 
 	m_pDeer = NULL;
@@ -50,7 +50,7 @@ void CDeerStillAttackAnimationState::OnEnter( CCharacter* _Character )
 		m_pDeer = dynamic_cast<CDeer*> (_Character);
 	}
 
-	/*int l_iAnimID = m_pDeer->GetAnimationID(DEER_WALK_STATE);
+	/*int l_iAnimID = m_pDeer->GetAnimationID(DEER_STILL_ATTACK_STATE);
 	m_pDeer->GetAnimatedModel()->BlendCycle(l_iAnimID, 0.3f);*/
 
 	int l_Num = m_pDeer->GetAnimationID(DEER_STILL_ATTACK_STATE);
@@ -65,8 +65,11 @@ void CDeerStillAttackAnimationState::OnExit( CCharacter* _Character )
 		m_pDeer = dynamic_cast<CDeer*> (_Character);
 	}
 	
-	/*int l_Num = m_pDeer->GetAnimationID(DEER_WALK_STATE);
-	m_pDeer->GetAnimatedModel()->ClearCycle(l_Num, 0.3f);*/
+	if ( m_pDeer )
+	{
+		int l_Num = m_pDeer->GetAnimationID(DEER_STILL_ATTACK_STATE);
+		m_pDeer->GetAnimatedModel()->RemoveAction(l_Num);
+	}
 }
 
 bool CDeerStillAttackAnimationState::OnMessage( CCharacter*, const STelegram& _Telegram )
