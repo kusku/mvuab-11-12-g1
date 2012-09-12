@@ -26,11 +26,12 @@ CDeerDeathAnimationState::CDeerDeathAnimationState( const std::string &_Name )
 
 CDeerDeathAnimationState::~CDeerDeathAnimationState(void)
 {
-	if (m_pDeer)
+	if ( m_pDeer )
 	{
 		int l_Num = m_pDeer->GetAnimationID(DEER_DEATH_STATE);
-		m_pDeer->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+		m_pDeer->GetAnimatedModel()->RemoveAction(l_Num);
 	}
+
 	m_pDeer = NULL;
 }
 
@@ -61,8 +62,11 @@ void CDeerDeathAnimationState::OnExit( CCharacter* _Character )
 		m_pDeer = dynamic_cast<CDeer*> (_Character);
 	}
 
-	/*int l_Num = m_pDeer->GetAnimationID(DEER_DEATH_STATE);
-	m_pDeer->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );*/
+	if ( m_pDeer )
+	{
+		int l_Num = m_pDeer->GetAnimationID(DEER_DEATH_STATE);
+		m_pDeer->GetAnimatedModel()->RemoveAction(l_Num);
+	}
 }
 
 bool CDeerDeathAnimationState::OnMessage( CCharacter*, const STelegram& _Telegram )
