@@ -5,6 +5,13 @@
 #include "Callbacks\Animation\AnimationCallbackManager.h"
 #include "Callbacks\State\ActionStateCallback.h"
 
+// --- Per pintar l'estat enemic ---
+#include "DebugGUIManager.h"
+#include "DebugInfo\DebugRender.h"
+#include "LogRender\LogRender.h"
+#include "Core.h"
+// ---------------------------------
+
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 
 #include "Characters\Enemies\Deer\Deer.h"
@@ -13,6 +20,7 @@
 #include "DeerPursuitState.h"
 #include "DeerPreparedToAttackState.h"
 #include "DeerTiredState.h"
+#include "DeerIdleState.h"
 
 #include "Characters\Enemies\Deer\AnimationStates\DeerHitAnimationState.h"
 #include "Characters\Enemies\Deer\AnimationStates\DeeridleAnimationState.h"
@@ -71,9 +79,17 @@ void CDeerHitState::OnEnter( CCharacter* _Character )
 	{
 		m_pDeer = dynamic_cast<CDeer*> (_Character);
 	}
-	/*m_pAnimationCallback->Init();
-	m_pAnimationCallback->StartAnimation();*/
-	m_pActionState->SetTimeRange( 0.f, m_pDeer->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_HIT_STATE));
+	m_pAnimationCallback->Init();
+	m_pAnimationCallback->StartAnimation();
+	m_pActionState->InitAction(0.f, m_pDeer->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_HIT_STATE));
+	m_pActionState->StartAction();
+
+	#if defined _DEBUG
+		if( CORE->IsDebugMode() )
+		{
+			CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Hit state");
+		}
+	#endif
 }
 
 void CDeerHitState::Execute( CCharacter* _Character, float _ElapsedTime )
@@ -90,8 +106,8 @@ void CDeerHitState::Execute( CCharacter* _Character, float _ElapsedTime )
 			m_pDeer->GetLogicFSM()->RevertToPreviousState();
 			m_pDeer->GetGraphicFSM()->RevertToPreviousState();
 		}
-	}
-	else
+	}*/
+	/*else
 	{
 		m_pAnimationCallback->StartAnimation();
 	}*/
@@ -103,14 +119,9 @@ void CDeerHitState::Execute( CCharacter* _Character, float _ElapsedTime )
 
 		if ( m_pDeer->IsAlive() ) 
 		{
-			m_pDeer->GetLogicFSM()->RevertToPreviousState();
-			m_pDeer->GetGraphicFSM()->RevertToPreviousState();
+			m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetIdleState());
+			m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetIdleAnimationState());
 		}
-		//else
-		/*{
-			m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetDeathState());
-		}*/
-		
 	}
 	else
 	{
@@ -120,6 +131,10 @@ void CDeerHitState::Execute( CCharacter* _Character, float _ElapsedTime )
 
 void CDeerHitState::OnExit( CCharacter* _Character )
 {
+	//if (!m_pDeer) 
+	//{
+	//	m_pDeer = dynamic_cast<CDeer*> (_Character);
+	//}
 }
 
 bool CDeerHitState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
