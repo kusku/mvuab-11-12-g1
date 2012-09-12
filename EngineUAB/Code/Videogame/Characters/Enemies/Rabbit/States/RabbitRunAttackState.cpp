@@ -228,6 +228,8 @@ void CRabbitRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Atac sense corre!!");
 					}
 				#endif
+				m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetRunAttackAnimationState());
+				m_pAnimationCallback->StartAnimation();
 			}
 			else
 			{
@@ -265,8 +267,8 @@ void CRabbitRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				
 			}
 
-				m_pRabbit->FaceTo( m_pRabbit->GetSteeringEntity()->GetPosition(), _ElapsedTime );
-				m_pRabbit->MoveTo2(  m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+			m_pRabbit->FaceTo( m_pRabbit->GetSteeringEntity()->GetPosition(), _ElapsedTime );
+			m_pRabbit->MoveTo2(  m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 		}
 	}
 	else
