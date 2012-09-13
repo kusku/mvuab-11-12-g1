@@ -46,5 +46,10 @@
 #define DEER_RUN_ATTACK_STATE		"ciervo_attack_2"
 #define DEER_WALK_STATE				"ciervo_walk"
 
+struct sDireccion
+{
+	Vect3f	Direccion;
+	float	ElapsedTime;
+};
 
 #endif __STATES_DEFS_H__

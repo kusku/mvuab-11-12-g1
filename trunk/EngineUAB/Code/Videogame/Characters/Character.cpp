@@ -46,7 +46,6 @@ CCharacter::CCharacter()
 	, m_pController				( NULL )
 	, m_pAnimationsStates		( NULL )
 	, m_pPhysicUserDataJugador	( NULL )
-	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
 	, m_bLocked					( false )
 	, m_pBehaviors				( NULL )
 	, m_pSteeringEntity			( NULL )
@@ -70,7 +69,6 @@ CCharacter::CCharacter( const std::string &_Name )
 	, m_pAnimationsStates		( NULL )
 	, m_pProperties				( NULL )
 	, m_pPhysicUserDataJugador	( NULL )
-	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
 	, m_bLocked					( false )
 	, m_pBehaviors				( NULL )
 	, m_pSteeringEntity			( NULL )
@@ -96,7 +94,6 @@ CCharacter::CCharacter(int _ID, const std::string &_Name)
 	, m_pAnimationsStates		( NULL )
 	, m_pProperties				( NULL )
 	, m_pPhysicUserDataJugador	( NULL )
-	, m_PrevPosition			( Vect3f(0.f, 0.f, 0.f) )
 	, m_bLocked					( false )
 	, m_pBehaviors				( NULL )
 	, m_pSteeringEntity			( NULL )
@@ -444,9 +441,9 @@ void CCharacter::MoveTo2( const Vect3f &_Velocity, float _ElapsedTime )
 	if ( ( this->GetSteeringEntity()->isSmoothingOn() ) && ( this->GetSteeringEntity()->GetSpeed() != 0 ) )
 	{
 		float l_Speed = this->GetSteeringEntity()->GetSpeed();
-		/*Vect3f v = this->GetSteeringEntity()->GetSmoothedHeading();
+		Vect3f v = this->GetSteeringEntity()->GetSmoothedHeading();
 		v.Normalize();
-		l_Velocity = v * l_Speed;*/
+		l_Velocity = v * l_Speed;
 	}
 
 	MoveController(l_Velocity, _ElapsedTime);
@@ -675,7 +672,7 @@ bool CCharacter::IsEnemyAproximatedToAttack( void )
 
 bool CCharacter::IsPlayerReached( void )
 {
-	return ( IsPlayerInsideDistance(this->GetProperties()->GetImpactDistance() ) && ( IsObstacleVisibleInAngle(GetPlayer(), 60) ) );
+	return ( IsPlayerInsideDistance(this->GetProperties()->GetImpactDistance() ) );//&& ( IsObstacleVisibleInAngle(GetPlayer(), 180) ) );
 }
 
 Vect3f CCharacter::GetPointOfFront( void ) const

@@ -188,8 +188,8 @@ void CCharactersManager::Update( float _ElapsedTime )
 		if ( l_pProperties->GetActive() )
 		{
 			CCharacter * l_Character = l_EnemyList[i];
-			l_Character->Update( _ElapsedTime );
 			l_Character->UpdateIA( _ElapsedTime );
+			l_Character->Update( _ElapsedTime );
 			if ( !l_EnemyList[i]->IsAlive() )
 			{
 				if ( m_pTargetEnemy == l_EnemyList[i] )
@@ -254,9 +254,14 @@ void CCharactersManager::Render(CRenderManager *_RM, CFontManager *_FM)
 		_FM->DrawDefaultText(10, 65, colWHITE, "Position: %f, %f, %f", l_Pos.x, l_Pos.y, l_Pos.z);
 	}
 
-	CCharacter* l_Enemy = GetResource("enemy22");
-	if ( l_Enemy )
-		_FM->DrawDefaultText(10, 85, colWHITE, "Position Rabbit: %f, %f, %f", l_Enemy->GetPosition().x, l_Enemy->GetPosition().y, l_Enemy->GetPosition().z);
+	uint32 l_FileNumber = 85;
+	for ( size_t i = 0; i<	m_ResourcesVector.size(); i++ )
+	{
+		CCharacter* l_Enemy = m_ResourcesVector[i];
+		_FM->DrawDefaultText(10, l_FileNumber, colWHITE, "Position %s: %f, %f, %f", l_Enemy->GetName().c_str(), l_Enemy->GetPosition().x, l_Enemy->GetPosition().y, l_Enemy->GetPosition().z);
+		l_FileNumber += 20;
+	}
+
 	
 	if ( CORE->GetPhysicsManager()->GetDrawFront() )
 		DrawFront();
