@@ -48,8 +48,7 @@ void CPlayerAttack3State::OnEnter( CCharacter* _pCharacter )
 	//Calcula el ángulo a moverse
 	CAnimatedInstanceModel *l_pAnimatedModel = _pCharacter->GetAnimatedModel();
 
-	float l_fYaw	= l_pAnimatedModel->GetYaw();
-	l_fYaw			= mathUtils::Deg2Rad( l_fYaw - 90.f );
+	float l_fYaw = _pCharacter->GetController()->GetYaw();
 
 	if( !_pCharacter->GetLocked() )
 	{
@@ -57,8 +56,11 @@ void CPlayerAttack3State::OnEnter( CCharacter* _pCharacter )
 	}
 
 	_pCharacter->GetController()->SetYaw( l_fYaw );
-	l_pAnimatedModel->SetYaw( -mathUtils::Rad2Deg(l_fYaw) + 90.f );
+
 	m_fAttackYaw = l_fYaw;
+
+	l_fYaw = -mathUtils::Rad2Deg(l_fYaw + FLOAT_PI_VALUE/2.f) + 180.f;
+	l_pAnimatedModel->SetYaw( l_fYaw );
 
 	//Inicia el callback
 	m_pCallback->StartAnimation();
