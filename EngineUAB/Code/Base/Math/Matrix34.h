@@ -132,10 +132,10 @@ public:
 
 
   // Acceso  
-  inline Vector3<T>				 GetVectorBasis           (int i) const;
-	inline T								 GetVectorBasisLength    (int i) const;
-  inline Vector3<T>				 GetPosBasis              () const;
-  inline void              GetBasis                 (Vector3<T>& vBasisX,
+  inline Vector3<T>			GetVectorBasis           (int i) const;
+	inline T				GetVectorBasisLength    (int i) const;
+  inline Vector3<T>			GetPosBasis              () const;
+  inline void				GetBasis                 (Vector3<T>& vBasisX,
                                                      Vector3<T>& vBasisY,
                                                      Vector3<T>& vBasisZ,
                                                      Vector3<T>& Pos) const;

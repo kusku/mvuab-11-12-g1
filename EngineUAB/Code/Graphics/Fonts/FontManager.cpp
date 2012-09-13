@@ -93,12 +93,12 @@ bool CFontManager::LoadTTFs (const std::string& pathFile)
     for (int i = 0; i < count; ++i)
     {
 			std::string fontId	= m(i).GetPszProperty("id");
-			std::string name		= m(i).GetPszProperty("name");
-			std::string file		= m(i).GetPszProperty("file");	
-			uint8 size					= m(i).GetIntProperty("size", 10);	
-			bool bold						= m(i).GetBoolProperty("bold", false);	
-			bool italica				= m(i).GetBoolProperty("italica", false);
-			bool _default				= m(i).GetBoolProperty("default", false);
+			std::string name	= m(i).GetPszProperty("name");
+			std::string file	= m(i).GetPszProperty("file");	
+			uint8 size			= m(i).GetIntProperty("size", 10);	
+			bool bold			= m(i).GetBoolProperty("bold", false);	
+			bool italica		= m(i).GetBoolProperty("italica", false);
+			bool _default		= m(i).GetBoolProperty("default", false);
 			
 			std::vector<std::string>::iterator it			= m_vTTFsFiles.begin();
 			std::vector<std::string>::iterator itEnd	= m_vTTFsFiles.end();
