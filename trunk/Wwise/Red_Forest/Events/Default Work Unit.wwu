@@ -115,6 +115,28 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Play_DeerRunAttack" ID="{59444E27-7049-44D9-979B-79F9E7D1C50C}">
+					<ChildrenList>
+						<Action Name="Play" ID="{AF5EF345-3724-4BBE-92E2-6784C4DDFA6F}" ShortID="129783536" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{5D390359-7C7A-41E1-8B59-22DB85F3E42B}" Global="false">
+									<ObjectRef Name="DeerRunAttack" ID="{0DC97446-4C70-4BCA-997D-AFCCCD799907}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_DeerRunAttackCharged" ID="{C8146643-479A-4BA3-8268-CB94CFFFAFB8}">
+					<ChildrenList>
+						<Action Name="Play" ID="{99CD6685-271A-4243-812B-00E11CDD3762}" ShortID="642444855" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{98C39B8B-8649-413C-B0A8-15840CEFDA13}" Global="false">
+									<ObjectRef Name="DeerRunAttackCharged" ID="{91832AAD-4D5F-4272-8F69-BC0E69A1D083}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

@@ -9,9 +9,13 @@
 						<ObjectRef Name="Punch2" ID="{FD7B400B-0CF3-48FE-8856-454CFEE38929}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="DeerExclaim" ID="{8243450F-3F8E-46E7-820E-3A60D0896EAC}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_MUS_Level_1" ID="{73F70F20-20AC-4A31-8567-997CD5C13282}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="Play_DeerRunAttack" ID="{59444E27-7049-44D9-979B-79F9E7D1C50C}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Stop_EFX_DeerExclaim" ID="{D6A07B3B-24FA-4BD6-AC61-FC139EF8FD7B}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="Play_DeerRunAttackCharged" ID="{C8146643-479A-4BA3-8268-CB94CFFFAFB8}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="DeerRunAttack" ID="{0DC97446-4C70-4BCA-997D-AFCCCD799907}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_EFX_DeerExclaim" ID="{DA273953-A19B-4854-A488-A93AFC125466}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Punch3" ID="{BD55BBA2-D761-4049-8E0A-E1957A77A5EF}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="DeerRunAttackCharged" ID="{91832AAD-4D5F-4272-8F69-BC0E69A1D083}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_EFX_Sword" ID="{D65620B1-7106-4282-9F46-70EE054179ED}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="MUS_Level_1" ID="{AA2037B5-5339-4522-A49C-0B82A8069B9B}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_EFX_Punch3" ID="{BF8012CF-19F4-4F63-9AC2-B155557151F1}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
