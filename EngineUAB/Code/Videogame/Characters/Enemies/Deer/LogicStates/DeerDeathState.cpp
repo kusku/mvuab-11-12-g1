@@ -1,5 +1,6 @@
 #include "DeerDeathState.h"
 #include "GameProcess.h"
+#include "SoundManager.h"
 
 // --- Per pintar l'estat enemic ---
 #include "DebugGUIManager.h"
@@ -77,6 +78,9 @@ void CDeerDeathState::OnEnter( CCharacter* _Character )
 #endif
 
 	m_pAnimationCallback->Init();
+	CORE->GetSoundManager()->PlayEvent("Start_EFX_DeerDieingCurta");
+
+	//float t = m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_STILL_ATTACK_STATE);
 }
 
 void CDeerDeathState::Execute( CCharacter* _Character, float _ElapsedTime )
@@ -102,7 +106,7 @@ void CDeerDeathState::Execute( CCharacter* _Character, float _ElapsedTime )
 				}
 			#endif
 			m_pAnimationCallback->Init();
-			m_pDeer->SetEnable(false);	
+			m_pDeer->SetEnable(false);
 			return;
 
 		}
@@ -137,6 +141,7 @@ void CDeerDeathState::Execute( CCharacter* _Character, float _ElapsedTime )
 
 void CDeerDeathState::OnExit( CCharacter* _Character )
 {
+	//CORE->GetSoundManager()->PlayEvent("Stop_EFX_DeerDieingCurta"); 
 }
 
 bool CDeerDeathState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )

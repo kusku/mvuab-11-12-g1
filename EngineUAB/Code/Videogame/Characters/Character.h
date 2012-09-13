@@ -96,39 +96,39 @@ public:
 	inline CPhysicUserData*					GetPhysicUserData	( void ) const			{ return m_pPhysicUserDataJugador; }
 	int										GetAnimationID		( const std::string &_AnimationName );
 
-	inline void					SetPrevPosition		( Vect3f pos )				{ m_PrevPosition = pos; }
-	inline const Vect3f&		GetPrevPosition		( void ) const					{ return m_PrevPosition; }
+	/*inline void					SetPrevPosition		( const Vect3f &pos )				{ m_pSteeringEntity->SetPreviousPosition(pos); }
+	inline Vect3f				GetPrevPosition		( void ) const						{ return m_pSteeringEntity->GetPreviousPosition(); }*/
 
 	void						SetEnable			( bool _Enable );			
-	inline bool					IsEnable			( void ) const				{ return this->GetProperties()->GetActive(); }  // m_bIsEnable; }
+	inline bool					IsEnable			( void ) const						{ return this->GetProperties()->GetActive(); }  // m_bIsEnable; }
 
-	inline void					SetAlive			( bool alive )				{ m_bIsAlive = alive; }
-	inline bool					IsAlive				( void ) const				{ return m_bIsAlive; }
+	inline void					SetAlive			( bool alive )						{ m_bIsAlive = alive; }
+	inline bool					IsAlive				( void ) const						{ return m_bIsAlive; }
 
-	inline void					SetLocked			( bool locked )				{ m_bLocked = locked; }
-	inline bool					GetLocked			( void ) const				{ return m_bLocked; }
+	inline void					SetLocked			( bool locked )						{ m_bLocked = locked; }
+	inline bool					GetLocked			( void ) const						{ return m_bLocked; }
 
-	inline CSteeringBehaviors*	GetBehaviors		( void ) const				{ return m_pBehaviors; }
-	inline CSteeringEntity*		GetSteeringEntity	( void ) const				{ return m_pSteeringEntity; }
+	inline CSteeringBehaviors*	GetBehaviors		( void ) const						{ return m_pBehaviors; }
+	inline CSteeringEntity*		GetSteeringEntity	( void ) const						{ return m_pSteeringEntity; }
 	
 
 	// Obtengo el angulo que forma donde mira
-	inline Vect3f				GetFront			( void ) const					{ Vect3f l_Front; l_Front.GetXZFromAngle( GetYaw() ) ; return l_Front; }
+	inline Vect3f				GetFront			( void ) const						{ Vect3f l_Front; l_Front.GetXZFromAngle( GetYaw() ) ; return l_Front; }
 
 	bool						IsPointAtLeft		( const Vect3f &_Position ) const	
-															{
-																const CPlane p( GetPosition( ), GetPosition( ) + GetFront( ), Vect3f( 0.0f, 1.0f, 0.0f ) );
-																return !p.isPointInside( _Position );
-															}
+														{
+															const CPlane p( GetPosition( ), GetPosition( ) + GetFront( ), Vect3f( 0.0f, 1.0f, 0.0f ) );
+															return !p.isPointInside( _Position );
+														}
 
 	inline void					SetAnimationsStates	( CAnimationsStates* _pAnimationsStates )	{ m_pAnimationsStates = _pAnimationsStates; }
-	inline CAnimationsStates*	GetAnimationsStates	( void ) const									{ return m_pAnimationsStates; }
+	inline CAnimationsStates*	GetAnimationsStates	( void ) const								{ return m_pAnimationsStates; }
 
 	inline void					SetProperties		( CProperties* _pProperties )				{ m_pProperties = _pProperties; }
-	inline CProperties*			GetProperties		( void ) const									{ return m_pProperties; }
+	inline CProperties*			GetProperties		( void ) const								{ return m_pProperties; }
 
-	inline void					SetReadyToAttack	( bool _isReady )			{ m_ReadyToAttack = _isReady; }
-	inline bool					GetReadyToAttack	( void ) const				{ return m_ReadyToAttack; }
+	inline void					SetReadyToAttack	( bool _isReady )							{ m_ReadyToAttack = _isReady; }
+	inline bool					GetReadyToAttack	( void ) const								{ return m_ReadyToAttack; }
 
 	CState<CCharacter>*			GetLogicState		( const std::string &_State );
 	CState<CCharacter>*			GetAnimationState	( const std::string &_State );
@@ -159,8 +159,6 @@ protected:
 	CPhysicController			  * m_pController;
 	CPhysicUserData				  * m_pPhysicUserDataJugador;
 	
-	Vect3f							m_PrevPosition;
-
 	CSteeringBehaviors			  * m_pBehaviors;
 	CSteeringEntity				  * m_pSteeringEntity;
 
