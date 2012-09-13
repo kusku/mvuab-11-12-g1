@@ -57,6 +57,8 @@
 			<ShortName>Game_Bank</ShortName>
 			<Path>Game_Bank.bnk</Path>
 			<IncludedEvents>
+				<Event Id="972672377" Name="Play_DeerRunAttack" />
+				<Event Id="952108287" Name="Play_DeerRunAttackCharged" />
 				<Event Id="3046853085" Name="Play_EFX_DeerExclaim" />
 				<Event Id="3236107786" Name="Play_EFX_Punch2" />
 				<Event Id="3236107787" Name="Play_EFX_Punch3" />
@@ -70,6 +72,14 @@
 				<File Id="799878212" Language="SFX">
 					<ShortName>DeerExclaim.wav</ShortName>
 					<Path>sfx\deerexclaim_ab9e423f.wem</Path>
+				</File>
+				<File Id="768856873" Language="SFX">
+					<ShortName>DeerRunAttack.wav</ShortName>
+					<Path>sfx\deerrunattack_ab9e423f.wem</Path>
+				</File>
+				<File Id="810415683" Language="SFX">
+					<ShortName>DeerRunAttackCharged.wav</ShortName>
+					<Path>sfx\deerrunattackcharged_ab9e423f.wem</Path>
 				</File>
 				<File Id="574484578" Language="SFX">
 					<ShortName>level_1_music.wav</ShortName>
