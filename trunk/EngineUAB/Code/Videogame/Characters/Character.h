@@ -54,7 +54,6 @@ public:
 	void						MoveTo2						( const Vect3f &_Position, float _ElapsedTime );
 	void						FaceTo						( const Vect3f &_Position, float _ElapsedTime );
 	void						FaceTo2						( const Vect3f &_Position, float _ElapsedTime );
-	//bool						IsPlayerDetected			( void );
 	
 	void						AddLife						( int _Life );								
 	void						RestLife					( int _Life );								
@@ -68,6 +67,7 @@ public:
 	inline bool					IsPlayerInsideDistance		( float _Distance );
 	bool						IsPlayerInsideImpactDistance( void );
 	bool						IsPlayerDetected			( void );
+	bool						IsPlayerChased				( void );
 	bool						IsPlayerAtacable			( void );
 	bool						IsPlayerReady				( void );
 	bool						IsPlayerReached				( void );
@@ -78,7 +78,7 @@ public:
 	bool						IsEnemyAproximatedToAttack	( void );
 	
 	Vect3f						GetPointOfFront				( void ) const;
-	void						GoInTofrustum				( float _RangeAngle, float _ElapsedTime );	// Permite colocar un caracter dentro del frustum de la càmara en unos grados desde el centro
+	bool						HaveToGoIntoFrustum			( float _RangeAngle, float _ElapsedTime );	// Permite colocar un caracter dentro del frustum de la càmara en unos grados desde el centro
 	
 	bool						IsCollisionedWithSomething	( void );
 
@@ -127,8 +127,8 @@ public:
 	inline void					SetProperties		( CProperties* _pProperties )				{ m_pProperties = _pProperties; }
 	inline CProperties*			GetProperties		( void ) const								{ return m_pProperties; }
 
-	inline void					SetReadyToAttack	( bool _isReady )							{ m_ReadyToAttack = _isReady; }
-	inline bool					GetReadyToAttack	( void ) const								{ return m_ReadyToAttack; }
+	inline void					SetAvalaibleToAttack	( bool _isReady )							{ m_ReadyToAttack = _isReady; }
+	inline bool					GetAvalaibleToAttack	( void ) const								{ return m_ReadyToAttack; }
 
 	CState<CCharacter>*			GetLogicState		( const std::string &_State );
 	CState<CCharacter>*			GetAnimationState	( const std::string &_State );

@@ -13,6 +13,7 @@
 // ---------------------------------
 
 #include "Characters\Enemies\Wolf\Wolf.h"
+#include "Characters\Character.h"
 
 #include "WolfPursuitState.h"
 #include "WolfAttackState.h"
@@ -107,7 +108,7 @@ void CWolfPreparedToAttackState::Execute( CCharacter* _Character, float _Elapsed
 		#endif
 
 		// Si el player puede atacar porque és uno de los más cercanos pero aun no és el elegido
-		if ( m_pWolf->GetReadyToAttack() ) 
+		if ( m_pWolf->GetAvalaibleToAttack() ) 
 		{
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
@@ -119,7 +120,7 @@ void CWolfPreparedToAttackState::Execute( CCharacter* _Character, float _Elapsed
 			// Este enemigo puede atacar. Ahora miro si está dentro del angulo de vision pero no es el elegido para atacar. Por tanto, vamos hacia el player para tener opciones de ser
 			// el elegido para atacar
 			float l_Angle = 22.f;			//math.pi/15		// 12 graus de fustrum
-			m_pWolf->GoInTofrustum(l_Angle, _ElapsedTime);
+			m_pWolf->HaveToGoIntoFrustum(l_Angle, _ElapsedTime);
 			m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetWalkAnimationState());
 		}
 		
