@@ -38,8 +38,10 @@ public:
 
 	//----Members ---------------------------------------------
 private:
-	CDeer					  * m_pDeer;
-
+	CDeer	*	m_pDeer;
+		
+	bool		m_AlreadyDetected;
+	bool		m_AlreadyChased;
 };
 
 

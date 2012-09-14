@@ -1,5 +1,6 @@
 #include "DeerIdleState.h"
 #include "Utils\BoostRandomHelper.h"
+#include "SoundManager.h"
 
 // --- Per pintar l'estat enemic ---
 #include "DebugGUIManager.h"
@@ -29,14 +30,18 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CDeerIdleState::CDeerIdleState( void )
-	: CState		("CDeerIdleState")
-	, m_pDeer		( NULL )
-{
+	: CState			("CDeerIdleState")
+	, m_pDeer			( NULL )
+	, m_AlreadyDetected	( false )
+	, m_AlreadyChased	( false )
+{	  
 }
 
 CDeerIdleState::CDeerIdleState( const std::string &_Name )
 	: CState		(_Name)
 	, m_pDeer		( NULL )
+	, m_AlreadyDetected	( false )
+	, m_AlreadyChased	( false )
 {
 }
 
@@ -58,6 +63,8 @@ void CDeerIdleState::OnEnter( CCharacter* _Character )
 	}
 	
 	m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetIdleAnimationState());
+	m_AlreadyDetected = false;
+	m_AlreadyChased = false;
 
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
@@ -74,8 +81,15 @@ void CDeerIdleState::Execute( CCharacter* _Character, float _ElapsedTime )
 		m_pDeer = dynamic_cast<CDeer*> (_Character);
 	}
 
-	if ( m_pDeer->IsPlayerDetected() ) 
+	if ( !m_AlreadyDetected && m_pDeer->IsPlayerDetected() ) 
 	{
+		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerEnemyDetected");
+		m_AlreadyDetected = true;
+	}
+
+	if ( m_pDeer->IsPlayerChased() ) 
+	{
+		CORE->GetSoundManager()->PlayEvent("Stop_EFX_DeerEnemyDetected");
 		m_pDeer->GetLogicFSM()->ChangeState( m_pDeer->GetPursuitState());
 		m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetRunAnimationState());
 	}

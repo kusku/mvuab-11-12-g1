@@ -1,7 +1,8 @@
- #include "DeerPursuitState.h"
+#include "DeerPursuitState.h"
 #include "DeerIdleState.h"
 #include "DeerPreparedToAttackState.h"
 #include "DeerHitState.h"
+#include "SoundManager.h"
 
 #include "Characters\Enemies\Deer\AnimationStates\DeerIdleAnimationState.h"
 #include "Characters\Enemies\Deer\AnimationStates\DeerHitAnimationState.h"
@@ -23,7 +24,6 @@
 #if defined(_DEBUG)
 	#include "Memory\MemLeaks.h"
 #endif
-
 
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
@@ -68,6 +68,8 @@ void CDeerPursuitState::OnEnter( CCharacter* _Character )
 	m_pDeer->GetBehaviors()->CohesionOff();
 	m_pDeer->GetBehaviors()->CollisionAvoidanceOn();
 	m_pDeer->GetBehaviors()->ObstacleWallAvoidanceOn();
+
+	CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerRun1");
 }
 
 void CDeerPursuitState::Execute( CCharacter* _Character, float _ElapsedTime )
@@ -135,7 +137,9 @@ void CDeerPursuitState::OnExit( CCharacter* _Character )
 	m_pDeer->GetBehaviors()->SeparationOff();
 	m_pDeer->GetBehaviors()->CohesionOff();
 	//m_pDeer->GetBehaviors()->AlignmentOff();
-	
+
+	CORE->GetSoundManager()->PlayEvent("Stop_EFX_DeerRun");
+
 }
 
 bool CDeerPursuitState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )

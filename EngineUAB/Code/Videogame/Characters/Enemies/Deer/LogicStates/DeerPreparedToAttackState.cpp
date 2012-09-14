@@ -81,14 +81,12 @@ void CDeerPreparedToAttackState::Execute( CCharacter* _Character, float _Elapsed
 
 		// Reseteamos la velocidad del enemigo
 		m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-		m_pDeer->FaceTo( m_pDeer->GetSteeringEntity()->GetPosition(), _ElapsedTime );
+		m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime );
 		m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
-
 
 		#if defined _DEBUG
 			if( CORE->IsDebugMode() )
 			{
-				CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Prepared-Atacable");
 				LOGGER->AddNewLog(ELL_INFORMATION,"CDeerPreparedToAttackState::Execute->Change to Attack State");
 			}
 		#endif
@@ -98,18 +96,26 @@ void CDeerPreparedToAttackState::Execute( CCharacter* _Character, float _Elapsed
 	else if ( m_pDeer->IsEnemyPreparedToAttack() ) 
 	{
 		// Si el player puede atacar porque és uno de los más cercanos pero aun no és el elegido (el que realmente ataca ya que solo ataca 1)
-		if ( m_pDeer->GetReadyToAttack() ) 
+		if ( m_pDeer->GetAvalaibleToAttack() ) 
 		{
-			// Este enemigo puede atacar. Ahora miro si está dentro del angulo de vision pero no es el elegido para atacar. Por tanto, vamos hacia el player para tener opciones de ser
-			// el elegido para atacar
-			float l_Angle = 7.f;			//math.pi/15		// 12 graus de fustrum
-			m_pDeer->GoInTofrustum(l_Angle, _ElapsedTime);
+			// Este enemigo podria atacar pero no es el seleccionado. Ahora miro si está dentro del angulo de vision y si no lo está lo metemos
+			float l_Angle = 60.f;			//math.pi/15		// 12 graus de fustrum
+			if ( !m_pDeer->HaveToGoIntoFrustum(l_Angle, _ElapsedTime) )
+			{
+				return;
+			}
+			// Lo tengo en frente
+			else
+			{
+
+			}
+
 			//m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetWalkAnimationState());		// dudo de si uno u otro. Faltan pasos laterales...
 			m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetRunAnimationState());
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
-					CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Prepared-Walk");
+					LOGGER->AddNewLog(ELL_INFORMATION,"CDeerPreparedToAttackState::Execute->Prepared-Walk");
 				}
 			#endif
 		}
@@ -123,7 +129,7 @@ void CDeerPreparedToAttackState::Execute( CCharacter* _Character, float _Elapsed
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
-					CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Not Ready-Too far");
+					LOGGER->AddNewLog(ELL_INFORMATION,"CDeerPreparedToAttackState::Execute->Not Ready-Too far");
 				}
 			#endif
 		}

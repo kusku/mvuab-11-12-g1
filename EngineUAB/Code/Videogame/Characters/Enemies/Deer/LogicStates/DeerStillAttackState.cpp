@@ -196,16 +196,29 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 
 				//float t = m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_STILL_ATTACK_STATE);
-				if ( !m_SoundPlayed1 &&  m_pActionStateCallback.IsActionInTime( 0.7f ) )
+
+				// Sonido de bofetada 
+				if ( m_PlayerReached && !m_SoundPlayed1 &&  m_pActionStateCallback.IsActionInTime( 0.7f ) )
 				{
 					m_SoundPlayed1 = true;
 					CORE->GetSoundManager()->PlayEvent("Play_EFX_Punch2"); 
 				}
+				// Sonido de bofetada fallida
+				else if ( !m_PlayerReached && !m_SoundPlayed1 &&  m_pActionStateCallback.IsActionInTime( 0.7f ) )
+				{
+					CORE->GetSoundManager()->PlayEvent("Play_EFX_Slap1"); 
+				}
 
-				if ( !m_SoundPlayed2 &&  m_pActionStateCallback.IsActionInTime( 0.2f ) )
+				// Sonido de bofetada 
+				if ( m_PlayerReached && !m_SoundPlayed2 &&  m_pActionStateCallback.IsActionInTime( 0.2f ) )
 				{
 					m_SoundPlayed2 = true;
 					CORE->GetSoundManager()->PlayEvent("Play_EFX_Punch3"); 
+				}
+				// Sonido de bofetada fallida
+				else if ( !m_PlayerReached && !m_SoundPlayed2 &&  m_pActionStateCallback.IsActionInTime( 0.2f ) )
+				{
+					CORE->GetSoundManager()->PlayEvent("Play_EFX_Slap1"); 
 				}
 
 				#if defined _DEBUG
