@@ -1,19 +1,40 @@
 Event	ID	Name			Wwise Object Path	Notes
-	952108287	Play_DeerRunAttackCharged			\Default Work Unit\Play_DeerRunAttackCharged	
-	972672377	Play_DeerRunAttack			\Default Work Unit\Play_DeerRunAttack	
+	316894959	Play_EFX_Slap1			\Default Work Unit\Play_EFX_Slap1	
+	395908972	Play_EFX_DeerRun1			\Default Work Unit\Play_EFX_DeerRun1	
+	395908974	Play_EFX_DeerRun3			\Default Work Unit\Play_EFX_DeerRun3	
+	395908975	Play_EFX_DeerRun2			\Default Work Unit\Play_EFX_DeerRun2	
 	1167721271	Stop_EFX_DeerExclaim			\Default Work Unit\Stop_EFX_DeerExclaim	
+	1424649022	Play_EFX_DeerEnemyDetected			\Default Work Unit\Play_EFX_DeerEnemyDetected	
+	1621476486	Play_EFX_GUI_Button_Back			\Default Work Unit\Play_EFX_GUI_Button_Back	
+	1872702407	Play_EFX_DeerRunAttack			\Default Work Unit\Play_EFX_DeerRunAttack	
+	1954071212	Play_MUS_GUI_Intro			\Default Work Unit\Play_MUS_GUI_Intro	
+	2072356606	Play_EFX_DeerDieing			\Default Work Unit\Play_EFX_DeerDieing	
+	2151123781	Play_EFX_GUI_Button_Over			\Default Work Unit\Play_EFX_GUI_Button_Over	
 	3046853085	Play_EFX_DeerExclaim			\Default Work Unit\Play_EFX_DeerExclaim	
 	3187607523	Play_EFX_Sword			\Default Work Unit\Play_EFX_Sword	
 	3236107786	Play_EFX_Punch2			\Default Work Unit\Play_EFX_Punch2	
 	3236107787	Play_EFX_Punch3			\Default Work Unit\Play_EFX_Punch3	
+	3677424533	Play_EFX_DeerRunAttackCharged			\Default Work Unit\Play_EFX_DeerRunAttackCharged	
 	4101543520	Play_MUS_Level_1			\Default Work Unit\Play_MUS_Level_1	
+	4146057876	Stop_EFX_DeerEnemyDetected			\Default Work Unit\Stop_EFX_DeerEnemyDetected	
+	4151175976	Play_EFX_GUI_Button_Next			\Default Work Unit\Play_EFX_GUI_Button_Next	
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
-	324106989	Punch2	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\punch2_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Deer\Punch2		140044
+	18890471	EFX_GUI_Button_Next	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\gui_next_ab9e423f.wem		\Actor-Mixer Hierarchy\GUI_Work_Unit\Effects\EFX_GUI_Button_Next		4986
+	22097105	Slap1	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\slap1_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Punches and Slaps\Slap1		72388
+	231337779	EFX_GUI_Button_Over	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\gui_over_ab9e423f.wem		\Actor-Mixer Hierarchy\GUI_Work_Unit\Effects\EFX_GUI_Button_Over		4986
+	324106989	Punch2	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\punch2_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Punches and Slaps\Punch2		140044
 	574484578	MUS_Level_1	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\level_1_music_ab9e423e.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Music\MUS_Level_1		11349568
 	626104674	EFX_Sword	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\sword_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\EFX_Sword		101420
+	687257127	DeerEnemyDetected	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\deerenemydetected_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Deer\DeerEnemyDetected		4057264
+	750670534	DeerRun1	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\deerrun1_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Deer\DeerRun1		441064
 	768856873	DeerRunAttack	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\deerrunattack_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Deer\DeerRunAttack		282304
 	799878212	DeerExclaim	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\deerexclaim_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Deer\DeerExclaim		2822464
+	809673470	DeerRun2	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\deerrun2_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Deer\DeerRun2		511624
 	810415683	DeerRunAttackCharged	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\deerrunattackcharged_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Deer\DeerRunAttackCharged		119660
-	917177926	Punch3	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\punch3_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Deer\Punch3		882064
+	854445391	DeerDieing	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\deerdieing_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Deer\DeerDieing		419896
+	917177926	Punch3	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\punch3_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Punches and Slaps\Punch3		882064
+	1013933578	MUS_GUI_Intro	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\gui_audio_ab9e423e.wem		\Actor-Mixer Hierarchy\GUI_Work_Unit\Music\MUS_GUI_Intro		30058048
+	1033538310	DeerRun3	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\deerrun3_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Deer\DeerRun3		1650464
+	1048577469	EFX_GUI_Button_Back	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\gui_back_ab9e423f.wem		\Actor-Mixer Hierarchy\GUI_Work_Unit\Effects\EFX_GUI_Button_Back		4730
 

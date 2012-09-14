@@ -74,6 +74,100 @@
 										<ActiveSource Name="DeerRunAttack" ID="{9BDC5A28-3F8E-40AB-A807-CEEEB4FCC5F6}" Platform="Linked" />
 									</ActiveSourceList>
 								</Sound>
+								<Sound Name="DeerRunAttackCharged" ID="{91832AAD-4D5F-4272-8F69-BC0E69A1D083}" ShortID="1062760307" Type="SoundFX">
+									<ChildrenList>
+										<AudioFileSource Name="DeerRunAttackCharged" ID="{55EA953C-321B-43AA-9CDB-EEF3F74DFE22}" ShortID="810415683">
+											<Language>SFX</Language>
+											<AudioFile>DeerRunAttackCharged.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<BusRouting Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" />
+									<ConversionInfo>
+										<ConversionRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" />
+									</ConversionInfo>
+									<ActiveSourceList>
+										<ActiveSource Name="DeerRunAttackCharged" ID="{55EA953C-321B-43AA-9CDB-EEF3F74DFE22}" Platform="Linked" />
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="DeerDieing" ID="{FBEB9BC6-B2B1-4020-9AC8-AF34D671EC67}" ShortID="707629076" Type="SoundFX">
+									<ChildrenList>
+										<AudioFileSource Name="DeerDieing" ID="{22D1473E-5EE0-409D-BD3C-C9075BAC1C68}" ShortID="854445391">
+											<Language>SFX</Language>
+											<AudioFile>DeerDieing.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<BusRouting Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" />
+									<ConversionInfo>
+										<ConversionRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" />
+									</ConversionInfo>
+									<ActiveSourceList>
+										<ActiveSource Name="DeerDieing" ID="{22D1473E-5EE0-409D-BD3C-C9075BAC1C68}" Platform="Linked" />
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="DeerEnemyDetected" ID="{0339D56E-69AA-48D1-8AC2-CCF383299018}" ShortID="1024027850" Type="SoundFX">
+									<ChildrenList>
+										<AudioFileSource Name="DeerEnemyDetected" ID="{D9FD49BC-ED7D-4F4F-927E-2D4DB5C5C44E}" ShortID="687257127">
+											<Language>SFX</Language>
+											<AudioFile>DeerEnemyDetected.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<BusRouting Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" />
+									<ConversionInfo>
+										<ConversionRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" />
+									</ConversionInfo>
+									<ActiveSourceList>
+										<ActiveSource Name="DeerEnemyDetected" ID="{D9FD49BC-ED7D-4F4F-927E-2D4DB5C5C44E}" Platform="Linked" />
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="DeerRun1" ID="{B5540C88-6785-498B-9BFF-2DAB99514E31}" ShortID="795177003" Type="SoundFX">
+									<ChildrenList>
+										<AudioFileSource Name="DeerRun1" ID="{31E1C366-EB78-45E4-9278-A17CAE3C49C8}" ShortID="750670534">
+											<Language>SFX</Language>
+											<AudioFile>DeerRun1.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<BusRouting Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" />
+									<ConversionInfo>
+										<ConversionRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" />
+									</ConversionInfo>
+									<ActiveSourceList>
+										<ActiveSource Name="DeerRun1" ID="{31E1C366-EB78-45E4-9278-A17CAE3C49C8}" Platform="Linked" />
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="DeerRun2" ID="{859E281C-5F89-48A8-83F8-D3328603C939}" ShortID="102152022" Type="SoundFX">
+									<ChildrenList>
+										<AudioFileSource Name="DeerRun2" ID="{34D97927-7FBA-4A37-9007-EDDB6BC8B975}" ShortID="809673470">
+											<Language>SFX</Language>
+											<AudioFile>DeerRun2.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<BusRouting Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" />
+									<ConversionInfo>
+										<ConversionRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" />
+									</ConversionInfo>
+									<ActiveSourceList>
+										<ActiveSource Name="DeerRun2" ID="{34D97927-7FBA-4A37-9007-EDDB6BC8B975}" Platform="Linked" />
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="DeerRun3" ID="{5F7E0F19-F1AB-4DB4-94A1-460AD5E9E161}" ShortID="33368690" Type="SoundFX">
+									<ChildrenList>
+										<AudioFileSource Name="DeerRun3" ID="{92B4B704-605B-4802-B425-8436638D8109}" ShortID="1033538310">
+											<Language>SFX</Language>
+											<AudioFile>DeerRun3.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<BusRouting Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" />
+									<ConversionInfo>
+										<ConversionRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" />
+									</ConversionInfo>
+									<ActiveSourceList>
+										<ActiveSource Name="DeerRun3" ID="{92B4B704-605B-4802-B425-8436638D8109}" Platform="Linked" />
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+						</Folder>
+						<Folder Name="Punches and Slaps" ID="{059AADCD-683E-499C-B538-EC259B1D4C01}" ShortID="394154334">
+							<ChildrenList>
 								<Sound Name="Punch2" ID="{FD7B400B-0CF3-48FE-8856-454CFEE38929}" ShortID="824391737" Type="SoundFX">
 									<PropertyList>
 										<Property Name="Volume" Type="Real64">
@@ -111,18 +205,11 @@
 										<ActiveSource Name="Punch3" ID="{F06C51BC-8E74-45CB-B6AD-2E294AC6D13C}" Platform="Linked" />
 									</ActiveSourceList>
 								</Sound>
-								<Sound Name="Left 4 Dead 2   Charger Sounds" ID="{5C68B47D-1810-4D32-BA7B-B941FA881066}" ShortID="24867420" Type="SoundFX">
+								<Sound Name="Slap1" ID="{D0F4053C-3EFC-4BCA-8C7F-868364E09D66}" ShortID="93531494" Type="SoundFX">
 									<ChildrenList>
-										<AudioFileSource Name="Left 4 Dead 2   Charger Sounds - copia" ID="{91A11461-F099-44CD-8195-3AA11E6E383F}" ShortID="708208012">
-											<PropertyList>
-												<Property Name="VolumeOffset" Type="Real64">
-													<ValueList>
-														<Value>-9.7</Value>
-													</ValueList>
-												</Property>
-											</PropertyList>
+										<AudioFileSource Name="Slap1" ID="{DA508070-7956-4E60-9073-91A6B8BE0CB7}" ShortID="22097105">
 											<Language>SFX</Language>
-											<AudioFile>Left 4 Dead 2   Charger Sounds - copia.wav</AudioFile>
+											<AudioFile>Slap1.wav</AudioFile>
 										</AudioFileSource>
 									</ChildrenList>
 									<BusRouting Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" />
@@ -130,22 +217,7 @@
 										<ConversionRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" />
 									</ConversionInfo>
 									<ActiveSourceList>
-										<ActiveSource Name="Left 4 Dead 2   Charger Sounds - copia" ID="{91A11461-F099-44CD-8195-3AA11E6E383F}" Platform="Linked" />
-									</ActiveSourceList>
-								</Sound>
-								<Sound Name="DeerRunAttackCharged" ID="{91832AAD-4D5F-4272-8F69-BC0E69A1D083}" ShortID="1062760307" Type="SoundFX">
-									<ChildrenList>
-										<AudioFileSource Name="DeerRunAttackCharged" ID="{55EA953C-321B-43AA-9CDB-EEF3F74DFE22}" ShortID="810415683">
-											<Language>SFX</Language>
-											<AudioFile>DeerRunAttackCharged.wav</AudioFile>
-										</AudioFileSource>
-									</ChildrenList>
-									<BusRouting Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" />
-									<ConversionInfo>
-										<ConversionRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" />
-									</ConversionInfo>
-									<ActiveSourceList>
-										<ActiveSource Name="DeerRunAttackCharged" ID="{55EA953C-321B-43AA-9CDB-EEF3F74DFE22}" Platform="Linked" />
+										<ActiveSource Name="Slap1" ID="{DA508070-7956-4E60-9073-91A6B8BE0CB7}" Platform="Linked" />
 									</ActiveSourceList>
 								</Sound>
 							</ChildrenList>

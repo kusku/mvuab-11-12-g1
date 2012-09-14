@@ -57,21 +57,52 @@
 			<ShortName>Game_Bank</ShortName>
 			<Path>Game_Bank.bnk</Path>
 			<IncludedEvents>
-				<Event Id="972672377" Name="Play_DeerRunAttack" />
-				<Event Id="952108287" Name="Play_DeerRunAttackCharged" />
+				<Event Id="2072356606" Name="Play_EFX_DeerDieing" />
+				<Event Id="1424649022" Name="Play_EFX_DeerEnemyDetected" />
 				<Event Id="3046853085" Name="Play_EFX_DeerExclaim" />
+				<Event Id="395908972" Name="Play_EFX_DeerRun1" />
+				<Event Id="395908975" Name="Play_EFX_DeerRun2" />
+				<Event Id="395908974" Name="Play_EFX_DeerRun3" />
+				<Event Id="1872702407" Name="Play_EFX_DeerRunAttack" />
+				<Event Id="3677424533" Name="Play_EFX_DeerRunAttackCharged" />
+				<Event Id="1621476486" Name="Play_EFX_GUI_Button_Back" />
+				<Event Id="4151175976" Name="Play_EFX_GUI_Button_Next" />
+				<Event Id="2151123781" Name="Play_EFX_GUI_Button_Over" />
 				<Event Id="3236107786" Name="Play_EFX_Punch2" />
 				<Event Id="3236107787" Name="Play_EFX_Punch3" />
+				<Event Id="316894959" Name="Play_EFX_Slap1" />
 				<Event Id="3187607523" Name="Play_EFX_Sword" />
+				<Event Id="1954071212" Name="Play_MUS_GUI_Intro" />
 				<Event Id="4101543520" Name="Play_MUS_Level_1" />
+				<Event Id="4146057876" Name="Stop_EFX_DeerEnemyDetected" />
 				<Event Id="1167721271" Name="Stop_EFX_DeerExclaim" />
 			</IncludedEvents>
 			<IncludedDialogueEvents />
 			<ReferencedStreamedFiles />
 			<IncludedFullFiles>
+				<File Id="854445391" Language="SFX">
+					<ShortName>DeerDieing.wav</ShortName>
+					<Path>sfx\deerdieing_ab9e423f.wem</Path>
+				</File>
+				<File Id="687257127" Language="SFX">
+					<ShortName>DeerEnemyDetected.wav</ShortName>
+					<Path>sfx\deerenemydetected_ab9e423f.wem</Path>
+				</File>
 				<File Id="799878212" Language="SFX">
 					<ShortName>DeerExclaim.wav</ShortName>
 					<Path>sfx\deerexclaim_ab9e423f.wem</Path>
+				</File>
+				<File Id="750670534" Language="SFX">
+					<ShortName>DeerRun1.wav</ShortName>
+					<Path>sfx\deerrun1_ab9e423f.wem</Path>
+				</File>
+				<File Id="809673470" Language="SFX">
+					<ShortName>DeerRun2.wav</ShortName>
+					<Path>sfx\deerrun2_ab9e423f.wem</Path>
+				</File>
+				<File Id="1033538310" Language="SFX">
+					<ShortName>DeerRun3.wav</ShortName>
+					<Path>sfx\deerrun3_ab9e423f.wem</Path>
 				</File>
 				<File Id="768856873" Language="SFX">
 					<ShortName>DeerRunAttack.wav</ShortName>
@@ -80,6 +111,22 @@
 				<File Id="810415683" Language="SFX">
 					<ShortName>DeerRunAttackCharged.wav</ShortName>
 					<Path>sfx\deerrunattackcharged_ab9e423f.wem</Path>
+				</File>
+				<File Id="1013933578" Language="SFX">
+					<ShortName>gui_audio.wav</ShortName>
+					<Path>sfx\gui_audio_ab9e423e.wem</Path>
+				</File>
+				<File Id="1048577469" Language="SFX">
+					<ShortName>gui_back.wav</ShortName>
+					<Path>sfx\gui_back_ab9e423f.wem</Path>
+				</File>
+				<File Id="18890471" Language="SFX">
+					<ShortName>gui_next.wav</ShortName>
+					<Path>sfx\gui_next_ab9e423f.wem</Path>
+				</File>
+				<File Id="231337779" Language="SFX">
+					<ShortName>gui_over.wav</ShortName>
+					<Path>sfx\gui_over_ab9e423f.wem</Path>
 				</File>
 				<File Id="574484578" Language="SFX">
 					<ShortName>level_1_music.wav</ShortName>
@@ -92,6 +139,10 @@
 				<File Id="917177926" Language="SFX">
 					<ShortName>Punch3.wav</ShortName>
 					<Path>sfx\punch3_ab9e423f.wem</Path>
+				</File>
+				<File Id="22097105" Language="SFX">
+					<ShortName>Slap1.wav</ShortName>
+					<Path>sfx\slap1_ab9e423f.wem</Path>
 				</File>
 				<File Id="626104674" Language="SFX">
 					<ShortName>sword.wav</ShortName>
