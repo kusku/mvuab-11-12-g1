@@ -30,14 +30,14 @@
 // -----------------------------------------
 CDeerTiredState::CDeerTiredState( void )
 	: CState		("CDeerTiredState")
-	, m_ActionTime	( CActionStateCallback( 0.5f, 1.f ) )
+	, m_ActionTime	( 1.5f, 2.f )
 	, m_pDeer		( NULL )
 {
 }
 
 CDeerTiredState::CDeerTiredState( const std::string &_Name )
 	: CState		(_Name)
-	, m_ActionTime	( CActionStateCallback( 0.2f, 0.5f ) )
+	, m_ActionTime	( 1.f, 2.f )
 	, m_pDeer		( NULL )
 {
 }

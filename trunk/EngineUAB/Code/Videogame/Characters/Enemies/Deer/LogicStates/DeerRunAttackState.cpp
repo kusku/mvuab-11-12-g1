@@ -4,6 +4,7 @@
 #include "Math\Vector3.h"
 #include "SoundManager.h"
 #include "Math\Matrix44.h"
+#include "Utils\Timer.h"
 
 // --- Per pintar l'estat enemic ---
 #include "DebugGUIManager.h"
@@ -101,7 +102,7 @@ void CDeerRunAttackState::OnEnter( CCharacter* _Character )
 	m_InitialDistance			= m_pDeer->GetDistanceToPlayer();
 	Vect3f l_RelativePosition	= m_PlayerInitialPosition - m_pDeer->GetPosition();
 	Vect3f l_RelativePositionN	= l_RelativePosition.GetNormalized();
-	m_FinalAttackPosition = l_Position + (l_RelativePositionN * ( m_InitialDistance + 5.f));
+	m_FinalAttackPosition = l_Position + (l_RelativePositionN * ( m_InitialDistance + 0.f) );
 
 	// Activo el seek a saco a una posició en el momento de inicio de ataque
 	m_pDeer->GetBehaviors()->SeekOff();
@@ -178,6 +179,7 @@ void CDeerRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 				// Volvemos al estado anterior
 				m_pDeer->GetBehaviors()->SeekOff();
 				m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+				m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime );
 				m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 				m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetAttackState());
 				m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetIdleAnimationState());
