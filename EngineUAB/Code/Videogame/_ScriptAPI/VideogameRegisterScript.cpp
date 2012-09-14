@@ -79,7 +79,7 @@ namespace ScriptAPI
 					.property("properties", &CCharacter::GetProperties, &CCharacter::SetProperties)
 					.property("locked", &CCharacter::GetLocked, &CCharacter::SetLocked)
 					.property("enable", &CCharacter::IsEnable, &CCharacter::SetEnable)
-					.property("ready_to_attack", &CCharacter::GetReadyToAttack, &CCharacter::SetReadyToAttack)
+					.property("ready_to_attack", &CCharacter::GetAvalaibleToAttack, &CCharacter::SetAvalaibleToAttack)
 			];
 
 		module(_pLua) 

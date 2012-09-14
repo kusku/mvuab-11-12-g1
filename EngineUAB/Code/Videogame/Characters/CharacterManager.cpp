@@ -254,6 +254,7 @@ void CCharactersManager::Render(CRenderManager *_RM, CFontManager *_FM)
 		_FM->DrawDefaultText(10, 65, colWHITE, "Position: %f, %f, %f", l_Pos.x, l_Pos.y, l_Pos.z);
 	}
 
+	// Dibuixem posicions de cada enemic
 	uint32 l_FileNumber = 85;
 	for ( size_t i = 0; i<	m_ResourcesVector.size(); i++ )
 	{
@@ -274,9 +275,6 @@ void CCharactersManager::Render(CRenderManager *_RM, CFontManager *_FM)
 
 	if ( CORE->GetPhysicsManager()->GetDrawRays() )
 		DrawRay();
-
-
-	
 }
 
 //--------------------------------------------------
@@ -332,11 +330,13 @@ void CCharactersManager::Drawfrustum( void )
 			l_FinalPosition = (*l_It)->GetSteeringEntity()->GetFinalPositionToThrowRay(-45.f);
 			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );
 
+			// Dibuixem esferes
 			mat.Translate((*l_It)->GetSteeringEntity()->GetPosition());
 			l_RM->SetTransform(mat);
 			l_RM->DrawSphere( (*l_It)->GetSteeringEntity()->GetBoundingRadius(), 10, colMAGENTA );		// Bounding box
 			l_RM->DrawSphere( (*l_It)->GetProperties()->GetDetectionDistance(), 10, colCYAN );			// Detection distance
 			l_RM->DrawSphere( (*l_It)->GetProperties()->GetAttackDistance(), 10, colRED);				// Impact distance
+			l_RM->DrawSphere( (*l_It)->GetProperties()->GetChaseDistance(), 10, colCYAN);				// Chase distance
 		}
 	}
 	
@@ -1189,7 +1189,7 @@ void CCharactersManager::CalculateEnemyOrderToAttack( const Vect3f & _Position, 
 			}
 			else if ( !l_Character->IsAlive() )
 			{
-				l_Character->SetReadyToAttack(false);
+				l_Character->SetAvalaibleToAttack(false);
 			}
 		}	// For user data
 
@@ -1199,11 +1199,11 @@ void CCharactersManager::CalculateEnemyOrderToAttack( const Vect3f & _Position, 
 		{
 			if ( i >= l_NumPlayersAttackedSameTime ) 
 			{
-				l_EnemyByDistance[i]->SetReadyToAttack(false);
+				l_EnemyByDistance[i]->SetAvalaibleToAttack(false);
 			}
 			else
 			{
-				l_EnemyByDistance[i]->SetReadyToAttack(true);
+				l_EnemyByDistance[i]->SetAvalaibleToAttack(true);
 			}
 		}
 

@@ -660,6 +660,11 @@ bool CCharacter::IsPlayerDetected( void )
 	return IsPlayerInsideDistance(this->GetProperties()->GetDetectionDistance());
 }
 
+bool CCharacter::IsPlayerChased( void )
+{
+	return IsPlayerInsideDistance(this->GetProperties()->GetChaseDistance());
+}
+
 bool CCharacter::IsEnemyPreparedToAttack( void )
 {
 	return IsPlayerInsideDistance(this->GetProperties()->GetPreparedAttackDistance());
@@ -692,7 +697,7 @@ Vect3f CCharacter::GetPointOfFront( void ) const
 	return l_Position;
 }
 
-void CCharacter::GoInTofrustum( float _RangeAngle, float _ElapsedTime )
+bool CCharacter::HaveToGoIntoFrustum( float _RangeAngle, float _ElapsedTime )
 {
 	float l_AngleRad = mathUtils::Deg2Rad(_RangeAngle);
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
@@ -700,18 +705,19 @@ void CCharacter::GoInTofrustum( float _RangeAngle, float _ElapsedTime )
 	
 	if ( l_Process->GetCharactersManager()->EnemyIsVisibleInAngle(this, l_AngleRad, l_Front) )
 	{
-		this->GetBehaviors()->GetSeek()->SetTarget(this->GetPlayer()->GetPosition());
+		return true;
 	}
 	else
 	{
 		//this->GetBehaviors()->PursuitOff();
 		Vect3f l_PointToGo = GetPointOfFront();
 		this->GetBehaviors()->GetSeek()->SetTarget(l_PointToGo);
-	}
+		this->GetBehaviors()->SeekOn();
+		this->FaceTo( this->GetPlayer()->GetPosition(), _ElapsedTime);
+		this->MoveTo2(this->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
 
-	this->GetBehaviors()->SeekOn();
-	this->FaceTo( this->GetPlayer()->GetPosition(), _ElapsedTime);
-	this->MoveTo2(this->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
+		return false;
+	}
 }
 
 float CCharacter::GetDistanceToPlayer( void )
