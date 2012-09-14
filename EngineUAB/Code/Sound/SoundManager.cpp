@@ -299,18 +299,47 @@ void CSoundManager::Terminate()
 	Destroy();
 
 	AK::SoundEngine::UnregisterAllGameObj();
-	AK::SOUNDENGINE_DLL::Term();
 }
 
-void CSoundManager::PlayEvent(const std::string &event_name)
+void CSoundManager::PlayEvent(const std::string &event_name )
 {
 	if( !AK::SoundEngine::IsInitialized() )
 	{
 		return;
 	}
-
-	AK::SoundEngine::PostEvent( event_name.c_str(), GetResource("Test")->GetID());
+	
+	//AK::SoundEngine::PostEvent( event_name.c_str(), GetResource("Test")->GetID(), AK_EndOfEvent, CallbackReaction );
+	AK::SoundEngine::PostEvent( event_name.c_str(), GetResource("Test")->GetID() );
 }
+
+void CSoundManager::CallbackReaction( AkCallbackType in_eType, AkCallbackInfo* in_pCallbackInfo )
+{
+	/*sCallbackInfo *l_Info;
+	sEventCallbackInfo	*l_EventInfo;
+	sDurationCallbackInfo *l_DurationInfo;
+
+	if( in_eType == AK_EndOfEvent )
+	{
+		CallbackEndReaction( EndOfEvent, l_EventInfo );
+ 	}
+	if( in_eType == AK_Duration )
+	{
+		CallbackDurationReaction( EndOfEvent, l_DurationInfo );
+ 	}*/
+	
+	return;
+}
+
+void CSoundManager::CallbackEndReaction( eCallbackType in_eType, sCallbackInfo* in_pCallbackInfo )
+{
+	return;
+}
+
+void CSoundManager::CallbackDurationReaction( eCallbackType in_eType, sDurationCallbackInfo * in_pCallbackInfo )
+{
+	return;
+}
+
 
 void CSoundManager::SetSwitch(const std::string &switch_name, const std::string &container_name)
 {
