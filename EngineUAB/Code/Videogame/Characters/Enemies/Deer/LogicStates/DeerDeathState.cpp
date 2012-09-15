@@ -78,7 +78,7 @@ void CDeerDeathState::OnEnter( CCharacter* _Character )
 #endif
 
 	m_pAnimationCallback->Init();
-	CORE->GetSoundManager()->PlayEvent("Start_EFX_DeerDieingCurta");
+	CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerDieing");
 
 	//float t = m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_STILL_ATTACK_STATE);
 }
