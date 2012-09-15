@@ -1210,3 +1210,46 @@ void CCharactersManager::CalculateEnemyOrderToAttack( const Vect3f & _Position, 
 	}	// for if exist user data
 }
 
+CCharacter* CCharactersManager::GetPlayerAngleCorrection( float _fDistance, float _fMinAngle, float &_fAngle )
+{
+	TVectorResources l_EnemyList		= GetResourcesVector();
+	TVectorResources::iterator l_It		= l_EnemyList.begin();
+	TVectorResources::iterator l_End	= l_EnemyList.end();
+
+	Vect3f l_PlayerFront	= m_pPlayer->GetAnimatedModel()->GetFront();
+	Vect3f l_PlayerPos		= m_pPlayer->GetPosition();
+
+	float l_fMinimumAngle	= FLOAT_PI_VALUE;
+	CCharacter *l_pEnemy	= NULL;
+
+	//Miramos cada enemigo la distancia y el ángulo respecto el player
+	for(; l_It != l_End; ++l_It)
+	{
+		if( (*l_It)->IsAlive() && (*l_It)->IsEnable() )
+		{
+			//Miramos la distancia respecto del player
+			Vect3f l_EnemyPos	= (*l_It)->GetPosition();	
+			float l_fEnemyDist	= l_EnemyPos.Distance( l_PlayerPos );
+
+			if( l_fEnemyDist <= _fDistance )
+			{
+				//Miramos el ángulo respecto del front del player
+				Vect3f l_EnemyDir = l_EnemyPos - l_PlayerPos;
+				l_EnemyDir.Normalize();
+				l_EnemyDir.y = 0.f;
+
+				float l_fAngle	= l_EnemyDir.Dot( l_PlayerFront );
+				l_fAngle		= mathUtils::ACos<float>( l_fAngle );
+
+				if( l_fAngle <= _fMinAngle && l_fAngle <= l_fMinimumAngle )
+				{
+					l_fMinimumAngle = l_fAngle;
+					l_pEnemy = (*l_It);
+				}
+			}
+		}
+	}
+
+	_fAngle = (l_fMinimumAngle != FLOAT_PI_VALUE) ? l_fMinimumAngle : 0.f;
+	return l_pEnemy;
+}

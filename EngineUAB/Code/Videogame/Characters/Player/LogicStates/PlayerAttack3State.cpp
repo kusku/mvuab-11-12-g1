@@ -56,9 +56,34 @@ void CPlayerAttack3State::OnEnter( CCharacter* _pCharacter )
 
 	if( !_pCharacter->GetLocked() )
 	{
-		l_fYaw		= CalculateAngleMovement( _pCharacter, l_fYaw );
+		CCharactersManager *l_pCharManager	= NULL;
+		CCharacter *l_pEnemy				= NULL;
+		float l_fAngle						= 0.f;
+
+		//Calcula el ángulo de a ir
+		Vect3f l_Front	= l_pAnimatedModel->GetFront();
+		l_fYaw			= CalculateAngleMovement( _pCharacter, l_fYaw );
+
+		//Calcula el ángulo de correción para enfocar hacia un enemigo cercano
+		l_pCharManager	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager();
+		l_pEnemy		= l_pCharManager->GetPlayerAngleCorrection(10.f, FLOAT_PI_VALUE/4.f, l_fAngle);
+
+		if( l_pEnemy != NULL )
+		{
+			bool l_bInside	= _pCharacter->IsPointAtLeft( l_pEnemy->GetPosition(), l_Front );
+
+			if( l_bInside )
+			{
+				l_fYaw	-= l_fAngle;
+			}	
+			else
+			{
+				l_fYaw	+= l_fAngle;
+			}
+		}
 	}
 
+	//Setea el ángulo calculado
 	_pCharacter->GetController()->SetYaw( l_fYaw );
 
 	m_fAttackYaw = l_fYaw;
