@@ -115,9 +115,9 @@ public:
 	// Obtengo el angulo que forma donde mira
 	inline Vect3f				GetFront			( void ) const						{ Vect3f l_Front; l_Front.GetXZFromAngle( GetYaw() ) ; return l_Front; }
 
-	bool						IsPointAtLeft		( const Vect3f &_Position ) const	
+	inline bool					IsPointAtLeft		( const Vect3f &_Position, const Vect3f &_Front ) const	
 														{
-															const CPlane p( GetPosition( ), GetPosition( ) + GetFront( ), Vect3f( 0.0f, 1.0f, 0.0f ) );
+															const CPlane p( GetPosition(), GetPosition() + _Front, v3fY );
 															return !p.isPointInside( _Position );
 														}
 
