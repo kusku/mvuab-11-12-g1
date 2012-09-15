@@ -13,6 +13,10 @@
 #include "Core.h"
 #include "Base.h"
 
+#include "Steering Behaviors\SteeringEntity.h"
+#include "Characters\StatesDefs.h"
+#include "Logger\Logger.h"
+
 #if defined _DEBUG
 #include "Memory\MemLeaks.h"
 #endif

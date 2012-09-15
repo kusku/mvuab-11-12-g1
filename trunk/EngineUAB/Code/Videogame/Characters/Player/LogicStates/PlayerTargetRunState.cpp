@@ -1,18 +1,28 @@
 #include "PlayerTargetRunState.h"
-#include "StatesMachine\Telegram.h"
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 #include "DebugInfo\DebugRender.h"
 #include "DebugGUIManager.h"
 #include "GameProcess.h"
 #include "EngineProcess.h"
-#include "Utils\Random.h"
-#include "Characters\Player\Player.h"
-#include "Cameras\ThPSCharacterCamera.h"
 #include "PhysicController.h"
 #include "ActionToInput.h"
 #include "Helpers/MathHelper.h"
 #include "Core.h"
 #include "Base.h"
+
+#include "StatesMachine\Telegram.h"
+
+#include "Utils\Random.h"
+
+#include "Cameras\ThPSCharacterCamera.h"
+
+#include "Characters\Player\Player.h"
+#include "Characters\StatesDefs.h"
+
+#include "Steering Behaviors\SteeringEntity.h"
+#include "Characters\StatesDefs.h"
+#include "Logger\Logger.h"
+
 
 #if defined _DEBUG
 #include "Memory\MemLeaks.h"
