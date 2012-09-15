@@ -6,6 +6,7 @@
 #include <string>
 #include "StatesMachine\State.h"
 #include "Characters\Character.h"
+#include "Callbacks\State\ActionStateCallback.h"
 
 // --- Foward Declarations ---
 class CDeer;
@@ -20,24 +21,25 @@ public:
 	virtual			~CDeerPursuitState	( void );
 
 	//----Main Functions --------------------------------------
-	virtual void	Execute		( CCharacter*, float _ElapsedTime );
+	virtual void	Execute			( CCharacter*, float _ElapsedTime );
 
 	// Se ejecuta cuando el estado es entrado
-	virtual void	OnEnter		( CCharacter* );
+	virtual void	OnEnter			( CCharacter* );
 
 	// Se ejecuta cuando el estado sale
-	virtual void	OnExit		( CCharacter* );
+	virtual void	OnExit			( CCharacter* );
 
 	// Se ejecuta cuando otro caracter envía un mensaje a este
-	virtual bool	OnMessage	( CCharacter*, const STelegram& );
+	virtual bool	OnMessage		( CCharacter*, const STelegram& );
 
 	//----Methods ---------------------------------------------
-
+	void			PlayRandomSound	( void );
 
 	//----Members ---------------------------------------------
 private:
-	CDeer					  * m_pDeer;
-
+	CDeer				  * m_pDeer;
+	CActionStateCallback	m_ActionCallback;
+	float					m_SoundDuration;
 };
 
 

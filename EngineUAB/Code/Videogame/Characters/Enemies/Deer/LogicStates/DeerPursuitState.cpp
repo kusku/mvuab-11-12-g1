@@ -3,6 +3,7 @@
 #include "DeerPreparedToAttackState.h"
 #include "DeerHitState.h"
 #include "SoundManager.h"
+#include "Utils\BoostRandomHelper.h"
 
 #include "Characters\Enemies\Deer\AnimationStates\DeerIdleAnimationState.h"
 #include "Characters\Enemies\Deer\AnimationStates\DeerHitAnimationState.h"
@@ -29,14 +30,16 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CDeerPursuitState::CDeerPursuitState( void )
-	: CState	("CDeerPursuitState")
-	, m_pDeer	( NULL )
+	: CState			("CDeerPursuitState")
+	, m_pDeer			( NULL )
+	, m_ActionCallback	( 0, 3 )
 {
 }
 
 CDeerPursuitState::CDeerPursuitState( const std::string &_Name )
-	: CState		(_Name)
-	, m_pDeer		( NULL )
+	: CState			( _Name )
+	, m_pDeer			( NULL )
+	, m_ActionCallback	( 0, 3 )
 {
 }
 
@@ -69,7 +72,10 @@ void CDeerPursuitState::OnEnter( CCharacter* _Character )
 	m_pDeer->GetBehaviors()->CollisionAvoidanceOn();
 	m_pDeer->GetBehaviors()->ObstacleWallAvoidanceOn();
 
-	CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerRun1");
+	PlayRandomSound();
+	m_ActionCallback.InitAction(0, m_SoundDuration);
+	m_ActionCallback.StartAction();
+
 }
 
 void CDeerPursuitState::Execute( CCharacter* _Character, float _ElapsedTime )
@@ -81,6 +87,15 @@ void CDeerPursuitState::Execute( CCharacter* _Character, float _ElapsedTime )
 	
 	m_pDeer->GetBehaviors()->SeekOff();
 	m_pDeer->GetBehaviors()->PursuitOff();
+
+	m_ActionCallback.Update(_ElapsedTime);
+	
+	if ( m_ActionCallback.IsActionFinished() ) 
+	{
+		PlayRandomSound();
+		m_ActionCallback.InitAction(0, m_SoundDuration);
+		m_ActionCallback.StartAction();
+	}
 
 	if ( m_pDeer->IsPlayerDetected() ) 
 	{
@@ -121,7 +136,6 @@ void CDeerPursuitState::Execute( CCharacter* _Character, float _ElapsedTime )
 	}
 }
 
-
 void CDeerPursuitState::OnExit( CCharacter* _Character )
 {
 	if (!m_pDeer) 
@@ -156,4 +170,25 @@ bool CDeerPursuitState::OnMessage( CCharacter* _Character, const STelegram& _Tel
 		return true;
 	}
 	return false;
+}
+
+// Devuelve el tiempo, la duración
+void CDeerPursuitState::PlayRandomSound( void )
+{
+	int l_Num = BoostRandomHelper::GetInt(1,3);
+	if ( l_Num == 1 )
+	{
+		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerRun1");
+		m_SoundDuration = 2.5f;
+	}
+	else if ( l_Num == 2)
+	{
+		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerRun2");
+		m_SoundDuration = 2.5f;
+	}
+	else if ( l_Num == 3)
+	{
+		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerRun3");
+		m_SoundDuration = 3.320f;
+	}
 }

@@ -41,6 +41,10 @@ private:
 	CDeer					  * m_pDeer;
 	CAnimationCallback		  *	m_pAnimationCallback;
 	CActionStateCallback	  * m_pActionState;
+
+	bool						m_IsCommingFromTired;
+	float						m_RecoverMinTiredTime;
+	float						m_RecoverMaxTiredTime;
 	
 };
 #endif _DEER_HIT_STATE_H_

@@ -2,6 +2,13 @@
 #include "Utils\BoostRandomHelper.h"
 #include "Math\MathUtils.h"
 
+// --- Per pintar l'estat enemic ---
+#include "DebugGUIManager.h"
+#include "DebugInfo\DebugRender.h"
+#include "LogRender\LogRender.h"
+#include "Core.h"
+// ---------------------------------
+
 #include "Characters\Enemies\Deer\Deer.h"
 
 #include "DeerPursuitState.h"
@@ -82,6 +89,14 @@ void CDeerDefenseState::OnEnter( CCharacter* _Character )
 	m_OldMass = m_pDeer->GetSteeringEntity()->GetMass();
 	m_pDeer->GetSteeringEntity()->SetMaxSpeed(1);
 	m_pDeer->GetSteeringEntity()->SetMass(0.00500f);
+
+	
+	#if defined _DEBUG
+		if( CORE->IsDebugMode() )
+		{
+			CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Attack");
+		}
+	#endif
 }
 
 void CDeerDefenseState::Execute( CCharacter* _Character, float _ElapsedTime )

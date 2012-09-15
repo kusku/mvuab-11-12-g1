@@ -42,6 +42,7 @@ CDeerHitState::CDeerHitState( void )
 	, m_pDeer				( NULL )
 	, m_pActionState		( NULL )
 	, m_pAnimationCallback	( NULL )
+	, m_IsCommingFromTired	( false )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_HIT_STATE);
@@ -54,6 +55,7 @@ CDeerHitState::CDeerHitState( const std::string &_Name )
 	, m_pDeer				( NULL )
 	, m_pActionState		( NULL )
 	, m_pAnimationCallback	( NULL )
+	, m_IsCommingFromTired	( false )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_HIT_STATE);
@@ -79,11 +81,26 @@ void CDeerHitState::OnEnter( CCharacter* _Character )
 	{
 		m_pDeer = dynamic_cast<CDeer*> (_Character);
 	}
-	m_pAnimationCallback->Init();
-	m_pAnimationCallback->StartAnimation();
-	m_pActionState->InitAction(0.f, m_pDeer->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_HIT_STATE));
-	m_pActionState->StartAction();
 
+	// Si volvemos de haber recibido y después de estar cansados nos salimos.
+	if ( m_IsCommingFromTired ) 
+	{
+		m_pDeer->GetTiredState()->SetTiredTime(m_RecoverMinTiredTime, m_RecoverMaxTiredTime);	// Recuperamos el tiempo que teneniamos por defecto asignado al estado TIRED
+		m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetIdleState());
+		m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetIdleAnimationState());
+		m_IsCommingFromTired = false;
+	}
+	// Si entramos por primera vez ejecutaremos el hit normal
+	else 
+	{
+		m_pAnimationCallback->Init();
+		m_pAnimationCallback->StartAnimation();
+	
+		m_pActionState->InitAction(0.f, m_pDeer->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_HIT_STATE));
+		m_pActionState->StartAction();
+	}
+
+	
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
@@ -119,8 +136,13 @@ void CDeerHitState::Execute( CCharacter* _Character, float _ElapsedTime )
 
 		if ( m_pDeer->IsAlive() ) 
 		{
-			m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetIdleState());
-			m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetIdleAnimationState());
+			// Obligo a descansar entre unos segundosw
+			float l_MaxTimeInTired = BoostRandomHelper::GetFloat(3, 5);
+			m_RecoverMinTiredTime = m_pDeer->GetTiredState()->GetMinTiredTime();
+			m_RecoverMaxTiredTime = m_pDeer->GetTiredState()->GetMaxTiredTime();
+			m_pDeer->GetTiredState()->SetTiredTime(0.f, l_MaxTimeInTired);
+			m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetTiredState());
+			m_IsCommingFromTired = true;
 		}
 	}
 	else

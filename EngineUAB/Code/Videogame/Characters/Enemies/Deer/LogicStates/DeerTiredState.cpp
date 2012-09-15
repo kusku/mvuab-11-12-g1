@@ -32,6 +32,8 @@ CDeerTiredState::CDeerTiredState( void )
 	: CState		("CDeerTiredState")
 	, m_ActionTime	( 1.5f, 2.f )
 	, m_pDeer		( NULL )
+	, m_MinTime		( 1.f )
+	, m_MaxTime		( 2.f )
 {
 }
 
@@ -39,6 +41,8 @@ CDeerTiredState::CDeerTiredState( const std::string &_Name )
 	: CState		(_Name)
 	, m_ActionTime	( 1.f, 2.f )
 	, m_pDeer		( NULL )
+	, m_MinTime		( 1.f )
+	, m_MaxTime		( 2.f )
 {
 }
 
@@ -59,6 +63,7 @@ void CDeerTiredState::OnEnter( CCharacter* _Character )
 		m_pDeer = dynamic_cast<CDeer*> (_Character);
 	}
 
+	m_ActionTime.InitAction(m_MinTime, m_MaxTime);
 	m_ActionTime.StartAction();
 	int l_Valor = BoostRandomHelper::GetInt(1, 3);
 	// Me gusta darle doble opción al idle 2... 
@@ -87,6 +92,8 @@ void CDeerTiredState::Execute( CCharacter* _Character, float _ElapsedTime )
 	{
 		m_pDeer = dynamic_cast<CDeer*> (_Character);
 	}
+	
+	LOGGER->AddNewLog(ELL_INFORMATION, "Cansado....... %f segons", m_MaxTime );
 	
 	if ( m_ActionTime.IsActionFinished() ) 
 	{
