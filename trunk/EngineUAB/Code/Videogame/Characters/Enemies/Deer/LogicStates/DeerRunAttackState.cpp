@@ -140,7 +140,7 @@ void CDeerRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 			if ( m_PlayerReached == false && m_pDeer->IsPlayerReached() )
 			{
 				m_PlayerReached = true;
-				CORE->GetSoundManager()->PlayEvent("Play_DeerRunAttackCharged"); 
+				CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerRunAttackCharged"); 
 			}
 			
 			// Compruebo si la animación ha finalizado. Trato también el caso que me pase de la posición. Podria ser que la animación tardara demasiado y esto enviaria el deer demasiado lejos
@@ -255,7 +255,7 @@ void CDeerRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 			if ( m_PlayerReached == false && m_pDeer->IsPlayerReached() )
 			{
 				m_PlayerReached = true;
-				CORE->GetSoundManager()->PlayEvent("Play_DeerRunAttackCharged"); 
+				CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerRunAttackCharged"); 
 			}
 		}
 	}

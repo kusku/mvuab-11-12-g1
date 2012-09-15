@@ -23,19 +23,23 @@ public:
 	virtual			~CDeerTiredState	( void );
 
 	//----Main Functions --------------------------------------
-	virtual void	Execute		( CCharacter*, float _ElapsedTime );
+	virtual void	Execute			( CCharacter*, float _ElapsedTime );
 
 	// Se ejecuta cuando el estado es entrado
-	virtual void	OnEnter		( CCharacter* );
+	virtual void	OnEnter			( CCharacter* );
 
 	// Se ejecuta cuando el estado sale
-	virtual void	OnExit		( CCharacter* );
+	virtual void	OnExit			( CCharacter* );
 
 	// Se ejecuta cuando otro caracter envía un mensaje a este
-	virtual bool	OnMessage	( CCharacter*, const STelegram& );
+	virtual bool	OnMessage		( CCharacter*, const STelegram& );
 
+	//----Properties ------------------------------------------
+	const float		GetMinTiredTime ( void ) const				{ return m_MinTime; }
+	const float		GetMaxTiredTime ( void ) const				{ return m_MaxTime; }
+	
 	//----Methods ---------------------------------------------
-	//std::string		GetRandomAttackName	( void );
+	void			SetTiredTime	( float _MinValue, float _MaxValue )	{ m_MinTime = _MinValue; m_MaxTime = _MaxValue; }
 
 	//----Members ---------------------------------------------
 private:
@@ -43,7 +47,7 @@ private:
 	CDeer					  * m_pDeer;
 	
 	std::string					m_ActiveActionState;		// Me indica qué acción o estado vamos a ejecutar después de hacer un random de todas ellas
-	
+	float						m_MinTime, m_MaxTime;
 };
 
 
