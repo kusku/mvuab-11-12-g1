@@ -172,7 +172,7 @@ bool CPlayerIdleState::OnMessage( CCharacter* _pCharacter, const STelegram& _Mes
 
 		return true;
 	}
-	else if( _Message.Msg == Msg_Push )
+	/*else if( _Message.Msg == Msg_Push )
 	{
 		CCharacter *l_pEnemy	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->GetCharacterById(_Message.Sender);
 		
@@ -181,7 +181,7 @@ bool CPlayerIdleState::OnMessage( CCharacter* _pCharacter, const STelegram& _Mes
 		_pCharacter->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
 		LOGGER->AddNewLog(ELL_INFORMATION, "CPlayerIdleState::OnMessage -> PUSHED!!");
 		return true;
-	}
+	}*/
 
 	return false;
 }
