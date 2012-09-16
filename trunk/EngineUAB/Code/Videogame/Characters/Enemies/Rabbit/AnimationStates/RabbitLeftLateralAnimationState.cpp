@@ -60,8 +60,11 @@ void CRabbitLeftLateralAnimationState::OnExit( CCharacter* _Character )
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 
-	int l_Num = m_pRabbit->GetAnimationID(RABBIT_LEFT_LATERAL_STATE);
-	m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+	if ( m_pRabbit )
+	{
+		int l_Num = m_pRabbit->GetAnimationID(RABBIT_LEFT_LATERAL_STATE);
+		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+	}
 }
 
 bool CRabbitLeftLateralAnimationState::OnMessage( CCharacter*, const STelegram& _Telegram )

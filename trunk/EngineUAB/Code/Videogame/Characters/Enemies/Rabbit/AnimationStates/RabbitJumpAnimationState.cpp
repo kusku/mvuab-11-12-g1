@@ -60,8 +60,11 @@ void CRabbitJumpAnimationState::OnExit( CCharacter* _Character )
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 
-	int l_Num = m_pRabbit->GetAnimationID(RABBIT_JUMP_STATE);
-	m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+	if ( m_pRabbit )
+	{
+		int l_Num = m_pRabbit->GetAnimationID(RABBIT_JUMP_STATE);
+		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+	}
 }
 
 bool CRabbitJumpAnimationState::OnMessage( CCharacter*, const STelegram& _Telegram )

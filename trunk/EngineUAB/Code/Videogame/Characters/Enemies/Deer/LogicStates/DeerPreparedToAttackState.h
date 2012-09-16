@@ -38,10 +38,10 @@ public:
 
 	//----Members ---------------------------------------------
 private:
-	CDeer					  * m_pDeer;
+	CDeer	  * m_pDeer;
 
-	bool						m_IsPositionAfterHitPlayerAssigned;
-	Vect3f						m_PositionReachedAfterHitPlayer;
+	bool		m_IsPositionAfterHitPlayerAssigned;
+	Vect3f		m_PositionReachedAfterHitPlayer;
 };
 
 

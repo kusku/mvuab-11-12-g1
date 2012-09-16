@@ -6,6 +6,7 @@
 #include <string>
 #include "StatesMachine\State.h"
 #include "Characters\Character.h"
+#include "Callbacks\State\ActionStateCallback.h"
 
 // --- Foward Declarations ---
 class CRabbit;
@@ -32,12 +33,14 @@ public:
 	virtual bool	OnMessage	( CCharacter*, const STelegram& );
 
 	//----Methods ---------------------------------------------
-
+	void			PlaySequencialSound	( int _NumSoundToPlay );
 
 	//----Members ---------------------------------------------
 private:
-	CRabbit					  * m_pRabbit;
-
+	CRabbit				*	m_pRabbit;
+	CActionStateCallback	m_ActionStateCallback;
+	float					m_SoundDuration;
+	int						m_CurrentSoundToPlay;		// Esta rotación de sonidos la haré secuencial para encarjarlos
 };
 
 

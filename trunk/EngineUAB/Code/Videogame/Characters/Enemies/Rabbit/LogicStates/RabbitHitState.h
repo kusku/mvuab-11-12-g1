@@ -35,12 +35,18 @@ public:
 	virtual bool	OnMessage	( CCharacter*, const STelegram& );
 
 	//----Methods ---------------------------------------------
-	
+	void			PlayRandomSound( void );
+
 	//----Members ---------------------------------------------
 private:
 	CRabbit					  * m_pRabbit;
 	CAnimationCallback		  *	m_pAnimationCallback;
-	CActionStateCallback	  * m_pActionState;
+	CActionStateCallback		m_pActionState;
+	float						m_SoundDuration;
+
+	bool						m_IsCommingFromTired;
+	float						m_RecoverMinTiredTime;
+	float						m_RecoverMaxTiredTime;
 	
 };
 #endif _RABBIT_HIT_STATE_H_

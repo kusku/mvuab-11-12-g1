@@ -3,6 +3,9 @@
 #include "RabbitPreparedToAttackState.h"
 #include "RabbitHitState.h"
 
+#include "SoundManager.h"
+#include "Utils\BoostRandomHelper.h"
+
 #include "Characters\Enemies\Rabbit\AnimationStates\RabbitIdleAnimationState.h"
 #include "Characters\Enemies\Rabbit\AnimationStates\RabbitHitAnimationState.h"
 
@@ -32,14 +35,18 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CRabbitPursuitState::CRabbitPursuitState( void )
-	: CState	("CRabbitPursuitState")
-	, m_pRabbit	( NULL )
+	: CState				("CRabbitPursuitState")
+	, m_pRabbit				( NULL )
+	, m_CurrentSoundToPlay	( 1 )
+	, m_ActionStateCallback			( 0, 0 )
 {
 }
 
 CRabbitPursuitState::CRabbitPursuitState( const std::string &_Name )
-	: CState		(_Name)
-	, m_pRabbit		( NULL )
+	: CState				(_Name)
+	, m_pRabbit				( NULL )
+	, m_CurrentSoundToPlay	( 1 )
+	, m_ActionStateCallback			( 0, 0 )
 {
 }
 
@@ -58,6 +65,13 @@ void CRabbitPursuitState::OnEnter( CCharacter* _Character )
 	if (!m_pRabbit) 
 	{
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+	}
+
+	if ( !m_pRabbit->GetPlayerHasBeenReached() )
+	{
+		PlaySequencialSound (m_CurrentSoundToPlay);
+		m_ActionStateCallback.InitAction(0, m_SoundDuration);
+		m_ActionStateCallback.StartAction();
 	}
 
 	/*m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_pRabbit->GetPlayer()->GetPosition());
@@ -105,6 +119,24 @@ void CRabbitPursuitState::Execute( CCharacter* _Character, float _ElapsedTime )
 			m_pRabbit->FaceTo(m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime);
 			m_pRabbit->MoveTo2(m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
 
+			// Tratamos el sonido
+			if ( m_ActionStateCallback.IsActionFinished() )
+			{
+				m_CurrentSoundToPlay++;		// vamos al siguiente sonido
+				if ( m_CurrentSoundToPlay > 8 )
+				{
+					m_CurrentSoundToPlay = 1;
+				}
+
+				PlaySequencialSound(m_CurrentSoundToPlay);
+				m_ActionStateCallback.InitAction( 0.f, m_SoundDuration );
+				m_ActionStateCallback.StartAction();
+			}
+			else 
+			{
+				m_ActionStateCallback.Update(_ElapsedTime);
+			}
+
 			#if defined _DEBUG
 			if( CORE->IsDebugMode() )
 			{
@@ -138,7 +170,8 @@ void CRabbitPursuitState::OnExit( CCharacter* _Character )
 	m_pRabbit->GetBehaviors()->SeparationOff();
 	m_pRabbit->GetBehaviors()->CohesionOff();
 	//_Character->GetBehaviors()->AlignmentOff();
-	
+
+	//CORE->GetSoundManager()->PlayEvent("Stop_EFX_RabbitRuns");
 }
 
 bool CRabbitPursuitState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
@@ -155,4 +188,50 @@ bool CRabbitPursuitState::OnMessage( CCharacter* _Character, const STelegram& _T
 		return true;
 	}
 	return false;
+}
+
+// Devuelve el tiempo, la duración
+void CRabbitPursuitState::PlaySequencialSound( int _NumSoundToPlay )
+{
+	//int _NumSoundToPlay = BoostRandomHelper::GetInt(1,4);
+	if ( _NumSoundToPlay == 1 )
+	{
+		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsRun1");
+		m_SoundDuration = 1.211f;
+	}
+	else if ( _NumSoundToPlay == 2)
+	{
+		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsRun2");
+		m_SoundDuration = 0.396f;
+	}
+	else if ( _NumSoundToPlay == 3)
+	{
+		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsRun3");
+		m_SoundDuration = 1.044f;
+	}
+	else if ( _NumSoundToPlay == 4)
+	{
+		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsRun4");
+		m_SoundDuration = 0.239f;
+	}
+	else if ( _NumSoundToPlay == 5)
+	{
+		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsRun5");
+		m_SoundDuration = 0.557f;
+	}
+	else if ( _NumSoundToPlay == 6)
+	{
+		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsRun6");
+		m_SoundDuration = 0.859f;
+	}
+	else if ( _NumSoundToPlay == 7)
+	{
+		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsRun7");
+		m_SoundDuration = 0.494f;
+	}
+	else if ( _NumSoundToPlay == 8)
+	{
+		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsRun8");
+		m_SoundDuration = 0.749f;
+	}
 }

@@ -31,14 +31,18 @@
 // -----------------------------------------
 CRabbitTiredState::CRabbitTiredState( void )
 	: CState		("CRabbitTiredState")
-	, m_ActionTime	( CActionStateCallback( 0.2f, 0.5f ) )
+	, m_ActionTime	( 1.5f, 2.f )
+	, m_MinTime		( 1.f )
+	, m_MaxTime		( 2.f )
 	, m_pRabbit		( NULL )
 {
 }
 
 CRabbitTiredState::CRabbitTiredState( const std::string &_Name )
 	: CState		(_Name)
-	, m_ActionTime	( CActionStateCallback( 0.2f, 0.5f ) )
+	, m_ActionTime	( 1.5f, 2.f )
+	, m_MinTime		( 1.f )
+	, m_MaxTime		( 2.f )
 	, m_pRabbit		( NULL )
 {
 }
@@ -60,6 +64,7 @@ void CRabbitTiredState::OnEnter( CCharacter* _Character )
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 
+	m_ActionTime.InitAction(m_MinTime, m_MaxTime);
 	m_ActionTime.StartAction();
 	int l_Valor = BoostRandomHelper::GetInt(1, 3);
 	// Me gusta darle doble opción al idle 2... 
@@ -117,7 +122,7 @@ bool CRabbitTiredState::OnMessage( CCharacter* _Character, const STelegram& _Tel
 			m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 		}
 
-		m_pRabbit->RestLife(1000); 
+		m_pRabbit->RestLife(50); 
 		m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetHitState());
 		return true;
 	}

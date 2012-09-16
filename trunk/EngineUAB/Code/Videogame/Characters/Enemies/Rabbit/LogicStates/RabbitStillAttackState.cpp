@@ -1,5 +1,6 @@
 #include "RabbitStillAttackState.h"
 #include "GameProcess.h"
+#include "SoundManager.h"
 
 // --- Per pintar l'estat enemic ---
 #include "DebugGUIManager.h"
@@ -18,6 +19,7 @@
 #include "RabbitPreparedToAttackState.h"
 #include "RabbitHitState.h"
 #include "RabbitAttackState.h"
+#include "RabbitIdleState.h"
 
 #include "Characters\Enemies\Rabbit\AnimationStates\RabbitHitAnimationState.h"
 #include "Characters\Enemies\Rabbit\AnimationStates\RabbitStillAttackAnimationState.h"
@@ -45,6 +47,7 @@ CRabbitStillAttackState::CRabbitStillAttackState( void )
 	: CState				("CRabbitStillAttackState")
 	, m_pRabbit				( NULL )
 	, m_pAnimationCallback	( NULL )
+	, m_pActionStateCallback( 0, 1 )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RABBIT_STILL_ATTACK_STATE);
@@ -54,6 +57,7 @@ CRabbitStillAttackState::CRabbitStillAttackState( const std::string &_Name )
 	: CState				(_Name)
 	, m_pRabbit				( NULL )
 	, m_pAnimationCallback	( NULL )
+	, m_pActionStateCallback( 0, 1 )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RABBIT_STILL_ATTACK_STATE);
@@ -80,15 +84,20 @@ void CRabbitStillAttackState::OnEnter( CCharacter* _Character )
 #if defined _DEBUG
 	if( CORE->IsDebugMode() )
 	{
-		std::string l_State = "Enter Still Attack";
+		std::string l_State = RABBIT_STILL_ATTACK_STATE;
 		CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
 	}
 #endif
 
+	m_SoundPlayed1	= false;
+	m_SoundPlayed2	= false;
+	m_pAnimationCallback->Init();
+
 	m_pRabbit->GetBehaviors()->CollisionAvoidanceOn();
 	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOn();
 
-	m_pAnimationCallback->Init();
+	//CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerExclaim"); 
+	m_pActionStateCallback.InitAction(0, m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(RABBIT_STILL_ATTACK_STATE) );
 }
 
 void CRabbitStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
@@ -103,12 +112,19 @@ void CRabbitStillAttackState::Execute( CCharacter* _Character, float _ElapsedTim
 	{
 		if ( m_pAnimationCallback->IsAnimationStarted() ) 
 		{
+			if ( !m_pRabbit->GetPlayerHasBeenReached()  && m_pRabbit->IsPlayerReached() )
+			{
+				m_pRabbit->SetPlayerHasBeenReached(true);
+				//m_pRabbit->GetPreparedToAttack()->set
+			}
+
 			// Compruebo si la animación a finalizado
-			if ( m_pAnimationCallback->IsAnimationFinished() && m_pRabbit->IsPlayerInsideImpactDistance() )
+			if ( m_pAnimationCallback->IsAnimationFinished() && m_pRabbit->GetPlayerHasBeenReached() )
 			{
 				if ( DISPATCH != NULL ) 
 				{
 					DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pRabbit->GetID(), m_pRabbit->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
+					LOGGER->AddNewLog(ELL_INFORMATION,"CRabbitStillAttackState::Execute->Envio mensaje de tocado");
 				}
 				else
 				{
@@ -118,35 +134,42 @@ void CRabbitStillAttackState::Execute( CCharacter* _Character, float _ElapsedTim
 				// Incrementamos el nº de ataques hechos --> si llega a un total estará cansado
 				m_pRabbit->SetHitsDone(m_pRabbit->GetHitsDone() + 1);
 
-				// Volvemos al estado anterior
-				m_pRabbit->GetLogicFSM()->RevertToPreviousState();
+				// Volvemos a idle
+				m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetIdleState());
 				m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						std::string l_State = "Dispatch";
-						CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
+						LOGGER->AddNewLog( ELL_INFORMATION, "CRabbitStillAttackState:Execute->Dispatch" );
 					}
 				#endif
+				
+				m_pRabbit->GetBehaviors()->SeekOff();
+				m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
+				m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime );
+				m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 			}
 			// Si acaba la animacion pero no estamos en una distancia de poder impactar solo hacemos que se canse
-			else if ( m_pAnimationCallback->IsAnimationFinished() && !m_pRabbit->IsPlayerInsideImpactDistance() )
+			else if ( m_pAnimationCallback->IsAnimationFinished() && !m_pRabbit->GetPlayerHasBeenReached() )
 			{
 				// Incrementamos el nº de ataques hechos --> si llega a un total estará cansado
 				m_pRabbit->SetHitsDone(m_pRabbit->GetHitsDone() + 1);
 
 				// Volvemos al estado anterior
-				//m_pRabbit->GetLogicFSM()->RevertToPreviousState();
-				m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetAttackState());
+				m_pRabbit->GetLogicFSM()->RevertToPreviousState();
 				m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());
 
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						std::string l_State = "Still Attack fallit ";
-						CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
+						LOGGER->AddNewLog(ELL_INFORMATION,"CRabbitStillAttackState::Execute->Golpeo erratico");
 					}
 				#endif
+
+				m_pRabbit->GetBehaviors()->SeekOff();
+				m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
+				m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime );
+				m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 
 				return;
 			}
@@ -169,13 +192,52 @@ void CRabbitStillAttackState::Execute( CCharacter* _Character, float _ElapsedTim
 			// En otro caso actualizamos el tiempo de animacion
 			else
 			{
+				m_pRabbit->GetBehaviors()->SeekOff();
+				m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
+				m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime );
+				m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+
+				//float t = m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_STILL_ATTACK_STATE);
+
+				// Sonido de bofetada 
+				if ( m_pRabbit->GetPlayerHasBeenReached() && !m_SoundPlayed1 &&  m_pActionStateCallback.IsActionInTime( 0.7f ) )
+				{
+					m_SoundPlayed1 = true;
+					CORE->GetSoundManager()->PlayEvent("Play_EFX_Punch2"); 
+				}
+				// Sonido de bofetada fallida
+				else if ( !m_pRabbit->GetPlayerHasBeenReached() && !m_SoundPlayed1 &&  m_pActionStateCallback.IsActionInTime( 0.7f ) )
+				{
+					CORE->GetSoundManager()->PlayEvent("Play_EFX_Slap1"); 
+				}
+
+				// Sonido de bofetada 
+				if ( m_pRabbit->GetPlayerHasBeenReached() && !m_SoundPlayed2 &&  m_pActionStateCallback.IsActionInTime( 0.2f ) )
+				{
+					m_SoundPlayed2 = true;
+					CORE->GetSoundManager()->PlayEvent("Play_EFX_Punch3"); 
+				}
+				// Sonido de bofetada fallida
+				else if ( !m_pRabbit->GetPlayerHasBeenReached() && !m_SoundPlayed2 &&  m_pActionStateCallback.IsActionInTime( 0.2f ) )
+				{
+					CORE->GetSoundManager()->PlayEvent("Play_EFX_Slap1"); 
+				}
+
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						std::string l_State = "NOT  FINISHED YET!";
-						CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
+						LOGGER->AddNewLog(ELL_INFORMATION,"CRabbitStillAttackState::Execute->Animacion en curso...");
 					}
 				#endif
+
+				// hay que cancelar la animación
+				/*if ( !m_pRabbit->IsPlayerInsideImpactDistance() )
+				{
+					m_pRabbit->GetLogicFSM()->RevertToPreviousState();
+					m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());
+				}*/
+
+				m_pActionStateCallback.Update(_ElapsedTime);
 			}
 		}
 		else
@@ -195,6 +257,14 @@ void CRabbitStillAttackState::Execute( CCharacter* _Character, float _ElapsedTim
 				
 				m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetStillAttackAnimationState());
 				m_pAnimationCallback->StartAnimation();
+				m_pActionStateCallback.StartAction();
+
+				#if defined _DEBUG
+					if( CORE->IsDebugMode() )
+					{
+						LOGGER->AddNewLog(ELL_INFORMATION,"CRabbitStillAttackState::Execute->Inicio Animacion");
+					}
+				#endif
 			}
 			else 
 			{
@@ -202,19 +272,7 @@ void CRabbitStillAttackState::Execute( CCharacter* _Character, float _ElapsedTim
 				// _CCharacter.behaviors:pursuit_on()
 				m_pRabbit->GetBehaviors()->SeekOn();
 				m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_pRabbit->GetPlayer()->GetPosition());
-				if ( m_pRabbit != NULL ) 
-				{
-					// self.active_animation_name = _CCharacter:get_animation_id("attack_1")
-					// _CCharacter:get_animation_model():clear_cycle( self.active_animation_name, 0.3 )
-						
-					/*self.active_animation_name = _CCharacter:get_animation_id("run")
-					_CCharacter:get_animation_model():blend_cycle( self.active_animation_name, 0.3 )*/
-					m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetRunAnimationState());
-				}
-				else 
-				{
-					LOGGER->AddNewLog(ELL_ERROR, "CRabbitStillAttackState:Execute->El Character Rabbit es NULL" );
-				}
+				m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetRunAnimationState());
 				
 				// Rotamos al objetivo y movemos
 				m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime );
@@ -222,8 +280,7 @@ void CRabbitStillAttackState::Execute( CCharacter* _Character, float _ElapsedTim
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						std::string l_State = "Ens apropem primer";
-						CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
+						LOGGER->AddNewLog(ELL_INFORMATION,"CRabbitStillAttackState::Execute->Nos acercamos primero");
 					}
 				#endif
 			}
@@ -245,6 +302,7 @@ void CRabbitStillAttackState::OnExit( CCharacter* _Character )
 	m_pRabbit->GetBehaviors()->CollisionAvoidanceOff();
 	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOff();
 
+	CORE->GetSoundManager()->PlayEvent("Stop_EFX_DeerExclaim"); 
 }
 
 bool CRabbitStillAttackState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
@@ -256,7 +314,7 @@ bool CRabbitStillAttackState::OnMessage( CCharacter* _Character, const STelegram
 			m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 		}
 
-		m_pRabbit->RestLife(1000); 
+		m_pRabbit->RestLife(10); 
 		m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetHitState());
 		return true;
 	}

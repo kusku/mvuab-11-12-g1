@@ -1,7 +1,10 @@
 #include "RabbitRunAttackState.h"
+#include "Utils\BoostRandomHelper.h"
 #include "GameProcess.h"
 #include "Logger\Logger.h"
 #include "Math\Vector3.h"
+#include "SoundManager.h"
+#include "Core.h"
 
 // --- Per pintar l'estat enemic ---
 #include "DebugGUIManager.h"
@@ -20,6 +23,7 @@
 #include "RabbitPursuitState.h"
 #include "RabbitPreparedToAttackState.h"
 #include "RabbitHitState.h"
+#include "RabbitIdleState.h"
 
 #include "Characters\Enemies\Rabbit\AnimationStates\RabbitHitAnimationState.h"
 #include "Characters\Enemies\Rabbit\AnimationStates\RabbitIdleAnimationState.h"
@@ -48,6 +52,7 @@ CRabbitRunAttackState::CRabbitRunAttackState( void )
 	: CState				("CRabbitRunAttackState")
 	, m_pRabbit				( NULL )
 	, m_pAnimationCallback	( NULL )
+	, m_ActionStateCallback	( 0, 1 )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RABBIT_RUN_ATTACK_STATE);
@@ -57,6 +62,7 @@ CRabbitRunAttackState::CRabbitRunAttackState( const std::string &_Name )
 	: CState				(_Name)
 	, m_pRabbit				( NULL )
 	, m_pAnimationCallback	( NULL )
+	, m_ActionStateCallback ( 0, 1 )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RABBIT_RUN_ATTACK_STATE);
@@ -80,24 +86,36 @@ void CRabbitRunAttackState::OnEnter( CCharacter* _Character )
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 
+	PlayRandomSound();
+	
+	m_pRabbit->SetPlayerHasBeenReached( false );
+	m_playerPushed = false;
+
 	// Metemos más velocidad al ataque i menos massa para acelerar más 
-	m_OldMaxSpeed = m_pRabbit->GetSteeringEntity()->GetMaxSpeed();
-	m_OldMass = m_pRabbit->GetSteeringEntity()->GetMass();
-	m_pRabbit->GetSteeringEntity()->SetMaxSpeed(0.13f);
-	m_pRabbit->GetSteeringEntity()->SetMass(0.00500f);
+	m_OldMaxSpeed	= m_pRabbit->GetSteeringEntity()->GetMaxSpeed();
+	m_OldMass		= m_pRabbit->GetSteeringEntity()->GetMass();
+	m_pRabbit->GetSteeringEntity()->SetMaxSpeed(0.4f);
+
+	// Almacenamos la distancia actual para saber si luego nos hemos pasado
+	m_PlayerInitialPosition		= m_pRabbit->GetPlayer()->GetSteeringEntity()->GetPosition();
+	Vect3f l_Position			= m_pRabbit->GetPosition();
+	m_InitialDistance			= m_pRabbit->GetDistanceToPlayer();
+	Vect3f l_RelativePosition	= m_PlayerInitialPosition - m_pRabbit->GetPosition();
+	Vect3f l_RelativePositionN	= l_RelativePosition.GetNormalized();
+	m_FinalAttackPosition = l_Position + (l_RelativePositionN * ( m_InitialDistance + 0.f) );
 
 	// Activo el seek a saco a una posició en el momento de inicio de ataque
 	m_pRabbit->GetBehaviors()->SeekOff();
-	m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_pRabbit->GetPlayer()->GetPosition());
-	m_pRabbit->GetBehaviors()->CollisionAvoidanceOn();
-	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOn();
-
-	// Almacenamos la distancia actual para saber si luego nos hemos pasado
-	m_CurrentDistance = m_pRabbit->GetDistanceToPlayer();
+	m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_FinalAttackPosition);
+	
+	m_AnimationDuration = m_pRabbit->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_RUN_ATTACK_STATE);
 
 	m_pAnimationCallback->Init();
+	m_ActionStateCallback.InitAction(0,m_AnimationDuration);
+	m_ActionStateCallback.StartAction();
 
-	m_CurrentDuration = 0;
+	// Almacenamos la distancia actual para saber si luego nos hemos pasado
+	//m_CurrentDistance = m_pRabbit->GetDistanceToPlayer();
 
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
@@ -116,176 +134,135 @@ void CRabbitRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 
-	m_CurrentDuration += _ElapsedTime;
+	m_ActionStateCallback.Update(_ElapsedTime);
 
-	// Si és atacable hago cualquier gestión
-	if ( m_pRabbit->IsPlayerAtacable() )
+	if ( m_pAnimationCallback->IsAnimationStarted() ) 
 	{
-		if ( m_pAnimationCallback->IsAnimationStarted() ) 
+		// Si el player no estaba ya alcanzado pero ahora se alcanza
+		if ( !m_pRabbit->GetPlayerHasBeenReached() && m_pRabbit->IsPlayerReached() )
 		{
-			// Compruebo si la animación ha finalizado
-			if ( m_pAnimationCallback->IsAnimationFinished() && m_pRabbit->IsPlayerInsideImpactDistance() ) 
+			m_pRabbit->SetPlayerHasBeenReached(true);
+			CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerRunAttackCharged"); 
+		}
+
+		// Compruebo si la animación ha finalizado
+		if ( m_pAnimationCallback->IsAnimationFinished() ) 
+		{
+			// Si encontré el player por delante finalizo golpeando
+			if ( m_pRabbit->GetPlayerHasBeenReached() )
 			{
 				if ( DISPATCH != NULL ) 
 				{
 					DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pRabbit->GetID(), m_pRabbit->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
-					//m_pAnimationCallback->Init();
+					LOGGER->AddNewLog(ELL_INFORMATION,"CRabbitRunAttackState::Execute->Envio mensaje de tocado");
+					#if defined _DEBUG
+						if( CORE->IsDebugMode() )
+						{
+							LOGGER->AddNewLog(ELL_INFORMATION, "CRabbitRunAttackState:Execute->Dispatch" );
+						}
+					#endif
 				}
 				else
 				{
 					LOGGER->AddNewLog(ELL_ERROR, "CRabbitRunAttackState:Execute->El Dispatch es NULL" );
 				}
-					
-				// Incrementamos el nº de ataques hechos --> si llega a un total estará cansado
-				m_pRabbit->SetHitsDone(m_pRabbit->GetHitsDone() + 1);
-
-				// Volvemos al estado anterior
-				m_pRabbit->GetBehaviors()->SeekOff();
-				m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-				m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
-				m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetAttackState());
-				m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());
-				#if defined _DEBUG
-					if( CORE->IsDebugMode() )
-					{
-						std::string l_State = "Dispatch";
-						CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
-					}
-				#endif
-			}
-			// Si acaba la animacion pero no estamos en una distancia de poder impactar solo hacemos que se canse
-			else if ( m_pAnimationCallback->IsAnimationFinished() && !m_pRabbit->IsPlayerInsideImpactDistance() )
-			{
-				m_pRabbit->GetBehaviors()->SeekOff();
-
-				// Incrementamos el nº de ataques hechos --> si llega a un total estará cansado
-				m_pRabbit->SetHitsDone(m_pRabbit->GetHitsDone() + 1);
-
-				// Volvemos al estado anterior
-				m_pRabbit->GetLogicFSM()->RevertToPreviousState();
-				m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetAttackState());
-				m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());
-
-				#if defined _DEBUG
-					if( CORE->IsDebugMode() )
-					{
-						std::string l_State = "Run Attack fallit ";
-						CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
-					}
-				#endif
-
-				return;
-			}
-			else 
-			{
-				float l_Distance = m_pRabbit->GetDistanceToPlayer();
-		
-				// Pararemos de correr si estamos en el momento de impacto o que la distancia al player no sea mayor que la inicial ya que indicará 
-				// que el ataque seguramente falló y así evitamos que exista un pequeño retroceso de volver hacia el player
-				if ( m_pRabbit->IsPlayerInsideImpactDistance() ) //|| ( l_Distance > m_CurrentDistance ) ) 
-				{
-					m_pRabbit->GetBehaviors()->SeekOff();
-					m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-					#if defined _DEBUG
-						if( CORE->IsDebugMode() )
-						{
-							std::string l_State = "Seek off";
-							CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
-						}
-					#endif
-				}
-				else
-				{
-					m_AnimationDuration = m_pRabbit->GetAnimatedModel()->GetCurrentAnimationDuration(RABBIT_RUN_ATTACK_STATE);
-					//int l_AnimationTracks = m_pRabbit->GetAnimatedModel()->GetCurrentAnimationDuration(RABBIT_RUN_ATTACK_STATE);
-
-					if ( m_CurrentDuration >= m_AnimationDuration )
-					{
-						m_pRabbit->GetBehaviors()->SeekOn();
-						m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_pRabbit->GetPlayer()->GetPosition());
-					}
-					#if defined _DEBUG
-						if( CORE->IsDebugMode() )
-						{
-							std::string l_State = "NOT FINISHED YET!";
-							CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
-						}
-					#endif
-				}
-			
-				// No Rotamos al objetivo y pero si movemos. Esto dará sensación de golpear allí donde estava el target cuando inicie el ataque
-				//_CCharacter:face_to( self.target_position, _elapsed_time )
-				m_pRabbit->FaceTo( m_pRabbit->GetSteeringEntity()->GetPosition(), _ElapsedTime );
-				m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
-			}	
-		}
-		// Si l'animación no se ha iniciado
-		else
-		{
-			// Caso que ha corrido y estoy dentro de la distancia de impacto-->Azitamos!
-			if ( m_pRabbit->IsPlayerInsideImpactDistance() ) 
-			{
-				m_pRabbit->GetBehaviors()->SeekOff();
-				m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-				#if defined _DEBUG
-					if( CORE->IsDebugMode() )
-					{
-						std::string l_State = "Atac sense corre!!";
-						CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
-					}
-				#endif
-				m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetRunAttackAnimationState());
-				m_pAnimationCallback->StartAnimation();
 			}
 			else
 			{
-				// Primer estado que se ejecutará. Si está lejos nos acercamos con gran velocidad Corremos rápido hacía el player. 
-				// Para ello hay que saber el tiempo de la animación y cuando hay que activarla. 
-
-				// Pillo la duración de la animación
-				m_AnimationDuration = m_pRabbit->GetAnimatedModel()->GetCurrentAnimationDuration(RABBIT_RUN_ATTACK_STATE);
-
-				// Distancia recorrida según la duración de la animación a una velocidad determinada máxima
-				//float l_DistanciaRecorridaAnimacion = m_pRabbit->GetSteeringEntity()->GetMaxSpeed() * m_AnimationDuration;
-				float l_DistanciaRecorridaAnimacion = m_pRabbit->GetSteeringEntity()->GetMaxSpeed() * m_AnimationDuration * _ElapsedTime;
-				//float l_DistanciaRecorridaAnimacion = m_pRabbit->GetSteeringEntity()->GetMaxSpeed() * m_AnimationDuration + 1/2*m_pRabbit->GetSteeringEntity()->GetMaxAcceleration()*m_AnimationDuration*m_AnimationDuration * 1000;
-				float l_DistanceToPlayer = m_pRabbit->GetDistanceToPlayer();
-
-				// En este caso empezamos a ejecutar la animación
-				if ( l_DistanceToPlayer <= l_DistanciaRecorridaAnimacion ) 
-				{
-					m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetRunAttackAnimationState());
-					m_pAnimationCallback->StartAnimation();
-				}
-
-				m_pRabbit->GetBehaviors()->SeekOn();
-				m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_pRabbit->GetPlayer()->GetPosition());
-
-				
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						std::string l_State = "Correm a sac!!";
-						CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
+						LOGGER->AddNewLog(ELL_INFORMATION,"CRabbitStillAttackState::Execute->Golpeo erratico");
 					}
 				#endif
-
-				// _CCharacter.behaviors:pursuit_on()
-				
 			}
 
-			m_pRabbit->FaceTo( m_pRabbit->GetSteeringEntity()->GetPosition(), _ElapsedTime );
-			m_pRabbit->MoveTo2(  m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+			// Incrementamos el nº de ataques hechos --> si llega a un total estará cansado
+			m_pRabbit->SetHitsDone(m_pRabbit->GetHitsDone() + 1);
+
+			// Volvemos al estado anterior
+			m_pRabbit->GetBehaviors()->SeekOff();
+			m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+			m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime );
+			m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+				
+			// Volvemos a idle
+			m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetIdleState());
+			m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());
+
+			return;
 		}
+		// La animación aun no ha acabado pero está iniciada
+		else 
+		{
+			// Si encuentro el player por delante me lo llevo
+			if ( m_pRabbit->GetPlayerHasBeenReached() )
+			{
+				if ( !m_playerPushed )
+				{
+					m_AditionalInfo.Direccion	= m_pRabbit->GetSteeringEntity()->GetVelocity()/2;
+					m_AditionalInfo.ElapsedTime = _ElapsedTime;
+				}
+					
+				if ( DISPATCH != NULL ) 
+				{
+					DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pRabbit->GetID(), m_pRabbit->GetPlayer()->GetID(), Msg_Push, &m_AditionalInfo );
+					m_playerPushed = true;
+				}
+				else
+				{
+					LOGGER->AddNewLog(ELL_ERROR, "CDeerRunAttackState:Execute->El Dispatch es NULL" );
+				}
+			}
+			else
+			{
+				#if defined _DEBUG
+					if( CORE->IsDebugMode() )
+					{
+						LOGGER->AddNewLog(ELL_INFORMATION, "CDeerRunAttackState:Execute->Animation Not finished yet" );
+					}
+				#endif
+			}
+		}
+			
+		if ( m_ActionStateCallback.IsActionInTime(0.4f) )
+		{
+			m_pRabbit->GetBehaviors()->SeekOn();
+			m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_PlayerInitialPosition);
+		}
+
+		// No Rotamos al objetivo y pero si movemos. Esto dará sensación de golpear allí donde estava el target cuando inicie el ataque
+		//_CCharacter:face_to( self.target_position, _elapsed_time )
+		m_pRabbit->FaceTo( m_FinalAttackPosition, _ElapsedTime );
+		m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 	}
+	// Si l'animación no se ha iniciado
+	// Primer estado que se ejecutará. Si está lejos nos acercamos con gran velocidad Corremos rápido hacía el player. 
+	// Para ello hay que saber el tiempo de la animación y cuando hay que activarla. 
 	else
 	{
-		// nos volvemos
-		/*m_pRabbit->GetLogicFSM()->RevertToPreviousState();
-		m_pRabbit->GetGraphicFSM()->RevertToPreviousState();*/
-		m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetAttackState());
-		m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());
-	} 
+		m_pRabbit->GetBehaviors()->SeekOff();
+		m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_PlayerInitialPosition);
+		#if defined _DEBUG
+			if( CORE->IsDebugMode() )
+			{
+				LOGGER->AddNewLog(ELL_INFORMATION, "CDeerRunAttackState:Execute->Correm al objectiu" );
+			}
+		#endif
+			
+		// Ahora azitamos y empezamos la animación de ataque
+		m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetRunAttackAnimationState());
+		m_pAnimationCallback->StartAnimation();
+
+		m_pRabbit->FaceTo( m_FinalAttackPosition, _ElapsedTime );
+		m_pRabbit->MoveTo2(  m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+
+		if ( m_pRabbit->GetPlayerHasBeenReached() == false && m_pRabbit->IsPlayerReached() )
+		{
+			m_pRabbit->SetPlayerHasBeenReached(true);
+			CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerRunAttackCharged"); 
+		}
+	}
 }
 
 
@@ -306,6 +283,9 @@ void CRabbitRunAttackState::OnExit( CCharacter* _Character )
 	// Restauramos la velocidad original
 	m_pRabbit->GetSteeringEntity()->SetMaxSpeed(m_OldMaxSpeed);
 	m_pRabbit->GetSteeringEntity()->SetMass(m_OldMass);
+
+	CORE->GetSoundManager()->PlayEvent("Stop_EFX_RabbitsRunAttacks"); 
+
 }
 
 bool CRabbitRunAttackState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
@@ -323,4 +303,20 @@ bool CRabbitRunAttackState::OnMessage( CCharacter* _Character, const STelegram& 
 	}
 
 	return false;
+}
+
+// Devuelve el tiempo, la duración
+void CRabbitRunAttackState::PlayRandomSound( void )
+{
+	int l_Num = BoostRandomHelper::GetInt(1,2);
+	if ( l_Num == 1 )
+	{
+		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsRunAttack1");
+		m_SoundDuration = 0.858f;
+	}
+	else if ( l_Num == 2)
+	{
+		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsRunAttack2");
+		m_SoundDuration = 0.817f;
+	}
 }

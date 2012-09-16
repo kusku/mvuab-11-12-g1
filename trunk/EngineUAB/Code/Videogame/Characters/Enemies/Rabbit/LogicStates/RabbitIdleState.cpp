@@ -60,7 +60,8 @@ void CRabbitIdleState::OnEnter( CCharacter* _Character )
 	{
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
-	
+
+	m_ActionTime.InitAction();
 	m_ActionTime.StartAction();
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
@@ -114,6 +115,8 @@ void CRabbitIdleState::Execute( CCharacter* _Character, float _ElapsedTime )
 			}
 
 			// pillamos un tiempo de ejecución aleatorio
+			float l_TotalTime = BoostRandomHelper::GetFloat(1, 4);
+			m_ActionTime.InitAction(0, l_TotalTime );
 			m_ActionTime.StartAction();
 		}
 		else
