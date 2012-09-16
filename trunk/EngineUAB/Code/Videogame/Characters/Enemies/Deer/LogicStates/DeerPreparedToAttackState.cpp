@@ -142,7 +142,6 @@ void CDeerPreparedToAttackState::Execute( CCharacter* _Character, float _Elapsed
 			}
 
 			//Vect3f l_NewAttackPosition = GetPositionToAttack();
-
 			m_pDeer->GetBehaviors()->GetSeek()->SetTarget(m_pDeer->GetPlayer()->GetPosition());
 			m_pDeer->GetBehaviors()->SeekOn();
 			m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime);
