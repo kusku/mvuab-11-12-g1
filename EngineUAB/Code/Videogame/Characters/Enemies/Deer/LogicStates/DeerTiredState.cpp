@@ -80,7 +80,8 @@ void CDeerTiredState::OnEnter( CCharacter* _Character )
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
-			CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Fatigued");
+			std::string l_State = "Fatigued";
+			CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pDeer->GetName().c_str(), l_State );
 		}
 	#endif
 }
@@ -93,7 +94,7 @@ void CDeerTiredState::Execute( CCharacter* _Character, float _ElapsedTime )
 		m_pDeer = dynamic_cast<CDeer*> (_Character);
 	}
 	
-	LOGGER->AddNewLog(ELL_INFORMATION, "Cansado....... %f segons", m_MaxTime );
+	LOGGER->AddNewLog(ELL_INFORMATION, "CDeerTiredState::Execute-> %s Cansado durante %f segons", m_pDeer->GetName().c_str(), m_MaxTime );
 	
 	if ( m_ActionTime.IsActionFinished() ) 
 	{

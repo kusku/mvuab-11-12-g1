@@ -4,6 +4,8 @@
 #include "Callbacks\Animation\AnimationCallback.h"
 #include "Callbacks\Animation\AnimationCallbackManager.h"
 #include "Callbacks\State\ActionStateCallback.h"
+#include "SoundManager.h"
+#include "Core.h"
 
 // --- Per pintar l'estat enemic ---
 #include "DebugGUIManager.h"
@@ -40,27 +42,23 @@
 CDeerHitState::CDeerHitState( void )
 	: CState				("CDeerHitState")
 	, m_pDeer				( NULL )
-	, m_pActionState		( NULL )
+	, m_pActionState		( 0.f, 1.f )
 	, m_pAnimationCallback	( NULL )
 	, m_IsCommingFromTired	( false )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_HIT_STATE);
-
-	m_pActionState = new CActionStateCallback(0,1);
 }
 
 CDeerHitState::CDeerHitState( const std::string &_Name )
 	: CState				(_Name)
 	, m_pDeer				( NULL )
-	, m_pActionState		( NULL )
+	, m_pActionState		( 0.f, 1.f )
 	, m_pAnimationCallback	( NULL )
 	, m_IsCommingFromTired	( false )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_HIT_STATE);
-
-	m_pActionState = new CActionStateCallback(0,1);
 }
 
 
@@ -68,7 +66,6 @@ CDeerHitState::~CDeerHitState(void)
 {
 	m_pDeer = NULL;
 	m_pAnimationCallback = NULL;
-	CHECKED_DELETE ( m_pActionState );
 }
 
 
@@ -96,15 +93,20 @@ void CDeerHitState::OnEnter( CCharacter* _Character )
 		m_pAnimationCallback->Init();
 		m_pAnimationCallback->StartAnimation();
 	
-		m_pActionState->InitAction(0.f, m_pDeer->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_HIT_STATE));
-		m_pActionState->StartAction();
+		PlayRandomSound();
+		m_pActionState.InitAction(0, m_SoundDuration*2);
+		m_pActionState.StartAction();
+
+		//m_pActionState.InitAction(0.f, m_pDeer->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_HIT_STATE));
+		//m_pActionState.StartAction();
 	}
 
 	
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
-			CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Hit state");
+			std::string l_State = DEER_HIT_STATE;
+			CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pDeer->GetName().c_str(), l_State );
 		}
 	#endif
 }
@@ -129,7 +131,7 @@ void CDeerHitState::Execute( CCharacter* _Character, float _ElapsedTime )
 		m_pAnimationCallback->StartAnimation();
 	}*/
 
-	if ( m_pActionState->IsActionFinished() )
+	if ( m_pActionState.IsActionFinished() )
 	{
 		/*m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetIdleState());
 		m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetIdleAnimationState());*/
@@ -147,7 +149,7 @@ void CDeerHitState::Execute( CCharacter* _Character, float _ElapsedTime )
 	}
 	else
 	{
-		m_pActionState->Update(_ElapsedTime);
+		m_pActionState.Update(_ElapsedTime);
 	}
 }
 
@@ -164,4 +166,28 @@ bool CDeerHitState::OnMessage( CCharacter* _Character, const STelegram& _Telegra
 	return false;
 }
 
-
+// Devuelve el tiempo, la duración
+void CDeerHitState::PlayRandomSound( void )
+{
+	int l_Num = BoostRandomHelper::GetInt(1,4);
+	if ( l_Num == 1 )
+	{
+		CORE->GetSoundManager()->PlayEvent("Play_EFX_Pain1");
+		m_SoundDuration = 1.2f;
+	}
+	else if ( l_Num == 2)
+	{
+		CORE->GetSoundManager()->PlayEvent("Play_EFX_Pain2");
+		m_SoundDuration = 0.56f;
+	}
+	else if ( l_Num == 3)
+	{
+		CORE->GetSoundManager()->PlayEvent("Play_EFX_Pain3");
+		m_SoundDuration = 3.320f;
+	}
+	else if ( l_Num == 4)
+	{
+		CORE->GetSoundManager()->PlayEvent("Play_EFX_Pain3");
+		m_SoundDuration = 1.4f;
+	}
+}

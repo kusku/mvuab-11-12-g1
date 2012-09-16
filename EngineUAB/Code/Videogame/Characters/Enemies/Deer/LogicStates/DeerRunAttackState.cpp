@@ -52,7 +52,6 @@ CDeerRunAttackState::CDeerRunAttackState( void )
 	: CState				("CDeerRunAttackState")
 	, m_pDeer				( NULL )
 	, m_pAnimationCallback	( NULL )
-	, m_PlayerReached		( false )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_RUN_ATTACK_STATE);
@@ -62,7 +61,6 @@ CDeerRunAttackState::CDeerRunAttackState( const std::string &_Name )
 	: CState				(_Name)
 	, m_pDeer				( NULL )
 	, m_pAnimationCallback	( NULL )
-	, m_PlayerReached		( false )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_RUN_ATTACK_STATE);
@@ -86,9 +84,8 @@ void CDeerRunAttackState::OnEnter( CCharacter* _Character )
 		m_pDeer = dynamic_cast<CDeer*> (_Character);
 	}
 
-	m_PlayerReached			= false;
-	m_PlayerPositionReached = false;
-	m_playerPushed			= false;
+	m_pDeer->SetPlayerHasBeenReached( false );
+	m_playerPushed = false;
 
 	// Metemos más velocidad al ataque i menos massa para acelerar más 
 	m_OldMaxSpeed = m_pDeer->GetSteeringEntity()->GetMaxSpeed();
@@ -117,7 +114,8 @@ void CDeerRunAttackState::OnEnter( CCharacter* _Character )
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
-			CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Run Attack");
+			std::string l_State = DEER_RUN_ATTACK_STATE;
+			CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pDeer->GetName().c_str(), l_State );
 		}
 	#endif
 
@@ -137,9 +135,10 @@ void CDeerRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 	{
 		if ( m_pAnimationCallback->IsAnimationStarted() ) 
 		{
-			if ( m_PlayerReached == false && m_pDeer->IsPlayerReached() )
+			// Si el player no estaba ya alcanzado pero ahora se alcanza
+			if ( !m_pDeer->GetPlayerHasBeenReached() && m_pDeer->IsPlayerReached() )
 			{
-				m_PlayerReached = true;
+				m_pDeer->SetPlayerHasBeenReached(true);
 				CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerRunAttackCharged"); 
 			}
 			
@@ -160,7 +159,7 @@ void CDeerRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 			if ( m_pAnimationCallback->IsAnimationFinished() )
 			{
 				// Si encontré el player por delante finalizo golpeando
-				if ( m_PlayerReached )
+				if ( m_pDeer->GetPlayerHasBeenReached() )
 				{
 					if ( DISPATCH != NULL ) 
 					{
@@ -196,7 +195,7 @@ void CDeerRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 			else
 			{
 				// Si encuentro el player por delante me lo llevo
-				if ( m_PlayerReached )
+				if ( m_pDeer->GetPlayerHasBeenReached() )
 				{
 					if ( !m_playerPushed )
 					{
@@ -252,9 +251,9 @@ void CDeerRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 			m_pDeer->FaceTo( m_FinalAttackPosition, _ElapsedTime );
 			m_pDeer->MoveTo2(  m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 
-			if ( m_PlayerReached == false && m_pDeer->IsPlayerReached() )
+			if ( m_pDeer->GetPlayerHasBeenReached() == false && m_pDeer->IsPlayerReached() )
 			{
-				m_PlayerReached = true;
+				m_pDeer->SetPlayerHasBeenReached(true);
 				CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerRunAttackCharged"); 
 			}
 		}

@@ -79,7 +79,8 @@ void CDeerAttackState::OnEnter( CCharacter* _Character )
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
-			CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Attack");
+			std::string l_State = "Attack";
+			CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pDeer->GetName().c_str(), l_State );
 		}
 	#endif
 }
@@ -127,7 +128,7 @@ void CDeerAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 			else if ( l_ActiveActionState == "go_in_to_fustrum" ) 
 			{
 				float l_Angle = 22.f;		// 22,5 graus de fustrum
-				m_pDeer->GoInTofrustum(l_Angle, _ElapsedTime);
+				m_pDeer->GoIntoCameraFrustum(l_Angle, _ElapsedTime);
 			}
 		} 	// End fatigue
 	}	

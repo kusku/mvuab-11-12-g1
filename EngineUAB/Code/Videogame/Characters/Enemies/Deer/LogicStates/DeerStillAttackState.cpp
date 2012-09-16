@@ -19,6 +19,7 @@
 #include "DeerPreparedToAttackState.h"
 #include "DeerHitState.h"
 #include "DeerAttackState.h"
+#include "DeerIdleState.h"
 
 #include "Characters\Enemies\Deer\AnimationStates\DeerHitAnimationState.h"
 #include "Characters\Enemies\Deer\AnimationStates\DeerStillAttackAnimationState.h"
@@ -46,7 +47,6 @@ CDeerStillAttackState::CDeerStillAttackState( void )
 	: CState				("CDeerStillAttackState")
 	, m_pDeer				( NULL )
 	, m_pAnimationCallback	( NULL )
-	, m_PlayerReached		( false )
 	, m_pActionStateCallback( 0, 1 )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
@@ -57,7 +57,6 @@ CDeerStillAttackState::CDeerStillAttackState( const std::string &_Name )
 	: CState				(_Name)
 	, m_pDeer				( NULL )
 	, m_pAnimationCallback	( NULL )
-	, m_PlayerReached		( false )
 	, m_pActionStateCallback( 0, 1 )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
@@ -85,11 +84,11 @@ void CDeerStillAttackState::OnEnter( CCharacter* _Character )
 #if defined _DEBUG
 	if( CORE->IsDebugMode() )
 	{
-		CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Still Attack");
+		std::string l_State = DEER_STILL_ATTACK_STATE;
+		CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pDeer->GetName().c_str(), l_State );
 	}
 #endif
 
-	m_PlayerReached = false;
 	m_SoundPlayed1	= false;
 	m_SoundPlayed2	= false;
 	m_pAnimationCallback->Init();
@@ -111,13 +110,14 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 	{
 		if ( m_pAnimationCallback->IsAnimationStarted() ) 
 		{
-			if ( m_PlayerReached == false && m_pDeer->IsPlayerReached() )
+			if ( !m_pDeer->GetPlayerHasBeenReached()  && m_pDeer->IsPlayerReached() )
 			{
-				m_PlayerReached = true;
+				m_pDeer->SetPlayerHasBeenReached(true);
+				//m_pDeer->GetPreparedToAttack()->set
 			}
 			
 			// Compruebo si la animación a finalizado
-			if ( m_pAnimationCallback->IsAnimationFinished() && m_PlayerReached )
+			if ( m_pAnimationCallback->IsAnimationFinished() && m_pDeer->GetPlayerHasBeenReached() )
 			{
 				if ( DISPATCH != NULL ) 
 				{
@@ -133,7 +133,8 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				m_pDeer->SetHitsDone(m_pDeer->GetHitsDone() + 1);
 
 				// Volvemos al estado anterior
-				m_pDeer->GetLogicFSM()->RevertToPreviousState();
+				//m_pDeer->GetLogicFSM()->RevertToPreviousState();
+				m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetIdleState());
 				m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetIdleAnimationState());
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
@@ -148,7 +149,7 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 			}
 			// Si acaba la animacion pero no estamos en una distancia de poder impactar solo hacemos que se canse
-			else if ( m_pAnimationCallback->IsAnimationFinished() && !m_PlayerReached )
+			else if ( m_pAnimationCallback->IsAnimationFinished() && !m_pDeer->GetPlayerHasBeenReached() )
 			{
 				// Incrementamos el nº de ataques hechos --> si llega a un total estará cansado
 				m_pDeer->SetHitsDone(m_pDeer->GetHitsDone() + 1);
@@ -181,7 +182,7 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Allunyat!");
+						CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pWolf->GetName().c_str(), "Allunyat!");
 					}
 				#endif
 
@@ -198,25 +199,25 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				//float t = m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_STILL_ATTACK_STATE);
 
 				// Sonido de bofetada 
-				if ( m_PlayerReached && !m_SoundPlayed1 &&  m_pActionStateCallback.IsActionInTime( 0.7f ) )
+				if ( m_pDeer->GetPlayerHasBeenReached() && !m_SoundPlayed1 &&  m_pActionStateCallback.IsActionInTime( 0.7f ) )
 				{
 					m_SoundPlayed1 = true;
 					CORE->GetSoundManager()->PlayEvent("Play_EFX_Punch2"); 
 				}
 				// Sonido de bofetada fallida
-				else if ( !m_PlayerReached && !m_SoundPlayed1 &&  m_pActionStateCallback.IsActionInTime( 0.7f ) )
+				else if ( !m_pDeer->GetPlayerHasBeenReached() && !m_SoundPlayed1 &&  m_pActionStateCallback.IsActionInTime( 0.7f ) )
 				{
 					CORE->GetSoundManager()->PlayEvent("Play_EFX_Slap1"); 
 				}
 
 				// Sonido de bofetada 
-				if ( m_PlayerReached && !m_SoundPlayed2 &&  m_pActionStateCallback.IsActionInTime( 0.2f ) )
+				if ( m_pDeer->GetPlayerHasBeenReached() && !m_SoundPlayed2 &&  m_pActionStateCallback.IsActionInTime( 0.2f ) )
 				{
 					m_SoundPlayed2 = true;
 					CORE->GetSoundManager()->PlayEvent("Play_EFX_Punch3"); 
 				}
 				// Sonido de bofetada fallida
-				else if ( !m_PlayerReached && !m_SoundPlayed2 &&  m_pActionStateCallback.IsActionInTime( 0.2f ) )
+				else if ( !m_pDeer->GetPlayerHasBeenReached() && !m_SoundPlayed2 &&  m_pActionStateCallback.IsActionInTime( 0.2f ) )
 				{
 					CORE->GetSoundManager()->PlayEvent("Play_EFX_Slap1"); 
 				}

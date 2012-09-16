@@ -52,8 +52,6 @@ private:
 	float					m_CurrentDuration;
 	float					m_AnimationDuration;
 	
-	bool					m_PlayerReached;
-	bool					m_PlayerPositionReached;
 	bool					m_playerPushed;
 	sDireccion				m_AditionalInfo;
 
