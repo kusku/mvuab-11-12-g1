@@ -102,7 +102,7 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _Character, float _Elaps
 
 		// Mira si alcanzamos la posición. Reseteamos indicando que este enemigo ya ha realizado las tareas postimpacto 
 		float l_Distance = m_pRabbit->GetPosition().Distance(m_PositionReachedAfterHitPlayer);
-		if ( l_Distance <= 3.01f )
+		if ( l_Distance <= 2.3f )
 		{
 			m_IsPositionAfterHitPlayerAssigned = false;		// Reiniciamos el flag para la pròxima vez
 			m_pRabbit->SetPlayerHasBeenReached(false);		// Reiniciamos el flag de player alcanzado
