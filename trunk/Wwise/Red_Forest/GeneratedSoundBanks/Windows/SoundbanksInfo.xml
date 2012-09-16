@@ -60,6 +60,10 @@
 				<Event Id="2072356606" Name="Play_EFX_DeerDieing" />
 				<Event Id="1424649022" Name="Play_EFX_DeerEnemyDetected" />
 				<Event Id="3046853085" Name="Play_EFX_DeerExclaim" />
+				<Event Id="4204189225" Name="Play_EFX_DeerPain1" />
+				<Event Id="4204189226" Name="Play_EFX_DeerPain2" />
+				<Event Id="4204189227" Name="Play_EFX_DeerPain3" />
+				<Event Id="4204189228" Name="Play_EFX_DeerPain4" />
 				<Event Id="395908972" Name="Play_EFX_DeerRun1" />
 				<Event Id="395908975" Name="Play_EFX_DeerRun2" />
 				<Event Id="395908974" Name="Play_EFX_DeerRun3" />
@@ -76,6 +80,8 @@
 				<Event Id="4101543520" Name="Play_MUS_Level_1" />
 				<Event Id="4146057876" Name="Stop_EFX_DeerEnemyDetected" />
 				<Event Id="1167721271" Name="Stop_EFX_DeerExclaim" />
+				<Event Id="805848909" Name="Stop_EFX_DeerRun" />
+				<Event Id="4293704821" Name="Stop_EFX_Pains" />
 			</IncludedEvents>
 			<IncludedDialogueEvents />
 			<ReferencedStreamedFiles />
@@ -92,6 +98,22 @@
 					<ShortName>DeerExclaim.wav</ShortName>
 					<Path>sfx\deerexclaim_ab9e423f.wem</Path>
 				</File>
+				<File Id="89371522" Language="SFX">
+					<ShortName>DeerPain1.wav</ShortName>
+					<Path>sfx\deerpain1_ab9e423f.wem</Path>
+				</File>
+				<File Id="371389096" Language="SFX">
+					<ShortName>DeerPain2.wav</ShortName>
+					<Path>sfx\deerpain2_ab9e423f.wem</Path>
+				</File>
+				<File Id="896326479" Language="SFX">
+					<ShortName>DeerPain3.wav</ShortName>
+					<Path>sfx\deerpain3_ab9e423f.wem</Path>
+				</File>
+				<File Id="1044978850" Language="SFX">
+					<ShortName>DeerPain4.wav</ShortName>
+					<Path>sfx\deerpain4_ab9e423f.wem</Path>
+				</File>
 				<File Id="750670534" Language="SFX">
 					<ShortName>DeerRun1.wav</ShortName>
 					<Path>sfx\deerrun1_ab9e423f.wem</Path>
@@ -100,7 +122,7 @@
 					<ShortName>DeerRun2.wav</ShortName>
 					<Path>sfx\deerrun2_ab9e423f.wem</Path>
 				</File>
-				<File Id="1033538310" Language="SFX">
+				<File Id="486732723" Language="SFX">
 					<ShortName>DeerRun3.wav</ShortName>
 					<Path>sfx\deerrun3_ab9e423f.wem</Path>
 				</File>

@@ -151,7 +151,7 @@
 								</Sound>
 								<Sound Name="DeerRun3" ID="{5F7E0F19-F1AB-4DB4-94A1-460AD5E9E161}" ShortID="33368690" Type="SoundFX">
 									<ChildrenList>
-										<AudioFileSource Name="DeerRun3" ID="{92B4B704-605B-4802-B425-8436638D8109}" ShortID="1033538310">
+										<AudioFileSource Name="DeerRun3" ID="{AEDC2A53-50B0-4A32-BAB5-C9AD1B6218AD}" ShortID="486732723">
 											<Language>SFX</Language>
 											<AudioFile>DeerRun3.wav</AudioFile>
 										</AudioFileSource>
@@ -161,7 +161,67 @@
 										<ConversionRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" />
 									</ConversionInfo>
 									<ActiveSourceList>
-										<ActiveSource Name="DeerRun3" ID="{92B4B704-605B-4802-B425-8436638D8109}" Platform="Linked" />
+										<ActiveSource Name="DeerRun3" ID="{AEDC2A53-50B0-4A32-BAB5-C9AD1B6218AD}" Platform="Linked" />
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="DeerPain1" ID="{48D9F756-D507-4268-97C2-DC47A8EDB110}" ShortID="332846704" Type="SoundFX">
+									<ChildrenList>
+										<AudioFileSource Name="DeerPain1" ID="{C654609B-7102-4DA2-9BE1-1B78D22D0F0E}" ShortID="89371522">
+											<Language>SFX</Language>
+											<AudioFile>DeerPain1.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<BusRouting Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" />
+									<ConversionInfo>
+										<ConversionRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" />
+									</ConversionInfo>
+									<ActiveSourceList>
+										<ActiveSource Name="DeerPain1" ID="{C654609B-7102-4DA2-9BE1-1B78D22D0F0E}" Platform="Linked" />
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="DeerPain2" ID="{C110BDB9-AE14-4C8B-B872-00989522AD53}" ShortID="495152972" Type="SoundFX">
+									<ChildrenList>
+										<AudioFileSource Name="DeerPain2" ID="{4A9E3BE1-2650-4E34-AE91-6E9F257C2D76}" ShortID="371389096">
+											<Language>SFX</Language>
+											<AudioFile>DeerPain2.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<BusRouting Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" />
+									<ConversionInfo>
+										<ConversionRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" />
+									</ConversionInfo>
+									<ActiveSourceList>
+										<ActiveSource Name="DeerPain2" ID="{4A9E3BE1-2650-4E34-AE91-6E9F257C2D76}" Platform="Linked" />
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="DeerPain4" ID="{1209398F-A9DF-4C93-BBF6-51CDFE2C22E2}" ShortID="340015699" Type="SoundFX">
+									<ChildrenList>
+										<AudioFileSource Name="DeerPain4" ID="{8310217E-4649-4D2F-80E4-756AD07EBCA3}" ShortID="1044978850">
+											<Language>SFX</Language>
+											<AudioFile>DeerPain4.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<BusRouting Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" />
+									<ConversionInfo>
+										<ConversionRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" />
+									</ConversionInfo>
+									<ActiveSourceList>
+										<ActiveSource Name="DeerPain4" ID="{8310217E-4649-4D2F-80E4-756AD07EBCA3}" Platform="Linked" />
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="DeerPain3" ID="{F797033F-3ED2-4B32-B141-64F29B187F96}" ShortID="921645110" Type="SoundFX">
+									<ChildrenList>
+										<AudioFileSource Name="DeerPain3" ID="{31664B51-97A6-4BD1-AD8D-8ABA71FC3C79}" ShortID="896326479">
+											<Language>SFX</Language>
+											<AudioFile>DeerPain3.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<BusRouting Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" />
+									<ConversionInfo>
+										<ConversionRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" />
+									</ConversionInfo>
+									<ActiveSourceList>
+										<ActiveSource Name="DeerPain3" ID="{31664B51-97A6-4BD1-AD8D-8ABA71FC3C79}" Platform="Linked" />
 									</ActiveSourceList>
 								</Sound>
 							</ChildrenList>
@@ -178,6 +238,13 @@
 									</PropertyList>
 									<ChildrenList>
 										<AudioFileSource Name="Punch2" ID="{E436AFA2-E51A-481D-8FD6-302A08AD801A}" ShortID="324106989">
+											<PropertyList>
+												<Property Name="VolumeOffset" Type="Real64">
+													<ValueList>
+														<Value>24</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
 											<Language>SFX</Language>
 											<AudioFile>Punch2.wav</AudioFile>
 										</AudioFileSource>
@@ -193,6 +260,13 @@
 								<Sound Name="Punch3" ID="{BD55BBA2-D761-4049-8E0A-E1957A77A5EF}" ShortID="998805389" Type="SoundFX">
 									<ChildrenList>
 										<AudioFileSource Name="Punch3" ID="{F06C51BC-8E74-45CB-B6AD-2E294AC6D13C}" ShortID="917177926">
+											<PropertyList>
+												<Property Name="VolumeOffset" Type="Real64">
+													<ValueList>
+														<Value>24</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
 											<Language>SFX</Language>
 											<AudioFile>Punch3.wav</AudioFile>
 										</AudioFileSource>
@@ -208,6 +282,13 @@
 								<Sound Name="Slap1" ID="{D0F4053C-3EFC-4BCA-8C7F-868364E09D66}" ShortID="93531494" Type="SoundFX">
 									<ChildrenList>
 										<AudioFileSource Name="Slap1" ID="{DA508070-7956-4E60-9073-91A6B8BE0CB7}" ShortID="22097105">
+											<PropertyList>
+												<Property Name="VolumeOffset" Type="Real64">
+													<ValueList>
+														<Value>24</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
 											<Language>SFX</Language>
 											<AudioFile>Slap1.wav</AudioFile>
 										</AudioFileSource>

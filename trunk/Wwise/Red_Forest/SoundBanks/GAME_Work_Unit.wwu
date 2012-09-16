@@ -9,31 +9,43 @@
 						<ObjectRef Name="Punch2" ID="{FD7B400B-0CF3-48FE-8856-454CFEE38929}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="DeerExclaim" ID="{8243450F-3F8E-46E7-820E-3A60D0896EAC}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="DeerRun3" ID="{5F7E0F19-F1AB-4DB4-94A1-460AD5E9E161}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="Play_EFX_DeerPain1" ID="{2298DE1A-ECB3-409D-82D0-9EEDC3EACC82}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="DeerRun2" ID="{859E281C-5F89-48A8-83F8-D3328603C939}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="Play_EFX_DeerPain4" ID="{1DE3521F-7D49-42FD-A510-B2442A8FFB5C}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_MUS_Level_1" ID="{73F70F20-20AC-4A31-8567-997CD5C13282}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_EFX_GUI_Button_Back" ID="{6F493325-F482-44F2-956A-1B36549F33C3}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_EFX_DeerRunAttack" ID="{59444E27-7049-44D9-979B-79F9E7D1C50C}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_EFX_DeerRun1" ID="{21D85939-3427-4A89-B583-C1673F7B8921}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Stop_EFX_DeerExclaim" ID="{D6A07B3B-24FA-4BD6-AC61-FC139EF8FD7B}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="Slap1" ID="{D0F4053C-3EFC-4BCA-8C7F-868364E09D66}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="DeerPain3" ID="{F797033F-3ED2-4B32-B141-64F29B187F96}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_EFX_GUI_Button_Next" ID="{2A18313F-821B-41AD-AF5F-60E10B6C1DCE}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_EFX_DeerRun2" ID="{FB896443-AD11-4385-B276-A33074A74290}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_EFX_DeerRunAttackCharged" ID="{C8146643-479A-4BA3-8268-CB94CFFFAFB8}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="DeerRunAttack" ID="{0DC97446-4C70-4BCA-997D-AFCCCD799907}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_EFX_DeerExclaim" ID="{DA273953-A19B-4854-A488-A93AFC125466}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="DeerPain1" ID="{48D9F756-D507-4268-97C2-DC47A8EDB110}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="DeerEnemyDetected" ID="{0339D56E-69AA-48D1-8AC2-CCF383299018}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="Play_EFX_DeerPain2" ID="{E5A3DF7B-C6C0-4DD5-B6B4-93953B46D8D5}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Stop_EFX_DeerEnemyDetected" ID="{89DFB984-DD7B-4D4C-8B98-B248FB701CDA}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_MUS_GUI_Intro" ID="{CAD7D884-E521-423D-ABA9-FC21D0EDEE49}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="Play_EFX_DeerPain3" ID="{D7ACE687-0768-4FBE-AAD5-FBF36C6EDB7F}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="DeerRun1" ID="{B5540C88-6785-498B-9BFF-2DAB99514E31}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="DeerPain4" ID="{1209398F-A9DF-4C93-BBF6-51CDFE2C22E2}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_EFX_GUI_Button_Over" ID="{E2EEAA92-1B23-482D-8A4E-2F039C955B51}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_EFX_DeerEnemyDetected" ID="{B0E3EF9A-29D3-4A80-BDC1-9BAD69F794C3}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Punch3" ID="{BD55BBA2-D761-4049-8E0A-E1957A77A5EF}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="DeerRunAttackCharged" ID="{91832AAD-4D5F-4272-8F69-BC0E69A1D083}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_EFX_Sword" ID="{D65620B1-7106-4282-9F46-70EE054179ED}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="MUS_Level_1" ID="{AA2037B5-5339-4522-A49C-0B82A8069B9B}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="DeerPain2" ID="{C110BDB9-AE14-4C8B-B872-00989522AD53}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_EFX_DeerRun3" ID="{C3E1F6BD-14BC-4FAF-8A60-86621CDD324B}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="Stop_EFX_DeerRun" ID="{E2A430C3-7C28-427A-9622-3DE112FC5374}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_EFX_DeerDieing" ID="{01A85CC5-D370-4E73-A83B-A9EB1CF70222}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="DeerDieing" ID="{FBEB9BC6-B2B1-4020-9AC8-AF34D671EC67}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_EFX_Slap1" ID="{0FAFA7CC-A569-4785-AAF8-41A5CC767D9C}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_EFX_Punch3" ID="{BF8012CF-19F4-4F63-9AC2-B155557151F1}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="Stop_EFX_Pains" ID="{E91531D4-44A8-448D-897C-197543AFDF20}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="EFX_Sword" ID="{4C045EE6-EB30-4187-A24F-2DE756C95043}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 					</ObjectInclusionList>
 					<ObjectExclusionList />

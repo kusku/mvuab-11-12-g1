@@ -214,6 +214,107 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Stop_EFX_DeerRun" ID="{E2A430C3-7C28-427A-9622-3DE112FC5374}">
+					<ChildrenList>
+						<Action Name="Stop" ID="{3B41C64C-AFF7-41CE-B003-87F163452ABF}" ShortID="450020137" Type="Stop" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{C3AC3CEA-515A-40C0-8F0C-CD5B6FFD8CA5}" Global="false">
+									<ObjectRef Name="DeerRun1" ID="{B5540C88-6785-498B-9BFF-2DAB99514E31}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+								</Element>
+							</ElementList>
+						</Action>
+						<Action Name="Stop" ID="{9F8D6577-3A8A-4937-8D25-C56C68B8F730}" ShortID="824222124" Type="Stop" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{1769CEA2-BA60-4531-B77C-ED26E242FB30}" Global="false">
+									<ObjectRef Name="DeerRun2" ID="{859E281C-5F89-48A8-83F8-D3328603C939}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+								</Element>
+							</ElementList>
+						</Action>
+						<Action Name="Stop" ID="{02C4FDDD-22C0-4777-83DD-EA267ADD5D69}" ShortID="1068129878" Type="Stop" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{3299E8A4-F70A-467A-B3EB-6927C6AEE5C8}" Global="false">
+									<ObjectRef Name="DeerRun3" ID="{5F7E0F19-F1AB-4DB4-94A1-460AD5E9E161}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_EFX_DeerPain1" ID="{2298DE1A-ECB3-409D-82D0-9EEDC3EACC82}">
+					<ChildrenList>
+						<Action Name="Play" ID="{7EDFDAE9-7F66-4542-B277-6A0F2D745EDF}" ShortID="73226412" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{0C6ACDC2-F628-4714-A766-6269F4CCAA62}" Global="false">
+									<ObjectRef Name="DeerPain1" ID="{48D9F756-D507-4268-97C2-DC47A8EDB110}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_EFX_DeerPain2" ID="{E5A3DF7B-C6C0-4DD5-B6B4-93953B46D8D5}">
+					<ChildrenList>
+						<Action Name="Play" ID="{BA49CF21-5208-4A3A-B278-3C50C6C8DC2D}" ShortID="167127284" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{0DC14B33-2886-4CC6-83D9-C66C69ACB2E5}" Global="false">
+									<ObjectRef Name="DeerPain2" ID="{C110BDB9-AE14-4C8B-B872-00989522AD53}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_EFX_DeerPain3" ID="{D7ACE687-0768-4FBE-AAD5-FBF36C6EDB7F}">
+					<ChildrenList>
+						<Action Name="Play" ID="{6E102644-380D-45A5-BABB-A7F319F9AA14}" ShortID="555236632" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{F8BFDBBA-C4F9-4CF2-AB2A-CA6042D6D003}" Global="false">
+									<ObjectRef Name="DeerPain3" ID="{F797033F-3ED2-4B32-B141-64F29B187F96}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_EFX_DeerPain4" ID="{1DE3521F-7D49-42FD-A510-B2442A8FFB5C}">
+					<ChildrenList>
+						<Action Name="Play" ID="{A901EE44-ABB7-4453-B20B-57D28213E3DF}" ShortID="409204052" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{8B56974B-D23E-4775-B168-9E61B81B9928}" Global="false">
+									<ObjectRef Name="DeerPain4" ID="{1209398F-A9DF-4C93-BBF6-51CDFE2C22E2}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Stop_EFX_Pains" ID="{E91531D4-44A8-448D-897C-197543AFDF20}">
+					<ChildrenList>
+						<Action Name="Stop" ID="{AE0ECC06-45CF-4ABC-8A50-3A570331496A}" ShortID="327196307" Type="Stop" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{A19CFE84-6CD6-4F04-9770-A836827F84F2}" Global="false">
+									<ObjectRef Name="DeerPain1" ID="{48D9F756-D507-4268-97C2-DC47A8EDB110}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+								</Element>
+							</ElementList>
+						</Action>
+						<Action Name="Stop" ID="{15866B11-16C9-497F-85DA-B375B89B86A4}" ShortID="996188158" Type="Stop" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{3B9D42E3-DCBB-4282-A54C-70575A5D6A66}" Global="false">
+									<ObjectRef Name="DeerPain2" ID="{C110BDB9-AE14-4C8B-B872-00989522AD53}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+								</Element>
+							</ElementList>
+						</Action>
+						<Action Name="Stop" ID="{3B3998D5-4A1D-4E0E-83E1-AE346D06B740}" ShortID="572422261" Type="Stop" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{B82548D5-E600-48ED-9E21-C667A7C54299}" Global="false">
+									<ObjectRef Name="DeerPain3" ID="{F797033F-3ED2-4B32-B141-64F29B187F96}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+								</Element>
+							</ElementList>
+						</Action>
+						<Action Name="Stop" ID="{5339EA02-56EB-4E69-9D40-F9C0A458ED1E}" ShortID="359632999" Type="Stop" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{0C326BA9-21EF-435A-B872-D302AF5EE0C3}" Global="false">
+									<ObjectRef Name="DeerPain4" ID="{1209398F-A9DF-4C93-BBF6-51CDFE2C22E2}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>
