@@ -1122,6 +1122,41 @@ bool CCharactersManager::EnemyIsVisibleInAngle(CCharacter *_Enemy, float _Angle,
 	//Calculamos el ángulo entre los dos vectores
 	//float l_Angle = l_DirPlayer.AngleWithVector(l_DirEnemy);		// Jordi : Jo tinc això...
 	float l_Angle = l_DirPlayer.Dot(l_DirEnemy);
+	float l_AngleDegrees = mathUtils::Rad2Deg(l_Angle);
+	l_Angle = mathUtils::ACos(l_Angle);
+
+	if( l_Angle > _Angle )
+	{
+		return false;
+	}
+
+	return true;
+}
+
+// -----------------------------------------------------------------------------------------------------
+// --- Me indica si el enemigo se visualiza dentro la cámara o dentro de los grados en radianes
+// -----------------------------------------------------------------------------------------------------
+bool CCharactersManager::IsEnemyVisibleInAngleFromCamera(CCharacter *_Enemy, float _Angle )
+{
+	assert( m_pPlayer );
+	assert( _Enemy );
+	assert( _Angle > 0.f );
+	
+	//Cogemos la dirección de la cámara
+	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
+	Vect3f	l_DirCamera = l_Process->GetPlayerCamera()->GetDirection();
+	l_DirCamera.y = 0.f;
+	l_DirCamera.Normalize(1.f);
+
+	//Calculamos el vector entre el player y el enemigo
+	Vect3f l_DirEnemy = _Enemy->GetPosition() - l_Process->GetPlayerCamera()->GetPosition();
+	l_DirEnemy.y = 0.f;
+	l_DirEnemy.Normalize(1.f);
+
+	//Calculamos el ángulo entre los dos vectores
+	//float l_Angle = l_DirPlayer.AngleWithVector(l_DirEnemy);		// Jordi : Jo tinc això...
+	float l_Angle = l_DirCamera.Dot(l_DirEnemy);
+	float l_AngleDegrees = mathUtils::Rad2Deg(l_Angle);
 	l_Angle = mathUtils::ACos(l_Angle);
 
 	if( l_Angle > _Angle )

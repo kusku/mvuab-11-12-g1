@@ -2,6 +2,7 @@
 #include "CharacterManager.h"
 #include "Properties/Properties.h"
 #include "VideogameDefs.h"
+#include "Utils\BoostRandomHelper.h"
 
 #include "Steering Behaviors\SteeringBehaviors.h"
 #include "Steering Behaviors\SteeringBehaviorsDefs.h"
@@ -28,6 +29,8 @@
 #include "Cameras\ThPSCharacterCamera.h"
 
 #include "EngineProcess.h"
+#include "GameProcess.h"
+#include "Logger\Logger.h"
 #include "Core.h"
 #include "Base.h"
 
@@ -51,6 +54,7 @@ CCharacter::CCharacter()
 	, m_pSteeringEntity			( NULL )
 	, m_bIsAlive				( true )
 	, m_ReadyToAttack			( false )
+	, m_PlayerHasBeenReached	( false )
 {
 	// coloco la máquina de estados i el controler de física
     m_pLogicStateMachine	= new CStateMachine<CCharacter>( this );
@@ -74,6 +78,7 @@ CCharacter::CCharacter( const std::string &_Name )
 	, m_pSteeringEntity			( NULL )
 	, m_bIsAlive				( true )
 	, m_ReadyToAttack			( false )
+	, m_PlayerHasBeenReached	( false )
 {
 	SetName ( _Name );
 
@@ -99,6 +104,7 @@ CCharacter::CCharacter(int _ID, const std::string &_Name)
 	, m_pSteeringEntity			( NULL )
 	, m_bIsAlive				( true )
 	, m_ReadyToAttack			( false )
+	, m_PlayerHasBeenReached	( false )
 {
 	SetName ( _Name );
 	// coloco la máquina de estados
@@ -675,12 +681,18 @@ bool CCharacter::IsEnemyAproximatedToAttack( void )
 	return IsPlayerInsideDistance(this->GetProperties()->GetAproximationDistance());
 }
 
+// ---------------------------------------------------------------------------------------------------------------
+// IsPlayerReached: Han pegado al Player!!
+// ---------------------------------------------------------------------------------------------------------------
 bool CCharacter::IsPlayerReached( void )
 {
 	return ( IsPlayerInsideDistance(this->GetProperties()->GetImpactDistance() ) );//&& ( IsObstacleVisibleInAngle(GetPlayer(), 180) ) );
 }
 
-Vect3f CCharacter::GetPointOfFront( void ) const
+// ---------------------------------------------------------------------------------------------------------------
+// GetPointInsideCameraFrustum: Obtiene una posición especifica 
+// ---------------------------------------------------------------------------------------------------------------
+Vect3f CCharacter::GetPointInsideCameraFrustum( void ) const
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	Vect3f	l_Front  = l_Process->GetPlayerCamera()->GetDirection();
@@ -697,29 +709,102 @@ Vect3f CCharacter::GetPointOfFront( void ) const
 	return l_Position;
 }
 
-bool CCharacter::HaveToGoIntoFrustum( float _RangeAngle, float _ElapsedTime )
+// ---------------------------------------------------------------------------------------------------------------
+// IsEnemyIntoCameraFrustum: Compruebo si el caracter està dentro del frustum de la camara especificado en grados
+// ---------------------------------------------------------------------------------------------------------------
+bool CCharacter::IsEnemyIntoCameraFrustum( float _RangeAngle, float _ElapsedTime )
 {
 	float l_AngleRad = mathUtils::Deg2Rad(_RangeAngle);
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	Vect3f	l_Front  = l_Process->GetPlayerCamera()->GetDirection();
 	
-	if ( l_Process->GetCharactersManager()->EnemyIsVisibleInAngle(this, l_AngleRad, l_Front) )
-	{
-		return true;
-	}
-	else
-	{
-		//this->GetBehaviors()->PursuitOff();
-		Vect3f l_PointToGo = GetPointOfFront();
-		this->GetBehaviors()->GetSeek()->SetTarget(l_PointToGo);
-		this->GetBehaviors()->SeekOn();
-		this->FaceTo( this->GetPlayer()->GetPosition(), _ElapsedTime);
-		this->MoveTo2(this->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
-
-		return false;
-	}
+	return (l_Process->GetCharactersManager()->IsEnemyVisibleInAngleFromCamera(this, l_AngleRad) );
 }
 
+// ---------------------------------------------------------------------------------------------------------------
+// GoIntoCameraFrustum: Vamos al frustum de la cámara ya que no visualizamos el enemigo. Angulo en grados. 
+// ---------------------------------------------------------------------------------------------------------------
+void CCharacter::GoIntoCameraFrustum( float _RangeAngle, float _ElapsedTime )
+{
+	Vect3f l_PointToGo = GetPointInsideCameraFrustum();
+	this->GetBehaviors()->GetSeek()->SetTarget(l_PointToGo);
+	this->GetBehaviors()->SeekOn();
+	this->FaceTo( this->GetPlayer()->GetPosition(), _ElapsedTime);
+	this->MoveTo2(this->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
+	LOGGER->AddNewLog(ELL_INFORMATION, "CCharacter::GoIntoCameraFrustum-> %s fuera del frustum de %f grados", this->GetName().c_str(), _RangeAngle);
+}
+
+//void CCharacter::GoIntoCameraFrustum( float _RangeAngle, float _ElapsedTime )
+//{
+//	float l_AngleRad = mathUtils::Deg2Rad(_RangeAngle);
+//	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
+//	//Vect3f	l_Front  = l_Process->GetPlayerCamera()->GetDirection();
+//	
+//	if ( l_Process->GetCharactersManager()->IsEnemyVisibleInAngleFromCamera(this, l_AngleRad ) )
+//	{
+//		this->GetBehaviors()->GetSeek()->SetTarget(this->GetPlayer()->GetPosition());
+//		this->GetBehaviors()->SeekOn();
+//		this->FaceTo( this->GetPlayer()->GetPosition(), _ElapsedTime);
+//		this->MoveTo2(this->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
+//		LOGGER->AddNewLog(ELL_INFORMATION, "CCharacter::GoIntoCameraFrustum-> %s está dentro frustum de %f grados", this->GetName().c_str(), _RangeAngle);
+//		return false;
+//	}
+//	else
+//	{
+//		//this->GetBehaviors()->PursuitOff();
+//		Vect3f l_PointToGo = GetPointInsideCameraFrustum();
+//		this->GetBehaviors()->GetSeek()->SetTarget(l_PointToGo);
+//		this->GetBehaviors()->SeekOn();
+//		this->FaceTo( this->GetPlayer()->GetPosition(), _ElapsedTime);
+//		this->MoveTo2(this->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
+//		LOGGER->AddNewLog(ELL_INFORMATION, "CCharacter::GoIntoCameraFrustum-> %s fuera del frustum de %f grados", this->GetName().c_str(), _RangeAngle);
+//	}
+//}
+
+
+// ---------------------------------------------------------------------------------------------------------------
+// GetPositionToAttack: Obtiene una nueva posición para ubicarse para no entorpecer los demás y poder atacar
+// ---------------------------------------------------------------------------------------------------------------
+Vect3f CCharacter::GetPositionToAttack( void ) const
+{
+	// Pillamos un angulo cualquiera
+	float l_NewAngle = static_cast<float> (BoostRandomHelper::GetFloat(0, 180));
+	float l_NewAngleRadians = mathUtils::Deg2Rad(l_NewAngle);
+
+	// Le añadimos este al anterior 
+	//m_WanderOrientation += l_NewAngleRadians;
+
+	//float l_TargetOrientation = m_WanderOrientation + _pEntity->GetYaw();
+	//Vect3f l_TargetOrientationVector;
+	//l_TargetOrientationVector.GetXZFromAngle(l_TargetOrientation);
+	//l_TargetOrientationVector.Normalize();
+
+	//Vect3f l_Front = _pEntity->GetFront();
+	//l_Front.Normalize();
+	//Vect3f l_Target = _pEntity->GetPosition() + m_WanderDistance * l_Front;
+
+	//l_Target += m_WanderRadius * l_TargetOrientationVector;
+
+	// Vector orientado del nuevo ángulo
+	Vect3f l_TargetOrientationVector;
+	l_TargetOrientationVector.GetXZFromAngle(l_NewAngleRadians);
+	l_TargetOrientationVector.Normalize();
+
+	CGameProcess * l_pProcess = static_cast<CGameProcess*>(CORE->GetProcess());
+	CCharacter *l_Player = l_pProcess->GetPlayer();
+	Vect3f l_CameraDir	= l_pProcess->GetPlayerCamera()->GetDirection();
+	l_CameraDir.Normalize();
+	
+	// Esto me debería devolver la dirección de la cámera traladada a la posición del player
+	Vect3f l_PlayerPosition = l_Player->GetPosition();
+	Vect3f l_Target = l_PlayerPosition + this->GetProperties()->GetAttackDistance() * l_TargetOrientationVector;
+	float l_Yaw = l_Target.GetAngleY();
+
+	return l_Target;
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// GetDistanceToPlayer: Obtiene la distancia al player. Se usa vector 2D ya que la y = 0
+// ---------------------------------------------------------------------------------------------------------------
 float CCharacter::GetDistanceToPlayer( void )
 {
 	Vect2f l_PositionA = Vect2f( this->GetPosition().x, this->GetPosition().z);
@@ -735,12 +820,16 @@ bool CCharacter::IsCollisionedWithSomething	( void )
 	return false;
 }
 
-
+// ------------------------------------------------------------------------------------------------------------------
+// IsObstacleVisibleInAngle: Devuelve si el obstaculo pasado está dentro de su frustum según el angulo especificado
+//							Ángulo en grados
+// ------------------------------------------------------------------------------------------------------------------
 bool CCharacter::IsObstacleVisibleInAngle(CCharacter * _Obstacle, float _Angle)
 {
 	assert( _Obstacle );
 	assert( _Angle > 0.f );
 	
+	float l_AngleRad = mathUtils::Deg2Rad(_Angle); 
 	//Calculamos el vector entre el player y el enemigo
 	Vect3f l_DirToObstacle = _Obstacle->GetPosition() - this->GetPosition();
 	l_DirToObstacle.y = 0.f;
@@ -749,16 +838,15 @@ bool CCharacter::IsObstacleVisibleInAngle(CCharacter * _Obstacle, float _Angle)
 	//Calculamos el ángulo entre los dos vectores
 	//float l_Angle = l_DirPlayer.AngleWithVector(l_DirEnemy);		// Jordi : Jo tinc això...
 	float l_Angle = GetFront().Dot(l_DirToObstacle);
-	l_Angle = mathUtils::ACos(l_Angle);
+	l_AngleRad = mathUtils::ACos(l_AngleRad);
 
-	if( l_Angle > _Angle )
+	if( l_AngleRad > _Angle )
 	{
 		return false;
 	}
 
 	return true;
 }
-
 
 // -----------------------------------------
 //				PROPERTIES

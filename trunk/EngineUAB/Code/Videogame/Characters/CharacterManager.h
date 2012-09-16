@@ -51,9 +51,11 @@ public:
 	CCharacter*			IsPlayerNearEnemy					( float distance );
 	CCharacter*			SearchTargetEnemy					( float _Distance, float _AngleVisible, const Vect3f &_Front );
 	bool				EnemyIsVisibleInAngle				( CCharacter *_Enemy, float _Angle, const Vect3f &_Front );
+	bool				IsEnemyVisibleInAngleFromCamera		( CCharacter *_Enemy, float _Angle );
+
 	CCharacter*			GetPlayerAngleCorrection			( float _fDistance, float _fMinAngle, float &_fAngle );
 
-	void				Drawfrustum						( void );
+	void				Drawfrustum							( void );
 	void				DrawFront							( void );
 	void				DrawNames							( CFontManager *_FM );
 	void				DrawRay								( void );

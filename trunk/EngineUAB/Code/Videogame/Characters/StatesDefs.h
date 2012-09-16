@@ -14,6 +14,7 @@
 #define RABBIT_JUMP_STATE			"conejo_jump"
 #define RABBIT_RIGHT_LATERAL_STATE	"conejo_right_lateral"
 #define RABBIT_LEFT_LATERAL_STATE	"conejo_left_lateral"
+#define	RABBIT_ATTACK_STATE			"Conejo_attack"
 #define RABBIT_STILL_ATTACK_STATE	"conejo_attack_1"
 #define RABBIT_RUN_ATTACK_STATE		"conejo_attack_2"
 #define RABBIT_WALK_STATE			"conejo_walk"
