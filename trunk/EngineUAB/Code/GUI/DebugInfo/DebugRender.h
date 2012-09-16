@@ -13,6 +13,7 @@
 #include "Math\Color.h"
 #include "Math\Vector2.h"
 #include <string>
+#include <map>
 
 //---Forward Declarations---
 class CRenderManager;
@@ -45,8 +46,12 @@ public:
 	void				SetCameraVisible			( bool visible )	{ m_bCameraVisible = visible; AnalizeSizeInfo(); }
 	void				SetStateVisible				( bool visible )	{ m_bStateVisible = visible; AnalizeSizeInfo(); }
 
-	void				SetStateName				( const std::string& state) { m_StateName = state; }
-	void				SetEnemyStateName			( const std::string& state) { m_EnemyStateName = state; }
+	void				SetStateName				( const std::string& _State) { m_StateName = _State; }
+	void				AddEnemyStateName			( const std::string& _EnemyName, std::string _State) 
+																		{ 
+																			m_EnemyStates[_EnemyName.c_str()] = _State; 
+																		}
+
 	//Toggle Methods----------------------
 	void				ToggleFPS					()					{ m_bFPSVisible = !m_bFPSVisible; AnalizeSizeInfo(); }
 	void				ToggleDeltaTime				()					{ m_bDeltaTimeVisible = !m_bDeltaTimeVisible; AnalizeSizeInfo(); }
@@ -57,17 +62,19 @@ public:
 private:
 	void AnalizeSizeInfo ();
 
-	bool					m_bIsVisible;
-	Vect2i					m_SizeRectangle;
+	bool								m_bIsVisible;
+	Vect2i								m_SizeRectangle;
 
-	bool					m_bFPSVisible;
-	bool					m_bDeltaTimeVisible;
-	bool					m_bGamePadVisible;
-	bool					m_bCameraVisible;
-	bool					m_bStateVisible;
+	bool								m_bFPSVisible;
+	bool								m_bDeltaTimeVisible;
+	bool								m_bGamePadVisible;
+	bool								m_bCameraVisible;
+	bool								m_bStateVisible;
 
-	std::string				m_StateName;
-	std::string				m_EnemyStateName;
+	std::string							m_StateName;
+
+	std::map<std::string, std::string>	m_EnemyStates;
+	std::string							m_EnemyStateName;
 };
 
 #endif

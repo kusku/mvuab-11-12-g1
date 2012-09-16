@@ -49,7 +49,7 @@ void CDebugRender::Render(CRenderManager *_RM, CFontManager *fm, CTimer *timer, 
 		CColor edgesColor = colBLACK;
 		edgesColor.SetAlpha(0.7f);
 		
-		_RM->DrawRectangle2D(Vect2i(screen.x - dx, dy), m_SizeRectangle.x, m_SizeRectangle.y, backgroundColor, 2, 2, edgesColor);
+		_RM->DrawRectangle2D(Vect2i(screen.x - dx, dy), m_SizeRectangle.x, 200, backgroundColor, 2, 2, edgesColor);
 
 		std::string gamepad, hideInfo;
 		gamepad = CORE->GetActionToInput()->GetGamepadState() ? "true" : "false";
@@ -90,9 +90,18 @@ void CDebugRender::Render(CRenderManager *_RM, CFontManager *fm, CTimer *timer, 
 
 		if( m_bStateVisible )
 		{
-			dy += fm->DrawDefaultText(screen.x - dx, dy, color, "Enemy State: %s", m_EnemyStateName.c_str());
-		}
+			std::map<std::string,std::string>::iterator l_It = m_EnemyStates.begin();
+			std::map<std::string,std::string>::iterator l_End = m_EnemyStates.end();
 
+			for ( l_It; l_It != l_End; l_It++ )
+			{
+				std::string l_Name = (*(&(l_It)._Ptr->_Myval)).first;
+				std::string l_State = (*(&(l_It)._Ptr->_Myval)).second;
+				std::string l_Enemy = "enemy";
+				l_Name = l_Name.erase(0, 5 );
+				dy += fm->DrawDefaultText(screen.x - dx, dy, color, "EState %s: %s", l_Name.c_str(), l_State.c_str());
+			}
+		}
 
 		//Info para ocultar la información
 		dy += fm->DrawDefaultText(screen.x - dx, dy, color, "_________________________");
