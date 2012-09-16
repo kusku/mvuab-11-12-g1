@@ -8,6 +8,7 @@
 #include <string>
 
 class CAnimationCallback;
+class CParticleEmitter;
 struct STelegram;
 
 class CPlayerAttackState : public CState< CCharacter >
@@ -24,9 +25,11 @@ public:
 
 private:
 	float	CalculateAngleMovement( CCharacter *_pCharacter, float _fAngle );
+	void	SetParticlePosition( CCharacter* _pCharacter );
 
 private:
 	CAnimationCallback	*m_pCallback;
+	CParticleEmitter	*m_pParticleEmitter;
 
 	bool				m_bFirstUpdate;
 	float				m_fMaxVelocityMovement;

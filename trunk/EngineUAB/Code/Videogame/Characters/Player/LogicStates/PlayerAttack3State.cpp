@@ -4,6 +4,8 @@
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 #include "Callbacks\Animation\AnimationCallbackManager.h"
 #include "Callbacks\Animation\AnimationCallback.h"
+#include "Particles\ParticleEmitter.h"
+#include "Particles\ParticleEmitterManager.h"
 #include "DebugInfo\DebugRender.h"
 #include "DebugGUIManager.h"
 #include "PhysicController.h"
@@ -32,7 +34,8 @@ CPlayerAttack3State::CPlayerAttack3State( const std::string &_Name )
 	, m_fAccelerationMovement(-40.f)
 	, m_fAttackYaw(0.f)
 {
-	m_pCallback = static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager()->GetCallback("attack3");
+	m_pCallback				= static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager()->GetCallback("attack3");
+	m_pParticleEmitter	= CORE->GetParticleEmitterManager()->GetResource("SwordFinal");
 }
 
 CPlayerAttack3State::~CPlayerAttack3State()
@@ -48,6 +51,10 @@ void CPlayerAttack3State::OnEnter( CCharacter* _pCharacter )
 		CORE->GetDebugGUIManager()->GetDebugRender()->SetStateName("Attack 3");
 	}
 #endif
+
+	//Lanza el sistema de partículas
+	SetParticlePosition(_pCharacter);
+	m_pParticleEmitter->EjectParticles();
 
 	//Calcula el ángulo a moverse
 	CAnimatedInstanceModel *l_pAnimatedModel = _pCharacter->GetAnimatedModel();
@@ -149,6 +156,9 @@ void CPlayerAttack3State::Execute( CCharacter* _pCharacter, float _fElapsedTime 
 	{
 		m_fCurrentVelocityMovement = 0.f;
 	}
+
+	//Actualiza las partículas
+	SetParticlePosition(_pCharacter);
 }
 
 void CPlayerAttack3State::OnExit( CCharacter* _pCharacter )
@@ -234,4 +244,13 @@ float CPlayerAttack3State::CalculateAngleMovement( CCharacter *_pCharacter, floa
 	}
 
 	return _fAngle;		
+}
+
+void CPlayerAttack3State::SetParticlePosition( CCharacter* _pCharacter )
+{
+	Vect3f l_Pos					= _pCharacter->GetPosition();
+	l_Pos.y							+= 1.f;
+	l_Pos							+= _pCharacter->GetAnimatedModel()->GetFront() * 1.5f;
+
+	m_pParticleEmitter->SetPosition( l_Pos );
 }
