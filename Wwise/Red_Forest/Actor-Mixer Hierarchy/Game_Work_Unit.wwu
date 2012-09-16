@@ -620,6 +620,36 @@
 										<ActiveSource Name="RabbitsRun8" ID="{1D5D5D41-A7B7-4B87-9D1A-4D2468C9E942}" Platform="Linked" />
 									</ActiveSourceList>
 								</Sound>
+								<Sound Name="RabbitsRunAttack1" ID="{791A8D3E-DA5E-45CA-B3AB-77200AD6EC7D}" ShortID="567736420" Type="SoundFX">
+									<ChildrenList>
+										<AudioFileSource Name="RabbitsRunAttack1" ID="{79D3E903-4665-40F3-95FD-61F88E0AA234}" ShortID="720216318">
+											<Language>SFX</Language>
+											<AudioFile>RabbitsRunAttack1.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<BusRouting Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" />
+									<ConversionInfo>
+										<ConversionRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" />
+									</ConversionInfo>
+									<ActiveSourceList>
+										<ActiveSource Name="RabbitsRunAttack1" ID="{79D3E903-4665-40F3-95FD-61F88E0AA234}" Platform="Linked" />
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="RabbitsRunAttack2" ID="{2FECFB92-C051-467B-8B89-AFC010F6945C}" ShortID="475155899" Type="SoundFX">
+									<ChildrenList>
+										<AudioFileSource Name="RabbitsRunAttack2" ID="{E240A387-5F11-4460-9023-0A56DD4381D5}" ShortID="456686198">
+											<Language>SFX</Language>
+											<AudioFile>RabbitsRunAttack2.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<BusRouting Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" />
+									<ConversionInfo>
+										<ConversionRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" />
+									</ConversionInfo>
+									<ActiveSourceList>
+										<ActiveSource Name="RabbitsRunAttack2" ID="{E240A387-5F11-4460-9023-0A56DD4381D5}" Platform="Linked" />
+									</ActiveSourceList>
+								</Sound>
 							</ChildrenList>
 						</Folder>
 					</ChildrenList>

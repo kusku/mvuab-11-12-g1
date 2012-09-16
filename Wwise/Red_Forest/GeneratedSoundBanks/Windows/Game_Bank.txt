@@ -33,12 +33,15 @@ Event	ID	Name			Wwise Object Path	Notes
 	2381360359	Play_EFX_RabbitsRun1			\Default Work Unit\Play_EFX_RabbitsRun1	
 	2381360366	Play_EFX_RabbitsRun8			\Default Work Unit\Play_EFX_RabbitsRun8	
 	2584030508	Stop_EFX_RabbitRuns			\Default Work Unit\Stop_EFX_RabbitRuns	
+	2610643847	Stop_EFX_RabbitsRunAttacks			\Default Work Unit\Stop_EFX_RabbitsRunAttacks	
 	3046853085	Play_EFX_DeerExclaim			\Default Work Unit\Play_EFX_DeerExclaim	
 	3187607523	Play_EFX_Sword			\Default Work Unit\Play_EFX_Sword	
 	3236107786	Play_EFX_Punch2			\Default Work Unit\Play_EFX_Punch2	
 	3236107787	Play_EFX_Punch3			\Default Work Unit\Play_EFX_Punch3	
 	3241105985	Stop_EFX_DeerPains			\Default Work Unit\Stop_EFX_DeerPains	
 	3677424533	Play_EFX_DeerRunAttackCharged			\Default Work Unit\Play_EFX_DeerRunAttackCharged	
+	4013370544	Play_EFX_RabbitsRunAttack2			\Default Work Unit\Play_EFX_RabbitsRunAttack2	
+	4013370547	Play_EFX_RabbitsRunAttack1			\Default Work Unit\Play_EFX_RabbitsRunAttack1	
 	4101543520	Play_MUS_Level_1			\Default Work Unit\Play_MUS_Level_1	
 	4146057876	Stop_EFX_DeerEnemyDetected			\Default Work Unit\Stop_EFX_DeerEnemyDetected	
 	4151175976	Play_EFX_GUI_Button_Next			\Default Work Unit\Play_EFX_GUI_Button_Next	
@@ -63,6 +66,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	356313677	RabbitPains5	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\rabbitpains5_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Rabbit\RabbitPains5		112428
 	371389096	DeerPain2	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\deerpain2_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Deer\DeerPain2		98848
 	423272026	RabbitsDeath4	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\rabbitsdeath4_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Rabbit\RabbitsDeath4		318464
+	456686198	RabbitsRunAttack2	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\rabbitsrunattack2_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Rabbit\RabbitsRunAttack2		355512
 	486732723	DeerRun3	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\deerrun3_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Deer\DeerRun3		585712
 	500473518	RabbitsRun3	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\rabbitsrun3_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Rabbit\RabbitsRun3		184228
 	509819820	RabbitPains1	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\rabbitpains1_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Rabbit\RabbitPains1		151416
@@ -74,6 +78,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	617013564	RabbitsDeath2	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\rabbitsdeath2_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Rabbit\RabbitsDeath2		273484
 	626104674	EFX_Sword	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\sword_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\EFX_Sword		101420
 	687257127	DeerEnemyDetected	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\deerenemydetected_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Deer\DeerEnemyDetected		4057264
+	720216318	RabbitsRunAttack1	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\rabbitsrunattack1_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Rabbit\RabbitsRunAttack1		330812
 	745797989	RabbitsDeath5	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\rabbitsdeath5_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Rabbit\RabbitsDeath5		307356
 	750670534	DeerRun1	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\deerrun1_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Deer\DeerRun1		441064
 	768856873	DeerRunAttack	D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\sfx\deerrunattack_ab9e423f.wem		\Actor-Mixer Hierarchy\Game_Work_Unit\Effects\Deer\DeerRunAttack		282304
