@@ -74,14 +74,36 @@
 				<Event Id="2151123781" Name="Play_EFX_GUI_Button_Over" />
 				<Event Id="3236107786" Name="Play_EFX_Punch2" />
 				<Event Id="3236107787" Name="Play_EFX_Punch3" />
+				<Event Id="1081855368" Name="Play_EFX_RabbitPains1" />
+				<Event Id="1081855371" Name="Play_EFX_RabbitPains2" />
+				<Event Id="1081855370" Name="Play_EFX_RabbitPains3" />
+				<Event Id="1081855373" Name="Play_EFX_RabbitPains4" />
+				<Event Id="1081855372" Name="Play_EFX_RabbitPains5" />
+				<Event Id="1081855375" Name="Play_EFX_RabbitPains6" />
+				<Event Id="1081855374" Name="Play_EFX_RabbitPains7" />
+				<Event Id="128537488" Name="Play_EFX_RabbitsDeath1" />
+				<Event Id="128537491" Name="Play_EFX_RabbitsDeath2" />
+				<Event Id="128537490" Name="Play_EFX_RabbitsDeath3" />
+				<Event Id="128537493" Name="Play_EFX_RabbitsDeath4" />
+				<Event Id="128537492" Name="Play_EFX_RabbitsDeath5" />
+				<Event Id="128537495" Name="Play_EFX_RabbitsDeath6" />
+				<Event Id="2381360359" Name="Play_EFX_RabbitsRun1" />
+				<Event Id="2381360356" Name="Play_EFX_RabbitsRun2" />
+				<Event Id="2381360357" Name="Play_EFX_RabbitsRun3" />
+				<Event Id="2381360354" Name="Play_EFX_RabbitsRun4" />
+				<Event Id="2381360355" Name="Play_EFX_RabbitsRun5" />
+				<Event Id="2381360352" Name="Play_EFX_RabbitsRun6" />
+				<Event Id="2381360353" Name="Play_EFX_RabbitsRun7" />
+				<Event Id="2381360366" Name="Play_EFX_RabbitsRun8" />
 				<Event Id="316894959" Name="Play_EFX_Slap1" />
 				<Event Id="3187607523" Name="Play_EFX_Sword" />
 				<Event Id="1954071212" Name="Play_MUS_GUI_Intro" />
 				<Event Id="4101543520" Name="Play_MUS_Level_1" />
 				<Event Id="4146057876" Name="Stop_EFX_DeerEnemyDetected" />
 				<Event Id="1167721271" Name="Stop_EFX_DeerExclaim" />
+				<Event Id="3241105985" Name="Stop_EFX_DeerPains" />
 				<Event Id="805848909" Name="Stop_EFX_DeerRun" />
-				<Event Id="4293704821" Name="Stop_EFX_Pains" />
+				<Event Id="2584030508" Name="Stop_EFX_RabbitRuns" />
 			</IncludedEvents>
 			<IncludedDialogueEvents />
 			<ReferencedStreamedFiles />
@@ -161,6 +183,90 @@
 				<File Id="917177926" Language="SFX">
 					<ShortName>Punch3.wav</ShortName>
 					<Path>sfx\punch3_ab9e423f.wem</Path>
+				</File>
+				<File Id="509819820" Language="SFX">
+					<ShortName>RabbitPains1.wav</ShortName>
+					<Path>sfx\rabbitpains1_ab9e423f.wem</Path>
+				</File>
+				<File Id="559523774" Language="SFX">
+					<ShortName>RabbitPains2.wav</ShortName>
+					<Path>sfx\rabbitpains2_ab9e423f.wem</Path>
+				</File>
+				<File Id="346081533" Language="SFX">
+					<ShortName>RabbitPains3.wav</ShortName>
+					<Path>sfx\rabbitpains3_ab9e423f.wem</Path>
+				</File>
+				<File Id="998422274" Language="SFX">
+					<ShortName>RabbitPains4.wav</ShortName>
+					<Path>sfx\rabbitpains4_ab9e423f.wem</Path>
+				</File>
+				<File Id="356313677" Language="SFX">
+					<ShortName>RabbitPains5.wav</ShortName>
+					<Path>sfx\rabbitpains5_ab9e423f.wem</Path>
+				</File>
+				<File Id="771082309" Language="SFX">
+					<ShortName>RabbitPains6.wav</ShortName>
+					<Path>sfx\rabbitpains6_ab9e423f.wem</Path>
+				</File>
+				<File Id="521569964" Language="SFX">
+					<ShortName>RabbitPains7.wav</ShortName>
+					<Path>sfx\rabbitpains7_ab9e423f.wem</Path>
+				</File>
+				<File Id="917977473" Language="SFX">
+					<ShortName>RabbitsDeath1.wav</ShortName>
+					<Path>sfx\rabbitsdeath1_ab9e423f.wem</Path>
+				</File>
+				<File Id="617013564" Language="SFX">
+					<ShortName>RabbitsDeath2.wav</ShortName>
+					<Path>sfx\rabbitsdeath2_ab9e423f.wem</Path>
+				</File>
+				<File Id="125580310" Language="SFX">
+					<ShortName>RabbitsDeath3.wav</ShortName>
+					<Path>sfx\rabbitsdeath3_ab9e423f.wem</Path>
+				</File>
+				<File Id="423272026" Language="SFX">
+					<ShortName>RabbitsDeath4.wav</ShortName>
+					<Path>sfx\rabbitsdeath4_ab9e423f.wem</Path>
+				</File>
+				<File Id="745797989" Language="SFX">
+					<ShortName>RabbitsDeath5.wav</ShortName>
+					<Path>sfx\rabbitsdeath5_ab9e423f.wem</Path>
+				</File>
+				<File Id="293968434" Language="SFX">
+					<ShortName>RabbitsDeath6.wav</ShortName>
+					<Path>sfx\rabbitsdeath6_ab9e423f.wem</Path>
+				</File>
+				<File Id="585486986" Language="SFX">
+					<ShortName>RabbitsRun1.wav</ShortName>
+					<Path>sfx\rabbitsrun1_ab9e423f.wem</Path>
+				</File>
+				<File Id="967244770" Language="SFX">
+					<ShortName>RabbitsRun2.wav</ShortName>
+					<Path>sfx\rabbitsrun2_ab9e423f.wem</Path>
+				</File>
+				<File Id="500473518" Language="SFX">
+					<ShortName>RabbitsRun3.wav</ShortName>
+					<Path>sfx\rabbitsrun3_ab9e423f.wem</Path>
+				</File>
+				<File Id="595826991" Language="SFX">
+					<ShortName>RabbitsRun4.wav</ShortName>
+					<Path>sfx\rabbitsrun4_ab9e423f.wem</Path>
+				</File>
+				<File Id="120361905" Language="SFX">
+					<ShortName>RabbitsRun5.wav</ShortName>
+					<Path>sfx\rabbitsrun5_ab9e423f.wem</Path>
+				</File>
+				<File Id="340023046" Language="SFX">
+					<ShortName>RabbitsRun6.wav</ShortName>
+					<Path>sfx\rabbitsrun6_ab9e423f.wem</Path>
+				</File>
+				<File Id="37755739" Language="SFX">
+					<ShortName>RabbitsRun7.wav</ShortName>
+					<Path>sfx\rabbitsrun7_ab9e423f.wem</Path>
+				</File>
+				<File Id="346998385" Language="SFX">
+					<ShortName>RabbitsRun8.wav</ShortName>
+					<Path>sfx\rabbitsrun8_ab9e423f.wem</Path>
 				</File>
 				<File Id="22097105" Language="SFX">
 					<ShortName>Slap1.wav</ShortName>
