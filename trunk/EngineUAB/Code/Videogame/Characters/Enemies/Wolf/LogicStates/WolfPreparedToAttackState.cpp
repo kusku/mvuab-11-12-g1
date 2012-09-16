@@ -103,7 +103,8 @@ void CWolfPreparedToAttackState::Execute( CCharacter* _Character, float _Elapsed
 		#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
-			CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Prepared to attack");
+			std::string l_State = "Prepared to attack";
+			CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pWolf->GetName().c_str(), l_State );
 		}
 		#endif
 
@@ -113,14 +114,15 @@ void CWolfPreparedToAttackState::Execute( CCharacter* _Character, float _Elapsed
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
-					CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Ready to attack");
+					std::string l_State = "Ready to attack";
+					CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pWolf->GetName().c_str(), l_State );
 				}
 			#endif
 
 			// Este enemigo puede atacar. Ahora miro si está dentro del angulo de vision pero no es el elegido para atacar. Por tanto, vamos hacia el player para tener opciones de ser
 			// el elegido para atacar
 			float l_Angle = 22.f;			//math.pi/15		// 12 graus de fustrum
-			m_pWolf->HaveToGoIntoFrustum(l_Angle, _ElapsedTime);
+			m_pWolf->GoIntoCameraFrustum(l_Angle, _ElapsedTime);
 			m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetWalkAnimationState());
 		}
 		
@@ -131,11 +133,12 @@ void CWolfPreparedToAttackState::Execute( CCharacter* _Character, float _Elapsed
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
-					CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Ready to attack");
+					std::string l_State = "Ready to attack";
+					CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pWolf->GetName().c_str(), l_State );
 				}
 			#endif
 
-			//m_pWolf->GetGraphicFSM()->ChangeState(m_pRabbit->GetWalkAnimationState());
+			//m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetWalkAnimationState());
 			m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());
 			m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetIdleState());
 			m_pWolf->FaceTo( m_pWolf->GetPlayer()->GetPosition(), _ElapsedTime);
@@ -143,7 +146,8 @@ void CWolfPreparedToAttackState::Execute( CCharacter* _Character, float _Elapsed
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
-					CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Not Ready-Too far");
+					std::string l_State = "Not Ready-Too far";
+					CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pWolf->GetName().c_str(), l_State );
 				}
 			#endif
 
@@ -178,7 +182,7 @@ bool CWolfPreparedToAttackState::OnMessage( CCharacter* _Character, const STeleg
 
 		/*if( l_fReceivedPain >= l_fPainToHit )
 		{
-			m_pRabbit->RestLife(10000); 
+			m_pWolf->RestLife(10000); 
 		}*/
 
 		if (!m_pWolf) 

@@ -3,6 +3,7 @@
 #include "Math\MathUtils.h"
 
 #include "Characters\Enemies\Rabbit\Rabbit.h"
+#include "Characters\StatesDefs.h"
 
 #include "RabbitPursuitState.h"
 #include "RabbitPreparedToAttackState.h"
@@ -95,7 +96,8 @@ void CRabbitDefenseState::OnEnter( CCharacter* _Character )
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
-			CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Defense");
+			std::string l_State = RABBIT_DEFENSE_STATE;
+			CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
 		}
 	#endif
 }

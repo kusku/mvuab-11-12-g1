@@ -82,7 +82,8 @@ void CRabbitAttackState::OnEnter( CCharacter* _Character )
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
-			CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Attack");
+			std::string l_State = RABBIT_ATTACK_STATE;
+			CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
 		}
 	#endif
 }
@@ -119,18 +120,18 @@ void CRabbitAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 			}	
 			else if ( l_ActiveActionState == RABBIT_RUN_ATTACK_STATE ) 
 			{
-				//m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetRunAttackState());
+				m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetRunAttackState());
 			}	
 			else if ( l_ActiveActionState == RABBIT_DEFENSE_STATE ) 
 			{
-				//m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetDefenseState());
+				m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetDefenseState());
 			}		
 			// else if ( l_ActiveActionState == "jump" ) then
 				// _CCharacter.logic_fsm:change_state(_CCharacter.jump_state)
 			else if ( l_ActiveActionState == "go_in_to_fustrum" ) 
 			{
 				float l_Angle = 22.f;		// 22,5 graus de fustrum
-				//m_pRabbit->GoInTofrustum(l_Angle, _ElapsedTime);
+				m_pRabbit->GoIntoCameraFrustum(l_Angle, _ElapsedTime);
 			}
 
 			#if defined _DEBUG

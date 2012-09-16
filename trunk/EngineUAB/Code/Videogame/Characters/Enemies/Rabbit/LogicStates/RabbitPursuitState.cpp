@@ -108,8 +108,8 @@ void CRabbitPursuitState::Execute( CCharacter* _Character, float _ElapsedTime )
 			#if defined _DEBUG
 			if( CORE->IsDebugMode() )
 			{
-					CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Pursuing");
-					//LOGGER->AddNewLog(ELL_INFORMATION, "Enemy %s pursuit...", m_pRabbit->GetName().c_str() );
+				std::string l_State = "Pursuing";
+				CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
 			}
 			#endif
 		}
