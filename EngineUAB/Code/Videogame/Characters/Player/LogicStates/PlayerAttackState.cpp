@@ -4,6 +4,8 @@
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 #include "Callbacks\Animation\AnimationCallbackManager.h"
 #include "Callbacks\Animation\AnimationCallback.h"
+#include "Particles\ParticleEmitter.h"
+#include "Particles\ParticleEmitterManager.h"
 #include "DebugInfo\DebugRender.h"
 #include "Characters\CharacterManager.h"
 #include "DebugGUIManager.h"
@@ -33,7 +35,8 @@ CPlayerAttackState::CPlayerAttackState( const std::string &_Name )
 	, m_fAccelerationMovement(-40.f)
 	, m_fAttackYaw(0.f)
 {
-	m_pCallback = static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager()->GetCallback("attack1");
+	m_pCallback			= static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager()->GetCallback("attack1");
+	m_pParticleEmitter	= CORE->GetParticleEmitterManager()->GetResource("SwordRight");
 }
 
 CPlayerAttackState::~CPlayerAttackState()
@@ -49,6 +52,10 @@ void CPlayerAttackState::OnEnter( CCharacter* _pCharacter )
 		CORE->GetDebugGUIManager()->GetDebugRender()->SetStateName("Attack 1");
 	}
 #endif
+
+	//Lanza el sistema de partículas
+	SetParticlePosition(_pCharacter);
+	m_pParticleEmitter->EjectParticles();
 
 	//Calcula el ángulo a moverse
 	CAnimatedInstanceModel *l_pAnimatedModel = _pCharacter->GetAnimatedModel();
@@ -150,6 +157,9 @@ void CPlayerAttackState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 	{
 		m_fCurrentVelocityMovement = 0.f;
 	}
+
+	//Actualiza las partículas
+	SetParticlePosition(_pCharacter);
 }
 
 void CPlayerAttackState::OnExit( CCharacter* _pCharacter )
@@ -235,4 +245,25 @@ float CPlayerAttackState::CalculateAngleMovement( CCharacter *_pCharacter, float
 	}
 
 	return _fAngle;		
+}
+
+void CPlayerAttackState::SetParticlePosition( CCharacter* _pCharacter )
+{
+	CAnimatedInstanceModel *l_pAnimatedModel = _pCharacter->GetAnimatedModel();
+
+	Mat44f l_TransformMatrix		= m44fIDENTITY;
+	Mat44f l_RotationMatrix			= m44fIDENTITY;
+	Vect4f l_Rotation				= v3fZERO;
+	Vect3f l_Translation			= v3fZERO;
+	Mat44f l_AnimatedModelTransform = l_pAnimatedModel->GetTransform();
+
+	l_pAnimatedModel->GetBonePosition("CHR_CAP R Hand", l_Translation);
+	l_pAnimatedModel->GetBoneRotation("CHR_CAP R Hand", l_Rotation);
+
+	l_TransformMatrix.Translate(l_Translation);
+	l_RotationMatrix.SetFromQuaternion(l_Rotation);
+
+	l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
+
+	m_pParticleEmitter->SetPosition( l_TransformMatrix.GetPos() );
 }

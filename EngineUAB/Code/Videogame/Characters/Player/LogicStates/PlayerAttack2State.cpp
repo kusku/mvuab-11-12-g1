@@ -4,6 +4,8 @@
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 #include "Callbacks\Animation\AnimationCallbackManager.h"
 #include "Callbacks\Animation\AnimationCallback.h"
+#include "Particles\ParticleEmitter.h"
+#include "Particles\ParticleEmitterManager.h"
 #include "DebugInfo\DebugRender.h"
 #include "DebugGUIManager.h"
 #include "PhysicController.h"
@@ -32,7 +34,8 @@ CPlayerAttack2State::CPlayerAttack2State( const std::string &_Name )
 	, m_fAccelerationMovement(-35.f)
 	, m_fAttackYaw(0.f)
 {
-	m_pCallback = static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager()->GetCallback("attack2");
+	m_pCallback			= static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager()->GetCallback("attack2");
+	m_pParticleEmitter	= CORE->GetParticleEmitterManager()->GetResource("SwordLeft");
 }
 
 CPlayerAttack2State::~CPlayerAttack2State()
@@ -48,6 +51,10 @@ void CPlayerAttack2State::OnEnter( CCharacter* _pCharacter )
 		CORE->GetDebugGUIManager()->GetDebugRender()->SetStateName("Attack 2");
 	}
 #endif
+
+	//Lanza el sistema de partículas
+	SetParticlePosition(_pCharacter);
+	m_pParticleEmitter->EjectParticles();
 
 	//Calcula el ángulo a moverse
 	CAnimatedInstanceModel *l_pAnimatedModel = _pCharacter->GetAnimatedModel();
@@ -97,6 +104,9 @@ void CPlayerAttack2State::OnEnter( CCharacter* _pCharacter )
 	//Establece los valores para la ejecución
 	m_fCurrentVelocityMovement = m_fMaxVelocityMovement;
 	m_bFirstUpdate = true;
+
+	//Actualiza las partículas
+	SetParticlePosition(_pCharacter);
 }
 
 void CPlayerAttack2State::Execute( CCharacter* _pCharacter, float _fElapsedTime )
@@ -149,6 +159,9 @@ void CPlayerAttack2State::Execute( CCharacter* _pCharacter, float _fElapsedTime 
 	{
 		m_fCurrentVelocityMovement = 0.f;
 	}
+
+	//Actualiza las partículas
+	SetParticlePosition(_pCharacter);
 }
 
 void CPlayerAttack2State::OnExit( CCharacter* _pCharacter  )
@@ -234,4 +247,25 @@ float CPlayerAttack2State::CalculateAngleMovement( CCharacter *_pCharacter, floa
 	}
 
 	return _fAngle;		
+}
+
+void CPlayerAttack2State::SetParticlePosition( CCharacter* _pCharacter )
+{
+	CAnimatedInstanceModel *l_pAnimatedModel = _pCharacter->GetAnimatedModel();
+
+	Mat44f l_TransformMatrix		= m44fIDENTITY;
+	Mat44f l_RotationMatrix			= m44fIDENTITY;
+	Vect4f l_Rotation				= v3fZERO;
+	Vect3f l_Translation			= v3fZERO;
+	Mat44f l_AnimatedModelTransform = l_pAnimatedModel->GetTransform();
+
+	l_pAnimatedModel->GetBonePosition("CHR_CAP L Hand", l_Translation);
+	l_pAnimatedModel->GetBoneRotation("CHR_CAP L Hand", l_Rotation);
+
+	l_TransformMatrix.Translate(l_Translation);
+	l_RotationMatrix.SetFromQuaternion(l_Rotation);
+
+	l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
+
+	m_pParticleEmitter->SetPosition( l_TransformMatrix.GetPos() );
 }
