@@ -623,8 +623,8 @@ bool CCharacter::IsPlayerAtacable( void )
 	bool l_InsideAttackDistance	= IsPlayerInsideDistance(this->GetProperties()->GetAttackDistance());
 	bool l_IsPlayerReady		= IsPlayerReady();
 
-	//if ( l_IsFocused && l_InsideAttackDistance && l_IsPlayerReady )
-	if ( l_InsideAttackDistance && l_IsPlayerReady )
+	if ( l_IsFocused && l_InsideAttackDistance && l_IsPlayerReady )
+	//if ( l_InsideAttackDistance && l_IsPlayerReady )
 	{
 		return true;
 	}
