@@ -69,7 +69,8 @@ void CDeerIdleState::OnEnter( CCharacter* _Character )
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
-			CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Idle state");
+			std::string l_State = DEER_IDLE_STATE;
+			CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pDeer->GetName().c_str(), l_State );
 		}
 	#endif
 }

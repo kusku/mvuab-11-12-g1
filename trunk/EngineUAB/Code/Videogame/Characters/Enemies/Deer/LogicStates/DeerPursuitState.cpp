@@ -122,7 +122,8 @@ void CDeerPursuitState::Execute( CCharacter* _Character, float _ElapsedTime )
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
-					CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Pursuing");
+					std::string l_State = "Pursuing";
+					CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pDeer->GetName().c_str(), l_State );
 					//LOGGER->AddNewLog(ELL_INFORMATION, "Enemy %s pursuit...", m_pRabbit->GetName().c_str() );
 				}
 			#endif

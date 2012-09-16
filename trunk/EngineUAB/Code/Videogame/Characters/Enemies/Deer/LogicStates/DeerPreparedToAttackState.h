@@ -40,6 +40,8 @@ public:
 private:
 	CDeer					  * m_pDeer;
 
+	bool						m_IsPositionAfterHitPlayerAssigned;
+	Vect3f						m_PositionReachedAfterHitPlayer;
 };
 
 

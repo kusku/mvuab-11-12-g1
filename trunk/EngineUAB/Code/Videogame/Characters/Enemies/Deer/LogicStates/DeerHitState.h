@@ -35,12 +35,14 @@ public:
 	virtual bool	OnMessage	( CCharacter*, const STelegram& );
 
 	//----Methods ---------------------------------------------
-	
+	void			PlayRandomSound( void );
+
 	//----Members ---------------------------------------------
 private:
 	CDeer					  * m_pDeer;
 	CAnimationCallback		  *	m_pAnimationCallback;
-	CActionStateCallback	  * m_pActionState;
+	CActionStateCallback		m_pActionState;
+	float						m_SoundDuration;
 
 	bool						m_IsCommingFromTired;
 	float						m_RecoverMinTiredTime;

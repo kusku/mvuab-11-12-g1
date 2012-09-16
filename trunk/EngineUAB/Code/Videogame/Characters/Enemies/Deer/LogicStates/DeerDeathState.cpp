@@ -73,7 +73,8 @@ void CDeerDeathState::OnEnter( CCharacter* _Character )
 #if defined _DEBUG
 	if( CORE->IsDebugMode() )
 	{
-		CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Enter death");
+		std::string l_State = DEER_DEATH_STATE;
+		CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pDeer->GetName().c_str(), l_State );
 	}
 #endif
 
@@ -102,7 +103,8 @@ void CDeerDeathState::Execute( CCharacter* _Character, float _ElapsedTime )
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
-					CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Mort enemic");
+					std::string l_State = "Mort enemic";
+					CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pDeer->GetName().c_str(), l_State );
 				}
 			#endif
 			m_pAnimationCallback->Init();
@@ -116,7 +118,8 @@ void CDeerDeathState::Execute( CCharacter* _Character, float _ElapsedTime )
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
-					CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("DEATH NOT FINISHED YET!");
+					std::string l_State = "DEATH NOT FINISHED YET!";
+					CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pDeer->GetName().c_str(), l_State );
 				}
 			#endif
 		}
@@ -132,7 +135,8 @@ void CDeerDeathState::Execute( CCharacter* _Character, float _ElapsedTime )
 		#if defined _DEBUG
 			if( CORE->IsDebugMode() )
 			{
-				CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Death Animacion started");
+				std::string l_State = "Death Animacion started";
+				CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pDeer->GetName().c_str(), l_State );
 			}
 		#endif
 	}
