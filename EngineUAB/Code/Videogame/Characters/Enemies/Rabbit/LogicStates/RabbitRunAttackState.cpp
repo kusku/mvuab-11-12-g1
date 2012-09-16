@@ -102,7 +102,8 @@ void CRabbitRunAttackState::OnEnter( CCharacter* _Character )
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
-			CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Enter Run Attack");
+			std::string l_State = "Enter Run Attack";
+			CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
 		}
 	#endif
 
@@ -147,7 +148,8 @@ void CRabbitRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Dispatch");
+						std::string l_State = "Dispatch";
+						CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
 					}
 				#endif
 			}
@@ -167,7 +169,8 @@ void CRabbitRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Run Attack fallit ");
+						std::string l_State = "Run Attack fallit ";
+						CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
 					}
 				#endif
 
@@ -186,7 +189,8 @@ void CRabbitRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 					#if defined _DEBUG
 						if( CORE->IsDebugMode() )
 						{
-							CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Seek Off");
+							std::string l_State = "Seek off";
+							CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
 						}
 					#endif
 				}
@@ -203,7 +207,8 @@ void CRabbitRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 					#if defined _DEBUG
 						if( CORE->IsDebugMode() )
 						{
-							CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("NOT FINISHED YET!");
+							std::string l_State = "NOT FINISHED YET!";
+							CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
 						}
 					#endif
 				}
@@ -225,7 +230,8 @@ void CRabbitRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Atac sense corre!!");
+						std::string l_State = "Atac sense corre!!";
+						CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
 					}
 				#endif
 				m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetRunAttackAnimationState());
@@ -259,7 +265,8 @@ void CRabbitRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Correm a sac!!");
+						std::string l_State = "Correm a sac!!";
+						CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
 					}
 				#endif
 

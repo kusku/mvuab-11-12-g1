@@ -65,7 +65,8 @@ void CWolfTiredState::OnEnter( CCharacter* _Character )
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
-			CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Fatigued");
+			std::string l_State = "Fatigued";
+			CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pWolf->GetName().c_str(), l_State );
 		}
 	#endif
 }

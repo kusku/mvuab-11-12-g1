@@ -80,7 +80,8 @@ void CWolfStillAttackState::OnEnter( CCharacter* _Character )
 #if defined _DEBUG
 	if( CORE->IsDebugMode() )
 	{
-		CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Enter Still Attack");
+		std::string l_State = "Enter Still Attack";
+		CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pWolf->GetName().c_str(), l_State );
 	}
 #endif
 
@@ -124,7 +125,8 @@ void CWolfStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Dispatch");
+						std::string l_State = "Dispatch";
+						CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pWolf->GetName().c_str(), l_State);
 					}
 				#endif
 			}
@@ -142,7 +144,8 @@ void CWolfStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Still Attack fallit ");
+						std::string l_State = "Still Attack fallit";
+						CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pWolf->GetName().c_str(), l_State );
 					}
 				#endif
 
@@ -158,7 +161,7 @@ void CWolfStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Allunyat!");
+						CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pWolf->GetName().c_str(), "Allunyat!");
 					}
 				#endif
 
@@ -170,7 +173,8 @@ void CWolfStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("NOT FINISHED YET!");
+						std::string l_State = "NOT FINISHED YET!";
+						CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pWolf->GetName().c_str(), l_State );
 					}
 				#endif
 			}
@@ -219,7 +223,8 @@ void CWolfStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Ens apropem primer");
+						std::string l_State = "Ens apropem primer";
+						CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pWolf->GetName().c_str(), l_State );
 					}
 				#endif
 			}

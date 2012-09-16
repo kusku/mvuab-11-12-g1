@@ -72,7 +72,8 @@ void CRabbitDeathState::OnEnter( CCharacter* _Character )
 #if defined _DEBUG
 	if( CORE->IsDebugMode() )
 	{
-		CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Enter death");
+		std::string l_State = "Enter death";
+		CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
 	}
 #endif
 
@@ -98,7 +99,8 @@ void CRabbitDeathState::Execute( CCharacter* _Character, float _ElapsedTime )
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
-					CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Mort enemic");
+					std::string l_State = "Mort enemic";
+					CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
 				}
 			#endif
 			m_pRabbit->SetEnable(false);	
@@ -111,7 +113,8 @@ void CRabbitDeathState::Execute( CCharacter* _Character, float _ElapsedTime )
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
-					CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("DEATH NOT FINISHED YET!");
+					std::string l_State = "DEATH NOT FINISHED YET!";
+					CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
 				}
 			#endif
 		}
@@ -127,7 +130,8 @@ void CRabbitDeathState::Execute( CCharacter* _Character, float _ElapsedTime )
 		#if defined _DEBUG
 			if( CORE->IsDebugMode() )
 			{
-				CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Death Animacion started");
+				std::string l_State = "Death Animacion started";
+				CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
 			}
 		#endif
 	}

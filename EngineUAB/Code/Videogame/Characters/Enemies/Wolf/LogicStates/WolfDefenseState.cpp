@@ -93,7 +93,8 @@ void CWolfDefenseState::OnEnter( CCharacter* _Character )
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
-			CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Defense");
+			std::string l_State = "Defense";
+			CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pWolf->GetName().c_str(), l_State );
 		}
 	#endif
 }

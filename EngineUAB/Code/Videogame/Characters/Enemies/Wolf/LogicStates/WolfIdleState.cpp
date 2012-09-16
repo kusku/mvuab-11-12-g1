@@ -84,7 +84,8 @@ void CWolfIdleState::Execute( CCharacter* _Character, float _ElapsedTime )
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName(RABBIT_IDLE_STATE);
+						std::string l_State = RABBIT_IDLE_STATE;
+						CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pWolf->GetName().c_str(), l_State );
 					}
 				#endif
 			//}

@@ -65,7 +65,8 @@ void CRabbitIdleState::OnEnter( CCharacter* _Character )
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
-			CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Idle state");
+			std::string l_State = RABBIT_IDLE_STATE;
+			CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
 		}
 	#endif
 }
@@ -94,7 +95,8 @@ void CRabbitIdleState::Execute( CCharacter* _Character, float _ElapsedTime )
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName(RABBIT_IDLE_STATE);
+						std::string l_State = RABBIT_IDLE_STATE;
+						CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
 					}
 				#endif
 			}
@@ -105,7 +107,8 @@ void CRabbitIdleState::Execute( CCharacter* _Character, float _ElapsedTime )
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName(RABBIT_IDLE2_STATE);
+						std::string l_State = RABBIT_IDLE2_STATE;
+						CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
 					}
 				#endif
 			}

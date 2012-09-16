@@ -80,7 +80,8 @@ void CWolfAttackState::OnEnter( CCharacter* _Character )
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
-			CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Attack");
+			std::string l_State = "Attack";
+			CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pWolf->GetName().c_str(), l_State );
 		}
 	#endif
 }
@@ -127,7 +128,7 @@ void CWolfAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 			else if ( l_ActiveActionState == "go_in_to_fustrum" ) 
 			{
 				float l_Angle = 22.f;		// 22,5 graus de fustrum
-				m_pWolf->GoInTofrustum(l_Angle, _ElapsedTime);
+				m_pWolf->GoIntoCameraFrustum(l_Angle, _ElapsedTime);
 			}
 
 			#if defined _DEBUG

@@ -38,14 +38,14 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CRabbitPreparedToAttackState::CRabbitPreparedToAttackState( void )
-	: CState	("CRabbitPreparedToAttackState")
-	, m_pRabbit	( NULL )
+	: CState				("CRabbitPreparedToAttackState")
+	, m_pRabbit				( NULL )
 {
 }
 
 CRabbitPreparedToAttackState::CRabbitPreparedToAttackState( const std::string &_Name )
-	: CState		(_Name)
-	, m_pRabbit		( NULL )
+	: CState				(_Name)
+	, m_pRabbit				( NULL )
 {
 }
 
@@ -86,8 +86,8 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _Character, float _Elaps
 		//LOGGER->AddNewLog(ELL_INFORMATION, "Enemy %s preparing to attack...", m_pRabbit->GetName().c_str() );
 	}
 	#endif
-
-
+	
+	
 	// 1) Caso en que ataco al player. Si está focalizado y suficientemente cerca de atacar lo hace independientemente del angulo de visión del player
 	if ( m_pRabbit->IsPlayerAtacable() ) 
 	{
@@ -98,7 +98,8 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _Character, float _Elaps
 		#if defined _DEBUG
 			if( CORE->IsDebugMode() )
 			{
-				CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Prepared-Atacable");
+				std::string l_State = "Prepared-Atacable";
+				CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
 			}
 		#endif
 	}
@@ -109,7 +110,8 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _Character, float _Elaps
 		#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
-			CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Prepared to attack");
+			std::string l_State = "Prepared to attack";
+			CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
 		}
 		#endif
 
@@ -120,7 +122,8 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _Character, float _Elaps
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
-					CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Ready to attack");
+					std::string l_State = "Ready to attack";
+					CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
 				}
 			#endif
 
@@ -129,13 +132,13 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _Character, float _Elaps
 				// Este enemigo puede atacar. Ahora miro si está dentro del angulo de vision pero no es el elegido para atacar. Por tanto, vamos hacia el player para tener opciones de ser
 				// el elegido para atacar
 				float l_Angle = 22.f;			//math.pi/15		// 12 graus de fustrum
-				m_pRabbit->HaveToGoIntoFrustum(l_Angle, _ElapsedTime);
+				m_pRabbit->GoIntoCameraFrustum(l_Angle, _ElapsedTime);
 				//m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetWalkAnimationState());		// dudo de si uno u otro. Faltan pasos laterales...
 				m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetRunAnimationState());
 				/*#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Prepared-Walk");
+						CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), "Prepared-Walk");
 					}
 				#endif*/
 			//}	
@@ -148,7 +151,8 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _Character, float _Elaps
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
-					CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Ready to attack");
+					std::string l_State = "Ready to attack";
+					CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
 				}
 			#endif
 
@@ -160,7 +164,8 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _Character, float _Elaps
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
-					CORE->GetDebugGUIManager()->GetDebugRender()->SetEnemyStateName("Not Ready-Too far");
+					std::string l_State = "Not Ready-Too far";
+					CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
 				}
 			#endif
 		}
