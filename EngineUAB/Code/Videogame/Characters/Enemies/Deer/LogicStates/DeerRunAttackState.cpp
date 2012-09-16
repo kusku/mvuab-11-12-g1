@@ -109,7 +109,7 @@ void CDeerRunAttackState::OnEnter( CCharacter* _Character )
 	m_CurrentDuration = 0;
 
 	m_pAnimationCallback->Init();
-	CORE->GetSoundManager()->PlayEvent("Play_DeerRunAttack"); 
+	CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerRunAttack"); 
 
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
