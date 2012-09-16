@@ -31,6 +31,8 @@
 						<ObjectRef Name="Stop_EFX_DeerExclaim" ID="{D6A07B3B-24FA-4BD6-AC61-FC139EF8FD7B}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Slap1" ID="{D0F4053C-3EFC-4BCA-8C7F-868364E09D66}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_EFX_RabbitsDeath4" ID="{72414D3D-1381-4163-A52D-22100EB87A30}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="RabbitsRunAttack1" ID="{791A8D3E-DA5E-45CA-B3AB-77200AD6EC7D}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="Stop_EFX_RabbitsRunAttacks" ID="{993C953E-A70D-4F08-B186-374874D14CF0}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="DeerPain3" ID="{F797033F-3ED2-4B32-B141-64F29B187F96}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_EFX_GUI_Button_Next" ID="{2A18313F-821B-41AD-AF5F-60E10B6C1DCE}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_EFX_RabbitsRun7" ID="{FEA5F13F-2822-4412-8BAF-55BDAD6A673D}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
@@ -49,6 +51,7 @@
 						<ObjectRef Name="RabbitPains4" ID="{98DDB777-3113-4E59-93A7-45B0B5C8A585}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_EFX_DeerPain2" ID="{E5A3DF7B-C6C0-4DD5-B6B4-93953B46D8D5}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_EFX_RabbitsRun3" ID="{C6946F7C-42B0-4A1A-935D-7D123BAC0915}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="Play_EFX_RabbitsRunAttack2" ID="{B4EBCA7E-D4F1-43B6-9B14-3FC9C32BED39}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="RabbitsDeath1" ID="{A7C8B97F-B744-4D89-8AFC-9B6D1188F7BD}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Stop_EFX_DeerEnemyDetected" ID="{89DFB984-DD7B-4D4C-8B98-B248FB701CDA}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_MUS_GUI_Intro" ID="{CAD7D884-E521-423D-ABA9-FC21D0EDEE49}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
@@ -60,9 +63,11 @@
 						<ObjectRef Name="DeerPain4" ID="{1209398F-A9DF-4C93-BBF6-51CDFE2C22E2}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="RabbitsDeath6" ID="{006D1D90-107A-4B7B-B1BF-B57B0ED45B96}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_EFX_GUI_Button_Over" ID="{E2EEAA92-1B23-482D-8A4E-2F039C955B51}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="RabbitsRunAttack2" ID="{2FECFB92-C051-467B-8B89-AFC010F6945C}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_EFX_DeerEnemyDetected" ID="{B0E3EF9A-29D3-4A80-BDC1-9BAD69F794C3}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="RabbitsDeath5" ID="{02C6649B-FA5E-40AF-92C1-10064C2D5718}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_EFX_RabbitsDeath2" ID="{11E9639D-1E38-46EB-98D5-1D5F393C4D6B}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="Play_EFX_RabbitsRunAttack1" ID="{517380A0-43AF-451F-835C-2580E26C38BD}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Punch3" ID="{BD55BBA2-D761-4049-8E0A-E1957A77A5EF}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="Play_EFX_RabbitsRun8" ID="{F3F413AB-89B1-4476-8620-80B797FEA920}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
 						<ObjectRef Name="DeerRunAttackCharged" ID="{91832AAD-4D5F-4272-8F69-BC0E69A1D083}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" Filter="7" Origin="Manual" />

@@ -606,6 +606,46 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Play_EFX_RabbitsRunAttack1" ID="{517380A0-43AF-451F-835C-2580E26C38BD}">
+					<ChildrenList>
+						<Action Name="Play" ID="{AE10C3FE-3136-4C18-B58B-B096929C44DD}" ShortID="193339992" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{FFE09F79-8A5D-4B45-866F-91970FFA993E}" Global="false">
+									<ObjectRef Name="RabbitsRunAttack1" ID="{791A8D3E-DA5E-45CA-B3AB-77200AD6EC7D}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_EFX_RabbitsRunAttack2" ID="{B4EBCA7E-D4F1-43B6-9B14-3FC9C32BED39}">
+					<ChildrenList>
+						<Action Name="Play" ID="{64D46811-E802-472E-881F-45DFA006E3D3}" ShortID="93599966" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{67268682-2731-4160-AE1D-92379678780A}" Global="false">
+									<ObjectRef Name="RabbitsRunAttack2" ID="{2FECFB92-C051-467B-8B89-AFC010F6945C}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Stop_EFX_RabbitsRunAttacks" ID="{993C953E-A70D-4F08-B186-374874D14CF0}">
+					<ChildrenList>
+						<Action Name="Stop" ID="{8FD6FE3F-9805-4C84-AB0F-6AA22D44829E}" ShortID="375431774" Type="Stop" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{29D54F73-1B2B-422D-B3DF-FA049A7FD74A}" Global="false">
+									<ObjectRef Name="RabbitsRunAttack1" ID="{791A8D3E-DA5E-45CA-B3AB-77200AD6EC7D}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+								</Element>
+							</ElementList>
+						</Action>
+						<Action Name="Stop" ID="{021351E5-3085-4843-AD1C-11EA735E6566}" ShortID="647334741" Type="Stop" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{B1E8018D-7E0E-4A53-BC57-BC9C16427CA9}" Global="false">
+									<ObjectRef Name="RabbitsRunAttack2" ID="{2FECFB92-C051-467B-8B89-AFC010F6945C}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

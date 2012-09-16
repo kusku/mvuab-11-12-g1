@@ -95,6 +95,8 @@
 				<Event Id="2381360352" Name="Play_EFX_RabbitsRun6" />
 				<Event Id="2381360353" Name="Play_EFX_RabbitsRun7" />
 				<Event Id="2381360366" Name="Play_EFX_RabbitsRun8" />
+				<Event Id="4013370547" Name="Play_EFX_RabbitsRunAttack1" />
+				<Event Id="4013370544" Name="Play_EFX_RabbitsRunAttack2" />
 				<Event Id="316894959" Name="Play_EFX_Slap1" />
 				<Event Id="3187607523" Name="Play_EFX_Sword" />
 				<Event Id="1954071212" Name="Play_MUS_GUI_Intro" />
@@ -104,6 +106,7 @@
 				<Event Id="3241105985" Name="Stop_EFX_DeerPains" />
 				<Event Id="805848909" Name="Stop_EFX_DeerRun" />
 				<Event Id="2584030508" Name="Stop_EFX_RabbitRuns" />
+				<Event Id="2610643847" Name="Stop_EFX_RabbitsRunAttacks" />
 			</IncludedEvents>
 			<IncludedDialogueEvents />
 			<ReferencedStreamedFiles />
@@ -267,6 +270,14 @@
 				<File Id="346998385" Language="SFX">
 					<ShortName>RabbitsRun8.wav</ShortName>
 					<Path>sfx\rabbitsrun8_ab9e423f.wem</Path>
+				</File>
+				<File Id="720216318" Language="SFX">
+					<ShortName>RabbitsRunAttack1.wav</ShortName>
+					<Path>sfx\rabbitsrunattack1_ab9e423f.wem</Path>
+				</File>
+				<File Id="456686198" Language="SFX">
+					<ShortName>RabbitsRunAttack2.wav</ShortName>
+					<Path>sfx\rabbitsrunattack2_ab9e423f.wem</Path>
 				</File>
 				<File Id="22097105" Language="SFX">
 					<ShortName>Slap1.wav</ShortName>
