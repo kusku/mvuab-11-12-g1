@@ -77,11 +77,12 @@ public:
 	bool						IsEnemyPreparedToAttack		( void );
 	bool						IsEnemyAproximatedToAttack	( void );
 	
-	Vect3f						GetPointOfFront				( void ) const;
-	bool						HaveToGoIntoFrustum			( float _RangeAngle, float _ElapsedTime );	// Permite colocar un caracter dentro del frustum de la càmara en unos grados desde el centro
-	
+	Vect3f						GetPointInsideCameraFrustum	( void ) const;
+	Vect3f						GetPositionToAttack			( void ) const;
+	void						GoIntoCameraFrustum			( float _RangeAngle, float _ElapsedTime );	// Permite colocar un caracter dentro del frustum de la càmara en unos grados desde el centro
+	bool						IsEnemyIntoCameraFrustum	( float _RangeAngle, float _ElapsedTime );	// Permite ver si un caracter está dentro del frustum de la càmara en unos grados
 	bool						IsCollisionedWithSomething	( void );
-
+						
 	float						GetDistanceToPlayer			( void );
 
 	// Permite cargar los estados 
@@ -99,17 +100,17 @@ public:
 	/*inline void					SetPrevPosition		( const Vect3f &pos )				{ m_pSteeringEntity->SetPreviousPosition(pos); }
 	inline Vect3f				GetPrevPosition		( void ) const						{ return m_pSteeringEntity->GetPreviousPosition(); }*/
 
-	void						SetEnable			( bool _Enable );			
-	inline bool					IsEnable			( void ) const						{ return this->GetProperties()->GetActive(); }  // m_bIsEnable; }
+	void						SetEnable				( bool _Enable );			
+	inline bool					IsEnable				( void ) const						{ return this->GetProperties()->GetActive(); }  // m_bIsEnable; }
 
-	inline void					SetAlive			( bool alive )						{ m_bIsAlive = alive; }
-	inline bool					IsAlive				( void ) const						{ return m_bIsAlive; }
+	inline void					SetAlive				( bool alive )						{ m_bIsAlive = alive; }
+	inline bool					IsAlive					( void ) const						{ return m_bIsAlive; }
 
-	inline void					SetLocked			( bool locked )						{ m_bLocked = locked; }
-	inline bool					GetLocked			( void ) const						{ return m_bLocked; }
+	inline void					SetLocked				( bool locked )						{ m_bLocked = locked; }
+	inline bool					GetLocked				( void ) const						{ return m_bLocked; }
 
-	inline CSteeringBehaviors*	GetBehaviors		( void ) const						{ return m_pBehaviors; }
-	inline CSteeringEntity*		GetSteeringEntity	( void ) const						{ return m_pSteeringEntity; }
+	inline CSteeringBehaviors*	GetBehaviors			( void ) const						{ return m_pBehaviors; }
+	inline CSteeringEntity*		GetSteeringEntity		( void ) const						{ return m_pSteeringEntity; }
 	
 
 	// Obtengo el angulo que forma donde mira
@@ -121,21 +122,24 @@ public:
 															return !p.isPointInside( _Position );
 														}
 
-	inline void					SetAnimationsStates	( CAnimationsStates* _pAnimationsStates )	{ m_pAnimationsStates = _pAnimationsStates; }
-	inline CAnimationsStates*	GetAnimationsStates	( void ) const								{ return m_pAnimationsStates; }
+	inline void					SetAnimationsStates		( CAnimationsStates* _pAnimationsStates )	{ m_pAnimationsStates = _pAnimationsStates; }
+	inline CAnimationsStates*	GetAnimationsStates		( void ) const								{ return m_pAnimationsStates; }
 
-	inline void					SetProperties		( CProperties* _pProperties )				{ m_pProperties = _pProperties; }
-	inline CProperties*			GetProperties		( void ) const								{ return m_pProperties; }
+	inline void					SetProperties			( CProperties* _pProperties )				{ m_pProperties = _pProperties; }
+	inline CProperties*			GetProperties			( void ) const								{ return m_pProperties; }
 
 	inline void					SetAvalaibleToAttack	( bool _isReady )							{ m_ReadyToAttack = _isReady; }
 	inline bool					GetAvalaibleToAttack	( void ) const								{ return m_ReadyToAttack; }
 
-	CState<CCharacter>*			GetLogicState		( const std::string &_State );
-	CState<CCharacter>*			GetAnimationState	( const std::string &_State );
+	CState<CCharacter>*			GetLogicState			( const std::string &_State );
+	CState<CCharacter>*			GetAnimationState		( const std::string &_State );
 	
-	CCharacter *				GetPlayer			( void );
+	CCharacter *				GetPlayer				( void );
 
-	virtual void				BeDead				( void ) = 0;
+	virtual void				BeDead					( void ) = 0;
+
+	inline void					SetPlayerHasBeenReached ( bool _PlayerReached ) 					{ m_PlayerHasBeenReached =_PlayerReached; }
+	inline bool					GetPlayerHasBeenReached ( void ) const								{ return m_PlayerHasBeenReached; }
 
 	//----Members ---------------------------------------------
 private:
@@ -165,6 +169,7 @@ protected:
 	bool							m_ReadyToAttack; 
 	bool							m_bLocked;
 
+	bool							m_PlayerHasBeenReached;		// Indica si acaba de ser alcanzado el player
 };
 
 #endif
