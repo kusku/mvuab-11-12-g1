@@ -172,22 +172,22 @@ void CDeerHitState::PlayRandomSound( void )
 	int l_Num = BoostRandomHelper::GetInt(1,4);
 	if ( l_Num == 1 )
 	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_Pain1");
+		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerPain1");
 		m_SoundDuration = 1.2f;
 	}
 	else if ( l_Num == 2)
 	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_Pain2");
+		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerPain2");
 		m_SoundDuration = 0.56f;
 	}
 	else if ( l_Num == 3)
 	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_Pain3");
-		m_SoundDuration = 3.320f;
+		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerPain3");
+		m_SoundDuration = 2.0f;
 	}
 	else if ( l_Num == 4)
 	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_Pain3");
+		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerPain4");
 		m_SoundDuration = 1.4f;
 	}
 }
