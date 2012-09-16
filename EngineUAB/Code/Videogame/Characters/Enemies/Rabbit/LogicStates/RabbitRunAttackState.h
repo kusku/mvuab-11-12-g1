@@ -7,6 +7,8 @@
 #include <string>
 #include "StatesMachine\State.h"
 #include "Characters\Character.h"
+#include "Callbacks\State\ActionStateCallback.h"
+#include "Characters\StatesDefs.h"
 
 // --- Foward Declarations ---
 class CRabbit;
@@ -35,19 +37,27 @@ public:
 	virtual bool	OnMessage	( CCharacter*, const STelegram& );
 
 	//----Methods ---------------------------------------------
+	void			PlayRandomSound	( void );
 
 	//----Members ---------------------------------------------
 private:
 	CRabbit				*	m_pRabbit;
 	CAnimationCallback	*	m_pAnimationCallback;
+	CActionStateCallback	m_ActionStateCallback;
 
-	float					m_OldMaxSpeed;			// Permite almacenar la vieja velocidad para posteriormente recuperarla
-	float					m_OldMass;				// Permite almacenar la vieja masa para posteriormente recuperarla
-	float					m_CurrentDistance;		// Permite alamacenar la distancia para saber si luego nos pasamos
+	float					m_OldMaxSpeed;				// Permite almacenar la vieja velocidad para posteriormente recuperarla
+	float					m_OldMass;					// Permite almacenar la vieja masa para posteriormente recuperarla
+	float					m_CurrentDistance;			// Permite alamacenar la distancia para saber si luego nos pasamos
+	float					m_InitialDistance;			// Permite alamacenar la distancia inicial para saber si luego nos pasamos
+	Vect3f					m_PlayerInitialPosition;	// Permite saber la distancia de inicio de ataque del player. Así sabremos si hemos pasado de largo.
+	Vect3f					m_FinalAttackPosition;		// Permite saber la posición final de toda la animación 
 
-	float					m_CurrentDuration;
 	float					m_AnimationDuration;
+	
+	bool					m_playerPushed;
+	sDireccion				m_AditionalInfo;
 
+	float					m_SoundDuration;			// Permite saber la duración del sonido
 };
 
 

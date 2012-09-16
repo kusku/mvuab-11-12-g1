@@ -14,21 +14,22 @@
 #include "Core.h"
 // ---------------------------------
 
-#include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
+#include "StatesMachine\MessageDispatcher.h"
+#include "StatesMachine\Telegram.h"
 
 #include "Characters\Enemies\Deer\Deer.h"
 #include "Characters\StatesDefs.h"
 
-#include "DeerPursuitState.h"
-#include "DeerPreparedToAttackState.h"
-#include "DeerTiredState.h"
 #include "DeerIdleState.h"
+#include "DeerTiredState.h"
 
 #include "Characters\Enemies\Deer\AnimationStates\DeerHitAnimationState.h"
 #include "Characters\Enemies\Deer\AnimationStates\DeeridleAnimationState.h"
 
 #include "Steering Behaviors\SteeringEntity.h"
 #include "Steering Behaviors\SteeringBehaviors.h"
+
+#include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 
 
 #if defined(_DEBUG)
@@ -94,7 +95,7 @@ void CDeerHitState::OnEnter( CCharacter* _Character )
 		m_pAnimationCallback->StartAnimation();
 	
 		PlayRandomSound();
-		m_pActionState.InitAction(0, m_SoundDuration*2);
+		m_pActionState.InitAction(0, m_SoundDuration);
 		m_pActionState.StartAction();
 
 		//m_pActionState.InitAction(0.f, m_pDeer->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_HIT_STATE));
@@ -159,6 +160,8 @@ void CDeerHitState::OnExit( CCharacter* _Character )
 	//{
 	//	m_pDeer = dynamic_cast<CDeer*> (_Character);
 	//}
+
+
 }
 
 bool CDeerHitState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )

@@ -132,10 +132,6 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				// Incrementamos el nº de ataques hechos --> si llega a un total estará cansado
 				m_pDeer->SetHitsDone(m_pDeer->GetHitsDone() + 1);
 
-				// Volvemos al estado anterior
-				//m_pDeer->GetLogicFSM()->RevertToPreviousState();
-				m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetIdleState());
-				m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetIdleAnimationState());
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
@@ -143,6 +139,10 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 					}
 				#endif
 
+				// Volvemos a idle
+				m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetIdleState());
+				m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetIdleAnimationState());
+				
 				m_pDeer->GetBehaviors()->SeekOff();
 				m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
 				m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime );

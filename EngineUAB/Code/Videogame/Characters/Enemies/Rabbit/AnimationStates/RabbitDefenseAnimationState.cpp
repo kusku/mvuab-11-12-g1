@@ -55,13 +55,16 @@ void CRabbitDefenseAnimationState::OnEnter( CCharacter* _Character )
 
 void CRabbitDefenseAnimationState::OnExit( CCharacter* _Character )
 {
-	if (!m_pRabbit) 
+	if ( !m_pRabbit ) 
 	{
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 
-	int l_Num = m_pRabbit->GetAnimationID(RABBIT_DEFENSE_STATE);
-	m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.1f );
+	if ( m_pRabbit )
+	{
+		int l_Num = m_pRabbit->GetAnimationID(RABBIT_DEFENSE_STATE);
+		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.1f );
+	}
 }
 
 bool CRabbitDefenseAnimationState::OnMessage( CCharacter*, const STelegram& _Telegram )

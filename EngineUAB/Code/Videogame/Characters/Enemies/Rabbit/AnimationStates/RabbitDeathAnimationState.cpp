@@ -28,8 +28,8 @@ CRabbitDeathAnimationState::~CRabbitDeathAnimationState(void)
 {
 	if (m_pRabbit)
 	{
-		/*int l_Num = m_pRabbit->GetAnimationID(DEER_DEATH_STATE);
-		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );*/
+		int l_Num = m_pRabbit->GetAnimationID(DEER_DEATH_STATE);
+		m_pRabbit->GetAnimatedModel()->RemoveAction( l_Num );
 	}
 	m_pRabbit = NULL;
 }
@@ -56,6 +56,16 @@ void CRabbitDeathAnimationState::OnEnter( CCharacter* _Character )
 
 void CRabbitDeathAnimationState::OnExit( CCharacter* _Character )
 {
+	if ( !m_pRabbit ) 
+	{
+		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+	}
+
+	if ( m_pRabbit )
+	{
+		int l_Num = m_pRabbit->GetAnimationID(RABBIT_DEATH_STATE);
+		m_pRabbit->GetAnimatedModel()->RemoveAction(l_Num);
+	}
 }
 
 bool CRabbitDeathAnimationState::OnMessage( CCharacter*, const STelegram& _Telegram )

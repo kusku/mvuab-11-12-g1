@@ -27,7 +27,7 @@ CRabbitWalkAnimationState::~CRabbitWalkAnimationState( void )
 {
 	if (m_pRabbit != NULL)
 	{
-		int l_Num = m_pRabbit->GetAnimationID(WOLF_WALK_STATE);
+		int l_Num = m_pRabbit->GetAnimationID(RABBIT_WALK_STATE);
 		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
 	}
 	m_pRabbit = NULL;
@@ -48,7 +48,7 @@ void CRabbitWalkAnimationState::OnEnter( CCharacter* _Character )
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 
-	int l_Num = m_pRabbit->GetAnimationID(WOLF_WALK_STATE);
+	int l_Num = m_pRabbit->GetAnimationID(RABBIT_WALK_STATE);
 	m_pRabbit->GetAnimatedModel()->BlendCycle( l_Num, 0.3f );
 }
 
@@ -59,8 +59,11 @@ void CRabbitWalkAnimationState::OnExit( CCharacter* _Character )
 		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 	}
 
-	int l_Num = m_pRabbit->GetAnimationID(WOLF_WALK_STATE);
-	m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+	if ( m_pRabbit )
+	{
+		int l_Num = m_pRabbit->GetAnimationID(RABBIT_WALK_STATE);
+		m_pRabbit->GetAnimatedModel()->ClearCycle( l_Num, 0.3f );
+	}
 }
 
 bool CRabbitWalkAnimationState::OnMessage( CCharacter*, const STelegram& _Telegram )

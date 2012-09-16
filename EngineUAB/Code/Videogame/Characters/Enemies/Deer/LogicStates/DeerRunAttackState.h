@@ -49,7 +49,6 @@ private:
 	Vect3f					m_PlayerInitialPosition;	// Permite saber la distancia de inicio de ataque del player. Así sabremos si hemos pasado de largo.
 	Vect3f					m_FinalAttackPosition;		// Permite saber la posición final de toda la animación 
 
-	float					m_CurrentDuration;
 	float					m_AnimationDuration;
 	
 	bool					m_playerPushed;

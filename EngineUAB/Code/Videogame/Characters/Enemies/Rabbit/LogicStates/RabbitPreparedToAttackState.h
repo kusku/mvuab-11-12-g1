@@ -40,6 +40,9 @@ public:
 	//----Members ---------------------------------------------
 private:
 	CRabbit	 *	m_pRabbit;
+
+	bool		m_IsPositionAfterHitPlayerAssigned;
+	Vect3f		m_PositionReachedAfterHitPlayer;
 };
 
 

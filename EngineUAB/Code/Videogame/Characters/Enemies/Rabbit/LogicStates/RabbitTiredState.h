@@ -34,7 +34,12 @@ public:
 	// Se ejecuta cuando otro caracter envía un mensaje a este
 	virtual bool	OnMessage	( CCharacter*, const STelegram& );
 
+	//----Properties ------------------------------------------
+	const float		GetMinTiredTime ( void ) const				{ return m_MinTime; }
+	const float		GetMaxTiredTime ( void ) const				{ return m_MaxTime; }
+	
 	//----Methods ---------------------------------------------
+	void			SetTiredTime	( float _MinValue, float _MaxValue )	{ m_MinTime = _MinValue; m_MaxTime = _MaxValue; }
 
 	//----Members ---------------------------------------------
 private:
@@ -42,7 +47,7 @@ private:
 	CRabbit					  * m_pRabbit;
 	
 	std::string					m_ActiveActionState;		// Me indica qué acción o estado vamos a ejecutar después de hacer un random de todas ellas
-	
+	float						m_MinTime, m_MaxTime;
 };
 
 
