@@ -94,6 +94,7 @@ void CRabbitHitState::OnEnter( CCharacter* _Character )
 	// Si entramos por primera vez ejecutaremos el hit normal
 	else 
 	{
+		m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetHitAnimationState());
 		m_pAnimationCallback->Init();
 		m_pAnimationCallback->StartAnimation();
 	
