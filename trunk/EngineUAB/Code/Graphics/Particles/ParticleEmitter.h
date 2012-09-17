@@ -30,6 +30,12 @@ public:
 
 	inline void EjectParticles()				{ m_EjectParticles = true; }
 
+	inline void StopEjectParticles()
+	{
+		m_EjectParticles = false;
+		m_ParticleCount = 0;
+	}
+
 	inline void SetPosition(const Vect3f& position) 
 	{ 
 		if(position == m_CurrentPosition)
