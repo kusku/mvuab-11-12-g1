@@ -30,6 +30,7 @@
 #define ACTION_RELOAD_GUI					"ReloadGUI"
 #define ACTION_RELOAD_SOUNDS				"ReloadSounds"
 #define ACTION_RELOAD_TRIGGERS				"ReloadTriggers"
+#define ACTION_RELOAD_PARTICLES				"ReloadParticles"
 
 
 // ********* CONSOLE *********** 
