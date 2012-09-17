@@ -126,6 +126,7 @@ bool CDeerTiredState::OnMessage( CCharacter* _Character, const STelegram& _Teleg
 
 		m_pDeer->RestLife(50); 
 		m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetHitState());
+		m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetHitAnimationState());
 		return true;
 	}
 

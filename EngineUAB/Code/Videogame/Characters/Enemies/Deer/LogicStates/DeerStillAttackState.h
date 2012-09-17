@@ -12,6 +12,7 @@
 // --- Foward Declarations ---
 class CDeer;
 class CAnimationCallback;
+class CParticleEmitter;
 // ---------------------------
 
 class CDeerStillAttackState : public CState<CCharacter> 
@@ -36,15 +37,21 @@ public:
 	virtual bool	OnMessage	( CCharacter*, const STelegram& );
 
 	//----Methods ---------------------------------------------
+	void			SetParticlePosition	( CCharacter* _pCharacter );
 
 	//----Members ---------------------------------------------
 private:
 	CDeer					  * m_pDeer;
 	CAnimationCallback		  *	m_pAnimationCallback;
 	CActionStateCallback		m_pActionStateCallback;
+	CParticleEmitter		  * m_pParticleEmitter;
 
 	bool						m_SoundPlayed1;			// Indica si el sonido ya se inició
 	bool						m_SoundPlayed2;			// Indica si el sonido ya se inició
+	bool						m_FirstHitDone;			// Indica si el primer golpe se realizó
+	bool						m_SecondHitDone;		// Indica si el segundo golpe se realizó
+	bool						m_FirstHitReached;		// Indica si he golpeado el player en el primer golpeo
+	bool						m_SecondHitReached;		// Indica si he golpeado el player en el segundo golpeo
 };
 
 

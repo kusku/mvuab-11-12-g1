@@ -89,8 +89,8 @@ void CDeerPreparedToAttackState::Execute( CCharacter* _Character, float _Elapsed
 		}
 
 		// Mira si alcanzamos la posición. Reseteamos indicando que este enemigo ya ha realizado las tareas postimpacto 
-		float l_Distance = m_pDeer->GetPosition().Distance(m_PositionReachedAfterHitPlayer);
-		if ( l_Distance <= 3.01f )
+		float l_DistanceToCameraPoint = m_pDeer->GetPosition().Distance(m_PositionReachedAfterHitPlayer);
+		if ( l_DistanceToCameraPoint <= 3.01f )
 		{
 			m_IsPositionAfterHitPlayerAssigned = false;		// Reiniciamos el flag para la pròxima vez
 			m_pDeer->SetPlayerHasBeenReached(false);		// Reiniciamos el flag de player alcanzado
@@ -99,12 +99,23 @@ void CDeerPreparedToAttackState::Execute( CCharacter* _Character, float _Elapsed
 		}
 		else
 		{
-			m_pDeer->GetBehaviors()->GetSeek()->SetTarget(m_PositionReachedAfterHitPlayer);
-			m_pDeer->GetBehaviors()->SeekOn();
-			m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime);
-			m_pDeer->MoveTo2(m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
-			LOGGER->AddNewLog(ELL_INFORMATION, "CDeerPreparedToAttackState::Execute -> %s peguó al player y ahora vuelve a una posición inicial de ataque", m_pDeer->GetName().c_str());
-			return;
+			//float l_DistanceToPlayer = m_pDeer->GetPosition().Distance(m_pDeer->GetPlayer()->GetPosition());
+			// Evitamos que vayamos a un punto donde se había calculado inicialmente pero que ahora és demasido lejos del player
+			// Esto passa si el player lo mandamos tant y tant lejos que luego es excesivo ir a ese punto y mejor recalcularlo
+			/*if ( l_DistanceToCameraPoint < l_DistanceToPlayer && l_DistanceToCameraPoint > m_pDeer->GetProperties()->GetPreparedAttackDistance())
+			{
+				m_IsPositionAfterHitPlayerAssigned = false;	
+				m_pDeer->SetPlayerHasBeenReached(true);
+			}
+			else
+			{*/
+				m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetRunAnimationState());
+				m_pDeer->GetBehaviors()->GetSeek()->SetTarget(m_PositionReachedAfterHitPlayer);
+				m_pDeer->GetBehaviors()->SeekOn();
+				m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime);
+				m_pDeer->MoveTo2(m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
+				LOGGER->AddNewLog(ELL_INFORMATION, "CDeerPreparedToAttackState::Execute -> %s peguó al player y ahora vuelve a una posición inicial de ataque", m_pDeer->GetName().c_str());
+			//}
 		}
 	}
 
