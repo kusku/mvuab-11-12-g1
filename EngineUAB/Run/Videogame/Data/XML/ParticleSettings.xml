@@ -222,6 +222,31 @@
     <BlendState value="Additive" />
   </settings>
 
+  <settings name="Sword1">
+		<TextureName value="./Data/General/Textures/Particles/FlowerBurst.jpg"/>
+		<MaxParticles value="1300"/>
+		<!--<Duration value="0.300000"/>
+		<DurationRandomness value="0.100000"/>-->
+		<Duration value="1.000000"/>
+		<DurationRandomness value="0.2500000"/>
+		<EmitterVelocitySensitivity value="0.200000"/>
+		<MinHorizontalVelocity value="-0.100000"/>
+		<MaxHorizontalVelocity value="0.100000"/>
+		<MinVerticalVelocity value="-0.200000"/>
+		<MaxVerticalVelocity value="0.200000"/>
+		<Gravity value="0.000000 1.000000 0.000000"/>
+		<EndVelocity value="1.500000"/>
+		<MinColor value="255.000000 0.000000 0.000000 255.000000"/>
+		<MaxColor value="0.000000 255.000000 0.000000 255.000000"/>
+		<MinRotateSpeed value="0.500000"/>
+		<MaxRotateSpeed value="3.000000"/>
+		<MinStartSize value="0.0500000"/>
+		<MaxStartSize value="0.100000"/>
+		<MinEndSize value="0.200000"/>
+		<MaxEndSize value="0.500000"/>
+		<BlendState value="Additive"/>
+	</settings>
+	
 	<settings name="Sword">
 		<TextureName value="./Data/General/Textures/Particles/FlowerBurst.jpg"/>
 		<MaxParticles value="300"/>
