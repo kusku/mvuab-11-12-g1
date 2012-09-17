@@ -43,3 +43,7 @@ end
 function reload_steering_properties()
 	core:reload_steering_behaviors_settings()
 end
+
+function reload_particles()
+	core:reload_particles()
+end
