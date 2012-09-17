@@ -54,10 +54,6 @@ CDeerStillAttackState::CDeerStillAttackState( void )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_STILL_ATTACK_STATE);
-	m_pParticleEmitter1	 = CORE->GetParticleEmitterManager()->GetResource("RightHand1");
-	m_pParticleEmitter2	 = CORE->GetParticleEmitterManager()->GetResource("RightHand11");
-	m_pParticleEmitter3	 = CORE->GetParticleEmitterManager()->GetResource("LeftHand1");
-	m_pParticleEmitter4	 = CORE->GetParticleEmitterManager()->GetResource("LeftHand11");
 }
 
 CDeerStillAttackState::CDeerStillAttackState( const std::string &_Name )
@@ -68,10 +64,6 @@ CDeerStillAttackState::CDeerStillAttackState( const std::string &_Name )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_STILL_ATTACK_STATE);
-	m_pParticleEmitter1	 = CORE->GetParticleEmitterManager()->GetResource("RightHand1");
-	m_pParticleEmitter2	 = CORE->GetParticleEmitterManager()->GetResource("RightHand11");
-	m_pParticleEmitter3	 = CORE->GetParticleEmitterManager()->GetResource("LeftHand1");
-	m_pParticleEmitter4	 = CORE->GetParticleEmitterManager()->GetResource("LeftHand11");
 }
 
 
@@ -219,8 +211,8 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 
 			if ( m_pActionStateCallback.IsActionInTime( 0.2f ) && !m_FirstHitDone )
 			{
-				m_pParticleEmitter1->EjectParticles();
-				m_pParticleEmitter2->EjectParticles();
+				GetParticleEmitter("RightHand1")->EjectParticles();
+				GetParticleEmitter("RightHand11")->EjectParticles();
 
 				m_FirstHitDone = true;		// Ahora ya no entraremos en este condicional
 
@@ -245,10 +237,9 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 
 			if ( m_pActionStateCallback.IsActionInTime( 0.7f ) && !m_SecondHitDone )
 			{
-				m_pParticleEmitter3->EjectParticles();
-				m_pParticleEmitter4->EjectParticles();
-
-
+				GetParticleEmitter("LeftHand1")->EjectParticles();
+				GetParticleEmitter("LeftHand11")->EjectParticles();
+				
 				m_SecondHitDone = true;		// Esto permite ver si ya se hizo el hit y comprobar solo una sola vez y justo en el momento del impacto si se alcanzó el player
 
 				if ( m_pDeer->IsPlayerReached() )
@@ -370,7 +361,7 @@ void CDeerStillAttackState::SetParticlePosition( CCharacter* _pCharacter )
 
 	l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
 
-	m_pParticleEmitter1->SetPosition( l_TransformMatrix.GetPos() );
+	GetParticleEmitter("RightHand1")->SetPosition( l_TransformMatrix.GetPos() );
 	
 	l_TransformMatrix			= m44fIDENTITY;
 	l_RotationMatrix			= m44fIDENTITY;
@@ -386,7 +377,7 @@ void CDeerStillAttackState::SetParticlePosition( CCharacter* _pCharacter )
 
 	l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
 
-	m_pParticleEmitter2->SetPosition( l_TransformMatrix.GetPos() );
+	GetParticleEmitter("RightHand11")->SetPosition( l_TransformMatrix.GetPos() );
 	
 	l_TransformMatrix			= m44fIDENTITY;
 	l_RotationMatrix			= m44fIDENTITY;
@@ -402,7 +393,7 @@ void CDeerStillAttackState::SetParticlePosition( CCharacter* _pCharacter )
 
 	l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
 
-	m_pParticleEmitter3->SetPosition( l_TransformMatrix.GetPos() );
+	GetParticleEmitter("LeftHand1")->SetPosition( l_TransformMatrix.GetPos() );
 	
 	l_TransformMatrix			= m44fIDENTITY;
 	l_RotationMatrix			= m44fIDENTITY;
@@ -418,5 +409,5 @@ void CDeerStillAttackState::SetParticlePosition( CCharacter* _pCharacter )
 
 	l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
 
-	m_pParticleEmitter4->SetPosition( l_TransformMatrix.GetPos() );
+	GetParticleEmitter("LeftHand11")->SetPosition( l_TransformMatrix.GetPos() );
 }
