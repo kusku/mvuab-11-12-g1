@@ -12,6 +12,7 @@
 // --- Foward Declarations ---
 class CRabbit;
 class CAnimationCallback;
+class CParticleEmitter;
 // ---------------------------
 
 class CRabbitStillAttackState : public CState<CCharacter> 
@@ -36,6 +37,7 @@ public:
 	virtual bool	OnMessage	( CCharacter*, const STelegram& );
 
 	//----Methods ---------------------------------------------
+	void			SetParticlePosition	( CCharacter* _pCharacter );
 
 	//----Members ---------------------------------------------
 private:
@@ -45,6 +47,10 @@ private:
 
 	bool						m_SoundPlayed1;			// Indica si el sonido ya se inició
 	bool						m_SoundPlayed2;			// Indica si el sonido ya se inició
+
+	// Tema Partículas
+	CParticleEmitter	*m_pParticleEmitter;
+
 };
 
 

@@ -289,7 +289,6 @@ void CRabbitStillAttackState::Execute( CCharacter* _Character, float _ElapsedTim
 	}
 }
 
-
 void CRabbitStillAttackState::OnExit( CCharacter* _Character )
 {
 	m_pRabbit->GetBehaviors()->CollisionAvoidanceOff();
@@ -307,7 +306,7 @@ bool CRabbitStillAttackState::OnMessage( CCharacter* _Character, const STelegram
 			m_pRabbit = dynamic_cast<CRabbit*> (_Character);
 		}
 
-		m_pRabbit->RestLife(10); 
+		m_pRabbit->RestLife(50); 
 		m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetHitState());
 		return true;
 	}
@@ -315,3 +314,23 @@ bool CRabbitStillAttackState::OnMessage( CCharacter* _Character, const STelegram
 	return false;
 }
 
+void CRabbitStillAttackState::SetParticlePosition( CCharacter* _pCharacter )
+{
+	/*CAnimatedInstanceModel *l_pAnimatedModel = _pCharacter->GetAnimatedModel();
+
+	Mat44f l_TransformMatrix		= m44fIDENTITY;
+	Mat44f l_RotationMatrix			= m44fIDENTITY;
+	Vect4f l_Rotation				= v3fZERO;
+	Vect3f l_Translation			= v3fZERO;
+	Mat44f l_AnimatedModelTransform = l_pAnimatedModel->GetTransform();
+
+	l_pAnimatedModel->GetBonePosition("CHR_CAP R Hand", l_Translation);
+	l_pAnimatedModel->GetBoneRotation("CHR_CAP R Hand", l_Rotation);
+
+	l_TransformMatrix.Translate(l_Translation);
+	l_RotationMatrix.SetFromQuaternion(l_Rotation);
+
+	l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
+
+	m_pParticleEmitter->SetPosition( l_TransformMatrix.GetPos() );*/
+}
