@@ -250,7 +250,7 @@ void CPlayerAttack3State::SetParticlePosition( CCharacter* _pCharacter )
 {
 	Vect3f l_Pos					= _pCharacter->GetPosition();
 	l_Pos.y							+= 1.f;
-	l_Pos							+= _pCharacter->GetAnimatedModel()->GetFront() * 1.5f;
+	l_Pos							+= _pCharacter->GetAnimatedModel()->GetFront() * 1.7f;
 
 	m_pParticleEmitter->SetPosition( l_Pos );
 }
