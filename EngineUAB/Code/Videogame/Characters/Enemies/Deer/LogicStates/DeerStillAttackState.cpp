@@ -54,7 +54,10 @@ CDeerStillAttackState::CDeerStillAttackState( void )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_STILL_ATTACK_STATE);
-	m_pParticleEmitter	 = CORE->GetParticleEmitterManager()->GetResource("SwordRight");
+	m_pParticleEmitter1	 = CORE->GetParticleEmitterManager()->GetResource("RightHand1");
+	m_pParticleEmitter2	 = CORE->GetParticleEmitterManager()->GetResource("RightHand11");
+	m_pParticleEmitter3	 = CORE->GetParticleEmitterManager()->GetResource("LeftHand1");
+	m_pParticleEmitter4	 = CORE->GetParticleEmitterManager()->GetResource("LeftHand11");
 }
 
 CDeerStillAttackState::CDeerStillAttackState( const std::string &_Name )
@@ -65,7 +68,10 @@ CDeerStillAttackState::CDeerStillAttackState( const std::string &_Name )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_STILL_ATTACK_STATE);
-	m_pParticleEmitter	 = CORE->GetParticleEmitterManager()->GetResource("SwordRight");
+	m_pParticleEmitter1	 = CORE->GetParticleEmitterManager()->GetResource("RightHand1");
+	m_pParticleEmitter2	 = CORE->GetParticleEmitterManager()->GetResource("RightHand11");
+	m_pParticleEmitter3	 = CORE->GetParticleEmitterManager()->GetResource("LeftHand1");
+	m_pParticleEmitter4	 = CORE->GetParticleEmitterManager()->GetResource("LeftHand11");
 }
 
 
@@ -96,8 +102,7 @@ void CDeerStillAttackState::OnEnter( CCharacter* _Character )
 
 	//Lanza el sistema de partículas
 	SetParticlePosition(m_pDeer);
-	m_pParticleEmitter->EjectParticles();
-
+	
 	// Gestión de sonidos e impacto
 	m_FirstHitReached	= false;
 	m_SecondHitReached	= false;
@@ -108,7 +113,6 @@ void CDeerStillAttackState::OnEnter( CCharacter* _Character )
 	m_pAnimationCallback->Init();
 	m_pDeer->SetPlayerHasBeenReached( false );
 	
-		
 	//CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerExclaim"); 
 	
 	m_pActionStateCallback.InitAction(0, m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_STILL_ATTACK_STATE) );
@@ -133,7 +137,6 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 
 			if ( m_pDeer->GetPlayerHasBeenReached() )
 			{
-			
 				if ( DISPATCH != NULL ) 
 				{
 					DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pDeer->GetID(), m_pDeer->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
@@ -216,6 +219,9 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 
 			if ( m_pActionStateCallback.IsActionInTime( 0.2f ) && !m_FirstHitDone )
 			{
+				m_pParticleEmitter1->EjectParticles();
+				m_pParticleEmitter2->EjectParticles();
+
 				m_FirstHitDone = true;		// Ahora ya no entraremos en este condicional
 
 				if ( m_pDeer->IsPlayerReached() )
@@ -239,6 +245,10 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 
 			if ( m_pActionStateCallback.IsActionInTime( 0.7f ) && !m_SecondHitDone )
 			{
+				m_pParticleEmitter3->EjectParticles();
+				m_pParticleEmitter4->EjectParticles();
+
+
 				m_SecondHitDone = true;		// Esto permite ver si ya se hizo el hit y comprobar solo una sola vez y justo en el momento del impacto si se alcanzó el player
 
 				if ( m_pDeer->IsPlayerReached() )
@@ -272,6 +282,8 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 	}
 	else
 	{
+		SetParticlePosition(m_pDeer);
+		
 		if ( m_pDeer->IsPlayerInsideImpactDistance() ) 
 		{
 			m_pDeer->GetBehaviors()->SeekOff();
@@ -282,7 +294,7 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 			m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetStillAttackAnimationState());
 			m_pAnimationCallback->StartAnimation();
 			m_pActionStateCallback.StartAction();
-				
+			
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
@@ -350,6 +362,54 @@ void CDeerStillAttackState::SetParticlePosition( CCharacter* _pCharacter )
 	Vect3f l_Translation			= v3fZERO;
 	Mat44f l_AnimatedModelTransform = l_pAnimatedModel->GetTransform();
 
+	l_pAnimatedModel->GetBonePosition("Bip001 R Finger1", l_Translation);
+	l_pAnimatedModel->GetBoneRotation("Bip001 R Finger1", l_Rotation);
+
+	l_TransformMatrix.Translate(l_Translation);
+	l_RotationMatrix.SetFromQuaternion(l_Rotation);
+
+	l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
+
+	m_pParticleEmitter1->SetPosition( l_TransformMatrix.GetPos() );
+	
+	l_TransformMatrix			= m44fIDENTITY;
+	l_RotationMatrix			= m44fIDENTITY;
+	l_Rotation					= v3fZERO;
+	l_Translation				= v3fZERO;
+	l_AnimatedModelTransform	= l_pAnimatedModel->GetTransform();
+
+	l_pAnimatedModel->GetBonePosition("Bip001 R Finger11", l_Translation);
+	l_pAnimatedModel->GetBoneRotation("Bip001 R Finger11", l_Rotation);
+
+	l_TransformMatrix.Translate(l_Translation);
+	l_RotationMatrix.SetFromQuaternion(l_Rotation);
+
+	l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
+
+	m_pParticleEmitter2->SetPosition( l_TransformMatrix.GetPos() );
+	
+	l_TransformMatrix			= m44fIDENTITY;
+	l_RotationMatrix			= m44fIDENTITY;
+	l_Rotation					= v3fZERO;
+	l_Translation				= v3fZERO;
+	l_AnimatedModelTransform	= l_pAnimatedModel->GetTransform();
+
+	l_pAnimatedModel->GetBonePosition("Bip001 L Finger1", l_Translation);
+	l_pAnimatedModel->GetBoneRotation("Bip001 L Finger1", l_Rotation);
+
+	l_TransformMatrix.Translate(l_Translation);
+	l_RotationMatrix.SetFromQuaternion(l_Rotation);
+
+	l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
+
+	m_pParticleEmitter3->SetPosition( l_TransformMatrix.GetPos() );
+	
+	l_TransformMatrix			= m44fIDENTITY;
+	l_RotationMatrix			= m44fIDENTITY;
+	l_Rotation					= v3fZERO;
+	l_Translation				= v3fZERO;
+	l_AnimatedModelTransform	= l_pAnimatedModel->GetTransform();
+
 	l_pAnimatedModel->GetBonePosition("Bip001 L Finger11", l_Translation);
 	l_pAnimatedModel->GetBoneRotation("Bip001 L Finger11", l_Rotation);
 
@@ -358,5 +418,5 @@ void CDeerStillAttackState::SetParticlePosition( CCharacter* _pCharacter )
 
 	l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
 
-	m_pParticleEmitter->SetPosition( l_TransformMatrix.GetPos() );
+	m_pParticleEmitter4->SetPosition( l_TransformMatrix.GetPos() );
 }
