@@ -35,6 +35,9 @@
 
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 
+#include "Particles\ParticleEmitter.h"
+#include "Particles\ParticleEmitterManager.h"
+
 #if defined(_DEBUG)
 	#include "Memory\MemLeaks.h"
 #endif
@@ -51,6 +54,7 @@ CDeerStillAttackState::CDeerStillAttackState( void )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_STILL_ATTACK_STATE);
+	m_pParticleEmitter	 = CORE->GetParticleEmitterManager()->GetResource("SwordRight");
 }
 
 CDeerStillAttackState::CDeerStillAttackState( const std::string &_Name )
@@ -61,6 +65,7 @@ CDeerStillAttackState::CDeerStillAttackState( const std::string &_Name )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_STILL_ATTACK_STATE);
+	m_pParticleEmitter	 = CORE->GetParticleEmitterManager()->GetResource("SwordRight");
 }
 
 
@@ -89,10 +94,21 @@ void CDeerStillAttackState::OnEnter( CCharacter* _Character )
 	}
 #endif
 
-	m_SoundPlayed1	= false;
-	m_SoundPlayed2	= false;
+	//Lanza el sistema de partículas
+	SetParticlePosition(m_pDeer);
+	m_pParticleEmitter->EjectParticles();
+
+	// Gestión de sonidos e impacto
+	m_FirstHitReached	= false;
+	m_SecondHitReached	= false;
+	m_FirstHitDone		= false;
+	m_SecondHitDone		= false;
+	m_SoundPlayed1		= false;
+	m_SoundPlayed2		= false;
 	m_pAnimationCallback->Init();
+	m_pDeer->SetPlayerHasBeenReached( false );
 	
+		
 	//CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerExclaim"); 
 	
 	m_pActionStateCallback.InitAction(0, m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_STILL_ATTACK_STATE) );
@@ -105,20 +121,19 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 		m_pDeer = dynamic_cast<CDeer*> (_Character);
 	}
 	
-	// Si és atacable miro si llegué al màximo de lo que permito que me golpeen y bloqueo
-	if ( m_pDeer->IsPlayerAtacable() )
+	SetParticlePosition(m_pDeer);
+
+	if ( m_pAnimationCallback->IsAnimationStarted() ) 
 	{
-		if ( m_pAnimationCallback->IsAnimationStarted() ) 
-		{
-			if ( !m_pDeer->GetPlayerHasBeenReached()  && m_pDeer->IsPlayerReached() )
+		// Compruebo si la animación a finalizado
+		if ( m_pAnimationCallback->IsAnimationFinished() )
+		{	
+			// Aseguro que se tocó o no según la variable que gestiona esto en los golpeos
+			m_pDeer->SetPlayerHasBeenReached(m_FirstHitReached||m_SecondHitReached );
+
+			if ( m_pDeer->GetPlayerHasBeenReached() )
 			{
-				m_pDeer->SetPlayerHasBeenReached(true);
-				//m_pDeer->GetPreparedToAttack()->set
-			}
 			
-			// Compruebo si la animación a finalizado
-			if ( m_pAnimationCallback->IsAnimationFinished() && m_pDeer->GetPlayerHasBeenReached() )
-			{
 				if ( DISPATCH != NULL ) 
 				{
 					DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pDeer->GetID(), m_pDeer->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
@@ -149,7 +164,7 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 			}
 			// Si acaba la animacion pero no estamos en una distancia de poder impactar solo hacemos que se canse
-			else if ( m_pAnimationCallback->IsAnimationFinished() && !m_pDeer->GetPlayerHasBeenReached() )
+			else 
 			{
 				// Incrementamos el nº de ataques hechos --> si llega a un total estará cansado
 				m_pDeer->SetHitsDone(m_pDeer->GetHitsDone() + 1);
@@ -188,113 +203,112 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 
 				return;
 			}*/
-			// En otro caso actualizamos el tiempo de animacion que aun no finalizó la animación
-			else 
-			{
-				m_pDeer->GetBehaviors()->SeekOff();
-				m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
-				m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime );
-				m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+		}
+		// En otro caso actualizamos el tiempo de animacion que aun no finalizó la animación
+		else 
+		{
+			m_pDeer->GetBehaviors()->SeekOff();
+			m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
+			m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime );
+			m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 
-				//float t = m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_STILL_ATTACK_STATE);
+			//float t = m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_STILL_ATTACK_STATE);
+
+			if ( m_pActionStateCallback.IsActionInTime( 0.2f ) && !m_FirstHitDone )
+			{
+				m_FirstHitDone = true;		// Ahora ya no entraremos en este condicional
+
+				if ( m_pDeer->IsPlayerReached() )
+				{
+					m_FirstHitReached = true;
+				}
 
 				// Sonido de la 1a bofetada 
-				if ( m_pDeer->GetPlayerHasBeenReached() && !m_SoundPlayed1 &&  m_pActionStateCallback.IsActionInTime( 0.2f ) )
+				if ( m_FirstHitReached && !m_SoundPlayed1 )
 				{
 					m_SoundPlayed1 = true;
 					CORE->GetSoundManager()->PlayEvent("Play_EFX_Punch3"); 
 				}
 				// Sonido de la 1a bofetada fallida
-				else if ( !m_pDeer->GetPlayerHasBeenReached() && !m_SoundPlayed1 &&  m_pActionStateCallback.IsActionInTime( 0.2f ) )
+				else if ( !m_FirstHitReached && !m_SoundPlayed1 )
 				{
 					CORE->GetSoundManager()->PlayEvent("Play_EFX_Slap1"); 
 					m_SoundPlayed1 = true;
 				}
+			}
+
+			if ( m_pActionStateCallback.IsActionInTime( 0.7f ) && !m_SecondHitDone )
+			{
+				m_SecondHitDone = true;		// Esto permite ver si ya se hizo el hit y comprobar solo una sola vez y justo en el momento del impacto si se alcanzó el player
+
+				if ( m_pDeer->IsPlayerReached() )
+				{
+					m_SecondHitReached = true; 
+				}
 
 				// Sonido de la 2a bofetada 
-				if ( m_pDeer->GetPlayerHasBeenReached() && !m_SoundPlayed2 &&  m_pActionStateCallback.IsActionInTime( 0.7f ) )
+				if ( m_SecondHitReached && !m_SoundPlayed2 )
 				{
 					m_SoundPlayed2 = true;
 					CORE->GetSoundManager()->PlayEvent("Play_EFX_Punch2"); 
 				}
 				// Sonido de la 2a bofetada fallida
-				else if ( !m_pDeer->GetPlayerHasBeenReached() && !m_SoundPlayed2 &&  m_pActionStateCallback.IsActionInTime( 0.7f ) )
+				else if ( !m_SecondHitReached && !m_SoundPlayed2 )
 				{
 					CORE->GetSoundManager()->PlayEvent("Play_EFX_Slap1"); 
 					m_SoundPlayed2 = true;
 				}
+			}
 
-				#if defined _DEBUG
-					if( CORE->IsDebugMode() )
-					{
-						LOGGER->AddNewLog(ELL_INFORMATION,"CDeerStillAttackState::Execute->Animacion en curso...");
-					}
-				#endif
-
-				// hay que cancelar la animación
-				/*if ( !m_pDeer->IsPlayerInsideImpactDistance() )
+			#if defined _DEBUG
+				if( CORE->IsDebugMode() )
 				{
-					m_pDeer->GetLogicFSM()->RevertToPreviousState();
-					m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetIdleAnimationState());
-				}*/
+					LOGGER->AddNewLog(ELL_INFORMATION,"CDeerStillAttackState::Execute->Animacion en curso...");
+				}
+			#endif
 
-				m_pActionStateCallback.Update(_ElapsedTime);
-			}
-		}
-		else
-		{
-			if ( m_pDeer->IsPlayerInsideImpactDistance() ) 
-			{
-				m_pDeer->GetBehaviors()->SeekOff();
-				m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
-				m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime );
-				m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
-				
-				/*self.active_animation_id = _CCharacter:get_animation_id("run")
-				_CCharacter:get_animation_model():clear_cycle( self.active_animation_id, 0.3 )
-					
-				self.active_animation_id = _CCharacter:get_animation_id("attack_1")
-				_CCharacter:get_animation_model():execute_action( self.active_animation_id, 0.3 )*/
-				
-				m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetStillAttackAnimationState());
-				m_pAnimationCallback->StartAnimation();
-				m_pActionStateCallback.StartAction();
-				
-				#if defined _DEBUG
-					if( CORE->IsDebugMode() )
-					{
-						LOGGER->AddNewLog(ELL_INFORMATION,"CDeerStillAttackState::Execute->Inicio Animacion");
-					}
-				#endif
-			}
-			else 
-			{
-				// Nos acercamos 
-				// _CCharacter.behaviors:pursuit_on()
-				m_pDeer->GetBehaviors()->SeekOn();
-				m_pDeer->GetBehaviors()->GetSeek()->SetTarget(m_pDeer->GetPlayer()->GetPosition());
-				m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetRunAnimationState());
-				
-				// Rotamos al objetivo y movemos
-				m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime );
-				m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
-				#if defined _DEBUG
-					if( CORE->IsDebugMode() )
-					{
-						LOGGER->AddNewLog(ELL_INFORMATION,"CDeerStillAttackState::Execute->Nos acercamos primero");
-					}
-				#endif
-			}
+			m_pActionStateCallback.Update(_ElapsedTime);
 		}
 	}
 	else
 	{
-		// nos volvemos
-		/*m_pDeer->GetLogicFSM()->RevertToPreviousState();
-		m_pDeer->GetGraphicFSM()->RevertToPreviousState();*/
-		m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetAttackState());
-		m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetIdleAnimationState());
-	} 
+		if ( m_pDeer->IsPlayerInsideImpactDistance() ) 
+		{
+			m_pDeer->GetBehaviors()->SeekOff();
+			m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
+			m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime );
+			m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+
+			m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetStillAttackAnimationState());
+			m_pAnimationCallback->StartAnimation();
+			m_pActionStateCallback.StartAction();
+				
+			#if defined _DEBUG
+				if( CORE->IsDebugMode() )
+				{
+					LOGGER->AddNewLog(ELL_INFORMATION,"CDeerStillAttackState::Execute->Inicio Animacion");
+				}
+			#endif
+		}
+		else 
+		{
+			// Nos acercamos 
+			// _CCharacter.behaviors:pursuit_on()
+			m_pDeer->GetBehaviors()->SeekOn();
+			m_pDeer->GetBehaviors()->GetSeek()->SetTarget(m_pDeer->GetPlayer()->GetPosition());
+			m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetRunAnimationState());
+				
+			// Rotamos al objetivo y movemos
+			m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime );
+			m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+			#if defined _DEBUG
+				if( CORE->IsDebugMode() )
+				{
+					LOGGER->AddNewLog(ELL_INFORMATION,"CDeerStillAttackState::Execute->Nos acercamos primero");
+				}
+			#endif
+		}
+	}
 }
 
 
@@ -317,12 +331,32 @@ bool CDeerStillAttackState::OnMessage( CCharacter* _Character, const STelegram& 
 			m_pDeer = dynamic_cast<CDeer*> (_Character);
 		}
 
-		m_pDeer->RestLife(10); 
+		m_pDeer->RestLife(50); 
 		m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetHitState());
-		//m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetHitAnimationState());
+		m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetHitAnimationState());
 		return true;
 	}
 
 	return false;
 }
 
+void CDeerStillAttackState::SetParticlePosition( CCharacter* _pCharacter )
+{
+	CAnimatedInstanceModel *l_pAnimatedModel = _pCharacter->GetAnimatedModel();
+
+	Mat44f l_TransformMatrix		= m44fIDENTITY;
+	Mat44f l_RotationMatrix			= m44fIDENTITY;
+	Vect4f l_Rotation				= v3fZERO;
+	Vect3f l_Translation			= v3fZERO;
+	Mat44f l_AnimatedModelTransform = l_pAnimatedModel->GetTransform();
+
+	l_pAnimatedModel->GetBonePosition("Bip001 L Finger11", l_Translation);
+	l_pAnimatedModel->GetBoneRotation("Bip001 L Finger11", l_Rotation);
+
+	l_TransformMatrix.Translate(l_Translation);
+	l_RotationMatrix.SetFromQuaternion(l_Rotation);
+
+	l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
+
+	m_pParticleEmitter->SetPosition( l_TransformMatrix.GetPos() );
+}

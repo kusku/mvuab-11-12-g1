@@ -201,7 +201,10 @@ void CDeerRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 			{
 				if ( !m_playerPushed )
 				{
-					m_AditionalInfo.Direccion	= m_pDeer->GetSteeringEntity()->GetVelocity();
+					Vect3f l_Vel = m_pDeer->GetSteeringEntity()->GetVelocity();
+					l_Vel.Normalize();
+					l_Vel *= m_pDeer->GetProperties()->GetMaxSpeed();
+					m_AditionalInfo.Direccion	= l_Vel;
 					m_AditionalInfo.ElapsedTime = _ElapsedTime;
 				}
 					
@@ -289,8 +292,9 @@ bool CDeerRunAttackState::OnMessage( CCharacter* _Character, const STelegram& _T
 			m_pDeer = dynamic_cast<CDeer*> (_Character);
 		}
 
-		m_pDeer->RestLife(20); 
+		m_pDeer->RestLife(50); 
 		m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetHitState());
+		m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetHitAnimationState());
 		return true;
 	}
 
