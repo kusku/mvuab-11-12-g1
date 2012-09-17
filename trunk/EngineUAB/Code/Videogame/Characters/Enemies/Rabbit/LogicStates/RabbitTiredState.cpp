@@ -1,4 +1,7 @@
 #include "RabbitTiredState.h"
+#include "RabbitPursuitState.h"
+#include "RabbitHitState.h"
+
 #include "Utils\BoostRandomHelper.h"
 
 // --- Per pintar l'estat enemic ---
@@ -9,9 +12,6 @@
 // ---------------------------------
 
 #include "Characters\Enemies\Rabbit\Rabbit.h"
-
-#include "RabbitPursuitState.h"
-#include "RabbitHitState.h"
 
 #include "Characters\Enemies\Rabbit\AnimationStates\RabbitIdleAnimationState.h"
 #include "Characters\Enemies\Rabbit\AnimationStates\RabbitIdle2AnimationState.h"
@@ -124,6 +124,7 @@ bool CRabbitTiredState::OnMessage( CCharacter* _Character, const STelegram& _Tel
 
 		m_pRabbit->RestLife(50); 
 		m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetHitState());
+		m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetHitAnimationState());
 		return true;
 	}
 
