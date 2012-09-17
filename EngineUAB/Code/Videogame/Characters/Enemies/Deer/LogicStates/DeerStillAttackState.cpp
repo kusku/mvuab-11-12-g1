@@ -198,28 +198,30 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 
 				//float t = m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_STILL_ATTACK_STATE);
 
-				// Sonido de bofetada 
-				if ( m_pDeer->GetPlayerHasBeenReached() && !m_SoundPlayed1 &&  m_pActionStateCallback.IsActionInTime( 0.7f ) )
+				// Sonido de la 1a bofetada 
+				if ( m_pDeer->GetPlayerHasBeenReached() && !m_SoundPlayed1 &&  m_pActionStateCallback.IsActionInTime( 0.2f ) )
 				{
 					m_SoundPlayed1 = true;
-					CORE->GetSoundManager()->PlayEvent("Play_EFX_Punch2"); 
-				}
-				// Sonido de bofetada fallida
-				else if ( !m_pDeer->GetPlayerHasBeenReached() && !m_SoundPlayed1 &&  m_pActionStateCallback.IsActionInTime( 0.7f ) )
-				{
-					CORE->GetSoundManager()->PlayEvent("Play_EFX_Slap1"); 
-				}
-
-				// Sonido de bofetada 
-				if ( m_pDeer->GetPlayerHasBeenReached() && !m_SoundPlayed2 &&  m_pActionStateCallback.IsActionInTime( 0.2f ) )
-				{
-					m_SoundPlayed2 = true;
 					CORE->GetSoundManager()->PlayEvent("Play_EFX_Punch3"); 
 				}
-				// Sonido de bofetada fallida
-				else if ( !m_pDeer->GetPlayerHasBeenReached() && !m_SoundPlayed2 &&  m_pActionStateCallback.IsActionInTime( 0.2f ) )
+				// Sonido de la 1a bofetada fallida
+				else if ( !m_pDeer->GetPlayerHasBeenReached() && !m_SoundPlayed1 &&  m_pActionStateCallback.IsActionInTime( 0.2f ) )
 				{
 					CORE->GetSoundManager()->PlayEvent("Play_EFX_Slap1"); 
+					m_SoundPlayed1 = true;
+				}
+
+				// Sonido de la 2a bofetada 
+				if ( m_pDeer->GetPlayerHasBeenReached() && !m_SoundPlayed2 &&  m_pActionStateCallback.IsActionInTime( 0.7f ) )
+				{
+					m_SoundPlayed2 = true;
+					CORE->GetSoundManager()->PlayEvent("Play_EFX_Punch2"); 
+				}
+				// Sonido de la 2a bofetada fallida
+				else if ( !m_pDeer->GetPlayerHasBeenReached() && !m_SoundPlayed2 &&  m_pActionStateCallback.IsActionInTime( 0.7f ) )
+				{
+					CORE->GetSoundManager()->PlayEvent("Play_EFX_Slap1"); 
+					m_SoundPlayed2 = true;
 				}
 
 				#if defined _DEBUG
