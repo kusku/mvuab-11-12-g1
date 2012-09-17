@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <particle_emitters>
 
-  <emitter name="WaterFall2" system_name="WaterFall2" type="line" particlesPerSecond="100" initialPosition="118.646 -3.035 -106.448" line_start="0 0 -4.977" line_end="0 0 4.598" />
-  <emitter name="WaterFall" system_name="WaterFall" type="line" particlesPerSecond="300" initialPosition="134.293 14.282 -106.205" line_start="0 0 -5.676" line_end="0 0 6.035" />
-  <emitter name="WaterMist" system_name="WaterMist" type="line" particlesPerSecond="150" initialPosition="105.886 -25.822 -103.759" line_start="-0.318 0 -3.753" line_end="0.3 0 5.265" />
+	<emitter name="WaterFall2" system_name="WaterFall2" type="line" particlesPerSecond="100" initialPosition="118.646 -3.035 -106.448" line_start="0 0 -4.977" line_end="0 0 4.598" />
+	<emitter name="WaterFall" system_name="WaterFall" type="line" particlesPerSecond="300" initialPosition="134.293 14.282 -106.205" line_start="0 0 -5.676" line_end="0 0 6.035" />
+	<emitter name="WaterMist" system_name="WaterMist" type="line" particlesPerSecond="150" initialPosition="105.886 -25.822 -103.759" line_start="-0.318 0 -3.753" line_end="0.3 0 5.265" />
 
-  <!--
-  <emitter name="WaterFall2" system_name="WaterFall" type="line" particlesPerSecond="70" initialPosition="130.16 4.20049 -115.248" line_start="0 0 -4" line_end="0 0 4" />
-  -->
-  
-  
-  <emitter name="Blood" system_name="Blood" type="point" particlesPerSecond="100" initialPosition="0 30 0" on_loop="false" ejection_count="5" />
-  
-  <emitter name="SwordRight" system_name="Sword" type="point" particlesPerSecond="200" initialPosition="0 0 0" on_loop="false" ejection_count="50" />
-  <emitter name="SwordLeft" system_name="Sword" type="point" particlesPerSecond="200" initialPosition="0 0 0" on_loop="false" ejection_count="50" />
-  <emitter name="SwordFinal" system_name="SwordFinal" type="point" particlesPerSecond="200" initialPosition="0 0 0" on_loop="false" ejection_count="50" />
-
-  <emitter name="Explosions" system_name="Explosions" type="line" particlesPerSecond="125" initialPosition="0 20 20" on_loop="false" ejection_count="75" line_start="0 -1 0" line_end="0 1 0" use_dis="false" />
+	<!--
+	<emitter name="WaterFall2" system_name="WaterFall" type="line" particlesPerSecond="70" initialPosition="130.16 4.20049 -115.248" line_start="0 0 -4" line_end="0 0 4" />
+	-->
 
 
+	<emitter name="Blood" system_name="Blood" type="point" particlesPerSecond="100" initialPosition="0 30 0" on_loop="false" ejection_count="5" />
+
+	<emitter name="SwordRight" system_name="Sword" type="point" particlesPerSecond="200" initialPosition="0 0 0" on_loop="false" ejection_count="70" />
+	<emitter name="SwordLeft" system_name="Sword" type="point" particlesPerSecond="200" initialPosition="0 0 0" on_loop="false" ejection_count="70" />
+	<emitter name="SwordFinal" system_name="SwordFinal" type="point" particlesPerSecond="400" initialPosition="0 0 0" on_loop="false" ejection_count="90" />
+
+	<emitter name="Explosions" system_name="Explosions" type="line" particlesPerSecond="125" initialPosition="0 20 20" on_loop="false" ejection_count="75" line_start="0 -1 0" line_end="0 1 0" use_dis="false" />
+
+	<emitter name="Snow" system_name="Snow" type="box" particlesPerSecond="100" on_loop="true" initialPosition="0.0 0.0 0.0" box_min="0.0 -45.0 0.0" box_max="50.0 -41.0 50.0" />
+	
   
   <!--<emitter name="FireRing" system_name="Fire" type="ring" particlesPerSecond="1200" initialPosition="0 0 0" horizontal="false" radius="30" height="40" width="40" />
 	

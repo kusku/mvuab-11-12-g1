@@ -249,7 +249,7 @@
   
 	<settings name="SwordFinal">
 		<TextureName value="./Data/General/Textures/Particles/FlowerBurst.jpg"/>
-		<MaxParticles value="300"/>
+		<MaxParticles value="400"/>
 		<Duration value="0.500000"/>
 		<DurationRandomness value="0.2500000"/>
 		<EmitterVelocitySensitivity value="0.200000"/>
@@ -268,6 +268,36 @@
 		<MinEndSize value="0.50000"/>
 		<MaxEndSize value="0.700000"/>
 		<BlendState value="Additive"/>
+	</settings>
+  
+	<settings name="Snow">
+		<TextureName value="./Data/General/Textures/Particles/snow.png" />
+		<MaxParticles value="200" />
+
+		<Duration value="5" />
+
+		<MinHorizontalVelocity value="0" />
+		<MaxHorizontalVelocity value="2" />
+
+		<MinVerticalVelocity value="0" />
+		<MaxVerticalVelocity value="0" />
+
+		<Gravity value="-2 0 3" />
+
+		<MinColor value="255.000000 255.000000 255.000000 2.000000"/>
+		<MaxColor value="255.000000 255.000000 255.000000 4.500000"/>
+		
+		<EndVelocity value="0.75" />
+
+		<MinRotateSpeed value="-1" />
+		<MaxRotateSpeed value="1" />
+
+		<MinStartSize value="5" />
+		<MaxStartSize value="10" />
+
+		<MinEndSize value="10" />
+		<MaxEndSize value="20" />
+		<BlendState value="NonPremultiplied"/>
 	</settings>
   
   <!-- Example
