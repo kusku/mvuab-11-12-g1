@@ -19,9 +19,15 @@
 	<emitter name="Explosions" system_name="Explosions" type="line" particlesPerSecond="125" initialPosition="0 20 20" on_loop="false" ejection_count="75" line_start="0 -1 0" line_end="0 1 0" use_dis="false" />
 
 	<emitter name="Snow" system_name="Snow" type="box" particlesPerSecond="100" on_loop="true" initialPosition="0.0 0.0 0.0" box_min="0.0 -45.0 0.0" box_max="50.0 -41.0 50.0" />
-	
-  
-  <!--<emitter name="FireRing" system_name="Fire" type="ring" particlesPerSecond="1200" initialPosition="0 0 0" horizontal="false" radius="30" height="40" width="40" />
+
+	<!-- Deer Particles -->
+	<emitter name="RightHand1" system_name="Sword1" type="point" particlesPerSecond="500" initialPosition="0 0 0" on_loop="false" ejection_count="2" />
+	<emitter name="RightHand11" system_name="Sword1" type="point" particlesPerSecond="500" initialPosition="0 0 0" on_loop="false" ejection_count="2" />
+	<emitter name="LeftHand1" system_name="Sword1" type="point" particlesPerSecond="500" initialPosition="0 0 0" on_loop="false" ejection_count="2" />
+	<emitter name="LeftHand11" system_name="Sword1" type="point" particlesPerSecond="500" initialPosition="0 0 0" on_loop="false" ejection_count="2" />
+
+
+	<!--<emitter name="FireRing" system_name="Fire" type="ring" particlesPerSecond="1200" initialPosition="0 0 0" horizontal="false" radius="30" height="40" width="40" />
 	
 	<emitter name="Smoke2" system_name="Smoke" type="point" particlesPerSecond="60" initialPosition="-100 0 -100" />
 	
