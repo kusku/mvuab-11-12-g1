@@ -4,8 +4,10 @@
 #define __CLASS_STATE_H__
 
 #include "MessageDefs.h"
+#include "Particles\ParticleEmitterManager.h"
 
 //--- Foward Declarations ---//
+class CParticleEmitter;
 //---------------------------//
 
 struct STelegram;
@@ -50,6 +52,10 @@ public:
 															return true; 
 														};
 	
+	//----Properties ------------------------------------------
+	CParticleEmitter*	GetParticleEmitter( const std::string & _EmitterName ) const { return CORE->GetParticleEmitterManager()->GetResource(_EmitterName); }
+
+
 	// ------------- Members ---------------------------------
 private:
 
