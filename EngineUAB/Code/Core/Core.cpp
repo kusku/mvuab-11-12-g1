@@ -628,7 +628,12 @@ void CCore::UpdateInputs( float _ElapsedTime )
 	{
 		SCRIPT->RunCode("reload_render_commands()");
 	}
-
+	
+	if( l_Action2Input->DoAction( ACTION_RELOAD_PARTICLES ) )				// Recarrega de comandes
+	{
+		SCRIPT->RunCode("reload_particles()");
+	}
+	
 	// Solo en mode debug comprovamos estas teclas
 	UpdateDebugInputs( _ElapsedTime, *l_Action2Input);
 }
@@ -876,7 +881,29 @@ void CCore::ReloadBillboards()
 
 void CCore::ReloadParticles()
 {
-	//m_pParticlesManager->Reload();
+	//m_ParticleSettingsManager = new CParticleSettingsManager();
+	m_ParticleSettingsManager->CleanUp();
+	m_ParticleSystemManager->CleanUp();
+	m_ParticleEmitterManager->CleanUp();
+
+	if(!m_ParticleSettingsManager->Reload())
+	{
+		return;
+	}
+
+	//m_ParticleSystemManager = new CParticleSystemManager();
+	if(!m_ParticleSystemManager->Reload())
+	{
+		return;
+	}
+
+	m_ParticleSystemManager->Initialize();
+
+	//m_ParticleEmitterManager = new CParticleEmitterManager;
+	if(!m_ParticleEmitterManager->Reload())
+	{
+		return;
+	}
 }
 
 void CCore::ReloadTriggers()
