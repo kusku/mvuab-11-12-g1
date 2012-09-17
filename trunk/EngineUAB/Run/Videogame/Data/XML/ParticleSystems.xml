@@ -15,4 +15,6 @@
 
 	<system name="Sword" settings_name="Sword" />
 	<system name="SwordFinal" settings_name="SwordFinal" />
+	
+	<system name="Snow" settings_name="Snow" />
 </particle_systems>
