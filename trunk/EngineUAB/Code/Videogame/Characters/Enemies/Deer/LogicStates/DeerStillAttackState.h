@@ -44,7 +44,10 @@ private:
 	CDeer					  * m_pDeer;
 	CAnimationCallback		  *	m_pAnimationCallback;
 	CActionStateCallback		m_pActionStateCallback;
-	CParticleEmitter		  * m_pParticleEmitter;
+	CParticleEmitter		  * m_pParticleEmitter1;
+	CParticleEmitter		  * m_pParticleEmitter2;
+	CParticleEmitter		  * m_pParticleEmitter3;
+	CParticleEmitter		  * m_pParticleEmitter4;
 
 	bool						m_SoundPlayed1;			// Indica si el sonido ya se inició
 	bool						m_SoundPlayed2;			// Indica si el sonido ya se inició
