@@ -19,6 +19,9 @@
 	<system name="Snow" settings_name="Snow" />
 	
 	<system name="Sword1" settings_name="Sword1" />
-	<system name="CenterFlare" settings_name="CenterFlare" />
 	<system name="Steps" settings_name="Steps" />
+	
+	<system name="CenterFlare" settings_name="CenterFlare" />
+	<system name="Impact" settings_name="Impact" />
+	
 </particle_systems>
