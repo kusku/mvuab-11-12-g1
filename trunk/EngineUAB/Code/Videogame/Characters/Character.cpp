@@ -623,8 +623,8 @@ bool CCharacter::IsPlayerAtacable( void )
 	bool l_InsideAttackDistance	= IsPlayerInsideDistance(this->GetProperties()->GetAttackDistance());
 	bool l_IsPlayerReady		= IsPlayerReady();
 
-	if ( l_IsFocused && l_InsideAttackDistance && l_IsPlayerReady )
-	//if ( l_InsideAttackDistance && l_IsPlayerReady )
+	//if ( l_IsFocused && l_InsideAttackDistance && l_IsPlayerReady )
+	if ( l_InsideAttackDistance && l_IsPlayerReady )
 	{
 		return true;
 	}
@@ -698,7 +698,7 @@ Vect3f CCharacter::GetPointInsideCameraFrustum( void ) const
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	Vect3f	l_Front  = l_Process->GetPlayerCamera()->GetDirection();
 	
-	float l_Radi = this->GetProperties()->GetAttackDistance() + 2;
+	float l_Radi = this->GetProperties()->GetPreparedAttackDistance();
 
 	CSteeringEntity * l_Entity	= l_Process->GetCharactersManager()->GetPlayer()->GetSteeringEntity();
 	Vect3f l_Position = l_Entity->GetPosition();
