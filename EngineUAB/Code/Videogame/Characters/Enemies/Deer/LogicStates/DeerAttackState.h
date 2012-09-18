@@ -17,8 +17,8 @@ class CDeerAttackState : public CState<CCharacter>
 public:
 
 	// ------------- Constructors i Destructors --------------
-					CDeerAttackState	( void );
-					CDeerAttackState	( const std::string &_Name );
+					CDeerAttackState	( CCharacter* _pCharacter );
+					CDeerAttackState	( CCharacter* _pCharacter, const std::string &_Name );
 	virtual			~CDeerAttackState	( void );
 
 	//----Main Functions --------------------------------------

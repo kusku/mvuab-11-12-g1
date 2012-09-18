@@ -18,8 +18,8 @@ class CRabbitTiredState : public CState<CCharacter>
 public:
 
 	// ------------- Constructors i Destructors --------------
-					CRabbitTiredState	( void );
-					CRabbitTiredState	( const std::string &_Name );
+					CRabbitTiredState	( CCharacter* );
+					CRabbitTiredState	( CCharacter* _pCharacter, const std::string &_Name );
 	virtual			~CRabbitTiredState	( void );
 
 	//----Main Functions --------------------------------------

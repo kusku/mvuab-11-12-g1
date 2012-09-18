@@ -31,15 +31,15 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CDeerPreparedToAttackState::CDeerPreparedToAttackState( void )
-	: CState								("CDeerPreparedToAttackState")
+CDeerPreparedToAttackState::CDeerPreparedToAttackState( CCharacter* _pCharacter )
+	: CState								( _pCharacter, "CDeerPreparedToAttackState")
 	, m_pDeer								( NULL )
 	, m_IsPositionAfterHitPlayerAssigned	( false )
 {
 }
 
-CDeerPreparedToAttackState::CDeerPreparedToAttackState( const std::string &_Name )
-	: CState								(_Name)
+CDeerPreparedToAttackState::CDeerPreparedToAttackState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState								(_pCharacter, _Name)
 	, m_pDeer								( NULL )
 	, m_IsPositionAfterHitPlayerAssigned	( false )
 {
@@ -55,11 +55,11 @@ CDeerPreparedToAttackState::~CDeerPreparedToAttackState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CDeerPreparedToAttackState::OnEnter( CCharacter* _Character )
+void CDeerPreparedToAttackState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pDeer) 
 	{
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 
 	m_pDeer->GetBehaviors()->SeparationOn();
@@ -76,11 +76,11 @@ void CDeerPreparedToAttackState::OnEnter( CCharacter* _Character )
 	#endif
 }
 
-void CDeerPreparedToAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CDeerPreparedToAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
 	if (!m_pDeer) 
 	{
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 
 	// 0) Caso en que alcanzé al player y por tanto vamos a un punto de inicio de ataque. Así dejo que el player se reponga
@@ -196,17 +196,17 @@ void CDeerPreparedToAttackState::Execute( CCharacter* _Character, float _Elapsed
 }
 
 
-void CDeerPreparedToAttackState::OnExit( CCharacter* _Character )
+void CDeerPreparedToAttackState::OnExit( CCharacter* _pCharacter )
 {
 }
 
-bool CDeerPreparedToAttackState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CDeerPreparedToAttackState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
 		if (!m_pDeer) 
 		{
-			m_pDeer = dynamic_cast<CDeer*> (_Character);
+			m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 		}
 
 		m_pDeer->RestLife(50); 

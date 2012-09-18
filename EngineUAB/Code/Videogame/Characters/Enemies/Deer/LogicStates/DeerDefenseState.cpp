@@ -32,8 +32,8 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CDeerDefenseState::CDeerDefenseState( void )
-	: CState			("CDeerDefenseState")
+CDeerDefenseState::CDeerDefenseState( CCharacter* _pCharacter )
+	: CState			(_pCharacter, "CDeerDefenseState")
 	, m_ActionTime		( CActionStateCallback( 0.f, 6.f ) )
 	, m_pDeer			( NULL )
 	, m_HitBlocked		( false )
@@ -42,8 +42,8 @@ CDeerDefenseState::CDeerDefenseState( void )
 {
 }
 
-CDeerDefenseState::CDeerDefenseState( const std::string &_Name )
-	: CState			(_Name)
+CDeerDefenseState::CDeerDefenseState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState			(_pCharacter, _Name)
 	, m_ActionTime		( CActionStateCallback( 0.f, 6.f ) )
 	, m_pDeer			( NULL )
 	, m_HitBlocked		( false )
@@ -62,11 +62,11 @@ CDeerDefenseState::~CDeerDefenseState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CDeerDefenseState::OnEnter( CCharacter* _Character )
+void CDeerDefenseState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pDeer) 
 	{
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 	
 	m_ActionTime.StartAction();
@@ -100,11 +100,11 @@ void CDeerDefenseState::OnEnter( CCharacter* _Character )
 	#endif
 }
 
-void CDeerDefenseState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CDeerDefenseState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
 	if (!m_pDeer) 
 	{
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 
 	m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime );
@@ -182,7 +182,7 @@ void CDeerDefenseState::Execute( CCharacter* _Character, float _ElapsedTime )
 
 }
 
-void CDeerDefenseState::OnExit( CCharacter* _Character )
+void CDeerDefenseState::OnExit( CCharacter* _pCharacter )
 {
 	m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
 	m_pDeer->GetBehaviors()->SeekOff();
@@ -192,7 +192,7 @@ void CDeerDefenseState::OnExit( CCharacter* _Character )
 	m_pDeer->GetSteeringEntity()->SetMass(m_OldMass);
 }
 
-bool CDeerDefenseState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CDeerDefenseState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{

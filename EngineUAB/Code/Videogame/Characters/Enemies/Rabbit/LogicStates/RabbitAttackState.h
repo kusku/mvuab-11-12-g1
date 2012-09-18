@@ -17,8 +17,8 @@ class CRabbitAttackState : public CState<CCharacter>
 public:
 
 	// ------------- Constructors i Destructors --------------
-					CRabbitAttackState	( void );
-					CRabbitAttackState	( const std::string &_Name );
+					CRabbitAttackState	( CCharacter* );
+					CRabbitAttackState	( CCharacter* _pCharacter, const std::string &_Name );
 	virtual			~CRabbitAttackState	( void );
 
 	//----Main Functions --------------------------------------

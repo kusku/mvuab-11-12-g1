@@ -34,22 +34,22 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CDeerDeathState::CDeerDeathState( void )
-	: CState				("CDeerDeathState")
+CDeerDeathState::CDeerDeathState( CCharacter* _pCharacter )
+	: CState				(_pCharacter, "CDeerDeathState")
 	, m_pDeer				( NULL )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_DEATH_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),DEER_DEATH_STATE);
 }
 
-CDeerDeathState::CDeerDeathState( const std::string &_Name )
-	: CState				(_Name)
+CDeerDeathState::CDeerDeathState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState				(_pCharacter, _Name)
 	, m_pDeer				( NULL )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_DEATH_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),DEER_DEATH_STATE);
 }
 
 
@@ -63,11 +63,11 @@ CDeerDeathState::~CDeerDeathState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CDeerDeathState::OnEnter( CCharacter* _Character )
+void CDeerDeathState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pDeer) 
 	{
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 
 #if defined _DEBUG
@@ -84,11 +84,11 @@ void CDeerDeathState::OnEnter( CCharacter* _Character )
 	//float t = m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_STILL_ATTACK_STATE);
 }
 
-void CDeerDeathState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CDeerDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
 	if (!m_pDeer) 
 	{
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 	
 	// Si és atacable miro si llegué al màximo de lo que permito que me golpeen y bloqueo
@@ -143,12 +143,12 @@ void CDeerDeathState::Execute( CCharacter* _Character, float _ElapsedTime )
 }
 
 
-void CDeerDeathState::OnExit( CCharacter* _Character )
+void CDeerDeathState::OnExit( CCharacter* _pCharacter )
 {
 	//CORE->GetSoundManager()->PlayEvent("Stop_EFX_DeerDieingCurta"); 
 }
 
-bool CDeerDeathState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CDeerDeathState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
 	return false;
 }

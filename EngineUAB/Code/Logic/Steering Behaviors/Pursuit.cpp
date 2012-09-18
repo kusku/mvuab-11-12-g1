@@ -69,8 +69,10 @@ Vect3f CPursuit::CalculateSteering( CSteeringEntity *_pEntity )
 
 			// Comprobamos si el enemigo ya està encarado al player, en ese caso solo vamos a por él directamente
 			float l_RelativeHeading = _pEntity->GetHeading().Dot(m_pEvader->GetHeading());
+			float l_RelativeHeading0 = mathUtils::ACos( _pEntity->GetHeading().Dot(m_pEvader->GetHeading()) );
 			float l_RelativeHeadingGraus = mathUtils::Rad2Deg( l_RelativeHeading );
-			float l_RelativeHeading2 =  l_ToEvader.Dot( _pEntity->GetHeading());
+			float l_RelativeHeading1 = l_ToEvader.Dot( _pEntity->GetHeading());
+			float l_RelativeHeading2 = mathUtils::ACos( l_ToEvader.Dot( _pEntity->GetHeading()) );
 			float l_RelativeHeadingGraus2 = mathUtils::Rad2Deg( l_RelativeHeading2 );
 			//if ( ( l_ToEvader.Dot( _pEntity->GetHeading()) > 0) && ( l_RelativeHeading < -0.95 ) )  //acos(0.95)=18 degs
 			if ( ( l_ToEvader.Dot( _pEntity->GetHeading()) > 0) && ( l_RelativeHeading < -0.95 ) )  //acos(0.95)=18 degs

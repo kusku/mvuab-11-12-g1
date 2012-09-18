@@ -227,39 +227,39 @@ CCharacter* CPlayer::DetectEnemy()
 void CPlayer::CreateStates()
 {
 	//Logic States
-	m_LogicStatesMap["attack1"]			= new CPlayerAttackState("attack1");
-	m_LogicStatesMap["attack2"]			= new CPlayerAttack2State("attack2");
-	m_LogicStatesMap["attack3"]			= new CPlayerAttack3State("attack3");
-	m_LogicStatesMap["hit"]				= new CPlayerHitState("hit");
-	m_LogicStatesMap["idle"]			= new CPlayerIdleState("idle");
-	m_LogicStatesMap["jump"]			= new CPlayerJumpState("jump");
-	m_LogicStatesMap["run"]				= new CPlayerRunState("run");
-	m_LogicStatesMap["defense"]			= new CPlayerDefenseState("defense");
-	m_LogicStatesMap["targetattack1"]	= new CPlayerTargetAttackState("targetattack1");
-	m_LogicStatesMap["targetattack2"]	= new CPlayerTargetAttack2State("targetattack2");
-	m_LogicStatesMap["targetattack3"]	= new CPlayerTargetAttack3State("targetattack3");
-	m_LogicStatesMap["targetrun"]		= new CPlayerTargetRunState("targetrun");
+	m_LogicStatesMap["attack1"]			= new CPlayerAttackState			(this, "attack1");
+	m_LogicStatesMap["attack2"]			= new CPlayerAttack2State			(this, "attack2");
+	m_LogicStatesMap["attack3"]			= new CPlayerAttack3State			(this, "attack3");
+	m_LogicStatesMap["hit"]				= new CPlayerHitState				(this, "hit");
+	m_LogicStatesMap["idle"]			= new CPlayerIdleState				(this, "idle");
+	m_LogicStatesMap["jump"]			= new CPlayerJumpState				(this, "jump");
+	m_LogicStatesMap["run"]				= new CPlayerRunState				(this, "run");
+	m_LogicStatesMap["defense"]			= new CPlayerDefenseState			(this, "defense");
+	m_LogicStatesMap["targetattack1"]	= new CPlayerTargetAttackState		(this, "targetattack1");
+	m_LogicStatesMap["targetattack2"]	= new CPlayerTargetAttack2State		(this, "targetattack2");
+	m_LogicStatesMap["targetattack3"]	= new CPlayerTargetAttack3State		(this, "targetattack3");
+	m_LogicStatesMap["targetrun"]		= new CPlayerTargetRunState			(this, "targetrun");
 
 	//Animation States
-	m_AnimationStatesMap["animattack1"]	= new CPlayerAnimationAttackState("animattack1");
-	m_AnimationStatesMap["animattack2"]	= new CPlayerAnimationAttack2State("animattack2");
-	m_AnimationStatesMap["animattack3"]	= new CPlayerAnimationAttack3State("animattack3");
-	m_AnimationStatesMap["animdefense"]	= new CPlayerAnimationDefenseState("animdefense");
-	m_AnimationStatesMap["animhit"]		= new CPlayerAnimationHitState("animhit");
-	m_AnimationStatesMap["animidle"]	= new CPlayerAnimationIdleState("animidle");
-	m_AnimationStatesMap["animjump"]	= new CPlayerAnimationJumpState("animjump");
-	m_AnimationStatesMap["animrun"]		= new CPlayerAnimationRunState("animrun");
+	m_AnimationStatesMap["animattack1"]	= new CPlayerAnimationAttackState	(this, "animattack1");
+	m_AnimationStatesMap["animattack2"]	= new CPlayerAnimationAttack2State	(this, "animattack2");
+	m_AnimationStatesMap["animattack3"]	= new CPlayerAnimationAttack3State	(this, "animattack3");
+	m_AnimationStatesMap["animdefense"]	= new CPlayerAnimationDefenseState	(this, "animdefense");
+	m_AnimationStatesMap["animhit"]		= new CPlayerAnimationHitState		(this, "animhit");
+	m_AnimationStatesMap["animidle"]	= new CPlayerAnimationIdleState		(this, "animidle");
+	m_AnimationStatesMap["animjump"]	= new CPlayerAnimationJumpState		(this, "animjump");
+	m_AnimationStatesMap["animrun"]		= new CPlayerAnimationRunState		(this, "animrun");
 }
 
 void CPlayer::CreateCallbacks()
 {
 	CAnimationCallbackManager *l_pCallbackManager = static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager();
 
-	l_pCallbackManager->CreateCallback("attack1", m_pCurrentAnimatedModel);
-	l_pCallbackManager->CreateCallback("attack2", m_pCurrentAnimatedModel);
-	l_pCallbackManager->CreateCallback("attack3", m_pCurrentAnimatedModel);
-	l_pCallbackManager->CreateCallback("hit", m_pCurrentAnimatedModel);
-	l_pCallbackManager->CreateCallback("jump", m_pCurrentAnimatedModel);
+	l_pCallbackManager->CreateCallback(GetName(), "attack1", m_pCurrentAnimatedModel);
+	l_pCallbackManager->CreateCallback(GetName(), "attack2", m_pCurrentAnimatedModel);
+	l_pCallbackManager->CreateCallback(GetName(), "attack3", m_pCurrentAnimatedModel);
+	l_pCallbackManager->CreateCallback(GetName(), "hit", m_pCurrentAnimatedModel);
+	l_pCallbackManager->CreateCallback(GetName(), "jump", m_pCurrentAnimatedModel);
 }
 
 // Jordi: Este método me permite hacer todo lo necesario cuando está muerto el caracter.

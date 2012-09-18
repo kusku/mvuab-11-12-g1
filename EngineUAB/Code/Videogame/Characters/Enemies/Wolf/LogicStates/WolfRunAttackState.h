@@ -18,9 +18,9 @@ class CWolfRunAttackState : public CState<CCharacter>
 public:
 
 	// ------------- Constructors i Destructors --------------
-					CWolfRunAttackState	( void );
-					CWolfRunAttackState	( const std::string &_Name );
-	virtual			~CWolfRunAttackState	( void );
+					CWolfRunAttackState	( CCharacter* );
+					CWolfRunAttackState	( CCharacter*, const std::string &_Name );
+	virtual			~CWolfRunAttackState( void );
 
 	//----Main Functions --------------------------------------
 	virtual void	Execute		( CCharacter*, float _ElapsedTime );

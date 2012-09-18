@@ -18,9 +18,9 @@ class CDeerTiredState : public CState<CCharacter>
 public:
 
 	// ------------- Constructors i Destructors --------------
-					CDeerTiredState	( void );
-					CDeerTiredState	( const std::string &_Name );
-	virtual			~CDeerTiredState	( void );
+					CDeerTiredState	( CCharacter* );
+					CDeerTiredState	( CCharacter*, const std::string &_Name );
+	virtual			~CDeerTiredState( void );
 
 	//----Main Functions --------------------------------------
 	virtual void	Execute			( CCharacter*, float _ElapsedTime );

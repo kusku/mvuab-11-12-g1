@@ -11,14 +11,14 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CRabbitIdleAnimationState::CRabbitIdleAnimationState( void )
-	: CState	("CRabbitIdleAnimationState")
+CRabbitIdleAnimationState::CRabbitIdleAnimationState( CCharacter* _pCharacter )
+	: CState	( _pCharacter, "CRabbitIdleAnimationState")
 	, m_pRabbit	( NULL )
 {
 }
 
-CRabbitIdleAnimationState::CRabbitIdleAnimationState( const std::string &_Name )
-	: CState	(_Name)
+CRabbitIdleAnimationState::CRabbitIdleAnimationState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState	(_pCharacter, _Name)
 	, m_pRabbit	( NULL )
 {}
 
@@ -37,12 +37,12 @@ CRabbitIdleAnimationState::~CRabbitIdleAnimationState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CRabbitIdleAnimationState::OnEnter( CCharacter* _Character )
+void CRabbitIdleAnimationState::OnEnter( CCharacter* _pCharacter )
 {
 	if ( !m_pRabbit ) 
 	{
 		// Almacenamos el enemigo
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
 	int l_Num = m_pRabbit->GetAnimationID(RABBIT_IDLE_STATE);
@@ -53,11 +53,11 @@ void CRabbitIdleAnimationState::Execute( CCharacter*, float _ElapsedTime )
 {
 }
 
-void CRabbitIdleAnimationState::OnExit( CCharacter* _Character )
+void CRabbitIdleAnimationState::OnExit( CCharacter* _pCharacter )
 {
 	if (!m_pRabbit) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
 	if (m_pRabbit) 

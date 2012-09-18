@@ -11,14 +11,14 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CDeerWalkAnimationState::CDeerWalkAnimationState( void )
-	: CState	("CDeerWalkAnimationState")
+CDeerWalkAnimationState::CDeerWalkAnimationState( CCharacter* _pCharacter )
+	: CState	( _pCharacter, "CDeerWalkAnimationState")
 	, m_pDeer	( NULL )
 {
 }
 
-CDeerWalkAnimationState::CDeerWalkAnimationState( const std::string &_Name )
-	: CState	(_Name)
+CDeerWalkAnimationState::CDeerWalkAnimationState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState	(_pCharacter, _Name)
 	, m_pDeer	( NULL )
 {
 }
@@ -41,22 +41,22 @@ void CDeerWalkAnimationState::Execute( CCharacter*, float _ElapsedTime )
 {
 }
 
-void CDeerWalkAnimationState::OnEnter( CCharacter* _Character )
+void CDeerWalkAnimationState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pDeer) 
 	{
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 
 	int l_Num = m_pDeer->GetAnimationID(DEER_WALK_STATE);
 	m_pDeer->GetAnimatedModel()->BlendCycle( l_Num, 0.3f );
 }
 
-void CDeerWalkAnimationState::OnExit( CCharacter* _Character )
+void CDeerWalkAnimationState::OnExit( CCharacter* _pCharacter )
 {
 	if (!m_pDeer) 
 	{
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 
 	int l_Num = m_pDeer->GetAnimationID(DEER_WALK_STATE);

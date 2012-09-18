@@ -39,15 +39,15 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CRabbitAttackState::CRabbitAttackState( void )
-	: CState		("CRabbitAttackState")
+CRabbitAttackState::CRabbitAttackState( CCharacter* _pCharacter )
+	: CState		(_pCharacter, "CRabbitAttackState")
 	, m_ActionTime	( CActionStateCallback( 1.f, 2.f ) )
 	, m_pRabbit		( NULL )
 {
 }
 
-CRabbitAttackState::CRabbitAttackState( const std::string &_Name )
-	: CState		(_Name)
+CRabbitAttackState::CRabbitAttackState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState		(_pCharacter, _Name)
 	, m_ActionTime	( CActionStateCallback( 1.f, 2.f ) )
 	, m_pRabbit		( NULL )
 {
@@ -63,11 +63,11 @@ CRabbitAttackState::~CRabbitAttackState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CRabbitAttackState::OnEnter( CCharacter* _Character )
+void CRabbitAttackState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pRabbit) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
 	// Permite saber si el caracter ha realizado los golpes para cansarse. Ponemos a 2 el hits_done para obligar a que cuando entra en este estado haga una minima pausa antes de atacar
@@ -88,11 +88,11 @@ void CRabbitAttackState::OnEnter( CCharacter* _Character )
 	#endif
 }
 
-void CRabbitAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CRabbitAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
 	if (!m_pRabbit) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
 	if ( m_pRabbit->IsPlayerAtacable() ) 
@@ -116,7 +116,7 @@ void CRabbitAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 				
 			if ( l_ActiveActionState == RABBIT_STILL_ATTACK_STATE ) 
 			{
-				m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetStillAttackState());
+				//m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetStillAttackState());
 			}	
 			else if ( l_ActiveActionState == RABBIT_RUN_ATTACK_STATE ) 
 			{
@@ -124,7 +124,7 @@ void CRabbitAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 			}	
 			else if ( l_ActiveActionState == RABBIT_DEFENSE_STATE ) 
 			{
-				m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetDefenseState());
+				//m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetDefenseState());
 			}		
 			// else if ( l_ActiveActionState == "jump" ) then
 				// _CCharacter.logic_fsm:change_state(_CCharacter.jump_state)
@@ -150,11 +150,11 @@ void CRabbitAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 	}
 }
 
-void CRabbitAttackState::OnExit( CCharacter* _Character )
+void CRabbitAttackState::OnExit( CCharacter* _pCharacter )
 {
 	if (!m_pRabbit) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
 	m_pRabbit->GetBehaviors()->PursuitOff();
@@ -164,16 +164,16 @@ void CRabbitAttackState::OnExit( CCharacter* _Character )
 	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOff();
 }
 
-bool CRabbitAttackState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CRabbitAttackState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
 		if (!m_pRabbit) 
 		{
-			m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+			m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 		}
 
-		m_pRabbit->RestLife(1000); 
+		m_pRabbit->RestLife(50); 
 		m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetHitState());
 		return true;
 	}

@@ -23,13 +23,13 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-CPlayerJumpState::CPlayerJumpState( const std::string &_Name )
-	: CState(_Name)
+CPlayerJumpState::CPlayerJumpState( CCharacter * _pCharacter, const std::string &_Name )
+	: CState(_pCharacter, _Name)
 	, m_PrevPosition(v3fZERO)
 	, m_fJumpYaw(0.f)
 	, m_fTime(0.f)
 {
-	m_pCallback = static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager()->GetCallback(_Name);
+	m_pCallback = static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(), _Name);
 }
 
 CPlayerJumpState::~CPlayerJumpState()

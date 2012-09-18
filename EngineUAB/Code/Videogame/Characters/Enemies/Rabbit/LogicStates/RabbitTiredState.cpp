@@ -29,8 +29,8 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CRabbitTiredState::CRabbitTiredState( void )
-	: CState		("CRabbitTiredState")
+CRabbitTiredState::CRabbitTiredState( CCharacter* _pCharacter )
+	: CState		(_pCharacter, "CRabbitTiredState")
 	, m_ActionTime	( 1.5f, 2.f )
 	, m_MinTime		( 1.f )
 	, m_MaxTime		( 2.f )
@@ -38,8 +38,8 @@ CRabbitTiredState::CRabbitTiredState( void )
 {
 }
 
-CRabbitTiredState::CRabbitTiredState( const std::string &_Name )
-	: CState		(_Name)
+CRabbitTiredState::CRabbitTiredState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState		(_pCharacter, _Name)
 	, m_ActionTime	( 1.5f, 2.f )
 	, m_MinTime		( 1.f )
 	, m_MaxTime		( 2.f )
@@ -57,11 +57,11 @@ CRabbitTiredState::~CRabbitTiredState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CRabbitTiredState::OnEnter( CCharacter* _Character )
+void CRabbitTiredState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pRabbit) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
 	m_ActionTime.InitAction(m_MinTime, m_MaxTime);
@@ -88,11 +88,11 @@ void CRabbitTiredState::OnEnter( CCharacter* _Character )
 }
 
 
-void CRabbitTiredState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CRabbitTiredState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
 	if (!m_pRabbit) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 	
 	if ( m_ActionTime.IsActionFinished() ) 
@@ -109,17 +109,17 @@ void CRabbitTiredState::Execute( CCharacter* _Character, float _ElapsedTime )
 }
 
 
-void CRabbitTiredState::OnExit( CCharacter* _Character )
+void CRabbitTiredState::OnExit( CCharacter* _pCharacter )
 {
 }
 
-bool CRabbitTiredState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CRabbitTiredState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
 		if (!m_pRabbit) 
 		{
-			m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+			m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 		}
 
 		m_pRabbit->RestLife(50); 

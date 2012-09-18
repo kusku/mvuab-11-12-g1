@@ -12,14 +12,14 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CRabbitDeathAnimationState::CRabbitDeathAnimationState( void )
-	: CState	( "CRabbitDeathAnimationState" )
+CRabbitDeathAnimationState::CRabbitDeathAnimationState( CCharacter* _pCharacter )
+	: CState	( _pCharacter, "CRabbitDeathAnimationState" )
 	, m_pRabbit	( NULL )
 {
 }
 
-CRabbitDeathAnimationState::CRabbitDeathAnimationState( const std::string &_Name )
-	: CState	(_Name)
+CRabbitDeathAnimationState::CRabbitDeathAnimationState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState	(_pCharacter, _Name)
 	, m_pRabbit	( NULL )
 {}
 
@@ -42,23 +42,23 @@ void CRabbitDeathAnimationState::Execute( CCharacter*, float _ElapsedTime )
 {
 }
 
-void CRabbitDeathAnimationState::OnEnter( CCharacter* _Character )
+void CRabbitDeathAnimationState::OnEnter( CCharacter* _pCharacter )
 {
 	if ( !m_pRabbit ) 
 	{
 		// Almacenamos el enemigo
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
 	int l_Num = m_pRabbit->GetAnimationID(RABBIT_DEATH_STATE);
 	m_pRabbit->GetAnimatedModel()->ExecuteAction( l_Num, 0.3f );
 }
 
-void CRabbitDeathAnimationState::OnExit( CCharacter* _Character )
+void CRabbitDeathAnimationState::OnExit( CCharacter* _pCharacter )
 {
 	if ( !m_pRabbit ) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
 	if ( m_pRabbit )

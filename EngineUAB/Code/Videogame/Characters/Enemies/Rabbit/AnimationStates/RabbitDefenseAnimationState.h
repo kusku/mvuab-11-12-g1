@@ -15,8 +15,8 @@ class CRabbitDefenseAnimationState : public CState<CCharacter>
 {
 public:
 	// ------------- Constructors i Destructors --------------
-					CRabbitDefenseAnimationState	( void );
-					CRabbitDefenseAnimationState	( const std::string &_Name );
+					CRabbitDefenseAnimationState	( CCharacter* );
+					CRabbitDefenseAnimationState	( CCharacter* _pCharacter, const std::string &_Name );
 	virtual			~CRabbitDefenseAnimationState	( void );
 
 	//----Main Functions --------------------------------------

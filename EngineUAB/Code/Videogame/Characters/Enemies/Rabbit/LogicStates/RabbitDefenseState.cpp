@@ -34,8 +34,8 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CRabbitDefenseState::CRabbitDefenseState( void )
-	: CState			("CRabbitDefenseState")
+CRabbitDefenseState::CRabbitDefenseState( CCharacter* _pCharacter )
+	: CState			(_pCharacter, "CRabbitDefenseState")
 	, m_ActionTime		( CActionStateCallback( 0.f, 6.f ) )
 	, m_pRabbit			( NULL )
 	, m_HitBlocked		( false )
@@ -44,8 +44,8 @@ CRabbitDefenseState::CRabbitDefenseState( void )
 {
 }
 
-CRabbitDefenseState::CRabbitDefenseState( const std::string &_Name )
-	: CState			(_Name)
+CRabbitDefenseState::CRabbitDefenseState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState			(_pCharacter,_Name)
 	, m_ActionTime		( CActionStateCallback( 0.f, 6.f ) )
 	, m_pRabbit			( NULL )
 	, m_HitBlocked		( false )
@@ -64,11 +64,11 @@ CRabbitDefenseState::~CRabbitDefenseState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CRabbitDefenseState::OnEnter( CCharacter* _Character )
+void CRabbitDefenseState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pRabbit) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 	
 	m_ActionTime.StartAction();
@@ -102,11 +102,11 @@ void CRabbitDefenseState::OnEnter( CCharacter* _Character )
 	#endif
 }
 
-void CRabbitDefenseState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CRabbitDefenseState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
 	if (!m_pRabbit) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
 	m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime );
@@ -184,7 +184,7 @@ void CRabbitDefenseState::Execute( CCharacter* _Character, float _ElapsedTime )
 
 }
 
-void CRabbitDefenseState::OnExit( CCharacter* _Character )
+void CRabbitDefenseState::OnExit( CCharacter* _pCharacter )
 {
 	m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
 	m_pRabbit->GetBehaviors()->SeekOff();
@@ -194,7 +194,7 @@ void CRabbitDefenseState::OnExit( CCharacter* _Character )
 	m_pRabbit->GetSteeringEntity()->SetMass(m_OldMass);
 }
 
-bool CRabbitDefenseState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CRabbitDefenseState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{

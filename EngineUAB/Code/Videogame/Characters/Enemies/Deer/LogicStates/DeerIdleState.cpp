@@ -29,16 +29,16 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CDeerIdleState::CDeerIdleState( void )
-	: CState			("CDeerIdleState")
+CDeerIdleState::CDeerIdleState( CCharacter* _pCharacter )
+	: CState			(_pCharacter, "CDeerIdleState")
 	, m_pDeer			( NULL )
 	, m_AlreadyDetected	( false )
 	, m_AlreadyChased	( false )
 {	  
 }
 
-CDeerIdleState::CDeerIdleState( const std::string &_Name )
-	: CState		(_Name)
+CDeerIdleState::CDeerIdleState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState		(_pCharacter, _Name)
 	, m_pDeer		( NULL )
 	, m_AlreadyDetected	( false )
 	, m_AlreadyChased	( false )
@@ -55,11 +55,11 @@ CDeerIdleState::~CDeerIdleState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CDeerIdleState::OnEnter( CCharacter* _Character )
+void CDeerIdleState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pDeer) 
 	{
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 	
 	m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetIdleAnimationState());
@@ -75,11 +75,11 @@ void CDeerIdleState::OnEnter( CCharacter* _Character )
 	#endif
 }
 
-void CDeerIdleState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CDeerIdleState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
 	if (!m_pDeer) 
 	{
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 
 	if ( !m_AlreadyDetected && m_pDeer->IsPlayerDetected() ) 
@@ -97,21 +97,21 @@ void CDeerIdleState::Execute( CCharacter* _Character, float _ElapsedTime )
 
 	// Reseteamos la velocidad del enemigo
 	m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-	m_pDeer->MoveTo2(_Character->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
+	m_pDeer->MoveTo2(_pCharacter->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
 }
 
 
-void CDeerIdleState::OnExit( CCharacter* _Character )
+void CDeerIdleState::OnExit( CCharacter* _pCharacter )
 {
 }
 
-bool CDeerIdleState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CDeerIdleState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
 		if (!m_pDeer) 
 		{
-			m_pDeer = dynamic_cast<CDeer*> (_Character);
+			m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 		}
 
 		m_pDeer->RestLife(50); 

@@ -15,8 +15,8 @@ class CDeerRunAttackAnimationState : public CState<CCharacter>
 {
 public:
 	// ------------- Constructors i Destructors --------------
-					CDeerRunAttackAnimationState	( void );
-					CDeerRunAttackAnimationState	( const std::string &_Name );
+					CDeerRunAttackAnimationState	( CCharacter* );
+					CDeerRunAttackAnimationState	( CCharacter*, const std::string &_Name );
 	virtual			~CDeerRunAttackAnimationState	( void );
 
 	//----Main Functions --------------------------------------

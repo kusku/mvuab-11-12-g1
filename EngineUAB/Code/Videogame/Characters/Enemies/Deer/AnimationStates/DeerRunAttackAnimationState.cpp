@@ -12,14 +12,14 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CDeerRunAttackAnimationState::CDeerRunAttackAnimationState( void )
-	: CState	("CDeerRunAttackAnimationState")
+CDeerRunAttackAnimationState::CDeerRunAttackAnimationState( CCharacter* _pCharacter )
+	: CState	( _pCharacter, "CDeerRunAttackAnimationState")
 	, m_pDeer	( NULL )
 {
 }
 
-CDeerRunAttackAnimationState::CDeerRunAttackAnimationState( const std::string &_Name )
-	: CState	(_Name)
+CDeerRunAttackAnimationState::CDeerRunAttackAnimationState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState	(_pCharacter, _Name)
 	, m_pDeer	( NULL )
 {
 }
@@ -50,25 +50,25 @@ void CDeerRunAttackAnimationState::Execute( CCharacter*, float _ElapsedTime )
 	m_Currentduration += _ElapsedTime;*/
 }
 
-void CDeerRunAttackAnimationState::OnEnter( CCharacter* _Character )
+void CDeerRunAttackAnimationState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pDeer) 
 	{
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 
 	/*m_Currentduration = 0.f;
 	m_AnimationDuration = m_pDeer->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_RUN_ATTACK_STATE) / 2;*/
 
-	int l_Num = _Character->GetAnimationID(DEER_RUN_ATTACK_STATE);
+	int l_Num = _pCharacter->GetAnimationID(DEER_RUN_ATTACK_STATE);
 	m_pDeer->GetAnimatedModel()->ExecuteAction( l_Num, 0.1f );
 }
 
-void CDeerRunAttackAnimationState::OnExit( CCharacter* _Character )
+void CDeerRunAttackAnimationState::OnExit( CCharacter* _pCharacter )
 {
 	if (!m_pDeer) 
 	{
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 
 	if ( m_pDeer )

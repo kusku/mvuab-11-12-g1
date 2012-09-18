@@ -12,7 +12,7 @@ struct STelegram;
 class CPlayerIdleState : public CState< CCharacter >
 {
 public:
-	CPlayerIdleState( const std::string &_Name );
+	CPlayerIdleState( CCharacter * _pCharacter, const std::string &_Name );
 	~CPlayerIdleState();
 
 	void	OnEnter		(  CCharacter* _pCharacter );

@@ -16,10 +16,10 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-CPlayerHitState::CPlayerHitState( const std::string &_Name )
-	: CState(_Name)
+CPlayerHitState::CPlayerHitState( CCharacter * _pCharacter, const std::string &_Name )
+	: CState(_pCharacter, _Name)
 {
-	m_pCallback = static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager()->GetCallback(_Name);
+	m_pCallback = static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(), _Name);
 }
 
 CPlayerHitState::~CPlayerHitState()

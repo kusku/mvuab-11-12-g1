@@ -18,8 +18,8 @@ class CRabbitDeathState : public CState<CCharacter>
 public:
 
 	// ------------- Constructors i Destructors --------------
-					CRabbitDeathState	( void );
-					CRabbitDeathState	( const std::string &_Name );
+					CRabbitDeathState	( CCharacter* );
+					CRabbitDeathState	( CCharacter*, const std::string &_Name );
 	virtual			~CRabbitDeathState	( void );
 
 	//----Main Functions --------------------------------------

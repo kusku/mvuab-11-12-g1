@@ -36,26 +36,26 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CWolfHitState::CWolfHitState( void )
-	: CState	("CWolfHitState")
-	, m_pWolf	( NULL )
-	, m_pActionState		( NULL )
-	, m_pAnimationCallback	( NULL )
-{
-	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(WOLF_HIT_STATE);
-
-	m_pActionState = new CActionStateCallback(0,1);
-}
-
-CWolfHitState::CWolfHitState( const std::string &_Name )
-	: CState				(_Name)
+CWolfHitState::CWolfHitState( CCharacter* _pCharacter )
+	: CState				(_pCharacter, "CWolfHitState")
 	, m_pWolf				( NULL )
 	, m_pActionState		( NULL )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(WOLF_HIT_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),WOLF_HIT_STATE);
+
+	m_pActionState = new CActionStateCallback(0,1);
+}
+
+CWolfHitState::CWolfHitState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState				(_pCharacter, _Name)
+	, m_pWolf				( NULL )
+	, m_pActionState		( NULL )
+	, m_pAnimationCallback	( NULL )
+{
+	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),WOLF_HIT_STATE);
 	
 	m_pActionState = new CActionStateCallback(0,1);
 }
@@ -72,11 +72,11 @@ CWolfHitState::~CWolfHitState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CWolfHitState::OnEnter( CCharacter* _Character )
+void CWolfHitState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pWolf) 
 	{
-		m_pWolf = dynamic_cast<CWolf*> (_Character);
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 	
 	m_pAnimationCallback->Init();
@@ -84,11 +84,11 @@ void CWolfHitState::OnEnter( CCharacter* _Character )
 	m_pActionState->SetTimeRange( 0.f, m_pWolf->GetAnimatedModel()->GetCurrentAnimationDuration(WOLF_HIT_STATE));
 }
 
-void CWolfHitState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CWolfHitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
 	if (!m_pWolf) 
 	{
-		m_pWolf = dynamic_cast<CWolf*> (_Character);
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 
 	/*if ( m_pAnimationCallback->IsAnimationStarted() ) 
@@ -126,11 +126,11 @@ void CWolfHitState::Execute( CCharacter* _Character, float _ElapsedTime )
 	}
 }
 
-void CWolfHitState::OnExit( CCharacter* _Character )
+void CWolfHitState::OnExit( CCharacter* _pCharacter )
 {
 }
 
-bool CWolfHitState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CWolfHitState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
 	/*if ( _Telegram.Msg == Msg_Attack ) 
 	{

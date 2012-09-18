@@ -17,8 +17,8 @@ class CRabbitPreparedToAttackState : public CState<CCharacter>
 public:
 
 	// ------------- Constructors i Destructors --------------
-					CRabbitPreparedToAttackState	( void );
-					CRabbitPreparedToAttackState	( const std::string &_Name );
+					CRabbitPreparedToAttackState	( CCharacter* );
+					CRabbitPreparedToAttackState	( CCharacter* _pCharacter, const std::string &_Name );
 	virtual			~CRabbitPreparedToAttackState	( void );
 
 	//----Main Functions --------------------------------------

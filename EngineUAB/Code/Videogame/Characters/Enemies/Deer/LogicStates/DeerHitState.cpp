@@ -41,8 +41,8 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CDeerHitState::CDeerHitState( void )
-	: CState						("CDeerHitState")
+CDeerHitState::CDeerHitState( CCharacter* _pCharacter )
+	: CState						(_pCharacter, "CDeerHitState")
 	, m_pDeer						( NULL )
 	, m_pActionStateCallback		( 0.f, 1.f )
 	, m_pActionRecoilStateCallback	( 0.f, 1.f )
@@ -50,11 +50,11 @@ CDeerHitState::CDeerHitState( void )
 	, m_IsCommingFromTired			( false )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_HIT_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),DEER_HIT_STATE);
 }
 
-CDeerHitState::CDeerHitState( const std::string &_Name )
-	: CState						(_Name)
+CDeerHitState::CDeerHitState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState						(_pCharacter, _Name)
 	, m_pDeer						( NULL )
 	, m_pActionStateCallback		( 0.f, 1.f )
 	, m_pActionRecoilStateCallback	( 0.f, 1.f )
@@ -62,7 +62,7 @@ CDeerHitState::CDeerHitState( const std::string &_Name )
 	, m_IsCommingFromTired			( false )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_HIT_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),DEER_HIT_STATE);
 }
 
 
@@ -76,11 +76,11 @@ CDeerHitState::~CDeerHitState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CDeerHitState::OnEnter( CCharacter* _Character )
+void CDeerHitState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pDeer) 
 	{
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 
 	// Si volvemos de haber recibido y después de estar cansados nos salimos.
@@ -129,11 +129,11 @@ void CDeerHitState::OnEnter( CCharacter* _Character )
 	#endif
 }
 
-void CDeerHitState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CDeerHitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
 	if (!m_pDeer) 
 	{
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 
 	/*if ( m_pAnimationCallback->IsAnimationStarted() ) 
@@ -186,17 +186,17 @@ void CDeerHitState::Execute( CCharacter* _Character, float _ElapsedTime )
 	}
 }
 
-void CDeerHitState::OnExit( CCharacter* _Character )
+void CDeerHitState::OnExit( CCharacter* _pCharacter )
 {
 	//if (!m_pDeer) 
 	//{
-	//	m_pDeer = dynamic_cast<CDeer*> (_Character);
+	//	m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	//}
 
 
 }
 
-bool CDeerHitState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CDeerHitState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
 	return false;
 }

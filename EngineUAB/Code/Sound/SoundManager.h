@@ -161,7 +161,7 @@ public:
 	virtual void	CallbackReaction		( AkCallbackType in_eType, AkCallbackInfo *in_pCallbackInfo );
 	virtual void	CallbackEndReaction		( eCallbackType in_eType, sCallbackInfo* in_pCallbackInfo );
 	virtual void	CallbackDurationReaction( eCallbackType in_eType, sDurationCallbackInfo * in_pCallbackInfo );
-	
+	void			MyCallbackReaction		( AkCallbackType in_eType, AkCallbackInfo* in_pCallbackInfo );
 
 	//--- Properties ---------------------------
 	inline void		SetPath		( const std::string &path )		{ m_Path = path; }

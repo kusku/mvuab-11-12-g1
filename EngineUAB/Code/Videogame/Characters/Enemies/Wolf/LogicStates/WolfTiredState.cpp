@@ -28,15 +28,15 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CWolfTiredState::CWolfTiredState( void )
-	: CState		("CWolfTiredState")
+CWolfTiredState::CWolfTiredState(  CCharacter* _pCharacter )
+	: CState		( _pCharacter, "CWolfTiredState")
 	, m_ActionTime	( CActionStateCallback( 0.2f, 0.5f ) )
 	, m_pWolf		( NULL )
 {
 }
 
-CWolfTiredState::CWolfTiredState( const std::string &_Name )
-	: CState		(_Name)
+CWolfTiredState::CWolfTiredState(  CCharacter* _pCharacter, const std::string &_Name )
+	: CState		(_pCharacter, _Name)
 	, m_ActionTime	( CActionStateCallback( 0.2f, 0.5f ) )
 	, m_pWolf		( NULL )
 {
@@ -52,11 +52,11 @@ CWolfTiredState::~CWolfTiredState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CWolfTiredState::OnEnter( CCharacter* _Character )
+void CWolfTiredState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pWolf) 
 	{
-		m_pWolf = dynamic_cast<CWolf*> (_Character);
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 
 	m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());
@@ -71,11 +71,11 @@ void CWolfTiredState::OnEnter( CCharacter* _Character )
 	#endif
 }
 
-void CWolfTiredState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CWolfTiredState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
 	if (!m_pWolf) 
 	{
-		m_pWolf = dynamic_cast<CWolf*> (_Character);
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 	
 	if ( m_ActionTime.IsActionFinished() ) 
@@ -92,17 +92,17 @@ void CWolfTiredState::Execute( CCharacter* _Character, float _ElapsedTime )
 }
 
 
-void CWolfTiredState::OnExit( CCharacter* _Character )
+void CWolfTiredState::OnExit( CCharacter* _pCharacter )
 {
 }
 
-bool CWolfTiredState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CWolfTiredState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
 		if (!m_pWolf) 
 		{
-			m_pWolf = dynamic_cast<CWolf*> (_Character);
+			m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 		}
 
 		m_pWolf->RestLife(1000); 

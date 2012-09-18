@@ -210,14 +210,14 @@ class 'CWolf' (CCharacter)
 		self.behaviors:add_behaviour( CFlee(self.properties.panic_distance) )
 		self.behaviors:add_behaviour( CPursuit() )
 		self.behaviors:add_behaviour( CEvade(self.properties.panic_distance) )
-		-- self.behaviors:add_behaviour( CArrive() )
+		self.behaviors:add_behaviour( CArrive() )
 		self.behaviors:add_behaviour( CWander() )
 		self.behaviors:add_behaviour( CCollisionAvoidance(5) )
 		
 		-- -- Flocking --
-		-- self.behaviors:add_behaviour( CSeparation() )
-		-- self.behaviors:add_behaviour( CAlignment() )
-		-- self.behaviors:add_behaviour( CCohesion() )
+		self.behaviors:add_behaviour( CSeparation() )
+		self.behaviors:add_behaviour( CAlignment() )
+		self.behaviors:add_behaviour( CCohesion() )
 		
 		self.behaviors:seek_off()
 		self.behaviors:flee_off()
@@ -249,6 +249,10 @@ class 'CWolf' (CCharacter)
 		--Actualizamos los estados en caso de cambiar
 		self.logic_fsm:update()
 		self.graphic_fsm:update()
+	end
+	
+	function CWolf:bedead()
+	
 	end
 	
 	-- ------------------------------

@@ -18,8 +18,8 @@ class CDeerDeathState : public CState<CCharacter>
 public:
 
 	// ------------- Constructors i Destructors --------------
-					CDeerDeathState	( void );
-					CDeerDeathState	( const std::string &_Name );
+					CDeerDeathState	( CCharacter* _pCharacter );
+					CDeerDeathState	( CCharacter* _pCharacter, const std::string &_Name );
 	virtual			~CDeerDeathState	( void );
 
 	//----Main Functions --------------------------------------

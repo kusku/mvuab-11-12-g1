@@ -43,24 +43,24 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CRabbitStillAttackState::CRabbitStillAttackState( void )
-	: CState				("CRabbitStillAttackState")
+CRabbitStillAttackState::CRabbitStillAttackState( CCharacter* _pCharacter )
+	: CState				(_pCharacter, "CRabbitStillAttackState")
 	, m_pRabbit				( NULL )
 	, m_pAnimationCallback	( NULL )
 	, m_pActionStateCallback( 0, 1 )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RABBIT_STILL_ATTACK_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),RABBIT_STILL_ATTACK_STATE);
 }
 
-CRabbitStillAttackState::CRabbitStillAttackState( const std::string &_Name )
-	: CState				(_Name)
+CRabbitStillAttackState::CRabbitStillAttackState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState				(_pCharacter, _Name)
 	, m_pRabbit				( NULL )
 	, m_pAnimationCallback	( NULL )
 	, m_pActionStateCallback( 0, 1 )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RABBIT_STILL_ATTACK_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),RABBIT_STILL_ATTACK_STATE);
 }
 
 
@@ -74,11 +74,11 @@ CRabbitStillAttackState::~CRabbitStillAttackState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CRabbitStillAttackState::OnEnter( CCharacter* _Character )
+void CRabbitStillAttackState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pRabbit) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
 	m_pRabbit->SetPlayerHasBeenReached( false );
@@ -102,11 +102,11 @@ void CRabbitStillAttackState::OnEnter( CCharacter* _Character )
 	m_pActionStateCallback.InitAction(0, m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(RABBIT_STILL_ATTACK_STATE) );
 }
 
-void CRabbitStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CRabbitStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
 	if (!m_pRabbit) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 	
 	if ( m_pAnimationCallback->IsAnimationStarted() ) 
@@ -289,7 +289,7 @@ void CRabbitStillAttackState::Execute( CCharacter* _Character, float _ElapsedTim
 	}
 }
 
-void CRabbitStillAttackState::OnExit( CCharacter* _Character )
+void CRabbitStillAttackState::OnExit( CCharacter* _pCharacter )
 {
 	m_pRabbit->GetBehaviors()->CollisionAvoidanceOff();
 	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOff();
@@ -297,13 +297,13 @@ void CRabbitStillAttackState::OnExit( CCharacter* _Character )
 	//CORE->GetSoundManager()->PlayEvent("Stop_EFX_DeerExclaim"); 
 }
 
-bool CRabbitStillAttackState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CRabbitStillAttackState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
 		if (!m_pRabbit) 
 		{
-			m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+			m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 		}
 
 		m_pRabbit->RestLife(50); 

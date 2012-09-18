@@ -31,8 +31,8 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CWolfDefenseState::CWolfDefenseState( void )
-	: CState			("CWolfDefenseState")
+CWolfDefenseState::CWolfDefenseState( CCharacter* _pCharacter )
+	: CState			(_pCharacter, "CWolfDefenseState")
 	, m_ActionTime		( CActionStateCallback( 0.f, 6.f ) )
 	, m_pWolf			( NULL )
 	, m_HitBlocked		( false )
@@ -41,8 +41,8 @@ CWolfDefenseState::CWolfDefenseState( void )
 {
 }
 
-CWolfDefenseState::CWolfDefenseState( const std::string &_Name )
-	: CState			(_Name)
+CWolfDefenseState::CWolfDefenseState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState			(_pCharacter, _Name)
 	, m_ActionTime		( CActionStateCallback( 0.f, 6.f ) )
 	, m_pWolf			( NULL )
 	, m_HitBlocked		( false )
@@ -61,11 +61,11 @@ CWolfDefenseState::~CWolfDefenseState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CWolfDefenseState::OnEnter( CCharacter* _Character )
+void CWolfDefenseState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pWolf) 
 	{
-		m_pWolf = dynamic_cast<CWolf*> (_Character);
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 
 	m_ActionTime.StartAction();
@@ -99,11 +99,11 @@ void CWolfDefenseState::OnEnter( CCharacter* _Character )
 	#endif
 }
 
-void CWolfDefenseState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CWolfDefenseState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
 	if (!m_pWolf) 
 	{
-		m_pWolf = dynamic_cast<CWolf*> (_Character);
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 
 	if ( m_HitBlocked ) 
@@ -177,7 +177,7 @@ void CWolfDefenseState::Execute( CCharacter* _Character, float _ElapsedTime )
 
 }
 
-void CWolfDefenseState::OnExit( CCharacter* _Character )
+void CWolfDefenseState::OnExit( CCharacter* _pCharacter )
 {
 	m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
 	m_pWolf->GetBehaviors()->SeekOff();
@@ -187,7 +187,7 @@ void CWolfDefenseState::OnExit( CCharacter* _Character )
 	m_pWolf->GetSteeringEntity()->SetMass(m_OldMass);
 }
 
-bool CWolfDefenseState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CWolfDefenseState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{

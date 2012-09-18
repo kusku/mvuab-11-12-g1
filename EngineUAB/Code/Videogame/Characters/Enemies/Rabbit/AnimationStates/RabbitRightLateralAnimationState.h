@@ -15,8 +15,8 @@ class CRabbitRightLateralAnimationState : public CState<CCharacter>
 {
 public:
 	// ------------- Constructors i Destructors --------------
-					CRabbitRightLateralAnimationState	( void );
-					CRabbitRightLateralAnimationState	( const std::string &_Name );
+					CRabbitRightLateralAnimationState	( CCharacter* );
+					CRabbitRightLateralAnimationState	( CCharacter* _pCharacter, const std::string &_Name );
 	virtual			~CRabbitRightLateralAnimationState	( void );
 
 	//----Main Functions --------------------------------------

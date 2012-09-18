@@ -35,8 +35,8 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CDeerPursuitState::CDeerPursuitState( void )
-	: CState						("CDeerPursuitState")
+CDeerPursuitState::CDeerPursuitState( CCharacter* _pCharacter )
+	: CState						( _pCharacter, "CDeerPursuitState" )
 	, m_pDeer						( NULL )
 	, m_SoundActionStateCallback	( 0, 3 )
 	, m_RunActionStateCallback		( 0, 3 )
@@ -45,8 +45,8 @@ CDeerPursuitState::CDeerPursuitState( void )
 {
 }
 
-CDeerPursuitState::CDeerPursuitState( const std::string &_Name )
-	: CState						( _Name )
+CDeerPursuitState::CDeerPursuitState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState						( _pCharacter, _Name )
 	, m_pDeer						( NULL )
 	, m_SoundActionStateCallback	( 0, 3 )
 	, m_RunActionStateCallback		( 0, 3 )
@@ -65,11 +65,11 @@ CDeerPursuitState::~CDeerPursuitState( void )
 //				MAIN METHODS
 // -----------------------------------------
 
-void CDeerPursuitState::OnEnter( CCharacter* _Character )
+void CDeerPursuitState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pDeer) 
 	{
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 
 	/*m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_pRabbit->GetPlayer()->GetPosition());
@@ -95,11 +95,11 @@ void CDeerPursuitState::OnEnter( CCharacter* _Character )
 	 m_SecondStepDone	= false;
 }
 
-void CDeerPursuitState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CDeerPursuitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
 	if (!m_pDeer) 
 	{
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 	
 	SetParticlePosition(m_pDeer);
@@ -178,11 +178,11 @@ void CDeerPursuitState::Execute( CCharacter* _Character, float _ElapsedTime )
 	}
 }
 
-void CDeerPursuitState::OnExit( CCharacter* _Character )
+void CDeerPursuitState::OnExit( CCharacter* _pCharacter )
 {
 	if (!m_pDeer) 
 	{
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 
 	m_pDeer->GetBehaviors()->SeekOff();
@@ -200,13 +200,13 @@ void CDeerPursuitState::OnExit( CCharacter* _Character )
 	GetParticleEmitter("StepLeft")->StopEjectParticles();*/
 }
 
-bool CDeerPursuitState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CDeerPursuitState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
 		if (!m_pDeer) 
 		{
-			m_pDeer = dynamic_cast<CDeer*> (_Character);
+			m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 		}
 
 		m_pDeer->RestLife(50); 

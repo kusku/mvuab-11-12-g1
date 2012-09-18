@@ -223,9 +223,9 @@
 		</enemy>-->
 
 		<enemy name="enemy28" core="ciervo" animated_instace_name="enemy28" >
-			<position>42 -40 24</position>
+			<position>34 -40 24</position>
 			<active>true</active>
-			<locked>false</locked>
+			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy29" core="ciervo" animated_instace_name="enemy29" >
 			<position>40 -40 23</position>

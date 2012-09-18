@@ -6,8 +6,8 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-CPlayerAnimationAttackState::CPlayerAnimationAttackState( const std::string &_Name )
-	: CState(_Name)
+CPlayerAnimationAttackState::CPlayerAnimationAttackState( CCharacter* _pCharacter,const std::string &_Name )
+	: CState(_pCharacter, _Name)
 {
 
 }

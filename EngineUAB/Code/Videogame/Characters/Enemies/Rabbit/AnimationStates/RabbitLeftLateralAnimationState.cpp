@@ -11,14 +11,14 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CRabbitLeftLateralAnimationState::CRabbitLeftLateralAnimationState( void )
-	: CState	("CRabbitLeftLateralAnimationState")
+CRabbitLeftLateralAnimationState::CRabbitLeftLateralAnimationState( CCharacter* _pCharacter )
+	: CState	( _pCharacter, "CRabbitLeftLateralAnimationState")
 	, m_pRabbit	( NULL )
 {
 }
 
-CRabbitLeftLateralAnimationState::CRabbitLeftLateralAnimationState( const std::string &_Name )
-	: CState	(_Name)
+CRabbitLeftLateralAnimationState::CRabbitLeftLateralAnimationState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState	(_pCharacter, _Name)
 	, m_pRabbit	( NULL )
 {}
 
@@ -41,23 +41,23 @@ void CRabbitLeftLateralAnimationState::Execute( CCharacter*, float _ElapsedTime 
 {
 }
 
-void CRabbitLeftLateralAnimationState::OnEnter( CCharacter* _Character )
+void CRabbitLeftLateralAnimationState::OnEnter( CCharacter* _pCharacter )
 {
 	if ( !m_pRabbit ) 
 	{
 		// Almacenamos el enemigo
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
 	int l_Num = m_pRabbit->GetAnimationID(RABBIT_LEFT_LATERAL_STATE);
 	m_pRabbit->GetAnimatedModel()->BlendCycle( l_Num, 0.3f );
 }
 
-void CRabbitLeftLateralAnimationState::OnExit( CCharacter* _Character )
+void CRabbitLeftLateralAnimationState::OnExit( CCharacter* _pCharacter )
 {
 	if (!m_pRabbit) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
 	if ( m_pRabbit )

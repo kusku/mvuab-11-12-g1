@@ -45,22 +45,22 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CWolfRunAttackState::CWolfRunAttackState( void )
-	: CState				("CWolfRunAttackState")
+CWolfRunAttackState::CWolfRunAttackState( CCharacter* _pCharacter )
+	: CState				(_pCharacter, "CWolfRunAttackState")
 	, m_pWolf				( NULL )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(WOLF_RUN_ATTACK_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),WOLF_RUN_ATTACK_STATE);
 }
 
-CWolfRunAttackState::CWolfRunAttackState( const std::string &_Name )
-	: CState				(_Name)
+CWolfRunAttackState::CWolfRunAttackState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState				(_pCharacter, _Name)
 	, m_pWolf				( NULL )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(WOLF_RUN_ATTACK_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),WOLF_RUN_ATTACK_STATE);
 }
 
 
@@ -74,11 +74,11 @@ CWolfRunAttackState::~CWolfRunAttackState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CWolfRunAttackState::OnEnter( CCharacter* _Character )
+void CWolfRunAttackState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pWolf) 
 	{
-		m_pWolf = dynamic_cast<CWolf*> (_Character);
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 
 	// Metemos más velocidad al ataque i menos massa para acelerar más 
@@ -107,11 +107,11 @@ void CWolfRunAttackState::OnEnter( CCharacter* _Character )
 	#endif
 }
 
-void CWolfRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CWolfRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
 	if (!m_pWolf) 
 	{
-		m_pWolf = dynamic_cast<CWolf*> (_Character);
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 
 	m_CurrentDuration += _ElapsedTime;
@@ -283,7 +283,7 @@ void CWolfRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 }
 
 
-void CWolfRunAttackState::OnExit( CCharacter* _Character )
+void CWolfRunAttackState::OnExit( CCharacter* _pCharacter )
 {
 	// Limpiamos animaciones
 	/*self.active_animation_name = _CCharacter:get_animation_id("attack_2")
@@ -302,13 +302,13 @@ void CWolfRunAttackState::OnExit( CCharacter* _Character )
 	m_pWolf->GetSteeringEntity()->SetMass(m_OldMass);
 }
 
-bool CWolfRunAttackState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CWolfRunAttackState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
 		if (!m_pWolf) 
 		{
-			m_pWolf = dynamic_cast<CWolf*> (_Character);
+			m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 		}
 
 		m_pWolf->RestLife(1000); 

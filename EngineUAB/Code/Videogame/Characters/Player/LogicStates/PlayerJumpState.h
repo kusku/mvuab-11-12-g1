@@ -14,7 +14,7 @@ class CAnimationCallback;
 class CPlayerJumpState : public CState< CCharacter >
 {
 public:
-	CPlayerJumpState( const std::string &_Name );
+	CPlayerJumpState( CCharacter * _pCharacter, const std::string &_Name );
 	~CPlayerJumpState();
 
 	void	OnEnter		(  CCharacter* _pCharacter );

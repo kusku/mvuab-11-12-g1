@@ -308,8 +308,8 @@ void CSoundManager::PlayEvent(const std::string &event_name )
 		return;
 	}
 	
-	//AK::SoundEngine::PostEvent( event_name.c_str(), GetResource("Test")->GetID(), AK_EndOfEvent, CallbackReaction );
 	AK::SoundEngine::PostEvent( event_name.c_str(), GetResource("Test")->GetID() );
+	//AK::SoundEngine::PostEvent( event_name.c_str(), GetResource("Test")->GetID(), AK_EndOfEvent, CallbackReaction );
 }
 
 void CSoundManager::CallbackReaction( AkCallbackType in_eType, AkCallbackInfo* in_pCallbackInfo )

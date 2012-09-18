@@ -48,24 +48,24 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CRabbitRunAttackState::CRabbitRunAttackState( void )
-	: CState				("CRabbitRunAttackState")
+CRabbitRunAttackState::CRabbitRunAttackState( CCharacter* _pCharacter )
+	: CState				(_pCharacter, "CRabbitRunAttackState")
 	, m_pRabbit				( NULL )
 	, m_pAnimationCallback	( NULL )
 	, m_ActionStateCallback	( 0, 1 )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RABBIT_RUN_ATTACK_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),RABBIT_RUN_ATTACK_STATE);
 }
 
-CRabbitRunAttackState::CRabbitRunAttackState( const std::string &_Name )
-	: CState				(_Name)
+CRabbitRunAttackState::CRabbitRunAttackState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState				(_pCharacter, _Name)
 	, m_pRabbit				( NULL )
 	, m_pAnimationCallback	( NULL )
 	, m_ActionStateCallback ( 0, 1 )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RABBIT_RUN_ATTACK_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),RABBIT_RUN_ATTACK_STATE);
 }
 
 
@@ -79,11 +79,11 @@ CRabbitRunAttackState::~CRabbitRunAttackState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CRabbitRunAttackState::OnEnter( CCharacter* _Character )
+void CRabbitRunAttackState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pRabbit) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
 	PlayRandomSound();
@@ -127,11 +127,11 @@ void CRabbitRunAttackState::OnEnter( CCharacter* _Character )
 
 }
 
-void CRabbitRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CRabbitRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
 	if (!m_pRabbit) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
 	m_ActionStateCallback.Update(_ElapsedTime);
@@ -266,7 +266,7 @@ void CRabbitRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 }
 
 
-void CRabbitRunAttackState::OnExit( CCharacter* _Character )
+void CRabbitRunAttackState::OnExit( CCharacter* _pCharacter )
 {
 	// Limpiamos animaciones
 	/*self.active_animation_name = _CCharacter:get_animation_id("attack_2")
@@ -288,13 +288,13 @@ void CRabbitRunAttackState::OnExit( CCharacter* _Character )
 
 }
 
-bool CRabbitRunAttackState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CRabbitRunAttackState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
 		if (!m_pRabbit) 
 		{
-			m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+			m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 		}
 
 		m_pRabbit->RestLife(1000); 

@@ -875,8 +875,8 @@ void CCharacter::SetEnable( bool _Enable )
 CCharacter* CCharacter::GetPlayer( void )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	CCharacter* l_Character = l_Process->GetCharactersManager()->GetPlayer();
-	return l_Character;
+	CCharacter* l_pCharacter = l_Process->GetCharactersManager()->GetPlayer();
+	return l_pCharacter;
 }
 
 CState<CCharacter>* CCharacter::GetLogicState( const std::string &_State )

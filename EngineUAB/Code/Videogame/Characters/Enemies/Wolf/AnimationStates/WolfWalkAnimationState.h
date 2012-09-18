@@ -14,8 +14,8 @@ class CWolfWalkAnimationState : public CState<CCharacter>
 {
 public:
 	// ------------- Constructors i Destructors --------------
-					CWolfWalkAnimationState	( void );
-					CWolfWalkAnimationState	( const std::string &_Name );
+					CWolfWalkAnimationState	( CCharacter* );
+					CWolfWalkAnimationState	( CCharacter* , const std::string &_Name );
 	virtual			~CWolfWalkAnimationState	( void );
 
 	//----Main Functions --------------------------------------

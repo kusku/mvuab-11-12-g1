@@ -12,7 +12,7 @@ struct STelegram;
 class CPlayerAnimationAttack2State : public CState< CCharacter >
 {
 public:
-	CPlayerAnimationAttack2State( const std::string &_Name );
+	CPlayerAnimationAttack2State( CCharacter* _pCharacter, const std::string &_Name );
 	~CPlayerAnimationAttack2State();
 
 	void	OnEnter		(  CCharacter* _pCharacter );

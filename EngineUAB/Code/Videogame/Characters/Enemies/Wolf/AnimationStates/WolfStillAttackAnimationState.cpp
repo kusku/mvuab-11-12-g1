@@ -11,14 +11,14 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CWolfStillAttackAnimationState::CWolfStillAttackAnimationState( void )
-	: CState	("CWolfStillAttackAnimationState")
+CWolfStillAttackAnimationState::CWolfStillAttackAnimationState( CCharacter* _pCharacter )
+	: CState	( _pCharacter, "CWolfStillAttackAnimationState")
 	, m_pWolf	( NULL )
 {
 }
 
-CWolfStillAttackAnimationState::CWolfStillAttackAnimationState( const std::string &_Name )
-	: CState	(_Name)
+CWolfStillAttackAnimationState::CWolfStillAttackAnimationState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState	(_pCharacter, _Name)
 	, m_pWolf	( NULL )
 {
 }
@@ -42,23 +42,23 @@ void CWolfStillAttackAnimationState::Execute( CCharacter*, float _ElapsedTime )
 {
 }
 
-void CWolfStillAttackAnimationState::OnEnter( CCharacter* _Character )
+void CWolfStillAttackAnimationState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pWolf) 
 	{
-		m_pWolf = dynamic_cast<CWolf*> (_Character);
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 
-	int l_Num = _Character->GetAnimationID(WOLF_STILL_ATTACK_STATE);
+	int l_Num = _pCharacter->GetAnimationID(WOLF_STILL_ATTACK_STATE);
 	m_pWolf->GetAnimatedModel()->BlendCycle( l_Num, 0.3f );
 }
 
-void CWolfStillAttackAnimationState::OnExit( CCharacter* _Character )
+void CWolfStillAttackAnimationState::OnExit( CCharacter* _pCharacter )
 {
 	if ( !m_pWolf ) 
 	{
 		// Almacenamos el enemigo
-		m_pWolf = dynamic_cast<CWolf*> (_Character);
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 
 	int l_Num = m_pWolf->GetAnimationID(WOLF_STILL_ATTACK_STATE);

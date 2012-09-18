@@ -20,8 +20,8 @@ class CState : public CNamed
 {
 public:
 	// ------------- Constructors i Destructors ----------------
-					CState		( void ) { return; }
-					CState		( const std::string &_Name ) { SetName(_Name); }
+					CState		( T* )							{ return; }
+					CState		( T* , const std::string &_Name )	{ SetName(_Name); }
 	virtual			~CState		( void ) {};
 
 	// ------------- Mètodes Principals ------------------------

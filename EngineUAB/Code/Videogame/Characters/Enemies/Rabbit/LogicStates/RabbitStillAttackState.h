@@ -20,9 +20,9 @@ class CRabbitStillAttackState : public CState<CCharacter>
 public:
 
 	// ------------- Constructors i Destructors --------------
-					CRabbitStillAttackState	( void );
-					CRabbitStillAttackState	( const std::string &_Name );
-	virtual			~CRabbitStillAttackState	( void );
+					CRabbitStillAttackState	( CCharacter* );
+					CRabbitStillAttackState	( CCharacter* _pCharacter, const std::string &_Name );
+	virtual			~CRabbitStillAttackState( void );
 
 	//----Main Functions --------------------------------------
 	virtual void	Execute		( CCharacter*, float _ElapsedTime );

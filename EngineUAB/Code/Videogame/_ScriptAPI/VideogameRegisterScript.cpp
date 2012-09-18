@@ -1,21 +1,26 @@
 #include "VideogameRegisterScript.h"
+#include "Utils/TemplatedVectorMapManager.h"
+#include "Utils/Named.h"
+#include "Object3D.h"
 #include "Scripting/ScriptManager.h"
 #include "GameProcess.h"
 #include "Cameras/ThPSCharacterCamera.h"
 #include "StatesMachine/BaseGameEntity.h"
 #include "RenderableObjects/AnimatedModel/AnimatedInstanceModel.h"
 #include "PhysicController.h"
+
 #include "Characters/Character.h"
 #include "Characters/CharacterManager.h"
+#include "Characters/Properties/Properties.h"
+
 #include "Steering Behaviors\SteeringEntity.h"
 #include "Steering Behaviors\SteeringBehaviors.h"
 #include "StatesMachine\StateMachine.h"
+
 #include "StatesMachine\State.h"
+
 #include "PhysicUserData.h"
-#include "Utils/TemplatedVectorMapManager.h"
-#include "Utils/Named.h"
-#include "Object3D.h"
-#include "Characters/Properties/Properties.h"
+
 #include "Callbacks\Animation\AnimationCallbackManager.h"
 #include "Callbacks\Animation\AnimationCallback.h"
 #include "cal3d\animcallback.h"
@@ -120,7 +125,7 @@ namespace ScriptAPI
 		module( _pLua)
 			[
 				class_<CState<CCharacter>, CState_Wrapper, CNamed> ("CState")
-					.def(constructor<const std::string&>())
+					.def(constructor<CCharacter *, const std::string&>())
 					.def("Execute", &CState<CCharacter>::Execute)
 					.def("OnEnter", &CState<CCharacter>::OnEnter)
 					.def("OnExit", &CState<CCharacter>::OnExit)

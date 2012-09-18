@@ -7,11 +7,12 @@
 #include <string>
 #include "StatesMachine\State.h"
 #include "Characters\Character.h"
-#include "Callbacks\State\ActionStateCallback.h"
+//#include "Callbacks\State\ActionStateCallback.h"
 
 // --- Foward Declarations ---
 class CDeer;
 class CAnimationCallback;
+class CActionStateCallback;
 // ---------------------------
 
 class CDeerStillAttackState : public CState<CCharacter> 
@@ -19,8 +20,8 @@ class CDeerStillAttackState : public CState<CCharacter>
 public:
 
 	// ------------- Constructors i Destructors --------------
-						CDeerStillAttackState	( void );
-						CDeerStillAttackState	( const std::string &_Name );
+						CDeerStillAttackState	( CCharacter* );
+						CDeerStillAttackState	( CCharacter*, const std::string &_Name );
 	virtual				~CDeerStillAttackState	( void );
 
 	//----Main Functions --------------------------------------
@@ -47,7 +48,7 @@ public:
 private:
 	CDeer					  * m_pDeer;
 	CAnimationCallback		  *	m_pAnimationCallback;
-	CActionStateCallback		m_pActionStateCallback;
+	CActionStateCallback	  *	m_pActionStateCallback;
 	
 	bool						m_SoundPlayed1;			// Indica si el sonido ya se inició
 	bool						m_SoundPlayed2;			// Indica si el sonido ya se inició

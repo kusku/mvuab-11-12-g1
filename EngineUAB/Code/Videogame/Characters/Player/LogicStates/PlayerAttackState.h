@@ -14,7 +14,7 @@ struct STelegram;
 class CPlayerAttackState : public CState< CCharacter >
 {
 public:
-	CPlayerAttackState( const std::string &_Name );
+	CPlayerAttackState( CCharacter * _pCharacter, const std::string &_Name );
 	~CPlayerAttackState();
 
 	void	OnEnter		(  CCharacter* _pCharacter );

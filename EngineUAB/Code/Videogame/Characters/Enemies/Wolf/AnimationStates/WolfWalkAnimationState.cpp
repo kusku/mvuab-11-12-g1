@@ -11,14 +11,14 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CWolfWalkAnimationState::CWolfWalkAnimationState( void )
-	: CState	("CWolfWalkAnimationState")
+CWolfWalkAnimationState::CWolfWalkAnimationState( CCharacter* _pCharacter )
+	: CState	( _pCharacter, "CWolfWalkAnimationState")
 	, m_pWolf	( NULL )
 {
 }
 
-CWolfWalkAnimationState::CWolfWalkAnimationState( const std::string &_Name )
-	: CState	(_Name)
+CWolfWalkAnimationState::CWolfWalkAnimationState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState	(_pCharacter, _Name)
 	, m_pWolf	( NULL )
 {
 }
@@ -41,22 +41,22 @@ void CWolfWalkAnimationState::Execute( CCharacter*, float _ElapsedTime )
 {
 }
 
-void CWolfWalkAnimationState::OnEnter( CCharacter* _Character )
+void CWolfWalkAnimationState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pWolf) 
 	{
-		m_pWolf = dynamic_cast<CWolf*> (_Character);
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 
 	int l_Num = m_pWolf->GetAnimationID(WOLF_WALK_STATE);
 	m_pWolf->GetAnimatedModel()->BlendCycle( l_Num, 0.3f );
 }
 
-void CWolfWalkAnimationState::OnExit( CCharacter* _Character )
+void CWolfWalkAnimationState::OnExit( CCharacter* _pCharacter )
 {
 	if (!m_pWolf) 
 	{
-		m_pWolf = dynamic_cast<CWolf*> (_Character);
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 
 	int l_Num = m_pWolf->GetAnimationID(WOLF_WALK_STATE);

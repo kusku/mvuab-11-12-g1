@@ -35,22 +35,22 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CRabbitDeathState::CRabbitDeathState( void )
-	: CState				("CRabbitDeathState")
+CRabbitDeathState::CRabbitDeathState( CCharacter* _pCharacter )
+	: CState				(_pCharacter, "CRabbitDeathState")
 	, m_pRabbit				( NULL )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RABBIT_DEATH_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),RABBIT_DEATH_STATE);
 }
 
-CRabbitDeathState::CRabbitDeathState( const std::string &_Name )
-	: CState				(_Name)
+CRabbitDeathState::CRabbitDeathState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState				(_pCharacter, _Name)
 	, m_pRabbit				( NULL )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RABBIT_DEATH_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),RABBIT_DEATH_STATE);
 }
 
 
@@ -64,11 +64,11 @@ CRabbitDeathState::~CRabbitDeathState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CRabbitDeathState::OnEnter( CCharacter* _Character )
+void CRabbitDeathState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pRabbit) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
 #if defined _DEBUG
@@ -83,11 +83,11 @@ void CRabbitDeathState::OnEnter( CCharacter* _Character )
 	PlayRandomSound();
 }
 
-void CRabbitDeathState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CRabbitDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
 	if (!m_pRabbit) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 	
 	// Si és atacable miro si llegué al màximo de lo que permito que me golpeen y bloqueo
@@ -141,11 +141,11 @@ void CRabbitDeathState::Execute( CCharacter* _Character, float _ElapsedTime )
 }
 
 
-void CRabbitDeathState::OnExit( CCharacter* _Character )
+void CRabbitDeathState::OnExit( CCharacter* _pCharacter )
 {
 }
 
-bool CRabbitDeathState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CRabbitDeathState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
 	return false;
 }

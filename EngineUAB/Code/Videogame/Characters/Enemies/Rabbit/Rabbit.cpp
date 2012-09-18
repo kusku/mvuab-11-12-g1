@@ -191,42 +191,42 @@ bool CRabbit::Init( void )
 void CRabbit::CreateCallbacks(void)
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	l_Process->GetAnimationCallbackManager()->CreateCallback(RABBIT_HIT_STATE, this->GetAnimatedModel());
-	l_Process->GetAnimationCallbackManager()->CreateCallback(RABBIT_STILL_ATTACK_STATE, this->GetAnimatedModel());
-	l_Process->GetAnimationCallbackManager()->CreateCallback(RABBIT_RUN_ATTACK_STATE, this->GetAnimatedModel());
-	l_Process->GetAnimationCallbackManager()->CreateCallback(RABBIT_DEATH_STATE, this->GetAnimatedModel());
+	l_Process->GetAnimationCallbackManager()->CreateCallback(GetName(), RABBIT_HIT_STATE, this->GetAnimatedModel());
+	l_Process->GetAnimationCallbackManager()->CreateCallback(GetName(), RABBIT_STILL_ATTACK_STATE, this->GetAnimatedModel());
+	l_Process->GetAnimationCallbackManager()->CreateCallback(GetName(), RABBIT_RUN_ATTACK_STATE, this->GetAnimatedModel());
+	l_Process->GetAnimationCallbackManager()->CreateCallback(GetName(), RABBIT_DEATH_STATE, this->GetAnimatedModel());
 }
 
 void CRabbit::LoadGraphicStates( void )
 {
-	m_pAnimationIdleState			= new CRabbitIdleAnimationState();
-	m_pAnimationIdle2State			= new CRabbitIdle2AnimationState();
-	m_pAnimationRunState			= new CRabbitRunAnimationState();
-	m_pAnimationDeathState			= new CRabbitDeathAnimationState();
-	m_pAnimationHitState			= new CRabbitHitAnimationState();
-	m_pAnimationDefenseState		= new CRabbitDefenseAnimationState();
-	m_pAnimationJumpState			= new CRabbitJumpAnimationState();
-	m_pAnimationLeftLateralState	= new CRabbitLeftLateralAnimationState();
-	m_pAnimationRightLateralState	= new CRabbitRightLateralAnimationState();
-	m_pAnimationRunAttackState		= new CRabbitRunAttackAnimationState();
-	m_pAnimationStillAttackState	= new CRabbitStillAttackAnimationState();
-	m_pAnimationWalkState			= new CRabbitWalkAnimationState();
+	m_pAnimationIdleState			= new CRabbitIdleAnimationState			(this);
+	m_pAnimationIdle2State			= new CRabbitIdle2AnimationState		(this);
+	m_pAnimationRunState			= new CRabbitRunAnimationState			(this);
+	m_pAnimationDeathState			= new CRabbitDeathAnimationState		(this);
+	m_pAnimationHitState			= new CRabbitHitAnimationState			(this);
+	m_pAnimationDefenseState		= new CRabbitDefenseAnimationState		(this);
+	m_pAnimationJumpState			= new CRabbitJumpAnimationState			(this);
+	m_pAnimationLeftLateralState	= new CRabbitLeftLateralAnimationState	(this);
+	m_pAnimationRightLateralState	= new CRabbitRightLateralAnimationState	(this);
+	m_pAnimationRunAttackState		= new CRabbitRunAttackAnimationState	(this);
+	m_pAnimationStillAttackState	= new CRabbitStillAttackAnimationState	(this);
+	m_pAnimationWalkState			= new CRabbitWalkAnimationState			(this);
 	
 	return;
 }
 
 void CRabbit::LoadLogicStates( void )
 {
-	m_pIdleState				= new CRabbitIdleState();
-	m_pPursuitState				= new CRabbitPursuitState();
-	m_pPreparedToAttackState	= new CRabbitPreparedToAttackState();
-	m_pAttackState				= new CRabbitAttackState();
-	m_pTiredState				= new CRabbitTiredState();
-	m_pHitState					= new CRabbitHitState();
-	m_pDefenseState				= new CRabbitDefenseState();
-	m_pStillAttack				= new CRabbitStillAttackState();
-	m_pRunAttack				= new CRabbitRunAttackState();
-	m_pDeathState				= new CRabbitDeathState();
+	m_pIdleState				= new CRabbitIdleState						(this);
+	m_pPursuitState				= new CRabbitPursuitState					(this);
+	m_pPreparedToAttackState	= new CRabbitPreparedToAttackState			(this);
+	m_pAttackState				= new CRabbitAttackState					(this);
+	m_pTiredState				= new CRabbitTiredState						(this);
+	m_pHitState					= new CRabbitHitState						(this);
+	m_pDefenseState				= new CRabbitDefenseState					(this);
+	m_pStillAttack				= new CRabbitStillAttackState				(this);
+	m_pRunAttack				= new CRabbitRunAttackState					(this);
+	m_pDeathState				= new CRabbitDeathState						(this);
 	return;
 }
 
