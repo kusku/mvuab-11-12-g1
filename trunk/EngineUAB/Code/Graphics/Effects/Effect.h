@@ -98,6 +98,15 @@ public:
 	const Mat44f*	GetLightShadowViewProjection		() const		{ return m_LightShadowViewProjection; }
 	const Vect2f*	GetLightLinNearFar					() const		{ return m_LightLinNearFar; }
 
+	//Cascade Gets
+	D3DXHANDLE		GetCascadeShadowViewProjectionParameter			() const		{ return m_CascadeShadowViewProjectionParameter; }
+	D3DXHANDLE		GetCascadeDistancesParameter					() const		{ return m_CascadeDistancesParameter; }
+	D3DXHANDLE		GetCascadeShadowMapPixelSizeParameter			() const		{ return m_CascadeShadowMapPixelSizeParameter; }
+	const Vect3f*	GetCascadeDistance								() const		{ return m_CascadeDistance; }
+	const Vect2f*	GetCascadeShadowMapPixelSize					() const		{ return m_CascadeShadowMapPixelSize; }
+	const Mat44f*	GetCascadeShadowViewProjection					() const		{ return m_CascadeShadowViewProjection; }
+
+
 private:
 	void		SetNullParameters			();
 	bool		LoadEffect					();
@@ -123,6 +132,17 @@ private:
 	CTexture*		m_LightsStaticShadowMap[MAX_LIGHTS_BY_SHADER];
 	BOOL			m_LightsDynamicShadowMapEnable[MAX_LIGHTS_BY_SHADER];
 	BOOL			m_LightsStaticShadowMapEnable[MAX_LIGHTS_BY_SHADER];
+
+	//Cascade Light Params
+	Vect3f			m_CascadeDistance[MAX_LIGHTS_BY_SHADER];
+	Vect2f			m_CascadeShadowMapPixelSize[MAX_LIGHTS_BY_SHADER];
+	Mat44f			m_CascadeShadowViewProjection[MAX_LIGHTS_BY_SHADER * NUM_CASCADES];
+
+	
+	//Cascade DX Params
+	D3DXHANDLE		m_CascadeShadowViewProjectionParameter;
+	D3DXHANDLE		m_CascadeDistancesParameter;
+	D3DXHANDLE		m_CascadeShadowMapPixelSizeParameter;
 
 	D3DXHANDLE		m_PrevViewMatrixParameter;
 	D3DXHANDLE		m_PrevProjectionMatrixParameter;

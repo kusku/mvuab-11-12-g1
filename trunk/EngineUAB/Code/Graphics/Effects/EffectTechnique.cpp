@@ -24,11 +24,11 @@ CEffectTechnique::CEffectTechnique(	CXMLTreeNode &XMLNode )
 	, m_UseInverseViewMatrix(false)
 	, m_UseInverseWorldMatrix(false)
 	, m_UseLightAmbientColor(false)
-	, m_UseViewMatrix(false)
 	, m_UseViewProjectionMatrix(false)
 	, m_UseTime(false)
 {
 	m_TechniqueName					= XMLNode.GetPszProperty("name", "");
+	m_UseViewMatrix					= XMLNode.GetBoolProperty("use_view_matrix", false, false);
 	m_UseWorldMatrix				= XMLNode.GetBoolProperty("use_world_matrix", false, false);
 	m_UseViewProjectionMatrix		= XMLNode.GetBoolProperty("use_view_projection_matrix", false, false);
 	m_UseInverseViewProjMatrix		= XMLNode.GetBoolProperty("use_view_projection_inverse_matrix", false, false);
@@ -485,6 +485,49 @@ bool CEffectTechnique::BeginRender()
 					LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
 				}
 			}
+		}
+
+		/////////////////////////////////////////////
+		
+		//Cascades
+		const Vect3f* cascadeDistance = m_Effect->GetCascadeDistance();
+		const Vect2f* cascadePxSize = m_Effect->GetCascadeShadowMapPixelSize();
+		const Mat44f* cascadesVP = m_Effect->GetCascadeShadowViewProjection();
+		
+		D3DXMATRIX cascadeShadowVP[4 * 3];
+
+		cascadeShadowVP[0] = (cascadesVP[0]).GetD3DXMatrix();
+		cascadeShadowVP[1] = (cascadesVP[1]).GetD3DXMatrix();
+		cascadeShadowVP[2] = (cascadesVP[2]).GetD3DXMatrix();
+
+		cascadeShadowVP[3] = (cascadesVP[3]).GetD3DXMatrix();
+		cascadeShadowVP[4] = (cascadesVP[4]).GetD3DXMatrix();
+		cascadeShadowVP[5] = (cascadesVP[5]).GetD3DXMatrix();
+	
+		cascadeShadowVP[6] = (cascadesVP[6]).GetD3DXMatrix();
+		cascadeShadowVP[7] = (cascadesVP[7]).GetD3DXMatrix();
+		cascadeShadowVP[8] = (cascadesVP[8]).GetD3DXMatrix();
+		
+		cascadeShadowVP[9] = (cascadesVP[9]).GetD3DXMatrix();
+		cascadeShadowVP[10] = (cascadesVP[10]).GetD3DXMatrix();
+		cascadeShadowVP[11] = (cascadesVP[11]).GetD3DXMatrix();
+
+		if( FAILED( l_Effect->SetFloatArray( m_Effect->GetCascadeDistancesParameter(), (float*)cascadeDistance, 3*m_NumOfLights) ) )
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetCascadeDistancesParameter()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
+		
+		if( FAILED( l_Effect->SetFloatArray( m_Effect->GetCascadeShadowMapPixelSizeParameter(), (float*)cascadePxSize, 2*m_NumOfLights) ) )
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->GetCascadeShadowMapPixelSizeParameter()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
+		}
+
+		if( FAILED( l_Effect->SetMatrixArray( m_Effect->GetCascadeShadowViewProjectionParameter(), cascadeShadowVP, 4 * 3 ) ) )
+		{
+			msg_error = "Error al hacer el Set del parametro: m_Effect->l_ShadowViewProjMatrix()";
+			LOGGER->AddNewLog(ELL_WARNING,  msg_error.c_str());
 		}
 	}
 

@@ -1,7 +1,6 @@
 #include "Light.h"
 #include "Effects\Effect.h"
 #include "RenderManager.h"
-#include "Textures\Texture.h"
 #include "RenderableObjects\RenderableObjectsManager.h"
 #include "XML\XMLTreeNode.h"
 #include "Core.h"
@@ -56,55 +55,11 @@ void CLight::GenerateShadowMap(CRenderManager *RM)
 
 	SetShadowMap();
 
-	CORE->GetLightManager()->SetCurrentFrustum(m_LightFrustum);
-
-	if( m_GenerateStaticShadowMap && m_MustUpdateStaticShadowMap )
-	{
-		m_pStaticShadowMap->SetAsRenderTarget(0);
-		m_StaticDepthStencil->SetAsDepthStencil();
-
-		//RM->ClearTarget(colTRANSPARENT);
-		RM->GetDevice()->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER, D3DCOLOR_RGBA(0, 0, 0, 0), 1.0f, 0 );
-
-		CORE->GetEffectManager()->SetLightShadowLinNearFar(m_LightLinNearFar);
-
-		for(size_t i=0; i<m_StaticShadowMapRenderableObjectsManagers.size(); ++i)
-		{
-			m_StaticShadowMapRenderableObjectsManagers[i]->Render(RM);
-		}
-
-		m_MustUpdateStaticShadowMap = false;
-		
-		m_pStaticShadowMap->UnsetAsRenderTarget(0);
-		m_StaticDepthStencil->UnsetAsDepthStencil();
-	}
-
-	if( m_DynamicShadowMapRenderableObjectsManagers.size() > 0)
-	{
-		m_pDynamicShadowMap->SetAsRenderTarget(0);
-		m_DynamicDepthStencil->SetAsDepthStencil();
-		
-		//RM->ClearTarget(colTRANSPARENT);
-		RM->GetDevice()->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER, D3DCOLOR_RGBA(0, 0, 0, 0), 1.0f, 0 );
-
-		CORE->GetEffectManager()->SetLightShadowLinNearFar(m_LightLinNearFar);
-
-		for(size_t i=0; i<m_DynamicShadowMapRenderableObjectsManagers.size(); ++i)
-		{
-			m_DynamicShadowMapRenderableObjectsManagers[i]->Render(RM);
-		}
-
-		m_pDynamicShadowMap->UnsetAsRenderTarget(0);
-		m_DynamicDepthStencil->UnsetAsDepthStencil();
-	}
-
-	CORE->GetLightManager()->SetCurrentFrustum(NULL);
+	RenderShadows(RM);
 }
 
 void CLight::ExtractCommonLightInfo(CXMLTreeNode &XMLNode)
 {
-	CTextureManager *l_pTextureManager = CORE->GetTextureManager();
-
 	//Common Info por all Lights
 
 	//Name and Position
@@ -126,69 +81,11 @@ void CLight::ExtractCommonLightInfo(CXMLTreeNode &XMLNode)
 	m_GenerateDynamicShadowMap = XMLNode.GetBoolProperty("generate_shadow_map", false, false);
 	m_GenerateStaticShadowMap = XMLNode.GetBoolProperty("generate_static_shadow_map", false, false);
 
-	//MultiSamples
-	m_MultiSamples = XMLNode.GetBoolProperty("multi_samples", false, false);
-
-	if( m_GenerateDynamicShadowMap )
-	{
-		std::string l_DynamicType = XMLNode.GetPszProperty("shadow_map_format_type", "");
-		uint32 l_WidthDynamicShadowMap = XMLNode.GetIntProperty("shadow_map_width", 512);
-		uint32 l_HeightDynamicShadowMap = XMLNode.GetIntProperty("shadow_map_height", 512);
-
-		//Elimina la textura si ya existía
-		std::string l_TextureName = m_Name + "_dynamic";
-		l_pTextureManager->RemoveResource( l_TextureName );
-
-		m_pDynamicShadowMap = new CTexture();
-		CTexture::TFormatType l_Format = m_pDynamicShadowMap->GetFormatTypeFromString(l_DynamicType);
-		m_pDynamicShadowMap->Create(l_TextureName, l_WidthDynamicShadowMap, l_HeightDynamicShadowMap, 1, 
-			CTexture::RENDERTARGET, CTexture::DEFAULT, l_Format);
-
-		l_pTextureManager->AddResource(m_pDynamicShadowMap->GetName(), m_pDynamicShadowMap);
-
-		//////Depth Stencil
-
-		//Elimina la textura si ya existía
-		std::string l_TextureNameDS = m_Name + "_dynamic_ds";
-		l_pTextureManager->RemoveResource( l_TextureNameDS );
-
-		m_DynamicDepthStencil = new CTexture();
-		m_DynamicDepthStencil->CreateDepthStencil(l_WidthDynamicShadowMap, l_HeightDynamicShadowMap, CTexture::D24S8, static_cast<D3DMULTISAMPLE_TYPE>(m_MultiSamples));
-		l_pTextureManager->AddResource(l_TextureNameDS, m_DynamicDepthStencil);
-	}
-
-	if( m_GenerateStaticShadowMap )
-	{
-		std::string l_StaticType = XMLNode.GetPszProperty("static_shadow_map_format_type", "");
-		uint32 l_WidthStaticShadowMap = XMLNode.GetIntProperty("static_shadow_map_width", 512);
-		uint32 l_HeightStaticShadowMap = XMLNode.GetIntProperty("static_shadow_map_height", 512);
-
-		//Elimina la textura si ya existía
-		std::string l_TextureName = m_Name + "_static";
-		l_pTextureManager->RemoveResource( l_TextureName );
-
-		m_pStaticShadowMap = new CTexture();
-		CTexture::TFormatType l_Format = m_pStaticShadowMap->GetFormatTypeFromString(l_StaticType);
-		m_pStaticShadowMap->Create(l_TextureName, l_WidthStaticShadowMap, l_HeightStaticShadowMap, 1, 
-			CTexture::RENDERTARGET, CTexture::DEFAULT, l_Format);
-
-		l_pTextureManager->AddResource(m_pStaticShadowMap->GetName(), m_pStaticShadowMap);
-
-		m_MustUpdateStaticShadowMap = true;
-
-		//////Depth Stencil
-
-		//Elimina la textura si ya existía
-		std::string l_TextureNameDS = m_Name + "_static_ds";
-		l_pTextureManager->RemoveResource( l_TextureNameDS );
-
-		m_StaticDepthStencil = new CTexture();
-		m_StaticDepthStencil->CreateDepthStencil(l_WidthStaticShadowMap, l_HeightStaticShadowMap, CTexture::D24S8, static_cast<D3DMULTISAMPLE_TYPE>(m_MultiSamples));
-		l_pTextureManager->AddResource(l_TextureNameDS, m_StaticDepthStencil);
-	}
-
 	if(m_GenerateDynamicShadowMap || m_GenerateStaticShadowMap)
 	{
+		//MultiSamples
+		m_MultiSamples = XMLNode.GetIntProperty("multi_samples", 0);
+
 		m_LightFrustum = new CFrustum();
 
 		uint32 numChild = XMLNode.GetNumChildren();
@@ -251,5 +148,34 @@ void CLight::ExtractCommonLightInfo(CXMLTreeNode &XMLNode)
 				assert(!"Not a valid suboption CLight::ExtractCommonLightInfo");
 			}
 		}
+		
+		CTexture::TFormatType dynamicFormat = CTexture::A8R8G8B8;
+		uint32 l_WidthDynamicShadowMap = 0;
+		uint32 l_HeightDynamicShadowMap = 0;
+
+		CTexture::TFormatType staticFormat = CTexture::A8R8G8B8;
+		uint32 l_WidthStaticShadowMap = 0;
+		uint32 l_HeightStaticShadowMap = 0;
+
+		if (m_GenerateDynamicShadowMap)
+		{
+			std::string l_DynamicType = XMLNode.GetPszProperty("shadow_map_format_type", "");
+			l_WidthDynamicShadowMap = XMLNode.GetIntProperty("shadow_map_width", 512);
+			l_HeightDynamicShadowMap = XMLNode.GetIntProperty("shadow_map_height", 512);
+
+			dynamicFormat = m_pDynamicShadowMap->GetFormatTypeFromString(l_DynamicType);
+		}
+
+
+		if(m_GenerateStaticShadowMap)
+		{
+			std::string l_StaticType = XMLNode.GetPszProperty("static_shadow_map_format_type", "");
+			l_WidthStaticShadowMap = XMLNode.GetIntProperty("static_shadow_map_width", 512);
+			l_HeightStaticShadowMap = XMLNode.GetIntProperty("static_shadow_map_height", 512);
+
+			staticFormat = m_pStaticShadowMap->GetFormatTypeFromString(l_StaticType);
+		}
+
+		CreateShadowTextures(m_GenerateStaticShadowMap, staticFormat, l_WidthStaticShadowMap, l_HeightStaticShadowMap, m_GenerateDynamicShadowMap, dynamicFormat, l_WidthDynamicShadowMap, l_HeightDynamicShadowMap);		
 	}
 }

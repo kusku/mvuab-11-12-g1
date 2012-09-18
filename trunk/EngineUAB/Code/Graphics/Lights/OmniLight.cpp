@@ -42,3 +42,13 @@ void COmniLight::SetShadowMap()
 {
 	return;
 }
+
+void COmniLight::RenderShadows(CRenderManager *RM)
+{
+	return;
+}
+
+void COmniLight::CreateShadowTextures(bool staticMap, CTexture::TFormatType formatStatic, uint32 staticWidth, uint32 staticHeight, bool dynamicMap, CTexture::TFormatType formatDynamic, uint32 dynamicWidth, uint32 dynamicHeight)
+{
+
+}

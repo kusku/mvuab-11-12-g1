@@ -59,6 +59,9 @@ CEffect::CEffect(CXMLTreeNode &XMLNode)
 	, m_PrevViewMatrixParameter(NULL)
 	, m_PrevProjectionMatrixParameter(NULL)
 	, m_PrevViewProjectionMatrixParameter(NULL)
+	, m_CascadeShadowViewProjectionParameter(NULL)
+	, m_CascadeDistancesParameter(NULL)
+	, m_CascadeShadowMapPixelSizeParameter(NULL)
 {
 	m_EffectName = XMLNode.GetPszProperty("name", "");
 	m_FileName = XMLNode.GetPszProperty("file", "");
@@ -86,6 +89,10 @@ CEffect::CEffect(CXMLTreeNode &XMLNode)
 	memset(m_LightsStaticShadowMap, 0, sizeof(CTexture*) * MAX_LIGHTS_BY_SHADER);
 	memset(m_LightsDynamicShadowMapEnable, 0, sizeof(BOOL) * MAX_LIGHTS_BY_SHADER);
 	memset(m_LightsStaticShadowMapEnable, 0, sizeof(BOOL) * MAX_LIGHTS_BY_SHADER);
+	
+	ZeroMemory(m_CascadeDistance, sizeof(Vect3f) * MAX_LIGHTS_BY_SHADER);
+	ZeroMemory(m_CascadeShadowMapPixelSize, sizeof(Vect2f) * MAX_LIGHTS_BY_SHADER);
+	ZeroMemory(m_CascadeShadowViewProjection, sizeof(Mat44f) * MAX_LIGHTS_BY_SHADER * NUM_CASCADES);
 }
 
 CEffect::~CEffect()
@@ -202,6 +209,11 @@ bool CEffect::LoadEffect()
 	GetParameterBySemantic("DYNAMIC_SHADOW_MAP_3", m_DynamicShadowMapSamplerParameter[2], false);
 	GetParameterBySemantic("DYNAMIC_SHADOW_MAP_4", m_DynamicShadowMapSamplerParameter[3], false);
 
+	//Cascade
+	GetParameterBySemantic("CASCADE_SHADOW_VIEWPROJECTION", m_CascadeShadowViewProjectionParameter, false);
+	GetParameterBySemantic("CASCADE_DISTANCES", m_CascadeDistancesParameter, false);
+	GetParameterBySemantic("CASCADE_SHADOW_MAP_PIXEL_SIZE", m_CascadeShadowMapPixelSizeParameter, false);
+
 	//Misc
 	GetParameterBySemantic("HALFPIXEL", m_HalfPixelParameter, false);
 	GetParameterBySemantic("RENDER_TARGET_SIZE", m_RenderTargetSizeParameter, false);
@@ -282,7 +294,10 @@ void CEffect::SetNullParameters()
 	m_PrevViewMatrixParameter					= NULL;
 	m_PrevProjectionMatrixParameter				= NULL;
 	m_PrevViewProjectionMatrixParameter			= NULL;
-
+	m_CascadeShadowViewProjectionParameter		= NULL;
+	m_CascadeDistancesParameter					= NULL;
+	m_CascadeShadowMapPixelSizeParameter		= NULL;
+	
 	memset(m_StaticShadowMapSamplerParameter, 0, sizeof(D3DXHANDLE) * MAX_LIGHTS_BY_SHADER);
 	memset(m_DynamicShadowMapSamplerParameter, 0, sizeof(D3DXHANDLE) * MAX_LIGHTS_BY_SHADER);
 
@@ -344,6 +359,11 @@ bool CEffect::SetLights(size_t NumOfLights)
 		{
 			CDirectionalLight* l_DirLight = static_cast<CDirectionalLight*>(l_Light);
 			m_LightsDirection[lightCount] = l_DirLight->GetDirection();
+			
+			//Cascade
+			m_CascadeShadowMapPixelSize[lightCount] = l_DirLight->GetShadowMapPixelSize();
+			m_CascadeDistance[lightCount] = l_DirLight->GetCascadeDistances();
+			memcpy( ( m_CascadeShadowViewProjection + ( lightCount * 3 )), l_DirLight->GetCascadeViewProjShadowMap(), sizeof(Mat44f) * 3);
 		}
 		else if( l_LightType == CLight::SPOT )
 		{

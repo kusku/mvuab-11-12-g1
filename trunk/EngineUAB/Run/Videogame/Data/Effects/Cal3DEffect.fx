@@ -42,6 +42,7 @@ struct VertexShaderOutput
 {
     float4	Position		: POSITION0;
 	float2	TexCoord		: TEXCOORD0;
+	float4	WVPPos			: TEXCOORD1;
 	float3	Normal			: NORMAL0;
 	float3	EyePosition		: NORMAL1;
 	float4	WPos			: NORMAL2;
@@ -64,6 +65,7 @@ struct VertexShaderNormalOutput
 {
     float4		Position		: POSITION0;
 	float2		TexCoord		: TEXCOORD0;
+	float4		WVPPos			: TEXCOORD1;
 	float2		DepthInt		: NORMAL0;
 	float2		VelocityMB		: NORMAL1;
 	float3		EyePosition		: NORMAL2;
@@ -208,6 +210,7 @@ VertexShaderOutput RenderCal3DHWVS(VertexShaderInput input)
 	output.Position	= mul(float4(l_Position, 1), WorldViewProjection );
 	output.TexCoord = input.TexCoord;
 	
+	output.WVPPos		= output.Position;
 	output.WPos			= WorldSpacePosition;
 	output.EyePosition	= CameraPosition - WorldSpacePosition.xyz;
 
@@ -267,6 +270,7 @@ VertexShaderNormalOutput RenderCal3DHWNormalVS(VertexShaderNormalInput input)
 	output.Position	= mul(float4(l_Position, 1), WorldViewProjection );
 	output.TexCoord = input.TexCoord;
 	
+	output.WVPPos		= output.Position;
 	output.WPos			= WorldSpacePosition;
 	output.EyePosition	= CameraPosition - WorldSpacePosition.xyz;
 
@@ -322,19 +326,19 @@ PixelShaderOutput RenderCal3DHWPS(VertexShaderOutput input, uniform bool shadow)
 			{
 				if(i == 0)
 				{
-					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler1, i);
+					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler1, i, input.WVPPos);
 				}
 				else if(i == 1)
 				{
-					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler2, i);
+					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler2, i, input.WVPPos);
 				}
 				else if(i == 2)
 				{
-					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler3, i);
+					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler3, i, input.WVPPos);
 				}
 				else
 				{
-					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler4, i);
+					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler4, i, input.WVPPos);
 				}
 			}
 			
@@ -342,19 +346,19 @@ PixelShaderOutput RenderCal3DHWPS(VertexShaderOutput input, uniform bool shadow)
 			{
 				if(i == 0)
 				{
-					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler1, i);
+					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler1, i, input.WVPPos);
 				}
 				else if(i == 1)
 				{
-					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler2, i);
+					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler2, i, input.WVPPos);
 				}
 				else if(i == 2)
 				{
-					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler3, i);
+					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler3, i, input.WVPPos);
 				}
 				else
 				{
-					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler4, i);
+					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler4, i, input.WVPPos);
 				}
 			}
 		}
@@ -434,19 +438,19 @@ PixelShaderOutput RenderCal3DHWNormalPS(VertexShaderNormalOutput input, uniform 
 			{
 				if(i == 0)
 				{
-					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler1, i);
+					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler1, i, input.WVPPos);
 				}
 				else if(i == 1)
 				{
-					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler2, i);
+					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler2, i, input.WVPPos);
 				}
 				else if(i == 2)
 				{
-					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler3, i);
+					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler3, i, input.WVPPos);
 				}
 				else
 				{
-					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler4, i);
+					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler4, i, input.WVPPos);
 				}
 			}
 			
@@ -454,19 +458,19 @@ PixelShaderOutput RenderCal3DHWNormalPS(VertexShaderNormalOutput input, uniform 
 			{
 				if(i == 0)
 				{
-					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler1, i);
+					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler1, i, input.WVPPos);
 				}
 				else if(i == 1)
 				{
-					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler2, i);
+					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler2, i, input.WVPPos);
 				}
 				else if(i == 2)
 				{
-					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler3, i);
+					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler3, i, input.WVPPos);
 				}
 				else
 				{
-					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler4, i);
+					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler4, i, input.WVPPos);
 				}
 			}
 		}
