@@ -52,7 +52,8 @@
   <animated_model_instance name="enemy28" core="ciervo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
   <animated_model_instance name="enemy29" core="ciervo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
   <animated_model_instance name="enemy30" core="ciervo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
-
+  <animated_model_instance name="enemy31" core="ciervo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy32" core="ciervo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
   
   <!--Cabaña, Rio y Puentes-->
   <mesh_instance name="Rio" core="Rio" position="-55.374 -30.9991 -92.2339" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="water" create_physics="false" />
