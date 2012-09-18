@@ -361,9 +361,12 @@ bool CEffect::SetLights(size_t NumOfLights)
 			m_LightsDirection[lightCount] = l_DirLight->GetDirection();
 			
 			//Cascade
-			m_CascadeShadowMapPixelSize[lightCount] = l_DirLight->GetShadowMapPixelSize();
-			m_CascadeDistance[lightCount] = l_DirLight->GetCascadeDistances();
-			memcpy( ( m_CascadeShadowViewProjection + ( lightCount * 3 )), l_DirLight->GetCascadeViewProjShadowMap(), sizeof(Mat44f) * 3);
+			if(l_Light->GetGenerateDynamicShadowMap()) 
+			{
+				m_CascadeShadowMapPixelSize[lightCount] = l_DirLight->GetShadowMapPixelSize();
+				m_CascadeDistance[lightCount] = l_DirLight->GetCascadeDistances();
+				memcpy( ( m_CascadeShadowViewProjection + ( lightCount * 3 )), l_DirLight->GetCascadeViewProjShadowMap(), sizeof(Mat44f) * 3);
+			}
 		}
 		else if( l_LightType == CLight::SPOT )
 		{
