@@ -18,28 +18,32 @@ public:
 	// ------------- Constructors i Destructors --------------
 					CDeerPursuitState		( void );
 					CDeerPursuitState		( const std::string &_Name );
-	virtual			~CDeerPursuitState	( void );
+	virtual			~CDeerPursuitState		( void );
 
 	//----Main Functions --------------------------------------
-	virtual void	Execute			( CCharacter*, float _ElapsedTime );
+	virtual void	Execute					( CCharacter*, float _ElapsedTime );
 
 	// Se ejecuta cuando el estado es entrado
-	virtual void	OnEnter			( CCharacter* );
+	virtual void	OnEnter					( CCharacter* );
 
 	// Se ejecuta cuando el estado sale
-	virtual void	OnExit			( CCharacter* );
+	virtual void	OnExit					( CCharacter* );
 
 	// Se ejecuta cuando otro caracter envía un mensaje a este
-	virtual bool	OnMessage		( CCharacter*, const STelegram& );
+	virtual bool	OnMessage				( CCharacter*, const STelegram& );
 
 	//----Methods ---------------------------------------------
-	void			PlayRandomSound	( void );
+	void			PlayRandomSound			( void );
+	void			SetParticlePosition		( CCharacter* _pCharacter );
 
 	//----Members ---------------------------------------------
 private:
 	CDeer				  * m_pDeer;
-	CActionStateCallback	m_ActionCallback;
+	CActionStateCallback	m_SoundActionStateCallback;
+	CActionStateCallback	m_RunActionStateCallback;
 	float					m_SoundDuration;
+
+	bool					m_FirtsStepDone, m_SecondStepDone;
 };
 
 
