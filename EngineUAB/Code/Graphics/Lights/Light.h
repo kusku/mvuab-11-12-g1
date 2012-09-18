@@ -18,6 +18,7 @@
 #include "Math\Color.h"
 #include "Math\Matrix44.h"
 #include "Math\Vector2.h"
+#include "Textures\Texture.h"
 
 class CXMLTreeNode;
 class CRenderManager;
@@ -41,7 +42,10 @@ public:
 	virtual ~CLight();
 
 	virtual void		Render							( CRenderManager *RM ) = 0;
-	bool				RenderShadows					() const		{ return m_GenerateDynamicShadowMap || m_GenerateStaticShadowMap; }
+	virtual void		RenderShadows					( CRenderManager *RM ) = 0;
+
+
+	bool				IsRenderingShadows				() const		{ return m_GenerateDynamicShadowMap || m_GenerateStaticShadowMap; }
 
 	void				BeginRenderEffectManagerShadowMap	( CEffect *Effect );
 	void				GenerateShadowMap					( CRenderManager *RM );
@@ -76,6 +80,8 @@ public:
 	std::vector<CRenderableObjectsManager*> &	GetDynamicShadowMapRenderableObjectsManagers()	{ return m_DynamicShadowMapRenderableObjectsManagers; }
 
 protected:
+	virtual void		CreateShadowTextures(bool staticMap, CTexture::TFormatType formatStatic, uint32 staticWidth, uint32 staticHeight, bool dynamicMap, CTexture::TFormatType formatDynamic, uint32 dynamicWidth, uint32 dynamicHeight) = 0;
+
 	void				ExtractCommonLightInfo	(CXMLTreeNode &XMLNode);
 
 	static TLightType	GetLightTypeByName		( const std::string &StrLightType );

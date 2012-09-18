@@ -70,6 +70,9 @@ protected:
 	float					m_fZNear;						// valor del z near (a partir de que vemos)
 	float					m_fZFar;						// valor del z far (hasta donde podemos ver)
 	ETypeCamera				m_eTypeCamera;
+
+public:
+
 	D3DXMATRIX				m_View;
 	D3DXMATRIX				m_Projection;
 };

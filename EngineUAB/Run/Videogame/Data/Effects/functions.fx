@@ -71,6 +71,17 @@ uniform float2		shLightLinNearFar						: Lights_Shadow_LinNearFar;
 
 uniform float2		HalfPixel								: HALFPIXEL;
 
+//Cascade
+#define NUM_CASCADES 3
+
+uniform float4x4	CascadeShadowViewProjection[MAX_LIGHTS * NUM_CASCADES]	: CASCADE_SHADOW_VIEWPROJECTION;
+uniform float3		CascadeDistances[MAX_LIGHTS]							: CASCADE_DISTANCES;
+uniform float2		CascadeShadowMapPixelSize[MAX_LIGHTS]					: CASCADE_SHADOW_MAP_PIXEL_SIZE;
+
+static int CascadeGroup = 0;
+
+//uniform float2		CascadeClipPlanes[MAX_LIGHTS][NUM_CASCADES]				: CASCADE_NUM_SPLITS;
+//uniform float2		CascadeShadowMapSize[MAX_LIGHTS]						: CASCADE_SHADOW_MAP_SIZE;
 
 uniform float4x4 	ShadowWorldViewProjection				: SHADOW_WORLDVIEWPROJECTION;
 uniform float4x4 	ShadowWorldView							: SHADOW_WORLDVIEW;
@@ -96,6 +107,7 @@ uniform float		LBRAmount = 0.18;			// Aggressiveness of light bleeding reduction
 uniform float2		FPBias = float2(0.0, 0.0);
 
 /////
+
 
 sampler StaticShadowMapSampler1 = sampler_state
 {
@@ -523,35 +535,102 @@ float ChebyshevUpperBound(float2 Moments, float Mean, float MinVariance)
     return max(p, p_max);
 }
 
-float CalcShadowVariance(float4 Pos, sampler shadowMapSampler, int light)
-{	
-	float4 ShadowPos = mul(Pos, ShadowViewProjection[light]);
+float CalcShadowVarianceCascade(float4 Pos, sampler shadowMapSampler, int light, float4 vPos)
+{
+	float3 weights = (float3)0;
 	
-	// Project the texture coords and scale/offset to [0, 1].
-	float2 ShadowTexC = ShadowPos.xy /= ShadowPos.w;
-	ShadowTexC.x =  0.5f*ShadowPos.x + 0.5f; 
-	ShadowTexC.y = -0.5f*ShadowPos.y + 0.5f;
-    //float2 ShadowTexC = (ShadowPos.xy / ShadowPos.w) * float2(0.5, -0.5) + 0.5;
-		
-    //float3 DirToLight = lightPosition[light] - Pos.xyz;
-    //float DistToLight = length(DirToLight);
-	
-	//float RescaledDist = RescaleDistToLight(DistToLight, light);
-	float RescaledDist = ShadowPos.z / ShadowPos.w;
-	
-	float2 Moments = tex2Dlod(shadowMapSampler, float4(ShadowTexC, 0, 1)).rg;
-	//float2 Moments = tex2D(DynamicShadowMapSampler1, ShadowTexC).rg;
-    Moments = Moments + GetFPBias();
-	
-    float ShadowContrib = ChebyshevUpperBound(Moments, RescaledDist, VSMMinVariance);
+	if(vPos.z > CascadeDistances[light].x)
+	{
+		weights.x = 1;
+		CascadeGroup = 1;
+	}
+	if(vPos.z > CascadeDistances[light].y)
+	{
+		weights.y = 1;
+		CascadeGroup = 2;
+	}
+	if(vPos.z > CascadeDistances[light].z)
+	{
+		weights.z = 1;
+		CascadeGroup = 3;
+	}
+
+	//float3 weights = ( vPos.z > CascadeDistances[light] );
+	//float3 weights = float3(1, 1, 0);
+	weights.xy -= weights.yz;
+
+	float4x4 lightViewProj = CascadeShadowViewProjection[(light * NUM_CASCADES) + 0] * weights.x + CascadeShadowViewProjection[(light * NUM_CASCADES) + 1] * weights.y + CascadeShadowViewProjection[(light * NUM_CASCADES) + 2] * weights.z;
+
+	float offset = weights.y * 0.33333f + weights.z * 0.666666f;
+
+	float4 lightingPosition = mul(Pos, lightViewProj);
     
-    [flatten] 
+	float2 shadowTexCoord = lightingPosition.xy / lightingPosition.w;
+	shadowTexCoord.x =  0.5f*shadowTexCoord.x + 0.5f; 
+	shadowTexCoord.y = -0.5f*shadowTexCoord.y + 0.5f;
+
+	shadowTexCoord.x = shadowTexCoord.x * 0.3333333f + offset;
+	//shadowTexCoord.y = 1.0f - shadowTexCoord.y;
+	//shadowTexCoord += CascadeShadowMapPixelSize[light];
+
+	float RescaledDist = (lightingPosition.z / lightingPosition.w);// - 0.005f; //DepthBias
+
+	//float shadowSkip = ClipPlanes[2].y > pxDepth;
+
+	//////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////
+	
+	float2 Moments = tex2Dlod(shadowMapSampler, float4(shadowTexCoord, 0, 1)).rg;
+	Moments = Moments + GetFPBias();
+	
+	float ShadowContrib = ChebyshevUpperBound(Moments, RescaledDist, VSMMinVariance);
+    
+	[flatten] 
 	if (LBREnable)
 	{
-        ShadowContrib = LBR(ShadowContrib);
-    }
+		ShadowContrib = LBR(ShadowContrib);
+	}
 	
 	return ShadowContrib;
+}
+
+float CalcShadowVariance(float4 Pos, sampler shadowMapSampler, int light, float4 vPos = (float4)1)
+{	
+	if(lightType[light] == DIRECTIONAL)
+	{
+		return CalcShadowVarianceCascade(Pos, shadowMapSampler, light, vPos);
+	}
+	else
+	{
+		float4 ShadowPos = mul(Pos, ShadowViewProjection[light]);
+	
+		// Project the texture coords and scale/offset to [0, 1].
+		float2 ShadowTexC = ShadowPos.xy / ShadowPos.w;
+		ShadowTexC.x =  0.5f*ShadowPos.x + 0.5f; 
+		ShadowTexC.y = -0.5f*ShadowPos.y + 0.5f;
+		//float2 ShadowTexC = (ShadowPos.xy / ShadowPos.w) * float2(0.5, -0.5) + 0.5;
+		
+		//float3 DirToLight = lightPosition[light] - Pos.xyz;
+		//float DistToLight = length(DirToLight);
+	
+		//float RescaledDist = RescaleDistToLight(DistToLight, light);
+		float RescaledDist = ShadowPos.z / ShadowPos.w;
+	
+		float2 Moments = tex2Dlod(shadowMapSampler, float4(ShadowTexC, 0, 1)).rg;
+		//float2 Moments = tex2D(DynamicShadowMapSampler1, ShadowTexC).rg;
+		Moments = Moments + GetFPBias();
+	
+		float ShadowContrib = ChebyshevUpperBound(Moments, RescaledDist, VSMMinVariance);
+    
+		[flatten] 
+		if (LBREnable)
+		{
+			ShadowContrib = LBR(ShadowContrib);
+		}
+	
+		return ShadowContrib;
+	}
 }
 
 //////////////////////////////////////

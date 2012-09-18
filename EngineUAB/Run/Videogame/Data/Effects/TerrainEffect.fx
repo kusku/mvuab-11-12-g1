@@ -78,6 +78,7 @@ struct VertexShaderOutput
     float4	Position		: POSITION0;
 	float2	TexCoord		: TEXCOORD0;
     float2	TiledTexCoord	: TEXCOORD1;
+	float4	WVPPos			: TEXCOORD3;
 	float3	Normal			: NORMAL0;
 	float3	EyePosition		: NORMAL1;
 	float4	WPos			: NORMAL2;
@@ -128,7 +129,8 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 	output.TexCoord = input.TexCoord;
 
 	output.TiledTexCoord = input.TiledTexCoord;
-
+	
+	output.WVPPos = output.Position;	
 	output.WPos = WorldSpacePosition;
 	output.EyePosition = CameraPosition - WorldSpacePosition.xyz;
 	
@@ -182,19 +184,19 @@ PixelShaderOutput PixelShaderFunction(VertexShaderOutput input, uniform bool sha
 			{
 				if(i == 0)
 				{
-					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler1, i);
+					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler1, i, input.WVPPos);
 				}
 				else if(i == 1)
 				{
-					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler2, i);
+					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler2, i, input.WVPPos);
 				}
 				else if(i == 2)
 				{
-					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler3, i);
+					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler3, i, input.WVPPos);
 				}
 				else
 				{
-					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler4, i);
+					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler4, i, input.WVPPos);
 				}
 			}
 			
@@ -202,19 +204,19 @@ PixelShaderOutput PixelShaderFunction(VertexShaderOutput input, uniform bool sha
 			{
 				if(i == 0)
 				{
-					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler1, i);
+					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler1, i, input.WVPPos);
 				}
 				else if(i == 1)
 				{
-					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler2, i);
+					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler2, i, input.WVPPos);
 				}
 				else if(i == 2)
 				{
-					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler3, i);
+					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler3, i, input.WVPPos);
 				}
 				else
 				{
-					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler4, i);
+					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler4, i, input.WVPPos);
 				}
 			}
 		}
@@ -238,6 +240,19 @@ PixelShaderOutput PixelShaderFunction(VertexShaderOutput input, uniform bool sha
 		}
 		
 		DiffuseColor += passColor;
+
+		//if(CascadeGroup == 1)
+		//{
+		//	DiffuseColor += float4(1, 0, 0, 1);
+		//}
+		//if(CascadeGroup == 2)
+		//{
+		//	DiffuseColor += float4(0, 1, 0, 1);
+		//}
+		//if(CascadeGroup == 3)
+		//{
+		//	DiffuseColor += float4(0, 0, 1, 1);
+		//}
 	}
 
 	float3 tileC = TileColor(input.TiledTexCoord, input.TexCoord);

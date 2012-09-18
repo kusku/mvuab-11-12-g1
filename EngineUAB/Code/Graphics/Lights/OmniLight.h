@@ -13,6 +13,8 @@
 class CXMLTreeNode;
 class CRenderManager;
 
+#include "Textures\Texture.h"
+
 #include "Light.h"
 
 class COmniLight : public CLight
@@ -23,7 +25,11 @@ public:
 	virtual ~COmniLight();
 
 	virtual void		Render				( CRenderManager* RM );
+	virtual void		RenderShadows		( CRenderManager* RM );
 	void				SetShadowMap		(  );
+
+	protected:
+		void		CreateShadowTextures(bool staticMap, CTexture::TFormatType formatStatic, uint32 staticWidth, uint32 staticHeight, bool dynamicMap, CTexture::TFormatType formatDynamic, uint32 dynamicWidth, uint32 dynamicHeight);
 };
 
 #endif
