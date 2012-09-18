@@ -116,7 +116,7 @@ void CRabbitAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 				
 			if ( l_ActiveActionState == RABBIT_STILL_ATTACK_STATE ) 
 			{
-				//m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetStillAttackState());
+				m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetStillAttackState());
 			}	
 			else if ( l_ActiveActionState == RABBIT_RUN_ATTACK_STATE ) 
 			{
@@ -124,7 +124,7 @@ void CRabbitAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 			}	
 			else if ( l_ActiveActionState == RABBIT_DEFENSE_STATE ) 
 			{
-				//m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetDefenseState());
+				m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetDefenseState());
 			}		
 			// else if ( l_ActiveActionState == "jump" ) then
 				// _CCharacter.logic_fsm:change_state(_CCharacter.jump_state)
