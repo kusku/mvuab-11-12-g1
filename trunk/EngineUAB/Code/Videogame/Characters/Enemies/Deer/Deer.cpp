@@ -175,38 +175,38 @@ bool CDeer::Init( void )
 void CDeer::CreateCallbacks(void)
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	l_Process->GetAnimationCallbackManager()->CreateCallback(DEER_HIT_STATE, this->GetAnimatedModel());
-	l_Process->GetAnimationCallbackManager()->CreateCallback(DEER_STILL_ATTACK_STATE, this->GetAnimatedModel());
-	l_Process->GetAnimationCallbackManager()->CreateCallback(DEER_RUN_ATTACK_STATE, this->GetAnimatedModel());
-	l_Process->GetAnimationCallbackManager()->CreateCallback(DEER_DEATH_STATE, this->GetAnimatedModel());
+	l_Process->GetAnimationCallbackManager()->CreateCallback(GetName(), DEER_HIT_STATE, this->GetAnimatedModel());
+	l_Process->GetAnimationCallbackManager()->CreateCallback(GetName(), DEER_STILL_ATTACK_STATE, this->GetAnimatedModel());
+	l_Process->GetAnimationCallbackManager()->CreateCallback(GetName(), DEER_RUN_ATTACK_STATE, this->GetAnimatedModel());
+	l_Process->GetAnimationCallbackManager()->CreateCallback(GetName(), DEER_DEATH_STATE, this->GetAnimatedModel());
 }
 
 void CDeer::LoadGraphicStates( void )
 {
-	m_pAnimationIdleState			= new CDeerIdleAnimationState();
-	m_pAnimationRunState			= new CDeerRunAnimationState();
-	m_pAnimationDeathState			= new CDeerDeathAnimationState();
-	m_pAnimationHitState			= new CDeerHitAnimationState();
-	m_pAnimationDefenseState		= new CDeerDefenseAnimationState();
-	m_pAnimationRunAttackState		= new CDeerRunAttackAnimationState();
-	m_pAnimationStillAttackState	= new CDeerStillAttackAnimationState();
-	m_pAnimationWalkState			= new CDeerWalkAnimationState();
+	m_pAnimationIdleState			= new CDeerIdleAnimationState			(this);
+	m_pAnimationRunState			= new CDeerRunAnimationState			(this);
+	m_pAnimationDeathState			= new CDeerDeathAnimationState			(this);
+	m_pAnimationHitState			= new CDeerHitAnimationState			(this);
+	m_pAnimationDefenseState		= new CDeerDefenseAnimationState		(this);
+	m_pAnimationRunAttackState		= new CDeerRunAttackAnimationState		(this);
+	m_pAnimationStillAttackState	= new CDeerStillAttackAnimationState	(this);
+	m_pAnimationWalkState			= new CDeerWalkAnimationState			(this);
 	
 	return;
 }
 
 void CDeer::LoadLogicStates( void )
 {
-	m_pIdleState				= new CDeerIdleState();
-	m_pPursuitState				= new CDeerPursuitState();
-	m_pPreparedToAttackState	= new CDeerPreparedToAttackState();
-	m_pAttackState				= new CDeerAttackState();
-	m_pTiredState				= new CDeerTiredState();
-	m_pHitState					= new CDeerHitState();
-	m_pDefenseState				= new CDeerDefenseState();
-	m_pStillAttackState			= new CDeerStillAttackState();
-	m_pRunAttackState			= new CDeerRunAttackState();
-	m_pDeathState				= new CDeerDeathState();
+	m_pIdleState				= new CDeerIdleState				(this);
+	m_pPursuitState				= new CDeerPursuitState				(this);
+	m_pPreparedToAttackState	= new CDeerPreparedToAttackState	(this);
+	m_pAttackState				= new CDeerAttackState				(this);
+	m_pTiredState				= new CDeerTiredState				(this);
+	m_pHitState					= new CDeerHitState					(this);
+	m_pDefenseState				= new CDeerDefenseState				(this);
+	m_pStillAttackState			= new CDeerStillAttackState			(this);
+	m_pRunAttackState			= new CDeerRunAttackState			(this);
+	m_pDeathState				= new CDeerDeathState				(this);
 	
 	return;
 }

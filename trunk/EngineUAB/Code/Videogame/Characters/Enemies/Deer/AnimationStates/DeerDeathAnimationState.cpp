@@ -12,14 +12,14 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CDeerDeathAnimationState::CDeerDeathAnimationState( void )
-	: CState	( "CDeerDeathAnimationState" )
+CDeerDeathAnimationState::CDeerDeathAnimationState( CCharacter* _pCharacter )
+	: CState	(_pCharacter, "CDeerDeathAnimationState" )
 	, m_pDeer	( NULL )
 {
 }
 
-CDeerDeathAnimationState::CDeerDeathAnimationState( const std::string &_Name )
-	: CState	(_Name)
+CDeerDeathAnimationState::CDeerDeathAnimationState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState	(_pCharacter,_Name)
 	, m_pDeer	( NULL )
 {}
 
@@ -43,23 +43,23 @@ void CDeerDeathAnimationState::Execute( CCharacter*, float _ElapsedTime )
 {
 }
 
-void CDeerDeathAnimationState::OnEnter( CCharacter* _Character )
+void CDeerDeathAnimationState::OnEnter( CCharacter* _pCharacter )
 {
 	if ( !m_pDeer ) 
 	{
 		// Almacenamos el enemigo
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 
 	int l_Num = m_pDeer->GetAnimationID(DEER_DEATH_STATE);
 	m_pDeer->GetAnimatedModel()->ExecuteAction( l_Num, 0.3f );
 }
 
-void CDeerDeathAnimationState::OnExit( CCharacter* _Character )
+void CDeerDeathAnimationState::OnExit( CCharacter* _pCharacter )
 {
 	if ( !m_pDeer ) 
 	{
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 
 	if ( m_pDeer )

@@ -16,8 +16,8 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-CPlayerDefenseState::CPlayerDefenseState( const std::string &_Name )
-	: CState(_Name)
+CPlayerDefenseState::CPlayerDefenseState( CCharacter * _pCharacter, const std::string &_Name )
+	: CState(_pCharacter, _Name)
 {
 
 }

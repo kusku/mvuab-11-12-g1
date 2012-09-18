@@ -17,8 +17,8 @@ class CDeerPreparedToAttackState : public CState<CCharacter>
 public:
 
 	// ------------- Constructors i Destructors --------------
-					CDeerPreparedToAttackState	( void );
-					CDeerPreparedToAttackState	( const std::string &_Name );
+					CDeerPreparedToAttackState	( CCharacter* );
+					CDeerPreparedToAttackState	( CCharacter*, const std::string &_Name );
 	virtual			~CDeerPreparedToAttackState	( void );
 
 	//----Main Functions --------------------------------------

@@ -17,8 +17,8 @@ class CWolfPreparedToAttackState : public CState<CCharacter>
 public:
 
 	// ------------- Constructors i Destructors --------------
-					CWolfPreparedToAttackState	( void );
-					CWolfPreparedToAttackState	( const std::string &_Name );
+					CWolfPreparedToAttackState	( CCharacter* );
+					CWolfPreparedToAttackState	( CCharacter*, const std::string &_Name );
 	virtual			~CWolfPreparedToAttackState	( void );
 
 	//----Main Functions --------------------------------------

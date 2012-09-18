@@ -12,14 +12,14 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CRabbitStillAttackAnimationState::CRabbitStillAttackAnimationState( void )
-	: CState	("CRabbitStillAttackAnimationState")
+CRabbitStillAttackAnimationState::CRabbitStillAttackAnimationState( CCharacter* _pCharacter )
+	: CState	( _pCharacter, "CRabbitStillAttackAnimationState")
 	, m_pRabbit	( NULL )
 {
 }
 
-CRabbitStillAttackAnimationState::CRabbitStillAttackAnimationState( const std::string &_Name )
-	: CState	(_Name)
+CRabbitStillAttackAnimationState::CRabbitStillAttackAnimationState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState	(_pCharacter, _Name)
 	, m_pRabbit	( NULL )
 {
 }
@@ -43,11 +43,11 @@ void CRabbitStillAttackAnimationState::Execute( CCharacter*, float _ElapsedTime 
 {
 }
 
-void CRabbitStillAttackAnimationState::OnEnter( CCharacter* _Character )
+void CRabbitStillAttackAnimationState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pRabbit) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
 	/*int l_iAnimID = m_pRabbit->GetAnimationID(RABBIT_WALK_STATE);
@@ -57,12 +57,12 @@ void CRabbitStillAttackAnimationState::OnEnter( CCharacter* _Character )
 	m_pRabbit->GetAnimatedModel()->ExecuteAction( l_Num, 0.3f );
 }
 
-void CRabbitStillAttackAnimationState::OnExit( CCharacter* _Character )
+void CRabbitStillAttackAnimationState::OnExit( CCharacter* _pCharacter )
 {
 	if ( !m_pRabbit ) 
 	{
 		// Almacenamos el enemigo
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 	
 	if ( m_pRabbit ) 

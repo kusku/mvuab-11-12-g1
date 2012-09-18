@@ -18,8 +18,8 @@ class CWolfDeathState : public CState<CCharacter>
 public:
 
 	// ------------- Constructors i Destructors --------------
-					CWolfDeathState	( void );
-					CWolfDeathState	( const std::string &_Name );
+					CWolfDeathState	( CCharacter* );
+					CWolfDeathState	( CCharacter*, const std::string &_Name );
 	virtual			~CWolfDeathState	( void );
 
 	//----Main Functions --------------------------------------

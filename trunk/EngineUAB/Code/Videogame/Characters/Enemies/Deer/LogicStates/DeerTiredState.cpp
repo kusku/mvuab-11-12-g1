@@ -28,8 +28,8 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CDeerTiredState::CDeerTiredState( void )
-	: CState		("CDeerTiredState")
+CDeerTiredState::CDeerTiredState( CCharacter* _pCharacter )
+	: CState		(_pCharacter, "CDeerTiredState")
 	, m_ActionTime	( 1.5f, 2.f )
 	, m_pDeer		( NULL )
 	, m_MinTime		( 1.f )
@@ -37,8 +37,8 @@ CDeerTiredState::CDeerTiredState( void )
 {
 }
 
-CDeerTiredState::CDeerTiredState( const std::string &_Name )
-	: CState		(_Name)
+CDeerTiredState::CDeerTiredState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState		(_pCharacter, _Name)
 	, m_ActionTime	( 1.f, 2.f )
 	, m_pDeer		( NULL )
 	, m_MinTime		( 1.f )
@@ -56,11 +56,11 @@ CDeerTiredState::~CDeerTiredState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CDeerTiredState::OnEnter( CCharacter* _Character )
+void CDeerTiredState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pDeer) 
 	{
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 
 	m_ActionTime.InitAction(m_MinTime, m_MaxTime);
@@ -87,11 +87,11 @@ void CDeerTiredState::OnEnter( CCharacter* _Character )
 }
 
 
-void CDeerTiredState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CDeerTiredState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
 	if (!m_pDeer) 
 	{
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 	
 	LOGGER->AddNewLog(ELL_INFORMATION, "CDeerTiredState::Execute-> %s Cansado durante %f segons", m_pDeer->GetName().c_str(), m_MaxTime );
@@ -111,17 +111,17 @@ void CDeerTiredState::Execute( CCharacter* _Character, float _ElapsedTime )
 }
 
 
-void CDeerTiredState::OnExit( CCharacter* _Character )
+void CDeerTiredState::OnExit( CCharacter* _pCharacter )
 {
 }
 
-bool CDeerTiredState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CDeerTiredState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
 		if (!m_pDeer) 
 		{
-			m_pDeer = dynamic_cast<CDeer*> (_Character);
+			m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 		}
 
 		m_pDeer->RestLife(50); 

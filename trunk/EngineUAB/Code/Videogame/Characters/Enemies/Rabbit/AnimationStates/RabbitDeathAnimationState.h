@@ -16,8 +16,8 @@ class CRabbitDeathAnimationState : public CState<CCharacter>
 {
 public:
 	// ------------- Constructors i Destructors --------------
-					CRabbitDeathAnimationState	( void );
-					CRabbitDeathAnimationState	( const std::string &_Name );
+					CRabbitDeathAnimationState	( CCharacter* );
+					CRabbitDeathAnimationState	( CCharacter* _pCharacter, const std::string &_Name );
 	virtual			~CRabbitDeathAnimationState	( void );
 
 	//----Main Functions --------------------------------------

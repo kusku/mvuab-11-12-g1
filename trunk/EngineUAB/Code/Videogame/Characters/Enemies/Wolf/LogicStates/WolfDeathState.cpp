@@ -33,22 +33,22 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CWolfDeathState::CWolfDeathState( void )
-	: CState				("CWolfDeathState")
+CWolfDeathState::CWolfDeathState( CCharacter* _pCharacter )
+	: CState				(_pCharacter,"CWolfDeathState")
 	, m_pWolf				( NULL )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(WOLF_DEATH_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),WOLF_DEATH_STATE);
 }
 
-CWolfDeathState::CWolfDeathState( const std::string &_Name )
-	: CState				(_Name)
+CWolfDeathState::CWolfDeathState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState				(_pCharacter,_Name)
 	, m_pWolf				( NULL )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(WOLF_DEATH_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),WOLF_DEATH_STATE);
 }
 
 
@@ -62,11 +62,11 @@ CWolfDeathState::~CWolfDeathState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CWolfDeathState::OnEnter( CCharacter* _Character )
+void CWolfDeathState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pWolf) 
 	{
-		m_pWolf = dynamic_cast<CWolf*> (_Character);
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 
 #if defined _DEBUG
@@ -80,11 +80,11 @@ void CWolfDeathState::OnEnter( CCharacter* _Character )
 	m_pAnimationCallback->Init();
 }
 
-void CWolfDeathState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CWolfDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
 	if (!m_pWolf) 
 	{
-		m_pWolf = dynamic_cast<CWolf*> (_Character);
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 	
 	// Si és atacable miro si llegué al màximo de lo que permito que me golpeen y bloqueo
@@ -138,11 +138,11 @@ void CWolfDeathState::Execute( CCharacter* _Character, float _ElapsedTime )
 }
 
 
-void CWolfDeathState::OnExit( CCharacter* _Character )
+void CWolfDeathState::OnExit( CCharacter* _pCharacter )
 {
 }
 
-bool CWolfDeathState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CWolfDeathState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
 	return false;
 }

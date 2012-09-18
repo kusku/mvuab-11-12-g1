@@ -43,26 +43,26 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CRabbitHitState::CRabbitHitState( void )
-	: CState				("CRabbitHitState")
+CRabbitHitState::CRabbitHitState( CCharacter* _pCharacter )
+	: CState				(_pCharacter, "CRabbitHitState")
 	, m_pRabbit				( NULL )
 	, m_pActionState		( 0.f, 1.f )
 	, m_pAnimationCallback	( NULL )
 	, m_IsCommingFromTired	( false )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RABBIT_HIT_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),RABBIT_HIT_STATE);
 }
 
-CRabbitHitState::CRabbitHitState( const std::string &_Name )
-	: CState				(_Name)
+CRabbitHitState::CRabbitHitState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState				(_pCharacter, _Name)
 	, m_pRabbit				( NULL )
 	, m_pActionState		( 0.f, 1.f )
 	, m_pAnimationCallback	( NULL )
 	, m_IsCommingFromTired	( false )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(RABBIT_HIT_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),RABBIT_HIT_STATE);
 }
 
 
@@ -76,11 +76,11 @@ CRabbitHitState::~CRabbitHitState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CRabbitHitState::OnEnter( CCharacter* _Character )
+void CRabbitHitState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pRabbit) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 	
 	// Si volvemos de haber recibido y después de estar cansados nos salimos.
@@ -116,11 +116,11 @@ void CRabbitHitState::OnEnter( CCharacter* _Character )
 	#endif
 }
 
-void CRabbitHitState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CRabbitHitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
 	if (!m_pRabbit) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
 	/*if ( m_pAnimationCallback->IsAnimationStarted() ) 
@@ -172,11 +172,11 @@ void CRabbitHitState::Execute( CCharacter* _Character, float _ElapsedTime )
 	}
 }
 
-void CRabbitHitState::OnExit( CCharacter* _Character )
+void CRabbitHitState::OnExit( CCharacter* _pCharacter )
 {
 }
 
-bool CRabbitHitState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CRabbitHitState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
 	return false;
 }

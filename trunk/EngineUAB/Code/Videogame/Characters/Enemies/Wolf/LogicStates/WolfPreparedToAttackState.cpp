@@ -38,14 +38,14 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CWolfPreparedToAttackState::CWolfPreparedToAttackState( void )
-	: CState	("CWolfPreparedToAttackState")
+CWolfPreparedToAttackState::CWolfPreparedToAttackState( CCharacter* _pCharacter )
+	: CState	( _pCharacter, "CWolfPreparedToAttackState")
 	, m_pWolf	( NULL )
 {
 }
 
-CWolfPreparedToAttackState::CWolfPreparedToAttackState( const std::string &_Name )
-	: CState		(_Name)
+CWolfPreparedToAttackState::CWolfPreparedToAttackState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState		(_pCharacter, _Name)
 	, m_pWolf		( NULL )
 {
 }
@@ -60,11 +60,11 @@ CWolfPreparedToAttackState::~CWolfPreparedToAttackState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CWolfPreparedToAttackState::OnEnter( CCharacter* _Character )
+void CWolfPreparedToAttackState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pWolf) 
 	{
-		m_pWolf = dynamic_cast<CWolf*> (_Character);
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 
 	m_pWolf->GetBehaviors()->SeekOff();
@@ -74,11 +74,11 @@ void CWolfPreparedToAttackState::OnEnter( CCharacter* _Character )
 	m_pWolf->GetBehaviors()->SeparationOn();
 }
 
-void CWolfPreparedToAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CWolfPreparedToAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
 	if (!m_pWolf) 
 	{
-		m_pWolf = dynamic_cast<CWolf*> (_Character);
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 
 	#if defined _DEBUG
@@ -161,7 +161,7 @@ void CWolfPreparedToAttackState::Execute( CCharacter* _Character, float _Elapsed
 }
 
 
-void CWolfPreparedToAttackState::OnExit( CCharacter* _Character )
+void CWolfPreparedToAttackState::OnExit( CCharacter* _pCharacter )
 {
 	m_pWolf->GetBehaviors()->SeekOff();
 	m_pWolf->GetBehaviors()->PursuitOff();
@@ -170,7 +170,7 @@ void CWolfPreparedToAttackState::OnExit( CCharacter* _Character )
 	m_pWolf->GetBehaviors()->SeparationOff();
 }
 
-bool CWolfPreparedToAttackState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CWolfPreparedToAttackState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
 	{
 		// TODO!!
@@ -187,7 +187,7 @@ bool CWolfPreparedToAttackState::OnMessage( CCharacter* _Character, const STeleg
 
 		if (!m_pWolf) 
 		{
-			m_pWolf = dynamic_cast<CWolf*> (_Character);
+			m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 		}
 
 		m_pWolf->RestLife(1000); 

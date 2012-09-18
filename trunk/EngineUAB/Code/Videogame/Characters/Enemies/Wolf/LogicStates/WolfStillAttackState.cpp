@@ -41,22 +41,22 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CWolfStillAttackState::CWolfStillAttackState( void )
-	: CState				("CWolfStillAttackState")
+CWolfStillAttackState::CWolfStillAttackState( CCharacter* _pCharacter )
+	: CState				(_pCharacter, "CWolfStillAttackState")
 	, m_pWolf				( NULL )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(WOLF_STILL_ATTACK_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),WOLF_STILL_ATTACK_STATE);
 }
 
-CWolfStillAttackState::CWolfStillAttackState( const std::string &_Name )
-	: CState				(_Name)
+CWolfStillAttackState::CWolfStillAttackState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState				(_pCharacter, _Name)
 	, m_pWolf				( NULL )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(WOLF_STILL_ATTACK_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),WOLF_STILL_ATTACK_STATE);
 }
 
 
@@ -70,11 +70,11 @@ CWolfStillAttackState::~CWolfStillAttackState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CWolfStillAttackState::OnEnter( CCharacter* _Character )
+void CWolfStillAttackState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pWolf) 
 	{
-		m_pWolf = dynamic_cast<CWolf*> (_Character);
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 	
 #if defined _DEBUG
@@ -241,7 +241,7 @@ void CWolfStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 }
 
 
-void CWolfStillAttackState::OnExit( CCharacter* _Character )
+void CWolfStillAttackState::OnExit( CCharacter* _pCharacter )
 {
 	// nos volvemos
 	/*m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetAttackState());

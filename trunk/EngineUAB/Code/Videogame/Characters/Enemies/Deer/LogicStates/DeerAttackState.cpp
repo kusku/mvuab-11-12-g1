@@ -36,15 +36,15 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CDeerAttackState::CDeerAttackState( void )
-	: CState		("CDeerAttackState")
+CDeerAttackState::CDeerAttackState( CCharacter* _pCharacter )
+	: CState		(_pCharacter, "CDeerAttackState")
 	, m_ActionTime	( CActionStateCallback( 1.f, 2.f ) )
 	, m_pDeer		( NULL )
 {
 }
 
-CDeerAttackState::CDeerAttackState( const std::string &_Name )
-	: CState		(_Name)
+CDeerAttackState::CDeerAttackState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState		(_pCharacter, _Name)
 	, m_ActionTime	( CActionStateCallback( 1.f, 2.f ) )
 	, m_pDeer		( NULL )
 {
@@ -60,11 +60,11 @@ CDeerAttackState::~CDeerAttackState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CDeerAttackState::OnEnter( CCharacter* _Character )
+void CDeerAttackState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pDeer) 
 	{
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 
 	// Permite saber si el caracter ha realizado los golpes para cansarse. Ponemos a 2 el hits_done para obligar a que cuando entra en este estado haga una minima pausa antes de atacar
@@ -117,18 +117,18 @@ void CDeerAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 			}	
 			else if ( l_ActiveActionState == DEER_RUN_ATTACK_STATE ) 
 			{
-				m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetRunAttackState());
+			//	m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetRunAttackState());
 			}	
 			else if ( l_ActiveActionState == DEER_DEFENSE_STATE ) 
 			{
-				m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetDefenseState());
+				//m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetDefenseState());
 			}	
 			// else if ( l_ActiveActionState == "jump" ) then
 				// _CCharacter.logic_fsm:change_state(_CCharacter.jump_state)
 			else if ( l_ActiveActionState == "go_in_to_fustrum" ) 
 			{
 				float l_Angle = 22.f;		// 22,5 graus de fustrum
-				m_pDeer->GoIntoCameraFrustum(l_Angle, _ElapsedTime);
+				//m_pDeer->GoIntoCameraFrustum(l_Angle, _ElapsedTime);
 			}
 		} 	// End fatigue
 	}	
@@ -139,11 +139,11 @@ void CDeerAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 	}
 }
 
-void CDeerAttackState::OnExit( CCharacter* _Character )
+void CDeerAttackState::OnExit( CCharacter* _pCharacter )
 {
 	if (!m_pDeer) 
 	{
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 
 	m_pDeer->GetBehaviors()->SeparationOff();
@@ -162,6 +162,7 @@ bool CDeerAttackState::OnMessage( CCharacter* _Character, const STelegram& _Tele
 
 		m_pDeer->RestLife(50); 
 		m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetHitState());
+		m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetHitAnimationState());
 		return true;
 	}
 

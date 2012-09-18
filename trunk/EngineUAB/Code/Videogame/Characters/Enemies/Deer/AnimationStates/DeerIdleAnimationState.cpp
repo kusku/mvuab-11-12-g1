@@ -11,14 +11,14 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CDeerIdleAnimationState::CDeerIdleAnimationState( void )
-	: CState	("CDeerIdleAnimationState")
+CDeerIdleAnimationState::CDeerIdleAnimationState( CCharacter* _pCharacter )
+	: CState	(_pCharacter,"CDeerIdleAnimationState")
 	, m_pDeer	( NULL )
 {
 }
 
-CDeerIdleAnimationState::CDeerIdleAnimationState( const std::string &_Name )
-	: CState	(_Name)
+CDeerIdleAnimationState::CDeerIdleAnimationState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState	(_pCharacter,_Name)
 	, m_pDeer	( NULL )
 {}
 
@@ -37,12 +37,12 @@ CDeerIdleAnimationState::~CDeerIdleAnimationState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CDeerIdleAnimationState::OnEnter( CCharacter* _Character )
+void CDeerIdleAnimationState::OnEnter( CCharacter* _pCharacter )
 {
 	if ( !m_pDeer ) 
 	{
 		// Almacenamos el enemigo
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 
 	int l_Num = m_pDeer->GetAnimationID(DEER_IDLE_STATE);
@@ -53,11 +53,11 @@ void CDeerIdleAnimationState::Execute( CCharacter*, float _ElapsedTime )
 {
 }
 
-void CDeerIdleAnimationState::OnExit( CCharacter* _Character )
+void CDeerIdleAnimationState::OnExit( CCharacter* _pCharacter )
 {
 	if (!m_pDeer) 
 	{
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 
 	int l_Num = m_pDeer->GetAnimationID(DEER_IDLE_STATE);

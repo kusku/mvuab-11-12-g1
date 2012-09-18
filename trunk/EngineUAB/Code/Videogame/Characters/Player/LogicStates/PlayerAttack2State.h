@@ -14,7 +14,7 @@ class CParticleEmitter;
 class CPlayerAttack2State : public CState< CCharacter >
 {
 public:
-	CPlayerAttack2State( const std::string &_Name );
+	CPlayerAttack2State( CCharacter * _pCharacter, const std::string &_Name );
 	~CPlayerAttack2State();
 
 	void	OnEnter		(  CCharacter* _pCharacter );

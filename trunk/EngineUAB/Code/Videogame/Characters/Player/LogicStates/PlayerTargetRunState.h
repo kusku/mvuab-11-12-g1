@@ -12,7 +12,7 @@ struct STelegram;
 class CPlayerTargetRunState : public CState< CCharacter >
 {
 public:
-	CPlayerTargetRunState( const std::string &_Name );
+	CPlayerTargetRunState( CCharacter * _pCharacter, const std::string &_Name );
 	~CPlayerTargetRunState();
 
 	void	OnEnter		(  CCharacter* _pCharacter );

@@ -18,8 +18,8 @@ class CWolfStillAttackState : public CState<CCharacter>
 public:
 
 	// ------------- Constructors i Destructors --------------
-					CWolfStillAttackState	( void );
-					CWolfStillAttackState	( const std::string &_Name );
+					CWolfStillAttackState	( CCharacter* );
+					CWolfStillAttackState	( CCharacter*, const std::string &_Name );
 	virtual			~CWolfStillAttackState	( void );
 
 	//----Main Functions --------------------------------------

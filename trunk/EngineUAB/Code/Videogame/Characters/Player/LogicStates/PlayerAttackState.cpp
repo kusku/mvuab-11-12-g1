@@ -27,15 +27,15 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-CPlayerAttackState::CPlayerAttackState( const std::string &_Name )
-	: CState(_Name)
+CPlayerAttackState::CPlayerAttackState( CCharacter * _pCharacter, const std::string &_Name )
+	: CState(_pCharacter, _Name)
 	, m_bFirstUpdate(true)
 	, m_fMaxVelocityMovement(10.f)
 	, m_fCurrentVelocityMovement(10.f)
 	, m_fAccelerationMovement(-40.f)
 	, m_fAttackYaw(0.f)
 {
-	m_pCallback			= static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager()->GetCallback("attack1");
+	m_pCallback			= static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(), "attack1");
 	m_pParticleEmitter	= CORE->GetParticleEmitterManager()->GetResource("SwordRight");
 }
 

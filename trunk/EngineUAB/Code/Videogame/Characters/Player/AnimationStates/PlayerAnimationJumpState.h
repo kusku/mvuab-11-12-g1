@@ -12,7 +12,7 @@ struct STelegram;
 class CPlayerAnimationJumpState : public CState< CCharacter >
 {
 public:
-	CPlayerAnimationJumpState( const std::string &_Name );
+	CPlayerAnimationJumpState( CCharacter* _pCharacter, const std::string &_Name );
 	~CPlayerAnimationJumpState();
 
 	void	OnEnter		(  CCharacter* _pCharacter );

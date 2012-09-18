@@ -21,8 +21,8 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-CPlayerRunState::CPlayerRunState( const std::string &_Name )
-	: CState(_Name)
+CPlayerRunState::CPlayerRunState( CCharacter * _pCharacter, const std::string &_Name )
+	: CState(_pCharacter, _Name)
 	, m_fRotationVelocity(10.f)
 	, m_fMaxVelocityMovement(10.f)
 	, m_fCurrentVelocityMovement(0.f)

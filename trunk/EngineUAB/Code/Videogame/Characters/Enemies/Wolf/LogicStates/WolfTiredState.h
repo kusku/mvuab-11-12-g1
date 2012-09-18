@@ -18,9 +18,9 @@ class CWolfTiredState : public CState<CCharacter>
 public:
 
 	// ------------- Constructors i Destructors --------------
-					CWolfTiredState	( void );
-					CWolfTiredState	( const std::string &_Name );
-	virtual			~CWolfTiredState	( void );
+					CWolfTiredState	( CCharacter* );
+					CWolfTiredState	( CCharacter*, const std::string &_Name );
+	virtual			~CWolfTiredState( void );
 
 	//----Main Functions --------------------------------------
 	virtual void	Execute		( CCharacter*, float _ElapsedTime );

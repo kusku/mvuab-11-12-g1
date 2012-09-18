@@ -28,8 +28,8 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-CPlayerTargetRunState::CPlayerTargetRunState( const std::string &_Name )
-	: CState(_Name)
+CPlayerTargetRunState::CPlayerTargetRunState( CCharacter * _pCharacter, const std::string &_Name )
+	: CState(_pCharacter, _Name)
 	, m_pTargetEnemy(NULL)
 	, m_fMaxVelocityMovement(10.f)
 	, m_fCurrentVelocityMovement(0.f)

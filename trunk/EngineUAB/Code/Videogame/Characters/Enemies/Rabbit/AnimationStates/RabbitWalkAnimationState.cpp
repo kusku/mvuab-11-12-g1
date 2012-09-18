@@ -11,14 +11,14 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CRabbitWalkAnimationState::CRabbitWalkAnimationState( void )
-	: CState	("CRabbitWalkAnimationState")
+CRabbitWalkAnimationState::CRabbitWalkAnimationState( CCharacter* _pCharacter )
+	: CState	( _pCharacter, "CRabbitWalkAnimationState")
 	, m_pRabbit	( NULL )
 {
 }
 
-CRabbitWalkAnimationState::CRabbitWalkAnimationState( const std::string &_Name )
-	: CState	(_Name)
+CRabbitWalkAnimationState::CRabbitWalkAnimationState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState	(_pCharacter, _Name)
 	, m_pRabbit	( NULL )
 {
 }
@@ -41,22 +41,22 @@ void CRabbitWalkAnimationState::Execute( CCharacter*, float _ElapsedTime )
 {
 }
 
-void CRabbitWalkAnimationState::OnEnter( CCharacter* _Character )
+void CRabbitWalkAnimationState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pRabbit) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
 	int l_Num = m_pRabbit->GetAnimationID(RABBIT_WALK_STATE);
 	m_pRabbit->GetAnimatedModel()->BlendCycle( l_Num, 0.3f );
 }
 
-void CRabbitWalkAnimationState::OnExit( CCharacter* _Character )
+void CRabbitWalkAnimationState::OnExit( CCharacter* _pCharacter )
 {
 	if (!m_pRabbit) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
 	if ( m_pRabbit )

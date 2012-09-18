@@ -28,14 +28,14 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CWolfPursuitState::CWolfPursuitState( void )
-	: CState	("CWolfPursuitState")
+CWolfPursuitState::CWolfPursuitState( CCharacter* _pCharacter )
+	: CState	( _pCharacter, "CWolfPursuitState")
 	, m_pWolf	( NULL )
 {
 }
 
-CWolfPursuitState::CWolfPursuitState( const std::string &_Name )
-	: CState		(_Name)
+CWolfPursuitState::CWolfPursuitState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState		(_pCharacter, _Name)
 	, m_pWolf		( NULL )
 {
 }
@@ -50,11 +50,11 @@ CWolfPursuitState::~CWolfPursuitState( void )
 //				MAIN METHODS
 // -----------------------------------------
 
-void CWolfPursuitState::OnEnter( CCharacter* _Character )
+void CWolfPursuitState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pWolf) 
 	{
-		m_pWolf = dynamic_cast<CWolf*> (_Character);
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 
 	m_pWolf->GetBehaviors()->GetSeek()->SetTarget(m_pWolf->GetPlayer()->GetPosition());
@@ -70,11 +70,11 @@ void CWolfPursuitState::OnEnter( CCharacter* _Character )
 	m_pWolf->GetBehaviors()->ObstacleWallAvoidanceOn();
 }
 
-void CWolfPursuitState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CWolfPursuitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
 	if (!m_pWolf) 
 	{
-		m_pWolf = dynamic_cast<CWolf*> (_Character);
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 	
 	m_pWolf->GetBehaviors()->SeekOff();
@@ -119,11 +119,11 @@ void CWolfPursuitState::Execute( CCharacter* _Character, float _ElapsedTime )
 }
 
 
-void CWolfPursuitState::OnExit( CCharacter* _Character )
+void CWolfPursuitState::OnExit( CCharacter* _pCharacter )
 {
 	if (!m_pWolf) 
 	{
-		m_pWolf = dynamic_cast<CWolf*> (_Character);
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 
 	m_pWolf->GetBehaviors()->SeekOff();
@@ -133,17 +133,17 @@ void CWolfPursuitState::OnExit( CCharacter* _Character )
 
 	m_pWolf->GetBehaviors()->SeparationOff();
 	m_pWolf->GetBehaviors()->CohesionOff();
-	//_Character->GetBehaviors()->AlignmentOff();
+	//_pCharacter->GetBehaviors()->AlignmentOff();
 	
 }
 
-bool CWolfPursuitState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CWolfPursuitState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
 		if (!m_pWolf) 
 		{
-			m_pWolf = dynamic_cast<CWolf*> (_Character);
+			m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 		}
 
 		m_pWolf->RestLife(1000); 

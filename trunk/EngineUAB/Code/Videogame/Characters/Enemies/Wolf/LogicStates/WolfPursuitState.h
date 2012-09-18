@@ -15,8 +15,8 @@ class CWolfPursuitState : public CState<CCharacter>
 {
 public:
 	// ------------- Constructors i Destructors --------------
-					CWolfPursuitState		( void );
-					CWolfPursuitState		( const std::string &_Name );
+					CWolfPursuitState	( CCharacter* );
+					CWolfPursuitState	( CCharacter*, const std::string &_Name );
 	virtual			~CWolfPursuitState	( void );
 
 	//----Main Functions --------------------------------------

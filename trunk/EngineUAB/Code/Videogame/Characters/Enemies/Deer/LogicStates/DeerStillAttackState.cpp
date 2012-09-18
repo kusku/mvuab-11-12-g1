@@ -32,6 +32,7 @@
 
 #include "Callbacks\Animation\AnimationCallback.h"
 #include "Callbacks\Animation\AnimationCallbackManager.h"
+#include "Callbacks\State\ActionStateCallback.h"
 
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 
@@ -46,42 +47,45 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CDeerStillAttackState::CDeerStillAttackState( void )
-	: CState				("CDeerStillAttackState")
+CDeerStillAttackState::CDeerStillAttackState( CCharacter* _pCharacter )
+	: CState				(_pCharacter, "CDeerStillAttackState")
 	, m_pDeer				( NULL )
 	, m_pAnimationCallback	( NULL )
-	, m_pActionStateCallback( 0, 1 )
+	, m_pActionStateCallback( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_STILL_ATTACK_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(), DEER_STILL_ATTACK_STATE);
+	m_pActionStateCallback = new CActionStateCallback(0,1);
 }
 
-CDeerStillAttackState::CDeerStillAttackState( const std::string &_Name )
-	: CState				(_Name)
+CDeerStillAttackState::CDeerStillAttackState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState				(_pCharacter, _Name)
 	, m_pDeer				( NULL )
 	, m_pAnimationCallback	( NULL )
-	, m_pActionStateCallback( 0, 1 )
+	, m_pActionStateCallback( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_STILL_ATTACK_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(), DEER_STILL_ATTACK_STATE);
+	m_pActionStateCallback = new CActionStateCallback(0,1);
 }
 
 
 CDeerStillAttackState::~CDeerStillAttackState(void)
 {
-	m_pDeer = NULL;
-	m_pAnimationCallback = NULL;
+	m_pDeer					= NULL;
+	m_pAnimationCallback	= NULL;
+	CHECKED_DELETE(	m_pActionStateCallback );
 }
 
 
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CDeerStillAttackState::OnEnter( CCharacter* _Character )
+void CDeerStillAttackState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pDeer) 
 	{
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 
 	m_pDeer->GetBehaviors()->SeparationOn();
@@ -98,7 +102,7 @@ void CDeerStillAttackState::OnEnter( CCharacter* _Character )
 #endif
 
 	//Lanza el sistema de partículas
-	UpdateParticlesPositions(m_pDeer);
+	//UpdateParticlesPositions(m_pDeer);
 	
 	// Gestión de sonidos e impacto
 	m_FirstHitReached	= false;
@@ -107,21 +111,33 @@ void CDeerStillAttackState::OnEnter( CCharacter* _Character )
 	m_SecondHitDone		= false;
 	m_SoundPlayed1		= false;
 	m_SoundPlayed2		= false;
-	m_pAnimationCallback->Init();
+	
 	m_pDeer->SetPlayerHasBeenReached( false );
 	
 	//CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerExclaim"); 
 	
-	m_pActionStateCallback.InitAction(0, m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_STILL_ATTACK_STATE) );
+	if ( m_pDeer->GetName() == "enemy29") 
+	{
+		bool l = m_pAnimationCallback->IsAnimationStarted();
+	}
+
+
+	m_pAnimationCallback->Init();
+	m_pActionStateCallback->InitAction(0, m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_STILL_ATTACK_STATE) );
 }
 
-void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CDeerStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
 	if (!m_pDeer) 
 	{
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 	
+	if ( m_pDeer->GetName() == "enemy29") 
+	{
+		bool l = m_pAnimationCallback->IsAnimationStarted();
+	}
+
 	if ( m_pAnimationCallback->IsAnimationStarted() ) 
 	{
 		// Compruebo si la animación a finalizado
@@ -208,6 +224,8 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 			// Ahora debemos actualizar las partículas
 			UpdateParticlesPositions(m_pDeer);
 
+			LOGGER->AddNewLog(ELL_WARNING, "CDeerStillAttackState::Execute->Aquí actualizo efectos de %s ", m_pDeer->GetName().c_str() );
+
 			m_pDeer->GetBehaviors()->SeekOff();
 			m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
 			m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime );
@@ -215,7 +233,7 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 
 			//float t = m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_STILL_ATTACK_STATE);
 
-			if ( m_pActionStateCallback.IsActionInTime( 0.2f ) && !m_FirstHitDone )
+			if ( m_pActionStateCallback->IsActionInTime( 0.2f ) && !m_FirstHitDone )
 			{
 				GetParticleEmitter(m_pDeer->GetName() + "_RightHand1")->EjectParticles();
 				GetParticleEmitter(m_pDeer->GetName() + "_RightHand11")->EjectParticles();
@@ -243,7 +261,7 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				}
 			}
 
-			if ( m_pActionStateCallback.IsActionInTime( 0.7f ) && !m_SecondHitDone )
+			if ( m_pActionStateCallback->IsActionInTime( 0.7f ) && !m_SecondHitDone )
 			{
 				GetParticleEmitter(m_pDeer->GetName() + "_LeftHand1")->EjectParticles();
 				GetParticleEmitter(m_pDeer->GetName() + "_LeftHand11")->EjectParticles();
@@ -277,7 +295,7 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				}
 			#endif
 
-			m_pActionStateCallback.Update(_ElapsedTime);
+			m_pActionStateCallback->Update(_ElapsedTime);
 		}
 	}
 	else
@@ -291,12 +309,13 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 
 			m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetStillAttackAnimationState());
 			m_pAnimationCallback->StartAnimation();
-			m_pActionStateCallback.StartAction();
+			m_pActionStateCallback->InitAction();
+			m_pActionStateCallback->StartAction();
 			
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
-					LOGGER->AddNewLog(ELL_INFORMATION,"CDeerStillAttackState::Execute->Inicio Animacion");
+					LOGGER->AddNewLog(ELL_WARNING,"CDeerStillAttackState::Execute->Inicio Animacion %s ", m_pDeer->GetName().c_str() );
 				}
 			#endif
 		}
@@ -311,10 +330,14 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 			// Rotamos al objetivo y movemos
 			m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime );
 			m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+
+			m_pAnimationCallback->Init();
+			m_pActionStateCallback->InitAction();
+
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
-					LOGGER->AddNewLog(ELL_INFORMATION,"CDeerStillAttackState::Execute->Nos acercamos primero");
+					LOGGER->AddNewLog(ELL_WARNING,"CDeerStillAttackState::Execute->Nos acercamos primero %s ", m_pDeer->GetName().c_str() );
 				}
 			#endif
 		}
@@ -343,13 +366,13 @@ void CDeerStillAttackState::OnExit( CCharacter* _pCharacter )
 	GetParticleEmitter(_pCharacter->GetName() + "_Impact1")->StopEjectParticles();
 }					   
 
-bool CDeerStillAttackState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CDeerStillAttackState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
 		if (!m_pDeer) 
 		{
-			m_pDeer = dynamic_cast<CDeer*> (_Character);
+			m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 		}
 
 		m_pDeer->RestLife(50); 

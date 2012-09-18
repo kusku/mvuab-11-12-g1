@@ -13,7 +13,7 @@ class CAnimationCallback;
 class CPlayerTargetAttack2State : public CState< CCharacter >
 {
 public:
-	CPlayerTargetAttack2State( const std::string &_Name );
+	CPlayerTargetAttack2State( CCharacter * _pCharacter, const std::string &_Name );
 	~CPlayerTargetAttack2State();
 
 	void	OnEnter		(  CCharacter* _pCharacter );

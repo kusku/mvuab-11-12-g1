@@ -20,9 +20,9 @@ class CDeerRunAttackState : public CState<CCharacter>
 public:
 
 	// ------------- Constructors i Destructors --------------
-					CDeerRunAttackState	( void );
-					CDeerRunAttackState	( const std::string &_Name );
-	virtual			~CDeerRunAttackState	( void );
+					CDeerRunAttackState	( CCharacter* );
+					CDeerRunAttackState	( CCharacter*, const std::string &_Name );
+	virtual			~CDeerRunAttackState( void );
 
 	//----Main Functions --------------------------------------
 	virtual void	Execute		( CCharacter*, float _ElapsedTime );

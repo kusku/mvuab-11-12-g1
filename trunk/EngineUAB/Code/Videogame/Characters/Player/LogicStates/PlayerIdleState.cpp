@@ -25,8 +25,8 @@
 #include "Memory\MemLeaks.h"
 #endif
 
-CPlayerIdleState::CPlayerIdleState( const std::string &_Name )
-	: CState(_Name)
+CPlayerIdleState::CPlayerIdleState( CCharacter * _pCharacter, const std::string &_Name )
+	: CState(_pCharacter, _Name)
 {
 
 }

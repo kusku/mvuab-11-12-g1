@@ -47,22 +47,22 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CDeerRunAttackState::CDeerRunAttackState( void )
-	: CState				("CDeerRunAttackState")
+CDeerRunAttackState::CDeerRunAttackState( CCharacter* _pCharacter )
+	: CState				(_pCharacter, "CDeerRunAttackState")
 	, m_pDeer				( NULL )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_RUN_ATTACK_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),DEER_RUN_ATTACK_STATE);
 }
 
-CDeerRunAttackState::CDeerRunAttackState( const std::string &_Name )
-	: CState				(_Name)
+CDeerRunAttackState::CDeerRunAttackState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState				(_pCharacter, _Name)
 	, m_pDeer				( NULL )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(DEER_RUN_ATTACK_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),DEER_RUN_ATTACK_STATE);
 }
 
 
@@ -76,11 +76,11 @@ CDeerRunAttackState::~CDeerRunAttackState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CDeerRunAttackState::OnEnter( CCharacter* _Character )
+void CDeerRunAttackState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pDeer) 
 	{
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 
 	m_pDeer->SetPlayerHasBeenReached( false );
@@ -123,11 +123,11 @@ void CDeerRunAttackState::OnEnter( CCharacter* _Character )
 
 }
 
-void CDeerRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CDeerRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
 	if (!m_pDeer) 
 	{
-		m_pDeer = dynamic_cast<CDeer*> (_Character);
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 
 	if ( m_pAnimationCallback->IsAnimationStarted() ) 
@@ -269,7 +269,7 @@ void CDeerRunAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 }
 
 
-void CDeerRunAttackState::OnExit( CCharacter* _Character )
+void CDeerRunAttackState::OnExit( CCharacter* _pCharacter )
 {
 	// Limpiamos animaciones
 	/*self.active_animation_name = _CCharacter:get_animation_id("attack_2")

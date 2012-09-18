@@ -18,8 +18,8 @@ class CRabbitIdleState : public CState<CCharacter>
 public:
 
 	// ------------- Constructors i Destructors --------------
-					CRabbitIdleState	( void );
-					CRabbitIdleState	( const std::string &_Name );
+					CRabbitIdleState	( CCharacter* );
+					CRabbitIdleState	( CCharacter* _pCharacter, const std::string &_Name );
 	virtual			~CRabbitIdleState	( void );
 
 	//----Main Functions --------------------------------------

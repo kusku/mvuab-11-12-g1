@@ -16,8 +16,8 @@ class CDeerPursuitState : public CState<CCharacter>
 {
 public:
 	// ------------- Constructors i Destructors --------------
-					CDeerPursuitState		( void );
-					CDeerPursuitState		( const std::string &_Name );
+					CDeerPursuitState		( CCharacter* );
+					CDeerPursuitState		( CCharacter*, const std::string &_Name );
 	virtual			~CDeerPursuitState		( void );
 
 	//----Main Functions --------------------------------------

@@ -37,15 +37,15 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CWolfAttackState::CWolfAttackState( void )
-	: CState		("CWolfAttackState")
+CWolfAttackState::CWolfAttackState( CCharacter* _pCharacter )
+	: CState		(_pCharacter, "CWolfAttackState")
 	, m_ActionTime	( CActionStateCallback( 1.f, 2.f ) )
 	, m_pWolf		( NULL )
 {
 }
 
-CWolfAttackState::CWolfAttackState( const std::string &_Name )
-	: CState		(_Name)
+CWolfAttackState::CWolfAttackState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState		(_pCharacter, _Name)
 	, m_ActionTime	( CActionStateCallback( 1.f, 2.f ) )
 	, m_pWolf		( NULL )
 {
@@ -61,11 +61,11 @@ CWolfAttackState::~CWolfAttackState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CWolfAttackState::OnEnter( CCharacter* _Character )
+void CWolfAttackState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pWolf) 
 	{
-		m_pWolf = dynamic_cast<CWolf*> (_Character);
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 
 	// Permite saber si el caracter ha realizado los golpes para cansarse. Ponemos a 2 el hits_done para obligar a que cuando entra en este estado haga una minima pausa antes de atacar
@@ -86,11 +86,11 @@ void CWolfAttackState::OnEnter( CCharacter* _Character )
 	#endif
 }
 
-void CWolfAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CWolfAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
 	if (!m_pWolf) 
 	{
-		m_pWolf = dynamic_cast<CWolf*> (_Character);
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 
 	if ( m_pWolf->IsPlayerAtacable() ) 
@@ -147,11 +147,11 @@ void CWolfAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 	}
 }
 
-void CWolfAttackState::OnExit( CCharacter* _Character )
+void CWolfAttackState::OnExit( CCharacter* _pCharacter )
 {
 	if (!m_pWolf) 
 	{
-		m_pWolf = dynamic_cast<CWolf*> (_Character);
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 
 	m_pWolf->GetBehaviors()->PursuitOff();
@@ -161,13 +161,13 @@ void CWolfAttackState::OnExit( CCharacter* _Character )
 	m_pWolf->GetBehaviors()->ObstacleWallAvoidanceOff();
 }
 
-bool CWolfAttackState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CWolfAttackState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
 		if (!m_pWolf) 
 		{
-			m_pWolf = dynamic_cast<CWolf*> (_Character);
+			m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 		}
 
 		m_pWolf->RestLife(1000); 

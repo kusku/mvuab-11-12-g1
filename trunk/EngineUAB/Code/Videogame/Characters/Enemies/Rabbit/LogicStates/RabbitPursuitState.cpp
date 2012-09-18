@@ -34,19 +34,19 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CRabbitPursuitState::CRabbitPursuitState( void )
-	: CState				("CRabbitPursuitState")
+CRabbitPursuitState::CRabbitPursuitState( CCharacter* _pCharacter )
+	: CState				(_pCharacter, "CRabbitPursuitState")
 	, m_pRabbit				( NULL )
 	, m_CurrentSoundToPlay	( 1 )
-	, m_ActionStateCallback			( 0, 0 )
+	, m_ActionStateCallback	( 0, 0 )
 {
 }
 
-CRabbitPursuitState::CRabbitPursuitState( const std::string &_Name )
-	: CState				(_Name)
+CRabbitPursuitState::CRabbitPursuitState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState				(_pCharacter, _Name)
 	, m_pRabbit				( NULL )
 	, m_CurrentSoundToPlay	( 1 )
-	, m_ActionStateCallback			( 0, 0 )
+	, m_ActionStateCallback	( 0, 0 )
 {
 }
 
@@ -60,11 +60,11 @@ CRabbitPursuitState::~CRabbitPursuitState( void )
 //				MAIN METHODS
 // -----------------------------------------
 
-void CRabbitPursuitState::OnEnter( CCharacter* _Character )
+void CRabbitPursuitState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pRabbit) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
 	if ( !m_pRabbit->GetPlayerHasBeenReached() )
@@ -87,11 +87,11 @@ void CRabbitPursuitState::OnEnter( CCharacter* _Character )
 	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOn();
 }
 
-void CRabbitPursuitState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CRabbitPursuitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
 	if (!m_pRabbit) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 	
 	m_pRabbit->GetBehaviors()->SeekOff();
@@ -155,11 +155,11 @@ void CRabbitPursuitState::Execute( CCharacter* _Character, float _ElapsedTime )
 }
 
 
-void CRabbitPursuitState::OnExit( CCharacter* _Character )
+void CRabbitPursuitState::OnExit( CCharacter* _pCharacter )
 {
 	if (!m_pRabbit) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
 	m_pRabbit->GetBehaviors()->SeekOff();
@@ -169,18 +169,18 @@ void CRabbitPursuitState::OnExit( CCharacter* _Character )
 
 	m_pRabbit->GetBehaviors()->SeparationOff();
 	m_pRabbit->GetBehaviors()->CohesionOff();
-	//_Character->GetBehaviors()->AlignmentOff();
+	//_pCharacter->GetBehaviors()->AlignmentOff();
 
 	//CORE->GetSoundManager()->PlayEvent("Stop_EFX_RabbitRuns");
 }
 
-bool CRabbitPursuitState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CRabbitPursuitState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
 		if (!m_pRabbit) 
 		{
-			m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+			m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 		}
 
 		m_pRabbit->RestLife(1000); 

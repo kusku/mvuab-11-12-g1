@@ -15,9 +15,9 @@ class CDeerIdleAnimationState : public CState<CCharacter>
 {
 public:
 	// ------------- Constructors i Destructors --------------
-					CDeerIdleAnimationState	( void );
-					CDeerIdleAnimationState	( const std::string &_Name );
-	virtual			~CDeerIdleAnimationState	( void );
+					CDeerIdleAnimationState	( CCharacter* );
+					CDeerIdleAnimationState	( CCharacter*, const std::string &_Name );
+	virtual			~CDeerIdleAnimationState( void );
 
 	//----Main Functions --------------------------------------
 	virtual void	Execute		( CCharacter*, float _ElapsedTime );

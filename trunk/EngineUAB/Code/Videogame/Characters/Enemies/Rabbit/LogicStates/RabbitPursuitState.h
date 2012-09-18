@@ -16,8 +16,8 @@ class CRabbitPursuitState : public CState<CCharacter>
 {
 public:
 	// ------------- Constructors i Destructors --------------
-					CRabbitPursuitState		( void );
-					CRabbitPursuitState		( const std::string &_Name );
+					CRabbitPursuitState		( CCharacter* );
+					CRabbitPursuitState		( CCharacter* _pCharacter, const std::string &_Name );
 	virtual			~CRabbitPursuitState	( void );
 
 	//----Main Functions --------------------------------------

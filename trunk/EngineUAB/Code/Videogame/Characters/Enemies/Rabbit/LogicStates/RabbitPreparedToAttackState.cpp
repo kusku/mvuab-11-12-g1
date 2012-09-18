@@ -37,15 +37,15 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CRabbitPreparedToAttackState::CRabbitPreparedToAttackState( void )
-	: CState								("CRabbitPreparedToAttackState")
+CRabbitPreparedToAttackState::CRabbitPreparedToAttackState( CCharacter* _pCharacter )
+	: CState								( _pCharacter, "CRabbitPreparedToAttackState")
 	, m_pRabbit								( NULL )
 	, m_IsPositionAfterHitPlayerAssigned	( false )
 {
 }
 
-CRabbitPreparedToAttackState::CRabbitPreparedToAttackState( const std::string &_Name )
-	: CState								(_Name)
+CRabbitPreparedToAttackState::CRabbitPreparedToAttackState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState								(_pCharacter, _Name)
 	, m_pRabbit								( NULL )
 	, m_IsPositionAfterHitPlayerAssigned	( false )
 {
@@ -61,11 +61,11 @@ CRabbitPreparedToAttackState::~CRabbitPreparedToAttackState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CRabbitPreparedToAttackState::OnEnter( CCharacter* _Character )
+void CRabbitPreparedToAttackState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pRabbit) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
 	#if defined _DEBUG
@@ -83,11 +83,11 @@ void CRabbitPreparedToAttackState::OnEnter( CCharacter* _Character )
 	m_pRabbit->GetBehaviors()->SeparationOn();
 }
 
-void CRabbitPreparedToAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CRabbitPreparedToAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
 	if (!m_pRabbit) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 	
 	// 0) Caso en que alcanzé al player y por tanto vamos a un punto de inicio de ataque. Así dejo que el player se reponga
@@ -188,7 +188,7 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _Character, float _Elaps
 }
 
 
-void CRabbitPreparedToAttackState::OnExit( CCharacter* _Character )
+void CRabbitPreparedToAttackState::OnExit( CCharacter* _pCharacter )
 {
 	
 	m_pRabbit->GetBehaviors()->SeekOff();
@@ -198,7 +198,7 @@ void CRabbitPreparedToAttackState::OnExit( CCharacter* _Character )
 	m_pRabbit->GetBehaviors()->SeparationOff();
 }
 
-bool CRabbitPreparedToAttackState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CRabbitPreparedToAttackState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
@@ -216,7 +216,7 @@ bool CRabbitPreparedToAttackState::OnMessage( CCharacter* _Character, const STel
 
 		if (!m_pRabbit) 
 		{
-			m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+			m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 		}
 
 		m_pRabbit->RestLife(1000); 

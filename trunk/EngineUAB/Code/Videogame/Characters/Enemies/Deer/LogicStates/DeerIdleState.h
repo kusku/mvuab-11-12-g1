@@ -17,8 +17,8 @@ class CDeerIdleState : public CState<CCharacter>
 public:
 
 	// ------------- Constructors i Destructors --------------
-					CDeerIdleState	( void );
-					CDeerIdleState	( const std::string &_Name );
+					CDeerIdleState	( CCharacter* );
+					CDeerIdleState	( CCharacter*, const std::string &_Name );
 	virtual			~CDeerIdleState	( void );
 
 	//----Main Functions --------------------------------------

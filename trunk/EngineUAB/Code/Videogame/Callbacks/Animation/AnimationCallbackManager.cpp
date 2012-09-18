@@ -27,6 +27,8 @@ CAnimationCallbackManager::~CAnimationCallbackManager()
 		std::string l_CallbackName = l_pAnimationCallback->GetAnimationName();
 		CAnimatedInstanceModel *l_pAnimatedModel = l_pAnimationCallback->GetAnimatedModel();
 
+		int l_Pos = l_CallbackName.find_first_of ("_");
+		l_CallbackName = l_CallbackName.erase(0, l_Pos+1);
 		int l_ID = l_pAnimatedModel->GetAnimatedCoreModel()->GetCoreModel()->getCoreAnimationId( l_CallbackName );
 		l_pAnimatedModel->GetAnimatedCoreModel()->GetCoreModel()->getCoreAnimation(l_ID)->removeCallback( l_pAnimationCallback );
 	}
@@ -34,17 +36,19 @@ CAnimationCallbackManager::~CAnimationCallbackManager()
 	m_CallbackMap.clear();
 }
 
-bool CAnimationCallbackManager::CreateCallback( const std::string &_Animation, CAnimatedInstanceModel *_pAnimatedModel )
+bool CAnimationCallbackManager::CreateCallback( const std::string &_CharacterName, const std::string &_Animation, CAnimatedInstanceModel *_pAnimatedModel )
 {
 	assert( _pAnimatedModel != NULL );
 	assert( _Animation != "" );
 
+	std::string l_AnimationName = _CharacterName + "_" +_Animation;
+
 	//Crea el callback
-	CAnimationCallback *l_pAnimationCallback = new CAnimationCallback(_Animation, _pAnimatedModel);
-	TCallbackMap::iterator l_It = m_CallbackMap.find(_Animation);
+	CAnimationCallback *l_pAnimationCallback = new CAnimationCallback(l_AnimationName, _pAnimatedModel);
+	TCallbackMap::iterator l_It = m_CallbackMap.find(l_AnimationName);
 	if( l_It == m_CallbackMap.end() )
 	{
-		m_CallbackMap[_Animation] = l_pAnimationCallback;
+		m_CallbackMap[l_AnimationName] = l_pAnimationCallback;
 	}
 	else
 	{
@@ -59,16 +63,17 @@ bool CAnimationCallbackManager::CreateCallback( const std::string &_Animation, C
 	return true;
 }
 
-void CAnimationCallbackManager::RemoveCallback( const std::string &_Animation )
+void CAnimationCallbackManager::RemoveCallback( const std::string &_Name, const std::string &_Animation )
 {
-	TCallbackMap::iterator l_It = m_CallbackMap.find(_Animation);
+	std::string l_CallbackAnimationName = _Name + "_" + _Animation;
+	TCallbackMap::iterator l_It = m_CallbackMap.find(l_CallbackAnimationName);
 	if( l_It != m_CallbackMap.end() )
 	{
 		CAnimationCallback *l_pAnimationCallback = l_It->second;
 		CAnimatedInstanceModel *l_pAnimatedModel = l_pAnimationCallback->GetAnimatedModel();
 
 		//Elimina el callback de cal3d
-		int l_ID = l_pAnimatedModel->GetAnimatedCoreModel()->GetCoreModel()->getCoreAnimationId( _Animation );
+		int l_ID = l_pAnimatedModel->GetAnimatedCoreModel()->GetCoreModel()->getCoreAnimationId( l_CallbackAnimationName );
 		l_pAnimatedModel->GetAnimatedCoreModel()->GetCoreModel()->getCoreAnimation(l_ID)->removeCallback(l_pAnimationCallback);
 
 		//Elimina el callback del map
@@ -76,9 +81,10 @@ void CAnimationCallbackManager::RemoveCallback( const std::string &_Animation )
 	}
 }
 
-CAnimationCallback* CAnimationCallbackManager::GetCallback( const std::string &_Animation )
+CAnimationCallback* CAnimationCallbackManager::GetCallback( const std::string &_Name, const std::string &_Animation )
 {
-	TCallbackMap::iterator l_It = m_CallbackMap.find(_Animation);
+	std::string l_CallbackAnimationName = _Name + "_" + _Animation;
+	TCallbackMap::iterator l_It = m_CallbackMap.find(l_CallbackAnimationName);
 	if( l_It != m_CallbackMap.end() )
 	{
 		return l_It->second;

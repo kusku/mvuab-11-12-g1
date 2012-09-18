@@ -30,15 +30,15 @@
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
-CRabbitIdleState::CRabbitIdleState( void )
-	: CState		("CRabbitIdleState")
+CRabbitIdleState::CRabbitIdleState( CCharacter* _pCharacter )
+	: CState		(_pCharacter, "CRabbitIdleState")
 	, m_ActionTime  ( CActionStateCallback( 1.f, 2.f ) )
 	, m_pRabbit		( NULL )
 {
 }
 
-CRabbitIdleState::CRabbitIdleState( const std::string &_Name )
-	: CState		(_Name)
+CRabbitIdleState::CRabbitIdleState( CCharacter* _pCharacter, const std::string &_Name )
+	: CState		(_pCharacter, _Name)
 	, m_ActionTime	( CActionStateCallback( 1.f, 2.f ) )
 	, m_pRabbit		( NULL )
 {
@@ -54,11 +54,11 @@ CRabbitIdleState::~CRabbitIdleState(void)
 // -----------------------------------------
 //				MAIN METHODS
 // -----------------------------------------
-void CRabbitIdleState::OnEnter( CCharacter* _Character )
+void CRabbitIdleState::OnEnter( CCharacter* _pCharacter )
 {
 	if (!m_pRabbit) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
 	m_ActionTime.InitAction();
@@ -72,11 +72,11 @@ void CRabbitIdleState::OnEnter( CCharacter* _Character )
 	#endif
 }
 
-void CRabbitIdleState::Execute( CCharacter* _Character, float _ElapsedTime )
+void CRabbitIdleState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
 	if (!m_pRabbit) 
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
 	if ( m_pRabbit->IsPlayerDetected() ) 
@@ -127,21 +127,21 @@ void CRabbitIdleState::Execute( CCharacter* _Character, float _ElapsedTime )
 
 	// Reseteamos la velocidad del enemigo
 	m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-	m_pRabbit->MoveTo2(_Character->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
+	m_pRabbit->MoveTo2(_pCharacter->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
 }
 
 
-void CRabbitIdleState::OnExit( CCharacter* _Character )
+void CRabbitIdleState::OnExit( CCharacter* _pCharacter )
 {
 }
 
-bool CRabbitIdleState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CRabbitIdleState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
 		if (!m_pRabbit) 
 		{
-			m_pRabbit = dynamic_cast<CRabbit*> (_Character);
+			m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 		}
 
 		m_pRabbit->RestLife(1000); 
