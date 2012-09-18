@@ -41,7 +41,9 @@
 #include "StatesMachine\MessageDispatcher.h"
 
 #include "Steering Behaviors\SteeringEntity.h"
+#include "Steering Behaviors\SteeringBehaviors.h"
 #include "Steering Behaviors\SteeringBehaviorsSeetingsManager.h"
+#include "Steering Behaviors\Seek.h"
 
 #include "Billboard\BillboardManager.h"
 #include "Billboard\BillboardAnimation.h"
@@ -336,11 +338,36 @@ void CCharactersManager::Drawfrustum( void )
 			l_RM->DrawSphere( (*l_It)->GetSteeringEntity()->GetBoundingRadius(), 10, colMAGENTA );		// Bounding box
 			l_RM->DrawSphere( (*l_It)->GetProperties()->GetDetectionDistance(), 10, colCYAN );			// Detection distance
 			l_RM->DrawSphere( (*l_It)->GetProperties()->GetAttackDistance(), 10, colRED);				// Impact distance
-			l_RM->DrawSphere( (*l_It)->GetProperties()->GetChaseDistance(), 10, colCYAN);				// Chase distance
+			l_RM->DrawSphere( (*l_It)->GetProperties()->GetChaseDistance(), 10, colGREEN);				// Chase distance
+			l_RM->DrawSphere( (*l_It)->GetProperties()->GetPreparedAttackDistance(), 10, colYELLOW);	// Prepared distance
+
+			// Dibuixem la velocitat
+			DrawVelocity((*l_It), l_RM);
 		}
 	}
 	
 }
+
+// Dibuixem la velocitat/direcció dels enemics 
+void CCharactersManager::DrawVelocity( CCharacter * _Character, CRenderManager * _RM )
+{
+	/*Vect3f l_Pos; 
+	Vect3f l_Velocity;
+	float l_Radi = _Character->GetProperties()->GetBoundingRadious();
+	
+	l_Pos = _Character->GetPosition(); 
+	l_Velocity = _Character->GetSteeringEntity()->GetVelocity();
+	l_Velocity = l_Velocity.RotateY(mathUtils::PiTimes(1.f));
+	_Character->GetBehaviors()->GetSeek()->SetTarget(l_Velocity);
+	
+	float l_Height = _Character->GetProperties()->GetHeightController();
+	l_Pos = Vect3f ( l_Pos.x + l_Velocity.x * l_Radi , l_Velocity.y + l_Height, l_Velocity.z + l_Velocity.z * l_Radi );
+	
+	Vect3f l_InitialPosition = _Character->GetSteeringEntity()->GetInitialPositionToThrowRay();
+	Vect3f l_FinalPosition = _Character->GetSteeringEntity()->GetFinalPositionToThrowRay(0.f);
+	_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );*/
+}
+
 
 // Dibuixem el front dels enemics i del player
 void CCharactersManager::DrawFront( void )

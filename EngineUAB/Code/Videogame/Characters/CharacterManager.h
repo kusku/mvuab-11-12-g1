@@ -59,6 +59,7 @@ public:
 	void				DrawFront							( void );
 	void				DrawNames							( CFontManager *_FM );
 	void				DrawRay								( void );
+	void				DrawVelocity						( CCharacter * _Character, CRenderManager * _RM );
 
 	// ------------- Propietats ( Get / Set ) ----------------
 	TVectorResources	GetEnemiesVector					() const					{ return m_ResourcesVector; }
