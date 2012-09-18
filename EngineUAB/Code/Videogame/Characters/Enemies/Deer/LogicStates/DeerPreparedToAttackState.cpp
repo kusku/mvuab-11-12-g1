@@ -62,6 +62,11 @@ void CDeerPreparedToAttackState::OnEnter( CCharacter* _Character )
 		m_pDeer = dynamic_cast<CDeer*> (_Character);
 	}
 
+	m_pDeer->GetBehaviors()->SeparationOn();
+	m_pDeer->GetBehaviors()->CohesionOff();
+	m_pDeer->GetBehaviors()->CollisionAvoidanceOn();
+	m_pDeer->GetBehaviors()->ObstacleWallAvoidanceOn();
+
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{

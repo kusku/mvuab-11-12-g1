@@ -103,7 +103,11 @@ void CDeerRunAttackState::OnEnter( CCharacter* _Character )
 	// Activo el seek a saco a una posició en el momento de inicio de ataque
 	m_pDeer->GetBehaviors()->SeekOff();
 	m_pDeer->GetBehaviors()->GetSeek()->SetTarget(m_FinalAttackPosition);
-	
+	m_pDeer->GetBehaviors()->SeparationOn();
+	m_pDeer->GetBehaviors()->CohesionOff();
+	m_pDeer->GetBehaviors()->CollisionAvoidanceOn();
+	m_pDeer->GetBehaviors()->ObstacleWallAvoidanceOn();
+
 	m_AnimationDuration = m_pDeer->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_RUN_ATTACK_STATE);
 
 	m_pAnimationCallback->Init();
@@ -276,7 +280,11 @@ void CDeerRunAttackState::OnExit( CCharacter* _Character )
 
 	// Quitamos el behaviur
 	m_pDeer->GetBehaviors()->SeekOff();
-					
+	m_pDeer->GetBehaviors()->SeparationOff();
+	m_pDeer->GetBehaviors()->CohesionOff();
+	m_pDeer->GetBehaviors()->CollisionAvoidanceOff();
+	m_pDeer->GetBehaviors()->ObstacleWallAvoidanceOff();
+
 	// Restauramos la velocidad original
 	m_pDeer->GetSteeringEntity()->SetMaxSpeed(m_OldMaxSpeed);
 	m_pDeer->GetSteeringEntity()->SetMass(m_OldMass);

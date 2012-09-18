@@ -84,6 +84,11 @@ void CDeerStillAttackState::OnEnter( CCharacter* _Character )
 		m_pDeer = dynamic_cast<CDeer*> (_Character);
 	}
 
+	m_pDeer->GetBehaviors()->SeparationOn();
+	m_pDeer->GetBehaviors()->CohesionOff();
+	m_pDeer->GetBehaviors()->CollisionAvoidanceOn();
+	m_pDeer->GetBehaviors()->ObstacleWallAvoidanceOn();
+
 #if defined _DEBUG
 	if( CORE->IsDebugMode() )
 	{
@@ -93,7 +98,7 @@ void CDeerStillAttackState::OnEnter( CCharacter* _Character )
 #endif
 
 	//Lanza el sistema de partículas
-	SetParticlePosition(m_pDeer);
+	UpdateParticlesPositions(m_pDeer);
 	
 	// Gestión de sonidos e impacto
 	m_FirstHitReached	= false;
@@ -117,8 +122,6 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 		m_pDeer = dynamic_cast<CDeer*> (_Character);
 	}
 	
-	SetParticlePosition(m_pDeer);
-
 	if ( m_pAnimationCallback->IsAnimationStarted() ) 
 	{
 		// Compruebo si la animación a finalizado
@@ -202,6 +205,9 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 		// En otro caso actualizamos el tiempo de animacion que aun no finalizó la animación
 		else 
 		{
+			// Ahora debemos actualizar las partículas
+			UpdateParticlesPositions(m_pDeer);
+
 			m_pDeer->GetBehaviors()->SeekOff();
 			m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
 			m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime );
@@ -211,9 +217,10 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 
 			if ( m_pActionStateCallback.IsActionInTime( 0.2f ) && !m_FirstHitDone )
 			{
-				GetParticleEmitter("RightHand1")->EjectParticles();
-				GetParticleEmitter("RightHand11")->EjectParticles();
-
+				GetParticleEmitter(m_pDeer->GetName() + "_RightHand1")->EjectParticles();
+				GetParticleEmitter(m_pDeer->GetName() + "_RightHand11")->EjectParticles();
+				GetParticleEmitter(m_pDeer->GetName() + "_Impact1")->EjectParticles();
+								   
 				m_FirstHitDone = true;		// Ahora ya no entraremos en este condicional
 
 				if ( m_pDeer->IsPlayerReached() )
@@ -226,6 +233,7 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				{
 					m_SoundPlayed1 = true;
 					CORE->GetSoundManager()->PlayEvent("Play_EFX_Punch3"); 
+					//GetParticleEmitter("Impact1")->EjectParticles();
 				}
 				// Sonido de la 1a bofetada fallida
 				else if ( !m_FirstHitReached && !m_SoundPlayed1 )
@@ -237,8 +245,8 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 
 			if ( m_pActionStateCallback.IsActionInTime( 0.7f ) && !m_SecondHitDone )
 			{
-				GetParticleEmitter("LeftHand1")->EjectParticles();
-				GetParticleEmitter("LeftHand11")->EjectParticles();
+				GetParticleEmitter(m_pDeer->GetName() + "_LeftHand1")->EjectParticles();
+				GetParticleEmitter(m_pDeer->GetName() + "_LeftHand11")->EjectParticles();
 				
 				m_SecondHitDone = true;		// Esto permite ver si ya se hizo el hit y comprobar solo una sola vez y justo en el momento del impacto si se alcanzó el player
 
@@ -252,6 +260,7 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 				{
 					m_SoundPlayed2 = true;
 					CORE->GetSoundManager()->PlayEvent("Play_EFX_Punch2"); 
+					//GetParticleEmitter("Impact1")->EjectParticles();
 				}
 				// Sonido de la 2a bofetada fallida
 				else if ( !m_SecondHitReached && !m_SoundPlayed2 )
@@ -273,8 +282,6 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 	}
 	else
 	{
-		SetParticlePosition(m_pDeer);
-		
 		if ( m_pDeer->IsPlayerInsideImpactDistance() ) 
 		{
 			m_pDeer->GetBehaviors()->SeekOff();
@@ -315,7 +322,7 @@ void CDeerStillAttackState::Execute( CCharacter* _Character, float _ElapsedTime 
 }
 
 
-void CDeerStillAttackState::OnExit( CCharacter* _Character )
+void CDeerStillAttackState::OnExit( CCharacter* _pCharacter )
 {
 	// nos volvemos
 	/*m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetAttackState());
@@ -324,11 +331,17 @@ void CDeerStillAttackState::OnExit( CCharacter* _Character )
 	//LOGGER->AddNewLog(ELL_INFORMATION,"CDeerStillAttackState::Execute->Salgo!");
 	CORE->GetSoundManager()->PlayEvent("Stop_EFX_DeerExclaim"); 
 
-	GetParticleEmitter("LeftHand1")->StopEjectParticles();
-	GetParticleEmitter("LeftHand11")->StopEjectParticles();
-	GetParticleEmitter("RightHand1")->StopEjectParticles();
-	GetParticleEmitter("RightHand11")->StopEjectParticles();
-}
+	m_pDeer->GetBehaviors()->SeparationOff();
+	m_pDeer->GetBehaviors()->CohesionOff();
+	m_pDeer->GetBehaviors()->CollisionAvoidanceOff();
+	m_pDeer->GetBehaviors()->ObstacleWallAvoidanceOff();
+
+	GetParticleEmitter(_pCharacter->GetName() + "_LeftHand1")->StopEjectParticles();
+	GetParticleEmitter(_pCharacter->GetName() + "_LeftHand11")->StopEjectParticles();
+	GetParticleEmitter(_pCharacter->GetName() + "_RightHand1")->StopEjectParticles();
+	GetParticleEmitter(_pCharacter->GetName() + "_RightHand11")->StopEjectParticles();
+	GetParticleEmitter(_pCharacter->GetName() + "_Impact1")->StopEjectParticles();
+}					   
 
 bool CDeerStillAttackState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
 {
@@ -348,71 +361,39 @@ bool CDeerStillAttackState::OnMessage( CCharacter* _Character, const STelegram& 
 	return false;
 }
 
-void CDeerStillAttackState::SetParticlePosition( CCharacter* _pCharacter )
+void CDeerStillAttackState::UpdateParticlesPositions( CCharacter* _pCharacter )
 {
-	CAnimatedInstanceModel *l_pAnimatedModel = _pCharacter->GetAnimatedModel();
+	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_RightHand1" , "Bip001 R Finger1"  );
+	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_RightHand11", "Bip001 R Finger11" );
+	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_LeftHand1"  , "Bip001 L Finger1"  );
+	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_LeftHand11" , "Bip001 L Finger11" );
+	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_Impact1", "", _pCharacter->GetPlayer()->GetPosition() - _pCharacter->GetPlayer()->GetFront() );
+}
 
-	Mat44f l_TransformMatrix		= m44fIDENTITY;
-	Mat44f l_RotationMatrix			= m44fIDENTITY;
-	Vect4f l_Rotation				= v3fZERO;
-	Vect3f l_Translation			= v3fZERO;
-	Mat44f l_AnimatedModelTransform = l_pAnimatedModel->GetTransform();
+void CDeerStillAttackState::SetParticlePosition( CCharacter* _pCharacter, const std::string &_ParticlesName, const std::string &_Bone, const Vect3f &_Position )
+{
+	if ( _Bone.compare( "" ) != 0 )
+	{
+		CAnimatedInstanceModel *l_pAnimatedModel = _pCharacter->GetAnimatedModel();
 
-	l_pAnimatedModel->GetBonePosition("Bip001 R Finger1", l_Translation);
-	l_pAnimatedModel->GetBoneRotation("Bip001 R Finger1", l_Rotation);
+		Mat44f l_TransformMatrix		= m44fIDENTITY;
+		Mat44f l_RotationMatrix			= m44fIDENTITY;
+		Vect4f l_Rotation				= v3fZERO;
+		Vect3f l_Translation			= v3fZERO;
+		Mat44f l_AnimatedModelTransform = l_pAnimatedModel->GetTransform();
 
-	l_TransformMatrix.Translate(l_Translation);
-	l_RotationMatrix.SetFromQuaternion(l_Rotation);
+		l_pAnimatedModel->GetBonePosition(_Bone, l_Translation);
+		l_pAnimatedModel->GetBoneRotation(_Bone, l_Rotation);
 
-	l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
+		l_TransformMatrix.Translate(l_Translation);
+		l_RotationMatrix.SetFromQuaternion(l_Rotation);
 
-	GetParticleEmitter("RightHand1")->SetPosition( l_TransformMatrix.GetPos() );
-	
-	l_TransformMatrix			= m44fIDENTITY;
-	l_RotationMatrix			= m44fIDENTITY;
-	l_Rotation					= v3fZERO;
-	l_Translation				= v3fZERO;
-	l_AnimatedModelTransform	= l_pAnimatedModel->GetTransform();
+		l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
 
-	l_pAnimatedModel->GetBonePosition("Bip001 R Finger11", l_Translation);
-	l_pAnimatedModel->GetBoneRotation("Bip001 R Finger11", l_Rotation);
-
-	l_TransformMatrix.Translate(l_Translation);
-	l_RotationMatrix.SetFromQuaternion(l_Rotation);
-
-	l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
-
-	GetParticleEmitter("RightHand11")->SetPosition( l_TransformMatrix.GetPos() );
-	
-	l_TransformMatrix			= m44fIDENTITY;
-	l_RotationMatrix			= m44fIDENTITY;
-	l_Rotation					= v3fZERO;
-	l_Translation				= v3fZERO;
-	l_AnimatedModelTransform	= l_pAnimatedModel->GetTransform();
-
-	l_pAnimatedModel->GetBonePosition("Bip001 L Finger1", l_Translation);
-	l_pAnimatedModel->GetBoneRotation("Bip001 L Finger1", l_Rotation);
-
-	l_TransformMatrix.Translate(l_Translation);
-	l_RotationMatrix.SetFromQuaternion(l_Rotation);
-
-	l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
-
-	GetParticleEmitter("LeftHand1")->SetPosition( l_TransformMatrix.GetPos() );
-	
-	l_TransformMatrix			= m44fIDENTITY;
-	l_RotationMatrix			= m44fIDENTITY;
-	l_Rotation					= v3fZERO;
-	l_Translation				= v3fZERO;
-	l_AnimatedModelTransform	= l_pAnimatedModel->GetTransform();
-
-	l_pAnimatedModel->GetBonePosition("Bip001 L Finger11", l_Translation);
-	l_pAnimatedModel->GetBoneRotation("Bip001 L Finger11", l_Rotation);
-
-	l_TransformMatrix.Translate(l_Translation);
-	l_RotationMatrix.SetFromQuaternion(l_Rotation);
-
-	l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
-
-	GetParticleEmitter("LeftHand11")->SetPosition( l_TransformMatrix.GetPos() );
+		GetParticleEmitter(_ParticlesName)->SetPosition( l_TransformMatrix.GetPos() );
+	}
+	else 
+	{
+		GetParticleEmitter(_ParticlesName)->SetPosition( _Position );
+	}
 }
