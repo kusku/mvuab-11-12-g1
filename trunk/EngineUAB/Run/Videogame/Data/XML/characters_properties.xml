@@ -199,17 +199,17 @@
 
 		<enemy name="enemy22" core="conejo" animated_instace_name="enemy22" >
 			<position>35 -40 25</position>
-			<active>false</active>
+			<active>true</active>
 			<locked>false</locked>
 		</enemy>
 		<enemy name="enemy23" core="conejo" animated_instace_name="enemy23" >
 			<position>35 -40 30</position>
-			<active>false</active>
+			<active>true</active>
 			<locked>false</locked>
 		</enemy>
 		<enemy name="enemy24" core="conejo" animated_instace_name="enemy24" >
 			<position>35 -40 35</position>
-			<active>false</active>
+			<active>true</active>
 			<locked>false</locked>
 		</enemy>
 		<!--<enemy name="enemy25" core="conejo" animated_instace_name="enemy25" >
@@ -225,12 +225,12 @@
 		<enemy name="enemy28" core="ciervo" animated_instace_name="enemy28" >
 			<position>34 -40 24</position>
 			<active>true</active>
-			<locked>true</locked>
+			<locked>false</locked>
 		</enemy>
 		<enemy name="enemy29" core="ciervo" animated_instace_name="enemy29" >
 			<position>40 -40 23</position>
 			<active>true</active>
-			<locked>true</locked>
+			<locked>false</locked>
 		</enemy>
 		<enemy name="enemy30" core="ciervo" animated_instace_name="enemy30" >
 			<position>44 -40 20</position>
