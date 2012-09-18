@@ -223,26 +223,30 @@
 		</enemy>-->
 
 		<enemy name="enemy28" core="ciervo" animated_instace_name="enemy28" >
-			<position>44 -40 24</position>
+			<position>42 -40 24</position>
 			<active>true</active>
 			<locked>false</locked>
 		</enemy>
 		<enemy name="enemy29" core="ciervo" animated_instace_name="enemy29" >
+			<position>40 -40 23</position>
+			<active>true</active>
+			<locked>false</locked>
+		</enemy>
+		<enemy name="enemy30" core="ciervo" animated_instace_name="enemy30" >
 			<position>44 -40 20</position>
 			<active>false</active>
 			<locked>false</locked>
 		</enemy>
+		<enemy name="enemy31" core="ciervo" animated_instace_name="enemy31" >
+			<position>44 -40 26</position>
+			<active>false</active>
+			<locked>false</locked>
+		</enemy>
+		<enemy name="enemy32" core="ciervo" animated_instace_name="enemy32" >
+			<position>44 -40 30</position>
+			<active>false</active>
+			<locked>false</locked>
+		</enemy>
 		
-		<!-- <enemy name="enemy28" core="ciervo" animated_instace_name="enemy28" >
-      <position>35 -40 25</position>
-      <active>true</active>
-      <locked>false</locked>
-    </enemy>
-    <enemy name="enemy28" core="ciervo" animated_instace_name="enemy28" >
-      <position>35 -40 25</position>
-      <active>true</active>
-      <locked>false</locked>
-    </enemy>-->
-
 	</enemies>
 </characters>
