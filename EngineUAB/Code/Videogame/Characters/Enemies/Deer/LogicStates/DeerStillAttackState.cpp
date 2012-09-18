@@ -323,6 +323,11 @@ void CDeerStillAttackState::OnExit( CCharacter* _Character )
 	
 	//LOGGER->AddNewLog(ELL_INFORMATION,"CDeerStillAttackState::Execute->Salgo!");
 	CORE->GetSoundManager()->PlayEvent("Stop_EFX_DeerExclaim"); 
+
+	GetParticleEmitter("LeftHand1")->StopEjectParticles();
+	GetParticleEmitter("LeftHand11")->StopEjectParticles();
+	GetParticleEmitter("RightHand1")->StopEjectParticles();
+	GetParticleEmitter("RightHand11")->StopEjectParticles();
 }
 
 bool CDeerStillAttackState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )

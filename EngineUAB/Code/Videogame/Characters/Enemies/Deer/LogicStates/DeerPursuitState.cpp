@@ -2,13 +2,14 @@
 #include "DeerIdleState.h"
 #include "DeerPreparedToAttackState.h"
 #include "DeerHitState.h"
+
 #include "SoundManager.h"
 #include "Utils\BoostRandomHelper.h"
 
 #include "Characters\Enemies\Deer\AnimationStates\DeerIdleAnimationState.h"
 #include "Characters\Enemies\Deer\AnimationStates\DeerHitAnimationState.h"
-
 #include "Characters\Enemies\Deer\Deer.h"
+#include "Characters\StatesDefs.h"
 
 #include "Steering Behaviors\SteeringEntity.h"
 #include "Steering Behaviors\SteeringBehaviors.h"
@@ -22,6 +23,11 @@
 #include "Core.h"
 // ---------------------------------
 
+#include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
+
+#include "Particles\ParticleEmitter.h"
+#include "Particles\ParticleEmitterManager.h"
+
 #if defined(_DEBUG)
 	#include "Memory\MemLeaks.h"
 #endif
@@ -30,16 +36,22 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CDeerPursuitState::CDeerPursuitState( void )
-	: CState			("CDeerPursuitState")
-	, m_pDeer			( NULL )
-	, m_ActionCallback	( 0, 3 )
+	: CState						("CDeerPursuitState")
+	, m_pDeer						( NULL )
+	, m_SoundActionStateCallback	( 0, 3 )
+	, m_RunActionStateCallback		( 0, 3 )
+	, m_FirtsStepDone				( false )
+	, m_SecondStepDone				( false )
 {
 }
 
 CDeerPursuitState::CDeerPursuitState( const std::string &_Name )
-	: CState			( _Name )
-	, m_pDeer			( NULL )
-	, m_ActionCallback	( 0, 3 )
+	: CState						( _Name )
+	, m_pDeer						( NULL )
+	, m_SoundActionStateCallback	( 0, 3 )
+	, m_RunActionStateCallback		( 0, 3 )
+	, m_FirtsStepDone				( false )
+	, m_SecondStepDone				( false )
 {
 }
 
@@ -73,9 +85,14 @@ void CDeerPursuitState::OnEnter( CCharacter* _Character )
 	m_pDeer->GetBehaviors()->ObstacleWallAvoidanceOn();
 
 	PlayRandomSound();
-	m_ActionCallback.InitAction(0, m_SoundDuration);
-	m_ActionCallback.StartAction();
+	m_SoundActionStateCallback.InitAction(0, m_SoundDuration);
+	m_SoundActionStateCallback.StartAction();
 
+	m_RunActionStateCallback.InitAction(0, m_pDeer->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_RUN_STATE) );
+	m_RunActionStateCallback.StartAction();
+
+	 m_FirtsStepDone	= false;
+	 m_SecondStepDone	= false;
 }
 
 void CDeerPursuitState::Execute( CCharacter* _Character, float _ElapsedTime )
@@ -85,16 +102,19 @@ void CDeerPursuitState::Execute( CCharacter* _Character, float _ElapsedTime )
 		m_pDeer = dynamic_cast<CDeer*> (_Character);
 	}
 	
+	SetParticlePosition(m_pDeer);
+				
 	m_pDeer->GetBehaviors()->SeekOff();
 	m_pDeer->GetBehaviors()->PursuitOff();
 
-	m_ActionCallback.Update(_ElapsedTime);
-	
-	if ( m_ActionCallback.IsActionFinished() ) 
+	m_SoundActionStateCallback.Update(_ElapsedTime);
+	m_RunActionStateCallback.Update(_ElapsedTime);
+
+	if ( m_SoundActionStateCallback.IsActionFinished() ) 
 	{
 		PlayRandomSound();
-		m_ActionCallback.InitAction(0, m_SoundDuration);
-		m_ActionCallback.StartAction();
+		m_SoundActionStateCallback.InitAction(0, m_SoundDuration);
+		m_SoundActionStateCallback.StartAction();
 	}
 
 	if ( m_pDeer->IsPlayerDetected() ) 
@@ -118,6 +138,27 @@ void CDeerPursuitState::Execute( CCharacter* _Character, float _ElapsedTime )
 
 			m_pDeer->FaceTo(m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime);
 			m_pDeer->MoveTo2(m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
+
+			if ( m_RunActionStateCallback.IsActionFinished() )
+			{
+				m_RunActionStateCallback.InitAction();
+				m_RunActionStateCallback.StartAction();
+
+				m_FirtsStepDone		= false;
+				m_SecondStepDone	= false;
+			}
+			
+			if ( m_RunActionStateCallback.IsActionInTime( 0.3f ) && !m_FirtsStepDone )
+			{
+				GetParticleEmitter("StepLeft")->EjectParticles();
+				m_FirtsStepDone	= true;
+			}
+
+			if ( m_RunActionStateCallback.IsActionInTime( 0.5f ) && !m_SecondStepDone )
+			{
+				GetParticleEmitter("StepRight")->EjectParticles();
+				m_SecondStepDone = true;
+			}
 
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
@@ -155,6 +196,8 @@ void CDeerPursuitState::OnExit( CCharacter* _Character )
 
 	CORE->GetSoundManager()->PlayEvent("Stop_EFX_DeerRun");
 
+	/*GetParticleEmitter("StepRight")->StopEjectParticles();
+	GetParticleEmitter("StepLeft")->StopEjectParticles();*/
 }
 
 bool CDeerPursuitState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
@@ -193,4 +236,41 @@ void CDeerPursuitState::PlayRandomSound( void )
 		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerRun3");
 		m_SoundDuration = 3.320f;
 	}
+}
+
+void CDeerPursuitState::SetParticlePosition( CCharacter* _pCharacter )
+{
+	CAnimatedInstanceModel *l_pAnimatedModel = _pCharacter->GetAnimatedModel();
+
+	Mat44f l_TransformMatrix		= m44fIDENTITY;
+	Mat44f l_RotationMatrix			= m44fIDENTITY;
+	Vect4f l_Rotation				= v3fZERO;
+	Vect3f l_Translation			= v3fZERO;
+	Mat44f l_AnimatedModelTransform = l_pAnimatedModel->GetTransform();
+
+	l_pAnimatedModel->GetBonePosition("Bip001 R Foot", l_Translation);
+	l_pAnimatedModel->GetBoneRotation("Bip001 R Foot", l_Rotation);
+
+	l_TransformMatrix.Translate(l_Translation);
+	l_RotationMatrix.SetFromQuaternion(l_Rotation);
+
+	l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
+
+	GetParticleEmitter("StepLeft")->SetPosition( l_TransformMatrix.GetPos() );
+	
+	l_TransformMatrix			= m44fIDENTITY;
+	l_RotationMatrix			= m44fIDENTITY;
+	l_Rotation					= v3fZERO;
+	l_Translation				= v3fZERO;
+	l_AnimatedModelTransform	= l_pAnimatedModel->GetTransform();
+
+	l_pAnimatedModel->GetBonePosition("Bip001 L Foot", l_Translation);
+	l_pAnimatedModel->GetBoneRotation("Bip001 L Foot", l_Rotation);
+
+	l_TransformMatrix.Translate(l_Translation);
+	l_RotationMatrix.SetFromQuaternion(l_Rotation);
+
+	l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
+
+	GetParticleEmitter("StepRight")->SetPosition( l_TransformMatrix.GetPos() );
 }
