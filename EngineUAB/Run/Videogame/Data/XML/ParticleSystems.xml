@@ -13,9 +13,12 @@
 
 	<system name="WaterMist" settings_name="water_mist" />
 
-	<system name="Sword1" settings_name="Sword1" />
 	<system name="Sword" settings_name="Sword" />
 	<system name="SwordFinal" settings_name="SwordFinal" />
 	
 	<system name="Snow" settings_name="Snow" />
+	
+	<system name="Sword1" settings_name="Sword1" />
+	<system name="CenterFlare" settings_name="CenterFlare" />
+	<system name="Steps" settings_name="Steps" />
 </particle_systems>

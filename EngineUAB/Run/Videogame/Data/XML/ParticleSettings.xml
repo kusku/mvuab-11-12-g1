@@ -222,32 +222,7 @@
     <BlendState value="Additive" />
   </settings>
 
-  <settings name="Sword1">
-		<TextureName value="./Data/General/Textures/Particles/FlowerBurst.jpg"/>
-		<MaxParticles value="1300"/>
-		<!--<Duration value="0.300000"/>
-		<DurationRandomness value="0.100000"/>-->
-		<Duration value="0.100000"/>
-		<DurationRandomness value="0.2500000"/>
-		<EmitterVelocitySensitivity value="0.200000"/>
-		<MinHorizontalVelocity value="-0.100000"/>
-		<MaxHorizontalVelocity value="0.100000"/>
-		<MinVerticalVelocity value="-0.200000"/>
-		<MaxVerticalVelocity value="0.200000"/>
-		<Gravity value="0.000000 1.000000 0.000000"/>
-		<EndVelocity value="1.500000"/>
-		<MinColor value="255.000000 0.000000 0.000000 255.000000"/>
-		<MaxColor value="0.000000 255.000000 0.000000 255.000000"/>
-		<MinRotateSpeed value="0.500000"/>
-		<MaxRotateSpeed value="3.000000"/>
-		<MinStartSize value="0.0500000"/>
-		<MaxStartSize value="0.100000"/>
-		<MinEndSize value="0.200000"/>
-		<MaxEndSize value="0.500000"/>
-		<BlendState value="Additive"/>
-	</settings>
-	
-	<settings name="Sword">
+  <settings name="Sword">
 		<TextureName value="./Data/General/Textures/Particles/FlowerBurst.jpg"/>
 		<MaxParticles value="300"/>
 		<!--<Duration value="0.300000"/>
@@ -325,6 +300,99 @@
 		<BlendState value="NonPremultiplied"/>
 	</settings>
   
+  <settings name="Sword1">
+		<TextureName value="./Data/General/Textures/Particles/FlowerBurst.jpg"/>
+		<MaxParticles value="1300"/>
+		<Duration value="0.320000"/>
+		<DurationRandomness value="0.00000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
+		<MinHorizontalVelocity value="0.000000"/>
+		<MaxHorizontalVelocity value="0.00000"/>
+		<MinVerticalVelocity value="-0.000000"/>
+		<MaxVerticalVelocity value="0.000000"/>
+		<Gravity value="0.000000 0.000000 0.000000"/>
+		<EndVelocity value="0.0000"/>
+		<MinColor value="255.000000 0.000000 0.000000 25.000000"/>
+		<MaxColor value="110.000000 111.000000 0.000000 25.000000"/>
+		<MinRotateSpeed value="0.500000"/>
+		<MaxRotateSpeed value="3.000000"/>
+		<MinStartSize value="0.0500000"/>
+		<MaxStartSize value="0.100000"/>
+		<MinEndSize value="1.200000"/>
+		<MaxEndSize value="2.00000"/>
+		<BlendState value="Additive"/>
+	</settings>
+	
+  <settings name="CenterFlare">
+		<TextureName value="./Data/General/Textures/Particles/Blurred spikey star.png"/>
+		<MaxParticles value="1030"/>
+		<Duration value="0.100000"/>
+		<DurationRandomness value="0.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
+		<MinHorizontalVelocity value="0.000000"/>
+		<MaxHorizontalVelocity value="0.000000"/>
+		<MinVerticalVelocity value="0.000000"/>
+		<MaxVerticalVelocity value="0.000000"/>
+		<Gravity value="0.000000 0.000000 0.000000"/>
+		<EndVelocity value="0.000000"/>
+		<MinColor value="0.000000 0.000000 0.000000 255.000000"/>
+		<MaxColor value="111.000000 111.000000 111.000000 255.000000"/>
+		<MinRotateSpeed value="0.000000"/>
+		<MaxRotateSpeed value="0.000000"/>
+		<MinStartSize value="1.000000"/>
+		<MaxStartSize value="1.000000"/>
+		<MinEndSize value="10.000000"/>
+		<MaxEndSize value="20.000000"/>
+		<BlendState value="Additive"/>
+	</settings>
+	
+	<settings name="Steps">
+		<TextureName value="./Data/General/Textures/Particles/Soft clumpy.png"/>
+		<MaxParticles value="1000"/>
+		<Duration value="2.000000"/>
+		<DurationRandomness value="0.000000"/>
+		<EmitterVelocitySensitivity value="0.400000"/>
+		<MinHorizontalVelocity value="0.200000"/>
+		<MaxHorizontalVelocity value="0.600000"/>
+		<MinVerticalVelocity value="0.000000"/>
+		<MaxVerticalVelocity value="0.000000"/>
+		<Gravity value="0.000000 0.000000 0.000000"/>
+		<EndVelocity value="0.000000"/>
+		<MinColor value="77.000000 103.000000 97.000000 45.000000"/>
+		<MaxColor value="134.000000 124.000000 155.000000 45.000000"/>
+		<MinRotateSpeed value="0.500000"/>
+		<MaxRotateSpeed value="2.000000"/>
+		<MinStartSize value="0.000000"/>
+		<MaxStartSize value="0.500000"/>
+		<MinEndSize value="0.600000"/>
+		<MaxEndSize value="1.400000"/>
+		<BlendState value="Additive"/>
+	</settings>
+
+
+<!--	<settings name="Steps">
+		<TextureName value="./Data/General/Textures/Particles/Soft clumpy.png"/>
+		<MaxParticles value="300"/>
+		<Duration value="0.200000"/>
+		<DurationRandomness value="0.000000"/>
+		<EmitterVelocitySensitivity value="0.400000"/>
+		<MinHorizontalVelocity value="0.200000"/>
+		<MaxHorizontalVelocity value="0.600000"/>
+		<MinVerticalVelocity value="0.000000"/>
+		<MaxVerticalVelocity value="0.000000"/>
+		<Gravity value="0.000000 0.000000 0.000000"/>
+		<EndVelocity value="0.000000"/>
+		<MinColor value="77.000000 103.000000 97.000000 45.000000"/>
+		<MaxColor value="134.000000 124.000000 155.000000 45.000000"/>
+		<MinRotateSpeed value="0.500000"/>
+		<MaxRotateSpeed value="2.000000"/>
+		<MinStartSize value="0.000000"/>
+		<MaxStartSize value="0.500000"/>
+		<MinEndSize value="0.600000"/>
+		<MaxEndSize value="1.400000"/>
+		<BlendState value="Additive"/>
+	</settings>
+-->	
   <!-- Example
 	<settings name="Default">
 		    <TextureName value="./Data/smoke.png" />
