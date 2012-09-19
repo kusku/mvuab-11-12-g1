@@ -47,6 +47,7 @@ public:
 
 	//----Main Functions --------------------------------------
 	virtual bool	Init				( void );
+	void			Update				(  float _ElapsedTime );
 	void			CreateCallbacks		( void );
 
 	virtual void	LoadGraphicStates	( void ); 
@@ -101,7 +102,6 @@ private:
 	// cada ciertos golpeos pasaré a un estado de defensa. Estas variables me permitiràn controlarlo. 
 	int		m_ReceivedHits_X_Minut;				// Conteo de golpeos recibidos
 	int		m_TotalReceivedHits_X_Minut;		// Total permitidos antes de pasar a estado defense
-	
 
 	CRabbitIdleState					*	m_pIdleState;
 	CRabbitPursuitState					*	m_pPursuitState;

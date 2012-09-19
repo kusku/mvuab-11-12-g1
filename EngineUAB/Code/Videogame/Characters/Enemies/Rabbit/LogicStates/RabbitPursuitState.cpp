@@ -69,9 +69,10 @@ void CRabbitPursuitState::OnEnter( CCharacter* _pCharacter )
 
 	if ( !m_pRabbit->GetPlayerHasBeenReached() )
 	{
-		PlaySequencialSound (m_CurrentSoundToPlay);
-		m_ActionStateCallback.InitAction(0, m_SoundDuration);
-		m_ActionStateCallback.StartAction();
+		CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Rabbit_Run" );
+		//PlaySequencialSound (m_CurrentSoundToPlay);
+		//m_ActionStateCallback.InitAction(0, m_SoundDuration);w
+		//m_ActionStateCallback.StartAction();
 	}
 
 	/*m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_pRabbit->GetPlayer()->GetPosition());
@@ -120,22 +121,22 @@ void CRabbitPursuitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 			m_pRabbit->MoveTo2(m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
 
 			// Tratamos el sonido
-			if ( m_ActionStateCallback.IsActionFinished() )
-			{
-				m_CurrentSoundToPlay++;		// vamos al siguiente sonido
-				if ( m_CurrentSoundToPlay > 8 )
-				{
-					m_CurrentSoundToPlay = 1;
-				}
+			//if ( m_ActionStateCallback.IsActionFinished() )
+			//{
+			//	m_CurrentSoundToPlay++;		// vamos al siguiente sonido
+			//	if ( m_CurrentSoundToPlay > 8 )
+			//	{
+			//		m_CurrentSoundToPlay = 1;
+			//	}
 
-				PlaySequencialSound(m_CurrentSoundToPlay);
-				m_ActionStateCallback.InitAction( 0.f, m_SoundDuration );
-				m_ActionStateCallback.StartAction();
-			}
-			else 
-			{
-				m_ActionStateCallback.Update(_ElapsedTime);
-			}
+			//	PlaySequencialSound(m_CurrentSoundToPlay);
+			//	m_ActionStateCallback.InitAction( 0.f, m_SoundDuration );
+			//	m_ActionStateCallback.StartAction();
+			//}
+			//else 
+			//{
+			//	m_ActionStateCallback.Update(_ElapsedTime);
+			//}
 
 			#if defined _DEBUG
 			if( CORE->IsDebugMode() )
@@ -171,7 +172,7 @@ void CRabbitPursuitState::OnExit( CCharacter* _pCharacter )
 	m_pRabbit->GetBehaviors()->CohesionOff();
 	//_pCharacter->GetBehaviors()->AlignmentOff();
 
-	//CORE->GetSoundManager()->PlayEvent("Stop_EFX_RabbitRuns");
+	CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Stop_EFX_Rabbit_Run");
 }
 
 bool CRabbitPursuitState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )

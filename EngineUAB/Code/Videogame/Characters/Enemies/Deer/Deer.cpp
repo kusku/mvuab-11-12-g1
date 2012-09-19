@@ -40,6 +40,15 @@
 #include "AnimationStates\DeerRunAttackAnimationState.h"
 #include "AnimationStates\DeerWalkAnimationState.h"
 
+#include "RenderableObjects/AnimatedModel/AnimatedInstanceModel.h"
+
+#include "SoundManager.h"
+#include "Core.h"
+#include "Base.h"
+
+#if defined (_DEBUG)
+#include "Memory/MemLeaks.h"
+#endif
 
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
@@ -169,7 +178,24 @@ bool CDeer::Init( void )
 
 	this->MoveTo2( Vect3f(0,0,0), 0 );
 
+	//Crea el speaker de audio correspondiente
+	uint16 index = CORE->GetSoundManager()->GetSpeakerCount();
+	std::stringstream out;
+	out << "_";
+	out << index;
+
+	m_SpeakerName = "Deer_Speaker_" + out.str();
+	m_pSpeaker = CORE->GetSoundManager()->CreateSpeaker(m_SpeakerName);
+
 	return true;
+}
+
+void CDeer::Update( float _ElapsedTime )
+{
+	CCharacter::Update(_ElapsedTime);
+
+	m_pSpeaker->SetPosition( m_Position );
+	m_pSpeaker->SetOrientation( m_pCurrentAnimatedModel->GetFront() );
 }
 
 void CDeer::CreateCallbacks(void)

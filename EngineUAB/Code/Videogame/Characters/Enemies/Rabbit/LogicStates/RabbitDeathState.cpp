@@ -80,7 +80,8 @@ void CRabbitDeathState::OnEnter( CCharacter* _pCharacter )
 #endif
 
 	m_pAnimationCallback->Init();
-	PlayRandomSound();
+	CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Rabbit_Death" );
+	//PlayRandomSound();
 }
 
 void CRabbitDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )

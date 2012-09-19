@@ -215,12 +215,12 @@ void CRabbitStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTi
 				if ( m_pRabbit->GetPlayerHasBeenReached() && !m_SoundPlayed1 )
 				{
 					m_SoundPlayed1 = true;
-					CORE->GetSoundManager()->PlayEvent("Play_EFX_Punch3"); 
+					CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Punch3"); 
 				}
 				// Sonido de bofetada fallida
 				else if ( !m_pRabbit->GetPlayerHasBeenReached() && !m_SoundPlayed1 )
 				{
-					CORE->GetSoundManager()->PlayEvent("Play_EFX_Slap1"); 
+					CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Slap1"); 
 					m_SoundPlayed1 = true;
 				}
 			}

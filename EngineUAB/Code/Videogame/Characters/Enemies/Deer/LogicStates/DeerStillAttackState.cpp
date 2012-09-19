@@ -250,13 +250,13 @@ void CDeerStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 				if ( m_FirstHitReached && !m_SoundPlayed1 )
 				{
 					m_SoundPlayed1 = true;
-					CORE->GetSoundManager()->PlayEvent("Play_EFX_Punch3"); 
+					CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Punch3"); 
 					//GetParticleEmitter("Impact1")->EjectParticles();
 				}
 				// Sonido de la 1a bofetada fallida
 				else if ( !m_FirstHitReached && !m_SoundPlayed1 )
 				{
-					CORE->GetSoundManager()->PlayEvent("Play_EFX_Slap1"); 
+					CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Slap1"); 
 					m_SoundPlayed1 = true;
 				}
 			}
@@ -277,13 +277,13 @@ void CDeerStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 				if ( m_SecondHitReached && !m_SoundPlayed2 )
 				{
 					m_SoundPlayed2 = true;
-					CORE->GetSoundManager()->PlayEvent("Play_EFX_Punch2"); 
+					CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Punch2"); 
 					//GetParticleEmitter("Impact1")->EjectParticles();
 				}
 				// Sonido de la 2a bofetada fallida
 				else if ( !m_SecondHitReached && !m_SoundPlayed2 )
 				{
-					CORE->GetSoundManager()->PlayEvent("Play_EFX_Slap1"); 
+					CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Slap1"); 
 					m_SoundPlayed2 = true;
 				}
 			}

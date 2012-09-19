@@ -301,15 +301,46 @@ void CSoundManager::Terminate()
 	AK::SoundEngine::UnregisterAllGameObj();
 }
 
-void CSoundManager::PlayEvent(const std::string &event_name )
+CSpeaker* CSoundManager::CreateSpeaker( const std::string &_Name )
+{
+	CSpeaker *l_pSpeaker = GetResource(_Name);
+	if( l_pSpeaker != NULL )
+	{
+		return l_pSpeaker;
+	}
+
+	l_pSpeaker = new CSpeaker( 100 + GetResourcesVector().size(), _Name );
+	if( l_pSpeaker == NULL )
+	{
+		return NULL;
+	}
+
+	l_pSpeaker->Init();
+	AddResource( _Name, l_pSpeaker );
+
+	return l_pSpeaker;
+}
+
+void CSoundManager::PlayEvent( const std::string &event_name )
+{
+	if( !AK::SoundEngine::IsInitialized() )
+	{
+		return;
+	}
+
+	AK::SoundEngine::PostEvent( event_name.c_str(), GetResource("Test")->GetID() );
+	//AK::SoundEngine::PostEvent( event_name.c_str(), GetResource("Test")->GetID(), AK_EndOfEvent, CallbackReaction );
+}
+
+void CSoundManager::PlayEvent(const std::string &speaker_name, const std::string &event_name )
 {
 	if( !AK::SoundEngine::IsInitialized() )
 	{
 		return;
 	}
 	
-	AK::SoundEngine::PostEvent( event_name.c_str(), GetResource("Test")->GetID() );
 	//AK::SoundEngine::PostEvent( event_name.c_str(), GetResource("Test")->GetID(), AK_EndOfEvent, CallbackReaction );
+	AK::SoundEngine::PostEvent( event_name.c_str(), GetResource(speaker_name)->GetID() );
 }
 
 void CSoundManager::CallbackReaction( AkCallbackType in_eType, AkCallbackInfo* in_pCallbackInfo )

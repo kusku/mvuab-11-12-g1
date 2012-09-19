@@ -19,6 +19,7 @@
 #include "Triggers/TriggersManager.h"
 #include "Weapons\WeaponManager.h"
 #include "Callbacks\Animation\AnimationCallbackManager.h"
+#include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 
 #include "Core.h"
 #include "Base.h"

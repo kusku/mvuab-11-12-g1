@@ -24,6 +24,7 @@ class CAnimationsStates;
 class CAnimatedInstanceModel;
 class CSteeringBehaviors;
 class CSteeringEntity;
+class CSpeaker;
 struct STelegram;
 //---------------------------//
 
@@ -141,6 +142,8 @@ public:
 	inline void					SetPlayerHasBeenReached ( bool _PlayerReached ) 					{ m_PlayerHasBeenReached =_PlayerReached; }
 	inline bool					GetPlayerHasBeenReached ( void ) const								{ return m_PlayerHasBeenReached; }
 
+	inline const std::string&			GetSpeakerName					() const				{ return m_SpeakerName; }
+
 	//----Members ---------------------------------------------
 private:
 	bool							m_bIsOk;
@@ -166,10 +169,14 @@ protected:
 	CSteeringBehaviors			  * m_pBehaviors;
 	CSteeringEntity				  * m_pSteeringEntity;
 
+	CSpeaker					  * m_pSpeaker;
+
 	bool							m_ReadyToAttack; 
 	bool							m_bLocked;
 
 	bool							m_PlayerHasBeenReached;		// Indica si acaba de ser alcanzado el player
+
+	std::string m_SpeakerName;
 };
 
 #endif
