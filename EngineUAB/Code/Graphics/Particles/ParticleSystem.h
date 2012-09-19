@@ -73,6 +73,7 @@ public:
 	void			Initialize			();
 	void			Update				(float elapsedTime);
 	void			Render				();
+	void			ReloadEffect		();
 
 	bool			AddParticle			(const Vect3f& position, const Vect3f& velocity);
 

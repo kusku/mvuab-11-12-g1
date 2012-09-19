@@ -98,7 +98,7 @@ VertexShaderOutput VertexShaderInstanceFunction(VertexShaderInstanceInput input)
     output.TangentToWorld[1] = mul(input.Binormal.xyz, WorldInstance);
     output.TangentToWorld[2] = mul(input.Normal.xyz, WorldInstance);
 	
-	[flatten]
+	[branch]
 	if(FogEnable == true)
 	{
 		output.FogLerp = saturate( (distance(WorldSpacePosition, output.EyePosition) - FogStart) / FogRange);
@@ -143,7 +143,7 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
     output.TangentToWorld[1] = mul(input.Binormal.xyz, World);
     output.TangentToWorld[2] = mul(input.Normal.xyz, World);
 	
-	[flatten]
+	[branch]
 	if(FogEnable == true)
 	{
 		output.FogLerp = saturate( (distance(WorldSpacePosition, output.EyePosition) - FogStart) / FogRange);
@@ -201,7 +201,7 @@ VertexShaderOutput VertexShaderWaterInstanceFunction(VertexShaderInstanceInput i
     output.TangentToWorld[1] = mul(input.Binormal.xyz, WorldInstance);
     output.TangentToWorld[2] = mul(input.Normal.xyz, WorldInstance);
 	
-	[flatten]
+	[branch]
 	if(FogEnable == true)
 	{
 		output.FogLerp = saturate( (distance(WorldSpacePosition, output.EyePosition) - FogStart) / FogRange);
@@ -252,7 +252,7 @@ VertexShaderOutput VertexShaderWaterFunction(VertexShaderInput input)
     output.TangentToWorld[1] = mul(input.Binormal.xyz, World);
     output.TangentToWorld[2] = mul(input.Normal.xyz, World);
 
-	[flatten]
+	[branch]
 	if(FogEnable == true)
 	{
 		output.FogLerp = saturate( (distance(WorldSpacePosition, output.EyePosition) - FogStart) / FogRange);
@@ -370,7 +370,7 @@ PixelShaderOutput PixelShaderFunction(VertexShaderOutput input, uniform bool sha
 	
 	float4 PixEndColor = (DiffuseColor + AmbientColor) * TexColor;
 	
-	[flatten]
+	[branch]
 	if(FogEnable == true)
 	{
 		PixEndColor.xyz = lerp(PixEndColor.xyz, FogColor, input.FogLerp);
@@ -378,7 +378,7 @@ PixelShaderOutput PixelShaderFunction(VertexShaderOutput input, uniform bool sha
 
 	PixEndColor.a = TexColor.a;
 	
-	[flatten]
+	[branch]
 	if(vegetation == true)
 	{
 		clip(PixEndColor.a - 0.2f);
@@ -517,7 +517,7 @@ PixelShaderOutput PixelShaderWaterFunction(VertexShaderOutput input, uniform boo
 	
 	float4 PixEndColor = (DiffuseColor + AmbientColor) * ((TexColor * .25f) + Specular);
 	
-	[flatten]
+	[branch]
 	if(FogEnable == true)
 	{
 		PixEndColor.xyz = lerp(PixEndColor.xyz, FogColor, input.FogLerp);

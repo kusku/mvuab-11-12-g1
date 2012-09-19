@@ -23,6 +23,7 @@ public:
 
 	bool		Load					(const std::string& filename);
 	bool		Reload					();
+	void		ReloadEffects			();
 	void		CleanUp					();
 	void		Initialize				();
 

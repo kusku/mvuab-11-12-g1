@@ -857,6 +857,7 @@ void CCore::ReloadPools()
 	m_pROTManager->Reload();
 	m_pStaticMeshManager->CreateRenderableObjectsTechniques();
 	m_pSceneRendererCommandManager->Reload();
+	m_ParticleSystemManager->ReloadEffects();
 }
 
 void CCore::ReloadScripts()
