@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Windows" SchemaVersion="9">
 	<RootPaths>
-		<ProjectRoot>D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\</ProjectRoot>
-		<SourceFilesRoot>D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\</SourceFilesRoot>
-		<SoundBanksRoot>D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\GeneratedSoundBanks\Windows\</SoundBanksRoot>
+		<ProjectRoot>C:\Users\Marc\Documents\UAB\Wwise\Red_Forest\</ProjectRoot>
+		<SourceFilesRoot>C:\Users\Marc\Documents\UAB\Wwise\Red_Forest\.cache\Windows\</SourceFilesRoot>
+		<SoundBanksRoot>C:\Users\Marc\Documents\UAB\Wwise\Red_Forest\GeneratedSoundBanks\Windows\</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>C:\Users\Marc\Documents\UAB\Wwise\Red_Forest\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<Arguments />
 	<DialogueEvents />
@@ -57,60 +57,42 @@
 			<ShortName>Game_Bank</ShortName>
 			<Path>Game_Bank.bnk</Path>
 			<IncludedEvents>
-				<Event Id="2072356606" Name="Play_EFX_DeerDieing" />
-				<Event Id="1424649022" Name="Play_EFX_DeerEnemyDetected" />
-				<Event Id="3046853085" Name="Play_EFX_DeerExclaim" />
-				<Event Id="4204189225" Name="Play_EFX_DeerPain1" />
-				<Event Id="4204189226" Name="Play_EFX_DeerPain2" />
-				<Event Id="4204189227" Name="Play_EFX_DeerPain3" />
-				<Event Id="4204189228" Name="Play_EFX_DeerPain4" />
-				<Event Id="395908972" Name="Play_EFX_DeerRun1" />
-				<Event Id="395908975" Name="Play_EFX_DeerRun2" />
-				<Event Id="395908974" Name="Play_EFX_DeerRun3" />
-				<Event Id="1872702407" Name="Play_EFX_DeerRunAttack" />
-				<Event Id="3677424533" Name="Play_EFX_DeerRunAttackCharged" />
+				<Event Id="789067003" Name="Play_EFX_Deer_Die" />
+				<Event Id="34671830" Name="Play_EFX_Deer_Enemy_Detected" />
+				<Event Id="581896828" Name="Play_EFX_Deer_Exclaim" />
+				<Event Id="3725010535" Name="Play_EFX_Deer_Pain" />
+				<Event Id="921713726" Name="Play_EFX_Deer_Run" />
+				<Event Id="3112511213" Name="Play_EFX_Deer_Run_Attack" />
+				<Event Id="3224478256" Name="Play_EFX_Deer_Run_Attack_Charged" />
 				<Event Id="1621476486" Name="Play_EFX_GUI_Button_Back" />
 				<Event Id="4151175976" Name="Play_EFX_GUI_Button_Next" />
 				<Event Id="2151123781" Name="Play_EFX_GUI_Button_Over" />
 				<Event Id="3236107786" Name="Play_EFX_Punch2" />
 				<Event Id="3236107787" Name="Play_EFX_Punch3" />
-				<Event Id="1081855368" Name="Play_EFX_RabbitPains1" />
-				<Event Id="1081855371" Name="Play_EFX_RabbitPains2" />
-				<Event Id="1081855370" Name="Play_EFX_RabbitPains3" />
-				<Event Id="1081855373" Name="Play_EFX_RabbitPains4" />
-				<Event Id="1081855372" Name="Play_EFX_RabbitPains5" />
-				<Event Id="1081855375" Name="Play_EFX_RabbitPains6" />
-				<Event Id="1081855374" Name="Play_EFX_RabbitPains7" />
-				<Event Id="128537488" Name="Play_EFX_RabbitsDeath1" />
-				<Event Id="128537491" Name="Play_EFX_RabbitsDeath2" />
-				<Event Id="128537490" Name="Play_EFX_RabbitsDeath3" />
-				<Event Id="128537493" Name="Play_EFX_RabbitsDeath4" />
-				<Event Id="128537492" Name="Play_EFX_RabbitsDeath5" />
-				<Event Id="128537495" Name="Play_EFX_RabbitsDeath6" />
-				<Event Id="2381360359" Name="Play_EFX_RabbitsRun1" />
-				<Event Id="2381360356" Name="Play_EFX_RabbitsRun2" />
-				<Event Id="2381360357" Name="Play_EFX_RabbitsRun3" />
-				<Event Id="2381360354" Name="Play_EFX_RabbitsRun4" />
-				<Event Id="2381360355" Name="Play_EFX_RabbitsRun5" />
-				<Event Id="2381360352" Name="Play_EFX_RabbitsRun6" />
-				<Event Id="2381360353" Name="Play_EFX_RabbitsRun7" />
-				<Event Id="2381360366" Name="Play_EFX_RabbitsRun8" />
-				<Event Id="4013370547" Name="Play_EFX_RabbitsRunAttack1" />
-				<Event Id="4013370544" Name="Play_EFX_RabbitsRunAttack2" />
+				<Event Id="351620247" Name="Play_EFX_Rabbit_Death" />
+				<Event Id="693756879" Name="Play_EFX_Rabbit_Pain" />
+				<Event Id="218380646" Name="Play_EFX_Rabbit_Run" />
+				<Event Id="3296935749" Name="Play_EFX_Rabbit_Run_Attack" />
 				<Event Id="316894959" Name="Play_EFX_Slap1" />
 				<Event Id="3187607523" Name="Play_EFX_Sword" />
 				<Event Id="1954071212" Name="Play_MUS_GUI_Intro" />
 				<Event Id="4101543520" Name="Play_MUS_Level_1" />
+				<Event Id="4027779470" Name="Stop_All_EFX_Rabbit" />
 				<Event Id="4146057876" Name="Stop_EFX_DeerEnemyDetected" />
 				<Event Id="1167721271" Name="Stop_EFX_DeerExclaim" />
 				<Event Id="3241105985" Name="Stop_EFX_DeerPains" />
 				<Event Id="805848909" Name="Stop_EFX_DeerRun" />
+				<Event Id="1864584596" Name="Stop_EFX_Rabbit_Run" />
 				<Event Id="2584030508" Name="Stop_EFX_RabbitRuns" />
 				<Event Id="2610643847" Name="Stop_EFX_RabbitsRunAttacks" />
 			</IncludedEvents>
 			<IncludedDialogueEvents />
 			<ReferencedStreamedFiles />
 			<IncludedFullFiles>
+				<File Id="18527853" Language="SFX">
+					<ShortName>Forest.wav</ShortName>
+					<Path>plugins\izotope hybrid reverb\forest_50bc1bf8.wem</Path>
+				</File>
 				<File Id="854445391" Language="SFX">
 					<ShortName>DeerDieing.wav</ShortName>
 					<Path>sfx\deerdieing_ab9e423f.wem</Path>

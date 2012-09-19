@@ -3,649 +3,430 @@
 	<Events>
 		<WorkUnit Name="Default Work Unit" ID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" PersistMode="Standalone">
 			<ChildrenList>
-				<Event Name="Play_MUS_GUI_Intro" ID="{CAD7D884-E521-423D-ABA9-FC21D0EDEE49}">
+				<Folder Name="Play_Events" ID="{3E9356DF-6712-410E-93F3-774A14FB4B5E}" ShortID="18361793">
 					<ChildrenList>
-						<Action Name="Stop All" ID="{C7740B02-E372-466F-A21D-358E17F74E02}" ShortID="654750458" Type="Stop" Scope="All" Global="true" />
-						<Action Name="Play" ID="{276A9A1B-E731-4971-B4C4-0D76925B03EA}" ShortID="1069572768" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{590ECA8C-3834-4756-9209-0CC3B6454D66}" Global="false">
-									<ObjectRef Name="MUS_GUI_Intro" ID="{A79EF0FF-2D8E-4471-8C72-6B366C8FA11C}" WorkUnitID="{BAAA8488-2744-4EA9-8021-4AC153B97350}" />
-								</Element>
-							</ElementList>
-						</Action>
+						<Folder Name="Effects" ID="{44102B0B-D4B9-478E-B32D-C5A6076D39BA}" ShortID="424949795">
+							<ChildrenList>
+								<Event Name="Play_EFX_GUI_Button_Over" ID="{E2EEAA92-1B23-482D-8A4E-2F039C955B51}">
+									<ChildrenList>
+										<Action Name="Play" ID="{D707DCBD-3EAE-49DC-9EFA-673000F24F8D}" ShortID="88113489" Type="Play" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{39ACB761-79C0-4DD5-939E-8046D936E92E}" Global="false">
+													<ObjectRef Name="EFX_GUI_Button_Over" ID="{CE9E7CB6-CDCD-4876-AE7C-91FDA639AACE}" WorkUnitID="{BAAA8488-2744-4EA9-8021-4AC153B97350}" />
+												</Element>
+											</ElementList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Play_EFX_GUI_Button_Next" ID="{2A18313F-821B-41AD-AF5F-60E10B6C1DCE}">
+									<ChildrenList>
+										<Action Name="Play" ID="{2D38335D-F439-4B1E-B09A-F47BA87152DB}" ShortID="1001093850" Type="Play" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{8C473BD6-93C4-489D-933B-127C8F66BAE2}" Global="false">
+													<ObjectRef Name="EFX_GUI_Button_Next" ID="{5387594A-2477-4984-AB13-A0DDF7560406}" WorkUnitID="{BAAA8488-2744-4EA9-8021-4AC153B97350}" />
+												</Element>
+											</ElementList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Play_EFX_GUI_Button_Back" ID="{6F493325-F482-44F2-956A-1B36549F33C3}">
+									<ChildrenList>
+										<Action Name="Play" ID="{F2C8235C-22F0-4A38-BCC1-02C6DF2E4B98}" ShortID="883717284" Type="Play" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{573CEEC3-8F21-4075-B25A-E23C92BF595F}" Global="false">
+													<ObjectRef Name="EFX_GUI_Button_Back" ID="{6BEA7189-2E62-4D81-9C51-9F2BEA012270}" WorkUnitID="{BAAA8488-2744-4EA9-8021-4AC153B97350}" />
+												</Element>
+											</ElementList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Play_EFX_Sword" ID="{D65620B1-7106-4282-9F46-70EE054179ED}">
+									<ChildrenList>
+										<Action Name="Play" ID="{0BC4E784-5EF6-4961-B81A-5EB952366E06}" ShortID="224405076" Type="Play" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{187A9F3D-B9B9-4CD4-B436-566B3E89928C}" Global="false">
+													<ObjectRef Name="EFX_Sword" ID="{4C045EE6-EB30-4187-A24F-2DE756C95043}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Play_EFX_Punch2" ID="{A5F77502-27C9-4F39-9186-04A4E9627502}">
+									<ChildrenList>
+										<Action Name="Play" ID="{4E279DFD-3E1F-4AE9-9007-FFE86819AB43}" ShortID="410056118" Type="Play" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{524D3903-4465-4D0B-8148-69E11436F349}" Global="false">
+													<ObjectRef Name="Punch2" ID="{FD7B400B-0CF3-48FE-8856-454CFEE38929}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Play_EFX_Punch3" ID="{BF8012CF-19F4-4F63-9AC2-B155557151F1}">
+									<ChildrenList>
+										<Action Name="Play" ID="{1091028E-261D-46DD-9C33-D581A7D705C6}" ShortID="156652261" Type="Play" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{D75E7D2A-09F7-4D98-8F34-94026A811BD7}" Global="false">
+													<ObjectRef Name="Punch3" ID="{BD55BBA2-D761-4049-8E0A-E1957A77A5EF}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Play_EFX_Deer_Exclaim" ID="{DA273953-A19B-4854-A488-A93AFC125466}">
+									<ChildrenList>
+										<Action Name="Play" ID="{124DC5C6-3F98-4F64-88C1-B0EB94E21CF8}" ShortID="501376434" Type="Play" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{791D0098-AA9A-4CE6-A180-68A7ECCB2AE9}" Global="false">
+													<ObjectRef Name="Deer_exclaim" ID="{8B641FCB-F5CF-453B-971B-81F689CBF3FD}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Play_EFX_Deer_Run_Attack" ID="{59444E27-7049-44D9-979B-79F9E7D1C50C}">
+									<ChildrenList>
+										<Action Name="Play" ID="{AF5EF345-3724-4BBE-92E2-6784C4DDFA6F}" ShortID="129783536" Type="Play" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{5D390359-7C7A-41E1-8B59-22DB85F3E42B}" Global="false">
+													<ObjectRef Name="Deer_run_attack" ID="{CAA091A9-76D4-4FC4-87D5-5A8BA01F876C}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Play_EFX_Deer_Run_Attack_Charged" ID="{C8146643-479A-4BA3-8268-CB94CFFFAFB8}">
+									<ChildrenList>
+										<Action Name="Play" ID="{99CD6685-271A-4243-812B-00E11CDD3762}" ShortID="642444855" Type="Play" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{FEEDDBEC-8DA2-48C8-BC24-A3F962C55D56}" Global="false">
+													<ObjectRef Name="Deer_run_attack_charged" ID="{AB5888B6-75CC-4C34-8182-83DBB2B6E731}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Play_EFX_Slap1" ID="{0FAFA7CC-A569-4785-AAF8-41A5CC767D9C}">
+									<ChildrenList>
+										<Action Name="Play" ID="{AD7BF864-B116-4023-86AA-990DCB97B1B2}" ShortID="290228051" Type="Play" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{87D23AB4-2414-4653-BC1B-7EAE33A3F88A}" Global="false">
+													<ObjectRef Name="Slap1" ID="{D0F4053C-3EFC-4BCA-8C7F-868364E09D66}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Play_EFX_Deer_Die" ID="{01A85CC5-D370-4E73-A83B-A9EB1CF70222}">
+									<ChildrenList>
+										<Action Name="Play" ID="{7C9F9116-707D-4B49-B631-8FCA109D3762}" ShortID="590505481" Type="Play" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{EC80F72A-B411-4610-A459-A3F2BA7AE34B}" Global="false">
+													<ObjectRef Name="Deer_die" ID="{E0EA21A1-E500-41E7-ACEB-2BDB20445CD9}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Play_EFX_Deer_Enemy_Detected" ID="{B0E3EF9A-29D3-4A80-BDC1-9BAD69F794C3}">
+									<ChildrenList>
+										<Action Name="Play" ID="{0BE1197D-7AF0-4032-9A41-87A62B70B901}" ShortID="76193911" Type="Play" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{FE85DFF3-8F93-4B77-A4C3-29B84EFA24D2}" Global="false">
+													<ObjectRef Name="Deer_enemy_detected" ID="{2DDD47DA-3E5D-4787-8630-044DD51C3014}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Play_EFX_Rabbit_Death" ID="{174A3D1B-28B1-4445-9F55-0C6395DB34D1}">
+									<ChildrenList>
+										<Action Name="Play" ID="{FBC4272B-8D67-43E1-93B4-51D99FC91D7A}" ShortID="518067464" Type="Play" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{D822B34F-4718-400F-A585-E0883A6B56D2}" Global="false">
+													<ObjectRef Name="Rabbit_death" ID="{E01119E2-7085-470E-838D-9107D61550E6}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Play_EFX_Rabbit_Pain" ID="{64FE8CEF-FF94-4C9D-918E-B935DF526E97}">
+									<ChildrenList>
+										<Action Name="Play" ID="{D99F0C16-5EF5-4CF5-96FF-74EED07FBB4E}" ShortID="53846906" Type="Play" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{10ED6EA2-F75F-49FD-A0A8-FB562D424BE2}" Global="false">
+													<ObjectRef Name="Rabbit_pain" ID="{F29D195B-C2EC-4492-B089-045DE7BC212A}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Play_EFX_Rabbit_Run" ID="{B66D671C-5E5D-4F43-8953-284664FA8338}">
+									<ChildrenList>
+										<Action Name="Play" ID="{62674CF8-C57C-4A94-8F79-ED75142B7768}" ShortID="276157641" Type="Play" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{949263C4-AE90-429C-BDC1-E632161B26CB}" Global="false">
+													<ObjectRef Name="Rabbit_run" ID="{FDC47318-E9D5-43E9-8A07-2D845E26CEAC}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Play_EFX_Rabbit_Run_Attack" ID="{6FBE9713-18FD-4BEB-90A2-E1B8185A99D3}">
+									<ChildrenList>
+										<Action Name="Play" ID="{77D046C2-AD84-493E-B219-9B4EC1DFDD50}" ShortID="928426013" Type="Play" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{76A055A2-82E6-4D73-BA07-6AE0FDBC13ED}" Global="false">
+													<ObjectRef Name="Rabbit_run_attack" ID="{9FAE27B1-1DF1-4D34-9BC1-0730996F1192}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Play_EFX_Deer_Pain" ID="{C71405A9-B31F-418B-911B-8FADD8218697}">
+									<ChildrenList>
+										<Action Name="Play" ID="{631825FA-D813-4B7B-95AC-D075F943BA10}" ShortID="835677231" Type="Play" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{19AA2F13-6441-4E4C-8341-837A2AD577E3}" Global="false">
+													<ObjectRef Name="Deer_pain" ID="{3FF6E819-18A6-4856-B357-27ED9E79EF9E}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Play_EFX_Deer_Run" ID="{7B4D9E99-886B-4291-8A78-95E258B70A7D}">
+									<ChildrenList>
+										<Action Name="Play" ID="{1BE470FB-8049-4474-B5BB-3E7B7B877E8B}" ShortID="936674301" Type="Play" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{E7E53BC8-7E2D-4AAA-B020-20D827E8F87B}" Global="false">
+													<ObjectRef Name="Deer_run" ID="{21FCD7F8-6D22-4FCC-B405-F70E4EBFB2E3}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+									</ChildrenList>
+								</Event>
+							</ChildrenList>
+						</Folder>
+						<Folder Name="Music" ID="{5915F840-1B13-4319-A41C-0315CE10C809}" ShortID="608483367">
+							<ChildrenList>
+								<Event Name="Play_MUS_GUI_Intro" ID="{CAD7D884-E521-423D-ABA9-FC21D0EDEE49}">
+									<ChildrenList>
+										<Action Name="Stop All" ID="{C7740B02-E372-466F-A21D-358E17F74E02}" ShortID="654750458" Type="Stop" Scope="All" Global="true" />
+										<Action Name="Play" ID="{276A9A1B-E731-4971-B4C4-0D76925B03EA}" ShortID="1069572768" Type="Play" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{590ECA8C-3834-4756-9209-0CC3B6454D66}" Global="false">
+													<ObjectRef Name="MUS_GUI_Intro" ID="{A79EF0FF-2D8E-4471-8C72-6B366C8FA11C}" WorkUnitID="{BAAA8488-2744-4EA9-8021-4AC153B97350}" />
+												</Element>
+											</ElementList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Play_MUS_Level_1" ID="{73F70F20-20AC-4A31-8567-997CD5C13282}">
+									<ChildrenList>
+										<Action Name="Stop All" ID="{4B35B305-AF5F-4624-B4B0-474885F9E6B3}" ShortID="89614146" Type="Stop" Scope="All" Global="true" />
+										<Action Name="Play" ID="{F7A782AE-B165-4CFA-BD68-3C966271E736}" ShortID="994113330" Type="Play" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{C3A21E99-7F2B-49D9-8E88-00E31AB850F7}" Global="false">
+													<ObjectRef Name="MUS_Level_1" ID="{AA2037B5-5339-4522-A49C-0B82A8069B9B}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+									</ChildrenList>
+								</Event>
+							</ChildrenList>
+						</Folder>
 					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_GUI_Button_Over" ID="{E2EEAA92-1B23-482D-8A4E-2F039C955B51}">
+				</Folder>
+				<Folder Name="Stop_Events" ID="{298F0E1C-BF80-4FF1-9226-EEB8E1D751DA}" ShortID="211678418">
 					<ChildrenList>
-						<Action Name="Play" ID="{D707DCBD-3EAE-49DC-9EFA-673000F24F8D}" ShortID="88113489" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{39ACB761-79C0-4DD5-939E-8046D936E92E}" Global="false">
-									<ObjectRef Name="EFX_GUI_Button_Over" ID="{CE9E7CB6-CDCD-4876-AE7C-91FDA639AACE}" WorkUnitID="{BAAA8488-2744-4EA9-8021-4AC153B97350}" />
-								</Element>
-							</ElementList>
-						</Action>
+						<Folder Name="Effects" ID="{4B68F66D-9CE7-457B-BA3D-0A1C4B995C97}" ShortID="334048574">
+							<ChildrenList>
+								<Event Name="Stop_EFX_DeerExclaim" ID="{D6A07B3B-24FA-4BD6-AC61-FC139EF8FD7B}">
+									<ChildrenList>
+										<Action Name="Stop" ID="{CEB94939-AE2C-44A4-A72A-2130D32F5C42}" ShortID="225434674" Type="Stop" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{4BA0A6DF-4C70-4611-AA5D-525812224B36}" Global="false">
+													<ObjectRef Name="EFX_Deer_exclaim" ID="{8243450F-3F8E-46E7-820E-3A60D0896EAC}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Stop_EFX_DeerEnemyDetected" ID="{89DFB984-DD7B-4D4C-8B98-B248FB701CDA}">
+									<ChildrenList>
+										<Action Name="Stop" ID="{6AA57E37-8B25-4CBA-9FD5-3C26445E280B}" ShortID="558609662" Type="Stop" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{E028C300-0C0D-48BF-B03A-9E1EA1443604}" Global="false">
+													<ObjectRef Name="EFX_Deer_enemy_detected" ID="{0339D56E-69AA-48D1-8AC2-CCF383299018}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Stop_EFX_DeerRun" ID="{E2A430C3-7C28-427A-9622-3DE112FC5374}">
+									<ChildrenList>
+										<Action Name="Stop" ID="{3B41C64C-AFF7-41CE-B003-87F163452ABF}" ShortID="450020137" Type="Stop" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{C3AC3CEA-515A-40C0-8F0C-CD5B6FFD8CA5}" Global="false">
+													<ObjectRef Name="EFX_Deer_run_1" ID="{B5540C88-6785-498B-9BFF-2DAB99514E31}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+										<Action Name="Stop" ID="{9F8D6577-3A8A-4937-8D25-C56C68B8F730}" ShortID="824222124" Type="Stop" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{1769CEA2-BA60-4531-B77C-ED26E242FB30}" Global="false">
+													<ObjectRef Name="EFX_Deer_run_2" ID="{859E281C-5F89-48A8-83F8-D3328603C939}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+										<Action Name="Stop" ID="{02C4FDDD-22C0-4777-83DD-EA267ADD5D69}" ShortID="1068129878" Type="Stop" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{3299E8A4-F70A-467A-B3EB-6927C6AEE5C8}" Global="false">
+													<ObjectRef Name="EFX_Deer_run_3" ID="{5F7E0F19-F1AB-4DB4-94A1-460AD5E9E161}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Stop_EFX_DeerPains" ID="{E91531D4-44A8-448D-897C-197543AFDF20}">
+									<ChildrenList>
+										<Action Name="Stop" ID="{AE0ECC06-45CF-4ABC-8A50-3A570331496A}" ShortID="327196307" Type="Stop" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{A19CFE84-6CD6-4F04-9770-A836827F84F2}" Global="false">
+													<ObjectRef Name="EFX_Deer_pain_1" ID="{48D9F756-D507-4268-97C2-DC47A8EDB110}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+										<Action Name="Stop" ID="{15866B11-16C9-497F-85DA-B375B89B86A4}" ShortID="996188158" Type="Stop" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{3B9D42E3-DCBB-4282-A54C-70575A5D6A66}" Global="false">
+													<ObjectRef Name="EFX_Deer_pain_2" ID="{C110BDB9-AE14-4C8B-B872-00989522AD53}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+										<Action Name="Stop" ID="{3B3998D5-4A1D-4E0E-83E1-AE346D06B740}" ShortID="572422261" Type="Stop" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{B82548D5-E600-48ED-9E21-C667A7C54299}" Global="false">
+													<ObjectRef Name="EFX_Deer_pain_3" ID="{F797033F-3ED2-4B32-B141-64F29B187F96}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+										<Action Name="Stop" ID="{5339EA02-56EB-4E69-9D40-F9C0A458ED1E}" ShortID="359632999" Type="Stop" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{0C326BA9-21EF-435A-B872-D302AF5EE0C3}" Global="false">
+													<ObjectRef Name="EFX_Deer_pain_4" ID="{1209398F-A9DF-4C93-BBF6-51CDFE2C22E2}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Stop_EFX_RabbitRuns" ID="{634F3008-E056-468D-961B-FFC3991F66EA}">
+									<ChildrenList>
+										<Action Name="Stop" ID="{2BC47398-243C-4930-AF30-AE01660D9C5E}" ShortID="260138085" Type="Stop" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{236244C4-13D1-4D54-9E05-9E9BE9958D47}" Global="false">
+													<ObjectRef Name="EFX_Rabbit_run_1" ID="{C2DAB389-AE23-4E45-8885-9C6DA73DE12F}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+										<Action Name="Stop" ID="{64D71292-78E7-455B-A960-96428D7986CD}" ShortID="904130797" Type="Stop" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{B64C94A2-8DAA-4E33-AC94-F96F271E5B22}" Global="false">
+													<ObjectRef Name="EFX_Rabbit_run_2" ID="{F8DD18AF-1C0B-4150-AAD0-FDED3E7C1641}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+										<Action Name="Stop" ID="{BC7C760D-CA58-4098-9EBF-5B32B561B250}" ShortID="783987776" Type="Stop" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{E750E716-B0B7-45C6-A0A0-9CBADDF5A010}" Global="false">
+													<ObjectRef Name="EFX_Rabbit_run_3" ID="{06B6BC0B-5E16-4FBB-8881-A29B54021B37}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+										<Action Name="Stop" ID="{873498A3-F4AF-4D61-849B-55F61C5E4E7F}" ShortID="34598760" Type="Stop" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{D6CD587B-19DE-468F-B288-4D651FA52321}" Global="false">
+													<ObjectRef Name="EFX_Rabbit_run_4" ID="{C2F29CE3-F80F-403B-A6FE-0B6DDC8FEF2C}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+										<Action Name="Stop" ID="{70890F30-8C9C-40A8-B869-8C581570A1AA}" ShortID="490035846" Type="Stop" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{FCD853DA-D05F-42C7-ABBF-C278ED64BFB6}" Global="false">
+													<ObjectRef Name="EFX_Rabbit_run_5" ID="{F5271836-6E10-4FFA-8D75-D2EBF9F66419}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+										<Action Name="Stop" ID="{5699FB82-F22D-4287-9830-047AECFAA683}" ShortID="696141291" Type="Stop" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{A69C3ACB-3886-4CD4-95AC-BE96ABB0E79E}" Global="false">
+													<ObjectRef Name="EFX_Rabbit_run_6" ID="{3BA12DBE-192D-4A98-8154-D6BACBD50B34}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+										<Action Name="Stop" ID="{5573C09A-2DE2-416D-A21A-507CAD2B5959}" ShortID="678191528" Type="Stop" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{E60225BD-C327-4118-8279-ED097B5BDB26}" Global="false">
+													<ObjectRef Name="EFX_Rabbit_run_7" ID="{7A6A471F-CCBF-4BF5-864D-69914F030D34}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+										<Action Name="Stop" ID="{45CC536C-B9CF-4BC6-9385-24ADF6EEC621}" ShortID="862045321" Type="Stop" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{65DFE22A-2A0F-4BF7-BE5D-72057614F808}" Global="false">
+													<ObjectRef Name="EFX_Rabbit_run_8" ID="{A2F17304-1498-4D81-B4BB-57A03BEB0052}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Stop_EFX_RabbitsRunAttacks" ID="{993C953E-A70D-4F08-B186-374874D14CF0}">
+									<ChildrenList>
+										<Action Name="Stop" ID="{8FD6FE3F-9805-4C84-AB0F-6AA22D44829E}" ShortID="375431774" Type="Stop" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{29D54F73-1B2B-422D-B3DF-FA049A7FD74A}" Global="false">
+													<ObjectRef Name="EFX_Rabbit_run_attack_1" ID="{791A8D3E-DA5E-45CA-B3AB-77200AD6EC7D}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+										<Action Name="Stop" ID="{021351E5-3085-4843-AD1C-11EA735E6566}" ShortID="647334741" Type="Stop" Scope="One" Global="false">
+											<ElementList>
+												<Element ID="{B1E8018D-7E0E-4A53-BC57-BC9C16427CA9}" Global="false">
+													<ObjectRef Name="EFX_Rabbit_run_attack_2" ID="{2FECFB92-C051-467B-8B89-AFC010F6945C}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Stop_EFX_Rabbit_Run" ID="{D14ADE5C-3ADC-4BC4-885A-DD26CA1370AE}">
+									<ChildrenList>
+										<Action Name="Stop" ID="{C8387937-E0EF-46B5-9C38-93690705A698}" ShortID="1070887493" Type="Stop" Scope="One" Global="true">
+											<PropertyList>
+												<Property Name="FadeCurve" Type="int16" Value="7" />
+												<Property Name="FadeTime" Type="Real64" Value="1" />
+											</PropertyList>
+											<ElementList>
+												<Element ID="{E0189262-E6B3-4960-B57B-AB17C3367AF0}" Global="true">
+													<ObjectRef Name="Rabbit_run" ID="{FDC47318-E9D5-43E9-8A07-2D845E26CEAC}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
+												</Element>
+											</ElementList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Stop_All_EFX_Rabbit" ID="{82C24FD2-0B51-4A09-91A5-E0DD0C35CECA}">
+									<ChildrenList>
+										<Action Name="Stop All" ID="{637682E0-8B42-402D-BF9C-FDAC765CD41E}" ShortID="745645673" Type="Stop" Scope="All" Global="false">
+											<PropertyList>
+												<Property Name="FadeCurve" Type="int16" Value="7" />
+												<Property Name="FadeTime" Type="Real64" Value="1" />
+											</PropertyList>
+										</Action>
+									</ChildrenList>
+								</Event>
+							</ChildrenList>
+						</Folder>
 					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_GUI_Button_Next" ID="{2A18313F-821B-41AD-AF5F-60E10B6C1DCE}">
-					<ChildrenList>
-						<Action Name="Play" ID="{2D38335D-F439-4B1E-B09A-F47BA87152DB}" ShortID="1001093850" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{8C473BD6-93C4-489D-933B-127C8F66BAE2}" Global="false">
-									<ObjectRef Name="EFX_GUI_Button_Next" ID="{5387594A-2477-4984-AB13-A0DDF7560406}" WorkUnitID="{BAAA8488-2744-4EA9-8021-4AC153B97350}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_GUI_Button_Back" ID="{6F493325-F482-44F2-956A-1B36549F33C3}">
-					<ChildrenList>
-						<Action Name="Play" ID="{F2C8235C-22F0-4A38-BCC1-02C6DF2E4B98}" ShortID="883717284" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{573CEEC3-8F21-4075-B25A-E23C92BF595F}" Global="false">
-									<ObjectRef Name="EFX_GUI_Button_Back" ID="{6BEA7189-2E62-4D81-9C51-9F2BEA012270}" WorkUnitID="{BAAA8488-2744-4EA9-8021-4AC153B97350}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_MUS_Level_1" ID="{73F70F20-20AC-4A31-8567-997CD5C13282}">
-					<ChildrenList>
-						<Action Name="Stop All" ID="{4B35B305-AF5F-4624-B4B0-474885F9E6B3}" ShortID="89614146" Type="Stop" Scope="All" Global="true" />
-						<Action Name="Play" ID="{F7A782AE-B165-4CFA-BD68-3C966271E736}" ShortID="994113330" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{C3A21E99-7F2B-49D9-8E88-00E31AB850F7}" Global="false">
-									<ObjectRef Name="MUS_Level_1" ID="{AA2037B5-5339-4522-A49C-0B82A8069B9B}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_Sword" ID="{D65620B1-7106-4282-9F46-70EE054179ED}">
-					<ChildrenList>
-						<Action Name="Play" ID="{0BC4E784-5EF6-4961-B81A-5EB952366E06}" ShortID="224405076" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{187A9F3D-B9B9-4CD4-B436-566B3E89928C}" Global="false">
-									<ObjectRef Name="EFX_Sword" ID="{4C045EE6-EB30-4187-A24F-2DE756C95043}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_Punch2" ID="{A5F77502-27C9-4F39-9186-04A4E9627502}">
-					<ChildrenList>
-						<Action Name="Play" ID="{4E279DFD-3E1F-4AE9-9007-FFE86819AB43}" ShortID="410056118" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{524D3903-4465-4D0B-8148-69E11436F349}" Global="false">
-									<ObjectRef Name="Punch2" ID="{FD7B400B-0CF3-48FE-8856-454CFEE38929}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_Punch3" ID="{BF8012CF-19F4-4F63-9AC2-B155557151F1}">
-					<ChildrenList>
-						<Action Name="Play" ID="{1091028E-261D-46DD-9C33-D581A7D705C6}" ShortID="156652261" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{D75E7D2A-09F7-4D98-8F34-94026A811BD7}" Global="false">
-									<ObjectRef Name="Punch3" ID="{BD55BBA2-D761-4049-8E0A-E1957A77A5EF}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_DeerExclaim" ID="{DA273953-A19B-4854-A488-A93AFC125466}">
-					<ChildrenList>
-						<Action Name="Play" ID="{124DC5C6-3F98-4F64-88C1-B0EB94E21CF8}" ShortID="501376434" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{5979821D-462D-4C75-9F35-EE480F700720}" Global="false">
-									<ObjectRef Name="DeerExclaim" ID="{8243450F-3F8E-46E7-820E-3A60D0896EAC}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Stop_EFX_DeerExclaim" ID="{D6A07B3B-24FA-4BD6-AC61-FC139EF8FD7B}">
-					<ChildrenList>
-						<Action Name="Stop" ID="{CEB94939-AE2C-44A4-A72A-2130D32F5C42}" ShortID="225434674" Type="Stop" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{4BA0A6DF-4C70-4611-AA5D-525812224B36}" Global="false">
-									<ObjectRef Name="DeerExclaim" ID="{8243450F-3F8E-46E7-820E-3A60D0896EAC}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_DeerRunAttack" ID="{59444E27-7049-44D9-979B-79F9E7D1C50C}">
-					<ChildrenList>
-						<Action Name="Play" ID="{AF5EF345-3724-4BBE-92E2-6784C4DDFA6F}" ShortID="129783536" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{5D390359-7C7A-41E1-8B59-22DB85F3E42B}" Global="false">
-									<ObjectRef Name="DeerRunAttack" ID="{0DC97446-4C70-4BCA-997D-AFCCCD799907}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_DeerRunAttackCharged" ID="{C8146643-479A-4BA3-8268-CB94CFFFAFB8}">
-					<ChildrenList>
-						<Action Name="Play" ID="{99CD6685-271A-4243-812B-00E11CDD3762}" ShortID="642444855" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{98C39B8B-8649-413C-B0A8-15840CEFDA13}" Global="false">
-									<ObjectRef Name="DeerRunAttackCharged" ID="{91832AAD-4D5F-4272-8F69-BC0E69A1D083}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_Slap1" ID="{0FAFA7CC-A569-4785-AAF8-41A5CC767D9C}">
-					<ChildrenList>
-						<Action Name="Play" ID="{AD7BF864-B116-4023-86AA-990DCB97B1B2}" ShortID="290228051" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{87D23AB4-2414-4653-BC1B-7EAE33A3F88A}" Global="false">
-									<ObjectRef Name="Slap1" ID="{D0F4053C-3EFC-4BCA-8C7F-868364E09D66}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_DeerDieing" ID="{01A85CC5-D370-4E73-A83B-A9EB1CF70222}">
-					<ChildrenList>
-						<Action Name="Play" ID="{7C9F9116-707D-4B49-B631-8FCA109D3762}" ShortID="590505481" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{3E466AAF-25E4-4AC3-9CD6-766F9925BBB6}" Global="false">
-									<ObjectRef Name="DeerDieing" ID="{FBEB9BC6-B2B1-4020-9AC8-AF34D671EC67}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_DeerEnemyDetected" ID="{B0E3EF9A-29D3-4A80-BDC1-9BAD69F794C3}">
-					<ChildrenList>
-						<Action Name="Play" ID="{0BE1197D-7AF0-4032-9A41-87A62B70B901}" ShortID="76193911" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{15ADE93D-A43B-43B8-9BF5-4CAFA0E2AB06}" Global="false">
-									<ObjectRef Name="DeerEnemyDetected" ID="{0339D56E-69AA-48D1-8AC2-CCF383299018}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Stop_EFX_DeerEnemyDetected" ID="{89DFB984-DD7B-4D4C-8B98-B248FB701CDA}">
-					<ChildrenList>
-						<Action Name="Stop" ID="{6AA57E37-8B25-4CBA-9FD5-3C26445E280B}" ShortID="558609662" Type="Stop" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{E028C300-0C0D-48BF-B03A-9E1EA1443604}" Global="false">
-									<ObjectRef Name="DeerEnemyDetected" ID="{0339D56E-69AA-48D1-8AC2-CCF383299018}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_DeerRun1" ID="{21D85939-3427-4A89-B583-C1673F7B8921}">
-					<ChildrenList>
-						<Action Name="Play" ID="{D5F99F62-25DA-4784-A819-336CC5BC0E62}" ShortID="735350381" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{1B67D0A5-5619-4114-9383-CB58FA3EE4AD}" Global="false">
-									<ObjectRef Name="DeerRun1" ID="{B5540C88-6785-498B-9BFF-2DAB99514E31}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_DeerRun2" ID="{FB896443-AD11-4385-B276-A33074A74290}">
-					<ChildrenList>
-						<Action Name="Play" ID="{2281CB95-6EC1-47B1-846A-FE95FE91FB5C}" ShortID="619595362" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{B515590E-DC8B-4FFA-A8A2-581250B9D323}" Global="false">
-									<ObjectRef Name="DeerRun2" ID="{859E281C-5F89-48A8-83F8-D3328603C939}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_DeerRun3" ID="{C3E1F6BD-14BC-4FAF-8A60-86621CDD324B}">
-					<ChildrenList>
-						<Action Name="Play" ID="{804B2D3A-9B42-40B3-8F73-B49B3B0C29E0}" ShortID="288902519" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{6565A3C5-EFED-40FA-B8CE-323D4698488A}" Global="false">
-									<ObjectRef Name="DeerRun3" ID="{5F7E0F19-F1AB-4DB4-94A1-460AD5E9E161}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Stop_EFX_DeerRun" ID="{E2A430C3-7C28-427A-9622-3DE112FC5374}">
-					<ChildrenList>
-						<Action Name="Stop" ID="{3B41C64C-AFF7-41CE-B003-87F163452ABF}" ShortID="450020137" Type="Stop" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{C3AC3CEA-515A-40C0-8F0C-CD5B6FFD8CA5}" Global="false">
-									<ObjectRef Name="DeerRun1" ID="{B5540C88-6785-498B-9BFF-2DAB99514E31}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-						<Action Name="Stop" ID="{9F8D6577-3A8A-4937-8D25-C56C68B8F730}" ShortID="824222124" Type="Stop" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{1769CEA2-BA60-4531-B77C-ED26E242FB30}" Global="false">
-									<ObjectRef Name="DeerRun2" ID="{859E281C-5F89-48A8-83F8-D3328603C939}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-						<Action Name="Stop" ID="{02C4FDDD-22C0-4777-83DD-EA267ADD5D69}" ShortID="1068129878" Type="Stop" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{3299E8A4-F70A-467A-B3EB-6927C6AEE5C8}" Global="false">
-									<ObjectRef Name="DeerRun3" ID="{5F7E0F19-F1AB-4DB4-94A1-460AD5E9E161}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_DeerPain1" ID="{2298DE1A-ECB3-409D-82D0-9EEDC3EACC82}">
-					<ChildrenList>
-						<Action Name="Play" ID="{7EDFDAE9-7F66-4542-B277-6A0F2D745EDF}" ShortID="73226412" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{0C6ACDC2-F628-4714-A766-6269F4CCAA62}" Global="false">
-									<ObjectRef Name="DeerPain1" ID="{48D9F756-D507-4268-97C2-DC47A8EDB110}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_DeerPain2" ID="{E5A3DF7B-C6C0-4DD5-B6B4-93953B46D8D5}">
-					<ChildrenList>
-						<Action Name="Play" ID="{BA49CF21-5208-4A3A-B278-3C50C6C8DC2D}" ShortID="167127284" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{0DC14B33-2886-4CC6-83D9-C66C69ACB2E5}" Global="false">
-									<ObjectRef Name="DeerPain2" ID="{C110BDB9-AE14-4C8B-B872-00989522AD53}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_DeerPain3" ID="{D7ACE687-0768-4FBE-AAD5-FBF36C6EDB7F}">
-					<ChildrenList>
-						<Action Name="Play" ID="{6E102644-380D-45A5-BABB-A7F319F9AA14}" ShortID="555236632" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{F8BFDBBA-C4F9-4CF2-AB2A-CA6042D6D003}" Global="false">
-									<ObjectRef Name="DeerPain3" ID="{F797033F-3ED2-4B32-B141-64F29B187F96}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_DeerPain4" ID="{1DE3521F-7D49-42FD-A510-B2442A8FFB5C}">
-					<ChildrenList>
-						<Action Name="Play" ID="{A901EE44-ABB7-4453-B20B-57D28213E3DF}" ShortID="409204052" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{8B56974B-D23E-4775-B168-9E61B81B9928}" Global="false">
-									<ObjectRef Name="DeerPain4" ID="{1209398F-A9DF-4C93-BBF6-51CDFE2C22E2}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Stop_EFX_DeerPains" ID="{E91531D4-44A8-448D-897C-197543AFDF20}">
-					<ChildrenList>
-						<Action Name="Stop" ID="{AE0ECC06-45CF-4ABC-8A50-3A570331496A}" ShortID="327196307" Type="Stop" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{A19CFE84-6CD6-4F04-9770-A836827F84F2}" Global="false">
-									<ObjectRef Name="DeerPain1" ID="{48D9F756-D507-4268-97C2-DC47A8EDB110}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-						<Action Name="Stop" ID="{15866B11-16C9-497F-85DA-B375B89B86A4}" ShortID="996188158" Type="Stop" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{3B9D42E3-DCBB-4282-A54C-70575A5D6A66}" Global="false">
-									<ObjectRef Name="DeerPain2" ID="{C110BDB9-AE14-4C8B-B872-00989522AD53}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-						<Action Name="Stop" ID="{3B3998D5-4A1D-4E0E-83E1-AE346D06B740}" ShortID="572422261" Type="Stop" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{B82548D5-E600-48ED-9E21-C667A7C54299}" Global="false">
-									<ObjectRef Name="DeerPain3" ID="{F797033F-3ED2-4B32-B141-64F29B187F96}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-						<Action Name="Stop" ID="{5339EA02-56EB-4E69-9D40-F9C0A458ED1E}" ShortID="359632999" Type="Stop" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{0C326BA9-21EF-435A-B872-D302AF5EE0C3}" Global="false">
-									<ObjectRef Name="DeerPain4" ID="{1209398F-A9DF-4C93-BBF6-51CDFE2C22E2}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_RabbitPains1" ID="{B8881F19-7305-49ED-9EB4-34D388E3F6F7}">
-					<ChildrenList>
-						<Action Name="Play" ID="{30458729-9AB9-4CF8-A03D-D18EB1A482E5}" ShortID="100738038" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{DE60E4DD-65A7-4534-B7A0-D99AAE3949F9}" Global="false">
-									<ObjectRef Name="RabbitPains1" ID="{A3BFFB87-3947-4540-A06F-E6F7F6FACDEC}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_RabbitPains2" ID="{4BE5CBDD-5288-4681-A6AD-345D9AF688C5}">
-					<ChildrenList>
-						<Action Name="Play" ID="{95A85E39-DACE-4092-8EB0-0CA06C972118}" ShortID="659527097" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{A238DF91-1F76-4CFE-B2E2-F4892A3CB551}" Global="false">
-									<ObjectRef Name="RabbitPains2" ID="{0E8AA35A-43F5-4EB2-A667-621B70DAF2A9}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_RabbitPains3" ID="{7D091387-E0FE-4B9E-93D8-61CF3644ADD5}">
-					<ChildrenList>
-						<Action Name="Play" ID="{E70B63C4-4237-4DB8-8882-7A06991A8780}" ShortID="118017606" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{91D15A4D-C999-46C6-A67A-E52F85C3F5F3}" Global="false">
-									<ObjectRef Name="RabbitPains3" ID="{69A6D621-C352-40F6-B776-41FD6F40C53B}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_RabbitPains4" ID="{1A79C65E-7A03-4D04-A713-09F5A11B82E9}">
-					<ChildrenList>
-						<Action Name="Play" ID="{23096918-EB20-46C0-804A-5E94697AAF79}" ShortID="342283218" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{4145B934-D41D-4903-9649-089C3AE11985}" Global="false">
-									<ObjectRef Name="RabbitPains4" ID="{98DDB777-3113-4E59-93A7-45B0B5C8A585}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_RabbitPains5" ID="{3217B636-E9FF-4B5D-84E7-363179B3D95A}">
-					<ChildrenList>
-						<Action Name="Play" ID="{F630919F-4B33-42B0-AB3B-9CE2FF01BB56}" ShortID="762491114" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{7C65536A-DF55-4589-83FB-6D1D1B17D74D}" Global="false">
-									<ObjectRef Name="RabbitPains5" ID="{1BAD39DC-E768-45C2-AA8B-48A04506CC6B}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_RabbitPains6" ID="{30A3D0F5-0A81-4E2F-9E03-E06A8C886397}">
-					<ChildrenList>
-						<Action Name="Play" ID="{015D12F7-9D40-42D2-A036-4DF59FBFAEFB}" ShortID="590250276" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{6D7A7916-7E36-47FE-856C-7D43B30BAFCE}" Global="false">
-									<ObjectRef Name="RabbitPains6" ID="{C36DE467-779C-4CCC-A8B8-286FE6364695}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_RabbitPains7" ID="{92F610BA-8C48-4991-ABB3-5265CC8130A8}">
-					<ChildrenList>
-						<Action Name="Play" ID="{417E6F13-DD15-48E2-A357-2DC6C36425B3}" ShortID="615227456" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{188929E9-3A97-47B5-A8E5-E798A59EB702}" Global="false">
-									<ObjectRef Name="RabbitPains7" ID="{569B385C-9E2D-4796-8064-2E58A4D3DE8C}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_RabbitsDeath1" ID="{1DC675DD-9E03-4B93-8BA5-B4604316304F}">
-					<ChildrenList>
-						<Action Name="Play" ID="{B53F53CE-6D7C-4B05-8809-AE82B5639CEF}" ShortID="696378911" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{9637077B-D82B-443D-8F9F-E7B32F2ECA85}" Global="false">
-									<ObjectRef Name="RabbitsDeath1" ID="{A7C8B97F-B744-4D89-8AFC-9B6D1188F7BD}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_RabbitsDeath2" ID="{11E9639D-1E38-46EB-98D5-1D5F393C4D6B}">
-					<ChildrenList>
-						<Action Name="Play" ID="{2CA9BE65-D757-4E27-AF73-BD02228A9568}" ShortID="171328660" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{628880D8-E350-41F4-90F5-0026580AF1A4}" Global="false">
-									<ObjectRef Name="RabbitsDeath2" ID="{3D0AAF47-0781-47FD-91CF-4FEF0FB6D343}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_RabbitsDeath3" ID="{3E4A84C1-37BE-4091-B055-419DCF44DB36}">
-					<ChildrenList>
-						<Action Name="Play" ID="{3422EDA9-7BEC-4329-A758-E1AD7703DF56}" ShortID="83780733" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{25E0AAF9-E9B6-4D14-B933-18EBCA7B9DD6}" Global="false">
-									<ObjectRef Name="RabbitsDeath3" ID="{F489F40D-A0A6-499E-93E8-8F9E5C66ED1D}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_RabbitsDeath4" ID="{72414D3D-1381-4163-A52D-22100EB87A30}">
-					<ChildrenList>
-						<Action Name="Play" ID="{EC1BC967-B6ED-40A5-B559-ABF371D2FB28}" ShortID="153823908" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{25100459-3DE4-489C-998B-E1E3A58FF58B}" Global="false">
-									<ObjectRef Name="RabbitsDeath4" ID="{A436B8C3-BA96-426B-8181-DE77FD364D68}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_RabbitsDeath5" ID="{C3644EE9-9ECD-4A9F-805C-75E121647AD1}">
-					<ChildrenList>
-						<Action Name="Play" ID="{A071DB4D-7C20-4882-B688-72572886308A}" ShortID="564346951" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{57B35C32-8AC7-43C8-824B-71EB169F2053}" Global="false">
-									<ObjectRef Name="RabbitsDeath5" ID="{02C6649B-FA5E-40AF-92C1-10064C2D5718}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_RabbitsDeath6" ID="{C3BC5EB2-1375-4EA7-9BE0-AD3A984DB1F0}">
-					<ChildrenList>
-						<Action Name="Play" ID="{F315BD84-34AA-4062-BB18-E7B04DF2B0C5}" ShortID="238364746" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{4600CD14-D51B-4861-A989-EE1D0C6A01B4}" Global="false">
-									<ObjectRef Name="RabbitsDeath6" ID="{006D1D90-107A-4B7B-B1BF-B57B0ED45B96}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_RabbitsRun1" ID="{84F0A201-EC40-484C-8EC0-C6A3F2263327}">
-					<ChildrenList>
-						<Action Name="Play" ID="{267CF7A6-F329-46C0-BE2A-C4DFA1506441}" ShortID="188867873" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{92F5EDC5-2384-486D-9730-0D6CBAFED473}" Global="false">
-									<ObjectRef Name="RabbitsRun1" ID="{C2DAB389-AE23-4E45-8885-9C6DA73DE12F}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_RabbitsRun2" ID="{00CEFE38-D362-4CD7-919A-E95F778C4445}">
-					<ChildrenList>
-						<Action Name="Play" ID="{7A85DA6A-F6FF-42C4-8D40-BD622F1A1D23}" ShortID="1056994751" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{505CC089-7829-4AD7-A6C6-6BFA7D94D11B}" Global="false">
-									<ObjectRef Name="RabbitsRun2" ID="{F8DD18AF-1C0B-4150-AAD0-FDED3E7C1641}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_RabbitsRun3" ID="{C6946F7C-42B0-4A1A-935D-7D123BAC0915}">
-					<ChildrenList>
-						<Action Name="Play" ID="{27D5B992-DDB8-4979-A401-B7CAE659B345}" ShortID="250192405" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{9DC7AE00-A419-4728-9E79-1AFA2A6B6622}" Global="false">
-									<ObjectRef Name="RabbitsRun3" ID="{06B6BC0B-5E16-4FBB-8881-A29B54021B37}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_RabbitsRun4" ID="{A5229CB7-BDBE-41DA-ACAE-113E36F6E910}">
-					<ChildrenList>
-						<Action Name="Play" ID="{EBAD8588-C8BA-4E75-95F8-20E32486231F}" ShortID="660878743" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{A0C4AAB0-1560-4D5E-97E7-C3400302DFEE}" Global="false">
-									<ObjectRef Name="RabbitsRun4" ID="{C2F29CE3-F80F-403B-A6FE-0B6DDC8FEF2C}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_RabbitsRun5" ID="{08890A1D-7815-442E-9717-113EDA2B016B}">
-					<ChildrenList>
-						<Action Name="Play" ID="{1B66498B-4FBC-4F4F-991E-399D99A37583}" ShortID="280790149" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{86232D66-ED4C-4A39-AE40-2B8C5D466953}" Global="false">
-									<ObjectRef Name="RabbitsRun5" ID="{F5271836-6E10-4FFA-8D75-D2EBF9F66419}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_RabbitsRun6" ID="{63EA6D74-8EA3-4B66-B420-1F0C94777D6E}">
-					<ChildrenList>
-						<Action Name="Play" ID="{AE375815-EDEE-4399-8019-E59A867B1F6A}" ShortID="32314000" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{B14522F0-8E77-4769-9A12-F5EA1DC34B32}" Global="false">
-									<ObjectRef Name="RabbitsRun6" ID="{3BA12DBE-192D-4A98-8154-D6BACBD50B34}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_RabbitsRun7" ID="{FEA5F13F-2822-4412-8BAF-55BDAD6A673D}">
-					<ChildrenList>
-						<Action Name="Play" ID="{4B7740D6-2341-44D3-ACDD-D18474AF353C}" ShortID="316276823" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{D707E37A-82CA-47AB-99A4-3CF4191C0D0F}" Global="false">
-									<ObjectRef Name="RabbitsRun7" ID="{7A6A471F-CCBF-4BF5-864D-69914F030D34}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_RabbitsRun8" ID="{F3F413AB-89B1-4476-8620-80B797FEA920}">
-					<ChildrenList>
-						<Action Name="Play" ID="{1FA4FCF8-D0F8-4D1C-B0CA-C04EF0A45BF7}" ShortID="297269680" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{FA2CAFA6-3A8A-4267-A495-F8A63FFF3259}" Global="false">
-									<ObjectRef Name="RabbitsRun8" ID="{A2F17304-1498-4D81-B4BB-57A03BEB0052}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Stop_EFX_RabbitRuns" ID="{634F3008-E056-468D-961B-FFC3991F66EA}">
-					<ChildrenList>
-						<Action Name="Stop" ID="{2BC47398-243C-4930-AF30-AE01660D9C5E}" ShortID="260138085" Type="Stop" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{236244C4-13D1-4D54-9E05-9E9BE9958D47}" Global="false">
-									<ObjectRef Name="RabbitsRun1" ID="{C2DAB389-AE23-4E45-8885-9C6DA73DE12F}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-						<Action Name="Stop" ID="{64D71292-78E7-455B-A960-96428D7986CD}" ShortID="904130797" Type="Stop" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{B64C94A2-8DAA-4E33-AC94-F96F271E5B22}" Global="false">
-									<ObjectRef Name="RabbitsRun2" ID="{F8DD18AF-1C0B-4150-AAD0-FDED3E7C1641}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-						<Action Name="Stop" ID="{BC7C760D-CA58-4098-9EBF-5B32B561B250}" ShortID="783987776" Type="Stop" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{E750E716-B0B7-45C6-A0A0-9CBADDF5A010}" Global="false">
-									<ObjectRef Name="RabbitsRun3" ID="{06B6BC0B-5E16-4FBB-8881-A29B54021B37}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-						<Action Name="Stop" ID="{873498A3-F4AF-4D61-849B-55F61C5E4E7F}" ShortID="34598760" Type="Stop" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{D6CD587B-19DE-468F-B288-4D651FA52321}" Global="false">
-									<ObjectRef Name="RabbitsRun4" ID="{C2F29CE3-F80F-403B-A6FE-0B6DDC8FEF2C}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-						<Action Name="Stop" ID="{70890F30-8C9C-40A8-B869-8C581570A1AA}" ShortID="490035846" Type="Stop" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{FCD853DA-D05F-42C7-ABBF-C278ED64BFB6}" Global="false">
-									<ObjectRef Name="RabbitsRun5" ID="{F5271836-6E10-4FFA-8D75-D2EBF9F66419}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-						<Action Name="Stop" ID="{5699FB82-F22D-4287-9830-047AECFAA683}" ShortID="696141291" Type="Stop" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{A69C3ACB-3886-4CD4-95AC-BE96ABB0E79E}" Global="false">
-									<ObjectRef Name="RabbitsRun6" ID="{3BA12DBE-192D-4A98-8154-D6BACBD50B34}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-						<Action Name="Stop" ID="{5573C09A-2DE2-416D-A21A-507CAD2B5959}" ShortID="678191528" Type="Stop" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{E60225BD-C327-4118-8279-ED097B5BDB26}" Global="false">
-									<ObjectRef Name="RabbitsRun7" ID="{7A6A471F-CCBF-4BF5-864D-69914F030D34}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-						<Action Name="Stop" ID="{45CC536C-B9CF-4BC6-9385-24ADF6EEC621}" ShortID="862045321" Type="Stop" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{65DFE22A-2A0F-4BF7-BE5D-72057614F808}" Global="false">
-									<ObjectRef Name="RabbitsRun8" ID="{A2F17304-1498-4D81-B4BB-57A03BEB0052}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_RabbitsRunAttack1" ID="{517380A0-43AF-451F-835C-2580E26C38BD}">
-					<ChildrenList>
-						<Action Name="Play" ID="{AE10C3FE-3136-4C18-B58B-B096929C44DD}" ShortID="193339992" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{FFE09F79-8A5D-4B45-866F-91970FFA993E}" Global="false">
-									<ObjectRef Name="RabbitsRunAttack1" ID="{791A8D3E-DA5E-45CA-B3AB-77200AD6EC7D}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Play_EFX_RabbitsRunAttack2" ID="{B4EBCA7E-D4F1-43B6-9B14-3FC9C32BED39}">
-					<ChildrenList>
-						<Action Name="Play" ID="{64D46811-E802-472E-881F-45DFA006E3D3}" ShortID="93599966" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{67268682-2731-4160-AE1D-92379678780A}" Global="false">
-									<ObjectRef Name="RabbitsRunAttack2" ID="{2FECFB92-C051-467B-8B89-AFC010F6945C}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Stop_EFX_RabbitsRunAttacks" ID="{993C953E-A70D-4F08-B186-374874D14CF0}">
-					<ChildrenList>
-						<Action Name="Stop" ID="{8FD6FE3F-9805-4C84-AB0F-6AA22D44829E}" ShortID="375431774" Type="Stop" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{29D54F73-1B2B-422D-B3DF-FA049A7FD74A}" Global="false">
-									<ObjectRef Name="RabbitsRunAttack1" ID="{791A8D3E-DA5E-45CA-B3AB-77200AD6EC7D}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-						<Action Name="Stop" ID="{021351E5-3085-4843-AD1C-11EA735E6566}" ShortID="647334741" Type="Stop" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{B1E8018D-7E0E-4A53-BC57-BC9C16427CA9}" Global="false">
-									<ObjectRef Name="RabbitsRunAttack2" ID="{2FECFB92-C051-467B-8B89-AFC010F6945C}" WorkUnitID="{DDEF5FBC-EE8F-4A6F-B581-D7896D194E9E}" />
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
+				</Folder>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>
