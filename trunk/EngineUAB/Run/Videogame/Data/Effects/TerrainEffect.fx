@@ -240,19 +240,6 @@ PixelShaderOutput PixelShaderFunction(VertexShaderOutput input, uniform bool sha
 		}
 		
 		DiffuseColor += passColor;
-
-		//if(CascadeGroup == 1)
-		//{
-		//	DiffuseColor += float4(1, 0, 0, 1);
-		//}
-		//if(CascadeGroup == 2)
-		//{
-		//	DiffuseColor += float4(0, 1, 0, 1);
-		//}
-		//if(CascadeGroup == 3)
-		//{
-		//	DiffuseColor += float4(0, 0, 1, 1);
-		//}
 	}
 
 	float3 tileC = TileColor(input.TiledTexCoord, input.TexCoord);
