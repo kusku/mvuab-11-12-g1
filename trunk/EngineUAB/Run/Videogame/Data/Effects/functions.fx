@@ -74,7 +74,7 @@ uniform float2		HalfPixel								: HALFPIXEL;
 //Cascade
 #define NUM_CASCADES 3
 
-uniform float4x4	CascadeShadowViewProjection[MAX_LIGHTS * NUM_CASCADES]	: CASCADE_SHADOW_VIEWPROJECTION;
+uniform float4x4	CascadeShadowViewProjection[MAX_LIGHTS][NUM_CASCADES]	: CASCADE_SHADOW_VIEWPROJECTION;
 uniform float3		CascadeDistances[MAX_LIGHTS]							: CASCADE_DISTANCES;
 uniform float2		CascadeShadowMapPixelSize[MAX_LIGHTS]					: CASCADE_SHADOW_MAP_PIXEL_SIZE;
 
@@ -556,12 +556,10 @@ float CalcShadowVarianceCascade(float4 Pos, sampler shadowMapSampler, int light,
 	}
 
 	weights.xy -= weights.yz;
-
-	int lvp1 = (light * NUM_CASCADES) + 0;
-	int lvp2 = (light * NUM_CASCADES) + 1;
-	int lvp3 = (light * NUM_CASCADES) + 2;
-
-	float4x4 lightViewProj = ( CascadeShadowViewProjection[lvp1] * weights.x ) + ( CascadeShadowViewProjection[lvp2] * weights.y ) + ( CascadeShadowViewProjection[lvp3] * weights.z );
+	
+	float4x4 lightViewProj = CascadeShadowViewProjection[light][0] * weights.x;
+	lightViewProj += CascadeShadowViewProjection[light][1] * weights.y;
+	lightViewProj += CascadeShadowViewProjection[light][2] * weights.z;
 
 	float offset = weights.y * 0.33333f + weights.z * 0.666666f;
 
@@ -584,7 +582,7 @@ float CalcShadowVarianceCascade(float4 Pos, sampler shadowMapSampler, int light,
 	
 	float ShadowContrib = ChebyshevUpperBound(Moments, RescaledDist, VSMMinVariance);
     
-	[flatten] 
+	[branch]
 	if (LBREnable)
 	{
 		ShadowContrib = LBR(ShadowContrib);
@@ -617,7 +615,7 @@ float CalcShadowVariance(float4 Pos, sampler shadowMapSampler, int light, float4
 	
 		float ShadowContrib = ChebyshevUpperBound(Moments, RescaledDist, VSMMinVariance);
     
-		[flatten] 
+		[branch] 
 		if (LBREnable)
 		{
 			ShadowContrib = LBR(ShadowContrib);
@@ -637,7 +635,7 @@ float2 MotionBlurVelocity(float4 wvpPosition, float4 wPosition, bool skybox = fa
 	float4 prevProjSpace = wvpPosition;
 	float4 currentProjSpace = mul(wPosition, PrevViewProjection);
 
-	[flatten]
+	[branch]
 	if(skybox == true)
 	{
 		currentProjSpace = currentProjSpace.xyww;

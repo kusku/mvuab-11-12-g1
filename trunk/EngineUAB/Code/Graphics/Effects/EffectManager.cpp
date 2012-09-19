@@ -44,7 +44,7 @@ bool CEffectManager::Load ( const std::string &_Filename )
 bool CEffectManager::Reload	( void )
 {	
 	LOGGER->AddNewLog(ELL_INFORMATION, "CEffectManager::Reload->Reloading effects.");
-	Destroy();
+	CleanUp();
 	return LoadXML();
 }
 

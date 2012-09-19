@@ -61,18 +61,15 @@ CParticleSystem::~CParticleSystem()
 	CHECKED_DELETE(m_ParticleTexture);
 }
 
-void CParticleSystem::Initialize()
+void CParticleSystem::ReloadEffect()
 {
-	uint32 length = 0;
-	void* data = NULL;
-
 	//Get Effect
 	m_ParticleTechnique = CORE->GetEffectManager()->GetEffectTechnique("ParticleTechnique");
 	assert(m_ParticleTechnique);
 
 	//Get Parameters
 	m_Effect = CORE->GetEffectManager()->GetEffect("ParticleEffect");
-	
+
 	m_Effect->GetParameterBySemantic("CAMERA_POSITION", m_CameraPositionParam);
 	m_Effect->GetParameterBySemantic("VIEW", m_ViewParam);
 	m_Effect->GetParameterBySemantic("PROJECTION", m_ProjectionParam);
@@ -91,6 +88,16 @@ void CParticleSystem::Initialize()
 	m_Effect->GetParameterBySemantic("PSP_START_SIZE", m_StartSizeParam);
 	m_Effect->GetParameterBySemantic("PSP_END_SIZE", m_EndSizeParam);
 	m_Effect->GetParameterBySemantic("PSP_PARTICLE_TEXTURE", m_TextureParam);
+}
+
+
+void CParticleSystem::Initialize()
+{
+	uint32 length = 0;
+	void* data = NULL;
+
+	//GetEffects
+	ReloadEffect();
 	
 	//Load Texture
 	m_ParticleTexture = new CTexture();

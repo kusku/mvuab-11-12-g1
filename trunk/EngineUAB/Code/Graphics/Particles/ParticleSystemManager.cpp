@@ -118,3 +118,14 @@ void CParticleSystemManager::AddNewSystem(const std::string &name)
 	this->AddResource(name, system);
 	system->Initialize();
 }
+
+void CParticleSystemManager::ReloadEffects()
+{
+	TMapResource::iterator it = m_Resources.begin();
+	TMapResource::iterator itEnd = m_Resources.end();
+
+	for (; it != itEnd; ++it)
+	{
+		it->second->ReloadEffect();
+	}
+}
