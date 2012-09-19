@@ -78,7 +78,7 @@ struct VertexShaderOutput
     float4	Position		: POSITION0;
 	float2	TexCoord		: TEXCOORD0;
     float2	TiledTexCoord	: TEXCOORD1;
-	float4	WVPPos			: TEXCOORD3;
+	float4	WVPPos			: TEXCOORD2;
 	float3	Normal			: NORMAL0;
 	float3	EyePosition		: NORMAL1;
 	float4	WPos			: NORMAL2;
