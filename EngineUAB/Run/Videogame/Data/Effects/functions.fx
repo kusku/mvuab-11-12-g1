@@ -557,7 +557,11 @@ float CalcShadowVarianceCascade(float4 Pos, sampler shadowMapSampler, int light,
 
 	weights.xy -= weights.yz;
 
-	float4x4 lightViewProj = CascadeShadowViewProjection[(light * NUM_CASCADES) + 0] * weights.x + CascadeShadowViewProjection[(light * NUM_CASCADES) + 1] * weights.y + CascadeShadowViewProjection[(light * NUM_CASCADES) + 2] * weights.z;
+	int lvp1 = (light * NUM_CASCADES) + 0;
+	int lvp2 = (light * NUM_CASCADES) + 1;
+	int lvp3 = (light * NUM_CASCADES) + 2;
+
+	float4x4 lightViewProj = ( CascadeShadowViewProjection[lvp1] * weights.x ) + ( CascadeShadowViewProjection[lvp2] * weights.y ) + ( CascadeShadowViewProjection[lvp3] * weights.z );
 
 	float offset = weights.y * 0.33333f + weights.z * 0.666666f;
 
@@ -589,11 +593,12 @@ float CalcShadowVarianceCascade(float4 Pos, sampler shadowMapSampler, int light,
 	return ShadowContrib;
 }
 
-float CalcShadowVariance(float4 Pos, sampler shadowMapSampler, int light, float4 vPos = (float4)1)
+float CalcShadowVariance(float4 Pos, sampler shadowMapSampler, int light, float4 vPos)
 {	
+	[branch]
 	if(lightType[light] == DIRECTIONAL)
 	{
-		return 1.0f;//CalcShadowVarianceCascade(Pos, shadowMapSampler, light, vPos);
+		return CalcShadowVarianceCascade(Pos, shadowMapSampler, light, vPos);
 	}
 	else
 	{
@@ -603,16 +608,11 @@ float CalcShadowVariance(float4 Pos, sampler shadowMapSampler, int light, float4
 		float2 ShadowTexC = ShadowPos.xy / ShadowPos.w;
 		ShadowTexC.x =  0.5f*ShadowPos.x + 0.5f; 
 		ShadowTexC.y = -0.5f*ShadowPos.y + 0.5f;
-		//float2 ShadowTexC = (ShadowPos.xy / ShadowPos.w) * float2(0.5, -0.5) + 0.5;
-		
-		//float3 DirToLight = lightPosition[light] - Pos.xyz;
-		//float DistToLight = length(DirToLight);
-	
-		//float RescaledDist = RescaleDistToLight(DistToLight, light);
+
+
 		float RescaledDist = ShadowPos.z / ShadowPos.w;
 	
 		float2 Moments = tex2Dlod(shadowMapSampler, float4(ShadowTexC, 0, 1)).rg;
-		//float2 Moments = tex2D(DynamicShadowMapSampler1, ShadowTexC).rg;
 		Moments = Moments + GetFPBias();
 	
 		float ShadowContrib = ChebyshevUpperBound(Moments, RescaledDist, VSMMinVariance);
