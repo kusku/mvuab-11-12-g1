@@ -555,8 +555,6 @@ float CalcShadowVarianceCascade(float4 Pos, sampler shadowMapSampler, int light,
 		CascadeGroup = 3;
 	}
 
-	//float3 weights = ( vPos.z > CascadeDistances[light] );
-	//float3 weights = float3(1, 1, 0);
 	weights.xy -= weights.yz;
 
 	float4x4 lightViewProj = CascadeShadowViewProjection[(light * NUM_CASCADES) + 0] * weights.x + CascadeShadowViewProjection[(light * NUM_CASCADES) + 1] * weights.y + CascadeShadowViewProjection[(light * NUM_CASCADES) + 2] * weights.z;
@@ -570,12 +568,8 @@ float CalcShadowVarianceCascade(float4 Pos, sampler shadowMapSampler, int light,
 	shadowTexCoord.y = -0.5f*shadowTexCoord.y + 0.5f;
 
 	shadowTexCoord.x = shadowTexCoord.x * 0.3333333f + offset;
-	//shadowTexCoord.y = 1.0f - shadowTexCoord.y;
-	//shadowTexCoord += CascadeShadowMapPixelSize[light];
-
-	float RescaledDist = (lightingPosition.z / lightingPosition.w);// - 0.005f; //DepthBias
-
-	//float shadowSkip = ClipPlanes[2].y > pxDepth;
+	
+	float RescaledDist = (lightingPosition.z / lightingPosition.w);
 
 	//////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////
@@ -599,7 +593,7 @@ float CalcShadowVariance(float4 Pos, sampler shadowMapSampler, int light, float4
 {	
 	if(lightType[light] == DIRECTIONAL)
 	{
-		return CalcShadowVarianceCascade(Pos, shadowMapSampler, light, vPos);
+		return 1.0f;//CalcShadowVarianceCascade(Pos, shadowMapSampler, light, vPos);
 	}
 	else
 	{
