@@ -101,12 +101,12 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 		
 		if(lightShadowStaticEnable[0] == true)
 		{
-			shadowCoeffStatic = CalcShadowVariance(position, StaticShadowMapSampler1, 0);
+			shadowCoeffStatic = CalcShadowVariance(position, StaticShadowMapSampler1, 0, position);
 		}
 		
 		if(lightShadowDynamicEnable[0] == true)
 		{
-			shadowCoeffDynamic = CalcShadowVariance(position, DynamicShadowMapSampler1, 0);
+			shadowCoeffDynamic = CalcShadowVariance(position, DynamicShadowMapSampler1, 0, position);
 		}
 		
 		if(shadowCoeffDynamic != 0 || shadowCoeffStatic != 0)
