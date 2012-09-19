@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<Sounds>
-	<Sound path="./Data/GUI/Sounds_Laberynth/gui_next.wav" 	soundId="guiNext"/>
-	<Sound path="./Data/GUI/Sounds_Laberynth/gui_over.wav" 	soundId="guiOver"/>
-	<Sound path="./Data/GUI/Sounds_Laberynth/gui_back.wav" 	soundId="guiBack"/>
-	<Sound path="./Data/GUI/Sounds_Laberynth/gameOver.wav" 	soundId="gameOver"/>
-	<Sound path="./Data/GUI/Sounds_Laberynth/Init.wav" 		soundId="initGame"/>
-</Sounds>
