@@ -84,7 +84,7 @@ void CDeerIdleState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 
 	if ( !m_AlreadyDetected && m_pDeer->IsPlayerDetected() ) 
 	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerEnemyDetected");
+		CORE->GetSoundManager()->PlayEvent("Play_EFX_Deer_Enemy_Detected");
 		m_AlreadyDetected = true;
 	}
 

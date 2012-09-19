@@ -28,6 +28,8 @@
 #include "GameProcess.h"
 #include "Cameras\ThPSCharacterCamera.h"
 
+#include "Speaker.h"
+
 #include "EngineProcess.h"
 #include "GameProcess.h"
 #include "Logger\Logger.h"
@@ -55,6 +57,8 @@ CCharacter::CCharacter()
 	, m_bIsAlive				( true )
 	, m_ReadyToAttack			( false )
 	, m_PlayerHasBeenReached	( false )
+	, m_pSpeaker				( NULL )
+	, m_SpeakerName				( "" )
 {
 	// coloco la máquina de estados i el controler de física
     m_pLogicStateMachine	= new CStateMachine<CCharacter>( this );
@@ -79,6 +83,8 @@ CCharacter::CCharacter( const std::string &_Name )
 	, m_bIsAlive				( true )
 	, m_ReadyToAttack			( false )
 	, m_PlayerHasBeenReached	( false )
+	, m_pSpeaker				( NULL )
+	, m_SpeakerName				( "" )
 {
 	SetName ( _Name );
 
@@ -105,6 +111,7 @@ CCharacter::CCharacter(int _ID, const std::string &_Name)
 	, m_bIsAlive				( true )
 	, m_ReadyToAttack			( false )
 	, m_PlayerHasBeenReached	( false )
+	, m_SpeakerName				( "" )
 {
 	SetName ( _Name );
 	// coloco la máquina de estados

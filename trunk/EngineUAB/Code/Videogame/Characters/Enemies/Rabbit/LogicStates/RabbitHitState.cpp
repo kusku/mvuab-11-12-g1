@@ -98,7 +98,9 @@ void CRabbitHitState::OnEnter( CCharacter* _pCharacter )
 		m_pAnimationCallback->Init();
 		m_pAnimationCallback->StartAnimation();
 	
-		PlayRandomSound();
+		//PlayRandomSound();
+		CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Rabbit_Pain");
+
 		m_pActionState.InitAction(0, m_SoundDuration);
 		m_pActionState.StartAction();
 

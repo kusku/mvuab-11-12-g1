@@ -157,10 +157,12 @@ public:
 	//--- Wwise Controls -----------------------
 	bool			LoadSoundBank			( const std::string &bank );
 	void			PlayEvent				( const std::string &event_name );
+	void			PlayEvent				( const std::string &speaker_name, const std::string &event_name );
 	void			SetSwitch				( const std::string &switch_name, const std::string &container_name );
 	virtual void	CallbackReaction		( AkCallbackType in_eType, AkCallbackInfo *in_pCallbackInfo );
 	virtual void	CallbackEndReaction		( eCallbackType in_eType, sCallbackInfo* in_pCallbackInfo );
 	virtual void	CallbackDurationReaction( eCallbackType in_eType, sDurationCallbackInfo * in_pCallbackInfo );
+	CSpeaker*		CreateSpeaker			( const std::string &_Name );
 	void			MyCallbackReaction		( AkCallbackType in_eType, AkCallbackInfo* in_pCallbackInfo );
 
 	//--- Properties ---------------------------
@@ -169,6 +171,8 @@ public:
 
 	inline const std::string&	GetPath		() const		{ return m_Path; }
 	inline CListener*			GetListener	() const		{ return m_pListener; }		
+
+	inline uint16				GetSpeakerCount () const	{ return m_ResourcesVector.size(); }
 
 private:
 	bool	InitBanks			();

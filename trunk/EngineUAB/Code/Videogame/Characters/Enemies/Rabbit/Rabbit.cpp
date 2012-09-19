@@ -44,6 +44,15 @@
 #include "Characters\Enemies\Rabbit\AnimationStates\\RabbitRunAttackAnimationState.h"
 #include "Characters\Enemies\Rabbit\AnimationStates\\RabbitWalkAnimationState.h"
 
+#include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
+
+#include "SoundManager.h"
+#include "Speaker.h"
+#include <sstream>
+
+#if defined (_DEBUG)
+#include "Memory\MemLeaks.h"
+#endif
 
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
@@ -185,6 +194,15 @@ bool CRabbit::Init( void )
 
 	this->MoveTo2( Vect3f(0,0,0), 0 );
 
+	//Crea el speaker de audio correspondiente
+	uint16 index = CORE->GetSoundManager()->GetSpeakerCount();
+	std::stringstream out;
+	out << "_";
+	out << index;
+
+	m_SpeakerName = "Rabbit_Speaker_" + out.str();
+	m_pSpeaker = CORE->GetSoundManager()->CreateSpeaker(m_SpeakerName);
+
 	return true;
 }
 
@@ -195,6 +213,14 @@ void CRabbit::CreateCallbacks(void)
 	l_Process->GetAnimationCallbackManager()->CreateCallback(GetName(), RABBIT_STILL_ATTACK_STATE, this->GetAnimatedModel());
 	l_Process->GetAnimationCallbackManager()->CreateCallback(GetName(), RABBIT_RUN_ATTACK_STATE, this->GetAnimatedModel());
 	l_Process->GetAnimationCallbackManager()->CreateCallback(GetName(), RABBIT_DEATH_STATE, this->GetAnimatedModel());
+}
+
+void CRabbit::Update( float _ElapsedTime )
+{
+	CCharacter::Update(_ElapsedTime);
+
+	m_pSpeaker->SetPosition( m_Position );
+	m_pSpeaker->SetOrientation( m_pCurrentAnimatedModel->GetFront() );
 }
 
 void CRabbit::LoadGraphicStates( void )

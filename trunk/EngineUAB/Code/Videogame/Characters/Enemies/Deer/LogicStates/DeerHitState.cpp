@@ -97,9 +97,10 @@ void CDeerHitState::OnEnter( CCharacter* _pCharacter )
 		m_pAnimationCallback->Init();
 		m_pAnimationCallback->StartAnimation();
 	
-		PlayRandomSound();
-		m_pActionStateCallback.InitAction(0, m_SoundDuration);
-		m_pActionStateCallback.StartAction();
+		CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Deer_Pain");
+		//PlayRandomSound();
+		//m_pActionStateCallback.InitAction(0, m_SoundDuration);
+		//m_pActionStateCallback.StartAction();
 
 		//m_pActionStateCallback.InitAction(0.f, m_pDeer->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_HIT_STATE));
 		//m_pActionStateCallback.StartAction();
