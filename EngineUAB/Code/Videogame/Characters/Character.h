@@ -142,7 +142,10 @@ public:
 	inline void					SetPlayerHasBeenReached ( bool _PlayerReached ) 					{ m_PlayerHasBeenReached =_PlayerReached; }
 	inline bool					GetPlayerHasBeenReached ( void ) const								{ return m_PlayerHasBeenReached; }
 
-	inline const std::string&			GetSpeakerName					() const				{ return m_SpeakerName; }
+	inline void					SetToBeTired			( bool _IsTired ) 							{ m_IsTired =_IsTired; }
+	inline bool					GetIsTired			( void ) const									{ return m_IsTired; }
+
+	inline const std::string&	GetSpeakerName			( void ) const								{ return m_SpeakerName; }
 
 	//----Members ---------------------------------------------
 private:
@@ -175,6 +178,7 @@ protected:
 	bool							m_bLocked;
 
 	bool							m_PlayerHasBeenReached;		// Indica si acaba de ser alcanzado el player
+	bool							m_IsTired;					// Indica si estamo cansados
 
 	std::string m_SpeakerName;
 };
