@@ -67,16 +67,27 @@ void CPlayerAttack2State::OnEnter( CCharacter* _pCharacter )
 		CCharacter *l_pEnemy				= NULL;
 		float l_fAngle						= 0.f;
 
+		l_pCharManager	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager();
+
 		//Calcula el ángulo de a ir
 		Vect3f l_Front	= l_pAnimatedModel->GetFront();
 		l_fYaw			= CalculateAngleMovement( _pCharacter, l_fYaw );
 
 		//Calcula el ángulo de correción para enfocar hacia un enemigo cercano
-		l_pCharManager	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager();
-		l_pEnemy		= l_pCharManager->GetPlayerAngleCorrection(10.f, FLOAT_PI_VALUE/4.f, l_fAngle);
+		l_pEnemy		= l_pCharManager->IsPlayerNearEnemy(10.f);
 
+		//Si se ataca a un enemigo, calculamos el nuevo ángulo con la asistencia
 		if( l_pEnemy != NULL )
 		{
+			//Calcula el ángulo de giro
+			Vect3f l_EnemyDir = l_pEnemy->GetPosition() - _pCharacter->GetPosition();
+			l_EnemyDir.Normalize();
+			l_EnemyDir.y = 0.f;
+
+			l_fAngle	= l_EnemyDir.Dot( l_Front );
+			l_fAngle		= mathUtils::ACos<float>( l_fAngle );
+
+			//Mira como tiene que girar el player
 			bool l_bInside	= _pCharacter->IsPointAtLeft( l_pEnemy->GetPosition(), l_Front );
 
 			if( l_bInside )
@@ -104,9 +115,6 @@ void CPlayerAttack2State::OnEnter( CCharacter* _pCharacter )
 	//Establece los valores para la ejecución
 	m_fCurrentVelocityMovement = m_fMaxVelocityMovement;
 	m_bFirstUpdate = true;
-
-	//Actualiza las partículas
-	SetParticlePosition(_pCharacter);
 }
 
 void CPlayerAttack2State::Execute( CCharacter* _pCharacter, float _fElapsedTime )
