@@ -71,21 +71,32 @@ void CPlayerAttack3State::OnEnter( CCharacter* _pCharacter )
 
 		//Calcula el ángulo de a ir
 		Vect3f l_Front	= l_pAnimatedModel->GetFront();
-		l_fYaw			= CalculateAngleMovement( _pCharacter, l_fYaw );
+		bool l_bMovement= CalculateAngleMovement( _pCharacter, l_fYaw );
 
-		//Calcula el ángulo de correción para enfocar hacia un enemigo cercano
-		l_pEnemy		= l_pCharManager->IsPlayerNearEnemy(10.f);
+		if( l_bMovement )
+		{
+			//Calcula un ángulo de correción según la dirección marcada
+			l_pEnemy = l_pCharManager->GetPlayerAngleCorrection(10.f, FLOAT_PI_VALUE/4.f, l_fAngle);
+		}
+		else
+		{
+			//Calcula el ángulo de correción para enfocar hacia un enemigo cercano
+			l_pEnemy = l_pCharManager->IsPlayerNearEnemy(10.f);
+		}
 
 		//Si se ataca a un enemigo, calculamos el nuevo ángulo con la asistencia
 		if( l_pEnemy != NULL )
 		{
-			//Calcula el ángulo de giro
-			Vect3f l_EnemyDir = l_pEnemy->GetPosition() - _pCharacter->GetPosition();
-			l_EnemyDir.Normalize();
-			l_EnemyDir.y = 0.f;
+			if( !l_bMovement )
+			{
+				//Calcula el ángulo de giro
+				Vect3f l_EnemyDir = l_pEnemy->GetPosition() - _pCharacter->GetPosition();
+				l_EnemyDir.Normalize();
+				l_EnemyDir.y	= 0.f;
 
-			l_fAngle	= l_EnemyDir.Dot( l_Front );
-			l_fAngle		= mathUtils::ACos<float>( l_fAngle );
+				l_fAngle		= l_EnemyDir.Dot( l_Front );
+				l_fAngle		= mathUtils::ACos<float>( l_fAngle );
+			}
 
 			//Mira como tiene que girar el player
 			bool l_bInside	= _pCharacter->IsPointAtLeft( l_pEnemy->GetPosition(), l_Front );
@@ -214,9 +225,11 @@ bool CPlayerAttack3State::OnMessage( CCharacter* _pCharacter, const STelegram& _
 	return false;
 }
 
-float CPlayerAttack3State::CalculateAngleMovement( CCharacter *_pCharacter, float _fAngle )
+bool CPlayerAttack3State::CalculateAngleMovement( CCharacter *_pCharacter, float &_fAngle )
 {
 	CActionToInput *l_pInput = CORE->GetActionToInput();
+	bool l_bMove = false;			
+
 
 	if( l_pInput->DoAction("MovePlayerUp") )
 	{
@@ -229,6 +242,8 @@ float CPlayerAttack3State::CalculateAngleMovement( CCharacter *_pCharacter, floa
 		{
 			_fAngle -= FLOAT_PI_VALUE / 4.f;
 		}
+
+		l_bMove = true;
 	}
 	else if( l_pInput->DoAction("MovePlayerDown") )
 	{
@@ -242,19 +257,25 @@ float CPlayerAttack3State::CalculateAngleMovement( CCharacter *_pCharacter, floa
 		{
 			_fAngle += FLOAT_PI_VALUE / 4.f;
 		}
+
+		l_bMove = true;
 	}
 	else if( l_pInput->DoAction("MovePlayerLeft") )
 	{
 		_fAngle = _pCharacter->GetYaw();
 		_fAngle += FLOAT_PI_VALUE / 2.f;
+
+		l_bMove = true;
 	}
 	else if( l_pInput->DoAction("MovePlayerRight") )
 	{
 		_fAngle = _pCharacter->GetYaw();
 		_fAngle -= FLOAT_PI_VALUE / 2.f;
+
+		l_bMove = true;
 	}
 
-	return _fAngle;		
+	return l_bMove;		
 }
 
 void CPlayerAttack3State::SetParticlePosition( CCharacter* _pCharacter )
