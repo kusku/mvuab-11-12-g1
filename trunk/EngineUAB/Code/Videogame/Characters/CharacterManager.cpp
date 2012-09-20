@@ -1038,7 +1038,7 @@ CPhysicUserData* CCharactersManager::ShootPlayerRaycast()
 CCharacter* CCharactersManager::IsPlayerNearEnemy(float distance)
 {
 	CCharacter *l_NearestEnemy = NULL;
-	float l_NearestDistance = 0.f;
+	float l_NearestDistance = 100000.f;
 	Vect3f l_Pos = m_pPlayer->GetPosition();
 
 	TVectorResources l_EnemyList = GetResourcesVector();
@@ -1048,14 +1048,11 @@ CCharacter* CCharactersManager::IsPlayerNearEnemy(float distance)
 		return NULL;
 	}
 
-	l_NearestEnemy = l_EnemyList[0];
-	l_NearestDistance = l_Pos.Distance(l_NearestEnemy->GetPosition());
-
 	TVectorResources::iterator l_It = l_EnemyList.begin();
 	TVectorResources::iterator l_End = l_EnemyList.end();
 	for(; l_It != l_End; ++l_It)
 	{
-		if( (*l_It)->IsAlive() )
+		if( (*l_It)->IsAlive() && (*l_It)->IsEnable() )
 		{
 			float l_CurrentDistance = l_Pos.Distance( (*l_It)->GetPosition() );
 			if( l_CurrentDistance <= distance && l_CurrentDistance < l_NearestDistance )
@@ -1272,7 +1269,7 @@ void CCharactersManager::CalculateEnemyOrderToAttack( const Vect3f & _Position, 
 	}	// for if exist user data
 }
 
-CCharacter* CCharactersManager::GetPlayerAngleCorrection( float _fDistance, float _fMinAngle, float &_fAngle )
+CCharacter* CCharactersManager::GetPlayerAngleCorrection( float _fDistance, float _fMinAngle, float &fAngle_ )
 {
 	TVectorResources l_EnemyList		= GetResourcesVector();
 	TVectorResources::iterator l_It		= l_EnemyList.begin();
@@ -1312,6 +1309,7 @@ CCharacter* CCharactersManager::GetPlayerAngleCorrection( float _fDistance, floa
 		}
 	}
 
-	_fAngle = (l_fMinimumAngle != FLOAT_PI_VALUE) ? l_fMinimumAngle : 0.f;
+	fAngle_ = (l_fMinimumAngle != FLOAT_PI_VALUE) ? l_fMinimumAngle : 0.f;
 	return l_pEnemy;
 }
+

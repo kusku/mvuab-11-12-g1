@@ -53,7 +53,7 @@ public:
 	bool				EnemyIsVisibleInAngle				( CCharacter *_Enemy, float _Angle, const Vect3f &_Front );
 	bool				IsEnemyVisibleInAngleFromCamera		( CCharacter *_Enemy, float _Angle );
 
-	CCharacter*			GetPlayerAngleCorrection			( float _fDistance, float _fMinAngle, float &_fAngle );
+	CCharacter*			GetPlayerAngleCorrection			( float _fDistance, float _fMinAngle, float &fAngle_ );
 
 	void				Drawfrustum							( void );
 	void				DrawFront							( void );
