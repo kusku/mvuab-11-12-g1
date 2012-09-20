@@ -308,6 +308,13 @@ float CAnimatedInstanceModel::GetCurrentAnimationDuration(const std::string &_Na
 	return m_AnimatedCoreModel->GetCoreModel()->getCoreAnimation(id)->getDuration();
 }
 
+unsigned int CAnimatedInstanceModel::GetCurrentAnimationTrack(const std::string &_Name)
+{
+	uint16 id = m_AnimatedCoreModel->GetAnimationIdByName(_Name);
+	return m_AnimatedCoreModel->GetCoreModel()->getCoreAnimation(id)->getTrackCount();
+}
+
+
 bool CAnimatedInstanceModel::GetBonePosition( const std::string & _Bone, Vect3f & _Position )
 {
 	int l_iBoneIndex = m_AnimatedCoreModel->GetCoreModel()->getCoreSkeleton()->getCoreBoneId(_Bone);

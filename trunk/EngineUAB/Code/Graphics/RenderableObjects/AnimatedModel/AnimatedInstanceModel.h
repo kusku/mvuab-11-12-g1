@@ -28,37 +28,38 @@ class CAnimatedInstanceModel : public CRenderableObject
 {
 public:
 	//--- Init and End protocols------------------------------------------
-				CAnimatedInstanceModel	( void );
-	virtual		~CAnimatedInstanceModel ( void );
+					CAnimatedInstanceModel		( void );
+	virtual			~CAnimatedInstanceModel		( void );
 
 	//----Main Methods -----------------------------------------------------
-	void		ReadDataXML				( CXMLTreeNode &_Node );
-	void		Initialize				( CAnimatedCoreModel *_pAnimatedCoreModel );
+	void			ReadDataXML					( CXMLTreeNode &_Node );
+	void			Initialize					( CAnimatedCoreModel *_pAnimatedCoreModel );
 
-	void		Update					( float elapsedTime );
+	void			Update						( float elapsedTime );
 
-	void		Render					( CRenderManager *_RM );
-	void		RenderModelBySoftware	( CRenderManager *_RM );
-	void		RenderModelByHardware	( CRenderManager *_RM );
+	void			Render						( CRenderManager *_RM );
+	void			RenderModelBySoftware		( CRenderManager *_RM );
+	void			RenderModelByHardware		( CRenderManager *_RM );
 
-	void		Destroy					( void );
+	void			Destroy						( void );
 
 	//---- Methods ---------------------------------------------------------
-	void		ExecuteAction			( uint32 _Id, float _Time );
-	void		RemoveAction			( uint32 _Id );
-	void		BlendCycle				( uint32 _Id, float _Time );
-	void		ClearCycle				( uint32 _Id, float _Time );
+	void			ExecuteAction				( uint32 _Id, float _Time );
+	void			RemoveAction				( uint32 _Id );
+	void			BlendCycle					( uint32 _Id, float _Time );
+	void			ClearCycle					( uint32 _Id, float _Time );
 	
-	float		GetCurrentAnimationDuration	( const std::string &_Name );
+	float			GetCurrentAnimationDuration	( const std::string &_Name );
+	unsigned int	GetCurrentAnimationTrack	( const std::string &_Name );
 
 	//----Properties --------------------------------------------------------
-	bool		GetCreatePhysics		( void ) const		{ return m_CreatePhysics; }
-	bool		GetCreateBehaviour		( void ) const		{ return m_CreateLogicBehaviour; }
+	bool			GetCreatePhysics			( void ) const		{ return m_CreatePhysics; }
+	bool			GetCreateBehaviour			( void ) const		{ return m_CreateLogicBehaviour; }
 
-	CAnimatedCoreModel*	GetAnimatedCoreModel ( void ) const	{ return m_AnimatedCoreModel; }
+	CAnimatedCoreModel*	GetAnimatedCoreModel	( void ) const		{ return m_AnimatedCoreModel; }
 
-	bool		GetBonePosition			( const std::string & _Bone, Vect3f &_Position );
-	bool		GetBoneRotation			( const std::string & _Bone, Vect4f & _Rotation );
+	bool			GetBonePosition				( const std::string & _Bone, Vect3f &_Position );
+	bool			GetBoneRotation				( const std::string & _Bone, Vect4f & _Rotation );
 
 	//----Members -------------------------------------------------------	
 private:
