@@ -23,5 +23,9 @@
 	
 	<system name="CenterFlare" settings_name="CenterFlare" />
 	<system name="Impact" settings_name="Impact" />
+	<system name="BloodSplash" settings_name="BloodSplash" />
+	<system name="ExpandWave" settings_name="ExpandWave" />
+	<system name="Streaks" settings_name="Streaks" />
+	<system name="Sparks" settings_name="Sparks" />
 	
 </particle_systems>
