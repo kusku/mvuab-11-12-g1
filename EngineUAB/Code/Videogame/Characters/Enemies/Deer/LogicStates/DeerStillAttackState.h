@@ -40,9 +40,14 @@ public:
 	//svoid				SetParticlePosition		( CCharacter* _pCharacter );
 	void				SetParticlePosition		( CCharacter* _pCharacter, const std::string &ParticlesName, const std::string &Bone = "", const Vect3f &_Position = Vect3f(0,0,0));
 	void				UpdateParticlesPositions( CCharacter* _pCharacter );
+	
+	// Para tema de partículas de impacto
+	void				GenerateImpact			( CCharacter* _pCharacter, bool _FirstImpact = true );
+	void				UpdateImpact			( CCharacter* _pCharacter );
+
 
 	//----Properties ------------------------------------------
-	//CParticleEmitter*	GetParticleEmitter( const std::string & _EmitterName ) const { return CORE->GetParticleEmitterManager()->GetResource(_EmitterName); }
+	//CParticleEmitter*	//GetParticleEmitter( const std::string & _EmitterName ) const { return CORE->//GetParticleEmitterManager()->GetResource(_EmitterName); }
 
 	//----Members ---------------------------------------------
 private:
@@ -54,6 +59,9 @@ private:
 	bool						m_SoundPlayed2;			// Indica si el sonido ya se inició
 	bool						m_FirstHitDone;			// Indica si el primer golpe se realizó
 	bool						m_SecondHitDone;		// Indica si el segundo golpe se realizó
+	bool						m_FirstParticlesHitDone;		// Indica si el primer golpe se realizó y se mostró ya las partículas
+	bool						m_SecondParticlesHitDone;		// Indica si el segundo golpe se realizó y se mostró ya las partículas
+
 	bool						m_FirstHitReached;		// Indica si he golpeado el player en el primer golpeo
 	bool						m_SecondHitReached;		// Indica si he golpeado el player en el segundo golpeo
 };

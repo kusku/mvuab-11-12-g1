@@ -105,23 +105,19 @@ void CDeerStillAttackState::OnEnter( CCharacter* _pCharacter )
 	//UpdateParticlesPositions(m_pDeer);
 	
 	// Gestión de sonidos e impacto
-	m_FirstHitReached	= false;
-	m_SecondHitReached	= false;
-	m_FirstHitDone		= false;
-	m_SecondHitDone		= false;
-	m_SoundPlayed1		= false;
-	m_SoundPlayed2		= false;
+	m_FirstHitReached		= false;
+	m_FirstParticlesHitDone	= false;
+	m_SecondParticlesHitDone= false;
+	m_FirstParticlesHitDone	= false;
+	m_FirstHitDone			= false;
+	m_SecondHitDone			= false;
+	m_SoundPlayed1			= false;
+	m_SoundPlayed2			= false;
 	
 	m_pDeer->SetPlayerHasBeenReached( false );
 	
 	//CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerExclaim"); 
 	
-	if ( m_pDeer->GetName() == "enemy29") 
-	{
-		bool l = m_pAnimationCallback->IsAnimationStarted();
-	}
-
-
 	m_pAnimationCallback->Init();
 	m_pActionStateCallback->InitAction(0, m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_STILL_ATTACK_STATE) );
 }
@@ -133,11 +129,6 @@ void CDeerStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 	
-	if ( m_pDeer->GetName() == "enemy29") 
-	{
-		bool l = m_pAnimationCallback->IsAnimationStarted();
-	}
-
 	if ( m_pAnimationCallback->IsAnimationStarted() ) 
 	{
 		// Compruebo si la animación a finalizado
@@ -233,25 +224,29 @@ void CDeerStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 
 			//float t = m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_STILL_ATTACK_STATE);
 
+			// Aquí comienza el golpeo, la mano está alzada
 			if ( m_pActionStateCallback->IsActionInTime( 0.2f ) && !m_FirstHitDone )
 			{
 				GetParticleEmitter(m_pDeer->GetName() + "_RightHand1")->EjectParticles();
 				GetParticleEmitter(m_pDeer->GetName() + "_RightHand11")->EjectParticles();
-				GetParticleEmitter(m_pDeer->GetName() + "_Impact1")->EjectParticles();
 								   
 				m_FirstHitDone = true;		// Ahora ya no entraremos en este condicional
+			}
 
+			if (m_pActionStateCallback->IsActionInTime( 0.30f ) && !m_FirstHitReached)
+			{
+
+				unsigned int n = m_pDeer->GetAnimatedModel()->GetCurrentAnimationTrack(DEER_STILL_ATTACK_STATE);
 				if ( m_pDeer->IsPlayerReached() )
 				{
 					m_FirstHitReached = true;
 				}
 
 				// Sonido de la 1a bofetada 
-				if ( m_FirstHitReached && !m_SoundPlayed1 )
+				if (m_FirstHitReached && !m_SoundPlayed1 )
 				{
 					m_SoundPlayed1 = true;
 					CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Punch3"); 
-					//GetParticleEmitter("Impact1")->EjectParticles();
 				}
 				// Sonido de la 1a bofetada fallida
 				else if ( !m_FirstHitReached && !m_SoundPlayed1 )
@@ -259,6 +254,14 @@ void CDeerStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 					CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Slap1"); 
 					m_SoundPlayed1 = true;
 				}
+			}
+
+			// Trato la primera animación de impacto
+			if ( m_pActionStateCallback->IsActionInTime( 0.36f ) && !m_FirstParticlesHitDone && m_FirstHitReached )
+			{
+				m_FirstParticlesHitDone = true;
+				UpdateImpact(m_pDeer);
+				GenerateImpact(m_pDeer, true );
 			}
 
 			if ( m_pActionStateCallback->IsActionInTime( 0.7f ) && !m_SecondHitDone )
@@ -271,6 +274,7 @@ void CDeerStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 				if ( m_pDeer->IsPlayerReached() )
 				{
 					m_SecondHitReached = true; 
+					//UpdateImpact(m_pDeer);
 				}
 
 				// Sonido de la 2a bofetada 
@@ -278,7 +282,11 @@ void CDeerStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 				{
 					m_SoundPlayed2 = true;
 					CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Punch2"); 
-					//GetParticleEmitter("Impact1")->EjectParticles();
+					////GetParticleEmitter("Impact1")->EjectParticles();
+					
+					// Gestión de partículas
+					//GenerateImpact(m_pDeer);
+					//GetParticleEmitter( _pCharacter->GetName() + "_Impact2")->EjectParticles();
 				}
 				// Sonido de la 2a bofetada fallida
 				else if ( !m_SecondHitReached && !m_SoundPlayed2 )
@@ -287,6 +295,14 @@ void CDeerStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 					m_SoundPlayed2 = true;
 				}
 			}
+			// Trato la segunda animación de impacto
+			if ( m_pActionStateCallback->IsActionInTime( 0.85f ) && !m_SecondParticlesHitDone && m_SecondHitReached )
+			{
+				m_SecondParticlesHitDone = true;
+				UpdateImpact(m_pDeer);
+				GenerateImpact(m_pDeer, false );
+			}
+
 
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
@@ -363,7 +379,18 @@ void CDeerStillAttackState::OnExit( CCharacter* _pCharacter )
 	GetParticleEmitter(_pCharacter->GetName() + "_LeftHand11")->StopEjectParticles();
 	GetParticleEmitter(_pCharacter->GetName() + "_RightHand1")->StopEjectParticles();
 	GetParticleEmitter(_pCharacter->GetName() + "_RightHand11")->StopEjectParticles();
+
+	GetParticleEmitter(_pCharacter->GetName() + "_ExpandWave1")->StopEjectParticles();
+	GetParticleEmitter(_pCharacter->GetName() + "_BloodSplash1")->StopEjectParticles();
 	GetParticleEmitter(_pCharacter->GetName() + "_Impact1")->StopEjectParticles();
+	GetParticleEmitter(_pCharacter->GetName() + "_Streaks1")->StopEjectParticles();
+	GetParticleEmitter(_pCharacter->GetName() + "_Sparks1")->StopEjectParticles();
+	
+	GetParticleEmitter(_pCharacter->GetName() + "_ExpandWave2")->StopEjectParticles();
+	GetParticleEmitter(_pCharacter->GetName() + "_BloodSplash2")->StopEjectParticles();
+	GetParticleEmitter( _pCharacter->GetName() + "_Impact2")->StopEjectParticles();
+	GetParticleEmitter(_pCharacter->GetName() + "_Streaks2")->StopEjectParticles();
+	GetParticleEmitter(_pCharacter->GetName() + "_Sparks2")->StopEjectParticles();
 }					   
 
 bool CDeerStillAttackState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
@@ -390,7 +417,6 @@ void CDeerStillAttackState::UpdateParticlesPositions( CCharacter* _pCharacter )
 	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_RightHand11", "Bip001 R Finger11" );
 	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_LeftHand1"  , "Bip001 L Finger1"  );
 	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_LeftHand11" , "Bip001 L Finger11" );
-	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_Impact1", "", _pCharacter->GetPlayer()->GetPosition() - _pCharacter->GetPlayer()->GetFront() );
 }
 
 void CDeerStillAttackState::SetParticlePosition( CCharacter* _pCharacter, const std::string &_ParticlesName, const std::string &_Bone, const Vect3f &_Position )
@@ -419,4 +445,40 @@ void CDeerStillAttackState::SetParticlePosition( CCharacter* _pCharacter, const 
 	{
 		GetParticleEmitter(_ParticlesName)->SetPosition( _Position );
 	}
+}
+
+void CDeerStillAttackState::GenerateImpact( CCharacter* _pCharacter, bool _FirstImpact )
+{
+	if ( _FirstImpact )
+	{
+		GetParticleEmitter(_pCharacter->GetName() + "_ExpandWave1")->EjectParticles();
+		//GetParticleEmitter(_pCharacter->GetName() + "_BloodSplash1")->EjectParticles();
+		GetParticleEmitter(_pCharacter->GetName() + "_Impact1")->EjectParticles();
+		GetParticleEmitter(_pCharacter->GetName() + "_Streaks1")->EjectParticles();
+		GetParticleEmitter(_pCharacter->GetName() + "_Sparks1")->EjectParticles();
+	}
+	else
+	{
+		GetParticleEmitter(_pCharacter->GetName() + "_ExpandWave2")->EjectParticles();
+		GetParticleEmitter(_pCharacter->GetName() + "_BloodSplash2")->EjectParticles();
+		GetParticleEmitter( _pCharacter->GetName() + "_Impact2")->EjectParticles();
+		GetParticleEmitter(_pCharacter->GetName() + "_Streaks2")->EjectParticles();
+		GetParticleEmitter(_pCharacter->GetName() + "_Sparks2")->EjectParticles();
+	}
+
+}
+
+void CDeerStillAttackState::UpdateImpact( CCharacter* _pCharacter )
+{
+	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_BloodSplash1", "Bip001 R Finger1");
+	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_Impact1", "Bip001 R Finger1");
+	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_Streaks1", "Bip001 R Finger1");
+	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_ExpandWave1", "Bip001 R Finger1");
+	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_Sparks1", "Bip001 R Finger1");
+
+	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_BloodSplash2", "Bip001 L Finger1");
+	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_Impact2", "Bip001 L Finger1");
+	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_Streaks2", "Bip001 L Finger1");
+	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_ExpandWave2", "Bip001 L Finger1");
+	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_Sparks2", "Bip001 L Finger1");
 }
