@@ -531,25 +531,48 @@
 	</settings>
 	
 	<settings name="Clouds">
-		<TextureName value="./Data/General/Textures/Particles/Lightning0000.png"/>
-		<MaxParticles value="11"/>
-		<Duration value="1.600000"/>
-		<DurationRandomness value="0.000000"/>
-		<EmitterVelocitySensitivity value="0.000000"/>
+		<TextureName value="./Data/General/Textures/Particles/FuzzL.png"/>
+		<MaxParticles value="20"/>
+		<Duration value="2.600000"/>
+		<DurationRandomness value="1.000000"/>
+		<EmitterVelocitySensitivity value="1.000000"/>
 		<MinHorizontalVelocity value="0.000000"/>
 		<MaxHorizontalVelocity value="0.000000"/>
-		<MinVerticalVelocity value="0.000000"/>
-		<MaxVerticalVelocity value="0.000000"/>
+		<MinVerticalVelocity value="1.000000"/>
+		<MaxVerticalVelocity value="2.000000"/>
 		<Gravity value="0.000000 0.000000 0.000000"/>
 		<EndVelocity value="0.000000"/>
-		<MinColor value="191.000000 202.000000 255.000000 255.000000"/>
-		<MaxColor value="255.000000 171.000000 249.000000 255.000000"/>
-		<MinRotateSpeed value="1.000000"/>
-		<MaxRotateSpeed value="360.000000"/>
+		<MinColor value="191.000000 202.000000 255.000000 55.000000"/>
+		<MaxColor value="255.000000 171.000000 249.000000 55.000000"/>
+		<MinRotateSpeed value="0.000000"/>
+		<MaxRotateSpeed value="0.000000"/>
 		<MinStartSize value="1.000000"/>
 		<MaxStartSize value="1.000000"/>
-		<MinEndSize value="6.000000"/>
-		<MaxEndSize value="6.000000"/>
-		<BlendState value="Additive"/>
+		<MinEndSize value="16.000000"/>
+		<MaxEndSize value="16.000000"/>
+		<BlendState value="NonPremultiplied"/>
+	</settings>
+	
+	<settings name="FireSwordBlur">
+		<TextureName value="./Data/General/Textures/Particles/Lightning0000.png"/>
+		<MaxParticles value="100"/>
+		<Duration value="2.000000"/>
+		<DurationRandomness value="1.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
+		<MinHorizontalVelocity value="-1.000000"/>
+		<MaxHorizontalVelocity value="1.000000"/>
+		<MinVerticalVelocity value="2.000000"/>
+		<MaxVerticalVelocity value="3.000000"/>
+		<Gravity value="0.000000 0.000000 0.000000"/>
+		<EndVelocity value="0.000000"/>
+		<MinColor value="255.000000 187.000000 98.000000 255.000000"/>
+		<MaxColor value="255.000000 203.000000 73.000000 255.000000"/>
+		<MinRotateSpeed value="0.000000"/>
+		<MaxRotateSpeed value="0.000000"/>
+		<MinStartSize value="1.000000"/>
+		<MaxStartSize value="1.000000"/>
+		<MinEndSize value="0.000000"/>
+		<MaxEndSize value="0.000000"/>
+		<BlendState value="NonPremultiplied"/>
 	</settings>
 </particle_settings>

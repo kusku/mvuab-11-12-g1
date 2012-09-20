@@ -31,4 +31,6 @@
 	<system name="Tendrils" settings_name="Tendrils" />
 	<system name="Clouds" settings_name="Clouds" />
 	
+	<system name="FireSwordBlur" settings_name="FireSwordBlur" />
+	
 </particle_systems>
