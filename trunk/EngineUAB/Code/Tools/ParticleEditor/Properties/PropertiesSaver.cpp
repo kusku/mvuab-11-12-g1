@@ -183,7 +183,7 @@ void CPropertiesSaver::LoadProperties( TParticleSystemSettings *_ParticleSystem 
 	l_pProperty->AddSubItem(l_pAlpha);
 	l_pColor->AddSubItem(l_pProperty);
 	m_pProperties->AddProperty(l_pColor);
-
+	
 	//---------------------------------------------------_
 	CMFCPropertyGridProperty *l_pDuration = new CMFCPropertyGridProperty(_T("Duration"));
 	l_pProperty = new CMFCPropertyGridProperty(_T("Duration"), (_variant_t)_ParticleSystem->m_Duration, _T("Duration of the particle."));
@@ -194,7 +194,7 @@ void CPropertiesSaver::LoadProperties( TParticleSystemSettings *_ParticleSystem 
 
 	//---------------------------------------------------
 	CMFCPropertyGridProperty *l_pGeneral = new CMFCPropertyGridProperty(_T("General"));
-	static const TCHAR l_Filter[] = _T("JPG(*.jpg)|*.jpg|PNG(*.png)|*.png|BMP(*.bmp)|*.bmp|TGA(*.tga)|*.tga|DDS(*.dds)|*.dds|Todos los archivos(*.*)|*.*||");
+	static const TCHAR l_Filter[] = _T("PNG(*.png)|*.png|JPG(*.jpg)|*.jpg|BMP(*.bmp)|*.bmp|TGA(*.tga)|*.tga|DDS(*.dds)|*.dds|Todos los archivos(*.*)|*.*||");
 	l_pGeneral->AddSubItem(new CMFCPropertyGridFileProperty(_T("Texture"), TRUE, _T(_ParticleSystem->m_TextureName.c_str()), _T("png"), 0, l_Filter, _T("Specify the texture.")));
 
 	l_pProperty = new CMFCPropertyGridProperty(_T("Quantity"), (_variant_t)_ParticleSystem->m_MaxParticles, _T("Maximum of particles for emitter."));
@@ -231,6 +231,7 @@ void CPropertiesSaver::LoadProperties( TParticleSystemSettings *_ParticleSystem 
 
 	//---------------------------------------------------
 	CMFCPropertyGridProperty *l_pVelocity = new CMFCPropertyGridProperty(_T("Velocity"));
+	l_pProperty->Expand(true);
 	l_pProperty = new CMFCPropertyGridProperty(_T("Sensitivity"), (_variant_t)_ParticleSystem->m_EmitterVelocitySensitivity, _T("Sensitivity of the velocity."));
 	l_pVelocity->AddSubItem(l_pProperty);	
 	l_pProperty = new CMFCPropertyGridProperty(_T("Horizontal"), 0, TRUE);
@@ -240,6 +241,7 @@ void CPropertiesSaver::LoadProperties( TParticleSystemSettings *_ParticleSystem 
 	l_pProperty = new CMFCPropertyGridProperty(_T("Vertical"), 0, TRUE);
 	l_pProperty->AddSubItem(new CMFCPropertyGridProperty(_T("Min"), (_variant_t)_ParticleSystem->m_MinVerticalVelocity, _T("Minimum vertical velocity.")));
 	l_pProperty->AddSubItem(new CMFCPropertyGridProperty(_T("Max"), (_variant_t)_ParticleSystem->m_MaxVerticalVelocity, _T("Maximum vertical velocity.")));
+	
 	l_pVelocity->AddSubItem(l_pProperty);
 	l_pProperty = new CMFCPropertyGridProperty(_T("Gravity"), 0, TRUE);
 	l_pProperty->AddSubItem(new CMFCPropertyGridProperty(_T("X"), (_variant_t)_ParticleSystem->m_Gravity.x, _T("Gravity in the X axis.")));
@@ -249,4 +251,5 @@ void CPropertiesSaver::LoadProperties( TParticleSystemSettings *_ParticleSystem 
 	l_pProperty = new CMFCPropertyGridProperty(_T("End"), (_variant_t)_ParticleSystem->m_EndVelocity, _T("Final velocity."));
 	l_pVelocity->AddSubItem(l_pProperty);	
 	m_pProperties->AddProperty(l_pVelocity);
+	m_pProperties->ExpandAll(true);
 }
