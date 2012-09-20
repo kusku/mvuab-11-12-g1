@@ -59,6 +59,7 @@ CCharacter::CCharacter()
 	, m_PlayerHasBeenReached	( false )
 	, m_pSpeaker				( NULL )
 	, m_SpeakerName				( "" )
+	, m_IsTired					( false )
 {
 	// coloco la máquina de estados i el controler de física
     m_pLogicStateMachine	= new CStateMachine<CCharacter>( this );
@@ -85,6 +86,7 @@ CCharacter::CCharacter( const std::string &_Name )
 	, m_PlayerHasBeenReached	( false )
 	, m_pSpeaker				( NULL )
 	, m_SpeakerName				( "" )
+	, m_IsTired					( false )
 {
 	SetName ( _Name );
 
@@ -694,7 +696,7 @@ bool CCharacter::IsEnemyAproximatedToAttack( void )
 // ---------------------------------------------------------------------------------------------------------------
 bool CCharacter::IsPlayerReached( void )
 {
-	return ( IsPlayerInsideDistance(this->GetProperties()->GetImpactDistance() ) );//&& ( IsObstacleVisibleInAngle(GetPlayer(), 180) ) );
+	return ( IsPlayerInsideDistance(this->GetProperties()->GetImpactDistance() )  && ( IsObstacleVisibleInAngle(GetPlayer(), 120) ) );
 }
 
 // ---------------------------------------------------------------------------------------------------------------
