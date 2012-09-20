@@ -24,7 +24,7 @@
       <Filter>Cooking Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Jump.cpp">
-      <Filter>PhysicMaterial\Jump</Filter>
+      <Filter>Jump</Filter>
     </ClCompile>
     <ClCompile Include="PhysxGrenade.cpp">
       <Filter>PhysXGrenades</Filter>
@@ -79,7 +79,7 @@
       <Filter>Cooking Mesh</Filter>
     </ClInclude>
     <ClInclude Include="Jump.h">
-      <Filter>PhysicMaterial\Jump</Filter>
+      <Filter>Jump</Filter>
     </ClInclude>
     <ClInclude Include="JointsDefs.h">
       <Filter>Joints</Filter>
@@ -146,11 +146,11 @@
     <Filter Include="Reports">
       <UniqueIdentifier>{783f0162-37db-4bab-8241-aa074e344739}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PhysicMaterial\Jump">
-      <UniqueIdentifier>{7f23cc2c-a256-4c9d-ae24-82d99fb617ed}</UniqueIdentifier>
-    </Filter>
     <Filter Include="_ScriptAPI">
       <UniqueIdentifier>{39108422-72b4-4ce7-a243-15cf79e3f25b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Jump">
+      <UniqueIdentifier>{7f23cc2c-a256-4c9d-ae24-82d99fb617ed}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
