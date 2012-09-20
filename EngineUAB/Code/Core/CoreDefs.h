@@ -118,6 +118,8 @@ struct SConfig
 	std::string particle_emitters_path;
 	std::string particle_settings_path;
 	std::string particle_systems_path;
+	std::string particle_emitter_systems_path;
+	std::string particle_startup_instances_path;
 
 	// Parametros del sistema gui
 	std::string gui_path;

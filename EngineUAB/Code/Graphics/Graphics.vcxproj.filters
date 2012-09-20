@@ -288,6 +288,21 @@
       <Filter>Commands\Command</Filter>
     </ClInclude>
     <ClInclude Include="BoundingObjects.h" />
+    <ClInclude Include="Particles\ParticleEmitterInstance.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Particles\ParticleEmitterSystemManager.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Particles\ParticleEmitterSystemInstance.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Particles\ParticleEmitterSystem.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Particles\ParticleStartUpInstances.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
@@ -561,6 +576,21 @@
     </ClCompile>
     <ClCompile Include="Commands\LensFlareSceneRendererCommand.cpp">
       <Filter>Commands\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Particles\ParticleEmitterInstance.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Particles\ParticleEmitterSystemManager.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Particles\ParticleEmitterSystemInstance.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Particles\ParticleEmitterSystem.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Particles\ParticleStartUpInstances.cpp">
+      <Filter>Particles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -39,6 +39,8 @@ class CWayPointManager;
 class CParticleEmitterManager;
 class CParticleSystemManager;
 class CParticleSettingsManager;
+class CParticleEmitterSystemManager;
+class CParticleStartUpInstances;
 class CAnimalManager;
 class CSteeringBehaviorsSeetingsManager;
 class CRailManager;
@@ -163,6 +165,8 @@ public:
 	inline CParticleEmitterManager*				GetParticleEmitterManager	() const					{ return m_ParticleEmitterManager; }
 	inline CParticleSystemManager*				GetParticleSystemManager	() const					{ return m_ParticleSystemManager; }
 	inline CParticleSettingsManager*			GetParticleSettingsManager	() const					{ return m_ParticleSettingsManager; }
+	inline CParticleEmitterSystemManager*		GetParticleEmitterSystemManager	() const				{ return m_ParticleEmitterSystemManager; }
+	inline CParticleStartUpInstances*			GetParticleStartUpInstances	() const					{ return m_ParticleStartUpInstances; }
 	
 	inline CAnimalManager*						GetAnimalManager			() const					{ return m_Animalmanager; }
 
@@ -176,6 +180,7 @@ private:
 	//----Inputs Methods -----------------------------------------------------
 	void		UpdateInputs								( float _ElapsedTime );
 	void		UpdateDebugInputs							( float _ElapsedTime, CActionToInput &_Action2Input );
+
 
 private:
 	bool	m_bIsOk;
@@ -219,6 +224,8 @@ private:
 	CParticleEmitterManager				*m_ParticleEmitterManager;
 	CParticleSystemManager				*m_ParticleSystemManager;
 	CParticleSettingsManager			*m_ParticleSettingsManager;
+	CParticleEmitterSystemManager		*m_ParticleEmitterSystemManager;
+	CParticleStartUpInstances			*m_ParticleStartUpInstances;
 	CAnimalManager						*m_Animalmanager;
 	CSteeringBehaviorsSeetingsManager	*m_pSteeringBehaviorSeetingsManager;
 	CRailManager						*m_pRailManager;

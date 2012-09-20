@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<particle_emitters_systems>
+
+  <emitter_system name="WaterFall System">
+    <emitter name="WaterFall2" />
+    <emitter name="WaterFall" />
+    <emitter name="WaterMist" />
+  </emitter_system>
+
+</particle_emitters_systems>

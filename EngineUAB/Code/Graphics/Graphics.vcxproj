@@ -80,8 +80,13 @@
     <ClInclude Include="Particles\Emitters\ParticleEmitterSphere.h" />
     <ClInclude Include="Particles\ParticleDef.h" />
     <ClInclude Include="Particles\ParticleEmitter.h" />
+    <ClInclude Include="Particles\ParticleEmitterInstance.h" />
     <ClInclude Include="Particles\ParticleEmitterManager.h" />
+    <ClInclude Include="Particles\ParticleEmitterSystem.h" />
+    <ClInclude Include="Particles\ParticleEmitterSystemInstance.h" />
+    <ClInclude Include="Particles\ParticleEmitterSystemManager.h" />
     <ClInclude Include="Particles\ParticleSettingsManager.h" />
+    <ClInclude Include="Particles\ParticleStartUpInstances.h" />
     <ClInclude Include="Particles\ParticleSystemManager.h" />
     <ClInclude Include="Particles\ParticleSystem.h" />
     <ClInclude Include="PostProcess\Bloom\BloomPostProcess.h" />
@@ -175,8 +180,13 @@
     <ClCompile Include="Particles\Emitters\ParticleEmitterRing.cpp" />
     <ClCompile Include="Particles\Emitters\ParticleEmitterSphere.cpp" />
     <ClCompile Include="Particles\ParticleEmitter.cpp" />
+    <ClCompile Include="Particles\ParticleEmitterInstance.cpp" />
     <ClCompile Include="Particles\ParticleEmitterManager.cpp" />
+    <ClCompile Include="Particles\ParticleEmitterSystem.cpp" />
+    <ClCompile Include="Particles\ParticleEmitterSystemInstance.cpp" />
+    <ClCompile Include="Particles\ParticleEmitterSystemManager.cpp" />
     <ClCompile Include="Particles\ParticleSettingsManager.cpp" />
+    <ClCompile Include="Particles\ParticleStartUpInstances.cpp" />
     <ClCompile Include="Particles\ParticleSystemManager.cpp" />
     <ClCompile Include="Particles\ParticleSystem.cpp" />
     <ClCompile Include="PostProcess\Bloom\BloomPostProcess.cpp" />

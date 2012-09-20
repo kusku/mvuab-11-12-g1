@@ -1066,6 +1066,12 @@
     <None Include="..\..\Run\Videogame\Data\XML\steering_properties.xml">
       <Filter>XML</Filter>
     </None>
+    <None Include="..\..\Run\Videogame\Data\XML\ParticleEmittersSystems.xml">
+      <Filter>XML</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\XML\ParticleStartUpInstances.xml">
+      <Filter>XML</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\Run\Videogame\Data\Effects\VignettingNoise.fx">
