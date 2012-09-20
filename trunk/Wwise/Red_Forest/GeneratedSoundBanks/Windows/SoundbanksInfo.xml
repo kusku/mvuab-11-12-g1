@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Windows" SchemaVersion="9">
 	<RootPaths>
-		<ProjectRoot>C:\Users\Marc\Documents\UAB\Wwise\Red_Forest\</ProjectRoot>
-		<SourceFilesRoot>C:\Users\Marc\Documents\UAB\Wwise\Red_Forest\.cache\Windows\</SourceFilesRoot>
-		<SoundBanksRoot>C:\Users\Marc\Documents\UAB\Wwise\Red_Forest\GeneratedSoundBanks\Windows\</SoundBanksRoot>
+		<ProjectRoot>D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\</ProjectRoot>
+		<SourceFilesRoot>D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\</SourceFilesRoot>
+		<SoundBanksRoot>D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\GeneratedSoundBanks\Windows\</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>C:\Users\Marc\Documents\UAB\Wwise\Red_Forest\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<Arguments />
 	<DialogueEvents />
