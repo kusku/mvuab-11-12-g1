@@ -84,7 +84,7 @@ void CDeerPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elapse
 	}
 
 	// 0) Caso en que alcanzé al player y por tanto vamos a un punto de inicio de ataque. Así dejo que el player se reponga
-	if ( m_pDeer->GetPlayerHasBeenReached() )
+	if ( m_pDeer->GetPlayerHasBeenReached() && m_pDeer->GetIsTired() )
 	{
 		// Si no ser donde tengo que ir...
 		if ( !m_IsPositionAfterHitPlayerAssigned )
