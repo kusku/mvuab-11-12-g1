@@ -49,6 +49,8 @@
 #include "Particles\ParticleSystemManager.h"
 #include "Particles\ParticleEmitterManager.h"
 #include "Particles\ParticleSettingsManager.h"
+#include "Particles\ParticleEmitterSystemManager.h"
+#include "Particles\ParticleStartUpInstances.h"
 
 #include "Animal Control\AnimalManager.h"
 
@@ -102,6 +104,8 @@ CCore::CCore ( void )
 	, m_ParticleEmitterManager			( NULL )
 	, m_ParticleSystemManager			( NULL )
 	, m_ParticleSettingsManager			( NULL )
+	, m_ParticleEmitterSystemManager	( NULL )
+	, m_ParticleStartUpInstances		( NULL )
 	, m_Animalmanager					( NULL )
 	, m_pSteeringBehaviorSeetingsManager( NULL )
 	, m_pRailManager					( NULL )
@@ -155,6 +159,8 @@ void CCore::Release ( void )
 	CHECKED_DELETE ( m_ParticleEmitterManager );
 	CHECKED_DELETE ( m_ParticleSystemManager );
 	CHECKED_DELETE ( m_ParticleSettingsManager );
+	CHECKED_DELETE ( m_ParticleEmitterSystemManager );
+	CHECKED_DELETE ( m_ParticleStartUpInstances );
 	CHECKED_DELETE ( m_Animalmanager );
 	CHECKED_DELETE ( m_pSteeringBehaviorSeetingsManager );
 	CHECKED_DELETE ( m_pRailManager  );
@@ -256,6 +262,10 @@ bool CCore::Init( HWND _HWnd, const SConfig &config )
 
 			m_ParticleEmitterManager = new CParticleEmitterManager;
 			//m_ParticleEmitterManager->Load(config.particle_emitters_path);
+
+			m_ParticleEmitterSystemManager = new CParticleEmitterSystemManager();
+
+			m_ParticleStartUpInstances = new CParticleStartUpInstances();
 
 			//GUI
 			m_pGUIManager = new CGUIManager( CORE->GetRenderManager()->GetScreenSize() );
@@ -462,6 +472,16 @@ bool CCore::LoadParticles()
 
 	//m_ParticleEmitterManager = new CParticleEmitterManager;
 	if(!m_ParticleEmitterManager->Load(m_Config.particle_emitters_path))
+	{
+		return false;
+	}
+
+	if(!m_ParticleEmitterSystemManager->Load(m_Config.particle_emitter_systems_path))
+	{
+		return false;
+	}
+
+	if(!m_ParticleStartUpInstances->Load(m_Config.particle_startup_instances_path))
 	{
 		return false;
 	}
@@ -886,6 +906,7 @@ void CCore::ReloadParticles()
 	m_ParticleSettingsManager->CleanUp();
 	m_ParticleSystemManager->CleanUp();
 	m_ParticleEmitterManager->CleanUp();
+	m_ParticleEmitterSystemManager->CleanUp();
 
 	if(!m_ParticleSettingsManager->Reload())
 	{
@@ -902,6 +923,16 @@ void CCore::ReloadParticles()
 
 	//m_ParticleEmitterManager = new CParticleEmitterManager;
 	if(!m_ParticleEmitterManager->Reload())
+	{
+		return;
+	}
+
+	if(!m_ParticleEmitterSystemManager->Reload())
+	{
+		return;
+	}
+
+	if(!m_ParticleStartUpInstances->Reload())
 	{
 		return;
 	}
@@ -967,6 +998,7 @@ void CCore::UnloadParticles()
 	m_ParticleSettingsManager->CleanUp();
 	m_ParticleSystemManager->CleanUp();
 	m_ParticleEmitterManager->CleanUp();
+	m_ParticleEmitterSystemManager->CleanUp();
 }
 
 void CCore::UnloadWayPoints()

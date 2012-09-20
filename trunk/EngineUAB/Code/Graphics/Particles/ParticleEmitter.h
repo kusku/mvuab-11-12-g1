@@ -5,16 +5,22 @@
 #define _PARTICLE_EMITTER_H
 
 #include <string>
+#include <map>
 
 #include "Math\Vector3.h"
 #include "Base.h"
 #include "Utils\Types.h"
 #include "Utils\Active.h"
 
+
 class CParticleSystem;
+class CParticleEmitterInstance;
 
 class CParticleEmitter : public CActive
 {
+	typedef std::map<std::string, CParticleEmitterInstance*> EmitterInstanceMap;
+	typedef EmitterInstanceMap::iterator EmitterInstanceMapIt;
+
 public:
 	CParticleEmitter(const std::string& name, CParticleSystem* particleSystem, float particlesPerSecond, const Vect3f& initialPosition, bool useDis);
 	virtual ~CParticleEmitter();
@@ -27,48 +33,27 @@ public:
 
 	inline void SetOnLoop(bool onLoop)			{ m_OnLoop = onLoop; }
 	inline bool GetOnLoop()						{ return m_OnLoop; }
-
-	inline void EjectParticles()				{ m_EjectParticles = true; }
-
-	inline void StopEjectParticles()
-	{
-		m_EjectParticles = false;
-		m_ParticleCount = 0;
-	}
-
-	inline void SetPosition(const Vect3f& position) 
-	{ 
-		if(position == m_CurrentPosition)
-		{
-			return;
-		}
-
-		m_HasNewPosition = true;
-		m_PreviousPosition = m_CurrentPosition;
-		m_CurrentPosition = position;
-	}
-
-	inline Vect3f GetPosition() const			{ return m_CurrentPosition; }
+	
 	inline void		SetParticleSystem	( CParticleSystem *_pSystem )	{ assert(_pSystem); m_ParticleSystem = _pSystem; }
+
+
+	CParticleEmitterInstance* GetParticleEmitterInstance(const std::string& name);
+
+	inline std::string	GetName() const { return m_Name; }
 
 protected:
 	virtual Vect3f				CalculateParticlePosition()		= 0;
 
 protected:
+
+	EmitterInstanceMap			m_InstanceMap;
+
 	std::string					m_Name;
-
 	CParticleSystem*			m_ParticleSystem;
-	float						m_TimeBetweenParticles;
-	Vect3f						m_PreviousPosition;
-	float						m_TimeLeftOver;
-
-	bool						m_HasNewPosition;
-	Vect3f						m_CurrentPosition;
+	Vect3f						m_InitialPosition;
 	bool						m_UseDis;
-
+	float						m_TimeBetweenParticles;
 	bool						m_OnLoop;
-	bool						m_EjectParticles;
-	uint32						m_ParticleCount;
 	uint32						m_ParticlesEjectionCount;
 };
 

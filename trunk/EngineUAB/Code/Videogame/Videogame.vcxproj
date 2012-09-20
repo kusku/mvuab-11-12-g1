@@ -355,6 +355,8 @@
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\end_game_trigger.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\house_trigger.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\start_trigger.lua" />
+    <None Include="..\..\Run\Videogame\Data\XML\ParticleEmittersSystems.xml" />
+    <None Include="..\..\Run\Videogame\Data\XML\ParticleStartUpInstances.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\soundbanks.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\speakers.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\steering_properties.xml">
