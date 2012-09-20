@@ -136,13 +136,14 @@ void CDeerRunAttackState::OnEnter( CCharacter* _pCharacter )
 
 void CDeerRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
-	UpdateImpact(m_pDeer);
-
 	if (!m_pDeer) 
 	{
 		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
-
+	
+	UpdateImpact(m_pDeer);
+	GetParticleEmitter(_pCharacter->GetName() + "_RunAttackCloud")->EjectParticles();
+	
 	if ( m_pAnimationCallback->IsAnimationStarted() ) 
 	{
 		// Si el player no estaba ya alcanzado pero ahora se alcanza
@@ -171,6 +172,10 @@ void CDeerRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		//if ( m_pAnimationCallback->IsAnimationFinished() || ( m_PlayerPositionReached ) )
 		if ( m_pAnimationCallback->IsAnimationFinished() )
 		{
+			// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio. En este caso no queremos
+			// pq hace un desplazamiento que después de este ataque no queremos que haga.
+			m_pDeer->SetToBeTired(false);
+
 			// Si encontré el player por delante finalizo golpeando
 			if ( m_pDeer->GetPlayerHasBeenReached() )
 			{
@@ -226,8 +231,8 @@ void CDeerRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 					l_Vel *= m_pDeer->GetProperties()->GetMaxSpeed();
 					m_AditionalInfo.Direccion	= l_Vel;
 					m_AditionalInfo.ElapsedTime = _ElapsedTime;
+					GenerateImpact(m_pDeer);
 				}
-				GenerateImpact(m_pDeer);
 					
 				if ( DISPATCH != NULL ) 
 				{
@@ -240,10 +245,6 @@ void CDeerRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 				}
 			}
 			else
-
-
-
-
 			{
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
@@ -252,27 +253,27 @@ void CDeerRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 					}
 				#endif
 			}
-		}
 		
-		// Comprobamos que no nos hemos pasado de la posición final
-		Vect2f l_EnemyPosicion  = Vect2f ( m_pDeer->GetPosition().x, m_pDeer->GetPosition().z);
-		Vect2f l_FinalPosicion	= Vect2f ( m_FinalAttackPosition.x, m_FinalAttackPosition.z);
-		if ( l_EnemyPosicion.Distance( l_FinalPosicion ) <= 0.5f )
-		{
-			m_pDeer->GetBehaviors()->SeekOff();
-			m_PlayerInitialPosition = Vect3f(0,0,0);
-			m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-		}	
-		else
-		{
-			m_pDeer->GetBehaviors()->SeekOn();
-			m_pDeer->GetBehaviors()->GetSeek()->SetTarget(m_PlayerInitialPosition);
-		}
+			// Comprobamos que no nos hemos pasado de la posición final
+			Vect2f l_EnemyPosicion  = Vect2f ( m_pDeer->GetPosition().x, m_pDeer->GetPosition().z);
+			Vect2f l_FinalPosicion	= Vect2f ( m_FinalAttackPosition.x, m_FinalAttackPosition.z);
+			if ( l_EnemyPosicion.Distance( l_FinalPosicion ) <= 0.5f )
+			{
+				m_pDeer->GetBehaviors()->SeekOff();
+				m_PlayerInitialPosition = Vect3f(0,0,0);
+				m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+			}	
+			else
+			{
+				m_pDeer->GetBehaviors()->SeekOn();
+				m_pDeer->GetBehaviors()->GetSeek()->SetTarget(m_FinalAttackPosition);
+			}
 		
-		// No Rotamos al objetivo y pero si movemos. Esto dará sensación de golpear allí donde estava el target cuando inicie el ataque
-		//_CCharacter:face_to( self.target_position, _elapsed_time )
-		m_pDeer->FaceTo( m_FinalAttackPosition, _ElapsedTime );
-		m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+			// No Rotamos al objetivo y pero si movemos. Esto dará sensación de golpear allí donde estava el target cuando inicie el ataque
+			//_CCharacter:face_to( self.target_position, _elapsed_time )
+			m_pDeer->FaceTo( m_FinalAttackPosition, _ElapsedTime );
+			m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+		}
 	}
 	// Si l'animación no se ha iniciado
 	else
@@ -389,7 +390,8 @@ void CDeerRunAttackState::GenerateImpact( CCharacter* _pCharacter )
 {
 	GetParticleEmitter(_pCharacter->GetName() + "_RunExpandWave")->EjectParticles();
 	GetParticleEmitter(_pCharacter->GetName() + "_RunImpact")->EjectParticles();
-	GetParticleEmitter(_pCharacter->GetName() + "_RunAttack")->EjectParticles();
+	GetParticleEmitter(_pCharacter->GetName() + "_RunAttackRay")->EjectParticles();
+	
 }
 
 void CDeerRunAttackState::UpdateImpact( CCharacter* _pCharacter )
@@ -401,12 +403,14 @@ void CDeerRunAttackState::UpdateImpact( CCharacter* _pCharacter )
 	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
 	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_RunImpact", "", l_Pos);
 	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_RunExpandWave", "", l_Pos);
-	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_RunAttack", "", l_Pos);
+	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_RunAttackRay", "", l_Pos);
+	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_RunAttackCloud", "", _pCharacter->GetPosition());
 }
 
 void CDeerRunAttackState::StopImpact( CCharacter* _pCharacter )
 {
-	GetParticleEmitter(_pCharacter->GetName() + "_RunAttack")->StopEjectParticles();
+	GetParticleEmitter(_pCharacter->GetName() + "_RunAttackCloud")->StopEjectParticles();
+	GetParticleEmitter(_pCharacter->GetName() + "_RunAttackRay")->StopEjectParticles();
 	GetParticleEmitter(_pCharacter->GetName() + "_RunExpandWave")->StopEjectParticles();
 	GetParticleEmitter(_pCharacter->GetName() + "_RunImpact")->StopEjectParticles();
 }

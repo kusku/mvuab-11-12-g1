@@ -139,6 +139,9 @@ void CDeerStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 
 			if ( m_pDeer->GetPlayerHasBeenReached() )
 			{
+				// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio
+				m_pDeer->SetToBeTired(true);
+				
 				if ( DISPATCH != NULL ) 
 				{
 					DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pDeer->GetID(), m_pDeer->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
