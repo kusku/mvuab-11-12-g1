@@ -28,4 +28,7 @@
 	<system name="Streaks" settings_name="Streaks" />
 	<system name="Sparks" settings_name="Sparks" />
 	
+	<system name="Tendrils" settings_name="Tendrils" />
+	<!--<system name="Clouds" settings_name="Clouds" />-->
+	
 </particle_systems>
