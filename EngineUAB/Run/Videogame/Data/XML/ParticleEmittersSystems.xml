@@ -7,4 +7,29 @@
     <emitter name="WaterMist" />
   </emitter_system>
 
+  <emitter_system name="DeerStillAttack">
+    <emitter name="RedDeerBlurHook" />
+  </emitter_system>
+
+  <emitter_system name="DeerStillImpact">
+    <emitter name="DeerImpact" />
+    <emitter name="DeerExpandWave" />
+    <emitter name="DeerStreaks" />
+    <emitter name="DeerSparks" />
+    <emitter name="DeerBloodSplash" />
+  </emitter_system>
+  
+  <emitter_system name="DeerRunAttack">
+    <emitter name="DeerRunImpact" />
+    <emitter name="DeerRunExpandWave" />
+	<emitter name="DeerRunAttackRay" />
+    <emitter name="DeerRunAttackCloud" />
+  </emitter_system>
+
+  <emitter_system name="DeerBlocked">
+    <emitter name="DeerBlocked" />
+	<emitter name="DeerExpandWave" />
+	<emitter name="DeerImpact" />
+  </emitter_system>
+
 </particle_emitters_systems>

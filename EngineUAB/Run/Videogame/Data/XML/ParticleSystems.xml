@@ -4,7 +4,7 @@
 
 	<system name="Smoke" settings_name="smoke" />
 
-	<system name="Explosions" settings_name="explosion" />
+	<system name="DeathExplosion" settings_name="DeathExplosion" />
 
 	<system name="WaterFall" settings_name="water_fall" />
 	<system name="WaterFall2" settings_name="water_fall2" />
@@ -18,7 +18,8 @@
 	
 	<system name="Snow" settings_name="Snow" />
 	
-	<system name="Sword1" settings_name="Sword1" />
+  
+	<system name="BlurHook" settings_name="BlurHook" />
 	<system name="Steps" settings_name="Steps" />
 	
 	<system name="CenterFlare" settings_name="CenterFlare" />
@@ -32,5 +33,6 @@
 	<system name="Clouds" settings_name="Clouds" />
 	
 	<system name="FireSwordBlur" settings_name="FireSwordBlur" />
+	<system name="FireSwordSmoke" settings_name="FireSwordSmoke" />
 	
 </particle_systems>
