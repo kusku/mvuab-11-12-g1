@@ -85,7 +85,7 @@ void CDeerPursuitState::OnEnter( CCharacter* _pCharacter )
 	m_pDeer->GetBehaviors()->ObstacleWallAvoidanceOn();
 
 	//PlayRandomSound();
-	CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Deer_Run" );
+	//CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Deer_Run" );
 
 	//m_SoundActionStateCallback.InitAction(0, m_SoundDuration);
 	//m_SoundActionStateCallback.StartAction();
@@ -105,7 +105,7 @@ void CDeerPursuitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 	}
 	
 	SetParticlePosition(m_pDeer);
-				
+	
 	m_pDeer->GetBehaviors()->SeekOff();
 	m_pDeer->GetBehaviors()->PursuitOff();
 
@@ -152,13 +152,13 @@ void CDeerPursuitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 			
 			if ( m_RunActionStateCallback.IsActionInTime( 0.3f ) && !m_FirtsStepDone )
 			{
-				GetParticleEmitter("StepLeft")->EjectParticles();
+				GetParticleEmitterInstance("DeerStepLeft", _pCharacter->GetName() + "_StepLeft")->EjectParticles();
 				m_FirtsStepDone	= true;
 			}
 
 			if ( m_RunActionStateCallback.IsActionInTime( 0.5f ) && !m_SecondStepDone )
 			{
-				GetParticleEmitter("StepRight")->EjectParticles();
+				GetParticleEmitterInstance("DeerStepRight", _pCharacter->GetName() + "_StepRight")->EjectParticles();
 				m_SecondStepDone = true;
 			}
 
@@ -242,6 +242,7 @@ void CDeerPursuitState::PlayRandomSound( void )
 
 void CDeerPursuitState::SetParticlePosition( CCharacter* _pCharacter )
 {
+	
 	CAnimatedInstanceModel *l_pAnimatedModel = _pCharacter->GetAnimatedModel();
 
 	Mat44f l_TransformMatrix		= m44fIDENTITY;
@@ -258,7 +259,7 @@ void CDeerPursuitState::SetParticlePosition( CCharacter* _pCharacter )
 
 	l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
 
-	GetParticleEmitter("StepLeft")->SetPosition( l_TransformMatrix.GetPos() );
+	GetParticleEmitterInstance("DeerStepLeft", _pCharacter->GetName() + "_StepLeft")->SetPosition( l_TransformMatrix.GetPos() );
 	
 	l_TransformMatrix			= m44fIDENTITY;
 	l_RotationMatrix			= m44fIDENTITY;
@@ -274,5 +275,6 @@ void CDeerPursuitState::SetParticlePosition( CCharacter* _pCharacter )
 
 	l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
 
-	GetParticleEmitter("StepRight")->SetPosition( l_TransformMatrix.GetPos() );
+	GetParticleEmitterInstance("DeerStepRight", _pCharacter->GetName() + "_StepRight")->SetPosition( l_TransformMatrix.GetPos() );
+
 }
