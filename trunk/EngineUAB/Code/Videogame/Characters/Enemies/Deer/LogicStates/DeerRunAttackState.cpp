@@ -41,6 +41,7 @@
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 #include "Particles\ParticleEmitter.h"
 #include "Particles\ParticleEmitterManager.h"
+#include "Particles\ParticleEmitterSystemInstance.h"
 
 
 #if defined(_DEBUG)
@@ -142,7 +143,7 @@ void CDeerRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 	}
 	
 	UpdateImpact(m_pDeer);
-	GetParticleEmitter(_pCharacter->GetName() + "_RunAttackCloud")->EjectParticles();
+	GetParticleEmitterInstance("DeerRunAttackCloud", _pCharacter->GetName() + "_RunAttackCloud")->EjectParticles();
 	
 	if ( m_pAnimationCallback->IsAnimationStarted() ) 
 	{
@@ -358,59 +359,30 @@ void CDeerRunAttackState::UpdateParticlesPositions( CCharacter* _pCharacter )
 {
 }
 
-void CDeerRunAttackState::SetParticlePosition( CCharacter* _pCharacter, const std::string &_ParticlesName, const std::string &_Bone, const Vect3f &_Position )
-{
-	if ( _Bone.compare( "" ) != 0 )
-	{
-		CAnimatedInstanceModel *l_pAnimatedModel = _pCharacter->GetAnimatedModel();
-
-		Mat44f l_TransformMatrix		= m44fIDENTITY;
-		Mat44f l_RotationMatrix			= m44fIDENTITY;
-		Vect4f l_Rotation				= v3fZERO;
-		Vect3f l_Translation			= v3fZERO;
-		Mat44f l_AnimatedModelTransform = l_pAnimatedModel->GetTransform();
-
-		l_pAnimatedModel->GetBonePosition(_Bone, l_Translation);
-		l_pAnimatedModel->GetBoneRotation(_Bone, l_Rotation);
-
-		l_TransformMatrix.Translate(l_Translation);
-		l_RotationMatrix.SetFromQuaternion(l_Rotation);
-
-		l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
-
-		GetParticleEmitter(_ParticlesName)->SetPosition( l_TransformMatrix.GetPos() );
-	}
-	else 
-	{
-		GetParticleEmitter(_ParticlesName)->SetPosition( _Position );
-	}
-}
-
 void CDeerRunAttackState::GenerateImpact( CCharacter* _pCharacter )
 {
-	GetParticleEmitter(_pCharacter->GetName() + "_RunExpandWave")->EjectParticles();
-	GetParticleEmitter(_pCharacter->GetName() + "_RunImpact")->EjectParticles();
-	GetParticleEmitter(_pCharacter->GetName() + "_RunAttackRay")->EjectParticles();
-	
+	//GetParticleGroupInstance("DeerRunAttack","DeerRunAttack")->GetEmitterInstance("...");
+	GetParticleEmitterInstance("DeerRunImpact",		 _pCharacter->GetName() + "_DeerRunImpact")->EjectParticles();
+	GetParticleEmitterInstance("DeerRunExpandWave",  _pCharacter->GetName() + "_DeerRunExpandWave")->EjectParticles();
+	GetParticleEmitterInstance("DeerRunAttackRay",   _pCharacter->GetName() + "_DeerRunAttackRay")->EjectParticles();
+	GetParticleEmitterInstance("DeerRunAttackCloud", _pCharacter->GetName() + "_DeerRunAttackCloud")->EjectParticles();
 }
 
 void CDeerRunAttackState::UpdateImpact( CCharacter* _pCharacter )
 {
-	//SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_RunImpact", "Bip001 Head");
-	//SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_RunExpandWave", "Bip001 Head");
-	
 	Vect3f l_Pos = _pCharacter->GetPosition() + _pCharacter->GetFront() * 3;
 	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
-	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_RunImpact", "", l_Pos);
-	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_RunExpandWave", "", l_Pos);
-	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_RunAttackRay", "", l_Pos);
-	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_RunAttackCloud", "", _pCharacter->GetPosition());
+	SetParticlePosition(_pCharacter, "DeerRunImpact",	   _pCharacter->GetName() + "_DeerRunImpact",		"", l_Pos);
+	SetParticlePosition(_pCharacter, "DeerRunExpandWave",  _pCharacter->GetName() + "_DeerRunExpandWave",	"", l_Pos);
+	SetParticlePosition(_pCharacter, "DeerRunAttackRay",   _pCharacter->GetName() + "_DeerRunAttackRay",    "", l_Pos);
+	SetParticlePosition(_pCharacter, "DeerRunAttackCloud", _pCharacter->GetName() + "_DeerRunAttackCloud",	"", _pCharacter->GetPosition());
 }
 
 void CDeerRunAttackState::StopImpact( CCharacter* _pCharacter )
 {
-	GetParticleEmitter(_pCharacter->GetName() + "_RunAttackCloud")->StopEjectParticles();
-	GetParticleEmitter(_pCharacter->GetName() + "_RunAttackRay")->StopEjectParticles();
-	GetParticleEmitter(_pCharacter->GetName() + "_RunExpandWave")->StopEjectParticles();
-	GetParticleEmitter(_pCharacter->GetName() + "_RunImpact")->StopEjectParticles();
+	//GetParticleGroupInstance("DeerRunAttack","DeerRunAttack")->GetEmitterInstance("...")->StopEjectParticles
+	GetParticleEmitterInstance("DeerRunImpact",		 _pCharacter->GetName() + "_DeerRunImpact")->StopEjectParticles();
+	GetParticleEmitterInstance("DeerRunExpandWave",  _pCharacter->GetName() + "_DeerRunExpandWave")->StopEjectParticles();
+	GetParticleEmitterInstance("DeerRunAttackRay",   _pCharacter->GetName() + "_DeerRunAttackRay")->StopEjectParticles();
+	GetParticleEmitterInstance("DeerRunAttackCloud", _pCharacter->GetName() + "_DeerRunAttackCloud")->StopEjectParticles();
 }

@@ -38,7 +38,7 @@ public:
 
 	//----Methods ---------------------------------------------
 	//svoid				SetParticlePosition		( CCharacter* _pCharacter );
-	void				SetParticlePosition		( CCharacter* _pCharacter, const std::string &ParticlesName, const std::string &Bone = "", const Vect3f &_Position = Vect3f(0,0,0));
+	//void				SetParticlePosition		( CCharacter* _pCharacter, const std::string &ParticlesName, const std::string &Bone = "", const Vect3f &_Position = Vect3f(0,0,0));
 	void				UpdateParticlesPositions( CCharacter* _pCharacter );
 	
 	// Para tema de partículas de impacto
