@@ -123,53 +123,65 @@ void CGameProcess::Update(float elapsedTime)
 		return;
 	}
 	
-	//Vuelve a cargar los datos si hacemos el reload de LUA
-	if( CORE->GetActionToInput()->DoAction("ReloadGamePlayScripts") )
+	if( INIT_GUI )
 	{
-		ReloadGameObjects();
-		m_pThPSCamera->SetObject3D( m_pCharactersManager->GetPlayer());
-	}
-
-	if( CORE->GetActionToInput()->DoAction("GoToMenu") )
-	{
-		SCRIPT->RunCode("change_to_end_gui_process()");
-	}
-
-	if( CORE->GetActionToInput()->DoAction("CommutationCamera") )
-	{
-		if( m_pCamera == m_pThPSCamera )
+		if( CORE->GetActionToInput()->DoAction("PauseGame") )
 		{
-			m_pCamera = m_pThPSFreeCamera;
-			CORE->SetCamera( m_pThPSFreeCamera );
-			m_pCharactersManager->GetPlayer()->SetLocked( true );
-		}
-		else
-		{
-			m_pCamera = m_pThPSCamera;
-			CORE->SetCamera( m_pThPSCamera );
-			m_pCharactersManager->GetPlayer()->SetLocked( false );
+			SCRIPT->RunCode("go_to_pause_game()");
 		}
 	}
 
-	if( m_pCharactersManager->GetPlayer()->GetLocked() )
+	if( CORE->IsGameMode() )
 	{
-		m_FreeCamera.Update(elapsedTime ,m_pCamera);
+
+		//Vuelve a cargar los datos si hacemos el reload de LUA
+		if( CORE->GetActionToInput()->DoAction("ReloadGamePlayScripts") )
+		{
+			ReloadGameObjects();
+			m_pThPSCamera->SetObject3D( m_pCharactersManager->GetPlayer());
+		}
+
+		if( CORE->GetActionToInput()->DoAction("GoToMenu") )
+		{
+			SCRIPT->RunCode("change_to_end_gui_process()");
+		}
+
+		if( CORE->GetActionToInput()->DoAction("CommutationCamera") )
+		{
+			if( m_pCamera == m_pThPSCamera )
+			{
+				m_pCamera = m_pThPSFreeCamera;
+				CORE->SetCamera( m_pThPSFreeCamera );
+				m_pCharactersManager->GetPlayer()->SetLocked( true );
+			}
+			else
+			{
+				m_pCamera = m_pThPSCamera;
+				CORE->SetCamera( m_pThPSCamera );
+				m_pCharactersManager->GetPlayer()->SetLocked( false );
+			}
+		}
+
+		if( m_pCharactersManager->GetPlayer()->GetLocked() )
+		{
+			m_FreeCamera.Update(elapsedTime ,m_pCamera);
+		}
+
+		m_fTimeBetweenClicks += elapsedTime;
+		if( CORE->GetActionToInput()->DoAction("AttackPlayer") )
+		{
+			m_fTimeBetweenClicks = 0.f;
+			//CORE->GetParticleEmitterManager()->GetResource("Explosions")->EjectParticles();
+		}
+
+		m_pCharactersManager->Update(elapsedTime);
+		CORE->GetRenderableObjectsLayersManager()->Update(elapsedTime);
+
+		//Actualiza la posición de las armas
+		m_pWeaponManager->Update(elapsedTime);
+
 	}
 
-	m_fTimeBetweenClicks += elapsedTime;
-	if( CORE->GetActionToInput()->DoAction("AttackPlayer") )
-	{
-		m_fTimeBetweenClicks = 0.f;
-		//CORE->GetParticleEmitterManager()->GetResource("Explosions")->EjectParticles();
-	}
-
-	m_pCharactersManager->Update(elapsedTime);
-	CORE->GetRenderableObjectsLayersManager()->Update(elapsedTime);
-
-	//Actualiza la posición de las armas
-	m_pWeaponManager->Update(elapsedTime);
-
-	//SCRIPT->RunCode("super = nil");
 	SCRIPT->RunCode("collectgarbage('collect')");
 }
 

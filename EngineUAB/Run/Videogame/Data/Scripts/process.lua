@@ -15,6 +15,23 @@ function change_to_end_gui_process()
 	core:get_gui_manager():push_windows('End')
 end
 
+function go_to_main_menu()
+	core:set_game_mode(true)
+	get_game_process():change_to_gui_process()
+	core:get_gui_manager():pop_windows()
+	core:get_gui_manager():push_windows('Main')
+end
+
+function go_to_pause_game()
+	core:set_game_mode(false)
+	core:get_gui_manager():push_windows('Pause')
+end
+
+function go_to_play_game()
+	core:set_game_mode(true)
+	core:get_gui_manager():pop_windows()
+end
+
 function close_game()
 	core:get_process():exit_game()
 end

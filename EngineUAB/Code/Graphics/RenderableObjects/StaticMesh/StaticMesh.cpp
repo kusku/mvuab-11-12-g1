@@ -94,6 +94,8 @@ bool CStaticMesh::Reload()
 		return false;
 	}
 
+	GetTextureNames();
+
 	return true;
 }
 
@@ -466,10 +468,28 @@ void CStaticMesh::ClearTextures()
 	{
 		std::vector<CTexture*> vec = m_Textures[i];
 
-		ClearTextureVector(vec);
+		ClearTextureVector(vec, m_TexturesNames[i]);
 	}
 
+	m_TexturesNames.clear();
 	m_Textures.clear();
+}
+
+void CStaticMesh::ClearTextureVector(std::vector<CTexture*>& textVector, std::vector<std::string> &nameVector)
+{
+	for(uint16 i = 0; i < textVector.size(); ++i)
+	{
+		CTexture* texture = textVector[i];
+
+		CORE->GetTextureManager()->RemoveResource(nameVector[i]);
+		/*if(!CORE->GetTextureManager()->RemoveResource(nameVector[i]))
+		{
+			CHECKED_DELETE(texture);
+		}*/
+	}
+
+	nameVector.clear();
+	textVector.clear();
 }
 
 void CStaticMesh::ClearTextureVector(std::vector<CTexture*>& textVector)
@@ -614,5 +634,23 @@ void CStaticMesh::CreateVect3fFacesList( const void *_IndxBuffer, uint32 _NumInd
 	{
 		uint32 l_Valor = (uint32)l_IndxBuffer[i] + offset;
 		m_IndxBuffer.push_back(l_Valor);
+	}
+}
+
+void CStaticMesh::GetTextureNames()
+{
+	uint16 l_VectorsSize = m_Textures.size();
+	for(uint16 i=0; i<l_VectorsSize; ++i)
+	{
+		std::vector<std::string> l_NameVector;
+
+		std::vector<CTexture*> &l_TextureVector = m_Textures[i];
+		uint16 l_Size = l_TextureVector.size();
+		for(uint16 j=0; j<l_Size; ++j)
+		{
+			l_NameVector.push_back( l_TextureVector[j]->GetName() );
+		}
+
+		m_TexturesNames.push_back(l_NameVector);
 	}
 }

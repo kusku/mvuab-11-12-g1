@@ -119,6 +119,7 @@ namespace ScriptAPI
 					.def("unload_triggers", &CCore::UnloadTriggers)
 					.def("unload_animal_movement", &CCore::UnloadAnimalMovements)
 					.def("Unload_waypoints", &CCore::UnloadWayPoints)
+					.def("set_game_mode", &CCore::SetGameMode)
 			];
 
 		module(l_pState)
