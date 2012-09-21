@@ -20,6 +20,12 @@ public:
 	void	OnExit		(  CCharacter* _pCharacter );
 
 	bool	OnMessage	(  CCharacter* _pCharacter,  const STelegram& _Message );
+
+	void			UpdateParticlesPositions( CCharacter* _pCharacter );
+
+	// Para tema de partículas de impacto
+	void			GenerateImpact			( void );
+	void			UpdateImpact			( CCharacter* _pCharacter );
 };
 
 #endif //_PLAYER_IDLE_STATE_H_

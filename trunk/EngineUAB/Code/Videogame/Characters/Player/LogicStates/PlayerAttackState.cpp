@@ -36,7 +36,7 @@ CPlayerAttackState::CPlayerAttackState( CCharacter * _pCharacter, const std::str
 	, m_fAttackYaw(0.f)
 {
 	m_pCallback			= static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(), "attack1");
-	m_pParticleEmitter	= CORE->GetParticleEmitterManager()->GetResource("SwordRight");
+	//m_pParticleEmitter	= CORE->GetParticleEmitterManager()->GetResource("SwordRight");
 }
 
 CPlayerAttackState::~CPlayerAttackState()
@@ -55,7 +55,7 @@ void CPlayerAttackState::OnEnter( CCharacter* _pCharacter )
 
 	//Lanza el sistema de partículas
 	SetParticlePosition(_pCharacter);
-	m_pParticleEmitter->EjectParticles();
+	//m_pParticleEmitter->EjectParticles();
 
 	//Calcula el ángulo a moverse
 	CAnimatedInstanceModel *l_pAnimatedModel = _pCharacter->GetAnimatedModel();
@@ -136,6 +136,9 @@ void CPlayerAttackState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 		CORE->GetSoundManager()->PlayEvent("Play_EFX_Sword");
 		m_bFirstUpdate = false;
 	}
+
+	UpdateImpact(_pCharacter);
+	GenerateImpact();
 
 	if( m_pCallback->IsAnimationFinished() )
 	{
@@ -297,5 +300,55 @@ void CPlayerAttackState::SetParticlePosition( CCharacter* _pCharacter )
 
 	l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
 
-	m_pParticleEmitter->SetPosition( l_TransformMatrix.GetPos() );
+	//m_pParticleEmitter->SetPosition( l_TransformMatrix.GetPos() );
+}
+
+void CPlayerAttackState::SetParticlePosition( CCharacter* _pCharacter, const std::string &_ParticlesName, const std::string &_Bone, const Vect3f &_Position )
+{
+	if ( _Bone.compare( "" ) != 0 )
+	{
+		CAnimatedInstanceModel *l_pAnimatedModel = _pCharacter->GetAnimatedModel();
+
+		Mat44f l_TransformMatrix		= m44fIDENTITY;
+		Mat44f l_RotationMatrix			= m44fIDENTITY;
+		Vect4f l_Rotation				= v3fZERO;
+		Vect3f l_Translation			= v3fZERO;
+		Mat44f l_AnimatedModelTransform = l_pAnimatedModel->GetTransform();
+
+		l_pAnimatedModel->GetBonePosition(_Bone, l_Translation);
+		l_pAnimatedModel->GetBoneRotation(_Bone, l_Rotation);
+
+		l_TransformMatrix.Translate(l_Translation);
+		l_RotationMatrix.SetFromQuaternion(l_Rotation);
+
+		l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
+
+		//GetParticleEmitter(_ParticlesName)->SetPosition( l_TransformMatrix.GetPos() );
+	}
+	else 
+	{
+		//GetParticleEmitter(_ParticlesName)->SetPosition( _Position );
+	}
+}
+
+void CPlayerAttackState::GenerateImpact( void )
+{
+	//GetParticleEmitterFireSwordBlur")->EjectParticles();
+	////GetParticleEmitter("FireSwordSmoke")->EjectParticles();
+}
+
+void CPlayerAttackState::UpdateImpact( CCharacter* _pCharacter )
+{
+	SetParticlePosition(_pCharacter, "FireSwordBlur", "CHR_CAP R Hand" );
+	SetParticlePosition(_pCharacter, "FireSwordSmoke", "CHR_CAP R Hand" );
+
+	//Vect3f l_Pos = _pCharacter->GetPosition() + _pCharacter->GetFront();
+	//l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
+	//SetParticlePosition(_pCharacter, "BloodSplash", "", l_Pos );
+	//SetParticlePosition(_pCharacter, "Impact", "", l_Pos );
+	//SetParticlePosition(_pCharacter, "Streaks", "", l_Pos );
+
+	////l_Pos.z -= 10.f;
+	//SetParticlePosition(_pCharacter, "ExpandWave", "", l_Pos );
+	
 }

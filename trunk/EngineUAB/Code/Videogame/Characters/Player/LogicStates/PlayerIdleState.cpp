@@ -17,6 +17,8 @@
 #include "Cameras\ThPSCharacterCamera.h"
 #include "PhysicController.h"
 
+#include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
+
 #include "Logger\Logger.h"
 #include "Core.h"
 #include "Base.h"
@@ -44,10 +46,23 @@ void CPlayerIdleState::OnEnter( CCharacter* _pCharacter )
 		CORE->GetDebugGUIManager()->GetDebugRender()->SetStateName("Idle");
 	}
 #endif
+
+	// Ahora debemos actualizar las partículas
+	//UpdateParticlesPositions(_pCharacter);
+
+	UpdateImpact(_pCharacter);
+	GenerateImpact();
 }
 
 void CPlayerIdleState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 {
+	// Ahora debemos actualizar las partículas
+	UpdateParticlesPositions(_pCharacter);
+
+	// Gestión de partículas
+	UpdateImpact(_pCharacter);
+	GenerateImpact();
+
 	if( !_pCharacter->GetLocked() )
 	{
 		CPlayer *l_pPlayer				= static_cast<CPlayer*>(_pCharacter);
@@ -153,6 +168,10 @@ void CPlayerIdleState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 
 void CPlayerIdleState::OnExit( CCharacter* _pCharacter )
 {
+	/*GetParticleEmitter("BloodSplash")->StopEjectParticles();
+	GetParticleEmitter("Impact")->StopEjectParticles();
+	GetParticleEmitter("ExpandWave")->StopEjectParticles();
+	GetParticleEmitter("Streaks")->StopEjectParticles();*/
 }
 
 bool CPlayerIdleState::OnMessage( CCharacter* _pCharacter, const STelegram& _Message )
@@ -184,4 +203,30 @@ bool CPlayerIdleState::OnMessage( CCharacter* _pCharacter, const STelegram& _Mes
 	}
 
 	return false;
+}
+
+void CPlayerIdleState::UpdateParticlesPositions( CCharacter* _pCharacter )
+{
+}
+
+void CPlayerIdleState::GenerateImpact( void )
+{
+	//GetParticleEmitter("FireSwordBlur")->EjectParticles();
+	//GetParticleEmitter("FireSwordSmoke")->EjectParticles();
+}
+
+void CPlayerIdleState::UpdateImpact( CCharacter* _pCharacter )
+{
+	/*SetParticlePosition(_pCharacter, "FireSwordBlur", "CHR_CAP L Hand" );
+	SetParticlePosition(_pCharacter, "FireSwordSmoke", "CHR_CAP L Hand" );*/
+
+	//Vect3f l_Pos = _pCharacter->GetPosition() + _pCharacter->GetFront();
+	//l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
+	//SetParticlePosition(_pCharacter, "BloodSplash", "", l_Pos );
+	//SetParticlePosition(_pCharacter, "Impact", "", l_Pos );
+	//SetParticlePosition(_pCharacter, "Streaks", "", l_Pos );
+
+	////l_Pos.z -= 10.f;
+	//SetParticlePosition(_pCharacter, "ExpandWave", "", l_Pos );
+	
 }

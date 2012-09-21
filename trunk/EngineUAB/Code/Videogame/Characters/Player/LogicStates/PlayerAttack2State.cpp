@@ -35,7 +35,7 @@ CPlayerAttack2State::CPlayerAttack2State( CCharacter * _pCharacter, const std::s
 	, m_fAttackYaw(0.f)
 {
 	m_pCallback			= static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),"attack2");
-	m_pParticleEmitter	= CORE->GetParticleEmitterManager()->GetResource("SwordLeft");
+	m_pParticleEmitter	= CORE->GetParticleEmitterManager()->GetResource("SwordLeft")->GetParticleEmitterInstance(_pCharacter->GetName() + "_SwordLeft");
 }
 
 CPlayerAttack2State::~CPlayerAttack2State()
@@ -278,7 +278,7 @@ bool CPlayerAttack2State::CalculateAngleMovement( CCharacter *_pCharacter, float
 }
 
 void CPlayerAttack2State::SetParticlePosition( CCharacter* _pCharacter )
-{
+{	
 	CAnimatedInstanceModel *l_pAnimatedModel = _pCharacter->GetAnimatedModel();
 
 	Mat44f l_TransformMatrix		= m44fIDENTITY;
@@ -296,4 +296,27 @@ void CPlayerAttack2State::SetParticlePosition( CCharacter* _pCharacter )
 	l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
 
 	m_pParticleEmitter->SetPosition( l_TransformMatrix.GetPos() );
+}
+
+
+void CPlayerAttack2State::GenerateImpact( void )
+{
+	//GetParticleEmitterFireSwordBlur")->EjectParticles();
+	//GetParticleEmitterFireSwordSmoke")->EjectParticles();
+}
+
+void CPlayerAttack2State::UpdateImpact( CCharacter* _pCharacter )
+{
+	//SetParticlePosition(_pCharacter, "FireSwordBlur", "CHR_CAP L Hand" );
+	//SetParticlePosition(_pCharacter, "FireSwordSmoke", "CHR_CAP L Hand" );
+
+	//Vect3f l_Pos = _pCharacter->GetPosition() + _pCharacter->GetFront();
+	//l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
+	//SetParticlePosition(_pCharacter, "BloodSplash", "", l_Pos );
+	//SetParticlePosition(_pCharacter, "Impact", "", l_Pos );
+	//SetParticlePosition(_pCharacter, "Streaks", "", l_Pos );
+
+	////l_Pos.z -= 10.f;
+	//SetParticlePosition(_pCharacter, "ExpandWave", "", l_Pos );
+	
 }

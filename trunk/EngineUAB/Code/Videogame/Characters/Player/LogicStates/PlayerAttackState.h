@@ -27,6 +27,13 @@ private:
 	bool	CalculateAngleMovement( CCharacter *_pCharacter, float &_fAngle );
 	void	SetParticlePosition( CCharacter* _pCharacter );
 
+	void			SetParticlePosition		( CCharacter* _pCharacter, const std::string &ParticlesName, const std::string &Bone = "", const Vect3f &_Position = Vect3f(0,0,0));
+	void			UpdateParticlesPositions( CCharacter* _pCharacter );
+
+	// Para tema de partículas de impacto
+	void			GenerateImpact			( void );
+	void			UpdateImpact			( CCharacter* _pCharacter );
+
 private:
 	CAnimationCallback	*m_pCallback;
 	CParticleEmitter	*m_pParticleEmitter;
