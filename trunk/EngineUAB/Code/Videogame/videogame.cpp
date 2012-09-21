@@ -40,17 +40,25 @@ LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 			PostQuitMessage( 0 );
 			return 0;
 			break;
-		}			
+		}		
 	case WM_KEYDOWN:
 		{
 			switch( wParam )
 			{
 			case VK_ESCAPE:
 				//Cleanup();
-				PostQuitMessage( 0 );
+				if( !INIT_GUI )
+					PostQuitMessage( 0 );
+
 				return 0;
 				break;
 			}
+			break;
+		}
+	case WM_EXIT_GAME:
+		{
+			PostQuitMessage( 0 );
+			return 0;
 			break;
 		}
 	case WM_GAME_PROCESS:

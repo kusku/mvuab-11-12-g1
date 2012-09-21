@@ -95,7 +95,7 @@ void CGUIProcess::ChangeProcess()
 
 void CGUIProcess::ExitGame()
 {
-	PostMessage(m_hWnd, WM_KEYDOWN, (WPARAM)VK_ESCAPE, 0);
+	PostMessage(m_hWnd, WM_EXIT_GAME, 0, 0);
 }
 
 void CGUIProcess::LoadGameData()

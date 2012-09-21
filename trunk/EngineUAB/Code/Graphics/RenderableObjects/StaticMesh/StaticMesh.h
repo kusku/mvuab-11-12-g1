@@ -54,6 +54,7 @@ public:
 protected:	
 	std::vector<CRenderableVertexs*>			m_RVs;
 	std::vector<std::vector<CTexture*>>			m_Textures;
+	std::vector<std::vector<std::string>>		m_TexturesNames;
 	std::vector<int>							m_VertexTypes;
 	std::vector<CRenderableObjectTechnique*>	m_RenderableObjectsTechniques;
 	std::vector<CRenderableObjectTechnique*>	m_RenderableObjectsTechniquesInstance;
@@ -70,9 +71,11 @@ protected:
 	bool				ExtractTexture			(FILE* modelFile, std::vector<CTexture*>& textVector);
 	void				AddTexVecToTexManager	(std::vector<CTexture*>& textVector);
 	void				ClearTextureVector		(std::vector<CTexture*>& textVector);
+	void				ClearTextureVector		(std::vector<CTexture*>& textVector, std::vector<std::string> &nameVector);
 	CRenderableVertexs*	ReadCreateVertexBuffer	(FILE* modelFile, uint16 vertexType);
 	bool				ExtractMesh				(FILE* modelFile);
 	bool				GetBoundingBoxAndSphere	(FILE* modelFile);
+	void				GetTextureNames			();
 
 private:
 	std::vector<Vect3f> m_VtxsBuffer;
