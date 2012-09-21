@@ -9,7 +9,6 @@
 	<emitter name="WaterFall2" system_name="WaterFall" type="line" particlesPerSecond="70" initialPosition="130.16 4.20049 -115.248" line_start="0 0 -4" line_end="0 0 4" />
 	-->
 
-  
 
 	<emitter name="Blood" system_name="Blood" type="point" particlesPerSecond="100" initialPosition="0 30 0" on_loop="false" ejection_count="5" />
 
@@ -21,52 +20,35 @@
 
 	<emitter name="Snow" system_name="Snow" type="box" particlesPerSecond="100" on_loop="true" initialPosition="0.0 0.0 0.0" box_min="0.0 -45.0 0.0" box_max="50.0 -41.0 50.0" />
 
+	<!-- Partículas al morir un enemigo -->
+	<!--<emitter name="DeathExplosion" system_name="DeathExplosion" type="point" particlesPerSecond="30" initialPosition="30 150 30" />-->
+	
 	<!-- ************** -->
 	<!-- Deer Particles -->
 	<!-- ************** -->
-	<emitter name="enemy28_RightHand1" system_name="Sword1" type="point" particlesPerSecond="1500" initialPosition="0 0 0" on_loop="false" ejection_count="500" />
-	<emitter name="enemy28_RightHand11" system_name="Sword1" type="point" particlesPerSecond="1500" initialPosition="0 0 0" on_loop="false" ejection_count="500" />
-	<emitter name="enemy28_LeftHand1" system_name="Sword1" type="point" particlesPerSecond="1500" initialPosition="0 0 0" on_loop="false" ejection_count="500" />
-	<emitter name="enemy28_LeftHand11" system_name="Sword1" type="point" particlesPerSecond="1500" initialPosition="0 0 0" on_loop="false" ejection_count="500" />
-
-	<emitter name="enemy28_Blocked" system_name="CenterFlare" type="point" particlesPerSecond="1500" initialPosition="0 0 0" on_loop="false" ejection_count="500" />
+	<!-- Partículas de bloqueo -->
+	<emitter name="DeerBlocked" system_name="CenterFlare" type="point" particlesPerSecond="1500" initialPosition="0 0 0" on_loop="false" ejection_count="500" />
 	
-	<!-- Partículas de impacto del primer golpeo -->
-	<emitter name="enemy28_Impact1" system_name="CenterFlare" type="point" particlesPerSecond="10" initialPosition="0 0 0" on_loop="false" ejection_count="1" />
-	<emitter name="enemy28_BloodSplash1" system_name="BloodSplash" type="line" particlesPerSecond="1" initialPosition="0 0 0" on_loop="false" ejection_count="55" />
-	<emitter name="enemy28_ExpandWave1" system_name="ExpandWave" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="2" />
-	<emitter name="enemy28_Streaks1" system_name="Streaks" type="line" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="20" />
-	<emitter name="enemy28_Sparks1" system_name="Sparks" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="3s	0" />
+	<!-- Partículas de ataque del Still Attack  -->
+	<emitter name="RedDeerBlurHook" system_name="BlurHook" type="point" particlesPerSecond="1500" initialPosition="0 0 0" on_loop="false" ejection_count="500" />
 	
-	<!-- Partículas de impacto del segundo golpeo -->
-	<emitter name="enemy28_Impact2" system_name="CenterFlare" type="point" particlesPerSecond="10" initialPosition="0 0 0" on_loop="false" ejection_count="1" />
-	<emitter name="enemy28_BloodSplash2" system_name="BloodSplash" type="line" particlesPerSecond="1" initialPosition="0 0 0" on_loop="false" ejection_count="55" />
-	<emitter name="enemy28_ExpandWave2" system_name="ExpandWave" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="2" />
-	<emitter name="enemy28_Streaks2" system_name="Streaks" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="20" />
-	<emitter name="enemy28_Sparks2" system_name="Sparks" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="87" />
+	<!-- Partículas de impacto del Still Attack  -->
+	<emitter name="DeerImpact" system_name="CenterFlare" type="point" particlesPerSecond="10" initialPosition="0 0 0" on_loop="false" ejection_count="1" />
+	<emitter name="DeerBloodSplash" system_name="BloodSplash" type="line" particlesPerSecond="1" initialPosition="0 0 0" on_loop="false" ejection_count="55" />
+	<emitter name="DeerExpandWave" system_name="ExpandWave" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="2" />
+	<emitter name="DeerStreaks" system_name="Streaks" type="line" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="20" />
+	<emitter name="DeerSparks" system_name="Sparks" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="3s	0" />
 	
 	<!-- Partículas de impacto del Run Attack -->
-	<emitter name="enemy28_RunImpact" system_name="CenterFlare" type="point" particlesPerSecond="10" initialPosition="0 0 0" on_loop="false" ejection_count="1" />
-	<emitter name="enemy28_RunExpandWave" system_name="ExpandWave" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="2" />
+	<emitter name="DeerRunImpact" system_name="CenterFlare" type="point" particlesPerSecond="10" initialPosition="0 0 0" on_loop="false" ejection_count="1" />
+	<emitter name="DeerRunExpandWave" system_name="ExpandWave" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="2" />
+	<emitter name="DeerRunAttackRay" system_name="Tendrils" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="100" />
+	<emitter name="DeerRunAttackCloud" system_name="Clouds" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="100" />
 	
-	<!-- Partículas de la carrera del Run Attack -->
-	<emitter name="enemy28_RunAttackRay" system_name="Tendrils" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="100" />
-	<emitter name="enemy28_RunAttackCloud" system_name="Clouds" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="100" />
+	<!-- Partículas de nieve al correr -->
+	<emitter name="DeerStepRight" system_name="Steps" type="line" particlesPerSecond="1355" initialPosition="0 0 0" on_loop="false" ejection_count="450" />
+	<emitter name="DeerStepLeft" system_name="Steps" type="line" particlesPerSecond="1355" initialPosition="0 0 0" on_loop="false" ejection_count="450" />
 	
-	
-	<!-- Deer Particles -->
-	<emitter name="enemy29_RightHand1" system_name="Sword1" type="point" particlesPerSecond="1500" initialPosition="0 0 0" on_loop="false" ejection_count="500" />
-	<emitter name="enemy29_RightHand11" system_name="Sword1" type="point" particlesPerSecond="1500" initialPosition="0 0 0" on_loop="false" ejection_count="500" />
-	<emitter name="enemy29_LeftHand1" system_name="Sword1" type="point" particlesPerSecond="1500" initialPosition="0 0 0" on_loop="false" ejection_count="500" />
-	<emitter name="enemy29_LeftHand11" system_name="Sword1" type="point" particlesPerSecond="1500" initialPosition="0 0 0" on_loop="false" ejection_count="500" />
-
-	<!--<emitter name="enemy29_Blocked" system_name="CenterFlare" type="point" particlesPerSecond="1500" initialPosition="0 0 0" on_loop="false" ejection_count="500" />
-	<emitter name="enemy29_Impact1" system_name="Impact" type="point" particlesPerSecond="1" initialPosition="0 0 0" on_loop="false" ejection_count="1" />
-	<emitter name="enemy29_Impact2" system_name="Impact" type="point" particlesPerSecond="1" initialPosition="0 0 0" on_loop="false" ejection_count="1" />-->
-	
-	
-	<emitter name="StepRight" system_name="Steps" type="line" particlesPerSecond="1355" initialPosition="0 0 0" on_loop="false" ejection_count="450" />
-	<emitter name="StepLeft" system_name="Steps" type="line" particlesPerSecond="1355" initialPosition="0 0 0" on_loop="false" ejection_count="450" />
 	
 	<emitter name="BloodSplash" system_name="BloodSplash" type="line" particlesPerSecond="1" initialPosition="0 0 0" on_loop="false" ejection_count="55" />
 	<emitter name="Impact" system_name="CenterFlare" type="point" particlesPerSecond="10" initialPosition="0 0 0" on_loop="false" ejection_count="1" />
@@ -74,7 +56,8 @@
 	<emitter name="Streaks" system_name="Streaks" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="20" />
 	<emitter name="Sparks" system_name="Sparks" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="87" />
 	
-	<!--<emitter name="enemy29_BloodSplash" system_name="BloodSplash" type="point" particlesPerSecond="155" initialPosition="0 0 0" on_loop="false" ejection_count="155" />-->
+	<emitter name="FireSwordBlur" system_name="FireSwordBlur" type="point" particlesPerSecond="400" initialPosition="0 0 0" on_loop="false" ejection_count="100" />
+	<emitter name="FireSwordSmoke" system_name="FireSwordSmoke" type="line" particlesPerSecond="1000" initialPosition="0 0 0" on_loop="false" ejection_count="200" />
 	
 	<!--<emitter name="FireRing" system_name="Fire" type="ring" particlesPerSecond="1200" initialPosition="0 0 0" horizontal="false" radius="30" height="40" width="40" />
 	
