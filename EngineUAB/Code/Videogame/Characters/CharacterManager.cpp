@@ -23,6 +23,7 @@
 #include "RenderManager.h"
 
 #include "Particles\ParticleEmitterManager.h"
+#include "Particles\ParticleEmitterInstance.h"
 #include "Particles\ParticleEmitter.h"
 
 #include "Fonts\FontManager.h"
@@ -205,8 +206,10 @@ void CCharactersManager::Update( float _ElapsedTime )
 				l_EnemyList[i]->BeDead();
 
 				Vect3f l_Pos = l_EnemyList[i]->GetPosition();
-				CORE->GetParticleEmitterManager()->GetResource("Explosions")->SetPosition(l_Pos);
-				CORE->GetParticleEmitterManager()->GetResource("Explosions")->EjectParticles();
+				CParticleEmitter *l_Emitter = CORE->GetParticleEmitterManager()->GetResource("DeathExplosion");
+				CParticleEmitterInstance *l_Instance = l_Emitter->GetParticleEmitterInstance(l_EnemyList[i]->GetName() + "_Explosions");
+				CORE->GetParticleEmitterManager()->GetResource("DeathExplosion")->GetParticleEmitterInstance(l_EnemyList[i]->GetName() + "_Explosions")->SetPosition(l_Pos);
+				CORE->GetParticleEmitterManager()->GetResource("DeathExplosion")->GetParticleEmitterInstance(l_EnemyList[i]->GetName() + "_Explosions")->EjectParticles();
 			}
 		}
 	}
