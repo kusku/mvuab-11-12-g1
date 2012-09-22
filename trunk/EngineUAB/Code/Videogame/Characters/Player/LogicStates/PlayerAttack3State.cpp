@@ -35,7 +35,7 @@ CPlayerAttack3State::CPlayerAttack3State( CCharacter * _pCharacter, const std::s
 	, m_fAttackYaw(0.f)
 {
 	m_pCallback				= static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),"attack3");
-	//m_pParticleEmitter	= CORE->GetParticleEmitterManager()->GetResource("SwordFinal");
+	m_pParticleEmitter	= GetParticleEmitterInstance( "SwordFinal", _pCharacter->GetName() + "SwordFinal");
 }
 
 CPlayerAttack3State::~CPlayerAttack3State()
@@ -54,7 +54,7 @@ void CPlayerAttack3State::OnEnter( CCharacter* _pCharacter )
 
 	//Lanza el sistema de partículas
 	SetParticlePosition(_pCharacter);
-	//m_pParticleEmitter->EjectParticles();
+	m_pParticleEmitter->EjectParticles();
 
 	//Calcula el ángulo a moverse
 	CAnimatedInstanceModel *l_pAnimatedModel = _pCharacter->GetAnimatedModel();
@@ -284,5 +284,5 @@ void CPlayerAttack3State::SetParticlePosition( CCharacter* _pCharacter )
 	l_Pos.y							+= 1.f;
 	l_Pos							+= _pCharacter->GetAnimatedModel()->GetFront() * 1.7f;
 
-	//m_pParticleEmitter->SetPosition( l_Pos );
+	m_pParticleEmitter->SetPosition( l_Pos );
 }

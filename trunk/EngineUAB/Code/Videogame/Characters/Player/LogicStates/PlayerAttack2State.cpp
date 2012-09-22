@@ -35,7 +35,7 @@ CPlayerAttack2State::CPlayerAttack2State( CCharacter * _pCharacter, const std::s
 	, m_fAttackYaw(0.f)
 {
 	m_pCallback			= static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),"attack2");
-	m_pParticleEmitter	= CORE->GetParticleEmitterManager()->GetResource("SwordLeft")->GetParticleEmitterInstance(_pCharacter->GetName() + "_SwordLeft");
+	m_pParticleEmitter	= GetParticleEmitterInstance( "SwordLeft", _pCharacter->GetName() + "SwordLeft");
 }
 
 CPlayerAttack2State::~CPlayerAttack2State()

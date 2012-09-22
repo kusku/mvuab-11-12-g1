@@ -36,7 +36,7 @@ CPlayerAttackState::CPlayerAttackState( CCharacter * _pCharacter, const std::str
 	, m_fAttackYaw(0.f)
 {
 	m_pCallback			= static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(), "attack1");
-	//m_pParticleEmitter	= CORE->GetParticleEmitterManager()->GetResource("SwordRight");
+	m_pParticleEmitter	= GetParticleEmitterInstance( "SwordRight", _pCharacter->GetName() + "SwordRight");
 }
 
 CPlayerAttackState::~CPlayerAttackState()
@@ -55,7 +55,7 @@ void CPlayerAttackState::OnEnter( CCharacter* _pCharacter )
 
 	//Lanza el sistema de partículas
 	SetParticlePosition(_pCharacter);
-	//m_pParticleEmitter->EjectParticles();
+	m_pParticleEmitter->EjectParticles();
 
 	//Calcula el ángulo a moverse
 	CAnimatedInstanceModel *l_pAnimatedModel = _pCharacter->GetAnimatedModel();
@@ -300,7 +300,7 @@ void CPlayerAttackState::SetParticlePosition( CCharacter* _pCharacter )
 
 	l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
 
-	//m_pParticleEmitter->SetPosition( l_TransformMatrix.GetPos() );
+	m_pParticleEmitter->SetPosition( l_TransformMatrix.GetPos() );
 }
 
 void CPlayerAttackState::SetParticlePosition( CCharacter* _pCharacter, const std::string &_ParticlesName, const std::string &_Bone, const Vect3f &_Position )
