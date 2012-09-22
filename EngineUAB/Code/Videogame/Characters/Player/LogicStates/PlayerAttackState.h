@@ -8,7 +8,7 @@
 #include <string>
 
 class CAnimationCallback;
-class CParticleEmitter;
+class CParticleEmitterInstance;
 struct STelegram;
 
 class CPlayerAttackState : public CState< CCharacter >
@@ -35,14 +35,14 @@ private:
 	void			UpdateImpact			( CCharacter* _pCharacter );
 
 private:
-	CAnimationCallback	*m_pCallback;
-	CParticleEmitter	*m_pParticleEmitter;
+	CAnimationCallback			*m_pCallback;
+	CParticleEmitterInstance	*m_pParticleEmitter;
 
-	bool				m_bFirstUpdate;
-	float				m_fMaxVelocityMovement;
-	float				m_fCurrentVelocityMovement;
-	float				m_fAccelerationMovement;
-	float				m_fAttackYaw;
+	bool						m_bFirstUpdate;
+	float						m_fMaxVelocityMovement;
+	float						m_fCurrentVelocityMovement;
+	float						m_fAccelerationMovement;
+	float						m_fAttackYaw;
 };
 
 #endif //_PLAYER_ATTACK_STATE_H_
