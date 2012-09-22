@@ -8,7 +8,7 @@
   </emitter_system>
 
   <emitter_system name="DeerStillAttack">
-    <emitter name="RedDeerBlurHook" />
+    <emitter name="DeerBlurHook" />
   </emitter_system>
 
   <emitter_system name="DeerStillImpact">

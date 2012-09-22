@@ -90,6 +90,9 @@ void CRabbitRunAttackState::OnEnter( CCharacter* _pCharacter )
 	
 	m_pRabbit->SetPlayerHasBeenReached( false );
 	m_playerPushed = false;
+	
+	// Resetamos el flag que me dice si ya ejecuté partículas de impacto
+	m_FirstParticlesHitDone = false;
 
 	// Metemos más velocidad al ataque i menos massa para acelerar más 
 	m_OldMaxSpeed	= m_pRabbit->GetSteeringEntity()->GetMaxSpeed();
@@ -108,7 +111,7 @@ void CRabbitRunAttackState::OnEnter( CCharacter* _pCharacter )
 	m_pRabbit->GetBehaviors()->SeekOff();
 	m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_FinalAttackPosition);
 	
-	m_AnimationDuration = m_pRabbit->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_RUN_ATTACK_STATE);
+	m_AnimationDuration = m_pRabbit->GetAnimatedModel()->GetCurrentAnimationDuration(RABBIT_RUN_ATTACK_STATE);
 
 	m_pAnimationCallback->Init();
 	m_ActionStateCallback.InitAction(0,m_AnimationDuration);
@@ -134,6 +137,9 @@ void CRabbitRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
+	UpdateImpact(m_pRabbit);
+	GetParticleEmitterInstance("RabbitRunAttackCloud", _pCharacter->GetName() + "_RunAttackCloud")->EjectParticles();
+
 	m_ActionStateCallback.Update(_ElapsedTime);
 
 	if ( m_pAnimationCallback->IsAnimationStarted() ) 
@@ -142,7 +148,7 @@ void CRabbitRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 		if ( !m_pRabbit->GetPlayerHasBeenReached() && m_pRabbit->IsPlayerReached() )
 		{
 			m_pRabbit->SetPlayerHasBeenReached(true);
-			CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerRunAttackCharged"); 
+			CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitRunAttackCharged"); 
 		}
 
 		// Compruebo si la animación ha finalizado
@@ -187,6 +193,7 @@ void CRabbitRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 			m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 				
 			// Volvemos a idle
+			//m_pRabbit->GetLogicFSM()->RevertToPreviousState();
 			m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetIdleState());
 			m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());
 
@@ -211,7 +218,14 @@ void CRabbitRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 				}
 				else
 				{
-					LOGGER->AddNewLog(ELL_ERROR, "CDeerRunAttackState:Execute->El Dispatch es NULL" );
+					LOGGER->AddNewLog(ELL_ERROR, "CRabbitRunAttackState:Execute->El Dispatch es NULL" );
+				}
+
+				UpdateImpact(m_pRabbit);
+				if ( m_ActionStateCallback.IsActionInTime(0.57f) && !m_FirstParticlesHitDone )
+				{		
+					m_FirstParticlesHitDone = true;
+					GenerateImpact(m_pRabbit);
 				}
 			}
 			else
@@ -219,7 +233,7 @@ void CRabbitRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						LOGGER->AddNewLog(ELL_INFORMATION, "CDeerRunAttackState:Execute->Animation Not finished yet" );
+						LOGGER->AddNewLog(ELL_INFORMATION, "CRabbitRunAttackState:Execute->Animation Not finished yet" );
 					}
 				#endif
 			}
@@ -246,7 +260,7 @@ void CRabbitRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 		#if defined _DEBUG
 			if( CORE->IsDebugMode() )
 			{
-				LOGGER->AddNewLog(ELL_INFORMATION, "CDeerRunAttackState:Execute->Correm al objectiu" );
+				LOGGER->AddNewLog(ELL_INFORMATION, "CRabbitRunAttackState:Execute->Correm al objectiu" );
 			}
 		#endif
 			
@@ -260,7 +274,7 @@ void CRabbitRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 		if ( m_pRabbit->GetPlayerHasBeenReached() == false && m_pRabbit->IsPlayerReached() )
 		{
 			m_pRabbit->SetPlayerHasBeenReached(true);
-			CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerRunAttackCharged"); 
+			CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitRunAttackCharged"); 
 		}
 	}
 }
@@ -286,6 +300,8 @@ void CRabbitRunAttackState::OnExit( CCharacter* _pCharacter )
 
 	CORE->GetSoundManager()->PlayEvent("Stop_EFX_RabbitsRunAttacks"); 
 
+	// Paramos las partículas
+	StopImpact(m_pRabbit);
 }
 
 bool CRabbitRunAttackState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
@@ -319,4 +335,42 @@ void CRabbitRunAttackState::PlayRandomSound( void )
 		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsRunAttack2");
 		m_SoundDuration = 0.817f;
 	}
+}
+
+void CRabbitRunAttackState::UpdateParticlesPositions( CCharacter* _pCharacter )
+{
+}
+
+void CRabbitRunAttackState::GenerateImpact( CCharacter* _pCharacter )
+{
+	//GetParticleGroupInstance("RabbitRunAttack","RabbitRunAttack")->GetEmitterInstance("...");
+	GetParticleEmitterInstance("RabbitRunImpact1",	   _pCharacter->GetName() + "_RabbitRunImpact1")->EjectParticles();
+	GetParticleEmitterInstance("RabbitRunImpact2",	   _pCharacter->GetName() + "_RabbitRunImpact2")->EjectParticles();
+	GetParticleEmitterInstance("RabbitRunImpact3",	   _pCharacter->GetName() + "_RabbitRunImpact3")->EjectParticles();
+	GetParticleEmitterInstance("RabbitRunExpandWave",  _pCharacter->GetName() + "_RabbitRunExpandWave")->EjectParticles();
+	//GetParticleEmitterInstance("RabbitRunAttackRay",   _pCharacter->GetName() + "_RabbitRunAttackRay")->EjectParticles();
+	//GetParticleEmitterInstance("RabbitRunAttackCloud", _pCharacter->GetName() + "_RabbitRunAttackCloud")->EjectParticles();
+}
+
+void CRabbitRunAttackState::UpdateImpact( CCharacter* _pCharacter )
+{
+	Vect3f l_Pos = _pCharacter->GetPosition() + _pCharacter->GetFront();
+	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
+	SetParticlePosition(_pCharacter, "RabbitRunImpact1",	     _pCharacter->GetName() + "_RabbitRunImpact1",		"", l_Pos);
+	SetParticlePosition(_pCharacter, "RabbitRunImpact2",	     _pCharacter->GetName() + "_RabbitRunImpact2",		"", l_Pos);
+	SetParticlePosition(_pCharacter, "RabbitRunImpact3",	     _pCharacter->GetName() + "_RabbitRunImpact3",		"", l_Pos);
+	SetParticlePosition(_pCharacter, "RabbitRunExpandWave",		 _pCharacter->GetName() + "_RabbitRunExpandWave",	"", l_Pos);
+	//SetParticlePosition(_pCharacter, "RabbitRunAttackRay",   _pCharacter->GetName() + "_RabbitRunAttackRay",    "", l_Pos);
+	//SetParticlePosition(_pCharacter, "RabbitRunAttackCloud", _pCharacter->GetName() + "_RabbitRunAttackCloud",	"", _pCharacter->GetPosition());
+}
+
+void CRabbitRunAttackState::StopImpact( CCharacter* _pCharacter )
+{
+	//GetParticleGroupInstance("RabbitRunAttack","RabbitRunAttack")->GetEmitterInstance("...")->StopEjectParticles
+	GetParticleEmitterInstance("RabbitRunImpact1", _pCharacter->GetName() + "_RabbitRunImpact1")->StopEjectParticles();
+	GetParticleEmitterInstance("RabbitRunImpact2", _pCharacter->GetName() + "_RabbitRunImpact2")->StopEjectParticles();
+	GetParticleEmitterInstance("RabbitRunImpact3", _pCharacter->GetName() + "_RabbitRunImpact3")->StopEjectParticles();
+	GetParticleEmitterInstance("RabbitRunExpandWave",  _pCharacter->GetName() + "_RabbitRunExpandWave")->StopEjectParticles();
+	//GetParticleEmitterInstance("RabbitRunAttackRay",   _pCharacter->GetName() + "_RabbitRunAttackRay")->StopEjectParticles();
+	//GetParticleEmitterInstance("RabbitRunAttackCloud", _pCharacter->GetName() + "_RabbitRunAttackCloud")->StopEjectParticles();
 }

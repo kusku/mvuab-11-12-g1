@@ -105,11 +105,11 @@ void CDeerRunAttackState::OnEnter( CCharacter* _pCharacter )
 	m_InitialDistance			= m_pDeer->GetDistanceToPlayer();
 	if ( m_InitialDistance <= 10 )
 	{
-		m_FinalAttackPosition		= l_Position + (l_RelativePositionN * ( m_InitialDistance + 10.f) );
+		m_FinalAttackPosition = l_Position + (l_RelativePositionN * ( m_InitialDistance + 10.f) );
 	}
 	else
 	{
-		m_FinalAttackPosition		= l_Position + (l_RelativePositionN * ( m_InitialDistance + 0.f) );
+		m_FinalAttackPosition = l_Position + (l_RelativePositionN * ( m_InitialDistance + 0.f) );
 	}
 
 	// Activo el seek a saco a una posició en el momento de inicio de ataque

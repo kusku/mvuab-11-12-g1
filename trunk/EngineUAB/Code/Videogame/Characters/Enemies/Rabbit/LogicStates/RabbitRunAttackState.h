@@ -38,6 +38,14 @@ public:
 
 	//----Methods ---------------------------------------------
 	void			PlayRandomSound	( void );
+	
+	// Para tema de partículas
+	void			UpdateParticlesPositions( CCharacter* _pCharacter );
+	
+	// Para tema de partículas de impacto
+	void			GenerateImpact			( CCharacter* _pCharacter );
+	void			UpdateImpact			( CCharacter* _pCharacter );
+	void			StopImpact				( CCharacter* _pCharacter );
 
 	//----Members ---------------------------------------------
 private:
@@ -58,6 +66,7 @@ private:
 	sDireccion				m_AditionalInfo;
 
 	float					m_SoundDuration;			// Permite saber la duración del sonido
+	bool					m_FirstParticlesHitDone;	// Indiaca que ya se ha lanzado las partículas de impacto
 };
 
 

@@ -18,9 +18,21 @@
 	
 	<system name="Snow" settings_name="Snow" />
 	
-  
-	<system name="BlurHook" settings_name="BlurHook" />
-	<system name="Steps" settings_name="Steps" />
+	<!-- Sistemas del Deer -->
+	<system name="DeerBlurHook" settings_name="DeerBlurHook" />
+	<system name="DeerSteps" settings_name="DeerSteps" />
+	
+	<!-- Sistemas del rabbit -->
+	<system name="RabbitBlurHook" settings_name="RabbitBlurHook" />
+	<system name="RabbitSteps" settings_name="RabbitSteps" />
+	<system name="RabbitCenterFlare" settings_name="RabbitCenterFlare" />		<!-- Más Blanco  -->
+	<system name="RabbitCenterFlare1" settings_name="RabbitCenterFlare1" />		<!-- Más Amarillo -->
+	<system name="RabbitCenterFlare2" settings_name="RabbitCenterFlare2" />		<!-- Más Blanco -->
+	<system name="RabbitLingeringCenterFlare" settings_name="RabbitLingeringCenterFlare" />		
+	<system name="RabbitExpandWave" settings_name="RabbitExpandWave" />
+	<system name="RabbitStreaks" settings_name="RabbitStreaks" />
+	<system name="RabbitSparks" settings_name="RabbitSparks" />
+	<system name="RabbitBloodSplash" settings_name="RabbitBloodSplash" />
 	
 	<system name="CenterFlare" settings_name="CenterFlare" />
 	<system name="Impact" settings_name="Impact" />

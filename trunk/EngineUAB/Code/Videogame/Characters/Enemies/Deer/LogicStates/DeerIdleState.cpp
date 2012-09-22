@@ -84,13 +84,13 @@ void CDeerIdleState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 
 	if ( !m_AlreadyDetected && m_pDeer->IsPlayerDetected() ) 
 	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_Deer_Enemy_Detected");
+		//CORE->GetSoundManager()->PlayEvent("Play_EFX_Deer_Enemy_Detected");
 		m_AlreadyDetected = true;
 	}
 
 	if ( m_pDeer->IsPlayerChased() ) 
 	{
-		CORE->GetSoundManager()->PlayEvent("Stop_EFX_DeerEnemyDetected");
+		//CORE->GetSoundManager()->PlayEvent("Stop_EFX_DeerEnemyDetected");
 		m_pDeer->GetLogicFSM()->ChangeState( m_pDeer->GetPursuitState());
 		m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetRunAnimationState());
 	}

@@ -32,8 +32,11 @@
 
 #include "Callbacks\Animation\AnimationCallback.h"
 #include "Callbacks\Animation\AnimationCallbackManager.h"
+#include "Callbacks\State\ActionStateCallback.h"
 
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
+
+#include "Particles\ParticleEmitterInstance.h"
 
 #if defined(_DEBUG)
 	#include "Memory\MemLeaks.h"
@@ -44,23 +47,31 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CRabbitStillAttackState::CRabbitStillAttackState( CCharacter* _pCharacter )
-	: CState				(_pCharacter, "CRabbitStillAttackState")
-	, m_pRabbit				( NULL )
-	, m_pAnimationCallback	( NULL )
-	, m_pActionStateCallback( 0, 1 )
+	: CState					(_pCharacter, "CRabbitStillAttackState")
+	, m_pRabbit					( NULL )
+	, m_pAnimationCallback		( NULL )
+	, m_pActionStateCallback	( NULL )
+	, m_FirstHitDone			( false )
+	, m_FirstParticlesHitDone	( false )	
+	, m_FirstHitReached			( false )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),RABBIT_STILL_ATTACK_STATE);
+	m_pActionStateCallback = new CActionStateCallback(0,1);
 }
 
 CRabbitStillAttackState::CRabbitStillAttackState( CCharacter* _pCharacter, const std::string &_Name )
-	: CState				(_pCharacter, _Name)
-	, m_pRabbit				( NULL )
-	, m_pAnimationCallback	( NULL )
-	, m_pActionStateCallback( 0, 1 )
+	: CState					(_pCharacter, _Name)
+	, m_pRabbit					( NULL )
+	, m_pAnimationCallback		( NULL )
+	, m_pActionStateCallback	( NULL )
+	, m_FirstHitDone			( false )
+	, m_FirstParticlesHitDone	( false )	
+	, m_FirstHitReached			( false )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),RABBIT_STILL_ATTACK_STATE);
+	m_pActionStateCallback = new CActionStateCallback(0,1);
 }
 
 
@@ -68,6 +79,7 @@ CRabbitStillAttackState::~CRabbitStillAttackState(void)
 {
 	m_pRabbit = NULL;
 	m_pAnimationCallback = NULL;
+	CHECKED_DELETE(	m_pActionStateCallback );
 }
 
 
@@ -91,15 +103,18 @@ void CRabbitStillAttackState::OnEnter( CCharacter* _pCharacter )
 	}
 #endif
 
-	m_SoundPlayed1	= false;
-	m_SoundPlayed2	= false;
+	m_SoundPlayed1			= false;
+	m_SoundPlayed2			= false;
+	m_FirstHitDone			= false;
+	m_FirstParticlesHitDone = false;
+	m_FirstHitReached		= false;
 	m_pAnimationCallback->Init();
 
 	m_pRabbit->GetBehaviors()->CollisionAvoidanceOn();
 	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOn();
 
 	//CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerExclaim"); 
-	m_pActionStateCallback.InitAction(0, m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(RABBIT_STILL_ATTACK_STATE) );
+	m_pActionStateCallback->InitAction(0, m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(RABBIT_STILL_ATTACK_STATE) );
 }
 
 void CRabbitStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
@@ -112,53 +127,52 @@ void CRabbitStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTi
 	if ( m_pAnimationCallback->IsAnimationStarted() ) 
 	{
 		// Compruebo si la animación a finalizado
-		if ( m_pAnimationCallback->IsAnimationFinished() && m_pRabbit->GetPlayerHasBeenReached() )
+		if ( m_pAnimationCallback->IsAnimationFinished() )
 		{
-			if ( DISPATCH != NULL ) 
+			//// Aseguro que se tocó o no según la variable que gestiona esto en los golpeos
+			m_pRabbit->SetPlayerHasBeenReached(m_FirstHitReached);
+
+			if ( m_pRabbit->GetPlayerHasBeenReached() )
 			{
-				DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pRabbit->GetID(), m_pRabbit->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
-				LOGGER->AddNewLog(ELL_INFORMATION,"CRabbitStillAttackState::Execute->Envio mensaje de tocado");
+				// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio
+				m_pRabbit->SetToBeTired(false);
+
+				if ( DISPATCH != NULL ) 
+				{
+					DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pRabbit->GetID(), m_pRabbit->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
+					LOGGER->AddNewLog(ELL_INFORMATION,"CRabbitStillAttackState::Execute->Envio mensaje de tocado");
+				}
+				else
+				{
+					LOGGER->AddNewLog(ELL_ERROR, "CRabbitStillAttackState:Execute->El Dispatch es NULL" );
+				}
+				
+				#if defined _DEBUG
+					if( CORE->IsDebugMode() )
+					{
+						LOGGER->AddNewLog( ELL_INFORMATION, "CRabbitStillAttackState:Execute->Dispatch" );
+					}
+				#endif
 			}
+			// Si acaba la animacion pero no estamos en una distancia de poder impactar solo hacemos que se canse
 			else
 			{
-				LOGGER->AddNewLog(ELL_ERROR, "CRabbitStillAttackState:Execute->El Dispatch es NULL" );
+				#if defined _DEBUG
+					if( CORE->IsDebugMode() )
+					{
+						LOGGER->AddNewLog(ELL_INFORMATION,"CRabbitStillAttackState::Execute->Golpeo erratico");
+					}
+				#endif
 			}
-					
+
 			// Incrementamos el nº de ataques hechos --> si llega a un total estará cansado
 			m_pRabbit->SetHitsDone(m_pRabbit->GetHitsDone() + 1);
 
 			// Volvemos a idle
+			//m_pRabbit->GetLogicFSM()->RevertToPreviousState();
 			m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetIdleState());
 			m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());
-			#if defined _DEBUG
-				if( CORE->IsDebugMode() )
-				{
-					LOGGER->AddNewLog( ELL_INFORMATION, "CRabbitStillAttackState:Execute->Dispatch" );
-				}
-			#endif
 				
-			m_pRabbit->GetBehaviors()->SeekOff();
-			m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
-			m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime );
-			m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
-		}
-		// Si acaba la animacion pero no estamos en una distancia de poder impactar solo hacemos que se canse
-		else if ( m_pAnimationCallback->IsAnimationFinished() && !m_pRabbit->GetPlayerHasBeenReached() )
-		{
-			// Incrementamos el nº de ataques hechos --> si llega a un total estará cansado
-			m_pRabbit->SetHitsDone(m_pRabbit->GetHitsDone() + 1);
-
-			// Volvemos al estado anterior
-			m_pRabbit->GetLogicFSM()->RevertToPreviousState();
-			m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());
-
-			#if defined _DEBUG
-				if( CORE->IsDebugMode() )
-				{
-					LOGGER->AddNewLog(ELL_INFORMATION,"CRabbitStillAttackState::Execute->Golpeo erratico");
-				}
-			#endif
-
 			m_pRabbit->GetBehaviors()->SeekOff();
 			m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
 			m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime );
@@ -185,6 +199,9 @@ void CRabbitStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTi
 		// En otro caso actualizamos el tiempo de animacion
 		else
 		{
+			// Ahora debemos actualizar las partículas
+			UpdateParticlesPositions(m_pRabbit);
+
 			m_pRabbit->GetBehaviors()->SeekOff();
 			m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
 			m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime );
@@ -192,39 +209,46 @@ void CRabbitStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTi
 
 			//float t = m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_STILL_ATTACK_STATE);
 
-			// Sonido de bofetada 
-			//if ( m_pRabbit->GetPlayerHasBeenReached() && !m_SoundPlayed1 &&  m_pActionStateCallback.IsActionInTime( 0.7f ) )
-			//{
-			//	m_SoundPlayed1 = true;
-			//	CORE->GetSoundManager()->PlayEvent("Play_EFX_Punch2"); 
-			//}
-			//// Sonido de bofetada fallida
-			//else if ( !m_pRabbit->GetPlayerHasBeenReached() && !m_SoundPlayed1 &&  m_pActionStateCallback.IsActionInTime( 0.7f ) )
-			//{
-			//	CORE->GetSoundManager()->PlayEvent("Play_EFX_Slap1"); 
-			//}
+			// Aquí comienza el golpeo, la mano está alzada
+			if ( m_pActionStateCallback->IsActionInTime( 0.33f ) && !m_FirstHitDone )
+			{
+				GetParticleEmitterInstance("RabbitBlurHook",m_pRabbit->GetName() + "_LeftHand")->EjectParticles();
+								   
+				m_FirstHitDone = true;		// Ahora ya no entraremos en este condicional
+			}
 
 			// Miramos si llegamos a tocar el player en el momento de impacto
-			if ( m_pActionStateCallback.IsActionInTime( 0.5f ) )
+			if ( m_pActionStateCallback->IsActionInTime( 0.5f ) && !m_FirstHitReached )
 			{
-				if ( !m_pRabbit->GetPlayerHasBeenReached() && m_pRabbit->IsPlayerReached() )
+				// Miramos si alcanzamos al player
+				if ( m_pRabbit->IsPlayerReached() )
 				{
-					m_pRabbit->SetPlayerHasBeenReached(true);
+					m_FirstHitReached = true;
+					UpdateImpact(m_pRabbit);
 				}
 
-				if ( m_pRabbit->GetPlayerHasBeenReached() && !m_SoundPlayed1 )
+				// Sonido de la bofetada acertada
+				if ( m_FirstHitReached && !m_SoundPlayed1 )
 				{
 					m_SoundPlayed1 = true;
-					CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Punch3"); 
+					CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Punch3"); 
 				}
-				// Sonido de bofetada fallida
-				else if ( !m_pRabbit->GetPlayerHasBeenReached() && !m_SoundPlayed1 )
+				// Sonido de la bofetada fallida
+				else if ( !m_FirstHitReached && !m_SoundPlayed1 )
 				{
 					CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Slap1"); 
 					m_SoundPlayed1 = true;
 				}
 			}
 			
+			// Trato la animación de impacto
+			if ( m_pActionStateCallback->IsActionInTime( 0.5f ) && !m_FirstParticlesHitDone && m_FirstHitReached )
+			{
+				m_FirstParticlesHitDone = true;
+				UpdateImpact(m_pRabbit);
+				GenerateImpact(m_pRabbit );
+			}
+
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
@@ -239,7 +263,7 @@ void CRabbitStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTi
 				m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());
 			}*/
 
-			m_pActionStateCallback.Update(_ElapsedTime);
+			m_pActionStateCallback->Update(_ElapsedTime);
 		}
 	}
 	else
@@ -259,7 +283,7 @@ void CRabbitStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTi
 				
 			m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetStillAttackAnimationState());
 			m_pAnimationCallback->StartAnimation();
-			m_pActionStateCallback.StartAction();
+			m_pActionStateCallback->StartAction();
 
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
@@ -314,23 +338,26 @@ bool CRabbitStillAttackState::OnMessage( CCharacter* _pCharacter, const STelegra
 	return false;
 }
 
-void CRabbitStillAttackState::SetParticlePosition( CCharacter* _pCharacter )
+void CRabbitStillAttackState::UpdateParticlesPositions( CCharacter* _pCharacter )
 {
-	/*CAnimatedInstanceModel *l_pAnimatedModel = _pCharacter->GetAnimatedModel();
+	SetParticlePosition(_pCharacter, "RabbitBlurHook", _pCharacter->GetName() + "_LeftHand" , "Bip001 R Finger1"  );
+	//SetParticlePosition(_pCharacter, "RabbitBlurHook", _pCharacter->GetName() + "_LeftHand1", "Bip001 R Finger11" );
+}
 
-	Mat44f l_TransformMatrix		= m44fIDENTITY;
-	Mat44f l_RotationMatrix			= m44fIDENTITY;
-	Vect4f l_Rotation				= v3fZERO;
-	Vect3f l_Translation			= v3fZERO;
-	Mat44f l_AnimatedModelTransform = l_pAnimatedModel->GetTransform();
+void CRabbitStillAttackState::GenerateImpact( CCharacter* _pCharacter )
+{
+	//GetParticleEmitterInstance( "RabbitBloodSplash"	, m_pRabbit->GetName() + "_BloodSplashLeft")->EjectParticles();
+	GetParticleEmitterInstance( "RabbitExpandWave"	, m_pRabbit->GetName() + "_ExpandWaveLeft")->EjectParticles();
+	GetParticleEmitterInstance( "RabbitImpact"		, m_pRabbit->GetName() + "_ImpactLeft")->EjectParticles();
+	GetParticleEmitterInstance( "RabbitStreaks"		, m_pRabbit->GetName() + "_StreaksLeft")->EjectParticles();
+	GetParticleEmitterInstance( "RabbitSparks"		, m_pRabbit->GetName() + "_SparksLeft")->EjectParticles();
+}
 
-	l_pAnimatedModel->GetBonePosition("CHR_CAP R Hand", l_Translation);
-	l_pAnimatedModel->GetBoneRotation("CHR_CAP R Hand", l_Rotation);
-
-	l_TransformMatrix.Translate(l_Translation);
-	l_RotationMatrix.SetFromQuaternion(l_Rotation);
-
-	l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
-
-	m_pParticleEmitter->SetPosition( l_TransformMatrix.GetPos() );*/
+void CRabbitStillAttackState::UpdateImpact( CCharacter* _pCharacter )
+{
+	//SetParticlePosition(_pCharacter, "RabbitBloodSplash",	_pCharacter->GetName() + "_BloodSplashLeft", "Bip001 R Finger1");
+	SetParticlePosition(_pCharacter, "RabbitExpandWave",	_pCharacter->GetName() + "_ExpandWaveLeft",  "Bip001 R Finger1");
+	SetParticlePosition(_pCharacter, "RabbitImpact",		_pCharacter->GetName() + "_ImpactLeft",		 "Bip001 R Finger1");
+	SetParticlePosition(_pCharacter, "RabbitStreaks",		_pCharacter->GetName() + "_StreaksLeft",	 "Bip001 R Finger1");
+	SetParticlePosition(_pCharacter, "RabbitSparks",		_pCharacter->GetName() + "_SparksLeft",		 "Bip001 R Finger1");
 }
