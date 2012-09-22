@@ -97,19 +97,30 @@ void CRabbitRunAttackState::OnEnter( CCharacter* _pCharacter )
 	// Metemos más velocidad al ataque i menos massa para acelerar más 
 	m_OldMaxSpeed	= m_pRabbit->GetSteeringEntity()->GetMaxSpeed();
 	m_OldMass		= m_pRabbit->GetSteeringEntity()->GetMass();
-	m_pRabbit->GetSteeringEntity()->SetMaxSpeed(0.4f);
+	m_pRabbit->GetSteeringEntity()->SetMaxSpeed(3.9f);
 
 	// Almacenamos la distancia actual para saber si luego nos hemos pasado
 	m_PlayerInitialPosition		= m_pRabbit->GetPlayer()->GetSteeringEntity()->GetPosition();
 	Vect3f l_Position			= m_pRabbit->GetPosition();
-	m_InitialDistance			= m_pRabbit->GetDistanceToPlayer();
 	Vect3f l_RelativePosition	= m_PlayerInitialPosition - m_pRabbit->GetPosition();
 	Vect3f l_RelativePositionN	= l_RelativePosition.GetNormalized();
-	m_FinalAttackPosition = l_Position + (l_RelativePositionN * ( m_InitialDistance + 0.f) );
+	m_InitialDistance			= m_pRabbit->GetDistanceToPlayer();
+	if ( m_InitialDistance <= 5 )
+	{
+		m_FinalAttackPosition = l_Position + (l_RelativePositionN * ( m_InitialDistance + 5.f) );
+	}
+	else
+	{
+		m_FinalAttackPosition = l_Position + (l_RelativePositionN * ( m_InitialDistance + 0.f) );
+	}
 
 	// Activo el seek a saco a una posició en el momento de inicio de ataque
 	m_pRabbit->GetBehaviors()->SeekOff();
 	m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_FinalAttackPosition);
+	m_pRabbit->GetBehaviors()->SeparationOn();
+	m_pRabbit->GetBehaviors()->CohesionOff();
+	m_pRabbit->GetBehaviors()->CollisionAvoidanceOn();
+	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOn();
 	
 	m_AnimationDuration = m_pRabbit->GetAnimatedModel()->GetCurrentAnimationDuration(RABBIT_RUN_ATTACK_STATE);
 
