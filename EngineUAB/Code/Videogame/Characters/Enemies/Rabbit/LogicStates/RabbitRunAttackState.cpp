@@ -128,9 +128,6 @@ void CRabbitRunAttackState::OnEnter( CCharacter* _pCharacter )
 	m_ActionStateCallback.InitAction(0,m_AnimationDuration);
 	m_ActionStateCallback.StartAction();
 
-	// Almacenamos la distancia actual para saber si luego nos hemos pasado
-	//m_CurrentDistance = m_pRabbit->GetDistanceToPlayer();
-
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
@@ -200,7 +197,7 @@ void CRabbitRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 			// Volvemos al estado anterior
 			m_pRabbit->GetBehaviors()->SeekOff();
 			m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-			m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime );
+			m_pRabbit->FaceTo( m_FinalAttackPosition, _ElapsedTime );
 			m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 				
 			// Volvemos a idle
@@ -248,18 +245,18 @@ void CRabbitRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 					}
 				#endif
 			}
-		}
 			
-		if ( m_ActionStateCallback.IsActionInTime(0.4f) )
-		{
-			m_pRabbit->GetBehaviors()->SeekOn();
-			m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_PlayerInitialPosition);
-		}
+			if ( m_ActionStateCallback.IsActionInTime(0.4f) )
+			{
+				m_pRabbit->GetBehaviors()->SeekOn();
+				m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_PlayerInitialPosition);
+			}
 
-		// No Rotamos al objetivo y pero si movemos. Esto dará sensación de golpear allí donde estava el target cuando inicie el ataque
-		//_CCharacter:face_to( self.target_position, _elapsed_time )
-		m_pRabbit->FaceTo( m_FinalAttackPosition, _ElapsedTime );
-		m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+			// No Rotamos al objetivo y pero si movemos. Esto dará sensación de golpear allí donde estava el target cuando inicie el ataque
+			//_CCharacter:face_to( self.target_position, _elapsed_time )
+			m_pRabbit->FaceTo( m_FinalAttackPosition, _ElapsedTime );
+			m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+		}
 	}
 	// Si l'animación no se ha iniciado
 	// Primer estado que se ejecutará. Si está lejos nos acercamos con gran velocidad Corremos rápido hacía el player. 
@@ -279,8 +276,9 @@ void CRabbitRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 		m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetRunAttackAnimationState());
 		m_pAnimationCallback->StartAnimation();
 
+		m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
 		m_pRabbit->FaceTo( m_FinalAttackPosition, _ElapsedTime );
-		m_pRabbit->MoveTo2(  m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+		m_pRabbit->MoveTo2( Vect3f(0,0,0), _ElapsedTime );
 
 		if ( m_pRabbit->GetPlayerHasBeenReached() == false && m_pRabbit->IsPlayerReached() )
 		{
