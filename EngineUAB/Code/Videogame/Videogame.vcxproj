@@ -823,7 +823,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="..\..\Run\Videogame\Data\XML\ParticleSettings.xml" />
-    <None Include="..\..\Run\Videogame\Data\XML\ParticleSystems.xml" />
+    <None Include="..\..\Run\Videogame\Data\XML\ParticleSystems.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="..\..\Run\Videogame\Data\XML\renderable_objects.xml">
       <SubType>Designer</SubType>
     </None>

@@ -82,7 +82,7 @@ void CRabbitHitState::OnEnter( CCharacter* _pCharacter )
 	{
 		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
-	
+	 
 	// Si volvemos de haber recibido y después de estar cansados nos salimos.
 	if ( m_IsCommingFromTired ) 
 	{
@@ -107,7 +107,12 @@ void CRabbitHitState::OnEnter( CCharacter* _pCharacter )
 		//m_pActionState.InitAction(0.f, m_pRabbit->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_HIT_STATE));
 		//m_pActionState.StartAction();
 	}
+	
+	// Ahora debemos actualizar las partículas
+	UpdateParticlesPositions(m_pRabbit);
 
+	// Gestión de partículas
+	//GetParticleEmitter(m_pRabbit->GetName() + "_BloodSplash")->EjectParticles();
 	
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
@@ -176,13 +181,21 @@ void CRabbitHitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 
 void CRabbitHitState::OnExit( CCharacter* _pCharacter )
 {
+	if (!m_pRabbit) 
+	{
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
+	}
+
+	if (m_pRabbit) 
+	{
+		//GetParticleEmitter(_pCharacter->GetName() + "_BloodSplash")->StopEjectParticles();
+	}
 }
 
 bool CRabbitHitState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
 	return false;
 }
-
 
 // Devuelve el tiempo, la duración
 void CRabbitHitState::PlayRandomSound( void )
@@ -222,5 +235,38 @@ void CRabbitHitState::PlayRandomSound( void )
 	{
 		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains7");
 		m_SoundDuration = 0.717f;
+	}
+}
+
+void CRabbitHitState::UpdateParticlesPositions( CCharacter* _pCharacter )
+{
+	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_BloodSplash" , "",_pCharacter->GetPosition() + _pCharacter->GetFront()  );
+}
+
+void CRabbitHitState::SetParticlePosition( CCharacter* _pCharacter, const std::string &_ParticlesName, const std::string &_Bone, const Vect3f &_Position )
+{
+	if ( _Bone.compare( "" ) != 0 )
+	{
+		CAnimatedInstanceModel *l_pAnimatedModel = _pCharacter->GetAnimatedModel();
+
+		Mat44f l_TransformMatrix		= m44fIDENTITY;
+		Mat44f l_RotationMatrix			= m44fIDENTITY;
+		Vect4f l_Rotation				= v3fZERO;
+		Vect3f l_Translation			= v3fZERO;
+		Mat44f l_AnimatedModelTransform = l_pAnimatedModel->GetTransform();
+
+		l_pAnimatedModel->GetBonePosition(_Bone, l_Translation);
+		l_pAnimatedModel->GetBoneRotation(_Bone, l_Rotation);
+
+		l_TransformMatrix.Translate(l_Translation);
+		l_RotationMatrix.SetFromQuaternion(l_Rotation);
+
+		l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
+
+		//GetParticleEmitter(_ParticlesName)->SetPosition( l_TransformMatrix.GetPos() );
+	}
+	else 
+	{
+		//GetParticleEmitter(_ParticlesName)->SetPosition( _Position );
 	}
 }

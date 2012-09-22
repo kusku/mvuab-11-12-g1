@@ -230,23 +230,22 @@ void CDeerStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 			// Aquí comienza el golpeo, la mano está alzada
 			if ( m_pActionStateCallback->IsActionInTime( 0.2f ) && !m_FirstHitDone )
 			{
-				GetParticleEmitterInstance( "RedDeerBlurHook", m_pDeer->GetName() + "_RightHand1")->EjectParticles();
-				GetParticleEmitterInstance( "RedDeerBlurHook", m_pDeer->GetName() + "_RightHand11")->EjectParticles();
+				GetParticleEmitterInstance( "DeerBlurHook", m_pDeer->GetName() + "_RightHand1")->EjectParticles();
+				GetParticleEmitterInstance( "DeerBlurHook", m_pDeer->GetName() + "_RightHand11")->EjectParticles();
 								   
 				m_FirstHitDone = true;		// Ahora ya no entraremos en este condicional
 			}
 
 			if (m_pActionStateCallback->IsActionInTime( 0.30f ) && !m_FirstHitReached)
 			{
-
-				unsigned int n = m_pDeer->GetAnimatedModel()->GetCurrentAnimationTrack(DEER_STILL_ATTACK_STATE);
+				//unsigned int n = m_pDeer->GetAnimatedModel()->GetCurrentAnimationTrack(DEER_STILL_ATTACK_STATE);
 				if ( m_pDeer->IsPlayerReached() )
 				{
 					m_FirstHitReached = true;
 				}
 
 				// Sonido de la 1a bofetada 
-				if (m_FirstHitReached && !m_SoundPlayed1 )
+				if ( m_FirstHitReached && !m_SoundPlayed1 )
 				{
 					m_SoundPlayed1 = true;
 					CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Punch3"); 
@@ -269,15 +268,15 @@ void CDeerStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 
 			if ( m_pActionStateCallback->IsActionInTime( 0.7f ) && !m_SecondHitDone )
 			{
-				GetParticleEmitterInstance( "RedDeerBlurHook", m_pDeer->GetName() + "_LeftHand1")->EjectParticles();
-				GetParticleEmitterInstance( "RedDeerBlurHook", m_pDeer->GetName() + "_LeftHand11")->EjectParticles();
+				GetParticleEmitterInstance( "DeerBlurHook", m_pDeer->GetName() + "_LeftHand1")->EjectParticles();
+				GetParticleEmitterInstance( "DeerBlurHook", m_pDeer->GetName() + "_LeftHand11")->EjectParticles();
 
 				m_SecondHitDone = true;		// Esto permite ver si ya se hizo el hit y comprobar solo una sola vez y justo en el momento del impacto si se alcanzó el player
 
 				if ( m_pDeer->IsPlayerReached() )
 				{
 					m_SecondHitReached = true; 
-					//UpdateImpact(m_pDeer);
+					UpdateImpact(m_pDeer);
 				}
 
 				// Sonido de la 2a bofetada 
@@ -285,11 +284,6 @@ void CDeerStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 				{
 					m_SoundPlayed2 = true;
 					CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Punch2"); 
-					////GetParticleEmitter("Impact1")->EjectParticles();
-					
-					// Gestión de partículas
-					//GenerateImpact(m_pDeer);
-					//GetParticleEmitter( _pCharacter->GetName() + "_Impact2")->EjectParticles();
 				}
 				// Sonido de la 2a bofetada fallida
 				else if ( !m_SecondHitReached && !m_SoundPlayed2 )
@@ -373,10 +367,10 @@ void CDeerStillAttackState::OnExit( CCharacter* _pCharacter )
 	m_pDeer->GetBehaviors()->CollisionAvoidanceOff();
 	m_pDeer->GetBehaviors()->ObstacleWallAvoidanceOff();
 		
-	GetParticleEmitterInstance("RedDeerBlurHook",_pCharacter->GetName() + "_LeftHand1")->StopEjectParticles();
-	GetParticleEmitterInstance("RedDeerBlurHook",_pCharacter->GetName() + "_LeftHand11")->StopEjectParticles();
-	GetParticleEmitterInstance("RedDeerBlurHook",_pCharacter->GetName() + "_RightHand1")->StopEjectParticles();
-	GetParticleEmitterInstance("RedDeerBlurHook",_pCharacter->GetName() + "_RightHand11")->StopEjectParticles();
+	GetParticleEmitterInstance("DeerBlurHook",_pCharacter->GetName() + "_LeftHand1")->StopEjectParticles();
+	GetParticleEmitterInstance("DeerBlurHook",_pCharacter->GetName() + "_LeftHand11")->StopEjectParticles();
+	GetParticleEmitterInstance("DeerBlurHook",_pCharacter->GetName() + "_RightHand1")->StopEjectParticles();
+	GetParticleEmitterInstance("DeerBlurHook",_pCharacter->GetName() + "_RightHand11")->StopEjectParticles();
 
 	GetParticleEmitterInstance("DeerExpandWave"	,_pCharacter->GetName() + "_ExpandWaveLeft")->StopEjectParticles();
 	GetParticleEmitterInstance("DeerBloodSplash",_pCharacter->GetName() + "_BloodSplashLeft")->StopEjectParticles();
@@ -411,10 +405,10 @@ bool CDeerStillAttackState::OnMessage( CCharacter* _pCharacter, const STelegram&
 
 void CDeerStillAttackState::UpdateParticlesPositions( CCharacter* _pCharacter )
 {
-	SetParticlePosition(_pCharacter, "RedDeerBlurHook", _pCharacter->GetName() + "_RightHand1" , "Bip001 R Finger1"  );
-	SetParticlePosition(_pCharacter, "RedDeerBlurHook", _pCharacter->GetName() + "_RightHand11", "Bip001 R Finger11" );
-	SetParticlePosition(_pCharacter, "RedDeerBlurHook", _pCharacter->GetName() + "_LeftHand1"  , "Bip001 L Finger1"  );
-	SetParticlePosition(_pCharacter, "RedDeerBlurHook", _pCharacter->GetName() + "_LeftHand11" , "Bip001 L Finger11" );
+	SetParticlePosition(_pCharacter, "DeerBlurHook", _pCharacter->GetName() + "_RightHand1" , "Bip001 R Finger1"  );
+	SetParticlePosition(_pCharacter, "DeerBlurHook", _pCharacter->GetName() + "_RightHand11", "Bip001 R Finger11" );
+	SetParticlePosition(_pCharacter, "DeerBlurHook", _pCharacter->GetName() + "_LeftHand1"  , "Bip001 L Finger1"  );
+	SetParticlePosition(_pCharacter, "DeerBlurHook", _pCharacter->GetName() + "_LeftHand11" , "Bip001 L Finger11" );
 }
 
 
