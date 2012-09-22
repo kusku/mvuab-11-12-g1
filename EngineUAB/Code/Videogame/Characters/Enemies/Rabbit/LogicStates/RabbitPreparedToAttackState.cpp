@@ -1,6 +1,7 @@
 #include "RabbitPreparedToAttackState.h"
 #include "Utils\BoostRandomHelper.h"
 #include "Utils\Random.h"
+#include "Math\Vector2.h"
 #include "GameProcess.h"
 #include "Logger\Logger.h"
 #include "Base.h"
@@ -101,8 +102,11 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elap
 		}
 
 		// Mira si alcanzamos la posición. Reseteamos indicando que este enemigo ya ha realizado las tareas postimpacto 
-		float l_Distance = m_pRabbit->GetPosition().Distance(m_PositionReachedAfterHitPlayer);
-		if ( l_Distance <= 2.3f )
+		Vect2f l_Pos1 = Vect2f(m_pRabbit->GetPosition().x, m_pRabbit->GetPosition().z);
+		Vect2f l_Pos2 = Vect2f(m_PositionReachedAfterHitPlayer.x, m_PositionReachedAfterHitPlayer.z);
+		float l_DistanceToCameraPoint = l_Pos1.Distance(l_Pos2);
+		//float l_DistanceToCameraPoint = m_pRabbit->GetPosition().Distance(m_PositionReachedAfterHitPlayer);
+		if ( l_DistanceToCameraPoint <= 2.3f )
 		{
 			m_IsPositionAfterHitPlayerAssigned = false;		// Reiniciamos el flag para la pròxima vez
 			m_pRabbit->SetPlayerHasBeenReached(false);		// Reiniciamos el flag de player alcanzado
@@ -111,8 +115,8 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elap
 		}
 		else
 		{
-			m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_PositionReachedAfterHitPlayer);
 			m_pRabbit->GetBehaviors()->SeekOn();
+			m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_PositionReachedAfterHitPlayer);
 			m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime);
 			m_pRabbit->MoveTo2(m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
 			LOGGER->AddNewLog(ELL_INFORMATION, "CDeerPreparedToAttackState::Execute -> %s peguó al player y ahora vuelve a una posición inicial de ataque", m_pRabbit->GetName().c_str());
