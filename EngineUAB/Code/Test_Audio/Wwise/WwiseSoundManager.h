@@ -33,9 +33,11 @@ public:
 	bool	Load		( const std::string &soundbanks_filename, const std::string &speakers_filename );
 	bool	Reload		();
 
+	CSpeaker*	CreateSpeaker ( const std::string &_Name );
+
 	//--- Wwise Controls -----------------------
 	bool	LoadBank	( const std::string &bank );
-	void	PlayEvent	( const std::string &event_name );
+	void	PlayEvent	( const std::string &speaker_name, const std::string &event_name );
 	void	SetSwitch	( const std::string &switch_name, const std::string &container_name );
 
 	//--- Properties ---------------------------
