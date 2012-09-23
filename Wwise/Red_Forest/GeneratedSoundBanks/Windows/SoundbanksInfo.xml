@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Windows" SchemaVersion="9">
 	<RootPaths>
-		<ProjectRoot>D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\</ProjectRoot>
-		<SourceFilesRoot>D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\.cache\Windows\</SourceFilesRoot>
-		<SoundBanksRoot>D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\GeneratedSoundBanks\Windows\</SoundBanksRoot>
+		<ProjectRoot>C:\Users\Marc\Documents\UAB\Wwise\Red_Forest\</ProjectRoot>
+		<SourceFilesRoot>C:\Users\Marc\Documents\UAB\Wwise\Red_Forest\.cache\Windows\</SourceFilesRoot>
+		<SoundBanksRoot>C:\Users\Marc\Documents\UAB\Wwise\Red_Forest\GeneratedSoundBanks\Windows\</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>D:\BACKUPS\VIDEOJOCS\MASTER\4 - PROJECTE\3 - Source\Wwise\Red_Forest\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>C:\Users\Marc\Documents\UAB\Wwise\Red_Forest\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<Arguments />
 	<DialogueEvents />
@@ -64,9 +64,6 @@
 				<Event Id="921713726" Name="Play_EFX_Deer_Run" />
 				<Event Id="3112511213" Name="Play_EFX_Deer_Run_Attack" />
 				<Event Id="3224478256" Name="Play_EFX_Deer_Run_Attack_Charged" />
-				<Event Id="1621476486" Name="Play_EFX_GUI_Button_Back" />
-				<Event Id="4151175976" Name="Play_EFX_GUI_Button_Next" />
-				<Event Id="2151123781" Name="Play_EFX_GUI_Button_Over" />
 				<Event Id="3236107786" Name="Play_EFX_Punch2" />
 				<Event Id="3236107787" Name="Play_EFX_Punch3" />
 				<Event Id="351620247" Name="Play_EFX_Rabbit_Death" />
@@ -75,7 +72,6 @@
 				<Event Id="3296935749" Name="Play_EFX_Rabbit_Run_Attack" />
 				<Event Id="316894959" Name="Play_EFX_Slap1" />
 				<Event Id="3187607523" Name="Play_EFX_Sword" />
-				<Event Id="1954071212" Name="Play_MUS_GUI_Intro" />
 				<Event Id="4101543520" Name="Play_MUS_Level_1" />
 				<Event Id="4027779470" Name="Stop_All_EFX_Rabbit" />
 				<Event Id="4146057876" Name="Stop_EFX_DeerEnemyDetected" />
@@ -140,22 +136,6 @@
 				<File Id="810415683" Language="SFX">
 					<ShortName>DeerRunAttackCharged.wav</ShortName>
 					<Path>sfx\deerrunattackcharged_ab9e423f.wem</Path>
-				</File>
-				<File Id="1013933578" Language="SFX">
-					<ShortName>gui_audio.wav</ShortName>
-					<Path>sfx\gui_audio_ab9e423e.wem</Path>
-				</File>
-				<File Id="1048577469" Language="SFX">
-					<ShortName>gui_back.wav</ShortName>
-					<Path>sfx\gui_back_ab9e423f.wem</Path>
-				</File>
-				<File Id="18890471" Language="SFX">
-					<ShortName>gui_next.wav</ShortName>
-					<Path>sfx\gui_next_ab9e423f.wem</Path>
-				</File>
-				<File Id="231337779" Language="SFX">
-					<ShortName>gui_over.wav</ShortName>
-					<Path>sfx\gui_over_ab9e423f.wem</Path>
 				</File>
 				<File Id="574484578" Language="SFX">
 					<ShortName>level_1_music.wav</ShortName>

@@ -5,14 +5,9 @@
 			<ChildrenList>
 				<SoundBank Name="GUI_Bank" ID="{0AF9A4BE-8284-4656-8CC9-674C21F1B14E}">
 					<ObjectInclusionList>
-						<ObjectRef Name="Play_EFX_GUI_Button_Back" ID="{6F493325-F482-44F2-956A-1B36549F33C3}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
-						<ObjectRef Name="Play_EFX_GUI_Button_Next" ID="{2A18313F-821B-41AD-AF5F-60E10B6C1DCE}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
-						<ObjectRef Name="EFX_GUI_Button_Next" ID="{5387594A-2477-4984-AB13-A0DDF7560406}" WorkUnitID="{BAAA8488-2744-4EA9-8021-4AC153B97350}" Filter="7" Origin="Manual" />
-						<ObjectRef Name="Play_MUS_GUI_Intro" ID="{CAD7D884-E521-423D-ABA9-FC21D0EDEE49}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
-						<ObjectRef Name="EFX_GUI_Button_Back" ID="{6BEA7189-2E62-4D81-9C51-9F2BEA012270}" WorkUnitID="{BAAA8488-2744-4EA9-8021-4AC153B97350}" Filter="7" Origin="Manual" />
-						<ObjectRef Name="Play_EFX_GUI_Button_Over" ID="{E2EEAA92-1B23-482D-8A4E-2F039C955B51}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
-						<ObjectRef Name="EFX_GUI_Button_Over" ID="{CE9E7CB6-CDCD-4876-AE7C-91FDA639AACE}" WorkUnitID="{BAAA8488-2744-4EA9-8021-4AC153B97350}" Filter="7" Origin="Manual" />
-						<ObjectRef Name="MUS_GUI_Intro" ID="{A79EF0FF-2D8E-4471-8C72-6B366C8FA11C}" WorkUnitID="{BAAA8488-2744-4EA9-8021-4AC153B97350}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="GUI_Events" ID="{0A344855-BAD9-4D2E-8068-91A3084F0AE9}" WorkUnitID="{0B17021D-8061-43AE-BC53-3E61F5B6F15F}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="Music" ID="{5F8FAA79-83EA-4231-A438-9D35E46A4A7B}" WorkUnitID="{BAAA8488-2744-4EA9-8021-4AC153B97350}" Filter="7" Origin="Manual" />
+						<ObjectRef Name="Effects" ID="{E9673391-432F-4DB1-9778-1F3477AD8357}" WorkUnitID="{BAAA8488-2744-4EA9-8021-4AC153B97350}" Filter="7" Origin="Manual" />
 					</ObjectInclusionList>
 					<ObjectExclusionList />
 					<GameSyncExclusionList />
