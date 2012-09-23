@@ -18,6 +18,7 @@ namespace ScriptAPI
 					.def("play_event", (void(CSoundManager::*) (const std::string &)) &CSoundManager::PlayEvent)
 					.def("play_event", (void(CSoundManager::*) (const std::string &, const std::string &)) &CSoundManager::PlayEvent)
 					.def("set_switch", &CSoundManager::SetSwitch)
+					.def("set_rtpc", &CSoundManager::SetRTPCValue)
 			];
 	}
 
