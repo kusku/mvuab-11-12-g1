@@ -9,7 +9,8 @@
 #include "RenderableObjects\RenderableObjectsLayersManager.h"
 #include "ActionToInput.h"
 #include "Scripting\ScriptManager.h"
-#include "Wwise\WwiseSoundManager.h"
+#include "SoundManager.h"
+#include "Listener.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -33,9 +34,9 @@ void CTestAudioProcess::Done ( void )
 
 void CTestAudioProcess::Release ( void )
 {
-	m_pWwiseSoundManager->Terminate();
+	//m_pWwiseSoundManager->Terminate();
 	
-	CHECKED_DELETE(m_pWwiseSoundManager);
+	//CHECKED_DELETE(m_pWwiseSoundManager);
 	CHECKED_DELETE( m_pThPSCamera );
 	m_pCamera = NULL;	
 }
@@ -58,13 +59,15 @@ bool CTestAudioProcess::Init( void )
 	m_pThPSCamera = new CThPSCamera(1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_Player, 10.0f);
 	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
 	CORE->SetCamera(m_pCamera);
-
+	CORE->GetSoundManager()->GetListener()->SetCamera(m_pCamera);
 	/*m_pWwiseSoundManager = new CWwiseSoundManager();
 	m_pWwiseSoundManager->Init();
 	m_pWwiseSoundManager->Load("./data/xml/soundbanks.xml", "./data/xml/speakers.xml");
 
 	m_pWwiseSoundManager->SetSwitch("Ground_Materials", "Wood");
 	m_pWwiseSoundManager->PlayEvent("Play_Ground");*/
+
+	//CORE->GetSoundManager()->PlayEvent("Play_Test");
 
 	return true;
 }
@@ -79,7 +82,7 @@ void CTestAudioProcess::Update( float _ElapsedTime )
 
 	CORE->GetRenderableObjectsLayersManager()->Update( _ElapsedTime );
 
-	m_pWwiseSoundManager->Update();
+	//m_pWwiseSoundManager->Update();
 }
 
 void CTestAudioProcess::Render( CRenderManager &_RM )
@@ -88,21 +91,22 @@ void CTestAudioProcess::Render( CRenderManager &_RM )
 
 void CTestAudioProcess::UpdateInputs()
 {
+	CSoundManager *l_Sound = CORE->GetSoundManager();
 	if( CORE->GetActionToInput()->DoAction("PlaySound") )
 	{
-		m_pWwiseSoundManager->PlayEvent("Play_Explosions");
+		l_Sound->PlayEvent("Play_Explosions");
 	}
 
 	if( CORE->GetActionToInput()->DoAction("PlayGravel") )
 	{
-		m_pWwiseSoundManager->SetSwitch("Ground_Materials", "Gravel");
-		m_pWwiseSoundManager->PlayEvent("Play_Ground");
+		l_Sound->SetSwitch("Ground_Materials", "Gravel");
+		l_Sound->PlayEvent("Play_Ground");
 	}
 
 	if( CORE->GetActionToInput()->DoAction("PlayWood") )
 	{
-		m_pWwiseSoundManager->SetSwitch("Ground_Materials", "Wood");
-		m_pWwiseSoundManager->PlayEvent("Play_Ground");
+		l_Sound->SetSwitch("Ground_Materials", "Wood");
+		l_Sound->PlayEvent("Play_Ground");
 	}
 }
 

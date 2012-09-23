@@ -36,7 +36,7 @@ protected:
 	CPlayer		m_Player;
 	CThPSCamera *m_pThPSCamera;
 
-	CWwiseSoundManager *m_pWwiseSoundManager;
+	//CWwiseSoundManager *m_pWwiseSoundManager;
 };
 
 #endif

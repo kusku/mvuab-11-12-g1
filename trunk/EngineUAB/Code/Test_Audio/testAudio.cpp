@@ -55,6 +55,8 @@ LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 //-----------------------------------------------------------------------
 int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCmdLine, int _nCmdShow)
 {
+	CTestAudioProcess* l_TestAudioProcess = NULL;
+
 	// Register the window class
 	WNDCLASSEX wc = {	sizeof(WNDCLASSEX), CS_CLASSDC, MsgProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, APPLICATION_NAME, NULL };
 
@@ -72,7 +74,6 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 		HWND hWnd = CreateWindow(	APPLICATION_NAME, APPLICATION_NAME, WS_OVERLAPPEDWINDOW, position.x, position.y,
 				resolution.x, resolution.y, NULL, NULL, wc.hInstance, NULL );
 
-		CTestAudioProcess* l_TestAudioProcess;
 		l_TestAudioProcess = new CTestAudioProcess();
 
 		g_Engine->SetProcess(l_TestAudioProcess);
@@ -108,7 +109,9 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 	}
 	UnregisterClass( APPLICATION_NAME, wc.hInstance );
 
-  // Añadir una llamada a la alicación para finalizar/liberar memoria de todos sus datos
+	// Añadir una llamada a la alicación para finalizar/liberar memoria de todos sus datos
+	CHECKED_DELETE(l_TestAudioProcess);
+	CHECKED_DELETE(g_Engine);
 
   return 0;
 }
