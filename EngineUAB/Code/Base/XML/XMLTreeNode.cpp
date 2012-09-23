@@ -773,7 +773,7 @@ bool CXMLTreeNode::WriteFloatKeyword(const char* _pszKey, float _fValue)
   if (_pszKey && m_pWriter)
   {
     char pszValue[32];
-    sprintf_s(pszValue, "%d", _fValue);
+    sprintf_s(pszValue, "%f", _fValue);
 
     // Write an element
     int rc = xmlTextWriterWriteElement(m_pWriter, BAD_CAST _pszKey, BAD_CAST pszValue);
@@ -794,7 +794,7 @@ bool CXMLTreeNode::WriteBoolKeyword(const char* _pszKey, bool _bValue)
   if (_pszKey && m_pWriter)
   {
     char pszValue[32];
-    sprintf_s(pszValue, "%d", _bValue ? "true" : "false");
+    sprintf_s(pszValue, "%s", _bValue ? "true" : "false");
 
     // Write an element
     int rc = xmlTextWriterWriteElement(m_pWriter, BAD_CAST _pszKey, BAD_CAST pszValue);
