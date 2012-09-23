@@ -159,6 +159,7 @@ public:
 	void			PlayEvent				( const std::string &event_name );
 	void			PlayEvent				( const std::string &speaker_name, const std::string &event_name );
 	void			SetSwitch				( const std::string &switch_name, const std::string &container_name );
+	void			SetRTPCValue			(  const std::string &rtpc_name, float value );
 	virtual void	CallbackReaction		( AkCallbackType in_eType, AkCallbackInfo *in_pCallbackInfo );
 	virtual void	CallbackEndReaction		( eCallbackType in_eType, sCallbackInfo* in_pCallbackInfo );
 	virtual void	CallbackDurationReaction( eCallbackType in_eType, sDurationCallbackInfo * in_pCallbackInfo );

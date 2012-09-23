@@ -376,3 +376,8 @@ void CSoundManager::SetSwitch(const std::string &switch_name, const std::string 
 {
 	AKRESULT res = AK::SoundEngine::SetSwitch( switch_name.c_str(), container_name.c_str(), GetResource("Test")->GetID());
 }
+
+void CSoundManager::SetRTPCValue( const std::string &rtpc_name, float value )
+{
+	AK::SoundEngine::SetRTPCValue( rtpc_name.c_str(), (AkRtpcValue)value );
+}
