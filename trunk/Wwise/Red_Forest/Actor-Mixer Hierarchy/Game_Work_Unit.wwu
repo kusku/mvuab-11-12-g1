@@ -8,6 +8,30 @@
 						<Sound Name="MUS_Level_1" ID="{AA2037B5-5339-4522-A49C-0B82A8069B9B}" ShortID="864686587" Type="SoundFX">
 							<PropertyList>
 								<Property Name="IsLoopingEnabled" Type="bool" Value="True" />
+								<Property Name="Volume" Type="Real64">
+									<RTPCList>
+										<RTPC Name="" ID="{933A77E7-38E5-44A5-900E-03993DEEB738}" ShortID="827058099">
+											<GameParameterRef Name="Music_Volume" ID="{A9981376-90E2-434C-B110-9710522D3FE1}" />
+											<Curve Name="" ID="{9B88B055-6C20-4BC5-BE3F-2C483525E696}">
+												<PropertyList>
+													<Property Name="Flags" Type="int32" Value="3" />
+												</PropertyList>
+												<PointList>
+													<Point>
+														<XPos>0</XPos>
+														<YPos>-96.3</YPos>
+														<Flags>5</Flags>
+													</Point>
+													<Point>
+														<XPos>100</XPos>
+														<YPos>0</YPos>
+														<Flags>37</Flags>
+													</Point>
+												</PointList>
+											</Curve>
+										</RTPC>
+									</RTPCList>
+								</Property>
 							</PropertyList>
 							<ChildrenList>
 								<AudioFileSource Name="level_1_music" ID="{910E2989-DB78-4F88-AB3A-A2A54C06ED87}" ShortID="574484578">
@@ -36,6 +60,28 @@
 											<ValueList>
 												<Value>-10</Value>
 											</ValueList>
+											<RTPCList>
+												<RTPC Name="" ID="{2253C539-114C-48B1-82BE-AE9E5D9DC47E}" ShortID="10742915">
+													<GameParameterRef Name="Effect_Volume" ID="{6FC82F6C-4F51-4E1C-B631-DA0076B6455D}" />
+													<Curve Name="" ID="{6109B4EE-F60A-49D1-8942-EC80242B5DA4}">
+														<PropertyList>
+															<Property Name="Flags" Type="int32" Value="3" />
+														</PropertyList>
+														<PointList>
+															<Point>
+																<XPos>0</XPos>
+																<YPos>-96.3</YPos>
+																<Flags>5</Flags>
+															</Point>
+															<Point>
+																<XPos>100</XPos>
+																<YPos>0</YPos>
+																<Flags>37</Flags>
+															</Point>
+														</PointList>
+													</Curve>
+												</RTPC>
+											</RTPCList>
 										</Property>
 									</PropertyList>
 									<ChildrenList>
@@ -122,6 +168,28 @@
 											<ValueList>
 												<Value>-10</Value>
 											</ValueList>
+											<RTPCList>
+												<RTPC Name="" ID="{2356168D-A22A-4C82-B3A7-8144A289DA6C}" ShortID="757875735">
+													<GameParameterRef Name="Effect_Volume" ID="{6FC82F6C-4F51-4E1C-B631-DA0076B6455D}" />
+													<Curve Name="" ID="{43283AAF-7B5B-4D59-8075-7E681951DA0D}">
+														<PropertyList>
+															<Property Name="Flags" Type="int32" Value="3" />
+														</PropertyList>
+														<PointList>
+															<Point>
+																<XPos>0</XPos>
+																<YPos>-96.3</YPos>
+																<Flags>5</Flags>
+															</Point>
+															<Point>
+																<XPos>100</XPos>
+																<YPos>0</YPos>
+																<Flags>37</Flags>
+															</Point>
+														</PointList>
+													</Curve>
+												</RTPC>
+											</RTPCList>
 										</Property>
 									</PropertyList>
 									<ChildrenList>
@@ -188,6 +256,28 @@
 											<ValueList>
 												<Value>-10</Value>
 											</ValueList>
+											<RTPCList>
+												<RTPC Name="" ID="{92E50E94-7CC3-4BE3-B7E8-22D833D96A33}" ShortID="447056158">
+													<GameParameterRef Name="Effect_Volume" ID="{6FC82F6C-4F51-4E1C-B631-DA0076B6455D}" />
+													<Curve Name="" ID="{96999757-5A61-47A1-803D-8EDD9038B251}">
+														<PropertyList>
+															<Property Name="Flags" Type="int32" Value="3" />
+														</PropertyList>
+														<PointList>
+															<Point>
+																<XPos>0</XPos>
+																<YPos>-96.3</YPos>
+																<Flags>5</Flags>
+															</Point>
+															<Point>
+																<XPos>100</XPos>
+																<YPos>0</YPos>
+																<Flags>37</Flags>
+															</Point>
+														</PointList>
+													</Curve>
+												</RTPC>
+											</RTPCList>
 										</Property>
 									</PropertyList>
 									<ChildrenList>
@@ -230,6 +320,28 @@
 											<ValueList>
 												<Value>-10</Value>
 											</ValueList>
+											<RTPCList>
+												<RTPC Name="" ID="{C1C6E1F9-4C68-4C3A-A213-5D4A1E340E6E}" ShortID="285951633">
+													<GameParameterRef Name="Effect_Volume" ID="{6FC82F6C-4F51-4E1C-B631-DA0076B6455D}" />
+													<Curve Name="" ID="{59CFD344-4B5D-41CB-BE42-DBB118046691}">
+														<PropertyList>
+															<Property Name="Flags" Type="int32" Value="3" />
+														</PropertyList>
+														<PointList>
+															<Point>
+																<XPos>0</XPos>
+																<YPos>-96.3</YPos>
+																<Flags>5</Flags>
+															</Point>
+															<Point>
+																<XPos>100</XPos>
+																<YPos>0</YPos>
+																<Flags>37</Flags>
+															</Point>
+														</PointList>
+													</Curve>
+												</RTPC>
+											</RTPCList>
 										</Property>
 									</PropertyList>
 									<ChildrenList>
@@ -266,6 +378,28 @@
 											<ValueList>
 												<Value>-10</Value>
 											</ValueList>
+											<RTPCList>
+												<RTPC Name="" ID="{54455CD3-AF78-4B02-8EA1-3F4EF0BD92C1}" ShortID="1008158602">
+													<GameParameterRef Name="Effect_Volume" ID="{6FC82F6C-4F51-4E1C-B631-DA0076B6455D}" />
+													<Curve Name="" ID="{419D222C-1CFE-4F9D-AEC9-0A4AEB5F6679}">
+														<PropertyList>
+															<Property Name="Flags" Type="int32" Value="3" />
+														</PropertyList>
+														<PointList>
+															<Point>
+																<XPos>0</XPos>
+																<YPos>-96.3</YPos>
+																<Flags>5</Flags>
+															</Point>
+															<Point>
+																<XPos>100</XPos>
+																<YPos>0</YPos>
+																<Flags>37</Flags>
+															</Point>
+														</PointList>
+													</Curve>
+												</RTPC>
+											</RTPCList>
 										</Property>
 									</PropertyList>
 									<ChildrenList>
@@ -307,6 +441,28 @@
 											<ValueList>
 												<Value>-10</Value>
 											</ValueList>
+											<RTPCList>
+												<RTPC Name="" ID="{22F691DA-C6DD-40EA-8C2D-6DF38BB90650}" ShortID="54692135">
+													<GameParameterRef Name="Effect_Volume" ID="{6FC82F6C-4F51-4E1C-B631-DA0076B6455D}" />
+													<Curve Name="" ID="{37815ED5-253E-4B7E-9769-C5442410CA55}">
+														<PropertyList>
+															<Property Name="Flags" Type="int32" Value="3" />
+														</PropertyList>
+														<PointList>
+															<Point>
+																<XPos>0</XPos>
+																<YPos>-96.3</YPos>
+																<Flags>5</Flags>
+															</Point>
+															<Point>
+																<XPos>100</XPos>
+																<YPos>0</YPos>
+																<Flags>37</Flags>
+															</Point>
+														</PointList>
+													</Curve>
+												</RTPC>
+											</RTPCList>
 										</Property>
 									</PropertyList>
 									<ChildrenList>
@@ -348,6 +504,28 @@
 											<ValueList>
 												<Value>-10</Value>
 											</ValueList>
+											<RTPCList>
+												<RTPC Name="" ID="{F93DA0B1-2CE2-4113-BA65-D1418A68F681}" ShortID="510984013">
+													<GameParameterRef Name="Effect_Volume" ID="{6FC82F6C-4F51-4E1C-B631-DA0076B6455D}" />
+													<Curve Name="" ID="{61CB8480-6123-42FA-91F7-722FE537CFED}">
+														<PropertyList>
+															<Property Name="Flags" Type="int32" Value="3" />
+														</PropertyList>
+														<PointList>
+															<Point>
+																<XPos>0</XPos>
+																<YPos>-96.3</YPos>
+																<Flags>5</Flags>
+															</Point>
+															<Point>
+																<XPos>100</XPos>
+																<YPos>0</YPos>
+																<Flags>37</Flags>
+															</Point>
+														</PointList>
+													</Curve>
+												</RTPC>
+											</RTPCList>
 										</Property>
 									</PropertyList>
 									<ChildrenList>
@@ -387,6 +565,28 @@
 											<ValueList>
 												<Value>-25</Value>
 											</ValueList>
+											<RTPCList>
+												<RTPC Name="" ID="{502C0044-A072-43FC-BBDA-CDA3F56A9C2F}" ShortID="707216008">
+													<GameParameterRef Name="Effect_Volume" ID="{6FC82F6C-4F51-4E1C-B631-DA0076B6455D}" />
+													<Curve Name="" ID="{254023FD-E464-423E-8085-734529221BBE}">
+														<PropertyList>
+															<Property Name="Flags" Type="int32" Value="3" />
+														</PropertyList>
+														<PointList>
+															<Point>
+																<XPos>0</XPos>
+																<YPos>-96.3</YPos>
+																<Flags>5</Flags>
+															</Point>
+															<Point>
+																<XPos>100</XPos>
+																<YPos>0</YPos>
+																<Flags>37</Flags>
+															</Point>
+														</PointList>
+													</Curve>
+												</RTPC>
+											</RTPCList>
 										</Property>
 									</PropertyList>
 									<ChildrenList>
@@ -411,6 +611,32 @@
 									</ActiveSourceList>
 								</Sound>
 								<Sound Name="Punch3" ID="{BD55BBA2-D761-4049-8E0A-E1957A77A5EF}" ShortID="998805389" Type="SoundFX">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<RTPCList>
+												<RTPC Name="" ID="{462AD1DA-9653-40FE-B82C-9EF6DA797DDC}" ShortID="289262518">
+													<GameParameterRef Name="Effect_Volume" ID="{6FC82F6C-4F51-4E1C-B631-DA0076B6455D}" />
+													<Curve Name="" ID="{EFB92CC8-3C08-40B5-89BC-A79F808CE8BC}">
+														<PropertyList>
+															<Property Name="Flags" Type="int32" Value="3" />
+														</PropertyList>
+														<PointList>
+															<Point>
+																<XPos>0</XPos>
+																<YPos>-96.3</YPos>
+																<Flags>5</Flags>
+															</Point>
+															<Point>
+																<XPos>100</XPos>
+																<YPos>0</YPos>
+																<Flags>37</Flags>
+															</Point>
+														</PointList>
+													</Curve>
+												</RTPC>
+											</RTPCList>
+										</Property>
+									</PropertyList>
 									<ChildrenList>
 										<AudioFileSource Name="Punch3" ID="{F06C51BC-8E74-45CB-B6AD-2E294AC6D13C}" ShortID="917177926">
 											<PropertyList>
@@ -433,6 +659,32 @@
 									</ActiveSourceList>
 								</Sound>
 								<Sound Name="Slap1" ID="{D0F4053C-3EFC-4BCA-8C7F-868364E09D66}" ShortID="93531494" Type="SoundFX">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<RTPCList>
+												<RTPC Name="" ID="{EE7F5F9C-A44A-4F64-A6A2-2C926D296049}" ShortID="62236944">
+													<GameParameterRef Name="Effect_Volume" ID="{6FC82F6C-4F51-4E1C-B631-DA0076B6455D}" />
+													<Curve Name="" ID="{013B829A-28EF-42E2-822A-254D974841D1}">
+														<PropertyList>
+															<Property Name="Flags" Type="int32" Value="3" />
+														</PropertyList>
+														<PointList>
+															<Point>
+																<XPos>0</XPos>
+																<YPos>-96.3</YPos>
+																<Flags>5</Flags>
+															</Point>
+															<Point>
+																<XPos>100</XPos>
+																<YPos>0</YPos>
+																<Flags>37</Flags>
+															</Point>
+														</PointList>
+													</Curve>
+												</RTPC>
+											</RTPCList>
+										</Property>
+									</PropertyList>
 									<ChildrenList>
 										<AudioFileSource Name="Slap1" ID="{DA508070-7956-4E60-9073-91A6B8BE0CB7}" ShortID="22097105">
 											<PropertyList>
@@ -465,6 +717,28 @@
 											<ValueList>
 												<Value>-10</Value>
 											</ValueList>
+											<RTPCList>
+												<RTPC Name="" ID="{A36FDC9D-9685-4EB6-8A96-28B7D7754CCE}" ShortID="142111127">
+													<GameParameterRef Name="Effect_Volume" ID="{6FC82F6C-4F51-4E1C-B631-DA0076B6455D}" />
+													<Curve Name="" ID="{4917E705-A62A-486E-B968-BAAF476E6681}">
+														<PropertyList>
+															<Property Name="Flags" Type="int32" Value="3" />
+														</PropertyList>
+														<PointList>
+															<Point>
+																<XPos>0</XPos>
+																<YPos>-96.3</YPos>
+																<Flags>5</Flags>
+															</Point>
+															<Point>
+																<XPos>100</XPos>
+																<YPos>0</YPos>
+																<Flags>37</Flags>
+															</Point>
+														</PointList>
+													</Curve>
+												</RTPC>
+											</RTPCList>
 										</Property>
 									</PropertyList>
 									<ChildrenList>
@@ -599,6 +873,28 @@
 											<ValueList>
 												<Value>-7</Value>
 											</ValueList>
+											<RTPCList>
+												<RTPC Name="" ID="{F543425E-7BC3-4790-8B65-9B7E1188934B}" ShortID="872993225">
+													<GameParameterRef Name="Effect_Volume" ID="{6FC82F6C-4F51-4E1C-B631-DA0076B6455D}" />
+													<Curve Name="" ID="{FA81A74E-9F15-48AE-BFE2-49AC1DA2DB5E}">
+														<PropertyList>
+															<Property Name="Flags" Type="int32" Value="3" />
+														</PropertyList>
+														<PointList>
+															<Point>
+																<XPos>0</XPos>
+																<YPos>-96.3</YPos>
+																<Flags>5</Flags>
+															</Point>
+															<Point>
+																<XPos>100</XPos>
+																<YPos>0</YPos>
+																<Flags>37</Flags>
+															</Point>
+														</PointList>
+													</Curve>
+												</RTPC>
+											</RTPCList>
 										</Property>
 									</PropertyList>
 									<ChildrenList>
@@ -768,6 +1064,28 @@
 											<ValueList>
 												<Value>-7</Value>
 											</ValueList>
+											<RTPCList>
+												<RTPC Name="" ID="{1482D2B2-6D88-4F9D-8554-35BBF3571D83}" ShortID="173091980">
+													<GameParameterRef Name="Effect_Volume" ID="{6FC82F6C-4F51-4E1C-B631-DA0076B6455D}" />
+													<Curve Name="" ID="{6CD193E9-CA2E-4CFE-AF4F-E89728859E99}">
+														<PropertyList>
+															<Property Name="Flags" Type="int32" Value="3" />
+														</PropertyList>
+														<PointList>
+															<Point>
+																<XPos>0</XPos>
+																<YPos>-96.3</YPos>
+																<Flags>5</Flags>
+															</Point>
+															<Point>
+																<XPos>100</XPos>
+																<YPos>0</YPos>
+																<Flags>37</Flags>
+															</Point>
+														</PointList>
+													</Curve>
+												</RTPC>
+											</RTPCList>
 										</Property>
 									</PropertyList>
 									<ChildrenList>
@@ -936,6 +1254,28 @@
 											<ValueList>
 												<Value>-7</Value>
 											</ValueList>
+											<RTPCList>
+												<RTPC Name="" ID="{523A2513-8522-403B-B3E1-ECD01248028E}" ShortID="36064231">
+													<GameParameterRef Name="Effect_Volume" ID="{6FC82F6C-4F51-4E1C-B631-DA0076B6455D}" />
+													<Curve Name="" ID="{3A7C6564-6E9F-490F-8F3F-0638594FF174}">
+														<PropertyList>
+															<Property Name="Flags" Type="int32" Value="3" />
+														</PropertyList>
+														<PointList>
+															<Point>
+																<XPos>0</XPos>
+																<YPos>-96.3</YPos>
+																<Flags>5</Flags>
+															</Point>
+															<Point>
+																<XPos>100</XPos>
+																<YPos>0</YPos>
+																<Flags>37</Flags>
+															</Point>
+														</PointList>
+													</Curve>
+												</RTPC>
+											</RTPCList>
 										</Property>
 									</PropertyList>
 									<ChildrenList>
@@ -1007,6 +1347,32 @@
 						<Folder Name="Player" ID="{8A54CA5F-D0DD-40B9-BA6B-9C23314D7CB2}" ShortID="695011462">
 							<ChildrenList>
 								<Sound Name="EFX_Sword" ID="{4C045EE6-EB30-4187-A24F-2DE756C95043}" ShortID="762298784" Type="SoundFX">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<RTPCList>
+												<RTPC Name="" ID="{C16D1DB0-67BC-4D90-BDA4-7CD94ED0E6CB}" ShortID="853016287">
+													<GameParameterRef Name="Effect_Volume" ID="{6FC82F6C-4F51-4E1C-B631-DA0076B6455D}" />
+													<Curve Name="" ID="{E6B9CBAE-B50E-42BF-8B7C-9CF6BD7A3576}">
+														<PropertyList>
+															<Property Name="Flags" Type="int32" Value="3" />
+														</PropertyList>
+														<PointList>
+															<Point>
+																<XPos>0</XPos>
+																<YPos>-96.3</YPos>
+																<Flags>5</Flags>
+															</Point>
+															<Point>
+																<XPos>100</XPos>
+																<YPos>0</YPos>
+																<Flags>37</Flags>
+															</Point>
+														</PointList>
+													</Curve>
+												</RTPC>
+											</RTPCList>
+										</Property>
+									</PropertyList>
 									<ChildrenList>
 										<AudioFileSource Name="sword" ID="{FB496644-9E32-46B1-8BB0-479700949252}" ShortID="626104674">
 											<Language>SFX</Language>
