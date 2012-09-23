@@ -114,11 +114,26 @@ public:
 	inline void					SetMinSpeed				( float _MinSpeed )									{ m_MinSpeed = _MinSpeed; }
 	inline const float			GetMinSpeed				( void ) const										{ return m_MinSpeed; }
 
+	inline void					SetMinAcceleration		( float _MinAcceleration )							{ m_MinAcceleration = _MinAcceleration; }
+	inline const float			GetMinAcceleration		( void ) const										{ return m_MinAcceleration; }
+
 	inline void					SetMaxAcceleration		( float _MaxAcceleration )							{ m_MaxAcceleration  = _MaxAcceleration ; }
 	inline const float			GetMaxAcceleration		( void ) const										{ return m_MaxAcceleration ; }
 
+	inline void					SetAccelerationAttack1	( float _Acceleration )								{ m_AccelerationAttack1 = _Acceleration; }
+	inline const float			GetAccelerationAttack1	( void ) const										{ return m_AccelerationAttack1; }
+
+	inline void					SetAccelerationAttack2	( float _Acceleration )								{ m_AccelerationAttack2 = _Acceleration; }
+	inline const float			GetAccelerationAttack2	( void ) const										{ return m_AccelerationAttack2; }
+
+	inline void					SetAccelerationAttack3	( float _Acceleration )								{ m_AccelerationAttack3 = _Acceleration; }
+	inline const float			GetAccelerationAttack3	( void ) const										{ return m_AccelerationAttack3; }
+
 	inline void					SetMaxForce				( float _MaxForce )									{ m_MaxForce = _MaxForce; }
 	inline const float			GetMaxForce				( void ) const										{ return m_MaxForce; }
+
+	inline void					SetAttackAngle			( float _Angle )									{ m_AttackAngle = _Angle; }
+	inline const float			GetAttackAngle			( void ) const										{ return m_AttackAngle; }
 
 	//---- Members -------------------------------------------------------
 private:
@@ -139,9 +154,14 @@ private:
 	float				m_Speed;					// Velocidad actual del personaje
 	float				m_MinSpeed;					// Velocidad en modo caminar
 	float				m_MaxSpeed;					// Velocidad máxima del personaje
+	float				m_MinAcceleration;			// Aceleración mínima del personaje.		--> Aceleración = Fuerza / Masa
 	float				m_MaxAcceleration;			// Aceleración máxima del personaje.		--> Aceleración = Fuerza / Masa
+	float				m_AccelerationAttack1;		// Aceleración para el ataque 1.
+	float				m_AccelerationAttack2;		// Aceleración para el ataque 2.
+	float				m_AccelerationAttack3;		// Aceleración para el ataque 3.
 	float				m_MaxRotationSpeed;			// Rotación máxima de giro del personaje
 	float				m_MaxForce;					// Fuerza máxima aplicable al personaje.	--> Fuerza = Masa * Aceleración 
+	float				m_AttackAngle;				// Ángulo para la detección de enemigos en grados.
 
 	// Propiedades de distancias 
 	float				m_DetectionDistance;		// distancia de detección de otros caràcteres

@@ -177,9 +177,29 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 		{
 			l_Properties->SetMaxSpeed( l_XMLPropertiesNode(i).GetFloatKeyword("max_speed", VELOCIDAD_MAXIMA) );
 		}
+		else if( l_PropertyField == "min_acceleration" )
+		{
+			l_Properties->SetMinAcceleration( l_XMLPropertiesNode(i).GetFloatKeyword("min_acceleration", ACELERACION_MINIMA) );
+		}
 		else if( l_PropertyField == "max_acceleration" )
 		{
 			l_Properties->SetMaxAcceleration( l_XMLPropertiesNode(i).GetFloatKeyword("max_acceleration", ACELERACION_MAXIMA) );
+		}
+		else if( l_PropertyField == "acceleration_attack1" )
+		{
+			l_Properties->SetAccelerationAttack1( l_XMLPropertiesNode(i).GetFloatKeyword("acceleration_attack1", ACELERACION_MAXIMA) );
+		}
+		else if( l_PropertyField == "acceleration_attack2" )
+		{
+			l_Properties->SetAccelerationAttack2( l_XMLPropertiesNode(i).GetFloatKeyword("acceleration_attack2", ACELERACION_MAXIMA) );
+		}
+		else if( l_PropertyField == "acceleration_attack3" )
+		{
+			l_Properties->SetAccelerationAttack3( l_XMLPropertiesNode(i).GetFloatKeyword("acceleration_attack3", ACELERACION_MAXIMA) );
+		}
+		else if( l_PropertyField == "attack_angle" )
+		{
+			l_Properties->SetAttackAngle( l_XMLPropertiesNode(i).GetFloatKeyword("attack_angle", 0.f) );
 		}
 		else if( l_PropertyField == "max_force" )
 		{

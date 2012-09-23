@@ -30,9 +30,11 @@
 CPlayerAttackState::CPlayerAttackState( CCharacter * _pCharacter, const std::string &_Name )
 	: CState(_pCharacter, _Name)
 	, m_bFirstUpdate(true)
-	, m_fMaxVelocityMovement(10.f)
-	, m_fCurrentVelocityMovement(10.f)
-	, m_fAccelerationMovement(-40.f)
+	, m_fMaxVelocityMovement( _pCharacter->GetProperties()->GetMaxSpeed() )
+	, m_fCurrentVelocityMovement( _pCharacter->GetProperties()->GetMaxSpeed() )
+	, m_fAccelerationMovement( _pCharacter->GetProperties()->GetAccelerationAttack1() )
+	, m_fAttackDistance( _pCharacter->GetProperties()->GetAttackDistance() )
+	, m_fAttackAngle( mathUtils::Deg2Rad( _pCharacter->GetProperties()->GetAttackAngle() ) )
 	, m_fAttackYaw(0.f)
 {
 	m_pCallback			= static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(), "attack1");
@@ -77,12 +79,12 @@ void CPlayerAttackState::OnEnter( CCharacter* _pCharacter )
 		if( l_bMovement )
 		{
 			//Calcula un ángulo de correción según la dirección marcada
-			l_pEnemy = l_pCharManager->GetPlayerAngleCorrection(10.f, FLOAT_PI_VALUE/4.f, l_fAngle);
+			l_pEnemy = l_pCharManager->GetPlayerAngleCorrection(m_fAttackDistance, m_fAttackAngle, l_fAngle);
 		}
 		else
 		{
 			//Calcula el ángulo de correción para enfocar hacia un enemigo cercano
-			l_pEnemy = l_pCharManager->IsPlayerNearEnemy(10.f);
+			l_pEnemy = l_pCharManager->IsPlayerNearEnemy(m_fAttackDistance);
 		}
 
 		//Si se ataca a un enemigo, calculamos el nuevo ángulo con la asistencia

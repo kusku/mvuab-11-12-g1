@@ -38,6 +38,8 @@ private:
 	float						m_fMaxVelocityMovement;
 	float						m_fCurrentVelocityMovement;
 	float						m_fAccelerationMovement;
+	float						m_fAttackDistance;
+	float						m_fAttackAngle;
 	float						m_fAttackYaw;
 };
 
