@@ -23,21 +23,21 @@ public:
 	CGUIProcess( HWND hWnd );
 	~CGUIProcess();
 	
-	bool			Init ();
-	void			Update ( float elapsedTime );
-	void			Render ( CRenderManager &RM );
+	bool				Init ();
+	void				Update ( float elapsedTime );
+	void				Render ( CRenderManager &RM );
 
 	//--Métodos para exponer en LUA-------
-	void			ChangeProcess		();
-	void			LoadGameData		();
-	void			ExitGame			();
-	void			SetCameraToCore		();
-	void			SetCameraToAudio	();
+	void				ChangeProcess		();
+	void				LoadGameData		();
+	void				ExitGame			();
+	void				SetCameraToCore		();
+	void				SetCameraToAudio	();
 
-	static void		RegisterMethods ();
+	static void			RegisterMethods		();
 
 private:
-	void			Release			();
+	void				Release			();
 
 private:
 	CStaticCamera		m_StaticCamera;

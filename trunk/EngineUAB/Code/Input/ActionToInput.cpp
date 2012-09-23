@@ -12,6 +12,7 @@
 CActionToInput::CActionToInput()
 	: m_bIsOk(false)
 	, m_pInputManager(NULL)
+	, m_bMouseInverted(false)
 {
 }
 
@@ -382,6 +383,11 @@ bool CActionToInput::DoAction(const std::string &action, float &delta_)
 			}
 		}
 
+		if( m_bMouseInverted )
+		{
+			delta_ = -delta_;
+		}
+
 		//Si ha pasado todo el análisis de teclas, entonces es que se ha hecho la acción
 		return true; 
 	}
@@ -429,6 +435,11 @@ float CActionToInput::DoActionMouse(const std::string &action)
 				}
 			}
 		}
+	}
+
+	if( m_bMouseInverted )
+	{
+		delta = -delta;
 	}
 
 	return delta;

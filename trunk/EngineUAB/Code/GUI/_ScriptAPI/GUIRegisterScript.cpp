@@ -24,6 +24,8 @@ namespace ScriptAPI
 					.def("active_windows_with_effect", &CGUIManager::ActiveWindowsWithEffect)	// Activa la ventana pasada con effecto
 					.def("get_state_slider", &CGUIManager::GetStateSlider)						// Obtiene el valor del Slider indicado
 					.def("set_state_slider", &CGUIManager::SetStateSlider)						// Coloca el valor del Slider indicado
+					.def("get_state_check_button", &CGUIManager::GetStateCheckButton)			// Obtiene el valor del Check Button indicado
+					.def("set_state_check_button", &CGUIManager::SetStateCheckButton)			// Coloca el valor del Check Button indicado
 					.def("push_windows", &CGUIManager::PushWindows)								// Almacena la ventana padre i activa la pasada
 					.def("pop_windows", &CGUIManager::PopWindows)								// Retorna a la ventana anterior padre
 					.def("play_image", &CGUIManager::PlayImage)									// Executa animacions d'imatges

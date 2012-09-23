@@ -1,6 +1,7 @@
 #include <Windows.h>
 #include "GUIProcess.h"
 #include "GameProcess.h"
+#include "Options\Options.h"
 #include "Exceptions\Exception.h"
 #include "Engine.h"
 #include "Logger\Logger.h"
@@ -22,6 +23,7 @@
 CEngine			*g_pEngine = NULL;
 CGUIProcess		*g_pGUIProcess = NULL;
 CGameProcess	*g_pGameProcess = NULL;
+COptions		*g_pOptions = NULL;
 
 HWND			g_hWnd = NULL;
 
@@ -122,6 +124,8 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 		g_hWnd = CreateWindow(	APPLICATION_NAME, APPLICATION_NAME, WS_OVERLAPPEDWINDOW, 
 			position.x, position.y, resolution.x, resolution.y, NULL, NULL, wc.hInstance, NULL );
 
+		g_pOptions = new COptions();
+
 		if( INIT_GUI )
 		{
 			g_pGUIProcess = new CGUIProcess(g_hWnd);
@@ -143,6 +147,10 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 
 			CORE->SetGameMode(true);
 		}
+
+		g_pOptions->Load("./Data/XML/options.xml");
+		SCRIPT->RunCode("init_game_utils()");
+		SCRIPT->RunCode("set_options_values()");
 
 		ShowWindow( g_hWnd, SW_SHOWDEFAULT );
 		UpdateWindow( g_hWnd );
@@ -174,6 +182,7 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 	//Elimina los datos
 	CHECKED_DELETE(g_pGUIProcess);
 	CHECKED_DELETE(g_pGameProcess);
+	CHECKED_DELETE(g_pOptions);
 	CHECKED_DELETE(g_pEngine);
 
 	return 0;
