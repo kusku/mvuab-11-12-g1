@@ -952,7 +952,6 @@ float CGUIManager::GetStateSlider( const std::string& inSliderName )
 	if( it!= m_ElementsMap.end() )
 	{
 		CGUISlider * slider= (CGUISlider*) (it->second);
-		float kk=slider->GetValue();
 		return slider->GetValue();
 
 	}

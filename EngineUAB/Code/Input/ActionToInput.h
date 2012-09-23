@@ -46,6 +46,9 @@ public:
 	//-----Get Methods-------
 	void			GetActionInfo	( const std::string &action, std::string &keys_ );
 	bool			GetGamepadState ( void ) const;
+	bool			IsMouseInverted	() const	{ return m_bMouseInverted; }
+
+	void			SetMouseInverted ( bool value )			{ m_bMouseInverted = value; }
 
 	inline CInputManager*	GetInputManager( void ) const { return m_pInputManager; }
 	
@@ -58,6 +61,7 @@ private:
 
 private:
 	bool	m_bIsOk;
+	bool	m_bMouseInverted;
 
 	CInputManager	*m_pInputManager;
 

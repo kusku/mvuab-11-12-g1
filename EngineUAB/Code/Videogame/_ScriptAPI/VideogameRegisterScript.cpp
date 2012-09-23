@@ -28,6 +28,8 @@
 #include "_ScriptAPI\Wrappers\CharacterWrapper.h"
 #include "_ScriptAPI\Wrappers\StateWrapper.h"
 
+#include "Options\Options.h"
+
 #if defined (_DEBUG)
 #include "Memory/MemLeaks.h"
 #endif
@@ -186,6 +188,29 @@ namespace ScriptAPI
 					.def("is_animation_finished", &CAnimationCallback::IsAnimationFinished)
 					.property("animation_name", &CAnimationCallback::GetAnimationName)
 					.property("animation_instance", &CAnimationCallback::GetAnimatedModel)
+			];
+
+		module(_pLua) [
+			class_<CSingleton<COptions>>("CSingleton_COptions")
+				.scope 
+				[
+					def("get_singleton", &CSingleton<COptions>::GetSingletonPtr)
+				]
+		];
+
+		module(_pLua)
+			[
+				class_<COptions>("COptions")
+				.def("save", &COptions::Save)
+				.def("reload", &COptions::Reload)
+				.property("default_generic_volume", &COptions::GetDefaultGenericVolume)
+				.property("default_music_volume", &COptions::GetDefaultMusicVolume)
+				.property("default_effects_volume", &COptions::GetDefaultEffectsVolume)
+				.property("default_mouse_inverted", &COptions::GetDefaultInvertedMouse)
+				.property("custom_generic_volume", &COptions::GetCustomGenericVolume, &COptions::SetCustomGenericVolume)
+				.property("custom_music_volume", &COptions::GetCustomMusicVolume, &COptions::SetCustomMusicVolume)
+				.property("custom_effects_volume", &COptions::GetCustomEffectsVolume, &COptions::SetCustomEffectsVolume)
+				.property("custom_mouse_inverted", &COptions::GetCustomInvertedMouse, &COptions::SetCustomMouseInverted)
 			];
 	}
 

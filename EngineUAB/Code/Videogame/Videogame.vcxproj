@@ -188,6 +188,7 @@
     <ClCompile Include="GameProcess.cpp" />
     <ClCompile Include="GUIProcess.cpp" />
     <ClCompile Include="Helpers\MathHelper.cpp" />
+    <ClCompile Include="Options\Options.cpp" />
     <ClCompile Include="videogame.cpp" />
     <ClCompile Include="Weapons\Types\MeleeWeapon.cpp" />
     <ClCompile Include="Weapons\Weapon.cpp" />
@@ -283,6 +284,7 @@
     <ClInclude Include="Characters\Player\Player.h" />
     <ClInclude Include="Characters\StatesDefs.h" />
     <ClInclude Include="Helpers\MathHelper.h" />
+    <ClInclude Include="Options\Options.h" />
     <ClInclude Include="Weapons\Types\MeleeWeapon.h" />
     <ClInclude Include="Weapons\Weapon.h" />
     <ClInclude Include="Weapons\WeaponDefs.h" />

@@ -16,6 +16,7 @@ namespace ScriptAPI
 			class_<CActionToInput>("CActionToInput")
 				.def("do_action", (bool(CActionToInput::*)(const std::string&))&CActionToInput::DoAction)
 				.def("do_action_mouse", &CActionToInput::DoActionMouse)
+				.property("mouse_inverted", &CActionToInput::IsMouseInverted, &CActionToInput::SetMouseInverted)
 		];
 	}
 

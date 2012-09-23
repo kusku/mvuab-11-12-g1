@@ -103,6 +103,9 @@
     <Filter Include="Characters\Enemies\Rabbit\AnimationStates">
       <UniqueIdentifier>{35b48af0-c9bf-43c0-802f-d206e153620d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Options">
+      <UniqueIdentifier>{386eee43-7359-4180-9d39-492754fee410}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="videogame.cpp" />
@@ -407,6 +410,9 @@
     </ClCompile>
     <ClCompile Include="Characters\Enemies\Rabbit\AnimationStates\RabbitWalkAnimationState.cpp">
       <Filter>Characters\Enemies\Rabbit\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Options\Options.cpp">
+      <Filter>Options</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -724,6 +730,9 @@
     </ClInclude>
     <ClInclude Include="Characters\Enemies\Rabbit\AnimationStates\RabbitWalkAnimationState.h">
       <Filter>Characters\Enemies\Rabbit\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Options\Options.h">
+      <Filter>Options</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

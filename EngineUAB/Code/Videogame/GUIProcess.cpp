@@ -7,6 +7,7 @@
 #include "Cameras\ThPSCamera.h"
 #include "Cameras\Camera.h"
 #include "Math\Vector2.h"
+#include "Options\Options.h"
 #include "Core.h"
 #include "Base.h"
 #include "VideogameDefs.h"
