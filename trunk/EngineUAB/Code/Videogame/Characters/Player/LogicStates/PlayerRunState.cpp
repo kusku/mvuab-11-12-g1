@@ -177,6 +177,7 @@ void CPlayerRunState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 
 		//Mueve el controller físico
 		_pCharacter->GetController()->Move( l_Dir, _fElapsedTime );
+		_pCharacter->GetSteeringEntity()->SetVelocity(l_Dir);
 
 		if( l_bMovePlayer )
 		{
