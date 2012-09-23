@@ -7,20 +7,15 @@
 		<strong>50</strong>
 		<respawn_position>0 100 0</respawn_position>
 		<mass>50</mass>
-		<velocity>0 0 0</velocity>
-		<max_rotation_speed>360</max_rotation_speed>
-		<speed>2</speed>
-		<min_speed>2</min_speed>
+		<max_rotation_speed>10</max_rotation_speed>
 		<max_speed>10</max_speed>
-		<max_acceleration>2</max_acceleration>
-		<max_force>100</max_force>
-		<detection_distance>500</detection_distance>
-		<chase_distance>200</chase_distance>
-		<follow_path_distance>3000</follow_path_distance>
-		<impact_distance>1.5</impact_distance>
+		<min_acceleration>30</min_acceleration>
+		<max_acceleration>65</max_acceleration>
+		<acceleration_attack1>-40</acceleration_attack1>
+		<acceleration_attack2>-35</acceleration_attack2>
+		<acceleration_attack3>-40</acceleration_attack3>
 		<attack_distance>10</attack_distance>
-		<aproximation_distance>10</aproximation_distance>
-		<prepared_to_attack_distance>2.5</prepared_to_attack_distance>
+		<attack_angle>45</attack_angle>
 		<height_controller>1.0</height_controller>
 		<width_controller>0.5</width_controller>
 		<slope>45.0</slope>
