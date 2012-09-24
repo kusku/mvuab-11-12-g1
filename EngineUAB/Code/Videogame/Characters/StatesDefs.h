@@ -49,7 +49,8 @@
 
 struct sDireccion
 {
-	Vect3f	Direccion;
+	Vect3f	Direccion;		// o paso la dirección
+	float	Speed;			// o paso la velocidad 
 	float	ElapsedTime;
 };
 

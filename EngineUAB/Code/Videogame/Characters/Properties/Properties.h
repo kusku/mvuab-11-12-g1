@@ -11,6 +11,15 @@
 
 class CProperties : public CObject3D, public CActive
 {
+
+struct sTiredTimes
+{
+	float min_time;
+	float max_time;
+	float min_time_after_attack;
+	float max_time_after_attack;
+};
+
 public:
 	//--- Init and End protocols ----------------------------------------
 						CProperties				( const std::string &_Name, int _Life = 0, int _Strong = 0, float _Speed = 0.f , 
@@ -147,6 +156,26 @@ public:
 	inline void					SetAttackAngle			( float _Angle )									{ m_AttackAngle = _Angle; }
 	inline const float			GetAttackAngle			( void ) const										{ return m_AttackAngle; }
 
+	inline void					SetStillAttackSpeed		( float _StillAttackSpeed )							{ m_StillAttackSpeed = _StillAttackSpeed; }
+	inline const float			GetStillAttackSpeed		( void ) const										{ return m_StillAttackSpeed; }
+
+	inline void					SetRunAttackSpeed		( float _RunAttackSpeed )							{ m_RunAttackSpeed = _RunAttackSpeed; }
+	inline const float			GetRunAttackSpeed		( void ) const										{ return m_RunAttackSpeed; }
+
+	inline void					SetMinTiredTime				( float _MinTime )								{ m_TiredTimes.min_time = _MinTime; }
+	inline const float			GetMinTiredTime				( void ) const									{ return m_TiredTimes.min_time; }
+	inline void					SetMaxTiredTime				( float _MaxTime )								{ m_TiredTimes.max_time = _MaxTime; }
+	inline const float			GetMaxTiredTime				( void ) const									{ return m_TiredTimes.max_time; }
+	inline void					SetMinTiredTimeAfterAttack 	( float _MinTime )								{ m_TiredTimes.min_time_after_attack = _MinTime; }
+	inline const float			GetMinTiredTimeAfterAttack	( void ) const									{ return m_TiredTimes.min_time_after_attack; }
+	inline void					SetMaxTiredTimeAfterAttack	( float _MaxTime )								{ m_TiredTimes.max_time_after_attack = _MaxTime; }
+	inline const float			GetMaxTiredTimeAfterAttack	( void ) const									{ return m_TiredTimes.max_time_after_attack; }
+
+	inline void					SetHitRecoilDistance	( float _MaxRecoilDistance )						{ m_HitRecoilDistance = _MaxRecoilDistance; }
+	inline const float			GetHitRecoilDistance	( void ) const										{ return m_HitRecoilDistance; }
+	inline void					SetHitRecoilSpeed		( float _RecoilSpeed )								{ m_HitRecoilSpeed = _RecoilSpeed; }
+	inline const float			GetHitRecoilSpeed		( void ) const										{ return m_HitRecoilSpeed; }
+
 	//---- Members -------------------------------------------------------
 private:
 	std::string			m_Core;
@@ -178,6 +207,9 @@ private:
 	float				m_MaxRotationSpeed;			// Rotación máxima de giro del personaje
 	float				m_MaxForce;					// Fuerza máxima aplicable al personaje.	--> Fuerza = Masa * Aceleración 
 	float				m_AttackAngle;				// Ángulo para la detección de enemigos en grados.
+	float				m_StillAttackSpeed;			// Velocidad de ataque del still attack
+	float				m_RunAttackSpeed;			// Velocidad de ataque del run attack
+	float				m_HitRecoilSpeed;			// Velocidad de retroceso en el Hit
 
 	// Propiedades de distancias 
 	float				m_DetectionDistance;		// distancia de detección de otros caràcteres
@@ -189,6 +221,7 @@ private:
 	float				m_PreparedAttackDistance;	// distancia en que evalua y se prepara para aproximarse y poder atacar
 	float				m_PanicDistance;			// distancia que recorre en estado de pànico. Este para el estado de evade o flee
 	float				m_TiredDistance;			// distancia de alejamiento del enemigo respecto al player cuando está cansado. como flee pero de cara al player
+	float				m_HitRecoilDistance;		// distancia de alejamiento al recibir un hit
 
 	// Propiedades del controller y animacion
 	float				m_HeightController;			// altura del controller
@@ -197,6 +230,8 @@ private:
 	float				m_SkinWidth;				// parámetro que da el ancho de una piel que envuelve el controler con la que hace colision. Recomendado 0.1f
 	float				m_StepOffset;				// cantidad para subir un escalon
 	float				m_AnimationOffset;			// Offset para restar la coordenada Y de la animación 
+
+	sTiredTimes			m_TiredTimes;				// Tiempos de descanso o cansado de cada enemigo parametrizados
 
 };
 
