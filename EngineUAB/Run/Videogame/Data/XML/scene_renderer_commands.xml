@@ -22,7 +22,7 @@
   </set_render_target>
 
   <!--Set Depth Stencil with MS-->
-  <set_depth_stencil name="MSDS" format_type="D24S8" multi_samples="8" />
+  <set_depth_stencil name="MSDS" format_type="D24S8" multi_samples="0" />
   
   <clear_scene color="true" depth="true" stencil="true" />
   
@@ -76,12 +76,14 @@
   <enable_z_test />
   <lens_flare light_index="0" glow_color="255 230 90" />
 
+  <!--Game Info-->
+  <render_game_info active="true" />
+  
   <!--Debug-->
   <render_debug_waypoints waypoints="false" triggers="false" rails="false" />
-  <render_debug_process active="false" />
   <render_debug_physics active="false" draw_fronts="false" draw_fustrum="false" draw_names="false" draw_rays="false" />
   <render_debug_lights active="false" />
-  <render_debug_info grid="false" axis="false" render_console="false" render_logger="false" render_modifiers="false" render_debug_options="false" render_debug_render="true" />
+  <render_debug_info grid="false" axis="false" render_console="false" render_logger="true" render_modifiers="false" render_debug_options="false" render_debug_render="true" />
   
   <!--Unset DS MS-->
   <unset_depth_stencil depth_stencil="MSDS"/>

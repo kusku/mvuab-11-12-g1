@@ -57,6 +57,7 @@ public:
 	void	DrawQuad2D		( const Vect2i& pos, uint32 w, uint32 h, ETypeAlignment alignment, CColor color = colBLUE);
 	void	DrawQuad2D		( const Vect2i& pos, uint32 w, uint32 h, ETypeAlignment alignment, CTexture* texture, ETypeFlip flip = NONE_FLIP);
 	void	DrawTexturedQuad2D( const Vect2i& pos, uint32 w, uint32 h, ETypeAlignment alignment, CTexture *Texture, CColor color = colWHITE );
+	void	DrawTexturedQuad2D(const Vect2i& pos, const Vect2f& startTexCoords, const Vect2f& endTexCoords, uint32 w, uint32 h, ETypeAlignment alignment, CTexture *Texture, CColor color = colWHITE );
 	void	DrawRectangle2D ( const Vect2i& pos, uint32 w, uint32 h, CColor& backGroundColor, uint32 edge_w, uint32 edge_h, CColor& edgeColor );
 	void	DrawColoredQuad2DTexturedInPixelsByEffectTechnique( CEffectTechnique* EffectTechnique,const CColor &color, Vect2f vec1 = Vect2f(-1.0f, -1.0f), Vect2f vec2 = Vect2f(1.0f, 1.0f), 
 																float U0 = 0.0f, float V0 = 0.0f, float U1 = 1.0f, float V1 = 1.0f);

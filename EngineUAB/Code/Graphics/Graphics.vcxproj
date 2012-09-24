@@ -46,6 +46,7 @@
     <ClInclude Include="Commands\RenderDebugShadowMapsSceneRendererCommand.h" />
     <ClInclude Include="Commands\RenderDebugSoundsSceneRendererCommand.h" />
     <ClInclude Include="Commands\RenderDebugWayPointSceneRendererCommand.h" />
+    <ClInclude Include="Commands\RenderGameInfoRendererCommand.h" />
     <ClInclude Include="Commands\RenderGUISceneRendererCommand.h" />
     <ClInclude Include="Commands\RenderParticlesSceneRendererCommand.h" />
     <ClInclude Include="Commands\RenderSceneSceneRendererCommand.h" />
@@ -149,6 +150,7 @@
     <ClCompile Include="Commands\RenderDebugShadowMapsSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\RenderDebugSoundsSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\RenderDebugWayPointSceneRendererCommand.cpp" />
+    <ClCompile Include="Commands\RenderGameInfoRendererCommand.cpp" />
     <ClCompile Include="Commands\RenderGUISceneRendererCommand.cpp" />
     <ClCompile Include="Commands\RenderParticlesSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\RenderSceneSceneRendererCommand.cpp" />

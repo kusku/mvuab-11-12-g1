@@ -23,6 +23,7 @@ class CThPSCharacterCamera;
 class CThPSCamera;
 class CWeaponManager;
 class CAnimationCallbackManager;
+class CHud;
 
 class CGameProcess : public CEngineProcess
 {
@@ -75,6 +76,7 @@ private:
 	CThPSCamera					*m_pThPSFreeCamera;
 	CCamera						*m_pFreeCamera;
 
+	CHud						*m_pHUD;
 	CCharactersManager			*m_pCharactersManager;
 	CWeaponManager				*m_pWeaponManager;
 	CAnimationCallbackManager	*m_pAnimationCallbackManager;

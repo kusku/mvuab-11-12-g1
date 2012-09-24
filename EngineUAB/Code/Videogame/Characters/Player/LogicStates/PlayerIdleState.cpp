@@ -184,10 +184,11 @@ bool CPlayerIdleState::OnMessage( CCharacter* _pCharacter, const STelegram& _Mes
 		float l_fReceivedPain	= l_Randomize.getRandFloat( (float)(l_pEnemy->GetProperties()->GetStrong() / 2), (float)l_pEnemy->GetProperties()->GetStrong());
 		float l_fPainToHit		= l_pEnemy->GetProperties()->GetStrong() * 0.95f;
 
-		if( l_fReceivedPain >= l_fPainToHit )
-		{
-			static_cast<CPlayer*>(_pCharacter)->HitToPlayer();
-		}
+		/*if( l_fReceivedPain >= l_fPainToHit )
+		{*/
+		_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("hit") );
+		_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animhit") );
+		//}
 
 		return true;
 	}

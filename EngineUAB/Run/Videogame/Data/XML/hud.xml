@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<HUD>
+	<Background position="15 31" size="195 27" texture="./Data/General/Textures/HUD/background.png" active="true" />
+	<Bar position="15 31" size="195 27" texture="./Data/General/Textures/HUD/bar.png" active="true" />
+	<Mask position="10 30" size="205 35" texture="./Data/General/Textures/HUD/mask.png" active="true" />
+</HUD>

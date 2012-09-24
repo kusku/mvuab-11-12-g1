@@ -74,6 +74,8 @@ public:
 	inline void			SetTargetEnemy						( CCharacter *enemy )		{ m_pTargetEnemy = enemy; }
 	inline void			SetPreviewTargetEnemy				( CCharacter *enemy )		{ m_pPreviewTargetEnemy = enemy; }
 
+	inline int			GetPlayerLife						() const					{ return m_pPlayer->GetProperties()->GetLife(); }
+
 	// ------------- Load Methods --------------------------------
 private:
 	bool				LoadXML								();									// Carga el XML de propiedades y estados

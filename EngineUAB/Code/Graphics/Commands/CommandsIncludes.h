@@ -37,5 +37,6 @@
 #include "Commands\UnsetDepthStencilSceneRendererCommand.h"
 #include "Commands\BeginMotionBlurSceneRendererCommand.h"
 #include "Commands\LensFlareSceneRendererCommand.h"
+#include "Commands\RenderGameInfoRendererCommand.h"
 
 #endif __CLASS_COMMANDS_INCLUDES_H__
