@@ -53,7 +53,7 @@ private:
 	CAnimationCallback	*	m_pAnimationCallback;
 	CActionStateCallback	m_ActionStateCallback;
 
-	float					m_OldMaxSpeed;				// Permite almacenar la vieja velocidad para posteriormente recuperarla
+	//float					m_OldMaxSpeed;				// Permite almacenar la vieja velocidad para posteriormente recuperarla
 	float					m_OldMass;					// Permite almacenar la vieja masa para posteriormente recuperarla
 	float					m_CurrentDistance;			// Permite alamacenar la distancia para saber si luego nos pasamos
 	float					m_InitialDistance;			// Permite alamacenar la distancia inicial para saber si luego nos pasamos

@@ -20,7 +20,6 @@
 #include "Steering Behaviors\SteeringEntity.h"
 #include "Steering Behaviors\SteeringBehaviors.h"
 
-
 #if defined(_DEBUG)
 	#include "Memory\MemLeaks.h"
 #endif
@@ -32,19 +31,25 @@
 CRabbitTiredState::CRabbitTiredState( CCharacter* _pCharacter )
 	: CState		(_pCharacter, "CRabbitTiredState")
 	, m_ActionTime	( 1.5f, 2.f )
-	, m_MinTime		( 1.f )
-	, m_MaxTime		( 2.f )
 	, m_pRabbit		( NULL )
 {
+	if ( _pCharacter != NULL )
+	{
+		m_MinTime = _pCharacter->GetProperties()->GetMinTiredTime();
+		m_MaxTime = _pCharacter->GetProperties()->GetMaxTiredTime();
+	}
 }
 
 CRabbitTiredState::CRabbitTiredState( CCharacter* _pCharacter, const std::string &_Name )
 	: CState		(_pCharacter, _Name)
 	, m_ActionTime	( 1.5f, 2.f )
-	, m_MinTime		( 1.f )
-	, m_MaxTime		( 2.f )
 	, m_pRabbit		( NULL )
 {
+	if ( _pCharacter != NULL )
+	{
+		m_MinTime = _pCharacter->GetProperties()->GetMinTiredTime();
+		m_MaxTime = _pCharacter->GetProperties()->GetMaxTiredTime();
+	}
 }
 
 
@@ -66,7 +71,7 @@ void CRabbitTiredState::OnEnter( CCharacter* _pCharacter )
 
 	m_ActionTime.InitAction(m_MinTime, m_MaxTime);
 	m_ActionTime.StartAction();
-	int l_Valor = BoostRandomHelper::GetInt(1, 3);
+	//int l_Valor = BoostRandomHelper::GetInt(1, 3);
 	// Me gusta darle doble opción al idle 2... 
 	/*if ( l_Valor == 1 || l_Valor == 2 ) 
 	{
@@ -105,7 +110,9 @@ void CRabbitTiredState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 	m_ActionTime.Update(_ElapsedTime);
 
 	// Mentre espero miro al player
+	m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
 	m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime);
+	m_pRabbit->MoveTo2(Vect3f(0,0,0), _ElapsedTime );
 }
 
 

@@ -42,9 +42,8 @@ private:
 	CDeer					  * m_pDeer;
 	CAnimationCallback		  *	m_pAnimationCallback;
 	CActionStateCallback		m_pActionStateCallback;
-	CActionStateCallback		m_pActionRecoilStateCallback;
-
-	float						m_SoundDuration;
+	
+	float						m_ActionDuration;
 	bool						m_IsCommingFromTired;
 	float						m_RecoverMinTiredTime;
 	float						m_RecoverMaxTiredTime;
@@ -52,8 +51,7 @@ private:
 	float						m_OldMaxSpeed;
 	Vect3f						m_HitDirection;			// Dirección hacia atrás donde se dirige en el golpeo
 	float						m_MaxHitDistance;		// Distancia máxima de recorrido del hit
-
-
+	Vect3f						m_InitialHitPoint;		// Punto final de retroceso
 	
 };
 #endif _DEER_HIT_STATE_H_

@@ -44,22 +44,22 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CRabbitHitState::CRabbitHitState( CCharacter* _pCharacter )
-	: CState				(_pCharacter, "CRabbitHitState")
-	, m_pRabbit				( NULL )
-	, m_pActionState		( 0.f, 1.f )
-	, m_pAnimationCallback	( NULL )
-	, m_IsCommingFromTired	( false )
+	: CState						(_pCharacter, "CRabbitHitState")
+	, m_pRabbit						( NULL )
+	, m_pActionStateCallback		( 0.f, 1.f )
+	, m_pAnimationCallback			( NULL )
+	, m_IsCommingFromTired			( false )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),RABBIT_HIT_STATE);
 }
 
 CRabbitHitState::CRabbitHitState( CCharacter* _pCharacter, const std::string &_Name )
-	: CState				(_pCharacter, _Name)
-	, m_pRabbit				( NULL )
-	, m_pActionState		( 0.f, 1.f )
-	, m_pAnimationCallback	( NULL )
-	, m_IsCommingFromTired	( false )
+	: CState						(_pCharacter, _Name)
+	, m_pRabbit						( NULL )
+	, m_pActionStateCallback		( 0.f, 1.f )
+	, m_pAnimationCallback			( NULL )
+	, m_IsCommingFromTired			( false )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),RABBIT_HIT_STATE);
@@ -94,18 +94,31 @@ void CRabbitHitState::OnEnter( CCharacter* _pCharacter )
 	// Si entramos por primera vez ejecutaremos el hit normal
 	else 
 	{
-		m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetHitAnimationState());
 		m_pAnimationCallback->Init();
 		m_pAnimationCallback->StartAnimation();
 	
 		//PlayRandomSound();
 		CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Rabbit_Pain");
 
-		m_pActionState.InitAction(0, m_SoundDuration);
-		m_pActionState.StartAction();
+		// Aprovecho esta variable para calcular el tiempo de duración del desplazamiento
+		m_ActionDuration = m_pRabbit->GetProperties()->GetHitRecoilDistance()/m_pRabbit->GetProperties()->GetHitRecoilSpeed();
+		m_pActionStateCallback.InitAction(0, m_ActionDuration); 
+		m_pActionStateCallback.StartAction();
 
-		//m_pActionState.InitAction(0.f, m_pRabbit->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_HIT_STATE));
-		//m_pActionState.StartAction();
+		//m_pActionStateCallback.InitwAction(0.f, m_pRabbit->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_HIT_STATE));
+		//m_pActionStateCallback.StartAction();
+		
+		// --- Para la gestión del retroceso ---
+		m_OldMaxSpeed = m_pRabbit->GetProperties()->GetMaxSpeed();
+		m_pRabbit->GetProperties()->SetMaxSpeed(m_pRabbit->GetProperties()->GetHitRecoilSpeed());
+
+		m_HitDirection = m_pRabbit->GetSteeringEntity()->GetFront();
+		m_HitDirection.Normalize();
+		m_HitDirection = m_HitDirection.RotateY(mathUtils::PiTimes(1.f));		
+		
+		m_MaxHitDistance = m_pRabbit->GetProperties()->GetHitRecoilDistance();
+		m_InitialHitPoint = m_pRabbit->GetPosition();
+		// ---------------------------------------
 	}
 	
 	// Ahora debemos actualizar las partículas
@@ -144,38 +157,50 @@ void CRabbitHitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 	}*/
 
 	// Solo hago la acción si estoy dentro de la distancia de impacto
-	if ( m_pActionState.IsActionFinished() )
+	if ( m_pActionStateCallback.IsActionFinished() )
 	{
 		/*m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetIdleState());
 		m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());*/
 
 		// Retrocedemos
+		CProperties * l_Properties = m_pRabbit->GetProperties();
 		m_pRabbit->GetBehaviors()->SeekOn();
 		Vect3f l_Front = m_pRabbit->GetSteeringEntity()->GetFront();
 		l_Front.Normalize();
 		l_Front = l_Front.RotateY(mathUtils::PiTimes(1.f));
-		l_Front = m_pRabbit->GetSteeringEntity()->GetPosition() + l_Front * 3.f;
+		l_Front = m_pRabbit->GetSteeringEntity()->GetPosition() + l_Front * l_Properties->GetHitRecoilSpeed();
 		//m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
 		m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(l_Front);
 
 		if ( m_pRabbit->IsAlive() ) 
 		{
 			// Obligo a descansar entre unos segundosw
-			float l_MaxTimeInTired = BoostRandomHelper::GetFloat(3, 5);
+			float l_MaxTimeInTired = BoostRandomHelper::GetFloat(l_Properties->GetMinTiredTimeAfterAttack(), l_Properties->GetMaxTiredTimeAfterAttack());
 			m_RecoverMinTiredTime = m_pRabbit->GetTiredState()->GetMinTiredTime();
 			m_RecoverMaxTiredTime = m_pRabbit->GetTiredState()->GetMaxTiredTime();
 			m_pRabbit->GetTiredState()->SetTiredTime(0.f, l_MaxTimeInTired);
 			m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetTiredState());
 			m_IsCommingFromTired = true;
 		}
-		//else
-		/*{
-			m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetDeathState());
-		}*/
 	}
 	else
 	{
-		m_pActionState.Update(_ElapsedTime);
+		m_pActionStateCallback.Update(_ElapsedTime);
+
+		// Gestiono el retroceso del hit
+		float l_Distance = m_pRabbit->GetPosition().Distance(m_InitialHitPoint);
+		if ( l_Distance >= m_MaxHitDistance ) 
+		{
+			m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+			m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+		} 
+		else
+		{
+			//m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+			//m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(l_Front);
+			//m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime );
+			m_pRabbit->MoveTo2(m_HitDirection, _ElapsedTime );
+		}
 	}
 }
 
@@ -204,69 +229,42 @@ void CRabbitHitState::PlayRandomSound( void )
 	if ( l_Num == 1 )
 	{
 		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains1");
-		m_SoundDuration = 0.858f;
+		m_ActionDuration = 0.858f;
 	}
 	else if ( l_Num == 2)
 	{
 		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains2");
-		m_SoundDuration = 0.817f;
+		m_ActionDuration = 0.817f;
 	}
 	else if ( l_Num == 3)
 	{
 		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains3");
-		m_SoundDuration = 0.851f;
+		m_ActionDuration = 0.851f;
 	}
 	else if ( l_Num == 4)
 	{
 		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains4");
-		m_SoundDuration = 0.483f;
+		m_ActionDuration = 0.483f;
 	}
 	else if ( l_Num == 5)
 	{
 		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains5");
-		m_SoundDuration = 0.637f;
+		m_ActionDuration = 0.637f;
 	}
 	else if ( l_Num == 6)
 	{
 		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains6");
-		m_SoundDuration = 0.865f;
+		m_ActionDuration = 0.865f;
 	}
 	else if ( l_Num == 7)
 	{
 		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains7");
-		m_SoundDuration = 0.717f;
+		m_ActionDuration = 0.717f;
 	}
 }
 
 void CRabbitHitState::UpdateParticlesPositions( CCharacter* _pCharacter )
 {
-	SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_BloodSplash" , "",_pCharacter->GetPosition() + _pCharacter->GetFront()  );
+	//SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_BloodSplash" , "",_pCharacter->GetPosition() + _pCharacter->GetFront()  );
 }
 
-void CRabbitHitState::SetParticlePosition( CCharacter* _pCharacter, const std::string &_ParticlesName, const std::string &_Bone, const Vect3f &_Position )
-{
-	if ( _Bone.compare( "" ) != 0 )
-	{
-		CAnimatedInstanceModel *l_pAnimatedModel = _pCharacter->GetAnimatedModel();
-
-		Mat44f l_TransformMatrix		= m44fIDENTITY;
-		Mat44f l_RotationMatrix			= m44fIDENTITY;
-		Vect4f l_Rotation				= v3fZERO;
-		Vect3f l_Translation			= v3fZERO;
-		Mat44f l_AnimatedModelTransform = l_pAnimatedModel->GetTransform();
-
-		l_pAnimatedModel->GetBonePosition(_Bone, l_Translation);
-		l_pAnimatedModel->GetBoneRotation(_Bone, l_Rotation);
-
-		l_TransformMatrix.Translate(l_Translation);
-		l_RotationMatrix.SetFromQuaternion(l_Rotation);
-
-		l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
-
-		//GetParticleEmitter(_ParticlesName)->SetPosition( l_TransformMatrix.GetPos() );
-	}
-	else 
-	{
-		//GetParticleEmitter(_ParticlesName)->SetPosition( _Position );
-	}
-}

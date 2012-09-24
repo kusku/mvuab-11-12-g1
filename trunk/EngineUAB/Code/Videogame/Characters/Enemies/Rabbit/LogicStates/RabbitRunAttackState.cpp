@@ -5,6 +5,7 @@
 #include "Math\Vector3.h"
 #include "SoundManager.h"
 #include "Core.h"
+#include <boost\math\special_functions\fpclassify.hpp>
 
 // --- Per pintar l'estat enemic ---
 #include "DebugGUIManager.h"
@@ -95,9 +96,10 @@ void CRabbitRunAttackState::OnEnter( CCharacter* _pCharacter )
 	m_FirstParticlesHitDone = false;
 
 	// Metemos más velocidad al ataque i menos massa para acelerar más 
-	m_OldMaxSpeed	= m_pRabbit->GetSteeringEntity()->GetMaxSpeed();
+	//m_OldMaxSpeed	= m_pRabbit->GetSteeringEntity()->GetMaxSpeed();
 	m_OldMass		= m_pRabbit->GetSteeringEntity()->GetMass();
-	m_pRabbit->GetSteeringEntity()->SetMaxSpeed(3.9f);
+	m_pRabbit->GetSteeringEntity()->SetMaxSpeed(m_pRabbit->GetProperties()->GetRunAttackSpeed());
+	//m_pRabbit->GetSteeringEntity()->SetMaxForce(0.1f);
 
 	// Almacenamos la distancia actual para saber si luego nos hemos pasado
 	m_PlayerInitialPosition		= m_pRabbit->GetPlayer()->GetSteeringEntity()->GetPosition();
@@ -215,7 +217,28 @@ void CRabbitRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 			{
 				if ( !m_playerPushed )
 				{
-					m_AditionalInfo.Direccion	= m_pRabbit->GetSteeringEntity()->GetVelocity()/2;
+					Vect3f l_Vel = m_pRabbit->GetSteeringEntity()->GetVelocity();
+					l_Vel.Normalize(1.0f);
+					bool l_isNan  = boost::math::isnan( l_Vel.x );
+					if ( l_isNan )
+					{
+						l_Vel = m_pRabbit->GetSteeringEntity()->GetHeading();
+						l_isNan  = boost::math::isnan( l_Vel.x );
+						if ( l_isNan )
+						{
+							l_Vel = Vect3f(0,0,0);
+							m_AditionalInfo.Speed = m_pRabbit->GetProperties()->GetRunAttackSpeed();
+						}
+						else
+						{	
+							l_Vel *= m_pRabbit->GetProperties()->GetMaxSpeed();
+						}
+					}
+					else
+					{
+						l_Vel *= m_pRabbit->GetProperties()->GetMaxSpeed();
+					}
+					m_AditionalInfo.Direccion	= l_Vel;
 					m_AditionalInfo.ElapsedTime = _ElapsedTime;
 				}
 					
@@ -304,8 +327,8 @@ void CRabbitRunAttackState::OnExit( CCharacter* _pCharacter )
 	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOff();
 				
 	// Restauramos la velocidad original
-	m_pRabbit->GetSteeringEntity()->SetMaxSpeed(m_OldMaxSpeed);
-	m_pRabbit->GetSteeringEntity()->SetMass(m_OldMass);
+	m_pRabbit->GetSteeringEntity()->SetMaxSpeed(m_pRabbit->GetSteeringEntity()->GetMaxSpeed());
+	//m_pRabbit->GetSteeringEntity()->SetMass(m_OldMass);
 
 	CORE->GetSoundManager()->PlayEvent("Stop_EFX_RabbitsRunAttacks"); 
 

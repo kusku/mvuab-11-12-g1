@@ -94,7 +94,10 @@ void CDeerPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elapse
 		}
 
 		// Mira si alcanzamos la posición. Reseteamos indicando que este enemigo ya ha realizado las tareas postimpacto 
-		float l_DistanceToCameraPoint = m_pDeer->GetPosition().Distance(m_PositionReachedAfterHitPlayer);
+		Vect2f l_Pos1 = Vect2f(m_pDeer->GetPosition().x, m_pDeer->GetPosition().z);
+		Vect2f l_Pos2 = Vect2f(m_PositionReachedAfterHitPlayer.x, m_PositionReachedAfterHitPlayer.z);
+		float l_DistanceToCameraPoint = l_Pos1.Distance(l_Pos2);
+		//float l_DistanceToCameraPoint = m_pDeer->GetPosition().Distance(m_PositionReachedAfterHitPlayer);
 		if ( l_DistanceToCameraPoint <= 3.01f )
 		{
 			m_IsPositionAfterHitPlayerAssigned = false;		// Reiniciamos el flag para la pròxima vez

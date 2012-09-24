@@ -36,7 +36,6 @@ public:
 
 	//----Methods ---------------------------------------------
 	void			PlayRandomSound( void );
-	void			SetParticlePosition		( CCharacter* _pCharacter, const std::string &ParticlesName, const std::string &Bone = "", const Vect3f &_Position = Vect3f(0,0,0));
 	void			UpdateParticlesPositions( CCharacter* _pCharacter );
 
 
@@ -44,8 +43,14 @@ public:
 private:
 	CRabbit					  * m_pRabbit;
 	CAnimationCallback		  *	m_pAnimationCallback;
-	CActionStateCallback		m_pActionState;
-	float						m_SoundDuration;
+	CActionStateCallback		m_pActionStateCallback;
+
+	float						m_OldMaxSpeed;
+	Vect3f						m_HitDirection;			// Dirección hacia atrás donde se dirige en el golpeo
+	float						m_MaxHitDistance;		// Distancia máxima de recorrido del hit
+	Vect3f						m_InitialHitPoint;		// Punto final de retroceso
+
+	float						m_ActionDuration;
 
 	bool						m_IsCommingFromTired;
 	float						m_RecoverMinTiredTime;
