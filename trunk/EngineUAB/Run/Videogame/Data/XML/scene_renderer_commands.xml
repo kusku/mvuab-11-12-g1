@@ -19,6 +19,7 @@
   <set_render_target name="CustomRTs">
     <dynamic_texture stage_id="1" name="DepthMapTexture" texture_width_as_frame_buffer="true" format_type="R32F" mipmaps="1" />
     <dynamic_texture stage_id="2" name="__CURRENT_MOTION_BLUR_TEXTURE" texture_width_as_frame_buffer="true" format_type="G32R32F" mipmaps="1" />
+    <dynamic_texture stage_id="3" name="DyingColorMap" texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="1" />
   </set_render_target>
 
   <!--Set Depth Stencil with MS-->
@@ -78,8 +79,21 @@
 
   <!--Game Info-->
   <render_game_info active="true" />
+
+  <!--Dying Effect-->
+  <disable_z_test />
+  <capture_frame_buffer>
+    <dynamic_texture stage_id="0" name="SceneRender" texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="1" />
+  </capture_frame_buffer>
+  <Set_Dying_Amount />
+  <set_pool_renderable_objects_technique pool="dying_effect" />
+  <render_draw_quad name="DyingEffect" >
+    <texture file="SceneRender" stage_id="0" />
+    <texture file="DyingColorMap" stage_id="1" />
+  </render_draw_quad>
   
   <!--Debug-->
+  <enable_z_test />
   <render_debug_waypoints waypoints="false" triggers="false" rails="false" />
   <render_debug_physics active="false" draw_fronts="false" draw_fustrum="false" draw_names="false" draw_rays="false" />
   <render_debug_lights active="false" />

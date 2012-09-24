@@ -242,6 +242,10 @@ bool CSceneRendererCommandManager::LoadXML ( bool _IsGUI )
 			{
 				l_ActiveCommand = new CSkySphereCommand( l_Commands(i) );
 			}
+			else if( l_Type == "Set_Dying_Amount" )
+			{
+				l_ActiveCommand = new CSetDyingAmountCommand( l_Commands(i) );
+			}
 			else if( l_Type == "set_ds" )
 			{
 				l_ActiveCommand = new CSetDepthStencilSceneRendererCommand( l_Commands(i) );

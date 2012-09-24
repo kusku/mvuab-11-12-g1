@@ -126,6 +126,24 @@ public:
 	void				SetGameMode					( bool _GameMode );
 	void				SetDrawingShadows			(bool ds)						{ m_DrawingShadows = ds; }
 	
+	void				SetDyingAmount				(float amount)					
+	{
+		if(amount < 0.0f)
+		{
+			m_DyingAmount = 0.0f;
+		}
+		else if(amount > 1.0f)
+		{
+			m_DyingAmount = 1.0f;
+		}
+		else
+		{
+			m_DyingAmount = amount;
+		}
+	}
+
+
+	inline float		GetDyingAmount				() const						{ return m_DyingAmount; }
 	inline bool			IsDebugMode					() const						{ return m_bDebugMode; }
 	inline bool			IsReleaseMode				() const						{ return m_bReleaseMode; }
 	inline bool			IsGameMode					() const						{ return m_bIsGameMode; }
@@ -189,6 +207,8 @@ private:
 	bool	m_bIsGameMode;
 
 	bool	m_DrawingShadows;
+	
+	float	m_DyingAmount;
 
 	SConfig	m_Config;
 

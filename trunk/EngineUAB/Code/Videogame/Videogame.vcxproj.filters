@@ -1197,5 +1197,8 @@
     <CustomBuild Include="..\..\Run\Videogame\Data\Effects\BasicEffect.fx">
       <Filter>Effects</Filter>
     </CustomBuild>
+    <CustomBuild Include="..\..\Run\Videogame\Data\Effects\DyingEffect.fx">
+      <Filter>Effects</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>

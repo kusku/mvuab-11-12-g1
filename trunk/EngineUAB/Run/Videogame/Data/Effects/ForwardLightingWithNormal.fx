@@ -66,6 +66,7 @@ struct PixelShaderOutput
 	float4 DiffuseRT	: COLOR0;
 	float4 DepthRT		: COLOR1;
 	float4 MotionBlurRT	: COLOR2;
+	float4 DyingColorRT	: COLOR3;
 };
 
 ////////////////////////////////////////////////////////////////////
