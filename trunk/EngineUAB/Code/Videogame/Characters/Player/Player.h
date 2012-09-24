@@ -26,6 +26,8 @@ public:
 	bool			IsTargetFixed	() const			{ return m_bIsTargetFixed; }
 	void			BeDead			();
 
+	void			ResetTimeDamage	()					{ m_fTimeWithoutDamage = 0.f; m_fTimeToIncreaseLife = 0.f; }
+
 private:
 	void			CreateCallbacks	();
 	void			CreateStates	();
@@ -37,6 +39,9 @@ private:
 	float			m_fStaticZoom;
 	float			m_fVelocityAdaptativeZoom;
 	float			m_fDownZoom;
+
+	float			m_fTimeWithoutDamage;
+	float			m_fTimeToIncreaseLife;
 
 	float			m_fDistanceToDetectEnemy;
 	float			m_fVisibilityAngle;

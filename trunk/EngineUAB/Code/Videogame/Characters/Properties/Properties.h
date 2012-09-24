@@ -32,8 +32,20 @@ public:
 	inline void					SetAnimationInstance	( const std::string &_AnimationInstanceName )		{ m_AnimationInstanceName = _AnimationInstanceName; }
 	inline std::string			GetAnimationInstance	( void ) const										{ return m_AnimationInstanceName; }
 
-	inline void					SetLife					( int _Life )										{ m_Life = _Life; }
+	inline void					SetLife					( int _Life )										{ m_Life = m_CurrentLife = _Life; }
 	inline const int			GetLife					( void ) const										{ return m_Life; }
+
+	inline void					SetCurrentLife			( int _Life )										{ m_CurrentLife = _Life; }
+	inline const int			GetCurrentLife			( void ) const										{ return m_CurrentLife; }
+
+	inline void					SetTimeToCure			( float _Time )										{ m_TimeToCure = _Time; }
+	inline const float			GetTimeToCure			( void ) const										{ return m_TimeToCure; }
+
+	inline void					SetWaitToCure			( float _Time	)									{ m_WaitToCure = _Time; }
+	inline const float			GetWaitToCure			( void ) const										{ return m_WaitToCure; }
+
+	inline void					SetCureVelocity			( int _Velocity	)									{ m_CureVelocity = _Velocity; }
+	inline const int			GetCureVelocity			( void ) const										{ return m_CureVelocity; }
 
 	inline void					SetStrong				( int _Strong )										{ m_Strong = _Strong; }
 	inline  int					GetStrong				( void ) const										{ return m_Strong; }
@@ -143,6 +155,10 @@ private:
 	// Propiedades generales del personaje
 	float				m_Mass;
 	int					m_Life;
+	int					m_CurrentLife;
+	float				m_TimeToCure;
+	float				m_WaitToCure;
+	int					m_CureVelocity;
 	int					m_Strong;
 	Vect3f				m_RespawnPosition;
 	

@@ -33,11 +33,15 @@ CProperties::CProperties( const std::string &_Name, int _Life, int _Strong, floa
 	, m_FollowPathDistance	( 0.f )
 	, m_AttackDistance		( 1.f )
 	, m_AttackAngle			( 0.f )
+	, m_TimeToCure			( 1.f )
+	, m_CureVelocity		( 1 )
+	, m_WaitToCure			( 1.f )
 	, m_HeightController	( _HeightController )
 	, m_WidthController		( _WidthController )
 	, m_Slope				( _Slope )	
 	, m_SkinWidth			( _SkinWidth )
 	, m_StepOffset			( _StepOffset )
+	, m_CurrentLife			( _Life )
 {
 	SetName(_Name);
 }
@@ -67,9 +71,13 @@ CProperties::CProperties( void )
 	, m_AttackAngle			( 0.f )
 	, m_HeightController	( 1.f )
 	, m_WidthController		( 1.f )
+	, m_TimeToCure			( 1.f )
+	, m_CureVelocity		( 1 )
+	, m_WaitToCure			( 1.f )
 	, m_Slope				( 45.f )	
 	, m_SkinWidth			( 0.1f )
 	, m_StepOffset			( 0.5f )
+	, m_CurrentLife			( 0 )
 	
 {
 }

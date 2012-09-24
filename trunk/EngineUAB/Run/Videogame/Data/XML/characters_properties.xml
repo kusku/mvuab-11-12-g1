@@ -16,6 +16,9 @@
 		<acceleration_attack3>-40</acceleration_attack3>
 		<attack_distance>10</attack_distance>
 		<attack_angle>45</attack_angle>
+		<wait_to_cure>10</wait_to_cure>
+		<time_to_cure>1</time_to_cure>
+		<cure_velocity>7</cure_velocity>
 		<height_controller>1.0</height_controller>
 		<width_controller>0.5</width_controller>
 		<slope>45.0</slope>

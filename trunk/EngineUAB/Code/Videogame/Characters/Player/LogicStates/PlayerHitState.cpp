@@ -36,9 +36,12 @@ void CPlayerHitState::OnEnter( CCharacter* _pCharacter )
 	}
 #endif
 
-	static_cast<CPlayer*>(_pCharacter)->HitToPlayer();
+	CPlayer *l_pPlayer = static_cast<CPlayer*>(_pCharacter);
+	l_pPlayer->HitToPlayer();
+	l_pPlayer->ResetTimeDamage();
 
 	m_pCallback->StartAnimation();
+	
 }
 
 void CPlayerHitState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
@@ -54,6 +57,7 @@ void CPlayerHitState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 
 void CPlayerHitState::OnExit( CCharacter* _pCharacter )
 {
+	static_cast<CPlayer*>(_pCharacter)->ResetTimeDamage();
 }
 
 bool CPlayerHitState::OnMessage( CCharacter* _pCharacter, const STelegram& _Message )

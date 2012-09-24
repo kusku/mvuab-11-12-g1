@@ -209,6 +209,18 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 		{
 			l_Properties->SetLocked( l_XMLPropertiesNode(i).GetBoolKeyword("locked", "false") );
 		}
+		else if( l_PropertyField == "time_to_cure" )
+		{
+			l_Properties->SetTimeToCure( l_XMLPropertiesNode(i).GetFloatKeyword("time_to_cure", 1.f) );
+		}
+		else if( l_PropertyField == "cure_velocity" )
+		{
+			l_Properties->SetCureVelocity( l_XMLPropertiesNode(i).GetIntKeyword("cure_velocity", 1) );
+		}
+		else if( l_PropertyField == "wait_to_cure" )
+		{
+			l_Properties->SetWaitToCure( l_XMLPropertiesNode(i).GetFloatKeyword("wait_to_cure", 1.f) );
+		}
 		// --- Fi temas de IA --- //
 		else if ( l_PropertyField != "comment" ) 
 		{
