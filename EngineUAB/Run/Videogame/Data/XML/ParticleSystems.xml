@@ -33,6 +33,8 @@
 	<system name="RabbitStreaks" settings_name="RabbitStreaks" />
 	<system name="RabbitSparks" settings_name="RabbitSparks" />
 	<system name="RabbitBloodSplash" settings_name="RabbitBloodSplash" />
+	<system name="RabbitBlockedSparks" settings_name="RabbitBlockedSparks" />
+	<system name="RabbitBlockedExpandWave" settings_name="RabbitExpandWave" />
 	
 	<system name="CenterFlare" settings_name="CenterFlare" />
 	<system name="Impact" settings_name="Impact" />
