@@ -553,6 +553,28 @@
 		<BlendState value="Additive"/>
 	</settings>
 	
+	<settings name="RabbitBlockedSparks">
+		<TextureName value="./Data/General/Textures/Particles/Basic blur.png"/>
+		<MaxParticles value="120"/>
+		<Duration value="1.300"/>
+		<DurationRandomness value="1.000000"/>
+		<EmitterVelocitySensitivity value="1.000000"/>
+		<MinHorizontalVelocity value="-3.000000"/>
+		<MaxHorizontalVelocity value="3.000000"/>
+		<MinVerticalVelocity value="-2.000000"/>
+		<MaxVerticalVelocity value="2.000000"/>
+		<Gravity value="0.000000 -9.8000000 0.000000"/>
+		<EndVelocity value="1.000000"/>
+		<MinColor value="255.000000 255.000000 255.000000 255.000000"/>
+		<MaxColor value="255.000000 255.000000 255.000000 55.000000"/>
+		<MinRotateSpeed value="0.000000"/>
+		<MaxRotateSpeed value="0.000000"/>
+		<MinStartSize value="0.000000"/>
+		<MaxStartSize value="0.000000"/>
+		<MinEndSize value="1.000000"/>
+		<MaxEndSize value="2.000000"/>
+		<BlendState value="Additive"/>
+	</settings>
 	
 	<settings name="RabbitSteps">
 		<TextureName value="./Data/General/Textures/Particles/Soft clumpy.png"/>
