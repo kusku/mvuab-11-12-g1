@@ -29,8 +29,10 @@ private:
 private:
 	std::string		m_Filename;
 
+	//Player info
 	int				m_iPlayerLife;
 
+	//Texture properties
 	Vect2i			m_MaskPosition;
 	Vect2i			m_MaskSize;
 

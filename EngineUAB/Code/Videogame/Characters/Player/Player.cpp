@@ -46,6 +46,7 @@ CPlayer::CPlayer()
 	, m_fDownZoom(2.0f)
 	, m_fDistanceToDetectEnemy(20.f)
 	, m_fVisibilityAngle(FLOAT_PI_VALUE / 3.f)
+	, m_fTimeWithoutDamage(0.f)
 	, m_pCamera(NULL)
 {
 	m_fYaw		= 0.0f;
@@ -92,6 +93,8 @@ bool CPlayer::Init()
 
 	m_pCurrentAnimatedModel->SetYaw( (m_fYaw * FLOAT_PI_VALUE / 180.f ) + 90.f );
 	m_pCurrentAnimatedModel->SetPitch( 0.f );
+
+	m_fTimeWithoutDamage = 0.f;
 
 	return true;
 }
@@ -169,6 +172,18 @@ void CPlayer::Update( float _ElapsedTime )
 		{
 			m_pLogicStateMachine->ChangeState( GetLogicState("defense") );
 			m_pGraphicStateMachine->ChangeState( GetAnimationState("animdefense") );
+		}
+
+		//Calcula si recuperamos vida
+		m_fTimeWithoutDamage += _ElapsedTime;
+		m_fTimeToIncreaseLife += _ElapsedTime;
+		if( m_fTimeWithoutDamage >= m_pProperties->GetWaitToCure() )
+		{
+			if( m_fTimeToIncreaseLife >= m_pProperties->GetTimeToCure() )
+			{
+				AddLife( m_pProperties->GetCureVelocity() );
+				m_fTimeToIncreaseLife = 0.f;
+			}
 		}
 
 		//Mira si el personaje ha muerto
