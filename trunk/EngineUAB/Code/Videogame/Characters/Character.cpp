@@ -285,20 +285,19 @@ void CCharacter::UpdateIA( float _ElapsedTime )
 
 	// aceleración = fuerza/masa
 	Vect3f l_Acceleration  = l_SteeringForce / m_pSteeringEntity->GetMass();
-		
+	float l_acc = l_Acceleration.Length();
 	// actualizamos la velocidad. Ya hemos comprobado en C++ su trucamiento con la max. velocidad
-	m_pSteeringEntity->SetVelocity( m_pSteeringEntity->GetVelocity() + l_Acceleration * _ElapsedTime );
-	m_pSteeringEntity->SetVelocity( Vect3f( m_pSteeringEntity->GetVelocity().x, 0, m_pSteeringEntity->GetVelocity().z ) );
-
-	// nos aseguramos que el rabbit no excede de la velocidad máxima permitida
-	Vect3f l_Velocity = m_pSteeringEntity->GetVelocity();
-	l_Velocity.Truncate(m_pSteeringEntity->GetMaxSpeed());
+	Vect3f l_FinalVelocity = m_pSteeringEntity->GetVelocity() + l_Acceleration * _ElapsedTime;
+	l_FinalVelocity.y = 0;
 	
+	// nos aseguramos que el rabbit no excede de la velocidad máxima permitida
+	l_FinalVelocity.Truncate(m_pSteeringEntity->GetMaxSpeed());
+	m_pSteeringEntity->SetVelocity( l_FinalVelocity );
+
 	// actualizamos la posición
-	m_pSteeringEntity->SetPosition( m_pSteeringEntity->GetPosition() + l_Velocity * _ElapsedTime );
+	m_pSteeringEntity->SetPosition( m_pSteeringEntity->GetPosition() + l_FinalVelocity * _ElapsedTime );
 		
 	// Actualizamos el Heahing y Side de la entidad solo si esta tiene velocidad
-	// print_logger ( 1, "CRabbit:updateIA->Squared_length : "..self.steering_entity.velocity:squared_length() )
 	if ( m_pSteeringEntity->GetVelocity().SquaredLength() > 0.00000001 ) 
 	{
 		// Ahora actualizamos el heading (Vector unitario velocidad) y su perpendicular

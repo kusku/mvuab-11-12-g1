@@ -205,6 +205,38 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 		{
 			l_Properties->SetMaxForce( l_XMLPropertiesNode(i).GetFloatKeyword("max_force", FUERZA_MAXIMA) );
 		}
+		else if( l_PropertyField == "still_attack_speed" )
+		{
+			l_Properties->SetStillAttackSpeed( l_XMLPropertiesNode(i).GetFloatKeyword("still_attack_speed", 10.f) );
+		}
+		else if( l_PropertyField == "run_attack_speed" )
+		{
+			l_Properties->SetRunAttackSpeed( l_XMLPropertiesNode(i).GetFloatKeyword("run_attack_speed", 10.f) );
+		}
+		else if( l_PropertyField == "min_tired_time" )
+		{
+			l_Properties->SetMinTiredTime( l_XMLPropertiesNode(i).GetFloatKeyword("min_tired_time", 1.f) );
+		}
+		else if( l_PropertyField == "max_tired_time" )
+		{
+			l_Properties->SetMaxTiredTime( l_XMLPropertiesNode(i).GetFloatKeyword("max_tired_time", 2.f) );
+		}
+		else if( l_PropertyField == "min_tired_time_after_hit" )
+		{
+			l_Properties->SetMinTiredTimeAfterAttack( l_XMLPropertiesNode(i).GetFloatKeyword("min_tired_time_after_hit", 3.f) );
+		}
+		else if( l_PropertyField == "max_tired_time_after_hit" )
+		{
+			l_Properties->SetMaxTiredTimeAfterAttack( l_XMLPropertiesNode(i).GetFloatKeyword("max_tired_time_after_hit", 5.f) );
+		}
+		else if( l_PropertyField == "max_hit_recoil_distance" )
+		{
+			l_Properties->SetHitRecoilDistance( l_XMLPropertiesNode(i).GetFloatKeyword("max_hit_recoil_distance", 3.f) );
+		}
+		else if( l_PropertyField == "hit_recoil_speed" )
+		{
+			l_Properties->SetHitRecoilSpeed( l_XMLPropertiesNode(i).GetFloatKeyword("hit_recoil_speed", 3.f) );
+		}
 		else if( l_PropertyField == "locked" )
 		{
 			l_Properties->SetLocked( l_XMLPropertiesNode(i).GetBoolKeyword("locked", "false") );
