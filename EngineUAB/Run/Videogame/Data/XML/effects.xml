@@ -40,6 +40,8 @@
   <effect name="MotionBlurEffect"                         file="./data/effects/Obj/MotionBlurEffect" />
 
   <effect name="BasicEffect"                              file="./data/effects/Obj/BasicEffect" />
+
+  <effect name="DyingEffect"                              file="./data/effects/Obj/DyingEffect" />
   
   <!-- ......... EFFECTS ............ -->
 
@@ -100,6 +102,15 @@
 
   <technique name="VignettingNoiseTechnique" effect="vignetting_and_noise"
 		use_time="true" />
+
+  <!-- 
+  ###################################
+          Dying Effect
+  ###################################
+  -->
+
+  <technique name="DyingEffectTechnique" effect="DyingEffect" />
+  
 
   <!-- 
   ###################################

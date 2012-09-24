@@ -91,6 +91,7 @@ struct PixelShaderOutput
 	float4 DiffuseRT	: COLOR0;
 	float4 DepthRT		: COLOR1;
 	float4 MotionBlurRT	: COLOR2;
+	float4 DyingColorRT	: COLOR3;
 };
 
 struct PixelShaderDROutput
@@ -390,6 +391,13 @@ PixelShaderOutput RenderCal3DHWPS(VertexShaderOutput input, uniform bool shadow)
 	
 	output.DiffuseRT = PixEndColor;
 	
+	//////////////////
+	//Dying Color Map
+	//////////////////
+	output.DyingColorRT = float4(1.0f, 0.0f, 0.0f, 0.0f);
+	
+	//////////////////
+	
 	/////////////
 	//Depth Map
 	////////////
@@ -502,6 +510,13 @@ PixelShaderOutput RenderCal3DHWNormalPS(VertexShaderNormalOutput input, uniform 
 	
 	output.DiffuseRT = PixEndColor;
 	
+	//////////////////
+	//Dying Color Map
+	//////////////////
+	output.DyingColorRT = float4(1.0f, 0.0f, 0.0f, 0.0f);
+	
+	//////////////////
+
 	/////////////
 	//Depth Map
 	////////////

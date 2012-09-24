@@ -306,6 +306,9 @@
     <ClInclude Include="Commands\RenderGameInfoRendererCommand.h">
       <Filter>Commands\Command</Filter>
     </ClInclude>
+    <ClInclude Include="Commands\SetDyingAmoungCommand.h">
+      <Filter>Commands\Command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
@@ -596,6 +599,9 @@
       <Filter>Particles</Filter>
     </ClCompile>
     <ClCompile Include="Commands\RenderGameInfoRendererCommand.cpp">
+      <Filter>Commands\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\SetDyingAmoungCommand.cpp">
       <Filter>Commands\Command</Filter>
     </ClCompile>
   </ItemGroup>

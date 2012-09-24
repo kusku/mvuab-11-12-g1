@@ -110,6 +110,7 @@ CCore::CCore ( void )
 	, m_pSteeringBehaviorSeetingsManager( NULL )
 	, m_pRailManager					( NULL )
 	, m_DrawingShadows					(false)
+	, m_DyingAmount						(0.0f)
 {
 }
 

@@ -7,12 +7,11 @@
 
 sampler2D DiffuseTextureMap : register( s0 ) = sampler_state
 {
-	MinFilter		= Anisotropic;
-   MagFilter = Linear;
-   MipFilter = Linear;   
-	MaxAnisotropy	= 8;
-   AddressU  = Wrap;
-   AddressV  = Wrap;
+	MinFilter		= Linear;
+	MagFilter		= Linear;
+	MipFilter		= Linear;   
+	AddressU		= Wrap;
+	AddressV		= Wrap;
 };
 
 ////////////////////////////////////////////////////////////////////
@@ -53,6 +52,7 @@ struct PixelShaderOutput
 	float4 DiffuseRT	: COLOR0;
 	float4 DepthRT		: COLOR1;
 	float4 MotionBlurRT	: COLOR2;
+	float4 DyingColorRT	: COLOR3;
 };
 
 ////////////////////////////////////////////////////////////////////
