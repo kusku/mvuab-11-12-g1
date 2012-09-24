@@ -4,6 +4,8 @@
 #include "Math\Vector3.h"
 #include "SoundManager.h"
 #include "Utils\Timer.h"
+#include <boost\math\special_functions\fpclassify.hpp>
+
 
 // --- Per pintar l'estat enemic ---
 #include "DebugGUIManager.h"
@@ -228,8 +230,26 @@ void CDeerRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 				if ( !m_playerPushed )
 				{
 					Vect3f l_Vel = m_pDeer->GetSteeringEntity()->GetVelocity();
-					l_Vel.Normalize();
-					l_Vel *= m_pDeer->GetProperties()->GetMaxSpeed();
+					l_Vel.Normalize(1.0f);
+					bool l_isNan  = boost::math::isnan( l_Vel.x );
+					if ( l_isNan )
+					{
+						l_Vel = m_pDeer->GetSteeringEntity()->GetHeading();
+						l_isNan  = boost::math::isnan( l_Vel.x );
+						if ( l_isNan )
+						{
+							l_Vel = Vect3f(0,0,0);
+							m_AditionalInfo.Speed = m_pDeer->GetProperties()->GetRunAttackSpeed();
+						}
+						else
+						{	
+							l_Vel *= m_pDeer->GetProperties()->GetMaxSpeed();
+						}
+					}
+					else
+					{
+						l_Vel *= m_pDeer->GetProperties()->GetMaxSpeed();
+					}
 					m_AditionalInfo.Direccion	= l_Vel;
 					m_AditionalInfo.ElapsedTime = _ElapsedTime;
 					GenerateImpact(m_pDeer);

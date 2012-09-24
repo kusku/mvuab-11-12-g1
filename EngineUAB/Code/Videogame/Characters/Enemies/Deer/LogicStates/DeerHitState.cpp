@@ -45,7 +45,6 @@ CDeerHitState::CDeerHitState( CCharacter* _pCharacter )
 	: CState						(_pCharacter, "CDeerHitState")
 	, m_pDeer						( NULL )
 	, m_pActionStateCallback		( 0.f, 1.f )
-	, m_pActionRecoilStateCallback	( 0.f, 1.f )
 	, m_pAnimationCallback			( NULL )
 	, m_IsCommingFromTired			( false )
 {
@@ -57,7 +56,6 @@ CDeerHitState::CDeerHitState( CCharacter* _pCharacter, const std::string &_Name 
 	: CState						(_pCharacter, _Name)
 	, m_pDeer						( NULL )
 	, m_pActionStateCallback		( 0.f, 1.f )
-	, m_pActionRecoilStateCallback	( 0.f, 1.f )
 	, m_pAnimationCallback			( NULL )
 	, m_IsCommingFromTired			( false )
 {
@@ -99,24 +97,25 @@ void CDeerHitState::OnEnter( CCharacter* _pCharacter )
 	
 		CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Deer_Pain");
 		//PlayRandomSound();
-		//m_pActionStateCallback.InitAction(0, m_SoundDuration);
-		//m_pActionStateCallback.StartAction();
+
+		// Aprovecho esta variable para calcular el tiempo de duración del desplazamiento
+		m_ActionDuration = m_pDeer->GetProperties()->GetHitRecoilDistance()/m_pDeer->GetProperties()->GetHitRecoilSpeed();
+		m_pActionStateCallback.InitAction(0, m_ActionDuration); 
+		m_pActionStateCallback.StartAction();
 
 		//m_pActionStateCallback.InitAction(0.f, m_pDeer->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_HIT_STATE));
 		//m_pActionStateCallback.StartAction();
 
 		// --- Para la gestión del retroceso ---
 		m_OldMaxSpeed = m_pDeer->GetProperties()->GetMaxSpeed();
-		m_pDeer->GetProperties()->SetMaxSpeed(3.f);
+		m_pDeer->GetProperties()->SetMaxSpeed(m_pDeer->GetProperties()->GetHitRecoilSpeed());
 
 		m_HitDirection = m_pDeer->GetSteeringEntity()->GetFront();
 		m_HitDirection.Normalize();
 		m_HitDirection = m_HitDirection.RotateY(mathUtils::PiTimes(1.f));		
-		/*m_pDeer->GetBehaviors()->SeekOn();
-		m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));*/
-		//m_pDeer->GetBehaviors()->GetSeek()->SetTarget(m_HitDirection);
 		
-		m_MaxHitDistance = m_pDeer->GetProperties()->GetImpactDistance() * 2;
+		m_MaxHitDistance = m_pDeer->GetProperties()->GetHitRecoilDistance();
+		m_InitialHitPoint = m_pDeer->GetPosition();
 		// ---------------------------------------
 	}
 
@@ -153,12 +152,22 @@ void CDeerHitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 	if ( m_pActionStateCallback.IsActionFinished() )
 	{
 		// restablecemos la velocidad máxima
-		m_pDeer->GetProperties()->SetMaxSpeed(m_OldMaxSpeed);
+		//m_pDeer->GetProperties()->SetMaxSpeed(m_OldMaxSpeed);
+
+		// Retrocedemos
+		CProperties * l_Properties = m_pDeer->GetProperties();
+		m_pDeer->GetBehaviors()->SeekOn();
+		Vect3f l_Front = m_pDeer->GetSteeringEntity()->GetFront();
+		l_Front.Normalize();
+		l_Front = l_Front.RotateY(mathUtils::PiTimes(1.f));
+		l_Front = m_pDeer->GetSteeringEntity()->GetPosition() + l_Front * l_Properties->GetHitRecoilSpeed();
+		//m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+		m_pDeer->GetBehaviors()->GetSeek()->SetTarget(l_Front);
 
 		if ( m_pDeer->IsAlive() ) 
 		{
-			// Obligo a descansar entre unos segundosw
-			float l_MaxTimeInTired = BoostRandomHelper::GetFloat(3, 5);
+			// Obligo a descansar entre unos segundos
+			float l_MaxTimeInTired = BoostRandomHelper::GetFloat(l_Properties->GetMinTiredTimeAfterAttack(), l_Properties->GetMaxTiredTimeAfterAttack());
 			m_RecoverMinTiredTime = m_pDeer->GetTiredState()->GetMinTiredTime();
 			m_RecoverMaxTiredTime = m_pDeer->GetTiredState()->GetMaxTiredTime();
 			m_pDeer->GetTiredState()->SetTiredTime(0.f, l_MaxTimeInTired);
@@ -171,8 +180,8 @@ void CDeerHitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		m_pActionStateCallback.Update(_ElapsedTime);
 		
 		// Gestiono el retroceso del hit
-		float l_Distance = m_pDeer->GetDistanceToPlayer();
-		if ( l_Distance > m_MaxHitDistance ) 
+		float l_Distance = m_pDeer->GetPosition().Distance(m_InitialHitPoint);
+		if ( l_Distance >= m_MaxHitDistance ) 
 		{
 			m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
 			m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
@@ -209,21 +218,21 @@ void CDeerHitState::PlayRandomSound( void )
 	if ( l_Num == 1 )
 	{
 		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerPain1");
-		m_SoundDuration = 1.2f;
+		m_ActionDuration = 1.2f;
 	}
 	else if ( l_Num == 2)
 	{
 		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerPain2");
-		m_SoundDuration = 0.56f;
+		m_ActionDuration = 0.56f;
 	}
 	else if ( l_Num == 3)
 	{
 		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerPain3");
-		m_SoundDuration = 2.0f;
+		m_ActionDuration = 2.0f;
 	}
 	else if ( l_Num == 4)
 	{
 		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerPain4");
-		m_SoundDuration = 1.4f;
+		m_ActionDuration = 1.4f;
 	}
 }
