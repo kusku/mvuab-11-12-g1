@@ -303,6 +303,9 @@
     <ClInclude Include="Particles\ParticleStartUpInstances.h">
       <Filter>Particles</Filter>
     </ClInclude>
+    <ClInclude Include="Commands\RenderGameInfoRendererCommand.h">
+      <Filter>Commands\Command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderManager.cpp" />
@@ -591,6 +594,9 @@
     </ClCompile>
     <ClCompile Include="Particles\ParticleStartUpInstances.cpp">
       <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\RenderGameInfoRendererCommand.cpp">
+      <Filter>Commands\Command</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

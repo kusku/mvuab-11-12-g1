@@ -106,6 +106,9 @@
     <Filter Include="Options">
       <UniqueIdentifier>{386eee43-7359-4180-9d39-492754fee410}</UniqueIdentifier>
     </Filter>
+    <Filter Include="HUD">
+      <UniqueIdentifier>{8c384158-7627-48f9-8cdc-0b5e7524cf60}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="videogame.cpp" />
@@ -413,6 +416,9 @@
     </ClCompile>
     <ClCompile Include="Options\Options.cpp">
       <Filter>Options</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD\HUD.cpp">
+      <Filter>HUD</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -733,6 +739,9 @@
     </ClInclude>
     <ClInclude Include="Options\Options.h">
       <Filter>Options</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD\HUD.h">
+      <Filter>HUD</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

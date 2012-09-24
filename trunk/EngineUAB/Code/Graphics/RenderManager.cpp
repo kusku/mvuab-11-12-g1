@@ -733,6 +733,34 @@ void CRenderManager::DrawTexturedQuad2D(const Vect2i& pos, uint32 w, uint32 h, E
 	m_pD3DDevice->DrawIndexedPrimitiveUP( D3DPT_TRIANGLELIST,0, 4, 2,indices,D3DFMT_INDEX16, v, sizeof( SCREEN_COLOR_TEXTURED_VERTEX ) );
 }
 
+void CRenderManager::DrawTexturedQuad2D(const Vect2i& pos, const Vect2f& startTexCoords, const Vect2f& endTexCoords, uint32 w, uint32 h, ETypeAlignment alignment, CTexture *Texture, CColor color)
+{
+	Vect2i finalPos = pos;
+	CalculateAlignment(w, h, alignment, finalPos);
+
+	// finalPos = [0]
+	//
+	//  [0]------[2]
+	//   |        |
+	//   |        |
+	//   |        |
+	//  [1]------[3]
+
+	unsigned short indices[6]={0,2,1,1,2,3};
+	SCREEN_COLOR_TEXTURED_VERTEX v[4] =
+	{
+		{ (float)finalPos.x,(float)finalPos.y,0,1, D3DCOLOR_COLORVALUE(color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha()), startTexCoords.x, startTexCoords.y} //(x,y) sup_esq.
+		,{ (float)finalPos.x,(float)finalPos.y+h,0,1, D3DCOLOR_COLORVALUE(color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha()), startTexCoords.x, endTexCoords.y} //(x,y) inf_esq.
+		,{ (float)finalPos.x+w,(float)finalPos.y,0,1, D3DCOLOR_COLORVALUE(color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha()),endTexCoords.x, startTexCoords.y} //(x,y) sup_dr.
+		,{ (float)finalPos.x+w,(float)finalPos.y+h,0,1, D3DCOLOR_COLORVALUE(color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha()),endTexCoords.x, endTexCoords.y} //(x,y) inf_dr.
+	};
+
+	m_pD3DDevice->SetFVF( SCREEN_COLOR_TEXTURED_VERTEX::getFlags() );
+	Texture->Activate(0);
+
+	m_pD3DDevice->DrawIndexedPrimitiveUP( D3DPT_TRIANGLELIST,0, 4, 2,indices,D3DFMT_INDEX16, v, sizeof( SCREEN_COLOR_TEXTURED_VERTEX ) );
+}
+
 void CRenderManager::DrawRectangle2D ( const Vect2i& pos, uint32 w, uint32 h, CColor& backGroundColor, uint32 edge_w, uint32 edge_h, CColor& edgeColor )
 {
 	m_pD3DDevice->SetRenderState( D3DRS_ALPHABLENDENABLE, TRUE );

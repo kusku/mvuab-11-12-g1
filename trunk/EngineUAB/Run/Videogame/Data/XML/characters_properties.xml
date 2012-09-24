@@ -139,7 +139,7 @@
 		<animation_offset>-0.2</animation_offset>
 	</default_properties>
 	<player name="Caperu" core="caperucita" animated_instace_name="caperucita1" >
-		<life>1050</life>
+		<life>100</life>
 		<strong>30</strong>
 		<speed>25</speed>
 		<velocity>0 0 0</velocity>
