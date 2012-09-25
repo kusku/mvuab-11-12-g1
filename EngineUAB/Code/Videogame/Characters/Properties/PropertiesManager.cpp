@@ -237,6 +237,10 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 		{
 			l_Properties->SetHitRecoilSpeed( l_XMLPropertiesNode(i).GetFloatKeyword("hit_recoil_speed", 3.f) );
 		}
+		else if( l_PropertyField == "max_time_in_defense" )
+		{
+			l_Properties->SetTimeInDefense( l_XMLPropertiesNode(i).GetFloatKeyword("max_time_in_defense", 5.f) );
+		}
 		else if( l_PropertyField == "locked" )
 		{
 			l_Properties->SetLocked( l_XMLPropertiesNode(i).GetBoolKeyword("locked", "false") );

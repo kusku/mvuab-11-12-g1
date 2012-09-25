@@ -98,83 +98,87 @@ public:
 	inline float				GetPreparedAttackDistance	( void ) const										{ return m_PreparedAttackDistance; }
 
 	// -------------------- Popiedades relacionadas con el controler o parte física o de animación ----------------------------
-	inline void					SetHeightController		( float _Height )									{ m_HeightController = _Height; }
-	inline const float			GetHeightController		( void ) const										{ return m_HeightController; }
+	inline void					SetHeightController			( float _Height )									{ m_HeightController = _Height; }
+	inline const float			GetHeightController			( void ) const										{ return m_HeightController; }
 
-	inline void					SetWidthController		( float _Width )									{ m_WidthController = _Width; }
-	inline const float			GetWidthController		( void ) const										{ return m_WidthController; }
+	inline void					SetWidthController			( float _Width )									{ m_WidthController = _Width; }
+	inline const float			GetWidthController			( void ) const										{ return m_WidthController; }
 
-	inline void					SetSlopeController		( float _Slope )									{ m_Slope = _Slope; }
-	inline const float			GetSlopeController		( void ) const										{ return m_Slope; }
+	inline void					SetSlopeController			( float _Slope )									{ m_Slope = _Slope; }
+	inline const float			GetSlopeController			( void ) const										{ return m_Slope; }
 
-	inline void					SetSkinWidthController	( float _SkinWidth )								{ m_SkinWidth = _SkinWidth; }
-	inline const float			GetSkinWidthController	( void ) const										{ return m_SkinWidth; }
+	inline void					SetSkinWidthController		( float _SkinWidth )								{ m_SkinWidth = _SkinWidth; }
+	inline const float			GetSkinWidthController		( void ) const										{ return m_SkinWidth; }
 
-	inline void					SetStepOffsetController	( float _StepOffset )								{ m_StepOffset = _StepOffset; }
-	inline const float			GetStepOffsetController	( void ) const										{ return m_StepOffset; }
+	inline void					SetStepOffsetController		( float _StepOffset )								{ m_StepOffset = _StepOffset; }
+	inline const float			GetStepOffsetController		( void ) const										{ return m_StepOffset; }
 
-	inline void					SetAnimationOffset		( float _AnimationOffset )							{ m_AnimationOffset = _AnimationOffset; }
-	inline const float			GetAnimationOffset		( void ) const										{ return m_AnimationOffset; }
+	inline void					SetAnimationOffset			( float _AnimationOffset )							{ m_AnimationOffset = _AnimationOffset; }
+	inline const float			GetAnimationOffset			( void ) const										{ return m_AnimationOffset; }
 
 	// -------------------- Popiedades relacionadas con IA i FISICA ---------------------------------------------------------
-	inline void					SetBoundingRadious		( float _BoundingRadius )							{ m_BoundingRadius = _BoundingRadius; }
-	inline const float			GetBoundingRadious		( void ) const										{ return m_BoundingRadius; }
+	inline void					SetBoundingRadious			( float _BoundingRadius )							{ m_BoundingRadius = _BoundingRadius; }
+	inline const float			GetBoundingRadious			( void ) const										{ return m_BoundingRadius; }
 
-	inline void					SetVelocity				( const Vect3f &_Velocity )							{ m_Velocity = _Velocity; }
-	inline const Vect3f			GetVelocity				( void ) const										{ return m_Velocity; }
+	inline void					SetVelocity					( const Vect3f &_Velocity )							{ m_Velocity = _Velocity; }
+	inline const Vect3f			GetVelocity					( void ) const										{ return m_Velocity; }
 
-	inline void					SetMaxRotationSpeed		( float _MaxRotationSpeed )							{ m_MaxRotationSpeed = _MaxRotationSpeed; }
-	inline const float			GetMaxRotationSpeed		( void ) const										{ return m_MaxRotationSpeed; }
+	inline void					SetMaxRotationSpeed			( float _MaxRotationSpeed )							{ m_MaxRotationSpeed = _MaxRotationSpeed; }
+	inline const float			GetMaxRotationSpeed			( void ) const										{ return m_MaxRotationSpeed; }
 
-	inline void					SetSpeed				( float _Speed )									{ m_Speed = _Speed; }
-	inline const float			GetSpeed				( void ) const										{ return m_Speed; }
+	inline void					SetSpeed					( float _Speed )									{ m_Speed = _Speed; }
+	inline const float			GetSpeed					( void ) const										{ return m_Speed; }
 
-	inline void					SetMaxSpeed				( float _MaxSpeed )									{ m_MaxSpeed = _MaxSpeed; }
-	inline const float			GetMaxSpeed				( void ) const										{ return m_MaxSpeed; }
+	inline void					SetMaxSpeed					( float _MaxSpeed )									{ m_MaxSpeed = _MaxSpeed; }
+	inline const float			GetMaxSpeed					( void ) const										{ return m_MaxSpeed; }
 
-	inline void					SetMinSpeed				( float _MinSpeed )									{ m_MinSpeed = _MinSpeed; }
-	inline const float			GetMinSpeed				( void ) const										{ return m_MinSpeed; }
+	inline void					SetMinSpeed					( float _MinSpeed )									{ m_MinSpeed = _MinSpeed; }
+	inline const float			GetMinSpeed					( void ) const										{ return m_MinSpeed; }
 
-	inline void					SetMinAcceleration		( float _MinAcceleration )							{ m_MinAcceleration = _MinAcceleration; }
-	inline const float			GetMinAcceleration		( void ) const										{ return m_MinAcceleration; }
+	inline void					SetMinAcceleration			( float _MinAcceleration )							{ m_MinAcceleration = _MinAcceleration; }
+	inline const float			GetMinAcceleration			( void ) const										{ return m_MinAcceleration; }
 
-	inline void					SetMaxAcceleration		( float _MaxAcceleration )							{ m_MaxAcceleration  = _MaxAcceleration ; }
-	inline const float			GetMaxAcceleration		( void ) const										{ return m_MaxAcceleration ; }
+	inline void					SetMaxAcceleration			( float _MaxAcceleration )							{ m_MaxAcceleration  = _MaxAcceleration ; }
+	inline const float			GetMaxAcceleration			( void ) const										{ return m_MaxAcceleration ; }
 
-	inline void					SetAccelerationAttack1	( float _Acceleration )								{ m_AccelerationAttack1 = _Acceleration; }
-	inline const float			GetAccelerationAttack1	( void ) const										{ return m_AccelerationAttack1; }
+	inline void					SetAccelerationAttack1		( float _Acceleration )								{ m_AccelerationAttack1 = _Acceleration; }
+	inline const float			GetAccelerationAttack1		( void ) const										{ return m_AccelerationAttack1; }
 
-	inline void					SetAccelerationAttack2	( float _Acceleration )								{ m_AccelerationAttack2 = _Acceleration; }
-	inline const float			GetAccelerationAttack2	( void ) const										{ return m_AccelerationAttack2; }
+	inline void					SetAccelerationAttack2		( float _Acceleration )								{ m_AccelerationAttack2 = _Acceleration; }
+	inline const float			GetAccelerationAttack2		( void ) const										{ return m_AccelerationAttack2; }
 
-	inline void					SetAccelerationAttack3	( float _Acceleration )								{ m_AccelerationAttack3 = _Acceleration; }
-	inline const float			GetAccelerationAttack3	( void ) const										{ return m_AccelerationAttack3; }
+	inline void					SetAccelerationAttack3		( float _Acceleration )								{ m_AccelerationAttack3 = _Acceleration; }
+	inline const float			GetAccelerationAttack3		( void ) const										{ return m_AccelerationAttack3; }
 
-	inline void					SetMaxForce				( float _MaxForce )									{ m_MaxForce = _MaxForce; }
-	inline const float			GetMaxForce				( void ) const										{ return m_MaxForce; }
+	inline void					SetMaxForce					( float _MaxForce )									{ m_MaxForce = _MaxForce; }
+	inline const float			GetMaxForce					( void ) const										{ return m_MaxForce; }
 
-	inline void					SetAttackAngle			( float _Angle )									{ m_AttackAngle = _Angle; }
-	inline const float			GetAttackAngle			( void ) const										{ return m_AttackAngle; }
+	inline void					SetAttackAngle				( float _Angle )									{ m_AttackAngle = _Angle; }
+	inline const float			GetAttackAngle				( void ) const										{ return m_AttackAngle; }
 
-	inline void					SetStillAttackSpeed		( float _StillAttackSpeed )							{ m_StillAttackSpeed = _StillAttackSpeed; }
-	inline const float			GetStillAttackSpeed		( void ) const										{ return m_StillAttackSpeed; }
+	inline void					SetStillAttackSpeed			( float _StillAttackSpeed )							{ m_StillAttackSpeed = _StillAttackSpeed; }
+	inline const float			GetStillAttackSpeed			( void ) const										{ return m_StillAttackSpeed; }
 
-	inline void					SetRunAttackSpeed		( float _RunAttackSpeed )							{ m_RunAttackSpeed = _RunAttackSpeed; }
-	inline const float			GetRunAttackSpeed		( void ) const										{ return m_RunAttackSpeed; }
+	inline void					SetRunAttackSpeed			( float _RunAttackSpeed )							{ m_RunAttackSpeed = _RunAttackSpeed; }
+	inline const float			GetRunAttackSpeed			( void ) const										{ return m_RunAttackSpeed; }
 
-	inline void					SetMinTiredTime				( float _MinTime )								{ m_TiredTimes.min_time = _MinTime; }
-	inline const float			GetMinTiredTime				( void ) const									{ return m_TiredTimes.min_time; }
-	inline void					SetMaxTiredTime				( float _MaxTime )								{ m_TiredTimes.max_time = _MaxTime; }
-	inline const float			GetMaxTiredTime				( void ) const									{ return m_TiredTimes.max_time; }
-	inline void					SetMinTiredTimeAfterAttack 	( float _MinTime )								{ m_TiredTimes.min_time_after_attack = _MinTime; }
-	inline const float			GetMinTiredTimeAfterAttack	( void ) const									{ return m_TiredTimes.min_time_after_attack; }
-	inline void					SetMaxTiredTimeAfterAttack	( float _MaxTime )								{ m_TiredTimes.max_time_after_attack = _MaxTime; }
-	inline const float			GetMaxTiredTimeAfterAttack	( void ) const									{ return m_TiredTimes.max_time_after_attack; }
+	inline void					SetMinTiredTime				( float _MinTime )									{ m_TiredTimes.min_time = _MinTime; }
+	inline const float			GetMinTiredTime				( void ) const										{ return m_TiredTimes.min_time; }
+	inline void					SetMaxTiredTime				( float _MaxTime )									{ m_TiredTimes.max_time = _MaxTime; }
+	inline const float			GetMaxTiredTime				( void ) const										{ return m_TiredTimes.max_time; }
+	inline void					SetMinTiredTimeAfterAttack 	( float _MinTime )									{ m_TiredTimes.min_time_after_attack = _MinTime; }
+	inline const float			GetMinTiredTimeAfterAttack	( void ) const										{ return m_TiredTimes.min_time_after_attack; }
+	inline void					SetMaxTiredTimeAfterAttack	( float _MaxTime )									{ m_TiredTimes.max_time_after_attack = _MaxTime; }
+	inline const float			GetMaxTiredTimeAfterAttack	( void ) const										{ return m_TiredTimes.max_time_after_attack; }
 
-	inline void					SetHitRecoilDistance	( float _MaxRecoilDistance )						{ m_HitRecoilDistance = _MaxRecoilDistance; }
-	inline const float			GetHitRecoilDistance	( void ) const										{ return m_HitRecoilDistance; }
-	inline void					SetHitRecoilSpeed		( float _RecoilSpeed )								{ m_HitRecoilSpeed = _RecoilSpeed; }
-	inline const float			GetHitRecoilSpeed		( void ) const										{ return m_HitRecoilSpeed; }
+	inline void					SetHitRecoilDistance		( float _MaxRecoilDistance )						{ m_HitRecoilDistance = _MaxRecoilDistance; }
+	inline const float			GetHitRecoilDistance		( void ) const										{ return m_HitRecoilDistance; }
+	inline void					SetHitRecoilSpeed			( float _RecoilSpeed )								{ m_HitRecoilSpeed = _RecoilSpeed; }
+	inline const float			GetHitRecoilSpeed			( void ) const										{ return m_HitRecoilSpeed; }
+
+	inline void					SetTimeInDefense			( float _TimeTime )									{ m_TimeInDefense = _TimeTime; }
+	inline const float			GetTimeInDefense			( void ) const										{ return m_TimeInDefense; }
+	
 
 	//---- Members -------------------------------------------------------
 private:
@@ -210,6 +214,7 @@ private:
 	float				m_StillAttackSpeed;			// Velocidad de ataque del still attack
 	float				m_RunAttackSpeed;			// Velocidad de ataque del run attack
 	float				m_HitRecoilSpeed;			// Velocidad de retroceso en el Hit
+	float				m_TimeInDefense;			// Tiempo máximo para que se mantenga en el estado de defense
 
 	// Propiedades de distancias 
 	float				m_DetectionDistance;		// distancia de detección de otros caràcteres
