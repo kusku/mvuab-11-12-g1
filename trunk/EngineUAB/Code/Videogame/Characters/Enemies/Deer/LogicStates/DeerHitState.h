@@ -35,7 +35,8 @@ public:
 	virtual bool	OnMessage	( CCharacter*, const STelegram& );
 
 	//----Methods ---------------------------------------------
-	void			PlayRandomSound( void );
+	//void			PlayRandomSound( void );
+	void			UpdateParticlesPositions( CCharacter* _pCharacter );
 
 	//----Members ---------------------------------------------
 private:
