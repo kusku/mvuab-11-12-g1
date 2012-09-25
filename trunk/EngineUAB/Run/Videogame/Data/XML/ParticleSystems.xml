@@ -21,6 +21,23 @@
 	<!-- Sistemas del Deer -->
 	<system name="DeerBlurHook" settings_name="DeerBlurHook" />
 	<system name="DeerSteps" settings_name="DeerSteps" />
+	<system name="DeerBlockedSparks" settings_name="BlockedSparks" />
+	<system name="DeerBlockedExpandWave" settings_name="BlockedExpandWave" />
+	
+	<system name="DeerBlood" settings_name="DeerBlood" />
+	<system name="DeerBloodDust" settings_name="DeerBloodDust" />
+	<system name="DeerBloodSplash" settings_name="DeerBloodSplash" />
+	
+	
+	<system name="CenterFlare" settings_name="CenterFlare" />
+	<system name="Impact" settings_name="Impact" />
+	<system name="BloodSplash" settings_name="BloodSplash" />
+	<system name="ExpandWave" settings_name="ExpandWave" />
+	<system name="Streaks" settings_name="Streaks" />
+	<system name="Sparks" settings_name="Sparks" />
+	
+	<system name="Tendrils" settings_name="Tendrils" />
+	<system name="Clouds" settings_name="Clouds" />
 	
 	<!-- Sistemas del rabbit -->
 	<system name="RabbitBlurHook" settings_name="RabbitBlurHook" />
@@ -33,18 +50,10 @@
 	<system name="RabbitStreaks" settings_name="RabbitStreaks" />
 	<system name="RabbitSparks" settings_name="RabbitSparks" />
 	<system name="RabbitBloodSplash" settings_name="RabbitBloodSplash" />
-	<system name="RabbitBlockedSparks" settings_name="RabbitBlockedSparks" />
-	<system name="RabbitBlockedExpandWave" settings_name="RabbitExpandWave" />
+	<system name="RabbitBlockedSparks" settings_name="BlockedSparks" />
+	<system name="RabbitBlockedExpandWave" settings_name="BlockedExpandWave" />
 	
-	<system name="CenterFlare" settings_name="CenterFlare" />
-	<system name="Impact" settings_name="Impact" />
-	<system name="BloodSplash" settings_name="BloodSplash" />
-	<system name="ExpandWave" settings_name="ExpandWave" />
-	<system name="Streaks" settings_name="Streaks" />
-	<system name="Sparks" settings_name="Sparks" />
 	
-	<system name="Tendrils" settings_name="Tendrils" />
-	<system name="Clouds" settings_name="Clouds" />
 	
 	<system name="FireSwordBlur" settings_name="FireSwordBlur" />
 	<system name="FireSwordSmoke" settings_name="FireSwordSmoke" />
