@@ -118,11 +118,12 @@ void CDeerHitState::OnEnter( CCharacter* _pCharacter )
 		m_MaxHitDistance = m_pDeer->GetProperties()->GetHitRecoilDistance();
 		m_InitialHitPoint = m_pDeer->GetPosition();
 		// ---------------------------------------
+		
+		// Metemos sangre!!
+		UpdateImpact(_pCharacter);
+		GenerateImpact(_pCharacter);
 	}
 
-	// Ahora debemos actualizar las partículas
-	UpdateParticlesPositions(m_pDeer);
-	
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
@@ -139,6 +140,9 @@ void CDeerHitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 
+	// Actualizamos la posición
+	UpdateImpact(_pCharacter);
+		
 	/*if ( m_pAnimationCallback->IsAnimationStarted() ) 
 	{
 		if ( m_pAnimationCallback->IsAnimationFinished() ) 
@@ -206,7 +210,7 @@ void CDeerHitState::OnExit( CCharacter* _pCharacter )
 	//	m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	//}
 
-
+	StopImpact(_pCharacter);
 }
 
 bool CDeerHitState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
@@ -214,34 +218,19 @@ bool CDeerHitState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegr
 	return false;
 }
 
-// Devuelve el tiempo, la duración
-//void CDeerHitState::PlayRandomSound( void )
-//{
-//	int l_Num = BoostRandomHelper::GetInt(1,4);
-//	if ( l_Num == 1 )
-//	{
-//		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerPain1");
-//		m_ActionDuration = 1.2f;
-//	}
-//	else if ( l_Num == 2)
-//	{
-//		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerPain2");
-//		m_ActionDuration = 0.56f;
-//	}
-//	else if ( l_Num == 3)
-//	{
-//		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerPain3");
-//		m_ActionDuration = 2.0f;
-//	}
-//	else if ( l_Num == 4)
-//	{
-//		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerPain4");
-//		m_ActionDuration = 1.4f;
-//	}
-//}
-
-void CDeerHitState::UpdateParticlesPositions( CCharacter* _pCharacter )
+void CDeerHitState::GenerateImpact( CCharacter* _pCharacter )
 {
-	//SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_BloodSplash" , "",_pCharacter->GetPosition() + _pCharacter->GetFront()  );
+	GetParticleEmitterInstance("DeerBloodSplash", _pCharacter->GetName() + "_DeerBloodSplash")->EjectParticles();
 }
 
+void CDeerHitState::UpdateImpact( CCharacter* _pCharacter )
+{
+	/*Vect3f l_Pos = _pCharacter->GetPosition() + _pCharacter->GetFront() * 3;
+	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();*/
+	SetParticlePosition(_pCharacter, "DeerBloodSplash", _pCharacter->GetName() + "_DeerBloodSplash",	"", _pCharacter->GetPosition());
+}
+
+void CDeerHitState::StopImpact( CCharacter* _pCharacter )
+{
+	GetParticleEmitterInstance("DeerBloodSplash", _pCharacter->GetName() + "_DeerBloodSplash")->StopEjectParticles();
+}
