@@ -29,8 +29,11 @@ private:
 private:
 	std::string		m_Filename;
 
+	float			m_fThresholdDyingEffect;
+
 	//Player info
 	int				m_iPlayerLife;
+	int				m_iPlayerPreviousLife;
 
 	//Texture properties
 	Vect2i			m_MaskPosition;

@@ -514,16 +514,20 @@ void CCharacter::MoveTo( const Vect3f &_Position, float _ElapsedTime )
 //				METHODS
 // -----------------------------------------
 
-void CCharacter::AddLife( int _Life )								
+bool CCharacter::AddLife( int _Life )								
 { 
 	int l_Life = m_pProperties->GetLife();
 	int l_CurrentLife = m_pProperties->GetCurrentLife() + _Life;
 	if( l_CurrentLife >=  l_Life )
 	{
 		l_CurrentLife = l_Life;
+		m_pProperties->SetCurrentLife( l_CurrentLife ); 
+		return false;
 	}
 
 	m_pProperties->SetCurrentLife( l_CurrentLife ); 
+
+	return true;
 }
 
 void CCharacter::RestLife( int _Life )								

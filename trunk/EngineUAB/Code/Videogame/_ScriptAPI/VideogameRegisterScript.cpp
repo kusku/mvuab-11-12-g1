@@ -162,6 +162,7 @@ namespace ScriptAPI
 					.property("panic_distance", &CProperties::GetPanicDistance, &CProperties::SetPanicDistance)
 					.property("bounding_radius", &CProperties::GetBoundingRadious, &CProperties::SetBoundingRadious)
 					.property("animation_offset", &CProperties::GetAnimationOffset)
+					.property("current_life", &CProperties::GetCurrentLife, &CProperties::SetCurrentLife)
 			];
 
 		module(_pLua)

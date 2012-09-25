@@ -47,6 +47,7 @@ CPlayer::CPlayer()
 	, m_fDistanceToDetectEnemy(20.f)
 	, m_fVisibilityAngle(FLOAT_PI_VALUE / 3.f)
 	, m_fTimeWithoutDamage(0.f)
+	, m_fTimeToIncreaseLife(0.f)
 	, m_pCamera(NULL)
 {
 	m_fYaw		= 0.0f;
@@ -181,13 +182,16 @@ void CPlayer::Update( float _ElapsedTime )
 		{
 			if( m_fTimeToIncreaseLife >= m_pProperties->GetTimeToCure() )
 			{
-				AddLife( m_pProperties->GetCureVelocity() );
+				if( !AddLife( m_pProperties->GetCureVelocity() ) )
+				{
+					m_fTimeWithoutDamage = 0.f;
+				}
 				m_fTimeToIncreaseLife = 0.f;
 			}
 		}
 
 		//Mira si el personaje ha muerto
-		if( m_pProperties->GetLife() <= 0 )
+		if( m_pProperties->GetCurrentLife() <= 0 )
 		{
 			SCRIPT->RunCode("change_to_game_over_gui_process()");
 		}
