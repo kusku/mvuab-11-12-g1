@@ -18,7 +18,14 @@
 	
 	<system name="Snow" settings_name="Snow" />
 	
+	<!-- ***************** -->
+	<!-- Sistemas del Wolf -->
+	<!-- ***************** -->
+	<system name="WolfSteps" settings_name="WolfSteps" />
+	
+	<!-- ***************** -->
 	<!-- Sistemas del Deer -->
+	<!-- ***************** -->
 	<system name="DeerBlurHook" settings_name="DeerBlurHook" />
 	<system name="DeerSteps" settings_name="DeerSteps" />
 	<system name="DeerBlockedSparks" settings_name="BlockedSparks" />
@@ -39,7 +46,9 @@
 	<system name="Tendrils" settings_name="Tendrils" />
 	<system name="Clouds" settings_name="Clouds" />
 	
+	<!-- ******************* -->
 	<!-- Sistemas del rabbit -->
+	<!-- ******************* -->
 	<system name="RabbitBlurHook" settings_name="RabbitBlurHook" />
 	<system name="RabbitSteps" settings_name="RabbitSteps" />
 	<system name="RabbitCenterFlare" settings_name="RabbitCenterFlare" />		<!-- Más Blanco  -->
