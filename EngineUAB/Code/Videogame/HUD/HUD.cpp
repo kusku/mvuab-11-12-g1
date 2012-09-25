@@ -28,6 +28,8 @@ CHud::CHud()
 	, m_pBackground(NULL)
 	, m_PerCentSize(1.f)
 	, m_iPlayerLife(100)
+	, m_iPlayerPreviousLife(100)
+	, m_fThresholdDyingEffect(0.f)
 	, m_Filename("")
 {
 
@@ -75,6 +77,8 @@ bool CHud::LoadFile()
 	CXMLTreeNode l_RootNode = newFile ["HUD"];
 	if ( l_RootNode.Exists() )
 	{
+		m_fThresholdDyingEffect = l_RootNode.GetFloatProperty("threshold_to_dying_effect", 0.f);
+
 		uint8 l_TotalNodes = l_RootNode.GetNumChildren();
 		for ( uint8 i = 0; i < l_TotalNodes; ++i )
 		{
@@ -129,15 +133,47 @@ bool CHud::LoadFile()
 //------------------------------------------------
 void CHud::Init( int _iPlayerLife )
 {
-	m_iPlayerLife = _iPlayerLife;
+	m_iPlayerLife			= _iPlayerLife;
+	m_iPlayerPreviousLife	= _iPlayerLife;
 }
 
 //------------------------------------------------
 void CHud::Update( float _fElapsedTime, int _iPlayerLife )
 {
-	m_PerCentSize = (float)_iPlayerLife / (float)m_iPlayerLife;
+	float l_fTarget = (float)_iPlayerLife / (float)m_iPlayerLife;
+	if( _iPlayerLife < m_iPlayerPreviousLife )
+	{
+		m_PerCentSize = m_PerCentSize - 0.5f * _fElapsedTime;
+		if( m_PerCentSize <= l_fTarget )
+		{
+			m_PerCentSize = l_fTarget;
+			m_iPlayerPreviousLife = _iPlayerLife;
+		}
+	}
+	else if( _iPlayerLife > m_iPlayerPreviousLife )
+	{
+		m_PerCentSize = m_PerCentSize + 0.5f * _fElapsedTime;
+		if( m_PerCentSize >= l_fTarget )
+		{
+			m_PerCentSize = l_fTarget;
+			m_iPlayerPreviousLife = _iPlayerLife;
+		}
+	}
 
 	m_BarRealSize.x = static_cast<int>( static_cast<float>(m_BarSize.x) * m_PerCentSize);
+
+	if( m_PerCentSize <= m_fThresholdDyingEffect )
+	{
+		float l_fDying	= m_PerCentSize;
+		l_fDying		= l_fDying / m_fThresholdDyingEffect;
+		l_fDying		= 1.f - l_fDying;
+
+		CORE->SetDyingAmount( l_fDying );
+	}
+	else
+	{
+		CORE->SetDyingAmount( 0.f );
+	}
 }
 
 //------------------------------------------------

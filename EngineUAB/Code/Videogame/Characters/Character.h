@@ -56,7 +56,7 @@ public:
 	void						FaceTo						( const Vect3f &_Position, float _ElapsedTime );
 	void						FaceTo2						( const Vect3f &_Position, float _ElapsedTime );
 	
-	void						AddLife						( int _Life );								
+	bool						AddLife						( int _Life );								
 	void						RestLife					( int _Life );								
 	void						AddSpeed					( float _Speed );								
 	void						RestSpeed					( float _Speed );								
