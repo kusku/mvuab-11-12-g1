@@ -349,6 +349,77 @@
 		<BlendState value="Additive"/>
 	</settings>
 	
+	<settings name="DeerBlood">
+		<TextureName value="./Data/General/Textures/Splash0001.tga"/>
+		<MaxParticles value="500"/>
+		<Duration value="1.500000"/>
+		<DurationRandomness value="0.000000"/>
+		<EmitterVelocitySensitivity value="1.000000"/>
+		<MinHorizontalVelocity value="-1.000000"/>
+		<MaxHorizontalVelocity value="1.000000"/>
+		<MinVerticalVelocity value="1.000000"/>
+		<MaxVerticalVelocity value="7.0"/>
+		<Gravity value="0.000000 -9.800000 0.000000"/>
+		<EndVelocity value="0.000000"/>
+		<MinColor value="155.000000 0.000000 0.000000 255.000000"/>
+		<MaxColor value="0.000000 0.000000 0.000000 155.000000"/>
+		<MinRotateSpeed value="1.000000"/>
+		<MaxRotateSpeed value="90.000000"/>
+		<MinStartSize value="0.100000"/>
+		<MaxStartSize value="0.40000"/>
+		<MinEndSize value="0.000000"/>
+		<MaxEndSize value="0.100000"/>
+		<BlendState value="NonPremultiplied"/>
+		<!--<BlendState value="Additive"/>-->
+	</settings>
+	
+	<settings name="DeerBloodSplash">
+		<TextureName value="./Data/General/Textures/Splash0001.tga"/>
+		<MaxParticles value="200"/>
+		<Duration value="1.500000"/>
+		<DurationRandomness value="0.000000"/>
+		<EmitterVelocitySensitivity value="5.000000"/>
+		<MinHorizontalVelocity value="-5.000000"/>
+		<MaxHorizontalVelocity value="1.000000"/>
+		<MinVerticalVelocity value="3.000000"/>
+		<MaxVerticalVelocity value="8.0"/>
+		<Gravity value="0.000000 -1.800000 0.000000"/>
+		<EndVelocity value="0.000000"/>
+		<MinColor value="155.000000 0.000000 0.000000 255.000000"/>
+		<MaxColor value="0.000000 0.000000 0.000000 155.000000"/>
+		<MinRotateSpeed value="1.000000"/>
+		<MaxRotateSpeed value="20.000000"/>
+		<MinStartSize value="0.100000"/>
+		<MaxStartSize value="0.40000"/>
+		<MinEndSize value="0.000000"/>
+		<MaxEndSize value="0.100000"/>
+		<BlendState value="NonPremultiplied"/>
+		<!--<BlendState value="Additive"/>-->
+	</settings>
+	
+	<settings name="DeerBloodDust">
+		<TextureName value="./Data/General/Textures/Particles/Soft clumpy.png"/>
+		<MaxParticles value="2000"/>
+		<Duration value="1.500000"/>
+		<DurationRandomness value="0.000000"/>
+		<EmitterVelocitySensitivity value="1.000000"/>
+		<MinHorizontalVelocity value="-3.000000"/>
+		<MaxHorizontalVelocity value="3.000000"/>
+		<MinVerticalVelocity value="-1.000000"/>
+		<MaxVerticalVelocity value="8.0"/>
+		<Gravity value="0.000000 -1.800000 0.000000"/>
+		<EndVelocity value="0.000000"/>
+		<MinColor value="155.000000 0.000000 0.000000 45.000000"/>
+		<MaxColor value="0.000000 0.000000 0.000000 45.000000"/>
+		<MinRotateSpeed value="0.000000"/>
+		<MaxRotateSpeed value="0.000000"/>
+		<MinStartSize value="0.100000"/>
+		<MaxStartSize value="0.40000"/>
+		<MinEndSize value="0.000000"/>
+		<MaxEndSize value="0.100000"/>
+		<BlendState value="NonPremultiplied"/>
+	</settings>
+
 	<!-- RABBIT SETTINGS -->
 	<settings name="RabbitBlurHook">
 		<TextureName value="./Data/General/Textures/Particles/Bracket2_inv.png"/>
@@ -553,29 +624,6 @@
 		<BlendState value="Additive"/>
 	</settings>
 	
-	<settings name="RabbitBlockedSparks">
-		<TextureName value="./Data/General/Textures/Particles/Basic blur.png"/>
-		<MaxParticles value="120"/>
-		<Duration value="1.300"/>
-		<DurationRandomness value="1.000000"/>
-		<EmitterVelocitySensitivity value="1.000000"/>
-		<MinHorizontalVelocity value="-3.000000"/>
-		<MaxHorizontalVelocity value="3.000000"/>
-		<MinVerticalVelocity value="-2.000000"/>
-		<MaxVerticalVelocity value="2.000000"/>
-		<Gravity value="0.000000 -9.8000000 0.000000"/>
-		<EndVelocity value="1.000000"/>
-		<MinColor value="255.000000 255.000000 255.000000 255.000000"/>
-		<MaxColor value="255.000000 255.000000 255.000000 55.000000"/>
-		<MinRotateSpeed value="0.000000"/>
-		<MaxRotateSpeed value="0.000000"/>
-		<MinStartSize value="0.000000"/>
-		<MaxStartSize value="0.000000"/>
-		<MinEndSize value="1.000000"/>
-		<MaxEndSize value="2.000000"/>
-		<BlendState value="Additive"/>
-	</settings>
-	
 	<settings name="RabbitSteps">
 		<TextureName value="./Data/General/Textures/Particles/Soft clumpy.png"/>
 		<MaxParticles value="1000"/>
@@ -599,6 +647,53 @@
 		<BlendState value="Additive"/>
 	</settings>
 	
+	<!-- BLOCKING SETTINGS -->
+	<settings name="BlockedSparks">
+		<TextureName value="./Data/General/Textures/Particles/Basic blur.png"/>
+		<MaxParticles value="120"/>
+		<Duration value="1.300"/>
+		<DurationRandomness value="1.000000"/>
+		<EmitterVelocitySensitivity value="1.000000"/>
+		<MinHorizontalVelocity value="-3.000000"/>
+		<MaxHorizontalVelocity value="3.000000"/>
+		<MinVerticalVelocity value="-2.000000"/>
+		<MaxVerticalVelocity value="2.000000"/>
+		<Gravity value="0.000000 -9.8000000 0.000000"/>
+		<EndVelocity value="1.000000"/>
+		<MinColor value="255.000000 255.000000 255.000000 255.000000"/>
+		<MaxColor value="255.000000 255.000000 255.000000 55.000000"/>
+		<MinRotateSpeed value="0.000000"/>
+		<MaxRotateSpeed value="0.000000"/>
+		<MinStartSize value="0.000000"/>
+		<MaxStartSize value="0.000000"/>
+		<MinEndSize value="1.000000"/>
+		<MaxEndSize value="2.000000"/>
+		<BlendState value="Additive"/>
+	</settings>
+	<settings name="BlockedExpandWave">
+		<TextureName value="./Data/General/Textures/Particles/Ring.png"/>
+		<MaxParticles value="2"/>
+		<Duration value="0.3000"/>
+		<DurationRandomness value="0.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
+		<MinHorizontalVelocity value="0.000000"/>
+		<MaxHorizontalVelocity value="0.000000"/>
+		<MinVerticalVelocity value="0.000000"/>
+		<MaxVerticalVelocity value="0.000000"/>
+		<Gravity value="0.000000 0.000000 0.000000"/>
+		<EndVelocity value="0.000000"/>
+		<MinColor value="0.000000 0.000000 0.000000 155.000000"/>
+		<MaxColor value="255.000000 255.000000 255.000000 155.000000"/>
+		<MinRotateSpeed value="0.000000"/>
+		<MaxRotateSpeed value="0.000000"/>
+		<MinStartSize value="0.000000"/>
+		<MaxStartSize value="1.000000"/>
+		<MinEndSize value="8.000000"/>
+		<MaxEndSize value="10.000000"/>
+		<BlendState value="Additive"/>
+	</settings>
+	
+	
 	<settings name="Impact">
 		<TextureName value="./Data/General/Textures/Particles/Blurred spikey star.png"/>
 		<MaxParticles value="1130"/>
@@ -621,28 +716,29 @@
 		<MaxEndSize value="130.000000"/>
 		<BlendState value="Additive"/>
 	</settings>
-	
+
 	<settings name="BloodSplash">
-		<TextureName value="./Data/General/Textures/Particles/fire.png"/>
-		<MaxParticles value="1155"/>
-		<Duration value="1.000000"/>
+		<TextureName value="./Data/General/Textures/Particles/Soft clumpy.png"/>
+		<MaxParticles value="2000"/>
+		<Duration value="3.000000"/>
 		<DurationRandomness value="0.000000"/>
 		<EmitterVelocitySensitivity value="1.000000"/>
-		<MinHorizontalVelocity value="-4.000000"/>
-		<MaxHorizontalVelocity value="4.000000"/>
-		<MinVerticalVelocity value="6.000000"/>
-		<MaxVerticalVelocity value="0.0"/>
-		<Gravity value="0.000000 -9.800000 0.000000"/>
+		<MinHorizontalVelocity value="-1.000000"/>
+		<MaxHorizontalVelocity value="1.000000"/>
+		<MinVerticalVelocity value="-1.000000"/>
+		<MaxVerticalVelocity value="2.0"/>
+		<Gravity value="0.000000 -0.800000 0.000000"/>
 		<EndVelocity value="0.000000"/>
-		<MinColor value="155.000000 0.000000 0.000000 255.000000"/>
-		<MaxColor value="0.000000 0.000000 0.000000 15.000000"/>
+		<MinColor value="155.000000 0.000000 0.000000 45.000000"/>
+		<MaxColor value="0.000000 0.000000 0.000000 45.000000"/>
 		<MinRotateSpeed value="0.000000"/>
 		<MaxRotateSpeed value="0.000000"/>
-		<MinStartSize value="0.000000"/>
-		<MaxStartSize value="0.200000"/>
+		<MinStartSize value="0.100000"/>
+		<MaxStartSize value="0.40000"/>
 		<MinEndSize value="0.000000"/>
-		<MaxEndSize value="0.000000"/>
+		<MaxEndSize value="0.100000"/>
 		<BlendState value="NonPremultiplied"/>
+		<!--<BlendState value="Additive"/>-->
 	</settings>
 	
 	<settings name="CenterFlare">
