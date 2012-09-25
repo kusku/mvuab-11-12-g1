@@ -4,7 +4,6 @@
 #include "DeerHitState.h"
 
 #include "SoundManager.h"
-#include "Utils\BoostRandomHelper.h"
 
 #include "Characters\Enemies\Deer\AnimationStates\DeerIdleAnimationState.h"
 #include "Characters\Enemies\Deer\AnimationStates\DeerHitAnimationState.h"
@@ -72,9 +71,6 @@ void CDeerPursuitState::OnEnter( CCharacter* _pCharacter )
 		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 
-	/*m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_pRabbit->GetPlayer()->GetPosition());
-	m_pRabbit->GetBehaviors()->SeekOn();*/
-		
 	m_pDeer->GetBehaviors()->GetPursuit()->SetTarget(m_pDeer->GetPlayer()->GetPosition());
 	m_pDeer->GetBehaviors()->GetPursuit()->UpdateEvaderEntity( m_pDeer->GetPlayer()->GetSteeringEntity() );
 	m_pDeer->GetBehaviors()->PursuitOn();
@@ -217,27 +213,6 @@ bool CDeerPursuitState::OnMessage( CCharacter* _pCharacter, const STelegram& _Te
 		return true;
 	}
 	return false;
-}
-
-// Devuelve el tiempo, la duración
-void CDeerPursuitState::PlayRandomSound( void )
-{
-	int l_Num = BoostRandomHelper::GetInt(1,3);
-	if ( l_Num == 1 )
-	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerRun1");
-		m_SoundDuration = 2.5f;
-	}
-	else if ( l_Num == 2)
-	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerRun2");
-		m_SoundDuration = 2.5f;
-	}
-	else if ( l_Num == 3)
-	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerRun3");
-		m_SoundDuration = 3.320f;
-	}
 }
 
 void CDeerPursuitState::SetParticlePosition( CCharacter* _pCharacter )
