@@ -244,6 +244,9 @@ void CDeerDefenseState::UpdateImpact( CCharacter* _pCharacter )
 	Vect3f l_Pos = m_InitialHitPoint;
 	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
 	SetParticlePosition(_pCharacter, "DeerBlockedSparks",	    _pCharacter->GetName() + "_DeerBlockedSparks",	   "", l_Pos);
+
+	l_Pos = _pCharacter->GetPosition();
+	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
 	SetParticlePosition(_pCharacter, "DeerBlockedExpandWave",	_pCharacter->GetName() + "_DeerBlockedExpandWave", "", l_Pos);
 }
 

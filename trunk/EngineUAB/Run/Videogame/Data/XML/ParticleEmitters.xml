@@ -61,12 +61,17 @@
 	<emitter name="RabbitBlockedSparks" system_name="RabbitBlockedSparks" type="point" particlesPerSecond="1500" initialPosition="0 0 0" on_loop="false" ejection_count="500" />
 	<emitter name="RabbitBlockedExpandWave" system_name="RabbitExpandWave" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="2" />
 	
+	<!-- Partículas de sangrado -->
+	<emitter name="RabbitBloodSplash" system_name="RabbitBloodSplash" type="point" particlesPerSecond="2000" initialPosition="0 0 0" on_loop="false" ejection_count="1200" />
+	<emitter name="RabbitBloodDust"   system_name="RabbitBloodDust" type="line" particlesPerSecond="4000" initialPosition="0 0 0" on_loop=	"false" ejection_count="1000" />
+	<emitter name="RabbitBlood" 	  system_name="RabbitBlood" type="line" particlesPerSecond="2000" initialPosition="0 0 0" on_loop="false" ejection_count="1500" />
+	
 	<!-- Partículas de ataque del Still Attack  -->
 	<emitter name="RabbitBlurHook" system_name="RabbitBlurHook" type="point" particlesPerSecond="1500" initialPosition="0 0 0" on_loop="false" ejection_count="500" />
 	
 	<!-- Partículas de impacto del Still Attack  -->
 	<emitter name="RabbitImpact" system_name="RabbitCenterFlare" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="10" />
-	<emitter name="RabbitBloodSplash" system_name="RabbitBloodSplash" type="line" particlesPerSecond="1" initialPosition="0 0 0" on_loop="false" ejection_count="55" />
+	<!--<emitter name="RabbitBloodSplash" system_name="RabbitBloodSplash" type="line" particlesPerSecond="1" initialPosition="0 0 0" on_loop="false" ejection_count="55" />-->
 	<emitter name="RabbitExpandWave" system_name="RabbitExpandWave" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="2" />
 	<emitter name="RabbitStreaks" system_name="RabbitStreaks" type="line" particlesPerSecond="1200" initialPosition="0 0 0" on_loop="false" ejection_count="200" />
 	<emitter name="RabbitSparks" system_name="RabbitSparks" type="point" particlesPerSecond="300" initialPosition="0 0 0" on_loop="false" ejection_count="100" />

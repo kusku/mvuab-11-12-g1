@@ -230,7 +230,7 @@ void CDeerRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 				if ( !m_playerPushed )
 				{
 					Vect3f l_Vel = m_pDeer->GetSteeringEntity()->GetVelocity();
-					l_Vel.Normalize(1.0f);
+					l_Vel.Normalize();
 					bool l_isNan  = boost::math::isnan( l_Vel.x );
 					if ( l_isNan )
 					{

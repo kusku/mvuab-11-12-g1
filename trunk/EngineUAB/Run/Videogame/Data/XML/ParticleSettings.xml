@@ -444,6 +444,77 @@
 		<BlendState value="Additive"/>
 	</settings>
 	
+	<settings name="RabbitBlood">
+		<TextureName value="./Data/General/Textures/Splash0001.tga"/>
+		<MaxParticles value="1500"/>
+		<Duration value="1.500000"/>
+		<DurationRandomness value="0.000000"/>
+		<EmitterVelocitySensitivity value="3.000000"/>
+		<MinHorizontalVelocity value="-3.000000"/>
+		<MaxHorizontalVelocity value="3.000000"/>
+		<MinVerticalVelocity value="1.000000"/>
+		<MaxVerticalVelocity value="7.0"/>
+		<Gravity value="0.000000 -9.800000 0.000000"/>
+		<EndVelocity value="0.000000"/>
+		<MinColor value="155.000000 0.000000 0.000000 255.000000"/>
+		<MaxColor value="0.000000 0.000000 0.000000 155.000000"/>
+		<MinRotateSpeed value="1.000000"/>
+		<MaxRotateSpeed value="90.000000"/>
+		<MinStartSize value="0.100000"/>
+		<MaxStartSize value="0.40000"/>
+		<MinEndSize value="0.000000"/>
+		<MaxEndSize value="0.100000"/>
+		<BlendState value="NonPremultiplied"/>
+		<!--<BlendState value="Additive"/>-->
+	</settings>
+	
+	<settings name="RabbitBloodSplash">
+		<TextureName value="./Data/General/Textures/Splash0001.tga"/>
+		<MaxParticles value="1200"/>
+		<Duration value="1.500000"/>
+		<DurationRandomness value="0.000000"/>
+		<EmitterVelocitySensitivity value="5.000000"/>
+		<MinHorizontalVelocity value="-5.000000"/>
+		<MaxHorizontalVelocity value="1.000000"/>
+		<MinVerticalVelocity value="3.000000"/>
+		<MaxVerticalVelocity value="8.0"/>
+		<Gravity value="0.000000 -1.800000 0.000000"/>
+		<EndVelocity value="0.000000"/>
+		<MinColor value="155.000000 0.000000 0.000000 255.000000"/>
+		<MaxColor value="0.000000 0.000000 0.000000 155.000000"/>
+		<MinRotateSpeed value="1.000000"/>
+		<MaxRotateSpeed value="20.000000"/>
+		<MinStartSize value="0.100000"/>
+		<MaxStartSize value="0.40000"/>
+		<MinEndSize value="0.000000"/>
+		<MaxEndSize value="0.100000"/>
+		<BlendState value="NonPremultiplied"/>
+		<!--<BlendState value="Additive"/>-->
+	</settings>
+	
+	<settings name="RabbitBloodDust">
+		<TextureName value="./Data/General/Textures/Particles/Soft clumpy.png"/>
+		<MaxParticles value="2000"/>
+		<Duration value="1.500000"/>
+		<DurationRandomness value="0.000000"/>
+		<EmitterVelocitySensitivity value="1.000000"/>
+		<MinHorizontalVelocity value="-3.000000"/>
+		<MaxHorizontalVelocity value="3.000000"/>
+		<MinVerticalVelocity value="-1.000000"/>
+		<MaxVerticalVelocity value="8.0"/>
+		<Gravity value="0.000000 -1.800000 0.000000"/>
+		<EndVelocity value="0.000000"/>
+		<MinColor value="155.000000 0.000000 0.000000 45.000000"/>
+		<MaxColor value="0.000000 0.000000 0.000000 45.000000"/>
+		<MinRotateSpeed value="0.000000"/>
+		<MaxRotateSpeed value="0.000000"/>
+		<MinStartSize value="0.100000"/>
+		<MaxStartSize value="0.40000"/>
+		<MinEndSize value="0.000000"/>
+		<MaxEndSize value="0.100000"/>
+		<BlendState value="NonPremultiplied"/>
+	</settings>
+	
 	<settings name="RabbitCenterFlare">
 		<TextureName value="./Data/General/Textures/Particles/Blurred spikey star.png"/>
 		<MaxParticles value="2"/>
@@ -556,7 +627,7 @@
 		<MaxEndSize value="6.000000"/>
 		<BlendState value="Additive"/>
 	</settings>
-	<settings name="RabbitBloodSplash">
+	<!--<settings name="RabbitBloodSplash">
 		<TextureName value="./Data/General/Textures/Particles/fire.png"/>
 		<MaxParticles value="1155"/>
 		<Duration value="1.000000"/>
@@ -577,7 +648,7 @@
 		<MinEndSize value="0.000000"/>
 		<MaxEndSize value="0.000000"/>
 		<BlendState value="NonPremultiplied"/>
-	</settings>
+	</settings>-->
 	<settings name="RabbitStreaks">
 		<TextureName value="./Data/General/Textures/Particles/Spots.png"/>
 		<MaxParticles value="150"/>
@@ -673,7 +744,7 @@
 	<settings name="BlockedExpandWave">
 		<TextureName value="./Data/General/Textures/Particles/Ring.png"/>
 		<MaxParticles value="2"/>
-		<Duration value="0.3000"/>
+		<Duration value="1.3000"/>
 		<DurationRandomness value="0.000000"/>
 		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="0.000000"/>
@@ -692,8 +763,7 @@
 		<MaxEndSize value="10.000000"/>
 		<BlendState value="Additive"/>
 	</settings>
-	
-	
+		
 	<settings name="Impact">
 		<TextureName value="./Data/General/Textures/Particles/Blurred spikey star.png"/>
 		<MaxParticles value="1130"/>
