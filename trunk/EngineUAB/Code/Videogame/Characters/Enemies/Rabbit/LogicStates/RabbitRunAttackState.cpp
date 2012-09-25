@@ -158,9 +158,10 @@ void CRabbitRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 		if ( !m_pRabbit->GetPlayerHasBeenReached() && m_pRabbit->IsPlayerReached() )
 		{
 			m_pRabbit->SetPlayerHasBeenReached(true);
-			CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitRunAttackCharged"); 
+			//CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsRunAttack"); 
+			CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Punch3"); 
 		}
-
+		
 		// Compruebo si la animación ha finalizado
 		if ( m_pAnimationCallback->IsAnimationFinished() ) 
 		{
