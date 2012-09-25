@@ -97,7 +97,7 @@
   <render_debug_waypoints waypoints="false" triggers="false" rails="false" />
   <render_debug_physics active="false" draw_fronts="false" draw_fustrum="false" draw_names="false" draw_rays="false" />
   <render_debug_lights active="false" />
-  <render_debug_info grid="false" axis="false" render_console="false" render_logger="true" render_modifiers="false" render_debug_options="false" render_debug_render="true" />
+  <render_debug_info grid="false" axis="false" render_console="true" render_logger="true" render_modifiers="false" render_debug_options="false" render_debug_render="true" />
   
   <!--Unset DS MS-->
   <unset_depth_stencil depth_stencil="MSDS"/>

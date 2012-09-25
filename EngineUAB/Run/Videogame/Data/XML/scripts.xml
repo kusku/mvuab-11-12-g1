@@ -6,4 +6,5 @@
 	<script filename="./data/scripts/console.lua" />
 	<script filename="./data/scripts/stadistics.lua" />
 	<script filename="./data/scripts/debug_params.lua" />
+	<script filename="./data/scripts/debug_test.lua" />
 </scripts>
