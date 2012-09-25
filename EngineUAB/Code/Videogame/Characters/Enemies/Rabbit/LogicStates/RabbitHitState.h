@@ -35,10 +35,11 @@ public:
 	virtual bool	OnMessage	( CCharacter*, const STelegram& );
 
 	//----Methods ---------------------------------------------
-	//void			PlayRandomSound( void );
-	void			UpdateParticlesPositions( CCharacter* _pCharacter );
-
-
+	// Para tema de partículas de impacto
+	void			GenerateImpact			( CCharacter* _pCharacter );
+	void			UpdateImpact			( CCharacter* _pCharacter );
+	void			StopImpact				( CCharacter* _pCharacter );
+	
 	//----Members ---------------------------------------------
 private:
 	CRabbit					  * m_pRabbit;

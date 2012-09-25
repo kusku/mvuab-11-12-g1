@@ -245,6 +245,9 @@ void CRabbitDefenseState::UpdateImpact( CCharacter* _pCharacter )
 	Vect3f l_Pos = m_InitialHitPoint;
 	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
 	SetParticlePosition(_pCharacter, "RabbitBlockedSparks",	    _pCharacter->GetName() + "_RabbitBlockedSparks",	 "", l_Pos);
+
+	l_Pos = _pCharacter->GetPosition();
+	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
 	SetParticlePosition(_pCharacter, "RabbitBlockedExpandWave",	_pCharacter->GetName() + "_RabbitBlockedExpandWave", "", l_Pos);
 }
 

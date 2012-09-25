@@ -221,16 +221,24 @@ bool CDeerHitState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegr
 void CDeerHitState::GenerateImpact( CCharacter* _pCharacter )
 {
 	GetParticleEmitterInstance("DeerBloodSplash", _pCharacter->GetName() + "_DeerBloodSplash")->EjectParticles();
+	GetParticleEmitterInstance("DeerBloodDust",	  _pCharacter->GetName() + "_DeerBloodDust")->EjectParticles();
+	GetParticleEmitterInstance("DeerBlood",		  _pCharacter->GetName() + "_DeerBlood")->EjectParticles();
 }
 
 void CDeerHitState::UpdateImpact( CCharacter* _pCharacter )
 {
-	/*Vect3f l_Pos = _pCharacter->GetPosition() + _pCharacter->GetFront() * 3;
-	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();*/
-	SetParticlePosition(_pCharacter, "DeerBloodSplash", _pCharacter->GetName() + "_DeerBloodSplash",	"", _pCharacter->GetPosition());
+	Vect3f l_Pos = _pCharacter->GetPosition() + _pCharacter->GetFront();
+	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
+	
+	SetParticlePosition(_pCharacter, "DeerBloodSplash", _pCharacter->GetName() + "_DeerBloodSplash", "", l_Pos );
+	SetParticlePosition(_pCharacter, "DeerBloodDust",	_pCharacter->GetName() + "_DeerBloodDust",	 "", l_Pos);
+	SetParticlePosition(_pCharacter, "DeerBlood",		_pCharacter->GetName() + "_DeerBlood",	"", l_Pos);
 }
 
 void CDeerHitState::StopImpact( CCharacter* _pCharacter )
 {
 	GetParticleEmitterInstance("DeerBloodSplash", _pCharacter->GetName() + "_DeerBloodSplash")->StopEjectParticles();
+	GetParticleEmitterInstance("DeerBloodDust",	  _pCharacter->GetName() + "_DeerBloodDust")->StopEjectParticles();
+	GetParticleEmitterInstance("DeerBlood",		  _pCharacter->GetName() + "_DeerBlood")->StopEjectParticles();
 }
+

@@ -49,10 +49,12 @@
 	<system name="RabbitExpandWave" settings_name="RabbitExpandWave" />
 	<system name="RabbitStreaks" settings_name="RabbitStreaks" />
 	<system name="RabbitSparks" settings_name="RabbitSparks" />
-	<system name="RabbitBloodSplash" settings_name="RabbitBloodSplash" />
 	<system name="RabbitBlockedSparks" settings_name="BlockedSparks" />
 	<system name="RabbitBlockedExpandWave" settings_name="BlockedExpandWave" />
 	
+	<system name="RabbitBlood" settings_name="RabbitBlood" />
+	<system name="RabbitBloodDust" settings_name="RabbitBloodDust" />
+	<system name="RabbitBloodSplash" settings_name="RabbitBloodSplash" />
 	
 	
 	<system name="FireSwordBlur" settings_name="FireSwordBlur" />

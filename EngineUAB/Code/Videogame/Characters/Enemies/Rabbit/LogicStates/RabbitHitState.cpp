@@ -106,7 +106,7 @@ void CRabbitHitState::OnEnter( CCharacter* _pCharacter )
 		m_pActionStateCallback.InitAction(0, m_ActionDuration); 
 		m_pActionStateCallback.StartAction();
 
-		//m_pActionStateCallback.InitwAction(0.f, m_pRabbit->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_HIT_STATE));
+		//m_pActionStateCallback.InitAction(0.f, m_pRabbit->GetAnimatedModel()->GetCurrentAnimationDuration(RABBIT_HIT_STATE));
 		//m_pActionStateCallback.StartAction();
 		
 		// --- Para la gestión del retroceso ---
@@ -120,11 +120,12 @@ void CRabbitHitState::OnEnter( CCharacter* _pCharacter )
 		m_MaxHitDistance = m_pRabbit->GetProperties()->GetHitRecoilDistance();
 		m_InitialHitPoint = m_pRabbit->GetPosition();
 		// ---------------------------------------
+
+		// Metemos sangre!!
+		UpdateImpact(_pCharacter);
+		GenerateImpact(_pCharacter);
 	}
 	
-	// Ahora debemos actualizar las partículas
-	UpdateParticlesPositions(m_pRabbit);
-
 	// Gestión de partículas
 	//GetParticleEmitter(m_pRabbit->GetName() + "_BloodSplash")->EjectParticles();
 	
@@ -143,6 +144,9 @@ void CRabbitHitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 	{
 		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
+
+	// Actualizamos la posición
+	UpdateImpact(_pCharacter);
 
 	/*if ( m_pAnimationCallback->IsAnimationStarted() ) 
 	{
@@ -223,49 +227,26 @@ bool CRabbitHitState::OnMessage( CCharacter* _pCharacter, const STelegram& _Tele
 	return false;
 }
 
-// Devuelve el tiempo, la duración
-//void CRabbitHitState::PlayRandomSound( void )
-//{
-//	int l_Num = BoostRandomHelper::GetInt(1,4);
-//	if ( l_Num == 1 )
-//	{
-//		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains1");
-//		m_ActionDuration = 0.858f;
-//	}
-//	else if ( l_Num == 2)
-//	{
-//		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains2");
-//		m_ActionDuration = 0.817f;
-//	}
-//	else if ( l_Num == 3)
-//	{
-//		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains3");
-//		m_ActionDuration = 0.851f;
-//	}
-//	else if ( l_Num == 4)
-//	{
-//		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains4");
-//		m_ActionDuration = 0.483f;
-//	}
-//	else if ( l_Num == 5)
-//	{
-//		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains5");
-//		m_ActionDuration = 0.637f;
-//	}
-//	else if ( l_Num == 6)
-//	{
-//		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains6");
-//		m_ActionDuration = 0.865f;
-//	}
-//	else if ( l_Num == 7)
-//	{
-//		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains7");
-//		m_ActionDuration = 0.717f;
-//	}
-//}
-
-void CRabbitHitState::UpdateParticlesPositions( CCharacter* _pCharacter )
+void CRabbitHitState::GenerateImpact( CCharacter* _pCharacter )
 {
-	//SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_BloodSplash" , "",_pCharacter->GetPosition() + _pCharacter->GetFront()  );
+	GetParticleEmitterInstance("RabbitBloodSplash", _pCharacter->GetName() + "_RabbitBloodSplash")->EjectParticles();
+	GetParticleEmitterInstance("RabbitBloodDust",	_pCharacter->GetName() + "_RabbitBloodDust")->EjectParticles();
+	GetParticleEmitterInstance("RabbitBlood",		_pCharacter->GetName() + "_RabbitBlood")->EjectParticles();
 }
 
+void CRabbitHitState::UpdateImpact( CCharacter* _pCharacter )
+{
+	Vect3f l_Pos = _pCharacter->GetPosition() + _pCharacter->GetFront();
+	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
+	
+	SetParticlePosition(_pCharacter, "RabbitBloodSplash", _pCharacter->GetName() + "_RabbitBloodSplash", "", l_Pos );
+	SetParticlePosition(_pCharacter, "RabbitBloodDust",	  _pCharacter->GetName() +   "_RabbitBloodDust",	 "", l_Pos);
+	SetParticlePosition(_pCharacter, "RabbitBlood",		  _pCharacter->GetName() +   "_RabbitBlood",	"", l_Pos);
+}
+
+void CRabbitHitState::StopImpact( CCharacter* _pCharacter )
+{
+	GetParticleEmitterInstance("RabbitBloodSplash", _pCharacter->GetName() + "_RabbitBloodSplash")->StopEjectParticles();
+	GetParticleEmitterInstance("RabbitBloodDust",	_pCharacter->GetName() + "_RabbitBloodDust")->StopEjectParticles();
+	GetParticleEmitterInstance("RabbitBlood",		_pCharacter->GetName() + "_RabbitBlood")->StopEjectParticles();
+}
