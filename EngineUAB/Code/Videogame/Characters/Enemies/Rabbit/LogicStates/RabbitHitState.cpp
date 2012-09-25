@@ -5,6 +5,7 @@
 #include "Callbacks\Animation\AnimationCallbackManager.h"
 #include "Callbacks\State\ActionStateCallback.h"
 #include "SoundManager.h"
+#include "Utils\Timer.h"
 #include "Core.h"
 
 // --- Per pintar l'estat enemic ---
@@ -101,7 +102,7 @@ void CRabbitHitState::OnEnter( CCharacter* _pCharacter )
 		CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Rabbit_Pain");
 
 		// Aprovecho esta variable para calcular el tiempo de duración del desplazamiento
-		m_ActionDuration = m_pRabbit->GetProperties()->GetHitRecoilDistance()/m_pRabbit->GetProperties()->GetHitRecoilSpeed();
+		m_ActionDuration = m_pRabbit->GetProperties()->GetHitRecoilDistance()/m_pRabbit->GetProperties()->GetHitRecoilSpeed() * CORE->GetTimer()->GetElapsedTime();
 		m_pActionStateCallback.InitAction(0, m_ActionDuration); 
 		m_pActionStateCallback.StartAction();
 
@@ -174,7 +175,7 @@ void CRabbitHitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 
 		if ( m_pRabbit->IsAlive() ) 
 		{
-			// Obligo a descansar entre unos segundosw
+			// Obligo a descansar entre unos segundos
 			float l_MaxTimeInTired = BoostRandomHelper::GetFloat(l_Properties->GetMinTiredTimeAfterAttack(), l_Properties->GetMaxTiredTimeAfterAttack());
 			m_RecoverMinTiredTime = m_pRabbit->GetTiredState()->GetMinTiredTime();
 			m_RecoverMaxTiredTime = m_pRabbit->GetTiredState()->GetMaxTiredTime();
@@ -223,45 +224,45 @@ bool CRabbitHitState::OnMessage( CCharacter* _pCharacter, const STelegram& _Tele
 }
 
 // Devuelve el tiempo, la duración
-void CRabbitHitState::PlayRandomSound( void )
-{
-	int l_Num = BoostRandomHelper::GetInt(1,4);
-	if ( l_Num == 1 )
-	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains1");
-		m_ActionDuration = 0.858f;
-	}
-	else if ( l_Num == 2)
-	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains2");
-		m_ActionDuration = 0.817f;
-	}
-	else if ( l_Num == 3)
-	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains3");
-		m_ActionDuration = 0.851f;
-	}
-	else if ( l_Num == 4)
-	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains4");
-		m_ActionDuration = 0.483f;
-	}
-	else if ( l_Num == 5)
-	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains5");
-		m_ActionDuration = 0.637f;
-	}
-	else if ( l_Num == 6)
-	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains6");
-		m_ActionDuration = 0.865f;
-	}
-	else if ( l_Num == 7)
-	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains7");
-		m_ActionDuration = 0.717f;
-	}
-}
+//void CRabbitHitState::PlayRandomSound( void )
+//{
+//	int l_Num = BoostRandomHelper::GetInt(1,4);
+//	if ( l_Num == 1 )
+//	{
+//		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains1");
+//		m_ActionDuration = 0.858f;
+//	}
+//	else if ( l_Num == 2)
+//	{
+//		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains2");
+//		m_ActionDuration = 0.817f;
+//	}
+//	else if ( l_Num == 3)
+//	{
+//		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains3");
+//		m_ActionDuration = 0.851f;
+//	}
+//	else if ( l_Num == 4)
+//	{
+//		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains4");
+//		m_ActionDuration = 0.483f;
+//	}
+//	else if ( l_Num == 5)
+//	{
+//		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains5");
+//		m_ActionDuration = 0.637f;
+//	}
+//	else if ( l_Num == 6)
+//	{
+//		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains6");
+//		m_ActionDuration = 0.865f;
+//	}
+//	else if ( l_Num == 7)
+//	{
+//		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitPains7");
+//		m_ActionDuration = 0.717f;
+//	}
+//}
 
 void CRabbitHitState::UpdateParticlesPositions( CCharacter* _pCharacter )
 {

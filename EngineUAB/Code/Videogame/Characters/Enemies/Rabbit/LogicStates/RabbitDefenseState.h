@@ -8,6 +8,7 @@
 #include "StatesMachine\State.h"
 #include "Callbacks\State\ActionStateCallback.h"
 #include "Characters\Character.h"
+#include "Characters\StatesDefs.h"
 
 // --- Foward Declarations ---
 class CRabbit;
@@ -35,21 +36,26 @@ public:
 	virtual bool	OnMessage	( CCharacter*, const STelegram& );
 
 	//----Methods ---------------------------------------------
-	
+	// Para tema de partículas de impacto
+	void			GenerateImpact			( CCharacter* _pCharacter );
+	void			UpdateImpact			( CCharacter* _pCharacter );
+	void			StopImpact				( CCharacter* _pCharacter );
+
+
 	//----Properties ------------------------------------------
-	const bool		IsHitBlocked	( void )		{ return m_HitBlocked; }
+	const bool		IsHitBlocked	( void )		{ return m_HitIsBlocked; }
 
 	//----Members ---------------------------------------------
 private:
 	CActionStateCallback		m_ActionTime;
 	CRabbit					  * m_pRabbit;
 
-	bool						m_HitBlocked;			// Me dice si bloqueo
-	float						m_HitDistance;			// Me dice la distancia que recorro cuando paga y bloqueo hacia atras
-	int							m_TotalHitBlocked;		// Me dice el total de bloqueos que haré hasta que me pueda volver a golpear
-	int							m_HitBlockedCount;		// Me dice el nº de veces que el player me pega mientras bloqueo
+	bool						m_HitIsBlocked;			// Me dice si bloqueo
+	float						m_MaxHitDistance;		// Me dice la distancia que recorro cuando pega y bloqueo hacia atras
+	Vect3f						m_InitialHitPoint;		// Punto inicial de retroceso
+	Vect3f						m_HitDirection;			// Dirección hacia atrás donde se dirige en el golpeo
 
-	float						m_OldMaxSpeed;			// Permite almacenar la vieja velocidad para posteriormente recuperarla
-	float						m_OldMass;				// Permite almacenar la vieja masa para posteriormente recuperarla
+	int							m_TotalHitBlocked;		// Me dice el total de bloqueos que haré hasta que me pueda volver a golpear
+	int							m_HitBlockedCount;	// Me dice el nº de veces que el player me pega mientras bloqueo
 };
 #endif _RABBIT_DEFENSE_STATE_H_

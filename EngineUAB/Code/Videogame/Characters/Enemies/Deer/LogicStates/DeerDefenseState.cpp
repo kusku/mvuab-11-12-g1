@@ -10,10 +10,12 @@
 // ---------------------------------
 
 #include "Characters\Enemies\Deer\Deer.h"
+#include "Characters\StatesDefs.h"
 
 #include "DeerPursuitState.h"
 #include "DeerPreparedToAttackState.h"
 #include "DeerAttackState.h"
+#include "DeerIdleState.h"
 
 #include "Characters\Enemies\Deer\AnimationStates\DeerHitAnimationState.h"
 #include "Characters\Enemies\Deer\AnimationStates\DeerIdleAnimationState.h"
@@ -36,7 +38,7 @@ CDeerDefenseState::CDeerDefenseState( CCharacter* _pCharacter )
 	: CState			(_pCharacter, "CDeerDefenseState")
 	, m_ActionTime		( CActionStateCallback( 0.f, 6.f ) )
 	, m_pDeer			( NULL )
-	, m_HitBlocked		( false )
+	, m_HitIsBlocked		( false )
 	, m_TotalHitBlocked	( 0 )
 	, m_HitBlockedCount	( 0 )
 {
@@ -45,8 +47,7 @@ CDeerDefenseState::CDeerDefenseState( CCharacter* _pCharacter )
 CDeerDefenseState::CDeerDefenseState( CCharacter* _pCharacter, const std::string &_Name )
 	: CState			(_pCharacter, _Name)
 	, m_ActionTime		( CActionStateCallback( 0.f, 6.f ) )
-	, m_pDeer			( NULL )
-	, m_HitBlocked		( false )
+	, m_pDeer			( NULL ), m_HitIsBlocked		( false )
 	, m_TotalHitBlocked	( 0 )
 	, m_HitBlockedCount	( 0 )
 {
@@ -69,14 +70,12 @@ void CDeerDefenseState::OnEnter( CCharacter* _pCharacter )
 		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 	
+	m_ActionTime.InitAction(0, m_pDeer->GetProperties()->GetTimeInDefense());
 	m_ActionTime.StartAction();
 
 	// Me dice si bloqueo
-	m_HitBlocked = 0;
+	m_HitIsBlocked = false;
 
-	// Me dice la distancia que recorro cuando pega el player y bloqueo hacia atras
-	m_HitDistance = m_pDeer->GetProperties()->GetImpactDistance() + 2;
-	
 	// Me dice el total de bloqueos que haré hasta que me pueda volver a golpear
 	m_TotalHitBlocked = BoostRandomHelper::GetInt(1, 4);  		
 	// print_logger (1, "nº hits totals x blojar"..self.total_hit_blocked )
@@ -84,17 +83,11 @@ void CDeerDefenseState::OnEnter( CCharacter* _pCharacter )
 	// me dice el nº de veces que el player me pega mientras bloqueo
 	m_HitBlockedCount = 0;
 		
-	// Metemos más velocidad al ataque i menos massa para acelerar más 
-	m_OldMaxSpeed = m_pDeer->GetSteeringEntity()->GetMaxSpeed();
-	m_OldMass = m_pDeer->GetSteeringEntity()->GetMass();
-	m_pDeer->GetSteeringEntity()->SetMaxSpeed(1);
-	m_pDeer->GetSteeringEntity()->SetMass(0.00500f);
-
-	
+	//LOGGER->AddNewLog(ELL_INFORMATION, "Valor : %d", l_Valor);
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
-			std::string l_State = "Attack";
+			std::string l_State = DEER_DEFENSE_STATE;
 			CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pDeer->GetName().c_str(), l_State );
 		}
 	#endif
@@ -107,31 +100,32 @@ void CDeerDefenseState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 
-	m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime );
-
-	if ( m_HitBlocked ) 
+	// Si se recibe golpeo entonces retrasamos unos metros
+	if ( m_HitIsBlocked ) 
 	{
-		float l_Distance = m_pDeer->GetDistanceToPlayer();
-		// Si aun no he hecho el retroceso lo sigo moviendo
-		//if ( l_Distance <= m_HitDistance ) 
-		//{
-		//	//m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
-		//}
-		// Si llego al destino paro el retroceso
-		//else
-		//{
-		if ( l_Distance > m_HitDistance ) 
+		UpdateImpact(_pCharacter);
+		float l_Distance = m_pDeer->GetPosition().Distance(m_InitialHitPoint);
+		if ( l_Distance >= m_MaxHitDistance ) 
 		{
-			m_pDeer->GetBehaviors()->SeekOn();
 			m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-			//m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
-			m_HitBlocked = false;
+			m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+			m_HitIsBlocked = false;
+			m_pDeer->SetReceivedHitsXMinut(0);
+			m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetIdleState());
+			m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetIdleAnimationState());
+			return;
 		} 
-		//m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime );
-		m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+		else
+		{
+			m_pDeer->MoveTo2(m_HitDirection, _ElapsedTime );
+		}
 	}	
+	// Si no se recibe golpeo
 	else 
 	{
+		// Siempre miro al player mientras bloqueo
+		m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime );
+
 		// Si és atacable miro si llegué al màximo de lo que permito que me golpeen y bloqueo
 		if ( m_pDeer->IsPlayerAtacable() )
 		{
@@ -140,14 +134,14 @@ void CDeerDefenseState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 			{
 				//print_logger (1, "retorno")
 				m_pDeer->SetReceivedHitsXMinut(0);
-				m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetAttackState());
+				m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetIdleState());
 				m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetIdleAnimationState());
 				return;
 			}
 			
 			// Solo hago la acción si estoy dentro de la distancia de impacto
 			float l_Distance = m_pDeer->GetDistanceToPlayer();
-			if ( l_Distance <= ( m_pDeer->GetProperties()->GetImpactDistance() * 2 ) ) 
+			if ( l_Distance <= ( m_pDeer->GetProperties()->GetImpactDistance() * 3 ) ) 
 			{
 				m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetDefenseAnimationState());
 			}
@@ -161,7 +155,7 @@ void CDeerDefenseState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 			if ( m_ActionTime.IsActionFinished() ) 
 			{
 				// nos volvemos
-				m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetAttackState());		
+				m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetIdleState());		
 				m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetIdleAnimationState());		
 			}
 			else 
@@ -175,7 +169,7 @@ void CDeerDefenseState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		else 
 		{
 			m_pDeer->SetReceivedHitsXMinut(0);
-			m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetAttackState());		
+			m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetIdleState());		
 			m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetIdleAnimationState());		
 		}
 	}
@@ -188,42 +182,73 @@ void CDeerDefenseState::OnExit( CCharacter* _pCharacter )
 	m_pDeer->GetBehaviors()->SeekOff();
 
 	// Restauramos la velocidad original
-	m_pDeer->GetSteeringEntity()->SetMaxSpeed(m_OldMaxSpeed);
-	m_pDeer->GetSteeringEntity()->SetMass(m_OldMass);
+	m_pDeer->GetSteeringEntity()->SetMaxSpeed(m_pDeer->GetProperties()->GetMaxSpeed());
+	
+	StopImpact(_pCharacter);
 }
 
 bool CDeerDefenseState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
+	// Solo me pongo en hit si realmente he finalizado el estado de ataque
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
-		// Solo me pongo en hit si realmente he finalizado el estado de ataque
-			
+		// Si aun estoy en hit no vuelvo a animar
+		if ( m_HitIsBlocked )
+		{
+			return false;
+		}
+
 		// Me dice que acabo de bloquear un golpe
-		m_HitBlocked = true;
+		m_HitIsBlocked = true;
 
-		// _CCharacter.behaviors:flee_on()
-		m_pDeer->GetBehaviors()->SeekOn();
-		Vect3f l_Front = m_pDeer->GetSteeringEntity()->GetFront();
-		l_Front.Normalize();
-		l_Front = l_Front.RotateY(mathUtils::PiTimes(1.f));
-			
-		//m_pDeer->GetBehaviors()->GetFlee()->SetTarget(m_pDeer->GetPlayer()->GetPosition());
-		// l_target = Vect3f(l_front.x,l_front.y,l_front.z):normalize(1)
-		// l_target = l_target * 2
-		// _CCharacter.behaviors.flee.target = l_target
-			
-		l_Front = m_pDeer->GetSteeringEntity()->GetPosition() + l_Front * m_HitDistance;
-		// _CCharacter.behaviors.flee.target = l_front
+		// Indicamos que el player no se pilló
+		m_pDeer->SetPlayerHasBeenReached( false );
+
+		// Guardamos la posición inicial de impacto
+		m_InitialHitPoint = m_pDeer->GetPosition();
+
+		// --- Para la gestión del retroceso ---
+		m_pDeer->GetProperties()->SetMaxSpeed(m_pDeer->GetProperties()->GetHitRecoilSpeed());
+
+		m_HitDirection = m_pDeer->GetSteeringEntity()->GetFront();
+		m_HitDirection.Normalize();
+		m_HitDirection = m_HitDirection.RotateY(mathUtils::PiTimes(1.f));
+		
+		// Me dice la distancia máxima y posición que recorro cuando pega el player y bloqueo hacia atras
+		m_MaxHitDistance = m_pDeer->GetProperties()->GetHitRecoilDistance();
+		// ---------------------------------------
+
 		m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-		m_pDeer->GetBehaviors()->GetSeek()->SetTarget(l_Front);
+		m_pDeer->GetBehaviors()->GetSeek()->SetTarget(m_HitDirection);
 					
-		// _CCharacter:move_to2( _CCharacter.steering_entity.velocity, _elapsed_time )
-
 		// Cuento el nº de hits que lleva mientras bloqueo
 		m_HitBlockedCount += 1;
-		//print_logger (1, "self.hit_blocked_count : "..self.hit_blocked_count)
+
+		// tratamos el tema de partículas de bloqueo
+		UpdateImpact(_pCharacter);
+		GenerateImpact(_pCharacter);
 		return true;
 	}
 
 	return false;
+}
+
+void CDeerDefenseState::GenerateImpact( CCharacter* _pCharacter )
+{
+	GetParticleEmitterInstance("DeerBlockedSparks",	     _pCharacter->GetName() + "_DeerBlockedSparks")->EjectParticles();
+	GetParticleEmitterInstance("DeerBlockedExpandWave",  _pCharacter->GetName() + "_DeerBlockedExpandWave")->EjectParticles();
+}
+
+void CDeerDefenseState::UpdateImpact( CCharacter* _pCharacter )
+{
+	Vect3f l_Pos = m_InitialHitPoint;
+	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
+	SetParticlePosition(_pCharacter, "DeerBlockedSparks",	    _pCharacter->GetName() + "_DeerBlockedSparks",	   "", l_Pos);
+	SetParticlePosition(_pCharacter, "DeerBlockedExpandWave",	_pCharacter->GetName() + "_DeerBlockedExpandWave", "", l_Pos);
+}
+
+void CDeerDefenseState::StopImpact( CCharacter* _pCharacter )
+{
+	GetParticleEmitterInstance("DeerBlockedSparks",	    _pCharacter->GetName() + "_DeerBlockedSparks")->StopEjectParticles();
+	GetParticleEmitterInstance("DeerBlockedExpandWave", _pCharacter->GetName() + "_DeerBlockedExpandWave")->StopEjectParticles();
 }

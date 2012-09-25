@@ -8,6 +8,7 @@
 #include "RabbitPursuitState.h"
 #include "RabbitPreparedToAttackState.h"
 #include "RabbitAttackState.h"
+#include "RabbitIdleState.h"
 
 #include "Characters\Enemies\Rabbit\AnimationStates\RabbitHitAnimationState.h"
 #include "Characters\Enemies\Rabbit\AnimationStates\RabbitIdleAnimationState.h"
@@ -38,7 +39,7 @@ CRabbitDefenseState::CRabbitDefenseState( CCharacter* _pCharacter )
 	: CState			(_pCharacter, "CRabbitDefenseState")
 	, m_ActionTime		( CActionStateCallback( 0.f, 6.f ) )
 	, m_pRabbit			( NULL )
-	, m_HitBlocked		( false )
+	, m_HitIsBlocked		( false )
 	, m_TotalHitBlocked	( 0 )
 	, m_HitBlockedCount	( 0 )
 {
@@ -48,7 +49,7 @@ CRabbitDefenseState::CRabbitDefenseState( CCharacter* _pCharacter, const std::st
 	: CState			(_pCharacter,_Name)
 	, m_ActionTime		( CActionStateCallback( 0.f, 6.f ) )
 	, m_pRabbit			( NULL )
-	, m_HitBlocked		( false )
+	, m_HitIsBlocked		( false )
 	, m_TotalHitBlocked	( 0 )
 	, m_HitBlockedCount	( 0 )
 {
@@ -71,14 +72,12 @@ void CRabbitDefenseState::OnEnter( CCharacter* _pCharacter )
 		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 	
+	m_ActionTime.InitAction(0, m_pRabbit->GetProperties()->GetTimeInDefense());
 	m_ActionTime.StartAction();
 
 	// Me dice si bloqueo
-	m_HitBlocked = 0;
+	m_HitIsBlocked = false;
 
-	// Me dice la distancia que recorro cuando pega el player y bloqueo hacia atras
-	m_HitDistance = m_pRabbit->GetProperties()->GetImpactDistance() + 2;
-	
 	// Me dice el total de bloqueos que haré hasta que me pueda volver a golpear
 	m_TotalHitBlocked = BoostRandomHelper::GetInt(1, 4);  		
 	// print_logger (1, "nº hits totals x blojar"..self.total_hit_blocked )
@@ -86,12 +85,6 @@ void CRabbitDefenseState::OnEnter( CCharacter* _pCharacter )
 	// me dice el nº de veces que el player me pega mientras bloqueo
 	m_HitBlockedCount = 0;
 		
-	// Metemos más velocidad al ataque i menos massa para acelerar más 
-	m_OldMaxSpeed = m_pRabbit->GetSteeringEntity()->GetMaxSpeed();
-	m_OldMass = m_pRabbit->GetSteeringEntity()->GetMass();
-	m_pRabbit->GetSteeringEntity()->SetMaxSpeed(1);
-	//m_pRabbit->GetSteeringEntity()->SetMass(0.00500f);
-
 	//LOGGER->AddNewLog(ELL_INFORMATION, "Valor : %d", l_Valor);
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
@@ -109,31 +102,32 @@ void CRabbitDefenseState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
-	m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime );
-
-	if ( m_HitBlocked ) 
+	// Si se recibe golpeo entonces retrasamos unos metros
+	if ( m_HitIsBlocked ) 
 	{
-		float l_Distance = m_pRabbit->GetDistanceToPlayer();
-		// Si aun no he hecho el retroceso lo sigo moviendo
-		//if ( l_Distance <= m_HitDistance ) 
-		//{
-		//	//m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
-		//}
-		// Si llego al destino paro el retroceso
-		//else
-		//{
-		if ( l_Distance > m_HitDistance ) 
+		UpdateImpact(_pCharacter);
+		float l_Distance = m_pRabbit->GetPosition().Distance(m_InitialHitPoint);
+		if ( l_Distance >= m_MaxHitDistance ) 
 		{
-			m_pRabbit->GetBehaviors()->SeekOn();
 			m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-			//m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
-			m_HitBlocked = false;
+			m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+			m_HitIsBlocked = false;
+			m_pRabbit->SetReceivedHitsXMinut(0);
+			m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetIdleState());
+			m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());
+			return;
 		} 
-		//m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime );
-		m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+		else
+		{
+			m_pRabbit->MoveTo2(m_HitDirection, _ElapsedTime );
+		}
 	}	
+	// Si no se recibe golpeo
 	else 
 	{
+		// Siempre miro al player mientras bloqueo
+		m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime );
+
 		// Si és atacable miro si llegué al màximo de lo que permito que me golpeen y bloqueo
 		if ( m_pRabbit->IsPlayerAtacable() )
 		{
@@ -142,14 +136,14 @@ void CRabbitDefenseState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 			{
 				//print_logger (1, "retorno")
 				m_pRabbit->SetReceivedHitsXMinut(0);
-				m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetAttackState());
+				m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetIdleState());
 				m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());
 				return;
 			}
 			
 			// Solo hago la acción si estoy dentro de la distancia de impacto
 			float l_Distance = m_pRabbit->GetDistanceToPlayer();
-			if ( l_Distance <= ( m_pRabbit->GetProperties()->GetImpactDistance() * 2 ) ) 
+			if ( l_Distance <= ( m_pRabbit->GetProperties()->GetImpactDistance() * 3 ) ) 
 			{
 				m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetDefenseAnimationState());
 			}
@@ -163,7 +157,7 @@ void CRabbitDefenseState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 			if ( m_ActionTime.IsActionFinished() ) 
 			{
 				// nos volvemos
-				m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetAttackState());		
+				m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetIdleState());		
 				m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());		
 			}
 			else 
@@ -177,11 +171,10 @@ void CRabbitDefenseState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		else 
 		{
 			m_pRabbit->SetReceivedHitsXMinut(0);
-			m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetAttackState());		
+			m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetIdleState());		
 			m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());		
 		}
 	}
-
 }
 
 void CRabbitDefenseState::OnExit( CCharacter* _pCharacter )
@@ -190,42 +183,73 @@ void CRabbitDefenseState::OnExit( CCharacter* _pCharacter )
 	m_pRabbit->GetBehaviors()->SeekOff();
 
 	// Restauramos la velocidad original
-	m_pRabbit->GetSteeringEntity()->SetMaxSpeed(m_OldMaxSpeed);
-	m_pRabbit->GetSteeringEntity()->SetMass(m_OldMass);
+	m_pRabbit->GetSteeringEntity()->SetMaxSpeed(m_pRabbit->GetProperties()->GetMaxSpeed());
+	
+	StopImpact(_pCharacter);
 }
 
 bool CRabbitDefenseState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
+	// Solo me pongo en hit si realmente he finalizado el estado de ataque
 	if ( _Telegram.Msg == Msg_Attack ) 
 	{
-		// Solo me pongo en hit si realmente he finalizado el estado de ataque
-			
+		// Si aun estoy en hit no vuelvo a animar
+		if ( m_HitIsBlocked )
+		{
+			return false;
+		}
+
 		// Me dice que acabo de bloquear un golpe
-		m_HitBlocked = true;
+		m_HitIsBlocked = true;
 
-		// _CCharacter.behaviors:flee_on()
-		m_pRabbit->GetBehaviors()->SeekOn();
-		Vect3f l_Front = m_pRabbit->GetSteeringEntity()->GetFront();
-		l_Front.Normalize();
-		l_Front = l_Front.RotateY(mathUtils::PiTimes(1.f));
-			
-		//m_pRabbit->GetBehaviors()->GetFlee()->SetTarget(m_pRabbit->GetPlayer()->GetPosition());
-		// l_target = Vect3f(l_front.x,l_front.y,l_front.z):normalize(1)
-		// l_target = l_target * 2
-		// _CCharacter.behaviors.flee.target = l_target
-			
-		l_Front = m_pRabbit->GetSteeringEntity()->GetPosition() + l_Front * m_HitDistance;
-		// _CCharacter.behaviors.flee.target = l_front
+		// Indicamos que el player no se pilló
+		m_pRabbit->SetPlayerHasBeenReached( false );
+
+		// Guardamos la posición inicial de impacto
+		m_InitialHitPoint = m_pRabbit->GetPosition();
+
+		// --- Para la gestión del retroceso ---
+		m_pRabbit->GetProperties()->SetMaxSpeed(m_pRabbit->GetProperties()->GetHitRecoilSpeed());
+
+		m_HitDirection = m_pRabbit->GetSteeringEntity()->GetFront();
+		m_HitDirection.Normalize();
+		m_HitDirection = m_HitDirection.RotateY(mathUtils::PiTimes(1.f));
+		
+		// Me dice la distancia máxima y posición que recorro cuando pega el player y bloqueo hacia atras
+		m_MaxHitDistance = m_pRabbit->GetProperties()->GetHitRecoilDistance();
+		// ---------------------------------------
+
 		m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-		m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(l_Front);
+		m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_HitDirection);
 					
-		// _CCharacter:move_to2( _CCharacter.steering_entity.velocity, _elapsed_time )
-
 		// Cuento el nº de hits que lleva mientras bloqueo
 		m_HitBlockedCount += 1;
-		//print_logger (1, "self.hit_blocked_count : "..self.hit_blocked_count)
+
+		// tratamos el tema de partículas de bloqueo
+		UpdateImpact(_pCharacter);
+		GenerateImpact(_pCharacter);
 		return true;
 	}
 
 	return false;
+}
+
+void CRabbitDefenseState::GenerateImpact( CCharacter* _pCharacter )
+{
+	GetParticleEmitterInstance("RabbitBlockedSparks",	   _pCharacter->GetName() + "_RabbitBlockedSparks")->EjectParticles();
+	GetParticleEmitterInstance("RabbitBlockedExpandWave",  _pCharacter->GetName() + "_RabbitBlockedExpandWave")->EjectParticles();
+}
+
+void CRabbitDefenseState::UpdateImpact( CCharacter* _pCharacter )
+{
+	Vect3f l_Pos = m_InitialHitPoint;
+	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
+	SetParticlePosition(_pCharacter, "RabbitBlockedSparks",	    _pCharacter->GetName() + "_RabbitBlockedSparks",	 "", l_Pos);
+	SetParticlePosition(_pCharacter, "RabbitBlockedExpandWave",	_pCharacter->GetName() + "_RabbitBlockedExpandWave", "", l_Pos);
+}
+
+void CRabbitDefenseState::StopImpact( CCharacter* _pCharacter )
+{
+	GetParticleEmitterInstance("RabbitBlockedSparks",	  _pCharacter->GetName() + "_RabbitBlockedSparks")->StopEjectParticles();
+	GetParticleEmitterInstance("RabbitBlockedExpandWave", _pCharacter->GetName() + "_RabbitBlockedExpandWave")->StopEjectParticles();
 }

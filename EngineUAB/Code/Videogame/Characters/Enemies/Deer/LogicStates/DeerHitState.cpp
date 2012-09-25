@@ -5,6 +5,7 @@
 #include "Callbacks\Animation\AnimationCallbackManager.h"
 #include "Callbacks\State\ActionStateCallback.h"
 #include "SoundManager.h"
+#include "Utils\Timer.h"
 #include "Core.h"
 
 // --- Per pintar l'estat enemic ---
@@ -99,7 +100,7 @@ void CDeerHitState::OnEnter( CCharacter* _pCharacter )
 		//PlayRandomSound();
 
 		// Aprovecho esta variable para calcular el tiempo de duración del desplazamiento
-		m_ActionDuration = m_pDeer->GetProperties()->GetHitRecoilDistance()/m_pDeer->GetProperties()->GetHitRecoilSpeed();
+		m_ActionDuration = m_pDeer->GetProperties()->GetHitRecoilDistance()/m_pDeer->GetProperties()->GetHitRecoilSpeed() * CORE->GetTimer()->GetElapsedTime();
 		m_pActionStateCallback.InitAction(0, m_ActionDuration); 
 		m_pActionStateCallback.StartAction();
 
@@ -119,6 +120,8 @@ void CDeerHitState::OnEnter( CCharacter* _pCharacter )
 		// ---------------------------------------
 	}
 
+	// Ahora debemos actualizar las partículas
+	UpdateParticlesPositions(m_pDeer);
 	
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
@@ -212,27 +215,33 @@ bool CDeerHitState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegr
 }
 
 // Devuelve el tiempo, la duración
-void CDeerHitState::PlayRandomSound( void )
+//void CDeerHitState::PlayRandomSound( void )
+//{
+//	int l_Num = BoostRandomHelper::GetInt(1,4);
+//	if ( l_Num == 1 )
+//	{
+//		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerPain1");
+//		m_ActionDuration = 1.2f;
+//	}
+//	else if ( l_Num == 2)
+//	{
+//		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerPain2");
+//		m_ActionDuration = 0.56f;
+//	}
+//	else if ( l_Num == 3)
+//	{
+//		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerPain3");
+//		m_ActionDuration = 2.0f;
+//	}
+//	else if ( l_Num == 4)
+//	{
+//		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerPain4");
+//		m_ActionDuration = 1.4f;
+//	}
+//}
+
+void CDeerHitState::UpdateParticlesPositions( CCharacter* _pCharacter )
 {
-	int l_Num = BoostRandomHelper::GetInt(1,4);
-	if ( l_Num == 1 )
-	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerPain1");
-		m_ActionDuration = 1.2f;
-	}
-	else if ( l_Num == 2)
-	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerPain2");
-		m_ActionDuration = 0.56f;
-	}
-	else if ( l_Num == 3)
-	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerPain3");
-		m_ActionDuration = 2.0f;
-	}
-	else if ( l_Num == 4)
-	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerPain4");
-		m_ActionDuration = 1.4f;
-	}
+	//SetParticlePosition(_pCharacter, _pCharacter->GetName() + "_BloodSplash" , "",_pCharacter->GetPosition() + _pCharacter->GetFront()  );
 }
+
