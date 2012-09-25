@@ -6,6 +6,7 @@
 #include <string>
 #include "StatesMachine\State.h"
 #include "Characters\Character.h"
+#include "Callbacks\State\ActionStateCallback.h"
 
 // --- Foward Declarations ---
 class CWolf;
@@ -32,12 +33,17 @@ public:
 	virtual bool	OnMessage	( CCharacter*, const STelegram& );
 
 	//----Methods ---------------------------------------------
-
+	void			UpdateParticles		( CCharacter* _pCharacter );
+	void			StopParticles		( CCharacter* _pCharacter );
 
 	//----Members ---------------------------------------------
 private:
-	CWolf					  * m_pWolf;
+	CWolf				  * m_pWolf;
+	CActionStateCallback	m_SoundActionStateCallback;
+	CActionStateCallback	m_RunActionStateCallback;
+	float					m_SoundDuration;
 
+	bool					m_FirtsStepDone, m_SecondStepDone;
 };
 
 
