@@ -5,9 +5,11 @@
 
 #include <string>
 #include "MessageDefs.h"
+#include "Math\Matrix44.h"
 #include "Particles\ParticleEmitterManager.h"
 #include "Particles\ParticleEmitterInstance.h"
 #include "Particles\ParticleEmitterSystemManager.h"
+#include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 
 //#include "mathutils\Mat44f"
 
