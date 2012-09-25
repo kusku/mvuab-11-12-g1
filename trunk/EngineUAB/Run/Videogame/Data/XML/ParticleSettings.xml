@@ -302,6 +302,125 @@
 		<BlendState value="NonPremultiplied"/>
 	</settings>
 	
+	<!-- WOLF SETTINGS -->
+	<settings name="WolfBlurHook">
+		<TextureName value="./Data/General/Textures/Particles/FlowerBurst.jpg"/>
+		<MaxParticles value="1300"/>
+		<Duration value="0.320000"/>
+		<DurationRandomness value="0.00000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
+		<MinHorizontalVelocity value="0.000000"/>
+		<MaxHorizontalVelocity value="0.00000"/>
+		<MinVerticalVelocity value="-0.000000"/>
+		<MaxVerticalVelocity value="0.000000"/>
+		<Gravity value="0.000000 0.000000 0.000000"/>
+		<EndVelocity value="0.0000"/>
+		<MinColor value="255.000000 0.000000 0.000000 125.000000"/>
+		<MaxColor value="110.000000 111.000000 0.000000 125.000000"/>
+		<MinRotateSpeed value="0.500000"/>
+		<MaxRotateSpeed value="3.000000"/>
+		<MinStartSize value="0.0500000"/>
+		<MaxStartSize value="0.100000"/>
+		<MinEndSize value="1.200000"/>
+		<MaxEndSize value="2.00000"/>
+		<BlendState value="Additive"/>
+	</settings>
+
+	<settings name="WolfSteps">
+		<TextureName value="./Data/General/Textures/Particles/Soft clumpy.png"/>
+		<MaxParticles value="1000"/>
+		<Duration value="2.00000"/>
+		<DurationRandomness value="0.000000"/>
+		<EmitterVelocitySensitivity value="0.400000"/>
+		<MinHorizontalVelocity value="0.200000"/>
+		<MaxHorizontalVelocity value="0.600000"/>
+		<MinVerticalVelocity value="0.000000"/>
+		<MaxVerticalVelocity value="0.000000"/>
+		<Gravity value="0.000000 0.000000 0.000000"/>
+		<EndVelocity value="0.000000"/>
+		<MinColor value="77.000000 103.000000 97.000000 45.000000"/>
+		<MaxColor value="134.000000 124.000000 155.000000 45.000000"/>
+		<MinRotateSpeed value="0.500000"/>
+		<MaxRotateSpeed value="2.000000"/>
+		<MinStartSize value="0.000000"/>
+		<MaxStartSize value="0.500000"/>
+		<MinEndSize value="0.600000"/>
+		<MaxEndSize value="4.400000"/>
+		<BlendState value="NonPremultiplied"/>
+	</settings>
+		
+	<settings name="WolfBlood">
+		<TextureName value="./Data/General/Textures/Splash0001.tga"/>
+		<MaxParticles value="500"/>
+		<Duration value="1.500000"/>
+		<DurationRandomness value="0.000000"/>
+		<EmitterVelocitySensitivity value="1.000000"/>
+		<MinHorizontalVelocity value="-1.000000"/>
+		<MaxHorizontalVelocity value="1.000000"/>
+		<MinVerticalVelocity value="1.000000"/>
+		<MaxVerticalVelocity value="7.0"/>
+		<Gravity value="0.000000 -9.800000 0.000000"/>
+		<EndVelocity value="0.000000"/>
+		<MinColor value="155.000000 0.000000 0.000000 255.000000"/>
+		<MaxColor value="0.000000 0.000000 0.000000 155.000000"/>
+		<MinRotateSpeed value="1.000000"/>
+		<MaxRotateSpeed value="90.000000"/>
+		<MinStartSize value="0.100000"/>
+		<MaxStartSize value="0.40000"/>
+		<MinEndSize value="0.000000"/>
+		<MaxEndSize value="0.100000"/>
+		<BlendState value="NonPremultiplied"/>
+		<!--<BlendState value="Additive"/>-->
+	</settings>
+	
+	<settings name="WolfBloodSplash">
+		<TextureName value="./Data/General/Textures/Splash0001.tga"/>
+		<MaxParticles value="200"/>
+		<Duration value="1.500000"/>
+		<DurationRandomness value="0.000000"/>
+		<EmitterVelocitySensitivity value="5.000000"/>
+		<MinHorizontalVelocity value="-5.000000"/>
+		<MaxHorizontalVelocity value="1.000000"/>
+		<MinVerticalVelocity value="3.000000"/>
+		<MaxVerticalVelocity value="8.0"/>
+		<Gravity value="0.000000 -1.800000 0.000000"/>
+		<EndVelocity value="0.000000"/>
+		<MinColor value="155.000000 0.000000 0.000000 255.000000"/>
+		<MaxColor value="0.000000 0.000000 0.000000 155.000000"/>
+		<MinRotateSpeed value="1.000000"/>
+		<MaxRotateSpeed value="20.000000"/>
+		<MinStartSize value="0.100000"/>
+		<MaxStartSize value="0.40000"/>
+		<MinEndSize value="0.000000"/>
+		<MaxEndSize value="0.100000"/>
+		<BlendState value="NonPremultiplied"/>
+		<!--<BlendState value="Additive"/>-->
+	</settings>
+	
+	<settings name="WolfBloodDust">
+		<TextureName value="./Data/General/Textures/Particles/Soft clumpy.png"/>
+		<MaxParticles value="2000"/>
+		<Duration value="1.500000"/>
+		<DurationRandomness value="0.000000"/>
+		<EmitterVelocitySensitivity value="1.000000"/>
+		<MinHorizontalVelocity value="-3.000000"/>
+		<MaxHorizontalVelocity value="3.000000"/>
+		<MinVerticalVelocity value="-1.000000"/>
+		<MaxVerticalVelocity value="8.0"/>
+		<Gravity value="0.000000 -1.800000 0.000000"/>
+		<EndVelocity value="0.000000"/>
+		<MinColor value="155.000000 0.000000 0.000000 45.000000"/>
+		<MaxColor value="0.000000 0.000000 0.000000 45.000000"/>
+		<MinRotateSpeed value="0.000000"/>
+		<MaxRotateSpeed value="0.000000"/>
+		<MinStartSize value="0.100000"/>
+		<MaxStartSize value="0.40000"/>
+		<MinEndSize value="0.000000"/>
+		<MaxEndSize value="0.100000"/>
+		<BlendState value="NonPremultiplied"/>
+	</settings>
+
+	
 	<!-- DEER SETTINGS -->
 	<settings name="DeerBlurHook">
 		<TextureName value="./Data/General/Textures/Particles/FlowerBurst.jpg"/>
@@ -623,8 +742,8 @@
 		<MaxRotateSpeed value="0.000000"/>
 		<MinStartSize value="0.000000"/>
 		<MaxStartSize value="1.000000"/>
-		<MinEndSize value="5.000000"/>
-		<MaxEndSize value="6.000000"/>
+		<MinEndSize value="7.000000"/>
+		<MaxEndSize value="9.000000"/>
 		<BlendState value="Additive"/>
 	</settings>
 	<!--<settings name="RabbitBloodSplash">
