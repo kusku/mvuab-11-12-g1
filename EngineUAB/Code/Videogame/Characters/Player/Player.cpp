@@ -31,6 +31,7 @@
 #include "EngineProcess.h"
 #include "GameProcess.h"
 #include "Math\MathTypes.h"
+#include "Helpers\MathHelper.h"
 #include "Core.h"
 #include "Base.h"
 
@@ -285,4 +286,14 @@ void CPlayer::CreateCallbacks()
 void CPlayer::BeDead()
 {
 	return;
+}
+
+void CPlayer::UpdateCamera( float _ElapsedTime, bool _bIsUpdated )
+{
+	if( _bIsUpdated )
+	{
+		float l_fDelta = CORE->GetActionToInput()->DoActionMouse("YawPlayer");
+
+		m_fYaw = Helper::AngleFilter( m_fYaw - l_fDelta);
+	}
 }

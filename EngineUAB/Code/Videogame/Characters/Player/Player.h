@@ -18,6 +18,7 @@ public:
 
 	bool			Init	();
 	void			Update	( float _ElapsedTime );
+	void			UpdateCamera( float _ElapsedTime, bool _bIsUpdated );
 
 	void			HitToPlayer		();
 	CCharacter*		DetectEnemy		();
@@ -35,14 +36,17 @@ private:
 private:
 	bool			m_bIsTargetFixed;
 
+	// Camera
 	float			m_fMovementZoom;
 	float			m_fStaticZoom;
 	float			m_fVelocityAdaptativeZoom;
 	float			m_fDownZoom;
 
+	// Life
 	float			m_fTimeWithoutDamage;
 	float			m_fTimeToIncreaseLife;
 
+	// Detection
 	float			m_fDistanceToDetectEnemy;
 	float			m_fVisibilityAngle;
 

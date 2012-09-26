@@ -116,7 +116,6 @@ void CThPSCharacterCamera::Update(float _ElapsedTime)
 	//Máscara de colisión
 	int l_iMask = 1 << ECG_ESCENE;
 	l_iMask |= 1 << ECG_DYNAMIC_OBJECTS;
-	l_iMask |= 1 << ECG_ENEMY;	
 
 	//Miramos si hay un objeto por delante de la cámara
 	l_pUserData = CORE->GetPhysicsManager()->RaycastClosestActor(m_LookAt, l_Dir, l_iMask, l_CollisionInfo);
@@ -130,6 +129,10 @@ void CThPSCharacterCamera::Update(float _ElapsedTime)
 			m_Eye = l_CollisionInfo.m_CollisionPoint - l_Dir * 0.5f;
 		}
 	}
+
+	l_iMask = 1 << ECG_ESCENE;
+	l_iMask |= 1 << ECG_DYNAMIC_OBJECTS;
+	l_iMask |= 1 << ECG_ENEMY;	
 
 	//Miramos si colisiona con algun sitio y desplazamos la cámara
 	l_pUserData = CORE->GetPhysicsManager()->RaycastClosestActor(m_Eye + l_Dir + v3fNEGY, v3fNEGY, l_iMask, l_CollisionInfo);
