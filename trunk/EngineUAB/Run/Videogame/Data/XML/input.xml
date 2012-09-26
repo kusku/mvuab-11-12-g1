@@ -73,11 +73,11 @@
 	</action>
 	
 	<action name="YawPlayer">
-		<input deviceType="IDV_MOUSE" AxisType="AXIS_MOUSE_X"     Delta="0.005f"/>
+		<input deviceType="IDV_MOUSE" AxisType="AXIS_MOUSE_X"     Delta="0.01f"/>
 	</action>
 	
 	<action name="PitchPlayer">
-		<input deviceType="IDV_MOUSE" AxisType="AXIS_MOUSE_Y"     Delta="0.005f"/>
+		<input deviceType="IDV_MOUSE" AxisType="AXIS_MOUSE_Y"     Delta="0.01f"/>
 	</action>
 	
 	<action name="AttackPlayer">

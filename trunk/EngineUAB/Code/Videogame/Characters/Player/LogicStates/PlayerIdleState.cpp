@@ -137,9 +137,7 @@ void CPlayerIdleState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 		//Actualización del yaw a partir del movimiento del mouse
 		if( !l_pPlayer->IsTargetFixed() )
 		{
-			float l_fDelta = CORE->GetActionToInput()->DoActionMouse("YawPlayer");
-
-			_pCharacter->SetYaw( Helper::AngleFilter(_pCharacter->GetYaw() - l_fDelta) );
+			l_pPlayer->UpdateCamera(_fElapsedTime, true);
 		}
 		else
 		{
@@ -199,7 +197,7 @@ bool CPlayerIdleState::OnMessage( CCharacter* _pCharacter, const STelegram& _Mes
 		sDireccion * l_Info = (struct sDireccion *) _Message.ExtraInfo;
 		_pCharacter->MoveTo2(l_Info->Direccion*2.0f, l_Info->ElapsedTime);
 		_pCharacter->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-		LOGGER->AddNewLog(ELL_INFORMATION, "CPlayerIdleState::OnMessage -> PUSHED!!");
+
 		return true;
 	}
 

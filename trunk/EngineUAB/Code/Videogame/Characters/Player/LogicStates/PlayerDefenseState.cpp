@@ -5,6 +5,7 @@
 #include "DebugInfo\DebugRender.h"
 #include "DebugGUIManager.h"
 #include "GameProcess.h"
+#include "Characters/Player/Player.h"
 #include "Core.h"
 #include "Base.h"
 
@@ -46,6 +47,9 @@ void CPlayerDefenseState::Execute( CCharacter* _pCharacter, float _fElapsedTime 
 	}
 
 	_pCharacter->GetController()->Move( v3fZERO, _fElapsedTime);
+
+	//Actualiza la cámara
+	static_cast<CPlayer*>(_pCharacter)->UpdateCamera(_fElapsedTime, false);
 }
 
 void CPlayerDefenseState::OnExit( CCharacter* _pCharacter )

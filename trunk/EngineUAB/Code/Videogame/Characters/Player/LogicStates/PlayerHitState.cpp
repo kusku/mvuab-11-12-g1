@@ -53,6 +53,9 @@ void CPlayerHitState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 	}
 	
 	_pCharacter->GetController()->Move( v3fZERO, _fElapsedTime );
+
+	//Actualiza la cámara
+	static_cast<CPlayer*>(_pCharacter)->UpdateCamera(_fElapsedTime, false);
 }
 
 void CPlayerHitState::OnExit( CCharacter* _pCharacter )

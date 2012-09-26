@@ -85,10 +85,8 @@ void CPlayerRunState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 		}
 
 		//Actualización del yaw a partir del movimiento del mouse
-		float l_fDelta	= l_pInput->DoActionMouse("YawPlayer");
-		float l_fYaw	= _pCharacter->GetYaw() - l_fDelta;
-		l_fYaw			= Helper::AngleFilter( l_fYaw );
-		_pCharacter->SetYaw( l_fYaw );
+		l_pPlayer->UpdateCamera(_fElapsedTime, true);
+		float l_fYaw = _pCharacter->GetYaw();
 
 		//Mira los controles de movimiento
 		bool l_bMovePlayer	= false;

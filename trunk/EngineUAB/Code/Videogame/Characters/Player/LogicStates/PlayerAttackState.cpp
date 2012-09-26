@@ -187,6 +187,9 @@ void CPlayerAttackState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 
 	//Actualiza las partículas
 	SetParticlePosition(_pCharacter);
+
+	//Actualiza la cámara
+	static_cast<CPlayer*>(_pCharacter)->UpdateCamera(_fElapsedTime, false);
 }
 
 void CPlayerAttackState::OnExit( CCharacter* _pCharacter )
