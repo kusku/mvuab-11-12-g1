@@ -208,7 +208,7 @@ bool CDeerDefenseState::OnMessage( CCharacter* _pCharacter, const STelegram& _Te
 		m_InitialHitPoint = m_pDeer->GetPosition();
 
 		// --- Para la gestión del retroceso ---
-		m_pDeer->GetProperties()->SetMaxSpeed(m_pDeer->GetProperties()->GetHitRecoilSpeed());
+		m_pDeer->GetSteeringEntity()->SetMaxSpeed(m_pDeer->GetProperties()->GetHitRecoilSpeed());
 
 		m_HitDirection = m_pDeer->GetSteeringEntity()->GetFront();
 		m_HitDirection.Normalize();
