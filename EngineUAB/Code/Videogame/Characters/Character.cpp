@@ -706,7 +706,7 @@ bool CCharacter::IsEnemyAproximatedToAttack( void )
 // ---------------------------------------------------------------------------------------------------------------
 bool CCharacter::IsPlayerReached( void )
 {
-	return ( IsPlayerInsideDistance(this->GetProperties()->GetImpactDistance() )  && ( IsObstacleVisibleInAngle(GetPlayer(), 120) ) );
+	return ( IsPlayerInsideDistance(this->GetProperties()->GetImpactDistance() )  && ( IsObstacleVisibleInAngle(GetPlayer(), 150) ) );
 }
 
 // ---------------------------------------------------------------------------------------------------------------
