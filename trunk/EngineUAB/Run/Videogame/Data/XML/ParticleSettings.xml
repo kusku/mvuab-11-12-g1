@@ -286,8 +286,8 @@
 
 		<Gravity value="-2 0 3" />
 
-		<MinColor value="255.000000 255.000000 255.000000 2.000000"/>
-		<MaxColor value="255.000000 255.000000 255.000000 4.500000"/>
+		<MinColor value="255.000000 255.000000 255.000000 12.000000"/>
+		<MaxColor value="255.000000 255.000000 255.000000 14.500000"/>
 
 		<EndVelocity value="0.75" />
 
@@ -636,7 +636,7 @@
 	
 	<settings name="RabbitCenterFlare">
 		<TextureName value="./Data/General/Textures/Particles/Blurred spikey star.png"/>
-		<MaxParticles value="2"/>
+		<MaxParticles value="20"/>
 		<Duration value="0.2000"/>
 		<DurationRandomness value="0.000000"/>
 		<EmitterVelocitySensitivity value="0.000000"/>
@@ -658,7 +658,7 @@
 	</settings>
 	<settings name="RabbitCenterFlare1">
 		<TextureName value="./Data/General/Textures/Particles/fuzzL.png"/>
-		<MaxParticles value="2"/>
+		<MaxParticles value="20"/>
 		<Duration value="0.9000"/>
 		<DurationRandomness value="1.000000"/>
 		<EmitterVelocitySensitivity value="0.000000"/>
@@ -680,7 +680,7 @@
 	</settings>
 	<settings name="RabbitCenterFlare2">
 		<TextureName value="./Data/General/Textures/Particles/fuzzL.png"/>
-		<MaxParticles value="2"/>
+		<MaxParticles value="20"/>
 		<Duration value="0.8000"/>
 		<DurationRandomness value="1.000000"/>
 		<EmitterVelocitySensitivity value="0.000000"/>
@@ -736,8 +736,8 @@
 		<MaxVerticalVelocity value="0.000000"/>
 		<Gravity value="0.000000 0.000000 0.000000"/>
 		<EndVelocity value="0.000000"/>
-		<MinColor value="0.000000 0.000000 0.000000 155.000000"/>
-		<MaxColor value="255.000000 255.000000 255.000000 155.000000"/>
+		<MinColor value="0.000000 0.000000 0.000000 255.000000"/>
+		<MaxColor value="255.000000 255.000000 255.000000 255.000000"/>
 		<MinRotateSpeed value="0.000000"/>
 		<MaxRotateSpeed value="0.000000"/>
 		<MinStartSize value="0.000000"/>
