@@ -80,11 +80,9 @@ void CDeerPursuitState::OnEnter( CCharacter* _pCharacter )
 	m_pDeer->GetBehaviors()->CollisionAvoidanceOn();
 	m_pDeer->GetBehaviors()->ObstacleWallAvoidanceOn();
 
-	//PlayRandomSound();
-	//CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Deer_Run" );
-
-	//m_SoundActionStateCallback.InitAction(0, m_SoundDuration);
-	//m_SoundActionStateCallback.StartAction();
+	m_SoundDuration = 1.7f;
+	m_SoundActionStateCallback.InitAction(0, m_SoundDuration);
+	m_SoundActionStateCallback.StartAction();
 
 	m_RunActionStateCallback.InitAction(0, m_pDeer->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_RUN_STATE) );
 	m_RunActionStateCallback.StartAction();
@@ -105,15 +103,15 @@ void CDeerPursuitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 	m_pDeer->GetBehaviors()->SeekOff();
 	m_pDeer->GetBehaviors()->PursuitOff();
 
-	//m_SoundActionStateCallback.Update(_ElapsedTime);
+	m_SoundActionStateCallback.Update(_ElapsedTime);
 	m_RunActionStateCallback.Update(_ElapsedTime);
 
-	/*if ( m_SoundActionStateCallback.IsActionFinished() ) 
+	if ( m_SoundActionStateCallback.IsActionFinished() ) 
 	{
-		PlayRandomSound();
 		m_SoundActionStateCallback.InitAction(0, m_SoundDuration);
 		m_SoundActionStateCallback.StartAction();
-	}*/
+		CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Deer_Run" );
+	}
 
 	if ( m_pDeer->IsPlayerDetected() ) 
 	{

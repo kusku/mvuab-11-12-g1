@@ -360,7 +360,11 @@ void CDeerStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 
 void CDeerStillAttackState::OnExit( CCharacter* _pCharacter )
 {
-	CORE->GetSoundManager()->PlayEvent("Stop_EFX_DeerExclaim"); 
+	//CORE->GetSoundManager()->PlayEvent("Stop_EFX_DeerExclaim"); 
+	if (!m_pDeer)
+		return;
+
+	m_pDeer->GetSteeringEntity()->SetMaxSpeed(m_pDeer->GetProperties()->GetMaxSpeed());
 
 	m_pDeer->GetBehaviors()->SeparationOff();
 	m_pDeer->GetBehaviors()->CohesionOff();
@@ -373,13 +377,13 @@ void CDeerStillAttackState::OnExit( CCharacter* _pCharacter )
 	GetParticleEmitterInstance("DeerBlurHook",_pCharacter->GetName() + "_RightHand11")->StopEjectParticles();
 
 	GetParticleEmitterInstance("DeerExpandWave"	,_pCharacter->GetName() + "_ExpandWaveLeft")->StopEjectParticles();
-	GetParticleEmitterInstance("DeerBloodSplash",_pCharacter->GetName() + "_BloodSplashLeft")->StopEjectParticles();
+	//GetParticleEmitterInstance("DeerBloodSplash",_pCharacter->GetName() + "_BloodSplashLeft")->StopEjectParticles();
 	GetParticleEmitterInstance("DeerImpact"		,_pCharacter->GetName() + "_ImpactLeft")->StopEjectParticles();
 	GetParticleEmitterInstance("DeerStreaks"	,_pCharacter->GetName() + "_StreaksLeft")->StopEjectParticles();
 	GetParticleEmitterInstance("DeerSparks"		,_pCharacter->GetName() + "_SparksLeft")->StopEjectParticles();
 
 	GetParticleEmitterInstance("DeerExpandWave"	,_pCharacter->GetName()	+ "_ExpandWaveRigth")->StopEjectParticles();
-	GetParticleEmitterInstance("DeerBloodSplash",_pCharacter->GetName()	+ "_BloodSplashRight")->StopEjectParticles();
+	//GetParticleEmitterInstance("DeerBloodSplash",_pCharacter->GetName()	+ "_BloodSplashRight")->StopEjectParticles();
 	GetParticleEmitterInstance("DeerImpact"		,_pCharacter->GetName() + "_ImpactRigth")->StopEjectParticles();
 	GetParticleEmitterInstance("DeerStreaks"	,_pCharacter->GetName() + "_StreaksRigth")->StopEjectParticles();
 	GetParticleEmitterInstance("DeerSparks"		,_pCharacter->GetName() + "_SparksRigth")->StopEjectParticles();
@@ -417,7 +421,7 @@ void CDeerStillAttackState::GenerateImpact( CCharacter* _pCharacter, bool _First
 {
 	if ( _FirstImpact )
 	{
-		GetParticleEmitterInstance( "DeerBloodSplash", m_pDeer->GetName() + "_BloodSplashLeft")->EjectParticles();
+		//GetParticleEmitterInstance( "DeerBloodSplash", m_pDeer->GetName() + "_BloodSplashLeft")->EjectParticles();
 		GetParticleEmitterInstance( "DeerExpandWave" , m_pDeer->GetName() + "_ExpandWaveLeft")->EjectParticles();
 		GetParticleEmitterInstance( "DeerImpact"	 , m_pDeer->GetName() + "_ImpactLeft")->EjectParticles();
 		GetParticleEmitterInstance( "DeerStreaks"	 , m_pDeer->GetName() + "_StreaksLeft")->EjectParticles();
@@ -425,7 +429,7 @@ void CDeerStillAttackState::GenerateImpact( CCharacter* _pCharacter, bool _First
 	}
 	else
 	{
-		GetParticleEmitterInstance( "DeerBloodSplash", m_pDeer->GetName() + "_BloodSplashRight")->EjectParticles();
+		//GetParticleEmitterInstance( "DeerBloodSplash", m_pDeer->GetName() + "_BloodSplashRight")->EjectParticles();
 		GetParticleEmitterInstance( "DeerExpandWave" , m_pDeer->GetName() + "_ExpandWaveRigth")->EjectParticles();
 		GetParticleEmitterInstance( "DeerImpact"	 , m_pDeer->GetName() + "_ImpactRigth")->EjectParticles();
 		GetParticleEmitterInstance( "DeerStreaks"	 , m_pDeer->GetName() + "_StreaksRigth")->EjectParticles();
@@ -435,13 +439,13 @@ void CDeerStillAttackState::GenerateImpact( CCharacter* _pCharacter, bool _First
 
 void CDeerStillAttackState::UpdateImpact( CCharacter* _pCharacter )
 {
-	SetParticlePosition(_pCharacter, "DeerBloodSplash", _pCharacter->GetName() + "_BloodSplashLeft",   "Bip001 R Finger1");
+	//SetParticlePosition(_pCharacter, "DeerBloodSplash", _pCharacter->GetName() + "_BloodSplashLeft",   "Bip001 R Finger1");
 	SetParticlePosition(_pCharacter, "DeerExpandWave",	_pCharacter->GetName() + "_ExpandWaveLeft",	   "Bip001 R Finger1");
 	SetParticlePosition(_pCharacter, "DeerImpact",		_pCharacter->GetName() + "_ImpactLeft",		   "Bip001 R Finger1");
 	SetParticlePosition(_pCharacter, "DeerStreaks",		_pCharacter->GetName() + "_StreaksLeft",	   "Bip001 R Finger1");
 	SetParticlePosition(_pCharacter, "DeerSparks",		_pCharacter->GetName() + "_SparksLeft",		   "Bip001 R Finger1");
 																									   
-	SetParticlePosition(_pCharacter, "DeerBloodSplash", _pCharacter->GetName() + "_BloodSplashRight",  "Bip001 L Finger1");
+	//SetParticlePosition(_pCharacter, "DeerBloodSplash", _pCharacter->GetName() + "_BloodSplashRight",  "Bip001 L Finger1");
 	SetParticlePosition(_pCharacter, "DeerExpandWave",	_pCharacter->GetName() + "_ExpandWaveRigth",   "Bip001 L Finger1");
 	SetParticlePosition(_pCharacter, "DeerImpact",		_pCharacter->GetName() + "_ImpactRight",	   "Bip001 L Finger1");
 	SetParticlePosition(_pCharacter, "DeerStreaks",		_pCharacter->GetName() + "_StreaksRigth",	   "Bip001 L Finger1");
