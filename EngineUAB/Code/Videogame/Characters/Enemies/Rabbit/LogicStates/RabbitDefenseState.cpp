@@ -209,7 +209,7 @@ bool CRabbitDefenseState::OnMessage( CCharacter* _pCharacter, const STelegram& _
 		m_InitialHitPoint = m_pRabbit->GetPosition();
 
 		// --- Para la gestión del retroceso ---
-		m_pRabbit->GetProperties()->SetMaxSpeed(m_pRabbit->GetProperties()->GetHitRecoilSpeed());
+		m_pRabbit->GetSteeringEntity()->SetMaxSpeed(m_pRabbit->GetProperties()->GetHitRecoilSpeed());
 
 		m_HitDirection = m_pRabbit->GetSteeringEntity()->GetFront();
 		m_HitDirection.Normalize();

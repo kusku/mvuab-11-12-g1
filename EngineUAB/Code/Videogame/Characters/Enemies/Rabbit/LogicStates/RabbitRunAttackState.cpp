@@ -96,8 +96,6 @@ void CRabbitRunAttackState::OnEnter( CCharacter* _pCharacter )
 	m_FirstParticlesHitDone = false;
 
 	// Metemos más velocidad al ataque i menos massa para acelerar más 
-	//m_OldMaxSpeed	= m_pRabbit->GetSteeringEntity()->GetMaxSpeed();
-	m_OldMass		= m_pRabbit->GetSteeringEntity()->GetMass();
 	m_pRabbit->GetSteeringEntity()->SetMaxSpeed(m_pRabbit->GetProperties()->GetRunAttackSpeed());
 	//m_pRabbit->GetSteeringEntity()->SetMaxForce(0.1f);
 
@@ -328,8 +326,7 @@ void CRabbitRunAttackState::OnExit( CCharacter* _pCharacter )
 	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOff();
 				
 	// Restauramos la velocidad original
-	m_pRabbit->GetSteeringEntity()->SetMaxSpeed(m_pRabbit->GetSteeringEntity()->GetMaxSpeed());
-	//m_pRabbit->GetSteeringEntity()->SetMass(m_OldMass);
+	m_pRabbit->GetSteeringEntity()->SetMaxSpeed(m_pRabbit->GetProperties()->GetMaxSpeed());
 
 	CORE->GetSoundManager()->PlayEvent("Stop_EFX_RabbitsRunAttacks"); 
 

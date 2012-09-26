@@ -103,36 +103,42 @@ void CRabbitHitState::OnEnter( CCharacter* _pCharacter )
 
 		// Aprovecho esta variable para calcular el tiempo de duración del desplazamiento
 		m_ActionDuration = m_pRabbit->GetProperties()->GetHitRecoilDistance()/m_pRabbit->GetProperties()->GetHitRecoilSpeed() * CORE->GetTimer()->GetElapsedTime();
-		m_pActionStateCallback.InitAction(0, m_ActionDuration); 
-		m_pActionStateCallback.StartAction();
+		/*m_pActionStateCallback.InitAction(0, m_ActionDuration); 
+		m_pActionStateCallback.StartAction();*/
 
-		//m_pActionStateCallback.InitAction(0.f, m_pRabbit->GetAnimatedModel()->GetCurrentAnimationDuration(RABBIT_HIT_STATE));
-		//m_pActionStateCallback.StartAction();
+		m_ActionDuration = m_pRabbit->GetAnimatedModel()->GetCurrentAnimationDuration(RABBIT_HIT_STATE);
+		m_pActionStateCallback.InitAction(0.f, m_ActionDuration);
+		m_pActionStateCallback.StartAction();
 		
 		// --- Para la gestión del retroceso ---
-		m_OldMaxSpeed = m_pRabbit->GetProperties()->GetMaxSpeed();
-		m_pRabbit->GetProperties()->SetMaxSpeed(m_pRabbit->GetProperties()->GetHitRecoilSpeed());
+		CProperties * l_Properties = m_pRabbit->GetProperties();
+		m_pRabbit->FaceTo(m_pRabbit->GetPlayer()->GetPosition(), CORE->GetTimer()->GetElapsedTime());
+		m_MaxHitSpeed = l_Properties->GetHitRecoilSpeed();
+		m_pRabbit->GetSteeringEntity()->SetMaxSpeed(m_MaxHitSpeed);
+		m_MaxHitDistance = l_Properties->GetHitRecoilDistance();
+		m_InitialHitPoint = m_pRabbit->GetPosition();
 
 		m_HitDirection = m_pRabbit->GetSteeringEntity()->GetFront();
 		m_HitDirection.Normalize();
 		m_HitDirection = m_HitDirection.RotateY(mathUtils::PiTimes(1.f));		
+		m_HitDirection = m_HitDirection * m_MaxHitSpeed;
+		m_HitMaxPosition = m_pRabbit->GetSteeringEntity()->GetPosition() + m_HitDirection * m_MaxHitDistance;
+
 		
-		m_MaxHitDistance = m_pRabbit->GetProperties()->GetHitRecoilDistance();
-		m_InitialHitPoint = m_pRabbit->GetPosition();
+		m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+		m_pRabbit->GetBehaviors()->SeekOff();
+
 		// ---------------------------------------
 
-		// Metemos sangre!!
+		// Gestión de partículas. Metemos sangre!!
 		UpdateImpact(_pCharacter);
 		GenerateImpact(_pCharacter);
 	}
 	
-	// Gestión de partículas
-	//GetParticleEmitter(m_pRabbit->GetName() + "_BloodSplash")->EjectParticles();
-	
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
-			std::string l_State = DEER_HIT_STATE;
+			std::string l_State = RABBIT_HIT_STATE;
 			CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
 		}
 	#endif
@@ -164,22 +170,10 @@ void CRabbitHitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 	// Solo hago la acción si estoy dentro de la distancia de impacto
 	if ( m_pActionStateCallback.IsActionFinished() )
 	{
-		/*m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetIdleState());
-		m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());*/
-
-		// Retrocedemos
-		CProperties * l_Properties = m_pRabbit->GetProperties();
-		m_pRabbit->GetBehaviors()->SeekOn();
-		Vect3f l_Front = m_pRabbit->GetSteeringEntity()->GetFront();
-		l_Front.Normalize();
-		l_Front = l_Front.RotateY(mathUtils::PiTimes(1.f));
-		l_Front = m_pRabbit->GetSteeringEntity()->GetPosition() + l_Front * l_Properties->GetHitRecoilSpeed();
-		//m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-		m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(l_Front);
-
 		if ( m_pRabbit->IsAlive() ) 
 		{
 			// Obligo a descansar entre unos segundos
+			CProperties * l_Properties = m_pRabbit->GetProperties();
 			float l_MaxTimeInTired = BoostRandomHelper::GetFloat(l_Properties->GetMinTiredTimeAfterAttack(), l_Properties->GetMaxTiredTimeAfterAttack());
 			m_RecoverMinTiredTime = m_pRabbit->GetTiredState()->GetMinTiredTime();
 			m_RecoverMaxTiredTime = m_pRabbit->GetTiredState()->GetMaxTiredTime();
@@ -201,9 +195,6 @@ void CRabbitHitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		} 
 		else
 		{
-			//m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-			//m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(l_Front);
-			//m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime );
 			m_pRabbit->MoveTo2(m_HitDirection, _ElapsedTime );
 		}
 	}
@@ -211,15 +202,14 @@ void CRabbitHitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 
 void CRabbitHitState::OnExit( CCharacter* _pCharacter )
 {
-	if (!m_pRabbit) 
+	if ( _pCharacter == NULL )
 	{
-		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
+		return;
 	}
 
-	if (m_pRabbit) 
-	{
-		//GetParticleEmitter(_pCharacter->GetName() + "_BloodSplash")->StopEjectParticles();
-	}
+	StopImpact(_pCharacter);	
+	
+	m_pRabbit->GetSteeringEntity()->SetMaxSpeed(_pCharacter->GetProperties()->GetMaxSpeed());
 }
 
 bool CRabbitHitState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )

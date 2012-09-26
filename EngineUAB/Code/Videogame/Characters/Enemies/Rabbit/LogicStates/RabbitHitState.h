@@ -46,9 +46,10 @@ private:
 	CAnimationCallback		  *	m_pAnimationCallback;
 	CActionStateCallback		m_pActionStateCallback;
 
-	float						m_OldMaxSpeed;
 	Vect3f						m_HitDirection;			// Dirección hacia atrás donde se dirige en el golpeo
+	Vect3f						m_HitMaxPosition;		// Posición final del golpeo
 	float						m_MaxHitDistance;		// Distancia máxima de recorrido del hit
+	float						m_MaxHitSpeed;			// Velocidad máxima de recorrido del hit
 	Vect3f						m_InitialHitPoint;		// Punto final de retroceso
 
 	float						m_ActionDuration;
