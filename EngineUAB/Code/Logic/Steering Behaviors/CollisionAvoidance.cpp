@@ -105,7 +105,7 @@ Vect3f CCollisionAvoidance::CalculateSteering( CSteeringEntity *_pEntity )
 	m_pEntity = _pEntity;
 
 	// Creo un vector de linias que seran los rayos a lanzar
-	CreateFeelers(FUSTRUM_ENEMY_ANGLE);
+	CreateFeelers(FRUSTUM_ENEMY_ANGLE);
 
 	// Distancia mínima de colisión
 	float l_MinDistanceToCollision = 0.150f * _pEntity->GetSpeed();
@@ -195,7 +195,7 @@ Vect3f CCollisionAvoidance::CalculateSteering2( CSteeringEntity *_pEntity )
 	m_pEntity = _pEntity;
 
 	// Creo los bigotitos...
-	CreateFeelers(FUSTRUM_ENEMY_ANGLE);
+	CreateFeelers(FRUSTUM_ENEMY_ANGLE);
 
 	// Almaceno info de colision
 	SCollisionInfo sInfo;
@@ -281,7 +281,7 @@ Vect3f CCollisionAvoidance::CalculateSteering3( CSteeringEntity *_pEntity )
 	m_pEntity = _pEntity;
 
 	// Creo los bigotitos...
-	CreateFeelers(FUSTRUM_ENEMY_ANGLE);
+	CreateFeelers(FRUSTUM_ENEMY_ANGLE);
 
 	// Almaceno info de colision
 	SCollisionInfo sInfo;
@@ -437,7 +437,7 @@ Vect3f CCollisionAvoidance::CalculateSteering1( CSteeringEntity *_pEntity )
 	m_pEntity = _pEntity;
 
 	// Creo los bigotitos...
-	CreateFeelers(FUSTRUM_ENEMY_ANGLE);
+	CreateFeelers(FRUSTUM_ENEMY_ANGLE);
 
 	// Almaceno info de colision
 	SCollisionInfo sInfo;
