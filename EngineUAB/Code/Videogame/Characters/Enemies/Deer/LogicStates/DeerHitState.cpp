@@ -1,9 +1,6 @@
 #include "DeerHitState.h"
 #include "Utils\BoostRandomHelper.h"
 #include "GameProcess.h"
-#include "Callbacks\Animation\AnimationCallback.h"
-#include "Callbacks\Animation\AnimationCallbackManager.h"
-#include "Callbacks\State\ActionStateCallback.h"
 #include "SoundManager.h"
 #include "Utils\Timer.h"
 #include "Core.h"
@@ -30,6 +27,10 @@
 #include "Steering Behaviors\SteeringEntity.h"
 #include "Steering Behaviors\SteeringBehaviors.h"
 #include "Steering Behaviors\Seek.h"
+
+#include "Callbacks\Animation\AnimationCallback.h"
+#include "Callbacks\Animation\AnimationCallbackManager.h"
+#include "Callbacks\State\ActionStateCallback.h"
 
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 

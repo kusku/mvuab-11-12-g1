@@ -7,7 +7,6 @@
 #include <string>
 #include "StatesMachine\State.h"
 #include "Characters\Character.h"
-//#include "Callbacks\State\ActionStateCallback.h"
 
 // --- Foward Declarations ---
 class CDeer;
