@@ -194,7 +194,6 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elap
 
 void CRabbitPreparedToAttackState::OnExit( CCharacter* _pCharacter )
 {
-	
 	m_pRabbit->GetBehaviors()->SeekOff();
 	m_pRabbit->GetBehaviors()->PursuitOff();
 	m_pRabbit->GetBehaviors()->CollisionAvoidanceOff();
@@ -223,7 +222,7 @@ bool CRabbitPreparedToAttackState::OnMessage( CCharacter* _pCharacter, const STe
 			m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 		}
 
-		m_pRabbit->RestLife(1000); 
+		m_pRabbit->RestLife(50); 
 		m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetHitState());
 		return true;
 	}

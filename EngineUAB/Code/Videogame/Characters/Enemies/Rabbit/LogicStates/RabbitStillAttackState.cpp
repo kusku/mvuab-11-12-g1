@@ -15,10 +15,7 @@
 #include "Characters\StatesDefs.h"
 #include "Characters\Enemies\Rabbit\Rabbit.h"
 
-#include "RabbitPursuitState.h"
-#include "RabbitPreparedToAttackState.h"
 #include "RabbitHitState.h"
-#include "RabbitAttackState.h"
 #include "RabbitIdleState.h"
 
 #include "Characters\Enemies\Rabbit\AnimationStates\RabbitHitAnimationState.h"
@@ -104,7 +101,6 @@ void CRabbitStillAttackState::OnEnter( CCharacter* _pCharacter )
 #endif
 
 	m_SoundPlayed1			= false;
-	m_SoundPlayed2			= false;
 	m_FirstHitDone			= false;
 	m_FirstParticlesHitDone = false;
 	m_FirstHitReached		= false;
@@ -355,9 +351,17 @@ void CRabbitStillAttackState::GenerateImpact( CCharacter* _pCharacter )
 
 void CRabbitStillAttackState::UpdateImpact( CCharacter* _pCharacter )
 {
-	//SetParticlePosition(_pCharacter, "RabbitBloodSplash",	_pCharacter->GetName() + "_BloodSplashLeft", "Bip001 R Finger1");
-	SetParticlePosition(_pCharacter, "RabbitExpandWave",	_pCharacter->GetName() + "_ExpandWaveLeft",  "Bip001 R Finger1");
-	SetParticlePosition(_pCharacter, "RabbitImpact",		_pCharacter->GetName() + "_ImpactLeft",		 "Bip001 R Finger1");
-	SetParticlePosition(_pCharacter, "RabbitStreaks",		_pCharacter->GetName() + "_StreaksLeft",	 "Bip001 R Finger1");
-	SetParticlePosition(_pCharacter, "RabbitSparks",		_pCharacter->GetName() + "_SparksLeft",		 "Bip001 R Finger1");
+	Vect3f l_Pos = _pCharacter->GetPlayer()->GetPosition();
+	l_Pos.y += _pCharacter->GetPlayer()->GetProperties()->GetHeightController();
+
+	SetParticlePosition(_pCharacter, "RabbitExpandWave",	_pCharacter->GetName() + "_ExpandWaveLeft",  "", l_Pos);
+	SetParticlePosition(_pCharacter, "RabbitImpact",		_pCharacter->GetName() + "_ImpactLeft",		 "", l_Pos);
+	SetParticlePosition(_pCharacter, "RabbitStreaks",		_pCharacter->GetName() + "_StreaksLeft",	 "", l_Pos);
+	SetParticlePosition(_pCharacter, "RabbitSparks",		_pCharacter->GetName() + "_SparksLeft",		 "", l_Pos);
+
+	////SetParticlePosition(_pCharacter, "RabbitBloodSplash",	_pCharacter->GetName() + "_BloodSplashLeft", "Bip001 R Finger1");
+	//SetParticlePosition(_pCharacter, "RabbitExpandWave",	_pCharacter->GetName() + "_ExpandWaveLeft",  "Bip001 R Finger1");
+	//SetParticlePosition(_pCharacter, "RabbitImpact",		_pCharacter->GetName() + "_ImpactLeft",		 "Bip001 R Finger1");
+	//SetParticlePosition(_pCharacter, "RabbitStreaks",		_pCharacter->GetName() + "_StreaksLeft",	 "Bip001 R Finger1");
+	//SetParticlePosition(_pCharacter, "RabbitSparks",		_pCharacter->GetName() + "_SparksLeft",		 "Bip001 R Finger1");
 }

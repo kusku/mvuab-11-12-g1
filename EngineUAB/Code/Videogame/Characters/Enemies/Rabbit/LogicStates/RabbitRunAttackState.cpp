@@ -384,8 +384,8 @@ void CRabbitRunAttackState::GenerateImpact( CCharacter* _pCharacter )
 
 void CRabbitRunAttackState::UpdateImpact( CCharacter* _pCharacter )
 {
-	Vect3f l_Pos = _pCharacter->GetPosition() + _pCharacter->GetFront();
-	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
+	Vect3f l_Pos = _pCharacter->GetPlayer()->GetPosition();
+	l_Pos.y += _pCharacter->GetPlayer()->GetProperties()->GetHeightController();
 	SetParticlePosition(_pCharacter, "RabbitRunImpact1",	     _pCharacter->GetName() + "_RabbitRunImpact1",		"", l_Pos);
 	SetParticlePosition(_pCharacter, "RabbitRunImpact2",	     _pCharacter->GetName() + "_RabbitRunImpact2",		"", l_Pos);
 	SetParticlePosition(_pCharacter, "RabbitRunImpact3",	     _pCharacter->GetName() + "_RabbitRunImpact3",		"", l_Pos);
