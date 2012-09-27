@@ -201,6 +201,11 @@ void CDeerPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elapse
 
 void CDeerPreparedToAttackState::OnExit( CCharacter* _pCharacter )
 {
+	m_pDeer->GetBehaviors()->SeekOff();
+	m_pDeer->GetBehaviors()->PursuitOff();
+	m_pDeer->GetBehaviors()->CollisionAvoidanceOff();
+	m_pDeer->GetBehaviors()->ObstacleWallAvoidanceOff();
+	m_pDeer->GetBehaviors()->SeparationOff();
 }
 
 bool CDeerPreparedToAttackState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )

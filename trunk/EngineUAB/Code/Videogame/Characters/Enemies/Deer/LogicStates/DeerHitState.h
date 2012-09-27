@@ -37,9 +37,9 @@ public:
 	//----Methods ---------------------------------------------
 	
 	// Para tema de partículas de impacto
-	void				GenerateImpact			( CCharacter* _pCharacter );
-	void				UpdateImpact			( CCharacter* _pCharacter );
-	void				StopImpact				( CCharacter* _pCharacter );
+	void			GenerateImpact	( CCharacter* _pCharacter );
+	void			UpdateImpact	( CCharacter* _pCharacter );
+	void			StopImpact		( CCharacter* _pCharacter );
 
 	//----Members ---------------------------------------------
 private:

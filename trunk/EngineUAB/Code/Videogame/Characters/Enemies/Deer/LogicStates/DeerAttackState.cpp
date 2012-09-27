@@ -125,7 +125,7 @@ void CDeerAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 			}	
 			// else if ( l_ActiveActionState == "jump" ) then
 				// _CCharacter.logic_fsm:change_state(_CCharacter.jump_state)
-			else if ( l_ActiveActionState == "go_in_to_fustrum" ) 
+			else if ( l_ActiveActionState == "go_in_to_frustum" ) 
 			{
 				float l_Angle = 22.f;		// 22,5 graus de fustrum
 				//m_pDeer->GoIntoCameraFrustum(l_Angle, _ElapsedTime);
@@ -197,13 +197,13 @@ std::string CDeerAttackState::GetRandomAttackName(void)
 			
 	// Más probabilidades de ir al fustrum que no atacar
 	else if ( l_AttackType == 9 ) 
-		l_Action =  "go_in_to_fustrum";
+		l_Action =  "go_in_to_frustum";
 	else if ( l_AttackType == 10 ) 
-		l_Action =  "go_in_to_fustrum";
+		l_Action =  "go_in_to_frustum";
 	else if ( l_AttackType == 11 ) 
-		l_Action =  "go_in_to_fustrum";
+		l_Action =  "go_in_to_frustum";
 	else if ( l_AttackType == 12 ) 
-		l_Action =  "go_in_to_fustrum";
+		l_Action =  "go_in_to_frustum";
 
 	return l_Action;
 }

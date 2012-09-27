@@ -63,8 +63,8 @@ void CDeerIdleState::OnEnter( CCharacter* _pCharacter )
 	}
 	
 	m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetIdleAnimationState());
-	m_AlreadyDetected = false;
-	m_AlreadyChased = false;
+	m_AlreadyDetected	= false;
+	m_AlreadyChased		= false;
 
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
@@ -84,15 +84,20 @@ void CDeerIdleState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 
 	if ( !m_AlreadyDetected && m_pDeer->IsPlayerDetected() ) 
 	{
-		//CORE->GetSoundManager()->PlayEvent("Play_EFX_Deer_Enemy_Detected");
+		CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Deer_Enemy_Detected");
 		m_AlreadyDetected = true;
 	}
 
 	if ( m_pDeer->IsPlayerChased() ) 
 	{
-		//CORE->GetSoundManager()->PlayEvent("Stop_EFX_DeerEnemyDetected");
 		m_pDeer->GetLogicFSM()->ChangeState( m_pDeer->GetPursuitState());
 		m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetRunAnimationState());
+	}
+
+	if ( !m_pDeer->IsPlayerDetected() )
+	{
+		CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Stop_EFX_Deer_Enemy_Detected");
+		m_AlreadyDetected = false;
 	}
 
 	// Reseteamos la velocidad del enemigo
@@ -103,6 +108,10 @@ void CDeerIdleState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 
 void CDeerIdleState::OnExit( CCharacter* _pCharacter )
 {
+	if (!_pCharacter) 
+		return;
+
+	CORE->GetSoundManager()->PlayEvent("Stop_EFX_Deer_Enemy_Detected");
 }
 
 bool CDeerIdleState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )

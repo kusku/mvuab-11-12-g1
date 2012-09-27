@@ -80,8 +80,6 @@ void CDeerDeathState::OnEnter( CCharacter* _pCharacter )
 
 	m_pAnimationCallback->Init();
 	CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Deer_Die");
-
-	//float t = m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_STILL_ATTACK_STATE);
 }
 
 void CDeerDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )

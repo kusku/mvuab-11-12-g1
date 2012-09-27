@@ -38,7 +38,7 @@ CDeerDefenseState::CDeerDefenseState( CCharacter* _pCharacter )
 	: CState			(_pCharacter, "CDeerDefenseState")
 	, m_ActionTime		( CActionStateCallback( 0.f, 6.f ) )
 	, m_pDeer			( NULL )
-	, m_HitIsBlocked		( false )
+	, m_HitIsBlocked	( false )
 	, m_TotalHitBlocked	( 0 )
 	, m_HitBlockedCount	( 0 )
 {
@@ -47,7 +47,8 @@ CDeerDefenseState::CDeerDefenseState( CCharacter* _pCharacter )
 CDeerDefenseState::CDeerDefenseState( CCharacter* _pCharacter, const std::string &_Name )
 	: CState			(_pCharacter, _Name)
 	, m_ActionTime		( CActionStateCallback( 0.f, 6.f ) )
-	, m_pDeer			( NULL ), m_HitIsBlocked		( false )
+	, m_pDeer			( NULL )
+	, m_HitIsBlocked	( false )
 	, m_TotalHitBlocked	( 0 )
 	, m_HitBlockedCount	( 0 )
 {
@@ -76,7 +77,10 @@ void CDeerDefenseState::OnEnter( CCharacter* _pCharacter )
 	// Me dice si bloqueo
 	m_HitIsBlocked = false;
 
-	// Me dice el total de bloqueos que haré hasta que me pueda volver a golpear
+	//// Me dice la distancia que recorro cuando paga y bloqueo hacia atras
+	//m_HitDistance = m_pWolf->GetProperties()->GetImpactDistance() + 2;
+	
+// Me dice el total de bloqueos que haré hasta que me pueda volver a golpear
 	m_TotalHitBlocked = BoostRandomHelper::GetInt(1, 4);  		
 	// print_logger (1, "nº hits totals x blojar"..self.total_hit_blocked )
 		
@@ -173,7 +177,6 @@ void CDeerDefenseState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 			m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetIdleAnimationState());		
 		}
 	}
-
 }
 
 void CDeerDefenseState::OnExit( CCharacter* _pCharacter )

@@ -20,13 +20,8 @@
 #include "Characters\StatesDefs.h"
 #include "Characters\Enemies\Deer\Deer.h"
 
-#include "DeerAttackState.h"
-#include "DeerPursuitState.h"
-#include "DeerPreparedToAttackState.h"
 #include "DeerHitState.h"
-#include "DeerRunAttackState.h"
 #include "DeerIdleState.h"
-
 
 #include "Characters\Enemies\Deer\AnimationStates\DeerHitAnimationState.h"
 #include "Characters\Enemies\Deer\AnimationStates\DeerIdleAnimationState.h"

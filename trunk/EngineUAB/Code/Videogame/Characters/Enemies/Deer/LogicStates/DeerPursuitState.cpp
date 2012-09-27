@@ -98,7 +98,7 @@ void CDeerPursuitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 	
-	SetParticlePosition(m_pDeer);
+	UpdateParticles(m_pDeer);
 	
 	m_pDeer->GetBehaviors()->SeekOff();
 	m_pDeer->GetBehaviors()->PursuitOff();
@@ -190,10 +190,9 @@ void CDeerPursuitState::OnExit( CCharacter* _pCharacter )
 	m_pDeer->GetBehaviors()->CohesionOff();
 	//m_pDeer->GetBehaviors()->AlignmentOff();
 
-	CORE->GetSoundManager()->PlayEvent("Stop_EFX_DeerRun");
+	CORE->GetSoundManager()->PlayEvent("Stop_EFX_WolfRun");
 
-	/*GetParticleEmitter("StepRight")->StopEjectParticles();
-	GetParticleEmitter("StepLeft")->StopEjectParticles();*/
+	StopParticles(_pCharacter);
 }
 
 bool CDeerPursuitState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
@@ -213,41 +212,16 @@ bool CDeerPursuitState::OnMessage( CCharacter* _pCharacter, const STelegram& _Te
 	return false;
 }
 
-void CDeerPursuitState::SetParticlePosition( CCharacter* _pCharacter )
+void CDeerPursuitState::UpdateParticles( CCharacter* _pCharacter )
 {
-	
-	CAnimatedInstanceModel *l_pAnimatedModel = _pCharacter->GetAnimatedModel();
-
-	Mat44f l_TransformMatrix		= m44fIDENTITY;
-	Mat44f l_RotationMatrix			= m44fIDENTITY;
-	Vect4f l_Rotation				= v3fZERO;
-	Vect3f l_Translation			= v3fZERO;
-	Mat44f l_AnimatedModelTransform = l_pAnimatedModel->GetTransform();
-
-	l_pAnimatedModel->GetBonePosition("Bip001 R Foot", l_Translation);
-	l_pAnimatedModel->GetBoneRotation("Bip001 R Foot", l_Rotation);
-
-	l_TransformMatrix.Translate(l_Translation);
-	l_RotationMatrix.SetFromQuaternion(l_Rotation);
-
-	l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
-
-	GetParticleEmitterInstance("DeerStepLeft", _pCharacter->GetName() + "_StepLeft")->SetPosition( l_TransformMatrix.GetPos() );
-	
-	l_TransformMatrix			= m44fIDENTITY;
-	l_RotationMatrix			= m44fIDENTITY;
-	l_Rotation					= v3fZERO;
-	l_Translation				= v3fZERO;
-	l_AnimatedModelTransform	= l_pAnimatedModel->GetTransform();
-
-	l_pAnimatedModel->GetBonePosition("Bip001 L Foot", l_Translation);
-	l_pAnimatedModel->GetBoneRotation("Bip001 L Foot", l_Rotation);
-
-	l_TransformMatrix.Translate(l_Translation);
-	l_RotationMatrix.SetFromQuaternion(l_Rotation);
-
-	l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
-
-	GetParticleEmitterInstance("DeerStepRight", _pCharacter->GetName() + "_StepRight")->SetPosition( l_TransformMatrix.GetPos() );
-
+	SetParticlePosition(_pCharacter, "DeerStepLeft", _pCharacter->GetName() + "_StepLeft", "Bip001 R Foot");
+	SetParticlePosition(_pCharacter, "DeerStepRight", _pCharacter->GetName() + "_StepRight","Bip001 L Foot");
 }
+
+
+void CDeerPursuitState::StopParticles( CCharacter* _pCharacter )
+{
+	GetParticleEmitterInstance("WolfStepLeft", _pCharacter->GetName() + "_StepLeft")->StopEjectParticles();
+	GetParticleEmitterInstance("WolfStepRight", _pCharacter->GetName() + "_StepRight")->StopEjectParticles();
+}
+
