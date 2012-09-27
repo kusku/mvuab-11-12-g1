@@ -4,7 +4,8 @@
 	<animation name="lobo_idle" filename="LOB_Idle.CAF"/>
 	<animation name="lobo_walk" filename="LOB_Walk.CAF"/>
 	<animation name="lobo_run" filename="LOB_Run.CAF"/>
-	<animation name="lobo_attack_run" filename="LOB_Attack_Run.CAF"/>
+	<animation name="lobo_attack_run" filename="LOB_Attack_Run_1.CAF"/>
+	<animation name="lobo_attack_run_impact" filename="LOB_Attack_Run_2.CAF"/>
 	<animation name="lobo_attack_run_large" filename="LOB_Attack_Run_Larga.CAF"/>
 	<animation name="lobo_attack_still" filename="LOB_Attack_Still.CAF"/>
 	<animation name="lobo_defense" filename="LOB_Defense.CAF"/>
