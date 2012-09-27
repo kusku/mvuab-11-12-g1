@@ -191,7 +191,7 @@ void CGameProcess::Update(float elapsedTime)
 
 	}
 
-	SCRIPT->RunCode("collectgarbage('collect')");
+	//SCRIPT->RunCode("collectgarbage('collect')");
 }
 
 void CGameProcess::ReloadGameObjects()
@@ -203,8 +203,8 @@ void CGameProcess::ReloadGameObjects()
 
 void CGameProcess::Render(CRenderManager &RM)
 {
-	//m_pCharactersManager->Render(&RM, CORE->GetFontManager());
-	//m_pThPSCamera->Render(&RM);
+	m_pCharactersManager->Render(&RM, CORE->GetFontManager());
+	m_pThPSCamera->Render(&RM);
 	m_pHUD->Render(RM);
 }
 
