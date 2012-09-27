@@ -7,6 +7,7 @@
 #include <string>
 #include "StatesMachine\State.h"
 #include "Characters\Character.h"
+#include "Callbacks\State\ActionStateCallback.h"
 
 // --- Foward Declarations ---
 class CWolf;
@@ -39,9 +40,10 @@ public:
 	//----Members ---------------------------------------------
 private:
 	CWolf	  * m_pWolf;
-
+	CActionStateCallback	m_ActionStateCallback;
 	bool		m_AlreadyDetected;
 	bool		m_AlreadyChased;
+	bool		m_IdleWarningSounds;
 };
 
 
