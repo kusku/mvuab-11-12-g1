@@ -10,7 +10,9 @@
 
 // --- Foward Declarations ---
 class CWolf;
+class CParticleEmitter;
 class CAnimationCallback;
+class CActionStateCallback;
 // ---------------------------
 
 class CWolfStillAttackState : public CState<CCharacter> 
@@ -35,11 +37,25 @@ public:
 	virtual bool	OnMessage	( CCharacter*, const STelegram& );
 
 	//----Methods ---------------------------------------------
+	void			UpdateParticlesPositions( CCharacter* _pCharacter );
+	
+	// Para tema de partículas de impacto
+	void			GenerateImpact			( CCharacter* _pCharacter );
+	void			UpdateImpact			( CCharacter* _pCharacter );
 
 	//----Members ---------------------------------------------
 private:
 	CWolf					  * m_pWolf;
 	CAnimationCallback		  *	m_pAnimationCallback;
+	CActionStateCallback	  * m_pActionStateCallback;
+
+	bool						m_SoundPlayed1;				// Indica si el sonido ya se inició
+	bool						m_FirstHitDone;				// Indica que ya se ha lanzado el golpeo
+	bool						m_FirstHitReached;			// Indica si alcancé al player con el golpeo
+	bool						m_FirstParticlesHitDone;	// Indiaca que ya se ha lanzado las partículas de impacto
+
+	// Tema Partículas
+	CParticleEmitter	*m_pParticleEmitter;
 };
 
 

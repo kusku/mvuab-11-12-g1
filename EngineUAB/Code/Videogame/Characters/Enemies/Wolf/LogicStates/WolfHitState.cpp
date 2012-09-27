@@ -1,5 +1,9 @@
 #include "WolfHitState.h"
+#include "Utils\BoostRandomHelper.h"
 #include "GameProcess.h"
+#include "SoundManager.h"
+#include "Utils\Timer.h"
+#include "Core.h"
 
 // --- Per pintar l'estat enemic ---
 #include "DebugGUIManager.h"
@@ -14,13 +18,15 @@
 #include "Characters\Enemies\Wolf\Wolf.h"
 #include "Characters\StatesDefs.h"
 
-#include "WolfPursuitState.h"
+#include "WolfTiredState.h"
+#include "WolfIdleState.h"
 
 #include "Characters\Enemies\Wolf\AnimationStates\WolfHitAnimationState.h"
-#include "Characters\Enemies\Wolf\AnimationStates\WolfIdle2AnimationState.h"
+#include "Characters\Enemies\Wolf\AnimationStates\WolfIdleAnimationState.h"
 
 #include "Steering Behaviors\SteeringEntity.h"
 #include "Steering Behaviors\SteeringBehaviors.h"
+#include "Steering Behaviors\Seek.h"
 
 #include "Callbacks\Animation\AnimationCallback.h"
 #include "Callbacks\Animation\AnimationCallbackManager.h"
@@ -39,25 +45,23 @@
 CWolfHitState::CWolfHitState( CCharacter* _pCharacter )
 	: CState				(_pCharacter, "CWolfHitState")
 	, m_pWolf				( NULL )
-	, m_pActionState		( NULL )
+	, m_pActionStateCallback( 0.f, 1.f )
 	, m_pAnimationCallback	( NULL )
+	, m_IsCommingFromTired	( false )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),WOLF_HIT_STATE);
-
-	m_pActionState = new CActionStateCallback(0,1);
 }
 
 CWolfHitState::CWolfHitState( CCharacter* _pCharacter, const std::string &_Name )
 	: CState				(_pCharacter, _Name)
 	, m_pWolf				( NULL )
-	, m_pActionState		( NULL )
+	, m_pActionStateCallback( 0.f, 1.f )
 	, m_pAnimationCallback	( NULL )
+	, m_IsCommingFromTired	( false )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),WOLF_HIT_STATE);
-	
-	m_pActionState = new CActionStateCallback(0,1);
 }
 
 
@@ -65,7 +69,6 @@ CWolfHitState::~CWolfHitState(void)
 {
 	m_pWolf = NULL;
 	m_pAnimationCallback = NULL;
-	CHECKED_DELETE ( m_pActionState );
 }
 
 
@@ -79,9 +82,61 @@ void CWolfHitState::OnEnter( CCharacter* _pCharacter )
 		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 	
-	m_pAnimationCallback->Init();
-	m_pAnimationCallback->StartAnimation();
-	m_pActionState->SetTimeRange( 0.f, m_pWolf->GetAnimatedModel()->GetCurrentAnimationDuration(WOLF_HIT_STATE));
+	// Si volvemos de haber recibido y después de estar cansados nos salimos.
+	if ( m_IsCommingFromTired ) 
+	{
+		m_pWolf->GetTiredState()->SetTiredTime(m_RecoverMinTiredTime, m_RecoverMaxTiredTime);	// Recuperamos el tiempo que teneniamos por defecto asignado al estado TIRED
+		m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetIdleState());
+		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());
+		m_IsCommingFromTired = false;
+	}
+	// Si entramos por primera vez ejecutaremos el hit normal
+	else 
+	{
+		m_pAnimationCallback->Init();
+		m_pAnimationCallback->StartAnimation();
+	
+		CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Deer_Pain");
+
+		//// Aprovecho esta variable para calcular el tiempo de duración del desplazamiento
+		//m_ActionDuration = m_pWolf->GetProperties()->GetHitRecoilDistance()/m_pWolf->GetProperties()->GetHitRecoilSpeed() * CORE->GetTimer()->GetElapsedTime();
+		//m_pActionStateCallback.InitAction(0, m_ActionDuration); 
+		//m_pActionStateCallback.StartAction();
+
+		m_ActionDuration = m_pWolf->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_HIT_STATE);
+		m_pActionStateCallback.InitAction(0.f, m_ActionDuration);
+		m_pActionStateCallback.StartAction();
+
+		// --- Para la gestión del retroceso ---
+		CProperties * l_Properties = m_pWolf->GetProperties();
+		m_pWolf->FaceTo(m_pWolf->GetPlayer()->GetPosition(), CORE->GetTimer()->GetElapsedTime());
+		m_MaxHitSpeed = l_Properties->GetHitRecoilSpeed();
+		m_pWolf->GetSteeringEntity()->SetMaxSpeed(m_MaxHitSpeed);
+		m_MaxHitDistance = l_Properties->GetHitRecoilDistance();
+		m_InitialHitPoint = m_pWolf->GetPosition();
+
+		m_HitDirection = m_pWolf->GetSteeringEntity()->GetFront();
+		m_HitDirection.Normalize();
+		m_HitDirection = m_HitDirection.RotateY(mathUtils::PiTimes(1.f));		
+		m_HitDirection = m_HitDirection * m_MaxHitSpeed;
+		m_HitMaxPosition = m_pWolf->GetSteeringEntity()->GetPosition() + m_HitDirection * m_MaxHitDistance;
+
+		m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+		m_pWolf->GetBehaviors()->SeekOff();
+		// ---------------------------------------
+		
+		// Gestión de partículas. Metemos sangre!!
+		UpdateImpact(_pCharacter);
+		GenerateImpact(_pCharacter);
+	}
+
+	#if defined _DEBUG
+		if( CORE->IsDebugMode() )
+		{
+			std::string l_State = WOLF_HIT_STATE;
+			CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pWolf->GetName().c_str(), l_State );
+		}
+	#endif
 }
 
 void CWolfHitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
@@ -91,6 +146,9 @@ void CWolfHitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 
+	// Actualizamos la posición
+	UpdateImpact(_pCharacter);
+		
 	/*if ( m_pAnimationCallback->IsAnimationStarted() ) 
 	{
 		if ( m_pAnimationCallback->IsAnimationFinished() ) 
@@ -98,36 +156,61 @@ void CWolfHitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 			m_pWolf->GetLogicFSM()->RevertToPreviousState();
 			m_pWolf->GetGraphicFSM()->RevertToPreviousState();
 		}
-	}
-	else
+	}*/
+	/*else
 	{
 		m_pAnimationCallback->StartAnimation();
 	}*/
 
-	if ( m_pActionState->IsActionFinished() )
+	if ( m_pActionStateCallback.IsActionFinished() )
 	{
-		/*m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetIdleState());
-		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());*/
-
 		if ( m_pWolf->IsAlive() ) 
 		{
-			m_pWolf->GetLogicFSM()->RevertToPreviousState();
-			m_pWolf->GetGraphicFSM()->RevertToPreviousState();
+			// Obligo a descansar entre unos segundos
+			CProperties * l_Properties = m_pWolf->GetProperties();
+		float l_MaxTimeInTired = BoostRandomHelper::GetFloat(l_Properties->GetMinTiredTimeAfterAttack(), l_Properties->GetMaxTiredTimeAfterAttack());
+			m_RecoverMinTiredTime = m_pWolf->GetTiredState()->GetMinTiredTime();
+			m_RecoverMaxTiredTime = m_pWolf->GetTiredState()->GetMaxTiredTime();
+			m_pWolf->GetTiredState()->SetTiredTime(0.f, l_MaxTimeInTired);
+			m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetTiredState());
+			m_IsCommingFromTired = true;
 		}
-		//else
-		/*{
-			m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetDeathState());
-		}*/
-		
 	}
 	else
 	{
-		m_pActionState->Update(_ElapsedTime);
+		m_pActionStateCallback.Update(_ElapsedTime);
+		
+		// Gestiono el retroceso del hit
+		float l_Distance = m_pWolf->GetPosition().Distance(m_InitialHitPoint);
+		if ( l_Distance >= m_MaxHitDistance ) 
+		{
+			m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+			m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+		} 
+		else
+		{
+			m_pWolf->MoveTo2(m_HitDirection, _ElapsedTime );
+		}
 	}
 }
 
 void CWolfHitState::OnExit( CCharacter* _pCharacter )
 {
+	if (!_pCharacter) 
+	{
+		return;
+	}
+
+	if (!m_pWolf) 
+	{
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
+	}
+
+	// Reseteamos la velocidad y ya no nos movemos
+	m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+	m_pWolf->GetBehaviors()->SeekOff();
+	m_pWolf->GetSteeringEntity()->SetMaxSpeed(_pCharacter->GetProperties()->GetMaxSpeed());
+	StopImpact(_pCharacter);
 }
 
 bool CWolfHitState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
@@ -140,6 +223,30 @@ bool CWolfHitState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegr
 	}
 */
 	return false;
+}
+
+void CWolfHitState::GenerateImpact( CCharacter* _pCharacter )
+{
+	GetParticleEmitterInstance("DeerBloodSplash", _pCharacter->GetName() + "_DeerBloodSplash")->EjectParticles();
+	GetParticleEmitterInstance("DeerBloodDust",	  _pCharacter->GetName() + "_DeerBloodDust")->EjectParticles();
+	GetParticleEmitterInstance("DeerBlood",		  _pCharacter->GetName() + "_DeerBlood")->EjectParticles();
+}
+
+void CWolfHitState::UpdateImpact( CCharacter* _pCharacter )
+{
+	Vect3f l_Pos = _pCharacter->GetPosition() + _pCharacter->GetFront();
+	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
+	
+	SetParticlePosition(_pCharacter, "DeerBloodSplash", _pCharacter->GetName() + "_DeerBloodSplash", "", l_Pos );
+	SetParticlePosition(_pCharacter, "DeerBloodDust",	_pCharacter->GetName() + "_DeerBloodDust",	 "", l_Pos);
+	SetParticlePosition(_pCharacter, "DeerBlood",		_pCharacter->GetName() + "_DeerBlood",	"", l_Pos);
+}
+
+void CWolfHitState::StopImpact( CCharacter* _pCharacter )
+{
+	GetParticleEmitterInstance("DeerBloodSplash", _pCharacter->GetName() + "_DeerBloodSplash")->StopEjectParticles();
+	GetParticleEmitterInstance("DeerBloodDust",	  _pCharacter->GetName() + "_DeerBloodDust")->StopEjectParticles();
+	GetParticleEmitterInstance("DeerBlood",		  _pCharacter->GetName() + "_DeerBlood")->StopEjectParticles();
 }
 
 

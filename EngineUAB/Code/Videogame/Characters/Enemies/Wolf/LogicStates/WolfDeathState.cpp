@@ -1,5 +1,6 @@
 #include "WolfDeathState.h"
 #include "GameProcess.h"
+#include "SoundManager.h"
 
 // --- Per pintar l'estat enemic ---
 #include "DebugGUIManager.h"
@@ -78,6 +79,7 @@ void CWolfDeathState::OnEnter( CCharacter* _pCharacter )
 #endif
 
 	m_pAnimationCallback->Init();
+	CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Wolf_die");
 }
 
 void CWolfDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
@@ -103,6 +105,7 @@ void CWolfDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 					CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pWolf->GetName().c_str(), l_State );
 				}
 			#endif
+			m_pAnimationCallback->Init();
 			m_pWolf->SetEnable(false);	
 			return;
 
@@ -140,6 +143,7 @@ void CWolfDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 
 void CWolfDeathState::OnExit( CCharacter* _pCharacter )
 {
+	//CORE->GetSoundManager()->PlayEvent("Stop_EFX_Wolf_die"); 
 }
 
 bool CWolfDeathState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )

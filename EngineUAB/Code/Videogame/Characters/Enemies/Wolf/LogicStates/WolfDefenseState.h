@@ -35,21 +35,25 @@ public:
 	virtual bool	OnMessage	( CCharacter*, const STelegram& );
 
 	//----Methods ---------------------------------------------
-	
+	// Para tema de partículas de impacto
+	void			GenerateImpact			( CCharacter* _pCharacter );
+	void			UpdateImpact			( CCharacter* _pCharacter );
+	void			StopImpact				( CCharacter* _pCharacter );
+
 	//----Properties ------------------------------------------
-	const bool		IsHitBlocked	( void )		{ return m_HitBlocked; }
+	const bool		IsHitBlocked	( void )		{ return m_HitIsBlocked; }
 
 	//----Members ---------------------------------------------
 private:
 	CActionStateCallback		m_ActionTime;
 	CWolf					  * m_pWolf;
 
-	bool						m_HitBlocked;			// Me dice si bloqueo
-	float						m_HitDistance;			// Me dice la distancia que recorro cuando paga y bloqueo hacia atras
+	bool						m_HitIsBlocked;			// Me dice si bloqueo
+	float						m_MaxHitDistance;		// Me dice la distancia que recorro cuando pega y bloqueo hacia atras
+	Vect3f						m_InitialHitPoint;		// Punto inicial de retroceso
+	Vect3f						m_HitDirection;			// Dirección hacia atrás donde se dirige en el golpeo
+
 	int							m_TotalHitBlocked;		// Me dice el total de bloqueos que haré hasta que me pueda volver a golpear
 	int							m_HitBlockedCount;		// Me dice el nº de veces que el player me pega mientras bloqueo
-
-	float						m_OldMaxSpeed;			// Permite almacenar la vieja velocidad para posteriormente recuperarla
-	float						m_OldMass;				// Permite almacenar la vieja masa para posteriormente recuperarla
 };
 #endif _WOLF_DEFENSE_STATE_H_
