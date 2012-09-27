@@ -30,15 +30,19 @@
 // -----------------------------------------
 CWolfTiredState::CWolfTiredState(  CCharacter* _pCharacter )
 	: CState		( _pCharacter, "CWolfTiredState")
-	, m_ActionTime	( CActionStateCallback( 0.2f, 0.5f ) )
+	, m_ActionTime	( 1.f, 2.f )
 	, m_pWolf		( NULL )
+	, m_MinTime		( 1.f )
+	, m_MaxTime		( 2.f )
 {
 }
 
 CWolfTiredState::CWolfTiredState(  CCharacter* _pCharacter, const std::string &_Name )
 	: CState		(_pCharacter, _Name)
-	, m_ActionTime	( CActionStateCallback( 0.2f, 0.5f ) )
+	, m_ActionTime	( 1.f, 2.f )
 	, m_pWolf		( NULL )
+	, m_MinTime		( 1.f )
+	, m_MaxTime		( 2.f )
 {
 }
 
@@ -59,9 +63,20 @@ void CWolfTiredState::OnEnter( CCharacter* _pCharacter )
 		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 
-	m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());
+	m_ActionTime.InitAction(m_MinTime, m_MaxTime);
 	m_ActionTime.StartAction();
+	int l_Valor = BoostRandomHelper::GetInt(1, 3);
+	// Me gusta darle doble opción al idle 2... 
+	/*if ( l_Valor == 1 || l_Valor == 2 ) 
+	{
+		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdle2AnimationState());
+	}
+	else
+	{*/
+		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());
+	//}
 
+	//LOGGER->AddNewLog(ELL_INFORMATION, "Valor : %d", l_Valor);
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
@@ -78,11 +93,14 @@ void CWolfTiredState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 	
+	LOGGER->AddNewLog(ELL_INFORMATION, "CDeerTiredState::Execute-> %s Cansado durante %f segons", m_pWolf->GetName().c_str(), m_MaxTime );
+	
 	if ( m_ActionTime.IsActionFinished() ) 
 	{
 		// restauramos la variable que determina si está cansado
 		m_pWolf->SetHitsDone(0);
 		m_pWolf->GetLogicFSM()->RevertToPreviousState();
+		//m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());
 	}
 
 	m_ActionTime.Update(_ElapsedTime);
@@ -105,8 +123,9 @@ bool CWolfTiredState::OnMessage( CCharacter* _pCharacter, const STelegram& _Tele
 			m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 		}
 
-		m_pWolf->RestLife(1000); 
+		m_pWolf->RestLife(50); 
 		m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetHitState());
+		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetHitAnimationState());
 		return true;
 	}
 

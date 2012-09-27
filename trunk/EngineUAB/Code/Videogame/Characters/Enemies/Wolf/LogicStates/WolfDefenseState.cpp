@@ -3,13 +3,16 @@
 #include "Math\MathUtils.h"
 
 #include "Characters\Enemies\Wolf\Wolf.h"
+#include "Characters\StatesDefs.h"
 
 #include "WolfPursuitState.h"
 #include "WolfPreparedToAttackState.h"
 #include "WolfAttackState.h"
+#include "WolfIdleState.h"
 
 #include "Characters\Enemies\Wolf\AnimationStates\WolfHitAnimationState.h"
 #include "Characters\Enemies\Wolf\AnimationStates\WolfIdleAnimationState.h"
+#include "Characters\Enemies\Wolf\AnimationStates\WolfDefenseAnimationState.h"
 
 #include "Steering Behaviors\SteeringEntity.h"
 #include "Steering Behaviors\SteeringBehaviors.h"
@@ -35,7 +38,7 @@ CWolfDefenseState::CWolfDefenseState( CCharacter* _pCharacter )
 	: CState			(_pCharacter, "CWolfDefenseState")
 	, m_ActionTime		( CActionStateCallback( 0.f, 6.f ) )
 	, m_pWolf			( NULL )
-	, m_HitBlocked		( false )
+	, m_HitIsBlocked	( false )
 	, m_TotalHitBlocked	( 0 )
 	, m_HitBlockedCount	( 0 )
 {
@@ -45,7 +48,7 @@ CWolfDefenseState::CWolfDefenseState( CCharacter* _pCharacter, const std::string
 	: CState			(_pCharacter, _Name)
 	, m_ActionTime		( CActionStateCallback( 0.f, 6.f ) )
 	, m_pWolf			( NULL )
-	, m_HitBlocked		( false )
+	, m_HitIsBlocked	( false )
 	, m_TotalHitBlocked	( 0 )
 	, m_HitBlockedCount	( 0 )
 {
@@ -68,32 +71,23 @@ void CWolfDefenseState::OnEnter( CCharacter* _pCharacter )
 		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 
+	m_ActionTime.InitAction(0, m_pWolf->GetProperties()->GetTimeInDefense());
 	m_ActionTime.StartAction();
 
 	// Me dice si bloqueo
-	m_HitBlocked = 0;
+	m_HitIsBlocked = false;
 
-	// Me dice la distancia que recorro cuando paga y bloqueo hacia atras
-	m_HitDistance = m_pWolf->GetProperties()->GetImpactDistance() + 2;
-	
 	// Me dice el total de bloqueos que haré hasta que me pueda volver a golpear
 	m_TotalHitBlocked = BoostRandomHelper::GetInt(1, 4);  		
-	// print_logger (1, "nº hits totals x blojar"..self.total_hit_blocked )
 		
 	// me dice el nº de veces que el player me pega mientras bloqueo
 	m_HitBlockedCount = 0;
 		
-	// Metemos más velocidad al ataque i menos massa para acelerar más 
-	m_OldMaxSpeed = m_pWolf->GetSteeringEntity()->GetMaxSpeed();
-	m_OldMass = m_pWolf->GetSteeringEntity()->GetMass();
-	m_pWolf->GetSteeringEntity()->SetMaxSpeed(1);
-	m_pWolf->GetSteeringEntity()->SetMass(0.00500f);
-
 	//LOGGER->AddNewLog(ELL_INFORMATION, "Valor : %d", l_Valor);
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
-			std::string l_State = "Defense";
+			std::string l_State = WOLF_DEFENSE_STATE;
 			CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pWolf->GetName().c_str(), l_State );
 		}
 	#endif
@@ -106,29 +100,32 @@ void CWolfDefenseState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 
-	if ( m_HitBlocked ) 
+	// Si se recibe golpeo entonces retrasamos unos metros
+	if ( m_HitIsBlocked ) 
 	{
-		float l_Distance = m_pWolf->GetDistanceToPlayer();
-		// Si aun no he hecho el retroceso lo sigo moviendo
-		//if ( l_Distance <= m_HitDistance ) 
-		//{
-		//	//m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
-		//}
-		// Si llego al destino paro el retroceso
-		//else
-		//{
-		if ( l_Distance > m_HitDistance ) 
+		UpdateImpact(_pCharacter);
+		float l_Distance = m_pWolf->GetPosition().Distance(m_InitialHitPoint);
+		if ( l_Distance >= m_MaxHitDistance ) 
 		{
-			// _CCharacter.behaviors:flee_off()
-			m_pWolf->GetBehaviors()->SeekOn();
 			m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-			//m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
-			m_HitBlocked = false;
+			m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+			m_HitIsBlocked = false;
+			m_pWolf->SetReceivedHitsXMinut(0);
+			m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetIdleState());
+			m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());
+			return;
 		} 
-		m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+		else
+		{
+			m_pWolf->MoveTo2(m_HitDirection, _ElapsedTime );
+		}
 	}	
+	// Si no se recibe golpeo
 	else 
 	{
+		// Siempre miro al player mientras bloqueo
+		m_pWolf->FaceTo( m_pWolf->GetPlayer()->GetPosition(), _ElapsedTime );
+
 		// Si és atacable miro si llegué al màximo de lo que permito que me golpeen y bloqueo
 		if ( m_pWolf->IsPlayerAtacable() )
 		{
@@ -137,15 +134,16 @@ void CWolfDefenseState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 			{
 				//print_logger (1, "retorno")
 				m_pWolf->SetReceivedHitsXMinut(0);
-				m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetAttackState());
+				m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetIdleState());
+				m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());
 				return;
 			}
 			
 			// Solo hago la acción si estoy dentro de la distancia de impacto
 			float l_Distance = m_pWolf->GetDistanceToPlayer();
-			if ( l_Distance <= ( m_pWolf->GetProperties()->GetImpactDistance() * 2 ) ) 
+			if ( l_Distance <= ( m_pWolf->GetProperties()->GetImpactDistance() * 3 ) ) 
 			{
-				m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());
+				m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetDefenseAnimationState());
 			}
 			else 
 			{
@@ -157,24 +155,24 @@ void CWolfDefenseState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 			if ( m_ActionTime.IsActionFinished() ) 
 			{
 				// nos volvemos
-				m_pWolf->GetLogicFSM()->RevertToPreviousState();		
-				m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());
+				m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetIdleState());		
+				m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());		
 			}
 			else 
 			{
 				// Incrementamos el tiempo que llevamos en este estado
 				m_ActionTime.Update(_ElapsedTime);
 			}
+			//m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 		}
 		// Si el player NO es atacable lo volvemos a preparar o a perseguir
 		else 
 		{
 			m_pWolf->SetReceivedHitsXMinut(0);
-			m_pWolf->GetLogicFSM()->RevertToPreviousState();		
-			m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());
+			m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetIdleState());		
+			m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());		
 		}
 	}
-
 }
 
 void CWolfDefenseState::OnExit( CCharacter* _pCharacter )
@@ -183,8 +181,9 @@ void CWolfDefenseState::OnExit( CCharacter* _pCharacter )
 	m_pWolf->GetBehaviors()->SeekOff();
 
 	// Restauramos la velocidad original
-	m_pWolf->GetSteeringEntity()->SetMaxSpeed(m_OldMaxSpeed);
-	m_pWolf->GetSteeringEntity()->SetMass(m_OldMass);
+	m_pWolf->GetSteeringEntity()->SetMaxSpeed(m_pWolf->GetProperties()->GetMaxSpeed());
+
+	StopImpact(_pCharacter);
 }
 
 bool CWolfDefenseState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
@@ -193,32 +192,66 @@ bool CWolfDefenseState::OnMessage( CCharacter* _pCharacter, const STelegram& _Te
 	{
 		// Solo me pongo en hit si realmente he finalizado el estado de ataque
 			
+		// Si aun estoy en hit no vuelvo a animar
+		if ( m_HitIsBlocked )
+		{
+			return false;
+		}
+
 		// Me dice que acabo de bloquear un golpe
-		m_HitBlocked = true;
+		m_HitIsBlocked = true;
 
-		// _CCharacter.behaviors:flee_on()
-		m_pWolf->GetBehaviors()->SeekOn();
-		Vect3f l_Front = m_pWolf->GetSteeringEntity()->GetFront();
-		l_Front.Normalize();
-		l_Front = l_Front.RotateY(mathUtils::PiTimes(1.f));
-			
-		//m_pWolf->GetBehaviors()->GetFlee()->SetTarget(m_pWolf->GetPlayer()->GetPosition());
-		// l_target = Vect3f(l_front.x,l_front.y,l_front.z):normalize(1)
-		// l_target = l_target * 2
-		// _CCharacter.behaviors.flee.target = l_target
-			
-		l_Front = m_pWolf->GetSteeringEntity()->GetPosition() + l_Front * m_HitDistance;
-		// _CCharacter.behaviors.flee.target = l_front
+		// Indicamos que el player no se pilló
+		m_pWolf->SetPlayerHasBeenReached( false );
+
+		// Guardamos la posición inicial de impacto
+		m_InitialHitPoint = m_pWolf->GetPosition();
+
+		// --- Para la gestión del retroceso ---
+		m_pWolf->GetSteeringEntity()->SetMaxSpeed(m_pWolf->GetProperties()->GetHitRecoilSpeed());
+
+		m_HitDirection = m_pWolf->GetSteeringEntity()->GetFront();
+		m_HitDirection.Normalize();
+		m_HitDirection = m_HitDirection.RotateY(mathUtils::PiTimes(1.f));
+		
+		// Me dice la distancia máxima y posición que recorro cuando pega el player y bloqueo hacia atras
+		m_MaxHitDistance = m_pWolf->GetProperties()->GetHitRecoilDistance();
+		// ---------------------------------------
+
 		m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-		m_pWolf->GetBehaviors()->GetSeek()->SetTarget(l_Front);
+		m_pWolf->GetBehaviors()->GetSeek()->SetTarget(m_HitDirection);
 					
-		// _CCharacter:move_to2( _CCharacter.steering_entity.velocity, _elapsed_time )
-
 		// Cuento el nº de hits que lleva mientras bloqueo
 		m_HitBlockedCount += 1;
-		//print_logger (1, "self.hit_blocked_count : "..self.hit_blocked_count)
+
+		// tratamos el tema de partículas de bloqueo
+		UpdateImpact(_pCharacter);
+		GenerateImpact(_pCharacter);
 		return true;
 	}
 
 	return false;
+}
+
+void CWolfDefenseState::GenerateImpact( CCharacter* _pCharacter )
+{
+	GetParticleEmitterInstance("WolfBlockedSparks",	     _pCharacter->GetName() + "_WolfBlockedSparks")->EjectParticles();
+	GetParticleEmitterInstance("WolfBlockedExpandWave",  _pCharacter->GetName() + "_WolfBlockedExpandWave")->EjectParticles();
+}
+
+void CWolfDefenseState::UpdateImpact( CCharacter* _pCharacter )
+{
+	Vect3f l_Pos = m_InitialHitPoint;
+	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
+	SetParticlePosition(_pCharacter, "WolfBlockedSparks",	    _pCharacter->GetName() + "_WolfBlockedSparks",	   "", l_Pos);
+
+	l_Pos = _pCharacter->GetPosition();
+	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
+	SetParticlePosition(_pCharacter, "WolfBlockedExpandWave",	_pCharacter->GetName() + "_WolfBlockedExpandWave", "", l_Pos);
+}
+
+void CWolfDefenseState::StopImpact( CCharacter* _pCharacter )
+{
+	GetParticleEmitterInstance("WolfBlockedSparks",	    _pCharacter->GetName() + "_WolfBlockedSparks")->StopEjectParticles();
+	GetParticleEmitterInstance("WolfBlockedExpandWave", _pCharacter->GetName() + "_WolfBlockedExpandWave")->StopEjectParticles();
 }

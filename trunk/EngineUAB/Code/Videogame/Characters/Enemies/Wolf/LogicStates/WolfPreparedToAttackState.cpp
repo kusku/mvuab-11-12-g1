@@ -1,9 +1,5 @@
 #include "WolfPreparedToAttackState.h"
 #include "Utils\BoostRandomHelper.h"
-#include "Utils\Random.h"
-#include "GameProcess.h"
-#include "Logger\Logger.h"
-#include "Base.h"
 
 // --- Per pintar l'estat enemic ---
 #include "DebugGUIManager.h"
@@ -18,7 +14,6 @@
 #include "WolfPursuitState.h"
 #include "WolfAttackState.h"
 #include "WolfHitState.h"
-#include "WolfIdleState.h"
 
 #include "Characters\Enemies\Wolf\AnimationStates\WolfRunAnimationState.h"
 #include "Characters\Enemies\Wolf\AnimationStates\WolfHitAnimationState.h"
@@ -27,8 +22,7 @@
 
 #include "Steering Behaviors\SteeringEntity.h"
 #include "Steering Behaviors\SteeringBehaviors.h"
-#include "Steering Behaviors\CollisionAvoidance.h"
-#include "Steering Behaviors\ObstacleWallAvoidance.h"
+#include "Steering Behaviors\Seek.h"
 
 #if defined(_DEBUG)
 	#include "Memory\MemLeaks.h"
@@ -39,14 +33,16 @@
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CWolfPreparedToAttackState::CWolfPreparedToAttackState( CCharacter* _pCharacter )
-	: CState	( _pCharacter, "CWolfPreparedToAttackState")
-	, m_pWolf	( NULL )
+	: CState								( _pCharacter, "CWolfPreparedToAttackState")
+	, m_pWolf								( NULL )
+	, m_IsPositionAfterHitPlayerAssigned	( false )
 {
 }
 
 CWolfPreparedToAttackState::CWolfPreparedToAttackState( CCharacter* _pCharacter, const std::string &_Name )
-	: CState		(_pCharacter, _Name)
-	, m_pWolf		( NULL )
+	: CState								(_pCharacter, _Name)
+	, m_pWolf								( NULL )
+	, m_IsPositionAfterHitPlayerAssigned	( false )
 {
 }
 
@@ -67,11 +63,18 @@ void CWolfPreparedToAttackState::OnEnter( CCharacter* _pCharacter )
 		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 
-	m_pWolf->GetBehaviors()->SeekOff();
-	m_pWolf->GetBehaviors()->PursuitOff();
+	m_pWolf->GetBehaviors()->SeparationOn();
+	m_pWolf->GetBehaviors()->CohesionOff();
 	m_pWolf->GetBehaviors()->CollisionAvoidanceOn();
 	m_pWolf->GetBehaviors()->ObstacleWallAvoidanceOn();
-	m_pWolf->GetBehaviors()->SeparationOn();
+	
+#if defined _DEBUG
+		if( CORE->IsDebugMode() )
+		{
+			std::string l_State = "Prepared to attack";
+			CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pWolf->GetName().c_str(), l_State );
+		}
+	#endif
 }
 
 void CWolfPreparedToAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
@@ -81,76 +84,112 @@ void CWolfPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elapse
 		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 
-	#if defined _DEBUG
-	if( CORE->IsDebugMode() )
+	// 0) Caso en que alcanzé al player y por tanto vamos a un punto de inicio de ataque. Así dejo que el player se reponga
+	if ( m_pWolf->GetPlayerHasBeenReached() && m_pWolf->GetIsTired() )
 	{
-		//LOGGER->AddNewLog(ELL_INFORMATION, "Enemy %s preparing to attack...", m_pWolf->GetName().c_str() );
+		// Si no ser donde tengo que ir...
+		if ( !m_IsPositionAfterHitPlayerAssigned )
+		{
+			m_PositionReachedAfterHitPlayer = m_pWolf->GetPointInsideCameraFrustum();
+			m_IsPositionAfterHitPlayerAssigned	= true;
+		}
+
+		// Mira si alcanzamos la posición. Reseteamos indicando que este enemigo ya ha realizado las tareas postimpacto 
+		Vect2f l_Pos1 = Vect2f(m_pWolf->GetPosition().x, m_pWolf->GetPosition().z);
+		Vect2f l_Pos2 = Vect2f(m_PositionReachedAfterHitPlayer.x, m_PositionReachedAfterHitPlayer.z);
+		float l_DistanceToCameraPoint = l_Pos1.Distance(l_Pos2);
+		//float l_DistanceToCameraPoint = m_pWolf->GetPosition().Distance(m_PositionReachedAfterHitPlayer);
+		if ( l_DistanceToCameraPoint <= 3.01f )
+		{
+			m_IsPositionAfterHitPlayerAssigned = false;		// Reiniciamos el flag para la pròxima vez
+			m_pWolf->SetPlayerHasBeenReached(false);		// Reiniciamos el flag de player alcanzado
+			m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());
+			return;
+		}
+		else
+		{
+			//float l_DistanceToPlayer = m_pWolf->GetPosition().Distance(m_pWolf->GetPlayer()->GetPosition());
+			// Evitamos que vayamos a un punto donde se había calculado inicialmente pero que ahora és demasido lejos del player
+			// Esto passa si el player lo mandamos tant y tant lejos que luego es excesivo ir a ese punto y mejor recalcularlo
+			/*if ( l_DistanceToCameraPoint < l_DistanceToPlayer && l_DistanceToCameraPoint > m_pWolf->GetProperties()->GetPreparedAttackDistance())
+			{
+				m_IsPositionAfterHitPlayerAssigned = false;	
+				m_pWolf->SetPlayerHasBeenReached(true);
+			}
+			else
+			{*/
+				m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetRunAnimationState());
+				m_pWolf->GetBehaviors()->GetSeek()->SetTarget(m_PositionReachedAfterHitPlayer);
+				m_pWolf->GetBehaviors()->SeekOn();
+				m_pWolf->FaceTo( m_pWolf->GetPlayer()->GetPosition(), _ElapsedTime);
+				m_pWolf->MoveTo2(m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
+				LOGGER->AddNewLog(ELL_INFORMATION, "CWolfPreparedToAttackState::Execute -> %s peguó al player y ahora vuelve a una posición inicial de ataque", m_pWolf->GetName().c_str());
+			//}
+		}
 	}
-	#endif
 
 	// 1) Caso en que ataco al player. Si está focalizado y suficientemente cerca de atacar lo hace independientemente del angulo de visión del player
 	if ( m_pWolf->IsPlayerAtacable() ) 
 	{
-		// Reseteamos la velocidad del enemigo
-		m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
 		m_pWolf->SetHitsDone(2);		// Esto permite hacer una pausa al entrar en el estado de ataque antes de atacar por obligar estar fatigado y permitir ver al player qué va a hacer el enemigo
 		m_pWolf->GetLogicFSM()->ChangeState( m_pWolf->GetAttackState() );
+
+		// Reseteamos la velocidad del enemigo
+		m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+		m_pWolf->FaceTo( m_pWolf->GetPlayer()->GetPosition(), _ElapsedTime );
+		m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+
+		#if defined _DEBUG
+			if( CORE->IsDebugMode() )
+			{
+				LOGGER->AddNewLog(ELL_INFORMATION,"CWolfPreparedToAttackState::Execute->Change to Attack State");
+			}
+		#endif
 	}
 	
 	// 2) Si el player NO es atacable pero casi nos aproximamos. Buscamos el hueco que no col·lisione con nada.
 	else if ( m_pWolf->IsEnemyPreparedToAttack() ) 
 	{
-		#if defined _DEBUG
-		if( CORE->IsDebugMode() )
-		{
-			std::string l_State = "Prepared to attack";
-			CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pWolf->GetName().c_str(), l_State );
-		}
-		#endif
-
-		// Si el player puede atacar porque és uno de los más cercanos pero aun no és el elegido
+		// Si el player puede atacar porque és uno de los más cercanos pero aun no és el elegido (el que realmente ataca ya que solo ataca 1)
 		if ( m_pWolf->GetAvalaibleToAttack() ) 
 		{
+			// Este enemigo podria atacar pero no es el seleccionado. Ahora miro si está dentro del angulo de vision y si no lo está lo metemos para que el player pueda verlo
+			float l_Angle = 60.f;			//math.pi/15 == 12 graus de fustrum
+			if ( !m_pWolf->IsEnemyIntoCameraFrustum( l_Angle, _ElapsedTime ) )
+			{
+				m_pWolf->GoIntoCameraFrustum(l_Angle, _ElapsedTime);
+				return;
+			}
+
+			//Vect3f l_NewAttackPosition = GetPositionToAttack();
+			m_pWolf->GetBehaviors()->GetSeek()->SetTarget(m_pWolf->GetPlayer()->GetPosition());
+			m_pWolf->GetBehaviors()->SeekOn();
+			m_pWolf->FaceTo( m_pWolf->GetPlayer()->GetPosition(), _ElapsedTime);
+			m_pWolf->MoveTo2(m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
+
+			//m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetWalkAnimationState());		// dudo de si uno u otro. Faltan pasos laterales...
+			m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetRunAnimationState());
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
-					std::string l_State = "Ready to attack";
-					CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pWolf->GetName().c_str(), l_State );
+					LOGGER->AddNewLog(ELL_INFORMATION,"CWolfPreparedToAttackState::Execute->Prepared-Walk");
 				}
 			#endif
-
-			// Este enemigo puede atacar. Ahora miro si está dentro del angulo de vision pero no es el elegido para atacar. Por tanto, vamos hacia el player para tener opciones de ser
-			// el elegido para atacar
-			float l_Angle = 22.f;			//math.pi/15		// 12 graus de fustrum
-			m_pWolf->GoIntoCameraFrustum(l_Angle, _ElapsedTime);
-			m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetWalkAnimationState());
 		}
-		
-		// Hay un nº límite de enemigos a atacar. Esta propiedad Ready nos indica si éste enemigo va a actuar. 
-		// Si el enemigo no está listo para atacar ya que està más lejos que los que deben atacar. Reseteamos velocidad y encaramos al player
+		// Si el enemigo no está listo para atacar ya que està más lejos que los que deben atacar. Reseteamos velocidad y encaramos al player. 
+		// Exite un total de enemigos a atacar. El resto se quedan en idle
 		else
 		{
-			#if defined _DEBUG
-				if( CORE->IsDebugMode() )
-				{
-					std::string l_State = "Ready to attack";
-					CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pWolf->GetName().c_str(), l_State );
-				}
-			#endif
-
 			//m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetWalkAnimationState());
 			m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());
-			m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetIdleState());
 			m_pWolf->FaceTo( m_pWolf->GetPlayer()->GetPosition(), _ElapsedTime);
 			m_pWolf->MoveTo2(m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
-					std::string l_State = "Not Ready-Too far";
-					CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pWolf->GetName().c_str(), l_State );
+					LOGGER->AddNewLog(ELL_INFORMATION,"CWolfPreparedToAttackState::Execute->Not Ready-Too far");
 				}
 			#endif
-
 		}
 	}
 	else
@@ -172,28 +211,18 @@ void CWolfPreparedToAttackState::OnExit( CCharacter* _pCharacter )
 
 bool CWolfPreparedToAttackState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
+	if ( _Telegram.Msg == Msg_Attack ) 
 	{
-		// TODO!!
-		/*CRandom	l_Randomize;
-
-		CCharacter *l_pPlayer	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->GetCharacterById(_Telegram.Sender);
-		float l_fReceivedPain	= l_Randomize.getRandFloat( (float)(l_pPlayer->GetProperties()->GetStrong() / 2), (float)l_pPlayer->GetProperties()->GetStrong());
-		float l_fPainToHit		= l_pPlayer->GetProperties()->GetStrong() * 0.95f;*/
-
-		/*if( l_fReceivedPain >= l_fPainToHit )
-		{
-			m_pWolf->RestLife(10000); 
-		}*/
-
 		if (!m_pWolf) 
 		{
 			m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 		}
 
-		m_pWolf->RestLife(1000); 
+		m_pWolf->RestLife(50); 
 		m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetHitState());
+		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetHitAnimationState());
 		return true;
-	}
+	} 
 
 	return false;
 }

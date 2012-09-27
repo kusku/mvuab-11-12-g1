@@ -35,6 +35,9 @@ public:
 	//----Methods ---------------------------------------------
 	void			UpdateParticles		( CCharacter* _pCharacter );
 	void			StopParticles		( CCharacter* _pCharacter );
+	
+	void			UpdateActions		( CCharacter* _pCharacter, float _ElapsedTime  );
+	void			UpdateSounds		( CCharacter* _pCharacter, float _ElapsedTime  );
 
 	//----Members ---------------------------------------------
 private:
@@ -42,6 +45,9 @@ private:
 	CActionStateCallback	m_SoundActionStateCallback;
 	CActionStateCallback	m_RunActionStateCallback;
 	float					m_SoundDuration;
+	
+	bool					m_AlreadyChased;
+	bool					m_RunWarningSounds;
 
 	bool					m_FirtsStepDone, m_SecondStepDone;
 };

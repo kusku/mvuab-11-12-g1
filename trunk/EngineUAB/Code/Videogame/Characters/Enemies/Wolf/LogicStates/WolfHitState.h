@@ -6,6 +6,7 @@
 #include <string>
 #include "StatesMachine\State.h"
 #include "Characters\Character.h"
+#include "Callbacks\State\ActionStateCallback.h"
 
 // --- Foward Declarations ---
 class CWolf;
@@ -35,12 +36,26 @@ public:
 	virtual bool	OnMessage	( CCharacter*, const STelegram& );
 
 	//----Methods ---------------------------------------------
-	
+	// Para tema de partículas de impacto
+	void			GenerateImpact	( CCharacter* _pCharacter );
+	void			UpdateImpact	( CCharacter* _pCharacter );
+	void			StopImpact		( CCharacter* _pCharacter );
+
 	//----Members ---------------------------------------------
 private:
 	CWolf					  * m_pWolf;
 	CAnimationCallback		  *	m_pAnimationCallback;
-	CActionStateCallback	  * m_pActionState;
+	CActionStateCallback		m_pActionStateCallback;
 	
+	float						m_ActionDuration;
+	bool						m_IsCommingFromTired;
+	float						m_RecoverMinTiredTime;
+	float						m_RecoverMaxTiredTime;
+	
+	Vect3f						m_HitDirection;			// Dirección hacia atrás donde se dirige en el golpeo
+	Vect3f						m_HitMaxPosition;		// Posición final del golpeo
+	float						m_MaxHitDistance;		// Distancia máxima de recorrido del hit
+	float						m_MaxHitSpeed;			// Velocidad máxima de recorrido del hit
+	Vect3f						m_InitialHitPoint;		// Punto final de retroceso
 };
 #endif _WOLF_HIT_STATE_H_

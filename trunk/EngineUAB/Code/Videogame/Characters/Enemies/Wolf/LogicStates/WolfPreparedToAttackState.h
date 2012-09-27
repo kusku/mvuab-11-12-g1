@@ -38,8 +38,10 @@ public:
 
 	//----Members ---------------------------------------------
 private:
-	CWolf	* m_pWolf;
+	CWolf	  * m_pWolf;
 
+	bool		m_IsPositionAfterHitPlayerAssigned;
+	Vect3f		m_PositionReachedAfterHitPlayer;
 };
 
 
