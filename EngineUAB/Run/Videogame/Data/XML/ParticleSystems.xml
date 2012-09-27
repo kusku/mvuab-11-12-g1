@@ -21,20 +21,36 @@
 	<!-- ***************** -->
 	<!-- Sistemas del Wolf -->
 	<!-- ***************** -->
+	<system name="WolfBlurHook" settings_name="WolfBlurHook" />
 	<system name="WolfSteps" settings_name="WolfSteps" />
+	
+	<system name="WolfBlockedSparks" settings_name="BlockedSparks" />
+	<system name="WolfBlockedExpandWave" settings_name="BlockedExpandWave" />
+	
+	<system name="WolfCenterFlare" settings_name="WolfCenterFlare" />		<!-- Más Blanco  -->
+	<system name="WolfCenterFlare1" settings_name="WolfCenterFlare1" />		<!-- Más Amarillo -->
+	<system name="WolfCenterFlare2" settings_name="WolfCenterFlare2" />		<!-- Más Blanco -->
+	<system name="WolfLingeringCenterFlare" settings_name="WolfLingeringCenterFlare" />		
+	<system name="WolfExpandWave" settings_name="WolfExpandWave" />
+	<system name="WolfStreaks" settings_name="WolfStreaks" />
+	<system name="WolfSparks" settings_name="WolfSparks" />
+	
+	<system name="WolfBlood" settings_name="WolfBlood" />
+	<system name="WolfBloodDust" settings_name="WolfBloodDust" />
+	<system name="WolfBloodSplash" settings_name="WolfBloodSplash" />
 	
 	<!-- ***************** -->
 	<!-- Sistemas del Deer -->
 	<!-- ***************** -->
 	<system name="DeerBlurHook" settings_name="DeerBlurHook" />
 	<system name="DeerSteps" settings_name="DeerSteps" />
+	
 	<system name="DeerBlockedSparks" settings_name="BlockedSparks" />
 	<system name="DeerBlockedExpandWave" settings_name="BlockedExpandWave" />
 	
 	<system name="DeerBlood" settings_name="DeerBlood" />
 	<system name="DeerBloodDust" settings_name="DeerBloodDust" />
 	<system name="DeerBloodSplash" settings_name="DeerBloodSplash" />
-	
 	
 	<system name="CenterFlare" settings_name="CenterFlare" />
 	<system name="Impact" settings_name="Impact" />
@@ -51,6 +67,10 @@
 	<!-- ******************* -->
 	<system name="RabbitBlurHook" settings_name="RabbitBlurHook" />
 	<system name="RabbitSteps" settings_name="RabbitSteps" />
+	
+	<system name="RabbitBlockedSparks" settings_name="BlockedSparks" />
+	<system name="RabbitBlockedExpandWave" settings_name="BlockedExpandWave" />
+	
 	<system name="RabbitCenterFlare" settings_name="RabbitCenterFlare" />		<!-- Más Blanco  -->
 	<system name="RabbitCenterFlare1" settings_name="RabbitCenterFlare1" />		<!-- Más Amarillo -->
 	<system name="RabbitCenterFlare2" settings_name="RabbitCenterFlare2" />		<!-- Más Blanco -->
@@ -58,8 +78,6 @@
 	<system name="RabbitExpandWave" settings_name="RabbitExpandWave" />
 	<system name="RabbitStreaks" settings_name="RabbitStreaks" />
 	<system name="RabbitSparks" settings_name="RabbitSparks" />
-	<system name="RabbitBlockedSparks" settings_name="BlockedSparks" />
-	<system name="RabbitBlockedExpandWave" settings_name="BlockedExpandWave" />
 	
 	<system name="RabbitBlood" settings_name="RabbitBlood" />
 	<system name="RabbitBloodDust" settings_name="RabbitBloodDust" />
