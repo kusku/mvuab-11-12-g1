@@ -50,14 +50,12 @@ private:
 	CActionStateCallback	  * m_pActionStateCallback;
 
 	bool						m_SoundPlayed1;				// Indica si el sonido ya se inició
-	bool						m_SoundPlayed2;				// Indica si el sonido ya se inició
 	bool						m_FirstHitDone;				// Indica que ya se ha lanzado el golpeo
 	bool						m_FirstHitReached;			// Indica si alcancé al player con el golpeo
 	bool						m_FirstParticlesHitDone;	// Indiaca que ya se ha lanzado las partículas de impacto
 
 	// Tema Partículas
 	CParticleEmitter	*m_pParticleEmitter;
-
 };
 
 
