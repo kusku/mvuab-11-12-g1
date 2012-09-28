@@ -1130,71 +1130,71 @@ CPhysicActor* CPhysicsManager::GetActor ( std::string _ActorName )
 
 int CPhysicsManager::GetCollisionGroup( const std::string& _szGroup )
 {
-	if(_szGroup == "escenari")
+	if(_szGroup == "ECG_ESCENE")
 	{
 		return ECG_ESCENE;
 	}
-	else if(_szGroup == "personatge")
+	else if(_szGroup == "ECG_PLAYER")
 	{
 		return ECG_PLAYER;
 	}
-	else if(_szGroup == "enemic")
+	else if(_szGroup == "ECG_ENEMY")
 	{
 		return ECG_ENEMY;
 	}
-	else if(_szGroup == "trigger")
+	else if(_szGroup == "ECG_TRIGGERS")
 	{
 		return ECG_TRIGGERS;
 	}
-	else if(_szGroup == "trigger mal")
+	else if(_szGroup == "ECG_MALGLOBAL")
 	{
 		return ECG_MALGLOBAL;
 	}
-	else if(_szGroup == "cobertura")
+	else if(_szGroup == "ECG_COBERTURES")
 	{
 		return ECG_COBERTURES;
 	}
-	else if(_szGroup == "objecte dinamic")
+	else if(_szGroup == "ECG_DYNAMIC_OBJECTS")
 	{
 		return ECG_DYNAMIC_OBJECTS;
 	}
-	else if(_szGroup == "explosio")
+	else if(_szGroup == "ECG_EXPLOSIONS")
 	{
 		return ECG_EXPLOSIONS;
 	}
-	else if(_szGroup == "ray shoot")
+	else if(_szGroup == "ECG_RAY_SHOOT")
 	{
 		return ECG_RAY_SHOOT;
 	}
-	else if(_szGroup == "ray shoot player")
+	else if(_szGroup == "ECG_RAY_SHOOT_PLAYER")
 	{
 		return ECG_RAY_SHOOT_PLAYER;
 	}
-	else if(_szGroup == "force")
+	else if(_szGroup == "ECG_FORCE")
 	{
 		return ECG_FORCE;
 	}
-	else if(_szGroup == "camera")
+	else if(_szGroup == "ECG_CAMERA")
 	{
 		return ECG_CAMERA;
 	}
-	else if(_szGroup == "ragdoll")
+	else if(_szGroup == "ECG_RAGDOLL")
 	{
 		return ECG_RAGDOLL;
 	}
-	else if(_szGroup == "ragdoll player")
+	else if(_szGroup == "ECG_RAGDOLL_PLAYER")
 	{
 		return ECG_RAGDOLL_PLAYER;
 	}
-	else if(_szGroup == "ray ia graph")
+	else if(_szGroup == "ECG_RAY_IA_GRAPH")
 	{
 		return ECG_RAY_IA_GRAPH;
 	}
-	else if(_szGroup == "vigia")
+	else if(_szGroup == "ECG_VIGIA")
 	{
 		return ECG_VIGIA;
 	}
-	else if(_szGroup == "limits")
+	else if(_szGroup == "ECG_LIMITS")
 	{
 		return ECG_LIMITS;
 	}

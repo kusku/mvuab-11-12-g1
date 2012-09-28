@@ -64,13 +64,16 @@ CInstanceMesh::CInstanceMesh(CXMLTreeNode &Node)
 
 	bool		addPhyX		= Node.GetBoolProperty("create_physics", false, false);
 	bool		usePhyXObj	= Node.GetBoolProperty("use_physx_obj", false, addPhyX);
+	std::string	physicsGroupName	= Node.GetPszProperty("physics_group", "ECG_ESCENE", addPhyX);
 	std::string	phyXObjName	= Node.GetPszProperty("physx_obj_name", "", usePhyXObj);
 	bool		usePhyXObjPos = Node.GetBoolProperty("use_physx_obj_pos", false, usePhyXObj);
 	std::string	typePhyX	= Node.GetPszProperty("physics_type", "", addPhyX && !usePhyXObj);
 	
 	if (addPhyX)
 	{
-		CreatePhysics(m_Name, typePhyX, usePhyXObj, phyXObjName, usePhyXObjPos);
+		int physicsGroup = CORE->GetPhysicsManager()->GetCollisionGroup(physicsGroupName);
+
+		CreatePhysics(m_Name, typePhyX, usePhyXObj, phyXObjName, usePhyXObjPos, physicsGroup);
 	}
 }
 
@@ -144,7 +147,7 @@ void CInstanceMesh::CreateASEMesh ( const std::string &_Filename, const std::str
 }
 
 // TODO:: Otra manera de meter la física a partir de los ficheros binarios que creamos desde MAX.
-void CInstanceMesh::CreatePhysics(const std::string &_Name, const std::string &typePhysic, bool usePXObj, const std::string &pxObjName, bool usePXObjPos)
+void CInstanceMesh::CreatePhysics(const std::string &_Name, const std::string &typePhysic, bool usePXObj, const std::string &pxObjName, bool usePXObjPos, int physicsGroup)
 {
 	if(usePXObj)
 	{
@@ -177,6 +180,8 @@ void CInstanceMesh::CreatePhysics(const std::string &_Name, const std::string &t
 				TBoundingBox bb = m_StaticMesh->GetBoundingBox();
 				localPos = -(bb.m_MinPos + ( (bb.m_MaxPos - bb.m_MinPos) / 2));
 
+				physicsGroup = pxBox->m_Group;
+
 				pos = pxBox->GetPosition();
 			}
 			else
@@ -191,7 +196,7 @@ void CInstanceMesh::CreatePhysics(const std::string &_Name, const std::string &t
 				pos = m_Position;
 			}
 
-			l_MeshActor->AddBoxSphape(size, pos, localPos, rotationVect);
+			l_MeshActor->AddBoxSphape(size, pos, localPos, rotationVect, NULL, (uint32)physicsGroup);
 
 			CORE->GetPhysicsManager()->AddPhysicActor(l_MeshActor);
 		}
@@ -201,6 +206,12 @@ void CInstanceMesh::CreatePhysics(const std::string &_Name, const std::string &t
 		if(typePhysic == "bounding_box")
 		{
 			CPhysicUserData* l_pPhysicUserDataMesh = new CPhysicUserData( _Name  );
+			
+			Vect3f rotationVect = v3fZERO;
+			
+			rotationVect.x = mathUtils::Deg2Rad(GetPitch());
+			rotationVect.y = mathUtils::Deg2Rad(GetYaw());
+			rotationVect.z = mathUtils::Deg2Rad(GetRoll());
 
 			CPhysicActor* l_MeshActor = new CPhysicActor(l_pPhysicUserDataMesh);
 			l_pPhysicUserDataMesh->SetPaint (true);
@@ -209,7 +220,7 @@ void CInstanceMesh::CreatePhysics(const std::string &_Name, const std::string &t
 			Vect3f size = (bb.m_MaxPos - bb.m_MinPos);
 			size /= 2;
 
-			l_MeshActor->AddBoxSphape(size, m_Position, Vect3f(0, 0, 0));
+			l_MeshActor->AddBoxSphape(size, m_Position, Vect3f(0, 0, 0), rotationVect, NULL, (uint32)physicsGroup);
 
 			CORE->GetPhysicsManager()->AddPhysicActor(l_MeshActor);
 		}
@@ -224,7 +235,7 @@ void CInstanceMesh::CreatePhysics(const std::string &_Name, const std::string &t
 				l_pPhysicUserDataMesh = new CPhysicUserData( _Name  );
 				l_pPhysicUserDataMesh->SetPaint( true );
 				l_MeshActor = new CPhysicActor( l_pPhysicUserDataMesh );
-				l_MeshActor->AddMeshShape( l_pCM->GetPhysicMesh(_Name), m_Position );
+				l_MeshActor->AddMeshShape( l_pCM->GetPhysicMesh(_Name), m_Position, v3fZERO, NULL, (uint32)physicsGroup);
 				//m_AseMeshActor->CreateBody ( 10.f );
 				CORE->GetPhysicsManager()->AddPhysicActor( l_MeshActor );
 			}

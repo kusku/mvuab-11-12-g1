@@ -42,7 +42,8 @@ struct PhysXObjBox
 	PhysXObjPitch,
 	PhysXObjRoll,
 	PhysXObjType,
-	PhysXObjDimension
+	PhysXObjDimension,
+	PhysXObjGroup
 )
 
 function CreatePhyxObjsHolder = 
@@ -89,6 +90,8 @@ function ExportPhysXObjs sel FilePath =
 			
 			l_pxObj.PhysXObjDimension = (point3 obj.width obj.length obj.height)
 			
+			l_pxObj.PhysXObjGroup = (getUserProp obj "physics_layer")
+			
 			l_holder.AddPhysXObj l_pxObj
 		)
 	)
@@ -101,7 +104,7 @@ function ExportPhysXObjs sel FilePath =
 	
 	for i = 1 to l_objs.count do
 	(
-		format "\t<physx_obj name=\"%\" type=\"%\" dimension=\"% % %\" pos=\"% % %\" yaw=\"%\" pitch=\"%\" roll=\"%\" />\n" l_objs[i].PhysXObjName l_objs[i].PhysXObjType l_objs[i].PhysXObjDimension.x l_objs[i].PhysXObjDimension.y l_objs[i].PhysXObjDimension.z l_objs[i].PhysXObjPosition.x l_objs[i].PhysXObjPosition.y l_objs[i].PhysXObjPosition.z l_objs[i].PhysXObjYaw l_objs[i].PhysXObjPitch l_objs[i].PhysXObjRoll to:file
+		format "\t<physx_obj name=\"%\" type=\"%\" dimension=\"% % %\" pos=\"% % %\" yaw=\"%\" pitch=\"%\" roll=\"%\" group=\"%\" />\n" l_objs[i].PhysXObjName l_objs[i].PhysXObjType l_objs[i].PhysXObjDimension.x l_objs[i].PhysXObjDimension.y l_objs[i].PhysXObjDimension.z l_objs[i].PhysXObjPosition.x l_objs[i].PhysXObjPosition.y l_objs[i].PhysXObjPosition.z l_objs[i].PhysXObjYaw l_objs[i].PhysXObjPitch l_objs[i].PhysXObjRoll l_objs[i].PhysXObjGroup to:file
 	)
 	
 	format "</physx_objs>\n" to:file

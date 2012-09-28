@@ -3,6 +3,7 @@
 #include "Logger\Logger.h"
 #include "Core.h"
 #include "PhysXObjManager.h"
+#include "PhysicsManager.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -59,6 +60,7 @@ bool CPhysXObjManager::Reload()
 				float yaw = l_xml(i).GetFloatProperty("yaw", 0.0f, true);
 				float pitch = l_xml(i).GetFloatProperty("pitch", 0.0f, true);
 				float roll = l_xml(i).GetFloatProperty("roll", 0.0f, true);
+				std::string groupName = l_xml(i).GetPszProperty("group", "ECG_ESCENE", true);
 
 				TPhysXObj* pxObj = NULL;
 				
@@ -74,6 +76,7 @@ bool CPhysXObjManager::Reload()
 				assert(pxObj);
 
 				pxObj->m_Type = type;
+				pxObj->m_Group = CORE->GetPhysicsManager()->GetCollisionGroup(groupName);
 				pxObj->SetName(name);
 				pxObj->SetPosition(pos);
 				pxObj->SetYaw(yaw);

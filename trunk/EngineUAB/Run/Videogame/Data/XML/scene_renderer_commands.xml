@@ -82,7 +82,7 @@
 
   <!--Lens Flare-->
   <enable_z_test />
-  <lens_flare light_index="0" glow_color="255 230 90" />
+  <lens_flare light_index="0" glow_color="255 250 220" />
 
   <!--Game Info-->
   <render_game_info active="true" />

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <physx_objs>
-  <physx_obj name="HouseBox" type="1" dimension="9.9894 10.0068 12.7286" pos="-61.107 -1.03158 -117.042" yaw="30.0" pitch="0.0" roll="-1.56169" />
-  <physx_obj name="Tree3Box" type="1" dimension="0.775819 10.9003 -0.654015" pos="132.376 -11.2844 -174.046" yaw="0.0" pitch="-90.0" roll="0.0" />
-  <physx_obj name="Tree1Box" type="1" dimension="0.503357 7.63135 0.566993" pos="104.372 -20.1483 -153.559" yaw="0.0" pitch="-90.0" roll="0.0" />
-  <physx_obj name="Tree2Box" type="1" dimension="1.52451 15.8331 1.44289" pos="135.417 -20.0855 -132.786" yaw="0.0" pitch="-90.0" roll="0.0" />
+  <physx_obj name="Tree1Box" type="1" dimension="0.503357 7.63135 0.566993" pos="104.372 -20.1483 -153.559" yaw="0.0" pitch="-90.0" roll="0.0" group="ECG_LIMITS" />
+  <physx_obj name="Tree2Box" type="1" dimension="1.52451 15.8331 1.44289" pos="135.417 -20.0855 -132.786" yaw="0.0" pitch="-90.0" roll="0.0" group="ECG_LIMITS" />
+  <physx_obj name="Tree3Box" type="1" dimension="0.775819 10.9003 -0.654015" pos="132.376 -11.2844 -174.046" yaw="0.0" pitch="-90.0" roll="0.0" group="ECG_LIMITS" />
+  <physx_obj name="HouseBox" type="1" dimension="9.9894 10.0068 12.7286" pos="-61.107 -1.03158 -117.042" yaw="30.0" pitch="0.0" roll="-1.56169" group="ECG_LIMITS" />  
 </physx_objs>

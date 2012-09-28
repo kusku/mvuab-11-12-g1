@@ -81,6 +81,7 @@ bool CInstanceMeshHW::AddHWInstance(CXMLTreeNode &Node)
 	std::string	phyXObjName	= Node.GetPszProperty("physx_obj_name", "", usePhyXObj);
 	bool		usePhyXObjPos = Node.GetBoolProperty("use_physx_obj_pos", false, usePhyXObj);
 	std::string	typePhyX	= Node.GetPszProperty("physics_type", "", addPhyX && !usePhyXObj);
+	std::string	physicsGroupName	= Node.GetPszProperty("physics_group", "ECG_ESCENE", addPhyX);
 
 	instance->SetName(name);
 	instance->SetPosition(position);
@@ -103,7 +104,9 @@ bool CInstanceMeshHW::AddHWInstance(CXMLTreeNode &Node)
 
 	if(addPhyX)
 	{
-		CreatePhysics(instance, name, typePhyX, usePhyXObj, phyXObjName, usePhyXObjPos);
+		int physicsGroup = CORE->GetPhysicsManager()->GetCollisionGroup(physicsGroupName);
+
+		CreatePhysics(instance, name, typePhyX, usePhyXObj, phyXObjName, usePhyXObjPos, physicsGroup);
 	}
 
 	m_Initialize = false;
@@ -243,7 +246,7 @@ CObject3D* CInstanceMeshHW::GetInstance(const std::string& name)
 	return m_ObjectMap[name];
 }
 
-void CInstanceMeshHW::CreatePhysics(CObject3D* instance, const std::string &_Name, const std::string &typePhysic, bool usePXObj, const std::string &pxObjName, bool usePXObjPos)
+void CInstanceMeshHW::CreatePhysics(CObject3D* instance, const std::string &_Name, const std::string &typePhysic, bool usePXObj, const std::string &pxObjName, bool usePXObjPos, int physicsGroup)
 {
 	assert(instance);
 
@@ -277,6 +280,8 @@ void CInstanceMeshHW::CreatePhysics(CObject3D* instance, const std::string &_Nam
 
 				//TBoundingBox bb = m_StaticMesh->GetBoundingBox();
 				//localPos = -(bb.m_MinPos + ( (bb.m_MaxPos - bb.m_MinPos) / 2));
+				
+				physicsGroup = pxBox->m_Group;
 
 				pos = pxBox->GetPosition();
 			}
@@ -294,7 +299,7 @@ void CInstanceMeshHW::CreatePhysics(CObject3D* instance, const std::string &_Nam
 				pos += instance->GetPosition();
 			}
 
-			l_MeshActor->AddBoxSphape(size, pos, localPos, rotationVect);
+			l_MeshActor->AddBoxSphape(size, pos, localPos, rotationVect, NULL, (uint32)physicsGroup);
 
 			CORE->GetPhysicsManager()->AddPhysicActor(l_MeshActor);
 		}
@@ -304,6 +309,12 @@ void CInstanceMeshHW::CreatePhysics(CObject3D* instance, const std::string &_Nam
 		if(typePhysic == "bounding_box")
 		{
 			CPhysicUserData* l_pPhysicUserDataMesh = new CPhysicUserData( _Name  );
+			
+			Vect3f rotationVect = v3fZERO;
+
+			rotationVect.x = mathUtils::Deg2Rad(instance->GetPitch());
+			rotationVect.y = mathUtils::Deg2Rad(instance->GetYaw());
+			rotationVect.z = mathUtils::Deg2Rad(instance->GetRoll());
 
 			CPhysicActor* l_MeshActor = new CPhysicActor(l_pPhysicUserDataMesh);
 			l_pPhysicUserDataMesh->SetPaint (true);
@@ -312,7 +323,7 @@ void CInstanceMeshHW::CreatePhysics(CObject3D* instance, const std::string &_Nam
 			Vect3f size = (bb.m_MaxPos - bb.m_MinPos);
 			size /= 2;
 
-			l_MeshActor->AddBoxSphape(size, instance->GetPosition(), Vect3f(0, 0, 0));
+			l_MeshActor->AddBoxSphape(size, instance->GetPosition(), Vect3f(0, 0, 0), rotationVect, NULL, (uint32)physicsGroup);
 
 			CORE->GetPhysicsManager()->AddPhysicActor(l_MeshActor);
 		}
@@ -327,7 +338,7 @@ void CInstanceMeshHW::CreatePhysics(CObject3D* instance, const std::string &_Nam
 				l_pPhysicUserDataMesh = new CPhysicUserData( _Name  );
 				l_pPhysicUserDataMesh->SetPaint( true );
 				l_MeshActor = new CPhysicActor( l_pPhysicUserDataMesh );
-				l_MeshActor->AddMeshShape( l_pCM->GetPhysicMesh(_Name), instance->GetPosition() );
+				l_MeshActor->AddMeshShape( l_pCM->GetPhysicMesh(_Name), instance->GetPosition(), v3fZERO, NULL, (uint32)physicsGroup);
 				//m_AseMeshActor->CreateBody ( 10.f );
 				CORE->GetPhysicsManager()->AddPhysicActor( l_MeshActor );
 			}

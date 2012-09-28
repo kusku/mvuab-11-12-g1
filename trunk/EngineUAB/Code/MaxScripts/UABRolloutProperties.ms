@@ -13,8 +13,7 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 	GroupBox grp2 "Physics" pos:[4,195] width:249 height:147
 	checkbox GeneratePhysicsCB "Generate" pos:[11,240] width:71 height:18
 	dropdownList GeneratePhysicsList "" pos:[90,236] width:156 height:21 items:#("triangle_mesh", "convex_shape", "bounding_box", "sphere_shape", "plane_shape", "capsule_shape")
-	checkbox layerPhysicsCB "Layer" pos:[11,267] width:72 height:16
-	dropdownList LayerPhysicsList "" pos:[90,263] width:156 height:21
+	dropdownList LayerPhysicsList "" pos:[90,263] width:156 height:21 items:#("ECG_ESCENE", "ECG_LIMITS", "ECG_BRIDGE")
 	GroupBox grp3 "Logic" pos:[278,13] width:244 height:48
 	checkbox GenerateLogicCB "Generate" pos:[283,29] width:71 height:18
 	dropdownList GenerateLogicList "" pos:[358,27] width:156 height:21 items:#("rails")
@@ -74,7 +73,6 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 		VisibleRenderCB.checked = false
 		LayerRenderCB.checked = false
 		GeneratePhysicsCB.checked = false
-		layerPhysicsCB.checked = false
 		GenerateLogicCB.checked = false
 		IsWayPoint.checked = false
 		cbIsInstance.checked = false
@@ -117,6 +115,9 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 		if cbIsPXObj.checked then
 		(
 			setUserProp Obj "is_physx_obj" true
+			
+			--Set Layer Physics prop to Object
+			setUserProp Obj "physics_layer" layerPhysicsList.selected
 		)
 		else
 		(
@@ -177,6 +178,9 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 			setUserProp Obj "physics_use_px_obj" cbUsePXObj.checked
 			setUserProp Obj "physics_px_obj" tbPXObj.text
 			setUserProp Obj "physics_use_px_obj_pos" cbUsePxPos.checked
+		
+			--Set Layer Physics prop to Object
+			setUserProp Obj "physics_layer" layerPhysicsList.selected
 		)
 		else
 		(
@@ -184,16 +188,6 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 			
 			setUserProp Obj "physics_use_px_obj" false
 			setUserProp Obj "physics_use_px_obj_pos" false
-		)
-		
-		--Set Layer Physics prop to Object
-		if layerPhysicsCB.checked then
-		(
-			setUserProp Obj "physics_layer" layerPhysicsList.selected
-		)
-		else
-		(
-			setUserProp Obj "physics_layer" "undefined"
 		)
 		
 		--Set Generate Logic prop to Object
@@ -297,7 +291,6 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 			local l_LayerRender = getUserProp $ "render_layer"
 			local l_AnimModel = getUserProp $ "anim_model_core"
 			local l_GeneratePhysics = getUserProp $ "physics_generate"
-			local l_LayerPhysics = getUserProp $ "physics_layer"
 			local l_GenerateLogic = getUserProp $ "logic_generate"
 			local l_GenShadowMap = getUserProp $ "generate_shadow_map"
 			local l_GenStaticShadowMap = getUserProp $ "generate_static_shadow_map"
@@ -310,6 +303,7 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 			local l_TextureSplatting = getUserProp $ "texture_splatting"
 			local l_UsePXObj = getUserProp $ "physics_use_px_obj"
 			local l_IsPXObj = getUserProp $ "is_physx_obj"
+			local l_LayerPhysics = getUserProp $ "physics_layer"
 			
 			--Unchecked all check boxes
 			ResetProps()
@@ -328,6 +322,17 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 			if(l_IsPXObj == true)then
 			(
 				cbIsPXObj.checked = true
+				
+				if l_LayerPhysics != undefined then
+				(
+					for i = 1 to layerPhysicsList.items.count do
+					(
+						if layerPhysicsList.items[i] == l_LayerPhysics then
+						(
+							layerPhysicsList.selection = i
+						)
+					)
+				)
 			)
 			else
 			(
@@ -427,6 +432,18 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 					)
 				)
 				
+				--Set Layer Physics Prop to Rollout
+				if l_LayerPhysics != undefined then
+				(
+					for i = 1 to layerPhysicsList.items.count do
+					(
+						if layerPhysicsList.items[i] == l_LayerPhysics then
+						(
+							layerPhysicsList.selection = i
+						)
+					)
+				)
+			
 				if(l_UsePXObj == true) then
 				(
 					cbUsePXObj.checked = true
@@ -441,19 +458,6 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 					else
 					(
 						cbUsePxPos.checked = false
-					)
-				)
-			)
-			
-			--Set Layer Physics Prop to Rollout
-			if l_LayerPhysics != undefined then
-			(
-				for i = 1 to layerPhysicsList.items.count do
-				(
-					if layerPhysicsList.items[i] == l_LayerPhysics then
-					(
-						layerPhysicsList.selection = i
-						layerPhysicsCB.checked = true
 					)
 				)
 			)

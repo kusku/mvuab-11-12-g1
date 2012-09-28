@@ -8,15 +8,18 @@
 #include <string>
 #include "Math\Vector3.h"
 #include "Object3D.h"
+#include "Utils\Types.h"
 
 #define PHYSX_OBJ_BOX	0x0001
 
 struct TPhysXObj : public CObject3D
 {
 	int m_Type;
+	uint32 m_Group;
 
 	TPhysXObj()
 		: m_Type(0)
+		, m_Group(0)
 	{
 	}
 };
