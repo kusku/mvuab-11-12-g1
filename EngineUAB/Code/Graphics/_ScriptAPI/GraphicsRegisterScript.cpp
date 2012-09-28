@@ -36,7 +36,7 @@ namespace ScriptAPI
 				.def(constructor<>())
 				.def("blend_cycle", &CAnimatedInstanceModel::BlendCycle)
 				.def("clear_cycle", &CAnimatedInstanceModel::ClearCycle)
-				.def("execute_action", &CAnimatedInstanceModel::ExecuteAction)
+				//.def("execute_action", &CAnimatedInstanceModel::ExecuteAction)
 				.def("remove_action", &CAnimatedInstanceModel::RemoveAction)
 				.def("get_current_animation_duration", &CAnimatedInstanceModel::GetCurrentAnimationDuration)
 		];
