@@ -87,10 +87,12 @@ void CRabbitRunAttackState::OnEnter( CCharacter* _pCharacter )
 		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
-	PlayRandomSound();
-	
 	m_pRabbit->SetPlayerHasBeenReached( false );
 	m_playerPushed = false;
+
+	/// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio. En este caso no queremos
+	// pq hace un desplazamiento que después de este ataque no queremos que haga.
+	m_pRabbit->SetToBeTired(false);
 	
 	// Resetamos el flag que me dice si ya ejecuté partículas de impacto
 	m_FirstParticlesHitDone = false;
@@ -125,6 +127,8 @@ void CRabbitRunAttackState::OnEnter( CCharacter* _pCharacter )
 	m_AnimationDuration = m_pRabbit->GetAnimatedModel()->GetCurrentAnimationDuration(RABBIT_RUN_ATTACK_STATE);
 
 	m_pAnimationCallback->Init();
+	CORE->GetSoundManager()->PlayEvent(m_pRabbit->GetSpeakerName(), "Play_EFX_Rabbit_Run_Attack"); 
+
 	m_ActionStateCallback.InitAction(0,m_AnimationDuration);
 	m_ActionStateCallback.StartAction();
 
@@ -146,8 +150,7 @@ void CRabbitRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 	}
 
 	UpdateImpact(m_pRabbit);
-	GetParticleEmitterInstance("RabbitRunAttackCloud", _pCharacter->GetName() + "_RunAttackCloud")->EjectParticles();
-
+	
 	m_ActionStateCallback.Update(_ElapsedTime);
 
 	if ( m_pAnimationCallback->IsAnimationStarted() ) 
@@ -156,7 +159,6 @@ void CRabbitRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 		if ( !m_pRabbit->GetPlayerHasBeenReached() && m_pRabbit->IsPlayerReached() )
 		{
 			m_pRabbit->SetPlayerHasBeenReached(true);
-			//CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsRunAttack"); 
 			CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Punch3"); 
 		}
 		
@@ -166,6 +168,8 @@ void CRabbitRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 			// Si encontré el player por delante finalizo golpeando
 			if ( m_pRabbit->GetPlayerHasBeenReached() )
 			{
+				m_pRabbit->SetToBeTired(true);
+
 				if ( DISPATCH != NULL ) 
 				{
 					DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pRabbit->GetID(), m_pRabbit->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
@@ -351,25 +355,6 @@ bool CRabbitRunAttackState::OnMessage( CCharacter* _pCharacter, const STelegram&
 	return false;
 }
 
-// Devuelve el tiempo, la duración
-void CRabbitRunAttackState::PlayRandomSound( void )
-{
-	int l_Num = BoostRandomHelper::GetInt(1,2);
-	if ( l_Num == 1 )
-	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsRunAttack1");
-		m_SoundDuration = 0.858f;
-	}
-	else if ( l_Num == 2)
-	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsRunAttack2");
-		m_SoundDuration = 0.817f;
-	}
-}
-
-void CRabbitRunAttackState::UpdateParticlesPositions( CCharacter* _pCharacter )
-{
-}
 
 void CRabbitRunAttackState::GenerateImpact( CCharacter* _pCharacter )
 {

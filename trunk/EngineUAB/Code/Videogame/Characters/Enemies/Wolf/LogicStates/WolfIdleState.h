@@ -39,11 +39,11 @@ public:
 
 	//----Members ---------------------------------------------
 private:
-	CWolf	  * m_pWolf;
+	CWolf				  * m_pWolf;
 	CActionStateCallback	m_ActionStateCallback;
-	bool		m_AlreadyDetected;
-	bool		m_AlreadyChased;
-	bool		m_IdleWarningSounds;
+	bool					m_AlreadyDetected;
+	bool					m_AlreadyChased;
+	bool					m_IdleWarningSounds;
 };
 
 

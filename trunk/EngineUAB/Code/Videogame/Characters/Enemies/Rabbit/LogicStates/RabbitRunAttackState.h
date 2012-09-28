@@ -37,11 +37,6 @@ public:
 	virtual bool	OnMessage	( CCharacter*, const STelegram& );
 
 	//----Methods ---------------------------------------------
-	void			PlayRandomSound	( void );
-	
-	// Para tema de partículas
-	void			UpdateParticlesPositions( CCharacter* _pCharacter );
-	
 	// Para tema de partículas de impacto
 	void			GenerateImpact			( CCharacter* _pCharacter );
 	void			UpdateImpact			( CCharacter* _pCharacter );

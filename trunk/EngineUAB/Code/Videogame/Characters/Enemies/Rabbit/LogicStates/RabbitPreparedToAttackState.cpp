@@ -41,14 +41,14 @@
 CRabbitPreparedToAttackState::CRabbitPreparedToAttackState( CCharacter* _pCharacter )
 	: CState								( _pCharacter, "CRabbitPreparedToAttackState")
 	, m_pRabbit								( NULL )
-	, m_IsPositionAfterHitPlayerAssigned	( false )
+	, m_IsPositionAssignedAfterHitPlayer	( false )
 {
 }
 
 CRabbitPreparedToAttackState::CRabbitPreparedToAttackState( CCharacter* _pCharacter, const std::string &_Name )
 	: CState								(_pCharacter, _Name)
 	, m_pRabbit								( NULL )
-	, m_IsPositionAfterHitPlayerAssigned	( false )
+	, m_IsPositionAssignedAfterHitPlayer	( false )
 {
 }
 
@@ -69,6 +69,12 @@ void CRabbitPreparedToAttackState::OnEnter( CCharacter* _pCharacter )
 		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
+	m_pRabbit->GetBehaviors()->CollisionAvoidanceOn();
+	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOn();
+	m_pRabbit->GetBehaviors()->SeparationOn();
+
+	m_IsPositionAssignedAfterHitPlayer = false;
+
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
@@ -76,12 +82,6 @@ void CRabbitPreparedToAttackState::OnEnter( CCharacter* _pCharacter )
 			CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
 		}
 	#endif
-
-	m_pRabbit->GetBehaviors()->SeekOff();
-	m_pRabbit->GetBehaviors()->PursuitOff();
-	m_pRabbit->GetBehaviors()->CollisionAvoidanceOn();
-	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOn();
-	m_pRabbit->GetBehaviors()->SeparationOn();
 }
 
 void CRabbitPreparedToAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
@@ -92,13 +92,13 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elap
 	}
 	
 	// 0) Caso en que alcanzé al player y por tanto vamos a un punto de inicio de ataque. Así dejo que el player se reponga
-	if ( m_pRabbit->GetPlayerHasBeenReached() )
+	if ( m_pRabbit->GetPlayerHasBeenReached() && m_pRabbit->GetIsTired() )
 	{
 		// Si no ser donde tengo que ir...
-		if ( !m_IsPositionAfterHitPlayerAssigned )
+		if ( !m_IsPositionAssignedAfterHitPlayer )
 		{
 			m_PositionReachedAfterHitPlayer = m_pRabbit->GetPointInsideCameraFrustum();
-			m_IsPositionAfterHitPlayerAssigned	= true;
+			m_IsPositionAssignedAfterHitPlayer	= true;
 		}
 
 		// Mira si alcanzamos la posición. Reseteamos indicando que este enemigo ya ha realizado las tareas postimpacto 
@@ -108,10 +108,10 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elap
 		//float l_DistanceToCameraPoint = m_pRabbit->GetPosition().Distance(m_PositionReachedAfterHitPlayer);
 		if ( l_DistanceToCameraPoint <= 2.3f )
 		{
-			m_IsPositionAfterHitPlayerAssigned = false;		// Reiniciamos el flag para la pròxima vez
+			m_IsPositionAssignedAfterHitPlayer = false;		// Reiniciamos el flag para la pròxima vez
 			m_pRabbit->SetPlayerHasBeenReached(false);		// Reiniciamos el flag de player alcanzado
 			m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());
-			return;
+			m_pRabbit->SetToBeTired(false); 
 		}
 		else
 		{
@@ -119,9 +119,9 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elap
 			m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_PositionReachedAfterHitPlayer);
 			m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime);
 			m_pRabbit->MoveTo2(m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
-			LOGGER->AddNewLog(ELL_INFORMATION, "CDeerPreparedToAttackState::Execute -> %s peguó al player y ahora vuelve a una posición inicial de ataque", m_pRabbit->GetName().c_str());
-			return;
+			LOGGER->AddNewLog(ELL_INFORMATION, "CRabbitPreparedToAttackState::Execute -> %s peguó al player y ahora vuelve a una posición inicial de ataque", m_pRabbit->GetName().c_str());
 		}
+		return;
 	}
 	
 	// 1) Caso en que ataco al player. Si está focalizado y suficientemente cerca de atacar lo hace independientemente del angulo de visión del player
@@ -131,10 +131,16 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elap
 		m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
 		m_pRabbit->SetHitsDone(2);		// Esto permite hacer una pausa al entrar en el estado de ataque antes de atacar por obligar estar fatigado y permitir ver al player qué va a hacer el enemigo
 		m_pRabbit->GetLogicFSM()->ChangeState( m_pRabbit->GetAttackState() );
+
+		// Reseteamos la velocidad del enemigo
+		m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+		m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime );
+		m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+
 		#if defined _DEBUG
 			if( CORE->IsDebugMode() )
 			{
-				LOGGER->AddNewLog(ELL_INFORMATION,"CDeerPreparedToAttackState::Execute->Change to Attack State");
+				LOGGER->AddNewLog(ELL_INFORMATION,"CRabbitPreparedToAttackState::Execute->Change to Attack State");
 			}
 		#endif
 	}
@@ -164,7 +170,7 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elap
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
-					LOGGER->AddNewLog(ELL_INFORMATION,"CDeerPreparedToAttackState::Execute->Prepared-Walk");
+					LOGGER->AddNewLog(ELL_INFORMATION,"CRabbitPreparedToAttackState::Execute->Prepared-Walk");
 				}
 			#endif
 		}
@@ -179,7 +185,7 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elap
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
-					LOGGER->AddNewLog(ELL_INFORMATION,"CDeerPreparedToAttackState::Execute->Not Ready-Too far");
+					LOGGER->AddNewLog(ELL_INFORMATION,"CRabbitPreparedToAttackState::Execute->Not Ready-Too far");
 				}
 			#endif
 		}
@@ -224,6 +230,7 @@ bool CRabbitPreparedToAttackState::OnMessage( CCharacter* _pCharacter, const STe
 
 		m_pRabbit->RestLife(50); 
 		m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetHitState());
+		m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetHitAnimationState());
 		return true;
 	}
 

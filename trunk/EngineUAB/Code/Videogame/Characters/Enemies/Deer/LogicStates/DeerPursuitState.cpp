@@ -2,6 +2,7 @@
 #include "DeerIdleState.h"
 #include "DeerPreparedToAttackState.h"
 #include "DeerHitState.h"
+#include "Utils\BoostRandomHelper.h"
 
 #include "SoundManager.h"
 
@@ -80,7 +81,8 @@ void CDeerPursuitState::OnEnter( CCharacter* _pCharacter )
 	m_pDeer->GetBehaviors()->CollisionAvoidanceOn();
 	m_pDeer->GetBehaviors()->ObstacleWallAvoidanceOn();
 
-	m_SoundDuration = 1.7f;
+	// Esta clase la uso como gestor de sonido para ver cuando debo enviar otro sonido
+	float m_SoundDuration = BoostRandomHelper::GetFloat(1.8f, 2.f);
 	m_SoundActionStateCallback.InitAction(0, m_SoundDuration);
 	m_SoundActionStateCallback.StartAction();
 
@@ -98,73 +100,37 @@ void CDeerPursuitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 	
-	UpdateParticles(m_pDeer);
-	
 	m_pDeer->GetBehaviors()->SeekOff();
 	m_pDeer->GetBehaviors()->PursuitOff();
 
-	m_SoundActionStateCallback.Update(_ElapsedTime);
-	m_RunActionStateCallback.Update(_ElapsedTime);
-
-	if ( m_SoundActionStateCallback.IsActionFinished() ) 
+	if ( m_pDeer->IsEnemyPreparedToAttack() ) 
 	{
-		m_SoundActionStateCallback.InitAction(0, m_SoundDuration);
-		m_SoundActionStateCallback.StartAction();
-		CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Deer_Run" );
+		m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetPreparedToAttack());
+		return;
 	}
 
-	if ( m_pDeer->IsPlayerDetected() ) 
+	if ( m_pDeer->IsPlayerChased() ) 
 	{
-		if ( m_pDeer->IsEnemyPreparedToAttack() ) 
-		{
-			// Reseteamos la velocidad del enemigo y cambiamos a un estado que prepara para el ataque
-			/*m_pRabbit->GetBehaviors()->PursuitOff();
-			m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));*/
-			m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetPreparedToAttack());
-		}
-		else
-		{
-			// Seguimos persiguiendo...
-			m_pDeer->GetBehaviors()->GetPursuit()->SetTarget(m_pDeer->GetPlayer()->GetPosition());
-			m_pDeer->GetBehaviors()->GetPursuit()->UpdateEvaderEntity( m_pDeer->GetPlayer()->GetSteeringEntity() );
-			m_pDeer->GetBehaviors()->PursuitOn();
+		// Seguimos persiguiendo...
+		m_pDeer->GetBehaviors()->GetPursuit()->SetTarget(m_pDeer->GetPlayer()->GetPosition());
+		m_pDeer->GetBehaviors()->GetPursuit()->UpdateEvaderEntity( m_pDeer->GetPlayer()->GetSteeringEntity() );
+		m_pDeer->GetBehaviors()->PursuitOn();
 
-			/*m_pDeer->GetBehaviors()->GetSeek()->SetTarget(m_pDeer->GetPlayer()->GetPosition());
-			m_pDeer->GetBehaviors()->SeekOn();*/
+		m_pDeer->FaceTo(m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime);
+		m_pDeer->MoveTo2(m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
 
-			m_pDeer->FaceTo(m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime);
-			m_pDeer->MoveTo2(m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
+		UpdateParticles(m_pDeer);
+		UpdateActions(m_pDeer, _ElapsedTime);
+		UpdateSounds(m_pDeer, _ElapsedTime);
 
-			if ( m_RunActionStateCallback.IsActionFinished() )
+		#if defined _DEBUG
+			if( CORE->IsDebugMode() )
 			{
-				m_RunActionStateCallback.InitAction();
-				m_RunActionStateCallback.StartAction();
-
-				m_FirtsStepDone		= false;
-				m_SecondStepDone	= false;
+				std::string l_State = "Pursuing";
+				CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pDeer->GetName().c_str(), l_State );
+				//LOGGER->AddNewLog(ELL_INFORMATION, "Enemy %s pursuit...", m_pRabbit->GetName().c_str() );
 			}
-			
-			if ( m_RunActionStateCallback.IsActionInTime( 0.3f ) && !m_FirtsStepDone )
-			{
-				GetParticleEmitterInstance("DeerStepLeft", _pCharacter->GetName() + "_StepLeft")->EjectParticles();
-				m_FirtsStepDone	= true;
-			}
-
-			if ( m_RunActionStateCallback.IsActionInTime( 0.5f ) && !m_SecondStepDone )
-			{
-				GetParticleEmitterInstance("DeerStepRight", _pCharacter->GetName() + "_StepRight")->EjectParticles();
-				m_SecondStepDone = true;
-			}
-
-			#if defined _DEBUG
-				if( CORE->IsDebugMode() )
-				{
-					std::string l_State = "Pursuing";
-					CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pDeer->GetName().c_str(), l_State );
-					//LOGGER->AddNewLog(ELL_INFORMATION, "Enemy %s pursuit...", m_pRabbit->GetName().c_str() );
-				}
-			#endif
-		}
+		#endif
 	}
 	else
 	{
@@ -218,10 +184,71 @@ void CDeerPursuitState::UpdateParticles( CCharacter* _pCharacter )
 	SetParticlePosition(_pCharacter, "DeerStepRight", _pCharacter->GetName() + "_StepRight","Bip001 L Foot");
 }
 
-
 void CDeerPursuitState::StopParticles( CCharacter* _pCharacter )
 {
 	GetParticleEmitterInstance("WolfStepLeft", _pCharacter->GetName() + "_StepLeft")->StopEjectParticles();
 	GetParticleEmitterInstance("WolfStepRight", _pCharacter->GetName() + "_StepRight")->StopEjectParticles();
 }
 
+
+void CDeerPursuitState::UpdateActions(CCharacter* _pCharacter, float _ElapsedTime )
+{
+	m_RunActionStateCallback.Update(_ElapsedTime);
+
+	if ( m_RunActionStateCallback.IsActionFinished() )
+	{
+		m_RunActionStateCallback.InitAction();
+		m_RunActionStateCallback.StartAction();
+
+		m_FirtsStepDone		= false;
+		m_SecondStepDone	= false;
+	}
+			
+	if ( m_RunActionStateCallback.IsActionInTime( 0.3f ) && !m_FirtsStepDone )
+	{
+		GetParticleEmitterInstance("DeerStepLeft", _pCharacter->GetName() + "_StepLeft")->EjectParticles();
+		m_FirtsStepDone	= true;
+	}
+
+	if ( m_RunActionStateCallback.IsActionInTime( 0.5f ) && !m_SecondStepDone )
+	{
+		GetParticleEmitterInstance("DeerStepRight", _pCharacter->GetName() + "_StepRight")->EjectParticles();
+		m_SecondStepDone = true;
+	}
+}
+			
+void CDeerPursuitState::UpdateSounds( CCharacter* _pCharacter, float _ElapsedTime  )
+{
+	m_SoundActionStateCallback.Update(_ElapsedTime);
+	
+	if ( m_SoundActionStateCallback.IsActionStarted() )
+	{
+		// Miramos si ya está lanzado el sonido
+		if ( !m_AlreadyChased && m_pDeer->IsPlayerDetected() ) 
+		{
+			//if ( m_RunWarningSounds )
+				CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Deer_Run" );
+			/*else
+				CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Wolf_warning" );*/
+
+			m_AlreadyChased = true;
+		}
+
+		// Si finalizó el tiempo --> finaliza el sonido
+		if ( m_SoundActionStateCallback.IsActionFinished() )
+		{
+			m_SoundActionStateCallback.InitAction();
+		}
+		else
+		{
+			// Actualizo el gestor de sonido de este estado
+			m_SoundActionStateCallback.Update(_ElapsedTime);
+		}
+	}
+	else
+	{
+		m_SoundActionStateCallback.StartAction();
+		m_AlreadyChased = false;
+		m_RunWarningSounds = !m_RunWarningSounds;
+	}
+}

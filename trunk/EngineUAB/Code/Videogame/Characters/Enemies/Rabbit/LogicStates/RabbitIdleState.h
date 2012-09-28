@@ -35,13 +35,19 @@ public:
 	virtual bool	OnMessage	( CCharacter*, const STelegram& );
 
 	//----Methods ---------------------------------------------
-
-
+	void			UpdateAnimations ( CCharacter*, float _ElapsedTime );
+	void			UpdateSounds	 ( CCharacter*, float _ElapsedTime );
+	
 	//----Members ---------------------------------------------
 private:
-	CActionStateCallback		m_ActionTime;
-	CRabbit					  * m_pRabbit;
+	CRabbit				  * m_pRabbit;
+	CActionStateCallback	m_ActionStateCallback;
+	CActionStateCallback	m_SoundActionStateCallback;
 
+	float					m_SoundDuration;
+	bool					m_AlreadyDetected;
+	bool					m_AlreadyChased;
+	bool					m_IdleWarningSounds;
 };
 
 

@@ -115,7 +115,8 @@ void CDeerStillAttackState::OnEnter( CCharacter* _pCharacter )
 	m_SoundPlayed2			= false;
 	
 	m_pDeer->SetPlayerHasBeenReached( false );
-	
+	m_pDeer->SetToBeTired(false);
+
 	//CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerExclaim"); 
 	
 	m_pAnimationCallback->Init();

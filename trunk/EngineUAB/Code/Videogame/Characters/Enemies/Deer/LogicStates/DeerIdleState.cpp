@@ -34,6 +34,7 @@ CDeerIdleState::CDeerIdleState( CCharacter* _pCharacter )
 	, m_pDeer			( NULL )
 	, m_AlreadyDetected	( false )
 	, m_AlreadyChased	( false )
+	, m_ActionStateCallback	( 0,1 )
 {	  
 }
 
@@ -42,6 +43,7 @@ CDeerIdleState::CDeerIdleState( CCharacter* _pCharacter, const std::string &_Nam
 	, m_pDeer		( NULL )
 	, m_AlreadyDetected	( false )
 	, m_AlreadyChased	( false )
+	, m_ActionStateCallback	( 0,1 )
 {
 }
 
@@ -66,6 +68,12 @@ void CDeerIdleState::OnEnter( CCharacter* _pCharacter )
 	m_AlreadyDetected	= false;
 	m_AlreadyChased		= false;
 
+	// Esta clase la uso como gestor de sonido para ver cuando debo enviar otro sonido
+	float l_Tiempo = BoostRandomHelper::GetFloat(2.f, 4.f);
+	m_ActionStateCallback.InitAction(0.f, l_Tiempo );
+	m_ActionStateCallback.StartAction();
+
+
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
@@ -82,19 +90,51 @@ void CDeerIdleState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 
-	if ( !m_AlreadyDetected && m_pDeer->IsPlayerDetected() ) 
-	{
-		CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Deer_Enemy_Detected");
-		m_AlreadyDetected = true;
-	}
-
+	// Si debo perseguir al player
 	if ( m_pDeer->IsPlayerChased() ) 
 	{
+		CORE->GetSoundManager()->PlayEvent( "Stop_EFX_Deer_Enemy_Detected" );
+		
 		m_pDeer->GetLogicFSM()->ChangeState( m_pDeer->GetPursuitState());
 		m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetRunAnimationState());
+		return;
 	}
 
-	if ( !m_pDeer->IsPlayerDetected() )
+	// Gestiono sonidos si lo detecto
+	if ( m_pDeer->IsPlayerDetected() )
+	{
+		if ( m_ActionStateCallback.IsActionStarted() )
+		{
+			// Miramos si ya está lanzado el sonido
+			if ( !m_AlreadyDetected && m_pDeer->IsPlayerDetected() ) 
+			{
+				//if ( m_IdleWarningSounds )
+					CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Deer_Enemy_Detected" );
+				/*else
+					CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Wolf_thread" );*/
+
+				m_AlreadyDetected = true;
+			}
+
+			// Si finalizó el tiempo --> finaliza el sonido
+			if ( m_ActionStateCallback.IsActionFinished() )
+			{
+				m_ActionStateCallback.InitAction();
+			}
+			else
+			{
+				// Actualizo el gestor de sonido de este estado
+				m_ActionStateCallback.Update(_ElapsedTime);
+			}
+		}
+		else
+		{
+			m_ActionStateCallback.StartAction();
+			m_AlreadyDetected = false;
+			//m_IdleWarningSounds = !m_IdleWarningSounds;
+		}
+	}
+	else
 	{
 		CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Stop_EFX_Deer_Enemy_Detected");
 		m_AlreadyDetected = false;
