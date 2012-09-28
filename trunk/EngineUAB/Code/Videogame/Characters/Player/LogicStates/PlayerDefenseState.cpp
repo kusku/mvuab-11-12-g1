@@ -19,14 +19,10 @@
 
 CPlayerDefenseState::CPlayerDefenseState( CCharacter * _pCharacter, const std::string &_Name )
 	: CState(_pCharacter, _Name)
-{
-
-}
+{}
 
 CPlayerDefenseState::~CPlayerDefenseState()
-{
-
-}
+{}
 
 void CPlayerDefenseState::OnEnter( CCharacter* _pCharacter )
 {

@@ -45,6 +45,7 @@ public:
 
 	//---- Methods ---------------------------------------------------------
 	void			ExecuteAction				( uint32 _Id, float _Time );
+	void			ExecuteAction				( uint32 _Id, float _Time, bool _Autolock );
 	void			RemoveAction				( uint32 _Id );
 	void			BlendCycle					( uint32 _Id, float _Time );
 	void			ClearCycle					( uint32 _Id, float _Time );

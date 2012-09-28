@@ -287,6 +287,11 @@ void CAnimatedInstanceModel::ExecuteAction(uint32 Id, float Time)
 	m_CalModel->getMixer()->executeAction( Id, 0, Time );
 }
 
+void CAnimatedInstanceModel::ExecuteAction(uint32 _Id, float _Time, bool _Autolock )
+{
+	m_CalModel->getMixer()->executeAction( _Id, 0, _Time, 1.f, _Autolock );
+}
+
 void CAnimatedInstanceModel::RemoveAction( uint32 _Id )
 {
 	m_CalModel->getMixer()->removeAction(_Id);
