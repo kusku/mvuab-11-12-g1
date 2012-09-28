@@ -221,11 +221,11 @@ bool CPlayerRunState::OnMessage( CCharacter* _pCharacter, const STelegram& _Mess
 	}
 	else if( _Message.Msg == Msg_Push )
 	{
-		CCharacter *l_pEnemy	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->GetCharacterById(_Message.Sender);
+		/*CCharacter *l_pEnemy	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->GetCharacterById(_Message.Sender);
 		
 		sDireccion * l_Info = (struct sDireccion *) _Message.ExtraInfo;
 		_pCharacter->MoveTo2(l_Info->Direccion * 1.2f, l_Info->ElapsedTime);
-		_pCharacter->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+		_pCharacter->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));*/
 		LOGGER->AddNewLog(ELL_INFORMATION, "CPlayerRunState::OnMessage -> PUSHED!!");
 		return true;
 	}

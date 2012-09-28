@@ -24,7 +24,7 @@ public:
 	void			UpdateParticlesPositions( CCharacter* _pCharacter );
 
 	// Para tema de partículas de impacto
-	void			GenerateImpact			( void );
+	void			GenerateImpact			( CCharacter* _pCharacter );
 	void			UpdateImpact			( CCharacter* _pCharacter );
 };
 
