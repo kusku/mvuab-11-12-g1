@@ -137,7 +137,7 @@ bool CPlayerTargetAttack3State::OnMessage( CCharacter* _pCharacter, const STeleg
 
 		return true;
 	}
-	else if( _Message.Msg == Msg_Push )
+	/*else if( _Message.Msg == Msg_Push )
 	{
 		CCharacter *l_pEnemy	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->GetCharacterById(_Message.Sender);
 		
@@ -146,7 +146,7 @@ bool CPlayerTargetAttack3State::OnMessage( CCharacter* _pCharacter, const STeleg
 		_pCharacter->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
 		LOGGER->AddNewLog(ELL_INFORMATION, "CPlayerTargetAttack3State::OnMessage -> PUSHED!!");
 		return true;
-	}
+	}*/
 
 	return false;
 }

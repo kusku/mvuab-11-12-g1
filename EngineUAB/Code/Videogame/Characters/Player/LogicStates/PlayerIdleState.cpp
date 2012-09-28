@@ -51,7 +51,7 @@ void CPlayerIdleState::OnEnter( CCharacter* _pCharacter )
 	//UpdateParticlesPositions(_pCharacter);
 
 	UpdateImpact(_pCharacter);
-	GenerateImpact();
+	GenerateImpact(_pCharacter);
 }
 
 void CPlayerIdleState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
@@ -61,8 +61,8 @@ void CPlayerIdleState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 
 	// Gestión de partículas
 	UpdateImpact(_pCharacter);
-	GenerateImpact();
-
+	GenerateImpact(_pCharacter);
+	
 	if( !_pCharacter->GetLocked() )
 	{
 		CPlayer *l_pPlayer				= static_cast<CPlayer*>(_pCharacter);
@@ -192,11 +192,11 @@ bool CPlayerIdleState::OnMessage( CCharacter* _pCharacter, const STelegram& _Mes
 	}
 	else if( _Message.Msg == Msg_Push )
 	{
-		CCharacter *l_pEnemy	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->GetCharacterById(_Message.Sender);
+		/*CCharacter *l_pEnemy	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->GetCharacterById(_Message.Sender);
 		
 		sDireccion * l_Info = (struct sDireccion *) _Message.ExtraInfo;
 		_pCharacter->MoveTo2(l_Info->Direccion*2.0f, l_Info->ElapsedTime);
-		_pCharacter->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+		_pCharacter->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));*/
 
 		return true;
 	}
@@ -208,14 +208,23 @@ void CPlayerIdleState::UpdateParticlesPositions( CCharacter* _pCharacter )
 {
 }
 
-void CPlayerIdleState::GenerateImpact( void )
+void CPlayerIdleState::GenerateImpact( CCharacter* _pCharacter )
 {
 	//GetParticleEmitter("FireSwordBlur")->EjectParticles();
 	//GetParticleEmitter("FireSwordSmoke")->EjectParticles();
+	/*GetParticleEmitterInstance("DeerBloodSplash", _pCharacter->GetName() + "_DeerBloodSplash")->EjectParticles();
+	GetParticleEmitterInstance("DeerBloodDust",	  _pCharacter->GetName() + "_DeerBloodDust")->EjectParticles();
+	GetParticleEmitterInstance("DeerBlood",		  _pCharacter->GetName() + "_DeerBlood")->EjectParticles();*/
 }
 
 void CPlayerIdleState::UpdateImpact( CCharacter* _pCharacter )
 {
+	Vect3f l_Pos = _pCharacter->GetPosition() + _pCharacter->GetFront();
+	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
+	
+	SetParticlePosition(_pCharacter, "DeerBloodSplash", _pCharacter->GetName() + "_DeerBloodSplash", "", l_Pos );
+	SetParticlePosition(_pCharacter, "DeerBloodDust",	_pCharacter->GetName() + "_DeerBloodDust",	 "", l_Pos);
+	SetParticlePosition(_pCharacter, "DeerBlood",		_pCharacter->GetName() + "_DeerBlood",	"", l_Pos);
 	/*SetParticlePosition(_pCharacter, "FireSwordBlur", "CHR_CAP L Hand" );
 	SetParticlePosition(_pCharacter, "FireSwordSmoke", "CHR_CAP L Hand" );*/
 
