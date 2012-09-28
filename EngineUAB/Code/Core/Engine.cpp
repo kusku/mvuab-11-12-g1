@@ -319,6 +319,10 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 			{
 				m_Config.waypoints_path = l_ConfigNode(i).GetPszProperty("wayPointsXML", "");
 			}
+			else if( l_Name == "PhysXObjs" )
+			{
+				m_Config.physx_obj_path = l_ConfigNode(i).GetPszProperty("physXObjsXML", "");
+			}
 			else if( l_Name == "AnimalMovement" )
 			{
 				m_Config.animal_movement_path = l_ConfigNode(i).GetPszProperty("animalMovementXML", "");

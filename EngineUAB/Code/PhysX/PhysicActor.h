@@ -12,6 +12,7 @@
 #include <vector>
 #include "base.h"
 #include "Math\Vector3.h"
+#include "Math\Matrix44.h"
 #include "PhysicsDefs.h"
 
 //---Forward Declarations---
@@ -61,7 +62,7 @@ public:
 	
 	//---AddShape Functions-----
 	void				AddSphereShape				( float radius, const Vect3f& _vGlobalPos = v3fZERO, const Vect3f& _vLocalPos = v3fZERO, NxCCDSkeleton* _pSkeleton = 0, uint32 _uiGroup = 0 );
-	void				AddBoxSphape				( const Vect3f& _vSize, const Vect3f& _vGlobalPos = v3fZERO, const Vect3f& _vLocalPos = v3fZERO, NxCCDSkeleton* _pSkeleton = 0, uint32 _uiGroup = 0 );
+	void				AddBoxSphape				( const Vect3f& _vSize, const Vect3f& _vGlobalPos = v3fZERO, const Vect3f& _vLocalPos = v3fZERO, const Vect3f& rotation = v3fZERO, NxCCDSkeleton* _pSkeleton = 0, uint32 _uiGroup = 0 );
 	void				AddCapsuleShape				( float _Radius, float _Height, const Vect3f& _vGlobalPos = v3fZERO, const Vect3f& _vLocalPos = v3fZERO, NxCCDSkeleton* _pSkeleton = 0, uint32 _uiGroup = 0 );
 	void				AddMeshShape				( NxTriangleMesh* mesh, const Vect3f& _vGlobalPos = v3fZERO, const Vect3f& _vLocalPos = v3fZERO, NxCCDSkeleton* _pSkeleton = 0, uint32 _uiGroup = 0);
 	void				AddPlaneShape				( const Vect3f& _vNormal, float _Distance, uint32 _uiGroup = 0);

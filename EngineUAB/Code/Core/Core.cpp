@@ -58,6 +58,8 @@
 
 #include "Rails\RailManager.h"
 
+#include "Utils\PhysXObjManager.h"
+
 #include "Cameras\ThPSCamera.h"
 
 #include "_ScriptAPI\CoreRegisterScript.h"
@@ -111,6 +113,7 @@ CCore::CCore ( void )
 	, m_pRailManager					( NULL )
 	, m_DrawingShadows					(false)
 	, m_DyingAmount						(0.0f)
+	, m_PhysXObjManager					(NULL)
 {
 }
 
@@ -165,6 +168,7 @@ void CCore::Release ( void )
 	CHECKED_DELETE ( m_Animalmanager );
 	CHECKED_DELETE ( m_pSteeringBehaviorSeetingsManager );
 	CHECKED_DELETE ( m_pRailManager  );
+	CHECKED_DELETE (m_PhysXObjManager);
 	
 	m_pCamera = NULL; //La cámara la elimina el proceso
 	m_pTimer = NULL;
@@ -267,6 +271,8 @@ bool CCore::Init( HWND _HWnd, const SConfig &config )
 			m_ParticleEmitterSystemManager = new CParticleEmitterSystemManager();
 
 			m_ParticleStartUpInstances = new CParticleStartUpInstances();
+
+			m_PhysXObjManager = new CPhysXObjManager();
 
 			//GUI
 			m_pGUIManager = new CGUIManager( CORE->GetRenderManager()->GetScreenSize() );
@@ -533,6 +539,11 @@ bool CCore::LoadSteeringBehaviorSettings()
 bool CCore::LoadRails()
 {
 	return m_pRailManager->Load( m_Config.rails_path );
+}
+
+bool CCore::LoadPhysXObjs()
+{
+	return m_PhysXObjManager->Load(m_Config.physx_obj_path);
 }
 
 void CCore::SetGameMode(bool _GameMode)
@@ -969,6 +980,11 @@ void CCore::ReloadRails()
 	m_pRailManager->Reload();
 }
 
+bool CCore::ReloadPhysXObjs()
+{
+	return m_PhysXObjManager->Reload();
+}
+
 void CCore::UnloadStaticMeshes()
 {
 	m_pStaticMeshManager->CleanUp();
@@ -1015,4 +1031,9 @@ void CCore::UnloadAnimalMovements()
 void CCore::UnloadTriggers()
 {
 	m_pTriggersManager->Destroy();
+}
+
+void CCore::UnloadPhysXObjs()
+{
+	m_PhysXObjManager->CleanUp();
 }

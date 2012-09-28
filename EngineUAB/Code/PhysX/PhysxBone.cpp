@@ -7,6 +7,7 @@
 #include "PhysicFixedJoint.h"
 #include "PhysicSphericalJoint.h"
 #include "PhysicUserData.h"
+#include "Math\Matrix44.h"
 
 #include "RenderableObjects\AnimatedModel\AnimatedModelManager.h"
 #include "RenderManager.h"
@@ -111,7 +112,7 @@ bool CPhysxBone::AddBoxActor(CXMLTreeNode _XMLObjects, CObject3D* _pEntity)
   l_pUserData->SetColor(colGREEN);
   l_pUserData->SetEntity(_pEntity);
   CPhysicActor* l_pActor = new CPhysicActor(l_pUserData);
-  l_pActor->AddBoxSphape(Vect3f(l_vSize.x,l_vSize.z,l_vSize.y)*0.5f,l_mTotal.GetPos(),l_fMiddlePoint,NULL,m_iCollisionGroup);
+  l_pActor->AddBoxSphape(Vect3f(l_vSize.x,l_vSize.z,l_vSize.y)*0.5f,l_mTotal.GetPos(), l_fMiddlePoint,v3fZERO, NULL,m_iCollisionGroup);
   l_pActor->CreateBody(l_fDensity,1.0f,1.0f);
   l_pPM->AddPhysicActor(l_pActor);
   l_pActor->SetActorSolverIterationCount(75);

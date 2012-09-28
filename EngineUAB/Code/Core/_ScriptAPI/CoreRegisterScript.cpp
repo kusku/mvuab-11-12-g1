@@ -76,6 +76,7 @@ namespace ScriptAPI
 					.def("reload_waypoints", &CCore::ReloadWayPoints)
 					.def("reload_steering_behaviors_settings", &CCore::ReloadSteeringBehaviorSettings)
 					.def("reload_rails", &CCore::ReloadRails)
+					.def("reload_physxobjs", &CCore::ReloadPhysXObjs)
 					.def("get_debug_gui_manager", &CCore::GetDebugGUIManager)
 					.def("get_stadistics", &CCore::GetStadistics)
 					.def("get_gui_manager", &CCore::GetGUIManager)
@@ -107,6 +108,7 @@ namespace ScriptAPI
 					.def("load_animal_movement", &CCore::LoadAnimalMovements)
 					.def("load_steering_behaviors_settings", &CCore::LoadSteeringBehaviorSettings)
 					.def("load_rails", &CCore::LoadRails)
+					.def("load_physxobjs", &CCore::LoadPhysXObjs)
 					.def("is_game_mode", &CCore::IsGameMode)
 					.def("is_debug_mode", &CCore::IsDebugMode)
 					.def("is_release_mode", &CCore::IsReleaseMode)
@@ -119,6 +121,7 @@ namespace ScriptAPI
 					.def("unload_triggers", &CCore::UnloadTriggers)
 					.def("unload_animal_movement", &CCore::UnloadAnimalMovements)
 					.def("Unload_waypoints", &CCore::UnloadWayPoints)
+					.def("unload_physx_objs", &CCore::UnloadPhysXObjs)
 					.def("set_game_mode", &CCore::SetGameMode)
 			];
 

@@ -40,6 +40,7 @@ public:
 	inline bool					GetVisible			() const					{ return m_Visible; }
 	inline const std::string&	GetTechniqueName	() const					{ return m_TechniqueName; }
 	const Mat44f				GetTransform		() const;
+	const Mat44f				GetRotationMatrix		() const;
 
 	//---Set Functions
 	inline void					SetPosition			( const Vect3f& pos )			{ m_Position = pos; }

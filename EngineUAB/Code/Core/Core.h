@@ -44,6 +44,7 @@ class CParticleStartUpInstances;
 class CAnimalManager;
 class CSteeringBehaviorsSeetingsManager;
 class CRailManager;
+class CPhysXObjManager;
 //--------------------------
 
 class CCore : public CSingleton<CCore>
@@ -83,6 +84,7 @@ public:
 	bool		LoadAnimalMovements				();
 	bool		LoadSteeringBehaviorSettings	();
 	bool		LoadRails						();
+	bool		LoadPhysXObjs					();
 
 	//----Reload Methods ---------------------------------------------------
 	void		Reload									();
@@ -107,6 +109,7 @@ public:
 	void		ReloadWayPoints							();
 	void		ReloadSteeringBehaviorSettings			();
 	void		ReloadRails								();
+	bool		ReloadPhysXObjs							();
 
 	//----Unload Methods ---------------------------------------------------
 	void		UnloadStaticMeshes						();
@@ -118,6 +121,7 @@ public:
 	void		UnloadTriggers							();
 	void		UnloadAnimalMovements					();
 	void		UnloadWayPoints							();
+	void		UnloadPhysXObjs							();
 
 	//----Properties ( get & Set )---------------------------------------
 	void				SetCamera					( CCamera *_Camera )			{ m_pCamera = _Camera; }
@@ -192,6 +196,8 @@ public:
 	
 	inline CRailManager*						GetRailManager				() const					{ return m_pRailManager; }
 
+	inline CPhysXObjManager*					GetPhysXObjManager			() const					{ return m_PhysXObjManager; }
+
 private:
 	void Release();
 
@@ -211,6 +217,8 @@ private:
 	float	m_DyingAmount;
 
 	SConfig	m_Config;
+
+	CPhysXObjManager					*m_PhysXObjManager;
 
 	CCamera								*m_pCamera;						// punter a la càmera
 	CTimer								*m_pTimer;						// punter al timer

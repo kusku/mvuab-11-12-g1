@@ -47,3 +47,7 @@ end
 function reload_particles()
 	core:reload_particles()
 end
+
+function reload_physxobjs()
+	core:reload_physxobjs()
+end

@@ -1090,6 +1090,9 @@
     <None Include="..\..\Run\Videogame\Data\XML\ParticleStartUpInstances.xml">
       <Filter>XML</Filter>
     </None>
+    <None Include="..\..\Run\Videogame\Data\XML\physxobjs.xml">
+      <Filter>XML</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\Run\Videogame\Data\Effects\VignettingNoise.fx">

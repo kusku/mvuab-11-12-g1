@@ -189,7 +189,7 @@ void CPhysicActor::AddSphereShape ( float radius, const Vect3f& _vGlobalPos, con
   
 }
 
-void CPhysicActor::AddBoxSphape ( const Vect3f& _vSize, const Vect3f& _vGlobalPos, const Vect3f& localPos, NxCCDSkeleton* skeleton, uint32 _uiGroup )
+void CPhysicActor::AddBoxSphape ( const Vect3f& _vSize, const Vect3f& _vGlobalPos, const Vect3f& localPos, const Vect3f& rotation, NxCCDSkeleton* skeleton, uint32 _uiGroup )
 {
 	assert(m_pPhXActorDesc);
 
@@ -199,9 +199,29 @@ void CPhysicActor::AddBoxSphape ( const Vect3f& _vSize, const Vect3f& _vGlobalPo
 	m_vBoxDesc.push_back ( l_BoxDesc );
 	// Add a box shape to the actor descriptor
 	l_BoxDesc->dimensions = NxVec3( _vSize.x, _vSize.y, _vSize.z);
+	
+	//l_BoxDesc->localPose.M.rotX(NxReal(rotation.x));
+	//l_BoxDesc->localPose.M.rotY(NxReal(rotation.y));
+	//l_BoxDesc->localPose.M.rotZ(NxReal(rotation.z)); 
+		
 	l_BoxDesc->localPose.t = NxVec3 ( localPos.x, localPos.y, localPos.z );
+	
+	NxMat33 rotX = m_pPhXActorDesc->globalPose.M;
+	NxMat33 rotY = m_pPhXActorDesc->globalPose.M;
+	NxMat33 rotZ = m_pPhXActorDesc->globalPose.M;
 
-  m_pPhXActorDesc->globalPose.t = NxVec3( _vGlobalPos.x, _vGlobalPos.y, _vGlobalPos.z );
+	rotX.rotX(NxReal(rotation.x));
+	rotY.rotY(NxReal(rotation.y));
+	rotZ.rotZ(NxReal(rotation.z));
+
+	NxMat33 rotAll = rotY;
+
+	rotAll.multiply(rotY, rotX);
+	rotAll.multiply(rotAll, rotZ);
+
+	m_pPhXActorDesc->globalPose.M = rotAll;
+  
+	m_pPhXActorDesc->globalPose.t = NxVec3( _vGlobalPos.x, _vGlobalPos.y, _vGlobalPos.z );
 
 	if (skeleton != NULL)
 	{

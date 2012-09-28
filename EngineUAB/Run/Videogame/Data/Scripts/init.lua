@@ -14,6 +14,7 @@ function load_basics()
 end
 
 function load_data()
+	core:load_physxobjs()
 	core:load_static_meshes()
 	core:load_animated_models()
 	core:load_renderable_objects_layers()
@@ -33,6 +34,7 @@ function load_all()
 end
 
 function unload_data()
+	core:unload_physx_objs()
 	core:unload_renderable_objects_layers()
 	core:unload_static_meshes()
 	core:unload_animated_models()
