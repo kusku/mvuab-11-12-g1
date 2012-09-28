@@ -62,6 +62,7 @@
     <ClInclude Include="Commands\StagedTexturedRendererCommand.h" />
     <ClInclude Include="Commands\UnsetDepthStencilSceneRendererCommand.h" />
     <ClInclude Include="Commands\UnsetRenderTargetSceneRendererCommand.h" />
+    <ClInclude Include="Commands\WideScreenCommand.h" />
     <ClInclude Include="Effects\Effect.h" />
     <ClInclude Include="Effects\EffectDefs.h" />
     <ClInclude Include="Effects\EffectManager.h" />
@@ -167,6 +168,7 @@
     <ClCompile Include="Commands\StagedTexturedRendererCommand.cpp" />
     <ClCompile Include="Commands\UnsetDepthStencilSceneRendererCommand.cpp" />
     <ClCompile Include="Commands\UnsetRenderTargetSceneRendererCommand.cpp" />
+    <ClCompile Include="Commands\WideScreenCommand.cpp" />
     <ClCompile Include="Effects\Effect.cpp" />
     <ClCompile Include="Effects\EffectManager.cpp" />
     <ClCompile Include="Effects\EffectTechnique.cpp" />

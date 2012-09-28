@@ -39,5 +39,6 @@
 #include "Commands\LensFlareSceneRendererCommand.h"
 #include "Commands\RenderGameInfoRendererCommand.h"
 #include "Commands\SetDyingAmoungCommand.h"
+#include "Commands\WideScreenCommand.h"
 
 #endif __CLASS_COMMANDS_INCLUDES_H__

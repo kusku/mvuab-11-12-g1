@@ -79,8 +79,8 @@ bool CRenderManager::Init(HWND hWnd)
 		if(m_bFullscreen)
 		{
 			d3dpp.Windowed          = FALSE;
-			d3dpp.BackBufferWidth   = m_SizeScreen.x;
-			d3dpp.BackBufferHeight  = m_SizeScreen.y;
+			d3dpp.BackBufferWidth   = m_SizeWindow.x;
+			d3dpp.BackBufferHeight  = m_SizeWindow.y;
 			d3dpp.BackBufferFormat	= D3DFMT_A8R8G8B8;
 		}
 		else
@@ -102,22 +102,6 @@ bool CRenderManager::Init(HWND hWnd)
 		// Create the D3DDevice
 		m_bIsOk = !FAILED( m_pD3D->CreateDevice( D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
 			D3DCREATE_HARDWARE_VERTEXPROCESSING, &d3dpp, &m_pD3DDevice ) );
-
-		/* if (!m_bIsOk)
-		{
-		m_bIsOk = !FAILED( m_pD3D->CreateDevice( D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
-		D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &m_pD3DDevice ) );
-
-		if (m_bIsOk)
-		{
-		LOGGER->AddNewLog(ELL_INFORMATION, "RenderManager:: D3DCREATE_SOFTWARE_VERTEXPROCESSING");
-		}
-		}
-		else
-		{
-		LOGGER->AddNewLog(ELL_INFORMATION, "RenderManager:: D3DCREATE_HARDWARE_VERTEXPROCESSING");
-		}
-		*/
 
 		if (m_bIsOk)
 		{
@@ -154,9 +138,28 @@ bool CRenderManager::Init(HWND hWnd)
 			}
 			else
 			{
-				GetWindowRect(hWnd);
+				if(m_SizeScreen != m_SizeWindow)
+				{
+					if(m_SizeScreen.x == m_SizeWindow.x)
+					{
+						Vect2i sizew = GetWindowRectRet(hWnd);
+
+						m_uWidth = sizew.x;
+					}
+					else
+					{
+						m_uWidth    = m_SizeScreen.x;
+					}
+
+					m_uHeight    = m_SizeScreen.y;
+				}
+				else
+				{
+					GetWindowRect(hWnd);
+				}
 			}
 
+			LOGGER->AddNewLog(ELL_INFORMATION, "RenderManager:: La resolucion de ventana es (%dx%d)",m_SizeWindow.x,m_SizeWindow.y);
 			LOGGER->AddNewLog(ELL_INFORMATION, "RenderManager:: La resolucion de pantalla es (%dx%d)",m_uWidth,m_uHeight);
 
 			m_AspectRatio = static_cast<float>(m_uWidth) / static_cast<float>(m_uHeight);
@@ -253,6 +256,18 @@ void CRenderManager::GetWindowRect( HWND hwnd )
 	m_uHeight = rec_window.bottom - rec_window.top;
 }
 
+Vect2i CRenderManager::GetWindowRectRet( HWND hwnd )
+{
+	RECT rec_window;
+	GetClientRect(    hwnd, &rec_window);
+	Vect2i rect(0, 0);
+	
+	rect.x = rec_window.right - rec_window.left;
+	rect.y = rec_window.bottom - rec_window.top;
+
+	return rect;
+}
+
 void CRenderManager::ClearTarget(CColor color)
 {
 	D3DCOLOR col = D3DCOLOR_ARGB(
@@ -263,6 +278,18 @@ void CRenderManager::ClearTarget(CColor color)
 		);
 
 	m_pD3DDevice->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, col, 1.0f, 0 );
+}
+
+void CRenderManager::ClearTargetOnly(CColor color)
+{
+	D3DCOLOR col = D3DCOLOR_ARGB(
+		(uint32) (color.GetAlpha() * 255),
+		(uint32) (color.GetRed() * 255),
+		(uint32) (color.GetGreen() * 255),
+		(uint32) (color.GetBlue()* 255)
+		);
+
+	m_pD3DDevice->Clear( 0, NULL, D3DCLEAR_TARGET, col, 1.0f, 0 );
 }
 
 void CRenderManager::BeginRendering()

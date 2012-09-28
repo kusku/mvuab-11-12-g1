@@ -210,6 +210,10 @@ bool CSceneRendererCommandManager::LoadXML ( bool _IsGUI )
 			{
 				l_ActiveCommand = new CSetPoolRenderableObjectsTechniqueCommand( l_Commands(i) );
 			}
+			else if( l_Type == "wide_screen" )
+			{
+				l_ActiveCommand = new CWideScreenCommand( l_Commands(i) );
+			}
 			else if( l_Type == "lens_flare" )
 			{
 				l_ActiveCommand = new CLensFlareSceneRemdererCommand( l_Commands(i) );
@@ -234,7 +238,16 @@ bool CSceneRendererCommandManager::LoadXML ( bool _IsGUI )
 			{
 				std::string l_RenderTarget = l_Commands(i).GetPszProperty("render_target", "");
 
-				CSetRenderTargetSceneRendererCommand* l_SRT = static_cast<CSetRenderTargetSceneRendererCommand*>(m_SceneRendererCommands.GetResource(l_RenderTarget));
+				CSetRenderTargetSceneRendererCommand* l_SRT = NULL;
+
+				if( _IsGUI )
+				{
+					l_SRT = static_cast<CSetRenderTargetSceneRendererCommand*>(m_GUIRendererCommands.GetResource(l_RenderTarget));
+				}
+				else
+				{
+					l_SRT = static_cast<CSetRenderTargetSceneRendererCommand*>(m_SceneRendererCommands.GetResource(l_RenderTarget));
+				}
 
 				l_ActiveCommand = new CUnsetRenderTargetSceneRendererCommand(l_SRT, l_Commands(i));
 			}

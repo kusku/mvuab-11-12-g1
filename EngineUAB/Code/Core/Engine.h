@@ -42,6 +42,7 @@ public:
 	void			SetProcess			( CEngineProcess *_Process );
 	CEngineProcess*	GetProcess			( void ) const						{ return m_pProcess; }
 
+	Vect2i			GetWindowResolution	( void ) const						{ return m_Config.windowResolution; }
 	Vect2i			GetResolution		( void ) const						{ return m_Config.resolution; }
 	Vect2i			GetPosition			( void ) const						{ return m_Config.position; }
 
