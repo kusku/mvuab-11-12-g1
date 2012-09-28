@@ -74,6 +74,7 @@ struct SConfig
 	bool bFullscreen;
 	bool bDebugMode;
 	Vect2i position;
+	Vect2i windowResolution;
 	Vect2i resolution;
 	CColor color_debug;
 	CColor color_release;

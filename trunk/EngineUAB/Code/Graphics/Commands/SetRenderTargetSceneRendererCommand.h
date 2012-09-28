@@ -13,6 +13,7 @@ class CSetRenderTargetSceneRendererCommand : public CStagedTexturedRendererComma
 {
 public:
 	CSetRenderTargetSceneRendererCommand(CXMLTreeNode &Node);
+	virtual ~CSetRenderTargetSceneRendererCommand();
 	void	Execute				( CRenderManager &RM );
 	void	UnsetRenderTaget	();
 };

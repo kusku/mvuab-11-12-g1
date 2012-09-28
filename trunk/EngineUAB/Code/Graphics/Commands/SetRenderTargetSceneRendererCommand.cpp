@@ -67,3 +67,8 @@ void CSetRenderTargetSceneRendererCommand::UnsetRenderTaget()
 {
 	this->DeactivateTexturesRenderTarget();
 }
+
+CSetRenderTargetSceneRendererCommand::~CSetRenderTargetSceneRendererCommand()
+{
+
+}

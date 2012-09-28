@@ -118,11 +118,11 @@ int APIENTRY WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, LPSTR _lpCm
 		g_pEngine->LoadConfigXML("./Data/XML/engine.xml");
 
 		Vect2i position = g_pEngine->GetPosition();
-		Vect2i resolution = g_pEngine->GetResolution();
+		Vect2i windowResolution = g_pEngine->GetWindowResolution();
 
 		 // Create the application's window
 		g_hWnd = CreateWindow(	APPLICATION_NAME, APPLICATION_NAME, WS_OVERLAPPEDWINDOW, 
-			position.x, position.y, resolution.x, resolution.y, NULL, NULL, wc.hInstance, NULL );
+			position.x, position.y, windowResolution.x, windowResolution.y, NULL, NULL, wc.hInstance, NULL );
 
 		g_pOptions = new COptions();
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <Config debug="true">
+  <WindowResolution width="1280" height="960" />
 	<ScreenResolution width="1280" height="720" />
 	<WindowsPosition position="0 0" />
 	<RenderMode fullscreenMode="false" />

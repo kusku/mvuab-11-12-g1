@@ -183,8 +183,13 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 			
 			if( l_Name == "ScreenResolution" )
 			{
-				m_Config.resolution.x = l_ConfigNode(i).GetIntProperty( "width", 800 );
-				m_Config.resolution.y = l_ConfigNode(i).GetIntProperty( "height", 600 );
+				m_Config.resolution.x = l_ConfigNode(i).GetIntProperty( "width", 1280 );
+				m_Config.resolution.y = l_ConfigNode(i).GetIntProperty( "height", 720 );
+			}
+			else if( l_Name == "WindowResolution" )
+			{
+				m_Config.windowResolution.x = l_ConfigNode(i).GetIntProperty( "width", 1280 );
+				m_Config.windowResolution.y = l_ConfigNode(i).GetIntProperty( "height", 720 );
 			}
 			else if( l_Name == "WindowsPosition" )
 			{

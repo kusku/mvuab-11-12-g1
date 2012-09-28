@@ -41,6 +41,7 @@ public:
 	void	EndRendering();
 	void	SetupMatrices(CCamera* camera);
 	void	ClearTarget(CColor color);
+	void	ClearTargetOnly(CColor color);
 
 	void	SetTransform	( const D3DXMATRIX &mat );
 	void	SetTransform	( const Mat44f &mat );
@@ -74,16 +75,21 @@ public:
 	void	SetColorRelease		( CColor color )		{ m_BackbufferColor_release = color; }
 	void	SetFullscreen		( bool fullscreen )		{ m_bFullscreen = fullscreen; }
 	void	SetScreenSize		( Vect2i size )			{ m_SizeScreen = size; }
+	void	SetWindowSize		( Vect2i size )			{ m_SizeWindow = size; }
 	void	SetRenderTargetSize	( Vect2f size )			{ m_NowTargetSize = size; }
 
 	bool				GetPaintSolid		() const	{ return m_bPaintSolid; }
 	Vect2i				GetScreenSize		() const	{ return Vect2i(m_uWidth, m_uHeight); }
+	Vect2i				GetScreenSizeOriginal	() const	{ return m_SizeScreen; }
+	Vect2i				GettWindowSize	() const	{ return m_SizeWindow; }
 	float				GetAspectRatio		() const	{ return m_AspectRatio; }
 	CColor				GetColorDebug		() const	{ return m_BackbufferColor_debug; }
 	CColor				GetColorRelease		() const	{ return m_BackbufferColor_release; }
 	Vect2f				GetHalfPixel		() const	{ return m_HalfPixel; }
 	Vect2f				GetRenderTargetSize	() const	{ return m_NowTargetSize; }
 	CFrustum*		GetFrustum			() 	{ return &m_Frustum; }
+	bool			GetFullScreen		() const { return m_bFullscreen; }
+	Vect2i			GetWindowRectSize	() { return GetWindowRectRet(m_hWnd); }
 
 
 	HWND						GetHWND				() const	{ return m_hWnd; }
@@ -95,6 +101,7 @@ public:
 protected:
 	void Release ();
 	void GetWindowRect( HWND hWnd );
+	Vect2i GetWindowRectRet( HWND hwnd );
 	void CalculateAlignment (uint32 w, uint32 h, ETypeAlignment alignment, Vect2i & finalPos);
 	void CreateQuadBuffers();
 	void DrawColoredQuad2DTexturedInPixels(Vect2f vec1, Vect2f vec2, const CColor& color, float U0, float V0, float U1, float V1);
@@ -110,6 +117,7 @@ protected:
 	uint32		m_uWidth;
 	uint32		m_uHeight;
 	Vect2i		m_SizeScreen;
+	Vect2i		m_SizeWindow;
 	float		m_AspectRatio;
 	bool		m_bFullscreen;
 	bool		m_bPaintSolid;

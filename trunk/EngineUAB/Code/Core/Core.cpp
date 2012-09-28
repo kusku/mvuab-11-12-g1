@@ -190,6 +190,7 @@ bool CCore::Init( HWND _HWnd, const SConfig &config )
 	m_pRenderManager->SetColorRelease( config.color_release );
 	m_pRenderManager->SetFullscreen  ( config.bFullscreen );
 	m_pRenderManager->SetScreenSize  ( config.resolution );
+	m_pRenderManager->SetWindowSize  ( config.windowResolution );
 	m_bIsOk = m_pRenderManager->Init ( _HWnd );
 
 	//SCRIPT->RunFile( "main.lua" );
