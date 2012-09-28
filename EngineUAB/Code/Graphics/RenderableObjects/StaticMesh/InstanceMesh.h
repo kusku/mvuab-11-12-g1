@@ -29,7 +29,7 @@ public:
 	//void Render ( CRenderManager *RM );
 	void Render ( CRenderManager *RM );
 
-	void CreatePhysics (const std::string &_Name, const std::string &typePhysic, bool usePXObj, const std::string &pxObjName, bool usePXObjPos);
+	void CreatePhysics (const std::string &_Name, const std::string &typePhysic, bool usePXObj, const std::string &pxObjName, bool usePXObjPos, int physicsGroup);
 	void CreateASEMesh	 ( const std::string &_Filename, const std::string &_Name  );
 
 private:

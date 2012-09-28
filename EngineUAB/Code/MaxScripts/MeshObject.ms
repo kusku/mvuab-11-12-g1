@@ -669,6 +669,7 @@ struct MeshObj
 	UsePXObj,
 	PXObjName,
 	UsePXObjPos,
+	PhysicsGroup,
 	
 	function CalcVtxNormals obj =
 	(
@@ -1140,7 +1141,7 @@ struct SceneObj
 					else
 					(
 												
-						format "create_physics=\"%\" physics_type=\"%\" " true MeshObjs[i].PhysicsType to:file
+						format "create_physics=\"%\" physics_type=\"%\" physics_group=\"%\" " true MeshObjs[i].PhysicsType MeshObjs[i].PhysicsGroup to:file
 						
 						if MeshObjs[i].UsePXObj == true then
 						(
@@ -1228,7 +1229,7 @@ function CreateTextureSplattingObj =
 
 function CreateMeshStruct =
 (
-	local meshObject = MeshObj  MeshPath:"" MeshName:"" MeshBuffers:#() BBox:0 BSphere:0 BocMeshAttributes:0 MeshFileName:"" YawAngle:0 PitchAngle:0 RollAngle:0 Translation:0 IsInstance:False InstanceName:"" ParentInstance:false RelativeMeshFileName:"" RenderExport:"" RenderVisible:"" RenderLayer:"" AnimModelCore:"" PhysicsType:"" VtxNormalBuffer:#() TextureSplatting:"" CompletePath:"" RelativePath:"" UsePXObj:false PXObjName:"" UsePXObjPos:false
+	local meshObject = MeshObj  MeshPath:"" MeshName:"" MeshBuffers:#() BBox:0 BSphere:0 BocMeshAttributes:0 MeshFileName:"" YawAngle:0 PitchAngle:0 RollAngle:0 Translation:0 IsInstance:False InstanceName:"" ParentInstance:false RelativeMeshFileName:"" RenderExport:"" RenderVisible:"" RenderLayer:"" AnimModelCore:"" PhysicsType:"" VtxNormalBuffer:#() TextureSplatting:"" CompletePath:"" RelativePath:"" UsePXObj:false PXObjName:"" UsePXObjPos:false PhysicsGroup:""
 	
 	meshObject.TextureSplatting = CreateTextureSplattingObj()
 	

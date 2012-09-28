@@ -58,7 +58,7 @@ public:
 		return m_ObjectMap;
 	}
 
-	void CreatePhysics (CObject3D* instance, const std::string &_Name, const std::string &typePhysic, bool usePXObj, const std::string &pxObjName, bool usePXObjPos);
+	void CreatePhysics (CObject3D* instance, const std::string &_Name, const std::string &typePhysic, bool usePXObj, const std::string &pxObjName, bool usePXObjPos, int physicsGroup);
 	//void CreateASEMesh	 ( const std::string &_Filename, const std::string &_Name  );
 };
 
