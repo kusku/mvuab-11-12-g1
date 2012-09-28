@@ -53,6 +53,9 @@
     <ClCompile Include="_ScriptAPI\PhysicRegisterScript.cpp">
       <Filter>_ScriptAPI</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\PhysXObjManager.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PhysicsManager.h" />
@@ -116,6 +119,12 @@
     </ClInclude>
     <ClInclude Include="_ScriptAPI\PhysicRegisterScript.h">
       <Filter>_ScriptAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\PhysXObjDefs.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\PhysXObjManager.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

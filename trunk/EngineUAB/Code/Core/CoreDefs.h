@@ -142,6 +142,9 @@ struct SConfig
 
 	//Parámeteros de los raíles
 	std::string rails_path;
+
+	// Parametros del PhysX Objects
+	std::string physx_obj_path;
 };
 
 #endif __COREDEFS_H__

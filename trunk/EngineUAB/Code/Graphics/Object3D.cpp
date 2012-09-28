@@ -26,6 +26,22 @@ CObject3D::CObject3D()
 	m_TechniqueName = "";
 }
 
+const Mat44f CObject3D::GetRotationMatrix() const
+{
+	Mat44f rotationY	= m44fIDENTITY;
+	Mat44f rotationX	= m44fIDENTITY;
+	Mat44f rotationZ	= m44fIDENTITY;
+
+	rotationX.SetFromAngleX	(mathUtils::Deg2Rad<float>(m_fPitch));
+	rotationY.SetFromAngleY	(mathUtils::Deg2Rad<float>(m_fYaw));
+	rotationZ.SetFromAngleZ	(mathUtils::Deg2Rad<float>(m_fRoll));
+
+	//World = Scale * Rotation * Translation
+	Mat44f rotMatrix = (rotationY * rotationX * rotationZ);
+
+	return rotMatrix;
+}
+
 const Mat44f CObject3D::GetTransform() const
 {
 	Mat44f world		= m44fIDENTITY;

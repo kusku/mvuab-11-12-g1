@@ -398,19 +398,24 @@ void CPhysicsManager::DrawActor ( NxActor* _pActor, CRenderManager* _RM )
 			break;
 		case NX_SHAPE_BOX:
 			{
+				
+				NxVec3 pos = shapes[nShapes]->getGlobalPosition();
+				
 				NxF32 m_aux[16];
 				shapes[nShapes]->getGlobalPose().getColumnMajor44(m_aux);
 				Mat44f m(	m_aux[0], m_aux[4], m_aux[8], m_aux[12], 
 									m_aux[1], m_aux[5], m_aux[9], m_aux[13], 
 									m_aux[2], m_aux[6], m_aux[10], m_aux[14], 
 									m_aux[3], m_aux[7], m_aux[11], m_aux[15]);
-				
+
 				_RM->SetTransform(m);
 				NxVec3 boxDim = shapes[nShapes]->isBox()->getDimensions();
 				CColor color = physicUserData->GetColor();
 				//CColor	color = colRED;
-				_RM->DrawCube(Vect3f(boxDim.x*2,boxDim.y*2,boxDim.z*2), color);
-				_RM->DrawCube(boxDim.y*2,color);
+				_RM->DrawCube(Vect3f(boxDim.x,boxDim.y,boxDim.z), color);
+				//_RM->DrawCube(boxDim.y*2,color);
+
+				_RM->SetTransform(m44fIDENTITY);
 			}
 			break;
 		case NX_SHAPE_SPHERE:
@@ -430,30 +435,30 @@ void CPhysicsManager::DrawActor ( NxActor* _pActor, CRenderManager* _RM )
 			break;
 		case NX_SHAPE_CAPSULE:
 			{
-				NxF32 m_aux[16];
-				shapes[nShapes]->getGlobalPose().getColumnMajor44(m_aux);
-				Mat44f m(	m_aux[0], m_aux[4], m_aux[8], m_aux[12], 
-									m_aux[1], m_aux[5], m_aux[9], m_aux[13], 
-									m_aux[2], m_aux[6], m_aux[10], m_aux[14], 
-									m_aux[3], m_aux[7], m_aux[11], m_aux[15]);
-				
-				Mat44f translation, total;
-				translation.SetIdentity();
-				_RM->SetTransform(m);
+				//NxF32 m_aux[16];
+				//shapes[nShapes]->getGlobalPose().getColumnMajor44(m_aux);
+				//Mat44f m(	m_aux[0], m_aux[4], m_aux[8], m_aux[12], 
+				//					m_aux[1], m_aux[5], m_aux[9], m_aux[13], 
+				//					m_aux[2], m_aux[6], m_aux[10], m_aux[14], 
+				//					m_aux[3], m_aux[7], m_aux[11], m_aux[15]);
+				//
+				//Mat44f translation, total;
+				//translation.SetIdentity();
+				//_RM->SetTransform(m);
 
-				const NxReal & radius = shapes[nShapes]->isCapsule()->getRadius();
-				const NxReal & height = shapes[nShapes]->isCapsule()->getHeight();
-				CColor color = physicUserData->GetColor();
-				translation.Translate(Vect3f(0.f, (height*0.5f), 0.f));
-				
-				total = m * translation;
-				_RM->SetTransform(total);
-				_RM->DrawSphere(radius, MAX_ARISTAS, color);
+				//const NxReal & radius = shapes[nShapes]->isCapsule()->getRadius();
+				//const NxReal & height = shapes[nShapes]->isCapsule()->getHeight();
+				//CColor color = physicUserData->GetColor();
+				//translation.Translate(Vect3f(0.f, (height*0.5f), 0.f));
+				//
+				//total = m * translation;
+				//_RM->SetTransform(total);
+				//_RM->DrawSphere(radius, MAX_ARISTAS, color);
 
-				translation.Translate( Vect3f(0.f, -(height*0.5f), 0.f ));
-				total = m * translation;
-				_RM->SetTransform(total);
-				_RM->DrawSphere(radius, MAX_ARISTAS, color);
+				//translation.Translate( Vect3f(0.f, -(height*0.5f), 0.f ));
+				//total = m * translation;
+				//_RM->SetTransform(total);
+				//_RM->DrawSphere(radius, MAX_ARISTAS, color);
 			}
 			break;
 		case NX_SHAPE_CONVEX:
@@ -461,43 +466,43 @@ void CPhysicsManager::DrawActor ( NxActor* _pActor, CRenderManager* _RM )
 			break;
 		case NX_SHAPE_MESH:
 			{
-				NxShape* mesh = shapes[nShapes];
+				//NxShape* mesh = shapes[nShapes];
 
-				NxTriangleMeshDesc meshDesc;
-				mesh->isTriangleMesh()->getTriangleMesh().saveToDesc(meshDesc);
+				//NxTriangleMeshDesc meshDesc;
+				//mesh->isTriangleMesh()->getTriangleMesh().saveToDesc(meshDesc);
 
-				typedef NxVec3 Point;
-				typedef struct _Triangle { NxU32 p0; NxU32 p1; NxU32 p2; } Triangle;
+				//typedef NxVec3 Point;
+				//typedef struct _Triangle { NxU32 p0; NxU32 p1; NxU32 p2; } Triangle;
 
-				NxU32 nbVerts = meshDesc.numVertices;
-				NxU32 nbTriangles = meshDesc.numTriangles;
+				//NxU32 nbVerts = meshDesc.numVertices;
+				//NxU32 nbTriangles = meshDesc.numTriangles;
 
-				Point* points = (Point *)meshDesc.points;
-				Triangle* triangles = (Triangle *)meshDesc.triangles;
+				//Point* points = (Point *)meshDesc.points;
+				//Triangle* triangles = (Triangle *)meshDesc.triangles;
 
-				CColor color = physicUserData->GetColor();
-				NxF32 m_aux[16];
-				mesh->getGlobalPose().getColumnMajor44(m_aux);
-				Mat44f m(	m_aux[0], m_aux[4], m_aux[8], m_aux[12], 
-									m_aux[1], m_aux[5], m_aux[9], m_aux[13], 
-									m_aux[2], m_aux[6], m_aux[10], m_aux[14], 
-									m_aux[3], m_aux[7], m_aux[11], m_aux[15]);
-				
-				_RM->SetTransform(m);
-				
-				Vect3f a,b,c;
-				while(nbTriangles--)
-				{
-					a = Vect3f(points[triangles->p0].x, points[triangles->p0].y,points[triangles->p0].z);
-					b = Vect3f(points[triangles->p1].x, points[triangles->p1].y,points[triangles->p1].z);
-					c = Vect3f(points[triangles->p2].x, points[triangles->p2].y,points[triangles->p2].z);
+				//CColor color = physicUserData->GetColor();
+				//NxF32 m_aux[16];
+				//mesh->getGlobalPose().getColumnMajor44(m_aux);
+				//Mat44f m(	m_aux[0], m_aux[4], m_aux[8], m_aux[12], 
+				//					m_aux[1], m_aux[5], m_aux[9], m_aux[13], 
+				//					m_aux[2], m_aux[6], m_aux[10], m_aux[14], 
+				//					m_aux[3], m_aux[7], m_aux[11], m_aux[15]);
+				//
+				//_RM->SetTransform(m);
+				//
+				//Vect3f a,b,c;
+				//while(nbTriangles--)
+				//{
+				//	a = Vect3f(points[triangles->p0].x, points[triangles->p0].y,points[triangles->p0].z);
+				//	b = Vect3f(points[triangles->p1].x, points[triangles->p1].y,points[triangles->p1].z);
+				//	c = Vect3f(points[triangles->p2].x, points[triangles->p2].y,points[triangles->p2].z);
 
-					_RM->DrawLine(a, b, color);
-					_RM->DrawLine(b, c, color);
-					_RM->DrawLine(c, a, color);
-					triangles++;
+				//	_RM->DrawLine(a, b, color);
+				//	_RM->DrawLine(b, c, color);
+				//	_RM->DrawLine(c, a, color);
+				//	triangles++;
 
-				}
+				//}
 			}
 			break;
 		case NX_SHAPE_WHEEL:

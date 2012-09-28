@@ -28,6 +28,7 @@
     <ClCompile Include="PhysxBone.cpp" />
     <ClCompile Include="PhysxGrenade.cpp" />
     <ClCompile Include="PhysxSkeleton.cpp" />
+    <ClCompile Include="Utils\PhysXObjManager.cpp" />
     <ClCompile Include="_ScriptAPI\PhysicRegisterScript.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +53,8 @@
     <ClInclude Include="PhysxBone.h" />
     <ClInclude Include="PhysxGrenade.h" />
     <ClInclude Include="PhysxSkeleton.h" />
+    <ClInclude Include="Utils\PhysXObjDefs.h" />
+    <ClInclude Include="Utils\PhysXObjManager.h" />
     <ClInclude Include="_ScriptAPI\PhysicRegisterScript.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
