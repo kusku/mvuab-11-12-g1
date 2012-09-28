@@ -570,7 +570,7 @@ struct VIBuffers
 		format "Index Buffer Size: %\n" IndexBuffer.count
 		if opt == 1 then
 		(
-			PrintIndexBufferTestXNA()
+			--PrintIndexBufferTestXNA()
 		)
 		else
 		(
@@ -580,7 +580,7 @@ struct VIBuffers
 		format "Vertex Buffer Size: %\n" VertexBuffer.count
 		if opt == 1 then
 		(
-			PrintVertexBufferTestXNA()
+			--PrintVertexBufferTestXNA()
 		)
 		else
 		(
@@ -666,6 +666,9 @@ struct MeshObj
 	TextureSplatting,
 	CompletePath,
 	RelativePath,
+	UsePXObj,
+	PXObjName,
+	UsePXObjPos,
 	
 	function CalcVtxNormals obj =
 	(
@@ -979,6 +982,15 @@ struct MeshObj
 			format "User Property RenderVisible: % \n" RenderVisible
 			format "User Property AnimModelCore: % \n" AnimModelCore
 			
+			format "PhysX Obj Use: %\n" UsePXObj
+			
+			if(UsePXObj == true)then
+			(
+				format "PhysX Obj Name: %\n" PXObjName
+				
+				format "Use PhysX Obj Pos: %\m" UsePXObjPos
+			)
+			
 			format "Mesh Target Directory: % \n" MeshPath
 			format "Mesh Relative Filename: % \n" RelativeMeshFileName
 			format "Mesh output Filename: % \n"  MeshFileName
@@ -1127,7 +1139,13 @@ struct SceneObj
 					)
 					else
 					(
+												
 						format "create_physics=\"%\" physics_type=\"%\" " true MeshObjs[i].PhysicsType to:file
+						
+						if MeshObjs[i].UsePXObj == true then
+						(
+							format "use_physx_obj=\"%\" physx_obj_name=\"%\" use_physx_obj_pos=\"%\" " true MeshObjs[i].PXObjName MeshObjs[i].UsePXObjPos to:file
+						)
 					)
 					
 					format "/>\n" to:file
@@ -1210,7 +1228,7 @@ function CreateTextureSplattingObj =
 
 function CreateMeshStruct =
 (
-	local meshObject = MeshObj  MeshPath:"" MeshName:"" MeshBuffers:#() BBox:0 BSphere:0 BocMeshAttributes:0 MeshFileName:"" YawAngle:0 PitchAngle:0 RollAngle:0 Translation:0 IsInstance:False InstanceName:"" ParentInstance:false RelativeMeshFileName:"" RenderExport:"" RenderVisible:"" RenderLayer:"" AnimModelCore:"" PhysicsType:"" VtxNormalBuffer:#() TextureSplatting:"" CompletePath:"" RelativePath:""
+	local meshObject = MeshObj  MeshPath:"" MeshName:"" MeshBuffers:#() BBox:0 BSphere:0 BocMeshAttributes:0 MeshFileName:"" YawAngle:0 PitchAngle:0 RollAngle:0 Translation:0 IsInstance:False InstanceName:"" ParentInstance:false RelativeMeshFileName:"" RenderExport:"" RenderVisible:"" RenderLayer:"" AnimModelCore:"" PhysicsType:"" VtxNormalBuffer:#() TextureSplatting:"" CompletePath:"" RelativePath:"" UsePXObj:false PXObjName:"" UsePXObjPos:false
 	
 	meshObject.TextureSplatting = CreateTextureSplattingObj()
 	

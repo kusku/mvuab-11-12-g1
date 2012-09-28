@@ -349,6 +349,13 @@ function ExportSelection selectedObjs outputDir subOutPutDir counterClockwise ex
 	
 	for objPM in selectedObjs do
 	(
+		local l_IsPXObj = getUserProp objPM "is_physx_obj" 
+		
+		if(l_IsPXObj == true) then
+		(
+			continue
+		)
+		
 		local obj = (snapshot objPM)
 		local classObj = ( classOf(obj) )
 		local ret = 0
@@ -381,10 +388,10 @@ function ExportSelection selectedObjs outputDir subOutPutDir counterClockwise ex
 		
 		if t_mesh.TextureSplatting.TSEnable == true then
 		(
-			t_mesh.TextureSplatting.TSBlend1 = getUserProp $ "texture_splatting_blend1" 
-			t_mesh.TextureSplatting.TSBlend2 = getUserProp $ "texture_splatting_blend2" 
-			t_mesh.TextureSplatting.TSBlend3 = getUserProp $ "texture_splatting_blend3" 
-			t_mesh.TextureSplatting.TSBlend4 = getUserProp $ "texture_splatting_blend4" 
+			t_mesh.TextureSplatting.TSBlend1 = getUserProp objPM "texture_splatting_blend1" 
+			t_mesh.TextureSplatting.TSBlend2 = getUserProp objPM "texture_splatting_blend2" 
+			t_mesh.TextureSplatting.TSBlend3 = getUserProp objPM "texture_splatting_blend3" 
+			t_mesh.TextureSplatting.TSBlend4 = getUserProp objPM "texture_splatting_blend4" 
 		)
 		
 		--------------------------------------
@@ -428,6 +435,9 @@ function ExportSelection selectedObjs outputDir subOutPutDir counterClockwise ex
 		t_mesh.AnimModelCore = getUserProp objPM "anim_model_core"
 		t_mesh.RenderLayer = getUserProp objPM "render_layer"
 		t_mesh.PhysicsType = getUserProp objPM "physics_generate"
+		t_mesh.UsePXObj = getUserProp objPM "physics_use_px_obj"
+		t_mesh.PXObjName = getUserProp objPM "physics_px_obj"
+		t_mesh.UsePXObjPos = getUserProp objPM "physics_use_px_obj_pos"
 		
 		--Set Filename
 		t_mesh.SetFileNameMesh sceneObjects.FilePath sceneObjects.RelativeFilePath

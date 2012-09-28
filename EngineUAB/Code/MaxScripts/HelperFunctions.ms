@@ -98,10 +98,12 @@ function ResetVertexToOriginal Obj Vtx=
 (
 	-- Set to local coordenates
 	local inverseTransform = Inverse(Obj.transform)
-	Vtx = Vtx * inverseTransform
+	local VtxTrans = Vtx * inverseTransform
 	
 	-- Set from RH to LH
-	Vtx = RHTranslationToLH Vtx
+	VtxTrans = RHTranslationToLH VtxTrans
+	
+	return VtxTrans
 )
 
 /* ----------------------------------------------------------------------------------- 
