@@ -2,22 +2,22 @@ fileIn "HelperFunctions.ms"
 
 rollout UABSetProperties "UABSetProperties" width:624 height:652
 (
-	GroupBox grp1 "Render" pos:[8,4] width:249 height:205
+	GroupBox grp1 "Render" pos:[8,4] width:249 height:182
 	checkbox ExportRenderCB "Export" pos:[14,25] width:53 height:15
 	dropdownList ExportRenderList "" pos:[94,24] width:156 height:21 items:#("static_mesh", "animated_model")
 	checkbox VisibleRenderCB "Visible" pos:[14,47] width:76 height:18
 	checkbox LayerRenderCB "Layer" pos:[14,70] width:71 height:17
 	dropdownList LayerRenderList "" pos:[94,68] width:156 height:21 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles", "vegetation", "water", "fish", "birds", "terrain")
-	label lbl1 "Anim. model" pos:[19,143] width:70 height:16
-	edittext AnimModelRenderText "" pos:[98,141] width:157 height:21
-	GroupBox grp2 "Physics" pos:[8,215] width:249 height:70
-	checkbox GeneratePhysicsCB "Generate" pos:[14,230] width:71 height:18
-	dropdownList GeneratePhysicsList "" pos:[94,227] width:156 height:21 items:#("triangle_mesh", "convex_shape", "bounding_box", "sphere_shape", "plane_shape", "capsule_shape")
-	checkbox layerPhysicsCB "Layer" pos:[14,257] width:72 height:16
-	dropdownList LayerPhysicsList "" pos:[94,255] width:156 height:21
-	GroupBox grp3 "Logic" pos:[9,292] width:244 height:48
-	checkbox GenerateLogicCB "Generate" pos:[14,308] width:71 height:18
-	dropdownList GenerateLogicList "" pos:[89,306] width:156 height:21 items:#("rails")
+	label lbl1 "Anim. model" pos:[12,112] width:70 height:16
+	edittext AnimModelRenderText "" pos:[92,108] width:157 height:21
+	GroupBox grp2 "Physics" pos:[4,195] width:249 height:147
+	checkbox GeneratePhysicsCB "Generate" pos:[11,240] width:71 height:18
+	dropdownList GeneratePhysicsList "" pos:[90,236] width:156 height:21 items:#("triangle_mesh", "convex_shape", "bounding_box", "sphere_shape", "plane_shape", "capsule_shape")
+	checkbox layerPhysicsCB "Layer" pos:[11,267] width:72 height:16
+	dropdownList LayerPhysicsList "" pos:[90,263] width:156 height:21
+	GroupBox grp3 "Logic" pos:[278,13] width:244 height:48
+	checkbox GenerateLogicCB "Generate" pos:[283,29] width:71 height:18
+	dropdownList GenerateLogicList "" pos:[358,27] width:156 height:21 items:#("rails")
 	button GetButton "Get" pos:[433,620] width:83 height:24
 	button SetButton "Set" pos:[529,619] width:83 height:24
 	checkbox cbGenShadowMap "Dynamic Shadow Map:" pos:[15,365] width:84 height:26 checked:false
@@ -32,7 +32,7 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 	label lbSShMapWidth "Width:" pos:[72,488] width:35 height:18
 	dropdownList ddlSShMapHeigth "" pos:[111,513] width:108 height:21 items:#("512", "1024", "2048")
 	label lbSShMapHeigth "Heigth:" pos:[71,516] width:35 height:18
-	GroupBox grpLights "Lights" pos:[7,352] width:243 height:272
+	GroupBox grpLights "Lights" pos:[6,345] width:243 height:290
 	button btnShadowMask "Shadow Mask" pos:[18,547] width:77 height:20
 	label lblShadowMask "C:\\" pos:[124,547] width:119 height:19
 	checkbox cbShadowMask "" pos:[100,545] width:24 height:25 witdh:25
@@ -40,28 +40,31 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 	label lbl43 "Dynamic Layer:" pos:[24,598] width:77 height:14
 	dropdownList ddlStaticLayer "" pos:[112,574] width:120 height:21 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles", "vegetation", "water", "fish", "birds", "terrain")
 	dropdownList ddlDynamicLayer "" pos:[112,598] width:120 height:21 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles", "vegetation", "water", "fish", "birds", "terrain")
-	GroupBox grp5 "AI Waypoints" pos:[278,11] width:326 height:290
-	button RefreshBrotherNodes "Refresh WP" pos:[293,257] width:94 height:25
-	checkbox IsWayPoint "Is Waypoint" pos:[291,36] width:119 height:19
-	dropdownList BrotherNodesAI "Brother Nodes" pos:[292,149] width:173 height:40
-	button RemoveBrotherNode "Remove" pos:[479,164] width:96 height:25
-	dropdownList PossibleBrotherNodesAI "Possible Brother Nodes" pos:[294,204] width:172 height:40
-	button AddBrotherNode "Add" pos:[482,222] width:90 height:24
-	dropdownList WayPointGroup "Waypoint Group" pos:[291,76] width:175 height:40 items:#("Group 1", "Group 2", "Group 3", "Group 4", "Group 5", "Fish Group", "Bird Group")
-	checkbox cbIsInstance "Is Instance:" pos:[21,185] width:80 height:16
-	edittext InstanceName "" pos:[101,184] width:145 height:18
-	checkbox cbParentInstance "Is Parent Instance" pos:[20,166] width:127 height:14
-	checkbox cbTextureSplatting "Texture Splatting" pos:[289,334] width:106 height:16
-	GroupBox gbTextureSplatting "Texture Splatting" pos:[278,312] width:327 height:209
-	label lbBlend3 "C:\\" pos:[343,433] width:235 height:39
-	button bnBlend3 "Blend 3" pos:[286,434] width:49 height:20
-	label lbBlend2 "C:\\" pos:[341,394] width:235 height:36
-	button bnBlend2 "Blend 2" pos:[285,395] width:49 height:20
-	label lbBlend1 "C:\\" pos:[340,359] width:235 height:35
-	button bnBlend1 "Blend 1" pos:[286,356] width:49 height:20
-	label lbBlend4 "C:\\" pos:[343,476] width:235 height:36
-	button bnBlend4 "Blend 4" pos:[285,475] width:49 height:20
-	
+	GroupBox grp5 "AI Waypoints" pos:[279,98] width:326 height:290
+	button RefreshBrotherNodes "Refresh WP" pos:[294,344] width:94 height:25
+	checkbox IsWayPoint "Is Waypoint" pos:[292,123] width:119 height:19
+	dropdownList BrotherNodesAI "Brother Nodes" pos:[293,236] width:173 height:40
+	button RemoveBrotherNode "Remove" pos:[480,251] width:96 height:25
+	dropdownList PossibleBrotherNodesAI "Possible Brother Nodes" pos:[295,291] width:172 height:40
+	button AddBrotherNode "Add" pos:[483,309] width:90 height:24
+	dropdownList WayPointGroup "Waypoint Group" pos:[292,163] width:175 height:40 items:#("Group 1", "Group 2", "Group 3", "Group 4", "Group 5", "Fish Group", "Bird Group")
+	checkbox cbIsInstance "Is Instance:" pos:[10,160] width:80 height:16
+	edittext InstanceName "" pos:[98,158] width:145 height:18
+	checkbox cbParentInstance "Is Parent Instance" pos:[10,140] width:127 height:14
+	checkbox cbTextureSplatting "Texture Splatting" pos:[290,421] width:106 height:16
+	GroupBox gbTextureSplatting "Texture Splatting" pos:[279,399] width:327 height:209
+	label lbBlend3 "C:\\" pos:[344,520] width:235 height:39
+	button bnBlend3 "Blend 3" pos:[287,521] width:49 height:20
+	label lbBlend2 "C:\\" pos:[342,481] width:235 height:36
+	button bnBlend2 "Blend 2" pos:[286,482] width:49 height:20
+	label lbBlend1 "C:\\" pos:[341,446] width:235 height:35
+	button bnBlend1 "Blend 1" pos:[287,443] width:49 height:20
+	label lbBlend4 "C:\\" pos:[344,563] width:235 height:36
+	button bnBlend4 "Blend 4" pos:[286,562] width:49 height:20
+	checkbox cbUsePXObj "Use PhysX Obj:" pos:[9,292] width:97 height:18
+	edittext tbPXObj "" pos:[106,291] width:136 height:19
+	checkbox cbIsPXObj "Is PhysX Obj" pos:[12,219] width:116 height:18
+	checkbox cbUsePxPos "Use PhysX Obj Position" pos:[10,316] width:135 height:20
 	
 	local m_ObjSelected = undefined
 	
@@ -78,6 +81,10 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 		cbParentInstance.checked = false
 		AnimModelRenderText.text = ""
 		cbTextureSplatting.checked = false
+		cbUsePXObj.checked = false
+		tbPXObj.text = ""
+		cbIsPXObj.checked = false
+		cbUsePxPos.checked = false
 		
 		lbBlend1.text = "C:\\"
 		lbBlend2.text = "C:\\"
@@ -105,6 +112,15 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 			setUserProp Obj "texture_splatting_blend2" ""
 			setUserProp Obj "texture_splatting_blend3" ""
 			setUserProp Obj "texture_splatting_blend4" ""
+		)
+		
+		if cbIsPXObj.checked then
+		(
+			setUserProp Obj "is_physx_obj" true
+		)
+		else
+		(
+			setUserProp Obj "is_physx_obj" false
 		)
 		
 		--Set Instance
@@ -157,10 +173,17 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 		if GeneratePhysicsCB.checked then
 		(
 			setUserProp Obj "physics_generate" GeneratePhysicsList.selected
+			
+			setUserProp Obj "physics_use_px_obj" cbUsePXObj.checked
+			setUserProp Obj "physics_px_obj" tbPXObj.text
+			setUserProp Obj "physics_use_px_obj_pos" cbUsePxPos.checked
 		)
 		else
 		(
 			setUserProp Obj "physics_generate" "undefined"
+			
+			setUserProp Obj "physics_use_px_obj" false
+			setUserProp Obj "physics_use_px_obj_pos" false
 		)
 		
 		--Set Layer Physics prop to Object
@@ -285,6 +308,8 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 			local l_IsInstace = getUserProp $ "is_instance"
 			local l_ParentInstance = getUserProp $ "parent_instance"
 			local l_TextureSplatting = getUserProp $ "texture_splatting"
+			local l_UsePXObj = getUserProp $ "physics_use_px_obj"
+			local l_IsPXObj = getUserProp $ "is_physx_obj"
 			
 			--Unchecked all check boxes
 			ResetProps()
@@ -299,6 +324,16 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 					BrotherNodesAI.items = FromStringToArray bros
 				)
 			)
+			
+			if(l_IsPXObj == true)then
+			(
+				cbIsPXObj.checked = true
+			)
+			else
+			(
+				cbIsPXObj.checked = false
+			)
+			
 			
 			if l_TextureSplatting == true then
 			(
@@ -389,6 +424,23 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 					(
 						GeneratePhysicsList.selection = i
 						GeneratePhysicsCB.checked = true
+					)
+				)
+				
+				if(l_UsePXObj == true) then
+				(
+					cbUsePXObj.checked = true
+					tbPXObj.text = getUserProp $ "physics_px_obj" as string
+					
+					local usePxPos = getUserProp $ "physics_use_px_obj_pos"
+					
+					if(usePxPos == true)then
+					(
+						cbUsePxPos.checked = true
+					)
+					else
+					(
+						cbUsePxPos.checked = false
 					)
 				)
 			)
@@ -517,6 +569,7 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 			)			
 		)
 	)
+	
 	on SetButton pressed do
 	(	
 		if $ == undefined then
