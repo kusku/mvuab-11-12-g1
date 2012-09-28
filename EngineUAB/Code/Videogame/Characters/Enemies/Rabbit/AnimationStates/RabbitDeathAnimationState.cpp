@@ -51,7 +51,7 @@ void CRabbitDeathAnimationState::OnEnter( CCharacter* _pCharacter )
 	}
 
 	int l_Num = m_pRabbit->GetAnimationID(RABBIT_DEATH_STATE);
-	m_pRabbit->GetAnimatedModel()->ExecuteAction( l_Num, 0.3f );
+	m_pRabbit->GetAnimatedModel()->ExecuteAction( l_Num, 0.3f, false );
 }
 
 void CRabbitDeathAnimationState::OnExit( CCharacter* _pCharacter )
