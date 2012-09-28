@@ -91,6 +91,10 @@ void CRabbitStillAttackState::OnEnter( CCharacter* _pCharacter )
 	}
 
 	m_pRabbit->SetPlayerHasBeenReached( false );
+	
+	/// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio. En este caso no queremos
+	// pq hace un desplazamiento que después de este ataque no queremos que haga.
+	m_pRabbit->SetToBeTired(false);
 
 #if defined _DEBUG
 	if( CORE->IsDebugMode() )
@@ -131,7 +135,7 @@ void CRabbitStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTi
 			if ( m_pRabbit->GetPlayerHasBeenReached() )
 			{
 				// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio
-				m_pRabbit->SetToBeTired(false);
+				m_pRabbit->SetToBeTired(true);
 
 				if ( DISPATCH != NULL ) 
 				{

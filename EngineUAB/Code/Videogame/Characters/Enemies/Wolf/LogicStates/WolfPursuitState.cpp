@@ -114,9 +114,6 @@ void CWolfPursuitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		m_pWolf->GetBehaviors()->GetPursuit()->UpdateEvaderEntity( m_pWolf->GetPlayer()->GetSteeringEntity() );
 		m_pWolf->GetBehaviors()->PursuitOn();
 
-		/*m_pWolf->GetBehaviors()->GetSeek()->SetTarget(m_pWolf->GetPlayer()->GetPosition());
-		m_pWolf->GetBehaviors()->SeekOn();*/
-
 		m_pWolf->FaceTo(m_pWolf->GetPlayer()->GetPosition(), _ElapsedTime);
 		m_pWolf->MoveTo2(m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
 

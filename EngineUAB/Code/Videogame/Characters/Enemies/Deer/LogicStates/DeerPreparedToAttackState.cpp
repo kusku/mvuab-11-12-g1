@@ -34,14 +34,14 @@
 CDeerPreparedToAttackState::CDeerPreparedToAttackState( CCharacter* _pCharacter )
 	: CState								( _pCharacter, "CDeerPreparedToAttackState")
 	, m_pDeer								( NULL )
-	, m_IsPositionAfterHitPlayerAssigned	( false )
+	, m_IsPositionAssignedAfterHitPlayer	( false )
 {
 }
 
 CDeerPreparedToAttackState::CDeerPreparedToAttackState( CCharacter* _pCharacter, const std::string &_Name )
 	: CState								(_pCharacter, _Name)
 	, m_pDeer								( NULL )
-	, m_IsPositionAfterHitPlayerAssigned	( false )
+	, m_IsPositionAssignedAfterHitPlayer	( false )
 {
 }
 
@@ -63,9 +63,10 @@ void CDeerPreparedToAttackState::OnEnter( CCharacter* _pCharacter )
 	}
 
 	m_pDeer->GetBehaviors()->SeparationOn();
-	m_pDeer->GetBehaviors()->CohesionOff();
 	m_pDeer->GetBehaviors()->CollisionAvoidanceOn();
 	m_pDeer->GetBehaviors()->ObstacleWallAvoidanceOn();
+
+	m_IsPositionAssignedAfterHitPlayer = false;
 
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
@@ -87,10 +88,10 @@ void CDeerPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elapse
 	if ( m_pDeer->GetPlayerHasBeenReached() && m_pDeer->GetIsTired() )
 	{
 		// Si no ser donde tengo que ir...
-		if ( !m_IsPositionAfterHitPlayerAssigned )
+		if ( !m_IsPositionAssignedAfterHitPlayer )
 		{
 			m_PositionReachedAfterHitPlayer = m_pDeer->GetPointInsideCameraFrustum();
-			m_IsPositionAfterHitPlayerAssigned	= true;
+			m_IsPositionAssignedAfterHitPlayer	= true;
 		}
 
 		// Mira si alcanzamos la posición. Reseteamos indicando que este enemigo ya ha realizado las tareas postimpacto 
@@ -98,33 +99,24 @@ void CDeerPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elapse
 		Vect2f l_Pos2 = Vect2f(m_PositionReachedAfterHitPlayer.x, m_PositionReachedAfterHitPlayer.z);
 		float l_DistanceToCameraPoint = l_Pos1.Distance(l_Pos2);
 		//float l_DistanceToCameraPoint = m_pDeer->GetPosition().Distance(m_PositionReachedAfterHitPlayer);
-		if ( l_DistanceToCameraPoint <= 3.01f )
+		if ( l_DistanceToCameraPoint <= 2.3f )
 		{
-			m_IsPositionAfterHitPlayerAssigned = false;		// Reiniciamos el flag para la pròxima vez
+			m_IsPositionAssignedAfterHitPlayer = false;		// Reiniciamos el flag para la pròxima vez
 			m_pDeer->SetPlayerHasBeenReached(false);		// Reiniciamos el flag de player alcanzado
 			m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetIdleAnimationState());
-			return;
+			m_pDeer->SetToBeTired(false); 
 		}
 		else
 		{
-			//float l_DistanceToPlayer = m_pDeer->GetPosition().Distance(m_pDeer->GetPlayer()->GetPosition());
-			// Evitamos que vayamos a un punto donde se había calculado inicialmente pero que ahora és demasido lejos del player
-			// Esto passa si el player lo mandamos tant y tant lejos que luego es excesivo ir a ese punto y mejor recalcularlo
-			/*if ( l_DistanceToCameraPoint < l_DistanceToPlayer && l_DistanceToCameraPoint > m_pDeer->GetProperties()->GetPreparedAttackDistance())
-			{
-				m_IsPositionAfterHitPlayerAssigned = false;	
-				m_pDeer->SetPlayerHasBeenReached(true);
-			}
-			else
-			{*/
-				m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetRunAnimationState());
-				m_pDeer->GetBehaviors()->GetSeek()->SetTarget(m_PositionReachedAfterHitPlayer);
-				m_pDeer->GetBehaviors()->SeekOn();
-				m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime);
-				m_pDeer->MoveTo2(m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
-				LOGGER->AddNewLog(ELL_INFORMATION, "CDeerPreparedToAttackState::Execute -> %s peguó al player y ahora vuelve a una posición inicial de ataque", m_pDeer->GetName().c_str());
-			//}
+			m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetRunAnimationState());
+			m_pDeer->GetBehaviors()->GetSeek()->SetTarget(m_PositionReachedAfterHitPlayer);
+			m_pDeer->GetBehaviors()->SeekOn();
+			m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime);
+			m_pDeer->MoveTo2(m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
+			LOGGER->AddNewLog(ELL_INFORMATION, "CDeerPreparedToAttackState::Execute -> %s peguó al player y ahora vuelve a una posición inicial de ataque", m_pDeer->GetName().c_str());
 		}
+		return;
+		
 	}
 
 	// 1) Caso en que ataco al player. Si está focalizado y suficientemente cerca de atacar lo hace independientemente del angulo de visión del player

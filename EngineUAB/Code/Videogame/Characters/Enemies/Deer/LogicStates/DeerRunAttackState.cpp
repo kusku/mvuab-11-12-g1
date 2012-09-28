@@ -88,6 +88,10 @@ void CDeerRunAttackState::OnEnter( CCharacter* _pCharacter )
 	m_pDeer->SetPlayerHasBeenReached( false );
 	m_playerPushed = false;
 
+	/// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio. En este caso no queremos
+	// pq hace un desplazamiento que después de este ataque no queremos que haga.
+	m_pDeer->SetToBeTired(false);
+
 	// Metemos más velocidad al ataque i menos massa para acelerar más 
 	m_pDeer->GetSteeringEntity()->SetMaxSpeed(m_pDeer->GetProperties()->GetRunAttackSpeed());
 	m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
@@ -167,13 +171,13 @@ void CDeerRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		//if ( m_pAnimationCallback->IsAnimationFinished() || ( m_PlayerPositionReached ) )
 		if ( m_pAnimationCallback->IsAnimationFinished() )
 		{
-			// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio. En este caso no queremos
-			// pq hace un desplazamiento que después de este ataque no queremos que haga.
-			m_pDeer->SetToBeTired(false);
-
 			// Si encontré el player por delante finalizo golpeando
 			if ( m_pDeer->GetPlayerHasBeenReached() )
 			{
+				// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio. En este caso no queremos
+				// pq hace un desplazamiento que después de este ataque no queremos que haga.
+				m_pDeer->SetToBeTired(true);
+
 				if ( DISPATCH != NULL ) 
 				{
 					DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pDeer->GetID(), m_pDeer->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );

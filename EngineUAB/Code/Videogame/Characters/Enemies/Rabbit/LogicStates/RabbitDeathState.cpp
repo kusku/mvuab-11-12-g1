@@ -107,7 +107,8 @@ void CRabbitDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 					CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
 				}
 			#endif
-			m_pRabbit->SetEnable(false);	
+			m_pRabbit->SetEnable(false);
+			m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetIdleAnimationState());
 			return;
 
 		}
@@ -144,6 +145,7 @@ void CRabbitDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 
 void CRabbitDeathState::OnExit( CCharacter* _pCharacter )
 {
+	m_pRabbit->SetEnable(false);
 }
 
 bool CRabbitDeathState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )

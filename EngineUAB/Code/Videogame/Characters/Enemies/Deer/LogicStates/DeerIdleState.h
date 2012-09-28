@@ -7,6 +7,7 @@
 #include <string>
 #include "StatesMachine\State.h"
 #include "Characters\Character.h"
+#include "Callbacks\State\ActionStateCallback.h"
 
 // --- Foward Declarations ---
 class CDeer;
@@ -38,10 +39,10 @@ public:
 
 	//----Members ---------------------------------------------
 private:
-	CDeer	*	m_pDeer;
-		
-	bool		m_AlreadyDetected;
-	bool		m_AlreadyChased;
+	CDeer				  * m_pDeer;
+	CActionStateCallback	m_ActionStateCallback;
+	bool					m_AlreadyDetected;
+	bool					m_AlreadyChased;
 };
 
 
