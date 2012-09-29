@@ -17,6 +17,8 @@
 	<system name="SwordFinal" settings_name="SwordFinal" />
 	
 	<system name="Snow" settings_name="Snow" />
+
+	<system name="Twister" settings_name="Twister" />
 	
 	<!-- ***************** -->
 	<!-- Sistemas del Wolf -->
