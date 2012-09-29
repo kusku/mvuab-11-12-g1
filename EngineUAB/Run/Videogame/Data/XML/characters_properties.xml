@@ -11,9 +11,9 @@
 		<max_speed>10</max_speed>
 		<min_acceleration>30</min_acceleration>
 		<max_acceleration>65</max_acceleration>
-		<acceleration_attack1>-40</acceleration_attack1>
-		<acceleration_attack2>-35</acceleration_attack2>
-		<acceleration_attack3>-40</acceleration_attack3>
+		<acceleration_attack1>-20</acceleration_attack1>
+		<acceleration_attack2>-10</acceleration_attack2>
+		<acceleration_attack3>-20</acceleration_attack3>
 		<attack_distance>10</attack_distance>
 		<attack_angle>45</attack_angle>
 		<wait_to_cure>10</wait_to_cure>
