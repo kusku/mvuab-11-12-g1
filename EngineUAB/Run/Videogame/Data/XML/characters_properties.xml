@@ -47,14 +47,14 @@
 		<max_tired_time_after_hit>2</max_tired_time_after_hit>          	<!-- Tiempo máximo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
 		<max_hit_recoil_distance>5</max_hit_recoil_distance>          		<!-- Cantidad de retroceso máximo al recibir un hit -->
 		<hit_recoil_speed>3</hit_recoil_speed>          					<!-- Cantidad de velocidad del retroceso al recibir un hit. Se aplica como la speed al front + 180º -->
-		<max_time_in_defense>5</max_time_in_defense>          				<!-- Cantidad de tiempo máximo al recibir un hit pero que estoy en defense -->
+		<max_time_in_defense>3</max_time_in_defense>          				<!-- Cantidad de tiempo máximo al recibir un hit pero que estoy en defense -->
 		<bounding_radius>1.7</bounding_radius>
 		<detection_distance>30</detection_distance>
 		<!-- Distancia a partir de la qual detecto el player y puedo perseguirlo -->
 		<chase_distance>23</chase_distance>
 		<!-- Creo que ahora no la uso... -->
 		<follow_path_distance>100</follow_path_distance>
-		<impact_distance>2.3</impact_distance>
+		<impact_distance>3.3</impact_distance>
 		<!-- Está encima el player -->
 		<attack_distance>9</attack_distance>
 		<!-- Está en distancia de poder hacer algunos de los ataques o defensa -->
@@ -67,11 +67,11 @@
 		<panic_distance>100</panic_distance>
 		<!-- Sirve para saber la distancia máxima de evasión -->
 		<height_controller>1.9</height_controller>
-		<width_controller>1.7</width_controller>
+		<width_controller>1.0</width_controller>
 		<slope>45.0</slope>
 		<skin_width>0.1</skin_width>
 		<step_offset>0.5</step_offset>
-		<animation_offset>-0.8</animation_offset>
+		<animation_offset>0.0</animation_offset>
 	</default_properties>
 	<default_properties core="ciervo">
 		<active>true</active>
@@ -92,13 +92,13 @@
 		<max_tired_time>2</max_tired_time>									<!-- Tiempo máximo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
 		<min_tired_time_after_hit>1</min_tired_time_after_hit>				<!-- Tiempo mínimo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
 		<max_tired_time_after_hit>2</max_tired_time_after_hit>          	<!-- Tiempo máximo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
-		<max_hit_recoil_distance>2.5</max_hit_recoil_distance>          		<!-- Cantidad de retroceso máximo al recibir un hit -->
+		<max_hit_recoil_distance>2.5</max_hit_recoil_distance>          	<!-- Cantidad de retroceso máximo al recibir un hit -->
 		<hit_recoil_speed>0.5</hit_recoil_speed>          					<!-- Cantidad de velocidad del retroceso al recibir un hit. Se aplica como la speed al front + 180º -->
 		<max_time_in_defense>3</max_time_in_defense>          				<!-- Cantidad de tiempo máximo al recibir un hit pero que estoy en defense -->
 		<bounding_radius>0.7</bounding_radius>
-		<detection_distance>30</detection_distance>
+		<detection_distance>17</detection_distance>
 		<!-- Distancia a partir de la qual detecto el player y puedo perseguirlo -->
-		<chase_distance>23</chase_distance>
+		<chase_distance>13</chase_distance>
 		<!-- Creo que ahora no la uso... -->
 		<follow_path_distance>100</follow_path_distance>
 		<!-- Está encima el player -->
@@ -124,7 +124,7 @@
 	<default_properties core="conejo">
 		<active>false</active>
 		<locked>false</locked>
-		<life>1500</life>
+		<life>150</life>
 		<strong>5</strong>
 		<mass>0.01</mass>
 		<velocity>0 0 0</velocity>
@@ -140,20 +140,20 @@
 		<max_tired_time>2</max_tired_time>									<!-- Tiempo máximo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
 		<min_tired_time_after_hit>1</min_tired_time_after_hit>				<!-- Tiempo mínimo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
 		<max_tired_time_after_hit>2</max_tired_time_after_hit>          	<!-- Tiempo máximo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
-		<max_hit_recoil_distance>2.5</max_hit_recoil_distance>          		<!-- Cantidad de retroceso máximo al recibir un hit -->
+		<max_hit_recoil_distance>4.0</max_hit_recoil_distance>          	<!-- Cantidad de retroceso máximo al recibir un hit -->
 		<hit_recoil_speed>0.33</hit_recoil_speed>          					<!-- Cantidad de velocidad del retroceso al recibir un hit. Se aplica como la speed al front + 180º -->
-		<max_time_in_defense>5</max_time_in_defense>          				<!-- Cantidad de tiempo máximo al recibir un hit pero que estoy en defense -->
+		<max_time_in_defense>3</max_time_in_defense>          				<!-- Cantidad de tiempo máximo al recibir un hit pero que estoy en defense -->
 		<bounding_radius>0.4</bounding_radius>
 		<detection_distance>15</detection_distance>
 		<!-- Distancia a partir de la qual detecto el player y puedo perseguirlo -->
-		<chase_distance>10</chase_distance>
+		<chase_distance>12</chase_distance>
 		<!-- Creo que ahora no la uso... -->
 		<follow_path_distance>100</follow_path_distance>
-		<impact_distance>1.0</impact_distance>
+		<impact_distance>1.2</impact_distance>
 		<!-- Está encima el player -->
 		<attack_distance>4</attack_distance>
 		<!-- Está en distancia de poder hacer algunos de los ataques o defensa -->
-		<prepared_to_attack_distance>7.0</prepared_to_attack_distance>
+		<prepared_to_attack_distance>5.0</prepared_to_attack_distance>
 		<!-- Está lejos de poder atacar pero cerca de poder hacerlo -->
 		<aproximation_distance>15</aproximation_distance>
 		<!-- Está lejos y debe acercarse -->
@@ -169,13 +169,13 @@
 		<animation_offset>0.1</animation_offset>
 	</default_properties>
 	<player name="Caperu" core="caperucita" animated_instace_name="caperucita1" >
-		<life>100</life>
+		<life>1000000</life>
 		<strong>30</strong>
 		<speed>25</speed>
 		<velocity>0 0 0</velocity>
 		<respawn_position>0 10 0</respawn_position>
 		<!--<position>-66.407 -25.849 -121.407</position>-->
-		<position>17 -40 28</position>
+		<position>10 -40 28</position>
 	</player>
 	<enemies>
 		<!--<enemy name="enemy1" core="lobo" animated_instace_name="lobo1" ></enemy>
@@ -206,7 +206,7 @@
 
 		<enemy name="enemy1" core="lobo" animated_instace_name="lobo1" >
 			<position>50 -30 20</position>
-			<active>true</active>
+			<active>false</active>
 			<locked>false</locked>
 		</enemy>
 		<!--  <enemy name="enemy2" core="lobo" animated_instace_name="lobo2" >
@@ -224,7 +224,7 @@
 
 		<enemy name="enemy22" core="conejo" animated_instace_name="enemy22" >
 			<position>35 -40 25</position>
-			<active>false</active>
+			<active>true</active>
 			<locked>false</locked>
 		</enemy>
 		<enemy name="enemy23" core="conejo" animated_instace_name="enemy23" >
