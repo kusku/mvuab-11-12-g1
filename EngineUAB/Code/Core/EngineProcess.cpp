@@ -46,6 +46,10 @@ void CEngineProcess::Render( CRenderManager &_RM )
 {
 }
 
+void CEngineProcess::DebugRender( CRenderManager &_RM )
+{
+}
+
 void CEngineProcess::Update( float _ElapsedTime )
 {
 }

@@ -21,6 +21,7 @@
 #include "Callbacks\Animation\AnimationCallbackManager.h"
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 #include "HUD\HUD.h"
+#include "Triggers\TriggersManager.h"
 
 #include "Core.h"
 #include "Base.h"
@@ -145,6 +146,8 @@ void CGameProcess::Update(float elapsedTime)
 
 			m_pHUD->Reload();
 			m_pHUD->Init( m_pCharactersManager->GetPlayerLife() );
+
+			CORE->GetTriggersManager()->Reload();
 		}
 
 		if( CORE->GetActionToInput()->DoAction("GoToMenu") )
@@ -203,9 +206,15 @@ void CGameProcess::ReloadGameObjects()
 
 void CGameProcess::Render(CRenderManager &RM)
 {
+	m_pHUD->Render(RM);
+}
+
+void CGameProcess::DebugRender( CRenderManager &RM )
+{
+#if defined (_DEBUG)
 	m_pCharactersManager->Render(&RM, CORE->GetFontManager());
 	m_pThPSCamera->Render(&RM);
-	m_pHUD->Render(RM);
+#endif
 }
 
 bool CGameProcess::LoadMainScript()

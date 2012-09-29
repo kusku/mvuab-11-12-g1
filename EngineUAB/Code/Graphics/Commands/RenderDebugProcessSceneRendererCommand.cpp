@@ -19,6 +19,6 @@ void CRenderDebugProcessSceneRendererCommand ::Execute(CRenderManager &RM)
 {	
 	if( GetActive() )
 	{
-		CORE->GetProcess()->Render(RM);
+		CORE->GetProcess()->DebugRender(RM);
 	}
 }
