@@ -7,6 +7,7 @@
 	<script filename="./data/scripts/game/triggers/bridge_trigger.lua" />
 	<script filename="./data/scripts/game/triggers/house_trigger.lua" />
 	<script filename="./data/scripts/game/triggers/end_game_trigger.lua" />
+	<script filename="./data/scripts/game/triggers/river_trigger.lua" />
 	
 	<script filename="./data/scripts/game/player/player_idle_state.lua" />
 	<script filename="./data/scripts/game/player/player_run_state.lua" />
