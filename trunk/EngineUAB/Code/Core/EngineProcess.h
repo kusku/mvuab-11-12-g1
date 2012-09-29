@@ -20,7 +20,8 @@ public:
 	//----Funcions principals-------------------------------------------
 	virtual void		Update			(float ElapsedTime);
 	virtual void		Render			( CRenderManager &RM );
-	
+	virtual void		DebugRender		( CRenderManager &RM );
+
 	//----Properties ( get & Set )---------------------------------------
 	virtual CCamera*	GetCamera		() const				{ return m_pCamera; }
 
