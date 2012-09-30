@@ -32,6 +32,7 @@
 #include "GameProcess.h"
 #include "Math\MathTypes.h"
 #include "Helpers\MathHelper.h"
+#include "SoundManager.h"
 #include "Core.h"
 #include "Base.h"
 
@@ -97,6 +98,15 @@ bool CPlayer::Init()
 	m_pCurrentAnimatedModel->SetPitch( 0.f );
 
 	m_fTimeWithoutDamage = 0.f;
+
+	//Crea el speaker de audio correspondiente
+	uint16 index = CORE->GetSoundManager()->GetSpeakerCount();
+	std::stringstream out;
+	out << "_";
+	out << index;
+
+	m_SpeakerName = "Player_Speaker_" + out.str();
+	m_pSpeaker = CORE->GetSoundManager()->CreateSpeaker(m_SpeakerName);
 
 	return true;
 }

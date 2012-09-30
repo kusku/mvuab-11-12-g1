@@ -367,6 +367,7 @@
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_animated_defense_state.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\bridge_trigger.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\cascade_trigger.lua" />
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\combat_zone_3.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\end_game_trigger.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\house_trigger.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\start_trigger.lua" />
@@ -840,7 +841,9 @@
     <None Include="..\..\Run\Videogame\Data\XML\ParticleEmitters.xml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="..\..\Run\Videogame\Data\XML\ParticleSettings.xml" />
+    <None Include="..\..\Run\Videogame\Data\XML\ParticleSettings.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="..\..\Run\Videogame\Data\XML\ParticleSystems.xml">
       <SubType>Designer</SubType>
     </None>
