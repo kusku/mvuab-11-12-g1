@@ -106,7 +106,7 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elap
 		Vect2f l_Pos2 = Vect2f(m_PositionReachedAfterHitPlayer.x, m_PositionReachedAfterHitPlayer.z);
 		float l_DistanceToCameraPoint = l_Pos1.Distance(l_Pos2);
 		//float l_DistanceToCameraPoint = m_pRabbit->GetPosition().Distance(m_PositionReachedAfterHitPlayer);
-		if ( l_DistanceToCameraPoint <= 0.3f )
+		if ( l_DistanceToCameraPoint <= 1.3f )
 		{
 			m_IsPositionAssignedAfterHitPlayer = false;		// Reiniciamos el flag para la pròxima vez
 			m_pRabbit->SetPlayerHasBeenReached(false);		// Reiniciamos el flag de player alcanzado
