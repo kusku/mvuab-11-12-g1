@@ -39,15 +39,24 @@
 		<max_speed>0.30</max_speed>
 		<max_acceleration>0.1</max_acceleration>
 		<max_force>0.015</max_force>
-		<still_attack_speed>0.3</still_attack_speed>						<!-- Velocidad de ataque 1 --> 
-		<run_attack_speed>0.4</run_attack_speed>							<!-- Velocidad de ataque 2 --> 
-		<min_tired_time>1</min_tired_time>									<!-- Tiempo mínimo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
-		<max_tired_time>2</max_tired_time>									<!-- Tiempo máximo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
-		<min_tired_time_after_hit>1</min_tired_time_after_hit>				<!-- Tiempo mínimo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
-		<max_tired_time_after_hit>2</max_tired_time_after_hit>          	<!-- Tiempo máximo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
-		<max_hit_recoil_distance>5</max_hit_recoil_distance>          		<!-- Cantidad de retroceso máximo al recibir un hit -->
-		<hit_recoil_speed>3</hit_recoil_speed>          					<!-- Cantidad de velocidad del retroceso al recibir un hit. Se aplica como la speed al front + 180º -->
-		<max_time_in_defense>3</max_time_in_defense>          				<!-- Cantidad de tiempo máximo al recibir un hit pero que estoy en defense -->
+		<still_attack_speed>0.3</still_attack_speed>
+		<!-- Velocidad de ataque 1 --> 
+		<run_attack_speed>0.4</run_attack_speed>
+		<!-- Velocidad de ataque 2 --> 
+		<min_tired_time>1</min_tired_time>
+		<!-- Tiempo mínimo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
+		<max_tired_time>2</max_tired_time>
+		<!-- Tiempo máximo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
+		<min_tired_time_after_hit>1</min_tired_time_after_hit>
+		<!-- Tiempo mínimo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
+		<max_tired_time_after_hit>2</max_tired_time_after_hit>
+		<!-- Tiempo máximo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
+		<max_hit_recoil_distance>5</max_hit_recoil_distance>
+		<!-- Cantidad de retroceso máximo al recibir un hit -->
+		<hit_recoil_speed>3</hit_recoil_speed>
+		<!-- Cantidad de velocidad del retroceso al recibir un hit. Se aplica como la speed al front + 180º -->
+		<max_time_in_defense>3</max_time_in_defense>
+		<!-- Cantidad de tiempo máximo al recibir un hit pero que estoy en defense -->
 		<bounding_radius>1.7</bounding_radius>
 		<detection_distance>30</detection_distance>
 		<!-- Distancia a partir de la qual detecto el player y puedo perseguirlo -->
@@ -86,15 +95,24 @@
 		<max_speed>0.2</max_speed>
 		<max_acceleration>0.1</max_acceleration>
 		<max_force>0.015</max_force>
-		<still_attack_speed>0.3</still_attack_speed>						<!-- Velocidad de ataque 1 --> 
-		<run_attack_speed>1.4</run_attack_speed>							<!-- Velocidad de ataque 2 --> 
-		<min_tired_time>1</min_tired_time>									<!-- Tiempo mínimo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
-		<max_tired_time>2</max_tired_time>									<!-- Tiempo máximo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
-		<min_tired_time_after_hit>1</min_tired_time_after_hit>				<!-- Tiempo mínimo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
-		<max_tired_time_after_hit>2</max_tired_time_after_hit>          	<!-- Tiempo máximo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
-		<max_hit_recoil_distance>2.5</max_hit_recoil_distance>          	<!-- Cantidad de retroceso máximo al recibir un hit -->
-		<hit_recoil_speed>0.5</hit_recoil_speed>          					<!-- Cantidad de velocidad del retroceso al recibir un hit. Se aplica como la speed al front + 180º -->
-		<max_time_in_defense>3</max_time_in_defense>          				<!-- Cantidad de tiempo máximo al recibir un hit pero que estoy en defense -->
+		<still_attack_speed>0.3</still_attack_speed>
+		<!-- Velocidad de ataque 1 --> 
+		<run_attack_speed>1.4</run_attack_speed>
+		<!-- Velocidad de ataque 2 --> 
+		<min_tired_time>1</min_tired_time>
+		<!-- Tiempo mínimo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
+		<max_tired_time>2</max_tired_time>
+		<!-- Tiempo máximo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
+		<min_tired_time_after_hit>1</min_tired_time_after_hit>
+		<!-- Tiempo mínimo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
+		<max_tired_time_after_hit>2</max_tired_time_after_hit>
+		<!-- Tiempo máximo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
+		<max_hit_recoil_distance>2.5</max_hit_recoil_distance>
+		<!-- Cantidad de retroceso máximo al recibir un hit -->
+		<hit_recoil_speed>0.5</hit_recoil_speed>
+		<!-- Cantidad de velocidad del retroceso al recibir un hit. Se aplica como la speed al front + 180º -->
+		<max_time_in_defense>3</max_time_in_defense>
+		<!-- Cantidad de tiempo máximo al recibir un hit pero que estoy en defense -->
 		<bounding_radius>0.7</bounding_radius>
 		<detection_distance>17</detection_distance>
 		<!-- Distancia a partir de la qual detecto el player y puedo perseguirlo -->
@@ -130,19 +148,32 @@
 		<velocity>0 0 0</velocity>
 		<speed>2</speed>
 		<max_rotation_speed>360</max_rotation_speed>
-		<min_speed>0.05</min_speed>											<!-- Teóricamente de caminar --> 
-		<max_speed>0.20</max_speed>											<!-- En carrera --> 
-		<max_acceleration>0.1</max_acceleration>							<!-- Aceleración máxima posible. Actualmente no se usa --> 
-		<max_force>1.015</max_force>										<!-- Fuerza máxima disponible. Se usa en los Steering Behaviors --> 
-		<still_attack_speed>0.3</still_attack_speed>						<!-- Velocidad de ataque 1 --> 
-		<run_attack_speed>0.4</run_attack_speed>							<!-- Velocidad de ataque 2 --> 
-		<min_tired_time>1</min_tired_time>									<!-- Tiempo mínimo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
-		<max_tired_time>2</max_tired_time>									<!-- Tiempo máximo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
-		<min_tired_time_after_hit>1</min_tired_time_after_hit>				<!-- Tiempo mínimo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
-		<max_tired_time_after_hit>2</max_tired_time_after_hit>          	<!-- Tiempo máximo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
-		<max_hit_recoil_distance>4.0</max_hit_recoil_distance>          	<!-- Cantidad de retroceso máximo al recibir un hit -->
-		<hit_recoil_speed>0.33</hit_recoil_speed>          					<!-- Cantidad de velocidad del retroceso al recibir un hit. Se aplica como la speed al front + 180º -->
-		<max_time_in_defense>3</max_time_in_defense>          				<!-- Cantidad de tiempo máximo al recibir un hit pero que estoy en defense -->
+		<min_speed>0.05</min_speed>
+		<!-- Teóricamente de caminar --> 
+		<max_speed>0.53</max_speed>
+		<!-- En carrera --> 
+		<max_acceleration>0.1</max_acceleration>
+		<!-- Aceleración máxima posible. Actualmente no se usa --> 
+		<max_force>1.015</max_force>
+		<!-- Fuerza máxima disponible. Se usa en los Steering Behaviors --> 
+		<still_attack_speed>0.3</still_attack_speed>
+		<!-- Velocidad de ataque 1 --> 
+		<run_attack_speed>0.4</run_attack_speed>
+		<!-- Velocidad de ataque 2 --> 
+		<min_tired_time>1</min_tired_time>
+		<!-- Tiempo mínimo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
+		<max_tired_time>2</max_tired_time>
+		<!-- Tiempo máximo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
+		<min_tired_time_after_hit>1</min_tired_time_after_hit>
+		<!-- Tiempo mínimo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
+		<max_tired_time_after_hit>2</max_tired_time_after_hit>
+		<!-- Tiempo máximo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
+		<max_hit_recoil_distance>4.0</max_hit_recoil_distance>
+		<!-- Cantidad de retroceso máximo al recibir un hit -->
+		<hit_recoil_speed>0.33</hit_recoil_speed>
+		<!-- Cantidad de velocidad del retroceso al recibir un hit. Se aplica como la speed al front + 180º -->
+		<max_time_in_defense>3</max_time_in_defense>
+		<!-- Cantidad de tiempo máximo al recibir un hit pero que estoy en defense -->
 		<bounding_radius>0.4</bounding_radius>
 		<detection_distance>15</detection_distance>
 		<!-- Distancia a partir de la qual detecto el player y puedo perseguirlo -->
@@ -169,46 +200,133 @@
 		<animation_offset>0.1</animation_offset>
 	</default_properties>
 	<player name="Caperu" core="caperucita" animated_instace_name="caperucita1" >
-		<life>1000000</life>
+		<life>500</life>
 		<strong>30</strong>
 		<speed>25</speed>
 		<velocity>0 0 0</velocity>
 		<respawn_position>0 10 0</respawn_position>
-		<!--<position>-66.407 -25.849 -121.407</position>-->
-		<position>10 -40 28</position>
+		<!--<position>108 -14 -172</position>-->
+		<position>-64 -14 -20</position>
+		<!--<position>10 -40 28</position>-->
 	</player>
 	<enemies>
-		<!--<enemy name="enemy1" core="lobo" animated_instace_name="lobo1" ></enemy>
-		
-		<enemy name="enemy2" core="conejo" animated_instace_name="enemy2" ></enemy>
-		<enemy name="enemy3" core="conejo" animated_instace_name="enemy3" ></enemy>
-		<enemy name="enemy4" core="conejo" animated_instace_name="enemy4" ></enemy>
-		
-		<enemy name="enemy5" core="conejo" animated_instace_name="enemy5" ></enemy>
-		<enemy name="enemy6" core="conejo" animated_instace_name="enemy6" ></enemy>
-		<enemy name="enemy7" core="conejo" animated_instace_name="enemy7" ></enemy>
-		<enemy name="enemy8" core="conejo" animated_instace_name="enemy8" ></enemy>
-		<enemy name="enemy9" core="conejo" animated_instace_name="enemy9" ></enemy>
-		
-		<enemy name="enemy10" core="conejo" animated_instace_name="enemy10" ></enemy>
-		<enemy name="enemy11" core="conejo" animated_instace_name="enemy11" ></enemy>
-		<enemy name="enemy12" core="conejo" animated_instace_name="enemy12" ></enemy>
-		<enemy name="enemy13" core="conejo" animated_instace_name="enemy13" ></enemy>
-		<enemy name="enemy14" core="conejo" animated_instace_name="enemy14" ></enemy>
-		<enemy name="enemy15" core="conejo" animated_instace_name="enemy15" ></enemy>
-		<enemy name="enemy16" core="conejo" animated_instace_name="enemy16" ></enemy>
-		<enemy name="enemy17" core="conejo" animated_instace_name="enemy17" ></enemy>
-		
-		<enemy name="enemy18" core="conejo" animated_instace_name="enemy18" ></enemy>
-		<enemy name="enemy19" core="conejo" animated_instace_name="enemy19" ></enemy>
-		<enemy name="enemy20" core="conejo" animated_instace_name="enemy20" ></enemy>
-		<enemy name="enemy21" core="conejo" animated_instace_name="enemy21" ></enemy>-->
-
 		<enemy name="enemy1" core="lobo" animated_instace_name="lobo1" >
-			<position>50 -30 20</position>
-			<active>false</active>
+			<position>-45 -10 -67</position>
+			<active>true</active>
 			<locked>false</locked>
 		</enemy>
+
+		<enemy name="enemy2" core="conejo" animated_instace_name="enemy2" >
+			<position>70 -23 -144</position>
+			<active>true</active>
+			<locked>true</locked>
+		</enemy>
+		<enemy name="enemy3" core="conejo" animated_instace_name="enemy3" >
+			<position>74 -23 141</position>
+			<active>true</active>
+			<locked>true</locked>
+		</enemy>
+		<enemy name="enemy4" core="conejo" animated_instace_name="enemy4" >
+			<position>76 -23 141</position>
+			<active>true</active>
+			<locked>true</locked>
+		</enemy>
+
+		<enemy name="enemy5" core="conejo" animated_instace_name="enemy5" >
+			<position>78 -22 -141</position>
+			<active>true</active>
+			<locked>true</locked>
+		</enemy>
+		<enemy name="enemy6" core="conejo" animated_instace_name="enemy6" >
+			<position>75 -22 -129</position>
+			<active>true</active>
+			<locked>true</locked>
+		</enemy>
+		<enemy name="enemy7" core="conejo" animated_instace_name="enemy7" >
+			<position>68 -22 -131</position>
+			<active>true</active>
+			<locked>true</locked>
+		</enemy>
+		<enemy name="enemy8" core="conejo" animated_instace_name="enemy8" >
+			<position>64 -23 -129</position>
+			<active>true</active>
+			<locked>true</locked>
+		</enemy>
+		<enemy name="enemy9" core="conejo" animated_instace_name="enemy9" >
+			<position>58 -23 -131</position>
+			<active>true</active>
+			<locked>true</locked>
+		</enemy>
+
+		<enemy name="enemy10" core="conejo" animated_instace_name="enemy10" >
+			<position>85 -22 -66</position>
+			<active>true</active>
+			<locked>true</locked>
+		</enemy>
+
+		<enemy name="enemy11" core="conejo" animated_instace_name="enemy11" >
+			<position>81 -22 -69</position>
+			<active>true</active>
+			<locked>true</locked>
+		</enemy>
+
+		<enemy name="enemy12" core="conejo" animated_instace_name="enemy12" >
+			<position>79 -22 -69</position>
+			<active>true</active>
+			<locked>true</locked>
+		</enemy>
+		<enemy name="enemy13" core="conejo" animated_instace_name="enemy13" >
+			<position>79 -23 -64</position>
+			<active>true</active>
+			<locked>true</locked>
+		</enemy>
+		<enemy name="enemy14" core="conejo" animated_instace_name="enemy14" >
+			<position>104 -36 -3</position>
+			<active>true</active>
+			<locked>true</locked>
+		</enemy>
+		<enemy name="enemy15" core="conejo" animated_instace_name="enemy15" >
+			<position>58 -23 -136</position>
+			<active>true</active>
+			<locked>true</locked>
+		</enemy>
+		<enemy name="enemy16" core="conejo" animated_instace_name="enemy16" >
+			<position>-61 -28 111</position>
+			<active>true</active>
+			<locked>true</locked>
+		</enemy>
+		<enemy name="enemy17" core="conejo" animated_instace_name="enemy17" >
+			<position>-53 -28 111</position>
+			<active>true</active>
+			<locked>true</locked>
+		</enemy>
+
+		<enemy name="enemy18" core="conejo" animated_instace_name="enemy18" >
+			<position>-48 -28 119</position>
+			<active>true</active>
+			<locked>true</locked>
+		</enemy>
+		<enemy name="enemy19" core="conejo" animated_instace_name="enemy19" >
+			<position>-57 -29 124</position>
+			<active>true</active>
+			<locked>true</locked>
+		</enemy>
+		<enemy name="enemy20" core="conejo" animated_instace_name="enemy20" >
+			<position>58 -23 -136</position>
+			<active>true</active>
+			<locked>true</locked>
+		</enemy>
+		<enemy name="enemy21" core="conejo" animated_instace_name="enemy21" >
+			<position>58 -23 -136</position>
+			<active>true</active>
+			<locked>true</locked>
+		</enemy>
+
+		<!--<enemy name="enemy1" core="lobo" animated_instace_name="lobo1" >
+			<position>50 -30 20</position>
+			<active>true</active>
+			<locked>false</locked>
+		</enemy>-->
 		<!--  <enemy name="enemy2" core="lobo" animated_instace_name="lobo2" >
 			<position>-20 -30 12</position>
 		</enemy>
@@ -224,7 +342,7 @@
 
 		<enemy name="enemy22" core="conejo" animated_instace_name="enemy22" >
 			<position>35 -40 25</position>
-			<active>true</active>
+			<active>false</active>
 			<locked>false</locked>
 		</enemy>
 		<enemy name="enemy23" core="conejo" animated_instace_name="enemy23" >
@@ -237,40 +355,52 @@
 			<active>false</active>
 			<locked>false</locked>
 		</enemy>
-		<!--<enemy name="enemy25" core="conejo" animated_instace_name="enemy25" >
+		<enemy name="enemy25" core="conejo" animated_instace_name="enemy25" >
 			<position>-20 -30 0</position>
+			<active>false</active>
+			<locked>false</locked>
 		</enemy>
 		<enemy name="enemy26" core="conejo" animated_instace_name="enemy26" >
 			<position>-25 -30 0</position>
+			<active>false</active>
+			<locked>false</locked>
 		</enemy>
 		<enemy name="enemy27" core="conejo" animated_instace_name="enemy27" >
 			<position>-5 -30 0</position>
-		</enemy>-->
+			<active>false</active>
+			<locked>false</locked>
+		</enemy>
 
 		<enemy name="enemy28" core="ciervo" animated_instace_name="enemy28" >
-			<position>34 -40 24</position>
-			<active>false</active>
-			<locked>false</locked>
+			<position>87 -23 -59</position>
+			<active>true</active>
+			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy29" core="ciervo" animated_instace_name="enemy29" >
-			<position>40 -40 23</position>
-			<active>false</active>
-			<locked>false</locked>
+			<position>114 -39 3</position>
+			<active>true</active>
+			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy30" core="ciervo" animated_instace_name="enemy30" >
-			<position>44 -40 20</position>
-			<active>false</active>
-			<locked>false</locked>
+			<position>110 -39 3</position>
+			<active>true</active>
+			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy31" core="ciervo" animated_instace_name="enemy31" >
-			<position>44 -40 26</position>
-			<active>false</active>
-			<locked>false</locked>
+			<position>30 -40 36</position>
+			<active>true</active>
+			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy32" core="ciervo" animated_instace_name="enemy32" >
-			<position>44 -40 30</position>
-			<active>false</active>
-			<locked>false</locked>
+			<position>30 -40 30</position>
+			<active>true</active>
+			<locked>true</locked>
+		</enemy>
+
+		<enemy name="enemy33" core="ciervo" animated_instace_name="enemy33" >
+			<position>30 -40 42</position>
+			<active>true</active>
+			<locked>true</locked>w
 		</enemy>
 
 	</enemies>
