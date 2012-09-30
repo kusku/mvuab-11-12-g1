@@ -90,6 +90,8 @@ public:
 	/*virtual void				LoadGraphicStates		( void ) = 0; 
 	virtual void				LoadLogicStates			( void ) = 0;*/
 
+	void						Appearance					( void );
+
 	//----Properties ( get & Set )-----------------------------
 	inline CStateMachine<CCharacter>*		GetLogicFSM			( void ) const			{ return m_pLogicStateMachine; }
 	inline CStateMachine<CCharacter>*		GetGraphicFSM		( void ) const			{ return m_pGraphicStateMachine; }

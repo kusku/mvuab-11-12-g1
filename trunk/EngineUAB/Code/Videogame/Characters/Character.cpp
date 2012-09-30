@@ -3,6 +3,7 @@
 #include "Properties/Properties.h"
 #include "VideogameDefs.h"
 #include "Utils\BoostRandomHelper.h"
+#include "SoundManager.h"
 
 #include "Steering Behaviors\SteeringBehaviors.h"
 #include "Steering Behaviors\SteeringBehaviorsDefs.h"
@@ -263,7 +264,7 @@ bool CCharacter::InitializeAI ( void )
 
 void CCharacter::Update ( float _ElapsedTime )			
 { 
-	/*if( GetLocked() ) 
+	/*if( !this->GetProperties()->GetActive() ) 
 		return;*/
 	
 	m_pLogicStateMachine->Update( _ElapsedTime );
@@ -875,6 +876,16 @@ int CCharacter::GetAnimationID( const std::string &_AnimationName )
 {
 	CAnimatedCoreModel * l_Core =  m_pCurrentAnimatedModel->GetAnimatedCoreModel();
 	return l_Core->GetCoreModel()->getCoreAnimationId( _AnimationName );
+}
+
+void CCharacter::Appearance( void )
+{
+	// Si se habilitat aparecen con partículas y sonido
+	if ( IsEnable() ) 
+	{
+		CORE->GetParticleEmitterManager()->GetResource("Twister")->GetParticleEmitterInstance(GetName() + "_Twister")->EjectParticles();
+		CORE->GetSoundManager()->PlayEvent( GetSpeakerName(), "Play_EFX_51467_missile_explosion" );
+	}
 }
 
 void CCharacter::SetEnable( bool _Enable )
