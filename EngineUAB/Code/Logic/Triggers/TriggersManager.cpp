@@ -75,7 +75,12 @@ bool CTriggersManager::Reload()
 {
 	LOGGER->AddNewLog( ELL_INFORMATION, "CTriggersManager::Reload--> Reloading triggers system." );
 	Destroy();
-	return LoadXML();
+	bool l_IsOK = LoadXML();
+	
+	if ( l_IsOK )
+		Init();
+	
+	return l_IsOK ;
 }
 
 //----------------------------------------------
@@ -163,6 +168,10 @@ void CTriggersManager::OnEnter( CPhysicUserData* _Entity_Trigger1, CPhysicUserDa
 		l_pTrigger = l_It->second;
 		if( l_pTrigger->IsActive() )
 		{
+			if ( !l_pTrigger->GetTriggerActor() )
+			{
+				continue;
+			}
 			if( _Entity_Trigger1 == l_pTrigger->GetTriggerActor()->GetUserData() )
 			{
 				l_pTrigger->OnEnter();
