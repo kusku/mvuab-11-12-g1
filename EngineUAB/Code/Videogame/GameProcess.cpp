@@ -100,6 +100,7 @@ CThPSCharacterCamera* CGameProcess::CreatePlayerCamera(float _near, float _far, 
 	float aspect = CORE->GetRenderManager()->GetAspectRatio();
 	m_pThPSCamera = new CThPSCharacterCamera(_near, _far, 45.f * D3DX_PI / 180.f, aspect,  m_pCharactersManager->GetPlayer(), _zoom, _heightLookAt, _heightEye, _name);
 	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
+	m_pCamera->GetObject3D()->SetYaw(2.36f);
 	CORE->SetCamera(m_pCamera);
 
 	return m_pThPSCamera;
@@ -108,9 +109,9 @@ CThPSCharacterCamera* CGameProcess::CreatePlayerCamera(float _near, float _far, 
 void CGameProcess::CreateFreeCamera(float _near, float _far, float _zoom, float _heightEye, float _heightLookAt, const std::string &_name)
 {
 	//Crea una cámara libre de Debug
-	m_FreeCamera.SetPosition(Vect3f( 0.f, 10.f, 0.f));
-	m_FreeCamera.SetPitch(-D3DX_PI/6);
-	m_FreeCamera.SetYaw(0.0f);
+	m_FreeCamera.SetPosition(Vect3f( 50.f, 5.f, -100.f));
+	m_FreeCamera.SetPitch(-D3DX_PI/4);
+	m_FreeCamera.SetYaw(-1.0f);
 	m_FreeCamera.SetRoll(0.0f);
 
 	float aspect = CORE->GetRenderManager()->GetAspectRatio();
