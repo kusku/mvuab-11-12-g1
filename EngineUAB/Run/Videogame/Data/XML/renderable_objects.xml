@@ -9,7 +9,7 @@
   <layer name="fish" />
   <layer name="terrain" />
 
-  <animated_model_instance name="caperucita1" core="caperucita" position="0.0 30.0 0.0" yaw="90.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
+  <animated_model_instance name="caperucita1" core="caperucita" position="0.0 30.0 0.0" yaw="136.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" />
 
   <animated_model_instance name="lobo1" core="lobo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
   <animated_model_instance name="lobo2" core="lobo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
@@ -21,7 +21,7 @@
   <animated_model_instance name="melee_left_weapon" core="conejo" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="0.3 0.3 0.3" visible="false" layer="solid" />
   <animated_model_instance name="melee_right_weapon" core="conejo" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="0.3 0.3 0.3" visible="false" layer="solid" />
 
-  <animated_model_instance name="enemy2" core="conejo" position="2.795 -29.18 -96.25" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy2" core="conejo" position="70.0 -23 144" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
   <animated_model_instance name="enemy3" core="conejo" position="-0.871 -29.18 -100.257" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
   <animated_model_instance name="enemy4" core="conejo" position="2.795 -29.18 -100.257" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
   <animated_model_instance name="enemy5" core="conejo" position="58.655 -20.6234 -100.257" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
@@ -54,6 +54,11 @@
   <animated_model_instance name="enemy30" core="ciervo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
   <animated_model_instance name="enemy31" core="ciervo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
   <animated_model_instance name="enemy32" core="ciervo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy33" core="ciervo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy34" core="ciervo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <!--<animated_model_instance name="enemy35" core="ciervo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy36" core="ciervo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
+  <animated_model_instance name="enemy37" core="ciervo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />-->
   
   <!--Cabaña, Rio y Puentes-->
   <mesh_instance name="Rio" core="Rio" position="-55.374 -30.9991 -92.2339" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="water" create_physics="false" />
