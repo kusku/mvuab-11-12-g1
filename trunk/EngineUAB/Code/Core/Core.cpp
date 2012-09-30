@@ -354,6 +354,9 @@ void CCore::Update( float _ElapsedTime )
 
 		//Rails
 		m_pRailManager->Update(_ElapsedTime);
+
+		//Triggers
+		m_pTriggersManager->Update(_ElapsedTime);
 	}
 	else
 	{
