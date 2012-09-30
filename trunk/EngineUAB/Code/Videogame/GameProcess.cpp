@@ -21,7 +21,6 @@
 #include "Callbacks\Animation\AnimationCallbackManager.h"
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 #include "HUD\HUD.h"
-#include "Triggers\TriggersManager.h"
 
 #include "Core.h"
 #include "Base.h"
