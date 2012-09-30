@@ -91,7 +91,8 @@ void CRabbitStillAttackState::OnEnter( CCharacter* _pCharacter )
 	}
 
 	m_pRabbit->SetPlayerHasBeenReached( false );
-	
+	m_SoundPlayedScream = false;
+
 	/// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio. En este caso no queremos
 	// pq hace un desplazamiento que después de este ataque no queremos que haga.
 	m_pRabbit->SetToBeTired(false);
@@ -207,6 +208,13 @@ void CRabbitStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTi
 			m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime );
 			m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 
+			// Metemos el sonido. Lo he puesto aquí para retrasarlo un poco ya que antes chillaba un poco temprano y no quedaba tant bien.
+			if ( !m_SoundPlayedScream && m_pActionStateCallback->IsActionInTime( 0.30f ) )
+			{
+				CORE->GetSoundManager()->PlayEvent(m_pRabbit->GetSpeakerName(), "Play_EFX_Rabbit_still_attack"); 
+				m_SoundPlayedScream = true;
+			}
+
 			//float t = m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_STILL_ATTACK_STATE);
 
 			// Aquí comienza el golpeo, la mano está alzada
@@ -274,12 +282,6 @@ void CRabbitStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTi
 			m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
 			m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime );
 			m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
-				
-			/*self.active_animation_id = _CCharacter:get_animation_id("run")
-			_CCharacter:get_animation_model():clear_cycle( self.active_animation_id, 0.3 )
-					
-			self.active_animation_id = _CCharacter:get_animation_id("attack_1")
-			_CCharacter:get_animation_model():execute_action( self.active_animation_id, 0.3 )*/
 				
 			m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetStillAttackAnimationState());
 			m_pAnimationCallback->StartAnimation();

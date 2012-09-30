@@ -78,12 +78,6 @@ void CRabbitIdleState::OnEnter( CCharacter* _pCharacter )
 	m_ActionStateCallback.InitAction(0.f, l_Tiempo );
 	m_ActionStateCallback.StartAction();
 
-	// Esta clase la uso como gestor de sonido para ver cuando debo enviar otro sonido
-	m_SoundDuration = BoostRandomHelper::GetFloat(2.6f, 3.f);
-	m_SoundActionStateCallback.InitAction(0.f, m_SoundDuration );
-	m_SoundActionStateCallback.StartAction();
-	
-
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
@@ -196,22 +190,29 @@ void CRabbitIdleState::UpdateAnimations ( CCharacter*, float _ElapsedTime )
 
 void CRabbitIdleState::UpdateSounds( CCharacter* _pCharacter, float _ElapsedTime )
 {
-	if ( m_SoundActionStateCallback.IsActionFinished() )
+	if ( m_SoundActionStateCallback.IsActionStarted() )
 	{
-		// Si finalizó el tiempo --> finaliza el sonido
-		m_SoundActionStateCallback.InitAction();
+		if ( m_SoundActionStateCallback.IsActionFinished() )
+		{
+			m_IdleWarningSounds = !m_IdleWarningSounds;
+		}
+		else
+		{
+			m_SoundActionStateCallback.Update(_ElapsedTime);
+		}
+	}
+	else
+	{
+		// Esta clase la uso como gestor de sonido para ver cuando debo enviar otro sonido
+		m_SoundDuration = BoostRandomHelper::GetFloat(2.6f, 3.f);
+		m_SoundActionStateCallback.InitAction(0.f, m_SoundDuration );
 		m_SoundActionStateCallback.StartAction();
-
+	
 		if ( m_IdleWarningSounds )
 			CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Rabbit_Idle" );
 		else
 			CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Rabbit_Warn" );
-
-		m_IdleWarningSounds = !m_IdleWarningSounds;
-	}
-	else
-	{
-		m_SoundActionStateCallback.Update(_ElapsedTime);
 	}
 }
+
 	

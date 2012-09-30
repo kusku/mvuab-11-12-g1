@@ -153,39 +153,39 @@ bool CRabbitDeathState::OnMessage( CCharacter* _pCharacter, const STelegram& _Te
 	return false;
 }
 
-
-// Devuelve el tiempo, la duración
-void CRabbitDeathState::PlayRandomSound( void )
-{
-	int l_Num = BoostRandomHelper::GetInt(1,4);
-	if ( l_Num == 1 )
-	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsDeath1");
-		m_SoundDuration = 1.685f;
-	}
-	else if ( l_Num == 2)
-	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsDeath2");
-		m_SoundDuration = 1.550f;
-	}
-	else if ( l_Num == 3)
-	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsDeath3");
-		m_SoundDuration = 2.252f;
-	}
-	else if ( l_Num == 4)
-	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsDeath4");
-		m_SoundDuration = 1.805f;
-	}
-	else if ( l_Num == 5)
-	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsDeath5");
-		m_SoundDuration = 1.742f;
-	}
-	else if ( l_Num == 6)
-	{
-		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsDeath6");
-		m_SoundDuration = 1.952f;
-	}
-}
+//
+//// Devuelve el tiempo, la duración
+//void CRabbitDeathState::PlayRandomSound( void )
+//{
+//	int l_Num = BoostRandomHelper::GetInt(1,4);
+//	if ( l_Num == 1 )
+//	{
+//		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsDeath1");
+//		m_SoundDuration = 1.685f;
+//	}
+//	else if ( l_Num == 2)
+//	{
+//		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsDeath2");
+//		m_SoundDuration = 1.550f;
+//	}
+//	else if ( l_Num == 3)
+//	{
+//		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsDeath3");
+//		m_SoundDuration = 2.252f;
+//	}
+//	else if ( l_Num == 4)
+//	{
+//		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsDeath4");
+//		m_SoundDuration = 1.805f;
+//	}
+//	else if ( l_Num == 5)
+//	{
+//		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsDeath5");
+//		m_SoundDuration = 1.742f;
+//	}
+//	else if ( l_Num == 6)
+//	{
+//		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsDeath6");
+//		m_SoundDuration = 1.952f;
+//	}
+//}

@@ -1093,6 +1093,9 @@
     <None Include="..\..\Run\Videogame\Data\XML\physxobjs.xml">
       <Filter>XML</Filter>
     </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\combat_zone_3.lua">
+      <Filter>Scripts\Game\Triggers</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\Run\Videogame\Data\Effects\VignettingNoise.fx">
