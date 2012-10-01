@@ -6,6 +6,8 @@
 	<trigger name="casa" type="box" position="51.82 -31.56 103.44" size="3.0 2.0 2.0" color="1.0 0.0 1.0 1.0" scriptclass="CHouseTrigger" />
 	<trigger name="final" type="box" position="-30.18 -30.32 104.00" size="4.0 2.0 3.0" color="1.0 0.0 1.0 1.0" scriptclass="CEndGameTrigger" />-->
 	
+	<trigger name="house" type="box" position="-58.106 -5.102 -113.756" size="1.5 3.0 3.5" color="1.0 0.0 1.0 1.0" scriptclass="CEndGameTrigger" />
+	
 	<trigger name="river_1" type="box" position="58.106 -30.102 -170.756" size="17.857 3.0 30.7" color="1.0 0.0 1.0 1.0" scriptclass="CRiverTrigger" />
 	<trigger name="river_2" type="box" position="-130.638 -37.688 -1.816" size="80.171 11.16 12.129" color="1.0 0.0 1.0 1.0" scriptclass="CRiverTrigger" />
 	<trigger name="river_3" type="box" position="-43.638 -42.688 -6.816" size="7.171 10.16 10.129" color="1.0 0.0 1.0 1.0" scriptclass="CRiverTrigger" />

@@ -64,6 +64,7 @@ public:
 	CThPSCharacterCamera*		GetPlayerCamera				() const		{ return m_pThPSCamera; }
 	CAnimationCallbackManager*	GetAnimationCallbackManager	() const		{ return m_pAnimationCallbackManager; }
 	CCharacter*					GetPlayer					() const		{ return GetCharactersManager()->GetPlayer(); }
+	inline CHud*				GetHUD						() const		{ return m_pHUD; }
 
 	//----Members --------------------------------------------------------------------
 private:

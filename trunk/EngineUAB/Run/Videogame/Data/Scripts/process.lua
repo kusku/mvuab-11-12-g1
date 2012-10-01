@@ -1,5 +1,6 @@
 function change_to_game_process()
 	core:get_process():load_game_data()
+	core:set_game_mode(true)
 end
 
 function change_to_game_over_gui_process()

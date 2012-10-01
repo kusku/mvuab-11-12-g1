@@ -44,9 +44,21 @@ CHud::~CHud()
 //------------------------------------------------
 void CHud::CleanUp()
 {
-	CORE->GetTextureManager()->RemoveResource( m_pBar->GetName() );
-	CORE->GetTextureManager()->RemoveResource( m_pMask->GetName() );
-	CORE->GetTextureManager()->RemoveResource( m_pBackground->GetName() );
+	CTextureManager *l_pTextureManager = CORE->GetTextureManager();
+
+	l_pTextureManager->RemoveResource( m_pBar->GetName() );
+	l_pTextureManager->RemoveResource( m_pMask->GetName() );
+	l_pTextureManager->RemoveResource( m_pBackground->GetName() );
+
+	TMapResources l_TextureMap = GetResourcesMap();
+	TMapResources::iterator l_It = l_TextureMap.begin();
+	TMapResources::iterator l_End = l_TextureMap.end();
+	for(; l_It != l_End; ++l_It)
+	{
+		l_pTextureManager->RemoveResource( l_It->first );
+	}
+
+	CTemplatedVectorMapManager::Destroy();
 }
 
 //------------------------------------------------
@@ -77,55 +89,89 @@ bool CHud::LoadFile()
 	CXMLTreeNode l_RootNode = newFile ["HUD"];
 	if ( l_RootNode.Exists() )
 	{
-		m_fThresholdDyingEffect = l_RootNode.GetFloatProperty("threshold_to_dying_effect", 0.f);
-
-		uint8 l_TotalNodes = l_RootNode.GetNumChildren();
-		for ( uint8 i = 0; i < l_TotalNodes; ++i )
+		uint8 l_NumNodes = l_RootNode.GetNumChildren();
+		for(uint8 j=0; j<l_NumNodes; ++j)
 		{
-			std::string l_Type = l_RootNode(i).GetName();
-			if( l_Type == "Background" )
+			CXMLTreeNode l_Node = l_RootNode(j);
+			std::string l_TypeHUD = l_Node.GetName();
+			if( l_TypeHUD == "LifeBar" )
 			{
-				m_BackgroundPosition = l_RootNode(i).GetVect2iProperty("position", v2iZERO);
-				m_BackgroundSize = l_RootNode(i).GetVect2iProperty("size", v2iZERO);
-				m_bBackgroundActive = l_RootNode(i).GetBoolProperty("active", false);
-				std::string l_TextureName = l_RootNode(i).GetPszProperty("texture", "");
+				m_fThresholdDyingEffect = l_Node.GetFloatProperty("threshold_to_dying_effect", 0.f);
 
-				m_pBackground = CORE->GetTextureManager()->GetTexture(l_TextureName);
+				uint8 l_TotalNodes = l_Node.GetNumChildren();
+				for ( uint8 i = 0; i < l_TotalNodes; ++i )
+				{
+					std::string l_Type = l_Node(i).GetName();
+					if( l_Type == "Background" )
+					{
+						m_BackgroundPosition = l_Node(i).GetVect2iProperty("position", v2iZERO);
+						m_BackgroundSize = l_Node(i).GetVect2iProperty("size", v2iZERO);
+						m_bBackgroundActive = l_Node(i).GetBoolProperty("active", false);
+						std::string l_TextureName = l_Node(i).GetPszProperty("texture", "");
 
-				assert( m_pBackground );
+						m_pBackground = CORE->GetTextureManager()->GetTexture(l_TextureName);
 
-				m_pBackground->SetName( l_TextureName );
+						assert( m_pBackground );
 
+						m_pBackground->SetName( l_TextureName );
+
+					}
+					else if( l_Type == "Bar" )
+					{
+						m_BarPosition = l_Node(i).GetVect2iProperty("position", v2iZERO);
+						m_BarSize = l_Node(i).GetVect2iProperty("size", v2iZERO);
+						m_bBarActive = l_Node(i).GetBoolProperty("active", false);
+						std::string l_TextureName = l_Node(i).GetPszProperty("texture", "");
+
+						m_pBar = CORE->GetTextureManager()->GetTexture(l_TextureName);
+
+						assert( m_pBar );
+
+						m_pBar->SetName( l_TextureName );
+						m_BarRealSize = m_BarSize;
+					}
+					else if( l_Type == "Mask" )
+					{
+						m_MaskPosition = l_Node(i).GetVect2iProperty("position", v2iZERO);
+						m_MaskSize = l_Node(i).GetVect2iProperty("size", v2iZERO);
+						m_bMaskActive = l_Node(i).GetBoolProperty("active", false);
+						std::string l_TextureName = l_Node(i).GetPszProperty("texture", "");
+
+						m_pMask = CORE->GetTextureManager()->GetTexture(l_TextureName);
+
+						assert( m_pMask );
+
+						m_pMask->SetName( l_TextureName );
+					}
+				}
 			}
-			else if( l_Type == "Bar" )
+			else if( l_TypeHUD == "Texture" )
 			{
-				m_BarPosition = l_RootNode(i).GetVect2iProperty("position", v2iZERO);
-				m_BarSize = l_RootNode(i).GetVect2iProperty("size", v2iZERO);
-				m_bBarActive = l_RootNode(i).GetBoolProperty("active", false);
-				std::string l_TextureName = l_RootNode(i).GetPszProperty("texture", "");
+				std::string l_Name	= l_Node.GetPszProperty("name", "");
+				std::string l_Path	= l_Node.GetPszProperty("file", "");
+				Vect2i		l_Pos	= l_Node.GetVect2iProperty("position", v2iZERO);
+				Vect2i		l_Size	= l_Node.GetVect2iProperty("size", v2iZERO);
+				bool		l_Active= l_Node.GetBoolProperty("active", false);
 
-				m_pBar = CORE->GetTextureManager()->GetTexture(l_TextureName);
+				CTexture *l_pTexture = new CTexture();
+				l_pTexture->Load(l_Path);
 
-				assert( m_pBar );
+				CORE->GetTextureManager()->AddResource(l_Name, l_pTexture);
 
-				m_pBar->SetName( l_TextureName );
-				m_BarRealSize = m_BarSize;
-			}
-			else if( l_Type == "Mask" )
-			{
-				m_MaskPosition = l_RootNode(i).GetVect2iProperty("position", v2iZERO);
-				m_MaskSize = l_RootNode(i).GetVect2iProperty("size", v2iZERO);
-				m_bMaskActive = l_RootNode(i).GetBoolProperty("active", false);
-				std::string l_TextureName = l_RootNode(i).GetPszProperty("texture", "");
+				STexture *l_pTextureInfo	= new STexture();
+				l_pTextureInfo->pTexture	= l_pTexture;
+				l_pTextureInfo->position	= l_Pos;
+				l_pTextureInfo->size		= l_Size;
+				l_pTextureInfo->bActive		= l_Active;
 
-				m_pMask = CORE->GetTextureManager()->GetTexture(l_TextureName);
-
-				assert( m_pMask );
-
-				m_pMask->SetName( l_TextureName );
+				CTemplatedVectorMapManager::AddResource(l_Name, l_pTextureInfo);
 			}
 		}
+
+		
 	}
+
+	CalculatePositions();
 
 	return true;
 }
@@ -183,10 +229,12 @@ void CHud::Render( CRenderManager &RM )
 	mat.SetIdentity();
 	RM.SetTransform(mat);
 
+	//Inicia la transparencia
 	CORE->GetRenderManager()->GetDevice()->SetRenderState( D3DRS_ALPHABLENDENABLE, TRUE );
 	CORE->GetRenderManager()->GetDevice()->SetRenderState( D3DRS_SRCBLEND, D3DBLEND_SRCALPHA );
 	CORE->GetRenderManager()->GetDevice()->SetRenderState( D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA );
 
+	//Pinta la barra de vida
 	if( m_bBackgroundActive )
 		RM.DrawTexturedQuad2D(m_BackgroundPosition, m_BackgroundSize.x, m_BackgroundSize.y,  UPPER_LEFT, m_pBackground );
 
@@ -196,5 +244,69 @@ void CHud::Render( CRenderManager &RM )
 	if( m_bMaskActive )
 		RM.DrawTexturedQuad2D(m_MaskPosition, m_MaskSize.x, m_MaskSize.y,  UPPER_LEFT, m_pMask );
 
+	//Renderiza otras texturas del HUD
+	TVectorResources l_TextureVector = GetResourcesVector();
+	for(uint16 i=0; i<l_TextureVector.size(); ++i)
+	{
+		STexture *l_pTextureInfo = l_TextureVector[i];
+		if( l_pTextureInfo->bActive )
+		{
+			RM.DrawTexturedQuad2D(l_pTextureInfo->position, l_pTextureInfo->size.x, l_pTextureInfo->size.y,  UPPER_LEFT, l_pTextureInfo->pTexture );
+		}
+	}
+
+	//Finaliza la transparencia
 	CORE->GetRenderManager()->GetDevice()->SetRenderState( D3DRS_ALPHABLENDENABLE, FALSE );
+}
+
+//------------------------------------------------
+bool CHud::IsTextureActive( const std::string &_name )
+{
+	STexture *l_pTextureInfo = CTemplatedVectorMapManager::GetResource(_name);
+	if(l_pTextureInfo != NULL)
+	{
+		return l_pTextureInfo->bActive;
+	}
+
+	return false;
+}
+
+//------------------------------------------------
+void CHud::ActiveTexture( const std::string &_name, bool _bActive )
+{
+	STexture *l_pTextureInfo = CTemplatedVectorMapManager::GetResource(_name);
+	if(l_pTextureInfo != NULL)
+	{
+		l_pTextureInfo->bActive = _bActive;
+	}
+}
+
+//------------------------------------------------
+void CHud::CalculatePositions()
+{
+	Vect2i l_ScreenSize = CORE->GetRenderManager()->GetScreenSize();
+
+	//Calcula la posición de la barra de vida
+	m_MaskPosition.x = static_cast<uint32>(m_MaskPosition.x * 0.01f * l_ScreenSize.x);
+	m_MaskPosition.y = static_cast<uint32>(m_MaskPosition.y * 0.01f * l_ScreenSize.y);
+
+	m_BarPosition.x = static_cast<uint32>(m_BarPosition.x * 0.01f * l_ScreenSize.x);
+	m_BarPosition.y = static_cast<uint32>(m_BarPosition.y * 0.01f * l_ScreenSize.y);
+
+	m_BackgroundPosition.x = static_cast<uint32>(m_BackgroundPosition.x * 0.01f * l_ScreenSize.x);
+	m_BackgroundPosition.y = static_cast<uint32>(m_BackgroundPosition.y * 0.01f * l_ScreenSize.y);
+
+	//Calcula la posición de los elementos de textura
+	TVectorResources l_TextureInfoVector = GetResourcesVector();
+	TVectorResources::iterator l_It = l_TextureInfoVector.begin();
+	TVectorResources::iterator l_ItEnd = l_TextureInfoVector.end();
+	for(; l_It != l_ItEnd; ++l_It)
+	{
+		Vect2i l_Position = (*l_It)->position;
+
+		l_Position.x = static_cast<uint32>(l_Position.x * 0.01f * l_ScreenSize.x);
+		l_Position.y = static_cast<uint32>(l_Position.y * 0.01f * l_ScreenSize.y);
+
+		(*l_It)->position = l_Position;
+	}
 }

@@ -64,7 +64,7 @@ CInstanceMesh::CInstanceMesh(CXMLTreeNode &Node)
 
 	bool		addPhyX		= Node.GetBoolProperty("create_physics", false, false);
 	bool		usePhyXObj	= Node.GetBoolProperty("use_physx_obj", false, addPhyX);
-	std::string	physicsGroupName	= Node.GetPszProperty("physics_group", "ECG_ESCENE", addPhyX);
+	std::string	physicsGroupName	= Node.GetPszProperty("physics_group", "ECG_ESCENE", false);
 	std::string	phyXObjName	= Node.GetPszProperty("physx_obj_name", "", usePhyXObj);
 	bool		usePhyXObjPos = Node.GetBoolProperty("use_physx_obj_pos", false, usePhyXObj);
 	std::string	typePhyX	= Node.GetPszProperty("physics_type", "", addPhyX && !usePhyXObj);
