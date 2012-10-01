@@ -152,6 +152,7 @@ CRenderableObject* CRenderableObjectsManager::AddAnimatedMeshInstance(CXMLTreeNo
 
 	// Jordi 31/08/2012 -- No se miraba ningun atributo del nodo
 	l_AnimatedInstanceModel->SetVisible(Node.GetBoolProperty("visible", "false"));
+	l_AnimatedInstanceModel->SetYaw(Node.GetFloatProperty("yaw", 0.f));
 
 	AddResource( l_AnimatedInstanceModel->GetName(), static_cast<CRenderableObject*>(l_AnimatedInstanceModel) );
 
