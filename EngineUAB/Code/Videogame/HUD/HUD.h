@@ -3,28 +3,43 @@
 #ifndef _HUD_H_
 #define _HUD_H_
 
+#include "Utils\TemplatedVectorMapManager.h"
 #include "Math\Vector2.h"
 #include <string>
 
 class CRenderManager;
 class CTexture;
 
-class CHud
+//------------------------------------------------
+struct STexture
+{
+	CTexture	*pTexture;
+	bool		bActive;
+	Vect2i		position;
+	Vect2i		size;
+};
+
+//------------------------------------------------
+class CHud : public CTemplatedVectorMapManager<STexture>
 {
 public:
 	CHud();
 	~CHud();
 
-	bool	Load		( const std::string &_Filename );
-	bool	Reload		();
-	void	CleanUp		();
+	bool	Load			( const std::string &_Filename );
+	bool	Reload			();
+	void	CleanUp			();
 
-	void	Init		( int _iPlayerLife );
-	void	Update		( float _fElapsedTime, int _iPlayerLife );
-	void	Render		( CRenderManager &RM );
+	void	Init			( int _iPlayerLife );
+	void	Update			( float _fElapsedTime, int _iPlayerLife );
+	void	Render			( CRenderManager &RM );
+
+	bool	IsTextureActive	( const std::string &_name );
+	void	ActiveTexture	( const std::string &_name, bool _bActive );
 
 private:
-	bool	LoadFile	();
+	bool	LoadFile		();
+	void	CalculatePositions();
 
 private:
 	std::string		m_Filename;
@@ -55,5 +70,6 @@ private:
 	CTexture*		m_pMask;
 	CTexture*		m_pBackground;
 };
+//------------------------------------------------
 
 #endif //_HUD_H_

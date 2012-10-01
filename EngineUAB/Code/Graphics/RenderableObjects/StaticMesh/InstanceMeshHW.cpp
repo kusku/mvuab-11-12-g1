@@ -81,7 +81,7 @@ bool CInstanceMeshHW::AddHWInstance(CXMLTreeNode &Node)
 	std::string	phyXObjName	= Node.GetPszProperty("physx_obj_name", "", usePhyXObj);
 	bool		usePhyXObjPos = Node.GetBoolProperty("use_physx_obj_pos", false, usePhyXObj);
 	std::string	typePhyX	= Node.GetPszProperty("physics_type", "", addPhyX && !usePhyXObj);
-	std::string	physicsGroupName	= Node.GetPszProperty("physics_group", "ECG_ESCENE", addPhyX);
+	std::string	physicsGroupName	= Node.GetPszProperty("physics_group", "ECG_ESCENE", false);
 
 	instance->SetName(name);
 	instance->SetPosition(position);

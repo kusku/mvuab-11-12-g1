@@ -26,6 +26,8 @@
 #include "Callbacks\State\ActionStateCallback.h"
 #include "cal3d\animcallback.h"
 
+#include "HUD\HUD.h"
+
 #include "_ScriptAPI\Wrappers\CharacterWrapper.h"
 #include "_ScriptAPI\Wrappers\StateWrapper.h"
 
@@ -51,6 +53,7 @@ namespace ScriptAPI
 					.def("get_animation_callback_manager", &CGameProcess::GetAnimationCallbackManager)
 					.property("player_camera", &CGameProcess::GetPlayerCamera)
 					.def("get_player_camera", &CGameProcess::GetPlayerCamera)
+					.def("get_hud", &CGameProcess::GetHUD)
 			];
 
 		module(_pLua)
@@ -227,6 +230,13 @@ namespace ScriptAPI
 				.property("custom_music_volume", &COptions::GetCustomMusicVolume, &COptions::SetCustomMusicVolume)
 				.property("custom_effects_volume", &COptions::GetCustomEffectsVolume, &COptions::SetCustomEffectsVolume)
 				.property("custom_mouse_inverted", &COptions::GetCustomInvertedMouse, &COptions::SetCustomMouseInverted)
+			];
+
+		module(_pLua)
+			[
+				class_<CHud>("CHud")
+					.def("is_texture_active", &CHud::IsTextureActive)
+					.def("active_texture", &CHud::ActiveTexture)
 			];
 	}
 
