@@ -274,7 +274,8 @@ void CDeerRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 			// Comprobamos que no nos hemos pasado de la posición final
 			Vect2f l_EnemyPosicion  = Vect2f ( m_pDeer->GetPosition().x, m_pDeer->GetPosition().z);
 			Vect2f l_FinalPosicion	= Vect2f ( m_FinalAttackPosition.x, m_FinalAttackPosition.z);
-			if ( l_EnemyPosicion. Distance( l_FinalPosicion ) <= 0.5f )
+			float l_DistanceToObjective = l_EnemyPosicion.Distance( l_FinalPosicion );
+			if ( l_DistanceToObjective <= 0.5f )
 			{
 				m_pDeer->GetBehaviors()->SeekOff();
 				m_PlayerInitialPosition = Vect3f(0,0,0);
@@ -326,10 +327,9 @@ void CDeerRunAttackState::OnExit( CCharacter* _pCharacter )
 	if (!m_pDeer) 
 	{
 		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
+		if (!m_pDeer)
+			return;
 	}
-
-	if (!m_pDeer)
-		return;
 
 	// Quitamos el behaviur
 	m_pDeer->GetBehaviors()->SeekOff();
