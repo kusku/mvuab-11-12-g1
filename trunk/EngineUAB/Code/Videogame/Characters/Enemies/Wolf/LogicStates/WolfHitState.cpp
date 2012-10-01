@@ -96,14 +96,14 @@ void CWolfHitState::OnEnter( CCharacter* _pCharacter )
 		m_pAnimationCallback->Init();
 		m_pAnimationCallback->StartAnimation();
 	
-		CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Deer_Pain");
+		CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Wolf_Pain");
 
 		//// Aprovecho esta variable para calcular el tiempo de duración del desplazamiento
 		//m_ActionDuration = m_pWolf->GetProperties()->GetHitRecoilDistance()/m_pWolf->GetProperties()->GetHitRecoilSpeed() * CORE->GetTimer()->GetElapsedTime();
 		//m_pActionStateCallback.InitAction(0, m_ActionDuration); 
 		//m_pActionStateCallback.StartAction();
 
-		m_ActionDuration = m_pWolf->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_HIT_STATE);
+		m_ActionDuration = m_pWolf->GetAnimatedModel()->GetCurrentAnimationDuration(WOLF_HIT_STATE);
 		m_pActionStateCallback.InitAction(0.f, m_ActionDuration);
 		m_pActionStateCallback.StartAction();
 
@@ -227,9 +227,9 @@ bool CWolfHitState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegr
 
 void CWolfHitState::GenerateImpact( CCharacter* _pCharacter )
 {
-	GetParticleEmitterInstance("DeerBloodSplash", _pCharacter->GetName() + "_DeerBloodSplash")->EjectParticles();
-	GetParticleEmitterInstance("DeerBloodDust",	  _pCharacter->GetName() + "_DeerBloodDust")->EjectParticles();
-	GetParticleEmitterInstance("DeerBlood",		  _pCharacter->GetName() + "_DeerBlood")->EjectParticles();
+	GetParticleEmitterInstance("WolfBloodSplash", _pCharacter->GetName() + "_WolfBloodSplash")->EjectParticles();
+	GetParticleEmitterInstance("WolfBloodDust",	  _pCharacter->GetName() + "_WolfBloodDust")->EjectParticles();
+	GetParticleEmitterInstance("WolfBlood",		  _pCharacter->GetName() + "_WolfBlood")->EjectParticles();
 }
 
 void CWolfHitState::UpdateImpact( CCharacter* _pCharacter )
@@ -237,16 +237,16 @@ void CWolfHitState::UpdateImpact( CCharacter* _pCharacter )
 	Vect3f l_Pos = _pCharacter->GetPosition() + _pCharacter->GetFront();
 	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
 	
-	SetParticlePosition(_pCharacter, "DeerBloodSplash", _pCharacter->GetName() + "_DeerBloodSplash", "", l_Pos );
-	SetParticlePosition(_pCharacter, "DeerBloodDust",	_pCharacter->GetName() + "_DeerBloodDust",	 "", l_Pos);
-	SetParticlePosition(_pCharacter, "DeerBlood",		_pCharacter->GetName() + "_DeerBlood",	"", l_Pos);
+	SetParticlePosition(_pCharacter, "WolfBloodSplash", _pCharacter->GetName() + "_WolfBloodSplash", "", l_Pos );
+	SetParticlePosition(_pCharacter, "WolfBloodDust",	_pCharacter->GetName() + "_WolfBloodDust",	 "", l_Pos);
+	SetParticlePosition(_pCharacter, "WolfBlood",		_pCharacter->GetName() + "_WolfBlood",	"", l_Pos);
 }
 
 void CWolfHitState::StopImpact( CCharacter* _pCharacter )
 {
-	GetParticleEmitterInstance("DeerBloodSplash", _pCharacter->GetName() + "_DeerBloodSplash")->StopEjectParticles();
-	GetParticleEmitterInstance("DeerBloodDust",	  _pCharacter->GetName() + "_DeerBloodDust")->StopEjectParticles();
-	GetParticleEmitterInstance("DeerBlood",		  _pCharacter->GetName() + "_DeerBlood")->StopEjectParticles();
+	GetParticleEmitterInstance("WolfBloodSplash", _pCharacter->GetName() + "_WolfBloodSplash")->StopEjectParticles();
+	GetParticleEmitterInstance("WolfBloodDust",	  _pCharacter->GetName() + "_WolfBloodDust")->StopEjectParticles();
+	GetParticleEmitterInstance("WolfBlood",		  _pCharacter->GetName() + "_WolfBlood")->StopEjectParticles();
 }
 
 

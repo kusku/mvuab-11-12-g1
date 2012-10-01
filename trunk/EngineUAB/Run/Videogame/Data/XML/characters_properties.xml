@@ -36,10 +36,10 @@
 		<speed>2</speed>
 		<max_rotation_speed>360</max_rotation_speed>
 		<min_speed>0.05</min_speed>
-		<max_speed>0.30</max_speed>
+		<max_speed>0.36</max_speed>
 		<max_acceleration>0.1</max_acceleration>
 		<max_force>0.015</max_force>
-		<still_attack_speed>0.3</still_attack_speed>
+		<still_attack_speed>0.7</still_attack_speed>
 		<!-- Velocidad de ataque 1 --> 
 		<run_attack_speed>0.4</run_attack_speed>
 		<!-- Velocidad de ataque 2 --> 
@@ -67,7 +67,7 @@
 		<!-- Está encima el player -->
 		<attack_distance>9</attack_distance>
 		<!-- Está en distancia de poder hacer algunos de los ataques o defensa -->
-		<prepared_to_attack_distance>9s.0</prepared_to_attack_distance>
+		<prepared_to_attack_distance>9.0</prepared_to_attack_distance>
 		<!-- Está lejos de poder atacar pero cerca de poder hacerlo -->
 		<aproximation_distance>19</aproximation_distance>
 		<!-- Está lejos y debe acercarse -->
@@ -204,10 +204,12 @@
 		<strong>30</strong>
 		<speed>25</speed>
 		<velocity>0 0 0</velocity>
+		<yaw>2.36</yaw>
 		<respawn_position>0 10 0</respawn_position>
 		<!--<position>108 -14 -172</position>-->
 		<position>-64 -14 -20</position>
 		<!--<position>10 -40 28</position>-->
+		
 	</player>
 	<enemies>
 		<enemy name="enemy1" core="lobo" animated_instace_name="lobo1" >

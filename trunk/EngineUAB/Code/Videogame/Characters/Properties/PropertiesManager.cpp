@@ -79,6 +79,12 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 			Vect3f l_Vect = l_XMLPropertiesNode(i).GetVect3fKeyword ("position");
 			l_Properties->SetPosition( l_Vect );
 		}
+		else if( l_PropertyField == "yaw" )
+		{
+			float l_Yaw = l_XMLPropertiesNode(i).GetFloatKeyword("yaw");
+			l_Properties->SetYaw( l_Yaw );
+		}
+
 
 		// --- Propiedades de distancias --- // 
 		else if( l_PropertyField == "detection_distance" )

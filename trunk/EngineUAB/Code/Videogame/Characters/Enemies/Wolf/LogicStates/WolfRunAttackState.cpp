@@ -86,6 +86,10 @@ void CWolfRunAttackState::OnEnter( CCharacter* _pCharacter )
 	m_pWolf->SetPlayerHasBeenReached( false );
 	m_playerPushed = false;
 
+	/// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio. En este caso no queremos
+	// pq hace un desplazamiento que después de este ataque no queremos que haga.
+	m_pWolf->SetToBeTired(false);
+
 	// Metemos más velocidad al ataque i menos massa para acelerar más 
 	m_pWolf->GetSteeringEntity()->SetMaxSpeed(m_pWolf->GetProperties()->GetRunAttackSpeed());
 	m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
@@ -96,9 +100,9 @@ void CWolfRunAttackState::OnEnter( CCharacter* _pCharacter )
 	Vect3f l_RelativePosition	= m_PlayerInitialPosition - m_pWolf->GetPosition();
 	Vect3f l_RelativePositionN	= l_RelativePosition.GetNormalized();
 	m_InitialDistance			= m_pWolf->GetDistanceToPlayer();
-	if ( m_InitialDistance <= 7 )
+	if ( m_InitialDistance <= 9 )
 	{
-		m_FinalAttackPosition = l_Position + (l_RelativePositionN * ( m_InitialDistance + 7.f) );
+		m_FinalAttackPosition = l_Position + (l_RelativePositionN * ( 9.f) );
 	}
 	else
 	{
@@ -129,8 +133,15 @@ void CWolfRunAttackState::OnEnter( CCharacter* _pCharacter )
 
 void CWolfRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 {
+	if (!m_pWolf) 
+	{
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
+		if (!m_pWolf)
+			return;
+	}
+	
 	UpdateImpact(m_pWolf);
-	GetParticleEmitterInstance("WolfRunAttackCloud", _pCharacter->GetName() + "_RunAttackCloud")->EjectParticles();
+	//GetParticleEmitterInstance("WolfRunAttackCloud", _pCharacter->GetName() + "_RunAttackCloud")->EjectParticles();
 	
 	if ( m_pAnimationCallback->IsAnimationStarted() ) 
 	{
@@ -160,13 +171,13 @@ void CWolfRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		//if ( m_pAnimationCallback->IsAnimationFinished() || ( m_PlayerPositionReached ) )
 		if ( m_pAnimationCallback->IsAnimationFinished() )
 		{
-			// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio. En este caso no queremos
-			// pq hace un desplazamiento que después de este ataque no queremos que haga.
-			m_pWolf->SetToBeTired(false);
-
 			// Si encontré el player por delante finalizo golpeando
 			if ( m_pWolf->GetPlayerHasBeenReached() )
 			{
+				// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio. En este caso no queremos
+				// pq hace un desplazamiento que después de este ataque no queremos que haga.
+				m_pWolf->SetToBeTired(true);
+
 				if ( DISPATCH != NULL ) 
 				{
 					DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pWolf->GetID(), m_pWolf->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
@@ -263,7 +274,8 @@ void CWolfRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 			// Comprobamos que no nos hemos pasado de la posición final
 			Vect2f l_EnemyPosicion  = Vect2f ( m_pWolf->GetPosition().x, m_pWolf->GetPosition().z);
 			Vect2f l_FinalPosicion	= Vect2f ( m_FinalAttackPosition.x, m_FinalAttackPosition.z);
-			if ( l_EnemyPosicion. Distance( l_FinalPosicion ) <= 0.5f )
+			float l_DistanceToObjective = l_EnemyPosicion.Distance( l_FinalPosicion );
+			if ( l_DistanceToObjective <= 1.5f )
 			{
 				m_pWolf->GetBehaviors()->SeekOff();
 				m_PlayerInitialPosition = Vect3f(0,0,0);
@@ -304,7 +316,7 @@ void CWolfRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		if ( m_pWolf->GetPlayerHasBeenReached() == false && m_pWolf->IsPlayerReached() )
 		{
 			m_pWolf->SetPlayerHasBeenReached(true);
-			CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Wolf_Run_Attack_Charged"); 
+			CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Deer_Run_Attack_Charged"); 
 		}
 	}
 }
@@ -315,10 +327,9 @@ void CWolfRunAttackState::OnExit( CCharacter* _pCharacter )
 	if (!m_pWolf) 
 	{
 		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
+		if (!m_pWolf)
+			return;
 	}
-
-	if (!m_pWolf)
-		return;
 
 	// Quitamos el behaviur
 	m_pWolf->GetBehaviors()->SeekOff();
@@ -356,27 +367,27 @@ bool CWolfRunAttackState::OnMessage( CCharacter* _pCharacter, const STelegram& _
 void CWolfRunAttackState::GenerateImpact( CCharacter* _pCharacter )
 {
 	//GetParticleGroupInstance("WolfRunAttack","WolfRunAttack")->GetEmitterInstance("...");
-	/*GetParticleEmitterInstance("WolfRunImpact",		 _pCharacter->GetName() + "_WolfRunImpact")->EjectParticles();
-	GetParticleEmitterInstance("WolfRunExpandWave",  _pCharacter->GetName() + "_WolfRunExpandWave")->EjectParticles();
-	GetParticleEmitterInstance("WolfRunAttackRay",   _pCharacter->GetName() + "_WolfRunAttackRay")->EjectParticles();
-	GetParticleEmitterInstance("WolfRunAttackCloud", _pCharacter->GetName() + "_WolfRunAttackCloud")->EjectParticles();*/
+	GetParticleEmitterInstance("WolfImpact",		 _pCharacter->GetName() + "_WolfRunImpact")->EjectParticles();
+	GetParticleEmitterInstance("WolfExpandWave",  _pCharacter->GetName() + "_WolfRunExpandWave")->EjectParticles();
+	/*GetParticleEmitterInstance("WolfRunAttackRay",   _pCharacter->GetName() + "_WolfRunAttackRay")->EjectParticles();*/
+	GetParticleEmitterInstance("WolfRunAttackCloud", _pCharacter->GetName() + "_WolfRunAttackCloud")->EjectParticles();
 }
 
 void CWolfRunAttackState::UpdateImpact( CCharacter* _pCharacter )
 {
-	/*Vect3f l_Pos = _pCharacter->GetPosition() + _pCharacter->GetFront();
+	Vect3f l_Pos = _pCharacter->GetPosition() + _pCharacter->GetFront();
 	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
-	SetParticlePosition(_pCharacter, "WolfRunImpact",	   _pCharacter->GetName() + "_WolfRunImpact",		"", l_Pos);
-	SetParticlePosition(_pCharacter, "WolfRunExpandWave",  _pCharacter->GetName() + "_WolfRunExpandWave",	"", l_Pos);
-	SetParticlePosition(_pCharacter, "WolfRunAttackRay",   _pCharacter->GetName() + "_WolfRunAttackRay",    "", l_Pos);
-	SetParticlePosition(_pCharacter, "WolfRunAttackCloud", _pCharacter->GetName() + "_WolfRunAttackCloud",	"", _pCharacter->GetPosition());*/
+	SetParticlePosition(_pCharacter, "WolfImpact",	   _pCharacter->GetName() + "_WolfRunImpact",		"", l_Pos);
+	SetParticlePosition(_pCharacter, "WolfExpandWave",  _pCharacter->GetName() + "_WolfRunExpandWave",	"", l_Pos);
+	/*SetParticlePosition(_pCharacter, "WolfRunAttackRay",   _pCharacter->GetName() + "_WolfRunAttackRay",    "", l_Pos);*/
+	SetParticlePosition(_pCharacter, "WolfRunAttackCloud", _pCharacter->GetName() + "_WolfRunAttackCloud",	"", _pCharacter->GetPosition());
 }
 
 void CWolfRunAttackState::StopImpact( CCharacter* _pCharacter )
 {
 	//GetParticleGroupInstance("WolfRunAttack","WolfRunAttack")->GetEmitterInstance("...")->StopEjectParticles
-	/*GetParticleEmitterInstance("WolfRunImpact",		 _pCharacter->GetName() + "_WolfRunImpact")->StopEjectParticles();
-	GetParticleEmitterInstance("WolfRunExpandWave",  _pCharacter->GetName() + "_WolfRunExpandWave")->StopEjectParticles();
-	GetParticleEmitterInstance("WolfRunAttackRay",   _pCharacter->GetName() + "_WolfRunAttackRay")->StopEjectParticles();
-	GetParticleEmitterInstance("WolfRunAttackCloud", _pCharacter->GetName() + "_WolfRunAttackCloud")->StopEjectParticles();*/
+	GetParticleEmitterInstance("WolfImpact",		 _pCharacter->GetName() + "_WolfRunImpact")->StopEjectParticles();
+	GetParticleEmitterInstance("WolfExpandWave",  _pCharacter->GetName() + "_WolfRunExpandWave")->StopEjectParticles();
+	/*GetParticleEmitterInstance("WolfRunAttackRay",   _pCharacter->GetName() + "_WolfRunAttackRay")->StopEjectParticles();*/
+	GetParticleEmitterInstance("WolfRunAttackCloud", _pCharacter->GetName() + "_WolfRunAttackCloud")->StopEjectParticles();
 }
