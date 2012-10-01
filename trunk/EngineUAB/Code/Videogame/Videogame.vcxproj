@@ -86,7 +86,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)\Code\3dParty\libxml2-2.7.2.win32\lib;$(SolutionDir)\bin\lib;$(DXSDK_DIR)\lib\x86;$(SolutionDir)\Code\3dParty\cal3d-0.11rc2\bin\lib;$(_PHYSX_SDK)\lib\Win32;$(WWISESDK)\Win32_vc100\$(Configuration)\lib;$(_PHYSX_SDK_UAB)\lib\Win32;$(WWISESDK)\Win32_vc100\Profile\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libxml2.lib;base.lib;core.lib;graphics.lib;input.lib;gui.lib;LUA.lib;logic.lib;sound.lib;PhysX.lib;LUABind.lib;d3dx9d.lib;d3d9.lib;d3dxof.lib;dxguid.lib;dinput8.lib;xinput.lib;winmm.lib;cal3d.lib;PhysXLoader.lib;NxCooking.lib;NxCharacter.lib;AkSoundEngine.lib;AkMemoryMgr.lib;AkStreamMgr.lib;AkMusicEngine.lib;AkSoundEngineDLL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libxml2.lib;base.lib;core.lib;graphics.lib;input.lib;gui.lib;LUA.lib;logic.lib;sound.lib;PhysX.lib;LUABind.lib;d3dx9.lib;d3d9.lib;d3dxof.lib;dxguid.lib;dinput8.lib;xinput.lib;winmm.lib;cal3d.lib;PhysXLoader.lib;NxCooking.lib;NxCharacter.lib;AkSoundEngine.lib;AkMemoryMgr.lib;AkStreamMgr.lib;AkMusicEngine.lib;AkSoundEngineDLL.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
