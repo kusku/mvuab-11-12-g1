@@ -7,6 +7,7 @@
 #include "Utils\Random.h"
 #include "GameProcess.h"
 #include "EngineProcess.h"
+#include "SoundManager.h"
 
 #include "Characters\CharacterManager.h"
 #include "Characters\Player\Player.h"
@@ -47,6 +48,10 @@ void CPlayerIdleState::OnEnter( CCharacter* _pCharacter )
 	}
 #endif
 
+	/*_pCharacter->SetYaw(2.56f);
+	_pCharacter->GetAnimatedModel()->SetYaw(-1.20f);*/
+
+
 	// Ahora debemos actualizar las partículas
 	//UpdateParticlesPositions(_pCharacter);
 
@@ -61,7 +66,7 @@ void CPlayerIdleState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 
 	// Gestión de partículas
 	UpdateImpact(_pCharacter);
-	GenerateImpact(_pCharacter);
+	//GenerateImpact(_pCharacter);
 	
 	if( !_pCharacter->GetLocked() )
 	{
@@ -210,6 +215,9 @@ void CPlayerIdleState::UpdateParticlesPositions( CCharacter* _pCharacter )
 
 void CPlayerIdleState::GenerateImpact( CCharacter* _pCharacter )
 {
+	//GetParticleEmitterInstance("Twister", _pCharacter->GetName() + "_Twister")->EjectParticles();
+	//CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_51467_missile_explosion" );
+	
 	//GetParticleEmitter("FireSwordBlur")->EjectParticles();
 	//GetParticleEmitter("FireSwordSmoke")->EjectParticles();
 	/*GetParticleEmitterInstance("DeerBloodSplash", _pCharacter->GetName() + "_DeerBloodSplash")->EjectParticles();
@@ -220,11 +228,13 @@ void CPlayerIdleState::GenerateImpact( CCharacter* _pCharacter )
 void CPlayerIdleState::UpdateImpact( CCharacter* _pCharacter )
 {
 	Vect3f l_Pos = _pCharacter->GetPosition() + _pCharacter->GetFront();
-	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
+	//l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
 	
-	SetParticlePosition(_pCharacter, "DeerBloodSplash", _pCharacter->GetName() + "_DeerBloodSplash", "", l_Pos );
+	//SetParticlePosition(_pCharacter, "Twister", _pCharacter->GetName() + "_Twister", "", l_Pos );
+
+	/*SetParticlePosition(_pCharacter, "DeerBloodSplash", _pCharacter->GetName() + "_DeerBloodSplash", "", l_Pos );
 	SetParticlePosition(_pCharacter, "DeerBloodDust",	_pCharacter->GetName() + "_DeerBloodDust",	 "", l_Pos);
-	SetParticlePosition(_pCharacter, "DeerBlood",		_pCharacter->GetName() + "_DeerBlood",	"", l_Pos);
+	SetParticlePosition(_pCharacter, "DeerBlood",		_pCharacter->GetName() + "_DeerBlood",	"", l_Pos);*/
 	/*SetParticlePosition(_pCharacter, "FireSwordBlur", "CHR_CAP L Hand" );
 	SetParticlePosition(_pCharacter, "FireSwordSmoke", "CHR_CAP L Hand" );*/
 
