@@ -2,7 +2,7 @@
 <particle_settings>
 
 	<settings name="Twister">
-		<TextureName value="./Data/General/Textures/Particles/Waterfall0040.png" />
+		<TextureName value="./Data/General/Textures/Particles/Waterfall0040000.png" />
 		<MaxParticles value="100" />
 		<Duration value="5" />
 		<MinHorizontalVelocity value="0" />
@@ -619,6 +619,29 @@
 		<MinEndSize value="1.000000"/>
 		<MaxEndSize value="2.000000"/>
 		<BlendState value="Additive"/>
+	</settings>
+
+	<settings name="WolfClouds">
+		<TextureName value="./Data/General/Textures/Particles/FuzzL.png"/>
+		<MaxParticles value="20"/>
+		<Duration value="2.600000"/>
+		<DurationRandomness value="1.000000"/>
+		<EmitterVelocitySensitivity value="1.000000"/>
+		<MinHorizontalVelocity value="0.000000"/>
+		<MaxHorizontalVelocity value="0.000000"/>
+		<MinVerticalVelocity value="1.000000"/>
+		<MaxVerticalVelocity value="2.000000"/>
+		<Gravity value="0.000000 0.000000 0.000000"/>
+		<EndVelocity value="0.000000"/>
+		<MinColor value="191.000000 202.000000 255.000000 55.000000"/>
+		<MaxColor value="255.000000 171.000000 249.000000 55.000000"/>
+		<MinRotateSpeed value="0.000000"/>
+		<MaxRotateSpeed value="0.000000"/>
+		<MinStartSize value="1.000000"/>
+		<MaxStartSize value="1.000000"/>
+		<MinEndSize value="16.000000"/>
+		<MaxEndSize value="16.000000"/>
+		<BlendState value="NonPremultiplied"/>
 	</settings>
 
 	<settings name="WolfBlockedSparks">

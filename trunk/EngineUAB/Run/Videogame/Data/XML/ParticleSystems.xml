@@ -36,6 +36,7 @@
 	<system name="WolfExpandWave"             settings_name="WolfExpandWave" />
 	<system name="WolfStreaks"                settings_name="WolfStreaks" />
 	<system name="WolfSparks"                 settings_name="WolfSparks" />
+	<system name="WolfClouds"                 settings_name="WolfClouds" />
 	
 	<system name="WolfBlood"                  settings_name="WolfBlood" />
 	<system name="WolfBloodDust"              settings_name="WolfBloodDust" />
