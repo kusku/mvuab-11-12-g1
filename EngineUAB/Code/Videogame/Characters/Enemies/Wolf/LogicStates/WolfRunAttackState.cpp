@@ -141,7 +141,7 @@ void CWolfRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 	}
 	
 	UpdateImpact(m_pWolf);
-	//GetParticleEmitterInstance("WolfRunAttackCloud", _pCharacter->GetName() + "_RunAttackCloud")->EjectParticles();
+	GetParticleEmitterInstance("WolfRunAttackCloud", _pCharacter->GetName() + "_WolfRunAttackCloud")->EjectParticles();
 	
 	if ( m_pAnimationCallback->IsAnimationStarted() ) 
 	{
