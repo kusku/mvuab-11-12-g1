@@ -81,6 +81,7 @@ namespace ScriptAPI
 					.def("rest_strong", &CCharacter::RestStrong)
 					.def("get_front", &CCharacter::GetFront)
 					.def("is_alive", &CCharacter::IsAlive)
+					.def("appearance", &CCharacter::Appearance)
 					.property("behaviors", &CCharacter::GetBehaviors)
 					.property("steering_entity", &CCharacter::GetSteeringEntity)
 					.property("physic_controller", &CCharacter::GetController)	
