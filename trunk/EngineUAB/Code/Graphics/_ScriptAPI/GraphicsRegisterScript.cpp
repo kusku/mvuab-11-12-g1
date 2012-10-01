@@ -6,6 +6,8 @@
 #include "Utils/Named.h"
 #include "cal3d\animcallback.h"
 
+#include "Particles\ParticleEmitterManager.h"
+
 #if defined (_DEBUG)
 #include "Memory/MemLeaks.h"
 #endif
@@ -44,6 +46,13 @@ namespace ScriptAPI
 		module(_pLua) [
 			class_<CalAnimationCallback>("CalAnimationCallback")
 		];
+
+		/*module(_pLua) [
+			class_<CParticleEmitterManager>("CParticleEmitterManager")
+				.def("get_resource", &CParticleEmitterManager()
+		];*/
+
+		
 	}
 
 } //namespace ScriptAPI
