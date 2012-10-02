@@ -7,10 +7,11 @@ class 'CCombatZone1Trigger' (CBoxTrigger)
 		self.action_time = CActionStateCallback(0,1)
 		self.action_time:init_action()
 		
-		self.enable_action_time = CActionStateCallback(0,5)
+		self.enable_action_time = CActionStateCallback(0,0.4)
 		self.enable_action_time:init_action()
 		
 		self.enemy_appeared = 1
+		self.total_enemies  = 7 	-- Total de enemigos en la lista
 		self.is_appeared = false
 	end
 	
@@ -22,33 +23,31 @@ class 'CCombatZone1Trigger' (CBoxTrigger)
 		if ( self.action_time:is_action_started() ) then
 			if ( self.action_time:is_action_finished() ) then
 				self.action_time:start_action()
-				
-				self.enemy_appeared = self.enemy_appeared + 1
 			else 
 				self.action_time:update(elapsed_time)
 				
 				if ( get_game_process():get_character_manager():get_enemy_by_name(t[self.enemy_appeared]).enable == false ) then
-					get_game_process():get_character_manager():get_enemy_by_name(t[self.enemy_appeared]).enable = true
-					get_game_process():get_character_manager():get_enemy_by_name(t[self.enemy_appeared]).visible = false
 					get_game_process():get_character_manager():get_enemy_by_name(t[self.enemy_appeared]):appearance()
 					self.enable_action_time:start_action()
 				end
 			end 
 		end
 
-		-- if ( self.enable_action_time:is_action_started() ) then
-			-- if ( self.enable_action_time:is_action_finished() ) then
-				-- if ( get_game_process():get_character_manager():get_enemy_by_name(t[self.enemy_appeared]).enable == false ) then
-					-- get_game_process():get_character_manager():get_enemy_by_name(t[self.enemy_appeared]).enable = true
+		if ( self.enable_action_time:is_action_started() ) then
+			if ( self.enable_action_time:is_action_finished() ) then
+				--if ( get_game_process():get_character_manager():get_enemy_by_name(t[self.enemy_appeared]).enable == false ) then
+					get_game_process():get_character_manager():get_enemy_by_name(t[self.enemy_appeared]).enable = true
+					self.enemy_appeared = self.enemy_appeared + 1
 				-- end
-				-- self.enemy_appeared = self.enemy_appeared + 1
-			-- else 
-				-- self.enable_action_time:update(elapsed_time)
-			-- end 
-		-- end
+			else 
+				self.enable_action_time:update(elapsed_time)
+			end 
+		end
 		
-								
-
+		if ( self.enemy_appeared == ( self.total_enemies - 1 ) ) then
+			-- Desactivamos el trigger
+			self.active = false
+		end
 								
 		-- for i=1,# t do
 			-- get_game_process():get_character_manager():get_enemy_by_name(t[i]).enable = true
@@ -64,8 +63,7 @@ class 'CCombatZone1Trigger' (CBoxTrigger)
 		self.action_time:start_action()
 		self.enemy_appeared = 1
 		
-		-- Desactivamos el trigger
-		-- self.active = false
+		
 	end
 	
 	function CCombatZone1Trigger:on_stay()
