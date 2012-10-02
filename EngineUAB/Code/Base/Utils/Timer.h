@@ -21,7 +21,7 @@ public:
 	CTimer(uint32 avgSamples);
 	~CTimer();
 
-	void			Update			();
+	void			Update			( float _AddRestValue = 0.f );
 	float			GetElapsedTime	() const { return m_fElpasedTime; }
 	float			GetFPS			() const { return m_fFPS; }
 	float			GetTotalTime	() const { return m_fTotalTime; }
