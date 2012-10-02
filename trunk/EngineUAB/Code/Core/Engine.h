@@ -37,7 +37,7 @@ private:
 public:
 	void			LoadConfigXML		( const std::string &_ConfigFile );
 	void			Reload				( void );
-
+	
 	//----Properties ( get & Set )---------------------------------------
 	void			SetProcess			( CEngineProcess *_Process );
 	CEngineProcess*	GetProcess			( void ) const						{ return m_pProcess; }
@@ -47,6 +47,8 @@ public:
 	Vect2i			GetPosition			( void ) const						{ return m_Config.position; }
 
 	const SConfig&	GetConfig			( void ) const						{ return m_Config; }
+
+	void			SetIncreaseTimer	( float _Increase ) 				{ m_TimerIncreasing = _Increase; }
 
 	//----Members -------------------------------------------------------
 protected:
@@ -63,6 +65,8 @@ protected:
 	CTimer			m_Timer;
 
 	SConfig			m_Config;
+
+	float			m_TimerIncreasing;		// Valor el qual permitirá multiplicar por el timer para acelerar/desacelerar el juego
 };
 
 #endif

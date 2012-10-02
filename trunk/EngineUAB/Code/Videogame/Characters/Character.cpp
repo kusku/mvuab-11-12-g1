@@ -881,10 +881,16 @@ int CCharacter::GetAnimationID( const std::string &_AnimationName )
 void CCharacter::Appearance( void )
 {
 	// Si se habilitat aparecen con partículas y sonido
-	Vect3f v = GetPosition();
-	v.y -= m_pProperties->GetHeightController();
+	Vect3f l_Pos1 = GetPosition();
+	Vect3f l_Pos2 = this->GetPlayer()->GetPosition();
+	Vect3f l_RelativePosition = l_Pos2 - l_Pos1;
+	l_RelativePosition.Normalize();
+	Vect3f l_Pos = l_Pos1 + l_RelativePosition;
+	l_Pos.y = l_Pos1.y;
+
+	//v.y -= m_pProperties->GetHeightController();
 	m_pProperties->SetActive(true);
-	CORE->GetParticleEmitterManager()->GetResource("Twister")->GetParticleEmitterInstance(GetName() + "_Twister")->SetPosition(v);
+	CORE->GetParticleEmitterManager()->GetResource("Twister")->GetParticleEmitterInstance(GetName() + "_Twister")->SetPosition(l_Pos);
 	CORE->GetParticleEmitterManager()->GetResource("Twister")->GetParticleEmitterInstance(GetName() + "_Twister")->EjectParticles();
 	CORE->GetSoundManager()->PlayEvent( GetSpeakerName(), "Play_EFX_51467_missile_explosion" );
 }
@@ -894,6 +900,7 @@ void CCharacter::SetEnable( bool _Enable )
 	m_pCurrentAnimatedModel->SetVisible(_Enable);
 	m_pController->SetVisible(_Enable);
 	m_pProperties->SetActive(_Enable);
+	m_pProperties->SetLocked(_Enable);
 	m_pProperties->SetVisible(_Enable);
 	m_pController->SetActive(_Enable);
 	if (!_Enable & !IsAlive())

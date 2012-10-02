@@ -33,6 +33,7 @@
 #define ACTION_RELOAD_PARTICLES				"ReloadParticles"
 
 
+
 // ********* CONSOLE *********** 
 #define ACTION_CONSOLE						"Console"
 
@@ -67,6 +68,7 @@
 
 // ********* MISC *********** 
 #define ACTION_PRINT_SCREEN_TO_FILE			"SaveScreenToFile" 
+#define ACTION_ACTIVATE_DEACTIVATE_TIMER	"ActiveDeactiveTimerAceleration"
 
 struct SConfig
 {
