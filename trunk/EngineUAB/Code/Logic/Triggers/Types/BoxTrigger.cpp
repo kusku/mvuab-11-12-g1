@@ -21,6 +21,8 @@
 
 //----------------------------------------------
 CBoxTrigger::CBoxTrigger()
+	: m_fYaw(0.f)
+	, m_Size(v3fZERO)
 {
 }
 
@@ -35,6 +37,7 @@ void CBoxTrigger::ReadData( CXMLTreeNode &_Node )
 	m_Name			= _Node.GetPszProperty("name", "");
 	m_Position		= _Node.GetVect3fProperty("position", v3fZERO);
 	m_Size			= _Node.GetVect3fProperty("size", v3fZERO);
+	m_fYaw			= _Node.GetFloatProperty("yaw", 0.f);
 	m_RenderColor	= CColor( _Node.GetVect4fProperty("color", Vect4f(1.f, 1.f, 1.f, 1.f)) );
 
 	std::string l_ROName = _Node.GetPszProperty("renderable_object", "", false);
@@ -49,6 +52,8 @@ void CBoxTrigger::ReadData( CXMLTreeNode &_Node )
 			LOGGER->AddNewLog(ELL_WARNING, "CBoxTrigger::ReadData->No se ha podido obtener el objeto: %s de la capa Solid.", l_ROName.c_str());
 		}
 	}
+
+	m_fYaw = mathUtils::Deg2Rad(m_fYaw);
 }
 
 //----------------------------------------------
@@ -62,6 +67,11 @@ void CBoxTrigger::Init()
 	m_pTriggerActor->CreateBoxTrigger( m_Position, m_Size, ECG_TRIGGERS );
 
 	CORE->GetPhysicsManager()->AddPhysicActor(m_pTriggerActor);
+
+	Mat33f mat;
+	mat.SetIdentity();
+	mat.SetFromAngleY(m_fYaw);
+	m_pTriggerActor->SetRotation(mat);
 }
 
 //----------------------------------------------
@@ -74,11 +84,18 @@ void CBoxTrigger::Update( float _fElapsedTime )
 void CBoxTrigger::Render( CRenderManager *_RM )
 {
 	Mat44f l_Translation;
+	Mat44f l_Rotation;
 
 	if( m_bRenderDebugTrigger )
 	{
 		l_Translation.SetIdentity();
+		l_Rotation.SetIdentity();
+
+		l_Rotation.SetFromAngleY(m_fYaw);
 		l_Translation.Translate(m_Position);
+
+		l_Translation = l_Translation * l_Rotation;
+
 		_RM->SetTransform(l_Translation);
 
 		_RM->DrawCube(m_Size, m_RenderColor);

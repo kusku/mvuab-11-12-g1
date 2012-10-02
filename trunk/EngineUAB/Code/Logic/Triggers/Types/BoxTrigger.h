@@ -34,6 +34,7 @@ public:
 
 private:
 	Vect3f		m_Size;
+	float		m_fYaw;
 };
 
 #endif //_BOX_TRIGGER_H_
