@@ -5,10 +5,13 @@
 #include <luabind/adopt_policy.hpp>
 
 #include "CharacterManager.h"
+#include "Character.h"
+
 #include "Enemies\Rabbit\Rabbit.h"
 #include "Enemies\Wolf\Wolf.h"
 #include "Enemies\Deer\Deer.h"
 
+#include "VideogameDefs.h"
 #include "Math\Vector3.h"
 #include "Utils\Random.h"
 #include "Logger\Logger.h"
@@ -744,11 +747,13 @@ bool CCharactersManager::LoadEnemiesProperties( const CXMLTreeNode &_Node )
 							l_Character = call_function<CCharacter*>(SCRIPT->GetLuaState(), l_LUAClass.c_str(), l_NextIDValid, l_EnemyProperties->GetName() )[adopt(result)];*/
 							std::string l_LUAClass = "CWolf";
 							l_Character = new CWolf(l_NextIDValid, l_EnemyProperties->GetName());
+							l_Character->SetCharacterType(WOLF);
 						}
 						if ( l_EnemyProperties->GetCore() == "ciervo" )
 						{
 							std::string l_LUAClass = "CDeer";
 							l_Character = new CDeer(l_NextIDValid, l_EnemyProperties->GetName());
+							l_Character->SetCharacterType(DEER);
 						}
 						if ( l_EnemyProperties->GetCore() == "conejo" ) 
 						{
@@ -756,6 +761,7 @@ bool CCharactersManager::LoadEnemiesProperties( const CXMLTreeNode &_Node )
 							//boost::ref(val));
 							//l_Character = call_function<CCharacter*>(SCRIPT->GetLuaState(), l_LUAClass.c_str(), l_NextIDValid, l_EnemyProperties->GetName() )[adopt(result)];
 							l_Character = new CRabbit(l_NextIDValid, l_EnemyProperties->GetName());
+							l_Character->SetCharacterType(RABBIT);
 						}
 					}
 
