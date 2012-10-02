@@ -163,6 +163,9 @@
     <ClCompile Include="Characters\Enemies\Wolf\Wolf.cpp" />
     <ClCompile Include="Characters\Player\AnimationStates\PlayerAnimationAttack2State.cpp" />
     <ClCompile Include="Characters\Player\AnimationStates\PlayerAnimationAttack3State.cpp" />
+    <ClCompile Include="Characters\Player\AnimationStates\PlayerAnimationAttack4State.cpp" />
+    <ClCompile Include="Characters\Player\AnimationStates\PlayerAnimationAttack5State.cpp" />
+    <ClCompile Include="Characters\Player\AnimationStates\PlayerAnimationAttack6State.cpp" />
     <ClCompile Include="Characters\Player\AnimationStates\PlayerAnimationAttackState.cpp" />
     <ClCompile Include="Characters\Player\AnimationStates\PlayerAnimationDefenseState.cpp" />
     <ClCompile Include="Characters\Player\AnimationStates\PlayerAnimationHitState.cpp" />
@@ -171,6 +174,9 @@
     <ClCompile Include="Characters\Player\AnimationStates\PlayerAnimationRunState.cpp" />
     <ClCompile Include="Characters\Player\LogicStates\PlayerAttack2State.cpp" />
     <ClCompile Include="Characters\Player\LogicStates\PlayerAttack3State.cpp" />
+    <ClCompile Include="Characters\Player\LogicStates\PlayerAttack4State.cpp" />
+    <ClCompile Include="Characters\Player\LogicStates\PlayerAttack5State.cpp" />
+    <ClCompile Include="Characters\Player\LogicStates\PlayerAttack6State.cpp" />
     <ClCompile Include="Characters\Player\LogicStates\PlayerAttackState.cpp" />
     <ClCompile Include="Characters\Player\LogicStates\PlayerDefenseState.cpp" />
     <ClCompile Include="Characters\Player\LogicStates\PlayerHitState.cpp" />
@@ -266,6 +272,9 @@
     <ClInclude Include="Characters\Enemies\Wolf\Wolf.h" />
     <ClInclude Include="Characters\Player\AnimationStates\PlayerAnimationAttack2State.h" />
     <ClInclude Include="Characters\Player\AnimationStates\PlayerAnimationAttack3State.h" />
+    <ClInclude Include="Characters\Player\AnimationStates\PlayerAnimationAttack4State.h" />
+    <ClInclude Include="Characters\Player\AnimationStates\PlayerAnimationAttack5State.h" />
+    <ClInclude Include="Characters\Player\AnimationStates\PlayerAnimationAttack6State.h" />
     <ClInclude Include="Characters\Player\AnimationStates\PlayerAnimationAttackState.h" />
     <ClInclude Include="Characters\Player\AnimationStates\PlayerAnimationDefenseState.h" />
     <ClInclude Include="Characters\Player\AnimationStates\PlayerAnimationHitState.h" />
@@ -274,6 +283,9 @@
     <ClInclude Include="Characters\Player\AnimationStates\PlayerAnimationRunState.h" />
     <ClInclude Include="Characters\Player\LogicStates\PlayerAttack2State.h" />
     <ClInclude Include="Characters\Player\LogicStates\PlayerAttack3State.h" />
+    <ClInclude Include="Characters\Player\LogicStates\PlayerAttack4State.h" />
+    <ClInclude Include="Characters\Player\LogicStates\PlayerAttack5State.h" />
+    <ClInclude Include="Characters\Player\LogicStates\PlayerAttack6State.h" />
     <ClInclude Include="Characters\Player\LogicStates\PlayerAttackState.h" />
     <ClInclude Include="Characters\Player\LogicStates\PlayerDefenseState.h" />
     <ClInclude Include="Characters\Player\LogicStates\PlayerHitState.h" />

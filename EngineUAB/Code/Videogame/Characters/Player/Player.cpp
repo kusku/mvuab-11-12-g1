@@ -288,6 +288,9 @@ void CPlayer::CreateCallbacks()
 	l_pCallbackManager->CreateCallback(GetName(), "attack1", m_pCurrentAnimatedModel);
 	l_pCallbackManager->CreateCallback(GetName(), "attack2", m_pCurrentAnimatedModel);
 	l_pCallbackManager->CreateCallback(GetName(), "attack3", m_pCurrentAnimatedModel);
+	l_pCallbackManager->CreateCallback(GetName(), "attack4", m_pCurrentAnimatedModel);
+	l_pCallbackManager->CreateCallback(GetName(), "attack5", m_pCurrentAnimatedModel);
+	l_pCallbackManager->CreateCallback(GetName(), "attack6", m_pCurrentAnimatedModel);
 	l_pCallbackManager->CreateCallback(GetName(), "hit", m_pCurrentAnimatedModel);
 	l_pCallbackManager->CreateCallback(GetName(), "jump", m_pCurrentAnimatedModel);
 }

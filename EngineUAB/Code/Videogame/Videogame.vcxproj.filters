@@ -423,6 +423,24 @@
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfStillAttackComboAnimationState.cpp">
       <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
     </ClCompile>
+    <ClCompile Include="Characters\Player\AnimationStates\PlayerAnimationAttack4State.cpp">
+      <Filter>Characters\Player\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\AnimationStates\PlayerAnimationAttack5State.cpp">
+      <Filter>Characters\Player\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\AnimationStates\PlayerAnimationAttack6State.cpp">
+      <Filter>Characters\Player\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\LogicStates\PlayerAttack4State.cpp">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\LogicStates\PlayerAttack5State.cpp">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\LogicStates\PlayerAttack6State.cpp">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUIProcess.h" />
@@ -748,6 +766,24 @@
     </ClInclude>
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfStillAttackComboAnimationState.h">
       <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\AnimationStates\PlayerAnimationAttack6State.h">
+      <Filter>Characters\Player\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\AnimationStates\PlayerAnimationAttack4State.h">
+      <Filter>Characters\Player\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\AnimationStates\PlayerAnimationAttack5State.h">
+      <Filter>Characters\Player\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\LogicStates\PlayerAttack6State.h">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\LogicStates\PlayerAttack4State.h">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\LogicStates\PlayerAttack5State.h">
+      <Filter>Characters\Player\LogicStates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
