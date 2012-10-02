@@ -1,23 +1,23 @@
 
-class 'CCombatZone4Trigger' (CBoxTrigger)
-	function CCombatZone4Trigger:__init()
+class 'CCombatZone7Trigger' (CBoxTrigger)
+	function CCombatZone7Trigger:__init()
 		CBoxTrigger.__init(self)
 
 		self.action_time = CActionStateCallback(0,1)
 		self.action_time:init_action()
 		
-		self.enable_action_time = CActionStateCallback(0,0.2)
+		self.enable_action_time = CActionStateCallback(0,0.5)
 		self.enable_action_time:init_action()
 		
 		self.enemy_appeared = 1
-		self.total_enemies  = 5 	-- Total de enemigos en la lista
+		self.total_enemies  = 1 	-- Total de enemigos en la lista
 		self.is_appeared = false
 	end
 	
-	function CCombatZone4Trigger:update(elapsed_time)
-		--print_logger(0, "CCombatZone4Trigger:update -> Actualizacion trigger zona de combate")
+	function CCombatZone7Trigger:update(elapsed_time)
+		--print_logger(0, "CCombatZone7Trigger:update -> Actualizacion trigger zona de combate")
 		
-		local t = { "enemy15", "enemy16", "enemy31", "enemy32", "enemy33" }
+		local t = { "enemy1" }
 		
 		if ( self.action_time:is_action_started() ) then
 			if ( self.action_time:is_action_finished() ) then
@@ -54,13 +54,13 @@ class 'CCombatZone4Trigger' (CBoxTrigger)
 		end
 	end
 	
-	function CCombatZone4Trigger:on_enter()
+	function CCombatZone7Trigger:on_enter()
 		self.action_time:start_action()
 		self.enemy_appeared = 1
 	end
 	
-	function CCombatZone4Trigger:on_stay()
+	function CCombatZone7Trigger:on_stay()
 	end
 	
-	function CCombatZone4Trigger:on_exit()
+	function CCombatZone7Trigger:on_exit()
 	end
