@@ -264,8 +264,8 @@ bool CCharacter::InitializeAI ( void )
 
 void CCharacter::Update ( float _ElapsedTime )			
 { 
-	/*if( !this->GetProperties()->GetActive() ) 
-		return;*/
+	if( !this->GetProperties()->GetActive() ) 
+		return;
 	
 	m_pLogicStateMachine->Update( _ElapsedTime );
 	m_pGraphicStateMachine->Update( _ElapsedTime );
