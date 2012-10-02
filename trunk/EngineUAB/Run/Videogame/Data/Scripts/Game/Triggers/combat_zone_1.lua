@@ -7,7 +7,7 @@ class 'CCombatZone1Trigger' (CBoxTrigger)
 		self.action_time = CActionStateCallback(0,1)
 		self.action_time:init_action()
 		
-		self.enable_action_time = CActionStateCallback(0,0.4)
+		self.enable_action_time = CActionStateCallback(0,1)
 		self.enable_action_time:init_action()
 		
 		self.enemy_appeared = 1
@@ -22,12 +22,14 @@ class 'CCombatZone1Trigger' (CBoxTrigger)
 		
 		if ( self.action_time:is_action_started() ) then
 			if ( self.action_time:is_action_finished() ) then
+				self.action_time:init_action()
 				self.action_time:start_action()
 			else 
 				self.action_time:update(elapsed_time)
 				
 				if ( get_game_process():get_character_manager():get_enemy_by_name(t[self.enemy_appeared]).enable == false ) then
 					get_game_process():get_character_manager():get_enemy_by_name(t[self.enemy_appeared]):appearance()
+					self.enable_action_time:init_action()
 					self.enable_action_time:start_action()
 				end
 			end 
@@ -37,26 +39,16 @@ class 'CCombatZone1Trigger' (CBoxTrigger)
 			if ( self.enable_action_time:is_action_finished() ) then
 				--if ( get_game_process():get_character_manager():get_enemy_by_name(t[self.enemy_appeared]).enable == false ) then
 					get_game_process():get_character_manager():get_enemy_by_name(t[self.enemy_appeared]).enable = true
-					self.enemy_appeared = self.enemy_appeared + 1
+					if (self.enemy_appeared == self.total_enemies ) then
+						self.active = false
+					else
+						self.enemy_appeared = self.enemy_appeared + 1
+					end 
 				-- end
 			else 
 				self.enable_action_time:update(elapsed_time)
 			end 
 		end
-		
-		if ( self.enemy_appeared == ( self.total_enemies - 1 ) ) then
-			-- Desactivamos el trigger
-			self.active = false
-		end
-								
-		-- for i=1,# t do
-			-- get_game_process():get_character_manager():get_enemy_by_name(t[i]).enable = true
-		-- end 
-		
-		-- if ( self.action_time <= i ) then
-			-- get_game_process():get_character_manager():get_enemy_by_name(t[i]).enable = true
-			-- i = i + 1
-		-- end 
 	end
 	
 	function CCombatZone1Trigger:on_enter()
