@@ -28,11 +28,12 @@
 // -----------------------------------------
 
 CEngine::CEngine( void )
-	: m_bIsOk		( false )
-	, m_pCore		( NULL )
-	, m_pProcess	( NULL )	
-	, m_pLogger		( NULL )
-	, m_Timer		( 30 )
+	: m_bIsOk			( false )
+	, m_pCore			( NULL )
+	, m_pProcess		( NULL )	
+	, m_pLogger			( NULL )
+	, m_Timer			( 30 )
+	, m_TimerIncreasing	( 0.f )
 {}
 
 CEngine::~CEngine( void )
@@ -100,7 +101,7 @@ bool CEngine::Init( HWND _HWnd )
 
 void CEngine::Update( void )
 {
-	m_Timer.Update();
+	m_Timer.Update(m_TimerIncreasing);
 	float l_ElapsedTime = m_Timer.GetElapsedTime();
 
 	m_pCore->Update( l_ElapsedTime );
@@ -129,6 +130,15 @@ void CEngine::UpdateDebugInputs()
 
 		LOGGER->AddNewLog(ELL_INFORMATION, "CEngine->Reload hecho de todo el Core.");
 	}
+
+	if( CORE->GetActionToInput()->DoAction( ACTION_ACTIVATE_DEACTIVATE_TIMER ) )				// Acelera o desacelera el timer
+	{
+		if ( m_TimerIncreasing == 0.f )
+			SetIncreaseTimer(2);
+		else
+			SetIncreaseTimer(0);
+	}
+	
 }
 
 void CEngine::Render()

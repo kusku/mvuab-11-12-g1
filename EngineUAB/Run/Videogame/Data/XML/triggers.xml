@@ -19,7 +19,8 @@
 	<trigger name="river_9" type="box" position="30.638 -32.0 -115.816" size="14.171 4.16 20.129" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CRiverTrigger" />
 	<trigger name="river_10" type="box" position="50.638 -31.0 -160.816" size="17.171 4.16 27.129" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CRiverTrigger" />
 
-	<trigger name="zona_combate_1" type="box" position="93 -22 -158" size="10 5 10" yaw="45" color="1.0 0.0 1.0 1.0" scriptclass="CCombatZone1Trigger" />
+	<trigger name="zona_combate_1" type="box" position="93 -22 -158" size="10 3 25" yaw="45" color="1.0 0.0 1.0 1.0" scriptclass="CCombatZone1Trigger" />
+	<trigger name="zona_combate_2" type="box" position="70 -22 -78" size="10 3 25" yaw="90" color="1.0 0.0 1.0 1.0" scriptclass="CCombatZone2Trigger" />
 	<!--<trigger name="zona_combate_3" type="box" position="26 -42 31" size="15 10 15" color="1.0 0.0 1.0 1.0" scriptclass="CCombatZone3Trigger" />-->
 
   <!--<trigger name="inicio" type="sphere" position="-14.79 -29.66 -113.58" radius="5.0" color="1.0 0.0 1.0 1.0" scriptclass="CSphereTriggerTest" />-->
