@@ -206,7 +206,7 @@ bool CCharacter::Initialize( const std::string &_Name, const Vect3f &_InitialPos
 	this->SetName(_Name);
 	this->SetLocked(m_pProperties->GetLocked());
 	this->SetEnable ( m_pProperties->GetActive() );
-
+	
 	// Jordi 12/08/2012 -- Antes debemos inicializar el m_pSteeringEntity
 	//MoveTo( l_Position, 0.0f );
 
@@ -881,11 +881,11 @@ int CCharacter::GetAnimationID( const std::string &_AnimationName )
 void CCharacter::Appearance( void )
 {
 	// Si se habilitat aparecen con partículas y sonido
-	if ( IsEnable() ) 
-	{
-		CORE->GetParticleEmitterManager()->GetResource("Twister")->GetParticleEmitterInstance(GetName() + "_Twister")->EjectParticles();
-		CORE->GetSoundManager()->PlayEvent( GetSpeakerName(), "Play_EFX_51467_missile_explosion" );
-	}
+	Vect3f v = GetPosition();
+	v.y -= m_pProperties->GetHeightController();
+	CORE->GetParticleEmitterManager()->GetResource("Twister")->GetParticleEmitterInstance(GetName() + "_Twister")->SetPosition(v);
+	CORE->GetParticleEmitterManager()->GetResource("Twister")->GetParticleEmitterInstance(GetName() + "_Twister")->EjectParticles();
+	CORE->GetSoundManager()->PlayEvent( GetSpeakerName(), "Play_EFX_51467_missile_explosion" );
 }
 
 void CCharacter::SetEnable( bool _Enable )
