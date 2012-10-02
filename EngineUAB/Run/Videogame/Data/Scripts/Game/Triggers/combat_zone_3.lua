@@ -1,4 +1,4 @@
-loadfile "utils.lua"
+-- loadfile "utils.lua"
 
 class 'CCombatZone3Trigger' (CBoxTrigger)
 	function CCombatZone3Trigger:__init()
