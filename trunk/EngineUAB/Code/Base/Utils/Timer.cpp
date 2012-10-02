@@ -32,12 +32,15 @@ CTimer::~CTimer( void )
 
 
 // Actualiza los valores FPS, ElapsedTime y los timers (los normales y los inputs)
-void CTimer::Update( void )
+void CTimer::Update( float _AddRestValue )
 {
 
 	//-----Actualizacion de los valores FPS y ElpasedTime-----
 	//Calculo de la diferencia de tiempo (m_fElpasedTime)
 	double	l_dCurTime = timeGetTime();
+
+	if ( _AddRestValue != 0.f ) 
+		l_dCurTime = l_dCurTime * _AddRestValue;
 
 	if( m_dLastTime == 0 ) 
 		m_dLastTime = l_dCurTime;
