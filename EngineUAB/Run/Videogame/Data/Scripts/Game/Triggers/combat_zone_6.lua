@@ -19,7 +19,7 @@ class 'CCombatZone6Trigger' (CBoxTrigger)
 		
 		local t = { "enemy22", "enemy23", "enemy24", "enemy25" }
 		
-		if ( self.action_timew:is_action_started() ) then
+		if ( self.action_time:is_action_started() ) then
 			if ( self.action_time:is_action_finished() ) then
 				-- Ahora incializo la parte de la aparición
 				self.enable_action_time:init_action()
