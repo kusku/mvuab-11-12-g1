@@ -16,6 +16,7 @@
 #include "PhysicsDefs.h"
 #include "Properties/Properties.h"
 #include <string>
+#include "VideogameDefs.h"
 
 //--- Foward Declarations ---//
 class CPhysicController;
@@ -145,9 +146,12 @@ public:
 	inline bool					GetPlayerHasBeenReached ( void ) const								{ return m_PlayerHasBeenReached; }
 
 	inline void					SetToBeTired			( bool _IsTired ) 							{ m_IsTired =_IsTired; }
-	inline bool					GetIsTired			( void ) const									{ return m_IsTired; }
+	inline bool					GetIsTired				( void ) const									{ return m_IsTired; }
 
 	inline const std::string&	GetSpeakerName			( void ) const								{ return m_SpeakerName; }
+
+	inline void					SetCharacterType		( eCharacterTypes _Type ) 					{ m_Type = _Type; }
+	inline eCharacterTypes		GetCharacterType		( void ) const								{ return m_Type; }
 
 	//----Members ---------------------------------------------
 private:
@@ -183,6 +187,8 @@ protected:
 	bool							m_IsTired;					// Indica si estamo cansados
 
 	std::string m_SpeakerName;
+
+	eCharacterTypes					m_Type;
 };
 
 #endif

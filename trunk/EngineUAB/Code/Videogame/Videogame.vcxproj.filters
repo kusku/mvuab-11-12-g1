@@ -420,6 +420,9 @@
     <ClCompile Include="HUD\HUD.cpp">
       <Filter>HUD</Filter>
     </ClCompile>
+    <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfStillAttackComboAnimationState.cpp">
+      <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUIProcess.h" />
@@ -742,6 +745,9 @@
     </ClInclude>
     <ClInclude Include="HUD\HUD.h">
       <Filter>HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfStillAttackComboAnimationState.h">
+      <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

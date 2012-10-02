@@ -148,6 +148,7 @@
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfRunAnimationState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfRunAttackAnimationState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfStillAttackAnimationState.cpp" />
+    <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfStillAttackComboAnimationState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfWalkAnimationState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\LogicStates\WolfDeathState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\LogicStates\WolfAttackState.cpp" />
@@ -250,6 +251,7 @@
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfRunAnimationState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfRunAttackAnimationState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfStillAttackAnimationState.h" />
+    <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfStillAttackComboAnimationState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfWalkAnimationState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\LogicStates\WolfDeathState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\LogicStates\WolfAttackState.h" />

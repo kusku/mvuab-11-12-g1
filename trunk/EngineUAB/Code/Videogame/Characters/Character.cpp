@@ -890,9 +890,19 @@ void CCharacter::Appearance( void )
 
 	//v.y -= m_pProperties->GetHeightController();
 	m_pProperties->SetActive(true);
-	CORE->GetParticleEmitterManager()->GetResource("Twister")->GetParticleEmitterInstance(GetName() + "_Twister")->SetPosition(l_Pos);
-	CORE->GetParticleEmitterManager()->GetResource("Twister")->GetParticleEmitterInstance(GetName() + "_Twister")->EjectParticles();
-	CORE->GetSoundManager()->PlayEvent( GetSpeakerName(), "Play_EFX_51467_missile_explosion" );
+	
+	if ( m_Type != WOLF )
+	{
+		CORE->GetParticleEmitterManager()->GetResource("Twister")->GetParticleEmitterInstance(GetName() + "_Twister")->SetPosition(l_Pos);
+		CORE->GetParticleEmitterManager()->GetResource("Twister")->GetParticleEmitterInstance(GetName() + "_Twister")->EjectParticles();
+		CORE->GetSoundManager()->PlayEvent( GetSpeakerName(), "Play_EFX_51467_missile_explosion" );
+	}
+	else
+	{
+		CORE->GetParticleEmitterManager()->GetResource("Twister")->GetParticleEmitterInstance(GetName() + "_Twister")->SetPosition(l_Pos);
+		CORE->GetParticleEmitterManager()->GetResource("Twister")->GetParticleEmitterInstance(GetName() + "_Twister")->EjectParticles();
+		CORE->GetSoundManager()->PlayEvent( GetSpeakerName(), "Play_EFX_51467_missile_explosion" );
+	}
 }
 
 void CCharacter::SetEnable( bool _Enable )
