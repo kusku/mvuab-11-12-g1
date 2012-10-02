@@ -56,6 +56,7 @@ void CSphereTrigger::Init()
 	CPhysicUserData * l_UserData = new CPhysicUserData ( GetName(), UD_IS_TRIGGER );
 	l_UserData->SetColor ( m_RenderColor );
 	l_UserData->SetPaint ( m_bRenderDebugTrigger );
+	l_UserData->SetGroup(ECG_TRIGGERS);
 
 	m_pTriggerActor = new CPhysicActor( l_UserData );
 	m_pTriggerActor->CreateSphereTrigger( m_Position, m_fRadius, ECG_TRIGGERS );
