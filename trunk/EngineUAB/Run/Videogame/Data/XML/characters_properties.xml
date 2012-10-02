@@ -207,20 +207,36 @@
 		<yaw>2.36</yaw>
 		<respawn_position>0 10 0</respawn_position>
 		<!--<position>108 -14 -172</position>-->					<!-- Posición inicial del juego -->
-		<!--<position>-64 -14 -20</position>-->				<!-- Posición inicial del juego -->
-		<!--<position>10 -40 28</position>-->				<!-- Posición inicial del juego -->
 		
-		<position>53 -41 24</position>						<!-- Posición respawn trigger 4 -->
-		<!--<position>-20 -38 112</position>	-->					<!-- Posición respawn trigger 5 -->
-		
+		<position>67 -40 19</position>						<!-- Posición respawn trigger 4 -->
+		<position>-20 -38 112</position>					<!-- Posición respawn trigger 5 -->
+		<position>-64 -14 -20</position>					<!-- Posición respawn trigger 6 -->
 	</player>
 	<enemies>
 		<enemy name="enemy1" core="lobo" animated_instace_name="lobo1" >
-			<position>-45 -10 -67</position>
+			<position>-51 -7 -104</position>
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
+		<!--<enemy name="enemy1" core="lobo" animated_instace_name="lobo1" >
+			<position>50 -30 20</position>
+			<active>true</active>
+			<locked>false</locked>
+		</enemy>-->
+		<!--  <enemy name="enemy2" core="lobo" animated_instace_name="lobo2" >
+			<position>-20 -30 12</position>
+		</enemy>
+		<enemy name="enemy3" core="lobo" animated_instace_name="lobo3" >
+			<position>-25 -30 6</position>
+		</enemy>
+		<enemy name="enemy4" core="lobo" animated_instace_name="lobo4" >
+			<position>-30 -30 15</position>
+		</enemy>
+		<enemy name="enemy5" core="lobo" animated_instace_name="lobo5" >
+			<position>-35 -30 2</position>
+		</enemy>-->
 
+		
 		<!-- Enemigos Trigger zona de combate 1 -->
 		<enemy name="enemy2" core="conejo" animated_instace_name="enemy2" >
 			<position>70 -23 -144</position>
@@ -320,86 +336,71 @@
 		</enemy>
 		<enemy name="enemy33" core="ciervo" animated_instace_name="enemy33" >
 			<position>30 -40 42</position>
-			<active>true</active>
+			<active>false</active>
 			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy15" core="conejo" animated_instace_name="enemy15" >
-			<position>40 -40 45</position>
-			<active>true</active>
+			<position>35 -40 45</position>
+			<active>false</active>
 			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy16" core="conejo" animated_instace_name="enemy16" >
-			<position>35 -39 13</position>
+			<position>32 -41 21</position>
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
-		<!-- Enemigos Trigger zona de combate 5 -->
 		
+		<!-- Enemigos Trigger zona de combate 5 -->
 		<enemy name="enemy17" core="conejo" animated_instace_name="enemy17" >
 			<position>-53 -28 111</position>
-			<active>false</active>
+			<active>true</active>
 			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy18" core="conejo" animated_instace_name="enemy18" >
 			<position>-48 -28 119</position>
-			<active>false</active>
+			<active>true</active>
 			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy19" core="conejo" animated_instace_name="enemy19" >
 			<position>-57 -29 124</position>
-			<active>false</active>
+			<active>true</active>
 			<locked>true</locked>
 		</enemy>
-		
 		<enemy name="enemy20" core="conejo" animated_instace_name="enemy20" >
-			<position>58 -23 -136</position>
+			<position>-62 -29 110</position>
 			<active>true</active>
 			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy21" core="conejo" animated_instace_name="enemy21" >
-			<position>58 -23 -136</position>
+			<position>-51 -34 116</position>
 			<active>true</active>
 			<locked>true</locked>
 		</enemy>
 
-		<!--<enemy name="enemy1" core="lobo" animated_instace_name="lobo1" >
-			<position>50 -30 20</position>
-			<active>true</active>
-			<locked>false</locked>
-		</enemy>-->
-		<!--  <enemy name="enemy2" core="lobo" animated_instace_name="lobo2" >
-			<position>-20 -30 12</position>
-		</enemy>
-		<enemy name="enemy3" core="lobo" animated_instace_name="lobo3" >
-			<position>-25 -30 6</position>
-		</enemy>
-		<enemy name="enemy4" core="lobo" animated_instace_name="lobo4" >
-			<position>-30 -30 15</position>
-		</enemy>
-		<enemy name="enemy5" core="lobo" animated_instace_name="lobo5" >
-			<position>-35 -30 2</position>
-		</enemy>-->
-
+		<!-- Enemigos Trigger zona de combate 6 -->
 		<enemy name="enemy22" core="conejo" animated_instace_name="enemy22" >
-			<position>35 -40 25</position>
+			<position>-58 -11 -63</position>
 			<active>false</active>
-			<locked>false</locked>
+			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy23" core="conejo" animated_instace_name="enemy23" >
-			<position>35 -40 30</position>
+			<position>-50 -12 -61</position>
 			<active>false</active>
-			<locked>false</locked>
+			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy24" core="conejo" animated_instace_name="enemy24" >
-			<position>35 -40 35</position>
+			<position>-40 -13 -59</position>
 			<active>false</active>
-			<locked>false</locked>
+			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy25" core="conejo" animated_instace_name="enemy25" >
-			<position>-20 -30 0</position>
+			<position>-35 -13 -61</position>
 			<active>false</active>
-			<locked>false</locked>
+			<locked>true</locked>
 		</enemy>
+		
+		
+		
 		<enemy name="enemy26" core="conejo" animated_instace_name="enemy26" >
 			<position>-25 -30 0</position>
 			<active>false</active>
