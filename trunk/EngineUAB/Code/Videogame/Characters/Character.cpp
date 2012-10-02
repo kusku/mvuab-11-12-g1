@@ -900,7 +900,7 @@ void CCharacter::SetEnable( bool _Enable )
 	m_pCurrentAnimatedModel->SetVisible(_Enable);
 	m_pController->SetVisible(_Enable);
 	m_pProperties->SetActive(_Enable);
-	m_pProperties->SetLocked(_Enable);
+	SetLocked(!_Enable);
 	m_pProperties->SetVisible(_Enable);
 	m_pController->SetActive(_Enable);
 	if (!_Enable & !IsAlive())
