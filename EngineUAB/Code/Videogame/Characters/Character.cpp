@@ -883,6 +883,7 @@ void CCharacter::Appearance( void )
 	// Si se habilitat aparecen con partículas y sonido
 	Vect3f v = GetPosition();
 	v.y -= m_pProperties->GetHeightController();
+	m_pProperties->SetActive(true);
 	CORE->GetParticleEmitterManager()->GetResource("Twister")->GetParticleEmitterInstance(GetName() + "_Twister")->SetPosition(v);
 	CORE->GetParticleEmitterManager()->GetResource("Twister")->GetParticleEmitterInstance(GetName() + "_Twister")->EjectParticles();
 	CORE->GetSoundManager()->PlayEvent( GetSpeakerName(), "Play_EFX_51467_missile_explosion" );
