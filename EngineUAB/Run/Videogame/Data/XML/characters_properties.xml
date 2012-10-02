@@ -206,9 +206,12 @@
 		<velocity>0 0 0</velocity>
 		<yaw>2.36</yaw>
 		<respawn_position>0 10 0</respawn_position>
-		<position>108 -14 -172</position>
-		<!--<position>-64 -14 -20</position>-->
-		<!--<position>10 -40 28</position>-->
+		<!--<position>108 -14 -172</position>-->					<!-- Posición inicial del juego -->
+		<!--<position>-64 -14 -20</position>-->				<!-- Posición inicial del juego -->
+		<!--<position>10 -40 28</position>-->				<!-- Posición inicial del juego -->
+		
+		<position>53 -41 24</position>						<!-- Posición respawn trigger 4 -->
+		<!--<position>-20 -38 112</position>	-->					<!-- Posición respawn trigger 5 -->
 		
 	</player>
 	<enemies>
@@ -266,13 +269,11 @@
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
-
 		<enemy name="enemy11" core="conejo" animated_instace_name="enemy11" >
 			<position>81 -22 -69</position>
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
-
 		<enemy name="enemy12" core="conejo" animated_instace_name="enemy12" >
 			<position>79 -22 -69</position>
 			<active>false</active>
@@ -283,48 +284,73 @@
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
-		
 		<enemy name="enemy28" core="ciervo" animated_instace_name="enemy28" >
 			<position>87 -23 -59</position>
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
 		
-		
-		<!-- Enemigos Trigger zona de combate 2 -->
-		
-		
+		<!-- Enemigos Trigger zona de combate 3 -->
+		<enemy name="enemy29" core="ciervo" animated_instace_name="enemy29" >
+			<position>114 -39 3</position>
+			<active>false</active>
+			<locked>true</locked>
+		</enemy>
+		<enemy name="enemy30" core="ciervo" animated_instace_name="enemy30" >
+			<position>110 -39 3</position>
+			<active>false</active>
+			<locked>true</locked>
+		</enemy>
 		<enemy name="enemy14" core="conejo" animated_instace_name="enemy14" >
 			<position>104 -36 -3</position>
 			<active>true</active>
 			<locked>true</locked>
 		</enemy>
+		
+		<!-- Enemigos Trigger zona de combate 4 -->
+		<enemy name="enemy31" core="ciervo" animated_instace_name="enemy31" >
+			<position>30 -40 36</position>
+			<active>false</active>
+			<locked>true</locked>
+		</enemy>
+		<enemy name="enemy32" core="ciervo" animated_instace_name="enemy32" >
+			<position>30 -40 30</position>
+			<active>false</active>
+			<locked>true</locked>
+		</enemy>
+		<enemy name="enemy33" core="ciervo" animated_instace_name="enemy33" >
+			<position>30 -40 42</position>
+			<active>true</active>
+			<locked>true</locked>
+		</enemy>
 		<enemy name="enemy15" core="conejo" animated_instace_name="enemy15" >
-			<position>58 -23 -136</position>
+			<position>40 -40 45</position>
 			<active>true</active>
 			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy16" core="conejo" animated_instace_name="enemy16" >
-			<position>-61 -28 111</position>
-			<active>true</active>
+			<position>35 -39 13</position>
+			<active>false</active>
 			<locked>true</locked>
 		</enemy>
+		<!-- Enemigos Trigger zona de combate 5 -->
+		
 		<enemy name="enemy17" core="conejo" animated_instace_name="enemy17" >
 			<position>-53 -28 111</position>
-			<active>true</active>
+			<active>false</active>
 			<locked>true</locked>
 		</enemy>
-
 		<enemy name="enemy18" core="conejo" animated_instace_name="enemy18" >
 			<position>-48 -28 119</position>
-			<active>true</active>
+			<active>false</active>
 			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy19" core="conejo" animated_instace_name="enemy19" >
 			<position>-57 -29 124</position>
-			<active>true</active>
+			<active>false</active>
 			<locked>true</locked>
 		</enemy>
+		
 		<enemy name="enemy20" core="conejo" animated_instace_name="enemy20" >
 			<position>58 -23 -136</position>
 			<active>true</active>
@@ -385,32 +411,8 @@
 			<locked>false</locked>
 		</enemy>
 
-		<enemy name="enemy29" core="ciervo" animated_instace_name="enemy29" >
-			<position>114 -39 3</position>
-			<active>true</active>
-			<locked>true</locked>
-		</enemy>
-		<enemy name="enemy30" core="ciervo" animated_instace_name="enemy30" >
-			<position>110 -39 3</position>
-			<active>true</active>
-			<locked>true</locked>
-		</enemy>
-		<enemy name="enemy31" core="ciervo" animated_instace_name="enemy31" >
-			<position>30 -40 36</position>
-			<active>true</active>
-			<locked>true</locked>
-		</enemy>
-		<enemy name="enemy32" core="ciervo" animated_instace_name="enemy32" >
-			<position>30 -40 30</position>
-			<active>true</active>
-			<locked>true</locked>
-		</enemy>
-
-		<enemy name="enemy33" core="ciervo" animated_instace_name="enemy33" >
-			<position>30 -40 42</position>
-			<active>true</active>
-			<locked>true</locked>w
-		</enemy>
+	
+		
 
 	</enemies>
 </characters>
