@@ -7,7 +7,7 @@ class 'CCombatZone1Trigger' (CBoxTrigger)
 		self.action_time = CActionStateCallback(0,1)
 		self.action_time:init_action()
 		
-		self.enable_action_time = CActionStateCallback(0,1)
+		self.enable_action_time = CActionStateCallback(0,2)
 		self.enable_action_time:init_action()
 		
 		self.enemy_appeared = 1
