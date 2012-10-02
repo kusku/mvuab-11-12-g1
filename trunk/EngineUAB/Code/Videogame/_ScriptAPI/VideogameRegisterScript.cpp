@@ -198,9 +198,9 @@ namespace ScriptAPI
 
 		module(_pLua)
 			[
-				class_<CActionStateCallback, CActionStateCallback>("CActionStateCallback")
-					//.def(constructor<float, float>())
-					//.def(constructor<float, float, float>())
+				class_<CActionStateCallback>("CActionStateCallback")
+					.def(constructor<float, float>())
+					.def(constructor<float, float, float>())
 					.def("init_action",	 (void(CActionStateCallback::*) (void)) &CActionStateCallback::InitAction)
 					.def("init_action",  (void(CActionStateCallback::*) (float, float)) &CActionStateCallback::InitAction)
 					.def("init_action",  (void(CActionStateCallback::*) (float, float, float)) &CActionStateCallback::InitAction)
@@ -208,6 +208,7 @@ namespace ScriptAPI
 					.def("is_action_finished", &CActionStateCallback::IsActionFinished)
 					.def("is_action_started", &CActionStateCallback::IsActionStarted)
 					.def("is_action_in_time", &CActionStateCallback::IsActionInTime)
+					.def("update", &CActionStateCallback::Update)
 			];
 
 		module(_pLua) [
