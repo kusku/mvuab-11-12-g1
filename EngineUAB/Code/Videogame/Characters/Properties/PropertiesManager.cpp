@@ -219,6 +219,10 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 		{
 			l_Properties->SetAttackAngle( l_XMLPropertiesNode(i).GetFloatKeyword("attack_angle", 0.f) );
 		}
+		else if( l_PropertyField == "detection_angle" )
+		{
+			l_Properties->SetDetectionAngle( l_XMLPropertiesNode(i).GetFloatKeyword("detection_angle", 0.f) );
+		}
 		else if( l_PropertyField == "max_force" )
 		{
 			l_Properties->SetMaxForce( l_XMLPropertiesNode(i).GetFloatKeyword("max_force", FUERZA_MAXIMA) );

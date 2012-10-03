@@ -165,6 +165,9 @@ public:
 	inline void					SetAttackAngle				( float _Angle )									{ m_AttackAngle = _Angle; }
 	inline const float			GetAttackAngle				( void ) const										{ return m_AttackAngle; }
 
+	inline void					SetDetectionAngle			( float _Angle )									{ m_DetectionAngle = _Angle; }
+	inline const float			GetDetectionAngle			( void ) const										{ return m_DetectionAngle; }
+
 	inline void					SetStillAttackSpeed			( float _StillAttackSpeed )							{ m_StillAttackSpeed = _StillAttackSpeed; }
 	inline const float			GetStillAttackSpeed			( void ) const										{ return m_StillAttackSpeed; }
 
@@ -222,7 +225,8 @@ private:
 	float				m_AccelerationAttack6;		// Aceleración para el ataque 6.
 	float				m_MaxRotationSpeed;			// Rotación máxima de giro del personaje
 	float				m_MaxForce;					// Fuerza máxima aplicable al personaje.	--> Fuerza = Masa * Aceleración 
-	float				m_AttackAngle;				// Ángulo para la detección de enemigos en grados.
+	float				m_AttackAngle;				// Ángulo para la ataque de enemigos en grados.
+	float				m_DetectionAngle;			// Ángulo para la detección de enemigos en grados.
 	float				m_StillAttackSpeed;			// Velocidad de ataque del still attack
 	float				m_RunAttackSpeed;			// Velocidad de ataque del run attack
 	float				m_HitRecoilSpeed;			// Velocidad de retroceso en el Hit

@@ -33,7 +33,9 @@ CPlayerAttack6State::CPlayerAttack6State( CCharacter * _pCharacter, const std::s
 	, m_fCurrentVelocityMovement( _pCharacter->GetProperties()->GetMaxSpeed() )
 	, m_fAccelerationMovement( _pCharacter->GetProperties()->GetAccelerationAttack6() )
 	, m_fAttackDistance( _pCharacter->GetProperties()->GetAttackDistance() )
+	, m_fDetectionDistance( _pCharacter->GetProperties()->GetDetectionDistance() )
 	, m_fAttackAngle( mathUtils::Deg2Rad( _pCharacter->GetProperties()->GetAttackAngle() ) )
+	, m_fDetectionAngle( mathUtils::Deg2Rad( _pCharacter->GetProperties()->GetDetectionAngle() ) )
 	, m_fAttackYaw(0.f)
 {
 	m_pCallback				= static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),"attack6");
@@ -78,12 +80,12 @@ void CPlayerAttack6State::OnEnter( CCharacter* _pCharacter )
 		if( l_bMovement )
 		{
 			//Calcula un ángulo de correción según la dirección marcada
-			l_pEnemy = l_pCharManager->GetPlayerAngleCorrection(m_fAttackDistance, m_fAttackAngle, l_fAngle);
+			l_pEnemy = l_pCharManager->GetPlayerAngleCorrection(m_fDetectionDistance, m_fDetectionAngle, l_fAngle);
 		}
 		else
 		{
 			//Calcula el ángulo de correción para enfocar hacia un enemigo cercano
-			l_pEnemy = l_pCharManager->IsPlayerNearEnemy(m_fAttackDistance);
+			l_pEnemy = l_pCharManager->IsPlayerNearEnemy(m_fDetectionDistance);
 		}
 
 		//Si se ataca a un enemigo, calculamos el nuevo ángulo con la asistencia
@@ -203,7 +205,7 @@ void CPlayerAttack6State::Execute( CCharacter* _pCharacter, float _fElapsedTime 
 void CPlayerAttack6State::OnExit( CCharacter* _pCharacter )
 {
 	Vect3f l_Front			= _pCharacter->GetAnimatedModel()->GetFront();
-	CCharacter *l_pEnemy	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->SearchTargetEnemy(3.0f, FLOAT_PI_VALUE / 6.f, l_Front);
+	CCharacter *l_pEnemy	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->SearchTargetEnemy(m_fAttackDistance, m_fAttackAngle, l_Front);
 
 	if( l_pEnemy != NULL )
 	{

@@ -36,7 +36,9 @@ private:
 	float						m_fCurrentVelocityMovement;
 	float						m_fAccelerationMovement;
 	float						m_fAttackDistance;
+	float						m_fDetectionDistance;
 	float						m_fAttackAngle;
+	float						m_fDetectionAngle;
 	float						m_fAttackYaw;
 };
 
