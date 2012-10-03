@@ -133,6 +133,8 @@ void CPlayerAttackState::OnEnter( CCharacter* _pCharacter )
 
 void CPlayerAttackState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 {
+	CActionToInput *l_pInput = CORE->GetActionToInput();
+
 	if( m_bFirstUpdate )
 	{
 		CORE->GetSoundManager()->PlayEvent("Play_EFX_Sword");
@@ -144,7 +146,12 @@ void CPlayerAttackState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 
 	if( m_pCallback->IsAnimationFinished() )
 	{
-		if( CORE->GetActionToInput()->DoAction("AttackPlayer") )
+		if( l_pInput->DoAction("HardAttackPlayer") )
+		{
+			_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("attack5") );
+			_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack5") );
+		}
+		else if( l_pInput->DoAction("AttackPlayer") )
 		{
 			_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("attack2") );
 			_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack2") );
@@ -153,8 +160,16 @@ void CPlayerAttackState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 		{
 			if( static_cast<CGameProcess*>(CORE->GetProcess())->GetTimeBetweenClicks() < 0.2f )
 			{
-				_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("attack2") );
-				_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack2") );
+				if( l_pInput->DoAction("HardPreparedAttackPlayer") )
+				{
+					_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("attack5") );
+					_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack5") );
+				}
+				else
+				{
+					_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("attack2") );
+					_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack2") );
+				}
 			}
 			else
 			{
