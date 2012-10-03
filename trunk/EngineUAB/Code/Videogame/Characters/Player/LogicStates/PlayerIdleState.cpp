@@ -72,6 +72,7 @@ void CPlayerIdleState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 	{
 		CPlayer *l_pPlayer				= static_cast<CPlayer*>(_pCharacter);
 		CCharacter *l_pEnemyDetected	= l_pPlayer->DetectEnemy();
+		CActionToInput *l_pInput		= CORE->GetActionToInput();
 
 		if( l_pPlayer->IsTargetFixed() )
 		{
@@ -90,7 +91,7 @@ void CPlayerIdleState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 			}
 		}
 
-		if( CORE->GetActionToInput()->DoAction("PlayerTarget") )
+		if( l_pInput->DoAction("PlayerTarget") )
 		{
 			//Se asigna un target
 			if( !l_pPlayer->IsTargetFixed() )
@@ -108,7 +109,12 @@ void CPlayerIdleState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 			}
 		}
 
-		if( CORE->GetActionToInput()->DoAction("AttackPlayer") )
+		if( l_pInput->DoAction("HardAttackPlayer") )
+		{
+			_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("attack4") );
+			_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack4") );
+		}
+		else if( l_pInput->DoAction("AttackPlayer") )
 		{
 			//El jugador ataca
 			if( l_pPlayer->IsTargetFixed() )
@@ -122,10 +128,10 @@ void CPlayerIdleState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 				_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack1") );
 			}
 		}
-		else if(	CORE->GetActionToInput()->DoAction("MovePlayerUp") || 
-					CORE->GetActionToInput()->DoAction("MovePlayerDown") || 
-					CORE->GetActionToInput()->DoAction("MovePlayerLeft") ||
-					CORE->GetActionToInput()->DoAction("MovePlayerRight") )
+		else if(	l_pInput->DoAction("MovePlayerUp") || 
+					l_pInput->DoAction("MovePlayerDown") || 
+					l_pInput->DoAction("MovePlayerLeft") ||
+					l_pInput->DoAction("MovePlayerRight") )
 		{
 			if( l_pPlayer->IsTargetFixed() )
 			{

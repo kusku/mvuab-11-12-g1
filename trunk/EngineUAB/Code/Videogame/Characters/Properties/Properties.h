@@ -150,6 +150,15 @@ public:
 	inline void					SetAccelerationAttack3		( float _Acceleration )								{ m_AccelerationAttack3 = _Acceleration; }
 	inline const float			GetAccelerationAttack3		( void ) const										{ return m_AccelerationAttack3; }
 
+	inline void					SetAccelerationAttack4		( float _Acceleration )								{ m_AccelerationAttack4 = _Acceleration; }
+	inline const float			GetAccelerationAttack4		( void ) const										{ return m_AccelerationAttack4; }
+
+	inline void					SetAccelerationAttack5		( float _Acceleration )								{ m_AccelerationAttack5 = _Acceleration; }
+	inline const float			GetAccelerationAttack5		( void ) const										{ return m_AccelerationAttack5; }
+
+	inline void					SetAccelerationAttack6		( float _Acceleration )								{ m_AccelerationAttack6 = _Acceleration; }
+	inline const float			GetAccelerationAttack6		( void ) const										{ return m_AccelerationAttack6; }
+
 	inline void					SetMaxForce					( float _MaxForce )									{ m_MaxForce = _MaxForce; }
 	inline const float			GetMaxForce					( void ) const										{ return m_MaxForce; }
 
@@ -208,6 +217,9 @@ private:
 	float				m_AccelerationAttack1;		// Aceleración para el ataque 1.
 	float				m_AccelerationAttack2;		// Aceleración para el ataque 2.
 	float				m_AccelerationAttack3;		// Aceleración para el ataque 3.
+	float				m_AccelerationAttack4;		// Aceleración para el ataque 4.
+	float				m_AccelerationAttack5;		// Aceleración para el ataque 5.
+	float				m_AccelerationAttack6;		// Aceleración para el ataque 6.
 	float				m_MaxRotationSpeed;			// Rotación máxima de giro del personaje
 	float				m_MaxForce;					// Fuerza máxima aplicable al personaje.	--> Fuerza = Masa * Aceleración 
 	float				m_AttackAngle;				// Ángulo para la detección de enemigos en grados.

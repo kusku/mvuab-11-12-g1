@@ -203,6 +203,18 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 		{
 			l_Properties->SetAccelerationAttack3( l_XMLPropertiesNode(i).GetFloatKeyword("acceleration_attack3", ACELERACION_MAXIMA) );
 		}
+		else if( l_PropertyField == "acceleration_attack4" )
+		{
+			l_Properties->SetAccelerationAttack4( l_XMLPropertiesNode(i).GetFloatKeyword("acceleration_attack4", ACELERACION_MAXIMA) );
+		}
+		else if( l_PropertyField == "acceleration_attack5" )
+		{
+			l_Properties->SetAccelerationAttack5( l_XMLPropertiesNode(i).GetFloatKeyword("acceleration_attack5", ACELERACION_MAXIMA) );
+		}
+		else if( l_PropertyField == "acceleration_attack6" )
+		{
+			l_Properties->SetAccelerationAttack6( l_XMLPropertiesNode(i).GetFloatKeyword("acceleration_attack6", ACELERACION_MAXIMA) );
+		}
 		else if( l_PropertyField == "attack_angle" )
 		{
 			l_Properties->SetAttackAngle( l_XMLPropertiesNode(i).GetFloatKeyword("attack_angle", 0.f) );

@@ -70,7 +70,12 @@ void CPlayerRunState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 	if( !_pCharacter->GetLocked() )
 	{
 		//El jugador ataca
-		if( l_pInput->DoAction("AttackPlayer") )
+		if( l_pInput->DoAction("HardAttackPlayer") )
+		{
+			_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("attack4") );
+			_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack4") );
+		}
+		else if( l_pInput->DoAction("AttackPlayer") )
 		{
 			if( l_pPlayer->IsTargetFixed() )
 			{

@@ -140,7 +140,14 @@ void CPlayerAttack3State::Execute( CCharacter* _pCharacter, float _fElapsedTime 
 
 	if( m_pCallback->IsAnimationFinished() )
 	{
-		if( CORE->GetActionToInput()->DoAction("AttackPlayer") )
+		CActionToInput *l_pInput = CORE->GetActionToInput();
+
+		if( l_pInput->DoAction("HardAttackPlayer") )
+		{
+			_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("attack4") );
+			_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack4") );
+		}
+		else if( l_pInput->DoAction("AttackPlayer") )
 		{
 			_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("attack1") );
 			_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack1") );
@@ -149,8 +156,16 @@ void CPlayerAttack3State::Execute( CCharacter* _pCharacter, float _fElapsedTime 
 		{
 			if( static_cast<CGameProcess*>(CORE->GetProcess())->GetTimeBetweenClicks() < 0.2f )
 			{
-				_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("attack1") );
-				_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack1") );
+				if( l_pInput->DoAction("HardPreparedAttackPlayer") )
+				{
+					_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("attack4") );
+					_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack4") );
+				}
+				else
+				{
+					_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("attack1") );
+					_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack1") );
+				}
 			}
 			else
 			{
@@ -282,9 +297,9 @@ bool CPlayerAttack3State::CalculateAngleMovement( CCharacter *_pCharacter, float
 
 void CPlayerAttack3State::SetParticlePosition( CCharacter* _pCharacter )
 {
-	Vect3f l_Pos					= _pCharacter->GetPosition();
-	l_Pos.y							+= 1.f;
-	l_Pos							+= _pCharacter->GetAnimatedModel()->GetFront() * 1.7f;
+	Vect3f l_Pos	= _pCharacter->GetPosition();
+	l_Pos.y			+= 1.f;
+	l_Pos			+= _pCharacter->GetAnimatedModel()->GetFront() * 1.7f;
 
 	m_pParticleEmitter->SetPosition( l_Pos );
 }

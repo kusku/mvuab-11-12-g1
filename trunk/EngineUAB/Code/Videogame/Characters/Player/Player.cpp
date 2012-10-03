@@ -4,6 +4,9 @@
 #include "Characters\Player\LogicStates\PlayerAttackState.h"
 #include "Characters\Player\LogicStates\PlayerAttack2State.h"
 #include "Characters\Player\LogicStates\PlayerAttack3State.h"
+#include "Characters\Player\LogicStates\PlayerAttack4State.h"
+#include "Characters\Player\LogicStates\PlayerAttack5State.h"
+#include "Characters\Player\LogicStates\PlayerAttack6State.h"
 #include "Characters\Player\LogicStates\PlayerHitState.h"
 #include "Characters\Player\LogicStates\PlayerIdleState.h"
 #include "Characters\Player\LogicStates\PlayerJumpState.h"
@@ -16,6 +19,9 @@
 #include "Characters\Player\AnimationStates\PlayerAnimationAttackState.h"
 #include "Characters\Player\AnimationStates\PlayerAnimationAttack2State.h"
 #include "Characters\Player\AnimationStates\PlayerAnimationAttack3State.h"
+#include "Characters\Player\AnimationStates\PlayerAnimationAttack4State.h"
+#include "Characters\Player\AnimationStates\PlayerAnimationAttack5State.h"
+#include "Characters\Player\AnimationStates\PlayerAnimationAttack6State.h"
 #include "Characters\Player\AnimationStates\PlayerAnimationDefenseState.h"
 #include "Characters\Player\AnimationStates\PlayerAnimationHitState.h"
 #include "Characters\Player\AnimationStates\PlayerAnimationIdleState.h"
@@ -260,6 +266,9 @@ void CPlayer::CreateStates()
 	m_LogicStatesMap["attack1"]			= new CPlayerAttackState			(this, "attack1");
 	m_LogicStatesMap["attack2"]			= new CPlayerAttack2State			(this, "attack2");
 	m_LogicStatesMap["attack3"]			= new CPlayerAttack3State			(this, "attack3");
+	m_LogicStatesMap["attack4"]			= new CPlayerAttack4State			(this, "attack4");
+	m_LogicStatesMap["attack5"]			= new CPlayerAttack5State			(this, "attack5");
+	m_LogicStatesMap["attack6"]			= new CPlayerAttack6State			(this, "attack6");
 	m_LogicStatesMap["hit"]				= new CPlayerHitState				(this, "hit");
 	m_LogicStatesMap["idle"]			= new CPlayerIdleState				(this, "idle");
 	m_LogicStatesMap["jump"]			= new CPlayerJumpState				(this, "jump");
@@ -274,6 +283,9 @@ void CPlayer::CreateStates()
 	m_AnimationStatesMap["animattack1"]	= new CPlayerAnimationAttackState	(this, "animattack1");
 	m_AnimationStatesMap["animattack2"]	= new CPlayerAnimationAttack2State	(this, "animattack2");
 	m_AnimationStatesMap["animattack3"]	= new CPlayerAnimationAttack3State	(this, "animattack3");
+	m_AnimationStatesMap["animattack4"]	= new CPlayerAnimationAttack4State	(this, "animattack4");
+	m_AnimationStatesMap["animattack5"]	= new CPlayerAnimationAttack5State	(this, "animattack5");
+	m_AnimationStatesMap["animattack6"]	= new CPlayerAnimationAttack6State	(this, "animattack6");
 	m_AnimationStatesMap["animdefense"]	= new CPlayerAnimationDefenseState	(this, "animdefense");
 	m_AnimationStatesMap["animhit"]		= new CPlayerAnimationHitState		(this, "animhit");
 	m_AnimationStatesMap["animidle"]	= new CPlayerAnimationIdleState		(this, "animidle");

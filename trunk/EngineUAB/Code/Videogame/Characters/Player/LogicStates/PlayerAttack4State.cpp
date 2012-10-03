@@ -31,13 +31,13 @@ CPlayerAttack4State::CPlayerAttack4State( CCharacter * _pCharacter, const std::s
 	, m_bFirstUpdate(true)
 	, m_fMaxVelocityMovement( _pCharacter->GetProperties()->GetMaxSpeed() )
 	, m_fCurrentVelocityMovement( _pCharacter->GetProperties()->GetMaxSpeed() )
-	, m_fAccelerationMovement( _pCharacter->GetProperties()->GetAccelerationAttack3() )
+	, m_fAccelerationMovement( _pCharacter->GetProperties()->GetAccelerationAttack4() )
 	, m_fAttackDistance( _pCharacter->GetProperties()->GetAttackDistance() )
 	, m_fAttackAngle( mathUtils::Deg2Rad( _pCharacter->GetProperties()->GetAttackAngle() ) )
 	, m_fAttackYaw(0.f)
 {
 	m_pCallback				= static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),"attack4");
-	m_pParticleEmitter	= GetParticleEmitterInstance( "SwordFinal", _pCharacter->GetName() + "SwordFinal");
+	m_pParticleEmitter	= GetParticleEmitterInstance( "SwordRight", _pCharacter->GetName() + "SwordRight");
 }
 
 CPlayerAttack4State::~CPlayerAttack4State()
@@ -142,15 +142,15 @@ void CPlayerAttack4State::Execute( CCharacter* _pCharacter, float _fElapsedTime 
 	{
 		if( CORE->GetActionToInput()->DoAction("AttackPlayer") )
 		{
-			_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("attack1") );
-			_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack1") );
+			_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("attack5") );
+			_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack5") );
 		}
 		else
 		{
 			if( static_cast<CGameProcess*>(CORE->GetProcess())->GetTimeBetweenClicks() < 0.2f )
 			{
-				_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("attack1") );
-				_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack1") );
+				_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("attack5") );
+				_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack5") );
 			}
 			else
 			{
@@ -282,9 +282,21 @@ bool CPlayerAttack4State::CalculateAngleMovement( CCharacter *_pCharacter, float
 
 void CPlayerAttack4State::SetParticlePosition( CCharacter* _pCharacter )
 {
-	Vect3f l_Pos					= _pCharacter->GetPosition();
-	l_Pos.y							+= 1.f;
-	l_Pos							+= _pCharacter->GetAnimatedModel()->GetFront() * 1.7f;
+	CAnimatedInstanceModel *l_pAnimatedModel = _pCharacter->GetAnimatedModel();
 
-	m_pParticleEmitter->SetPosition( l_Pos );
+	Mat44f l_TransformMatrix		= m44fIDENTITY;
+	Mat44f l_RotationMatrix			= m44fIDENTITY;
+	Vect4f l_Rotation				= v3fZERO;
+	Vect3f l_Translation			= v3fZERO;
+	Mat44f l_AnimatedModelTransform = l_pAnimatedModel->GetTransform();
+
+	l_pAnimatedModel->GetBonePosition("CHR_CAP R Hand", l_Translation);
+	l_pAnimatedModel->GetBoneRotation("CHR_CAP R Hand", l_Rotation);
+
+	l_TransformMatrix.Translate(l_Translation);
+	l_RotationMatrix.SetFromQuaternion(l_Rotation);
+
+	l_TransformMatrix = l_AnimatedModelTransform * l_TransformMatrix * l_RotationMatrix;
+
+	m_pParticleEmitter->SetPosition( l_TransformMatrix.GetPos() );
 }
