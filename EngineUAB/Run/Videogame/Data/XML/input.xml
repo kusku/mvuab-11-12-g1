@@ -88,6 +88,15 @@
 		<input deviceType="IDV_MOUSE" EventType="EVENT_UP_DOWN"   Code="MOUSE_BUTTON_LEFT"/>
 	</action>
 
+	<action name="HardAttackPlayer">
+		<input deviceType="IDV_MOUSE" EventType="EVENT_UP_DOWN"   Code="MOUSE_BUTTON_LEFT"/>
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN"      Code="KEY_LCTRL"/>
+	</action>
+	
+	<action name="HardPreparedAttackPlayer">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN"      Code="KEY_LCTRL"/>
+	</action>
+	
 	<action name="DefensePlayer">
 		<input deviceType="IDV_MOUSE" EventType="EVENT_DOWN"      Code="MOUSE_BUTTON_RIGHT"/>
 	</action>
