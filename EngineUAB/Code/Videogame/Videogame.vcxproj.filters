@@ -441,6 +441,18 @@
     <ClCompile Include="Characters\Player\LogicStates\PlayerAttack6State.cpp">
       <Filter>Characters\Player\LogicStates</Filter>
     </ClCompile>
+    <ClCompile Include="Characters\Enemies\Wolf\LogicStates\WolfHowlLifeState.cpp">
+      <Filter>Characters\Enemies\Wolf\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Wolf\LogicStates\WolfHowlEnemiesState.cpp">
+      <Filter>Characters\Enemies\Wolf\LogicStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfHowlEnemiesAnimationState.cpp">
+      <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfHowlLifeAnimationState.cpp">
+      <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUIProcess.h" />
@@ -784,6 +796,18 @@
     </ClInclude>
     <ClInclude Include="Characters\Player\LogicStates\PlayerAttack5State.h">
       <Filter>Characters\Player\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="characters\enemies\wolf\logicstates\WolfHowlLifeState.h">
+      <Filter>Characters\Enemies\Wolf\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Wolf\LogicStates\WolfHowlEnemiesState.h">
+      <Filter>Characters\Enemies\Wolf\LogicStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfHowlEnemiesAnimationState.h">
+      <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfHowlLifeAnimationState.h">
+      <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1136,6 +1160,27 @@
       <Filter>XML</Filter>
     </None>
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\combat_zone_3.lua">
+      <Filter>Scripts\Game\Triggers</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\combat_zone_1.lua">
+      <Filter>Scripts\Game\Triggers</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\combat_zone_2.lua">
+      <Filter>Scripts\Game\Triggers</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\combat_zone_4.lua">
+      <Filter>Scripts\Game\Triggers</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\combat_zone_5.lua">
+      <Filter>Scripts\Game\Triggers</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\combat_zone_6.lua">
+      <Filter>Scripts\Game\Triggers</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\combat_zone_7.lua">
+      <Filter>Scripts\Game\Triggers</Filter>
+    </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\river_trigger.lua">
       <Filter>Scripts\Game\Triggers</Filter>
     </None>
   </ItemGroup>

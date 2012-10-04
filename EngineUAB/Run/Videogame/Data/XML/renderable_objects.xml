@@ -54,7 +54,6 @@
   <animated_model_instance name="enemy31" core="ciervo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
   <animated_model_instance name="enemy32" core="ciervo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
   <animated_model_instance name="enemy33" core="ciervo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
-  <animated_model_instance name="enemy34" core="ciervo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
   
   <!--Cabaña, Rio y Puentes-->
   <mesh_instance name="CabanaAbuela" core="CabanaAbuela" position="-61.1834 0.0298309 -117.168" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />

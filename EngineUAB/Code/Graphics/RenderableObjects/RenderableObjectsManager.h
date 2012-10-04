@@ -47,7 +47,7 @@ public:
 	CRenderableObject*	AddMeshInstance			( const std::string &CoreMeshName, const std::string &InstanceName, const Vect3f &Position );
 	CRenderableObject*	AddMeshInstance			( CXMLTreeNode &Node );
 	bool				AddMeshInstanceHw		( CXMLTreeNode &Node );
-	CRenderableObject*	AddAnimatedMeshInstance	( const std::string &Name, const Vect3f &Position );
+	CRenderableObject*	AddAnimatedMeshInstance	( const std::string &_Name, const std::string &_Core, const Vect3f &_Position );
 	CRenderableObject*	AddAnimatedMeshInstance ( CXMLTreeNode &Node );
 	bool				AddResource				( const std::string &Name, CRenderableObject *RenderableObject );
 	
@@ -64,7 +64,11 @@ public:
 		return m_InstanceMeshHWMap;
 	}
 
-	void				CleanUp		();
+	void				CleanUp					();
+
+	void				SetAllVisible			( bool _Visible );
+
+	
 };
 
 #endif

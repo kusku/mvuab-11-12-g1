@@ -153,7 +153,7 @@ CCharacter::~CCharacter()
 //	return true;
 //}
 
-bool CCharacter::Initialize( const std::string &_Name, const Vect3f &_InitialPosicion, ECollisionGroup _Grup )
+bool CCharacter::Initialize( const std::string &_Name, const std::string &_Core, const Vect3f &_InitialPosicion, ECollisionGroup _Grup )
 {
 	// Primero debemos adjuntar el modelo animado. Ojo! este nos da la posición
 	CRenderableObjectsLayersManager *l_ROLayerManager = CORE->GetRenderableObjectsLayersManager();
@@ -162,13 +162,12 @@ bool CCharacter::Initialize( const std::string &_Name, const Vect3f &_InitialPos
 
 	if ( !l_RO ) 
 	{
-		l_ROManager->AddAnimatedMeshInstance( m_pProperties->GetName(), Vect3f (0.f, 0.f, 0.f ) );
-	}
-	else
-	{
-		m_pCurrentAnimatedModel = static_cast<CAnimatedInstanceModel*> (l_RO);
+		CRenderableObject *l_RO = l_ROManager->AddAnimatedMeshInstance( m_pProperties->GetName(), _Core, Vect3f (0.f, 0.f, 0.f ) );
 	}
 
+	l_RO = l_ROManager->GetInstance( m_pProperties->GetAnimationInstance() );
+	m_pCurrentAnimatedModel = static_cast<CAnimatedInstanceModel*> (l_RO);
+	
 	// Ahora creamos la parte física del controller del jugador
 	m_pPhysicUserDataJugador = new CPhysicUserData( _Name );
 	m_pPhysicUserDataJugador->SetColor( colYELLOW );
@@ -899,9 +898,11 @@ void CCharacter::Appearance( void )
 	}
 	else
 	{
-		CORE->GetParticleEmitterManager()->GetResource("Twister")->GetParticleEmitterInstance(GetName() + "_Twister")->SetPosition(l_Pos);
-		CORE->GetParticleEmitterManager()->GetResource("Twister")->GetParticleEmitterInstance(GetName() + "_Twister")->EjectParticles();
-		CORE->GetSoundManager()->PlayEvent( GetSpeakerName(), "Play_EFX_51467_missile_explosion" );
+		CORE->GetParticleEmitterManager()->GetResource("WolfTwister")->GetParticleEmitterInstance(GetName() + "_WolfTwister")->SetPosition(l_Pos);
+		CORE->GetParticleEmitterManager()->GetResource("WolfTwister")->GetParticleEmitterInstance(GetName() + "_WolfTwister")->EjectParticles();
+		CORE->GetParticleEmitterManager()->GetResource("WolfTwisterExplosion")->GetParticleEmitterInstance(GetName() + "_WolfTwisterExplosion")->SetPosition(l_Pos);
+		CORE->GetParticleEmitterManager()->GetResource("WolfTwisterExplosion")->GetParticleEmitterInstance(GetName() + "_WolfTwisterExplosion")->EjectParticles();
+		CORE->GetSoundManager()->PlayEvent( GetSpeakerName(), "Play_EFX_51429_volcano_eruption" );
 	}
 }
 

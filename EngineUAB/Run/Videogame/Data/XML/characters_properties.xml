@@ -41,7 +41,7 @@
 		<speed>2</speed>
 		<max_rotation_speed>360</max_rotation_speed>
 		<min_speed>0.05</min_speed>
-		<max_speed>0.36</max_speed>
+		<max_speed>0.6</max_speed>
 		<max_acceleration>0.1</max_acceleration>
 		<max_force>0.015</max_force>
 		<still_attack_speed>0.7</still_attack_speed>
@@ -97,10 +97,10 @@
 		<speed>2</speed>
 		<max_rotation_speed>360</max_rotation_speed>
 		<min_speed>0.05</min_speed>
-		<max_speed>0.2</max_speed>
+		<max_speed>0.5</max_speed>
 		<max_acceleration>0.1</max_acceleration>
 		<max_force>0.015</max_force>
-		<still_attack_speed>0.3</still_attack_speed>
+		<still_attack_speed>0.4</still_attack_speed>
 		<!-- Velocidad de ataque 1 --> 
 		<run_attack_speed>1.4</run_attack_speed>
 		<!-- Velocidad de ataque 2 --> 
@@ -119,9 +119,9 @@
 		<max_time_in_defense>3</max_time_in_defense>
 		<!-- Cantidad de tiempo máximo al recibir un hit pero que estoy en defense -->
 		<bounding_radius>0.7</bounding_radius>
-		<detection_distance>17</detection_distance>
+		<detection_distance>25</detection_distance>
 		<!-- Distancia a partir de la qual detecto el player y puedo perseguirlo -->
-		<chase_distance>13</chase_distance>
+		<chase_distance>20</chase_distance>
 		<!-- Creo que ahora no la uso... -->
 		<follow_path_distance>100</follow_path_distance>
 		<!-- Está encima el player -->
@@ -180,9 +180,9 @@
 		<max_time_in_defense>3</max_time_in_defense>
 		<!-- Cantidad de tiempo máximo al recibir un hit pero que estoy en defense -->
 		<bounding_radius>0.4</bounding_radius>
-		<detection_distance>15</detection_distance>
+		<detection_distance>25</detection_distance>
 		<!-- Distancia a partir de la qual detecto el player y puedo perseguirlo -->
-		<chase_distance>12</chase_distance>
+		<chase_distance>20</chase_distance>
 		<!-- Creo que ahora no la uso... -->
 		<follow_path_distance>100</follow_path_distance>
 		<impact_distance>1.2</impact_distance>
@@ -205,21 +205,24 @@
 		<animation_offset>0.1</animation_offset>
 	</default_properties>
 	<player name="Caperu" core="caperucita" animated_instace_name="caperucita1" >
-		<life>500</life>
+		<life>100</life>
 		<strong>30</strong>
 		<speed>25</speed>
 		<velocity>0 0 0</velocity>
 		<yaw>2.36</yaw>
 		<respawn_position>0 10 0</respawn_position>
-		<!--<position>108 -14 -172</position>-->					<!-- Posición inicial del juego -->
 		
+		<position>106 -15 -170</position>					<!-- Posición inicial del juego. Posición respawn trigger 1 -->
 		<position>67 -40 19</position>						<!-- Posición respawn trigger 4 -->
 		<position>-20 -38 112</position>					<!-- Posición respawn trigger 5 -->
+		
 		<position>-64 -14 -20</position>					<!-- Posición respawn trigger 6 -->
+		<position>-44 -12 -69</position>					<!-- Posición respawn trigger 7 - Final Lobo -->
+		
 	</player>
 	<enemies>
 		<enemy name="enemy1" core="lobo" animated_instace_name="lobo1" >
-			<position>-51 -7 -104</position>
+			<position>-56 -7 -100</position>
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
@@ -324,7 +327,7 @@
 		</enemy>
 		<enemy name="enemy14" core="conejo" animated_instace_name="enemy14" >
 			<position>104 -36 -3</position>
-			<active>true</active>
+			<active>false</active>
 			<locked>false</locked>
 		</enemy>
 		
@@ -347,64 +350,65 @@
 		<enemy name="enemy15" core="conejo" animated_instace_name="enemy15" >
 			<position>35 -40 45</position>
 			<active>false</active>
-			<locked>false</locked>
+			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy16" core="conejo" animated_instace_name="enemy16" >
 			<position>32 -41 21</position>
 			<active>false</active>
-			<locked>false</locked>
+			<locked>true</locked>
 		</enemy>
 		
 		<!-- Enemigos Trigger zona de combate 5 -->
 		<enemy name="enemy17" core="conejo" animated_instace_name="enemy17" >
 			<position>-53 -28 111</position>
-			<active>true</active>
+			<active>false</active>
 			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy18" core="conejo" animated_instace_name="enemy18" >
 			<position>-48 -28 119</position>
-			<active>true</active>
+			<active>false</active>
 			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy19" core="conejo" animated_instace_name="enemy19" >
 			<position>-57 -29 124</position>
-			<active>true</active>
+			<active>false</active>
 			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy20" core="conejo" animated_instace_name="enemy20" >
 			<position>-62 -29 110</position>
-			<active>true</active>
+			<active>false</active>
 			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy21" core="conejo" animated_instace_name="enemy21" >
 			<position>-51 -34 116</position>
-			<active>true</active>
+			<active>false</active>
 			<locked>true</locked>
 		</enemy>
 
 		<!-- Enemigos Trigger zona de combate 6 -->
 		<enemy name="enemy22" core="conejo" animated_instace_name="enemy22" >
-			<position>-58 -11 -63</position>
+			<position>-58 -16. -63</position>
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy23" core="conejo" animated_instace_name="enemy23" >
-			<position>-50 -12 -61</position>
+			<position>-50 -16 -61</position>
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy24" core="conejo" animated_instace_name="enemy24" >
-			<position>-40 -13 -59</position>
+			<position>-45 -16 -59</position>
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy25" core="conejo" animated_instace_name="enemy25" >
-			<position>-35 -13 -61</position>
+			<position>-65 -16 -61</position>
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
 		
 		
+		<!-- Enemigos Trigger zona de combate X -->
 		
 		<enemy name="enemy26" core="conejo" animated_instace_name="enemy26" >
 			<position>-25 -30 0</position>

@@ -91,11 +91,14 @@
     <ClCompile Include="Steering Behaviors\Wander.cpp">
       <Filter>IA\Steering Behaviors</Filter>
     </ClCompile>
-    <ClCompile Include="Steering Behaviors\Align.cpp">
-      <Filter>IA\Steering Behaviors</Filter>
-    </ClCompile>
     <ClCompile Include="Steering Behaviors\Alignment.cpp">
       <Filter>IA\Steering Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="Formations\FormationManager.cpp">
+      <Filter>IA\Formations</Filter>
+    </ClCompile>
+    <ClCompile Include="Formations\FormationPattern.cpp">
+      <Filter>IA\Formations</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -201,7 +204,7 @@
     <ClInclude Include="Steering Behaviors\Evade.h">
       <Filter>IA\Steering Behaviors</Filter>
     </ClInclude>
-     <ClInclude Include="Rails\Rail.h">
+    <ClInclude Include="Rails\Rail.h">
       <Filter>Rails</Filter>
     </ClInclude>
     <ClInclude Include="Rails\RailManager.h">
@@ -222,11 +225,14 @@
     <ClInclude Include="Steering Behaviors\Wander.h">
       <Filter>IA\Steering Behaviors</Filter>
     </ClInclude>
-    <ClInclude Include="Steering Behaviors\Align.h">
-      <Filter>IA\Steering Behaviors</Filter>
-    </ClInclude>
     <ClInclude Include="Steering Behaviors\Alignment.h">
       <Filter>IA\Steering Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="Formations\FormationManager.h">
+      <Filter>IA\Formations</Filter>
+    </ClInclude>
+    <ClInclude Include="Formations\FormationPattern.h">
+      <Filter>IA\Formations</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -274,6 +280,9 @@
     </Filter>
     <Filter Include="Rails">
       <UniqueIdentifier>{dcf97d91-7056-4caa-b3f3-1d0e62a21cc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IA\Formations">
+      <UniqueIdentifier>{bdff939e-5f2d-4c7e-87b7-d52672c5497e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

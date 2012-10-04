@@ -13,6 +13,7 @@
 
 #include "VideogameDefs.h"
 #include "Math\Vector3.h"
+#include "Utils\BoostRandomHelper.h"
 #include "Utils\Random.h"
 #include "Logger\Logger.h"
 #include "Base.h"
@@ -133,6 +134,8 @@ void CCharactersManager::CleanReloadScripts( void )
 
 void CCharactersManager::CleanUp( void )
 {
+	CCharactersManager::SetDynamicCharactersVisible(false);
+
 	CHECKED_DELETE ( m_pPropertiesManager );		// Eliminamos las propiedades por defecto
 	CHECKED_DELETE ( m_pAnimatedStatesManager );	// Eliminamos los estados por defecto
 	CHECKED_DELETE ( m_pPlayer );
@@ -699,7 +702,7 @@ bool CCharactersManager::LoadPlayerProperties( const CXMLTreeNode &_Node )
 		m_pPlayer->SetProperties( l_PlayerProperties );
 		
 		// Inicializamos el player, sus estados, mayas animadas...
-		m_pPlayer->Initialize( l_PlayerProperties->GetName(), m_pPlayer->GetProperties()->GetPosition(), ::ECG_PLAYER );
+		m_pPlayer->Initialize( l_PlayerProperties->GetName(), l_PlayerProperties->GetCore(), m_pPlayer->GetProperties()->GetPosition(), ::ECG_PLAYER );
 		l_IsOk &= m_pPlayer->InitializeAI();
 		l_IsOk &= m_pPlayer->Init();		// Llamada a Lua
 		ENTMGR->RegisterEntity(m_pPlayer);
@@ -773,7 +776,7 @@ bool CCharactersManager::LoadEnemiesProperties( const CXMLTreeNode &_Node )
 					l_Character->SetProperties(properties);
 		
 					// Inicializamos el player, sus estados, mayas animadas...
-					l_IsOk = l_Character->Initialize( l_EnemyProperties->GetName(), l_Character->GetProperties()->GetPosition(), ::ECG_ENEMY );
+					l_IsOk = l_Character->Initialize( l_EnemyProperties->GetName(), l_EnemyProperties->GetCore(), l_Character->GetProperties()->GetPosition(), ::ECG_ENEMY );
 					l_IsOk &= l_Character->InitializeAI();
 					l_IsOk &= l_Character->Init();		// Llamada a Lua
 					AddEnemy( l_Character );			// La meto dentro de la lista
@@ -902,29 +905,83 @@ void CCharactersManager::AddEnemy ( CCharacter *_pEnemy )
 // ---------------------------------------------------------------------------------------------------------
 // CreateRandomEnemy: Crea enemigo de forma aleatoria entre unas coordenadas especificas y lo añade al mapa
 // ---------------------------------------------------------------------------------------------------------
-void CCharactersManager::CreateEnemy ( void )
+CCharacter * CCharactersManager::CreateEnemy( const Vect3f &_Position )
 {
-	/*std::stringstream out;
-		out << "_";
-		out << GetTotalEnemies();
+	bool l_IsOk = false;
+
+	std::stringstream out;
+		out << "enemy";
+		out << ( CBaseGameEntity::GetNextValidID() );
 	
-	CRandom	l_Randomize;
-	int l_Rand= l_Randomize.getRandUnsigned( ::LOBO, ::CONEJO );*/
+	int l_Rand = BoostRandomHelper::GetInt(2,3);
 
-	//TIPO_ENEMIGO l_TipoEnemigo = static_cast<TIPO_ENEMIGO> (l_Rand);
-//	CEnemy * l_Enemy = new CEnemy ( "Enemic" + out.str(), ENEMY, RandomVector ( Vect3f (-10,0,-10), Vect3f (10,0,10) ) );
+	eCharacterTypes l_TipoEnemigo = static_cast<eCharacterTypes> (l_Rand);
+	CProperties* l_EnemyProperties = NULL;
+	if ( l_Rand == ::DEER ) 
+	{
+		l_EnemyProperties = m_pPropertiesManager->GetResource("ciervo");
+		l_EnemyProperties->SetCore( "ciervo" );
+	}
+	else if ( l_Rand == ::RABBIT ) 
+	{
+		l_EnemyProperties = m_pPropertiesManager->GetResource("conejo");
+		l_EnemyProperties->SetCore( "conejo" );
+	}
 
-	//l_Enemy->Initialize				( );			// Inicialitza els waypoints. En el Jugador no cal
-	//l_Enemy->setPlayer				( m_pPlayer );
-	//l_Enemy->setInitialPosition		( CreateRandomPosition() );
-	/*l_Enemy->setRotationSpeed		( MATH.degToRad( ENEMY_ROTATION_SPEED ) );
-	l_Enemy->setSpeed				( ENEMY_SPEED );
-	l_Enemy->setDetectionDistance	( ENEMY_SOUND_DETECTION );
-	l_Enemy->setFrustumAngle		( ENEMY_VISION_ANGLE );
-	l_Enemy->setFrustumDistance		( ENEMY_VISION_DISTANCE );
-	l_Enemy->setEstado				( ::PARADO );*/
+	std::string l_Name = out.str();;
+	if ( l_EnemyProperties )
+	{
+		l_EnemyProperties->SetName(l_Name);
+		l_EnemyProperties->SetAnimationInstance(l_Name);
+		l_EnemyProperties->SetPosition(_Position);
+		l_EnemyProperties->SetActive(false);
+		l_EnemyProperties->SetVisible(true);
+		l_EnemyProperties->SetLocked(false);
+		
+		CCharacter* l_Character = GetResource(l_Name);
+		if ( !l_Character )
+		{
+			if ( l_EnemyProperties->GetCore() == "ciervo" )
+			{
+				std::string l_LUAClass = "CDeer";
+				l_Character = new CDeer(CBaseGameEntity::GetNextValidID(), l_Name);
+				l_Character->SetCharacterType(DEER);
+			}
+			if ( l_EnemyProperties->GetCore() == "conejo" ) 
+			{
+				std::string l_LUAClass = "CRabbit";
+				l_Character = new CRabbit(CBaseGameEntity::GetNextValidID(), l_Name);
+				l_Character->SetCharacterType(RABBIT);
+			}
+		}
+		
+		// Asignamos las propiedades
+		CProperties *l_Properties = new CProperties();
+		memcpy(l_Properties, l_EnemyProperties, sizeof(CProperties));
+		l_Character->SetProperties(l_Properties);
+		
+		// Inicializamos el player, sus estados, mayas animadas...
+		//l_Character->SetID(CBaseGameEntity::GetNextValidID());
+		l_IsOk = l_Character->Initialize( l_EnemyProperties->GetName(), l_EnemyProperties->GetCore(), l_Character->GetProperties()->GetPosition(), ::ECG_ENEMY );
+		l_IsOk &= l_Character->InitializeAI();
+		l_IsOk &= l_Character->Init();		// Llamada a Lua
 
-	//AddEnemy ( l_Enemy );
+		l_Character->SetVisible(true);
+		l_Character->SetEnable(true);
+
+		// Aun no lo activamos
+		
+		//l_Character->SetEnable(false);
+
+		AddEnemy( l_Character );			// La meto dentro de la lista
+		
+		//l_NextIDValid += 1;					// Pròxim ID vàlid
+		ENTMGR->RegisterEntity(l_Character);
+
+		return l_Character;
+	}
+	
+	return NULL;
 }
 
 // ---------------------------------------------------------------------------------------------------------
@@ -1324,3 +1381,16 @@ CCharacter* CCharactersManager::GetPlayerAngleCorrection( float _fDistance, floa
 	return l_pEnemy;
 }
 
+void CCharactersManager::SaveDynamicCharacterCreated( std::string _EnemyName )
+{
+	m_DynamicCharactersNamesCreated.push_back(_EnemyName);
+}
+
+void CCharactersManager::SetDynamicCharactersVisible( bool _Visible )
+{
+	for ( size_t i = 0; i < m_DynamicCharactersNamesCreated.size(); i++ )
+	{
+		CAnimatedInstanceModel *l_pCurrentAnimatedModel = static_cast<CAnimatedInstanceModel*>(CORE->GetRenderableObjectsLayersManager()->GetResource("solid")->GetInstance(m_DynamicCharactersNamesCreated[i]));		l_pCurrentAnimatedModel->SetVisible(_Visible);
+	}
+	m_DynamicCharactersNamesCreated.clear();
+}

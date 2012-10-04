@@ -20,6 +20,8 @@ class CWolfDefenseState;
 class CWolfStillAttackState;
 class CWolfRunAttackState;
 class CWolfDeathState;
+class CWolfHowlLifeState;
+class CWolfHowlEnemiesState;
 
 // Estats animació 
 class CWolfIdleAnimationState;
@@ -34,6 +36,8 @@ class CWolfJumpAnimationState;
 class CWolfRunAttackAnimationState;
 class CWolfStillAttackAnimationState;
 class CWolfWalkAnimationState;
+class CWolfHowlLifeAnimationState;
+class CWolfHowlEnemiesAnimationState;
 // ---------------------------
 
 class CWolf :	public CCharacter
@@ -41,20 +45,22 @@ class CWolf :	public CCharacter
 public:
 
 	// ------------- Constructors i Destructors --------------
-					CWolf				( int _Id );
-					CWolf				( int _Id, std::string _Name );
-	virtual			~CWolf			(void);
+					CWolf					( int _Id );
+					CWolf					( int _Id, std::string _Name );
+	virtual			~CWolf					(void);
 
 	//----Main Functions --------------------------------------
-	virtual bool	Init				( void );
-	void			CreateCallbacks		( void );
+	virtual bool	Init					( void );
+	void			CreateCallbacks			( void );
 
-	virtual void	LoadGraphicStates	( void ); 
-	virtual void	LoadLogicStates		( void );
+	virtual void	LoadGraphicStates		( void ); 
+	virtual void	LoadLogicStates			( void );
 
 	//----Methods ---------------------------------------------
-	bool			IsFatigued			( void );
-	void			BeDead				( void );
+	bool			IsFatigued				( void );
+	void			BeDead					( void );
+	bool			TestIfCanHowlForLife	( uint32 _Life, uint32 _ValorMultiple );
+	bool			TestIfCanHowlForEnemies ( uint32 _Life, uint32 _ValorMultiple );
 
 	//----Properties ------------------------------------------
 	CWolfIdleState *					GetIdleState					( void ) const			{ return m_pIdleState; }
@@ -67,6 +73,8 @@ public:
 	CWolfStillAttackState *				GetStillAttackState				( void ) const			{ return m_pStillAttackState; }
 	CWolfRunAttackState *				GetRunAttackState				( void ) const			{ return m_pRunAttackState; }
 	CWolfDeathState *					GetDeathState					( void ) const			{ return m_pDeathState; }
+	CWolfHowlLifeState *				GetHowlLifeState				( void ) const			{ return m_pHowlLifeState; }
+	CWolfHowlEnemiesState *				GetHowlEnemiesState				( void ) const			{ return m_pHowlEnemiesState; }
 	
 	CWolfIdleAnimationState *			GetIdleAnimationState			( void ) const			{ return m_pAnimationIdleState; }
 	//CWolfIdle2AnimationState *			GetIdle2AnimationState			( void ) const			{ return m_pAnimationIdle2State; }
@@ -80,6 +88,8 @@ public:
 	CWolfRunAttackAnimationState *		GetRunAttackAnimationState		( void ) const			{ return m_pAnimationRunAttackState; }
 	CWolfStillAttackAnimationState *	GetStillAttackAnimationState	( void ) const			{ return m_pAnimationStillAttackState; }
 	CWolfWalkAnimationState *			GetWalkAnimationState			( void ) const			{ return m_pAnimationWalkState; }
+	CWolfHowlLifeAnimationState *		GetHowlLifeAnimationState		( void ) const			{ return m_pAnimationHowlLifeState; }
+	CWolfHowlEnemiesAnimationState *	GetHowlEnemiesAnimationState	( void ) const			{ return m_pAnimationHowlEnemiesState; }
 
 	inline void							SetHitsDone						( int _Hits ) 			{ m_HitsDone = _Hits; }
 	inline const int					GetHitsDone						( void ) const			{ return m_HitsDone; }
@@ -91,6 +101,12 @@ public:
 
 	inline void							SetTotalHitsToBeTired			( int _HitsToBeTired ) 	{ m_TotalHitsDoneToTired = _HitsToBeTired; }
 	inline const int					GetTotalHitsToBeTired			( void ) const			{ return m_TotalHitsDoneToTired; }
+
+	bool								GetCanHowlForLife				( void ) const			{ return m_CanHowlForLife; }
+	void								SetCanHowlForLife				( bool _CanHowl )		{ m_CanHowlForLife	= _CanHowl; }
+
+	bool								GetCanHowlForEnemies			( void ) const			{ return m_CanHowlForEnemies; }
+	void								SetCanHowlForEnemies			( bool _CanHowl )		{ m_CanHowlForEnemies	= _CanHowl; }
 
 	//----Members ---------------------------------------------
 private:
@@ -113,6 +129,8 @@ private:
 	CWolfStillAttackState			*	m_pStillAttackState;
 	CWolfRunAttackState				*	m_pRunAttackState; 
 	CWolfDeathState					*	m_pDeathState; 
+	CWolfHowlLifeState				*   m_pHowlLifeState;
+	CWolfHowlEnemiesState			*   m_pHowlEnemiesState;
 
 	CWolfIdleAnimationState			*	m_pAnimationIdleState;
 	//CWolfIdle2AnimationState		*	m_pAnimationIdle2State;
@@ -126,7 +144,11 @@ private:
 	CWolfRunAttackAnimationState	*	m_pAnimationRunAttackState;
 	CWolfStillAttackAnimationState	*	m_pAnimationStillAttackState;
 	CWolfWalkAnimationState			*	m_pAnimationWalkState;
+	CWolfHowlLifeAnimationState		*	m_pAnimationHowlLifeState;
+	CWolfHowlEnemiesAnimationState	*	m_pAnimationHowlEnemiesState;
 
+	bool								m_CanHowlForLife;
+	bool								m_CanHowlForEnemies;
 };
 
 

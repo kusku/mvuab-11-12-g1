@@ -97,16 +97,6 @@ CRenderableObject* CRenderableObjectsManager::AddMeshInstance(const std::string 
 	return static_cast<CRenderableObject*>(l_InstanceMesh);
 }
 
-CRenderableObject* CRenderableObjectsManager::AddAnimatedMeshInstance (const std::string &Name, const Vect3f &Position)
-{
-	CAnimatedInstanceModel* l_AnimatedInstanceModel = new CAnimatedInstanceModel();
-	l_AnimatedInstanceModel->SetPosition( Position );
-	
-	AddResource( Name, static_cast<CRenderableObject*>(l_AnimatedInstanceModel) );
-
-	return static_cast<CRenderableObject*>( l_AnimatedInstanceModel );
-}
-
 CRenderableObject* CRenderableObjectsManager::AddMeshInstance(CXMLTreeNode &Node)
 {
 	CRenderableObject *l_InstanceMesh = new CInstanceMesh(Node);
@@ -142,6 +132,20 @@ bool CRenderableObjectsManager::AddMeshInstanceHw(CXMLTreeNode &Node)
 	hwMesh->AddHWInstance(Node);
 
 	return true;
+}
+
+
+CRenderableObject* CRenderableObjectsManager::AddAnimatedMeshInstance( const std::string &_Name, const std::string &_Core, const Vect3f &_Position )
+{
+	CAnimatedInstanceModel* l_AnimatedInstanceModel = CORE->GetAnimatedModelManager()->GetInstance(_Core);
+	l_AnimatedInstanceModel->SetPosition( _Position );
+	l_AnimatedInstanceModel->SetName( _Name );
+	l_AnimatedInstanceModel->SetVisible("false");
+	l_AnimatedInstanceModel->SetYaw(0.f);
+
+	AddResource( _Name, static_cast<CRenderableObject*>(l_AnimatedInstanceModel) );
+
+	return static_cast<CRenderableObject*>( l_AnimatedInstanceModel );
 }
 
 CRenderableObject* CRenderableObjectsManager::AddAnimatedMeshInstance(CXMLTreeNode &Node)
@@ -208,4 +212,21 @@ void CRenderableObjectsManager::CleanUp()
 	}
 
 	m_InstanceMeshHWMap.clear();
+}
+
+
+
+// ------------------------------------------------------------------------------------------------------------------------------
+// SetAllVisible : Pone todas las instancias a visible true o false segun el valor especificado
+// ------------------------------------------------------------------------------------------------------------------------------
+void CRenderableObjectsManager::SetAllVisible( bool _Visible )
+{
+	TMapResource::iterator l_It = m_Resources.begin();
+	TMapResource::iterator l_End = m_Resources.end();
+
+	for (; l_It != l_End; ++l_It)
+	{
+		l_It->second->SetVisible(_Visible);
+	}
+	//m_pCurrentAnimatedModel = static_cast<CAnimatedInstanceModel*>(CORE->GetRenderableObjectsLayersManager()->GetResource("solid")->GetInstance("caperucita1"));
 }

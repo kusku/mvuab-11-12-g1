@@ -1,26 +1,23 @@
 #pragma once
 
-#ifndef _WOLF_IDLE_STATE_H_
-#define _WOLF_IDLE_STATE_H_
-
+#ifndef _WOLF_HOWL_LIFE_ANIMATION_STATE_H_
+#define _WOLF_HOWL_LIFE_ANIMATION_STATE_H_
 
 #include <string>
 #include "StatesMachine\State.h"
 #include "Characters\Character.h"
-#include "Callbacks\State\ActionStateCallback.h"
 
 // --- Foward Declarations ---
 class CWolf;
 // ---------------------------
 
-class CWolfIdleState : public CState<CCharacter> 
+class CWolfHowlLifeAnimationState : public CState<CCharacter>
 {
 public:
-
 	// ------------- Constructors i Destructors --------------
-					CWolfIdleState	( CCharacter* );
-					CWolfIdleState	( CCharacter*, const std::string &_Name );
-	virtual			~CWolfIdleState	( void );
+					CWolfHowlLifeAnimationState	( CCharacter* );
+					CWolfHowlLifeAnimationState	( CCharacter*, const std::string &_Name );
+	virtual			~CWolfHowlLifeAnimationState	( void );
 
 	//----Main Functions --------------------------------------
 	virtual void	Execute		( CCharacter*, float _ElapsedTime );
@@ -36,17 +33,14 @@ public:
 
 	//----Methods ---------------------------------------------
 	
-
 	//----Properties ------------------------------------------
+	inline CWolf * GetCharacter( void )		{ return m_pWolf; }
 
 	//----Members ---------------------------------------------
 private:
-	CWolf				  * m_pWolf;
-	CActionStateCallback	m_ActionStateCallback;
-	bool					m_AlreadyDetected;
-	bool					m_AlreadyChased;
-	bool					m_IdleWarningSounds;
+	CWolf *		m_pWolf;
+
 };
 
 
-#endif _WOLF_IDLE_STATE_H_
+#endif _WOLF_HOWL_LIFE_ANIMATION_STATE_H_
