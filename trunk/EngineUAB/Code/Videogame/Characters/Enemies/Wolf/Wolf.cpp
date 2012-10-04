@@ -32,6 +32,9 @@
 #include "LogicStates\WolfStillAttackState.h"
 #include "LogicStates\WolfRunAttackState.h"
 #include "LogicStates\WolfDeathState.h"
+#include "LogicStates\WolfHowlEnemiesState.h"
+#include "LogicStates\WolfHowlLifeState.h"
+#include "LogicStates\WolfHowlEnemiesState.h"
 
 #include "AnimationStates\WolfIdleAnimationState.h"
 //#include "AnimationStates\WolfIdle2AnimationState.h"
@@ -45,7 +48,8 @@
 #include "AnimationStates\WolfStillAttackAnimationState.h"
 #include "AnimationStates\WolfRunAttackAnimationState.h"
 #include "AnimationStates\WolfWalkAnimationState.h"
-
+#include "AnimationStates\WolfHowlEnemiesAnimationState.h"
+#include "AnimationStates\WolfHowlLifeAnimationState.h"
 
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
@@ -65,6 +69,8 @@ CWolf::CWolf( int _Id )
 	, m_pStillAttackState			( NULL )
 	, m_pRunAttackState				( NULL )
 	, m_pDeathState					( NULL )
+	, m_pHowlLifeState				( NULL )
+	, m_pHowlEnemiesState			( NULL )
 	, m_pAnimationIdleState 		( NULL )
 	//, m_pAnimationIdle2State 		( NULL )
 	, m_pAnimationRunState 			( NULL )
@@ -77,6 +83,10 @@ CWolf::CWolf( int _Id )
 	, m_pAnimationRunAttackState 	( NULL )
 	, m_pAnimationStillAttackState 	( NULL )
 	, m_pAnimationWalkState 		( NULL )
+	, m_pAnimationHowlLifeState		( NULL )
+	, m_pAnimationHowlEnemiesState	( NULL )
+	, m_CanHowlForLife				( true )
+	, m_CanHowlForEnemies			( true )
 {
 }
 
@@ -107,6 +117,11 @@ CWolf::CWolf( int _Id, std::string _Name )
 	, m_pAnimationRunAttackState 	( NULL )
 	, m_pAnimationStillAttackState 	( NULL )
 	, m_pAnimationWalkState 		( NULL )
+	, m_pAnimationHowlLifeState		( NULL )
+	, m_pAnimationHowlEnemiesState	( NULL )
+	, m_CanHowlForLife				( true )
+	, m_CanHowlForEnemies			( true )
+
 {
 }
 
@@ -123,6 +138,8 @@ CWolf::~CWolf(void)
 	CHECKED_DELETE ( m_pStillAttackState );
 	CHECKED_DELETE ( m_pRunAttackState );
 	CHECKED_DELETE ( m_pDeathState );
+	CHECKED_DELETE ( m_pHowlLifeState );
+	CHECKED_DELETE ( m_pHowlEnemiesState );
 
 	// Estados animados
 	CHECKED_DELETE ( m_pAnimationIdleState );
@@ -137,6 +154,8 @@ CWolf::~CWolf(void)
 	CHECKED_DELETE ( m_pAnimationRunAttackState );
 	CHECKED_DELETE ( m_pAnimationStillAttackState );
 	CHECKED_DELETE ( m_pAnimationWalkState );
+	CHECKED_DELETE ( m_pAnimationHowlLifeState );
+	CHECKED_DELETE ( m_pAnimationHowlEnemiesState );
 }
 
 
@@ -207,6 +226,8 @@ void CWolf::CreateCallbacks(void)
 	l_Process->GetAnimationCallbackManager()->CreateCallback(GetName(), WOLF_STILL_ATTACK_STATE, this->GetAnimatedModel());
 	l_Process->GetAnimationCallbackManager()->CreateCallback(GetName(), WOLF_RUN_ATTACK_STATE, this->GetAnimatedModel());
 	l_Process->GetAnimationCallbackManager()->CreateCallback(GetName(), WOLF_DEATH_STATE, this->GetAnimatedModel());
+	l_Process->GetAnimationCallbackManager()->CreateCallback(GetName(), WOLF_HOWL_LIFE_STATE, this->GetAnimatedModel());
+	l_Process->GetAnimationCallbackManager()->CreateCallback(GetName(), WOLF_HOWL_ENEMIES_STATE, this->GetAnimatedModel());
 }
 
 void CWolf::LoadGraphicStates( void )
@@ -223,6 +244,8 @@ void CWolf::LoadGraphicStates( void )
 	m_pAnimationRunAttackState		= new CWolfRunAttackAnimationState		(this);
 	m_pAnimationStillAttackState	= new CWolfStillAttackAnimationState	(this);
 	m_pAnimationWalkState			= new CWolfWalkAnimationState			(this);
+	m_pAnimationHowlLifeState		= new CWolfHowlLifeAnimationState		(this);
+	m_pAnimationHowlEnemiesState	= new CWolfHowlEnemiesAnimationState	(this);
 
 	return;
 }
@@ -239,7 +262,8 @@ void CWolf::LoadLogicStates( void )
 	m_pStillAttackState			= new CWolfStillAttackState					(this);
 	m_pRunAttackState			= new CWolfRunAttackState					(this);
 	m_pDeathState				= new CWolfDeathState						(this);
-
+	m_pHowlLifeState			= new CWolfHowlLifeState					(this);
+	m_pHowlEnemiesState			= new CWolfHowlEnemiesState					(this);
 	return;
 }
 
@@ -254,4 +278,46 @@ bool CWolf::IsFatigued( void )
 void CWolf::BeDead( void )
 {
 	this->GetLogicFSM()->ChangeState(GetDeathState());
+}
+
+
+// ------------------------------------------------------------------------------------------------------------------
+//  TestIfCanHowlForLife: Solo aumentamos la vida en caso de estar a la mitad o casi muerto.
+// ------------------------------------------------------------------------------------------------------------------
+bool CWolf::TestIfCanHowlForLife( uint32 _Life, uint32 _ValorMultiple )
+{
+	if ( ( !GetCanHowlForLife() ) && ( m_pProperties->GetCurrentLife()/2 <= m_pProperties->GetLife() ) )
+	{
+		SetCanHowlForLife(true);
+		return true;
+	}
+
+	if ( ( !GetCanHowlForLife() ) && ( m_pProperties->GetCurrentLife()/4 <= m_pProperties->GetLife() ) )
+	{
+		SetCanHowlForLife(true);
+		return true;
+	}
+
+	return false;
+}
+
+// ------------------------------------------------------------------------------------------------------------------
+//  TestIfCanHowlForEnemies: Hacemos aparecer enemigos en el momento de aparición del lobo y en el momento que la vida
+//							esté a la mitad
+// ------------------------------------------------------------------------------------------------------------------
+bool CWolf::TestIfCanHowlForEnemies( uint32 _Life, uint32 _ValorMultiple )
+{
+	// TODO: Ahora a saco 
+	if ( m_pProperties->GetCurrentLife() == m_pProperties->GetLife() )
+	{
+		return true;
+	}
+
+	if ( ( !GetCanHowlForLife() ) && ( m_pProperties->GetCurrentLife()/2 <= m_pProperties->GetLife() ) )
+	{
+		SetCanHowlForLife(true);
+		return true;
+	}
+
+	return false;
 }

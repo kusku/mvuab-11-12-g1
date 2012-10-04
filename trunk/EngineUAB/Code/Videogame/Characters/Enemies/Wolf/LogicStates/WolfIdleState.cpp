@@ -15,10 +15,14 @@
 
 #include "WolfPursuitState.h"
 #include "WolfHitState.h"
+#include "WolfHowlLifeState.h"
+#include "WolfHowlEnemiesState.h"
 
 #include "Characters\Enemies\Wolf\AnimationStates\WolfIdleAnimationState.h"
 #include "Characters\Enemies\Wolf\AnimationStates\WolfRunAnimationState.h"
 #include "Characters\Enemies\Wolf\AnimationStates\WolfHitAnimationState.h"
+#include "Characters\Enemies\Wolf\AnimationStates\WolfHowlLifeAnimationState.h"
+#include "Characters\Enemies\Wolf\AnimationStates\WolfHowlEnemiesAnimationState.h"
 
 #include "Steering Behaviors\SteeringEntity.h"
 
@@ -35,7 +39,7 @@ CWolfIdleState::CWolfIdleState( CCharacter* _pCharacter )
 	, m_pWolf				( NULL )
 	, m_AlreadyDetected		( false )
 	, m_AlreadyChased		( false )
-	, m_ActionStateCallback	( 0,1 )
+	, m_ActionStateCallback	( 0, 1 )
 {
 }
 
@@ -44,7 +48,7 @@ CWolfIdleState::CWolfIdleState( CCharacter* _pCharacter, const std::string &_Nam
 	, m_pWolf				( NULL )
 	, m_AlreadyDetected		( false )
 	, m_AlreadyChased		( false )
-	, m_ActionStateCallback	( 0,1 )
+	, m_ActionStateCallback	( 0, 1 )
 {
 }
 
@@ -73,7 +77,7 @@ void CWolfIdleState::OnEnter( CCharacter* _pCharacter )
 	float l_Tiempo = BoostRandomHelper::GetFloat(2.f, 4.f);
 	m_ActionStateCallback.InitAction(0.f, l_Tiempo );
 	m_ActionStateCallback.StartAction();
-
+	
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
@@ -90,13 +94,44 @@ void CWolfIdleState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 
+	// Si tenemos máxima vida y acaba de aparecer el lobo llamamos mis amigos.
+	if ( m_pWolf->GetCanHowlForLife() && m_pWolf->TestIfCanHowlForLife(m_pWolf->GetProperties()->GetLife(), 100) )
+	{
+		m_pWolf->GetLogicFSM()->ChangeState( m_pWolf->GetHowlLifeState());
+		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetHowlLifeAnimationState());
+		m_pWolf->SetCanHowlForLife(false);
+		return;
+	}
+
+	if ( m_pWolf->GetCanHowlForEnemies() && m_pWolf->TestIfCanHowlForEnemies(m_pWolf->GetProperties()->GetLife(), 100) )
+	{
+		m_pWolf->GetLogicFSM()->ChangeState( m_pWolf->GetHowlEnemiesState());
+		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetHowlEnemiesAnimationState());
+		m_pWolf->SetCanHowlForEnemies(false);
+		return;
+	}
+
+	/*m_pWolf->GetLogicFSM()->ChangeState( m_pWolf->GetHowlLifeState());
+		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetHowlLifeAnimationState());*/
+		
+
+
 	// Si debo perseguir al player
 	if ( m_pWolf->IsPlayerChased() ) 
 	{
-		CORE->GetSoundManager()->PlayEvent( "Stop_EFX_Wolf_Idle" );
+		/*if ( m_CanHowl && IsVidaMultiple(m_pWolf->GetProperties()->GetLife(), 100) )
+		{
+			m_pWolf->GetLogicFSM()->ChangeState( m_pWolf->GetHowlState());
+			m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetHowlAnimationState());
+			m_CanHowl = false;
+		}
+		else 
+		{*/
+			CORE->GetSoundManager()->PlayEvent( "Stop_EFX_Wolf_Idle" );
 		
-		m_pWolf->GetLogicFSM()->ChangeState( m_pWolf->GetPursuitState());
-		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetRunAnimationState());
+			m_pWolf->GetLogicFSM()->ChangeState( m_pWolf->GetPursuitState());
+			m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetRunAnimationState());
+		//}
 		return;
 	}
 

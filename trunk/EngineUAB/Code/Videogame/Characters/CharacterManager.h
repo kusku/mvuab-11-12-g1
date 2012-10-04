@@ -39,10 +39,10 @@ public:
 
 	// ------------- Methods --------------------------------
 	void				AddEnemy							( CCharacter *_pEnemy );			// Afegeix un enemic ja creat
-	void				CreateEnemy							();									// Crea i afegeix un enemic ja creat
-	void				CreateRandomEnemy					();									// Crea i afegeix un enemic aleatori
-	bool				LoadXMLProperties					();									// Carga el XML de propiedades
-	bool				LoadXMLAnimatedStates				();									// Carga el XML de estados
+	CCharacter *  		CreateEnemy							( const Vect3f &_Position );		// Crea i afegeix un enemic
+	void				CreateRandomEnemy					( void );							// Crea i afegeix un enemic aleatori
+	bool				LoadXMLProperties					( void );							// Carga el XML de propiedades
+	bool				LoadXMLAnimatedStates				( void );							// Carga el XML de estados
 
 
 	CCharacter*			GetCharacterById					( int _Id );
@@ -61,6 +61,8 @@ public:
 	void				DrawRay								( void );
 	void				DrawVelocity						( CCharacter * _Character, CRenderManager * _RM );
 
+	void				SaveDynamicCharacterCreated			( std::string _EnemyName );
+
 	// ------------- Propietats ( Get / Set ) ----------------
 	TVectorResources	GetEnemiesVector					() const					{ return m_ResourcesVector; }
 	TMapResources		GetEnemiesMap						() const					{ return m_ResourcesMap; }
@@ -75,6 +77,8 @@ public:
 	inline void			SetPreviewTargetEnemy				( CCharacter *enemy )		{ m_pPreviewTargetEnemy = enemy; }
 
 	inline int			GetPlayerLife						() const					{ return m_pPlayer->GetProperties()->GetCurrentLife(); }
+
+	void				SetDynamicCharactersVisible			( bool _Visible );
 
 	// ------------- Load Methods --------------------------------
 private:
@@ -104,6 +108,8 @@ private:
 
 	std::vector<CPhysicUserData*> m_UserDatas;		// Permite almacenar aquellos enemigos en zona de detección del player para ordenarlos y decidir quien puede o no atacar
 													// Básicamente se le pone un flag a la Steering Entity para determinar si va hacia el player o no
+
+	std::vector<std::string>	m_DynamicCharactersNamesCreated;		// Lo uso para guardar los elementos para luego eliminarlos
 };
 
 #endif

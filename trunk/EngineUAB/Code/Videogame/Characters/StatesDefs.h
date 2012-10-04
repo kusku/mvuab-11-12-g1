@@ -33,9 +33,11 @@
 #define WOLF_STILL_ATTACK_COMBO_STATE		"lobo_attack_still_combo"
 #define WOLF_RUN_ATTACK_STATE				"lobo_attack_run_all"
 #define WOLF_ONLY_RUN_ATTACK_STATE			"lobo_attack_run_1"
-#define WOLF_ONLY_IMPACT_RUN_ATTACK_STATE	"lobo_attack_run_2"
+#define WOLF_ONLY_PREPARED_RUN_ATTACK_STATE	"lobo_attack_run_2"
+#define WOLF_ONLY_IMPACT_RUN_ATTACK_STATE	"lobo_attack_run_3"
 #define WOLF_WALK_STATE						"lobo_walk"
-#define WOLF_HOWL_STATE						"lobo_howl"
+#define WOLF_HOWL_LIFE_STATE				"lobo_howl_life"
+#define WOLF_HOWL_ENEMIES_STATE				"lobo_howl_enemies"
 
 // ********* ESTADOS ANIMADOS DEER *********** 
 #define DEER_IDLE_STATE						"ciervo_idle"

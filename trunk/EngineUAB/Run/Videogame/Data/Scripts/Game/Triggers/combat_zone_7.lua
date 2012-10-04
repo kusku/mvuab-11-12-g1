@@ -6,7 +6,7 @@ class 'CCombatZone7Trigger' (CBoxTrigger)
 		self.action_time = CActionStateCallback(0,1)
 		self.action_time:init_action()
 		
-		self.enable_action_time = CActionStateCallback(0,0.5)
+		self.enable_action_time = CActionStateCallback(0,0.2)
 		self.enable_action_time:init_action()
 		
 		self.enemy_appeared = 1
@@ -17,8 +17,8 @@ class 'CCombatZone7Trigger' (CBoxTrigger)
 	function CCombatZone7Trigger:update(elapsed_time)
 		--print_logger(0, "CCombatZone7Trigger:update -> Actualizacion trigger zona de combate")
 		
-		local t = { "enemy1" }
-		
+		local  t = { "enemy1" }
+			
 		if ( self.action_time:is_action_started() ) then
 			if ( self.action_time:is_action_finished() ) then
 				-- Ahora incializo la parte de la aparición

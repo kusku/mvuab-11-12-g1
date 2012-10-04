@@ -143,6 +143,8 @@
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfDeathAnimationState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfDefenseAnimationState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfHitAnimationState.cpp" />
+    <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfHowlEnemiesAnimationState.cpp" />
+    <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfHowlLifeAnimationState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfIdleAnimationState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfJumpAnimationState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfRunAnimationState.cpp" />
@@ -154,6 +156,8 @@
     <ClCompile Include="Characters\Enemies\Wolf\LogicStates\WolfAttackState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\LogicStates\WolfDefenseState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\LogicStates\WolfHitState.cpp" />
+    <ClCompile Include="Characters\Enemies\Wolf\LogicStates\WolfHowlEnemiesState.cpp" />
+    <ClCompile Include="Characters\Enemies\Wolf\LogicStates\WolfHowlLifeState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\LogicStates\WolfIdleState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\LogicStates\WolfPreparedToAttackState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\LogicStates\WolfPursuitState.cpp" />
@@ -252,6 +256,8 @@
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfDeathAnimationState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfDefenseAnimationState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfHitAnimationState.h" />
+    <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfHowlEnemiesAnimationState.h" />
+    <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfHowlLifeAnimationState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfIdleAnimationState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfJumpAnimationState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfRunAnimationState.h" />
@@ -263,6 +269,8 @@
     <ClInclude Include="Characters\Enemies\Wolf\LogicStates\WolfAttackState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\LogicStates\WolfDefenseState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\LogicStates\WolfHitState.h" />
+    <ClInclude Include="Characters\Enemies\Wolf\LogicStates\WolfHowlEnemiesState.h" />
+    <ClInclude Include="characters\enemies\wolf\logicstates\WolfHowlLifeState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\LogicStates\WolfIdleState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\LogicStates\WolfPreparedToAttackState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\LogicStates\WolfPursuitState.h" />
@@ -381,9 +389,16 @@
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_animated_defense_state.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\bridge_trigger.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\cascade_trigger.lua" />
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\combat_zone_1.lua" />
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\combat_zone_2.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\combat_zone_3.lua" />
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\combat_zone_4.lua" />
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\combat_zone_5.lua" />
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\combat_zone_6.lua" />
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\combat_zone_7.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\end_game_trigger.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\house_trigger.lua" />
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\river_trigger.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\start_trigger.lua" />
     <None Include="..\..\Run\Videogame\Data\XML\ParticleEmittersSystems.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\ParticleStartUpInstances.xml" />

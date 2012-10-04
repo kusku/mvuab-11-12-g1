@@ -39,7 +39,7 @@ public:
 	virtual						~CCharacter					( void );
 
 	//----Main Functions --------------------------------------
-	virtual bool				Initialize					( const std::string &_Name, const Vect3f &_InitialPosicion, ECollisionGroup _Grup );
+	virtual bool				Initialize					( const std::string &_Name, const std::string &_Core, const Vect3f &_InitialPosicion, ECollisionGroup _Grup );
 	bool						InitializeAI				( void );
 	
 	virtual bool				Init						( void ) = 0; // Inicialización del caracter en cuestión, de los hijos.
