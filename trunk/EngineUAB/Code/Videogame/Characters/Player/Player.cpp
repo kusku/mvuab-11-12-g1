@@ -48,8 +48,8 @@
 
 CPlayer::CPlayer()
 	: m_bIsTargetFixed(false)
-	, m_fMovementZoom(5.7f)
-	, m_fStaticZoom(5.2f)
+	, m_fMovementZoom(6.0f)
+	, m_fStaticZoom(5.5f)
 	, m_fVelocityAdaptativeZoom(1.5f)
 	, m_fDownZoom(2.0f)
 	, m_fDistanceToDetectEnemy(20.f)
@@ -136,6 +136,9 @@ void CPlayer::Update( float _ElapsedTime )
 		{
 			m_fPitch = -FLOAT_PI_VALUE / 6.f;
 		}
+
+		l_fDeltaMouse = l_pInput->DoActionMouse("YawPlayer");
+		m_fYaw = Helper::AngleFilter( m_fYaw - l_fDeltaMouse);
 
 		//Modifica el zoom de la cámara
 		/*float l_fZoom = m_pCamera->GetZoom();
@@ -311,14 +314,4 @@ void CPlayer::CreateCallbacks()
 void CPlayer::BeDead()
 {
 	return;
-}
-
-void CPlayer::UpdateCamera( float _ElapsedTime, bool _bIsUpdated )
-{
-	if( _bIsUpdated )
-	{
-		float l_fDelta = CORE->GetActionToInput()->DoActionMouse("YawPlayer");
-
-		m_fYaw = Helper::AngleFilter( m_fYaw - l_fDelta);
-	}
 }
