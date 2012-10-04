@@ -19,6 +19,8 @@
 	<system name="Snow" settings_name="Snow" />
 
 	<system name="Twister" settings_name="Twister" />
+	<system name="WolfTwister" settings_name="WolfTwister" />
+	<system name="WolfTwisterExplosion" settings_name="WolfTwisterExplosion" />
 	
 	<!-- ***************** -->
 	<!-- Sistemas del Wolf -->
