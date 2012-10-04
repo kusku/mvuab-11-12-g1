@@ -38,6 +38,7 @@ struct PhysXObjBox
 (
 	PhysXObjName,
 	PhysXObjPosition,
+	PhysXObjActiveStart,
 	PhysXObjYaw,
 	PhysXObjPitch,
 	PhysXObjRoll,
@@ -55,7 +56,7 @@ function CreatePhyxObjsHolder =
 
 function CreatePhysXObjBox = 
 (
-	local l_PXBox = PhysXObjBox PhysXObjName:"" PhysXObjPosition:(point3 0 0 0) PhysXObjDimension:(point3 0 0 0) PhysXObjType:PHYSX_OBJ_BOX
+	local l_PXBox = PhysXObjBox PhysXObjName:"" PhysXObjPosition:(point3 0 0 0) PhysXObjActiveStart:false PhysXObjDimension:(point3 0 0 0) PhysXObjType:PHYSX_OBJ_BOX PhysXObjGroup:"" PhysXObjYaw:0 PhysXObjPitch:0 PhysXObjRoll:0
 	
 	return l_PXBox
 )
@@ -88,9 +89,11 @@ function ExportPhysXObjs sel FilePath =
 			l_pxObj.PhysXObjPitch = GetPitch obj.transform
 			l_pxObj.PhysXObjRoll = GetRoll obj.transform
 			
-			l_pxObj.PhysXObjDimension = (point3 obj.width obj.length obj.height)
+			l_pxObj.PhysXObjDimension = (point3 obj.width obj.height obj.length )
 			
 			l_pxObj.PhysXObjGroup = (getUserProp obj "physics_layer")
+			
+			l_pxObj.PhysXObjActiveStart = (getUserProp obj  "physx_obj_active")
 			
 			l_holder.AddPhysXObj l_pxObj
 		)
@@ -104,7 +107,7 @@ function ExportPhysXObjs sel FilePath =
 	
 	for i = 1 to l_objs.count do
 	(
-		format "\t<physx_obj name=\"%\" type=\"%\" dimension=\"% % %\" pos=\"% % %\" yaw=\"%\" pitch=\"%\" roll=\"%\" group=\"%\" />\n" l_objs[i].PhysXObjName l_objs[i].PhysXObjType l_objs[i].PhysXObjDimension.x l_objs[i].PhysXObjDimension.y l_objs[i].PhysXObjDimension.z l_objs[i].PhysXObjPosition.x l_objs[i].PhysXObjPosition.y l_objs[i].PhysXObjPosition.z l_objs[i].PhysXObjYaw l_objs[i].PhysXObjPitch l_objs[i].PhysXObjRoll l_objs[i].PhysXObjGroup to:file
+		format "\t<physx_obj name=\"%\" type=\"%\" dimension=\"% % %\" pos=\"% % %\" yaw=\"%\" pitch=\"%\" roll=\"%\" group=\"%\" active_startup=\"%\" />\n" l_objs[i].PhysXObjName l_objs[i].PhysXObjType l_objs[i].PhysXObjDimension.x l_objs[i].PhysXObjDimension.y l_objs[i].PhysXObjDimension.z l_objs[i].PhysXObjPosition.x l_objs[i].PhysXObjPosition.y l_objs[i].PhysXObjPosition.z l_objs[i].PhysXObjYaw l_objs[i].PhysXObjPitch l_objs[i].PhysXObjRoll l_objs[i].PhysXObjGroup l_objs[i].PhysXObjActiveStart to:file
 	)
 	
 	format "</physx_objs>\n" to:file
