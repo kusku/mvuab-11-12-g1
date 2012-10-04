@@ -69,13 +69,6 @@ bool CPhysicsManager::Init ( void )
 		NxSDKCreateError errorCode = NXCE_NO_ERROR;
 		m_pPhysicsSDK = NxCreatePhysicsSDK ( NX_PHYSICS_SDK_VERSION, m_pMyAllocator, NULL, l_SDK_Desc, &errorCode );
 
-		/*Precompilation Directives*/
-#if defined( _DEBUG )
-#define USE_DEBUGGER
-#ifdef USE_DEBUGGER
-		m_pPhysicsSDK->getFoundationSDK().getRemoteDebugger()->connect("127.0.0.1");
-#endif
-#endif
 
 		//m_InitParams.m_fSkinWidth = 0.01f; //TODO: Borrar la línea
 		m_bIsOk = (m_pPhysicsSDK != NULL);
@@ -153,53 +146,15 @@ bool CPhysicsManager::Init ( void )
 		Release();
 		throw CException ( __FILE__, __LINE__, msg_error );
 	}
-	/*else
-	{
-		CXMLTreeNode l_xmlPhysX;
-		if(!l_xmlPhysX.LoadFile(_physXConfig.c_str()))
-		{
-			LOGGER->AddNewLog(ELL_WARNING, "PhysicsManager::Init->No se ha podido carger el fichero init de PhysX: \"%s\"", _physXConfig.c_str());
-		}
-		else
-		{
-			for(int i = 0; i < ECG_LAST_GROUP; ++i)
-			{
-				for(int j = i+1; j < ECG_LAST_GROUP; ++j)
-				{
-					m_pScene->setGroupCollisionFlag(i,j,false);
-				}
-			}
 
-			LOGGER->AddNewLog(ELL_INFORMATION, "Carregant init del PhysX Manager \"%s\"", _physXConfig.c_str());
-			int l_iNumC = l_xmlPhysX.GetNumChildren();
-			for(int i = 0; i < l_iNumC; ++i)
-			{
-				CXMLTreeNode l_xmlCollision = l_xmlPhysX(i);
-				if(strcmp(l_xmlCollision.GetName(), "collision") == 0)
-				{
-					string l_szGroup1 = l_xmlCollision.GetPszISOProperty("group1","",true);
-					string l_szGroup2 = l_xmlCollision.GetPszISOProperty("group2","",true);
-					int    l_iGroup1  = GetCollisionGroup(l_szGroup1);
-					int    l_iGroup2  = GetCollisionGroup(l_szGroup2);
 
-					m_CollisionMasks[l_iGroup1] |= 1 << l_iGroup1;
-					m_CollisionMasks[l_iGroup1] |= 1 << l_iGroup2;
-
-					m_CollisionMasks[l_iGroup2] |= 1 << l_iGroup1;
-					m_CollisionMasks[l_iGroup2] |= 1 << l_iGroup2;
-
-					m_pScene->setGroupCollisionFlag(l_iGroup1,l_iGroup2,true);
-					LOGGER->AddNewLog(ELL_INFORMATION, "Colisió etre el grup %d (%s) i el grup %d (%s)", 
-						l_iGroup1, l_szGroup1.c_str(), 
-						l_iGroup2, l_szGroup2.c_str());
-				}
-				else if(!l_xmlCollision.IsComment())
-				{
-					LOGGER->AddNewLog(ELL_WARNING, "Element no reconegut \"%s\"", l_xmlCollision.GetName());
-				}
-			}
-		}
-	}*/
+	/*Precompilation Directives*/
+#if defined( _DEBUG )
+#define USE_DEBUGGER
+#ifdef USE_DEBUGGER
+	m_pPhysicsSDK->getFoundationSDK().getRemoteDebugger()->connect("127.0.0.1");
+#endif
+#endif
 
 	return m_bIsOk;
 }

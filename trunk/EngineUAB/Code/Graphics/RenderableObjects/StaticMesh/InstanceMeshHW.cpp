@@ -161,6 +161,22 @@ void CInstanceMeshHW::UpdateBuffer()
 	ObjectMapIt itEnd = m_ObjectMap.end();
 
 	TBoundingBox bb = m_StaticMesh->GetBoundingBox();
+	bool draw = true;
+	CFrustum* frus = NULL;
+
+	if(CORE->IsDrawingShadows())
+	{
+		frus = CORE->GetLightManager()->GetCurrentFrustum();
+
+		if(frus == NULL)
+		{
+			draw = true;
+		}
+	}
+	else
+	{
+		frus = CORE->GetRenderManager()->GetFrustum();
+	}
 
 	for (uint32 i = 0; it != itEnd; ++it)
 	{
@@ -168,24 +184,8 @@ void CInstanceMeshHW::UpdateBuffer()
 
 		if(instance->GetVisible())
 		{
-			bool draw = true;
 			D3DXMATRIX WorldMatrix = instance->GetTransform().GetD3DXMatrix();
-			CFrustum* frus = NULL;
-
-			if(CORE->IsDrawingShadows())
-			{
-				frus = CORE->GetLightManager()->GetCurrentFrustum();
-
-				if(frus == NULL)
-				{
-					draw = true;
-				}
-			}
-			else
-			{
-				frus = CORE->GetRenderManager()->GetFrustum();
-			}
-
+			
 			if(frus != NULL)
 			{
 				draw = frus->BoxVisible(bb, WorldMatrix);
@@ -291,6 +291,9 @@ void CInstanceMeshHW::CreatePhysics(CObject3D* instance, const std::string &_Nam
 				rotationVect.y = mathUtils::Deg2Rad(instance->GetYaw());
 				rotationVect.z = mathUtils::Deg2Rad(instance->GetRoll());
 
+				Vect3f scale = instance->GetScale();
+				//size = size * scale;
+
 				TBoundingBox bb = m_StaticMesh->GetBoundingBox();
 				//localPos = -(bb.m_MinPos + ( (bb.m_MaxPos - bb.m_MinPos) / 2));
 
@@ -316,12 +319,17 @@ void CInstanceMeshHW::CreatePhysics(CObject3D* instance, const std::string &_Nam
 			rotationVect.y = mathUtils::Deg2Rad(instance->GetYaw());
 			rotationVect.z = mathUtils::Deg2Rad(instance->GetRoll());
 
-			CPhysicActor* l_MeshActor = new CPhysicActor(l_pPhysicUserDataMesh);
-			l_pPhysicUserDataMesh->SetPaint (true);
 			TBoundingBox bb = m_StaticMesh->GetBoundingBox();
 
 			Vect3f size = (bb.m_MaxPos - bb.m_MinPos);
 			size /= 2;
+
+			Vect3f scale = instance->GetScale();
+			//size = size * scale;
+
+			CPhysicActor* l_MeshActor = new CPhysicActor(l_pPhysicUserDataMesh);
+			l_pPhysicUserDataMesh->SetPaint (true);
+
 
 			l_MeshActor->AddBoxSphape(size, instance->GetPosition(), Vect3f(0, 0, 0), rotationVect, NULL, (uint32)physicsGroup);
 

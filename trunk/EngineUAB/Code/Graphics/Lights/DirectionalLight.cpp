@@ -148,7 +148,7 @@ void CDirectionalLight::Render(CRenderManager *RM)
 
 		for(uint32 i = 0; i < m_NumCascades; ++i)
 		{
-			m_ShadowFrustums[0]->DrawFrustum();
+			m_ShadowFrustums[2]->DrawFrustum();
 		}
 	}
 }
@@ -394,7 +394,7 @@ void CDirectionalLight::CalculateCascadeFrustumsVP(float farClip, float frustumN
 
 	D3DXVec3Transform(&transLight, &vectLight, &lightRotation);
 
-	vectLight = D3DXVECTOR3(transLight.x, transLight.y, transLight.z);
+	vectLight = D3DXVECTOR3(transLight.x, transLight.y - 20, transLight.z - 25);
 	shPos.x = vectLight.x;
 	shPos.y = vectLight.y;
 	shPos.z = vectLight.z;

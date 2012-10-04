@@ -177,8 +177,8 @@ void CInstanceMesh::CreatePhysics(const std::string &_Name, const std::string &t
 				rotationVect.y = mathUtils::Deg2Rad(pxBox->GetYaw());
 				rotationVect.z = mathUtils::Deg2Rad(pxBox->GetRoll());
 
-				TBoundingBox bb = m_StaticMesh->GetBoundingBox();
-				localPos = -(bb.m_MinPos + ( (bb.m_MaxPos - bb.m_MinPos) / 2));
+				//TBoundingBox bb = m_StaticMesh->GetBoundingBox();
+				//localPos = -(bb.m_MinPos + ( (bb.m_MaxPos - bb.m_MinPos) / 2));
 
 				physicsGroup = pxBox->m_Group;
 
@@ -189,11 +189,16 @@ void CInstanceMesh::CreatePhysics(const std::string &_Name, const std::string &t
 				rotationVect.x = mathUtils::Deg2Rad(GetPitch());
 				rotationVect.y = mathUtils::Deg2Rad(GetYaw());
 				rotationVect.z = mathUtils::Deg2Rad(GetRoll());
-				
-				TBoundingBox bb = m_StaticMesh->GetBoundingBox();
-				localPos = -(bb.m_MinPos + ( (bb.m_MaxPos - bb.m_MinPos) / 2));
 
-				pos = m_Position;
+				Vect3f scale = GetScale();
+				//size = size * scale;
+
+				TBoundingBox bb = m_StaticMesh->GetBoundingBox();
+				//localPos = -(bb.m_MinPos + ( (bb.m_MaxPos - bb.m_MinPos) / 2));
+
+				pos = (bb.m_MinPos + ( (bb.m_MaxPos - bb.m_MinPos) / 2));
+
+				pos += m_Position;
 			}
 
 			l_MeshActor->AddBoxSphape(size, pos, localPos, rotationVect, NULL, (uint32)physicsGroup);
@@ -213,12 +218,16 @@ void CInstanceMesh::CreatePhysics(const std::string &_Name, const std::string &t
 			rotationVect.y = mathUtils::Deg2Rad(GetYaw());
 			rotationVect.z = mathUtils::Deg2Rad(GetRoll());
 
-			CPhysicActor* l_MeshActor = new CPhysicActor(l_pPhysicUserDataMesh);
-			l_pPhysicUserDataMesh->SetPaint (true);
 			TBoundingBox bb = m_StaticMesh->GetBoundingBox();
 
 			Vect3f size = (bb.m_MaxPos - bb.m_MinPos);
 			size /= 2;
+
+			Vect3f scale = GetScale();
+			size = size * scale;
+
+			CPhysicActor* l_MeshActor = new CPhysicActor(l_pPhysicUserDataMesh);
+			l_pPhysicUserDataMesh->SetPaint (true);
 
 			l_MeshActor->AddBoxSphape(size, m_Position, Vect3f(0, 0, 0), rotationVect, NULL, (uint32)physicsGroup);
 
@@ -229,13 +238,29 @@ void CInstanceMesh::CreatePhysics(const std::string &_Name, const std::string &t
 			CPhysicUserData* l_pPhysicUserDataMesh;
 			CPhysicActor*	 l_MeshActor;
 
+			std::vector<Vect3f> vtxBuf = m_StaticMesh->GetVertexBuffer();
+			D3DXMATRIX worldMat = GetTransform().GetD3DXMatrix();
+			UINT size = vtxBuf.size();
+
+			for (UINT i = 0; i < size; ++i)
+			{
+				D3DXVECTOR3 pos(vtxBuf[i].x, vtxBuf[i].y, vtxBuf[i].z);
+				D3DXVECTOR4 newPos(0, 0, 0, 0);
+
+				D3DXVec3Transform(&newPos, &pos, &worldMat);
+
+				vtxBuf[i].x = newPos.x;
+				vtxBuf[i].y = newPos.y;
+				vtxBuf[i].z = newPos.z;
+			}
+
 			CPhysicCookingMesh* l_pCM = CORE->GetPhysicsManager()->GetCookingMesh();
-			if ( l_pCM->CreatePhysicMesh( m_StaticMesh->GetVertexBuffer(), m_StaticMesh->GetFacesBuffer(), _Name ) )
+			if ( l_pCM->CreatePhysicMesh( vtxBuf, m_StaticMesh->GetFacesBuffer(), _Name ) )
 			{
 				l_pPhysicUserDataMesh = new CPhysicUserData( _Name  );
 				l_pPhysicUserDataMesh->SetPaint( true );
 				l_MeshActor = new CPhysicActor( l_pPhysicUserDataMesh );
-				l_MeshActor->AddMeshShape( l_pCM->GetPhysicMesh(_Name), m_Position, v3fZERO, NULL, (uint32)physicsGroup);
+				l_MeshActor->AddMeshShape( l_pCM->GetPhysicMesh(_Name), v3fZERO, v3fZERO, NULL, (uint32)physicsGroup);
 				//m_AseMeshActor->CreateBody ( 10.f );
 				CORE->GetPhysicsManager()->AddPhysicActor( l_MeshActor );
 			}

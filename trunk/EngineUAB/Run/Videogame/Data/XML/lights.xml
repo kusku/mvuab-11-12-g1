@@ -15,7 +15,7 @@
   </spot>-->
 
   <!---0.0668964 90.9196 -346.144-->
-  <directional name="Direct001" pos="0 70.0 -315.0" color="243.0 115.0 13.0" att_start_range="600.0" att_end_range="600.0" intensity="1.0" dir="1.44513 -139.799 535.144" generate_shadow_map="true" shadow_map_format_type="G32R32F" multi_samples="0" shadow_map_width="2048" shadow_map_height="2048" directional_light_camara_size_w="448" directional_light_camara_size_h="256" cascade_num="3" >
+  <directional name="Direct001" pos="0 70.0 -315.0" color="243.0 115.0 13.0" att_start_range="850.0" att_end_range="850.0" intensity="1.0" dir="0.0 -375.0 650.0" generate_shadow_map="true" shadow_map_format_type="G32R32F" multi_samples="0" shadow_map_width="2048" shadow_map_height="2048" directional_light_camara_size_w="448" directional_light_camara_size_h="256" cascade_num="3" >
     <dynamic renderable_objects_layer="solid" />
     <dynamic renderable_objects_layer="vegetation" />
   </directional>

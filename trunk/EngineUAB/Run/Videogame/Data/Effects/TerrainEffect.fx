@@ -131,7 +131,7 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 
 	output.TiledTexCoord = input.TiledTexCoord;
 	
-	output.WVPPos = output.Position;	
+	output.WVPPos = mul(WorldSpacePosition, ViewMatrix);//output.Position;	
 	output.WPos = WorldSpacePosition;
 	output.EyePosition = CameraPosition - WorldSpacePosition.xyz;
 	
@@ -239,8 +239,22 @@ PixelShaderOutput PixelShaderFunction(VertexShaderOutput input, uniform bool sha
 		{
 			passColor *= min(shadowCoeffStatic, shadowCoeffDynamic);
 		}
-		
+			
 		DiffuseColor += passColor;
+		
+		
+		//if(CascadeGroup == 0)
+		//{
+		//	DiffuseColor += float4(1.0f, 0.0f, 0.0f, 1.0f);
+		//}
+		//else if(CascadeGroup == 1)
+		//{
+		//	DiffuseColor += float4(0.0f, 1.0f, 0.0f, 1.0f);
+		//}
+		//else if(CascadeGroup == 2)
+		//{
+		//	DiffuseColor += float4(0.0f, 0.0f, 1.0f, 1.0f);
+		//}
 	}
 
 	float3 tileC = TileColor(input.TiledTexCoord, input.TexCoord);
@@ -248,7 +262,7 @@ PixelShaderOutput PixelShaderFunction(VertexShaderOutput input, uniform bool sha
 	float4 PixEndColor = (float4)0;
 	
 	PixEndColor.rgb = (DiffuseColor + AmbientColor).rgb * tileC;
-	
+		
 	[branch]
 	if(FogEnable == true)
 	{
