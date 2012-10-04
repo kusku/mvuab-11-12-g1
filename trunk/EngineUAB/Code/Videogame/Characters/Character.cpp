@@ -201,10 +201,10 @@ bool CCharacter::Initialize( const std::string &_Name, const std::string &_Core,
 		m_pController->SetYaw( m_pProperties->GetYaw() );
 		m_pCurrentAnimatedModel->SetPosition( l_Position );
 	}
-	
-	this->SetName(_Name);
-	this->SetLocked(m_pProperties->GetLocked());
-	this->SetEnable ( m_pProperties->GetActive() );
+
+	m_Name = _Name;
+	m_bLocked = m_pProperties->GetLocked();
+	SetEnable ( m_pProperties->GetActive() );
 	
 	// Jordi 12/08/2012 -- Antes debemos inicializar el m_pSteeringEntity
 	//MoveTo( l_Position, 0.0f );
@@ -263,7 +263,7 @@ bool CCharacter::InitializeAI ( void )
 
 void CCharacter::Update ( float _ElapsedTime )			
 { 
-	if( !this->GetProperties()->GetActive() ) 
+	if( !m_pProperties->GetActive() ) 
 		return;
 	
 	m_pLogicStateMachine->Update( _ElapsedTime );
@@ -277,7 +277,7 @@ void CCharacter::UpdatePlayer ( float _ElapsedTime )
 
 void CCharacter::UpdateIA( float _ElapsedTime )			
 { 
-	if( GetLocked() ) 
+	if( m_bLocked ) 
 		return;
 	
 	Vect3f l_SteeringForce = m_pBehaviors->Update( _ElapsedTime, m_pSteeringEntity );
@@ -408,14 +408,14 @@ void CCharacter::FaceTo( const Vect3f &_Position, float _ElapsedTime )
 	float l_RotationSpeed = m_pProperties->GetMaxRotationSpeed();
 
 	if(l_DesiredYaw<0.0f)
-		l_DesiredYaw+=mathUtils::Deg2Rad(360.0f);
+		l_DesiredYaw+= 2*FLOAT_PI_VALUE;
 	if(m_fYaw<0.0f)
-		m_fYaw+=mathUtils::Deg2Rad(360.0f);
+		m_fYaw+= 2*FLOAT_PI_VALUE;
 
-	if((l_DesiredYaw-m_fYaw)>mathUtils::Deg2Rad(180.0f))
-		l_DesiredYaw-=mathUtils::Deg2Rad(360.0f);
-	else if((l_DesiredYaw-m_fYaw)<mathUtils::Deg2Rad(-180.0f))
-		m_fYaw-=mathUtils::Deg2Rad(360.0f);
+	if((l_DesiredYaw-m_fYaw)>FLOAT_PI_VALUE)
+		l_DesiredYaw-= 2*FLOAT_PI_VALUE;
+	else if((l_DesiredYaw-m_fYaw)<-FLOAT_PI_VALUE)
+		m_fYaw-= 2*FLOAT_PI_VALUE;
 	
 	if(l_DesiredYaw>m_fYaw)
 		m_fYaw=mathUtils::Min(l_DesiredYaw, m_fYaw+mathUtils::Deg2Rad(l_RotationSpeed) * _ElapsedTime);
@@ -452,10 +452,10 @@ void CCharacter::MoveTo2( const Vect3f &_Velocity, float _ElapsedTime )
 	Vect3f l_Velocity (_Velocity.x, _Velocity.y, _Velocity.z);
 
 	// Si queremos que la dirección sea más suave cojemos el heading del Smoother que és un average de los últimos headings
-	if ( ( this->GetSteeringEntity()->isSmoothingOn() ) && ( this->GetSteeringEntity()->GetSpeed() != 0 ) )
+	if ( ( m_pSteeringEntity->isSmoothingOn() ) && ( m_pSteeringEntity->GetSpeed() != 0 ) )
 	{
-		float l_Speed = this->GetSteeringEntity()->GetSpeed();
-		Vect3f v = this->GetSteeringEntity()->GetSmoothedHeading();
+		float l_Speed = m_pSteeringEntity->GetSpeed();
+		Vect3f v = m_pSteeringEntity->GetSmoothedHeading();
 		v.Normalize();
 		l_Velocity = v * l_Speed;
 	}
@@ -479,7 +479,7 @@ void CCharacter::MoveTo( const Vect3f &_Position, float _ElapsedTime )
 	{
 		FaceTo( _Position, _ElapsedTime );
 		m_pController->SetYaw(m_fYaw);
-		Vect3f l_Position = Vect3f(0.0f, 0.0f, 0.0f);
+		Vect3f l_Position = v3fZERO;
 		MoveController(l_Position, _ElapsedTime);
 
 		m_Position = m_pController->GetPosition();
@@ -494,7 +494,7 @@ void CCharacter::MoveTo( const Vect3f &_Position, float _ElapsedTime )
 
 	Vect3f pointA2(_Position.x, 0, _Position.z);
 	Vect3f pointB2(m_Position.x, 0, m_Position.z);
-	Vect3f l_Position = Vect3f(0.0f, 0.0f, 0.0f);
+	Vect3f l_Position = v3fZERO;
 	Vect3f l_Dir = (pointA2 - pointB2).Normalize();
 
 	l_Position += l_Dir * m_pProperties->GetSpeed() * _ElapsedTime;
@@ -614,7 +614,7 @@ bool CCharacter::IsEnemyFocused( void )
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	
 	Vect3f l_Front = l_Process->GetPlayerCamera()->GetDirection();
-	float l_Distance = this->GetProperties()->GetDetectionDistance();
+	float l_Distance = m_pProperties->GetDetectionDistance();
 	CCharacter * l_EnemyDetected = l_Process->GetCharactersManager()->SearchTargetEnemy(l_Distance, e2PIf, l_Front);
 
 	if ( !l_EnemyDetected ) 
@@ -625,7 +625,7 @@ bool CCharacter::IsEnemyFocused( void )
 	else 
 	{
 		// print_logger ( 1, "Enemy detected :"..l_enemy_detected.name.." i el nom enemic : ".._enemy.name )
-		if ( l_EnemyDetected->GetName() == this->GetName() ) 
+		if ( l_EnemyDetected->GetName() == m_Name ) 
 		{
 			return true;
 		}
@@ -639,7 +639,7 @@ bool CCharacter::IsEnemyFocused( void )
 bool CCharacter::IsPlayerAtacable( void )
 {
 	bool l_IsFocused 			= IsEnemyFocused();
-	bool l_InsideAttackDistance	= IsPlayerInsideDistance(this->GetProperties()->GetAttackDistance());
+	bool l_InsideAttackDistance	= IsPlayerInsideDistance(m_pProperties->GetAttackDistance());
 	bool l_IsPlayerReady		= IsPlayerReady();
 
 	//if ( l_IsFocused && l_InsideAttackDistance && l_IsPlayerReady )
@@ -678,27 +678,27 @@ bool CCharacter::IsPlayerInsideDistance( float _DistanceToCheck )
 
 bool CCharacter::IsPlayerInsideImpactDistance( void )
 {
-	return IsPlayerInsideDistance(this->GetProperties()->GetImpactDistance());
+	return IsPlayerInsideDistance(m_pProperties->GetImpactDistance());
 }
 
 bool CCharacter::IsPlayerDetected( void )
 {
-	return IsPlayerInsideDistance(this->GetProperties()->GetDetectionDistance());
+	return IsPlayerInsideDistance(m_pProperties->GetDetectionDistance());
 }
 
 bool CCharacter::IsPlayerChased( void )
 {
-	return IsPlayerInsideDistance(this->GetProperties()->GetChaseDistance());
+	return IsPlayerInsideDistance(m_pProperties->GetChaseDistance());
 }
 
 bool CCharacter::IsEnemyPreparedToAttack( void )
 {
-	return IsPlayerInsideDistance(this->GetProperties()->GetPreparedAttackDistance());
+	return IsPlayerInsideDistance(m_pProperties->GetPreparedAttackDistance());
 }
 
 bool CCharacter::IsEnemyAproximatedToAttack( void )
 {
-	return IsPlayerInsideDistance(this->GetProperties()->GetAproximationDistance());
+	return IsPlayerInsideDistance(m_pProperties->GetAproximationDistance());
 }
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -706,7 +706,7 @@ bool CCharacter::IsEnemyAproximatedToAttack( void )
 // ---------------------------------------------------------------------------------------------------------------
 bool CCharacter::IsPlayerReached( void )
 {
-	return ( IsPlayerInsideDistance(this->GetProperties()->GetImpactDistance() )  && ( IsObstacleVisibleInAngle(GetPlayer(), 150) ) );
+	return ( IsPlayerInsideDistance(m_pProperties->GetImpactDistance() )  && ( IsObstacleVisibleInAngle(GetPlayer(), 150) ) );
 }
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -717,7 +717,7 @@ Vect3f CCharacter::GetPointInsideCameraFrustum( void ) const
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	Vect3f	l_Front  = l_Process->GetPlayerCamera()->GetDirection();
 	
-	float l_Radi = this->GetProperties()->GetPreparedAttackDistance();
+	float l_Radi = m_pProperties->GetPreparedAttackDistance();
 
 	CSteeringEntity * l_Entity	= l_Process->GetCharactersManager()->GetPlayer()->GetSteeringEntity();
 	Vect3f l_Position = l_Entity->GetPosition();
@@ -746,11 +746,11 @@ bool CCharacter::IsEnemyIntoCameraFrustum( float _RangeAngle, float _ElapsedTime
 void CCharacter::GoIntoCameraFrustum( float _RangeAngle, float _ElapsedTime )
 {
 	Vect3f l_PointToGo = GetPointInsideCameraFrustum();
-	this->GetBehaviors()->GetSeek()->SetTarget(l_PointToGo);
-	this->GetBehaviors()->SeekOn();
-	this->FaceTo( this->GetPlayer()->GetPosition(), _ElapsedTime);
-	this->MoveTo2(this->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
-	LOGGER->AddNewLog(ELL_INFORMATION, "CCharacter::GoIntoCameraFrustum-> %s fuera del frustum de %f grados", this->GetName().c_str(), _RangeAngle);
+	m_pBehaviors->GetSeek()->SetTarget(l_PointToGo);
+	m_pBehaviors->SeekOn();
+	FaceTo( GetPlayer()->GetPosition(), _ElapsedTime);
+	MoveTo2(m_pSteeringEntity->GetVelocity(), _ElapsedTime);
+	LOGGER->AddNewLog(ELL_INFORMATION, "CCharacter::GoIntoCameraFrustum-> %s fuera del frustum de %f grados", m_Name.c_str(), _RangeAngle);
 }
 
 //void CCharacter::GoIntoCameraFrustum( float _RangeAngle, float _ElapsedTime )
@@ -816,7 +816,7 @@ Vect3f CCharacter::GetPositionToAttack( void ) const
 	
 	// Esto me debería devolver la dirección de la cámera traladada a la posición del player
 	Vect3f l_PlayerPosition = l_Player->GetPosition();
-	Vect3f l_Target = l_PlayerPosition + this->GetProperties()->GetAttackDistance() * l_TargetOrientationVector;
+	Vect3f l_Target = l_PlayerPosition + m_pProperties->GetAttackDistance() * l_TargetOrientationVector;
 	float l_Yaw = l_Target.GetAngleY();
 
 	return l_Target;
@@ -827,8 +827,8 @@ Vect3f CCharacter::GetPositionToAttack( void ) const
 // ---------------------------------------------------------------------------------------------------------------
 float CCharacter::GetDistanceToPlayer( void )
 {
-	Vect2f l_PositionA = Vect2f( this->GetPosition().x, this->GetPosition().z);
-	Vect2f l_PositionB = Vect2f( this->GetPlayer()->GetPosition().x, this->GetPlayer()->GetPosition().z);
+	Vect2f l_PositionA = Vect2f( m_Position.x, m_Position.z);
+	Vect2f l_PositionB = Vect2f( GetPlayer()->GetPosition().x, GetPlayer()->GetPosition().z);
 	
 	float l_Distance = l_PositionA.Distance(l_PositionB);
 	return l_Distance;
@@ -851,7 +851,7 @@ bool CCharacter::IsObstacleVisibleInAngle(CCharacter * _Obstacle, float _Angle)
 	
 	float l_AngleRad = mathUtils::Deg2Rad(_Angle); 
 	//Calculamos el vector entre el player y el enemigo
-	Vect3f l_DirToObstacle = _Obstacle->GetPosition() - this->GetPosition();
+	Vect3f l_DirToObstacle = _Obstacle->GetPosition() - m_Position;
 	l_DirToObstacle.y = 0.f;
 	l_DirToObstacle.Normalize(1.f);
 
@@ -881,7 +881,7 @@ void CCharacter::Appearance( void )
 {
 	// Si se habilitat aparecen con partículas y sonido
 	Vect3f l_Pos1 = GetPosition();
-	Vect3f l_Pos2 = this->GetPlayer()->GetPosition();
+	Vect3f l_Pos2 = GetPlayer()->GetPosition();
 	Vect3f l_RelativePosition = l_Pos2 - l_Pos1;
 	l_RelativePosition.Normalize();
 	Vect3f l_Pos = l_Pos1 + l_RelativePosition;
