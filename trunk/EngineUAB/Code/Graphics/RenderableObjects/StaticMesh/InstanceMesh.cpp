@@ -196,7 +196,7 @@ void CInstanceMesh::CreatePhysics(const std::string &_Name, const std::string &t
 				TBoundingBox bb = m_StaticMesh->GetBoundingBox();
 				//localPos = -(bb.m_MinPos + ( (bb.m_MaxPos - bb.m_MinPos) / 2));
 
-				pos = (bb.m_MinPos + ( (bb.m_MaxPos - bb.m_MinPos) / 2));
+				//pos = (bb.m_MinPos + ( (bb.m_MaxPos - bb.m_MinPos) / 2));
 
 				pos += m_Position;
 			}
