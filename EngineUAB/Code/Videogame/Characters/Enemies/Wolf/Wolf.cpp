@@ -284,15 +284,15 @@ void CWolf::BeDead( void )
 // ------------------------------------------------------------------------------------------------------------------
 //  TestIfCanHowlForLife: Solo aumentamos la vida en caso de estar a la mitad o casi muerto.
 // ------------------------------------------------------------------------------------------------------------------
-bool CWolf::TestIfCanHowlForLife( uint32 _Life, uint32 _ValorMultiple )
+bool CWolf::TestIfCanHowlForLife( void )
 {
-	if ( ( !GetCanHowlForLife() ) && ( m_pProperties->GetCurrentLife()/2 <= m_pProperties->GetLife() ) )
+	if ( ( !GetCanHowlForLife() ) && ( m_pProperties->GetCurrentLife()/2 <= m_pProperties->GetCurrentLife() ) )
 	{
 		SetCanHowlForLife(true);
 		return true;
 	}
 
-	if ( ( !GetCanHowlForLife() ) && ( m_pProperties->GetCurrentLife()/4 <= m_pProperties->GetLife() ) )
+	if ( ( !GetCanHowlForLife() ) && ( m_pProperties->GetCurrentLife()/4 <= m_pProperties->GetCurrentLife() ) )
 	{
 		SetCanHowlForLife(true);
 		return true;
@@ -305,7 +305,7 @@ bool CWolf::TestIfCanHowlForLife( uint32 _Life, uint32 _ValorMultiple )
 //  TestIfCanHowlForEnemies: Hacemos aparecer enemigos en el momento de aparición del lobo y en el momento que la vida
 //							esté a la mitad
 // ------------------------------------------------------------------------------------------------------------------
-bool CWolf::TestIfCanHowlForEnemies( uint32 _Life, uint32 _ValorMultiple )
+bool CWolf::TestIfCanHowlForEnemies( void )
 {
 	// TODO: Ahora a saco 
 	if ( m_pProperties->GetCurrentLife() == m_pProperties->GetLife() )
