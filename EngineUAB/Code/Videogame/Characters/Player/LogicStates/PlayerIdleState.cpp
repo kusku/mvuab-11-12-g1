@@ -146,11 +146,7 @@ void CPlayerIdleState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 		}
 
 		//Actualización del yaw a partir del movimiento del mouse
-		if( !l_pPlayer->IsTargetFixed() )
-		{
-			l_pPlayer->UpdateCamera(_fElapsedTime, true);
-		}
-		else
+		if( l_pPlayer->IsTargetFixed() )
 		{
 			Vect3f l_PlayerDir	= static_cast<CGameProcess*>(CORE->GetProcess())->GetPlayerCamera()->GetDirection();
 			Vect3f l_EnemyDir	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->GetTargetEnemy()->GetPosition() - _pCharacter->GetPosition();
