@@ -313,7 +313,7 @@ bool CWolf::TestIfCanHowlForEnemies( void )
 		return true;
 	}
 
-	if ( ( !GetCanHowlForLife() ) && ( m_pProperties->GetCurrentLife()/2 <= m_pProperties->GetLife() ) )
+	if ( ( !GetCanHowlForLife() ) && ( m_pProperties->GetCurrentLife()/2 <= m_pProperties->GetCurrentLife() ) )
 	{
 		SetCanHowlForLife(true);
 		return true;
