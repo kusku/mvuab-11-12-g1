@@ -62,8 +62,10 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 	button bnBlend4 "Blend 4" pos:[286,562] width:49 height:20
 	checkbox cbUsePXObj "Use PhysX Obj:" pos:[9,292] width:97 height:18
 	edittext tbPXObj "" pos:[106,291] width:136 height:19
-	checkbox cbIsPXObj "Is PhysX Obj" pos:[12,219] width:116 height:18
+	checkbox cbIsPXObj "Is PhysX Obj" pos:[12,215] width:92 height:18
 	checkbox cbUsePxPos "Use PhysX Obj Position" pos:[10,316] width:135 height:20
+	checkbox cbActivePXObj "Activate PhysX Obj" pos:[125,215] width:117 height:16
+	label lbPXGroup "Group:" pos:[35,267] width:41 height:16
 	
 	local m_ObjSelected = undefined
 	
@@ -83,6 +85,7 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 		tbPXObj.text = ""
 		cbIsPXObj.checked = false
 		cbUsePxPos.checked = false
+		cbActivePXObj.checked = false
 		
 		lbBlend1.text = "C:\\"
 		lbBlend2.text = "C:\\"
@@ -118,10 +121,20 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 			
 			--Set Layer Physics prop to Object
 			setUserProp Obj "physics_layer" layerPhysicsList.selected
+			
+			if cbActivePXObj.checked then
+			(
+				setUserProp Obj "physx_obj_active" true
+			)
+			else
+			(
+				setUserProp Obj "physx_obj_active" false
+			)
 		)
 		else
 		(
 			setUserProp Obj "is_physx_obj" false
+			setUserProp Obj "physx_obj_active" false
 		)
 		
 		--Set Instance
@@ -303,6 +316,7 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 			local l_TextureSplatting = getUserProp $ "texture_splatting"
 			local l_UsePXObj = getUserProp $ "physics_use_px_obj"
 			local l_IsPXObj = getUserProp $ "is_physx_obj"
+			local l_IsPXObjActive = getUserProp $ "physx_obj_active"
 			local l_LayerPhysics = getUserProp $ "physics_layer"
 			
 			--Unchecked all check boxes
@@ -332,6 +346,15 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 							layerPhysicsList.selection = i
 						)
 					)
+				)
+				
+				if l_IsPXObjActive == true then
+				(
+					cbActivePXObj.checked = true
+				)
+				else
+				(
+					cbActivePXObj.checked = false
 				)
 			)
 			else
@@ -727,6 +750,5 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 			lbBlend4.text = data_path
 		)		
 	)
-	
 )
 

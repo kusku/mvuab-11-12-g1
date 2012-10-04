@@ -670,6 +670,7 @@ struct MeshObj
 	PXObjName,
 	UsePXObjPos,
 	PhysicsGroup,
+	MeshScale,
 	
 	function CalcVtxNormals obj =
 	(
@@ -1025,6 +1026,7 @@ struct MeshObj
 		format "Pitch % \n" PitchAngle
 		format "Roll % \n" RollAngle
 		format "Translation % \n" Translation
+		format "Scale % \n" MeshScale
 		
 		format "#########################End Object#########################\n"
 	)
@@ -1126,7 +1128,7 @@ struct SceneObj
 				
 				if ( MeshObjs[i].RenderExport == "static_mesh" ) then
 				(
-					format "\t<% name=\"%\" core=\"%\" position=\"%\" yaw=\"%\" pitch=\"%\" roll=\"%\" scale=\"1.0 1.0 1.0\" " nodeName MeshObjs[i].MeshName coreName (pos as string) MeshObjs[i].YawAngle MeshObjs[i].PitchAngle MeshObjs[i].RollAngle to:file
+					format "\t<% name=\"%\" core=\"%\" position=\"%\" yaw=\"%\" pitch=\"%\" roll=\"%\" scale=\"% % %\" " nodeName MeshObjs[i].MeshName coreName (pos as string) MeshObjs[i].YawAngle MeshObjs[i].PitchAngle MeshObjs[i].RollAngle MeshObjs[i].MeshScale.x MeshObjs[i].MeshScale.y MeshObjs[i].MeshScale.z to:filew
 					format "visible=\"%\" " MeshObjs[i].RenderVisible to:file
 					
 					if MeshObjs[i].RenderLayer != "undefined" then
@@ -1229,7 +1231,7 @@ function CreateTextureSplattingObj =
 
 function CreateMeshStruct =
 (
-	local meshObject = MeshObj  MeshPath:"" MeshName:"" MeshBuffers:#() BBox:0 BSphere:0 BocMeshAttributes:0 MeshFileName:"" YawAngle:0 PitchAngle:0 RollAngle:0 Translation:0 IsInstance:False InstanceName:"" ParentInstance:false RelativeMeshFileName:"" RenderExport:"" RenderVisible:"" RenderLayer:"" AnimModelCore:"" PhysicsType:"" VtxNormalBuffer:#() TextureSplatting:"" CompletePath:"" RelativePath:"" UsePXObj:false PXObjName:"" UsePXObjPos:false PhysicsGroup:""
+	local meshObject = MeshObj  MeshPath:"" MeshName:"" MeshBuffers:#() BBox:0 BSphere:0 BocMeshAttributes:0 MeshFileName:"" YawAngle:0 PitchAngle:0 RollAngle:0 Translation:0 IsInstance:False InstanceName:"" ParentInstance:false RelativeMeshFileName:"" RenderExport:"" RenderVisible:"" RenderLayer:"" AnimModelCore:"" PhysicsType:"" VtxNormalBuffer:#() TextureSplatting:"" CompletePath:"" RelativePath:"" UsePXObj:false PXObjName:"" UsePXObjPos:false PhysicsGroup:"" MeshScale:(point3 0 0 0)
 	
 	meshObject.TextureSplatting = CreateTextureSplattingObj()
 	

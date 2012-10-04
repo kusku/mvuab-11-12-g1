@@ -164,6 +164,10 @@ function ExtractMeshGeometry obj counterClockwise t_mesh =
 	t_mesh.Translation = RHTranslationToLH obj.transform.translation
 
 	-----------------------------------------------------------------
+	
+	t_mesh.MeshScale = RHTranslationToLH obj.scale
+	
+	-----------------------------------------------------------------
 
 	--Extract Geometry information if t_mesh is not an instance
 	if t_mesh.IsInstance == false then
@@ -438,6 +442,7 @@ function ExportSelection selectedObjs outputDir subOutPutDir counterClockwise ex
 		t_mesh.UsePXObj = getUserProp objPM "physics_use_px_obj"
 		t_mesh.PXObjName = getUserProp objPM "physics_px_obj"
 		t_mesh.UsePXObjPos = getUserProp objPM "physics_use_px_obj_pos"
+		t_mesh.PhysicsGroup = getUserProp objPM "physics_layer"
 		
 		--Set Filename
 		t_mesh.SetFileNameMesh sceneObjects.FilePath sceneObjects.RelativeFilePath
