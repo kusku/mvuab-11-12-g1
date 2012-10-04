@@ -20,6 +20,8 @@ CLogger::CLogger()
 
 void CLogger::AddNewLog( ELOG_LEVEL ll, const char* format, ... )
 {
+#if defined (_DEBUG)
+
 	va_list args;
 	char* buffer;
 	va_start(args,format);
@@ -51,6 +53,8 @@ void CLogger::AddNewLog( ELOG_LEVEL ll, const char* format, ... )
 		m_vLogs.push_back(newLog);
 	}
 	delete buffer;
+
+#endif
 }
 
 //TODO: Grabar la informacion de dia y hora
@@ -122,24 +126,28 @@ namespace Base
 {
 namespace Logger
 {
-	void PrintLogger(int Level, const std::string &Msg)
+void PrintLogger(int Level, const std::string &Msg)
+{
+#if defined (_DEBUG)
+
+	switch(Level)
 	{
-		switch(Level)
-		{
-		case 0:
-			LOGGER->AddNewLog(ELL_INFORMATION, Msg.c_str() );
-			break;
-		case 1:
-			LOGGER->AddNewLog(ELL_WARNING, Msg.c_str() );
-			break;
-		case 2:
-			LOGGER->AddNewLog(ELL_ERROR, Msg.c_str() );
-			break;
-		default:
-			LOGGER->AddNewLog(ELL_INFORMATION, Msg.c_str() );
-			break;
-		}
+	case 0:
+		LOGGER->AddNewLog(ELL_INFORMATION, Msg.c_str() );
+		break;
+	case 1:
+		LOGGER->AddNewLog(ELL_WARNING, Msg.c_str() );
+		break;
+	case 2:
+		LOGGER->AddNewLog(ELL_ERROR, Msg.c_str() );
+		break;
+	default:
+		LOGGER->AddNewLog(ELL_INFORMATION, Msg.c_str() );
+		break;
 	}
+
+#endif
+}
 
 } //namespace Logger
 } //namespace Base

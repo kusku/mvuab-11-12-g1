@@ -86,18 +86,24 @@ bool CTriggersManager::Reload()
 //----------------------------------------------
 void CTriggersManager::Update( float _ElapsedTime )
 {
+	CTrigger *l_pTrigger = NULL;
+
 	TTRIGGERMAP::iterator l_It = m_TriggerMap.begin();
 	TTRIGGERMAP::iterator l_End = m_TriggerMap.end();
 
 	for(; l_It != l_End; ++l_It)
 	{
-		l_It->second->Update(_ElapsedTime);
+		l_pTrigger = l_It->second;
+
+		if( l_pTrigger->IsActive() )
+			l_pTrigger->Update(_ElapsedTime);
 	}
 }
 
 //----------------------------------------------
 void CTriggersManager::Render( CRenderManager *_RM )
 {
+#if defined (_DEBUG)
 	TTRIGGERMAP::iterator l_It = m_TriggerMap.begin();
 	TTRIGGERMAP::iterator l_End = m_TriggerMap.end();
 
@@ -105,6 +111,7 @@ void CTriggersManager::Render( CRenderManager *_RM )
 	{
 		l_It->second->Render(_RM);
 	}
+#endif
 }
 
 //----------------------------------------------

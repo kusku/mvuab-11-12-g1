@@ -229,17 +229,19 @@ void CHud::Render( CRenderManager &RM )
 	mat.SetIdentity();
 	RM.SetTransform(mat);
 
+	LPDIRECT3DDEVICE9 l_Device = RM.GetDevice();
+
 	//Inicia la transparencia
-	CORE->GetRenderManager()->GetDevice()->SetRenderState( D3DRS_ALPHABLENDENABLE, TRUE );
-	CORE->GetRenderManager()->GetDevice()->SetRenderState( D3DRS_SRCBLEND, D3DBLEND_SRCALPHA );
-	CORE->GetRenderManager()->GetDevice()->SetRenderState( D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA );
+	l_Device->SetRenderState( D3DRS_ALPHABLENDENABLE, TRUE );
+	l_Device->SetRenderState( D3DRS_SRCBLEND, D3DBLEND_SRCALPHA );
+	l_Device->SetRenderState( D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA );
 
 	//Pinta la barra de vida
 	if( m_bBackgroundActive )
 		RM.DrawTexturedQuad2D(m_BackgroundPosition, m_BackgroundSize.x, m_BackgroundSize.y,  UPPER_LEFT, m_pBackground );
 
 	if( m_bBarActive )
-		RM.DrawTexturedQuad2D(m_BarPosition, Vect2f(0.f, 0.f), Vect2f(m_PerCentSize, 1.f), m_BarRealSize.x, m_BarRealSize.y,  UPPER_LEFT, m_pBar );
+		RM.DrawTexturedQuad2D(m_BarPosition, v2fZERO, Vect2f(m_PerCentSize, 1.f), m_BarRealSize.x, m_BarRealSize.y,  UPPER_LEFT, m_pBar );
 
 	if( m_bMaskActive )
 		RM.DrawTexturedQuad2D(m_MaskPosition, m_MaskSize.x, m_MaskSize.y,  UPPER_LEFT, m_pMask );
@@ -256,7 +258,7 @@ void CHud::Render( CRenderManager &RM )
 	}
 
 	//Finaliza la transparencia
-	CORE->GetRenderManager()->GetDevice()->SetRenderState( D3DRS_ALPHABLENDENABLE, FALSE );
+	l_Device->SetRenderState( D3DRS_ALPHABLENDENABLE, FALSE );
 }
 
 //------------------------------------------------
