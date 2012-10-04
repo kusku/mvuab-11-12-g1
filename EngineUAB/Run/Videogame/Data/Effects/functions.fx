@@ -29,8 +29,8 @@ float4 AmbientLightColor <
 
 uniform bool		FogEnable = true;
 uniform float3		FogColor = float3(0.9f, 0.65f, 0.05f);
-uniform float		FogStart = 250.0f;
-uniform float		FogRange = 450.0f;
+uniform float		FogStart = 200.0f;
+uniform float		FogRange = 350.0f;
 
 uniform float4x4	World									: WORLD;
 uniform float4x4	WorldViewProjection 					: WORLDVIEWPROJECTION;
@@ -535,34 +535,12 @@ float ChebyshevUpperBound(float2 Moments, float Mean, float MinVariance)
     return max(p, p_max);
 }
 
-float CalcShadowVarianceCascade(float4 Pos, sampler shadowMapSampler, int light, float4 vPos)
+float CalcShadowVarianceCascadeNum(int cascadeNum, sampler shadowMapSampler, int light, float4 Pos)
 {
-	float3 weights = (float3)0;
+	float4x4 lightViewProj = CascadeShadowViewProjection[light][cascadeNum];
+		
+	float offset = 0.33333f * cascadeNum;
 	
-	if(vPos.z > CascadeDistances[light].x)
-	{
-		weights.x = 1;
-		CascadeGroup = 1;
-	}
-	if(vPos.z > CascadeDistances[light].y)
-	{
-		weights.y = 1;
-		CascadeGroup = 2;
-	}
-	if(vPos.z > CascadeDistances[light].z)
-	{
-		weights.z = 1;
-		CascadeGroup = 3;
-	}
-
-	weights.xy -= weights.yz;
-	
-	float4x4 lightViewProj = CascadeShadowViewProjection[light][0] * weights.x;
-	lightViewProj += CascadeShadowViewProjection[light][1] * weights.y;
-	lightViewProj += CascadeShadowViewProjection[light][2] * weights.z;
-
-	float offset = weights.y * 0.33333f + weights.z * 0.666666f;
-
 	float4 lightingPosition = mul(Pos, lightViewProj);
     
 	float2 shadowTexCoord = lightingPosition.xy / lightingPosition.w;
@@ -588,6 +566,32 @@ float CalcShadowVarianceCascade(float4 Pos, sampler shadowMapSampler, int light,
 		ShadowContrib = LBR(ShadowContrib);
 	}
 	
+	return ShadowContrib;
+}
+
+float CalcShadowVarianceCascade(float4 Pos, sampler shadowMapSampler, int light, float4 vPos)
+{	
+	float percentAmount = 0.0f;
+	
+	if(vPos.z > CascadeDistances[light].z)
+	{
+		CascadeGroup = 2;
+	}
+	else if(vPos.z > CascadeDistances[light].y)
+	{
+		CascadeGroup = 1;
+
+		percentAmount = (vPos.z / CascadeDistances[light].z);
+	}
+	else if(vPos.z > CascadeDistances[light].x)
+	{
+		CascadeGroup = 0;
+
+		percentAmount = (vPos.z / CascadeDistances[light].y);
+	}
+
+	float ShadowContrib = CalcShadowVarianceCascadeNum(CascadeGroup, shadowMapSampler, light, Pos);
+
 	return ShadowContrib;
 }
 
