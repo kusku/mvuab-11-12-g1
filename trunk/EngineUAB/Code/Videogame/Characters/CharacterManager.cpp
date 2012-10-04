@@ -227,31 +227,31 @@ void CCharactersManager::Update( float _ElapsedTime )
 	//lua_gc(SCRIPT->GetLuaState(), LUA_GCCOLLECT, 0);
 
 	//Actualiza el billboard del target enemy
-	if( m_pTargetEnemy != NULL )
+	/*if( m_pTargetEnemy != NULL )
 	{
-		Vect3f l_Pos = m_pTargetEnemy->GetPosition();
-		l_Pos.y += m_pTargetEnemy->GetController()->GetHeight() + 1.5f;
+	Vect3f l_Pos = m_pTargetEnemy->GetPosition();
+	l_Pos.y += m_pTargetEnemy->GetController()->GetHeight() + 1.5f;
 
-		CORE->GetBillboardManager()->GetBillboardInstance("target_enemy")->SetPosition(l_Pos);
-		CORE->GetBillboardManager()->GetBillboardInstance("target_enemy")->SetVisible(true);
-		CORE->GetBillboardManager()->GetBillboardInstance("preview_target_enemy")->SetVisible(false);
+	CORE->GetBillboardManager()->GetBillboardInstance("target_enemy")->SetPosition(l_Pos);
+	CORE->GetBillboardManager()->GetBillboardInstance("target_enemy")->SetVisible(true);
+	CORE->GetBillboardManager()->GetBillboardInstance("preview_target_enemy")->SetVisible(false);
 	}
 	else
 	{
-		if ( m_pPreviewTargetEnemy != NULL )
-		{
-			Vect3f l_Pos = m_pPreviewTargetEnemy->GetPosition();
-			l_Pos.y += m_pPreviewTargetEnemy->GetController()->GetHeight() + 1.5f;
+	if ( m_pPreviewTargetEnemy != NULL )
+	{
+	Vect3f l_Pos = m_pPreviewTargetEnemy->GetPosition();
+	l_Pos.y += m_pPreviewTargetEnemy->GetController()->GetHeight() + 1.5f;
 
-			CORE->GetBillboardManager()->GetBillboardInstance("preview_target_enemy")->SetPosition(l_Pos);
-			CORE->GetBillboardManager()->GetBillboardInstance("preview_target_enemy")->SetVisible(true);
-		}
-		else
-		{
-			CORE->GetBillboardManager()->GetBillboardInstance("preview_target_enemy")->SetVisible(false);
-		}
-		CORE->GetBillboardManager()->GetBillboardInstance("target_enemy")->SetVisible(false);
+	CORE->GetBillboardManager()->GetBillboardInstance("preview_target_enemy")->SetPosition(l_Pos);
+	CORE->GetBillboardManager()->GetBillboardInstance("preview_target_enemy")->SetVisible(true);
 	}
+	else
+	{
+	CORE->GetBillboardManager()->GetBillboardInstance("preview_target_enemy")->SetVisible(false);
+	}
+	CORE->GetBillboardManager()->GetBillboardInstance("target_enemy")->SetVisible(false);
+	}*/
 }
 
 //----------------------------------------------------------------------------------------------------

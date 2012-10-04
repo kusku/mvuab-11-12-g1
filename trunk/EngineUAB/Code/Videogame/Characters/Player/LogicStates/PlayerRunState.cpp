@@ -62,10 +62,10 @@ void CPlayerRunState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 	CActionToInput *l_pInput	= CORE->GetActionToInput();
 
 	//Miramos si hay un target a poder fijarse
-	if( !l_pPlayer->IsTargetFixed() )
+	/*if( !l_pPlayer->IsTargetFixed() )
 	{
 		l_pEnemy = l_pPlayer->DetectEnemy();
-	}
+	}*/
 
 	if( !_pCharacter->GetLocked() )
 	{

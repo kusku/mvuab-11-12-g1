@@ -74,40 +74,40 @@ void CPlayerIdleState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 		CCharacter *l_pEnemyDetected	= l_pPlayer->DetectEnemy();
 		CActionToInput *l_pInput		= CORE->GetActionToInput();
 
-		if( l_pPlayer->IsTargetFixed() )
-		{
-			if( l_pEnemyDetected != NULL )
-			{
-				if( !l_pEnemyDetected->IsAlive() )
-				{
-					static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->SetTargetEnemy(NULL);
-					l_pPlayer->SetTargetFixed(false);
-				}
-			}
-			else
-			{
-				static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->SetTargetEnemy(NULL);
-				l_pPlayer->SetTargetFixed(false);
-			}
-		}
+		//if( l_pPlayer->IsTargetFixed() )
+		//{
+		//	if( l_pEnemyDetected != NULL )
+		//	{
+		//		if( !l_pEnemyDetected->IsAlive() )
+		//		{
+		//			static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->SetTargetEnemy(NULL);
+		//			l_pPlayer->SetTargetFixed(false);
+		//		}
+		//	}
+		//	else
+		//	{
+		//		static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->SetTargetEnemy(NULL);
+		//		l_pPlayer->SetTargetFixed(false);
+		//	}
+		//}
 
-		if( l_pInput->DoAction("PlayerTarget") )
-		{
-			//Se asigna un target
-			if( !l_pPlayer->IsTargetFixed() )
-			{
-				if( l_pEnemyDetected != NULL )
-				{
-					static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->SetTargetEnemy( l_pEnemyDetected );
-					l_pPlayer->SetTargetFixed(true);
-				}
-			}
-			else
-			{
-				static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->SetTargetEnemy(NULL);
-				l_pPlayer->SetTargetFixed(false);
-			}
-		}
+		//if( l_pInput->DoAction("PlayerTarget") )
+		//{
+		//	//Se asigna un target
+		//	if( !l_pPlayer->IsTargetFixed() )
+		//	{
+		//		if( l_pEnemyDetected != NULL )
+		//		{
+		//			static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->SetTargetEnemy( l_pEnemyDetected );
+		//			l_pPlayer->SetTargetFixed(true);
+		//		}
+		//	}
+		//	else
+		//	{
+		//		static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->SetTargetEnemy(NULL);
+		//		l_pPlayer->SetTargetFixed(false);
+		//	}
+		//}
 
 		if( l_pInput->DoAction("HardAttackPlayer") )
 		{
