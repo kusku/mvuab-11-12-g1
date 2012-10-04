@@ -31,11 +31,16 @@ public:
 	void	CleanUp			();
 
 	void	Init			( int _iPlayerLife );
+	void	InitWolf		( int _iWolfLife = 100 );
 	void	Update			( float _fElapsedTime, int _iPlayerLife );
 	void	Render			( CRenderManager &RM );
 
 	bool	IsTextureActive	( const std::string &_name );
 	void	ActiveTexture	( const std::string &_name, bool _bActive );
+
+	inline void	SetWolfLife			( int _life )			{ m_iCurrentWolfLife = _life; }
+	inline void	SetActiveWolfBar	( bool _active )		{ m_bWolfActive = _active; }
+	inline bool IsActiveWolfBar		() const				{ return m_bWolfActive; }
 
 private:
 	bool	LoadFile		();
@@ -46,7 +51,9 @@ private:
 
 	float			m_fThresholdDyingEffect;
 
-	//Player info
+	//--------------------------------
+	//--Player Info-------------------
+	//--------------------------------
 	int				m_iPlayerLife;
 	int				m_iPlayerPreviousLife;
 
@@ -69,6 +76,34 @@ private:
 	CTexture*		m_pBar;
 	CTexture*		m_pMask;
 	CTexture*		m_pBackground;
+
+	//--------------------------------
+	//--Wolf Info---------------------
+	//--------------------------------
+	bool			m_bWolfActive;
+	int				m_iWolfLife;
+	int				m_iCurrentWolfLife;
+	int				m_iWolfPreviousLife;
+
+	Vect2i			m_WolfMaskPosition;
+	Vect2i			m_WolfMaskSize;
+
+	Vect2i			m_WolfBarPosition;
+	Vect2i			m_WolfBarSize;
+	Vect2i			m_WolfBarRealSize;
+	float			m_WolfPerCentSize;
+
+	Vect2i			m_WolfBackgroundPosition;
+	Vect2i			m_WolfBackgroundSize;
+
+	bool			m_bWolfBackgroundActive;
+	bool			m_bWolfBarActive;
+	bool			m_bWolfMaskActive;
+
+	CTexture*		m_pWolfBar;
+	CTexture*		m_pWolfMask;
+	CTexture*		m_pWolfBackground;
+
 };
 //------------------------------------------------
 

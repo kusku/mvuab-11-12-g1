@@ -31,6 +31,24 @@ CHud::CHud()
 	, m_iPlayerPreviousLife(100)
 	, m_fThresholdDyingEffect(0.f)
 	, m_Filename("")
+	, m_WolfBarPosition(v2iZERO)
+	, m_WolfBarSize(v2iZERO)
+	, m_WolfBarRealSize(v2iZERO)
+	, m_WolfMaskPosition(v2iZERO)
+	, m_WolfMaskSize(v2iZERO)
+	, m_WolfBackgroundPosition(v2iZERO)
+	, m_WolfBackgroundSize(v2iZERO)
+	, m_bWolfBarActive(true)
+	, m_bWolfBackgroundActive(true)
+	, m_bWolfMaskActive(true)
+	, m_pWolfBar(NULL)
+	, m_pWolfMask(NULL)
+	, m_pWolfBackground(NULL)
+	, m_WolfPerCentSize(1.f)
+	, m_iWolfLife(100)
+	, m_iWolfPreviousLife(100)
+	, m_iCurrentWolfLife(100)
+	, m_bWolfActive(false)
 {
 
 }
@@ -94,7 +112,7 @@ bool CHud::LoadFile()
 		{
 			CXMLTreeNode l_Node = l_RootNode(j);
 			std::string l_TypeHUD = l_Node.GetName();
-			if( l_TypeHUD == "LifeBar" )
+			if( l_TypeHUD == "PlayerLifeBar" )
 			{
 				m_fThresholdDyingEffect = l_Node.GetFloatProperty("threshold_to_dying_effect", 0.f);
 
@@ -145,6 +163,55 @@ bool CHud::LoadFile()
 					}
 				}
 			}
+			else if( l_TypeHUD == "WolfLifeBar" )
+			{
+				uint8 l_TotalNodes = l_Node.GetNumChildren();
+				for ( uint8 i = 0; i < l_TotalNodes; ++i )
+				{
+					std::string l_Type = l_Node(i).GetName();
+					if( l_Type == "Background" )
+					{
+						m_WolfBackgroundPosition = l_Node(i).GetVect2iProperty("position", v2iZERO);
+						m_WolfBackgroundSize = l_Node(i).GetVect2iProperty("size", v2iZERO);
+						m_bWolfBackgroundActive = l_Node(i).GetBoolProperty("active", false);
+						std::string l_TextureName = l_Node(i).GetPszProperty("texture", "");
+
+						m_pWolfBackground = CORE->GetTextureManager()->GetTexture(l_TextureName);
+
+						assert( m_pWolfBackground );
+
+						m_pWolfBackground->SetName( l_TextureName );
+
+					}
+					else if( l_Type == "Bar" )
+					{
+						m_WolfBarPosition = l_Node(i).GetVect2iProperty("position", v2iZERO);
+						m_WolfBarSize = l_Node(i).GetVect2iProperty("size", v2iZERO);
+						m_bWolfBarActive = l_Node(i).GetBoolProperty("active", false);
+						std::string l_TextureName = l_Node(i).GetPszProperty("texture", "");
+
+						m_pWolfBar = CORE->GetTextureManager()->GetTexture(l_TextureName);
+
+						assert( m_pWolfBar );
+
+						m_pWolfBar->SetName( l_TextureName );
+						m_WolfBarRealSize = m_WolfBarSize;
+					}
+					else if( l_Type == "Mask" )
+					{
+						m_WolfMaskPosition = l_Node(i).GetVect2iProperty("position", v2iZERO);
+						m_WolfMaskSize = l_Node(i).GetVect2iProperty("size", v2iZERO);
+						m_bWolfMaskActive = l_Node(i).GetBoolProperty("active", false);
+						std::string l_TextureName = l_Node(i).GetPszProperty("texture", "");
+
+						m_pWolfMask = CORE->GetTextureManager()->GetTexture(l_TextureName);
+
+						assert( m_pWolfMask );
+
+						m_pWolfMask->SetName( l_TextureName );
+					}
+				}
+			}
 			else if( l_TypeHUD == "Texture" )
 			{
 				std::string l_Name	= l_Node.GetPszProperty("name", "");
@@ -184,8 +251,17 @@ void CHud::Init( int _iPlayerLife )
 }
 
 //------------------------------------------------
+void CHud::InitWolf( int _iWolfLife )
+{
+	m_iWolfLife				= _iWolfLife;
+	m_iWolfPreviousLife		= _iWolfLife;
+}
+
+//------------------------------------------------
 void CHud::Update( float _fElapsedTime, int _iPlayerLife )
 {
+	// Player Life Bar
+	//-------------------------------------
 	float l_fTarget = (float)_iPlayerLife / (float)m_iPlayerLife;
 	if( _iPlayerLife < m_iPlayerPreviousLife )
 	{
@@ -208,6 +284,35 @@ void CHud::Update( float _fElapsedTime, int _iPlayerLife )
 
 	m_BarRealSize.x = static_cast<int>( static_cast<float>(m_BarSize.x) * m_PerCentSize);
 
+	// Wolf Life Bar
+	//------------------------------------------
+	if( m_bWolfActive )
+	{
+		l_fTarget = (float)m_iCurrentWolfLife / (float)m_iWolfLife;
+		if( m_iCurrentWolfLife < m_iWolfPreviousLife )
+		{
+			m_WolfPerCentSize = m_WolfPerCentSize - 0.5f * _fElapsedTime;
+			if( m_WolfPerCentSize <= l_fTarget )
+			{
+				m_WolfPerCentSize = l_fTarget;
+				m_iWolfPreviousLife = m_iCurrentWolfLife;
+			}
+		}
+		else if( m_iCurrentWolfLife > m_iPlayerPreviousLife )
+		{
+			m_WolfPerCentSize = m_WolfPerCentSize + 0.5f * _fElapsedTime;
+			if( m_WolfPerCentSize >= l_fTarget )
+			{
+				m_WolfPerCentSize = l_fTarget;
+				m_iWolfPreviousLife = m_iCurrentWolfLife;
+			}
+		}
+
+		m_WolfBarRealSize.x = static_cast<int>( static_cast<float>(m_WolfBarSize.x) * m_WolfPerCentSize);
+	}
+
+
+	//Efecto de blanco y negro
 	if( m_PerCentSize <= m_fThresholdDyingEffect )
 	{
 		float l_fDying	= m_PerCentSize;
@@ -236,7 +341,7 @@ void CHud::Render( CRenderManager &RM )
 	l_Device->SetRenderState( D3DRS_SRCBLEND, D3DBLEND_SRCALPHA );
 	l_Device->SetRenderState( D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA );
 
-	//Pinta la barra de vida
+	//Pinta la barra de vida del player
 	if( m_bBackgroundActive )
 		RM.DrawTexturedQuad2D(m_BackgroundPosition, m_BackgroundSize.x, m_BackgroundSize.y,  UPPER_LEFT, m_pBackground );
 
@@ -245,6 +350,19 @@ void CHud::Render( CRenderManager &RM )
 
 	if( m_bMaskActive )
 		RM.DrawTexturedQuad2D(m_MaskPosition, m_MaskSize.x, m_MaskSize.y,  UPPER_LEFT, m_pMask );
+
+	//Pinta la barra de vida del lobo
+	if( m_bWolfActive )
+	{
+		if( m_bWolfBackgroundActive )
+			RM.DrawTexturedQuad2D(m_WolfBackgroundPosition, m_WolfBackgroundSize.x, m_WolfBackgroundSize.y,  UPPER_LEFT, m_pWolfBackground );
+
+		if( m_bWolfBarActive )
+			RM.DrawTexturedQuad2D(m_WolfBarPosition, v2fZERO, Vect2f(m_WolfPerCentSize, 1.f), m_WolfBarRealSize.x, m_WolfBarRealSize.y,  UPPER_LEFT, m_pWolfBar );
+
+		if( m_bWolfMaskActive )
+			RM.DrawTexturedQuad2D(m_WolfMaskPosition, m_WolfMaskSize.x, m_WolfMaskSize.y,  UPPER_LEFT, m_pWolfMask );
+	}
 
 	//Renderiza otras texturas del HUD
 	TVectorResources l_TextureVector = GetResourcesVector();
@@ -288,6 +406,9 @@ void CHud::CalculatePositions()
 {
 	Vect2i l_ScreenSize = CORE->GetRenderManager()->GetScreenSize();
 
+	// Player Life Bar
+	//--------------------------
+
 	//Calcula la posición de la barra de vida
 	m_MaskPosition.x = static_cast<uint32>(m_MaskPosition.x * 0.01f * l_ScreenSize.x);
 	m_MaskPosition.y = static_cast<uint32>(m_MaskPosition.y * 0.01f * l_ScreenSize.y);
@@ -297,6 +418,21 @@ void CHud::CalculatePositions()
 
 	m_BackgroundPosition.x = static_cast<uint32>(m_BackgroundPosition.x * 0.01f * l_ScreenSize.x);
 	m_BackgroundPosition.y = static_cast<uint32>(m_BackgroundPosition.y * 0.01f * l_ScreenSize.y);
+
+	// Wolf Life Bar
+	//--------------------------
+	//Calcula la posición de la barra de vida
+	m_WolfMaskPosition.x = static_cast<uint32>(m_WolfMaskPosition.x * 0.01f * l_ScreenSize.x);
+	m_WolfMaskPosition.y = static_cast<uint32>(m_WolfMaskPosition.y * 0.01f * l_ScreenSize.y);
+
+	m_WolfBarPosition.x = static_cast<uint32>(m_WolfBarPosition.x * 0.01f * l_ScreenSize.x);
+	m_WolfBarPosition.y = static_cast<uint32>(m_WolfBarPosition.y * 0.01f * l_ScreenSize.y);
+
+	m_WolfBackgroundPosition.x = static_cast<uint32>(m_WolfBackgroundPosition.x * 0.01f * l_ScreenSize.x);
+	m_WolfBackgroundPosition.y = static_cast<uint32>(m_WolfBackgroundPosition.y * 0.01f * l_ScreenSize.y);
+
+	// Texturas de información
+	//-------------------------
 
 	//Calcula la posición de los elementos de textura
 	TVectorResources l_TextureInfoVector = GetResourcesVector();
