@@ -297,7 +297,7 @@ void CInstanceMeshHW::CreatePhysics(CObject3D* instance, const std::string &_Nam
 				TBoundingBox bb = m_StaticMesh->GetBoundingBox();
 				//localPos = -(bb.m_MinPos + ( (bb.m_MaxPos - bb.m_MinPos) / 2));
 
-				pos = (bb.m_MinPos + ( (bb.m_MaxPos - bb.m_MinPos) / 2));
+				//pos = (bb.m_MinPos + ( (bb.m_MaxPos - bb.m_MinPos) / 2));
 
 				pos += instance->GetPosition();
 			}
