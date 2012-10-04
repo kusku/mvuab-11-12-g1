@@ -95,7 +95,7 @@ void CWolfIdleState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 	}
 
 	// Si tenemos máxima vida y acaba de aparecer el lobo llamamos mis amigos.
-	if ( m_pWolf->GetCanHowlForLife() && m_pWolf->TestIfCanHowlForLife(m_pWolf->GetProperties()->GetCurrentLife(), 100) )
+	if ( m_pWolf->GetCanHowlForLife() && m_pWolf->TestIfCanHowlForLife() )
 	{
 		m_pWolf->GetLogicFSM()->ChangeState( m_pWolf->GetHowlLifeState());
 		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetHowlLifeAnimationState());
@@ -103,7 +103,7 @@ void CWolfIdleState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		return;
 	}
 
-	if ( m_pWolf->GetCanHowlForEnemies() && m_pWolf->TestIfCanHowlForEnemies(m_pWolf->GetProperties()->GetCurrentLife(), 100) )
+	if ( m_pWolf->GetCanHowlForEnemies() && m_pWolf->TestIfCanHowlForEnemies() )
 	{
 		m_pWolf->GetLogicFSM()->ChangeState( m_pWolf->GetHowlEnemiesState());
 		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetHowlEnemiesAnimationState());
