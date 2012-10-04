@@ -59,8 +59,8 @@ public:
 	//----Methods ---------------------------------------------
 	bool			IsFatigued				( void );
 	void			BeDead					( void );
-	bool			TestIfCanHowlForLife	( uint32 _Life, uint32 _ValorMultiple );
-	bool			TestIfCanHowlForEnemies ( uint32 _Life, uint32 _ValorMultiple );
+	bool			TestIfCanHowlForLife	( void );
+	bool			TestIfCanHowlForEnemies ( void );
 
 	//----Properties ------------------------------------------
 	CWolfIdleState *					GetIdleState					( void ) const			{ return m_pIdleState; }
