@@ -137,7 +137,7 @@ void CGameProcess::Update(float elapsedTime)
 
 	if( CORE->IsGameMode() )
 	{
-
+#if defined (_DEBUG)
 		//Vuelve a cargar los datos si hacemos el reload de LUA
 		if( CORE->GetActionToInput()->DoAction("ReloadGamePlayScripts") )
 		{
@@ -148,11 +148,6 @@ void CGameProcess::Update(float elapsedTime)
 			m_pHUD->Init( m_pCharactersManager->GetPlayerLife() );
 
 			CORE->GetTriggersManager()->Reload();
-		}
-
-		if( CORE->GetActionToInput()->DoAction("GoToMenu") )
-		{
-			SCRIPT->RunCode("change_to_end_gui_process()");
 		}
 
 		if( CORE->GetActionToInput()->DoAction("CommutationCamera") )
@@ -174,6 +169,12 @@ void CGameProcess::Update(float elapsedTime)
 		if( m_pCharactersManager->GetPlayer()->GetLocked() )
 		{
 			m_FreeCamera.Update(elapsedTime ,m_pCamera);
+		}
+#endif
+
+		if( CORE->GetActionToInput()->DoAction("GoToMenu") )
+		{
+			SCRIPT->RunCode("change_to_end_gui_process()");
 		}
 
 		m_fTimeBetweenClicks += elapsedTime;

@@ -120,7 +120,7 @@ void CCharactersManager::CleanReloadScripts( void )
 	TVectorResources::iterator l_It = m_ResourcesVector.begin();
 	TVectorResources::iterator l_End = m_ResourcesVector.end();
 	
-	for ( l_It; l_It < l_End; l_It++ )
+	for ( l_It; l_It < l_End; ++l_It )
 	{
 		CORE->GetPhysicsManager()->ReleasePhysicController((*l_It)->GetController());
 		(*l_It) = NULL;
@@ -211,8 +211,10 @@ void CCharactersManager::Update( float _ElapsedTime )
 				Vect3f l_Pos = l_EnemyList[i]->GetPosition();
 				CParticleEmitter *l_Emitter = CORE->GetParticleEmitterManager()->GetResource("DeathExplosion");
 				CParticleEmitterInstance *l_Instance = l_Emitter->GetParticleEmitterInstance(l_EnemyList[i]->GetName() + "_Explosions");
-				CORE->GetParticleEmitterManager()->GetResource("DeathExplosion")->GetParticleEmitterInstance(l_EnemyList[i]->GetName() + "_Explosions")->SetPosition(l_Pos);
-				CORE->GetParticleEmitterManager()->GetResource("DeathExplosion")->GetParticleEmitterInstance(l_EnemyList[i]->GetName() + "_Explosions")->EjectParticles();
+				//CORE->GetParticleEmitterManager()->GetResource("DeathExplosion")->GetParticleEmitterInstance(l_EnemyList[i]->GetName() + "_Explosions")->SetPosition(l_Pos);
+				//CORE->GetParticleEmitterManager()->GetResource("DeathExplosion")->GetParticleEmitterInstance(l_EnemyList[i]->GetName() + "_Explosions")->EjectParticles();
+				l_Instance->SetPosition(l_Pos);
+				l_Instance->EjectParticles();
 			}
 		}
 	}
@@ -264,7 +266,7 @@ void CCharactersManager::Render(CRenderManager *_RM, CFontManager *_FM)
 
 	// Dibuixem posicions de cada enemic
 	uint32 l_FileNumber = 85;
-	for ( size_t i = 0; i<	m_ResourcesVector.size(); i++ )
+	for ( size_t i = 0; i<	m_ResourcesVector.size(); ++i )
 	{
 		CCharacter* l_Enemy = m_ResourcesVector[i];
 		_FM->DrawDefaultText(10, l_FileNumber, colWHITE, "Position %s: %f, %f, %f", l_Enemy->GetName().c_str(), l_Enemy->GetPosition().x, l_Enemy->GetPosition().y, l_Enemy->GetPosition().z);

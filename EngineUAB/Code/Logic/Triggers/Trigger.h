@@ -34,19 +34,19 @@ public:
 	virtual void	OnExit		() = 0;
 
 	//---Get & Set Methods-------------------
-	void			SetRenderDebug		( bool render )				{ m_bRenderDebugTrigger = render; }
-	void			SetActive			( bool active )				{ m_bIsActive = active; }
-	void			SetPosition			( const Vect3f & pos )		{ m_Position = pos; }
-	void			SetTriggerObject	( CObject3D * val )			{ m_pTriggerObject = val; }
-	void			SetTriggerActor		( CPhysicActor * actor )	{ m_pTriggerActor = actor; }
-	void			SetRenderColor		( const CColor & color )	{ m_RenderColor = color; }
+	inline void				SetRenderDebug		( bool render )				{ m_bRenderDebugTrigger = render; }
+	inline void				SetActive			( bool active )				{ m_bIsActive = active; }
+	inline void				SetPosition			( const Vect3f & pos )		{ m_Position = pos; }
+	inline void				SetTriggerObject	( CObject3D * val )			{ m_pTriggerObject = val; }
+	inline void				SetTriggerActor		( CPhysicActor * actor )	{ m_pTriggerActor = actor; }
+	inline void				SetRenderColor		( const CColor & color )	{ m_RenderColor = color; }
 
-	bool			IsRenderDebug		() const					{ return m_bRenderDebugTrigger; }
-	bool			IsActive			() const					{ return m_bIsActive; }
-	const Vect3f&	GetPosition			() const					{ return m_Position; }
-	CObject3D *		GetTriggerObject	() const					{ return m_pTriggerObject; }
-	CPhysicActor *	GetTriggerActor		() const					{ return m_pTriggerActor; }
-	const CColor&	GetRenderColor		() const					{ return m_RenderColor; }
+	inline bool				IsRenderDebug		() const					{ return m_bRenderDebugTrigger; }
+	inline bool				IsActive			() const					{ return m_bIsActive; }
+	inline const Vect3f&	GetPosition			() const					{ return m_Position; }
+	inline CObject3D *		GetTriggerObject	() const					{ return m_pTriggerObject; }
+	inline CPhysicActor *	GetTriggerActor		() const					{ return m_pTriggerActor; }
+	inline const CColor&	GetRenderColor		() const					{ return m_RenderColor; }
 
 protected:
 	Vect3f		m_Position;

@@ -126,10 +126,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ParticleEditor", "Code\Tools\ParticleEditor\ParticleEditor.vcxproj", "{BF5072B4-5F15-4CEE-B6F0-7E3417376A5A}"
 EndProject
 Global
-	GlobalSection(SubversionScc) = preSolution
-		Svn-Managed = True
-		Manager = AnkhSVN - Subversion Support for Visual Studio
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
 		Release|Win32 = Release|Win32
@@ -240,5 +236,9 @@ Global
 		{32D7EDB2-952B-4783-9F8B-1AD132E206CA} = {88C6C30E-0DD9-425E-AF0B-B564E9BC8FED}
 		{81FDD2CF-1C50-47C6-8AA8-92F3248B2B51} = {88C6C30E-0DD9-425E-AF0B-B564E9BC8FED}
 		{26BBC96D-EFC7-4DDB-BAC2-AB556F6F0334} = {88C6C30E-0DD9-425E-AF0B-B564E9BC8FED}
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
 	EndGlobalSection
 EndGlobal
