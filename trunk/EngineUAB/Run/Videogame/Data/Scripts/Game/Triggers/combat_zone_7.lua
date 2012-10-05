@@ -55,6 +55,7 @@ class 'CCombatZone7Trigger' (CBoxTrigger)
 	end
 	
 	function CCombatZone7Trigger:on_enter()
+		get_game_process():get_hud().set_active_wolf_bar = true
 		self.action_time:start_action()
 		self.enemy_appeared = 1
 	end
