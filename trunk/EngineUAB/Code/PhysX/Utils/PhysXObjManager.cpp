@@ -105,6 +105,8 @@ bool CPhysXObjManager::Reload()
 				{
 					CPhysicUserData* l_pPhysicUserDataMesh = new CPhysicUserData( pxObj->GetName()  );
 
+					l_pPhysicUserDataMesh->SetGroup(static_cast<ECollisionGroup>(pxObj->m_Group));
+
 					Vect3f rotationVect = v3fZERO;
 
 					rotationVect.x = mathUtils::Deg2Rad(pxObj->GetPitch());
