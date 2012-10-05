@@ -224,6 +224,7 @@ void CPhysicController::Move ( const Vect3f& _vDirection, float _ElapsedTime )
 	mask |= 1 << ECG_DYNAMIC_OBJECTS;
 	mask |= 1 << ECG_ESCENE;
 	mask |= 1 << ECG_ENEMY;
+	mask |= 1 << ECG_LIMITS;
 
 	m_pPhXController->move( l_Direction , mask, 0.000001f, collisionFlags, sharpness );
 	
