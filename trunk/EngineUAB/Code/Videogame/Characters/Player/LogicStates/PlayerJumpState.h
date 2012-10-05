@@ -9,7 +9,9 @@
 #include <string>
 
 struct STelegram;
+class CGameProcess;
 class CAnimationCallback;
+class CActionToInput;
 
 class CPlayerJumpState : public CState< CCharacter >
 {
@@ -25,6 +27,8 @@ public:
 
 private:
 	CAnimationCallback	*m_pCallback;
+	CGameProcess		*m_pProcess;
+	CActionToInput		*m_pInput;
 
 	float				m_fJumpYaw;
 	float				m_fTime;

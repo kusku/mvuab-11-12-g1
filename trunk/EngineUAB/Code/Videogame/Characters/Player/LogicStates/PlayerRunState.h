@@ -8,6 +8,9 @@
 #include <string>
 
 struct STelegram;
+class CGameProcess;
+class CPlayer;
+class CActionToInput;
 
 class CPlayerRunState : public CState< CCharacter >
 {
@@ -22,6 +25,10 @@ public:
 	bool	OnMessage	(  CCharacter* _pCharacter,  const STelegram& _Message );
 
 private:
+	CGameProcess	*m_pProcess;
+	CPlayer			*m_pPlayer;
+	CActionToInput	*m_pInput;
+
 	float	m_fRotationVelocity;
 	float	m_fAccelerationStart;
 	float	m_fAccelerationEnd;

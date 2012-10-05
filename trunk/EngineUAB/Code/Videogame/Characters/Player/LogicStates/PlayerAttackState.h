@@ -7,6 +7,8 @@
 #include "Characters\Character.h"
 #include <string>
 
+class CGameProcess;
+class CActionToInput;
 class CAnimationCallback;
 class CParticleEmitterInstance;
 struct STelegram;
@@ -37,6 +39,8 @@ private:
 private:
 	CAnimationCallback			*m_pCallback;
 	CParticleEmitterInstance	*m_pParticleEmitter;
+	CGameProcess				*m_pProcess;
+	CActionToInput				*m_pInput;
 
 	bool						m_bFirstUpdate;
 	float						m_fMaxVelocityMovement;

@@ -31,13 +31,16 @@ CPlayerRunState::CPlayerRunState( CCharacter * _pCharacter, const std::string &_
 	, m_bStartState(true)
 	, m_bEndState(false)
 	, m_LastDirection(v3fZERO)
+	, m_pPlayer(NULL)
 {
-
+	m_pProcess	= static_cast<CGameProcess*>(CORE->GetProcess());
+	m_pInput	= CORE->GetActionToInput();
 }
 
 CPlayerRunState::~CPlayerRunState()
 {
-
+	m_pProcess	= NULL;
+	m_pPlayer	= NULL;
 }
 
 void CPlayerRunState::OnEnter( CCharacter* _pCharacter )
@@ -49,6 +52,9 @@ void CPlayerRunState::OnEnter( CCharacter* _pCharacter )
 	}
 #endif
 
+	if( m_pPlayer == NULL )
+		m_pPlayer = static_cast<CPlayer*>( _pCharacter );
+
 	m_LastDirection				= v3fZERO;
 	m_fCurrentVelocityMovement	= 0.f;
 	m_bStartState				= true;
@@ -57,9 +63,7 @@ void CPlayerRunState::OnEnter( CCharacter* _pCharacter )
 
 void CPlayerRunState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 {
-	CCharacter *l_pEnemy		= NULL;
-	CPlayer *l_pPlayer			= static_cast<CPlayer*>( _pCharacter );
-	CActionToInput *l_pInput	= CORE->GetActionToInput();
+	CCharacter *l_pEnemy		= NULL; 
 
 	//Miramos si hay un target a poder fijarse
 	/*if( !l_pPlayer->IsTargetFixed() )
@@ -70,14 +74,14 @@ void CPlayerRunState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 	if( !_pCharacter->GetLocked() )
 	{
 		//El jugador ataca
-		if( l_pInput->DoAction("HardAttackPlayer") )
+		if( m_pInput->DoAction("HardAttackPlayer") )
 		{
 			_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("attack4") );
 			_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack4") );
 		}
-		else if( l_pInput->DoAction("AttackPlayer") )
+		else if( m_pInput->DoAction("AttackPlayer") )
 		{
-			if( l_pPlayer->IsTargetFixed() )
+			if( m_pPlayer->IsTargetFixed() )
 			{
 				_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("targetattack1") );
 				_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack1") );
@@ -95,40 +99,40 @@ void CPlayerRunState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 		bool l_bMovePlayer	= false;
 		Vect3f l_Dir		= v3fZERO;
 
-		if( l_pInput->DoAction("MovePlayerUp") )
+		if( m_pInput->DoAction("MovePlayerUp") )
 		{
-			if( l_pInput->DoAction("MovePlayerLeft") )
+			if( m_pInput->DoAction("MovePlayerLeft") )
 			{
 				l_fYaw += FLOAT_PI_VALUE / 4.f;
 			}
-			else if( l_pInput->DoAction("MovePlayerRight") )
+			else if( m_pInput->DoAction("MovePlayerRight") )
 			{
 				l_fYaw -= FLOAT_PI_VALUE / 4.f;
 			}
 
 			l_bMovePlayer = true;
 		}
-		else if( l_pInput->DoAction("MovePlayerDown") )
+		else if( m_pInput->DoAction("MovePlayerDown") )
 		{
 			l_fYaw -= FLOAT_PI_VALUE;
 
-			if( l_pInput->DoAction("MovePlayerLeft") )
+			if( m_pInput->DoAction("MovePlayerLeft") )
 			{
 				l_fYaw -= FLOAT_PI_VALUE / 4.f;
 			}
-			else if( l_pInput->DoAction("MovePlayerRight") )
+			else if( m_pInput->DoAction("MovePlayerRight") )
 			{
 				l_fYaw += FLOAT_PI_VALUE / 4.f;
 			}
 
 			l_bMovePlayer = true;
 		}
-		else if( l_pInput->DoAction("MovePlayerLeft") )
+		else if( m_pInput->DoAction("MovePlayerLeft") )
 		{
 			l_fYaw += FLOAT_PI_VALUE / 2.f;
 			l_bMovePlayer = true;
 		}
-		else if( l_pInput->DoAction("MovePlayerRight") )
+		else if( m_pInput->DoAction("MovePlayerRight") )
 		{
 			l_fYaw -= FLOAT_PI_VALUE / 2.f;
 			l_bMovePlayer = true;
@@ -187,7 +191,7 @@ void CPlayerRunState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 			_pCharacter->GetAnimatedModel()->SetYaw( -mathUtils::Rad2Deg(l_fYaw) + 90.f );
 
 			//Mira si se hace un salto
-			if( l_pInput->DoAction("PlayerJump") )
+			if( m_pInput->DoAction("PlayerJump") )
 			{
 				_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("jump") );
 				_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animjump") );
@@ -211,7 +215,7 @@ bool CPlayerRunState::OnMessage( CCharacter* _pCharacter, const STelegram& _Mess
 	{
 		CRandom	l_Randomize;
 
-		CCharacter *l_pEnemy	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->GetCharacterById(_Message.Sender);
+		CCharacter *l_pEnemy	= m_pProcess->GetCharactersManager()->GetCharacterById(_Message.Sender);
 		float l_fReceivedPain	= l_Randomize.getRandFloat( (float)(l_pEnemy->GetProperties()->GetStrong() / 2), (float)l_pEnemy->GetProperties()->GetStrong());
 		float l_fPainToHit		= l_pEnemy->GetProperties()->GetStrong() * 0.95f;
 
