@@ -104,7 +104,7 @@
 
 		<MaxParticles value="600" />
 
-		<Duration value="3.5" />
+		<Duration value="4.5" />
 		<DurationRandomness value="1.0" />
 
 		<MinHorizontalVelocity value="2" />
@@ -136,9 +136,9 @@
 	<settings name="water_fall">
 		<TextureName value="./Data/General/Textures/mist2.tga" />
 
-		<MaxParticles value="1800" />
+		<MaxParticles value="2600" />
 
-		<Duration value="6" />
+		<Duration value="7" />
 		<DurationRandomness value="1" />
 
 		<MinHorizontalVelocity value="0" />
@@ -147,7 +147,7 @@
 		<MinVerticalVelocity value="0" />
 		<MaxVerticalVelocity value="0" />
 
-		<Gravity value="-4.5 -5 0" />
+		<Gravity value="3.5 -7 0" />
 
 		<EndVelocity value="-10" />
 

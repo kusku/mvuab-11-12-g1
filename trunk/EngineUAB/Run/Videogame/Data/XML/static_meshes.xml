@@ -6,14 +6,30 @@
   <static_mesh name="Rio" filename=".\Data\.\General\\Models\Rio.m3d" />
   <static_mesh name="Puente Principal" filename=".\Data\.\General\\Models\Puente Principal.m3d" />
 
-  <!--Piedras-->
-  <static_mesh name="PiedraCasa_Main" filename=".\Data\.\General\\Models\PiedraCasa_Main.m3d" />
-  <static_mesh name="PiedraLP018" filename=".\Data\.\General\\Models\PiedraLP018.m3d" />
-  <static_mesh name="PiedraLP020" filename=".\Data\.\General\\Models\PiedraLP020.m3d" />
-  <static_mesh name="PiedraLP019" filename=".\Data\.\General\\Models\PiedraLP019.m3d" />
-  <static_mesh name="PiedraLP01" filename=".\Data\.\General\\Models\PiedraLP01.m3d" />
+  <!--Piedras Rio-->
+  <static_mesh name="PiedraLP021" filename=".\Data\.\General\\Models\PiedraLP021.m3d" />
   <static_mesh name="PiedraLP015" filename=".\Data\.\General\\Models\PiedraLP015.m3d" />
   <static_mesh name="PiedraLP017" filename=".\Data\.\General\\Models\PiedraLP017.m3d" />
+  <static_mesh name="PiedraLP022" filename=".\Data\.\General\\Models\PiedraLP022.m3d" />
+  <static_mesh name="PiedraLP023" filename=".\Data\.\General\\Models\PiedraLP023.m3d" />
+  
+  <!--Piedras Casa-->
+  <static_mesh name="PiedraCasa_Main" filename=".\Data\.\General\\Models\PiedraCasa_Main.m3d" />
+  
+  <!--Piedras Gigantes-->
+  <static_mesh name="roca02" filename=".\Data\.\General\\Models\roca02.m3d" />
+  <static_mesh name="roca01" filename=".\Data\.\General\\Models\roca01.m3d" />
+  <static_mesh name="roca03" filename=".\Data\.\General\\Models\roca03.m3d" />
+  <static_mesh name="roca04" filename=".\Data\.\General\\Models\roca04.m3d" />
+  <static_mesh name="roca05" filename=".\Data\.\General\\Models\roca05.m3d" />
+  <static_mesh name="roca06" filename=".\Data\.\General\\Models\roca06.m3d" />
+  <static_mesh name="roca08" filename=".\Data\.\General\\Models\roca08.m3d" />
+  <static_mesh name="roca10" filename=".\Data\.\General\\Models\roca10.m3d" />
+  <static_mesh name="roca11" filename=".\Data\.\General\\Models\roca11.m3d" />
+  <static_mesh name="roca12" filename=".\Data\.\General\\Models\roca12.m3d" />
+  <static_mesh name="roca13" filename=".\Data\.\General\\Models\roca13.m3d" />
+  <static_mesh name="roca09" filename=".\Data\.\General\\Models\roca09.m3d" />
+  <static_mesh name="roca07" filename=".\Data\.\General\\Models\roca07.m3d" />
   
   <!--Terreno-->
   <static_mesh name="Terreno" filename=".\Data\.\General\\Models\Terreno.m3d" />

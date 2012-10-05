@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <particle_emitters>
 
-	<emitter name="WaterFall2" system_name="WaterFall2" type="line" particlesPerSecond="100" initialPosition="118.646 -3.035 -106.448" line_start="0 0 -4.977" line_end="0 0 4.598" />
-	<emitter name="WaterFall" system_name="WaterFall" type="line" particlesPerSecond="300" initialPosition="134.293 14.282 -106.205" line_start="0 0 -5.676" line_end="0 0 6.035" />
-	<emitter name="WaterMist" system_name="WaterMist" type="line" particlesPerSecond="150" initialPosition="105.886 -25.822 -103.759" line_start="-0.318 0 -3.753" line_end="0.3 0 5.265" />
+  <emitter name="WaterFall" system_name="WaterFall" type="line" particlesPerSecond="400" initialPosition="-195.598 12 6.793" line_start="0 0 -10.742" line_end="0 0 8.742" />
+	<emitter name="WaterMist" system_name="WaterMist" type="line" particlesPerSecond="150" initialPosition="-175.728 -32.844 5.1875" line_start="0 0 -9.4755" line_end="0 0 9.4755" />
     
 	<!--
 	<emitter name="WaterFall2" system_name="WaterFall" type="line" particlesPerSecond="70" initialPosition="130.16 4.20049 -115.248" line_start="0 0 -4" line_end="0 0 4" />

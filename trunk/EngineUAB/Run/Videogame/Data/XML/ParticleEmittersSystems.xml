@@ -2,7 +2,6 @@
 <particle_emitters_systems>
 
   <emitter_system name="WaterFall System">
-    <emitter name="WaterFall2" />
     <emitter name="WaterFall" />
     <emitter name="WaterMist" />
   </emitter_system>
