@@ -186,12 +186,12 @@ bool CCharacter::Initialize( const std::string &_Name, const std::string &_Core,
 	{
 		l_Position = m_pCurrentAnimatedModel->GetPosition();
 	}
-	m_pController->SetPosition( l_Position );
-	m_pController->SetVisible( true );
-	
 	CORE->GetPhysicsManager()->AddPhysicController( m_pController, CAPSULE, _Grup );
-	m_pController->Move( l_Position, 0.f );
+	m_pController->SetPosition( l_Position );
+	SetEnable(m_pProperties->GetActive());
 
+	//m_pController->Move( l_Position, 0.f );
+	
 	// Metemos el yaw y posición del modelo animado al controller
 	if ( m_pCurrentAnimatedModel )
 	{
@@ -204,7 +204,6 @@ bool CCharacter::Initialize( const std::string &_Name, const std::string &_Core,
 
 	m_Name = _Name;
 	m_bLocked = m_pProperties->GetLocked();
-	SetEnable ( m_pProperties->GetActive() );
 	
 	// Jordi 12/08/2012 -- Antes debemos inicializar el m_pSteeringEntity
 	//MoveTo( l_Position, 0.0f );
@@ -910,6 +909,8 @@ void CCharacter::SetEnable( bool _Enable )
 {
 	m_pCurrentAnimatedModel->SetVisible(_Enable);
 	m_pController->SetVisible(_Enable);
+	m_pController->SetCollision(_Enable);
+	m_pController->SetActive(_Enable);
 	m_pProperties->SetActive(_Enable);
 	SetLocked(!_Enable);
 	m_pProperties->SetVisible(_Enable);
