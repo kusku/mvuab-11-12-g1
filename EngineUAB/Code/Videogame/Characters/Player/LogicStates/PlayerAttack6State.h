@@ -24,8 +24,9 @@ public:
 	bool	OnMessage	(  CCharacter* _pCharacter,  const STelegram& _Message );
 
 private:
-	bool	CalculateAngleMovement( CCharacter *_pCharacter, float &_fAngle );
-	void	SetParticlePosition( CCharacter* _pCharacter );
+	bool	CalculateAngleMovement	( CCharacter *_pCharacter, float &_fAngle );
+	void	SetParticlePosition		( CCharacter* _pCharacter );
+	void	GenerateAttack			( CCharacter* _pCharacter );
 
 private:
 	CAnimationCallback			*m_pCallback;
