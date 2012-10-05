@@ -30,13 +30,17 @@
 
 CPlayerIdleState::CPlayerIdleState( CCharacter * _pCharacter, const std::string &_Name )
 	: CState(_pCharacter, _Name)
+	, m_pPlayer(NULL)
 {
-
+	m_pProcess	= static_cast<CGameProcess*>(CORE->GetProcess());
+	m_pInput	= CORE->GetActionToInput();
 }
 
 CPlayerIdleState::~CPlayerIdleState()
 {
-
+	m_pProcess	= NULL;
+	m_pInput	= NULL;
+	m_pPlayer	= NULL;
 }
 
 void CPlayerIdleState::OnEnter( CCharacter* _pCharacter )
@@ -47,6 +51,9 @@ void CPlayerIdleState::OnEnter( CCharacter* _pCharacter )
 		CORE->GetDebugGUIManager()->GetDebugRender()->SetStateName("Idle");
 	}
 #endif
+
+	if( m_pPlayer == NULL )
+		m_pPlayer = static_cast<CPlayer*>(_pCharacter);
 
 	/*_pCharacter->SetYaw(2.56f);
 	_pCharacter->GetAnimatedModel()->SetYaw(-1.20f);*/
@@ -70,9 +77,10 @@ void CPlayerIdleState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 	
 	if( !_pCharacter->GetLocked() )
 	{
-		CPlayer *l_pPlayer				= static_cast<CPlayer*>(_pCharacter);
-		CCharacter *l_pEnemyDetected	= l_pPlayer->DetectEnemy();
-		CActionToInput *l_pInput		= CORE->GetActionToInput();
+		if( m_pPlayer == NULL )
+			m_pPlayer = static_cast<CPlayer*>(_pCharacter);
+
+		CCharacter *l_pEnemyDetected	= m_pPlayer->DetectEnemy();
 
 		//if( l_pPlayer->IsTargetFixed() )
 		//{
@@ -109,15 +117,15 @@ void CPlayerIdleState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 		//	}
 		//}
 
-		if( l_pInput->DoAction("HardAttackPlayer") )
+		if( m_pInput->DoAction("HardAttackPlayer") )
 		{
 			_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("attack4") );
 			_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack4") );
 		}
-		else if( l_pInput->DoAction("AttackPlayer") )
+		else if( m_pInput->DoAction("AttackPlayer") )
 		{
 			//El jugador ataca
-			if( l_pPlayer->IsTargetFixed() )
+			if( m_pPlayer->IsTargetFixed() )
 			{
 				_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("targetattack1") );
 				_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack1") );
@@ -128,43 +136,43 @@ void CPlayerIdleState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 				_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack1") );
 			}
 		}
-		else if(	l_pInput->DoAction("MovePlayerUp") || 
-					l_pInput->DoAction("MovePlayerDown") || 
-					l_pInput->DoAction("MovePlayerLeft") ||
-					l_pInput->DoAction("MovePlayerRight") )
+		else if(	m_pInput->DoAction("MovePlayerUp") || 
+					m_pInput->DoAction("MovePlayerDown") || 
+					m_pInput->DoAction("MovePlayerLeft") ||
+					m_pInput->DoAction("MovePlayerRight") )
 		{
-			if( l_pPlayer->IsTargetFixed() )
+			/*if( l_pPlayer->IsTargetFixed() )
 			{
 				_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("targetrun") );
 				_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animrun") );
 			}
 			else
-			{
+			{*/
 				_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("run") );
 				_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animrun") );
-			}
+			//}
 		}
 
 		//Actualización del yaw a partir del movimiento del mouse
-		if( l_pPlayer->IsTargetFixed() )
+		/*if( l_pPlayer->IsTargetFixed() )
 		{
-			Vect3f l_PlayerDir	= static_cast<CGameProcess*>(CORE->GetProcess())->GetPlayerCamera()->GetDirection();
-			Vect3f l_EnemyDir	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->GetTargetEnemy()->GetPosition() - _pCharacter->GetPosition();
+		Vect3f l_PlayerDir	= static_cast<CGameProcess*>(CORE->GetProcess())->GetPlayerCamera()->GetDirection();
+		Vect3f l_EnemyDir	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->GetTargetEnemy()->GetPosition() - _pCharacter->GetPosition();
 
-			l_PlayerDir.y		= 0.f;
-			l_EnemyDir.y		= 0.f;
+		l_PlayerDir.y		= 0.f;
+		l_EnemyDir.y		= 0.f;
 
-			l_PlayerDir.Normalize(1.f);
-			l_EnemyDir.Normalize(1.f);
+		l_PlayerDir.Normalize(1.f);
+		l_EnemyDir.Normalize(1.f);
 
-			float l_fDelta		= l_EnemyDir.Dot( l_PlayerDir );
-			l_fDelta			= mathUtils::ACos<float>( l_fDelta );
+		float l_fDelta		= l_EnemyDir.Dot( l_PlayerDir );
+		l_fDelta			= mathUtils::ACos<float>( l_fDelta );
 
-			if( mathUtils::Rad2Deg( l_fDelta ) > 0.1f )
-			{
-				_pCharacter->SetYaw( Helper::AngleFilter(_pCharacter->GetYaw() - l_fDelta) );
-			}
+		if( mathUtils::Rad2Deg( l_fDelta ) > 0.1f )
+		{
+		_pCharacter->SetYaw( Helper::AngleFilter(_pCharacter->GetYaw() - l_fDelta) );
 		}
+		}*/
 	}
 
 	//Actualiza el personaje
@@ -185,7 +193,7 @@ bool CPlayerIdleState::OnMessage( CCharacter* _pCharacter, const STelegram& _Mes
 	{
 		CRandom	l_Randomize;
 
-		CCharacter *l_pEnemy	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->GetCharacterById(_Message.Sender);
+		CCharacter *l_pEnemy	= m_pProcess->GetCharactersManager()->GetCharacterById(_Message.Sender);
 		float l_fReceivedPain	= l_Randomize.getRandFloat( (float)(l_pEnemy->GetProperties()->GetStrong() / 2), (float)l_pEnemy->GetProperties()->GetStrong());
 		float l_fPainToHit		= l_pEnemy->GetProperties()->GetStrong() * 0.95f;
 

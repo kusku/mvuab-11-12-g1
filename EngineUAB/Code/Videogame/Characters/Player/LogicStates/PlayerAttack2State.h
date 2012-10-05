@@ -8,6 +8,8 @@
 #include <string>
 
 struct STelegram;
+class CGameProcess;
+class CActionToInput;
 class CAnimationCallback;
 class CParticleEmitter;
 
@@ -33,6 +35,8 @@ private:
 private:
 	CAnimationCallback			*m_pCallback;
 	CParticleEmitterInstance	*m_pParticleEmitter;
+	CGameProcess				*m_pProcess;
+	CActionToInput				*m_pInput;
 
 	bool						m_bFirstUpdate;
 	float						m_fMaxVelocityMovement;

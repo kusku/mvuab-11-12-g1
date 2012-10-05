@@ -19,10 +19,14 @@
 
 CPlayerDefenseState::CPlayerDefenseState( CCharacter * _pCharacter, const std::string &_Name )
 	: CState(_pCharacter, _Name)
-{}
+{
+	m_pInput = CORE->GetActionToInput();
+}
 
 CPlayerDefenseState::~CPlayerDefenseState()
-{}
+{
+	m_pInput = NULL;
+}
 
 void CPlayerDefenseState::OnEnter( CCharacter* _pCharacter )
 {
@@ -36,7 +40,7 @@ void CPlayerDefenseState::OnEnter( CCharacter* _pCharacter )
 
 void CPlayerDefenseState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 {
-	if( !CORE->GetActionToInput()->DoAction("DefensePlayer") )
+	if( !m_pInput->DoAction("DefensePlayer") )
 	{
 		_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("idle") );
 		_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animidle") );

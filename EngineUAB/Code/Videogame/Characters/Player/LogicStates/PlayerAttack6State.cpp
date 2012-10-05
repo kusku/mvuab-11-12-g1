@@ -38,13 +38,18 @@ CPlayerAttack6State::CPlayerAttack6State( CCharacter * _pCharacter, const std::s
 	, m_fDetectionAngle( mathUtils::Deg2Rad( _pCharacter->GetProperties()->GetDetectionAngle() ) )
 	, m_fAttackYaw(0.f)
 {
-	m_pCallback				= static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),"attack6");
+	m_pInput			= CORE->GetActionToInput();
+	m_pProcess			= static_cast<CGameProcess*>(CORE->GetProcess());
+	m_pCallback			= m_pProcess->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),"attack6");
 	m_pParticleEmitter	= GetParticleEmitterInstance( "SwordRight", _pCharacter->GetName() + "SwordRight");
 }
 
 CPlayerAttack6State::~CPlayerAttack6State()
 {
-
+	m_pProcess			= NULL;
+	m_pCallback			= NULL;
+	m_pParticleEmitter	= NULL;
+	m_pInput			= NULL;
 }
 
 void CPlayerAttack6State::OnEnter( CCharacter* _pCharacter )
@@ -71,7 +76,7 @@ void CPlayerAttack6State::OnEnter( CCharacter* _pCharacter )
 		CCharacter *l_pEnemy				= NULL;
 		float l_fAngle						= 0.f;
 
-		l_pCharManager	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager();
+		l_pCharManager	= m_pProcess->GetCharactersManager();
 
 		//Calcula el ángulo de a ir
 		Vect3f l_Front	= l_pAnimatedModel->GetFront();
@@ -142,23 +147,21 @@ void CPlayerAttack6State::Execute( CCharacter* _pCharacter, float _fElapsedTime 
 
 	if( m_pCallback->IsAnimationFinished() )
 	{
-		CActionToInput *l_pInput = CORE->GetActionToInput();
-
-		if( l_pInput->DoAction("HardAttackPlayer") )
+		if( m_pInput->DoAction("HardAttackPlayer") )
 		{
 			_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("attack4") );
 			_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack4") );
 		}
-		else if( l_pInput->DoAction("AttackPlayer") )
+		else if( m_pInput->DoAction("AttackPlayer") )
 		{
 			_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("attack1") );
 			_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack1") );
 		}
 		else
 		{
-			if( static_cast<CGameProcess*>(CORE->GetProcess())->GetTimeBetweenClicks() < 0.2f )
+			if( m_pProcess->GetTimeBetweenClicks() < 0.2f )
 			{
-				if( l_pInput->DoAction("HardPreparedAttackPlayer") )
+				if( m_pInput->DoAction("HardPreparedAttackPlayer") )
 				{
 					_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("attack4") );
 					_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack4") );
@@ -216,7 +219,7 @@ bool CPlayerAttack6State::OnMessage( CCharacter* _pCharacter, const STelegram& _
 	{
 		CRandom	l_Randomize;
 
-		CCharacter *l_pEnemy	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->GetCharacterById(_Message.Sender);
+		CCharacter *l_pEnemy	= m_pProcess->GetCharactersManager()->GetCharacterById(_Message.Sender);
 		float l_fReceivedPain	= l_Randomize.getRandFloat( (float)(l_pEnemy->GetProperties()->GetStrong() / 2), (float)l_pEnemy->GetProperties()->GetStrong());
 		float l_fPainToHit		= l_pEnemy->GetProperties()->GetStrong() * 0.95f;
 
@@ -244,7 +247,7 @@ bool CPlayerAttack6State::OnMessage( CCharacter* _pCharacter, const STelegram& _
 void CPlayerAttack6State::GenerateAttack( CCharacter* _pCharacter )
 {
 	Vect3f l_Front			= _pCharacter->GetAnimatedModel()->GetFront();
-	CCharacter *l_pEnemy	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->SearchTargetEnemy(m_fAttackDistance, m_fAttackAngle, l_Front);
+	CCharacter *l_pEnemy	= m_pProcess->GetCharactersManager()->SearchTargetEnemy(m_fAttackDistance, m_fAttackAngle, l_Front);
 
 	if( l_pEnemy != NULL )
 	{
@@ -254,47 +257,46 @@ void CPlayerAttack6State::GenerateAttack( CCharacter* _pCharacter )
 
 bool CPlayerAttack6State::CalculateAngleMovement( CCharacter *_pCharacter, float &_fAngle )
 {
-	CActionToInput *l_pInput = CORE->GetActionToInput();
 	bool l_bMove = false;			
 
 
-	if( l_pInput->DoAction("MovePlayerUp") )
+	if( m_pInput->DoAction("MovePlayerUp") )
 	{
 		_fAngle = _pCharacter->GetYaw();
-		if( l_pInput->DoAction("MovePlayerLeft") )
+		if( m_pInput->DoAction("MovePlayerLeft") )
 		{
 			_fAngle += FLOAT_PI_VALUE / 4.f;
 		}
-		else if( l_pInput->DoAction("MovePlayerRight") )
+		else if( m_pInput->DoAction("MovePlayerRight") )
 		{
 			_fAngle -= FLOAT_PI_VALUE / 4.f;
 		}
 
 		l_bMove = true;
 	}
-	else if( l_pInput->DoAction("MovePlayerDown") )
+	else if( m_pInput->DoAction("MovePlayerDown") )
 	{
 		_fAngle = _pCharacter->GetYaw();
 		_fAngle -= FLOAT_PI_VALUE;
-		if( l_pInput->DoAction("MovePlayerLeft") )
+		if( m_pInput->DoAction("MovePlayerLeft") )
 		{
 			_fAngle -= FLOAT_PI_VALUE / 4.f;
 		}
-		else if( l_pInput->DoAction("MovePlayerRight") )
+		else if( m_pInput->DoAction("MovePlayerRight") )
 		{
 			_fAngle += FLOAT_PI_VALUE / 4.f;
 		}
 
 		l_bMove = true;
 	}
-	else if( l_pInput->DoAction("MovePlayerLeft") )
+	else if( m_pInput->DoAction("MovePlayerLeft") )
 	{
 		_fAngle = _pCharacter->GetYaw();
 		_fAngle += FLOAT_PI_VALUE / 2.f;
 
 		l_bMove = true;
 	}
-	else if( l_pInput->DoAction("MovePlayerRight") )
+	else if( m_pInput->DoAction("MovePlayerRight") )
 	{
 		_fAngle = _pCharacter->GetYaw();
 		_fAngle -= FLOAT_PI_VALUE / 2.f;

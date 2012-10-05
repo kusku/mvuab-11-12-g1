@@ -29,12 +29,16 @@ CPlayerJumpState::CPlayerJumpState( CCharacter * _pCharacter, const std::string 
 	, m_fJumpYaw(0.f)
 	, m_fTime(0.f)
 {
-	m_pCallback = static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(), _Name);
+	m_pProcess	= static_cast<CGameProcess*>(CORE->GetProcess());
+	m_pInput	= CORE->GetActionToInput();
+	m_pCallback = m_pProcess->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(), _Name);
 }
 
 CPlayerJumpState::~CPlayerJumpState()
 {
-
+	m_pProcess	= NULL;
+	m_pCallback	= NULL;
+	m_pInput	= NULL;
 }
 
 void CPlayerJumpState::OnEnter( CCharacter* _pCharacter )
@@ -46,8 +50,6 @@ void CPlayerJumpState::OnEnter( CCharacter* _pCharacter )
 	}
 #endif
 
-	CActionToInput *l_pInput = CORE->GetActionToInput();
-
 	//Activa el callback de animación
 	m_pCallback->StartAnimation();
 
@@ -56,35 +58,35 @@ void CPlayerJumpState::OnEnter( CCharacter* _pCharacter )
 
 	//Orienta el personaje
 	m_fJumpYaw	= _pCharacter->GetYaw();
-	if( l_pInput->DoAction("MovePlayerUp") )
+	if( m_pInput->DoAction("MovePlayerUp") )
 	{
-		if( l_pInput->DoAction("MovePlayerLeft") )
+		if( m_pInput->DoAction("MovePlayerLeft") )
 		{
 			m_fJumpYaw	+= FLOAT_PI_VALUE / 4.f;
 		}
-		else if( l_pInput->DoAction("MovePlayerRight") )
+		else if( m_pInput->DoAction("MovePlayerRight") )
 		{
 			m_fJumpYaw	-= FLOAT_PI_VALUE / 4.f;
 		}
 	}
-	else if( l_pInput->DoAction("MovePlayerDown") )
+	else if( m_pInput->DoAction("MovePlayerDown") )
 	{
 		m_fJumpYaw	-= FLOAT_PI_VALUE;
 
-		if( l_pInput->DoAction("MovePlayerLeft") )
+		if( m_pInput->DoAction("MovePlayerLeft") )
 		{
 			m_fJumpYaw	-= FLOAT_PI_VALUE / 4.f;
 		}
-		else if( l_pInput->DoAction("MovePlayerRight") )
+		else if( m_pInput->DoAction("MovePlayerRight") )
 		{
 			m_fJumpYaw	+= FLOAT_PI_VALUE / 4.f;
 		}
 	}
-	else if( l_pInput->DoAction("MovePlayerLeft") )
+	else if( m_pInput->DoAction("MovePlayerLeft") )
 	{
 		m_fJumpYaw	+= FLOAT_PI_VALUE / 2.f;
 	}
-	else if( l_pInput->DoAction("MovePlayerRight") )
+	else if( m_pInput->DoAction("MovePlayerRight") )
 	{
 		m_fJumpYaw	-= FLOAT_PI_VALUE / 2.f;
 	}
@@ -132,7 +134,7 @@ bool CPlayerJumpState::OnMessage( CCharacter* _pCharacter, const STelegram& _Mes
 	{
 		CRandom	l_Randomize;
 
-		CCharacter *l_pEnemy	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->GetCharacterById(_Message.Sender);
+		CCharacter *l_pEnemy	= m_pProcess->GetCharactersManager()->GetCharacterById(_Message.Sender);
 		float l_fReceivedPain	= l_Randomize.getRandFloat( (float)(l_pEnemy->GetProperties()->GetStrong() / 2), (float)l_pEnemy->GetProperties()->GetStrong());
 		float l_fPainToHit		= l_pEnemy->GetProperties()->GetStrong() * 0.95f;
 

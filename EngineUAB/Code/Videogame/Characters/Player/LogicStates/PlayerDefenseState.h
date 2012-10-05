@@ -8,6 +8,7 @@
 #include <string>
 
 struct STelegram;
+class CActionToInput;
 
 class CPlayerDefenseState : public CState< CCharacter >
 {
@@ -20,6 +21,9 @@ public:
 	void	OnExit		(  CCharacter* _pCharacter );
 
 	bool	OnMessage	(  CCharacter* _pCharacter,  const STelegram& _Message );
+
+private:
+	CActionToInput *m_pInput;
 };
 
 #endif //_PLAYER_DEFENSE_STATE_H_

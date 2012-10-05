@@ -8,6 +8,9 @@
 #include <string>
 
 struct STelegram;
+class CPlayer;
+class CGameProcess;
+class CActionToInput;
 
 class CPlayerIdleState : public CState< CCharacter >
 {
@@ -26,6 +29,11 @@ public:
 	// Para tema de partículas de impacto
 	void			GenerateImpact			( CCharacter* _pCharacter );
 	void			UpdateImpact			( CCharacter* _pCharacter );
+
+private:
+	CGameProcess	*m_pProcess;
+	CActionToInput	*m_pInput;
+	CPlayer			*m_pPlayer;
 };
 
 #endif //_PLAYER_IDLE_STATE_H_
