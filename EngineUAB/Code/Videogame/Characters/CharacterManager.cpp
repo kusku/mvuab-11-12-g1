@@ -706,6 +706,7 @@ bool CCharactersManager::LoadPlayerProperties( const CXMLTreeNode &_Node )
 		l_IsOk &= m_pPlayer->InitializeAI();
 		l_IsOk &= m_pPlayer->Init();		// Llamada a Lua
 		ENTMGR->RegisterEntity(m_pPlayer);
+		//m_pPlayer->SetEnable ( l_PlayerProperties->GetActive() );
 	}
 	else 
 	{
@@ -965,13 +966,6 @@ CCharacter * CCharactersManager::CreateEnemy( const Vect3f &_Position )
 		l_IsOk = l_Character->Initialize( l_EnemyProperties->GetName(), l_EnemyProperties->GetCore(), l_Character->GetProperties()->GetPosition(), ::ECG_ENEMY );
 		l_IsOk &= l_Character->InitializeAI();
 		l_IsOk &= l_Character->Init();		// Llamada a Lua
-
-		l_Character->SetVisible(true);
-		l_Character->SetEnable(true);
-
-		// Aun no lo activamos
-		
-		//l_Character->SetEnable(false);
 
 		AddEnemy( l_Character );			// La meto dentro de la lista
 		
