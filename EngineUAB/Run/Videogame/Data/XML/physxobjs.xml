@@ -83,7 +83,7 @@
   <physx_obj name="TerrainLimitBox081" type="1" dimension="40.7332 6.86032 1.0" pos="-82.34 -15.4004 -2.7219" yaw="-131.592" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox082" type="1" dimension="40.7332 6.86032 1.0" pos="-79.6619 -15.4004 -1.01407" yaw="-131.592" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox083" type="1" dimension="21.2779 30.3169 1.0" pos="128.771 -12.881 -171.754" yaw="-40.4199" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="CartelMadera_Box" type="1" dimension="0.243446 2.04667 0.95755" pos="105.181 -21.8428 -144.147" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="false" />
+  <physx_obj name="CartelMadera_Box" type="1" dimension="0.543446 2.04667 0.95755" pos="105.181 -21.8428 -144.147" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_LIdMITS" active_startup="false" />
   <physx_obj name="TroncoCaido_2_Box" type="1" dimension="0.946144 0.94557 3.19765" pos="69.1126 -24.6377 -144.21" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="false" />
   <physx_obj name="TroncoCaido_1_Box" type="1" dimension="2.39645 1.8535 6.25786" pos="88.9596 0.92675 -133.678" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="false" />
   <physx_obj name="Fence4Box006" type="1" dimension="0.162465 1.02583 1.65965" pos="95.3633 -21.2199 -163.464" yaw="-40.2968" pitch="22.6357" roll="4.93129" group="ECG_LIMITS" active_startup="true" />

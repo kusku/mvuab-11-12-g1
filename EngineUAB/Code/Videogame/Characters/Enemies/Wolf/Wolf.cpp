@@ -3,6 +3,7 @@
 #include "Characters\StatesDefs.h"
 #include "GameProcess.h"
 #include "SoundManager.h"
+#include "HUD\HUD.h"
 
 #include "Callbacks\Animation\AnimationCallbackManager.h"
 
@@ -85,7 +86,7 @@ CWolf::CWolf( int _Id )
 	, m_pAnimationWalkState 		( NULL )
 	, m_pAnimationHowlLifeState		( NULL )
 	, m_pAnimationHowlEnemiesState	( NULL )
-	, m_CanHowlForLife				( true )
+	, m_CanHowlForLife				( false )
 	, m_CanHowlForEnemies			( true )
 {
 }
@@ -119,7 +120,7 @@ CWolf::CWolf( int _Id, std::string _Name )
 	, m_pAnimationWalkState 		( NULL )
 	, m_pAnimationHowlLifeState		( NULL )
 	, m_pAnimationHowlEnemiesState	( NULL )
-	, m_CanHowlForLife				( true )
+	, m_CanHowlForLife				( false )
 	, m_CanHowlForEnemies			( true )
 
 {
@@ -169,6 +170,11 @@ bool CWolf::Init( void )
 	CreateCallbacks();
 	LoadGraphicStates();
 	LoadLogicStates();
+
+	// Metemos la barra de vida desactivada
+	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
+	l_Process->GetHUD()->InitWolf(m_pProperties->GetLife());
+	l_Process->GetHUD()->SetActiveWolfBar(false);
 
 	// Coloco los estados iniciales
 	/*this->GetGraphicFSM()->SetCurrentState( m_pAnimationIdleState );
@@ -267,6 +273,18 @@ void CWolf::LoadLogicStates( void )
 	return;
 }
 
+void CWolf::Update ( float _ElapsedTime )			
+{ 
+	if( !m_pProperties->GetActive() ) 
+		return;
+	
+	m_pLogicStateMachine->Update( _ElapsedTime );
+	m_pGraphicStateMachine->Update( _ElapsedTime );
+	
+	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
+	l_Process->GetHUD()->SetWolfLife(m_pProperties->GetCurrentLife());
+}
+
 // -----------------------------------------
 //				  METHODS
 // -----------------------------------------
@@ -286,13 +304,13 @@ void CWolf::BeDead( void )
 // ------------------------------------------------------------------------------------------------------------------
 bool CWolf::TestIfCanHowlForLife( void )
 {
-	if ( ( !GetCanHowlForLife() ) && ( m_pProperties->GetCurrentLife()/2 <= m_pProperties->GetCurrentLife() ) )
+	if ( ( !GetCanHowlForLife() ) && ( m_pProperties->GetCurrentLife() <= m_pProperties->GetLife()/2 ) )
 	{
 		SetCanHowlForLife(true);
 		return true;
 	}
 
-	if ( ( !GetCanHowlForLife() ) && ( m_pProperties->GetCurrentLife()/4 <= m_pProperties->GetCurrentLife() ) )
+	if ( ( !GetCanHowlForLife() ) && ( m_pProperties->GetCurrentLife() <= m_pProperties->GetLife()/4 ) )
 	{
 		SetCanHowlForLife(true);
 		return true;
@@ -313,7 +331,7 @@ bool CWolf::TestIfCanHowlForEnemies( void )
 		return true;
 	}
 
-	if ( ( !GetCanHowlForLife() ) && ( m_pProperties->GetCurrentLife()/2 <= m_pProperties->GetCurrentLife() ) )
+	if ( ( !GetCanHowlForLife() ) && ( m_pProperties->GetCurrentLife() <= m_pProperties->GetLife()/2 ) )
 	{
 		SetCanHowlForLife(true);
 		return true;

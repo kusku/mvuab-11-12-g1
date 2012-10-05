@@ -32,7 +32,7 @@
 		<animation_offset>1.1</animation_offset>
 	</default_properties>
 	<default_properties core="lobo">
-		<active>true</active>
+		<active>false</active>
 		<locked>false</locked>
 		<life>500</life>
 		<strong>20</strong>
@@ -88,7 +88,7 @@
 		<animation_offset>0.0</animation_offset>
 	</default_properties>
 	<default_properties core="ciervo">
-		<active>true</active>
+		<active>false</active>
 		<locked>false</locked>
 		<life>300</life>
 		<strong>20</strong>
@@ -216,8 +216,9 @@
 		<position>67 -40 19</position>						<!-- Posición respawn trigger 4 -->
 		<position>-20 -38 112</position>					<!-- Posición respawn trigger 5 -->
 		
-		<position>-64 -14 -20</position>					<!-- Posición respawn trigger 6 -->
 		<position>-44 -12 -69</position>					<!-- Posición respawn trigger 7 - Final Lobo -->
+		<position>-64 -14 -20</position>					<!-- Posición respawn trigger 6 -->
+		<position>106 -16 -168</position>					<!-- Posición inicial del juego. Posición respawn trigger 1 -->
 		
 	</player>
 	<enemies>
@@ -247,7 +248,7 @@
 		
 		<!-- Enemigos Trigger zona de combate 1 -->
 		<enemy name="enemy2" core="conejo" animated_instace_name="enemy2" >
-			<position>70 -23 -144</position>
+			<position>70 -24 -144</position>
 			<active>false</active>
 			<locked>false</locked>
 		</enemy>
@@ -262,12 +263,12 @@
 			<locked>false</locked>
 		</enemy>
 		<enemy name="enemy5" core="conejo" animated_instace_name="enemy5" >
-			<position>78 -22 -141</position>
+			<position>78 -24 -141</position>
 			<active>false</active>
 			<locked>false</locked>
 		</enemy>
 		<enemy name="enemy6" core="conejo" animated_instace_name="enemy6" >
-			<position>75 -22 -129</position>
+			<position>75 -23 -129</position>
 			<active>false</active>
 			<locked>false</locked>
 		</enemy>

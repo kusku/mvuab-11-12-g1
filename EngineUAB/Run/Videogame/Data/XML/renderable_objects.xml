@@ -58,7 +58,7 @@
   <!--Cabaña, Rio y Puentes-->
   <mesh_instance name="CabanaAbuela" core="CabanaAbuela" position="-61.1834 0.0298309 -117.168" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
   <mesh_instance name="Rio" core="Rio" position="-55.2573 -30.6148 -92.2339" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="water" create_physics="false" />
-  <mesh_instance name="Puente Principal" core="Puente Principal" position="-81.1897 -15.3379 -1.69853" yaw="48.5796" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" physics_group="ECG_ESCENE" />
+  <mesh_instance name="Puente Principal" core="Puente Principal" position="-81.1897 -15.3379 -1.69853" yaw="48.5796" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" physics_group="ECG_BRIDGE" />
   
   <!--Terreno-->
   <mesh_instance name="Terreno" core="Terreno" position="0.0 0.0 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" physics_group="ECG_ESCENE" />
