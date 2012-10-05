@@ -28,7 +28,7 @@ function WriteRail Rail File =
 		format "\t\t<point value=\"% % %\" />\n" position[1] position[2] position[3] to:File
 	)
 	
-	format "\t<rail>\n" to:File
+	format "\t</rail>\n" to:File
 )
 
 function ExportRails Objs FilePath =
