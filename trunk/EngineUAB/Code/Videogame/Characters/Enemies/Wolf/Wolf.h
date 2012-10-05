@@ -52,6 +52,7 @@ public:
 	//----Main Functions --------------------------------------
 	virtual bool	Init					( void );
 	void			CreateCallbacks			( void );
+	virtual void	Update					( float _ElapsedTime );
 
 	virtual void	LoadGraphicStates		( void ); 
 	virtual void	LoadLogicStates			( void );

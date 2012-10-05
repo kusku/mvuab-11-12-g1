@@ -239,6 +239,8 @@ namespace ScriptAPI
 				class_<CHud>("CHud")
 					.def("is_texture_active", &CHud::IsTextureActive)
 					.def("active_texture", &CHud::ActiveTexture)
+					.def("set_wolf_life", &CHud::SetWolfLife )
+					.property("set_active_wolf_bar", &CHud::IsActiveWolfBar, &CHud::SetActiveWolfBar)
 			];
 	}
 
