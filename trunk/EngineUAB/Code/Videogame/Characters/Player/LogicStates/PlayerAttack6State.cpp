@@ -198,19 +198,16 @@ void CPlayerAttack6State::Execute( CCharacter* _pCharacter, float _fElapsedTime 
 		m_fCurrentVelocityMovement = 0.f;
 	}
 
+	//Mira a quien hacer daño
+	GenerateAttack(_pCharacter);
+
 	//Actualiza las partículas
 	SetParticlePosition(_pCharacter);
 }
 
 void CPlayerAttack6State::OnExit( CCharacter* _pCharacter )
 {
-	Vect3f l_Front			= _pCharacter->GetAnimatedModel()->GetFront();
-	CCharacter *l_pEnemy	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->SearchTargetEnemy(m_fAttackDistance, m_fAttackAngle, l_Front);
-
-	if( l_pEnemy != NULL )
-	{
-		CORE->GetMessageDispatcher()->DispatchStateMessage(SEND_MSG_IMMEDIATELY, _pCharacter->GetID(), l_pEnemy->GetID(), Msg_Attack, NO_ADDITIONAL_INFO);
-	}
+	GenerateAttack(_pCharacter);
 }
 
 bool CPlayerAttack6State::OnMessage( CCharacter* _pCharacter, const STelegram& _Message )
@@ -242,6 +239,17 @@ bool CPlayerAttack6State::OnMessage( CCharacter* _pCharacter, const STelegram& _
 	}
 
 	return false;
+}
+
+void CPlayerAttack6State::GenerateAttack( CCharacter* _pCharacter )
+{
+	Vect3f l_Front			= _pCharacter->GetAnimatedModel()->GetFront();
+	CCharacter *l_pEnemy	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->SearchTargetEnemy(m_fAttackDistance, m_fAttackAngle, l_Front);
+
+	if( l_pEnemy != NULL )
+	{
+		CORE->GetMessageDispatcher()->DispatchStateMessage(SEND_MSG_IMMEDIATELY, _pCharacter->GetID(), l_pEnemy->GetID(), Msg_Attack, NO_ADDITIONAL_INFO);
+	}
 }
 
 bool CPlayerAttack6State::CalculateAngleMovement( CCharacter *_pCharacter, float &_fAngle )
