@@ -87,8 +87,8 @@ void CRail::Update( float _fElapsedTime )
 				l_Position = l_Position + l_Dir * ( m_fVelocity / 2.f) * _fElapsedTime;
 			}
 
-			//Calcula el Yaw
-			//---------------------
+			////Calcula el Yaw
+			////---------------------
 			Vect2f l_XZDir	=	Vect2f( l_Dir.x, l_Dir.z );
 			l_XZDir.Normalize();
 
@@ -99,8 +99,8 @@ void CRail::Update( float _fElapsedTime )
 				l_Yaw = -l_Yaw;
 			}
 
-			//Calcula el Pitch
-			//---------------------
+			////Calcula el Pitch
+			////---------------------
 			float l_Pitch = 0.f;
 			if(l_Dir.x != 0.f)
 			{
@@ -115,7 +115,11 @@ void CRail::Update( float _fElapsedTime )
 				else
 				{
 					l_Pitch = l_XYDir.Dot(Vect2f(-1.f, 0.f));
-					l_Pitch = mathUtils::ACos(l_Pitch);
+
+					if( l_Dir.y < 0.f)
+						l_Pitch = - mathUtils::ACos(l_Pitch);
+					else
+						l_Pitch = mathUtils::ACos(l_Pitch);
 				}
 			}
 			else
