@@ -98,6 +98,8 @@ void CRabbitHitState::OnEnter( CCharacter* _pCharacter )
 		m_pAnimationCallback->Init();
 		m_pAnimationCallback->StartAnimation();
 	
+		m_pRabbit->RestLife(50); 
+		
 		//PlayRandomSound();
 		CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Rabbit_Pain");
 

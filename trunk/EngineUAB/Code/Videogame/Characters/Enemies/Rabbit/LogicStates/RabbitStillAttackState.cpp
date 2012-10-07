@@ -215,8 +215,6 @@ void CRabbitStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTi
 				m_SoundPlayedScream = true;
 			}
 
-			//float t = m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_STILL_ATTACK_STATE);
-
 			// Aquí comienza el golpeo, la mano está alzada
 			if ( m_pActionStateCallback->IsActionInTime( 0.33f ) && !m_FirstHitDone )
 			{
@@ -332,8 +330,8 @@ bool CRabbitStillAttackState::OnMessage( CCharacter* _pCharacter, const STelegra
 			m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 		}
 
-		m_pRabbit->RestLife(50); 
 		m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetHitState());
+		m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetHitAnimationState());
 		return true;
 	}
 

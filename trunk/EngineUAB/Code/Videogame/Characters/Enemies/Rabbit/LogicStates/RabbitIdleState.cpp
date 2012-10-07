@@ -81,8 +81,11 @@ void CRabbitIdleState::OnEnter( CCharacter* _pCharacter )
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
-			std::string l_State = RABBIT_IDLE_STATE;
-			CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
+			if ( m_pRabbit->IsEnable() )
+			{	
+				std::string l_State = RABBIT_IDLE_STATE;
+				CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pRabbit->GetName().c_str(), l_State );
+			}
 		}
 	#endif
 }
@@ -139,8 +142,8 @@ bool CRabbitIdleState::OnMessage( CCharacter* _pCharacter, const STelegram& _Tel
 			m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 		}
 
-		m_pRabbit->RestLife(1000); 
 		m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetHitState());
+		m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetHitAnimationState());
 		return true;
 	}
 

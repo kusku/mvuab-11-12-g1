@@ -39,7 +39,7 @@ CRabbitDefenseState::CRabbitDefenseState( CCharacter* _pCharacter )
 	: CState			(_pCharacter, "CRabbitDefenseState")
 	, m_ActionTime		( CActionStateCallback( 0.f, 6.f ) )
 	, m_pRabbit			( NULL )
-	, m_HitIsBlocked		( false )
+	, m_HitIsBlocked	( false )
 	, m_TotalHitBlocked	( 0 )
 	, m_HitBlockedCount	( 0 )
 {
@@ -49,7 +49,7 @@ CRabbitDefenseState::CRabbitDefenseState( CCharacter* _pCharacter, const std::st
 	: CState			(_pCharacter,_Name)
 	, m_ActionTime		( CActionStateCallback( 0.f, 6.f ) )
 	, m_pRabbit			( NULL )
-	, m_HitIsBlocked		( false )
+	, m_HitIsBlocked	( false )
 	, m_TotalHitBlocked	( 0 )
 	, m_HitBlockedCount	( 0 )
 {
