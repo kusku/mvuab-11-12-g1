@@ -20,10 +20,15 @@
 #include "Weapons\WeaponManager.h"
 #include "Callbacks\Animation\AnimationCallbackManager.h"
 
+#include "Rails\RailManager.h"
+#include "Rails\Rail.h"
+#include "Cameras\FPSCamera.h"
+
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 #include "RenderableObjects\AnimatedModel\AnimatedModelManager.h"
 
 #include "Utils\MapManager.h"
+#include "Math\Matrix33.h"
 
 #include "HUD\HUD.h"
 
@@ -47,7 +52,10 @@ CGameProcess::CGameProcess( HWND hWnd )
 	, m_pWeaponManager				(NULL)
 	, m_pAnimationCallbackManager	(NULL)
 	, m_pHUD						(NULL)
+	, m_pFPSRailCamera				(NULL)
 	, m_IsOK						(false)
+	, m_bIntroFinished				(false)
+	, m_uRailCounter				(0)
 	, m_fTimeBetweenClicks			(0.f)
 {
 }
@@ -72,10 +80,19 @@ bool CGameProcess::Init()
 		CGameProcess::RegisterMethods();
 			
 		CORE->GetScriptManager()->RunCode("load_data()");
-	}
+	} 
 
 	//Carga los objetos del juego
 	LoadGameObjects();
+
+	// Raíles
+	CORE->SetCamera(m_pRailCamera);
+
+	m_uRailCounter = 0;
+	m_bIntroFinished = !INIT_RAILS;
+
+	if( INIT_RAILS )
+		SCRIPT->RunCode("presentation_init()");
 
 	return true;
 }
@@ -91,6 +108,10 @@ void CGameProcess::CleanUp()
 	CHECKED_DELETE( m_pThPSCamera );
 	//CHECKED_DELETE( m_pFreeCamera );
 	m_pFreeCamera = NULL;
+
+	CHECKED_DELETE(m_pFPSRailCamera);
+	CHECKED_DELETE(m_pObjectRail);
+	m_pRailCamera = NULL;
 
 	CHECKED_DELETE( m_pCharactersManager );
 	CHECKED_DELETE( m_pWeaponManager );
@@ -111,7 +132,16 @@ CThPSCharacterCamera* CGameProcess::CreatePlayerCamera(float _near, float _far, 
 	return m_pThPSCamera;
 }
 
-void CGameProcess::CreateFreeCamera(float _near, float _far, float _zoom, float _heightEye, float _heightLookAt, const std::string &_name)
+void CGameProcess::CreateRailCamera(float _near, float _far)
+{
+	m_pObjectRail = new CObject3D(v3fZERO, v3fUNIT, 0.f, 0.f);
+
+	float aspect = CORE->GetRenderManager()->GetAspectRatio();
+	m_pFPSRailCamera = new CFPSCamera(_near, _far, 45.f * D3DX_PI / 180.f, aspect,  m_pObjectRail);
+	m_pRailCamera = static_cast<CCamera*>(m_pFPSRailCamera);
+}
+
+void CGameProcess::CreateFreeCamera( float _near, float _far, float _zoom, float _heightEye, float _heightLookAt, const std::string &_name )
 {
 	//Crea una cámara libre de Debug
 	m_FreeCamera.SetPosition(Vect3f( 64.f, 5.f, -19.f));
@@ -155,6 +185,12 @@ void CGameProcess::Update(float elapsedTime)
 			CORE->GetTriggersManager()->Reload();
 		}
 
+		/*if(CORE->GetActionToInput()->DoAction("PlayerJump"))
+		{
+			CORE->SetCamera( m_pRailCamera );
+			CORE->GetRailManager()->StartCurrentRail();
+		}*/
+
 		if( CORE->GetActionToInput()->DoAction("CommutationCamera") )
 		{
 			if( m_pCamera == m_pThPSCamera )
@@ -176,28 +212,35 @@ void CGameProcess::Update(float elapsedTime)
 			m_FreeCamera.Update(elapsedTime ,m_pCamera);
 		}
 #endif
-
-		if( CORE->GetActionToInput()->DoAction("GoToMenu") )
+		if( m_bIntroFinished )
 		{
-			SCRIPT->RunCode("change_to_end_gui_process()");
-		}
+			CORE->SetCamera( m_pCamera );
 
-		m_fTimeBetweenClicks += elapsedTime;
-		if( CORE->GetActionToInput()->DoAction("AttackPlayer") )
+			if( CORE->GetActionToInput()->DoAction("GoToMenu") )
+			{
+				SCRIPT->RunCode("change_to_end_gui_process()");
+			}
+
+			m_fTimeBetweenClicks += elapsedTime;
+			if( CORE->GetActionToInput()->DoAction("AttackPlayer") )
+			{
+				m_fTimeBetweenClicks = 0.f;
+				//CORE->GetParticleEmitterManager()->GetResource("Explosions")->EjectParticles();
+			}
+
+			m_pCharactersManager->Update(elapsedTime);
+			CORE->GetRenderableObjectsLayersManager()->Update(elapsedTime);
+
+			//Actualiza la posición de las armas
+			m_pWeaponManager->Update(elapsedTime);
+
+			//Actualiza el HUD
+			m_pHUD->Update(elapsedTime, m_pCharactersManager->GetPlayerLife() );
+		}
+		else
 		{
-			m_fTimeBetweenClicks = 0.f;
-			//CORE->GetParticleEmitterManager()->GetResource("Explosions")->EjectParticles();
+			SCRIPT->RunCode("presentation_control()");
 		}
-
-		m_pCharactersManager->Update(elapsedTime);
-		CORE->GetRenderableObjectsLayersManager()->Update(elapsedTime);
-
-		//Actualiza la posición de las armas
-		m_pWeaponManager->Update(elapsedTime);
-
-		//Actualiza el HUD
-		m_pHUD->Update(elapsedTime, m_pCharactersManager->GetPlayerLife() );
-
 	}
 }
 
@@ -216,8 +259,21 @@ void CGameProcess::Render(CRenderManager &RM)
 void CGameProcess::DebugRender( CRenderManager &RM )
 {
 #if defined (_DEBUG)
-	m_pCharactersManager->Render(&RM, CORE->GetFontManager());
-	m_pThPSCamera->Render(&RM);
+	//m_pCharactersManager->Render(&RM, CORE->GetFontManager());
+	//m_pThPSCamera->Render(&RM);
+	
+	Mat44f mat;
+	mat.SetIdentity();
+	mat.Translate(m_pRailCamera->GetEye());
+	RM.SetTransform(mat);
+
+	RM.DrawSphere(2.f, 10, colCYAN);
+
+	mat.SetIdentity();
+	RM.SetTransform(mat);
+
+	RM.DrawLine(m_pRailCamera->GetEye(), m_pRailCamera->GetEye() + m_pRailCamera->GetDirection(), colYELLOW );
+	
 #endif
 }
 
@@ -257,6 +313,7 @@ void CGameProcess::LoadGameObjects()
 		return;
 
 	CreateFreeCamera(  1.0f, 10000.f, 10.0f, 0.f, 0.f, "Free" );	
+	CreateRailCamera( 1.f, 10000.f );
 
 	//Asigna una cámara al micrófono de sonido
 	CORE->GetSoundManager()->GetListener()->SetCamera( m_pThPSCamera );

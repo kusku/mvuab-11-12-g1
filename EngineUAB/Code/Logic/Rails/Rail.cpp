@@ -109,6 +109,7 @@ void CRail::Update( float _fElapsedTime )
 			m_pObject->SetPosition( l_Position );
 			m_pObject->SetYaw( l_Yaw );
 			m_pObject->SetPitch( l_Pitch );
+			m_pObject->SetRoll(FLOAT_PI_VALUE);
 		}
 		else
 		{

@@ -14,6 +14,7 @@ function load_basics()
 end
 
 function load_data()
+	core:load_rails()
 	core:load_physxobjs()
 	core:load_static_meshes()
 	core:load_animated_models()
@@ -25,7 +26,6 @@ function load_data()
 	core:load_animal_movement()
 	core:load_waypoints()
 	core:load_steering_behaviors_settings()
-	core:load_rails()
 end
 
 function load_all()

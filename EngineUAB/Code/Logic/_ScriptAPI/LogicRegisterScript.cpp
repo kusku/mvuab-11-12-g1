@@ -13,6 +13,9 @@
 #include "Movement\WayPointManager.h"
 #include "Movement\WayPoint.h"
 
+#include "Rails\RailManager.h"
+#include "Rails\Rail.h"
+
 #include "Steering Behaviors\SteeringBehaviorsSeetingsManager.h"
 #include "Steering Behaviors\SteeringBehaviors.h"
 #include "Steering Behaviors\SteeringEntity.h"
@@ -313,6 +316,23 @@ namespace ScriptAPI
 				.property("wander_refresh_rate", &CSteeringBehaviorsSeetingsManager::GetWanderRefreshRate, &CSteeringBehaviorsSeetingsManager::SetWanderRefreshRate)
 		];
 		
+		module(_pLua) [
+			class_<CRailManager>("CRailManager")
+			.def("start", &CRailManager::StartCurrentRail)
+			.def("pause", &CRailManager::PauseCurrentRail)
+			.def("stop", &CRailManager::StopCurrentRail)
+			.def("set_rail", &CRailManager::SetCurrentRail)
+			.def("is_rail_finished", &CRailManager::HasFinishedCurrentRail)
+			.def("set_object_to_rail", &CRailManager::SetObjectToCurrentRail)
+			.def("get_current_rail", &CRailManager::GetCurrentRail)
+		];
+
+		module(_pLua) [
+			class_<CRail>("CRail")
+			.property("velocity", &CRail::GetVelocity, &CRail::SetVelocity)
+		];
+
+
 	}
 
 } //namespace ScriptAPI

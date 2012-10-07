@@ -36,6 +36,10 @@ function reload_pools()
 	core:reload_pools()
 end
 
+function reload_rails()
+	core:reload_rails()
+end
+
 function reload_scripts()
 	core:reload_scripts()
 end

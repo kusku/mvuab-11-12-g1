@@ -20,6 +20,7 @@ class CRenderManager;
 class CCharactersManager;
 class CCharacter;
 class CThPSCharacterCamera;
+class CFPSCamera;
 class CThPSCamera;
 class CWeaponManager;
 class CAnimationCallbackManager;
@@ -42,6 +43,7 @@ public:
 	//----Methods --------------------------------------------------------------------
 	CThPSCharacterCamera*		CreatePlayerCamera	( float _near, float _far, float _zoom, float _heightEye, float _heightLookAt, const std::string &_name );
 	void						CreateFreeCamera	( float _near, float _far, float _zoom, float _heightEye, float _heightLookAt, const std::string &_name );
+	void						CreateRailCamera	( float _near, float _far );
 
 	void			ChangeToGUIProcess		();
 
@@ -49,22 +51,27 @@ public:
 
 	static void					RegisterMethods				();
 
-private:
-	void						RegisterToLuaGameProcess	( lua_State* _pLua );
-	void						UpdateInputs				( float _ElapsedTime );
-	void						ReloadGameObjects			();
-	void						LoadGameObjects				();
-	bool						LoadMainScript				();
-
 	//----Properties  --------------------------------------------------------------------
-public:
-	
 	static CGameProcess*		GetGameProcess				();
 	CCharactersManager*			GetCharactersManager		() const		{ return m_pCharactersManager; }
 	CThPSCharacterCamera*		GetPlayerCamera				() const		{ return m_pThPSCamera; }
 	CAnimationCallbackManager*	GetAnimationCallbackManager	() const		{ return m_pAnimationCallbackManager; }
 	CCharacter*					GetPlayer					() const		{ return GetCharactersManager()->GetPlayer(); }
 	inline CHud*				GetHUD						() const		{ return m_pHUD; }
+
+	//-----Presentation  -----------------------------------------------------------------
+	void		SetIntroFinish		( bool _finish )		{ m_bIntroFinished = _finish; }
+	bool		IsIntroFInished		() const				{ return m_bIntroFinished; }
+	CObject3D*	GetRailObject		() const				{ return m_pObjectRail; }
+	void		AddRailCounter		()						{ ++m_uRailCounter; }
+	uint8		GetRailCounter		() const				{ return m_uRailCounter; }
+
+private:
+	void		RegisterToLuaGameProcess	( lua_State* _pLua );
+	void		UpdateInputs				( float _ElapsedTime );
+	void		ReloadGameObjects			();
+	void		LoadGameObjects				();
+	bool		LoadMainScript				();
 
 	//----Members --------------------------------------------------------------------
 private:
@@ -76,7 +83,14 @@ private:
 	CStaticCamera				m_StaticCamera;
 	CThPSCharacterCamera		*m_pThPSCamera;
 	CThPSCamera					*m_pThPSFreeCamera;
+	CFPSCamera					*m_pFPSRailCamera;
 	CCamera						*m_pFreeCamera;
+	CCamera						*m_pRailCamera;
+	CObject3D					*m_pObjectRail;
+
+	// Intro
+	bool						m_bIntroFinished;
+	uint8						m_uRailCounter;
 
 	CHud						*m_pHUD;
 	CCharactersManager			*m_pCharactersManager;

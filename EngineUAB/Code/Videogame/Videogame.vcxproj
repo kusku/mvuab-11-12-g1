@@ -96,6 +96,7 @@
     <ClCompile Include="Cameras\FreeCamera.cpp" />
     <ClCompile Include="Cameras\ThPSCharacterCamera.cpp" />
     <ClCompile Include="Cameras\StaticCamera.cpp" />
+    <ClCompile Include="Cameras\FPSRailCamera.cpp" />
     <ClCompile Include="Characters\Character.cpp" />
     <ClCompile Include="Characters\CharacterManager.cpp" />
     <ClCompile Include="Characters\Enemies\Deer\AnimationStates\DeerDeathAnimationState.cpp" />
@@ -211,6 +212,7 @@
     <ClInclude Include="Callbacks\Animation\AnimationCallback.h" />
     <ClInclude Include="Callbacks\Animation\AnimationCallbackManager.h" />
     <ClInclude Include="Callbacks\State\ActionStateCallback.h" />
+    <ClInclude Include="Cameras\FPSRailCamera.h" />
     <ClInclude Include="Characters\Enemies\Deer\AnimationStates\DeerDeathAnimationState.h" />
     <ClInclude Include="Characters\Enemies\Deer\AnimationStates\DeerDefenseAnimationState.h" />
     <ClInclude Include="Characters\Enemies\Deer\AnimationStates\DeerHitAnimationState.h" />

@@ -20,6 +20,7 @@
 #include "PhysicsManager.h"
 #include "StatesMachine\EntityManager.h"
 #include "Stadistics\Stadistics.h"
+#include "Rails\RailManager.h"
 
 #include "Math\Vector2.h"
 #include "Math\Vector3.h"
@@ -87,6 +88,7 @@ namespace ScriptAPI
 					.def("get_process", &CCore::GetProcess)
 					.def("get_entity_manager", &CCore::GetEntityManager)
 					.def("get_message_dispatchers", &CCore::GetMessageDispatcher)
+					.def("get_rail_manager", &CCore::GetRailManager)
 					.def("load_fonts", &CCore::LoadFonts)
 					.def("load_languages", &CCore::LoadLanguages)
 					.def("load_inputs", &CCore::LoadInputs)
