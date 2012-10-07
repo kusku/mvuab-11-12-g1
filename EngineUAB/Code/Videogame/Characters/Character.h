@@ -52,6 +52,7 @@ public:
 
 	//----Methods ---------------------------------------------
 	void						MoveController				( const Vect3f &_Dir, float _ElapsedTime );
+	void						MoveCharacter				( const Vect3f &_Pos );
 	void						MoveTo						( const Vect3f &_Position, float _ElapsedTime );
 	void						MoveTo2						( const Vect3f &_Position, float _ElapsedTime );
 	void						FaceTo						( const Vect3f &_Position, float _ElapsedTime );

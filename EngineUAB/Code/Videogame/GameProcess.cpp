@@ -199,8 +199,6 @@ void CGameProcess::Update(float elapsedTime)
 		m_pHUD->Update(elapsedTime, m_pCharactersManager->GetPlayerLife() );
 
 	}
-
-	//SCRIPT->RunCode("collectgarbage('collect')");
 }
 
 void CGameProcess::ReloadGameObjects()

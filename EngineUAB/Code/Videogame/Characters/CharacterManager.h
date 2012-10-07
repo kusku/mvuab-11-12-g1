@@ -39,6 +39,7 @@ public:
 
 	// ------------- Methods --------------------------------
 	void				AddEnemy							( CCharacter *_pEnemy );			// Afegeix un enemic ja creat
+	void				AssignDynamicEnemiesToHelp			( void );
 	CCharacter *  		CreateEnemy							( const Vect3f &_Position );		// Crea i afegeix un enemic
 	void				CreateRandomEnemy					( void );							// Crea i afegeix un enemic aleatori
 	bool				LoadXMLProperties					( void );							// Carga el XML de propiedades
@@ -60,8 +61,7 @@ public:
 	void				DrawNames							( CFontManager *_FM );
 	void				DrawRay								( void );
 	void				DrawVelocity						( CCharacter * _Character, CRenderManager * _RM );
-
-	void				SaveDynamicCharacterCreated			( std::string _EnemyName );
+	void				DrawPositions						( CFontManager *_FM );
 
 	// ------------- Propietats ( Get / Set ) ----------------
 	TVectorResources	GetEnemiesVector					() const					{ return m_ResourcesVector; }
@@ -77,8 +77,6 @@ public:
 	inline void			SetPreviewTargetEnemy				( CCharacter *enemy )		{ m_pPreviewTargetEnemy = enemy; }
 
 	inline int			GetPlayerLife						() const					{ return m_pPlayer->GetProperties()->GetCurrentLife(); }
-
-	void				SetDynamicCharactersVisible			( bool _Visible );
 
 	// ------------- Load Methods --------------------------------
 private:
@@ -96,20 +94,20 @@ private:
 
 	// ------------- Members --------------------------------
 private:
-	std::string					m_PropertiesFileName;
-	std::string					m_AnimatedFileName;
+	std::string						m_PropertiesFileName;
+	std::string						m_AnimatedFileName;
 
-	CPropertiesManager			*m_pPropertiesManager;
-	CAnimationsStatesManager	*m_pAnimatedStatesManager;
+	CPropertiesManager				*m_pPropertiesManager;
+	CAnimationsStatesManager		*m_pAnimatedStatesManager;
 
-	CCharacter					*m_pPlayer;
-	CCharacter					*m_pTargetEnemy;
-	CCharacter					*m_pPreviewTargetEnemy;
+	CCharacter						*m_pPlayer;
+	CCharacter						*m_pTargetEnemy;
+	CCharacter						*m_pPreviewTargetEnemy;
 
-	std::vector<CPhysicUserData*> m_UserDatas;		// Permite almacenar aquellos enemigos en zona de detección del player para ordenarlos y decidir quien puede o no atacar
+	std::vector<CPhysicUserData*>	m_UserDatas;		// Permite almacenar aquellos enemigos en zona de detección del player para ordenarlos y decidir quien puede o no atacar
 													// Básicamente se le pone un flag a la Steering Entity para determinar si va hacia el player o no
 
-	std::vector<std::string>	m_DynamicCharactersNamesCreated;		// Lo uso para guardar los elementos para luego eliminarlos
+	uint32							m_NumberFirstDynamicEnemy;
 };
 
 #endif

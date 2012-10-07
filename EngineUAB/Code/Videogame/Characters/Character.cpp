@@ -31,6 +31,7 @@
 
 #include "Speaker.h"
 
+#include "Utils\RecyclingArray.h"
 #include "EngineProcess.h"
 #include "GameProcess.h"
 #include "Logger\Logger.h"
@@ -162,7 +163,7 @@ bool CCharacter::Initialize( const std::string &_Name, const std::string &_Core,
 
 	if ( !l_RO ) 
 	{
-		CRenderableObject *l_RO = l_ROManager->AddAnimatedMeshInstance( m_pProperties->GetName(), _Core, Vect3f (0.f, 0.f, 0.f ) );
+		CRenderableObject *l_RO = l_ROManager->AddAnimatedMeshInstance( m_pProperties->GetName(), _Core, m_pProperties->GetPosition() );
 	}
 
 	l_RO = l_ROManager->GetInstance( m_pProperties->GetAnimationInstance() );
@@ -189,8 +190,7 @@ bool CCharacter::Initialize( const std::string &_Name, const std::string &_Core,
 	CORE->GetPhysicsManager()->AddPhysicController( m_pController, CAPSULE, _Grup );
 	m_pController->SetPosition( l_Position );
 	SetEnable(m_pProperties->GetActive());
-
-	//m_pController->Move( l_Position, 0.f );
+	//m_pController->Move( m_pProperties->GetPosition(), 0.f );
 	
 	// Metemos el yaw y posición del modelo animado al controller
 	if ( m_pCurrentAnimatedModel )
@@ -353,6 +353,15 @@ bool CCharacter::HandleMessage( const STelegram& _Msg )
 void CCharacter::MoveController(const Vect3f &_Dir, float _ElapsedTime)
 {
 	m_pController->Move( _Dir, _ElapsedTime );
+}
+
+void CCharacter::MoveCharacter(const Vect3f &_Pos)
+{
+	m_pController->SetPosition(_Pos);
+	m_Position = m_pController->GetPosition();
+	m_Position.y = m_Position.y - m_pController->GetHeight() + m_pProperties->GetAnimationOffset();
+	m_pCurrentAnimatedModel->SetPosition( m_Position );
+	m_pSteeringEntity->SetPosition( m_Position );
 }
 
 void CCharacter::FaceTo2( const Vect3f &_Position, float _ElapsedTime )
@@ -886,8 +895,7 @@ void CCharacter::Appearance( void )
 	Vect3f l_Pos = l_Pos1 + l_RelativePosition;
 	l_Pos.y = l_Pos1.y;
 
-	//v.y -= m_pProperties->GetHeightController();
-	m_pProperties->SetActive(true);
+	this->SetEnable(true);
 	
 	if ( m_Type != WOLF )
 	{
@@ -907,14 +915,13 @@ void CCharacter::Appearance( void )
 
 void CCharacter::SetEnable( bool _Enable )
 {
-	m_pCurrentAnimatedModel->SetVisible(_Enable);
-	m_pController->SetVisible(_Enable);
+	//m_pController->SetActive(_Enable);
 	m_pController->SetCollision(_Enable);
-	m_pController->SetActive(_Enable);
-	m_pProperties->SetActive(_Enable);
-	SetLocked(!_Enable);
+	m_pController->SetVisible(_Enable);
 	m_pProperties->SetVisible(_Enable);
-	m_pController->SetActive(_Enable);
+	m_pProperties->SetActive(_Enable);
+	m_pCurrentAnimatedModel->SetVisible(_Enable);
+	SetLocked(!_Enable);
 	if (!_Enable & !IsAlive())
 	{
 		CORE->GetPhysicsManager()->ReleasePhysicController(m_pController);
