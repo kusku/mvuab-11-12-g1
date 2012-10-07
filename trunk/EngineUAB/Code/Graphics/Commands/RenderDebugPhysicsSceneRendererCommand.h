@@ -20,6 +20,8 @@ private:
 	bool	m_DrawFront;
 	bool	m_DrawNames;
 	bool	m_DrawRays;
+	bool	m_RenderPositions;
+
 };
 
 #endif
