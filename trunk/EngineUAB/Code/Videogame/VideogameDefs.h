@@ -4,6 +4,7 @@
 #define _VIDEOGAME_DEFS_H_
 
 #define INIT_GUI			false
+#define INIT_RAILS			false
 
 #define WM_GAME_PROCESS		( WM_USER + 1 )
 #define WM_GUI_PROCESS		( WM_USER + 2 )

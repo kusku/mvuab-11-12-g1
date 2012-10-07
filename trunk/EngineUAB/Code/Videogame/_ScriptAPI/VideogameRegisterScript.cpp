@@ -52,8 +52,13 @@ namespace ScriptAPI
 					.def("change_to_gui_process", &CGameProcess::ChangeToGUIProcess)
 					.def("get_animation_callback_manager", &CGameProcess::GetAnimationCallbackManager)
 					.property("player_camera", &CGameProcess::GetPlayerCamera)
+					.def("set_intro_finish", &CGameProcess::SetIntroFinish)
+					.def("is_intro_finished", &CGameProcess::IsIntroFInished)
 					.def("get_player_camera", &CGameProcess::GetPlayerCamera)
 					.def("get_hud", &CGameProcess::GetHUD)
+					.def("get_rail_object", &CGameProcess::GetRailObject)
+					.def("add_rail_counter", &CGameProcess::AddRailCounter)
+					.def("get_rail_counter", &CGameProcess::GetRailCounter)
 			];
 
 		module(_pLua)

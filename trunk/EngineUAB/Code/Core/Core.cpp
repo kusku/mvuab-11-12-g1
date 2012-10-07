@@ -639,6 +639,11 @@ void CCore::UpdateInputs( float _ElapsedTime )
 		m_pScriptManager->Reload();
 	}
 
+	if( l_Action2Input->DoAction(ACTION_RELOAD_RAILS) )
+	{
+		SCRIPT->RunCode("reload_rails()");
+	}
+
 	if ( l_Action2Input->DoAction ( ACTION_RELOAD_PHYSIS ) )				// Recarrega la física
 	{
 		SCRIPT->RunCode("reload_physics()");

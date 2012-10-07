@@ -453,6 +453,9 @@
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfHowlLifeAnimationState.cpp">
       <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
     </ClCompile>
+    <ClCompile Include="Cameras\FPSRailCamera.cpp">
+      <Filter>Cameras</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUIProcess.h" />
@@ -808,6 +811,9 @@
     </ClInclude>
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfHowlLifeAnimationState.h">
       <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Cameras\FPSRailCamera.h">
+      <Filter>Cameras</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

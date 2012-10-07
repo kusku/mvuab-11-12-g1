@@ -31,6 +31,7 @@
 #define ACTION_RELOAD_SOUNDS				"ReloadSounds"
 #define ACTION_RELOAD_TRIGGERS				"ReloadTriggers"
 #define ACTION_RELOAD_PARTICLES				"ReloadParticles"
+#define ACTION_RELOAD_RAILS					"ReloadRails"
 
 
 
