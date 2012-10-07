@@ -4,6 +4,7 @@
 #include "GameProcess.h"
 #include "SoundManager.h"
 #include "HUD\HUD.h"
+#include "PhysicController.h"
 
 #include "Callbacks\Animation\AnimationCallbackManager.h"
 
@@ -88,6 +89,8 @@ CWolf::CWolf( int _Id )
 	, m_pAnimationHowlEnemiesState	( NULL )
 	, m_CanHowlForLife				( false )
 	, m_CanHowlForEnemies			( true )
+	, m_NumEnemyCalls				( 2 )
+	, m_NumLifeCalls				( 4 ) 	
 {
 }
 
@@ -122,7 +125,8 @@ CWolf::CWolf( int _Id, std::string _Name )
 	, m_pAnimationHowlEnemiesState	( NULL )
 	, m_CanHowlForLife				( false )
 	, m_CanHowlForEnemies			( true )
-
+	, m_NumEnemyCalls				( 2 )
+	, m_NumLifeCalls				( 4 ) 	
 {
 }
 
@@ -300,22 +304,29 @@ void CWolf::BeDead( void )
 
 
 // ------------------------------------------------------------------------------------------------------------------
-//  TestIfCanHowlForLife: Solo aumentamos la vida en caso de estar a la mitad o casi muerto.
+//  TestIfCanHowlForLife: Solo aumentamos la vida en caso de estar a la mitad o casi muerto. Esta función comprueba
+//						si es estamos en un nivel de vida para activar el estado
 // ------------------------------------------------------------------------------------------------------------------
 bool CWolf::TestIfCanHowlForLife( void )
 {
-	if ( ( !GetCanHowlForLife() ) && ( m_pProperties->GetCurrentLife() <= m_pProperties->GetLife()/2 ) )
+	// Si estoy entre el 75% y el 70%
+	if ( ( m_NumLifeCalls > 0 )  && ( m_pProperties->GetCurrentLife() <= m_pProperties->GetLife() * 0.75f ) && ( m_pProperties->GetCurrentLife() >= m_pProperties->GetLife() * 0.70f ) ) 
 	{
-		SetCanHowlForLife(true);
 		return true;
 	}
 
-	if ( ( !GetCanHowlForLife() ) && ( m_pProperties->GetCurrentLife() <= m_pProperties->GetLife()/4 ) )
+	// Si estoy entre el 50% y el 33%
+	if ( ( m_NumLifeCalls > 0 )  && ( m_pProperties->GetCurrentLife() <= m_pProperties->GetLife() * 0.5f ) && ( m_pProperties->GetCurrentLife() >= m_pProperties->GetLife() * 0.33f  ) ) 
 	{
-		SetCanHowlForLife(true);
 		return true;
 	}
-
+	
+	// Si estoy entre el 30% y 10% 
+	if ( ( m_NumLifeCalls > 0 )  && ( m_pProperties->GetCurrentLife() <= m_pProperties->GetLife() * 0.30f ) && ( m_pProperties->GetCurrentLife() >= m_pProperties->GetLife() * 0.10 ) ) 
+	{
+		return true;
+	}
+	
 	return false;
 }
 
@@ -325,15 +336,9 @@ bool CWolf::TestIfCanHowlForLife( void )
 // ------------------------------------------------------------------------------------------------------------------
 bool CWolf::TestIfCanHowlForEnemies( void )
 {
-	// TODO: Ahora a saco 
-	if ( m_pProperties->GetCurrentLife() == m_pProperties->GetLife() )
+	// Si tenemos máxima vida o la mitad o menos tenemos que aullar
+	if ( ( m_NumEnemyCalls > 0 )  && ( ( m_pProperties->GetCurrentLife() == m_pProperties->GetLife() ) || ( m_pProperties->GetCurrentLife() <= m_pProperties->GetLife()/2 ) ) )
 	{
-		return true;
-	}
-
-	if ( ( !GetCanHowlForLife() ) && ( m_pProperties->GetCurrentLife() <= m_pProperties->GetLife()/2 ) )
-	{
-		SetCanHowlForLife(true);
 		return true;
 	}
 

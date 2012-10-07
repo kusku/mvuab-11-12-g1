@@ -84,6 +84,9 @@ void CWolfHowlEnemiesState::OnEnter( CCharacter* _pCharacter )
 	//m_ActionStateCallback.InitAction(0, m_SoundDuration);
 	//m_ActionStateCallback.StartAction();
 
+	// Ya lo hemos ejecutado y ahora lo desactivamos
+	m_pWolf->SetCanHowlForEnemies(false);
+
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
@@ -106,7 +109,7 @@ void CWolfHowlEnemiesState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 		// Compruebo si la animación a finalizado
 		if ( m_pAnimationCallback->IsAnimationFinished() )
 		{
-			CreateEnemiesToHelp();
+			ShowEnemiesToHelp();
 
 			// Volvemos al reposo
 			m_pWolf->GetLogicFSM()->ChangeState( m_pWolf->GetIdleState());
@@ -134,7 +137,6 @@ bool CWolfHowlEnemiesState::OnMessage( CCharacter* _pCharacter, const STelegram&
 			m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 		}
 
-		m_pWolf->RestLife(50); 
 		m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetHitState());
 		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetHitAnimationState());
 		return true;
@@ -142,33 +144,35 @@ bool CWolfHowlEnemiesState::OnMessage( CCharacter* _pCharacter, const STelegram&
 	return false;
 }
 
-void CWolfHowlEnemiesState::CreateEnemiesToHelp(void)
+void CWolfHowlEnemiesState::ShowEnemiesToHelp(void)
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
+	CCharactersManager * l_CM = l_Process->GetCharactersManager();
 	Vect3f l_InitialPosition = m_pWolf->GetPosition();							// Almaceno la posición del wolf que hará de lider a partir de la qual haré la formación
 	
 	uint16 l_TotalEnemies = BoostRandomHelper::GetInt(5, 10);					// Obtengo un nº aleatorio de enemigos 
-	float	l_DegreesToSetEnemies = 180.f / l_TotalEnemies + 1;					// Con esto tengo los ángulos que tengo que aplicar para colocar cada enemigo
-		
+	float	l_DegreesToSetEnemies = 120.f / l_TotalEnemies + 1;					// Con esto tengo los ángulos que tengo que aplicar para colocar cada enemigo
+	
+	Vect3f l_Front  = m_pWolf->GetFront(); 
+	Vect3f l_OriginalFront = l_Front; 
+	l_Front.Normalize();
+	float l_Angle = l_OriginalFront.xzToAngle();
+	l_Angle -= ePI2f;
+	float l_AngleGraus = mathUtils::Rad2Deg(l_Angle);
+	l_Front.RotateY(l_Angle);
+
 	// Por cada X grados vamos a meter un enemigo segun el random anterior
 	for ( float i = l_DegreesToSetEnemies; i < 120.f; i += l_DegreesToSetEnemies ) 
 	{
 		float l_DistanceToSet = BoostRandomHelper::GetFloat(4.f, 7.f);		// Obtenemos una distancia que aplicaremos dependiendo del ángulo
-		Vect3f l_Front  = m_pWolf->GetFront(); 
+		//Vect3f l_Front  = m_pWolf->GetFront(); 
 		l_Front.RotateY(mathUtils::Deg2Rad( l_DegreesToSetEnemies));
 
-		Vect3f l_OriginalFront = l_Front;
-		l_Front.Normalize();
-		Vect3f l_FinalPosition  = Vect3f( l_InitialPosition.x + l_Front.x * l_DistanceToSet, l_InitialPosition.y, l_InitialPosition.z + l_Front.z * l_DistanceToSet);
+		Vect3f l_FinalPosition  = Vect3f( l_InitialPosition.x + l_Front.x * l_DistanceToSet, l_InitialPosition.y + 8.f, l_InitialPosition.z + l_Front.z * l_DistanceToSet);
 	
-		// Ahora que tenemos la posición metemos el enemigo
-		/*for ( size_t i = 1; i <= 2; i++ )
-		{*/
-
-			CCharacter *l_Character = l_Process->GetCharactersManager()->CreateEnemy(l_FinalPosition);
-			l_Character->Appearance();
-			l_Process->GetCharactersManager()->SaveDynamicCharacterCreated(l_Character->GetName());
-		
-		//}
+		CCharacter* l_Character = l_CM->GetCharacterById(m_DynamicEnemyIndex);
+		l_Character->MoveCharacter(l_FinalPosition);
+		l_Character->Appearance();
+		m_DynamicEnemyIndex++;
 	}
 }

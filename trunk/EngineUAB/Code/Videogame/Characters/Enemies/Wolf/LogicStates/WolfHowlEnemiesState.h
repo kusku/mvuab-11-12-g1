@@ -36,8 +36,11 @@ public:
 	virtual bool	OnMessage	( CCharacter*, const STelegram& );
 
 	//----Methods ---------------------------------------------
-	void			CreateEnemiesToHelp	( void );
+	void			ShowEnemiesToHelp			( void );
 
+	void			SetCurrentDynamicEnemyIndex	( uint32 _Index )			{ m_DynamicEnemyIndex = _Index; }
+	inline uint32	GetCurrentDynamicEnemyIndex	( void ) const				{ return m_DynamicEnemyIndex; }  
+	
 	//----Members ---------------------------------------------
 private:
 	CWolf				  * m_pWolf;
@@ -45,6 +48,7 @@ private:
 	CAnimationCallback    *	m_pAnimationCallback;
 
 	float					m_SoundDuration;
+	uint32					m_DynamicEnemyIndex;
 };
 
 

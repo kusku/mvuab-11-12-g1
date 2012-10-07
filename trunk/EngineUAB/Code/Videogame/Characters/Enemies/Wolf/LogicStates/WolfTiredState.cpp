@@ -123,7 +123,6 @@ bool CWolfTiredState::OnMessage( CCharacter* _pCharacter, const STelegram& _Tele
 			m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 		}
 
-		m_pWolf->RestLife(50); 
 		m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetHitState());
 		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetHitAnimationState());
 		return true;

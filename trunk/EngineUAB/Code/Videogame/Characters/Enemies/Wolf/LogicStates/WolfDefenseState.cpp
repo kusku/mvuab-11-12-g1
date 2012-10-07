@@ -144,6 +144,7 @@ void CWolfDefenseState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 			if ( l_Distance <= ( m_pWolf->GetProperties()->GetImpactDistance() * 3 ) ) 
 			{
 				m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetDefenseAnimationState());
+				return;
 			}
 			else 
 			{
