@@ -21,9 +21,13 @@
 #include "WolfStillAttackState.h"
 #include "WolfRunAttackState.h"
 #include "WolfHitState.h"
+#include "WolfHowlEnemiesState.h"
+#include "WolfHowlLifeState.h"
 
 #include "Characters\Enemies\Wolf\AnimationStates\WolfHitAnimationState.h"
 #include "Characters\Enemies\Wolf\AnimationStates\WolfDefenseAnimationState.h"
+#include "Characters\Enemies\Wolf\AnimationStates\WolfHowlEnemiesAnimationState.h"
+#include "Characters\Enemies\Wolf\AnimationStates\WolfHowlLifeAnimationState.h"
 
 #include "Steering Behaviors\SteeringEntity.h"
 #include "Steering Behaviors\SteeringBehaviors.h"
@@ -109,8 +113,6 @@ void CWolfAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		else 
 		{
 			std::string l_ActiveActionState = GetRandomAttackName();
-			// print_logger ( 0, "Attack Random Sel·leccionat "..l_ActiveActionState ) 
-				
 			if ( l_ActiveActionState == WOLF_STILL_ATTACK_STATE ) 
 			{
 				m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetStillAttackState());
@@ -122,7 +124,31 @@ void CWolfAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 			else if ( l_ActiveActionState == WOLF_DEFENSE_STATE ) 
 			{
 				m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetDefenseState());
-			}		
+			}
+			else if ( l_ActiveActionState == WOLF_HOWL_ENEMIES_STATE ) 
+			{
+				// Si tenemos máxima vida y acaba de aparecer el lobo llamamos mis amigos.
+				if ( m_pWolf->GetCanHowlForEnemies() )
+				{
+					m_pWolf->GetLogicFSM()->ChangeState( m_pWolf->GetHowlEnemiesState());
+					m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetHowlEnemiesAnimationState());
+					m_pWolf->SetCanHowlForEnemies(false);
+					m_pWolf->AddNumberHowlEnemiesCalls();
+					return;
+				}
+			}
+			else if ( l_ActiveActionState == WOLF_HOWL_LIFE_STATE ) 
+			{
+				// Si le falta vida la recupera
+				if ( m_pWolf->GetCanHowlForLife()  )
+				{
+					m_pWolf->GetLogicFSM()->ChangeState( m_pWolf->GetHowlLifeState());
+					m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetHowlLifeAnimationState());
+					m_pWolf->SetCanHowlForLife(false);
+					m_pWolf->AddNumberHowlEnemiesCalls();
+					return;
+				}
+			}
 			// else if ( l_ActiveActionState == "jump" ) then
 				// _CCharacter.logic_fsm:change_state(_CCharacter.jump_state)
 			else if ( l_ActiveActionState == "go_in_to_frustum" ) 
@@ -170,8 +196,8 @@ bool CWolfAttackState::OnMessage( CCharacter* _pCharacter, const STelegram& _Tel
 			m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 		}
 
-		m_pWolf->RestLife(1000); 
 		m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetHitState());
+		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetHitAnimationState());
 		return true;
 	}
 
@@ -186,7 +212,7 @@ std::string CWolfAttackState::GetRandomAttackName(void)
 {
 	std::string l_Action;	
 
-	int l_AttackType = BoostRandomHelper::GetInt(1,12);
+	int l_AttackType = BoostRandomHelper::GetInt(1,20);
 	if ( l_AttackType == 1 ) 
 		l_Action = WOLF_STILL_ATTACK_STATE;
 	else if ( l_AttackType == 2 ) 
@@ -213,6 +239,24 @@ std::string CWolfAttackState::GetRandomAttackName(void)
 		l_Action =  "go_in_to_frustum";
 	else if ( l_AttackType == 12 ) 
 		l_Action =  "go_in_to_frustum";
+
+	else if ( l_AttackType == 13 ) 
+		l_Action =  WOLF_HOWL_ENEMIES_STATE;
+	else if ( l_AttackType == 14 ) 
+			l_Action =  WOLF_HOWL_ENEMIES_STATE;
+	else if ( l_AttackType == 15 ) 
+			l_Action =  WOLF_HOWL_ENEMIES_STATE;
+	else if ( l_AttackType == 16 ) 
+			l_Action =  WOLF_HOWL_ENEMIES_STATE;
+
+	else if ( l_AttackType == 17 ) 
+		l_Action =  WOLF_HOWL_LIFE_STATE;
+	else if ( l_AttackType == 18 ) 
+			l_Action =  WOLF_HOWL_LIFE_STATE;
+	else if ( l_AttackType == 19 ) 
+			l_Action =  WOLF_HOWL_LIFE_STATE;
+	else if ( l_AttackType == 20 ) 
+			l_Action =  WOLF_HOWL_LIFE_STATE;
 
 	return l_Action;
 }

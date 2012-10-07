@@ -109,6 +109,12 @@ public:
 	bool								GetCanHowlForEnemies			( void ) const			{ return m_CanHowlForEnemies; }
 	void								SetCanHowlForEnemies			( bool _CanHowl )		{ m_CanHowlForEnemies	= _CanHowl; }
 
+	byte								GetNumberHowlEnemiesCalls		( void ) const			{ return m_NumEnemyCalls; }
+	void								AddNumberHowlEnemiesCalls		( void ) 				{ --m_NumEnemyCalls; }
+	
+	byte								GetNumberHowlLifesCalls			( void ) const			{ return m_NumLifeCalls; }
+	void								AddNumberHowlLifesCalls			( void ) 				{ --m_NumLifeCalls; }
+
 	//----Members ---------------------------------------------
 private:
 	int		m_HitsDone;							// Nº de hits que el conejo ha realizado
@@ -150,6 +156,10 @@ private:
 
 	bool								m_CanHowlForLife;
 	bool								m_CanHowlForEnemies;
+
+	byte								m_NumEnemyCalls;									
+	byte								m_NumLifeCalls;
+
 };
 
 

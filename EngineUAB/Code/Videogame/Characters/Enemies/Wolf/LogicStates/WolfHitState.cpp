@@ -96,6 +96,21 @@ void CWolfHitState::OnEnter( CCharacter* _pCharacter )
 		m_pAnimationCallback->Init();
 		m_pAnimationCallback->StartAnimation();
 	
+		// Restamos la vida y comprobamos i podemos ir a otros de howl
+		m_pWolf->RestLife(50); 
+	
+		// Miro si hemos llegado a un nivel de vida para convocar enemigos
+		if ( !m_pWolf->GetCanHowlForEnemies() && m_pWolf->TestIfCanHowlForEnemies() )
+		{
+			m_pWolf->SetCanHowlForEnemies(true);
+		}
+
+		// Miro si hemos llegado a un nivel de vida para revivirnos
+		if ( !m_pWolf->GetCanHowlForLife() && m_pWolf->TestIfCanHowlForLife() )
+		{
+			m_pWolf->SetCanHowlForLife(true);
+		}
+
 		CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Wolf_Pain");
 
 		//// Aprovecho esta variable para calcular el tiempo de duración del desplazamiento

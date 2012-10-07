@@ -91,6 +91,11 @@ void CWolfStillAttackState::OnEnter( CCharacter* _pCharacter )
 	}
 	
 	m_pWolf->SetPlayerHasBeenReached( false );
+	m_SoundPlayedScream = false;
+
+	/// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio. En este caso no queremos
+	// pq hace un desplazamiento que después de este ataque no queremos que haga.
+	m_pWolf->SetToBeTired(false);
 
 #if defined _DEBUG
 	if( CORE->IsDebugMode() )
@@ -111,6 +116,10 @@ void CWolfStillAttackState::OnEnter( CCharacter* _pCharacter )
 
 	//CORE->GetSoundManager()->PlayEvent("Play_EFX_DeerExclaim"); 
 	m_pActionStateCallback->InitAction(0, m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(WOLF_STILL_ATTACK_STATE) );
+
+	// Metemos más velocidad al ataque 
+	m_pWolf->GetSteeringEntity()->SetMaxSpeed(m_pWolf->GetProperties()->GetStillAttackSpeed());
+	
 }
 
 void CWolfStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
@@ -203,7 +212,12 @@ void CWolfStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 			m_pWolf->FaceTo( m_pWolf->GetPlayer()->GetPosition(), _ElapsedTime );
 			m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 
-			//float t = m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_STILL_ATTACK_STATE);
+			// Metemos el sonido. Lo he puesto aquí para retrasarlo un poco ya que antes chillaba			un poco temprano y no quedaba tant bien.
+			if ( !m_SoundPlayedScream && m_pActionStateCallback->IsActionInTime( 0.15f ) )
+			{
+				CORE->GetSoundManager()->PlayEvent(m_pWolf->GetSpeakerName(), "Play_EFX_Wolf_attack"); 
+				m_SoundPlayedScream = true;
+			}
 
 			// Aquí comienza el golpeo, la mano está alzada
 			if ( m_pActionStateCallback->IsActionInTime( 0.33f ) && !m_FirstHitDone )
@@ -213,34 +227,29 @@ void CWolfStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 			}
 
 			// Miramos si llegamos a tocar el player en el momento de impacto
-			if ( m_pActionStateCallback->IsActionInTime( 0.50f ) && !m_SoundPlayed1 )
+			if ( m_pActionStateCallback->IsActionInTime( 0.50f ) && !m_FirstHitReached )
 			{
-				// Sonido de la bofetada acertada
+				// Miramos si alcanzamos al player
 				if ( m_pWolf->IsPlayerReached() )
 				{
-					CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Punch3"); 
 					m_FirstHitReached = true;
+					UpdateImpact(m_pWolf);
+				}
+
+				// Sonido de la bofetada acertada
+				if ( m_FirstHitReached && !m_SoundPlayed1 )
+				{
+					m_SoundPlayed1 = true;
+					CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Punch3"); 
 				}
 				// Sonido de la bofetada fallida
-				else 
+				else if ( !m_FirstHitReached && !m_SoundPlayed1 )
 				{
 					CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Slap1"); 
-					m_FirstHitReached = false;
+					m_SoundPlayed1 = true;
 				}
-				m_SoundPlayed1 = true;
 			}
 
-			//// Miramos si llegamos a tocar el player en el momento de impacto
-			//if ( m_pActionStateCallback->IsActionInTime( 0.54f ) && !m_FirstHitReached )
-			//{<
-			//	// Miramos si alcanzamos al player
-			//	if ( m_pWolf->IsPlayerReached() )
-			//	{
-			//		m_FirstHitReached = true;
-			//		UpdateImpact(m_pWolf);
-			//	}
-			//}
-			
 			// Trato la animación de impacto
 			if ( m_pActionStateCallback->IsActionInTime( 0.54f ) && !m_FirstParticlesHitDone && m_FirstHitReached )
 			{
@@ -308,13 +317,15 @@ void CWolfStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 	}
 }
 
-
 void CWolfStillAttackState::OnExit( CCharacter* _pCharacter )
 {
 	m_pWolf->GetBehaviors()->CollisionAvoidanceOff();
 	m_pWolf->GetBehaviors()->ObstacleWallAvoidanceOff();
 
-	//CORE->GetSoundManager()->PlayEvent("Stop_EFX_DeerExclaim"); 
+	// Restauramos la velocidad original
+	m_pWolf->GetSteeringEntity()->SetMaxSpeed(m_pWolf->GetProperties()->GetMaxSpeed());
+
+	//CORE->GetSoundManager()->PlayEvent("Stop_EFX_Wolf_attack"); 
 }
 
 bool CWolfStillAttackState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
@@ -326,8 +337,8 @@ bool CWolfStillAttackState::OnMessage( CCharacter* _Character, const STelegram& 
 			m_pWolf = dynamic_cast<CWolf*> (_Character);
 		}
 
-		m_pWolf->RestLife(50); 
 		m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetHitState());
+		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetHitAnimationState());
 		return true;
 	}
 

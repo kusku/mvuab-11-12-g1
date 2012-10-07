@@ -94,44 +94,13 @@ void CWolfIdleState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 
-	// Si tenemos máxima vida y acaba de aparecer el lobo llamamos mis amigos.
-	if ( m_pWolf->GetCanHowlForLife() && m_pWolf->TestIfCanHowlForLife() )
-	{
-		m_pWolf->GetLogicFSM()->ChangeState( m_pWolf->GetHowlLifeState());
-		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetHowlLifeAnimationState());
-		m_pWolf->SetCanHowlForLife(false);
-		return;
-	}
-
-	if ( m_pWolf->GetCanHowlForEnemies() && m_pWolf->TestIfCanHowlForEnemies() )
-	{
-		m_pWolf->GetLogicFSM()->ChangeState( m_pWolf->GetHowlEnemiesState());
-		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetHowlEnemiesAnimationState());
-		m_pWolf->SetCanHowlForEnemies(false);
-		return;
-	}
-
-	/*m_pWolf->GetLogicFSM()->ChangeState( m_pWolf->GetHowlLifeState());
-		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetHowlLifeAnimationState());*/
-		
-
-
 	// Si debo perseguir al player
 	if ( m_pWolf->IsPlayerChased() ) 
 	{
-		/*if ( m_CanHowl && IsVidaMultiple(m_pWolf->GetProperties()->GetLife(), 100) )
-		{
-			m_pWolf->GetLogicFSM()->ChangeState( m_pWolf->GetHowlState());
-			m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetHowlAnimationState());
-			m_CanHowl = false;
-		}
-		else 
-		{*/
-			CORE->GetSoundManager()->PlayEvent( "Stop_EFX_Wolf_Idle" );
+		CORE->GetSoundManager()->PlayEvent( "Stop_EFX_Wolf_Idle" );
 		
-			m_pWolf->GetLogicFSM()->ChangeState( m_pWolf->GetPursuitState());
-			m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetRunAnimationState());
-		//}
+		m_pWolf->GetLogicFSM()->ChangeState( m_pWolf->GetPursuitState());
+		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetRunAnimationState());
 		return;
 	}
 
@@ -195,7 +164,6 @@ bool CWolfIdleState::OnMessage( CCharacter* _pCharacter, const STelegram& _Teleg
 			m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 		}
 
-		m_pWolf->RestLife(1000); 
 		m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetHitState());
 		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetHitAnimationState());
 		return true;
