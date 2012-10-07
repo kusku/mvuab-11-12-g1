@@ -85,7 +85,7 @@ void CDebugRender::Render(CRenderManager *_RM, CFontManager *fm, CTimer *timer, 
 
 		if( m_bStateVisible )
 		{
-			dy += fm->DrawDefaultText(screen.x - dx, dy, color, "State: %s", m_StateName.c_str());
+			dy += fm->DrawDefaultText(screen.x - dx, dy, color, "P. State: %s", m_StateName.c_str());
 		}
 
 		if( m_bStateVisible )
@@ -99,7 +99,7 @@ void CDebugRender::Render(CRenderManager *_RM, CFontManager *fm, CTimer *timer, 
 				std::string l_State = (*(&(l_It)._Ptr->_Myval)).second;
 				std::string l_Enemy = "enemy";
 				l_Name = l_Name.erase(0, 5 );
-				dy += fm->DrawDefaultText(screen.x - dx, dy, color, "EState %s: %s", l_Name.c_str(), l_State.c_str());
+				dy += fm->DrawDefaultText(screen.x - dx, dy, color, "En. State %s: %s", l_Name.c_str(), l_State.c_str());
 			}
 		}
 
