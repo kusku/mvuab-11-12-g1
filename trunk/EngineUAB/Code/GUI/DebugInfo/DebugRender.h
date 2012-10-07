@@ -52,6 +52,11 @@ public:
 																			m_EnemyStates[_EnemyName.c_str()] = _State; 
 																		}
 
+	void				DeleteEnemyStateName		( const std::string& _EnemyName) 
+																		{ 
+																			m_EnemyStates.erase(_EnemyName.c_str());
+																		}
+
 	//Toggle Methods----------------------
 	void				ToggleFPS					()					{ m_bFPSVisible = !m_bFPSVisible; AnalizeSizeInfo(); }
 	void				ToggleDeltaTime				()					{ m_bDeltaTimeVisible = !m_bDeltaTimeVisible; AnalizeSizeInfo(); }
