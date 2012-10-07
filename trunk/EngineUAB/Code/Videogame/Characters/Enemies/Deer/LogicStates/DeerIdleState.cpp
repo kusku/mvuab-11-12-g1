@@ -77,8 +77,11 @@ void CDeerIdleState::OnEnter( CCharacter* _pCharacter )
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
-			std::string l_State = DEER_IDLE_STATE;
-			CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pDeer->GetName().c_str(), l_State );
+			if ( m_pDeer->IsEnable() )
+			{
+				std::string l_State = DEER_IDLE_STATE;
+				CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pDeer->GetName().c_str(), l_State );
+			}
 		}
 	#endif
 }
@@ -163,7 +166,6 @@ bool CDeerIdleState::OnMessage( CCharacter* _pCharacter, const STelegram& _Teleg
 			m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 		}
 
-		m_pDeer->RestLife(50); 
 		m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetHitState());
 		m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetHitAnimationState());
 		return true;

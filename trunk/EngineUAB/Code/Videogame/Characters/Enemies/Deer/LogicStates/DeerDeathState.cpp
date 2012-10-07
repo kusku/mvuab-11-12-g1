@@ -103,6 +103,7 @@ void CDeerDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 				{
 					std::string l_State = "Mort enemic";
 					CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pDeer->GetName().c_str(), l_State );
+					CORE->GetDebugGUIManager()->GetDebugRender()->DeleteEnemyStateName(m_pDeer->GetName().c_str());
 				}
 			#endif
 			m_pAnimationCallback->Init();
