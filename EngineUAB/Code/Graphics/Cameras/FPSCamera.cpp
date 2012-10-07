@@ -63,5 +63,7 @@ Vect3f CFPSCamera::GetVecUp ( void ) const
 		cos(pitch), 
 		-sin(yaw) * sin(pitch) );
 
+	vUpVec.y = mathUtils::Abs(vUpVec.y);
+
 	return vUpVec;
 }
