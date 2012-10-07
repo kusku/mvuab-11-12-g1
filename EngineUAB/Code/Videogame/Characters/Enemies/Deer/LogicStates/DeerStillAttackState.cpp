@@ -399,7 +399,6 @@ bool CDeerStillAttackState::OnMessage( CCharacter* _pCharacter, const STelegram&
 			m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 		}
 
-		m_pDeer->RestLife(50); 
 		m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetHitState());
 		m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetHitAnimationState());
 		return true;

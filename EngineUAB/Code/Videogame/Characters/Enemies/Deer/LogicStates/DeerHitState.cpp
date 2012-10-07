@@ -97,6 +97,8 @@ void CDeerHitState::OnEnter( CCharacter* _pCharacter )
 		m_pAnimationCallback->Init();
 		m_pAnimationCallback->StartAnimation();
 	
+		m_pDeer->RestLife(50); 
+	
 		CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Deer_Pain");
 
 		//// Aprovecho esta variable para calcular el tiempo de duración del desplazamiento
