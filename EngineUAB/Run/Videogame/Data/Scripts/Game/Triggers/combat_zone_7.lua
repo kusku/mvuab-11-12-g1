@@ -27,8 +27,11 @@ class 'CCombatZone7Trigger' (CBoxTrigger)
 			else 
 				self.action_time:update(elapsed_time)
 				
-				if ( get_game_process():get_character_manager():get_enemy_by_name(t[self.enemy_appeared]).enable == false ) then
-					get_game_process():get_character_manager():get_enemy_by_name(t[self.enemy_appeared]):appearance()
+				local l_enemy = get_game_process():get_character_manager():get_enemy_by_name(t[self.enemy_appeared])
+				if ( l_enemy.enable == false ) then
+					l_enemy:appearance()
+					l_enemy:face_to( get_game_process():get_character_manager():get_player().properties.position, elapsed_time)
+					l_enemy:move_to2( l_enemy.steering_entity.velocity, elapsed_time)
 					self.enable_action_time:init_action()
 					self.enable_action_time:start_action()
 				end
