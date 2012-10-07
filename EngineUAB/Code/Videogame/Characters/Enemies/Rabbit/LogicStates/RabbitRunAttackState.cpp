@@ -347,8 +347,8 @@ bool CRabbitRunAttackState::OnMessage( CCharacter* _pCharacter, const STelegram&
 			m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 		}
 
-		m_pRabbit->RestLife(1000); 
 		m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetHitState());
+		m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetHitAnimationState());
 		return true;
 	}
 
