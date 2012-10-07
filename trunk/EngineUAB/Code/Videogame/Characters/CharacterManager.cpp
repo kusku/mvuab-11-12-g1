@@ -41,6 +41,7 @@
 #include "characters\states\AnimationsStatesManager.h"
 #include "characters\states\AnimationsStates.h"
 #include "Characters\Player\Player.h"
+#include "Characters\Enemies\Wolf\LogicStates\WolfHowlEnemiesState.h"
 
 #include "StatesMachine\EntityManager.h"
 #include "StatesMachine\MessageDispatcher.h"
@@ -67,13 +68,13 @@
 //				CONSTRUCTORS/DESTRUCTORS
 //--------------------------------------------------
 CCharactersManager::CCharactersManager ( void )
-	: m_PropertiesFileName		( "" )
-	, m_AnimatedFileName		( "" )
-	, m_pPropertiesManager		( NULL )
-	, m_pAnimatedStatesManager	( NULL )
-	, m_pPlayer					( NULL )
-	, m_pTargetEnemy			( NULL )
-	, m_pPreviewTargetEnemy		( NULL )
+	: m_PropertiesFileName				( "" )
+	, m_AnimatedFileName				( "" )
+	, m_pPropertiesManager				( NULL )
+	, m_pAnimatedStatesManager			( NULL )
+	, m_pPlayer							( NULL )
+	, m_pTargetEnemy					( NULL )
+	, m_pPreviewTargetEnemy				( NULL )
 {
 }
 
@@ -134,8 +135,6 @@ void CCharactersManager::CleanReloadScripts( void )
 
 void CCharactersManager::CleanUp( void )
 {
-	CCharactersManager::SetDynamicCharactersVisible(false);
-
 	CHECKED_DELETE ( m_pPropertiesManager );		// Eliminamos las propiedades por defecto
 	CHECKED_DELETE ( m_pAnimatedStatesManager );	// Eliminamos los estados por defecto
 	CHECKED_DELETE ( m_pPlayer );
@@ -267,16 +266,6 @@ void CCharactersManager::Render(CRenderManager *_RM, CFontManager *_FM)
 		_FM->DrawDefaultText(10, 65, colWHITE, "Position: %f, %f, %f", l_Pos.x, l_Pos.y, l_Pos.z);
 	}
 
-	// Dibuixem posicions de cada enemic
-	uint32 l_FileNumber = 85;
-	for ( size_t i = 0; i<	m_ResourcesVector.size(); ++i )
-	{
-		CCharacter* l_Enemy = m_ResourcesVector[i];
-		_FM->DrawDefaultText(10, l_FileNumber, colWHITE, "Position %s: %f, %f, %f", l_Enemy->GetName().c_str(), l_Enemy->GetPosition().x, l_Enemy->GetPosition().y, l_Enemy->GetPosition().z);
-		l_FileNumber += 20;
-	}
-
-	
 	if ( CORE->GetPhysicsManager()->GetDrawFront() )
 		DrawFront();
 
@@ -288,12 +277,32 @@ void CCharactersManager::Render(CRenderManager *_RM, CFontManager *_FM)
 
 	if ( CORE->GetPhysicsManager()->GetDrawRays() )
 		DrawRay();
+
+	if ( CORE->GetPhysicsManager()->GetRenderPositions() )
+		DrawPositions(_FM);
+
 }
 
 //--------------------------------------------------
 //					FUNCTIONS 
 //--------------------------------------------------
 
+
+
+void CCharactersManager::DrawPositions( CFontManager *_FM )
+{
+	// Dibuixem posicions de cada enemic
+	uint32 l_FileNumber = 85;
+	for ( size_t i = 0; i<	m_ResourcesVector.size(); ++i )
+	{
+		CCharacter* l_Enemy = m_ResourcesVector[i];
+		if ( l_Enemy->IsEnable() )
+		{
+			_FM->DrawDefaultText(10, l_FileNumber, colWHITE, "Position %s: %f, %f, %f", l_Enemy->GetName().c_str(), l_Enemy->GetPosition().x, l_Enemy->GetPosition().y, l_Enemy->GetPosition().z);
+			l_FileNumber += 20;
+		}
+	}
+}
 
 void CCharactersManager::DrawNames( CFontManager *_FM )
 {
@@ -622,6 +631,9 @@ bool CCharactersManager::LoadXMLProperties( void )
 				l_IsOk &= LoadEnemiesProperties( l_Characters(i) );
 			}
 		}
+
+		// Creamos enemigos adicionales para los ataques del lobo. Así los creamos en tiempo de carga i no en tiempo de ejecución
+		AssignDynamicEnemiesToHelp();
 	}
 	return l_IsOk;
 }
@@ -791,6 +803,10 @@ bool CCharactersManager::LoadEnemiesProperties( const CXMLTreeNode &_Node )
 					l_IsOk = false;
 				}
 			}
+			else if (  l_Type == "number_begin_dynamic_enemies" )
+			{
+				m_NumberFirstDynamicEnemy = l_EnemiesNode(i).GetIntKeyword("number_begin_dynamic_enemies");
+			}
 		}
 	}
 	else 
@@ -914,6 +930,12 @@ CCharacter * CCharactersManager::CreateEnemy( const Vect3f &_Position )
 		out << "enemy";
 		out << ( CBaseGameEntity::GetNextValidID() );
 	
+	std::string l_Name = out.str();;
+	if ( GetResource(l_Name) != 0 )
+	{
+		return GetResource(l_Name);
+	}
+	
 	int l_Rand = BoostRandomHelper::GetInt(2,3);
 
 	eCharacterTypes l_TipoEnemigo = static_cast<eCharacterTypes> (l_Rand);
@@ -929,15 +951,14 @@ CCharacter * CCharactersManager::CreateEnemy( const Vect3f &_Position )
 		l_EnemyProperties->SetCore( "conejo" );
 	}
 
-	std::string l_Name = out.str();;
 	if ( l_EnemyProperties )
 	{
 		l_EnemyProperties->SetName(l_Name);
 		l_EnemyProperties->SetAnimationInstance(l_Name);
 		l_EnemyProperties->SetPosition(_Position);
-		l_EnemyProperties->SetActive(false);
+		/*l_EnemyProperties->SetActive(false);
 		l_EnemyProperties->SetVisible(true);
-		l_EnemyProperties->SetLocked(false);
+		l_EnemyProperties->SetLocked(false);*/
 		
 		CCharacter* l_Character = GetResource(l_Name);
 		if ( !l_Character )
@@ -1375,16 +1396,26 @@ CCharacter* CCharactersManager::GetPlayerAngleCorrection( float _fDistance, floa
 	return l_pEnemy;
 }
 
-void CCharactersManager::SaveDynamicCharacterCreated( std::string _EnemyName )
+// Esta función era para crear dinámicamente enemigos pero después en el reload peta incomprensiblemente. 
+// Ahora se usa para asignar el nº del enemigo donde empiezan los enemigos llamados por el lobo.
+void CCharactersManager::AssignDynamicEnemiesToHelp(void)
 {
-	m_DynamicCharactersNamesCreated.push_back(_EnemyName);
-}
+	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
+	CWolf * l_Lobo = dynamic_cast<CWolf *> (GetResource("enemy1"));
+	Vect3f l_InitialPosition = l_Lobo->GetPosition();			// Almaceno la posición del wolf que hará de lider a partir de la qual haré la formación
+	
+	// Almaceno el índice a partir del cual tenemos enemigos dinámicos en la lista del manager para el estado howl del lobo
+	CWolfHowlEnemiesState *l_HowlState = l_Lobo->GetHowlEnemiesState();
+	
+	// Asigno a pelo!!!
+	uint32 i = static_cast<uint32> (m_NumberFirstDynamicEnemy);
+	l_HowlState->SetCurrentDynamicEnemyIndex(i);
 
-void CCharactersManager::SetDynamicCharactersVisible( bool _Visible )
-{
-	for ( size_t i = 0; i < m_DynamicCharactersNamesCreated.size(); i++ )
-	{
-		CAnimatedInstanceModel *l_pCurrentAnimatedModel = static_cast<CAnimatedInstanceModel*>(CORE->GetRenderableObjectsLayersManager()->GetResource("solid")->GetInstance(m_DynamicCharactersNamesCreated[i]));		l_pCurrentAnimatedModel->SetVisible(_Visible);
-	}
-	m_DynamicCharactersNamesCreated.clear();
+	//l_InitialPosition.y = 0.f;
+	//uint16 l_TotalEnemies = 20;								// Meto 20 enemigos más. Creo que suficientes
+	//for ( float i = 1; i < l_TotalEnemies; i ++ ) 
+	//{
+	//	CreateEnemy(l_InitialPosition);
+	//	//l_Process->GetCharactersManager()->SaveDynamicCharacterCreated(l_Character->GetName());
+	//}
 }
