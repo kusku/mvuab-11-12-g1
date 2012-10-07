@@ -129,6 +129,8 @@ public:
 	inline void				SetDrawRays						( bool _draw )							{ m_bRays = _draw; }
 	inline bool				GetDrawRays						( void )								{ return m_bRays; }
 	
+	inline void				SetRenderPositions				( bool _draw )							{ m_bRenderDebugPositions = _draw; }
+	inline bool				GetRenderPositions				( void )								{ return m_bRenderDebugPositions; }
 
 private:
 	bool					LoadXML							();
@@ -150,10 +152,11 @@ private:
 	SPhysicsInitParams		m_InitParams;
 	//-------------------------------------------
 
-	bool				m_bfrustum;		// dice si dibuja los frustums de los caracteres
-	bool				m_bFront;			// dice si dibuja los fronts de los caracteres
-	bool				m_bNames;			// dice si dibuja los Nombres de los caracteres
-	bool				m_bRays;			// dice si dibuja los Rayos de los caracteres
+	bool				m_bfrustum;					// dice si dibuja los frustums de los caracteres
+	bool				m_bFront;					// dice si dibuja los fronts de los caracteres
+	bool				m_bNames;					// dice si dibuja los Nombres de los caracteres
+	bool				m_bRays;					// dice si dibuja los Rayos de los caracteres
+	bool				m_bRenderDebugPositions;	// dice si dibuja las posiciones de caracteres activos
 	
 };
 
