@@ -19,15 +19,17 @@ CRenderDebugPhysicsSceneRendererCommand::CRenderDebugPhysicsSceneRendererCommand
 	bool active = Node.GetBoolProperty("active", false);
 	SetActive(active);
 
-	m_DrawFront		= Node.GetBoolProperty("draw_fronts", false);
-	m_Drawfrustum	= Node.GetBoolProperty("draw_frustum", false);
-	m_DrawNames		= Node.GetBoolProperty("draw_names", false);
-	m_DrawRays		= Node.GetBoolProperty("draw_rays", false);
+	m_DrawFront			= Node.GetBoolProperty("draw_fronts",	   false);
+	m_Drawfrustum		= Node.GetBoolProperty("draw_frustum",     false);
+	m_DrawNames			= Node.GetBoolProperty("draw_names",       false);
+	m_DrawRays			= Node.GetBoolProperty("draw_rays",        false);
+	m_RenderPositions	= Node.GetBoolProperty("render_positions", false);
 	
 	CORE->GetPhysicsManager()->SetDrawFront( Node.GetBoolProperty("draw_fronts", false) );
 	CORE->GetPhysicsManager()->SetDrawfrustum( Node.GetBoolProperty("draw_frustum", false) );
 	CORE->GetPhysicsManager()->SetDrawNames( Node.GetBoolProperty("draw_names", false) );
 	CORE->GetPhysicsManager()->SetDrawRays( Node.GetBoolProperty("draw_rays", false) );
+	CORE->GetPhysicsManager()->SetRenderPositions( m_RenderPositions );
 }
 
 void CRenderDebugPhysicsSceneRendererCommand::Execute(CRenderManager &RM)
