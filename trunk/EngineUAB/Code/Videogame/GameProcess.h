@@ -92,6 +92,13 @@ private:
 	bool						m_bIntroFinished;
 	uint8						m_uRailCounter;
 
+	bool						m_bStartRails;
+	bool						m_bStablishFramerateState;
+
+	float						m_fElapseds[30];
+	uint16						m_uElapsedIndex;
+	bool						m_bStartAnalise;
+
 	CHud						*m_pHUD;
 	CCharactersManager			*m_pCharactersManager;
 	CWeaponManager				*m_pWeaponManager;
