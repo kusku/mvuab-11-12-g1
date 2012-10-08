@@ -137,7 +137,6 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 	
 	output.Normal = mul(input.Normal, World);
 
-	[branch]
 	if(FogEnable == true)
 	{
 		output.FogLerp = saturate( (distance(WorldSpacePosition, output.EyePosition) - FogStart) / FogRange);
@@ -263,7 +262,6 @@ PixelShaderOutput PixelShaderFunction(VertexShaderOutput input, uniform bool sha
 	
 	PixEndColor.rgb = (DiffuseColor + AmbientColor).rgb * tileC;
 		
-	[branch]
 	if(FogEnable == true)
 	{
 		PixEndColor.xyz = lerp(PixEndColor.xyz, FogColor, input.FogLerp);

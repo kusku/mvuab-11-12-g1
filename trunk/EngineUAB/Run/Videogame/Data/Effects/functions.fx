@@ -560,7 +560,6 @@ float CalcShadowVarianceCascadeNum(int cascadeNum, sampler shadowMapSampler, int
 	
 	float ShadowContrib = ChebyshevUpperBound(Moments, RescaledDist, VSMMinVariance);
     
-	[branch]
 	if (LBREnable)
 	{
 		ShadowContrib = LBR(ShadowContrib);
@@ -597,7 +596,6 @@ float CalcShadowVarianceCascade(float4 Pos, sampler shadowMapSampler, int light,
 
 float CalcShadowVariance(float4 Pos, sampler shadowMapSampler, int light, float4 vPos)
 {	
-	[branch]
 	if(lightType[light] == DIRECTIONAL)
 	{
 		return CalcShadowVarianceCascade(Pos, shadowMapSampler, light, vPos);
@@ -619,7 +617,6 @@ float CalcShadowVariance(float4 Pos, sampler shadowMapSampler, int light, float4
 	
 		float ShadowContrib = ChebyshevUpperBound(Moments, RescaledDist, VSMMinVariance);
     
-		[branch] 
 		if (LBREnable)
 		{
 			ShadowContrib = LBR(ShadowContrib);
@@ -639,7 +636,6 @@ float2 MotionBlurVelocity(float4 wvpPosition, float4 wPosition, bool skybox = fa
 	float4 prevProjSpace = wvpPosition;
 	float4 currentProjSpace = mul(wPosition, PrevViewProjection);
 
-	[branch]
 	if(skybox == true)
 	{
 		currentProjSpace = currentProjSpace.xyww;

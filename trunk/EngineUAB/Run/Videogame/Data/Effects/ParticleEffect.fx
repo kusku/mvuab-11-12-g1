@@ -144,7 +144,6 @@ VertexShaderOutput ParticleVertexShader(VertexShaderInput input)
 	//Get World Space
 	float4 WorldSpacePosition = mul(output.Position, InvertViewProjection);
 	
-	[flatten]
 	if(FogEnable == true)
 	{
 		output.FogLerp = saturate( (distance(WorldSpacePosition, (CameraPosition - WorldSpacePosition.xyz) ) - FogStart) / FogRange);
@@ -179,7 +178,6 @@ PixelShaderOutput ParticlePixelShader(VertexShaderOutput input)
 
     float4 PixEndColor = tex2D(ParticleTextureSampler, input.TextureCoordinate) * input.Color;
 	
-	[flatten]
 	if(FogEnable == true)
 	{
 		PixEndColor.xyz = lerp(PixEndColor.xyz, FogColor, input.FogLerp);

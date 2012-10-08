@@ -7,11 +7,7 @@
   <static_mesh name="Puente Principal" filename=".\Data\.\General\\Models\Puente Principal.m3d" />
 
   <!--Piedras Rio-->
-  <static_mesh name="PiedraLP021" filename=".\Data\.\General\\Models\PiedraLP021.m3d" />
-  <static_mesh name="PiedraLP015" filename=".\Data\.\General\\Models\PiedraLP015.m3d" />
-  <static_mesh name="PiedraLP017" filename=".\Data\.\General\\Models\PiedraLP017.m3d" />
-  <static_mesh name="PiedraLP022" filename=".\Data\.\General\\Models\PiedraLP022.m3d" />
-  <static_mesh name="PiedraLP023" filename=".\Data\.\General\\Models\PiedraLP023.m3d" />
+  <static_mesh name="PiedraRio_Main" filename=".\Data\.\General\\Models\PiedraRio_Main.m3d" />
   
   <!--Piedras Casa-->
   <static_mesh name="PiedraCasa_Main" filename=".\Data\.\General\\Models\PiedraCasa_Main.m3d" />
