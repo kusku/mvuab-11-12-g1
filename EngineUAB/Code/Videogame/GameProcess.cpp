@@ -57,7 +57,13 @@ CGameProcess::CGameProcess( HWND hWnd )
 	, m_bIntroFinished				(false)
 	, m_uRailCounter				(0)
 	, m_fTimeBetweenClicks			(0.f)
+	, m_uElapsedIndex				(0)
+	, m_bStablishFramerateState		(true)
+	, m_bStartRails					(false)
+	, m_bStartAnalise				(false)
 {
+	for(uint8 i=0; i<30; ++i)
+		m_fElapseds[i] = 0.f;
 }
 
 CGameProcess::~CGameProcess()
@@ -91,8 +97,15 @@ bool CGameProcess::Init()
 	m_uRailCounter = 0;
 	m_bIntroFinished = !INIT_RAILS;
 
-	if( INIT_RAILS )
-		SCRIPT->RunCode("presentation_init()");
+	m_bStablishFramerateState = true;
+	m_bStartRails = false;
+
+	m_bStartAnalise = false;
+	m_uElapsedIndex = 0;
+	for(uint8 i=0; i<30; ++i)
+	{
+		m_fElapseds[i] = 0.f;
+	}
 
 	return true;
 }
@@ -172,6 +185,45 @@ void CGameProcess::Update(float elapsedTime)
 
 	if( CORE->IsGameMode() )
 	{
+		// Controla la estabilización del frame rate al inicio
+		if(m_bStablishFramerateState)
+		{
+			m_fElapseds[ m_uElapsedIndex ] = elapsedTime;
+
+			if( m_uElapsedIndex >= 30 )
+			{
+				m_uElapsedIndex = 0;
+				m_bStartAnalise = true;
+			}
+			else
+				++m_uElapsedIndex;
+
+			if( m_bStartAnalise )
+			{
+				float average = 0.f;
+				for(uint8 i=0; i<30; ++i)
+				{
+					average += m_fElapseds[i];
+				}
+				average /= 30.f;
+
+				if( mathUtils::Abs(average - elapsedTime) < 0.1f)
+				{
+					m_bStablishFramerateState = false;
+					m_bStartRails = true;
+				}
+			}
+
+			return;
+		}
+
+		// Lanza los raíles
+		if( INIT_RAILS && m_bStartRails )
+		{
+			SCRIPT->RunCode("presentation_init()");
+			m_bStartRails = false;
+		}
+
 #if defined (_DEBUG)
 		//Vuelve a cargar los datos si hacemos el reload de LUA
 		if( CORE->GetActionToInput()->DoAction("ReloadGamePlayScripts") )
@@ -259,7 +311,7 @@ void CGameProcess::Render(CRenderManager &RM)
 void CGameProcess::DebugRender( CRenderManager &RM )
 {
 #if defined (_DEBUG)
-	//m_pCharactersManager->Render(&RM, CORE->GetFontManager());
+	m_pCharactersManager->Render(&RM, CORE->GetFontManager());
 	//m_pThPSCamera->Render(&RM);
 	
 	Mat44f mat;

@@ -46,7 +46,7 @@ function presentation_control()
 		elseif( l_rail == 2 ) then
 			l_rail_manager:set_rail('rail_03')
 			l_rail_manager:set_object_to_rail( l_process:get_rail_object() )
-			l_rail_manager:get_current_rail().velocity = 5.0
+			l_rail_manager:get_current_rail().velocity = 4.0
 			l_rail_manager:start()
 		elseif( l_rail == 3 ) then
 			l_rail_manager:set_rail('rail_04')
@@ -56,7 +56,7 @@ function presentation_control()
 		elseif( l_rail == 4 ) then
 			l_rail_manager:set_rail('rail_05')
 			l_rail_manager:set_object_to_rail( l_process:get_rail_object() )
-			l_rail_manager:get_current_rail().velocity = 3.0
+			l_rail_manager:get_current_rail().velocity = 3.5
 			l_rail_manager:start()
 		else
 			l_process:set_intro_finish(true)	
