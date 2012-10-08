@@ -897,7 +897,9 @@
     <None Include="..\..\Run\Videogame\Data\XML\static_meshes.xml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="..\..\Run\Videogame\Data\XML\triggers.xml" />
+    <None Include="..\..\Run\Videogame\Data\XML\triggers.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="..\..\Run\Videogame\Data\XML\waypoints.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

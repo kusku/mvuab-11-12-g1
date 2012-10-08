@@ -20,7 +20,7 @@
   <pool_renderable_object_technique name="FowardShading">
     <default_technique vertex_type="415" technique="Cal3DTechniqueNormalShadow" />
     <default_technique vertex_type="19" technique="ForwardLightingBasicShadow" />
-    <default_technique vertex_type="31" technique="ForwardLightingWithNormal" />
+    <default_technique vertex_type="31" technique="ForwardLightingWithNormalShadow" />
     <default_technique vertex_type="51" technique="ForwardLightingBasicShadow" />
     <default_technique vertex_type="543" technique="ForwardLightingWithNormalShadow" />
     <default_technique vertex_type="1055" technique="ForwardLightingWithNormalShadow" />
