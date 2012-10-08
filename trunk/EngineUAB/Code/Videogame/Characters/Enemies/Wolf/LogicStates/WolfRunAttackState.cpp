@@ -24,7 +24,9 @@
 
 #include "Characters\Enemies\Wolf\AnimationStates\WolfHitAnimationState.h"
 #include "Characters\Enemies\Wolf\AnimationStates\WolfIdleAnimationState.h"
-#include "Characters\Enemies\Wolf\AnimationStates\WolfRunAttackAnimationState.h"
+#include "Characters\Enemies\Wolf\AnimationStates\WolfRunRunAttackAnimationState.h"
+#include "Characters\Enemies\Wolf\AnimationStates\WolfPreparedRunAttackAnimationState.h"
+#include "Characters\Enemies\Wolf\AnimationStates\WolfImpactRunAttackAnimationState.h"
 #include "Characters\Enemies\Wolf\AnimationStates\WolfRunAnimationState.h"
 
 #include "Steering Behaviors\SteeringEntity.h"
@@ -53,7 +55,7 @@ CWolfRunAttackState::CWolfRunAttackState( CCharacter* _pCharacter )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),WOLF_RUN_ATTACK_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),WOLF_ONLY_IMPACT_RUN_ATTACK_STATE);
 }
 
 CWolfRunAttackState::CWolfRunAttackState( CCharacter* _pCharacter, const std::string &_Name )
@@ -62,7 +64,7 @@ CWolfRunAttackState::CWolfRunAttackState( CCharacter* _pCharacter, const std::st
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),WOLF_RUN_ATTACK_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),WOLF_ONLY_IMPACT_RUN_ATTACK_STATE);
 }
 
 
@@ -95,7 +97,7 @@ void CWolfRunAttackState::OnEnter( CCharacter* _pCharacter )
 	m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
 
 	// Almacenamos la distancia actual para saber si luego nos hemos pasado
-	m_PlayerInitialPosition		= m_pWolf->GetPlayer()->GetSteeringEntity()->GetPosition();
+	/*m_PlayerInitialPosition		= m_pWolf->GetPlayer()->GetSteeringEntity()->GetPosition();
 	Vect3f l_Position			= m_pWolf->GetPosition();
 	Vect3f l_RelativePosition	= m_PlayerInitialPosition - m_pWolf->GetPosition();
 	Vect3f l_RelativePositionN	= l_RelativePosition.GetNormalized();
@@ -107,7 +109,7 @@ void CWolfRunAttackState::OnEnter( CCharacter* _pCharacter )
 	else
 	{
 		m_FinalAttackPosition = l_Position + (l_RelativePositionN * ( m_InitialDistance + 0.f) );
-	}
+	}*/
 
 	// Activo el seek a saco a una posició en el momento de inicio de ataque
 	m_pWolf->GetBehaviors()->SeekOff();
@@ -117,11 +119,10 @@ void CWolfRunAttackState::OnEnter( CCharacter* _pCharacter )
 	m_pWolf->GetBehaviors()->CollisionAvoidanceOn();
 	m_pWolf->GetBehaviors()->ObstacleWallAvoidanceOn();
 
-	m_AnimationDuration = m_pWolf->GetAnimatedModel()->GetCurrentAnimationDuration(WOLF_RUN_ATTACK_STATE);
+	//m_AnimationDuration = m_pWolf->GetAnimatedModel()->GetCurrentAnimationDuration(WOLF_RUN_ATTACK_STATE);
 
 	m_pAnimationCallback->Init();
-	CORE->GetSoundManager()->PlayEvent("Play_EFX_Wolf_Run_Attack"); 
-
+	
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
@@ -154,25 +155,11 @@ void CWolfRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 			UpdateImpact(m_pWolf);
 			GenerateImpact(m_pWolf);
 		}
-			
-		// Compruebo si la animación ha finalizado. Trato también el caso que me pase de la posición. Podria ser que la animación tardara demasiado y esto enviaria el Wolf demasiado lejos
-		//float l_CurrentDistance = m_pWolf->GetSteeringEntity()->GetPosition().Distance(m_FinalAttackPosition);
-		//float l_PreviousDistance = m_pWolf->GetSteeringEntity()->GetPreviousPosition().Distance(m_FinalAttackPosition);
-		//// Compruebo si sigo avanzando, aun no he llegado al punto final
-		//if ( (!m_PlayerPositionReached)  )
-		//{
-		//	if ( l_PreviousDistance < l_CurrentDistance )
-		//	{
-		//		if ( l_CurrentDistance >= 25.f )
-		//			m_PlayerPositionReached = true;
-		//	}
-		//}
 
-		//if ( m_pAnimationCallback->IsAnimationFinished() || ( m_PlayerPositionReached ) )
 		if ( m_pAnimationCallback->IsAnimationFinished() )
 		{
 			// Si encontré el player por delante finalizo golpeando
-			if ( m_pWolf->GetPlayerHasBeenReached() )
+ssssssssssa			if ( m_pWolf->GetPlayerHasBeenReached() )
 			{
 				// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio. En este caso no queremos
 				// pq hace un desplazamiento que después de este ataque no queremos que haga.
@@ -181,7 +168,6 @@ void CWolfRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 				if ( DISPATCH != NULL ) 
 				{
 					DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pWolf->GetID(), m_pWolf->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
-					//m_pAnimationCallback->Init();
 					#if defined _DEBUG
 						if( CORE->IsDebugMode() )
 						{
@@ -194,6 +180,7 @@ void CWolfRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 					LOGGER->AddNewLog(ELL_ERROR, "CWolfRunAttackState:Execute->El Dispatch es NULL" );
 				}
 			}
+			// Sinó impacté no hago nada
 			else
 			{
 				#if defined _DEBUG
@@ -217,65 +204,18 @@ void CWolfRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 				
 			return;
 		}
-		// Si no ha finalizado la animación...
+		// Si no ha finalizado la animación. Aquí entra cuando ya pegamos...
 		else
 		{
-			// Si encuentro el player por delante me lo llevo
+			#if defined _DEBUG
+				if( CORE->IsDebugMode() )
+				{
+					LOGGER->AddNewLog(ELL_INFORMATION, "CWolfRunAttackState:Execute->Animation Not finished yet" );
+				}
+			#endif
+			
+			// Comprobamos que le pegamos
 			if ( m_pWolf->GetPlayerHasBeenReached() )
-			{
-				if ( !m_playerPushed )
-				{
-					Vect3f l_Vel = m_pWolf->GetSteeringEntity()->GetVelocity();
-					l_Vel.Normalize();
-					bool l_isNan  = boost::math::isnan( l_Vel.x );
-					if ( l_isNan )
-					{
-						l_Vel = m_pWolf->GetSteeringEntity()->GetHeading();
-						l_isNan  = boost::math::isnan( l_Vel.x );
-						if ( l_isNan )
-						{
-							l_Vel = Vect3f(0,0,0);
-							m_AditionalInfo.Speed = m_pWolf->GetProperties()->GetRunAttackSpeed();
-						}
-						else
-						{	
-							l_Vel *= m_pWolf->GetProperties()->GetMaxSpeed();
-						}
-					}
-					else
-					{
-						l_Vel *= m_pWolf->GetProperties()->GetMaxSpeed();
-					}
-					m_AditionalInfo.Direccion	= l_Vel;
-					m_AditionalInfo.ElapsedTime = _ElapsedTime;
-					GenerateImpact(m_pWolf);
-				}
-					
-				if ( DISPATCH != NULL ) 
-				{
-					DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pWolf->GetID(), m_pWolf->GetPlayer()->GetID(), Msg_Push, &m_AditionalInfo );
-					m_playerPushed = true;
-				}
-				else
-				{
-					LOGGER->AddNewLog(ELL_ERROR, "CWolfRunAttackState:Execute->El Dispatch es NULL" );
-				}
-			}
-			else
-			{
-				#if defined _DEBUG
-					if( CORE->IsDebugMode() )
-					{
-						LOGGER->AddNewLog(ELL_INFORMATION, "CWolfRunAttackState:Execute->Animation Not finished yet" );
-					}
-				#endif
-			}
-		
-			// Comprobamos que no nos hemos pasado de la posición final
-			Vect2f l_EnemyPosicion  = Vect2f ( m_pWolf->GetPosition().x, m_pWolf->GetPosition().z);
-			Vect2f l_FinalPosicion	= Vect2f ( m_FinalAttackPosition.x, m_FinalAttackPosition.z);
-			float l_DistanceToObjective = l_EnemyPosicion.Distance( l_FinalPosicion );
-			if ( l_DistanceToObjective <= 1.5f )
 			{
 				m_pWolf->GetBehaviors()->SeekOff();
 				m_PlayerInitialPosition = Vect3f(0,0,0);
@@ -284,40 +224,56 @@ void CWolfRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 			else
 			{
 				m_pWolf->GetBehaviors()->SeekOn();
-				m_pWolf->GetBehaviors()->GetSeek()->SetTarget(m_FinalAttackPosition);
+				m_pWolf->GetBehaviors()->GetSeek()->SetTarget(m_pWolf->GetPlayer()->GetPosition());
 			}
 		
-			// No Rotamos al objetivo y pero si movemos. Esto dará sensación de golpear allí donde estava el target cuando inicie el ataque
-			//_CCharacter:face_to( self.target_position, _elapsed_time )
-			m_pWolf->FaceTo( m_FinalAttackPosition, _ElapsedTime );
+			m_pWolf->FaceTo( m_pWolf->GetPlayer()->GetPosition(), _ElapsedTime );
 			m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 		}
 	}
 	// Si l'animación no se ha iniciado
 	else
 	{
-		m_pWolf->GetBehaviors()->SeekOn	();
-		m_pWolf->GetBehaviors()->GetSeek()->SetTarget(m_PlayerInitialPosition);
+		// Analizo la distancia. Depende de ella que metamos una animación u otra
+		float l_Distance = m_pWolf->GetDistanceToPlayer();
+
+		// En el OnEnter hemos puesto la velocidad máxima
+		m_pWolf->GetBehaviors()->SeekOn();
+		m_pWolf->GetBehaviors()->GetSeek()->SetTarget(m_pWolf->GetPlayer()->GetPosition());
+
+		// Estamos lejos y corremos
+		if ( l_Distance > m_pWolf->GetProperties()->GetAproximationDistance() ) 
+		{
+			m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetRunRunAttackAnimationState());
+			//CORE->GetSoundManager()->PlayEvent("Play_EFX_Wolf_Run_Attack"); 
+		}
+		else if ( ( l_Distance <= m_pWolf->GetProperties()->GetAproximationDistance() ) && ( l_Distance >  m_pWolf->GetProperties()->GetImpactDistance() ) )
+		{
+			m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetPreparedRunAttackAnimationState());
+			//CORE->GetSoundManager()->PlayEvent("Play_EFX_Wolf_Run_Attack"); 
+		}
+		else if ( l_Distance <= ( m_pWolf->GetProperties()->GetImpactDistance() ) )
+		{
+			m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetImpactRunAttackAnimationState());
+			m_pAnimationCallback->StartAnimation();
+			//CORE->GetSoundManager()->PlayEvent("Play_EFX_Wolf_Run_Attack"); 
+
+			if ( m_pWolf->GetPlayerHasBeenReached() == false && m_pWolf->IsPlayerReached() )
+			{
+				m_pWolf->SetPlayerHasBeenReached(true);
+				CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Deer_Run_Attack_Charged"); 
+			}
+		}	
+
+		m_pWolf->FaceTo( m_pWolf->GetPlayer()->GetPosition(), _ElapsedTime );
+		m_pWolf->MoveTo2(  m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+
 		#if defined _DEBUG
 			if( CORE->IsDebugMode() )
 			{
-				LOGGER->AddNewLog(ELL_INFORMATION, "CWolfRunAttackState:Execute->Correm al objectiu" );
+				LOGGER->AddNewLog(ELL_INFORMATION, "CWolfRunAttackState:Execute->Correm al objectiu i embestim" );
 			}
 		#endif
-			
-		// Ahora azitamos y empezamos la animación de ataque
-		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetRunAttackAnimationState());
-		m_pAnimationCallback->StartAnimation();
-
-		m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-		m_pWolf->FaceTo( m_FinalAttackPosition, _ElapsedTime );
-		m_pWolf->MoveTo2(  m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
-
-		if ( m_pWolf->GetPlayerHasBeenReached() == false && m_pWolf->IsPlayerReached() )
-		{
-			m_pWolf->SetPlayerHasBeenReached(true);
-			CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Deer_Run_Attack_Charged"); 
-		}
 	}
 }
 
