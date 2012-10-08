@@ -20,7 +20,7 @@
 		<attack_distance>3</attack_distance>
 		<attack_angle>50</attack_angle>
 		<detection_distance>10</detection_distance>
-		<detection_angle>75</detection_angle>
+		<detection_angle>50</detection_angle>
 		<wait_to_cure>10</wait_to_cure>
 		<time_to_cure>0</time_to_cure>
 		<cure_velocity>1</cure_velocity>
