@@ -25,7 +25,7 @@
 	<trigger name="zona_combate_4" type="box" position="52 -38 20" size="2 5 15" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CCombatZone4Trigger" />
 	<trigger name="zona_combate_5" type="box" position="-57 -32 115" size="4 10 15" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CCombatZone5Trigger" />
 	<!--<trigger name="zona_combate_6" type="box" position="-52 -19 -38" size="35 1 10" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CCombatZone6Trigger" />-->
-	<trigger name="zona_combate_7" type="box" position="-46 -14 -80" size="35 2 10" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CCombatZone7Trigger" />
+	<trigger name="zona_combate_7" type="box" position="-55 -14 -80" size="25 2 5" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CCombatZone7Trigger" />
 
   <!--<trigger name="inicio" type="sphere" position="-14.79 -29.66 -113.58" radius="5.0" color="1.0 0.0 1.0 1.0" scriptclass="CSphereTriggerTest" />-->
 </triggers>

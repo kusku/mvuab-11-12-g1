@@ -243,12 +243,6 @@
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfJumpAnimationState.cpp">
       <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
     </ClCompile>
-    <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfRunAnimationState.cpp">
-      <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfRunAttackAnimationState.cpp">
-      <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
-    </ClCompile>
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfStillAttackAnimationState.cpp">
       <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
     </ClCompile>
@@ -453,6 +447,18 @@
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfHowlLifeAnimationState.cpp">
       <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
     </ClCompile>
+    <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfRunRunAttackAnimationState.cpp">
+      <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfPreparedRunAttackAnimationState.cpp">
+      <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfImpactRunAttackAnimationState.cpp">
+      <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfRunAnimationState.cpp">
+      <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUIProcess.h" />
@@ -597,12 +603,6 @@
       <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
     </ClInclude>
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfJumpAnimationState.h">
-      <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfRunAnimationState.h">
-      <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfRunAttackAnimationState.h">
       <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
     </ClInclude>
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfStillAttackAnimationState.h">
@@ -807,6 +807,18 @@
       <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
     </ClInclude>
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfHowlLifeAnimationState.h">
+      <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfRunRunAttackAnimationState.h">
+      <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfPreparedRunAttackAnimationState.h">
+      <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfImpactRunAttackAnimationState.h">
+      <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfRunAnimationState.h">
       <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
     </ClInclude>
   </ItemGroup>

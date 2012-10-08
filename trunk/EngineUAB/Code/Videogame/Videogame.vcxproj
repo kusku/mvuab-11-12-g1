@@ -147,8 +147,10 @@
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfHowlLifeAnimationState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfIdleAnimationState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfJumpAnimationState.cpp" />
+    <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfImpactRunAttackAnimationState.cpp" />
+    <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfPreparedRunAttackAnimationState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfRunAnimationState.cpp" />
-    <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfRunAttackAnimationState.cpp" />
+    <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfRunRunAttackAnimationState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfStillAttackAnimationState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfStillAttackComboAnimationState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfWalkAnimationState.cpp" />
@@ -260,8 +262,10 @@
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfHowlLifeAnimationState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfIdleAnimationState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfJumpAnimationState.h" />
+    <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfImpactRunAttackAnimationState.h" />
+    <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfPreparedRunAttackAnimationState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfRunAnimationState.h" />
-    <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfRunAttackAnimationState.h" />
+    <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfRunRunAttackAnimationState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfStillAttackAnimationState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfStillAttackComboAnimationState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfWalkAnimationState.h" />
