@@ -41,7 +41,6 @@
   <static_mesh name="Arbol1_Main" filename=".\Data\.\General\\Models\Arbol1_Main.m3d" />
   <static_mesh name="Arbol2_Main" filename=".\Data\.\General\\Models\Arbol2_Main.m3d" />
   <static_mesh name="ArbolSeco1_Main" filename=".\Data\.\General\\Models\ArbolSeco1_Main.m3d" />
-  <static_mesh name="ArbolSeco2_Main" filename=".\Data\.\General\\Models\ArbolSeco2_Main.m3d" />
   
   <!--Vallas-->
   <static_mesh name="Fence2" filename=".\Data\.\General\\Models\Fence2.m3d" />

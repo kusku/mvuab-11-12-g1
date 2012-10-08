@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <Config debug="true">
-  <WindowResolution width="1024" height="768" />
-	<ScreenResolution width="1024" height="576" />
+  <!--<WindowResolution width="1024" height="768" />
+	<ScreenResolution width="1024" height="576" />-->
+  <WindowResolution width="1280" height="720" />
+	<ScreenResolution width="1280" height="720" />
 	<WindowsPosition position="0 0" />
 	<RenderMode fullscreenMode="false" />
 	<RenderColor colorDebug="black" colorRelease="black" />

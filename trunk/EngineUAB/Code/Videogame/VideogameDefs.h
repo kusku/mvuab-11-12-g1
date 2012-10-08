@@ -3,7 +3,7 @@
 #ifndef _VIDEOGAME_DEFS_H_
 #define _VIDEOGAME_DEFS_H_
 
-#define INIT_GUI			false
+#define INIT_GUI			true
 #define INIT_RAILS			false
 
 #define WM_GAME_PROCESS		( WM_USER + 1 )
