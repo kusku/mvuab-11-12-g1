@@ -18,6 +18,7 @@ function init_game_data()
 	core:load_triggers()
 	core:reload_steering_behaviors_settings()
 	--_soundM:play_event('Play_MUS_Level_1')
+	_soundM:play_event('Waterfall', 'Play_EFX_Environment')
 end
 
 function presentation_init()
