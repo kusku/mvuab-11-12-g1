@@ -70,11 +70,11 @@
 		<follow_path_distance>100</follow_path_distance>
 		<impact_distance>3.3</impact_distance>
 		<!-- Está encima el player -->
-		<attack_distance>9</attack_distance>
+		<attack_distance>12</attack_distance>
 		<!-- Está en distancia de poder hacer algunos de los ataques o defensa -->
-		<prepared_to_attack_distance>9.0</prepared_to_attack_distance>
+		<prepared_to_attack_distance>16.0</prepared_to_attack_distance>
 		<!-- Está lejos de poder atacar pero cerca de poder hacerlo -->
-		<aproximation_distance>19</aproximation_distance>
+		<aproximation_distance>8</aproximation_distance>
 		<!-- Está lejos y debe acercarse -->
 		<tired_distance>10</tired_distance>
 		<!-- Creo que ahora no la uso... -->
