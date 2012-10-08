@@ -156,7 +156,7 @@ void CDeerPursuitState::OnExit( CCharacter* _pCharacter )
 	m_pDeer->GetBehaviors()->CohesionOff();
 	//m_pDeer->GetBehaviors()->AlignmentOff();
 
-	CORE->GetSoundManager()->PlayEvent("Stop_EFX_WolfRun");
+	CORE->GetSoundManager()->PlayEvent("Stop_EFX_Deer_Run");
 
 	StopParticles(_pCharacter);
 }
