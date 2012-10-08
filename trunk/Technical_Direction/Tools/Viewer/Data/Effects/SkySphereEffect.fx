@@ -1,7 +1,8 @@
 
 ////////////////
 
-uniform extern float4x4		WorldViewProjection		: WORLDVIEWPROJECTION;
+#include "functions.fx"
+
 uniform extern TextureCube	SkyTexture				: SKY_TEXTURECUBE;
 uniform extern Texture2D	SkyCloudTexture			: SKY_CLOUD_TEXTURE;
 uniform extern float		CloudTimer				: CLOUD_TIMER;
@@ -38,8 +39,9 @@ struct VertexShaderInput
 
 struct VertexShaderOutput
 {
-    float4 Position : POSITION0;
-	float3 TexCoord : TEXCOORD0;
+    float4	Position	: POSITION0;
+	float3	TexCoord	: TEXCOORD0;
+	float2	VelocityMB	: NORMAL0;
 };
 
 struct PixelShaderDeferredOutput
@@ -47,6 +49,13 @@ struct PixelShaderDeferredOutput
 	float4 DiffuseRT	: COLOR0;
 	float4 NormalRT		: COLOR1;
 	float4 DepthRT		: COLOR2;
+};
+
+struct PixelShaderOutput
+{
+	float4 DiffuseRT	: COLOR0;
+	float4 DepthRT		: COLOR1;
+	float4 MotionBlurRT	: COLOR2;
 };
 
 ///////////////
@@ -102,16 +111,46 @@ float2 SwirlVert(float2 coord, bool up)
 VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 {
 	VertexShaderOutput output = (VertexShaderOutput) 0;
+	
+	float4 WorldSpacePosition = mul(float4(input.Position, 1.0f), World);	
 
 	output.Position = mul(float4(input.Position, 1.0f), WorldViewProjection).xyzw;
 	output.TexCoord = input.Position;
 
+	///////////////
+	//Motion Blur
+	///////////////
+	output.VelocityMB = MotionBlurVelocity(output.Position, WorldSpacePosition, true);
+
+	//End Motion Blur
+	///////////////
+
 	return output;
 }
 
-float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
+PixelShaderOutput PixelShaderFunction(VertexShaderOutput input)
 {
-	return texCUBE(SkyTextureSampler, input.TexCoord);
+	PixelShaderOutput output = (PixelShaderOutput)0;
+	
+	output.DiffuseRT = texCUBE(SkyTextureSampler, input.TexCoord);;
+	
+	/////////////
+	//Depth Map
+	////////////
+	output.DepthRT.r = 0.0f;
+	
+	//End Depth Map
+	////////////
+
+	///////////////
+	//Motion Blur
+	///////////////
+	output.MotionBlurRT = float4(input.VelocityMB, 1.0f, 1.0f);
+
+	//End Motion Blur
+	///////////////
+
+	return output;
 }
 
 float4 PixelShaderFunctionClouds(VertexShaderOutput input) : COLOR0

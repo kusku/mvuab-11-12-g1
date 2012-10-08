@@ -1,12 +1,20 @@
 <animated_model name="lobo">
 	<skeleton filename="LOB_Skeleton.CSF"/>
 	<mesh filename="LOB_Mesh.CMF"/>
-	<animation name="idle" filename="LOB_Idle.CAF"/>
-	<animation name="walk" filename="LOB_Walk.CAF"/>
-	<animation name="run" filename="LOB_Run.CAF"/>
-	<animation name="attack_run" filename="LOB_Attack_Run.CAF"/>
-	<animation name="attack_still" filename="LOB_Attack_Still.CAF"/>
-	<animation name="deffense" filename="LOB_Defense.CAF"/>
-	<animation name="hit" filename="LOB_Hit.CAF"/>
+	<animation name="lobo_idle" filename="LOB_Idle.CAF"/>
+	<animation name="lobo_walk" filename="LOB_Walk.CAF"/>
+	<animation name="lobo_run" filename="LOB_Run.CAF"/>
+	<animation name="lobo_attack_run_all" filename="LOB_Attack_Run.CAF"/>
+	<animation name="lobo_attack_run_1" filename="LOB_Attack_Run_1.CAF"/>
+	<animation name="lobo_attack_run_2" filename="LOB_Attack_Run_2.CAF"/>
+	<animation name="lobo_attack_run_3" filename="LOB_Attack_Run_3.CAF"/>
+	<animation name="lobo_attack_run_large" filename="LOB_Attack_Run_Larga.CAF"/>
+	<animation name="lobo_attack_still" filename="LOB_Attack_Still_fast.CAF"/>
+	<animation name="lobo_attack_still_combo" filename="LOB_Attack_Still_Combo.CAF"/>
+	<animation name="lobo_defense" filename="LOB_Defense_idle.CAF"/>
+	<animation name="lobo_hit" filename="LOB_Hit.CAF"/>
+	<animation name="lobo_death" filename="LOB_Die.CAF"/>
+	<animation name="lobo_howl_life" filename="LOB_Howl_life.CAF"/>
+	<animation name="lobo_howl_enemies" filename="LOB_Howl_enemies.CAF"/>
 	<texture filename="LOB_Textura_v3.dds"/>
 </animated_model>

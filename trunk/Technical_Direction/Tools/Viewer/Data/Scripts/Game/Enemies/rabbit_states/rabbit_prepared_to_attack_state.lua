@@ -42,7 +42,7 @@ class 'CRabbitPreparedToAttackState' (CState)
 				-- Este enemigo puede atacar. Ahora miro si está dentro del angulo de vision pero no es el elegido para atacar. Por tanto, vamos hacia el player para tener opciones de ser
 				-- el elegido para atacar
 				local l_angle = 15			--math.pi/15		-- 12 graus de fustrum
-				go_in_to_fustrum(_CCharacter, l_angle, _elapsed_time)
+				go_in_to_frustum(_CCharacter, l_angle, _elapsed_time)
 				_CCharacter.graphic_fsm:change_state(_CCharacter.animation_walk_state)
 				
 				

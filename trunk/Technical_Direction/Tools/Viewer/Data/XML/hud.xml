@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<HUD>
+	<PlayerLifeBar threshold_to_dying_effect="0.3" >
+		<Background position="7 11" size="195 27" texture="./Data/General/Textures/HUD/background.png" active="true" />
+		<Bar position="7 11" size="195 27" texture="./Data/General/Textures/HUD/bar.png" active="true" />
+		<Mask position="7 10" size="204 35" texture="./Data/General/Textures/HUD/mask.png" active="true" />
+	</PlayerLifeBar>
+	
+	<WolfLifeBar>
+		<Background position="65 11" size="195 27" texture="./Data/General/Textures/HUD/background.png" active="true" />
+		<Bar position="65 11" size="195 27" texture="./Data/General/Textures/HUD/bar.png" active="true" />
+		<Mask position="65 10" size="204 35" texture="./Data/General/Textures/HUD/mask.png" active="true" />
+	</WolfLifeBar>
+	
+	<Texture name="house_info" file="./Data/General/Textures/HUD/enter_house.png" position="37 20" size="183 53" active="false" />
+	<Texture name="kill_wolf_info" file="./Data/General/Textures/HUD/kill_wolf.png" position="37 20" size="183 53" active="false" />
+</HUD>

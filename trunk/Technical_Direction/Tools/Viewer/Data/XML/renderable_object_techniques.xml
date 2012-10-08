@@ -20,7 +20,7 @@
   <pool_renderable_object_technique name="FowardShading">
     <default_technique vertex_type="415" technique="Cal3DTechniqueNormalShadow" />
     <default_technique vertex_type="19" technique="ForwardLightingBasicShadow" />
-    <default_technique vertex_type="31" technique="ForwardLightingWithNormal" />
+    <default_technique vertex_type="31" technique="ForwardLightingWithNormalShadow" />
     <default_technique vertex_type="51" technique="ForwardLightingBasicShadow" />
     <default_technique vertex_type="543" technique="ForwardLightingWithNormalShadow" />
     <default_technique vertex_type="1055" technique="ForwardLightingWithNormalShadow" />
@@ -133,6 +133,10 @@
 
   <pool_renderable_object_technique name="motion_blur">
     <default_technique vertex_type="81" technique="MotionBlurTechnique" />
+  </pool_renderable_object_technique>
+
+  <pool_renderable_object_technique name="dying_effect">
+    <default_technique vertex_type="81" technique="DyingEffectTechnique" />
   </pool_renderable_object_technique>
 
 </renderable_object_techniques>

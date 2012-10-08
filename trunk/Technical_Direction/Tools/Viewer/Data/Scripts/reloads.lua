@@ -36,10 +36,22 @@ function reload_pools()
 	core:reload_pools()
 end
 
+function reload_rails()
+	core:reload_rails()
+end
+
 function reload_scripts()
 	core:reload_scripts()
 end
 
 function reload_steering_properties()
 	core:reload_steering_behaviors_settings()
+end
+
+function reload_particles()
+	core:reload_particles()
+end
+
+function reload_physxobjs()
+	core:reload_physxobjs()
 end

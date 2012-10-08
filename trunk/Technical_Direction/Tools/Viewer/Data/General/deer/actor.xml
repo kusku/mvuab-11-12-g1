@@ -1,0 +1,14 @@
+<animated_model name="deer">
+	<skeleton filename="DEER_Skeleton.CSF"/>
+	<mesh filename="DEER_Mesh.CMF"/>
+	<animation name="ciervo_idle" filename="DEER_Idle.CAF"/>
+	<animation name="ciervo_walk" filename="DEER_Walk.CAF"/>
+	<animation name="ciervo_run" filename="DEER_Run.CAF"/>
+	<animation name="ciervo_attack_1" filename="DEER_Attack_Punch.CAF"/>
+	<animation name="ciervo_attack_2" filename="DEER_Attack_Run.CAF"/>
+	<animation name="ciervo_defense" filename="DEER_Defense.CAF"/>
+	<animation name="ciervo_hit" filename="DEER_Hit.CAF"/>
+	<animation name="ciervo_death" filename="DEER_Die.CAF"/>
+	<texture filename="Bad_Deer_Texture_2.dds"/>
+	<texture filename="Bad_Deer_Texture_2_NRM.dds"/>
+</animated_model>

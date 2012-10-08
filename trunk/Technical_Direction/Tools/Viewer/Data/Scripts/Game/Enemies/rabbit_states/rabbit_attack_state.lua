@@ -46,9 +46,9 @@ class 'CRabbitAttackState' (CState)
 				-- elseif ( _CCharacter.active_action_state == "jump" ) then
 					-- _CCharacter.logic_fsm:change_state(_CCharacter.jump_state)
 				
-				elseif ( _CCharacter.active_action_state == "go_in_to_fustrum" ) then
+				elseif ( _CCharacter.active_action_state == "go_in_to_frustum" ) then
 					local l_angle = 22		-- 22,5 graus de fustrum
-					go_in_to_fustrum(_CCharacter, l_angle, _elapsed_time)
+					go_in_to_frustum(_CCharacter, l_angle, _elapsed_time)
 				
 				end 
 			
@@ -115,13 +115,13 @@ class 'CRabbitAttackState' (CState)
 			
 		-- Más probabilidades de ir al fustrum que no atacar
 		elseif ( AttackType == 9 ) then
-			return "go_in_to_fustrum"
+			return "go_in_to_frustum"
 		elseif ( AttackType == 10 ) then
-			return "go_in_to_fustrum"
+			return "go_in_to_frustum"
 		elseif ( AttackType == 11 ) then
-			return "go_in_to_fustrum"
+			return "go_in_to_frustum"
 		elseif ( AttackType == 12 ) then
-			return "go_in_to_fustrum"
+			return "go_in_to_frustum"
 		end
 	end 
 	

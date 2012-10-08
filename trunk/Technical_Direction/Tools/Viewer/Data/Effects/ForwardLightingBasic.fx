@@ -7,12 +7,11 @@
 
 sampler2D DiffuseTextureMap : register( s0 ) = sampler_state
 {
-	MinFilter		= Anisotropic;
-   MagFilter = Linear;
-   MipFilter = Linear;   
-	MaxAnisotropy	= 8;
-   AddressU  = Wrap;
-   AddressV  = Wrap;
+	MinFilter		= Linear;
+	MagFilter		= Linear;
+	MipFilter		= Linear;   
+	AddressU		= Wrap;
+	AddressV		= Wrap;
 };
 
 ////////////////////////////////////////////////////////////////////
@@ -40,6 +39,7 @@ struct VertexShaderOutput
     float4	Position        : POSITION0;
 	float2	TexCoord        : TEXCOORD0;
 	float4	WPos			: TEXCOORD1;
+	float4	WVPPos			: TEXCOORD2;
 	float3	Normal			: NORMAL0;
 	float3	EyePosition     : NORMAL1;
 	float	FogLerp			: NORMAL2;
@@ -52,6 +52,7 @@ struct PixelShaderOutput
 	float4 DiffuseRT	: COLOR0;
 	float4 DepthRT		: COLOR1;
 	float4 MotionBlurRT	: COLOR2;
+	float4 DyingColorRT	: COLOR3;
 };
 
 ////////////////////////////////////////////////////////////////////
@@ -75,13 +76,14 @@ VertexShaderOutput VertexShaderInstanceFunction(VertexShaderInstanceInput input)
 
 	output.Position = mul(WorldSpacePosition, ViewProjection);
 	output.TexCoord = input.TexCoord;
-
+	
+	output.WVPPos = output.Position;
 	output.WPos = WorldSpacePosition;
 	output.EyePosition = CameraPosition - WorldSpacePosition.xyz;
 	
 	output.Normal = mul(input.Normal, WorldInstance);
 	
-	[flatten]
+	[branch]
 	if(FogEnable == true)
 	{
 		output.FogLerp = saturate( (distance(WorldSpacePosition, output.EyePosition) - FogStart) / FogRange);
@@ -114,13 +116,14 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 
 	output.Position = mul(float4(input.Position, 1), WorldViewProjection);
 	output.TexCoord = input.TexCoord;
-
+	
+	output.WVPPos = output.Position;
 	output.WPos = WorldSpacePosition;
 	output.EyePosition = CameraPosition - WorldSpacePosition.xyz;
 	
 	output.Normal = mul(input.Normal, World);
 
-	[flatten]
+	[branch]
 	if(FogEnable == true)
 	{
 		output.FogLerp = saturate( (distance(WorldSpacePosition, output.EyePosition) - FogStart) / FogRange);
@@ -174,19 +177,19 @@ PixelShaderOutput PixelShaderFunction(VertexShaderOutput input, uniform bool sha
 			{
 				if(i == 0)
 				{
-					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler1, i);
+					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler1, i, input.WVPPos);
 				}
 				else if(i == 1)
 				{
-					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler2, i);
+					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler2, i, input.WVPPos);
 				}
 				else if(i == 2)
 				{
-					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler3, i);
+					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler3, i, input.WVPPos);
 				}
 				else
 				{
-					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler4, i);
+					shadowCoeffStatic = CalcShadowVariance(input.WPos, StaticShadowMapSampler4, i, input.WVPPos);
 				}
 			}
 			
@@ -194,19 +197,19 @@ PixelShaderOutput PixelShaderFunction(VertexShaderOutput input, uniform bool sha
 			{
 				if(i == 0)
 				{
-					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler1, i);
+					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler1, i, input.WVPPos);
 				}
 				else if(i == 1)
 				{
-					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler2, i);
+					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler2, i, input.WVPPos);
 				}
 				else if(i == 2)
 				{
-					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler3, i);
+					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler3, i, input.WVPPos);
 				}
 				else
 				{
-					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler4, i);
+					shadowCoeffDynamic = CalcShadowVariance(input.WPos, DynamicShadowMapSampler4, i, input.WVPPos);
 				}
 			}
 		}
@@ -234,7 +237,7 @@ PixelShaderOutput PixelShaderFunction(VertexShaderOutput input, uniform bool sha
 	
 	float4 PixEndColor = (DiffuseColor + AmbientColor) * TexColor;
 	
-	[flatten]
+	[branch]
 	if(FogEnable == true)
 	{
 		PixEndColor.xyz = lerp(PixEndColor.xyz, FogColor, input.FogLerp);
@@ -242,7 +245,7 @@ PixelShaderOutput PixelShaderFunction(VertexShaderOutput input, uniform bool sha
 
 	PixEndColor.a = TexColor.a;
 	
-	[flatten]
+	[branch]
 	if(vegetation == true)
 	{
 		//clip((PixEndColor.a - AlphaTestThreshold) * AlphaTestDirection);

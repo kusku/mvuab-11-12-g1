@@ -31,10 +31,9 @@ technique VignettingTechnique
 {
 	pass p0
 	{
-		CullMode = CCW;
-		AlphaBlendEnable = true;
-		BlendOp = add;
-		SRCBLEND		= SrcAlpha;
+		AlphaBlendEnable	= true;
+		BlendOp				= add;
+		SRCBLEND			= SrcAlpha;
 		DESTBLEND			= InvSrcAlpha;
 		
 		VertexShader = compile vs_3_0 RenderNoiseAndVignettingVS();
