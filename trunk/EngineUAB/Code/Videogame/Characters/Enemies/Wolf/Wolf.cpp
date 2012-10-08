@@ -48,85 +48,98 @@
 //#include "AnimationStates\WolfLeftLateralAnimationState.h"
 //#include "AnimationStates\WolfRightLateralAnimationState.h"
 #include "AnimationStates\WolfStillAttackAnimationState.h"
-#include "AnimationStates\WolfRunAttackAnimationState.h"
+#include "AnimationStates\WolfRunRunAttackAnimationState.h"
+#include "AnimationStates\WolfPreparedRunAttackAnimationState.h"
+#include "AnimationStates\WolfImpactRunAttackAnimationState.h"
 #include "AnimationStates\WolfWalkAnimationState.h"
 #include "AnimationStates\WolfHowlEnemiesAnimationState.h"
 #include "AnimationStates\WolfHowlLifeAnimationState.h"
+
+#if defined(_DEBUG)
+	#include "Memory\MemLeaks.h"
+#endif
+
 
 // -----------------------------------------
 //		  CONSTRUCTORS / DESTRUCTOR
 // -----------------------------------------
 CWolf::CWolf( int _Id )
-	: m_HitsDone					( 0 )
-	, m_ReceivedHits_X_Minut		( 0 )
-	, m_TotalReceivedHits_X_Minut	( 3 )
-	, m_TotalHitsDoneToTired		( 2 ) 
-	, m_pIdleState					( NULL )
-	, m_pPursuitState				( NULL )
-	, m_pPreparedToAttackState		( NULL )
-	, m_pAttackState				( NULL )
-	, m_pTiredState					( NULL )
-	, m_pHitState					( NULL )
-	, m_pDefenseState				( NULL )
-	, m_pStillAttackState			( NULL )
-	, m_pRunAttackState				( NULL )
-	, m_pDeathState					( NULL )
-	, m_pHowlLifeState				( NULL )
-	, m_pHowlEnemiesState			( NULL )
-	, m_pAnimationIdleState 		( NULL )
-	//, m_pAnimationIdle2State 		( NULL )
-	, m_pAnimationRunState 			( NULL )
-	, m_pAnimationDeathState 		( NULL )
-	, m_pAnimationDefenseState 		( NULL )
-	, m_pAnimationHitState 			( NULL )
-	, m_pAnimationJumpState 		( NULL )
-	/*, m_pAnimationLeftLateralState 	( NULL )
-	, m_pAnimationRightLateralState ( NULL )*/
-	, m_pAnimationRunAttackState 	( NULL )
-	, m_pAnimationStillAttackState 	( NULL )
-	, m_pAnimationWalkState 		( NULL )
-	, m_pAnimationHowlLifeState		( NULL )
-	, m_pAnimationHowlEnemiesState	( NULL )
-	, m_CanHowlForLife				( false )
-	, m_CanHowlForEnemies			( true )
-	, m_NumEnemyCalls				( 2 )
-	, m_NumLifeCalls				( 4 ) 	
+	: m_HitsDone							( 0 )
+	, m_ReceivedHits_X_Minut				( 0 )
+	, m_TotalReceivedHits_X_Minut			( 3 )
+	, m_TotalHitsDoneToTired				( 2 ) 
+	, m_pIdleState							( NULL )
+	, m_pPursuitState						( NULL )
+	, m_pPreparedToAttackState				( NULL )
+	, m_pAttackState						( NULL )
+	, m_pTiredState							( NULL )
+	, m_pHitState							( NULL )
+	, m_pDefenseState						( NULL )
+	, m_pStillAttackState					( NULL )
+	, m_pRunAttackState						( NULL )
+	, m_pDeathState							( NULL )
+	, m_pHowlLifeState						( NULL )
+	, m_pHowlEnemiesState					( NULL )
+	, m_pAnimationIdleState 				( NULL )
+	//, m_pAnimationIdle2State 				( NULL )
+	, m_pAnimationRunState 					( NULL )
+	, m_pAnimationDeathState 				( NULL )
+	, m_pAnimationDefenseState 				( NULL )
+	, m_pAnimationHitState 					( NULL )
+	, m_pAnimationJumpState 				( NULL )
+	/*, m_pAnimationLeftLateralState 		( NULL )
+	, m_pAnimationRightLateralState			( NULL )*/
+	//, m_pAnimationRunAttackState 			( NULL )
+	, m_pAnimationRunRunAttackState 		( NULL )
+	, m_pAnimationPreparedRunAttackState 	( NULL )
+	, m_pAnimationImpactRunAttackState 		( NULL )
+	, m_pAnimationStillAttackState 			( NULL )
+	, m_pAnimationWalkState 				( NULL )
+	, m_pAnimationHowlLifeState				( NULL )
+	, m_pAnimationHowlEnemiesState			( NULL )
+	, m_CanHowlForLife						( false )
+	, m_CanHowlForEnemies					( true )
+	, m_NumEnemyCalls						( 2 )
+	, m_NumLifeCalls						( 4 ) 	
 {
 }
 
 CWolf::CWolf( int _Id, std::string _Name )
-	: m_HitsDone					( 0 )
-	, m_ReceivedHits_X_Minut		( 0 )
-	, m_TotalReceivedHits_X_Minut	( 3 )
-	, m_TotalHitsDoneToTired		( 2 ) 
-	, m_pIdleState					( NULL )
-	, m_pPursuitState				( NULL )
-	, m_pPreparedToAttackState		( NULL )
-	, m_pAttackState				( NULL )
-	, m_pTiredState					( NULL )
-	, m_pHitState					( NULL )
-	, m_pDefenseState				( NULL )
-	, m_pStillAttackState			( NULL )
-	, m_pRunAttackState				( NULL )
-	, m_pDeathState					( NULL )
-	, m_pAnimationIdleState 		( NULL )
-	//, m_pAnimationIdle2State 		( NULL )
-	, m_pAnimationRunState 			( NULL )
-	, m_pAnimationDeathState 		( NULL )
-	, m_pAnimationDefenseState 		( NULL )
-	, m_pAnimationHitState 			( NULL )
-	, m_pAnimationJumpState 		( NULL )
-	/*, m_pAnimationLeftLateralState 	( NULL )
-	, m_pAnimationRightLateralState ( NULL )*/
-	, m_pAnimationRunAttackState 	( NULL )
-	, m_pAnimationStillAttackState 	( NULL )
-	, m_pAnimationWalkState 		( NULL )
-	, m_pAnimationHowlLifeState		( NULL )
-	, m_pAnimationHowlEnemiesState	( NULL )
-	, m_CanHowlForLife				( false )
-	, m_CanHowlForEnemies			( true )
-	, m_NumEnemyCalls				( 2 )
-	, m_NumLifeCalls				( 4 ) 	
+	: m_HitsDone							( 0 )
+	, m_ReceivedHits_X_Minut				( 0 )
+	, m_TotalReceivedHits_X_Minut			( 3 )
+	, m_TotalHitsDoneToTired				( 2 ) 
+	, m_pIdleState							( NULL )
+	, m_pPursuitState						( NULL )
+	, m_pPreparedToAttackState				( NULL )
+	, m_pAttackState						( NULL )
+	, m_pTiredState							( NULL )
+	, m_pHitState							( NULL )
+	, m_pDefenseState						( NULL )
+	, m_pStillAttackState					( NULL )
+	, m_pRunAttackState						( NULL )
+	, m_pDeathState							( NULL )
+	, m_pAnimationIdleState 				( NULL )
+	//, m_pAnimationIdle2State 				( NULL )
+	, m_pAnimationRunState 					( NULL )
+	, m_pAnimationDeathState 				( NULL )
+	, m_pAnimationDefenseState 				( NULL )
+	, m_pAnimationHitState 					( NULL )
+	, m_pAnimationJumpState 				( NULL )
+	/*, m_pAnimationLeftLateralState 		( NULL )
+	, m_pAnimationRightLateralState			( NULL )*/
+	//, m_pAnimationRunAttackState 			( NULL )
+	, m_pAnimationRunRunAttackState 		( NULL )
+	, m_pAnimationPreparedRunAttackState 	( NULL )
+	, m_pAnimationImpactRunAttackState 		( NULL )
+	, m_pAnimationStillAttackState 			( NULL )
+	, m_pAnimationWalkState 				( NULL )
+	, m_pAnimationHowlLifeState				( NULL )
+	, m_pAnimationHowlEnemiesState			( NULL )
+	, m_CanHowlForLife						( false )
+	, m_CanHowlForEnemies					( true )
+	, m_NumEnemyCalls						( 2 )
+	, m_NumLifeCalls						( 4 ) 	
 {
 }
 
@@ -156,7 +169,9 @@ CWolf::~CWolf(void)
 	CHECKED_DELETE ( m_pAnimationJumpState );
 	/*CHECKED_DELETE ( m_pAnimationLeftLateralState );
 	CHECKED_DELETE ( m_pAnimationRightLateralState );*/
-	CHECKED_DELETE ( m_pAnimationRunAttackState );
+	CHECKED_DELETE ( m_pAnimationRunRunAttackState );
+	CHECKED_DELETE ( m_pAnimationPreparedRunAttackState );
+	CHECKED_DELETE ( m_pAnimationImpactRunAttackState );
 	CHECKED_DELETE ( m_pAnimationStillAttackState );
 	CHECKED_DELETE ( m_pAnimationWalkState );
 	CHECKED_DELETE ( m_pAnimationHowlLifeState );
@@ -234,7 +249,7 @@ void CWolf::CreateCallbacks(void)
 
 	l_Process->GetAnimationCallbackManager()->CreateCallback(GetName(), WOLF_HIT_STATE, this->GetAnimatedModel());
 	l_Process->GetAnimationCallbackManager()->CreateCallback(GetName(), WOLF_STILL_ATTACK_STATE, this->GetAnimatedModel());
-	l_Process->GetAnimationCallbackManager()->CreateCallback(GetName(), WOLF_RUN_ATTACK_STATE, this->GetAnimatedModel());
+	l_Process->GetAnimationCallbackManager()->CreateCallback(GetName(), WOLF_ONLY_IMPACT_RUN_ATTACK_STATE, this->GetAnimatedModel());
 	l_Process->GetAnimationCallbackManager()->CreateCallback(GetName(), WOLF_DEATH_STATE, this->GetAnimatedModel());
 	l_Process->GetAnimationCallbackManager()->CreateCallback(GetName(), WOLF_HOWL_LIFE_STATE, this->GetAnimatedModel());
 	l_Process->GetAnimationCallbackManager()->CreateCallback(GetName(), WOLF_HOWL_ENEMIES_STATE, this->GetAnimatedModel());
@@ -242,20 +257,23 @@ void CWolf::CreateCallbacks(void)
 
 void CWolf::LoadGraphicStates( void )
 {
-	m_pAnimationIdleState			= new CWolfIdleAnimationState			(this);
-	//m_pAnimationIdle2State			= new CWolfIdle2AnimationState		(this);
-	m_pAnimationRunState			= new CWolfRunAnimationState			(this);
-	m_pAnimationDeathState			= new CWolfDeathAnimationState			(this);
-	m_pAnimationHitState			= new CWolfHitAnimationState			(this);
-	m_pAnimationDefenseState		= new CWolfDefenseAnimationState		(this);
-	m_pAnimationJumpState			= new CWolfJumpAnimationState			(this);
-	//m_pAnimationLeftLateralState	= new CWolfLeftLateralAnimationState	(this);
-	//m_pAnimationRightLateralState	= new CWolfRightLateralAnimationState	(this);
-	m_pAnimationRunAttackState		= new CWolfRunAttackAnimationState		(this);
-	m_pAnimationStillAttackState	= new CWolfStillAttackAnimationState	(this);
-	m_pAnimationWalkState			= new CWolfWalkAnimationState			(this);
-	m_pAnimationHowlLifeState		= new CWolfHowlLifeAnimationState		(this);
-	m_pAnimationHowlEnemiesState	= new CWolfHowlEnemiesAnimationState	(this);
+	m_pAnimationIdleState				= new CWolfIdleAnimationState				(this);
+	//m_pAnimationIdle2State				= new CWolfIdle2AnimationState			(this);
+	m_pAnimationRunState				= new CWolfRunAnimationState				(this);
+	m_pAnimationDeathState				= new CWolfDeathAnimationState				(this);
+	m_pAnimationHitState				= new CWolfHitAnimationState				(this);
+	m_pAnimationDefenseState			= new CWolfDefenseAnimationState			(this);
+	m_pAnimationJumpState				= new CWolfJumpAnimationState				(this);
+	//m_pAnimationLeftLateralState		= new CWolfLeftLateralAnimationState		(this);
+	//m_pAnimationRightLateralState		= new CWolfRightLateralAnimationState		(this);
+	//m_pAnimationRunAttackState		= new CWolfRunAttackAnimationState			(this);
+	m_pAnimationRunRunAttackState		= new CWolfRunRunAttackAnimationState		(this);
+	m_pAnimationPreparedRunAttackState	= new CWolfPreparedRunAttackAnimationState	(this);
+	m_pAnimationImpactRunAttackState	= new CWolfImpactRunAttackAnimationState	(this);
+	m_pAnimationStillAttackState		= new CWolfStillAttackAnimationState		(this);
+	m_pAnimationWalkState				= new CWolfWalkAnimationState				(this);
+	m_pAnimationHowlLifeState			= new CWolfHowlLifeAnimationState			(this);
+	m_pAnimationHowlEnemiesState		= new CWolfHowlEnemiesAnimationState		(this);
 
 	return;
 }
