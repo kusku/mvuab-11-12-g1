@@ -3,6 +3,7 @@
 #include "Characters\StatesDefs.h"
 #include "GameProcess.h"
 #include "Callbacks\Animation\AnimationCallbackManager.h"
+#include "SoundManager.h"
 
 #include "StatesMachine\StateMachine.h"
 #include "StatesMachine\State.h"
@@ -120,6 +121,8 @@ CRabbit::CRabbit( int _Id, std::string _Name )
 
 CRabbit::~CRabbit(void)
 {
+	CORE->GetSoundManager()->PlayEvent(GetSpeakerName(), "Stop_All_EFX_Rabbit");
+
 	CHECKED_DELETE ( m_pIdleState );
 	CHECKED_DELETE ( m_pPursuitState );
 	CHECKED_DELETE ( m_pPreparedToAttackState );
