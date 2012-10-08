@@ -159,7 +159,7 @@ void CWolfRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		if ( m_pAnimationCallback->IsAnimationFinished() )
 		{
 			// Si encontré el player por delante finalizo golpeando
-ssssssssssa			if ( m_pWolf->GetPlayerHasBeenReached() )
+			if ( m_pWolf->GetPlayerHasBeenReached() )
 			{
 				// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio. En este caso no queremos
 				// pq hace un desplazamiento que después de este ataque no queremos que haga.
