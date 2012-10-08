@@ -7,6 +7,14 @@
 	<script filename="./data/scripts/game/triggers/bridge_trigger.lua" />
 	<script filename="./data/scripts/game/triggers/house_trigger.lua" />
 	<script filename="./data/scripts/game/triggers/end_game_trigger.lua" />
+	<script filename="./data/scripts/game/triggers/river_trigger.lua" />
+	<script filename="./data/scripts/game/triggers/combat_zone_1.lua" />
+	<script filename="./data/scripts/game/triggers/combat_zone_2.lua" />
+	<script filename="./data/scripts/game/triggers/combat_zone_3.lua" />
+	<script filename="./data/scripts/game/triggers/combat_zone_4.lua" />
+	<script filename="./data/scripts/game/triggers/combat_zone_5.lua" />
+	<script filename="./data/scripts/game/triggers/combat_zone_6.lua" />
+	<script filename="./data/scripts/game/triggers/combat_zone_7.lua" />
 	
 	<script filename="./data/scripts/game/player/player_idle_state.lua" />
 	<script filename="./data/scripts/game/player/player_run_state.lua" />

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <Config debug="false">
+  <!--<WindowResolution width="1024" height="768" />
+	<ScreenResolution width="1024" height="576" />-->
+  <WindowResolution width="1280" height="720" />
 	<ScreenResolution width="1280" height="720" />
 	<WindowsPosition position="0 0" />
 	<RenderMode fullscreenMode="false" />
-	<RenderColor colorDebug="blue" colorRelease="black" />
+	<RenderColor colorDebug="black" colorRelease="black" />
 	<ActionToInput inputXML="./Data/XML/input.xml" />
 	<Mouse exclusiveModeInMouse="true" drawPointerMouse="true" />
 	<Fonts fontsXML="./Data/XML/fonts.xml" />
@@ -25,13 +28,16 @@
 	<ParticlesSettings particlesSettingsXML="./Data/XML/ParticleSettings.xml" />
 	<ParticlesEmitters particlesEmittersXML="./Data/XML/ParticleEmitters.xml" />
 	<ParticlesSystems particlesSystemsXML="./Data/XML/ParticleSystems.xml" />
+  <ParticlesEmitterSystems particlesEmitterSystemsXML="./Data/XML/ParticleEmittersSystems.xml" />
+  <ParticlesStartUpInstances particlesStartupInstancesXML="./Data/XML/ParticleStartUpInstances.xml" />
 	<Modifiers modifiersXML="./Data/XML/modifiers.xml" />
 	<Debug_Options debug_options_xml="./data/XML/debug_options.xml" />
 	<Triggers triggersXML="./Data/XML/triggers.xml" />
 	<Waypoints wayPointsXML="./Data/XML/waypoints.xml" />
+  <PhysXObjs physXObjsXML="./Data/XML/physxobjs.xml" />
 	<GUI guiXML="./Data/XML/gui.xml" />
 	<Sound soundbanks="./Data/XML/soundbanks.xml" speakers="./Data/XML/speakers.xml" />
-  	<AnimalMovement animalMovementXML="./Data/XML/animal_movement.xml" />
+  <AnimalMovement animalMovementXML="./Data/XML/animal_movement.xml" />
 	<SteeringBehaviorsSettings SteeringBehaviorsSettingsXML="./Data/XML/steering_properties.xml" />
 	<Rails railsXML="./Data/XML/rails.xml" />
 </Config>

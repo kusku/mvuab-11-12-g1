@@ -49,7 +49,7 @@ struct VertexShaderOutput
 ////////////////////////////////////////////////////////////////////
 
 static const float NumberOfPostProcessSamples = 12.0f;
-uniform float PixelBlurConst : PIXEL_MOTION_BLUR = 0.3f;
+uniform float PixelBlurConst : PIXEL_MOTION_BLUR = 0.15f;
 
 ////////////////////////////////////////////////////////////////////
 

@@ -1,0 +1,23 @@
+<animated_model name="caperucita">
+	<skeleton filename="cap_skeleton.csf"/>
+	<mesh filename="cap_mesh.cmf"/>
+	<animation name="idle" filename="cap_idle.caf"/>
+	<animation name="run" filename="cap_run.caf"/>
+	<animation name="hit" filename="cap_hit.caf"/>
+	<animation name="defense" filename="cap_defense_sostenida$.caf"/>
+	<animation name="attack1" filename="cap_combo_1.caf"/>
+	<animation name="attack2" filename="cap_combo_2.caf"/>
+	<animation name="attack3" filename="cap_combo_3.caf"/>
+	<animation name="attack4" filename="cap_combo_4.caf"/>
+	<animation name="attack5" filename="cap_combo_5.caf"/>
+	<animation name="attack6" filename="cap_combo_6.caf"/>
+	<animation name="attackfinal1" filename="cap_combo_1(1F).caf"/>
+	<animation name="attackfinal2" filename="cap_combo_2(1F).caf"/>
+	<animation name="attackfinal3" filename="cap_combo_3(1F).caf"/>
+	<animation name="attackfinal4" filename="cap_combo_4(1F).caf"/>
+	<animation name="attackfinal5" filename="cap_combo_5(1F).caf"/>
+	<animation name="attackfinal6" filename="cap_combo_6(1F).caf"/>
+	<animation name="jump" filename="cap_salto_largo.caf"/>
+	<texture filename="df_caperucita.dds"/>
+	<texture filename="NRM_caperucita2.dds"/>
+</animated_model>

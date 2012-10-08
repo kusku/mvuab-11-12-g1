@@ -1,5 +1,6 @@
 <animated_models>
 	<animated_model name="lobo" path="./Data/General/wolf/" filename="actor.xml"/>
-	<animated_model name="caperucita" path="./Data/General/caperu/" filename="actor.xml"/>
+	<animated_model name="caperucita" path="./Data/General/caperu3/" filename="actor.xml"/>
 	<animated_model name="conejo" path="./Data/General/rabbit/" filename="actor.xml"/>
+	<animated_model name="ciervo" path="./Data/General/deer/" filename="actor.xml"/>
 </animated_models>

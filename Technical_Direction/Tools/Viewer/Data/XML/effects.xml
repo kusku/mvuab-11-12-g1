@@ -40,6 +40,8 @@
   <effect name="MotionBlurEffect"                         file="./data/effects/Obj/MotionBlurEffect" />
 
   <effect name="BasicEffect"                              file="./data/effects/Obj/BasicEffect" />
+
+  <effect name="DyingEffect"                              file="./data/effects/Obj/DyingEffect" />
   
   <!-- ......... EFFECTS ............ -->
 
@@ -48,10 +50,6 @@
   <technique name="BloomExtract" effect="BloomPostProcess" use_half_pixel="false" />
   <technique name="GaussianBlur" effect="BloomPostProcess" use_half_pixel="false" />
   <technique name="BloomCombine" effect="BloomPostProcess" use_half_pixel="false" />
-
-  <technique name="SkySphereEffect" effect="sky_sphere_effect" use_world_view_projection_matrix="true" />
-  <technique name="SkySphereEffectClouds" effect="sky_sphere_effect" use_world_view_projection_matrix="true" />
-  <technique name="SkySphereEffectDeferred" effect="sky_sphere_effect" use_world_view_projection_matrix="true" />
 
   <technique name="AmbientLight" effect="ambient_light_effect"
 		use_world_view_projection_matrix="true" />
@@ -107,6 +105,28 @@
 
   <!-- 
   ###################################
+          Dying Effect
+  ###################################
+  -->
+
+  <technique name="DyingEffectTechnique" effect="DyingEffect" />
+  
+
+  <!-- 
+  ###################################
+          Sky Box Effect
+  ###################################
+  -->
+  
+  <technique name="SkySphereEffect" effect="sky_sphere_effect" use_world_view_projection_matrix="true" use_world_matrix="true"
+    use_prev_view_projection_matrix="true" />
+  
+  <technique name="SkySphereEffectClouds" effect="sky_sphere_effect" use_world_view_projection_matrix="true" />
+  
+  <technique name="SkySphereEffectDeferred" effect="sky_sphere_effect" use_world_view_projection_matrix="true" />
+  
+  <!-- 
+  ###################################
           Basic Effect
   ###################################
   -->
@@ -146,12 +166,12 @@
   -->
 
   <technique name="TerrainEffectTechnique" effect="TerrainEffect"
-		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true" 
-    use_prev_view_projection_matrix="true" use_view_projection_matrix="true" />
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true" 
+    use_prev_view_projection_matrix="true" use_view_projection_matrix="true" use_view_matrix="true" />
 
   <technique name="TerrainEffectTechniqueShadow" effect="TerrainEffect"
-		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
-		use_prev_view_projection_matrix="true" use_view_projection_matrix="true" use_shadow_maps="true" />
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
+		use_prev_view_projection_matrix="true" use_view_projection_matrix="true" use_shadow_maps="true" use_view_matrix="true" />
 
   <!-- 
   ###################################
@@ -160,19 +180,19 @@
   -->
 
   <technique name="Cal3DTechniqueBasic" effect="cal_3D_effect"
-		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true" 
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true" 
     use_prev_view_projection_matrix="true" use_view_projection_matrix="true" />
 
   <technique name="Cal3DTechniqueBasicShadow" effect="cal_3D_effect"
-		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
 		use_prev_view_projection_matrix="true" use_view_projection_matrix="true" use_shadow_maps="true" />
 
   <technique name="Cal3DTechniqueNormal" effect="cal_3D_effect"
-		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
     use_prev_view_projection_matrix="true" use_view_projection_matrix="true" />
 
   <technique name="Cal3DTechniqueNormalShadow" effect="cal_3D_effect"
-		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
 		use_prev_view_projection_matrix="true" use_view_projection_matrix="true" use_shadow_maps="true" />
 
   <technique name="Cal3DTechniqueShadow" effect="cal_3D_effect"
@@ -205,53 +225,53 @@
   -->
 
   <technique name="ForwardLightingWithNormal" effect="forward_lighting_with_normal"
-		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
     use_prev_view_projection_matrix="true" use_view_projection_matrix="true" />
 
   <technique name="ForwardLightingWithNormalShadow" effect="forward_lighting_with_normal"
-		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
 		use_prev_view_projection_matrix="true" use_view_projection_matrix="true" use_shadow_maps="true" />
 
   <technique name="ForwardLightingWithNormalVegetation" effect="forward_lighting_with_normal"
-		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
     use_prev_view_projection_matrix="true" use_view_projection_matrix="true" />
 
   <technique name="ForwardLightingWithNormalShadowVegetation" effect="forward_lighting_with_normal"
-		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
 		use_prev_view_projection_matrix="true" use_view_projection_matrix="true" use_shadow_maps="true" />
 
   <technique name="ForwardLightingWithNormalWater" effect="forward_lighting_with_normal"
-		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
 		use_prev_view_projection_matrix="true" use_view_projection_matrix="true" use_total_elapsed_time="true" use_texture_dim="true" />
 
   <technique name="ForwardLightingWithNormalShadowWater" effect="forward_lighting_with_normal"
-		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
 		use_prev_view_projection_matrix="true" use_view_projection_matrix="true" use_shadow_maps="true" use_total_elapsed_time="true" use_texture_dim="true" />
 
   <!-- Instance -->
 
   <technique name="ForwardLightingWithNormalInstance" effect="forward_lighting_with_normal"
-		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_view_projection_matrix="true"
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_view_projection_matrix="true"
     use_prev_view_projection_matrix="true" />
 
   <technique name="ForwardLightingWithNormalShadowInstance" effect="forward_lighting_with_normal"
-		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_view_projection_matrix="true"
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_view_projection_matrix="true"
 		use_prev_view_projection_matrix="true" use_shadow_maps="true" />
 
   <technique name="ForwardLightingWithNormalVegetationInstance" effect="forward_lighting_with_normal"
-		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_view_projection_matrix="true"
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_view_projection_matrix="true"
     use_prev_view_projection_matrix="true" />
 
   <technique name="ForwardLightingWithNormalShadowVegetationInstance" effect="forward_lighting_with_normal"
-		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_view_projection_matrix="true"
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_view_projection_matrix="true"
 		use_prev_view_projection_matrix="true" use_shadow_maps="true" />
 
   <technique name="ForwardLightingWithNormalWaterInstance" effect="forward_lighting_with_normal"
-		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_view_projection_matrix="true"
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_view_projection_matrix="true"
 		use_prev_view_projection_matrix="true" use_total_elapsed_time="true" use_texture_dim="true" />
 
   <technique name="ForwardLightingWithNormalShadowWaterInstance" effect="forward_lighting_with_normal"
-		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_view_projection_matrix="true"
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_view_projection_matrix="true"
 		use_prev_view_projection_matrix="true" use_shadow_maps="true" use_total_elapsed_time="true" use_texture_dim="true" />
 
   <!-- 
@@ -261,37 +281,37 @@
   -->
 
   <technique name="ForwardLightingBasic" effect="forward_lighting_basic"
-		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
     use_prev_view_projection_matrix="true" use_view_projection_matrix="true" />
 
   <technique name="ForwardLightingBasicShadow" effect="forward_lighting_basic"
-		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
 		use_prev_view_projection_matrix="true" use_view_projection_matrix="true" use_shadow_maps="true" />
 
   <technique name="ForwardLightingBasicVegetation" effect="forward_lighting_basic"
-		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
     use_prev_view_projection_matrix="true" use_view_projection_matrix="true" />
 
   <technique name="ForwardLightingBasicShadowVegetation" effect="forward_lighting_basic"
-		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_world_view_projection_matrix="true" use_world_matrix="true"
 		use_prev_view_projection_matrix="true" use_view_projection_matrix="true" use_shadow_maps="true" />
 
   <!-- Instance -->
 
   <technique name="ForwardLightingBasicInstance" effect="forward_lighting_basic"
-		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_view_projection_matrix="true"
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_view_projection_matrix="true"
     use_prev_view_projection_matrix="true" />
 
   <technique name="ForwardLightingBasicShadowInstance" effect="forward_lighting_basic"
-		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_view_projection_matrix="true"
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_view_projection_matrix="true"
 		use_prev_view_projection_matrix="true" use_shadow_maps="true" />
 
   <technique name="ForwardLightingBasicVegetationInstance" effect="forward_lighting_basic"
-		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_view_projection_matrix="true"
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_view_projection_matrix="true"
     use_prev_view_projection_matrix="true" />
 
   <technique name="ForwardLightingBasicShadowVegetationInstance" effect="forward_lighting_basic"
-		use_lights="true" use_fs="true" num_of_lights="4" use_camera_position="true" use_view_projection_matrix="true"
+		use_lights="true" use_fs="true" num_of_lights="3" use_camera_position="true" use_view_projection_matrix="true"
 		use_prev_view_projection_matrix="true" use_shadow_maps="true" />
 
   <!-- ................. TECHNIQUES ................. -->

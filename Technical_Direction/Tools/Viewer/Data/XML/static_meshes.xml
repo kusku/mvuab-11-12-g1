@@ -2,62 +2,61 @@
 <static_meshes>
   
   <!--Cabaña, Rio y Puentes-->
-  <static_mesh name="Rio" filename=".\Data\.\General\\Models\Rio.m3d" />
-  <static_mesh name="PuenteColgante" filename=".\Data\.\General\\Models\PuenteColgante.m3d" />
   <static_mesh name="CabanaAbuela" filename=".\Data\.\General\\Models\CabanaAbuela.m3d" />
+  <static_mesh name="Rio" filename=".\Data\.\General\\Models\Rio.m3d" />
+  <static_mesh name="Puente Principal" filename=".\Data\.\General\\Models\Puente Principal.m3d" />
 
-  <!--Terreno-->
-  <static_mesh name="Terreno" filename=".\Data\.\General\\Models\Terreno.m3d" />
-  
-  <!--Rocas Gigantes-->
-  <static_mesh name="roca" filename=".\Data\.\General\\Models\roca.m3d" />
-  <static_mesh name="roca2" filename=".\Data\.\General\\Models\roca2.m3d" />
-  <static_mesh name="roca003" filename=".\Data\.\General\\Models\roca003.m3d" />
-  <static_mesh name="roca004" filename=".\Data\.\General\\Models\roca004.m3d" />
-  <static_mesh name="roca005" filename=".\Data\.\General\\Models\roca005.m3d" />
-  <static_mesh name="roca006" filename=".\Data\.\General\\Models\roca006.m3d" />
-  <static_mesh name="roca007" filename=".\Data\.\General\\Models\roca007.m3d" />
-  <static_mesh name="roca008" filename=".\Data\.\General\\Models\roca008.m3d" />
-  <static_mesh name="roca009" filename=".\Data\.\General\\Models\roca009.m3d" />
-  <static_mesh name="roca010" filename=".\Data\.\General\\Models\roca010.m3d" />
-  <static_mesh name="roca011" filename=".\Data\.\General\\Models\roca011.m3d" />
-  <static_mesh name="roca012" filename=".\Data\.\General\\Models\roca012.m3d" />
-  <static_mesh name="roca013" filename=".\Data\.\General\\Models\roca013.m3d" />
-
-  <!--Arboles-->
-  <static_mesh name="Tree1_Main" filename=".\Data\.\General\\Models\Tree1_Main.m3d" />
-  <static_mesh name="Tree2_Main" filename=".\Data\.\General\\Models\Tree2_Main.m3d" />
-  <static_mesh name="Tree3_Main" filename=".\Data\.\General\\Models\Tree3_Main.m3d" />
-  
-  <!--Props-->
-  <static_mesh name="Prop1_Main" filename=".\Data\.\General\\Models\Prop1_Main.m3d" />
-  <static_mesh name="Prop2_Main" filename=".\Data\.\General\\Models\Prop2_Main.m3d" />
-  <static_mesh name="Prop3_Main" filename=".\Data\.\General\\Models\Prop3_Main.m3d" />
-  <static_mesh name="Prop4_Main" filename=".\Data\.\General\\Models\Prop4_Main.m3d" />
-  
-  <!--Rocas Rio-->
-  <static_mesh name="PiedraLP018" filename=".\Data\.\General\\Models\PiedraLP018.m3d" />
-  <static_mesh name="PiedraLP020" filename=".\Data\.\General\\Models\PiedraLP020.m3d" />
-  <static_mesh name="PiedraLP019" filename=".\Data\.\General\\Models\PiedraLP019.m3d" />
-  <static_mesh name="PiedraLP01" filename=".\Data\.\General\\Models\PiedraLP01.m3d" />
+  <!--Piedras Rio-->
+  <static_mesh name="PiedraLP021" filename=".\Data\.\General\\Models\PiedraLP021.m3d" />
   <static_mesh name="PiedraLP015" filename=".\Data\.\General\\Models\PiedraLP015.m3d" />
   <static_mesh name="PiedraLP017" filename=".\Data\.\General\\Models\PiedraLP017.m3d" />
+  <static_mesh name="PiedraLP022" filename=".\Data\.\General\\Models\PiedraLP022.m3d" />
+  <static_mesh name="PiedraLP023" filename=".\Data\.\General\\Models\PiedraLP023.m3d" />
   
-  <!--Rocas Camino-->
-  <static_mesh name="PiedraLP009" filename=".\Data\.\General\\Models\PiedraLP009.m3d" />
-  <static_mesh name="PiedraLP02" filename=".\Data\.\General\\Models\PiedraLP02.m3d" />
-  <static_mesh name="PiedraLP010" filename=".\Data\.\General\\Models\PiedraLP010.m3d" />
-  <static_mesh name="PiedraLP003" filename=".\Data\.\General\\Models\PiedraLP003.m3d" />
-  <static_mesh name="PiedraLP004" filename=".\Data\.\General\\Models\PiedraLP004.m3d" />
-  <static_mesh name="PiedraLP011" filename=".\Data\.\General\\Models\PiedraLP011.m3d" />
-  <static_mesh name="PiedraLP012" filename=".\Data\.\General\\Models\PiedraLP012.m3d" />
-  <static_mesh name="PiedraLP013" filename=".\Data\.\General\\Models\PiedraLP013.m3d" />
-  <static_mesh name="PiedraLP006" filename=".\Data\.\General\\Models\PiedraLP006.m3d" />
-  <static_mesh name="PiedraLP007" filename=".\Data\.\General\\Models\PiedraLP007.m3d" />
-  <static_mesh name="PiedraLP014" filename=".\Data\.\General\\Models\PiedraLP014.m3d" />
-  <static_mesh name="PiedraLP008" filename=".\Data\.\General\\Models\PiedraLP008.m3d" />
+  <!--Piedras Casa-->
+  <static_mesh name="PiedraCasa_Main" filename=".\Data\.\General\\Models\PiedraCasa_Main.m3d" />
+  
+  <!--Piedras Gigantes-->
+  <static_mesh name="roca02" filename=".\Data\.\General\\Models\roca02.m3d" />
+  <static_mesh name="roca01" filename=".\Data\.\General\\Models\roca01.m3d" />
+  <static_mesh name="roca03" filename=".\Data\.\General\\Models\roca03.m3d" />
+  <static_mesh name="roca04" filename=".\Data\.\General\\Models\roca04.m3d" />
+  <static_mesh name="roca05" filename=".\Data\.\General\\Models\roca05.m3d" />
+  <static_mesh name="roca06" filename=".\Data\.\General\\Models\roca06.m3d" />
+  <static_mesh name="roca08" filename=".\Data\.\General\\Models\roca08.m3d" />
+  <static_mesh name="roca10" filename=".\Data\.\General\\Models\roca10.m3d" />
+  <static_mesh name="roca11" filename=".\Data\.\General\\Models\roca11.m3d" />
+  <static_mesh name="roca12" filename=".\Data\.\General\\Models\roca12.m3d" />
+  <static_mesh name="roca13" filename=".\Data\.\General\\Models\roca13.m3d" />
+  <static_mesh name="roca09" filename=".\Data\.\General\\Models\roca09.m3d" />
+  <static_mesh name="roca07" filename=".\Data\.\General\\Models\roca07.m3d" />
+  
+  <!--Terreno-->
+  <static_mesh name="Terreno" filename=".\Data\.\General\\Models\Terreno.m3d" />
 
-  <!--Troncos Caidos-->
-  <static_mesh name="ToncoCaido_Main" filename=".\Data\.\General\\Models\ToncoCaido_Main.m3d" />
+  <!--Carteles-->
+  <static_mesh name="Cartel_Main" filename=".\Data\.\General\\Models\Cartel_Main.m3d" />
 
+  <!--Arboles-->
+  <static_mesh name="Arbol1_Main" filename=".\Data\.\General\\Models\Arbol1_Main.m3d" />
+  <static_mesh name="Arbol2_Main" filename=".\Data\.\General\\Models\Arbol2_Main.m3d" />
+  <static_mesh name="ArbolSeco1_Main" filename=".\Data\.\General\\Models\ArbolSeco1_Main.m3d" />
+  
+  <!--Vallas-->
+  <static_mesh name="Fence2" filename=".\Data\.\General\\Models\Fence2.m3d" />
+  <static_mesh name="Fence4" filename=".\Data\.\General\\Models\Fence4.m3d" />
+  <static_mesh name="Fence5" filename=".\Data\.\General\\Models\Fence5.m3d" />
+  <static_mesh name="Fence3" filename=".\Data\.\General\\Models\Fence3.m3d" />
+  <static_mesh name="Fence1" filename=".\Data\.\General\\Models\Fence1.m3d" />
+  
+  <!--Maleza-->
+  <static_mesh name="Maleza1_Main" filename=".\Data\.\General\\Models\Maleza1_Main.m3d" />
+  <static_mesh name="Maleza2_Main" filename=".\Data\.\General\\Models\Maleza2_Main.m3d" />
+  <static_mesh name="Maleza3_Main" filename=".\Data\.\General\\Models\Maleza3_Main.m3d" />
+  <static_mesh name="Maleza4_Main" filename=".\Data\.\General\\Models\Maleza4_Main.m3d" />
+  
+  <!--Troncos-->
+  <static_mesh name="TroncoCaido1_Main" filename=".\Data\.\General\\Models\TroncoCaido1_Main.m3d" />
+  <static_mesh name="TroncoCaido2_Main" filename=".\Data\.\General\\Models\TroncoCaido2_Main.m3d" />
+  
 </static_meshes>
