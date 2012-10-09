@@ -38,6 +38,7 @@ public:
 	bool	IsTextureActive	( const std::string &_name );
 	void	ActiveTexture	( const std::string &_name, bool _bActive );
 
+	inline void	SetActivePlayerBar	( bool _active )		{ m_bPlayerActive = _active; }
 	inline void	SetWolfLife			( int _life )			{ m_iCurrentWolfLife = _life; }
 	inline void	SetActiveWolfBar	( bool _active )		{ m_bWolfActive = _active; }
 	inline bool IsActiveWolfBar		() const				{ return m_bWolfActive; }
@@ -56,6 +57,7 @@ private:
 	//--------------------------------
 	int				m_iPlayerLife;
 	int				m_iPlayerPreviousLife;
+	bool			m_bPlayerActive;
 
 	//Texture properties
 	Vect2i			m_MaskPosition;

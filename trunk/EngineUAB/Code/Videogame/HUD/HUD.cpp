@@ -49,6 +49,7 @@ CHud::CHud()
 	, m_iWolfPreviousLife(100)
 	, m_iCurrentWolfLife(100)
 	, m_bWolfActive(false)
+	, m_bPlayerActive(false)
 {
 
 }
@@ -262,33 +263,36 @@ void CHud::Update( float _fElapsedTime, int _iPlayerLife )
 {
 	// Player Life Bar
 	//-------------------------------------
-	float l_fTarget = (float)_iPlayerLife / (float)m_iPlayerLife;
-	if( _iPlayerLife < m_iPlayerPreviousLife )
+	if( m_bPlayerActive )
 	{
-		m_PerCentSize = m_PerCentSize - 0.5f * _fElapsedTime;
-		if( m_PerCentSize <= l_fTarget )
+		float l_fTarget = (float)_iPlayerLife / (float)m_iPlayerLife;
+		if( _iPlayerLife < m_iPlayerPreviousLife )
 		{
-			m_PerCentSize = l_fTarget;
-			m_iPlayerPreviousLife = _iPlayerLife;
+			m_PerCentSize = m_PerCentSize - 0.5f * _fElapsedTime;
+			if( m_PerCentSize <= l_fTarget )
+			{
+				m_PerCentSize = l_fTarget;
+				m_iPlayerPreviousLife = _iPlayerLife;
+			}
 		}
-	}
-	else if( _iPlayerLife > m_iPlayerPreviousLife )
-	{
-		m_PerCentSize = m_PerCentSize + 0.5f * _fElapsedTime;
-		if( m_PerCentSize >= l_fTarget )
+		else if( _iPlayerLife > m_iPlayerPreviousLife )
 		{
-			m_PerCentSize = l_fTarget;
-			m_iPlayerPreviousLife = _iPlayerLife;
+			m_PerCentSize = m_PerCentSize + 0.5f * _fElapsedTime;
+			if( m_PerCentSize >= l_fTarget )
+			{
+				m_PerCentSize = l_fTarget;
+				m_iPlayerPreviousLife = _iPlayerLife;
+			}
 		}
-	}
 
-	m_BarRealSize.x = static_cast<int>( static_cast<float>(m_BarSize.x) * m_PerCentSize);
+		m_BarRealSize.x = static_cast<int>( static_cast<float>(m_BarSize.x) * m_PerCentSize);
+	}
 
 	// Wolf Life Bar
 	//------------------------------------------
 	if( m_bWolfActive )
 	{
-		l_fTarget = (float)m_iCurrentWolfLife / (float)m_iWolfLife;
+		float l_fTarget = (float)m_iCurrentWolfLife / (float)m_iWolfLife;
 		if( m_iCurrentWolfLife < m_iWolfPreviousLife )
 		{
 			m_WolfPerCentSize = m_WolfPerCentSize - 0.5f * _fElapsedTime;
@@ -342,14 +346,17 @@ void CHud::Render( CRenderManager &RM )
 	l_Device->SetRenderState( D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA );
 
 	//Pinta la barra de vida del player
-	if( m_bBackgroundActive )
-		RM.DrawTexturedQuad2D(m_BackgroundPosition, m_BackgroundSize.x, m_BackgroundSize.y,  UPPER_LEFT, m_pBackground );
+	if( m_bPlayerActive )
+	{
+		if( m_bBackgroundActive )
+			RM.DrawTexturedQuad2D(m_BackgroundPosition, m_BackgroundSize.x, m_BackgroundSize.y,  UPPER_LEFT, m_pBackground );
 
-	if( m_bBarActive )
-		RM.DrawTexturedQuad2D(m_BarPosition, v2fZERO, Vect2f(m_PerCentSize, 1.f), m_BarRealSize.x, m_BarRealSize.y,  UPPER_LEFT, m_pBar );
+		if( m_bBarActive )
+			RM.DrawTexturedQuad2D(m_BarPosition, v2fZERO, Vect2f(m_PerCentSize, 1.f), m_BarRealSize.x, m_BarRealSize.y,  UPPER_LEFT, m_pBar );
 
-	if( m_bMaskActive )
-		RM.DrawTexturedQuad2D(m_MaskPosition, m_MaskSize.x, m_MaskSize.y,  UPPER_LEFT, m_pMask );
+		if( m_bMaskActive )
+			RM.DrawTexturedQuad2D(m_MaskPosition, m_MaskSize.x, m_MaskSize.y,  UPPER_LEFT, m_pMask );
+	}
 
 	//Pinta la barra de vida del lobo
 	if( m_bWolfActive )

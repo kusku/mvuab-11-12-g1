@@ -88,6 +88,8 @@ private:
 	CCamera						*m_pRailCamera;
 	CObject3D					*m_pObjectRail;
 
+	bool						m_bFirstLogicUpdate;
+
 	// Intro
 	bool						m_bIntroFinished;
 	uint8						m_uRailCounter;
