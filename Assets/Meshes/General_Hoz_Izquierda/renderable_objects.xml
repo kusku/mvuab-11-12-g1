@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<renderable_objects>
+	<layer name="solid" default="true" />
+	<layer name="alpha_objects" />
+	<layer name="alpha_blend_objects" />
+	<layer name="particles" />
+	<mesh_instance name="Hoz_Izquierda" core="Hoz_Izquierda" position="-0.115685 0.781119 0.0312648" yaw="-0.499997" pitch="0.0" roll="0.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" />
+</renderable_objects>
