@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <particle_emitters>
 
-  <emitter name="WaterFall" system_name="WaterFall" type="line" particlesPerSecond="400" initialPosition="-195.598 12 6.793" line_start="0 0 -10.742" line_end="0 0 8.742" />
+	<emitter name="WaterFall" system_name="WaterFall" type="line" particlesPerSecond="400" initialPosition="-195.598 12 6.793" line_start="0 0 -10.742" line_end="0 0 8.742" />
 	<emitter name="WaterMist" system_name="WaterMist" type="line" particlesPerSecond="150" initialPosition="-175.728 -32.844 5.1875" line_start="0 0 -9.4755" line_end="0 0 9.4755" />
     
 	<!--

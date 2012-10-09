@@ -22,16 +22,16 @@ public:
 	~CTrigger();
 
 	//---Basic Methods-----------------------
-	void			CleanUp		();
-	virtual void	Init		();
-	virtual void	ReadData	( CXMLTreeNode &_Node ) = 0;
-	virtual void	Update		( float _fElapsedTime ) = 0;
-	virtual void	Render		( CRenderManager *_RM ) = 0;
+	void					CleanUp				();
+	virtual void			Init				();
+	virtual void			ReadData			( CXMLTreeNode &_Node ) = 0;
+	virtual void			Update				( float _fElapsedTime ) = 0;
+	virtual void			Render				( CRenderManager *_RM ) = 0;
 
 	//---Trigger Methods---------------------
-	virtual void	OnEnter		() = 0;
-	virtual void	OnStay		() = 0;
-	virtual void	OnExit		() = 0;
+	virtual void			OnEnter				() = 0;
+	virtual void			OnStay				() = 0;
+	virtual void			OnExit				() = 0;
 
 	//---Get & Set Methods-------------------
 	inline void				SetRenderDebug		( bool render )				{ m_bRenderDebugTrigger = render; }

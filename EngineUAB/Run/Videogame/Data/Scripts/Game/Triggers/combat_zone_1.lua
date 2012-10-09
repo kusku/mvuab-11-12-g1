@@ -11,14 +11,14 @@ class 'CCombatZone1Trigger' (CBoxTrigger)
 		self.enable_action_time:init_action()
 		
 		self.enemy_appeared = 1
-		self.total_enemies  = 7 	-- Total de enemigos en la lista
+		self.total_enemies  = 3 	-- Total de enemigos en la lista
 		self.is_appeared = false
 	end
 	
 	function CCombatZone1Trigger:update(elapsed_time)
 		--print_logger(0, "CCombatZone1Trigger:update -> Actualizacion trigger zona de combate")
 		
-		local t = { "enemy2", "enemy3", "enemy4", "enemy5", "enemy6" , "enemy7", "enemy8" }
+		local t = { "enemy2", "enemy3", "enemy4" }
 		
 		if ( self.action_time:is_action_started() ) then
 			if ( self.action_time:is_action_finished() ) then
