@@ -34,6 +34,7 @@ CBoxTrigger::~CBoxTrigger()
 //----------------------------------------------
 void CBoxTrigger::ReadData( CXMLTreeNode &_Node )
 {
+	m_bIsActive		= _Node.GetBoolProperty("active", false);
 	m_Name			= _Node.GetPszProperty("name", "");
 	m_Position		= _Node.GetVect3fProperty("position", v3fZERO);
 	m_Size			= _Node.GetVect3fProperty("size", v3fZERO);

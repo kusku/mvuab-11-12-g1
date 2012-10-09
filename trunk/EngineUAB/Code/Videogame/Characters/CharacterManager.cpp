@@ -210,13 +210,13 @@ void CCharactersManager::Update( float _ElapsedTime )
 				}
 				l_EnemyList[i]->BeDead();
 
-				Vect3f l_Pos = l_EnemyList[i]->GetPosition();
+				/*Vect3f l_Pos = l_EnemyList[i]->GetPosition();
 				CParticleEmitter *l_Emitter = CORE->GetParticleEmitterManager()->GetResource("DeathExplosion");
 				CParticleEmitterInstance *l_Instance = l_Emitter->GetParticleEmitterInstance(l_EnemyList[i]->GetName() + "_Explosions");
 				//CORE->GetParticleEmitterManager()->GetResource("DeathExplosion")->GetParticleEmitterInstance(l_EnemyList[i]->GetName() + "_Explosions")->SetPosition(l_Pos);
 				//CORE->GetParticleEmitterManager()->GetResource("DeathExplosion")->GetParticleEmitterInstance(l_EnemyList[i]->GetName() + "_Explosions")->EjectParticles();
 				l_Instance->SetPosition(l_Pos);
-				l_Instance->EjectParticles();
+				l_Instance->EjectParticles();*/
 			}
 		}
 	}
@@ -330,8 +330,7 @@ void CCharactersManager::Drawfrustum( void )
 	Mat44f mat;
 	mat.SetIdentity();
 	CRenderManager * l_RM = CORE->GetRenderManager();
-	l_RM->SetTransform(mat);
-
+	
 	TVectorResources::iterator l_It = m_ResourcesVector.begin();
 	TVectorResources::iterator l_End = m_ResourcesVector.end();
 
@@ -343,6 +342,10 @@ void CCharactersManager::Drawfrustum( void )
 		if ((*l_It)->GetProperties()->GetActive() )
 		{
 			l_InitialPosition = (*l_It)->GetSteeringEntity()->GetInitialPositionToThrowRay();
+			mat.SetIdentity();
+			mat.Translate(l_InitialPosition);
+			l_RM->SetTransform(mat);
+			
 			l_FinalPosition = (*l_It)->GetSteeringEntity()->GetFinalPositionToThrowRay(0.f);
 			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );
 	
@@ -362,7 +365,7 @@ void CCharactersManager::Drawfrustum( void )
 			l_RM->DrawSphere( (*l_It)->GetProperties()->GetPreparedAttackDistance(), 10, colYELLOW);	// Prepared distance
 
 			// Dibuixem la velocitat
-			DrawVelocity((*l_It), l_RM);
+			//DrawVelocity((*l_It), l_RM);
 		}
 	}
 	

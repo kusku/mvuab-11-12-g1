@@ -15,6 +15,7 @@
 	<script filename="./data/scripts/game/triggers/combat_zone_5.lua" />
 	<script filename="./data/scripts/game/triggers/combat_zone_6.lua" />
 	<script filename="./data/scripts/game/triggers/combat_zone_7.lua" />
+	<script filename="./data/scripts/game/triggers/combat_zone_8.lua" />
 	
 	<script filename="./data/scripts/game/player/player_idle_state.lua" />
 	<script filename="./data/scripts/game/player/player_run_state.lua" />

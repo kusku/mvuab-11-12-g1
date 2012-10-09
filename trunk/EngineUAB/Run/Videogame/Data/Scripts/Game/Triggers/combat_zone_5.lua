@@ -17,7 +17,7 @@ class 'CCombatZone5Trigger' (CBoxTrigger)
 	function CCombatZone5Trigger:update(elapsed_time)
 		--print_logger(0, "CCombatZone5Trigger:update -> Actualizacion trigger zona de combate")
 		
-		local t = { "enemy17", "enemy18", "enemy19"}
+		local t = { "enemy17", "enemy18", "enemy19" }
 		
 		if ( self.action_time:is_action_started() ) then
 			if ( self.action_time:is_action_finished() ) then
