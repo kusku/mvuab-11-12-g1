@@ -46,23 +46,24 @@
 	
 	<settings name="Twister">
 		<TextureName value="./Data/General/Textures/Particles/Waterfall0040000.dds" />
-		<MaxParticles value="500" />
+		<MaxParticles value="2500" />
 		<Duration value="2.4" />
-		<MinHorizontalVelocity value="-0.4" />
-		<MaxHorizontalVelocity value="0.4" />
-		<MinVerticalVelocity value="-2" />
-		<MaxVerticalVelocity value="2" />
+		<MinHorizontalVelocity value="0" />
+		<MaxHorizontalVelocity value="0" />
+		<MinVerticalVelocity value="-1" />
+		<MaxVerticalVelocity value="3" />
 		<Gravity value="0 0 0" />
 		<MinColor value="255.000000 255.000000 255.000000 112.000000"/>
 		<MaxColor value="255.000000 255.000000 255.000000 224.500000"/>
-		<EndVelocity value="3.75" />
+		<EndVelocity value="0 0 0" />
 		<MinRotateSpeed value="-1" />
 		<MaxRotateSpeed value="1" />
 		<MinStartSize value="1" />
 		<MaxStartSize value="2" />
 		<MinEndSize value="5" />
 		<MaxEndSize value="8" />
-		<BlendState value="Additive"/>
+		<!--<BlendState value="Additive"/>-->
+		<BlendState value="NonPremultiplied" />
 	</settings>
 
 	<settings name="Blood">

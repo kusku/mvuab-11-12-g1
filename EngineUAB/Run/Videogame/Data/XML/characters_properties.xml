@@ -213,16 +213,16 @@
 		<respawn_position>0 10 0</respawn_position>
 		
 		<position>106 -16 -168</position>					<!-- Posición inicial del juego. Posición respawn trigger 1 -->
-		<position>58 -23 -106</position>					<!-- Posición respawn trigger 2 -->
-		<position>110 -30 -30</position>					<!-- Posición respawn trigger 3 -->
-		<position>67 -40 19</position>						<!-- Posición respawn trigger 4 -->
-		<position>-20 -38 112</position>					<!-- Posición respawn trigger 5 -->
-		<position>-94 -11 96</position>						<!-- Posición respawn trigger 6 -->
-		<position>-64 -14 -20</position>					<!-- Posición respawn trigger 7 -->
+		<position>58 -23 -106</position>					<!-- Posición respawn trigger 2 - 2o letrero -->
+		<position>110 -30 -30</position>					<!-- Posición respawn trigger 3 - Antes del medio -->
+		<position>67 -40 19</position>						<!-- Posición respawn trigger 4 - Medio -->
+		<position>-20 -38 112</position>					<!-- Posición respawn trigger 5 - Subida -->
+		<position>-94 -11 96</position>						<!-- Posición respawn trigger 6 - Antes del puente -->
+		<position>-64 -14 -20</position>					<!-- Posición respawn trigger 7 - Después del puente --> 
 		<position>-44 -12 -69</position>					<!-- Posición respawn trigger 8 - Final Lobo -->
-		<position>106 -16 -168</position>					<!-- Posición inicial del juego. Posición respawn trigger 1 -->
-		<position>-44 -12 -69</position>					<!-- Posición respawn trigger 8 - Final Lobo -->
-		
+		<position>97 -21 -159</position>					<!-- Posición inicial del juego. Posición respawn trigger 1 -->
+		<position>-20 -38 112</position>					<!-- Posición respawn trigger 5 - Subida -->
+		<position>-105 -10 103</position>						<!-- Posición respawn trigger 6 - Antes del puente -->
 		
 	</player>
 	<enemies>
@@ -257,49 +257,49 @@
 			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy3" core="conejo" animated_instace_name="enemy3" >
-			<position>74 -23 -137</position>
+			<position>74 -23.7 -137</position>
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy4" core="conejo" animated_instace_name="enemy4" >
-			<position>85 -23 -132</position>
+			<position>85 -24 -132</position>
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
 		
 		<!-- Enemigos Trigger zona de combate 2 -->
 		<enemy name="enemy5" core="conejo" animated_instace_name="enemy5" >
-			<position>79 -22 -94</position>
+			<position>87 -23 -86</position>
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy6" core="conejo" animated_instace_name="enemy6" >
-			<position>64 -22 -81</position>
+			<position>85 -22 -79</position>
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy7" core="conejo" animated_instace_name="enemy7" >
-			<position>58 -22 -85</position>
+			<position>82 -23 -78</position>
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy8" core="conejo" animated_instace_name="enemy8" >
-			<position>66 -22 -84</position>
+			<position>79 -22 -74</position>
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy9" core="conejo" animated_instace_name="enemy9" >
-			<position>74 -22 -83</position>
+			<position>77 -22 -71</position>
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy10" core="conejo" animated_instace_name="enemy10" >
-			<position>71 -22 -86</position>
+			<position>73 -22 -67</position>
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy11" core="conejo" animated_instace_name="enemy11" >
-			<position>74 -22 -92</position>
+			<position>68 -23 -64</position>
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
