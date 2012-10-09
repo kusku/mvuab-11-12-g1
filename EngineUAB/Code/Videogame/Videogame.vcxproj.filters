@@ -821,6 +821,9 @@
     <ClInclude Include="Characters\Enemies\Wolf\AnimationStates\WolfRunAnimationState.h">
       <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
     </ClInclude>
+    <ClInclude Include="Characters\CharactersDefs.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Run\Videogame\Data\XML\characters_properties.xml">

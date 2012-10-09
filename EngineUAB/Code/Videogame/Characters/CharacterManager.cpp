@@ -11,7 +11,7 @@
 #include "Enemies\Wolf\Wolf.h"
 #include "Enemies\Deer\Deer.h"
 
-#include "VideogameDefs.h"
+#include "Characters\CharactersDefs.h"
 #include "Math\Vector3.h"
 #include "Utils\BoostRandomHelper.h"
 #include "Utils\Random.h"
@@ -260,13 +260,15 @@ void CCharactersManager::Render(CRenderManager *_RM, CFontManager *_FM)
 {
 	if ( m_pPlayer ) 
 	{
+		int dy = 50;
 		int life = m_pPlayer->GetProperties()->GetLife();
 		Vect3f l_Pos = m_pPlayer->GetController()->GetPosition();
-		_FM->DrawDefaultText(10, 50, colWHITE, "Life: %d", life);
-		_FM->DrawDefaultText(10, 65, colWHITE, "Position: %f, %f, %f", l_Pos.x, l_Pos.y, l_Pos.z);
+		dy += _FM->DrawDefaultText(10, dy, colWHITE, "Life: %d", life);
+		dy += _FM->DrawDefaultText(10, dy, colWHITE, "Position: %f, %f, %f", l_Pos.x, l_Pos.y, l_Pos.z);
+		dy += _FM->DrawDefaultText(10, dy, colWHITE, "Yaw: %f", m_pPlayer->GetAnimatedModel()->GetYaw() );
 	}
 
-	if ( CORE->GetPhysicsManager()->GetDrawFront() )
+	/*if ( CORE->GetPhysicsManager()->GetDrawFront() )
 		DrawFront();
 
 	if ( CORE->GetPhysicsManager()->GetDrawfrustum() )
@@ -280,7 +282,7 @@ void CCharactersManager::Render(CRenderManager *_RM, CFontManager *_FM)
 
 	if ( CORE->GetPhysicsManager()->GetRenderPositions() )
 		DrawPositions(_FM);
-
+*/
 }
 
 //--------------------------------------------------

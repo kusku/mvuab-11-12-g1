@@ -16,7 +16,7 @@
 #include "PhysicsDefs.h"
 #include "Properties/Properties.h"
 #include <string>
-#include "VideogameDefs.h"
+#include "Characters\CharactersDefs.h"
 
 //--- Foward Declarations ---//
 class CPhysicController;
