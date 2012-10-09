@@ -3,7 +3,7 @@ class 'CCombatZone8Trigger' (CBoxTrigger)
 	function CCombatZone8Trigger:__init()
 		CBoxTrigger.__init(self)
 
-		self.action_time = CActionStateCallback(0,1)
+		self.action_time = CActionStateCallback(0,0.1)
 		self.action_time:init_action()
 		
 		self.enable_action_time = CActionStateCallback(0,0.2)
@@ -25,7 +25,7 @@ class 'CCombatZone8Trigger' (CBoxTrigger)
 			
 		if ( self.action_time:is_action_started() ) then
 			if ( self.action_time:is_action_finished() ) then
-				-- Ahora incializo la parte de la aparición
+				-- Ahora inicializo la parte de la aparición
 				self.enable_action_time:init_action()
 				self.enable_action_time:start_action()
 			else 
