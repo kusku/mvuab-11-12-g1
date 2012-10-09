@@ -670,7 +670,7 @@ void CCore::UpdateInputs( float _ElapsedTime )
 		SCRIPT->RunCode("reload_render_commands()");
 	}
 	
-	if( l_Action2Input->DoAction( ACTION_RELOAD_PARTICLES ) )				// Recarrega de comandes
+	if( l_Action2Input->DoAction( ACTION_RELOAD_PARTICLES ) )				// Recarrega partículas
 	{
 		SCRIPT->RunCode("reload_particles()");
 	}
