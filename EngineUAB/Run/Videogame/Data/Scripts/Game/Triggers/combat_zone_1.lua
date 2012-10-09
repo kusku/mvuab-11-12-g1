@@ -4,7 +4,7 @@ class 'CCombatZone1Trigger' (CBoxTrigger)
 	function CCombatZone1Trigger:__init()
 		CBoxTrigger.__init(self)
 
-		self.action_time = CActionStateCallback(0,1)
+		self.action_time = CActionStateCallback(0,0.1)
 		self.action_time:init_action()
 		
 		self.enable_action_time = CActionStateCallback(0,0.2)
@@ -22,14 +22,17 @@ class 'CCombatZone1Trigger' (CBoxTrigger)
 		
 		if ( self.action_time:is_action_started() ) then
 			if ( self.action_time:is_action_finished() ) then
-				-- Ahora incializo la parte de la aparición
+				-- Ahora inicializo la parte de la aparición
 				self.enable_action_time:init_action()
 				self.enable_action_time:start_action()
 			else 
 				self.action_time:update(elapsed_time)
 				
-				if ( get_game_process():get_character_manager():get_enemy_by_name(t[self.enemy_appeared]).enable == false ) then
-					get_game_process():get_character_manager():get_enemy_by_name(t[self.enemy_appeared]):appearance()
+				local l_enemy = get_game_process():get_character_manager():get_enemy_by_name(t[self.enemy_appeared])
+				if ( l_enemy.enable == false ) then
+					l_enemy:appearance()
+					l_enemy:face_to( get_game_process():get_character_manager():get_player().properties.position, elapsed_time)
+					l_enemy:move_to2( l_enemy.steering_entity.velocity, elapsed_time)
 					self.enable_action_time:init_action()
 					self.enable_action_time:start_action()
 				end

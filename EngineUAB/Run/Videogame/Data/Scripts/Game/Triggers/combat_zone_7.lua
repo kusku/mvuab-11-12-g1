@@ -3,7 +3,7 @@ class 'CCombatZone7Trigger' (CBoxTrigger)
 	function CCombatZone7Trigger:__init()
 		CBoxTrigger.__init(self)
 
-		self.action_time = CActionStateCallback(0,1)
+		self.action_time = CActionStateCallback(0,0.1)
 		self.action_time:init_action()
 		
 		self.enable_action_time = CActionStateCallback(0,0.2)
@@ -24,14 +24,14 @@ class 'CCombatZone7Trigger' (CBoxTrigger)
 				-- Ahora incializo la parte de la aparición
 				self.enable_action_time:init_action()
 				self.enable_action_time:start_action()
+				self.is_appeared = false
 			else 
-				self.action_time:update(elapsed_time)
-				
-				if ( get_game_process():get_character_manager():get_enemy_by_name(t[self.enemy_appeared]).enable == false ) then
-					get_game_process():get_character_manager():get_enemy_by_name(t[self.enemy_appeared]):appearance()
-					self.enable_action_time:init_action()
-					self.enable_action_time:start_action()
+				local l_enemy = get_game_process():get_character_manager():get_enemy_by_name(t[self.enemy_appeared])
+				if ( l_enemy.enable == false and self.is_appeared == false ) then
+					l_enemy:appearance()
+					self.is_appeared = true
 				end
+				self.action_time:update(elapsed_time)
 			end 
 		end
 
@@ -57,6 +57,7 @@ class 'CCombatZone7Trigger' (CBoxTrigger)
 	function CCombatZone7Trigger:on_enter()
 		self.action_time:start_action()
 		self.enemy_appeared = 1
+		self.is_appeared = false
 	end
 	
 	function CCombatZone7Trigger:on_stay()
