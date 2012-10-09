@@ -61,6 +61,7 @@ CGameProcess::CGameProcess( HWND hWnd )
 	, m_bStablishFramerateState		(true)
 	, m_bStartRails					(false)
 	, m_bStartAnalise				(false)
+	, m_bFirstLogicUpdate			(true)
 {
 	for(uint8 i=0; i<30; ++i)
 		m_fElapseds[i] = 0.f;
@@ -90,6 +91,8 @@ bool CGameProcess::Init()
 
 	//Carga los objetos del juego
 	LoadGameObjects();
+
+	m_bFirstLogicUpdate = true;
 
 	// Raíles
 	CORE->SetCamera(m_pRailCamera);
@@ -266,6 +269,12 @@ void CGameProcess::Update(float elapsedTime)
 #endif
 		if( m_bIntroFinished )
 		{
+			if( m_bFirstLogicUpdate )
+			{
+				m_pHUD->SetActivePlayerBar(true);
+				m_bFirstLogicUpdate = false;
+			}
+
 			CORE->SetCamera( m_pCamera );
 
 			if( CORE->GetActionToInput()->DoAction("GoToMenu") )
