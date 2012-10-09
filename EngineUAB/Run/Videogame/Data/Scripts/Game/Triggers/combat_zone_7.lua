@@ -21,7 +21,7 @@ class 'CCombatZone7Trigger' (CBoxTrigger)
 		
 		if ( self.action_time:is_action_started() ) then
 			if ( self.action_time:is_action_finished() ) then
-				-- Ahora incializo la parte de la aparición
+				-- Ahora inicializo la parte de la aparición
 				self.enable_action_time:init_action()
 				self.enable_action_time:start_action()
 				self.is_appeared = false
