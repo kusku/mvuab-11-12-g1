@@ -1195,6 +1195,9 @@
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\river_trigger.lua">
       <Filter>Scripts\Game\Triggers</Filter>
     </None>
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\combat_zone_8.lua">
+      <Filter>Scripts\Game\Triggers</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\Run\Videogame\Data\Effects\VignettingNoise.fx">
