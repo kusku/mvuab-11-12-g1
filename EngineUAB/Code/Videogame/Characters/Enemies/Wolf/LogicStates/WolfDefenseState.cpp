@@ -1,6 +1,7 @@
 #include "WolfDefenseState.h"
 #include "Utils\BoostRandomHelper.h"
 #include "Math\MathUtils.h"
+#include "SoundManager.h"
 
 #include "Characters\Enemies\Wolf\Wolf.h"
 #include "Characters\StatesDefs.h"
@@ -82,7 +83,9 @@ void CWolfDefenseState::OnEnter( CCharacter* _pCharacter )
 		
 	// me dice el nº de veces que el player me pega mientras bloqueo
 	m_HitBlockedCount = 0;
-		
+
+	CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Wolf_Pain");
+
 	//LOGGER->AddNewLog(ELL_INFORMATION, "Valor : %d", l_Valor);
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
@@ -183,7 +186,6 @@ void CWolfDefenseState::OnExit( CCharacter* _pCharacter )
 
 	// Restauramos la velocidad original
 	m_pWolf->GetSteeringEntity()->SetMaxSpeed(m_pWolf->GetProperties()->GetMaxSpeed());
-
 	StopImpact(_pCharacter);
 }
 
@@ -209,14 +211,18 @@ bool CWolfDefenseState::OnMessage( CCharacter* _pCharacter, const STelegram& _Te
 		m_InitialHitPoint = m_pWolf->GetPosition();
 
 		// --- Para la gestión del retroceso ---
-		m_pWolf->GetSteeringEntity()->SetMaxSpeed(m_pWolf->GetProperties()->GetHitRecoilSpeed());
-
+		CProperties * l_Properties = m_pWolf->GetProperties();
+		float l_MaxHitSpeed = l_Properties->GetHitRecoilSpeed();
+		m_pWolf->GetSteeringEntity()->SetMaxSpeed(l_MaxHitSpeed);
+		// Me dice la distancia máxima y posición que recorro cuando pega el player y bloqueo hacia atras
+		m_MaxHitDistance = l_Properties->GetHitRecoilDistance();
+		
 		m_HitDirection = m_pWolf->GetSteeringEntity()->GetFront();
 		m_HitDirection.Normalize();
 		m_HitDirection = m_HitDirection.RotateY(mathUtils::PiTimes(1.f));
-		
-		// Me dice la distancia máxima y posición que recorro cuando pega el player y bloqueo hacia atras
-		m_MaxHitDistance = m_pWolf->GetProperties()->GetHitRecoilDistance();
+		m_HitDirection = m_HitDirection * l_MaxHitSpeed;
+		/*m_HitMaxPosition = m_pWolf->GetSteeringEntity()->GetPosition() + m_HitDirection * m_MaxHitDistance;*/
+
 		// ---------------------------------------
 
 		m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
