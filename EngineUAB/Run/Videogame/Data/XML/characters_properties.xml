@@ -231,25 +231,7 @@
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
-		<!--<enemy name="enemy1" core="lobo" animated_instace_name="lobo1" >
-			<position>50 -30 20</position>
-			<active>true</active>
-			<locked>false</locked>
-		</enemy>-->
-		<!--  <enemy name="enemy2" core="lobo" animated_instace_name="lobo2" >
-			<position>-20 -30 12</position>
-		</enemy>
-		<enemy name="enemy3" core="lobo" animated_instace_name="lobo3" >
-			<position>-25 -30 6</position>
-		</enemy>
-		<enemy name="enemy4" core="lobo" animated_instace_name="lobo4" >
-			<position>-30 -30 15</position>
-		</enemy>
-		<enemy name="enemy5" core="lobo" animated_instace_name="lobo5" >
-			<position>-35 -30 2</position>
-		</enemy>-->
-
-		
+				
 		<!-- Enemigos Trigger zona de combate 1 -->
 		<enemy name="enemy2" core="conejo" animated_instace_name="enemy2" >
 			<position>70 -24 -144</position>

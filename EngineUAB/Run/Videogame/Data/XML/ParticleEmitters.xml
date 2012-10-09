@@ -17,7 +17,7 @@
 	<emitter name="Snow" system_name="Snow" type="box" particlesPerSecond="100" on_loop="true" initialPosition="0.0 0.0 0.0" box_min="0.0 -45.0 0.0" box_max="50.0 -41.0 50.0" />
 	
 	<emitter name="Twister" system_name="Twister" type="line" particlesPerSecond="40000" initialPosition="0 0 0" on_loop="false" ejection_count="100" />
-	<emitter name="WolfTwister" system_name="WolfTwister" type="line" particlesPerSecond="1000" initialPosition="0 0 0" on_loop="false" ejection_count="500" />
+	<emitter name="WolfTwister" system_name="WolfTwister" type="line" particlesPerSecond="5000" initialPosition="0 0 0" on_loop="false" ejection_count="1500" />
 	<emitter name="WolfTwisterExplosion" system_name="WolfTwisterExplosion" type="line" particlesPerSecond="1000" initialPosition="0 0 0" on_loop="false" ejection_count="500" />
 	
 	<!-- Partículas al morir un enemigo -->

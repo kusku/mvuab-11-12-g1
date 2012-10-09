@@ -4,9 +4,9 @@
 	<settings name="WolfTwister">
 		<TextureName value="./Data/General/Textures/Particles/Waterfall0040000.dds" />
 		<MaxParticles value="1500" />
-		<Duration value="4.4" />
-		<MinHorizontalVelocity value="-3.4" />
-		<MaxHorizontalVelocity value="3.4" />
+		<Duration value="3.4" />
+		<MinHorizontalVelocity value="-2.4" />
+		<MaxHorizontalVelocity value="2.4" />
 		<MinVerticalVelocity value="-5" />
 		<MaxVerticalVelocity value="9" />
 		<Gravity value="0 -9.8 0" />
@@ -15,31 +15,31 @@
 		<EndVelocity value="3.75" />
 		<MinRotateSpeed value="-1" />
 		<MaxRotateSpeed value="1" />
-		<MinStartSize value="1" />
-		<MaxStartSize value="2" />
-		<MinEndSize value="5" />
+		<MinStartSize value="0.1" />
+		<MaxStartSize value="0.2" />
+		<MinEndSize value="6" />
 		<MaxEndSize value="8" />
 		<BlendState value="Additive"/>
 	</settings>
 	<settings name="WolfTwisterExplosion">
 		<TextureName value="./Data/General/Textures/Particles/explosion.dds" />
 		<MaxParticles value="500" />
-		<Duration value="1.75" />
-		<DurationRandomness value="0.25" />
+		<Duration value="2.75" />
+		<DurationRandomness value="1.25" />
 		<MinHorizontalVelocity value="-4" />
 		<MaxHorizontalVelocity value="4" />
-		<MinVerticalVelocity value="-6" />
-		<MaxVerticalVelocity value="8" />
-		<Gravity value="0 -4 0" />
+		<MinVerticalVelocity value="-2" />
+		<MaxVerticalVelocity value="12" />
+		<Gravity value="0 -9.8 0" />
 		<EndVelocity value="0" />
 		<MinColor value="169 169 169 255" />
 		<MaxColor value="128 128 128 255" />
 		<MinRotateSpeed value="-2" />
 		<MaxRotateSpeed value="2" />
-		<MinStartSize value="1" />
-		<MaxStartSize value="2" />
-		<MinEndSize value="5" />
-		<MaxEndSize value="10" />
+		<MinStartSize value="2" />
+		<MaxStartSize value="4" />
+		<MinEndSize value="10" />
+		<MaxEndSize value="20" />
 		<BlendState value="Additive" />
 	</settings>
 	
