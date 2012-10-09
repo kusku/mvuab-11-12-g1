@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <static_meshes>
-	<static_mesh name="Hozes" filename=".\Data\.\General\\Models\Hozes.m3d" />
+	<static_mesh name="Flada" filename=".\Data\.\General\\Models\Flada.m3d" />
 </static_meshes>
