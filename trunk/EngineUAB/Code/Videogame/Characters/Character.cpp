@@ -1,7 +1,6 @@
 #include "Character.h"
 #include "CharacterManager.h"
 #include "Properties/Properties.h"
-#include "VideogameDefs.h"
 #include "Utils\BoostRandomHelper.h"
 #include "SoundManager.h"
 

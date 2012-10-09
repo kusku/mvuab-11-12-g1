@@ -213,6 +213,7 @@
     <ClInclude Include="Callbacks\Animation\AnimationCallback.h" />
     <ClInclude Include="Callbacks\Animation\AnimationCallbackManager.h" />
     <ClInclude Include="Callbacks\State\ActionStateCallback.h" />
+    <ClInclude Include="Characters\CharactersDefs.h" />
     <ClInclude Include="Characters\Enemies\Deer\AnimationStates\DeerDeathAnimationState.h" />
     <ClInclude Include="Characters\Enemies\Deer\AnimationStates\DeerDefenseAnimationState.h" />
     <ClInclude Include="Characters\Enemies\Deer\AnimationStates\DeerHitAnimationState.h" />

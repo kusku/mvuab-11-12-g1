@@ -1,5 +1,5 @@
 #include "PropertiesManager.h"
-#include "VideogameDefs.h"
+#include "Characters\CharactersDefs.h"
 #include "Logger\Logger.h"
 #include "XML\XMLTreeNode.h"
 #include "Scripting\ScriptManager.h"
