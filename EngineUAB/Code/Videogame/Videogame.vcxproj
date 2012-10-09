@@ -400,6 +400,7 @@
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\combat_zone_5.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\combat_zone_6.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\combat_zone_7.lua" />
+    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\combat_zone_8.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\end_game_trigger.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\house_trigger.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\river_trigger.lua" />
