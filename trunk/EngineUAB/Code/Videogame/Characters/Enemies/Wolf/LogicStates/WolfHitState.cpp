@@ -134,7 +134,7 @@ void CWolfHitState::OnEnter( CCharacter* _pCharacter )
 		m_HitDirection.Normalize();
 		m_HitDirection = m_HitDirection.RotateY(mathUtils::PiTimes(1.f));		
 		m_HitDirection = m_HitDirection * m_MaxHitSpeed;
-		m_HitMaxPosition = m_pWolf->GetSteeringEntity()->GetPosition() + m_HitDirection * m_MaxHitDistance;
+		/*m_HitMaxPosition = m_pWolf->GetSteeringEntity()->GetPosition() + m_HitDirection * m_MaxHitDistance;*/
 
 		m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
 		m_pWolf->GetBehaviors()->SeekOff();
