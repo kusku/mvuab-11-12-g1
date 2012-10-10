@@ -14,6 +14,7 @@
 #include "Math\Matrix44.h"
 #include <string>
 #include "Utils\Named.h"
+#include <boost\math\special_functions\fpclassify.hpp>
 
 class CObject3D : public CNamed
 {
@@ -43,7 +44,21 @@ public:
 	const Mat44f				GetRotationMatrix		() const;
 
 	//---Set Functions
-	inline void					SetPosition			( const Vect3f& pos )			{ m_Position = pos; }
+	inline void					SetPosition			( const Vect3f& pos )			{ 
+																						bool l_isNan  = boost::math::isnan( pos.x );
+																						if ( l_isNan )
+																						{
+																							return;
+																						}
+																						/*if ( pos.x <= 4.035e-039 )
+																							return;
+
+																						if ( pos.x == -1.#IND00 )
+																							return;*/
+																						
+																						m_Position = pos; 
+																					}
+
 	inline void					SetScale			( const Vect3f& sca )			{ m_Scale = sca; }
 	inline void					SetYaw				( float yaw )					{ m_fYaw = yaw; }
 	inline void					SetPitch			( float pitch )					{ m_fPitch = pitch; }
