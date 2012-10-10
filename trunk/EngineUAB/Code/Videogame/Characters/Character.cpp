@@ -222,7 +222,7 @@ bool CCharacter::InitializeAI ( void )
 	else 
 	{
 		m_pSteeringEntity->SetPosition			( m_pProperties->GetPosition() );
-		m_pSteeringEntity->SetPreviousPosition	( m_pProperties->GetPosition() );
+		m_pSteeringEntity->SetPreviousPosition	( Vect3f(0,0,0) );
 		m_pSteeringEntity->SetBoundingRadius	( m_pProperties->GetBoundingRadious() );
 		m_pSteeringEntity->SetHeight			( m_pProperties->GetHeightController() );
 		m_pSteeringEntity->SetName				( m_pProperties->GetName() );
