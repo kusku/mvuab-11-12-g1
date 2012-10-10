@@ -53,6 +53,7 @@ CWolfRunAttackState::CWolfRunAttackState( CCharacter* _pCharacter )
 	: CState				(_pCharacter, "CWolfRunAttackState")
 	, m_pWolf				( NULL )
 	, m_pAnimationCallback	( NULL )
+	, m_pActionStateCallback( 0, 1 )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),WOLF_ONLY_IMPACT_RUN_ATTACK_STATE);
@@ -62,6 +63,7 @@ CWolfRunAttackState::CWolfRunAttackState( CCharacter* _pCharacter, const std::st
 	: CState				(_pCharacter, _Name)
 	, m_pWolf				( NULL )
 	, m_pAnimationCallback	( NULL )
+	, m_pActionStateCallback( 0, 1 )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),WOLF_ONLY_IMPACT_RUN_ATTACK_STATE);
@@ -84,6 +86,8 @@ void CWolfRunAttackState::OnEnter( CCharacter* _pCharacter )
 	{
 		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
+
+	CORE->GetSoundManager()->PlayEvent("Play_EFX_Wolf_Run_Attack"); 
 
 	m_pWolf->SetPlayerHasBeenReached( false );
 	m_playerPushed = false;
@@ -119,8 +123,9 @@ void CWolfRunAttackState::OnEnter( CCharacter* _pCharacter )
 	m_pWolf->GetBehaviors()->CollisionAvoidanceOn();
 	m_pWolf->GetBehaviors()->ObstacleWallAvoidanceOn();
 
-	//m_AnimationDuration = m_pWolf->GetAnimatedModel()->GetCurrentAnimationDuration(WOLF_RUN_ATTACK_STATE);
-
+	m_AnimationDuration = m_pWolf->GetAnimatedModel()->GetCurrentAnimationDuration(WOLF_RUN_ATTACK_STATE);
+	m_pActionStateCallback.InitAction(0, m_AnimationDuration);
+	
 	m_pAnimationCallback->Init();
 	
 	#if defined _DEBUG
@@ -144,19 +149,21 @@ void CWolfRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 	UpdateImpact(m_pWolf);
 	GetParticleEmitterInstance("WolfRunAttackCloud", _pCharacter->GetName() + "_WolfRunAttackCloud")->EjectParticles();
 	
+	//if ( m_pActionStateCallback.IsActionStarted())
 	if ( m_pAnimationCallback->IsAnimationStarted() ) 
 	{
 		// Si el player no estaba ya alcanzado pero ahora se alcanza
 		if ( !m_pWolf->GetPlayerHasBeenReached() && m_pWolf->IsPlayerReached() )
 		{
 			m_pWolf->SetPlayerHasBeenReached(true);
-			CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Wolf_Run_Attack_Charged"); 
+			CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Wolf_steps"); 
 
 			UpdateImpact(m_pWolf);
 			GenerateImpact(m_pWolf);
 		}
 
 		if ( m_pAnimationCallback->IsAnimationFinished() )
+		//if ( m_pActionStateCallback.IsActionFinished())
 		{
 			// Si encontré el player por delante finalizo golpeando
 			if ( m_pWolf->GetPlayerHasBeenReached() )
@@ -247,21 +254,20 @@ void CWolfRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 			m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetRunRunAttackAnimationState());
 			//CORE->GetSoundManager()->PlayEvent("Play_EFX_Wolf_Run_Attack"); 
 		}
-		else if ( ( l_Distance <= m_pWolf->GetProperties()->GetAproximationDistance() ) && ( l_Distance >  m_pWolf->GetProperties()->GetImpactDistance() ) )
-		{
-			m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetPreparedRunAttackAnimationState());
-			//CORE->GetSoundManager()->PlayEvent("Play_EFX_Wolf_Run_Attack"); 
-		}
-		else if ( l_Distance <= ( m_pWolf->GetProperties()->GetImpactDistance() ) )
+		//else if ( ( l_Distance <= m_pWolf->GetProperties()->GetAproximationDistance() ) && ( l_Distance >  m_pWolf->GetProperties()->GetImpactDistance() ) )
+		//{
+		//	m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetPreparedRunAttackAnimationState());
+		//	//CORE->GetSoundManager()->PlayEvent("Play_EFX_Wolf_Run_Attack"); 
+		//}
+		else if ( l_Distance <= ( m_pWolf->GetProperties()->GetAproximationDistance() ) )
 		{
 			m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetImpactRunAttackAnimationState());
 			m_pAnimationCallback->StartAnimation();
-			//CORE->GetSoundManager()->PlayEvent("Play_EFX_Wolf_Run_Attack"); 
-
+			//m_pActionStateCallback.StartAction();
 			if ( m_pWolf->GetPlayerHasBeenReached() == false && m_pWolf->IsPlayerReached() )
 			{
 				m_pWolf->SetPlayerHasBeenReached(true);
-				CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Deer_Run_Attack_Charged"); 
+				CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Wolf_steps"); 
 			}
 		}	
 

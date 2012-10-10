@@ -8,6 +8,7 @@
 #include "StatesMachine\State.h"
 #include "Characters\Character.h"
 #include "Characters\StatesDefs.h"
+#include "Callbacks\State\ActionStateCallback.h"
 
 // --- Foward Declarations ---
 class CWolf;
@@ -45,15 +46,16 @@ public:
 private:
 	CWolf					  * m_pWolf;
 	CAnimationCallback		  *	m_pAnimationCallback;
+	CActionStateCallback	  	m_pActionStateCallback;
 
-	float					m_InitialDistance;			// Permite alamacenar la distancia inicial para saber si luego nos pasamos
-	Vect3f					m_PlayerInitialPosition;	// Permite saber la distancia de inicio de ataque del player. Así sabremos si hemos pasado de largo.
-	Vect3f					m_FinalAttackPosition;		// Permite saber la posición final de toda la animación 
+	float						m_InitialDistance;			// Permite alamacenar la distancia inicial para saber si luego nos pasamos
+	Vect3f						m_PlayerInitialPosition;	// Permite saber la distancia de inicio de ataque del player. Así sabremos si hemos pasado de largo.
+	Vect3f						m_FinalAttackPosition;		// Permite saber la posición final de toda la animación 
 
-	float					m_AnimationDuration;
+	float						m_AnimationDuration;
 	
-	bool					m_playerPushed;
-	sDireccion				m_AditionalInfo;
+	bool						m_playerPushed;
+	sDireccion					m_AditionalInfo;
 };
 
 
