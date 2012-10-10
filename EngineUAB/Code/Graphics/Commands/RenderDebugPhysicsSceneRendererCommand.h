@@ -21,7 +21,7 @@ private:
 	bool	m_DrawNames;
 	bool	m_DrawRays;
 	bool	m_RenderPositions;
-
+	bool	m_DrawDistancesSpheres;
 };
 
 #endif
