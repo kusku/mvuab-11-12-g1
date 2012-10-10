@@ -45,11 +45,11 @@ public:
 
 	//---Set Functions
 	inline void					SetPosition			( const Vect3f& pos )			{ 
-																						bool l_isNan  = boost::math::isnan( pos.x );
+																						/*bool l_isNan  = boost::math::isnan( pos.x );
 																						if ( l_isNan )
 																						{
 																							return;
-																						}
+																						}*/
 																						/*if ( pos.x <= 4.035e-039 )
 																							return;
 
