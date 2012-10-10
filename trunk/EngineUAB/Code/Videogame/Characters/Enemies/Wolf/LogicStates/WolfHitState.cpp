@@ -302,7 +302,7 @@ void CWolfHitState::CalculateRecoilDirection( CCharacter * _pCharacter )
 	m_InitialHitPoint = m_pWolf->GetPosition();
 	
 	// Cojemos la dirección que se recibe del atacante 
-	Vect3f l_EnemyFront = m_pEnemy->GetFront();
+	Vect3f l_EnemyFront = m_pEnemy->GetSteeringEntity()->GetHeading();
 	Vect3f l_OwnFront = m_pWolf->GetFront();
 	//m_pWolf->SetLocked(true);
 	
@@ -311,8 +311,8 @@ void CWolfHitState::CalculateRecoilDirection( CCharacter * _pCharacter )
 		// Si no tiene velocidad el player rotamos hacia el enemigo y reculamos en su dirección
 		if ( _pCharacter->GetSteeringEntity()->GetSpeed() == 0 )
 		{
-			//m_HitDirection = l_EnemyFront.RotateY(mathUtils::PiTimes(1.f));	
-			m_HitDirection = l_EnemyFront;
+			m_HitDirection = l_OwnFront;
+			m_HitDirection = l_OwnFront.RotateY(mathUtils::PiTimes(1.f));	
 			m_HitDirection *= m_MaxHitSpeed;
 		}
 		// Si tenemos los dos velocidad el vector resultante indicará la dirección a seguir y recular
