@@ -132,6 +132,9 @@ public:
 	inline void				SetRenderPositions				( bool _draw )							{ m_bRenderDebugPositions = _draw; }
 	inline bool				GetRenderPositions				( void )								{ return m_bRenderDebugPositions; }
 
+	inline void				SetDrawDistancesSPheres			( bool _draw )							{ m_bDistancesSheres = _draw; }
+	inline bool				GetDrawDistancesSPheres			( void )								{ return m_bDistancesSheres; }
+
 private:
 	bool					LoadXML							();
 	void					Release							();
@@ -157,6 +160,7 @@ private:
 	bool				m_bNames;					// dice si dibuja los Nombres de los caracteres
 	bool				m_bRays;					// dice si dibuja los Rayos de los caracteres
 	bool				m_bRenderDebugPositions;	// dice si dibuja las posiciones de caracteres activos
+	bool				m_bDistancesSheres;			// dice si dibuja las esferas de las distancias de detección, etc
 	
 };
 
