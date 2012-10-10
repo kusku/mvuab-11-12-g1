@@ -113,23 +113,12 @@ void CRabbitHitState::OnEnter( CCharacter* _pCharacter )
 		m_pActionStateCallback.StartAction();
 		
 		// --- Para la gestión del retroceso ---
-		CProperties * l_Properties = m_pRabbit->GetProperties();
-		m_pRabbit->FaceTo(m_pRabbit->GetPlayer()->GetPosition(), CORE->GetTimer()->GetElapsedTime());
-		m_MaxHitSpeed = l_Properties->GetHitRecoilSpeed();
-		m_pRabbit->GetSteeringEntity()->SetMaxSpeed(m_MaxHitSpeed);
-		m_MaxHitDistance = l_Properties->GetHitRecoilDistance();
-		m_InitialHitPoint = m_pRabbit->GetPosition();
-
-		m_HitDirection = m_pRabbit->GetSteeringEntity()->GetFront();
-		m_HitDirection.Normalize();
-		m_HitDirection = m_HitDirection.RotateY(mathUtils::PiTimes(1.f));		
-		m_HitDirection = m_HitDirection * m_MaxHitSpeed;
-		//m_HitMaxPosition = m_pRabbit->GetSteeringEntity()->GetPosition() + m_HitDirection * m_MaxHitDistance;
+		CalculateRecoilDirection(m_pRabbit);
+		m_DoubleHit = false;
+		// ---------------------------------------
 
 		m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
 		m_pRabbit->GetBehaviors()->SeekOff();
-
-		// ---------------------------------------
 
 		// Gestión de partículas. Metemos sangre!!
 		UpdateImpact(_pCharacter);
