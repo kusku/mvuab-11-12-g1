@@ -57,7 +57,6 @@ private:
 
 	float					m_AnimationDuration;
 	
-	bool					m_playerPushed;
 	sDireccion				m_AditionalInfo;
 
 	float					m_SoundDuration;			// Permite saber la duración del sonido

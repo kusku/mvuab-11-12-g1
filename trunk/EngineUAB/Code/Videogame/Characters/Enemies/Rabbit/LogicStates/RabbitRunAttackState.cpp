@@ -88,8 +88,7 @@ void CRabbitRunAttackState::OnEnter( CCharacter* _pCharacter )
 	}
 
 	m_pRabbit->SetPlayerHasBeenReached( false );
-	m_playerPushed = false;
-
+	
 	/// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio. En este caso no queremos
 	// pq hace un desplazamiento que después de este ataque no queremos que haga.
 	m_pRabbit->SetToBeTired(false);
@@ -113,7 +112,7 @@ void CRabbitRunAttackState::OnEnter( CCharacter* _pCharacter )
 	}
 	else
 	{
-		m_FinalAttackPosition = l_Position + (l_RelativePositionN * ( m_InitialDistance + 0.f) );
+		m_FinalAttackPosition = l_Position + (l_RelativePositionN * ( m_InitialDistance ) );
 	}
 
 	// Activo el seek a saco a una posició en el momento de inicio de ataque
@@ -169,22 +168,6 @@ void CRabbitRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 			if ( m_pRabbit->GetPlayerHasBeenReached() )
 			{
 				m_pRabbit->SetToBeTired(true);
-
-				if ( DISPATCH != NULL ) 
-				{
-					DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pRabbit->GetID(), m_pRabbit->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
-					LOGGER->AddNewLog(ELL_INFORMATION,"CRabbitRunAttackState::Execute->Envio mensaje de tocado");
-					#if defined _DEBUG
-						if( CORE->IsDebugMode() )
-						{
-							LOGGER->AddNewLog(ELL_INFORMATION, "CRabbitRunAttackState:Execute->Dispatch" );
-						}
-					#endif
-				}
-				else
-				{
-					LOGGER->AddNewLog(ELL_ERROR, "CRabbitRunAttackState:Execute->El Dispatch es NULL" );
-				}
 			}
 			else
 			{
@@ -218,37 +201,16 @@ void CRabbitRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 			// Si encuentro el player por delante me lo llevo
 			if ( m_pRabbit->GetPlayerHasBeenReached() )
 			{
-				if ( !m_playerPushed )
-				{
-					Vect3f l_Vel = m_pRabbit->GetSteeringEntity()->GetVelocity();
-					l_Vel.Normalize();
-					bool l_isNan  = boost::math::isnan( l_Vel.x );
-					if ( l_isNan )
-					{
-						l_Vel = m_pRabbit->GetSteeringEntity()->GetHeading();
-						l_isNan  = boost::math::isnan( l_Vel.x );
-						if ( l_isNan )
-						{
-							l_Vel = Vect3f(0,0,0);
-							m_AditionalInfo.Speed = m_pRabbit->GetProperties()->GetRunAttackSpeed();
-						}
-						else
-						{	
-							l_Vel *= m_pRabbit->GetProperties()->GetMaxSpeed();
-						}
-					}
-					else
-					{
-						l_Vel *= m_pRabbit->GetProperties()->GetMaxSpeed();
-					}
-					m_AditionalInfo.Direccion	= l_Vel;
-					m_AditionalInfo.ElapsedTime = _ElapsedTime;
-				}
-					
 				if ( DISPATCH != NULL ) 
 				{
-					DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pRabbit->GetID(), m_pRabbit->GetPlayer()->GetID(), Msg_Push, &m_AditionalInfo );
-					m_playerPushed = true;
+					DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pRabbit->GetID(), m_pRabbit->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
+					LOGGER->AddNewLog(ELL_INFORMATION,"CRabbitRunAttackState::Execute->Envio mensaje de tocado");
+					#if defined _DEBUG
+						if( CORE->IsDebugMode() )
+						{
+							LOGGER->AddNewLog(ELL_INFORMATION, "CRabbitRunAttackState:Execute->Dispatch" );
+						}
+					#endif
 				}
 				else
 				{
@@ -317,13 +279,6 @@ void CRabbitRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 
 void CRabbitRunAttackState::OnExit( CCharacter* _pCharacter )
 {
-	// Limpiamos animaciones
-	/*self.active_animation_name = _CCharacter:get_animation_id("attack_2")
-	_CCharacter:get_animation_model():clear_cycle( self.active_animation_name, 0.3 )
-		
-	self.active_animation_name = _CCharacter:get_animation_id("run")
-	_CCharacter:get_animation_model():clear_cycle( self.active_animation_name, 0.3 )*/
-
 	// Quitamos el behaviur
 	m_pRabbit->GetBehaviors()->SeekOff();
 	m_pRabbit->GetBehaviors()->CollisionAvoidanceOff();

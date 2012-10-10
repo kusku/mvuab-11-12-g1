@@ -14,6 +14,7 @@
 #include "Characters\CharacterManager.h"
 #include "Characters\StatesDefs.h"
 #include "Characters\Enemies\Wolf\Wolf.h"
+#include "Characters\Player\Player.h"
 
 #include "WolfHitState.h"
 #include "WolfIdleState.h"
@@ -84,9 +85,17 @@ void CWolfHowlEnemiesState::OnEnter( CCharacter* _pCharacter )
 	//m_ActionStateCallback.InitAction(0, m_SoundDuration);
 	//m_ActionStateCallback.StartAction();
 
+	CORE->GetParticleEmitterManager()->GetResource("DeepSnow")->GetParticleEmitterInstance(GetName() + "_DeepSnow")->SetActive(true);
+	CORE->GetParticleEmitterManager()->GetResource("DeepSnow")->GetParticleEmitterInstance(GetName() + "_DeepSnow")->EjectParticles();
+	CORE->GetParticleEmitterManager()->GetResource("DeepSnow")->GetParticleEmitterInstance(GetName() + "_DeepSnow")->SetPosition(m_pWolf->GetPosition());
+	
 	// Ya lo hemos ejecutado y ahora lo desactivamos
 	m_pWolf->SetCanHowlForEnemies(false);
 
+	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
+	CPlayer * l_Player = dynamic_cast<CPlayer *> (l_Process->GetCharactersManager()->GetPlayer());
+	l_Player->SetLocked(true);
+	
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
@@ -126,6 +135,13 @@ void CWolfHowlEnemiesState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 void CWolfHowlEnemiesState::OnExit( CCharacter* _pCharacter )
 {
 	CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Stop_EFX_Wolf_Howl" );
+
+	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
+	CPlayer * l_Player = dynamic_cast<CPlayer *> (l_Process->GetCharactersManager()->GetPlayer());
+	l_Player->SetLocked(false);
+	
+	CORE->GetParticleEmitterManager()->GetResource("DeepSnow")->GetParticleEmitterInstance(GetName() + "_DeepSnow")->StopEjectParticles();
+	CORE->GetParticleEmitterManager()->GetResource("DeepSnow")->GetParticleEmitterInstance(GetName() + "_DeepSnow")->SetActive(false);
 }
 
 bool CWolfHowlEnemiesState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
@@ -168,11 +184,12 @@ void CWolfHowlEnemiesState::ShowEnemiesToHelp(void)
 		//Vect3f l_Front  = m_pWolf->GetFront(); 
 		l_Front.RotateY(mathUtils::Deg2Rad( l_DegreesToSetEnemies));
 
-		Vect3f l_FinalPosition  = Vect3f( l_InitialPosition.x + l_Front.x * l_DistanceToSet, l_InitialPosition.y + 8.f, l_InitialPosition.z + l_Front.z * l_DistanceToSet);
+		Vect3f l_FinalPosition  = Vect3f( l_InitialPosition.x + l_Front.x * l_DistanceToSet, l_InitialPosition.y + m_pWolf->GetProperties()->GetHeightController() , l_InitialPosition.z + l_Front.z * l_DistanceToSet);
 	
 		CCharacter* l_Character = l_CM->GetCharacterById(m_DynamicEnemyIndex);
 		l_Character->MoveCharacter(l_FinalPosition);
 		l_Character->Appearance();
+		l_Character->SetEnable(true);
 		m_DynamicEnemyIndex++;
 	}
 }

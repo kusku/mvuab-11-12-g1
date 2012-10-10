@@ -104,7 +104,7 @@ void CRabbitHitState::OnEnter( CCharacter* _pCharacter )
 		CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Rabbit_Pain");
 
 		// Aprovecho esta variable para calcular el tiempo de duración del desplazamiento
-		m_ActionDuration = m_pRabbit->GetProperties()->GetHitRecoilDistance()/m_pRabbit->GetProperties()->GetHitRecoilSpeed() * CORE->GetTimer()->GetElapsedTime();
+		//m_ActionDuration = m_pRabbit->GetProperties()->GetHitRecoilDistance()/m_pRabbit->GetProperties()->GetHitRecoilSpeed() * CORE->GetTimer()->GetElapsedTime();
 		/*m_pActionStateCallback.InitAction(0, m_ActionDuration); 
 		m_pActionStateCallback.StartAction();*/
 
@@ -124,9 +124,8 @@ void CRabbitHitState::OnEnter( CCharacter* _pCharacter )
 		m_HitDirection.Normalize();
 		m_HitDirection = m_HitDirection.RotateY(mathUtils::PiTimes(1.f));		
 		m_HitDirection = m_HitDirection * m_MaxHitSpeed;
-		m_HitMaxPosition = m_pRabbit->GetSteeringEntity()->GetPosition() + m_HitDirection * m_MaxHitDistance;
+		//m_HitMaxPosition = m_pRabbit->GetSteeringEntity()->GetPosition() + m_HitDirection * m_MaxHitDistance;
 
-		
 		m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
 		m_pRabbit->GetBehaviors()->SeekOff();
 
