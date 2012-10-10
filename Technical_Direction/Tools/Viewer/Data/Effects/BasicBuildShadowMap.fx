@@ -68,7 +68,6 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 
 float4 PixelShaderFunction(VertexShaderOutput input, uniform bool clipAlpha) : COLOR0
 {
-	[flatten]
 	if(clipAlpha == true)
 	{
 		float alfa = tex2D(DiffuseTextureMap, input.TexCoord).a;

@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <particle_emitters>
+  
+  <!--Water Splash Rocks-->
+  <emitter name="WaterSplash1" system_name="WaterSplash" type="point" particlesPerSecond="10" initialPosition="0 30 0" on_loop="true" />
+  
 
-  <emitter name="WaterFall" system_name="WaterFall" type="line" particlesPerSecond="400" initialPosition="-195.598 12 6.793" line_start="0 0 -10.742" line_end="0 0 8.742" />
+	<emitter name="WaterFall" system_name="WaterFall" type="line" particlesPerSecond="400" initialPosition="-195.598 12 6.793" line_start="0 0 -10.742" line_end="0 0 8.742" />
 	<emitter name="WaterMist" system_name="WaterMist" type="line" particlesPerSecond="150" initialPosition="-175.728 -32.844 5.1875" line_start="0 0 -9.4755" line_end="0 0 9.4755" />
     
 	<!--
@@ -15,9 +19,12 @@
 	<emitter name="SwordFinal" system_name="SwordFinal" type="point" particlesPerSecond="400" initialPosition="0 0 0" on_loop="false" ejection_count="90" />
 	
 	<emitter name="Snow" system_name="Snow" type="box" particlesPerSecond="100" on_loop="true" initialPosition="0.0 0.0 0.0" box_min="0.0 -45.0 0.0" box_max="50.0 -41.0 50.0" />
+	<emitter name="Snow1" system_name="Snow" type="box" particlesPerSecond="110" on_loop="true" initialPosition="0.0 0.0 0.0" box_min="-110 -17 -100" box_max="-30 -16 -50" />
+	<emitter name="Snow2" system_name="Snow" type="box" particlesPerSecond="170" on_loop="true" initialPosition="0.0 0.0 0.0" box_min="50 -27 -140" box_max="80 -24 -110" />
+	<emitter name="Snow3" system_name="Snow" type="box" particlesPerSecond="150" on_loop="true" initialPosition="0.0 0.0 0.0" box_min="60 -27 -110" box_max="90 -24 -80" />
 	
-	<emitter name="Twister" system_name="Twister" type="line" particlesPerSecond="1000" initialPosition="0 0 0" on_loop="false" ejection_count="100" />
-	<emitter name="WolfTwister" system_name="WolfTwister" type="line" particlesPerSecond="1000" initialPosition="0 0 0" on_loop="false" ejection_count="500" />
+	<emitter name="Twister" system_name="Twister" type="line" particlesPerSecond="40000" initialPosition="0 0 0" on_loop="false" ejection_count="100" />
+	<emitter name="WolfTwister" system_name="WolfTwister" type="line" particlesPerSecond="5000" initialPosition="0 0 0" on_loop="false" ejection_count="1500" />
 	<emitter name="WolfTwisterExplosion" system_name="WolfTwisterExplosion" type="line" particlesPerSecond="1000" initialPosition="0 0 0" on_loop="false" ejection_count="500" />
 	
 	<!-- Partículas al morir un enemigo -->

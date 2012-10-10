@@ -28,9 +28,9 @@ float4 AmbientLightColor <
 //243.0 115.0 13.0
 
 uniform bool		FogEnable = true;
-uniform float3		FogColor = float3(0.9f, 0.65f, 0.05f);
-uniform float		FogStart = 200.0f;
-uniform float		FogRange = 350.0f;
+uniform float3		FogColor = float3(0.9098f, 0.2901f, 0.0980f);
+uniform float		FogStart = 250.0f;
+uniform float		FogRange = 450.0f;
 
 uniform float4x4	World									: WORLD;
 uniform float4x4	WorldViewProjection 					: WORLDVIEWPROJECTION;
@@ -560,7 +560,6 @@ float CalcShadowVarianceCascadeNum(int cascadeNum, sampler shadowMapSampler, int
 	
 	float ShadowContrib = ChebyshevUpperBound(Moments, RescaledDist, VSMMinVariance);
     
-	[branch]
 	if (LBREnable)
 	{
 		ShadowContrib = LBR(ShadowContrib);
@@ -597,7 +596,6 @@ float CalcShadowVarianceCascade(float4 Pos, sampler shadowMapSampler, int light,
 
 float CalcShadowVariance(float4 Pos, sampler shadowMapSampler, int light, float4 vPos)
 {	
-	[branch]
 	if(lightType[light] == DIRECTIONAL)
 	{
 		return CalcShadowVarianceCascade(Pos, shadowMapSampler, light, vPos);
@@ -619,7 +617,6 @@ float CalcShadowVariance(float4 Pos, sampler shadowMapSampler, int light, float4
 	
 		float ShadowContrib = ChebyshevUpperBound(Moments, RescaledDist, VSMMinVariance);
     
-		[branch] 
 		if (LBREnable)
 		{
 			ShadowContrib = LBR(ShadowContrib);
@@ -639,7 +636,6 @@ float2 MotionBlurVelocity(float4 wvpPosition, float4 wPosition, bool skybox = fa
 	float4 prevProjSpace = wvpPosition;
 	float4 currentProjSpace = mul(wPosition, PrevViewProjection);
 
-	[branch]
 	if(skybox == true)
 	{
 		currentProjSpace = currentProjSpace.xyww;

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <particle_systems>
+  <system name="WaterSplash" settings_name="WaterSplash" />
+  
 	<system name="Fire" settings_name="fire" />
 
 	<system name="Smoke" settings_name="smoke" />

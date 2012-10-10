@@ -79,21 +79,24 @@
   <animated_model_instance name="enemy54" core="conejo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
   <animated_model_instance name="enemy55" core="conejo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
   <animated_model_instance name="enemy56" core="conejo" position="0 0 0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="false" layer="solid" />
-                                      
+
+  <!--Terreno-->
+  <mesh_instance name="Terreno" core="Terreno" position="-0.357712 -0.0759735 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" physics_group="ECG_ESCENE" />
+  
   <!--Cabaña, Rio y Puentes-->
   <mesh_instance name="CabanaAbuela" core="CabanaAbuela" position="-61.1834 0.0298309 -117.168" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
   <mesh_instance name="Rio" core="Rio" position="-55.2573 -30.6148 -92.2339" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="water" create_physics="false" />
   <mesh_instance name="Puente Principal" core="Puente Principal" position="-81.1897 -15.3379 -1.69853" yaw="48.5796" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" physics_group="ECG_BRIDGE" />
   
-  <!--Terreno-->
-  <mesh_instance name="Terreno" core="Terreno" position="-0.357712 -0.0759735 0.0" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" physics_group="ECG_ESCENE" />
-  
   <!--Piedras Rio-->
-  <mesh_instance name="PiedraLP021" core="PiedraLP021" position="34.3929 -32.9685 -95.4515" yaw="132.301" pitch="27.1465" roll="46.2031" scale="8.60455 8.60455 8.60455" visible="true" layer="solid" create_physics="false" />
-  <mesh_instance name="PiedraLP015" core="PiedraLP015" position="43.6148 -35.4149 -46.3298" yaw="-11.0499" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
-  <mesh_instance name="PiedraLP017" core="PiedraLP017" position="-3.60428 -45.9314 4.1668" yaw="-1.00179e-005" pitch="-6.26413" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
-  <mesh_instance name="PiedraLP022" core="PiedraLP022" position="31.7062 -31.4659 -148.617" yaw="132.301" pitch="27.1466" roll="46.2031" scale="8.60455 8.60455 8.60455" visible="true" layer="solid" create_physics="false" />
-  <mesh_instance name="PiedraLP023" core="PiedraLP023" position="28.9096 -32.0323 -154.414" yaw="-20.5793" pitch="24.0353" roll="47.7528" scale="8.60455 8.60455 8.60455" visible="true" layer="solid" create_physics="false" />
+  <mesh_instance_hw name="PiedraRio_Main" core="PiedraRio_Main" position="-191.637 2.53779 16.9659" yaw="-1.00179e-005" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
+  <mesh_instance_hw name="PiedraRio_001" core="PiedraRio_Main" position="-189.929 -4.88583 16.9659" yaw="-1.00179e-005" pitch="30.5096" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
+  <mesh_instance_hw name="PiedraRio_008" core="PiedraRio_Main" position="-189.929 0.540112 -2.77852" yaw="-1.00179e-005" pitch="30.5096" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
+  <mesh_instance_hw name="PiedraRio_009" core="PiedraRio_Main" position="1.11533 -44.5207 1.23505" yaw="23.7647" pitch="30.5096" roll="66.6082" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
+  <mesh_instance_hw name="PiedraRio_010" core="PiedraRio_Main" position="42.5883 -35.2689 -45.8222" yaw="126.159" pitch="3.29971" roll="61.2049" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
+  <mesh_instance_hw name="PiedraRio_011" core="PiedraRio_Main" position="34.1783 -31.0897 -102.147" yaw="135.24" pitch="-33.1773" roll="64.4783" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
+  <mesh_instance_hw name="PiedraRio_012" core="PiedraRio_Main" position="34.1783 -29.8006 -146.815" yaw="-174.973" pitch="-33.1773" roll="64.4783" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
+  <mesh_instance_hw name="PiedraRio_013" core="PiedraRio_Main" position="29.678 -31.5236 -153.823" yaw="56.6255" pitch="-79.9387" roll="62.1695" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="false" />
   
   <!--Piedras Gigantes-->
   <mesh_instance name="roca02" core="roca02" position="146.881 -26.922 -92.2692" yaw="0.0" pitch="0.0" roll="0.0" scale="1.0 1.0 1.0" visible="true" layer="solid" create_physics="true" physics_type="triangle_mesh" physics_group="ECG_ESCENE" />

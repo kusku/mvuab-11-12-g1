@@ -3,7 +3,7 @@ class 'CCombatZone6Trigger' (CBoxTrigger)
 	function CCombatZone6Trigger:__init()
 		CBoxTrigger.__init(self)
 
-		self.action_time = CActionStateCallback(0,1)
+		self.action_time = CActionStateCallback(0,0.1)
 		self.action_time:init_action()
 		
 		self.enable_action_time = CActionStateCallback(0,0.2)
@@ -17,21 +17,23 @@ class 'CCombatZone6Trigger' (CBoxTrigger)
 	function CCombatZone6Trigger:update(elapsed_time)
 		--print_logger(0, "CCombatZone6Trigger:update -> Actualizacion trigger zona de combate")
 		
-		local t = { "enemy22", "enemy23", "enemy24", "enemy25", "enemy26", "enemy27" }
+		local t = { "enemy20", "enemy21", "enemy22", "enemy23" }
 		
 		if ( self.action_time:is_action_started() ) then
 			if ( self.action_time:is_action_finished() ) then
-				-- Ahora incializo la parte de la aparición
+				-- Ahora inicializo la parte de la aparición
 				self.enable_action_time:init_action()
 				self.enable_action_time:start_action()
+				self.is_appeared = false
 			else 
-				self.action_time:update(elapsed_time)
-				
-				if ( get_game_process():get_character_manager():get_enemy_by_name(t[self.enemy_appeared]).enable == false ) then
-					get_game_process():get_character_manager():get_enemy_by_name(t[self.enemy_appeared]):appearance()
-					self.enable_action_time:init_action()
-					self.enable_action_time:start_action()
+				local l_enemy = get_game_process():get_character_manager():get_enemy_by_name(t[self.enemy_appeared])
+				if ( l_enemy.enable == false and self.is_appeared == false ) then
+					l_enemy:appearance()
+					self.is_appeared = true
+					-- self.enable_action_time:init_action()
+					-- self.enable_action_time:start_action()
 				end
+				self.action_time:update(elapsed_time)
 			end 
 		end
 
@@ -57,6 +59,7 @@ class 'CCombatZone6Trigger' (CBoxTrigger)
 	function CCombatZone6Trigger:on_enter()
 		self.action_time:start_action()
 		self.enemy_appeared = 1
+		self.is_appeared = false
 	end
 	
 	function CCombatZone6Trigger:on_stay()

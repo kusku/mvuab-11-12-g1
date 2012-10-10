@@ -5,8 +5,12 @@
     <instance name="WaterFall System Instance" emitter_system_name="WaterFall System" />
   </emitter_system_instances>
   
-  <emitter_instance>
+  <emitter_system_instances>
+    <instance name="Snow System Instance" emitter_system_name="Snow Systen" />
+  </emitter_system_instances>
+  
+  <!--<emitter_instance>
     <instance name="Snow Instance" emitter_name="Snow" />
-  </emitter_instance>
+  </emitter_instance>-->
 
 </particle_startup_instances>

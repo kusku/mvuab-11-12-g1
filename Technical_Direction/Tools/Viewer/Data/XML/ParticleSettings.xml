@@ -2,11 +2,11 @@
 <particle_settings>
 
 	<settings name="WolfTwister">
-		<TextureName value="./Data/General/Textures/Particles/Waterfall0040000.png" />
+		<TextureName value="./Data/General/Textures/Particles/Waterfall0040000.dds" />
 		<MaxParticles value="1500" />
-		<Duration value="4.4" />
-		<MinHorizontalVelocity value="-3.4" />
-		<MaxHorizontalVelocity value="3.4" />
+		<Duration value="3.4" />
+		<MinHorizontalVelocity value="-2.4" />
+		<MaxHorizontalVelocity value="2.4" />
 		<MinVerticalVelocity value="-5" />
 		<MaxVerticalVelocity value="9" />
 		<Gravity value="0 -9.8 0" />
@@ -15,58 +15,58 @@
 		<EndVelocity value="3.75" />
 		<MinRotateSpeed value="-1" />
 		<MaxRotateSpeed value="1" />
-		<MinStartSize value="1" />
-		<MaxStartSize value="2" />
-		<MinEndSize value="5" />
+		<MinStartSize value="0.1" />
+		<MaxStartSize value="0.2" />
+		<MinEndSize value="6" />
 		<MaxEndSize value="8" />
 		<BlendState value="Additive"/>
 	</settings>
 	<settings name="WolfTwisterExplosion">
-		<TextureName value="./Data/General/Textures/explosion.png" />
+		<TextureName value="./Data/General/Textures/Particles/explosion.dds" />
 		<MaxParticles value="500" />
-		<Duration value="1.75" />
-		<DurationRandomness value="0.25" />
+		<Duration value="2.75" />
+		<DurationRandomness value="1.25" />
 		<MinHorizontalVelocity value="-4" />
 		<MaxHorizontalVelocity value="4" />
-		<MinVerticalVelocity value="-6" />
-		<MaxVerticalVelocity value="8" />
-		<Gravity value="0 -4 0" />
+		<MinVerticalVelocity value="-2" />
+		<MaxVerticalVelocity value="12" />
+		<Gravity value="0 -9.8 0" />
 		<EndVelocity value="0" />
 		<MinColor value="169 169 169 255" />
 		<MaxColor value="128 128 128 255" />
 		<MinRotateSpeed value="-2" />
 		<MaxRotateSpeed value="2" />
-		<MinStartSize value="1" />
-		<MaxStartSize value="2" />
-		<MinEndSize value="5" />
-		<MaxEndSize value="10" />
+		<MinStartSize value="2" />
+		<MaxStartSize value="4" />
+		<MinEndSize value="10" />
+		<MaxEndSize value="20" />
 		<BlendState value="Additive" />
 	</settings>
-
 	
 	<settings name="Twister">
-		<TextureName value="./Data/General/Textures/Particles/Waterfall0040000.png" />
-		<MaxParticles value="500" />
+		<TextureName value="./Data/General/Textures/Particles/Waterfall0040000.dds" />
+		<MaxParticles value="2500" />
 		<Duration value="2.4" />
-		<MinHorizontalVelocity value="-0.4" />
-		<MaxHorizontalVelocity value="0.4" />
-		<MinVerticalVelocity value="-2" />
-		<MaxVerticalVelocity value="2" />
+		<MinHorizontalVelocity value="0" />
+		<MaxHorizontalVelocity value="0" />
+		<MinVerticalVelocity value="-1" />
+		<MaxVerticalVelocity value="3" />
 		<Gravity value="0 0 0" />
 		<MinColor value="255.000000 255.000000 255.000000 112.000000"/>
 		<MaxColor value="255.000000 255.000000 255.000000 224.500000"/>
-		<EndVelocity value="3.75" />
+		<EndVelocity value="0 0 0" />
 		<MinRotateSpeed value="-1" />
 		<MaxRotateSpeed value="1" />
 		<MinStartSize value="1" />
 		<MaxStartSize value="2" />
 		<MinEndSize value="5" />
 		<MaxEndSize value="8" />
-		<BlendState value="Additive"/>
+		<!--<BlendState value="Additive"/>-->
+		<BlendState value="NonPremultiplied" />
 	</settings>
 
 	<settings name="Blood">
-		<TextureName value="./Data/General/Textures/Splash0001.tga" />
+		<TextureName value="./Data/General/Textures/Particles/Splash0001.dds" />
 		<MaxParticles value="300" />
 
 		<Duration value="0.5" />
@@ -100,7 +100,7 @@
 	</settings>
 
 	<settings name="water_mist">
-		<TextureName value="./Data/General/Textures/wmist.png" />
+		<TextureName value="./Data/General/Textures/Particles/wmist.dds" />
 
 		<MaxParticles value="600" />
 
@@ -134,7 +134,7 @@
 	</settings>
 
 	<settings name="water_fall">
-		<TextureName value="./Data/General/Textures/mist2.tga" />
+		<TextureName value="./Data/General/Textures/Particles/mist2.dds" />
 
 		<MaxParticles value="2600" />
 
@@ -168,7 +168,7 @@
 	</settings>
 
 	<settings name="water_fall2">
-		<TextureName value="./Data/General/Textures/mist2.tga" />
+		<TextureName value="./Data/General/Textures/Particles/mist2.dds" />
 
 		<MaxParticles value="650" />
 
@@ -202,7 +202,7 @@
 	</settings>
 
 	<settings name="smoke">
-		<TextureName value="./Data/General/Textures/smoke.png" />
+		<TextureName value="./Data/General/Textures/Particles/smoke2.dds" />
 		<MaxParticles value="1000" />
 
 		<Duration value="10" />
@@ -230,7 +230,7 @@
 	</settings>
 
 	<settings name="fire">
-		<TextureName value="./Data/General/Textures/fire.png" />
+		<TextureName value="./Data/General/Textures/Particles/fire.dds" />
 		<MaxParticles value="2400" />
 
 		<Duration value="2" />
@@ -257,7 +257,7 @@
 	</settings>
 
 	<settings name="DeathExplosion">
-		<TextureName value="./Data/General/Textures/explosion.png" />
+		<TextureName value="./Data/General/Textures/Particles/explosion.dds" />
 		<MaxParticles value="200" />
 
 		<Duration value="0.75" />
@@ -289,7 +289,7 @@
 	</settings>
 
 	<settings name="Sword">
-		<TextureName value="./Data/General/Textures/Particles/FlowerBurst.jpg"/>
+		<TextureName value="./Data/General/Textures/Particles/FlowerBurst.dds"/>
 		<MaxParticles value="300"/>
 		<!--<Duration value="0.300000"/>
 		<DurationRandomness value="0.100000"/>-->
@@ -314,7 +314,7 @@
 	</settings>
 
 	<settings name="SwordFinal">
-		<TextureName value="./Data/General/Textures/Particles/FlowerBurst.jpg"/>
+		<TextureName value="./Data/General/Textures/Particles/FlowerBurst.dds"/>
 		<MaxParticles value="400"/>
 		<Duration value="0.500000"/>
 		<DurationRandomness value="0.2500000"/>
@@ -337,7 +337,7 @@
 	</settings>
 
 	<settings name="Snow">
-		<TextureName value="./Data/General/Textures/Particles/snow.png" />
+		<TextureName value="./Data/General/Textures/Particles/snow.dds" />
 		<MaxParticles value="200" />
 
 		<Duration value="5" />
@@ -370,7 +370,7 @@
 	<!-- WOLF SETTINGS -->
 	<!-- ************* -->
 	<settings name="WolfBlurHook">
-		<TextureName value="./Data/General/Textures/Particles/FlowerBurst.jpg"/>
+		<TextureName value="./Data/General/Textures/Particles/FlowerBurst.dds"/>
 		<MaxParticles value="1500"/>
 		<Duration value="0.320000"/>
 		<DurationRandomness value="0.00000"/>
@@ -393,7 +393,7 @@
 	</settings>
 
 	<settings name="WolfSteps">
-		<TextureName value="./Data/General/Textures/Particles/Soft clumpy.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Soft clumpy.dds"/>
 		<MaxParticles value="1000"/>
 		<Duration value="2.00000"/>
 		<DurationRandomness value="0.000000"/>
@@ -416,7 +416,7 @@
 	</settings>
 
 	<settings name="WolfBlood">
-		<TextureName value="./Data/General/Textures/Splash0001.tga"/>
+		<TextureName value="./Data/General/Textures/Particles/Splash0001.dds"/>
 		<MaxParticles value="500"/>
 		<Duration value="1.500000"/>
 		<DurationRandomness value="0.000000"/>
@@ -439,7 +439,7 @@
 		<!--<BlendState value="Additive"/>-->
 	</settings>
 	<settings name="WolfBloodSplash">
-		<TextureName value="./Data/General/Textures/Splash0001.tga"/>
+		<TextureName value="./Data/General/Textures/Particles/Splash0001.dds"/>
 		<MaxParticles value="200"/>
 		<Duration value="1.500000"/>
 		<DurationRandomness value="0.000000"/>
@@ -462,7 +462,7 @@
 		<!--<BlendState value="Additive"/>-->
 	</settings>
 	<settings name="WolfBloodDust">
-		<TextureName value="./Data/General/Textures/Particles/Soft clumpy.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Soft clumpy.dds"/>
 		<MaxParticles value="2000"/>
 		<Duration value="1.500000"/>
 		<DurationRandomness value="0.000000"/>
@@ -485,7 +485,7 @@
 	</settings>
 
 	<settings name="WolfCenterFlare">
-		<TextureName value="./Data/General/Textures/Particles/Blurred spikey star.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Blurred spikey star.dds"/>
 		<MaxParticles value="20"/>
 		<Duration value="0.2000"/>
 		<DurationRandomness value="0.000000"/>
@@ -507,7 +507,7 @@
 		<BlendState value="Additive"/>
 	</settings>
 	<settings name="WolfCenterFlare1">
-		<TextureName value="./Data/General/Textures/Particles/fuzzL.png"/>
+		<TextureName value="./Data/General/Textures/Particles/fuzzL.dds"/>
 		<MaxParticles value="20"/>
 		<Duration value="0.9000"/>
 		<DurationRandomness value="1.000000"/>
@@ -529,7 +529,7 @@
 		<BlendState value="Additive"/>
 	</settings>
 	<settings name="WolfCenterFlare2">
-		<TextureName value="./Data/General/Textures/Particles/fuzzL.png"/>
+		<TextureName value="./Data/General/Textures/Particles/fuzzL.dds"/>
 		<MaxParticles value="20"/>
 		<Duration value="0.8000"/>
 		<DurationRandomness value="1.000000"/>
@@ -551,7 +551,7 @@
 		<BlendState value="Additive"/>
 	</settings>
 	<settings name="WolfLingeringCenterFlare">
-		<TextureName value="./Data/General/Textures/Particles/Basic blur.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Basic blur.dds"/>
 		<MaxParticles value="100"/>
 		<Duration value="1.000"/>
 		<DurationRandomness value="1.000000"/>
@@ -575,7 +575,7 @@
 	</settings>
 
 	<settings name="WolfImpact">
-		<TextureName value="./Data/General/Textures/Particles/Blurred spikey star.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Blurred spikey star.dds"/>
 		<MaxParticles value="1130"/>
 		<Duration value="12.000"/>
 		<DurationRandomness value="0.000000"/>
@@ -597,7 +597,7 @@
 		<BlendState value="Additive"/>
 	</settings>
 	<settings name="WolfExpandWave">
-		<TextureName value="./Data/General/Textures/Particles/Burst2.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Burst2.dds"/>
 		<MaxParticles value="2"/>
 		<Duration value="0.9000"/>
 		<DurationRandomness value="0.000000"/>
@@ -619,7 +619,7 @@
 		<BlendState value="Additive"/>
 	</settings>
 	<settings name="WolfStreaks">
-		<TextureName value="./Data/General/Textures/Particles/Spots.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Spots.dds"/>
 		<MaxParticles value="150"/>
 		<Duration value="0.400"/>
 		<DurationRandomness value="1.000000"/>
@@ -642,7 +642,7 @@
 		<BlendState value="NonPremultiplied"/>
 	</settings>
 	<settings name="WolfSparks">
-		<TextureName value="./Data/General/Textures/Particles/Small blur star.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Small blur star.dds"/>
 		<MaxParticles value="120"/>
 		<Duration value="0.300"/>
 		<DurationRandomness value="1.000000"/>
@@ -665,7 +665,7 @@
 	</settings>
 
 	<settings name="WolfClouds">
-		<TextureName value="./Data/General/Textures/Particles/FuzzL.png"/>
+		<TextureName value="./Data/General/Textures/Particles/FuzzL.dds"/>
 		<MaxParticles value="20"/>
 		<Duration value="2.600000"/>
 		<DurationRandomness value="1.000000"/>
@@ -688,7 +688,7 @@
 	</settings>
 
 	<settings name="WolfBlockedSparks">
-		<TextureName value="./Data/General/Textures/Particles/Basic blur.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Basic blur.dds"/>
 		<MaxParticles value="120"/>
 		<Duration value="1.300"/>
 		<DurationRandomness value="1.000000"/>
@@ -710,7 +710,7 @@
 		<BlendState value="Additive"/>
 	</settings>
 	<settings name="WolfBlockedExpandWave">
-		<TextureName value="./Data/General/Textures/Particles/Ring.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Ring.dds"/>
 		<MaxParticles value="2"/>
 		<Duration value="1.3000"/>
 		<DurationRandomness value="0.000000"/>
@@ -737,9 +737,9 @@
 	<!-- DEER SETTINGS -->
 	<!-- ************* -->
 	<settings name="DeerBlurHook">
-		<TextureName value="./Data/General/Textures/Particles/FlowerBurst.jpg"/>
+		<TextureName value="./Data/General/Textures/Particles/FlowerBurst.dds"/>
 		<MaxParticles value="1500"/>
-		<Duration value="0.320000"/>
+		<Duration value="0.520000"/>
 		<DurationRandomness value="0.00000"/>
 		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="0.000000"/>
@@ -754,13 +754,13 @@
 		<MaxRotateSpeed value="3.000000"/>
 		<MinStartSize value="0.0500000"/>
 		<MaxStartSize value="0.100000"/>
-		<MinEndSize value="1.200000"/>
-		<MaxEndSize value="2.00000"/>
+		<MinEndSize value="0.300000"/>
+		<MaxEndSize value="1.00000"/>
 		<BlendState value="Additive"/>
 	</settings>
 
 	<settings name="DeerSteps">
-		<TextureName value="./Data/General/Textures/Particles/Soft clumpy.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Soft clumpy.dds"/>
 		<MaxParticles value="1000"/>
 		<Duration value="2.000000"/>
 		<DurationRandomness value="0.000000"/>
@@ -783,7 +783,7 @@
 	</settings>
 
 	<settings name="DeerBlood">
-		<TextureName value="./Data/General/Textures/Splash0001.tga"/>
+		<TextureName value="./Data/General/Textures/Particles/Splash0001.dds"/>
 		<MaxParticles value="500"/>
 		<Duration value="1.500000"/>
 		<DurationRandomness value="0.000000"/>
@@ -806,7 +806,7 @@
 		<!--<BlendState value="Additive"/>-->
 	</settings>
 	<settings name="DeerBloodSplash">
-		<TextureName value="./Data/General/Textures/Splash0001.tga"/>
+		<TextureName value="./Data/General/Textures/Particles/Splash0001.dds"/>
 		<MaxParticles value="200"/>
 		<Duration value="1.500000"/>
 		<DurationRandomness value="0.000000"/>
@@ -829,7 +829,7 @@
 		<!--<BlendState value="Additive"/>-->
 	</settings>
 	<settings name="DeerBloodDust">
-		<TextureName value="./Data/General/Textures/Particles/Soft clumpy.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Soft clumpy.dds"/>
 		<MaxParticles value="2000"/>
 		<Duration value="1.500000"/>
 		<DurationRandomness value="0.000000"/>
@@ -852,7 +852,7 @@
 	</settings>
 
 	<settings name="DeerImpact">
-		<TextureName value="./Data/General/Textures/Particles/Blurred spikey star.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Blurred spikey star.dds"/>
 		<MaxParticles value="1130"/>
 		<Duration value="12.000"/>
 		<DurationRandomness value="0.000000"/>
@@ -874,7 +874,7 @@
 		<BlendState value="Additive"/>
 	</settings>
 	<settings name="DeerCenterFlare">
-		<TextureName value="./Data/General/Textures/Particles/Blurred spikey star.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Blurred spikey star.dds"/>
 		<MaxParticles value="2"/>
 		<Duration value="0.2000"/>
 		<DurationRandomness value="0.000000"/>
@@ -896,7 +896,7 @@
 		<BlendState value="Additive"/>
 	</settings>
 	<settings name="DeerExpandWave">
-		<TextureName value="./Data/General/Textures/Particles/Ring.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Ring.dds"/>
 		<MaxParticles value="2"/>
 		<Duration value="0.3000"/>
 		<DurationRandomness value="0.000000"/>
@@ -918,7 +918,7 @@
 		<BlendState value="Additive"/>
 	</settings>
 	<settings name="DeerStreaks">
-		<TextureName value="./Data/General/Textures/Particles/Spots.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Spots.dds"/>
 		<MaxParticles value="100"/>
 		<Duration value="0.100"/>
 		<DurationRandomness value="1.000000"/>
@@ -940,7 +940,7 @@
 		<BlendState value="NonPremultiplied"/>
 	</settings>
 	<settings name="DeerSparks">
-		<TextureName value="./Data/General/Textures/Particles/Small blur star.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Small blur star.dds"/>
 		<MaxParticles value="120"/>
 		<Duration value="0.300"/>
 		<DurationRandomness value="1.000000"/>
@@ -963,7 +963,7 @@
 	</settings>
 
 	<settings name="DeerTendrils">
-		<TextureName value="./Data/General/Textures/Particles/Lightning0000.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Lightning0000.dds"/>
 		<MaxParticles value="30"/>
 		<Duration value="0.200000"/>
 		<DurationRandomness value="0.000000"/>
@@ -985,7 +985,7 @@
 		<BlendState value="Additive"/>
 	</settings>
 	<settings name="DeerClouds">
-		<TextureName value="./Data/General/Textures/Particles/FuzzL.png"/>
+		<TextureName value="./Data/General/Textures/Particles/FuzzL.dds"/>
 		<MaxParticles value="20"/>
 		<Duration value="2.600000"/>
 		<DurationRandomness value="1.000000"/>
@@ -1008,7 +1008,7 @@
 	</settings>
 
 	<settings name="DeerBlockedSparks">
-		<TextureName value="./Data/General/Textures/Particles/Basic blur.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Basic blur.dds"/>
 		<MaxParticles value="120"/>
 		<Duration value="1.300"/>
 		<DurationRandomness value="1.000000"/>
@@ -1030,7 +1030,7 @@
 		<BlendState value="Additive"/>
 	</settings>
 	<settings name="DeerBlockedExpandWave">
-		<TextureName value="./Data/General/Textures/Particles/Ring.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Ring.dds"/>
 		<MaxParticles value="2"/>
 		<Duration value="1.3000"/>
 		<DurationRandomness value="0.000000"/>
@@ -1055,7 +1055,7 @@
 
 	<!-- RABBIT SETTINGS -->
 	<settings name="RabbitBlurHook">
-		<TextureName value="./Data/General/Textures/Particles/Bracket2_inv.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Bracket2_inv.dds"/>
 		<MaxParticles value="1000"/>
 		<Duration value="0.3000"/>
 		<DurationRandomness value="0.00000"/>
@@ -1078,7 +1078,7 @@
 	</settings>
 
 	<settings name="RabbitBlood">
-		<TextureName value="./Data/General/Textures/Splash0001.tga"/>
+		<TextureName value="./Data/General/Textures/Particles/Splash0001.dds"/>
 		<MaxParticles value="1500"/>
 		<Duration value="1.500000"/>
 		<DurationRandomness value="0.000000"/>
@@ -1101,7 +1101,7 @@
 		<!--<BlendState value="Additive"/>-->
 	</settings>
 	<settings name="RabbitBloodSplash">
-		<TextureName value="./Data/General/Textures/Splash0001.tga"/>
+		<TextureName value="./Data/General/Textures/Particles/Splash0001.dds"/>
 		<MaxParticles value="1200"/>
 		<Duration value="1.500000"/>
 		<DurationRandomness value="0.000000"/>
@@ -1124,7 +1124,7 @@
 		<!--<BlendState value="Additive"/>-->
 	</settings>
 	<settings name="RabbitBloodDust">
-		<TextureName value="./Data/General/Textures/Particles/Soft clumpy.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Soft clumpy.dds"/>
 		<MaxParticles value="2000"/>
 		<Duration value="1.500000"/>
 		<DurationRandomness value="0.000000"/>
@@ -1147,7 +1147,7 @@
 	</settings>
 
 	<settings name="RabbitCenterFlare">
-		<TextureName value="./Data/General/Textures/Particles/Blurred spikey star.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Blurred spikey star.dds"/>
 		<MaxParticles value="2"/>
 		<Duration value="0.50000"/>
 		<DurationRandomness value="0.000000"/>
@@ -1169,7 +1169,7 @@
 		<BlendState value="Additive"/>
 	</settings>
 	<settings name="RabbitCenterFlare1">
-		<TextureName value="./Data/General/Textures/Particles/fuzzL.png"/>
+		<TextureName value="./Data/General/Textures/Particles/fuzzL.dds"/>
 		<MaxParticles value="10"/>
 		<Duration value="0.5000"/>
 		<DurationRandomness value="1.000000"/>
@@ -1191,7 +1191,7 @@
 		<BlendState value="Additive"/>
 	</settings>
 	<settings name="RabbitCenterFlare2">
-		<TextureName value="./Data/General/Textures/Particles/fuzzL.png"/>
+		<TextureName value="./Data/General/Textures/Particles/fuzzL.dds"/>
 		<MaxParticles value="10"/>
 		<Duration value="0.5000"/>
 		<DurationRandomness value="1.000000"/>
@@ -1213,7 +1213,7 @@
 		<BlendState value="Additive"/>
 	</settings>
 	<settings name="RabbitLingeringCenterFlare">
-		<TextureName value="./Data/General/Textures/Particles/Basic blur.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Basic blur.dds"/>
 		<MaxParticles value="100"/>
 		<Duration value="1.000"/>
 		<DurationRandomness value="1.000000"/>
@@ -1237,7 +1237,7 @@
 	</settings>
 
 	<settings name="RabbitExpandWave">
-		<TextureName value="./Data/General/Textures/Particles/Burst2.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Burst2.dds"/>
 		<MaxParticles value="2"/>
 		<Duration value="0.5000"/>
 		<DurationRandomness value="0.000000"/>
@@ -1259,7 +1259,7 @@
 		<BlendState value="Additive"/>
 	</settings>
 	<settings name="RabbitStreaks">
-		<TextureName value="./Data/General/Textures/Particles/Spots.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Spots.dds"/>
 		<MaxParticles value="150"/>
 		<Duration value="0.400"/>
 		<DurationRandomness value="1.000000"/>
@@ -1282,7 +1282,7 @@
 		<BlendState value="NonPremultiplied"/>
 	</settings>
 	<settings name="RabbitSparks">
-		<TextureName value="./Data/General/Textures/Particles/Small blur star.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Small blur star.dds"/>
 		<MaxParticles value="120"/>
 		<Duration value="0.300"/>
 		<DurationRandomness value="1.000000"/>
@@ -1305,7 +1305,7 @@
 	</settings>
 
 	<settings name="RabbitSteps">
-		<TextureName value="./Data/General/Textures/Particles/Soft clumpy.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Soft clumpy.dds"/>
 		<MaxParticles value="1000"/>
 		<Duration value="2.000000"/>
 		<DurationRandomness value="0.000000"/>
@@ -1328,7 +1328,7 @@
 	</settings>
 
 	<settings name="RabbitBlockedSparks">
-		<TextureName value="./Data/General/Textures/Particles/Basic blur.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Basic blur.dds"/>
 		<MaxParticles value="120"/>
 		<Duration value="1.300"/>
 		<DurationRandomness value="1.000000"/>
@@ -1350,7 +1350,7 @@
 		<BlendState value="Additive"/>
 	</settings>
 	<settings name="RabbitBlockedExpandWave">
-		<TextureName value="./Data/General/Textures/Particles/Ring.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Ring.dds"/>
 		<MaxParticles value="2"/>
 		<Duration value="1.3000"/>
 		<DurationRandomness value="0.000000"/>
@@ -1375,7 +1375,7 @@
 
 	<!-- BLOCKING SETTINGS -->
 	<settings name="BlockedSparks">
-		<TextureName value="./Data/General/Textures/Particles/Basic blur.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Basic blur.dds"/>
 		<MaxParticles value="120"/>
 		<Duration value="1.300"/>
 		<DurationRandomness value="1.000000"/>
@@ -1397,7 +1397,7 @@
 		<BlendState value="Additive"/>
 	</settings>
 	<settings name="BlockedExpandWave">
-		<TextureName value="./Data/General/Textures/Particles/Ring.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Ring.dds"/>
 		<MaxParticles value="2"/>
 		<Duration value="1.3000"/>
 		<DurationRandomness value="0.000000"/>
@@ -1420,7 +1420,7 @@
 	</settings>
 
 	<settings name="Impact">
-		<TextureName value="./Data/General/Textures/Particles/Blurred spikey star.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Blurred spikey star.dds"/>
 		<MaxParticles value="1130"/>
 		<Duration value="12.000"/>
 		<DurationRandomness value="0.000000"/>
@@ -1443,7 +1443,7 @@
 	</settings>
 
 	<settings name="BloodSplash">
-		<TextureName value="./Data/General/Textures/Particles/Soft clumpy.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Soft clumpy.dds"/>
 		<MaxParticles value="2000"/>
 		<Duration value="3.000000"/>
 		<DurationRandomness value="0.000000"/>
@@ -1467,7 +1467,7 @@
 	</settings>
 
 	<settings name="CenterFlare">
-		<TextureName value="./Data/General/Textures/Particles/Blurred spikey star.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Blurred spikey star.dds"/>
 		<MaxParticles value="2"/>
 		<Duration value="0.2000"/>
 		<DurationRandomness value="0.000000"/>
@@ -1490,7 +1490,7 @@
 	</settings>
 
 	<settings name="ExpandWave">
-		<TextureName value="./Data/General/Textures/Particles/Ring.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Ring.dds"/>
 		<MaxParticles value="2"/>
 		<Duration value="0.3000"/>
 		<DurationRandomness value="0.000000"/>
@@ -1513,7 +1513,7 @@
 	</settings>
 
 	<settings name="Streaks">
-		<TextureName value="./Data/General/Textures/Particles/Spots.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Spots.dds"/>
 		<MaxParticles value="100"/>
 		<Duration value="0.100"/>
 		<DurationRandomness value="1.000000"/>
@@ -1536,7 +1536,7 @@
 	</settings>
 
 	<settings name="Streaks2">
-		<TextureName value="./Data/General/Textures/Particles/Spots.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Spots.dds"/>
 		<MaxParticles value="200"/>
 		<Duration value="0.300"/>
 		<DurationRandomness value="1.000000"/>
@@ -1559,7 +1559,7 @@
 	</settings>
 
 	<settings name="Sparks">
-		<TextureName value="./Data/General/Textures/Particles/Small blur star.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Small blur star.dds"/>
 		<MaxParticles value="120"/>
 		<Duration value="0.300"/>
 		<DurationRandomness value="1.000000"/>
@@ -1582,7 +1582,7 @@
 	</settings>
 
 	<settings name="Tendrils">
-		<TextureName value="./Data/General/Textures/Particles/Lightning0000.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Lightning0000.dds"/>
 		<MaxParticles value="30"/>
 		<Duration value="0.200000"/>
 		<DurationRandomness value="0.000000"/>
@@ -1605,7 +1605,7 @@
 	</settings>
 
 	<settings name="Clouds">
-		<TextureName value="./Data/General/Textures/Particles/FuzzL.png"/>
+		<TextureName value="./Data/General/Textures/Particles/FuzzL.dds"/>
 		<MaxParticles value="20"/>
 		<Duration value="2.600000"/>
 		<DurationRandomness value="1.000000"/>
@@ -1628,7 +1628,7 @@
 	</settings>
 
 	<settings name="FireSwordBlur">
-		<TextureName value="./Data/General/Textures/Particles/Blur line 4.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Blur line 4.dds"/>
 		<MaxParticles value="1066"/>
 		<Duration value="1.3000000"/>
 		<DurationRandomness value="0.000000"/>
@@ -1651,7 +1651,7 @@
 	</settings>
 
 	<settings name="FireSwordSmoke">
-		<TextureName value="./Data/General/Textures/Particles/Smoke.png"/>
+		<TextureName value="./Data/General/Textures/Particles/Smoke.dds"/>
 		<MaxParticles value="50"/>
 		<Duration value="3.000000"/>
 		<DurationRandomness value="1.000000"/>
@@ -1672,4 +1672,28 @@
 		<MaxEndSize value="0.500000"/>
 		<BlendState value="Additive"/>
 	</settings>
+
+  <settings name="WaterSplash">
+    <TextureName value="./Data/General/Textures/Particles/blob0001.dds" />
+    <MaxParticles value="200"/>
+    <Duration value="2.5"/>
+    <DurationRandomness value="0.5"/>
+    <EmitterVelocitySensitivity value="0.000000"/>
+    <MinHorizontalVelocity value="1"/>
+    <MaxHorizontalVelocity value="1"/>
+    <MinVerticalVelocity value="1"/>
+    <MaxVerticalVelocity value="1"/>
+    <Gravity value="0 -1 0"/>
+    <EndVelocity value="0"/>
+    <MinColor value="177 233 251 128"/>
+    <MaxColor value="177 233 251 128"/>
+    <MinRotateSpeed value="1"/>
+    <MaxRotateSpeed value="3"/>
+    <MinStartSize value="0.5"/>
+    <MaxStartSize value="1.5"/>
+    <MinEndSize value="1.0"/>
+    <MaxEndSize value="0.5"/>
+    <BlendState value="Additive"/>
+  </settings>
+  
 </particle_settings>
