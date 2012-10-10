@@ -444,9 +444,12 @@ void CCharactersManager::DrawFront( void )
 	// Ara el player
 	if ( m_pPlayer )
 	{
+		mat.Translate(m_pPlayer->GetPosition());
+		l_RM->SetTransform(mat);
+
 		l_FinalPosition.SetZero();
-		l_FinalPosition = Vect3f ( m_pPlayer->GetPosition().x + m_pPlayer->GetSteeringEntity()->GetFront().x, m_pPlayer->GetPosition().y + m_pPlayer->GetProperties()->GetHeightController(), m_pPlayer->GetPosition().z + m_pPlayer->GetSteeringEntity()->GetFront().z);
-		l_RM->DrawLine( Vect3f( m_pPlayer->GetPosition().x, m_pPlayer->GetPosition().y + m_pPlayer->GetProperties()->GetHeightController(), m_pPlayer->GetPosition().z ) , l_FinalPosition );
+		l_FinalPosition = Vect3f ( m_pPlayer->GetPosition().x + m_pPlayer->GetSteeringEntity()->GetFront().x, m_pPlayer->GetPosition().y+ m_pPlayer->GetProperties()->GetHeightController(), m_pPlayer->GetPosition().z + m_pPlayer->GetSteeringEntity()->GetFront().z);
+		l_RM->DrawLine( Vect3f( m_pPlayer->GetPosition().x, m_pPlayer->GetPosition().y, m_pPlayer->GetPosition().z ) , l_FinalPosition );
 	}
 }
 
