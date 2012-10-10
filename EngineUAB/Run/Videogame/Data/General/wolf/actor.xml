@@ -12,7 +12,7 @@
 	<animation name="lobo_attack_still" filename="LOB_Attack_Still_fast2.CAF"/>
 	<animation name="lobo_attack_still_combo" filename="LOB_Attack_Still_Combo.CAF"/>
 	<animation name="lobo_defense" filename="LOB_Defense_idle.CAF"/>
-	<animation name="lobo_hit" filename="LOB_Hit.CAF"/>
+	<animation name="lobo_hit" filename="LOB_Hit_2.1.CAF"/>
 	<animation name="lobo_death" filename="LOB_Die.CAF"/>
 	<animation name="lobo_howl_life" filename="LOB_Howl_life.CAF"/>
 	<animation name="lobo_howl_enemies" filename="LOB_Howl_enemies.CAF"/>
