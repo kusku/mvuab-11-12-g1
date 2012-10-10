@@ -111,22 +111,12 @@ void CDeerHitState::OnEnter( CCharacter* _pCharacter )
 		m_pActionStateCallback.StartAction();
 
 		// --- Para la gestión del retroceso ---
-		CProperties * l_Properties = m_pDeer->GetProperties();
-		m_pDeer->FaceTo(m_pDeer->GetPlayer()->GetPosition(), CORE->GetTimer()->GetElapsedTime());
-		m_MaxHitSpeed = l_Properties->GetHitRecoilSpeed();
-		m_pDeer->GetSteeringEntity()->SetMaxSpeed(m_MaxHitSpeed);
-		m_MaxHitDistance = l_Properties->GetHitRecoilDistance();
-		m_InitialHitPoint = m_pDeer->GetPosition();
-
-		m_HitDirection = m_pDeer->GetSteeringEntity()->GetFront();
-		m_HitDirection.Normalize();
-		m_HitDirection = m_HitDirection.RotateY(mathUtils::PiTimes(1.f));		
-		m_HitDirection = m_HitDirection * m_MaxHitSpeed;
-		m_HitMaxPosition = m_pDeer->GetSteeringEntity()->GetPosition() + m_HitDirection * m_MaxHitDistance;
+		CalculateRecoilDirection(m_pDeer);
+		m_DoubleHit = false;
+		// ---------------------------------------
 
 		m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
 		m_pDeer->GetBehaviors()->SeekOff();
-		// ---------------------------------------
 		
 		// Gestión de partículas. Metemos sangre!!
 		UpdateImpact(_pCharacter);
@@ -310,4 +300,3 @@ void CDeerHitState::CalculateRecoilDirection( CCharacter * _pCharacter )
 		m_HitDirection = l_EnemyFront;
 	}
 }
-
