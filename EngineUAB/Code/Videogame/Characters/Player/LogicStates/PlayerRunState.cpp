@@ -178,7 +178,6 @@ void CPlayerRunState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 			}
 		}
 		
-		
 		l_Dir = l_Dir * m_fCurrentVelocityMovement * _fElapsedTime;
 
 		//Mueve el controller físico

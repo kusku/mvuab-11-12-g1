@@ -234,7 +234,19 @@ void CPlayer::Update( float _ElapsedTime )
 		if( m_pSteeringEntity->GetVelocity().SquaredLength() > 0.00000001f )
 		{
 			Vect3f l_Heading = m_pSteeringEntity->GetVelocity();
-			l_Heading.Normalize(1.f);
+			l_Heading.Normalize();
+			
+			m_pSteeringEntity->SetHeading( l_Heading );
+			m_pSteeringEntity->SetSide( l_Heading.GetPerpendicular() );
+		}
+		else 
+		{
+			Vect3f l_Heading;
+			float l_Yaw = GetController()->GetYaw();
+			l_Heading = GetController()->GetFront();
+			l_Yaw = GetSteeringEntity()->GetAngle();
+			l_Heading.GetXZFromAngle(l_Yaw);
+			l_Heading.Normalize();
 			
 			m_pSteeringEntity->SetHeading( l_Heading );
 			m_pSteeringEntity->SetSide( l_Heading.GetPerpendicular() );
