@@ -161,18 +161,11 @@ void CWolfPursuitState::OnExit( CCharacter* _pCharacter )
 
 bool CWolfPursuitState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
-	if ( _Telegram.Msg == Msg_Attack ) 
+	if (!m_pWolf) 
 	{
-		if (!m_pWolf) 
-		{
-			m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
-		}
-
-		m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetHitState());
-		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetHitAnimationState());
-		return true;
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
-	return false;
+	return m_pWolf->CallHitState(_pCharacter, _Telegram);
 }
 
 void CWolfPursuitState::UpdateParticles( CCharacter* _pCharacter )

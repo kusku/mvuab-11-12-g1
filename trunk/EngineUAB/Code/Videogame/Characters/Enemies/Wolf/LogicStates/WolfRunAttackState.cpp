@@ -160,6 +160,21 @@ void CWolfRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 
 			UpdateImpact(m_pWolf);
 			GenerateImpact(m_pWolf);
+
+			if ( DISPATCH != NULL ) 
+			{
+				DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pWolf->GetID(), m_pWolf->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
+				#if defined _DEBUG
+					if( CORE->IsDebugMode() )
+					{
+						LOGGER->AddNewLog(ELL_INFORMATION, "CWolfRunAttackState:Execute->Dispatch" );
+					}
+				#endif
+			}
+			else
+			{
+				LOGGER->AddNewLog(ELL_ERROR, "CWolfRunAttackState:Execute->El Dispatch es NULL" );
+			}
 		}
 
 		if ( m_pAnimationCallback->IsAnimationFinished() )
@@ -171,21 +186,6 @@ void CWolfRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 				// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio. En este caso no queremos
 				// pq hace un desplazamiento que después de este ataque no queremos que haga.
 				m_pWolf->SetToBeTired(true);
-
-				if ( DISPATCH != NULL ) 
-				{
-					DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pWolf->GetID(), m_pWolf->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
-					#if defined _DEBUG
-						if( CORE->IsDebugMode() )
-						{
-							LOGGER->AddNewLog(ELL_INFORMATION, "CWolfRunAttackState:Execute->Dispatch" );
-						}
-					#endif
-				}
-				else
-				{
-					LOGGER->AddNewLog(ELL_ERROR, "CWolfRunAttackState:Execute->El Dispatch es NULL" );
-				}
 			}
 			// Sinó impacté no hago nada
 			else
@@ -268,6 +268,21 @@ void CWolfRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 			{
 				m_pWolf->SetPlayerHasBeenReached(true);
 				CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Wolf_steps"); 
+
+				if ( DISPATCH != NULL ) 
+				{
+					DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pWolf->GetID(), m_pWolf->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
+					#if defined _DEBUG
+						if( CORE->IsDebugMode() )
+						{
+							LOGGER->AddNewLog(ELL_INFORMATION, "CWolfRunAttackState:Execute->Dispatch" );
+						}
+					#endif
+				}
+				else
+				{
+					LOGGER->AddNewLog(ELL_ERROR, "CWolfRunAttackState:Execute->El Dispatch es NULL" );
+				}
 			}
 		}	
 
@@ -310,19 +325,11 @@ void CWolfRunAttackState::OnExit( CCharacter* _pCharacter )
 
 bool CWolfRunAttackState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
-	if ( _Telegram.Msg == Msg_Attack ) 
+	if (!m_pWolf) 
 	{
-		if (!m_pWolf) 
-		{
-			m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
-		}
-
-		m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetHitState());
-		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetHitAnimationState());
-		return true;
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
-
-	return false;
+	return m_pWolf->CallHitState(_pCharacter, _Telegram);
 }
 
 void CWolfRunAttackState::GenerateImpact( CCharacter* _pCharacter )
