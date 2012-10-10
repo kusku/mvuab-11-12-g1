@@ -7,6 +7,12 @@
     <ClCompile Include="_ScriptAPI\CoreRegisterScript.cpp">
       <Filter>_ScriptAPI</Filter>
     </ClCompile>
+    <ClCompile Include="IntroMovie.cpp">
+      <Filter>Movie</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenAL_AudioInterface.cpp">
+      <Filter>Movie</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
@@ -16,10 +22,19 @@
     <ClInclude Include="_ScriptAPI\CoreRegisterScript.h">
       <Filter>_ScriptAPI</Filter>
     </ClInclude>
+    <ClInclude Include="IntroMovie.h">
+      <Filter>Movie</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenAL_AudioInterface.h">
+      <Filter>Movie</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="_ScriptAPI">
       <UniqueIdentifier>{4c7c1b78-5552-40f5-b381-e1c04dcc19da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Movie">
+      <UniqueIdentifier>{4ad9c155-2918-4efd-acc5-2359dd2cdd0d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

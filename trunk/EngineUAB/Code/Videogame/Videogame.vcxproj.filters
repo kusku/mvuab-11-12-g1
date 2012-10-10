@@ -109,6 +109,9 @@
     <Filter Include="HUD">
       <UniqueIdentifier>{8c384158-7627-48f9-8cdc-0b5e7524cf60}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IntroMovie">
+      <UniqueIdentifier>{8e9d2af9-817e-4c21-93c6-fe0625dffb16}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="videogame.cpp" />

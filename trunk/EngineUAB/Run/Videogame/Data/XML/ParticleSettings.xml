@@ -1672,4 +1672,28 @@
 		<MaxEndSize value="0.500000"/>
 		<BlendState value="Additive"/>
 	</settings>
+
+  <settings name="WaterSplash">
+    <TextureName value="./Data/General/Textures/Particles/blob0001.dds" />
+    <MaxParticles value="200"/>
+    <Duration value="2.5"/>
+    <DurationRandomness value="0.5"/>
+    <EmitterVelocitySensitivity value="0.000000"/>
+    <MinHorizontalVelocity value="1"/>
+    <MaxHorizontalVelocity value="1"/>
+    <MinVerticalVelocity value="1"/>
+    <MaxVerticalVelocity value="1"/>
+    <Gravity value="0 -1 0"/>
+    <EndVelocity value="0"/>
+    <MinColor value="177 233 251 128"/>
+    <MaxColor value="177 233 251 128"/>
+    <MinRotateSpeed value="1"/>
+    <MaxRotateSpeed value="3"/>
+    <MinStartSize value="0.5"/>
+    <MaxStartSize value="1.5"/>
+    <MinEndSize value="1.0"/>
+    <MaxEndSize value="0.5"/>
+    <BlendState value="Additive"/>
+  </settings>
+  
 </particle_settings>

@@ -367,12 +367,14 @@ void CCore::Update( float _ElapsedTime )
 	m_pMessageDispatcher->DispatchDelayedMessages();
 
 	m_pSoundManager->Update();
-
+	 
+#ifdef _DEBUG
 	if( m_bDebugMode )
 	{
 		m_pDebugGUIManager->Update( _ElapsedTime );
 		UpdateInputs ( _ElapsedTime );
-	}
+	} 
+#endif
 }
 
 void CCore::Render()

@@ -8,6 +8,7 @@
 #include "Math\Color.h"
 #include "Utils\Timer.h"
 #include "CoreDefs.h"
+#include "IntroMovie.h"
 
 //---FOWARD DECLARATIONS --- //
 class CLogger;
@@ -17,6 +18,7 @@ class CCore;
 class CEngine
 {
 public:
+	
 	//--- Init and End protocols------------------------------------------
 					CEngine				( void );
 	virtual			~CEngine			( void );
@@ -67,6 +69,9 @@ protected:
 	SConfig			m_Config;
 
 	float			m_TimerIncreasing;		// Valor el qual permitirá multiplicar por el timer para acelerar/desacelerar el juego
+
+	IntroMovie*		m_IntroMovie;
+	bool			m_PlayingIntro;
 };
 
 #endif
