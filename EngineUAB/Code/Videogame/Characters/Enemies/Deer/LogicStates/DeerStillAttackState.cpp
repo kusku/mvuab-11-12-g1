@@ -143,16 +143,6 @@ void CDeerStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 				// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio
 				m_pDeer->SetToBeTired(true);
 				
-				if ( DISPATCH != NULL ) 
-				{
-					DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pDeer->GetID(), m_pDeer->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
-					LOGGER->AddNewLog(ELL_INFORMATION,"CDeerStillAttackState::Execute->Envio mensaje de tocado");
-				}
-				else
-				{
-					LOGGER->AddNewLog(ELL_ERROR, "CDeerStillAttackState:Execute->El Dispatch es NULL" );
-				}
-					
 				// Incrementamos el nº de ataques hechos --> si llega a un total estará cansado
 				m_pDeer->SetHitsDone(m_pDeer->GetHitsDone() + 1);
 
@@ -221,16 +211,14 @@ void CDeerStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 
 			LOGGER->AddNewLog(ELL_WARNING, "CDeerStillAttackState::Execute->Aquí actualizo efectos de %s ", m_pDeer->GetName().c_str() );
 
-			m_pDeer->GetBehaviors()->SeekOff();
-			m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
-			m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime );
-			m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
-
 			//float t = m_pAnimationCallback->GetAnimatedModel()->GetCurrentAnimationDuration(DEER_STILL_ATTACK_STATE);
 
 			// Aquí comienza el golpeo, la mano está alzada
 			if ( m_pActionStateCallback->IsActionInTime( 0.2f ) && !m_FirstHitDone )
 			{
+				m_pDeer->GetBehaviors()->SeekOff();
+				m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
+
 				GetParticleEmitterInstance( "DeerBlurHook", m_pDeer->GetName() + "_RightHand1")->EjectParticles();
 				GetParticleEmitterInstance( "DeerBlurHook", m_pDeer->GetName() + "_RightHand11")->EjectParticles();
 								   
@@ -243,6 +231,15 @@ void CDeerStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 				if ( m_pDeer->IsPlayerReached() )
 				{
 					m_FirstHitReached = true;
+					if ( DISPATCH != NULL ) 
+					{
+						DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pDeer->GetID(), m_pDeer->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
+						LOGGER->AddNewLog(ELL_INFORMATION,"CDeerStillAttackState::Execute->Envio mensaje de tocado");
+					}
+					else
+					{
+						LOGGER->AddNewLog(ELL_ERROR, "CDeerStillAttackState:Execute->El Dispatch es NULL" );
+					}
 				}
 
 				// Sonido de la 1a bofetada 
@@ -257,6 +254,10 @@ void CDeerStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 					CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Slap1"); 
 					m_SoundPlayed1 = true;
 				}
+
+				// Esto permite correr entre el primer y segundo golpe
+				m_pDeer->GetBehaviors()->SeekOn();
+				m_pDeer->GetSteeringEntity()->SetMaxSpeed(m_pDeer->GetPlayer()->GetProperties()->GetHitRecoilSpeed());
 			}
 
 			// Trato la primera animación de impacto
@@ -269,6 +270,10 @@ void CDeerStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 
 			if ( m_pActionStateCallback->IsActionInTime( 0.7f ) && !m_SecondHitDone )
 			{
+				// En el segundo golpe paramos
+				m_pDeer->GetBehaviors()->SeekOff();
+				m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
+
 				GetParticleEmitterInstance( "DeerBlurHook", m_pDeer->GetName() + "_LeftHand1")->EjectParticles();
 				GetParticleEmitterInstance( "DeerBlurHook", m_pDeer->GetName() + "_LeftHand11")->EjectParticles();
 
@@ -277,6 +282,15 @@ void CDeerStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 				if ( m_pDeer->IsPlayerReached() )
 				{
 					m_SecondHitReached = true; 
+					if ( DISPATCH != NULL ) 
+					{
+						DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pDeer->GetID(), m_pDeer->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
+						LOGGER->AddNewLog(ELL_INFORMATION,"CDeerStillAttackState::Execute->Envio mensaje de tocado");
+					}
+					else
+					{
+						LOGGER->AddNewLog(ELL_ERROR, "CDeerStillAttackState:Execute->El Dispatch es NULL" );
+					}
 					UpdateImpact(m_pDeer);
 				}
 
@@ -310,6 +324,9 @@ void CDeerStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 			#endif
 
 			m_pActionStateCallback->Update(_ElapsedTime);
+			
+			m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime );
+			m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 		}
 	}
 	else
