@@ -315,3 +315,44 @@ void CPlayer::BeDead()
 {
 	return;
 }
+
+bool CPlayer::CallHitState( CCharacter* _pCharacter, const STelegram& _Message )
+{
+	if( _Message.Msg == Msg_Attack )
+	{
+		/*CRandom	l_Randomize;
+
+		CCharacter *l_pEnemy	= m_pProcess->GetCharactersManager()->GetCharacterById(_Message.Sender);
+		float l_fReceivedPain	= l_Randomize.getRandFloat( (float)(l_pEnemy->GetProperties()->GetStrong() / 2), (float)l_pEnemy->GetProperties()->GetStrong());
+		float l_fPainToHit		= l_pEnemy->GetProperties()->GetStrong() * 0.95f;*/
+
+		/*if( l_fReceivedPain >= l_fPainToHit )
+		{*/
+		STelegram l_Message = _Message;
+		CPlayerHitState *l_HitState = dynamic_cast<CPlayerHitState*> (_pCharacter->GetLogicState("hit"));
+		l_HitState->UpdateParameters(l_Message);
+		_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("hit") );
+		_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animhit") );
+		//}
+
+		return true;
+	}
+	else if( _Message.Msg == Msg_Push )
+	{
+		STelegram l_Message = _Message;
+		CPlayerHitState *l_HitState = dynamic_cast<CPlayerHitState*> (_pCharacter->GetLogicState("hit"));
+		l_HitState->UpdateParameters(l_Message);
+		_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("hit") );
+		_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animhit") );
+
+		/*CCharacter *l_pEnemy	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->GetCharacterById(_Message.Sender);
+		
+		sDireccion * l_Info = (struct sDireccion *) _Message.ExtraInfo;
+		_pCharacter->MoveTo2(l_Info->Direccion*2.0f, l_Info->ElapsedTime);
+		_pCharacter->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));*/
+
+		return true;
+	}
+
+	return false;
+}

@@ -9,6 +9,11 @@
 
 struct STelegram;
 
+// --- Foward Declarations ---
+class CGameProcess;
+// ---------------------------
+
+
 class CPlayerTargetRunState : public CState< CCharacter >
 {
 public:
@@ -23,7 +28,7 @@ public:
 
 private:
 	CCharacter		*m_pTargetEnemy;
-
+	CGameProcess	*m_pProcess;
 	float			m_fAccelerationStart;
 	float			m_fAccelerationEnd;
 	float			m_fMaxVelocityMovement;
