@@ -283,6 +283,8 @@ void CCharactersManager::Render(CRenderManager *_RM, CFontManager *_FM)
 	if ( CORE->GetPhysicsManager()->GetRenderPositions() )
 		DrawPositions(_FM);
 */
+	if ( CORE->GetPhysicsManager()->GetDrawDistancesSPheres() )
+		DrawDistancesSpheres();
 }
 
 //--------------------------------------------------
@@ -302,6 +304,34 @@ void CCharactersManager::DrawPositions( CFontManager *_FM )
 		{
 			_FM->DrawDefaultText(10, l_FileNumber, colWHITE, "Position %s: %f, %f, %f", l_Enemy->GetName().c_str(), l_Enemy->GetPosition().x, l_Enemy->GetPosition().y, l_Enemy->GetPosition().z);
 			l_FileNumber += 20;
+		}
+	}
+}
+
+void CCharactersManager::DrawDistancesSpheres( void )
+{
+	Mat44f mat;
+	mat.SetIdentity();
+	CRenderManager * l_RM = CORE->GetRenderManager();
+	
+	TVectorResources::iterator l_It = m_ResourcesVector.begin();
+	TVectorResources::iterator l_End = m_ResourcesVector.end();
+
+	Vect3f l_FinalPosition;
+	Vect3f l_InitialPosition;
+
+	for ( l_It; l_It<l_End; l_It++ )
+	{
+		if ((*l_It)->GetProperties()->GetActive() )
+		{
+			// Dibuixem esferes
+			mat.Translate((*l_It)->GetSteeringEntity()->GetPosition());
+			l_RM->SetTransform(mat);
+			l_RM->DrawSphere( (*l_It)->GetSteeringEntity()->GetBoundingRadius(), 10, colMAGENTA );		// Bounding box
+			l_RM->DrawSphere( (*l_It)->GetProperties()->GetDetectionDistance(), 10, colCYAN );			// Detection distance
+			l_RM->DrawSphere( (*l_It)->GetProperties()->GetAttackDistance(), 10, colRED);				// Impact distance
+			l_RM->DrawSphere( (*l_It)->GetProperties()->GetChaseDistance(), 10, colGREEN);				// Chase distance
+			l_RM->DrawSphere( (*l_It)->GetProperties()->GetPreparedAttackDistance(), 10, colYELLOW);	// Prepared distance
 		}
 	}
 }
@@ -344,10 +374,6 @@ void CCharactersManager::Drawfrustum( void )
 		if ((*l_It)->GetProperties()->GetActive() )
 		{
 			l_InitialPosition = (*l_It)->GetSteeringEntity()->GetInitialPositionToThrowRay();
-			mat.SetIdentity();
-			mat.Translate(l_InitialPosition);
-			l_RM->SetTransform(mat);
-			
 			l_FinalPosition = (*l_It)->GetSteeringEntity()->GetFinalPositionToThrowRay(0.f);
 			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );
 	
@@ -356,18 +382,6 @@ void CCharactersManager::Drawfrustum( void )
 
 			l_FinalPosition = (*l_It)->GetSteeringEntity()->GetFinalPositionToThrowRay(-45.f);
 			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );
-
-			// Dibuixem esferes
-			mat.Translate((*l_It)->GetSteeringEntity()->GetPosition());
-			l_RM->SetTransform(mat);
-			l_RM->DrawSphere( (*l_It)->GetSteeringEntity()->GetBoundingRadius(), 10, colMAGENTA );		// Bounding box
-			l_RM->DrawSphere( (*l_It)->GetProperties()->GetDetectionDistance(), 10, colCYAN );			// Detection distance
-			l_RM->DrawSphere( (*l_It)->GetProperties()->GetAttackDistance(), 10, colRED);				// Impact distance
-			l_RM->DrawSphere( (*l_It)->GetProperties()->GetChaseDistance(), 10, colGREEN);				// Chase distance
-			l_RM->DrawSphere( (*l_It)->GetProperties()->GetPreparedAttackDistance(), 10, colYELLOW);	// Prepared distance
-
-			// Dibuixem la velocitat
-			//DrawVelocity((*l_It), l_RM);
 		}
 	}
 	
@@ -413,11 +427,17 @@ void CCharactersManager::DrawFront( void )
 	{
 		if ((*l_It)->GetProperties()->GetActive() )
 		{
+			/*mat.Translate((*l_It)->GetSteeringEntity()->GetPosition());
+			l_RM->SetTransform(mat);
+*/
 			l_InitialPosition = (*l_It)->GetSteeringEntity()->GetInitialPositionToThrowRay();
 			l_FinalPosition  = Vect3f ( (*l_It)->GetPosition().x + (*l_It)->GetFront().x, (*l_It)->GetPosition().y + (*l_It)->GetProperties()->GetHeightController(), (*l_It)->GetPosition().z + (*l_It)->GetFront().z);
 			//l_FinalPosition = (*l_It)->GetSteeringEntity()->GetFinalPositionToThrowRay(0.f);
-			l_RM->DrawLine( l_InitialPosition, l_FinalPosition );
+			
+			mat.Translate(l_InitialPosition);
+			l_RM->SetTransform(mat);
 
+			l_RM->DrawLine( l_InitialPosition, l_FinalPosition );
 		}
 	}
 	
@@ -425,7 +445,7 @@ void CCharactersManager::DrawFront( void )
 	if ( m_pPlayer )
 	{
 		l_FinalPosition.SetZero();
-		l_FinalPosition = Vect3f ( m_pPlayer->GetPosition().x + m_pPlayer->GetSteeringEntity()->GetFront().x, m_pPlayer->GetPosition().y, m_pPlayer->GetPosition().z + m_pPlayer->GetSteeringEntity()->GetFront().z);
+		l_FinalPosition = Vect3f ( m_pPlayer->GetPosition().x + m_pPlayer->GetSteeringEntity()->GetFront().x, m_pPlayer->GetPosition().y+ m_pPlayer->GetProperties()->GetHeightController(), m_pPlayer->GetPosition().z + m_pPlayer->GetSteeringEntity()->GetFront().z);
 		l_RM->DrawLine( Vect3f( m_pPlayer->GetPosition().x, m_pPlayer->GetPosition().y, m_pPlayer->GetPosition().z ) , l_FinalPosition );
 	}
 }
