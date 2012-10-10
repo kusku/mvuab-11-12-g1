@@ -268,7 +268,7 @@ void CCharactersManager::Render(CRenderManager *_RM, CFontManager *_FM)
 		dy += _FM->DrawDefaultText(10, dy, colWHITE, "Yaw: %f", m_pPlayer->GetAnimatedModel()->GetYaw() );
 	}
 
-	/*if ( CORE->GetPhysicsManager()->GetDrawFront() )
+	if ( CORE->GetPhysicsManager()->GetDrawFront() )
 		DrawFront();
 
 	if ( CORE->GetPhysicsManager()->GetDrawfrustum() )
@@ -282,7 +282,7 @@ void CCharactersManager::Render(CRenderManager *_RM, CFontManager *_FM)
 
 	if ( CORE->GetPhysicsManager()->GetRenderPositions() )
 		DrawPositions(_FM);
-*/
+
 	if ( CORE->GetPhysicsManager()->GetDrawDistancesSPheres() )
 		DrawDistancesSpheres();
 }
@@ -445,8 +445,8 @@ void CCharactersManager::DrawFront( void )
 	if ( m_pPlayer )
 	{
 		l_FinalPosition.SetZero();
-		l_FinalPosition = Vect3f ( m_pPlayer->GetPosition().x + m_pPlayer->GetSteeringEntity()->GetFront().x, m_pPlayer->GetPosition().y+ m_pPlayer->GetProperties()->GetHeightController(), m_pPlayer->GetPosition().z + m_pPlayer->GetSteeringEntity()->GetFront().z);
-		l_RM->DrawLine( Vect3f( m_pPlayer->GetPosition().x, m_pPlayer->GetPosition().y, m_pPlayer->GetPosition().z ) , l_FinalPosition );
+		l_FinalPosition = Vect3f ( m_pPlayer->GetPosition().x + m_pPlayer->GetSteeringEntity()->GetFront().x, m_pPlayer->GetPosition().y + m_pPlayer->GetProperties()->GetHeightController(), m_pPlayer->GetPosition().z + m_pPlayer->GetSteeringEntity()->GetFront().z);
+		l_RM->DrawLine( Vect3f( m_pPlayer->GetPosition().x, m_pPlayer->GetPosition().y + m_pPlayer->GetProperties()->GetHeightController(), m_pPlayer->GetPosition().z ) , l_FinalPosition );
 	}
 }
 
