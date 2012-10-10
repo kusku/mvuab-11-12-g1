@@ -5,6 +5,13 @@
     <emitter name="WaterFall" />
     <emitter name="WaterMist" />
   </emitter_system>
+  
+  <emitter_system name="Snow Systen">
+	<emitter name="Snow" />
+	<emitter name="Snow1" />
+	<emitter name="Snow2" />
+	<emitter name="Snow3" />
+  </emitter_system>
 
 <!--  <emitter_system name="DeerStillAttack">
     <emitter name="DeerBlurHook" />
