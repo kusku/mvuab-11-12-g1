@@ -12,7 +12,7 @@
 #include "Characters\CharacterManager.h"
 #include "Characters\Player\Player.h"
 #include "Characters\StatesDefs.h"
-
+#include "Characters\Player\LogicStates\PlayerHitState.h"
 #include "Steering Behaviors\SteeringEntity.h"
 
 #include "Cameras\ThPSCharacterCamera.h"
@@ -199,6 +199,9 @@ bool CPlayerIdleState::OnMessage( CCharacter* _pCharacter, const STelegram& _Mes
 
 		/*if( l_fReceivedPain >= l_fPainToHit )
 		{*/
+		STelegram l_Message = _Message;
+		CPlayerHitState *l_HitState = dynamic_cast<CPlayerHitState*> (_pCharacter->GetLogicState("hit"));
+		l_HitState->UpdateParameters(l_Message);
 		_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("hit") );
 		_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animhit") );
 		//}
@@ -233,13 +236,16 @@ void CPlayerIdleState::GenerateImpact( CCharacter* _pCharacter )
 	/*GetParticleEmitterInstance("DeerBloodSplash", _pCharacter->GetName() + "_DeerBloodSplash")->EjectParticles();
 	GetParticleEmitterInstance("DeerBloodDust",	  _pCharacter->GetName() + "_DeerBloodDust")->EjectParticles();
 	GetParticleEmitterInstance("DeerBlood",		  _pCharacter->GetName() + "_DeerBlood")->EjectParticles();*/
+
 }
 
 void CPlayerIdleState::UpdateImpact( CCharacter* _pCharacter )
 {
-	Vect3f l_Pos = _pCharacter->GetPosition() + _pCharacter->GetFront();
+	//Vect3f l_Pos = _pCharacter->GetPosition() + _pCharacter->GetFront();
 	//l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
-	
+
+	//l_Pos = _pCharacter->GetPosition();
+
 	//SetParticlePosition(_pCharacter, "Twister", _pCharacter->GetName() + "_Twister", "", l_Pos );
 
 	/*SetParticlePosition(_pCharacter, "DeerBloodSplash", _pCharacter->GetName() + "_DeerBloodSplash", "", l_Pos );
