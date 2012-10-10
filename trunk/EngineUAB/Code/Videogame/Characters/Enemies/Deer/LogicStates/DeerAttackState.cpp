@@ -117,11 +117,11 @@ void CDeerAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 			}	
 			else if ( l_ActiveActionState == DEER_RUN_ATTACK_STATE ) 
 			{
-				//m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetRunAttackState());
+				m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetRunAttackState());
 			}	
 			else if ( l_ActiveActionState == DEER_DEFENSE_STATE ) 
 			{
-				//m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetDefenseState());
+				m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetDefenseState());
 			}	
 			// else if ( l_ActiveActionState == "jump" ) then
 				// _CCharacter.logic_fsm:change_state(_CCharacter.jump_state)
@@ -151,21 +151,13 @@ void CDeerAttackState::OnExit( CCharacter* _pCharacter )
 	m_pDeer->GetBehaviors()->ObstacleWallAvoidanceOff();
 }
 
-bool CDeerAttackState::OnMessage( CCharacter* _Character, const STelegram& _Telegram )
+bool CDeerAttackState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
-	if ( _Telegram.Msg == Msg_Attack ) 
+	if (!m_pDeer) 
 	{
-		if (!m_pDeer) 
-		{
-			m_pDeer = dynamic_cast<CDeer*> (_Character);
-		}
-
-		m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetHitState());
-		m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetHitAnimationState());
-		return true;
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
-
-	return false;
+	return m_pDeer->CallHitState(m_pDeer, _Telegram);
 }
 
 // --------------------------------------------------------------------------------------------------------

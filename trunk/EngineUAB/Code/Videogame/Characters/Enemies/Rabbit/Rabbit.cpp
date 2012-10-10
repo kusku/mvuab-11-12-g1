@@ -271,3 +271,19 @@ void CRabbit::BeDead( void )
 {
 	this->GetLogicFSM()->ChangeState(GetDeathState());
 }
+
+bool CRabbit::CallHitState( CCharacter* _pCharacter, const STelegram& _Message )
+{
+	if( _Message.Msg == Msg_Attack )
+	{
+		STelegram l_Message = _Message;
+		CRabbitHitState *l_HitState = dynamic_cast<CRabbitHitState*> ( GetHitState() );
+		l_HitState->UpdateParameters(l_Message);
+		_pCharacter->GetLogicFSM()->ChangeState( GetHitState() );
+		_pCharacter->GetGraphicFSM()->ChangeState( GetHitAnimationState() );
+		
+		return true;
+	}
+
+	return false;
+}

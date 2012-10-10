@@ -185,6 +185,15 @@ void CRabbitHitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 	}
 	else
 	{
+		// En caso que recibamos otro hit mientras estemos en este estado ampliamos el recorrido
+		if ( m_DoubleHit )
+		{
+			CalculateRecoilDirection(m_pRabbit);
+			LOGGER->AddNewLog(ELL_WARNING, "Double hit!!");
+			// Esto permite que ya no reste vida ni se recalcule nada
+			m_DoubleHit = false;
+		}
+
 		m_pActionStateCallback.Update(_ElapsedTime);
 
 		// Gestiono el retroceso del hit
@@ -215,6 +224,11 @@ void CRabbitHitState::OnExit( CCharacter* _pCharacter )
 
 bool CRabbitHitState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
+	if ( _Telegram.Msg == Msg_Attack ) 
+	{
+		m_DoubleHit = true;
+		return true;
+	}
 	return false;
 }
 
@@ -240,4 +254,56 @@ void CRabbitHitState::StopImpact( CCharacter* _pCharacter )
 	GetParticleEmitterInstance("RabbitBloodSplash", _pCharacter->GetName() + "_RabbitBloodSplash")->StopEjectParticles();
 	GetParticleEmitterInstance("RabbitBloodDust",	_pCharacter->GetName() + "_RabbitBloodDust")->StopEjectParticles();
 	GetParticleEmitterInstance("RabbitBlood",		_pCharacter->GetName() + "_RabbitBlood")->StopEjectParticles();
+}
+
+void CRabbitHitState::UpdateParameters( STelegram& _Message )
+{
+	m_Message = _Message;
+}
+
+void CRabbitHitState::CalculateRecoilDirection( CCharacter * _pCharacter ) 
+{
+	if (!m_pRabbit) 
+	{
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
+		if (!m_pRabbit)
+			return;
+	}
+
+	// Calculamos la dirección y fuerza de retroceso a partir del tipo de mensaje recibido
+	CGameProcess *l_pProcess = static_cast<CGameProcess*>(CORE->GetProcess());
+	m_pEnemy				 = l_pProcess->GetCharactersManager()->GetCharacterById(m_Message.Sender);
+
+	CProperties * l_Properties = m_pRabbit->GetProperties();
+	m_pRabbit->FaceTo(m_pRabbit->GetPlayer()->GetPosition(), CORE->GetTimer()->GetElapsedTime());
+	m_MaxHitSpeed = l_Properties->GetHitRecoilSpeed();
+	m_pRabbit->GetSteeringEntity()->SetMaxSpeed(m_MaxHitSpeed);
+	m_MaxHitDistance = l_Properties->GetHitRecoilDistance();
+	m_InitialHitPoint = m_pRabbit->GetPosition();
+	
+	// Cojemos la dirección que se recibe del atacante 
+	Vect3f l_EnemyFront = m_pEnemy->GetSteeringEntity()->GetHeading();
+	Vect3f l_OwnFront = m_pRabbit->GetFront();
+	//m_pRabbit->SetLocked(true);
+	
+	if ( m_Message.Msg == Msg_Attack )
+	{
+		// Si no tiene velocidad el player rotamos hacia el enemigo y reculamos en su dirección
+		if ( _pCharacter->GetSteeringEntity()->GetSpeed() == 0 )
+		{
+			m_HitDirection = l_OwnFront;
+			m_HitDirection = l_OwnFront.RotateY(mathUtils::PiTimes(1.f));	
+			m_HitDirection *= m_MaxHitSpeed;
+		}
+		// Si tenemos los dos velocidad el vector resultante indicará la dirección a seguir y recular
+		else
+		{
+			// Dirección segun la suma de vectores
+			m_HitDirection = l_EnemyFront + l_OwnFront;
+		}
+	}
+	else if ( m_Message.Msg == Msg_Push )
+	{
+		m_HitDirection = l_EnemyFront;
+	}
 }

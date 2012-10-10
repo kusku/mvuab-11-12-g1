@@ -202,17 +202,9 @@ void CDeerPreparedToAttackState::OnExit( CCharacter* _pCharacter )
 
 bool CDeerPreparedToAttackState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
-	if ( _Telegram.Msg == Msg_Attack ) 
+	if (!m_pDeer) 
 	{
-		if (!m_pDeer) 
-		{
-			m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
-		}
-
-		m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetHitState());
-		m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetHitAnimationState());
-		return true;
-	} 
-
-	return false;
+		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
+	}
+	return m_pDeer->CallHitState(m_pDeer, _Telegram);
 }

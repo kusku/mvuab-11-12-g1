@@ -53,6 +53,8 @@ public:
 	bool			IsFatigued			( void );
 	void			BeDead				( void );
 
+	bool			CallHitState		( CCharacter* _pCharacter, const STelegram& _Message );
+
 	//----Properties ------------------------------------------
 	CDeerIdleState *					GetIdleState					( void ) const			{ return m_pIdleState; }
 	CDeerPursuitState	*				GetPursuitState					( void ) const			{ return m_pPursuitState; }
