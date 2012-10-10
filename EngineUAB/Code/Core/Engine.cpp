@@ -34,6 +34,8 @@ CEngine::CEngine( void )
 	, m_pLogger			( NULL )
 	, m_Timer			( 30 )
 	, m_TimerIncreasing	( 0.f )
+	, m_IntroMovie(NULL)
+	, m_PlayingIntro(false)
 {}
 
 CEngine::~CEngine( void )
@@ -66,6 +68,8 @@ void CEngine::Release ( void )
 	//CHECKED_DELETE( m_pProcess );
 
 	CHECKED_DELETE( m_pLogger );
+
+	CHECKED_DELETE(m_IntroMovie);
 }
 
 bool CEngine::Init( HWND _HWnd )
@@ -96,6 +100,10 @@ bool CEngine::Init( HWND _HWnd )
 	else
 		LOGGER->AddNewLog( ELL_ERROR, "CEngine::Init-> Engine inicializado incorrectamente.");
 
+	m_IntroMovie = new IntroMovie();
+	m_IntroMovie->InitMovie("./Data/General/Movie/01boc.theora.ogv");
+	m_PlayingIntro = true;
+
 	return m_bIsOk;
 }
 
@@ -104,14 +112,24 @@ void CEngine::Update( void )
 	m_Timer.Update(m_TimerIncreasing);
 	float l_ElapsedTime = m_Timer.GetElapsedTime();
 
-	m_pCore->Update( l_ElapsedTime );
-	m_pProcess->Update( l_ElapsedTime );
 
-	m_pCore->SetTimer( &m_Timer );
-
-	if( CORE->IsDebugMode() )
+	if(m_PlayingIntro)
 	{
-		UpdateDebugInputs();
+		m_IntroMovie->Update(l_ElapsedTime);
+
+		m_PlayingIntro = !m_IntroMovie->IsDone();
+	}
+	else
+	{
+		m_pCore->Update( l_ElapsedTime );
+		m_pProcess->Update( l_ElapsedTime );
+
+		m_pCore->SetTimer( &m_Timer );
+
+		if( CORE->IsDebugMode() )
+		{
+			UpdateDebugInputs();
+		}
 	}
 }
 
@@ -143,8 +161,15 @@ void CEngine::UpdateDebugInputs()
 
 void CEngine::Render()
 {
-	CRenderManager* l_RenderManager = m_pCore->GetRenderManager();
-	RenderScene( l_RenderManager );		
+	if(m_PlayingIntro)
+	{
+		m_IntroMovie->Render();
+	}
+	else
+	{
+		CRenderManager* l_RenderManager = m_pCore->GetRenderManager();
+		RenderScene( l_RenderManager );		
+	}
 }
 
 void CEngine::RenderScene(CRenderManager *renderManager)
