@@ -8,7 +8,11 @@
 #include <string>
 
 struct STelegram;
+
+// --- Foward Declarations ---
+class CGameProcess;
 class CAnimationCallback;
+// ---------------------------
 
 class CPlayerTargetAttackState : public CState< CCharacter >
 {
@@ -24,7 +28,7 @@ public:
 
 private:
 	CAnimationCallback	*m_pCallback;
-
+	CGameProcess		*m_pProcess;
 	bool				m_bFirstUpdate;
 	float				m_fMaxVelocityMovement;
 	float				m_fCurrentVelocityMovement;

@@ -9,6 +9,7 @@
 #include <string>
 
 class CThPSCharacterCamera;
+class CCharacter;
 
 class CPlayer : public CCharacter
 {
@@ -28,11 +29,14 @@ public:
 	void			BeDead			();
 
 	void			ResetTimeDamage	()					{ m_fTimeWithoutDamage = 0.f; m_fTimeToIncreaseLife = 0.f; }
+	
+	bool			CallHitState	( CCharacter* _pCharacter, const STelegram& _Message );
 
 private:
 	void			CreateCallbacks	();
 	void			CreateStates	();
-
+	
+	
 private:
 	bool			m_bIsTargetFixed;
 
