@@ -17,8 +17,12 @@
 		<acceleration_attack4>-35</acceleration_attack4>
 		<acceleration_attack5>-35</acceleration_attack5>
 		<acceleration_attack6>-35</acceleration_attack6>
-		<attack_distance>3</attack_distance>
+		<attack_distance>2</attack_distance>
 		<attack_angle>50</attack_angle>
+
+		<max_hit_recoil_distance>2</max_hit_recoil_distance>		<!-- Cantidad de retroceso máximo al recibir un hit -->
+		<hit_recoil_speed>0.5</hit_recoil_speed>					<!-- Cantidad de velocidad del retroceso al recibir un hit. Se aplica como la speed al front + 180º -->
+		
 		<detection_distance>10</detection_distance>
 		<detection_angle>50</detection_angle>
 		<wait_to_cure>10</wait_to_cure>
@@ -44,23 +48,23 @@
 		<max_speed>0.6</max_speed>
 		<max_acceleration>0.1</max_acceleration>
 		<max_force>1.015</max_force>
-		<still_attack_speed>1.0</still_attack_speed>
+		<still_attack_speed>0.4</still_attack_speed>
 		<!-- Velocidad de ataque 1 --> 
-		<run_attack_speed>0.4</run_attack_speed>
+		<run_attack_speed>0.5</run_attack_speed>
 		<!-- Velocidad de ataque 2 --> 
 		<min_tired_time>1</min_tired_time>
 		<!-- Tiempo mínimo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
 		<max_tired_time>2</max_tired_time>
 		<!-- Tiempo máximo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
-		<min_tired_time_after_hit>1</min_tired_time_after_hit>
+		<min_tired_time_after_hit>0.5</min_tired_time_after_hit>
 		<!-- Tiempo mínimo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
-		<max_tired_time_after_hit>2</max_tired_time_after_hit>
+		<max_tired_time_after_hit>1</max_tired_time_after_hit>
 		<!-- Tiempo máximo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
 		<max_hit_recoil_distance>5</max_hit_recoil_distance>
 		<!-- Cantidad de retroceso máximo al recibir un hit -->
-		<hit_recoil_speed>3</hit_recoil_speed>
+		<hit_recoil_speed>0.5</hit_recoil_speed>
 		<!-- Cantidad de velocidad del retroceso al recibir un hit. Se aplica como la speed al front + 180º -->
-		<max_time_in_defense>3</max_time_in_defense>
+		<max_time_in_defense>2</max_time_in_defense>
 		<!-- Cantidad de tiempo máximo al recibir un hit pero que estoy en defense -->
 		<bounding_radius>1.7</bounding_radius>
 		<detection_distance>30</detection_distance>
@@ -70,11 +74,11 @@
 		<follow_path_distance>100</follow_path_distance>
 		<impact_distance>3.3</impact_distance>
 		<!-- Está encima el player -->
-		<attack_distance>12</attack_distance>
+		<attack_distance>15</attack_distance>
 		<!-- Está en distancia de poder hacer algunos de los ataques o defensa -->
 		<prepared_to_attack_distance>16.0</prepared_to_attack_distance>
 		<!-- Está lejos de poder atacar pero cerca de poder hacerlo -->
-		<aproximation_distance>8</aproximation_distance>
+		<aproximation_distance>9</aproximation_distance>
 		<!-- Está lejos y debe acercarse -->
 		<tired_distance>10</tired_distance>
 		<!-- Creo que ahora no la uso... -->
@@ -88,7 +92,7 @@
 		<animation_offset>-0.1</animation_offset>
 	</default_properties>
 	<default_properties core="ciervo">
-		<active>true</active>
+		<active>false</active>
 		<locked>false</locked>
 		<life>300</life>
 		<strong>20</strong>
@@ -145,7 +149,7 @@
 		<animation_offset>0.0</animation_offset>
 	</default_properties>
 	<default_properties core="conejo">
-		<active>true</active>
+		<active>false</active>
 		<locked>false</locked>
 		<life>150</life>
 		<strong>5</strong>
@@ -221,8 +225,7 @@
 		<position>-64 -14 -20</position>					<!-- Posición respawn trigger 7 - Después del puente --> 
 		<position>-45 -15 -63</position>					<!-- Posición respawn trigger 8 - Final Lobo -->
 		<position>97 -21 -159</position>					<!-- Posición inicial del juego. Posición respawn trigger 1 -->
-		<position>-45 -15 -63</position>					<!-- Posición respawn trigger 8 - Final Lobo -->
-		
+		<position>110 -30 -30</position>					<!-- Posición respawn trigger 3 - Antes del medio -->
 		
 	</player>
 	<enemies>
@@ -320,27 +323,27 @@
 
 		<!-- Enemigos Trigger zona de combate 4 -->
 		<enemy name="enemy31" core="ciervo" animated_instace_name="enemy31" >
-			<position>30 -40 36</position>
+			<position>30 -39 36</position>
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy32" core="ciervo" animated_instace_name="enemy32" >
-			<position>30 -40 30</position>
+			<position>30 -39 30</position>
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy33" core="ciervo" animated_instace_name="enemy33" >
-			<position>30 -40 42</position>
+			<position>30 -38 42</position>
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy15" core="conejo" animated_instace_name="enemy15" >
-			<position>35 -40 45</position>
+			<position>35 -39 45</position>
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
 		<enemy name="enemy16" core="conejo" animated_instace_name="enemy16" >
-			<position>32 -41 21</position>
+			<position>32 -39 21</position>
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
