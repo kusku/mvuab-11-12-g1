@@ -437,34 +437,27 @@ void CCharacter::FaceTo( const Vect3f &_Position, float _ElapsedTime )
 
 void CCharacter::MoveTo2( const Vect3f &_Velocity, float _ElapsedTime )
 {
-	//Vect2f pointA(_Position.x, _Position.z);
-	//Vect2f pointB(m_Position.x, m_Position.z);
-
-	//if ( pointA.SqDistance(pointB) <= m_pProperties->GetAttackDistance() )
-	//{
-	//	FaceTo( _Position, _ElapsedTime );
-	//	m_pController->SetYaw(m_fYaw);
-	//	Vect3f l_Position = Vect3f(0.0f, 0.0f, 0.0f);
-	//	MoveController(l_Position, _ElapsedTime);
-
-	//	m_Position = m_pController->GetPosition();
-	//	m_Position.y = m_Position.y - m_pController->GetHeight() + m_pProperties->GetAnimationOffset();
-	//	float l_Yaw = mathUtils::Rad2Deg(m_fYaw);
-	//	m_pCurrentAnimatedModel->SetYaw(l_Yaw/* + 90.f*/ );
-	//	m_pCurrentAnimatedModel->SetPosition( m_Position );
-	//	return;
-	//}
-
-	//FaceTo( _Position, _ElapsedTime );
 	Vect3f l_Velocity (_Velocity.x, _Velocity.y, _Velocity.z);
+
+	/*if( l_Velocity.SquaredLength() > 0.00000001f )
+	{
+		Vect3f l_Heading = m_pSteeringEntity->GetVelocity();
+		l_Heading.Normalize(1.f);
+			
+		m_pSteeringEntity->SetHeading( l_Heading );
+		m_pSteeringEntity->SetSide( l_Heading.GetPerpendicular() );
+	}*/
 
 	// Si queremos que la dirección sea más suave cojemos el heading del Smoother que és un average de los últimos headings
 	if ( ( m_pSteeringEntity->isSmoothingOn() ) && ( m_pSteeringEntity->GetSpeed() != 0 ) )
 	{
 		float l_Speed = m_pSteeringEntity->GetSpeed();
-		Vect3f v = m_pSteeringEntity->GetSmoothedHeading();
-		v.Normalize();
-		l_Velocity = v * l_Speed;
+		Vect3f l_Vel = m_pSteeringEntity->GetSmoothedHeading();
+		if( l_Vel.SquaredLength() > 0.00000001f )
+		{
+			l_Vel.Normalize();
+			l_Velocity = l_Vel * l_Speed;
+		}
 	}
 
 	MoveController(l_Velocity, _ElapsedTime);
@@ -894,8 +887,6 @@ void CCharacter::Appearance( void )
 	Vect3f l_Pos = l_Pos1 + l_RelativePosition;
 	l_Pos.y = l_Pos1.y;
 
-	this->SetEnable(true);
-	
 	if ( m_Type != WOLF )
 	{
 		CORE->GetParticleEmitterManager()->GetResource("Twister")->GetParticleEmitterInstance(GetName() + "_Twister")->SetPosition(l_Pos);
@@ -914,7 +905,6 @@ void CCharacter::Appearance( void )
 
 void CCharacter::SetEnable( bool _Enable )
 {
-	//m_pController->SetActive(_Enable);
 	m_pController->SetCollision(_Enable);
 	m_pController->SetVisible(_Enable);
 	m_pProperties->SetVisible(_Enable);
