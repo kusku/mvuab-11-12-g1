@@ -948,3 +948,4 @@ CState<CCharacter>* CCharacter::GetAnimationState( const std::string &_State )
 
 	return NULL;
 }
+

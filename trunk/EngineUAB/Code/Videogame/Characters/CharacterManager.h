@@ -62,6 +62,7 @@ public:
 	void				DrawRay								( void );
 	void				DrawVelocity						( CCharacter * _Character, CRenderManager * _RM );
 	void				DrawPositions						( CFontManager *_FM );
+	void				DrawDistancesSpheres				( void );
 
 	// ------------- Propietats ( Get / Set ) ----------------
 	TVectorResources	GetEnemiesVector					() const					{ return m_ResourcesVector; }
