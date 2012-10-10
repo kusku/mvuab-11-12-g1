@@ -123,23 +123,27 @@ void CWolfHitState::OnEnter( CCharacter* _pCharacter )
 		m_pActionStateCallback.StartAction();
 
 		// --- Para la gestión del retroceso ---
-		CProperties * l_Properties = m_pWolf->GetProperties();
-		m_pWolf->FaceTo(m_pWolf->GetPlayer()->GetPosition(), CORE->GetTimer()->GetElapsedTime());
-		m_MaxHitSpeed = l_Properties->GetHitRecoilSpeed();
-		m_pWolf->GetSteeringEntity()->SetMaxSpeed(m_MaxHitSpeed);
-		m_MaxHitDistance = l_Properties->GetHitRecoilDistance();
-		m_InitialHitPoint = m_pWolf->GetPosition();
+		CalculateRecoilDirection(m_pWolf);
+		m_DoubleHit = false;
 
-		m_HitDirection = m_pWolf->GetSteeringEntity()->GetFront();
-		m_HitDirection.Normalize();
-		m_HitDirection = m_HitDirection.RotateY(mathUtils::PiTimes(1.f));		
-		m_HitDirection = m_HitDirection * m_MaxHitSpeed;
-		/*m_HitMaxPosition = m_pWolf->GetSteeringEntity()->GetPosition() + m_HitDirection * m_MaxHitDistance;*/
+		//CProperties * l_Properties = m_pWolf->GetProperties();
+		//m_pWolf->FaceTo(m_pWolf->GetPlayer()->GetPosition(), CORE->GetTimer()->GetElapsedTime());
+		//m_MaxHitSpeed = l_Properties->GetHitRecoilSpeed();
+		//m_pWolf->GetSteeringEntity()->SetMaxSpeed(m_MaxHitSpeed);
+		//m_MaxHitDistance = l_Properties->GetHitRecoilDistance();
+		//m_InitialHitPoint = m_pWolf->GetPosition();
 
-		m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-		m_pWolf->GetBehaviors()->SeekOff();
+		//m_HitDirection = m_pWolf->GetSteeringEntity()->GetFront();
+		//m_HitDirection.Normalize();
+		//m_HitDirection = m_HitDirection.RotateY(mathUtils::PiTimes(1.f));		
+		//m_HitDirection = m_HitDirection * m_MaxHitSpeed;
+		///*m_HitMaxPosition = m_pWolf->GetSteeringEntity()->GetPosition() + m_HitDirection * m_MaxHitDistance;*/
+
 		// ---------------------------------------
 		
+		m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+		m_pWolf->GetBehaviors()->SeekOff();
+
 		// Gestión de partículas. Metemos sangre!!
 		UpdateImpact(_pCharacter);
 		GenerateImpact(_pCharacter);
@@ -183,7 +187,7 @@ void CWolfHitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		{
 			// Obligo a descansar entre unos segundos
 			CProperties * l_Properties = m_pWolf->GetProperties();
-		float l_MaxTimeInTired = BoostRandomHelper::GetFloat(l_Properties->GetMinTiredTimeAfterAttack(), l_Properties->GetMaxTiredTimeAfterAttack());
+			float l_MaxTimeInTired = BoostRandomHelper::GetFloat(l_Properties->GetMinTiredTimeAfterAttack(), l_Properties->GetMaxTiredTimeAfterAttack());
 			m_RecoverMinTiredTime = m_pWolf->GetTiredState()->GetMinTiredTime();
 			m_RecoverMaxTiredTime = m_pWolf->GetTiredState()->GetMaxTiredTime();
 			m_pWolf->GetTiredState()->SetTiredTime(0.f, l_MaxTimeInTired);
@@ -193,6 +197,15 @@ void CWolfHitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 	}
 	else
 	{
+		// En caso que recibamos otro hit mientras estemos en este estado ampliamos el recorrido
+		if ( m_DoubleHit )
+		{
+			CalculateRecoilDirection(m_pWolf);
+			LOGGER->AddNewLog(ELL_WARNING, "Double hit!!");
+			// Esto permite que ya no reste vida ni se recalcule nada
+			m_DoubleHit = false;
+		}
+
 		m_pActionStateCallback.Update(_ElapsedTime);
 		
 		// Gestiono el retroceso del hit
@@ -226,17 +239,16 @@ void CWolfHitState::OnExit( CCharacter* _pCharacter )
 	m_pWolf->GetBehaviors()->SeekOff();
 	m_pWolf->GetSteeringEntity()->SetMaxSpeed(_pCharacter->GetProperties()->GetMaxSpeed());
 	StopImpact(_pCharacter);
+	//m_pWolf->SetLocked(false);
 }
 
 bool CWolfHitState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
-	/*if ( _Telegram.Msg == Msg_Attack ) 
+	if ( _Telegram.Msg == Msg_Attack ) 
 	{
-		m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetHitState());
-		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetHitAnimationState());
+		m_DoubleHit = true;
 		return true;
 	}
-*/
 	return false;
 }
 
@@ -264,4 +276,63 @@ void CWolfHitState::StopImpact( CCharacter* _pCharacter )
 	GetParticleEmitterInstance("WolfBlood",		  _pCharacter->GetName() + "_WolfBlood")->StopEjectParticles();
 }
 
+void CWolfHitState::UpdateParameters( STelegram& _Message )
+{
+	m_Message = _Message;
+}
 
+void CWolfHitState::CalculateRecoilDirection( CCharacter * _pCharacter ) 
+{
+	if (!m_pWolf) 
+	{
+		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
+		if (!m_pWolf)
+			return;
+	}
+
+	// Calculamos la dirección y fuerza de retroceso a partir del tipo de mensaje recibido
+	CGameProcess *l_pProcess = static_cast<CGameProcess*>(CORE->GetProcess());
+	m_pEnemy				 = l_pProcess->GetCharactersManager()->GetCharacterById(m_Message.Sender);
+
+	CProperties * l_Properties = m_pWolf->GetProperties();
+	m_pWolf->FaceTo(m_pWolf->GetPlayer()->GetPosition(), CORE->GetTimer()->GetElapsedTime());
+	m_MaxHitSpeed = l_Properties->GetHitRecoilSpeed();
+	m_pWolf->GetSteeringEntity()->SetMaxSpeed(m_MaxHitSpeed);
+	m_MaxHitDistance = l_Properties->GetHitRecoilDistance();
+	m_InitialHitPoint = m_pWolf->GetPosition();
+	
+	// Cojemos la dirección que se recibe del atacante 
+	Vect3f l_EnemyFront = m_pEnemy->GetFront();
+	Vect3f l_OwnFront = m_pWolf->GetFront();
+	//m_pWolf->SetLocked(true);
+	
+	if ( m_Message.Msg == Msg_Attack )
+	{
+		// Si no tiene velocidad el player rotamos hacia el enemigo y reculamos en su dirección
+		if ( _pCharacter->GetSteeringEntity()->GetSpeed() == 0 )
+		{
+			//m_HitDirection = l_EnemyFront.RotateY(mathUtils::PiTimes(1.f));	
+			m_HitDirection = l_EnemyFront;
+			m_HitDirection *= m_MaxHitSpeed;
+		}
+		// Si tenemos los dos velocidad el vector resultante indicará la dirección a seguir y recular
+		else
+		{
+			// Dirección segun la suma de vectores
+			m_HitDirection = l_EnemyFront + l_OwnFront;
+		}
+	}
+	else if ( m_Message.Msg == Msg_Push )
+	{
+		m_HitDirection = l_EnemyFront;
+	}
+}
+
+		//m_HitDirection = m_pWolf->GetSteeringEntity()->GetFront();
+		//m_HitDirection.Normalize();
+		//m_HitDirection = m_HitDirection.RotateY(mathUtils::PiTimes(1.f));		
+		//m_HitDirection = m_HitDirection * m_MaxHitSpeed;
+		///*m_HitMaxPosition = m_pWolf->GetSteeringEntity()->GetPosition() + m_HitDirection * m_MaxHitDistance;*/
+
+		//m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+		//m_pWolf->GetBehaviors()->SeekOff();

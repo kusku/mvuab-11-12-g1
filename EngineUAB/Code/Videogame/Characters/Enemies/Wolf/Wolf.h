@@ -65,6 +65,8 @@ public:
 	bool			TestIfCanHowlForLife	( void );
 	bool			TestIfCanHowlForEnemies ( void );
 
+	bool			CallHitState			( CCharacter* _pCharacter, const STelegram& _Message );
+
 	//----Properties ------------------------------------------
 	CWolfIdleState *					GetIdleState					( void ) const			{ return m_pIdleState; }
 	CWolfPursuitState	*				GetPursuitState					( void ) const			{ return m_pPursuitState; }

@@ -27,19 +27,23 @@ public:
 	virtual void	Execute		( CCharacter*, float _ElapsedTime );
 
 	// Se ejecuta cuando el estado es entrado
-	virtual void	OnEnter		( CCharacter* );
+	virtual void	OnEnter						( CCharacter* );
 
 	// Se ejecuta cuando el estado sale
-	virtual void	OnExit		( CCharacter* );
+	virtual void	OnExit						( CCharacter* );
 
 	// Se ejecuta cuando otro caracter envía un mensaje a este
-	virtual bool	OnMessage	( CCharacter*, const STelegram& );
+	virtual bool	OnMessage					( CCharacter*, const STelegram& );
 
 	//----Methods ---------------------------------------------
 	// Para tema de partículas de impacto
-	void			GenerateImpact	( CCharacter* _pCharacter );
-	void			UpdateImpact	( CCharacter* _pCharacter );
-	void			StopImpact		( CCharacter* _pCharacter );
+	void			GenerateImpact				( CCharacter* _pCharacter );
+	void			UpdateImpact				( CCharacter* _pCharacter );
+	void			StopImpact					( CCharacter* _pCharacter );
+
+	void			CalculateRecoilDirection	( CCharacter * _pCharacter );
+	
+	void			UpdateParameters			( STelegram& _Message );
 
 	//----Members ---------------------------------------------
 private:
@@ -57,5 +61,10 @@ private:
 	float						m_MaxHitDistance;		// Distancia máxima de recorrido del hit
 	float						m_MaxHitSpeed;			// Velocidad máxima de recorrido del hit
 	Vect3f						m_InitialHitPoint;		// Punto final de retroceso
+
+	STelegram					m_Message;				// Mensaje del impacto
+	CCharacter *				m_pEnemy;				// Enemigo que me pega
+
+	bool						m_DoubleHit;			// Permite percibir el doble golpeo
 };
 #endif _WOLF_HIT_STATE_H_

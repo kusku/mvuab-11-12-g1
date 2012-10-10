@@ -364,3 +364,29 @@ bool CWolf::TestIfCanHowlForEnemies( void )
 
 	return false;
 }
+
+bool CWolf::CallHitState( CCharacter* _pCharacter, const STelegram& _Message )
+{
+	if( _Message.Msg == Msg_Attack )
+	{
+		/*CRandom	l_Randomize;
+
+		CCharacter *l_pEnemy	= m_pProcess->GetCharactersManager()->GetCharacterById(_Message.Sender);
+		float l_fReceivedPain	= l_Randomize.getRandFloat( (float)(l_pEnemy->GetProperties()->GetStrong() / 2), (float)l_pEnemy->GetProperties()->GetStrong());
+		float l_fPainToHit		= l_pEnemy->GetProperties()->GetStrong() * 0.95f;*/
+
+		/*if( l_fReceivedPain >= l_fPainToHit )
+		{*/
+
+		STelegram l_Message = _Message;
+		CWolfHitState *l_HitState = dynamic_cast<CWolfHitState*> ( GetHitState() );
+		l_HitState->UpdateParameters(l_Message);
+		_pCharacter->GetLogicFSM()->ChangeState( GetHitState() );
+		_pCharacter->GetGraphicFSM()->ChangeState( GetHitAnimationState() );
+		//}
+
+		return true;
+	}
+
+	return false;
+}
