@@ -45,7 +45,11 @@ public:
 
 	inline const Vect3f			GetPosition					( void ) const							{ return m_Position; }
 
-	inline void					SetPreviousPosition			( const Vect3f &_PreviousPosition )		{ m_PreviousPosition = _PreviousPosition; }
+	inline void					SetPreviousPosition			( const Vect3f &_PreviousPosition )		{ 
+																										if ( m_PreviousPosition != _PreviousPosition )
+																											m_PreviousPosition = _PreviousPosition; 
+																									}
+
 	inline const Vect3f			GetPreviousPosition			( void ) const							{ return m_PreviousPosition; }
 
 	inline void					SetMaxSpeed					( float _MaxSpeed )						{ m_MaxSpeed = _MaxSpeed; }
