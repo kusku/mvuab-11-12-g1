@@ -434,8 +434,8 @@ void CCharactersManager::DrawFront( void )
 			l_FinalPosition  = Vect3f ( (*l_It)->GetPosition().x + (*l_It)->GetFront().x, (*l_It)->GetPosition().y + (*l_It)->GetProperties()->GetHeightController(), (*l_It)->GetPosition().z + (*l_It)->GetFront().z);
 			//l_FinalPosition = (*l_It)->GetSteeringEntity()->GetFinalPositionToThrowRay(0.f);
 			
-			mat.Translate(l_InitialPosition);
-			l_RM->SetTransform(mat);
+		/*	mat.Translate(l_InitialPosition);
+			l_RM->SetTransform(mat);*/
 
 			l_RM->DrawLine( l_InitialPosition, l_FinalPosition );
 		}
@@ -444,12 +444,12 @@ void CCharactersManager::DrawFront( void )
 	// Ara el player
 	if ( m_pPlayer )
 	{
-		mat.Translate(m_pPlayer->GetPosition());
-		l_RM->SetTransform(mat);
+		/*mat.Translate(m_pPlayer->GetPosition());
+		l_RM->SetTransform(mat);*/
 
 		l_FinalPosition.SetZero();
-		l_FinalPosition = Vect3f ( m_pPlayer->GetPosition().x + m_pPlayer->GetSteeringEntity()->GetFront().x, m_pPlayer->GetPosition().y+ m_pPlayer->GetProperties()->GetHeightController(), m_pPlayer->GetPosition().z + m_pPlayer->GetSteeringEntity()->GetFront().z);
-		l_RM->DrawLine( Vect3f( m_pPlayer->GetPosition().x, m_pPlayer->GetPosition().y, m_pPlayer->GetPosition().z ) , l_FinalPosition );
+		l_FinalPosition = Vect3f ( m_pPlayer->GetPosition().x + m_pPlayer->GetSteeringEntity()->GetHeading().x, m_pPlayer->GetPosition().y + m_pPlayer->GetProperties()->GetHeightController(), m_pPlayer->GetPosition().z + m_pPlayer->GetSteeringEntity()->GetHeading().z);
+		l_RM->DrawLine( Vect3f( m_pPlayer->GetPosition().x, m_pPlayer->GetPosition().y + m_pPlayer->GetProperties()->GetHeightController(), m_pPlayer->GetPosition().z ) , l_FinalPosition );
 	}
 }
 
