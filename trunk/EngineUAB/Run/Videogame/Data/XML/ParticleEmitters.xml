@@ -19,6 +19,7 @@
 	<emitter name="SwordFinal" system_name="SwordFinal" type="point" particlesPerSecond="400" initialPosition="0 0 0" on_loop="false" ejection_count="90" />
 	
 	<emitter name="Snow" system_name="Snow" type="box" particlesPerSecond="100" on_loop="true" initialPosition="0.0 0.0 0.0" box_min="0.0 -45.0 0.0" box_max="50.0 -41.0 50.0" />
+	<emitter name="DeepSnow" system_name="DeepSnow" type="box" particlesPerSecond="11000" on_loop="true" initialPosition="-0, -0, -0" box_min="-45 -10.0 -63" box_max="50.0 10.0 50.0" />
 	<emitter name="Snow1" system_name="Snow" type="box" particlesPerSecond="110" on_loop="true" initialPosition="0.0 0.0 0.0" box_min="-110 -17 -100" box_max="-30 -16 -50" />
 	<emitter name="Snow2" system_name="Snow" type="box" particlesPerSecond="170" on_loop="true" initialPosition="0.0 0.0 0.0" box_min="50 -27 -140" box_max="80 -24 -110" />
 	<emitter name="Snow3" system_name="Snow" type="box" particlesPerSecond="150" on_loop="true" initialPosition="0.0 0.0 0.0" box_min="60 -27 -110" box_max="90 -24 -80" />
