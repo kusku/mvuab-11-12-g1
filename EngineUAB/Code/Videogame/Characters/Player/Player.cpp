@@ -119,8 +119,8 @@ bool CPlayer::Init()
 
 void CPlayer::Update( float _ElapsedTime )
 {
-	if( !m_bLocked )
-	{
+	/*if( !m_bLocked )
+	{*/
 		CActionToInput *l_pInput = CORE->GetActionToInput();
 
 		//Coge el desplazamiento que hace el mouse
@@ -241,7 +241,7 @@ void CPlayer::Update( float _ElapsedTime )
 		}
 
 		static_cast<CGameProcess*>( CORE->GetProcess() )->GetPlayerCamera()->Update(_ElapsedTime);
-	}
+	//}
 }
 
 void CPlayer::HitToPlayer()
