@@ -57,6 +57,8 @@ public:
 	bool			IsFatigued			( void );
 	void			BeDead				( void );
 
+	bool			CallHitState		( CCharacter* _pCharacter, const STelegram& _Message );
+
 	//----Properties ------------------------------------------
 	CRabbitIdleState *					GetIdleState					( void ) const			{ return m_pIdleState; }
 	CRabbitPursuitState	*				GetPursuitState					( void ) const			{ return m_pPursuitState; }

@@ -122,17 +122,9 @@ void CRabbitTiredState::OnExit( CCharacter* _pCharacter )
 
 bool CRabbitTiredState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
 {
-	if ( _Telegram.Msg == Msg_Attack ) 
+	if (!m_pRabbit) 
 	{
-		if (!m_pRabbit) 
-		{
-			m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
-		}
-
-		m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetHitState());
-		m_pRabbit->GetGraphicFSM()->ChangeState(m_pRabbit->GetHitAnimationState());
-		return true;
+		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
-
-	return false;
+	return m_pRabbit->CallHitState(m_pRabbit, _Telegram);
 }

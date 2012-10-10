@@ -40,6 +40,10 @@ public:
 	void			UpdateImpact			( CCharacter* _pCharacter );
 	void			StopImpact				( CCharacter* _pCharacter );
 	
+	void			CalculateRecoilDirection( CCharacter * _pCharacter );
+	
+	void			UpdateParameters		( STelegram& _Message );
+
 	//----Members ---------------------------------------------
 private:
 	CRabbit					  * m_pRabbit;
@@ -58,5 +62,9 @@ private:
 	float						m_RecoverMinTiredTime;
 	float						m_RecoverMaxTiredTime;
 	
+	STelegram					m_Message;				// Mensaje del impacto
+	CCharacter *				m_pEnemy;				// Enemigo que me pega
+
+	bool						m_DoubleHit;			// Permite percibir el doble golpeo
 };
 #endif _RABBIT_HIT_STATE_H_
