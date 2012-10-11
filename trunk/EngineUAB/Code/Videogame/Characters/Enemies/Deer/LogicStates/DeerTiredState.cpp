@@ -94,7 +94,7 @@ void CDeerTiredState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 	
-	LOGGER->AddNewLog(ELL_INFORMATION, "CDeerTiredState::Execute-> %s Cansado durante %f segons", m_pDeer->GetName().c_str(), m_MaxTime );
+	//LOGGER->AddNewLog(ELL_INFORMATION, "CDeerTiredState::Execute-> %s Cansado durante %f segons", m_pDeer->GetName().c_str(), m_MaxTime );
 	
 	if ( m_ActionTime.IsActionFinished() ) 
 	{
