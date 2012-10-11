@@ -51,6 +51,12 @@ bool CWeaponManager::Reload()
 //-----------------------------
 bool CWeaponManager::LoadFile()
 {
+	/* File Format
+	<Weapons>
+		<weapon name="hoces" type="melee" left_weapon="melee_left_weapon" right_weapon="melee_right_weapon" right_hand="CHR_CAP R Hand" left_hand="CHR_CAP L Hand" animated_model_instance="caperucita1" layer="solid" layer_attach="solid" />
+	</Weapons>
+	*/
+
 	CXMLTreeNode newFile;
 	if ( !newFile.LoadFile ( m_Filename.c_str ( ) ) )
 	{

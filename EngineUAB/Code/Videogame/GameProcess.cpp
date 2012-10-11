@@ -17,7 +17,6 @@
 #include "SoundManager.h"
 #include "Listener.h"
 #include "Triggers/TriggersManager.h"
-#include "Weapons\WeaponManager.h"
 #include "Callbacks\Animation\AnimationCallbackManager.h"
 
 #include "Rails\RailManager.h"
@@ -49,7 +48,6 @@ CGameProcess::CGameProcess( HWND hWnd )
 	: m_hWnd						(hWnd)
 	, m_pThPSCamera					(NULL)
 	, m_pCharactersManager			(NULL)
-	, m_pWeaponManager				(NULL)
 	, m_pAnimationCallbackManager	(NULL)
 	, m_pHUD						(NULL)
 	, m_pFPSRailCamera				(NULL)
@@ -130,7 +128,6 @@ void CGameProcess::CleanUp()
 	m_pRailCamera = NULL;
 
 	CHECKED_DELETE( m_pCharactersManager );
-	CHECKED_DELETE( m_pWeaponManager );
 	CHECKED_DELETE( m_pAnimationCallbackManager );
 	CHECKED_DELETE( m_pHUD );
 }
@@ -288,9 +285,6 @@ void CGameProcess::Update(float elapsedTime)
 			m_pCharactersManager->Update(elapsedTime);
 			CORE->GetRenderableObjectsLayersManager()->Update(elapsedTime);
 
-			//Actualiza la posición de las armas
-			m_pWeaponManager->Update(elapsedTime);
-
 			//Actualiza el HUD
 			m_pHUD->Update(elapsedTime, m_pCharactersManager->GetPlayerLife() );
 		}
@@ -374,10 +368,6 @@ void CGameProcess::LoadGameObjects()
 
 	//Asigna una cámara al micrófono de sonido
 	CORE->GetSoundManager()->GetListener()->SetCamera( m_pThPSCamera );
-
-	m_pWeaponManager = new CWeaponManager();
-	m_pWeaponManager->Load("./Data/XML/weapons.xml");
-	m_pWeaponManager->ChangeCurrentWeapon("hoces");
 
 	m_pHUD->Init( m_pCharactersManager->GetPlayerLife() );
 }
