@@ -238,6 +238,8 @@ void CGameProcess::Update(float elapsedTime)
 			m_pHUD->Init( m_pCharactersManager->GetPlayerLife() );
 
 			CORE->GetTriggersManager()->Reload();
+
+			m_bFirstLogicUpdate = true;
 		}
 
 		/*if(CORE->GetActionToInput()->DoAction("PlayerJump"))
