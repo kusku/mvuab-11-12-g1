@@ -44,7 +44,8 @@ private:
 	STelegram				m_Message;				// Mensaje del impacto
 	CCharacter *			m_pEnemy;				// Enemigo que me pega
 
-	bool					m_DoubleHit;
+	bool					m_DoubleHit;			// Indica si se ha recibido otro golpe después del primero
+	bool					m_PushHit;				// Indica si se ha recibido ya el push
 };
 
 #endif //_PLAYER_HIT_STATE_H_

@@ -325,7 +325,6 @@ void CPlayerAttack2State::SetParticlePosition( CCharacter* _pCharacter )
 	m_pParticleEmitter->SetPosition( l_TransformMatrix.GetPos() );
 }
 
-
 void CPlayerAttack2State::GenerateImpact( void )
 {
 	//GetParticleEmitterFireSwordBlur")->EjectParticles();
