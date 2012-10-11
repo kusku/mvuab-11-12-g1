@@ -19,4 +19,5 @@
 	<animation name="attackfinal6" filename="cap_combo_6(1F).caf"/>
 	<animation name="jump" filename="cap_salto_v2.caf"/>
 	<texture filename="New_Texture_CapSingleMesh 2048x2048_2.dds"/>
+	<texture filename="New_Texture_CapSingleMesh 2048x2048_2_NRM.dds"/>
 </animated_model>
