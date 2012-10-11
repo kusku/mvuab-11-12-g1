@@ -130,8 +130,6 @@ namespace Configuracion
                     }
 
                     cbResolution.SelectedIndex = wrDic[resWR];
-
-                    break;
                 }
 
 
@@ -222,7 +220,7 @@ namespace Configuracion
                     Resol sqRes = ShadowDic[cbShadowQuality.SelectedIndex];
                     bool shadowEnable = cbShadowEnable.Checked;
 
-                    elem.Attributes["generate_shadow_map"].InnerText = shadowEnable.ToString();
+                    elem.Attributes["generate_shadow_map"].InnerText = shadowEnable.ToString().ToLower();
 
                     elem.Attributes["shadow_map_width"].InnerText = sqRes.Width.ToString();
                     elem.Attributes["shadow_map_height"].InnerText = sqRes.Height.ToString();
@@ -265,7 +263,6 @@ namespace Configuracion
 
                 if (elem.NodeType == XmlNodeType.Element && elem.Name == "WindowResolution")
                 {
-
                     elem.Attributes["width"].InnerText = wrRes.Width.ToString();
                     elem.Attributes["height"].InnerText = wrRes.Height.ToString();
                 }
@@ -280,7 +277,7 @@ namespace Configuracion
                 {
                     bool windowed = !cbWindowMode.Checked;
 
-                    elem.Attributes["fullscreenMode"].InnerText = windowed.ToString();
+                    elem.Attributes["fullscreenMode"].InnerText = windowed.ToString().ToLower();
                 }
             }
 
