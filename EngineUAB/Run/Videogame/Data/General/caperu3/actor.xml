@@ -1,7 +1,7 @@
 <animated_model name="caperucita">
 	<skeleton filename="cap_singlemeshskeleton.csf"/>
 	<mesh filename="cap_singlemesh.cmf"/>
-	<animation name="idle" filename="cap_idle.caf"/>
+	<animation name="idle" filename="cap_newidle.caf"/>
 	<animation name="run" filename="cap_run.caf"/>
 	<animation name="hit" filename="cap_hit.caf"/>
 	<animation name="defense" filename="cap_defense_sostenida$.caf"/>
