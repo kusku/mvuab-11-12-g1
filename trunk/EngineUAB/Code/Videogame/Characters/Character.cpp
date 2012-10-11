@@ -400,6 +400,42 @@ void CCharacter::FaceTo2( const Vect3f &_Position, float _ElapsedTime )
 	m_pSteeringEntity->SetYaw(l_Yaw);
 }
 
+void CCharacter::FaceToForPlayer( const Vect3f &_Position, float _ElapsedTime )
+{
+	//l_Yaw-=mathUtils::Deg2Rad(180.0f);
+	if(_Position.x==m_Position.x && _Position.z==m_Position.z)
+		return;
+
+	Vect3f l_ToTarget = (_Position - m_Position);
+	l_ToTarget.y=.0f;
+	l_ToTarget.Normalize();
+
+	float l_DesiredYaw = l_ToTarget.GetAngleY();
+	float l_RotationSpeed = m_pProperties->GetMaxRotationSpeed();
+
+	float l_Yaw = GetAnimatedModel()->GetYaw();
+
+	if(l_DesiredYaw<0.0f)
+		l_DesiredYaw+= 2*FLOAT_PI_VALUE;
+	if(l_Yaw<0.0f)
+		l_Yaw+= 2*FLOAT_PI_VALUE;
+
+	if((l_DesiredYaw-l_Yaw)>FLOAT_PI_VALUE)
+		l_DesiredYaw-= 2*FLOAT_PI_VALUE;
+	else if((l_DesiredYaw-l_Yaw)<-FLOAT_PI_VALUE)
+		l_Yaw-= 2*FLOAT_PI_VALUE;
+	
+	if(l_DesiredYaw>l_Yaw)
+		l_Yaw=mathUtils::Min(l_DesiredYaw, l_Yaw+mathUtils::Deg2Rad(l_RotationSpeed) * _ElapsedTime);
+	else 
+		l_Yaw=mathUtils::Max(l_DesiredYaw, l_Yaw-mathUtils::Deg2Rad(l_RotationSpeed) * _ElapsedTime);
+
+	m_pController->SetYaw(l_Yaw);
+	l_Yaw = mathUtils::Rad2Deg(l_Yaw);
+	m_pCurrentAnimatedModel->SetYaw(l_Yaw);
+	m_pSteeringEntity->SetYaw(l_Yaw);
+}
+
 
 void CCharacter::FaceTo( const Vect3f &_Position, float _ElapsedTime )
 {

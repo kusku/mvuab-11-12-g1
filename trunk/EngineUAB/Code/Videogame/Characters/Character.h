@@ -57,6 +57,7 @@ public:
 	void						MoveTo2						( const Vect3f &_Position, float _ElapsedTime );
 	void						FaceTo						( const Vect3f &_Position, float _ElapsedTime );
 	void						FaceTo2						( const Vect3f &_Position, float _ElapsedTime );
+	void						FaceToForPlayer				( const Vect3f &_Position, float _ElapsedTime );
 	
 	bool						AddLife						( int _Life );								
 	void						RestLife					( int _Life );								
