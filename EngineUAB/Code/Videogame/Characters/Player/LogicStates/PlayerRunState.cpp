@@ -66,12 +66,6 @@ void CPlayerRunState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 {
 	CCharacter *l_pEnemy		= NULL; 
 
-	//Miramos si hay un target a poder fijarse
-	/*if( !l_pPlayer->IsTargetFixed() )
-	{
-		l_pEnemy = l_pPlayer->DetectEnemy();
-	}*/
-
 	if( !_pCharacter->GetLocked() )
 	{
 		//El jugador ataca
@@ -82,16 +76,8 @@ void CPlayerRunState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 		}
 		else if( m_pInput->DoAction("AttackPlayer") )
 		{
-			if( m_pPlayer->IsTargetFixed() )
-			{
-				_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("targetattack1") );
-				_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack1") );
-			}
-			else
-			{
-				_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("attack1") );
-				_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack1") );
-			}
+			_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("attack1") );
+			_pCharacter->GetGraphicFSM()->ChangeState( _pCharacter->GetAnimationState("animattack1") );
 		}
 
 		float l_fYaw = _pCharacter->GetYaw();

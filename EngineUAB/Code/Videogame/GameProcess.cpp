@@ -242,12 +242,6 @@ void CGameProcess::Update(float elapsedTime)
 			m_bFirstLogicUpdate = true;
 		}
 
-		/*if(CORE->GetActionToInput()->DoAction("PlayerJump"))
-		{
-			CORE->SetCamera( m_pRailCamera );
-			CORE->GetRailManager()->StartCurrentRail();
-		}*/
-
 		if( CORE->GetActionToInput()->DoAction("CommutationCamera") )
 		{
 			if( m_pCamera == m_pThPSCamera )
