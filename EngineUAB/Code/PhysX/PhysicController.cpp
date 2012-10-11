@@ -216,8 +216,8 @@ void CPhysicController::Move ( const Vect3f& _vDirection, float _ElapsedTime )
 	if ( heightDelta != 0.f )
 	{
 		l_Direction.y+=heightDelta;
-		l_Direction.x *= 0.3f;
-		l_Direction.z *= 0.3f;
+		/*l_Direction.x *= 0.3f;
+		l_Direction.z *= 0.3f;*/
 	}
 
 	int mask = 1 << ECG_PLAYER;
