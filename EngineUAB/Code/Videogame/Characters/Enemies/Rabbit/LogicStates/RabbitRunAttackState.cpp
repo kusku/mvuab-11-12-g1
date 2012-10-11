@@ -159,6 +159,22 @@ void CRabbitRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 		{
 			m_pRabbit->SetPlayerHasBeenReached(true);
 			CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Punch3"); 
+			
+			if ( DISPATCH != NULL ) 
+			{
+				DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pRabbit->GetID(), m_pRabbit->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
+				LOGGER->AddNewLog(ELL_INFORMATION,"CRabbitRunAttackState::Execute->Envio mensaje de tocado");
+				#if defined _DEBUG
+					if( CORE->IsDebugMode() )
+					{
+						LOGGER->AddNewLog(ELL_INFORMATION, "CRabbitRunAttackState:Execute->Dispatch" );
+					}
+				#endif
+			}
+			else
+			{
+				LOGGER->AddNewLog(ELL_ERROR, "CRabbitRunAttackState:Execute->El Dispatch es NULL" );
+			}
 		}
 		
 		// Compruebo si la animación ha finalizado
@@ -201,22 +217,6 @@ void CRabbitRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 			// Si encuentro el player por delante me lo llevo
 			if ( m_pRabbit->GetPlayerHasBeenReached() )
 			{
-				if ( DISPATCH != NULL ) 
-				{
-					DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pRabbit->GetID(), m_pRabbit->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
-					LOGGER->AddNewLog(ELL_INFORMATION,"CRabbitRunAttackState::Execute->Envio mensaje de tocado");
-					#if defined _DEBUG
-						if( CORE->IsDebugMode() )
-						{
-							LOGGER->AddNewLog(ELL_INFORMATION, "CRabbitRunAttackState:Execute->Dispatch" );
-						}
-					#endif
-				}
-				else
-				{
-					LOGGER->AddNewLog(ELL_ERROR, "CRabbitRunAttackState:Execute->El Dispatch es NULL" );
-				}
-
 				UpdateImpact(m_pRabbit);
 				if ( m_ActionStateCallback.IsActionInTime(0.57f) && !m_FirstParticlesHitDone )
 				{		
@@ -272,6 +272,22 @@ void CRabbitRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 		{
 			m_pRabbit->SetPlayerHasBeenReached(true);
 			CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitRunAttackCharged"); 
+
+			if ( DISPATCH != NULL ) 
+			{
+				DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pRabbit->GetID(), m_pRabbit->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
+				LOGGER->AddNewLog(ELL_INFORMATION,"CRabbitRunAttackState::Execute->Envio mensaje de tocado");
+				#if defined _DEBUG
+					if( CORE->IsDebugMode() )
+					{
+						LOGGER->AddNewLog(ELL_INFORMATION, "CRabbitRunAttackState:Execute->Dispatch" );
+					}
+				#endif
+			}
+			else
+			{
+				LOGGER->AddNewLog(ELL_ERROR, "CRabbitRunAttackState:Execute->El Dispatch es NULL" );
+			}
 		}
 	}
 }
