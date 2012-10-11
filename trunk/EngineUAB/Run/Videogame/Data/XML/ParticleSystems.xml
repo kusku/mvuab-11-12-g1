@@ -17,6 +17,7 @@
 
 	<system name="Sword" settings_name="Sword" />
 	<system name="SwordFinal" settings_name="SwordFinal" />
+	<system name="SwordRotation" settings_name="SwordRotation" />
 	
 	<system name="Snow" settings_name="Snow" />
   <system name="DeepSnow" settings_name="DeepSnow" />

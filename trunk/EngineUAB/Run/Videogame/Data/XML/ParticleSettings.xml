@@ -336,6 +336,31 @@
 		<BlendState value="Additive"/>
 	</settings>
 
+	<settings name="SwordRotation">
+		<TextureName value="./Data/General/Textures/Particles/FlowerBurst.dds"/>
+		<MaxParticles value="1400"/>
+		<!--<Duration value="0.300000"/>
+		<DurationRandomness value="0.100000"/>-->
+		<Duration value="0.6000"/>
+		<DurationRandomness value="0.00000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
+		<MinHorizontalVelocity value="-0.200000"/>
+		<MaxHorizontalVelocity value="0.200000"/>
+		<MinVerticalVelocity value="-0.500000"/>
+		<MaxVerticalVelocity value="0.500000"/>
+		<Gravity value="0.000000 1.500000 0.000000"/>
+		<EndVelocity value="1.500000"/>
+		<MinColor value="255.000000 0.000000 0.000000 255.000000"/>
+		<MaxColor value="0.000000 0.000000 255.000000 255.000000"/>
+		<MinRotateSpeed value="0.500000"/>
+		<MaxRotateSpeed value="3.000000"/>
+		<MinStartSize value="0.0500000"/>
+		<MaxStartSize value="0.200000"/>
+		<MinEndSize value="0.500000"/>
+		<MaxEndSize value="0.700000"/>
+		<BlendState value="Additive"/>
+	</settings>
+	
 	<settings name="Snow">
 		<TextureName value="./Data/General/Textures/Particles/snow.dds" />
 		<MaxParticles value="200" />
