@@ -406,34 +406,33 @@ void CCharacter::FaceToForPlayer( const Vect3f &_Position, float _ElapsedTime )
 	if(_Position.x==m_Position.x && _Position.z==m_Position.z)
 		return;
 
+	//Calcula el ángulo de giro
 	Vect3f l_ToTarget = (_Position - m_Position);
 	l_ToTarget.y=.0f;
 	l_ToTarget.Normalize();
 
-	float l_DesiredYaw = l_ToTarget.GetAngleY();
-	float l_RotationSpeed = m_pProperties->GetMaxRotationSpeed();
+	Vect3f l_Front	= m_pCurrentAnimatedModel->GetFront();
+	float l_fAngle	= l_ToTarget.Dot( l_Front );
+	l_fAngle		= mathUtils::ACos<float>( l_fAngle );
 
-	float l_Yaw = GetAnimatedModel()->GetYaw();
+	//Mira como tiene que girar el player
+	bool l_bInside	= IsPointAtLeft( _Position, l_Front );
+	float l_fYaw = m_pController->GetYaw();
 
-	if(l_DesiredYaw<0.0f)
-		l_DesiredYaw+= 2*FLOAT_PI_VALUE;
-	if(l_Yaw<0.0f)
-		l_Yaw+= 2*FLOAT_PI_VALUE;
+	if( l_bInside )
+	{
+		l_fYaw	-= l_fAngle;
+	}	
+	else
+	{
+		l_fYaw	+= l_fAngle;
+	}
 
-	if((l_DesiredYaw-l_Yaw)>FLOAT_PI_VALUE)
-		l_DesiredYaw-= 2*FLOAT_PI_VALUE;
-	else if((l_DesiredYaw-l_Yaw)<-FLOAT_PI_VALUE)
-		l_Yaw-= 2*FLOAT_PI_VALUE;
-	
-	if(l_DesiredYaw>l_Yaw)
-		l_Yaw=mathUtils::Min(l_DesiredYaw, l_Yaw+mathUtils::Deg2Rad(l_RotationSpeed) * _ElapsedTime);
-	else 
-		l_Yaw=mathUtils::Max(l_DesiredYaw, l_Yaw-mathUtils::Deg2Rad(l_RotationSpeed) * _ElapsedTime);
-
-	m_pController->SetYaw(l_Yaw);
-	l_Yaw = mathUtils::Rad2Deg(l_Yaw);
-	m_pCurrentAnimatedModel->SetYaw(l_Yaw);
-	m_pSteeringEntity->SetYaw(l_Yaw);
+	//Establece los valores para la ejecución
+	m_pController->SetYaw( l_fYaw );
+	m_pSteeringEntity->SetYaw(l_fYaw);
+	l_fYaw = -mathUtils::Rad2Deg(l_fYaw + FLOAT_PI_VALUE/2.f) + 180.f;
+	m_pCurrentAnimatedModel->SetYaw(l_fYaw);
 }
 
 
