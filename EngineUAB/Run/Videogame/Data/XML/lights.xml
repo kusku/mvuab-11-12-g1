@@ -1,23 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <lights>
-	<!--<directional name="Direct001" pos="-50.182 50.0 -2.62268e-006" color="255.0 255.0 255.0" att_start_range="80.0" att_end_range="200.0" intensity="1.0" generate_shadow_map="false" shadow_map_format_type="G32R32F" shadow_map_width="512" shadow_map_height="512" generate_static_shadow_map="false" static_shadow_map_format_type="G32R32F" static_shadow_map_width="512" static_shadow_map_height="512" dir="180.26 -72.2078 3.1563e-006" >
-		<dynamic renderable_objects_layer="solid" />
-		<static renderable_objects_layer="solid" />
-	</directional>-->
-
-  <!--<directional name="Direct001" pos="-74.5455 47.0847 -1.87335e-006" color="255.0 255.0 255.0" att_start_range="80.0" att_end_range="200.0" intensity="1.0" generate_shadow_map="false" shadow_map_format_type="G32R32F" shadow_map_width="2048" shadow_map_height="2048" directional_light_camara_size_w="512" directional_light_camara_size_h="512" dir="127.06 -79.9583 1.90741e-006" >
-    <dynamic renderable_objects_layer="cc" />
-  </directional>-->
-
-  <!--<spot name="Spot001" pos="0 0 0" color="255.0 255.0 255.0" att_start_range="50.0" att_end_range="100.0" intensity="1.0" generate_shadow_map="true" shadow_map_format_type="G32R32F" shadow_map_width="512" shadow_map_height="512" dir="-2.07792 -96.6324 -116.867" angle="43.0" fall_off="45.0" >
-    <dynamic renderable_objects_layer="solid" />
-    <dynamic renderable_objects_layer="vegetation" />
-  </spot>-->
-
-  <!---0.0668964 90.9196 -346.144-->
-  <directional name="Direct001" pos="0 70.0 -315.0" color="232 74 25" att_start_range="850.0" att_end_range="850.0" intensity="1.0" dir="0.0 -375.0 650.0" generate_shadow_map="true" shadow_map_format_type="G32R32F" multi_samples="0" shadow_map_width="2048" shadow_map_height="2048" directional_light_camara_size_w="448" directional_light_camara_size_h="256" cascade_num="3" >
+  <directional name="Sun" pos="0 70.0 -315.0" color="232 74 25" att_start_range="850.0" att_end_range="850.0" intensity="1.0" dir="0.0 -375.0 650.0" generate_shadow_map="true" shadow_map_format_type="G32R32F" multi_samples="0" shadow_map_width="2048" shadow_map_height="2048" directional_light_camara_size_w="448" directional_light_camara_size_h="256" cascade_num="3" >
     <dynamic renderable_objects_layer="solid" />
     <dynamic renderable_objects_layer="vegetation" />
   </directional>
-
 </lights>

@@ -517,7 +517,7 @@ PixelShaderOutput PixelShaderWaterFunction(VertexShaderOutput input, uniform boo
 		PixEndColor.xyz = lerp(PixEndColor.xyz, FogColor, input.FogLerp);
 	}
 
-	PixEndColor.a = 0.6f + SpecularShine;
+	PixEndColor.a = 0.8f + SpecularShine;
 	
 	output.DiffuseRT = PixEndColor;
 	
