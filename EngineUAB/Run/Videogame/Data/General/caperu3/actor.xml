@@ -1,6 +1,6 @@
 <animated_model name="caperucita">
-	<skeleton filename="cap_skeleton.csf"/>
-	<mesh filename="cap_mesh.cmf"/>
+	<skeleton filename="cap_singlemeshskeleton.csf"/>
+	<mesh filename="cap_singlemesh.cmf"/>
 	<animation name="idle" filename="cap_idle.caf"/>
 	<animation name="run" filename="cap_run.caf"/>
 	<animation name="hit" filename="cap_hit.caf"/>
@@ -17,7 +17,6 @@
 	<animation name="attackfinal4" filename="cap_combo_4(1F).caf"/>
 	<animation name="attackfinal5" filename="cap_combo_5(1F).caf"/>
 	<animation name="attackfinal6" filename="cap_combo_6(1F).caf"/>
-	<animation name="jump" filename="cap_salto_largo.caf"/>
-	<texture filename="df_caperucita.dds"/>
-	<texture filename="NRM_caperucita2.dds"/>
+	<animation name="jump" filename="cap_salto_v2.caf"/>
+	<texture filename="New_Texture_CapSingleMesh 2048x2048_2.dds"/>
 </animated_model>
