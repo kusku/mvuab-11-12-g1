@@ -42,7 +42,7 @@ CPlayerAttack6State::CPlayerAttack6State( CCharacter * _pCharacter, const std::s
 	m_pInput			= CORE->GetActionToInput();
 	m_pProcess			= static_cast<CGameProcess*>(CORE->GetProcess());
 	m_pCallback			= m_pProcess->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),"attack6");
-	m_pParticleEmitter	= GetParticleEmitterInstance( "SwordRight", _pCharacter->GetName() + "SwordRight");
+	m_pParticleEmitter	= GetParticleEmitterInstance( "SwordRotation", _pCharacter->GetName() + "SwordRotation");
 }
 
 CPlayerAttack6State::~CPlayerAttack6State()
