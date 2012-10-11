@@ -69,7 +69,7 @@ void CPlayerHitState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 	// Actualizamos la posición
 	//UpdateImpact(_pCharacter);
 
-	//_pCharacter->FaceToForPlayer( m_pEnemy->GetPosition(), _fElapsedTime );
+	_pCharacter->FaceToForPlayer( m_pEnemy->GetPosition(), _fElapsedTime );
 
 	if( m_pCallback->IsAnimationFinished() )
 	{	
