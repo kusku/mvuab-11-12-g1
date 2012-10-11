@@ -188,33 +188,37 @@ void CPlayer::Update( float _ElapsedTime )
 
 		m_pCamera->SetZoom( l_fZoom );*/
 
-		//Mira si el player se pone en defensa
-		if( l_pInput->DoAction("DefensePlayer") )
+		if( !m_bLocked )
 		{
-			m_pLogicStateMachine->ChangeState( GetLogicState("defense") );
-			m_pGraphicStateMachine->ChangeState( GetAnimationState("animdefense") );
-		}
-
-		//Calcula si recuperamos vida
-		m_fTimeWithoutDamage += _ElapsedTime;
-		m_fTimeToIncreaseLife += _ElapsedTime;
-		if( m_fTimeWithoutDamage >= m_pProperties->GetWaitToCure() )
-		{
-			if( m_fTimeToIncreaseLife >= m_pProperties->GetTimeToCure() )
+			//Mira si el player se pone en defensa
+			if( l_pInput->DoAction("DefensePlayer") )
 			{
-				if( !AddLife( m_pProperties->GetCureVelocity() ) )
+				m_pLogicStateMachine->ChangeState( GetLogicState("defense") );
+				m_pGraphicStateMachine->ChangeState( GetAnimationState("animdefense") );
+			}
+		
+			//Calcula si recuperamos vida
+			m_fTimeWithoutDamage += _ElapsedTime;
+			m_fTimeToIncreaseLife += _ElapsedTime;
+			if( m_fTimeWithoutDamage >= m_pProperties->GetWaitToCure() )
+			{
+				if( m_fTimeToIncreaseLife >= m_pProperties->GetTimeToCure() )
 				{
-					m_fTimeWithoutDamage = 0.f;
+					if( !AddLife( m_pProperties->GetCureVelocity() ) )
+					{
+						m_fTimeWithoutDamage = 0.f;
+					}
+					m_fTimeToIncreaseLife = 0.f;
 				}
-				m_fTimeToIncreaseLife = 0.f;
+			}
+
+			//Mira si el personaje ha muerto
+			if( m_pProperties->GetCurrentLife() <= 0 )
+			{
+				SCRIPT->RunCode("change_to_game_over_gui_process()");
 			}
 		}
 
-		//Mira si el personaje ha muerto
-		if( m_pProperties->GetCurrentLife() <= 0 )
-		{
-			SCRIPT->RunCode("change_to_game_over_gui_process()");
-		}
 
 		//Actualizamos los estados en caso de cambiar
 		m_pLogicStateMachine->Update(_ElapsedTime);
@@ -224,7 +228,7 @@ void CPlayer::Update( float _ElapsedTime )
 		m_Position = m_pController->GetPosition();
 		m_Position.y -= m_pController->GetHeight();
 
-		//Actualiza la posición del modelo animado
+		//Actualiza la posición del modelo animado y de los steering behaviors
 		Vect3f l_Pos	= m_Position;
 		l_Pos.y			= l_Pos.y - m_pController->GetHeight() + m_pProperties->GetAnimationOffset();
 		
@@ -242,10 +246,8 @@ void CPlayer::Update( float _ElapsedTime )
 		else 
 		{
 			Vect3f l_Heading;
-			float l_Yaw = GetController()->GetYaw();
-			l_Heading = GetController()->GetFront();
-			l_Yaw = GetSteeringEntity()->GetAngle();
-			l_Heading.GetXZFromAngle(l_Yaw);
+			float l_Yaw = GetAnimatedModel()->GetYaw();
+			l_Heading = GetAnimatedModel()->GetFront();
 			l_Heading.Normalize();
 			
 			m_pSteeringEntity->SetHeading( l_Heading );
