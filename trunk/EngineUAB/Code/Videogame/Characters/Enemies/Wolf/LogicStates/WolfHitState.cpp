@@ -125,20 +125,6 @@ void CWolfHitState::OnEnter( CCharacter* _pCharacter )
 		// --- Para la gestión del retroceso ---
 		CalculateRecoilDirection(m_pWolf);
 		m_DoubleHit = false;
-
-		//CProperties * l_Properties = m_pWolf->GetProperties();
-		//m_pWolf->FaceTo(m_pWolf->GetPlayer()->GetPosition(), CORE->GetTimer()->GetElapsedTime());
-		//m_MaxHitSpeed = l_Properties->GetHitRecoilSpeed();
-		//m_pWolf->GetSteeringEntity()->SetMaxSpeed(m_MaxHitSpeed);
-		//m_MaxHitDistance = l_Properties->GetHitRecoilDistance();
-		//m_InitialHitPoint = m_pWolf->GetPosition();
-
-		//m_HitDirection = m_pWolf->GetSteeringEntity()->GetFront();
-		//m_HitDirection.Normalize();
-		//m_HitDirection = m_HitDirection.RotateY(mathUtils::PiTimes(1.f));		
-		//m_HitDirection = m_HitDirection * m_MaxHitSpeed;
-		///*m_HitMaxPosition = m_pWolf->GetSteeringEntity()->GetPosition() + m_HitDirection * m_MaxHitDistance;*/
-
 		// ---------------------------------------
 		
 		m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
