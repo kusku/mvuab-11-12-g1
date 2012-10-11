@@ -22,7 +22,6 @@ class CCharacter;
 class CThPSCharacterCamera;
 class CFPSCamera;
 class CThPSCamera;
-class CWeaponManager;
 class CAnimationCallbackManager;
 class CHud;
 
@@ -103,7 +102,6 @@ private:
 
 	CHud						*m_pHUD;
 	CCharactersManager			*m_pCharactersManager;
-	CWeaponManager				*m_pWeaponManager;
 	CAnimationCallbackManager	*m_pAnimationCallbackManager;
 };
 
