@@ -33,8 +33,8 @@ class 'CCombatZone1Trigger' (CBoxTrigger)
 					l_enemy:appearance()
 					l_enemy:face_to( get_game_process():get_character_manager():get_player().properties.position, elapsed_time)
 					l_enemy:move_to2( l_enemy.steering_entity.velocity, elapsed_time)
-					self.enable_action_time:init_action()
-					self.enable_action_time:start_action()
+					-- self.enable_action_time:init_action()
+					-- self.enable_action_time:start_action()
 				end
 			end 
 		end
