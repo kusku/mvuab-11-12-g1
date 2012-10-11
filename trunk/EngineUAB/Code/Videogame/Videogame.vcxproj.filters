@@ -219,18 +219,6 @@
     <ClCompile Include="Characters\Player\LogicStates\PlayerRunState.cpp">
       <Filter>Characters\Player\LogicStates</Filter>
     </ClCompile>
-    <ClCompile Include="Characters\Player\LogicStates\PlayerTargetAttack2State.cpp">
-      <Filter>Characters\Player\LogicStates</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Player\LogicStates\PlayerTargetAttack3State.cpp">
-      <Filter>Characters\Player\LogicStates</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Player\LogicStates\PlayerTargetAttackState.cpp">
-      <Filter>Characters\Player\LogicStates</Filter>
-    </ClCompile>
-    <ClCompile Include="Characters\Player\LogicStates\PlayerTargetRunState.cpp">
-      <Filter>Characters\Player\LogicStates</Filter>
-    </ClCompile>
     <ClCompile Include="Helpers\MathHelper.cpp">
       <Filter>Helpers</Filter>
     </ClCompile>
@@ -576,18 +564,6 @@
       <Filter>Characters\Player\LogicStates</Filter>
     </ClInclude>
     <ClInclude Include="Characters\Player\LogicStates\PlayerRunState.h">
-      <Filter>Characters\Player\LogicStates</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Player\LogicStates\PlayerTargetAttack2State.h">
-      <Filter>Characters\Player\LogicStates</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Player\LogicStates\PlayerTargetAttack3State.h">
-      <Filter>Characters\Player\LogicStates</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Player\LogicStates\PlayerTargetAttackState.h">
-      <Filter>Characters\Player\LogicStates</Filter>
-    </ClInclude>
-    <ClInclude Include="Characters\Player\LogicStates\PlayerTargetRunState.h">
       <Filter>Characters\Player\LogicStates</Filter>
     </ClInclude>
     <ClInclude Include="Helpers\MathHelper.h">

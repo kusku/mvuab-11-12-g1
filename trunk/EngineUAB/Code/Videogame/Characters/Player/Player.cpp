@@ -12,10 +12,6 @@
 #include "Characters\Player\LogicStates\PlayerJumpState.h"
 #include "Characters\Player\LogicStates\PlayerRunState.h"
 #include "Characters\Player\LogicStates\PlayerDefenseState.h"
-#include "Characters\Player\LogicStates\PlayerTargetAttackState.h"
-#include "Characters\Player\LogicStates\PlayerTargetAttack2State.h"
-#include "Characters\Player\LogicStates\PlayerTargetAttack3State.h"
-#include "Characters\Player\LogicStates\PlayerTargetRunState.h"
 #include "Characters\Player\AnimationStates\PlayerAnimationAttackState.h"
 #include "Characters\Player\AnimationStates\PlayerAnimationAttack2State.h"
 #include "Characters\Player\AnimationStates\PlayerAnimationAttack3State.h"
@@ -291,10 +287,6 @@ void CPlayer::CreateStates()
 	m_LogicStatesMap["jump"]			= new CPlayerJumpState				(this, "jump");
 	m_LogicStatesMap["run"]				= new CPlayerRunState				(this, "run");
 	m_LogicStatesMap["defense"]			= new CPlayerDefenseState			(this, "defense");
-	m_LogicStatesMap["targetattack1"]	= new CPlayerTargetAttackState		(this, "targetattack1");
-	m_LogicStatesMap["targetattack2"]	= new CPlayerTargetAttack2State		(this, "targetattack2");
-	m_LogicStatesMap["targetattack3"]	= new CPlayerTargetAttack3State		(this, "targetattack3");
-	m_LogicStatesMap["targetrun"]		= new CPlayerTargetRunState			(this, "targetrun");
 
 	//Animation States
 	m_AnimationStatesMap["animattack1"]	= new CPlayerAnimationAttackState	(this, "animattack1");
