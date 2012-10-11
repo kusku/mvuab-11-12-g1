@@ -24,7 +24,8 @@
 	<emitter name="Snow2" system_name="Snow" type="box" particlesPerSecond="170" on_loop="true" initialPosition="0.0 0.0 0.0" box_min="50 -27 -140" box_max="80 -24 -110" />
 	<emitter name="Snow3" system_name="Snow" type="box" particlesPerSecond="150" on_loop="true" initialPosition="0.0 0.0 0.0" box_min="60 -27 -110" box_max="90 -24 -80" />
 	
-	<emitter name="Twister" system_name="Twister" type="line" particlesPerSecond="40000" initialPosition="0 0 0" on_loop="false" ejection_count="100" />
+	<emitter name="Twister" system_name="Twister" type="line" particlesPerSecond="40000" initialPosition="0 0 0" on_loop="false" ejection_count="100" use_dis="false" />
+  
 	<emitter name="WolfTwister" system_name="WolfTwister" type="line" particlesPerSecond="5000" initialPosition="0 0 0" on_loop="false" ejection_count="1500" />
 	<emitter name="WolfTwisterExplosion" system_name="WolfTwisterExplosion" type="line" particlesPerSecond="1000" initialPosition="0 0 0" on_loop="false" ejection_count="500" />
 	
