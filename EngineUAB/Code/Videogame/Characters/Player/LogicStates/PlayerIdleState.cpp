@@ -126,35 +126,16 @@ void CPlayerIdleState::OnExit( CCharacter* _pCharacter )
 
 bool CPlayerIdleState::OnMessage( CCharacter* _pCharacter, const STelegram& _Message )
 {
+	LOGGER->AddNewLog(ELL_INFORMATION,"CPlayerIdleState::OnMessage->Hit rebut");	
+	
 	CPlayer * l_pPlayer = dynamic_cast<CPlayer*> (_pCharacter);
 	
-	//if( _Message.Msg == Msg_Attack )
-	//{
-	//	CRandom	l_Randomize;
-
-	//	CCharacter *l_pEnemy	= m_pProcess->GetCharactersManager()->GetCharacterById(_Message.Sender);
-	//	float l_fReceivedPain	= l_Randomize.getRandFloat( (float)(l_pEnemy->GetProperties()->GetStrong() / 2), (float)l_pEnemy->GetProperties()->GetStrong());
-	//	float l_fPainToHit		= l_pEnemy->GetProperties()->GetStrong() * 0.95f;
-
-	//	if( l_fReceivedPain >= l_fPainToHit )
-	//	{
-	//		return l_pPlayer->CallHitState(_pCharacter, _Message);
-	//	}
-
-	//	return true;
-	//}
-	//else if( _Message.Msg == Msg_Push )
-	//{
-	//	/*CCharacter *l_pEnemy	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->GetCharacterById(_Message.Sender);
-	//	
-	//	sDireccion * l_Info = (struct sDireccion *) _Message.ExtraInfo;
-	//	_pCharacter->MoveTo2(l_Info->Direccion * 1.2f, l_Info->ElapsedTime);
-	//	_pCharacter->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-	//	LOGGER->AddNewLog(ELL_INFORMATION, "CPlayerAttack2State::OnMessage -> PUSHED!!");*/
-	//	return l_pPlayer->CallHitState(_pCharacter, _Message);
-	//}
-
-	//return false;
+	// Si venimos del hit volveremos a el i haremos el doble hit
+	if ( l_pPlayer->GetLogicFSM()->GetPreviousState()->GetName() == "hit" )
+	{
+		CPlayerHitState * l_HitState = dynamic_cast<CPlayerHitState*> ( l_pPlayer->GetLogicFSM()->GetPreviousState() );
+		l_HitState->SetDoubleHit(true);
+	}
 	return l_pPlayer->CallHitState(_pCharacter, _Message);
 }
 

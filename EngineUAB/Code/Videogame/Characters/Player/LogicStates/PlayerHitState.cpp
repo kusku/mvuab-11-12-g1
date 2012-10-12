@@ -81,6 +81,7 @@ void CPlayerHitState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 	// En caso que recibamos otro hit mientras estemos en este estado ampliamos el recorrido
 	if ( m_DoubleHit )
 	{
+		LOGGER->AddNewLog(ELL_INFORMATION,"CPlayerHitState::Execute-> Double Hit done!");	
 		CPlayer *l_pPlayer = static_cast<CPlayer*>(_pCharacter);
 		CalculateRecoilDirection(l_pPlayer);
 		l_pPlayer ->HitToPlayer(m_pEnemy->GetProperties()->GetStrong());
@@ -116,9 +117,11 @@ void CPlayerHitState::OnExit( CCharacter* _pCharacter )
 
 bool CPlayerHitState::OnMessage( CCharacter* _pCharacter, const STelegram& _Message )
 {
+	LOGGER->AddNewLog(ELL_INFORMATION,"CPlayerHitState::OnMessage-> hit rebut en el mateix hit!");	
 	if ( _Message.Msg == Msg_Attack ) 
 	{
 		m_DoubleHit = true;
+		LOGGER->AddNewLog(ELL_INFORMATION,"CPlayerHitState::OnMessage-> Posem el doble hit!");	
 		return true;
 	}
 	return false;
@@ -134,6 +137,8 @@ void CPlayerHitState::UpdateParameters( STelegram& _Message )
 
 void CPlayerHitState::CalculateRecoilDirection( CCharacter * _pCharacter ) 
 {
+	LOGGER->AddNewLog( ELL_WARNING, "CPlayerHitState::CalculateRecoilDirection" );
+
 	// Calculamos la dirección y fuerza de retroceso a partir del tipo de mensaje recibido
 	CProperties * l_Properties = _pCharacter->GetProperties();
 	m_MaxHitSpeed = l_Properties->GetHitRecoilSpeed();
