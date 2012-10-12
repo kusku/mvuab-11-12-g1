@@ -202,6 +202,8 @@ namespace Configuracion
             WriteToEngine();
 
             WriteToLight();
+
+            MessageBox.Show("Changes Applied Successfully");
         }
 
         private void WriteToLight()
