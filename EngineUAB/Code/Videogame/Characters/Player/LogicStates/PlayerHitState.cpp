@@ -127,14 +127,14 @@ bool CPlayerHitState::OnMessage( CCharacter* _pCharacter, const STelegram& _Mess
 void CPlayerHitState::UpdateParameters( STelegram& _Message )
 {
 	m_Message = _Message;
+	
+	CGameProcess *l_pProcess = static_cast<CGameProcess*>(CORE->GetProcess());
+	m_pEnemy				 = l_pProcess->GetCharactersManager()->GetCharacterById(m_Message.Sender);
 }
 
 void CPlayerHitState::CalculateRecoilDirection( CCharacter * _pCharacter ) 
 {
 	// Calculamos la dirección y fuerza de retroceso a partir del tipo de mensaje recibido
-	CGameProcess *l_pProcess = static_cast<CGameProcess*>(CORE->GetProcess());
-	m_pEnemy				 = l_pProcess->GetCharactersManager()->GetCharacterById(m_Message.Sender);
-
 	CProperties * l_Properties = _pCharacter->GetProperties();
 	m_MaxHitSpeed = l_Properties->GetHitRecoilSpeed();
 	m_MaxHitDistance = l_Properties->GetHitRecoilDistance();
