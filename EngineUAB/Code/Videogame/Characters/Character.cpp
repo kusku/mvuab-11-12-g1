@@ -344,7 +344,7 @@ bool CCharacter::HandleMessage( const STelegram& _Msg )
 {
 	bool l_CanHandle;
 	l_CanHandle = m_pLogicStateMachine->HandleMessage		( _Msg );
-	l_CanHandle &= m_pGraphicStateMachine->HandleMessage	( _Msg );
+	//l_CanHandle &= m_pGraphicStateMachine->HandleMessage	( _Msg );
 
 	return l_CanHandle;
 }
