@@ -20,7 +20,7 @@
 		<attack_distance>2</attack_distance>
 		<attack_angle>50</attack_angle>
 
-		<max_hit_recoil_distance>2</max_hit_recoil_distance>		<!-- Cantidad de retroceso máximo al recibir un hit -->
+		<max_hit_recoil_distance>2.5</max_hit_recoil_distance>		<!-- Cantidad de retroceso máximo al recibir un hit -->
 		<hit_recoil_speed>0.5</hit_recoil_speed>					<!-- Cantidad de velocidad del retroceso al recibir un hit. Se aplica como la speed al front + 180º -->
 		
 		<detection_distance>10</detection_distance>
@@ -39,7 +39,7 @@
 		<active>false</active>
 		<locked>false</locked>
 		<life>500</life>
-		<strong>20</strong>
+		<strong>0</strong>
 		<mass>0.01</mass>
 		<velocity>0 0 0</velocity>
 		<speed>2</speed>
@@ -72,7 +72,7 @@
 		<chase_distance>23</chase_distance>
 		<!-- Creo que ahora no la uso... -->
 		<follow_path_distance>100</follow_path_distance>
-		<impact_distance>3.3</impact_distance>
+		<impact_distance>2.4</impact_distance>
 		<!-- Está encima el player -->
 		<attack_distance>15</attack_distance>
 		<!-- Está en distancia de poder hacer algunos de los ataques o defensa -->
