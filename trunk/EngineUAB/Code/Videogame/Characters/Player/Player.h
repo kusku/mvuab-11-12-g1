@@ -11,6 +11,7 @@
 //--- Foward Declarations ---//
 class CThPSCharacterCamera;
 class CCharacter;
+class CGameProcess;
 //---------------------------//
 
 class CPlayer : public CCharacter
@@ -37,17 +38,15 @@ public:
 	
 	bool			CallHitState	( CCharacter* _pCharacter, const STelegram& _Message );
 
-	//----Private Methods --------------------------------------
+	float			CalculateAttackYaw( float _fDetectionDistance, float _fDetectionAngle );
 
-private:
-	void			CreateCallbacks	();
-	void			CreateStates	();
+private: //----Private Methods --------------------------------------
+	void			CreateCallbacks			();
+	void			CreateStates			();
+	bool			CalculateAngleMovement	( float &_fAngle );
 	
-	//----Properties ( get & Set )-----------------------------
-
 	
-	//----Members ---------------------------------------------
-private:
+private: //----Members ---------------------------------------------
 	bool			m_bIsTargetFixed;
 
 	// Camera
@@ -64,7 +63,8 @@ private:
 	float			m_fDistanceToDetectEnemy;
 	float			m_fVisibilityAngle;
 
-	CThPSCharacterCamera *m_pCamera;
+	CThPSCharacterCamera	*m_pCamera;
+	CGameProcess			*m_pProcess;
 };
 
 #endif //_PLAYER_H_

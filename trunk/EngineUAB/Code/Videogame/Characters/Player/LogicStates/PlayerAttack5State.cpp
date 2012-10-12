@@ -66,61 +66,7 @@ void CPlayerAttack5State::OnEnter( CCharacter* _pCharacter )
 	SetParticlePosition(_pCharacter);
 	m_pParticleEmitter->EjectParticles();
 
-	//Calcula el ángulo a moverse
-	CAnimatedInstanceModel *l_pAnimatedModel = _pCharacter->GetAnimatedModel();
-
-	float l_fYaw = _pCharacter->GetController()->GetYaw();
-
-	if( !_pCharacter->GetLocked() )
-	{
-		CCharactersManager *l_pCharManager	= NULL;
-		CCharacter *l_pEnemy				= NULL;
-		float l_fAngle						= 0.f;
-
-		l_pCharManager	= m_pProcess->GetCharactersManager();
-
-		//Calcula el ángulo de a ir
-		Vect3f l_Front	= l_pAnimatedModel->GetFront();
-		bool l_bMovement= CalculateAngleMovement( _pCharacter, l_fYaw );
-
-		if( l_bMovement )
-		{
-			//Calcula un ángulo de correción según la dirección marcada
-			l_pEnemy = l_pCharManager->GetPlayerAngleCorrection(m_fDetectionDistance, m_fDetectionAngle, l_fAngle);
-		}
-		else
-		{
-			//Calcula el ángulo de correción para enfocar hacia un enemigo cercano
-			l_pEnemy = l_pCharManager->IsPlayerNearEnemy(m_fDetectionDistance);
-		}
-
-		//Si se ataca a un enemigo, calculamos el nuevo ángulo con la asistencia
-		if( l_pEnemy != NULL )
-		{
-			if( !l_bMovement )
-			{
-				//Calcula el ángulo de giro
-				Vect3f l_EnemyDir = l_pEnemy->GetPosition() - _pCharacter->GetPosition();
-				l_EnemyDir.Normalize();
-				l_EnemyDir.y	= 0.f;
-
-				l_fAngle		= l_EnemyDir.Dot( l_Front );
-				l_fAngle		= mathUtils::ACos<float>( l_fAngle );
-			}
-
-			//Mira como tiene que girar el player
-			bool l_bInside	= _pCharacter->IsPointAtLeft( l_pEnemy->GetPosition(), l_Front );
-
-			if( l_bInside )
-			{
-				l_fYaw	-= l_fAngle;
-			}	
-			else
-			{
-				l_fYaw	+= l_fAngle;
-			}
-		}
-	}
+	float l_fYaw = static_cast<CPlayer*>(_pCharacter)->CalculateAttackYaw(m_fDetectionDistance, m_fDetectionAngle);
 
 	//Setea el ángulo calculado
 	_pCharacter->GetController()->SetYaw( l_fYaw );
@@ -128,7 +74,7 @@ void CPlayerAttack5State::OnEnter( CCharacter* _pCharacter )
 	m_fAttackYaw = l_fYaw;
 
 	l_fYaw = -mathUtils::Rad2Deg(l_fYaw + FLOAT_PI_VALUE/2.f) + 180.f;
-	l_pAnimatedModel->SetYaw( l_fYaw );
+	_pCharacter->GetAnimatedModel()->SetYaw( l_fYaw );
 
 	//Inicia el callback
 	m_pCallback->StartAnimation();
@@ -236,58 +182,6 @@ bool CPlayerAttack5State::OnMessage( CCharacter* _pCharacter, const STelegram& _
 
 	//return false;
 	return l_pPlayer->CallHitState(_pCharacter, _Message);
-}
-
-bool CPlayerAttack5State::CalculateAngleMovement( CCharacter *_pCharacter, float &_fAngle )
-{
-	bool l_bMove = false;			
-
-
-	if( m_pInput->DoAction("MovePlayerUp") )
-	{
-		_fAngle = _pCharacter->GetYaw();
-		if( m_pInput->DoAction("MovePlayerLeft") )
-		{
-			_fAngle += FLOAT_PI_VALUE / 4.f;
-		}
-		else if( m_pInput->DoAction("MovePlayerRight") )
-		{
-			_fAngle -= FLOAT_PI_VALUE / 4.f;
-		}
-
-		l_bMove = true;
-	}
-	else if( m_pInput->DoAction("MovePlayerDown") )
-	{
-		_fAngle = _pCharacter->GetYaw();
-		_fAngle -= FLOAT_PI_VALUE;
-		if( m_pInput->DoAction("MovePlayerLeft") )
-		{
-			_fAngle -= FLOAT_PI_VALUE / 4.f;
-		}
-		else if( m_pInput->DoAction("MovePlayerRight") )
-		{
-			_fAngle += FLOAT_PI_VALUE / 4.f;
-		}
-
-		l_bMove = true;
-	}
-	else if( m_pInput->DoAction("MovePlayerLeft") )
-	{
-		_fAngle = _pCharacter->GetYaw();
-		_fAngle += FLOAT_PI_VALUE / 2.f;
-
-		l_bMove = true;
-	}
-	else if( m_pInput->DoAction("MovePlayerRight") )
-	{
-		_fAngle = _pCharacter->GetYaw();
-		_fAngle -= FLOAT_PI_VALUE / 2.f;
-
-		l_bMove = true;
-	}
-
-	return l_bMove;		
 }
 
 void CPlayerAttack5State::SetParticlePosition( CCharacter* _pCharacter )

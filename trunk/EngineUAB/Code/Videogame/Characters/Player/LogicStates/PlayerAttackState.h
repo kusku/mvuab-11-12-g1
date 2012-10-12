@@ -26,7 +26,6 @@ public:
 	bool	OnMessage	(  CCharacter* _pCharacter,  const STelegram& _Message );
 
 private:
-	bool	CalculateAngleMovement( CCharacter *_pCharacter, float &_fAngle );
 	void	SetParticlePosition( CCharacter* _pCharacter );
 
 	void			SetParticlePosition		( CCharacter* _pCharacter, const std::string &ParticlesName, const std::string &Bone = "", const Vect3f &_Position = Vect3f(0,0,0));
