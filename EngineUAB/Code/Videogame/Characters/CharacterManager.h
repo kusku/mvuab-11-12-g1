@@ -64,6 +64,10 @@ public:
 	void				DrawPositions						( CFontManager *_FM );
 	void				DrawDistancesSpheres				( void );
 
+	void				LockAllActiveEnemies				( void );
+	void				UnlockAllActiveEnemies				( void );
+	void				SetAllEnemiesInIdle					( void );
+
 	// ------------- Propietats ( Get / Set ) ----------------
 	TVectorResources	GetEnemiesVector					() const					{ return m_ResourcesVector; }
 	TMapResources		GetEnemiesMap						() const					{ return m_ResourcesMap; }

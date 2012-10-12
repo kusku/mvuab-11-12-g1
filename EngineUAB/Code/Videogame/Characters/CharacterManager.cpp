@@ -41,7 +41,14 @@
 #include "characters\states\AnimationsStatesManager.h"
 #include "characters\states\AnimationsStates.h"
 #include "Characters\Player\Player.h"
+#include "Characters\Enemies\Deer\Deer.h"
+#include "Characters\Enemies\Deer\LogicStates\DeerIdleState.h"
+#include "Characters\Enemies\Deer\AnimationStates\DeerIdleAnimationState.h"
+#include "Characters\Enemies\Rabbit\Rabbit.h"
+#include "Characters\Enemies\Rabbit\LogicStates\RabbitIdleState.h"
+#include "Characters\Enemies\Rabbit\AnimationStates\RabbitIdleAnimationState.h"
 #include "Characters\Enemies\Wolf\LogicStates\WolfHowlEnemiesState.h"
+
 
 #include "StatesMachine\EntityManager.h"
 #include "StatesMachine\MessageDispatcher.h"
@@ -1449,4 +1456,51 @@ void CCharactersManager::AssignDynamicEnemiesToHelp(void)
 	//	CreateEnemy(l_InitialPosition);
 	//	//l_Process->GetCharactersManager()->SaveDynamicCharacterCreated(l_Character->GetName());
 	//}
+}
+
+void CCharactersManager::LockAllActiveEnemies( void )
+{
+	//Elimina el callback de cal3d
+	for(size_t i = 0; i < m_ResourcesVector.size() ; ++i)
+	{
+		if ( m_ResourcesVector[i]->IsEnable() )
+		{
+			m_ResourcesVector[i]->SetLocked(true);
+		}
+	}
+}
+
+void CCharactersManager::UnlockAllActiveEnemies( void )
+{
+	//Elimina el callback de cal3d
+	for(size_t i=0; i < m_ResourcesVector.size() ; ++i)
+	{
+		if ( m_ResourcesVector[i]->IsEnable() )
+		{
+			m_ResourcesVector[i]->SetLocked(false);
+		}
+	}
+}
+
+void CCharactersManager::SetAllEnemiesInIdle( void )
+{
+	//Elimina el callback de cal3d
+	for(size_t i = 0; i < m_ResourcesVector.size() ; ++i)
+	{
+		if ( m_ResourcesVector[i]->IsEnable() ) 
+		{
+			if ( m_ResourcesVector[i]->GetCharacterType() == ::RABBIT ) 
+			{
+				CRabbit* l_Enemy = dynamic_cast<CRabbit*> (m_ResourcesVector[i]);
+				l_Enemy->GetLogicFSM()->ChangeState(l_Enemy->GetIdleState());
+				l_Enemy->GetGraphicFSM()->ChangeState(l_Enemy->GetIdleAnimationState());
+			}
+			else if ( m_ResourcesVector[i]->GetCharacterType() == ::DEER ) 
+			{
+				CDeer* l_Enemy = dynamic_cast<CDeer*> (m_ResourcesVector[i]);
+				l_Enemy->GetLogicFSM()->ChangeState(l_Enemy->GetIdleState());
+				l_Enemy->GetGraphicFSM()->ChangeState(l_Enemy->GetIdleAnimationState());
+			}
+		}
+	}
 }

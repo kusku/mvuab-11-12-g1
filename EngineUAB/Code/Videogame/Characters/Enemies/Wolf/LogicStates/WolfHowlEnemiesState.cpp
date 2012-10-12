@@ -95,7 +95,12 @@ void CWolfHowlEnemiesState::OnEnter( CCharacter* _pCharacter )
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	CPlayer * l_Player = dynamic_cast<CPlayer *> (l_Process->GetCharactersManager()->GetPlayer());
 	l_Player->SetLocked(true);
+	l_Player->GetLogicFSM()->ChangeState(l_Player->GetLogicState("idle"));
+	l_Player->GetGraphicFSM()->ChangeState(l_Player->GetAnimationState("animidle"));
+	l_Process->GetCharactersManager()->SetAllEnemiesInIdle();
+	l_Process->GetCharactersManager()->LockAllActiveEnemies();
 	
+
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
@@ -139,7 +144,8 @@ void CWolfHowlEnemiesState::OnExit( CCharacter* _pCharacter )
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	CPlayer * l_Player = dynamic_cast<CPlayer *> (l_Process->GetCharactersManager()->GetPlayer());
 	l_Player->SetLocked(false);
-	
+	l_Process->GetCharactersManager()->UnlockAllActiveEnemies();
+
 	CORE->GetParticleEmitterManager()->GetResource("DeepSnow")->GetParticleEmitterInstance(GetName() + "_DeepSnow")->StopEjectParticles();
 	//CORE->GetParticleEmitterManager()->GetResource("DeepSnow")->GetParticleEmitterInstance(GetName() + "_DeepSnow")->SetActive(false);
 }
