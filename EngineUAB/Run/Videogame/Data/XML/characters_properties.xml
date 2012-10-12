@@ -94,14 +94,14 @@
 	<default_properties core="ciervo">
 		<active>false</active>
 		<locked>false</locked>
-		<life>300</life>
-		<strong>10</strong>
+		<life>200</life>
+		<strong>5</strong>
 		<mass>0.01</mass>
 		<velocity>0 0 0</velocity>
 		<speed>2</speed>
 		<max_rotation_speed>360</max_rotation_speed>
 		<min_speed>0.05</min_speed>
-		<max_speed>0.5</max_speed>
+		<max_speed>0.4</max_speed>
 		<max_acceleration>0.1</max_acceleration>
 		<max_force>0.015</max_force>
 		<still_attack_speed>0.4</still_attack_speed>
@@ -112,11 +112,11 @@
 		<!-- Tiempo mínimo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
 		<max_tired_time>2</max_tired_time>
 		<!-- Tiempo máximo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
-		<min_tired_time_after_hit>1</min_tired_time_after_hit>
+		<min_tired_time_after_hit>2</min_tired_time_after_hit>
 		<!-- Tiempo mínimo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
-		<max_tired_time_after_hit>2</max_tired_time_after_hit>
+		<max_tired_time_after_hit>3</max_tired_time_after_hit>
 		<!-- Tiempo máximo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
-		<max_hit_recoil_distance>2.5</max_hit_recoil_distance>
+		<max_hit_recoil_distance>3.5</max_hit_recoil_distance>
 		<!-- Cantidad de retroceso máximo al recibir un hit -->
 		<hit_recoil_speed>0.3</hit_recoil_speed>
 		<!-- Cantidad de velocidad del retroceso al recibir un hit. Se aplica como la speed al front + 180º -->
@@ -163,7 +163,7 @@
 		<!-- En carrera --> 
 		<max_acceleration>0.1</max_acceleration>
 		<!-- Aceleración máxima posible. Actualmente no se usa --> 
-		<max_force>1.015</max_force>
+		<max_force>0.015</max_force>
 		<!-- Fuerza máxima disponible. Se usa en los Steering Behaviors --> 
 		<still_attack_speed>0.3</still_attack_speed>
 		<!-- Velocidad de ataque 1 --> 
@@ -173,15 +173,15 @@
 		<!-- Tiempo mínimo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
 		<max_tired_time>2</max_tired_time>
 		<!-- Tiempo máximo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
-		<min_tired_time_after_hit>1</min_tired_time_after_hit>
+		<min_tired_time_after_hit>2</min_tired_time_after_hit>
 		<!-- Tiempo mínimo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
-		<max_tired_time_after_hit>2</max_tired_time_after_hit>
+		<max_tired_time_after_hit>3</max_tired_time_after_hit>
 		<!-- Tiempo máximo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
-		<max_hit_recoil_distance>4.0</max_hit_recoil_distance>
+		<max_hit_recoil_distance>2.5</max_hit_recoil_distance>
 		<!-- Cantidad de retroceso máximo al recibir un hit -->
 		<hit_recoil_speed>0.33</hit_recoil_speed>
 		<!-- Cantidad de velocidad del retroceso al recibir un hit. Se aplica como la speed al front + 180º -->
-		<max_time_in_defense>3</max_time_in_defense>
+		<max_time_in_defense>1.5</max_time_in_defense>
 		<!-- Cantidad de tiempo máximo al recibir un hit pero que estoy en defense -->
 		<bounding_radius>0.4</bounding_radius>
 		<detection_distance>25</detection_distance>
@@ -202,7 +202,7 @@
 		<panic_distance>100</panic_distance>
 		<!-- Sirve para saber la distancia máxima de evasión -->
 		<height_controller>0.7</height_controller>
-		<width_controller>0.2</width_controller>
+		<width_controller>0.3</width_controller>
 		<slope>45.0</slope>
 		<skin_width>0.1</skin_width>
 		<step_offset>0.5</step_offset>
@@ -210,21 +210,19 @@
 	</default_properties>
 	<player name="Caperu" core="caperucita" animated_instace_name="caperucita1" >
 		<life>100</life>
-		<strong>30</strong>
+		<strong>0</strong>
 		<speed>25</speed>
 		<velocity>0 0 0</velocity>
 		<yaw>2.36</yaw>
 		<respawn_position>0 10 0</respawn_position>
 		
 		<position>106 -16 -168</position>					<!-- Posición inicial del juego. Posición respawn trigger 1 -->
-		<position>58 -23 -106</position>					<!-- Posición respawn trigger 2 - 2o letrero -->
-		<position>110 -30 -30</position>					<!-- Posición respawn trigger 3 - Antes del medio -->
-		<position>67 -40 19</position>						<!-- Posición respawn trigger 4 - Medio -->
-		<position>-20 -38 112</position>					<!-- Posición respawn trigger 5 - Subida -->
-		<position>-94 -11 96</position>						<!-- Posición respawn trigger 6 - Antes del puente -->
-		<position>-64 -14 -20</position>					<!-- Posición respawn trigger 7 - Después del puente --> 
-		<position>-45 -15 -63</position>					<!-- Posición respawn trigger 8 - Final Lobo -->
-		<position>97 -21 -159</position>					<!-- Posición inicial del juego. Posición respawn trigger 1 -->
+		<!--<position>58 -23 -106</position>-->					<!-- Posición respawn trigger 2 - 2o letrero -->
+		<!--<position>110 -30 -30</position>-->					<!-- Posición respawn trigger 3 - Antes del medio -->
+		<!--<position>67 -40 19</position>-->						<!-- Posición respawn trigger 4 - Medio -->
+		<!--<position>-20 -38 112</position>-->					<!-- Posición respawn trigger 5 - Subida -->
+		<!--<position>-94 -11 96</position>-->						<!-- Posición respawn trigger 6 - Antes del puente -->
+		<!--<position>-64 -14 -20</position>-->					<!-- Posición respawn trigger 7 - Después del puente --> 
 		<position>-45 -15 -63</position>					<!-- Posición respawn trigger 8 - Final Lobo -->
 		
 	</player>
