@@ -165,7 +165,7 @@ void CWolfHowlEnemiesState::ShowEnemiesToHelp(void)
 	CCharactersManager * l_CM = l_Process->GetCharactersManager();
 	Vect3f l_InitialPosition = m_pWolf->GetPosition();							// Almaceno la posición del wolf que hará de lider a partir de la qual haré la formación
 	
-	uint16 l_TotalEnemies = BoostRandomHelper::GetInt(5, 10);					// Obtengo un nº aleatorio de enemigos 
+	uint16 l_TotalEnemies = BoostRandomHelper::GetInt(3, 5);					// Obtengo un nº aleatorio de enemigos 
 	float	l_DegreesToSetEnemies = 120.f / l_TotalEnemies + 1;					// Con esto tengo los ángulos que tengo que aplicar para colocar cada enemigo
 	
 	Vect3f l_Front  = m_pWolf->GetFront(); 
@@ -179,7 +179,7 @@ void CWolfHowlEnemiesState::ShowEnemiesToHelp(void)
 	// Por cada X grados vamos a meter un enemigo segun el random anterior
 	for ( float i = l_DegreesToSetEnemies; i < 120.f; i += l_DegreesToSetEnemies ) 
 	{
-		float l_DistanceToSet = BoostRandomHelper::GetFloat(4.f, 7.f);		// Obtenemos una distancia que aplicaremos dependiendo del ángulo
+		float l_DistanceToSet = BoostRandomHelper::GetFloat(2.f, 10.f);		// Obtenemos una distancia que aplicaremos dependiendo del ángulo
 		//Vect3f l_Front  = m_pWolf->GetFront(); 
 		l_Front.RotateY(mathUtils::Deg2Rad( l_DegreesToSetEnemies));
 
