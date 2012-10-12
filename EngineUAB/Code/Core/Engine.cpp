@@ -375,6 +375,11 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 			{
 				m_Config.rails_path = l_ConfigNode(i).GetPszProperty("railsXML", "");
 			}
+			else if( l_Name == "GraphicOpt" )
+			{
+				m_Config.motion_blur_enable = l_ConfigNode(i).GetBoolProperty("motionBlur", true, true);
+				m_Config.z_blur_enable = l_ConfigNode(i).GetBoolProperty("zblur", true, true);
+			}
 		}
 	}
 

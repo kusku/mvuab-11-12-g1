@@ -154,6 +154,8 @@ public:
 	inline bool			IsGUIMode					() const						{ return !m_bIsGameMode; }
 	inline bool			IsDrawingShadows			() const						{ return m_DrawingShadows; }
 
+	inline const SConfig&		GetConfig					() const						{ return m_Config; }
+
 	inline CCamera*								GetCamera					() const					{ return m_pCamera; }
 	inline CTimer*								GetTimer					() const					{ return m_pTimer; }
 	inline CEngineProcess*						GetProcess					() const					{ return m_pProcess; }

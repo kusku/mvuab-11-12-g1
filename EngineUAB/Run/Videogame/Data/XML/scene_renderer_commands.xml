@@ -58,23 +58,21 @@
   </set_render_target>
     
   <!--Get Render Scene to Texture--> 
-  <capture_frame_buffer>
+  <capture_frame_buffer name="ZBlurCapture">
     <dynamic_texture stage_id="0" name="SceneRender" texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="1" />
   </capture_frame_buffer>
-  
   <set_pool_renderable_objects_technique pool="zblur_pool" />
-  <render_draw_quad name="ZBlur" >
+  <render_draw_quad name="ZBlurDraw" >
     <texture file="SceneRender" stage_id="0" />
     <texture file="DepthMapTexture" stage_id="1" />
   </render_draw_quad>
 
   <!--Get Render Scene to Texture-->
-  <capture_frame_buffer>
+  <capture_frame_buffer name="MotionBlurCapture">
     <dynamic_texture stage_id="0" name="SceneRender" texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="1" />
   </capture_frame_buffer>
-  
   <set_pool_renderable_objects_technique pool="motion_blur" />
-  <render_draw_quad name="MotionBlur" >
+  <render_draw_quad name="MotionBlurDraw" >
     <texture file="SceneRender" stage_id="0" />
     <texture file="__PREV_MOTION_BLUR_TEXTURE" stage_id="1" />
     <texture file="__CURRENT_MOTION_BLUR_TEXTURE" stage_id="2" />
@@ -89,7 +87,7 @@
 
   <!--Dying Effect-->
   <disable_z_test />
-  <capture_frame_buffer>
+  <capture_frame_buffer name="DyingEffectCapture">
     <dynamic_texture stage_id="0" name="SceneRender" texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="1" />
   </capture_frame_buffer>
   <Set_Dying_Amount />
