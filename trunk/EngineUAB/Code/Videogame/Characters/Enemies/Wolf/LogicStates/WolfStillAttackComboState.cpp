@@ -213,16 +213,11 @@ void CWolfStillAttackComboState::Execute( CCharacter* _pCharacter, float _Elapse
 			// Ahora debemos actualizar las partículas
 			UpdateParticlesPositions(m_pWolf);
 
-			m_pWolf->GetBehaviors()->SeekOff();
-			m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
-			m_pWolf->FaceTo( m_pWolf->GetPlayer()->GetPosition(), _ElapsedTime );
-			m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
-
 			// -----------------------------------------------
 			// Aquí comienza el golpeo, la 1a mano está alzada
 			// -----------------------------------------------
 			// Metemos el sonido del primer impacto. Lo he puesto aquí para retrasarlo un poco ya que antes chillaba			un poco temprano y no quedaba tant bien.
-			if ( !m_SoundPlayedScream1 && m_pActionStateCallback->IsActionInTime( 0.5f ) )
+			if ( !m_SoundPlayedScream1 && m_pActionStateCallback->IsActionInTime( 0.0f ) )
 			{
 				CORE->GetSoundManager()->PlayEvent(m_pWolf->GetSpeakerName(), "Play_EFX_Wolf_attack"); 
 				m_SoundPlayedScream1 = true;
@@ -230,12 +225,16 @@ void CWolfStillAttackComboState::Execute( CCharacter* _pCharacter, float _Elapse
 			
 			if ( m_pActionStateCallback->IsActionInTime( 0.33f ) && !m_FirstHitDone )
 			{
+				// Paramos en el momento de pegar
+				m_pWolf->GetBehaviors()->SeekOff();
+				m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
+
 				GetParticleEmitterInstance("WolfBlurHook",m_pWolf->GetName() + "_LeftHand")->EjectParticles();
 				m_FirstHitDone = true;		// Ahora ya no entraremos en este condicional
 			}
 
 			// Miramos si llegamos a tocar el player en el momento de impacto
-			if ( m_pActionStateCallback->IsActionInTime( 0.50f ) && !m_FirstHitReached )
+			if ( m_pActionStateCallback->IsActionInTime( 0.40f ) && !m_FirstHitReached && !m_pActionStateCallback->IsActionInTime( 0.45f ) )
 			{
 				// Miramos si alcanzamos al player
 				if ( m_pWolf->IsPlayerReached() )
@@ -245,7 +244,7 @@ void CWolfStillAttackComboState::Execute( CCharacter* _pCharacter, float _Elapse
 				
 					if ( DISPATCH != NULL ) 
 					{
-						//DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pWolf->GetID(), m_pWolf->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
+						DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pWolf->GetID(), m_pWolf->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
 						LOGGER->AddNewLog(ELL_INFORMATION,"CWolfStillAttackComboState::Execute->Envio mensaje de tocado");
 					}
 					else
@@ -275,152 +274,190 @@ void CWolfStillAttackComboState::Execute( CCharacter* _pCharacter, float _Elapse
 				}
 			}
 
+			// Miramos si debemos correr
+			if ( m_pActionStateCallback->IsActionInTime( 0.60f ) && m_FirstHitDone )
+			{
+				// Esto permite correr entre el primer y segundo golpe
+				m_pWolf->GetBehaviors()->SeekOn();
+				m_pWolf->GetBehaviors()->GetSeek()->SetTarget(m_pWolf->GetPlayer()->GetPosition());
+				m_pWolf->GetSteeringEntity()->SetMaxSpeed(m_pWolf->GetPlayer()->GetProperties()->GetHitRecoilSpeed()/3);
+			}
+			
 			// Trato la animación de impacto
-			if ( m_pActionStateCallback->IsActionInTime( 0.54f ) && !m_FirstParticlesHitDone && m_FirstHitReached )
+			if ( m_pActionStateCallback->IsActionInTime( 0.44f ) && !m_FirstParticlesHitDone && m_FirstHitReached )
 			{
 				m_FirstParticlesHitDone = true;
 				UpdateImpact(m_pWolf);
 				GenerateImpact(m_pWolf );
 			}
-
+			
 			// -----------------------------------------------
 			// Aquí comienza el golpeo, la 2a mano está alzada
 			// -----------------------------------------------
-			//// Metemos el sonido del segundo impacto. Lo he puesto aquí para retrasarlo un poco ya que antes chillaba un poco temprano y no quedaba tant bien.
-			//if ( !m_SoundPlayedScream2 && m_pActionStateCallback->IsActionInTime( 0.58f ) )
-			//{
-			//	CORE->GetSoundManager()->PlayEvent(m_pWolf->GetSpeakerName(), "Play_EFX_Wolf_attack"); 
-			//	m_SoundPlayedScream2 = true;
-			//}
+			// Metemos el sonido del segundo impacto. Lo he puesto aquí para retrasarlo un poco ya que antes chillaba un poco temprano y no quedaba tant bien.
+			if ( !m_SoundPlayedScream2 && m_pActionStateCallback->IsActionInTime( 0.80f ) )
+			{
+				//CORE->GetSoundManager()->PlayEvent(m_pWolf->GetSpeakerName(), "Stop_EFX_Wolf_attack"); 
+				CORE->GetSoundManager()->PlayEvent(m_pWolf->GetSpeakerName(), "Play_EFX_Wolf_attack"); 
+				m_SoundPlayedScream2 = true;
+			}
 
-			//if ( m_pActionStateCallback->IsActionInTime( 0.66f ) && !m_SecondHitDone )
-			//{
-			//	GetParticleEmitterInstance("WolfBlurHook",m_pWolf->GetName() + "_LeftHand")->EjectParticles();
-			//	m_SecondHitDone = true;		// Ahora ya no entraremos en este condicional
-			//}
+			if ( m_pActionStateCallback->IsActionInTime( 0.90f ) && !m_SecondHitDone )
+			{
+				// Paramos en el momento de pegar
+				m_pWolf->GetBehaviors()->SeekOff();
+				m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
+				
+				GetParticleEmitterInstance("WolfBlurHook",m_pWolf->GetName() + "_Righthand")->EjectParticles();
+				m_SecondHitDone = true;		// Ahora ya no entraremos en este condicional
+			}
 
 			//// Miramos si llegamos a tocar el player en el momento de impacto
-			//if ( m_pActionStateCallback->IsActionInTime( 1.00f ) && !m_SecondHitReached )
-			//{
-			//	// Miramos si alcanzamos al player
-			//	if ( m_pWolf->IsPlayerReached() )
-			//	{	
-			//		m_SecondHitReached = true;
-			//		UpdateImpact(m_pWolf);
-			//	
-			//		if ( DISPATCH != NULL ) 
-			//		{
-			//			//DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pWolf->GetID(), m_pWolf->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
-			//			LOGGER->AddNewLog(ELL_INFORMATION,"CWolfStillAttackComboState::Execute->Envio mensaje de tocado");
-			//		}
-			//		else
-			//		{
-			//			LOGGER->AddNewLog(ELL_ERROR, "CWolfStillAttackComboState:Execute->El Dispatch es NULL" );
-			//		}
-			//	
-			//		#if defined _DEBUG
-			//			if( CORE->IsDebugMode() )
-			//			{
-			//				LOGGER->AddNewLog( ELL_INFORMATION, "CWolfStillAttackComboState:Execute->Dispatch" );
-			//			}
-			//		#endif
-			//	}
+			if ( m_pActionStateCallback->IsActionInTime( 1.2f ) && !m_SecondHitReached && !m_pActionStateCallback->IsActionInTime( 1.3f ) )
+			{
+				// Miramos si alcanzamos al player
+				if ( m_pWolf->IsPlayerReached() )
+				{	
+					m_SecondHitReached = true;
+					UpdateImpact(m_pWolf);
+				
+					if ( DISPATCH != NULL ) 
+					{
+						DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pWolf->GetID(), m_pWolf->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
+						LOGGER->AddNewLog(ELL_INFORMATION,"CWolfStillAttackComboState::Execute->Envio mensaje de tocado. Player en estado %s", m_pWolf->GetPlayer()->GetLogicFSM()->GetNameOfCurrentState().c_str());
+					}
+					else
+					{
+						LOGGER->AddNewLog(ELL_ERROR, "CWolfStillAttackComboState:Execute->El Dispatch es NULL" );
+					}
+				
+					#if defined _DEBUG
+						if( CORE->IsDebugMode() )
+						{
+							LOGGER->AddNewLog( ELL_INFORMATION, "CWolfStillAttackComboState:Execute->Dispatch" );
+						}
+					#endif
+				}
 
-			//	// Sonido de la bofetada acertada
-			//	if ( m_SecondHitReached && !m_SoundPlayed1 )
-			//	{
-			//		m_SoundPlayed1 = true;
-			//		CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Punch3"); 
-			//	}
-			//	// Sonido de la bofetada fallida
-			//	else if ( !m_SecondHitReached && !m_SoundPlayed1 )
-			//	{
-			//		CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Slap1"); 
-			//		m_SoundPlayed1 = true;
-			//	}
-			//}
+				// Sonido de la bofetada acertada
+				if ( m_SecondHitReached && !m_SoundPlayed2 )
+				{
+					m_SoundPlayed2 = true;
+					CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Punch3"); 
+				}
+				// Sonido de la bofetada fallida
+				else if ( !m_SecondHitReached && !m_SoundPlayed2 )
+				{
+					CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Slap1"); 
+					m_SoundPlayed2 = true;
+				}
+			}
 
-			//// Trato la animación de impacto
-			//if ( m_pActionStateCallback->IsActionInTime( 0.54f ) && !m_SecondParticlesHitDone && m_SecondHitReached )
-			//{
-			//	m_SecondParticlesHitDone = true;
-			//	UpdateImpact(m_pWolf);
-			//	GenerateImpact(m_pWolf );
-			//}
+			// Miramos si debemos correr antes del sonido del siguiente	que es cuando empieza el ataque
+			if ( m_pActionStateCallback->IsActionInTime( 1.3f ) && m_SecondHitDone && !m_SoundPlayedScream3 )
+			{
+				// Esto permite correr entre el primer y segundo golpe
+				m_pWolf->GetBehaviors()->SeekOn();
+				m_pWolf->GetBehaviors()->GetSeek()->SetTarget(m_pWolf->GetPlayer()->GetPosition());
+				m_pWolf->GetSteeringEntity()->SetMaxSpeed(m_pWolf->GetPlayer()->GetProperties()->GetHitRecoilSpeed());
+			}
+
+			// Trato la animación de impacto
+			if ( m_pActionStateCallback->IsActionInTime( 1.2f ) && !m_SecondParticlesHitDone && m_SecondHitReached )
+			{
+				m_SecondParticlesHitDone = true;
+				UpdateImpact(m_pWolf);
+				GenerateImpact(m_pWolf );
+			}
 
 			// -----------------------------------------------
 			// Aquí comienza el golpeo, la 3a mano está alzada
 			// -----------------------------------------------
-			//// Metemos el sonido del segundo impacto. Lo he puesto aquí para retrasarlo un poco ya que antes chillaba un poco temprano y no quedaba tant bien.
-			//if ( !m_SoundPlayedScream3 && m_pActionStateCallback->IsActionInTime( 0.81f ) )
-			//{
-			//	CORE->GetSoundManager()->PlayEvent(m_pWolf->GetSpeakerName(), "Play_EFX_Wolf_attack"); 
-			//	m_SoundPlayedScream3 = true;
-			//}
+			// Metemos el sonido del segundo impacto. Lo he puesto aquí para retrasarlo un poco ya que antes chillaba un poco temprano y no quedaba tant bien.
+			if ( !m_SoundPlayedScream3 && m_pActionStateCallback->IsActionInTime( 1.51f ) )
+			{
+				//CORE->GetSoundManager()->PlayEvent(m_pWolf->GetSpeakerName(), "Stop_EFX_Wolf_attack"); 
+				CORE->GetSoundManager()->PlayEvent(m_pWolf->GetSpeakerName(), "Play_EFX_Wolf_attack"); 
+				m_SoundPlayedScream3 = true;
+			}
 
-			//if ( m_pActionStateCallback->IsActionInTime( 0.99f ) && !m_ThirdHitDone )
-			//{
-			//	GetParticleEmitterInstance("WolfBlurHook",m_pWolf->GetName() + "_LeftHand")->EjectParticles();
-			//	m_ThirdHitDone = true;		// Ahora ya no entraremos en este condicional
-			//}
+			if ( m_pActionStateCallback->IsActionInTime( 1.60f ) && !m_ThirdHitDone )
+			{
+				// Paramos en el momento de pegar
+				m_pWolf->GetBehaviors()->SeekOff();
+				m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
 
-			//// Miramos si llegamos a tocar el player en el momento de impacto
-			//if ( m_pActionStateCallback->IsActionInTime( 0.50f ) && !m_ThirdHitReached )
-			//{
-			//	// Miramos si alcanzamos al player
-			//	if ( m_pWolf->IsPlayerReached() )
-			//	{	
-			//		m_ThirdHitReached = true;
-			//		UpdateImpact(m_pWolf);
-			//	
-			//		if ( DISPATCH != NULL ) 
-			//		{
-			//			//DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pWolf->GetID(), m_pWolf->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
-			//			LOGGER->AddNewLog(ELL_INFORMATION,"CWolfStillAttackComboState::Execute->Envio mensaje de tocado");
-			//		}
-			//		else
-			//		{
-			//			LOGGER->AddNewLog(ELL_ERROR, "CWolfStillAttackComboState:Execute->El Dispatch es NULL" );
-			//		}
-			//	
-			//		#if defined _DEBUG
-			//			if( CORE->IsDebugMode() )
-			//			{
-			//				LOGGER->AddNewLog( ELL_INFORMATION, "CWolfStillAttackComboState:Execute->Dispatch" );
-			//			}
-			//		#endif
-			//	}
+				GetParticleEmitterInstance("WolfBlurHook",m_pWolf->GetName() + "_LeftHand")->EjectParticles();
+				m_ThirdHitDone = true;		// Ahora ya no entraremos en este condicional
+			}
 
-			//	// Sonido de la bofetada acertada
-			//	if ( m_ThirdHitReached && !m_SoundPlayed1 )
-			//	{
-			//		m_SoundPlayed1 = true;
-			//		CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Punch3"); 
-			//	}
-			//	// Sonido de la bofetada fallida
-			//	else if ( !m_ThirdHitReached && !m_SoundPlayed1 )
-			//	{
-			//		CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Slap1"); 
-			//		m_SoundPlayed1 = true;
-			//	}
-			//}
+			// Miramos si llegamos a tocar el player en el momento de impacto
+			if ( m_pActionStateCallback->IsActionInTime( 1.9f ) && !m_ThirdHitReached && !m_pActionStateCallback->IsActionInTime( 2.0f )  )
+			{
+				// Miramos si alcanzamos al player
+				if ( m_pWolf->IsPlayerReached() )
+				{	
+					m_ThirdHitReached = true;
+					
+					if ( DISPATCH != NULL ) 
+					{
+						DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pWolf->GetID(), m_pWolf->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
+						LOGGER->AddNewLog(ELL_INFORMATION,"CWolfStillAttackComboState::Execute->Envio mensaje de tocado. Player en estado %s", m_pWolf->GetPlayer()->GetLogicFSM()->GetNameOfCurrentState().c_str());
+					}
+					else
+					{
+						LOGGER->AddNewLog(ELL_ERROR, "CWolfStillAttackComboState:Execute->El Dispatch es NULL" );
+					}
+				
+					#if defined _DEBUG
+						if( CORE->IsDebugMode() )
+						{
+							LOGGER->AddNewLog( ELL_INFORMATION, "CWolfStillAttackComboState:Execute->Dispatch" );
+						}
+					#endif
+				}
 
-			//// Trato la animación de impacto
-			//if ( m_pActionStateCallback->IsActionInTime( 0.54f ) && !m_ThirdParticlesHitDone && m_ThirdHitReached )
-			//{
-			//	m_ThirdParticlesHitDone = true;
-			//	UpdateImpact(m_pWolf);
-			//	GenerateImpact(m_pWolf );
-			//}
+				// Sonido de la bofetada acertada
+				if ( m_ThirdHitReached && !m_SoundPlayed3 )
+				{
+					m_SoundPlayed3 = true;
+					CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Punch3"); 
+				}
+				// Sonido de la bofetada fallida
+				else if ( !m_ThirdHitReached && !m_SoundPlayed3 )
+				{
+					CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Slap1"); 
+					m_SoundPlayed3 = true;
+				}
+			}
+
+			// Cuando llegamos a este tiempo la animación finalizó y nos paramos
+			if ( m_pActionStateCallback->IsActionInTime( 2.3f ) )
+			{
+				// Paramos en el momento de pegar
+				m_pWolf->GetBehaviors()->SeekOff();
+				m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0) );
+			}
+
+			// Trato la animación de impacto
+			if ( m_pActionStateCallback->IsActionInTime( 1.80f ) && !m_ThirdParticlesHitDone && m_ThirdHitReached )
+			{
+				m_ThirdParticlesHitDone = true;
+				UpdateImpact(m_pWolf);
+				GenerateImpact(m_pWolf );
+			}
 
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
-					LOGGER->AddNewLog(ELL_INFORMATION,"CWolfStillAttackComboState::Execute->Animacion en curso...");
+					//LOGGER->AddNewLog(ELL_INFORMATION,"CWolfStillAttackComboState::Execute->Animacion en curso...");
 				}
 			#endif
 
 			m_pActionStateCallback->Update(_ElapsedTime);
+
+			m_pWolf->FaceTo( m_pWolf->GetPlayer()->GetPosition(), _ElapsedTime );
+			m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 		}
 	}
 	// Animación no iniciada
@@ -487,7 +524,8 @@ bool CWolfStillAttackComboState::OnMessage( CCharacter* _pCharacter, const STele
 
 void CWolfStillAttackComboState::UpdateParticlesPositions( CCharacter* _pCharacter )
 {
-	SetParticlePosition(_pCharacter, "WolfBlurHook", _pCharacter->GetName() + "_LeftHand" , "Bip01 R Hand"  );
+	SetParticlePosition(_pCharacter, "WolfBlurHook", _pCharacter->GetName() + "_LeftHand" ,  "Bip01 R Hand");
+	SetParticlePosition(_pCharacter, "WolfBlurHook", _pCharacter->GetName() + "_Righthand" , "Bip01 L Hand");
 }
 
 void CWolfStillAttackComboState::GenerateImpact( CCharacter* _pCharacter )

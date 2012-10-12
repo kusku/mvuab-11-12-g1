@@ -120,5 +120,11 @@ bool CWolfTiredState::OnMessage( CCharacter* _pCharacter, const STelegram& _Tele
 	{
 		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
+
+	// Si venimos del hit volveremos a el i haremos el doble hit
+	if ( m_pWolf->GetLogicFSM()->GetPreviousState()->GetName() == "CWolfHitState" )
+	{
+		m_pWolf->GetHitState()->SetDoubleHit(true);
+	}
 	return m_pWolf->CallHitState(_pCharacter, _Telegram);
 }
