@@ -39,7 +39,7 @@
 		<active>false</active>
 		<locked>false</locked>
 		<life>500</life>
-		<strong>0</strong>
+		<strong>10</strong>
 		<mass>0.01</mass>
 		<velocity>0 0 0</velocity>
 		<speed>2</speed>
@@ -152,7 +152,7 @@
 		<active>false</active>
 		<locked>false</locked>
 		<life>150</life>
-		<strong>5</strong>
+		<strong>3</strong>
 		<mass>0.01</mass>
 		<velocity>0 0 0</velocity>
 		<speed>2</speed>
@@ -210,7 +210,7 @@
 	</default_properties>
 	<player name="Caperu" core="caperucita" animated_instace_name="caperucita1" >
 		<life>100</life>
-		<strong>0</strong>
+		<strong>50</strong>
 		<speed>25</speed>
 		<velocity>0 0 0</velocity>
 		<yaw>2.36</yaw>
