@@ -28,7 +28,7 @@
   
   <clear_scene color="true" depth="true" stencil="true" />
   
-  <SkySphere SkyTexture="./Data/General/Textures/SkyRelease1.dds" Scale="1000 900 1000" SkyEffectTechnique="SkySphereEffect" />
+  <SkySphere SkyTexture="./Data/General/Textures/Skybox/SkyRelease1.dds" Scale="1000 900 1000" SkyEffectTechnique="SkySphereEffect" />
   
   <set_pool_renderable_objects_technique pool="FowardShading" />
   <render_scene layer="solid" active="true" />

@@ -843,7 +843,9 @@
     <None Include="..\..\Run\Videogame\Data\Scripts\stadistics.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\utils.lua" />
     <None Include="..\..\Run\Videogame\Data\XML\animal_movement.xml" />
-    <None Include="..\..\Run\Videogame\Data\XML\animated_models.xml" />
+    <None Include="..\..\Run\Videogame\Data\XML\animated_models.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="..\..\Run\Videogame\Data\XML\billboard_animations.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\characters_animated_states.xml">
       <SubType>Designer</SubType>
