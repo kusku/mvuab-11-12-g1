@@ -16,6 +16,8 @@
 	<system name="WaterMist" settings_name="water_mist" />
 
 	<system name="Sword" settings_name="Sword" />
+	<system name="SwordMedium" settings_name="SwordMedium" />
+	<system name="SwordMediumLarge" settings_name="SwordMediumLarge" />
 	<system name="SwordFinal" settings_name="SwordFinal" />
 	<system name="SwordRotation" settings_name="SwordRotation" />
 	
