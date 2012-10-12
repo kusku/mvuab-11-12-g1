@@ -5,6 +5,8 @@
 #include "Effects\EffectManager.h"
 #include "Effects\Effect.h"
 #include "Effects\EffectTechnique.h"
+#include "InputManager.h"
+#include "ActionToInput.h"
 
 
 #if defined(_DEBUG)
@@ -152,4 +154,10 @@ void IntroMovie::Update( float _ElapsedTime )
 #endif
 
 	m_Done = m_Clip->isDone();
+
+	if(CORE->GetActionToInput()->GetInputManager()->IsDownUp(IDV_KEYBOARD, KEY_SPACE))
+	{
+		m_Done = true;
+		m_Clip->stop();
+	}
 }
