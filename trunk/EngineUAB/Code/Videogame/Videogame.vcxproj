@@ -164,6 +164,7 @@
     <ClCompile Include="Characters\Enemies\Wolf\LogicStates\WolfPreparedToAttackState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\LogicStates\WolfPursuitState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\LogicStates\WolfRunAttackState.cpp" />
+    <ClCompile Include="Characters\Enemies\Wolf\LogicStates\WolfStillAttackComboState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\LogicStates\WolfStillAttackState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\LogicStates\WolfTiredState.cpp" />
     <ClCompile Include="Characters\Enemies\Wolf\Wolf.cpp" />
@@ -276,6 +277,7 @@
     <ClInclude Include="Characters\Enemies\Wolf\LogicStates\WolfPreparedToAttackState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\LogicStates\WolfPursuitState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\LogicStates\WolfRunAttackState.h" />
+    <ClInclude Include="Characters\Enemies\Wolf\LogicStates\WolfStillAttackComboState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\LogicStates\WolfStillAttackState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\LogicStates\WolfTiredState.h" />
     <ClInclude Include="Characters\Enemies\Wolf\Wolf.h" />

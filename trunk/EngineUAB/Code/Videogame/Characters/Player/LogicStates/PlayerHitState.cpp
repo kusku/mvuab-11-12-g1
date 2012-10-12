@@ -42,7 +42,7 @@ void CPlayerHitState::OnEnter( CCharacter* _pCharacter )
 #endif
 
 	CPlayer *l_pPlayer = static_cast<CPlayer*>(_pCharacter);
-	l_pPlayer->HitToPlayer();
+	l_pPlayer->HitToPlayer(m_pEnemy->GetProperties()->GetStrong());
 	l_pPlayer->ResetTimeDamage();
 
 	m_pCallback->Init();
@@ -83,7 +83,7 @@ void CPlayerHitState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 	{
 		CPlayer *l_pPlayer = static_cast<CPlayer*>(_pCharacter);
 		CalculateRecoilDirection(l_pPlayer);
-		l_pPlayer ->HitToPlayer();
+		l_pPlayer ->HitToPlayer(m_pEnemy->GetProperties()->GetStrong());
 
 		// Esto permite que ya no reste vida ni se recalcule nada
 		m_DoubleHit = false;

@@ -244,20 +244,23 @@ void CPlayer::Update( float _ElapsedTime )
 			Vect3f l_Heading;
 			float l_Yaw = GetAnimatedModel()->GetYaw();
 			l_Heading = GetAnimatedModel()->GetFront();
-			l_Heading.Normalize();
+			if( l_Heading.SquaredLength() > 0.00000001f )
+			{
+				l_Heading.Normalize();
 			
-			m_pSteeringEntity->SetHeading( l_Heading );
-			m_pSteeringEntity->SetSide( l_Heading.GetPerpendicular() );
+				m_pSteeringEntity->SetHeading( l_Heading );
+				m_pSteeringEntity->SetSide( l_Heading.GetPerpendicular() );
+			}
 		}
 
 		static_cast<CGameProcess*>( CORE->GetProcess() )->GetPlayerCamera()->Update(_ElapsedTime);
 	//}
 }
 
-void CPlayer::HitToPlayer()
+void CPlayer::HitToPlayer( int _Strong )
 {
 	//TODO: Ajustar el daño
-	RestLife( 10 );
+	RestLife( _Strong );
 }
 
 CCharacter* CPlayer::DetectEnemy()

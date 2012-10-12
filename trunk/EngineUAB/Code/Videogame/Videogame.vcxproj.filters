@@ -94,9 +94,6 @@
     <Filter Include="Characters\Enemies\Deer\AnimationStates">
       <UniqueIdentifier>{e931c3bb-7f60-41bf-9c27-0571de59e67a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Characters\Enemies\Deer\LogicStates">
-      <UniqueIdentifier>{bd33453e-5dce-4929-9bb6-60a21a2e35ab}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Characters\Enemies\Rabbit\LogicStates">
       <UniqueIdentifier>{72f8e65c-1ade-423c-83d0-992d6df69cf9}</UniqueIdentifier>
     </Filter>
@@ -111,6 +108,9 @@
     </Filter>
     <Filter Include="IntroMovie">
       <UniqueIdentifier>{8e9d2af9-817e-4c21-93c6-fe0625dffb16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters\Enemies\Deer\LogicStates">
+      <UniqueIdentifier>{bd33453e-5dce-4929-9bb6-60a21a2e35ab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -449,6 +449,9 @@
     </ClCompile>
     <ClCompile Include="Characters\Enemies\Wolf\AnimationStates\WolfRunAnimationState.cpp">
       <Filter>Characters\Enemies\Wolf\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Enemies\Wolf\LogicStates\WolfStillAttackComboState.cpp">
+      <Filter>Characters\Enemies\Wolf\LogicStates</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -802,6 +805,9 @@
     </ClInclude>
     <ClInclude Include="Characters\CharactersDefs.h">
       <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Enemies\Wolf\LogicStates\WolfStillAttackComboState.h">
+      <Filter>Characters\Enemies\Wolf\LogicStates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
