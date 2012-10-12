@@ -172,7 +172,7 @@ void CWolfPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elapse
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
-					LOGGER->AddNewLog(ELL_INFORMATION,"CWolfPreparedToAttackState::Execute->Prepared-Walk");
+					//LOGGER->AddNewLog(ELL_INFORMATION,"CWolfPreparedToAttackState::Execute->Prepared-Walk");
 				}
 			#endif
 		}

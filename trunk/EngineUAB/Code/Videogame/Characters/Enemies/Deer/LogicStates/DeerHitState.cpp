@@ -84,7 +84,7 @@ void CDeerHitState::OnEnter( CCharacter* _pCharacter )
 	}
 
 	// Si volvemos de haber recibido y después de estar cansados nos salimos.
-	if ( m_IsCommingFromTired ) 
+	if ( m_IsCommingFromTired && !m_DoubleHit ) 
 	{
 		m_pDeer->GetTiredState()->SetTiredTime(m_RecoverMinTiredTime, m_RecoverMaxTiredTime);	// Recuperamos el tiempo que teneniamos por defecto asignado al estado TIRED
 		m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetIdleState());
@@ -97,7 +97,7 @@ void CDeerHitState::OnEnter( CCharacter* _pCharacter )
 		m_pAnimationCallback->Init();
 		m_pAnimationCallback->StartAnimation();
 	
-		m_pDeer->RestLife(50); 
+		m_pDeer->RestLife(m_pEnemy->GetProperties()->GetStrong()); 
 	
 		CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Deer_Pain");
 
@@ -234,7 +234,7 @@ void CDeerHitState::GenerateImpact( CCharacter* _pCharacter )
 
 void CDeerHitState::UpdateImpact( CCharacter* _pCharacter )
 {
-	Vect3f l_Pos = _pCharacter->GetPosition() + _pCharacter->GetFront();
+	Vect3f l_Pos = _pCharacter->GetPosition(); 
 	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
 	
 	SetParticlePosition(_pCharacter, "DeerBloodSplash", _pCharacter->GetName() + "_DeerBloodSplash", "", l_Pos );
@@ -252,6 +252,9 @@ void CDeerHitState::StopImpact( CCharacter* _pCharacter )
 void CDeerHitState::UpdateParameters( STelegram& _Message )
 {
 	m_Message = _Message;
+	
+	CGameProcess *l_pProcess = static_cast<CGameProcess*>(CORE->GetProcess());
+	m_pEnemy				 = l_pProcess->GetCharactersManager()->GetCharacterById(m_Message.Sender);
 }
 
 void CDeerHitState::CalculateRecoilDirection( CCharacter * _pCharacter ) 

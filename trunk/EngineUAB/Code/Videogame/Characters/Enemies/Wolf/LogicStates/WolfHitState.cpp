@@ -83,7 +83,7 @@ void CWolfHitState::OnEnter( CCharacter* _pCharacter )
 	}
 	
 	// Si volvemos de haber recibido y después de estar cansados nos salimos.
-	if ( m_IsCommingFromTired ) 
+	if ( m_IsCommingFromTired && !m_DoubleHit ) 
 	{
 		m_pWolf->GetTiredState()->SetTiredTime(m_RecoverMinTiredTime, m_RecoverMaxTiredTime);	// Recuperamos el tiempo que teneniamos por defecto asignado al estado TIRED
 		m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetIdleState());
@@ -97,7 +97,7 @@ void CWolfHitState::OnEnter( CCharacter* _pCharacter )
 		m_pAnimationCallback->StartAnimation();
 	
 		// Restamos la vida y comprobamos i podemos ir a otros de howl
-		m_pWolf->RestLife(50); 
+		m_pWolf->RestLife(m_pEnemy->GetProperties()->GetStrong()); 
 	
 		// Miro si hemos llegado a un nivel de vida para convocar enemigos
 		if ( !m_pWolf->GetCanHowlForEnemies() && m_pWolf->TestIfCanHowlForEnemies() )
@@ -265,6 +265,9 @@ void CWolfHitState::StopImpact( CCharacter* _pCharacter )
 void CWolfHitState::UpdateParameters( STelegram& _Message )
 {
 	m_Message = _Message;
+
+	CGameProcess *l_pProcess = static_cast<CGameProcess*>(CORE->GetProcess());
+	m_pEnemy				 = l_pProcess->GetCharactersManager()->GetCharacterById(m_Message.Sender);
 }
 
 void CWolfHitState::CalculateRecoilDirection( CCharacter * _pCharacter ) 

@@ -44,6 +44,10 @@ public:
 	
 	void			UpdateParameters		( STelegram& _Message );
 
+	//----Properties ( get & Set )-----------------------------
+	inline void					SetDoubleHit	( bool _DoubleHit )				{ m_DoubleHit = _DoubleHit; }
+	inline const bool			GetDoubleHit	( void ) const					{ return m_DoubleHit; }
+	
 	//----Members ---------------------------------------------
 private:
 	CRabbit					  * m_pRabbit;

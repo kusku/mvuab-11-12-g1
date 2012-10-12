@@ -126,5 +126,11 @@ bool CRabbitTiredState::OnMessage( CCharacter* _pCharacter, const STelegram& _Te
 	{
 		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
+
+	// Si venimos del hit volveremos a el i haremos el doble hit
+	if ( m_pRabbit->GetLogicFSM()->GetPreviousState()->GetName() == "CRabbitHitState" )
+	{
+		m_pRabbit->GetHitState()->SetDoubleHit(true);
+	}
 	return m_pRabbit->CallHitState(m_pRabbit, _Telegram);
 }
