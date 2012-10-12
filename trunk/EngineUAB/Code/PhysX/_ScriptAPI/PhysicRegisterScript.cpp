@@ -30,6 +30,7 @@ namespace ScriptAPI
 				.def("add_physic_fixed_joint", &CPhysicsManager::AddPhysicFixedJoint)
 				.def("add_physic_revolute_joint", &CPhysicsManager::AddPhysicRevoluteJoint)
 				.def("add_physic_spherical_joint", &CPhysicsManager::AddPhysicSphericalJoint)
+				.def("compare_user_data", &CPhysicsManager::CompareUserDatas)
 		];
 		
 		module(_pLua) [

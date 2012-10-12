@@ -135,6 +135,9 @@ public:
 	inline void				SetDrawDistancesSPheres			( bool _draw )							{ m_bDistancesSheres = _draw; }
 	inline bool				GetDrawDistancesSPheres			( void )								{ return m_bDistancesSheres; }
 
+	////---- Helpers---------------------------------------
+	bool					CompareUserDatas				( CPhysicUserData *_pUserData1, CPhysicUserData *_pUserData2);
+
 private:
 	bool					LoadXML							();
 	void					Release							();

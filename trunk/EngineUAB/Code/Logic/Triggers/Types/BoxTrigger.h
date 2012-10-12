@@ -24,9 +24,9 @@ public:
 	void	Render		( CRenderManager *_RM );
 
 	//---Trigger Methods---------------------
-	void	OnEnter		();
-	void	OnStay		();
-	void	OnExit		();
+	void	OnEnter		( CPhysicUserData* _pUserData );
+	void	OnStay		( CPhysicUserData* _pUserData );
+	void	OnExit		( CPhysicUserData* _pUserData );
 
 	//---Get & Set Methods-------------------
 	void			SetSize		( const Vect3f & size )		{ m_Size = size; }

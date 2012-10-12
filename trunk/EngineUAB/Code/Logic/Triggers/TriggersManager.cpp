@@ -181,7 +181,7 @@ void CTriggersManager::OnEnter( CPhysicUserData* _Entity_Trigger1, CPhysicUserDa
 			}
 			if( _Entity_Trigger1 == l_pTrigger->GetTriggerActor()->GetUserData() )
 			{
-				l_pTrigger->OnEnter();
+				l_pTrigger->OnEnter(_Other_Shape);
 				return;
 			}
 		}
@@ -203,7 +203,7 @@ void CTriggersManager::OnLeave( CPhysicUserData* _Entity_Trigger1, CPhysicUserDa
 		{
 			if( _Entity_Trigger1 == l_pTrigger->GetTriggerActor()->GetUserData() )
 			{
-				l_pTrigger->OnExit();
+				l_pTrigger->OnExit(_Other_Shape);
 				return;
 			}
 		}
@@ -225,7 +225,7 @@ void CTriggersManager::OnStay( CPhysicUserData* _Entity_Trigger1, CPhysicUserDat
 		{
 			if( _Entity_Trigger1 == l_pTrigger->GetTriggerActor()->GetUserData() )
 			{
-				l_pTrigger->OnStay();
+				l_pTrigger->OnStay(_Other_Shape);
 				return;
 			}
 		}
