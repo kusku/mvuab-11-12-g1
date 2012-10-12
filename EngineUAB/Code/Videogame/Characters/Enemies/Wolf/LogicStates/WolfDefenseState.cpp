@@ -221,7 +221,6 @@ bool CWolfDefenseState::OnMessage( CCharacter* _pCharacter, const STelegram& _Te
 		m_HitDirection.Normalize();
 		m_HitDirection = m_HitDirection.RotateY(mathUtils::PiTimes(1.f));
 		m_HitDirection = m_HitDirection * l_MaxHitSpeed;
-		/*m_HitMaxPosition = m_pWolf->GetSteeringEntity()->GetPosition() + m_HitDirection * m_MaxHitDistance;*/
 
 		// ---------------------------------------
 

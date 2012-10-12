@@ -78,6 +78,21 @@ void CWolfDeathState::OnEnter( CCharacter* _pCharacter )
 	}
 #endif
 
+	// --- Para la gestión del retroceso ---
+	m_InitialHitPoint = m_pWolf->GetPosition();
+	CProperties * l_Properties = m_pWolf->GetProperties();
+	float l_MaxHitSpeed = l_Properties->GetHitRecoilSpeed()/2;
+	m_pWolf->GetSteeringEntity()->SetMaxSpeed(l_MaxHitSpeed);
+	// Me dice la distancia máxima y posición que recorro cuando pega el player y bloqueo hacia atras
+	m_MaxHitDistance = l_Properties->GetHitRecoilDistance()/2;
+		
+	m_HitDirection = m_pWolf->GetSteeringEntity()->GetFront();
+	m_HitDirection.Normalize();
+	m_HitDirection = m_HitDirection.RotateY(mathUtils::PiTimes(1.f));
+	m_HitDirection = m_HitDirection * l_MaxHitSpeed;
+	// ---------------------------------------
+
+
 	m_pAnimationCallback->Init();
 	CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Wolf_die");
 }
@@ -95,9 +110,6 @@ void CWolfDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		// Compruebo si la animación a finalizado
 		if ( m_pAnimationCallback->IsAnimationFinished() )
 		{
-			// Volvemos al estado anterior
-			/*m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetIdleState());
-			m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetIdleAnimationState());*/
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
@@ -114,6 +126,18 @@ void CWolfDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		// En otro caso actualizamos el tiempo de animacion sin hacer nada realmente pq el callback ya lo hace
 		else
 		{
+			float l_Distance = m_pWolf->GetPosition().Distance(m_InitialHitPoint);
+			if ( l_Distance >= m_MaxHitDistance ) 
+			{
+				m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+				m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+				return;
+			} 
+			else
+			{
+				m_pWolf->MoveTo2(m_HitDirection, _ElapsedTime );
+			}
+			
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
@@ -127,9 +151,6 @@ void CWolfDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 	{
 		m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetDeathAnimationState());
 		m_pAnimationCallback->StartAnimation();
-
-		//m_pWolf->FaceTo( m_pWolf->GetSteeringEntity()->GetPosition(), _ElapsedTime );
-		//m_pWolf->MoveTo2( Vect3f(0,0,0), _ElapsedTime );
 
 		#if defined _DEBUG
 			if( CORE->IsDebugMode() )
