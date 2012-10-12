@@ -132,20 +132,30 @@ namespace Configuracion
                     cbResolution.SelectedIndex = wrDic[resWR];
                 }
 
-
                 if (engineReader.NodeType == XmlNodeType.Element && engineReader.Name == "RenderMode")
                 {
-                    bool windowed = false;
-
                     while (engineReader.MoveToNextAttribute())
                     {
                         if (engineReader.NodeType == XmlNodeType.Attribute && engineReader.Name == "fullscreenMode")
                         {
-                            windowed = !engineReader.ReadContentAsBoolean();
+                            cbWindowMode.Checked = !engineReader.ReadContentAsBoolean();
                         }
                     }
+                }
 
-                    cbWindowMode.Checked = windowed;
+                if (engineReader.NodeType == XmlNodeType.Element && engineReader.Name == "GraphicOpt")
+                {
+                    while (engineReader.MoveToNextAttribute())
+                    {
+                        if (engineReader.NodeType == XmlNodeType.Attribute && engineReader.Name == "motionBlur")
+                        {
+                            cbMotionBlurEnable.Checked = engineReader.ReadContentAsBoolean();
+                        }
+                        if (engineReader.NodeType == XmlNodeType.Attribute && engineReader.Name == "zblur")
+                        {
+                            cbZBlurEnable.Checked = engineReader.ReadContentAsBoolean();
+                        }
+                    }
                 }
             }
 
@@ -279,6 +289,15 @@ namespace Configuracion
 
                     elem.Attributes["fullscreenMode"].InnerText = windowed.ToString().ToLower();
                 }
+
+                if (elem.NodeType == XmlNodeType.Element && elem.Name == "GraphicOpt")
+                {
+                    bool motionBlurEnable = cbMotionBlurEnable.Checked;
+                    bool zblurEnable = cbZBlurEnable.Checked;
+
+                    elem.Attributes["motionBlur"].InnerText = motionBlurEnable.ToString().ToLower();
+                    elem.Attributes["zblur"].InnerText = zblurEnable.ToString().ToLower();
+                }
             }
 
             XmlTextWriter engineWriter = new XmlTextWriter("./Data/XML/engine.xml", null);
@@ -292,7 +311,7 @@ namespace Configuracion
 
         private void bExit_Click(object sender, EventArgs e)
         {
-
+            Application.Exit();
         }
     }
 }
