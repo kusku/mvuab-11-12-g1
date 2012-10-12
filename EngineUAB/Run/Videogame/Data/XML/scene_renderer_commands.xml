@@ -7,11 +7,12 @@
   <enable_z_test />
   <setup_matrices />
 
-   <!--shadow maps-->
+   <!--shadow maps--> 
+
   <set_pool_renderable_objects_technique pool="Basic_Build_Shadow_Map" />
   <generate_shadow_maps />
 
-   <!--Initialize Motion Blur-->
+   <!--Initialize Motion Blur--> 
   <begin_motion_blur />
   
   <!--Set Depth Map & Motion Blur RT-->
@@ -56,23 +57,26 @@
   <set_render_target name="DiffuseRT">
     <dynamic_texture stage_id="0" name="DiffuseTexture" texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="1" />
   </set_render_target>
-    
+  
+  
   <!--Get Render Scene to Texture--> 
-  <capture_frame_buffer name="ZBlurCapture">
+  <capture_frame_buffer>
     <dynamic_texture stage_id="0" name="SceneRender" texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="1" />
   </capture_frame_buffer>
+  
   <set_pool_renderable_objects_technique pool="zblur_pool" />
-  <render_draw_quad name="ZBlurDraw" >
+  <render_draw_quad name="ZBlur" >
     <texture file="SceneRender" stage_id="0" />
     <texture file="DepthMapTexture" stage_id="1" />
   </render_draw_quad>
 
   <!--Get Render Scene to Texture-->
-  <capture_frame_buffer name="MotionBlurCapture">
+  <capture_frame_buffer>
     <dynamic_texture stage_id="0" name="SceneRender" texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="1" />
   </capture_frame_buffer>
+  
   <set_pool_renderable_objects_technique pool="motion_blur" />
-  <render_draw_quad name="MotionBlurDraw" >
+  <render_draw_quad name="MotionBlur" >
     <texture file="SceneRender" stage_id="0" />
     <texture file="__PREV_MOTION_BLUR_TEXTURE" stage_id="1" />
     <texture file="__CURRENT_MOTION_BLUR_TEXTURE" stage_id="2" />
@@ -87,7 +91,7 @@
 
   <!--Dying Effect-->
   <disable_z_test />
-  <capture_frame_buffer name="DyingEffectCapture">
+  <capture_frame_buffer>
     <dynamic_texture stage_id="0" name="SceneRender" texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="1" />
   </capture_frame_buffer>
   <Set_Dying_Amount />
@@ -99,11 +103,11 @@
   
   <!--Debug-->
   <enable_z_test />
-  <render_debug_waypoints waypoints="false" triggers="false" rails="false" />
-  <render_debug_process active="false" />
-  <render_debug_physics active="false" draw_fronts="false" draw_frustum="false" draw_names="false" draw_rays="false" render_positions="false" />
+  <render_debug_waypoints waypoints="false" triggers="true" rails="false" />
+  <render_debug_process active="true" />
+  <render_debug_physics active="false" draw_fronts="true" draw_frustum="false" draw_names="false" draw_rays="false" render_positions="false" draw_distances="false" />
   <render_debug_lights active="false" />
-  <render_debug_info grid="false" axis="false" render_console="false" render_logger="false" render_modifiers="false" render_debug_options="false" render_debug_render="false" />
+  <render_debug_info grid="false" axis="false" render_console="true" render_logger="true" render_modifiers="false" render_debug_options="true" render_debug_render="true"   />
 
   <!--Unset Diffuse Texture RT-->
   <unset_render_target render_target="DiffuseRT"/>

@@ -4,7 +4,7 @@
 		<active>true</active>
 		<locked>false</locked>
 		<life>100</life>
-		<strong>50</strong>
+		<strong>20</strong>
 		<respawn_position>0 100 0</respawn_position>
 		<mass>50</mass>
 		<max_rotation_speed>10</max_rotation_speed>
@@ -95,7 +95,7 @@
 		<active>false</active>
 		<locked>false</locked>
 		<life>300</life>
-		<strong>20</strong>
+		<strong>10</strong>
 		<mass>0.01</mass>
 		<velocity>0 0 0</velocity>
 		<speed>2</speed>
@@ -129,7 +129,7 @@
 		<!-- Creo que ahora no la uso... -->
 		<follow_path_distance>100</follow_path_distance>
 		<!-- Está encima el player -->
-		<impact_distance>1.3</impact_distance>
+		<impact_distance>2.0</impact_distance>
 		<!-- Está en zona de ataque al player -->
 		<attack_distance>7</attack_distance>
 		<!-- Está en distancia de poder hacer algunos de los ataques o defensa -->
@@ -157,9 +157,9 @@
 		<velocity>0 0 0</velocity>
 		<speed>2</speed>
 		<max_rotation_speed>360</max_rotation_speed>
-		<min_speed>0.05</min_speed>
+		<min_speed>0.01</min_speed>
 		<!-- Teóricamente de caminar --> 
-		<max_speed>0.53</max_speed>
+		<max_speed>0.3</max_speed>
 		<!-- En carrera --> 
 		<max_acceleration>0.1</max_acceleration>
 		<!-- Aceleración máxima posible. Actualmente no se usa --> 
@@ -167,7 +167,7 @@
 		<!-- Fuerza máxima disponible. Se usa en los Steering Behaviors --> 
 		<still_attack_speed>0.3</still_attack_speed>
 		<!-- Velocidad de ataque 1 --> 
-		<run_attack_speed>0.4</run_attack_speed>
+		<run_attack_speed>0.3</run_attack_speed>
 		<!-- Velocidad de ataque 2 --> 
 		<min_tired_time>1</min_tired_time>
 		<!-- Tiempo mínimo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
@@ -189,11 +189,11 @@
 		<chase_distance>20</chase_distance>
 		<!-- Creo que ahora no la uso... -->
 		<follow_path_distance>100</follow_path_distance>
-		<impact_distance>1.2</impact_distance>
+		<impact_distance>1.5</impact_distance>
 		<!-- Está encima el player -->
-		<attack_distance>4</attack_distance>
+		<attack_distance>5</attack_distance>
 		<!-- Está en distancia de poder hacer algunos de los ataques o defensa -->
-		<prepared_to_attack_distance>5.0</prepared_to_attack_distance>
+		<prepared_to_attack_distance>6.0</prepared_to_attack_distance>
 		<!-- Está lejos de poder atacar pero cerca de poder hacerlo -->
 		<aproximation_distance>15</aproximation_distance>
 		<!-- Está lejos y debe acercarse -->
@@ -225,7 +225,7 @@
 		<position>-64 -14 -20</position>					<!-- Posición respawn trigger 7 - Después del puente --> 
 		<position>-45 -15 -63</position>					<!-- Posición respawn trigger 8 - Final Lobo -->
 		<position>97 -21 -159</position>					<!-- Posición inicial del juego. Posición respawn trigger 1 -->
-		<position>110 -30 -30</position>					<!-- Posición respawn trigger 3 - Antes del medio -->
+		<position>-45 -15 -63</position>					<!-- Posición respawn trigger 8 - Final Lobo -->
 		
 	</player>
 	<enemies>

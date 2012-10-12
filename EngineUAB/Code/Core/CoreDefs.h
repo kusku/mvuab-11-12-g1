@@ -70,6 +70,7 @@
 // ********* MISC *********** 
 #define ACTION_PRINT_SCREEN_TO_FILE			"SaveScreenToFile" 
 #define ACTION_ACTIVATE_DEACTIVATE_TIMER	"ActiveDeactiveTimerAceleration"
+#define ACTION_FINISH_RAIL_ACTIONS			"SkipRailVision"
 
 struct SConfig
 {
