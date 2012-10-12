@@ -1,4 +1,5 @@
 #include "MathHelper.h"
+#include <boost\math\special_functions\fpclassify.hpp>
 
 #if defined _DEBUG
 #include "Memory/MemLeaks.h"
@@ -21,6 +22,11 @@ namespace Helper
 		}
 
 		return l_fAngle;	
+	}
+
+	bool CheckNaNValue( float _fValue )
+	{
+		return boost::math::isnan( _fValue );
 	}
 
 } //namespace Helper

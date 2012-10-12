@@ -7,7 +7,8 @@
 
 namespace Helper
 {
-	float AngleFilter(float _angle);
+	float	AngleFilter		(float _angle);
+	bool	CheckNaNValue	( float _fValue );
 
 } //namespace Helper
 
