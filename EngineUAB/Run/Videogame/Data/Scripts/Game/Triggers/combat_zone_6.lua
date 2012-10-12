@@ -57,9 +57,14 @@ class 'CCombatZone6Trigger' (CBoxTrigger)
 	end
 	
 	function CCombatZone6Trigger:on_enter(user_data)
-		self.action_time:start_action()
-		self.enemy_appeared = 1
-		self.is_appeared = false
+		local process = get_game_process()
+		local l_player_user_data = process:get_character_manager():get_player().physic_controller.user_data
+		
+		if( core:get_physics_manager():compare_user_data(user_data, l_player_user_data) ) then
+			self.action_time:start_action()
+			self.enemy_appeared = 1
+			self.is_appeared = false
+		end 
 	end
 	
 	function CCombatZone6Trigger:on_stay(user_data)
