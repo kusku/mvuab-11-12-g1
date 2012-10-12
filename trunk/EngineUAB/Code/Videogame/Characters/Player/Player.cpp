@@ -407,14 +407,10 @@ float CPlayer::CalculateAttackYaw( float _fDetectionDistance, float _fDetectionA
 				l_EnemyDir.Normalize();
 				l_EnemyDir.y	= 0.f;
 
-				l_fAngle		= l_EnemyDir.Dot( l_Front );
+				l_fAngle = l_EnemyDir.Dot( l_Front );
 
-				if(l_fAngle > 1.f) 
-					l_fAngle = 1.f;
-				else if(l_fAngle < -1.f)
-					l_fAngle = -1.f;
-
-				l_fAngle		= mathUtils::ACos<float>( l_fAngle );
+				l_fAngle = Helper::LimitValue(l_fAngle, -1.f, 1.f);
+				l_fAngle = mathUtils::ACos<float>( l_fAngle );
 			}
 
 			//Mira como tiene que girar el player

@@ -30,6 +30,7 @@
 
 #include "Speaker.h"
 
+#include "Helpers\MathHelper.h"
 #include "Utils\RecyclingArray.h"
 #include "EngineProcess.h"
 #include "GameProcess.h"
@@ -415,10 +416,7 @@ void CCharacter::FaceToForPlayer( const Vect3f &_Position, float _ElapsedTime )
 	float l_fAngle	= l_ToTarget.Dot( l_Front );
 
 	//Correción del ángulo para que no de NaN en el arccos
-	if(l_fAngle > 1.f)
-		l_fAngle = 1.f;
-	else if(l_fAngle < -1.f)
-		l_fAngle = -1.f;
+	l_fAngle = Helper::LimitValue(l_fAngle, -1.f, 1.f);
 
 	l_fAngle		= mathUtils::ACos<float>( l_fAngle );
 

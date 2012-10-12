@@ -57,6 +57,8 @@
 #include "Cameras\Camera.h"
 #include "Cameras\ThPSCharacterCamera.h"
 
+#include "Helpers\MathHelper.h"
+
 #include "EngineProcess.h"
 #include "GameProcess.h"
 
@@ -1409,6 +1411,7 @@ CCharacter* CCharactersManager::GetPlayerAngleCorrection( float _fDistance, floa
 				l_EnemyDir.y = 0.f;
 
 				float l_fAngle	= l_EnemyDir.Dot( l_PlayerFront );
+				l_fAngle		= Helper::LimitValue(l_fAngle, -1.f, 1.f);
 				l_fAngle		= mathUtils::ACos<float>( l_fAngle );
 
 				if( l_fAngle <= _fMinAngle && l_fAngle <= l_fMinimumAngle )

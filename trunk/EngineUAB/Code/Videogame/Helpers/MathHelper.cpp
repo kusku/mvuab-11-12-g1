@@ -29,4 +29,18 @@ namespace Helper
 		return boost::math::isnan( _fValue );
 	}
 
+	float LimitValue( float _fValue, float _fLowLimit, float _fHighLimit )
+	{
+		assert(_fLowLimit < _fHighLimit);
+
+		float l_fValue = _fValue;
+
+		if(l_fValue > _fHighLimit)
+			l_fValue = _fHighLimit;
+		else if(l_fValue < _fLowLimit)
+			l_fValue = _fLowLimit;
+
+		return l_fValue;
+	}
+
 } //namespace Helper
