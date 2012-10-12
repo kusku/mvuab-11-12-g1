@@ -210,20 +210,20 @@
 	</default_properties>
 	<player name="Caperu" core="caperucita" animated_instace_name="caperucita1" >
 		<life>100</life>
-		<strong>50</strong>
+		<strong>1000</strong>
 		<speed>25</speed>
 		<velocity>0 0 0</velocity>
 		<yaw>2.36</yaw>
 		<respawn_position>0 10 0</respawn_position>
 		
-		<position>106 -16 -168</position>					<!-- Posición inicial del juego. Posición respawn trigger 1 -->
+		<position>106 -16 -168</position>						<!-- Posición inicial del juego. Posición respawn trigger 1 -->
 		<!--<position>58 -23 -106</position>-->					<!-- Posición respawn trigger 2 - 2o letrero -->
 		<!--<position>110 -30 -30</position>-->					<!-- Posición respawn trigger 3 - Antes del medio -->
-		<!--<position>67 -40 19</position>-->						<!-- Posición respawn trigger 4 - Medio -->
+		<!--<position>67 -40 19</position>-->					<!-- Posición respawn trigger 4 - Medio -->
 		<!--<position>-20 -38 112</position>-->					<!-- Posición respawn trigger 5 - Subida -->
-		<!--<position>-94 -11 96</position>-->						<!-- Posición respawn trigger 6 - Antes del puente -->
+		<!--<position>-94 -11 96</position>-->					<!-- Posición respawn trigger 6 - Antes del puente -->
 		<!--<position>-64 -14 -20</position>-->					<!-- Posición respawn trigger 7 - Después del puente --> 
-		<position>-45 -15 -63</position>					<!-- Posición respawn trigger 8 - Final Lobo -->
+		<!--<position>-45 -15 -63</position>-->					<!-- Posición respawn trigger 8 - Final Lobo -->
 		
 	</player>
 	<enemies>
