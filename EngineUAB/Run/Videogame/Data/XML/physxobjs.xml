@@ -126,6 +126,6 @@
   <physx_obj name="Fence3Box004" type="1" dimension="0.155812 1.06966 1.98018" pos="54.5158 -23.6789 -121.709" yaw="-17.4266" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="Fence3Box002" type="1" dimension="0.155812 1.05065 1.98018" pos="53.4958 -23.7352 -118.201" yaw="-15.9773" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="Fence3Box1" type="1" dimension="0.155812 1.09331 1.98018" pos="53.1387 -23.7535 -116.401" yaw="-5.74977" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="HouseBox" type="1" dimension="10.2892 12.8636 12.4575" pos="-61.0924 0.332863 -117.292" yaw="28.2477" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="HouseBox" type="1" dimension="10.2892 12.8636 12.4575" pos="-61.0924 0.332863 -117.292" yaw="28.2477" pitch="0.0" roll="0.0" group="ECG_ESCENE" active_startup="true" />
   <physx_obj name="Arbol_2_Box" type="1" dimension="2.84335 37.2 2.90149" pos="136.514 -10.0186 -132.568" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="false" />
 </physx_objs>
