@@ -47,5 +47,6 @@
 	<!-- Permite definir el nº de enemigos que pueden atacar a la vez. Esto permite que los demás enemigos permanezcan inactivos 
 		hasta que les toque el turno, es decir, que ya no existan los N enemigos más cercanos a él y pueda entrar en acción -->
 	<NumberEnemiesCanAttack>5</NumberEnemiesCanAttack>				
-	
+	<MinNumberEnemiesCanHelp>2</MinNumberEnemiesCanHelp>	
+	<MaxNumberEnemiesCanHelp>5</MaxNumberEnemiesCanHelp>	
 </steering_properties>
