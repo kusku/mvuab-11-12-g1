@@ -18,6 +18,7 @@ class CWolfTiredState;
 class CWolfHitState;
 class CWolfDefenseState;
 class CWolfStillAttackState;
+class CWolfStillAttackComboState;
 class CWolfRunAttackState;
 class CWolfDeathState;
 class CWolfHowlLifeState;
@@ -30,13 +31,14 @@ class CWolfRunAnimationState;
 class CWolfDeathAnimationState;
 class CWolfDefenseAnimationState;
 class CWolfHitAnimationState;
-class CWolfJumpAnimationState;
+//class CWolfJumpAnimationState;
 //class CWolfLeftLateralAnimationState;
 //class CWolfRightLateralAnimationState;
 class CWolfRunRunAttackAnimationState;
 class CWolfPreparedRunAttackAnimationState;
 class CWolfImpactRunAttackAnimationState;
 class CWolfStillAttackAnimationState;
+class CWolfStillAttackComboAnimationState;
 class CWolfWalkAnimationState;
 class CWolfHowlLifeAnimationState;
 class CWolfHowlEnemiesAnimationState;
@@ -76,6 +78,7 @@ public:
 	CWolfHitState *						GetHitState						( void ) const			{ return m_pHitState; }
 	CWolfDefenseState *					GetDefenseState					( void ) const			{ return m_pDefenseState; }
 	CWolfStillAttackState *				GetStillAttackState				( void ) const			{ return m_pStillAttackState; }
+	CWolfStillAttackComboState *		GetStillAttackComboState		( void ) const			{ return m_pStillAttackComboState; }
 	CWolfRunAttackState *				GetRunAttackState				( void ) const			{ return m_pRunAttackState; }
 	CWolfDeathState *					GetDeathState					( void ) const			{ return m_pDeathState; }
 	CWolfHowlLifeState *				GetHowlLifeState				( void ) const			{ return m_pHowlLifeState; }
@@ -87,14 +90,15 @@ public:
 	CWolfDeathAnimationState *			GetDeathAnimationState			( void ) const			{ return m_pAnimationDeathState; }
 	CWolfDefenseAnimationState *		GetDefenseAnimationState		( void ) const			{ return m_pAnimationDefenseState; }
 	CWolfHitAnimationState *			GetHitAnimationState			( void ) const			{ return m_pAnimationHitState; }
-	CWolfJumpAnimationState *			GetJumpAnimationState			( void ) const			{ return m_pAnimationJumpState; }
+	//CWolfJumpAnimationState *			GetJumpAnimationState			( void ) const			{ return m_pAnimationJumpState; }
 	//CWolfLeftLateralAnimationState *	GetLefLateralAnimationState		( void ) const			{ return m_pAnimationLeftLateralState; }
 	//CWolfRightLateralAnimationState *	GetRightLateralAnimationState	( void ) const			{ return m_pAnimationRightLateralState; }
-	//CWolfRunAttackAnimationState *		GetRunAttackAnimationState		( void ) const			{ return m_pAnimationRunAttackState; }
-	CWolfRunRunAttackAnimationState *		GetRunRunAttackAnimationState	( void ) const			{ return m_pAnimationRunRunAttackState; }
-	CWolfPreparedRunAttackAnimationState *	GetPreparedRunAttackAnimationState	( void ) const		{ return m_pAnimationPreparedRunAttackState; }
-	CWolfImpactRunAttackAnimationState *	GetImpactRunAttackAnimationState	( void ) const		{ return m_pAnimationImpactRunAttackState; }
+	//CWolfRunAttackAnimationState *	GetRunAttackAnimationState		( void ) const			{ return m_pAnimationRunAttackState; }
+	CWolfRunRunAttackAnimationState *	GetRunRunAttackAnimationState	( void ) const			{ return m_pAnimationRunRunAttackState; }
+	CWolfPreparedRunAttackAnimationState *GetPreparedRunAttackAnimationState( void ) const		{ return m_pAnimationPreparedRunAttackState; }
+	CWolfImpactRunAttackAnimationState *GetImpactRunAttackAnimationState	( void ) const		{ return m_pAnimationImpactRunAttackState; }
 	CWolfStillAttackAnimationState *	GetStillAttackAnimationState	( void ) const			{ return m_pAnimationStillAttackState; }
+	CWolfStillAttackComboAnimationState *GetStillAttackComboAnimationState( void ) const		{ return m_pAnimationStillAttackComboState; }
 	CWolfWalkAnimationState *			GetWalkAnimationState			( void ) const			{ return m_pAnimationWalkState; }
 	CWolfHowlLifeAnimationState *		GetHowlLifeAnimationState		( void ) const			{ return m_pAnimationHowlLifeState; }
 	CWolfHowlEnemiesAnimationState *	GetHowlEnemiesAnimationState	( void ) const			{ return m_pAnimationHowlEnemiesState; }
@@ -141,6 +145,7 @@ private:
 	CWolfHitState							*	m_pHitState;
 	CWolfDefenseState						*	m_pDefenseState;
 	CWolfStillAttackState					*	m_pStillAttackState;
+	CWolfStillAttackComboState				*	m_pStillAttackComboState;
 	CWolfRunAttackState						*	m_pRunAttackState; 
 	CWolfDeathState							*	m_pDeathState; 
 	CWolfHowlLifeState						*   m_pHowlLifeState;
@@ -152,22 +157,23 @@ private:
 	CWolfDeathAnimationState				*	m_pAnimationDeathState;
 	CWolfDefenseAnimationState				*	m_pAnimationDefenseState;
 	CWolfHitAnimationState					*	m_pAnimationHitState;
-	CWolfJumpAnimationState					*	m_pAnimationJumpState;
+	//CWolfJumpAnimationState					*	m_pAnimationJumpState;
 	/*CWolfLeftLateralAnimationState		*	m_pAnimationLeftLateralState;
 	CWolfRightLateralAnimationState			*	m_pAnimationRightLateralState;*/
 	CWolfRunRunAttackAnimationState         *	m_pAnimationRunRunAttackState;
 	CWolfPreparedRunAttackAnimationState	*	m_pAnimationPreparedRunAttackState;
 	CWolfImpactRunAttackAnimationState		*	m_pAnimationImpactRunAttackState;
 	CWolfStillAttackAnimationState			*	m_pAnimationStillAttackState;
+	CWolfStillAttackComboAnimationState		*	m_pAnimationStillAttackComboState;
 	CWolfWalkAnimationState					*	m_pAnimationWalkState;
-	CWolfHowlLifeAnimationState		*	m_pAnimationHowlLifeState;
-	CWolfHowlEnemiesAnimationState	*	m_pAnimationHowlEnemiesState;
+	CWolfHowlLifeAnimationState				*	m_pAnimationHowlLifeState;
+	CWolfHowlEnemiesAnimationState			*	m_pAnimationHowlEnemiesState;
 
-	bool								m_CanHowlForLife;
-	bool								m_CanHowlForEnemies;
+	bool										m_CanHowlForLife;
+	bool										m_CanHowlForEnemies;
 
-	byte								m_NumEnemyCalls;									
-	byte								m_NumLifeCalls;
+	byte										m_NumEnemyCalls;									
+	byte										m_NumLifeCalls;
 
 };
 

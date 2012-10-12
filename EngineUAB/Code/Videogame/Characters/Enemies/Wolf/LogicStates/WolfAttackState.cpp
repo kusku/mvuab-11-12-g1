@@ -19,6 +19,7 @@
 #include "WolfTiredState.h"
 #include "WolfDefenseState.h"
 #include "WolfStillAttackState.h"
+#include "WolfStillAttackComboState.h"
 #include "WolfRunAttackState.h"
 #include "WolfHitState.h"
 #include "WolfHowlEnemiesState.h"
@@ -117,6 +118,10 @@ void CWolfAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 			{
 				m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetStillAttackState());
 			}	
+			if ( l_ActiveActionState == WOLF_STILL_ATTACK_COMBO_STATE ) 
+			{
+				m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetStillAttackComboState());
+			}	
 			else if ( l_ActiveActionState == WOLF_RUN_ATTACK_STATE ) 
 			{
 				m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetRunAttackState());
@@ -204,7 +209,7 @@ std::string CWolfAttackState::GetRandomAttackName(void)
 {
 	std::string l_Action;	
 
-	int l_AttackType = BoostRandomHelper::GetInt(1,20);
+	int l_AttackType = BoostRandomHelper::GetInt(1,24);
 	if ( l_AttackType == 1 ) 
 		l_Action = WOLF_STILL_ATTACK_STATE;
 	else if ( l_AttackType == 2 ) 
@@ -212,42 +217,50 @@ std::string CWolfAttackState::GetRandomAttackName(void)
 	else if ( l_AttackType == 3 ) 
 		l_Action = WOLF_STILL_ATTACK_STATE;
 	else if ( l_AttackType == 4 ) 
-		l_Action = WOLF_RUN_ATTACK_STATE;
+		l_Action = WOLF_STILL_ATTACK_STATE;
 	else if ( l_AttackType == 5 ) 
-		l_Action = WOLF_RUN_ATTACK_STATE;
+		l_Action = WOLF_STILL_ATTACK_COMBO_STATE;
 	else if ( l_AttackType == 6 ) 
-		l_Action = WOLF_RUN_ATTACK_STATE;
+		l_Action =  WOLF_STILL_ATTACK_COMBO_STATE;
 	else if ( l_AttackType == 7 ) 
-		l_Action = WOLF_DEFENSE_STATE;
+		l_Action = WOLF_STILL_ATTACK_COMBO_STATE;
 	else if ( l_AttackType == 8 ) 
+		l_Action = WOLF_RUN_ATTACK_STATE;
+	else if ( l_AttackType == 9 ) 
+		l_Action = WOLF_RUN_ATTACK_STATE;
+	else if ( l_AttackType == 10 ) 
+		l_Action = WOLF_RUN_ATTACK_STATE;
+	else if ( l_AttackType == 11 ) 
+		l_Action = WOLF_DEFENSE_STATE;
+	else if ( l_AttackType == 12 ) 
 		l_Action =  WOLF_JUMP_STATE;
 			
 	// Más probabilidades de ir al fustrum que no atacar
-	else if ( l_AttackType == 9 ) 
-		l_Action =  "go_in_to_frustum";
-	else if ( l_AttackType == 10 ) 
-		l_Action =  "go_in_to_frustum";
-	else if ( l_AttackType == 11 ) 
-		l_Action =  "go_in_to_frustum";
-	else if ( l_AttackType == 12 ) 
-		l_Action =  "go_in_to_frustum";
-
 	else if ( l_AttackType == 13 ) 
-		l_Action =  WOLF_HOWL_ENEMIES_STATE;
+		l_Action =  "go_in_to_frustum";
 	else if ( l_AttackType == 14 ) 
-			l_Action =  WOLF_HOWL_ENEMIES_STATE;
+		l_Action =  "go_in_to_frustum";
 	else if ( l_AttackType == 15 ) 
-			l_Action =  WOLF_HOWL_ENEMIES_STATE;
+		l_Action =  "go_in_to_frustum";
 	else if ( l_AttackType == 16 ) 
-			l_Action =  WOLF_HOWL_ENEMIES_STATE;
+		l_Action =  "go_in_to_frustum";
 
 	else if ( l_AttackType == 17 ) 
-		l_Action =  WOLF_HOWL_LIFE_STATE;
+		l_Action =  WOLF_HOWL_ENEMIES_STATE;
 	else if ( l_AttackType == 18 ) 
-			l_Action =  WOLF_HOWL_LIFE_STATE;
+			l_Action =  WOLF_HOWL_ENEMIES_STATE;
 	else if ( l_AttackType == 19 ) 
-			l_Action =  WOLF_HOWL_LIFE_STATE;
+			l_Action =  WOLF_HOWL_ENEMIES_STATE;
 	else if ( l_AttackType == 20 ) 
+			l_Action =  WOLF_HOWL_ENEMIES_STATE;
+
+	else if ( l_AttackType == 21 ) 
+		l_Action =  WOLF_HOWL_LIFE_STATE;
+	else if ( l_AttackType == 22 ) 
+			l_Action =  WOLF_HOWL_LIFE_STATE;
+	else if ( l_AttackType == 23 ) 
+			l_Action =  WOLF_HOWL_LIFE_STATE;
+	else if ( l_AttackType == 24 ) 
 			l_Action =  WOLF_HOWL_LIFE_STATE;
 
 	return l_Action;

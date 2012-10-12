@@ -77,7 +77,7 @@ public:
 	CRabbitDeathAnimationState *		GetDeathAnimationState			( void ) const			{ return m_pAnimationDeathState; }
 	CRabbitDefenseAnimationState *		GetDefenseAnimationState		( void ) const			{ return m_pAnimationDefenseState; }
 	CRabbitHitAnimationState *			GetHitAnimationState			( void ) const			{ return m_pAnimationHitState; }
-	CRabbitJumpAnimationState *			GetJumpAnimationState			( void ) const			{ return m_pAnimationJumpState; }
+	//CRabbitJumpAnimationState *			GetJumpAnimationState			( void ) const			{ return m_pAnimationJumpState; }
 	CRabbitLeftLateralAnimationState *	GetLefLateralAnimationState		( void ) const			{ return m_pAnimationLeftLateralState; }
 	CRabbitRightLateralAnimationState *	GetRightLateralAnimationState	( void ) const			{ return m_pAnimationRightLateralState; }
 	CRabbitRunAttackAnimationState *	GetRunAttackAnimationState		( void ) const			{ return m_pAnimationRunAttackState; }
@@ -122,7 +122,7 @@ private:
 	CRabbitDeathAnimationState			*	m_pAnimationDeathState;
 	CRabbitDefenseAnimationState		*	m_pAnimationDefenseState;
 	CRabbitHitAnimationState			*	m_pAnimationHitState;
-	CRabbitJumpAnimationState			*	m_pAnimationJumpState;
+	//CRabbitJumpAnimationState			*	m_pAnimationJumpState;
 	CRabbitLeftLateralAnimationState	*	m_pAnimationLeftLateralState;
 	CRabbitRightLateralAnimationState	*	m_pAnimationRightLateralState;
 	CRabbitRunAttackAnimationState		*	m_pAnimationRunAttackState;

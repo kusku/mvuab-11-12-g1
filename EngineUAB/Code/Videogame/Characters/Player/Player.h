@@ -8,20 +8,25 @@
 #include <map>
 #include <string>
 
+//--- Foward Declarations ---//
 class CThPSCharacterCamera;
 class CCharacter;
+//---------------------------//
 
 class CPlayer : public CCharacter
 {
 public:
+	// ------------- Constructors i Destructors --------------
 	CPlayer();
 	~CPlayer();
 
+	//----Main Functions --------------------------------------
 	bool			Init	();
 	void			Update	( float _ElapsedTime );
 	void			UpdateCamera( float _ElapsedTime, bool _bIsUpdated );
 
-	void			HitToPlayer		();
+	//----Methods ---------------------------------------------
+	void			HitToPlayer		( int _Strong );
 	CCharacter*		DetectEnemy		();
 
 	void			SetTargetFixed	( bool fix )		{ m_bIsTargetFixed = fix; }
@@ -32,11 +37,16 @@ public:
 	
 	bool			CallHitState	( CCharacter* _pCharacter, const STelegram& _Message );
 
+	//----Private Methods --------------------------------------
+
 private:
 	void			CreateCallbacks	();
 	void			CreateStates	();
 	
+	//----Properties ( get & Set )-----------------------------
+
 	
+	//----Members ---------------------------------------------
 private:
 	bool			m_bIsTargetFixed;
 

@@ -79,7 +79,7 @@ CRabbit::CRabbit( int _Id )
 	, m_pAnimationDeathState 		( NULL )
 	, m_pAnimationDefenseState 		( NULL )
 	, m_pAnimationHitState 			( NULL )
-	, m_pAnimationJumpState 		( NULL )
+	/*, m_pAnimationJumpState 		( NULL )*/
 	, m_pAnimationLeftLateralState 	( NULL )
 	, m_pAnimationRightLateralState ( NULL )
 	, m_pAnimationRunAttackState 	( NULL )
@@ -109,7 +109,7 @@ CRabbit::CRabbit( int _Id, std::string _Name )
 	, m_pAnimationDeathState 		( NULL )
 	, m_pAnimationDefenseState 		( NULL )
 	, m_pAnimationHitState 			( NULL )
-	, m_pAnimationJumpState 		( NULL )
+	//, m_pAnimationJumpState 		( NULL )
 	, m_pAnimationLeftLateralState 	( NULL )
 	, m_pAnimationRightLateralState ( NULL )
 	, m_pAnimationRunAttackState 	( NULL )
@@ -141,7 +141,7 @@ CRabbit::~CRabbit(void)
 	CHECKED_DELETE ( m_pAnimationDeathState );
 	CHECKED_DELETE ( m_pAnimationHitState );
 	CHECKED_DELETE ( m_pAnimationDefenseState );
-	CHECKED_DELETE ( m_pAnimationJumpState );
+	//CHECKED_DELETE ( m_pAnimationJumpState );
 	CHECKED_DELETE ( m_pAnimationLeftLateralState );
 	CHECKED_DELETE ( m_pAnimationRightLateralState );
 	CHECKED_DELETE ( m_pAnimationRunAttackState );
@@ -234,7 +234,7 @@ void CRabbit::LoadGraphicStates( void )
 	m_pAnimationDeathState			= new CRabbitDeathAnimationState		(this);
 	m_pAnimationHitState			= new CRabbitHitAnimationState			(this);
 	m_pAnimationDefenseState		= new CRabbitDefenseAnimationState		(this);
-	m_pAnimationJumpState			= new CRabbitJumpAnimationState			(this);
+	//m_pAnimationJumpState			= new CRabbitJumpAnimationState			(this);
 	m_pAnimationLeftLateralState	= new CRabbitLeftLateralAnimationState	(this);
 	m_pAnimationRightLateralState	= new CRabbitRightLateralAnimationState	(this);
 	m_pAnimationRunAttackState		= new CRabbitRunAttackAnimationState	(this);
