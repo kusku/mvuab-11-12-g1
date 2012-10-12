@@ -413,6 +413,13 @@ void CCharacter::FaceToForPlayer( const Vect3f &_Position, float _ElapsedTime )
 
 	Vect3f l_Front	= m_pCurrentAnimatedModel->GetFront();
 	float l_fAngle	= l_ToTarget.Dot( l_Front );
+
+	//Correción del ángulo para que no de NaN en el arccos
+	if(l_fAngle > 1.f)
+		l_fAngle = 1.f;
+	else if(l_fAngle < -1.f)
+		l_fAngle = -1.f;
+
 	l_fAngle		= mathUtils::ACos<float>( l_fAngle );
 
 	//Mira como tiene que girar el player
