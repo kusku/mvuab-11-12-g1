@@ -85,7 +85,7 @@ void CWolfHowlEnemiesState::OnEnter( CCharacter* _pCharacter )
 	//m_ActionStateCallback.InitAction(0, m_SoundDuration);
 	//m_ActionStateCallback.StartAction();
 
-	CORE->GetParticleEmitterManager()->GetResource("DeepSnow")->GetParticleEmitterInstance(GetName() + "_DeepSnow")->SetActive(true);
+	//CORE->GetParticleEmitterManager()->GetResource("DeepSnow")->GetParticleEmitterInstance(GetName() + "_DeepSnow")->SetActive(true);
 	CORE->GetParticleEmitterManager()->GetResource("DeepSnow")->GetParticleEmitterInstance(GetName() + "_DeepSnow")->EjectParticles();
 	CORE->GetParticleEmitterManager()->GetResource("DeepSnow")->GetParticleEmitterInstance(GetName() + "_DeepSnow")->SetPosition(m_pWolf->GetPosition());
 	
@@ -141,7 +141,7 @@ void CWolfHowlEnemiesState::OnExit( CCharacter* _pCharacter )
 	l_Player->SetLocked(false);
 	
 	CORE->GetParticleEmitterManager()->GetResource("DeepSnow")->GetParticleEmitterInstance(GetName() + "_DeepSnow")->StopEjectParticles();
-	CORE->GetParticleEmitterManager()->GetResource("DeepSnow")->GetParticleEmitterInstance(GetName() + "_DeepSnow")->SetActive(false);
+	//CORE->GetParticleEmitterManager()->GetResource("DeepSnow")->GetParticleEmitterInstance(GetName() + "_DeepSnow")->SetActive(false);
 }
 
 bool CWolfHowlEnemiesState::OnMessage( CCharacter* _pCharacter, const STelegram& _Telegram )
