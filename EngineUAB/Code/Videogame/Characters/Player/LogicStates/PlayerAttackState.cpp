@@ -43,7 +43,7 @@ CPlayerAttackState::CPlayerAttackState( CCharacter * _pCharacter, const std::str
 	m_pInput			= CORE->GetActionToInput();
 	m_pProcess			= static_cast<CGameProcess*>(CORE->GetProcess());
 	m_pCallback			= m_pProcess->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(), "attack1");
-	m_pParticleEmitter	= GetParticleEmitterInstance( "SwordRight", _pCharacter->GetName() + "SwordRight");
+	m_pParticleEmitter	= GetParticleEmitterInstance( "SwordBasic", _pCharacter->GetName() + "SwordBasic");
 }
 
 CPlayerAttackState::~CPlayerAttackState()
