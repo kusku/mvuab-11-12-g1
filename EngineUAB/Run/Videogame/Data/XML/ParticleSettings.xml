@@ -654,7 +654,7 @@
 	</settings>
 	<settings name="WolfExpandWave">
 		<TextureName value="./Data/General/Textures/Particles/Burst2.dds"/>
-		<MaxParticles value="2"/>
+		<MaxParticles value="6"/>
 		<Duration value="0.9000"/>
 		<DurationRandomness value="0.000000"/>
 		<EmitterVelocitySensitivity value="0.000000"/>
