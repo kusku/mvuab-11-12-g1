@@ -121,5 +121,11 @@ bool CDeerTiredState::OnMessage( CCharacter* _pCharacter, const STelegram& _Tele
 	{
 		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
+
+	// Si venimos del hit volveremos a el i haremos el doble hit
+	if ( m_pDeer->GetLogicFSM()->GetPreviousState()->GetName() == "CRabbitHitState" )
+	{
+		m_pDeer->GetHitState()->SetDoubleHit(true);
+	}	
 	return m_pDeer->CallHitState(m_pDeer, _Telegram);
 }

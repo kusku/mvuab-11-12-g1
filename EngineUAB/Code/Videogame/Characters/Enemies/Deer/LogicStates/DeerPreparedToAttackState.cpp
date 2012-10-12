@@ -163,7 +163,7 @@ void CDeerPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elapse
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
-					LOGGER->AddNewLog(ELL_INFORMATION,"CDeerPreparedToAttackState::Execute->Prepared-Walk");
+					//LOGGER->AddNewLog(ELL_INFORMATION,"CDeerPreparedToAttackState::Execute->Prepared-Walk");
 				}
 			#endif
 		}

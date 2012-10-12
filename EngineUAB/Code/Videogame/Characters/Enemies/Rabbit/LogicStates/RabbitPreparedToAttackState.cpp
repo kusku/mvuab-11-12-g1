@@ -170,7 +170,7 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elap
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
-					LOGGER->AddNewLog(ELL_INFORMATION,"CRabbitPreparedToAttackState::Execute->Prepared-Walk");
+					//LOGGER->AddNewLog(ELL_INFORMATION,"CRabbitPreparedToAttackState::Execute->Prepared-Walk");
 				}
 			#endif
 		}

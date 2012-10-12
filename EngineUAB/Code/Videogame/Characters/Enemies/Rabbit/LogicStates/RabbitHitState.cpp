@@ -85,7 +85,7 @@ void CRabbitHitState::OnEnter( CCharacter* _pCharacter )
 	}
 	 
 	// Si volvemos de haber recibido y después de estar cansados nos salimos.
-	if ( m_IsCommingFromTired ) 
+	if ( m_IsCommingFromTired && !m_DoubleHit ) 
 	{
 		m_pRabbit->GetTiredState()->SetTiredTime(m_RecoverMinTiredTime, m_RecoverMaxTiredTime);	// Recuperamos el tiempo que teneniamos por defecto asignado al estado TIRED
 		m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetIdleState());
@@ -98,7 +98,7 @@ void CRabbitHitState::OnEnter( CCharacter* _pCharacter )
 		m_pAnimationCallback->Init();
 		m_pAnimationCallback->StartAnimation();
 	
-		m_pRabbit->RestLife(50); 
+		m_pRabbit->RestLife(m_pEnemy->GetProperties()->GetStrong()); 
 		
 		//PlayRandomSound();
 		CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Rabbit_Pain");
@@ -230,7 +230,7 @@ void CRabbitHitState::GenerateImpact( CCharacter* _pCharacter )
 
 void CRabbitHitState::UpdateImpact( CCharacter* _pCharacter )
 {
-	Vect3f l_Pos = _pCharacter->GetPosition() + _pCharacter->GetFront();
+	Vect3f l_Pos = _pCharacter->GetPosition();
 	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
 	
 	SetParticlePosition(_pCharacter, "RabbitBloodSplash", _pCharacter->GetName() + "_RabbitBloodSplash", "", l_Pos );
@@ -248,6 +248,9 @@ void CRabbitHitState::StopImpact( CCharacter* _pCharacter )
 void CRabbitHitState::UpdateParameters( STelegram& _Message )
 {
 	m_Message = _Message;
+
+	CGameProcess *l_pProcess = static_cast<CGameProcess*>(CORE->GetProcess());
+	m_pEnemy				 = l_pProcess->GetCharactersManager()->GetCharacterById(m_Message.Sender);
 }
 
 void CRabbitHitState::CalculateRecoilDirection( CCharacter * _pCharacter ) 
