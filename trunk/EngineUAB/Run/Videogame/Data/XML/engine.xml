@@ -6,6 +6,7 @@
 	<ScreenResolution width="1280" height="720" />
 	<WindowsPosition position="0 0" />
 	<RenderMode fullscreenMode="false" />
+  <GraphicOpt motionBlur="true" zblur="true" />
 	<RenderColor colorDebug="black" colorRelease="black" />
 	<ActionToInput inputXML="./Data/XML/input.xml" />
 	<Mouse exclusiveModeInMouse="true" drawPointerMouse="true" />

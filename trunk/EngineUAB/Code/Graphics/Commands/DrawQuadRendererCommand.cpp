@@ -76,6 +76,16 @@ CDrawQuadRendererCommand::CDrawQuadRendererCommand(CXMLTreeNode &Node)
 
 void CDrawQuadRendererCommand::Execute(CRenderManager &RM)
 {
+	if(m_Name.compare("ZBlurDraw") == 0 && CORE->GetConfig().z_blur_enable == false)
+	{
+		return;
+	}
+	
+	if(m_Name.compare("MotionBlurDraw") == 0 && CORE->GetConfig().motion_blur_enable == false)
+	{
+		return;
+	}
+
 	ActivateTextures();
 
 	std::string technique = CORE->GetROTManager()->GetRenderableObjectTechniqueNameByVertexType(TCOLOREDTEXTURE1_VERTEX::GetVertexType());

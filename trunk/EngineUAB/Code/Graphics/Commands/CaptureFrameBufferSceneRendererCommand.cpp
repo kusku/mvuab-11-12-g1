@@ -17,6 +17,8 @@
 CCaptureFrameBufferSceneRendererCommand::CCaptureFrameBufferSceneRendererCommand(CXMLTreeNode &Node)
 	: CStagedTexturedRendererCommand ( Node )
 {
+	m_Name = Node.GetPszISOProperty("name", "", true);
+
 	uint16 l_Count = Node.GetNumChildren();
 	for(uint16 i=0; i<l_Count; ++i)
 	{
@@ -63,5 +65,15 @@ CCaptureFrameBufferSceneRendererCommand::CCaptureFrameBufferSceneRendererCommand
 // -----------------------------------------
 void CCaptureFrameBufferSceneRendererCommand::Execute(CRenderManager &RM)
 {
+	if(m_Name.compare("ZBlurCapture") == 0 && CORE->GetConfig().z_blur_enable == false)
+	{
+		return;
+	}
+	
+	if(m_Name.compare("MotionBlurCapture") == 0 && CORE->GetConfig().motion_blur_enable == false)
+	{
+		return;
+	}
+
 	CaptureFrameBuffer();
 }
