@@ -115,6 +115,8 @@ void CEngine::Update( void )
 
 	if(m_PlayingIntro)
 	{
+		CORE->GetActionToInput()->Update();
+
 		m_IntroMovie->Update(l_ElapsedTime);
 
 		m_PlayingIntro = !m_IntroMovie->IsDone();
