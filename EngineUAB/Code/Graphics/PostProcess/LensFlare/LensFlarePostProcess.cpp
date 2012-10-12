@@ -21,7 +21,7 @@ SFlare::SFlare( float position, float scale, CColor color, std::string textureNa
 }
 
 SFlare::~SFlare()
-{
+{ 
 	CHECKED_DELETE(m_Texture);
 }
 
@@ -46,18 +46,18 @@ CLensFlarePostProcess::CLensFlarePostProcess()
 	, m_ProjParam(NULL)
 	, m_GlowColor(colWHITE)
 {
-	m_Flares[0] = SFlare(-0.5f, 0.7f, CColor( 50.0f / 255.0f,  25.0f / 255.0f,  50.0f / 255.0f), "./Data/General/Textures/flare1.dds");
-	m_Flares[1] = SFlare( 0.3f, 0.4f, CColor(100.0f / 255.0f, 255.0f / 255.0f, 200.0f / 255.0f), "./Data/General/Textures/flare1.dds");
-	m_Flares[2] = SFlare( 1.2f, 1.0f, CColor(100.0f / 255.0f,  50.0f / 255.0f,  50.0f / 255.0f), "./Data/General/Textures/flare1.dds");
-	m_Flares[3] = SFlare( 1.5f, 1.5f, CColor( 50.0f / 255.0f, 100.0f / 255.0f,  50.0f / 255.0f), "./Data/General/Textures/flare1.dds");
+	m_Flares[0] = SFlare(-0.5f, 0.7f, CColor( 50.0f / 255.0f,  25.0f / 255.0f,  50.0f / 255.0f), "./Data/General/Textures/LensFlare/flare1.dds");
+	m_Flares[1] = SFlare( 0.3f, 0.4f, CColor(100.0f / 255.0f, 255.0f / 255.0f, 200.0f / 255.0f), "./Data/General/Textures/LensFlare/flare1.dds");
+	m_Flares[2] = SFlare( 1.2f, 1.0f, CColor(100.0f / 255.0f,  50.0f / 255.0f,  50.0f / 255.0f), "./Data/General/Textures/LensFlare/flare1.dds");
+	m_Flares[3] = SFlare( 1.5f, 1.5f, CColor( 50.0f / 255.0f, 100.0f / 255.0f,  50.0f / 255.0f), "./Data/General/Textures/LensFlare/flare1.dds");
 
-	m_Flares[4] = SFlare(-0.3f, 0.7f, CColor(200.0f / 255.0f,  50.0f / 255.0f,  50.0f / 255.0f), "./Data/General/Textures/flare2.dds");
-	m_Flares[5] = SFlare( 0.6f, 0.9f, CColor( 50.0f / 255.0f, 100.0f / 255.0f,  50.0f / 255.0f), "./Data/General/Textures/flare2.dds");
-	m_Flares[6] = SFlare( 0.7f, 0.4f, CColor( 50.0f / 255.0f, 200.0f / 255.0f, 200.0f / 255.0f), "./Data/General/Textures/flare2.dds");
+	m_Flares[4] = SFlare(-0.3f, 0.7f, CColor(200.0f / 255.0f,  50.0f / 255.0f,  50.0f / 255.0f), "./Data/General/Textures/LensFlare/flare2.dds");
+	m_Flares[5] = SFlare( 0.6f, 0.9f, CColor( 50.0f / 255.0f, 100.0f / 255.0f,  50.0f / 255.0f), "./Data/General/Textures/LensFlare/flare2.dds");
+	m_Flares[6] = SFlare( 0.7f, 0.4f, CColor( 50.0f / 255.0f, 200.0f / 255.0f, 200.0f / 255.0f), "./Data/General/Textures/LensFlare/flare2.dds");
 
-	m_Flares[7] = SFlare(-0.7f, 0.7f, CColor( 50.0f / 255.0f, 100.0f / 255.0f,  25.0f / 255.0f), "./Data/General/Textures/flare3.dds");
-	m_Flares[8] = SFlare( 0.0f, 0.6f, CColor( 25.0f / 255.0f,  25.0f / 255.0f,  25.0f / 255.0f), "./Data/General/Textures/flare3.dds");
-	m_Flares[9] = SFlare( 2.0f, 1.4f, CColor( 25.0f / 255.0f,  50.0f / 255.0f, 100.0f / 255.0f), "./Data/General/Textures/flare3.dds");
+	m_Flares[7] = SFlare(-0.7f, 0.7f, CColor( 50.0f / 255.0f, 100.0f / 255.0f,  25.0f / 255.0f), "./Data/General/Textures/LensFlare/flare3.dds");
+	m_Flares[8] = SFlare( 0.0f, 0.6f, CColor( 25.0f / 255.0f,  25.0f / 255.0f,  25.0f / 255.0f), "./Data/General/Textures/LensFlare/flare3.dds");
+	m_Flares[9] = SFlare( 2.0f, 1.4f, CColor( 25.0f / 255.0f,  50.0f / 255.0f, 100.0f / 255.0f), "./Data/General/Textures/LensFlare/flare3.dds");
 }
 
 CLensFlarePostProcess::~CLensFlarePostProcess()
@@ -72,7 +72,7 @@ void CLensFlarePostProcess::Init()
 {
 	m_GlowSprite = new CTexture();
 
-	m_GlowSprite->Load("./Data/General/Textures/glow.dds");
+	m_GlowSprite->Load("./Data/General/Textures/LensFlare/glow.dds");
 
 	for(int i = 0; i < 10; ++i)
 	{
