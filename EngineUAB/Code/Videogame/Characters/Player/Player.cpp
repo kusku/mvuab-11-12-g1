@@ -35,6 +35,7 @@
 #include "Math\MathTypes.h"
 #include "Helpers\MathHelper.h"
 #include "SoundManager.h"
+#include "GameProcess.h"
 #include "Core.h"
 #include "Base.h"
 
@@ -59,6 +60,8 @@ CPlayer::CPlayer()
 	m_fRoll		= 0.0f;
 
 	m_bLocked	= false;
+
+	m_pProcess	= static_cast<CGameProcess*>(CORE->GetProcess());
 }
 
 CPlayer::~CPlayer()
@@ -364,4 +367,121 @@ bool CPlayer::CallHitState( CCharacter* _pCharacter, const STelegram& _Message )
 	}
 
 	return false;
+}
+
+float CPlayer::CalculateAttackYaw( float _fDetectionDistance, float _fDetectionAngle )
+{
+	//Calcula el ángulo a moverse
+	float l_fYaw = m_pController->GetYaw();
+
+	if( !m_bLocked )
+	{
+		CCharactersManager *l_pCharManager	= NULL;
+		CCharacter *l_pEnemy				= NULL;
+		float l_fAngle						= 0.f;
+
+		l_pCharManager	= m_pProcess->GetCharactersManager();
+
+		//Calcula el ángulo de a ir
+		Vect3f l_Front	= m_pCurrentAnimatedModel->GetFront();
+		bool l_bMovement= CalculateAngleMovement( l_fYaw );
+
+		if( l_bMovement )
+		{
+			//Calcula un ángulo de correción según la dirección marcada
+			l_pEnemy = l_pCharManager->GetPlayerAngleCorrection(_fDetectionDistance, _fDetectionAngle, l_fAngle);
+		}
+		else
+		{
+			//Calcula el ángulo de correción para enfocar hacia un enemigo cercano
+			l_pEnemy = l_pCharManager->IsPlayerNearEnemy(_fDetectionDistance);
+		}
+
+		//Si se ataca a un enemigo, calculamos el nuevo ángulo con la asistencia
+		if( l_pEnemy != NULL )
+		{
+			if( !l_bMovement )
+			{
+				//Calcula el ángulo de giro
+				Vect3f l_EnemyDir = l_pEnemy->GetPosition() - m_Position;
+				l_EnemyDir.Normalize();
+				l_EnemyDir.y	= 0.f;
+
+				l_fAngle		= l_EnemyDir.Dot( l_Front );
+
+				if(l_fAngle > 1.f) 
+					l_fAngle = 1.f;
+				else if(l_fAngle < -1.f)
+					l_fAngle = -1.f;
+
+				l_fAngle		= mathUtils::ACos<float>( l_fAngle );
+			}
+
+			//Mira como tiene que girar el player
+			bool l_bInside	= IsPointAtLeft( l_pEnemy->GetPosition(), l_Front );
+
+			if( l_bInside )
+			{
+				l_fYaw	-= l_fAngle;
+			}	
+			else
+			{
+				l_fYaw	+= l_fAngle;
+			}
+		}
+	}
+
+	return l_fYaw;
+}
+
+bool CPlayer::CalculateAngleMovement( float &_fAngle )
+{
+	bool l_bMove = false;			
+	CActionToInput *l_pInput = CORE->GetActionToInput();
+
+	if( l_pInput->DoAction("MovePlayerUp") )
+	{
+		_fAngle = m_fYaw;
+		if( l_pInput->DoAction("MovePlayerLeft") )
+		{
+			_fAngle += FLOAT_PI_VALUE / 4.f;
+		}
+		else if( l_pInput->DoAction("MovePlayerRight") )
+		{
+			_fAngle -= FLOAT_PI_VALUE / 4.f;
+		}
+
+		l_bMove = true;
+	}
+	else if( l_pInput->DoAction("MovePlayerDown") )
+	{
+		_fAngle = m_fYaw;
+		_fAngle -= FLOAT_PI_VALUE;
+		if( l_pInput->DoAction("MovePlayerLeft") )
+		{
+			_fAngle -= FLOAT_PI_VALUE / 4.f;
+		}
+		else if( l_pInput->DoAction("MovePlayerRight") )
+		{
+			_fAngle += FLOAT_PI_VALUE / 4.f;
+		}
+
+		l_bMove = true;
+	}
+	else if( l_pInput->DoAction("MovePlayerLeft") )
+	{
+		_fAngle = m_fYaw;
+		_fAngle += FLOAT_PI_VALUE / 2.f;
+
+		l_bMove = true;
+	}
+	else if( l_pInput->DoAction("MovePlayerRight") )
+	{
+		_fAngle = m_fYaw;
+		_fAngle -= FLOAT_PI_VALUE / 2.f;
+
+		l_bMove = true;
+	}
+
+	return l_bMove;	
 }
