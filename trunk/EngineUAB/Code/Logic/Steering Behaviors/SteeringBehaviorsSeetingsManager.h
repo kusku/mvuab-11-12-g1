@@ -115,6 +115,11 @@ public:
 	inline void		SetNumberEnemiesToAttackAtSameTime		( int _NumberEnemiesToAttackAtSameTime )			{ m_NumberEnemiesToAttackAtSameTime = _NumberEnemiesToAttackAtSameTime; }
 	inline int		GetNumberEnemiesToAttackAtSameTime		( void ) const										{ return m_NumberEnemiesToAttackAtSameTime; }
 	
+	inline void		SetMaxNumberEnemiesCanHelp				( int _MaxNumberEnemiesCanHelp )					{ m_MaxNumberEnemiesCanHelp = _MaxNumberEnemiesCanHelp; }
+	inline int		GetMaxNumberEnemiesCanHelp				( void ) const										{ return m_MaxNumberEnemiesCanHelp; }
+	
+	inline void		SetMinNumberEnemiesCanHelp				( int _MinNumberEnemiesCanHelp )					{ m_MinNumberEnemiesCanHelp = _MinNumberEnemiesCanHelp; }
+	inline int		GetMinNumberEnemiesCanHelp				( void ) const										{ return m_MinNumberEnemiesCanHelp; }
 	
 	//----Private Functions -----------------------------------------------------
 private:
@@ -169,6 +174,8 @@ private:
 	float				m_prArrive;
 
 	int					m_NumberEnemiesToAttackAtSameTime;
+	int					m_MaxNumberEnemiesCanHelp;
+	int					m_MinNumberEnemiesCanHelp;
 	
 };	
 	

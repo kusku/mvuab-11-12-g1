@@ -208,7 +208,14 @@ bool CSteeringBehaviorsSeetingsManager::LoadXML ( void )
 			{
 				m_NumberEnemiesToAttackAtSameTime = static_cast<int> ( l_XMLPropertiesNode(i).GetIntKeyword( "NumberEnemiesCanAttack", 3 ) );
 			}
-			
+			else if ( l_PropertyField == "MinNumberEnemiesCanHelp" )
+			{
+				m_MinNumberEnemiesCanHelp = static_cast<int> ( l_XMLPropertiesNode(i).GetIntKeyword( "MinNumberEnemiesCanHelp", 2 ) );
+			}
+			else if ( l_PropertyField == "MaxNumberEnemiesCanHelp" )
+			{
+				m_MaxNumberEnemiesCanHelp = static_cast<int> ( l_XMLPropertiesNode(i).GetIntKeyword( "MaxNumberEnemiesCanHelp", 5 ) );
+			}
 			else if ( l_PropertyField != "comment" ) 
 			{
 				std::string msg_error = "CSteeringBehaviorsSeetingsManager::LoadXML->Error when trying to load a node : " + l_PropertyField + " from file: " + m_szFilename;
