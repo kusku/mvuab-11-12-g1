@@ -105,19 +105,19 @@ void CBoxTrigger::Render( CRenderManager *_RM )
 }
 
 //----------------------------------------------
-void CBoxTrigger::OnEnter()
+void CBoxTrigger::OnEnter(CPhysicUserData* _pUserData)
 {
 
 }
 
 //----------------------------------------------
-void CBoxTrigger::OnStay()
+void CBoxTrigger::OnStay(CPhysicUserData* _pUserData)
 {
 
 }
 
 //----------------------------------------------
-void CBoxTrigger::OnExit()
+void CBoxTrigger::OnExit(CPhysicUserData* _pUserData)
 {
 
 }

@@ -54,14 +54,14 @@ class 'CCombatZone2Trigger' (CBoxTrigger)
 		end
 	end
 	
-	function CCombatZone2Trigger:on_enter()
+	function CCombatZone2Trigger:on_enter(user_data)
 		self.action_time:start_action()
 		self.enemy_appeared = 1
 		self.is_appeared = false
 	end
 	
-	function CCombatZone2Trigger:on_stay()
+	function CCombatZone2Trigger:on_stay(user_data)
 	end
 	
-	function CCombatZone2Trigger:on_exit()
+	function CCombatZone2Trigger:on_exit(user_data)
 	end

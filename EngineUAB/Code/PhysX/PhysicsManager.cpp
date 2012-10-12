@@ -1158,3 +1158,11 @@ int CPhysicsManager::GetCollisionGroup( const std::string& _szGroup )
 		return 0;
 	}
 }
+
+bool CPhysicsManager::CompareUserDatas(CPhysicUserData *_pUserData1, CPhysicUserData *_pUserData2)
+{
+	if( _pUserData1 == _pUserData2 )
+		return true;
+
+	return false;
+}

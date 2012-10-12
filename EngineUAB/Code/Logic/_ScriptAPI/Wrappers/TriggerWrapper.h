@@ -6,6 +6,7 @@
 #include "Triggers/Types/BoxTrigger.h"
 #include "Triggers\Types\SphereTrigger.h"
 #include "Scripting\ScriptManager.h"
+#include "PhysicUserData.h"
 
 #if defined (_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -26,19 +27,19 @@ struct Box_Trigger_Wrapper: CBoxTrigger, luabind::wrap_base
 		call<void>("update", _fElapsedTime);
 	}
 
-	virtual void OnEnter()
+	virtual void OnEnter(CPhysicUserData* _pUserData)
 	{
-		call<void>("on_enter");
+		call<void>("on_enter", _pUserData);
 	}
 
-	virtual void OnStay()
+	virtual void OnStay(CPhysicUserData* _pUserData)
 	{
-		call<void>("on_stay");
+		call<void>("on_stay", _pUserData);
 	}
 
-	virtual void OnExit()
+	virtual void OnExit(CPhysicUserData* _pUserData)
 	{
-		call<void>("on_exit");
+		call<void>("on_exit", _pUserData);
 	}
 };
 
@@ -54,19 +55,19 @@ struct Sphere_Trigger_Wrapper: CSphereTrigger, luabind::wrap_base
 		call<void>("update", _fElapsedTime);
 	}
 
-	virtual void OnEnter()
+	virtual void OnEnter(CPhysicUserData* _pUserData)
 	{
-		call<void>("on_enter");
+		call<void>("on_enter", _pUserData);
 	}
 
-	virtual void OnStay()
+	virtual void OnStay(CPhysicUserData* _pUserData)
 	{
-		call<void>("on_stay");
+		call<void>("on_stay", _pUserData);
 	}
 
-	virtual void OnExit()
+	virtual void OnExit(CPhysicUserData* _pUserData)
 	{
-		call<void>("on_exit");
+		call<void>("on_exit", _pUserData);
 	}
 };
 

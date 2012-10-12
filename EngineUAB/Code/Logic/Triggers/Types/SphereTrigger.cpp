@@ -86,19 +86,19 @@ void CSphereTrigger::Render( CRenderManager *_RM )
 }
 
 //----------------------------------------------
-void CSphereTrigger::OnEnter()
+void CSphereTrigger::OnEnter(CPhysicUserData* _pUserData)
 {
 
 }
 
 //----------------------------------------------
-void CSphereTrigger::OnStay()
+void CSphereTrigger::OnStay(CPhysicUserData* _pUserData)
 {
 
 }
 
 //----------------------------------------------
-void CSphereTrigger::OnExit()
+void CSphereTrigger::OnExit(CPhysicUserData* _pUserData)
 {
 
 }

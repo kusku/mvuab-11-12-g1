@@ -6,6 +6,7 @@
 #include "Utils\Named.h"
 #include "Math\Vector3.h"
 #include "Math\Color.h"
+#include "PhysicUserData.h"
 
 //--Forward Declarations------
 class CRenderManager;
@@ -29,9 +30,9 @@ public:
 	virtual void			Render				( CRenderManager *_RM ) = 0;
 
 	//---Trigger Methods---------------------
-	virtual void			OnEnter				() = 0;
-	virtual void			OnStay				() = 0;
-	virtual void			OnExit				() = 0;
+	virtual void			OnEnter				( CPhysicUserData* _pUserData ) = 0;
+	virtual void			OnStay				( CPhysicUserData* _pUserData ) = 0;
+	virtual void			OnExit				( CPhysicUserData* _pUserData ) = 0;
 
 	//---Get & Set Methods-------------------
 	inline void				SetRenderDebug		( bool render )				{ m_bRenderDebugTrigger = render; }

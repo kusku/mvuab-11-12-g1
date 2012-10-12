@@ -62,7 +62,7 @@ class 'CCombatZone8Trigger' (CBoxTrigger)
 		end
 	end
 	
-	function CCombatZone8Trigger:on_enter()
+	function CCombatZone8Trigger:on_enter(user_data)
 		self:can_activate()
 		if ( self.show_wolf ) then
 			get_game_process():get_hud().set_active_wolf_bar = true
@@ -74,12 +74,12 @@ class 'CCombatZone8Trigger' (CBoxTrigger)
 		-- print_logger( 0, "CCombatZone8Trigger:on_enter()" )
 	end
 	
-	function CCombatZone8Trigger:on_stay()
+	function CCombatZone8Trigger:on_stay(user_data)
 		-- print_logger( 0, "CCombatZone8Trigger:on_stay()" )
 		self:can_activate()
 	end
 	
-	function CCombatZone8Trigger:on_exit()
+	function CCombatZone8Trigger:on_exit(user_data)
 	end
 	
 	function CCombatZone8Trigger:can_activate()
