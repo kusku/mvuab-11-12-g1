@@ -29,6 +29,7 @@
 #include "Callbacks\Animation\AnimationCallbackManager.h"
 
 #include "Steering Behaviors\SteeringEntity.h"
+#include "Steering Behaviors\SteeringBehaviorsSeetingsManager.h"
 
 #if defined(_DEBUG)
 	#include "Memory\MemLeaks.h"
@@ -165,7 +166,10 @@ void CWolfHowlEnemiesState::ShowEnemiesToHelp(void)
 	CCharactersManager * l_CM = l_Process->GetCharactersManager();
 	Vect3f l_InitialPosition = m_pWolf->GetPosition();							// Almaceno la posición del wolf que hará de lider a partir de la qual haré la formación
 	
-	uint16 l_TotalEnemies = BoostRandomHelper::GetInt(3, 5);					// Obtengo un nº aleatorio de enemigos 
+	int l_Min = CORE->GetSteeringBehaviourSettingsManager()->GetMinNumberEnemiesCanHelp();
+	int l_Max = CORE->GetSteeringBehaviourSettingsManager()->GetMaxNumberEnemiesCanHelp();
+
+	uint16 l_TotalEnemies = BoostRandomHelper::GetInt(l_Min, l_Max);			// Obtengo un nº aleatorio de enemigos 
 	float	l_DegreesToSetEnemies = 120.f / l_TotalEnemies + 1;					// Con esto tengo los ángulos que tengo que aplicar para colocar cada enemigo
 	
 	Vect3f l_Front  = m_pWolf->GetFront(); 
