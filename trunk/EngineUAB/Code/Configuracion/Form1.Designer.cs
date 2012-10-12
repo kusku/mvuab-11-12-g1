@@ -40,6 +40,7 @@
             this.cbResolution = new System.Windows.Forms.ComboBox();
             this.bApply = new System.Windows.Forms.Button();
             this.bExit = new System.Windows.Forms.Button();
+            this.cbZBlurEnable = new System.Windows.Forms.CheckBox();
             this.tConfig.SuspendLayout();
             this.tpVideo.SuspendLayout();
             this.SuspendLayout();
@@ -61,11 +62,12 @@
             this.tConfig.Location = new System.Drawing.Point(12, 53);
             this.tConfig.Name = "tConfig";
             this.tConfig.SelectedIndex = 0;
-            this.tConfig.Size = new System.Drawing.Size(705, 178);
+            this.tConfig.Size = new System.Drawing.Size(705, 220);
             this.tConfig.TabIndex = 1;
             // 
             // tpVideo
             // 
+            this.tpVideo.Controls.Add(this.cbZBlurEnable);
             this.tpVideo.Controls.Add(this.cbMotionBlurEnable);
             this.tpVideo.Controls.Add(this.cbWindowMode);
             this.tpVideo.Controls.Add(this.cbShadowEnable);
@@ -76,7 +78,7 @@
             this.tpVideo.Location = new System.Drawing.Point(4, 22);
             this.tpVideo.Name = "tpVideo";
             this.tpVideo.Padding = new System.Windows.Forms.Padding(3);
-            this.tpVideo.Size = new System.Drawing.Size(697, 152);
+            this.tpVideo.Size = new System.Drawing.Size(697, 194);
             this.tpVideo.TabIndex = 0;
             this.tpVideo.Text = "Video";
             this.tpVideo.UseVisualStyleBackColor = true;
@@ -162,7 +164,7 @@
             // 
             // bApply
             // 
-            this.bApply.Location = new System.Drawing.Point(557, 237);
+            this.bApply.Location = new System.Drawing.Point(557, 279);
             this.bApply.Name = "bApply";
             this.bApply.Size = new System.Drawing.Size(75, 23);
             this.bApply.TabIndex = 2;
@@ -172,7 +174,7 @@
             // 
             // bExit
             // 
-            this.bExit.Location = new System.Drawing.Point(638, 237);
+            this.bExit.Location = new System.Drawing.Point(638, 279);
             this.bExit.Name = "bExit";
             this.bExit.Size = new System.Drawing.Size(75, 23);
             this.bExit.TabIndex = 3;
@@ -180,11 +182,22 @@
             this.bExit.UseVisualStyleBackColor = true;
             this.bExit.Click += new System.EventHandler(this.bExit_Click);
             // 
+            // cbZBlurEnable
+            // 
+            this.cbZBlurEnable.AutoSize = true;
+            this.cbZBlurEnable.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cbZBlurEnable.Location = new System.Drawing.Point(9, 141);
+            this.cbZBlurEnable.Name = "cbZBlurEnable";
+            this.cbZBlurEnable.Size = new System.Drawing.Size(93, 17);
+            this.cbZBlurEnable.TabIndex = 8;
+            this.cbZBlurEnable.Text = "Z Blur Enable:";
+            this.cbZBlurEnable.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(729, 273);
+            this.ClientSize = new System.Drawing.Size(729, 334);
             this.Controls.Add(this.bExit);
             this.Controls.Add(this.bApply);
             this.Controls.Add(this.tConfig);
@@ -213,6 +226,7 @@
         private System.Windows.Forms.CheckBox cbShadowEnable;
         private System.Windows.Forms.Label lbShadowQuality;
         private System.Windows.Forms.ComboBox cbShadowQuality;
+        private System.Windows.Forms.CheckBox cbZBlurEnable;
     }
 }
 
