@@ -25,14 +25,14 @@ class 'CCombatZone1Trigger' (CBoxTrigger)
 				-- Ahora inicializo la parte de la aparición
 				self.enable_action_time:init_action()
 				self.enable_action_time:start_action()
+				self.is_appeared = false
 			else 
 				self.action_time:update(elapsed_time)
 				
 				local l_enemy = get_game_process():get_character_manager():get_enemy_by_name(t[self.enemy_appeared])
 				if ( l_enemy.enable == false ) then
 					l_enemy:appearance()
-					l_enemy:face_to( get_game_process():get_character_manager():get_player().properties.position, elapsed_time)
-					l_enemy:move_to2( l_enemy.steering_entity.velocity, elapsed_time)
+					self.is_appeared = true
 					-- self.enable_action_time:init_action()
 					-- self.enable_action_time:start_action()
 				end
@@ -59,10 +59,14 @@ class 'CCombatZone1Trigger' (CBoxTrigger)
 	end
 	
 	function CCombatZone1Trigger:on_enter(user_data)
-		self.action_time:start_action()
-		self.enemy_appeared = 1
+		local process = get_game_process()
+		local l_player_user_data = process:get_character_manager():get_player().physic_controller.user_data
 		
-		
+		if( core:get_physics_manager():compare_user_data(user_data, l_player_user_data) ) then
+			self.action_time:start_action()
+			self.enemy_appeared = 1
+			self.is_appeared = false
+		end 
 	end
 	
 	function CCombatZone1Trigger:on_stay(user_data)
