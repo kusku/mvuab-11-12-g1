@@ -34,6 +34,7 @@ private:
 	CParticleEmitterInstance	*m_pParticleEmitter;
 	CGameProcess				*m_pProcess;
 	CActionToInput				*m_pInput;
+	CCharacter					*m_pTarget;
 
 	bool						m_bFirstUpdate;
 	float						m_fMaxVelocityMovement;
