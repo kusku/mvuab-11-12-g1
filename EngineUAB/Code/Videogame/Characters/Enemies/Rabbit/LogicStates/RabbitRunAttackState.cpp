@@ -34,6 +34,7 @@
 #include "Steering Behaviors\SteeringEntity.h"
 #include "Steering Behaviors\SteeringBehaviors.h"
 #include "Steering Behaviors\Seek.h"
+#include "Steering Behaviors\Arrive.h"
 
 #include "Callbacks\Animation\AnimationCallback.h"
 #include "Callbacks\Animation\AnimationCallbackManager.h"
@@ -101,7 +102,7 @@ void CRabbitRunAttackState::OnEnter( CCharacter* _pCharacter )
 	//m_pRabbit->GetSteeringEntity()->SetMaxForce(0.1f);
 
 	// Almacenamos la distancia actual para saber si luego nos hemos pasado
-	m_PlayerInitialPosition		= m_pRabbit->GetPlayer()->GetSteeringEntity()->GetPosition();
+	m_PlayerInitialPosition		= m_pRabbit->GetPlayer()->GetPosition();
 	Vect3f l_Position			= m_pRabbit->GetPosition();
 	Vect3f l_RelativePosition	= m_PlayerInitialPosition - m_pRabbit->GetPosition();
 	Vect3f l_RelativePositionN	= l_RelativePosition.GetNormalized();
@@ -118,7 +119,7 @@ void CRabbitRunAttackState::OnEnter( CCharacter* _pCharacter )
 	// Activo el seek a saco a una posició en el momento de inicio de ataque
 	m_pRabbit->GetBehaviors()->SeekOff();
 	m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_FinalAttackPosition);
-	m_pRabbit->GetBehaviors()->SeparationOn();
+	//m_pRabbit->GetBehaviors()->SeparationOn();
 	m_pRabbit->GetBehaviors()->CohesionOff();
 	m_pRabbit->GetBehaviors()->CollisionAvoidanceOn();
 	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOn();
@@ -240,7 +241,7 @@ void CRabbitRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 				m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_PlayerInitialPosition);
 			}
 
-			// No Rotamos al objetivo y pero si movemos. Esto dará sensación de golpear allí donde estava el target cuando inicie el ataque
+			// No Rotamos al objetivo pero si movemos. Esto dará sensación de golpear allí donde estaba el target cuando inicie el ataque
 			//_CCharacter:face_to( self.target_position, _elapsed_time )
 			m_pRabbit->FaceTo( m_FinalAttackPosition, _ElapsedTime );
 			m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
@@ -252,7 +253,7 @@ void CRabbitRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 	else
 	{
 		m_pRabbit->GetBehaviors()->SeekOff();
-		m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_PlayerInitialPosition);
+		m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_FinalAttackPosition);
 		#if defined _DEBUG
 			if( CORE->IsDebugMode() )
 			{

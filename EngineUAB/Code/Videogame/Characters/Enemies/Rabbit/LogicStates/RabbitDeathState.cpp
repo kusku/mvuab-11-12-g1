@@ -79,6 +79,20 @@ void CRabbitDeathState::OnEnter( CCharacter* _pCharacter )
 	}
 #endif
 
+	// --- Para la gestión del retroceso ---
+	m_InitialHitPoint = m_pRabbit->GetPosition();
+	CProperties * l_Properties = m_pRabbit->GetProperties();
+	float l_MaxHitSpeed = l_Properties->GetHitRecoilSpeed()/3;
+	m_pRabbit->GetSteeringEntity()->SetMaxSpeed(l_MaxHitSpeed);
+	// Me dice la distancia máxima y posición que recorro cuando pega el player y bloqueo hacia atras
+	m_MaxHitDistance = l_Properties->GetHitRecoilDistance()/3;
+		
+	m_HitDirection = m_pRabbit->GetSteeringEntity()->GetFront();
+	m_HitDirection.Normalize();
+	m_HitDirection = m_HitDirection.RotateY(mathUtils::PiTimes(1.f));
+	m_HitDirection = m_HitDirection * l_MaxHitSpeed;
+	// ---------------------------------------
+
 	m_pAnimationCallback->Init();
 	CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Rabbit_Death" );
 	//PlayRandomSound();
@@ -115,6 +129,18 @@ void CRabbitDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		// En otro caso actualizamos el tiempo de animacion sin hacer nada realmente pq el callback ya lo hace
 		else
 		{
+			float l_Distance = m_pRabbit->GetPosition().Distance(m_InitialHitPoint);
+			if ( l_Distance >= m_MaxHitDistance ) 
+			{
+				m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+				m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+				return;
+			} 
+			else
+			{
+				m_pRabbit->MoveTo2(m_HitDirection, _ElapsedTime );
+			}
+
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
