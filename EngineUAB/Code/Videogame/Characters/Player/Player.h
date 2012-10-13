@@ -38,7 +38,7 @@ public:
 	
 	bool			CallHitState	( CCharacter* _pCharacter, const STelegram& _Message );
 
-	float			CalculateAttackYaw( float _fDetectionDistance, float _fDetectionAngle );
+	float			CalculateAttackYaw( float _fDetectionDistance, float _fDetectionAngle, CCharacter *_pTarget );
 
 private: //----Private Methods --------------------------------------
 	void			CreateCallbacks			();

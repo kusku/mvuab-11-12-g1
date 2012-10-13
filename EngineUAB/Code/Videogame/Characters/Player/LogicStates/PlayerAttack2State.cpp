@@ -39,6 +39,7 @@ CPlayerAttack2State::CPlayerAttack2State( CCharacter * _pCharacter, const std::s
 	, m_fAttackAngle( mathUtils::Deg2Rad( _pCharacter->GetProperties()->GetAttackAngle() ) )
 	, m_fDetectionAngle( mathUtils::Deg2Rad( _pCharacter->GetProperties()->GetDetectionAngle() ) )
 	, m_fAttackYaw(0.f)
+	, m_pTarget(NULL)
 {
 	m_pInput			= CORE->GetActionToInput();
 	m_pProcess			= static_cast<CGameProcess*>(CORE->GetProcess());
@@ -52,6 +53,7 @@ CPlayerAttack2State::~CPlayerAttack2State()
 	m_pCallback			= NULL;
 	m_pParticleEmitter	= NULL;
 	m_pInput			= NULL;
+	m_pTarget			= NULL;
 }
 
 void CPlayerAttack2State::OnEnter( CCharacter* _pCharacter )
@@ -67,7 +69,7 @@ void CPlayerAttack2State::OnEnter( CCharacter* _pCharacter )
 	SetParticlePosition(_pCharacter);
 	m_pParticleEmitter->EjectParticles();
 
-	float l_fYaw = static_cast<CPlayer*>(_pCharacter)->CalculateAttackYaw(m_fDetectionDistance, m_fDetectionAngle);
+	float l_fYaw = static_cast<CPlayer*>(_pCharacter)->CalculateAttackYaw(m_fDetectionDistance, m_fDetectionAngle, m_pTarget);
 
 	//Setea el ángulo calculado
 	_pCharacter->GetController()->SetYaw( l_fYaw );
@@ -131,9 +133,20 @@ void CPlayerAttack2State::Execute( CCharacter* _pCharacter, float _fElapsedTime 
 
 	//Movimiento del player hacia adelante
 	Vect3f l_Dir	= v3fZERO;
+
 	if( !_pCharacter->GetLocked() )
 	{
-		l_Dir		= Vect3f( mathUtils::Cos<float>( m_fAttackYaw ), 0.f, mathUtils::Sin<float>( m_fAttackYaw ) );
+		if( m_pTarget != NULL )
+		{
+			if( m_pTarget->GetPosition().Distance( _pCharacter->GetPosition() ) > m_fAttackDistance )
+			{
+				l_Dir = Vect3f( mathUtils::Cos<float>( m_fAttackYaw ), 0.f, mathUtils::Sin<float>( m_fAttackYaw ) );
+			}
+		}
+		else
+		{
+			l_Dir = Vect3f( mathUtils::Cos<float>( m_fAttackYaw ), 0.f, mathUtils::Sin<float>( m_fAttackYaw ) );
+		}
 	}
 
 	//Aplica la velocidad al movimiento

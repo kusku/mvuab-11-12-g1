@@ -369,15 +369,15 @@ bool CPlayer::CallHitState( CCharacter* _pCharacter, const STelegram& _Message )
 	return false;
 }
 
-float CPlayer::CalculateAttackYaw( float _fDetectionDistance, float _fDetectionAngle )
+float CPlayer::CalculateAttackYaw( float _fDetectionDistance, float _fDetectionAngle, CCharacter *_pTarget )
 {
 	//Calcula el ángulo a moverse
 	float l_fYaw = m_pController->GetYaw();
+	CCharacter *l_pEnemy = NULL;
 
 	if( !m_bLocked )
 	{
 		CCharactersManager *l_pCharManager	= NULL;
-		CCharacter *l_pEnemy				= NULL;
 		float l_fAngle						= 0.f;
 
 		l_pCharManager	= m_pProcess->GetCharactersManager();
@@ -427,6 +427,9 @@ float CPlayer::CalculateAttackYaw( float _fDetectionDistance, float _fDetectionA
 		}
 	}
 
+	_pTarget = l_pEnemy;
+
+	l_fYaw = Helper::AngleFilter(l_fYaw);
 	return l_fYaw;
 }
 
