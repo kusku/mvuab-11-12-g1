@@ -121,6 +121,12 @@ public:
 	inline void		SetMinNumberEnemiesCanHelp				( int _MinNumberEnemiesCanHelp )					{ m_MinNumberEnemiesCanHelp = _MinNumberEnemiesCanHelp; }
 	inline int		GetMinNumberEnemiesCanHelp				( void ) const										{ return m_MinNumberEnemiesCanHelp; }
 	
+	inline void		SetCamaraRangeAngleForPrepared			( float _CamaraRangeAngleForPrepared )				{ m_CamaraRangeAngleForPrepared = _CamaraRangeAngleForPrepared; }
+	inline float	SetCamaraRangeAngleForPrepared			( void ) const										{ return m_CamaraRangeAngleForPrepared; }
+	
+	inline void		SetCamaraRangeAngleForAttack			( float _CamaraRangeAngleForAttack )				{ m_CamaraRangeAngleForAttack = _CamaraRangeAngleForAttack; }
+	inline float	SetCamaraRangeAngleForAttack			( void ) const										{ return m_CamaraRangeAngleForAttack; }
+	
 	//----Private Functions -----------------------------------------------------
 private:
 	bool			LoadXML					( void );
@@ -176,7 +182,9 @@ private:
 	int					m_NumberEnemiesToAttackAtSameTime;
 	int					m_MaxNumberEnemiesCanHelp;
 	int					m_MinNumberEnemiesCanHelp;
-	
+
+	float				m_CamaraRangeAngleForPrepared;
+	float				m_CamaraRangeAngleForAttack;
 };	
 	
 #endif __STEERING_BEHAVIORS_SETTINGS_MANAGER_CLASS_H__
