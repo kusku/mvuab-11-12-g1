@@ -218,11 +218,11 @@ bool CSteeringBehaviorsSeetingsManager::LoadXML ( void )
 			}
 			else if ( l_PropertyField == "CamaraRangeAngleForPrepared" )
 			{
-				m_CamaraRangeAngleForPrepared = static_cast<int> ( l_XMLPropertiesNode(i).GetFloatKeyword( "CamaraRangeAngleForPrepared", 120 ) );
+				m_CamaraRangeAngleForPrepared = static_cast<float> ( l_XMLPropertiesNode(i).GetFloatKeyword( "CamaraRangeAngleForPrepared", 120 ) );
 			}
 			else if ( l_PropertyField == "CamaraRangeAngleForAttack" )
 			{
-				m_CamaraRangeAngleForAttack = static_cast<int> ( l_XMLPropertiesNode(i).GetFloatKeyword( "CamaraRangeAngleForAttack", 120 ) );
+				m_CamaraRangeAngleForAttack = static_cast<float> ( l_XMLPropertiesNode(i).GetFloatKeyword( "CamaraRangeAngleForAttack", 120 ) );
 			}
 			else if ( l_PropertyField != "comment" ) 
 			{

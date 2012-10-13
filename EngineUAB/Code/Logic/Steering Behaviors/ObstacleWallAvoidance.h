@@ -25,9 +25,9 @@ public:
 
 
 	//--- Init and End protocols------------------------------------------
-							CObstacleWallAvoidance				( float _DetectionRayLength );
-							///CObstacleWallAvoidance				( const std::vector<CBaseGameEntity> &Obstacles, float _MinDetectionBoxLength );
-	virtual					~CObstacleWallAvoidance				( void );
+							CObstacleWallAvoidance		( float _DetectionRayLength );
+							//CObstacleWallAvoidance	( const std::vector<CBaseGameEntity> &Obstacles, float _MinDetectionBoxLength );
+	virtual					~CObstacleWallAvoidance		( void );
 
 	//---- Main Functions ---------------------------------------
 	virtual	Vect3f			CalculateSteering			( CSteeringEntity *_pEntity );		// Método que deberá ser sobreescrito en cada clase que herede de Steering

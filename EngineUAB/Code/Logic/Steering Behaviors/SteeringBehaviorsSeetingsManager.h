@@ -122,10 +122,10 @@ public:
 	inline int		GetMinNumberEnemiesCanHelp				( void ) const										{ return m_MinNumberEnemiesCanHelp; }
 	
 	inline void		SetCamaraRangeAngleForPrepared			( float _CamaraRangeAngleForPrepared )				{ m_CamaraRangeAngleForPrepared = _CamaraRangeAngleForPrepared; }
-	inline float	SetCamaraRangeAngleForPrepared			( void ) const										{ return m_CamaraRangeAngleForPrepared; }
+	inline float	GetCamaraRangeAngleForPrepared			( void ) const										{ return m_CamaraRangeAngleForPrepared; }
 	
 	inline void		SetCamaraRangeAngleForAttack			( float _CamaraRangeAngleForAttack )				{ m_CamaraRangeAngleForAttack = _CamaraRangeAngleForAttack; }
-	inline float	SetCamaraRangeAngleForAttack			( void ) const										{ return m_CamaraRangeAngleForAttack; }
+	inline float	GetCamaraRangeAngleForAttack			( void ) const										{ return m_CamaraRangeAngleForAttack; }
 	
 	//----Private Functions -----------------------------------------------------
 private:
