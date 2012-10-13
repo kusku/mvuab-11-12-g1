@@ -32,7 +32,7 @@
 // -----------------------------------------
 
 CObstacleWallAvoidance::CObstacleWallAvoidance( float _DetectionRayLength )
-	: CSteering								( ::collision_avoidance )
+	: CSteering								( ::obstacle_wall_avoidance )
 	, m_ObstacleWallDetectionFeelerLength	( _DetectionRayLength )
 {
 }
@@ -48,6 +48,9 @@ CObstacleWallAvoidance::~CObstacleWallAvoidance(void)
 
 Vect3f CObstacleWallAvoidance::CalculateSteering( CSteeringEntity *_pEntity )	
 {
+	// Almacenamos la entidad tratada
+	m_pEntity = _pEntity;
+
 	// Creo los bigotitos...
 	CreateFeelers();
 

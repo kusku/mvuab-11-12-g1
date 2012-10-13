@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef __CLASS_obstacle_wall_avoidance_H__
-#define __CLASS_obstacle_wall_avoidance_H__
+#ifndef __CLASS_OBSTACLE_WALL_AVOIDANCE_H__
+#define __CLASS_OBSTACLE_WALL_AVOIDANCE_H__
 
 
 #include <vector>
@@ -48,4 +48,4 @@ private:
 		CSteeringEntity*	m_pEntity;								// Entidad de la qual tratamos si colisiona
 };
 
-#endif __CLASS_obstacle_wall_avoidance_H__
+#endif __CLASS_OBSTACLE_WALL_AVOIDANCE_H__
