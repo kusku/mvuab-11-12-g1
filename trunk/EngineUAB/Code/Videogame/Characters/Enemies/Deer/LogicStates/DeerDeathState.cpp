@@ -78,6 +78,20 @@ void CDeerDeathState::OnEnter( CCharacter* _pCharacter )
 	}
 #endif
 
+	// --- Para la gestión del retroceso ---
+	m_InitialHitPoint = m_pDeer->GetPosition();
+	CProperties * l_Properties = m_pDeer->GetProperties();
+	float l_MaxHitSpeed = l_Properties->GetHitRecoilSpeed()/2;
+	m_pDeer->GetSteeringEntity()->SetMaxSpeed(l_MaxHitSpeed);
+	// Me dice la distancia máxima y posición que recorro cuando pega el player y bloqueo hacia atras
+	m_MaxHitDistance = l_Properties->GetHitRecoilDistance()/2;
+		
+	m_HitDirection = m_pDeer->GetSteeringEntity()->GetFront();
+	m_HitDirection.Normalize();
+	m_HitDirection = m_HitDirection.RotateY(mathUtils::PiTimes(1.f));
+	m_HitDirection = m_HitDirection * l_MaxHitSpeed;
+	// ---------------------------------------
+	
 	m_pAnimationCallback->Init();
 	CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Deer_Die");
 }
@@ -114,6 +128,18 @@ void CDeerDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		// En otro caso actualizamos el tiempo de animacion sin hacer nada realmente pq el callback ya lo hace
 		else
 		{
+			float l_Distance = m_pDeer->GetPosition().Distance(m_InitialHitPoint);
+			if ( l_Distance >= m_MaxHitDistance ) 
+			{
+				m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+				m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+				return;
+			} 
+			else
+			{
+				m_pDeer->MoveTo2(m_HitDirection, _ElapsedTime );
+			}
+
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
