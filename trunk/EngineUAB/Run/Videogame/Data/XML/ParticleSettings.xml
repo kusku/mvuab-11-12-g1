@@ -439,7 +439,7 @@
 
 	<settings name="DeepSnow">
 		<TextureName value="./Data/General/Textures/Particles/snow.dds" />
-		<MaxParticles value="20000" />
+		<MaxParticles value="5000" />
 
 		<Duration value="10" />
 
