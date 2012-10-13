@@ -4,7 +4,7 @@
 		<active>true</active>
 		<locked>false</locked>
 		<life>100</life>
-		<strong>20</strong>
+		<strong>50</strong>
 		<respawn_position>0 100 0</respawn_position>
 		<mass>50</mass>
 		<max_rotation_speed>10</max_rotation_speed>
@@ -54,11 +54,11 @@
 		<!-- Velocidad de ataque 2 --> 
 		<min_tired_time>1</min_tired_time>
 		<!-- Tiempo mínimo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
-		<max_tired_time>2</max_tired_time>
+		<max_tired_time>3</max_tired_time>
 		<!-- Tiempo máximo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
-		<min_tired_time_after_hit>0.5</min_tired_time_after_hit>
+		<min_tired_time_after_hit>3</min_tired_time_after_hit>
 		<!-- Tiempo mínimo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
-		<max_tired_time_after_hit>1</max_tired_time_after_hit>
+		<max_tired_time_after_hit>4</max_tired_time_after_hit>
 		<!-- Tiempo máximo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
 		<max_hit_recoil_distance>5</max_hit_recoil_distance>
 		<!-- Cantidad de retroceso máximo al recibir un hit -->
@@ -108,13 +108,13 @@
 		<!-- Velocidad de ataque 1 --> 
 		<run_attack_speed>1.4</run_attack_speed>
 		<!-- Velocidad de ataque 2 --> 
-		<min_tired_time>1</min_tired_time>
+		<min_tired_time>2</min_tired_time>
 		<!-- Tiempo mínimo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
-		<max_tired_time>2</max_tired_time>
+		<max_tired_time>3</max_tired_time>
 		<!-- Tiempo máximo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
-		<min_tired_time_after_hit>2</min_tired_time_after_hit>
+		<min_tired_time_after_hit>3</min_tired_time_after_hit>
 		<!-- Tiempo mínimo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
-		<max_tired_time_after_hit>3</max_tired_time_after_hit>
+		<max_tired_time_after_hit>4</max_tired_time_after_hit>
 		<!-- Tiempo máximo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
 		<max_hit_recoil_distance>3.5</max_hit_recoil_distance>
 		<!-- Cantidad de retroceso máximo al recibir un hit -->
@@ -146,7 +146,7 @@
 		<slope>45.0</slope>
 		<skin_width>0.1</skin_width>
 		<step_offset>1.5</step_offset>
-		<animation_offset>0.0</animation_offset>
+		<animation_offset>-0.2</animation_offset>
 	</default_properties>
 	<default_properties core="conejo">
 		<active>false</active>
@@ -163,19 +163,19 @@
 		<!-- En carrera --> 
 		<max_acceleration>0.1</max_acceleration>
 		<!-- Aceleración máxima posible. Actualmente no se usa --> 
-		<max_force>0.015</max_force>
+		<max_force>1.015</max_force>
 		<!-- Fuerza máxima disponible. Se usa en los Steering Behaviors --> 
 		<still_attack_speed>0.3</still_attack_speed>
 		<!-- Velocidad de ataque 1 --> 
-		<run_attack_speed>0.3</run_attack_speed>
+		<run_attack_speed>0.4</run_attack_speed>
 		<!-- Velocidad de ataque 2 --> 
 		<min_tired_time>1</min_tired_time>
 		<!-- Tiempo mínimo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
-		<max_tired_time>2</max_tired_time>
+		<max_tired_time>3</max_tired_time>
 		<!-- Tiempo máximo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
-		<min_tired_time_after_hit>2</min_tired_time_after_hit>
+		<min_tired_time_after_hit>4</min_tired_time_after_hit>
 		<!-- Tiempo mínimo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
-		<max_tired_time_after_hit>3</max_tired_time_after_hit>
+		<max_tired_time_after_hit>5</max_tired_time_after_hit>
 		<!-- Tiempo máximo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
 		<max_hit_recoil_distance>2.5</max_hit_recoil_distance>
 		<!-- Cantidad de retroceso máximo al recibir un hit -->
@@ -189,7 +189,7 @@
 		<chase_distance>20</chase_distance>
 		<!-- Creo que ahora no la uso... -->
 		<follow_path_distance>100</follow_path_distance>
-		<impact_distance>1.5</impact_distance>
+		<impact_distance>1.2</impact_distance>
 		<!-- Está encima el player -->
 		<attack_distance>5</attack_distance>
 		<!-- Está en distancia de poder hacer algunos de los ataques o defensa -->
@@ -206,11 +206,11 @@
 		<slope>45.0</slope>
 		<skin_width>0.1</skin_width>
 		<step_offset>0.5</step_offset>
-		<animation_offset>0.1</animation_offset>
+		<animation_offset>0.0</animation_offset>
 	</default_properties>
 	<player name="Caperu" core="caperucita" animated_instace_name="caperucita1" >
 		<life>100</life>
-		<strong>1000</strong>
+		<strong>50</strong>
 		<speed>25</speed>
 		<velocity>0 0 0</velocity>
 		<yaw>2.36</yaw>
@@ -222,8 +222,9 @@
 		<!--<position>67 -40 19</position>-->					<!-- Posición respawn trigger 4 - Medio -->
 		<!--<position>-20 -38 112</position>-->					<!-- Posición respawn trigger 5 - Subida -->
 		<!--<position>-94 -11 96</position>-->					<!-- Posición respawn trigger 6 - Antes del puente -->
-		<!--<position>-64 -14 -20</position>-->					<!-- Posición respawn trigger 7 - Después del puente --> 
-		<!--<position>-45 -15 -63</position>-->					<!-- Posición respawn trigger 8 - Final Lobo -->
+		<!--<position>-64 -14 -20</position>-->						<!-- Posición respawn trigger 7 - Después del puente --> 
+		<position>-45 -15 -63</position>						<!-- Posición respawn trigger 8 - Final Lobo -->
+		
 		
 	</player>
 	<enemies>
