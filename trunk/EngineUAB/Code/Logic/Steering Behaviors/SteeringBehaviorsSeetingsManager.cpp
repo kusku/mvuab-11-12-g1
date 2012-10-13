@@ -216,6 +216,14 @@ bool CSteeringBehaviorsSeetingsManager::LoadXML ( void )
 			{
 				m_MaxNumberEnemiesCanHelp = static_cast<int> ( l_XMLPropertiesNode(i).GetIntKeyword( "MaxNumberEnemiesCanHelp", 5 ) );
 			}
+			else if ( l_PropertyField == "CamaraRangeAngleForPrepared" )
+			{
+				m_CamaraRangeAngleForPrepared = static_cast<int> ( l_XMLPropertiesNode(i).GetFloatKeyword( "CamaraRangeAngleForPrepared", 120 ) );
+			}
+			else if ( l_PropertyField == "CamaraRangeAngleForAttack" )
+			{
+				m_CamaraRangeAngleForAttack = static_cast<int> ( l_XMLPropertiesNode(i).GetFloatKeyword( "CamaraRangeAngleForAttack", 120 ) );
+			}
 			else if ( l_PropertyField != "comment" ) 
 			{
 				std::string msg_error = "CSteeringBehaviorsSeetingsManager::LoadXML->Error when trying to load a node : " + l_PropertyField + " from file: " + m_szFilename;
