@@ -40,5 +40,9 @@ public:
 private:
 	CDeer					  * m_pDeer;
 	CAnimationCallback		  *	m_pAnimationCallback;
+
+	float						m_MaxHitDistance;		// Me dice la distancia que recorro cuando pega y bloqueo hacia atras
+	Vect3f						m_InitialHitPoint;		// Punto inicial de retroceso
+	Vect3f						m_HitDirection;			// Dirección hacia atrás donde se dirige en el golpeo
 };
 #endif _DEER_DEATH_STATE_H_
