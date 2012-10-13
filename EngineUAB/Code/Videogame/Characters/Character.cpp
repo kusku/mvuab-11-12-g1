@@ -750,18 +750,24 @@ bool CCharacter::IsPlayerReached( void )
 }
 
 // ---------------------------------------------------------------------------------------------------------------
-// GetPointInsideCameraFrustum: Obtiene una posición especifica 
+// GetPointInsideCameraFrustum: Obtiene una posición especifica dentro de la distancia de preparación y segun 
+//							el ángulo en grados
 // ---------------------------------------------------------------------------------------------------------------
-Vect3f CCharacter::GetPointInsideCameraFrustum( void ) const
+Vect3f CCharacter::GetPointInsideCameraFrustum( float _VisionAngle ) const
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	Vect3f	l_Front  = l_Process->GetPlayerCamera()->GetDirection();
 	
+	// Calculamos el front y lo rotamos segun un random 
+	Vect3f	l_Front  = l_Process->GetPlayerCamera()->GetDirection();
+	float l_Angle = BoostRandomHelper::GetFloat(-_VisionAngle/2,_VisionAngle/2); 
+	l_Front.RotateY(mathUtils::Deg2Rad(l_Angle));
+
+	// Obtenemos la máxima distancia donde ir
 	float l_Radi = m_pProperties->GetPreparedAttackDistance();
 
+	// Calculamos la posición final
 	CSteeringEntity * l_Entity	= l_Process->GetCharactersManager()->GetPlayer()->GetSteeringEntity();
 	Vect3f l_Position = l_Entity->GetPosition();
-	//local l_front 	= _CCharacter.steering_entity:get_front()
 	float l_Height 	= l_Entity->GetHeight();
 	l_Front.Normalize();
 	l_Position = Vect3f( l_Position.x + l_Front.x * l_Radi , l_Position.y + l_Height, l_Position.z + l_Front.z * l_Radi );
@@ -785,7 +791,7 @@ bool CCharacter::IsEnemyIntoCameraFrustum( float _RangeAngle, float _ElapsedTime
 // ---------------------------------------------------------------------------------------------------------------
 void CCharacter::GoIntoCameraFrustum( float _RangeAngle, float _ElapsedTime )
 {
-	Vect3f l_PointToGo = GetPointInsideCameraFrustum();
+	Vect3f l_PointToGo = GetPointInsideCameraFrustum(_RangeAngle);
 	m_pBehaviors->GetSeek()->SetTarget(l_PointToGo);
 	m_pBehaviors->SeekOn();
 	FaceTo( GetPlayer()->GetPosition(), _ElapsedTime);

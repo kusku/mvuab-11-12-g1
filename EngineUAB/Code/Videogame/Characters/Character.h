@@ -81,7 +81,7 @@ public:
 	bool						IsEnemyPreparedToAttack		( void );
 	bool						IsEnemyAproximatedToAttack	( void );
 	
-	Vect3f						GetPointInsideCameraFrustum	( void ) const;
+	Vect3f						GetPointInsideCameraFrustum	( float _VisionAngle ) const;
 	Vect3f						GetPositionToAttack			( void ) const;
 	void						GoIntoCameraFrustum			( float _RangeAngle, float _ElapsedTime );	// Permite colocar un caracter dentro del frustum de la càmara en unos grados desde el centro
 	bool						IsEnemyIntoCameraFrustum	( float _RangeAngle, float _ElapsedTime );	// Permite ver si un caracter está dentro del frustum de la càmara en unos grados
@@ -148,7 +148,7 @@ public:
 	inline bool					GetPlayerHasBeenReached ( void ) const								{ return m_PlayerHasBeenReached; }
 
 	inline void					SetToBeTired			( bool _IsTired ) 							{ m_IsTired =_IsTired; }
-	inline bool					GetIsTired				( void ) const									{ return m_IsTired; }
+	inline bool					GetIsTired				( void ) const								{ return m_IsTired; }
 
 	inline const std::string&	GetSpeakerName			( void ) const								{ return m_SpeakerName; }
 
