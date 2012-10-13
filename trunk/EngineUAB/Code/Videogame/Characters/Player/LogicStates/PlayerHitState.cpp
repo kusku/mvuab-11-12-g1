@@ -52,12 +52,21 @@ void CPlayerHitState::OnEnter( CCharacter* _pCharacter )
 
 	// --- Para la gestión del retroceso ---
 	CalculateRecoilDirection(l_pPlayer);
-
 	// ---------------------------------------
+
+	_pCharacter->FaceToForPlayer( m_pEnemy->GetPosition(), CORE->GetTimer()->GetElapsedTime() );
 
 	// De momento si entra es el primer golpeo.
 	m_DoubleHit = false;
-	m_PushHit = false;
+	
+	if ( m_Message.Msg == ::Msg_Push )
+	{
+		m_PushHit = true;
+	}
+	else
+	{
+		m_PushHit = false;
+	}
 
 	// Gestión de partículas. Metemos sangre!!
 	//UpdateImpact(_pCharacter);
@@ -68,8 +77,6 @@ void CPlayerHitState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 {
 	// Actualizamos la posición
 	//UpdateImpact(_pCharacter);
-
-	_pCharacter->FaceToForPlayer( m_pEnemy->GetPosition(), _fElapsedTime );
 
 	if( m_pCallback->IsAnimationFinished() )
 	{	
@@ -90,23 +97,26 @@ void CPlayerHitState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 		m_DoubleHit = false;
 	}
 	
-	/*if ( m_PushHit )
+	if ( !m_PushHit )
 	{
-		CPlayer *l_pPlayer = static_cast<CPlayer*>(_pCharacter);
-		CalculateRecoilDirection(l_pPlayer);
-	}*/
-
-	// Gestiono el retroceso del hit
-	float l_Distance = _pCharacter->GetPosition().Distance(m_InitialHitPoint);
-	if ( l_Distance >= m_MaxHitDistance ) 
-	{
-		_pCharacter->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-		_pCharacter->MoveTo2( _pCharacter->GetSteeringEntity()->GetVelocity(), _fElapsedTime );
-	} 
+		// Gestiono el retroceso del hit
+		float l_Distance = _pCharacter->GetPosition().Distance(m_InitialHitPoint);
+		if ( l_Distance >= m_MaxHitDistance ) 
+		{
+			_pCharacter->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+			_pCharacter->MoveTo2( _pCharacter->GetSteeringEntity()->GetVelocity(), _fElapsedTime );
+		} 
+		else
+		{
+			_pCharacter->MoveTo2(m_HitDirection, _fElapsedTime );
+		}
+	}
 	else
 	{
 		_pCharacter->MoveTo2(m_HitDirection, _fElapsedTime );
 	}
+
+	
 }
 
 void CPlayerHitState::OnExit( CCharacter* _pCharacter )
@@ -167,10 +177,11 @@ void CPlayerHitState::CalculateRecoilDirection( CCharacter * _pCharacter )
 		}
 		LOGGER->AddNewLog( ELL_WARNING, "m_Message.Msg == Msg_Attack" );
 	}
-	else if ( m_Message.Msg == Msg_Push )
+	else if ( ( m_Message.Msg == Msg_Push ) )
 	{
 		m_HitDirection = m_pEnemy->GetSteeringEntity()->GetVelocity();
-		m_HitDirection.y = 0.1f;
+		m_PushHit = true; 
+		//m_HitDirection.y = 0.1f;
 
 		/*if( m_HitDirection.SquaredLength() > 0.00000001f )
 		{
@@ -181,23 +192,26 @@ void CPlayerHitState::CalculateRecoilDirection( CCharacter * _pCharacter )
 			m_HitDirection = m_pEnemy->GetSteeringEntity()->GetHeading();
 		}*/
 		//m_HitDirection *= m_pEnemy->GetProperties()->GetMaxSpeed();
-		_pCharacter->MoveTo2(m_HitDirection*1.2f, CORE->GetTimer()->GetElapsedTime());
+		
+		//Hace el salto
+		/*_pCharacter->GetController()->Jump(50.f);
+
 		m_PushHit = true; 
 		_pCharacter->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-		LOGGER->AddNewLog( ELL_WARNING, "m_Message.Msg == Msg_Push" );
+		LOGGER->AddNewLog( ELL_WARNING, "m_Message.Msg == Msg_Push" );*/
+		
+		//m_PushHit = true;
+		//if ( _pCharacter->GetSteeringEntity()->GetSpeed() == 0 )
+		//{
+		//	//m_HitDirection = l_EnemyFront.RotateY(mathUtils::PiTimes(1.f));	
+		//	m_HitDirection =  m_pEnemy->GetSteeringEntity()->GetVelocity() * 10.f * CORE->GetTimer()->GetElapsedTime();
+		//	//m_HitDirection *= m_MaxHitSpeed;
+		//}
+		//// Si tenemos los dos velocidad el vector resultante indicará la dirección a seguir y recular
+		//else
+		//{
+		//	// Dirección segun la suma de vectores
+		//	m_HitDirection = m_pEnemy->GetSteeringEntity()->GetVelocity() + l_PlayerFront;
+		//}
 	}
 }
-
-
-//else if( _Message.Msg == Msg_Push )
-	//{
-	//	/*CCharacter *l_pEnemy	= static_cast<CGameProcess*>(CORE->GetProcess())->GetCharactersManager()->GetCharacterById(_Message.Sender);
-	//	
-	//	sDireccion * l_Info = (struct sDireccion *) _Message.ExtraInfo;
-	//	_pCharacter->MoveTo2(l_Info->Direccion * 1.2f, l_Info->ElapsedTime);
-	//	_pCharacter->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
-	//	LOGGER->AddNewLog(ELL_INFORMATION, "CPlayerAttack2State::OnMessage -> PUSHED!!");*/
-	//	return l_pPlayer->CallHitState(_pCharacter, _Message);
-	//}
-
-	//return false;
