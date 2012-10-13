@@ -20,6 +20,7 @@
 #include "Characters\Enemies\Wolf\AnimationStates\WolfWalkAnimationState.h"
 #include "Characters\Enemies\Wolf\AnimationStates\WolfIdleAnimationState.h"
 
+#include "Steering Behaviors\SteeringBehaviorsSeetingsManager.h"
 #include "Steering Behaviors\SteeringEntity.h"
 #include "Steering Behaviors\SteeringBehaviors.h"
 #include "Steering Behaviors\Seek.h"
@@ -37,6 +38,10 @@ CWolfPreparedToAttackState::CWolfPreparedToAttackState( CCharacter* _pCharacter 
 	, m_pWolf								( NULL )
 	, m_IsPositionAfterHitPlayerAssigned	( false )
 {
+	if ( _pCharacter != NULL ) 
+	{
+		m_AngleRangeFromCamara = CORE->GetSteeringBehaviourSettingsManager()->GetCamaraRangeAngleForAttack();
+	}
 }
 
 CWolfPreparedToAttackState::CWolfPreparedToAttackState( CCharacter* _pCharacter, const std::string &_Name )
@@ -44,6 +49,10 @@ CWolfPreparedToAttackState::CWolfPreparedToAttackState( CCharacter* _pCharacter,
 	, m_pWolf								( NULL )
 	, m_IsPositionAfterHitPlayerAssigned	( false )
 {
+	if ( _pCharacter != NULL ) 
+	{
+		m_AngleRangeFromCamara = CORE->GetSteeringBehaviourSettingsManager()->GetCamaraRangeAngleForAttack();
+	}
 }
 
 
@@ -90,7 +99,7 @@ void CWolfPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elapse
 		// Si no ser donde tengo que ir...
 		if ( !m_IsPositionAfterHitPlayerAssigned )
 		{
-			m_PositionReachedAfterHitPlayer = m_pWolf->GetPointInsideCameraFrustum();
+			m_PositionReachedAfterHitPlayer = m_pWolf->GetPointInsideCameraFrustum(m_AngleRangeFromCamara);
 			m_IsPositionAfterHitPlayerAssigned	= true;
 		}
 
@@ -154,10 +163,9 @@ void CWolfPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elapse
 		if ( m_pWolf->GetAvalaibleToAttack() ) 
 		{
 			// Este enemigo podria atacar pero no es el seleccionado. Ahora miro si está dentro del angulo de vision y si no lo está lo metemos para que el player pueda verlo
-			float l_Angle = 60.f;			//math.pi/15 == 12 graus de fustrum
-			if ( !m_pWolf->IsEnemyIntoCameraFrustum( l_Angle, _ElapsedTime ) )
+			if ( !m_pWolf->IsEnemyIntoCameraFrustum( m_AngleRangeFromCamara, _ElapsedTime ) )
 			{
-				m_pWolf->GoIntoCameraFrustum(l_Angle, _ElapsedTime);
+				m_pWolf->GoIntoCameraFrustum(m_AngleRangeFromCamara, _ElapsedTime);
 				return;
 			}
 

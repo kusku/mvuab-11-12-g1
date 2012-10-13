@@ -42,6 +42,7 @@ private:
 
 	bool		m_IsPositionAfterHitPlayerAssigned;
 	Vect3f		m_PositionReachedAfterHitPlayer;
+	float		m_AngleRangeFromCamara;		// Angulo en el qual el enemigo puede situarse dentro del frustum. Se buscará una posición dentro de este rango dentro el front de cámara
 };
 
 

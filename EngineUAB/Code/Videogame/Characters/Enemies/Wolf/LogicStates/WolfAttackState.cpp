@@ -29,9 +29,12 @@
 #include "Characters\Enemies\Wolf\AnimationStates\WolfDefenseAnimationState.h"
 #include "Characters\Enemies\Wolf\AnimationStates\WolfHowlEnemiesAnimationState.h"
 #include "Characters\Enemies\Wolf\AnimationStates\WolfHowlLifeAnimationState.h"
+#include "Characters\Enemies\Wolf\AnimationStates\WolfRunAnimationState.h"
 
+#include "Steering Behaviors\SteeringBehaviorsSeetingsManager.h"
 #include "Steering Behaviors\SteeringEntity.h"
 #include "Steering Behaviors\SteeringBehaviors.h"
+#include "Steering Behaviors\Seek.h"
 
 
 #if defined(_DEBUG)
@@ -47,6 +50,10 @@ CWolfAttackState::CWolfAttackState( CCharacter* _pCharacter )
 	, m_ActionTime	( CActionStateCallback( 1.f, 2.f ) )
 	, m_pWolf		( NULL )
 {
+	if ( _pCharacter != NULL ) 
+	{
+		m_AngleRangeFromCamara = CORE->GetSteeringBehaviourSettingsManager()->GetCamaraRangeAngleForAttack();
+	}
 }
 
 CWolfAttackState::CWolfAttackState( CCharacter* _pCharacter, const std::string &_Name )
@@ -54,6 +61,10 @@ CWolfAttackState::CWolfAttackState( CCharacter* _pCharacter, const std::string &
 	, m_ActionTime	( CActionStateCallback( 1.f, 2.f ) )
 	, m_pWolf		( NULL )
 {
+	if ( _pCharacter != NULL ) 
+	{
+		m_AngleRangeFromCamara = CORE->GetSteeringBehaviourSettingsManager()->GetCamaraRangeAngleForAttack();
+	}
 }
 
 
@@ -113,6 +124,26 @@ void CWolfAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		}
 		else 
 		{
+			if (!m_bInPositionToAttack)
+			{
+				float l_Distance = m_pWolf->GetPosition().Distance(m_SearchedAttackPoint);
+				if ( l_Distance <= 0.5f) 
+				{
+					m_pWolf->GetBehaviors()->SeekOff();
+					m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+					m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+					m_bInPositionToAttack = true;
+					return;
+				} 
+				else
+				{
+					m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+				}
+
+				//m_pWolf->GoIntoCameraFrustum(l_Angle, _ElapsedTime);
+				//return;
+			}	
+
 			std::string l_ActiveActionState = GetRandomAttackName();
 			if ( l_ActiveActionState == WOLF_STILL_ATTACK_STATE ) 
 			{
@@ -158,8 +189,14 @@ void CWolfAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 				// _CCharacter.logic_fsm:change_state(_CCharacter.jump_state)
 			else if ( l_ActiveActionState == "go_in_to_frustum" ) 
 			{
-				float l_Angle = 22.f;		// 22,5 graus de fustrum
-				m_pWolf->GoIntoCameraFrustum(l_Angle, _ElapsedTime);
+				m_SearchedAttackPoint = m_pWolf->GetPointInsideCameraFrustum(m_AngleRangeFromCamara);
+				m_pWolf->GetBehaviors()->GetSeek()->SetTarget(m_SearchedAttackPoint);
+				m_pWolf->GetBehaviors()->SeekOn();
+				m_pWolf->FaceTo( m_pWolf->GetPlayer()->GetPosition(), _ElapsedTime);
+				m_pWolf->MoveTo2(m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
+				m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetRunAnimationState());
+				LOGGER->AddNewLog(ELL_INFORMATION, "CCharacter::GoIntoCameraFrustum-> %s fuera del frustum de %f grados", m_Name.c_str(), m_AngleRangeFromCamara);
+				m_bInPositionToAttack = false;
 			}
 
 			#if defined _DEBUG

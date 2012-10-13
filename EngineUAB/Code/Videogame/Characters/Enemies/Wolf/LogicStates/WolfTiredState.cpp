@@ -32,18 +32,24 @@ CWolfTiredState::CWolfTiredState(  CCharacter* _pCharacter )
 	: CState		( _pCharacter, "CWolfTiredState")
 	, m_ActionTime	( 1.f, 2.f )
 	, m_pWolf		( NULL )
-	, m_MinTime		( 1.f )
-	, m_MaxTime		( 2.f )
 {
+	if ( _pCharacter != NULL )
+	{
+		m_MinTime = _pCharacter->GetProperties()->GetMinTiredTime();
+		m_MaxTime = _pCharacter->GetProperties()->GetMaxTiredTime();
+	}
 }
 
 CWolfTiredState::CWolfTiredState(  CCharacter* _pCharacter, const std::string &_Name )
 	: CState		(_pCharacter, _Name)
 	, m_ActionTime	( 1.f, 2.f )
 	, m_pWolf		( NULL )
-	, m_MinTime		( 1.f )
-	, m_MaxTime		( 2.f )
 {
+	if ( _pCharacter != NULL )
+	{
+		m_MinTime = _pCharacter->GetProperties()->GetMinTiredTime();
+		m_MaxTime = _pCharacter->GetProperties()->GetMaxTiredTime();
+	}
 }
 
 
@@ -63,7 +69,7 @@ void CWolfTiredState::OnEnter( CCharacter* _pCharacter )
 		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 
-	m_ActionTime.InitAction(m_MinTime, m_MaxTime);
+	m_ActionTime.InitAction(0.f, m_MinTime, m_MaxTime);
 	m_ActionTime.StartAction();
 	int l_Valor = BoostRandomHelper::GetInt(1, 3);
 	// Me gusta darle doble opción al idle 2... 

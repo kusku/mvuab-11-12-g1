@@ -174,8 +174,8 @@ void CWolfHitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 			// Obligo a descansar entre unos segundos
 			CProperties * l_Properties = m_pWolf->GetProperties();
 			float l_MaxTimeInTired = BoostRandomHelper::GetFloat(l_Properties->GetMinTiredTimeAfterAttack(), l_Properties->GetMaxTiredTimeAfterAttack());
-			m_RecoverMinTiredTime = m_pWolf->GetTiredState()->GetMinTiredTime();
-			m_RecoverMaxTiredTime = m_pWolf->GetTiredState()->GetMaxTiredTime();
+			m_RecoverMinTiredTime = l_Properties->GetMinTiredTime();
+			m_RecoverMaxTiredTime = l_Properties->GetMaxTiredTime();
 			m_pWolf->GetTiredState()->SetTiredTime(0.f, l_MaxTimeInTired);
 			m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetTiredState());
 			m_IsCommingFromTired = true;
