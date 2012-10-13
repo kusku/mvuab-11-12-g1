@@ -66,7 +66,7 @@ class 'CCombatZone8Trigger' (CBoxTrigger)
 		local l_player_user_data = process:get_character_manager():get_player().physic_controller.user_data
 		
 		if( core:get_physics_manager():compare_user_data(user_data, l_player_user_data) ) then
-			self:can_activate(true)
+			self:can_activate(false)
 			if ( self.show_wolf ) then
 				get_game_process():get_hud().set_active_wolf_bar = true
 				self.action_time:start_action()
@@ -103,7 +103,7 @@ class 'CCombatZone8Trigger' (CBoxTrigger)
 	function CCombatZone8Trigger:can_activate(for_test)
 		local  l_previous_enemies_to_die = { "enemy24", "enemy25", "enemy26", "enemy27" }
 		
-		self.show_wolf = true
+		self.show_wolf = false
 		if ( for_test == true ) then 
 			for i=1,4 do 
 				local l_enemy = get_game_process():get_character_manager():get_enemy_by_name(l_previous_enemies_to_die[i])
@@ -112,8 +112,9 @@ class 'CCombatZone8Trigger' (CBoxTrigger)
 					print_logger( 0, "CCombatZone8Trigger:can_activate()" )
 					self.show_wolf = false
 					break
+				else 
+					self.show_wolf = true
 				end 
-				
 			end 
 			
 			-- print_logger( 0, "CCombatZone8Trigger:on_stay()" )
@@ -128,17 +129,16 @@ class 'CCombatZone8Trigger' (CBoxTrigger)
 				-- self.show_wolf = false
 			-- end 
 		else
-			-- local l_can_activate = false
-			-- for i=1,4 do 
-				-- local l_enemy = get_game_process():get_character_manager():get_enemy_by_name(l_previous_enemies_to_die[i])
-				-- l_can_activate = l_can_ativate and l_enemy:is_alive()
-				-- if ( l_can_activate == false ) then
-					-- self.show_wolf = false
-					-- break
-				-- else 
-					-- self.show_wolf = true
-				-- end 	
-			-- end 
+			local l_can_activate = false
+			for i=1,4 do 
+				local l_enemy = get_game_process():get_character_manager():get_enemy_by_name(l_previous_enemies_to_die[i])
+				if ( l_enemy:is_alive() ) then
+					self.show_wolf = false
+					break
+				else 
+					self.show_wolf = true
+				end  	
+			end 
 		end
 	end 
 	
