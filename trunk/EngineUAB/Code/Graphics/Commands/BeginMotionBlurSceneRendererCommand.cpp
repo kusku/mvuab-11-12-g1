@@ -70,6 +70,11 @@ CBeginMotionBlurSceneRendererCommand::CBeginMotionBlurSceneRendererCommand( CXML
 // -----------------------------------------
 void CBeginMotionBlurSceneRendererCommand::Execute( CRenderManager &_RM )
 {	
+	if(!CORE->GetConfig().motion_blur_enable)
+	{
+		return;
+	}
+
 	assert(m_PrevMotionBlurVelocity || m_CurrentMotionBlurVelocity);
 
 	LPDIRECT3DTEXTURE9 tempText = NULL;
