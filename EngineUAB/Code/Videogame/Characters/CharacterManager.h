@@ -56,7 +56,7 @@ public:
 
 	CCharacter*			GetPlayerAngleCorrection			( float _fDistance, float _fMinAngle, float &fAngle_ );
 
-	void				Drawfrustum							( void );
+	void				DrawFrustum							( void );
 	void				DrawFront							( void );
 	void				DrawNames							( CFontManager *_FM );
 	void				DrawRay								( void );

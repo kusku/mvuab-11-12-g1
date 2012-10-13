@@ -281,7 +281,7 @@ void CCharactersManager::Render(CRenderManager *_RM, CFontManager *_FM)
 		DrawFront();
 
 	if ( CORE->GetPhysicsManager()->GetDrawfrustum() )
-		Drawfrustum();
+		DrawFrustum();
 
 	if ( CORE->GetPhysicsManager()->GetDrawNames() )
 		DrawNames(_FM);
@@ -367,7 +367,7 @@ void CCharactersManager::DrawNames( CFontManager *_FM )
 }
 
 // Dibuixem els fustrums dels enemics i del player
-void CCharactersManager::Drawfrustum( void )
+void CCharactersManager::DrawFrustum( void )
 {
 	Mat44f mat;
 	mat.SetIdentity();
