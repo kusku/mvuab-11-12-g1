@@ -336,6 +336,7 @@ void CCharactersManager::DrawDistancesSpheres( void )
 			// Dibuixem esferes
 			mat.Translate((*l_It)->GetSteeringEntity()->GetPosition());
 			l_RM->SetTransform(mat);
+			l_RM->DrawSphere( (*l_It)->GetProperties()->GetWidthController(), 10, colWHITE );		// Bounding box
 			l_RM->DrawSphere( (*l_It)->GetSteeringEntity()->GetBoundingRadius(), 10, colMAGENTA );		// Bounding box
 			l_RM->DrawSphere( (*l_It)->GetProperties()->GetDetectionDistance(), 10, colCYAN );			// Detection distance
 			l_RM->DrawSphere( (*l_It)->GetProperties()->GetAttackDistance(), 10, colRED);				// Impact distance
