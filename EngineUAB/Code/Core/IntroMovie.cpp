@@ -25,6 +25,26 @@ IntroMovie::IntroMovie(void)
 	m_Iface_factory = new OpenAL_AudioInterfaceFactory();
 
 	m_VideoManager->setAudioInterfaceFactory(m_Iface_factory);
+
+	D3DXCreateSprite(CORE->GetRenderManager()->GetDevice(), &m_SpriteBatch);
+
+	assert(m_SpriteBatch);
+
+	if(CORE->GetRenderManager()->GetScreenSizeOriginal() == CORE->GetRenderManager()->GettWindowSize())
+	{
+		m_DiffusePosition = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	}
+	else
+	{
+		Vect2i screenSize = CORE->GetRenderManager()->GetScreenSize();
+		Vect2i windowSize = CORE->GetRenderManager()->GetWindowRectSize();
+
+		int diffHeight = (windowSize.y - screenSize.y) / 2;
+
+		m_DiffusePosition.x = 0.0f;
+		m_DiffusePosition.y = (float)diffHeight;
+		m_DiffusePosition.z = 0.0f;
+	}
 }
 
 
@@ -35,6 +55,7 @@ IntroMovie::~IntroMovie(void)
 	CHECKED_RELEASE(m_TextureFrame);
 	CHECKED_RELEASE(m_SurfaceOffScreen);
 	CHECKED_RELEASE(m_TextureSurface);
+	CHECKED_RELEASE(m_SpriteBatch);
 }
 
 bool IntroMovie::InitMovie( const std::string& moviePath )
@@ -64,13 +85,9 @@ bool IntroMovie::InitMovie( const std::string& moviePath )
 	return true;
 }
 
-void IntroMovie::Render()
+bool IntroMovie::GetMovieFrame()
 {
 	LPDIRECT3DDEVICE9 dxDevice = CORE->GetRenderManager()->GetDevice();
-	CEffectTechnique* technique = CORE->GetEffectManager()->GetEffectTechnique("BasicQuadEffect");
-
-	dxDevice->BeginScene();
-	dxDevice->Clear(0, NULL, D3DCLEAR_TARGET, colBLACK.GetUint32Argb(), 1.0f, 0);
 
 	TheoraVideoFrame* frame = m_Clip->getNextFrame();
 
@@ -105,7 +122,7 @@ void IntroMovie::Render()
 				pix += pix2 << 8;
 				pix += pix3 << 0;
 				//pix += pix4 << 0;
-				
+
 				textBuffer[pixPos] = pix; 
 			}
 		}
@@ -115,12 +132,37 @@ void IntroMovie::Render()
 		m_SurfaceOffScreen->UnlockRect();
 
 		dxDevice->UpdateSurface(m_SurfaceOffScreen, NULL, m_TextureSurface, NULL);
-		
+
 		m_Clip->popFrame();
+
+		return true;
 	}
+
+	return false;
+}
+
+
+void IntroMovie::Render()
+{
+	LPDIRECT3DDEVICE9 dxDevice = CORE->GetRenderManager()->GetDevice();
+
+	bool renderTexture = GetMovieFrame();
+
+	dxDevice->BeginScene();
+	dxDevice->Clear(0, NULL, D3DCLEAR_TARGET, colBLACK.GetUint32Argb(), 1.0f, 0);
 	
-	dxDevice->SetTexture(0, m_TextureFrame);
-	CORE->GetRenderManager()->DrawQuad2DTexturedInPixelsInFullScreen(technique);
+	//if(renderTexture)
+	{
+		CColor color = colWHITE;
+
+		m_SpriteBatch->Begin(0);
+
+		HRESULT hr = m_SpriteBatch->Draw(m_TextureFrame, NULL, NULL, &m_DiffusePosition, (D3DCOLOR)color.GetUint32Argb());
+
+		assert(hr == D3D_OK);
+
+		m_SpriteBatch->End();
+	}
 
 	dxDevice->EndScene();
 	dxDevice->Present(NULL, NULL, NULL, NULL);
