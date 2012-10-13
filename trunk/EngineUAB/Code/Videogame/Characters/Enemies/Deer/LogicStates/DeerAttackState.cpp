@@ -23,10 +23,12 @@
 #include "Characters\Enemies\Deer\AnimationStates\DeerHitAnimationState.h"
 #include "Characters\Enemies\Deer\AnimationStates\DeerIdleAnimationState.h"
 #include "Characters\Enemies\Deer\AnimationStates\DeerDefenseAnimationState.h"
+#include "Characters\Enemies\Deer\AnimationStates\DeerRunAnimationState.h"
 
+#include "Steering Behaviors\SteeringBehaviorsSeetingsManager.h"
 #include "Steering Behaviors\SteeringEntity.h"
 #include "Steering Behaviors\SteeringBehaviors.h"
-
+#include "Steering Behaviors\Seek.h"
 
 #if defined(_DEBUG)
 	#include "Memory\MemLeaks.h"
@@ -41,6 +43,10 @@ CDeerAttackState::CDeerAttackState( CCharacter* _pCharacter )
 	, m_ActionTime	( CActionStateCallback( 1.f, 2.f ) )
 	, m_pDeer		( NULL )
 {
+	if ( _pCharacter != NULL ) 
+	{
+		m_AngleRangeFromCamara = CORE->GetSteeringBehaviourSettingsManager()->GetCamaraRangeAngleForAttack();
+	}
 }
 
 CDeerAttackState::CDeerAttackState( CCharacter* _pCharacter, const std::string &_Name )
@@ -48,6 +54,10 @@ CDeerAttackState::CDeerAttackState( CCharacter* _pCharacter, const std::string &
 	, m_ActionTime	( CActionStateCallback( 1.f, 2.f ) )
 	, m_pDeer		( NULL )
 {
+	if ( _pCharacter != NULL ) 
+	{
+		m_AngleRangeFromCamara = CORE->GetSteeringBehaviourSettingsManager()->GetCamaraRangeAngleForAttack();
+	}
 }
 
 
@@ -75,6 +85,8 @@ void CDeerAttackState::OnEnter( CCharacter* _pCharacter )
 	m_pDeer->GetBehaviors()->SeparationOn();
 	m_pDeer->GetBehaviors()->CollisionAvoidanceOn();
 	m_pDeer->GetBehaviors()->ObstacleWallAvoidanceOn();
+
+	m_bInPositionToAttack = false;
 
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
@@ -108,6 +120,26 @@ void CDeerAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 		}
 		else 
 		{
+			if (!m_bInPositionToAttack)
+			{
+				float l_Distance = m_pDeer->GetPosition().Distance(m_SearchedAttackPoint);
+				if ( l_Distance <= 0.5f) 
+				{
+					m_pDeer->GetBehaviors()->SeekOff();
+					m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+					m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+					m_bInPositionToAttack = true;
+					return;
+				} 
+				else
+				{
+					m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+				}
+
+				//m_pDeer->GoIntoCameraFrustum(l_Angle, _ElapsedTime);
+				//return;
+			}	
+			
 			std::string l_ActiveActionState = GetRandomAttackName();
 			LOGGER->AddNewLog(ELL_INFORMATION, "CDeerAttackState::Execute->Attack Random Sel·leccionat %s", l_ActiveActionState.c_str());
 				
@@ -127,8 +159,14 @@ void CDeerAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 				// _CCharacter.logic_fsm:change_state(_CCharacter.jump_state)
 			else if ( l_ActiveActionState == "go_in_to_frustum" ) 
 			{
-				float l_Angle = 22.f;		// 22,5 graus de fustrum
-				m_pDeer->GoIntoCameraFrustum(l_Angle, _ElapsedTime);
+				m_SearchedAttackPoint = m_pDeer->GetPointInsideCameraFrustum(m_AngleRangeFromCamara);
+				m_pDeer->GetBehaviors()->GetSeek()->SetTarget(m_SearchedAttackPoint);
+				m_pDeer->GetBehaviors()->SeekOn();
+				m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime);
+				m_pDeer->MoveTo2(m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
+				m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetRunAnimationState());
+				LOGGER->AddNewLog(ELL_INFORMATION, "CCharacter::GoIntoCameraFrustum-> %s fuera del frustum de %f grados", m_Name.c_str(), m_AngleRangeFromCamara);
+				m_bInPositionToAttack = false;
 			}
 		} 	// End fatigue
 	}	
@@ -141,7 +179,7 @@ void CDeerAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 
 void CDeerAttackState::OnExit( CCharacter* _pCharacter )
 {
-	if (!m_pDeer) 
+	if (!m_pDeer)  
 	{
 		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}

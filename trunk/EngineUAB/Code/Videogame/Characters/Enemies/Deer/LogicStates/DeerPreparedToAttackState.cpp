@@ -19,6 +19,7 @@
 #include "Characters\Enemies\Deer\AnimationStates\DeerWalkAnimationState.h"
 #include "Characters\Enemies\Deer\AnimationStates\DeerIdleAnimationState.h"
 
+#include "Steering Behaviors\SteeringBehaviorsSeetingsManager.h"
 #include "Steering Behaviors\SteeringEntity.h"
 #include "Steering Behaviors\SteeringBehaviors.h"
 #include "Steering Behaviors\Seek.h"
@@ -36,6 +37,10 @@ CDeerPreparedToAttackState::CDeerPreparedToAttackState( CCharacter* _pCharacter 
 	, m_pDeer								( NULL )
 	, m_IsPositionAssignedAfterHitPlayer	( false )
 {
+	if ( _pCharacter != NULL ) 
+	{
+		m_AngleRangeFromCamara = CORE->GetSteeringBehaviourSettingsManager()->GetCamaraRangeAngleForAttack();
+	}
 }
 
 CDeerPreparedToAttackState::CDeerPreparedToAttackState( CCharacter* _pCharacter, const std::string &_Name )
@@ -43,6 +48,10 @@ CDeerPreparedToAttackState::CDeerPreparedToAttackState( CCharacter* _pCharacter,
 	, m_pDeer								( NULL )
 	, m_IsPositionAssignedAfterHitPlayer	( false )
 {
+	if ( _pCharacter != NULL ) 
+	{
+		m_AngleRangeFromCamara = CORE->GetSteeringBehaviourSettingsManager()->GetCamaraRangeAngleForAttack();
+	}
 }
 
 
@@ -90,7 +99,7 @@ void CDeerPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elapse
 		// Si no ser donde tengo que ir...
 		if ( !m_IsPositionAssignedAfterHitPlayer )
 		{
-			m_PositionReachedAfterHitPlayer = m_pDeer->GetPointInsideCameraFrustum();
+			m_PositionReachedAfterHitPlayer = m_pDeer->GetPointInsideCameraFrustum(m_AngleRangeFromCamara);
 			m_IsPositionAssignedAfterHitPlayer	= true;
 		}
 
@@ -116,7 +125,6 @@ void CDeerPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elapse
 			LOGGER->AddNewLog(ELL_INFORMATION, "CDeerPreparedToAttackState::Execute -> %s peguó al player y ahora vuelve a una posición inicial de ataque", m_pDeer->GetName().c_str());
 		}
 		return;
-		
 	}
 
 	// 1) Caso en que ataco al player. Si está focalizado y suficientemente cerca de atacar lo hace independientemente del angulo de visión del player
@@ -145,10 +153,9 @@ void CDeerPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elapse
 		if ( m_pDeer->GetAvalaibleToAttack() ) 
 		{
 			// Este enemigo podria atacar pero no es el seleccionado. Ahora miro si está dentro del angulo de vision y si no lo está lo metemos para que el player pueda verlo
-			float l_Angle = 60.f;			//math.pi/15 == 12 graus de fustrum
-			if ( !m_pDeer->IsEnemyIntoCameraFrustum( l_Angle, _ElapsedTime ) )
+			if ( !m_pDeer->IsEnemyIntoCameraFrustum( m_AngleRangeFromCamara, _ElapsedTime ) )
 			{
-				m_pDeer->GoIntoCameraFrustum(l_Angle, _ElapsedTime);
+				m_pDeer->GoIntoCameraFrustum(m_AngleRangeFromCamara, _ElapsedTime);
 				return;
 			}
 

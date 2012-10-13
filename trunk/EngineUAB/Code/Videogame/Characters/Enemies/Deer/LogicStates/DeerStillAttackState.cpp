@@ -448,15 +448,18 @@ void CDeerStillAttackState::GenerateImpact( CCharacter* _pCharacter, bool _First
 
 void CDeerStillAttackState::UpdateImpact( CCharacter* _pCharacter )
 {
+	Vect3f l_Pos = _pCharacter->GetPlayer()->GetPosition();
+	l_Pos.y += _pCharacter->GetPlayer()->GetProperties()->GetHeightController();
+	
 	//SetParticlePosition(_pCharacter, "DeerBloodSplash", _pCharacter->GetName() + "_BloodSplashLeft",   "Bip001 R Finger1");
-	SetParticlePosition(_pCharacter, "DeerExpandWave",	_pCharacter->GetName() + "_ExpandWaveLeft",	   "Bip001 R Finger1");
-	SetParticlePosition(_pCharacter, "DeerImpact",		_pCharacter->GetName() + "_ImpactLeft",		   "Bip001 R Finger1");
-	SetParticlePosition(_pCharacter, "DeerStreaks",		_pCharacter->GetName() + "_StreaksLeft",	   "Bip001 R Finger1");
-	SetParticlePosition(_pCharacter, "DeerSparks",		_pCharacter->GetName() + "_SparksLeft",		   "Bip001 R Finger1");
+	SetParticlePosition(_pCharacter, "DeerExpandWave",	_pCharacter->GetName() + "_ExpandWaveLeft",	   "", l_Pos );
+	SetParticlePosition(_pCharacter, "DeerImpact",		_pCharacter->GetName() + "_ImpactLeft",		   "", l_Pos );
+	SetParticlePosition(_pCharacter, "DeerStreaks",		_pCharacter->GetName() + "_StreaksLeft",	   "", l_Pos );
+	SetParticlePosition(_pCharacter, "DeerSparks",		_pCharacter->GetName() + "_SparksLeft",		   "", l_Pos );
 																									   
 	//SetParticlePosition(_pCharacter, "DeerBloodSplash", _pCharacter->GetName() + "_BloodSplashRight",  "Bip001 L Finger1");
-	SetParticlePosition(_pCharacter, "DeerExpandWave",	_pCharacter->GetName() + "_ExpandWaveRigth",   "Bip001 L Finger1");
-	SetParticlePosition(_pCharacter, "DeerImpact",		_pCharacter->GetName() + "_ImpactRight",	   "Bip001 L Finger1");
-	SetParticlePosition(_pCharacter, "DeerStreaks",		_pCharacter->GetName() + "_StreaksRigth",	   "Bip001 L Finger1");
-	SetParticlePosition(_pCharacter, "DeerSparks",		_pCharacter->GetName() + "_SparksRigth",	   "Bip001 L Finger1");
+	SetParticlePosition(_pCharacter, "DeerExpandWave",	_pCharacter->GetName() + "_ExpandWaveRigth",   "", l_Pos);
+	SetParticlePosition(_pCharacter, "DeerImpact",		_pCharacter->GetName() + "_ImpactRight",	   "", l_Pos);
+	SetParticlePosition(_pCharacter, "DeerStreaks",		_pCharacter->GetName() + "_StreaksRigth",	   "", l_Pos);
+	SetParticlePosition(_pCharacter, "DeerSparks",		_pCharacter->GetName() + "_SparksRigth",	   "", l_Pos);
 }

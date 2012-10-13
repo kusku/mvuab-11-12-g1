@@ -153,6 +153,16 @@ void CDeerRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 
 			UpdateImpact(m_pDeer);
 			GenerateImpact(m_pDeer);
+
+			if ( DISPATCH != NULL ) 
+			{
+				DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pDeer->GetID(), m_pDeer->GetPlayer()->GetID(), Msg_Push, &m_AditionalInfo );
+				m_playerPushed = true;
+			}
+			else
+			{
+				LOGGER->AddNewLog(ELL_ERROR, "CDeerRunAttackState:Execute->El Dispatch es NULL" );
+			}
 		}
 			
 		// Compruebo si la animación ha finalizado. Trato también el caso que me pase de la posición. Podria ser que la animación tardara demasiado y esto enviaria el deer demasiado lejos
@@ -172,38 +182,41 @@ void CDeerRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		if ( m_pAnimationCallback->IsAnimationFinished() )
 		{
 			// Si encontré el player por delante finalizo golpeando
-			if ( m_pDeer->GetPlayerHasBeenReached() )
-			{
-				// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio. En este caso no queremos
-				// pq hace un desplazamiento que después de este ataque no queremos que haga.
-				m_pDeer->SetToBeTired(true);
+			//if ( m_pDeer->GetPlayerHasBeenReached() )
+			//{
+			//	// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio. En este caso no queremos
+			//	// pq hace un desplazamiento que después de este ataque no queremos que haga.
+			//	m_pDeer->SetToBeTired(true);
 
-				if ( DISPATCH != NULL ) 
-				{
-					DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pDeer->GetID(), m_pDeer->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
-					//m_pAnimationCallback->Init();
-					#if defined _DEBUG
-						if( CORE->IsDebugMode() )
-						{
-							LOGGER->AddNewLog(ELL_INFORMATION, "CDeerRunAttackState:Execute->Dispatch" );
-						}
-					#endif
-				}
-				else
-				{
-					LOGGER->AddNewLog(ELL_ERROR, "CDeerRunAttackState:Execute->El Dispatch es NULL" );
-				}
-			}
-			else
-			{
-				#if defined _DEBUG
-					if( CORE->IsDebugMode() )
-					{
-						LOGGER->AddNewLog(ELL_INFORMATION,"CDeerRunAttackState::Execute->Golpeo erratico");
-					}
-				#endif
-			}
+			//	if ( DISPATCH != NULL ) 
+			//	{
+			//		DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pDeer->GetID(), m_pDeer->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
+			//		//m_pAnimationCallback->Init();
+			//		#if defined _DEBUG
+			//			if( CORE->IsDebugMode() )
+			//			{
+			//				LOGGER->AddNewLog(ELL_INFORMATION, "CDeerRunAttackState:Execute->Dispatch" );
+			//			}
+			//		#endif
+			//	}
+			//	else
+			//	{
+			//		LOGGER->AddNewLog(ELL_ERROR, "CDeerRunAttackState:Execute->El Dispatch es NULL" );
+			//	}
+			//}
+			//else
+			//{
+			//	#if defined _DEBUG
+			//		if( CORE->IsDebugMode() )
+			//		{
+			//			LOGGER->AddNewLog(ELL_INFORMATION,"CDeerRunAttackState::Execute->Golpeo erratico");
+			//		}
+			//	#endif
+			//}
 				
+			// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio
+			m_pDeer->SetToBeTired(true);
+			
 			// Incrementamos el nº de ataques hechos --> si llega a un total estará cansado
 			m_pDeer->SetHitsDone(m_pDeer->GetHitsDone() + 1);
 
@@ -221,23 +234,13 @@ void CDeerRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		else
 		{
 			// Si encuentro el player por delante me lo llevo
-			if ( m_pDeer->GetPlayerHasBeenReached() )
+			/*if ( m_pDeer->GetPlayerHasBeenReached() )
 			{
 				if ( !m_playerPushed )
 				{
+					UpdateImpact(m_pDeer);
 					GenerateImpact(m_pDeer);
 				}
-				
-				if ( DISPATCH != NULL ) 
-				{
-					DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pDeer->GetID(), m_pDeer->GetPlayer()->GetID(), Msg_Push, &m_AditionalInfo );
-					m_playerPushed = true;
-				}
-				else
-				{
-					LOGGER->AddNewLog(ELL_ERROR, "CDeerRunAttackState:Execute->El Dispatch es NULL" );
-				}
-				
 			}
 			else
 			{
@@ -247,7 +250,7 @@ void CDeerRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 						LOGGER->AddNewLog(ELL_INFORMATION, "CDeerRunAttackState:Execute->Animation Not finished yet" );
 					}
 				#endif
-			}
+			}*/
 		
 			// Comprobamos que no nos hemos pasado de la posición final
 			Vect2f l_EnemyPosicion  = Vect2f ( m_pDeer->GetPosition().x, m_pDeer->GetPosition().z);
@@ -295,6 +298,19 @@ void CDeerRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		{
 			m_pDeer->SetPlayerHasBeenReached(true);
 			CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Deer_Run_Attack_Charged"); 
+
+			UpdateImpact(m_pDeer);
+			GenerateImpact(m_pDeer);
+
+			if ( DISPATCH != NULL ) 
+			{
+				DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pDeer->GetID(), m_pDeer->GetPlayer()->GetID(), Msg_Push, &m_AditionalInfo );
+				m_playerPushed = true;
+			}
+			else
+			{
+				LOGGER->AddNewLog(ELL_ERROR, "CDeerRunAttackState:Execute->El Dispatch es NULL" );
+			}
 		}
 	}
 }
@@ -318,7 +334,7 @@ void CDeerRunAttackState::OnExit( CCharacter* _pCharacter )
 
 	// Restauramos la velocidad original
 	m_pDeer->GetSteeringEntity()->SetMaxSpeed(m_pDeer->GetProperties()->GetMaxSpeed());
-	CORE->GetSoundManager()->PlayEvent("Stop_EFX_Deer_run_attack"); 
+	//CORE->GetSoundManager()->PlayEvent("Stop_EFX_Deer_run_attack"); 
 
 	// Finalizamos las partículas
 	StopImpact(m_pDeer);
@@ -344,11 +360,12 @@ void CDeerRunAttackState::GenerateImpact( CCharacter* _pCharacter )
 
 void CDeerRunAttackState::UpdateImpact( CCharacter* _pCharacter )
 {
-	Vect3f l_Pos = _pCharacter->GetPosition() + _pCharacter->GetFront();
-	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
-	SetParticlePosition(_pCharacter, "DeerRunImpact",	   _pCharacter->GetName() + "_DeerRunImpact",		"", l_Pos);
-	SetParticlePosition(_pCharacter, "DeerRunExpandWave",  _pCharacter->GetName() + "_DeerRunExpandWave",	"", l_Pos);
-	SetParticlePosition(_pCharacter, "DeerRunAttackRay",   _pCharacter->GetName() + "_DeerRunAttackRay",    "", l_Pos);
+	Vect3f l_Pos = _pCharacter->GetPlayer()->GetPosition();
+	l_Pos.y += _pCharacter->GetPlayer()->GetProperties()->GetHeightController();
+	
+	SetParticlePosition(_pCharacter, "DeerRunImpact",	   _pCharacter->GetName() + "_DeerRunImpact",		"", l_Pos );
+	SetParticlePosition(_pCharacter, "DeerRunExpandWave",  _pCharacter->GetName() + "_DeerRunExpandWave",	"", l_Pos );
+	SetParticlePosition(_pCharacter, "DeerRunAttackRay",   _pCharacter->GetName() + "_DeerRunAttackRay",    "", l_Pos );
 	SetParticlePosition(_pCharacter, "DeerRunAttackCloud", _pCharacter->GetName() + "_DeerRunAttackCloud",	"", _pCharacter->GetPosition());
 }
 

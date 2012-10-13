@@ -161,9 +161,9 @@ void CDeerHitState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		{
 			// Obligo a descansar entre unos segundos
 			CProperties * l_Properties = m_pDeer->GetProperties();
-		float l_MaxTimeInTired = BoostRandomHelper::GetFloat(l_Properties->GetMinTiredTimeAfterAttack(), l_Properties->GetMaxTiredTimeAfterAttack());
-			m_RecoverMinTiredTime = m_pDeer->GetTiredState()->GetMinTiredTime();
-			m_RecoverMaxTiredTime = m_pDeer->GetTiredState()->GetMaxTiredTime();
+			float l_MaxTimeInTired = BoostRandomHelper::GetFloat(l_Properties->GetMinTiredTimeAfterAttack(), l_Properties->GetMaxTiredTimeAfterAttack());
+			m_RecoverMinTiredTime = l_Properties->GetMinTiredTime();
+			m_RecoverMaxTiredTime = l_Properties->GetMaxTiredTime();
 			m_pDeer->GetTiredState()->SetTiredTime(0.f, l_MaxTimeInTired);
 			m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetTiredState());
 			m_IsCommingFromTired = true;
