@@ -28,6 +28,7 @@ CWideScreenCommand::CWideScreenCommand( CXMLTreeNode &_Node )
 {
 
 	LPDIRECT3DDEVICE9 dx9Device = CORE->GetRenderManager()->GetDevice();
+
 	D3DXCreateSprite(dx9Device, &m_SpriteBatch);
 
 	assert(m_SpriteBatch);
@@ -61,6 +62,7 @@ CWideScreenCommand::CWideScreenCommand( CXMLTreeNode &_Node )
 
 CWideScreenCommand::~CWideScreenCommand()
 {
+	CHECKED_RELEASE(m_SpriteBatch);
 }
 
 // --------------------------------------------
