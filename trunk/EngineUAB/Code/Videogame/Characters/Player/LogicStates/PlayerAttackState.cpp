@@ -176,7 +176,7 @@ void CPlayerAttackState::OnExit( CCharacter* _pCharacter )
 
 	if( l_pEnemy != NULL )
 	{
-		//CORE->GetMessageDispatcher()->DispatchStateMessage(SEND_MSG_IMMEDIATELY, _pCharacter->GetID(), l_pEnemy->GetID(), Msg_Attack, NO_ADDITIONAL_INFO);
+		CORE->GetMessageDispatcher()->DispatchStateMessage(SEND_MSG_IMMEDIATELY, _pCharacter->GetID(), l_pEnemy->GetID(), Msg_Attack, NO_ADDITIONAL_INFO);
 	}
 }
 
