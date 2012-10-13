@@ -5,6 +5,7 @@
 
 #include "TheoraPlayer.h"
 #include "OpenAL_AudioInterface.h"
+#include "Math\Vector3.h"
 #include <d3dx9.h>
 
 class IntroMovie
@@ -19,7 +20,11 @@ class IntroMovie
 	LPDIRECT3DTEXTURE9 m_TextureFrame;
 	LPDIRECT3DSURFACE9 m_SurfaceOffScreen;
 	LPDIRECT3DSURFACE9 m_TextureSurface;
+	ID3DXSprite*		m_SpriteBatch;
+	D3DXVECTOR3			m_DiffusePosition;
 
+
+	bool GetMovieFrame();
 
 public:
 	IntroMovie(void);
