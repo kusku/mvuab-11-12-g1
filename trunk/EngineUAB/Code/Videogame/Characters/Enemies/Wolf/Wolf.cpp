@@ -11,6 +11,7 @@
 #include "StatesMachine\StateMachine.h"
 #include "StatesMachine\State.h"
 
+#include "Steering Behaviors\SteeringBehaviorsSeetingsManager.h"
 #include "Steering Behaviors\SteeringBehaviors.h"
 #include "Steering Behaviors\Seek.h"
 #include "Steering Behaviors\Flee.h"
@@ -217,7 +218,7 @@ bool CWolf::Init( void )
 	this->GetBehaviors()->AddBehavior( new CArrive() );
 	this->GetBehaviors()->AddBehavior( new CWander() );
 	this->GetBehaviors()->AddBehavior( new CCollisionAvoidance(this->GetProperties()->GetPanicDistance()) );
-	this->GetBehaviors()->AddBehavior( new CObstacleWallAvoidance(this->GetProperties()->GetDetectionDistance()) );
+	this->GetBehaviors()->AddBehavior( new CObstacleWallAvoidance( CORE->GetSteeringBehaviourSettingsManager()->GetObstacleWallDetectionFeelerLength() ) );
 
 	// --- Flocking ---
 	this->GetBehaviors()->AddBehavior( new CSeparation() );

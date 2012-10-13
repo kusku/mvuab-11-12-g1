@@ -41,6 +41,9 @@ private:
 	CActionStateCallback		m_ActionTime;
 	CWolf					  * m_pWolf;
 	
+	bool						m_bInPositionToAttack;		// Me dice que si he llegado a las posiciones de ataque
+	Vect3f						m_SearchedAttackPoint;		// Punto al cual el caracter se va a situar
+	float						m_AngleRangeFromCamara;		// Angulo en el qual el enemigo puede situarse dentro del frustum. Se buscará una posición dentro de este rango dentro el front de cámara
 };
 
 
