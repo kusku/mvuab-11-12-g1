@@ -143,7 +143,7 @@ void CRabbitAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 				
 			if ( l_ActiveActionState == RABBIT_STILL_ATTACK_STATE ) 
 			{
-				//m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetStillAttackState());
+				m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetStillAttackState());
 			}	
 			else if ( l_ActiveActionState == RABBIT_RUN_ATTACK_STATE ) 
 			{
