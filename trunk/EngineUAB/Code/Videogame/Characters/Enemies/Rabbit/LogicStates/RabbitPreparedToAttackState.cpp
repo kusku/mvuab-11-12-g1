@@ -25,6 +25,7 @@
 #include "Characters\Enemies\Rabbit\AnimationStates\RabbitWalkAnimationState.h"
 #include "Characters\Enemies\Rabbit\AnimationStates\RabbitIdleAnimationState.h"
 
+#include "Steering Behaviors\SteeringBehaviorsSeetingsManager.h"
 #include "Steering Behaviors\SteeringEntity.h"
 #include "Steering Behaviors\SteeringBehaviors.h"
 #include "Steering Behaviors\Seek.h"
@@ -43,6 +44,10 @@ CRabbitPreparedToAttackState::CRabbitPreparedToAttackState( CCharacter* _pCharac
 	, m_pRabbit								( NULL )
 	, m_IsPositionAssignedAfterHitPlayer	( false )
 {
+	if ( _pCharacter != NULL ) 
+	{
+		m_AngleRangeFromCamara = CORE->GetSteeringBehaviourSettingsManager()->GetCamaraRangeAngleForAttack();
+	}
 }
 
 CRabbitPreparedToAttackState::CRabbitPreparedToAttackState( CCharacter* _pCharacter, const std::string &_Name )
@@ -50,6 +55,10 @@ CRabbitPreparedToAttackState::CRabbitPreparedToAttackState( CCharacter* _pCharac
 	, m_pRabbit								( NULL )
 	, m_IsPositionAssignedAfterHitPlayer	( false )
 {
+	if ( _pCharacter != NULL ) 
+	{
+		m_AngleRangeFromCamara = CORE->GetSteeringBehaviourSettingsManager()->GetCamaraRangeAngleForPrepared();
+	}
 }
 
 
@@ -97,7 +106,7 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elap
 		// Si no ser donde tengo que ir...
 		if ( !m_IsPositionAssignedAfterHitPlayer )
 		{
-			m_PositionReachedAfterHitPlayer = m_pRabbit->GetPointInsideCameraFrustum();
+			m_PositionReachedAfterHitPlayer = m_pRabbit->GetPointInsideCameraFrustum(m_AngleRangeFromCamara);		// el angulo de vision de 64º
 			m_IsPositionAssignedAfterHitPlayer	= true;
 		}
 
@@ -152,10 +161,9 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elap
 		if ( m_pRabbit->GetAvalaibleToAttack() ) 
 		{
 			// Este enemigo podria atacar pero no es el seleccionado. Ahora miro si está dentro del angulo de vision y si no lo está lo metemos para que el player pueda verlo
-			float l_Angle = 60.f;			//math.pi/15 == 12 graus de fustrum
-			if ( !m_pRabbit->IsEnemyIntoCameraFrustum( l_Angle, _ElapsedTime ) )
+			if ( !m_pRabbit->IsEnemyIntoCameraFrustum( m_AngleRangeFromCamara, _ElapsedTime ) )
 			{
-				m_pRabbit->GoIntoCameraFrustum(l_Angle, _ElapsedTime);
+				m_pRabbit->GoIntoCameraFrustum(m_AngleRangeFromCamara, _ElapsedTime);
 				return;
 			}
 

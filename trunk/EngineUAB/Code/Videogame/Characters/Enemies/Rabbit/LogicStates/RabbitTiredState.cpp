@@ -69,7 +69,7 @@ void CRabbitTiredState::OnEnter( CCharacter* _pCharacter )
 		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 
-	m_ActionTime.InitAction(m_MinTime, m_MaxTime);
+	m_ActionTime.InitAction(0.f, m_MinTime, m_MaxTime);
 	m_ActionTime.StartAction();
 	//int l_Valor = BoostRandomHelper::GetInt(1, 3);
 	// Me gusta darle doble opción al idle 2... 
