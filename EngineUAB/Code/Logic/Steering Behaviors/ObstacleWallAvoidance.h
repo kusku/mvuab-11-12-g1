@@ -35,7 +35,10 @@ public:
 
 	//---- Functions ---------------------------------------
 private:	
-	
+	void					DrawRays					( Vect3f _Ray );
+	const Vect3f			GetInitialPositionToThrowRay( void ) const;
+	const Vect3f			GetDirectionRay				( float _Degrees ) const;
+
 	//CPhysicUserData*		ThrowCollisionRays			( CSteeringEntity *_pEntity, SCollisionInfo& _Info, float _MaxDistance = 0xffffffff );
 
 	//---- Properties ( get & Set )---------------------------------------
