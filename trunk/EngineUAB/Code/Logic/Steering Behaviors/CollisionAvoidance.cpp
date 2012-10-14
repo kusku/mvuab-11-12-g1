@@ -681,7 +681,7 @@ Vect3f CCollisionAvoidance::CalculateSteering1( CSteeringEntity *_pEntity )
     }
 }
 
- //------------------------------- CreateFeelers --------------------------
+//------------------------------- CreateFeelers --------------------------
 //
 //  Creates the antenna utilized by WallAvoidance
 //------------------------------------------------------------------------
@@ -693,6 +693,7 @@ void CCollisionAvoidance::CreateFeelers( float _Angle )
 	{
 
 		Vect3f l_Front = m_pEntity->GetFront();
+		l_Front.y = 0;
 		l_Front.RotateY(mathUtils::Deg2Rad(i));
 		m_Feelers.push_back(l_Front);
 

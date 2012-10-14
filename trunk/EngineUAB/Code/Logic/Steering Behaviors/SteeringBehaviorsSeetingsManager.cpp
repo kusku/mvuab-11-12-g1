@@ -90,7 +90,15 @@ bool CSteeringBehaviorsSeetingsManager::LoadXML ( void )
 			
 			if( l_PropertyField == "ObstacleWallDetectionFeelerLength" )
 			{
-				m_ObstacleWallDetectionFeelerLength = static_cast<float> ( l_XMLPropertiesNode(i).GetFloatKeyword( "ObstacleWallDetectionFeelerLength", 40.f ) );
+				m_ObstacleWallDetectionFeelerLength = static_cast<float> ( l_XMLPropertiesNode(i).GetFloatKeyword( "ObstacleWallDetectionFeelerLength", 2.f ) );
+			}
+			else if ( l_PropertyField == "ObstacleWallDetectionFeelerAngle" )
+			{
+				m_ObstacleWallDetectionFeelerAngle = static_cast<float> ( l_XMLPropertiesNode(i).GetFloatKeyword( "ObstacleWallDetectionFeelerAngle", 60.f ) );
+			}
+			else if ( l_PropertyField == "ObstacleWallDetectionFeelerAngleIncrement" )
+			{
+				m_ObstacleWallDetectionFeelerAngleIncrement = static_cast<float> ( l_XMLPropertiesNode(i).GetFloatKeyword( "ObstacleWallDetectionFeelerAngleIncrement", 2.f ) );
 			}
 			else if ( l_PropertyField == "CollisionDetectionFeelerLength" )
 			{
