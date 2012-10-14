@@ -1,0 +1,44 @@
+%% Based on a TeXnicCenter-Template by Gyorgy SZEIDL.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------
+%
+\documentclass[a4paper,11pt,spanish]{book}
+
+%----- Paquetes ----------------------
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+
+%----- Inicio del Documento ----------
+\begin{document}
+
+\pagenumbering{roman}
+\thispagestyle{empty}
+\frontmatter
+
+%----- Portada -----------------------
+\title{Red Forest}
+\author{Jordi Arenas, Carlos Chacón, Marc Cuscullola, Alexandre Spyropoulos, David Torres }
+\date{Bellaterra, Octubre de 2012}
+\maketitle
+
+%----- Índice -----------------------
+\tableofcontents
+
+\mainmatter
+\newpage
+\pagenumbering{arabic}
+\pagestyle{headings}
+
+%----- Contenido --------------------
+\include{section/introduction}
+\include{section/design_document}
+\include{section/development}
+\include{section/results}
+\include{section/conclusions}
+\include{section/bibliography}
+\include{section/appendix}
+
+%----- Fin del Documento ------------
+\end{document}
