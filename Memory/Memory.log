@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2012.10.14)  14 OCT 2012 17:14
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2012.10.14)  14 OCT 2012 23:23
 entering extended mode
 **Memory.tex
 (C:\Users\Marc\Documents\UAB\Memory\Memory.tex
@@ -88,6 +88,7 @@ Package babel Info: Making < an active character on input line 630.
 Package babel Info: Making > an active character on input line 630.
 ))
 (C:\Users\Marc\Documents\UAB\Memory\Memory.aux
+(C:\Users\Marc\Documents\UAB\Memory\section/cover.aux)
 (C:\Users\Marc\Documents\UAB\Memory\section/introduction.aux)
 (C:\Users\Marc\Documents\UAB\Memory\section/design_document.aux)
 (C:\Users\Marc\Documents\UAB\Memory\section/development.aux)
@@ -96,92 +97,116 @@ Package babel Info: Making > an active character on input line 630.
 (C:\Users\Marc\Documents\UAB\Memory\section/bibliography.aux)
 (C:\Users\Marc\Documents\UAB\Memory\section/appendix.aux)
 (C:\Users\Marc\Documents\UAB\Memory\section/abstract.aux))
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 24.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 24.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 24.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
 
-Overfull \hbox (90.2163pt too wide) in paragraph at lines 24--24
- [][] 
- []
+(C:\Users\Marc\Documents\UAB\Memory\section/cover.tex
+File: figures/uab.eps Graphic file (type eps)
+ <figures/uab.eps>
+File: figures/ee.eps Graphic file (type eps)
 
-[1
+<figures/ee.eps>) [1
 
 
 
 ] [2
 
+
 ] (C:\Users\Marc\Documents\UAB\Memory\Memory.toc
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 5.
-)
+(Font)              <10.95> on input line 3.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 3.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 3.
+
+[3
+
+])
 \tf@toc=\write3
- [3] [4
-
-]
-(C:\Users\Marc\Documents\UAB\Memory\section/introduction.tex
+ [4] (C:\Users\Marc\Documents\UAB\Memory\section/introduction.tex
 Cap\'{\i }tulo 1.
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 4.
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t1cmtt.fd"
-File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-)) [1
+) [1
 
 
-]
-(C:\Users\Marc\Documents\UAB\Memory\section/design_document.tex [2
+
+] (C:\Users\Marc\Documents\UAB\Memory\section/design_document.tex [2
 
 
 
 ]
 Cap\'{\i }tulo 2.
-) [3] (C:\Users\Marc\Documents\UAB\Memory\section/development.tex [4
+[3] [4] [5] [6] [7] [8] [9] [10]) [11]
+(C:\Users\Marc\Documents\UAB\Memory\section/development.tex [12
 
 
 
 ]
 Cap\'{\i }tulo 3.
-) [5] (C:\Users\Marc\Documents\UAB\Memory\section/results.tex [6
+) [13] (C:\Users\Marc\Documents\UAB\Memory\section/results.tex [14
 
 
 
 ]
 Cap\'{\i }tulo 4.
-) [7] (C:\Users\Marc\Documents\UAB\Memory\section/conclusions.tex [8
+) [15] (C:\Users\Marc\Documents\UAB\Memory\section/conclusions.tex [16
 
 
 
 ]
 Cap\'{\i }tulo 5.
-) [9] (C:\Users\Marc\Documents\UAB\Memory\section/bibliography.tex [10
+) [17] (C:\Users\Marc\Documents\UAB\Memory\section/bibliography.tex [18
 
 
 
-])
-[11] (C:\Users\Marc\Documents\UAB\Memory\section/appendix.tex [12
+]
+Underfull \hbox (badness 10000) in paragraph at lines 7--8
+[][]\T1/cmr/m/n/10.95 <http://www.playlogicgames.com/game/fairytale-fights>,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 13--14
+[][]\T1/cmr/m/n/10.95 <http://windows.microsoft.com/es-ES/windows/home>, Mi-
+ []
+
+
+Underfull \hbox (badness 1014) in paragraph at lines 13--14
+\T1/cmr/m/n/10.95 cro-soft Win-dows. Pá-gi-na web ofi-cial del sis-te-ma ope-ra
+-ti-vo
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
+[][]\T1/cmr/m/n/10.95 <http://www.imdb.com/title/tt0424136/>, Hard Candy -
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 21--22
+[][]\T1/cmr/m/n/10.95 <http://en.wikipedia.org/wiki/Normal_mapping>, Nor-mal
+ []
+
+) [19] (C:\Users\Marc\Documents\UAB\Memory\section/appendix.tex [20
 
 
 
 ]
 Ap\'{e}ndice A.
-) [13] (C:\Users\Marc\Documents\UAB\Memory\section/abstract.tex) [14
+) [21] (C:\Users\Marc\Documents\UAB\Memory\section/abstract.tex) [22
 
 
 ]
 (C:\Users\Marc\Documents\UAB\Memory\Memory.aux
+(C:\Users\Marc\Documents\UAB\Memory\section/cover.aux)
 (C:\Users\Marc\Documents\UAB\Memory\section/introduction.aux)
 (C:\Users\Marc\Documents\UAB\Memory\section/design_document.aux)
 (C:\Users\Marc\Documents\UAB\Memory\section/development.aux)
@@ -191,12 +216,12 @@ Ap\'{e}ndice A.
 (C:\Users\Marc\Documents\UAB\Memory\section/appendix.aux)
 (C:\Users\Marc\Documents\UAB\Memory\section/abstract.aux)) ) 
 Here is how much of TeX's memory you used:
- 1513 strings out of 494046
- 20209 string characters out of 3145994
- 72151 words of memory out of 3000000
- 4771 multiletter control sequences out of 15000+200000
- 18296 words of font info for 41 fonts, out of 3000000 for 9000
+ 1523 strings out of 494046
+ 20150 string characters out of 3145994
+ 76151 words of memory out of 3000000
+ 4775 multiletter control sequences out of 15000+200000
+ 17652 words of font info for 38 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 26i,6n,31p,234b,287s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 26i,5n,31p,889b,354s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on Memory.dvi (18 pages, 6712 bytes).
+Output written on Memory.dvi (26 pages, 51168 bytes).
