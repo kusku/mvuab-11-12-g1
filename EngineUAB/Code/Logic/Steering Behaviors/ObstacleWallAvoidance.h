@@ -31,7 +31,7 @@ public:
 
 	//---- Main Functions ---------------------------------------
 	virtual	Vect3f			CalculateSteering			( CSteeringEntity *_pEntity );		// Método que deberá ser sobreescrito en cada clase que herede de Steering
-	void 					CreateFeelers				( void );							// Crea 3 rayos para ver si la entidad colisiona con alguna pared
+	void 					CreateFeelers				( float _Angle );					// Crea rayos para ver si la entidad colisiona con alguna pared dentro de ese ángulo
 
 	//---- Functions ---------------------------------------
 private:	

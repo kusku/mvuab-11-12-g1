@@ -55,9 +55,9 @@ const Vect3f CSteeringEntity::GetInitialPositionToThrowRay( void ) const
 
 const Vect3f CSteeringEntity::GetFinalPositionToThrowRay( float _DegresOfRotation ) const
 {
-	SCollisionInfo sInfo;
+	/*SCollisionInfo sInfo;
 	uint32 l_Mask;
-	l_Mask |= 1 << ECG_ESCENE;
+	l_Mask |= 1 << ECG_ESCENE;*/
 
 	float l_ObstacleDistanceRay = CORE->GetSteeringBehaviourSettingsManager()->GetCollisionDetectionFeelerLength();
 	Vect3f l_Front  = GetFront(); 

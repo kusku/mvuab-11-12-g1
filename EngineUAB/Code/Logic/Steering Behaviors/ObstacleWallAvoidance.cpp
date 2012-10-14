@@ -1,5 +1,6 @@
 #include "ObstacleWallAvoidance.h"
 #include "StatesMachine\BaseGameEntity.h"
+#include "Steering Behaviors\SteeringBehaviorsSeetingsManager.h"
 #include "Steering Behaviors\SteeringBehaviorsDefs.h"
 #include "Steering Behaviors\SteeringEntity.h"
 
@@ -52,7 +53,7 @@ Vect3f CObstacleWallAvoidance::CalculateSteering( CSteeringEntity *_pEntity )
 	m_pEntity = _pEntity;
 
 	// Creo los bigotitos...
-	CreateFeelers();
+	CreateFeelers(CORE->GetSteeringBehaviourSettingsManager()->GetObstacleWallDetectionFeelerAngle());
 
 	SCollisionInfo sInfo;
 	
@@ -63,7 +64,7 @@ Vect3f CObstacleWallAvoidance::CalculateSteering( CSteeringEntity *_pEntity )
 	l_Mask = 1 << ECG_ESCENE;
 	
 	// Distancia al punto de intersección más proximo
-	float l_DistanceToClosestIP = 0.f;
+	float l_DistanceToClosestIP = m_ObstacleWallDetectionFeelerLength;
 	
 	// Punto más proximo de colision
 	Vect3f l_ClosestPoint;
@@ -108,35 +109,23 @@ Vect3f CObstacleWallAvoidance::CalculateSteering( CSteeringEntity *_pEntity )
 //
 //  Creates the antenna utilized by WallAvoidance
 //------------------------------------------------------------------------
-void CObstacleWallAvoidance::CreateFeelers( void )
+void CObstacleWallAvoidance::CreateFeelers( float _Angle )
 {
-	m_Feelers.push_back(GetDirectionRay(0.f));
-	m_Feelers.push_back(GetDirectionRay(30.f));
-	m_Feelers.push_back(GetDirectionRay(-30.f));
+	//m_Feelers.push_back(GetDirectionRay(0.f));
+	//m_Feelers.push_back(GetDirectionRay(30.f));
+	//m_Feelers.push_back(GetDirectionRay(-30.f));
 
-	// Rayo frontal 
-	//Vect3f l_Front = m_pEntity->GetFront();
-	//l_Front.y = 0;
-	//Vect3f l_Pos = m_pEntity->GetPosition();
-	//l_Pos.y += m_pEntity->GetHeight()/2;
+	m_Feelers.clear();
 
-	//m_Feelers.push_back(l_Pos + m_ObstacleWallDetectionFeelerLength * l_Front.Normalize());
-	////m_Feelers.push_back(m_pEntity->GetInitialPositionToThrowRay() + m_ObstacleWallDetectionFeelerLength * l_Front);
-	////m_Feelers.push_back(m_pEntity->GetFinalPositionToThrowRay(0.f));
-
-	//// Rayo a la izquierda
-	//l_Front = m_pEntity->GetFront();
-	//l_Front.RotateY(mathUtils::Deg2Rad(30.f));
-	//m_Feelers.push_back(l_Pos + m_ObstacleWallDetectionFeelerLength * l_Front.Normalize());
-	////m_Feelers.push_back(m_pEntity->GetInitialPositionToThrowRay() + m_ObstacleWallDetectionFeelerLength/2.0f * l_Front);
-	////m_Feelers.push_back(m_pEntity->GetFinalPositionToThrowRay(30.f));
-	//
-	//// Rayo a la derecha
-	//l_Front = m_pEntity->GetFront();
-	//l_Front.RotateY(mathUtils::Deg2Rad(-30.f));
-	//m_Feelers.push_back(l_Pos + m_ObstacleWallDetectionFeelerLength * l_Front.Normalize());
-	////m_Feelers.push_back(m_pEntity->GetInitialPositionToThrowRay() + m_ObstacleWallDetectionFeelerLength/2.0f * l_Front);
-	////m_Feelers.push_back(m_pEntity->GetFinalPositionToThrowRay(-30.f));
+	float l_Increment = CORE->GetSteeringBehaviourSettingsManager()->GetObstacleWallDetectionFeelerAngleIncrement();
+	for ( float i = -_Angle/2; i < _Angle/2; i += l_Increment ) 
+	{
+		m_Feelers.push_back(GetDirectionRay(i));
+		/*Vect3f l_Front = m_pEntity->GetFront();
+		l_Front.y = 0;
+		l_Front.RotateY(mathUtils::Deg2Rad(i));
+		m_Feelers.push_back(l_Front);*/
+	}
 }
 
 void CObstacleWallAvoidance::DrawRays( Vect3f _Ray )

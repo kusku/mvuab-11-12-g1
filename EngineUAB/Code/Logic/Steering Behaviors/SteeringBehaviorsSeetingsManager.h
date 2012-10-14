@@ -31,6 +31,12 @@ public:
 	//---- Properties ( get & Set )---------------------------------------
 	inline void		SetObstacleWallDetectionFeelerLength	( float _ObstacleWallDetectionFeelerLength )		{ m_ObstacleWallDetectionFeelerLength = _ObstacleWallDetectionFeelerLength; }
 	inline float	GetObstacleWallDetectionFeelerLength	( void ) const										{ return m_ObstacleWallDetectionFeelerLength; }
+	
+	inline void		SetObstacleWallDetectionFeelerAngle		( float _ObstacleWallDetectionFeelerAngle )			{ m_ObstacleWallDetectionFeelerAngle = _ObstacleWallDetectionFeelerAngle; }
+	inline float	GetObstacleWallDetectionFeelerAngle		( void ) const										{ return m_ObstacleWallDetectionFeelerAngle; }
+	
+	inline void		SetObstacleWallDetectionFeelerAngleIncrement( float _ObstacleWallDetectionFeelerAngleIncrement ){ m_ObstacleWallDetectionFeelerAngleIncrement = _ObstacleWallDetectionFeelerAngleIncrement; }
+	inline float	GetObstacleWallDetectionFeelerAngleIncrement( void ) const									{ return m_ObstacleWallDetectionFeelerAngleIncrement; }
 
 	inline void		SetCollisionDetectionFeelerLength		( float _CollisionDetectionFeelerLength )			{ m_CollisionDetectionFeelerLength = _CollisionDetectionFeelerLength; }
 	inline float	GetCollisionDetectionFeelerLength		( void ) const										{ return m_CollisionDetectionFeelerLength; }
@@ -136,55 +142,57 @@ private:
 	std::string			m_szFilename;		// Fitxer xml on trobaré les propietats dels comportaments
 	
 	// longitud de colision de diferentes comportamientos 
-	float				m_ObstacleWallDetectionFeelerLength;	// Longitud de los rayos de colisión con obstaculos y paredes
-	float				m_CollisionDetectionFeelerLength;		// Longitud de los rayos de colisión con otros caracteres
-	float				m_SeparationDetectionFeelerLength;		// 
-	float				m_SeparationDecayCoefficient;
-	float				m_ArriveDecelarationDistance;			// Distancia a partir de la cual desaceleramos
-	float				m_ArriveDecelarationTweaker;			// Permite suavizar la desaceleración. Este paràmetro ayuda en la divisíon
-	eDeceleration		m_ArriveDecelaration;					// Cantidad de desaceleración: rápida, normal, lenta
-	float				m_NeightbourRadius;						// Radio de búsqueda de vecinos en el estado de Flocking : separation, cohesion, alignment
-	float				m_WanderRadius;							// Medida del radio del círculo de vagaje aleatorio
-	float				m_WanderDistance;						// Distancia del enemigo a la posició frontal donde ubicamos el círculo
-	float				m_WanderRefreshRate;					// Times to refresh x second
-	float				m_WanderMinimumDistance;				// Mínima distancia para volver a cambiar de sentido
+	float			m_ObstacleWallDetectionFeelerLength;	// Longitud de los rayos de colisión con obstaculos y paredes
+	float			m_ObstacleWallDetectionFeelerAngle;		// Ángulo de los rayos de colisión con obstaculos y paredes
+	float			m_ObstacleWallDetectionFeelerAngleIncrement;	// Este me permite crear un rayo cada X grados de incremento. Es decir, cada X grados dentro del angulo crea un rayo
+	float			m_CollisionDetectionFeelerLength;		// Longitud de los rayos de colisión con otros caracteres
+	float			m_SeparationDetectionFeelerLength;		// 
+	float			m_SeparationDecayCoefficient;
+	float			m_ArriveDecelarationDistance;			// Distancia a partir de la cual desaceleramos
+	float			m_ArriveDecelarationTweaker;			// Permite suavizar la desaceleración. Este paràmetro ayuda en la divisíon
+	eDeceleration	m_ArriveDecelaration;					// Cantidad de desaceleración: rápida, normal, lenta
+	float			m_NeightbourRadius;						// Radio de búsqueda de vecinos en el estado de Flocking : separation, cohesion, alignment
+	float			m_WanderRadius;							// Medida del radio del círculo de vagaje aleatorio
+	float			m_WanderDistance;						// Distancia del enemigo a la posició frontal donde ubicamos el círculo
+	float			m_WanderRefreshRate;					// Times to refresh x second
+	float			m_WanderMinimumDistance;				// Mínima distancia para volver a cambiar de sentido
 
 	// usa estos valores para ajustar la cantidad de cada fuerza de comportamiento direccional del total de la fuerza steering 
 
-	float				m_SeparationWeight;
-	float				m_AlignmentWeight;
-	float				m_CohesionWeight;
-	float				m_CollisionAvoidanceWeight;
-	float				m_ObstacleObstacleWallAvoidanceWeight;
-	float				m_WanderWeight;
-	float				m_SeekWeight;
-	float				m_FleeWeight;
-	float				m_ArriveWeight;
-	float				m_PursuitWeight;
-	float				m_OffsetPursuitWeight;
-	float				m_InterposeWeight;
-	float				m_HideWeight;
-	float				m_EvadeWeight;
-	float				m_FollowPathWeight;
-						
-	float				m_prWallAvoidance;
-	float				m_prObstacleAvoidance;
-	float				m_prSeparation;
-	float				m_prAlignment;
-	float				m_prCohesion;
-	float				m_prWander;
-	float				m_prSeek;
-	float				m_prFlee;
-	float				m_prEvade;
-	float				m_prHide;
-	float				m_prArrive;
+	float			m_SeparationWeight;
+	float			m_AlignmentWeight;
+	float			m_CohesionWeight;
+	float			m_CollisionAvoidanceWeight;
+	float			m_ObstacleObstacleWallAvoidanceWeight;
+	float			m_WanderWeight;
+	float			m_SeekWeight;
+	float			m_FleeWeight;
+	float			m_ArriveWeight;
+	float			m_PursuitWeight;
+	float			m_OffsetPursuitWeight;
+	float			m_InterposeWeight;
+	float			m_HideWeight;
+	float			m_EvadeWeight;
+	float			m_FollowPathWeight;
+					
+	float			m_prWallAvoidance;
+	float			m_prObstacleAvoidance;
+	float			m_prSeparation;
+	float			m_prAlignment;
+	float			m_prCohesion;
+	float			m_prWander;
+	float			m_prSeek;
+	float			m_prFlee;
+	float			m_prEvade;
+	float			m_prHide;
+	float			m_prArrive;
 
-	int					m_NumberEnemiesToAttackAtSameTime;
-	int					m_MaxNumberEnemiesCanHelp;
-	int					m_MinNumberEnemiesCanHelp;
+	int				m_NumberEnemiesToAttackAtSameTime;
+	int				m_MaxNumberEnemiesCanHelp;
+	int				m_MinNumberEnemiesCanHelp;
 
-	float				m_CamaraRangeAngleForPrepared;
-	float				m_CamaraRangeAngleForAttack;
+	float			m_CamaraRangeAngleForPrepared;
+	float			m_CamaraRangeAngleForAttack;
 };	
 	
 #endif __STEERING_BEHAVIORS_SETTINGS_MANAGER_CLASS_H__
