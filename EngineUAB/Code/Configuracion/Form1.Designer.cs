@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.lbTitle = new System.Windows.Forms.Label();
             this.tConfig = new System.Windows.Forms.TabControl();
             this.tpVideo = new System.Windows.Forms.TabPage();
+            this.cbZBlurEnable = new System.Windows.Forms.CheckBox();
             this.cbMotionBlurEnable = new System.Windows.Forms.CheckBox();
             this.cbWindowMode = new System.Windows.Forms.CheckBox();
             this.cbShadowEnable = new System.Windows.Forms.CheckBox();
@@ -40,7 +42,6 @@
             this.cbResolution = new System.Windows.Forms.ComboBox();
             this.bApply = new System.Windows.Forms.Button();
             this.bExit = new System.Windows.Forms.Button();
-            this.cbZBlurEnable = new System.Windows.Forms.CheckBox();
             this.tConfig.SuspendLayout();
             this.tpVideo.SuspendLayout();
             this.SuspendLayout();
@@ -82,6 +83,17 @@
             this.tpVideo.TabIndex = 0;
             this.tpVideo.Text = "Video";
             this.tpVideo.UseVisualStyleBackColor = true;
+            // 
+            // cbZBlurEnable
+            // 
+            this.cbZBlurEnable.AutoSize = true;
+            this.cbZBlurEnable.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cbZBlurEnable.Location = new System.Drawing.Point(9, 141);
+            this.cbZBlurEnable.Name = "cbZBlurEnable";
+            this.cbZBlurEnable.Size = new System.Drawing.Size(93, 17);
+            this.cbZBlurEnable.TabIndex = 8;
+            this.cbZBlurEnable.Text = "Z Blur Enable:";
+            this.cbZBlurEnable.UseVisualStyleBackColor = true;
             // 
             // cbMotionBlurEnable
             // 
@@ -182,17 +194,6 @@
             this.bExit.UseVisualStyleBackColor = true;
             this.bExit.Click += new System.EventHandler(this.bExit_Click);
             // 
-            // cbZBlurEnable
-            // 
-            this.cbZBlurEnable.AutoSize = true;
-            this.cbZBlurEnable.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cbZBlurEnable.Location = new System.Drawing.Point(9, 141);
-            this.cbZBlurEnable.Name = "cbZBlurEnable";
-            this.cbZBlurEnable.Size = new System.Drawing.Size(93, 17);
-            this.cbZBlurEnable.TabIndex = 8;
-            this.cbZBlurEnable.Text = "Z Blur Enable:";
-            this.cbZBlurEnable.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -202,6 +203,7 @@
             this.Controls.Add(this.bApply);
             this.Controls.Add(this.tConfig);
             this.Controls.Add(this.lbTitle);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Red Forest Configuration";
             this.tConfig.ResumeLayout(false);
