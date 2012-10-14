@@ -63,6 +63,8 @@ class 'CCombatZone7Trigger' (CBoxTrigger)
 			self.enemy_appeared = 1
 			self.is_appeared = false
 		end 
+
+		core:get_limit_manager():activate_group("puente_final", true)
 	end
 	
 	function CCombatZone7Trigger:on_stay(user_data)

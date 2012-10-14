@@ -1186,6 +1186,9 @@
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\combat_zone_8.lua">
       <Filter>Scripts\Game\Triggers</Filter>
     </None>
+    <None Include="..\..\Run\Videogame\Data\XML\limits.xml">
+      <Filter>XML</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\Run\Videogame\Data\Effects\VignettingNoise.fx">

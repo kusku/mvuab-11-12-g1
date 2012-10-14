@@ -29,8 +29,8 @@ float4 AmbientLightColor <
 
 uniform bool		FogEnable = true;
 uniform float3		FogColor = float3(0.9098f, 0.2901f, 0.0980f);
-uniform float		FogStart = 250.0f;
-uniform float		FogRange = 450.0f;
+uniform float		FogStart = 350.0f;
+uniform float		FogRange = 500.0f;
 
 uniform float4x4	World									: WORLD;
 uniform float4x4	WorldViewProjection 					: WORLDVIEWPROJECTION;

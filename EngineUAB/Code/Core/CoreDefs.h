@@ -151,6 +151,9 @@ struct SConfig
 	// Parametros del PhysX Objects
 	std::string physx_obj_path;
 
+	// Parametros del PhysX Objects
+	std::string limit_obj_path;
+
 	//Parametros de Graphics
 	bool motion_blur_enable;
 	bool z_blur_enable;

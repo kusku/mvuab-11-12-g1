@@ -14,6 +14,8 @@
     <ClCompile Include="Animal Control\AnimalManager.cpp" />
     <ClCompile Include="Formations\FormationPattern.cpp" />
     <ClCompile Include="Formations\FormationManager.cpp" />
+    <ClCompile Include="Limits\LimitManager.cpp" />
+    <ClCompile Include="Limits\Limits.cpp" />
     <ClCompile Include="Movement\AStar.cpp" />
     <ClCompile Include="Movement\WayPoint.cpp" />
     <ClCompile Include="Movement\WayPointManager.cpp" />
@@ -49,6 +51,8 @@
     <ClInclude Include="Animal Control\AnimalManager.h" />
     <ClInclude Include="Formations\FormationPattern.h" />
     <ClInclude Include="Formations\FormationManager.h" />
+    <ClInclude Include="Limits\LimitManager.h" />
+    <ClInclude Include="Limits\Limits.h" />
     <ClInclude Include="Movement\AStar.h" />
     <ClInclude Include="Movement\WayPoint.h" />
     <ClInclude Include="Movement\WayPointManager.h" />

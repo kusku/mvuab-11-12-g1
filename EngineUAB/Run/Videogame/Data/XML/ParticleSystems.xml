@@ -2,7 +2,7 @@
 <particle_systems>
   <system name="WaterSplash" settings_name="WaterSplash" />
   
-	<system name="Fire" settings_name="fire" />
+	<system name="FireLimit" settings_name="FireLimit" />
 
 	<system name="Smoke" settings_name="smoke" />
 

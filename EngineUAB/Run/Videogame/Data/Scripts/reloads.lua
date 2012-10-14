@@ -55,3 +55,7 @@ end
 function reload_physxobjs()
 	core:reload_physxobjs()
 end
+
+function reload_limits()
+	core:reload_limits()
+end
