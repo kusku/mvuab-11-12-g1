@@ -308,6 +308,7 @@
     <ClInclude Include="Helpers\MathHelper.h" />
     <ClInclude Include="HUD\HUD.h" />
     <ClInclude Include="Options\Options.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Weapons\Types\MeleeWeapon.h" />
     <ClInclude Include="Weapons\Weapon.h" />
     <ClInclude Include="Weapons\WeaponDefs.h" />
@@ -412,6 +413,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="..\..\Run\Videogame\Data\XML\weapons.xml" />
+    <None Include="CapeIcon.ico" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\Run\Videogame\Data\Effects\AmbientLight.fx">
@@ -902,6 +904,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="..\..\Run\Videogame\Data\XML\waypoints.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Videogame.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
