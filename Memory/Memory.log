@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.10.14)  14 OCT 2012 17:00
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2012.10.14)  14 OCT 2012 17:14
 entering extended mode
-**C:/Users/Marc/Documents/UAB/Memory/Memory.tex
-(C:/Users/Marc/Documents/UAB/Memory/Memory.tex
+**Memory.tex
+(C:\Users\Marc\Documents\UAB\Memory\Memory.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -47,18 +47,10 @@ Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
 File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
 )
-Package graphics Info: Driver file: pdftex.def on input line 91.
+Package graphics Info: Driver file: dvips.def on input line 91.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
-File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
-
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
-Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
-)
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
-Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
-)
-\Gread@gobject=\count88
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\dvips.def"
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 ))
 \Gin@req@height=\dimen103
 \Gin@req@width=\dimen104
@@ -84,18 +76,26 @@ Language: spanish.ldf 2009/01/02 v5.0h Spanish support from the babel system
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.def"
 File: babel.def 2008/07/08 v3.8m Babel common definitions
-\babel@savecnt=\count89
+\babel@savecnt=\count88
 \U@D=\dimen105
 )
-\es@datefmt=\count90
+\es@datefmt=\count89
 \es@quottoks=\toks15
-\es@quotdepth=\count91
+\es@quotdepth=\count90
 Package babel Info: Making " an active character on input line 492.
 Package babel Info: Making . an active character on input line 585.
 Package babel Info: Making < an active character on input line 630.
 Package babel Info: Making > an active character on input line 630.
 ))
-(C:\Users\Marc\Documents\UAB\Memory\Memory.aux)
+(C:\Users\Marc\Documents\UAB\Memory\Memory.aux
+(C:\Users\Marc\Documents\UAB\Memory\section/introduction.aux)
+(C:\Users\Marc\Documents\UAB\Memory\section/design_document.aux)
+(C:\Users\Marc\Documents\UAB\Memory\section/development.aux)
+(C:\Users\Marc\Documents\UAB\Memory\section/results.aux)
+(C:\Users\Marc\Documents\UAB\Memory\section/conclusions.aux)
+(C:\Users\Marc\Documents\UAB\Memory\section/bibliography.aux)
+(C:\Users\Marc\Documents\UAB\Memory\section/appendix.aux)
+(C:\Users\Marc\Documents\UAB\Memory\section/abstract.aux))
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
 LaTeX Font Info:    ... okay on input line 14.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 14.
@@ -108,3 +108,95 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 14.
 LaTeX Font Info:    ... okay on input line 14.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 14.
 LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 24.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 24.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 24.
+
+Overfull \hbox (90.2163pt too wide) in paragraph at lines 24--24
+ [][] 
+ []
+
+[1
+
+
+
+] [2
+
+] (C:\Users\Marc\Documents\UAB\Memory\Memory.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 5.
+)
+\tf@toc=\write3
+ [3] [4
+
+]
+(C:\Users\Marc\Documents\UAB\Memory\section/introduction.tex
+Cap\'{\i }tulo 1.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 4.
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t1cmtt.fd"
+File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)) [1
+
+
+]
+(C:\Users\Marc\Documents\UAB\Memory\section/design_document.tex [2
+
+
+
+]
+Cap\'{\i }tulo 2.
+) [3] (C:\Users\Marc\Documents\UAB\Memory\section/development.tex [4
+
+
+
+]
+Cap\'{\i }tulo 3.
+) [5] (C:\Users\Marc\Documents\UAB\Memory\section/results.tex [6
+
+
+
+]
+Cap\'{\i }tulo 4.
+) [7] (C:\Users\Marc\Documents\UAB\Memory\section/conclusions.tex [8
+
+
+
+]
+Cap\'{\i }tulo 5.
+) [9] (C:\Users\Marc\Documents\UAB\Memory\section/bibliography.tex [10
+
+
+
+])
+[11] (C:\Users\Marc\Documents\UAB\Memory\section/appendix.tex [12
+
+
+
+]
+Ap\'{e}ndice A.
+) [13] (C:\Users\Marc\Documents\UAB\Memory\section/abstract.tex) [14
+
+
+]
+(C:\Users\Marc\Documents\UAB\Memory\Memory.aux
+(C:\Users\Marc\Documents\UAB\Memory\section/introduction.aux)
+(C:\Users\Marc\Documents\UAB\Memory\section/design_document.aux)
+(C:\Users\Marc\Documents\UAB\Memory\section/development.aux)
+(C:\Users\Marc\Documents\UAB\Memory\section/results.aux)
+(C:\Users\Marc\Documents\UAB\Memory\section/conclusions.aux)
+(C:\Users\Marc\Documents\UAB\Memory\section/bibliography.aux)
+(C:\Users\Marc\Documents\UAB\Memory\section/appendix.aux)
+(C:\Users\Marc\Documents\UAB\Memory\section/abstract.aux)) ) 
+Here is how much of TeX's memory you used:
+ 1513 strings out of 494046
+ 20209 string characters out of 3145994
+ 72151 words of memory out of 3000000
+ 4771 multiletter control sequences out of 15000+200000
+ 18296 words of font info for 41 fonts, out of 3000000 for 9000
+ 715 hyphenation exceptions out of 8191
+ 26i,6n,31p,234b,287s stack positions out of 5000i,500n,10000p,200000b,50000s
+
+Output written on Memory.dvi (18 pages, 6712 bytes).
