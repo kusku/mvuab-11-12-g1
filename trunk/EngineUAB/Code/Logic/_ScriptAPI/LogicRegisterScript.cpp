@@ -12,6 +12,7 @@
 #include "Utils\Named.h"
 #include "Movement\WayPointManager.h"
 #include "Movement\WayPoint.h"
+#include "Limits\LimitManager.h"
 
 #include "Rails\RailManager.h"
 #include "Rails\Rail.h"
@@ -330,6 +331,11 @@ namespace ScriptAPI
 		module(_pLua) [
 			class_<CRail>("CRail")
 			.property("velocity", &CRail::GetVelocity, &CRail::SetVelocity)
+		];
+
+		module(_pLua) [
+			class_<CLimitManager>("CLimitManager")
+				.def("activate_group", &CLimitManager::ActivateGroup)
 		];
 
 

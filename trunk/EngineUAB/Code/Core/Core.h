@@ -45,6 +45,7 @@ class CAnimalManager;
 class CSteeringBehaviorsSeetingsManager;
 class CRailManager;
 class CPhysXObjManager;
+class CLimitManager;
 //--------------------------
 
 class CCore : public CSingleton<CCore>
@@ -85,6 +86,7 @@ public:
 	bool		LoadSteeringBehaviorSettings	();
 	bool		LoadRails						();
 	bool		LoadPhysXObjs					();
+	bool		LoadLimits						();
 
 	//----Reload Methods ---------------------------------------------------
 	void		Reload									();
@@ -110,6 +112,7 @@ public:
 	void		ReloadSteeringBehaviorSettings			();
 	void		ReloadRails								();
 	bool		ReloadPhysXObjs							();
+	void		ReloadLimits							();
 
 	//----Unload Methods ---------------------------------------------------
 	void		UnloadStaticMeshes						();
@@ -122,6 +125,7 @@ public:
 	void		UnloadAnimalMovements					();
 	void		UnloadWayPoints							();
 	void		UnloadPhysXObjs							();
+	void		UnloadLimits							();
 
 	//----Properties ( get & Set )---------------------------------------
 	void				SetCamera					( CCamera *_Camera )			{ m_pCamera = _Camera; }
@@ -200,6 +204,8 @@ public:
 
 	inline CPhysXObjManager*					GetPhysXObjManager			() const					{ return m_PhysXObjManager; }
 
+	inline CLimitManager*						GetLimitManager				() const					{ return m_LimitManager; }
+
 private:
 	void Release();
 
@@ -219,6 +225,8 @@ private:
 	float	m_DyingAmount;
 
 	SConfig	m_Config;
+
+	CLimitManager*						m_LimitManager;
 
 	CPhysXObjManager					*m_PhysXObjManager;
 

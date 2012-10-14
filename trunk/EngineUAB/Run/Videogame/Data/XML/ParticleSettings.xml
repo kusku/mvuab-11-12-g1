@@ -229,23 +229,23 @@
 		<BlendState value="Additive" />
 	</settings>
 
-	<settings name="fire">
+	<settings name="FireLimit">
 		<TextureName value="./Data/General/Textures/Particles/fire.dds" />
-		<MaxParticles value="2400" />
+		<MaxParticles value="5000" />
 
 		<Duration value="2" />
 		<DurationRandomness value="1" />
 
 		<MinHorizontalVelocity value="0" />
-		<MaxHorizontalVelocity value="15" />
+		<MaxHorizontalVelocity value="5" />
 
-		<MinVerticalVelocity value="-10" />
-		<MaxVerticalVelocity value="10" />
+		<MinVerticalVelocity value="0" />
+		<MaxVerticalVelocity value="0" />
 
-		<Gravity value="0 15 0" />
+		<Gravity value="0 5 0" />
 
-		<MinColor value="255 255 255 10" />
-		<MaxColor value="255 255 255 40" />
+		<MinColor value="255 0 0 50" />
+		<MaxColor value="255 255 255 80" />
 
 		<MinStartSize value="5" />
 		<MaxStartSize value="10" />
@@ -253,6 +253,9 @@
 		<MinEndSize value="10" />
 		<MaxEndSize value="40" />
 
+    <MinRotateSpeed value="0" />
+    <MaxRotateSpeed value="0" />
+    
 		<BlendState value="Additive" />
 	</settings>
 

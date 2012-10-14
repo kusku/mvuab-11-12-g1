@@ -382,6 +382,10 @@ void CEngine::LoadConfigXML(const std::string &configFile)
 				m_Config.motion_blur_enable = l_ConfigNode(i).GetBoolProperty("motionBlur", true, true);
 				m_Config.z_blur_enable = l_ConfigNode(i).GetBoolProperty("zblur", true, true);
 			}
+			else if( l_Name == "Limits" )
+			{
+				m_Config.limit_obj_path = l_ConfigNode(i).GetPszProperty("limitsXML", "");
+			}
 		}
 	}
 

@@ -74,6 +74,8 @@ class 'CCombatZone8Trigger' (CBoxTrigger)
 				self.is_appeared = false
 			end 
 		end 
+
+		core:get_limit_manager():activate_group("puente_final", true)
 	end
 	
 	function CCombatZone8Trigger:on_stay(user_data)

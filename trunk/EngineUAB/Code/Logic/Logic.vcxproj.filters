@@ -100,6 +100,12 @@
     <ClCompile Include="Formations\FormationPattern.cpp">
       <Filter>IA\Formations</Filter>
     </ClCompile>
+    <ClCompile Include="Limits\LimitManager.cpp">
+      <Filter>Limits</Filter>
+    </ClCompile>
+    <ClCompile Include="Limits\Limits.cpp">
+      <Filter>Limits</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StatesMachine\State.h">
@@ -234,6 +240,12 @@
     <ClInclude Include="Formations\FormationPattern.h">
       <Filter>IA\Formations</Filter>
     </ClInclude>
+    <ClInclude Include="Limits\LimitManager.h">
+      <Filter>Limits</Filter>
+    </ClInclude>
+    <ClInclude Include="Limits\Limits.h">
+      <Filter>Limits</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scripting">
@@ -283,6 +295,9 @@
     </Filter>
     <Filter Include="IA\Formations">
       <UniqueIdentifier>{bdff939e-5f2d-4c7e-87b7-d52672c5497e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Limits">
+      <UniqueIdentifier>{f1c78533-9f06-4e0e-a9d7-e6e9b5ae45c7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

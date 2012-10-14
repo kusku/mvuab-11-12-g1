@@ -21,6 +21,7 @@
 #include "StatesMachine\EntityManager.h"
 #include "Stadistics\Stadistics.h"
 #include "Rails\RailManager.h"
+#include "Limits\LimitManager.h"
 
 #include "Math\Vector2.h"
 #include "Math\Vector3.h"
@@ -78,6 +79,7 @@ namespace ScriptAPI
 					.def("reload_steering_behaviors_settings", &CCore::ReloadSteeringBehaviorSettings)
 					.def("reload_rails", &CCore::ReloadRails)
 					.def("reload_physxobjs", &CCore::ReloadPhysXObjs)
+					.def("get_limit_manager", &CCore::GetLimitManager)
 					.def("get_debug_gui_manager", &CCore::GetDebugGUIManager)
 					.def("get_stadistics", &CCore::GetStadistics)
 					.def("get_gui_manager", &CCore::GetGUIManager)
@@ -124,6 +126,9 @@ namespace ScriptAPI
 					.def("unload_animal_movement", &CCore::UnloadAnimalMovements)
 					.def("Unload_waypoints", &CCore::UnloadWayPoints)
 					.def("unload_physx_objs", &CCore::UnloadPhysXObjs)
+					.def("unload_limits", &CCore::UnloadLimits)
+					.def("reload_limits", &CCore::ReloadLimits)
+					.def("load_limits", &CCore::LoadLimits)
 					.def("set_game_mode", &CCore::SetGameMode)
 			];
 

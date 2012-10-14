@@ -26,6 +26,7 @@ function load_data()
 	core:load_animal_movement()
 	core:load_waypoints()
 	core:load_steering_behaviors_settings()
+	core:load_limits()
 end
 
 function load_all()
@@ -44,4 +45,5 @@ function unload_data()
 	core:unload_triggers()
 	core:unload_animal_movement()
 	core:Unload_waypoints()
+	core:Unload_limits()
 end

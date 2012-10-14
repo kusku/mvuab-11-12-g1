@@ -62,6 +62,8 @@
 
 #include "Cameras\ThPSCamera.h"
 
+#include "Limits\LimitManager.h"
+
 #include "_ScriptAPI\CoreRegisterScript.h"
 
 #if defined(_DEBUG)
@@ -111,6 +113,7 @@ CCore::CCore ( void )
 	, m_Animalmanager					( NULL )
 	, m_pSteeringBehaviorSeetingsManager( NULL )
 	, m_pRailManager					( NULL )
+	, m_LimitManager					( NULL )
 	, m_DrawingShadows					(false)
 	, m_DyingAmount						(0.0f)
 	, m_PhysXObjManager					(NULL)
@@ -169,6 +172,7 @@ void CCore::Release ( void )
 	CHECKED_DELETE ( m_pSteeringBehaviorSeetingsManager );
 	CHECKED_DELETE ( m_pRailManager  );
 	CHECKED_DELETE (m_PhysXObjManager);
+	CHECKED_DELETE (m_LimitManager);
 	
 	m_pCamera = NULL; //La cámara la elimina el proceso
 	m_pTimer = NULL;
@@ -313,6 +317,9 @@ bool CCore::Init( HWND _HWnd, const SConfig &config )
 			//Raíles
 			m_pRailManager = new CRailManager();
 
+			//Limits
+			m_LimitManager = new CLimitManager();
+
 			//Scripting
 			Core::ScriptAPI::RegisterScript();
 			m_pScriptManager->Load( config.scripts_path );
@@ -357,6 +364,8 @@ void CCore::Update( float _ElapsedTime )
 
 		//Triggers
 		m_pTriggersManager->Update(_ElapsedTime);
+
+		m_LimitManager->Update();
 	}
 	else
 	{
@@ -551,6 +560,12 @@ bool CCore::LoadPhysXObjs()
 {
 	return m_PhysXObjManager->Load(m_Config.physx_obj_path);
 }
+
+bool CCore::LoadLimits()
+{
+	return m_LimitManager->Load(m_Config.limit_obj_path);
+}
+
 
 void CCore::SetGameMode(bool _GameMode)
 { 
@@ -996,6 +1011,12 @@ bool CCore::ReloadPhysXObjs()
 	return m_PhysXObjManager->Reload();
 }
 
+void CCore::ReloadLimits()
+{
+	m_LimitManager->Reload();
+}
+
+
 void CCore::UnloadStaticMeshes()
 {
 	m_pStaticMeshManager->CleanUp();
@@ -1047,4 +1068,9 @@ void CCore::UnloadTriggers()
 void CCore::UnloadPhysXObjs()
 {
 	m_PhysXObjManager->CleanUp();
+}
+
+void CCore::UnloadLimits()
+{
+	m_LimitManager->CleanUp();
 }

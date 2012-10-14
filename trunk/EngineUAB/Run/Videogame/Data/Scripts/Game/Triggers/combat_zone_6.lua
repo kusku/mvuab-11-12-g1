@@ -65,6 +65,8 @@ class 'CCombatZone6Trigger' (CBoxTrigger)
 			self.enemy_appeared = 1
 			self.is_appeared = false
 		end 
+
+		core:get_limit_manager():activate_group("zona6", true)
 	end
 	
 	function CCombatZone6Trigger:on_stay(user_data)
