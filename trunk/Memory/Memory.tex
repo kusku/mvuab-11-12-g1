@@ -9,19 +9,23 @@
 \usepackage{graphicx}
 \usepackage[T1]{fontenc}
 \usepackage[spanish]{babel}
+\usepackage{graphicx}
 
 %----- Inicio del Documento ----------
 \begin{document}
 
 \pagenumbering{roman}
-\thispagestyle{empty}
 \frontmatter
 
 %----- Portada -----------------------
-\title{Red Forest}
-\author{Jordi Arenas, Carlos Chacón, Marc Cuscullola, Alexandre Spyropoulos, David Torres }
-\date{Bellaterra, Octubre de 2012}
-\maketitle
+\include{section/cover}
+
+\newpage{\pagestyle{empty}\cleardoublepage} 
+
+%\title{Red Forest}
+%\author{Jordi Arenas, Carlos Chacón, Marc Cuscullola, Alexandre Spyropoulos, David Torres }
+%\date{Bellaterra, Octubre de 2012}
+%\maketitle
 
 %----- Índice -----------------------
 \tableofcontents
@@ -30,6 +34,8 @@
 \newpage
 \pagenumbering{arabic}
 \pagestyle{headings}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
 
 %----- Contenido --------------------
 \include{section/introduction}
