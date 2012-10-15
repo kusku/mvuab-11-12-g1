@@ -22,8 +22,7 @@ class IntroMovie
 	LPDIRECT3DSURFACE9 m_TextureSurface;
 	ID3DXSprite*		m_SpriteBatch;
 	D3DXVECTOR3			m_DiffusePosition;
-
-
+	
 	bool GetMovieFrame();
 
 public:
