@@ -2,10 +2,18 @@
 
 El desarrollo del juego se puede separar en tres grandes bloques diferentes entre sí: Diseño, arte y programación.
 
+
+%----- Diseño --------------------------------------
+%---------------------------------------------------
 \section{Diseño}
 
+
+%----- Arte ----------------------------------------
+%---------------------------------------------------
 \section{Arte}
 
+%----- Programación --------------------------------
+%---------------------------------------------------
 \section{Programación}
 
 \subsection{Gráficos}
@@ -24,5 +32,52 @@ El desarrollo del juego se puede separar en tres grandes bloques diferentes entr
 
 \subsection{Audio}
 
+Para la gestión de sonido y música se ha utilizado la librería Wwise \cite{wwise} de Audiokinetic. La librería es de pago menos para Windows que es gratuita si el producto final es de uso no comercial. Wwise se utiliza en multitud de juegos actuales, entre ellos \emph{Mass Effect 3} \cite{ME3}, \emph{Assassin's Creed II} \cite{AC2}, \emph{inFamous 2} \cite{infamous} y \emph{Batman: Arkham City} \cite{batman}, entre otros.
+
+Wwise funciona mediante eventos y bancos de sonido. En los bancos de sonido es donde residen todas las pistas de audio y los eventos son instrucciones sobre las pistas de audio. La creación de estos dos elementos se hace mediante el editor que lleva la propia librería (figura \ref{fig:wwise_editor}).
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.35]{figures/development/wwise_editor.eps}
+\end{center}
+\emph{\caption{Editor de Wwise con el proyecto del juego}\label{fig:wwise_editor}}
+\end{figure}
+
+También se ha hecho uso de los RTPCs (\emph{Real-Time Parameter Controls}). Los RTPCs son curvas asociadas a un audio que, a partir de un parámetro, se puede modificar el sonido en tiempo real. Se han utilizado para poder modificar el volumen del sonido y de la música en cualquier momento. 
+
 \subsection{Tools}
+
+Se han hecho diferentes herramientas para el fácil y ágil desarrollo de algunas partes del juego. Así pues, se han hecho la herramientas: Particle Editor, GUI Editor y 3ds Max Exporter.
+
+\subsubsection{Particle Editor} \label{sec:particleeditor}
+Durante el desarrollo del juego, se ha llevado a cabo un simple editor de partículas (figura \ref{fig:particle_editor}) para poder generar las partículas de una forma más ágil, rápida y visual. Está hecho con MFC (\emph{Microsoft Foundation Class}).
+
+El editor permite modificar todos los parámetros de un sistema de partículas en tiempo real. Al mismo tiempo, se puede ejecutar el sistema de partículas creado en diferentes tipos de emisores (tipo punto, caja, esfer, anillo, línea).
+
+La herramienta permite generar sistemas de partículas distintos y guardarlos en un fichero XML preparado para ser leído directamente por el motor del juego.
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.5]{figures/development/particle_editor.eps}
+\end{center}
+\emph{\caption{Particle Editor}\label{fig:particle_editor}}
+\end{figure}
+
+\subsubsection{GUI Editor}
+
+Se ha desarrollado un editor (figura \ref{fig:gui_editor}) para poder hacer los menús del juego de una forma senzilla y rápida. Como el \emph{Particle Editor} (sección \ref{sec:particleeditor}), está hecho con MFC.
+
+El editor permite poner todos los controles de los que dispone (botones, imágenes,...) mediante \emph{drag and drop}. Además, se puede modificar las propiedades de todos los controles que conforman la ventana, pudiendo personalizar totalmente la ventana de una forma visual.
+
+La herramienta permite generar ventanas para trabajar con toda la GUI del juego a la vez y, también, guardar toda la información en ficheros XML que son leídos por el motor.
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.5]{figures/development/gui_editor.eps}
+\end{center}
+\emph{\caption{GUI Editor}\label{fig:gui_editor}}
+\end{figure}
+
+\subsubsection{3ds Max Exporter}
+
 

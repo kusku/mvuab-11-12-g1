@@ -51,9 +51,12 @@
 \contentsline {subsubsection}{\numberline {3.3.4.2}Steering Behaviors}{23}
 \contentsline {subsection}{\numberline {3.3.5}Scripting}{23}
 \contentsline {subsection}{\numberline {3.3.6}Audio}{23}
-\contentsline {subsection}{\numberline {3.3.7}Tools}{23}
-\contentsline {chapter}{\numberline {4}Resultados}{25}
-\contentsline {chapter}{\numberline {5}Conclusiones}{27}
-\contentsline {chapter}{Bibliografía}{29}
-\contentsline {chapter}{Apéndice}{30}
-\contentsline {chapter}{\numberline {A}Manual de usuario}{31}
+\contentsline {subsection}{\numberline {3.3.7}Tools}{24}
+\contentsline {subsubsection}{\numberline {3.3.7.1}Particle Editor}{24}
+\contentsline {subsubsection}{\numberline {3.3.7.2}GUI Editor}{25}
+\contentsline {subsubsection}{\numberline {3.3.7.3}3ds Max Exporter}{25}
+\contentsline {chapter}{\numberline {4}Resultados}{27}
+\contentsline {chapter}{\numberline {5}Conclusiones}{29}
+\contentsline {chapter}{Bibliografía}{31}
+\contentsline {chapter}{Apéndice}{33}
+\contentsline {chapter}{\numberline {A}Manual de usuario}{33}
