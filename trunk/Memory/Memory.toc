@@ -6,49 +6,54 @@
 \contentsline {section}{\numberline {2.2}Descripción ampliada}{3}
 \contentsline {subsection}{\numberline {2.2.1}Género}{3}
 \contentsline {subsection}{\numberline {2.2.2}Propósito y público objetivo}{4}
-\contentsline {subsection}{\numberline {2.2.3}Plataforma}{4}
-\contentsline {section}{\numberline {2.3}Mecánicas}{4}
-\contentsline {subsection}{\numberline {2.3.1}Punto de vista}{4}
+\contentsline {subsection}{\numberline {2.2.3}Plataforma}{5}
+\contentsline {section}{\numberline {2.3}Mecánicas}{5}
+\contentsline {subsection}{\numberline {2.3.1}Punto de vista}{5}
 \contentsline {subsection}{\numberline {2.3.2}Desarrollo general}{5}
 \contentsline {subsection}{\numberline {2.3.3}Escenario}{5}
 \contentsline {subsection}{\numberline {2.3.4}Sistema de juego}{6}
 \contentsline {subsubsection}{\numberline {2.3.4.1}Objetivos}{6}
-\contentsline {subsubsection}{\numberline {2.3.4.2}Reglas}{6}
-\contentsline {subsection}{\numberline {2.3.5}Elementos interactivos}{7}
+\contentsline {subsubsection}{\numberline {2.3.4.2}Reglas}{7}
+\contentsline {subsection}{\numberline {2.3.5}Elementos interactivos}{8}
 \contentsline {subsubsection}{\numberline {2.3.5.1}Personaje principal}{8}
 \contentsline {subsubsection}{\numberline {2.3.5.2}Enemigos}{8}
-\contentsline {subsection}{\numberline {2.3.6}Armas}{8}
+\contentsline {subsection}{\numberline {2.3.6}Armas}{9}
 \contentsline {subsection}{\numberline {2.3.7}Ítems}{9}
 \contentsline {subsection}{\numberline {2.3.8}Acciones}{9}
-\contentsline {subsubsection}{\numberline {2.3.8.1}Animaciones}{9}
-\contentsline {subsection}{\numberline {2.3.9}Interfaz}{9}
-\contentsline {subsubsection}{\numberline {2.3.9.1}HUD de juego}{9}
-\contentsline {subsubsection}{\numberline {2.3.9.2}Menús externos}{9}
-\contentsline {subsection}{\numberline {2.3.10}Control}{10}
-\contentsline {section}{\numberline {2.4}Arte}{10}
-\contentsline {subsection}{\numberline {2.4.1}Caperucita}{11}
-\contentsline {subsection}{\numberline {2.4.2}El Lobo}{11}
-\contentsline {subsection}{\numberline {2.4.3}Enemigos}{11}
-\contentsline {subsection}{\numberline {2.4.4}Armas}{11}
-\contentsline {subsection}{\numberline {2.4.5}El bosque}{11}
-\contentsline {subsection}{\numberline {2.4.6}La cabaña}{11}
-\contentsline {subsection}{\numberline {2.4.7}La cueva}{11}
-\contentsline {section}{\numberline {2.5}Historia}{11}
-\contentsline {section}{\numberline {2.6}Tecnología}{11}
-\contentsline {section}{\numberline {2.7}Sonido}{11}
-\contentsline {chapter}{\numberline {3}Desarrollo}{13}
-\contentsline {section}{\numberline {3.1}Diseño}{13}
-\contentsline {section}{\numberline {3.2}Arte}{13}
-\contentsline {section}{\numberline {3.3}Programación}{13}
-\contentsline {subsection}{\numberline {3.3.1}Gráficos}{13}
-\contentsline {subsection}{\numberline {3.3.2}Cámara}{13}
-\contentsline {subsection}{\numberline {3.3.3}Física}{13}
-\contentsline {subsection}{\numberline {3.3.4}Inteligencia Artificial}{13}
-\contentsline {subsection}{\numberline {3.3.5}Scripting}{13}
-\contentsline {subsection}{\numberline {3.3.6}Audio}{13}
-\contentsline {subsection}{\numberline {3.3.7}Tools}{13}
-\contentsline {chapter}{\numberline {4}Resultados}{15}
-\contentsline {chapter}{\numberline {5}Conclusiones}{17}
-\contentsline {chapter}{Bibliografía}{19}
-\contentsline {chapter}{Apéndice}{20}
-\contentsline {chapter}{\numberline {A}Manual de usuario}{21}
+\contentsline {subsubsection}{\numberline {2.3.8.1}Animaciones}{11}
+\contentsline {subsection}{\numberline {2.3.9}Interfaz}{12}
+\contentsline {subsubsection}{\numberline {2.3.9.1}HUD de juego}{12}
+\contentsline {subsubsection}{\numberline {2.3.9.2}Menús externos}{13}
+\contentsline {subsection}{\numberline {2.3.10}Control}{13}
+\contentsline {subsubsection}{\numberline {2.3.10.1}Movimiento de desplazamiento}{14}
+\contentsline {subsubsection}{\numberline {2.3.10.2}Movimientos de ataque}{14}
+\contentsline {subsubsection}{\numberline {2.3.10.3}Movimientos de defensa}{15}
+\contentsline {section}{\numberline {2.4}Arte}{15}
+\contentsline {subsection}{\numberline {2.4.1}Caperucita}{15}
+\contentsline {subsection}{\numberline {2.4.2}El Lobo}{16}
+\contentsline {subsection}{\numberline {2.4.3}Enemigos}{16}
+\contentsline {subsection}{\numberline {2.4.4}Armas}{17}
+\contentsline {subsection}{\numberline {2.4.5}El bosque}{17}
+\contentsline {subsection}{\numberline {2.4.6}La cabaña}{19}
+\contentsline {subsection}{\numberline {2.4.7}La cueva}{19}
+\contentsline {section}{\numberline {2.5}Historia}{20}
+\contentsline {section}{\numberline {2.6}Tecnología}{21}
+\contentsline {section}{\numberline {2.7}Sonido}{22}
+\contentsline {chapter}{\numberline {3}Desarrollo}{23}
+\contentsline {section}{\numberline {3.1}Diseño}{23}
+\contentsline {section}{\numberline {3.2}Arte}{23}
+\contentsline {section}{\numberline {3.3}Programación}{23}
+\contentsline {subsection}{\numberline {3.3.1}Gráficos}{23}
+\contentsline {subsection}{\numberline {3.3.2}Cámara}{23}
+\contentsline {subsection}{\numberline {3.3.3}Física}{23}
+\contentsline {subsection}{\numberline {3.3.4}Inteligencia Artificial}{23}
+\contentsline {subsubsection}{\numberline {3.3.4.1}Máquinas de estados}{23}
+\contentsline {subsubsection}{\numberline {3.3.4.2}Steering Behaviors}{23}
+\contentsline {subsection}{\numberline {3.3.5}Scripting}{23}
+\contentsline {subsection}{\numberline {3.3.6}Audio}{23}
+\contentsline {subsection}{\numberline {3.3.7}Tools}{23}
+\contentsline {chapter}{\numberline {4}Resultados}{25}
+\contentsline {chapter}{\numberline {5}Conclusiones}{27}
+\contentsline {chapter}{Bibliografía}{29}
+\contentsline {chapter}{Apéndice}{30}
+\contentsline {chapter}{\numberline {A}Manual de usuario}{31}
