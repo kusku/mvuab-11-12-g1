@@ -61,7 +61,7 @@ Vect3f CObstacleWallAvoidance::CalculateSteering( CSteeringEntity *_pEntity )
 	l_SteeringForce.SetZero();
 
 	uint32 l_Mask = 1 << ECG_LIMITS;
-	l_Mask = 1 << ECG_ESCENE;
+	/*l_Mask = 1 << ECG_ESCENE;*/
 	
 	// Distancia al punto de intersección más proximo
 	float l_DistanceToClosestIP = m_ObstacleWallDetectionFeelerLength;
