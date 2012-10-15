@@ -151,18 +151,22 @@ void CWolfAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 			if ( l_ActiveActionState == WOLF_STILL_ATTACK_STATE ) 
 			{
 				m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetStillAttackState());
+				m_bInPositionToAttack = true;
 			}	
 			if ( l_ActiveActionState == WOLF_STILL_ATTACK_COMBO_STATE ) 
 			{
 				m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetStillAttackComboState());
+				m_bInPositionToAttack = true;
 			}	
 			else if ( l_ActiveActionState == WOLF_RUN_ATTACK_STATE ) 
 			{
 				m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetRunAttackState());
+				m_bInPositionToAttack = true;
 			}	
 			else if ( l_ActiveActionState == WOLF_DEFENSE_STATE ) 
 			{
 				m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetDefenseState());
+				m_bInPositionToAttack = true;
 			}
 			else if ( l_ActiveActionState == WOLF_HOWL_ENEMIES_STATE ) 
 			{
