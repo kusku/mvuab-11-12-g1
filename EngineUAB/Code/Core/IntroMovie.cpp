@@ -145,15 +145,32 @@ bool IntroMovie::GetMovieFrame()
 void IntroMovie::Render()
 {
 	LPDIRECT3DDEVICE9 dxDevice = CORE->GetRenderManager()->GetDevice();
+	CEffectTechnique* technique = CORE->GetEffectManager()->GetEffectTechnique("BasicQuadEffect");
 
 	bool renderTexture = GetMovieFrame();
+
+	D3DVIEWPORT9 defaultVP;
+	D3DVIEWPORT9 actualVP;
+
+	dxDevice->GetViewport(&defaultVP);
+
+	Vect2i screenSize = CORE->GetRenderManager()->GetScreenSize();
+
+	actualVP.MinZ = 0.0f;
+	actualVP.MaxZ = 1.0f;
+	actualVP.X = (int)m_DiffusePosition.x;
+	actualVP.Y = (int)m_DiffusePosition.y;
+	actualVP.Width = screenSize.x;
+	actualVP.Height = screenSize.y;
 
 	dxDevice->BeginScene();
 	dxDevice->Clear(0, NULL, D3DCLEAR_TARGET, colBLACK.GetUint32Argb(), 1.0f, 0);
 	
+	dxDevice->SetViewport(&actualVP);
+
 	//if(renderTexture)
 	{
-		CColor color = colWHITE;
+		/*CColor color = colWHITE;
 
 		m_SpriteBatch->Begin(0);
 
@@ -161,8 +178,13 @@ void IntroMovie::Render()
 
 		assert(hr == D3D_OK);
 
-		m_SpriteBatch->End();
+		m_SpriteBatch->End();*/
+
+		dxDevice->SetTexture(0, m_TextureFrame);
+		CORE->GetRenderManager()->DrawQuad2DTexturedInPixelsInFullScreen(technique);
 	}
+
+	dxDevice->SetViewport(&defaultVP);
 
 	dxDevice->EndScene();
 	dxDevice->Present(NULL, NULL, NULL, NULL);
