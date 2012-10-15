@@ -169,6 +169,8 @@ bool CSoundManager::Reload()
 	l_IsOk = LoadSoundBanksXML();
 	l_IsOk &= LoadSpeakersXML();
 
+	m_pListener = new CListener(CORE->GetCamera());
+
 	return l_IsOk;
 }
 
