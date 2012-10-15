@@ -21,6 +21,42 @@ El desarrollo del juego se puede separar en tres grandes bloques diferentes entr
 \subsection{Cámara}
 
 \subsection{Física}
+En el apartado de física se ha utilizado la librería PhysX \cite{physx} de Nvidia. Con esta librería se ha desarrollado toda la parte de colisiones y interacciones con los diferentes elementos que conforman el juego, tanto el escenario como los personajes animados.
+
+Para ello se ha creado un \emph{wrapper} para encapsular toda la parte de la librería útil para el proyecto, adaptándolo a nuestras necesidades. Con la encapsulación, nos ha permitido desarrollar todos los movimientos físicos y colisiones entre personajes y los diferentes elementos estáticos o interactivos del escenario.
+
+Con la librería de física también se ha hecho uso de los \emph{triggers} físicos que incorpora, aunque el \emph{trigger} lógico, donde hay todo el código de \emph{gameplay}, está hecho mediante Lua.
+
+Se ha utilizado los rayos que permite PhysX para la gestión y el control de la cámara principal del juego. Así, mediante testeo de rayos, podemos saber si hay objetos que obstaculizen la visión de la cámara y, tomar las decisiones necesarias para que siempre se vea el jugador y no quede oculto por diferentes objetos.
+
+Las áreas de colisión también han sido utilizadas para el comportamiento de los enemigos. Las áreas de colisión nos permiten saber si hay enemigos cerca de otro enemigo, y así el personaje no jugador poder tomar las decisiones oportunas en su comportamiento.
+
+\subsubsection{Escenario de pruebas}
+
+Debido a la gestión por procesos de toda la aplicación, se ha creado una pequeña escena de test (figura \ref{fig:physx_test_scene}) para realizar el correcto desarrollo y testeo de todas las físicas del juego.
+
+En este escenario de pruebas se han podido probar situaciones como:
+\begin{itemize}
+\item Muros de colisiones.
+\item Controladores (\emph{controllers} en PhysX) para los personajes animados.
+\item Escaleras con diferentes alturas de peldaños.
+\item Elementos dinámicos como, por ejemplo, pelotas.
+\item Objetos fijos al escenario y objetos dinámicos.
+\item Colisiones entre diferentes grupos de colisión.
+\item Puente dinámico.
+\end{itemize}
+
+Una de las pruebas más exhaustivas a hacer ha sido la reacción del jugador delante de todas las situaciones físicas. De esta manera, se ha podido configurar posteriormente para el juego final.
+
+Otra de las pruebas más grandes ha sido crear un puente dinámico, es decir, que reaccione al paso del jugador por encima de él.
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.7]{figures/development/physx_test_scene.eps}
+\end{center}
+\emph{\caption{Escena de test de físicas}\label{fig:physx_test_scene}}
+\end{figure}
+
 
 \subsection{Inteligencia Artificial}
 
