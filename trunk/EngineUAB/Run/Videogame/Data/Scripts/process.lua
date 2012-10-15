@@ -1,6 +1,14 @@
-function change_to_game_process()
-	core:get_process():load_game_data()
-	core:set_game_mode(true)
+function load_game_content()
+	load_data()
+	core:get_gui_manager():pop_windows()
+	core:get_gui_manager():push_windows('Controls')
+end
+
+function active_game_process()
+	if core:get_action_to_input():do_action('SkipWindows') then 
+		core:get_process():load_game_data()
+		core:set_game_mode(true) 
+	end
 end
 
 function change_to_game_over_gui_process()
