@@ -126,6 +126,7 @@ public:
 	void		UnloadWayPoints							();
 	void		UnloadPhysXObjs							();
 	void		UnloadLimits							();
+	void		UnloadSounds							();
 
 	//----Properties ( get & Set )---------------------------------------
 	void				SetCamera					( CCamera *_Camera )			{ m_pCamera = _Camera; }
