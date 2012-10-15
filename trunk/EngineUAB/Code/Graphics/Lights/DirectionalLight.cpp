@@ -272,7 +272,7 @@ void CDirectionalLight::CalculateCascadeFrustums()
 
 	m_CascadeDistances.x = m_SplitDepthsTmp[0];
 	m_CascadeDistances.y = m_SplitDepthsTmp[1] * 0.5f;
-	m_CascadeDistances.z = m_SplitDepthsTmp[2] * 0.75f;
+	m_CascadeDistances.z = m_SplitDepthsTmp[2] * 0.5f;
 
 	for (uint32 i = 0; i < m_NumCascades; ++i)
 	{
