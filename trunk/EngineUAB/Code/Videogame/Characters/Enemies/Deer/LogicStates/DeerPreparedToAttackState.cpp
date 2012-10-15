@@ -122,7 +122,7 @@ void CDeerPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elapse
 			m_pDeer->GetBehaviors()->SeekOn();
 			m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime);
 			m_pDeer->MoveTo2(m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
-			LOGGER->AddNewLog(ELL_INFORMATION, "CDeerPreparedToAttackState::Execute -> %s peguó al player y ahora vuelve a una posición inicial de ataque", m_pDeer->GetName().c_str());
+			LOGGER->AddNewLog(ELL_INFORMATION, "CDeerPreparedToAttackState::Execute -> %s pegó al player y ahora vuelve a una posición inicial de ataque", m_pDeer->GetName().c_str());
 		}
 		return;
 	}

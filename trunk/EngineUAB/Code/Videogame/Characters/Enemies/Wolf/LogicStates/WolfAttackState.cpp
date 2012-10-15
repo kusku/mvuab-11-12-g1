@@ -93,6 +93,8 @@ void CWolfAttackState::OnEnter( CCharacter* _pCharacter )
 	m_pWolf->GetBehaviors()->CollisionAvoidanceOn();
 	m_pWolf->GetBehaviors()->ObstacleWallAvoidanceOn();
 
+	m_bInPositionToAttack = true;
+
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
@@ -138,6 +140,7 @@ void CWolfAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 				else
 				{
 					m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+					return;
 				}
 
 				//m_pWolf->GoIntoCameraFrustum(l_Angle, _ElapsedTime);

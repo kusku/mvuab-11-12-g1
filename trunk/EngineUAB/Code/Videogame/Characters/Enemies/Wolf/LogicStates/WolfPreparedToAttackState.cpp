@@ -132,7 +132,7 @@ void CWolfPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elapse
 				m_pWolf->GetBehaviors()->SeekOn();
 				m_pWolf->FaceTo( m_pWolf->GetPlayer()->GetPosition(), _ElapsedTime);
 				m_pWolf->MoveTo2(m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
-				LOGGER->AddNewLog(ELL_INFORMATION, "CWolfPreparedToAttackState::Execute -> %s peguó al player y ahora vuelve a una posición inicial de ataque", m_pWolf->GetName().c_str());
+				LOGGER->AddNewLog(ELL_INFORMATION, "CWolfPreparedToAttackState::Execute -> %s pegó al player y ahora vuelve a una posición inicial de ataque", m_pWolf->GetName().c_str());
 			//}
 		}
 	}

@@ -89,6 +89,8 @@ void CRabbitAttackState::OnEnter( CCharacter* _pCharacter )
 	m_pRabbit->GetBehaviors()->CollisionAvoidanceOff();
 	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOff();
 	
+	m_bInPositionToAttack = true;
+
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
 		{
@@ -135,6 +137,7 @@ void CRabbitAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 				else
 				{
 					m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+					return;
 				}
 			}
 
@@ -144,14 +147,17 @@ void CRabbitAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 			if ( l_ActiveActionState == RABBIT_STILL_ATTACK_STATE ) 
 			{
 				m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetStillAttackState());
+				m_bInPositionToAttack = true;
 			}	
 			else if ( l_ActiveActionState == RABBIT_RUN_ATTACK_STATE ) 
 			{
 				m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetRunAttackState());
+				m_bInPositionToAttack = true;
 			}	
 			else if ( l_ActiveActionState == RABBIT_DEFENSE_STATE ) 
 			{
 				m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetDefenseState());
+				m_bInPositionToAttack = true;
 			}		
 			// else if ( l_ActiveActionState == "jump" ) then
 				// _CCharacter.logic_fsm:change_state(_CCharacter.jump_state)

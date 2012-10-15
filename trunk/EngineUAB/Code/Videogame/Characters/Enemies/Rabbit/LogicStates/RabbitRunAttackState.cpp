@@ -230,7 +230,7 @@ void CRabbitRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
-						LOGGER->AddNewLog(ELL_INFORMATION, "CRabbitRunAttackState:Execute->Animation Not finished yet" );
+						//LOGGER->AddNewLog(ELL_INFORMATION, "CRabbitRunAttackState:Execute->Animation Not finished yet" );
 					}
 				#endif
 			}
@@ -257,7 +257,7 @@ void CRabbitRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 		#if defined _DEBUG
 			if( CORE->IsDebugMode() )
 			{
-				LOGGER->AddNewLog(ELL_INFORMATION, "CRabbitRunAttackState:Execute->Correm al objectiu" );
+				//LOGGER->AddNewLog(ELL_INFORMATION, "CRabbitRunAttackState:Execute->Correm al objectiu" );
 			}
 		#endif
 			

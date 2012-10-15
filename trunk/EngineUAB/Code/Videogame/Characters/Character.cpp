@@ -634,16 +634,15 @@ bool CCharacter::IsPlayerReady( void )
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	CCharacter * l_Player = l_Process->GetPlayer();
 	
-	// std::string l_Name = l_Player->GetLogicFSM()->GetCurrentState()->GetName();
-	
-	/*if ( l_Player->GetLogicFSM()->isInState(l_Player->GetHitState()))
+	std::string l_Name = l_Player->GetLogicFSM()->GetCurrentState()->GetName();
+	if (l_Name == "hit" )
 	{
 		return false;
 	}
 	else
 	{
 		return true;
-	}*/
+	}
 		
 	return true;
 }
@@ -678,7 +677,7 @@ bool CCharacter::IsEnemyFocused( void )
 
 bool CCharacter::IsPlayerAtacable( void )
 {
-	bool l_IsFocused 			= IsEnemyFocused();
+	//bool l_IsFocused 			= IsEnemyFocused();
 	bool l_InsideAttackDistance	= IsPlayerInsideDistance(m_pProperties->GetAttackDistance());
 	bool l_IsPlayerReady		= IsPlayerReady();
 
