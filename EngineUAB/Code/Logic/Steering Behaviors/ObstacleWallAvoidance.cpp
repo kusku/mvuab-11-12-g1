@@ -121,25 +121,26 @@ void CObstacleWallAvoidance::CreateFeelers( float _Angle )
 	for ( float i = -_Angle/2; i < _Angle/2; i += l_Increment ) 
 	{
 		m_Feelers.push_back(GetDirectionRay(i));
-		/*Vect3f l_Front = m_pEntity->GetFront();
-		l_Front.y = 0;
-		l_Front.RotateY(mathUtils::Deg2Rad(i));
-		m_Feelers.push_back(l_Front);*/
 	}
 }
 
-void CObstacleWallAvoidance::DrawRays( Vect3f _Ray )
+void CObstacleWallAvoidance::DrawRays( void )
 {
 	Mat44f mat;
 	mat.SetIdentity();
 	CRenderManager * l_RM = CORE->GetRenderManager();
 	l_RM->SetTransform(mat);
 
-	Vect3f l_InitialPosition = m_pEntity->GetPosition();
-	l_InitialPosition.y += m_pEntity->GetHeight()/2;
-	Vect3f l_FinalPosition = _Ray.GetNormalized();
-	l_FinalPosition += l_InitialPosition;
-	l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colWHITE );
+	Vect3f _Ray;
+	for ( size_t i = 0; i < m_Feelers.size(); i++ ) 
+	{
+		_Ray = m_Feelers[i];
+		Vect3f l_InitialPosition = m_pEntity->GetPosition();
+		l_InitialPosition.y += m_pEntity->GetHeight()/2;
+		Vect3f l_FinalPosition = _Ray.GetNormalized() * m_ObstacleWallDetectionFeelerLength;
+		l_FinalPosition += l_InitialPosition;
+		l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colWHITE );
+	}
 }
 
 const Vect3f CObstacleWallAvoidance::GetInitialPositionToThrowRay( void ) const

@@ -57,6 +57,7 @@
 #include "Steering Behaviors\SteeringBehaviors.h"
 #include "Steering Behaviors\SteeringBehaviorsSeetingsManager.h"
 #include "Steering Behaviors\Seek.h"
+#include "Steering Behaviors\ObstacleWallAvoidance.h"
 
 #include "Billboard\BillboardManager.h"
 #include "Billboard\BillboardAnimation.h"
@@ -372,7 +373,8 @@ void CCharactersManager::DrawFrustum( void )
 	Mat44f mat;
 	mat.SetIdentity();
 	CRenderManager * l_RM = CORE->GetRenderManager();
-	
+	l_RM->SetTransform(mat);
+
 	TVectorResources::iterator l_It = m_ResourcesVector.begin();
 	TVectorResources::iterator l_End = m_ResourcesVector.end();
 
@@ -386,11 +388,11 @@ void CCharactersManager::DrawFrustum( void )
 			l_InitialPosition = (*l_It)->GetSteeringEntity()->GetInitialPositionToThrowRay();
 			l_FinalPosition = (*l_It)->GetSteeringEntity()->GetFinalPositionToThrowRay(0.f);
 			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );
-	
-			l_FinalPosition = (*l_It)->GetSteeringEntity()->GetFinalPositionToThrowRay(45.f);
+
+			l_FinalPosition = (*l_It)->GetSteeringEntity()->GetFinalPositionToThrowRay(30.f);
 			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );
 
-			l_FinalPosition = (*l_It)->GetSteeringEntity()->GetFinalPositionToThrowRay(-45.f);
+			l_FinalPosition = (*l_It)->GetSteeringEntity()->GetFinalPositionToThrowRay(-30.f);
 			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );
 		}
 	}
@@ -416,7 +418,6 @@ void CCharactersManager::DrawVelocity( CCharacter * _Character, CRenderManager *
 	Vect3f l_FinalPosition = _Character->GetSteeringEntity()->GetFinalPositionToThrowRay(0.f);
 	_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );*/
 }
-
 
 // Dibuixem el front dels enemics i del player
 void CCharactersManager::DrawFront( void )
@@ -465,173 +466,187 @@ void CCharactersManager::DrawFront( void )
 
 void CCharactersManager::DrawRay( void )
 {
-	Mat44f mat;
-	mat.SetIdentity();
-	CRenderManager * l_RM = CORE->GetRenderManager();
-	l_RM->SetTransform(mat);
+	TVectorResources::iterator l_It = m_ResourcesVector.begin();
+	TVectorResources::iterator l_End = m_ResourcesVector.end();
 	
-	Vect3f l_FinalPosition;
-	Vect3f l_InitialPosition;
-	Vect3f l_Front;
-
-	float l_ObstacleDistanceRay = CORE->GetSteeringBehaviourSettingsManager()->GetCollisionDetectionFeelerLength();
-	float l_RotacioRaigs = 45.f;
-
-	CCharacter * l_Enemy = GetResource("enemy22");
-	if (l_Enemy)
+	for ( l_It; l_It!=l_End; l_It++ )
 	{
-		if ( l_Enemy->GetProperties()->GetActive() )
-		{
-			for ( float i = -45.f; i <= 45.f; i += l_RotacioRaigs ) 
-			{
-				l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
-				l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(i);
-				l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );
-			}
-
-			/*l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
-			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(0.f);
-			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );
-
-			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(30.f);
-			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );
-
-			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(-30.f);
-			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );*/
+		if ( (*l_It)->GetProperties()->GetActive() && (*l_It)->GetBehaviors()->isObstacleAvoidanceOn() )
+		{ 
+			(*l_It)->GetBehaviors()->GetObstacleWallAvoidance()->DrawRays();
 		}
 	}
-
-	l_Enemy = GetResource("enemy23");
-	if (l_Enemy)
-	{ 
-		if ( l_Enemy->GetProperties()->GetActive() )
-		{
-			for ( float i = -45.f; i <= 45.f; i += l_RotacioRaigs ) 
-			{
-				l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
-				l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(i);
-				l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colGREEN );
-			}
-
-			/*l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
-			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(0.f);
-			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colGREEN );
-	
-			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(30.f);
-			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colGREEN );
-
-			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(-30.f);
-			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colGREEN );*/
-		}
-	}
-
-	l_Enemy = GetResource("enemy24");
-	if (l_Enemy)
-	{ 
-		if ( l_Enemy->GetProperties()->GetActive() )
-		{
-			/*l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
-			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(0.f);
-			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colRED );
-	
-			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(30.f);
-			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colRED );
-
-			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(-30.f);
-			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colRED );*/
-
-			for ( float i = -45.f; i <= 45.f; i += l_RotacioRaigs ) 
-			{
-				l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
-				l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(i);
-				l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colRED );
-			}
-		}
-	}
-
-	l_Enemy = GetResource("enemy25");
-	if (l_Enemy)
-	{
-		if ( l_Enemy->GetProperties()->GetActive() )
-		{
-			/*l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
-			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(0.f);
-			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colYELLOW );
-	
-			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(30.f);
-			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colYELLOW );
-
-			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(-30.f);
-			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colYELLOW );	*/	
-		
-			for ( float i = -45.f; i <= 45.f; i += l_RotacioRaigs ) 
-			{
-				l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
-				l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(i);
-				l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colYELLOW );
-			}
-		}
-	}
-
-	l_Enemy = GetResource("enemy26");
-	if (l_Enemy)
-	{
-		if ( l_Enemy->GetProperties()->GetActive() )
-		{
-			/*l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
-			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(0.f);
-			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colCYAN );
-	
-			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(30.f);
-			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colCYAN );
-
-			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(-30.f);
-			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colCYAN );		*/
-			for ( float i = -45.f; i <= 45.f; i += l_RotacioRaigs ) 
-			{
-				l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
-				l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(i);
-				l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colCYAN );
-			}
-		}
-	}
-	
-	l_Enemy = GetResource("enemy27");
-	if (l_Enemy)
-	{
-		if ( l_Enemy->GetProperties()->GetActive() )
-		{
-			/*l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
-			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(0.f);
-			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colBLUE );
-	
-			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(30.f);
-			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colBLUE );
-
-			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(-30.f);
-			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colBLUE );	*/
-			for ( float i = -45.f; i <= 45.f; i += l_RotacioRaigs ) 
-			{
-				l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
-				l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(i);
-				l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colBLUE );
-			}
-		}
-	}
-	
-	//Vect3f l_InitialPosition = l_Enemy->GetPosition();
-	//l_InitialPosition.y += 1;
-	//
-	//Vect3f l_FinalPosition = l_Enemy->GetPosition() + l_Enemy->GetFront();
-	////l_FinalPosition.Normalize();
-	//l_FinalPosition.y = l_InitialPosition.y;
-
-	//Vect3f l_FinalPosition = Vect3f ( l_Enemy->GetPosition().x + l_Enemy->GetFront().x, l_Enemy->GetPosition().y + l_Enemy->GetProperties()->GetHeightController(), l_Enemy->GetPosition().z + l_Enemy->GetFront().z) * 2;
-	//l_RM->DrawLine( Vect3f ( l_Enemy->GetPosition().x, l_Enemy->GetPosition().y + l_Enemy->GetProperties()->GetHeightController() , l_Enemy->GetPosition().z ), l_FinalPosition );
-
-	//l_FinalPosition.Normalize();
-	//l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );
 }
+
+//void CCharactersManager::DrawRay( void )
+//{
+//	Mat44f mat;
+//	mat.SetIdentity();
+//	CRenderManager * l_RM = CORE->GetRenderManager();
+//	l_RM->SetTransform(mat);
+//	
+//	Vect3f l_FinalPosition;
+//	Vect3f l_InitialPosition;
+//	Vect3f l_Front;
+//
+//	float l_ObstacleDistanceRay = CORE->GetSteeringBehaviourSettingsManager()->GetCollisionDetectionFeelerLength();
+//	float l_RotacioRaigs = 45.f;
+//
+//	CCharacter * l_Enemy = GetResource("enemy22");
+//	if (l_Enemy)
+//	{
+//		if ( l_Enemy->GetProperties()->GetActive() )
+//		{
+//			for ( float i = -45.f; i <= 45.f; i += l_RotacioRaigs ) 
+//			{
+//				l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
+//				l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(i);
+//				l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );
+//			}
+//
+//			/*l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
+//			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(0.f);
+//			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );
+//
+//			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(30.f);
+//			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );
+//
+//			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(-30.f);
+//			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );*/
+//		}
+//	}
+//
+//	l_Enemy = GetResource("enemy23");
+//	if (l_Enemy)
+//	{ 
+//		if ( l_Enemy->GetProperties()->GetActive() )
+//		{
+//			for ( float i = -45.f; i <= 45.f; i += l_RotacioRaigs ) 
+//			{
+//				l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
+//				l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(i);
+//				l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colGREEN );
+//			}
+//
+//			/*l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
+//			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(0.f);
+//			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colGREEN );
+//	
+//			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(30.f);
+//			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colGREEN );
+//
+//			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(-30.f);
+//			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colGREEN );*/
+//		}
+//	}
+//
+//	l_Enemy = GetResource("enemy24");
+//	if (l_Enemy)
+//	{ 
+//		if ( l_Enemy->GetProperties()->GetActive() )
+//		{
+//			/*l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
+//			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(0.f);
+//			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colRED );
+//	
+//			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(30.f);
+//			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colRED );
+//
+//			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(-30.f);
+//			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colRED );*/
+//
+//			for ( float i = -45.f; i <= 45.f; i += l_RotacioRaigs ) 
+//			{
+//				l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
+//				l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(i);
+//				l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colRED );
+//			}
+//		}
+//	}
+//
+//	l_Enemy = GetResource("enemy25");
+//	if (l_Enemy)
+//	{
+//		if ( l_Enemy->GetProperties()->GetActive() )
+//		{
+//			/*l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
+//			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(0.f);
+//			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colYELLOW );
+//	
+//			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(30.f);
+//			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colYELLOW );
+//
+//			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(-30.f);
+//			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colYELLOW );	*/	
+//		
+//			for ( float i = -45.f; i <= 45.f; i += l_RotacioRaigs ) 
+//			{
+//				l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
+//				l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(i);
+//				l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colYELLOW );
+//			}
+//		}
+//	}
+//
+//	l_Enemy = GetResource("enemy26");
+//	if (l_Enemy)
+//	{
+//		if ( l_Enemy->GetProperties()->GetActive() )
+//		{
+//			/*l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
+//			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(0.f);
+//			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colCYAN );
+//	
+//			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(30.f);
+//			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colCYAN );
+//
+//			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(-30.f);
+//			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colCYAN );		*/
+//			for ( float i = -45.f; i <= 45.f; i += l_RotacioRaigs ) 
+//			{
+//				l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
+//				l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(i);
+//				l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colCYAN );
+//			}
+//		}
+//	}
+//	
+//	l_Enemy = GetResource("enemy27");
+//	if (l_Enemy)
+//	{
+//		if ( l_Enemy->GetProperties()->GetActive() )
+//		{
+//			/*l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
+//			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(0.f);
+//			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colBLUE );
+//	
+//			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(30.f);
+//			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colBLUE );
+//
+//			l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(-30.f);
+//			l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colBLUE );	*/
+//			for ( float i = -45.f; i <= 45.f; i += l_RotacioRaigs ) 
+//			{
+//				l_InitialPosition = l_Enemy->GetSteeringEntity()->GetInitialPositionToThrowRay();
+//				l_FinalPosition = l_Enemy->GetSteeringEntity()->GetFinalPositionToThrowRay(i);
+//				l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colBLUE );
+//			}
+//		}
+//	}
+//	
+//	//Vect3f l_InitialPosition = l_Enemy->GetPosition();
+//	//l_InitialPosition.y += 1;
+//	//
+//	//Vect3f l_FinalPosition = l_Enemy->GetPosition() + l_Enemy->GetFront();
+//	////l_FinalPosition.Normalize();
+//	//l_FinalPosition.y = l_InitialPosition.y;
+//
+//	//Vect3f l_FinalPosition = Vect3f ( l_Enemy->GetPosition().x + l_Enemy->GetFront().x, l_Enemy->GetPosition().y + l_Enemy->GetProperties()->GetHeightController(), l_Enemy->GetPosition().z + l_Enemy->GetFront().z) * 2;
+//	//l_RM->DrawLine( Vect3f ( l_Enemy->GetPosition().x, l_Enemy->GetPosition().y + l_Enemy->GetProperties()->GetHeightController() , l_Enemy->GetPosition().z ), l_FinalPosition );
+//
+//	//l_FinalPosition.Normalize();
+//	//l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colMAGENTA );
+//}
 
 //-------------------------------------------------------------------------------------------------------------
 // LoadXMLProperties : permite cargar las propiedades por defecto de los cores y de esta manera tener

@@ -253,7 +253,6 @@ private:
 	float				m_AnimationOffset;			// Offset para restar la coordenada Y de la animación 
 
 	sTiredTimes			m_TiredTimes;				// Tiempos de descanso o cansado de cada enemigo parametrizados
-
 };
 
 #endif __CLASS_PROPERTIES_H__
