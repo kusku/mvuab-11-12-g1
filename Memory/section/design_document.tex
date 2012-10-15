@@ -10,9 +10,16 @@ Juego en 3D de tipo \emph{hack 'n' slash} y aventura en tercera persona, donde s
 %---------------------------------------------------
 \section{Descripción ampliada}
 
-La historia transcurre en un mundo tidimensional con una atmósfera oscura y de terror, con cierta visión \emph{cartoon}, donde Caperucita lo recorre bajo la luz de la luna buscando la venganza de la muerte de su abuela. Para ello deberá encontrar al malvado Lobo pero antes tendrá que combatir con decenas de monstruos que han sico convodados por el Lobo, cortándolos en diferentes trozos con su hoz destructora y sus cuchillos cortantes.
+La historia transcurre en un mundo tidimensional con una atmósfera oscura y de terror (figura \ref{fig:lobo}), con cierta visión \emph{cartoon}, donde Caperucita lo recorre bajo la luz de la luna buscando la venganza de la muerte de su abuela. Para ello deberá encontrar al malvado Lobo pero antes tendrá que combatir con decenas de monstruos que han sico convodados por el Lobo, cortándolos en diferentes trozos con su hoz destructora y sus cuchillos cortantes.
 
-En esta aventura, caperucita deberá recorrer el bosque y la casa donde habita su abuela matando a todos los enemigos que se encuentren a su paso. Como su abuela estará muerta por el lobo, Caperucita irá a la cueva del lobo en busca de venganza. ¿Logrará Caperucita matar al lobo feroz que gobierna el bosque y que mató a su abuela?
+En esta aventura, caperucita deberá recorrer el bosque y la casa donde habita su abuela matando a todos los enemigos que se encuentren a su paso. Como su abuela estará muerta por el lobo, Caperucita irá a la cueva del lobo en busca de venganza. ?`Logrará Caperucita matar al lobo feroz que gobierna el bosque y que mató a su abuela?
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.6]{figures/design_document/lobo.eps}
+\end{center}
+\emph{\caption{Ambientación oscura de la noche}\label{fig:lobo}}
+\end{figure}
 
 \subsection{Género}
 
@@ -142,7 +149,7 @@ Como elementos interactivos dentro del juego hay:
 \begin{itemize}
 \item El personaje principal: Caperucita.
 \item El enemigo principal: el Lobo.
-\item Enemigos secundarios (ver sección \ref{sec:enemies}).
+\item Enemigos secundarios (sección \ref{sec:enemies}).
 \item Algunas armas, como la ballesta.
 \end{itemize}
 
@@ -150,9 +157,16 @@ Todos estos elementos tendrán animaciones propias.
 
 \subsubsection{Personaje principal}
 
-Caperucita. Está basada en los cuentos de \emph{Caperucita} pero dimensionada hacia una atmósfera totalmente \emph{gore} asemejándose a la chica protagonista de la película \emph{Hard Candy} \cite{HardCandy} de David Slade. Mide unos 1.55m y unos 40kg de peso. Tiene una fisonomía muy delgada y su cara destaca por sus ojos grandes y luminosos.
+Caperucita. Está basada en los cuentos de \emph{Caperucita} pero dimensionada hacia una atmósfera totalmente \emph{gore} asemejándose a la chica protagonista de la película \emph{Hard Candy} \cite{HardCandy} de David Slade. Mide unos 1.55m y unos 40kg de peso. Tiene una fisonomía muy delgada y su cara destaca por sus ojos grandes y luminosos (figura \ref{fig:caperu}).
 
 Lleva un vestido con falda y se caracteriza por su capa roja que la cubre enteramente, protegiéndola del frío del bosque.
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.7]{figures/design_document/caperu.eps}
+\end{center}
+\emph{\caption{Idea de Caperucita}\label{fig:caperu}}
+\end{figure}
 
 \subsubsection{Enemigos} \label{sec:enemies} 
 Durante el combate, irán apareciendo enemigos constantemente, pero sólo habrá 10 enemigos en batalla. Los enemigos son:
@@ -187,7 +201,124 @@ Los ítems son variados y modifican alguna característica del jugador. Algunos ít
 
 \subsection{Acciones}
 
+Es esta sección se describen las acciones de los personajes.
+
+\begin{itemize}
+
+\item Caperucita. El personaje podrá realizar las siguientes acciones:
+
+\begin{itemize}
+\item Moverse por el escenario tridimensional.
+\item Saltar en todas direcciones y sobre si mismmo, es decir, en vertical.
+\item Atacar.
+\item Defender.
+\item Cada arma tendrá unos movimientos o secuencias de ataque diferentes. En algunas armas se podrán hacer consecutivamente una secuencia de movimientos. Si la secuencia ha tenido éxito, el siguiente golpe será un golpe especial para rematar al enemigo. El combo se desactivará cuando alguno de los movimientos no toquen al enemigo.
+\item Recoger ítems. Se recogerán al pasar por encima del objeto y se aplicarán en ese mismo instante.
+\end{itemize}
+
+\item El Lobo. El enemigo principal tendrá ciertos movimientos como los siguientes:
+
+\begin{itemize}
+\item Ataque melée (cuerpo a cuerpo).
+\item Golpes con las garras.
+\item Coger a Caperucita y morderla.
+\item Rugir. Después del rugido, aparecen nuevos seres de la noche para ayudar al lobo.
+\end{itemize}
+
+\item Rata.
+\begin{itemize}
+\item Ataque melée.
+\item Morder.
+\item Inyecta veneno. Se cura con un antídoto.
+\end{itemize}
+
+\item Murciélago.
+\begin{itemize}
+\item Ataque aéreo.
+\item Morder.
+\item Inyecta veneno. Se cura con un antídoto.
+\end{itemize}
+
+\item Conejo.
+\begin{itemize}
+\item Ataque melée.
+\item Defensa.
+\end{itemize}
+
+\end{itemize}
+
 \subsubsection{Animaciones}
+
+A continuación se detallan las animaciones de los diferentes enemigos y del personaje principal.
+
+\begin{itemize}
+
+\item Caperucita.
+\begin{itemize}
+\item Estado de reposo (Idle).
+\item Correr.
+\subitem Ir de frente.
+\subitem Desplazarse lateralmente.
+\subitem Ir hacia atrás.
+\item Defenderse.
+\item Bloquear un ataque mientras se defiende.
+\item Saltar.
+\subitem De forma vertical.
+\subitem en una dirección dependiendo de la tecla presionada.
+\item Derrumbarse / Levantarse.
+\item Morir.
+\item Atacar. Dependiendo del arma que lleve equipada Caperucita tendrá unas animaciones u otras.
+\begin{itemize}
+\item Hoz.
+\subitem Armarla.
+\subitem Golpe inicial.
+\subitem Golpe final.
+\item Ballesta.
+\subitem Armarla.
+\subitem Disparar / Recarga automática.
+\end{itemize}
+\end{itemize}
+
+\item El Lobo
+\begin{itemize}
+\item Idle.
+\item Correr.
+\item Caminar.
+\item Golpes con las garras.
+\item Coger a Capercita y morderla.
+\item Rugido.
+\item Defenderse con las patas delanteras.
+\item Atacar. Tendrá más de un ataque, así que tendrá más de una animación en este aspecto.
+\end{itemize}
+
+\item Rata.
+\begin{itemize}
+\item Idle.
+\item Correr.
+\item Caminar.
+\item Morder.
+\end{itemize}
+
+\item Murciélago.
+\begin{itemize}
+\item Idle.
+\item Correr.
+\item Caminar.
+\item Ataque aéreo.
+\item Morder.
+\end{itemize}
+
+\item Conejo.
+\begin{itemize}
+\item Idle.
+\item Correr.
+\item Caminar.
+\item Ataque con garras.
+\item Se protege con las garras y agachándose.
+\end{itemize}
+
+\end{itemize}
+
 
 \subsection{Interfaz}
 
@@ -203,13 +334,20 @@ El HUD del juego se forma en dos partes distintas:
 También contendrá un icono mostrando qué arma lleva el personaje en ese instante.
 Se podrá mostrar una lista con las armas disponibles en ese momento y seleccionar una concreta. Por defecto esto estará oculto y sólo se mostrará cuando se pulse una tecla.
 
-\item Menú de pausa. Desde dentro del juego se podrá acceder a un menú simple. Su función será de pausa del juego y contendrá las siguientes acciones:
+\item Menú de pausa. Desde dentro del juego se podrá acceder a un menú simple. Su función será de pausa del juego y contendrá las siguientes acciones (figura \ref{fig:pausa}):
 
 \subitem Continuar partida. Permitirá volver al juego y continuar jugando.
 \subitem Opciones. Se podrá modificar parámetros del juego.
 \subitem Finalizar partida. La partida se terminará y se irá al menú principal.
 
 \end{itemize}
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.7]{figures/design_document/pausa.eps}
+\end{center}
+\emph{\caption{Esbozo del menú de pausa}\label{fig:pausa}}
+\end{figure}
 
 \subsubsection{Menús externos}
 
@@ -230,44 +368,176 @@ Cuando se ejecute por primera vez el juego o se salga de la partida, se irá al s
 \end{itemize}
 
 \subsection{Control}
-
-El juego funcionará con teclado y ratón. Las acciones que puede hacer son:
+El juego funcionará con teclado y ratón. Las acciones generales son:
 
 \begin{itemize}
-\item Cámara: Movimiento del ratón.
-\item Atacar: Botón izquierdo del ratón.
-\item Ataque fuerte: Control izquierdo + Botón izquierdo del ratón.
-\item Defenderse: Botón derecho del ratón.
-\item Dirección: W(adelante), S(atrás), A(izquierda), D(derecha).
-\item Salto: Barra Espaciadora.
-\item Acción: E.
+\item Activar habilidad: Botón medio del ratón (BTM).
+\item Cambio de armas: Rueda del ratón (BR).
+\end{itemize}
+
+\subsubsection{Movimiento de desplazamiento}
+\begin{itemize}
+\item Desplazarse.
+\subitem A la izquierda: A.
+\subitem Hacia abajo: S.
+\subitem A la derecha: D.
+\subitem Adelante: W.
+\item Andar: Shift.
+\item Acelerar: Alt.
+\item Saltar: Barra espaciadora.
+\subitem Doble salto: Barra espaciadora + barra espaciadora.
+\end{itemize}
+
+Combinando con alguna acción de teclado o ratón puede ejecutar un golpe específico.
+
+\subsubsection{Movimientos de ataque}
+\begin{itemize}
+\item Atacar: Botón izquierdo del ratón (BTI).
+\item Acelerar + ataque. Se usará para atacar y empujar a un enemigo.
+\subitem Choque y golpeo: Alt + BTI + Dirección. 
+\subitem Choque y doble rajada: Alt + BTI + BTI + Dirección.
+\subitem Salto, choque y rajada: Alt + Barra espaciadora + BTI + Direccion.
+
+\item Patada del dragón (combo).
+\subitem Golpe simple: Dirección + BTI.
+\subitem Golpe con giro: Dirección + BTI + BTI.
+\subitem Golpe final: Dirección + BTI + BTI + BTI.
+
+\item Cuchillos (combo).
+\subitem Corte: BTI.
+\subitem Doble corte: BTI + BTI.
+\subitem Triple corte mortal: BTI + BTI + BTI.
+\subitem Golpe final: BTI + BTI + BTI + BTI.
+
+\item Hoz (combo).
+\subitem Corte: Dirección + BTI.
+\subitem Golpe de serpiente: Dirección + BTI + BTI.
+\subitem ...
+\end{itemize}
+
+\subsubsection{Movimientos de defensa}
+\begin{itemize}
+\item Protegerse: Botón derecho del ratón (BTD).
 \end{itemize}
 
 %----- Arte ----------------------------------------
 %---------------------------------------------------
 \section{Arte}
 
-El estio gráfico del juego estará inspirado por el mundo de los cuentos de niños, \emph{cartoon}, pero adaptado a un público mayor con una dimensión \emph{gore} y sangriento. Este estilo permite exagerar el diseño de los objetos y del entorno en general.
+El estio gráfico del juego estará inspirado por el mundo de los cuentos de niños, \emph{cartoon}, pero adaptado a un público mayor con una dimensión \emph{gore} y sangriento. Este estilo permite exagerar el diseño de los objetos y del entorno en general. Para dar aspecto \emph{cartoon}, se aplicará la técnica del \emph{cell shading} \cite{cellshading} (figure \ref{fig:cell_shading}).
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.4]{figures/design_document/cell_shading.eps}
+\end{center}
+\emph{\caption{Ejemplo de estilo gráfico cell shading}\label{fig:cell_shading}}
+\end{figure}
+
 
 Para reproducir un ambiente lúgubre, la iluminación estará marcada por la Luna y los faros que habrá repartidos por el bosque. El ambiente será nocturno y siniestro. La cabaña  será de colores más vivos y con más luz. Finalmente, la cueva volverá a ser un lugar con poca luz y muy tenebrosa. Sólo estará iluminado por pequeñas luces repartidas por el escenario.
 
 \subsection{Caperucita}
+El personaje de Caperucita está inspirado por la chica que protagoniza la película \emph{Hard Candy} y de los personajes del juego \emph{Fairytale Fights}. En el juego, no veremos su cara de forma limpia, sólo sus ojos blancos o rojos que brillan. El resto del rostro estará oculto a causa de la sombra que genera la capucha de su capa (figura \ref{fig:caperu_arte}).
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.7]{figures/design_document/caperu_arte.eps}
+\end{center}
+\emph{\caption{Idea de la cara de Caperucita}\label{fig:caperu_arte}}
+\end{figure}
+
+El personaje será pequeño pero sus armas seran más grandes para exagerar y amplificar el lado \emph{gore} del juego.
+
+La indumentaria de Caperucita se basa en el típico vestido con capa roja del cuento. Esta podría moverse con el viento o con los movimientos que el jugador realice siempre.
+
 
 \subsection{El Lobo}
+El Lobo (figura \ref{fig:lobo_arte}) será un enemigo muy grande con una gran cantidad de pelo y muy musculado.
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.5]{figures/design_document/lobo_arte.eps}
+\end{center}
+\emph{\caption{Idea del Lobo}\label{fig:lobo_arte}}
+\end{figure}
+
 
 \subsection{Enemigos}
+Los enemigos seran feroces, con partes desgarradas y deformadas (figura \ref{fig:enemies_arte}).
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.5]{figures/design_document/enemies_arte.eps}
+\end{center}
+\emph{\caption{Idea de los enemigos}\label{fig:enemies_arte}}
+\end{figure}
 
 \subsection{Armas}
+Las armas (figura \ref{fig:armas_arte}) estarán hechas de madera y hierro y serán más grandes que la protagonista.
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.7]{figures/design_document/armas_arte.eps}
+\end{center}
+\emph{\caption{Idea de armas}\label{fig:armas_arte}}
+\end{figure}
 
 \subsection{El bosque}
+Es un bosque muerto (figura \ref{fig:bosque_arte}) en la época de invierno después de una nevad, iluminado por la luza de la luna y unos candelabros que van marcando el camino que debe recorrer Caperucita para llegar a la cabaña de la abuela. Este escenario tendrá árboles, rocas y matojos donde las hojas de los árboles se revuelven muy inquietas, expectantes, donde apenas hay ruido y donde se visualiza también una crecida luna, tan grande como luminosa. En este escenario se modelarán varios árboles con ramas largas y sin hojas para apoyar este estilo lúgubre. 
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.7]{figures/design_document/bosque_arte.eps}
+\end{center}
+\emph{\caption{Idea del bosque}\label{fig:bosque_arte}}
+\end{figure}
+
+Aún así, el diseño del entorno será bastante sencillo mientras que la escena será bastante larga para permitir al jugador moverse con cierta libertad para posibilitat el escape de los ataques de olas de enemigos. Habrá una luz fija emitida por la luna, y antorchas o faros que iluminaran el camino a seguir por el jugador.
+
 
 \subsection{La cabaña}
+Estará situada en medio del camino del bosque y estará construida de piedra y madera (figura \ref{fig:cabana_arte}). Tendrá una chimenea en un lateral donde siempre saldrá huma indicando que en su interior se respira tranquilidad y amor. El jugador tendrá que entrar dentro de ella. El entorno exterior de la cabaña estará limitado por la mismas reglas del bosque. Tendrá más iluminación que el bosque o la cueva, para que sea más visible.
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.5]{figures/design_document/cabana_arte.eps}
+\end{center}
+\emph{\caption{Idea de la cabaña}\label{fig:cabana_arte}}
+\end{figure}
 
 \subsection{La cueva}
+Será bastante oscuro aunque existirán puntos de luz que iluminarán el camino hacia la madriguera del Lobo (figura \ref{fig:cueva_arte}). Los puntos de luz pueden ser faros o antorchas con fuego. En la sala donde se combate con el Lobo, será una sala grande con más luz que el resto de la cueva para que se pueda disfrutar de la lucha. En la sala principal hab´ra un poco de lago con agua.
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.6]{figures/design_document/cueva_arte.eps}
+\end{center}
+\emph{\caption{Idea de la cueva}\label{fig:cueva_arte}}
+\end{figure}
 
 %----- Historia ------------------------------------
 %---------------------------------------------------
 \section{Historia}
+Esta es la historia de Caperucita Roja, como nadie lo había contado antes...
+
+\emph{"`Nunca vayas al bosque sola, mi nieta, ya que están habitadas por el lobo y aunque nos han hecho retroceder las hordas y hordas de enemigos, nadie se puede comparar con la ferocidad del Lobo."'}
+
+La Caperucita Roja era una niña seria y disciplinada que vivía una vida tranquila en el pueblo de una tierra lejana. Después de muchas guerras sangrientas contra los invasores que venían de todas las partes del Reino, la gente estaba acostumbrada a defenderse y se habían convertido en brillantes combatientes. Los secretos de este estilo de lucha estaban en manos de una persona temida y respetada por todos, la Abuela de Caperucita Roja. Ella había enseñado mientras varias generaciones técnicas de combate mortal, convirtiendo se en formidable arma de guerra. Los rumores corrían acerca de su pasado, que poca gente sabía verdaderamente, que ella era la descendiente de un gran guerrero que había diezmado a ejércitos enteros de enemigos equipado con un arma legendaria, la Hoz de la Serpiente. Pero no se sabía si estas historias estaban dentro de la leyenda o la realidad.
+El pueblo era construido en el borde de un inmenso bosque. Todos los aldeanos tenían miedo del bosque porque allí vivía el Lobo, un animal maléfico que la gente pensaba llegado del Infierno. La ferocidad del Lobo no se comparaba con ningún enemigo del Reino. Poca gente había visto el Lobo en verdad porque el monstruo casi nunca se deja el bosque. 
+
+La abuela de Caperucita Roja tuvo solo su nieta en el mundo. Ella la amaba el amor de una madre y se había notado en su nieta una increíble potencial de combate. Caperucita Roja era ágil como Mantis Religiosa, fuerte como las garras del Tigre. La Caperucita Roja seguido todos los días entrenamiento intensivo que exigía disciplina y su abuela estaba orgulloso del progreso notable de su nieta, día tras día.
+
+Pero un día, varios residentes de la aldea desaparecieron sin dejar rastro. La gente entró en pánico y la abuela decidió que tenía aclarar la situación. Ella comenzó a buscar pistas. Al examinar una de las casas al norte del pueblo, fue aterrorizada cuando se dio cuenta de las señales de garras impresionantes, 2 de 3 metros, penetrando profundamente en el suelo. De repente, ella sabía y sentía el suelo ceder bajo sus pies: era el Lobo. Ella lanzó un grito de rabia y corrió con todas sus fuerzas hacia el bosque para hacer frente a sus peores temores, su pesadilla de la más formidable, el Lobo, que ella quería ser una mera leyenda.
+
+Pasaron varios días sin que nadie sepa el paradero de la abuela. Caperucita Roja estaba temblando de miedo y de rabia por no ser lo suficientemente fuerte para luchar contra el terrible Lobo, al lado de su Abuela.
+
+Fue sólo después del cuarto día que el pueblo recuperó la abuela agonizando a las puertas del Pueblo, la cara ensangrentada y el cuerpo salpicado de rasguños profundos. La llevaron en su cama y, equipada con las últimas fuerzas que le quedaban ordenó que se hace de Caperucita Roja llegan a su lado. Caperucita Roja entró en la habitación de su Abuela moribunda. Ella se molestó hasta su alma cuando vio a su Abuela en esta condición,  ella que era de una fuerza y agilidad sin igual. La Abuela no dijo nada, se volvió y agarró algo que ella entregó a su hija. Bajo la luz de las velas, el objeto de una extraordinaria luz brilló. Caperucita Roja no podía creer lo que veía: su Abuela le dio la Hoz de la Serpiente Legendaria. Su Abuela le dijo que era un arma con una letalidad sin precedentes y que había tomado un sinnúmero de vidas. Ella había escondido la Hoz todos estos años porque temía el poder de la Hoz de la Serpiente Legendaria y decidió que se pondría de manifiesto sólo en contra de un enemigo llegado directamente del Infierno. En su último aliento, le dijo a la Caperucita Roja que llevar esta arma era una gran responsabilidad y que ahora se había convertido en una guerrera verdadera.
+
+\emph{"`Te ha dicho que nunca vayas al bosque sola, mi nieta, dijo la Abuela, ya que están habitadas por el lobo y aunque nos han hecho retroceder las hordas y hordas de enemigos, nadie se puede comparar con la ferocidad del Lobo. Pero equipada con la Hoz Legendaria del Serpiente, nadie se puede quedar en tu camino. Ve, mi nieta, no tiene miedo, ve a proteger el pueblo, y abraza tu destino..."'}
+
+Y así la Abuela se murió.
+
+Caperucita Roja se puso de pie, temblando de rabia y de la tristeza de su pérdida. Nunca se había sentido tan dispuesto. Fue a las puertas de la aldea, bajo la mirada de la gente asustada. Se aventuró en el bosque bajo la lluvia, las gotas chorreando en su rostro sereno y determinado. Al entrar en un bosquecillo, ella llegó de repente frente al Lobo. El Lobo fue impresionante. Era enorme, tenía los dientes tan largos que se rascaban el suelo y las garras brillando en la luz de la luna. Fue a lo largo de al menos 4 pies, su piel era impresionante y reflejo tonos púrpura. Caperucita Roja pensó en las palabras de su abuela, que era un enemigo vino directamente del Infierno. Se percibe en la boca del Lobo como una sonrisa y se dio cuenta de que el estaba esperando por ella. En este momento, la Caperucita Roja era tan enfadada y tan intimidante que la leyenda se recuerda de ella cómo la Caperucita Loca. Y la lucha empezó.
 
 %----- Tecnología ----------------------------------
 %---------------------------------------------------
