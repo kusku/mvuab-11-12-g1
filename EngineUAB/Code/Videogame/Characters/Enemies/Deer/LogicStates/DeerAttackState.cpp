@@ -86,7 +86,7 @@ void CDeerAttackState::OnEnter( CCharacter* _pCharacter )
 	m_pDeer->GetBehaviors()->CollisionAvoidanceOn();
 	m_pDeer->GetBehaviors()->ObstacleWallAvoidanceOn();
 
-	m_bInPositionToAttack = false;
+	m_bInPositionToAttack = true;
 
 	#if defined _DEBUG
 		if( CORE->IsDebugMode() )
@@ -134,6 +134,7 @@ void CDeerAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 				else
 				{
 					m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+					return;
 				}
 
 				//m_pDeer->GoIntoCameraFrustum(l_Angle, _ElapsedTime);

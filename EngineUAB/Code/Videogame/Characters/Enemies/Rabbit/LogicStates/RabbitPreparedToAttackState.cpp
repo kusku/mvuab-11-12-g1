@@ -128,7 +128,7 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elap
 			m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_PositionReachedAfterHitPlayer);
 			m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime);
 			m_pRabbit->MoveTo2(m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
-			LOGGER->AddNewLog(ELL_INFORMATION, "CRabbitPreparedToAttackState::Execute -> %s peguó al player y ahora vuelve a una posición inicial de ataque", m_pRabbit->GetName().c_str());
+			LOGGER->AddNewLog(ELL_INFORMATION, "CRabbitPreparedToAttackState::Execute -> %s pegó al player y ahora vuelve a una posición inicial de ataque", m_pRabbit->GetName().c_str());
 		}
 		return;
 	}

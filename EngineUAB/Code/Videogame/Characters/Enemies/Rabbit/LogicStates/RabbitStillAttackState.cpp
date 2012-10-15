@@ -258,7 +258,7 @@ void CRabbitStillAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTi
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
-					LOGGER->AddNewLog(ELL_INFORMATION,"CRabbitStillAttackState::Execute->Animacion en curso...");
+					//LOGGER->AddNewLog(ELL_INFORMATION,"CRabbitStillAttackState::Execute->Animacion en curso...");
 				}
 			#endif
 
