@@ -147,14 +147,17 @@ void CDeerAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 			if ( l_ActiveActionState == DEER_STILL_ATTACK_STATE ) 
 			{
 				m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetStillAttackState());
+				m_bInPositionToAttack = true;
 			}	
 			else if ( l_ActiveActionState == DEER_RUN_ATTACK_STATE ) 
 			{
 				m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetRunAttackState());
+				m_bInPositionToAttack = true;
 			}	
 			else if ( l_ActiveActionState == DEER_DEFENSE_STATE ) 
 			{
 				m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetDefenseState());
+				m_bInPositionToAttack = true;
 			}	
 			// else if ( l_ActiveActionState == "jump" ) then
 				// _CCharacter.logic_fsm:change_state(_CCharacter.jump_state)
