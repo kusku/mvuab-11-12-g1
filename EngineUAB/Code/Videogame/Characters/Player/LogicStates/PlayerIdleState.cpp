@@ -65,6 +65,12 @@ void CPlayerIdleState::OnEnter( CCharacter* _pCharacter )
 
 	UpdateImpact(_pCharacter);
 	GenerateImpact(_pCharacter);
+
+	// Después de una carrerita la tia se cansa y respira profundamente 
+	if ( m_pPlayer->GetLogicFSM()->GetPreviousState()->GetName() == "run" ) 
+	{
+		CORE->GetSoundManager()->PlayEvent( m_pPlayer->GetSpeakerName(), "Play_EFX_Caperucita_slow_sighs");
+	}
 }
 
 void CPlayerIdleState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
@@ -122,6 +128,8 @@ void CPlayerIdleState::OnExit( CCharacter* _pCharacter )
 	GetParticleEmitter("Impact")->StopEjectParticles();
 	GetParticleEmitter("ExpandWave")->StopEjectParticles();
 	GetParticleEmitter("Streaks")->StopEjectParticles();*/
+
+	CORE->GetSoundManager()->PlayEvent( m_pPlayer->GetSpeakerName(), "Stop_EFX_Caperucita_slow_sighs");
 }
 
 bool CPlayerIdleState::OnMessage( CCharacter* _pCharacter, const STelegram& _Message )
