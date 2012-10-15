@@ -83,14 +83,6 @@ void CGUIProcess::SetCameraToAudio()
 //-------------------------------------
 void CGUIProcess::ChangeProcess()
 {
-	XML::InitThreads();
-	XML::LockLibrary();
-
-	SCRIPT->RunCode("load_data()");
-
-	XML::UnlockLibrary();
-	XML::FinalizeThreads();
-
 	PostMessage(m_hWnd, WM_GAME_PROCESS, 0, 0);
 }
 

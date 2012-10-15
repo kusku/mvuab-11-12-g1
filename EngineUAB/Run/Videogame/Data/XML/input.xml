@@ -80,6 +80,10 @@
 		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN_UP" Code="KEY_E"/>
 	</action>
 
+	<action name="SkipWindows">
+		<input deviceType="IDV_KEYBOARD" EventType="EVENT_DOWN_UP" Code="KEY_X"/>
+	</action>
+	
 	<action name="YawPlayer">
 		<input deviceType="IDV_MOUSE" AxisType="AXIS_MOUSE_X"     Delta="0.01f"/>
 	</action>
