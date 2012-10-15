@@ -3,40 +3,11 @@ Type=TeXnicCenterProjectSessionInformation
 Version=2
 
 [SessionInfo]
-ActiveTab=0
-FrameCount=4
-ActiveFrame=2
+ActiveTab=2
+FrameCount=5
+ActiveFrame=1
 
 [Frame0]
-Columns=1
-Rows=1
-Flags=0
-ShowCmd=1
-MinPos.x=-1
-MinPos.y=-1
-MaxPos.x=-8
-MaxPos.y=-30
-NormalPos.left=25
-NormalPos.top=25
-NormalPos.right=841
-NormalPos.bottom=494
-Class=CLatexEdit
-Document=Memory.tex
-
-[Frame0_Row0]
-cyCur=410
-cyMin=10
-
-[Frame0_Col0]
-cxCur=779
-cxMin=10
-
-[Frame0_View0,0]
-Cursor.row=0
-Cursor.column=0
-TopSubLine=0
-
-[Frame1]
 Columns=1
 Rows=1
 Flags=0
@@ -52,20 +23,20 @@ NormalPos.bottom=462
 Class=CLatexEdit
 Document=section\bibliography.tex
 
-[Frame1_Row0]
+[Frame0_Row0]
 cyCur=353
 cyMin=10
 
-[Frame1_Col0]
+[Frame0_Col0]
 cxCur=833
 cxMin=10
 
-[Frame1_View0,0]
-Cursor.row=18
-Cursor.column=127
-TopSubLine=0
+[Frame0_View0,0]
+Cursor.row=34
+Cursor.column=14
+TopSubLine=24
 
-[Frame2]
+[Frame1]
 Columns=1
 Rows=1
 Flags=2
@@ -81,20 +52,20 @@ NormalPos.bottom=487
 Class=CLatexEdit
 Document=section\development.tex
 
-[Frame2_Row0]
+[Frame1_Row0]
 cyCur=566
 cyMin=10
 
-[Frame2_Col0]
+[Frame1_Col0]
 cxCur=1024
 cxMin=10
 
-[Frame2_View0,0]
-Cursor.row=49
-Cursor.column=156
-TopSubLine=33
+[Frame1_View0,0]
+Cursor.row=50
+Cursor.column=127
+TopSubLine=28
 
-[Frame3]
+[Frame2]
 Columns=1
 Rows=1
 Flags=0
@@ -110,6 +81,35 @@ NormalPos.bottom=537
 Class=CLatexEdit
 Document=section\design_document.tex
 
+[Frame2_Row0]
+cyCur=353
+cyMin=10
+
+[Frame2_Col0]
+cxCur=833
+cxMin=10
+
+[Frame2_View0,0]
+Cursor.row=422
+Cursor.column=0
+TopSubLine=499
+
+[Frame3]
+Columns=1
+Rows=1
+Flags=0
+ShowCmd=1
+MinPos.x=-1
+MinPos.y=-1
+MaxPos.x=-8
+MaxPos.y=-30
+NormalPos.left=100
+NormalPos.top=100
+NormalPos.right=970
+NormalPos.bottom=512
+Class=CLatexEdit
+Document=section\introduction.tex
+
 [Frame3_Row0]
 cyCur=353
 cyMin=10
@@ -119,7 +119,36 @@ cxCur=833
 cxMin=10
 
 [Frame3_View0,0]
-Cursor.row=428
+Cursor.row=0
 Cursor.column=0
-TopSubLine=499
+TopSubLine=0
+
+[Frame4]
+Columns=1
+Rows=1
+Flags=0
+ShowCmd=1
+MinPos.x=-1
+MinPos.y=-1
+MaxPos.x=-8
+MaxPos.y=-30
+NormalPos.left=150
+NormalPos.top=150
+NormalPos.right=1020
+NormalPos.bottom=562
+Class=CLatexEdit
+Document=section\cover.tex
+
+[Frame4_Row0]
+cyCur=353
+cyMin=10
+
+[Frame4_Col0]
+cxCur=833
+cxMin=10
+
+[Frame4_View0,0]
+Cursor.row=16
+Cursor.column=0
+TopSubLine=0
 
