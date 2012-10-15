@@ -115,9 +115,10 @@ sampler StaticShadowMapSampler1 = sampler_state
    MinFilter	= ANISOTROPIC;
    MagFilter	= ANISOTROPIC;
    MipFilter	= ANISOTROPIC;
-   AddressU		= CLAMP;
-   AddressV		= CLAMP;
+   AddressU		= BORDER;
+   AddressV		= BORDER;
    MaxAnisotropy = 8;
+   BorderColor = float4(0.0f, 0.0f, 0.0f, 0.0f);
 };
 
 sampler StaticShadowMapSampler2 = sampler_state
@@ -126,9 +127,10 @@ sampler StaticShadowMapSampler2 = sampler_state
    MinFilter	= ANISOTROPIC;
    MagFilter	= ANISOTROPIC;
    MipFilter	= ANISOTROPIC;
-   AddressU		= CLAMP;
-   AddressV		= CLAMP;
+   AddressU		= BORDER;
+   AddressV		= BORDER;
    MaxAnisotropy = 8;
+   BorderColor = float4(0.0f, 0.0f, 0.0f, 0.0f);
 };
 
 sampler StaticShadowMapSampler3 = sampler_state
@@ -137,9 +139,10 @@ sampler StaticShadowMapSampler3 = sampler_state
    MinFilter	= ANISOTROPIC;
    MagFilter	= ANISOTROPIC;
    MipFilter	= ANISOTROPIC;
-   AddressU		= CLAMP;
-   AddressV		= CLAMP;
+   AddressU		= BORDER;
+   AddressV		= BORDER;
    MaxAnisotropy = 8;
+   BorderColor = float4(0.0f, 0.0f, 0.0f, 0.0f);
 };
 
 sampler StaticShadowMapSampler4 = sampler_state
@@ -148,9 +151,10 @@ sampler StaticShadowMapSampler4 = sampler_state
    MinFilter	= ANISOTROPIC;
    MagFilter	= ANISOTROPIC;
    MipFilter	= ANISOTROPIC;
-   AddressU		= CLAMP;
-   AddressV		= CLAMP;
+   AddressU		= BORDER;
+   AddressV		= BORDER;
    MaxAnisotropy = 8;
+   BorderColor = float4(0.0f, 0.0f, 0.0f, 0.0f);
 };
 
 sampler DynamicShadowMapSampler1 = sampler_state
@@ -159,9 +163,10 @@ sampler DynamicShadowMapSampler1 = sampler_state
    MinFilter	= ANISOTROPIC;
    MagFilter	= ANISOTROPIC;
    MipFilter	= ANISOTROPIC;
-   AddressU		= CLAMP;
-   AddressV		= CLAMP;
+   AddressU		= BORDER;
+   AddressV		= BORDER;
    MaxAnisotropy = 8;
+   BorderColor = float4(0.0f, 0.0f, 0.0f, 0.0f);
 };
 
 sampler DynamicShadowMapSampler2 = sampler_state
@@ -170,9 +175,10 @@ sampler DynamicShadowMapSampler2 = sampler_state
    MinFilter	= ANISOTROPIC;
    MagFilter	= ANISOTROPIC;
    MipFilter	= ANISOTROPIC;
-   AddressU		= CLAMP;
-   AddressV		= CLAMP;
+   AddressU		= BORDER;
+   AddressV		= BORDER;
    MaxAnisotropy = 8;
+   BorderColor = float4(0.0f, 0.0f, 0.0f, 0.0f);
 };
 
 sampler DynamicShadowMapSampler3 = sampler_state
@@ -181,9 +187,10 @@ sampler DynamicShadowMapSampler3 = sampler_state
    MinFilter	= ANISOTROPIC;
    MagFilter	= ANISOTROPIC;
    MipFilter	= ANISOTROPIC;
-   AddressU		= CLAMP;
-   AddressV		= CLAMP;
+   AddressU		= BORDER;
+   AddressV		= BORDER;
    MaxAnisotropy = 8;
+   BorderColor = float4(0.0f, 0.0f, 0.0f, 0.0f);
 };
 
 sampler DynamicShadowMapSampler4 = sampler_state
@@ -192,9 +199,10 @@ sampler DynamicShadowMapSampler4 = sampler_state
    MinFilter	= ANISOTROPIC;
    MagFilter	= ANISOTROPIC;
    MipFilter	= ANISOTROPIC;
-   AddressU		= CLAMP;
-   AddressV		= CLAMP;
+   AddressU		= BORDER;
+   AddressV		= BORDER;
    MaxAnisotropy = 8;
+   BorderColor = float4(0.0f, 0.0f, 0.0f, 0.0f);
 };
 
 //////////////////////////////////////
