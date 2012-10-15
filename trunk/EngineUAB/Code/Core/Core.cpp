@@ -1074,3 +1074,8 @@ void CCore::UnloadLimits()
 {
 	m_LimitManager->CleanUp();
 }
+
+void CCore::UnloadSounds()
+{
+	m_pSoundManager->Terminate();
+}
