@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2012.10.14)  15 OCT 2012 18:52
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2012.10.14)  15 OCT 2012 23:01
 entering extended mode
 **Memory.tex
 (C:\Users\Marc\Documents\UAB\Memory\Memory.tex
@@ -198,23 +198,31 @@ File: figures/design_document/cueva_arte.eps Graphic file (type eps)
 <figures/design_document/cueva_arte.eps> [19] [20] [21]) [22]
 (C:\Users\Marc\Documents\UAB\Memory\section/development.tex
 Cap\'{\i }tulo 3.
-) [23
-
-
-
-] (C:\Users\Marc\Documents\UAB\Memory\section/results.tex [24
+File: figures/development/wwise_editor.eps Graphic file (type eps)
+<figures/development/wwise_editor.eps> [23
 
 
 
 ]
+File: figures/development/particle_editor.eps Graphic file (type eps)
+
+<figures/development/particle_editor.eps> [24]
+File: figures/development/gui_editor.eps Graphic file (type eps)
+
+<figures/development/gui_editor.eps>) [25] [26]
+(C:\Users\Marc\Documents\UAB\Memory\section/results.tex
 Cap\'{\i }tulo 4.
-) [25] (C:\Users\Marc\Documents\UAB\Memory\section/conclusions.tex [26
+) [27
+
+
+
+] (C:\Users\Marc\Documents\UAB\Memory\section/conclusions.tex [28
 
 
 
 ]
 Cap\'{\i }tulo 5.
-) [27] (C:\Users\Marc\Documents\UAB\Memory\section/bibliography.tex [28
+) [29] (C:\Users\Marc\Documents\UAB\Memory\section/bibliography.tex [30
 
 
 
@@ -224,39 +232,54 @@ Underfull \hbox (badness 10000) in paragraph at lines 7--8
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 13--14
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
+[][]\T1/cmr/m/n/10.95 <http://community.batmanarkhamcity.com/>Batman: Ark-
+ []
+
+
+Underfull \hbox (badness 1275) in paragraph at lines 19--20
+\T1/cmr/m/n/10.95 ham City. Pá-gi-na web ofi-cial del jue-go Bat-man: Ark-ham
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 21--22
 [][]\T1/cmr/m/n/10.95 <http://windows.microsoft.com/es-ES/windows/home>, Mi-
  []
 
 
-Underfull \hbox (badness 1014) in paragraph at lines 13--14
+Underfull \hbox (badness 1014) in paragraph at lines 21--22
 \T1/cmr/m/n/10.95 cro-soft Win-dows. Pá-gi-na web ofi-cial del sis-te-ma ope-ra
 -ti-vo
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 19--20
+Underfull \hbox (badness 10000) in paragraph at lines 27--28
 [][]\T1/cmr/m/n/10.95 <http://www.imdb.com/title/tt0424136/>, Hard Candy -
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 21--22
+[31]
+Underfull \hbox (badness 10000) in paragraph at lines 29--30
 [][]\T1/cmr/m/n/10.95 <http://en.wikipedia.org/wiki/Normal_mapping>, Nor-mal
  []
 
 
-Underfull \hbox (badness 5637) in paragraph at lines 23--24
+Underfull \hbox (badness 5637) in paragraph at lines 31--32
 [][]\T1/cmr/m/n/10.95 <http://en.wikipedia.org/wiki/Cel_shading>, Cell Sha-ding
 .
  []
 
-) [29] (C:\Users\Marc\Documents\UAB\Memory\section/appendix.tex [30
 
+Underfull \hbox (badness 1838) in paragraph at lines 33--34
+[][]\T1/cmr/m/n/10.95 <http://www.audiokinetic.com/en/products/208-wwise>, Au-
+ []
 
-
-]
+) [32] (C:\Users\Marc\Documents\UAB\Memory\section/appendix.tex
 Ap\'{e}ndice A.
-) [31] (C:\Users\Marc\Documents\UAB\Memory\section/abstract.tex) [32
+) [33
+
+
+
+] (C:\Users\Marc\Documents\UAB\Memory\section/abstract.tex) [34
 
 
 ]
@@ -271,12 +294,12 @@ Ap\'{e}ndice A.
 (C:\Users\Marc\Documents\UAB\Memory\section/appendix.aux)
 (C:\Users\Marc\Documents\UAB\Memory\section/abstract.aux)) ) 
 Here is how much of TeX's memory you used:
- 1581 strings out of 494046
- 21340 string characters out of 3145994
+ 1601 strings out of 494046
+ 21688 string characters out of 3145994
  77151 words of memory out of 3000000
- 4815 multiletter control sequences out of 15000+200000
+ 4831 multiletter control sequences out of 15000+200000
  17652 words of font info for 38 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
  27i,5n,31p,1251b,411s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on Memory.dvi (38 pages, 84576 bytes).
+Output written on Memory.dvi (40 pages, 91820 bytes).
