@@ -47,8 +47,6 @@
 
   <!--Post Process-->
   <disable_z_test />
-
-  <!--<bloom_post_process BloomThreshold="0.95" BlurAmount="4.0" BloomIntensity=".75" BaseIntensity="1.5" BloomSaturation="1.0" BaseSaturation="1.0" />-->
   
   <!--Unset Depth Map & Motion Blur RT-->
   <unset_render_target render_target="CustomRTs"/>
@@ -96,6 +94,14 @@
   <render_draw_quad name="DyingEffect" >
     <texture file="SceneRender" stage_id="0" />
     <texture file="DyingColorMap" stage_id="1" />
+  </render_draw_quad>
+
+  <bloom_post_process BloomThreshold="0.85" BlurAmount="4.0" BloomIntensity=".95" BaseIntensity="1.5" BloomSaturation="1.2" BaseSaturation="1.0" />
+  
+  <!--Vignetting-->
+  <set_pool_renderable_objects_technique pool="vignetting" />
+  <render_draw_quad name="VignettingEffect" >
+    <texture file="./Data/General/Textures/Vignetting/vigneting.dds" stage_id="0" load_file="true" />
   </render_draw_quad>
   
   <!--Game Info-->
