@@ -8,6 +8,7 @@
 #include "GameProcess.h"
 #include "EngineProcess.h"
 #include "SoundManager.h"
+#include "Math\MathUtils.h"
 
 #include "Characters\CharacterManager.h"
 #include "Characters\Player\Player.h"

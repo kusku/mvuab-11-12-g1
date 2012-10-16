@@ -2,4 +2,43 @@
 <Speakers>
 	<Speaker name="Test" position="0.0 0.0 0.0" orientation="1.0 0.0 0.0" />
 	<Speaker name="Waterfall" position="-175.728 -32.844 5.1875" orientation="1.0 0.0 0.0" />
+	
+	<Speaker name="zona1_wall001" position="53.0 -22.9 -93.79" 		   orientation="-0.50483835 0.00000000 0.86321390" />
+	<Speaker name="zona1_wall002" position="69.3749 -22.467 -93.8061"  orientation="-0.50483835 0.00000000 0.86321390" />
+	<Speaker name="zona1_wall003" position="88.77 -24.467 -93.95"      orientation="-0.50483835 0.00000000 0.86321390" />
+	
+	<Speaker name="zona2_wall001" position="116.599 -27.3298 -54.7779" orientation="-0.50483835 0.00000000 0.86321390" />
+	<Speaker name="zona2_wall004" position="53.881 -25.4357 -54.794"   orientation="-0.50483835 0.00000000 0.86321390" />
+	<Speaker name="zona2_wall003" position="71.7962 -24.0624 -54.794"  orientation="-0.50483835 0.00000000 0.86321390" />
+	<Speaker name="zona2_wall002" position="91.7543 -25.5607 -54.794"  orientation="-0.50483835 0.00000000 0.86321390" />
+	
+	<Speaker name="zona3_wall001"  position="48.1959 -32.221 -17.1887"   orientation="0.79582411 0.00000000 0.60552788" />
+	<Speaker name="zona3_wall002"  position="64.2939 -31.7151 -10.4007"  orientation="0.79582411 0.00000000 0.60552788" />
+	<Speaker name="zona3_wall003"  position="59.7182 -31.9113 -12.3222"  orientation="0.79582411 0.00000000 0.60552788" />
+	<Speaker name="zona3_wall004"  position="71.2003 -32.3212 -7.70157"  orientation="0.79582411 0.00000000 0.60552788" />
+	<Speaker name="zona3_wall005"  position="80.2429 -34.0949 -4.03382"  orientation="0.79582411 0.00000000 0.60552788" />
+	<Speaker name="zona3_wall006"  position="89.2055 -35.9911 -0.306971" orientation="0.79582411 0.00000000 0.60552788" />
+	<Speaker name="zona3_wall007"  position="97.4291 -37.1101 2.9976" 	 orientation="0.79582411 0.00000000 0.60552788" />
+	<Speaker name="zona3_wall008"  position="104.46 -38.7354 5.91271" 	 orientation="0.79582411 0.00000000 0.60552788" />
+	<Speaker name="zona3_wall009"  position="110.127 -40.4236 8.29444" 	 orientation="0.79582411 0.00000000 0.60552788" />
+	<Speaker name="zona3_wall010"  position="116.831 -40.0053 10.9969" 	 orientation="0.79582411 0.00000000 0.60552788" />
+	<Speaker name="zona3_wall011"  position="124.868 -37.4141 14.5354" 	 orientation="0.79582411 0.00000000 0.60552788" />
+
+	<Speaker name="zona4_wall001"  position="24.5297 -33.7467 121.566"   orientation="0.088368684 0.00000000 0.99608785" />
+	<Speaker name="zona4_wall002"  position="14.6812 -35.3631 110.645"   orientation="0.088368684 0.00000000 0.99608785" />
+	<Speaker name="zona4_wall003"  position="7.3213 -37.3169 102.523"    orientation="0.088368684 0.00000000 0.99608785" />
+	<Speaker name="zona4_wall004"  position="2.63034 -37.695 97.0724"    orientation="0.088368684 0.00000000 0.99608785" />
+
+	<Speaker name="zona5_wall001"  position="-85.8673 -18.9979 123.905"   orientation="-0.82181782 0.00000000 0.56975031" />
+	<Speaker name="zona5_wall002"  position="-85.8673 -22.2238 117.057"   orientation="-0.82181782 0.00000000 0.56975031" />
+	<Speaker name="zona5_wall003"  position="-85.9264 -21.3232 109.933"   orientation="-0.82181782 0.00000000 0.56975031" />
+	<Speaker name="zona5_wall004"  position="-62.1316 -13.2042 93.1888"   orientation="-0.82181782 0.00000000 0.56975031" />
+	<Speaker name="zona5_wall005"  position="-69.7101 -11.1837 93.8777"   orientation="-0.82181782 0.00000000 0.56975031" />
+	<Speaker name="zona5_wall006"  position="-81.7275 -15.216 100.759"    orientation="-0.82181782 0.00000000 0.56975031" />
+	<Speaker name="zona5_wall007"  position="-75.3205 -10.7996 94.7403"   orientation="-0.82181782 0.00000000 0.56975031" />
+
+	<Speaker name="zona6_wall001"  position="-93.6018 -15.868 12.8494"   orientation="0.88152021 0.00000000 0.47214627" />
+
+	<Speaker name="puente_final_wall"  position="-67.6577 -15.5407 -17.174"   orientation="0.99761659 0.00000000 0.069000743" />
+
 </Speakers>
