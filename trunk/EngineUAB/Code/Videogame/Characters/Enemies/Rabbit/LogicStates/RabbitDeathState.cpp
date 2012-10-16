@@ -82,10 +82,10 @@ void CRabbitDeathState::OnEnter( CCharacter* _pCharacter )
 	// --- Para la gestión del retroceso ---
 	m_InitialHitPoint = m_pRabbit->GetPosition();
 	CProperties * l_Properties = m_pRabbit->GetProperties();
-	float l_MaxHitSpeed = l_Properties->GetHitRecoilSpeed()/3;
+	float l_MaxHitSpeed = l_Properties->GetHitRecoilSpeed()/2;
 	m_pRabbit->GetSteeringEntity()->SetMaxSpeed(l_MaxHitSpeed);
 	// Me dice la distancia máxima y posición que recorro cuando pega el player y bloqueo hacia atras
-	m_MaxHitDistance = l_Properties->GetHitRecoilDistance()/3;
+	m_MaxHitDistance = l_Properties->GetHitRecoilDistance()/2;
 		
 	m_HitDirection = m_pRabbit->GetSteeringEntity()->GetFront();
 	m_HitDirection.Normalize();
