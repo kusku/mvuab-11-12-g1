@@ -17,7 +17,7 @@ class 'CCombatZone1Trigger' (CBoxTrigger)
 	end
 	
 	function CCombatZone1Trigger:update(elapsed_time)
-		print_logger(0, "CCombatZone1Trigger:update -> Actualizacion trigger zona de combate")
+		-- print_logger(0, "CCombatZone1Trigger:update -> Actualizacion trigger zona de combate")
 		
 		local t = { "enemy2", "enemy3", "enemy4" }
 		
@@ -57,7 +57,7 @@ class 'CCombatZone1Trigger' (CBoxTrigger)
 		end
 
 		if ( self:are_enemies_dead() == true ) then
-			print_logger(0, "CCombatZone1Trigger:update -> Eliminamos el fuego")
+			-- print_logger(0, "CCombatZone1Trigger:update -> Eliminamos el fuego")
 		
 			core:get_limit_manager():activate_group("zona1", false)
 			self.active = false
@@ -96,12 +96,12 @@ class 'CCombatZone1Trigger' (CBoxTrigger)
 		for i=1,l_total_enemies_to_die do 
 			local l_enemy = get_game_process():get_character_manager():get_enemy_by_name(l_previous_enemies_to_die[i])
 			if ( l_enemy:is_alive() ) then
-				print_logger(0, "CCombatZone1Trigger:update -> Enemigo vivo")
+				-- print_logger(0, "CCombatZone1Trigger:update -> Enemigo vivo")
 		
 				l_are_dead = false
 				break
 			else 
-				print_logger(0, "CCombatZone1Trigger:update -> Enemigo muerto")
+				-- print_logger(0, "CCombatZone1Trigger:update -> Enemigo muerto")
 		
 				l_are_dead = true
 			end  	
