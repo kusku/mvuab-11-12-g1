@@ -61,7 +61,8 @@ class 'CCombatZone8Trigger' (CBoxTrigger)
 		
 		if ( self:are_enemies_dead() ) then 
 			core:get_limit_manager():activate_group("zona8", false)
-			_soundM:play_event('Stop_EFX_fire_forest_inferno')
+			_soundM:play_event('puente_final_wall','Stop_EFX_fire_forest_inferno')
+
 			self.active = false
 		end
 	end
@@ -82,7 +83,7 @@ class 'CCombatZone8Trigger' (CBoxTrigger)
 			end 
 
 			core:get_limit_manager():activate_group("puente_final", true)
-			_soundM:play_event('Play_EFX_fire_forest_inferno')
+			_soundM:play_event('puente_final_wall','Play_EFX_fire_forest_inferno')
 			self.first_time_entered = true
 		end 	
 	end
