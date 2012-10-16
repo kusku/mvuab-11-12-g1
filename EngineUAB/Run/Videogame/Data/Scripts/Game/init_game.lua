@@ -61,7 +61,15 @@ function presentation_control()
 			l_rail_manager:get_current_rail().velocity = 3.5
 			l_rail_manager:start()
 		else
-			l_process:set_intro_finish(true)	
+			l_rail_manager:stop()
+			get_game_process():get_hud():active_texture('controls', true)
+		end
+	else
+		if get_game_process():get_hud():is_texture_active('controls' ) then
+			if core:get_action_to_input():do_action('SkipWindows') then
+				get_game_process():get_hud():active_texture('controls', false)
+				l_process:set_intro_finish(true)	
+			end
 		end
 	end
 end

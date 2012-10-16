@@ -44,8 +44,9 @@ public:
 	inline bool IsActiveWolfBar		() const				{ return m_bWolfActive; }
 
 private:
-	bool	LoadFile		();
-	void	CalculatePositions();
+	bool	LoadFile			();
+	void	CalculatePositions	();
+	void	CalculateSize		();
 
 private:
 	std::string		m_Filename;
