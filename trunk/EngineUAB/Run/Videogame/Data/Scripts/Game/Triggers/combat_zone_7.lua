@@ -71,6 +71,7 @@ class 'CCombatZone7Trigger' (CBoxTrigger)
 			end 
 
 			core:get_limit_manager():activate_group("puente_final", true)
+			_soundM:play_event('Play_EFX_fire_forest_inferno')
 			self.first_time_entered = true
 		end 
 	end
