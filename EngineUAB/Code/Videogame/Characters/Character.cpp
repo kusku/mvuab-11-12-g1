@@ -573,6 +573,7 @@ bool CCharacter::AddLife( int _Life )
 void CCharacter::RestLife( int _Life )								
 { 
 	int l_Life = m_pProperties->GetCurrentLife() - _Life;
+
 	if ( l_Life <= 0 ) 
 	{
 		l_Life = 0;
@@ -994,3 +995,7 @@ CState<CCharacter>* CCharacter::GetAnimationState( const std::string &_State )
 	return NULL;
 }
 
+void CCharacter::SetSoundsOff( void )
+{
+	return;
+}

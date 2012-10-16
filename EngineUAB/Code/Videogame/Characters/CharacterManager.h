@@ -67,6 +67,7 @@ public:
 	void				LockAllActiveEnemies				( void );
 	void				UnlockAllActiveEnemies				( void );
 	void				SetAllEnemiesInIdle					( void );
+	void				SetAllEnemiesSoundOff				( void );
 
 	// ------------- Propietats ( Get / Set ) ----------------
 	TVectorResources	GetEnemiesVector					() const					{ return m_ResourcesVector; }

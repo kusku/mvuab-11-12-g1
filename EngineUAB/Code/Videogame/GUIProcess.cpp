@@ -101,6 +101,11 @@ void CGUIProcess::Reload( void )
 {
 }
 
+
+void CGUIProcess::PreReload( void )
+{
+}
+
 //-------------------------------------
 //--Registrador de métodos en LUA------
 //-------------------------------------

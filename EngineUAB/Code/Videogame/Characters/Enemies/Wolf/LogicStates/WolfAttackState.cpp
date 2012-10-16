@@ -139,6 +139,7 @@ void CWolfAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 				} 
 				else
 				{
+					m_pWolf->FaceTo( m_pWolf->GetPlayer()->GetPosition(), _ElapsedTime );
 					m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 					return;
 				}

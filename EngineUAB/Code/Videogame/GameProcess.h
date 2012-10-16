@@ -39,6 +39,7 @@ public:
 	void						Render						(  CRenderManager &RM );
 	void						DebugRender					(  CRenderManager &RM );
 	void						Reload						( void );
+	void						PreReload					( void );
 
 	//----Methods --------------------------------------------------------------------
 	CThPSCharacterCamera*		CreatePlayerCamera	( float _near, float _far, float _zoom, float _heightEye, float _heightLookAt, const std::string &_name );

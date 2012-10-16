@@ -69,6 +69,7 @@ public:
 
 	bool			CallHitState			( CCharacter* _pCharacter, const STelegram& _Message );
 	void			CreateSkeaker			( void );
+	void			SetSoundsOff			( void );
 
 	//----Properties ------------------------------------------
 	CWolfIdleState *					GetIdleState					( void ) const			{ return m_pIdleState; }

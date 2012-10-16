@@ -60,7 +60,7 @@ public:
 	void						FaceToForPlayer				( const Vect3f &_Position, float _ElapsedTime );
 	
 	bool						AddLife						( int _Life );								
-	void						RestLife					( int _Life );								
+	virtual void				RestLife					( int _Life );								
 	void						AddSpeed					( float _Speed );								
 	void						RestSpeed					( float _Speed );								
 	void						AddStrong					( int _Strong );								
@@ -94,6 +94,8 @@ public:
 	virtual void				LoadLogicStates			( void ) = 0;*/
 
 	void						Appearance					( void );
+	
+	virtual void				SetSoundsOff				( void );
 
 	//----Properties ( get & Set )-----------------------------
 	inline CStateMachine<CCharacter>*		GetLogicFSM			( void ) const			{ return m_pLogicStateMachine; }

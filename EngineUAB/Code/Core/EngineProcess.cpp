@@ -57,3 +57,7 @@ void CEngineProcess::Update( float _ElapsedTime )
 void CEngineProcess::Reload( void )
 {
 }
+
+void CEngineProcess::PreReload( void )
+{
+}
