@@ -6,12 +6,14 @@
 #include "DebugGUIManager.h"
 #include "GameProcess.h"
 #include "Characters/Player/Player.h"
+#include "SoundManager.h"
+#include "Logger\Logger.h"
 #include "Core.h"
 #include "Base.h"
 
 #include "Steering Behaviors\SteeringEntity.h"
 #include "Characters\StatesDefs.h"
-#include "Logger\Logger.h"
+
 
 #if defined _DEBUG
 #include "Memory\MemLeaks.h"
@@ -55,6 +57,9 @@ void CPlayerDefenseState::OnExit( CCharacter* _pCharacter )
 
 bool CPlayerDefenseState::OnMessage( CCharacter* _pCharacter, const STelegram& _Message )
 {
+	CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Caperucita_combo_hit");
+
+
 	// TODO:: HACER SONIDO DE BLOQUEO!
 	if( _Message.Msg == Msg_Attack )
 	{
