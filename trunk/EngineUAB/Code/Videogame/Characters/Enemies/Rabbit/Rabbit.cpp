@@ -199,7 +199,7 @@ bool CRabbit::Init( void )
 	this->MoveTo2( Vect3f(0,0,0), 0 );
 
 	CreateSpeaker();
-
+	
 	return true;
 }
 
