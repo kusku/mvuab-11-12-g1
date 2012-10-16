@@ -13,10 +13,14 @@
 \contentsline {figure}{\numberline {2.10}{\ignorespaces Idea de la cabaña}}{19}
 \contentsline {figure}{\numberline {2.11}{\ignorespaces Idea de la cueva}}{19}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Escena de test de físicas}}{25}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Editor de Wwise con el proyecto del juego}}{26}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Particle Editor}}{27}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces GUI Editor}}{27}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Escena final con las sombras}}{24}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Mapas de sombras creados con Cascaded Shadow Mapping}}{25}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Diferentes mapas de sombras aplicados a la escena. El rojo es el mapa con más calidad y el azul el que tiene menos calidad.}}{25}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Efecto de lens flare en el juego}}{27}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Escena de test de físicas}}{28}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Editor de Wwise con el proyecto del juego}}{30}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Particle Editor}}{31}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces GUI Editor}}{32}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

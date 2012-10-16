@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2012.10.14)  16 OCT 2012 00:31
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2012.10.14)  16 OCT 2012 19:56
 entering extended mode
 **Memory.tex
 (C:\Users\Marc\Documents\UAB\Memory\Memory.tex
@@ -203,29 +203,47 @@ Cap\'{\i }tulo 3.
 
 
 ]
+File: figures/development/sombras.eps Graphic file (type eps)
+ <figures/development/sombras.eps>
+File: figures/development/csm.eps Graphic file (type eps)
+ <figures/development/csm.eps>
+File: figures/development/csm_mapas.eps Graphic file (type eps)
+
+<figures/development/csm_mapas.eps> [24] [25]
+File: figures/development/lensflares.eps Graphic file (type eps)
+
+<figures/development/lensflares.eps> [26] [27]
 File: figures/development/physx_test_scene.eps Graphic file (type eps)
- <figures/development/physx_test_scene.eps> [24]
+
+<figures/development/physx_test_scene.eps> [28]
+Underfull \vbox (badness 6575) has occurred while \output is active []
+
+ [29]
 File: figures/development/wwise_editor.eps Graphic file (type eps)
 
-<figures/development/wwise_editor.eps> [25]
+<figures/development/wwise_editor.eps>
+Underfull \vbox (badness 1308) has occurred while \output is active []
+
+ [30]
 File: figures/development/particle_editor.eps Graphic file (type eps)
 
-<figures/development/particle_editor.eps>
+<figures/development/particle_editor.eps> [31]
 File: figures/development/gui_editor.eps Graphic file (type eps)
- <figures/development/gui_editor.eps>) [26] [27] (C:\Users\Marc\Documents\UAB\M
-emory\section/results.tex [28
 
-
-
-]
+<figures/development/gui_editor.eps>) [32]
+(C:\Users\Marc\Documents\UAB\Memory\section/results.tex
 Cap\'{\i }tulo 4.
-) [29] (C:\Users\Marc\Documents\UAB\Memory\section/conclusions.tex [30
+) [33
+
+
+
+] (C:\Users\Marc\Documents\UAB\Memory\section/conclusions.tex [34
 
 
 
 ]
 Cap\'{\i }tulo 5.
-) [31] (C:\Users\Marc\Documents\UAB\Memory\section/bibliography.tex [32
+) [35] (C:\Users\Marc\Documents\UAB\Memory\section/bibliography.tex [36
 
 
 
@@ -260,7 +278,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 27--28
 [][]\T1/cmr/m/n/10.95 <http://www.imdb.com/title/tt0424136/>, Hard Candy -
  []
 
-[33]
+[37]
 Underfull \hbox (badness 10000) in paragraph at lines 29--30
 [][]\T1/cmr/m/n/10.95 <http://en.wikipedia.org/wiki/Normal_mapping>, Nor-mal
  []
@@ -281,13 +299,46 @@ Overfull \hbox (2.30862pt too wide) in paragraph at lines 35--36
 [][]\T1/cmr/m/n/10.95 <http://www.geforce.com/hardware/technology/physx>PhysX.
  []
 
-) [34] (C:\Users\Marc\Documents\UAB\Memory\section/appendix.tex
+
+Underfull \hbox (badness 10000) in paragraph at lines 37--40
+[][]\T1/cmr/m/n/10.95 <http://developer.download.nvidia.com/SDK/10/direct3d/
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 37--40
+\T1/cmr/m/n/10.95 Sour-ce/VarianceShadowMapping/Doc/ Va-rian-ceS-ha-dow-Map-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 37--40
+\T1/cmr/m/n/10.95 ping.pdf>Variance Sha-dow Map-ping. Pre-sen-ta-ción so-bre
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 41--43
+[][]\T1/cmr/m/n/10.95 <http://msdn.microsoft.com/en-us/library/windows/desktop/
+
+ []
+
+
+Overfull \hbox (73.22264pt too wide) in paragraph at lines 44--45
+[][]\T1/cmr/m/n/10.95 <http://http.developer.nvidia.com/GPUGems3/gpugems3_ch27.
+html>Motion
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 48--49
+[][]\T1/cmr/m/n/10.95 <http://www.rasterbar.com/products/luabind.html>´Luabind.
+
+ []
+
+) [38] (C:\Users\Marc\Documents\UAB\Memory\section/appendix.tex
 Ap\'{e}ndice A.
-) [35
+) [39
 
 
 
-] (C:\Users\Marc\Documents\UAB\Memory\section/abstract.tex) [36
+] (C:\Users\Marc\Documents\UAB\Memory\section/abstract.tex) [40
 
 
 ]
@@ -302,12 +353,12 @@ Ap\'{e}ndice A.
 (C:\Users\Marc\Documents\UAB\Memory\section/appendix.aux)
 (C:\Users\Marc\Documents\UAB\Memory\section/abstract.aux)) ) 
 Here is how much of TeX's memory you used:
- 1606 strings out of 494046
- 21792 string characters out of 3145994
+ 1627 strings out of 494046
+ 22117 string characters out of 3145994
  77151 words of memory out of 3000000
- 4835 multiletter control sequences out of 15000+200000
+ 4852 multiletter control sequences out of 15000+200000
  17652 words of font info for 38 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
  27i,5n,31p,1251b,411s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on Memory.dvi (42 pages, 97180 bytes).
+Output written on Memory.dvi (46 pages, 120268 bytes).
