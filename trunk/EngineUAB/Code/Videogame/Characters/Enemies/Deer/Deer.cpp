@@ -182,14 +182,7 @@ bool CDeer::Init( void )
 
 	this->MoveTo2( Vect3f(0,0,0), 0 );
 
-	//Crea el speaker de audio correspondiente
-	uint16 index = CORE->GetSoundManager()->GetSpeakerCount();
-	std::stringstream out;
-	out << "_";
-	out << index;
-
-	m_SpeakerName = "Deer_Speaker_" + out.str();
-	m_pSpeaker = CORE->GetSoundManager()->CreateSpeaker(m_SpeakerName);
+	CreateSkeaker();
 
 	return true;
 }
@@ -244,6 +237,21 @@ void CDeer::LoadLogicStates( void )
 // -----------------------------------------
 //				  METHODS
 // -----------------------------------------
+
+void CDeer::CreateSkeaker() 
+{
+	//Crea el speaker de audio correspondiente
+	uint16 index = CORE->GetSoundManager()->GetSpeakerCount();
+	std::stringstream out;
+	out << "_";
+	out << index;
+
+	m_SpeakerName = "Deer_Speaker_" + out.str();
+	m_pSpeaker = CORE->GetSoundManager()->CreateSpeaker(m_SpeakerName);
+
+	CORE->GetSoundManager()->PlayEvent(m_SpeakerName, "Stop_All_EFX_Deer");
+}
+
 bool CDeer::IsFatigued( void )
 {
 	return m_HitsDone == m_TotalHitsDoneToTired;

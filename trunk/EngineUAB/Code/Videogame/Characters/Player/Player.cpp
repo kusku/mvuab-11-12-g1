@@ -325,6 +325,8 @@ void CPlayer::CreateSkeaker()
 
 	m_SpeakerName = "Player_Speaker_" + out.str();
 	m_pSpeaker = CORE->GetSoundManager()->CreateSpeaker(m_SpeakerName);
+
+	CORE->GetSoundManager()->PlayEvent(m_SpeakerName, "Stop_All_EFX_Caperucita");
 }
 
 // Jordi: Este método me permite hacer todo lo necesario cuando está muerto el caracter.
