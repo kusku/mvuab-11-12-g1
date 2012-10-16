@@ -55,6 +55,7 @@ class 'CCombatZone7Trigger' (CBoxTrigger)
 		if ( self:are_enemies_dead() ) then 
 			-- print_logger(0, "CCombatZone1Trigger:update -> Eliminamos el fuego")
 			core:get_limit_manager():activate_group("zona7", false)
+			_soundM:play_event('Stop_EFX_fire_forest_inferno')
 			self.active = false
 		end
 	end
