@@ -96,7 +96,7 @@
     <texture file="DyingColorMap" stage_id="1" />
   </render_draw_quad>
 
-  <bloom_post_process BloomThreshold="0.85" BlurAmount="4.0" BloomIntensity=".95" BaseIntensity="1.5" BloomSaturation="1.2" BaseSaturation="1.0" />
+  <bloom_post_process BloomThreshold="0.90" BlurAmount="4.0" BloomIntensity="1.1" BaseIntensity="0.9" BloomSaturation="1.1" BaseSaturation="0.9" />
   
   <!--Vignetting-->
   <set_pool_renderable_objects_technique pool="vignetting" />

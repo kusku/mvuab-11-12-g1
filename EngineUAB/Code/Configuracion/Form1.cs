@@ -155,6 +155,10 @@ namespace Configuracion
                         {
                             cbZBlurEnable.Checked = engineReader.ReadContentAsBoolean();
                         }
+                        if (engineReader.NodeType == XmlNodeType.Attribute && engineReader.Name == "bloom")
+                        {
+                            cbBloomEnable.Checked = engineReader.ReadContentAsBoolean();
+                        }
                     }
                 }
             }
@@ -299,6 +303,7 @@ namespace Configuracion
 
                     elem.Attributes["motionBlur"].InnerText = motionBlurEnable.ToString().ToLower();
                     elem.Attributes["zblur"].InnerText = zblurEnable.ToString().ToLower();
+                    elem.Attributes["bloom"].InnerText = cbBloomEnable.ToString().ToLower();
                 }
             }
 
