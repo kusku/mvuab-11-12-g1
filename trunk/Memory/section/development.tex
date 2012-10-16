@@ -15,10 +15,82 @@ El desarrollo del juego se puede separar en tres grandes bloques diferentes entr
 %----- Programación --------------------------------
 %---------------------------------------------------
 \section{Programación}
+\emph{Boc Engine} (nombre del motor) es el motor de videojuegos desarrollado en C++ para el máster y el juego. Este motor ha sido creado tanto con tecnología propia como de terceros, que nos ha facilitado tener una base sólida para poder construir todas las partes que componen un videojuego.
+
+\emph{Boc Engine} ha sido dividido en diferentes proyectos, cada uno especializado en un ámbito distinto (gráficos, sonido, GUI,...) pero interconectados entre sí.
+
+La tecnología de terceros utilizada en el motor es la siguiente:
+\begin{itemize}
+\item Boost. Utilizado para fines varios.
+\item Cal3D. Para las animaciones de los modelos animados.
+\item Lua/Luabind. Utilizado como lenguaje de \emph{scripting} en el juego.
+\item Theora-Ogg / OpenAL. Para la reproducción de ficheros de video.
+\item Wwise. Para la reproducción de sonido.
+\item XML. Para guardar toda la información del juego.
+\end{itemize}
+
+Toda la estructura del motor, y del juego en sí, está basada en ficheros XML. El lenguaje XML permite externalizar los parámetros del motor, así como también guardar toda la información referente al juego.
 
 \subsection{Gráficos}
+Los aspectos donde se ha hecho más enfasi durante la programación de los gráficos a sido con la iluminación, las sombras, las partículas y los efectos de post procesado. 
 
-\subsection{Cámara}
+\subsubsection{Iluminación y sombras}
+La iluminación del juego se ha hecho con \emph{forward shading}. Se ha implementado la luz con está técnica porque en el juego hay una gran cantidad de elementos con transparencia y sólo una luz direccional que representa el Sol. Esta técnica es más eficiente con transparencias y pocas luces. 
+
+Las sombras (figura \ref{fig:sombras}) se han hecho mediante la combinación de dos técnicas, \emph{Variance Shadow Mapping} \cite{variance} y \emph{Cascade Shadow Mapping} \cite{cascaded}.
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.6]{figures/development/sombras.eps}
+\end{center}
+\emph{\caption{Escena final con las sombras}\label{fig:sombras}}
+\end{figure}
+
+La técnica del \emph{Variance Shadow Mapping} ha sido utilizada para crear las sombras. Para conseguir sombras detalladas en todo el escenario, se ha hecho con \emph{Cascaded Shadow Mapping}. Esta técnica crea mapas de sombras según la distancia del jugador. Así, las sombras más próximas al jugador tienen más detalle que las más alejadas, pero al tener gran distancia no se percibe el cambio de calidad. Para el juego usamos tres mapas de sombras a diferentes distancias (figura \ref{fig:csm} y \ref{fig:csm_mapas}).
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.7]{figures/development/csm.eps}
+\end{center}
+\emph{\caption{Mapas de sombras creados con Cascaded Shadow Mapping}\label{fig:csm}}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.6]{figures/development/csm_mapas.eps}
+\end{center}
+\emph{\caption{Diferentes mapas de sombras aplicados a la escena. El rojo es el mapa con más calidad y el azul el que tiene menos calidad.}\label{fig:csm_mapas}}
+\end{figure}
+
+\subsubsection{Partículas}
+
+El sistema de partículas diseñado se conforma de cuatro bloques principales: \emph{Settings}, \emph{systems}, \emph{emitters} y \emph{shader}.
+
+\begin{itemize}
+\item \emph{Settings}. Define el comportamiento de unas partículas. Tiene la información específica de como tiene que funcionar un sistema de partículas.
+\item \emph{Systems}. Es el responsable de mantener un orden sobre qué partículas se tienen que renderizar y cúales no. También informa al \emph{shader} sobre que textura utilizar y cuantas partículas dibujar.
+\item \emph{Emitter}. Se asocia con un sistema de partículas y define en que posición del mundo deben ejecutarse las partículas.
+\item \emph{Shader}. Se encarga del renderizado principal de las partículas, así como también de los cálculos asociados a las mismas, como por ejemplo la velocidad o la posición de una partícula concreta, entre otros parámetros.
+\end{itemize}
+
+\subsubsection{Post procesado}
+
+Los efectos de post procesados son aquellos que se aplican una vez se ha renderizado toda la escena con la iluminación. Se han aplicado tres efectos de post procesado.
+
+\begin{itemize}
+\item \emph{Motion Blur} \cite{motion}. El objetivo de este efecto es hacer un difuminado en los objetos cuando la mirada del jugador se mueve rápidamente. La técnica transmite el jugador sensación de velocidad y hace una semejanza con el mundo real.
+
+\item \emph{Z-Blur}. El efecto provoca un enfoque de los objetos cercanos al jugador, i difumina los objetos más alejados.
+
+\item \emph{Lens Flare} (figura \ref{fig:lensflares}). Al mirar el cielo en dirección al Sol con una cámara, estas tienen un reflejo. Esta técnica imita este efecto provocados por las lentes de las cámaras.
+\end{itemize}
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.7]{figures/development/lensflares.eps}
+\end{center}
+\emph{\caption{Efecto de lens flare en el juego}\label{fig:lensflares}}
+\end{figure}
 
 \subsection{Física}
 En el apartado de física se ha utilizado la librería PhysX \cite{physx} de Nvidia. Con esta librería se ha desarrollado toda la parte de colisiones y interacciones con los diferentes elementos que conforman el juego, tanto el escenario como los personajes animados.
@@ -48,23 +120,48 @@ En este escenario de pruebas se han podido probar situaciones como:
 
 Una de las pruebas más exhaustivas a hacer ha sido la reacción del jugador delante de todas las situaciones físicas. De esta manera, se ha podido configurar posteriormente para el juego final.
 
-Otra de las pruebas más grandes ha sido crear un puente dinámico, es decir, que reaccione al paso del jugador por encima de él.
+Otra de las pruebas más grandes ha sido crear un puente dinámico, es decir, que reaccione al paso del jugador por encima de él. Finalmente, el puente no se ha incluido en el juego.
 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.7]{figures/development/physx_test_scene.eps}
+\includegraphics[scale=0.6]{figures/development/physx_test_scene.eps}
 \end{center}
 \emph{\caption{Escena de test de físicas}\label{fig:physx_test_scene}}
 \end{figure}
 
 
 \subsection{Inteligencia Artificial}
+Para el juego de \emph{hack 'n' slash} inicialmente se planteó una senzilla inteligencia artificial. Durante el desarrollo del juego, cada vez se le fue dando más importancia a otorgar a los enemigos un comportamiento lógico mostrando que se comportan de una forma inteligente.
+
+Para generar esos comportamientos inteligentes se han utilizado las técnicas de máquinas de estados y los \emph{steering behaviors}.
 
 \subsubsection{Máquinas de estados}
+Cada personaje está gestionado por dos máquinas de estados diferentes. Por una parte, una máquina de estados lógica donde se gestionan los diferentes estados relacionados con el comportamiento de los personajes. Por otro lado, una máquina de estados gráfica que permite la gestión de todos los estados animados, animaciones, de forma cómoda y sencilla.
+
+El motivo de tener dos máquinas de estados diferentes es por facilitar el desarrollo, permitiendo, además, poder gestionar con un estado lógico varios estados gráficos. Por ejemplo, por un estado de reposo del personaje, poder tener diferentes animaciones de \emph{idle} a ejecutar.
+
+El uso de la máquina de estados también nos permite commutar entre el estado actual de un personaje con sus estados anteriores, facilitando así las commutaciones entre ellos y poder tener un registro de lo que ha hecho y qué hará.
 
 \subsubsection{Steering Behaviors}
+En los juegos, el objtetivo principal de los enemigos es alcanzar al jugador. Por este motivo y para permitir crear los movimientos de los enemigos, se ha implementado \emph{steering behaviors}. 
+
+Los \emph{steering behaviors} son un conjunto de algoritmos de inteligencia artificial que simulan el comportamiento de movimiento de agentes para que parezcan autónomos y permiten tomar decisiones según la interacción con los demás elementos del entorno. Estos comportamientos dan cierto grado de flexibilidad y facilidad para permitir mover los diferentes enemigos por el escenario evitando las obstrucciones, sean móviles o no.
+
+Los comportamientos implementados son básicos y permiten ir a una posición determinada, perseguir a un objetivo, evitar colisiones, mantener cierta separación con el resto de enemigos,...
+
+La flexibilidad de estos comportamientos recae en la posibilidad de añadir o quitar comportamientos con mucha facilidad. Los comportamientos pueden combinarse a la vez, así por ejemplo, poder perseguir al jugador y al mismo tiempo mantener cierta separación con el resto de enemigos para así, poder realizar ataques fácilmente.
+
+La filosofía de los \emph{steering behaviors} que se han diseñado es de obtener una fuerza, un vector resultante de ese comportamiento, y finalmente sumarlos todos evitando sobrepasar siempre una fuerza resultante máxima. Los pesos permiten indicar qué cantidad de esa fuerza se aplica. Finalmente se aplican unos límites para que los personajes no se muevan de forma brusca o llegando a sobrepasar el escenario.
+
+La gran desventaja de estos comportamientos es la combinación de ellos, los cuales pueden producir movimientos no muy adecuados para realizar algún ataque o simplemente dirigirse contra el jugador. Para solucionar el problema, se ha utilizado pesos para los comportamientos para determinar el grado de importancia y así permitir priorizar unos comportamientos u otros.
+
+Otro de los problemas que hay estos algoritmos es ajustar todos los parámetros que estos procesan de manera que el movimiento de los agentes sean claros y correctos.
+
 
 \subsection{Scripting}
+El lenguaje de \emph{scripting} utilizado para le juego ha sido Lua \cite{lua}. Ya que la gran desventaja del lenguaje es no trabajar con clases, se ha utilizado como Luabind \cite{luabind} como solución a la encapsulación de clases en Lua.
+
+Con este lenguaje de \emph{scripting} se ha implementado parte del \emph{gameplay} del juego, como por ejemplo los \emph{triggers}.
 
 \subsection{Audio}
 
@@ -115,5 +212,14 @@ La herramienta permite generar ventanas para trabajar con toda la GUI del juego 
 \end{figure}
 
 \subsubsection{3ds Max Exporter}
+Como Autodesk 3ds Max se ha utilizado como editor de niveles ha sido conveniente hacer una herramienta que pudiera exportar toda la información referente al escenario. Así pues, esta herramienta tiene las siguientes funcionalidades:
 
+\begin{itemize}
+\item Exportar toda una escena, o una parte de ella.
+\item Definir los tipos de ementos que conforman la escena.
+\item Definir y exportar toda la información sobre las luces del escenario.
+\item definir y exportar raíles para cámaras.
+\item Definir la física de los objetos y exportarla.
+\item Definir y exportar las texturas del terreno.
+\end{itemize}
 

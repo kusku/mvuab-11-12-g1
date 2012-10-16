@@ -3,8 +3,8 @@ Type=TeXnicCenterProjectSessionInformation
 Version=2
 
 [SessionInfo]
-ActiveTab=2
-FrameCount=5
+ActiveTab=0
+FrameCount=6
 ActiveFrame=1
 
 [Frame0]
@@ -32,9 +32,9 @@ cxCur=833
 cxMin=10
 
 [Frame0_View0,0]
-Cursor.row=34
-Cursor.column=14
-TopSubLine=24
+Cursor.row=47
+Cursor.column=106
+TopSubLine=33
 
 [Frame1]
 Columns=1
@@ -61,9 +61,9 @@ cxCur=1024
 cxMin=10
 
 [Frame1_View0,0]
-Cursor.row=50
-Cursor.column=127
-TopSubLine=28
+Cursor.row=222
+Cursor.column=50
+TopSubLine=34
 
 [Frame2]
 Columns=1
@@ -92,7 +92,7 @@ cxMin=10
 [Frame2_View0,0]
 Cursor.row=422
 Cursor.column=0
-TopSubLine=499
+TopSubLine=511
 
 [Frame3]
 Columns=1
@@ -151,4 +151,33 @@ cxMin=10
 Cursor.row=16
 Cursor.column=0
 TopSubLine=0
+
+[Frame5]
+Columns=1
+Rows=1
+Flags=0
+ShowCmd=1
+MinPos.x=-1
+MinPos.y=-1
+MaxPos.x=-8
+MaxPos.y=-30
+NormalPos.left=125
+NormalPos.top=125
+NormalPos.right=995
+NormalPos.bottom=537
+Class=CLatexEdit
+Document=Memory.tex
+
+[Frame5_Row0]
+cyCur=353
+cyMin=10
+
+[Frame5_Col0]
+cxCur=833
+cxMin=10
+
+[Frame5_View0,0]
+Cursor.row=43
+Cursor.column=33
+TopSubLine=21
 
