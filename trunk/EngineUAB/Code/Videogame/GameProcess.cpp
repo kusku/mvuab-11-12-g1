@@ -293,6 +293,7 @@ void CGameProcess::Update(float elapsedTime)
 			if( CORE->GetActionToInput()->DoAction(ACTION_FINISH_RAIL_ACTIONS) )
 			{
 				CORE->GetRailManager()->StopCurrentRail();
+				m_pHUD->ActiveTexture("controls", false);
 				m_bIntroFinished = true;
 			}
 

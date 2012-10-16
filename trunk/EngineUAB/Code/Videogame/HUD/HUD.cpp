@@ -240,6 +240,7 @@ bool CHud::LoadFile()
 	}
 
 	CalculatePositions();
+	CalculateSize();
 
 	return true;
 }
@@ -453,5 +454,53 @@ void CHud::CalculatePositions()
 		l_Position.y = static_cast<uint32>(l_Position.y * 0.01f * l_ScreenSize.y);
 
 		(*l_It)->position = l_Position;
+	}
+}
+
+//------------------------------------------------
+void CHud::CalculateSize()
+{
+	Vect2i l_ScreenSize = CORE->GetRenderManager()->GetScreenSize();
+
+	// Player Life Bar
+	//--------------------------
+
+	//Calcula la posición de la barra de vida
+	m_MaskSize.x = static_cast<uint32>(m_MaskSize.x * 0.01f * l_ScreenSize.x);
+	m_MaskSize.y = static_cast<uint32>(m_MaskSize.y * 0.01f * l_ScreenSize.y);
+
+	m_BarSize.x = static_cast<uint32>(m_BarSize.x * 0.01f * l_ScreenSize.x);
+	m_BarSize.y = static_cast<uint32>(m_BarSize.y * 0.01f * l_ScreenSize.y);
+
+	m_BackgroundSize.x = static_cast<uint32>(m_BackgroundSize.x * 0.01f * l_ScreenSize.x);
+	m_BackgroundSize.y = static_cast<uint32>(m_BackgroundSize.y * 0.01f * l_ScreenSize.y);
+
+	// Wolf Life Bar
+	//--------------------------
+	//Calcula la posición de la barra de vida
+	m_WolfMaskSize.x = static_cast<uint32>(m_WolfMaskSize.x * 0.01f * l_ScreenSize.x);
+	m_WolfMaskSize.y = static_cast<uint32>(m_WolfMaskSize.y * 0.01f * l_ScreenSize.y);
+
+	m_WolfBarSize.x = static_cast<uint32>(m_WolfBarSize.x * 0.01f * l_ScreenSize.x);
+	m_WolfBarSize.y = static_cast<uint32>(m_WolfBarSize.y * 0.01f * l_ScreenSize.y);
+
+	m_WolfBackgroundSize.x = static_cast<uint32>(m_WolfBackgroundSize.x * 0.01f * l_ScreenSize.x);
+	m_WolfBackgroundSize.y = static_cast<uint32>(m_WolfBackgroundSize.y * 0.01f * l_ScreenSize.y);
+
+	// Texturas de información
+	//-------------------------
+
+	//Calcula la posición de los elementos de textura
+	TVectorResources l_TextureInfoVector = GetResourcesVector();
+	TVectorResources::iterator l_It = l_TextureInfoVector.begin();
+	TVectorResources::iterator l_ItEnd = l_TextureInfoVector.end();
+	for(; l_It != l_ItEnd; ++l_It)
+	{
+		Vect2i l_Size = (*l_It)->size;
+
+		l_Size.x = static_cast<uint32>(l_Size.x * 0.01f * l_ScreenSize.x);
+		l_Size.y = static_cast<uint32>(l_Size.y * 0.01f * l_ScreenSize.y);
+
+		(*l_It)->size = l_Size;
 	}
 }
