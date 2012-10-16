@@ -303,7 +303,7 @@ namespace Configuracion
 
                     elem.Attributes["motionBlur"].InnerText = motionBlurEnable.ToString().ToLower();
                     elem.Attributes["zblur"].InnerText = zblurEnable.ToString().ToLower();
-                    elem.Attributes["bloom"].InnerText = cbBloomEnable.ToString().ToLower();
+                    elem.Attributes["bloom"].InnerText = cbBloomEnable.Checked.ToString().ToLower();
                 }
             }
 
