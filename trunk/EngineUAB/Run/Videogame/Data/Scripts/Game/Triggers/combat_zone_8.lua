@@ -66,7 +66,7 @@ class 'CCombatZone8Trigger' (CBoxTrigger)
 		local l_player_user_data = process:get_character_manager():get_player().physic_controller.user_data
 		
 		if( core:get_physics_manager():compare_user_data(user_data, l_player_user_data) ) then
-			self:can_activate(true)
+			self:can_activate(false)
 			if ( self.show_wolf ) then
 				get_game_process():get_hud().set_active_wolf_bar = true
 				self.action_time:start_action()
