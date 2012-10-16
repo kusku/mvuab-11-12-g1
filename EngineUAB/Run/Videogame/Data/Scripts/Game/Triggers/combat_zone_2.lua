@@ -54,7 +54,10 @@ class 'CCombatZone2Trigger' (CBoxTrigger)
 		
 		if ( self:are_enemies_dead() ) then 
 			core:get_limit_manager():activate_group("zona2", false)
-			_soundM:play_event('Stop_EFX_fire_forest_inferno')
+			_soundM:play_event('zona2_wall001','Stop_EFX_fire_forest_inferno')
+			_soundM:play_event('zona2_wall004','Stop_EFX_fire_forest_inferno')
+			_soundM:play_event('zona2_wall003','Stop_EFX_fire_forest_inferno')
+			_soundM:play_event('zona2_wall002','Stop_EFX_fire_forest_inferno')
 			self.active = false
 		end
 	end
@@ -72,7 +75,10 @@ class 'CCombatZone2Trigger' (CBoxTrigger)
 			end 
 
 			core:get_limit_manager():activate_group("zona2", true)
-			_soundM:play_event('Play_EFX_fire_forest_inferno')
+			_soundM:play_event('zona2_wall001','Play_EFX_fire_forest_inferno')
+			_soundM:play_event('zona2_wall004','Play_EFX_fire_forest_inferno')
+			_soundM:play_event('zona2_wall003','Play_EFX_fire_forest_inferno')
+			_soundM:play_event('zona2_wall002','Play_EFX_fire_forest_inferno')
 			self.first_time_entered = true
 		end 
 	end

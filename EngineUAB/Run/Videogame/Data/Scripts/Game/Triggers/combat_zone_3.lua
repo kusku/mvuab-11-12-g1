@@ -56,7 +56,17 @@ class 'CCombatZone3Trigger' (CBoxTrigger)
 		
 		if ( self:are_enemies_dead() ) then 
 			core:get_limit_manager():activate_group("zona3", false)
-			_soundM:play_event('Stop_EFX_fire_forest_inferno')
+			_soundM:play_event('zona3_wall001','Stop_EFX_fire_forest_inferno')
+			_soundM:play_event('zona3_wall002','Stop_EFX_fire_forest_inferno')
+			_soundM:play_event('zona3_wall003','Stop_EFX_fire_forest_inferno')
+			_soundM:play_event('zona3_wall004','Stop_EFX_fire_forest_inferno')
+			_soundM:play_event('zona3_wall005','Stop_EFX_fire_forest_inferno')
+			_soundM:play_event('zona3_wall006','Stop_EFX_fire_forest_inferno')
+			_soundM:play_event('zona3_wall007','Stop_EFX_fire_forest_inferno')
+			_soundM:play_event('zona3_wall008','Stop_EFX_fire_forest_inferno')
+			_soundM:play_event('zona3_wall009','Stop_EFX_fire_forest_inferno')
+			_soundM:play_event('zona3_wall010','Stop_EFX_fire_forest_inferno')
+			_soundM:play_event('zona3_wall011','Stop_EFX_fire_forest_inferno')
 			self.active = false
 		end
 	end
@@ -73,7 +83,18 @@ class 'CCombatZone3Trigger' (CBoxTrigger)
 			end 
 
 			core:get_limit_manager():activate_group("zona3", true)
-			_soundM:play_event('Play_EFX_fire_forest_inferno')
+			_soundM:play_event('zona3_wall001','Play_EFX_fire_forest_inferno')
+			_soundM:play_event('zona3_wall002','Play_EFX_fire_forest_inferno')
+			_soundM:play_event('zona3_wall003','Play_EFX_fire_forest_inferno')
+			_soundM:play_event('zona3_wall004','Play_EFX_fire_forest_inferno')
+			_soundM:play_event('zona3_wall005','Play_EFX_fire_forest_inferno')
+			_soundM:play_event('zona3_wall006','Play_EFX_fire_forest_inferno')
+			_soundM:play_event('zona3_wall007','Play_EFX_fire_forest_inferno')
+			_soundM:play_event('zona3_wall008','Play_EFX_fire_forest_inferno')
+			_soundM:play_event('zona3_wall009','Play_EFX_fire_forest_inferno')
+			_soundM:play_event('zona3_wall010','Play_EFX_fire_forest_inferno')
+			_soundM:play_event('zona3_wall011','Play_EFX_fire_forest_inferno')
+			
 			self.first_time_entered = true
 		end 
 	end

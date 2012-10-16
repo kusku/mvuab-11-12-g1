@@ -56,7 +56,7 @@ class 'CCombatZone6Trigger' (CBoxTrigger)
 		
 		if ( self:are_enemies_dead() ) then 
 			core:get_limit_manager():activate_group("zona6", false)
-			_soundM:play_event('Stop_EFX_fire_forest_inferno')
+			_soundM:play_event('zona6_wall001','Stop_EFX_fire_forest_inferno')
 			self.active = false
 		end
 	end
@@ -74,7 +74,7 @@ class 'CCombatZone6Trigger' (CBoxTrigger)
 			end 
 
 			core:get_limit_manager():activate_group("zona6", true)
-			_soundM:play_event('Play_EFX_fire_forest_inferno')
+			_soundM:play_event('zona6_wall001','Play_EFX_fire_forest_inferno')
 			self.first_time_entered = true
 		end 
 	end
