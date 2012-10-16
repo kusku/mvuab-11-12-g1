@@ -48,7 +48,7 @@ void CPlayerHitState::OnEnter( CCharacter* _pCharacter )
 	m_pCallback->Init();
 	m_pCallback->StartAnimation();
 
-	CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Caperucita_Pain");
+	CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Caperucita_pain");
 
 	// --- Para la gestión del retroceso ---
 	CalculateRecoilDirection(l_pPlayer);
