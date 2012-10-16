@@ -157,6 +157,7 @@ struct SConfig
 	//Parametros de Graphics
 	bool motion_blur_enable;
 	bool z_blur_enable;
+	bool bloom_enable;
 };
 
 #endif __COREDEFS_H__

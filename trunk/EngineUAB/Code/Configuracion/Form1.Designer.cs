@@ -42,6 +42,7 @@
             this.cbResolution = new System.Windows.Forms.ComboBox();
             this.bApply = new System.Windows.Forms.Button();
             this.bExit = new System.Windows.Forms.Button();
+            this.cbBloomEnable = new System.Windows.Forms.CheckBox();
             this.tConfig.SuspendLayout();
             this.tpVideo.SuspendLayout();
             this.SuspendLayout();
@@ -68,6 +69,7 @@
             // 
             // tpVideo
             // 
+            this.tpVideo.Controls.Add(this.cbBloomEnable);
             this.tpVideo.Controls.Add(this.cbZBlurEnable);
             this.tpVideo.Controls.Add(this.cbMotionBlurEnable);
             this.tpVideo.Controls.Add(this.cbWindowMode);
@@ -194,6 +196,17 @@
             this.bExit.UseVisualStyleBackColor = true;
             this.bExit.Click += new System.EventHandler(this.bExit_Click);
             // 
+            // cbBloomEnable
+            // 
+            this.cbBloomEnable.AutoSize = true;
+            this.cbBloomEnable.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cbBloomEnable.Location = new System.Drawing.Point(9, 164);
+            this.cbBloomEnable.Name = "cbBloomEnable";
+            this.cbBloomEnable.Size = new System.Drawing.Size(94, 17);
+            this.cbBloomEnable.TabIndex = 9;
+            this.cbBloomEnable.Text = "Bloom Enable:";
+            this.cbBloomEnable.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -229,6 +242,7 @@
         private System.Windows.Forms.Label lbShadowQuality;
         private System.Windows.Forms.ComboBox cbShadowQuality;
         private System.Windows.Forms.CheckBox cbZBlurEnable;
+        private System.Windows.Forms.CheckBox cbBloomEnable;
     }
 }
 

@@ -52,5 +52,10 @@ void CBloomPostProcessCommand::Execute( CRenderManager &_RM )
 {
 	assert(m_Bloom);
 
+	if(!CORE->GetConfig().bloom_enable)
+	{
+		return;
+	}
+
 	m_Bloom->Render();
 }
