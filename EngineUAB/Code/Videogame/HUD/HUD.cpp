@@ -257,6 +257,7 @@ void CHud::InitWolf( int _iWolfLife )
 {
 	m_iWolfLife				= _iWolfLife;
 	m_iWolfPreviousLife		= _iWolfLife;
+	m_iCurrentWolfLife		= _iWolfLife;
 }
 
 //------------------------------------------------
@@ -303,7 +304,7 @@ void CHud::Update( float _fElapsedTime, int _iPlayerLife )
 				m_iWolfPreviousLife = m_iCurrentWolfLife;
 			}
 		}
-		else if( m_iCurrentWolfLife > m_iPlayerPreviousLife )
+		else if( m_iCurrentWolfLife > m_iWolfPreviousLife )
 		{
 			m_WolfPerCentSize = m_WolfPerCentSize + 0.5f * _fElapsedTime;
 			if( m_WolfPerCentSize >= l_fTarget )
@@ -311,8 +312,9 @@ void CHud::Update( float _fElapsedTime, int _iPlayerLife )
 				m_WolfPerCentSize = l_fTarget;
 				m_iWolfPreviousLife = m_iCurrentWolfLife;
 			}
-		}
 
+		}
+		
 		m_WolfBarRealSize.x = static_cast<int>( static_cast<float>(m_WolfBarSize.x) * m_WolfPerCentSize);
 	}
 
@@ -366,7 +368,7 @@ void CHud::Render( CRenderManager &RM )
 			RM.DrawTexturedQuad2D(m_WolfBackgroundPosition, m_WolfBackgroundSize.x, m_WolfBackgroundSize.y,  UPPER_LEFT, m_pWolfBackground );
 
 		if( m_bWolfBarActive )
-			RM.DrawTexturedQuad2D(m_WolfBarPosition, v2fZERO, Vect2f(m_WolfPerCentSize, 1.f), m_WolfBarRealSize.x, m_WolfBarRealSize.y,  UPPER_LEFT, m_pWolfBar );
+			RM.DrawTexturedQuad2D(Vect2i(m_WolfBarPosition.x + (m_WolfBarSize.x - m_WolfBarRealSize.x), m_WolfBarPosition.y) , Vect2f((1.f - m_WolfPerCentSize), 0.f), v2fUNIT, m_WolfBarRealSize.x, m_WolfBarRealSize.y,  UPPER_LEFT, m_pWolfBar );
 
 		if( m_bWolfMaskActive )
 			RM.DrawTexturedQuad2D(m_WolfMaskPosition, m_WolfMaskSize.x, m_WolfMaskSize.y,  UPPER_LEFT, m_pWolfMask );
@@ -475,6 +477,8 @@ void CHud::CalculateSize()
 	m_BackgroundSize.x = static_cast<uint32>(m_BackgroundSize.x * 0.01f * l_ScreenSize.x);
 	m_BackgroundSize.y = static_cast<uint32>(m_BackgroundSize.y * 0.01f * l_ScreenSize.y);
 
+	m_BarRealSize = m_BarSize;
+
 	// Wolf Life Bar
 	//--------------------------
 	//Calcula la posición de la barra de vida
@@ -486,6 +490,8 @@ void CHud::CalculateSize()
 
 	m_WolfBackgroundSize.x = static_cast<uint32>(m_WolfBackgroundSize.x * 0.01f * l_ScreenSize.x);
 	m_WolfBackgroundSize.y = static_cast<uint32>(m_WolfBackgroundSize.y * 0.01f * l_ScreenSize.y);
+
+	m_WolfBarRealSize = m_WolfBarSize;
 
 	// Texturas de información
 	//-------------------------
