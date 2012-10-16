@@ -78,6 +78,7 @@ void CWolfHowlEnemiesState::OnEnter( CCharacter* _pCharacter )
 	
 	m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetHowlEnemiesAnimationState());
 	CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Wolf_Howl2" );
+	CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_wind1" );
 
 	m_pAnimationCallback->Init();
 	m_pAnimationCallback->StartAnimation();
@@ -141,6 +142,7 @@ void CWolfHowlEnemiesState::Execute( CCharacter* _pCharacter, float _ElapsedTime
 void CWolfHowlEnemiesState::OnExit( CCharacter* _pCharacter )
 {
 	CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Stop_EFX_Wolf_Howl" );
+	CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Stop_EFX_wind1" );
 
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
 	CPlayer * l_Player = dynamic_cast<CPlayer *> (l_Process->GetCharactersManager()->GetPlayer());
