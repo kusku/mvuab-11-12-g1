@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <HUD>
 	<PlayerLifeBar threshold_to_dying_effect="0.3" >
-		<Background position="7 10" size="24 5" texture="./Data/General/Textures/HUD/background.png" active="true" />
-		<Bar position="7 10" size="25 19" texture="./Data/General/Textures/HUD/bar.png" active="true" />
-		<Mask position="7 9" size="25 7" texture="./Data/General/Textures/HUD/mask.png" active="true" />
+		<Background position="3 4" size="41 20" texture="./Data/General/Textures/HUD/caperu_hud_back.png" active="true" />
+		<Bar position="12 11" size="27 5" texture="./Data/General/Textures/HUD/caperu_hud_bar.png" active="true" />
+		<Mask position="3 4" size="41 20" texture="./Data/General/Textures/HUD/caperu_hud_mask.png" active="true" />
 	</PlayerLifeBar>
 	
 	<WolfLifeBar>
-		<Background position="65 10" size="24 5" texture="./Data/General/Textures/HUD/background.png" active="true" />
-		<Bar position="65 10" size="25 19" texture="./Data/General/Textures/HUD/bar.png" active="true" />
-		<Mask position="65 9" size="25 7" texture="./Data/General/Textures/HUD/mask.png" active="true" />
+		<Background position="62 4" size="38 25" texture="./Data/General/Textures/HUD/wolf_hud_back.png" active="true" />
+		<Bar position="66 11" size="25 5" texture="./Data/General/Textures/HUD/wolf_hud_bar.png" active="true" />
+		<Mask position="60 5" size="40 20" texture="./Data/General/Textures/HUD/wolf_hud_mask.png" active="true" />
 	</WolfLifeBar>
 	
 	<Texture name="house_info" file="./Data/General/Textures/HUD/enter.png" position="25 -10" size="50 50" active="false" />
