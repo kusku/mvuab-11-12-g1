@@ -60,6 +60,7 @@ class 'CCombatZone1Trigger' (CBoxTrigger)
 			-- print_logger(0, "CCombatZone1Trigger:update -> Eliminamos el fuego")
 		
 			core:get_limit_manager():activate_group("zona1", false)
+			_soundM:play_event('Stop_EFX_fire_forest_inferno')
 			self.active = false
 		end
 	end
@@ -77,6 +78,7 @@ class 'CCombatZone1Trigger' (CBoxTrigger)
 			end 
 
 			core:get_limit_manager():activate_group("zona1", true)
+			_soundM:play_event('Play_EFX_fire_forest_inferno')
 			self.first_time_entered = true
 		end 
 	end
