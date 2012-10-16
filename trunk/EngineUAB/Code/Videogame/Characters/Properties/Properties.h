@@ -35,38 +35,38 @@ public:
 	//---- Properties ( get & Set )---------------------------------------
 
 	// -------------------- Popiedades Generales -----------------------------------------------------------------
-	inline void					SetCore					( const std::string &_CoreName )					{ m_Core = _CoreName; }
-	inline const std::string	GetCore					( void ) const										{ return m_Core; }
+	inline void					SetCore					( const std::string &_CoreName )						{ m_Core = _CoreName; }
+	inline const std::string	GetCore					( void ) const											{ return m_Core; }
 
-	inline void					SetAnimationInstance	( const std::string &_AnimationInstanceName )		{ m_AnimationInstanceName = _AnimationInstanceName; }
-	inline std::string			GetAnimationInstance	( void ) const										{ return m_AnimationInstanceName; }
+	inline void					SetAnimationInstance	( const std::string &_AnimationInstanceName )			{ m_AnimationInstanceName = _AnimationInstanceName; }
+	inline std::string			GetAnimationInstance	( void ) const											{ return m_AnimationInstanceName; }
 
-	inline void					SetLife					( int _Life )										{ m_Life = m_CurrentLife = _Life; }
-	inline const int			GetLife					( void ) const										{ return m_Life; }
+	inline void					SetLife					( int _Life )											{ m_Life = m_CurrentLife = _Life; }
+	inline const int			GetLife					( void ) const											{ return m_Life; }
 
-	inline void					SetCurrentLife			( int _Life )										{ m_CurrentLife = _Life; }
-	inline const int			GetCurrentLife			( void ) const										{ return m_CurrentLife; }
+	inline void					SetCurrentLife			( int _Life )											{ m_CurrentLife = _Life; }
+	inline const int			GetCurrentLife			( void ) const											{ return m_CurrentLife; }
 
-	inline void					SetTimeToCure			( float _Time )										{ m_TimeToCure = _Time; }
-	inline const float			GetTimeToCure			( void ) const										{ return m_TimeToCure; }
+	inline void					SetTimeToCure			( float _Time )											{ m_TimeToCure = _Time; }
+	inline const float			GetTimeToCure			( void ) const											{ return m_TimeToCure; }
 
-	inline void					SetWaitToCure			( float _Time	)									{ m_WaitToCure = _Time; }
-	inline const float			GetWaitToCure			( void ) const										{ return m_WaitToCure; }
+	inline void					SetWaitToCure			( float _Time	)										{ m_WaitToCure = _Time; }
+	inline const float			GetWaitToCure			( void ) const											{ return m_WaitToCure; }
 
-	inline void					SetCureVelocity			( int _Velocity	)									{ m_CureVelocity = _Velocity; }
-	inline const int			GetCureVelocity			( void ) const										{ return m_CureVelocity; }
+	inline void					SetCureVelocity			( int _Velocity	)										{ m_CureVelocity = _Velocity; }
+	inline const int			GetCureVelocity			( void ) const											{ return m_CureVelocity; }
 
-	inline void					SetStrong				( int _Strong )										{ m_Strong = _Strong; }
-	inline  int					GetStrong				( void ) const										{ return m_Strong; }
+	inline void					SetStrong				( int _Strong )											{ m_Strong = _Strong; }
+	inline  int					GetStrong				( void ) const											{ return m_Strong; }
 
-	inline void					SetMass					( float _Mass )										{ m_Mass = _Mass; }
-	inline const float			GetMass					( void ) const										{ return m_Mass; }
+	inline void					SetMass					( float _Mass )											{ m_Mass = _Mass; }
+	inline const float			GetMass					( void ) const											{ return m_Mass; }
 
-	inline void					SetRespawnPosition		( const Vect3f &_RespawnPosition )					{ m_RespawnPosition = _RespawnPosition; }
-	inline const Vect3f			GetRespawnPosition		( void ) const										{ return m_RespawnPosition; }
+	inline void					SetRespawnPosition		( const Vect3f &_RespawnPosition )						{ m_RespawnPosition = _RespawnPosition; }
+	inline const Vect3f			GetRespawnPosition		( void ) const											{ return m_RespawnPosition; }
 
-	inline void					SetLocked				( bool _Locked )									{ m_Locked = _Locked; }
-	inline const bool			GetLocked				( void ) const										{ return m_Locked; }
+	inline void					SetLocked				( bool _Locked )										{ m_Locked = _Locked; }
+	inline const bool			GetLocked				( void ) const											{ return m_Locked; }
 
 
 	// -------------------- Popiedades de detección para estados --------------------------------------------------------------

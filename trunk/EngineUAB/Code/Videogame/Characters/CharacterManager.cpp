@@ -271,11 +271,11 @@ void CCharactersManager::Render(CRenderManager *_RM, CFontManager *_FM)
 	if ( m_pPlayer ) 
 	{
 		int dy = 50;
-		int life = m_pPlayer->GetProperties()->GetLife();
+		int life = m_pPlayer->GetProperties()->GetCurrentLife();
 		Vect3f l_Pos = m_pPlayer->GetController()->GetPosition();
 		dy += _FM->DrawDefaultText(10, dy, colWHITE, "Life: %d", life);
-		dy += _FM->DrawDefaultText(10, dy, colWHITE, "Position: %f, %f, %f", l_Pos.x, l_Pos.y, l_Pos.z);
-		dy += _FM->DrawDefaultText(10, dy, colWHITE, "Yaw: %f", m_pPlayer->GetAnimatedModel()->GetYaw() );
+		dy += _FM->DrawDefaultText(10, dy, colWHITE, "Position: %f, %f, %f     Yaw: %f ", l_Pos.x, l_Pos.y, l_Pos.z, m_pPlayer->GetAnimatedModel()->GetYaw());
+		//dy += _FM->DrawDefaultText(10, dy, colWHITE, "Yaw: %f", m_pPlayer->GetAnimatedModel()->GetYaw() );
 	}
 
 	if ( CORE->GetPhysicsManager()->GetDrawFront() )
@@ -1519,4 +1519,13 @@ void CCharactersManager::SetAllEnemiesInIdle( void )
 			}
 		}
 	}
+}
+
+void CCharactersManager::SetAllEnemiesSoundOff( void )
+{
+	for(size_t i = 0; i < m_ResourcesVector.size() ; ++i)
+	{
+		m_ResourcesVector[i]->SetSoundsOff();
+	}
+	
 }

@@ -136,6 +136,7 @@ void CRabbitAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 				} 
 				else
 				{
+					m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime );
 					m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 					return;
 				}

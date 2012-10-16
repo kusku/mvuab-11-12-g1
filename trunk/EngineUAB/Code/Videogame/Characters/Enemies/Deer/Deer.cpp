@@ -277,3 +277,8 @@ bool CDeer::CallHitState( CCharacter* _pCharacter, const STelegram& _Message )
 
 	return false;
 }
+
+void CDeer::SetSoundsOff( void )
+{
+	CORE->GetSoundManager()->PlayEvent(GetSpeakerName(), "Stop_All_EFX_Deer");
+}

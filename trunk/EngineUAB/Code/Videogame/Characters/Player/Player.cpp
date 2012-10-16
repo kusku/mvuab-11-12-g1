@@ -44,16 +44,19 @@
 #endif
 
 CPlayer::CPlayer()
-	: m_bIsTargetFixed(false)
-	, m_fMovementZoom(6.0f)
-	, m_fStaticZoom(5.5f)
-	, m_fVelocityAdaptativeZoom(1.5f)
-	, m_fDownZoom(2.0f)
-	, m_fDistanceToDetectEnemy(20.f)
-	, m_fVisibilityAngle(FLOAT_PI_VALUE / 3.f)
-	, m_fTimeWithoutDamage(0.f)
-	, m_fTimeToIncreaseLife(0.f)
-	, m_pCamera(NULL)
+	: m_bIsTargetFixed			(false)
+	, m_fMovementZoom			(6.0f)
+	, m_fStaticZoom				(5.5f)
+	, m_fVelocityAdaptativeZoom	(1.5f)
+	, m_fDownZoom				(2.0f)
+	, m_fDistanceToDetectEnemy	(20.f)
+	, m_fVisibilityAngle		(FLOAT_PI_VALUE / 3.f)
+	, m_fTimeWithoutDamage		(0.f)
+	, m_fTimeToIncreaseLife		(0.f)
+	, m_pCamera					(NULL)
+	, m_bSlowReadySoundON		( false ) 
+	, m_bMediumReadySoundON		( false ) 
+	, m_bFastReadySoundON		( false ) 
 {
 	m_fYaw		= 0.0f;
 	m_fPitch	= -FLOAT_PI_VALUE / 10.f;
@@ -490,4 +493,54 @@ bool CPlayer::CalculateAngleMovement( float &_fAngle )
 	}
 
 	return l_bMove;	
+}
+
+void CPlayer::SetSoundsOff( void )
+{
+	CORE->GetSoundManager()->PlayEvent(GetSpeakerName(), "Stop_All_EFX_Caperucita");
+}
+
+void CPlayer::RestLife( int _LifeRested )
+{
+	CCharacter::RestLife(_LifeRested);
+		
+	int l_Life = m_pProperties->GetCurrentLife();
+
+	if ( l_Life <= 30 && l_Life > 20 && !m_bSlowReadySoundON ) 
+	{
+		// Paramos el corazon y le metemos el lento
+		CORE->GetSoundManager()->PlayEvent("Stop_EFX_All_Caperucita_Hearts");
+		CORE->GetSoundManager()->PlayEvent("Play_EFX_Caperucita_Slow_Heart");
+		m_bSlowReadySoundON		= true;
+		m_bMediumReadySoundON	= false;
+		m_bFastReadySoundON		= false;
+	}
+
+	if ( l_Life <= 20 && l_Life > 10 && !m_bMediumReadySoundON ) 
+	{
+		// Paramos el corazon y le metemos el medio
+		CORE->GetSoundManager()->PlayEvent("Stop_EFX_All_Caperucita_Hearts");
+		CORE->GetSoundManager()->PlayEvent("Play_EFX_Caperucita_Medium_Heart");
+		m_bSlowReadySoundON		= false;
+		m_bMediumReadySoundON	= true;
+		m_bFastReadySoundON		= false;
+	}
+
+	if ( l_Life <= 10 && l_Life > 1 && !m_bFastReadySoundON ) 
+	{
+		// Paramos el corazon y le metemos el rápido
+		CORE->GetSoundManager()->PlayEvent("Stop_EFX_All_Caperucita_Hearts");
+		CORE->GetSoundManager()->PlayEvent("Play_EFX_Caperucita_Fast_Heart");
+		m_bSlowReadySoundON		= false;
+		m_bMediumReadySoundON	= false;
+		m_bFastReadySoundON		= true;
+	}
+
+	if ( l_Life > 30 ) 
+	{
+		CORE->GetSoundManager()->PlayEvent("Stop_EFX_All_Caperucita_Hearts");
+		m_bSlowReadySoundON		= false;
+		m_bMediumReadySoundON	= false;
+		m_bFastReadySoundON		= false;
+	}
 }

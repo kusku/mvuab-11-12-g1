@@ -27,6 +27,8 @@ public:
 	void				Update				( float elapsedTime );
 	void				Render				( CRenderManager &RM );
 	void				Reload				( void );
+	void				PreReload			( void );
+
 	//--Métodos para exponer en LUA-------
 	void				ChangeProcess		();
 	void				LoadGameData		();

@@ -295,3 +295,8 @@ void CRabbit::CreateSpeaker( void )
 
 	CORE->GetSoundManager()->PlayEvent(m_SpeakerName, "Stop_All_EFX_Rabbit");
 }
+
+void CRabbit::SetSoundsOff( void )
+{
+	CORE->GetSoundManager()->PlayEvent(GetSpeakerName(), "Stop_All_EFX_Rabbit");
+}

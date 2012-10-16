@@ -408,6 +408,10 @@ CGameProcess* CGameProcess::GetGameProcess()
 	return static_cast<CGameProcess*>(proces);
 }
 
+void CGameProcess::PreReload( void )
+{
+	m_pCharactersManager->SetAllEnemiesSoundOff();
+}
 
 void CGameProcess::Reload( void )
 {

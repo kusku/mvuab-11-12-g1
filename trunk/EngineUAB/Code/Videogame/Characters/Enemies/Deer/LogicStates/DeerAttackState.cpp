@@ -133,6 +133,7 @@ void CDeerAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 				} 
 				else
 				{
+					m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime );
 					m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 					return;
 				}

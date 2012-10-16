@@ -22,6 +22,7 @@ public:
 	virtual void		Render			( CRenderManager &RM );
 	virtual void		DebugRender		( CRenderManager &RM );
 	virtual void		Reload			( void );
+	virtual void		PreReload		( void );
 
 	//----Properties ( get & Set )---------------------------------------
 	virtual CCamera*	GetCamera		() const				{ return m_pCamera; }

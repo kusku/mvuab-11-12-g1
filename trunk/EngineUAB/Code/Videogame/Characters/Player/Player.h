@@ -27,27 +27,28 @@ public:
 	void			UpdateCamera( float _ElapsedTime, bool _bIsUpdated );
 
 	//----Methods ---------------------------------------------
-	void			HitToPlayer		( int _Strong );
-	CCharacter*		DetectEnemy		();
+	void			HitToPlayer				( int _Strong );
+	CCharacter*		DetectEnemy				();
 
-	void			SetTargetFixed	( bool fix )		{ m_bIsTargetFixed = fix; }
-	bool			IsTargetFixed	() const			{ return m_bIsTargetFixed; }
-	void			BeDead			();
+	void			SetTargetFixed			( bool fix )		{ m_bIsTargetFixed = fix; }
+	bool			IsTargetFixed			( void ) const		{ return m_bIsTargetFixed; }
+	void			BeDead					( void );
 
-	void			ResetTimeDamage	()					{ m_fTimeWithoutDamage = 0.f; m_fTimeToIncreaseLife = 0.f; }
+	void			ResetTimeDamage			( void )			{ m_fTimeWithoutDamage = 0.f; m_fTimeToIncreaseLife = 0.f; }
 	
-	bool			CallHitState	( CCharacter* _pCharacter, const STelegram& _Message );
+	bool			CallHitState			( CCharacter* _pCharacter, const STelegram& _Message );
 
-	float			CalculateAttackYaw( float _fDetectionDistance, float _fDetectionAngle, CCharacter *_pTarget );
+	float			CalculateAttackYaw		( float _fDetectionDistance, float _fDetectionAngle, CCharacter *_pTarget );
 
-	void			CreateSkeaker	();
+	void			CreateSkeaker			( void );
+	void			SetSoundsOff			( void );
+	void			RestLife				( int _LifeRested );
 
 private: //----Private Methods --------------------------------------
-	void			CreateCallbacks			();
-	void			CreateStates			();
+	void			CreateCallbacks			( void );
+	void			CreateStates			( void );
 	bool			CalculateAngleMovement	( float &_fAngle );
-	
-	
+		
 private: //----Members ---------------------------------------------
 	bool			m_bIsTargetFixed;
 
@@ -64,6 +65,10 @@ private: //----Members ---------------------------------------------
 	// Detection
 	float			m_fDistanceToDetectEnemy;
 	float			m_fVisibilityAngle;
+
+	bool			m_bSlowReadySoundON;			// Me dice si ya he llamado al slow heart sound
+	bool			m_bMediumReadySoundON;			// Me dice si ya he llamado al medium heart sound
+	bool			m_bFastReadySoundON;			// Me dice si ya he llamado al fast heart sound
 
 	CThPSCharacterCamera	*m_pCamera;
 	CGameProcess			*m_pProcess;

@@ -151,8 +151,6 @@ CWolf::CWolf( int _Id, std::string _Name )
 
 CWolf::~CWolf(void)
 {
-	//CORE->GetSoundManager()->PlayEvent(GetSpeakerName(), "Stop_All_EFX_Wolf");
-
 	CHECKED_DELETE ( m_pIdleState );
 	CHECKED_DELETE ( m_pPursuitState );
 	CHECKED_DELETE ( m_pPreparedToAttackState );
@@ -405,4 +403,9 @@ bool CWolf::CallHitState( CCharacter* _pCharacter, const STelegram& _Message )
 	}
 
 	return false;
+}
+
+void CWolf::SetSoundsOff( void )
+{
+	CORE->GetSoundManager()->PlayEvent(GetSpeakerName(), "Stop_All_EFX_Wolf");
 }

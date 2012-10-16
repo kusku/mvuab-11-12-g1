@@ -165,6 +165,8 @@ bool CSoundManager::Load(const std::string &soundbanks_filename, const std::stri
 
 bool CSoundManager::Reload()
 {
+	CORE->GetProcess()->PreReload();
+
 	Terminate();
 	bool l_IsOk = true;
 	l_IsOk = LoadSoundBanksXML();
