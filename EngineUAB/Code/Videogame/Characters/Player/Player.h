@@ -40,6 +40,8 @@ public:
 
 	float			CalculateAttackYaw( float _fDetectionDistance, float _fDetectionAngle, CCharacter *_pTarget );
 
+	void			CreateSkeaker	();
+
 private: //----Private Methods --------------------------------------
 	void			CreateCallbacks			();
 	void			CreateStates			();

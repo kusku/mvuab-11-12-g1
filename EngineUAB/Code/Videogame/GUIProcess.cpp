@@ -97,6 +97,10 @@ void CGUIProcess::LoadGameData()
 	ChangeProcess();
 }
 
+void CGUIProcess::Reload( void )
+{
+}
+
 //-------------------------------------
 //--Registrador de métodos en LUA------
 //-------------------------------------
