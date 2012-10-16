@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2012.10.14)  16 OCT 2012 19:56
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2012.10.14)  16 OCT 2012 20:50
 entering extended mode
 **Memory.tex
 (C:\Users\Marc\Documents\UAB\Memory\Memory.tex
@@ -143,17 +143,17 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 ]
 (C:\Users\Marc\Documents\UAB\Memory\section/introduction.tex
 Cap\'{\i }tulo 1.
-) [1
+[1
 
 
-] (C:\Users\Marc\Documents\UAB\Memory\section/design_document.tex [2
-
-
-
-]
+]) [2] (C:\Users\Marc\Documents\UAB\Memory\section/design_document.tex
 Cap\'{\i }tulo 2.
 File: figures/design_document/lobo.eps Graphic file (type eps)
-<figures/design_document/lobo.eps> [3] [4] [5] [6] [7]
+<figures/design_document/lobo.eps> [3
+
+
+
+] [4] [5] [6] [7]
 File: figures/design_document/caperu.eps Graphic file (type eps)
 
 <figures/design_document/caperu.eps> [8]
@@ -353,12 +353,12 @@ Ap\'{e}ndice A.
 (C:\Users\Marc\Documents\UAB\Memory\section/appendix.aux)
 (C:\Users\Marc\Documents\UAB\Memory\section/abstract.aux)) ) 
 Here is how much of TeX's memory you used:
- 1627 strings out of 494046
- 22117 string characters out of 3145994
+ 1626 strings out of 494046
+ 22104 string characters out of 3145994
  77151 words of memory out of 3000000
- 4852 multiletter control sequences out of 15000+200000
+ 4851 multiletter control sequences out of 15000+200000
  17652 words of font info for 38 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
  27i,5n,31p,1251b,411s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on Memory.dvi (46 pages, 120268 bytes).
+Output written on Memory.dvi (46 pages, 119880 bytes).
