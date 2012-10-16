@@ -322,6 +322,8 @@ void CWolf::CreateSkeaker()
 
 	m_SpeakerName = "Wolf_Speaker_" + out.str();
 	m_pSpeaker = CORE->GetSoundManager()->CreateSpeaker(m_SpeakerName);
+
+	CORE->GetSoundManager()->PlayEvent(m_SpeakerName, "Stop_All_EFX_Wolf");
 }
 // -----------------------------------------
 //				  METHODS

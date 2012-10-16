@@ -11,6 +11,7 @@
 #include "EngineProcess.h"
 #include "Helpers\MathHelper.h"
 #include "PhysicController.h"
+#include "SoundManager.h"
 #include "Core.h"
 #include "Base.h"
 
@@ -60,6 +61,8 @@ void CPlayerRunState::OnEnter( CCharacter* _pCharacter )
 	m_fCurrentVelocityMovement	= 0.f;
 	m_bStartState				= true;
 	m_bEndState					= false;
+
+	CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Caperucita_fast_sighs");
 }
 
 void CPlayerRunState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
@@ -193,6 +196,7 @@ void CPlayerRunState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 
 void CPlayerRunState::OnExit( CCharacter* _pCharacter )
 {
+	CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Stop_EFX_Caperucita_fast_sighs");
 }
 
 bool CPlayerRunState::OnMessage( CCharacter* _pCharacter, const STelegram& _Message )

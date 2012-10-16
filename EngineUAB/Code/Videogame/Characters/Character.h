@@ -188,7 +188,7 @@ protected:
 	bool							m_PlayerHasBeenReached;		// Indica si acaba de ser alcanzado el player
 	bool							m_IsTired;					// Indica si estamo cansados
 
-	std::string m_SpeakerName;
+	std::string						m_SpeakerName;
 
 	eCharacterTypes					m_Type;
 };
