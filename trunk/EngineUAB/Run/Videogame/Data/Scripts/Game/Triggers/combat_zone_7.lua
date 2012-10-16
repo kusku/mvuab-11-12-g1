@@ -53,7 +53,7 @@ class 'CCombatZone7Trigger' (CBoxTrigger)
 		end
 		
 		if ( self:are_enemies_dead() ) then 
-			print_logger(0, "CCombatZone1Trigger:update -> Eliminamos el fuego")
+			-- print_logger(0, "CCombatZone1Trigger:update -> Eliminamos el fuego")
 			core:get_limit_manager():activate_group("zona7", false)
 			self.active = false
 		end
