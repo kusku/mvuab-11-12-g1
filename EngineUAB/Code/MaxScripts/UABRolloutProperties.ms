@@ -14,9 +14,9 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 	checkbox GeneratePhysicsCB "Generate" pos:[11,240] width:71 height:18
 	dropdownList GeneratePhysicsList "" pos:[90,236] width:156 height:21 items:#("triangle_mesh", "convex_shape", "bounding_box", "sphere_shape", "plane_shape", "capsule_shape")
 	dropdownList LayerPhysicsList "" pos:[90,263] width:156 height:21 items:#("ECG_ESCENE", "ECG_LIMITS", "ECG_BRIDGE")
-	GroupBox grp3 "Logic" pos:[278,13] width:244 height:48
-	checkbox GenerateLogicCB "Generate" pos:[283,29] width:71 height:18
-	dropdownList GenerateLogicList "" pos:[358,27] width:156 height:21 items:#("rails")
+	GroupBox grp3 "Logic" pos:[280,90] width:244 height:48
+	checkbox GenerateLogicCB "Generate" pos:[287,109] width:71 height:18
+	dropdownList GenerateLogicList "" pos:[356,107] width:156 height:21 items:#("rails")
 	button GetButton "Get" pos:[433,620] width:83 height:24
 	button SetButton "Set" pos:[529,619] width:83 height:24
 	checkbox cbGenShadowMap "Dynamic Shadow Map:" pos:[15,365] width:84 height:26 checked:false
@@ -39,14 +39,14 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 	label lbl43 "Dynamic Layer:" pos:[24,598] width:77 height:14
 	dropdownList ddlStaticLayer "" pos:[112,574] width:120 height:21 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles", "vegetation", "water", "fish", "birds", "terrain")
 	dropdownList ddlDynamicLayer "" pos:[112,598] width:120 height:21 items:#("solid", "alpha_objects", "alpha_blend_objects", "particles", "vegetation", "water", "fish", "birds", "terrain")
-	GroupBox grp5 "AI Waypoints" pos:[279,98] width:326 height:290
+	GroupBox grp5 "AI Waypoints" pos:[279,147] width:326 height:241
 	button RefreshBrotherNodes "Refresh WP" pos:[294,344] width:94 height:25
-	checkbox IsWayPoint "Is Waypoint" pos:[292,123] width:119 height:19
+	checkbox IsWayPoint "Is Waypoint" pos:[291,159] width:119 height:19
 	dropdownList BrotherNodesAI "Brother Nodes" pos:[293,236] width:173 height:40
 	button RemoveBrotherNode "Remove" pos:[480,251] width:96 height:25
 	dropdownList PossibleBrotherNodesAI "Possible Brother Nodes" pos:[295,291] width:172 height:40
 	button AddBrotherNode "Add" pos:[483,309] width:90 height:24
-	dropdownList WayPointGroup "Waypoint Group" pos:[292,163] width:175 height:40 items:#("Group 1", "Group 2", "Group 3", "Group 4", "Group 5", "Fish Group", "Bird Group")
+	dropdownList WayPointGroup "Waypoint Group" pos:[292,188] width:175 height:40 items:#("Group 1", "Group 2", "Group 3", "Group 4", "Group 5", "Fish Group", "Bird Group")
 	checkbox cbIsInstance "Is Instance:" pos:[10,160] width:80 height:16
 	edittext InstanceName "" pos:[98,158] width:145 height:18
 	checkbox cbParentInstance "Is Parent Instance" pos:[10,140] width:127 height:14
@@ -66,6 +66,10 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 	checkbox cbUsePxPos "Use PhysX Obj Position" pos:[10,316] width:135 height:20
 	checkbox cbActivePXObj "Activate PhysX Obj" pos:[125,215] width:117 height:16
 	label lbPXGroup "Group:" pos:[35,267] width:41 height:16
+	groupBox gbLimits "Limits" pos:[278,12] width:306 height:73
+	checkbox cbLimit "Is Limit" pos:[287,30] width:77 height:21
+	edittext tbLimitGroup "" pos:[348,54] width:157 height:21
+	label lbLimitGroup "Limit Group" pos:[287,57] width:59 height:16
 	
 	local m_ObjSelected = undefined
 	
@@ -86,6 +90,8 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 		cbIsPXObj.checked = false
 		cbUsePxPos.checked = false
 		cbActivePXObj.checked = false
+		tbLimitGroup.text = ""
+		cbLimit.checked = false
 		
 		lbBlend1.text = "C:\\"
 		lbBlend2.text = "C:\\"
@@ -113,6 +119,17 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 			setUserProp Obj "texture_splatting_blend2" ""
 			setUserProp Obj "texture_splatting_blend3" ""
 			setUserProp Obj "texture_splatting_blend4" ""
+		)
+		
+		if cbLimit.checked  then
+		(
+			setUserProp Obj "is_limit" true
+			setUserProp Obj "limit_group" tbLimitGroup.text
+		)
+		else
+		(
+			setUserProp Obj "is_limit" false
+			setUserProp Obj "limit_group" ""
 		)
 		
 		if cbIsPXObj.checked then
@@ -318,9 +335,22 @@ rollout UABSetProperties "UABSetProperties" width:624 height:652
 			local l_IsPXObj = getUserProp $ "is_physx_obj"
 			local l_IsPXObjActive = getUserProp $ "physx_obj_active"
 			local l_LayerPhysics = getUserProp $ "physics_layer"
+			local l_IsLimit = getUserProp $ "is_limit"
 			
 			--Unchecked all check boxes
 			ResetProps()
+			
+			if l_IsLimit == true then
+			(
+				cbLimit.checked = true
+				tbLimitGroup.text = getUserProp $ "limit_group"
+			)
+			else
+			(
+				cbLimit.checked = false
+				tbLimitGroup.text = ""
+			)
+			
 			
 			if l_IsWP != undefined AND l_IsWP == true then
 			(
