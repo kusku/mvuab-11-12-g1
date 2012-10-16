@@ -122,7 +122,7 @@ CRabbit::CRabbit( int _Id, std::string _Name )
 
 CRabbit::~CRabbit(void)
 {
-	CORE->GetSoundManager()->PlayEvent(GetSpeakerName(), "Stop_All_EFX_Rabbit");
+	//CORE->GetSoundManager()->PlayEvent(GetSpeakerName(), "Stop_All_EFX_Rabbit");
 
 	CHECKED_DELETE ( m_pIdleState );
 	CHECKED_DELETE ( m_pPursuitState );
@@ -198,14 +198,7 @@ bool CRabbit::Init( void )
 
 	this->MoveTo2( Vect3f(0,0,0), 0 );
 
-	//Crea el speaker de audio correspondiente
-	uint16 index = CORE->GetSoundManager()->GetSpeakerCount();
-	std::stringstream out;
-	out << "_";
-	out << index;
-
-	m_SpeakerName = "Rabbit_Speaker_" + out.str();
-	m_pSpeaker = CORE->GetSoundManager()->CreateSpeaker(m_SpeakerName);
+	CreateSpeaker();
 
 	return true;
 }
@@ -287,4 +280,16 @@ bool CRabbit::CallHitState( CCharacter* _pCharacter, const STelegram& _Message )
 	}
 
 	return false;
+}
+
+void CRabbit::CreateSpeaker( void )
+{
+	//Crea el speaker de audio correspondiente
+	uint16 index = CORE->GetSoundManager()->GetSpeakerCount();
+	std::stringstream out;
+	out << "_";
+	out << index;
+
+	m_SpeakerName = "Rabbit_Speaker_" + out.str();
+	m_pSpeaker = CORE->GetSoundManager()->CreateSpeaker(m_SpeakerName);
 }

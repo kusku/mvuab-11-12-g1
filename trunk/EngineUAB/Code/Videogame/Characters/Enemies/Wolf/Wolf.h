@@ -68,6 +68,7 @@ public:
 	bool			TestIfCanHowlForEnemies ( void );
 
 	bool			CallHitState			( CCharacter* _pCharacter, const STelegram& _Message );
+	void			CreateSkeaker			( void );
 
 	//----Properties ------------------------------------------
 	CWolfIdleState *					GetIdleState					( void ) const			{ return m_pIdleState; }

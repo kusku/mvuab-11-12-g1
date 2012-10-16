@@ -407,3 +407,9 @@ CGameProcess* CGameProcess::GetGameProcess()
 	CEngineProcess *proces = CORE->GetProcess();
 	return static_cast<CGameProcess*>(proces);
 }
+
+
+void CGameProcess::Reload( void )
+{
+	ReloadGameObjects();
+}

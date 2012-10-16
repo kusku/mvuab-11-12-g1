@@ -110,7 +110,7 @@ CDeer::CDeer( int _Id, std::string _Name )
 
 CDeer::~CDeer(void)
 {
-	CORE->GetSoundManager()->PlayEvent(GetSpeakerName(), "Stop_All_EFX_Rabbit");
+	//CORE->GetSoundManager()->PlayEvent(GetSpeakerName(), "Stop_All_EFX_Rabbit");
 
 	CHECKED_DELETE ( m_pIdleState );
 	CHECKED_DELETE ( m_pPursuitState );

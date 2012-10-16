@@ -8,6 +8,7 @@
 #include "Base.h"
 #include "Core.h"
 #include "Exceptions\Exception.h"
+#include "EngineProcess.h"
 
 #include <AK/SoundEngine/Common/AkSoundEngine.h>
 #include <AK/IBytes.h>
@@ -171,6 +172,8 @@ bool CSoundManager::Reload()
 
 	m_pListener = new CListener(CORE->GetCamera());
 
+	CORE->GetProcess()->Reload();
+
 	return l_IsOk;
 }
 
@@ -297,9 +300,9 @@ void CSoundManager::Render(CRenderManager *_RM)
 
 void CSoundManager::Terminate()
 {
-	CHECKED_DELETE(m_pListener);
-	Destroy();
-
+	CHECKED_DELETE(m_pListener);		// Destruimos el listener (micro)
+	Destroy();							// Destruimos los speakers
+	AK::SoundEngine::ClearBanks();		// Limpiamos cualquier bank
 	AK::SoundEngine::UnregisterAllGameObj();
 }
 

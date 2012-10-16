@@ -151,7 +151,7 @@ CWolf::CWolf( int _Id, std::string _Name )
 
 CWolf::~CWolf(void)
 {
-	CORE->GetSoundManager()->PlayEvent(GetSpeakerName(), "Stop_All_EFX_Wolf");
+	//CORE->GetSoundManager()->PlayEvent(GetSpeakerName(), "Stop_All_EFX_Wolf");
 
 	CHECKED_DELETE ( m_pIdleState );
 	CHECKED_DELETE ( m_pPursuitState );
@@ -240,15 +240,8 @@ bool CWolf::Init( void )
 
 	this->MoveTo2( Vect3f(0,0,0), 0 );
 
-	//Crea el speaker de audio correspondiente
-	uint16 index = CORE->GetSoundManager()->GetSpeakerCount();
-	std::stringstream out;
-	out << "_";
-	out << index;
-
-	m_SpeakerName = "Wolf_Speaker_" + out.str();
-	m_pSpeaker = CORE->GetSoundManager()->CreateSpeaker(m_SpeakerName);
-
+	CreateSkeaker();
+	
 	return true;
 }
 
@@ -319,6 +312,17 @@ void CWolf::Update ( float _ElapsedTime )
 	l_Process->GetHUD()->SetWolfLife(m_pProperties->GetCurrentLife());
 }
 
+void CWolf::CreateSkeaker()
+{
+	//Crea el speaker de audio correspondiente
+	uint16 index = CORE->GetSoundManager()->GetSpeakerCount();
+	std::stringstream out;
+	out << "_";
+	out << index;
+
+	m_SpeakerName = "Wolf_Speaker_" + out.str();
+	m_pSpeaker = CORE->GetSoundManager()->CreateSpeaker(m_SpeakerName);
+}
 // -----------------------------------------
 //				  METHODS
 // -----------------------------------------

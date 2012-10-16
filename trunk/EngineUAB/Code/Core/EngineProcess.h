@@ -21,6 +21,7 @@ public:
 	virtual void		Update			(float ElapsedTime);
 	virtual void		Render			( CRenderManager &RM );
 	virtual void		DebugRender		( CRenderManager &RM );
+	virtual void		Reload			( void );
 
 	//----Properties ( get & Set )---------------------------------------
 	virtual CCamera*	GetCamera		() const				{ return m_pCamera; }

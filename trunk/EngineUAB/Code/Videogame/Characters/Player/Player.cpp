@@ -104,14 +104,7 @@ bool CPlayer::Init()
 
 	m_fTimeWithoutDamage = 0.f;
 
-	//Crea el speaker de audio correspondiente
-	uint16 index = CORE->GetSoundManager()->GetSpeakerCount();
-	std::stringstream out;
-	out << "_";
-	out << index;
-
-	m_SpeakerName = "Player_Speaker_" + out.str();
-	m_pSpeaker = CORE->GetSoundManager()->CreateSpeaker(m_SpeakerName);
+	CreateSkeaker();
 
 	return true;
 }
@@ -320,6 +313,18 @@ void CPlayer::CreateCallbacks()
 	l_pCallbackManager->CreateCallback(GetName(), "attack6", m_pCurrentAnimatedModel);
 	l_pCallbackManager->CreateCallback(GetName(), "hit", m_pCurrentAnimatedModel);
 	l_pCallbackManager->CreateCallback(GetName(), "jump", m_pCurrentAnimatedModel);
+}
+
+void CPlayer::CreateSkeaker()
+{
+	//Crea el speaker de audio correspondiente
+	uint16 index = CORE->GetSoundManager()->GetSpeakerCount();
+	std::stringstream out;
+	out << "_";
+	out << index;
+
+	m_SpeakerName = "Player_Speaker_" + out.str();
+	m_pSpeaker = CORE->GetSoundManager()->CreateSpeaker(m_SpeakerName);
 }
 
 // Jordi: Este método me permite hacer todo lo necesario cuando está muerto el caracter.
