@@ -2,7 +2,7 @@
 <steering_properties xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<!--longitud de colision de diferentes comportamientos-->
 	<ObstacleWallDetectionFeelerLength>1.2</ObstacleWallDetectionFeelerLength>	
-	<ObstacleWallDetectionFeelerAngle>30</ObstacleWallDetectionFeelerAngle>	
+	<ObstacleWallDetectionFeelerAngle>60</ObstacleWallDetectionFeelerAngle>	
 	<ObstacleWallDetectionFeelerAngleIncrement>2.0</ObstacleWallDetectionFeelerAngleIncrement>	
 	<CollisionDetectionFeelerLength>3.4</CollisionDetectionFeelerLength>
 	<SeparationDetectionFeelerLength>3.4</SeparationDetectionFeelerLength>	<!-- Longitud de los rayos en separación. Ajo -->
