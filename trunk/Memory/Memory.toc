@@ -12,22 +12,22 @@
 \contentsline {subsection}{\numberline {2.3.2}Desarrollo general}{5}
 \contentsline {subsection}{\numberline {2.3.3}Escenario}{5}
 \contentsline {subsection}{\numberline {2.3.4}Sistema de juego}{6}
-\contentsline {subsubsection}{\numberline {2.3.4.1}Objetivos}{6}
-\contentsline {subsubsection}{\numberline {2.3.4.2}Reglas}{7}
+\contentsline {subsubsection}{Objetivos}{6}
+\contentsline {subsubsection}{Reglas}{7}
 \contentsline {subsection}{\numberline {2.3.5}Elementos interactivos}{8}
-\contentsline {subsubsection}{\numberline {2.3.5.1}Personaje principal}{8}
-\contentsline {subsubsection}{\numberline {2.3.5.2}Enemigos}{8}
+\contentsline {subsubsection}{Personaje principal}{8}
+\contentsline {subsubsection}{Enemigos}{8}
 \contentsline {subsection}{\numberline {2.3.6}Armas}{9}
 \contentsline {subsection}{\numberline {2.3.7}Ítems}{9}
 \contentsline {subsection}{\numberline {2.3.8}Acciones}{9}
-\contentsline {subsubsection}{\numberline {2.3.8.1}Animaciones}{11}
+\contentsline {subsubsection}{Animaciones}{11}
 \contentsline {subsection}{\numberline {2.3.9}Interfaz}{12}
-\contentsline {subsubsection}{\numberline {2.3.9.1}HUD de juego}{12}
-\contentsline {subsubsection}{\numberline {2.3.9.2}Menús externos}{13}
+\contentsline {subsubsection}{HUD de juego}{12}
+\contentsline {subsubsection}{Menús externos}{13}
 \contentsline {subsection}{\numberline {2.3.10}Control}{13}
-\contentsline {subsubsection}{\numberline {2.3.10.1}Movimiento de desplazamiento}{14}
-\contentsline {subsubsection}{\numberline {2.3.10.2}Movimientos de ataque}{14}
-\contentsline {subsubsection}{\numberline {2.3.10.3}Movimientos de defensa}{15}
+\contentsline {subsubsection}{Movimiento de desplazamiento}{14}
+\contentsline {subsubsection}{Movimientos de ataque}{14}
+\contentsline {subsubsection}{Movimientos de defensa}{15}
 \contentsline {section}{\numberline {2.4}Arte}{15}
 \contentsline {subsection}{\numberline {2.4.1}Caperucita}{15}
 \contentsline {subsection}{\numberline {2.4.2}El Lobo}{16}
@@ -44,20 +44,20 @@
 \contentsline {section}{\numberline {3.2}Arte}{23}
 \contentsline {section}{\numberline {3.3}Programación}{23}
 \contentsline {subsection}{\numberline {3.3.1}Gráficos}{24}
-\contentsline {subsubsection}{\numberline {3.3.1.1}Iluminación y sombras}{24}
-\contentsline {subsubsection}{\numberline {3.3.1.2}Partículas}{24}
-\contentsline {subsubsection}{\numberline {3.3.1.3}Post procesado}{26}
+\contentsline {subsubsection}{Iluminación y sombras}{24}
+\contentsline {subsubsection}{Partículas}{24}
+\contentsline {subsubsection}{Post procesado}{26}
 \contentsline {subsection}{\numberline {3.3.2}Física}{26}
-\contentsline {subsubsection}{\numberline {3.3.2.1}Escenario de pruebas}{27}
+\contentsline {subsubsection}{Escenario de pruebas}{27}
 \contentsline {subsection}{\numberline {3.3.3}Inteligencia Artificial}{28}
-\contentsline {subsubsection}{\numberline {3.3.3.1}Máquinas de estados}{28}
-\contentsline {subsubsection}{\numberline {3.3.3.2}Steering Behaviors}{29}
+\contentsline {subsubsection}{Máquinas de estados}{28}
+\contentsline {subsubsection}{Steering Behaviors}{29}
 \contentsline {subsection}{\numberline {3.3.4}Scripting}{30}
 \contentsline {subsection}{\numberline {3.3.5}Audio}{30}
 \contentsline {subsection}{\numberline {3.3.6}Tools}{31}
-\contentsline {subsubsection}{\numberline {3.3.6.1}Particle Editor}{31}
-\contentsline {subsubsection}{\numberline {3.3.6.2}GUI Editor}{31}
-\contentsline {subsubsection}{\numberline {3.3.6.3}3ds Max Exporter}{32}
+\contentsline {subsubsection}{Particle Editor}{31}
+\contentsline {subsubsection}{GUI Editor}{31}
+\contentsline {subsubsection}{3ds Max Exporter}{32}
 \contentsline {chapter}{\numberline {4}Resultados}{33}
 \contentsline {chapter}{\numberline {5}Conclusiones}{35}
 \contentsline {chapter}{Bibliografía}{37}
