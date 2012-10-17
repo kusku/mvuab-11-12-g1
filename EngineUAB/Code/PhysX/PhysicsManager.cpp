@@ -1085,73 +1085,77 @@ CPhysicActor* CPhysicsManager::GetActor ( std::string _ActorName )
 
 int CPhysicsManager::GetCollisionGroup( const std::string& _szGroup )
 {
-	if(_szGroup == "ECG_ESCENE")
+	if(_szGroup.compare("ECG_ESCENE") == 0)
 	{
 		return ECG_ESCENE;
 	}
-	else if(_szGroup == "ECG_PLAYER")
+	else if(_szGroup.compare("ECG_PLAYER") == 0)
 	{
 		return ECG_PLAYER;
 	}
-	else if(_szGroup == "ECG_ENEMY")
+	else if(_szGroup.compare("ECG_ENEMY") == 0)
 	{
 		return ECG_ENEMY;
 	}
-	else if(_szGroup == "ECG_TRIGGERS")
+	else if(_szGroup.compare("ECG_TRIGGERS") == 0)
 	{
 		return ECG_TRIGGERS;
 	}
-	else if(_szGroup == "ECG_MALGLOBAL")
+	else if(_szGroup.compare("ECG_MALGLOBAL") == 0)
 	{
 		return ECG_MALGLOBAL;
 	}
-	else if(_szGroup == "ECG_COBERTURES")
+	else if(_szGroup.compare("ECG_COBERTURES") == 0)
 	{
 		return ECG_COBERTURES;
 	}
-	else if(_szGroup == "ECG_DYNAMIC_OBJECTS")
+	else if(_szGroup.compare("ECG_DYNAMIC_OBJECTS") == 0)
 	{
 		return ECG_DYNAMIC_OBJECTS;
 	}
-	else if(_szGroup == "ECG_EXPLOSIONS")
+	else if(_szGroup.compare("ECG_EXPLOSIONS") == 0)
 	{
 		return ECG_EXPLOSIONS;
 	}
-	else if(_szGroup == "ECG_RAY_SHOOT")
+	else if(_szGroup.compare("ECG_RAY_SHOOT") == 0)
 	{
 		return ECG_RAY_SHOOT;
 	}
-	else if(_szGroup == "ECG_RAY_SHOOT_PLAYER")
+	else if(_szGroup.compare("ECG_RAY_SHOOT_PLAYER") == 0)
 	{
 		return ECG_RAY_SHOOT_PLAYER;
 	}
-	else if(_szGroup == "ECG_FORCE")
+	else if(_szGroup.compare("ECG_FORCE") == 0)
 	{
 		return ECG_FORCE;
 	}
-	else if(_szGroup == "ECG_CAMERA")
+	else if(_szGroup.compare("ECG_CAMERA") == 0)
 	{
 		return ECG_CAMERA;
 	}
-	else if(_szGroup == "ECG_RAGDOLL")
+	else if(_szGroup.compare("ECG_RAGDOLL") == 0)
 	{
 		return ECG_RAGDOLL;
 	}
-	else if(_szGroup == "ECG_RAGDOLL_PLAYER")
+	else if(_szGroup.compare("ECG_RAGDOLL_PLAYER") == 0)
 	{
 		return ECG_RAGDOLL_PLAYER;
 	}
-	else if(_szGroup == "ECG_RAY_IA_GRAPH")
+	else if(_szGroup.compare("ECG_RAY_IA_GRAPH") == 0)
 	{
 		return ECG_RAY_IA_GRAPH;
 	}
-	else if(_szGroup == "ECG_VIGIA")
+	else if(_szGroup.compare("ECG_VIGIA") == 0)
 	{
 		return ECG_VIGIA;
 	}
-	else if(_szGroup == "ECG_LIMITS")
+	else if(_szGroup.compare("ECG_LIMITS") == 0)
 	{
 		return ECG_LIMITS;
+	}
+	else if(_szGroup.compare("ECG_STATIC_OBJECTS") == 0)
+	{
+		return ECG_STATIC_OBJECTS;
 	}
 	else
 	{
