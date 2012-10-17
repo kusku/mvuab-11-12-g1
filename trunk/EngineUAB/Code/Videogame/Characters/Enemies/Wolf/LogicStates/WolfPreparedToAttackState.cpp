@@ -14,6 +14,7 @@
 #include "WolfPursuitState.h"
 #include "WolfAttackState.h"
 #include "WolfHitState.h"
+#include "WolfIdleState.h"
 
 #include "Characters\Enemies\Wolf\AnimationStates\WolfRunAnimationState.h"
 #include "Characters\Enemies\Wolf\AnimationStates\WolfHitAnimationState.h"
@@ -108,7 +109,7 @@ void CWolfPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elapse
 		Vect2f l_Pos2 = Vect2f(m_PositionReachedAfterHitPlayer.x, m_PositionReachedAfterHitPlayer.z);
 		float l_DistanceToCameraPoint = l_Pos1.Distance(l_Pos2);
 		//float l_DistanceToCameraPoint = m_pWolf->GetPosition().Distance(m_PositionReachedAfterHitPlayer);
-		if ( l_DistanceToCameraPoint <= 3.01f )
+		if ( l_DistanceToCameraPoint <= 1.5f )
 		{
 			m_IsPositionAfterHitPlayerAssigned = false;		// Reiniciamos el flag para la pròxima vez
 			m_pWolf->SetPlayerHasBeenReached(false);		// Reiniciamos el flag de player alcanzado
@@ -117,23 +118,25 @@ void CWolfPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elapse
 		}
 		else
 		{
-			//float l_DistanceToPlayer = m_pWolf->GetPosition().Distance(m_pWolf->GetPlayer()->GetPosition());
-			// Evitamos que vayamos a un punto donde se había calculado inicialmente pero que ahora és demasido lejos del player
-			// Esto passa si el player lo mandamos tant y tant lejos que luego es excesivo ir a ese punto y mejor recalcularlo
-			/*if ( l_DistanceToCameraPoint < l_DistanceToPlayer && l_DistanceToCameraPoint > m_pWolf->GetProperties()->GetPreparedAttackDistance())
+			int l_Mask = 1 << ECG_LIMITS;
+			if ( m_pWolf->IsPointTouchingGroup(m_pWolf->GetPosition(), l_Mask, 0.5f) ) 
 			{
-				m_IsPositionAfterHitPlayerAssigned = false;	
-				m_pWolf->SetPlayerHasBeenReached(true);
+				// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio
+				m_pWolf->SetToBeTired(false);
+				m_pWolf->GetBehaviors()->SeekOff();
+				m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+				m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+				m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetIdleState());
+				m_IsPositionAfterHitPlayerAssigned = true;
+				return;
 			}
-			else
-			{*/
-				m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetRunAnimationState());
-				m_pWolf->GetBehaviors()->GetSeek()->SetTarget(m_PositionReachedAfterHitPlayer);
-				m_pWolf->GetBehaviors()->SeekOn();
-				m_pWolf->FaceTo( m_pWolf->GetPlayer()->GetPosition(), _ElapsedTime);
-				m_pWolf->MoveTo2(m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
-				LOGGER->AddNewLog(ELL_INFORMATION, "CWolfPreparedToAttackState::Execute -> %s pegó al player y ahora vuelve a una posición inicial de ataque", m_pWolf->GetName().c_str());
-			//}
+
+			m_pWolf->GetGraphicFSM()->ChangeState(m_pWolf->GetRunAnimationState());
+			m_pWolf->GetBehaviors()->GetSeek()->SetTarget(m_PositionReachedAfterHitPlayer);
+			m_pWolf->GetBehaviors()->SeekOn();
+			m_pWolf->FaceTo( m_pWolf->GetPlayer()->GetPosition(), _ElapsedTime);
+			m_pWolf->MoveTo2(m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime);
+			LOGGER->AddNewLog(ELL_INFORMATION, "CWolfPreparedToAttackState::Execute -> %s pegó al player y ahora vuelve a una posición inicial de ataque", m_pWolf->GetName().c_str());
 		}
 	}
 

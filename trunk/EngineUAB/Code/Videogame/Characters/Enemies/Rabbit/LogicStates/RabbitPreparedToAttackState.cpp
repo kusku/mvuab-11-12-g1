@@ -111,11 +111,8 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elap
 		}
 
 		// Mira si alcanzamos la posición. Reseteamos indicando que este enemigo ya ha realizado las tareas postimpacto 
-		Vect2f l_Pos1 = Vect2f(m_pRabbit->GetPosition().x, m_pRabbit->GetPosition().z);
-		Vect2f l_Pos2 = Vect2f(m_PositionReachedAfterHitPlayer.x, m_PositionReachedAfterHitPlayer.z);
-		float l_DistanceToCameraPoint = l_Pos1.Distance(l_Pos2);
-		//float l_DistanceToCameraPoint = m_pRabbit->GetPosition().Distance(m_PositionReachedAfterHitPlayer);
-		if ( l_DistanceToCameraPoint <= 1.3f )
+		float l_DistanceToCameraPoint = m_pRabbit->GetDistanceToPointIn2D(m_PositionReachedAfterHitPlayer);
+		if ( l_DistanceToCameraPoint <= 1.f )
 		{
 			m_IsPositionAssignedAfterHitPlayer = false;		// Reiniciamos el flag para la pròxima vez
 			m_pRabbit->SetPlayerHasBeenReached(false);		// Reiniciamos el flag de player alcanzado
@@ -124,6 +121,19 @@ void CRabbitPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elap
 		}
 		else
 		{
+			int l_Mask = 1 << ECG_LIMITS;
+			if ( m_pRabbit->IsPointTouchingGroup(m_pRabbit->GetPosition(), l_Mask, 0.5f) ) 
+			{
+				// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio
+				m_pRabbit->SetToBeTired(false);
+				m_pRabbit->GetBehaviors()->SeekOff();
+				m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+				m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+				m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetIdleState());
+				m_IsPositionAssignedAfterHitPlayer = true;
+				return;
+			}
+
 			m_pRabbit->GetBehaviors()->SeekOn();
 			m_pRabbit->GetBehaviors()->GetSeek()->SetTarget(m_PositionReachedAfterHitPlayer);
 			m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime);
