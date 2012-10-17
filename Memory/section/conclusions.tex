@@ -1,1 +1,21 @@
 \chapter{Conclusiones}
+
+\begin{itemize}
+
+\item Se ha diseñado e implementado un juego \emph{hack 'n' slash} sobre el cuento de Caperucita Roja, creando una reproducción del cuento distinta en una ambientación oscura y \emph{gore}.
+
+\item Se ha creado una inteligencia artificial pensada y orientada al combate cuerpo a cuerpo, teniendo en cuenta que cada personaje con inteligencia no está solo en el escenario sino con más entidades com él.
+
+\item Se ha diseñado un escenario grande para el combate, con sensación de estar en un bosque nevado abierto, pero al mismo tiempo estar limitado a deambular por zonas concretas, limitando así todo el acceso al bosque.
+
+\item Se ha implementado un motor de juego genérico con tecnologías que se utilizan actualmente en el desarrollo de videojuegos, como por ejemplo Direct, Wwise o PhysX.
+
+\item Se han encontrado problemas en el momento de desarrollar con Lua / Luabind. Al crear una clase de Lua en C++ que esta heredaba de código de C++, en algún momento aleatorio de la ejecución, Lua perdía esas referencias haciendo que el juego dejara de funcionar. Se solucionó escribiendo todo el código de nuevo en C++.
+
+\item Se han encontrado problemas en la reserva de memoria de Lua. Siempre se iba reservado más y más memoria hasta agotar toda la memoria del ordenador en que se ejecutaba el juego. Se solucionó pasando el código de Lua a C++.
+
+\item Se han encontrado bastantes problemas con el exportador de Cal3D y 3ds Max 2012. El exportador muchas veces o, dejaba el programa de modelado inutilizado, o generaba ficheros corruptos, modificando así toda la malla que se exportaba.
+
+\item El escenario se ha tenido que rehacer más de una vez por motivos de diseño, ya que las versiones anteriores no cumplian los objetivos de jugabilidad.
+
+\end{itemize}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=latex 2012.10.17)  17 OCT 2012 18:39
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=latex 2012.10.17)  17 OCT 2012 22:34
 entering extended mode
 **Memory.tex
 (C:\Users\Marc\Documents\UAB\Memory\Memory.tex
@@ -267,11 +267,7 @@ Cap\'{\i }tulo 4.
 
 ]
 Cap\'{\i }tulo 5.
-) [45] (C:\Users\Marc\Documents\UAB\Memory\section/bibliography.tex [46
-
-
-
-]
+[45]) [46] (C:\Users\Marc\Documents\UAB\Memory\section/bibliography.tex
 Underfull \hbox (badness 10000) in paragraph at lines 7--8
 [][]\T1/cmr/m/n/10.95 <http://www.playlogicgames.com/game/fairytale-fights>,
  []
@@ -302,7 +298,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 27--28
 [][]\T1/cmr/m/n/10.95 <http://www.imdb.com/title/tt0424136/>, Hard Candy -
  []
 
-[47]
+[47
+
+
+
+]
 Underfull \hbox (badness 10000) in paragraph at lines 29--30
 [][]\T1/cmr/m/n/10.95 <http://en.wikipedia.org/wiki/Normal_mapping>, Nor-mal
  []
@@ -385,4 +385,4 @@ Here is how much of TeX's memory you used:
  715 hyphenation exceptions out of 8191
  27i,5n,31p,1251b,411s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on Memory.dvi (56 pages, 144920 bytes).
+Output written on Memory.dvi (56 pages, 147904 bytes).
