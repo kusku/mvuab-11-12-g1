@@ -1,50 +1,57 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <physx_objs>
-  <physx_obj name="CartelMadera_Box" type="1" dimension="0.243446 2.04667 0.95755" pos="105.181 -21.8428 -144.147" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="false" />
-  <physx_obj name="TroncoCaido_2_Box" type="1" dimension="0.946144 0.94557 3.19765" pos="69.1126 -24.6377 -144.21" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="false" />
-  <physx_obj name="TroncoCaido_1_Box" type="1" dimension="2.39645 1.8535 6.25786" pos="88.9596 0.92675 -133.678" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="false" />
-  <physx_obj name="Fence4Box006" type="1" dimension="0.162465 1.02583 1.65965" pos="95.3633 -21.2199 -163.464" yaw="-40.2968" pitch="22.6357" roll="4.93129" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence4Box005" type="1" dimension="0.162465 1.02583 1.65965" pos="94.4865 -21.7394 -162.331" yaw="-33.8693" pitch="19.4915" roll="7.56646" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence4Box004" type="1" dimension="0.162465 1.02583 1.42954" pos="93.6483 -22.1388 -161.124" yaw="-43.5974" pitch="13.7214" roll="5.10947" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence4Box007" type="1" dimension="0.162465 1.02583 1.65965" pos="96.2634 -20.778 -164.424" yaw="-42.4163" pitch="11.5186" roll="5.74662" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence4Box003" type="1" dimension="0.162465 1.02583 1.62906" pos="92.7564 -22.506 -160.026" yaw="-35.0662" pitch="13.7214" roll="5.10948" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence4Box002" type="1" dimension="0.162465 1.02583 1.62906" pos="91.8952 -22.892 -158.758" yaw="-36.9086" pitch="11.4697" roll="5.70968" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence4Box008" type="1" dimension="0.162465 1.04645 1.72704" pos="97.2048 -20.345 -165.709" yaw="-38.4902" pitch="15.153" roll="4.74253" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence4Box1" type="1" dimension="0.142465 0.995616 1.40319" pos="90.9993 -23.1515 -157.63" yaw="-41.7886" pitch="7.05545" roll="5.40268" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Arbol_1_Box" type="1" dimension="0.836014 15.68 1.07112" pos="121.201 -19.2517 -128.116" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="false" />
-  <physx_obj name="Fence5Box1" type="1" dimension="0.203583 1.17011 1.73911" pos="108.314 -18.4173 -162.386" yaw="-30.8916" pitch="9.3672" roll="-3.31091" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence5Box2" type="1" dimension="0.203583 1.17011 1.80973" pos="109.206 -17.9215 -163.787" yaw="-33.0499" pitch="22.9205" roll="-0.60414" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence5Box3" type="1" dimension="0.203583 1.11956 3.59558" pos="109.525 -17.212 -166.021" yaw="3.54719" pitch="12.8771" roll="-1.24256" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence5Box4" type="1" dimension="0.203583 1.11956 3.59558" pos="108.901 -16.3167 -169.35" yaw="18.521" pitch="12.8771" roll="-1.24256" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence5Box5" type="1" dimension="0.203583 1.11956 3.45113" pos="107.708 -15.6014 -172.5" yaw="21.0647" pitch="6.55657" roll="3.87053" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence5Box6" type="1" dimension="0.203583 1.11956 1.97569" pos="106.334 -15.4977 -174.566" yaw="58.5774" pitch="-3.15954" roll="9.91708" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence5Box7" type="1" dimension="0.203583 1.11956 2.13939" pos="104.609 -15.8403 -175.081" yaw="92.5058" pitch="-11.6941" roll="5.10076" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence5Box8" type="1" dimension="0.243583 1.11956 4.0044" pos="102.364 -16.7124 -174.316" yaw="120.409" pitch="-20.257" roll="-6.17212" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence2Box1" type="1" dimension="0.190456 1.08 2.50013" pos="121.489 -39.2102 -0.168406" yaw="-30.4196" pitch="11.7055" roll="1.18624" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence2Box002" type="1" dimension="0.190456 1.08 2.50013" pos="122.436 -38.7 -1.91519" yaw="-27.1108" pitch="11.7055" roll="1.18624" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence2Box003" type="1" dimension="0.190456 1.08 1.88667" pos="123.124 -38.2055 -3.75636" yaw="-13.1871" pitch="11.7055" roll="1.18624" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence2Box004" type="1" dimension="0.190456 1.08 1.88667" pos="123.205 -37.8827 -5.38704" yaw="6.86374" pitch="6.61343" roll="0.576495" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence2Box005" type="1" dimension="0.190456 1.08 1.75913" pos="123.053 -37.6523 -7.0228" yaw="6.86374" pitch="6.61343" roll="0.576495" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence2Box006" type="1" dimension="0.120456 0.148 1.61805" pos="122.935 -37.6948 -8.59945" yaw="4.84605" pitch="2.47911" roll="0.0777549" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence2Box007" type="1" dimension="0.190456 1.08 0.211096" pos="122.879 -37.5131 -9.42493" yaw="-8.44669" pitch="14.0571" roll="1.46486" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence1Box1" type="1" dimension="0.236389 0.86 1.82996" pos="56.0012 -36.8112 100.357" yaw="-13.6246" pitch="-10.6809" roll="2.2429" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence1Box002" type="1" dimension="0.236389 0.86 1.82996" pos="56.4204 -36.9824 98.7074" yaw="-11.7126" pitch="-10.6809" roll="2.2429" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence1Box003" type="1" dimension="0.236389 0.85 1.49576" pos="56.5934 -37.1678 97.2137" yaw="-0.21077" pitch="-3.05627" roll="2.2347" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence1Box004" type="1" dimension="0.236389 0.83 1.32582" pos="56.3669 -37.1926 96.016" yaw="21.3287" pitch="-3.05627" roll="2.2347" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence1Box005" type="1" dimension="0.236389 0.83 1.32582" pos="55.9951 -37.2754 94.9983" yaw="19.5818" pitch="-3.05627" roll="2.2347" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence1Box006" type="1" dimension="0.126389 0.0899998 1.04166" pos="55.6772 -37.4387 93.9598" yaw="19.4033" pitch="0.512483" roll="3.49681" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence1Box007" type="1" dimension="0.126389 0.0899998 1.04166" pos="55.6772 -37.5033 93.8508" yaw="16.7201" pitch="22.1164" roll="10.5775" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence1Box008" type="1" dimension="0.146389 0.76 0.160614" pos="55.5097 -37.3467 93.4302" yaw="19.5818" pitch="-3.05627" roll="2.2347" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence3Box003" type="1" dimension="0.155812 1.02966 1.98018" pos="54.0061 -23.7224 -119.985" yaw="-15.9773" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence3Box008" type="1" dimension="0.155812 1.12268 1.97979" pos="57.4339 -23.5532 -128.357" yaw="-32.8167" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence3Box007" type="1" dimension="0.155812 1.06966 1.98018" pos="56.5475 -23.5459 -126.706" yaw="-23.8483" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence3Box006" type="1" dimension="0.155812 1.10966 1.98018" pos="55.8003 -23.5723 -125.077" yaw="-24.926" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence3Box005" type="1" dimension="0.155812 1.01966 1.98018" pos="55.0995 -23.6349 -123.402" yaw="-21.2507" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence3Box004" type="1" dimension="0.155812 1.06966 1.98018" pos="54.5158 -23.6789 -121.709" yaw="-17.4266" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence3Box002" type="1" dimension="0.155812 1.05065 1.98018" pos="53.4958 -23.7352 -118.201" yaw="-15.9773" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence3Box1" type="1" dimension="0.155812 1.09331 1.98018" pos="53.1387 -23.7535 -116.401" yaw="-5.74977" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="Fence4Box006" type="1" dimension="0.162465 1.02583 1.65965" pos="95.3633 -21.2199 -163.464" yaw="-40.2968" pitch="22.6357" roll="4.93129" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence4Box005" type="1" dimension="0.162465 1.02583 1.65965" pos="94.4865 -21.7394 -162.331" yaw="-33.8693" pitch="19.4915" roll="7.56646" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence4Box004" type="1" dimension="0.162465 1.02583 1.42954" pos="93.6483 -22.1388 -161.124" yaw="-43.5974" pitch="13.7214" roll="5.10947" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence4Box007" type="1" dimension="0.162465 1.02583 1.65965" pos="96.2634 -20.778 -164.424" yaw="-42.4163" pitch="11.5186" roll="5.74662" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence4Box003" type="1" dimension="0.162465 1.02583 1.62906" pos="92.7564 -22.506 -160.026" yaw="-35.0662" pitch="13.7214" roll="5.10948" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence4Box002" type="1" dimension="0.162465 1.02583 1.62906" pos="91.8952 -22.892 -158.758" yaw="-36.9086" pitch="11.4697" roll="5.70968" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence4Box008" type="1" dimension="0.162465 1.04645 1.72704" pos="97.2048 -20.345 -165.709" yaw="-38.4902" pitch="15.153" roll="4.74253" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence4Box1" type="1" dimension="0.142465 0.995616 1.40319" pos="90.9993 -23.1515 -157.63" yaw="-41.7886" pitch="7.05545" roll="5.40268" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence5Box1" type="1" dimension="0.203583 1.17011 1.73911" pos="108.314 -18.4173 -162.386" yaw="-30.8916" pitch="9.3672" roll="-3.31091" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence5Box2" type="1" dimension="0.203583 1.17011 1.80973" pos="109.206 -17.9215 -163.787" yaw="-33.0499" pitch="22.9205" roll="-0.60414" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence5Box3" type="1" dimension="0.203583 1.11956 3.59558" pos="109.525 -17.212 -166.021" yaw="3.54719" pitch="12.8771" roll="-1.24256" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence5Box4" type="1" dimension="0.203583 1.11956 3.59558" pos="108.901 -16.3167 -169.35" yaw="18.521" pitch="12.8771" roll="-1.24256" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence5Box5" type="1" dimension="0.203583 1.11956 3.45113" pos="107.708 -15.6014 -172.5" yaw="21.0647" pitch="6.55657" roll="3.87053" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence5Box6" type="1" dimension="0.203583 1.11956 1.97569" pos="106.334 -15.4977 -174.566" yaw="58.5774" pitch="-3.15954" roll="9.91708" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence5Box7" type="1" dimension="0.203583 1.11956 2.13939" pos="104.609 -15.8403 -175.081" yaw="92.5058" pitch="-11.6941" roll="5.10076" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence5Box8" type="1" dimension="0.243583 1.11956 4.0044" pos="102.364 -16.7124 -174.316" yaw="120.409" pitch="-20.257" roll="-6.17212" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence2Box1" type="1" dimension="0.190456 1.08 2.50013" pos="121.489 -39.2102 -0.168406" yaw="-30.4196" pitch="11.7055" roll="1.18624" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence2Box002" type="1" dimension="0.190456 1.08 2.50013" pos="122.436 -38.7 -1.91519" yaw="-27.1108" pitch="11.7055" roll="1.18624" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence2Box003" type="1" dimension="0.190456 1.08 1.88667" pos="123.124 -38.2055 -3.75636" yaw="-13.1871" pitch="11.7055" roll="1.18624" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence2Box004" type="1" dimension="0.190456 1.08 1.88667" pos="123.205 -37.8827 -5.38704" yaw="6.86374" pitch="6.61343" roll="0.576495" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence2Box005" type="1" dimension="0.190456 1.08 1.75913" pos="123.053 -37.6523 -7.0228" yaw="6.86374" pitch="6.61343" roll="0.576495" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence2Box006" type="1" dimension="0.120456 0.148 1.61805" pos="122.935 -37.6948 -8.59945" yaw="4.84605" pitch="2.47911" roll="0.0777549" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence2Box007" type="1" dimension="0.190456 1.08 0.211096" pos="122.879 -37.5131 -9.42493" yaw="-8.44669" pitch="14.0571" roll="1.46486" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence1Box1" type="1" dimension="0.236389 0.86 1.82996" pos="56.0012 -36.8112 100.357" yaw="-13.6246" pitch="-10.6809" roll="2.2429" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence1Box002" type="1" dimension="0.236389 0.86 1.82996" pos="56.4204 -36.9824 98.7074" yaw="-11.7126" pitch="-10.6809" roll="2.2429" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence1Box003" type="1" dimension="0.236389 0.85 1.49576" pos="56.5934 -37.1678 97.2137" yaw="-0.21077" pitch="-3.05627" roll="2.2347" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence1Box004" type="1" dimension="0.236389 0.83 1.32582" pos="56.3669 -37.1926 96.016" yaw="21.3287" pitch="-3.05627" roll="2.2347" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence1Box005" type="1" dimension="0.236389 0.83 1.32582" pos="55.9951 -37.2754 94.9983" yaw="19.5818" pitch="-3.05627" roll="2.2347" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence1Box006" type="1" dimension="0.126389 0.0899998 1.04166" pos="55.6772 -37.4387 93.9598" yaw="19.4033" pitch="0.512483" roll="3.49681" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence1Box007" type="1" dimension="0.126389 0.0899998 1.04166" pos="55.6772 -37.5033 93.8508" yaw="16.7201" pitch="22.1164" roll="10.5775" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence1Box008" type="1" dimension="0.146389 0.76 0.160614" pos="55.5097 -37.3467 93.4302" yaw="19.5818" pitch="-3.05627" roll="2.2347" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence3Box003" type="1" dimension="0.155812 1.02966 1.98018" pos="54.0061 -23.7224 -119.985" yaw="-15.9773" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence3Box008" type="1" dimension="0.155812 1.12268 1.97979" pos="57.4339 -23.5532 -128.357" yaw="-32.8167" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence3Box007" type="1" dimension="0.155812 1.06966 1.98018" pos="56.5475 -23.5459 -126.706" yaw="-23.8483" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence3Box006" type="1" dimension="0.155812 1.10966 1.98018" pos="55.8003 -23.5723 -125.077" yaw="-24.926" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence3Box005" type="1" dimension="0.155812 1.01966 1.98018" pos="55.0995 -23.6349 -123.402" yaw="-21.2507" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence3Box004" type="1" dimension="0.155812 1.06966 1.98018" pos="54.5158 -23.6789 -121.709" yaw="-17.4266" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence3Box002" type="1" dimension="0.155812 1.05065 1.98018" pos="53.4958 -23.7352 -118.201" yaw="-15.9773" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence3Box1" type="1" dimension="0.155812 1.09331 1.98018" pos="53.1387 -23.7535 -116.401" yaw="-5.74977" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  
+  
+  <physx_obj name="Arbol_1_Box" type="1" dimension="0.836014 15.68 1.07112" pos="121.201 -19.2517 -128.116" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="false" />
+  <physx_obj name="Arbol_2_Box" type="1" dimension="2.84335 37.2 2.90149" pos="136.514 -10.0186 -132.568" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="false" />
+
+  <physx_obj name="CartelMadera_Box" type="1" dimension="0.243446 2.04667 0.95755" pos="105.181 -21.8428 -144.147" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="false" />
+  
+  <physx_obj name="TroncoCaido_2_Box" type="1" dimension="0.946144 0.94557 3.19765" pos="69.1126 -24.6377 -144.21" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="false" />
+  <physx_obj name="TroncoCaido_1_Box" type="1" dimension="2.39645 1.8535 6.25786" pos="88.9596 0.92675 -133.678" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="false" />
+  
   <physx_obj name="HouseBox" type="1" dimension="10.2892 12.8636 12.4575" pos="-61.0924 0.332863 -117.292" yaw="28.2477" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Arbol_2_Box" type="1" dimension="2.84335 37.2 2.90149" pos="136.514 -10.0186 -132.568" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="false" />
+
+  
   <physx_obj name="TerrainLimitBox066" type="1" dimension="16.5356 30.3169 1.0" pos="-89.837 -4.25571 134.048" yaw="-103.448" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox001" type="1" dimension="46.7594 30.3169 1.0" pos="98.6684 -12.0184 -178.2" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox002" type="1" dimension="50.2815 30.3169 1.0" pos="62.8686 -12.0098 -158.214" yaw="55.9828" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
