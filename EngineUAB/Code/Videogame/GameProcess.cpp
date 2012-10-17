@@ -37,6 +37,8 @@
 #include "VideogameDefs.h"
 #include "Characters\CharacterManager.h"
 
+#include "Callbacks\State\ActionStateCallback.h"
+
 #if defined (_DEBUG)
 	#include "Memory/MemLeaks.h"
 #endif
@@ -60,6 +62,7 @@ CGameProcess::CGameProcess( HWND hWnd )
 	, m_bStartRails					(false)
 	, m_bStartAnalise				(false)
 	, m_bFirstLogicUpdate			(true)
+	, m_pActionStateCallback		(NULL)
 {
 	for(uint8 i=0; i<30; ++i)
 		m_fElapseds[i] = 0.f;
@@ -107,7 +110,7 @@ bool CGameProcess::Init()
 	{
 		m_fElapseds[i] = 0.f;
 	}
-
+	
 	return true;
 }
 
@@ -117,6 +120,7 @@ void CGameProcess::CleanUp()
 	//m_StaticCamera = NULL;
 	ENTMGR->RemoveEntities();
 
+	
 	m_pCamera = NULL;
 	CHECKED_DELETE( m_pThPSFreeCamera );
 	CHECKED_DELETE( m_pThPSCamera );
@@ -126,6 +130,8 @@ void CGameProcess::CleanUp()
 	CHECKED_DELETE(m_pFPSRailCamera);
 	CHECKED_DELETE(m_pObjectRail);
 	m_pRailCamera = NULL;
+
+	CHECKED_DELETE(m_pActionStateCallback);
 
 	CHECKED_DELETE( m_pCharactersManager );
 	CHECKED_DELETE( m_pAnimationCallbackManager );
@@ -299,7 +305,10 @@ void CGameProcess::Update(float elapsedTime)
 
 			SCRIPT->RunCode("presentation_control()");
 		}
+
+		UpdateWindSounds(elapsedTime);
 	}
+	
 }
 
 void CGameProcess::ReloadGameObjects()
@@ -377,6 +386,25 @@ void CGameProcess::LoadGameObjects()
 	CORE->GetSoundManager()->GetListener()->SetCamera( m_pThPSCamera );
 
 	m_pHUD->Init( m_pCharactersManager->GetPlayerLife() );
+
+	// Actualizo sonidos de viento cada ciertos segundos en todos los speakers
+	m_pActionStateCallback = new CActionStateCallback(0, 0.f, 1.f);
+	m_pActionStateCallback->InitAction(0, 0, 1);
+	m_pActionStateCallback->StartAction();
+	UpdateWindSounds(0.f);
+}
+
+void CGameProcess::UpdateWindSounds( float _ElapsedTime )
+{
+	m_pActionStateCallback->Update(_ElapsedTime);
+	if ( m_pActionStateCallback->IsActionFinished() )
+	{
+		m_pActionStateCallback->InitAction(0, 21.f, 60.f);
+		m_pActionStateCallback->StartAction();
+
+		CORE->GetSoundManager()->PlayEvent("zona1_vientos001", "Play_EFX_wind1" );
+		CORE->GetSoundManager()->PlayEvent("zona1_vientos002", "Play_EFX_wind1" );
+	}
 }
 
 //-------------------------------------
