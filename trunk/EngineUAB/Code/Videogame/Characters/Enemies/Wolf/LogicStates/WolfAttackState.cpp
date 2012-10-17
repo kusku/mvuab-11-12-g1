@@ -130,7 +130,7 @@ void CWolfAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 			if (!m_bInPositionToAttack)
 			{
 				float l_Distance = m_pWolf->GetPosition().Distance(m_SearchedAttackPoint);
-				if ( l_Distance <= 0.5f) 
+				if ( l_Distance <= 3.5f) 
 				{
 					m_pWolf->GetBehaviors()->SeekOff();
 					m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
@@ -157,9 +157,6 @@ void CWolfAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 					m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 					return;
 				}
-
-				//m_pWolf->GoIntoCameraFrustum(l_Angle, _ElapsedTime);
-				//return;
 			}	
 
 			std::string l_ActiveActionState = GetRandomAttackName();
@@ -175,7 +172,11 @@ void CWolfAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 			}	
 			else if ( l_ActiveActionState == WOLF_RUN_ATTACK_STATE ) 
 			{
-				m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetRunAttackState());
+				float l_Distance = m_pWolf->GetDistanceToPlayer();
+				if ( l_Distance > m_pWolf->GetProperties()->GetAproximationDistance() / 1.3f) 
+				{
+					m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetRunAttackState());
+				}
 				m_bInPositionToAttack = true;
 			}	
 			else if ( l_ActiveActionState == WOLF_DEFENSE_STATE ) 
@@ -292,13 +293,13 @@ std::string CWolfAttackState::GetRandomAttackName(void)
 	else if ( l_AttackType == 11 ) 
 		l_Action = WOLF_DEFENSE_STATE;
 	else if ( l_AttackType == 12 ) 
-		l_Action =  WOLF_JUMP_STATE;
+		l_Action =  WOLF_RUN_ATTACK_STATE;
 			
 	// Más probabilidades de ir al fustrum que no atacar
 	else if ( l_AttackType == 13 ) 
-		l_Action =  "go_in_to_frustum";
+		l_Action =  WOLF_STILL_ATTACK_STATE;
 	else if ( l_AttackType == 14 ) 
-		l_Action =  "go_in_to_frustum";
+		l_Action =  WOLF_STILL_ATTACK_COMBO_STATE;
 	else if ( l_AttackType == 15 ) 
 		l_Action =  "go_in_to_frustum";
 	else if ( l_AttackType == 16 ) 

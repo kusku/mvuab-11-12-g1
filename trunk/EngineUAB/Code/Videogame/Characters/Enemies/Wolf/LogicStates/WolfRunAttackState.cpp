@@ -163,7 +163,7 @@ void CWolfRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 
 			if ( DISPATCH != NULL ) 
 			{
-				DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pWolf->GetID(), m_pWolf->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
+				DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pWolf->GetID(), m_pWolf->GetPlayer()->GetID(), Msg_Push, NO_ADDITIONAL_INFO );
 				#if defined _DEBUG
 					if( CORE->IsDebugMode() )
 					{
@@ -271,7 +271,7 @@ void CWolfRunAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 
 				if ( DISPATCH != NULL ) 
 				{
-					DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pWolf->GetID(), m_pWolf->GetPlayer()->GetID(), Msg_Attack, NO_ADDITIONAL_INFO );
+					DISPATCH->DispatchStateMessage(SEND_MSG_IMMEDIATELY, m_pWolf->GetID(), m_pWolf->GetPlayer()->GetID(), Msg_Push, NO_ADDITIONAL_INFO );
 					#if defined _DEBUG
 						if( CORE->IsDebugMode() )
 						{
