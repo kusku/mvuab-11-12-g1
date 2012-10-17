@@ -54,6 +54,8 @@ namespace Configuracion
         Dictionary<int, Resol> wrRevDic;
         Dictionary<int, Resol> ShadowDic;
         Dictionary<Resol, int> ShadowRevDic;
+        Dictionary<int, int> ParticleDic;
+        Dictionary<int, int> ParticleRevDic;
 
 
         public Form1()
@@ -105,6 +107,17 @@ namespace Configuracion
             ShadowRevDic.Add(new Resol(2048, 2048), 2);
             ShadowRevDic.Add(new Resol(4096, 4096), 3);
 
+            ParticleDic = new Dictionary<int, int>();
+            ParticleDic.Add(0, 4);
+            ParticleDic.Add(1, 3);
+            ParticleDic.Add(2, 2);
+            ParticleDic.Add(3, 1);
+
+            ParticleRevDic = new Dictionary<int, int>();
+            ParticleRevDic.Add(4, 0);
+            ParticleRevDic.Add(3, 1);
+            ParticleRevDic.Add(2, 2);
+            ParticleRevDic.Add(1, 3);
         }
 
         private void InitConfig()
@@ -158,6 +171,10 @@ namespace Configuracion
                         if (engineReader.NodeType == XmlNodeType.Attribute && engineReader.Name == "bloom")
                         {
                             cbBloomEnable.Checked = engineReader.ReadContentAsBoolean();
+                        }
+                        if (engineReader.NodeType == XmlNodeType.Attribute && engineReader.Name == "particle_level")
+                        {
+                            cbParticleQuality.SelectedIndex = ParticleRevDic[engineReader.ReadContentAsInt()];
                         }
                     }
                 }
@@ -304,6 +321,7 @@ namespace Configuracion
                     elem.Attributes["motionBlur"].InnerText = motionBlurEnable.ToString().ToLower();
                     elem.Attributes["zblur"].InnerText = zblurEnable.ToString().ToLower();
                     elem.Attributes["bloom"].InnerText = cbBloomEnable.Checked.ToString().ToLower();
+                    elem.Attributes["particle_level"].InnerText = ParticleDic[cbParticleQuality.SelectedIndex].ToString();
                 }
             }
 

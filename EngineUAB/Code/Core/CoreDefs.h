@@ -158,6 +158,7 @@ struct SConfig
 	bool motion_blur_enable;
 	bool z_blur_enable;
 	bool bloom_enable;
+	unsigned int particle_level;
 };
 
 #endif __COREDEFS_H__

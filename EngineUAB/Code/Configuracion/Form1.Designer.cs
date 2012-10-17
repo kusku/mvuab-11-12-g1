@@ -32,6 +32,7 @@
             this.lbTitle = new System.Windows.Forms.Label();
             this.tConfig = new System.Windows.Forms.TabControl();
             this.tpVideo = new System.Windows.Forms.TabPage();
+            this.cbBloomEnable = new System.Windows.Forms.CheckBox();
             this.cbZBlurEnable = new System.Windows.Forms.CheckBox();
             this.cbMotionBlurEnable = new System.Windows.Forms.CheckBox();
             this.cbWindowMode = new System.Windows.Forms.CheckBox();
@@ -42,7 +43,8 @@
             this.cbResolution = new System.Windows.Forms.ComboBox();
             this.bApply = new System.Windows.Forms.Button();
             this.bExit = new System.Windows.Forms.Button();
-            this.cbBloomEnable = new System.Windows.Forms.CheckBox();
+            this.lbParticleQuality = new System.Windows.Forms.Label();
+            this.cbParticleQuality = new System.Windows.Forms.ComboBox();
             this.tConfig.SuspendLayout();
             this.tpVideo.SuspendLayout();
             this.SuspendLayout();
@@ -64,11 +66,13 @@
             this.tConfig.Location = new System.Drawing.Point(12, 53);
             this.tConfig.Name = "tConfig";
             this.tConfig.SelectedIndex = 0;
-            this.tConfig.Size = new System.Drawing.Size(705, 220);
+            this.tConfig.Size = new System.Drawing.Size(705, 295);
             this.tConfig.TabIndex = 1;
             // 
             // tpVideo
             // 
+            this.tpVideo.Controls.Add(this.lbParticleQuality);
+            this.tpVideo.Controls.Add(this.cbParticleQuality);
             this.tpVideo.Controls.Add(this.cbBloomEnable);
             this.tpVideo.Controls.Add(this.cbZBlurEnable);
             this.tpVideo.Controls.Add(this.cbMotionBlurEnable);
@@ -81,10 +85,21 @@
             this.tpVideo.Location = new System.Drawing.Point(4, 22);
             this.tpVideo.Name = "tpVideo";
             this.tpVideo.Padding = new System.Windows.Forms.Padding(3);
-            this.tpVideo.Size = new System.Drawing.Size(697, 194);
+            this.tpVideo.Size = new System.Drawing.Size(697, 269);
             this.tpVideo.TabIndex = 0;
             this.tpVideo.Text = "Video";
             this.tpVideo.UseVisualStyleBackColor = true;
+            // 
+            // cbBloomEnable
+            // 
+            this.cbBloomEnable.AutoSize = true;
+            this.cbBloomEnable.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cbBloomEnable.Location = new System.Drawing.Point(9, 164);
+            this.cbBloomEnable.Name = "cbBloomEnable";
+            this.cbBloomEnable.Size = new System.Drawing.Size(94, 17);
+            this.cbBloomEnable.TabIndex = 9;
+            this.cbBloomEnable.Text = "Bloom Enable:";
+            this.cbBloomEnable.UseVisualStyleBackColor = true;
             // 
             // cbZBlurEnable
             // 
@@ -178,7 +193,7 @@
             // 
             // bApply
             // 
-            this.bApply.Location = new System.Drawing.Point(557, 279);
+            this.bApply.Location = new System.Drawing.Point(557, 354);
             this.bApply.Name = "bApply";
             this.bApply.Size = new System.Drawing.Size(75, 23);
             this.bApply.TabIndex = 2;
@@ -188,7 +203,7 @@
             // 
             // bExit
             // 
-            this.bExit.Location = new System.Drawing.Point(638, 279);
+            this.bExit.Location = new System.Drawing.Point(638, 354);
             this.bExit.Name = "bExit";
             this.bExit.Size = new System.Drawing.Size(75, 23);
             this.bExit.TabIndex = 3;
@@ -196,22 +211,33 @@
             this.bExit.UseVisualStyleBackColor = true;
             this.bExit.Click += new System.EventHandler(this.bExit_Click);
             // 
-            // cbBloomEnable
+            // lbParticleQuality
             // 
-            this.cbBloomEnable.AutoSize = true;
-            this.cbBloomEnable.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cbBloomEnable.Location = new System.Drawing.Point(9, 164);
-            this.cbBloomEnable.Name = "cbBloomEnable";
-            this.cbBloomEnable.Size = new System.Drawing.Size(94, 17);
-            this.cbBloomEnable.TabIndex = 9;
-            this.cbBloomEnable.Text = "Bloom Enable:";
-            this.cbBloomEnable.UseVisualStyleBackColor = true;
+            this.lbParticleQuality.AutoSize = true;
+            this.lbParticleQuality.Location = new System.Drawing.Point(6, 216);
+            this.lbParticleQuality.Name = "lbParticleQuality";
+            this.lbParticleQuality.Size = new System.Drawing.Size(80, 13);
+            this.lbParticleQuality.TabIndex = 11;
+            this.lbParticleQuality.Text = "Particle Quality:";
+            // 
+            // cbParticleQuality
+            // 
+            this.cbParticleQuality.FormattingEnabled = true;
+            this.cbParticleQuality.Items.AddRange(new object[] {
+            "Low",
+            "Medium",
+            "High",
+            "Very High"});
+            this.cbParticleQuality.Location = new System.Drawing.Point(96, 213);
+            this.cbParticleQuality.Name = "cbParticleQuality";
+            this.cbParticleQuality.Size = new System.Drawing.Size(118, 21);
+            this.cbParticleQuality.TabIndex = 10;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(729, 334);
+            this.ClientSize = new System.Drawing.Size(729, 415);
             this.Controls.Add(this.bExit);
             this.Controls.Add(this.bApply);
             this.Controls.Add(this.tConfig);
@@ -243,6 +269,8 @@
         private System.Windows.Forms.ComboBox cbShadowQuality;
         private System.Windows.Forms.CheckBox cbZBlurEnable;
         private System.Windows.Forms.CheckBox cbBloomEnable;
+        private System.Windows.Forms.Label lbParticleQuality;
+        private System.Windows.Forms.ComboBox cbParticleQuality;
     }
 }
 
