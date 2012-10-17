@@ -7,7 +7,7 @@
 	<animation name="lobo_attack_run_all" filename="LOB_Attack_Run.CAF"/>
 	<animation name="lobo_attack_run_1" filename="LOB_Attack_Run_1.CAF"/>
 	<animation name="lobo_attack_run_2" filename="LOB_Attack_Run_2.CAF"/>
-	<animation name="lobo_attack_run_3" filename="LOB_Attack_Run_3.CAF"/>
+	<animation name="lobo_attack_run_3" filename="LOB_Attack-Run (24 -71 f) retocada.CAF"/>
 	<animation name="lobo_attack_run_large" filename="LOB_Attack_Run_Larga.CAF"/>
 	<animation name="lobo_attack_still" filename="LOB_Attack_Still_fast2.CAF"/>
 	<animation name="lobo_attack_still_combo" filename="LOB_Attack_Still_Combo.CAF"/>
