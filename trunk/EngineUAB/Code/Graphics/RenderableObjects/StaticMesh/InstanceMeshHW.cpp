@@ -263,6 +263,7 @@ void CInstanceMeshHW::CreatePhysics(CObject3D* instance, const std::string &_Nam
 			Vect3f size = pxBox->m_Dimensions / 2;
 
 			CPhysicUserData* l_pPhysicUserDataMesh = new CPhysicUserData( _Name  );
+			l_pPhysicUserDataMesh->SetGroup(static_cast<ECollisionGroup>(pxBox->m_Group));
 
 			CPhysicActor* l_MeshActor = new CPhysicActor(l_pPhysicUserDataMesh);
 			l_pPhysicUserDataMesh->SetPaint (true);
@@ -312,7 +313,8 @@ void CInstanceMeshHW::CreatePhysics(CObject3D* instance, const std::string &_Nam
 		if(typePhysic == "bounding_box")
 		{
 			CPhysicUserData* l_pPhysicUserDataMesh = new CPhysicUserData( _Name  );
-			
+			l_pPhysicUserDataMesh->SetGroup(static_cast<ECollisionGroup>(physicsGroup));
+
 			Vect3f rotationVect = v3fZERO;
 
 			rotationVect.x = mathUtils::Deg2Rad(instance->GetPitch());
@@ -344,6 +346,7 @@ void CInstanceMeshHW::CreatePhysics(CObject3D* instance, const std::string &_Nam
 			if ( l_pCM->CreatePhysicMesh( m_StaticMesh->GetVertexBuffer(), m_StaticMesh->GetFacesBuffer(), _Name ) )
 			{
 				l_pPhysicUserDataMesh = new CPhysicUserData( _Name  );
+				l_pPhysicUserDataMesh->SetGroup(static_cast<ECollisionGroup>(physicsGroup));
 				l_pPhysicUserDataMesh->SetPaint( true );
 				l_MeshActor = new CPhysicActor( l_pPhysicUserDataMesh );
 				l_MeshActor->AddMeshShape( l_pCM->GetPhysicMesh(_Name), instance->GetPosition(), v3fZERO, NULL, (uint32)physicsGroup);
