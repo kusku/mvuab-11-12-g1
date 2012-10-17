@@ -176,7 +176,7 @@ void CLimitManager::ActivateAll()
 
 void CLimitManager::Update()
 {
-//#ifdef _DEBUG
+#ifdef _DEBUG
 
 	if(CORE->GetActionToInput()->GetInputManager()->IsDownUp(IDV_KEYBOARD, KEY_9))
 	{
@@ -187,6 +187,5 @@ void CLimitManager::Update()
 	{
 		ActivateAll();
 	}
-
-//#endif
+#endif
 }
