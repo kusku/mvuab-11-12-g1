@@ -402,8 +402,13 @@ void CGameProcess::UpdateWindSounds( float _ElapsedTime )
 		m_pActionStateCallback->InitAction(0, 21.f, 60.f);
 		m_pActionStateCallback->StartAction();
 
-		CORE->GetSoundManager()->PlayEvent("zona1_vientos001", "Play_EFX_wind1" );
-		CORE->GetSoundManager()->PlayEvent("zona1_vientos002", "Play_EFX_wind1" );
+		CORE->GetSoundManager()->PlayEvent("zona1_vientos001", "Play_EFX_winds" );
+		CORE->GetSoundManager()->PlayEvent("zona1_vientos002", "Play_EFX_winds" );
+		CORE->GetSoundManager()->PlayEvent("zona2_3_vientos001", "Play_EFX_winds" );
+		CORE->GetSoundManager()->PlayEvent("zona4_vientos001", "Play_EFX_winds" );
+		CORE->GetSoundManager()->PlayEvent("zona4_vientos002", "Play_EFX_winds" );
+		CORE->GetSoundManager()->PlayEvent("zona6_vientos001", "Play_EFX_winds" );
+		CORE->GetSoundManager()->PlayEvent("zona7_8_vientos001", "Play_EFX_winds" );
 	}
 }
 
