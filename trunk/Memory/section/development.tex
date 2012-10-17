@@ -350,6 +350,17 @@ La gran desventaja de estos comportamientos es la combinación de ellos, los cual
 
 Otro de los problemas que hay estos algoritmos es ajustar todos los parámetros que estos procesan de manera que el movimiento de los agentes sean claros y correctos.
 
+\subsubsection{Escenario de pruebas}
+Para hacer pruebas de inteligencia artificial se ha desarrollado un pequeño escenario de pruebas (figura \ref{fig:test_ia}). Para agilizar la programación del escenario se ha programado con OpenGL.
+
+En el escenario se probó diferentes comportamientos para los enemigos, como por ejemplo perseguir, escuchar o proximidad entre enemigos. También se hicieron pruebas de cámaras inteligentes funcionando con raíles, para ver como podría funcionar en el juego.
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.3]{figures/development/test_ia.eps}
+\end{center}
+\emph{\caption{Escena de test de de inteligencia artificial}\label{fig:test_ia}}
+\end{figure}
 
 \subsection{Scripting}
 El lenguaje de \emph{scripting} utilizado para le juego ha sido Lua \cite{lua}. Ya que la gran desventaja del lenguaje es no trabajar con clases, se ha utilizado como Luabind \cite{luabind} como solución a la encapsulación de clases en Lua.
