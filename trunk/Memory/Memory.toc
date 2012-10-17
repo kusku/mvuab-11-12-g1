@@ -42,24 +42,31 @@
 \contentsline {chapter}{\numberline {3}Desarrollo}{23}
 \contentsline {section}{\numberline {3.1}Diseño}{23}
 \contentsline {section}{\numberline {3.2}Arte}{23}
-\contentsline {section}{\numberline {3.3}Programación}{23}
-\contentsline {subsection}{\numberline {3.3.1}Gráficos}{24}
-\contentsline {subsubsection}{Iluminación y sombras}{24}
-\contentsline {subsubsection}{Partículas}{24}
-\contentsline {subsubsection}{Post procesado}{26}
-\contentsline {subsection}{\numberline {3.3.2}Física}{26}
-\contentsline {subsubsection}{Escenario de pruebas}{27}
-\contentsline {subsection}{\numberline {3.3.3}Inteligencia Artificial}{28}
-\contentsline {subsubsection}{Máquinas de estados}{28}
-\contentsline {subsubsection}{Steering Behaviors}{29}
-\contentsline {subsection}{\numberline {3.3.4}Scripting}{30}
-\contentsline {subsection}{\numberline {3.3.5}Audio}{30}
-\contentsline {subsection}{\numberline {3.3.6}Tools}{31}
-\contentsline {subsubsection}{Particle Editor}{31}
-\contentsline {subsubsection}{GUI Editor}{31}
-\contentsline {subsubsection}{3ds Max Exporter}{32}
-\contentsline {chapter}{\numberline {4}Resultados}{33}
-\contentsline {chapter}{\numberline {5}Conclusiones}{35}
-\contentsline {chapter}{Bibliografía}{37}
-\contentsline {chapter}{Apéndice}{39}
-\contentsline {chapter}{\numberline {A}Manual de usuario}{39}
+\contentsline {subsection}{\numberline {3.2.1}Escenario}{23}
+\contentsline {subsection}{\numberline {3.2.2}Personajes}{23}
+\contentsline {subsubsection}{Caperucita}{23}
+\contentsline {subsubsection}{El Lobo}{26}
+\contentsline {subsubsection}{Conejo}{28}
+\contentsline {subsubsection}{Ciervo}{30}
+\contentsline {section}{\numberline {3.3}Programación}{32}
+\contentsline {subsection}{\numberline {3.3.1}Gráficos}{32}
+\contentsline {subsubsection}{Iluminación y sombras}{32}
+\contentsline {subsubsection}{Partículas}{33}
+\contentsline {subsubsection}{Post procesado}{34}
+\contentsline {subsection}{\numberline {3.3.2}Física}{34}
+\contentsline {subsubsection}{Escenario de pruebas}{35}
+\contentsline {subsection}{\numberline {3.3.3}Inteligencia Artificial}{36}
+\contentsline {subsubsection}{Máquinas de estados}{37}
+\contentsline {subsubsection}{Steering Behaviors}{37}
+\contentsline {subsection}{\numberline {3.3.4}Scripting}{38}
+\contentsline {subsection}{\numberline {3.3.5}Audio}{38}
+\contentsline {subsection}{\numberline {3.3.6}Tools}{39}
+\contentsline {subsubsection}{Particle Editor}{39}
+\contentsline {subsubsection}{GUI Editor}{40}
+\contentsline {subsubsection}{3ds Max Exporter}{40}
+\contentsline {subsubsection}{Viewer}{41}
+\contentsline {chapter}{\numberline {4}Resultados}{43}
+\contentsline {chapter}{\numberline {5}Conclusiones}{45}
+\contentsline {chapter}{Bibliografía}{47}
+\contentsline {chapter}{Apéndice}{49}
+\contentsline {chapter}{\numberline {A}Manual de usuario}{49}

@@ -11,6 +11,196 @@ El desarrollo del juego se puede separar en tres grandes bloques diferentes entr
 %----- Arte ----------------------------------------
 %---------------------------------------------------
 \section{Arte}
+Todo el arte del juego se ha hecho mediante los programas Autodesk 3ds Max para el modelado y Photoshop para la creación de la texturas.
+
+\subsection{Escenario}
+
+\subsection{Personajes}
+El diseño de los personajes (figura \ref{fig:personajes}) fue sacado de varios universos, pero sobre todo se ha intentado que los personajes tengas un estilo realista dentro de la ambientación. Se ha buscado siempre que creen una ambientación visual coherente y armónica.
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.75]{figures/development/personajes.eps}
+\end{center}
+\emph{\caption{Todos los personajes del juego}\label{fig:personajes}}
+\end{figure}
+
+\subsubsection{Caperucita}
+
+Ficha técnica:
+\begin{itemize}
+\item Nombre: Caperucita
+\item Tipo: Personaje jugable / Protagonista
+\item Altura: 1.50m
+\item Polígonos: 6185 (7800 con las armas)
+\item Huesos: 36 + 4 huesos independientes
+\item Ánimaciones: 12
+\end{itemize}
+
+Caperucita Roja es el personaje principal del juego, la protagonista del cuento de Charles Perrault. Es el personaje más complicado que se ha creado ya que es el modelo animado que lleva el jugador y, por lo tanto, el que más se ve. Antes de empezar la creación de Caperucita se han buscado muchas referencias para inspirar el arte (figura \ref{fig:caperu_insipration}).
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.55]{figures/development/caperu_insipration.eps}
+\end{center}
+\emph{\caption{Referencias de arte sobre Caperucita}\label{fig:caperu_insipration}}
+\end{figure}
+
+El diseño de Caperucita (figura \ref{fig:caperu_model}) requería mucha reflexión porque se le añadió una falda, un trabajo complicado en el momento de animar el personaje. La falda tiene cuatro huesos independientes asociados, que permiten la animación de la ropa. Estos huesos se han unido al \emph{mesh} del personaje con un sistema de resorte (\emph{Spring System}), una opción de 3ds Max que permite a huesos independientes seguir el movimiento de un bípedo y rebotar en función de la fuerza de impacto de las animaciones del personaje. Con esta técnica aplicada, se ha conseguido que la falda sigua al cuerpo con un movimiento harmónico. 
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.65]{figures/development/caperu_model.eps}
+\end{center}
+\emph{\caption{Proceso de creación de Caperucita}\label{fig:caperu_model}}
+\end{figure}
+
+Las armas que lleva el jugador estan unidas a la misma malla de Caperucita por motivos de rendimiento. Así pues, la textura de las armas también está en el mismo fichero que la textura del personaje.
+
+El personaje tiene textura de normales y oclusión.
+
+Las animaciones creadas para Caperucita son:
+\begin{itemize}
+\item Idle. Posición estática del personaje respirando.
+\item Run. Movimiento de correr.
+\item Jump. Salto hacia adelante.
+\item Hit. Cuando se recibe un golpe.
+\item Defense. Postura de defensa.
+\item Combo de ataque 1. Secuencia de tres golpes con las armas. Se termina con un golpe potente horizontal.
+\item Combo de ataque 2. Secuencia de tres golpes. Los golpes son más potentes. El combo finaliza con un ataque circular devastador.
+\end{itemize}
+
+\subsubsection{El Lobo}
+Ficha técnica:
+\begin{itemize}
+\item Nombre: The Wolf
+\item Tipo: Enemigo / Enemigo final
+\item Altura: 3.25m
+\item Polígonos: 2226
+\item Huesos: 28
+\item Animaciones: 9
+\end{itemize}
+
+El Lobo fue el primer enemigo que se creó para el juego. Se ha exagerado el tamaño respecto al tamaño de Caperucita para que parezca giganteso y dar sensacion de miedo y ansiedad en el combate final.
+
+Este enemigo fue diseñado con pocos polígonos y huesos ya que al ser el primer enemigo, sirvió también como prueba técnica para el motor (figura \ref{fig:wolf_model}).
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.7]{figures/development/wolf_model.eps}
+\end{center}
+\emph{\caption{Proceso de creación del Lobo}\label{fig:wolf_model}}
+\end{figure}
+
+Su diseño está inspirado en dibujos y fotografías de criaturas de hombres lobo (figura \ref{fig:wolf_inspiration}). Se han hecho varios esbozos para concluir en un resultado final, un enemigo bípedo y corpulento.
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.7]{figures/development/wolf_inspiration.eps}
+\end{center}
+\emph{\caption{Referencias para el Lobo}\label{fig:wolf_inspiration}}
+\end{figure}
+
+El personaje tiene textura de normales y oclusión.
+
+Las animaciones creadas para el Lobo son:
+\begin{itemize}
+\item Idle. Posición estática del personaje respirando pesadamente.
+\item Walk. El personaje camina.
+\item Run. El enemigo corre.
+\item Hit. Recibe un golpe.
+\item Die. El Lobo se cae y muere.
+\item Defense. Postura de defensa.
+\item Howl. Aulla para llamar a más enemigos.
+\item Attack / Combo. Ataque del personaje.
+\item Attack / Run. Ataque corriendo. 
+\end{itemize}
+
+\subsubsection{Conejo}
+Ficha técnica:
+\begin{itemize}
+\item Nombre: Bad Rabbit
+\item Tipo: Enemigo ligero
+\item Altura: 1.25m
+\item Polígonos: 2672
+\item Huesos: 34 + 4 huesos independientes
+\item Animaciones: 10
+\end{itemize}
+
+El conejo es un enemigo ligero y rápido, con ataques ágiles pero no muy fuertes. Se han sacado referencias de varios universos para crear el personaje (figura \ref{fig:rabbit_inspiration}). La idea del personaje es darle un aspecto siniestro y demencial, un conejo diabólico. Se caracteriza por su postura curva y rota. Con este aspecto de locura y con la agilidad que tiene, se intenta transmitir una sensación de agobio al jugador.
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.75]{figures/development/rabbit_inspiration.eps}
+\end{center}
+\emph{\caption{Referencias para el conejo}\label{fig:rabbit_inspiration}}
+\end{figure}
+
+Está diseñado con más polígonos y huesos que el Lobo (figure \ref{fig:rabbit_model}). Se añadieron cuatro huesos independientes a las orejas para conseguir más realismo en los movimientos de la cabeza. Estos huesos son necesarios para crear el \emph{overlapping} en las animaciones.
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.85]{figures/development/rabbit_model.eps}
+\end{center}
+\emph{\caption{Proceso de creación del conejo}\label{fig:rabbit_model}}
+\end{figure}
+
+El personaje tiene textura de normales y oclusión.
+
+Las animaciones del conejo son:
+\begin{itemize}
+\item Idle. Posición estática del personaje respirando.
+\item Walk. El personaje camina.
+\item Run. El enemigo corre.
+\item Pasos laterales. El modelo animado se desplaza lateralmente.
+\item Jump. Un pequeño salto.
+\item Hit. Recibe un golpe.
+\item Die. Se cae y muere.
+\item Defense. Postura de defensa.
+\item Attack 1. El conejo hace un golpe directo con las uñas
+\item Attack 2. El golpe es circular con las uñas.
+\end{itemize}
+
+\subsubsection{Ciervo}
+Ficha técnica:
+\begin{itemize}
+\item Nombre: Bad Deer
+\item Tipo: Enemigo pesado
+\item Altura: 2m
+\item Polígonos: 2701
+\item Huesos: 33
+\item Animaciones: 9
+\end{itemize}
+
+Este personaje ha sido más complejo de diseñar dade que no existen muchas referencias de enemigos similares (figura \ref{fig:deer_inspiration}). Se hico una mezcla de varias referencias para obtener el resultado final. La idea general en el diseño del ciervo era la de tener un enemigo más grande que el conejo, más pesado pero a la vez, mucho más destructivo. Aunque tenga una gran altura, su delgada corpulencia le permite moverse con velocidad. Igual que el conejo, se le quería dar un aspeco demencial, extraño y deformado, como por ejemplo su tamaño distinto para sus ojos.
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.65]{figures/development/deer_inspiration.eps}
+\end{center}
+\emph{\caption{Referencias para el ciervo}\label{fig:deer_inspiration}}
+\end{figure}
+
+El personaje tiene textura de normales y oclusión. Para dar efecto de pelo, se mezcló dos colores en la textura para sí intentar imitar la piel de los animales y para dar la sensación de locura. No se le ha añadido ningún hueso independiente tal y como ha pasado con otros personajes (\ref{fig:deer_model}).
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.75]{figures/development/deer_model.eps}
+\end{center}
+\emph{\caption{Proceso de creación del ciervo}\label{fig:deer_model}}
+\end{figure}
+
+Las animaciones del ciervo son:
+\begin{itemize}
+\item Idle. Posición estática del personaje respirando pesadamente.
+\item Walk. El personaje camina.
+\item Run. El enemigo corre.
+\item Hit. Recibe un golpe.
+\item Die. El ciervo muere.
+\item Howl. Aulla para llamar a más enemigos.
+\item Defense. Postura de defensa.
+\item Attack Punch. Dos golpes con los brazos.
+\item Attack Run. El personaje baja el torso y carga su presa con sus cuernos.
+\end{itemize}
 
 %----- Programación --------------------------------
 %---------------------------------------------------
@@ -30,6 +220,8 @@ La tecnología de terceros utilizada en el motor es la siguiente:
 \end{itemize}
 
 Toda la estructura del motor, y del juego en sí, está basada en ficheros XML. El lenguaje XML permite externalizar los parámetros del motor, así como también guardar toda la información referente al juego.
+
+COmo entorno de desarrollo utilizado ha sido Microsoft Visual Studio 2010 para todo el motor y Notepad++ para editar ficheros XML y Lua.
 
 \subsection{Gráficos}
 Los aspectos donde se ha hecho más enfasi durante la programación de los gráficos a sido con la iluminación, las sombras, las partículas y los efectos de post procesado. 
@@ -223,3 +415,5 @@ Como Autodesk 3ds Max se ha utilizado como editor de niveles ha sido conveniente
 \item Definir y exportar las texturas del terreno.
 \end{itemize}
 
+\subsubsection{Viewer}
+Se ha desarrollado un visor de elementos. Este visor permite cargar modelos, tanto estáticos como animados, y así poder apreciar como se ve dentro del motor. Esta herramienta está especialmente diseñada para los artistas para que pudiesen probar los modelos generados al momento. Así se agiliza el trabajo.
