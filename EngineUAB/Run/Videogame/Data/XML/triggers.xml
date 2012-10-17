@@ -8,7 +8,7 @@
 	<trigger active="true"  name="zona_combate_4" type="box" position="65 -40 30" size="2 10 55" yaw="45" color="1.0 0.0 1.0 1.0" scriptclass="CCombatZone4Trigger" />
 	<trigger active="true"  name="zona_combate_5" type="box" position="-37 -32 115" size="4 10 15" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CCombatZone5Trigger" />
 	<trigger active="true"  name="zona_combate_6" type="box" position="-98 -10 84" size="35 1 2" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CCombatZone6Trigger" />
-	<trigger active="true"  name="zona_combate_7" type="box" position="-52 -19 -38" size="35 1 10" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CCombatZone7Trigger" />
+	<trigger active="true"  name="zona_combate_7" type="box" position="-82 -19 -38" size="65 2 10" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CCombatZone7Trigger" />
 	<trigger active="true"  name="zona_combate_8" type="box" position="-64 -14 -80" size="45 2 10" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CCombatZone8Trigger" />
 
   <!--<trigger name="inicio" type="sphere" position="-14.79 -29.66 -113.58" radius="5.0" color="1.0 0.0 1.0 1.0" scriptclass="CSphereTriggerTest" />-->
