@@ -25,13 +25,11 @@
 #include "RenderableObjects\RenderableObjectsLayersManager.h"
 
 #include "Scripting\ScriptManager.h"
-#include "GameProcess.h"
 #include "Cameras\ThPSCharacterCamera.h"
-
-#include "Speaker.h"
 
 #include "Helpers\MathHelper.h"
 #include "Utils\RecyclingArray.h"
+#include "Speaker.h"
 #include "EngineProcess.h"
 #include "GameProcess.h"
 #include "Logger\Logger.h"
@@ -762,8 +760,8 @@ Vect3f CCharacter::GetPointInsideCameraFrustum( float _VisionAngle ) const
 	float l_Angle = BoostRandomHelper::GetFloat(-_VisionAngle/2,_VisionAngle/2); 
 	l_Front.RotateY(mathUtils::Deg2Rad(l_Angle));
 
-	// Obtenemos la máxima distancia donde ir
-	float l_Radi = m_pProperties->GetPreparedAttackDistance();
+	// Obtenemos la máxima distancia donde ir, entre la distancia de ataque y la preparación
+	float l_Radi = BoostRandomHelper::GetFloat(m_pProperties->GetAttackDistance(),m_pProperties->GetPreparedAttackDistance());  
 
 	// Calculamos la posición final
 	CSteeringEntity * l_Entity	= l_Process->GetCharactersManager()->GetPlayer()->GetSteeringEntity();
@@ -772,7 +770,36 @@ Vect3f CCharacter::GetPointInsideCameraFrustum( float _VisionAngle ) const
 	l_Front.Normalize();
 	l_Position = Vect3f( l_Position.x + l_Front.x * l_Radi , l_Position.y + l_Height, l_Position.z + l_Front.z * l_Radi );
 	
+	int l_Mask = 1 << ECG_LIMITS;
+	l_Mask = 1 << ECG_STATIC_OBJECTS;
+	l_Mask = 1 << ECG_DYNAMIC_OBJECTS;
+	// Si la posición no está dentro de los limites entonces retornamos y mantenemos la misma posicion
+	if ( IsPointTouchingGroup(l_Position, l_Mask, 0.5f ) )
+	{
+		l_Position = m_Position; 
+	}
+	
 	return l_Position;
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// IsPointInsideLimits : Obtiene si una posición especifica está dentro de los muros límite
+// ---------------------------------------------------------------------------------------------------------------
+bool CCharacter::IsPointTouchingGroup( const Vect3f &_Position, int _MasK, float _Radius ) const
+{
+	std::vector<CPhysicUserData*> l_UserDatas;			// Permite almacenar aquellos límites en zona de detección de la posición 
+	
+	// Calculamos límites vecinos a una posición 
+	CORE->GetPhysicsManager()->OverlapSphereActor( _Radius, _Position, l_UserDatas, _MasK );
+
+	// Si encontramos colisiones con límites ya no aceptamos la posición
+	if ( l_UserDatas.size() > 0 )
+	{
+		LOGGER->AddNewLog(ELL_WARNING, "IsPointTouchingLimits -> colisiona con : %s", l_UserDatas[0]->GetName().c_str() );
+		return true;
+	}	
+
+	return false;
 }
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -875,6 +902,18 @@ float CCharacter::GetDistanceToPlayer( void )
 {
 	Vect2f l_PositionA = Vect2f( m_Position.x, m_Position.z);
 	Vect2f l_PositionB = Vect2f( GetPlayer()->GetPosition().x, GetPlayer()->GetPosition().z);
+	
+	float l_Distance = l_PositionA.Distance(l_PositionB);
+	return l_Distance;
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// GetDistanceToPointIn2D: Obtiene la distancia al punto. Se usa vector 2D ya que la y = 0
+// ---------------------------------------------------------------------------------------------------------------
+float CCharacter::GetDistanceToPointIn2D( const Vect3f & _Position )
+{
+	Vect2f l_PositionA = Vect2f( m_Position.x, m_Position.z);
+	Vect2f l_PositionB = Vect2f( _Position.x, _Position.z);
 	
 	float l_Distance = l_PositionA.Distance(l_PositionB);
 	return l_Distance;
