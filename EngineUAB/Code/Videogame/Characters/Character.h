@@ -85,9 +85,12 @@ public:
 	Vect3f						GetPositionToAttack			( void ) const;
 	void						GoIntoCameraFrustum			( float _RangeAngle, float _ElapsedTime );	// Permite colocar un caracter dentro del frustum de la càmara en unos grados desde el centro
 	bool						IsEnemyIntoCameraFrustum	( float _RangeAngle, float _ElapsedTime );	// Permite ver si un caracter está dentro del frustum de la càmara en unos grados
+	bool						IsPointTouchingGroup		( const Vect3f &_Position, int _MasK, float _Radius ) const;
+
 	bool						IsCollisionedWithSomething	( void );
 						
 	float						GetDistanceToPlayer			( void );
+	float						GetDistanceToPointIn2D		( const Vect3f & _Position );
 
 	// Permite cargar los estados 
 	/*virtual void				LoadGraphicStates		( void ) = 0; 
