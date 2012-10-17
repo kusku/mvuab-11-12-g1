@@ -45,8 +45,12 @@
             this.cbResolution = new System.Windows.Forms.ComboBox();
             this.bApply = new System.Windows.Forms.Button();
             this.bExit = new System.Windows.Forms.Button();
+            this.gbSettings = new System.Windows.Forms.GroupBox();
+            this.lbVideoSettings = new System.Windows.Forms.Label();
+            this.cbSettings = new System.Windows.Forms.ComboBox();
             this.tConfig.SuspendLayout();
             this.tpVideo.SuspendLayout();
+            this.gbSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbTitle
@@ -71,15 +75,10 @@
             // 
             // tpVideo
             // 
-            this.tpVideo.Controls.Add(this.lbParticleQuality);
-            this.tpVideo.Controls.Add(this.cbParticleQuality);
-            this.tpVideo.Controls.Add(this.cbBloomEnable);
-            this.tpVideo.Controls.Add(this.cbZBlurEnable);
-            this.tpVideo.Controls.Add(this.cbMotionBlurEnable);
+            this.tpVideo.Controls.Add(this.lbVideoSettings);
+            this.tpVideo.Controls.Add(this.gbSettings);
+            this.tpVideo.Controls.Add(this.cbSettings);
             this.tpVideo.Controls.Add(this.cbWindowMode);
-            this.tpVideo.Controls.Add(this.cbShadowEnable);
-            this.tpVideo.Controls.Add(this.lbShadowQuality);
-            this.tpVideo.Controls.Add(this.cbShadowQuality);
             this.tpVideo.Controls.Add(this.lbResolution);
             this.tpVideo.Controls.Add(this.cbResolution);
             this.tpVideo.Location = new System.Drawing.Point(4, 22);
@@ -93,7 +92,7 @@
             // lbParticleQuality
             // 
             this.lbParticleQuality.AutoSize = true;
-            this.lbParticleQuality.Location = new System.Drawing.Point(6, 216);
+            this.lbParticleQuality.Location = new System.Drawing.Point(12, 140);
             this.lbParticleQuality.Name = "lbParticleQuality";
             this.lbParticleQuality.Size = new System.Drawing.Size(80, 13);
             this.lbParticleQuality.TabIndex = 11;
@@ -105,45 +104,48 @@
             this.cbParticleQuality.Items.AddRange(new object[] {
             "Low",
             "Medium",
-            "High",
-            "Very High"});
-            this.cbParticleQuality.Location = new System.Drawing.Point(96, 213);
+            "High"});
+            this.cbParticleQuality.Location = new System.Drawing.Point(102, 137);
             this.cbParticleQuality.Name = "cbParticleQuality";
             this.cbParticleQuality.Size = new System.Drawing.Size(118, 21);
             this.cbParticleQuality.TabIndex = 10;
+            this.cbParticleQuality.SelectedIndexChanged += new System.EventHandler(this.cbParticleQuality_SelectedIndexChanged);
             // 
             // cbBloomEnable
             // 
             this.cbBloomEnable.AutoSize = true;
             this.cbBloomEnable.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cbBloomEnable.Location = new System.Drawing.Point(9, 164);
+            this.cbBloomEnable.Location = new System.Drawing.Point(10, 102);
             this.cbBloomEnable.Name = "cbBloomEnable";
             this.cbBloomEnable.Size = new System.Drawing.Size(94, 17);
             this.cbBloomEnable.TabIndex = 9;
             this.cbBloomEnable.Text = "Bloom Enable:";
             this.cbBloomEnable.UseVisualStyleBackColor = true;
+            this.cbBloomEnable.CheckedChanged += new System.EventHandler(this.cbBloomEnable_CheckedChanged);
             // 
             // cbZBlurEnable
             // 
             this.cbZBlurEnable.AutoSize = true;
             this.cbZBlurEnable.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cbZBlurEnable.Location = new System.Drawing.Point(9, 141);
+            this.cbZBlurEnable.Location = new System.Drawing.Point(10, 79);
             this.cbZBlurEnable.Name = "cbZBlurEnable";
             this.cbZBlurEnable.Size = new System.Drawing.Size(93, 17);
             this.cbZBlurEnable.TabIndex = 8;
             this.cbZBlurEnable.Text = "Z Blur Enable:";
             this.cbZBlurEnable.UseVisualStyleBackColor = true;
+            this.cbZBlurEnable.CheckedChanged += new System.EventHandler(this.cbZBlurEnable_CheckedChanged);
             // 
             // cbMotionBlurEnable
             // 
             this.cbMotionBlurEnable.AutoSize = true;
             this.cbMotionBlurEnable.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cbMotionBlurEnable.Location = new System.Drawing.Point(9, 118);
+            this.cbMotionBlurEnable.Location = new System.Drawing.Point(10, 56);
             this.cbMotionBlurEnable.Name = "cbMotionBlurEnable";
             this.cbMotionBlurEnable.Size = new System.Drawing.Size(118, 17);
             this.cbMotionBlurEnable.TabIndex = 7;
             this.cbMotionBlurEnable.Text = "Motion Blur Enable:";
             this.cbMotionBlurEnable.UseVisualStyleBackColor = true;
+            this.cbMotionBlurEnable.CheckedChanged += new System.EventHandler(this.cbMotionBlurEnable_CheckedChanged);
             // 
             // cbWindowMode
             // 
@@ -160,7 +162,7 @@
             // 
             this.cbShadowEnable.AutoSize = true;
             this.cbShadowEnable.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cbShadowEnable.Location = new System.Drawing.Point(6, 53);
+            this.cbShadowEnable.Location = new System.Drawing.Point(10, 19);
             this.cbShadowEnable.Name = "cbShadowEnable";
             this.cbShadowEnable.Size = new System.Drawing.Size(104, 17);
             this.cbShadowEnable.TabIndex = 5;
@@ -171,7 +173,7 @@
             // lbShadowQuality
             // 
             this.lbShadowQuality.AutoSize = true;
-            this.lbShadowQuality.Location = new System.Drawing.Point(6, 79);
+            this.lbShadowQuality.Location = new System.Drawing.Point(136, 20);
             this.lbShadowQuality.Name = "lbShadowQuality";
             this.lbShadowQuality.Size = new System.Drawing.Size(84, 13);
             this.lbShadowQuality.TabIndex = 3;
@@ -185,10 +187,11 @@
             "Medium",
             "High",
             "Very High"});
-            this.cbShadowQuality.Location = new System.Drawing.Point(96, 76);
+            this.cbShadowQuality.Location = new System.Drawing.Point(226, 17);
             this.cbShadowQuality.Name = "cbShadowQuality";
             this.cbShadowQuality.Size = new System.Drawing.Size(118, 21);
             this.cbShadowQuality.TabIndex = 2;
+            this.cbShadowQuality.SelectedIndexChanged += new System.EventHandler(this.cbShadowQuality_SelectedIndexChanged);
             // 
             // lbResolution
             // 
@@ -234,6 +237,47 @@
             this.bExit.UseVisualStyleBackColor = true;
             this.bExit.Click += new System.EventHandler(this.bExit_Click);
             // 
+            // gbSettings
+            // 
+            this.gbSettings.Controls.Add(this.cbShadowEnable);
+            this.gbSettings.Controls.Add(this.lbParticleQuality);
+            this.gbSettings.Controls.Add(this.cbShadowQuality);
+            this.gbSettings.Controls.Add(this.cbParticleQuality);
+            this.gbSettings.Controls.Add(this.lbShadowQuality);
+            this.gbSettings.Controls.Add(this.cbBloomEnable);
+            this.gbSettings.Controls.Add(this.cbMotionBlurEnable);
+            this.gbSettings.Controls.Add(this.cbZBlurEnable);
+            this.gbSettings.Location = new System.Drawing.Point(9, 91);
+            this.gbSettings.Name = "gbSettings";
+            this.gbSettings.Size = new System.Drawing.Size(402, 172);
+            this.gbSettings.TabIndex = 12;
+            this.gbSettings.TabStop = false;
+            this.gbSettings.Text = "Settings";
+            // 
+            // lbVideoSettings
+            // 
+            this.lbVideoSettings.AutoSize = true;
+            this.lbVideoSettings.Location = new System.Drawing.Point(6, 61);
+            this.lbVideoSettings.Name = "lbVideoSettings";
+            this.lbVideoSettings.Size = new System.Drawing.Size(78, 13);
+            this.lbVideoSettings.TabIndex = 13;
+            this.lbVideoSettings.Text = "Video Settings:";
+            // 
+            // cbSettings
+            // 
+            this.cbSettings.FormattingEnabled = true;
+            this.cbSettings.Items.AddRange(new object[] {
+            "Low",
+            "Medium",
+            "High",
+            "Very High",
+            "Custom"});
+            this.cbSettings.Location = new System.Drawing.Point(96, 58);
+            this.cbSettings.Name = "cbSettings";
+            this.cbSettings.Size = new System.Drawing.Size(118, 21);
+            this.cbSettings.TabIndex = 12;
+            this.cbSettings.SelectedIndexChanged += new System.EventHandler(this.cbSettings_SelectedIndexChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -249,6 +293,8 @@
             this.tConfig.ResumeLayout(false);
             this.tpVideo.ResumeLayout(false);
             this.tpVideo.PerformLayout();
+            this.gbSettings.ResumeLayout(false);
+            this.gbSettings.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -272,6 +318,9 @@
         private System.Windows.Forms.CheckBox cbBloomEnable;
         private System.Windows.Forms.Label lbParticleQuality;
         private System.Windows.Forms.ComboBox cbParticleQuality;
+        private System.Windows.Forms.Label lbVideoSettings;
+        private System.Windows.Forms.GroupBox gbSettings;
+        private System.Windows.Forms.ComboBox cbSettings;
     }
 }
 

@@ -108,16 +108,14 @@ namespace Configuracion
             ShadowRevDic.Add(new Resol(4096, 4096), 3);
 
             ParticleDic = new Dictionary<int, int>();
-            ParticleDic.Add(0, 4);
-            ParticleDic.Add(1, 3);
-            ParticleDic.Add(2, 2);
-            ParticleDic.Add(3, 1);
+            ParticleDic.Add(0, 3);
+            ParticleDic.Add(1, 2);
+            ParticleDic.Add(2, 1);
 
             ParticleRevDic = new Dictionary<int, int>();
-            ParticleRevDic.Add(4, 0);
-            ParticleRevDic.Add(3, 1);
-            ParticleRevDic.Add(2, 2);
-            ParticleRevDic.Add(1, 3);
+            ParticleRevDic.Add(3, 0);
+            ParticleRevDic.Add(2, 1);
+            ParticleRevDic.Add(1, 2);
         }
 
         private void InitConfig()
@@ -175,6 +173,10 @@ namespace Configuracion
                         if (engineReader.NodeType == XmlNodeType.Attribute && engineReader.Name == "particle_level")
                         {
                             cbParticleQuality.SelectedIndex = ParticleRevDic[engineReader.ReadContentAsInt()];
+                        }
+                        if (engineReader.NodeType == XmlNodeType.Attribute && engineReader.Name == "cs")
+                        {
+                            cbSettings.SelectedIndex = engineReader.ReadContentAsInt();
                         }
                     }
                 }
@@ -322,6 +324,7 @@ namespace Configuracion
                     elem.Attributes["zblur"].InnerText = zblurEnable.ToString().ToLower();
                     elem.Attributes["bloom"].InnerText = cbBloomEnable.Checked.ToString().ToLower();
                     elem.Attributes["particle_level"].InnerText = ParticleDic[cbParticleQuality.SelectedIndex].ToString();
+                    elem.Attributes["cs"].InnerText = cbSettings.SelectedIndex.ToString();
                 }
             }
 
@@ -341,12 +344,104 @@ namespace Configuracion
 
         private void cbShadowEnable_CheckedChanged(object sender, EventArgs e)
         {
+            cbSettings.SelectedIndex = 4;
+
             if (cbShadowEnable.Checked)
             {
                 return;
             }
 
             cbShadowQuality.SelectedIndex = 0;
+        }
+
+        private void cbSettings_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int idx = cbSettings.SelectedIndex;
+
+            switch (idx)
+            {
+                case 0:
+                    //Shadows
+                    cbShadowEnable.Checked = false;
+                    cbShadowQuality.SelectedIndex = 0;
+
+                    //Post Process
+                    cbMotionBlurEnable.Checked = false;
+                    cbZBlurEnable.Checked = false;
+                    cbBloomEnable.Checked = false;
+
+                    //Particles
+                    cbParticleQuality.SelectedIndex = 0;
+                    break;
+                case 1:
+                    //Shadows
+                    cbShadowEnable.Checked = true;
+                    cbShadowQuality.SelectedIndex = 1;
+
+                    //Post Process
+                    cbMotionBlurEnable.Checked = true;
+                    cbZBlurEnable.Checked = true;
+                    cbBloomEnable.Checked = false;
+
+                    //Particles
+                    cbParticleQuality.SelectedIndex = 1;
+                    break;
+                case 2:
+                    //Shadows
+                    cbShadowEnable.Checked = true;
+                    cbShadowQuality.SelectedIndex = 2;
+
+                    //Post Process
+                    cbMotionBlurEnable.Checked = true;
+                    cbZBlurEnable.Checked = true;
+                    cbBloomEnable.Checked = true;
+
+                    //Particles
+                    cbParticleQuality.SelectedIndex = 2;
+                    break;
+                case 3:
+                    //Shadows
+                    cbShadowEnable.Checked = true;
+                    cbShadowQuality.SelectedIndex = 3;
+
+                    //Post Process
+                    cbMotionBlurEnable.Checked = true;
+                    cbZBlurEnable.Checked = true;
+                    cbBloomEnable.Checked = true;
+
+                    //Particles
+                    cbParticleQuality.SelectedIndex = 2;
+                    break;
+                default:
+                    break;
+            }
+
+            cbSettings.SelectedIndex = idx;
+        }
+
+        private void cbShadowQuality_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cbSettings.SelectedIndex = 4;
+        }
+
+        private void cbMotionBlurEnable_CheckedChanged(object sender, EventArgs e)
+        {
+            cbSettings.SelectedIndex = 4;
+        }
+
+        private void cbZBlurEnable_CheckedChanged(object sender, EventArgs e)
+        {
+            cbSettings.SelectedIndex = 4;
+        }
+
+        private void cbBloomEnable_CheckedChanged(object sender, EventArgs e)
+        {
+            cbSettings.SelectedIndex = 4;
+        }
+
+        private void cbParticleQuality_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cbSettings.SelectedIndex = 4;
         }
     }
 }
