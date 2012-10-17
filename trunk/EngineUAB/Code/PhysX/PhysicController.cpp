@@ -222,6 +222,7 @@ void CPhysicController::Move ( const Vect3f& _vDirection, float _ElapsedTime )
 
 	int mask = 1 << ECG_PLAYER;
 	mask |= 1 << ECG_DYNAMIC_OBJECTS;
+	mask |= 1 << ECG_STATIC_OBJECTS;
 	mask |= 1 << ECG_ESCENE;
 	mask |= 1 << ECG_ENEMY;
 	mask |= 1 << ECG_LIMITS;
