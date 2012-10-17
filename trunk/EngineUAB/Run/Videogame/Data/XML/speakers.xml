@@ -45,4 +45,14 @@
 	<!-- Vientos -->
 	<Speaker name="zona1_vientos001" position="106.0 -15.1 -173.72"	orientation="0.99923122 0.00000000 0.039203845" />
 	<Speaker name="zona1_vientos002" position="63.0 -23.1 -118.72"	orientation="0.99923122 0.00000000 0.039203845" />
+	
+	<Speaker name="zona2_3_vientos001" position="80.0 -25.9 -45.84"	orientation="0.99923122 0.00000000 0.039203845" />
+		
+	<Speaker name="zona4_vientos001" position="32.0 -39.3 -9.19"	orientation="0.99923122 0.00000000 0.039203845" />
+	
+	<Speaker name="zona4_vientos002" position="0.0 -22.0 140.19"	orientation="0.99923122 0.00000000 0.039203845" />
+	
+	<Speaker name="zona6_vientos001" position="-40.0 -20.0 45.19"	orientation="0.99923122 0.00000000 0.039203845" />
+	
+	<Speaker name="zona7_8_vientos001" position="-10.0 0.0 111.19"	orientation="0.99923122 0.00000000 0.039203845" />
 </Speakers>
