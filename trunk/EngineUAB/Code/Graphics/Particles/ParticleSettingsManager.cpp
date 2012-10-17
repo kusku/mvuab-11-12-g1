@@ -3,6 +3,7 @@
 #include "Base.h"
 #include "Logger\Logger.h"
 #include "Math\Vector4.h"
+#include "Core.h"
 
 #if defined(_DEBUG)
 #include "Memory\MemLeaks.h"
@@ -69,7 +70,7 @@ bool CParticleSettingsManager::Reload()
 					}
 					else if(l_TypeChild == "MaxParticles")
 					{
-						settings->m_MaxParticles = (uint32)child(j).GetIntProperty("value", 0, true);
+						settings->m_MaxParticles = (uint32)child(j).GetIntProperty("value", 0, true) / CORE->GetConfig().particle_level;
 					}
 					else if(l_TypeChild == "Duration")
 					{
