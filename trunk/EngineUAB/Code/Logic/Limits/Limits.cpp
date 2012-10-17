@@ -90,7 +90,9 @@ bool CLimit::CreateParticleEI()
 {
 	CParticleSystem* psys = CORE->GetParticleSystemManager()->GetResource("FireLimit");
 	
-	CParticleEmitterBox* pe = new CParticleEmitterBox(m_Name + "Limit", psys, 20  * (m_Dimensions.x / 10.0f), m_Position, false, -(m_Dimensions/2), m_Dimensions/2, true, GetYaw(), GetPitch(), GetRoll());
+	float pps = (20 * (m_Dimensions.x / 10.0f)) / (float)CORE->GetConfig().particle_level;
+
+	CParticleEmitterBox* pe = new CParticleEmitterBox(m_Name + "Limit", psys, pps, m_Position, false, -(m_Dimensions/2), m_Dimensions/2, true, GetYaw(), GetPitch(), GetRoll());
 
 	CORE->GetParticleEmitterManager()->AddResource(pe->GetName(), pe);
 
