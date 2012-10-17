@@ -116,6 +116,7 @@ void CThPSCharacterCamera::Update(float _ElapsedTime)
 	//Máscara de colisión
 	int l_iMask = 1 << ECG_ESCENE;
 	l_iMask |= 1 << ECG_DYNAMIC_OBJECTS;
+	l_iMask |= 1 << ECG_STATIC_OBJECTS;
 	l_iMask |= 0 << ECG_TRIGGERS;
 	l_iMask |= 0 << ECG_LIMITS;
 
@@ -134,9 +135,11 @@ void CThPSCharacterCamera::Update(float _ElapsedTime)
 
 	l_iMask = 1 << ECG_ESCENE;
 	l_iMask |= 1 << ECG_DYNAMIC_OBJECTS;
+	l_iMask |= 1 << ECG_STATIC_OBJECTS;
 	l_iMask |= 1 << ECG_ENEMY;	
 	l_iMask |= 0 << ECG_TRIGGERS;
 	l_iMask |= 0 << ECG_LIMITS;
+	
 
 	//Miramos si colisiona con algun sitio y desplazamos la cámara
 	l_pUserData = CORE->GetPhysicsManager()->RaycastClosestActor(m_Eye + l_Dir + v3fNEGY, v3fNEGY, l_iMask, l_CollisionInfo);
