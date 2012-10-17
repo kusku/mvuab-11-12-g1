@@ -1,12 +1,64 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <physx_objs>
+  <physx_obj name="Fence4Box006" type="1" dimension="0.162465 1.02583 1.65965" pos="95.3633 -21.2199 -163.464" yaw="-40.2968" pitch="22.6357" roll="4.93129" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence4Box005" type="1" dimension="0.162465 1.02583 1.65965" pos="94.4865 -21.7394 -162.331" yaw="-33.8693" pitch="19.4915" roll="7.56646" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence4Box004" type="1" dimension="0.162465 1.02583 1.42954" pos="93.6483 -22.1388 -161.124" yaw="-43.5974" pitch="13.7214" roll="5.10947" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence4Box007" type="1" dimension="0.162465 1.02583 1.65965" pos="96.2634 -20.778 -164.424" yaw="-42.4163" pitch="11.5186" roll="5.74662" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence4Box003" type="1" dimension="0.162465 1.02583 1.62906" pos="92.7564 -22.506 -160.026" yaw="-35.0662" pitch="13.7214" roll="5.10948" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence4Box002" type="1" dimension="0.162465 1.02583 1.62906" pos="91.8952 -22.892 -158.758" yaw="-36.9086" pitch="11.4697" roll="5.70968" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence4Box008" type="1" dimension="0.162465 1.04645 1.72704" pos="97.2048 -20.345 -165.709" yaw="-38.4902" pitch="15.153" roll="4.74253" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence4Box1" type="1" dimension="0.142465 0.995616 1.40319" pos="90.9993 -23.1515 -157.63" yaw="-41.7886" pitch="7.05545" roll="5.40268" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence5Box1" type="1" dimension="0.203583 1.17011 1.73911" pos="108.314 -18.4173 -162.386" yaw="-30.8916" pitch="9.3672" roll="-3.31091" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence5Box2" type="1" dimension="0.203583 1.17011 1.80973" pos="109.206 -17.9215 -163.787" yaw="-33.0499" pitch="22.9205" roll="-0.60414" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence5Box3" type="1" dimension="0.203583 1.11956 3.59558" pos="109.525 -17.212 -166.021" yaw="3.54719" pitch="12.8771" roll="-1.24256" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence5Box4" type="1" dimension="0.203583 1.11956 3.59558" pos="108.901 -16.3167 -169.35" yaw="18.521" pitch="12.8771" roll="-1.24256" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence5Box5" type="1" dimension="0.203583 1.11956 3.45113" pos="107.708 -15.6014 -172.5" yaw="21.0647" pitch="6.55657" roll="3.87053" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence5Box6" type="1" dimension="0.203583 1.11956 1.97569" pos="106.334 -15.4977 -174.566" yaw="58.5774" pitch="-3.15954" roll="9.91708" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence5Box7" type="1" dimension="0.203583 1.11956 2.13939" pos="104.609 -15.8403 -175.081" yaw="92.5058" pitch="-11.6941" roll="5.10076" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence5Box8" type="1" dimension="0.243583 1.11956 4.0044" pos="102.364 -16.7124 -174.316" yaw="120.409" pitch="-20.257" roll="-6.17212" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence2Box1" type="1" dimension="0.190456 1.08 2.50013" pos="121.489 -39.2102 -0.168406" yaw="-30.4196" pitch="11.7055" roll="1.18624" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence2Box002" type="1" dimension="0.190456 1.08 2.50013" pos="122.436 -38.7 -1.91519" yaw="-27.1108" pitch="11.7055" roll="1.18624" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence2Box003" type="1" dimension="0.190456 1.08 1.88667" pos="123.124 -38.2055 -3.75636" yaw="-13.1871" pitch="11.7055" roll="1.18624" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence2Box004" type="1" dimension="0.190456 1.08 1.88667" pos="123.205 -37.8827 -5.38704" yaw="6.86374" pitch="6.61343" roll="0.576495" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence2Box005" type="1" dimension="0.190456 1.08 1.75913" pos="123.053 -37.6523 -7.0228" yaw="6.86374" pitch="6.61343" roll="0.576495" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence2Box006" type="1" dimension="0.120456 0.148 1.61805" pos="122.935 -37.6948 -8.59945" yaw="4.84605" pitch="2.47911" roll="0.0777549" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence2Box007" type="1" dimension="0.190456 1.08 0.211096" pos="122.879 -37.5131 -9.42493" yaw="-8.44669" pitch="14.0571" roll="1.46486" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence1Box1" type="1" dimension="0.236389 0.86 1.82996" pos="56.0012 -36.8112 100.357" yaw="-13.6246" pitch="-10.6809" roll="2.2429" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence1Box002" type="1" dimension="0.236389 0.86 1.82996" pos="56.4204 -36.9824 98.7074" yaw="-11.7126" pitch="-10.6809" roll="2.2429" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence1Box003" type="1" dimension="0.236389 0.85 1.49576" pos="56.5934 -37.1678 97.2137" yaw="-0.21077" pitch="-3.05627" roll="2.2347" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence1Box004" type="1" dimension="0.236389 0.83 1.32582" pos="56.3669 -37.1926 96.016" yaw="21.3287" pitch="-3.05627" roll="2.2347" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence1Box005" type="1" dimension="0.236389 0.83 1.32582" pos="55.9951 -37.2754 94.9983" yaw="19.5818" pitch="-3.05627" roll="2.2347" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence1Box006" type="1" dimension="0.126389 0.0899998 1.04166" pos="55.6772 -37.4387 93.9598" yaw="19.4033" pitch="0.512483" roll="3.49681" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence1Box007" type="1" dimension="0.126389 0.0899998 1.04166" pos="55.6772 -37.5033 93.8508" yaw="16.7201" pitch="22.1164" roll="10.5775" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence1Box008" type="1" dimension="0.146389 0.76 0.160614" pos="55.5097 -37.3467 93.4302" yaw="19.5818" pitch="-3.05627" roll="2.2347" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence3Box003" type="1" dimension="0.155812 1.02966 1.98018" pos="54.0061 -23.7224 -119.985" yaw="-15.9773" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence3Box008" type="1" dimension="0.155812 1.12268 1.97979" pos="57.4339 -23.5532 -128.357" yaw="-32.8167" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence3Box007" type="1" dimension="0.155812 1.06966 1.98018" pos="56.5475 -23.5459 -126.706" yaw="-23.8483" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence3Box006" type="1" dimension="0.155812 1.10966 1.98018" pos="55.8003 -23.5723 -125.077" yaw="-24.926" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence3Box005" type="1" dimension="0.155812 1.01966 1.98018" pos="55.0995 -23.6349 -123.402" yaw="-21.2507" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence3Box004" type="1" dimension="0.155812 1.06966 1.98018" pos="54.5158 -23.6789 -121.709" yaw="-17.4266" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence3Box002" type="1" dimension="0.155812 1.05065 1.98018" pos="53.4958 -23.7352 -118.201" yaw="-15.9773" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  <physx_obj name="Fence3Box1" type="1" dimension="0.155812 1.09331 1.98018" pos="53.1387 -23.7535 -116.401" yaw="-5.74977" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="true" />
+  
+  
+  <physx_obj name="Arbol_1_Box" type="1" dimension="0.836014 15.68 1.07112" pos="121.201 -19.2517 -128.116" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="false" />
+  <physx_obj name="Arbol_2_Box" type="1" dimension="2.84335 37.2 2.90149" pos="136.514 -10.0186 -132.568" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="false" />
+
+  <physx_obj name="CartelMadera_Box" type="1" dimension="0.243446 2.04667 0.95755" pos="105.181 -21.8428 -144.147" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="false" />
+  
+  <physx_obj name="TroncoCaido_2_Box" type="1" dimension="0.946144 0.94557 3.19765" pos="69.1126 -24.6377 -144.21" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="false" />
+  <physx_obj name="TroncoCaido_1_Box" type="1" dimension="2.39645 1.8535 6.25786" pos="88.9596 0.92675 -133.678" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="false" />
+  
+  <physx_obj name="HouseBox" type="1" dimension="10.2892 12.8636 12.4575" pos="-61.0924 0.332863 -117.292" yaw="28.2477" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+
+  
   <physx_obj name="TerrainLimitBox066" type="1" dimension="16.5356 30.3169 1.0" pos="-89.837 -4.25571 134.048" yaw="-103.448" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox001" type="1" dimension="46.7594 30.3169 1.0" pos="98.6684 -12.0184 -178.2" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox002" type="1" dimension="50.2815 30.3169 1.0" pos="62.8686 -12.0098 -158.214" yaw="55.9828" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox003" type="1" dimension="59.1547 30.3169 1.0" pos="48.09 -13.9323 -108.09" yaw="87.1516" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox004" type="1" dimension="47.3238 30.3169 1.0" pos="45.2004 -13.9323 -55.9703" yaw="87.1516" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox005" type="1" dimension="29.0189 30.3169 1.0" pos="38.0746 -23.887 -19.5596" yaw="65.0626" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox006" type="1" dimension="29.0189 30.3169 1.0" pos="20.0946 -27.7638 0.174173" yaw="30.0327" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox006" type="1" dimension="19.4427 30.3169 1.0" pos="16.3826 -27.7638 1.97972" yaw="30.0327" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox007" type="1" dimension="19.7329 30.3169 1.0" pos="-0.554157 -27.7638 12.1075" yaw="30.0327" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox008" type="1" dimension="42.623 30.3169 1.0" pos="-9.62851 -27.7638 37.7519" yaw="88.242" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox009" type="1" dimension="26.0 30.3169 1.0" pos="-0.578312 -27.7638 67.2436" yaw="134.455" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
@@ -14,32 +66,32 @@
   <physx_obj name="TerrainLimitBox011" type="1" dimension="22.3236 30.3169 1.0" pos="-1.5816 -27.7638 94.7959" yaw="32.2689" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox012" type="1" dimension="32.3871 30.3169 1.0" pos="-44.5094 -20.9071 99.8047" yaw="-2.5437" pitch="-0.653839" roll="-14.8853" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox013" type="1" dimension="22.1537 30.3169 1.0" pos="-21.2053 -27.7638 100.625" yaw="-0.264732" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox014" type="1" dimension="61.1908 30.3169 1.0" pos="-47.0912 -8.32025 69.4685" yaw="-89.6014" pitch="-3.26681" roll="-1.06722e-006" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox014" type="1" dimension="61.1908 30.3169 1.0" pos="-47.0912 -8.32025 69.4685" yaw="-89.6014" pitch="-3.26681" roll="-1.81427e-006" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox015" type="1" dimension="12.9552 30.3169 9.18" pos="-52.4449 -4.08428 95.4329" yaw="-0.264732" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox016" type="1" dimension="28.9836 30.3169 1.0" pos="-51.5786 -6.92528 25.8973" yaw="108.595" pitch="3.39493" roll="1.14362" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox017" type="1" dimension="18.2597 30.3169 1.0" pos="-64.5321 -6.90036 11.2814" yaw="171.32" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox018" type="1" dimension="15.3381 30.3169 1.0" pos="-81.0042 -6.90036 10.1797" yaw="-178.917" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox019" type="1" dimension="26.0748 30.3169 1.0" pos="-108.481 -4.45009 13.2054" yaw="-176.283" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox020" type="1" dimension="21.1206 30.3169 1.0" pos="-131.103 -6.80763 13.169" yaw="175.592" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox021" type="1" dimension="15.6293 30.3169 1.0" pos="-148.252 -15.9612 11.5111" yaw="175.39" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox022" type="1" dimension="15.6293 30.3169 1.0" pos="-162.951 -16.5064 13.5203" yaw="-160.666" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox023" type="1" dimension="8.36947 30.3169 1.0" pos="-169.742 -14.2324 20.4309" yaw="-82.2863" pitch="0.818558" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox024" type="1" dimension="13.4334 30.3169 1.0" pos="-166.451 -3.68834 30.4277" yaw="-63.088" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox019" type="1" dimension="26.0748 30.3169 1.0" pos="-108.481 -4.45008 13.2054" yaw="-176.283" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox020" type="1" dimension="21.1206 30.3169 1.0" pos="-131.103 -6.80762 13.169" yaw="175.592" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox021" type="1" dimension="15.6293 30.3169 1.0" pos="-148.252 -15.9612 11.5111" yaw="175.39" pitch="0.818558" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox022" type="1" dimension="15.6293 30.3169 1.0" pos="-162.951 -16.5064 13.5203" yaw="-160.666" pitch="0.818558" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox023" type="1" dimension="8.36947 30.3169 1.0" pos="-169.742 -14.2324 20.4309" yaw="-82.2863" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox024" type="1" dimension="13.4334 30.3169 1.0" pos="-166.451 -3.68834 30.4277" yaw="-63.088" pitch="0.818556" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox025" type="1" dimension="18.1543 30.3169 1.0" pos="-154.741 -3.68834 38.0831" yaw="-16.1404" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox026" type="1" dimension="28.1874 30.3169 1.0" pos="-147.273 -3.68834 54.5644" yaw="-91.6794" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox027" type="1" dimension="28.1874 30.3169 1.0" pos="-148.376 -3.68834 82.5652" yaw="-91.6794" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox026" type="1" dimension="28.1874 30.3169 1.0" pos="-147.273 -3.68834 54.5644" yaw="-91.6794" pitch="0.818556" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox027" type="1" dimension="28.1874 30.3169 1.0" pos="-148.376 -3.68834 82.5652" yaw="-91.6794" pitch="0.818556" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox028" type="1" dimension="23.2263 30.3169 1.0" pos="-57.4016 -6.90036 -16.2048" yaw="-165.248" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox029" type="1" dimension="23.2263 30.3169 1.0" pos="-39.1342 -6.90036 -28.3397" yaw="-126.778" pitch="0.818558" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox029" type="1" dimension="23.2263 30.3169 1.0" pos="-39.1342 -6.90036 -28.3397" yaw="-126.778" pitch="0.818559" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox030" type="1" dimension="23.2263 30.3169 1.0" pos="-27.6724 -6.90036 -47.5022" yaw="-115.355" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox031" type="1" dimension="23.2263 30.3169 1.0" pos="-21.1502 -3.09124 -69.1962" yaw="-96.9926" pitch="0.818558" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox032" type="1" dimension="23.2263 30.3169 1.0" pos="-20.18 -1.8051 -91.6035" yaw="-90.5149" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox033" type="1" dimension="23.2263 30.3169 1.0" pos="-19.9354 -1.8051 -114.516" yaw="-90.5149" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox032" type="1" dimension="23.2263 30.3169 1.0" pos="-20.18 -1.8051 -91.6035" yaw="-90.5149" pitch="0.818558" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox033" type="1" dimension="23.2263 30.3169 1.0" pos="-19.9354 -1.8051 -114.516" yaw="-90.5149" pitch="0.818558" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox034" type="1" dimension="23.2263 30.3169 1.0" pos="-23.0144 -1.8051 -135.715" yaw="-71.2988" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox035" type="1" dimension="23.2263 30.3169 1.0" pos="-36.4592 6.78616 -150.653" yaw="-24.5267" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox036" type="1" dimension="23.2263 30.3169 1.0" pos="-57.8896 6.78616 -155.482" yaw="1.37657" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox036" type="1" dimension="23.2263 30.3169 1.0" pos="-57.8896 6.78616 -155.482" yaw="1.37657" pitch="0.818558" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox037" type="1" dimension="17.1875 30.3169 1.0" pos="-74.895 6.78616 -149.027" yaw="47.8768" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox038" type="1" dimension="17.1875 30.3169 1.0" pos="-85.9078 6.78616 -136.354" yaw="47.8768" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox039" type="1" dimension="17.1875 30.3169 1.0" pos="-99.4279 0.802634 -128.22" yaw="13.6501" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox039" type="1" dimension="17.1875 30.3169 1.0" pos="-99.4279 0.802635 -128.22" yaw="13.6501" pitch="0.818556" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox040" type="1" dimension="10.1406 30.3169 1.0" pos="-111.902 -1.91676 -123.687" yaw="25.8111" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox041" type="1" dimension="10.1406 30.3169 1.0" pos="-117.718 -1.91676 -116.977" yaw="70.2412" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox042" type="1" dimension="10.1406 30.3169 1.0" pos="-123.982 -1.91676 -110.193" yaw="26.2292" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
@@ -47,32 +99,32 @@
   <physx_obj name="TerrainLimitBox044" type="1" dimension="13.7534 30.3169 1.0" pos="-139.961 4.78508 -101.836" yaw="57.1138" pitch="1.34186" roll="1.12064" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox045" type="1" dimension="13.7534 30.3169 1.0" pos="-148.629 9.60003 -92.079" yaw="40.7848" pitch="1.34186" roll="1.12064" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox046" type="1" dimension="13.7534 30.3169 1.0" pos="-154.5 9.60003 -81.7914" yaw="78.1139" pitch="1.34186" roll="1.12064" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox047" type="1" dimension="13.7534 30.3169 1.0" pos="-155.041 2.19904 -68.7367" yaw="94.9774" pitch="1.34186" roll="1.12064" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox047" type="1" dimension="13.7534 30.3169 1.0" pos="-155.041 2.19904 -68.7367" yaw="94.9774" pitch="1.34186" roll="1.12065" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox048" type="1" dimension="8.93968 30.3169 1.0" pos="-156.531 -5.26586 -58.4132" yaw="58.9728" pitch="1.34186" roll="1.12064" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox049" type="1" dimension="8.93968 30.3169 1.0" pos="-161.837 -7.34454 -51.8841" yaw="43.4997" pitch="1.34186" roll="1.12064" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox050" type="1" dimension="8.93968 30.3169 1.0" pos="-166.082 -7.34454 -45.1478" yaw="73.5027" pitch="1.34186" roll="1.12064" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox051" type="1" dimension="8.93968 30.3169 1.0" pos="-165.094 -8.73567 -37.6748" yaw="131.475" pitch="1.34186" roll="-2.66804e-007" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox052" type="1" dimension="22.7747 30.3169 1.0" pos="-162.656 -11.5345 -23.2212" yaw="89.4022" pitch="1.34186" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox053" type="1" dimension="22.7747 30.3169 1.0" pos="-151.771 -13.9419 -12.9347" yaw="-176.216" pitch="1.34186" roll="-2.66804e-007" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox054" type="1" dimension="22.7747 30.3169 1.0" pos="-130.014 -3.90071 -13.5943" yaw="178.479" pitch="1.34186" roll="-2.43459e-007" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox055" type="1" dimension="22.7747 30.3169 1.0" pos="-108.583 -4.47157 -14.9579" yaw="-172.167" pitch="1.34186" roll="-1.33402e-007" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox056" type="1" dimension="27.3297 30.3169 1.0" pos="-84.3043 -4.47157 -16.3126" yaw="179.962" pitch="1.34186" roll="-2.12714e-007" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox051" type="1" dimension="8.93968 30.3169 1.0" pos="-165.094 -8.73567 -37.6748" yaw="131.475" pitch="1.34186" roll="-3.73526e-007" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox052" type="1" dimension="22.7747 30.3169 1.0" pos="-162.656 -11.5345 -23.2212" yaw="89.4022" pitch="1.34186" roll="-1.60083e-007" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox053" type="1" dimension="22.7747 30.3169 1.0" pos="-151.771 -13.9419 -12.9347" yaw="-176.216" pitch="1.34186" roll="-3.13495e-007" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox054" type="1" dimension="22.7747 30.3169 1.0" pos="-130.014 -3.90071 -13.5943" yaw="178.479" pitch="1.34186" roll="-2.36789e-007" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox055" type="1" dimension="22.7747 30.3169 1.0" pos="-108.583 -4.47157 -14.9579" yaw="-172.167" pitch="1.34186" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox056" type="1" dimension="27.3297 30.3169 1.0" pos="-84.3043 -4.47157 -16.3126" yaw="179.962" pitch="1.34186" roll="-2.12505e-007" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox057" type="1" dimension="42.2464 30.3169 1.0" pos="137.424 -11.4574 -143.6" yaw="-87.8868" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox058" type="1" dimension="21.394 30.3169 1.0" pos="147.017 -11.4574 -117.545" yaw="-32.5184" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox059" type="1" dimension="43.8577 30.3169 1.0" pos="157.316 -12.105 -90.4572" yaw="-85.037" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox058" type="1" dimension="8.98548 30.3169 1.0" pos="124.972 -14.8495 -122.823" yaw="26.5329" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox059" type="1" dimension="43.8577 30.3169 1.0" pos="128.774 -15.9703 -74.5129" yaw="-81.294" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox060" type="1" dimension="43.8577 30.3169 1.0" pos="147.399 -24.1441 -38.2801" yaw="-97.0025" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox061" type="1" dimension="12.9819 30.3169 1.0" pos="154.722 -14.7234 -64.2686" yaw="-132.654" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox062" type="1" dimension="17.4762 30.3169 1.0" pos="-142.079 1.62935 101.835" yaw="-40.5912" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox061" type="1" dimension="18.0448 30.3169 1.0" pos="140.795 -18.1634 -55.3849" yaw="-162.123" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox062" type="1" dimension="17.4762 30.3169 1.0" pos="-142.079 1.62935 101.835" yaw="-40.5912" pitch="0.818558" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox063" type="1" dimension="17.4762 30.3169 1.0" pos="-133.118 1.62935 115.308" yaw="-71.3152" pitch="0.818558" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox064" type="1" dimension="25.8368 30.3169 1.0" pos="-122.895 -4.25571 133.781" yaw="-54.3761" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox065" type="1" dimension="25.8368 30.3169 1.0" pos="-103.668 -7.4252 143.16" yaw="4.61812" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox065" type="1" dimension="25.8368 30.3169 1.0" pos="-103.668 -7.4252 143.16" yaw="4.61812" pitch="0.818558" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox067" type="1" dimension="16.5356 30.3169 1.0" pos="-79.2966 -16.4568 125.89" yaw="7.7058" pitch="-1.5713" roll="0.845386" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox068" type="1" dimension="16.5356 30.3169 1.0" pos="-63.1201 -18.045 124.827" yaw="3.20881" pitch="-1.5713" roll="0.845386" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox069" type="1" dimension="22.9844 30.3169 1.0" pos="-44.8915 -18.045 127.711" yaw="-15.3542" pitch="-1.5713" roll="0.845387" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox069" type="1" dimension="22.9844 30.3169 1.0" pos="-44.8915 -18.045 127.711" yaw="-15.3542" pitch="-1.5713" roll="0.845386" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox070" type="1" dimension="43.8577 30.3169 1.0" pos="136.525 -23.0724 -0.914925" yaw="-115.059" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox071" type="1" dimension="56.8878 30.3169 1.0" pos="112.939 -27.9889 37.9567" yaw="-126.466" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox072" type="1" dimension="29.0189 30.3169 1.0" pos="86.1398 -27.4892 70.6209" yaw="43.4034" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox073" type="1" dimension="29.0189 30.3169 1.0" pos="73.3682 -27.1192 94.5689" yaw="79.6754" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox072" type="1" dimension="30.7601 30.3169 1.0" pos="85.8714 -27.4892 71.5085" yaw="46.5543" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox073" type="1" dimension="19.1525 30.3169 1.0" pos="72.7314 -27.1192 98.4523" yaw="85.2481" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox074" type="1" dimension="24.9563 30.3169 1.0" pos="61.9459 -23.776 116.813" yaw="45.2215" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox075" type="1" dimension="29.0189 30.3169 1.0" pos="41.7951 -23.776 124.765" yaw="11.764" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox076" type="1" dimension="22.3446 30.3169 1.0" pos="23.953 -23.776 137.654" yaw="67.3009" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
@@ -80,52 +132,39 @@
   <physx_obj name="TerrainLimitBox078" type="1" dimension="12.6247 30.3169 1.0" pos="10.244 -23.776 143.008" yaw="-57.7834" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox079" type="1" dimension="22.9844 30.3169 1.0" pos="-22.9441 -18.045 132.188" yaw="-8.39326" pitch="-1.5713" roll="0.845387" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox080" type="1" dimension="19.3897 30.3169 1.0" pos="-2.22816 -20.053 135.91" yaw="-11.1145" pitch="-1.5713" roll="0.845386" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox081" type="1" dimension="40.7332 6.86032 1.0" pos="-82.34 -15.4004 -2.7219" yaw="-131.592" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="TerrainLimitBox082" type="1" dimension="40.7332 6.86032 1.0" pos="-79.6619 -15.4004 -1.01407" yaw="-131.592" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox081" type="1" dimension="40.7332 6.86032 1.0" pos="-82.34 -15.4004 -2.7219" yaw="-131.592" pitch="0.818558" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox082" type="1" dimension="40.7332 6.86032 1.0" pos="-79.6619 -15.4004 -1.01407" yaw="-131.592" pitch="0.818558" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
   <physx_obj name="TerrainLimitBox083" type="1" dimension="21.2779 30.3169 1.0" pos="128.771 -12.881 -171.754" yaw="-40.4199" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="CartelMadera_Box" type="1" dimension="0.543446 2.04667 0.95755" pos="105.181 -21.8428 -144.147" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_LIdMITS" active_startup="false" />
-  <physx_obj name="TroncoCaido_2_Box" type="1" dimension="0.946144 0.94557 3.19765" pos="69.1126 -24.6377 -144.21" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="false" />
-  <physx_obj name="TroncoCaido_1_Box" type="1" dimension="2.39645 1.8535 6.25786" pos="88.9596 0.92675 -133.678" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="false" />
-  <physx_obj name="Fence4Box006" type="1" dimension="0.162465 1.02583 1.65965" pos="95.3633 -21.2199 -163.464" yaw="-40.2968" pitch="22.6357" roll="4.93129" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence4Box005" type="1" dimension="0.162465 1.02583 1.65965" pos="94.4865 -21.7394 -162.331" yaw="-33.8693" pitch="19.4915" roll="7.56646" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence4Box004" type="1" dimension="0.162465 1.02583 1.42954" pos="93.6483 -22.1388 -161.124" yaw="-43.5974" pitch="13.7214" roll="5.10947" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence4Box007" type="1" dimension="0.162465 1.02583 1.65965" pos="96.2634 -20.778 -164.424" yaw="-42.4163" pitch="11.5186" roll="5.74662" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence4Box003" type="1" dimension="0.162465 1.02583 1.62906" pos="92.7564 -22.506 -160.026" yaw="-35.0662" pitch="13.7214" roll="5.10948" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence4Box002" type="1" dimension="0.162465 1.02583 1.62906" pos="91.8952 -22.892 -158.758" yaw="-36.9086" pitch="11.4697" roll="5.70968" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence4Box008" type="1" dimension="0.162465 1.04645 1.72704" pos="97.2048 -20.345 -165.709" yaw="-38.4902" pitch="15.153" roll="4.74253" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence4Box1" type="1" dimension="0.142465 0.995616 1.40319" pos="90.9993 -23.1515 -157.63" yaw="-41.7886" pitch="7.05545" roll="5.40268" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Arbol_1_Box" type="1" dimension="0.836014 15.68 1.07112" pos="121.201 -19.2517 -128.116" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="false" />
-  <physx_obj name="Fence5Box1" type="1" dimension="0.203583 1.17011 1.73911" pos="108.314 -18.4173 -162.386" yaw="-30.8916" pitch="9.3672" roll="-3.31091" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence5Box2" type="1" dimension="0.203583 1.17011 1.80973" pos="109.206 -17.9215 -163.787" yaw="-33.0499" pitch="22.9205" roll="-0.60414" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence5Box3" type="1" dimension="0.203583 1.11956 3.59558" pos="109.525 -17.212 -166.021" yaw="3.54719" pitch="12.8771" roll="-1.24256" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence5Box4" type="1" dimension="0.203583 1.11956 3.59558" pos="108.901 -16.3167 -169.35" yaw="18.521" pitch="12.8771" roll="-1.24256" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence5Box5" type="1" dimension="0.203583 1.11956 3.45113" pos="107.708 -15.6014 -172.5" yaw="21.0647" pitch="6.55657" roll="3.87053" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence5Box6" type="1" dimension="0.203583 1.11956 1.97569" pos="106.334 -15.4977 -174.566" yaw="58.5774" pitch="-3.15954" roll="9.91708" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence5Box7" type="1" dimension="0.203583 1.11956 2.13939" pos="104.609 -15.8403 -175.081" yaw="92.5058" pitch="-11.6941" roll="5.10076" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence5Box8" type="1" dimension="0.243583 1.11956 4.0044" pos="102.364 -16.7124 -174.316" yaw="120.409" pitch="-20.257" roll="-6.17212" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence2Box1" type="1" dimension="0.190456 1.08 2.50013" pos="121.489 -39.2102 -0.168406" yaw="-30.4196" pitch="11.7055" roll="1.18624" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence2Box002" type="1" dimension="0.190456 1.08 2.50013" pos="122.436 -38.7 -1.91519" yaw="-27.1108" pitch="11.7055" roll="1.18624" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence2Box003" type="1" dimension="0.190456 1.08 1.88667" pos="123.124 -38.2055 -3.75636" yaw="-13.1871" pitch="11.7055" roll="1.18624" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence2Box004" type="1" dimension="0.190456 1.08 1.88667" pos="123.205 -37.8827 -5.38704" yaw="6.86374" pitch="6.61343" roll="0.576495" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence2Box005" type="1" dimension="0.190456 1.08 1.75913" pos="123.053 -37.6523 -7.0228" yaw="6.86374" pitch="6.61343" roll="0.576495" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence2Box006" type="1" dimension="0.120456 0.148 1.61805" pos="122.935 -37.6948 -8.59945" yaw="4.84605" pitch="2.47911" roll="0.0777549" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence2Box007" type="1" dimension="0.190456 1.08 0.211096" pos="122.879 -37.5131 -9.42493" yaw="-8.44669" pitch="14.0571" roll="1.46486" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence1Box1" type="1" dimension="0.236389 0.86 1.82996" pos="56.0012 -36.8112 100.357" yaw="-13.6246" pitch="-10.6809" roll="2.2429" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence1Box002" type="1" dimension="0.236389 0.86 1.82996" pos="56.4204 -36.9824 98.7074" yaw="-11.7126" pitch="-10.6809" roll="2.2429" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence1Box003" type="1" dimension="0.236389 0.85 1.49576" pos="56.5934 -37.1678 97.2137" yaw="-0.21077" pitch="-3.05627" roll="2.2347" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence1Box004" type="1" dimension="0.236389 0.83 1.32582" pos="56.3669 -37.1926 96.016" yaw="21.3287" pitch="-3.05627" roll="2.2347" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence1Box005" type="1" dimension="0.236389 0.83 1.32582" pos="55.9951 -37.2754 94.9983" yaw="19.5818" pitch="-3.05627" roll="2.2347" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence1Box006" type="1" dimension="0.126389 0.0899998 1.04166" pos="55.6772 -37.4387 93.9598" yaw="19.4033" pitch="0.512483" roll="3.49681" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence1Box007" type="1" dimension="0.126389 0.0899998 1.04166" pos="55.6772 -37.5033 93.8508" yaw="16.7201" pitch="22.1164" roll="10.5775" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence1Box008" type="1" dimension="0.146389 0.76 0.160614" pos="55.5097 -37.3467 93.4302" yaw="19.5818" pitch="-3.05627" roll="2.2347" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence3Box003" type="1" dimension="0.155812 1.02966 1.98018" pos="54.0061 -23.7224 -119.985" yaw="-15.9773" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence3Box008" type="1" dimension="0.155812 1.12268 1.97979" pos="57.4339 -23.5532 -128.357" yaw="-32.8167" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence3Box007" type="1" dimension="0.155812 1.06966 1.98018" pos="56.5475 -23.5459 -126.706" yaw="-23.8483" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence3Box006" type="1" dimension="0.155812 1.10966 1.98018" pos="55.8003 -23.5723 -125.077" yaw="-24.926" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence3Box005" type="1" dimension="0.155812 1.01966 1.98018" pos="55.0995 -23.6349 -123.402" yaw="-21.2507" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence3Box004" type="1" dimension="0.155812 1.06966 1.98018" pos="54.5158 -23.6789 -121.709" yaw="-17.4266" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence3Box002" type="1" dimension="0.155812 1.05065 1.98018" pos="53.4958 -23.7352 -118.201" yaw="-15.9773" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Fence3Box1" type="1" dimension="0.155812 1.09331 1.98018" pos="53.1387 -23.7535 -116.401" yaw="-5.74977" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="HouseBox" type="1" dimension="10.2892 12.8636 12.4575" pos="-61.0924 0.332863 -117.292" yaw="28.2477" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
-  <physx_obj name="Arbol_2_Box" type="1" dimension="2.84335 37.2 2.90149" pos="136.514 -10.0186 -132.568" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="false" />
+  <physx_obj name="TerrainLimitBox084" type="1" dimension="10.4393 30.3169 1.0" pos="133.628 -15.2803 -124.754" yaw="177.105" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox085" type="1" dimension="17.6403 30.3169 1.0" pos="112.501 -15.2803 -121.361" yaw="177.105" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox086" type="1" dimension="12.8774 30.3169 1.0" pos="97.9513 -15.2803 -124.495" yaw="159.211" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox087" type="1" dimension="9.01417 30.3169 1.0" pos="87.475 -15.2803 -126.055" yaw="-172.285" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox088" type="1" dimension="9.01417 30.3169 1.0" pos="81.3867 -15.2803 -121.612" yaw="-113.318" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox089" type="1" dimension="16.4959 30.3169 1.0" pos="83.6741 -15.2803 -110.302" yaw="-59.2853" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox090" type="1" dimension="16.4959 30.3169 1.0" pos="128.841 -15.2803 -101.969" yaw="-111.237" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox091" type="1" dimension="16.4959 30.3169 1.0" pos="124.962 -15.2803 -106.629" yaw="-154.977" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox092" type="1" dimension="19.4355 30.3169 1.0" pos="111.712 -15.2803 -94.9931" yaw="-129.415" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox093" type="1" dimension="14.3823 30.3169 1.0" pos="99.2194 -15.2803 -84.5059" yaw="-160.064" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox094" type="1" dimension="14.3823 30.3169 1.0" pos="91.2861 -15.2803 -90.7467" yaw="78.1862" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox095" type="1" dimension="9.06083 30.3169 1.0" pos="90.202 -16.0377 -99.5094" yaw="122.332" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox096" type="1" dimension="7.15806 32.4391 9.87989" pos="87.482 -14.9766 -82.1749" yaw="122.332" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox097" type="1" dimension="7.9715 30.3169 1.0" pos="27.2375 -27.7638 1.28258" yaw="-37.5451" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox098" type="1" dimension="7.9715 30.3169 1.0" pos="37.3209 -27.7638 12.8248" yaw="-31.7528" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox099" type="1" dimension="4.30461 30.3169 1.0" pos="33.9982 -27.7638 -5.27057" yaw="-37.5451" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox100" type="1" dimension="4.30461 30.3169 1.0" pos="35.6459 -27.7638 -2.48858" yaw="-88.8233" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox101" type="1" dimension="12.037 30.3169 1.0" pos="41.0159 -27.7638 1.76019" yaw="-18.741" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox102" type="1" dimension="8.54625 30.3169 1.0" pos="50.8284 -27.7638 4.30385" yaw="-10.7871" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox103" type="1" dimension="12.6635 30.3169 1.0" pos="56.8314 -27.7638 10.9194" yaw="-75.7628" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox104" type="1" dimension="12.6635 30.3169 1.0" pos="45.0441 -27.7638 19.3344" yaw="-41.8972" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox105" type="1" dimension="7.77032 30.3169 1.0" pos="55.9025 -27.7638 20.0981" yaw="59.9244" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox106" type="1" dimension="4.27367 30.3169 1.0" pos="51.7932 -27.7638 23.8146" yaw="-4.42393" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox107" type="1" dimension="7.49321 30.3169 1.0" pos="31.8119 -27.7638 7.61399" yaw="-60.1433" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox108" type="1" dimension="17.4636 30.3169 7.2473" pos="66.2869 -27.4892 82.2789" yaw="156.789" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox109" type="1" dimension="9.09291 30.3169 7.9002" pos="56.3564 -27.4892 72.6467" yaw="118.181" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox110" type="1" dimension="5.49363 30.3169 5.7661" pos="53.4636 -27.4892 66.6282" yaw="111.729" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox111" type="1" dimension="6.64729 30.3169 1.0" pos="56.7706 -27.4892 60.1567" yaw="63.2173" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox112" type="1" dimension="5.49363 30.3169 1.0" pos="52.2777 -27.4892 55.721" yaw="34.6137" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox113" type="1" dimension="6.48249 30.3169 4.7762" pos="58.5368 -27.4892 53.6437" yaw="41.2808" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox114" type="1" dimension="5.45574 30.3169 1.18503" pos="55.9307 -27.4892 79.7793" yaw="118.181" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="TerrainLimitBox115" type="1" dimension="8.2067 30.3169 1.0" pos="49.3769 -27.4892 60.8206" yaw="91.9582" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
 </physx_objs>

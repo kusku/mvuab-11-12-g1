@@ -28,7 +28,7 @@
   
   <clear_scene color="true" depth="true" stencil="true" />
   
-  <SkySphere SkyTexture="./Data/General/Textures/SkyRelease1.dds" Scale="1000 900 1000" SkyEffectTechnique="SkySphereEffect" />
+  <SkySphere SkyTexture="./Data/General/Textures/Skybox/SkyRelease1.dds" Scale="1000 900 1000" SkyEffectTechnique="SkySphereEffect" />
   
   <set_pool_renderable_objects_technique pool="FowardShading" />
   <render_scene layer="solid" active="true" />
@@ -47,8 +47,6 @@
 
   <!--Post Process-->
   <disable_z_test />
-
-  <!--<bloom_post_process BloomThreshold="0.95" BlurAmount="4.0" BloomIntensity=".75" BaseIntensity="1.5" BloomSaturation="1.0" BaseSaturation="1.0" />-->
   
   <!--Unset Depth Map & Motion Blur RT-->
   <unset_render_target render_target="CustomRTs"/>
@@ -59,24 +57,24 @@
   </set_render_target>
   
   
-  <!--Get Render Scene to Texture--> 
-  <capture_frame_buffer>
+  <!--Get Render Scene to Texture-->
+  <capture_frame_buffer name="ZBlurCapture">
     <dynamic_texture stage_id="0" name="SceneRender" texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="1" />
   </capture_frame_buffer>
   
   <set_pool_renderable_objects_technique pool="zblur_pool" />
-  <render_draw_quad name="ZBlur" >
+  <render_draw_quad name="ZBlurDraw" >
     <texture file="SceneRender" stage_id="0" />
     <texture file="DepthMapTexture" stage_id="1" />
   </render_draw_quad>
 
   <!--Get Render Scene to Texture-->
-  <capture_frame_buffer>
+  <capture_frame_buffer name="MotionBlurCapture">
     <dynamic_texture stage_id="0" name="SceneRender" texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="1" />
   </capture_frame_buffer>
   
   <set_pool_renderable_objects_technique pool="motion_blur" />
-  <render_draw_quad name="MotionBlur" >
+  <render_draw_quad name="MotionBlurDraw" >
     <texture file="SceneRender" stage_id="0" />
     <texture file="__PREV_MOTION_BLUR_TEXTURE" stage_id="1" />
     <texture file="__CURRENT_MOTION_BLUR_TEXTURE" stage_id="2" />
@@ -86,12 +84,9 @@
   <enable_z_test />
   <lens_flare light_index="0" glow_color="255 120 80" />
 
-  <!--Game Info-->
-  <render_game_info active="true" />
-
   <!--Dying Effect-->
   <disable_z_test />
-  <capture_frame_buffer>
+  <capture_frame_buffer name="DyingEffectCapture">
     <dynamic_texture stage_id="0" name="SceneRender" texture_width_as_frame_buffer="true" format_type="A8R8G8B8" mipmaps="1" />
   </capture_frame_buffer>
   <Set_Dying_Amount />
@@ -100,14 +95,25 @@
     <texture file="SceneRender" stage_id="0" />
     <texture file="DyingColorMap" stage_id="1" />
   </render_draw_quad>
+
+  <bloom_post_process BloomThreshold="0.90" BlurAmount="4.0" BloomIntensity="1.1" BaseIntensity="0.9" BloomSaturation="1.1" BaseSaturation="0.9" />
+  
+  <!--Vignetting-->
+  <set_pool_renderable_objects_technique pool="vignetting" />
+  <render_draw_quad name="VignettingEffect" >
+    <texture file="./Data/General/Textures/Vignetting/vigneting.dds" stage_id="0" load_file="true" />
+  </render_draw_quad>
+  
+  <!--Game Info-->
+  <render_game_info active="true" />
   
   <!--Debug-->
   <enable_z_test />
-  <render_debug_waypoints waypoints="false" triggers="false" rails="false" />
+  <render_debug_waypoints waypoints="false" triggers="true" rails="false" />
   <render_debug_process active="false" />
-  <render_debug_physics active="false" draw_fronts="false" draw_frustum="false" draw_names="false" draw_rays="false" />
+  <render_debug_physics active="false" draw_fronts="false" draw_frustum="false" draw_names="false" draw_rays="false" render_positions="false" draw_distances="false" />
   <render_debug_lights active="false" />
-  <render_debug_info grid="false" axis="true" render_console="false" render_logger="false" render_modifiers="false" render_debug_options="false" render_debug_render="false" />
+  <render_debug_info grid="false" axis="false" render_console="false" render_logger="false" render_modifiers="false" render_debug_options="false" render_debug_render="false"   />
 
   <!--Unset Diffuse Texture RT-->
   <unset_render_target render_target="DiffuseRT"/>

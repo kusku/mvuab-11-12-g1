@@ -42,18 +42,18 @@
 		<MaxEndSize value="20" />
 		<BlendState value="Additive" />
 	</settings>
-	
+
 	<settings name="Twister">
 		<TextureName value="./Data/General/Textures/Particles/Waterfall0040000.dds" />
-		<MaxParticles value="2500" />
-		<Duration value="2.4" />
+		<MaxParticles value="1300" />
+		<Duration value="2.0" />
 		<MinHorizontalVelocity value="0" />
 		<MaxHorizontalVelocity value="0" />
 		<MinVerticalVelocity value="-1" />
 		<MaxVerticalVelocity value="3" />
 		<Gravity value="0 0 0" />
-		<MinColor value="255.000000 255.000000 255.000000 112.000000"/>
-		<MaxColor value="255.000000 255.000000 255.000000 224.500000"/>
+		<MinColor value="255.000000 255.000000 255.000000 50.000000"/>
+		<MaxColor value="255.000000 255.000000 255.000000 124.500000"/>
 		<EndVelocity value="0 0 0" />
 		<MinRotateSpeed value="-1" />
 		<MaxRotateSpeed value="1" />
@@ -61,8 +61,8 @@
 		<MaxStartSize value="2" />
 		<MinEndSize value="5" />
 		<MaxEndSize value="8" />
-		<!--<BlendState value="Additive"/>-->
-		<BlendState value="NonPremultiplied" />
+		<BlendState value="Additive"/>
+		<!--<BlendState value="NonPremultiplied" />-->
 	</settings>
 
 	<settings name="Blood">
@@ -229,23 +229,23 @@
 		<BlendState value="Additive" />
 	</settings>
 
-	<settings name="fire">
+	<settings name="FireLimit">
 		<TextureName value="./Data/General/Textures/Particles/fire.dds" />
-		<MaxParticles value="2400" />
+		<MaxParticles value="5000" />
 
 		<Duration value="2" />
 		<DurationRandomness value="1" />
 
 		<MinHorizontalVelocity value="0" />
-		<MaxHorizontalVelocity value="15" />
+		<MaxHorizontalVelocity value="5" />
 
-		<MinVerticalVelocity value="-10" />
-		<MaxVerticalVelocity value="10" />
+		<MinVerticalVelocity value="0" />
+		<MaxVerticalVelocity value="0" />
 
-		<Gravity value="0 15 0" />
+		<Gravity value="0 5 0" />
 
-		<MinColor value="255 255 255 10" />
-		<MaxColor value="255 255 255 40" />
+		<MinColor value="255 0 0 50" />
+		<MaxColor value="255 255 255 80" />
 
 		<MinStartSize value="5" />
 		<MaxStartSize value="10" />
@@ -253,6 +253,9 @@
 		<MinEndSize value="10" />
 		<MaxEndSize value="40" />
 
+    <MinRotateSpeed value="0" />
+    <MaxRotateSpeed value="0" />
+    
 		<BlendState value="Additive" />
 	</settings>
 
@@ -294,8 +297,8 @@
 		<!--<Duration value="0.300000"/>
 		<DurationRandomness value="0.100000"/>-->
 		<Duration value="0.500000"/>
-		<DurationRandomness value="0.2500000"/>
-		<EmitterVelocitySensitivity value="0.200000"/>
+		<DurationRandomness value="0.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="-0.100000"/>
 		<MaxHorizontalVelocity value="0.100000"/>
 		<MinVerticalVelocity value="-0.200000"/>
@@ -313,6 +316,52 @@
 		<BlendState value="Additive"/>
 	</settings>
 
+	<settings name="SwordMedium">
+		<TextureName value="./Data/General/Textures/Particles/FlowerBurst.dds"/>
+		<MaxParticles value="300"/>
+		<Duration value="0.500000"/>
+		<DurationRandomness value="0.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
+		<MinHorizontalVelocity value="-0.100000"/>
+		<MaxHorizontalVelocity value="0.100000"/>
+		<MinVerticalVelocity value="-0.200000"/>
+		<MaxVerticalVelocity value="0.200000"/>
+		<Gravity value="0.000000 1.000000 0.000000"/>
+		<EndVelocity value="1.500000"/>
+		<MinColor value="0.000000 0.000000 255.000000 255.000000"/>
+		<MaxColor value="0.000000 255.000000 0.000000 255.000000"/>
+		<MinRotateSpeed value="0.500000"/>
+		<MaxRotateSpeed value="3.000000"/>
+		<MinStartSize value="0.0500000"/>
+		<MaxStartSize value="0.100000"/>
+		<MinEndSize value="0.200000"/>
+		<MaxEndSize value="0.500000"/>
+		<BlendState value="Additive"/>
+	</settings>
+	
+	<settings name="SwordMediumLarge">
+		<TextureName value="./Data/General/Textures/Particles/FlowerBurst.dds"/>
+		<MaxParticles value="1000"/>
+		<Duration value="0.500000"/>
+		<DurationRandomness value="0.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
+		<MinHorizontalVelocity value="-0.100000"/>
+		<MaxHorizontalVelocity value="0.100000"/>
+		<MinVerticalVelocity value="-0.200000"/>
+		<MaxVerticalVelocity value="0.200000"/>
+		<Gravity value="0.000000 1.000000 0.000000"/>
+		<EndVelocity value="1.500000"/>
+		<MinColor value="0.000000 0.000000 255.000000 255.000000"/>
+		<MaxColor value="0.000000 255.000000 0.000000 255.000000"/>
+		<MinRotateSpeed value="0.500000"/>
+		<MaxRotateSpeed value="3.000000"/>
+		<MinStartSize value="0.0500000"/>
+		<MaxStartSize value="0.100000"/>
+		<MinEndSize value="0.200000"/>
+		<MaxEndSize value="0.500000"/>
+		<BlendState value="Additive"/>
+	</settings>
+	
 	<settings name="SwordFinal">
 		<TextureName value="./Data/General/Textures/Particles/FlowerBurst.dds"/>
 		<MaxParticles value="400"/>
@@ -336,6 +385,31 @@
 		<BlendState value="Additive"/>
 	</settings>
 
+	<settings name="SwordRotation">
+		<TextureName value="./Data/General/Textures/Particles/FlowerBurst.dds"/>
+		<MaxParticles value="1400"/>
+		<!--<Duration value="0.300000"/>
+		<DurationRandomness value="0.100000"/>-->
+		<Duration value="0.6000"/>
+		<DurationRandomness value="0.00000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
+		<MinHorizontalVelocity value="-0.300000"/>
+		<MaxHorizontalVelocity value="0.300000"/>
+		<MinVerticalVelocity value="-0.500000"/>
+		<MaxVerticalVelocity value="0.500000"/>
+		<Gravity value="0.000000 2.00000 0.000000"/>
+		<EndVelocity value="1.500000"/>
+		<MinColor value="255.000000 0.000000 0.000000 255.000000"/>
+		<MaxColor value="0.000000 0.000000 255.000000 255.000000"/>
+		<MinRotateSpeed value="0.500000"/>
+		<MaxRotateSpeed value="3.000000"/>
+		<MinStartSize value="0.0500000"/>
+		<MaxStartSize value="0.100000"/>
+		<MinEndSize value="0.200000"/>
+		<MaxEndSize value="0.60000"/>
+		<BlendState value="Additive"/>
+	</settings>
+	
 	<settings name="Snow">
 		<TextureName value="./Data/General/Textures/Particles/snow.dds" />
 		<MaxParticles value="200" />
@@ -365,6 +439,37 @@
 		<MaxEndSize value="20" />
 		<BlendState value="NonPremultiplied"/>
 	</settings>
+
+	<settings name="DeepSnow">
+		<TextureName value="./Data/General/Textures/Particles/snow.dds" />
+		<MaxParticles value="5000" />
+
+		<Duration value="10" />
+
+		<MinHorizontalVelocity value="-100" />
+		<MaxHorizontalVelocity value="100" />
+
+		<MinVerticalVelocity value="-9" />
+		<MaxVerticalVelocity value="8" />
+
+		<Gravity value="-0 -9.8 0" />
+
+		<MinColor value="255.000000 255.000000 255.000000 12.000000"/>
+		<MaxColor value="255.000000 255.000000 255.000000 214.500000"/>
+
+		<EndVelocity value="0.75" />
+
+		<MinRotateSpeed value="-1" />
+		<MaxRotateSpeed value="1" />
+
+		<MinStartSize value="0.1" />
+		<MaxStartSize value="0.2" />
+
+		<MinEndSize value="3.6" />
+		<MaxEndSize value="5" />
+		<BlendState value="NonPremultiplied"/>
+	</settings>
+
 
 	<!-- ************* -->
 	<!-- WOLF SETTINGS -->
@@ -397,7 +502,7 @@
 		<MaxParticles value="1000"/>
 		<Duration value="2.00000"/>
 		<DurationRandomness value="0.000000"/>
-		<EmitterVelocitySensitivity value="0.400000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="0.200000"/>
 		<MaxHorizontalVelocity value="0.600000"/>
 		<MinVerticalVelocity value="0.000000"/>
@@ -420,7 +525,7 @@
 		<MaxParticles value="500"/>
 		<Duration value="1.500000"/>
 		<DurationRandomness value="0.000000"/>
-		<EmitterVelocitySensitivity value="1.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="-1.000000"/>
 		<MaxHorizontalVelocity value="1.000000"/>
 		<MinVerticalVelocity value="1.000000"/>
@@ -443,7 +548,7 @@
 		<MaxParticles value="200"/>
 		<Duration value="1.500000"/>
 		<DurationRandomness value="0.000000"/>
-		<EmitterVelocitySensitivity value="5.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="-5.000000"/>
 		<MaxHorizontalVelocity value="1.000000"/>
 		<MinVerticalVelocity value="3.000000"/>
@@ -466,7 +571,7 @@
 		<MaxParticles value="2000"/>
 		<Duration value="1.500000"/>
 		<DurationRandomness value="0.000000"/>
-		<EmitterVelocitySensitivity value="1.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="-3.000000"/>
 		<MaxHorizontalVelocity value="3.000000"/>
 		<MinVerticalVelocity value="-1.000000"/>
@@ -555,7 +660,7 @@
 		<MaxParticles value="100"/>
 		<Duration value="1.000"/>
 		<DurationRandomness value="1.000000"/>
-		<EmitterVelocitySensitivity value="1.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="-0.4000000"/>
 		<MaxHorizontalVelocity value="0.4000000"/>
 		<MinVerticalVelocity value="-0.400000"/>
@@ -598,7 +703,7 @@
 	</settings>
 	<settings name="WolfExpandWave">
 		<TextureName value="./Data/General/Textures/Particles/Burst2.dds"/>
-		<MaxParticles value="2"/>
+		<MaxParticles value="6"/>
 		<Duration value="0.9000"/>
 		<DurationRandomness value="0.000000"/>
 		<EmitterVelocitySensitivity value="0.000000"/>
@@ -623,7 +728,7 @@
 		<MaxParticles value="150"/>
 		<Duration value="0.400"/>
 		<DurationRandomness value="1.000000"/>
-		<EmitterVelocitySensitivity value="3.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="-1.2000000"/>
 		<MaxHorizontalVelocity value="1.200000"/>
 		<MinVerticalVelocity value="-1.200000"/>
@@ -646,7 +751,7 @@
 		<MaxParticles value="120"/>
 		<Duration value="0.300"/>
 		<DurationRandomness value="1.000000"/>
-		<EmitterVelocitySensitivity value="1.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="-2.000000"/>
 		<MaxHorizontalVelocity value="2.000000"/>
 		<MinVerticalVelocity value="-2.000000"/>
@@ -669,7 +774,7 @@
 		<MaxParticles value="20"/>
 		<Duration value="2.600000"/>
 		<DurationRandomness value="1.000000"/>
-		<EmitterVelocitySensitivity value="1.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="0.000000"/>
 		<MaxHorizontalVelocity value="0.000000"/>
 		<MinVerticalVelocity value="1.000000"/>
@@ -692,7 +797,7 @@
 		<MaxParticles value="120"/>
 		<Duration value="1.300"/>
 		<DurationRandomness value="1.000000"/>
-		<EmitterVelocitySensitivity value="1.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="-3.000000"/>
 		<MaxHorizontalVelocity value="3.000000"/>
 		<MinVerticalVelocity value="-2.000000"/>
@@ -764,7 +869,7 @@
 		<MaxParticles value="1000"/>
 		<Duration value="2.000000"/>
 		<DurationRandomness value="0.000000"/>
-		<EmitterVelocitySensitivity value="0.400000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="0.200000"/>
 		<MaxHorizontalVelocity value="0.600000"/>
 		<MinVerticalVelocity value="0.000000"/>
@@ -787,7 +892,7 @@
 		<MaxParticles value="500"/>
 		<Duration value="1.500000"/>
 		<DurationRandomness value="0.000000"/>
-		<EmitterVelocitySensitivity value="1.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="-1.000000"/>
 		<MaxHorizontalVelocity value="1.000000"/>
 		<MinVerticalVelocity value="1.000000"/>
@@ -810,7 +915,7 @@
 		<MaxParticles value="200"/>
 		<Duration value="1.500000"/>
 		<DurationRandomness value="0.000000"/>
-		<EmitterVelocitySensitivity value="5.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="-5.000000"/>
 		<MaxHorizontalVelocity value="1.000000"/>
 		<MinVerticalVelocity value="3.000000"/>
@@ -833,7 +938,7 @@
 		<MaxParticles value="2000"/>
 		<Duration value="1.500000"/>
 		<DurationRandomness value="0.000000"/>
-		<EmitterVelocitySensitivity value="1.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="-3.000000"/>
 		<MaxHorizontalVelocity value="3.000000"/>
 		<MinVerticalVelocity value="-1.000000"/>
@@ -944,7 +1049,7 @@
 		<MaxParticles value="120"/>
 		<Duration value="0.300"/>
 		<DurationRandomness value="1.000000"/>
-		<EmitterVelocitySensitivity value="1.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="-2.000000"/>
 		<MaxHorizontalVelocity value="2.000000"/>
 		<MinVerticalVelocity value="-2.000000"/>
@@ -989,7 +1094,7 @@
 		<MaxParticles value="20"/>
 		<Duration value="2.600000"/>
 		<DurationRandomness value="1.000000"/>
-		<EmitterVelocitySensitivity value="1.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="0.000000"/>
 		<MaxHorizontalVelocity value="0.000000"/>
 		<MinVerticalVelocity value="1.000000"/>
@@ -1012,7 +1117,7 @@
 		<MaxParticles value="120"/>
 		<Duration value="1.300"/>
 		<DurationRandomness value="1.000000"/>
-		<EmitterVelocitySensitivity value="1.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="-3.000000"/>
 		<MaxHorizontalVelocity value="3.000000"/>
 		<MinVerticalVelocity value="-2.000000"/>
@@ -1082,7 +1187,7 @@
 		<MaxParticles value="1500"/>
 		<Duration value="1.500000"/>
 		<DurationRandomness value="0.000000"/>
-		<EmitterVelocitySensitivity value="3.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="-3.000000"/>
 		<MaxHorizontalVelocity value="3.000000"/>
 		<MinVerticalVelocity value="1.000000"/>
@@ -1105,7 +1210,7 @@
 		<MaxParticles value="1200"/>
 		<Duration value="1.500000"/>
 		<DurationRandomness value="0.000000"/>
-		<EmitterVelocitySensitivity value="5.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="-5.000000"/>
 		<MaxHorizontalVelocity value="1.000000"/>
 		<MinVerticalVelocity value="3.000000"/>
@@ -1128,7 +1233,7 @@
 		<MaxParticles value="2000"/>
 		<Duration value="1.500000"/>
 		<DurationRandomness value="0.000000"/>
-		<EmitterVelocitySensitivity value="1.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="-3.000000"/>
 		<MaxHorizontalVelocity value="3.000000"/>
 		<MinVerticalVelocity value="-1.000000"/>
@@ -1217,7 +1322,7 @@
 		<MaxParticles value="100"/>
 		<Duration value="1.000"/>
 		<DurationRandomness value="1.000000"/>
-		<EmitterVelocitySensitivity value="1.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="-0.9000000"/>
 		<MaxHorizontalVelocity value="0.9000000"/>
 		<MinVerticalVelocity value="-0.900000"/>
@@ -1263,7 +1368,7 @@
 		<MaxParticles value="150"/>
 		<Duration value="0.400"/>
 		<DurationRandomness value="1.000000"/>
-		<EmitterVelocitySensitivity value="3.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="-1.2000000"/>
 		<MaxHorizontalVelocity value="1.200000"/>
 		<MinVerticalVelocity value="-1.200000"/>
@@ -1286,7 +1391,7 @@
 		<MaxParticles value="120"/>
 		<Duration value="0.300"/>
 		<DurationRandomness value="1.000000"/>
-		<EmitterVelocitySensitivity value="1.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="-2.000000"/>
 		<MaxHorizontalVelocity value="2.000000"/>
 		<MinVerticalVelocity value="-2.000000"/>
@@ -1309,7 +1414,7 @@
 		<MaxParticles value="1000"/>
 		<Duration value="2.000000"/>
 		<DurationRandomness value="0.000000"/>
-		<EmitterVelocitySensitivity value="0.400000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="0.200000"/>
 		<MaxHorizontalVelocity value="0.600000"/>
 		<MinVerticalVelocity value="0.000000"/>
@@ -1332,7 +1437,7 @@
 		<MaxParticles value="120"/>
 		<Duration value="1.300"/>
 		<DurationRandomness value="1.000000"/>
-		<EmitterVelocitySensitivity value="1.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="-3.000000"/>
 		<MaxHorizontalVelocity value="3.000000"/>
 		<MinVerticalVelocity value="-2.000000"/>
@@ -1379,7 +1484,7 @@
 		<MaxParticles value="120"/>
 		<Duration value="1.300"/>
 		<DurationRandomness value="1.000000"/>
-		<EmitterVelocitySensitivity value="1.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="-3.000000"/>
 		<MaxHorizontalVelocity value="3.000000"/>
 		<MinVerticalVelocity value="-2.000000"/>
@@ -1447,7 +1552,7 @@
 		<MaxParticles value="2000"/>
 		<Duration value="3.000000"/>
 		<DurationRandomness value="0.000000"/>
-		<EmitterVelocitySensitivity value="1.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="-1.000000"/>
 		<MaxHorizontalVelocity value="1.000000"/>
 		<MinVerticalVelocity value="-1.000000"/>
@@ -1540,7 +1645,7 @@
 		<MaxParticles value="200"/>
 		<Duration value="0.300"/>
 		<DurationRandomness value="1.000000"/>
-		<EmitterVelocitySensitivity value="3.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="-4.000000"/>
 		<MaxHorizontalVelocity value="4.000000"/>
 		<MinVerticalVelocity value="-4.000000"/>
@@ -1563,7 +1668,7 @@
 		<MaxParticles value="120"/>
 		<Duration value="0.300"/>
 		<DurationRandomness value="1.000000"/>
-		<EmitterVelocitySensitivity value="1.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="-2.000000"/>
 		<MaxHorizontalVelocity value="2.000000"/>
 		<MinVerticalVelocity value="-2.000000"/>
@@ -1609,7 +1714,7 @@
 		<MaxParticles value="20"/>
 		<Duration value="2.600000"/>
 		<DurationRandomness value="1.000000"/>
-		<EmitterVelocitySensitivity value="1.000000"/>
+		<EmitterVelocitySensitivity value="0.000000"/>
 		<MinHorizontalVelocity value="0.000000"/>
 		<MaxHorizontalVelocity value="0.000000"/>
 		<MinVerticalVelocity value="1.000000"/>

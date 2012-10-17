@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<limits_objs>
+  <limit name="zona1_wall" dimension="46.0 5.0 0.5" pos="69.3749 -20.967 -93.8061" yaw="0.0" pitch="0.0" roll="0.0" group="zona1" />
+  <limit name="zona3_wall001" dimension="20.0 5.0 0.5" pos="48.1959 -30.721 -17.1887" yaw="-21.9148" pitch="0.0" roll="0.0" group="zona3" />
+  <limit name="zona3_wall002" dimension="5.0 5.0 0.5" pos="64.2939 -30.2151 -10.4007" yaw="-21.9148" pitch="0.0" roll="0.0" group="zona3" />
+  <limit name="zona3_wall003" dimension="5.0 5.0 0.5" pos="59.7182 -30.4113 -12.3222" yaw="-21.9148" pitch="0.0" roll="0.0" group="zona3" />
+  <limit name="zona3_wall004" dimension="11.0 5.0 0.5" pos="71.4182 -30.8371 -7.70157" yaw="-22.1273" pitch="-3.13764" roll="-7.74783" group="zona3" />
+  <limit name="zona3_wall005" dimension="10.0 5.0 0.5" pos="80.6117 -32.641 -4.03382" yaw="-22.5402" pitch="-5.4075" roll="-13.1839" group="zona3" />
+  <limit name="zona3_wall006" dimension="10.0 5.0 0.5" pos="89.4039 -34.5043 -0.306971" yaw="-22.0904" pitch="-2.85097" roll="-7.04801" group="zona3" />
+  <limit name="zona3_wall007" dimension="8.0 5.0 0.5" pos="97.6275 -35.6233 2.9976" yaw="-22.0904" pitch="-2.85097" roll="-7.04801" group="zona3" />
+  <limit name="zona3_wall008" dimension="9.0 5.0 0.5" pos="104.944 -37.3155 5.91271" yaw="-23.0255" pitch="-7.24599" roll="-17.4074" group="zona3" />
+  <limit name="zona3_wall009" dimension="5.0 5.0 0.5" pos="110.26 -38.9295 8.29444" yaw="-21.9933" pitch="-1.90385" roll="-4.72087" group="zona3" />
+  <limit name="zona3_wall010" dimension="9.85 5.0 0.5" pos="116.632 -38.5186 10.9969" yaw="-22.092" pitch="2.86412" roll="7.08015" group="zona3" />
+  <limit name="zona3_wall011" dimension="9.85 5.0 0.5" pos="124.107 -36.1214 14.5354" yaw="-25.0244" pitch="12.3913" roll="28.0756" group="zona3" />
+  <limit name="zona4_wall001" dimension="15.0 5.0 0.5" pos="24.3385 -32.2589 121.566" yaw="-47.8953" pitch="5.42538" roll="4.92377" group="zona4" />
+  <limit name="zona4_wall002" dimension="15.0 5.0 0.5" pos="14.3906 -33.8915 110.645" yaw="-48.207" pitch="8.30469" roll="7.49725" group="zona4" />
+  <limit name="zona4_wall003" dimension="8.0 5.0 0.5" pos="6.90969 -35.8745 102.523" yaw="-48.7761" pitch="11.9109" roll="10.6503" group="zona4" />
+  <limit name="zona4_wall004" dimension="8.0 5.0 0.5" pos="2.6481 -36.2235 97.3628" yaw="-46.7971" pitch="7.11919" roll="-8.65098" group="zona4" />
+  <limit name="puente_final_wall" dimension="10.0 5.0 1.0" pos="-69.4845 -14.0407 -15.1546" yaw="-3.61295" pitch="0.0" roll="0.0" group="puente_final" />
+  <limit name="zona6_wall001" dimension="10.0 5.0 0.5" pos="-93.6018 -14.368 12.8494" yaw="5.67155" pitch="0.0" roll="0.0" group="zona6" />
+  <limit name="zona5_wall001" dimension="8.0 5.0 0.5" pos="-85.8673 -17.8319 122.962" yaw="91.5126" pitch="0.951583" roll="-38.9777" group="zona5" />
+  <limit name="zona5_wall002" dimension="8.0 5.0 0.5" pos="-85.8673 -20.7289 116.932" yaw="91.1799" pitch="0.0975626" roll="-4.74216" group="zona5" />
+  <limit name="zona5_wall003" dimension="8.0 5.0 0.5" pos="-85.9264 -19.9708 110.582" yaw="91.3041" pitch="-0.564048" roll="25.6234" group="zona5" />
+  <limit name="zona5_wall004" dimension="8.0 5.0 0.5" pos="-62.4805 -11.8261 93.1254" yaw="-174.649" pitch="-0.318231" roll="23.2565" group="zona5" />
+  <limit name="zona5_wall005" dimension="8.0 5.0 0.5" pos="-69.5512 -9.69284 93.8308" yaw="-175.056" pitch="1.26317" roll="6.21484" group="zona5" />
+  <limit name="zona5_wall006" dimension="19.0 5.0 0.5" pos="-81.6731 -14.069 101.724" yaw="-127.099" pitch="-24.6503" roll="-32.7237" group="zona5" />
+  <limit name="zona5_wall007" dimension="5.0 5.0 0.5" pos="-75.5045 -9.31413 94.8373" yaw="-169.313" pitch="-2.33759" roll="-7.6205" group="zona5" />
+  <limit name="zona2_wall001" dimension="30.0 5.0 0.5" pos="116.701 -25.8433 -54.7779" yaw="0.0" pitch="0.0" roll="-3.93264" group="zona2" />
+  <limit name="zona2_wall004" dimension="17.0 5.0 0.5" pos="53.6416 -23.9549 -54.794" yaw="0.0" pitch="0.0" roll="9.18393" group="zona2" />
+  <limit name="zona2_wall003" dimension="20.0 5.0 0.5" pos="71.8429 -22.5632 -54.794" yaw="0.0" pitch="0.0" roll="-1.78509" group="zona2" />
+  <limit name="zona2_wall002" dimension="20.0 5.0 0.5" pos="91.8793 -24.0659 -54.794" yaw="0.0" pitch="0.0" roll="-4.78229" group="zona2" />
+</limits_objs>

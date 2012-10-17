@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <steering_properties xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<!--longitud de colision de diferentes comportamientos-->
-	<ObstacleWallDetectionFeelerLength>1.0</ObstacleWallDetectionFeelerLength>	
+	<ObstacleWallDetectionFeelerLength>1.2</ObstacleWallDetectionFeelerLength>	
+	<ObstacleWallDetectionFeelerAngle>60</ObstacleWallDetectionFeelerAngle>	
+	<ObstacleWallDetectionFeelerAngleIncrement>2.0</ObstacleWallDetectionFeelerAngleIncrement>	
 	<CollisionDetectionFeelerLength>3.4</CollisionDetectionFeelerLength>
 	<SeparationDetectionFeelerLength>3.4</SeparationDetectionFeelerLength>	<!-- Longitud de los rayos en separación. Ajo -->
 	<SeparationDecayCoefficient>0.1</SeparationDecayCoefficient>			<!-- Permite definir un coeficiente para la decrementación de la separación con la inversa a la distancia -->
@@ -20,7 +22,7 @@
 	<AlignmentWeight>2.0</AlignmentWeight> 
 	<CohesionWeight>3.0</CohesionWeight> 
 	<CollisionAvoidanceWeight>10.0</CollisionAvoidanceWeight> 
-	<ObstacleWallAvoidanceWeight>10.0</ObstacleWallAvoidanceWeight> 
+	<ObstacleWallAvoidanceWeight>2.0</ObstacleWallAvoidanceWeight> 
 	<WanderWeight>1</WanderWeight> 
 	<SeekWeight>3.0</SeekWeight> 
 	<FleeWeight>1.0</FleeWeight> 
@@ -47,5 +49,9 @@
 	<!-- Permite definir el nº de enemigos que pueden atacar a la vez. Esto permite que los demás enemigos permanezcan inactivos 
 		hasta que les toque el turno, es decir, que ya no existan los N enemigos más cercanos a él y pueda entrar en acción -->
 	<NumberEnemiesCanAttack>5</NumberEnemiesCanAttack>				
+	<MinNumberEnemiesCanHelp>2</MinNumberEnemiesCanHelp>	
+	<MaxNumberEnemiesCanHelp>5</MaxNumberEnemiesCanHelp>	
+	<CamaraRangeAngleForPrepared>164</CamaraRangeAngleForPrepared>	
+	<CamaraRangeAngleForAttack>164</CamaraRangeAngleForAttack>	
 	
 </steering_properties>

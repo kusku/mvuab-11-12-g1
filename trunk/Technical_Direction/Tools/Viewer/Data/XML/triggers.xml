@@ -1,31 +1,14 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <triggers>
-	<!--<trigger name="inicio" type="box" position="-14.79 -29.66 -113.58" size="2.0 2.0 2.0" color="1.0 0.0 1.0 1.0" scriptclass="CStartTrigger" />
-	<trigger name="cascada" type="box" position="62.05 -23.51 -75.32" size="3.0 2.0 2.0"  color="1.0 0.0 1.0 1.0" scriptclass="CCascadeTrigger" />
-	<trigger name="puente" type="box" position="90.82 -24.56 -24.13" size="2.0 2.0 3.0" color="1.0 0.0 1.0 1.0" scriptclass="CBridgeTrigger" />
-	<trigger name="casa" type="box" position="51.82 -31.56 103.44" size="3.0 2.0 2.0" color="1.0 0.0 1.0 1.0" scriptclass="CHouseTrigger" />
-	<trigger name="final" type="box" position="-30.18 -30.32 104.00" size="4.0 2.0 3.0" color="1.0 0.0 1.0 1.0" scriptclass="CEndGameTrigger" />-->
-	
 	<trigger active="true" name="house" type="box" position="-58.106 -5.102 -113.756" size="1.5 3.0 3.5" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CEndGameTrigger" />
 	
-	<!--<trigger name="river_1" type="box" position="58.106 -30.102 -170.756" size="17.857 3.0 30.7" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CRiverTrigger" />
-	<trigger name="river_2" type="box" position="-130.638 -37.688 -1.816" size="80.171 11.16 12.129" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CRiverTrigger" />
-	<trigger name="river_3" type="box" position="-43.638 -42.688 -6.816" size="7.171 10.16 10.129" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CRiverTrigger" />
-	<trigger name="river_4" type="box" position="-29.638 -48.688 -6.816" size="7.171 10.16 10.129" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CRiverTrigger" />
-	<trigger name="river_5" type="box" position="-15.638 -52.688 -6.816" size="10.171 10.16 12.129" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CRiverTrigger" />
-	<trigger name="river_6" type="box" position="4.638 -53.5 -7.816" size="14.171 10.16 8.129" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CRiverTrigger" />
-	<trigger name="river_7" type="box" position="30.638 -49.5 -22.816" size="14.171 10.16 18.129" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CRiverTrigger" />
-	<trigger name="river_8" type="box" position="30.638 -36.0 -68.816" size="14.171 4.16 28.129" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CRiverTrigger" />
-	<trigger name="river_9" type="box" position="30.638 -32.0 -115.816" size="14.171 4.16 20.129" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CRiverTrigger" />
-	<trigger name="river_10" type="box" position="50.638 -31.0 -160.816" size="17.171 4.16 27.129" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CRiverTrigger" />-->
-
 	<trigger active="true"  name="zona_combate_1" type="box" position="100 -22 -147" size="5 3 50" yaw="45" color="1.0 0.0 1.0 1.0" scriptclass="CCombatZone1Trigger" />
-	<trigger active="true"  name="zona_combate_2" type="box" position="90 -22 -98" size="5 3 45" yaw="90" color="1.0 0.0 1.0 1.0" scriptclass="CCombatZone2Trigger" />
+	<trigger active="true"  name="zona_combate_2" type="box" position="90 -22 -92" size="2 3 45" yaw="90" color="1.0 0.0 1.0 1.0" scriptclass="CCombatZone2Trigger" />
 	<trigger active="true"  name="zona_combate_3" type="box" position="115 -35 -13" size="5 3 20" yaw="90" color="1.0 0.0 1.0 1.0" scriptclass="CCombatZone3Trigger" />
 	<trigger active="true"  name="zona_combate_4" type="box" position="65 -40 30" size="2 10 55" yaw="45" color="1.0 0.0 1.0 1.0" scriptclass="CCombatZone4Trigger" />
 	<trigger active="true"  name="zona_combate_5" type="box" position="-37 -32 115" size="4 10 15" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CCombatZone5Trigger" />
 	<trigger active="true"  name="zona_combate_6" type="box" position="-98 -10 84" size="35 1 2" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CCombatZone6Trigger" />
-	<trigger active="true"  name="zona_combate_7" type="box" position="-52 -19 -38" size="35 1 10" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CCombatZone7Trigger" />
+	<trigger active="true"  name="zona_combate_7" type="box" position="-82 -19 -38" size="65 2 10" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CCombatZone7Trigger" />
 	<trigger active="true"  name="zona_combate_8" type="box" position="-64 -14 -80" size="45 2 10" yaw="0" color="1.0 0.0 1.0 1.0" scriptclass="CCombatZone8Trigger" />
 
   <!--<trigger name="inicio" type="sphere" position="-14.79 -29.66 -113.58" radius="5.0" color="1.0 0.0 1.0 1.0" scriptclass="CSphereTriggerTest" />-->

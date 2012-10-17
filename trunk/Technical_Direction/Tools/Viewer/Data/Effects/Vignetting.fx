@@ -21,9 +21,9 @@ VertexOut RenderNoiseAndVignettingVS(VertexIn IN)
 	return l_OUT;
 }
 
-float4 RenderNoiseAndVignettingPS(VertexOut IN) : COLOR
+float4 RenderNoiseAndVignettingPS(VertexOut IN) : COLOR0
 {
-	float4 l_VignettingColor = tex2D(S0LinearWrapSampler, IN.UV);
+	float4 l_VignettingColor = tex2D(S0LinearWrapSampler, IN.UV) * 1.15f;
 	return l_VignettingColor;	
 }
 

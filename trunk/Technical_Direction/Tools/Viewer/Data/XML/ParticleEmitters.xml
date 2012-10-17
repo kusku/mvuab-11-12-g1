@@ -14,18 +14,22 @@
 
 	<emitter name="Blood" system_name="Blood" type="point" particlesPerSecond="100" initialPosition="0 30 0" on_loop="false" ejection_count="5" />
 
-	<emitter name="SwordRight" system_name="Sword" type="point" particlesPerSecond="200" initialPosition="0 0 0" on_loop="false" ejection_count="70" />
-	<emitter name="SwordLeft" system_name="Sword" type="point" particlesPerSecond="200" initialPosition="0 0 0" on_loop="false" ejection_count="70" />
+  <emitter name="DeepSnow" system_name="DeepSnow" type="box" particlesPerSecond="5000" ejection_count="5000" on_loop="false" initialPosition="0, 0, 0" box_min="-45 -10.0 -63" box_max="50.0 10.0 50.0" use_dir="false" />
+
+  <emitter name="SwordBasic" system_name="Sword" type="point" particlesPerSecond="200" initialPosition="0 0 0" on_loop="false" ejection_count="70" />
+	<emitter name="SwordMedium" system_name="SwordMedium" type="point" particlesPerSecond="200" initialPosition="0 0 0" on_loop="false" ejection_count="70" />
+	<emitter name="SwordMediumLarge" system_name="SwordMediumLarge" type="point" particlesPerSecond="200" initialPosition="0 0 0" on_loop="false" ejection_count="150" />
 	<emitter name="SwordFinal" system_name="SwordFinal" type="point" particlesPerSecond="400" initialPosition="0 0 0" on_loop="false" ejection_count="90" />
+	<emitter name="SwordRotation" system_name="SwordRotation" type="point" particlesPerSecond="350" initialPosition="0 0 0" on_loop="false" ejection_count="500" />
 	
 	<emitter name="Snow" system_name="Snow" type="box" particlesPerSecond="100" on_loop="true" initialPosition="0.0 0.0 0.0" box_min="0.0 -45.0 0.0" box_max="50.0 -41.0 50.0" />
 	<emitter name="Snow1" system_name="Snow" type="box" particlesPerSecond="110" on_loop="true" initialPosition="0.0 0.0 0.0" box_min="-110 -17 -100" box_max="-30 -16 -50" />
 	<emitter name="Snow2" system_name="Snow" type="box" particlesPerSecond="170" on_loop="true" initialPosition="0.0 0.0 0.0" box_min="50 -27 -140" box_max="80 -24 -110" />
 	<emitter name="Snow3" system_name="Snow" type="box" particlesPerSecond="150" on_loop="true" initialPosition="0.0 0.0 0.0" box_min="60 -27 -110" box_max="90 -24 -80" />
 	
-	<emitter name="Twister" system_name="Twister" type="line" particlesPerSecond="40000" initialPosition="0 0 0" on_loop="false" ejection_count="100" />
-	<emitter name="WolfTwister" system_name="WolfTwister" type="line" particlesPerSecond="5000" initialPosition="0 0 0" on_loop="false" ejection_count="1500" />
-	<emitter name="WolfTwisterExplosion" system_name="WolfTwisterExplosion" type="line" particlesPerSecond="1000" initialPosition="0 0 0" on_loop="false" ejection_count="500" />
+	<emitter name="Twister" system_name="Twister" type="line" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="20" use_dis="false"  />
+	<emitter name="WolfTwister" system_name="WolfTwister" type="line" particlesPerSecond="5000" initialPosition="0 0 0" on_loop="false" ejection_count="1500" use_dis="false"  />
+	<emitter name="WolfTwisterExplosion" system_name="WolfTwisterExplosion" type="line" particlesPerSecond="1000" initialPosition="0 0 0" on_loop="false" ejection_count="500" use_dis="false"  />
 	
 	<!-- Partículas al morir un enemigo -->
 	<!--<emitter name="DeathExplosion" system_name="DeathExplosion" type="point" particlesPerSecond="30" initialPosition="30 150 30" />-->
@@ -66,32 +70,32 @@
 	<!-- Rabbit Particles -->
 	<!-- **************** -->
 	<!-- Partículas de bloqueo -->
-	<emitter name="RabbitBlockedSparks" system_name="RabbitBlockedSparks" type="point" particlesPerSecond="1500" initialPosition="0 0 0" on_loop="false" ejection_count="500" />
-	<emitter name="RabbitBlockedExpandWave" system_name="RabbitExpandWave" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="2" />
+	<emitter name="RabbitBlockedSparks" system_name="RabbitBlockedSparks" type="point" particlesPerSecond="1500" initialPosition="0 0 0" on_loop="false" ejection_count="500" use_dis="false" />
+	<emitter name="RabbitBlockedExpandWave" system_name="RabbitExpandWave" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="2" use_dis="false" />
 	
 	<!-- Partículas de sangrado -->
-	<emitter name="RabbitBloodSplash" system_name="RabbitBloodSplash" type="point" particlesPerSecond="2000" initialPosition="0 0 0" on_loop="false" ejection_count="1200" />
-	<emitter name="RabbitBloodDust"   system_name="RabbitBloodDust" type="line" particlesPerSecond="4000" initialPosition="0 0 0" on_loop=	"false" ejection_count="1000" />
-	<emitter name="RabbitBlood" 	  system_name="RabbitBlood" type="line" particlesPerSecond="2000" initialPosition="0 0 0" on_loop="false" ejection_count="1500" />
+	<emitter name="RabbitBloodSplash" system_name="RabbitBloodSplash" type="line" particlesPerSecond="2000" initialPosition="0 0 0" on_loop="false" ejection_count="1200" use_dis="false" />
+	<emitter name="RabbitBloodDust"   system_name="RabbitBloodDust" type="line" particlesPerSecond="4000" initialPosition="0 0 0" on_loop=	"false" ejection_count="1000" use_dis="false" />
+	<emitter name="RabbitBlood" 	  system_name="RabbitBlood" type="line" particlesPerSecond="2000" initialPosition="0 0 0" on_loop="false" ejection_count="1500" use_dis="false" />
 	
 	<!-- Partículas de ataque del Still Attack  -->
 	<emitter name="RabbitBlurHook" system_name="RabbitBlurHook" type="point" particlesPerSecond="1500" initialPosition="0 0 0" on_loop="false" ejection_count="500" />
 	
 	<!-- Partículas de impacto del Still Attack  -->
-	<emitter name="RabbitImpact" system_name="RabbitCenterFlare" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="10" />
-	<emitter name="RabbitExpandWave" system_name="RabbitExpandWave" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="2" />
-	<emitter name="RabbitStreaks" system_name="RabbitStreaks" type="line" particlesPerSecond="1200" initialPosition="0 0 0" on_loop="false" ejection_count="200" />
-	<emitter name="RabbitSparks" system_name="RabbitSparks" type="point" particlesPerSecond="300" initialPosition="0 0 0" on_loop="false" ejection_count="100" />
+	<emitter name="RabbitImpact" system_name="RabbitCenterFlare" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="10" use_dis="false" />
+	<emitter name="RabbitExpandWave" system_name="RabbitExpandWave" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="2" use_dis="false" />
+	<emitter name="RabbitStreaks" system_name="RabbitStreaks" type="line" particlesPerSecond="1200" initialPosition="0 0 0" on_loop="false" ejection_count="200" use_dis="false" />
+	<emitter name="RabbitSparks" system_name="RabbitSparks" type="point" particlesPerSecond="300" initialPosition="0 0 0" on_loop="false" ejection_count="100" use_dis="false" />
 	
 	<!-- Partículas de impacto del Run Attack -->
-	<emitter name="RabbitRunImpact1" system_name="RabbitCenterFlare1" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="10" />
-	<emitter name="RabbitRunImpact2" system_name="RabbitCenterFlare2" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="10" />
-	<emitter name="RabbitRunImpact3" system_name="RabbitLingeringCenterFlare" type="line" particlesPerSecond="1000" initialPosition="0 0 0" on_loop="false" ejection_count="100" />
-	<emitter name="RabbitRunExpandWave" system_name="RabbitExpandWave" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="2" />
+	<emitter name="RabbitRunImpact1" system_name="RabbitCenterFlare1" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="10" use_dis="false" />
+	<emitter name="RabbitRunImpact2" system_name="RabbitCenterFlare2" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="10" use_dis="false" />
+	<emitter name="RabbitRunImpact3" system_name="RabbitLingeringCenterFlare" type="line" particlesPerSecond="1000" initialPosition="0 0 0" on_loop="false" ejection_count="100" use_dis="false" />
+	<emitter name="RabbitRunExpandWave" system_name="RabbitExpandWave" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="2" use_dis="false" />
 	
 	<!-- Partículas de nieve al correr -->
-	<emitter name="RabbitStepRight" system_name="RabbitSteps" type="line" particlesPerSecond="1355" initialPosition="0 0 0" on_loop="false" ejection_count="450" />
-	<emitter name="RabbitStepLeft" system_name="RabbitSteps" type="line" particlesPerSecond="1355" initialPosition="0 0 0" on_loop="false" ejection_count="450" />
+	<emitter name="RabbitStepRight" system_name="RabbitSteps" type="line" particlesPerSecond="1355" initialPosition="0 0 0" on_loop="false" ejection_count="450" use_dis="false" />
+	<emitter name="RabbitStepLeft" system_name="RabbitSteps" type="line" particlesPerSecond="1355" initialPosition="0 0 0" on_loop="false" ejection_count="450" use_dis="false" />
 	
 	
 	<!-- **************** -->
@@ -107,11 +111,11 @@
 	<emitter name="WolfBlood" 	  system_name="WolfBlood" type="line" particlesPerSecond="2000" initialPosition="0 0 0" on_loop="false" ejection_count="1500" />
 	
 	<!-- Partículas de ataque del Still Attack  -->
-	<emitter name="WolfBlurHook" system_name="WolfBlurHook" type="point" particlesPerSecond="1500" initialPosition="0 0 0" on_loop="false" ejection_count="500" />
+	<emitter name="WolfBlurHook"  system_name="WolfBlurHook" type="point" particlesPerSecond="500" initialPosition="0 0 0" on_loop="false" ejection_count="500" />
 	
 	<!-- Partículas de impacto del Still Attack  -->
 	<emitter name="WolfImpact" system_name="WolfCenterFlare" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="10" />
-	<emitter name="WolfExpandWave" system_name="WolfExpandWave" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="2" />
+	<emitter name="WolfExpandWave" system_name="WolfExpandWave" type="point" particlesPerSecond="100" initialPosition="0 0 0" on_loop="false" ejection_count="1" />
 	<emitter name="WolfStreaks" system_name="WolfStreaks" type="line" particlesPerSecond="1200" initialPosition="0 0 0" on_loop="false" ejection_count="200" />
 	<emitter name="WolfSparks" system_name="WolfSparks" type="point" particlesPerSecond="300" initialPosition="0 0 0" on_loop="false" ejection_count="100" />
 	
