@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2012.10.14)  17 OCT 2012 16:51
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=latex 2012.10.17)  17 OCT 2012 18:39
 entering extended mode
 **Memory.tex
 (C:\Users\Marc\Documents\UAB\Memory\Memory.tex
@@ -13,9 +13,9 @@ an, ngerman-x-2009-06-19, nynorsk, oriya, panjabi, pinyin, polish, portuguese,
 romanian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swis
 sgerman, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, u
 senglishmax, welsh, loaded.
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\book.cls"
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\book.cls"
 Document Class: book 2007/10/19 v1.4h Standard LaTeX document class
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\bk11.clo"
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\bk11.clo"
 File: bk11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -31,50 +31,50 @@ File: bk11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\trig.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\trig.sty"
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
+("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
 File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
 )
 Package graphics Info: Driver file: dvips.def on input line 91.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\dvips.def"
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\dvips.def"
 File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 ))
 \Gin@req@height=\dimen103
 \Gin@req@width=\dimen104
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\fontenc.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\fontenc.sty"
 Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t1enc.def"
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\t1enc.def"
 File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
 ))
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.sty"
+("C:\Program Files\MiKTeX 2.9\tex\generic\babel\babel.sty"
 Package: babel 2008/07/08 v3.8m The Babel package
 
 *************************************
 * Local config file bblopts.cfg used
 *
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\bblopts.cfg"
+("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\bblopts.cfg"
 File: bblopts.cfg 2006/07/31 v1.0 MiKTeX 'babel' configuration
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\spanish.ldf"
+("C:\Program Files\MiKTeX 2.9\tex\generic\babel\spanish.ldf"
 Language: spanish.ldf 2009/01/02 v5.0h Spanish support from the babel system
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.def"
+("C:\Program Files\MiKTeX 2.9\tex\generic\babel\babel.def"
 File: babel.def 2008/07/08 v3.8m Babel common definitions
 \babel@savecnt=\count88
 \U@D=\dimen105
@@ -160,15 +160,15 @@ File: figures/design_document/caperu.eps Graphic file (type eps)
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 211.
 
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omscmr.fd"
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 211.
- [9] [10]
-[11] [12]
+ [9] [10] [11] [12]
 File: figures/design_document/pausa.eps Graphic file (type eps)
- <figures/design_document/pausa.eps> [13] [14]
+
+<figures/design_document/pausa.eps> [13] [14]
 File: figures/design_document/cell_shading.eps Graphic file (type eps)
 
 <figures/design_document/cell_shading.eps>
@@ -244,15 +244,14 @@ File: figures/development/lensflares.eps Graphic file (type eps)
 File: figures/development/physx_test_scene.eps Graphic file (type eps)
 
 <figures/development/physx_test_scene.eps> [36] [37]
+File: figures/development/test_ia.eps Graphic file (type eps)
+
+<figures/development/test_ia.eps> [38]
 File: figures/development/wwise_editor.eps Graphic file (type eps)
-
-<figures/development/wwise_editor.eps> [38]
+ <figures/development/wwise_editor.eps>
+[39]
 File: figures/development/particle_editor.eps Graphic file (type eps)
-
-<figures/development/particle_editor.eps>
-Underfull \vbox (badness 1205) has occurred while \output is active []
-
- [39]
+ <figures/development/particle_editor.eps>
 File: figures/development/gui_editor.eps Graphic file (type eps)
 
 <figures/development/gui_editor.eps> [40]) [41]
@@ -378,12 +377,12 @@ Ap\'{e}ndice A.
 (C:\Users\Marc\Documents\UAB\Memory\section/appendix.aux)
 (C:\Users\Marc\Documents\UAB\Memory\section/abstract.aux)) ) 
 Here is how much of TeX's memory you used:
- 1653 strings out of 494046
- 22776 string characters out of 3145994
- 77151 words of memory out of 3000000
- 4869 multiletter control sequences out of 15000+200000
+ 1656 strings out of 494046
+ 22645 string characters out of 3148412
+ 78151 words of memory out of 3000000
+ 4871 multiletter control sequences out of 15000+200000
  17652 words of font info for 38 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
  27i,5n,31p,1251b,411s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on Memory.dvi (56 pages, 143488 bytes).
+Output written on Memory.dvi (56 pages, 144920 bytes).

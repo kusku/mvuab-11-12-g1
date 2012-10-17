@@ -58,8 +58,9 @@
 \contentsline {subsection}{\numberline {3.3.3}Inteligencia Artificial}{36}
 \contentsline {subsubsection}{Máquinas de estados}{37}
 \contentsline {subsubsection}{Steering Behaviors}{37}
+\contentsline {subsubsection}{Escenario de pruebas}{38}
 \contentsline {subsection}{\numberline {3.3.4}Scripting}{38}
-\contentsline {subsection}{\numberline {3.3.5}Audio}{38}
+\contentsline {subsection}{\numberline {3.3.5}Audio}{39}
 \contentsline {subsection}{\numberline {3.3.6}Tools}{39}
 \contentsline {subsubsection}{Particle Editor}{39}
 \contentsline {subsubsection}{GUI Editor}{40}
