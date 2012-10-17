@@ -32,6 +32,8 @@
             this.lbTitle = new System.Windows.Forms.Label();
             this.tConfig = new System.Windows.Forms.TabControl();
             this.tpVideo = new System.Windows.Forms.TabPage();
+            this.lbParticleQuality = new System.Windows.Forms.Label();
+            this.cbParticleQuality = new System.Windows.Forms.ComboBox();
             this.cbBloomEnable = new System.Windows.Forms.CheckBox();
             this.cbZBlurEnable = new System.Windows.Forms.CheckBox();
             this.cbMotionBlurEnable = new System.Windows.Forms.CheckBox();
@@ -43,8 +45,6 @@
             this.cbResolution = new System.Windows.Forms.ComboBox();
             this.bApply = new System.Windows.Forms.Button();
             this.bExit = new System.Windows.Forms.Button();
-            this.lbParticleQuality = new System.Windows.Forms.Label();
-            this.cbParticleQuality = new System.Windows.Forms.ComboBox();
             this.tConfig.SuspendLayout();
             this.tpVideo.SuspendLayout();
             this.SuspendLayout();
@@ -89,6 +89,28 @@
             this.tpVideo.TabIndex = 0;
             this.tpVideo.Text = "Video";
             this.tpVideo.UseVisualStyleBackColor = true;
+            // 
+            // lbParticleQuality
+            // 
+            this.lbParticleQuality.AutoSize = true;
+            this.lbParticleQuality.Location = new System.Drawing.Point(6, 216);
+            this.lbParticleQuality.Name = "lbParticleQuality";
+            this.lbParticleQuality.Size = new System.Drawing.Size(80, 13);
+            this.lbParticleQuality.TabIndex = 11;
+            this.lbParticleQuality.Text = "Particle Quality:";
+            // 
+            // cbParticleQuality
+            // 
+            this.cbParticleQuality.FormattingEnabled = true;
+            this.cbParticleQuality.Items.AddRange(new object[] {
+            "Low",
+            "Medium",
+            "High",
+            "Very High"});
+            this.cbParticleQuality.Location = new System.Drawing.Point(96, 213);
+            this.cbParticleQuality.Name = "cbParticleQuality";
+            this.cbParticleQuality.Size = new System.Drawing.Size(118, 21);
+            this.cbParticleQuality.TabIndex = 10;
             // 
             // cbBloomEnable
             // 
@@ -144,6 +166,7 @@
             this.cbShadowEnable.TabIndex = 5;
             this.cbShadowEnable.Text = "Shadow Enable:";
             this.cbShadowEnable.UseVisualStyleBackColor = true;
+            this.cbShadowEnable.CheckedChanged += new System.EventHandler(this.cbShadowEnable_CheckedChanged);
             // 
             // lbShadowQuality
             // 
@@ -210,28 +233,6 @@
             this.bExit.Text = "Exit";
             this.bExit.UseVisualStyleBackColor = true;
             this.bExit.Click += new System.EventHandler(this.bExit_Click);
-            // 
-            // lbParticleQuality
-            // 
-            this.lbParticleQuality.AutoSize = true;
-            this.lbParticleQuality.Location = new System.Drawing.Point(6, 216);
-            this.lbParticleQuality.Name = "lbParticleQuality";
-            this.lbParticleQuality.Size = new System.Drawing.Size(80, 13);
-            this.lbParticleQuality.TabIndex = 11;
-            this.lbParticleQuality.Text = "Particle Quality:";
-            // 
-            // cbParticleQuality
-            // 
-            this.cbParticleQuality.FormattingEnabled = true;
-            this.cbParticleQuality.Items.AddRange(new object[] {
-            "Low",
-            "Medium",
-            "High",
-            "Very High"});
-            this.cbParticleQuality.Location = new System.Drawing.Point(96, 213);
-            this.cbParticleQuality.Name = "cbParticleQuality";
-            this.cbParticleQuality.Size = new System.Drawing.Size(118, 21);
-            this.cbParticleQuality.TabIndex = 10;
             // 
             // Form1
             // 
