@@ -55,3 +55,11 @@ end
 function reload_physxobjs()
 	core:reload_physxobjs()
 end
+
+function reload_limits()
+	core:reload_limits()
+end
+
+function reload_sounds()
+	core:reload_sounds()
+end

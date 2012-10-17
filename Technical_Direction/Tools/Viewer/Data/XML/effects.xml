@@ -29,6 +29,7 @@
   <effect name="ssao"                                     file="./data/effects/Obj/SSAO" />
   <effect name="color_correction"                         file="./data/effects/Obj/ColorGrading" />
   <effect name="z_blur"                                   file="./data/effects/Obj/ZBlur" />
+  <effect name="Vignetting"                               file="./data/effects/Obj/Vignetting" />
   <effect name="vignetting_and_noise"                     file="./data/effects/Obj/VignettingNoise" />
 
   <effect name="BloomPostProcess"                         file="./data/effects/Obj/BloomPostProcess" />
@@ -102,6 +103,14 @@
 
   <technique name="VignettingNoiseTechnique" effect="vignetting_and_noise"
 		use_time="true" />
+  
+  <!-- 
+  ###################################
+          Vignetting Effect
+  ###################################
+  -->
+
+  <technique name="VignettingTechnique" effect="Vignetting" />
 
   <!-- 
   ###################################

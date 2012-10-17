@@ -39,10 +39,10 @@
   <static_mesh name="ArbolSeco1_Main" filename=".\Data\.\General\\Models\ArbolSeco1_Main.m3d" />
   
   <!--Vallas-->
-  <static_mesh name="Fence2" filename=".\Data\.\General\\Models\Fence2.m3d" />
   <static_mesh name="Fence4" filename=".\Data\.\General\\Models\Fence4.m3d" />
   <static_mesh name="Fence5" filename=".\Data\.\General\\Models\Fence5.m3d" />
   <static_mesh name="Fence3" filename=".\Data\.\General\\Models\Fence3.m3d" />
+  <static_mesh name="Fence2" filename=".\Data\.\General\\Models\Fence2.m3d" />
   <static_mesh name="Fence1" filename=".\Data\.\General\\Models\Fence1.m3d" />
   
   <!--Maleza-->

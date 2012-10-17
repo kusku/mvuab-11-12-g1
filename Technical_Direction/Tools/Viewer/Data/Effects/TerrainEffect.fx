@@ -239,8 +239,7 @@ PixelShaderOutput PixelShaderFunction(VertexShaderOutput input, uniform bool sha
 			passColor *= min(shadowCoeffStatic, shadowCoeffDynamic);
 		}
 			
-		DiffuseColor += passColor;
-		
+		DiffuseColor += passColor;		
 		
 		//if(CascadeGroup == 0)
 		//{

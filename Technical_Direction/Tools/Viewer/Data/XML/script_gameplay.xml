@@ -2,12 +2,7 @@
 	<script filename="./data/scripts/game/init_game.lua" />
 	<script filename="./data/scripts/game/helpers.lua" />
 	
-	<script filename="./data/scripts/game/triggers/start_trigger.lua" />
-	<script filename="./data/scripts/game/triggers/cascade_trigger.lua" />
-	<script filename="./data/scripts/game/triggers/bridge_trigger.lua" />
-	<script filename="./data/scripts/game/triggers/house_trigger.lua" />
 	<script filename="./data/scripts/game/triggers/end_game_trigger.lua" />
-	<script filename="./data/scripts/game/triggers/river_trigger.lua" />
 	<script filename="./data/scripts/game/triggers/combat_zone_1.lua" />
 	<script filename="./data/scripts/game/triggers/combat_zone_2.lua" />
 	<script filename="./data/scripts/game/triggers/combat_zone_3.lua" />
