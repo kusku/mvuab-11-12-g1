@@ -20,9 +20,11 @@
 		<attack_distance>2</attack_distance>
 		<attack_angle>50</attack_angle>
 
-		<max_hit_recoil_distance>2.5</max_hit_recoil_distance>		<!-- Cantidad de retroceso máximo al recibir un hit -->
-		<hit_recoil_speed>0.5</hit_recoil_speed>					<!-- Cantidad de velocidad del retroceso al recibir un hit. Se aplica como la speed al front + 180º -->
-		
+		<max_hit_recoil_distance>2.5</max_hit_recoil_distance>
+		<!-- Cantidad de retroceso máximo al recibir un hit -->
+		<hit_recoil_speed>0.5</hit_recoil_speed>
+		<!-- Cantidad de velocidad del retroceso al recibir un hit. Se aplica como la speed al front + 180º -->
+
 		<detection_distance>10</detection_distance>
 		<detection_angle>50</detection_angle>
 		<wait_to_cure>10</wait_to_cure>
@@ -39,7 +41,7 @@
 		<active>false</active>
 		<locked>false</locked>
 		<life>500</life>
-		<strong>10</strong>
+		<strong>15</strong>
 		<mass>0.01</mass>
 		<velocity>0 0 0</velocity>
 		<speed>2</speed>
@@ -72,18 +74,25 @@
 		<chase_distance>28</chase_distance>
 		<!-- Creo que ahora no la uso... -->
 		<follow_path_distance>100</follow_path_distance>
-		<impact_distance>2.4</impact_distance>
+
 		<!-- Está encima el player -->
-		<attack_distance>15</attack_distance>
+		<impact_distance>2.4</impact_distance>
+
 		<!-- Está en distancia de poder hacer algunos de los ataques o defensa -->
-		<prepared_to_attack_distance>16.0</prepared_to_attack_distance>
+		<attack_distance>12</attack_distance>
+
 		<!-- Está lejos de poder atacar pero cerca de poder hacerlo -->
-		<aproximation_distance>9</aproximation_distance>
+		<prepared_to_attack_distance>15.0</prepared_to_attack_distance>
+
 		<!-- Está lejos y debe acercarse -->
-		<tired_distance>10</tired_distance>
+		<aproximation_distance>10</aproximation_distance>
+
 		<!-- Creo que ahora no la uso... -->
-		<panic_distance>100</panic_distance>
+		<tired_distance>10</tired_distance>
+
 		<!-- Sirve para saber la distancia máxima de evasión -->
+		<panic_distance>100</panic_distance>
+
 		<height_controller>1.9</height_controller>
 		<width_controller>1.0</width_controller>
 		<slope>45.0</slope>
@@ -171,11 +180,11 @@
 		<!-- Velocidad de ataque 2 --> 
 		<min_tired_time>1</min_tired_time>
 		<!-- Tiempo mínimo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
-		<max_tired_time>3</max_tired_time>
+		<max_tired_time>2</max_tired_time>
 		<!-- Tiempo máximo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
-		<min_tired_time_after_hit>4</min_tired_time_after_hit>
+		<min_tired_time_after_hit>3</min_tired_time_after_hit>
 		<!-- Tiempo mínimo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
-		<max_tired_time_after_hit>5</max_tired_time_after_hit>
+		<max_tired_time_after_hit>4</max_tired_time_after_hit>
 		<!-- Tiempo máximo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
 		<max_hit_recoil_distance>2.5</max_hit_recoil_distance>
 		<!-- Cantidad de retroceso máximo al recibir un hit -->
@@ -215,17 +224,18 @@
 		<velocity>0 0 0</velocity>
 		<yaw>2.36</yaw>
 		<respawn_position>0 10 0</respawn_position>
-		
-		<position>106 -16 -168</position>						<!-- Posición inicial del juego. Posición respawn trigger 1 -->
+
+		<position>106 -16 -168</position>
+		<!-- Posición inicial del juego. Posición respawn trigger 1 -->
 		<!--<position>58 -23 -106</position>-->					<!-- Posición respawn trigger 2 - 2o letrero -->
 		<!--<position>110 -30 -30</position>-->					<!-- Posición respawn trigger 3 - Antes del medio -->
 		<!--<position>67 -40 19</position>-->					<!-- Posición respawn trigger 4 - Medio -->
 		<!--<position>-20 -38 112</position>-->					<!-- Posición respawn trigger 5 - Subida -->
 		<!--<position>-94 -11 96</position>-->					<!-- Posición respawn trigger 6 - Antes del puente -->
-		<!--<position>-64 -14 -20</position>-->						<!-- Posición respawn trigger 7 - Después del puente --> 
-		<!--<position>-45 -15 -63</position>	-->					<!-- Posición respawn trigger 8 - Final Lobo -->
-		
-		
+		<!--<position>-64 -14 -20</position>-->					<!-- Posición respawn trigger 7 - Después del puente --> 
+		<!--<position>-45 -15 -63</position>-->					<!-- Posición respawn trigger 8 - Final Lobo -->
+
+
 	</player>
 	<enemies>
 		<enemy name="enemy1" core="lobo" animated_instace_name="lobo1" >
@@ -233,7 +243,7 @@
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
-				
+
 		<!-- Enemigos Trigger zona de combate 1 -->
 		<enemy name="enemy2" core="conejo" animated_instace_name="enemy2" >
 			<position>70 -24 -144</position>
@@ -250,7 +260,7 @@
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
-		
+
 		<!-- Enemigos Trigger zona de combate 2 -->
 		<enemy name="enemy5" core="conejo" animated_instace_name="enemy5" >
 			<position>87 -23 -86</position>
@@ -287,7 +297,7 @@
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
-		
+
 		<!-- Enemigos Trigger zona de combate 3 -->
 		<enemy name="enemy12" core="conejo" animated_instace_name="enemy12" >
 			<position>104 -37.5 -3</position>
@@ -346,7 +356,7 @@
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
-		
+
 		<!-- Enemigos Trigger zona de combate 5 -->
 		<enemy name="enemy17" core="conejo" animated_instace_name="enemy17" >
 			<position>-53 -34 111</position>
@@ -363,7 +373,7 @@
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
-		
+
 		<!-- Enemigos Trigger zona de combate 6 -->
 		<enemy name="enemy20" core="conejo" animated_instace_name="enemy20" >
 			<position>-87 -10 55</position>
@@ -385,7 +395,7 @@
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
-		
+
 		<!-- Enemigos Trigger zona de combate 7 -->
 		<enemy name="enemy24" core="conejo" animated_instace_name="enemy24" >
 			<position>-46 -16 -53</position>
@@ -407,10 +417,10 @@
 			<active>false</active>
 			<locked>true</locked>
 		</enemy>
-		
+
 		<!-- Enemigos Trigger zona de combate X -->
 		<number_begin_dynamic_enemies>34</number_begin_dynamic_enemies>
-		
+
 		<enemy name="enemy34" core="conejo" animated_instace_name="enemy34" >
 			<position>-50 -8 -99</position>
 			<active>false</active>
