@@ -19,6 +19,7 @@
 #include "DeerStillAttackState.h"
 #include "DeerRunAttackState.h"
 #include "DeerHitState.h"
+#include "DeerIdleState.h"
 
 #include "Characters\Enemies\Deer\AnimationStates\DeerHitAnimationState.h"
 #include "Characters\Enemies\Deer\AnimationStates\DeerIdleAnimationState.h"
@@ -133,6 +134,19 @@ void CDeerAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 				} 
 				else
 				{
+					int l_Mask = 1 << ECG_LIMITS;
+					if ( m_pDeer->IsPointTouchingGroup(m_pDeer->GetPosition(), l_Mask, 0.5f) ) 
+					{
+						// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio
+						m_pDeer->SetToBeTired(false);
+						m_pDeer->GetBehaviors()->SeekOff();
+						m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+						m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+						m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetIdleState());
+						m_bInPositionToAttack = true;
+						return;
+					}
+
 					m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime );
 					m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 					return;

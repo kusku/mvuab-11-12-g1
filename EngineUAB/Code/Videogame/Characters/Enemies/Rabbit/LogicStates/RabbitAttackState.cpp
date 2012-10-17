@@ -21,6 +21,7 @@
 #include "RabbitStillAttackState.h"
 #include "RabbitRunAttackState.h"
 #include "RabbitHitState.h"
+#include "RabbitIdleState.h"
 
 #include "Characters\Enemies\Rabbit\AnimationStates\RabbitHitAnimationState.h"
 #include "Characters\Enemies\Rabbit\AnimationStates\RabbitIdle2AnimationState.h"
@@ -136,6 +137,20 @@ void CRabbitAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 				} 
 				else
 				{
+
+					int l_Mask = 1 << ECG_LIMITS;
+					if ( m_pRabbit->IsPointTouchingGroup(m_pRabbit->GetPosition(), l_Mask, 0.5f) ) 
+					{
+						// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio
+						m_pRabbit->SetToBeTired(false);
+						m_pRabbit->GetBehaviors()->SeekOff();
+						m_pRabbit->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+						m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+						m_pRabbit->GetLogicFSM()->ChangeState(m_pRabbit->GetIdleState());
+						m_bInPositionToAttack = true;
+						return;
+					}
+
 					m_pRabbit->FaceTo( m_pRabbit->GetPlayer()->GetPosition(), _ElapsedTime );
 					m_pRabbit->MoveTo2( m_pRabbit->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 					return;

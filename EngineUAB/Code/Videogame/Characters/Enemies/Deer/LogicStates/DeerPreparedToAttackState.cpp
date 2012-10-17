@@ -13,6 +13,7 @@
 #include "DeerPursuitState.h"
 #include "DeerAttackState.h"
 #include "DeerHitState.h"
+#include "DeerIdleState.h"
 
 #include "Characters\Enemies\Deer\AnimationStates\DeerRunAnimationState.h"
 #include "Characters\Enemies\Deer\AnimationStates\DeerHitAnimationState.h"
@@ -117,6 +118,19 @@ void CDeerPreparedToAttackState::Execute( CCharacter* _pCharacter, float _Elapse
 		}
 		else
 		{
+			int l_Mask = 1 << ECG_LIMITS;
+			if ( m_pDeer->IsPointTouchingGroup(m_pDeer->GetPosition(), l_Mask, 0.5f) ) 
+			{
+				// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio
+				m_pDeer->SetToBeTired(false);
+				m_pDeer->GetBehaviors()->SeekOff();
+				m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+				m_pDeer->MoveTo2( m_pDeer->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+				m_pDeer->GetLogicFSM()->ChangeState(m_pDeer->GetIdleState());
+				m_IsPositionAssignedAfterHitPlayer = true;
+				return;
+			}
+
 			m_pDeer->GetGraphicFSM()->ChangeState(m_pDeer->GetRunAnimationState());
 			m_pDeer->GetBehaviors()->GetSeek()->SetTarget(m_PositionReachedAfterHitPlayer);
 			m_pDeer->GetBehaviors()->SeekOn();

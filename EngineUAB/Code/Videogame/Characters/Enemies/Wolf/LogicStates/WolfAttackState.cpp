@@ -24,6 +24,7 @@
 #include "WolfHitState.h"
 #include "WolfHowlEnemiesState.h"
 #include "WolfHowlLifeState.h"
+#include "WolfIdleState.h"
 
 #include "Characters\Enemies\Wolf\AnimationStates\WolfHitAnimationState.h"
 #include "Characters\Enemies\Wolf\AnimationStates\WolfDefenseAnimationState.h"
@@ -139,6 +140,19 @@ void CWolfAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 				} 
 				else
 				{
+					int l_Mask = 1 << ECG_LIMITS;
+					if ( m_pWolf->IsPointTouchingGroup(m_pWolf->GetPosition(), l_Mask, 0.5f) ) 
+					{
+						// Esto nos permite hacer el parípé un poco. Situarnos delante la càmara, una simulación de alejarse por cansancio
+						m_pWolf->SetToBeTired(false);
+						m_pWolf->GetBehaviors()->SeekOff();
+						m_pWolf->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
+						m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
+						m_pWolf->GetLogicFSM()->ChangeState(m_pWolf->GetIdleState());
+						m_bInPositionToAttack = true;
+						return;
+					}
+
 					m_pWolf->FaceTo( m_pWolf->GetPlayer()->GetPosition(), _ElapsedTime );
 					m_pWolf->MoveTo2( m_pWolf->GetSteeringEntity()->GetVelocity(), _ElapsedTime );
 					return;
