@@ -3,6 +3,7 @@
 	<Speaker name="Test" position="0.0 0.0 0.0" orientation="1.0 0.0 0.0" />
 	<Speaker name="Waterfall" position="-175.728 -32.844 5.1875" orientation="1.0 0.0 0.0" />
 	
+	<!-- Fuegos -->
 	<Speaker name="zona1_wall001" position="53.0 -22.9 -93.79" 		   orientation="-0.50483835 0.00000000 0.86321390" />
 	<Speaker name="zona1_wall002" position="69.3749 -22.467 -93.8061"  orientation="-0.50483835 0.00000000 0.86321390" />
 	<Speaker name="zona1_wall003" position="88.77 -24.467 -93.95"      orientation="-0.50483835 0.00000000 0.86321390" />
@@ -41,4 +42,7 @@
 
 	<Speaker name="puente_final_wall"  position="-67.6577 -15.5407 -17.174"   orientation="0.99761659 0.00000000 0.069000743" />
 
+	<!-- Vientos -->
+	<Speaker name="zona1_vientos001" position="106.0 -15.1 -173.72"	orientation="0.99923122 0.00000000 0.039203845" />
+	<Speaker name="zona1_vientos002" position="63.0 -23.1 -118.72"	orientation="0.99923122 0.00000000 0.039203845" />
 </Speakers>
