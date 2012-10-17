@@ -24,6 +24,7 @@ class CFPSCamera;
 class CThPSCamera;
 class CAnimationCallbackManager;
 class CHud;
+class CActionStateCallback;
 
 class CGameProcess : public CEngineProcess
 {
@@ -51,6 +52,7 @@ public:
 	float	GetTimeBetweenClicks	() const				{ return m_fTimeBetweenClicks; }
 
 	static void					RegisterMethods				();
+	void						UpdateWindSounds			( float _ElapsedTime );
 
 	//----Properties  --------------------------------------------------------------------
 	static CGameProcess*		GetGameProcess				();
@@ -105,6 +107,8 @@ private:
 	CHud						*m_pHUD;
 	CCharactersManager			*m_pCharactersManager;
 	CAnimationCallbackManager	*m_pAnimationCallbackManager;
+
+	CActionStateCallback		*m_pActionStateCallback;
 };
 
 #endif
