@@ -5,7 +5,7 @@ Version=2
 [SessionInfo]
 ActiveTab=0
 FrameCount=6
-ActiveFrame=3
+ActiveFrame=1
 
 [Frame0]
 Columns=1
@@ -39,8 +39,8 @@ TopSubLine=33
 [Frame1]
 Columns=1
 Rows=1
-Flags=0
-ShowCmd=1
+Flags=2
+ShowCmd=3
 MinPos.x=-1
 MinPos.y=-1
 MaxPos.x=-8
@@ -53,17 +53,17 @@ Class=CLatexEdit
 Document=section\development.tex
 
 [Frame1_Row0]
-cyCur=353
+cyCur=566
 cyMin=10
 
 [Frame1_Col0]
-cxCur=833
+cxCur=1024
 cxMin=10
 
 [Frame1_View0,0]
-Cursor.row=22
-Cursor.column=15
-TopSubLine=0
+Cursor.row=418
+Cursor.column=306
+TopSubLine=456
 
 [Frame2]
 Columns=1
@@ -90,15 +90,15 @@ cxCur=833
 cxMin=10
 
 [Frame2_View0,0]
-Cursor.row=170
-Cursor.column=24
-TopSubLine=205
+Cursor.row=0
+Cursor.column=0
+TopSubLine=0
 
 [Frame3]
 Columns=1
 Rows=1
-Flags=2
-ShowCmd=3
+Flags=0
+ShowCmd=1
 MinPos.x=-1
 MinPos.y=-1
 MaxPos.x=-8
@@ -111,17 +111,17 @@ Class=CLatexEdit
 Document=section\introduction.tex
 
 [Frame3_Row0]
-cyCur=566
+cyCur=353
 cyMin=10
 
 [Frame3_Col0]
-cxCur=1024
+cxCur=833
 cxMin=10
 
 [Frame3_View0,0]
 Cursor.row=19
 Cursor.column=10
-TopSubLine=12
+TopSubLine=20
 
 [Frame4]
 Columns=1
