@@ -72,13 +72,17 @@ bool CParticleEmitterManager::Reload()
 			{
 				std::string name = l_xml(i).GetPszProperty("name", "", true);
 				std::string systemName = l_xml(i).GetPszProperty("system_name", "", true);
-				float particlesPerSecond = l_xml(i).GetFloatProperty("particlesPerSecond", 0, true) / CORE->GetConfig().particle_level;
 				std::string type = l_xml(i).GetPszProperty("type", "", true);
 				Vect3f initPos = l_xml(i).GetVect3fProperty("initialPosition", Vect3f(0, 0, 0), true);
 				bool onLoop = l_xml(i).GetBoolProperty("on_loop", true, false);
-				uint32 pej = (uint32)l_xml(i).GetIntProperty("ejection_count", 0, !onLoop) / CORE->GetConfig().particle_level;
 				bool useDis = l_xml(i).GetBoolProperty("use_dis", true, false);
-				
+
+				float particlesPerSecond = l_xml(i).GetFloatProperty("particlesPerSecond", 0, true) / CORE->GetConfig().particle_level;
+				uint32 pej = (uint32)l_xml(i).GetIntProperty("ejection_count", 0, !onLoop) / CORE->GetConfig().particle_level;
+
+				particlesPerSecond = particlesPerSecond == 0.0f ? 1.0f : particlesPerSecond;
+				pej = pej == 0 ? 1 : pej;
+
 				CParticleSystem* system = CORE->GetParticleSystemManager()->GetResource(systemName);
 				assert(system);
 

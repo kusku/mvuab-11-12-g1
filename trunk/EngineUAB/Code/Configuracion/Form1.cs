@@ -338,5 +338,15 @@ namespace Configuracion
         {
             Application.Exit();
         }
+
+        private void cbShadowEnable_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbShadowEnable.Checked)
+            {
+                return;
+            }
+
+            cbShadowQuality.SelectedIndex = 0;
+        }
     }
 }

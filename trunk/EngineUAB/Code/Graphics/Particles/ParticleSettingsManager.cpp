@@ -70,7 +70,11 @@ bool CParticleSettingsManager::Reload()
 					}
 					else if(l_TypeChild == "MaxParticles")
 					{
-						settings->m_MaxParticles = (uint32)child(j).GetIntProperty("value", 0, true) / CORE->GetConfig().particle_level;
+						uint32 maxPart = (uint32)child(j).GetIntProperty("value", 0, true) / CORE->GetConfig().particle_level;
+
+						maxPart = maxPart == 0 ? 1 : maxPart;
+
+						settings->m_MaxParticles = maxPart;
 					}
 					else if(l_TypeChild == "Duration")
 					{
