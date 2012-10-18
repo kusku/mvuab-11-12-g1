@@ -123,7 +123,7 @@ void CDeerAttackState::Execute( CCharacter* _Character, float _ElapsedTime )
 		{
 			if (!m_bInPositionToAttack)
 			{
-				float l_Distance = m_pDeer->GetPosition().Distance(m_SearchedAttackPoint);
+				float l_Distance = m_pDeer->GetDistanceToPointIn2D(m_SearchedAttackPoint);
 				if ( l_Distance <= 0.5f) 
 				{
 					m_pDeer->GetBehaviors()->SeekOff();

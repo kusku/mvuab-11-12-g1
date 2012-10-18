@@ -129,7 +129,7 @@ void CWolfAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		{
 			if (!m_bInPositionToAttack)
 			{
-				float l_Distance = m_pWolf->GetPosition().Distance(m_SearchedAttackPoint);
+				float l_Distance = m_pWolf->GetDistanceToPointIn2D(m_SearchedAttackPoint);
 				if ( l_Distance <= 3.5f) 
 				{
 					m_pWolf->GetBehaviors()->SeekOff();

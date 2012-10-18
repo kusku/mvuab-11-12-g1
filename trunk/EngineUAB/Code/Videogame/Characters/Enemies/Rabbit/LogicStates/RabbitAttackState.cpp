@@ -126,7 +126,7 @@ void CRabbitAttackState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		{
 			if (!m_bInPositionToAttack)
 			{
-				float l_Distance = m_pRabbit->GetPosition().Distance(m_SearchedAttackPoint);
+				float l_Distance = m_pRabbit->GetDistanceToPointIn2D(m_SearchedAttackPoint);
 				if ( l_Distance <= 0.5f) 
 				{
 					m_pRabbit->GetBehaviors()->SeekOff();
