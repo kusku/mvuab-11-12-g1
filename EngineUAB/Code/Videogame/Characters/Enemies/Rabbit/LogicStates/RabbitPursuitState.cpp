@@ -84,7 +84,7 @@ void CRabbitPursuitState::OnEnter( CCharacter* _pCharacter )
 		
 	m_pRabbit->GetBehaviors()->SeparationOn();
 	m_pRabbit->GetBehaviors()->CohesionOff();
-	m_pRabbit->GetBehaviors()->CollisionAvoidanceOn();
+	m_pRabbit->GetBehaviors()->CollisionAvoidanceOff();
 	m_pRabbit->GetBehaviors()->ObstacleWallAvoidanceOn();
 }
 
