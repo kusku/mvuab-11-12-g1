@@ -178,11 +178,13 @@ VertexShaderOutput VertexShaderWaterInstanceFunction(VertexShaderInstanceInput i
 	WorldInstance[2] = input.Mat3;
 	WorldInstance[3] = input.Mat4;
 	
+	float posY = input.Position.y;
+
 	//Set the position for z to simulate waves in water
 	//input.Position.z -= sin( ( (TotalElapsedTime / 4) * 8 ) + ( input.Position.y / 4 ) )/16;
-	input.Position.y -= sin( ( (TotalElapsedTime / 4) * 8 ) + ( input.Position.z / 4 ) )/16;
+	input.Position.y += sin( ( (TotalElapsedTime / 2) * 8 ) + ( input.Position.z ) ) / 4;
 	//input.Position.x -= sin( ( (TotalElapsedTime / 4) * 4 ) + ( input.Position.z / 2 ) )/8;
-	//input.Position.z -= sin( ( (TotalElapsedTime / 4) * 4 ) + ( input.Position.y / 2 ) )/8;
+	input.Position.z -= sin( ( (TotalElapsedTime / 4) * 4 ) + ( posY / 2 ) ) / 8;
 	
 	float4 WorldSpacePosition = mul(float4(input.Position, 1.0f), WorldInstance);	
 
