@@ -113,7 +113,7 @@ void CThPSCharacterCamera::Update(float _ElapsedTime)
 
 	Vect3f l_vLeft = l_DirXZ.Cross(v3fNEGY);
 
-	//Máscara de colisión
+	//Máscara de colisión ECG_STATIC_OBJECTS
 	int l_iMask = 1 << ECG_ESCENE;
 	l_iMask |= 1 << ECG_DYNAMIC_OBJECTS;
 	l_iMask |= 1 << ECG_STATIC_OBJECTS;
