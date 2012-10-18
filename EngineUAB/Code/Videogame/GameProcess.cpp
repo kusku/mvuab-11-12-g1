@@ -81,6 +81,8 @@ bool CGameProcess::Init()
 	//Registra los métodos
 	//RegisterMethods();
 
+	CORE->SetDyingAmount( 0.f );
+
 	if( !INIT_GUI )
 	{
 		CORE->GetScriptManager()->RunCode("load_basics()");

@@ -9,6 +9,7 @@ function load_game_data_process()
 	core:get_process():load_game_data()
 	core:set_game_mode(true) 
 	core:get_gui_manager():set_visible_pointer_mouse(true)
+	--core:set_dying_amount(0)
 end
 
 function active_game_process()
