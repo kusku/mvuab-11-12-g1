@@ -113,7 +113,9 @@ void CDeerTiredState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 	m_ActionTime.Update(_ElapsedTime);
 
 	// Mentre espero miro al player
+	m_pDeer->GetSteeringEntity()->SetVelocity(Vect3f(0,0,0));
 	m_pDeer->FaceTo( m_pDeer->GetPlayer()->GetPosition(), _ElapsedTime);
+	m_pDeer->MoveTo2(Vect3f(0,0,0), _ElapsedTime );
 }
 
 
