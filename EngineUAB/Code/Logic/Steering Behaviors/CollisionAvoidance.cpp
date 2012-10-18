@@ -21,6 +21,7 @@
 #include "RenderManager.h"
 #include "Fonts\FontManager.h"
 
+#include "Utils\Timer.h"
 #include "Utils\MapManager.h"
 #include "Math\Vector3.h"
 #include "Math\Matrix44.h"
@@ -108,10 +109,10 @@ Vect3f CCollisionAvoidance::CalculateSteering( CSteeringEntity *_pEntity )
 	CreateFeelers(FRUSTUM_ENEMY_ANGLE);
 
 	// Distancia mínima de colisión
-	float l_MinDistanceToCollision = 0.150f * _pEntity->GetSpeed();
+	float l_MinDistanceToCollision = 0.150f * _pEntity->GetSpeed() * CORE->GetTimer()->GetElapsedTime();;
 	
 	// La caja de detección es proporcional a la velocidad del agente
-	float l_DetectionBoxLength = m_DetectionRayLength + ( _pEntity->GetSpeed() / _pEntity->GetMaxSpeed() ) * m_DetectionRayLength;
+	float l_DetectionBoxLength = m_DetectionRayLength + ( _pEntity->GetSpeed() / _pEntity->GetMaxSpeed() ) * m_DetectionRayLength * CORE->GetTimer()->GetElapsedTime();;
 	
 	// Guardamos aquí el ID de la entidad más cercana
 	//CBaseGameEntity* l_NearestObstacle	= NULL;
@@ -186,7 +187,7 @@ Vect3f CCollisionAvoidance::CalculateSteering( CSteeringEntity *_pEntity )
 		//this->EnforceNonPenetrationConstraint( _pEntity, l_pUserData );
 	}
 
-	return m_NearestSteering;
+	return m_NearestSteering * CORE->GetTimer()->GetElapsedTime();
 }
 
 Vect3f CCollisionAvoidance::CalculateSteering2( CSteeringEntity *_pEntity )	

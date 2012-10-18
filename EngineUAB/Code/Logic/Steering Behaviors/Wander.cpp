@@ -111,7 +111,7 @@ Vect3f CWander::CalculateSteering( CSteeringEntity *_pEntity )
 
 			Vect3f l_Front = _pEntity->GetFront();
 			l_Front.Normalize();
-			Vect3f l_Target = _pEntity->GetPosition() + m_WanderDistance * l_Front;
+			Vect3f l_Target = _pEntity->GetPosition() + m_WanderDistance * l_Front CORE->GetTimer()->GetElapsedTime();;
 
 			l_Target += m_WanderRadius * l_TargetOrientationVector;
 				 

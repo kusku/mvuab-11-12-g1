@@ -5,6 +5,7 @@
 
 #include "Math\Vector3.h"
 
+#include "Utils\Timer.h"
 #include "Logger\Logger.h"
 #include "Core.h"
 #include "Base.h"
@@ -70,7 +71,7 @@ Vect3f CArrive::CalculateSteering( CSteeringEntity *_pEntity )
 		else 
 		{
 			// Seek
-			l_DesiredVelocity = l_ToTarget.Normalize() * _pEntity->GetMaxSpeed();
+			l_DesiredVelocity = l_ToTarget.Normalize() * _pEntity->GetMaxSpeed() * CORE->GetTimer()->GetElapsedTime();
 		}
 
 		return (l_DesiredVelocity - _pEntity->GetVelocity());
