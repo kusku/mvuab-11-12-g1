@@ -92,15 +92,14 @@ Vect3f CObstacleWallAvoidance::CalculateSteering( CSteeringEntity *_pEntity )
 					
 				l_ClosestPoint = sInfo.m_CollisionPoint;		// Guardamos el punto de colisión más pròximo encontrado
 				
-				l_ClosestNormal = sInfo.m_Normal * CORE->GetTimer()->GetElapsedTime();				// Guardamos la normal de la superficie interceptada
+				l_ClosestNormal = sInfo.m_Normal;				// Guardamos la normal de la superficie interceptada
 			}
-		
 			// Si encuentro colision de algun rayo con algun actor le añado la fuerza correspondiente
 			// Calculo por qué distancia la posición proyectada del agente sobrepasará el límite
 			Vect3f l_OverShoot = m_Feelers[flr] - l_ClosestPoint;
 
 			// Creamos una fuerza en la dirección de la normal del límite, con una magnitud create a force in the direction of the wall normal, con una magnitud de sobrepasado
-			l_SteeringForce += l_ClosestNormal * l_OverShoot.Length()  * CORE->GetTimer()->GetElapsedTime();
+			l_SteeringForce = l_ClosestNormal * 2.f * CORE->GetTimer()->GetElapsedTime();
 		}
 	}
 	
