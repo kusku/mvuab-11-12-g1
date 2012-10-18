@@ -29,6 +29,7 @@ namespace ScriptAPI
 					.def("push_windows", &CGUIManager::PushWindows)								// Almacena la ventana padre i activa la pasada
 					.def("pop_windows", &CGUIManager::PopWindows)								// Retorna a la ventana anterior padre
 					.def("play_image", &CGUIManager::PlayImage)									// Executa animacions d'imatges
+					.def("set_visible_pointer_mouse", &CGUIManager::SetVisiblePointerMouse)
 			];
 
 		module(_pLua)
