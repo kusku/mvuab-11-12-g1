@@ -125,7 +125,7 @@ void CObstacleWallAvoidance::CreateFeelers( float _Angle )
 
 	m_Feelers.clear();
 
-	float l_Increment = CORE->GetSteeringBehaviourSettingsManager()->GetObstacleWallDetectionFeelerAngleIncrement();
+	float l_Increment = CORE->GetSteeringBehaviourSettingsManager()->GetDetectionFeelerAngleIncrement();
 	for ( float i = -_Angle/2; i < _Angle/2; i += l_Increment ) 
 	{
 		m_Feelers.push_back(GetDirectionRay(i));
