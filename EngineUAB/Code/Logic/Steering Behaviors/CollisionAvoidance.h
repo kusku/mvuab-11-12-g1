@@ -38,6 +38,7 @@ public:
 	virtual	Vect3f			CalculateSteering2				( CSteeringEntity *_pEntity );					// Método que deberá ser sobreescrito en cada clase que herede de Steering
 	virtual	Vect3f			CalculateSteering3				( CSteeringEntity *_pEntity );					// Método que deberá ser sobreescrito en cada clase que herede de Steering
 	void					CreateFeelers					( float _Angle );
+	void					DrawRays						( void );
 
 	//---- Functions ---------------------------------------
 private:	
@@ -50,6 +51,8 @@ private:
 	inline const CSteeringEntity*	GetPursuer				( CSteeringEntity * m_pPursuer ) const;
 	inline const void				SetPursuer				( CSteeringEntity * _pPursuer )				{ m_pPursuer = _pPursuer; }
 	
+	const Vect3f			GetInitialPositionToThrowRay	( void ) const;
+	const Vect3f			GetDirectionRay					( float _Degrees ) const;
 
 	//---- Properties ( get & Set )---------------------------------------
 	

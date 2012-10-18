@@ -106,10 +106,10 @@ Vect3f CCollisionAvoidance::CalculateSteering( CSteeringEntity *_pEntity )
 	m_pEntity = _pEntity;
 
 	// Creo un vector de linias que seran los rayos a lanzar
-	CreateFeelers(FRUSTUM_ENEMY_ANGLE);
+	CreateFeelers(CORE->GetSteeringBehaviourSettingsManager()->GetCollisionDetectionFeelerAngle());
 
 	// Distancia mínima de colisión
-	float l_MinDistanceToCollision = 0.150f * _pEntity->GetSpeed() * CORE->GetTimer()->GetElapsedTime();;
+	float l_MinDistanceToCollision = 100.150f * _pEntity->GetSpeed() * CORE->GetTimer()->GetElapsedTime();;
 	
 	// La caja de detección es proporcional a la velocidad del agente
 	float l_DetectionBoxLength = m_DetectionRayLength + ( _pEntity->GetSpeed() / _pEntity->GetMaxSpeed() ) * m_DetectionRayLength * CORE->GetTimer()->GetElapsedTime();;
@@ -158,7 +158,8 @@ Vect3f CCollisionAvoidance::CalculateSteering( CSteeringEntity *_pEntity )
 
 		//Vect3f l_Front = _pEntity->GetPosition().GetAngleY();
 		float l_ForwardComponent = l_LocalOffset.Dot( _pEntity->GetFront() );
-		Vect3f l_ForwardOffset = l_ForwardComponent * _pEntity->GetFront();
+		float l_fAngle			 = mathUtils::ACos<float>( l_ForwardComponent );
+		Vect3f l_ForwardOffset	 = l_fAngle * _pEntity->GetFront();
 
 		// Offset del forward al centro del obstáculo
 		Vect3f l_OffForwardOffset = l_LocalOffset - l_ForwardOffset;
@@ -172,12 +173,12 @@ Vect3f CCollisionAvoidance::CalculateSteering( CSteeringEntity *_pEntity )
 		// si se cumple una de las condiciones, alejamos del centro del obstáculo
 		if ( inCylinder || inFront || nearby ) 
 		{
-			float l_Length = (l_OffForwardOffset * -1).Length();
+			float l_Length = (l_OffForwardOffset).Length() * -1;
 
 			if (l_Length < m_NearestObstacle)
 			{
 				m_NearestObstacle = l_Length;
-				m_NearestSteering = l_OffForwardOffset * -1;
+				m_NearestSteering = l_OffForwardOffset * -10;
 				//this.obstacle = obstacle;
 			}
 		}
@@ -196,7 +197,7 @@ Vect3f CCollisionAvoidance::CalculateSteering2( CSteeringEntity *_pEntity )
 	m_pEntity = _pEntity;
 
 	// Creo los bigotitos...
-	CreateFeelers(FRUSTUM_ENEMY_ANGLE);
+	CreateFeelers(CORE->GetSteeringBehaviourSettingsManager()->GetCollisionDetectionFeelerAngle());
 
 	// Almaceno info de colision
 	SCollisionInfo sInfo;
@@ -282,7 +283,7 @@ Vect3f CCollisionAvoidance::CalculateSteering3( CSteeringEntity *_pEntity )
 	m_pEntity = _pEntity;
 
 	// Creo los bigotitos...
-	CreateFeelers(FRUSTUM_ENEMY_ANGLE);
+	CreateFeelers(CORE->GetSteeringBehaviourSettingsManager()->GetCollisionDetectionFeelerAngle());
 
 	// Almaceno info de colision
 	SCollisionInfo sInfo;
@@ -438,7 +439,7 @@ Vect3f CCollisionAvoidance::CalculateSteering1( CSteeringEntity *_pEntity )
 	m_pEntity = _pEntity;
 
 	// Creo los bigotitos...
-	CreateFeelers(FRUSTUM_ENEMY_ANGLE);
+	CreateFeelers(CORE->GetSteeringBehaviourSettingsManager()->GetCollisionDetectionFeelerAngle());
 
 	// Almaceno info de colision
 	SCollisionInfo sInfo;
@@ -690,31 +691,22 @@ void CCollisionAvoidance::CreateFeelers( float _Angle )
 {
 	m_Feelers.clear();
 
-	for ( float i = -30.f; i < _Angle; i += 2.f ) 
+	/*for ( float i = -30.f; i < _Angle; i += 2.f ) 
 	{
 
 		Vect3f l_Front = m_pEntity->GetFront();
 		l_Front.y = 0;
 		l_Front.RotateY(mathUtils::Deg2Rad(i));
 		m_Feelers.push_back(l_Front);
+	}*/
+		
 
-		//// Rayo frontal 
-		////m_Feelers.push_back(m_pEntity->GetInitialPositionToThrowRay() + m_DetectionRayLength * m_pEntity->GetFront());
-		//m_Feelers.push_back(m_pEntity->GetFront());
-
-		//// Rayo a la izquierda
-		//Vect3f l_Front = m_pEntity->GetFront();
-		//l_Front.RotateY(mathUtils::Deg2Rad(_Angle));
-		////m_Feelers.push_back(m_pEntity->GetInitialPositionToThrowRay() + m_DetectionRayLength * 0.8f * l_Front);
-		//m_Feelers.push_back(l_Front);
-
-		//// Rayo a la derecha
-		//l_Front = m_pEntity->GetFront();
-		//l_Front.RotateY(mathUtils::Deg2Rad(-_Angle));
-		////m_Feelers.push_back(m_pEntity->GetInitialPositionToThrowRay() + m_DetectionRayLength * 0.8f * l_Front);
-		//m_Feelers.push_back(l_Front);
-
+	float l_Increment = CORE->GetSteeringBehaviourSettingsManager()->GetDetectionFeelerAngleIncrement();
+	for ( float i = -_Angle/2; i < _Angle/2; i += l_Increment ) 
+	{
+		m_Feelers.push_back(GetDirectionRay(i));
 	}
+
 }
 
 CPhysicUserData* CCollisionAvoidance::ShootCollisionRay( CSteeringEntity *_pEntity, const Vect3f &_Direction, SCollisionInfo& _Info, float _MaxDistance )
@@ -811,5 +803,49 @@ CPhysicUserData* CCollisionAvoidance::ShootCollisionRay( CSteeringEntity *_pEnti
 	//CHECKED_DELETE(l_Data);
 	return NULL;
 }
-
  
+void CCollisionAvoidance::DrawRays( void )
+{
+	Mat44f mat;
+	mat.SetIdentity();
+	CRenderManager * l_RM = CORE->GetRenderManager();
+	l_RM->SetTransform(mat);
+
+	Vect3f _Ray;
+	for ( size_t i = 0; i < m_Feelers.size(); i++ ) 
+	{
+		_Ray = m_Feelers[i];
+		Vect3f l_InitialPosition = m_pEntity->GetPosition();
+		l_InitialPosition.y += m_pEntity->GetHeight()/2;
+		Vect3f l_FinalPosition = _Ray.GetNormalized() * m_DetectionRayLength;
+		l_FinalPosition += l_InitialPosition;
+		l_RM->DrawLine( l_InitialPosition, l_FinalPosition, colWHITE );
+	}
+}
+
+const Vect3f CCollisionAvoidance::GetInitialPositionToThrowRay( void ) const
+{
+	Vect3f l_Pos = m_pEntity->GetPosition();
+	l_Pos.y += m_pEntity->GetHeight()/2;
+	
+	Vect3f l_Front;
+	l_Front = m_pEntity->GetFront();
+	l_Front.Normalize();
+	
+	l_Pos = Vect3f ( l_Pos.x + l_Front.x, l_Pos.y, l_Pos.z);
+	
+	return l_Pos;
+}
+
+const Vect3f CCollisionAvoidance::GetDirectionRay( float _DegresOfRotation ) const
+{
+	Vect3f l_Front	= m_pEntity->GetFront();
+	l_Front.Normalize();
+		
+	if ( _DegresOfRotation != 0 ) 
+		l_Front.RotateY(mathUtils::Deg2Rad(_DegresOfRotation));
+
+	return (Vect3f(l_Front.x, 0.f, l_Front.z));
+}
+
+
