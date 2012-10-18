@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2012.10.14)  18 OCT 2012 19:34
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=latex 2012.10.14)  18 OCT 2012 23:58
 entering extended mode
 **Memory.tex
 (C:\Users\Marc\Documents\UAB\Memory\Memory.tex
@@ -268,10 +268,7 @@ File: figures/development/lensflares.eps Graphic file (type eps)
 <figures/development/lensflares.eps> [40] [41]
 File: figures/development/physx_test_scene.eps Graphic file (type eps)
 
-<figures/development/physx_test_scene.eps> [42]
-Underfull \vbox (badness 6575) has occurred while \output is active []
-
- [43]
+<figures/development/physx_test_scene.eps> [42] [43]
 File: figures/development/test_ia.eps Graphic file (type eps)
 
 <figures/development/test_ia.eps> [44]
@@ -289,13 +286,27 @@ File: figures/development/gui_editor.eps Graphic file (type eps)
 
 ]
 Cap\'{\i }tulo 4.
-) [49] (C:\Users\Marc\Documents\UAB\Memory\section/conclusions.tex [50
+File: figures/results/game_2.eps Graphic file (type eps)
+<figures/results/game_2.eps>
+File: figures/results/game_1.eps Graphic file (type eps)
+ <figures/results/game_1.eps>
+File: figures/results/game_3.eps Graphic file (type eps)
 
+<figures/results/game_3.eps>
+File: figures/results/game_4.eps Graphic file (type eps)
+ <figures/results/game_4.eps>
+File: figures/results/game_5.eps Graphic file (type eps)
 
-
-]
+<figures/results/game_5.eps>
+File: figures/results/game_6.eps Graphic file (type eps)
+ <figures/results/game_6.eps>) [49] [50] [51]
+[52] (C:\Users\Marc\Documents\UAB\Memory\section/conclusions.tex
 Cap\'{\i }tulo 5.
-[51]) [52] (C:\Users\Marc\Documents\UAB\Memory\section/bibliography.tex
+[53
+
+
+
+]) [54] (C:\Users\Marc\Documents\UAB\Memory\section/bibliography.tex
 Underfull \hbox (badness 10000) in paragraph at lines 7--8
 [][]\T1/cmr/m/n/10.95 <http://www.playlogicgames.com/game/fairytale-fights>,
  []
@@ -326,7 +337,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 27--28
 [][]\T1/cmr/m/n/10.95 <http://www.imdb.com/title/tt0424136/>, Hard Candy -
  []
 
-[53
+[55
 
 
 
@@ -384,13 +395,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 48--49
 
  []
 
-) [54] (C:\Users\Marc\Documents\UAB\Memory\section/appendix.tex
+) [56] (C:\Users\Marc\Documents\UAB\Memory\section/appendix.tex
 Ap\'{e}ndice A.
-[55
+[57
 
 
 
-]) [56] (C:\Users\Marc\Documents\UAB\Memory\section/abstract.tex) [57
+]) [58] (C:\Users\Marc\Documents\UAB\Memory\section/abstract.tex) [59
 
 
 ]
@@ -405,12 +416,12 @@ Ap\'{e}ndice A.
 (C:\Users\Marc\Documents\UAB\Memory\section/appendix.aux)
 (C:\Users\Marc\Documents\UAB\Memory\section/abstract.aux)) ) 
 Here is how much of TeX's memory you used:
- 1682 strings out of 494046
- 23367 string characters out of 3145994
- 77151 words of memory out of 3000000
- 4889 multiletter control sequences out of 15000+200000
+ 1701 strings out of 494046
+ 23671 string characters out of 3145994
+ 78151 words of memory out of 3000000
+ 4901 multiletter control sequences out of 15000+200000
  17652 words of font info for 38 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
  27i,6n,31p,1251b,411s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on Memory.dvi (63 pages, 167032 bytes).
+Output written on Memory.dvi (65 pages, 173768 bytes).
