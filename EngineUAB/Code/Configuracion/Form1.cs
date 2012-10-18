@@ -77,7 +77,9 @@ namespace Configuracion
             wrDic.Add(new Resol(1024, 768), 2);
             wrDic.Add(new Resol(1280, 720), 3);
             wrDic.Add(new Resol(1280, 1024), 4);
-            wrDic.Add(new Resol(1920, 1080), 5);
+            wrDic.Add(new Resol(1360, 768), 5);
+            wrDic.Add(new Resol(1366, 768), 6);
+            wrDic.Add(new Resol(1920, 1080), 7);
 
             wrRevDic = new Dictionary<int, Resol>();
             wrRevDic.Add(0, new Resol(640, 360)); 
@@ -85,7 +87,9 @@ namespace Configuracion
             wrRevDic.Add(2, new Resol(1024, 768));
             wrRevDic.Add(3, new Resol(1280, 720));
             wrRevDic.Add(4, new Resol(1280, 1024));
-            wrRevDic.Add(5, new Resol(1920, 1080));
+            wrRevDic.Add(5, new Resol(1360, 768));
+            wrRevDic.Add(6, new Resol(1366, 768));
+            wrRevDic.Add(7, new Resol(1920, 1080));
 
             resolDic = new Dictionary<Resol, Resol>();
             resolDic.Add(new Resol(640, 360), new Resol(640, 360));
@@ -93,6 +97,8 @@ namespace Configuracion
             resolDic.Add(new Resol(1024, 768), new Resol(1024, 576));
             resolDic.Add(new Resol(1280, 720), new Resol(1280, 720));
             resolDic.Add(new Resol(1280, 1024), new Resol(1280, 720));
+            resolDic.Add(new Resol(1360, 768), new Resol(1360, 768));
+            resolDic.Add(new Resol(1366, 768), new Resol(1366, 768));
             resolDic.Add(new Resol(1920, 1080), new Resol(1920, 1080));
 
             ShadowDic = new Dictionary<int, Resol>();
@@ -442,6 +448,11 @@ namespace Configuracion
         private void cbParticleQuality_SelectedIndexChanged(object sender, EventArgs e)
         {
             cbSettings.SelectedIndex = 4;
+        }
+
+        private void cbResolution_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
