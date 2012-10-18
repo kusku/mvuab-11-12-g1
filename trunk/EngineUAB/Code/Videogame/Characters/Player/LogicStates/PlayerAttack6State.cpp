@@ -85,7 +85,7 @@ void CPlayerAttack6State::OnEnter( CCharacter* _pCharacter )
 	m_fCurrentVelocityMovement = m_fMaxVelocityMovement;
 	m_bFirstUpdate = true;
 
-	CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Caperucita_attack3");
+	//CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Caperucita_attack3");
 }
 
 void CPlayerAttack6State::Execute( CCharacter* _pCharacter, float _fElapsedTime )
