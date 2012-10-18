@@ -1,6 +1,7 @@
 #include "Seek.h"
 #include "Steering Behaviors\SteeringBehaviorsDefs.h"
 #include "Steering Behaviors\SteeringEntity.h"
+#include "Utils\Timer.h"
 
 #include "Logger\Logger.h"
 #include "Core.h"
@@ -41,7 +42,7 @@ Vect3f CSeek::CalculateSteering( CSteeringEntity *_pEntity )
 		}*/
 
 		Vect3f v = m_Target - _pEntity->GetPosition();
-		Vect3f l_DesiredVelocity = v.Normalize() * _pEntity->GetMaxSpeed();	
+		Vect3f l_DesiredVelocity = v.Normalize() * _pEntity->GetMaxSpeed() * CORE->GetTimer()->GetElapsedTime();	
 
  		// Retorno la dirección a dirigirse siempre a máxima velocidad
         return (l_DesiredVelocity - _pEntity->GetVelocity()); //Aquesta resta s'aplicaria només si volem sumar la part del vector velocitat que genera respecte la velocitat ja existent. 

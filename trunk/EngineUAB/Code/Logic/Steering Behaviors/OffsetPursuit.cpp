@@ -5,6 +5,7 @@
 #include "Steering Behaviors\SteeringBehaviorsDefs.h"
 #include "Steering Behaviors\SteeringEntity.h"
 
+#include "Utils\Timer.h"
 #include "Math\Matrix33.h"
 #include "Logger\Logger.h"
 #include "Core.h"
@@ -70,7 +71,7 @@ Vect3f COffsetPursuit::CalculateSteering( CSteeringEntity *_pEntity )
 			// Ahora buscamos la futura posición predecida del objetivo
 			m_pArrive->SetDeceleration( m_Deceleration );
 			m_pArrive->SetDecelerationDistance( m_DecelerationDistance );
-            m_pArrive->SetTarget( l_WorldOffsetPos + m_pLeader->GetVelocity() * l_LookAheadTime );
+            m_pArrive->SetTarget( l_WorldOffsetPos + m_pLeader->GetVelocity() * l_LookAheadTime * CORE->GetTimer()->GetElapsedTime());
 
 			return m_pArrive->CalculateSteering(_pEntity);
         }

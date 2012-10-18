@@ -4,6 +4,7 @@
 #include "Steering Behaviors\SteeringBehaviorsSeetingsManager.h"
 #include "Steering Behaviors\SteeringBehaviorsDefs.h"
 #include "Steering Behaviors\SteeringEntity.h"
+#include "Utils\Timer.h"
 
 #include "Logger\Logger.h"
 #include "Core.h"
@@ -95,7 +96,7 @@ Vect3f CPursuit::CalculateSteering( CSteeringEntity *_pEntity )
 
 			return m_pArrive->CalculateSteering(_pEntity);*/
 
-			Vect3f l_PredictePosition = m_pEvader->GetPosition() + m_pEvader->GetVelocity() * l_LookAheadTime;
+			Vect3f l_PredictePosition = m_pEvader->GetPosition() + m_pEvader->GetVelocity() * l_LookAheadTime * CORE->GetTimer()->GetElapsedTime();
 			m_pSeek->SetTarget(l_PredictePosition);
 			return m_pSeek->CalculateSteering(_pEntity);
         }

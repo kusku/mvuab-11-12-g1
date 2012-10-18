@@ -8,6 +8,7 @@
 #include "PhysicUserData.h"
 #include "PhysicActor.h"
 
+#include "Utils\Timer.h"
 #include "Math\MathUtils.h"
 #include "Logger\Logger.h"
 #include "Core.h"
@@ -107,7 +108,7 @@ Vect3f CSeparation::CalculateSteering( CSteeringEntity *_pEntity )
 
 					// Añado la aceleración
 					l_ToAgent.Normalize();
-					l_SeparationForce += l_Strength * l_ToAgent;
+					l_SeparationForce += l_Strength * l_ToAgent * CORE->GetTimer()->GetElapsedTime();
 				}
 			}
 		}		
