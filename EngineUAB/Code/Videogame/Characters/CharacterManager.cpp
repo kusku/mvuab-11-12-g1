@@ -58,6 +58,7 @@
 #include "Steering Behaviors\SteeringBehaviorsSeetingsManager.h"
 #include "Steering Behaviors\Seek.h"
 #include "Steering Behaviors\ObstacleWallAvoidance.h"
+#include "Steering Behaviors\CollisionAvoidance.h"
 
 #include "Billboard\BillboardManager.h"
 #include "Billboard\BillboardAnimation.h"
@@ -471,9 +472,20 @@ void CCharactersManager::DrawRay( void )
 	
 	for ( l_It; l_It!=l_End; l_It++ )
 	{
-		if ( (*l_It)->GetProperties()->GetActive() && (*l_It)->GetBehaviors()->isObstacleAvoidanceOn() )
+		if ( (*l_It)->GetProperties()->GetActive() && (*l_It)->GetBehaviors()->isObstacleWallAvoidanceOn() )
 		{ 
-			(*l_It)->GetBehaviors()->GetObstacleWallAvoidance()->DrawRays();
+			//(*l_It)->GetBehaviors()->GetObstacleWallAvoidance()->DrawRays();
+		}
+	}
+
+	l_It = m_ResourcesVector.begin();
+	l_End = m_ResourcesVector.end();
+	
+	for ( l_It; l_It!=l_End; l_It++ )
+	{
+		if ( (*l_It)->GetProperties()->GetActive() && (*l_It)->GetBehaviors()->isCollisionAvoidanceOn() )
+		{ 
+			(*l_It)->GetBehaviors()->GetCollisionAvoidance()->DrawRays();
 		}
 	}
 }
@@ -1326,7 +1338,6 @@ bool CCharactersManager::IsEnemyVisibleInAngleFromCamera(CCharacter *_Enemy, flo
 
 	return true;
 }
-
 
 void CCharactersManager::CalculateEnemyOrderToAttack( const Vect3f & _Position, float _ViewDistance )
 {
