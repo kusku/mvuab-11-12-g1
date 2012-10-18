@@ -1,6 +1,8 @@
 #include "WolfDeathState.h"
 #include "GameProcess.h"
+#include "EngineProcess.h"
 #include "SoundManager.h"
+#include "HUD/HUD.h"
 
 // --- Per pintar l'estat enemic ---
 #include "DebugGUIManager.h"
@@ -95,6 +97,8 @@ void CWolfDeathState::OnEnter( CCharacter* _pCharacter )
 
 	m_pAnimationCallback->Init();
 	CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Wolf_die");
+
+	static_cast<CGameProcess*>(CORE->GetProcess())->GetHUD()->SetActiveWolfBar(false);
 }
 
 void CWolfDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
@@ -165,6 +169,7 @@ void CWolfDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 
 void CWolfDeathState::OnExit( CCharacter* _pCharacter )
 {
+	static_cast<CGameProcess*>(CORE->GetProcess())->GetHUD()->SetActiveWolfBar(false);
 	//CORE->GetSoundManager()->PlayEvent("Stop_EFX_Wolf_die"); 
 }
 
