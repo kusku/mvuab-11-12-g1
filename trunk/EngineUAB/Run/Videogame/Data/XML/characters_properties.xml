@@ -28,8 +28,8 @@
 		<detection_distance>10</detection_distance>
 		<detection_angle>50</detection_angle>
 		<wait_to_cure>10</wait_to_cure>
-		<time_to_cure>0</time_to_cure>
-		<cure_velocity>1</cure_velocity>
+		<time_to_cure>5</time_to_cure>
+		<cure_velocity>10</cure_velocity>
 		<height_controller>1.0</height_controller>
 		<width_controller>0.3</width_controller>
 		<slope>45.0</slope>

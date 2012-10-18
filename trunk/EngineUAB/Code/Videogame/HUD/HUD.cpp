@@ -250,6 +250,8 @@ void CHud::Init( int _iPlayerLife )
 {
 	m_iPlayerLife			= _iPlayerLife;
 	m_iPlayerPreviousLife	= _iPlayerLife;
+
+	CORE->SetDyingAmount( 0.f );
 }
 
 //------------------------------------------------

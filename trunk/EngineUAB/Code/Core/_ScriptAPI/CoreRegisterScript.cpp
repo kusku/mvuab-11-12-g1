@@ -131,6 +131,7 @@ namespace ScriptAPI
 					.def("unload_sounds", &CCore::UnloadSounds)
 					.def("load_limits", &CCore::LoadLimits)
 					.def("set_game_mode", &CCore::SetGameMode)
+					.def("set_dying_amount", &CCore::SetDyingAmount)
 			];
 
 		module(l_pState)
