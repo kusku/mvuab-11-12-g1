@@ -3,8 +3,6 @@
 #ifndef __STEERING_BEHAVIOURS_DEFINITIONS_H__
 #define __STEERING_BEHAVIOURS_DEFINITIONS_H__
 
-#define FRUSTUM_ENEMY_ANGLE 45.f
-
 enum eBehaviorType
 {
     none = 0x00000,

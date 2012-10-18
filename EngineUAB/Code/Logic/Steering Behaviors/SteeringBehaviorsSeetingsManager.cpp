@@ -106,7 +106,7 @@ bool CSteeringBehaviorsSeetingsManager::LoadXML ( void )
 			}
 			else if ( l_PropertyField == "CollisionDetectionFeelerAngle" )
 			{
-				m_ObstacleWallDetectionFeelerAngle = static_cast<float> ( l_XMLPropertiesNode(i).GetFloatKeyword( "CollisionDetectionFeelerAngle", 60.f ) );
+				m_CollisionDetectionFeelerAngle = static_cast<float> ( l_XMLPropertiesNode(i).GetFloatKeyword( "CollisionDetectionFeelerAngle", 60.f ) );
 			}
 			else if ( l_PropertyField == "SeparationDetectionFeelerLength" )
 			{
