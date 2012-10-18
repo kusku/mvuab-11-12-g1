@@ -35,12 +35,15 @@ public:
 	inline void		SetObstacleWallDetectionFeelerAngle		( float _ObstacleWallDetectionFeelerAngle )			{ m_ObstacleWallDetectionFeelerAngle = _ObstacleWallDetectionFeelerAngle; }
 	inline float	GetObstacleWallDetectionFeelerAngle		( void ) const										{ return m_ObstacleWallDetectionFeelerAngle; }
 	
-	inline void		SetObstacleWallDetectionFeelerAngleIncrement( float _ObstacleWallDetectionFeelerAngleIncrement ){ m_ObstacleWallDetectionFeelerAngleIncrement = _ObstacleWallDetectionFeelerAngleIncrement; }
-	inline float	GetObstacleWallDetectionFeelerAngleIncrement( void ) const									{ return m_ObstacleWallDetectionFeelerAngleIncrement; }
+	inline void		SetDetectionFeelerAngleIncrement		( float _DetectionFeelerAngleIncrement )			{ m_DetectionFeelerAngleIncrement = _DetectionFeelerAngleIncrement; }
+	inline float	GetDetectionFeelerAngleIncrement		( void ) const										{ return m_DetectionFeelerAngleIncrement; }
 
 	inline void		SetCollisionDetectionFeelerLength		( float _CollisionDetectionFeelerLength )			{ m_CollisionDetectionFeelerLength = _CollisionDetectionFeelerLength; }
 	inline float	GetCollisionDetectionFeelerLength		( void ) const										{ return m_CollisionDetectionFeelerLength; }
 
+	inline void		SetCollisionDetectionFeelerAngle		( float _CollisionDetectionFeelerAngle )			{ m_CollisionDetectionFeelerAngle = _CollisionDetectionFeelerAngle; }
+	inline float	GetCollisionDetectionFeelerAngle		( void ) const										{ return m_CollisionDetectionFeelerAngle; }
+	
 	inline void		SetSeparationDetectionFeelerLength		( float _SeparationDetectionFeelerLength )			{ m_SeparationDetectionFeelerLength = _SeparationDetectionFeelerLength; }
 	inline float	GetSeparationDetectionFeelerLength		( void ) const										{ return m_SeparationDetectionFeelerLength; }
 
@@ -144,8 +147,9 @@ private:
 	// longitud de colision de diferentes comportamientos 
 	float			m_ObstacleWallDetectionFeelerLength;	// Longitud de los rayos de colisión con obstaculos y paredes
 	float			m_ObstacleWallDetectionFeelerAngle;		// Ángulo de los rayos de colisión con obstaculos y paredes
-	float			m_ObstacleWallDetectionFeelerAngleIncrement;	// Este me permite crear un rayo cada X grados de incremento. Es decir, cada X grados dentro del angulo crea un rayo
+	float			m_DetectionFeelerAngleIncrement;		// Este me permite crear un rayo cada X grados de incremento. Es decir, cada X grados dentro del angulo crea un rayo
 	float			m_CollisionDetectionFeelerLength;		// Longitud de los rayos de colisión con otros caracteres
+	float			m_CollisionDetectionFeelerAngle;		// Ángulo de los rayos de colisión con caracteres
 	float			m_SeparationDetectionFeelerLength;		// 
 	float			m_SeparationDecayCoefficient;
 	float			m_ArriveDecelarationDistance;			// Distancia a partir de la cual desaceleramos

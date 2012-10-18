@@ -150,8 +150,8 @@ public:
 	bool						isCohesionOn					( void )											{ return On(cohesion); }
 	bool						isSeparationOn					( void )											{ return On(separation); }
 	bool						isAlignmentOn					( void )											{ return On(alignment); } 
-	bool						isObstacleAvoidanceOn			( void )											{ return On(collision_avoidance); }
-	bool						isWallAvoidanceOn				( void )											{ return On(obstacle_wall_avoidance); }
+	bool						isCollisionAvoidanceOn			( void )											{ return On(collision_avoidance); }
+	bool						isObstacleWallAvoidanceOn		( void )											{ return On(obstacle_wall_avoidance); }
 	bool						isFollowPathOn					( void )											{ return On(follow_path); }
 	bool						isInterposeOn					( void )											{ return On(interpose); }
 	bool						isHideOn						( void )											{ return On(hide); }
