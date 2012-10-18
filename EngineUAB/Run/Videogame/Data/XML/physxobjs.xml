@@ -49,7 +49,7 @@
   <physx_obj name="TroncoCaido_2_Box" type="1" dimension="0.946144 0.94557 3.19765" pos="69.1126 -24.6377 -144.21" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="false" />
   <physx_obj name="TroncoCaido_1_Box" type="1" dimension="2.39645 1.8535 6.25786" pos="88.9596 0.92675 -133.678" yaw="0.0" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="false" />
   
-  <physx_obj name="HouseBox" type="1" dimension="10.2892 12.8636 12.4575" pos="-61.0924 0.332863 -117.292" yaw="28.2477" pitch="0.0" roll="0.0" group="ECG_LIMITS" active_startup="true" />
+  <physx_obj name="HouseBox" type="1" dimension="10.2892 12.8636 12.4575" pos="-61.0924 0.332863 -117.292" yaw="28.2477" pitch="0.0" roll="0.0" group="ECG_STATIC_OBJECTS" active_startup="true" />
 
   
   <physx_obj name="TerrainLimitBox066" type="1" dimension="16.5356 30.3169 1.0" pos="-89.837 -4.25571 134.048" yaw="-103.448" pitch="0.818557" roll="1.16785" group="ECG_LIMITS" active_startup="true" />
