@@ -40,34 +40,38 @@
 \contentsline {section}{\numberline {2.6}Tecnología}{21}
 \contentsline {section}{\numberline {2.7}Sonido}{22}
 \contentsline {chapter}{\numberline {3}Desarrollo}{23}
-\contentsline {section}{\numberline {3.1}Diseño}{23}
-\contentsline {section}{\numberline {3.2}Arte}{23}
-\contentsline {subsection}{\numberline {3.2.1}Escenario}{23}
-\contentsline {subsection}{\numberline {3.2.2}Personajes}{23}
-\contentsline {subsubsection}{Caperucita}{23}
-\contentsline {subsubsection}{El Lobo}{26}
-\contentsline {subsubsection}{Conejo}{28}
-\contentsline {subsubsection}{Ciervo}{30}
-\contentsline {section}{\numberline {3.3}Programación}{32}
-\contentsline {subsection}{\numberline {3.3.1}Gráficos}{32}
-\contentsline {subsubsection}{Iluminación y sombras}{32}
-\contentsline {subsubsection}{Partículas}{33}
-\contentsline {subsubsection}{Post procesado}{34}
-\contentsline {subsection}{\numberline {3.3.2}Física}{34}
-\contentsline {subsubsection}{Escenario de pruebas}{35}
-\contentsline {subsection}{\numberline {3.3.3}Inteligencia Artificial}{36}
-\contentsline {subsubsection}{Máquinas de estados}{37}
-\contentsline {subsubsection}{Steering Behaviors}{37}
-\contentsline {subsubsection}{Escenario de pruebas}{38}
-\contentsline {subsection}{\numberline {3.3.4}Scripting}{38}
-\contentsline {subsection}{\numberline {3.3.5}Audio}{39}
-\contentsline {subsection}{\numberline {3.3.6}Tools}{39}
-\contentsline {subsubsection}{Particle Editor}{39}
-\contentsline {subsubsection}{GUI Editor}{40}
-\contentsline {subsubsection}{3ds Max Exporter}{40}
-\contentsline {subsubsection}{Viewer}{41}
-\contentsline {chapter}{\numberline {4}Resultados}{43}
-\contentsline {chapter}{\numberline {5}Conclusiones}{45}
-\contentsline {chapter}{Bibliografía}{47}
-\contentsline {chapter}{Apéndice}{49}
-\contentsline {chapter}{\numberline {A}Manual de usuario}{49}
+\contentsline {section}{\numberline {3.1}Arte}{23}
+\contentsline {subsection}{\numberline {3.1.1}Escenario}{23}
+\contentsline {subsubsection}{Terreno}{23}
+\contentsline {subsubsection}{Texturización}{25}
+\contentsline {subsubsection}{Iluminación}{26}
+\contentsline {subsubsection}{Skydome}{28}
+\contentsline {subsubsection}{Props}{28}
+\contentsline {subsection}{\numberline {3.1.2}Personajes}{28}
+\contentsline {subsubsection}{Caperucita}{28}
+\contentsline {subsubsection}{El Lobo}{31}
+\contentsline {subsubsection}{Conejo}{33}
+\contentsline {subsubsection}{Ciervo}{35}
+\contentsline {section}{\numberline {3.2}Programación}{37}
+\contentsline {subsection}{\numberline {3.2.1}Gráficos}{38}
+\contentsline {subsubsection}{Iluminación y sombras}{38}
+\contentsline {subsubsection}{Partículas}{38}
+\contentsline {subsubsection}{Post procesado}{40}
+\contentsline {subsection}{\numberline {3.2.2}Física}{40}
+\contentsline {subsubsection}{Escenario de pruebas}{41}
+\contentsline {subsection}{\numberline {3.2.3}Inteligencia Artificial}{42}
+\contentsline {subsubsection}{Máquinas de estados}{42}
+\contentsline {subsubsection}{Steering Behaviors}{43}
+\contentsline {subsubsection}{Escenario de pruebas}{44}
+\contentsline {subsection}{\numberline {3.2.4}Scripting}{44}
+\contentsline {subsection}{\numberline {3.2.5}Audio}{44}
+\contentsline {subsection}{\numberline {3.2.6}Tools}{45}
+\contentsline {subsubsection}{Particle Editor}{45}
+\contentsline {subsubsection}{GUI Editor}{46}
+\contentsline {subsubsection}{3ds Max Exporter}{46}
+\contentsline {subsubsection}{Viewer}{47}
+\contentsline {chapter}{\numberline {4}Resultados}{49}
+\contentsline {chapter}{\numberline {5}Conclusiones}{51}
+\contentsline {chapter}{Bibliografía}{53}
+\contentsline {chapter}{Apéndice}{55}
+\contentsline {chapter}{\numberline {A}Manual de usuario}{55}

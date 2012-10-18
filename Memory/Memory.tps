@@ -4,8 +4,8 @@ Version=2
 
 [SessionInfo]
 ActiveTab=0
-FrameCount=4
-ActiveFrame=3
+FrameCount=5
+ActiveFrame=1
 
 [Frame0]
 Columns=1
@@ -39,8 +39,8 @@ TopSubLine=0
 [Frame1]
 Columns=1
 Rows=1
-Flags=0
-ShowCmd=1
+Flags=2
+ShowCmd=3
 MinPos.x=-1
 MinPos.y=-1
 MaxPos.x=-8
@@ -53,17 +53,17 @@ Class=CLatexEdit
 Document=section\development.tex
 
 [Frame1_Row0]
-cyCur=353
+cyCur=566
 cyMin=10
 
 [Frame1_Col0]
-cxCur=833
+cxCur=1024
 cxMin=10
 
 [Frame1_View0,0]
-Cursor.row=0
+Cursor.row=104
 Cursor.column=0
-TopSubLine=485
+TopSubLine=143
 
 [Frame2]
 Columns=1
@@ -97,8 +97,8 @@ TopSubLine=11
 [Frame3]
 Columns=1
 Rows=1
-Flags=2
-ShowCmd=3
+Flags=0
+ShowCmd=1
 MinPos.x=-1
 MinPos.y=-1
 MaxPos.x=-8
@@ -111,15 +111,44 @@ Class=CLatexEdit
 Document=section\conclusions.tex
 
 [Frame3_Row0]
-cyCur=378
+cyCur=215
 cyMin=10
 
 [Frame3_Col0]
-cxCur=1110
+cxCur=998
 cxMin=10
 
 [Frame3_View0,0]
+Cursor.row=11
+Cursor.column=0
+TopSubLine=3
+
+[Frame4]
+Columns=1
+Rows=1
+Flags=0
+ShowCmd=1
+MinPos.x=-1
+MinPos.y=-1
+MaxPos.x=-8
+MaxPos.y=-30
+NormalPos.left=100
+NormalPos.top=100
+NormalPos.right=970
+NormalPos.bottom=512
+Class=CLatexEdit
+Document=section\design_document.tex
+
+[Frame4_Row0]
+cyCur=353
+cyMin=10
+
+[Frame4_Col0]
+cxCur=833
+cxMin=10
+
+[Frame4_View0,0]
 Cursor.row=0
 Cursor.column=0
-TopSubLine=6
+TopSubLine=0
 

@@ -1,12 +1,6 @@
 \chapter{Desarrollo}
 
-El desarrollo del juego se puede separar en tres grandes bloques diferentes entre sí: Diseño, arte y programación.
-
-
-%----- Diseño --------------------------------------
-%---------------------------------------------------
-\section{Diseño}
-
+El desarrollo del juego se puede separar en dos grandes bloques diferentes entre sí: Arte y programación.
 
 %----- Arte ----------------------------------------
 %---------------------------------------------------
@@ -14,13 +8,104 @@ El desarrollo del juego se puede separar en tres grandes bloques diferentes entr
 Todo el arte del juego se ha hecho mediante los programas Autodesk 3ds Max para el modelado y Photoshop para la creación de la texturas.
 
 \subsection{Escenario}
+El escenario del juego es un bosque nevado durante el atardecer de una noche de invierno. 
+
+Inicialmente el escenario del juego estaba diseñado en tres niveles (figura \ref{fig:escenario_inicial}). El bosque donde el jugador aprendía a usar las armas, así como el resto de mecánicas. La cabaña formaría parte del bosque. Después una zona llena de columnas que sostentaban el bosque. En esta zona el jugador podría esconderse de los enemigos, y los enemigos de Caperucita. Finalmente, el último escenario sería la cueva del lobo donde habría la batalla final terminando el juego con la muerte del Lobo.
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.65]{figures/development/escenario_inicial.eps}
+\end{center}
+\emph{\caption{Bocetos sobre el escenario inicial}\label{fig:escenario_inicial}}
+\end{figure}
+
+A medida que se iba avanzando en el proyecto, se eliminaron los dos últimos escenarios, la zona de columnas y la cueva, por falta de tiempo. Así también, permitía centrar los esfuerzos en un solo escenario haciendo que este, luzca más y mejor. Con este cambio de escenario la historia no cambia demasiado así que la decisión fue acertada.
+
+\subsubsection{Terreno}
+En el desarrollo del terreno se probaron varios tamaños. En primer lugar se hizo un escenario de $1km^2$, pero se desestimó cuando se vió que era demasiado grande para el juego a desarrollar. El tamaño final del escenario es de $400m^2$, siendo un tamaño de escenario grande permitiendo dar sensación de libertad, y al mismo tiempo, conseguir que no sea un escenario vacio debido al tamaño.
+
+Después de obtener los bocetos del terreno y un recorrido coherente para el jugador, se realizó una pequeña investigación de campo (figura \ref{fig:laberint}). Es esta investigación se hicieron fotografías a una mujer con una estatura similar a la que se quería con Caperucita y con una ropa similar. Con este trabajo se vió el tiempo promedio el tiempo a recorrer una cierta distancia, la altura a saltar, entre otros valores. Eso permitió poder obtener escalas relacionadas con el entorno. La investigación se ralizó en el \emph{Laberint d'Horta} de Barcelona.
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.7]{figures/development/laberint.eps}
+\end{center}
+\emph{\caption{Investigación del escenario y movimientos en el Laberint d'Horta} \label{fig:laberint}}
+\end{figure}
+
+Después de tener claras las medidads en el mundo real y en el papel tener las proporciones adecuadas, se realizó un diseño del escenario mediante cajas. Una vez se tiene este diseño inicial, se empieza a dar forma al escenario modificando la forma de las cajas, así como los agujeros para el río y del camino. Seguidamente se empieza el modelado de las montañas teniendo en cuenta las medidas iniciales. Las dos partes, las montañas y el terreno llano, se modelan separadamente. Finalmente, y una vez obtenido un buen resultado para las montañas y el terreno, se unieron para formar un solo escenario en una sola pieza (figura \ref{fig:escenario_proceso}).
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.9]{figures/development/escenario_proceso.eps}
+\end{center}
+\emph{\caption{Proceso de creación del escenario (de izquierda a derecha y de arriba a abajo)} \label{fig:escenario_proceso}}
+\end{figure}
+
+\subsubsection{Texturización}
+Una vez modelado el escenario y probado en el motor del juego con una textura común, se pasó a la realización de la textura.
+
+La primera prueba fue una sola textura de 4096x4096 para todo el terreno (figura \ref{fig:texturas}). A simple vista el resultado era bueno, pero había sitios, sobtretodo donde el terreno era más irregular, donde se notaban los fallos de textura. También se apreció que el terreno no era lo suficiente nevado, tal y como se tenía la idea original. 
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.9]{figures/development/texturas.eps}
+\end{center}
+\emph{\caption{Textura de 4096x4096 aplicada como primera prueba)} \label{fig:texturas}}
+\end{figure}
+
+La siguiente prueba fue dividir el terreno en diversas secciones, teniendo una textura por cada sección. La idea parecía buena dado que así se podría tener más resolución de textura en el escenario. El trabajo se complicó en este punto. Una vez en el motor del juego, las juntas que dividían las seccionas se veían y no era un trabajo trivial hacerlas desaparecer.
+
+Finalmente, la solución fue utilizar la técnica de texturizado \emph{splat mapping}. Esta técnica permite tener una textura que define el terreno, donde cada canal de esta defina la cantidad de textura a aplicar de una textura concreta. Así pues, con una textura donde se define el texturizado del terreno y cuatro texturas, se logró texturizar todo el terreno (figura \ref{fig:splat}).
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.9]{figures/development/splat.eps}
+\end{center}
+\emph{\caption{Escenario en 3ds Max con la textura de definición del terreno)} \label{fig:splat}}
+\end{figure}
+
+\subsubsection{Iluminación}
+En el documento de diseño se comentó que la luz sería de noche, pero rápidamente se cambió a atardecer, ya que podríamos jugar con el Sol y algunos efectos que este provoca. 
+
+Se buscaron referencias de atarcederes y se vió que hay atardeceres con diferentes tonalidades. Unos atardeceres son más amarillentos y anarenjados, y otros más rojizos. Así que se probaron en el motor estas diferentes tonalidades de iluminación. Finalmente, la balanza se decantó más por una tonalidad rojiza con un poco de amarillo (figura \ref{fig:iluminacion}).
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.9]{figures/development/iluminacion.eps}
+\end{center}
+\emph{\caption{Iluminación del escenario. Arriba izquierda: tonalidad amarillenta. Arrida derecha: Amarillenta con rojizo. Debajo: Tonalidad final rojiza)} \label{fig:iluminacion}}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.8]{figures/development/skydome.eps}
+\end{center}
+\emph{\caption{Textura del skydome final} \label{fig:skydome}}
+\end{figure}
+
+\subsubsection{Skydome}
+Para dar sensación de estar en el mundo real, se ha aplicado un \emph{skydome}. Primeramente se creó una textura sin montañas, pero no daba sensación de inmersión, así que se añadieron montañas y se aplicó una correción de color para ír en consonancia con la iluminación escogida (figura \ref{fig:skydome}).
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.9]{figures/development/props.eps}
+\end{center}
+\emph{\caption{roca en high poly y low poly} \label{fig:props}}
+\end{figure}
+
+\subsubsection{Props}
+Para el escenario se han diseñado diferentes elementos que conforman el paisaje, como árboles, rocas, plantas. También se ha creado un puente de madera y cuerda por donde el jugador accede a la zona final del juego.
+
+Los elementos fueron creados en \emph{high poly} primero para después, pasarlos a \emph{low poly} y así poder poner más elementos en el escenario \ref{fig:props}. 
+
 
 \subsection{Personajes}
 El diseño de los personajes (figura \ref{fig:personajes}) fue sacado de varios universos, pero sobre todo se ha intentado que los personajes tengas un estilo realista dentro de la ambientación. Se ha buscado siempre que creen una ambientación visual coherente y armónica.
 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.75]{figures/development/personajes.eps}
+\includegraphics[scale=0.8]{figures/development/personajes.eps}
 \end{center}
 \emph{\caption{Todos los personajes del juego}\label{fig:personajes}}
 \end{figure}
@@ -168,10 +253,10 @@ Ficha técnica:
 \item Altura: 2m
 \item Polígonos: 2701
 \item Huesos: 33
-\item Animaciones: 9
+\item Animaciones: 8
 \end{itemize}
 
-Este personaje ha sido más complejo de diseñar dade que no existen muchas referencias de enemigos similares (figura \ref{fig:deer_inspiration}). Se hico una mezcla de varias referencias para obtener el resultado final. La idea general en el diseño del ciervo era la de tener un enemigo más grande que el conejo, más pesado pero a la vez, mucho más destructivo. Aunque tenga una gran altura, su delgada corpulencia le permite moverse con velocidad. Igual que el conejo, se le quería dar un aspeco demencial, extraño y deformado, como por ejemplo su tamaño distinto para sus ojos.
+Este personaje ha sido más complejo de diseñar dado que no existen muchas referencias de enemigos similares (figura \ref{fig:deer_inspiration}). Se hico una mezcla de varias referencias para obtener el resultado final. La idea general en el diseño del ciervo era la de tener un enemigo más grande que el conejo, más pesado pero a la vez, mucho más destructivo. Aunque tenga una gran altura, su delgada corpulencia le permite moverse con velocidad. Igual que el conejo, se le quería dar un aspeco demencial, extraño y deformado, como por ejemplo su tamaño distinto para sus ojos.
 
 \begin{figure}
 \begin{center}
@@ -196,7 +281,6 @@ Las animaciones del ciervo son:
 \item Run. El enemigo corre.
 \item Hit. Recibe un golpe.
 \item Die. El ciervo muere.
-\item Howl. Aulla para llamar a más enemigos.
 \item Defense. Postura de defensa.
 \item Attack Punch. Dos golpes con los brazos.
 \item Attack Run. El personaje baja el torso y carga su presa con sus cuernos.
@@ -205,7 +289,7 @@ Las animaciones del ciervo son:
 %----- Programación --------------------------------
 %---------------------------------------------------
 \section{Programación}
-\emph{Boc Engine} (nombre del motor) es el motor de videojuegos desarrollado en C++ para el máster y el juego. Este motor ha sido creado tanto con tecnología propia como de terceros, que nos ha facilitado tener una base sólida para poder construir todas las partes que componen un videojuego.
+\emph{Boc Engine} es el motor de videojuegos desarrollado en C++ para el máster y el juego. Este motor ha sido creado tanto con tecnología propia como de terceros, que nos ha facilitado tener una base sólida para poder construir todas las partes que componen el videojuego.
 
 \emph{Boc Engine} ha sido dividido en diferentes proyectos, cada uno especializado en un ámbito distinto (gráficos, sonido, GUI,...) pero interconectados entre sí.
 
@@ -222,7 +306,7 @@ La tecnología de terceros utilizada en el motor es la siguiente:
 
 Toda la estructura del motor, y del juego en sí, está basada en ficheros XML. El lenguaje XML permite externalizar los parámetros del motor, así como también guardar toda la información referente al juego.
 
-COmo entorno de desarrollo utilizado ha sido Microsoft Visual Studio 2010 para todo el motor y Notepad++ para editar ficheros XML y Lua.
+Como entorno de desarrollo utilizado ha sido Microsoft Visual Studio 2010 para todo el motor y Notepad++ para editar ficheros XML y Lua.
 
 \subsection{Gráficos}
 Los aspectos donde se ha hecho más enfasi durante la programación de los gráficos a sido con la iluminación, las sombras, las partículas y los efectos de post procesado. 

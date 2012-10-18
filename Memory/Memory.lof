@@ -13,24 +13,32 @@
 \contentsline {figure}{\numberline {2.10}{\ignorespaces Idea de la cabaña}}{19}
 \contentsline {figure}{\numberline {2.11}{\ignorespaces Idea de la cueva}}{19}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Todos los personajes del juego}}{24}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Referencias de arte sobre Caperucita}}{25}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Proceso de creación de Caperucita}}{25}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Proceso de creación del Lobo}}{27}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Referencias para el Lobo}}{27}
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Referencias para el conejo}}{28}
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Proceso de creación del conejo}}{29}
-\contentsline {figure}{\numberline {3.8}{\ignorespaces Referencias para el ciervo}}{30}
-\contentsline {figure}{\numberline {3.9}{\ignorespaces Proceso de creación del ciervo}}{31}
-\contentsline {figure}{\numberline {3.10}{\ignorespaces Escena final con las sombras}}{33}
-\contentsline {figure}{\numberline {3.11}{\ignorespaces Mapas de sombras creados con Cascaded Shadow Mapping}}{33}
-\contentsline {figure}{\numberline {3.12}{\ignorespaces Diferentes mapas de sombras aplicados a la escena. El rojo es el mapa con más calidad y el azul el que tiene menos calidad.}}{34}
-\contentsline {figure}{\numberline {3.13}{\ignorespaces Efecto de lens flare en el juego}}{35}
-\contentsline {figure}{\numberline {3.14}{\ignorespaces Escena de test de físicas}}{36}
-\contentsline {figure}{\numberline {3.15}{\ignorespaces Escena de test de de inteligencia artificial}}{38}
-\contentsline {figure}{\numberline {3.16}{\ignorespaces Editor de Wwise con el proyecto del juego}}{39}
-\contentsline {figure}{\numberline {3.17}{\ignorespaces Particle Editor}}{40}
-\contentsline {figure}{\numberline {3.18}{\ignorespaces GUI Editor}}{41}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Bocetos sobre el escenario inicial}}{24}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Investigación del escenario y movimientos en el Laberint d'Horta}}{24}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Proceso de creación del escenario (de izquierda a derecha y de arriba a abajo)}}{25}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Textura de 4096x4096 aplicada como primera prueba)}}{26}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Escenario en 3ds Max con la textura de definición del terreno)}}{26}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Iluminación del escenario. Arriba izquierda: tonalidad amarillenta. Arrida derecha: Amarillenta con rojizo. Debajo: Tonalidad final rojiza)}}{27}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Textura del skydome final}}{27}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces roca en high poly y low poly}}{28}
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Todos los personajes del juego}}{29}
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Referencias de arte sobre Caperucita}}{30}
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Proceso de creación de Caperucita}}{30}
+\contentsline {figure}{\numberline {3.12}{\ignorespaces Proceso de creación del Lobo}}{32}
+\contentsline {figure}{\numberline {3.13}{\ignorespaces Referencias para el Lobo}}{32}
+\contentsline {figure}{\numberline {3.14}{\ignorespaces Referencias para el conejo}}{33}
+\contentsline {figure}{\numberline {3.15}{\ignorespaces Proceso de creación del conejo}}{34}
+\contentsline {figure}{\numberline {3.16}{\ignorespaces Referencias para el ciervo}}{36}
+\contentsline {figure}{\numberline {3.17}{\ignorespaces Proceso de creación del ciervo}}{36}
+\contentsline {figure}{\numberline {3.18}{\ignorespaces Escena final con las sombras}}{38}
+\contentsline {figure}{\numberline {3.19}{\ignorespaces Mapas de sombras creados con Cascaded Shadow Mapping}}{39}
+\contentsline {figure}{\numberline {3.20}{\ignorespaces Diferentes mapas de sombras aplicados a la escena. El rojo es el mapa con más calidad y el azul el que tiene menos calidad.}}{39}
+\contentsline {figure}{\numberline {3.21}{\ignorespaces Efecto de lens flare en el juego}}{41}
+\contentsline {figure}{\numberline {3.22}{\ignorespaces Escena de test de físicas}}{42}
+\contentsline {figure}{\numberline {3.23}{\ignorespaces Escena de test de de inteligencia artificial}}{44}
+\contentsline {figure}{\numberline {3.24}{\ignorespaces Editor de Wwise con el proyecto del juego}}{45}
+\contentsline {figure}{\numberline {3.25}{\ignorespaces Particle Editor}}{46}
+\contentsline {figure}{\numberline {3.26}{\ignorespaces GUI Editor}}{47}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
