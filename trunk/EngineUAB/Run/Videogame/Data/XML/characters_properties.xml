@@ -47,12 +47,12 @@
 		<speed>2</speed>
 		<max_rotation_speed>360</max_rotation_speed>
 		<min_speed>0.05</min_speed>
-		<max_speed>0.6</max_speed>
+		<max_speed>12.6</max_speed>
 		<max_acceleration>0.1</max_acceleration>
 		<max_force>1.015</max_force>
-		<still_attack_speed>0.4</still_attack_speed>
+		<still_attack_speed>13.4</still_attack_speed>
 		<!-- Velocidad de ataque 1 --> 
-		<run_attack_speed>0.5</run_attack_speed>
+		<run_attack_speed>15.5</run_attack_speed>
 		<!-- Velocidad de ataque 2 --> 
 		<min_tired_time>1</min_tired_time>
 		<!-- Tiempo mínimo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
@@ -104,18 +104,18 @@
 		<active>false</active>
 		<locked>false</locked>
 		<life>200</life>
-		<strong>5</strong>
+		<strong>10</strong>
 		<mass>0.01</mass>
 		<velocity>0 0 0</velocity>
 		<speed>2</speed>
 		<max_rotation_speed>360</max_rotation_speed>
 		<min_speed>0.05</min_speed>
-		<max_speed>0.4</max_speed>
+		<max_speed>11.4</max_speed>
 		<max_acceleration>0.1</max_acceleration>
 		<max_force>0.015</max_force>
-		<still_attack_speed>0.4</still_attack_speed>
+		<still_attack_speed>12.4</still_attack_speed>
 		<!-- Velocidad de ataque 1 --> 
-		<run_attack_speed>1.4</run_attack_speed>
+		<run_attack_speed>15.4</run_attack_speed>
 		<!-- Velocidad de ataque 2 --> 
 		<min_tired_time>2</min_tired_time>
 		<!-- Tiempo mínimo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
@@ -161,22 +161,22 @@
 		<active>false</active>
 		<locked>false</locked>
 		<life>150</life>
-		<strong>3</strong>
+		<strong>5</strong>
 		<mass>0.01</mass>
 		<velocity>0 0 0</velocity>
 		<speed>2</speed>
 		<max_rotation_speed>360</max_rotation_speed>
 		<min_speed>0.01</min_speed>
 		<!-- Teóricamente de caminar --> 
-		<max_speed>0.33</max_speed>
+		<max_speed>8.33</max_speed>
 		<!-- En carrera --> 
 		<max_acceleration>0.1</max_acceleration>
 		<!-- Aceleración máxima posible. Actualmente no se usa --> 
-		<max_force>1.015</max_force>
+		<max_force>10.015</max_force>
 		<!-- Fuerza máxima disponible. Se usa en los Steering Behaviors --> 
-		<still_attack_speed>0.3</still_attack_speed>
+		<still_attack_speed>12.0</still_attack_speed>
 		<!-- Velocidad de ataque 1 --> 
-		<run_attack_speed>0.4</run_attack_speed>
+		<run_attack_speed>15.0</run_attack_speed>
 		<!-- Velocidad de ataque 2 --> 
 		<min_tired_time>1</min_tired_time>
 		<!-- Tiempo mínimo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
@@ -222,11 +222,10 @@
 		<strong>50</strong>
 		<speed>25</speed>
 		<velocity>0 0 0</velocity>
-		<yaw>2.36</yaw>
+		<yaw>0</yaw>
 		<respawn_position>0 10 0</respawn_position>
 
-		<position>106 -16 -168</position>
-		<!-- Posición inicial del juego. Posición respawn trigger 1 -->
+		<position>106 -16 -168</position>						<!-- Posición inicial del juego. Posición respawn trigger 1 -->
 		<!--<position>58 -23 -106</position>-->					<!-- Posición respawn trigger 2 - 2o letrero -->
 		<!--<position>110 -30 -30</position>-->					<!-- Posición respawn trigger 3 - Antes del medio -->
 		<!--<position>67 -40 19</position>-->					<!-- Posición respawn trigger 4 - Medio -->
