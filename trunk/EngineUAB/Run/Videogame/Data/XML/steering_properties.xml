@@ -51,7 +51,7 @@
 		hasta que les toque el turno, es decir, que ya no existan los N enemigos más cercanos a él y pueda entrar en acción -->
 	<NumberEnemiesCanAttack>5</NumberEnemiesCanAttack>				
 	<MinNumberEnemiesCanHelp>4</MinNumberEnemiesCanHelp>	
-	<MaxNumberEnemiesCanHelp>10</MaxNumberEnemiesCanHelp>	
+	<MaxNumberEnemiesCanHelp>7</MaxNumberEnemiesCanHelp>	
 	<CamaraRangeAngleForPrepared>164</CamaraRangeAngleForPrepared>	
 	<CamaraRangeAngleForAttack>164</CamaraRangeAngleForAttack>	
 	
