@@ -2,6 +2,8 @@
 #include "CharacterManager.h"
 #include "Properties/Properties.h"
 #include "Utils\BoostRandomHelper.h"
+#include "Utils\Timer.h"
+#include "Math\MathUtils.h"
 #include "SoundManager.h"
 
 #include "Steering Behaviors\SteeringBehaviors.h"
@@ -193,11 +195,12 @@ bool CCharacter::Initialize( const std::string &_Name, const std::string &_Core,
 	// Metemos el yaw y posición del modelo animado al controller
 	if ( m_pCurrentAnimatedModel )
 	{
-		// Actualizamos el Yaw y lo asignamos al controler
-		float l_Yaw = m_pCurrentAnimatedModel->GetYaw();
-		m_pCurrentAnimatedModel->SetYaw( l_Yaw + mathUtils::Rad2Deg( m_pProperties->GetYaw() ) );
-		m_pController->SetYaw( m_pProperties->GetYaw() );
+		//// Actualizamos el Yaw y lo asignamos al controler
+		//float l_Yaw = m_pCurrentAnimatedModel->GetYaw();
+		//m_pCurrentAnimatedModel->SetYaw( l_Yaw + mathUtils::Rad2Deg( m_pProperties->GetYaw() ) );
+		//m_pController->SetYaw( m_pProperties->GetYaw() );
 		m_pCurrentAnimatedModel->SetPosition( l_Position );
+		FaceToForPlayer(m_pProperties->GetYaw(), 0.f);
 	}
 
 	m_Name = _Name;
@@ -248,7 +251,7 @@ bool CCharacter::InitializeAI ( void )
 			m_pSteeringEntity->SetSide( v.GetPerpendicular() );
 		}
 
-		m_pSteeringEntity->SetYaw(m_pSteeringEntity->GetVelocity().GetAngleY());
+		//m_pSteeringEntity->SetYaw(m_pSteeringEntity->GetVelocity().GetAngleY());
 
 		// Esto lo necesito para trabajar con los datos de movimiento y colisiones con físic
 		m_pController->GetUserData()->SetSteeringEntity(m_pSteeringEntity);
@@ -438,6 +441,33 @@ void CCharacter::FaceToForPlayer( const Vect3f &_Position, float _ElapsedTime )
 	m_pCurrentAnimatedModel->SetYaw(l_fYaw);
 }
 
+void CCharacter::FaceToForPlayer( float _DegreesAngle, float _ElapsedTime )
+{
+	float l_fAngle	= mathUtils::Deg2Rad(_DegreesAngle);
+
+	//Correción del ángulo para que no de NaN en el arccos
+	//l_fAngle = Helper::LimitValue(l_fAngle, -1.f, 1.f);
+	l_fAngle = mathUtils::ACos<float>( l_fAngle );
+
+	//Mira como tiene que girar el player
+	bool l_bInside	= IsPointAtLeft( GetPosition(), GetFront() );
+	//float l_fYaw = m_pController->GetYaw();
+
+	//if( l_bInside )
+	//{
+	//	l_fYaw	-= l_fAngle;
+	//}	
+	//else
+	//{
+	//	l_fYaw	+= l_fAngle;
+	//}
+
+	//Establece los valores para la ejecución
+	m_pController->SetYaw( l_fAngle );
+	//m_pSteeringEntity->SetYaw(l_fAngle);
+	l_fAngle = -mathUtils::Rad2Deg(l_fAngle + FLOAT_PI_VALUE/2.f) + 180.f;
+	m_pCurrentAnimatedModel->SetYaw(l_fAngle);
+}
 
 void CCharacter::FaceTo( const Vect3f &_Position, float _ElapsedTime )
 {
