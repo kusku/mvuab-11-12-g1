@@ -409,3 +409,8 @@ void CWolf::SetSoundsOff( void )
 {
 	CORE->GetSoundManager()->PlayEvent(GetSpeakerName(), "Stop_All_EFX_Wolf");
 }
+
+void CWolf::RemoveActions()
+{
+	m_pCurrentAnimatedModel->RemoveAction( GetAnimationID(WOLF_DEATH_STATE) );
+}

@@ -209,6 +209,8 @@ bool CCharacter::Initialize( const std::string &_Name, const std::string &_Core,
 	// Jordi 12/08/2012 -- Antes debemos inicializar el m_pSteeringEntity
 	//MoveTo( l_Position, 0.0f );
 
+	RemoveActions();
+
 	return true;
 }
 
@@ -1067,4 +1069,9 @@ CState<CCharacter>* CCharacter::GetAnimationState( const std::string &_State )
 void CCharacter::SetSoundsOff( void )
 {
 	return;
+}
+
+void CCharacter::RemoveActions()
+{
+
 }

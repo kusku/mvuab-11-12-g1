@@ -651,4 +651,26 @@ std::list<CalAnimationCycle *> & CalMixer::getAnimationCycle()
     return m_listAnimationCycle; 
 } 
 
+/*****************************************************************************/
+/** Get the animation.
+  * 
+  * This function return the animation.
+  *
+  *****************************************************************************/
+CalAnimation* CalMixer::getAnimationAction(const std::string& name)
+{
+	std::list<CalAnimationAction *>::iterator it = m_listAnimationAction.begin();
+	std::list<CalAnimationAction *>::iterator end = m_listAnimationAction.end();
+
+	for(; it != end; ++it)
+	{
+		if((*it) != NULL && (*it)->getAnimationName() == name)
+		{
+			return (*it);
+		}
+	}
+
+	return NULL;
+}
+
 //****************************************************************************//

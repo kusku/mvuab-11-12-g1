@@ -43,7 +43,8 @@ public:
 	bool						InitializeAI				( void );
 	
 	virtual bool				Init						( void ) = 0; // Inicialización del caracter en cuestión, de los hijos.
-	
+	virtual void				RemoveActions				();
+
 	virtual bool				HandleMessage				( const STelegram& _Msg, bool _Logic = true, bool _Graphic = true  );		// Envia telegramas a las máquinas de estados
 	virtual bool				HandleMessage				( const STelegram& _Msg );
 	virtual void				Update						( float _ElapsedTime );

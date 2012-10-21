@@ -44,7 +44,7 @@ bool CAnimationCallbackManager::CreateCallback( const std::string &_CharacterNam
 	std::string l_AnimationName = _CharacterName + "_" +_Animation;
 
 	//Crea el callback
-	CAnimationCallback *l_pAnimationCallback = new CAnimationCallback(l_AnimationName, _pAnimatedModel);
+	CAnimationCallback *l_pAnimationCallback = new CAnimationCallback(l_AnimationName, _Animation, _pAnimatedModel);
 	TCallbackMap::iterator l_It = m_CallbackMap.find(l_AnimationName);
 	if( l_It == m_CallbackMap.end() )
 	{

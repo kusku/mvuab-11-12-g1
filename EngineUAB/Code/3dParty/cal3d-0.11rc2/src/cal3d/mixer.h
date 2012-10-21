@@ -172,6 +172,8 @@ public:
   std::list<CalAnimationAction *> &getAnimationActionList();
   std::list<CalAnimationCycle *> &getAnimationCycle();  
   
+  CalAnimation* getAnimationAction(const std::string& name);
+
 protected:
   CalModel *m_pModel;
   std::vector<CalAnimation *> m_vectorAnimation;

@@ -282,3 +282,8 @@ void CDeer::SetSoundsOff( void )
 {
 	CORE->GetSoundManager()->PlayEvent(GetSpeakerName(), "Stop_All_EFX_Deer");
 }
+
+void CDeer::RemoveActions()
+{
+	m_pCurrentAnimatedModel->RemoveAction( GetAnimationID(DEER_DEATH_STATE) );
+}

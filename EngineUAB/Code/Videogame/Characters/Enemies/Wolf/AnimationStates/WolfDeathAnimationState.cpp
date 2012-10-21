@@ -51,7 +51,7 @@ void CWolfDeathAnimationState::OnEnter( CCharacter* _pCharacter )
 	}
 
 	int l_Num = m_pWolf->GetAnimationID(WOLF_DEATH_STATE);
-	m_pWolf->GetAnimatedModel()->ExecuteAction( l_Num, 0.3f );
+	m_pWolf->GetAnimatedModel()->ExecuteAction( l_Num, 0.3f, true );
 }
 
 void CWolfDeathAnimationState::OnExit( CCharacter* _pCharacter )

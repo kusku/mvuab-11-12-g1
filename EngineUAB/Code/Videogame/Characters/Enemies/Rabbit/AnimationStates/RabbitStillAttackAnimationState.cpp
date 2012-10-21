@@ -54,7 +54,7 @@ void CRabbitStillAttackAnimationState::OnEnter( CCharacter* _pCharacter )
 	m_pRabbit->GetAnimatedModel()->BlendCycle(l_iAnimID, 0.3f);*/
 
 	int l_Num = m_pRabbit->GetAnimationID(RABBIT_STILL_ATTACK_STATE);
-	m_pRabbit->GetAnimatedModel()->ExecuteAction( l_Num, 0.3f );
+	m_pRabbit->GetAnimatedModel()->ExecuteAction( l_Num, 0.3f, true );
 }
 
 void CRabbitStillAttackAnimationState::OnExit( CCharacter* _pCharacter )
