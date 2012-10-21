@@ -7,7 +7,7 @@
 	<CollisionDetectionFeelerLength>10.4</CollisionDetectionFeelerLength>
 	<CollisionDetectionFeelerAngle>60</CollisionDetectionFeelerAngle>
 	<SeparationDetectionFeelerLength>3.4</SeparationDetectionFeelerLength>	<!-- Longitud de los rayos en separación. Ajo -->
-	<SeparationDecayCoefficient>0.1</SeparationDecayCoefficient>			<!-- Permite definir un coeficiente para la decrementación de la separación con la inversa a la distancia -->
+	<SeparationDecayCoefficient>1.0</SeparationDecayCoefficient>			<!-- Permite definir un coeficiente para la decrementación de la separación con la inversa a la distancia -->
 	<flockingNeightbourRadius>3.5</flockingNeightbourRadius>				<!-- Radio de búsqueda de vecinos para Separación, Alineación i Cohesión -->
 	<ArriveDecelerationDistance>2.7</ArriveDecelerationDistance>
 	<DecelerationTweaker>40.3</DecelerationTweaker>							<!-- Permite suavizar la desaceleración -->
