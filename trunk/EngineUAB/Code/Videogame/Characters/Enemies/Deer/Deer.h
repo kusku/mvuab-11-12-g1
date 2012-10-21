@@ -48,6 +48,7 @@ public:
 
 	virtual void	LoadGraphicStates	( void ); 
 	virtual void	LoadLogicStates		( void );
+	void			RemoveActions		( void );
 
 	//----Methods ---------------------------------------------
 	bool			IsFatigued			( void );

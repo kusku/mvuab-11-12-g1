@@ -52,7 +52,7 @@ void CDeerDeathAnimationState::OnEnter( CCharacter* _pCharacter )
 	}
 
 	int l_Num = m_pDeer->GetAnimationID(DEER_DEATH_STATE);
-	m_pDeer->GetAnimatedModel()->ExecuteAction( l_Num, 0.3f );
+	m_pDeer->GetAnimatedModel()->ExecuteAction( l_Num, 0.f, true );
 }
 
 void CDeerDeathAnimationState::OnExit( CCharacter* _pCharacter )

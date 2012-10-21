@@ -57,6 +57,8 @@ public:
   void checkCallbacks(float animationTime,CalModel *model);
   void completeCallbacks(CalModel *model);
 
+  const std::string& getAnimationName() const;
+
 protected:
   void setType(Type type) {
     m_type = type;
@@ -69,7 +71,6 @@ protected:
   void setWeight(float weight) {
     m_weight = weight;
   }
-
 
 private:
 

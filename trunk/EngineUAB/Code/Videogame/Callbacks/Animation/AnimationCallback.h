@@ -15,7 +15,7 @@ class CAnimationCallback : public CalAnimationCallback
 {
 public:
 	//---Constructors &  Destructors----------------------------
-							CAnimationCallback	( const std::string &_Animation, CAnimatedInstanceModel *_pAnimatedModel );
+							CAnimationCallback	( const std::string &_Animation, const std::string &_CalAnimationName, CAnimatedInstanceModel *_pAnimatedModel );
 							~CAnimationCallback	();
 
 	//---Main Methods----------------------------
@@ -36,6 +36,7 @@ private:
 	bool					m_bIsAnimationFinished;
 	bool					m_bIsAnimationStarted;
 	std::string				m_AnimationName;
+	std::string				m_CalAnimationName;
 	CAnimatedInstanceModel	*m_pAnimatedModel;
 };
 

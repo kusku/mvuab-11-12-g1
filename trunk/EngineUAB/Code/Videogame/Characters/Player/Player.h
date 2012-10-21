@@ -25,6 +25,7 @@ public:
 	bool			Init	();
 	void			Update	( float _ElapsedTime );
 	void			UpdateCamera( float _ElapsedTime, bool _bIsUpdated );
+	void			RemoveActions();
 
 	//----Methods ---------------------------------------------
 	void			HitToPlayer				( int _Strong );

@@ -170,6 +170,7 @@ void CDeerDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 
 void CDeerDeathState::OnExit( CCharacter* _pCharacter )
 {
+	m_pDeer->SetEnable(false);
 	//CORE->GetSoundManager()->PlayEvent("Stop_EFX_DeerDieingCurta"); 
 }
 

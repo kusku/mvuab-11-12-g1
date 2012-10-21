@@ -181,4 +181,8 @@ void CalAnimation::completeCallbacks(CalModel *model)
     list[i].callback->AnimationComplete(model, model->getUserData());
 }
 
+const std::string& CalAnimation::getAnimationName() const {
+	return m_pCoreAnimation->getName();
+}
+
 //****************************************************************************//

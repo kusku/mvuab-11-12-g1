@@ -300,3 +300,8 @@ void CRabbit::SetSoundsOff( void )
 {
 	CORE->GetSoundManager()->PlayEvent(GetSpeakerName(), "Stop_All_EFX_Rabbit");
 }
+
+void CRabbit::RemoveActions()
+{
+	m_pCurrentAnimatedModel->RemoveAction( GetAnimationID(RABBIT_DEATH_STATE) );
+}

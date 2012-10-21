@@ -316,7 +316,7 @@ void CPlayer::CreateCallbacks()
 	l_pCallbackManager->CreateCallback(GetName(), "attack5", m_pCurrentAnimatedModel);
 	l_pCallbackManager->CreateCallback(GetName(), "attack6", m_pCurrentAnimatedModel);
 	l_pCallbackManager->CreateCallback(GetName(), "hit", m_pCurrentAnimatedModel);
-	l_pCallbackManager->CreateCallback(GetName(), "jump", m_pCurrentAnimatedModel);
+	l_pCallbackManager->CreateCallback(GetName(), "jump",m_pCurrentAnimatedModel);
 }
 
 void CPlayer::CreateSkeaker()
@@ -544,4 +544,8 @@ void CPlayer::RestLife( int _LifeRested )
 		m_bMediumReadySoundON	= false;
 		m_bFastReadySoundON		= false;
 	}
+}
+
+void CPlayer::RemoveActions()
+{
 }
