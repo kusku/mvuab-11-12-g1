@@ -58,6 +58,7 @@ public:
 	void						FaceTo						( const Vect3f &_Position, float _ElapsedTime );
 	void						FaceTo2						( const Vect3f &_Position, float _ElapsedTime );
 	void						FaceToForPlayer				( const Vect3f &_Position, float _ElapsedTime );
+	void						FaceToForPlayer				( float _DegreesAngle,	   float _ElapsedTime );
 	
 	bool						AddLife						( int _Life );								
 	virtual void				RestLife					( int _Life );								
