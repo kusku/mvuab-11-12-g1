@@ -222,7 +222,7 @@
 		<strong>50</strong>
 		<speed>25</speed>
 		<velocity>0 0 0</velocity>
-		<yaw>0</yaw>
+		<yaw>-45</yaw>
 		<respawn_position>0 10 0</respawn_position>
 
 		<position>106 -16 -168</position>						<!-- Posición inicial del juego. Posición respawn trigger 1 -->
