@@ -90,6 +90,7 @@ void CPlayerDefenseState::Execute( CCharacter* _pCharacter, float _fElapsedTime 
 
 void CPlayerDefenseState::OnExit( CCharacter* _pCharacter )
 {
+	_pCharacter->SetLocked(false);
 }
 
 bool CPlayerDefenseState::OnMessage( CCharacter* _pCharacter, const STelegram& _Message )
