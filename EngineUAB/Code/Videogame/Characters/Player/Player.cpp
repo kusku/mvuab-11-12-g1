@@ -102,7 +102,8 @@ bool CPlayer::Init()
 	m_pGraphicStateMachine->SetCurrentState( l_pState );
 	m_pGraphicStateMachine->ChangeState( l_pState );
 
-	m_pCurrentAnimatedModel->SetYaw( (m_fYaw * FLOAT_PI_VALUE / 180.f ) + 90.f );
+	// Jordi - 21/10/2012 : Esto hace que no coloque el yaw del XML de propiedades
+	//m_pCurrentAnimatedModel->SetYaw( (m_fYaw * FLOAT_PI_VALUE / 180.f ) + 90.f );
 	m_pCurrentAnimatedModel->SetPitch( 0.f );
 
 	m_fTimeWithoutDamage = 0.f;
