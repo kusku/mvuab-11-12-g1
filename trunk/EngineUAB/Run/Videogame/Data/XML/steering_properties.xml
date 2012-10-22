@@ -4,7 +4,7 @@
 	<ObstacleWallDetectionFeelerLength>3.0</ObstacleWallDetectionFeelerLength>	
 	<ObstacleWallDetectionFeelerAngle>60</ObstacleWallDetectionFeelerAngle>	
 	<DetectionFeelerAngleIncrement>2.0</DetectionFeelerAngleIncrement>	
-	<CollisionDetectionFeelerLength>10.4</CollisionDetectionFeelerLength>
+	<CollisionDetectionFeelerLength>4.0</CollisionDetectionFeelerLength>
 	<CollisionDetectionFeelerAngle>60</CollisionDetectionFeelerAngle>
 	<SeparationDetectionFeelerLength>3.4</SeparationDetectionFeelerLength>	<!-- Longitud de los rayos en separación. Ajo -->
 	<SeparationDecayCoefficient>1.0</SeparationDecayCoefficient>			<!-- Permite definir un coeficiente para la decrementación de la separación con la inversa a la distancia -->
