@@ -246,6 +246,7 @@ void CGameProcess::Update(float elapsedTime)
 
 			m_bFirstLogicUpdate = true;
 		}
+//#if defined (_DEBUG)
 
 		if( CORE->GetActionToInput()->DoAction("CommutationCamera") )
 		{
@@ -315,6 +316,7 @@ void CGameProcess::Update(float elapsedTime)
 
 void CGameProcess::ReloadGameObjects()
 {	
+	SetSoundsOff();
 	CleanUp();
 	//SCRIPT->RegisterLUAMethods();
 	LoadGameObjects();
@@ -329,6 +331,8 @@ void CGameProcess::DebugRender( CRenderManager &RM )
 {
 #if defined (_DEBUG)
 	m_pCharactersManager->Render(&RM, CORE->GetFontManager());
+	
+//#if defined (_DEBUG)
 	//m_pThPSCamera->Render(&RM);
 	
 	Mat44f mat;
@@ -401,6 +405,14 @@ void CGameProcess::UpdateWindSounds( float _ElapsedTime )
 	m_pActionStateCallback->Update(_ElapsedTime);
 	if ( m_pActionStateCallback->IsActionFinished() )
 	{
+		CORE->GetSoundManager()->PlayEvent("zona1_vientos001",	 "Stop_All_EFX_Winds" );
+		CORE->GetSoundManager()->PlayEvent("zona1_vientos002",   "Stop_All_EFX_Winds" );
+		CORE->GetSoundManager()->PlayEvent("zona2_3_vientos001", "Stop_All_EFX_Winds" );
+		CORE->GetSoundManager()->PlayEvent("zona4_vientos001",   "Stop_All_EFX_Winds" );
+		CORE->GetSoundManager()->PlayEvent("zona4_vientos002",	 "Stop_All_EFX_Winds" );
+		CORE->GetSoundManager()->PlayEvent("zona6_vientos001",	 "Stop_All_EFX_Winds" );
+		CORE->GetSoundManager()->PlayEvent("zona7_8_vientos001", "Stop_All_EFX_Winds" );
+
 		m_pActionStateCallback->InitAction(0, 21.f, 60.f);
 		m_pActionStateCallback->StartAction();
 
@@ -412,6 +424,22 @@ void CGameProcess::UpdateWindSounds( float _ElapsedTime )
 		CORE->GetSoundManager()->PlayEvent("zona6_vientos001", "Play_EFX_winds" );
 		CORE->GetSoundManager()->PlayEvent("zona7_8_vientos001", "Play_EFX_winds" );
 	}
+}
+
+void CGameProcess::SetSoundsPauseResume( bool _Active )
+{
+	if ( _Active )
+	{
+		CORE->GetSoundManager()->ResumeAllEvents();
+		return;
+	}
+
+	CORE->GetSoundManager()->PauseAllEvents();
+}
+
+void CGameProcess::SetSoundsOff( void )
+{
+	CORE->GetSoundManager()->StopAllEvents();
 }
 
 //-------------------------------------
@@ -445,7 +473,7 @@ CGameProcess* CGameProcess::GetGameProcess()
 
 void CGameProcess::PreReload( void )
 {
-	m_pCharactersManager->SetAllEnemiesSoundOff();
+	SetSoundsOff();
 }
 
 void CGameProcess::Reload( void )

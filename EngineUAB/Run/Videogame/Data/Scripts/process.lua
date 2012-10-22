@@ -38,6 +38,7 @@ function change_to_end_gui_process()
 end
 
 function go_to_main_menu()
+	core:get_sound_manager():stop_all_events()
 	core:set_game_mode(true)
 	get_game_process():change_to_gui_process()
 	core:get_gui_manager():pop_windows()
@@ -45,11 +46,13 @@ function go_to_main_menu()
 end
 
 function go_to_pause_game()
+	core:get_sound_manager():pause_all_events()
 	core:set_game_mode(false)
 	core:get_gui_manager():push_windows('Pause')
 end
 
 function go_to_play_game()
+	core:get_sound_manager():resume_all_events()
 	core:set_game_mode(true)
 	core:get_gui_manager():pop_windows()
 end

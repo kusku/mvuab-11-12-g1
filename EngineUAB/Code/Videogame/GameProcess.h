@@ -52,7 +52,8 @@ public:
 	float	GetTimeBetweenClicks	() const				{ return m_fTimeBetweenClicks; }
 
 	static void					RegisterMethods				();
-	void						UpdateWindSounds			( float _ElapsedTime );
+	void						SetSoundsPauseResume		( bool _Active );
+	void						SetSoundsOff				( void );
 
 	//----Properties  --------------------------------------------------------------------
 	static CGameProcess*		GetGameProcess				();
@@ -75,7 +76,9 @@ private:
 	void		ReloadGameObjects			();
 	void		LoadGameObjects				();
 	bool		LoadMainScript				();
-
+	
+	void		UpdateWindSounds			( float _ElapsedTime );
+	
 	//----Members --------------------------------------------------------------------
 private:
 	HWND						m_hWnd;

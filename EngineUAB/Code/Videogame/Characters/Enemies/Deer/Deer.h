@@ -57,6 +57,7 @@ public:
 	bool			CallHitState		( CCharacter* _pCharacter, const STelegram& _Message );
 	void			CreateSkeaker		( void );
 	void			SetSoundsOff		( void );
+	void			SetSoundsPauseResume( bool _Active );
 
 	//----Properties ------------------------------------------
 	CDeerIdleState *					GetIdleState					( void ) const			{ return m_pIdleState; }

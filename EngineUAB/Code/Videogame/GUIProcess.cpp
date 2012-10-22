@@ -104,6 +104,7 @@ void CGUIProcess::Reload( void )
 
 void CGUIProcess::PreReload( void )
 {
+	CORE->GetSoundManager()->StopAllEvents();
 }
 
 //-------------------------------------
