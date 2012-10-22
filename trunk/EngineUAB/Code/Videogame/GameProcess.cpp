@@ -148,18 +148,19 @@ CThPSCharacterCamera* CGameProcess::CreatePlayerCamera(float _near, float _far, 
 	m_pThPSCamera = new CThPSCharacterCamera(_near, _far, 45.f * D3DX_PI / 180.f, aspect,  m_pCharactersManager->GetPlayer(), _zoom, _heightLookAt, _heightEye, _name);
 	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
 	m_pCamera->GetObject3D()->SetYaw(2.36f);
-	CORE->SetCamera(m_pCamera);
 
 	return m_pThPSCamera;
 }
 
 void CGameProcess::CreateRailCamera(float _near, float _far)
 {
-	m_pObjectRail = new CObject3D(v3fZERO, v3fUNIT, 0.f, 0.f);
+	//m_pObjectRail = new CObject3D(v3fZERO, v3fUNIT, 0.f, 0.f);
+	m_pObjectRail = new CObject3D(Vect3f(130.4898f, -3.45527f, -160.052f), v3fUNIT, 5.8668766f, 3.5111432f, FLOAT_PI_VALUE);
 
 	float aspect = CORE->GetRenderManager()->GetAspectRatio();
 	m_pFPSRailCamera = new CFPSCamera(_near, _far, 45.f * D3DX_PI / 180.f, aspect,  m_pObjectRail);
 	m_pRailCamera = static_cast<CCamera*>(m_pFPSRailCamera);
+	CORE->SetCamera(m_pRailCamera);
 }
 
 void CGameProcess::CreateFreeCamera( float _near, float _far, float _zoom, float _heightEye, float _heightLookAt, const std::string &_name )
@@ -173,7 +174,7 @@ void CGameProcess::CreateFreeCamera( float _near, float _far, float _zoom, float
 	float aspect = CORE->GetRenderManager()->GetAspectRatio();
 	m_pThPSFreeCamera = new CThPSCamera( _near, _far, 45.f * D3DX_PI / 180.f, aspect, &m_FreeCamera, _zoom, _heightLookAt, _heightEye, _name);
 	m_pFreeCamera = static_cast<CCamera*>(m_pThPSFreeCamera);
-	CORE->SetCamera(m_pCamera);
+	//CORE->SetCamera(m_pCamera);
 }
 
 void CGameProcess::Update(float elapsedTime)

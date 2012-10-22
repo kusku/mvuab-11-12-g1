@@ -17,7 +17,7 @@
 #if defined (_DEBUG)
 #define APPLICATION_NAME	"VIDEOGAME DEBUG"
 #else
-#define APPLICATION_NAME	"VIDEOGAME RELEASE"
+#define APPLICATION_NAME	"RED FOREST"
 #endif
 
 CEngine			*g_pEngine = NULL;

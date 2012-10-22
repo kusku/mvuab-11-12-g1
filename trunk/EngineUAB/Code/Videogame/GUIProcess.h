@@ -15,7 +15,7 @@
 #include <Windows.h>
 
 class CRenderManager;
-class CThPSCamera;
+class CFPSCamera;
 
 class CGUIProcess : public CEngineProcess
 {
@@ -43,7 +43,7 @@ private:
 
 private:
 	CStaticCamera		m_StaticCamera;
-	CThPSCamera			*m_pThPSCamera;
+	CFPSCamera			*m_pFPSCamera;
 
 	HWND	m_hWnd;
 };
