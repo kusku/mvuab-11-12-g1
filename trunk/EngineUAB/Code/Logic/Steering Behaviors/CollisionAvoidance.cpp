@@ -93,7 +93,7 @@ Vect3f CCollisionAvoidance::GetObstacleVelocity( CPhysicUserData *_pUserData )
 
 Vect3f CCollisionAvoidance::CalculateSteering( CSteeringEntity *_pEntity )	
 {
-	//m_NearestObstacle = FLT_MAX;
+	m_NearestObstacle = FLT_MAX;
 	m_NearestSteering.SetZero();
 	
 	// Si no tengo velocidad retorno
@@ -109,7 +109,7 @@ Vect3f CCollisionAvoidance::CalculateSteering( CSteeringEntity *_pEntity )
 	CreateFeelers(CORE->GetSteeringBehaviourSettingsManager()->GetCollisionDetectionFeelerAngle());
 
 	// Distancia mínima de colisión
-	float l_MinDistanceToCollision = 100.150f * _pEntity->GetSpeed() * CORE->GetTimer()->GetElapsedTime();;
+	float l_MinDistanceToCollision = m_DetectionRayLength * _pEntity->GetSpeed() * CORE->GetTimer()->GetElapsedTime();;
 	
 	// La caja de detección es proporcional a la velocidad del agente
 	float l_DetectionBoxLength = m_DetectionRayLength + ( _pEntity->GetSpeed() / _pEntity->GetMaxSpeed() ) * m_DetectionRayLength * CORE->GetTimer()->GetElapsedTime();;
@@ -117,76 +117,84 @@ Vect3f CCollisionAvoidance::CalculateSteering( CSteeringEntity *_pEntity )
 	// Guardamos aquí el ID de la entidad más cercana
 	//CBaseGameEntity* l_NearestObstacle	= NULL;
  	
+	m_pEntity->GetController()->SetGroup(ECG_RAY_IA_GRAPH);
+
 	// Analizamos sólo los obstáculos dentro del alcance
 	SCollisionInfo l_Info; 
-	CPhysicUserData * l_pUserData = ShootCollisionRay( _pEntity, m_Feelers[0], l_Info, l_DetectionBoxLength );
-
-	// Sabemos que no és ni el player ni él mismo y debemos calcular otra posición
-	if ( l_pUserData != NULL ) 
+	for ( size_t flr = 0; flr < m_Feelers.size(); ++flr)
 	{
-		//calculate the distance between the positions of the entities	
-		
-		Vect3f l_ObstaclePosition; 
-		
-		// Si no devuelve nada no retorno fuerza
-		l_ObstaclePosition = GetObstaclePosition(l_pUserData);
-		if ( l_ObstaclePosition == NULL )
-			return m_NearestSteering;
+		CPhysicUserData * l_pUserData = ShootCollisionRay( _pEntity, m_Feelers[flr], l_Info, l_DetectionBoxLength );
 
-		// Obtengo el radio del obstaculo
-		float  l_Radius = l_pUserData->GetRadius();
+		// Sabemos que no és ni el player ni él mismo y debemos calcular otra posición
+		if ( l_pUserData != NULL ) 
+		{
+			//calculate the distance between the positions of the entities	
+		
+			Vect3f l_ObstaclePosition; 
+		
+			// Si no devuelve nada no retorno fuerza
+			l_ObstaclePosition = GetObstaclePosition(l_pUserData);
+			if ( l_ObstaclePosition == NULL )
+				return m_NearestSteering;
 
-		//l_ToEntity = _pEntity->GetPosition() - l_ObstaclePosition;
+			// Obtengo el radio del obstaculo
+			float  l_Radius = l_pUserData->GetRadius();
+
+				//l_ToEntity = _pEntity->GetPosition() - l_ObstaclePosition;
 
 		// distancia mínima al obstáculo para iniciar la separación del obstáculo
-		float l_MinDistanceToCenter = l_MinDistanceToCollision + l_Radius;
+			float l_MinDistanceToCenter = l_MinDistanceToCollision + l_Radius;
 		
-		// distancia de contacto
-		float l_TotalRadius = l_MinDistanceToCenter + _pEntity->GetBoundingRadius() * 2;
+			// distancia de contacto
+			float l_TotalRadius = _pEntity->GetBoundingRadius() + l_pUserData->GetSteeringEntity()->GetBoundingRadius();
 		
-		// centro del obstáculo relativo a la posición de la entidad
-		Vect3f l_LocalOffset = l_ObstaclePosition - _pEntity->GetPosition();
+			// centro del obstáculo relativo a la posición de la entidad
+			Vect3f l_RelativePosition = l_ObstaclePosition - _pEntity->GetPosition();
 
-		// Miro el angulo entre los dos vectores, donde mira la entidad y el vector dirección hacia el objetivo
-		float l_Angle = _pEntity->GetYaw();
+										// Miro el angulo entre los dos vectores, donde mira la entidad y el vector dirección hacia el objetivo
+		/*float l_Angle = _pEntity->GetYaw();
 		float l_Angle1 = _pEntity->GetAngle();
 		float l_Angle2 = _pEntity->GetAngle2();
 
-		float l_Angle3 = _pEntity->GetPosition().AngleWithVector( Vect3f(1,0,0) );
+		float l_Angle3 = _pEntity->GetPosition().AngleWithVector( Vect3f(1,0,0) );*/
+
 		//float l_Angle4 = _pEntity->GetPosition().xzToAngle();
 		//Vect3f l_NewPos = _pEntity->GetPosition().GetXZFromAngle(mathUtils::Deg2Rad(l_Angle4));
 
-		//Vect3f l_Front = _pEntity->GetPosition().GetAngleY();
-		float l_ForwardComponent = l_LocalOffset.Dot( _pEntity->GetFront() );
-		float l_fAngle			 = mathUtils::ACos<float>( l_ForwardComponent );
-		Vect3f l_ForwardOffset	 = l_fAngle * _pEntity->GetFront();
+		//Vect3f l_Front = _pEntity->GetPosition().GetAngleY();www
+			float l_ForwardComponent = l_RelativePosition.Dot( _pEntity->GetFront() );
+			float l_fAngle			 = mathUtils::ACos<float>( l_ForwardComponent );wddd
+			Vect3f l_ForwardOffset	 = l_ForwardComponent * _pEntity->GetFront();
 
-		// Offset del forward al centro del obstáculo
-		Vect3f l_OffForwardOffset = l_LocalOffset - l_ForwardOffset;
-		//Vect3f l_OffForwardOffset = l_Info.m_fDistance;
+			// Offset del forward al centro del obstáculo
+			Vect3f l_OffForwardOffset = l_RelativePosition - l_ForwardOffset;
+			//Vect3f l_OffForwardOffset = l_Info.m_fDistance;
 
-		// test para ver si el obstáculo es "pisado" por el agente
-		bool inCylinder = l_OffForwardOffset.Length() < l_TotalRadius;
-		bool nearby		= l_ForwardComponent < l_MinDistanceToCenter;
-		bool inFront	= l_ForwardComponent > 0;
+			// test para ver si el obstáculo es "pisado" por el agente
+			bool inCylinder = l_OffForwardOffset.Length() < l_TotalRadius;			// Miramos si la distancia entre ellos es más pequeña que sus radios
+			bool nearby		= l_ForwardComponent < l_MinDistanceToCenter;			// Miramos si el Cos(Angulo) és menor que la distancia que queremos a partir de la que esquivamos
+			bool inFront	= l_ForwardComponent > 0;								// Miramos si está dentro de los 90º
 
-		// si se cumple una de las condiciones, alejamos del centro del obstáculo
-		if ( inCylinder || inFront || nearby ) 
-		{
-			float l_Length = (l_OffForwardOffset).Length() * -1;
-
-			if (l_Length < m_NearestObstacle)
+			// si se cumple una de las condiciones, alejamos del centro del obstáculo
+			if ( inCylinder || inFront || nearby ) 
 			{
-				m_NearestObstacle = l_Length;
-				m_NearestSteering = l_OffForwardOffset * -10;
-				//this.obstacle = obstacle;
-			}
-		}
-		/*LOGGER->AddNewLog( ELL_INFORMATION, " Nom de la colisicó  %s", l_pUserData->GetName().c_str() );
-		LOGGER->AddNewLog( ELL_INFORMATION, " Nom de l'entitat  %s", _pEntity->GetName().c_str() );*/
+				float l_Length = (l_OffForwardOffset * -1).Length();
 
-		//this->EnforceNonPenetrationConstraint( _pEntity, l_pUserData );
+				if (l_Length < m_NearestObstacle)
+				{
+					m_NearestObstacle = l_Length;
+					m_NearestSteering = l_OffForwardOffset * -1;
+					//this.obstacle = obstacle;
+				}
+			}
+			/*LOGGER->AddNewLog( ELL_INFORMATION, " Nom de la colisicó  %s", l_pUserData->GetName().c_str() );
+			LOGGER->AddNewLog( ELL_INFORMATION, " Nom de l'entitat  %s", _pEntity->GetName().c_str() );*/
+
+			//this->EnforceNonPenetrationConstraint( _pEntity, l_pUserData );
+		}
 	}
+
+	m_pEntity->GetController()->SetGroup(ECG_ENEMY);
 
 	return m_NearestSteering * CORE->GetTimer()->GetElapsedTime();
 }
@@ -720,7 +728,10 @@ CPhysicUserData* CCollisionAvoidance::ShootCollisionRay( CSteeringEntity *_pEnti
 	l_Mask |= 1 << ECG_DYNAMIC_OBJECTS;
 	//l_Mask |= 1 << ECG_ESCENE;
 
-	Vect3f l_InitialPosition = _pEntity->GetInitialPositionToThrowRay();
+	//Vect3f l_InitialPosition = _pEntity->GetInitialPositionToThrowRay();
+	Vect3f l_InitialPosition = _pEntity->GetPosition();
+	l_InitialPosition.y += _pEntity->GetHeight()/2;
+
 	Vect3f l_FinalPosition   = _Direction;
 	l_FinalPosition.Normalize();
 	// Siempre hay que pasar la dirección normalizada
@@ -790,7 +801,7 @@ CPhysicUserData* CCollisionAvoidance::ShootCollisionRay( CSteeringEntity *_pEnti
 		std::string l_Name = l_Data->GetName().c_str();
 		if ( l_Name.compare( _pEntity->GetName() ) != 0 ) 
 		{
-			//LOGGER->AddNewLog( ELL_INFORMATION, "Colisió amb : %s", l_Data->GetName().c_str());
+			LOGGER->AddNewLog( ELL_INFORMATION, "Colisió amb : %s", l_Data->GetName().c_str());
 			return l_Data;
 		}
 		else
@@ -842,8 +853,7 @@ const Vect3f CCollisionAvoidance::GetDirectionRay( float _DegresOfRotation ) con
 	Vect3f l_Front	= m_pEntity->GetFront();
 	l_Front.Normalize();
 		
-	if ( _DegresOfRotation != 0 ) 
-		l_Front.RotateY(mathUtils::Deg2Rad(_DegresOfRotation));
+	l_Front.RotateY(mathUtils::Deg2Rad(_DegresOfRotation));
 
 	return (Vect3f(l_Front.x, 0.f, l_Front.z));
 }
