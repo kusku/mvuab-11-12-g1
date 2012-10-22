@@ -75,7 +75,7 @@ void CWolfPursuitState::OnEnter( CCharacter* _pCharacter )
 	m_pWolf->GetBehaviors()->PursuitOn();
 		
 	m_pWolf->GetBehaviors()->SeparationOn();
-	m_pWolf->GetBehaviors()->CohesionOn();
+	m_pWolf->GetBehaviors()->CohesionOff();
 	m_pWolf->GetBehaviors()->CollisionAvoidanceOn();
 	m_pWolf->GetBehaviors()->ObstacleWallAvoidanceOn();
 		
