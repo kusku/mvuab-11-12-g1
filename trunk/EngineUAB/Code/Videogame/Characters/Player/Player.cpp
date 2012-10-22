@@ -546,6 +546,16 @@ void CPlayer::RestLife( int _LifeRested )
 	}
 }
 
+void CPlayer::SetSoundsPauseResume( bool _Active )
+{
+	if ( _Active )
+	{
+		CORE->GetSoundManager()->PlayEvent(GetSpeakerName(), "Resume_All_EFX_Game");
+		return;
+	}
+	CORE->GetSoundManager()->PlayEvent(GetSpeakerName(), "Pause_All_EFX_Caperucita");
+}
+
 void CPlayer::RemoveActions()
 {
 }

@@ -357,3 +357,40 @@ void CSoundManager::SetRTPCValue( const std::string &rtpc_name, float value )
 {
 	AK::SoundEngine::SetRTPCValue( rtpc_name.c_str(), (AkRtpcValue)value );
 }
+
+void CSoundManager::StopAllEvents( void )
+{
+	//Actualiza los speakers
+	TVectorResources l_Speakers = GetResourcesVector();
+	TVectorResources::iterator l_It = l_Speakers.begin();
+	TVectorResources::iterator l_ItEnd = l_Speakers.end();
+	for(; l_It != l_ItEnd; ++l_It)
+	{
+		PlayEvent((*l_It)->GetName(), "Stop_All_EFX_Game");
+	}
+}
+
+void CSoundManager::PauseAllEvents( void )
+{
+	//Actualiza los speakers
+	TVectorResources l_Speakers = GetResourcesVector();
+	TVectorResources::iterator l_It = l_Speakers.begin();
+	TVectorResources::iterator l_ItEnd = l_Speakers.end();
+	for(; l_It != l_ItEnd; ++l_It)
+	{
+		std::string l_Name = (*l_It)->GetName();
+		PlayEvent(l_Name, "Pause_All_EFX_Game");
+	}
+}
+
+void CSoundManager::ResumeAllEvents( void )
+{
+	//Actualiza los speakers
+	TVectorResources l_Speakers = GetResourcesVector();
+	TVectorResources::iterator l_It = l_Speakers.begin();
+	TVectorResources::iterator l_ItEnd = l_Speakers.end();
+	for(; l_It != l_ItEnd; ++l_It)
+	{
+		PlayEvent((*l_It)->GetName(), "Resume_All_EFX_Game");
+	}
+}

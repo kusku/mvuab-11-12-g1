@@ -43,6 +43,8 @@ public:
 
 	void			CreateSkeaker			( void );
 	void			SetSoundsOff			( void );
+	void			SetSoundsPauseResume	( bool _Active );
+
 	void			RestLife				( int _LifeRested );
 
 private: //----Private Methods --------------------------------------

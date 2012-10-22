@@ -301,6 +301,16 @@ void CRabbit::SetSoundsOff( void )
 	CORE->GetSoundManager()->PlayEvent(GetSpeakerName(), "Stop_All_EFX_Rabbit");
 }
 
+void CRabbit::SetSoundsPauseResume( bool _Active )
+{
+	if ( _Active )
+	{
+		CORE->GetSoundManager()->PlayEvent(GetSpeakerName(), "Resume_All_EFX_Game");
+		return;
+	}
+	CORE->GetSoundManager()->PlayEvent(GetSpeakerName(), "Pause_All_EFX_Rabbit");
+}
+
 void CRabbit::RemoveActions()
 {
 	m_pCurrentAnimatedModel->RemoveAction( GetAnimationID(RABBIT_DEATH_STATE) );

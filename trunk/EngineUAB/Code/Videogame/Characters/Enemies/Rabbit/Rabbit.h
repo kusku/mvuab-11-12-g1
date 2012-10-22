@@ -61,6 +61,7 @@ public:
 	bool			CallHitState		( CCharacter* _pCharacter, const STelegram& _Message );
 	void			CreateSpeaker		( void );
 	void			SetSoundsOff		( void );
+	void			SetSoundsPauseResume( bool _Active );
 
 	//----Properties ------------------------------------------
 	CRabbitIdleState *					GetIdleState					( void ) const			{ return m_pIdleState; }

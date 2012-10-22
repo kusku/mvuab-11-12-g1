@@ -43,6 +43,10 @@ public:
 	void			SetSwitch				( const std::string &switch_name, const std::string &container_name );
 	void			SetRTPCValue			(  const std::string &rtpc_name, float value );
 
+	void			StopAllEvents			( void );
+	void			PauseAllEvents			( void );
+	void			ResumeAllEvents			( void );
+
 	CSpeaker*		CreateSpeaker			( const std::string &_Name );
 
 	//--- Properties ---------------------------
