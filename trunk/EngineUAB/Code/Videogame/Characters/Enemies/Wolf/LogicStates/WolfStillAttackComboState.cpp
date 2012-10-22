@@ -280,7 +280,7 @@ void CWolfStillAttackComboState::Execute( CCharacter* _pCharacter, float _Elapse
 				// Esto permite correr entre el primer y segundo golpe
 				m_pWolf->GetBehaviors()->SeekOn();
 				m_pWolf->GetBehaviors()->GetSeek()->SetTarget(m_pWolf->GetPlayer()->GetPosition());
-				m_pWolf->GetSteeringEntity()->SetMaxSpeed(m_pWolf->GetPlayer()->GetProperties()->GetHitRecoilSpeed()/3);
+				m_pWolf->GetSteeringEntity()->SetMaxSpeed(m_pWolf->GetProperties()->GetStillAttackComboSpeed());
 			}
 			
 			// Trato la animación de impacto
@@ -359,7 +359,7 @@ void CWolfStillAttackComboState::Execute( CCharacter* _pCharacter, float _Elapse
 				// Esto permite correr entre el primer y segundo golpe
 				m_pWolf->GetBehaviors()->SeekOn();
 				m_pWolf->GetBehaviors()->GetSeek()->SetTarget(m_pWolf->GetPlayer()->GetPosition());
-				m_pWolf->GetSteeringEntity()->SetMaxSpeed(m_pWolf->GetPlayer()->GetProperties()->GetHitRecoilSpeed());
+				//m_pWolf->GetSteeringEntity()->SetMaxSpeed(m_pWolf->GetPlayer()->GetProperties()->GetStillAttackComboSpeed());
 			}
 
 			// Trato la animación de impacto

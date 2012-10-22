@@ -171,6 +171,9 @@ public:
 	inline void					SetStillAttackSpeed			( float _StillAttackSpeed )							{ m_StillAttackSpeed = _StillAttackSpeed; }
 	inline const float			GetStillAttackSpeed			( void ) const										{ return m_StillAttackSpeed; }
 
+	inline void					SetStillAttackComboSpeed	( float _StillAttackComboSpeed )					{ m_StillAttackComboSpeed = _StillAttackComboSpeed; }
+	inline const float			GetStillAttackComboSpeed	( void ) const										{ return m_StillAttackComboSpeed; }
+
 	inline void					SetRunAttackSpeed			( float _RunAttackSpeed )							{ m_RunAttackSpeed = _RunAttackSpeed; }
 	inline const float			GetRunAttackSpeed			( void ) const										{ return m_RunAttackSpeed; }
 
@@ -228,6 +231,7 @@ private:
 	float				m_AttackAngle;				// Ángulo para la ataque de enemigos en grados.
 	float				m_DetectionAngle;			// Ángulo para la detección de enemigos en grados.
 	float				m_StillAttackSpeed;			// Velocidad de ataque del still attack
+	float				m_StillAttackComboSpeed;	// Velocidad de ataque del still attack combo
 	float				m_RunAttackSpeed;			// Velocidad de ataque del run attack
 	float				m_HitRecoilSpeed;			// Velocidad de retroceso en el Hit
 	float				m_TimeInDefense;			// Tiempo máximo para que se mantenga en el estado de defense
