@@ -231,6 +231,10 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 		{
 			l_Properties->SetStillAttackSpeed( l_XMLPropertiesNode(i).GetFloatKeyword("still_attack_speed", 10.f) );
 		}
+		else if( l_PropertyField == "still_attack_combo_speed" )
+		{
+			l_Properties->SetStillAttackComboSpeed( l_XMLPropertiesNode(i).GetFloatKeyword("still_attack_combo_speed", 7.f) );
+		}
 		else if( l_PropertyField == "run_attack_speed" )
 		{
 			l_Properties->SetRunAttackSpeed( l_XMLPropertiesNode(i).GetFloatKeyword("run_attack_speed", 10.f) );
