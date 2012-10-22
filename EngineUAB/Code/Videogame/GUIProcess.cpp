@@ -4,7 +4,7 @@
 #include "Scripting\ScriptManager.h"
 #include "SoundManager.h"
 #include "Listener.h"
-#include "Cameras\ThPSCamera.h"
+#include "Cameras\FPSCamera.h"
 #include "Cameras\Camera.h"
 #include "Math\Vector2.h"
 #include "Options\Options.h"
@@ -18,7 +18,7 @@
 
 CGUIProcess::CGUIProcess(HWND hWnd)
 	: m_hWnd(hWnd)
-	, m_pThPSCamera(NULL)
+	, m_pFPSCamera(NULL)
 {
 }
 
@@ -29,7 +29,7 @@ CGUIProcess::~CGUIProcess()
 
 void CGUIProcess::Release()
 {
-	CHECKED_DELETE( m_pThPSCamera );
+	CHECKED_DELETE( m_pFPSCamera );
 	m_pCamera = NULL;
 }
 
@@ -41,14 +41,20 @@ bool CGUIProcess::Init()
 	pos.y = screen.y / 2;
 
 	//Establece la cámara
-	m_StaticCamera.SetPosition(Vect3f(0.f,1.f,0.f));
+	/*m_StaticCamera.SetPosition(Vect3f(0.f,1.f,0.f));
 	m_StaticCamera.SetPitch(0.0f);
 	m_StaticCamera.SetYaw(0.0f);
-	m_StaticCamera.SetRoll(0.0f);
+	m_StaticCamera.SetRoll(0.0f);*/
+
+	m_StaticCamera.SetPosition(Vect3f(130.4898f, -3.45527f, -160.052f));
+	m_StaticCamera.SetPitch(3.5111432f);
+	m_StaticCamera.SetYaw(5.8668766f);
+	m_StaticCamera.SetRoll(FLOAT_PI_VALUE);
+	m_StaticCamera.SetScale(v3fUNIT);
 
 	float aspect = CORE->GetRenderManager()->GetAspectRatio();
-	m_pThPSCamera = new CThPSCamera(1.0f, 10000.f, 45.f * D3DX_PI / 180.f, aspect, &m_StaticCamera, 10.0f, 0.f, 0.f, "Static");
-	m_pCamera = static_cast<CCamera*>(m_pThPSCamera);
+	m_pFPSCamera = new CFPSCamera(1.f, 10000.f, 45.f * D3DX_PI / 180.f, aspect,  &m_StaticCamera);
+	m_pCamera = static_cast<CCamera*>(m_pFPSCamera);
 	CORE->SetCamera(m_pCamera);
 
 	//Registra los métodos de él mismo
