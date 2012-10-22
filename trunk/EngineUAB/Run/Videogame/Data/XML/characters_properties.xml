@@ -48,26 +48,28 @@
 		<max_rotation_speed>360</max_rotation_speed>
 		<min_speed>0.05</min_speed>
 		<max_speed>11.0</max_speed>
-		<max_acceleration>0.1</max_acceleration>
+		<max_acceleration>3.1</max_acceleration>
 		<max_force>0.015</max_force>
+		<!-- Velocidad de ataque 1 --> 
 		<still_attack_speed>12.4</still_attack_speed>
 		<!-- Velocidad de ataque 1 --> 
-		<run_attack_speed>13.5</run_attack_speed>
+		<still_attack_combo_speed>7</still_attack_combo_speed>
 		<!-- Velocidad de ataque 2 --> 
-		<min_tired_time>0</min_tired_time>
+		<run_attack_speed>13.5</run_attack_speed>
 		<!-- Tiempo mínimo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
-		<max_tired_time>0.1</max_tired_time>
+		<min_tired_time>0</min_tired_time>
 		<!-- Tiempo máximo de cansado básico. Este se aplica antes de cada ataque o de cada acción --> 
-		<min_tired_time_after_hit>0</min_tired_time_after_hit>
+		<max_tired_time>0.1</max_tired_time>
 		<!-- Tiempo mínimo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
-		<max_tired_time_after_hit>2</max_tired_time_after_hit>
+		<min_tired_time_after_hit>0</min_tired_time_after_hit>
 		<!-- Tiempo máximo de cansado después de ser golpeado. Se aplica un tiempo adicional pq se entiende que está herido --> 
-		<max_hit_recoil_distance>5</max_hit_recoil_distance>
+		<max_tired_time_after_hit>2</max_tired_time_after_hit>
 		<!-- Cantidad de retroceso máximo al recibir un hit -->
-		<hit_recoil_speed>0.5</hit_recoil_speed>
+		<max_hit_recoil_distance>5</max_hit_recoil_distance>
 		<!-- Cantidad de velocidad del retroceso al recibir un hit. Se aplica como la speed al front + 180º -->
-		<max_time_in_defense>2</max_time_in_defense>
+		<hit_recoil_speed>0.8</hit_recoil_speed>
 		<!-- Cantidad de tiempo máximo al recibir un hit pero que estoy en defense -->
+		<max_time_in_defense>2</max_time_in_defense>
 		<bounding_radius>1.7</bounding_radius>
 		<detection_distance>35</detection_distance>
 		<!-- Distancia a partir de la qual detecto el player y puedo perseguirlo -->
@@ -111,7 +113,7 @@
 		<max_rotation_speed>360</max_rotation_speed>
 		<min_speed>0.05</min_speed>
 		<max_speed>10.4</max_speed>
-		<max_acceleration>0.1</max_acceleration>
+		<max_acceleration>3.1</max_acceleration>
 		<max_force>0.015</max_force>
 		<still_attack_speed>12.4</still_attack_speed>
 		<!-- Velocidad de ataque 1 --> 
