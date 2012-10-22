@@ -163,7 +163,7 @@ Vect3f CCollisionAvoidance::CalculateSteering( CSteeringEntity *_pEntity )
 
 		//Vect3f l_Front = _pEntity->GetPosition().GetAngleY();www
 			float l_ForwardComponent = l_RelativePosition.Dot( _pEntity->GetFront() );
-			float l_fAngle			 = mathUtils::ACos<float>( l_ForwardComponent );wddd
+			float l_fAngle			 = mathUtils::ACos<float>( l_ForwardComponent );
 			Vect3f l_ForwardOffset	 = l_ForwardComponent * _pEntity->GetFront();
 
 			// Offset del forward al centro del obstáculo
