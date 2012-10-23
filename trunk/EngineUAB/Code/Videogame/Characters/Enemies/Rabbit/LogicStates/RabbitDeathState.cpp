@@ -95,7 +95,10 @@ void CRabbitDeathState::OnEnter( CCharacter* _pCharacter )
 
 	m_pAnimationCallback->Init();
 	CORE->GetSoundManager()->PlayEvent(_pCharacter->GetSpeakerName(), "Play_EFX_Rabbit_Death" );
-	//PlayRandomSound();
+	
+	// Gestión de partículas. Metemos sangre!!
+	UpdateImpact(_pCharacter);
+	GenerateImpact(_pCharacter);
 }
 
 void CRabbitDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
@@ -105,6 +108,9 @@ void CRabbitDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		m_pRabbit = dynamic_cast<CRabbit*> (_pCharacter);
 	}
 	
+	// Actualizamos la posición
+	UpdateImpact(_pCharacter);
+
 	// Si és atacable miro si llegué al màximo de lo que permito que me golpeen y bloqueo
 	if ( m_pAnimationCallback->IsAnimationStarted() ) 
 	{
@@ -179,39 +185,35 @@ bool CRabbitDeathState::OnMessage( CCharacter* _pCharacter, const STelegram& _Te
 	return false;
 }
 
-//
-//// Devuelve el tiempo, la duración
-//void CRabbitDeathState::PlayRandomSound( void )
-//{
-//	int l_Num = BoostRandomHelper::GetInt(1,4);
-//	if ( l_Num == 1 )
-//	{
-//		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsDeath1");
-//		m_SoundDuration = 1.685f;
-//	}
-//	else if ( l_Num == 2)
-//	{
-//		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsDeath2");
-//		m_SoundDuration = 1.550f;
-//	}
-//	else if ( l_Num == 3)
-//	{
-//		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsDeath3");
-//		m_SoundDuration = 2.252f;
-//	}
-//	else if ( l_Num == 4)
-//	{
-//		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsDeath4");
-//		m_SoundDuration = 1.805f;
-//	}
-//	else if ( l_Num == 5)
-//	{
-//		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsDeath5");
-//		m_SoundDuration = 1.742f;
-//	}
-//	else if ( l_Num == 6)
-//	{
-//		CORE->GetSoundManager()->PlayEvent("Play_EFX_RabbitsDeath6");
-//		m_SoundDuration = 1.952f;
-//	}
-//}
+void CRabbitDeathState::GenerateImpact( CCharacter* _pCharacter )
+{
+	GetParticleEmitterInstance("RabbitBloodSplash", _pCharacter->GetName() + "_RabbitBloodSplash")->EjectParticles();
+	GetParticleEmitterInstance("RabbitBloodDust",	_pCharacter->GetName() + "_RabbitBloodDust")->EjectParticles();
+	GetParticleEmitterInstance("RabbitBlood",		_pCharacter->GetName() + "_RabbitBlood")->EjectParticles();
+
+	// Los impactos que realiza la cape!!
+	GetParticleEmitterInstance("CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1")->EjectParticles();
+}
+
+void CRabbitDeathState::UpdateImpact( CCharacter* _pCharacter )
+{
+	Vect3f l_Pos = _pCharacter->GetSteeringEntity()->GetPosition();
+	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
+	
+	SetParticlePosition(_pCharacter, "RabbitBloodSplash", _pCharacter->GetName() + "_RabbitBloodSplash", "", l_Pos );
+	SetParticlePosition(_pCharacter, "RabbitBloodDust",	  _pCharacter->GetName() + "_RabbitBloodDust",	 "", l_Pos );
+	SetParticlePosition(_pCharacter, "RabbitBlood",		  _pCharacter->GetName() + "_RabbitBlood",	"",		 l_Pos );
+																				   
+	// Los impactos que realiza la cape!!	
+	SetParticlePosition(_pCharacter, "CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1", "", l_Pos );
+}
+
+void CRabbitDeathState::StopImpact( CCharacter* _pCharacter )
+{
+	GetParticleEmitterInstance("RabbitBloodSplash", _pCharacter->GetName() + "_RabbitBloodSplash")->StopEjectParticles();
+	GetParticleEmitterInstance("RabbitBloodDust",	_pCharacter->GetName() + "_RabbitBloodDust")->StopEjectParticles();
+	GetParticleEmitterInstance("RabbitBlood",		_pCharacter->GetName() + "_RabbitBlood")->StopEjectParticles();
+
+	// Los impactos que realiza la cape!!										   
+	GetParticleEmitterInstance("CaperucitaImpact1",		_pCharacter->GetName() + "_CaperucitaImpact1")->StopEjectParticles();
+}

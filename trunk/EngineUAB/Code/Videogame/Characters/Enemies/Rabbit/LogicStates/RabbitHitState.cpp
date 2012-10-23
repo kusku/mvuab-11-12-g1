@@ -226,16 +226,25 @@ void CRabbitHitState::GenerateImpact( CCharacter* _pCharacter )
 	GetParticleEmitterInstance("RabbitBloodSplash", _pCharacter->GetName() + "_RabbitBloodSplash")->EjectParticles();
 	GetParticleEmitterInstance("RabbitBloodDust",	_pCharacter->GetName() + "_RabbitBloodDust")->EjectParticles();
 	GetParticleEmitterInstance("RabbitBlood",		_pCharacter->GetName() + "_RabbitBlood")->EjectParticles();
+
+	// Los impactos que realiza la cape!!
+	GetParticleEmitterInstance("CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1")->EjectParticles();
 }
 
 void CRabbitHitState::UpdateImpact( CCharacter* _pCharacter )
 {
-	Vect3f l_Pos = _pCharacter->GetPosition();
+	Vect3f l_Pos = _pCharacter->GetSteeringEntity()->GetPosition();
 	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
-	
+	Vect3f l_Front = _pCharacter->GetFront();
+	l_Front.RotateY(mathUtils::Deg2Rad(180.f));
+	l_Pos += l_Front * 1.3f;
+
 	SetParticlePosition(_pCharacter, "RabbitBloodSplash", _pCharacter->GetName() + "_RabbitBloodSplash", "", l_Pos );
-	SetParticlePosition(_pCharacter, "RabbitBloodDust",	  _pCharacter->GetName() +   "_RabbitBloodDust",	 "", l_Pos);
-	SetParticlePosition(_pCharacter, "RabbitBlood",		  _pCharacter->GetName() +   "_RabbitBlood",	"", l_Pos);
+	SetParticlePosition(_pCharacter, "RabbitBloodDust",	  _pCharacter->GetName() + "_RabbitBloodDust",	 "", l_Pos );
+	SetParticlePosition(_pCharacter, "RabbitBlood",		  _pCharacter->GetName() + "_RabbitBlood",	"",		 l_Pos );
+																				   
+	// Los impactos que realiza la cape!!	
+	SetParticlePosition(_pCharacter, "CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1", "", l_Pos );
 }
 
 void CRabbitHitState::StopImpact( CCharacter* _pCharacter )
@@ -243,6 +252,9 @@ void CRabbitHitState::StopImpact( CCharacter* _pCharacter )
 	GetParticleEmitterInstance("RabbitBloodSplash", _pCharacter->GetName() + "_RabbitBloodSplash")->StopEjectParticles();
 	GetParticleEmitterInstance("RabbitBloodDust",	_pCharacter->GetName() + "_RabbitBloodDust")->StopEjectParticles();
 	GetParticleEmitterInstance("RabbitBlood",		_pCharacter->GetName() + "_RabbitBlood")->StopEjectParticles();
+
+	// Los impactos que realiza la cape!!										   
+	GetParticleEmitterInstance("CaperucitaImpact1",		_pCharacter->GetName() + "_CaperucitaImpact1")->StopEjectParticles();
 }
 
 void CRabbitHitState::UpdateParameters( STelegram& _Message )
