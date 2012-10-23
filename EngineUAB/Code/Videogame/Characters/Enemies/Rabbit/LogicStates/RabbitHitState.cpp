@@ -228,7 +228,7 @@ void CRabbitHitState::GenerateImpact( CCharacter* _pCharacter )
 	GetParticleEmitterInstance("RabbitBlood",		_pCharacter->GetName() + "_RabbitBlood")->EjectParticles();
 
 	// Los impactos que realiza la cape!!
-	GetParticleEmitterInstance("CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1")->EjectParticles();
+	//GetParticleEmitterInstance("CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1")->EjectParticles();
 }
 
 void CRabbitHitState::UpdateImpact( CCharacter* _pCharacter )
@@ -244,7 +244,7 @@ void CRabbitHitState::UpdateImpact( CCharacter* _pCharacter )
 	SetParticlePosition(_pCharacter, "RabbitBlood",		  _pCharacter->GetName() + "_RabbitBlood",	"",		 l_Pos );
 																				   
 	// Los impactos que realiza la cape!!	
-	SetParticlePosition(_pCharacter, "CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1", "", l_Pos );
+	//SetParticlePosition(_pCharacter, "CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1", "", l_Pos );
 }
 
 void CRabbitHitState::StopImpact( CCharacter* _pCharacter )
@@ -254,7 +254,7 @@ void CRabbitHitState::StopImpact( CCharacter* _pCharacter )
 	GetParticleEmitterInstance("RabbitBlood",		_pCharacter->GetName() + "_RabbitBlood")->StopEjectParticles();
 
 	// Los impactos que realiza la cape!!										   
-	GetParticleEmitterInstance("CaperucitaImpact1",		_pCharacter->GetName() + "_CaperucitaImpact1")->StopEjectParticles();
+	//GetParticleEmitterInstance("CaperucitaImpact1",		_pCharacter->GetName() + "_CaperucitaImpact1")->StopEjectParticles();
 }
 
 void CRabbitHitState::UpdateParameters( STelegram& _Message )

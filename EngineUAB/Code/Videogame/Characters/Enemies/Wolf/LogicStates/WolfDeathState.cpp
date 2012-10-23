@@ -191,7 +191,7 @@ void CWolfDeathState::GenerateImpact( CCharacter* _pCharacter )
 	GetParticleEmitterInstance("WolfBlood",		  _pCharacter->GetName() + "_WolfBlood")->EjectParticles();
 
 	// Los impactos que realiza la cape!!
-	GetParticleEmitterInstance("CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1")->EjectParticles();
+	//GetParticleEmitterInstance("CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1")->EjectParticles();
 }
 
 void CWolfDeathState::UpdateImpact( CCharacter* _pCharacter )
@@ -204,7 +204,7 @@ void CWolfDeathState::UpdateImpact( CCharacter* _pCharacter )
 	SetParticlePosition(_pCharacter, "WolfBlood",		_pCharacter->GetName() + "_WolfBlood",	"", l_Pos);
 
 	// Los impactos que realiza la cape!!
-	SetParticlePosition(_pCharacter, "CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1", "", l_Pos);
+	///SetParticlePosition(_pCharacter, "CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1", "", l_Pos);
 }
 
 void CWolfDeathState::StopImpact( CCharacter* _pCharacter )
@@ -214,5 +214,5 @@ void CWolfDeathState::StopImpact( CCharacter* _pCharacter )
 	GetParticleEmitterInstance("WolfBlood",		  _pCharacter->GetName() + "_WolfBlood")->StopEjectParticles();
 
 	// Los impactos que realiza la cape!!
-	GetParticleEmitterInstance("CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1")->StopEjectParticles();
+	//GetParticleEmitterInstance("CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1")->StopEjectParticles();
 }

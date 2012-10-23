@@ -194,7 +194,7 @@ void CDeerDeathState::GenerateImpact( CCharacter* _pCharacter )
 	GetParticleEmitterInstance("DeerBlood",		  _pCharacter->GetName() + "_DeerBlood")->EjectParticles();
 
 	// Los impactos que realiza la cape!!
-	GetParticleEmitterInstance("CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1")->EjectParticles();
+	//GetParticleEmitterInstance("CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1")->EjectParticles();
 }
 
 void CDeerDeathState::UpdateImpact( CCharacter* _pCharacter )
@@ -207,7 +207,7 @@ void CDeerDeathState::UpdateImpact( CCharacter* _pCharacter )
 	SetParticlePosition(_pCharacter, "DeerBlood",		_pCharacter->GetName() + "_DeerBlood",	"", l_Pos);
 
 	// Los impactos que realiza la cape!!
-	SetParticlePosition(_pCharacter, "CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1", "", l_Pos);
+	//SetParticlePosition(_pCharacter, "CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1", "", l_Pos);
 }
 
 void CDeerDeathState::StopImpact( CCharacter* _pCharacter )
@@ -217,5 +217,5 @@ void CDeerDeathState::StopImpact( CCharacter* _pCharacter )
 	GetParticleEmitterInstance("DeerBlood",		  _pCharacter->GetName() + "_DeerBlood")->StopEjectParticles();
 
 	// Los impactos que realiza la cape!!
-	GetParticleEmitterInstance("CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1")->StopEjectParticles();
+	//GetParticleEmitterInstance("CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1")->StopEjectParticles();
 }
