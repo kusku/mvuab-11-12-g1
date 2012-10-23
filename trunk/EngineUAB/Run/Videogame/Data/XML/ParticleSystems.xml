@@ -99,4 +99,7 @@
 	<system name="FireSwordBlur"              settings_name="FireSwordBlur" />
 	<system name="FireSwordSmoke"             settings_name="FireSwordSmoke" />
 	
+	<system name="CaperucitaCenterFlare"      settings_name="CaperucitaCenterFlare" />		<!-- Más Blanco  -->
+	
+	
 </particle_systems>
