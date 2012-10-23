@@ -21,6 +21,7 @@ end
 
 function change_to_game_over_gui_process()
 	core:get_sound_manager():stop_all_events()
+	core:get_sound_manager():play_event("Play_EFX_CapeDeath1")
 	core:set_game_mode(false)
 	core:get_gui_manager():pop_windows()
 	core:get_gui_manager():push_windows('GameOver')
@@ -33,7 +34,7 @@ function change_to_gui_process()
 end
 
 function change_to_end_gui_process()
-	dwcore:get_sound_manager():stop_all_events()
+	core:get_sound_manager():stop_all_events()
 	core:set_game_mode(false)
 	core:get_gui_manager():pop_windows()
 	core:get_gui_manager():push_windows('End')
