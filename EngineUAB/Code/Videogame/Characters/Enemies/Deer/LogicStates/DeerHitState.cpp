@@ -230,6 +230,9 @@ void CDeerHitState::GenerateImpact( CCharacter* _pCharacter )
 	GetParticleEmitterInstance("DeerBloodSplash", _pCharacter->GetName() + "_DeerBloodSplash")->EjectParticles();
 	GetParticleEmitterInstance("DeerBloodDust",	  _pCharacter->GetName() + "_DeerBloodDust")->EjectParticles();
 	GetParticleEmitterInstance("DeerBlood",		  _pCharacter->GetName() + "_DeerBlood")->EjectParticles();
+
+	// Los impactos que realiza la cape!!
+	GetParticleEmitterInstance("CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1")->EjectParticles();
 }
 
 void CDeerHitState::UpdateImpact( CCharacter* _pCharacter )
@@ -240,6 +243,9 @@ void CDeerHitState::UpdateImpact( CCharacter* _pCharacter )
 	SetParticlePosition(_pCharacter, "DeerBloodSplash", _pCharacter->GetName() + "_DeerBloodSplash", "", l_Pos );
 	SetParticlePosition(_pCharacter, "DeerBloodDust",	_pCharacter->GetName() + "_DeerBloodDust",	 "", l_Pos);
 	SetParticlePosition(_pCharacter, "DeerBlood",		_pCharacter->GetName() + "_DeerBlood",	"", l_Pos);
+
+	// Los impactos que realiza la cape!!
+	SetParticlePosition(_pCharacter, "CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1", "", l_Pos);
 }
 
 void CDeerHitState::StopImpact( CCharacter* _pCharacter )
@@ -247,6 +253,9 @@ void CDeerHitState::StopImpact( CCharacter* _pCharacter )
 	GetParticleEmitterInstance("DeerBloodSplash", _pCharacter->GetName() + "_DeerBloodSplash")->StopEjectParticles();
 	GetParticleEmitterInstance("DeerBloodDust",	  _pCharacter->GetName() + "_DeerBloodDust")->StopEjectParticles();
 	GetParticleEmitterInstance("DeerBlood",		  _pCharacter->GetName() + "_DeerBlood")->StopEjectParticles();
+
+	// Los impactos que realiza la cape!!
+	GetParticleEmitterInstance("CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1")->StopEjectParticles();
 }
 
 void CDeerHitState::UpdateParameters( STelegram& _Message )

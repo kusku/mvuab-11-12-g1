@@ -18,23 +18,27 @@ class CDeerDeathState : public CState<CCharacter>
 public:
 
 	// ------------- Constructors i Destructors --------------
-					CDeerDeathState	( CCharacter* _pCharacter );
-					CDeerDeathState	( CCharacter* _pCharacter, const std::string &_Name );
-	virtual			~CDeerDeathState	( void );
+					CDeerDeathState			( CCharacter* _pCharacter );
+					CDeerDeathState			( CCharacter* _pCharacter, const std::string &_Name );
+	virtual			~CDeerDeathState		( void );
 
 	//----Main Functions --------------------------------------
-	virtual void	Execute		( CCharacter*, float _ElapsedTime );
+	virtual void	Execute					( CCharacter*, float _ElapsedTime );
 
 	// Se ejecuta cuando el estado es entrado
-	virtual void	OnEnter		( CCharacter* );
+	virtual void	OnEnter					( CCharacter* );
 
 	// Se ejecuta cuando el estado sale
-	virtual void	OnExit		( CCharacter* );
+	virtual void	OnExit					( CCharacter* );
 
 	// Se ejecuta cuando otro caracter envía un mensaje a este
-	virtual bool	OnMessage	( CCharacter*, const STelegram& );
+	virtual bool	OnMessage				( CCharacter*, const STelegram& );
 
 	//----Methods ---------------------------------------------
+	// Para tema de partículas de impacto
+	void			GenerateImpact			( CCharacter* _pCharacter );
+	void			UpdateImpact			( CCharacter* _pCharacter );
+	void			StopImpact				( CCharacter* _pCharacter );
 
 	//----Members ---------------------------------------------
 private:

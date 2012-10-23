@@ -94,6 +94,10 @@ void CDeerDeathState::OnEnter( CCharacter* _pCharacter )
 	
 	m_pAnimationCallback->Init();
 	CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Deer_Die");
+
+	// Gestión de partículas. Metemos sangre!!
+	UpdateImpact(_pCharacter);
+	GenerateImpact(_pCharacter);
 }
 
 void CDeerDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
@@ -103,6 +107,9 @@ void CDeerDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		m_pDeer = dynamic_cast<CDeer*> (_pCharacter);
 	}
 	
+	// Actualizamos la posición
+	UpdateImpact(_pCharacter);
+
 	// Si és atacable miro si llegué al màximo de lo que permito que me golpeen y bloqueo
 	if ( m_pAnimationCallback->IsAnimationStarted() ) 
 	{
@@ -179,3 +186,36 @@ bool CDeerDeathState::OnMessage( CCharacter* _pCharacter, const STelegram& _Tele
 	return false;
 }
 
+
+void CDeerDeathState::GenerateImpact( CCharacter* _pCharacter )
+{
+	GetParticleEmitterInstance("DeerBloodSplash", _pCharacter->GetName() + "_DeerBloodSplash")->EjectParticles();
+	GetParticleEmitterInstance("DeerBloodDust",	  _pCharacter->GetName() + "_DeerBloodDust")->EjectParticles();
+	GetParticleEmitterInstance("DeerBlood",		  _pCharacter->GetName() + "_DeerBlood")->EjectParticles();
+
+	// Los impactos que realiza la cape!!
+	GetParticleEmitterInstance("CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1")->EjectParticles();
+}
+
+void CDeerDeathState::UpdateImpact( CCharacter* _pCharacter )
+{
+	Vect3f l_Pos = _pCharacter->GetPosition(); 
+	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
+	
+	SetParticlePosition(_pCharacter, "DeerBloodSplash", _pCharacter->GetName() + "_DeerBloodSplash", "", l_Pos );
+	SetParticlePosition(_pCharacter, "DeerBloodDust",	_pCharacter->GetName() + "_DeerBloodDust",	 "", l_Pos);
+	SetParticlePosition(_pCharacter, "DeerBlood",		_pCharacter->GetName() + "_DeerBlood",	"", l_Pos);
+
+	// Los impactos que realiza la cape!!
+	SetParticlePosition(_pCharacter, "CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1", "", l_Pos);
+}
+
+void CDeerDeathState::StopImpact( CCharacter* _pCharacter )
+{
+	GetParticleEmitterInstance("DeerBloodSplash", _pCharacter->GetName() + "_DeerBloodSplash")->StopEjectParticles();
+	GetParticleEmitterInstance("DeerBloodDust",	  _pCharacter->GetName() + "_DeerBloodDust")->StopEjectParticles();
+	GetParticleEmitterInstance("DeerBlood",		  _pCharacter->GetName() + "_DeerBlood")->StopEjectParticles();
+
+	// Los impactos que realiza la cape!!
+	GetParticleEmitterInstance("CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1")->StopEjectParticles();
+}

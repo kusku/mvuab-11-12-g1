@@ -99,6 +99,10 @@ void CWolfDeathState::OnEnter( CCharacter* _pCharacter )
 	CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Wolf_die");
 
 	static_cast<CGameProcess*>(CORE->GetProcess())->GetHUD()->SetActiveWolfBar(false);
+
+	// Gestión de partículas. Metemos sangre!!
+	UpdateImpact(_pCharacter);
+	GenerateImpact(_pCharacter);
 }
 
 void CWolfDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
@@ -108,6 +112,9 @@ void CWolfDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		m_pWolf = dynamic_cast<CWolf*> (_pCharacter);
 	}
 	
+	// Actualizamos la posición
+	UpdateImpact(_pCharacter);
+
 	// Si és atacable miro si llegué al màximo de lo que permito que me golpeen y bloqueo
 	if ( m_pAnimationCallback->IsAnimationStarted() ) 
 	{
@@ -166,7 +173,6 @@ void CWolfDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 	}
 }
 
-
 void CWolfDeathState::OnExit( CCharacter* _pCharacter )
 {
 	static_cast<CGameProcess*>(CORE->GetProcess())->GetHUD()->SetActiveWolfBar(false);
@@ -178,3 +184,35 @@ bool CWolfDeathState::OnMessage( CCharacter* _pCharacter, const STelegram& _Tele
 	return false;
 }
 
+void CWolfDeathState::GenerateImpact( CCharacter* _pCharacter )
+{
+	GetParticleEmitterInstance("WolfBloodSplash", _pCharacter->GetName() + "_WolfBloodSplash")->EjectParticles();
+	GetParticleEmitterInstance("WolfBloodDust",	  _pCharacter->GetName() + "_WolfBloodDust")->EjectParticles();
+	GetParticleEmitterInstance("WolfBlood",		  _pCharacter->GetName() + "_WolfBlood")->EjectParticles();
+
+	// Los impactos que realiza la cape!!
+	GetParticleEmitterInstance("CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1")->EjectParticles();
+}
+
+void CWolfDeathState::UpdateImpact( CCharacter* _pCharacter )
+{
+	Vect3f l_Pos = _pCharacter->GetPosition() + _pCharacter->GetFront();
+	l_Pos.y += _pCharacter->GetProperties()->GetHeightController();
+	
+	SetParticlePosition(_pCharacter, "WolfBloodSplash", _pCharacter->GetName() + "_WolfBloodSplash", "", l_Pos );
+	SetParticlePosition(_pCharacter, "WolfBloodDust",	_pCharacter->GetName() + "_WolfBloodDust",	 "", l_Pos);
+	SetParticlePosition(_pCharacter, "WolfBlood",		_pCharacter->GetName() + "_WolfBlood",	"", l_Pos);
+
+	// Los impactos que realiza la cape!!
+	SetParticlePosition(_pCharacter, "CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1", "", l_Pos);
+}
+
+void CWolfDeathState::StopImpact( CCharacter* _pCharacter )
+{
+	GetParticleEmitterInstance("WolfBloodSplash", _pCharacter->GetName() + "_WolfBloodSplash")->StopEjectParticles();
+	GetParticleEmitterInstance("WolfBloodDust",	  _pCharacter->GetName() + "_WolfBloodDust")->StopEjectParticles();
+	GetParticleEmitterInstance("WolfBlood",		  _pCharacter->GetName() + "_WolfBlood")->StopEjectParticles();
+
+	// Los impactos que realiza la cape!!
+	GetParticleEmitterInstance("CaperucitaImpact1", _pCharacter->GetName() + "_CaperucitaImpact1")->StopEjectParticles();
+}
