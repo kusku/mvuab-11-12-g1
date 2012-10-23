@@ -109,7 +109,7 @@
   
   <!--Debug-->
   <enable_z_test />
-  <render_debug_waypoints waypoints="false" triggers="true" rails="false" />
+  <render_debug_waypoints waypoints="false" triggers="false" rails="false" />
   <render_debug_process active="false" />
   <render_debug_physics active="false" draw_fronts="false" draw_frustum="false" draw_names="false" draw_rays="false" render_positions="false" draw_distances="false" />
   <render_debug_lights active="false" />
