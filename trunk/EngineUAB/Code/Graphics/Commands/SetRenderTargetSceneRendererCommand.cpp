@@ -30,6 +30,11 @@ CSetRenderTargetSceneRendererCommand::CSetRenderTargetSceneRendererCommand(CXMLT
 			uint32 stage_id = Node(i).GetIntProperty("stage_id", 0);
 			std::string name = Node(i).GetPszProperty("name", "");
 
+			if(name.compare("__CURRENT_MOTION_BLUR_TEXTURE") == 0 && !CORE->GetConfig().motion_blur_enable)
+			{
+				continue;
+			}
+
 			texture = CORE->GetTextureManager()->GetResource(name);
 
 			if(texture == NULL)
