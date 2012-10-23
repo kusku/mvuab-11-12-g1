@@ -22,47 +22,50 @@ CBeginMotionBlurSceneRendererCommand::CBeginMotionBlurSceneRendererCommand( CXML
 	, m_PrevMotionBlurVelocity(NULL)
 	, m_CurrentMotionBlurVelocity(NULL)
 {
-	bool ret = false;
-
-	Vect2i screenSize = CORE->GetRenderManager()->GetScreenSize();
-
-	if(CORE->GetTextureManager()->GetResource("__PREV_MOTION_BLUR_TEXTURE") != NULL)
+	if(CORE->GetConfig().motion_blur_enable)
 	{
-		ret = CORE->GetTextureManager()->RemoveResource("__PREV_MOTION_BLUR_TEXTURE");
+		bool ret = false;
+
+		Vect2i screenSize = CORE->GetRenderManager()->GetScreenSize();
+
+		if(CORE->GetTextureManager()->GetResource("__PREV_MOTION_BLUR_TEXTURE") != NULL)
+		{
+			ret = CORE->GetTextureManager()->RemoveResource("__PREV_MOTION_BLUR_TEXTURE");
+
+			assert(ret);
+		}
+
+		m_PrevMotionBlurVelocity = new CTexture();
+
+		ret = m_PrevMotionBlurVelocity->Create("__PREV_MOTION_BLUR_TEXTURE", screenSize.x, screenSize.y, 1, CTexture::RENDERTARGET, CTexture::DEFAULT, CTexture::G32R32F);
+
+		assert(ret);
+
+		ret = CORE->GetTextureManager()->AddResource("__PREV_MOTION_BLUR_TEXTURE", m_PrevMotionBlurVelocity);
+
+		assert(ret);
+
+		//////////////////////////
+		//////////////////////////
+		//////////////////////////
+
+		if(CORE->GetTextureManager()->GetResource("__CURRENT_MOTION_BLUR_TEXTURE") != NULL)
+		{
+			ret = CORE->GetTextureManager()->RemoveResource("__CURRENT_MOTION_BLUR_TEXTURE");
+
+			assert(ret);
+		}
+
+		m_CurrentMotionBlurVelocity = new CTexture();
+
+		ret = m_CurrentMotionBlurVelocity->Create("__CURRENT_MOTION_BLUR_TEXTURE", screenSize.x, screenSize.y, 1, CTexture::RENDERTARGET, CTexture::DEFAULT, CTexture::G32R32F);
+
+		assert(ret);
+
+		ret = CORE->GetTextureManager()->AddResource("__CURRENT_MOTION_BLUR_TEXTURE", m_CurrentMotionBlurVelocity);
 
 		assert(ret);
 	}
-
-	m_PrevMotionBlurVelocity = new CTexture();
-
-	ret = m_PrevMotionBlurVelocity->Create("__PREV_MOTION_BLUR_TEXTURE", screenSize.x, screenSize.y, 1, CTexture::RENDERTARGET, CTexture::DEFAULT, CTexture::G32R32F);
-
-	assert(ret);
-
-	ret = CORE->GetTextureManager()->AddResource("__PREV_MOTION_BLUR_TEXTURE", m_PrevMotionBlurVelocity);
-
-	assert(ret);
-
-	//////////////////////////
-	//////////////////////////
-	//////////////////////////
-
-	if(CORE->GetTextureManager()->GetResource("__CURRENT_MOTION_BLUR_TEXTURE") != NULL)
-	{
-		ret = CORE->GetTextureManager()->RemoveResource("__CURRENT_MOTION_BLUR_TEXTURE");
-
-		assert(ret);
-	}
-
-	m_CurrentMotionBlurVelocity = new CTexture();
-
-	ret = m_CurrentMotionBlurVelocity->Create("__CURRENT_MOTION_BLUR_TEXTURE", screenSize.x, screenSize.y, 1, CTexture::RENDERTARGET, CTexture::DEFAULT, CTexture::G32R32F);
-
-	assert(ret);
-
-	ret = CORE->GetTextureManager()->AddResource("__CURRENT_MOTION_BLUR_TEXTURE", m_CurrentMotionBlurVelocity);
-
-	assert(ret);
 }
 
 // -----------------------------------------
@@ -76,6 +79,11 @@ void CBeginMotionBlurSceneRendererCommand::Execute( CRenderManager &_RM )
 	}
 
 	assert(m_PrevMotionBlurVelocity || m_CurrentMotionBlurVelocity);
+
+	if(m_PrevMotionBlurVelocity || m_CurrentMotionBlurVelocity)
+	{
+		return;
+	}
 
 	LPDIRECT3DTEXTURE9 tempText = NULL;
 
