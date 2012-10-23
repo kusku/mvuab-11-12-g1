@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <HUD>
 	<PlayerLifeBar threshold_to_dying_effect="0.3" >
-		<Background position="7 7" size="35 19" texture="./Data/General/Textures/HUD/caperu_hud_back.png" active="true" />
-		<Bar position="12 12" size="27 4" texture="./Data/General/Textures/HUD/caperu_hud_bar.png" active="true" />
-		<Mask position="3 4" size="41 25" texture="./Data/General/Textures/HUD/caperu_hud_mask.png" active="true" />
+		<Background position="7 7" size="31 19" texture="./Data/General/Textures/HUD/caperu_hud_back.png" active="true" />
+		<Bar position="11 12" size="22 4" texture="./Data/General/Textures/HUD/caperu_hud_bar.png" active="true" />
+		<Mask position="3 4" size="35 25" texture="./Data/General/Textures/HUD/caperu_hud_mask.png" active="true" />
 	</PlayerLifeBar>
 	
 	<WolfLifeBar>
