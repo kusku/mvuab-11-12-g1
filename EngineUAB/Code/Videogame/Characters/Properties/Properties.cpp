@@ -45,6 +45,7 @@ CProperties::CProperties( const std::string &_Name, int _Life, int _Strong, floa
 	, m_SkinWidth			( _SkinWidth )
 	, m_StepOffset			( _StepOffset )
 	, m_CurrentLife			( _Life )
+	, m_bGodMode			( false )
 {
 	SetName(_Name);
 }
@@ -81,7 +82,7 @@ CProperties::CProperties( void )
 	, m_SkinWidth			( 0.1f )
 	, m_StepOffset			( 0.5f )
 	, m_CurrentLife			( 0 )
-	
+	, m_bGodMode			( false )
 {
 }
 

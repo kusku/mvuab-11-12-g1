@@ -3,6 +3,7 @@
 	<default_properties core="caperucita">
 		<active>true</active>
 		<locked>false</locked>
+		<god_mode>false</god_mode>
 		<life>100</life>
 		<strong>50</strong>
 		<respawn_position>0 100 0</respawn_position>

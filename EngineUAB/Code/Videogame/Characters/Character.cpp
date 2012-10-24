@@ -606,9 +606,18 @@ void CCharacter::RestLife( int _Life )
 
 	if ( l_Life <= 0 ) 
 	{
-		l_Life = 0;
-		m_bIsAlive = false;
+		if( !m_pProperties->GetGodMode() )
+		{
+			l_Life = 0;
+			m_bIsAlive = false;
+		}
+		else
+		{
+			l_Life = 1;
+			m_bIsAlive = true;
+		}
 	}
+
 	m_pProperties->SetCurrentLife( l_Life ); 
 }
 
