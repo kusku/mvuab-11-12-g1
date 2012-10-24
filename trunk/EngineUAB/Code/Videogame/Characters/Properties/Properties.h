@@ -68,6 +68,8 @@ public:
 	inline void					SetLocked				( bool _Locked )										{ m_Locked = _Locked; }
 	inline const bool			GetLocked				( void ) const											{ return m_Locked; }
 
+	inline void					SetGodMode				( bool _God )											{ m_bGodMode = _God; }
+	inline const bool			GetGodMode				( void ) const											{ return m_bGodMode; }
 
 	// -------------------- Popiedades de detección para estados --------------------------------------------------------------
 	inline void					SetDetectionDistance		( float _DetectionDistance )						{ m_DetectionDistance = _DetectionDistance; }
@@ -210,6 +212,7 @@ private:
 	int					m_Strong;
 	Vect3f				m_RespawnPosition;
 	
+	bool				m_bGodMode;
 	bool				m_Locked;					// Dice que paralizo el caracter
 
 	// Propiedades de IA + Física

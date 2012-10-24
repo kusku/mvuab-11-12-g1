@@ -84,7 +84,11 @@ CProperties* CPropertiesManager::LoadProperties( const CXMLTreeNode &_Node, cons
 			float l_Yaw = l_XMLPropertiesNode(i).GetFloatKeyword("yaw");
 			l_Properties->SetYaw( l_Yaw );
 		}
-
+		else if( l_PropertyField == "god_mode" )
+		{
+			bool l_God = l_XMLPropertiesNode(i).GetBoolKeyword("god_mode");
+			l_Properties->SetGodMode(l_God);
+		}
 
 		// --- Propiedades de distancias --- // 
 		else if( l_PropertyField == "detection_distance" )
