@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Callbacks\Animation\AnimationCallbackManager.h"
 #include "Callbacks\Animation\AnimationCallback.h"
+#include "Characters\StatesDefs.h"
 #include "Characters\Player\LogicStates\PlayerAttackState.h"
 #include "Characters\Player\LogicStates\PlayerAttack2State.h"
 #include "Characters\Player\LogicStates\PlayerAttack3State.h"
@@ -12,6 +13,7 @@
 #include "Characters\Player\LogicStates\PlayerJumpState.h"
 #include "Characters\Player\LogicStates\PlayerRunState.h"
 #include "Characters\Player\LogicStates\PlayerDefenseState.h"
+#include "Characters\Player\LogicStates\PlayerDeathState.h"
 #include "Characters\Player\AnimationStates\PlayerAnimationAttackState.h"
 #include "Characters\Player\AnimationStates\PlayerAnimationAttack2State.h"
 #include "Characters\Player\AnimationStates\PlayerAnimationAttack3State.h"
@@ -23,6 +25,7 @@
 #include "Characters\Player\AnimationStates\PlayerAnimationIdleState.h"
 #include "Characters\Player\AnimationStates\PlayerAnimationJumpState.h"
 #include "Characters\Player\AnimationStates\PlayerAnimationRunState.h"
+#include "Characters\Player\AnimationStates\PlayerAnimationDeathState.h"
 #include "RenderableObjects\AnimatedModel\AnimatedInstanceModel.h"
 #include "Steering Behaviors\SteeringEntity.h"
 #include "StatesMachine\StateMachine.h"
@@ -279,44 +282,48 @@ CCharacter* CPlayer::DetectEnemy()
 void CPlayer::CreateStates()
 {
 	//Logic States
-	m_LogicStatesMap["attack1"]			= new CPlayerAttackState			(this, "attack1");
-	m_LogicStatesMap["attack2"]			= new CPlayerAttack2State			(this, "attack2");
-	m_LogicStatesMap["attack3"]			= new CPlayerAttack3State			(this, "attack3");
-	m_LogicStatesMap["attack4"]			= new CPlayerAttack4State			(this, "attack4");
-	m_LogicStatesMap["attack5"]			= new CPlayerAttack5State			(this, "attack5");
-	m_LogicStatesMap["attack6"]			= new CPlayerAttack6State			(this, "attack6");
-	m_LogicStatesMap["hit"]				= new CPlayerHitState				(this, "hit");
-	m_LogicStatesMap["idle"]			= new CPlayerIdleState				(this, "idle");
-	m_LogicStatesMap["jump"]			= new CPlayerJumpState				(this, "jump");
-	m_LogicStatesMap["run"]				= new CPlayerRunState				(this, "run");
-	m_LogicStatesMap["defense"]			= new CPlayerDefenseState			(this, "defense");
+	m_LogicStatesMap["attack1"]				= new CPlayerAttackState			(this, "attack1");
+	m_LogicStatesMap["attack2"]				= new CPlayerAttack2State			(this, "attack2");
+	m_LogicStatesMap["attack3"]				= new CPlayerAttack3State			(this, "attack3");
+	m_LogicStatesMap["attack4"]				= new CPlayerAttack4State			(this, "attack4");
+	m_LogicStatesMap["attack5"]				= new CPlayerAttack5State			(this, "attack5");
+	m_LogicStatesMap["attack6"]				= new CPlayerAttack6State			(this, "attack6");
+	m_LogicStatesMap["hit"]					= new CPlayerHitState				(this, "hit");
+	m_LogicStatesMap["idle"]				= new CPlayerIdleState				(this, "idle");
+	m_LogicStatesMap["jump"]				= new CPlayerJumpState				(this, "jump");
+	m_LogicStatesMap["run"]					= new CPlayerRunState				(this, "run");
+	m_LogicStatesMap["defense"]				= new CPlayerDefenseState			(this, "defense");
+	m_LogicStatesMap[PLAYER_DEATH_STATE]	= new CPlayerDeathState				(this, PLAYER_DEATH_STATE);
 
 	//Animation States
-	m_AnimationStatesMap["animattack1"]	= new CPlayerAnimationAttackState	(this, "animattack1");
-	m_AnimationStatesMap["animattack2"]	= new CPlayerAnimationAttack2State	(this, "animattack2");
-	m_AnimationStatesMap["animattack3"]	= new CPlayerAnimationAttack3State	(this, "animattack3");
-	m_AnimationStatesMap["animattack4"]	= new CPlayerAnimationAttack4State	(this, "animattack4");
-	m_AnimationStatesMap["animattack5"]	= new CPlayerAnimationAttack5State	(this, "animattack5");
-	m_AnimationStatesMap["animattack6"]	= new CPlayerAnimationAttack6State	(this, "animattack6");
-	m_AnimationStatesMap["animdefense"]	= new CPlayerAnimationDefenseState	(this, "animdefense");
-	m_AnimationStatesMap["animhit"]		= new CPlayerAnimationHitState		(this, "animhit");
-	m_AnimationStatesMap["animidle"]	= new CPlayerAnimationIdleState		(this, "animidle");
-	m_AnimationStatesMap["animjump"]	= new CPlayerAnimationJumpState		(this, "animjump");
-	m_AnimationStatesMap["animrun"]		= new CPlayerAnimationRunState		(this, "animrun");
+	m_AnimationStatesMap["animattack1"]		= new CPlayerAnimationAttackState	(this, "animattack1");
+	m_AnimationStatesMap["animattack2"]		= new CPlayerAnimationAttack2State	(this, "animattack2");
+	m_AnimationStatesMap["animattack3"]		= new CPlayerAnimationAttack3State	(this, "animattack3");
+	m_AnimationStatesMap["animattack4"]		= new CPlayerAnimationAttack4State	(this, "animattack4");
+	m_AnimationStatesMap["animattack5"]		= new CPlayerAnimationAttack5State	(this, "animattack5");
+	m_AnimationStatesMap["animattack6"]		= new CPlayerAnimationAttack6State	(this, "animattack6");
+	m_AnimationStatesMap["animdefense"]		= new CPlayerAnimationDefenseState	(this, "animdefense");
+	m_AnimationStatesMap["animhit"]			= new CPlayerAnimationHitState		(this, "animhit");
+	m_AnimationStatesMap["animidle"]		= new CPlayerAnimationIdleState		(this, "animidle");
+	m_AnimationStatesMap["animjump"]		= new CPlayerAnimationJumpState		(this, "animjump");
+	m_AnimationStatesMap["animrun"]			= new CPlayerAnimationRunState		(this, "animrun");
+	m_AnimationStatesMap[PLAYER_DEATH_ANIMATION_STATE]		= new CPlayerAnimationDeathState	(this, PLAYER_DEATH_ANIMATION_STATE);
 }
 
 void CPlayer::CreateCallbacks()
 {
 	CAnimationCallbackManager *l_pCallbackManager = static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager();
 
-	l_pCallbackManager->CreateCallback(GetName(), "attack1", m_pCurrentAnimatedModel);
-	l_pCallbackManager->CreateCallback(GetName(), "attack2", m_pCurrentAnimatedModel);
-	l_pCallbackManager->CreateCallback(GetName(), "attack3", m_pCurrentAnimatedModel);
-	l_pCallbackManager->CreateCallback(GetName(), "attack4", m_pCurrentAnimatedModel);
-	l_pCallbackManager->CreateCallback(GetName(), "attack5", m_pCurrentAnimatedModel);
-	l_pCallbackManager->CreateCallback(GetName(), "attack6", m_pCurrentAnimatedModel);
-	l_pCallbackManager->CreateCallback(GetName(), "hit", m_pCurrentAnimatedModel);
-	l_pCallbackManager->CreateCallback(GetName(), "jump",m_pCurrentAnimatedModel);
+	l_pCallbackManager->CreateCallback(GetName(), "attack1",		  m_pCurrentAnimatedModel);
+	l_pCallbackManager->CreateCallback(GetName(), "attack2",		  m_pCurrentAnimatedModel);
+	l_pCallbackManager->CreateCallback(GetName(), "attack3",		  m_pCurrentAnimatedModel);
+	l_pCallbackManager->CreateCallback(GetName(), "attack4",		  m_pCurrentAnimatedModel);
+	l_pCallbackManager->CreateCallback(GetName(), "attack5",		  m_pCurrentAnimatedModel);
+	l_pCallbackManager->CreateCallback(GetName(), "attack6",		  m_pCurrentAnimatedModel);
+	l_pCallbackManager->CreateCallback(GetName(), "hit",			  m_pCurrentAnimatedModel);
+	l_pCallbackManager->CreateCallback(GetName(), "jump",			  m_pCurrentAnimatedModel);
+	l_pCallbackManager->CreateCallback(GetName(), PLAYER_DEATH_STATE, m_pCurrentAnimatedModel);
+	
 }
 
 void CPlayer::CreateSkeaker()
