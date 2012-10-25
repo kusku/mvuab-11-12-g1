@@ -87,6 +87,7 @@ void CPlayerDeathState::OnEnter( CCharacter* _pCharacter )
 		
 	m_HitDirection = m_pPlayer->GetSteeringEntity()->GetFront();
 	m_HitDirection.Normalize();
+	m_HitDirection.y = 0.f;
 	m_HitDirection = m_HitDirection.RotateY(mathUtils::PiTimes(1.f));
 	m_HitDirection = m_HitDirection * l_MaxHitSpeed;
 	// ---------------------------------------
