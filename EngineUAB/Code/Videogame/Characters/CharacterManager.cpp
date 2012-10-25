@@ -195,7 +195,14 @@ void CCharactersManager::Update( float _ElapsedTime )
 
 	// Actualitzem el player
 	m_pPlayer->Update( _ElapsedTime );
-	
+	//Mira si el personaje ha muerto
+	if( !m_pPlayer->IsAlive() )
+	{
+		m_pPlayer->BeDead();
+//		SCRIPT->RunCode("change_to_game_over_gui_process()");
+		return;
+	}
+
 	// Comprobamos qué enemigos deben atacar y cuales no
 	CalculateEnemyOrderToAttack(m_pPlayer->GetPosition(), 20);
 

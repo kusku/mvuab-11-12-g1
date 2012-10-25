@@ -12,6 +12,7 @@ struct STelegram;
 // --- Foward declarations --- //
 class CAnimationCallback;
 class CCharacter;
+class CPlayer;
 // --------------------------- //
 
 class CPlayerHitState : public CState< CCharacter >
@@ -34,7 +35,8 @@ public:
 
 private:
 	CAnimationCallback	  * m_pCallback;
-
+	CPlayer				  * m_pPlayer;
+	
 	Vect3f					m_HitDirection;			// Dirección hacia atrás donde se dirige en el golpeo
 	Vect3f					m_HitMaxPosition;		// Posición final del golpeo
 	float					m_MaxHitDistance;		// Distancia máxima de recorrido del hit
