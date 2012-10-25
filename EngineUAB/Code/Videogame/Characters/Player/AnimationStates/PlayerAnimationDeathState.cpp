@@ -28,7 +28,7 @@ CPlayerAnimationDeathState::~CPlayerAnimationDeathState(void)
 {
 	if ( m_pPlayer )
 	{
-		int l_Num = m_pPlayer->GetAnimationID(DEER_DEATH_STATE);
+		int l_Num = m_pPlayer->GetAnimationID(PLAYER_DEATH_STATE);
 		m_pPlayer->GetAnimatedModel()->RemoveAction(l_Num);
 	}
 
@@ -51,7 +51,7 @@ void CPlayerAnimationDeathState::OnEnter( CCharacter* _pCharacter )
 		m_pPlayer = dynamic_cast<CPlayer*> (_pCharacter);
 	}
 
-	int l_Num = m_pPlayer->GetAnimationID(DEER_DEATH_STATE);
+	int l_Num = m_pPlayer->GetAnimationID(PLAYER_DEATH_STATE);
 	m_pPlayer->GetAnimatedModel()->ExecuteAction( l_Num, 0.f, true );
 }
 
@@ -64,7 +64,7 @@ void CPlayerAnimationDeathState::OnExit( CCharacter* _pCharacter )
 
 	if ( m_pPlayer )
 	{
-		int l_Num = m_pPlayer->GetAnimationID(DEER_DEATH_STATE);
+		int l_Num = m_pPlayer->GetAnimationID(PLAYER_DEATH_STATE);
 		m_pPlayer->GetAnimatedModel()->RemoveAction(l_Num);
 	}
 }
