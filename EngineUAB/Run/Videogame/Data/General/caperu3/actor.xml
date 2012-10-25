@@ -5,6 +5,7 @@
 	<animation name="run" filename="cap_run.caf"/>
 	<animation name="hit" filename="cap_hit.caf"/>
 	<animation name="defense" filename="cap_defense_sostenida$.caf"/>
+	<animation name="die" filename="CAP_Die.caf"/>
 	<animation name="attack1" filename="cap_combo_1.caf"/>
 	<animation name="attack2" filename="cap_combo_2.caf"/>
 	<animation name="attack3" filename="cap_combo_3.caf"/>
