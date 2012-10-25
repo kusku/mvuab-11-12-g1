@@ -53,6 +53,10 @@
 #define DEER_RUN_ATTACK_STATE				"ciervo_attack_2"
 #define DEER_WALK_STATE						"ciervo_walk"
 
+// ********* ESTADOS ANIMADOS DEER *********** 
+#define PLAYER_DEATH_STATE					"die"
+#define PLAYER_DEATH_ANIMATION_STATE		"animdie"
+
 struct sDireccion
 {
 	Vect3f	Direccion;		// o paso la dirección

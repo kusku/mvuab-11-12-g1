@@ -3,10 +3,10 @@
 	<default_properties core="caperucita">
 		<active>true</active>
 		<locked>false</locked>
-		<god_mode>false</god_mode>
 		<life>100</life>
 		<strong>50</strong>
-		<respawn_position>0 100 0</respawn_position>
+    <god_mode>false</god_mode>
+    <respawn_position>0 100 0</respawn_position>
 		<mass>50</mass>
 		<max_rotation_speed>10</max_rotation_speed>
 		<max_speed>10</max_speed>
@@ -23,10 +23,9 @@
 
 		<max_hit_recoil_distance>2.5</max_hit_recoil_distance>
 		<!-- Cantidad de retroceso máximo al recibir un hit -->
-		<hit_recoil_speed>0.5</hit_recoil_speed>
+		<hit_recoil_speed>0.1</hit_recoil_speed>
 		<!-- Cantidad de velocidad del retroceso al recibir un hit. Se aplica como la speed al front + 180º -->
-
-		<detection_distance>10</detection_distance>
+    <detection_distance>10</detection_distance>
 		<detection_angle>50</detection_angle>
 		<wait_to_cure>10</wait_to_cure>
 		<time_to_cure>5</time_to_cure>
@@ -164,7 +163,7 @@
 		<active>false</active>
 		<locked>false</locked>
 		<life>150</life>
-		<strong>5</strong>
+		<strong>500</strong>
 		<mass>0.01</mass>
 		<velocity>0 0 0</velocity>
 		<speed>2</speed>
@@ -236,9 +235,8 @@
 		<!--<position>-94 -11 96</position>-->					<!-- Posición respawn trigger 6 - Antes del puente -->
 		<!--<position>-64 -14 -20</position>-->					<!-- Posición respawn trigger 7 - Después del puente --> 
 		<!--<position>-45 -15 -63</position>-->					<!-- Posición respawn trigger 8 - Final Lobo -->
-
-
 	</player>
+	
 	<enemies>
 		<enemy name="enemy1" core="lobo" animated_instace_name="lobo1" >
 			<position>-50 -8 -99</position>

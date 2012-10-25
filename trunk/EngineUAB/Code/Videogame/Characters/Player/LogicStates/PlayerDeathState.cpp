@@ -39,7 +39,7 @@ CPlayerDeathState::CPlayerDeathState( CCharacter* _pCharacter )
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(), PLAYER_DEATH_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(), "die");
 }
 
 CPlayerDeathState::CPlayerDeathState( CCharacter* _pCharacter, const std::string &_Name )
@@ -48,7 +48,7 @@ CPlayerDeathState::CPlayerDeathState( CCharacter* _pCharacter, const std::string
 	, m_pAnimationCallback	( NULL )
 {
 	CGameProcess * l_Process = dynamic_cast<CGameProcess*> (CORE->GetProcess());
-	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(),PLAYER_DEATH_STATE);
+	m_pAnimationCallback = l_Process->GetAnimationCallbackManager()->GetCallback(_pCharacter->GetName(), "die");
 }
 
 
@@ -72,7 +72,7 @@ void CPlayerDeathState::OnEnter( CCharacter* _pCharacter )
 #if defined _DEBUG
 	if( CORE->IsDebugMode() )
 	{
-		std::string l_State = Player_DEATH_STATE;
+		std::string l_State = PLAYER_DEATH_STATE;
 		CORE->GetDebugGUIManager()->GetDebugRender()->AddEnemyStateName(m_pPlayer->GetName().c_str(), l_State );
 	}
 #endif
@@ -92,11 +92,11 @@ void CPlayerDeathState::OnEnter( CCharacter* _pCharacter )
 	// ---------------------------------------
 	
 	m_pAnimationCallback->Init();
-	CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Player_Die");
+	CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_CapeDeath1" );
 
 	// Gestión de partículas. Metemos sangre!!
-	UpdateImpact(_pCharacter);
-	GenerateImpact(_pCharacter);
+	//UpdateImpact(_pCharacter);
+	//GenerateImpact(_pCharacter);
 }
 
 void CPlayerDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
@@ -107,7 +107,7 @@ void CPlayerDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 	}
 	
 	// Actualizamos la posición
-	UpdateImpact(_pCharacter);
+//	UpdateImpact(_pCharacter);
 
 	// Si és atacable miro si llegué al màximo de lo que permito que me golpeen y bloqueo
 	if ( m_pAnimationCallback->IsAnimationStarted() ) 
@@ -115,9 +115,6 @@ void CPlayerDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 		// Compruebo si la animación a finalizado
 		if ( m_pAnimationCallback->IsAnimationFinished() )
 		{
-			// Volvemos al estado anterior
-			/*m_pPlayer->GetLogicFSM()->ChangeState(m_pPlayer->GetIdleState());
-			m_pPlayer->GetGraphicFSM()->ChangeState(m_pPlayer->GetIdleAnimationState());*/
 			#if defined _DEBUG
 				if( CORE->IsDebugMode() )
 				{
@@ -128,6 +125,7 @@ void CPlayerDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 			#endif
 			m_pAnimationCallback->Init();
 			m_pPlayer->SetEnable(false);
+			SCRIPT->RunCode("change_to_game_over_gui_process()");
 			return;
 
 		}
@@ -157,9 +155,9 @@ void CPlayerDeathState::Execute( CCharacter* _pCharacter, float _ElapsedTime )
 	}
 	else
 	{
-		m_pPlayer->GetGraphicFSM()->ChangeState(m_pPlayer->GetAnimationState("CPlayerDeathState"));
+		m_pPlayer->GetGraphicFSM()->ChangeState(m_pPlayer->GetAnimationState(PLAYER_DEATH_ANIMATION_STATE));
 		m_pAnimationCallback->StartAnimation();
-
+		  
 		//m_pPlayer->FaceTo( m_pPlayer->GetSteeringEntity()->GetPosition(), _ElapsedTime );
 		//m_pPlayer->MoveTo2( Vect3f(0,0,0), _ElapsedTime );
 

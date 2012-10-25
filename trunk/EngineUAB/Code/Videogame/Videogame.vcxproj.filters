@@ -453,6 +453,12 @@
     <ClCompile Include="Characters\Enemies\Wolf\LogicStates\WolfStillAttackComboState.cpp">
       <Filter>Characters\Enemies\Wolf\LogicStates</Filter>
     </ClCompile>
+    <ClCompile Include="Characters\Player\AnimationStates\PlayerAnimationDeathState.cpp">
+      <Filter>Characters\Player\AnimationStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters\Player\LogicStates\PlayerDeathState.cpp">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUIProcess.h" />
@@ -810,6 +816,12 @@
       <Filter>Characters\Enemies\Wolf\LogicStates</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Characters\Player\AnimationStates\PlayerAnimationDeathState.h">
+      <Filter>Characters\Player\AnimationStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters\Player\LogicStates\PlayerDeathState.h">
+      <Filter>Characters\Player\LogicStates</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Run\Videogame\Data\XML\characters_properties.xml">

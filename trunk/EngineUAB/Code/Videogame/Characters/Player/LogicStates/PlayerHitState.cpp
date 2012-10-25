@@ -45,6 +45,11 @@ void CPlayerHitState::OnEnter( CCharacter* _pCharacter )
 	l_pPlayer->HitToPlayer(m_pEnemy->GetProperties()->GetStrong());
 	l_pPlayer->ResetTimeDamage();
 
+	if ( !l_pPlayer->IsAlive() )
+	{
+		return;
+	}
+
 	m_pCallback->Init();
 	m_pCallback->StartAnimation();
 
@@ -77,7 +82,7 @@ void CPlayerHitState::Execute( CCharacter* _pCharacter, float _fElapsedTime )
 {
 	// Actualizamos la posición
 	//UpdateImpact(_pCharacter);
-
+	
 	if( m_pCallback->IsAnimationFinished() )
 	{	
 		_pCharacter->GetLogicFSM()->ChangeState( _pCharacter->GetLogicState("idle") );

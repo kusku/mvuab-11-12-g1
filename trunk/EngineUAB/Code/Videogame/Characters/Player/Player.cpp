@@ -210,18 +210,18 @@ void CPlayer::Update( float _ElapsedTime )
 					m_fTimeToIncreaseLife = 0.f;
 				}
 			}
-
-			//Mira si el personaje ha muerto
-			if( m_pProperties->GetCurrentLife() <= 0 )
-			{
-				SCRIPT->RunCode("change_to_game_over_gui_process()");
-			}
 		}
-
-
+		
 		//Actualizamos los estados en caso de cambiar
 		m_pLogicStateMachine->Update(_ElapsedTime);
 		m_pGraphicStateMachine->Update(_ElapsedTime);
+
+		//Mira si el personaje ha muerto
+		if( m_pProperties->GetCurrentLife() <= 0 )
+		{
+		//	BeDead();
+			return;
+		}
 
 		//Actualiza la posición del objeto 3D
 		m_Position = m_pController->GetPosition();
@@ -293,7 +293,7 @@ void CPlayer::CreateStates()
 	m_LogicStatesMap["jump"]				= new CPlayerJumpState				(this, "jump");
 	m_LogicStatesMap["run"]					= new CPlayerRunState				(this, "run");
 	m_LogicStatesMap["defense"]				= new CPlayerDefenseState			(this, "defense");
-	m_LogicStatesMap[PLAYER_DEATH_STATE]	= new CPlayerDeathState				(this, PLAYER_DEATH_STATE);
+	m_LogicStatesMap["die"]					= new CPlayerDeathState				(this, "die");
 
 	//Animation States
 	m_AnimationStatesMap["animattack1"]		= new CPlayerAnimationAttackState	(this, "animattack1");
@@ -307,22 +307,22 @@ void CPlayer::CreateStates()
 	m_AnimationStatesMap["animidle"]		= new CPlayerAnimationIdleState		(this, "animidle");
 	m_AnimationStatesMap["animjump"]		= new CPlayerAnimationJumpState		(this, "animjump");
 	m_AnimationStatesMap["animrun"]			= new CPlayerAnimationRunState		(this, "animrun");
-	m_AnimationStatesMap[PLAYER_DEATH_ANIMATION_STATE]		= new CPlayerAnimationDeathState	(this, PLAYER_DEATH_ANIMATION_STATE);
+	m_AnimationStatesMap["animdie"]			= new CPlayerAnimationDeathState	(this, "animdie");
 }
 
 void CPlayer::CreateCallbacks()
 {
 	CAnimationCallbackManager *l_pCallbackManager = static_cast<CGameProcess*>(CORE->GetProcess())->GetAnimationCallbackManager();
 
-	l_pCallbackManager->CreateCallback(GetName(), "attack1",		  m_pCurrentAnimatedModel);
-	l_pCallbackManager->CreateCallback(GetName(), "attack2",		  m_pCurrentAnimatedModel);
-	l_pCallbackManager->CreateCallback(GetName(), "attack3",		  m_pCurrentAnimatedModel);
-	l_pCallbackManager->CreateCallback(GetName(), "attack4",		  m_pCurrentAnimatedModel);
-	l_pCallbackManager->CreateCallback(GetName(), "attack5",		  m_pCurrentAnimatedModel);
-	l_pCallbackManager->CreateCallback(GetName(), "attack6",		  m_pCurrentAnimatedModel);
-	l_pCallbackManager->CreateCallback(GetName(), "hit",			  m_pCurrentAnimatedModel);
-	l_pCallbackManager->CreateCallback(GetName(), "jump",			  m_pCurrentAnimatedModel);
-	l_pCallbackManager->CreateCallback(GetName(), PLAYER_DEATH_STATE, m_pCurrentAnimatedModel);
+	l_pCallbackManager->CreateCallback(GetName(), "attack1",	m_pCurrentAnimatedModel);
+	l_pCallbackManager->CreateCallback(GetName(), "attack2",	m_pCurrentAnimatedModel);
+	l_pCallbackManager->CreateCallback(GetName(), "attack3",	m_pCurrentAnimatedModel);
+	l_pCallbackManager->CreateCallback(GetName(), "attack4",	m_pCurrentAnimatedModel);
+	l_pCallbackManager->CreateCallback(GetName(), "attack5",	m_pCurrentAnimatedModel);
+	l_pCallbackManager->CreateCallback(GetName(), "attack6",	m_pCurrentAnimatedModel);
+	l_pCallbackManager->CreateCallback(GetName(), "hit",		m_pCurrentAnimatedModel);
+	l_pCallbackManager->CreateCallback(GetName(), "jump",		m_pCurrentAnimatedModel);
+	l_pCallbackManager->CreateCallback(GetName(), "die",		m_pCurrentAnimatedModel);
 	
 }
 
@@ -343,6 +343,8 @@ void CPlayer::CreateSkeaker()
 // Jordi: Este método me permite hacer todo lo necesario cuando está muerto el caracter.
 void CPlayer::BeDead()
 {
+	this->GetLogicFSM()->ChangeState(GetLogicState("die"));
+	this->GetGraphicFSM()->ChangeState(GetAnimationState("animdie"));
 	return;
 }
 

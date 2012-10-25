@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<Config debug="false">
+<Config debug="true">
   <WindowResolution width="800" height="600" />
-  <ScreenResolution width="800" height="450" />
+  <ScreenResolution width="800" height="600" />
+  <WindowResolution width="1024" height="768" />
+  <ScreenResolution width="1024" height="768" />
+  <WindowResolution width="1900" height="1000" />
+  <ScreenResolution width="1900" height="1000" />
   <WindowsPosition position="0 0" />
   <RenderMode fullscreenMode="false" />
-  <GraphicOpt motionBlur="true" zblur="true" bloom="true" particle_level="3" cs="4" />
+  <GraphicOpt motionBlur="true" zblur="true" bloom="true" particle_level="2" cs="4" />
   <RenderColor colorDebug="black" colorRelease="black" />
   <ActionToInput inputXML="./Data/XML/input.xml" />
   <Mouse exclusiveModeInMouse="true" drawPointerMouse="true" />
