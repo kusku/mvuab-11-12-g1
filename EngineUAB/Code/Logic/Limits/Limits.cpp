@@ -36,7 +36,15 @@ CLimit::CLimit()
 
 CLimit::~CLimit()
 {
+	if(m_PEI != NULL)
+	{
+		m_PEI->SetActive(false);
+	}
 
+	if(m_MeshActor != NULL)
+	{
+		m_MeshActor->Activate(false);
+	}
 }
 
 bool CLimit::Init()
