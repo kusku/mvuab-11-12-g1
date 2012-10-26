@@ -391,8 +391,6 @@
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_still_attack_state.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\rabbit_states\rabbit_tired_state.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Enemies\wolf_states\wolf_animated_defense_state.lua" />
-    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\bridge_trigger.lua" />
-    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\cascade_trigger.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\combat_zone_1.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\combat_zone_2.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\combat_zone_3.lua" />
@@ -402,9 +400,6 @@
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\combat_zone_7.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\combat_zone_8.lua" />
     <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\end_game_trigger.lua" />
-    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\house_trigger.lua" />
-    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\river_trigger.lua" />
-    <None Include="..\..\Run\Videogame\Data\Scripts\Game\Triggers\start_trigger.lua" />
     <None Include="..\..\Run\Videogame\Data\XML\limits.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\ParticleEmittersSystems.xml" />
     <None Include="..\..\Run\Videogame\Data\XML\ParticleStartUpInstances.xml" />

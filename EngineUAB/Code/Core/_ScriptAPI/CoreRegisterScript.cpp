@@ -132,6 +132,7 @@ namespace ScriptAPI
 					.def("load_limits", &CCore::LoadLimits)
 					.def("set_game_mode", &CCore::SetGameMode)
 					.def("set_dying_amount", &CCore::SetDyingAmount)
+					.def("set_start_ending", &CCore::SetStartEnding)
 			];
 
 		module(l_pState)

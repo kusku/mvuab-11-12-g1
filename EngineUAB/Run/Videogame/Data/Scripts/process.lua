@@ -36,8 +36,7 @@ end
 function change_to_end_gui_process()
 	core:get_sound_manager():stop_all_events()
 	core:set_game_mode(false)
-	core:get_gui_manager():pop_windows()
-	core:get_gui_manager():push_windows('End')
+	core:set_start_ending(true)
 end
 
 function go_to_main_menu()

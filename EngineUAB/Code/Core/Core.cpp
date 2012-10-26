@@ -117,6 +117,7 @@ CCore::CCore ( void )
 	, m_DrawingShadows					(false)
 	, m_DyingAmount						(0.0f)
 	, m_PhysXObjManager					(NULL)
+	, m_StartEnding						(false)
 {
 }
 
@@ -163,6 +164,7 @@ void CCore::Release ( void )
 	CHECKED_DELETE ( m_pSoundManager );
 	CHECKED_DELETE ( m_pEntityManager );
 	CHECKED_DELETE ( m_pMessageDispatcher );
+	CHECKED_DELETE (m_LimitManager);
 	CHECKED_DELETE ( m_ParticleEmitterManager );
 	CHECKED_DELETE ( m_ParticleSystemManager );
 	CHECKED_DELETE ( m_ParticleSettingsManager );
@@ -172,7 +174,6 @@ void CCore::Release ( void )
 	CHECKED_DELETE ( m_pSteeringBehaviorSeetingsManager );
 	CHECKED_DELETE ( m_pRailManager  );
 	CHECKED_DELETE (m_PhysXObjManager);
-	CHECKED_DELETE (m_LimitManager);
 	
 	m_pCamera = NULL; //La cámara la elimina el proceso
 	m_pTimer = NULL;
@@ -782,12 +783,12 @@ void CCore::UpdateDebugInputs( float _ElapsedTime, CActionToInput &_Action2Input
 			l_pModifierManager->GoToRoot();
 		}
 
-		if( _Action2Input.DoAction( ACTION_ADD_VALUE_MODIFIERS ) || _Action2Input.DoAction( ACTION_ADD_VALUE_MODIFIERS ) )
+		if( _Action2Input.DoAction( ACTION_ADD_VALUE_MODIFIERS ) || _Action2Input.DoAction( ACTION_ADD_VALUE_BY_PASS_MODIFIERS ) )
 		{
 			l_pModifierManager->AddValueToModifier();
 		}
 
-		if( _Action2Input.DoAction( ACTION_SUBS_VALUE_MODIFIERS ) || _Action2Input.DoAction( ACTION_SUBS_VALUE_MODIFIERS ) )
+		if( _Action2Input.DoAction( ACTION_SUBS_VALUE_MODIFIERS ) || _Action2Input.DoAction( ACTION_SUBS_VALUE_BY_PASS_MODIFIERS ) )
 		{
 			l_pModifierManager->SubsValueToModifier();
 		}
@@ -853,6 +854,7 @@ void CCore::Reload()
 	m_pSoundManager->Reload						();
 	m_pScriptManager->Reload					();
 	m_pSceneRendererCommandManager->Reload		();
+	m_LimitManager->Reload();
 }
 
 void CCore::ReloadTTFs()

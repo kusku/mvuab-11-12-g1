@@ -18,6 +18,8 @@
 #include "DebugGUIManager.h"
 #include "DebugInfo\DebugRender.h"
 #include "LogRender\LogRender.h"
+#include "GUIManager.h"
+#include "SoundManager.h"
 
 #if defined(_DEBUG)
 	#include "Memory\MemLeaks.h"
@@ -36,6 +38,8 @@ CEngine::CEngine( void )
 	, m_TimerIncreasing	( 0.f )
 	, m_IntroMovie(NULL)
 	, m_PlayingIntro(false)
+	, m_PlayingEnding(false)
+	, m_EndMovie(NULL)
 {}
 
 CEngine::~CEngine( void )
@@ -70,6 +74,7 @@ void CEngine::Release ( void )
 	CHECKED_DELETE( m_pLogger );
 
 	CHECKED_DELETE(m_IntroMovie);
+	CHECKED_DELETE(m_EndMovie);
 }
 
 bool CEngine::Init( HWND _HWnd )
@@ -111,8 +116,7 @@ void CEngine::Update( void )
 {
 	m_Timer.Update(m_TimerIncreasing);
 	float l_ElapsedTime = m_Timer.GetElapsedTime();
-
-
+		
 	if(m_PlayingIntro)
 	{
 		CORE->GetActionToInput()->Update();
@@ -120,6 +124,20 @@ void CEngine::Update( void )
 		m_IntroMovie->Update(l_ElapsedTime);
 
 		m_PlayingIntro = !m_IntroMovie->IsDone();
+	}
+	else if(m_PlayingEnding)
+	{
+		CORE->GetActionToInput()->Update();
+
+		m_IntroMovie->Update(l_ElapsedTime);
+
+		m_PlayingEnding = !m_IntroMovie->IsDone();
+
+		if(!m_PlayingEnding)
+		{
+			CORE->GetGUIManager()->PopWindows();
+			CORE->GetGUIManager()->PushWindows("End");
+		}
 	}
 	else
 	{
@@ -131,6 +149,25 @@ void CEngine::Update( void )
 		if( CORE->IsDebugMode() )
 		{
 			UpdateDebugInputs();
+		}
+
+		if(!m_PlayingEnding && !m_PlayingIntro)
+		{
+			m_PlayingEnding = CORE->GetStartEnding();
+
+			if(m_PlayingEnding)
+			{
+				CORE->SetStartEnding(false);
+
+				m_IntroMovie->InitMovie("./Data/General/Movie/redForestEND.theora.ogv");
+
+				CORE->GetSoundManager()->StopAllEvents();
+				CORE->GetSoundManager()->PlayEvent("Stop_All_EFX_Rabbit");
+				CORE->GetSoundManager()->PlayEvent("Stop_All_EFX_Caperucita");
+				CORE->GetSoundManager()->PlayEvent("Stop_All_Game");
+				CORE->GetSoundManager()->PlayEvent("Stop_All_GUI");
+				CORE->GetSoundManager()->Update();
+			}
 		}
 	}
 }
@@ -164,6 +201,10 @@ void CEngine::UpdateDebugInputs()
 void CEngine::Render()
 {
 	if(m_PlayingIntro)
+	{
+		m_IntroMovie->Render();
+	}
+	else if(m_PlayingEnding)
 	{
 		m_IntroMovie->Render();
 	}

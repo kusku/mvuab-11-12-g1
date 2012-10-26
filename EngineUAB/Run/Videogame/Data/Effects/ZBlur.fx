@@ -21,7 +21,7 @@ float g_ConstantBlur=0.4;*/
 extern uniform float ZBlurFocalStart	: PARAMETER0 = 0;
 extern uniform float ZBlurFocalEnd		: PARAMETER1 = 200;
 extern uniform float ZBlurEnd			: PARAMETER2 = 300;
-extern uniform float ConstantBlur		: PARAMETER3 = 0.7f;
+extern uniform float ConstantBlur		: PARAMETER3 = 0.4f;
 
 uniform const float2 BlurDelta[8] =
 {

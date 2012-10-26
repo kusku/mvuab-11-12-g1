@@ -5,7 +5,7 @@
 		<locked>false</locked>
 		<life>100</life>
 		<strong>50</strong>
-    <god_mode>false</god_mode>
+    <god_mode>true</god_mode>
     <respawn_position>0 100 0</respawn_position>
 		<mass>50</mass>
 		<max_rotation_speed>10</max_rotation_speed>
@@ -163,7 +163,7 @@
 		<active>false</active>
 		<locked>false</locked>
 		<life>150</life>
-		<strong>500</strong>
+		<strong>5</strong>
 		<mass>0.01</mass>
 		<velocity>0 0 0</velocity>
 		<speed>2</speed>
