@@ -151,6 +151,16 @@ public:
 		}
 	}
 
+	void				SetStartEnding(bool activate)
+	{
+		m_StartEnding = activate;
+	}
+
+	bool				GetStartEnding()
+	{
+		return m_StartEnding;
+	}
+
 
 	inline float		GetDyingAmount				() const						{ return m_DyingAmount; }
 	inline bool			IsDebugMode					() const						{ return m_bDebugMode; }
@@ -224,6 +234,8 @@ private:
 	bool	m_DrawingShadows;
 	
 	float	m_DyingAmount;
+
+	bool	m_StartEnding;
 
 	SConfig	m_Config;
 

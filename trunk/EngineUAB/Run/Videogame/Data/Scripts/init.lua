@@ -36,6 +36,7 @@ end
 
 function unload_data()
 	core:unload_physx_objs()
+	core:unload_limits()
 	core:unload_renderable_objects_layers()
 	core:unload_static_meshes()
 	core:unload_animated_models()
@@ -45,6 +46,5 @@ function unload_data()
 	core:unload_triggers()
 	core:unload_animal_movement()
 	core:unload_waypoints()
-	core:unload_limits()
 	-- core:unload_sounds()
 end

@@ -71,7 +71,9 @@ protected:
 	float			m_TimerIncreasing;		// Valor el qual permitirá multiplicar por el timer para acelerar/desacelerar el juego
 
 	IntroMovie*		m_IntroMovie;
+	IntroMovie*		m_EndMovie;
 	bool			m_PlayingIntro;
+	bool			m_PlayingEnding;
 };
 
 #endif

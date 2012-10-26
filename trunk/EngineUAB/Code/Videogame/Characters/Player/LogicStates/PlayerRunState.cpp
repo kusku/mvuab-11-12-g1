@@ -62,7 +62,7 @@ void CPlayerRunState::OnEnter( CCharacter* _pCharacter )
 	m_bStartState				= true;
 	m_bEndState					= false;
 
-	CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Caperucita_fast_sighs");
+	//CORE->GetSoundManager()->PlayEvent( _pCharacter->GetSpeakerName(), "Play_EFX_Caperucita_fast_sighs");
 }
 
 void CPlayerRunState::Execute( CCharacter* _pCharacter, float _fElapsedTime )

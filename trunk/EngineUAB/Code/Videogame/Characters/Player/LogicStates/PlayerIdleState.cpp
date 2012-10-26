@@ -68,10 +68,10 @@ void CPlayerIdleState::OnEnter( CCharacter* _pCharacter )
 	GenerateImpact(_pCharacter);
 
 	// Después de una carrerita la tia se cansa y respira profundamente 
-	if ( m_pPlayer->GetLogicFSM()->GetPreviousState()->GetName() == "run" ) 
-	{
-		CORE->GetSoundManager()->PlayEvent( m_pPlayer->GetSpeakerName(), "Play_EFX_Caperucita_slow_sighs");
-	}
+	//if ( m_pPlayer->GetLogicFSM()->GetPreviousState()->GetName() == "run" ) 
+	//{
+	//	CORE->GetSoundManager()->PlayEvent( m_pPlayer->GetSpeakerName(), "Play_EFX_Caperucita_slow_sighs");
+	//}
 }
 
 void CPlayerIdleState::Execute( CCharacter* _pCharacter, float _fElapsedTime )

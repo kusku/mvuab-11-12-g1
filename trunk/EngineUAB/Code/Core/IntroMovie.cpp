@@ -20,6 +20,7 @@ IntroMovie::IntroMovie(void)
 	, m_SurfaceOffScreen(NULL)
 	, m_Play(false)
 	, m_TextureSurface(NULL)
+	, m_Clip(NULL)
 {
 	m_VideoManager = new TheoraVideoManager();
 	m_Iface_factory = new OpenAL_AudioInterfaceFactory();
@@ -50,6 +51,11 @@ IntroMovie::IntroMovie(void)
 
 IntroMovie::~IntroMovie(void)
 {
+	if(m_Clip != NULL)
+	{
+		m_VideoManager->destroyVideoClip(m_Clip);
+	}
+
 	CHECKED_DELETE(m_VideoManager);
 	CHECKED_DELETE(m_Iface_factory);
 	CHECKED_RELEASE(m_TextureFrame);
@@ -60,6 +66,11 @@ IntroMovie::~IntroMovie(void)
 
 bool IntroMovie::InitMovie( const std::string& moviePath )
 {
+	if(m_Clip != NULL)
+	{
+		m_VideoManager->destroyVideoClip(m_Clip);
+	}
+
 	m_Clip = m_VideoManager->createVideoClip(moviePath, TH_RGB, 120);
 
 	m_Clip->stop();
@@ -81,6 +92,7 @@ bool IntroMovie::InitMovie( const std::string& moviePath )
 	assert(m_SurfaceOffScreen);
 
 	m_Started = true;
+	m_Done = false;
 
 	return true;
 }
