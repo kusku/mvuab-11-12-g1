@@ -1,0 +1,1 @@
+Caperucita Loca es un juego en 3D de tipo hack’n’slash y aventura en tercera persona, donde está inspirado en el universo de los cuentos por niños llevándolo a una versión gore y bastante violenta.
